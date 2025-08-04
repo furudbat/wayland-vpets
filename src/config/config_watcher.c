@@ -8,17 +8,16 @@
 #include <sys/select.h>
 #include <assert.h>
 #include <sys/inotify.h>
-#include <sys/mman.h>
 #include <sys/time.h>
 
 static void *config_watcher_thread(void *arg) {
     assert(arg);
 
-    config_watcher_t *watcher = (config_watcher_t *)arg;
+    config_watcher_t *watcher = arg;
     char buffer[INOTIFY_BUF_LEN];
     time_t last_reload_time = 0;
     
-    bongocat_log_info("Config watcher started for: %s", watcher->config_path);
+    BONGOCAT_LOG_INFO("Config watcher started for: %s", watcher->config_path);
 
     atomic_store(&watcher->_running, true);
     while (atomic_load(&watcher->_running)) {
@@ -36,7 +35,7 @@ static void *config_watcher_thread(void *arg) {
         
         if (select_result < 0) {
             if (errno == EINTR) continue;
-            bongocat_log_error("Config watcher select failed: %s", strerror(errno));
+            BONGOCAT_LOG_ERROR("Config watcher select failed: %s", strerror(errno));
             break;
         }
         
@@ -49,7 +48,7 @@ static void *config_watcher_thread(void *arg) {
             ssize_t length = read(watcher->inotify_fd, buffer, INOTIFY_BUF_LEN);
             
             if (length < 0) {
-                bongocat_log_error("Config watcher read failed: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("Config watcher read failed: %s", strerror(errno));
                 continue;
             }
             
@@ -69,7 +68,7 @@ static void *config_watcher_thread(void *arg) {
             if (should_reload) {
                 time_t current_time = time(NULL);
                 if (current_time - last_reload_time >= 1) { // 1 second debounce
-                    bongocat_log_info("Config file changed, reloading...");
+                    BONGOCAT_LOG_INFO("Config file changed, reloading...");
                     last_reload_time = current_time;
                     
                     // Small delay to ensure file write is complete
@@ -84,7 +83,7 @@ static void *config_watcher_thread(void *arg) {
     }
     atomic_store(&watcher->_running, false);
     
-    bongocat_log_info("Config watcher stopped");
+    BONGOCAT_LOG_INFO("Config watcher stopped");
     return NULL;
 }
 
@@ -98,7 +97,7 @@ int config_watcher_init(config_watcher_t *watcher, const char *config_path, void
     // Initialize inotify
     watcher->inotify_fd = inotify_init1(IN_NONBLOCK);
     if (watcher->inotify_fd < 0) {
-        bongocat_log_error("Failed to initialize inotify: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to initialize inotify: %s", strerror(errno));
         return -1;
     }
     
@@ -113,7 +112,7 @@ int config_watcher_init(config_watcher_t *watcher, const char *config_path, void
     watcher->watch_fd = inotify_add_watch(watcher->inotify_fd, config_path, 
                                          IN_MODIFY | IN_MOVED_TO | IN_CREATE);
     if (watcher->watch_fd < 0) {
-        bongocat_log_error("Failed to add inotify watch for %s: %s", config_path, strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to add inotify watch for %s: %s", config_path, strerror(errno));
         free(watcher->config_path);
         close(watcher->inotify_fd);
         return -1;
@@ -131,11 +130,11 @@ void config_watcher_start(config_watcher_t *watcher) {
 
     if (pthread_create(&watcher->watcher_thread, NULL, config_watcher_thread, watcher) != 0) {
         atomic_store(&watcher->_running, false);
-        bongocat_log_error("Failed to create config watcher thread: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to create config watcher thread: %s", strerror(errno));
         return;
     }
     
-    bongocat_log_info("Config watcher thread started");
+    BONGOCAT_LOG_INFO("Config watcher thread started");
 }
 
 void config_watcher_stop(config_watcher_t *watcher) {
@@ -147,7 +146,7 @@ void config_watcher_stop(config_watcher_t *watcher) {
     //pthread_cancel(watcher->watcher_thread);
     // Wait for thread to finish
     if (pthread_join(watcher->watcher_thread, NULL) != 0) {
-        bongocat_log_error("Failed to join config watcher thread: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to join config watcher thread: %s", strerror(errno));
     }
 }
 

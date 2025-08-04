@@ -1,7 +1,6 @@
 #ifndef BONGOCAT_CONFIG_H
 #define BONGOCAT_CONFIG_H
 
-#include "core/bongocat.h"
 #include "utils/error.h"
 
 typedef enum {

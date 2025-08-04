@@ -45,13 +45,14 @@ set(GENERATED_PROTOCOLS
     ${GENERATED_PROTOCOLS_SOURCES}
     ${GENERATED_PROTOCOLS_HEADERS}
 )
+find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner REQUIRED)
 add_custom_command(OUTPUT ${GENERATED_PROTOCOLS}
-    COMMAND wayland-scanner client-header ${PROTOCOL_XML_XDG} ${PROTOCOLS_DIR}/xdg-shell-client-protocol.h
-    COMMAND wayland-scanner private-code ${PROTOCOL_XML_XDG} ${PROTOCOLS_DIR}/xdg-shell-protocol.c
-    COMMAND wayland-scanner client-header ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-client-protocol.h
-    COMMAND wayland-scanner private-code ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
-    COMMAND wayland-scanner private-code ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
-    COMMAND wayland-scanner client-header ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_XDG} ${PROTOCOLS_DIR}/xdg-shell-client-protocol.h
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_XDG} ${PROTOCOLS_DIR}/xdg-shell-protocol.c
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-client-protocol.h
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
     DEPENDS ${PROTOCOL_XML_WLR} ${PROTOCOL_XML_XDG}
     COMMENT "Generating Wayland protocol files..."
 )
@@ -98,21 +99,54 @@ add_dependencies(bongocat protocols)
 target_include_directories(bongocat PRIVATE ${INCLUDE_DIR})
 target_include_directories(bongocat SYSTEM PRIVATE ${PROTOCOLS_DIR} ${CMAKE_SOURCE_DIR}/lib)
 
-set(WARNING_FLAGS -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes -Wmissing-prototypes -Wold-style-definition -Wredundant-decls -Wnested-externs -Wmissing-include-dirs -Wlogical-op -Wjump-misses-init -Wdouble-promotion -Wshadow)
-if(CMAKE_BUILD_TYPE STREQUAL "Debug")
-    target_compile_options(bongocat PRIVATE -fsanitize=address -fsanitize=undefined)
-    set(EXTRA_LINK_FLAGS -fsanitize=address -fsanitize=undefined)
-else()
-    target_compile_definitions(bongocat PRIVATE _FORTIFY_SOURCE=2)
-    target_compile_options(bongocat PRIVATE -flto -march=native -fomit-frame-pointer -funroll-loops -finline-functions)
-    set(EXTRA_LINK_FLAGS -flto)
-    target_compile_definitions(bongocat PRIVATE DISABLE_MEMORY_STATISTICS)
-endif()
+set(WARNING_FLAGS
+    -Wall
+    -Wextra
+    -Wpedantic
+    -Wformat=2
+    -Wstrict-prototypes
+    -Wmissing-prototypes
+    -Wold-style-definition
+    -Wredundant-decls
+    -Wnested-externs
+    -Wmissing-include-dirs
+    -Wlogical-op
+    -Wjump-misses-init
+    -Wdouble-promotion
+    -Wshadow
+)
 target_compile_options(bongocat PRIVATE ${WARNING_FLAGS} -fstack-protector-strong)
-target_link_libraries(bongocat PRIVATE wayland-client m rt pthread ${EXTRA_LINK_FLAGS})
 
-install(TARGETS bongocat DESTINATION bin)
-install(FILES bongocat.conf DESTINATION share/bongocat RENAME bongocat.conf.example)
-install(PROGRAMS scripts/find_input_devices.sh DESTINATION bin RENAME bongocat-find-devices)
+target_compile_options(bongocat PRIVATE
+        $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
+        $<$<CONFIG:Release>:-march=native;-fomit-frame-pointer;-funroll-loops;-finline-functions>
+)
+target_link_options(bongocat PRIVATE
+        $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
+)
+target_compile_definitions(bongocat PRIVATE
+        $<$<CONFIG:Release>:_FORTIFY_SOURCE=2>
+        $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_MEMORY_STATISTICS>
+        $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>
+)
+
+# wayland-client dependency
+find_package(PkgConfig REQUIRED)
+pkg_check_modules(WAYLAND_CLIENT REQUIRED wayland-client)
+target_include_directories(bongocat PRIVATE ${WAYLAND_CLIENT_INCLUDE_DIRS})
+target_compile_options(bongocat PRIVATE ${WAYLAND_CLIENT_CFLAGS_OTHER})
+target_link_libraries(bongocat PRIVATE ${WAYLAND_CLIENT_LIBRARIES})
+
+target_link_libraries(bongocat PRIVATE m rt pthread)
+
+set_target_properties(bongocat PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
+target_compile_options(bongocat PRIVATE
+        $<$<CONFIG:Release>:-flto=8>
+)
+
+include(GNUInstallDirs)
+install(TARGETS bongocat DESTINATION ${CMAKE_INSTALL_BINDIR})
+install(FILES bongocat.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat RENAME bongocat.conf.example)
+install(PROGRAMS scripts/find_input_devices.sh DESTINATION ${CMAKE_INSTALL_BINDIR} RENAME bongocat-find-devices)
 
 set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${GENERATED_PROTOCOLS}")

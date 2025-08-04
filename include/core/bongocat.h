@@ -7,7 +7,6 @@
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200809L
 #endif
-#include <wayland-client.h>
 
 // Version
 #define BONGOCAT_VERSION "1.2.3"

@@ -1,7 +1,6 @@
 #ifndef BONGOCAT_ANIMATION_H
 #define BONGOCAT_ANIMATION_H
 
-#include "core/bongocat.h"
 #include "config/config.h"
 #include "utils/error.h"
 #include "platform/wayland.h"

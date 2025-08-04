@@ -5,7 +5,7 @@
 #include "core/bongocat.h"
 #include "config/config.h"
 #include <stdatomic.h>
-#include <stdbool.h>
+#include <stdint.h>
 
 // both-up, left-down, right-down, both-down
 #define BONGOCAT_NUM_FRAMES 4

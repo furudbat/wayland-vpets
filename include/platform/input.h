@@ -1,7 +1,6 @@
 #ifndef BONGOCAT_INPUT_H
 #define BONGOCAT_INPUT_H
 
-#include "core/bongocat.h"
 #include "platform/input_context.h"
 #include "config/config.h"
 #include "utils/error.h"

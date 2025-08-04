@@ -3,8 +3,6 @@
 
 #include "utils/error.h"
 #include <stdatomic.h>
-#include <stdlib.h>
-#include <stdint.h>
 
 // Memory pool for efficient allocation
 typedef struct memory_pool {
@@ -26,7 +24,7 @@ void* memory_pool_alloc(memory_pool_t *pool, size_t size);
 void memory_pool_reset(memory_pool_t *pool);
 void memory_pool_destroy(memory_pool_t *pool);
 
-#ifndef DISABLE_MEMORY_STATISTICS
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
 // Memory statistics
 typedef struct {
     atomic_size_t total_allocated;

@@ -6,7 +6,7 @@
 #include <stdatomic.h>
 
 typedef struct {
-    /// @NOTE: variables can be shared between child process and parent
+    /// @NOTE: variables can be shared between child process and parent (see mmap)
     int *any_key_pressed;
     int *kpm;                    // keystrokes per minute
     atomic_int *input_counter;

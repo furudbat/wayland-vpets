@@ -1,7 +1,6 @@
 #define _POSIX_C_SOURCE 200809L
 #include "graphics/animation.h"
 #include "platform/wayland.h"
-#include "graphics/embedded_assets.h"
 #include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
 #include <assert.h>
 #include <poll.h>
@@ -11,13 +10,11 @@
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/time.h>
-#include <sys/ioctl.h>
 #include <pthread.h>
 #include <linux/input.h>
-#include <sys/inotify.h>
 #include <signal.h>
-#include <stdatomic.h>
 #include <stdlib.h>
+#include <wayland-client.h>
 
 // =============================================================================
 // GLOBAL STATE AND CONFIGURATION
@@ -63,7 +60,7 @@ static void fs_update_state(bool new_state) {
         fs_detector.has_fullscreen_toplevel = new_state;
         g_wayland_context->fullscreen_detected = new_state;
         
-        bongocat_log_info("Fullscreen state changed: %s", 
+        BONGOCAT_LOG_INFO("Fullscreen state changed: %s",
                           g_wayland_context->fullscreen_detected ? "detected" : "cleared");
 
         if (g_wayland_context->configured) {
@@ -73,7 +70,7 @@ static void fs_update_state(bool new_state) {
 }
 
 static bool fs_check_compositor_fallback(void) {
-    bongocat_log_debug("Using compositor-specific fullscreen detection");
+    BONGOCAT_LOG_DEBUG("Using compositor-specific fullscreen detection");
     
     // Try Hyprland first
     FILE *fp = popen("hyprctl activewindow 2>/dev/null", "r");
@@ -90,7 +87,7 @@ static bool fs_check_compositor_fallback(void) {
             if (strstr(line, "fullscreen: 1") || strstr(line, "fullscreen: 2") || 
                 strstr(line, "fullscreen: true")) {
                 is_fullscreen = true;
-                bongocat_log_debug("Fullscreen detected in Hyprland");
+                BONGOCAT_LOG_DEBUG("Fullscreen detected in Hyprland");
                 break;
             }
         }
@@ -107,7 +104,7 @@ static bool fs_check_compositor_fallback(void) {
         while (fgets(sway_buffer, sizeof(sway_buffer), fp)) {
             if (strstr(sway_buffer, "\"fullscreen_mode\":1")) {
                 is_fullscreen = true;
-                bongocat_log_debug("Fullscreen detected in Sway");
+                BONGOCAT_LOG_DEBUG("Fullscreen detected in Sway");
                 break;
             }
         }
@@ -115,7 +112,7 @@ static bool fs_check_compositor_fallback(void) {
         return is_fullscreen;
     }
     
-    bongocat_log_debug("No supported compositor found for fullscreen detection");
+    BONGOCAT_LOG_DEBUG("No supported compositor found for fullscreen detection");
     return false;
 }
 
@@ -190,12 +187,12 @@ static void fs_handle_manager_toplevel(void *data, struct zwlr_foreign_toplevel_
     (void)data; (void)manager;
     
     zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener, NULL);
-    bongocat_log_debug("New toplevel registered for fullscreen monitoring");
+    BONGOCAT_LOG_DEBUG("New toplevel registered for fullscreen monitoring");
 }
 
 static void fs_handle_manager_finished(void *data, struct zwlr_foreign_toplevel_manager_v1 *manager) {
     (void)data;
-    bongocat_log_info("Foreign toplevel manager finished");
+    BONGOCAT_LOG_INFO("Foreign toplevel manager finished");
     zwlr_foreign_toplevel_manager_v1_destroy(manager);
     fs_detector.manager = NULL;
 }
@@ -222,12 +219,12 @@ static void screen_calculate_dimensions(void) {
     if (is_rotated) {
         screen_info.screen_width = screen_info.raw_height;
         screen_info.screen_height = screen_info.raw_width;
-        bongocat_log_info("Detected rotated screen: %dx%d (transform: %d)", 
+        BONGOCAT_LOG_INFO("Detected rotated screen: %dx%d (transform: %d)",
                          screen_info.raw_height, screen_info.raw_width, screen_info.transform);
     } else {
         screen_info.screen_width = screen_info.raw_width;
         screen_info.screen_height = screen_info.raw_height;
-        bongocat_log_info("Detected screen: %dx%d (transform: %d)", 
+        BONGOCAT_LOG_INFO("Detected screen: %dx%d (transform: %d)",
                          screen_info.raw_width, screen_info.raw_height, screen_info.transform);
     }
 }
@@ -261,7 +258,7 @@ int create_shm(int size) {
 
 void draw_bar(wayland_context_t* ctx) {
     if (!ctx->configured) {
-        bongocat_log_debug("Surface not configured yet, skipping draw");
+        BONGOCAT_LOG_DEBUG("Surface not configured yet, skipping draw");
         return;
     }
 
@@ -310,11 +307,11 @@ void draw_bar(wayland_context_t* ctx) {
                                   cat_x, cat_y, cat_width, cat_height);
             }
         } else {
-            bongocat_log_debug("Skip drawing empty frame, index: %d, frame: %d", ctx->_anim->anim_index, ctx->_anim->anim_frame_index);
+            BONGOCAT_LOG_DEBUG("Skip drawing empty frame, index: %d, frame: %d", ctx->_anim->anim_index, ctx->_anim->anim_frame_index);
         }
         pthread_mutex_unlock(&ctx->_anim->anim_lock);
     } else {
-        bongocat_log_debug("Cat hidden due to fullscreen detection");
+        BONGOCAT_LOG_DEBUG("Cat hidden due to fullscreen detection");
     }
 
     wl_surface_attach(ctx->surface, ctx->buffer, 0, 0);
@@ -331,7 +328,7 @@ static void layer_surface_configure(void *data __attribute__((unused)),
                                    struct zwlr_layer_surface_v1 *ls,
                                    uint32_t serial, uint32_t w, uint32_t h) {
     assert(g_wayland_context);
-    bongocat_log_debug("Layer surface configured: %dx%d", w, h);
+    BONGOCAT_LOG_DEBUG("Layer surface configured: %dx%d", w, h);
     zwlr_layer_surface_v1_ack_configure(ls, serial);
     g_wayland_context->configured = true;
     draw_bar(g_wayland_context);
@@ -363,7 +360,7 @@ static void output_geometry(void *data __attribute__((unused)),
                            int32_t transform) {
     screen_info.transform = transform;
     screen_info.geometry_received = true;
-    bongocat_log_debug("Output transform: %d", transform);
+    BONGOCAT_LOG_DEBUG("Output transform: %d", transform);
     screen_calculate_dimensions();
 }
 
@@ -375,7 +372,7 @@ static void output_mode(void *data __attribute__((unused)),
         screen_info.raw_width = width;
         screen_info.raw_height = height;
         screen_info.mode_received = true;
-        bongocat_log_debug("Received raw screen mode: %dx%d", width, height);
+        BONGOCAT_LOG_DEBUG("Received raw screen mode: %dx%d", width, height);
         screen_calculate_dimensions();
     }
 }
@@ -383,7 +380,7 @@ static void output_mode(void *data __attribute__((unused)),
 static void output_done(void *data __attribute__((unused)),
                        struct wl_output *wl_output __attribute__((unused))) {
     screen_calculate_dimensions();
-    bongocat_log_debug("Output configuration complete");
+    BONGOCAT_LOG_DEBUG("Output configuration complete");
 }
 
 static void output_scale(void *data __attribute__((unused)),
@@ -427,7 +424,7 @@ static void registry_global(void *data __attribute__((unused)), struct wl_regist
             wl_registry_bind(reg, name, &zwlr_foreign_toplevel_manager_v1_interface, 3);
         if (fs_detector.manager) {
             zwlr_foreign_toplevel_manager_v1_add_listener(fs_detector.manager, &fs_manager_listener, NULL);
-            bongocat_log_info("Foreign toplevel manager bound - using Wayland protocol for fullscreen detection");
+            BONGOCAT_LOG_INFO("Foreign toplevel manager bound - using Wayland protocol for fullscreen detection");
         }
     }
 }
@@ -452,7 +449,7 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx) {
 
     struct wl_registry *registry = wl_display_get_registry(ctx->display);
     if (!registry) {
-        bongocat_log_error("Failed to get Wayland registry");
+        BONGOCAT_LOG_ERROR("Failed to get Wayland registry");
         return BONGOCAT_ERROR_WAYLAND;
     }
 
@@ -460,7 +457,7 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx) {
     wl_display_roundtrip(ctx->display);
 
     if (!ctx->compositor || !ctx->shm || !ctx->layer_shell) {
-        bongocat_log_error("Missing required Wayland protocols");
+        BONGOCAT_LOG_ERROR("Missing required Wayland protocols");
         wl_registry_destroy(registry);
         return BONGOCAT_ERROR_WAYLAND;
     }
@@ -469,14 +466,14 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx) {
     if (ctx->output) {
         wl_display_roundtrip(ctx->display);
         if (screen_info.screen_width > 0) {
-            bongocat_log_info("Detected screen width: %d", screen_info.screen_width);
+            BONGOCAT_LOG_INFO("Detected screen width: %d", screen_info.screen_width);
             ctx->_current_config->screen_width = screen_info.screen_width;
         } else {
-            bongocat_log_warning("Using default screen width: %d", DEFAULT_SCREEN_WIDTH);
+            BONGOCAT_LOG_WARNING("Using default screen width: %d", DEFAULT_SCREEN_WIDTH);
             ctx->_current_config->screen_width = DEFAULT_SCREEN_WIDTH;
         }
     } else {
-        bongocat_log_warning("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
+        BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
         ctx->_current_config->screen_width = DEFAULT_SCREEN_WIDTH;
     }
 
@@ -489,7 +486,7 @@ static bongocat_error_t wayland_setup_surface(wayland_context_t* ctx) {
 
     ctx->surface = wl_compositor_create_surface(ctx->compositor);
     if (!ctx->surface) {
-        bongocat_log_error("Failed to create surface");
+        BONGOCAT_LOG_ERROR("Failed to create surface");
         return BONGOCAT_ERROR_WAYLAND;
     }
 
@@ -497,7 +494,7 @@ static bongocat_error_t wayland_setup_surface(wayland_context_t* ctx) {
                                                           ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY, 
                                                           "bongocat-overlay");
     if (!ctx->layer_surface) {
-        bongocat_log_error("Failed to create layer surface");
+        BONGOCAT_LOG_ERROR("Failed to create layer surface");
         return BONGOCAT_ERROR_WAYLAND;
     }
 
@@ -532,7 +529,7 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t* ctx) {
 
     int size = ctx->_current_config->screen_width * ctx->_current_config->bar_height * 4;
     if (size <= 0) {
-        bongocat_log_error("Invalid buffer size: %d", size);
+        BONGOCAT_LOG_ERROR("Invalid buffer size: %d", size);
         return BONGOCAT_ERROR_WAYLAND;
     }
 
@@ -543,14 +540,14 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t* ctx) {
 
     ctx->pixels = (uint8_t *)mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_SHARED, fd, 0);
     if (ctx->pixels == MAP_FAILED) {
-        bongocat_log_error("Failed to map shared memory: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
         close(fd);
         return BONGOCAT_ERROR_MEMORY;
     }
 
     struct wl_shm_pool *pool = wl_shm_create_pool(ctx->shm, fd, size);
     if (!pool) {
-        bongocat_log_error("Failed to create shared memory pool");
+        BONGOCAT_LOG_ERROR("Failed to create shared memory pool");
         munmap(ctx->pixels, size);
         ctx->pixels = NULL;
         close(fd);
@@ -562,7 +559,7 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t* ctx) {
                                       ctx->_current_config->screen_width * 4,
                                       WL_SHM_FORMAT_ARGB8888);
     if (!ctx->buffer) {
-        bongocat_log_error("Failed to create buffer");
+        BONGOCAT_LOG_ERROR("Failed to create buffer");
         wl_shm_pool_destroy(pool);
         munmap(ctx->pixels, size);
         ctx->pixels = NULL;
@@ -596,11 +593,11 @@ bongocat_error_t wayland_init(wayland_context_t* ctx, config_t *config, animatio
     ctx->_current_config = config;
     ctx->_anim = anim;
 
-    bongocat_log_info("Initializing Wayland connection");
+    BONGOCAT_LOG_INFO("Initializing Wayland connection");
 
     ctx->display = wl_display_connect(NULL);
     if (!ctx->display) {
-        bongocat_log_error("Failed to connect to Wayland display");
+        BONGOCAT_LOG_ERROR("Failed to connect to Wayland display");
         return BONGOCAT_ERROR_WAYLAND;
     }
 
@@ -612,7 +609,7 @@ bongocat_error_t wayland_init(wayland_context_t* ctx, config_t *config, animatio
         return result;
     }
 
-    bongocat_log_info("Wayland initialization complete (%dx%d buffer)",
+    BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)",
                      ctx->_current_config->screen_width, ctx->_current_config->bar_height);
     return BONGOCAT_SUCCESS;
 }
@@ -623,10 +620,10 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
 
     BONGOCAT_CHECK_NULL(g_wayland_context, BONGOCAT_ERROR_WAYLAND);
 
-    // assume ctx and g_wayland_context are the same for alle the wayland listener and registers etc.
+    // assume ctx and g_wayland_context are the same for all the wayland listener and registers etc.
     assert(ctx == g_wayland_context);
 
-    bongocat_log_info("Starting Wayland event loop");
+    BONGOCAT_LOG_INFO("Starting Wayland event loop");
     const int check_interval_ms = 100;
 
     *running = 1;
@@ -653,7 +650,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
         
         while (wl_display_prepare_read(ctx->display) != 0) {
             if (wl_display_dispatch_pending(ctx->display) == -1) {
-                bongocat_log_error("Failed to dispatch pending events");
+                BONGOCAT_LOG_ERROR("Failed to dispatch pending events");
                 return BONGOCAT_ERROR_WAYLAND;
             }
         }
@@ -663,7 +660,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
         if (poll_result > 0) {
             if (wl_display_read_events(ctx->display) == -1 ||
                 wl_display_dispatch_pending(ctx->display) == -1) {
-                bongocat_log_error("Failed to handle Wayland events");
+                BONGOCAT_LOG_ERROR("Failed to handle Wayland events");
                 return BONGOCAT_ERROR_WAYLAND;
             }
         } else if (poll_result == 0) {
@@ -671,7 +668,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
         } else {
             wl_display_cancel_read(ctx->display);
             if (errno != EINTR) {
-                bongocat_log_error("Poll error: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
                 return BONGOCAT_ERROR_WAYLAND;
             }
         }
@@ -680,7 +677,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
     }
     *running = 0;
 
-    bongocat_log_info("Wayland event loop exited");
+    BONGOCAT_LOG_INFO("Wayland event loop exited");
     return BONGOCAT_SUCCESS;
 }
 
@@ -695,11 +692,11 @@ int wayland_get_screen_width(void) {
 void wayland_update_config(wayland_context_t* ctx, config_t *config, animation_context_t* anim) {
     assert(ctx);
     if (!config) {
-        bongocat_log_error("Cannot update wayland config: config is NULL");
+        BONGOCAT_LOG_ERROR("Cannot update wayland config: config is NULL");
         return;
     }
     if (!anim) {
-        bongocat_log_error("Cannot update wayland config: animation context is NULL");
+        BONGOCAT_LOG_ERROR("Cannot update wayland config: animation context is NULL");
         return;
     }
 
@@ -712,7 +709,7 @@ void wayland_update_config(wayland_context_t* ctx, config_t *config, animation_c
 }
 
 void wayland_cleanup(wayland_context_t* ctx) {
-    bongocat_log_info("Cleaning up Wayland resources");
+    BONGOCAT_LOG_INFO("Cleaning up Wayland resources");
 
     if (ctx->buffer) {
         wl_buffer_destroy(ctx->buffer);
@@ -778,7 +775,7 @@ void wayland_cleanup(wayland_context_t* ctx) {
     memset(&fs_detector, 0, sizeof(fs_detector));
     memset(&screen_info, 0, sizeof(screen_info));
     
-    bongocat_log_debug("Wayland cleanup complete");
+    BONGOCAT_LOG_DEBUG("Wayland cleanup complete");
 }
 
 const char* wayland_get_current_layer_name(void) {

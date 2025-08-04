@@ -1,9 +1,9 @@
 #include "utils/memory.h"
 #include "utils/error.h"
-#include <string.h>
+#include <stdint.h>
 #include <pthread.h>
 
-#ifndef DISABLE_MEMORY_STATISTICS
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
 static memory_stats_t g_memory_stats = {0};
 static pthread_mutex_t memory_mutex = PTHREAD_MUTEX_INITIALIZER;
 #endif
@@ -22,17 +22,17 @@ static allocation_record_t *allocations = NULL;
 
 void* bongocat_malloc(size_t size) {
     if (size == 0) {
-        bongocat_log_warning("Attempted to allocate 0 bytes");
+        BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
         return NULL;
     }
     
     void *ptr = malloc(size);
     if (!ptr) {
-        bongocat_log_error("Failed to allocate %zu bytes", size);
+        BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", size);
         return NULL;
     }
 
-#ifndef DISABLE_MEMORY_STATISTICS
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
     pthread_mutex_lock(&memory_mutex);
     g_memory_stats.total_allocated += size;
     g_memory_stats.current_allocated += size;
@@ -48,23 +48,23 @@ void* bongocat_malloc(size_t size) {
 
 void* bongocat_calloc(size_t count, size_t size) {
     if (count == 0 || size == 0) {
-        bongocat_log_warning("Attempted to allocate 0 bytes");
+        BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
         return NULL;
     }
     
     // Check for overflow
     if (count > SIZE_MAX / size) {
-        bongocat_log_error("Integer overflow in calloc");
+        BONGOCAT_LOG_ERROR("Integer overflow in calloc");
         return NULL;
     }
     
     void *ptr = calloc(count, size);
     if (!ptr) {
-        bongocat_log_error("Failed to allocate %zu bytes", count * size);
+        BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", count * size);
         return NULL;
     }
 
-#ifndef DISABLE_MEMORY_STATISTICS
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
     pthread_mutex_lock(&memory_mutex);
     size_t total_size = count * size;
     g_memory_stats.total_allocated += total_size;
@@ -87,7 +87,7 @@ void* bongocat_realloc(void *ptr, size_t size) {
     
     void *new_ptr = realloc(ptr, size);
     if (!new_ptr) {
-        bongocat_log_error("Failed to reallocate to %zu bytes", size);
+        BONGOCAT_LOG_ERROR("Failed to reallocate to %zu bytes", size);
         return NULL;
     }
     
@@ -102,7 +102,7 @@ void bongocat_free(void *ptr) {
     
     free(ptr);
 
-#ifndef DISABLE_MEMORY_STATISTICS
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
     pthread_mutex_lock(&memory_mutex);
     g_memory_stats.free_count++;
     pthread_mutex_unlock(&memory_mutex);
@@ -111,7 +111,7 @@ void bongocat_free(void *ptr) {
 
 memory_pool_t* memory_pool_create(size_t size, size_t alignment) {
     if (size == 0 || alignment == 0) {
-        bongocat_log_error("Invalid memory pool parameters");
+        BONGOCAT_LOG_ERROR("Invalid memory pool parameters");
         return NULL;
     }
     
@@ -138,7 +138,7 @@ void* memory_pool_alloc(memory_pool_t *pool, size_t size) {
     size_t aligned_size = (size + pool->alignment - 1) & ~(pool->alignment - 1);
     
     if (pool->used + aligned_size > pool->size) {
-        bongocat_log_error("Memory pool exhausted");
+        BONGOCAT_LOG_ERROR("Memory pool exhausted");
         return NULL;
     }
     
@@ -161,7 +161,7 @@ void memory_pool_destroy(memory_pool_t *pool) {
     }
 }
 
-#ifndef DISABLE_MEMORY_STATISTICS
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
 void memory_get_stats(memory_stats_t *stats) {
     if (!stats) return;
     
@@ -225,10 +225,10 @@ void memory_leak_check(void) {
         return;
     }
     
-    bongocat_log_error("Memory leaks detected:");
+    BONGOCAT_LOG_ERROR("Memory leaks detected:");
     allocation_record_t *current = allocations;
     while (current) {
-        bongocat_log_error("  %zu bytes at %s:%d", current->size, current->file, current->line);
+        BONGOCAT_LOG_ERROR("  %zu bytes at %s:%d", current->size, current->file, current->line);
         current = current->next;
     }
 }

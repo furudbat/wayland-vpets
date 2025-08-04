@@ -1,14 +1,13 @@
 #ifndef BONGOCAT_WAYLAND_H
 #define BONGOCAT_WAYLAND_H
 
-#include "core/bongocat.h"
 #include "config/config.h"
 #include "utils/error.h"
 #include "graphics/context.h"
-#include "platform/input_context.h"
-#include <signal.h>
 #include "../protocols/zwlr-layer-shell-v1-client-protocol.h"
 #include "../protocols/xdg-shell-client-protocol.h"
+#include <signal.h>
+#include <wayland-client.h>
 
 // Wayland globals
 typedef struct {
@@ -21,7 +20,7 @@ typedef struct {
     struct wl_surface *surface;
     struct wl_buffer *buffer;
     struct zwlr_layer_surface_v1 *layer_surface;
-    uint8_t *pixels;
+    uint8_t *pixels;        ///< @NOTE: variable can be shared between child process and parent (see mmap)
     bool configured;
     bool fullscreen_detected;
 

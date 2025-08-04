@@ -21,7 +21,7 @@ Perfect for streamers, content creators, or anyone who wants to add some fun to 
 - **⚡ Performance Optimized** - Adaptive monitoring and batch processing (v1.2.0)
 - **🖥️ Screen Detection** - Automatic screen detection for all sizes and orientations (v1.2.2)
 - **🎮 Smart Fullscreen Detection** - Automatically hides during fullscreen applications (v1.2.3)
-- ~~**💾 Lightweight** - Minimal resource usage (\~7MB RAM)~~ More or less Lightweight ¯\\_(ツ)_/¯ - More sprites takes more space (~20MB)
+- **💾 Lightweight** - Minimal resource usage (~9MB RAM)
 - **🎛️ Multi-device Support** - Monitor multiple keyboards simultaneously
 - **🏗️ Cross-platform** - Works on x86_64 and ARM64
 - **🎞️ More Animations** - Besides the Input/Idle Animation, we have now Happy and Sleep-Mode (v1.3.0)
@@ -223,7 +223,7 @@ bongocat --toggle
 
 - Wayland compositor with layer shell support
 - C23 compiler (GCC 15+ or Clang 19+)
-- Make or Cmake
+- Make or CMake
 - libwayland-client
 - wayland-protocols
 - wayland-scanner
@@ -321,7 +321,7 @@ bongocat-find-devices --help
 ### System Requirements
 
 - **CPU:** Any modern x86_64 or ARM64 processor
-- **RAM:** ~20MB runtime usage
+- **RAM:** ~9MB runtime usage
 - **Storage:** ~320K executable size
 - **Compositor:** Wayland with layer shell protocol support
 
@@ -330,8 +330,9 @@ bongocat-find-devices --help
 - **Input Latency:** <1ms with batch processing
 - **CPU Usage:** <1% on modern systems
 - **Device Monitoring:** Adaptive 5-30 second intervals
-- **Memory:** Optimized with leak detection
+- **Memory:** Optimized with leak detection, _~9MB runtime usage (2 process with ~4.5MB usage each)_
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
+- **Binary Size:** ~320K executable size, _~300K build without logging_
 
 ### Tested Compositors
 

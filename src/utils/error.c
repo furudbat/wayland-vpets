@@ -22,6 +22,7 @@ static void log_timestamp(FILE *stream) {
     fprintf(stream, "[%s.%03ld] ", timestamp, tv.tv_usec / 1000);
 }
 
+#ifndef BONGOCAT_DISABLE_LOGGER
 void bongocat_log_error(const char *format, ...) {
     va_list args;
     log_timestamp(stderr);
@@ -67,6 +68,8 @@ void bongocat_log_debug(const char *format, ...) {
     fprintf(stdout, "\n");
     fflush(stdout);
 }
+
+#endif
 
 const char* bongocat_error_string(bongocat_error_t error) {
     switch (error) {

@@ -49,24 +49,24 @@ typedef struct {
 static int process_create_pid_file(void) {
     const int fd = open(PID_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     if (fd < 0) {
-        bongocat_log_error("Failed to create PID file: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
         return -1;
     }
     
     if (flock(fd, LOCK_EX | LOCK_NB) < 0) {
         close(fd);
         if (errno == EWOULDBLOCK) {
-            bongocat_log_info("Another instance is already running");
+            BONGOCAT_LOG_INFO("Another instance is already running");
             return -2; // Already running
         }
-        bongocat_log_error("Failed to lock PID file: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to lock PID file: %s", strerror(errno));
         return -1;
     }
     
     char pid_str[32];
     snprintf(pid_str, sizeof(pid_str), "%d\n", getpid());
     if (write(fd, pid_str, strlen(pid_str)) < 0) {
-        bongocat_log_error("Failed to write PID to file: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to write PID to file: %s", strerror(errno));
         close(fd);
         return -1;
     }
@@ -127,27 +127,27 @@ static int process_handle_toggle(void) {
     
     if (running_pid > 0) {
         // Process is running, kill it
-        bongocat_log_info("Stopping bongocat (PID: %d)", running_pid);
+        BONGOCAT_LOG_INFO("Stopping bongocat (PID: %d)", running_pid);
         if (kill(running_pid, SIGTERM) == 0) {
             // Wait a bit for graceful shutdown
             for (int i = 0; i < 50; i++) { // Wait up to 5 seconds
                 if (kill(running_pid, 0) != 0) {
-                    bongocat_log_info("Bongocat stopped successfully");
+                    BONGOCAT_LOG_INFO("Bongocat stopped successfully");
                     return 0;
                 }
                 usleep(100000); // 100ms
             }
             
             // Force kill if still running
-            bongocat_log_warning("Force killing bongocat");
+            BONGOCAT_LOG_WARNING("Force killing bongocat");
             kill(running_pid, SIGKILL);
-            bongocat_log_info("Bongocat force stopped");
+            BONGOCAT_LOG_INFO("Bongocat force stopped");
         } else {
-            bongocat_log_error("Failed to stop bongocat: %s", strerror(errno));
+            BONGOCAT_LOG_ERROR("Failed to stop bongocat: %s", strerror(errno));
             return 1;
         }
     } else {
-        bongocat_log_info("Bongocat is not running, starting it now");
+        BONGOCAT_LOG_INFO("Bongocat is not running, starting it now");
         return -1; // Signal to continue with normal startup
     }
     
@@ -162,7 +162,7 @@ static void signal_handler(int sig) {
     switch (sig) {
         case SIGINT:
         case SIGTERM:
-            bongocat_log_info("Received signal %d, shutting down gracefully", sig);
+            BONGOCAT_LOG_INFO("Received signal %d, shutting down gracefully", sig);
             running = 0;
             break;
         case SIGCHLD:
@@ -170,7 +170,7 @@ static void signal_handler(int sig) {
             while (waitpid(-1, NULL, WNOHANG) > 0);
             break;
         default:
-            bongocat_log_warning("Received unexpected signal %d", sig);
+            BONGOCAT_LOG_WARNING("Received unexpected signal %d", sig);
             break;
     }
 }
@@ -184,17 +184,17 @@ static bongocat_error_t signal_setup_handlers(void) {
     sa.sa_flags = SA_RESTART;
 
     if (sigaction(SIGINT, &sa, NULL) == -1) {
-        bongocat_log_error("Failed to setup SIGINT handler: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to setup SIGINT handler: %s", strerror(errno));
         return BONGOCAT_ERROR_THREAD;
     }
 
     if (sigaction(SIGTERM, &sa, NULL) == -1) {
-        bongocat_log_error("Failed to setup SIGTERM handler: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to setup SIGTERM handler: %s", strerror(errno));
         return BONGOCAT_ERROR_THREAD;
     }
 
     if (sigaction(SIGCHLD, &sa, NULL) == -1) {
-        bongocat_log_error("Failed to setup SIGCHLD handler: %s", strerror(errno));
+        BONGOCAT_LOG_ERROR("Failed to setup SIGCHLD handler: %s", strerror(errno));
         return BONGOCAT_ERROR_THREAD;
     }
 
@@ -231,15 +231,15 @@ static bool config_devices_changed(const config_t *old_config, const config_t *n
 }
 
 static void config_reload_callback(const char *config_path) {
-    bongocat_log_info("Reloading configuration from: %s", config_path);
+    BONGOCAT_LOG_INFO("Reloading configuration from: %s", config_path);
     
     // Create a temporary config to test loading
     config_t temp_config;
     bongocat_error_t result = load_config(&temp_config, config_path);
     
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Failed to reload config: %s", bongocat_error_string(result));
-        bongocat_log_info("Keeping current configuration");
+        BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_INFO("Keeping current configuration");
         return;
     }
     
@@ -252,20 +252,20 @@ static void config_reload_callback(const char *config_path) {
     
     // Check if input devices changed and restart monitoring if needed
     if (config_devices_changed(&old_config, &g_config)) {
-        bongocat_log_info("Input devices changed, restarting input monitoring");
+        BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
         bongocat_error_t input_result = input_restart_monitoring(&g_input_ctx, &g_config,
                                                                  g_config.keyboard_devices,
                                                                  g_config.num_keyboard_devices,
                                                                  g_config.enable_debug);
         if (input_result != BONGOCAT_SUCCESS) {
-            bongocat_log_error("Failed to restart input monitoring: %s", bongocat_error_string(input_result));
+            BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat_error_string(input_result));
         } else {
-            bongocat_log_info("Input monitoring restarted successfully");
+            BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
         }
     }
     
-    bongocat_log_info("Configuration reloaded successfully!");
-    bongocat_log_info("New screen dimensions: %dx%d", g_config.screen_width, g_config.bar_height);
+    BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
+    BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", g_config.screen_width, g_config.bar_height);
 }
 
 static bongocat_error_t config_setup_watcher(const char *config_file) {
@@ -273,10 +273,10 @@ static bongocat_error_t config_setup_watcher(const char *config_file) {
     
     if (config_watcher_init(&g_config_watcher, watch_path, config_reload_callback) == 0) {
         config_watcher_start(&g_config_watcher);
-        bongocat_log_info("Config file watching enabled for: %s", watch_path);
+        BONGOCAT_LOG_INFO("Config file watching enabled for: %s", watch_path);
         return BONGOCAT_SUCCESS;
     } else {
-        bongocat_log_warning("Failed to initialize config watcher, continuing without hot-reload");
+        BONGOCAT_LOG_WARNING("Failed to initialize config watcher, continuing without hot-reload");
         return BONGOCAT_ERROR_CONFIG;
     }
 }
@@ -292,28 +292,28 @@ static bongocat_error_t system_initialize_components(void) {
     /// @NOTE: animation needed only for reference
     result = wayland_init(&g_wayland_ctx, &g_config, &g_animation_ctx);
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Failed to initialize Wayland: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat_error_string(result));
         return result;
     }
     
     // Initialize animation system
     result = animation_init(&g_animation_ctx, &g_config);
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Failed to initialize animation system: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat_error_string(result));
         return result;
     }
     
     // Start input monitoring
     result = input_start_monitoring(&g_input_ctx, &g_config, g_config.keyboard_devices, g_config.num_keyboard_devices, g_config.enable_debug);
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Failed to start input monitoring: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat_error_string(result));
         return result;
     }
     
     // Start animation thread
     result = animation_start(&g_animation_ctx, &g_input_ctx, &g_wayland_ctx);
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Failed to start animation thread: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat_error_string(result));
         return result;
     }
     
@@ -321,7 +321,7 @@ static bongocat_error_t system_initialize_components(void) {
 }
 
 [[ noreturn ]] static void system_cleanup_and_exit(int exit_code) {
-    bongocat_log_info("Performing cleanup...");
+    BONGOCAT_LOG_INFO("Performing cleanup...");
 
     // Remove PID file
     process_remove_pid_file();
@@ -341,7 +341,7 @@ static bongocat_error_t system_initialize_components(void) {
     // Cleanup configuration
     config_cleanup(&g_config);
 
-#ifndef DISABLE_MEMORY_STATISTICS
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
     // Print memory statistics in debug mode
     if (g_config.enable_debug) {
         memory_print_stats();
@@ -352,7 +352,7 @@ static bongocat_error_t system_initialize_components(void) {
     memory_leak_check();
 #endif
     
-    bongocat_log_info("Cleanup complete, exiting with code %d", exit_code);
+    BONGOCAT_LOG_INFO("Cleanup complete, exiting with code %d", exit_code);
     exit(exit_code);
 }
 
@@ -397,7 +397,7 @@ static int cli_parse_arguments(int argc, char *argv[], cli_args_t *args) {
                 args->config_file = argv[i + 1];
                 i++; // Skip the next argument since it's the config file path
             } else {
-                bongocat_log_error("--config option requires a file path");
+                BONGOCAT_LOG_ERROR("--config option requires a file path");
                 return EXIT_FAILURE;
             }
         } else if (strcmp(argv[i], "--watch-config") == 0 || strcmp(argv[i], "-w") == 0) {
@@ -405,7 +405,7 @@ static int cli_parse_arguments(int argc, char *argv[], cli_args_t *args) {
         } else if (strcmp(argv[i], "--toggle") == 0 || strcmp(argv[i], "-t") == 0) {
             args->toggle_mode = true;
         } else {
-            bongocat_log_warning("Unknown argument: %s", argv[i]);
+            BONGOCAT_LOG_WARNING("Unknown argument: %s", argv[i]);
         }
     }
     
@@ -422,7 +422,7 @@ int main(int argc, char *argv[]) {
     // Initialize error system early
     bongocat_error_init(1); // Enable debug initially
 
-    bongocat_log_info("Starting Bongo Cat Overlay v" BONGOCAT_VERSION);
+    BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v" BONGOCAT_VERSION);
 
     // Parse command line arguments
     cli_args_t args;
@@ -453,28 +453,28 @@ int main(int argc, char *argv[]) {
     // Setup signal handlers
     result = signal_setup_handlers();
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Failed to setup signal handlers: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat_error_string(result));
         return EXIT_FAILURE;
     }
     
     // Create PID file to track this instance
     const int pid_fd = process_create_pid_file();
     if (pid_fd == -2) {
-        bongocat_log_error("Another instance of bongocat is already running");
+        BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
         return EXIT_FAILURE;
     } else if (pid_fd < 0) {
-        bongocat_log_error("Failed to create PID file");
+        BONGOCAT_LOG_ERROR("Failed to create PID file");
         return EXIT_FAILURE;
     }
     
     // Load configuration
     result = load_config(&g_config, args.config_file);
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Failed to load configuration: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat_error_string(result));
         return EXIT_FAILURE;
     }
     
-    bongocat_log_info("Screen dimensions: %dx%d", g_config.screen_width, g_config.bar_height);
+    BONGOCAT_LOG_INFO("Screen dimensions: %dx%d", g_config.screen_width, g_config.bar_height);
     
     // Initialize config watcher if requested
     if (args.watch_config) {
@@ -492,16 +492,16 @@ int main(int argc, char *argv[]) {
     assert(g_animation_ctx._current_config == &g_config);
     assert(g_wayland_ctx._anim == &g_animation_ctx);
     
-    bongocat_log_info("Bongo Cat Overlay started successfully");
+    BONGOCAT_LOG_INFO("Bongo Cat Overlay started successfully");
     
     // Main Wayland event loop with graceful shutdown
     result = wayland_run(&g_wayland_ctx, &running);
     if (result != BONGOCAT_SUCCESS) {
-        bongocat_log_error("Wayland event loop error: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
         system_cleanup_and_exit(1);
     }
     
-    bongocat_log_info("Main loop exited, shutting down");
+    BONGOCAT_LOG_INFO("Main loop exited, shutting down");
     system_cleanup_and_exit(0);
     
     return 0; // Never reached
