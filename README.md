@@ -10,6 +10,8 @@ Perfect for streamers, content creators, or anyone who wants to add some fun to 
 
 ![Digimon - Demo](assets/digimon-demo.png)
 
+![Digimon - Demo animated](assets/digimon-demo.gif)
+
 ## ✨ Features
 
 - **🐈 More Pets** - More Sprite to choose from: Bongocat or Digimon V-Pets (v1.3.0)
