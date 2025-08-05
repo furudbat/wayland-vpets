@@ -17,10 +17,13 @@
 #define MIN_OVERLAY_HEIGHT 20
 #define MAX_OVERLAY_HEIGHT 300
 #define MIN_FPS 1
-#define MAX_FPS 120
+#define MAX_FPS 144
 #define MIN_DURATION 10
 #define MAX_DURATION 5000
 #define MAX_INTERVAL 3600
+#define MIN_TIMEOUT 0
+#define MAX_TIMEOUT INT32_MAX
+#define MIN_KPM 0
 #define MAX_KPM 5000
 
 // =============================================================================
@@ -51,20 +54,21 @@ static void config_validate_dimensions(config_t *config) {
 static void config_validate_timing(config_t *config) {
     assert(config);
     config_clamp_int(&config->fps, MIN_FPS, MAX_FPS, "fps");
-    config_clamp_int(&config->keypress_duration, MIN_DURATION, MAX_DURATION, "keypress_duration");
-    config_clamp_int(&config->test_animation_duration, MIN_DURATION, MAX_DURATION, "test_animation_duration");
+    config_clamp_int(&config->keypress_duration_ms, MIN_DURATION, MAX_DURATION, "keypress_duration");
+    config_clamp_int(&config->test_animation_duration_ms, MIN_DURATION, MAX_DURATION, "test_animation_duration");
+    config_clamp_int(&config->idle_sleep_timeout_sec, MIN_TIMEOUT, MAX_TIMEOUT, "idle_sleep_timeout");
     
     // Validate interval (0 is allowed to disable)
-    if (config->test_animation_interval < 0 || config->test_animation_interval > MAX_INTERVAL) {
+    if (config->test_animation_interval_sec < 0 || config->test_animation_interval_sec > MAX_INTERVAL) {
         BONGOCAT_LOG_WARNING("test_animation_interval %d out of range [0-%d], clamping",
-                           config->test_animation_interval, MAX_INTERVAL);
-        config->test_animation_interval = (config->test_animation_interval < 0) ? 0 : MAX_INTERVAL;
+                           config->test_animation_interval_sec, MAX_INTERVAL);
+        config->test_animation_interval_sec = (config->test_animation_interval_sec < 0) ? 0 : MAX_INTERVAL;
     }
 }
 
 static void config_validate_kpm(config_t *config) {
     assert(config);
-    config_clamp_int(&config->happy_kpm, 0, MAX_KPM, "happy_kpm");
+    config_clamp_int(&config->happy_kpm, MIN_KPM, MAX_KPM, "happy_kpm");
 }
 
 static void config_validate_appearance(config_t *config) {
@@ -113,30 +117,19 @@ static void config_validate_enums(config_t *config) {
 
 static void config_validate_time(config_t *config) {
     assert(config);
-    if (config->enable_sleep_mode) {
+    if (config->enable_scheduled_sleep) {
         const int begin_minutes = config->sleep_begin.hour * 60 + config->sleep_begin.min;
         const int end_minutes = config->sleep_end.hour * 60 + config->sleep_end.min;
 
         if (begin_minutes == end_minutes) {
             BONGOCAT_LOG_WARNING("Sleep mode is enabled, but time is equal: %02d:%02d, disable sleep mode", config->sleep_begin.hour, config->sleep_begin.min);
 
-            config->enable_sleep_mode = 0;
+            config->enable_scheduled_sleep = 0;
             //config->sleep_begin.hour = 0;
             //config->sleep_begin.min = 0;
             //config->sleep_end.hour = 0;
             //config->sleep_end.min = 0;
         }
-    }
-    // Validate layer
-    if (config->layer != LAYER_TOP && config->layer != LAYER_OVERLAY) {
-        BONGOCAT_LOG_WARNING("Invalid layer %d, resetting to top", config->layer);
-        config->layer = LAYER_TOP;
-    }
-
-    // Validate overlay_position
-    if (config->overlay_position != POSITION_TOP && config->overlay_position != POSITION_BOTTOM) {
-        BONGOCAT_LOG_WARNING("Invalid overlay_position %d, resetting to top", config->overlay_position);
-        config->overlay_position = POSITION_TOP;
     }
 }
 
@@ -155,7 +148,7 @@ static bongocat_error_t config_validate(config_t *config) {
     // Normalize boolean values
     config->enable_debug = config->enable_debug ? 1 : 0;
     config->invert_color = config->invert_color ? 1 : 0;
-    config->enable_sleep_mode = config->enable_sleep_mode ? 1 : 0;
+    config->enable_scheduled_sleep = config->enable_scheduled_sleep ? 1 : 0;
 
     config_validate_dimensions(config);
     config_validate_timing(config);
@@ -240,11 +233,11 @@ static bongocat_error_t config_parse_integer_key(config_t *config, const char *k
     } else if (strcmp(key, "idle_frame") == 0) {
         config->idle_frame = int_value;
     } else if (strcmp(key, "keypress_duration") == 0) {
-        config->keypress_duration = int_value;
+        config->keypress_duration_ms = int_value;
     } else if (strcmp(key, "test_animation_duration") == 0) {
-        config->test_animation_duration = int_value;
+        config->test_animation_duration_ms = int_value;
     } else if (strcmp(key, "test_animation_interval") == 0) {
-        config->test_animation_interval = int_value;
+        config->test_animation_interval_sec = int_value;
     } else if (strcmp(key, "fps") == 0) {
         config->fps = int_value;
     } else if (strcmp(key, "overlay_opacity") == 0) {
@@ -259,8 +252,10 @@ static bongocat_error_t config_parse_integer_key(config_t *config, const char *k
         config->padding_x = int_value;
     } else if (strcmp(key, "padding_y") == 0) {
         config->padding_y = int_value;
-    } else if (strcmp(key, "enable_sleep_mode") == 0) {
-        config->enable_sleep_mode = int_value;
+    } else if (strcmp(key, "enable_scheduled_sleep") == 0) {
+        config->enable_scheduled_sleep = int_value;
+    } else if (strcmp(key, "idle_sleep_timeout") == 0) {
+        config->idle_sleep_timeout_sec = int_value;
     } else if (strcmp(key, "happy_kpm") == 0) {
         config->happy_kpm = int_value;
     } else {
@@ -488,9 +483,9 @@ static void config_set_defaults(config_t *config) {
         .cat_height = 40,
         .overlay_height = 50,
         .idle_frame = 0,
-        .keypress_duration = 100,
-        .test_animation_duration = 200,
-        .test_animation_interval = 3,
+        .keypress_duration_ms = 100,
+        .test_animation_duration_ms = 200,
+        .test_animation_interval_sec = 3,
         .fps = 60,
         .overlay_opacity = 150,
         .enable_debug = 1,
@@ -502,9 +497,10 @@ static void config_set_defaults(config_t *config) {
         .padding_x = 0,
         .padding_y = 0,
 
-        .enable_sleep_mode = 0,
+        .enable_scheduled_sleep = 0,
         .sleep_begin = {0},
         .sleep_end = {0},
+        .idle_sleep_timeout_sec = 0,
 
         .happy_kpm = 0,
     };

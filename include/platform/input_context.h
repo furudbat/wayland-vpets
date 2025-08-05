@@ -10,6 +10,7 @@ typedef struct {
     int *any_key_pressed;
     int *kpm;                    // keystrokes per minute
     atomic_int *input_counter;
+    timestamp_ms_t *last_key_pressed_timestamp;
 
     pid_t _input_child_pid;
     atomic_bool _capture_input_running;

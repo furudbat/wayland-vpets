@@ -230,6 +230,7 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
                         }
                     }
 
+                    *input->last_key_pressed_timestamp = now;
                     *input->input_counter = *input->input_counter + 1;
                     input->_input_kpm_counter++;
                     animation_trigger(input);
@@ -266,10 +267,11 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
         return BONGOCAT_ERROR_INVALID_PARAM;
     }
 
+    const timestamp_ms_t now = get_current_time_ms();
     ctx->_input_child_pid = -1;
     ctx->_capture_input_running = false;
     ctx->_input_kpm_counter = 0;
-    ctx->_latest_kpm_update_ms = get_current_time_ms();
+    ctx->_latest_kpm_update_ms = now;
 
     BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", num_devices);
     
@@ -291,7 +293,7 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
     }
     *ctx->kpm = 0;
 
-    // Initialize shared memory for KPM
+    // Initialize shared memory for counter
     ctx->input_counter = (atomic_int *)mmap(NULL, sizeof(atomic_int), PROT_READ | PROT_WRITE,
                                         MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (ctx->input_counter == MAP_FAILED) {
@@ -299,6 +301,15 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
         return BONGOCAT_ERROR_MEMORY;
     }
     *ctx->input_counter = 0;
+
+    // Initialize shared memory for timestamp
+    ctx->last_key_pressed_timestamp = (timestamp_ms_t *)mmap(NULL, sizeof(timestamp_ms_t), PROT_READ | PROT_WRITE,
+                                        MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    if (ctx->last_key_pressed_timestamp == MAP_FAILED) {
+        BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+        return BONGOCAT_ERROR_MEMORY;
+    }
+    *ctx->last_key_pressed_timestamp = now;
 
     // Fork process for input monitoring
     ctx->_input_child_pid = fork();
@@ -308,9 +319,11 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
         munmap(ctx->any_key_pressed, sizeof(int));
         munmap(ctx->kpm, sizeof(int));
         munmap(ctx->input_counter, sizeof(atomic_int));
+        munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
         ctx->any_key_pressed = NULL;
         ctx->kpm = NULL;
         ctx->input_counter = NULL;
+        ctx->last_key_pressed_timestamp = NULL;
         return BONGOCAT_ERROR_THREAD;
     }
     if (ctx->_input_child_pid == 0) {
@@ -328,7 +341,7 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, const config_t* 
     BONGOCAT_LOG_INFO("Restarting input monitoring system");
 
     ctx->_input_kpm_counter = 0;
-    ctx->_latest_kpm_update_ms = get_current_time_ms();
+    //ctx->_latest_kpm_update_ms = get_current_time_ms();
     
     // Stop current monitoring
     if (ctx->_input_child_pid > 0) {
@@ -366,9 +379,8 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, const config_t* 
     }
     
     // Start new monitoring (reuse shared memory if it exists)
-    bool need_new_shm = (ctx->any_key_pressed == NULL || ctx->any_key_pressed == MAP_FAILED);
-    
-    if (need_new_shm) {
+    const bool need_new_shm_any_key_pressed = (ctx->any_key_pressed == NULL || ctx->any_key_pressed == MAP_FAILED);
+    if (need_new_shm_any_key_pressed) {
         ctx->any_key_pressed = (int *)mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE,
                                      MAP_SHARED | MAP_ANONYMOUS, -1, 0);
         if (ctx->any_key_pressed == MAP_FAILED) {
@@ -377,14 +389,56 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, const config_t* 
         }
         *ctx->any_key_pressed = 0;
     }
+    const bool need_new_shm_kpm = (ctx->kpm == NULL || ctx->kpm == MAP_FAILED);
+    if (need_new_shm_kpm) {
+        ctx->kpm = (int *)mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE,
+                                     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+        if (ctx->kpm == MAP_FAILED) {
+            BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+            return BONGOCAT_ERROR_MEMORY;
+        }
+        *ctx->kpm = 0;
+    }
+    const bool need_new_shm_input_counter = (ctx->input_counter == NULL || ctx->input_counter == MAP_FAILED);
+    if (need_new_shm_input_counter) {
+        ctx->input_counter = (atomic_int *)mmap(NULL, sizeof(atomic_int), PROT_READ | PROT_WRITE,
+                                     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+        if (ctx->input_counter == MAP_FAILED) {
+            BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+            return BONGOCAT_ERROR_MEMORY;
+        }
+        *ctx->input_counter = 0;
+    }
+    const bool need_new_shm_last_key_pressed_timestamp = (ctx->last_key_pressed_timestamp == NULL || ctx->last_key_pressed_timestamp == MAP_FAILED);
+    if (need_new_shm_last_key_pressed_timestamp) {
+        ctx->last_key_pressed_timestamp = (timestamp_ms_t *)mmap(NULL, sizeof(timestamp_ms_t), PROT_READ | PROT_WRITE,
+                                     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+        if (ctx->last_key_pressed_timestamp == MAP_FAILED) {
+            BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+            return BONGOCAT_ERROR_MEMORY;
+        }
+        *ctx->last_key_pressed_timestamp = 0;
+    }
 
     // Fork new process for input monitoring
     ctx->_input_child_pid = fork();
     if (ctx->_input_child_pid < 0) {
         BONGOCAT_LOG_ERROR("Failed to fork input monitoring process: %s", strerror(errno));
-        if (need_new_shm) {
+        if (need_new_shm_any_key_pressed) {
             munmap(ctx->any_key_pressed, sizeof(int));
             ctx->any_key_pressed = NULL;
+        }
+        if (need_new_shm_kpm) {
+            munmap(ctx->kpm, sizeof(int));
+            ctx->kpm = NULL;
+        }
+        if (need_new_shm_input_counter) {
+            munmap(ctx->input_counter, sizeof(atomic_int));
+            ctx->input_counter = NULL;
+        }
+        if (need_new_shm_last_key_pressed_timestamp) {
+            munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
+            ctx->last_key_pressed_timestamp = NULL;
         }
         return BONGOCAT_ERROR_THREAD;
     }
@@ -452,6 +506,10 @@ void input_cleanup(input_context_t* ctx) {
     if (ctx->input_counter && ctx->input_counter != MAP_FAILED) {
         munmap(ctx->input_counter, sizeof(atomic_int));
         ctx->input_counter = NULL;
+    }
+    if (ctx->last_key_pressed_timestamp && ctx->last_key_pressed_timestamp != MAP_FAILED) {
+        munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
+        ctx->last_key_pressed_timestamp = NULL;
     }
 
     ctx->_input_kpm_counter = 0;

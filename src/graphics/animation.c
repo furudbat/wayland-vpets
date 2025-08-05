@@ -320,7 +320,7 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
     const int current_frame = ctx->anim_frame_index;
 
     // toggle sleep frame (if 2 frame exists for sleeping)
-    if (ctx->_current_config->enable_sleep_mode && is_sleep_time(ctx->_current_config)) {
+    if (ctx->_current_config->enable_scheduled_sleep && is_sleep_time(ctx->_current_config)) {
         if (current_frame == DIGIMON_FRAME_SLEEP1) {
             if (ctx->anims[ctx->anim_index].digimon.sleep_2.pixels) {
                 return DIGIMON_FRAME_SLEEP2;
@@ -374,14 +374,14 @@ static void anim_trigger_frame_change(animation_context_t* ctx,
 }
 
 static void anim_handle_test_animation(animation_context_t* ctx, const input_context_t* input, animation_state_t *state, timestamp_us_t current_time_us) {
-    if (ctx->_current_config->test_animation_interval <= 0) {
+    if (ctx->_current_config->test_animation_interval_sec <= 0) {
         return;
     }
     
     state->test_counter++;
     if (state->test_counter > state->test_interval_frames) {
         const int new_frame = anim_get_random_active_frame(ctx, input);
-        const time_us_t duration_us = ctx->_current_config->test_animation_duration * 1000L;
+        const time_us_t duration_us = ctx->_current_config->test_animation_duration_ms * 1000;
         
         BONGOCAT_LOG_DEBUG("Test animation trigger");
         anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
@@ -395,7 +395,7 @@ static void anim_handle_key_press(animation_context_t* ctx, input_context_t *inp
     }
     
     const int new_frame = anim_get_random_active_frame(ctx, input);
-    const time_us_t duration_us = ctx->_current_config->keypress_duration * 1000;
+    const time_us_t duration_us = ctx->_current_config->keypress_duration_ms * 1000L;
     
     BONGOCAT_LOG_DEBUG("Key press detected - switching to frame %d", new_frame);
     anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
@@ -404,8 +404,9 @@ static void anim_handle_key_press(animation_context_t* ctx, input_context_t *inp
     state->test_counter = 0; // Reset test counter
 }
 
-static void anim_handle_idle_return(animation_context_t* ctx, animation_state_t *state, timestamp_us_t current_time_us) {
-    if (ctx->_current_config->enable_sleep_mode) {
+static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *input, animation_state_t *state, timestamp_us_t current_time_us) {
+    // Sleep Mode
+    if (ctx->_current_config->enable_scheduled_sleep) {
         if (is_sleep_time(ctx->_current_config)) {
             if (ctx->anim_index == BONGOCAT_ANIM_INDEX) {
                 ctx->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
@@ -419,6 +420,23 @@ static void anim_handle_idle_return(animation_context_t* ctx, animation_state_t 
             }
             if (ctx->anims[ctx->anim_index].digimon.down1.pixels) {
                 // fallback frame
+                ctx->anim_frame_index = DIGIMON_FRAME_DOWN1;
+                return;
+            }
+        }
+    }
+
+    // Idle Sleep
+    if (ctx->_current_config->idle_sleep_timeout_sec > 0 && *input->last_key_pressed_timestamp > 0) {
+        const timestamp_ms_t now = get_current_time_ms();
+        if (now - *input->last_key_pressed_timestamp >= ctx->_current_config->idle_sleep_timeout_sec*1000) {
+            if (ctx->anim_index == BONGOCAT_ANIM_INDEX) {
+                ctx->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
+                return;
+            }
+
+            // assume it's a digimon
+            if (ctx->anims[ctx->anim_index].digimon.down1.pixels) {
                 ctx->anim_frame_index = DIGIMON_FRAME_DOWN1;
                 return;
             }
@@ -442,7 +460,7 @@ static void anim_update_state(animation_context_t* ctx, input_context_t *input, 
     
     anim_handle_test_animation(ctx, input, state, current_time_us);
     anim_handle_key_press(ctx, input, state, current_time_us);
-    anim_handle_idle_return(ctx, state, current_time_us);
+    anim_handle_idle_return(ctx, input, state, current_time_us);
     
     pthread_mutex_unlock(&ctx->anim_lock);
 }
@@ -454,7 +472,7 @@ static void anim_update_state(animation_context_t* ctx, input_context_t *input, 
 static void anim_init_state(animation_context_t* ctx, animation_state_t *state) {
     state->hold_until_us = 0;
     state->test_counter = 0;
-    state->test_interval_frames = ctx->_current_config->test_animation_interval * ctx->_current_config->fps;
+    state->test_interval_frames = ctx->_current_config->test_animation_interval_sec * ctx->_current_config->fps;
     state->frame_time_ns = 1000000000LL / ctx->_current_config->fps;
 }
 

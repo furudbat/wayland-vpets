@@ -34,9 +34,9 @@ typedef struct {
     int cat_height;
     int overlay_height;
     int idle_frame;
-    int keypress_duration;
-    int test_animation_duration;
-    int test_animation_interval;
+    int keypress_duration_ms;
+    int test_animation_duration_ms;
+    int test_animation_interval_sec;
     int fps;
     int overlay_opacity;
     int enable_debug;
@@ -48,9 +48,10 @@ typedef struct {
     int padding_x;
     int padding_y;
 
-    int enable_sleep_mode;
+    int enable_scheduled_sleep;
     config_time_t sleep_begin;
     config_time_t sleep_end;
+    int idle_sleep_timeout_sec;
 
     int happy_kpm;
 } config_t;

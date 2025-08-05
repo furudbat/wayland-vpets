@@ -169,16 +169,17 @@ enable_debug=1                   # Show debug messages
 | `cat_y_offset`            | Integer | -9999 to 9999                | 0                   | Vertical offset from center                                                  |
 | `overlay_opacity`         | Integer | 0-255                        | 150                 | Background opacity (0=transparent)                                           |
 | `overlay_position`        | String  | "top" or "bottom"            | "top"               | Position of overlay on screen                                                |
-| `fps`                     | Integer | 1-120                        | 60                  | Animation frame rate                                                         |
+| `fps`                     | Integer | 1-144                        | 60                  | Animation frame rate                                                         |
 | `keypress_duration`       | Integer | 50-5000                      | 100                 | Animation duration after keypress (ms)                                       |
 | `test_animation_interval` | Integer | 0-60                         | 3                   | Test animation interval (seconds, 0=disabled)                                |
 | `keyboard_device`         | String  | Valid path                   | `/dev/input/event4` | Input device path (multiple allowed)                                         |
 | `enable_debug`            | Boolean | 0 or 1                       | 0                   | Enable debug logging                                                         |
 | `animation_name`          | String  | "bongocat" or "digimon name" | "bongocat"          | Name of the V-Pet sprite                                                     |
 | `invert_color`            | Boolean | 0 or 1                       | 0                   | Invert color of the Sprite (usefull for white digimon sprites and dark mode) |
-| `enable_sleep_mode`       | Boolean | 0 or 1                       | 0                   | Enable Sleep mode                                                            |
+| `enable_scheduled_sleep`  | Boolean | 0 or 1                       | 0                   | Enable Sleep mode                                                            |
 | `sleep_begin`             | String  | "00:00" - "23:59"            | "00:00"             | Begin of the sleeping phase                                                  |
 | `sleep_end`               | String  | "00:00" - "23:59"            | "00:00"             | End of the sleeping phase                                                    |
+| `idle_sleep_timeout`      | Integer | 0+                           | 0                   | Vertical offset from center                                                  |
 | `happy_kpm`               | Integer | 0-5000                       | 0                   | Minimal (KPM) keystrokes per minute for happy animation (0=disabled)         |
 
 ## 🔧 Usage
