@@ -9,6 +9,9 @@
 #include <time.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <sys/stat.h>
+#include <sys/types.h>
+#include <sys/mman.h>
 
 // include stb_image
 #if defined(__GNUC__) || defined(__clang__)
@@ -319,8 +322,12 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
 
     const int current_frame = ctx->anim_frame_index;
 
+    // read-only config
+    const config_t* const current_config = ctx->_local_copy_config;
+    assert(current_config);
+
     // toggle sleep frame (if 2 frame exists for sleeping)
-    if (ctx->_current_config->enable_scheduled_sleep && is_sleep_time(ctx->_current_config)) {
+    if (current_config->enable_scheduled_sleep && is_sleep_time(current_config)) {
         if (current_frame == DIGIMON_FRAME_SLEEP1) {
             if (ctx->anims[ctx->anim_index].digimon.sleep_2.pixels) {
                 return DIGIMON_FRAME_SLEEP2;
@@ -345,7 +352,7 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
     // toggle frame
     if (current_frame == DIGIMON_FRAME_IDLE1) {
         if (*input->kpm > 0) {
-            if (ctx->_current_config->happy_kpm > 0 && *input->kpm >= ctx->_current_config->happy_kpm) {
+            if (current_config->happy_kpm > 0 && *input->kpm >= current_config->happy_kpm) {
                 if (ctx->anims[ctx->anim_index].digimon.happy.pixels) {
                     if (rand() % 100 < HAPPY_CHANCE_PERCENT) {
                         return DIGIMON_FRAME_HAPPY;
@@ -365,7 +372,13 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
 static void anim_trigger_frame_change(animation_context_t* ctx,
                                       int new_frame, long duration_us, long current_time_us,
                                       animation_state_t *state) {
-    if (ctx->_current_config->enable_debug) {
+    assert(ctx);
+    assert(state);
+    // read-only config
+    const config_t* const current_config = ctx->_local_copy_config;
+    assert(current_config);
+
+    if (current_config->enable_debug) {
         BONGOCAT_LOG_DEBUG("Animation frame change: %d (duration: %ld us)", new_frame, duration_us);
     }
     
@@ -374,14 +387,21 @@ static void anim_trigger_frame_change(animation_context_t* ctx,
 }
 
 static void anim_handle_test_animation(animation_context_t* ctx, const input_context_t* input, animation_state_t *state, timestamp_us_t current_time_us) {
-    if (ctx->_current_config->test_animation_interval_sec <= 0) {
+    assert(ctx);
+    assert(state);
+    assert(input);
+    // read-only config
+    const config_t* const current_config = ctx->_local_copy_config;
+    assert(current_config);
+
+    if (current_config->test_animation_interval_sec <= 0) {
         return;
     }
     
     state->test_counter++;
     if (state->test_counter > state->test_interval_frames) {
         const int new_frame = anim_get_random_active_frame(ctx, input);
-        const time_us_t duration_us = ctx->_current_config->test_animation_duration_ms * 1000;
+        const time_us_t duration_us = current_config->test_animation_duration_ms * 1000;
         
         BONGOCAT_LOG_DEBUG("Test animation trigger");
         anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
@@ -390,12 +410,19 @@ static void anim_handle_test_animation(animation_context_t* ctx, const input_con
 }
 
 static void anim_handle_key_press(animation_context_t* ctx, input_context_t *input, animation_state_t *state, timestamp_us_t current_time_us) {
+    assert(ctx);
+    assert(state);
+    assert(input);
+    // read-only config
+    const config_t* const current_config = ctx->_local_copy_config;
+    assert(current_config);
+
     if (!*input->any_key_pressed) {
         return;
     }
     
     const int new_frame = anim_get_random_active_frame(ctx, input);
-    const time_us_t duration_us = ctx->_current_config->keypress_duration_ms * 1000L;
+    const time_us_t duration_us = current_config->keypress_duration_ms * 1000L;
     
     BONGOCAT_LOG_DEBUG("Key press detected - switching to frame %d", new_frame);
     anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
@@ -405,9 +432,16 @@ static void anim_handle_key_press(animation_context_t* ctx, input_context_t *inp
 }
 
 static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *input, animation_state_t *state, timestamp_us_t current_time_us) {
+    assert(ctx);
+    assert(state);
+    assert(input);
+    // read-only config
+    const config_t* const current_config = ctx->_local_copy_config;
+    assert(current_config);
+
     // Sleep Mode
-    if (ctx->_current_config->enable_scheduled_sleep) {
-        if (is_sleep_time(ctx->_current_config)) {
+    if (current_config->enable_scheduled_sleep) {
+        if (is_sleep_time(current_config)) {
             if (ctx->anim_index == BONGOCAT_ANIM_INDEX) {
                 ctx->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
                 return;
@@ -427,9 +461,9 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
     }
 
     // Idle Sleep
-    if (ctx->_current_config->idle_sleep_timeout_sec > 0 && *input->last_key_pressed_timestamp > 0) {
+    if (current_config->idle_sleep_timeout_sec > 0 && *input->last_key_pressed_timestamp > 0) {
         const timestamp_ms_t now = get_current_time_ms();
-        if (now - *input->last_key_pressed_timestamp >= ctx->_current_config->idle_sleep_timeout_sec*1000) {
+        if (now - *input->last_key_pressed_timestamp >= current_config->idle_sleep_timeout_sec*1000) {
             if (ctx->anim_index == BONGOCAT_ANIM_INDEX) {
                 ctx->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
                 return;
@@ -447,13 +481,17 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
         return;
     }
     
-    if (ctx->anim_frame_index != ctx->_current_config->idle_frame) {
-        BONGOCAT_LOG_DEBUG("Returning to idle frame %d", ctx->_current_config->idle_frame);
-        ctx->anim_frame_index = ctx->_current_config->idle_frame;
+    if (ctx->anim_frame_index != current_config->idle_frame) {
+        BONGOCAT_LOG_DEBUG("Returning to idle frame %d", current_config->idle_frame);
+        ctx->anim_frame_index = current_config->idle_frame;
     }
 }
 
 static void anim_update_state(animation_context_t* ctx, input_context_t *input, animation_state_t *state) {
+    assert(ctx);
+    assert(state);
+    assert(input);
+
     timestamp_us_t current_time_us = get_current_time_us();
     
     pthread_mutex_lock(&ctx->anim_lock);
@@ -470,10 +508,16 @@ static void anim_update_state(animation_context_t* ctx, input_context_t *input, 
 // =============================================================================
 
 static void anim_init_state(animation_context_t* ctx, animation_state_t *state) {
+    assert(ctx);
+    assert(state);
+    // read-only config
+    const config_t* const current_config = ctx->_local_copy_config;
+    assert(current_config);
+
     state->hold_until_us = 0;
     state->test_counter = 0;
-    state->test_interval_frames = ctx->_current_config->test_animation_interval_sec * ctx->_current_config->fps;
-    state->frame_time_ns = 1000000000LL / ctx->_current_config->fps;
+    state->test_interval_frames = current_config->test_animation_interval_sec * current_config->fps;
+    state->frame_time_ns = 1000000000LL / current_config->fps;
 }
 
 
@@ -599,7 +643,7 @@ static bongocat_error_t anim_load_embedded_images(animation_frame_t *anim_imgs, 
     return BONGOCAT_SUCCESS;
 }
 
-static int anim_load_sprite_sheet(config_t *config, animation_frame_t *anim_imgs, size_t anim_imgs_count, const embedded_image_t *sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+static int anim_load_sprite_sheet(const config_t *config, animation_frame_t *anim_imgs, size_t anim_imgs_count, const embedded_image_t *sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
     BONGOCAT_CHECK_NULL(config, -1);
     BONGOCAT_CHECK_NULL(anim_imgs, -1);
     BONGOCAT_CHECK_NULL(sprite_sheet_image, -1);
@@ -633,7 +677,7 @@ static int anim_load_sprite_sheet(config_t *config, animation_frame_t *anim_imgs
 }
 
 static bongocat_error_t init_digimon_anim(animation_context_t* ctx, int anim_index, const embedded_image_t* sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
-    const int sprite_sheet_count = anim_load_sprite_sheet(ctx->_current_config, ctx->anims[anim_index].frames, MAX_NUM_FRAMES, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
+    const int sprite_sheet_count = anim_load_sprite_sheet(ctx->_local_copy_config, ctx->anims[anim_index].frames, MAX_NUM_FRAMES, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
     if (sprite_sheet_count < 0) {
         BONGOCAT_LOG_ERROR("Load Digimon Animation failed: %s, index: %d", sprite_sheet_image->name, anim_index);
 
@@ -647,11 +691,20 @@ static bongocat_error_t init_digimon_anim(animation_context_t* ctx, int anim_ind
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-bongocat_error_t animation_init(animation_context_t* ctx, config_t *config) {
+bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config) {
     BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
     BONGOCAT_CHECK_NULL(config, BONGOCAT_ERROR_INVALID_PARAM);
 
     BONGOCAT_LOG_INFO("Initializing animation system");
+
+    // Initialize shared memory for local config
+    ctx->_local_copy_config = (config_t *)mmap(NULL, sizeof(config_t), PROT_READ | PROT_WRITE,
+                                        MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    if (ctx->_local_copy_config == MAP_FAILED) {
+        BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
+        return BONGOCAT_ERROR_MEMORY;
+    }
+    config_set_defaults(ctx->_local_copy_config);
 
     animation_update_config(ctx, config);
     ctx->anim_frame_index = config->idle_frame;
@@ -673,6 +726,8 @@ bongocat_error_t animation_init(animation_context_t* ctx, config_t *config) {
     const int result = anim_load_embedded_images(ctx->anims[BONGOCAT_ANIM_INDEX].frames, MAX_NUM_FRAMES,
                                                  bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
     if (result != 0) {
+        munmap(ctx->_local_copy_config, sizeof(config_t));
+        ctx->_local_copy_config = NULL;
         return result;
     }
 
@@ -740,6 +795,11 @@ void animation_cleanup(animation_context_t* ctx) {
     
     // Cleanup mutex
     pthread_mutex_destroy(&ctx->anim_lock);
+
+    if (ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED) {
+        munmap(ctx->_local_copy_config, sizeof(config_t));
+        ctx->_local_copy_config = NULL;
+    }
     
     BONGOCAT_LOG_DEBUG("Animation cleanup complete");
 }
@@ -749,10 +809,11 @@ void animation_trigger(input_context_t *input) {
     *input->any_key_pressed = 1;
 }
 
-void animation_update_config(animation_context_t *ctx, config_t *config) {
+void animation_update_config(animation_context_t *ctx, const config_t *config) {
     assert(ctx);
     assert(config);
+    assert(ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED);
 
-    ctx->_current_config = config;
+    *ctx->_local_copy_config = *config;
     ctx->anim_index = config->animation_index;
 }

@@ -3,6 +3,7 @@
 
 #include <pthread.h>
 #include <stdatomic.h>
+#include "utils/error.h"
 
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200809L
@@ -27,14 +28,17 @@ typedef struct {
     int watch_fd;
     char *config_path;
 
-    void (*reload_callback)(const char *config_path);
+    // event file descriptor
+    int reload_efd;
 
     pthread_t watcher_thread;
     atomic_bool _running;
 } config_watcher_t;
 
+#define RELOAD_EVENT_BUF 8
+
 // Config watcher function declarations
-int config_watcher_init(config_watcher_t *watcher, const char *config_path, void (*callback)(const char *));
+bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *config_path);
 void config_watcher_start(config_watcher_t *watcher);
 void config_watcher_stop(config_watcher_t *watcher);
 void config_watcher_cleanup(config_watcher_t *watcher);

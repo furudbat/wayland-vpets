@@ -25,7 +25,6 @@ typedef struct {
 } config_time_t;
 
 typedef struct {
-    int screen_width;
     int bar_height;
     char **keyboard_devices;
     int num_keyboard_devices;
@@ -58,6 +57,7 @@ typedef struct {
 
 bongocat_error_t load_config(config_t *config, const char *config_file_path);
 void config_cleanup(config_t *config);
-int get_screen_width(void);
+
+void config_set_defaults(config_t *config);
 
 #endif // CONFIG_H

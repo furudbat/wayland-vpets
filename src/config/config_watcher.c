@@ -1,36 +1,34 @@
 #define _POSIX_C_SOURCE 200809L
 #define _DEFAULT_SOURCE
 #include "core/bongocat.h"
+#include "utils/time.h"
 #include "utils/error.h"
 #include <string.h>
 #include <unistd.h>
-#include <time.h>
 #include <sys/select.h>
 #include <assert.h>
 #include <sys/inotify.h>
 #include <sys/time.h>
+#include <sys/eventfd.h>
 
 static void *config_watcher_thread(void *arg) {
     assert(arg);
 
     config_watcher_t *watcher = arg;
     char buffer[INOTIFY_BUF_LEN];
-    time_t last_reload_time = 0;
-    
+    timestamp_ms_t last_reload_timestamp = get_current_time_ms();
+
     BONGOCAT_LOG_INFO("Config watcher started for: %s", watcher->config_path);
 
     atomic_store(&watcher->_running, true);
     while (atomic_load(&watcher->_running)) {
         fd_set read_fds;
-        struct timeval timeout;
         
         FD_ZERO(&read_fds);
         FD_SET(watcher->inotify_fd, &read_fds);
-        
+
         // Set timeout to 1 second to allow checking watching flag
-        timeout.tv_sec = 1;
-        timeout.tv_usec = 0;
-        
+        struct timeval timeout = (struct timeval){.tv_sec = 1, .tv_usec = 0};
         const int select_result = select(watcher->inotify_fd + 1, &read_fds, NULL, NULL, &timeout);
         
         if (select_result < 0) {
@@ -66,17 +64,20 @@ static void *config_watcher_thread(void *arg) {
             
             // Debounce: only reload if at least 200ms have passed since last reload
             if (should_reload) {
-                time_t current_time = time(NULL);
-                if (current_time - last_reload_time >= 1) { // 1 second debounce
+                const timestamp_ms_t current_time = get_current_time_ms();
+                if (current_time - last_reload_timestamp >= 1000) { // 1 second debounce
                     BONGOCAT_LOG_INFO("Config file changed, reloading...");
-                    last_reload_time = current_time;
-                    
                     // Small delay to ensure file write is complete
                     usleep(100000); // 100ms
-                    
-                    if (watcher->reload_callback) {
-                        watcher->reload_callback(watcher->config_path);
+
+                    static const char buf[RELOAD_EVENT_BUF] = {'R', '\0'};
+                    if (write(watcher->reload_efd, buf, sizeof(char)*RELOAD_EVENT_BUF) >= 0) {
+                        BONGOCAT_LOG_DEBUG("Write reload event in watcher");
+                    } else {
+                        BONGOCAT_LOG_ERROR("Failed to write to notify pipe in watcher: %s", strerror(errno));
                     }
+
+                    last_reload_timestamp = current_time;
                 }
             }
         }
@@ -87,10 +88,9 @@ static void *config_watcher_thread(void *arg) {
     return NULL;
 }
 
-int config_watcher_init(config_watcher_t *watcher, const char *config_path, void (*callback)(const char *)) {
-    if (!watcher || !config_path || !callback) {
-        return -1;
-    }
+bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *config_path) {
+    BONGOCAT_CHECK_NULL(watcher, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(config_path, BONGOCAT_ERROR_INVALID_PARAM);
     
     memset(watcher, 0, sizeof(config_watcher_t));
     
@@ -98,14 +98,14 @@ int config_watcher_init(config_watcher_t *watcher, const char *config_path, void
     watcher->inotify_fd = inotify_init1(IN_NONBLOCK);
     if (watcher->inotify_fd < 0) {
         BONGOCAT_LOG_ERROR("Failed to initialize inotify: %s", strerror(errno));
-        return -1;
+        return BONGOCAT_ERROR_FILE_IO;
     }
     
     // Store config path
     watcher->config_path = strdup(config_path);
     if (!watcher->config_path) {
         close(watcher->inotify_fd);
-        return -1;
+        return BONGOCAT_ERROR_MEMORY;
     }
     
     // Add watch for the config file
@@ -115,10 +115,16 @@ int config_watcher_init(config_watcher_t *watcher, const char *config_path, void
         BONGOCAT_LOG_ERROR("Failed to add inotify watch for %s: %s", config_path, strerror(errno));
         free(watcher->config_path);
         close(watcher->inotify_fd);
-        return -1;
+        return BONGOCAT_ERROR_FILE_IO;
     }
-    
-    watcher->reload_callback = callback;
+
+    watcher->reload_efd = eventfd(0, 0);
+    if (watcher->reload_efd < 0) {
+        BONGOCAT_LOG_ERROR("Failed to create notify pipe for config reload: %s", strerror(errno));
+        free(watcher->config_path);
+        close(watcher->inotify_fd);
+        return BONGOCAT_ERROR_FILE_IO;
+    }
     
     return 0;
 }
@@ -143,7 +149,7 @@ void config_watcher_stop(config_watcher_t *watcher) {
     }
     
     atomic_store(&watcher->_running, false);
-    //pthread_cancel(watcher->watcher_thread);
+    pthread_cancel(watcher->watcher_thread);
     // Wait for thread to finish
     if (pthread_join(watcher->watcher_thread, NULL) != 0) {
         BONGOCAT_LOG_ERROR("Failed to join config watcher thread: %s", strerror(errno));
@@ -169,6 +175,8 @@ void config_watcher_cleanup(config_watcher_t *watcher) {
         free(watcher->config_path);
         watcher->config_path = NULL;
     }
+
+    close(watcher->reload_efd);
     
     memset(watcher, 0, sizeof(config_watcher_t));
 }

@@ -71,8 +71,10 @@ typedef struct {
     int anim_frame_index;
     pthread_mutex_t anim_lock;
 
+    // local copy from other thread, update after reload (shared memory)
+    config_t* _local_copy_config;
+
     // Animation system state
-    config_t *_current_config;
     pthread_t _anim_thread;
     atomic_bool _animation_running;
 } animation_context_t;

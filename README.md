@@ -163,7 +163,7 @@ enable_debug=1                   # Show debug messages
 ### Configuration Reference
 
 | Setting                   | Type    | Range                        | Default             | Description                                                                  |
-|---------------------------| ------- |------------------------------|---------------------|------------------------------------------------------------------------------|
+|---------------------------|---------|------------------------------|---------------------|------------------------------------------------------------------------------|
 | `cat_height`              | Integer | 16-128                       | 50                  | Height of bongo cat in pixels                                                |
 | `cat_x_offset`            | Integer | -9999 to 9999                | 0                   | Horizontal offset from center                                                |
 | `cat_y_offset`            | Integer | -9999 to 9999                | 0                   | Vertical offset from center                                                  |
@@ -179,8 +179,8 @@ enable_debug=1                   # Show debug messages
 | `enable_scheduled_sleep`  | Boolean | 0 or 1                       | 0                   | Enable Sleep mode                                                            |
 | `sleep_begin`             | String  | "00:00" - "23:59"            | "00:00"             | Begin of the sleeping phase                                                  |
 | `sleep_end`               | String  | "00:00" - "23:59"            | "00:00"             | End of the sleeping phase                                                    |
-| `idle_sleep_timeout`      | Integer | 0+                           | 0                   | Vertical offset from center                                                  |
-| `happy_kpm`               | Integer | 0-5000                       | 0                   | Minimal (KPM) keystrokes per minute for happy animation (0=disabled)         |
+| `idle_sleep_timeout`      | Integer | 0+                           | 0                   | Duration of user inactivity before entering sleep                            |
+| `happy_kpm`               | Integer | 0-10000                      | 0                   | Minimal (KPM) keystrokes per minute for happy animation (0=disabled)         |
 
 ## 🔧 Usage
 
@@ -475,5 +475,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v1.2.3** - Making desktops more delightful, one keystroke at a time!
-Now with Digimon.
+**₍^. .^₎ Wayland Bongo Cat Overlay v1.3.0** - Making desktops more delightful, one keystroke at a time!
+Now with Digimon VPets.

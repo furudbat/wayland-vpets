@@ -16,31 +16,49 @@
 
 // Child process signal handler - exits quietly without logging
 static void child_signal_handler(int sig) {
-    (void)sig; // Suppress unused parameter warning
-    exit(0);
+    switch (sig) {
+        case SIGINT:
+        case SIGTERM:
+            _exit(EXIT_SUCCESS);
+            //break;
+        case SIGCHLD:
+            break;
+        case SIGUSR2:
+            // ignore
+            break;
+        default:
+            BONGOCAT_LOG_WARNING("Received unexpected signal %d", sig);
+            break;
+    }
 }
 
-static void capture_input_multiple(input_context_t *input, const config_t *config, char **device_paths, int num_devices, int enable_debug) {
+static void capture_input_multiple(input_context_t *input, char **device_paths, int num_devices, int enable_debug) {
     assert(input);
+    assert(num_devices >= 0);
+    // read-only config
+    const config_t* const current_config = input->_local_copy_config;
+    assert(current_config);
 
     // Set up child-specific signal handlers to avoid duplicate logging
     struct sigaction sa;
     sa.sa_handler = child_signal_handler;
     sigemptyset(&sa.sa_mask);
-    sa.sa_flags = 0;
+    sa.sa_flags = SA_RESTART;
     sigaction(SIGTERM, &sa, NULL);
     sigaction(SIGINT, &sa, NULL);
+    sigaction(SIGUSR2, &sa, NULL);
+    signal(SIGPIPE, SIG_IGN);
 
     BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", num_devices);
 
     int *fds = BONGOCAT_MALLOC(num_devices * sizeof(int));
-    char **unique_paths = BONGOCAT_MALLOC(num_devices * sizeof(char*));
-    if (!fds || !unique_paths) {
+    int *unique_paths_indices = BONGOCAT_MALLOC(num_devices * sizeof(int));
+    if (!fds || !unique_paths_indices) {
         BONGOCAT_SAFE_FREE(fds);
-        BONGOCAT_SAFE_FREE(unique_paths);
+        BONGOCAT_SAFE_FREE(unique_paths_indices);
         atomic_store(&input->_capture_input_running, false);
         BONGOCAT_LOG_ERROR("Failed to allocate memory for file descriptors");
-        exit(1);
+        _exit(EXIT_FAILURE);
     }
     
     int max_fd = -1;
@@ -51,13 +69,13 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
     for (int i = 0; i < num_devices; i++) {
         bool is_duplicate = false;
         for (int j = 0; j < unique_devices; j++) {
-            if (strcmp(device_paths[i], unique_paths[j]) == 0) {
+            if (strcmp(device_paths[i], device_paths[unique_paths_indices[j]]) == 0) {
                 is_duplicate = true;
                 break;
             }
         }
         if (!is_duplicate) {
-            unique_paths[unique_devices] = device_paths[i];
+            unique_paths_indices[unique_devices] = i;
             unique_devices++;
         }
     }
@@ -70,23 +88,23 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
         
         // Validate device path exists and is readable
         struct stat st;
-        if (stat(unique_paths[i], &st) != 0) {
-            BONGOCAT_LOG_WARNING("Input device does not exist: %s", unique_paths[i]);
+        if (stat(device_paths[unique_paths_indices[i]], &st) != 0) {
+            BONGOCAT_LOG_WARNING("Input device does not exist: %s", device_paths[unique_paths_indices[i]]);
             continue;
         }
         
         if (!S_ISCHR(st.st_mode)) {
-            BONGOCAT_LOG_WARNING("Input device is not a character device: %s", unique_paths[i]);
+            BONGOCAT_LOG_WARNING("Input device is not a character device: %s", device_paths[unique_paths_indices[i]]);
             continue;
         }
         
-        fds[i] = open(unique_paths[i], O_RDONLY | O_NONBLOCK);
+        fds[i] = open(device_paths[unique_paths_indices[i]], O_RDONLY | O_NONBLOCK);
         if (fds[i] < 0) {
-            BONGOCAT_LOG_WARNING("Failed to open %s: %s", unique_paths[i], strerror(errno));
+            BONGOCAT_LOG_WARNING("Failed to open %s: %s", device_paths[unique_paths_indices[i]], strerror(errno));
             continue;
         }
         
-        BONGOCAT_LOG_INFO("Input monitoring started on %s (fd=%d)", unique_paths[i], fds[i]);
+        BONGOCAT_LOG_INFO("Input monitoring started on %s (fd=%d)", device_paths[unique_paths_indices[i]], fds[i]);
         if (fds[i] > max_fd) {
             max_fd = fds[i];
         }
@@ -100,7 +118,7 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
         atomic_store(&input->_capture_input_running, false);
         BONGOCAT_LOG_ERROR("No valid input devices found");
         BONGOCAT_SAFE_FREE(fds);
-        exit(1);
+        _exit(EXIT_FAILURE);
     }
     
     BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, num_devices);
@@ -108,7 +126,6 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
     struct input_event ev[128]; // Increased buffer size for better I/O efficiency
     int rd;
     fd_set readfds;
-    struct timeval timeout;
     int check_counter = 0;
     int adaptive_check_interval = 5; // Start with 5 seconds, can increase to 30
 
@@ -127,10 +144,9 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
             }
         }
         max_fd = current_max_fd;
-        
-        timeout.tv_sec = 1;
-        timeout.tv_usec = 0;
-        
+
+        /// @TODO: refactor using pool instead of select ?
+        struct timeval timeout = (struct timeval){.tv_sec = 1, .tv_usec = 0};
         int select_result = select(max_fd + 1, &readfds, NULL, NULL, &timeout);
         if (select_result < 0) {
             if (errno == EINTR) continue; // Interrupted by signal
@@ -149,9 +165,9 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
                 for (int i = 0; i < num_devices; i++) {
                     if (fds[i] < 0) { // Device was not available before
                         struct stat st;
-                        if (stat(unique_paths[i], &st) == 0 && S_ISCHR(st.st_mode)) {
+                        if (stat(device_paths[unique_paths_indices[i]], &st) == 0 && S_ISCHR(st.st_mode)) {
                             // Device is now available, try to open it
-                            int new_fd = open(unique_paths[i], O_RDONLY | O_NONBLOCK);
+                            int new_fd = open(device_paths[unique_paths_indices[i]], O_RDONLY | O_NONBLOCK);
                             if (new_fd >= 0) {
                                 fds[i] = new_fd;
                                 if (new_fd > max_fd) {
@@ -159,7 +175,7 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
                                 }
                                 valid_devices++;
                                 found_new_device = true;
-                                BONGOCAT_LOG_INFO("New input device detected and opened: %s (fd=%d)", unique_paths[i], new_fd);
+                                BONGOCAT_LOG_INFO("New input device detected and opened: %s (fd=%d)", device_paths[unique_paths_indices[i]], new_fd);
                             }
                         }
                     }
@@ -182,17 +198,26 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
         for (int i = 0; i < num_devices; i++) {
             if (fds[i] >= 0 && FD_ISSET(fds[i], &readfds)) {
                 rd = read(fds[i], ev, sizeof(ev));
+                // error
                 if (rd < 0) {
                     if (errno == EAGAIN) continue;
-                    BONGOCAT_LOG_WARNING("Read error on %s: %s", unique_paths[i], strerror(errno));
+                    BONGOCAT_LOG_WARNING("Read error on %s: %s", device_paths[unique_paths_indices[i]], strerror(errno));
                     close(fds[i]);
                     fds[i] = -1;
                     valid_devices--;
                     continue;
                 }
-                
+                // empty
                 if (rd == 0) {
-                    BONGOCAT_LOG_WARNING("EOF on input device %s", unique_paths[i]);
+                    BONGOCAT_LOG_WARNING("EOF on input device %s", device_paths[unique_paths_indices[i]]);
+                    close(fds[i]);
+                    fds[i] = -1;
+                    valid_devices--;
+                    continue;
+                }
+                // check for full size
+                if (rd % sizeof(struct input_event) != 0) {
+                    BONGOCAT_LOG_WARNING("Partial input_event read from device %s", device_paths[unique_paths_indices[i]]);
                     close(fds[i]);
                     fds[i] = -1;
                     valid_devices--;
@@ -200,15 +225,15 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
                 }
 
                 // Batch process events for better performance
-                int num_events = rd / sizeof(struct input_event);
+                const int num_events = rd / sizeof(struct input_event);
                 bool key_pressed = false;
                 
                 for (int j = 0; j < num_events; j++) {
                     if (ev[j].type == EV_KEY && ev[j].value == 1) {
                         key_pressed = true;
                         if (enable_debug) {
-                            BONGOCAT_LOG_DEBUG("Key event: device=%s, code=%d, time=%ld.%06ld",
-                                             unique_paths[i], ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
+                            BONGOCAT_LOG_DEBUG("Key event: device=%s, code=%d, time=%lld.%06lld",
+                                               device_paths[unique_paths_indices[i]], ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
                         }
                     }
                 }
@@ -217,7 +242,7 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
                 if (key_pressed) {
                     // update KPM
                     const timestamp_ms_t now = get_current_time_ms();
-                    if (now - input->_latest_kpm_update_ms >= 1000.0/config->fps) {
+                    if (now - input->_latest_kpm_update_ms >= 1000.0/ current_config->fps) {
                         if (input->_input_kpm_counter > 0) {
                             const time_ms_t duration_ms = now - input->_latest_kpm_update_ms;
 
@@ -255,11 +280,13 @@ static void capture_input_multiple(input_context_t *input, const config_t *confi
     }
     
     BONGOCAT_SAFE_FREE(fds);
-    BONGOCAT_SAFE_FREE(unique_paths);
+    BONGOCAT_SAFE_FREE(unique_paths_indices);
     BONGOCAT_LOG_INFO("Input monitoring stopped");
 }
 
-bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* config, char **device_paths, int num_devices, int enable_debug) {
+bongocat_error_t input_start_monitoring(input_context_t* ctx, char **device_paths, int num_devices, int enable_debug) {
+    assert(ctx);
+
     BONGOCAT_CHECK_NULL(device_paths, BONGOCAT_ERROR_INVALID_PARAM);
     
     if (num_devices <= 0) {
@@ -288,6 +315,7 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
     ctx->kpm = (int *)mmap(NULL, sizeof(int), PROT_READ | PROT_WRITE,
                            MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (ctx->kpm == MAP_FAILED) {
+        if (ctx->any_key_pressed != MAP_FAILED) munmap(ctx->any_key_pressed, sizeof(int));
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return BONGOCAT_ERROR_MEMORY;
     }
@@ -297,6 +325,8 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
     ctx->input_counter = (atomic_int *)mmap(NULL, sizeof(atomic_int), PROT_READ | PROT_WRITE,
                                         MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (ctx->input_counter == MAP_FAILED) {
+        if (ctx->any_key_pressed != MAP_FAILED) munmap(ctx->any_key_pressed, sizeof(int));
+        if (ctx->kpm != MAP_FAILED) munmap(ctx->kpm, sizeof(int));
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return BONGOCAT_ERROR_MEMORY;
     }
@@ -306,30 +336,49 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
     ctx->last_key_pressed_timestamp = (timestamp_ms_t *)mmap(NULL, sizeof(timestamp_ms_t), PROT_READ | PROT_WRITE,
                                         MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (ctx->last_key_pressed_timestamp == MAP_FAILED) {
+        if (ctx->any_key_pressed != MAP_FAILED) munmap(ctx->any_key_pressed, sizeof(int));
+        if (ctx->kpm != MAP_FAILED) munmap(ctx->kpm, sizeof(int));
+        if (ctx->input_counter != MAP_FAILED) munmap(ctx->input_counter, sizeof(atomic_int));
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return BONGOCAT_ERROR_MEMORY;
     }
     *ctx->last_key_pressed_timestamp = now;
+
+    // Initialize shared memory for local config
+    ctx->_local_copy_config = (config_t *)mmap(NULL, sizeof(config_t), PROT_READ | PROT_WRITE,
+                                        MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+    if (ctx->_local_copy_config == MAP_FAILED) {
+        if (ctx->any_key_pressed != MAP_FAILED) munmap(ctx->any_key_pressed, sizeof(int));
+        if (ctx->kpm != MAP_FAILED) munmap(ctx->kpm, sizeof(int));
+        if (ctx->input_counter != MAP_FAILED) munmap(ctx->input_counter, sizeof(atomic_int));
+        if (ctx->last_key_pressed_timestamp != MAP_FAILED) munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
+        BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+        return BONGOCAT_ERROR_MEMORY;
+    }
+    config_set_defaults(ctx->_local_copy_config);
 
     // Fork process for input monitoring
     ctx->_input_child_pid = fork();
     if (ctx->_input_child_pid < 0) {
         atomic_store(&ctx->_capture_input_running, false);
         BONGOCAT_LOG_ERROR("Failed to fork input monitoring process: %s", strerror(errno));
-        munmap(ctx->any_key_pressed, sizeof(int));
-        munmap(ctx->kpm, sizeof(int));
-        munmap(ctx->input_counter, sizeof(atomic_int));
-        munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
+        if (ctx->any_key_pressed != MAP_FAILED) munmap(ctx->any_key_pressed, sizeof(int));
+        if (ctx->kpm != MAP_FAILED) munmap(ctx->kpm, sizeof(int));
+        if (ctx->input_counter != MAP_FAILED) munmap(ctx->input_counter, sizeof(atomic_int));
+        if (ctx->last_key_pressed_timestamp != MAP_FAILED) munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
+        if (ctx->_local_copy_config != MAP_FAILED) munmap(ctx->_local_copy_config, sizeof(config_t));
         ctx->any_key_pressed = NULL;
         ctx->kpm = NULL;
         ctx->input_counter = NULL;
         ctx->last_key_pressed_timestamp = NULL;
+        ctx->_local_copy_config = NULL;
         return BONGOCAT_ERROR_THREAD;
     }
+
     if (ctx->_input_child_pid == 0) {
         // Child process - handle keyboard input from multiple devices
         BONGOCAT_LOG_DEBUG("Input monitoring child process started (PID: %d)", getpid());
-        capture_input_multiple(ctx, config, device_paths, num_devices, enable_debug);
+        capture_input_multiple(ctx, device_paths, num_devices, enable_debug);
         exit(0);
     }
     
@@ -337,8 +386,21 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, const config_t* co
     return BONGOCAT_SUCCESS;
 }
 
-bongocat_error_t input_restart_monitoring(input_context_t* ctx, const config_t* config, char **device_paths, int num_devices, int enable_debug) {
+bongocat_error_t input_restart_monitoring(input_context_t* ctx, char **device_paths, int num_devices, int enable_debug) {
+    assert(ctx);
+    // read-only config
+    const config_t* const current_config = ctx->_local_copy_config;
+
     BONGOCAT_LOG_INFO("Restarting input monitoring system");
+
+    // assume the passed setting comes from the (same) config
+    if (current_config) {
+        if (device_paths != current_config->keyboard_devices ||
+            num_devices != current_config->num_keyboard_devices ||
+            enable_debug != current_config->enable_debug) {
+            BONGOCAT_LOG_DEBUG("Parameter for restarting monitoring don't match with setting from config");
+            }
+    }
 
     ctx->_input_kpm_counter = 0;
     //ctx->_latest_kpm_update_ms = get_current_time_ms();
@@ -419,6 +481,16 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, const config_t* 
         }
         *ctx->last_key_pressed_timestamp = 0;
     }
+    const bool need_new_shm_local_copy_config = (ctx->_local_copy_config == NULL || ctx->_local_copy_config == MAP_FAILED);
+    if (need_new_shm_local_copy_config) {
+        ctx->_local_copy_config = (config_t *)mmap(NULL, sizeof(config_t), PROT_READ | PROT_WRITE,
+                                     MAP_SHARED | MAP_ANONYMOUS, -1, 0);
+        if (ctx->_local_copy_config == MAP_FAILED) {
+            BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+            return BONGOCAT_ERROR_MEMORY;
+        }
+        config_set_defaults(ctx->_local_copy_config);
+    }
 
     // Fork new process for input monitoring
     ctx->_input_child_pid = fork();
@@ -440,6 +512,10 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, const config_t* 
             munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
             ctx->last_key_pressed_timestamp = NULL;
         }
+        if (need_new_shm_local_copy_config) {
+            munmap(ctx->_local_copy_config, sizeof(config_t));
+            ctx->_local_copy_config = NULL;
+        }
         return BONGOCAT_ERROR_THREAD;
     }
     
@@ -447,7 +523,7 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, const config_t* 
         atomic_store(&ctx->_capture_input_running, false);
         // Child process - handle keyboard input from multiple devices
         BONGOCAT_LOG_DEBUG("Input monitoring child process restarted (PID: %d)", getpid());
-        capture_input_multiple(ctx, config, device_paths, num_devices, enable_debug);
+        capture_input_multiple(ctx, device_paths, num_devices, enable_debug);
         exit(0);
     }
     
@@ -511,9 +587,21 @@ void input_cleanup(input_context_t* ctx) {
         munmap(ctx->last_key_pressed_timestamp, sizeof(timestamp_ms_t));
         ctx->last_key_pressed_timestamp = NULL;
     }
+    if (ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED) {
+        munmap(ctx->_local_copy_config, sizeof(config_t));
+        ctx->_local_copy_config = NULL;
+    }
 
     ctx->_input_kpm_counter = 0;
     ctx->_latest_kpm_update_ms = 0;
     
     BONGOCAT_LOG_DEBUG("Input monitoring cleanup complete");
+}
+
+void input_update_config(input_context_t *ctx, const config_t* config) {
+    assert(ctx);
+    assert(config);
+    assert(ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED);
+
+    memcpy(ctx->_local_copy_config, config, sizeof(config_t));
 }

@@ -7,6 +7,7 @@
 #include "graphics/embedded_assets.h"
 #include <assert.h>
 #include <ctype.h>
+#include <limits.h>
 
 // =============================================================================
 // CONFIGURATION CONSTANTS AND VALIDATION RANGES
@@ -24,14 +25,7 @@
 #define MIN_TIMEOUT 0
 #define MAX_TIMEOUT INT32_MAX
 #define MIN_KPM 0
-#define MAX_KPM 5000
-
-// =============================================================================
-// GLOBAL STATE FOR DEVICE MANAGEMENT
-// =============================================================================
-
-static char **config_keyboard_devices = NULL;
-static int config_num_devices = 0;
+#define MAX_KPM 10000
 
 // =============================================================================
 // CONFIGURATION VALIDATION MODULE
@@ -133,15 +127,6 @@ static void config_validate_time(config_t *config) {
     }
 }
 
-static void config_validate_positioning(config_t *config) {
-    assert(config);
-    // Validate cat positioning doesn't go off-screen
-    if (abs(config->cat_x_offset) > config->screen_width) {
-        BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)",
-                           config->cat_x_offset, config->screen_width);
-    }
-}
-
 static bongocat_error_t config_validate(config_t *config) {
     BONGOCAT_CHECK_NULL(config, BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -154,7 +139,6 @@ static bongocat_error_t config_validate(config_t *config) {
     config_validate_timing(config);
     config_validate_appearance(config);
     config_validate_enums(config);
-    config_validate_positioning(config);
     config_validate_time(config);
     config_validate_kpm(config);
     
@@ -166,39 +150,69 @@ static bongocat_error_t config_validate(config_t *config) {
 // =============================================================================
 
 static bongocat_error_t config_add_keyboard_device(config_t *config, const char *device_path) {
-    // Reallocate device array
-    config_keyboard_devices = realloc(config_keyboard_devices, 
-                                     (config_num_devices + 1) * sizeof(char*));
-    if (!config_keyboard_devices) {
-        BONGOCAT_LOG_ERROR("Failed to allocate memory for keyboard_devices");
+    BONGOCAT_CHECK_NULL(config, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(device_path, BONGOCAT_ERROR_INVALID_PARAM);
+
+    assert(config->num_keyboard_devices >= 0 && config->num_keyboard_devices < INT_MAX-1);
+    const int old_num_keyboard_devices = config->num_keyboard_devices;
+
+    // Allocate new array for device pointers
+    int new_keyboard_devices_size = old_num_keyboard_devices + 1;
+    char **new_keyboard_devices = BONGOCAT_MALLOC(new_keyboard_devices_size * sizeof(char *));
+    if (!new_keyboard_devices) {
+        BONGOCAT_LOG_ERROR("Failed to allocate memory for keyboard_devices array");
         return BONGOCAT_ERROR_MEMORY;
     }
-    
-    size_t path_len = strlen(device_path);
-    config_keyboard_devices[config_num_devices] = BONGOCAT_MALLOC(path_len + 1);
-    if (!config_keyboard_devices[config_num_devices]) {
-        BONGOCAT_LOG_ERROR("Failed to allocate memory for keyboard_device entry");
+
+    // Deep copy old strings into new array
+    for (int i = 0; i < old_num_keyboard_devices; i++) {
+        assert(config->keyboard_devices[i]);
+        new_keyboard_devices[i] = strdup(config->keyboard_devices[i]);
+        if (!new_keyboard_devices[i]) {
+            // Free already-allocated entries
+            for (int j = 0; j < i; ++j) {
+                BONGOCAT_FREE(new_keyboard_devices[j]);
+            }
+            BONGOCAT_FREE(new_keyboard_devices);
+            BONGOCAT_LOG_ERROR("Failed to copy keyboard device string");
+            return BONGOCAT_ERROR_MEMORY;
+        }
+    }
+
+    // Add new device path
+    new_keyboard_devices[old_num_keyboard_devices] = strdup(device_path);
+    if (!new_keyboard_devices[old_num_keyboard_devices]) {
+        for (int i = 0; i < old_num_keyboard_devices; i++) {
+            BONGOCAT_FREE(new_keyboard_devices[i]);
+        }
+        BONGOCAT_FREE(new_keyboard_devices);
+        BONGOCAT_LOG_ERROR("Failed to copy new keyboard device path");
         return BONGOCAT_ERROR_MEMORY;
     }
-    
-    strncpy(config_keyboard_devices[config_num_devices], device_path, path_len);
-    config_keyboard_devices[config_num_devices][path_len] = '\0';
-    config_num_devices++;
-    
-    config->keyboard_devices = config_keyboard_devices;
-    config->num_keyboard_devices = config_num_devices;
-    
+
+    // Free old list (deep free)
+    for (int i = 0; i < old_num_keyboard_devices; i++) {
+        BONGOCAT_SAFE_FREE(config->keyboard_devices[i]);
+    }
+    BONGOCAT_SAFE_FREE(config->keyboard_devices);
+
+    // move new list
+    config->keyboard_devices = new_keyboard_devices;
+    config->num_keyboard_devices = new_keyboard_devices_size;
+    new_keyboard_devices = NULL;
+    new_keyboard_devices_size = 0;
+
     return BONGOCAT_SUCCESS;
 }
 
-static void config_cleanup_devices(void) {
-    if (config_keyboard_devices) {
-        for (int i = 0; i < config_num_devices; i++) {
-            BONGOCAT_SAFE_FREE(config_keyboard_devices[i]);
+static void config_cleanup_devices(config_t *config) {
+    if (config->keyboard_devices) {
+        for (int i = 0; i < config->num_keyboard_devices; i++) {
+            BONGOCAT_SAFE_FREE(config->keyboard_devices[i]);
         }
-        BONGOCAT_SAFE_FREE(config_keyboard_devices);
-        config_keyboard_devices = NULL;
-        config_num_devices = 0;
+        BONGOCAT_SAFE_FREE(config->keyboard_devices);
+        config->keyboard_devices = NULL;
+        config->num_keyboard_devices = 0;
     }
 }
 
@@ -465,9 +479,8 @@ static bongocat_error_t config_parse_file(config_t *config, const char *config_f
 // DEFAULT CONFIGURATION MODULE
 // =============================================================================
 
-static void config_set_defaults(config_t *config) {
+void config_set_defaults(config_t *config) {
     *config = (config_t) {
-        .screen_width = DEFAULT_SCREEN_WIDTH,  // Will be updated by Wayland detection
         .bar_height = DEFAULT_BAR_HEIGHT,
         /*
         .asset_paths = {
@@ -507,7 +520,7 @@ static void config_set_defaults(config_t *config) {
 }
 
 static bongocat_error_t config_set_default_devices(config_t *config) {
-    if (config_num_devices == 0) {
+    if (!config->keyboard_devices) {
         static const char *default_device = "/dev/input/event4";
         return config_add_keyboard_device(config, default_device);
     }
@@ -524,7 +537,7 @@ static void config_finalize(config_t *config) {
 
 static void config_log_summary(const config_t *config) {
     BONGOCAT_LOG_DEBUG("Configuration loaded successfully");
-    BONGOCAT_LOG_DEBUG("  Screen: %dx%d", config->screen_width, config->bar_height);
+    BONGOCAT_LOG_DEBUG("  Bar: %dpx", config->bar_height);
     if (config->animation_index == BONGOCAT_ANIM_INDEX) {
         BONGOCAT_LOG_DEBUG("  Cat: %dx%d at offset (%d,%d)",
                           config->cat_height, (config->cat_height * 954) / 393,
@@ -548,9 +561,7 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path) {
     BONGOCAT_CHECK_NULL(config, BONGOCAT_ERROR_INVALID_PARAM);
     
     // Clear existing keyboard devices to prevent accumulation during reloads
-    config_cleanup_devices();
-    
-    // Initialize with defaults
+    config_cleanup_devices(config);
     config_set_defaults(config);
     
     // Set default keyboard device if none specified
@@ -584,12 +595,6 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path) {
 }
 
 void config_cleanup(config_t *config) {
-    config_cleanup_devices();
+    config_cleanup_devices(config);
     config_set_defaults(config);
-}
-
-int get_screen_width(void) {
-    // This function is now only used for initial config loading
-    // The actual screen width detection happens in wayland_init
-    return DEFAULT_SCREEN_WIDTH;
 }
