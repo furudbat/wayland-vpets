@@ -5,7 +5,7 @@ CC = gcc
 BUILD_TYPE ?= release
 
 # Base flags
-BASE_CFLAGS = -std=c11 -Iinclude -Ilib -Iprotocols
+BASE_CFLAGS = -std=c23 -Iinclude -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CFLAGS += -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
 BASE_CFLAGS += -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
 BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
@@ -23,10 +23,10 @@ RELEASE_CFLAGS += -fomit-frame-pointer -funroll-loops -finline-functions
 # Set flags based on build type
 ifeq ($(BUILD_TYPE),debug)
     CFLAGS = $(DEBUG_CFLAGS)
-    LDFLAGS = -lwayland-client -lm -lpthread $(DEBUG_LDFLAGS)
+    LDFLAGS = -lwayland-client -lm -lpthread -lrt $(DEBUG_LDFLAGS)
 else
     CFLAGS = $(RELEASE_CFLAGS)
-    LDFLAGS = -lwayland-client -lm -lpthread -flto
+    LDFLAGS = -lwayland-client -lm -lpthread -lrt -flto
 endif
 
 # Directories
@@ -38,13 +38,8 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Source files (including embedded assets which are now committed)
-SOURCES = $(shell find $(SRCDIR) -name "*.c")
+SOURCES = src/utils/memory.c src/utils/time.c src/utils/error.c src/core/main.c src/platform/wayland.c src/platform/input.c src/graphics/animation.c src/graphics/embedded_assets/bongocat.c src/graphics/embedded_assets/min_dm.c src/graphics/embedded_assets.c src/config/config_watcher.c src/config/config.c
 OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
-
-# Embedded assets (now committed to git, use embed_assets.sh manually when assets change)
-EMBED_SCRIPT = scripts/embed_assets.sh
-EMBEDDED_ASSETS_H = $(INCDIR)/graphics/embedded_assets.h
-EMBEDDED_ASSETS_C = $(SRCDIR)/graphics/embedded_assets.c
 
 # Protocol files
 C_PROTOCOL_SRC = $(PROTOCOLDIR)/zwlr-layer-shell-v1-protocol.c $(PROTOCOLDIR)/xdg-shell-protocol.c $(PROTOCOLDIR)/wlr-foreign-toplevel-management-v1-protocol.c
@@ -54,22 +49,19 @@ PROTOCOL_OBJECTS = $(C_PROTOCOL_SRC:$(PROTOCOLDIR)/%.c=$(OBJDIR)/%.o)
 # Target executable
 TARGET = $(BUILDDIR)/bongocat
 
-.PHONY: all clean protocols embed-assets
+.PHONY: all clean protocols
 
 all: protocols $(TARGET)
 
 # Generate protocol files first
 protocols: $(C_PROTOCOL_SRC) $(H_PROTOCOL_HDR)
 
-# Generate embedded assets (manual target - run when assets change)
-embed-assets: 
-	./$(EMBED_SCRIPT)
-
 # Create build directories
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
 	mkdir -p $(OBJDIR)/core
 	mkdir -p $(OBJDIR)/graphics
+	mkdir -p $(OBJDIR)/graphics/embedded_assets
 	mkdir -p $(OBJDIR)/platform
 	mkdir -p $(OBJDIR)/config
 	mkdir -p $(OBJDIR)/utils

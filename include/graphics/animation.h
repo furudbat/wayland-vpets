@@ -1,22 +1,20 @@
-#ifndef ANIMATION_H
-#define ANIMATION_H
+#ifndef BONGOCAT_ANIMATION_H
+#define BONGOCAT_ANIMATION_H
 
-#include "core/bongocat.h"
 #include "config/config.h"
 #include "utils/error.h"
+#include "platform/wayland.h"
+#include "platform/input_context.h"
+#include "context.h"
 
-extern unsigned char *anim_imgs[NUM_FRAMES];
-extern int anim_width[NUM_FRAMES], anim_height[NUM_FRAMES];
-extern int anim_index;
-extern pthread_mutex_t anim_lock;
-
-bongocat_error_t animation_init(config_t *config);
-bongocat_error_t animation_start(void);
-void animation_cleanup(void);
-void animation_trigger(void);
+bongocat_error_t animation_init(animation_context_t *ctx, const config_t *config);
+bongocat_error_t animation_start(animation_context_t *ctx, input_context_t *input, wayland_context_t *wayland);
+void animation_cleanup(animation_context_t *ctx);
+void animation_trigger(input_context_t *input);
+void animation_update_config(animation_context_t *ctx, const config_t *config);
 
 void blit_image_scaled(uint8_t *dest, int dest_w, int dest_h,
-                      unsigned char *src, int src_w, int src_h,
+                      const unsigned char *src, int src_w, int src_h,
                       int offset_x, int offset_y, int target_w, int target_h);
 
 void draw_rect(uint8_t *dest, int width, int height, int x, int y, 

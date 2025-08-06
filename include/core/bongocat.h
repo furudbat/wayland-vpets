@@ -1,34 +1,22 @@
-#ifndef BONGOCAT_H
-#define BONGOCAT_H
+#ifndef BONGOCAT_BONGOCAT_H
+#define BONGOCAT_BONGOCAT_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <stdint.h>
-#include <string.h>
-#include <unistd.h>
-#include <fcntl.h>
-#include <errno.h>
-#include <sys/mman.h>
-#include <sys/stat.h>
-#include <sys/time.h>
-#include <sys/ioctl.h>
 #include <pthread.h>
-#include <linux/input.h>
-#include <sys/inotify.h>
+#include <stdatomic.h>
+#include "utils/error.h"
 
+#ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200809L
-#include <wayland-client.h>
-
-#include "../lib/stb_image.h"
+#endif
 
 // Version
-#define BONGOCAT_VERSION "1.2.3"
+#define BONGOCAT_VERSION "1.3.0"
 
 // Common constants
-#define NUM_FRAMES 3
 #define DEFAULT_SCREEN_WIDTH 1920
 #define DEFAULT_BAR_HEIGHT 40
+#define RGBA_CHANNELS 4
+
 
 // Config watcher constants
 #define INOTIFY_EVENT_SIZE (sizeof(struct inotify_event))
@@ -38,16 +26,21 @@
 typedef struct {
     int inotify_fd;
     int watch_fd;
-    pthread_t watcher_thread;
-    bool watching;
     char *config_path;
-    void (*reload_callback)(const char *config_path);
-} ConfigWatcher;
+
+    // event file descriptor
+    int reload_efd;
+
+    pthread_t watcher_thread;
+    atomic_bool _running;
+} config_watcher_t;
+
+#define RELOAD_EVENT_BUF 8
 
 // Config watcher function declarations
-int config_watcher_init(ConfigWatcher *watcher, const char *config_path, void (*callback)(const char *));
-void config_watcher_start(ConfigWatcher *watcher);
-void config_watcher_stop(ConfigWatcher *watcher);
-void config_watcher_cleanup(ConfigWatcher *watcher);
+bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *config_path);
+void config_watcher_start(config_watcher_t *watcher);
+void config_watcher_stop(config_watcher_t *watcher);
+void config_watcher_cleanup(config_watcher_t *watcher);
 
 #endif // BONGOCAT_H

@@ -1,33 +1,46 @@
-#ifndef WAYLAND_H
-#define WAYLAND_H
+#ifndef BONGOCAT_WAYLAND_H
+#define BONGOCAT_WAYLAND_H
 
-#include "core/bongocat.h"
 #include "config/config.h"
 #include "utils/error.h"
-#include <signal.h>
+#include "graphics/context.h"
 #include "../protocols/zwlr-layer-shell-v1-client-protocol.h"
 #include "../protocols/xdg-shell-client-protocol.h"
+#include <signal.h>
+#include <wayland-client.h>
+#include <sys/types.h>
+
+typedef void (*config_reload_callback_t)();
 
 // Wayland globals
-extern struct wl_display *display;
-extern struct wl_compositor *compositor;
-extern struct wl_shm *shm;
-extern struct zwlr_layer_shell_v1 *layer_shell;
-extern struct xdg_wm_base *xdg_wm_base;
-extern struct wl_output *output;
-extern struct wl_surface *surface;
-extern struct wl_buffer *buffer;
-extern struct zwlr_layer_surface_v1 *layer_surface;
-extern uint8_t *pixels;
-extern bool configured;
-extern bool fullscreen_detected;
+typedef struct {
+    struct wl_display *display;
+    struct wl_compositor *compositor;
+    struct wl_shm *shm;
+    struct zwlr_layer_shell_v1 *layer_shell;
+    struct xdg_wm_base *xdg_wm_base;
+    struct wl_output *output;
+    struct wl_surface *surface;
+    struct wl_buffer *buffer;
+    struct zwlr_layer_surface_v1 *layer_surface;
+    uint8_t *pixels;        ///< @NOTE: variable can be shared between child process and parent (see mmap)
+    size_t pixels_size;
+    bool configured;
+    bool fullscreen_detected;
 
-bongocat_error_t wayland_init(config_t *config);
-bongocat_error_t wayland_run(volatile sig_atomic_t *running);
-void wayland_cleanup(void);
-void wayland_update_config(config_t *config);
-void draw_bar(void);
-int create_shm(int size);
+    // local copy from other thread, update after reload (shared memory)
+    config_t* _local_copy_config;
+    int _screen_width;
+
+    animation_context_t *_anim;
+} wayland_context_t;
+
+bongocat_error_t wayland_init(wayland_context_t* ctx, const config_t *config, animation_context_t* anim);
+bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *running, int signal_fd, config_watcher_t* config_watcher, config_reload_callback_t config_reload_callback);
+void wayland_cleanup(wayland_context_t *ctx);
+void wayland_update_config(wayland_context_t *ctx, const config_t *config, animation_context_t* anim);
+void draw_bar(wayland_context_t *ctx);
+int create_shm(off_t size);
 int wayland_get_screen_width(void);
 const char* wayland_get_current_layer_name(void);
 

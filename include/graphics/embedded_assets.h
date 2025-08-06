@@ -1,16 +1,47 @@
-#ifndef EMBEDDED_ASSETS_H
-#define EMBEDDED_ASSETS_H
+#ifndef BONGOCAT_EMBEDDED_ASSETS_H
+#define BONGOCAT_EMBEDDED_ASSETS_H
 
-#include <stddef.h>
+#include "embedded_assets/bongocat.h"
 
-// Embedded asset data
-extern const unsigned char bongo_cat_both_up_png[];
-extern const size_t bongo_cat_both_up_png_size;
+#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
+#include "embedded_assets/dm.h"
+#else
+//#define DM_ANIM_COUNT 0
+#include "embedded_assets/min_dm.h"
+#endif
+#define DM_ANIM_START_INDEX 0
 
-extern const unsigned char bongo_cat_left_down_png[];
-extern const size_t bongo_cat_left_down_png_size;
+#ifdef FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS
+#include "embedded_assets/dm20.h"
+#else
+#define DM20_ANIM_COUNT 0
+#endif
+#define DM20_ANIM_START_INDEX (DM_ANIM_START_INDEX+DM_ANIM_COUNT)
 
-extern const unsigned char bongo_cat_right_down_png[];
-extern const size_t bongo_cat_right_down_png_size;
+#ifdef FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS
+#include "embedded_assets/dmc.h"
+#else
+#define DMC_ANIM_COUNT 0
+#endif
+#define DMC_ANIM_START_INDEX (DM20_ANIM_START_INDEX+DM20_ANIM_COUNT)
+
+#ifdef FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS
+#include "embedded_assets/dmx.h"
+#else
+#define DMX_ANIM_COUNT 0
+#endif
+#define DMX_ANIM_START_INDEX (DMC_ANIM_START_INDEX+DMC_ANIM_COUNT)
+
+#ifdef FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS
+#include "embedded_assets/pen20.h"
+#else
+#define PEN20_ANIM_COUNT 0
+#endif
+#define DMX_ANIM_START_INDEX (DMC_ANIM_START_INDEX+DMC_ANIM_COUNT)
+
+#define COUNT_DIGIMON_ANIMATIONS (DM_ANIM_COUNT+DM20_ANIM_COUNT+DMC_ANIM_COUNT+DMX_ANIM_COUNT+PEN20_ANIM_COUNT)
+
+#define TOTAL_DIGIMON_ANIMATIONS COUNT_DIGIMON_ANIMATIONS
+#define TOTAL_ANIMATIONS (1+COUNT_DIGIMON_ANIMATIONS)
 
 #endif // EMBEDDED_ASSETS_H
