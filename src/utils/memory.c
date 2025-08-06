@@ -8,7 +8,7 @@ static memory_stats_t g_memory_stats = {0};
 static pthread_mutex_t memory_mutex = PTHREAD_MUTEX_INITIALIZER;
 #endif
 
-#ifdef DEBUG
+#ifndef NDEBUG
 typedef struct allocation_record {
     void *ptr;
     size_t size;
@@ -180,11 +180,11 @@ void memory_print_stats(void) {
     bongocat_log_info("  Peak allocated: %zu bytes (%.2f MB)", stats.peak_allocated, stats.peak_allocated / (1024.0 * 1024.0));
     bongocat_log_info("  Allocations: %zu", stats.allocation_count);
     bongocat_log_info("  Frees: %zu", stats.free_count);
-    bongocat_log_info("  Potential leaks: %zu", stats.allocation_count - stats.free_count);
+    bongocat_log_info("  Potential leaks: %d", (int)stats.allocation_count - (int)stats.free_count);
 }
 #endif
 
-#ifdef DEBUG
+#ifndef NDEBUG
 void* bongocat_malloc_debug(size_t size, const char *file, int line) {
     void *ptr = bongocat_malloc(size);
     if (!ptr) return NULL;
@@ -203,6 +203,7 @@ void* bongocat_malloc_debug(size_t size, const char *file, int line) {
 }
 
 void bongocat_free_debug(void *ptr, const char *file, int line) {
+    (void)file; (void)line;
     if (!ptr) return;
     
     allocation_record_t **current = &allocations;

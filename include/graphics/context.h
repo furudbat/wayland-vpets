@@ -66,7 +66,7 @@ static_assert(sizeof(animation_frame_t[MAX_NUM_FRAMES]) == sizeof(digimon_animat
 
 typedef struct {
     // Animation frame data
-    animation_t anims[TOTAL_ANIMATIONS];
+    animation_t anims[ANIMS_COUNT];
     int anim_index;
     int anim_frame_index;
     pthread_mutex_t anim_lock;

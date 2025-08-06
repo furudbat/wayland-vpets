@@ -39,7 +39,7 @@ void memory_print_stats(void);
 #endif
 
 // Memory leak detection (debug builds)
-#ifdef DEBUG
+#ifndef NDEBUG
 #define BONGOCAT_MALLOC(size) bongocat_malloc_debug(size, __FILE__, __LINE__)
 #define BONGOCAT_FREE(ptr) bongocat_free_debug(ptr, __FILE__, __LINE__)
 void* bongocat_malloc_debug(size_t size, const char *file, int line);
@@ -49,6 +49,14 @@ void memory_leak_check(void);
 #define BONGOCAT_MALLOC(size) bongocat_malloc(size)
 #define BONGOCAT_FREE(ptr) bongocat_free(ptr)
 #endif
+
+#define BONGOCAT_SAFE_FREE(ptr) \
+    do { \
+        if (ptr) { \
+            BONGOCAT_FREE(ptr); \
+            ptr = NULL; \
+        } \
+    } while(0)
 
 #define LEN_ARRAY(x)  (sizeof(x) / sizeof((x)[0]))
 

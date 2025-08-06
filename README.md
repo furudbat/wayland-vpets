@@ -323,7 +323,7 @@ bongocat-find-devices --help
 
 - **CPU:** Any modern x86_64 or ARM64 processor
 - **RAM:** ~9MB runtime usage
-- **Storage:** ~320K executable size
+- **Storage:** ~330K executable size
 - **Compositor:** Wayland with layer shell protocol support
 
 ### Performance Metrics (v1.2.3)
@@ -331,9 +331,9 @@ bongocat-find-devices --help
 - **Input Latency:** <1ms with batch processing
 - **CPU Usage:** <1% on modern systems
 - **Device Monitoring:** Adaptive 5-30 second intervals
-- **Memory:** Optimized with leak detection, _~9MB runtime usage (2 process with ~4.5MB usage each)_
+- **Memory:** Optimized with leak detection
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
-- **Binary Size:** ~320K executable size, _~300K build without logging_
+- **Binary Size:** ~330K executable size, _~300K only with bongocat_
 
 ### Tested Compositors
 

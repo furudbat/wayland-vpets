@@ -4,6 +4,8 @@ CC = gcc
 # Build type (debug or release)
 BUILD_TYPE ?= release
 
+ONLY_BONGOCAT ?= 0
+
 # Base flags
 BASE_CFLAGS = -std=c23 -Iinclude -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CFLAGS += -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
@@ -11,6 +13,10 @@ BASE_CFLAGS += -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
 BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
 BASE_CFLAGS += -Wjump-misses-init -Wdouble-promotion -Wshadow
 BASE_CFLAGS += -fstack-protector-strong -D_FORTIFY_SOURCE=2
+
+ifeq ($(ONLY_BONGOCAT),1)
+    BASE_CFLAGS += -DFEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+endif
 
 # Debug flags
 DEBUG_CFLAGS = $(BASE_CFLAGS) -g3 -O0 -DDEBUG -fsanitize=address -fsanitize=undefined
@@ -38,7 +44,11 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Source files (including embedded assets which are now committed)
-SOURCES = src/utils/memory.c src/utils/time.c src/utils/error.c src/core/main.c src/platform/wayland.c src/platform/input.c src/graphics/animation.c src/graphics/embedded_assets/bongocat.c src/graphics/embedded_assets/min_dm.c src/graphics/embedded_assets.c src/config/config_watcher.c src/config/config.c
+SOURCES = src/utils/memory.c src/utils/time.c src/utils/error.c src/core/main.c src/platform/wayland.c src/platform/input.c src/graphics/animation.c src/graphics/embedded_assets/bongocat.c src/graphics/embedded_assets.c src/config/config_watcher.c src/config/config.c
+ifeq ($(ONLY_BONGOCAT),0)
+    SOURCES += src/graphics/embedded_assets/min_dm.c
+endif
+
 OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 
 # Protocol files
