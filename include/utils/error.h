@@ -36,14 +36,6 @@ typedef enum {
         } \
     } while(0)
 
-#define BONGOCAT_SAFE_FREE(ptr) \
-    do { \
-        if (ptr) { \
-            free(ptr); \
-            ptr = NULL; \
-        } \
-    } while(0)
-
 #ifndef BONGOCAT_DISABLE_LOGGER
 // Logging functions
 void bongocat_log_error(const char *format, ...);

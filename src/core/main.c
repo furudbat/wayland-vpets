@@ -203,7 +203,10 @@ static void config_reload_callback() {
     
     // If successful, update the global config
     pthread_mutex_lock(&g_config_reload_mutex);
+    // move old config (make g_config 'available' for new_config)
     config_t old_config = g_config;
+    g_config.keyboard_devices = NULL;
+    g_config.num_keyboard_devices = 0;
     // move new_config into g_config
     memcpy(&g_config, &new_config, sizeof(config_t));
     new_config.keyboard_devices = NULL;
@@ -345,7 +348,7 @@ static bongocat_error_t system_initialize_components(void) {
     }
 #endif
 
-#ifdef DEBUG
+#ifndef NDEBUG
     memory_leak_check();
 #endif
     

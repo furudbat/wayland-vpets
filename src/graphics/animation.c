@@ -36,6 +36,7 @@
 #define BONGOCAT_FRAME_LEFT_DOWN 2
 #define BONGOCAT_FRAME_RIGHT_DOWN 3
 
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 // Digimon (Sprite Sheet) Frames
 #define DIGIMON_FRAME_IDLE1 0
 #define DIGIMON_FRAME_IDLE2 1
@@ -57,6 +58,15 @@
 #define DIGIMON_FRAME_MOVEMENT2 14
 
 #define HAPPY_CHANCE_PERCENT 60
+#endif
+
+static int rand_minmax(int min, int max) {
+    return rand() % (max - min + 1) + min;
+}
+
+// =============================================================================
+// DRAWING OPERATIONS MODULE
+// =============================================================================
 
 static const animation_frame_t empty_sprite_sheet_frame = {
     .width = 0,
@@ -64,10 +74,6 @@ static const animation_frame_t empty_sprite_sheet_frame = {
     .channels = RGBA_CHANNELS,
     .pixels = NULL,
 };
-
-// =============================================================================
-// DRAWING OPERATIONS MODULE
-// =============================================================================
 
 static bool drawing_is_pixel_in_bounds(int x, int y, int width, int height) {
     return (x >= 0 && y >= 0 && x < width && y < height);
@@ -316,8 +322,11 @@ typedef struct {
 } animation_state_t;
 
 static int anim_get_random_active_frame(animation_context_t* ctx, const input_context_t* input) {
+#ifdef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    return rand_minmax(1, 2); // Frame 1 or 2 (active frames)
+#else
     if (ctx->anim_index == BONGOCAT_ANIM_INDEX) {
-        return (rand() % 2) + 1; // Frame 1 or 2 (active frames)
+        return rand_minmax(1, 2); // Frame 1 or 2 (active frames)
     }
 
     const int current_frame = ctx->anim_frame_index;
@@ -366,7 +375,8 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
         return DIGIMON_FRAME_IDLE1;
     }
 
-    return rand() % 2; // Frame 0 or 1 (active frames)
+    return rand_minmax(0, 1); // Frame 0 or 1 (active frames)
+#endif
 }
 
 static void anim_trigger_frame_change(animation_context_t* ctx,
@@ -447,6 +457,7 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
                 return;
             }
 
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
             // assume it's a digimon
             if (ctx->anims[ctx->anim_index].digimon.sleep1.pixels) {
                 ctx->anim_frame_index = DIGIMON_FRAME_SLEEP1;
@@ -457,6 +468,7 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
                 ctx->anim_frame_index = DIGIMON_FRAME_DOWN1;
                 return;
             }
+#endif
         }
     }
 
@@ -469,11 +481,13 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
                 return;
             }
 
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
             // assume it's a digimon
             if (ctx->anims[ctx->anim_index].digimon.down1.pixels) {
                 ctx->anim_frame_index = DIGIMON_FRAME_DOWN1;
                 return;
             }
+#endif
         }
     }
 
@@ -578,7 +592,8 @@ static embedded_image_t* init_bongocat_embedded_images(void) {
     return bongocat_embedded_images;
 }
 
-#define DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT TOTAL_ANIMATIONS
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#define DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT (1+DIGIMON_ANIMATIONS_COUNT)
 static embedded_image_t* init_digimon_embedded_images(void) {
     static embedded_image_t digimon_sprite_sheet_embedded_images[DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT];
 
@@ -595,6 +610,7 @@ static embedded_image_t* init_digimon_embedded_images(void) {
 
     return digimon_sprite_sheet_embedded_images;
 }
+#endif
 
 // clean up image data loaded with stbi
 static void anim_cleanup_loaded_images(animation_frame_t *anim_imgs, size_t count) {
@@ -676,6 +692,7 @@ static int anim_load_sprite_sheet(const config_t *config, animation_frame_t *ani
     return sprite_sheet_count;
 }
 
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 static bongocat_error_t init_digimon_anim(animation_context_t* ctx, int anim_index, const embedded_image_t* sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
     const int sprite_sheet_count = anim_load_sprite_sheet(ctx->_local_copy_config, ctx->anims[anim_index].frames, MAX_NUM_FRAMES, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
     if (sprite_sheet_count < 0) {
@@ -686,6 +703,7 @@ static bongocat_error_t init_digimon_anim(animation_context_t* ctx, int anim_ind
 
     return BONGOCAT_SUCCESS;
 }
+#endif
 
 // =============================================================================
 // PUBLIC API IMPLEMENTATION
@@ -713,7 +731,7 @@ bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config
     ctx->_animation_running = false;
 
     // empty animations
-    for (size_t i = 0;i < TOTAL_ANIMATIONS; i++) {
+    for (size_t i = 0;i < ANIMS_COUNT; i++) {
         for (size_t j = 0; j < MAX_DIGIMON_FRAMES; j++) {
             ctx->anims[i].frames[j] = empty_sprite_sheet_frame;
         }
@@ -721,8 +739,6 @@ bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config
     
     // Initialize embedded images data
     const embedded_image_t* bongocat_embedded_images = init_bongocat_embedded_images();
-    const embedded_image_t* digimon_sprite_sheet_embedded_images = init_digimon_embedded_images();
-    
     const int result = anim_load_embedded_images(ctx->anims[BONGOCAT_ANIM_INDEX].frames, MAX_NUM_FRAMES,
                                                  bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
     if (result != 0) {
@@ -731,12 +747,16 @@ bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config
         return result;
     }
 
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    const embedded_image_t* digimon_sprite_sheet_embedded_images = init_digimon_embedded_images();
+
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
 
 #else
     (void)init_digimon_anim;
     //init_digimon_anim(ctx, DM_AGUMON_ANIM_INDEX, &digimon_sprite_sheet_embedded_images[DM_AGUMON_ANIM_INDEX], DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
     #include "embedded_assets/min_dm_init_digimon_anim.c.inl"
+#endif
 #endif
     
     BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets");
@@ -787,11 +807,14 @@ void animation_cleanup(animation_context_t* ctx) {
     // Cleanup loaded images
     // free bongocat images loaded from stbi
     anim_cleanup_loaded_images(ctx->anims[BONGOCAT_ANIM_INDEX].frames, MAX_NUM_FRAMES);
-    // free allocated pixels (copied pixels)
+
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    // free allocated pixels (copied pixels), rest of animations
     assert(BONGOCAT_ANIM_INDEX == 0);
-    for (size_t i = 1;i < TOTAL_ANIMATIONS; i++) {
+    for (size_t i = 1;i < ANIMS_COUNT; i++) {
         anim_free_pixels(ctx->anims[i].frames, MAX_NUM_FRAMES);
     }
+#endif
     
     // Cleanup mutex
     pthread_mutex_destroy(&ctx->anim_lock);
@@ -814,6 +837,12 @@ void animation_update_config(animation_context_t *ctx, const config_t *config) {
     assert(config);
     assert(ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED);
 
+#ifndef NDEBUG
+    if (config->animation_index <= 0 || config->animation_index >= ANIMS_COUNT) {
+        BONGOCAT_LOG_WARNING("Invalid animation index %d", config->animation_index);
+    }
+#endif
+
     *ctx->_local_copy_config = *config;
-    ctx->anim_index = config->animation_index;
+    ctx->anim_index = config->animation_index % ANIMS_COUNT;
 }
