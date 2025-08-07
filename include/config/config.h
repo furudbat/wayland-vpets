@@ -13,11 +13,15 @@ typedef enum {
     POSITION_BOTTOM_RIGHT,
     */
 } overlay_position_t;
+#define POSITION_TOP_STR "top"
+#define POSITION_BOTTOM_STR "bottom"
 
 typedef enum {
     LAYER_TOP = 0,
     LAYER_OVERLAY = 1
 } layer_type_t;
+#define LAYER_TOP_STR "top"
+#define LAYER_OVERLAY_STR "overlay"
 
 typedef struct {
     int hour;

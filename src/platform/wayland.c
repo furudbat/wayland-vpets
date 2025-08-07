@@ -25,6 +25,14 @@
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
+#define LINE_BUF 512
+#define SWAY_BUF 4096
+
+#define CREATE_SHM_MAX_ATTEMPTS 100
+#define CHECK_INTERVAL_MS 100
+
+#define WAYLAND_LAYER_NAME "OVERLAY"
+
 // =============================================================================
 // SCREEN DIMENSION MANAGEMENT
 // =============================================================================
@@ -61,6 +69,7 @@ static wayland_context_t* g_wayland_context = NULL;
 // =============================================================================
 
 static void fs_update_state(bool new_state) {
+    assert(g_wayland_context);
     if (new_state != fs_detector.has_fullscreen_toplevel) {
         fs_detector.has_fullscreen_toplevel = new_state;
         g_wayland_context->fullscreen_detected = new_state;
@@ -80,7 +89,7 @@ static bool fs_check_compositor_fallback(void) {
     // Try Hyprland first
     FILE *fp = popen("hyprctl activewindow 2>/dev/null", "r");
     if (fp) {
-        char line[512];
+        char line[LINE_BUF] = {0};
         bool is_fullscreen = false;
         
         while (fgets(line, sizeof(line), fp)) {
@@ -103,7 +112,7 @@ static bool fs_check_compositor_fallback(void) {
     // Try Sway as fallback
     fp = popen("swaymsg -t get_tree 2>/dev/null", "r");
     if (fp) {
-        char sway_buffer[4096];
+        char sway_buffer[SWAY_BUF] = {0};
         bool is_fullscreen = false;
         
         while (fgets(sway_buffer, sizeof(sway_buffer), fp)) {
@@ -131,10 +140,10 @@ static bool fs_check_status(void) {
 // Foreign toplevel protocol event handlers
 static void fs_handle_toplevel_state(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle,
                                      struct wl_array *state) {
-    (void)data; (void)handle;
+    UNUSED(data); UNUSED(handle);
     
     bool is_fullscreen = false;
-    uint32_t *state_ptr;
+    uint32_t *state_ptr = NULL;
     
     wl_array_for_each(state_ptr, state) {
         if (*state_ptr == ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_FULLSCREEN) {
@@ -147,33 +156,33 @@ static void fs_handle_toplevel_state(void *data, struct zwlr_foreign_toplevel_ha
 }
 
 static void fs_handle_toplevel_closed(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle) {
-    (void)data;
+    UNUSED(data);
     zwlr_foreign_toplevel_handle_v1_destroy(handle);
 }
 
 // Minimal event handlers for unused events
 static void fs_handle_title(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle, const char *title) {
-    (void)data; (void)handle; (void)title;
+    UNUSED(data); UNUSED(handle); UNUSED(title);
 }
 
 static void fs_handle_app_id(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle, const char *app_id) {
-    (void)data; (void)handle; (void)app_id;
+    UNUSED(data); UNUSED(handle); UNUSED(app_id);
 }
 
 static void fs_handle_output_enter(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle, struct wl_output *output) {
-    (void)data; (void)handle; (void)output;
+    UNUSED(data); UNUSED(handle); UNUSED(output);
 }
 
 static void fs_handle_output_leave(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle, struct wl_output *output) {
-    (void)data; (void)handle; (void)output;
+    UNUSED(data); UNUSED(handle); UNUSED(output);
 }
 
 static void fs_handle_done(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle) {
-    (void)data; (void)handle;
+    UNUSED(data); UNUSED(handle);
 }
 
 static void fs_handle_parent(void *data, struct zwlr_foreign_toplevel_handle_v1 *handle, struct zwlr_foreign_toplevel_handle_v1 *parent) {
-    (void)data; (void)handle; (void)parent;
+    UNUSED(data); UNUSED(handle); UNUSED(parent);
 }
 
 static const struct zwlr_foreign_toplevel_handle_v1_listener fs_toplevel_listener = {
@@ -189,14 +198,14 @@ static const struct zwlr_foreign_toplevel_handle_v1_listener fs_toplevel_listene
 
 static void fs_handle_manager_toplevel(void *data, struct zwlr_foreign_toplevel_manager_v1 *manager, 
                                       struct zwlr_foreign_toplevel_handle_v1 *toplevel) {
-    (void)data; (void)manager;
+    UNUSED(data); UNUSED(manager);
     
     zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener, NULL);
     BONGOCAT_LOG_DEBUG("New toplevel registered for fullscreen monitoring");
 }
 
 static void fs_handle_manager_finished(void *data, struct zwlr_foreign_toplevel_manager_v1 *manager) {
-    (void)data;
+    UNUSED(data);
     BONGOCAT_LOG_INFO("Foreign toplevel manager finished");
     zwlr_foreign_toplevel_manager_v1_destroy(manager);
     fs_detector.manager = NULL;
@@ -239,12 +248,16 @@ static void screen_calculate_dimensions(void) {
 // =============================================================================
 
 int create_shm(off_t size) {
-    char name[] = "/bar-shm-XXXXXX";
+    const size_t name_suffix_len = 8;
+    const size_t name_prefix_len = 9;
+    char name[] = "/bar-shm-XXXXXXXX";
+    assert((name_prefix_len + name_suffix_len) == strlen(name));
+    const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
     int fd;
 
-    for (int i = 0; i < 100; i++) {
-        for (int j = 0; j < 6; j++) {
-            name[9 + j] = 'A' + (rand() % 26);
+    for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
+        for (size_t j = 0; j < name_suffix_len; j++) {
+            name[name_prefix_len + j] = charset[rand() % (sizeof(charset) - 1)];
         }
         fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
         if (fd >= 0) {
@@ -276,10 +289,10 @@ void draw_bar(wayland_context_t* ctx) {
     
     // Clear buffer with transparency
     for (int i = 0; i < ctx->_screen_width * current_config->bar_height * RGBA_CHANNELS; i += RGBA_CHANNELS) {
-        ctx->pixels[i] = 0;       // B
-        ctx->pixels[i + 1] = 0;   // G
-        ctx->pixels[i + 2] = 0;   // R
-        ctx->pixels[i + 3] = effective_opacity; // A
+        ctx->pixels[i] = 0;                      // B
+        ctx->pixels[i + 1] = 0;                  // G
+        ctx->pixels[i + 2] = 0;                  // R
+        ctx->pixels[i + 3] = effective_opacity;  // A
     }
 
     // Draw cat if visible
@@ -294,7 +307,7 @@ void draw_bar(wayland_context_t* ctx) {
             if (ctx->_anim->anim_index == BONGOCAT_ANIM_INDEX) {
                 // @NOTE: assume ctx->_current_config is the same as anim->_current_config
                 const int cat_height = current_config->cat_height;
-                const int cat_width = (cat_height * 779) / 320;
+                const int cat_width = (cat_height * BONGOCAT_IMAGE_WIDTH) / BONGOCAT_IMAGE_HEIGHT; // keep ratio
                 const int cat_x = (ctx->_screen_width - cat_width) / 2 + current_config->cat_x_offset;
                 const int cat_y = (current_config->bar_height - cat_height) / 2 + current_config->cat_y_offset;
 
@@ -307,7 +320,7 @@ void draw_bar(wayland_context_t* ctx) {
             } else {
                 // draw Digimon
                 const int cat_height = current_config->cat_height;
-                const int cat_width = frame_width * (float)frame_width/current_config->cat_height;
+                const int cat_width = (frame_height * frame_width) / (float)current_config->cat_height;
                 const int cat_x = (ctx->_screen_width - cat_width) / 2 + current_config->cat_x_offset;
                 const int cat_y = (current_config->bar_height - cat_height) / 2 + current_config->cat_y_offset;
 
@@ -336,9 +349,10 @@ void draw_bar(wayland_context_t* ctx) {
 // WAYLAND EVENT HANDLERS
 // =============================================================================
 
-static void layer_surface_configure(void *data __attribute__((unused)),
+static void layer_surface_configure(void *data ,
                                    struct zwlr_layer_surface_v1 *ls,
                                    uint32_t serial, uint32_t w, uint32_t h) {
+    UNUSED(data);
     assert(g_wayland_context);
     BONGOCAT_LOG_DEBUG("Layer surface configured: %dx%d", w, h);
     zwlr_layer_surface_v1_ack_configure(ls, serial);
@@ -351,8 +365,9 @@ static struct zwlr_layer_surface_v1_listener layer_listener = {
     .closed = NULL,
 };
 
-static void xdg_wm_base_ping(void *data __attribute__((unused)), 
+static void xdg_wm_base_ping(void *data , 
                             struct xdg_wm_base *wm_base, uint32_t serial) {
+    UNUSED(data);
     xdg_wm_base_pong(wm_base, serial);
 }
 
@@ -360,26 +375,35 @@ static struct xdg_wm_base_listener xdg_wm_base_listener = {
     .ping = xdg_wm_base_ping,
 };
 
-static void output_geometry(void *data __attribute__((unused)),
-                           struct wl_output *wl_output __attribute__((unused)),
-                           int32_t x __attribute__((unused)),
-                           int32_t y __attribute__((unused)),
-                           int32_t physical_width __attribute__((unused)),
-                           int32_t physical_height __attribute__((unused)),
-                           int32_t subpixel __attribute__((unused)),
-                           const char *make __attribute__((unused)),
-                           const char *model __attribute__((unused)),
+static void output_geometry(void *data,
+                           struct wl_output *wl_output,
+                           int32_t x,
+                           int32_t y,
+                           int32_t physical_width,
+                           int32_t physical_height,
+                           int32_t subpixel,
+                           const char *make,
+                           const char *model,
                            int32_t transform) {
+    UNUSED(data); UNUSED(wl_output);
+    UNUSED(x); UNUSED(y);
+    UNUSED(physical_width); UNUSED(physical_height);
+    UNUSED(subpixel);
+    UNUSED(make); UNUSED(model);
+
     screen_info.transform = transform;
     screen_info.geometry_received = true;
     BONGOCAT_LOG_DEBUG("Output transform: %d", transform);
     screen_calculate_dimensions();
 }
 
-static void output_mode(void *data __attribute__((unused)),
-                       struct wl_output *wl_output __attribute__((unused)),
+static void output_mode(void *data ,
+                       struct wl_output *wl_output ,
                        uint32_t flags, int32_t width, int32_t height,
-                       int32_t refresh __attribute__((unused))) {
+                       int32_t refresh) {
+    UNUSED(data); UNUSED(wl_output);
+    UNUSED(refresh);
+
     if (flags & WL_OUTPUT_MODE_CURRENT) {
         screen_info.raw_width = width;
         screen_info.raw_height = height;
@@ -389,15 +413,17 @@ static void output_mode(void *data __attribute__((unused)),
     }
 }
 
-static void output_done(void *data __attribute__((unused)),
-                       struct wl_output *wl_output __attribute__((unused))) {
+static void output_done(void *data,
+                       struct wl_output *wl_output) {
+    UNUSED(data); UNUSED(wl_output);
     screen_calculate_dimensions();
     BONGOCAT_LOG_DEBUG("Output configuration complete");
 }
 
-static void output_scale(void *data __attribute__((unused)),
-                        struct wl_output *wl_output __attribute__((unused)),
-                        int32_t factor __attribute__((unused))) {
+static void output_scale(void *data,
+                        struct wl_output *wl_output,
+                        int32_t factor) {
+    UNUSED(data); UNUSED(wl_output); UNUSED(factor);
     // Scale not needed for our use case
 }
 
@@ -412,9 +438,11 @@ static struct wl_output_listener output_listener = {
 // WAYLAND PROTOCOL REGISTRY
 // =============================================================================
 
-static void registry_global(void *data __attribute__((unused)), struct wl_registry *reg, 
-                           uint32_t name, const char *iface, uint32_t ver __attribute__((unused))) {
+static void registry_global(void *data , struct wl_registry *reg, 
+                           uint32_t name, const char *iface, uint32_t ver) {
+    UNUSED(data); UNUSED(ver);
     assert(g_wayland_context);
+
     if (strcmp(iface, wl_compositor_interface.name) == 0) {
         g_wayland_context->compositor = (struct wl_compositor *)wl_registry_bind(reg, name, &wl_compositor_interface, 4);
     } else if (strcmp(iface, wl_shm_interface.name) == 0) {
@@ -441,9 +469,11 @@ static void registry_global(void *data __attribute__((unused)), struct wl_regist
     }
 }
 
-static void registry_remove(void *data __attribute__((unused)),
-                           struct wl_registry *registry __attribute__((unused)),
-                           uint32_t name __attribute__((unused))) {}
+static void registry_remove(void *data,
+                           struct wl_registry *registry,
+                           uint32_t name ) {
+    UNUSED(data); UNUSED(registry); UNUSED(name);
+}
 
 static struct wl_registry_listener reg_listener = {
     .global = registry_global,
@@ -457,6 +487,9 @@ static struct wl_registry_listener reg_listener = {
 static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx) {
     BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
 
+    if (g_wayland_context && g_wayland_context != ctx)  {
+        BONGOCAT_LOG_WARNING("Switch wayland context, context was already setup?");
+    }
     g_wayland_context = ctx;
     // read-only config
     //const config_t* const current_config = ctx->_local_copy_config;
@@ -660,7 +693,6 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
     assert(ctx == g_wayland_context);
 
     BONGOCAT_LOG_INFO("Starting Wayland event loop");
-    const int check_interval_ms = 100;
 
     *running = 1;
     while (*running && ctx->display) {
@@ -670,7 +702,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
         long elapsed_ms = (now.tv_sec - fs_detector.last_check.tv_sec) * 1000 + 
                          (now.tv_usec - fs_detector.last_check.tv_usec) / 1000;
         
-        if (elapsed_ms >= check_interval_ms) {
+        if (elapsed_ms >= CHECK_INTERVAL_MS) {
             bool new_state = fs_check_status();
             if (new_state != ctx->fullscreen_detected) {
                 fs_update_state(new_state);
@@ -679,8 +711,8 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
         }
 
         // Handle Wayland events
-        const size_t fds_signals = 0;
-        const size_t fds_config_reload = 1;
+        const size_t fds_signals_index = 0;
+        const size_t fds_config_reload_index = 1;
         const size_t fds_wayland_index = 2;
         const int fds_count = 3;
         struct pollfd fds[3] = {
@@ -703,9 +735,9 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
         const int poll_result = poll(fds, fds_count, 100);
         if (poll_result > 0) {
             // signal events
-            if (fds[fds_signals].revents & POLLIN) {
+            if (fds[fds_signals_index].revents & POLLIN) {
                 struct signalfd_siginfo fdsi;
-                ssize_t s = read(fds[fds_signals].fd, &fdsi, sizeof(fdsi));
+                ssize_t s = read(fds[fds_signals_index].fd, &fdsi, sizeof(fdsi));
                 if (s != sizeof(fdsi)) {
                     BONGOCAT_LOG_ERROR("Failed to read signal fd");
                 } else {
@@ -737,7 +769,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
             }
 
             // reload config event
-            if (fds[fds_config_reload].revents & POLLIN && !config_reloaded) {
+            if (fds[fds_config_reload_index].revents & POLLIN && !config_reloaded) {
                 BONGOCAT_LOG_DEBUG("Receive reload event");
                 char buf[RELOAD_EVENT_BUF];
                 if (read(config_watcher->reload_efd, buf, sizeof(buf)) < 0) {
@@ -874,5 +906,5 @@ void wayland_cleanup(wayland_context_t* ctx) {
 }
 
 const char* wayland_get_current_layer_name(void) {
-    return "OVERLAY";
+    return WAYLAND_LAYER_NAME;
 }

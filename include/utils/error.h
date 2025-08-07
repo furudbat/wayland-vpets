@@ -42,6 +42,7 @@ void bongocat_log_error(const char *format, ...);
 void bongocat_log_warning(const char *format, ...);
 void bongocat_log_info(const char *format, ...);
 void bongocat_log_debug(const char *format, ...);
+void bongocat_log_verbose(const char *format, ...);
 
 #endif
 
@@ -53,6 +54,7 @@ const char* bongocat_error_string(bongocat_error_t error);
 // 1 = Warning
 // 2 = Info
 // 3 = Debug
+// 3 = Verbose
 #ifndef BONGOCAT_LOG_LEVEL
 #define BONGOCAT_LOG_LEVEL 3
 #endif
@@ -81,5 +83,12 @@ const char* bongocat_error_string(bongocat_error_t error);
 #define BONGOCAT_LOG_DEBUG(format, ...) ((void)0)
 #endif
 
+#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 4
+#define BONGOCAT_LOG_VERBOSE(format, ...) bongocat_log_verbose(format, ##__VA_ARGS__)
+#else
+#define BONGOCAT_LOG_VERBOSE(format, ...) ((void)0)
+#endif
+
+#define UNUSED(x) (void)(x)
 
 #endif // ERROR_H

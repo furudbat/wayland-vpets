@@ -33,6 +33,12 @@ static wayland_context_t g_wayland_ctx = {0};
 static pthread_mutex_t g_config_reload_mutex = PTHREAD_MUTEX_INITIALIZER;
 static const char *g_signal_watch_path = "";
 
+#define PID_STR_BUF 64
+
+#define WAIT_FOR_SHUTDOWN_MS 5000
+#define SLEEP_WAIT_FOR_SHUTDOWN_MS 100
+static_assert(SLEEP_WAIT_FOR_SHUTDOWN_MS > 0);
+
 // =============================================================================
 // COMMAND LINE ARGUMENTS STRUCTURE
 // =============================================================================
@@ -68,7 +74,7 @@ static int process_create_pid_file(void) {
         return -1;
     }
     
-    char pid_str[32] = {0};
+    char pid_str[PID_STR_BUF] = {0};
     snprintf(pid_str, sizeof(pid_str), "%d\n", getpid());
     if (write(fd, pid_str, strlen(pid_str)) < 0) {
         BONGOCAT_LOG_ERROR("Failed to write PID to file: %s", strerror(errno));
@@ -102,7 +108,7 @@ static pid_t process_get_running_pid(void) {
         }
     }
     
-    char pid_str[32];
+    char pid_str[PID_STR_BUF] = {0};
     ssize_t bytes_read = read(fd, pid_str, sizeof(pid_str) - 1);
     close(fd);
     
@@ -135,12 +141,12 @@ static int process_handle_toggle(void) {
         BONGOCAT_LOG_INFO("Stopping bongocat (PID: %d)", running_pid);
         if (kill(running_pid, SIGTERM) == 0) {
             // Wait a bit for graceful shutdown
-            for (int i = 0; i < 50; i++) { // Wait up to 5 seconds
+            for (int i = 0; i < WAIT_FOR_SHUTDOWN_MS/SLEEP_WAIT_FOR_SHUTDOWN_MS; i++) { // Wait up to 5 seconds
                 if (kill(running_pid, 0) != 0) {
                     BONGOCAT_LOG_INFO("Bongocat stopped successfully");
                     return 0;
                 }
-                usleep(100000); // 100ms
+                usleep(SLEEP_WAIT_FOR_SHUTDOWN_MS*1000); // 100ms
             }
             
             // Force kill if still running
@@ -427,18 +433,18 @@ int main(int argc, char *argv[]) {
     // Parse command line arguments
     cli_args_t args;
     if (cli_parse_arguments(argc, argv, &args) != 0) {
-        return 1;
+        return EXIT_FAILURE;
     }
 
     // Handle help and version requests
     if (args.show_help) {
         cli_show_help(argv[0]);
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     if (args.show_version) {
         cli_show_version();
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     // Handle toggle mode
@@ -469,6 +475,9 @@ int main(int argc, char *argv[]) {
         close(signal_fd);
         return EXIT_FAILURE;
     }
+
+    // more randomness is needed to create better shm names, see create_shm
+    srand((unsigned)time(NULL) ^ getpid()); // seed once, include pid for better randomness
     
     // Load configuration
     result = load_config(&g_config, args.config_file);
@@ -487,7 +496,7 @@ int main(int argc, char *argv[]) {
     // Initialize all system components
     result = system_initialize_components();
     if (result != BONGOCAT_SUCCESS) {
-        system_cleanup_and_exit(1);
+        system_cleanup_and_exit(EXIT_FAILURE);
     }
 
     // Validate Setup
@@ -506,11 +515,11 @@ int main(int argc, char *argv[]) {
     result = wayland_run(&g_wayland_ctx, &running, signal_fd, &g_config_watcher, config_reload_callback);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
-        system_cleanup_and_exit(1);
+        system_cleanup_and_exit(EXIT_FAILURE);
     }
     
     BONGOCAT_LOG_INFO("Main loop exited, shutting down");
-    system_cleanup_and_exit(0);
+    system_cleanup_and_exit(EXIT_SUCCESS);
     
     return 0; // Never reached
 }

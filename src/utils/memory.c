@@ -203,7 +203,8 @@ void* bongocat_malloc_debug(size_t size, const char *file, int line) {
 }
 
 void bongocat_free_debug(void *ptr, const char *file, int line) {
-    (void)file; (void)line;
+    UNUSED(file);
+    UNUSED(line);
     if (!ptr) return;
     
     allocation_record_t **current = &allocations;

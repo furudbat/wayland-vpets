@@ -11,11 +11,14 @@
 #include <sys/time.h>
 #include <sys/eventfd.h>
 
+#define RELOAD_DEBOUNCE_MS 1000
+#define RELOAD_DELAY_MS 100
+
 static void *config_watcher_thread(void *arg) {
     assert(arg);
 
     config_watcher_t *watcher = arg;
-    char buffer[INOTIFY_BUF_LEN];
+    char buffer[INOTIFY_BUF_LEN] = {0};
     timestamp_ms_t last_reload_timestamp = get_current_time_ms();
 
     BONGOCAT_LOG_INFO("Config watcher started for: %s", watcher->config_path);
@@ -61,16 +64,16 @@ static void *config_watcher_thread(void *arg) {
                 
                 i += INOTIFY_EVENT_SIZE + event->len;
             }
-            
-            // Debounce: only reload if at least 200ms have passed since last reload
+
             if (should_reload) {
+                // Debounce: only reload if at least some time have passed since last reload
                 const timestamp_ms_t current_time = get_current_time_ms();
-                if (current_time - last_reload_timestamp >= 1000) { // 1 second debounce
+                if (current_time - last_reload_timestamp >= RELOAD_DEBOUNCE_MS) {
                     BONGOCAT_LOG_INFO("Config file changed, reloading...");
                     // Small delay to ensure file write is complete
-                    usleep(100000); // 100ms
+                    usleep(RELOAD_DELAY_MS*1000);
 
-                    static const char buf[RELOAD_EVENT_BUF] = {'R', '\0'};
+                    static const char buf[RELOAD_EVENT_BUF] = {'R', '\0', 0};
                     if (write(watcher->reload_efd, buf, sizeof(char)*RELOAD_EVENT_BUF) >= 0) {
                         BONGOCAT_LOG_DEBUG("Write reload event in watcher");
                     } else {

@@ -18,4 +18,7 @@ extern const size_t bongo_cat_both_down_png_size;
 
 #define BONGOCAT_ANIM_INDEX         0
 
+#define BONGOCAT_IMAGE_WIDTH 864
+#define BONGOCAT_IMAGE_HEIGHT 360
+
 #endif // EMBEDDED_ASSETS_BINGOCAT_H

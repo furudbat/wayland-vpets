@@ -14,6 +14,15 @@
 #include <assert.h>
 #include <fcntl.h>
 
+#define INPUT_EVENT_BUF 128     // Increased buffer size for better I/O efficiency
+
+#define START_ADAPTIVE_CHECK_INTERVAL_SEC 5
+#define MID_ADAPTIVE_CHECK_INTERVAL_SEC 15
+#define MAX_ADAPTIVE_CHECK_INTERVAL_SEC 30
+
+#define CHILD_TERMINATE_WAIT_ATTEMPTS 10
+#define CHILD_TERMINATE_WAIT_ATTEMPT_SLEEP_MS 100
+
 // Child process signal handler - exits quietly without logging
 static void child_signal_handler(int sig) {
     switch (sig) {
@@ -123,11 +132,11 @@ static void capture_input_multiple(input_context_t *input, char **device_paths, 
     
     BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, num_devices);
 
-    struct input_event ev[128]; // Increased buffer size for better I/O efficiency
+    struct input_event ev[INPUT_EVENT_BUF]; // Increased buffer size for better I/O efficiency
     int rd;
     fd_set readfds;
-    int check_counter = 0;
-    int adaptive_check_interval = 5; // Start with 5 seconds, can increase to 30
+    int check_counter = 0;  // check is done every second (see timeout below)
+    int adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC; // increase over time
 
     atomic_store(&input->_capture_input_running, true);
     while (atomic_load(&input->_capture_input_running)) {
@@ -155,9 +164,9 @@ static void capture_input_multiple(input_context_t *input, char **device_paths, 
         }
         
         if (select_result == 0) {
-            // Adaptive device checking - start at 5 seconds, increase to 30 if no new devices found
+            // Adaptive device checking - increase if no new devices found
             check_counter++;
-            if (check_counter >= adaptive_check_interval) {
+            if (check_counter >= adaptive_check_interval_sec) {
                 check_counter = 0;
                 bool found_new_device = false;
                 
@@ -181,14 +190,14 @@ static void capture_input_multiple(input_context_t *input, char **device_paths, 
                     }
                 }
                 
-                // Adaptive interval: if no new devices found, increase check interval up to 30 seconds
-                if (!found_new_device && adaptive_check_interval < 30) {
-                    adaptive_check_interval = (adaptive_check_interval < 15) ? 15 : 30;
-                    BONGOCAT_LOG_DEBUG("Increased device check interval to %d seconds", adaptive_check_interval);
-                } else if (found_new_device && adaptive_check_interval > 5) {
+                // Adaptive interval: if no new devices found, increase check interval
+                if (!found_new_device && adaptive_check_interval_sec < MAX_ADAPTIVE_CHECK_INTERVAL_SEC) {
+                    adaptive_check_interval_sec = (adaptive_check_interval_sec < MID_ADAPTIVE_CHECK_INTERVAL_SEC) ? MID_ADAPTIVE_CHECK_INTERVAL_SEC : MAX_ADAPTIVE_CHECK_INTERVAL_SEC;
+                    BONGOCAT_LOG_DEBUG("Increased device check interval to %d seconds", adaptive_check_interval_sec);
+                } else if (found_new_device && adaptive_check_interval_sec > START_ADAPTIVE_CHECK_INTERVAL_SEC) {
                     // Reset to frequent checking when devices are being connected
-                    adaptive_check_interval = 5;
-                    BONGOCAT_LOG_DEBUG("Reset device check interval to 5 seconds");
+                    adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
+                    BONGOCAT_LOG_DEBUG("Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
                 }
             }
             continue; // Continue to next iteration
@@ -232,23 +241,24 @@ static void capture_input_multiple(input_context_t *input, char **device_paths, 
                     if (ev[j].type == EV_KEY && ev[j].value == 1) {
                         key_pressed = true;
                         if (enable_debug) {
-                            BONGOCAT_LOG_DEBUG("Key event: device=%s, code=%d, time=%lld.%06lld",
-                                               device_paths[unique_paths_indices[i]], ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
+                            BONGOCAT_LOG_VERBOSE("Key event: device=%s, code=%d, time=%lld.%06lld",
+                                                 device_paths[unique_paths_indices[i]], ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
                         }
                     }
                 }
                 
                 // Trigger animation only once per batch to reduce overhead
                 if (key_pressed) {
-                    // update KPM
                     const timestamp_ms_t now = get_current_time_ms();
-                    if (now - input->_latest_kpm_update_ms >= 1000.0/ current_config->fps) {
+                    BONGOCAT_LOG_VERBOSE("Last time input pressed: %dms (%lld)", now - *input->last_key_pressed_timestamp, *input->last_key_pressed_timestamp);
+                    // update KPM
+                    if (now - input->_latest_kpm_update_ms >= 1000.0/current_config->fps) {
                         if (input->_input_kpm_counter > 0) {
                             const time_ms_t duration_ms = now - input->_latest_kpm_update_ms;
 
                             const double duration_min = duration_ms / 60000.0;
                             *input->kpm = input->_input_kpm_counter / duration_min;
-                            BONGOCAT_LOG_DEBUG("Input KPM: %d, delta: %dms, counter: %d", *input->kpm, duration_ms, input->_input_kpm_counter);
+                            BONGOCAT_LOG_VERBOSE("Input KPM: %d, delta: %dms, counter: %d", *input->kpm, duration_ms, input->_input_kpm_counter);
 
                             input->_input_kpm_counter = 0;
                             input->_latest_kpm_update_ms = now;
@@ -378,8 +388,9 @@ bongocat_error_t input_start_monitoring(input_context_t* ctx, char **device_path
     if (ctx->_input_child_pid == 0) {
         // Child process - handle keyboard input from multiple devices
         BONGOCAT_LOG_DEBUG("Input monitoring child process started (PID: %d)", getpid());
+        // use _exit, when running in a child process
         capture_input_multiple(ctx, device_paths, num_devices, enable_debug);
-        exit(0);
+        _exit(EXIT_SUCCESS);
     }
     
     BONGOCAT_LOG_INFO("Input monitoring started (child PID: %d)", ctx->_input_child_pid);
@@ -413,7 +424,7 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, char **device_pa
         // Wait for child to terminate with timeout
         int status;
         int wait_attempts = 0;
-        while (wait_attempts < 10) {
+        while (wait_attempts < CHILD_TERMINATE_WAIT_ATTEMPTS) {
             pid_t result = waitpid(ctx->_input_child_pid, &status, WNOHANG);
             if (result == ctx->_input_child_pid) {
                 atomic_store(&ctx->_capture_input_running, false);
@@ -425,12 +436,12 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, char **device_pa
                 break;
             }
             
-            usleep(100000); // Wait 100ms
+            usleep(CHILD_TERMINATE_WAIT_ATTEMPT_SLEEP_MS*1000);
             wait_attempts++;
         }
         
         // Force kill if still running
-        if (wait_attempts >= 10) {
+        if (wait_attempts >= CHILD_TERMINATE_WAIT_ATTEMPTS) {
             atomic_store(&ctx->_capture_input_running, false);
             BONGOCAT_LOG_WARNING("Force killing previous input monitoring process");
             kill(ctx->_input_child_pid, SIGKILL);
@@ -524,7 +535,7 @@ bongocat_error_t input_restart_monitoring(input_context_t* ctx, char **device_pa
         // Child process - handle keyboard input from multiple devices
         BONGOCAT_LOG_DEBUG("Input monitoring child process restarted (PID: %d)", getpid());
         capture_input_multiple(ctx, device_paths, num_devices, enable_debug);
-        exit(0);
+        _exit(0);
     }
     
     BONGOCAT_LOG_INFO("Input monitoring restarted (child PID: %d)", ctx->_input_child_pid);
@@ -543,7 +554,7 @@ void input_cleanup(input_context_t* ctx) {
         // Wait for child to terminate with timeout
         int status;
         int wait_attempts = 0;
-        while (wait_attempts < 10) {
+        while (wait_attempts < CHILD_TERMINATE_WAIT_ATTEMPTS) {
             const pid_t result = waitpid(ctx->_input_child_pid, &status, WNOHANG);
             if (result == ctx->_input_child_pid) {
                 atomic_store(&ctx->_capture_input_running, false);
@@ -555,12 +566,12 @@ void input_cleanup(input_context_t* ctx) {
                 break;
             }
             
-            usleep(100000); // Wait 100ms
+            usleep(CHILD_TERMINATE_WAIT_ATTEMPT_SLEEP_MS*1000);
             wait_attempts++;
         }
         
         // Force kill if still running
-        if (wait_attempts >= 10) {
+        if (wait_attempts >= CHILD_TERMINATE_WAIT_ATTEMPTS) {
             atomic_store(&ctx->_capture_input_running, false);
             BONGOCAT_LOG_WARNING("Force killing input monitoring child process");
             kill(ctx->_input_child_pid, SIGKILL);

@@ -95,7 +95,7 @@ static void drawing_copy_pixel(uint8_t *dest, const unsigned char *src, int dest
             dest[dest_idx + 0] = 255 - src[src_idx + 2]; // B
             dest[dest_idx + 1] = 255 - src[src_idx + 1]; // G
             dest[dest_idx + 2] = 255 - src[src_idx + 0]; // R
-            dest[dest_idx + 3] = src[src_idx + 3]; // A
+            dest[dest_idx + 3] = src[src_idx + 3];       // A
             break;
     }
 }
@@ -222,7 +222,7 @@ static bongocat_error_t load_sprite_sheet_from_memory(animation_frame_t* out_fra
 
             copy_cropped_frame(&out_frames[idx], frame_data, padding_x, padding_y, drawing_option);
 
-            //BONGOCAT_LOG_DEBUG("Cropped Sprite Frame (%d): %dx%d (%dx%d)", idx, out_frames[idx].width, out_frames[idx].height, frame_width, frame_height);
+            //BONGOCAT_LOG_VERBOSE("Cropped Sprite Frame (%d): %dx%d (%dx%d)", idx, out_frames[idx].width, out_frames[idx].height, frame_width, frame_height);
 
             BONGOCAT_FREE(frame_pixels);
             frame_pixels = NULL;
@@ -343,7 +343,7 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
             } else if (ctx->anims[ctx->anim_index].digimon.sleep1.pixels) {
                 return DIGIMON_FRAME_SLEEP1;
             } else if (ctx->anims[ctx->anim_index].digimon.down1.pixels) {
-                BONGOCAT_LOG_DEBUG("No Sleeping Frame for %d", ctx->anim_index);
+                BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", ctx->anim_index);
                 // fallback frame
                 return DIGIMON_FRAME_DOWN1;
             }
@@ -351,7 +351,7 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
             if (ctx->anims[ctx->anim_index].digimon.sleep1.pixels) {
                 return DIGIMON_FRAME_SLEEP1;
             } else if (ctx->anims[ctx->anim_index].digimon.down1.pixels) {
-                BONGOCAT_LOG_DEBUG("No Sleeping Frame for %d", ctx->anim_index);
+                BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", ctx->anim_index);
                 // fallback frame
                 return DIGIMON_FRAME_DOWN1;
             }
@@ -389,7 +389,7 @@ static void anim_trigger_frame_change(animation_context_t* ctx,
     assert(current_config);
 
     if (current_config->enable_debug) {
-        BONGOCAT_LOG_DEBUG("Animation frame change: %d (duration: %ld us)", new_frame, duration_us);
+        BONGOCAT_LOG_VERBOSE("Animation frame change: %d (duration: %ld us)", new_frame, duration_us);
     }
     
     ctx->anim_frame_index = new_frame;
@@ -413,7 +413,7 @@ static void anim_handle_test_animation(animation_context_t* ctx, const input_con
         const int new_frame = anim_get_random_active_frame(ctx, input);
         const time_us_t duration_us = current_config->test_animation_duration_ms * 1000;
         
-        BONGOCAT_LOG_DEBUG("Test animation trigger");
+        BONGOCAT_LOG_VERBOSE("Test animation trigger");
         anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
         state->test_counter = 0;
     }
@@ -432,9 +432,9 @@ static void anim_handle_key_press(animation_context_t* ctx, input_context_t *inp
     }
     
     const int new_frame = anim_get_random_active_frame(ctx, input);
-    const time_us_t duration_us = current_config->keypress_duration_ms * 1000L;
+    const time_us_t duration_us = current_config->keypress_duration_ms * 1000;
     
-    BONGOCAT_LOG_DEBUG("Key press detected - switching to frame %d", new_frame);
+    BONGOCAT_LOG_VERBOSE("Key press detected - switching to frame %d", new_frame);
     anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
 
     *input->any_key_pressed = 0;
@@ -475,7 +475,8 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
     // Idle Sleep
     if (current_config->idle_sleep_timeout_sec > 0 && *input->last_key_pressed_timestamp > 0) {
         const timestamp_ms_t now = get_current_time_ms();
-        if (now - *input->last_key_pressed_timestamp >= current_config->idle_sleep_timeout_sec*1000) {
+        const time_ms_t idle_sleep_timeout_ms = current_config->idle_sleep_timeout_sec*1000;
+        if (now - *input->last_key_pressed_timestamp >= idle_sleep_timeout_ms) {
             if (ctx->anim_index == BONGOCAT_ANIM_INDEX) {
                 ctx->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
                 return;
@@ -496,7 +497,7 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
     }
     
     if (ctx->anim_frame_index != current_config->idle_frame) {
-        BONGOCAT_LOG_DEBUG("Returning to idle frame %d", current_config->idle_frame);
+        BONGOCAT_LOG_VERBOSE("Returning to idle frame %d", current_config->idle_frame);
         ctx->anim_frame_index = current_config->idle_frame;
     }
 }
@@ -527,6 +528,7 @@ static void anim_init_state(animation_context_t* ctx, animation_state_t *state) 
     // read-only config
     const config_t* const current_config = ctx->_local_copy_config;
     assert(current_config);
+    assert(current_config->fps != 0);
 
     state->hold_until_us = 0;
     state->test_counter = 0;
@@ -746,6 +748,7 @@ bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config
         ctx->_local_copy_config = NULL;
         return result;
     }
+    /// @TODO: check bongocat_embedded_images demantions with BONGOCAT_IMAGE_WIDTH, print warning ?
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
     const embedded_image_t* digimon_sprite_sheet_embedded_images = init_digimon_embedded_images();
@@ -753,7 +756,7 @@ bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
 
 #else
-    (void)init_digimon_anim;
+    UNUSED(init_digimon_anim);
     //init_digimon_anim(ctx, DM_AGUMON_ANIM_INDEX, &digimon_sprite_sheet_embedded_images[DM_AGUMON_ANIM_INDEX], DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
     #include "embedded_assets/min_dm_init_digimon_anim.c.inl"
 #endif
