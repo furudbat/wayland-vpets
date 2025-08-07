@@ -273,6 +273,38 @@ void blit_image_scaled(uint8_t *dest, int dest_w, int dest_h,
         }
     }
 }
+void sblit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h,
+                       const unsigned char *src, size_t src_size, int src_w, int src_h,
+                       int offset_x, int offset_y, int target_w, int target_h) {
+    if (dest_size < RGBA_CHANNELS || src_size < RGBA_CHANNELS) {
+        return;
+    }
+    for (int y = 0; y < target_h; y++) {
+        for (int x = 0; x < target_w; x++) {
+            int dx = x + offset_x;
+            int dy = y + offset_y;
+
+            if (!drawing_is_pixel_in_bounds(dx, dy, dest_w, dest_h)) {
+                continue;
+            }
+
+            // Map destination pixel to source pixel
+            const int sx = (x * src_w) / target_w;
+            const int sy = (y * src_h) / target_h;
+
+            const int dest_idx = (dy * dest_w + dx) * RGBA_CHANNELS;
+            const int src_idx = (sy * src_w + sx) * RGBA_CHANNELS;
+
+
+            if (dest_idx < dest_size-RGBA_CHANNELS && src_idx < src_size-RGBA_CHANNELS) {
+                // Only draw non-transparent pixels
+                if (src[src_idx + 3] > THRESHOLD_ALPHA) {
+                    drawing_copy_pixel(dest, src, dest_idx, src_idx, COPY_PIXEL_OPTION_NORMAL);
+                }
+            }
+        }
+    }
+}
 
 void draw_rect(uint8_t *dest, int width, int height, int x, int y, int w, int h, 
                uint8_t r, uint8_t g, uint8_t b, uint8_t a) {

@@ -311,12 +311,13 @@ void draw_bar(wayland_context_t* ctx) {
                 const int cat_x = (ctx->_screen_width - cat_width) / 2 + current_config->cat_x_offset;
                 const int cat_y = (current_config->bar_height - cat_height) / 2 + current_config->cat_y_offset;
 
-                /// @TODO: check for pixels_size vs current_config->screen_width * current_config->bar_height * 4
-                blit_image_scaled(ctx->pixels, ctx->_screen_width, current_config->bar_height,
-                                  ctx->_anim->anims[ctx->_anim->anim_index].frames[ctx->_anim->anim_frame_index].pixels,
-                                  frame_width,
-                                  frame_height,
-                                  cat_x, cat_y, cat_width, cat_height);
+                sblit_image_scaled(ctx->pixels, ctx->pixels_size,
+                                   ctx->_screen_width, current_config->bar_height,
+                                   ctx->_anim->anims[ctx->_anim->anim_index].frames[ctx->_anim->anim_frame_index].pixels,
+                                   frame_width * frame_height * RGBA_CHANNELS,
+                                   frame_width,
+                                   frame_height,
+                                   cat_x, cat_y, cat_width, cat_height);
             } else {
                 // draw Digimon
                 const int cat_height = current_config->cat_height;
@@ -324,12 +325,13 @@ void draw_bar(wayland_context_t* ctx) {
                 const int cat_x = (ctx->_screen_width - cat_width) / 2 + current_config->cat_x_offset;
                 const int cat_y = (current_config->bar_height - cat_height) / 2 + current_config->cat_y_offset;
 
-                /// @TODO: check for pixels_size vs current_config->screen_width * current_config->bar_height * 4
-                blit_image_scaled(ctx->pixels, ctx->_screen_width, current_config->bar_height,
-                                  ctx->_anim->anims[ctx->_anim->anim_index].frames[ctx->_anim->anim_frame_index].pixels,
-                                  frame_width,
-                                  frame_height,
-                                  cat_x, cat_y, cat_width, cat_height);
+                sblit_image_scaled(ctx->pixels, ctx->pixels_size,
+                                   ctx->_screen_width, current_config->bar_height,
+                                   ctx->_anim->anims[ctx->_anim->anim_index].frames[ctx->_anim->anim_frame_index].pixels,
+                                   frame_width * frame_height * RGBA_CHANNELS,
+                                   frame_width,
+                                   frame_height,
+                                   cat_x, cat_y, cat_width, cat_height);
             }
         } else {
             BONGOCAT_LOG_DEBUG("Skip drawing empty frame, index: %d, frame: %d", ctx->_anim->anim_index, ctx->_anim->anim_frame_index);
