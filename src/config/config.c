@@ -40,10 +40,11 @@ static_assert(MIN_FPS > 0, "FPS can not be zero, for math reasons");
 #define DEFAULT_FPS 60
 #define DEFAULT_OVERLAY_OPACITY 60
 #define DEFAULT_ANIMATION_INDEX 0
-#define DEFAULT_LAYER LAYER_TOP             // Default to TOP for broader compatibility
+#define DEFAULT_LAYER LAYER_TOP                     // Default to TOP for broader compatibility
 #define DEFAULT_OVERLAY_POSITION POSITION_TOP
 #define DEFAULT_HAPPY_KPM 0
 #define DEFAULT_IDLE_SLEEP_TIMEOUT_SEC 0
+#define DEFAULT_CAT_ALIGN ALIGN_CENTER
 
 // is in debug build
 #ifndef NDEBUG
@@ -83,6 +84,7 @@ static_assert(MIN_FPS > 0, "FPS can not be zero, for math reasons");
 #define KEYBOARD_DEVICES_KEY "keyboard_devices"
 #define ANIMATION_INDEX_KEY "animation_index"
 #define LAYER_KEY "layer"
+#define CAT_ALIGN_KEY "cat_align"
 
 #define VALUE_BUF 256
 #define LINE_BUF 512
@@ -170,6 +172,12 @@ static void config_validate_enums(config_t *config) {
     if (config->overlay_position != POSITION_TOP && config->overlay_position != POSITION_BOTTOM) {
         BONGOCAT_LOG_WARNING("Invalid " OVERLAY_OPACITY_KEY " %d, resetting to top", config->overlay_position);
         config->overlay_position = POSITION_TOP;
+    }
+
+    // Validate cat_align
+    if (config->cat_align != ALIGN_CENTER && config->cat_align != ALIGN_LEFT && config->cat_align != ALIGN_RIGHT) {
+        BONGOCAT_LOG_WARNING("Invalid " CAT_ALIGN_KEY " %d, resetting to center", config->cat_align);
+        config->cat_align = ALIGN_CENTER;
     }
 }
 
@@ -369,6 +377,17 @@ static bongocat_error_t config_parse_enum_key(config_t *config, const char *key,
             BONGOCAT_LOG_WARNING("Invalid " OVERLAY_POSITION_KEY " '%s', using 'top'", value);
             config->overlay_position = POSITION_TOP;
         }
+    } else if (strcmp(key, CAT_ALIGN_KEY) == 0) {
+        if (strcmp(value, ALIGN_CENTER_STR) == 0) {
+            config->cat_align = ALIGN_CENTER;
+        } else if (strcmp(value, ALIGN_LEFT_STR) == 0) {
+            config->cat_align = ALIGN_LEFT;
+        } else if (strcmp(value, ALIGN_RIGHT_STR) == 0) {
+            config->cat_align = ALIGN_RIGHT;
+        } else {
+            BONGOCAT_LOG_WARNING("Invalid " CAT_ALIGN_KEY " '%s', using 'center'", value);
+            config->cat_align = ALIGN_CENTER;
+        }
     } else {
         return BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
     }
@@ -565,6 +584,7 @@ void config_set_defaults(config_t *config) {
         .idle_sleep_timeout_sec = DEFAULT_IDLE_SLEEP_TIMEOUT_SEC,
 
         .happy_kpm = DEFAULT_HAPPY_KPM,
+        .cat_align = DEFAULT_CAT_ALIGN,
     };
 }
 
@@ -599,6 +619,7 @@ static void config_log_summary(const config_t *config) {
     }
     BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d", config->fps, config->overlay_opacity);
     BONGOCAT_LOG_DEBUG("  Position: %s", config->overlay_position == POSITION_TOP ? "top" : "bottom");
+    BONGOCAT_LOG_DEBUG("  Alignment: %d", config->cat_align, config->cat_align == ALIGN_CENTER ? "(center)" : "");
     BONGOCAT_LOG_DEBUG("  Layer: %s", config->layer == LAYER_TOP ? "top" : "overlay");
 }
 

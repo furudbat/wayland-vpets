@@ -23,6 +23,15 @@ typedef enum {
 #define LAYER_TOP_STR "top"
 #define LAYER_OVERLAY_STR "overlay"
 
+typedef enum {
+    ALIGN_CENTER = 0,
+    ALIGN_LEFT = -1,
+    ALIGN_RIGHT = 1,
+} align_type_t;
+#define ALIGN_CENTER_STR "center"
+#define ALIGN_LEFT_STR "left"
+#define ALIGN_RIGHT_STR "right"
+
 typedef struct {
     int hour;
     int min;
@@ -57,6 +66,8 @@ typedef struct {
     int idle_sleep_timeout_sec;
 
     int happy_kpm;
+
+    align_type_t cat_align;
 } config_t;
 
 bongocat_error_t load_config(config_t *config, const char *config_file_path);
