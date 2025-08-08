@@ -33,6 +33,8 @@ static wayland_context_t g_wayland_ctx = {0};
 static pthread_mutex_t g_config_reload_mutex = PTHREAD_MUTEX_INITIALIZER;
 static const char *g_signal_watch_path = "";
 
+static load_config_overwrite_parameters_t g_overwrite_parameters = {0};
+
 #define PID_STR_BUF 64
 
 #define WAIT_FOR_SHUTDOWN_MS 5000
@@ -49,6 +51,7 @@ typedef struct {
     bool toggle_mode;
     bool show_help;
     bool show_version;
+    const char *output_name;
 } cli_args_t;
 
 // =============================================================================
@@ -205,7 +208,7 @@ static void config_reload_callback() {
     // Create a temporary config to test loading
     config_t new_config;
     config_set_defaults(&new_config);
-    bongocat_error_t result = load_config(&new_config, g_config_watcher.config_path);
+    bongocat_error_t result = load_config(&new_config, g_config_watcher.config_path, &g_overwrite_parameters);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat_error_string(result));
         BONGOCAT_LOG_INFO("Keeping current configuration");
@@ -394,6 +397,7 @@ static void cli_show_help(const char *program_name) {
     printf("  -c, --config          Specify config file (default: bongocat.conf)\n");
     printf("  -w, --watch-config    Watch config file for changes and reload automatically\n");
     printf("  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)\n");
+    printf("  -o, --output-name     Specify output name (overwrite output_name from config)\n");
     printf("\nConfiguration is loaded from bongocat.conf in the current directory.\n");
 }
 
@@ -409,7 +413,8 @@ static int cli_parse_arguments(int argc, char *argv[], cli_args_t *args) {
         .watch_config = false,
         .toggle_mode = false,
         .show_help = false,
-        .show_version = false
+        .show_version = false,
+        .output_name = NULL,
     };
 
     for (int i = 1; i < argc; i++) {
@@ -429,6 +434,14 @@ static int cli_parse_arguments(int argc, char *argv[], cli_args_t *args) {
             args->watch_config = true;
         } else if (strcmp(argv[i], "--toggle") == 0 || strcmp(argv[i], "-t") == 0) {
             args->toggle_mode = true;
+        } else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
+            if (i + 1 < argc) {
+                args->output_name = argv[i + 1];
+                i++; // Skip the next argument since it's the output name
+            } else {
+                BONGOCAT_LOG_ERROR("--output-name option requires a output name");
+                return EXIT_FAILURE;
+            }
         } else {
             BONGOCAT_LOG_WARNING("Unknown argument: %s", argv[i]);
         }
@@ -467,7 +480,10 @@ int main(int argc, char *argv[]) {
     }
 
     // Load configuration
-    result = load_config(&g_config, args.config_file);
+    g_overwrite_parameters = (load_config_overwrite_parameters_t){
+        .output_name = args.output_name,
+    };
+    result = load_config(&g_config, args.config_file, &g_overwrite_parameters);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat_error_string(result));
         return EXIT_FAILURE;

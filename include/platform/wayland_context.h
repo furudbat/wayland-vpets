@@ -26,6 +26,8 @@ typedef struct {
     // local copy from other thread, update after reload (shared memory)
     config_t *_local_copy_config;
     int _screen_width;
+
+    char* output_name_str;                  // Will default to automatic one if kept null
 } wayland_context_t;
 
 #endif // BONGOCAT_WAYLAND_CONTEXT_H

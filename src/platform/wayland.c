@@ -531,6 +531,7 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx, animatio
             if (g_outputs[i].name_received &&
                 strcmp(g_outputs[i].name_str, current_config->output_name) == 0) {
                 ctx->output = g_outputs[i].wl_output;
+                ctx->output_name_str = g_outputs[i].name_str;
                 BONGOCAT_LOG_INFO("Matched output: %s", g_outputs[i].name_str);
                 break;
             }
@@ -545,6 +546,7 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx, animatio
     // Fallback
     if (!ctx->output && g_output_count > 0) {
         ctx->output = g_outputs[0].wl_output;
+        ctx->output_name_str = g_outputs[0].name_str;
         BONGOCAT_LOG_WARNING("Falling back to first output");
     }
 
@@ -1027,6 +1029,7 @@ void wayland_cleanup(wayland_context_t* ctx) {
         ctx->_local_copy_config = NULL;
     }
     ctx->_screen_width = 0;
+    ctx->output_name_str = NULL;
 
     // Reset state
     atomic_store(&ctx->configured, false);

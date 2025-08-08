@@ -199,6 +199,7 @@ Options:
   -v, --version      Show version information
   -c, --config       Specify config file (default: bongocat.conf)
   -w, --watch-config Watch config file for changes and reload automatically
+  -o, --output-name     Specify output name (overwrite output_name from config)
   --toggle           Toggle bongocat on/off (start if not running, stop if running)
 ```
 
@@ -219,6 +220,9 @@ bongocat --watch-config --config bongocat.conf
 
 # Toggle mode
 bongocat --toggle
+
+# Custom config with hot-reload and custom output_name
+bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 ```
 
 ## 🛠️ Building from Source

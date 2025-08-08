@@ -71,7 +71,10 @@ typedef struct {
     align_type_t cat_align;
 } config_t;
 
-bongocat_error_t load_config(config_t *config, const char *config_file_path);
+typedef struct {
+    const char* output_name;
+} load_config_overwrite_parameters_t;
+bongocat_error_t load_config(config_t *config, const char *config_file_path, const load_config_overwrite_parameters_t *overwrite_parameters);
 void config_cleanup(config_t *config);
 
 void config_set_defaults(config_t *config);

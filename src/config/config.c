@@ -563,7 +563,7 @@ static bongocat_error_t config_parse_file(config_t *config, const char *config_f
 
 void config_set_defaults(config_t *config) {
     *config = (config_t) {
-        .output_name = NULL,                   // Will default to automatic one if kept null
+        .output_name = NULL,
         .bar_height = DEFAULT_BAR_HEIGHT,
         /*
         .asset_paths = {
@@ -636,13 +636,14 @@ static void config_log_summary(const config_t *config) {
     BONGOCAT_LOG_DEBUG("  Position: %s", config->overlay_position == POSITION_TOP ? "top" : "bottom");
     BONGOCAT_LOG_DEBUG("  Alignment: %d", config->cat_align, config->cat_align == ALIGN_CENTER ? "(center)" : "");
     BONGOCAT_LOG_DEBUG("  Layer: %s", config->layer == LAYER_TOP ? "top" : "overlay");
+    BONGOCAT_LOG_DEBUG("  Output Screen: %s", config->output_name);
 }
 
 // =============================================================================
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-bongocat_error_t load_config(config_t *config, const char *config_file_path) {
+bongocat_error_t load_config(config_t *config, const char *config_file_path, const load_config_overwrite_parameters_t *overwrite_parameters) {
     BONGOCAT_CHECK_NULL(config, BONGOCAT_ERROR_INVALID_PARAM);
     
     // Clear existing keyboard devices to prevent accumulation during reloads
@@ -654,6 +655,12 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path) {
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to parse configuration file: %s", bongocat_error_string(result));
         return result;
+    }
+    if (overwrite_parameters) {
+        if (overwrite_parameters->output_name) {
+            if (config->output_name) free(config->output_name);
+            config->output_name = strdup(overwrite_parameters->output_name);
+        }
     }
 
     // Set default keyboard device if none specified
