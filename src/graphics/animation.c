@@ -1,10 +1,11 @@
 #define _POSIX_C_SOURCE 199309L
 #define STB_IMAGE_IMPLEMENTATION
+#include "graphics/embedded_assets.h"
+#include "graphics/context.h"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
-#include "platform/input.h"
+#include "graphics/bar.h"
 #include "utils/memory.h"
-#include "graphics/embedded_assets.h"
 #include "utils/time.h"
 #include <time.h>
 #include <stdlib.h>
@@ -295,8 +296,11 @@ void sblit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h,
             const int dest_idx = (dy * dest_w + dx) * RGBA_CHANNELS;
             const int src_idx = (sy * src_w + sx) * RGBA_CHANNELS;
 
-
-            if (dest_idx < dest_size-RGBA_CHANNELS && src_idx < src_size-RGBA_CHANNELS) {
+            assert(dest_idx >= 0);
+            assert(src_idx >= 0);
+            assert(dest_size >= RGBA_CHANNELS);
+            assert(src_size >= RGBA_CHANNELS);
+            if ((size_t)dest_idx < dest_size-RGBA_CHANNELS && (size_t)src_idx < src_size-RGBA_CHANNELS) {
                 // Only draw non-transparent pixels
                 if (src[src_idx + 3] > THRESHOLD_ALPHA) {
                     drawing_copy_pixel(dest, src, dest_idx, src_idx, COPY_PIXEL_OPTION_NORMAL);
@@ -569,37 +573,26 @@ static void anim_init_state(animation_context_t* ctx, animation_state_t *state) 
 }
 
 
-typedef struct {
-    input_context_t *input;
-    animation_context_t* ctx;
-    wayland_context_t* wayland;
-} anim_thread_main_params_t;
+
 static void *anim_thread_main(void *arg) {
     assert(arg);
-    anim_thread_main_params_t* animate_params = arg;
-
-    assert(animate_params->input);
-    assert(animate_params->ctx);
-    assert(animate_params->wayland);
+    animation_context_t* ctx = arg;
 
     animation_state_t state;
-    anim_init_state(animate_params->ctx, &state);
+    anim_init_state(ctx, &state);
     
     const struct timespec frame_delay = {0, state.frame_time_ns};
     
-    atomic_store(&animate_params->ctx->_animation_running, true);
+    atomic_store(&ctx->_animation_running, true);
     BONGOCAT_LOG_DEBUG("Animation thread main loop started");
     
-    while (atomic_load(&animate_params->ctx->_animation_running)) {
-        anim_update_state(animate_params->ctx, animate_params->input, &state);
-        draw_bar(animate_params->wayland);
+    while (atomic_load(&ctx->_animation_running)) {
+        anim_update_state(ctx, ctx->_input, &state);
+        draw_bar(ctx->_wayland, ctx);
         nanosleep(&frame_delay, NULL);
     }
     
     BONGOCAT_LOG_DEBUG("Animation thread main loop exited");
-
-    BONGOCAT_FREE(animate_params);
-    animate_params = NULL;
 
     return NULL;
 }
@@ -803,25 +796,16 @@ bongocat_error_t animation_start(animation_context_t* ctx, input_context_t *inpu
     BONGOCAT_CHECK_NULL(input, BONGOCAT_ERROR_INVALID_PARAM);
     BONGOCAT_CHECK_NULL(wayland, BONGOCAT_ERROR_INVALID_PARAM);
 
-    anim_thread_main_params_t* anim_thread_main_arg = BONGOCAT_MALLOC(sizeof(anim_thread_main_params_t));
-    if (!anim_thread_main_arg) {
-        BONGOCAT_LOG_ERROR("Failed to allocate memory for animate_arg");
-        return BONGOCAT_ERROR_MEMORY;
-    }
-    anim_thread_main_arg->input = input;
-    anim_thread_main_arg->ctx = ctx;
-    anim_thread_main_arg->wayland = wayland;
-
     BONGOCAT_LOG_INFO("Starting animation thread");
+
+    ctx->_input = input;
+    ctx->_wayland = wayland;
     
-    const int result = pthread_create(&ctx->_anim_thread, NULL, anim_thread_main, anim_thread_main_arg);
+    const int result = pthread_create(&ctx->_anim_thread, NULL, anim_thread_main, ctx);
     if (result != 0) {
-        BONGOCAT_FREE(anim_thread_main_arg);
         BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
         return BONGOCAT_ERROR_THREAD;
     }
-    // arg ownership has moved into thread
-    anim_thread_main_arg = NULL;
     
     BONGOCAT_LOG_DEBUG("Animation thread started successfully");
     return BONGOCAT_SUCCESS;
@@ -833,9 +817,10 @@ void animation_cleanup(animation_context_t* ctx) {
     if (atomic_load(&ctx->_animation_running)) {
         BONGOCAT_LOG_DEBUG("Stopping animation thread");
         atomic_store(&ctx->_animation_running, false);
-        
         // Wait for thread to finish gracefully
+        pthread_cancel(ctx->_anim_thread);
         pthread_join(ctx->_anim_thread, NULL);
+        ctx->_anim_thread = 0;
         BONGOCAT_LOG_DEBUG("Animation thread stopped");
     }
 
@@ -873,7 +858,7 @@ void animation_update_config(animation_context_t *ctx, const config_t *config) {
     assert(ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED);
 
 #ifndef NDEBUG
-    if (config->animation_index <= 0 || config->animation_index >= ANIMS_COUNT) {
+    if (config->animation_index < 0 || config->animation_index >= ANIMS_COUNT) {
         BONGOCAT_LOG_WARNING("Invalid animation index %d", config->animation_index);
     }
 #endif

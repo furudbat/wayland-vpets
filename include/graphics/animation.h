@@ -3,7 +3,6 @@
 
 #include "config/config.h"
 #include "utils/error.h"
-#include "platform/wayland.h"
 #include "platform/input_context.h"
 #include "context.h"
 

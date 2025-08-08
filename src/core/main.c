@@ -500,7 +500,8 @@ int main(int argc, char *argv[]) {
     }
 
     // Validate Setup
-    assert(g_wayland_ctx._anim == &g_animation_ctx);
+    assert(g_animation_ctx._input == &g_input_ctx);
+    assert(g_animation_ctx._wayland == &g_wayland_ctx);
 
     if (abs(g_config.cat_x_offset) > g_wayland_ctx._screen_width) {
         BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)",
@@ -512,7 +513,7 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("Bongo Cat Overlay started successfully");
     
     // Main Wayland event loop with graceful shutdown
-    result = wayland_run(&g_wayland_ctx, &running, signal_fd, &g_config_watcher, config_reload_callback);
+    result = wayland_run(&g_wayland_ctx, &running, signal_fd, &g_config, &g_config_watcher, config_reload_callback);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
         system_cleanup_and_exit(EXIT_FAILURE);

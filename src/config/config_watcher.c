@@ -73,8 +73,8 @@ static void *config_watcher_thread(void *arg) {
                     // Small delay to ensure file write is complete
                     usleep(RELOAD_DELAY_MS*1000);
 
-                    static const char buf[RELOAD_EVENT_BUF] = {'R', '\0', 0};
-                    if (write(watcher->reload_efd, buf, sizeof(char)*RELOAD_EVENT_BUF) >= 0) {
+                    uint64_t u = 1;
+                    if (write(watcher->reload_efd, &u, sizeof(uint64_t)) >= 0) {
                         BONGOCAT_LOG_DEBUG("Write reload event in watcher");
                     } else {
                         BONGOCAT_LOG_ERROR("Failed to write to notify pipe in watcher: %s", strerror(errno));
@@ -121,7 +121,7 @@ bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *conf
         return BONGOCAT_ERROR_FILE_IO;
     }
 
-    watcher->reload_efd = eventfd(0, 0);
+    watcher->reload_efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if (watcher->reload_efd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create notify pipe for config reload: %s", strerror(errno));
         free(watcher->config_path);

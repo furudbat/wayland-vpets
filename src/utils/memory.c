@@ -219,6 +219,12 @@ void bongocat_free_debug(void *ptr, const char *file, int line) {
     }
     
     bongocat_free(ptr);
+
+#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
+    if (g_memory_stats.free_count > g_memory_stats.current_allocated) {
+        BONGOCAT_LOG_WARNING("possible double free, one free is to much: Frees: %zu; Allocations: %zu %s:%d", g_memory_stats.free_count > g_memory_stats.current_allocated, file, line);
+    }
+#endif
 }
 
 void memory_leak_check(void) {

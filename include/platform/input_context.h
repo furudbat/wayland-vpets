@@ -16,10 +16,16 @@ typedef struct {
     // local copy from other thread, update after reload (shared memory)
     config_t* _local_copy_config;
 
-    pid_t _input_child_pid;
+    pthread_t _input_thread;
     atomic_bool _capture_input_running;
     atomic_int _input_kpm_counter;
     timestamp_ms_t _latest_kpm_update_ms;
+
+    // thread context
+    int *_fds;
+    size_t _fds_count;
+    size_t *_unique_paths_indices;
+    size_t _unique_paths_indices_count;
 } input_context_t;
 
 #endif // BONGOCAT_INPUT_CONTEXT_H

@@ -12,6 +12,7 @@ endif()
 #option(INCLUDE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF)
 #option(INCLUDE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF)
 option(INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS "Include only bongocat assets, exclude digimon assets" OFF)
+option(ENABLE_THREAD_SANITIZERS "Enable thread sanitizer, instead of address,undefined" OFF)
 
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(PROTOCOLS_DIR ${CMAKE_SOURCE_DIR}/protocols)
@@ -66,6 +67,7 @@ set(SOURCES
     ${SRC_DIR}/config/config_watcher.c
     ${SRC_DIR}/core/main.c
     ${SRC_DIR}/graphics/animation.c
+    ${SRC_DIR}/graphics/bar.c
     ${SRC_DIR}/graphics/embedded_assets.c
     ${SRC_DIR}/graphics/embedded_assets/bongocat.c
     ${SRC_DIR}/platform/input.c
@@ -123,13 +125,24 @@ set(WARNING_FLAGS
 target_compile_options(bongocat PRIVATE ${WARNING_FLAGS} -fstack-protector-strong)
 
 target_compile_options(bongocat PRIVATE
-        $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
         $<$<CONFIG:Release>:-march=native;-fomit-frame-pointer;-funroll-loops;-finline-functions>
 )
-target_link_options(bongocat PRIVATE
-        $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
-)
+
+if (ENABLE_THREAD_SANITIZERS)
+    target_link_options(bongocat PRIVATE
+            $<$<CONFIG:Debug>:-fsanitize=thread>
+            $<$<CONFIG:RelWithDebInfo>:-fsanitize=thread>
+    )
+else()
+    target_link_options(bongocat PRIVATE
+            $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
+            $<$<CONFIG:RelWithDebInfo>:-fsanitize=thread;-fsanitize=undefined>
+    )
+endif()
+
 target_compile_definitions(bongocat PRIVATE
+        $<$<CONFIG:Debug>:BONGOCAT_LOG_LEVEL=4>
+        $<$<CONFIG:RelWithDebInfo>:BONGOCAT_LOG_LEVEL=3>
         $<$<CONFIG:Release>:_FORTIFY_SOURCE=2>
         $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_MEMORY_STATISTICS>
         $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>
