@@ -4,8 +4,11 @@
 #include "embedded_assets.h"
 #include "core/bongocat.h"
 #include "config/config.h"
+#include "platform/input_context.h"
+#include "platform/wayland_context.h"
 #include <stdatomic.h>
 #include <stdint.h>
+
 
 // both-up, left-down, right-down, both-down
 #define BONGOCAT_NUM_FRAMES 4
@@ -63,7 +66,6 @@ typedef union {
 static_assert(sizeof(animation_frame_t[MAX_NUM_FRAMES]) == sizeof(bongocat_animation_t));
 static_assert(sizeof(animation_frame_t[MAX_NUM_FRAMES]) == sizeof(digimon_animation_t));
 
-
 typedef struct {
     // Animation frame data
     animation_t anims[ANIMS_COUNT];
@@ -75,8 +77,10 @@ typedef struct {
     config_t* _local_copy_config;
 
     // Animation system state
-    pthread_t _anim_thread;
     atomic_bool _animation_running;
+    pthread_t _anim_thread;
+    input_context_t *_input;
+    wayland_context_t *_wayland;
 } animation_context_t;
 
 #endif //ANIMATION_CONTEXT_H

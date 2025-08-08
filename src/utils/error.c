@@ -13,7 +13,7 @@ void bongocat_error_init(int enable_debug) {
 static void log_timestamp(FILE *stream) {
     struct timeval tv;
     struct tm *tm_info;
-    char timestamp[64];
+    char timestamp[64] = {0};
     
     gettimeofday(&tv, NULL);
     tm_info = localtime(&tv.tv_sec);
@@ -23,50 +23,38 @@ static void log_timestamp(FILE *stream) {
 }
 
 #ifndef BONGOCAT_DISABLE_LOGGER
+
+#define bongocat_log_x(format, name) \
+    va_list args; \
+    log_timestamp(stdout); \
+    fprintf(stdout, name ": "); \
+    va_start(args, format); \
+    vfprintf(stdout, format, args); \
+    va_end(args); \
+    fprintf(stdout, "\n"); \
+    fflush(stdout);
+
 void bongocat_log_error(const char *format, ...) {
-    va_list args;
-    log_timestamp(stderr);
-    fprintf(stderr, "ERROR: ");
-    va_start(args, format);
-    vfprintf(stderr, format, args);
-    va_end(args);
-    fprintf(stderr, "\n");
-    fflush(stderr);
+    bongocat_log_x(format, "ERROR")
 }
 
 void bongocat_log_warning(const char *format, ...) {
-    va_list args;
-    log_timestamp(stderr);
-    fprintf(stderr, "WARNING: ");
-    va_start(args, format);
-    vfprintf(stderr, format, args);
-    va_end(args);
-    fprintf(stderr, "\n");
-    fflush(stderr);
+    bongocat_log_x(format, "WARNING")
 }
 
 void bongocat_log_info(const char *format, ...) {
-    va_list args;
-    log_timestamp(stdout);
-    fprintf(stdout, "INFO: ");
-    va_start(args, format);
-    vfprintf(stdout, format, args);
-    va_end(args);
-    fprintf(stdout, "\n");
-    fflush(stdout);
+    bongocat_log_x(format, "INFO")
 }
 
 void bongocat_log_debug(const char *format, ...) {
     if (!debug_enabled) return;
     
-    va_list args;
-    log_timestamp(stdout);
-    fprintf(stdout, "DEBUG: ");
-    va_start(args, format);
-    vfprintf(stdout, format, args);
-    va_end(args);
-    fprintf(stdout, "\n");
-    fflush(stdout);
+    bongocat_log_x(format, "DEBUG")
+}
+void bongocat_log_verbose(const char *format, ...) {
+    if (!debug_enabled) return;
+
+    bongocat_log_x(format, "VERBOSE")
 }
 
 #endif

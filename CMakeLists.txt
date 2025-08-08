@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(bongocat LANGUAGES C CXX VERSION 1.3.0)
+project(bongocat LANGUAGES C CXX VERSION 1.3.1)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
@@ -12,6 +12,7 @@ endif()
 #option(INCLUDE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF)
 #option(INCLUDE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF)
 option(INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS "Include only bongocat assets, exclude digimon assets" OFF)
+option(ENABLE_THREAD_SANITIZERS "Enable thread sanitizer, instead of address,undefined" OFF)
 
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
 set(PROTOCOLS_DIR ${CMAKE_SOURCE_DIR}/protocols)
@@ -32,15 +33,18 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(PROTOCOL_XML_WLR ${PROTOCOLS_DIR}/wlr-layer-shell-unstable-v1.xml)
 set(PROTOCOL_XML_XDG ${WAYLAND_PROTOCOLS_DIR}/stable/xdg-shell/xdg-shell.xml)
 set(PROTOCOL_XML_WLR_FOREIGN ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-unstable-v1.xml)
+set(PROTOCOL_XML_XDG_OUTPUT ${PROTOCOLS_DIR}/xdg-output-unstable-v1.xml)
 set(GENERATED_PROTOCOLS_SOURCES
     ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
     ${PROTOCOLS_DIR}/xdg-shell-protocol.c
     ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
+    ${PROTOCOLS_DIR}/xdg-output-unstable-v1-protocol.c
 )
 set(GENERATED_PROTOCOLS_HEADERS
     ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-client-protocol.h
     ${PROTOCOLS_DIR}/xdg-shell-client-protocol.h
     ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
+    ${PROTOCOLS_DIR}/xdg-output-unstable-v1-client-protocol.h
 )
 set(GENERATED_PROTOCOLS
     ${GENERATED_PROTOCOLS_SOURCES}
@@ -54,7 +58,9 @@ add_custom_command(OUTPUT ${GENERATED_PROTOCOLS}
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
-    DEPENDS ${PROTOCOL_XML_WLR} ${PROTOCOL_XML_XDG}
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_XDG_OUTPUT} ${PROTOCOLS_DIR}/xdg-output-unstable-v1-client-protocol.h
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_XDG_OUTPUT} ${PROTOCOLS_DIR}/xdg-output-unstable-v1-protocol.c
+    DEPENDS ${PROTOCOL_XML_WLR} ${PROTOCOL_XML_XDG} ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOL_XML_XDG_OUTPUT}
     COMMENT "Generating Wayland protocol files..."
 )
 add_custom_target(protocols DEPENDS ${GENERATED_PROTOCOLS})
@@ -66,6 +72,7 @@ set(SOURCES
     ${SRC_DIR}/config/config_watcher.c
     ${SRC_DIR}/core/main.c
     ${SRC_DIR}/graphics/animation.c
+    ${SRC_DIR}/graphics/bar.c
     ${SRC_DIR}/graphics/embedded_assets.c
     ${SRC_DIR}/graphics/embedded_assets/bongocat.c
     ${SRC_DIR}/platform/input.c
@@ -123,13 +130,24 @@ set(WARNING_FLAGS
 target_compile_options(bongocat PRIVATE ${WARNING_FLAGS} -fstack-protector-strong)
 
 target_compile_options(bongocat PRIVATE
-        $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
         $<$<CONFIG:Release>:-march=native;-fomit-frame-pointer;-funroll-loops;-finline-functions>
 )
-target_link_options(bongocat PRIVATE
-        $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
-)
+
+if (ENABLE_THREAD_SANITIZERS)
+    target_link_options(bongocat PRIVATE
+            $<$<CONFIG:Debug>:-fsanitize=thread>
+            $<$<CONFIG:RelWithDebInfo>:-fsanitize=thread>
+    )
+else()
+    target_link_options(bongocat PRIVATE
+            $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
+            $<$<CONFIG:RelWithDebInfo>:-fsanitize=thread;-fsanitize=undefined>
+    )
+endif()
+
 target_compile_definitions(bongocat PRIVATE
+        $<$<CONFIG:Debug>:BONGOCAT_LOG_LEVEL=4>
+        $<$<CONFIG:RelWithDebInfo>:BONGOCAT_LOG_LEVEL=3>
         $<$<CONFIG:Release>:_FORTIFY_SOURCE=2>
         $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_MEMORY_STATISTICS>
         $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>

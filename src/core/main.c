@@ -33,6 +33,14 @@ static wayland_context_t g_wayland_ctx = {0};
 static pthread_mutex_t g_config_reload_mutex = PTHREAD_MUTEX_INITIALIZER;
 static const char *g_signal_watch_path = "";
 
+static load_config_overwrite_parameters_t g_overwrite_parameters = {0};
+
+#define PID_STR_BUF 64
+
+#define WAIT_FOR_SHUTDOWN_MS 5000
+#define SLEEP_WAIT_FOR_SHUTDOWN_MS 100
+static_assert(SLEEP_WAIT_FOR_SHUTDOWN_MS > 0);
+
 // =============================================================================
 // COMMAND LINE ARGUMENTS STRUCTURE
 // =============================================================================
@@ -43,16 +51,18 @@ typedef struct {
     bool toggle_mode;
     bool show_help;
     bool show_version;
+    const char *output_name;
 } cli_args_t;
 
 // =============================================================================
 // PROCESS MANAGEMENT MODULE
 // =============================================================================
 
-#define PID_FILE "/tmp/bongocat.pid"
+#define DEFAULT_PID_FILE "/tmp/bongocat.pid"
+#define PID_FILE_WITH_SUFFIX_TEMPLATE "/tmp/bongocat-%s.pid"
 
-static int process_create_pid_file(void) {
-    const int fd = open(PID_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+static int process_create_pid_file(const char *pid_filename) {
+    const int fd = open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     if (fd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
         return -1;
@@ -68,7 +78,7 @@ static int process_create_pid_file(void) {
         return -1;
     }
     
-    char pid_str[32] = {0};
+    char pid_str[PID_STR_BUF] = {0};
     snprintf(pid_str, sizeof(pid_str), "%d\n", getpid());
     if (write(fd, pid_str, strlen(pid_str)) < 0) {
         BONGOCAT_LOG_ERROR("Failed to write PID to file: %s", strerror(errno));
@@ -79,12 +89,14 @@ static int process_create_pid_file(void) {
     return fd; // Keep file descriptor open to maintain lock
 }
 
-static void process_remove_pid_file(void) {
-    unlink(PID_FILE);
+static void process_remove_pid_file(const char* pid_filename) {
+    assert(pid_filename);
+    unlink(pid_filename);
 }
 
-static pid_t process_get_running_pid(void) {
-    int fd = open(PID_FILE, O_RDONLY);
+static pid_t process_get_running_pid(const char* pid_filename) {
+    assert(pid_filename);
+    int fd = open(pid_filename, O_RDONLY);
     if (fd < 0) {
         return -1; // No PID file exists
     }
@@ -95,14 +107,14 @@ static pid_t process_get_running_pid(void) {
         if (errno == EWOULDBLOCK) {
             // File is locked by another process, so it's running
             // We need to read the PID anyway, so let's try without lock
-            fd = open(PID_FILE, O_RDONLY);
+            fd = open(DEFAULT_PID_FILE, O_RDONLY);
             if (fd < 0) return -1;
         } else {
             return -1;
         }
     }
     
-    char pid_str[32];
+    char pid_str[PID_STR_BUF] = {0};
     ssize_t bytes_read = read(fd, pid_str, sizeof(pid_str) - 1);
     close(fd);
     
@@ -121,26 +133,28 @@ static pid_t process_get_running_pid(void) {
     if (kill(pid, 0) == 0) {
         return pid; // Process is running
     }
-    
-    // Process is not running, remove stale PID file
-    process_remove_pid_file();
+
     return -1;
 }
 
-static int process_handle_toggle(void) {
-    const pid_t running_pid = process_get_running_pid();
-    
+static int process_handle_toggle(const char* pid_filename) {
+    const pid_t running_pid = process_get_running_pid(pid_filename);
+    if (running_pid < 0) {
+        // Process is not running, remove stale PID file
+        process_remove_pid_file(pid_filename);
+    }
+
     if (running_pid > 0) {
         // Process is running, kill it
         BONGOCAT_LOG_INFO("Stopping bongocat (PID: %d)", running_pid);
         if (kill(running_pid, SIGTERM) == 0) {
             // Wait a bit for graceful shutdown
-            for (int i = 0; i < 50; i++) { // Wait up to 5 seconds
+            for (int i = 0; i < WAIT_FOR_SHUTDOWN_MS/SLEEP_WAIT_FOR_SHUTDOWN_MS; i++) { // Wait up to 5 seconds
                 if (kill(running_pid, 0) != 0) {
                     BONGOCAT_LOG_INFO("Bongocat stopped successfully");
                     return 0;
                 }
-                usleep(100000); // 100ms
+                usleep(SLEEP_WAIT_FOR_SHUTDOWN_MS*1000); // 100ms
             }
             
             // Force kill if still running
@@ -194,13 +208,25 @@ static void config_reload_callback() {
     // Create a temporary config to test loading
     config_t new_config;
     config_set_defaults(&new_config);
-    bongocat_error_t result = load_config(&new_config, g_config_watcher.config_path);
+    bongocat_error_t result = load_config(&new_config, g_config_watcher.config_path, &g_overwrite_parameters);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat_error_string(result));
         BONGOCAT_LOG_INFO("Keeping current configuration");
         return;
     }
-    
+
+
+    // If successful, check if input devices changed before updating config
+    bool devices_changed = config_devices_changed(&g_config, &new_config);
+
+    // Clean up old output_name if it exists and is different
+    if (g_config.output_name && new_config.output_name &&
+        strcmp(g_config.output_name, new_config.output_name) != 0) {
+    free(g_config.output_name);
+    } else if (g_config.output_name && !new_config.output_name) {
+        free(g_config.output_name);
+    }
+
     // If successful, update the global config
     pthread_mutex_lock(&g_config_reload_mutex);
     // move old config (make g_config 'available' for new_config)
@@ -217,7 +243,7 @@ static void config_reload_callback() {
     wayland_update_config(&g_wayland_ctx, &g_config, &g_animation_ctx);
     
     // Check if input devices changed and restart monitoring if needed
-    if (config_devices_changed(&old_config, &g_config)) {
+    if (devices_changed) {
         BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
         bongocat_error_t input_result = input_restart_monitoring(&g_input_ctx,
                                                                  g_config.keyboard_devices,
@@ -233,7 +259,7 @@ static void config_reload_callback() {
     // free old keyboard_devices
     config_cleanup(&old_config);
     pthread_mutex_unlock(&g_config_reload_mutex);
-    
+
     BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
     BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", g_wayland_ctx._screen_width, g_config.bar_height);
 }
@@ -241,7 +267,7 @@ static void config_reload_callback() {
 static bongocat_error_t config_setup_watcher(const char *config_file) {
     const char *watch_path = config_file ? config_file : "bongocat.conf";
     g_signal_watch_path = config_file ? config_file : "bongocat.conf";
-    
+
     if (config_watcher_init(&g_config_watcher, watch_path) == BONGOCAT_SUCCESS) {
         config_watcher_start(&g_config_watcher);
         BONGOCAT_LOG_INFO("Config file watching enabled for: %s", watch_path);
@@ -318,11 +344,13 @@ static bongocat_error_t system_initialize_components(void) {
     return BONGOCAT_SUCCESS;
 }
 
-[[ noreturn ]] static void system_cleanup_and_exit(int exit_code) {
+[[ noreturn ]] static void system_cleanup_and_exit(char* pid_filename, int exit_code) {
     BONGOCAT_LOG_INFO("Performing cleanup...");
 
     // Remove PID file
-    process_remove_pid_file();
+    process_remove_pid_file(pid_filename);
+    if (pid_filename) free(pid_filename);
+    pid_filename = NULL;
     
     // Stop config watcher
     config_watcher_cleanup(&g_config_watcher);
@@ -369,6 +397,7 @@ static void cli_show_help(const char *program_name) {
     printf("  -c, --config          Specify config file (default: bongocat.conf)\n");
     printf("  -w, --watch-config    Watch config file for changes and reload automatically\n");
     printf("  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)\n");
+    printf("  -o, --output-name     Specify output name (overwrite output_name from config)\n");
     printf("\nConfiguration is loaded from bongocat.conf in the current directory.\n");
 }
 
@@ -384,7 +413,8 @@ static int cli_parse_arguments(int argc, char *argv[], cli_args_t *args) {
         .watch_config = false,
         .toggle_mode = false,
         .show_help = false,
-        .show_version = false
+        .show_version = false,
+        .output_name = NULL,
     };
 
     for (int i = 1; i < argc; i++) {
@@ -404,6 +434,14 @@ static int cli_parse_arguments(int argc, char *argv[], cli_args_t *args) {
             args->watch_config = true;
         } else if (strcmp(argv[i], "--toggle") == 0 || strcmp(argv[i], "-t") == 0) {
             args->toggle_mode = true;
+        } else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
+            if (i + 1 < argc) {
+                args->output_name = argv[i + 1];
+                i++; // Skip the next argument since it's the output name
+            } else {
+                BONGOCAT_LOG_ERROR("--output-name option requires a output name");
+                return EXIT_FAILURE;
+            }
         } else {
             BONGOCAT_LOG_WARNING("Unknown argument: %s", argv[i]);
         }
@@ -427,57 +465,85 @@ int main(int argc, char *argv[]) {
     // Parse command line arguments
     cli_args_t args;
     if (cli_parse_arguments(argc, argv, &args) != 0) {
-        return 1;
+        return EXIT_FAILURE;
     }
 
     // Handle help and version requests
     if (args.show_help) {
         cli_show_help(argv[0]);
-        return 0;
+        return EXIT_SUCCESS;
     }
 
     if (args.show_version) {
         cli_show_version();
-        return 0;
+        return EXIT_SUCCESS;
+    }
+
+    // Load configuration
+    g_overwrite_parameters = (load_config_overwrite_parameters_t){
+        .output_name = args.output_name,
+    };
+    result = load_config(&g_config, args.config_file, &g_overwrite_parameters);
+    if (result != BONGOCAT_SUCCESS) {
+        BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat_error_string(result));
+        return EXIT_FAILURE;
+    }
+
+    // set pid file, based on output_name
+    char* pid_filename = NULL;
+    if (g_config.output_name && g_config.output_name[0] != '\0') {
+        size_t needed_size = snprintf(NULL, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name) + 1;
+        pid_filename = malloc(needed_size);
+        if (pid_filename != NULL) {
+            snprintf(pid_filename, needed_size, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name);
+        } else {
+            BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
+            config_cleanup(&g_config);
+            return EXIT_FAILURE;
+        }
+    } else {
+        pid_filename = strdup(DEFAULT_PID_FILE);
     }
 
     // Handle toggle mode
     if (args.toggle_mode) {
-        int toggle_result = process_handle_toggle();
+        int toggle_result = process_handle_toggle(pid_filename);
         if (toggle_result >= 0) {
+            if (pid_filename) free(pid_filename);
             return toggle_result; // Either successfully toggled off or error
         }
         // toggle_result == -1 means continue with startup
     }
-    
+
+    // Create PID file to track this instance
+    const int pid_fd = process_create_pid_file(pid_filename);
+    if (pid_fd == -2) {
+        BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
+        if (pid_filename) free(pid_filename);
+        config_cleanup(&g_config);
+        return EXIT_FAILURE;
+    } else if (pid_fd < 0) {
+        BONGOCAT_LOG_ERROR("Failed to create PID file");
+        if (pid_filename) free(pid_filename);
+        config_cleanup(&g_config);
+        return EXIT_FAILURE;
+    }
+    BONGOCAT_LOG_INFO("PID file created: %s", pid_filename);
+
+    // more randomness is needed to create better shm names, see create_shm
+    srand((unsigned)time(NULL) ^ getpid()); // seed once, include pid for better randomness
+
     // Setup signal handlers
     g_signal_watch_path = args.config_file;
     result = signal_setup_handlers();
     if (result != BONGOCAT_SUCCESS) {
+        config_cleanup(&g_config);
+        process_remove_pid_file(pid_filename);
+        if (pid_filename) free(pid_filename);
         BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat_error_string(result));
         return EXIT_FAILURE;
     }
-    
-    // Create PID file to track this instance
-    const int pid_fd = process_create_pid_file();
-    if (pid_fd == -2) {
-        BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
-        close(signal_fd);
-        return EXIT_FAILURE;
-    } else if (pid_fd < 0) {
-        BONGOCAT_LOG_ERROR("Failed to create PID file");
-        close(signal_fd);
-        return EXIT_FAILURE;
-    }
-    
-    // Load configuration
-    result = load_config(&g_config, args.config_file);
-    if (result != BONGOCAT_SUCCESS) {
-        BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat_error_string(result));
-        process_remove_pid_file();
-        close(signal_fd);
-        return EXIT_FAILURE;
-    }
+
     
     // Initialize config watcher if requested
     if (args.watch_config) {
@@ -487,11 +553,12 @@ int main(int argc, char *argv[]) {
     // Initialize all system components
     result = system_initialize_components();
     if (result != BONGOCAT_SUCCESS) {
-        system_cleanup_and_exit(1);
+        system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
 
     // Validate Setup
-    assert(g_wayland_ctx._anim == &g_animation_ctx);
+    assert(g_animation_ctx._input == &g_input_ctx);
+    assert(g_animation_ctx._wayland == &g_wayland_ctx);
 
     if (abs(g_config.cat_x_offset) > g_wayland_ctx._screen_width) {
         BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)",
@@ -499,18 +566,18 @@ int main(int argc, char *argv[]) {
     }
 
     BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", g_wayland_ctx._screen_width, g_config.bar_height);
-    
+
     BONGOCAT_LOG_INFO("Bongo Cat Overlay started successfully");
     
     // Main Wayland event loop with graceful shutdown
-    result = wayland_run(&g_wayland_ctx, &running, signal_fd, &g_config_watcher, config_reload_callback);
+    result = wayland_run(&g_wayland_ctx, &running, signal_fd, &g_config, &g_config_watcher, config_reload_callback);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
-        system_cleanup_and_exit(1);
+        system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
     
     BONGOCAT_LOG_INFO("Main loop exited, shutting down");
-    system_cleanup_and_exit(0);
+    system_cleanup_and_exit(pid_filename, EXIT_SUCCESS);
     
     return 0; // Never reached
 }

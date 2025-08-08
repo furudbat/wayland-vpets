@@ -13,11 +13,24 @@ typedef enum {
     POSITION_BOTTOM_RIGHT,
     */
 } overlay_position_t;
+#define POSITION_TOP_STR "top"
+#define POSITION_BOTTOM_STR "bottom"
 
 typedef enum {
     LAYER_TOP = 0,
     LAYER_OVERLAY = 1
 } layer_type_t;
+#define LAYER_TOP_STR "top"
+#define LAYER_OVERLAY_STR "overlay"
+
+typedef enum {
+    ALIGN_CENTER = 0,
+    ALIGN_LEFT = -1,
+    ALIGN_RIGHT = 1,
+} align_type_t;
+#define ALIGN_CENTER_STR "center"
+#define ALIGN_LEFT_STR "left"
+#define ALIGN_RIGHT_STR "right"
 
 typedef struct {
     int hour;
@@ -26,6 +39,7 @@ typedef struct {
 
 typedef struct {
     int bar_height;
+    char *output_name;
     char **keyboard_devices;
     int num_keyboard_devices;
     int cat_x_offset;
@@ -53,9 +67,14 @@ typedef struct {
     int idle_sleep_timeout_sec;
 
     int happy_kpm;
+
+    align_type_t cat_align;
 } config_t;
 
-bongocat_error_t load_config(config_t *config, const char *config_file_path);
+typedef struct {
+    const char* output_name;
+} load_config_overwrite_parameters_t;
+bongocat_error_t load_config(config_t *config, const char *config_file_path, const load_config_overwrite_parameters_t *overwrite_parameters);
 void config_cleanup(config_t *config);
 
 void config_set_defaults(config_t *config);

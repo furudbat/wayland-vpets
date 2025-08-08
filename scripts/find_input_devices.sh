@@ -1,6 +1,6 @@
 # Wayland Bongo Cat - Input Device Discovery Tool
 # Professional input device finder with comprehensive analysis
-# Version: 1.2.0
+# Version: 1.3.1
 
 set -euo pipefail
 
@@ -51,7 +51,7 @@ readonly TEST="[TEST]"
 
 # Script metadata
 readonly SCRIPT_NAME="bongocat-find-devices"
-readonly VERSION="1.2.0"
+readonly VERSION="1.3.1"
 
 # Command line options
 SHOW_ALL=false
@@ -80,6 +80,11 @@ usage() {
         printf "    This tool scans your system for input devices and provides configuration\n"
         printf "    suggestions for Wayland Bongo Cat. It identifies keyboards, checks\n"
         printf "    permissions, and generates ready-to-use configuration snippets.\n\n"
+        printf "${WHITE}MONITOR DETECTION:${NC}\n"
+        printf "    For multi-monitor setups, use these commands to find monitor names:\n"
+        printf "    • wlr-randr                    # List all monitors (recommended)\n"
+        printf "    • swaymsg -t get_outputs       # Sway compositor only\n"
+        printf "    • bongocat logs show detected monitors during startup\n\n"
     else
         cat << EOF
 ${SCRIPT_NAME} v${VERSION}
@@ -104,6 +109,12 @@ DESCRIPTION:
     This tool scans your system for input devices and provides configuration
     suggestions for Wayland Bongo Cat. It identifies keyboards, checks
     permissions, and generates ready-to-use configuration snippets.
+
+MONITOR DETECTION:
+    For multi-monitor setups, use these commands to find monitor names:
+    • wlr-randr                    # List all monitors (recommended)
+    • swaymsg -t get_outputs       # Sway compositor only
+    • bongocat logs show detected monitors during startup
 
 EOF
     fi

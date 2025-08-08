@@ -2,6 +2,65 @@
 
 All notable changes to this project will be documented in this file.
 
+## [1.3.1] - 2025-08-08
+
+_include changes from 1.2.4 (upstream)_
+
+### Added
+- **Overwrite config parameter** - Overwrite config setting with CLI Parameters
+- BREAKING CHANGE: **Multiple processes** - Processes per screen possible (pid file per screen (`output_name`))
+- **Reload Config with Signal** - Reload current config with `SIGURS2` signal
+
+### Improved
+- replace input fork with thread
+- signal handling, use epoll
+- CMake: add more compile options/feature-flags (`BONGOCAT_DISABLE_MEMORY_STATISTICS`, `BONGOCAT_LOG_LEVEL`)
+
+### Fixed
+- fix wayland memory leaks (toplevel)
+- fix potential memory leaks
+
+
+## [1.3.0] - 2025-08-06
+
+### Added
+- **More Sprite** - add Digimon sprite
+  - New `animation_name` option 
+  - Add minimal [dm - Version 1](https://humulos.com/digimon/dm/) Digimons
+- **More buildsystem options** - add CMake
+- **Sleep Mode** - new Options for Sleeping
+  - New `enable_scheduled_sleep` option: pause animations and display the sleep frame
+  - New `idle_sleep_timeout` option: user inactivity before entering sleep mode
+- Invert Color - New `invert_color` option: Invert sprite sheet color
+- Add KPM reaction - New `happy_kpm` option: Minimum keystrokes per minute (KPM) required to trigger the happy animation
+
+### Improved
+- BREAKING CHANGE: **C23** - use new C standard C23
+- add Logger MACROs
+
+### Fixed
+- fix config reload crashes
+- fix potential memory leaks
+- code cleanup
+- reduce globals variables, use context variables and structs
+
+## [1.2.4] - 2025-08-08
+
+### Added
+- **Multi-Monitor Support** - Choose which monitor to display bongocat on using the `monitor` configuration option
+- **Monitor Detection** - Automatic detection of available monitors with fallback to first monitor if specified monitor not found
+- **XDG Output Protocol** - Proper Wayland protocol implementation for monitor identification
+
+### Fixed
+- **Memory Leaks** - Fixed memory leak in monitor configuration cleanup
+- **Process Cleanup** - Resolved child process cleanup warnings during shutdown
+- **Segmentation Fault** - Fixed crash during application exit related to Wayland resource cleanup
+
+### Improved
+- **Error Handling** - Better error messages when specified monitor is not found
+- **Resource Management** - Improved cleanup order for Wayland resources
+- **Logging** - Enhanced debug logging for monitor detection and selection
+
 ## [1.2.3] - 2025-08-02
 
 ### Added

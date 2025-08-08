@@ -1,10 +1,11 @@
 #define _POSIX_C_SOURCE 199309L
 #define STB_IMAGE_IMPLEMENTATION
+#include "graphics/embedded_assets.h"
+#include "graphics/context.h"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
-#include "platform/input.h"
+#include "graphics/bar.h"
 #include "utils/memory.h"
-#include "graphics/embedded_assets.h"
 #include "utils/time.h"
 #include <time.h>
 #include <stdlib.h>
@@ -95,7 +96,7 @@ static void drawing_copy_pixel(uint8_t *dest, const unsigned char *src, int dest
             dest[dest_idx + 0] = 255 - src[src_idx + 2]; // B
             dest[dest_idx + 1] = 255 - src[src_idx + 1]; // G
             dest[dest_idx + 2] = 255 - src[src_idx + 0]; // R
-            dest[dest_idx + 3] = src[src_idx + 3]; // A
+            dest[dest_idx + 3] = src[src_idx + 3];       // A
             break;
     }
 }
@@ -222,7 +223,7 @@ static bongocat_error_t load_sprite_sheet_from_memory(animation_frame_t* out_fra
 
             copy_cropped_frame(&out_frames[idx], frame_data, padding_x, padding_y, drawing_option);
 
-            //BONGOCAT_LOG_DEBUG("Cropped Sprite Frame (%d): %dx%d (%dx%d)", idx, out_frames[idx].width, out_frames[idx].height, frame_width, frame_height);
+            //BONGOCAT_LOG_VERBOSE("Cropped Sprite Frame (%d): %dx%d (%dx%d)", idx, out_frames[idx].width, out_frames[idx].height, frame_width, frame_height);
 
             BONGOCAT_FREE(frame_pixels);
             frame_pixels = NULL;
@@ -269,6 +270,41 @@ void blit_image_scaled(uint8_t *dest, int dest_w, int dest_h,
             // Only draw non-transparent pixels
             if (src[src_idx + 3] > THRESHOLD_ALPHA) {
                 drawing_copy_pixel(dest, src, dest_idx, src_idx, COPY_PIXEL_OPTION_NORMAL);
+            }
+        }
+    }
+}
+void sblit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h,
+                       const unsigned char *src, size_t src_size, int src_w, int src_h,
+                       int offset_x, int offset_y, int target_w, int target_h) {
+    if (dest_size < RGBA_CHANNELS || src_size < RGBA_CHANNELS) {
+        return;
+    }
+    for (int y = 0; y < target_h; y++) {
+        for (int x = 0; x < target_w; x++) {
+            int dx = x + offset_x;
+            int dy = y + offset_y;
+
+            if (!drawing_is_pixel_in_bounds(dx, dy, dest_w, dest_h)) {
+                continue;
+            }
+
+            // Map destination pixel to source pixel
+            const int sx = (x * src_w) / target_w;
+            const int sy = (y * src_h) / target_h;
+
+            const int dest_idx = (dy * dest_w + dx) * RGBA_CHANNELS;
+            const int src_idx = (sy * src_w + sx) * RGBA_CHANNELS;
+
+            assert(dest_idx >= 0);
+            assert(src_idx >= 0);
+            assert(dest_size >= RGBA_CHANNELS);
+            assert(src_size >= RGBA_CHANNELS);
+            if ((size_t)dest_idx < dest_size-RGBA_CHANNELS && (size_t)src_idx < src_size-RGBA_CHANNELS) {
+                // Only draw non-transparent pixels
+                if (src[src_idx + 3] > THRESHOLD_ALPHA) {
+                    drawing_copy_pixel(dest, src, dest_idx, src_idx, COPY_PIXEL_OPTION_NORMAL);
+                }
             }
         }
     }
@@ -343,7 +379,7 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
             } else if (ctx->anims[ctx->anim_index].digimon.sleep1.pixels) {
                 return DIGIMON_FRAME_SLEEP1;
             } else if (ctx->anims[ctx->anim_index].digimon.down1.pixels) {
-                BONGOCAT_LOG_DEBUG("No Sleeping Frame for %d", ctx->anim_index);
+                BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", ctx->anim_index);
                 // fallback frame
                 return DIGIMON_FRAME_DOWN1;
             }
@@ -351,7 +387,7 @@ static int anim_get_random_active_frame(animation_context_t* ctx, const input_co
             if (ctx->anims[ctx->anim_index].digimon.sleep1.pixels) {
                 return DIGIMON_FRAME_SLEEP1;
             } else if (ctx->anims[ctx->anim_index].digimon.down1.pixels) {
-                BONGOCAT_LOG_DEBUG("No Sleeping Frame for %d", ctx->anim_index);
+                BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", ctx->anim_index);
                 // fallback frame
                 return DIGIMON_FRAME_DOWN1;
             }
@@ -389,7 +425,7 @@ static void anim_trigger_frame_change(animation_context_t* ctx,
     assert(current_config);
 
     if (current_config->enable_debug) {
-        BONGOCAT_LOG_DEBUG("Animation frame change: %d (duration: %ld us)", new_frame, duration_us);
+        BONGOCAT_LOG_VERBOSE("Animation frame change: %d (duration: %ld us)", new_frame, duration_us);
     }
     
     ctx->anim_frame_index = new_frame;
@@ -413,7 +449,7 @@ static void anim_handle_test_animation(animation_context_t* ctx, const input_con
         const int new_frame = anim_get_random_active_frame(ctx, input);
         const time_us_t duration_us = current_config->test_animation_duration_ms * 1000;
         
-        BONGOCAT_LOG_DEBUG("Test animation trigger");
+        BONGOCAT_LOG_VERBOSE("Test animation trigger");
         anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
         state->test_counter = 0;
     }
@@ -432,9 +468,9 @@ static void anim_handle_key_press(animation_context_t* ctx, input_context_t *inp
     }
     
     const int new_frame = anim_get_random_active_frame(ctx, input);
-    const time_us_t duration_us = current_config->keypress_duration_ms * 1000L;
+    const time_us_t duration_us = current_config->keypress_duration_ms * 1000;
     
-    BONGOCAT_LOG_DEBUG("Key press detected - switching to frame %d", new_frame);
+    BONGOCAT_LOG_VERBOSE("Key press detected - switching to frame %d", new_frame);
     anim_trigger_frame_change(ctx, new_frame, duration_us, current_time_us, state);
 
     *input->any_key_pressed = 0;
@@ -475,7 +511,8 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
     // Idle Sleep
     if (current_config->idle_sleep_timeout_sec > 0 && *input->last_key_pressed_timestamp > 0) {
         const timestamp_ms_t now = get_current_time_ms();
-        if (now - *input->last_key_pressed_timestamp >= current_config->idle_sleep_timeout_sec*1000) {
+        const time_ms_t idle_sleep_timeout_ms = current_config->idle_sleep_timeout_sec*1000;
+        if (now - *input->last_key_pressed_timestamp >= idle_sleep_timeout_ms) {
             if (ctx->anim_index == BONGOCAT_ANIM_INDEX) {
                 ctx->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
                 return;
@@ -496,7 +533,7 @@ static void anim_handle_idle_return(animation_context_t* ctx, input_context_t *i
     }
     
     if (ctx->anim_frame_index != current_config->idle_frame) {
-        BONGOCAT_LOG_DEBUG("Returning to idle frame %d", current_config->idle_frame);
+        BONGOCAT_LOG_VERBOSE("Returning to idle frame %d", current_config->idle_frame);
         ctx->anim_frame_index = current_config->idle_frame;
     }
 }
@@ -527,6 +564,7 @@ static void anim_init_state(animation_context_t* ctx, animation_state_t *state) 
     // read-only config
     const config_t* const current_config = ctx->_local_copy_config;
     assert(current_config);
+    assert(current_config->fps != 0);
 
     state->hold_until_us = 0;
     state->test_counter = 0;
@@ -535,37 +573,26 @@ static void anim_init_state(animation_context_t* ctx, animation_state_t *state) 
 }
 
 
-typedef struct {
-    input_context_t *input;
-    animation_context_t* ctx;
-    wayland_context_t* wayland;
-} anim_thread_main_params_t;
+
 static void *anim_thread_main(void *arg) {
     assert(arg);
-    anim_thread_main_params_t* animate_params = arg;
-
-    assert(animate_params->input);
-    assert(animate_params->ctx);
-    assert(animate_params->wayland);
+    animation_context_t* ctx = arg;
 
     animation_state_t state;
-    anim_init_state(animate_params->ctx, &state);
+    anim_init_state(ctx, &state);
     
     const struct timespec frame_delay = {0, state.frame_time_ns};
     
-    atomic_store(&animate_params->ctx->_animation_running, true);
+    atomic_store(&ctx->_animation_running, true);
     BONGOCAT_LOG_DEBUG("Animation thread main loop started");
     
-    while (atomic_load(&animate_params->ctx->_animation_running)) {
-        anim_update_state(animate_params->ctx, animate_params->input, &state);
-        draw_bar(animate_params->wayland);
+    while (atomic_load(&ctx->_animation_running)) {
+        anim_update_state(ctx, ctx->_input, &state);
+        draw_bar(ctx->_wayland, ctx);
         nanosleep(&frame_delay, NULL);
     }
     
     BONGOCAT_LOG_DEBUG("Animation thread main loop exited");
-
-    BONGOCAT_FREE(animate_params);
-    animate_params = NULL;
 
     return NULL;
 }
@@ -746,6 +773,7 @@ bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config
         ctx->_local_copy_config = NULL;
         return result;
     }
+    /// @TODO: check bongocat_embedded_images demantions with BONGOCAT_IMAGE_WIDTH, print warning ?
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
     const embedded_image_t* digimon_sprite_sheet_embedded_images = init_digimon_embedded_images();
@@ -753,7 +781,7 @@ bongocat_error_t animation_init(animation_context_t* ctx, const config_t *config
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
 
 #else
-    (void)init_digimon_anim;
+    UNUSED(init_digimon_anim);
     //init_digimon_anim(ctx, DM_AGUMON_ANIM_INDEX, &digimon_sprite_sheet_embedded_images[DM_AGUMON_ANIM_INDEX], DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
     #include "embedded_assets/min_dm_init_digimon_anim.c.inl"
 #endif
@@ -768,25 +796,16 @@ bongocat_error_t animation_start(animation_context_t* ctx, input_context_t *inpu
     BONGOCAT_CHECK_NULL(input, BONGOCAT_ERROR_INVALID_PARAM);
     BONGOCAT_CHECK_NULL(wayland, BONGOCAT_ERROR_INVALID_PARAM);
 
-    anim_thread_main_params_t* anim_thread_main_arg = BONGOCAT_MALLOC(sizeof(anim_thread_main_params_t));
-    if (!anim_thread_main_arg) {
-        BONGOCAT_LOG_ERROR("Failed to allocate memory for animate_arg");
-        return BONGOCAT_ERROR_MEMORY;
-    }
-    anim_thread_main_arg->input = input;
-    anim_thread_main_arg->ctx = ctx;
-    anim_thread_main_arg->wayland = wayland;
-
     BONGOCAT_LOG_INFO("Starting animation thread");
+
+    ctx->_input = input;
+    ctx->_wayland = wayland;
     
-    const int result = pthread_create(&ctx->_anim_thread, NULL, anim_thread_main, anim_thread_main_arg);
+    const int result = pthread_create(&ctx->_anim_thread, NULL, anim_thread_main, ctx);
     if (result != 0) {
-        BONGOCAT_FREE(anim_thread_main_arg);
         BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
         return BONGOCAT_ERROR_THREAD;
     }
-    // arg ownership has moved into thread
-    anim_thread_main_arg = NULL;
     
     BONGOCAT_LOG_DEBUG("Animation thread started successfully");
     return BONGOCAT_SUCCESS;
@@ -798,9 +817,10 @@ void animation_cleanup(animation_context_t* ctx) {
     if (atomic_load(&ctx->_animation_running)) {
         BONGOCAT_LOG_DEBUG("Stopping animation thread");
         atomic_store(&ctx->_animation_running, false);
-        
         // Wait for thread to finish gracefully
+        pthread_cancel(ctx->_anim_thread);
         pthread_join(ctx->_anim_thread, NULL);
+        ctx->_anim_thread = 0;
         BONGOCAT_LOG_DEBUG("Animation thread stopped");
     }
 
@@ -829,6 +849,7 @@ void animation_cleanup(animation_context_t* ctx) {
 
 void animation_trigger(input_context_t *input) {
     assert(input);
+    /// @TODO: use epool to trigger animation input in animation thread
     *input->any_key_pressed = 1;
 }
 
@@ -838,11 +859,17 @@ void animation_update_config(animation_context_t *ctx, const config_t *config) {
     assert(ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED);
 
 #ifndef NDEBUG
-    if (config->animation_index <= 0 || config->animation_index >= ANIMS_COUNT) {
+    if (config->animation_index < 0 || config->animation_index >= ANIMS_COUNT) {
         BONGOCAT_LOG_WARNING("Invalid animation index %d", config->animation_index);
     }
 #endif
 
-    *ctx->_local_copy_config = *config;
+    memcpy(ctx->_local_copy_config, config, sizeof(config_t));
+    /// @FIXME: make deep copy of keyboard_devices ?
+    // output_name and keyboard_devices not used, get rid of out-side reference
+    ctx->_local_copy_config->output_name = NULL;
+    ctx->_local_copy_config->keyboard_devices = NULL;
+    ctx->_local_copy_config->num_keyboard_devices = 0;
+
     ctx->anim_index = config->animation_index % ANIMS_COUNT;
 }
