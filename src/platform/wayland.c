@@ -28,6 +28,7 @@
 
 #define LINE_BUF 512
 #define SWAY_BUF 4096
+#define MAX_TOPLEVELS 64
 
 #define CREATE_SHM_MAX_ATTEMPTS 100
 #define CHECK_INTERVAL_MS 100
@@ -51,7 +52,13 @@ typedef struct {
     bool geometry_received;
 } screen_info_t;
 
-static screen_info_t screen_info = {0};
+static screen_info_t g_screen_info = {0};
+
+// use for listeners
+static wayland_context_t* g_wayland_context = NULL;
+static animation_context_t* g_animation_context = NULL;
+static struct zwlr_foreign_toplevel_handle_v1* g_tracked_toplevels[MAX_TOPLEVELS] = {0};
+static size_t g_num_toplevels = 0;
 
 // =============================================================================
 // FULLSCREEN DETECTION MODULE
@@ -63,11 +70,7 @@ typedef struct {
     struct timeval last_check;
 } fullscreen_detector_t;
 
-static fullscreen_detector_t fs_detector = {0};
-
-// use for listeners
-static wayland_context_t* g_wayland_context = NULL;
-static animation_context_t* g_animation_context = NULL;
+static fullscreen_detector_t g_fs_detector = {0};
 
 // =============================================================================
 // FULLSCREEN DETECTION IMPLEMENTATION
@@ -76,8 +79,8 @@ static animation_context_t* g_animation_context = NULL;
 static void fs_update_state(bool new_state) {
     assert(g_wayland_context);
     assert(g_animation_context);
-    if (new_state != fs_detector.has_fullscreen_toplevel) {
-        fs_detector.has_fullscreen_toplevel = new_state;
+    if (new_state != g_fs_detector.has_fullscreen_toplevel) {
+        g_fs_detector.has_fullscreen_toplevel = new_state;
         g_wayland_context->fullscreen_detected = new_state;
         
         BONGOCAT_LOG_INFO("Fullscreen state changed: %s",
@@ -137,8 +140,8 @@ static bool fs_check_compositor_fallback(void) {
 }
 
 static bool fs_check_status(void) {
-    if (fs_detector.manager) {
-        return fs_detector.has_fullscreen_toplevel;
+    if (g_fs_detector.manager) {
+        return g_fs_detector.has_fullscreen_toplevel;
     }
     return fs_check_compositor_fallback();
 }
@@ -205,16 +208,32 @@ static const struct zwlr_foreign_toplevel_handle_v1_listener fs_toplevel_listene
 static void fs_handle_manager_toplevel(void *data, struct zwlr_foreign_toplevel_manager_v1 *manager, 
                                       struct zwlr_foreign_toplevel_handle_v1 *toplevel) {
     UNUSED(data); UNUSED(manager);
-    
+
     zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener, NULL);
-    BONGOCAT_LOG_DEBUG("New toplevel registered for fullscreen monitoring");
+    if (g_num_toplevels < MAX_TOPLEVELS) {
+        bool already_tracked = false;
+        for (size_t i = 0; i < g_num_toplevels; i++) {
+            if (g_tracked_toplevels[i] == toplevel) {
+                already_tracked = true;
+                break;
+            }
+        }
+        if (!already_tracked) {
+            g_tracked_toplevels[g_num_toplevels] = toplevel;
+            g_num_toplevels++;
+        }
+    } else {
+        BONGOCAT_LOG_ERROR("toplevel tracker is full, %zu max: %d", g_num_toplevels, MAX_TOPLEVELS);
+    }
+
+    BONGOCAT_LOG_DEBUG("New toplevel registered for fullscreen monitoring: %zu", g_num_toplevels);
 }
 
 static void fs_handle_manager_finished(void *data, struct zwlr_foreign_toplevel_manager_v1 *manager) {
     UNUSED(data);
     BONGOCAT_LOG_INFO("Foreign toplevel manager finished");
     zwlr_foreign_toplevel_manager_v1_destroy(manager);
-    fs_detector.manager = NULL;
+    g_fs_detector.manager = NULL;
 }
 
 static const struct zwlr_foreign_toplevel_manager_v1_listener fs_manager_listener = {
@@ -227,25 +246,25 @@ static const struct zwlr_foreign_toplevel_manager_v1_listener fs_manager_listene
 // =============================================================================
 
 static void screen_calculate_dimensions(void) {
-    if (!screen_info.mode_received || !screen_info.geometry_received || screen_info.screen_width > 0) {
+    if (!g_screen_info.mode_received || !g_screen_info.geometry_received || g_screen_info.screen_width > 0) {
         return;
     }
     
-    bool is_rotated = (screen_info.transform == WL_OUTPUT_TRANSFORM_90 ||
-                      screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
-                      screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
-                      screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270);
+    bool is_rotated = (g_screen_info.transform == WL_OUTPUT_TRANSFORM_90 ||
+                      g_screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
+                      g_screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
+                      g_screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270);
     
     if (is_rotated) {
-        screen_info.screen_width = screen_info.raw_height;
-        screen_info.screen_height = screen_info.raw_width;
+        g_screen_info.screen_width = g_screen_info.raw_height;
+        g_screen_info.screen_height = g_screen_info.raw_width;
         BONGOCAT_LOG_INFO("Detected rotated screen: %dx%d (transform: %d)",
-                         screen_info.raw_height, screen_info.raw_width, screen_info.transform);
+                         g_screen_info.raw_height, g_screen_info.raw_width, g_screen_info.transform);
     } else {
-        screen_info.screen_width = screen_info.raw_width;
-        screen_info.screen_height = screen_info.raw_height;
+        g_screen_info.screen_width = g_screen_info.raw_width;
+        g_screen_info.screen_height = g_screen_info.raw_height;
         BONGOCAT_LOG_INFO("Detected screen: %dx%d (transform: %d)",
-                         screen_info.raw_width, screen_info.raw_height, screen_info.transform);
+                         g_screen_info.raw_width, g_screen_info.raw_height, g_screen_info.transform);
     }
 }
 
@@ -327,8 +346,8 @@ static void output_geometry(void *data,
     UNUSED(subpixel);
     UNUSED(make); UNUSED(model);
 
-    screen_info.transform = transform;
-    screen_info.geometry_received = true;
+    g_screen_info.transform = transform;
+    g_screen_info.geometry_received = true;
     BONGOCAT_LOG_DEBUG("Output transform: %d", transform);
     screen_calculate_dimensions();
 }
@@ -341,9 +360,9 @@ static void output_mode(void *data ,
     UNUSED(refresh);
 
     if (flags & WL_OUTPUT_MODE_CURRENT) {
-        screen_info.raw_width = width;
-        screen_info.raw_height = height;
-        screen_info.mode_received = true;
+        g_screen_info.raw_width = width;
+        g_screen_info.raw_height = height;
+        g_screen_info.mode_received = true;
         BONGOCAT_LOG_DEBUG("Received raw screen mode: %dx%d", width, height);
         screen_calculate_dimensions();
     }
@@ -396,10 +415,10 @@ static void registry_global(void *data , struct wl_registry *reg,
             wl_output_add_listener(g_wayland_context->output, &output_listener, NULL);
         }
     } else if (strcmp(iface, zwlr_foreign_toplevel_manager_v1_interface.name) == 0) {
-        fs_detector.manager = (struct zwlr_foreign_toplevel_manager_v1 *)
+        g_fs_detector.manager = (struct zwlr_foreign_toplevel_manager_v1 *)
             wl_registry_bind(reg, name, &zwlr_foreign_toplevel_manager_v1_interface, 3);
-        if (fs_detector.manager) {
-            zwlr_foreign_toplevel_manager_v1_add_listener(fs_detector.manager, &fs_manager_listener, NULL);
+        if (g_fs_detector.manager) {
+            zwlr_foreign_toplevel_manager_v1_add_listener(g_fs_detector.manager, &fs_manager_listener, NULL);
             BONGOCAT_LOG_INFO("Foreign toplevel manager bound - using Wayland protocol for fullscreen detection");
         }
     }
@@ -431,6 +450,12 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx, animatio
     }
     g_wayland_context = ctx;
     g_animation_context = anim;
+    // assume g_tracked_toplevels is not used, yet
+    if (g_num_toplevels == 0) {
+        for (size_t i = 0; i < MAX_TOPLEVELS; ++i) {
+            g_tracked_toplevels[i] = NULL;
+        }
+    }
     // read-only config
     //const config_t* const current_config = ctx->_local_copy_config;
     //assert(current_config);
@@ -454,9 +479,9 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx, animatio
     int screen_width = DEFAULT_SCREEN_WIDTH;
     if (ctx->output) {
         wl_display_roundtrip(ctx->display);
-        if (screen_info.screen_width > 0) {
-            BONGOCAT_LOG_INFO("Detected screen width: %d", screen_info.screen_width);
-            screen_width = screen_info.screen_width;
+        if (g_screen_info.screen_width > 0) {
+            BONGOCAT_LOG_INFO("Detected screen width: %d", g_screen_info.screen_width);
+            screen_width = g_screen_info.screen_width;
         } else {
             BONGOCAT_LOG_WARNING("Using default screen width: %d", DEFAULT_SCREEN_WIDTH);
             screen_width = DEFAULT_SCREEN_WIDTH;
@@ -644,15 +669,15 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
         // Periodic fullscreen check for fallback detection
         struct timeval now;
         gettimeofday(&now, NULL);
-        long elapsed_ms = (now.tv_sec - fs_detector.last_check.tv_sec) * 1000 + 
-                         (now.tv_usec - fs_detector.last_check.tv_usec) / 1000;
+        long elapsed_ms = (now.tv_sec - g_fs_detector.last_check.tv_sec) * 1000 +
+                         (now.tv_usec - g_fs_detector.last_check.tv_usec) / 1000;
         
         if (elapsed_ms >= CHECK_INTERVAL_MS) {
             bool new_state = fs_check_status();
             if (new_state != ctx->fullscreen_detected) {
                 fs_update_state(new_state);
             }
-            fs_detector.last_check = now;
+            g_fs_detector.last_check = now;
         }
 
         // Handle Wayland events
@@ -788,7 +813,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
 // =============================================================================
 
 int wayland_get_screen_width(void) {
-    return screen_info.screen_width;
+    return g_screen_info.screen_width;
 }
 
 void wayland_update_config(wayland_context_t* ctx, const config_t *config, animation_context_t *anim) {
@@ -807,6 +832,12 @@ void wayland_update_config(wayland_context_t* ctx, const config_t *config, anima
 void wayland_cleanup(wayland_context_t* ctx) {
     BONGOCAT_LOG_INFO("Cleaning up Wayland resources");
 
+    // drain pending events
+    if (ctx->display) {
+        wl_display_flush(ctx->display);
+        while (wl_display_dispatch_pending(ctx->display) > 0);
+    }
+
     if (ctx->buffer) {
         wl_buffer_destroy(ctx->buffer);
         ctx->buffer = NULL;
@@ -816,6 +847,7 @@ void wayland_cleanup(wayland_context_t* ctx) {
         munmap(ctx->pixels, ctx->pixels_size);
         ctx->pixels = NULL;
     }
+    ctx->pixels_size = 0;
 
     if (ctx->layer_surface) {
         zwlr_layer_surface_v1_destroy(ctx->layer_surface);
@@ -842,9 +874,9 @@ void wayland_cleanup(wayland_context_t* ctx) {
         ctx->xdg_wm_base = NULL;
     }
 
-    if (fs_detector.manager) {
-        zwlr_foreign_toplevel_manager_v1_destroy(fs_detector.manager);
-        fs_detector.manager = NULL;
+    if (g_fs_detector.manager) {
+        zwlr_foreign_toplevel_manager_v1_destroy(g_fs_detector.manager);
+        g_fs_detector.manager = NULL;
     }
 
     if (ctx->shm) {
@@ -857,6 +889,16 @@ void wayland_cleanup(wayland_context_t* ctx) {
         ctx->compositor = NULL;
     }
 
+    // assume g_wayland_context for listener and register is the same, clean up register and tracking stuff
+    if (g_wayland_context == ctx) {
+        for (size_t i = 0; i < g_num_toplevels; ++i) {
+            if (g_tracked_toplevels[i]) zwlr_foreign_toplevel_handle_v1_destroy(g_tracked_toplevels[i]);
+            g_tracked_toplevels[i] = NULL;
+        }
+        g_num_toplevels = 0;
+        g_wayland_context = NULL;
+    }
+
     if (ctx->display) {
         wl_display_disconnect(ctx->display);
         ctx->display = NULL;
@@ -866,12 +908,15 @@ void wayland_cleanup(wayland_context_t* ctx) {
         munmap(ctx->_local_copy_config, sizeof(config_t));
         ctx->_local_copy_config = NULL;
     }
+    ctx->_screen_width = 0;
 
     // Reset state
-    atomic_store(&g_wayland_context->configured, false);
+    atomic_store(&ctx->configured, false);
     ctx->fullscreen_detected = false;
-    memset(&fs_detector, 0, sizeof(fs_detector));
-    memset(&screen_info, 0, sizeof(screen_info));
+    memset(&g_fs_detector, 0, sizeof(g_fs_detector));
+    memset(&g_screen_info, 0, sizeof(g_screen_info));
+
+    g_animation_context = NULL;
     
     BONGOCAT_LOG_DEBUG("Wayland cleanup complete");
 }

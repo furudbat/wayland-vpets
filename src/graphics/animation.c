@@ -849,6 +849,7 @@ void animation_cleanup(animation_context_t* ctx) {
 
 void animation_trigger(input_context_t *input) {
     assert(input);
+    /// @TODO: use epool to trigger animation input in animation thread
     *input->any_key_pressed = 1;
 }
 
