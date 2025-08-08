@@ -2,7 +2,9 @@
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "graphics/bar.h"
+#include "utils/memory.h"
 #include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
+#include "../protocols/xdg-output-unstable-v1-client-protocol.h"
 #include <assert.h>
 #include <poll.h>
 #include <unistd.h>
@@ -20,7 +22,6 @@
 #include <sys/signalfd.h>
 #include <sys/wait.h>
 
-#include "utils/memory.h"
 
 // =============================================================================
 // GLOBAL STATE AND CONFIGURATION
@@ -53,12 +54,52 @@ typedef struct {
 } screen_info_t;
 
 static screen_info_t g_screen_info = {0};
+static output_ref_t g_outputs[MAX_OUTPUTS];
+static size_t g_output_count = 0;
+static struct zxdg_output_manager_v1 *g_xdg_output_manager = NULL;
 
 // use for listeners
 static wayland_context_t* g_wayland_context = NULL;
 static animation_context_t* g_animation_context = NULL;
 static struct zwlr_foreign_toplevel_handle_v1* g_tracked_toplevels[MAX_TOPLEVELS] = {0};
 static size_t g_num_toplevels = 0;
+
+// =============================================================================
+// ZXDG LISTENER IMPLEMENTATION
+// =============================================================================
+
+static void handle_xdg_output_name(void *data, struct zxdg_output_v1 *xdg_output,
+                                   const char *name) {
+    UNUSED(xdg_output);
+    output_ref_t *oref = data;
+    snprintf(oref->name_str, sizeof(oref->name_str), "%s", name);
+    oref->name_received = true;
+    BONGOCAT_LOG_DEBUG("xdg-output name received: %s", name);
+}
+
+static void handle_xdg_output_logical_position(void *data, struct zxdg_output_v1 *xdg_output,
+                                               int32_t x, int32_t y) {
+    UNUSED(data); UNUSED(xdg_output); UNUSED(x); UNUSED(y);
+}
+static void handle_xdg_output_logical_size(void *data, struct zxdg_output_v1 *xdg_output,
+                                           int32_t width, int32_t height) {
+    UNUSED(data); UNUSED(xdg_output); UNUSED(width); UNUSED(height);
+}
+static void handle_xdg_output_done(void *data, struct zxdg_output_v1 *xdg_output) {
+    UNUSED(data); UNUSED(xdg_output);
+}
+
+static void handle_xdg_output_description(void *data, struct zxdg_output_v1 *xdg_output, const char *description) {
+    UNUSED(data); UNUSED(xdg_output); UNUSED(description);
+}
+
+static const struct zxdg_output_v1_listener xdg_output_listener = {
+    .logical_position = handle_xdg_output_logical_position,
+    .logical_size = handle_xdg_output_logical_size,
+    .done = handle_xdg_output_done,
+    .name = handle_xdg_output_name,
+    .description = handle_xdg_output_description
+};
 
 // =============================================================================
 // FULLSCREEN DETECTION MODULE
@@ -320,7 +361,7 @@ static struct zwlr_layer_surface_v1_listener layer_listener = {
     .closed = NULL,
 };
 
-static void xdg_wm_base_ping(void *data , 
+static void xdg_wm_base_ping(void *data ,
                             struct xdg_wm_base *wm_base, uint32_t serial) {
     UNUSED(data);
     xdg_wm_base_pong(wm_base, serial);
@@ -393,10 +434,11 @@ static struct wl_output_listener output_listener = {
 // WAYLAND PROTOCOL REGISTRY
 // =============================================================================
 
-static void registry_global(void *data , struct wl_registry *reg, 
+static void registry_global(void *data , struct wl_registry *reg,
                            uint32_t name, const char *iface, uint32_t ver) {
     UNUSED(data); UNUSED(ver);
     assert(g_wayland_context);
+    assert(g_outputs);
 
     if (strcmp(iface, wl_compositor_interface.name) == 0) {
         g_wayland_context->compositor = (struct wl_compositor *)wl_registry_bind(reg, name, &wl_compositor_interface, 4);
@@ -409,10 +451,14 @@ static void registry_global(void *data , struct wl_registry *reg,
         if (g_wayland_context->xdg_wm_base) {
             xdg_wm_base_add_listener(g_wayland_context->xdg_wm_base, &xdg_wm_base_listener, NULL);
         }
+    } else if (strcmp(iface, zxdg_output_manager_v1_interface.name) == 0) {
+        g_xdg_output_manager = wl_registry_bind(reg, name, &zxdg_output_manager_v1_interface, 3);
     } else if (strcmp(iface, wl_output_interface.name) == 0) {
-        if (!g_wayland_context->output) {
-            g_wayland_context->output = (struct wl_output *)wl_registry_bind(reg, name, &wl_output_interface, 2);
-            wl_output_add_listener(g_wayland_context->output, &output_listener, NULL);
+        if (g_output_count < MAX_OUTPUTS) {
+            g_outputs[g_output_count].name = name;
+            g_outputs[g_output_count].wl_output = wl_registry_bind(reg, name, &wl_output_interface, 2);
+            wl_output_add_listener(g_outputs[g_output_count].wl_output, &output_listener, NULL);
+            g_output_count++;
         }
     } else if (strcmp(iface, zwlr_foreign_toplevel_manager_v1_interface.name) == 0) {
         g_fs_detector.manager = (struct zwlr_foreign_toplevel_manager_v1 *)
@@ -457,8 +503,8 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx, animatio
         }
     }
     // read-only config
-    //const config_t* const current_config = ctx->_local_copy_config;
-    //assert(current_config);
+    const config_t* const current_config = ctx->_local_copy_config;
+    assert(current_config);
 
     struct wl_registry *registry = wl_display_get_registry(ctx->display);
     if (!registry) {
@@ -468,6 +514,39 @@ static bongocat_error_t wayland_setup_protocols(wayland_context_t* ctx, animatio
 
     wl_registry_add_listener(registry, &reg_listener, NULL);
     wl_display_roundtrip(ctx->display);
+
+    if (g_xdg_output_manager) {
+        for (size_t i = 0; i < g_output_count; ++i) {
+            g_outputs[i].xdg_output = zxdg_output_manager_v1_get_xdg_output(g_xdg_output_manager, g_outputs[i].wl_output);
+            zxdg_output_v1_add_listener(g_outputs[i].xdg_output, &xdg_output_listener, &g_outputs[i]);
+        }
+
+        // Wait for all xdg_output events
+        wl_display_roundtrip(ctx->display);
+    }
+
+    ctx->output = NULL;
+    if (current_config->output_name) {
+        for (size_t i = 0; i < g_output_count; ++i) {
+            if (g_outputs[i].name_received &&
+                strcmp(g_outputs[i].name_str, current_config->output_name) == 0) {
+                ctx->output = g_outputs[i].wl_output;
+                BONGOCAT_LOG_INFO("Matched output: %s", g_outputs[i].name_str);
+                break;
+            }
+        }
+
+        if (!ctx->output) {
+            bongocat_log_error("Could not find output named '%s', defaulting to first output",
+                               current_config->output_name);
+        }
+    }
+
+    // Fallback
+    if (!ctx->output && g_output_count > 0) {
+        ctx->output = g_outputs[0].wl_output;
+        BONGOCAT_LOG_WARNING("Falling back to first output");
+    }
 
     if (!ctx->compositor || !ctx->shm || !ctx->layer_shell) {
         BONGOCAT_LOG_ERROR("Missing required Wayland protocols");
@@ -508,11 +587,12 @@ static bongocat_error_t wayland_setup_surface(wayland_context_t* ctx) {
         return BONGOCAT_ERROR_WAYLAND;
     }
 
-    ctx->layer_surface = zwlr_layer_shell_v1_get_layer_surface(ctx->layer_shell, ctx->surface, NULL,
-                                                          ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY, 
-                                                          "bongocat-overlay");
+    ctx->layer_surface = zwlr_layer_shell_v1_get_layer_surface(ctx->layer_shell, ctx->surface, ctx->output,
+                                                      ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY,
+                                                      "bongocat-overlay");
+
     if (!ctx->layer_surface) {
-        BONGOCAT_LOG_ERROR("Failed to create layer surface");
+        bongocat_log_error("Failed to create layer surface");
         return BONGOCAT_ERROR_WAYLAND;
     }
 
@@ -634,8 +714,12 @@ bongocat_error_t wayland_init(wayland_context_t* ctx, const config_t *config, an
 
     ctx->display = wl_display_connect(NULL);
     if (!ctx->display) {
-        munmap(ctx->_local_copy_config, sizeof(config_t));
-        ctx->_local_copy_config = NULL;
+        if (ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED) {
+            if (ctx->_local_copy_config->output_name) free(ctx->_local_copy_config->output_name);
+            ctx->_local_copy_config->output_name = NULL;
+            munmap(ctx->_local_copy_config, sizeof(config_t));
+            ctx->_local_copy_config = NULL;
+        }
         BONGOCAT_LOG_ERROR("Failed to connect to Wayland display");
         return BONGOCAT_ERROR_WAYLAND;
     }
@@ -691,7 +775,7 @@ bongocat_error_t wayland_run(wayland_context_t* ctx, volatile sig_atomic_t *runn
             { .fd = wl_display_get_fd(ctx->display), .events = POLLIN },
         };
         assert(fds_count == LEN_ARRAY(fds));
-        
+
         while (wl_display_prepare_read(ctx->display) != 0) {
             if (wl_display_dispatch_pending(ctx->display) == -1) {
                 BONGOCAT_LOG_ERROR("Failed to dispatch pending events");
@@ -821,7 +905,14 @@ void wayland_update_config(wayland_context_t* ctx, const config_t *config, anima
     assert(config);
     assert(ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED);
 
-    *ctx->_local_copy_config = *config;
+    memcpy(ctx->_local_copy_config, config, sizeof(*config));
+    ctx->_local_copy_config->output_name = config->output_name ? strdup(config->output_name) : NULL;
+
+    /// @FIXME: make deep copy of keyboard_devices ?
+    // keyboard_devices not used, get rid of out-side reference
+    ctx->_local_copy_config->keyboard_devices = NULL;
+    ctx->_local_copy_config->num_keyboard_devices = 0;
+
     /// @NOTE: assume animation has the same local copy as wayland config
     //animation_update_config(anim, config);
     if (atomic_load(&ctx->configured)) {
@@ -837,6 +928,32 @@ void wayland_cleanup(wayland_context_t* ctx) {
         wl_display_flush(ctx->display);
         while (wl_display_dispatch_pending(ctx->display) > 0);
     }
+
+    // First destroy xdg_output objects
+    for (size_t i = 0; i < g_output_count; ++i) {
+        if (g_outputs[i].xdg_output) {
+            BONGOCAT_LOG_DEBUG("Destroying xdg_output %zu", i);
+            zxdg_output_v1_destroy(g_outputs[i].xdg_output);
+            g_outputs[i].xdg_output = NULL;
+        }
+    }
+
+    // Then destroy the manager
+    if (g_xdg_output_manager) {
+        BONGOCAT_LOG_DEBUG("Destroying xdg_output_manager");
+        zxdg_output_manager_v1_destroy(g_xdg_output_manager);
+        g_xdg_output_manager = NULL;
+    }
+
+    // Finally destroy wl_output objects
+    for (size_t i = 0; i < g_output_count; ++i) {
+        if (g_outputs[i].wl_output) {
+            BONGOCAT_LOG_DEBUG("Destroying wl_output %zu", i);
+            wl_output_destroy(g_outputs[i].wl_output);
+            g_outputs[i].wl_output = NULL;
+        }
+    }
+    g_output_count = 0;
 
     if (ctx->buffer) {
         wl_buffer_destroy(ctx->buffer);
@@ -859,10 +976,9 @@ void wayland_cleanup(wayland_context_t* ctx) {
         ctx->surface = NULL;
     }
 
-    if (ctx->output) {
-        wl_output_destroy(ctx->output);
-        ctx->output = NULL;
-    }
+    // Note: output is just a reference to one of the outputs[] entries
+    // It will be destroyed when we destroy the outputs[] array above
+    ctx->output = NULL;
 
     if (ctx->layer_shell) {
         zwlr_layer_shell_v1_destroy(ctx->layer_shell);
@@ -905,6 +1021,8 @@ void wayland_cleanup(wayland_context_t* ctx) {
     }
 
     if (ctx->_local_copy_config && ctx->_local_copy_config != MAP_FAILED) {
+        if (ctx->_local_copy_config->output_name) free(ctx->_local_copy_config->output_name);
+        ctx->_local_copy_config->output_name = NULL;
         munmap(ctx->_local_copy_config, sizeof(config_t));
         ctx->_local_copy_config = NULL;
     }

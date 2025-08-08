@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(bongocat LANGUAGES C CXX VERSION 1.3.0)
+project(bongocat LANGUAGES C CXX VERSION 1.3.1)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
@@ -33,15 +33,18 @@ set(CMAKE_C_STANDARD_REQUIRED ON)
 set(PROTOCOL_XML_WLR ${PROTOCOLS_DIR}/wlr-layer-shell-unstable-v1.xml)
 set(PROTOCOL_XML_XDG ${WAYLAND_PROTOCOLS_DIR}/stable/xdg-shell/xdg-shell.xml)
 set(PROTOCOL_XML_WLR_FOREIGN ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-unstable-v1.xml)
+set(PROTOCOL_XML_XDG_OUTPUT ${PROTOCOLS_DIR}/xdg-output-unstable-v1.xml)
 set(GENERATED_PROTOCOLS_SOURCES
     ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
     ${PROTOCOLS_DIR}/xdg-shell-protocol.c
     ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
+    ${PROTOCOLS_DIR}/xdg-output-unstable-v1-protocol.c
 )
 set(GENERATED_PROTOCOLS_HEADERS
     ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-client-protocol.h
     ${PROTOCOLS_DIR}/xdg-shell-client-protocol.h
     ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
+    ${PROTOCOLS_DIR}/xdg-output-unstable-v1-client-protocol.h
 )
 set(GENERATED_PROTOCOLS
     ${GENERATED_PROTOCOLS_SOURCES}
@@ -55,7 +58,9 @@ add_custom_command(OUTPUT ${GENERATED_PROTOCOLS}
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
     COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
-    DEPENDS ${PROTOCOL_XML_WLR} ${PROTOCOL_XML_XDG}
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_XDG_OUTPUT} ${PROTOCOLS_DIR}/xdg-output-unstable-v1-client-protocol.h
+    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_XDG_OUTPUT} ${PROTOCOLS_DIR}/xdg-output-unstable-v1-protocol.c
+    DEPENDS ${PROTOCOL_XML_WLR} ${PROTOCOL_XML_XDG} ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOL_XML_XDG_OUTPUT}
     COMMENT "Generating Wayland protocol files..."
 )
 add_custom_target(protocols DEPENDS ${GENERATED_PROTOCOLS})

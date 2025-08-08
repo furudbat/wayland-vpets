@@ -13,11 +13,15 @@ result
 *-protocol.h
 *-client-protocol.h
 
+# Note: embedded_assets.c and embedded_assets.h are now committed to git
+# Run scripts/embed_assets.sh manually when assets change
+
 # IDE files
 .vscode/
 *.swp
 *.swo
 *~
+.idea/
 
 # Temporary files
 *.tmp

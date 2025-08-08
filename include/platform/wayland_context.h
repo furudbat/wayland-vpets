@@ -24,7 +24,7 @@ typedef struct {
     bool fullscreen_detected;
 
     // local copy from other thread, update after reload (shared memory)
-    config_t* _local_copy_config;
+    config_t *_local_copy_config;
     int _screen_width;
 } wayland_context_t;
 

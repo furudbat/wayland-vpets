@@ -391,12 +391,26 @@ static bongocat_error_t config_parse_enum_key(config_t *config, const char *key,
     } else {
         return BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
     }
-    
+
     return BONGOCAT_SUCCESS;
 }
 
 static bongocat_error_t config_parse_string(config_t *config, const char *key, const char *value) {
-    if (strcmp(key, SLEEP_BEGIN_KEY) == 0) {
+    if (strcmp(key, "monitor") == 0) {
+        if (config->output_name) {
+            free(config->output_name);
+            config->output_name = NULL;
+        }
+        if (value && value[0] != '\0') {
+            config->output_name = strdup(value);
+            if (!config->output_name) {
+                BONGOCAT_LOG_ERROR("Failed to allocate memory for interface output");
+                return BONGOCAT_ERROR_MEMORY;
+            }
+        } else {
+            config->output_name = NULL;
+        }
+    } else if (strcmp(key, SLEEP_BEGIN_KEY) == 0) {
         if (value && value[0] != '\0') {
             int hour, min;
             if (sscanf(value, "%2d:%2d", &hour, &min) != 2 || hour < 0 || hour > 23 || min < 0 || min > 59) {
@@ -425,7 +439,7 @@ static bongocat_error_t config_parse_string(config_t *config, const char *key, c
     } else if (strcmp(key, ANIMATION_NAME_KEY) == 0) {
         char lower_value[VALUE_BUF] = {0};
         memset(lower_value, 0, VALUE_BUF);
-        for(size_t i = 0; i < strlen(value); i++) {
+        for(size_t i = 0; i < strlen(value) && i < VALUE_BUF; i++) {
             lower_value[i] = (char)tolower(value[i]);
         }
 
@@ -472,7 +486,7 @@ static bongocat_error_t config_parse_key_value(config_t *config, const char *key
     if (config_parse_string(config, key, value) == BONGOCAT_SUCCESS) {
         return BONGOCAT_SUCCESS;
     }
-    
+
     // Handle device keys
     if (strcmp(key, KEYBOARD_DEVICE_KEY) == 0 || strcmp(key, KEYBOARD_DEVICES_KEY) == 0) {
         return config_add_keyboard_device(config, value);
@@ -549,6 +563,7 @@ static bongocat_error_t config_parse_file(config_t *config, const char *config_f
 
 void config_set_defaults(config_t *config) {
     *config = (config_t) {
+        .output_name = NULL,                   // Will default to automatic one if kept null
         .bar_height = DEFAULT_BAR_HEIGHT,
         /*
         .asset_paths = {
@@ -633,14 +648,23 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path) {
     // Clear existing keyboard devices to prevent accumulation during reloads
     config_cleanup_devices(config);
     config_set_defaults(config);
-    
+
     // Parse config file and override defaults
     bongocat_error_t result = config_parse_file(config, config_file_path);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to parse configuration file: %s", bongocat_error_string(result));
         return result;
     }
-    
+
+    // Set default keyboard device if none specified
+    if (config->keyboard_devices == NULL || config->num_keyboard_devices == 0) {
+        result = config_set_default_devices(config);
+        if (result != BONGOCAT_SUCCESS) {
+            bongocat_log_error("Failed to set default keyboard devices: %s", bongocat_error_string(result));
+            return result;
+        }
+    }
+
     // Validate and sanitize configuration
     result = config_validate(config);
     if (result != BONGOCAT_SUCCESS) {
@@ -658,7 +682,7 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path) {
             BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
         }
     }
-    
+
     // Finalize configuration
     config_finalize(config);
     
@@ -670,5 +694,9 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path) {
 
 void config_cleanup(config_t *config) {
     config_cleanup_devices(config);
+    if (config->output_name) {
+        free(config->output_name);
+        config->output_name = NULL;
+    }
     config_set_defaults(config);
 }

@@ -39,6 +39,7 @@ typedef struct {
 
 typedef struct {
     int bar_height;
+    char *output_name;
     char **keyboard_devices;
     int num_keyboard_devices;
     int cat_x_offset;

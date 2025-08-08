@@ -864,6 +864,12 @@ void animation_update_config(animation_context_t *ctx, const config_t *config) {
     }
 #endif
 
-    *ctx->_local_copy_config = *config;
+    memcpy(ctx->_local_copy_config, config, sizeof(config_t));
+    /// @FIXME: make deep copy of keyboard_devices ?
+    // output_name and keyboard_devices not used, get rid of out-side reference
+    ctx->_local_copy_config->output_name = NULL;
+    ctx->_local_copy_config->keyboard_devices = NULL;
+    ctx->_local_copy_config->num_keyboard_devices = 0;
+
     ctx->anim_index = config->animation_index % ANIMS_COUNT;
 }

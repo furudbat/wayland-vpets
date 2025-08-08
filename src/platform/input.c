@@ -680,7 +680,7 @@ void input_cleanup(input_context_t* ctx) {
 
     ctx->_input_kpm_counter = 0;
     ctx->_latest_kpm_update_ms = 0;
-    
+
     BONGOCAT_LOG_DEBUG("Input monitoring cleanup complete");
 }
 

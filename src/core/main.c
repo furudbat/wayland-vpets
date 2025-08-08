@@ -206,7 +206,19 @@ static void config_reload_callback() {
         BONGOCAT_LOG_INFO("Keeping current configuration");
         return;
     }
-    
+
+
+    // If successful, check if input devices changed before updating config
+    bool devices_changed = config_devices_changed(&g_config, &new_config);
+
+    // Clean up old output_name if it exists and is different
+    if (g_config.output_name && new_config.output_name &&
+        strcmp(g_config.output_name, new_config.output_name) != 0) {
+    free(g_config.output_name);
+    } else if (g_config.output_name && !new_config.output_name) {
+        free(g_config.output_name);
+    }
+
     // If successful, update the global config
     pthread_mutex_lock(&g_config_reload_mutex);
     // move old config (make g_config 'available' for new_config)
@@ -223,7 +235,7 @@ static void config_reload_callback() {
     wayland_update_config(&g_wayland_ctx, &g_config, &g_animation_ctx);
     
     // Check if input devices changed and restart monitoring if needed
-    if (config_devices_changed(&old_config, &g_config)) {
+    if (devices_changed) {
         BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
         bongocat_error_t input_result = input_restart_monitoring(&g_input_ctx,
                                                                  g_config.keyboard_devices,
@@ -239,7 +251,7 @@ static void config_reload_callback() {
     // free old keyboard_devices
     config_cleanup(&old_config);
     pthread_mutex_unlock(&g_config_reload_mutex);
-    
+
     BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
     BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", g_wayland_ctx._screen_width, g_config.bar_height);
 }
@@ -247,7 +259,7 @@ static void config_reload_callback() {
 static bongocat_error_t config_setup_watcher(const char *config_file) {
     const char *watch_path = config_file ? config_file : "bongocat.conf";
     g_signal_watch_path = config_file ? config_file : "bongocat.conf";
-    
+
     if (config_watcher_init(&g_config_watcher, watch_path) == BONGOCAT_SUCCESS) {
         config_watcher_start(&g_config_watcher);
         BONGOCAT_LOG_INFO("Config file watching enabled for: %s", watch_path);
@@ -478,7 +490,7 @@ int main(int argc, char *argv[]) {
 
     // more randomness is needed to create better shm names, see create_shm
     srand((unsigned)time(NULL) ^ getpid()); // seed once, include pid for better randomness
-    
+
     // Load configuration
     result = load_config(&g_config, args.config_file);
     if (result != BONGOCAT_SUCCESS) {
@@ -509,7 +521,7 @@ int main(int argc, char *argv[]) {
     }
 
     BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", g_wayland_ctx._screen_width, g_config.bar_height);
-    
+
     BONGOCAT_LOG_INFO("Bongo Cat Overlay started successfully");
     
     // Main Wayland event loop with graceful shutdown
