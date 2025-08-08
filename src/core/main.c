@@ -55,10 +55,11 @@ typedef struct {
 // PROCESS MANAGEMENT MODULE
 // =============================================================================
 
-#define PID_FILE "/tmp/bongocat.pid"
+#define DEFAULT_PID_FILE "/tmp/bongocat.pid"
+#define PID_FILE_WITH_SUFFIX_TEMPLATE "/tmp/bongocat-%s.pid"
 
-static int process_create_pid_file(void) {
-    const int fd = open(PID_FILE, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+static int process_create_pid_file(const char *pid_filename) {
+    const int fd = open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
     if (fd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
         return -1;
@@ -85,12 +86,14 @@ static int process_create_pid_file(void) {
     return fd; // Keep file descriptor open to maintain lock
 }
 
-static void process_remove_pid_file(void) {
-    unlink(PID_FILE);
+static void process_remove_pid_file(const char* pid_filename) {
+    assert(pid_filename);
+    unlink(pid_filename);
 }
 
-static pid_t process_get_running_pid(void) {
-    int fd = open(PID_FILE, O_RDONLY);
+static pid_t process_get_running_pid(const char* pid_filename) {
+    assert(pid_filename);
+    int fd = open(pid_filename, O_RDONLY);
     if (fd < 0) {
         return -1; // No PID file exists
     }
@@ -101,7 +104,7 @@ static pid_t process_get_running_pid(void) {
         if (errno == EWOULDBLOCK) {
             // File is locked by another process, so it's running
             // We need to read the PID anyway, so let's try without lock
-            fd = open(PID_FILE, O_RDONLY);
+            fd = open(DEFAULT_PID_FILE, O_RDONLY);
             if (fd < 0) return -1;
         } else {
             return -1;
@@ -127,15 +130,17 @@ static pid_t process_get_running_pid(void) {
     if (kill(pid, 0) == 0) {
         return pid; // Process is running
     }
-    
-    // Process is not running, remove stale PID file
-    process_remove_pid_file();
+
     return -1;
 }
 
-static int process_handle_toggle(void) {
-    const pid_t running_pid = process_get_running_pid();
-    
+static int process_handle_toggle(const char* pid_filename) {
+    const pid_t running_pid = process_get_running_pid(pid_filename);
+    if (running_pid < 0) {
+        // Process is not running, remove stale PID file
+        process_remove_pid_file(pid_filename);
+    }
+
     if (running_pid > 0) {
         // Process is running, kill it
         BONGOCAT_LOG_INFO("Stopping bongocat (PID: %d)", running_pid);
@@ -336,11 +341,13 @@ static bongocat_error_t system_initialize_components(void) {
     return BONGOCAT_SUCCESS;
 }
 
-[[ noreturn ]] static void system_cleanup_and_exit(int exit_code) {
+[[ noreturn ]] static void system_cleanup_and_exit(char* pid_filename, int exit_code) {
     BONGOCAT_LOG_INFO("Performing cleanup...");
 
     // Remove PID file
-    process_remove_pid_file();
+    process_remove_pid_file(pid_filename);
+    if (pid_filename) free(pid_filename);
+    pid_filename = NULL;
     
     // Stop config watcher
     config_watcher_cleanup(&g_config_watcher);
@@ -459,46 +466,68 @@ int main(int argc, char *argv[]) {
         return EXIT_SUCCESS;
     }
 
-    // Handle toggle mode
-    if (args.toggle_mode) {
-        int toggle_result = process_handle_toggle();
-        if (toggle_result >= 0) {
-            return toggle_result; // Either successfully toggled off or error
-        }
-        // toggle_result == -1 means continue with startup
-    }
-    
-    // Setup signal handlers
-    g_signal_watch_path = args.config_file;
-    result = signal_setup_handlers();
-    if (result != BONGOCAT_SUCCESS) {
-        BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat_error_string(result));
-        return EXIT_FAILURE;
-    }
-    
-    // Create PID file to track this instance
-    const int pid_fd = process_create_pid_file();
-    if (pid_fd == -2) {
-        BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
-        close(signal_fd);
-        return EXIT_FAILURE;
-    } else if (pid_fd < 0) {
-        BONGOCAT_LOG_ERROR("Failed to create PID file");
-        close(signal_fd);
-        return EXIT_FAILURE;
-    }
-
-    // more randomness is needed to create better shm names, see create_shm
-    srand((unsigned)time(NULL) ^ getpid()); // seed once, include pid for better randomness
-
     // Load configuration
     result = load_config(&g_config, args.config_file);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat_error_string(result));
-        process_remove_pid_file();
-        close(signal_fd);
         return EXIT_FAILURE;
     }
+
+    // set pid file, based on output_name
+    char* pid_filename = NULL;
+    if (g_config.output_name && g_config.output_name[0] != '\0') {
+        size_t needed_size = snprintf(NULL, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name) + 1;
+        pid_filename = malloc(needed_size);
+        if (pid_filename != NULL) {
+            snprintf(pid_filename, needed_size, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name);
+        } else {
+            BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
+            config_cleanup(&g_config);
+            return EXIT_FAILURE;
+        }
+    } else {
+        pid_filename = strdup(DEFAULT_PID_FILE);
+    }
+
+    // Handle toggle mode
+    if (args.toggle_mode) {
+        int toggle_result = process_handle_toggle(pid_filename);
+        if (toggle_result >= 0) {
+            if (pid_filename) free(pid_filename);
+            return toggle_result; // Either successfully toggled off or error
+        }
+        // toggle_result == -1 means continue with startup
+    }
+
+    // Create PID file to track this instance
+    const int pid_fd = process_create_pid_file(pid_filename);
+    if (pid_fd == -2) {
+        BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
+        if (pid_filename) free(pid_filename);
+        config_cleanup(&g_config);
+        return EXIT_FAILURE;
+    } else if (pid_fd < 0) {
+        BONGOCAT_LOG_ERROR("Failed to create PID file");
+        if (pid_filename) free(pid_filename);
+        config_cleanup(&g_config);
+        return EXIT_FAILURE;
+    }
+    BONGOCAT_LOG_INFO("PID file created: %s", pid_filename);
+
+    // more randomness is needed to create better shm names, see create_shm
+    srand((unsigned)time(NULL) ^ getpid()); // seed once, include pid for better randomness
+
+    // Setup signal handlers
+    g_signal_watch_path = args.config_file;
+    result = signal_setup_handlers();
+    if (result != BONGOCAT_SUCCESS) {
+        config_cleanup(&g_config);
+        process_remove_pid_file(pid_filename);
+        if (pid_filename) free(pid_filename);
+        BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat_error_string(result));
+        return EXIT_FAILURE;
+    }
+
     
     // Initialize config watcher if requested
     if (args.watch_config) {
@@ -508,7 +537,7 @@ int main(int argc, char *argv[]) {
     // Initialize all system components
     result = system_initialize_components();
     if (result != BONGOCAT_SUCCESS) {
-        system_cleanup_and_exit(EXIT_FAILURE);
+        system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
 
     // Validate Setup
@@ -528,11 +557,11 @@ int main(int argc, char *argv[]) {
     result = wayland_run(&g_wayland_ctx, &running, signal_fd, &g_config, &g_config_watcher, config_reload_callback);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
-        system_cleanup_and_exit(EXIT_FAILURE);
+        system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
     
     BONGOCAT_LOG_INFO("Main loop exited, shutting down");
-    system_cleanup_and_exit(EXIT_SUCCESS);
+    system_cleanup_and_exit(pid_filename, EXIT_SUCCESS);
     
     return 0; // Never reached
 }
