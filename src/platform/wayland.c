@@ -259,7 +259,7 @@ int create_shm(off_t size) {
     char name[] = "/bar-shm-XXXXXXXX";
     assert((name_prefix_len + name_suffix_len) == strlen(name));
     const char charset[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-    int fd;
+    int fd = -1;
 
     for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
         for (size_t j = 0; j < name_suffix_len; j++) {
@@ -274,7 +274,7 @@ int create_shm(off_t size) {
 
     if (fd < 0 || ftruncate(fd, size) < 0) {
         perror("shm");
-        exit(1);
+        return -1;
     }
 
     return fd;

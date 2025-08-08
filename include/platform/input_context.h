@@ -22,6 +22,8 @@ typedef struct {
     timestamp_ms_t _latest_kpm_update_ms;
 
     // thread context
+    char* *_device_paths;    // local copy of devices
+    int _device_paths_count;
     int *_fds;
     size_t _fds_count;
     size_t *_unique_paths_indices;
