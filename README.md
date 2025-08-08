@@ -22,12 +22,12 @@ Perfect for streamers, content creators, or anyone who wants to add some fun to 
 - **🖥️ Screen Detection** - Automatic screen detection for all sizes and orientations (v1.2.2)
 - **🎮 Smart Fullscreen Detection** - Automatically hides during fullscreen applications (v1.2.3)
 - **🖥️ Multi-Monitor Support** - Choose which monitor to display on in multi-monitor setups (v1.2.4)
-- **💾 Lightweight** - Minimal resource usage (~9MB RAM)
+- **💾 Lightweight** - Minimal resource usage (~10MB RAM)
 - **🎛️ Multi-device Support** - Monitor multiple keyboards simultaneously
 - **🏗️ Cross-platform** - Works on x86_64 and ARM64
 - **🎞️ More Animations** - Besides the Input/Idle Animation, we have now Happy and Sleep-Mode (v1.3.0)
-  - Happy: Reach KPM (Keystroke per minute) to trigger the happy frame
-  - Sleep: Sleeping time for your Pet
+  - 😄 Happy: Reach KPM (Keystroke per minute) to trigger the happy frame
+  - 😴 Sleep: Sleeping time for your Pet
 
 ## 🚀 Installation
 
@@ -331,7 +331,7 @@ bongocat-find-devices --help
 ### System Requirements
 
 - **CPU:** Any modern x86_64 or ARM64 processor
-- **RAM:** ~9MB runtime usage
+- **RAM:** ~10MB runtime usage
 - **Storage:** ~330K executable size
 - **Compositor:** Wayland with layer shell protocol support
 
