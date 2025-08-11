@@ -18,53 +18,85 @@
 #define MAX_NUM_FRAMES 15
 #define MAX_DIGIMON_FRAMES 15
 
-
 typedef struct {
-    int width;
-    int height;
+    bool valid;
+    int col;
+    int row;
+} sprite_sheet_animation_region_t;
+typedef struct {
+    int sprite_sheet_width;
+    int sprite_sheet_height;
     int channels;
     uint8_t *pixels;
-} animation_frame_t;
+    size_t pixels_size;
 
-typedef struct {
-    animation_frame_t idle_1;
-    animation_frame_t idle_2;
-    animation_frame_t angry;
-    animation_frame_t down1;
-    animation_frame_t happy;
-    animation_frame_t eat1;
-    animation_frame_t sleep1;
-    animation_frame_t refuse;
-    animation_frame_t sad;
+    int frame_width;
+    int frame_height;
+    int total_frames;
+
+    sprite_sheet_animation_region_t idle_1;
+    sprite_sheet_animation_region_t idle_2;
+    sprite_sheet_animation_region_t angry;
+    sprite_sheet_animation_region_t down1;
+    sprite_sheet_animation_region_t happy;
+    sprite_sheet_animation_region_t at1;
+    sprite_sheet_animation_region_t sleep1;
+    sprite_sheet_animation_region_t refuse;
+    sprite_sheet_animation_region_t sad;
 
     // optional
-    animation_frame_t down_2;
-    animation_frame_t eat_2;
-    animation_frame_t sleep_2;
-    animation_frame_t attack;
+    sprite_sheet_animation_region_t down_2;
+    sprite_sheet_animation_region_t eat_2;
+    sprite_sheet_animation_region_t sleep_2;
+    sprite_sheet_animation_region_t attack;
 
     // extra frames
-    animation_frame_t movement_1;
-    animation_frame_t movement_2;
+    sprite_sheet_animation_region_t movement_1;
+    sprite_sheet_animation_region_t movement_2;
 } digimon_animation_t;
 
 typedef struct {
-    animation_frame_t both_up;
-    animation_frame_t left_down;
-    animation_frame_t right_down;
-    animation_frame_t both_down;
+    int sprite_sheet_width;
+    int sprite_sheet_height;
+    int channels;
+    uint8_t *pixels;
+    size_t pixels_size;
 
-    animation_frame_t _placeholder[MAX_DIGIMON_FRAMES-4];
+    int frame_width;
+    int frame_height;
+    int total_frames;
+
+    sprite_sheet_animation_region_t both_up;
+    sprite_sheet_animation_region_t left_down;
+    sprite_sheet_animation_region_t right_down;
+    sprite_sheet_animation_region_t both_down;
+
+    sprite_sheet_animation_region_t _placeholder[MAX_NUM_FRAMES-4];
 } bongocat_animation_t;
+
+typedef struct {
+    int sprite_sheet_width;
+    int sprite_sheet_height;
+    int channels;
+    uint8_t *pixels;
+    size_t pixels_size;
+
+    int frame_width;
+    int frame_height;
+    int total_frames;
+
+    sprite_sheet_animation_region_t frames[MAX_NUM_FRAMES];
+} generic_sprite_sheet_animation_t;
 
 static_assert(sizeof(digimon_animation_t) == sizeof(bongocat_animation_t));
 typedef union {
     bongocat_animation_t bongocat;
     digimon_animation_t digimon;
-    animation_frame_t frames[MAX_NUM_FRAMES];
+    generic_sprite_sheet_animation_t sprite_sheet;
 } animation_t;
-static_assert(sizeof(animation_frame_t[MAX_NUM_FRAMES]) == sizeof(bongocat_animation_t));
-static_assert(sizeof(animation_frame_t[MAX_NUM_FRAMES]) == sizeof(digimon_animation_t));
+static_assert(sizeof(bongocat_animation_t) == sizeof(digimon_animation_t));
+static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(bongocat_animation_t));
+static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(digimon_animation_t));
 
 typedef struct {
     // Animation frame data

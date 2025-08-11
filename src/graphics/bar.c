@@ -30,9 +30,9 @@ void draw_bar(wayland_context_t *ctx, animation_context_t *anim) {
     
     // Clear buffer with transparency
     for (int i = 0; i < ctx->_screen_width * current_config->bar_height * RGBA_CHANNELS; i += RGBA_CHANNELS) {
-        ctx->pixels[i] = 0;                      // B
-        ctx->pixels[i + 1] = 0;                  // G
-        ctx->pixels[i + 2] = 0;                  // R
+        ctx->pixels[i] = 0;                      //
+        ctx->pixels[i + 1] = 0;                  //
+        ctx->pixels[i + 2] = 0;                  //
         ctx->pixels[i + 3] = effective_opacity;  // A
     }
 
@@ -40,11 +40,15 @@ void draw_bar(wayland_context_t *ctx, animation_context_t *anim) {
     if (!ctx->fullscreen_detected) {
         pthread_mutex_lock(&anim->anim_lock);
 
-        const uint8_t* frame_pixels = anim->anims[anim->anim_index].frames[anim->anim_frame_index].pixels;
-        const int frame_width = anim->anims[anim->anim_index].frames[anim->anim_frame_index].width;
-        const int frame_height = anim->anims[anim->anim_index].frames[anim->anim_frame_index].height;
+        const int sprite_sheet_width = anim->anims[anim->anim_index].sprite_sheet.sprite_sheet_width;
+        const int sprite_sheet_height = anim->anims[anim->anim_index].sprite_sheet.sprite_sheet_height;
+        const int frame_width = anim->anims[anim->anim_index].sprite_sheet.frame_width;
+        const int frame_height = anim->anims[anim->anim_index].sprite_sheet.frame_height;
+        //const int channels = anim->anims[anim->anim_index].sprite_sheet.channels;
+        const sprite_sheet_animation_region_t* region = anim->anims[anim->anim_index].sprite_sheet.frames[anim->anim_frame_index].valid ? &anim->anims[anim->anim_index].sprite_sheet.frames[anim->anim_frame_index] : NULL;
+        const size_t pixels_size = anim->anims[anim->anim_index].sprite_sheet.pixels_size;
 
-        if (frame_pixels && frame_width > 0 && frame_height > 0) {
+        if (region && frame_width > 0 && frame_height > 0) {
             const int cat_height = current_config->cat_height;
             const int cat_width = cat_height * (frame_width / (float)frame_height);
             int cat_x = 0;
@@ -75,13 +79,17 @@ void draw_bar(wayland_context_t *ctx, animation_context_t *anim) {
                                      cat_y, cat_height, current_config->bar_height);
             }
 
-            sblit_image_scaled(ctx->pixels, ctx->pixels_size,
-                               ctx->_screen_width, current_config->bar_height,
-                               frame_pixels,
-                               frame_width * frame_height * RGBA_CHANNELS,
-                               frame_width,
-                               frame_height,
-                               cat_x, cat_y, cat_width, cat_height);
+            blit_image_scaled(ctx->pixels, ctx->pixels_size,
+                               ctx->_screen_width, current_config->bar_height, RGBA_CHANNELS,
+                               anim->anims[anim->anim_index].sprite_sheet.pixels,
+                               pixels_size,
+                               sprite_sheet_width,
+                               sprite_sheet_height,
+                               anim->anims[anim->anim_index].sprite_sheet.channels,
+                               region->col * frame_width, region->row * frame_height,
+                               frame_width, frame_height,
+                               cat_x, cat_y, cat_width, cat_height,
+                               COLOR_ORDER_BGRA, COLOR_ORDER_RGBA);
         } else {
             BONGOCAT_LOG_VERBOSE("Skip drawing empty frame: index: %d, frame: %d", anim->anim_index, anim->anim_frame_index);
         }
