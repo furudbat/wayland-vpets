@@ -17,6 +17,7 @@
 #define DEFAULT_SCREEN_WIDTH 1920
 #define DEFAULT_BAR_HEIGHT 40
 #define RGBA_CHANNELS 4
+#define BGRA_CHANNELS 4
 #define MAX_OUTPUTS 8               // Maximum monitor outputs to store
 
 // Config watcher constants

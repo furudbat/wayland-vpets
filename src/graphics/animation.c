@@ -71,10 +71,10 @@ static int rand_minmax(int min, int max) {
 // =============================================================================
 
 static bool drawing_is_pixel_in_bounds(int x, int y, int width, int height) {
-    return (x >= 0 && y >= 0 && x < width && y < height);
+    return x >= 0 && y >= 0 && x < width && y < height;
 }
 
-static inline uint8_t apply_invert(uint8_t v, int invert) {
+static inline uint8_t apply_invert(uint8_t v, bool invert) {
     return v ^ (invert ? 0xFF : 0x00); // branchless invert
 }
 
