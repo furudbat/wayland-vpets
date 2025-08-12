@@ -2,12 +2,14 @@
 #include "config/config.h"
 #include "utils/error.h"
 #include "utils/memory.h"
-#include "graphics/context.h"
+#include "graphics/animation_context.h"
 #include "graphics/embedded_assets/bongocat.h"
 #include "graphics/embedded_assets.h"
 #include <assert.h>
 #include <ctype.h>
 #include <limits.h>
+
+#include "core/bongocat.h"
 
 // =============================================================================
 // CONFIGURATION CONSTANTS AND VALIDATION RANGES
@@ -228,71 +230,41 @@ static bongocat_error_t config_add_keyboard_device(config_t *config, const char 
     assert(config->num_keyboard_devices >= 0 && config->num_keyboard_devices < INT_MAX-1);
 
     const int old_num_keyboard_devices = config->num_keyboard_devices;
-    char **old_keyboard_devices = config->keyboard_devices;
 
-    // Allocate new array for device pointers
-    int new_num_keyboard_devices = old_num_keyboard_devices + 1;
-    char **new_keyboard_devices = BONGOCAT_MALLOC(new_num_keyboard_devices * sizeof(char *));
-    if (!new_keyboard_devices) {
-        BONGOCAT_LOG_ERROR("Failed to allocate memory for keyboard_devices array");
-        return BONGOCAT_ERROR_MEMORY;
+    if (old_num_keyboard_devices >= MAX_INPUT_DEVICES) {
+        BONGOCAT_LOG_WARNING("Can not add more devices from config, max. reach: %d", MAX_INPUT_DEVICES);
+        return BONGOCAT_SUCCESS;
     }
-
-    // Deep copy old strings into new array
-    for (int i = 0; i < old_num_keyboard_devices; i++) {
-        assert(old_keyboard_devices[i]);
-        new_keyboard_devices[i] = strdup(old_keyboard_devices[i]);
-        if (!new_keyboard_devices[i]) {
-            // Free already-allocated entries
-            for (int j = 0; j < i; ++j) {
-                free(new_keyboard_devices[j]);
-            }
-            BONGOCAT_FREE(new_keyboard_devices);
-            config->keyboard_devices = old_keyboard_devices;
-            config->num_keyboard_devices = old_num_keyboard_devices;
-            BONGOCAT_LOG_ERROR("Failed to copy keyboard device string");
-            return BONGOCAT_ERROR_MEMORY;
-        }
-    }
+    const int new_num_keyboard_devices = old_num_keyboard_devices + 1;
+    assert(new_num_keyboard_devices <= MAX_INPUT_DEVICES);
 
     // Add new device path
-    new_keyboard_devices[old_num_keyboard_devices] = strdup(device_path);
-    if (!new_keyboard_devices[old_num_keyboard_devices]) {
+    config->keyboard_devices[old_num_keyboard_devices] = strdup(device_path);
+    if (!config->keyboard_devices[old_num_keyboard_devices]) {
         // free new copied strings
         for (int i = 0; i < old_num_keyboard_devices; i++) {
-            if (new_keyboard_devices[i]) free(new_keyboard_devices[i]);
-            new_keyboard_devices[i] = NULL;
+            if (config->keyboard_devices[i]) free(config->keyboard_devices[i]);
+            config->keyboard_devices[i] = NULL;
         }
-        BONGOCAT_FREE(new_keyboard_devices);
-        config->keyboard_devices = old_keyboard_devices;
         config->num_keyboard_devices = old_num_keyboard_devices;
         BONGOCAT_LOG_ERROR("Failed to copy new keyboard device path");
         return BONGOCAT_ERROR_MEMORY;
     }
 
-    // Free old list (deep)
-    for (int i = 0; i < old_num_keyboard_devices; i++) {
-        if (old_keyboard_devices[i]) free(old_keyboard_devices[i]);
-        old_keyboard_devices[i] = NULL;
-    }
-    BONGOCAT_SAFE_FREE(old_keyboard_devices);
-
-    // move new list
-    config->keyboard_devices = new_keyboard_devices;
+    // update new size
     config->num_keyboard_devices = new_num_keyboard_devices;
 
     return BONGOCAT_SUCCESS;
 }
 
 static void config_cleanup_devices(config_t *config) {
-    if (config->keyboard_devices) {
-        for (int i = 0; i < config->num_keyboard_devices; i++) {
-            free(config->keyboard_devices[i]);
+    for (int i = 0; i < MAX_INPUT_DEVICES; i++) {
+        if (i < config->num_keyboard_devices) {
+            if (config->keyboard_devices[i]) free(config->keyboard_devices[i]);
         }
-        BONGOCAT_SAFE_FREE(config->keyboard_devices);
-        config->keyboard_devices = NULL;
-        config->num_keyboard_devices = 0;
+        config->keyboard_devices[i] = NULL;
     }
+    config->num_keyboard_devices = 0;
 }
 
 // =============================================================================
@@ -572,7 +544,6 @@ void config_set_defaults(config_t *config) {
             "assets/bongo-cat-right-down.png"
         },
         */
-        .keyboard_devices = NULL,
         .num_keyboard_devices = 0,
         .cat_x_offset = DEFAULT_CAT_X_OFFSET,
         .cat_y_offset = DEFAULT_CAT_Y_OFFSET,
@@ -601,10 +572,14 @@ void config_set_defaults(config_t *config) {
         .happy_kpm = DEFAULT_HAPPY_KPM,
         .cat_align = DEFAULT_CAT_ALIGN,
     };
+    for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
+        config->keyboard_devices[i] = NULL;
+    }
+    config->num_keyboard_devices = 0;
 }
 
 static bongocat_error_t config_set_default_devices(config_t *config) {
-    if (!config->keyboard_devices) {
+    if (config->num_keyboard_devices == 0) {
         return config_add_keyboard_device(config, DEFAULT_DEVICE);
     }
     return BONGOCAT_SUCCESS;
@@ -664,10 +639,10 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path, con
     }
 
     // Set default keyboard device if none specified
-    if (config->keyboard_devices == NULL || config->num_keyboard_devices == 0) {
+    if (config->num_keyboard_devices == 0) {
         result = config_set_default_devices(config);
         if (result != BONGOCAT_SUCCESS) {
-            bongocat_log_error("Failed to set default keyboard devices: %s", bongocat_error_string(result));
+            BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat_error_string(result));
             return result;
         }
     }
@@ -679,7 +654,7 @@ bongocat_error_t load_config(config_t *config, const char *config_file_path, con
         return result;
     }
 
-    if (config->keyboard_devices == NULL || config->num_keyboard_devices == 0) {
+    if (config->num_keyboard_devices == 0) {
         // Set default keyboard device if none specified
         result = config_set_default_devices(config);
         if (result != BONGOCAT_SUCCESS) {

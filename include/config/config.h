@@ -1,6 +1,7 @@
 #ifndef BONGOCAT_CONFIG_H
 #define BONGOCAT_CONFIG_H
 
+#include "core/bongocat.h"
 #include "utils/error.h"
 
 typedef enum {
@@ -40,7 +41,7 @@ typedef struct {
 typedef struct {
     int bar_height;
     char *output_name;
-    char **keyboard_devices;
+    char *keyboard_devices[MAX_INPUT_DEVICES];
     int num_keyboard_devices;
     int cat_x_offset;
     int cat_y_offset;

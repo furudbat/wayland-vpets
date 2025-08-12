@@ -1,12 +1,7 @@
-#ifndef BONGOCAT_ANIMATION_CONTEXT_H
-#define BONGOCAT_ANIMATION_CONTEXT_H
+#ifndef BONGOCAT_ANIMATION_SPRITE_SHEET_H
+#define BONGOCAT_ANIMATION_SPRITE_SHEET_H
 
 #include "embedded_assets.h"
-#include "core/bongocat.h"
-#include "config/config.h"
-#include "platform/input_context.h"
-#include "platform/wayland_context.h"
-#include <stdatomic.h>
 #include <stdint.h>
 
 
@@ -97,22 +92,5 @@ typedef union {
 static_assert(sizeof(bongocat_animation_t) == sizeof(digimon_animation_t));
 static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(bongocat_animation_t));
 static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(digimon_animation_t));
-
-typedef struct {
-    // Animation frame data
-    animation_t anims[ANIMS_COUNT];
-    int anim_index;
-    int anim_frame_index;
-    pthread_mutex_t anim_lock;
-
-    // local copy from other thread, update after reload (shared memory)
-    config_t* _local_copy_config;
-
-    // Animation system state
-    atomic_bool _animation_running;
-    pthread_t _anim_thread;
-    input_context_t *_input;
-    wayland_context_t *_wayland;
-} animation_context_t;
 
 #endif //ANIMATION_CONTEXT_H

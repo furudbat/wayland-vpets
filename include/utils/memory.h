@@ -3,6 +3,7 @@
 
 #include "utils/error.h"
 #include <stdatomic.h>
+#include <pthread.h>
 
 // Memory pool for efficient allocation
 typedef struct memory_pool {
@@ -59,5 +60,8 @@ void memory_leak_check(void);
     } while(0)
 
 #define LEN_ARRAY(x)  (sizeof(x) / sizeof((x)[0]))
+
+int join_thread_with_timeout(pthread_t *thread, int timeout_ms);
+int stop_thread_graceful_or_cancel(pthread_t *thread, atomic_bool *running_flag);
 
 #endif // MEMORY_H

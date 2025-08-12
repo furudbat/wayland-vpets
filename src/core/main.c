@@ -28,10 +28,12 @@ static config_watcher_t g_config_watcher = {0};
 
 static input_context_t g_input_ctx = {0};
 static animation_context_t g_animation_ctx = {0};
+static animation_trigger_context_t g_animation_trigger_ctx = {0};
 static wayland_context_t g_wayland_ctx = {0};
+static wayland_listeners_context_t g_wayland_listeners_ctx = {0};
 
 static pthread_mutex_t g_config_reload_mutex = PTHREAD_MUTEX_INITIALIZER;
-static const char *g_signal_watch_path = "";
+static const char *g_signal_watch_path = NULL;
 
 static load_config_overwrite_parameters_t g_overwrite_parameters = {0};
 
@@ -222,30 +224,33 @@ static void config_reload_callback() {
     // Clean up old output_name if it exists and is different
     if (g_config.output_name && new_config.output_name &&
         strcmp(g_config.output_name, new_config.output_name) != 0) {
-    free(g_config.output_name);
+        free(g_config.output_name);
     } else if (g_config.output_name && !new_config.output_name) {
         free(g_config.output_name);
     }
 
     // If successful, update the global config
     pthread_mutex_lock(&g_config_reload_mutex);
-    // move old config (make g_config 'available' for new_config)
+    // free old config (make g_config 'available' for new_config)
     config_t old_config = g_config;
-    g_config.keyboard_devices = NULL;
+    for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
+        if (old_config.keyboard_devices[i]) free(old_config.keyboard_devices[i]);
+        old_config.keyboard_devices[i] = NULL;
+        g_config.keyboard_devices[i] = NULL;
+    }
+    old_config.num_keyboard_devices = 0;
     g_config.num_keyboard_devices = 0;
-    // move new_config into g_config
+    // move new_config into g_config, move devices too
     memcpy(&g_config, &new_config, sizeof(config_t));
-    new_config.keyboard_devices = NULL;
-    new_config.num_keyboard_devices = 0;
     // Update the running systems with new config
     input_update_config(&g_input_ctx, &g_config);
     animation_update_config(&g_animation_ctx, &g_config);
-    wayland_update_config(&g_wayland_ctx, &g_config, &g_animation_ctx);
+    wayland_update_config(&g_wayland_ctx, &g_config, &g_animation_trigger_ctx);
     
     // Check if input devices changed and restart monitoring if needed
     if (devices_changed) {
         BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
-        bongocat_error_t input_result = input_restart_monitoring(&g_input_ctx,
+        bongocat_error_t input_result = input_restart_monitoring(&g_animation_trigger_ctx, &g_input_ctx,
                                                                  g_config.keyboard_devices,
                                                                  g_config.num_keyboard_devices,
                                                                  g_config.enable_debug);
@@ -314,28 +319,28 @@ static bongocat_error_t system_initialize_components(void) {
     
     // Initialize Wayland
     /// @NOTE: animation needed only for reference
-    result = wayland_init(&g_wayland_ctx, &g_config, &g_animation_ctx);
+    result = wayland_init(&g_wayland_listeners_ctx, &g_wayland_ctx, &g_animation_ctx, &g_animation_trigger_ctx, &g_config);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat_error_string(result));
         return result;
     }
     
     // Initialize animation system
-    result = animation_init(&g_animation_ctx, &g_config);
+    result = animation_init(&g_animation_trigger_ctx, &g_animation_ctx, &g_config);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat_error_string(result));
         return result;
     }
     
     // Start input monitoring
-    result = input_start_monitoring(&g_input_ctx, g_config.keyboard_devices, g_config.num_keyboard_devices, g_config.enable_debug);
+    result = input_start_monitoring(&g_animation_trigger_ctx, &g_input_ctx, g_config.keyboard_devices, g_config.num_keyboard_devices, g_config.enable_debug);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat_error_string(result));
         return result;
     }
     
     // Start animation thread
-    result = animation_start(&g_animation_ctx, &g_input_ctx, &g_wayland_ctx);
+    result = animation_start(&g_animation_trigger_ctx, &g_animation_ctx, &g_input_ctx);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat_error_string(result));
         return result;
@@ -347,27 +352,36 @@ static bongocat_error_t system_initialize_components(void) {
 [[ noreturn ]] static void system_cleanup_and_exit(char* pid_filename, int exit_code) {
     BONGOCAT_LOG_INFO("Performing cleanup...");
 
+    running = 0;
+
     // Remove PID file
     process_remove_pid_file(pid_filename);
     if (pid_filename) free(pid_filename);
     pid_filename = NULL;
-    
-    // Stop config watcher
-    config_watcher_cleanup(&g_config_watcher);
-    
-    // Stop animation system
-    animation_cleanup(&g_animation_ctx);
-    
+
     // Cleanup Wayland
-    wayland_cleanup(&g_wayland_ctx);
-    
+    wayland_cleanup(&g_wayland_listeners_ctx);
+
+    // stop threads
+    atomic_store(&g_animation_ctx._animation_running, false);
+    atomic_store(&g_input_ctx._capture_input_running, false);
+    atomic_store(&g_config_watcher._running, false);
+    join_thread_with_timeout(&g_animation_ctx._anim_thread, 1000);
+    join_thread_with_timeout(&g_input_ctx._input_thread, 2000);
+    join_thread_with_timeout(&g_config_watcher._watcher_thread, 5000);
+    animation_stop(&g_animation_ctx);
+    input_stop(&g_input_ctx);
+    config_watcher_stop(&g_config_watcher);
+
     // Cleanup input system
     input_cleanup(&g_input_ctx);
-    
-    // Cleanup configuration
-    config_cleanup(&g_config);
+    // Cleanup animation system
+    animation_cleanup(&g_animation_trigger_ctx, &g_animation_ctx);
+    // Cleanup config watcher
+    config_watcher_cleanup(&g_config_watcher);
 
     if (signal_fd >= 0) close(signal_fd);
+    g_signal_watch_path = NULL;
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
     // Print memory statistics in debug mode
@@ -375,6 +389,10 @@ static bongocat_error_t system_initialize_components(void) {
         memory_print_stats();
     }
 #endif
+
+    // Cleanup configuration
+    config_cleanup(&g_config);
+    g_overwrite_parameters.output_name = NULL;
 
 #ifndef NDEBUG
     memory_leak_check();
@@ -479,6 +497,16 @@ int main(int argc, char *argv[]) {
         return EXIT_SUCCESS;
     }
 
+    // init default values
+    config_set_defaults(&g_config);
+    // in case config watcher is not started/inited
+    g_config_watcher.inotify_fd = -1;
+    g_config_watcher.watch_fd = -1;
+    g_config_watcher.config_path = NULL;
+    g_config_watcher.reload_efd = -1;
+    g_config_watcher._watcher_thread = 0;
+    g_config_watcher._running = false;
+
     // Load configuration
     g_overwrite_parameters = (load_config_overwrite_parameters_t){
         .output_name = args.output_name,
@@ -556,10 +584,6 @@ int main(int argc, char *argv[]) {
         system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
 
-    // Validate Setup
-    assert(g_animation_ctx._input == &g_input_ctx);
-    assert(g_animation_ctx._wayland == &g_wayland_ctx);
-
     if (abs(g_config.cat_x_offset) > g_wayland_ctx._screen_width) {
         BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)",
                             g_config.cat_x_offset, g_wayland_ctx._screen_width);
@@ -567,10 +591,16 @@ int main(int argc, char *argv[]) {
 
     BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", g_wayland_ctx._screen_width, g_config.bar_height);
 
-    BONGOCAT_LOG_INFO("Bongo Cat Overlay started successfully");
-    
+    // Validate Setup
+    assert(g_animation_trigger_ctx._input == &g_input_ctx);
+    assert(g_animation_trigger_ctx._anim == &g_animation_ctx);
+
+    BONGOCAT_LOG_INFO("Bongo Cat Overlay configured successfully");
+
+    // trigger initial rendering
+    wayland_request_render(&g_animation_trigger_ctx);
     // Main Wayland event loop with graceful shutdown
-    result = wayland_run(&g_wayland_ctx, &running, signal_fd, &g_config, &g_config_watcher, config_reload_callback);
+    result = wayland_run(&g_wayland_listeners_ctx, &running, signal_fd, &g_config, &g_config_watcher, config_reload_callback);
     if (result != BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
         system_cleanup_and_exit(pid_filename, EXIT_FAILURE);

@@ -18,7 +18,8 @@
 #define DEFAULT_BAR_HEIGHT 40
 #define RGBA_CHANNELS 4
 #define BGRA_CHANNELS 4
-#define MAX_OUTPUTS 8               // Maximum monitor outputs to store
+
+#define MAX_INPUT_DEVICES 256
 
 // Config watcher constants
 #define INOTIFY_EVENT_SIZE (sizeof(struct inotify_event))
@@ -33,20 +34,9 @@ typedef struct {
     // event file descriptor
     int reload_efd;
 
-    pthread_t watcher_thread;
+    pthread_t _watcher_thread;
     atomic_bool _running;
 } config_watcher_t;
-
-#define RELOAD_EVENT_BUF 8
-
-// Output monitor reference structure
-typedef struct {
-    struct wl_output *wl_output;
-    struct zxdg_output_v1 *xdg_output;
-    uint32_t name;         // Registry name
-    char name_str[128];   // From xdg-output
-    bool name_received;
-} output_ref_t;
 
 // Config watcher function declarations
 bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *config_path);

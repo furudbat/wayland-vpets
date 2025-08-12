@@ -12,13 +12,13 @@ void bongocat_error_init(int enable_debug) {
 
 static void log_timestamp(FILE *stream) {
     struct timeval tv;
-    struct tm *tm_info;
+    struct tm tm_info;
     char timestamp[64] = {0};
-    
+
     gettimeofday(&tv, NULL);
-    tm_info = localtime(&tv.tv_sec);
-    
-    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", tm_info);
+    localtime_r(&tv.tv_sec, &tm_info); // Thread-safe version
+
+    strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", &tm_info);
     fprintf(stream, "[%s.%03ld] ", timestamp, tv.tv_usec / 1000);
 }
 

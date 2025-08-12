@@ -72,6 +72,7 @@ set(SOURCES
     ${SRC_DIR}/config/config_watcher.c
     ${SRC_DIR}/core/main.c
     ${SRC_DIR}/graphics/animation.c
+    ${SRC_DIR}/graphics/animation_init.c
     ${SRC_DIR}/graphics/bar.c
     ${SRC_DIR}/graphics/embedded_assets.c
     ${SRC_DIR}/graphics/embedded_assets/bongocat.c
