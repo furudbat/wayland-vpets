@@ -1,17 +1,14 @@
 #ifndef BONGOCAT_INPUT_CONTEXT_H
 #define BONGOCAT_INPUT_CONTEXT_H
 
+#include "config/config.h"
+#include "input_shared_memory.h"
 #include "utils/time.h"
 #include <pthread.h>
 #include <stdatomic.h>
-#include "config/config.h"
 
 typedef struct {
-    /// @NOTE: variables can be shared between child process and parent (see mmap)
-    int *any_key_pressed;
-    int *kpm;                    // keystrokes per minute
-    atomic_int *input_counter;
-    timestamp_ms_t *last_key_pressed_timestamp;
+    input_shared_memory_t *shm;
 
     // local copy from other thread, update after reload (shared memory)
     config_t* _local_copy_config;

@@ -44,7 +44,7 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Source files (including embedded assets which are now committed)
-SOURCES = src/utils/memory.c src/utils/time.c src/utils/error.c src/core/main.c src/platform/wayland.c src/platform/input.c src/graphics/bar.c src/graphics/animation.c src/graphics/embedded_assets/bongocat.c src/graphics/embedded_assets.c src/config/config_watcher.c src/config/config.c
+SOURCES = src/utils/memory.c src/utils/time.c src/utils/error.c src/core/main.c src/platform/wayland.c src/platform/input.c src/graphics/bar.c src/graphics/animation.c src/graphics/animation_init.c src/graphics/embedded_assets/bongocat.c src/graphics/embedded_assets.c src/config/config_watcher.c src/config/config.c
 ifeq ($(ONLY_BONGOCAT),0)
     SOURCES += src/graphics/embedded_assets/min_dm.c
 endif
