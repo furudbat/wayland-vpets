@@ -6,12 +6,12 @@
 #include <pthread.h>
 
 // Memory pool for efficient allocation
-typedef struct memory_pool {
-    void *data;
-    size_t size;
-    size_t used;
-    size_t alignment;
-} memory_pool_t;
+struct memory_pool_t {
+    void *data{NULL};
+    size_t size{0};
+    size_t used{0};
+    size_t alignment{0};
+};
 
 // Safe memory allocation functions
 void* bongocat_malloc(size_t size);
@@ -27,13 +27,13 @@ void memory_pool_destroy(memory_pool_t *pool);
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
 // Memory statistics
-typedef struct {
+struct memory_stats_t {
     atomic_size_t total_allocated;
     atomic_size_t current_allocated;
     atomic_size_t peak_allocated;
     atomic_size_t allocation_count;
     atomic_size_t free_count;
-} memory_stats_t;
+};
 
 void memory_get_stats(memory_stats_t *stats);
 void memory_print_stats(void);

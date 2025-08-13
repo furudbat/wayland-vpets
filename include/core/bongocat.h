@@ -4,39 +4,40 @@
 #include "utils/error.h"
 #include <pthread.h>
 #include <stdatomic.h>
-#include <stdint.h>
+#include <cstdint>
+#include <sys/inotify.h>
 
 #ifndef _POSIX_C_SOURCE
 #define _POSIX_C_SOURCE 200809L
 #endif
 
 // Version
-#define BONGOCAT_VERSION "1.4.0"
+inline static constexpr const char* BONGOCAT_VERSION = "1.4.0";
 
 // Common constants
-#define DEFAULT_SCREEN_WIDTH 1920
-#define DEFAULT_BAR_HEIGHT 40
-#define RGBA_CHANNELS 4
-#define BGRA_CHANNELS 4
+inline static constexpr int DEFAULT_SCREEN_WIDTH = 1920;
+inline static constexpr int DEFAULT_BAR_HEIGHT = 40;
+inline static constexpr int RGBA_CHANNELS = 4;
+inline static constexpr int BGRA_CHANNELS = 4;
 
-#define MAX_INPUT_DEVICES 256
+inline static constexpr size_t MAX_INPUT_DEVICES = 256;
 
 // Config watcher constants
-#define INOTIFY_EVENT_SIZE (sizeof(struct inotify_event))
-#define INOTIFY_BUF_LEN (1024 * (INOTIFY_EVENT_SIZE + 16))
+inline static constexpr size_t INOTIFY_EVENT_SIZE = (sizeof(struct inotify_event));
+inline static constexpr size_t INOTIFY_BUF_LEN = (1024 * (INOTIFY_EVENT_SIZE + 16));
 
 // Config watcher structure
-typedef struct {
-    int inotify_fd;
-    int watch_fd;
-    char *config_path;
+struct config_watcher_t{
+    int inotify_fd{-1};
+    int watch_fd{-1};
+    char *config_path{NULL};
 
     // event file descriptor
-    int reload_efd;
+    int reload_efd{-1};
 
-    pthread_t _watcher_thread;
-    atomic_bool _running;
-} config_watcher_t;
+    pthread_t _watcher_thread{0};
+    atomic_bool _running{false};
+};
 
 // Config watcher function declarations
 bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *config_path);

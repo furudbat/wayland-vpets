@@ -7,24 +7,24 @@
 #include <pthread.h>
 #include <stdatomic.h>
 
-typedef struct {
-    input_shared_memory_t *shm;
+struct input_context_t {
+    input_shared_memory_t *shm{NULL};
 
     // local copy from other thread, update after reload (shared memory)
-    config_t* _local_copy_config;
+    config_t* _local_copy_config{NULL};
 
-    pthread_t _input_thread;
-    atomic_bool _capture_input_running;
-    atomic_int _input_kpm_counter;
-    timestamp_ms_t _latest_kpm_update_ms;
+    pthread_t _input_thread{0};
+    atomic_bool _capture_input_running{false};
+    atomic_int _input_kpm_counter{0};
+    timestamp_ms_t _latest_kpm_update_ms{0};
 
     // thread context
     char* *_device_paths;    // local copy of devices
-    int _device_paths_count;
-    int *_fds;
-    size_t _fds_count;
-    size_t *_unique_paths_indices;
-    size_t _unique_paths_indices_count;
-} input_context_t;
+    int _device_paths_count{0};
+    int *_fds{NULL};
+    size_t _fds_count{0};
+    size_t *_unique_paths_indices{NULL};
+    size_t _unique_paths_indices_count{0};
+};
 
 #endif // BONGOCAT_INPUT_CONTEXT_H

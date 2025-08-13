@@ -7,12 +7,12 @@
 #include "config/config.h"
 #include "utils/error.h"
 #include "utils/memory.h"
-#include <signal.h>
+#include <csignal>
 #include <sys/wait.h>
 #include <sys/file.h>
 #include <unistd.h>
-#include <stdlib.h>
-#include <assert.h>
+#include <cstdlib>
+#include <cassert>
 #include <fcntl.h>
 #include <sys/signalfd.h>
 
@@ -20,48 +20,48 @@
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
-static volatile sig_atomic_t running = 0;
-static int signal_fd = -1;
+static volatile sig_atomic_t running {0};
+static int signal_fd {-1};
 
-static config_t g_config = {0};
-static config_watcher_t g_config_watcher = {0};
+static config_t g_config{};
+static config_watcher_t g_config_watcher{};
 
-static input_context_t g_input_ctx = {0};
-static animation_context_t g_animation_ctx = {0};
-static animation_trigger_context_t g_animation_trigger_ctx = {0};
-static wayland_context_t g_wayland_ctx = {0};
-static wayland_listeners_context_t g_wayland_listeners_ctx = {0};
+static input_context_t g_input_ctx{};
+static animation_context_t g_animation_ctx{};
+static animation_trigger_context_t g_animation_trigger_ctx{};
+static wayland_context_t g_wayland_ctx{};
+static wayland_listeners_context_t g_wayland_listeners_ctx{};
 
 static pthread_mutex_t g_config_reload_mutex = PTHREAD_MUTEX_INITIALIZER;
 static const char *g_signal_watch_path = NULL;
 
-static load_config_overwrite_parameters_t g_overwrite_parameters = {0};
+static load_config_overwrite_parameters_t g_overwrite_parameters{};
 
-#define PID_STR_BUF 64
+inline static constexpr size_t PID_STR_BUF = 64;
 
-#define WAIT_FOR_SHUTDOWN_MS 5000
-#define SLEEP_WAIT_FOR_SHUTDOWN_MS 100
+inline static constexpr time_ms_t WAIT_FOR_SHUTDOWN_MS = 5000;
+inline static constexpr time_ms_t SLEEP_WAIT_FOR_SHUTDOWN_MS = 100;
 static_assert(SLEEP_WAIT_FOR_SHUTDOWN_MS > 0);
 
 // =============================================================================
 // COMMAND LINE ARGUMENTS STRUCTURE
 // =============================================================================
 
-typedef struct {
+struct cli_args_t {
     const char *config_file;
     bool watch_config;
     bool toggle_mode;
     bool show_help;
     bool show_version;
     const char *output_name;
-} cli_args_t;
+};
 
 // =============================================================================
 // PROCESS MANAGEMENT MODULE
 // =============================================================================
 
-#define DEFAULT_PID_FILE "/tmp/bongocat.pid"
-#define PID_FILE_WITH_SUFFIX_TEMPLATE "/tmp/bongocat-%s.pid"
+inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
+inline static constexpr auto PID_FILE_WITH_SUFFIX_TEMPLATE = "/tmp/bongocat-%s.pid";
 
 static int process_create_pid_file(const char *pid_filename) {
     const int fd = open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
@@ -211,7 +211,7 @@ static void config_reload_callback() {
     config_t new_config;
     config_set_defaults(&new_config);
     bongocat_error_t result = load_config(&new_config, g_config_watcher.config_path, &g_overwrite_parameters);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat_error_string(result));
         BONGOCAT_LOG_INFO("Keeping current configuration");
         return;
@@ -254,7 +254,7 @@ static void config_reload_callback() {
                                                                  g_config.keyboard_devices,
                                                                  g_config.num_keyboard_devices,
                                                                  g_config.enable_debug);
-        if (input_result != BONGOCAT_SUCCESS) {
+        if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat_error_string(input_result));
         } else {
             BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
@@ -273,13 +273,13 @@ static bongocat_error_t config_setup_watcher(const char *config_file) {
     const char *watch_path = config_file ? config_file : "bongocat.conf";
     g_signal_watch_path = config_file ? config_file : "bongocat.conf";
 
-    if (config_watcher_init(&g_config_watcher, watch_path) == BONGOCAT_SUCCESS) {
+    if (config_watcher_init(&g_config_watcher, watch_path) == bongocat_error_t::BONGOCAT_SUCCESS) {
         config_watcher_start(&g_config_watcher);
         BONGOCAT_LOG_INFO("Config file watching enabled for: %s", watch_path);
-        return BONGOCAT_SUCCESS;
+        return bongocat_error_t::BONGOCAT_SUCCESS;
     } else {
         BONGOCAT_LOG_WARNING("Failed to initialize config watcher, continuing without hot-reload");
-        return BONGOCAT_ERROR_CONFIG;
+        return bongocat_error_t::BONGOCAT_ERROR_CONFIG;
     }
 }
 
@@ -298,16 +298,16 @@ static bongocat_error_t signal_setup_handlers(void) {
     // Block signals globally so they are only delivered via signalfd
     if (sigprocmask(SIG_BLOCK, &mask, NULL) == -1) {
         BONGOCAT_LOG_ERROR("Failed to block signals: %s", strerror(errno));
-        return BONGOCAT_ERROR_THREAD;
+        return bongocat_error_t::BONGOCAT_ERROR_THREAD;
     }
 
     signal_fd = signalfd(-1, &mask, SFD_NONBLOCK | SFD_CLOEXEC);
     if (signal_fd == -1) {
         BONGOCAT_LOG_ERROR("Failed to create signalfd: %s", strerror(errno));
-        return BONGOCAT_ERROR_THREAD;
+        return bongocat_error_t::BONGOCAT_ERROR_THREAD;
     }
 
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 // =============================================================================
@@ -320,33 +320,33 @@ static bongocat_error_t system_initialize_components(void) {
     // Initialize Wayland
     /// @NOTE: animation needed only for reference
     result = wayland_init(&g_wayland_listeners_ctx, &g_wayland_ctx, &g_animation_ctx, &g_animation_trigger_ctx, &g_config);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat_error_string(result));
         return result;
     }
     
     // Initialize animation system
     result = animation_init(&g_animation_trigger_ctx, &g_animation_ctx, &g_config);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat_error_string(result));
         return result;
     }
     
     // Start input monitoring
     result = input_start_monitoring(&g_animation_trigger_ctx, &g_input_ctx, g_config.keyboard_devices, g_config.num_keyboard_devices, g_config.enable_debug);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat_error_string(result));
         return result;
     }
     
     // Start animation thread
     result = animation_start(&g_animation_trigger_ctx, &g_animation_ctx, &g_input_ctx);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat_error_string(result));
         return result;
     }
 
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 [[ noreturn ]] static void system_cleanup_and_exit(char* pid_filename, int exit_code) {
@@ -420,7 +420,7 @@ static void cli_show_help(const char *program_name) {
 }
 
 static void cli_show_version(void) {
-    printf("Bongo Cat Overlay v" BONGOCAT_VERSION "\n");
+    printf("Bongo Cat Overlay v%s\n", BONGOCAT_VERSION);
     printf("Built with fast optimizations\n");
 }
 
@@ -478,10 +478,10 @@ int main(int argc, char *argv[]) {
     // Initialize error system early
     bongocat_error_init(1); // Enable debug initially
 
-    BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v" BONGOCAT_VERSION);
+    BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
 
     // Parse command line arguments
-    cli_args_t args;
+    cli_args_t args{};
     if (cli_parse_arguments(argc, argv, &args) != 0) {
         return EXIT_FAILURE;
     }
@@ -512,7 +512,7 @@ int main(int argc, char *argv[]) {
         .output_name = args.output_name,
     };
     result = load_config(&g_config, args.config_file, &g_overwrite_parameters);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat_error_string(result));
         return EXIT_FAILURE;
     }
@@ -521,7 +521,7 @@ int main(int argc, char *argv[]) {
     char* pid_filename = NULL;
     if (g_config.output_name && g_config.output_name[0] != '\0') {
         size_t needed_size = snprintf(NULL, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name) + 1;
-        pid_filename = malloc(needed_size);
+        pid_filename = (char*)malloc(needed_size);
         if (pid_filename != NULL) {
             snprintf(pid_filename, needed_size, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name);
         } else {
@@ -564,7 +564,7 @@ int main(int argc, char *argv[]) {
     // Setup signal handlers
     g_signal_watch_path = args.config_file;
     result = signal_setup_handlers();
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         config_cleanup(&g_config);
         process_remove_pid_file(pid_filename);
         if (pid_filename) free(pid_filename);
@@ -580,7 +580,7 @@ int main(int argc, char *argv[]) {
     
     // Initialize all system components
     result = system_initialize_components();
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
 
@@ -601,7 +601,7 @@ int main(int argc, char *argv[]) {
     wayland_request_render(&g_animation_trigger_ctx);
     // Main Wayland event loop with graceful shutdown
     result = wayland_run(&g_wayland_listeners_ctx, &running, signal_fd, &g_config, &g_config_watcher, config_reload_callback);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
         system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
@@ -609,5 +609,5 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("Main loop exited, shutting down");
     system_cleanup_and_exit(pid_filename, EXIT_SUCCESS);
     
-    return 0; // Never reached
+    return EXIT_SUCCESS; // Never reached
 }

@@ -4,7 +4,7 @@
 #include "platform/wayland.h"
 #include "graphics/animation.h"
 #include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
-#include <assert.h>
+#include <cassert>
 #include <unistd.h>
 #include <pthread.h>
 #include <wayland-client.h>
@@ -128,13 +128,13 @@ bool draw_bar(wayland_listeners_context_t *ctx) {
 
             int cat_x = 0;
             switch (current_config->cat_align) {
-                case ALIGN_CENTER:
+                case align_type_t::ALIGN_CENTER:
                     cat_x = (wayland_ctx->_screen_width - cat_width) / 2 + current_config->cat_x_offset;
                     break;
-                case ALIGN_LEFT:
+                case align_type_t::ALIGN_LEFT:
                     cat_x = current_config->cat_x_offset;
                     break;
-                case ALIGN_RIGHT:
+                case align_type_t::ALIGN_RIGHT:
                     cat_x = wayland_ctx->_screen_width - cat_width - current_config->cat_x_offset;
                     break;
                 default:
@@ -150,7 +150,7 @@ bool draw_bar(wayland_listeners_context_t *ctx) {
                               region->col * sheet->frame_width, region->row * sheet->frame_height,
                               sheet->frame_width, sheet->frame_height,
                               cat_x, cat_y, cat_width, cat_height,
-                              COLOR_ORDER_BGRA, COLOR_ORDER_RGBA);
+                              drawing_color_order_t::COLOR_ORDER_BGRA, drawing_color_order_t::COLOR_ORDER_RGBA);
         } else {
             BONGOCAT_LOG_VERBOSE("Skip drawing empty frame: index=%d, frame=%d", anim_shm->anim_index, anim_shm->anim_frame_index);
         }

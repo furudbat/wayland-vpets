@@ -1,13 +1,14 @@
 #ifndef BONGOCAT_ERROR_H
 #define BONGOCAT_ERROR_H
 
-#include <stdio.h>
-#include <stdlib.h>
-#include <errno.h>
-#include <string.h>
+#include <cstdio>
+#include <cstdlib>
+#include <cerrno>
+#include <cstring>
+#include <cstdint>
 
 // Error codes
-typedef enum {
+enum class bongocat_error_t : uint8_t {
     BONGOCAT_SUCCESS = 0,
     BONGOCAT_ERROR_MEMORY,
     BONGOCAT_ERROR_FILE_IO,
@@ -17,7 +18,7 @@ typedef enum {
     BONGOCAT_ERROR_ANIMATION,
     BONGOCAT_ERROR_THREAD,
     BONGOCAT_ERROR_INVALID_PARAM
-} bongocat_error_t;
+};
 
 // Error handling macros
 #define BONGOCAT_CHECK_NULL(ptr, error_code) \
@@ -89,6 +90,7 @@ const char* bongocat_error_string(bongocat_error_t error);
 #define BONGOCAT_LOG_VERBOSE(format, ...) ((void)0)
 #endif
 
+/// @DEPRECATED: use cpp [[maybe_unused]] attribute
 #define UNUSED(x) (void)(x)
 
 #endif // ERROR_H

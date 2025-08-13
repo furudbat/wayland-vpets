@@ -3,33 +3,35 @@
 #include "platform/input.h"
 #include "graphics/animation.h"
 #include "utils/memory.h"
+#include "platform/wayland.h"
 #include <sys/stat.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <sys/mman.h>
 #include <pthread.h>
 #include <linux/input.h>
-#include <signal.h>
+#include <csignal>
 #include <unistd.h>
-#include <assert.h>
+#include <cassert>
 #include <fcntl.h>
-#include <limits.h>
+#include <climits>
 #include <poll.h>
 
-#include "platform/wayland.h"
 
-#define INPUT_EVENT_BUF 128     // Increased buffer size for better I/O efficiency
-#define MAX_POLL_FDS 256
-#define INPUT_POOL_TIMEOUT_MS MAX_INPUT_DEVICES
+static inline constexpr size_t INPUT_EVENT_BUF = 128;
+static inline constexpr size_t MAX_POLL_FDS = 256;
 
-#define START_ADAPTIVE_CHECK_INTERVAL_SEC 5
-#define MID_ADAPTIVE_CHECK_INTERVAL_SEC 15
-#define MAX_ADAPTIVE_CHECK_INTERVAL_SEC 30
+static inline constexpr auto INPUT_POOL_TIMEOUT_MS = MAX_INPUT_DEVICES;
 
-#define RESET_KPM_TIMEOUT_MS (5*1000)
+static inline constexpr time_sec_t START_ADAPTIVE_CHECK_INTERVAL_SEC = 5;
+static inline constexpr time_sec_t MID_ADAPTIVE_CHECK_INTERVAL_SEC   = 15;
+static inline constexpr time_sec_t MAX_ADAPTIVE_CHECK_INTERVAL_SEC   = 30;
 
-#define CHILD_TERMINATE_WAIT_ATTEMPTS 10
-#define CHILD_TERMINATE_WAIT_ATTEMPT_SLEEP_MS 100
+static inline constexpr time_ms_t RESET_KPM_TIMEOUT_MS = 5 * 1000;
+
+static inline constexpr int CHILD_TERMINATE_WAIT_ATTEMPTS       = 10;
+static inline constexpr int CHILD_TERMINATE_WAIT_ATTEMPT_SLEEP_MS = 100;
+
 
 static void set_default_input_thread_context(input_context_t* input) {
     assert(input);
@@ -78,7 +80,7 @@ static void cleanup_input_thread_context(input_context_t* input) {
 
 static void cleanup_input_thread(void* arg) {
     assert(arg);
-    animation_trigger_context_t* trigger_ctx = arg;
+    animation_trigger_context_t *trigger_ctx = (animation_trigger_context_t*)arg;
     assert(trigger_ctx->_anim);
     //animation_context_t* ctx = trigger_ctx->_anim;
     input_context_t* input = trigger_ctx->_input;
@@ -92,7 +94,7 @@ static void cleanup_input_thread(void* arg) {
 
 static void* capture_input_thread(void* arg) {
     assert(arg);
-    animation_trigger_context_t* trigger_ctx = arg;
+    animation_trigger_context_t *trigger_ctx = (animation_trigger_context_t*)arg;
     assert(trigger_ctx->_anim);
     //animation_context_t* ctx = trigger_ctx->_anim;
     input_context_t* input = trigger_ctx->_input;
@@ -107,7 +109,7 @@ static void* capture_input_thread(void* arg) {
         assert(current_config->num_keyboard_devices >= 0);
         input->_device_paths_count = current_config->num_keyboard_devices;
         const char *const *device_paths = (const char * const*)current_config->keyboard_devices;        // pls don't modify single keyboard_devices (string)
-        input->_device_paths = BONGOCAT_MALLOC(input->_device_paths_count * sizeof(char*));
+        input->_device_paths = (char**)BONGOCAT_MALLOC(input->_device_paths_count * sizeof(char*));
         for (int i = 0; i < input->_device_paths_count; i++) {
             input->_device_paths[i] = strdup(device_paths[i]);
             if (!input->_device_paths[i]) {
@@ -121,14 +123,14 @@ static void* capture_input_thread(void* arg) {
                 return NULL;
             }
         }
-    } while(0);
+    } while(false);
 
     BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", input->_device_paths_count);
 
     input->_fds_count = input->_device_paths_count;
-    input->_fds = BONGOCAT_MALLOC(input->_fds_count * sizeof(int));
+    input->_fds = (int*)BONGOCAT_MALLOC(input->_fds_count * sizeof(int));
     input->_unique_paths_indices_count = input->_device_paths_count;
-    input->_unique_paths_indices = BONGOCAT_MALLOC(input->_unique_paths_indices_count * sizeof(size_t));
+    input->_unique_paths_indices = (size_t*)BONGOCAT_MALLOC(input->_unique_paths_indices_count * sizeof(size_t));
     if (!input->_fds || !input->_unique_paths_indices) {
         atomic_store(&input->_capture_input_running, false);
         BONGOCAT_SAFE_FREE(input->_fds);
@@ -215,8 +217,8 @@ static void* capture_input_thread(void* arg) {
 
     int check_counter = 0;  // check is done periodically
     int adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
-    struct pollfd pfds[MAX_POLL_FDS] = {0};
-    struct input_event ev[INPUT_EVENT_BUF] = {0};
+    pollfd pfds[MAX_POLL_FDS];
+    input_event ev[INPUT_EVENT_BUF];
 
     atomic_store(&input->_capture_input_running, true);
     while (atomic_load(&input->_capture_input_running)) {
@@ -445,12 +447,12 @@ static void* capture_input_thread(void* arg) {
 }
 
 bongocat_error_t input_start_monitoring(animation_trigger_context_t *trigger_ctx, input_context_t* ctx, char **device_paths, int num_devices, int enable_debug) {
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(device_paths, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(device_paths, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
     
     if (num_devices <= 0) {
         BONGOCAT_LOG_ERROR("No input devices specified");
-        return BONGOCAT_ERROR_INVALID_PARAM;
+        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 
     const timestamp_ms_t now = get_current_time_ms();
@@ -466,7 +468,7 @@ bongocat_error_t input_start_monitoring(animation_trigger_context_t *trigger_ctx
                                  MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (ctx->shm == MAP_FAILED) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     ctx->shm->any_key_pressed = 0;
     ctx->shm->kpm = 0;
@@ -479,7 +481,7 @@ bongocat_error_t input_start_monitoring(animation_trigger_context_t *trigger_ctx
     if (ctx->_local_copy_config == MAP_FAILED) {
         if (ctx->shm && ctx->shm != MAP_FAILED) munmap(ctx->shm, sizeof(input_shared_memory_t));
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     config_set_defaults(ctx->_local_copy_config);
 
@@ -502,16 +504,16 @@ bongocat_error_t input_start_monitoring(animation_trigger_context_t *trigger_ctx
         ctx->shm = NULL;
         ctx->_local_copy_config = NULL;
         cleanup_input_thread_context(ctx);
-        return BONGOCAT_ERROR_THREAD;
+        return bongocat_error_t::BONGOCAT_ERROR_THREAD;
     }
     
     BONGOCAT_LOG_INFO("Input monitoring started");
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 bongocat_error_t input_restart_monitoring(animation_trigger_context_t *trigger_ctx, input_context_t* ctx, char **device_paths, int num_devices, int enable_debug) {
-    BONGOCAT_CHECK_NULL(trigger_ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(trigger_ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
     // read-only config
     const config_t* const current_config = ctx->_local_copy_config;
 
@@ -554,7 +556,7 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t *trigger_c
         if (ctx->shm == MAP_FAILED) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             cleanup_input_thread_context(ctx);
-            return BONGOCAT_ERROR_MEMORY;
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
     }
     if (ctx->shm) {
@@ -573,7 +575,7 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t *trigger_c
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             if (ctx->shm && ctx->shm != MAP_FAILED) munmap(ctx->shm, sizeof(input_shared_memory_t));
             cleanup_input_thread_context(ctx);
-            return BONGOCAT_ERROR_MEMORY;
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
     }
     if (ctx->_local_copy_config) {
@@ -598,11 +600,11 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t *trigger_c
         ctx->shm = NULL;
         ctx->_local_copy_config = NULL;
         cleanup_input_thread_context(ctx);
-        return BONGOCAT_ERROR_THREAD;
+        return bongocat_error_t::BONGOCAT_ERROR_THREAD;
     }
 
     BONGOCAT_LOG_INFO("Input monitoring restarted");
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 void input_stop(input_context_t* ctx) {

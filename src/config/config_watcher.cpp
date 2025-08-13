@@ -4,22 +4,22 @@
 #include "utils/time.h"
 #include "utils/error.h"
 #include "utils/memory.h"
-#include <string.h>
+#include <cstring>
 #include <unistd.h>
 #include <sys/select.h>
-#include <assert.h>
+#include <cassert>
 #include <sys/inotify.h>
 #include <sys/time.h>
 #include <sys/eventfd.h>
 
 
-#define RELOAD_DEBOUNCE_MS 1000
-#define RELOAD_DELAY_MS 100
+static inline constexpr time_ms_t RELOAD_DEBOUNCE_MS = 1000;
+static inline constexpr time_ms_t RELOAD_DELAY_MS = 100;
 
 static void *config_watcher_thread(void *arg) {
     assert(arg);
 
-    config_watcher_t *watcher = arg;
+    config_watcher_t *watcher = (config_watcher_t *)arg;
     char buffer[INOTIFY_BUF_LEN] = {0};
     timestamp_ms_t last_reload_timestamp = get_current_time_ms();
 
@@ -94,8 +94,8 @@ static void *config_watcher_thread(void *arg) {
 }
 
 bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *config_path) {
-    BONGOCAT_CHECK_NULL(watcher, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(config_path, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(watcher, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(config_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
     
     memset(watcher, 0, sizeof(config_watcher_t));
     
@@ -103,14 +103,14 @@ bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *conf
     watcher->inotify_fd = inotify_init1(IN_NONBLOCK);
     if (watcher->inotify_fd < 0) {
         BONGOCAT_LOG_ERROR("Failed to initialize inotify: %s", strerror(errno));
-        return BONGOCAT_ERROR_FILE_IO;
+        return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
     
     // Store config path
     watcher->config_path = strdup(config_path);
     if (!watcher->config_path) {
         close(watcher->inotify_fd);
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     
     // Add watch for the config file
@@ -121,7 +121,7 @@ bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *conf
         if (watcher->config_path) free(watcher->config_path);
         watcher->config_path = NULL;
         close(watcher->inotify_fd);
-        return BONGOCAT_ERROR_FILE_IO;
+        return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
 
     watcher->reload_efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
@@ -133,10 +133,10 @@ bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *conf
         watcher->inotify_fd = -1;
         close(watcher->watch_fd);
         watcher->watch_fd = -1;
-        return BONGOCAT_ERROR_FILE_IO;
+        return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
     
-    return 0;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 void config_watcher_start(config_watcher_t *watcher) {
@@ -190,7 +190,7 @@ void config_watcher_cleanup(config_watcher_t *watcher) {
     }
     
     if (watcher->config_path) {
-        if (watcher->config_path) free(watcher->config_path);
+        free(watcher->config_path);
         watcher->config_path = NULL;
     }
 

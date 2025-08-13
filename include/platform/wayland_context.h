@@ -10,31 +10,31 @@
 #include <pthread.h>
 
 // Wayland globals
-typedef struct {
-    struct wl_display *display;
-    struct wl_compositor *compositor;
-    struct wl_shm *shm;
-    struct zwlr_layer_shell_v1 *layer_shell;
-    struct xdg_wm_base *xdg_wm_base;
-    struct wl_output *output;
-    struct wl_surface *surface;
-    struct zwlr_layer_surface_v1 *layer_surface;
+struct wayland_context_t {
+    wl_display *display{NULL};
+    wl_compositor *compositor{NULL};
+    wl_shm *shm{NULL};
+    zwlr_layer_shell_v1 *layer_shell{NULL};
+    struct xdg_wm_base *xdg_wm_base{NULL};
+    wl_output *output{NULL};
+    wl_surface *surface{NULL};
+    zwlr_layer_surface_v1 *layer_surface{NULL};
 
     // @NOTE: variable can be shared between child process and parent (see mmap)
-    wayland_shared_memory_t *ctx_shm;
+    wayland_shared_memory_t *ctx_shm{NULL};
 
     // local copy from other thread, update after reload (shared memory)
-    config_t *_local_copy_config;
-    int _screen_width;
+    config_t *_local_copy_config{NULL};
+    int _screen_width{0};
     char* _output_name_str;                  // Will default to automatic one if kept null
-    bool _fullscreen_detected;
+    bool _fullscreen_detected{false};
 
     // frame done callback data
-    struct wl_callback *_frame_cb;
-    pthread_mutex_t _frame_cb_lock;
-    atomic_bool _frame_pending;
-    atomic_bool _redraw_after_frame;
-    timestamp_ms_t _last_frame_timestamp_ms;
-} wayland_context_t;
+    wl_callback *_frame_cb{NULL};
+    pthread_mutex_t _frame_cb_lock{};
+    atomic_bool _frame_pending{false};
+    atomic_bool _redraw_after_frame{false};
+    timestamp_ms_t _last_frame_timestamp_ms{0};
+};
 
 #endif // BONGOCAT_WAYLAND_CONTEXT_H

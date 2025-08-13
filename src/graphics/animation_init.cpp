@@ -6,14 +6,16 @@
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "utils/memory.h"
-#include <time.h>
-#include <stdlib.h>
+#include "animation_constants.h"
+#include <ctime>
+#include <cstdlib>
 #include <pthread.h>
 #include <sys/stat.h>
 #include <sys/types.h>
 #include <sys/mman.h>
-#include <assert.h>
+#include <cassert>
 #include <sys/eventfd.h>
+#include <unistd.h>
 
 // include stb_image
 #if defined(__GNUC__) || defined(__clang__)
@@ -30,11 +32,8 @@
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
-#define THRESHOLD_ALPHA 127
+static inline constexpr uint8_t THRESHOLD_ALPHA = 127;
 
-#include <unistd.h>
-
-#include "animation_constants.h"
 
 // =============================================================================
 // DRAWING OPERATIONS MODULE
@@ -46,7 +45,7 @@ static bool drawing_is_pixel_in_bounds(int x, int y, int width, int height) {
 }
 */
 
-static inline uint8_t apply_invert(uint8_t v, bool invert) {
+constexpr static uint8_t apply_invert(uint8_t v, bool invert) {
     return v ^ (invert ? 0xFF : 0x00); // branchless invert
 }
 
@@ -56,12 +55,12 @@ static void drawing_copy_pixel(uint8_t *dest, int dest_channels, int dest_idx,
                                drawing_color_order_t dest_order,
                                drawing_color_order_t src_order)
 {
-    const int invert = (option == COPY_PIXEL_OPTION_INVERT);
+    const bool invert = option == drawing_copy_pixel_color_option_t::COPY_PIXEL_OPTION_INVERT;
 
     // Map source channel indices for RGB
-    const int sr = (src_order == COLOR_ORDER_RGBA) ? 0 : 2;
+    const int sr = (src_order == drawing_color_order_t::COLOR_ORDER_RGBA) ? 0 : 2;
     const int sg = 1;
-    const int sb = (src_order == COLOR_ORDER_RGBA) ? 2 : 0;
+    const int sb = (src_order == drawing_color_order_t::COLOR_ORDER_RGBA) ? 2 : 0;
 
     // Load into RGBA without branches
     uint8_t r, g, b, a;
@@ -86,9 +85,9 @@ static void drawing_copy_pixel(uint8_t *dest, int dest_channels, int dest_idx,
     }
 
     // Map destination channel indices
-    int dr = (dest_order == COLOR_ORDER_RGBA) ? 0 : 2;
+    int dr = (dest_order == drawing_color_order_t::COLOR_ORDER_RGBA) ? 0 : 2;
     int dg = 1;
-    int db = (dest_order == COLOR_ORDER_RGBA) ? 2 : 0;
+    int db = (dest_order == drawing_color_order_t::COLOR_ORDER_RGBA) ? 2 : 0;
 
     // Store without branching
     if (dest_channels >= 1) dest[dest_idx + dr] = r;
@@ -109,7 +108,7 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
     uint8_t* sprite_sheet_pixels = stbi_load_from_memory(sprite_data, (int)sprite_data_size, &sheet_width, &sheet_height, NULL, channels); // Force RGBA
     if (!sprite_sheet_pixels) {
         BONGOCAT_LOG_ERROR("Failed to load sprite sheet.");
-        return BONGOCAT_ERROR_FILE_IO;
+        return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
 
     if (frame_columns == 0 || frame_rows == 0 ||
@@ -117,7 +116,7 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
         BONGOCAT_LOG_ERROR("Sprite sheet dimensions not divisible by frame grid.");
         stbi_image_free(sprite_sheet_pixels);
         sprite_sheet_pixels = NULL;
-        return BONGOCAT_ERROR_INVALID_PARAM;
+        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 
     const int frame_width = sheet_width / frame_columns;
@@ -139,13 +138,13 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
     const int dest_pixels_width = dest_frame_width * frame_columns;
     const int dest_pixels_height = dest_frame_height * frame_rows;
     const size_t dest_pixels_size = dest_pixels_width * dest_pixels_height * channels;
-    unsigned char *dest_pixels = BONGOCAT_MALLOC(dest_pixels_size);
+    unsigned char *dest_pixels = (unsigned char *)BONGOCAT_MALLOC(dest_pixels_size);
     memset(dest_pixels, 0, dest_pixels_size);
     if (!dest_pixels) {
         BONGOCAT_LOG_ERROR("Failed to allocate memory for dest_pixels (%zu bytes)\n", dest_pixels_size);
         stbi_image_free(sprite_sheet_pixels);
         sprite_sheet_pixels = NULL;
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
 
     const int src_frame_width = frame_width;
@@ -177,7 +176,7 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
                         (size_t)dst_px_idx < dest_pixels_size) {
                         drawing_copy_pixel(dest_pixels, channels, dst_px_idx,
                                            sprite_sheet_pixels, channels, src_px_idx,
-                                           drawing_option, COLOR_ORDER_RGBA, COLOR_ORDER_RGBA);
+                                           drawing_option, drawing_color_order_t::COLOR_ORDER_RGBA, drawing_color_order_t::COLOR_ORDER_RGBA);
                         if (!set_frames && frame_index < MAX_NUM_FRAMES) {
                             set_frames = true;
                         }
@@ -210,7 +209,7 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
     out_frames->frame_height = dest_frame_height;
     out_frames->total_frames = total_frames;
 
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 /*
@@ -224,8 +223,8 @@ static void free_frames(animation_frame_t* frames, size_t frame_count) {
 */
 
 
-#define FIXED_SHIFT 16
-#define FIXED_ONE   (1 << FIXED_SHIFT)
+static inline constexpr unsigned int FIXED_SHIFT = 16;
+static inline constexpr unsigned int FIXED_ONE   = (1u << FIXED_SHIFT);
 void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, int dest_channels,
                        const unsigned char *src, size_t src_size, int src_w, int src_h, int src_channels,
                        int src_x, int src_y,
@@ -314,7 +313,7 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
 
                         drawing_copy_pixel(dest, dest_channels, dest_idx,
                                            src, src_channels, src_idx,
-                                           COPY_PIXEL_OPTION_NORMAL, dest_order, src_order);
+                                           drawing_copy_pixel_color_option_t::COPY_PIXEL_OPTION_NORMAL, dest_order, src_order);
                     }
                 } else {
                     // opaque source (no alpha), just copy
@@ -323,7 +322,7 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
 
                     drawing_copy_pixel(dest, dest_channels, dest_idx,
                                        src, src_channels, src_idx,
-                                       COPY_PIXEL_OPTION_NORMAL, dest_order, src_order);
+                                       drawing_copy_pixel_color_option_t::COPY_PIXEL_OPTION_NORMAL, dest_order, src_order);
                 }
             }
 
@@ -407,7 +406,7 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
     int max_frame_width = 0;
     int max_frame_height = 0;
     int max_channels = 0;
-    loaded_sprite_sheet_frame_t* loaded_images = BONGOCAT_MALLOC(embedded_images_count * sizeof(loaded_sprite_sheet_frame_t));
+    loaded_sprite_sheet_frame_t* loaded_images = (loaded_sprite_sheet_frame_t*)BONGOCAT_MALLOC(embedded_images_count * sizeof(loaded_sprite_sheet_frame_t));
     for (size_t i = 0;i < embedded_images_count; i++) {
         const embedded_image_t *img = &embedded_images[i];
 
@@ -441,7 +440,7 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
     anim->sprite_sheet_height = max_frame_height;
     anim->channels = max_channels;
     anim->pixels_size = anim->sprite_sheet_width * anim->sprite_sheet_height * anim->channels;
-    anim->pixels = BONGOCAT_MALLOC(anim->pixels_size);
+    anim->pixels = (uint8_t*)BONGOCAT_MALLOC(anim->pixels_size);
     if (!anim->pixels) {
         anim->frame_width = 0;
         anim->frame_height = 0;
@@ -458,7 +457,7 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
         BONGOCAT_SAFE_FREE(loaded_images);
         loaded_images = NULL;
 
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     memset(anim->pixels, 0, anim->pixels_size);
     memset(anim->frames, 0, MAX_NUM_FRAMES * sizeof(sprite_sheet_animation_region_t));
@@ -490,7 +489,7 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
     BONGOCAT_SAFE_FREE(loaded_images);
     loaded_images = NULL;
     
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 static int anim_load_sprite_sheet(const config_t *config, generic_sprite_sheet_animation_t *anim, const embedded_image_t *sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
@@ -499,17 +498,17 @@ static int anim_load_sprite_sheet(const config_t *config, generic_sprite_sheet_a
     BONGOCAT_CHECK_NULL(sprite_sheet_image, -1);
 
     if (sprite_sheet_cols < 0 || sprite_sheet_rows < 0) {
-        return BONGOCAT_ERROR_INVALID_PARAM;
+        return -1;
     }
 
     assert(sprite_sheet_image->size <= INT_MAX);
 
-    const int result = load_sprite_sheet_from_memory(anim,
+    const auto result = load_sprite_sheet_from_memory(anim,
                                   sprite_sheet_image->data, (int)sprite_sheet_image->size,
                                   sprite_sheet_cols, sprite_sheet_rows,
                                   config->padding_x, config->padding_y,
-                                  config->invert_color ? COPY_PIXEL_OPTION_INVERT : COPY_PIXEL_OPTION_NORMAL);
-    if (result != 0) {
+                                  config->invert_color ? drawing_copy_pixel_color_option_t::COPY_PIXEL_OPTION_INVERT : drawing_copy_pixel_color_option_t::COPY_PIXEL_OPTION_NORMAL);
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Sprite Sheet load failed: %s", sprite_sheet_image->name);
         return -1;
     }
@@ -544,9 +543,9 @@ static bongocat_error_t init_digimon_anim(animation_context_t* ctx, int anim_ind
 // =============================================================================
 
 bongocat_error_t animation_init(animation_trigger_context_t *trigger_ctx, animation_context_t* ctx, const config_t *config) {
-    BONGOCAT_CHECK_NULL(trigger_ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(config, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(trigger_ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(config, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
     BONGOCAT_LOG_INFO("Initializing animation system");
 
@@ -558,7 +557,7 @@ bongocat_error_t animation_init(animation_trigger_context_t *trigger_ctx, animat
                                         MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (ctx->shm == MAP_FAILED) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     if (ctx->shm) {
         ctx->shm->time_until_next_frame_ms = 0;
@@ -587,7 +586,7 @@ bongocat_error_t animation_init(animation_trigger_context_t *trigger_ctx, animat
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         munmap(ctx->shm, sizeof(animation_shared_memory_t));
         ctx->shm = NULL;
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     config_set_defaults(ctx->_local_copy_config);
 
@@ -599,7 +598,7 @@ bongocat_error_t animation_init(animation_trigger_context_t *trigger_ctx, animat
         BONGOCAT_LOG_ERROR("Failed to create notify pipe for animation trigger: %s", strerror(errno));
         munmap(ctx->_local_copy_config, sizeof(config_t));
         ctx->_local_copy_config = NULL;
-        return BONGOCAT_ERROR_FILE_IO;
+        return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
     trigger_ctx->render_efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if (trigger_ctx->render_efd < 0) {
@@ -608,13 +607,13 @@ bongocat_error_t animation_init(animation_trigger_context_t *trigger_ctx, animat
         ctx->_local_copy_config = NULL;
         if (trigger_ctx->trigger_efd >= 0) close(trigger_ctx->trigger_efd);
         trigger_ctx->trigger_efd = -1;
-        return BONGOCAT_ERROR_FILE_IO;
+        return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
     
     // Initialize embedded images data
     const embedded_image_t* bongocat_embedded_images = init_bongocat_embedded_images();
-    const int result = anim_load_embedded_images_into_sprite_sheet(&ctx->shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
-    if (result != 0) {
+    auto result = anim_load_embedded_images_into_sprite_sheet(&ctx->shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         munmap(ctx->_local_copy_config, sizeof(config_t));
         ctx->_local_copy_config = NULL;
         if (trigger_ctx->trigger_efd >= 0) close(trigger_ctx->trigger_efd);
@@ -638,7 +637,7 @@ bongocat_error_t animation_init(animation_trigger_context_t *trigger_ctx, animat
 #endif
     
     BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets");
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 void animation_stop(animation_context_t *ctx) {

@@ -6,25 +6,25 @@
 #include <wayland-client.h>
 #include <stdatomic.h>
 
-#define WAYLAND_NUM_BUFFERS 1
+inline static constexpr size_t WAYLAND_NUM_BUFFERS = 1;
 
-typedef struct {
-    struct wl_buffer *buffer;
-    uint8_t *pixels;
-    size_t pixels_size;
-    atomic_bool busy;        // 0 free / 1 busy
-    atomic_bool pending;     // 0/1: a render was requested while busy
-    int index;
+struct wayland_shm_buffer_t {
+    wl_buffer *buffer{NULL};
+    uint8_t *pixels{NULL};
+    size_t pixels_size{0};
+    atomic_bool busy{false};        // 0 free / 1 busy
+    atomic_bool pending{false};     // 0/1: a render was requested while busy
+    int index{0};
 
     // extra context for listeners
-    animation_trigger_context_t *_animation_trigger_context;
-} wayland_shm_buffer_t;
+    animation_trigger_context_t *_animation_trigger_context{NULL};
+};
 
 // Wayland globals
-typedef struct {
+struct wayland_shared_memory_t {
     wayland_shm_buffer_t buffers[WAYLAND_NUM_BUFFERS];
-    int current_buffer_index;
-    atomic_bool configured;
-} wayland_shared_memory_t;
+    int current_buffer_index{0};
+    atomic_bool configured{false};
+};
 
 #endif // BONGOCAT_WAYLAND_SHARED_MEMORY_H

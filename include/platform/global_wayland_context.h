@@ -7,59 +7,59 @@
 #include "../protocols/xdg-output-unstable-v1-client-protocol.h"
 #include <sys/time.h>
 
-#define MAX_TOPLEVELS 64
-#define MAX_OUTPUTS 8               // Maximum monitor outputs to store
-#define OUTPUT_NAME_SIZE 128
+inline static constexpr size_t MAX_TOPLEVELS = 64;
+inline static constexpr size_t MAX_OUTPUTS = 8;               // Maximum monitor outputs to store
+inline static constexpr size_t OUTPUT_NAME_SIZE = 128;
 
 // =============================================================================
 // FULLSCREEN DETECTION MODULE
 // =============================================================================
 
-typedef struct {
-    struct zwlr_foreign_toplevel_manager_v1 *manager;
-    bool has_fullscreen_toplevel;
-    struct timeval last_check;
-} fullscreen_detector_t;
+struct fullscreen_detector_t {
+    struct zwlr_foreign_toplevel_manager_v1 *manager{NULL};
+    bool has_fullscreen_toplevel{false};
+    timeval last_check{};
+};
 
 // =============================================================================
 // SCREEN DIMENSION MANAGEMENT
 // =============================================================================
 
-typedef struct {
-    int screen_width;
-    int screen_height;
-    int transform;
-    int raw_width;
-    int raw_height;
-    bool mode_received;
-    bool geometry_received;
-} screen_info_t;
+struct screen_info_t {
+    int screen_width{0};
+    int screen_height{0};
+    int transform{0};
+    int raw_width{0};
+    int raw_height{0};
+    bool mode_received{false};
+    bool geometry_received{false};
+};
 
 
 // Output monitor reference structure
-typedef struct {
-    struct wl_output *wl_output;
-    struct zxdg_output_v1 *xdg_output;
-    uint32_t name;                      // Registry name
-    char name_str[OUTPUT_NAME_SIZE];    // From xdg-output
-    bool name_received;
-} output_ref_t;
+struct output_ref_t {
+    struct wl_output *wl_output{NULL};
+    zxdg_output_v1 *xdg_output{NULL};
+    uint32_t name{0};                         // Registry name
+    char name_str[OUTPUT_NAME_SIZE]{};        // From xdg-output
+    bool name_received{false};
+};
 
-typedef struct {
-    wayland_context_t* wayland_context;
-    animation_context_t* animation_context;
-    animation_trigger_context_t* animation_trigger_context;
+struct wayland_listeners_context_t {
+    wayland_context_t* wayland_context{NULL};
+    animation_context_t* animation_context{NULL};
+    animation_trigger_context_t* animation_trigger_context{NULL};
 
-    struct zwlr_foreign_toplevel_handle_v1* tracked_toplevels[MAX_TOPLEVELS];
-    size_t num_toplevels;
+    struct zwlr_foreign_toplevel_handle_v1* tracked_toplevels[MAX_TOPLEVELS]{};
+    size_t num_toplevels{0};
 
     output_ref_t outputs[MAX_OUTPUTS];
-    size_t output_count;
-    struct zxdg_output_manager_v1 *xdg_output_manager;
+    size_t output_count{0};
+    zxdg_output_manager_v1 *xdg_output_manager{NULL};
 
     fullscreen_detector_t fs_detector;
 
     screen_info_t screen_info;
-} wayland_listeners_context_t;
+};
 
 #endif

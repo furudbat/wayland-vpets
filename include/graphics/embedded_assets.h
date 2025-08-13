@@ -1,7 +1,7 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_H
 #define BONGOCAT_EMBEDDED_ASSETS_H
 
-#include "embedded_assets/bongocat.h"
+#include "embedded_assets/bongocat.hpp"
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS

@@ -200,8 +200,8 @@ static bool anim_handle_key_press(animation_trigger_context_t *animation_trigger
 
 
     const size_t fds_animation_trigger_index = 0;
-    const int fds_count = 1;
-    struct pollfd fds[1] = {
+    constexpr int fds_count = 1;
+    pollfd fds[fds_count] = {
         { .fd = animation_trigger_ctx->trigger_efd, .events = POLLIN },
     };
     assert(fds_count == LEN_ARRAY(fds));
@@ -367,7 +367,7 @@ static void anim_init_state(animation_context_t* ctx, animation_state_t *state) 
 
 static void *anim_thread_main(void *arg) {
     assert(arg);
-    animation_trigger_context_t* trigger_ctx = arg;
+    animation_trigger_context_t *trigger_ctx = (animation_trigger_context_t*)arg;
     assert(trigger_ctx->_anim);
     animation_context_t* ctx = trigger_ctx->_anim;
     //input_context_t* input = trigger_ctx->_input;
@@ -382,7 +382,7 @@ static void *anim_thread_main(void *arg) {
     atomic_store(&ctx->_animation_running, true);
     BONGOCAT_LOG_DEBUG("Animation thread main loop started");
 
-    struct timespec next_frame_time;
+    timespec next_frame_time{};
     clock_gettime(CLOCK_MONOTONIC, &next_frame_time);
 
     // trigger initial render
@@ -440,9 +440,9 @@ static void *anim_thread_main(void *arg) {
 // =============================================================================
 
 bongocat_error_t animation_start(animation_trigger_context_t *trigger_ctx, animation_context_t *ctx, input_context_t *input) {
-    BONGOCAT_CHECK_NULL(trigger_ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(input, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(trigger_ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(input, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
     BONGOCAT_LOG_INFO("Starting animation thread");
 
@@ -452,11 +452,11 @@ bongocat_error_t animation_start(animation_trigger_context_t *trigger_ctx, anima
     const int result = pthread_create(&ctx->_anim_thread, NULL, anim_thread_main, trigger_ctx);
     if (result != 0) {
         BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
-        return BONGOCAT_ERROR_THREAD;
+        return bongocat_error_t::BONGOCAT_ERROR_THREAD;
     }
     
     BONGOCAT_LOG_DEBUG("Animation thread started successfully");
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 

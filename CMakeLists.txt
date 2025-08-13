@@ -24,7 +24,7 @@ else()
 endif()
 
 
-set(CMAKE_CXX_STANDARD 23)
+set(CMAKE_CXX_STANDARD 26)
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -68,19 +68,18 @@ add_custom_target(protocols DEPENDS ${GENERATED_PROTOCOLS})
 
 add_executable(bongocat)
 set(SOURCES
-    ${SRC_DIR}/config/config.c
-    ${SRC_DIR}/config/config_watcher.c
-    ${SRC_DIR}/core/main.c
-    ${SRC_DIR}/graphics/animation.c
-    ${SRC_DIR}/graphics/animation_init.c
-    ${SRC_DIR}/graphics/bar.c
-    ${SRC_DIR}/graphics/embedded_assets.c
-    ${SRC_DIR}/graphics/embedded_assets/bongocat.c
-    ${SRC_DIR}/platform/input.c
-    ${SRC_DIR}/platform/wayland.c
-    ${SRC_DIR}/utils/error.c
-    ${SRC_DIR}/utils/memory.c
-    ${SRC_DIR}/utils/time.c
+    ${SRC_DIR}/config/config.cpp
+    ${SRC_DIR}/config/config_watcher.cpp
+    ${SRC_DIR}/core/main.cpp
+    ${SRC_DIR}/graphics/animation.cpp
+    ${SRC_DIR}/graphics/animation_init.cpp
+    ${SRC_DIR}/graphics/bar.cpp
+    ${SRC_DIR}/graphics/embedded_assets.cpp
+    ${SRC_DIR}/platform/input.cpp
+    ${SRC_DIR}/platform/wayland.cpp
+    ${SRC_DIR}/utils/error.cpp
+    ${SRC_DIR}/utils/memory.cpp
+    ${SRC_DIR}/utils/time.cpp
 )
 if (INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS)
     target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS)

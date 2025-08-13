@@ -4,12 +4,12 @@
 #include "utils/time.h"
 #include <stdatomic.h>
 
-typedef struct {
+struct input_shared_memory_t {
     /// @NOTE: variables can be shared between child process and parent (see mmap)
-    int any_key_pressed;
-    int kpm;                    // keystrokes per minute
-    atomic_int input_counter;
-    timestamp_ms_t last_key_pressed_timestamp;
-} input_shared_memory_t;
+    int any_key_pressed{0};
+    int kpm{0};                    // keystrokes per minute
+    atomic_int input_counter{0};
+    timestamp_ms_t last_key_pressed_timestamp{0};
+};
 
 #endif // BONGOCAT_INPUT_EVENT_CONTEXT_H

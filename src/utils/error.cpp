@@ -1,8 +1,8 @@
 #include "utils/error.h"
-#include <stdarg.h>
-#include <time.h>
+#include <cstdarg>
+#include <ctime>
 #include <sys/time.h>
-#include <stdio.h>
+#include <cstdio>
 
 static int debug_enabled = 1;
 
@@ -11,8 +11,8 @@ void bongocat_error_init(int enable_debug) {
 }
 
 static void log_timestamp(FILE *stream) {
-    struct timeval tv;
-    struct tm tm_info;
+    timeval tv{};
+    tm tm_info{};
     char timestamp[64] = {0};
 
     gettimeofday(&tv, NULL);
@@ -61,15 +61,15 @@ void bongocat_log_verbose(const char *format, ...) {
 
 const char* bongocat_error_string(bongocat_error_t error) {
     switch (error) {
-        case BONGOCAT_SUCCESS: return "Success";
-        case BONGOCAT_ERROR_MEMORY: return "Memory allocation error";
-        case BONGOCAT_ERROR_FILE_IO: return "File I/O error";
-        case BONGOCAT_ERROR_WAYLAND: return "Wayland error";
-        case BONGOCAT_ERROR_CONFIG: return "Configuration error";
-        case BONGOCAT_ERROR_INPUT: return "Input error";
-        case BONGOCAT_ERROR_ANIMATION: return "Animation error";
-        case BONGOCAT_ERROR_THREAD: return "Thread error";
-        case BONGOCAT_ERROR_INVALID_PARAM: return "Invalid parameter";
+        case bongocat_error_t::BONGOCAT_SUCCESS: return "Success";
+        case bongocat_error_t::BONGOCAT_ERROR_MEMORY: return "Memory allocation error";
+        case bongocat_error_t::BONGOCAT_ERROR_FILE_IO: return "File I/O error";
+        case bongocat_error_t::BONGOCAT_ERROR_WAYLAND: return "Wayland error";
+        case bongocat_error_t::BONGOCAT_ERROR_CONFIG: return "Configuration error";
+        case bongocat_error_t::BONGOCAT_ERROR_INPUT: return "Input error";
+        case bongocat_error_t::BONGOCAT_ERROR_ANIMATION: return "Animation error";
+        case bongocat_error_t::BONGOCAT_ERROR_THREAD: return "Thread error";
+        case bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM: return "Invalid parameter";
         default: return "Unknown error";
     }
 }

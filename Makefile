@@ -1,5 +1,5 @@
 # Compiler
-CC = gcc
+CC = g++
 
 # Build type (debug or release)
 BUILD_TYPE ?= release

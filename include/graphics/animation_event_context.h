@@ -6,11 +6,11 @@
 
 typedef struct {
     // event file descriptor
-    int trigger_efd;
-    int render_efd;
+    int trigger_efd{-1};
+    int render_efd{-1};
 
-    input_context_t *_input;
-    animation_context_t *_anim;
+    input_context_t *_input{NULL};
+    animation_context_t *_anim{NULL};
 } animation_trigger_context_t;
 
 #endif

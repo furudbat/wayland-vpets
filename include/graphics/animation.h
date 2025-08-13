@@ -14,14 +14,14 @@ void animation_cleanup(animation_trigger_context_t *trigger_ctx, animation_conte
 void animation_trigger(animation_trigger_context_t *ctx);
 void animation_update_config(animation_context_t *ctx, const config_t *config);
 
-typedef enum {
+enum class drawing_copy_pixel_color_option_t : uint8_t {
     COPY_PIXEL_OPTION_NORMAL,
     COPY_PIXEL_OPTION_INVERT,
-} drawing_copy_pixel_color_option_t;
-typedef enum {
+};
+enum class drawing_color_order_t : uint8_t {
     COLOR_ORDER_RGBA,
     COLOR_ORDER_BGRA
-} drawing_color_order_t;
+};
 void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, int dest_channels,
                        const unsigned char *src, size_t src_size, int src_w, int src_h, int src_channels,
                        int src_x, int src_y,

@@ -6,16 +6,16 @@
 #include "platform/input_context.h"
 #include <stdatomic.h>
 
-typedef struct {
-    animation_shared_memory_t *shm;
-    pthread_mutex_t anim_lock;
+struct animation_context_t {
+    animation_shared_memory_t *shm{NULL};
+    pthread_mutex_t anim_lock{};
 
     // local copy from other thread, update after reload (shared memory)
-    config_t* _local_copy_config;
+    config_t* _local_copy_config{NULL};
 
     // Animation system state
-    atomic_bool _animation_running;
-    pthread_t _anim_thread;
-} animation_context_t;
+    atomic_bool _animation_running{false};
+    pthread_t _anim_thread{0};
+};
 
 #endif //ANIMATION_CONTEXT_H

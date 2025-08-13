@@ -8,7 +8,7 @@
 #include "config/config.h"
 #include "utils/error.h"
 #include "core/bongocat.h"
-#include <signal.h>
+#include <csignal>
 #include <sys/types.h>
 
 

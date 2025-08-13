@@ -3,44 +3,52 @@
 #include "platform/wayland.h"
 #include "platform/wayland_shared_memory.h"
 #include "platform/global_wayland_context.h"
-#include "../graphics/bar.h"
 #include "utils/memory.h"
+#include "../graphics/bar.h"
 #include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
 #include "../protocols/xdg-output-unstable-v1-client-protocol.h"
-#include <assert.h>
+#include <cassert>
 #include <poll.h>
 #include <unistd.h>
 #include <fcntl.h>
-#include <errno.h>
-#include <limits.h>
+#include <cerrno>
+#include <climits>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/time.h>
 #include <sys/types.h>
 #include <pthread.h>
 #include <linux/input.h>
-#include <signal.h>
-#include <stdlib.h>
+#include <csignal>
+#include <cstdlib>
 #include <wayland-client.h>
 #include <sys/signalfd.h>
 #include <sys/wait.h>
 
+#ifdef __cplusplus
+#define wl_array_for_each_typed(pos, array, type) \
+for (type *pos = static_cast<type*>((array)->data); \
+reinterpret_cast<const char*>(pos) < \
+(reinterpret_cast<const char*>((array)->data) + (array)->size); \
+++pos)
+#endif
 
 // =============================================================================
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
 
-#define LINE_BUF 512
-#define SWAY_BUF 4096
+static inline constexpr size_t LINE_BUF = 512;
+static inline constexpr size_t SWAY_BUF = 4096;
 
-#define CREATE_SHM_MAX_ATTEMPTS 100
-#define CHECK_INTERVAL_MS 100
-#define POOL_MIN_TIMEOUT_MS 5
-#define POOL_MAX_TIMEOUT_MS 1000
-#define MAX_ATTEMPTS 2048
+static inline constexpr int CREATE_SHM_MAX_ATTEMPTS     = 100;
+static inline constexpr time_ms_t CHECK_INTERVAL_MS     = 100;
+static inline constexpr time_ms_t POOL_MIN_TIMEOUT_MS   = 5;
+static inline constexpr time_ms_t POOL_MAX_TIMEOUT_MS   = 1000;
+static inline constexpr int MAX_ATTEMPTS                = 2048;
+
 static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
 
-#define WAYLAND_LAYER_NAME "OVERLAY"
+static inline constexpr auto WAYLAND_LAYER_NAME = "OVERLAY";
 
 
 // =============================================================================
@@ -51,7 +59,7 @@ static void handle_xdg_output_name(void *data, struct zxdg_output_v1 *xdg_output
                                    const char *name) {
     UNUSED(xdg_output);
 
-    output_ref_t *oref = data;
+    output_ref_t *oref = (output_ref_t *)data;
     assert(oref);
 
     snprintf(oref->name_str, sizeof(oref->name_str), "%s", name);
@@ -63,7 +71,7 @@ static void handle_xdg_output_logical_position(void *data, struct zxdg_output_v1
                                                int32_t x, int32_t y) {
     UNUSED(xdg_output); UNUSED(x); UNUSED(y);
 
-    output_ref_t *oref = data;
+    output_ref_t *oref = (output_ref_t *)data;
     assert(oref);
 
     BONGOCAT_LOG_VERBOSE("xdg_output.logical_position: %d,%d received", x, y);
@@ -72,7 +80,7 @@ static void handle_xdg_output_logical_size(void *data, struct zxdg_output_v1 *xd
                                            int32_t width, int32_t height) {
     UNUSED(xdg_output); UNUSED(width); UNUSED(height);
 
-    output_ref_t *oref = data;
+    output_ref_t *oref = (output_ref_t *)data;
     assert(oref);
 
     BONGOCAT_LOG_VERBOSE("xdg_output.logical_size: %dx%d received", width, height);
@@ -80,7 +88,7 @@ static void handle_xdg_output_logical_size(void *data, struct zxdg_output_v1 *xd
 static void handle_xdg_output_done(void *data, struct zxdg_output_v1 *xdg_output) {
     UNUSED(xdg_output);
 
-    output_ref_t *oref = data;
+    output_ref_t *oref = (output_ref_t *)data;
     assert(oref);
 
     BONGOCAT_LOG_VERBOSE("xdg_output.done: done received");
@@ -89,14 +97,14 @@ static void handle_xdg_output_done(void *data, struct zxdg_output_v1 *xdg_output
 static void handle_xdg_output_description(void *data, struct zxdg_output_v1 *xdg_output, const char *description) {
     UNUSED(xdg_output); UNUSED(description);
 
-    output_ref_t *oref = data;
+    output_ref_t *oref = (output_ref_t *)data;
     assert(oref);
 
     BONGOCAT_LOG_VERBOSE("xdg_output.description: description received");
 }
 
 /// @NOTE: xdg_output_listeners MUST pass data as output_ref_t, see zxdg_output_v1_add_listener
-static const struct zxdg_output_v1_listener xdg_output_listener = {
+static constexpr zxdg_output_v1_listener xdg_output_listener = {
     .logical_position = handle_xdg_output_logical_position,
     .logical_size = handle_xdg_output_logical_size,
     .done = handle_xdg_output_done,
@@ -200,7 +208,7 @@ static void fs_handle_toplevel_state(void *data, struct zwlr_foreign_toplevel_ha
     
     bool is_fullscreen = false;
     uint32_t *state_ptr = NULL;
-    wl_array_for_each(state_ptr, state) {
+    wl_array_for_each_typed(state_ptr, state, uint32_t) {
         if (*state_ptr == ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_FULLSCREEN) {
             is_fullscreen = true;
             break;
@@ -420,7 +428,7 @@ static void layer_surface_configure(void *data,
     assert(ctx->animation_trigger_context);
     assert(ctx->wayland_context);
     assert(ctx->wayland_context->ctx_shm);
-    const wayland_shared_memory_t *const wayland_ctx_shm = ctx->wayland_context->ctx_shm;
+    wayland_shared_memory_t *wayland_ctx_shm = ctx->wayland_context->ctx_shm;
 
     zwlr_layer_surface_v1_ack_configure(ls, serial);
     atomic_store(&wayland_ctx_shm->configured, true);
@@ -587,12 +595,12 @@ static void registry_global(void *data , struct wl_registry *reg,
             xdg_wm_base_add_listener(ctx->wayland_context->xdg_wm_base, &xdg_wm_base_listener, ctx);
         }
     } else if (strcmp(iface, zxdg_output_manager_v1_interface.name) == 0) {
-        ctx->xdg_output_manager = wl_registry_bind(reg, name, &zxdg_output_manager_v1_interface, 3);
+        ctx->xdg_output_manager = (zxdg_output_manager_v1 *)wl_registry_bind(reg, name, &zxdg_output_manager_v1_interface, 3);
         BONGOCAT_LOG_VERBOSE("wl_registry.global: xdg_output_manager registry bind");
     } else if (strcmp(iface, wl_output_interface.name) == 0) {
         if (ctx->output_count < MAX_OUTPUTS) {
             ctx->outputs[ctx->output_count].name = name;
-            ctx->outputs[ctx->output_count].wl_output = wl_registry_bind(reg, name, &wl_output_interface, 2);
+            ctx->outputs[ctx->output_count].wl_output = (wl_output *)wl_registry_bind(reg, name, &wl_output_interface, 2);
             wl_output_add_listener(ctx->outputs[ctx->output_count].wl_output, &output_listener, ctx);
             BONGOCAT_LOG_VERBOSE("wl_registry.global: wl_output registry bind: %i", ctx->output_count);
             ctx->output_count++;
@@ -630,7 +638,7 @@ static struct wl_registry_listener reg_listener = {
 // =============================================================================
 
 static bongocat_error_t wayland_setup_protocols(wayland_listeners_context_t* ctx) {
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
     wayland_context_t *wayland_ctx = ctx->wayland_context;
     //animation_context_t *anim = ctx->animation_context;
@@ -643,7 +651,7 @@ static bongocat_error_t wayland_setup_protocols(wayland_listeners_context_t* ctx
     struct wl_registry *registry = wl_display_get_registry(wayland_ctx->display);
     if (!registry) {
         BONGOCAT_LOG_ERROR("Failed to get Wayland registry");
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     wl_registry_add_listener(registry, &reg_listener, ctx);
@@ -687,7 +695,7 @@ static bongocat_error_t wayland_setup_protocols(wayland_listeners_context_t* ctx
     if (!wayland_ctx->compositor || !wayland_ctx->shm || !wayland_ctx->layer_shell) {
         BONGOCAT_LOG_ERROR("Missing required Wayland protocols");
         wl_registry_destroy(registry);
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     // Configure screen dimensions
@@ -708,11 +716,11 @@ static bongocat_error_t wayland_setup_protocols(wayland_listeners_context_t* ctx
     wayland_ctx->_screen_width = screen_width;
 
     wl_registry_destroy(registry);
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t* ctx) {
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
     wayland_context_t *wayland_ctx = ctx->wayland_context;
     //animation_context_t *anim = ctx->animation_context;
@@ -725,7 +733,7 @@ static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t* ctx) 
     wayland_ctx->surface = wl_compositor_create_surface(wayland_ctx->compositor);
     if (!wayland_ctx->surface) {
         BONGOCAT_LOG_ERROR("Failed to create surface");
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     wayland_ctx->layer_surface = zwlr_layer_shell_v1_get_layer_surface(wayland_ctx->layer_shell, wayland_ctx->surface, wayland_ctx->output,
@@ -734,16 +742,16 @@ static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t* ctx) 
 
     if (!wayland_ctx->layer_surface) {
         BONGOCAT_LOG_ERROR("Failed to create layer surface");
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     // Configure layer surface
     uint32_t anchor = ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT;
     switch (current_config->overlay_position) {
-        case POSITION_TOP:
+        case overlay_position_t::POSITION_TOP:
             anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
             break;
-        case POSITION_BOTTOM:
+        case overlay_position_t::POSITION_BOTTOM:
             anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM;
             break;
         default:
@@ -767,7 +775,7 @@ static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t* ctx) 
     }
 
     wl_surface_commit(wayland_ctx->surface);
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 static void wayland_cleanup_shm_buffer(wayland_shm_buffer_t *buffer) {
@@ -785,8 +793,8 @@ static void wayland_cleanup_shm_buffer(wayland_shm_buffer_t *buffer) {
     buffer->_animation_trigger_context = NULL;
 }
 static bongocat_error_t wayland_setup_buffer(wayland_context_t *wayland_context, animation_trigger_context_t *trigger_ctx) {
-    BONGOCAT_CHECK_NULL(wayland_context, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(trigger_ctx, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(wayland_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(trigger_ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
     // read-only config
     const config_t *const current_config = wayland_context->_local_copy_config;
@@ -799,20 +807,20 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t *wayland_context,
     const int32_t buffer_size = buffer_width * buffer_height * RGBA_CHANNELS;
     if (buffer_size <= 0) {
         BONGOCAT_LOG_ERROR("Invalid buffer size: %d", buffer_size);
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
     const int32_t total_size = buffer_size * WAYLAND_NUM_BUFFERS;
 
     const int fd = create_shm(total_size);
     if (fd < 0) {
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     struct wl_shm_pool *pool = wl_shm_create_pool(wayland_context->shm, fd, total_size);
     if (!pool) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory pool");
         close(fd);
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
@@ -826,7 +834,7 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t *wayland_context,
             }
             wl_shm_pool_destroy(pool);
             close(fd);
-            return BONGOCAT_ERROR_MEMORY;
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
 
         wayland_ctx_shm->buffers[i].buffer = wl_shm_pool_create_buffer(pool, 0, wayland_context->_screen_width,
@@ -840,7 +848,7 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t *wayland_context,
             }
             wl_shm_pool_destroy(pool);
             close(fd);
-            return BONGOCAT_ERROR_WAYLAND;
+            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
         }
 
         assert(i <= INT_MAX);
@@ -856,14 +864,14 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t *wayland_context,
 
     wayland_ctx_shm->current_buffer_index = 0;
 
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 bongocat_error_t wayland_init(wayland_listeners_context_t* ctx, wayland_context_t* wayland, animation_context_t *anim, animation_trigger_context_t *trigger_ctx, const config_t *config) {
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(wayland, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(config, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(anim, BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(wayland, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(config, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(anim, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
     ctx->wayland_context = NULL;
     ctx->animation_context = NULL;
@@ -916,7 +924,7 @@ bongocat_error_t wayland_init(wayland_listeners_context_t* ctx, wayland_context_
                                         MAP_SHARED | MAP_ANONYMOUS, -1, 0);
     if (wayland->ctx_shm == MAP_FAILED) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     if (wayland->ctx_shm) {
         static_assert(WAYLAND_NUM_BUFFERS <= INT_MAX);
@@ -942,7 +950,7 @@ bongocat_error_t wayland_init(wayland_listeners_context_t* ctx, wayland_context_
             munmap(wayland->ctx_shm, sizeof(wayland_shared_memory_t));
             wayland->ctx_shm = NULL;
         }
-        return BONGOCAT_ERROR_MEMORY;
+        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     wayland_update_config(wayland, config, trigger_ctx);
 
@@ -961,7 +969,7 @@ bongocat_error_t wayland_init(wayland_listeners_context_t* ctx, wayland_context_
             wayland->ctx_shm = NULL;
         }
         BONGOCAT_LOG_ERROR("Failed to connect to Wayland display");
-        return BONGOCAT_ERROR_WAYLAND;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     ctx->wayland_context = wayland;
@@ -974,17 +982,17 @@ bongocat_error_t wayland_init(wayland_listeners_context_t* ctx, wayland_context_
     }
 
     bongocat_error_t result = wayland_setup_protocols(ctx);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         wayland_cleanup(ctx);
         return result;
     }
     result = wayland_setup_surface(ctx);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         wayland_cleanup(ctx);
         return result;
     }
     result = wayland_setup_buffer(wayland, trigger_ctx);
-    if (result != BONGOCAT_SUCCESS) {
+    if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         wayland_cleanup(ctx);
         return result;
     }
@@ -994,17 +1002,17 @@ bongocat_error_t wayland_init(wayland_listeners_context_t* ctx, wayland_context_
 
     BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)",
                       wayland->_screen_width, wayland->_local_copy_config->bar_height);
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 bongocat_error_t wayland_run(wayland_listeners_context_t* ctx, volatile sig_atomic_t *running, int signal_fd, const config_t* config, config_watcher_t* config_watcher, config_reload_callback_t config_reload_callback) {
-    BONGOCAT_CHECK_NULL(ctx, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(running, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(config_reload_callback, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx->animation_context, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx->animation_trigger_context, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx->animation_trigger_context->_anim, BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx->wayland_context, BONGOCAT_ERROR_WAYLAND);
+    BONGOCAT_CHECK_NULL(ctx, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(running, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(config_reload_callback, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx->animation_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx->animation_trigger_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx->animation_trigger_context->_anim, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx->wayland_context, bongocat_error_t::BONGOCAT_ERROR_WAYLAND);
 
     wayland_context_t *wayland_ctx = ctx->wayland_context;
     //animation_context_t *anim = ctx->animation_context;
@@ -1032,14 +1040,14 @@ bongocat_error_t wayland_run(wayland_listeners_context_t* ctx, volatile sig_atom
         const size_t fds_config_reload_index = 1;
         const size_t fds_animation_render_index = 2;
         const size_t fds_wayland_index = 3;
-        const nfds_t fds_count = 4;
-        struct pollfd fds[4] = {
+        constexpr nfds_t fds_count = 4;
+        pollfd fds[fds_count] = {
             { .fd = signal_fd, .events = POLLIN },
             { .fd = config_watcher->reload_efd, .events = POLLIN },
             { .fd = trigger_ctx->render_efd, .events = POLLIN },
             { .fd = wl_display_get_fd(wayland_ctx->display), .events = POLLIN },
         };
-        assert(fds_count == LEN_ARRAY(fds));
+        static_assert(fds_count == LEN_ARRAY(fds));
 
         // compute desired timeout
         time_ms_t frame_based_timeout = config->fps > 0 ? 1000 / config->fps : 0;
@@ -1168,7 +1176,7 @@ bongocat_error_t wayland_run(wayland_listeners_context_t* ctx, volatile sig_atom
                         wl_display_dispatch_pending(wayland_ctx->display) == -1) {
                         BONGOCAT_LOG_ERROR("Failed to handle Wayland events");
                         *running = 0;
-                        return BONGOCAT_ERROR_WAYLAND;
+                        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
                     }
                 } else {
                     wl_display_cancel_read(wayland_ctx->display);
@@ -1178,7 +1186,7 @@ bongocat_error_t wayland_run(wayland_listeners_context_t* ctx, volatile sig_atom
                     if (wl_display_dispatch_pending(wayland_ctx->display) == -1) {
                         BONGOCAT_LOG_ERROR("Failed to dispatch pending events");
                         *running = 0;
-                        return BONGOCAT_ERROR_WAYLAND;
+                        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
                     }
                 }
             }
@@ -1196,14 +1204,14 @@ bongocat_error_t wayland_run(wayland_listeners_context_t* ctx, volatile sig_atom
             if (wl_display_dispatch_pending(wayland_ctx->display) == -1) {
                 BONGOCAT_LOG_ERROR("Failed to dispatch pending events");
                 *running = 0;
-                return BONGOCAT_ERROR_WAYLAND;
+                return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
             }
         } else {
             if (prepared_read) wl_display_cancel_read(wayland_ctx->display);
             if (errno != EINTR) {
                 BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
                 *running = 0;
-                return BONGOCAT_ERROR_WAYLAND;
+                return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
             }
         }
 
@@ -1231,7 +1239,7 @@ bongocat_error_t wayland_run(wayland_listeners_context_t* ctx, volatile sig_atom
     *running = 0;
 
     BONGOCAT_LOG_INFO("Wayland event loop exited");
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
 // =============================================================================
@@ -1413,15 +1421,15 @@ const char* wayland_get_current_layer_name(void) {
 
 bongocat_error_t wayland_request_render(animation_trigger_context_t *trigger_ctx) {
     if (!trigger_ctx || trigger_ctx->render_efd < 0) {
-        return BONGOCAT_ERROR_INVALID_PARAM;
+        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 
     uint64_t u = 1;
     ssize_t s = write(trigger_ctx->render_efd, &u, sizeof(u));
     if (s != sizeof(u)) {
         BONGOCAT_LOG_WARNING("Failed to write render eventfd: %s", strerror(errno));
-        return BONGOCAT_ERROR_FILE_IO;
+        return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
 
-    return BONGOCAT_SUCCESS;
+    return bongocat_error_t::BONGOCAT_SUCCESS;
 }
