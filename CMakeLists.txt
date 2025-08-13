@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 3.24)
-project(bongocat LANGUAGES C CXX VERSION 1.3.1)
+project(bongocat LANGUAGES C CXX VERSION 1.4.0)
 
 if(NOT CMAKE_BUILD_TYPE)
     set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)

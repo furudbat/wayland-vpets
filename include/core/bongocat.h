@@ -11,7 +11,7 @@
 #endif
 
 // Version
-#define BONGOCAT_VERSION "1.3.1"
+#define BONGOCAT_VERSION "1.4.0"
 
 // Common constants
 #define DEFAULT_SCREEN_WIDTH 1920

@@ -1,7 +1,7 @@
 # Bongo Cat + Digimon Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.3.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
+[![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
 
 A delightful Wayland overlay that displays an animated V-Pet (bongo cat or digimon) reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
@@ -18,7 +18,7 @@ Perfect for streamers, content creators, or anyone who wants to add some fun to 
 - **🎯 Real-time Animation** - Bongo cat reacts instantly to keyboard input
 - **🔥 Hot-Reload Configuration** - Modify settings without restarting (v1.2.0)
 - **🔄 Dynamic Device Detection** - Automatically detects Bluetooth/USB keyboards (v1.2.0)
-- **⚡ Performance Optimized** - Adaptive monitoring and batch processing (v1.2.0)
+- **⚡ Performance Optimized** - Adaptive monitoring and batch processing (v1.4.0)
 - **🖥️ Screen Detection** - Automatic screen detection for all sizes and orientations (v1.2.2)
 - **🎮 Smart Fullscreen Detection** - Automatically hides during fullscreen applications (v1.2.3)
 - **🖥️ Multi-Monitor Support** - Choose which monitor to display on in multi-monitor setups (v1.2.4)
@@ -270,7 +270,7 @@ The `bongocat-find-devices` tool provides professional input device analysis wit
 $ bongocat-find-devices
 
 ╔══════════════════════════════════════════════════════════════════╗
-║ Wayland Bongo Cat - Input Device Discovery v1.3.1                ║
+║ Wayland Bongo Cat - Input Device Discovery v1.4.0                ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 [SCAN] Scanning for input devices...
@@ -332,24 +332,25 @@ bongocat-find-devices --help
 
 - **CPU:** Any modern x86_64 or ARM64 processor
 - **RAM:** ~10MB runtime usage
-- **Storage:** ~330K executable size
+- **Storage:** ~240K executable size
 - **Compositor:** Wayland with layer shell protocol support
 
-### Performance Metrics (v1.3.0)
+### Performance Metrics (v1.4.0)
 
 - **Input Latency:** <1ms with batch processing
 - **CPU Usage:** <1% on modern systems
 - **Device Monitoring:** Adaptive 5-30 second intervals
 - **Memory:** Optimized with leak detection
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
-- **Binary Size:** ~330K executable size, _~300K only with bongocat_
+- **Binary Size:** ~240K executable size
+- **Event-based Rendering:** Only updates frame buffer when needed (on frame change, input, ...) (v1.4.0)
 
 ### Tested Compositors
 
 - ✅ **Hyprland** - Full support
 - ✅ **Sway** - Full support
 - ✅ **Wayfire** - Compatible
-- ✅ **KDE Wayland** - Compatiable
+- ✅ **KDE Wayland** - Compatible
 - ❌ **GNOME Wayland** - Support Unknown
 
 ## 🐛 Troubleshooting
@@ -518,5 +519,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v1.3.1** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v1.4.0** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon VPets.
