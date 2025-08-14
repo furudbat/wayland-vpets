@@ -2,7 +2,9 @@
 #include "utils/error.h"
 #include "utils/time.h"
 #include <cstdint>
+#include <cassert>
 #include <pthread.h>
+#include <cstdlib>
 
 static inline constexpr time_ms_t THREAD_JOIN_TIMEOUT_MS = 5000;                                  // maximum wait for graceful exit
 static inline constexpr time_ms_t THREAD_SlEEP_WHEN_WAITING_FOR_THREAD_MS = 100;
@@ -10,42 +12,42 @@ static inline constexpr int THREAD_SLEEP_MAX_ATTEMPTS = 2048;
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
 static memory_stats_t g_memory_stats{};
-static pthread_mutex_t memory_mutex = PTHREAD_MUTEX_INITIALIZER;
+static pthread_mutex_t g_memory_mutex = PTHREAD_MUTEX_INITIALIZER;
 #endif
 
 #ifndef NDEBUG
 struct allocation_record_t {
-    void *ptr{NULL};
+    void *ptr{nullptr};
     size_t size{0};
     const char *file;
     int line{0};
-    struct allocation_record *next{NULL};
+    allocation_record_t *next{nullptr};
 };
 
-static allocation_record_t *allocations = NULL;
+static allocation_record_t *g_allocations = nullptr;
 #endif
 
 void* bongocat_malloc(size_t size) {
     if (size == 0) {
         BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
-        return NULL;
+        return nullptr;
     }
     
     void *ptr = malloc(size);
     if (!ptr) {
         BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", size);
-        return NULL;
+        return nullptr;
     }
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-    pthread_mutex_lock(&memory_mutex);
+    pthread_mutex_lock(&g_memory_mutex);
     g_memory_stats.total_allocated += size;
     g_memory_stats.current_allocated += size;
     if (g_memory_stats.current_allocated > g_memory_stats.peak_allocated) {
         atomic_store(&g_memory_stats.peak_allocated, atomic_load(&g_memory_stats.current_allocated));
     }
     ++g_memory_stats.allocation_count;
-    pthread_mutex_unlock(&memory_mutex);
+    pthread_mutex_unlock(&g_memory_mutex);
 #endif
     
     return ptr;
@@ -54,23 +56,24 @@ void* bongocat_malloc(size_t size) {
 void* bongocat_calloc(size_t count, size_t size) {
     if (count == 0 || size == 0) {
         BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
-        return NULL;
+        return nullptr;
     }
     
     // Check for overflow
+    assert(size > 0);
     if (count > SIZE_MAX / size) {
         BONGOCAT_LOG_ERROR("Integer overflow in calloc");
-        return NULL;
+        return nullptr;
     }
     
     void *ptr = calloc(count, size);
     if (!ptr) {
         BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", count * size);
-        return NULL;
+        return nullptr;
     }
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-    pthread_mutex_lock(&memory_mutex);
+    pthread_mutex_lock(&g_memory_mutex);
     const size_t total_size = count * size;
     g_memory_stats.total_allocated += total_size;
     g_memory_stats.current_allocated += total_size;
@@ -78,7 +81,7 @@ void* bongocat_calloc(size_t count, size_t size) {
         atomic_store(&g_memory_stats.peak_allocated, atomic_load(&g_memory_stats.current_allocated));
     }
     ++g_memory_stats.allocation_count;
-    pthread_mutex_unlock(&memory_mutex);
+    pthread_mutex_unlock(&g_memory_mutex);
 #endif
     
     return ptr;
@@ -87,13 +90,13 @@ void* bongocat_calloc(size_t count, size_t size) {
 void* bongocat_realloc(void *ptr, size_t size) {
     if (size == 0) {
         bongocat_free(ptr);
-        return NULL;
+        return nullptr;
     }
     
     void *new_ptr = realloc(ptr, size);
     if (!new_ptr) {
         BONGOCAT_LOG_ERROR("Failed to reallocate to %zu bytes", size);
-        return NULL;
+        return nullptr;
     }
     
     // Note: We can't track size changes accurately without storing original sizes
@@ -108,25 +111,25 @@ void bongocat_free(void *ptr) {
     free(ptr);
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-    pthread_mutex_lock(&memory_mutex);
+    pthread_mutex_lock(&g_memory_mutex);
     ++g_memory_stats.free_count;
-    pthread_mutex_unlock(&memory_mutex);
+    pthread_mutex_unlock(&g_memory_mutex);
 #endif
 }
 
 memory_pool_t* memory_pool_create(size_t size, size_t alignment) {
     if (size == 0 || alignment == 0) {
         BONGOCAT_LOG_ERROR("Invalid memory pool parameters");
-        return NULL;
+        return nullptr;
     }
     
-    memory_pool_t *pool = (memory_pool_t *)bongocat_malloc(sizeof(memory_pool_t));
-    if (!pool) return NULL;
+    auto *pool = static_cast<memory_pool_t *>(bongocat_malloc(sizeof(memory_pool_t)));
+    if (!pool) return nullptr;
     
     pool->data = bongocat_malloc(size);
     if (!pool->data) {
         bongocat_free(pool);
-        return NULL;
+        return nullptr;
     }
     
     pool->size = size;
@@ -136,19 +139,19 @@ memory_pool_t* memory_pool_create(size_t size, size_t alignment) {
     return pool;
 }
 
-void* memory_pool_alloc(memory_pool_t *pool, size_t size) {
-    if (!pool || size == 0) return NULL;
+void* memory_pool_alloc(memory_pool_t& pool, size_t size) {
+    if (size == 0) return nullptr;
     
     // Align the size
-    size_t aligned_size = (size + pool->alignment - 1) & ~(pool->alignment - 1);
+    const size_t aligned_size = (size + pool.alignment - 1) & ~(pool.alignment - 1);
     
-    if (pool->used + aligned_size > pool->size) {
+    if (pool.used + aligned_size > pool.size) {
         BONGOCAT_LOG_ERROR("Memory pool exhausted");
-        return NULL;
+        return nullptr;
     }
     
-    void *ptr = (char*)pool->data + pool->used;
-    pool->used += aligned_size;
+    void *ptr = static_cast<char *>(pool.data) + pool.used;
+    pool.used += aligned_size;
     
     return ptr;
 }
@@ -170,23 +173,35 @@ void memory_pool_destroy(memory_pool_t *pool) {
 void memory_get_stats(memory_stats_t *stats) {
     if (!stats) return;
     
-    pthread_mutex_lock(&memory_mutex);
-    memcpy(stats, &g_memory_stats, sizeof(memory_stats_t));
-    pthread_mutex_unlock(&memory_mutex);
+    pthread_mutex_lock(&g_memory_mutex);
+    stats->total_allocated    = atomic_load(&g_memory_stats.total_allocated);
+    stats->current_allocated  = atomic_load(&g_memory_stats.current_allocated);
+    stats->peak_allocated     = atomic_load(&g_memory_stats.peak_allocated);
+    stats->allocation_count   = atomic_load(&g_memory_stats.allocation_count);
+    stats->free_count         = atomic_load(&g_memory_stats.free_count);
+    pthread_mutex_unlock(&g_memory_mutex);
 }
 
-void memory_print_stats(void) {
+void memory_print_stats() {
     memory_stats_t stats;
     memory_get_stats(&stats);
 
-    /// @FIXME: print atomics
-    //bongocat_log_info("Memory Statistics:");
-    //bongocat_log_info("  Total allocated: %zu bytes (%.2f MB)", stats.total_allocated, (double)stats.total_allocated / (1024.0 * 1024.0));
-    //bongocat_log_info("  Current allocated: %zu bytes (%.2f MB)", stats.current_allocated, (double)stats.current_allocated / (1024.0 * 1024.0));
-    //bongocat_log_info("  Peak allocated: %zu bytes (%.2f MB)", stats.peak_allocated, (double)stats.peak_allocated / (1024.0 * 1024.0));
-    //bongocat_log_info("  Allocations: %zu", stats.allocation_count);
-    //bongocat_log_info("  Frees: %zu", stats.free_count);
-    //bongocat_log_info("  Potential leaks: %d", (int)stats.allocation_count - (int)stats.free_count);
+    const size_t total_allocated = atomic_load(&stats.total_allocated);
+    const size_t current_allocated = atomic_load(&stats.current_allocated);
+    const size_t peak_allocated = atomic_load(&stats.peak_allocated);
+    const size_t allocation_count = atomic_load(&stats.allocation_count);
+    const size_t free_count = atomic_load(&stats.free_count);
+
+    assert(allocation_count <= INT_MAX);
+    assert(free_count <= INT_MAX);
+
+    bongocat_log_info("Memory Statistics:");
+    bongocat_log_info("  Total allocated: %zu bytes (%.2f MB)", total_allocated, static_cast<double>(total_allocated) / (1024.0 * 1024.0));
+    bongocat_log_info("  Current allocated: %zu bytes (%.2f MB)", current_allocated, static_cast<double>(current_allocated) / (1024.0 * 1024.0));
+    bongocat_log_info("  Peak allocated: %zu bytes (%.2f MB)", peak_allocated, static_cast<double>(peak_allocated) / (1024.0 * 1024.0));
+    bongocat_log_info("  Allocations: %zu", allocation_count);
+    bongocat_log_info("  Frees: %zu", free_count);
+    bongocat_log_info("  Potential leaks: %d", static_cast<int>(allocation_count) - static_cast<int>(free_count));
 }
 #endif
 
@@ -195,29 +210,28 @@ void* bongocat_malloc_debug(size_t size, const char *file, int line) {
     void *ptr = bongocat_malloc(size);
     if (!ptr) return NULL;
     
-    allocation_record_t *record = malloc(sizeof(allocation_record_t));
+    auto *record = static_cast<allocation_record_t *>(malloc(sizeof(allocation_record_t)));
     if (record) {
         record->ptr = ptr;
         record->size = size;
         record->file = file;
         record->line = line;
-        record->next = allocations;
-        allocations = record;
+        record->next = g_allocations;
+        g_allocations = record;
     }
     
     return ptr;
 }
 
 void bongocat_free_debug(void *ptr, const char *file, int line) {
-    UNUSED(file);
-    UNUSED(line);
     if (!ptr) return;
     
-    allocation_record_t **current = &allocations;
+    allocation_record_t **current = &g_allocations;
     while (*current) {
         if ((*current)->ptr == ptr) {
             allocation_record_t *to_remove = *current;
             *current = (*current)->next;
+            assert(to_remove);
             free(to_remove);
             break;
         }
@@ -233,14 +247,14 @@ void bongocat_free_debug(void *ptr, const char *file, int line) {
 #endif
 }
 
-void memory_leak_check(void) {
-    if (!allocations) {
+void memory_leak_check() {
+    if (!g_allocations) {
         bongocat_log_info("No memory leaks detected");
         return;
     }
     
     BONGOCAT_LOG_ERROR("Memory leaks detected:");
-    allocation_record_t *current = allocations;
+    allocation_record_t *current = g_allocations;
     while (current) {
         BONGOCAT_LOG_ERROR("  %zu bytes at %s:%d", current->size, current->file, current->line);
         current = current->next;
@@ -250,46 +264,46 @@ void memory_leak_check(void) {
 
 
 
-int join_thread_with_timeout(pthread_t *thread, int timeout_ms) {
-    struct timespec start, now;
+int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms) {
+    timespec start{};
+    timespec now{};
     clock_gettime(CLOCK_MONOTONIC, &start);
 
     int attempts = 0;
     while (attempts < THREAD_SLEEP_MAX_ATTEMPTS) {
-        int ret = pthread_tryjoin_np(*thread, NULL);
+        const int ret = pthread_tryjoin_np(thread, nullptr);
         if (ret == 0) {
-            *thread = 0;
+            thread = 0;
             return 0;
         }
         if (ret != EBUSY) return ret;   // error other than "still running"
 
         // Check elapsed time
         clock_gettime(CLOCK_MONOTONIC, &now);
-        long elapsed_ms = (now.tv_sec - start.tv_sec) * 1000 +
-                          (now.tv_nsec - start.tv_nsec) / 1000000;
+        const time_ms_t elapsed_ms = (now.tv_sec - start.tv_sec) * 1000 + (now.tv_nsec - start.tv_nsec) / 1000000L;
         if (elapsed_ms >= timeout_ms) return ETIMEDOUT;
 
         // small sleep to avoid busy waiting
-        struct timespec ts = {.tv_sec = 0, .tv_nsec = 1000000L * THREAD_SlEEP_WHEN_WAITING_FOR_THREAD_MS};
-        nanosleep(&ts, NULL);
+        timespec ts = {.tv_sec = 0, .tv_nsec = 1000000L * THREAD_SlEEP_WHEN_WAITING_FOR_THREAD_MS};
+        nanosleep(&ts, nullptr);
         attempts++;
     }
 
     return EBUSY;
 }
 
-int stop_thread_graceful_or_cancel(pthread_t *thread, atomic_bool *running_flag) {
-    if (*thread == 0) return 0;
+int stop_thread_graceful_or_cancel(pthread_t& thread, atomic_bool &running_flag) {
+    if (thread == 0) return 0;
 
-    atomic_store(running_flag, false);
-    int ret = join_thread_with_timeout(thread, THREAD_JOIN_TIMEOUT_MS);
-    if (*thread != 0 && ret == ETIMEDOUT) {
+    atomic_store(&running_flag, false);
+    const int ret = join_thread_with_timeout(thread, THREAD_JOIN_TIMEOUT_MS);
+    if (thread != 0 && ret == ETIMEDOUT) {
         BONGOCAT_LOG_WARNING("Thread did not exit in time, cancelling");
-        pthread_cancel(*thread);
-        pthread_join(*thread, NULL);
+        pthread_cancel(thread);
+        pthread_join(thread, nullptr);
     }
 
-    *thread = 0;
+    thread = 0;
 
     return ret;
 }

@@ -2,7 +2,6 @@
 #define BONGOCAT_ERROR_H
 
 #include <cstdio>
-#include <cstdlib>
 #include <cerrno>
 #include <cstring>
 #include <cstdint>
@@ -17,7 +16,7 @@ enum class bongocat_error_t : uint8_t {
     BONGOCAT_ERROR_INPUT,
     BONGOCAT_ERROR_ANIMATION,
     BONGOCAT_ERROR_THREAD,
-    BONGOCAT_ERROR_INVALID_PARAM
+    BONGOCAT_ERROR_INVALID_PARAM,
 };
 
 // Error handling macros
@@ -27,7 +26,7 @@ enum class bongocat_error_t : uint8_t {
             BONGOCAT_LOG_ERROR("NULL pointer: %s at %s:%d", #ptr, __FILE__, __LINE__); \
             return (error_code); \
         } \
-    } while(0)
+    } while(false)
 
 #define BONGOCAT_CHECK_ERROR(condition, error_code, message) \
     do { \
@@ -35,7 +34,7 @@ enum class bongocat_error_t : uint8_t {
             BONGOCAT_LOG_ERROR("%s at %s:%d", message, __FILE__, __LINE__); \
             return (error_code); \
         } \
-    } while(0)
+    } while(false)
 
 #ifndef BONGOCAT_DISABLE_LOGGER
 // Logging functions
@@ -48,7 +47,7 @@ void bongocat_log_verbose(const char *format, ...);
 #endif
 
 // Error handling initialization
-void bongocat_error_init(int enable_debug);
+void bongocat_error_init(bool enable_debug);
 const char* bongocat_error_string(bongocat_error_t error);
 
 // 0 = Error
@@ -89,8 +88,5 @@ const char* bongocat_error_string(bongocat_error_t error);
 #else
 #define BONGOCAT_LOG_VERBOSE(format, ...) ((void)0)
 #endif
-
-/// @DEPRECATED: use cpp [[maybe_unused]] attribute
-#define UNUSED(x) (void)(x)
 
 #endif // ERROR_H

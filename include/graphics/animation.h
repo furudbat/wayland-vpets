@@ -7,12 +7,12 @@
 #include "animation_context.h"
 #include "animation_event_context.h"
 
-bongocat_error_t animation_init(animation_trigger_context_t *trigger_ctx, animation_context_t *ctx, const config_t *config);
-bongocat_error_t animation_start(animation_trigger_context_t *trigger_ctx, animation_context_t *ctx, input_context_t *input);
-void animation_stop(animation_context_t *ctx);
-void animation_cleanup(animation_trigger_context_t *trigger_ctx, animation_context_t *ctx);
-void animation_trigger(animation_trigger_context_t *ctx);
-void animation_update_config(animation_context_t *ctx, const config_t *config);
+bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, const config_t& config);
+bongocat_error_t animation_start(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, input_context_t& input);
+void animation_stop(animation_context_t& ctx);
+void animation_cleanup(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx);
+void animation_trigger(animation_trigger_context_t& ctx);
+void animation_update_config(animation_context_t& ctx, const config_t& config);
 
 enum class drawing_copy_pixel_color_option_t : uint8_t {
     COPY_PIXEL_OPTION_NORMAL,
@@ -30,4 +30,4 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
                        drawing_color_order_t dest_order,
                        drawing_color_order_t src_order);
 
-#endif // ANIMATION_H
+#endif // BONGOCAT_ANIMATION_H

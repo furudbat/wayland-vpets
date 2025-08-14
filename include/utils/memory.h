@@ -5,9 +5,11 @@
 #include <stdatomic.h>
 #include <pthread.h>
 
+#include "time.h"
+
 // Memory pool for efficient allocation
 struct memory_pool_t {
-    void *data{NULL};
+    void *data{nullptr};
     size_t size{0};
     size_t used{0};
     size_t alignment{0};
@@ -21,9 +23,9 @@ void bongocat_free(void *ptr);
 
 // Memory pool functions
 memory_pool_t* memory_pool_create(size_t size, size_t alignment);
-void* memory_pool_alloc(memory_pool_t *pool, size_t size);
-void memory_pool_reset(memory_pool_t *pool);
-void memory_pool_destroy(memory_pool_t *pool);
+void* memory_pool_alloc(memory_pool_t& pool, size_t size);
+void memory_pool_reset(memory_pool_t& pool);
+void memory_pool_destroy(memory_pool_t& pool);
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
 // Memory statistics
@@ -35,8 +37,8 @@ struct memory_stats_t {
     atomic_size_t free_count;
 };
 
-void memory_get_stats(memory_stats_t *stats);
-void memory_print_stats(void);
+void memory_get_stats(memory_stats_t& stats);
+void memory_print_stats();
 #endif
 
 // Memory leak detection (debug builds)
@@ -45,7 +47,7 @@ void memory_print_stats(void);
 #define BONGOCAT_FREE(ptr) bongocat_free_debug(ptr, __FILE__, __LINE__)
 void* bongocat_malloc_debug(size_t size, const char *file, int line);
 void bongocat_free_debug(void *ptr, const char *file, int line);
-void memory_leak_check(void);
+void memory_leak_check();
 #else
 #define BONGOCAT_MALLOC(size) bongocat_malloc(size)
 #define BONGOCAT_FREE(ptr) bongocat_free(ptr)
@@ -57,11 +59,11 @@ void memory_leak_check(void);
             BONGOCAT_FREE(ptr); \
             ptr = NULL; \
         } \
-    } while(0)
+    } while(false)
 
 #define LEN_ARRAY(x)  (sizeof(x) / sizeof((x)[0]))
 
-int join_thread_with_timeout(pthread_t *thread, int timeout_ms);
-int stop_thread_graceful_or_cancel(pthread_t *thread, atomic_bool *running_flag);
+int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms);
+int stop_thread_graceful_or_cancel(pthread_t& thread, atomic_bool& running_flag);
 
 #endif // MEMORY_H

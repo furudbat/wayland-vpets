@@ -4,18 +4,18 @@
 #include <sys/time.h>
 #include <cstdio>
 
-static int debug_enabled = 1;
+static bool debug_enabled = true;
 
-void bongocat_error_init(int enable_debug) {
+void bongocat_error_init(bool enable_debug) {
     debug_enabled = enable_debug;
 }
 
-static void log_timestamp(FILE *stream) {
+[[maybe_unused]] static void log_timestamp(FILE *stream) {
     timeval tv{};
     tm tm_info{};
     char timestamp[64] = {0};
 
-    gettimeofday(&tv, NULL);
+    gettimeofday(&tv, nullptr);
     localtime_r(&tv.tv_sec, &tm_info); // Thread-safe version
 
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", &tm_info);

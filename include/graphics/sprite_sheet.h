@@ -1,9 +1,8 @@
 #ifndef BONGOCAT_ANIMATION_SPRITE_SHEET_H
 #define BONGOCAT_ANIMATION_SPRITE_SHEET_H
 
-#include "embedded_assets.h"
 #include <cstdint>
-
+#include <cstddef>
 
 // both-up, left-down, right-down, both-down
 inline static constexpr size_t BONGOCAT_NUM_FRAMES = 4;
@@ -22,7 +21,7 @@ struct digimon_animation_t {
     int sprite_sheet_width{0};
     int sprite_sheet_height{0};
     int channels{0};
-    uint8_t *pixels{NULL};
+    uint8_t *pixels{nullptr};
     size_t pixels_size{0};
 
     int frame_width{0};
@@ -54,7 +53,7 @@ struct bongocat_animation_t {
     int sprite_sheet_width{0};
     int sprite_sheet_height{0};
     int channels{0};
-    uint8_t *pixels{NULL};
+    uint8_t *pixels{nullptr};
     size_t pixels_size{0};
 
     int frame_width{0};
@@ -73,7 +72,7 @@ struct generic_sprite_sheet_animation_t {
     int sprite_sheet_width{0};
     int sprite_sheet_height{0};
     int channels{0};
-    uint8_t *pixels{NULL};
+    uint8_t *pixels{nullptr};
     size_t pixels_size{0};
 
     int frame_width{0};
@@ -93,4 +92,4 @@ static_assert(sizeof(bongocat_animation_t) == sizeof(digimon_animation_t));
 static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(bongocat_animation_t));
 static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(digimon_animation_t));
 
-#endif //ANIMATION_CONTEXT_H
+#endif //BONGOCAT_ANIMATION_SPRITE_SHEET_H

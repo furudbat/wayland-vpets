@@ -12,4 +12,4 @@ struct input_shared_memory_t {
     timestamp_ms_t last_key_pressed_timestamp{0};
 };
 
-#endif // BONGOCAT_INPUT_EVENT_CONTEXT_H
+#endif // BONGOCAT_INPUT_SHARED_MEMORY_H

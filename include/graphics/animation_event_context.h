@@ -4,13 +4,13 @@
 #include "graphics/animation_context.h"
 #include "platform/input_context.h"
 
-typedef struct {
+struct animation_trigger_context_t {
     // event file descriptor
     int trigger_efd{-1};
     int render_efd{-1};
 
-    input_context_t *_input{NULL};
-    animation_context_t *_anim{NULL};
-} animation_trigger_context_t;
+    input_context_t *_input{nullptr};
+    animation_context_t *_anim{nullptr};
+};
 
 #endif

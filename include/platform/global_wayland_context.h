@@ -16,7 +16,7 @@ inline static constexpr size_t OUTPUT_NAME_SIZE = 128;
 // =============================================================================
 
 struct fullscreen_detector_t {
-    struct zwlr_foreign_toplevel_manager_v1 *manager{NULL};
+    struct zwlr_foreign_toplevel_manager_v1 *manager{nullptr};
     bool has_fullscreen_toplevel{false};
     timeval last_check{};
 };
@@ -38,24 +38,24 @@ struct screen_info_t {
 
 // Output monitor reference structure
 struct output_ref_t {
-    struct wl_output *wl_output{NULL};
-    zxdg_output_v1 *xdg_output{NULL};
+    struct wl_output *wl_output{nullptr};
+    zxdg_output_v1 *xdg_output{nullptr};
     uint32_t name{0};                         // Registry name
     char name_str[OUTPUT_NAME_SIZE]{};        // From xdg-output
     bool name_received{false};
 };
 
 struct wayland_listeners_context_t {
-    wayland_context_t* wayland_context{NULL};
-    animation_context_t* animation_context{NULL};
-    animation_trigger_context_t* animation_trigger_context{NULL};
+    wayland_context_t* wayland_context{nullptr};
+    animation_context_t* animation_context{nullptr};
+    animation_trigger_context_t* animation_trigger_context{nullptr};
 
     struct zwlr_foreign_toplevel_handle_v1* tracked_toplevels[MAX_TOPLEVELS]{};
     size_t num_toplevels{0};
 
     output_ref_t outputs[MAX_OUTPUTS];
     size_t output_count{0};
-    zxdg_output_manager_v1 *xdg_output_manager{NULL};
+    zxdg_output_manager_v1 *xdg_output_manager{nullptr};
 
     fullscreen_detector_t fs_detector;
 

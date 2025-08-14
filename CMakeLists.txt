@@ -111,7 +111,7 @@ add_dependencies(bongocat protocols)
 target_include_directories(bongocat PRIVATE ${INCLUDE_DIR})
 target_include_directories(bongocat SYSTEM PRIVATE ${PROTOCOLS_DIR} ${CMAKE_SOURCE_DIR}/lib)
 
-set(WARNING_FLAGS
+set(C_WARNING_FLAGS
     -Wall
     -Wextra
     -Wpedantic
@@ -127,10 +127,43 @@ set(WARNING_FLAGS
     -Wdouble-promotion
     -Wshadow
 )
-target_compile_options(bongocat PRIVATE ${WARNING_FLAGS} -fstack-protector-strong)
+set(CXX_WARNING_FLAGS
+        -Wall
+        -Wextra
+        -Wpedantic
+        -Wformat=2
+        -Wredundant-decls
+        -Wmissing-include-dirs
+        -Wlogical-op
+        -Wdouble-promotion
+        -Wshadow
+)
 
 target_compile_options(bongocat PRIVATE
-        $<$<CONFIG:Release>:-march=native;-fomit-frame-pointer;-funroll-loops;-finline-functions>
+    $<$<COMPILE_LANGUAGE:C>:
+        ${C_WARNING_FLAGS}
+        -fstack-protector-strong
+    >
+    $<$<COMPILE_LANGUAGE:CXX>:
+        ${CXX_WARNING_FLAGS}
+        -fstack-protector-strong
+    >
+)
+target_compile_options(bongocat PRIVATE
+        $<$<COMPILE_LANGUAGE:CXX>:
+            -fno-exceptions -fno-rtti
+            #-ffreestanding
+            -nostdlib++
+        >
+)
+
+target_compile_options(bongocat PRIVATE
+        $<$<CONFIG:Release>:
+            -march=native
+            -fomit-frame-pointer
+            -funroll-loops
+            -finline-functions
+        >
 )
 
 if (ENABLE_THREAD_SANITIZERS)
@@ -140,8 +173,8 @@ if (ENABLE_THREAD_SANITIZERS)
     )
 else()
     target_link_options(bongocat PRIVATE
-            $<$<CONFIG:Debug>:-fsanitize=address;-fsanitize=undefined>
-            $<$<CONFIG:RelWithDebInfo>:-fsanitize=thread;-fsanitize=undefined>
+            $<$<CONFIG:Debug>:-fsanitize=address -fsanitize=undefined>
+            $<$<CONFIG:RelWithDebInfo>:-fsanitize=thread -fsanitize=undefined>
     )
 endif()
 

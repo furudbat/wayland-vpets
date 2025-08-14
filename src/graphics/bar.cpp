@@ -1,59 +1,56 @@
-#define _POSIX_C_SOURCE 200809L
 #include "bar.h"
 #include "graphics/animation_context.h"
 #include "platform/wayland.h"
 #include "graphics/animation.h"
 #include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
-#include <cassert>
-#include <unistd.h>
-#include <pthread.h>
 #include <wayland-client.h>
+#include <cassert>
+#include <pthread.h>
 
-static void frame_done(void *data, struct wl_callback *cb, uint32_t time) {
-    UNUSED(time);
-
+static void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t time) {
     assert(data);
-    wayland_listeners_context_t *ctx = (wayland_listeners_context_t*)data;
+    auto *ctx = static_cast<wayland_listeners_context_t *>(data);
 
-    wayland_context_t *wayland_ctx = ctx->wayland_context;
-    //animation_context_t *anim = ctx->animation_context;
-    animation_trigger_context_t *trigger_ctx = ctx->animation_trigger_context;
-    //wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx->ctx_shm;
+    assert(ctx->wayland_context);
+    assert(ctx->animation_trigger_context);
+    wayland_context_t& wayland_ctx = *ctx->wayland_context;
+    //animation_context_t& anim = *ctx->animation_context;
+    animation_trigger_context_t& trigger_ctx = *ctx->animation_trigger_context;
+    //wayland_shared_memory_t& wayland_ctx_shm = wayland_ctx->ctx_shm;
     // read-only
-    const config_t *const current_config = wayland_ctx->_local_copy_config;
-    assert(current_config);
+    assert(wayland_ctx._local_copy_config);
+    const config_t& current_config = *wayland_ctx._local_copy_config;
     //const animation_shared_memory_t *const anim_shm = anim->shm;
     //assert(anim_shm);
 
-    pthread_mutex_lock(&wayland_ctx->_frame_cb_lock);
-    if (wayland_ctx->_frame_cb == cb) {
-        wl_callback_destroy(wayland_ctx->_frame_cb);
-        wayland_ctx->_frame_cb = NULL;
+    pthread_mutex_lock(&wayland_ctx._frame_cb_lock);
+    if (wayland_ctx._frame_cb == cb) {
+        wl_callback_destroy(wayland_ctx._frame_cb);
+        wayland_ctx._frame_cb = nullptr;
 
-        atomic_store(&wayland_ctx->_frame_pending, false);
-        timestamp_ms_t now = get_current_time_ms();
-        assert(current_config->fps > 0);
-        time_ms_t frame_interval_ms = 1000 / current_config->fps;
-        if (wayland_ctx->_last_frame_timestamp_ms <= 0 || (now - wayland_ctx->_last_frame_timestamp_ms) >= frame_interval_ms) {
-            wayland_ctx->_last_frame_timestamp_ms = now;
+        atomic_store(&wayland_ctx._frame_pending, false);
+        const timestamp_ms_t now = get_current_time_ms();
+        assert(current_config.fps > 0);
+        if (const time_ms_t frame_interval_ms = 1000 / current_config.fps; wayland_ctx._last_frame_timestamp_ms <= 0 || (now - wayland_ctx._last_frame_timestamp_ms) >= frame_interval_ms) {
+            wayland_ctx._last_frame_timestamp_ms = now;
 
-            if (atomic_exchange(&wayland_ctx->_redraw_after_frame, false)) {
+            if (atomic_exchange(&wayland_ctx._redraw_after_frame, false)) {
                 wayland_request_render(trigger_ctx);
             }
         } else {
             // Schedule redraw later
-            atomic_store(&wayland_ctx->_redraw_after_frame, true);
+            atomic_store(&wayland_ctx._redraw_after_frame, true);
         }
 
         BONGOCAT_LOG_VERBOSE("wl_callback.done: frame done");
     } else {
         BONGOCAT_LOG_VERBOSE("wl_callback.done: cb is not matching");
     }
-    pthread_mutex_unlock(&wayland_ctx->_frame_cb_lock);
+    pthread_mutex_unlock(&wayland_ctx._frame_cb_lock);
 }
 
 /// @NOTE: frame_listeners MUST pass data as wayland_listeners_context_t, see wl_callback_add_listener
-static const struct wl_callback_listener frame_listener = {
+static constexpr wl_callback_listener frame_listener = {
     .done = frame_done
 };
 
@@ -61,12 +58,10 @@ static const struct wl_callback_listener frame_listener = {
 // DRAWING MANAGEMENT
 // =============================================================================
 
-bool draw_bar(wayland_listeners_context_t *ctx) {
-    assert(ctx);
-
-    wayland_context_t *wayland_ctx = ctx->wayland_context;
-    animation_context_t *anim = ctx->animation_context;
-    //animation_trigger_context_t *trigger_ctx = ctx->animation_trigger_context;
+bool draw_bar(wayland_listeners_context_t& ctx) {
+    wayland_context_t *wayland_ctx = ctx.wayland_context;
+    animation_context_t *anim = ctx.animation_context;
+    //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
     wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx->ctx_shm;
 
     // read-only
@@ -80,7 +75,9 @@ bool draw_bar(wayland_listeners_context_t *ctx) {
         return false;
     }
 
-    int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % WAYLAND_NUM_BUFFERS;
+    assert(wayland_ctx_shm->current_buffer_index >= 0);
+    assert(WAYLAND_NUM_BUFFERS <= INT_MAX);
+    const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(WAYLAND_NUM_BUFFERS);
     wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
 
     if (atomic_load(&shm_buffer->busy)) {
@@ -97,11 +94,10 @@ bool draw_bar(wayland_listeners_context_t *ctx) {
 
     // Fast clear with 32-bit fill
     const uint32_t fill = (effective_opacity << 24); // RGBA, little-endian
-    uint32_t *p = (uint32_t*)pixels;
-    size_t total_pixels = (size_t)wayland_ctx->_screen_width * current_config->bar_height;
+    auto *p = reinterpret_cast<uint32_t *>(pixels);
+    const size_t total_pixels = static_cast<size_t>(wayland_ctx->_screen_width) * current_config->bar_height;
     if (current_config->enable_debug) {
-        const size_t expected_bytes = total_pixels * sizeof(uint32_t);
-        if (expected_bytes > pixels_size) {
+        if (const size_t expected_bytes = total_pixels * sizeof(uint32_t); expected_bytes > pixels_size) {
             BONGOCAT_LOG_VERBOSE("draw_bar: pixel write would overflow buffer (expected %zu bytes, have %zu). Aborting draw.",
                                  expected_bytes, pixels_size);
             return false;
@@ -119,12 +115,12 @@ bool draw_bar(wayland_listeners_context_t *ctx) {
     const sprite_sheet_animation_region_t *region =
         cur_anim->sprite_sheet.frames[anim_shm->anim_frame_index].valid
         ? &sheet->frames[anim_shm->anim_frame_index]
-        : NULL;
+        : nullptr;
 
     if (!wayland_ctx->_fullscreen_detected) {
         if (region && sheet->frame_width > 0 && sheet->frame_height > 0) {
             const int cat_height = current_config->cat_height;
-            const int cat_width  = (int)(cat_height * (sheet->frame_width / (float)sheet->frame_height));
+            const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet->frame_width) / static_cast<float>(sheet->frame_height)));
 
             int cat_x = 0;
             switch (current_config->cat_align) {
@@ -171,7 +167,7 @@ bool draw_bar(wayland_listeners_context_t *ctx) {
     pthread_mutex_lock(&wayland_ctx->_frame_cb_lock);
     if (!atomic_load(&wayland_ctx->_frame_pending) && !wayland_ctx->_frame_cb) {
         wayland_ctx->_frame_cb = wl_surface_frame(wayland_ctx->surface);
-        wl_callback_add_listener(wayland_ctx->_frame_cb, &frame_listener, ctx);
+        wl_callback_add_listener(wayland_ctx->_frame_cb, &frame_listener, &ctx);
         atomic_store(&wayland_ctx->_frame_pending, true);
         BONGOCAT_LOG_VERBOSE("Set frame pending");
     }

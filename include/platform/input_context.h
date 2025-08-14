@@ -8,10 +8,10 @@
 #include <stdatomic.h>
 
 struct input_context_t {
-    input_shared_memory_t *shm{NULL};
+    input_shared_memory_t *shm{nullptr};
 
     // local copy from other thread, update after reload (shared memory)
-    config_t* _local_copy_config{NULL};
+    config_t *_local_copy_config{nullptr};
 
     pthread_t _input_thread{0};
     atomic_bool _capture_input_running{false};
@@ -21,9 +21,9 @@ struct input_context_t {
     // thread context
     char* *_device_paths;    // local copy of devices
     int _device_paths_count{0};
-    int *_fds{NULL};
+    int *_fds{nullptr};
     size_t _fds_count{0};
-    size_t *_unique_paths_indices{NULL};
+    size_t *_unique_paths_indices{nullptr};
     size_t _unique_paths_indices_count{0};
 };
 

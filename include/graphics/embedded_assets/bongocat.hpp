@@ -1,8 +1,6 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_HPP
 #define BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_HPP
 
-#include <cstddef>
-
 // Embedded asset data
 inline static constexpr unsigned char bongo_cat_both_up_png[] = {
 #embed "../../../assets/bongo-cat-both-up.png"

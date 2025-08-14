@@ -232,7 +232,7 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 **Required:**
 
 - Wayland compositor with layer shell support
-- C23 compiler (GCC 15+ or Clang 19+)
+- C23/C++26 compiler (GCC 15+ or Clang 19+)
 - Make or CMake
 - libwayland-client
 - wayland-protocols
@@ -331,8 +331,8 @@ bongocat-find-devices --help
 ### System Requirements
 
 - **CPU:** Any modern x86_64 or ARM64 processor
-- **RAM:** ~10MB runtime usage
-- **Storage:** ~240K executable size
+- **RAM:** ~12MB runtime usage
+- **Storage:** ~245K executable size
 - **Compositor:** Wayland with layer shell protocol support
 
 ### Performance Metrics (v1.4.0)
@@ -342,7 +342,7 @@ bongocat-find-devices --help
 - **Device Monitoring:** Adaptive 5-30 second intervals
 - **Memory:** Optimized with leak detection
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
-- **Binary Size:** ~240K executable size
+- **Binary Size:** ~245K executable size
 - **Event-based Rendering:** Only updates frame buffer when needed (on frame change, input, ...) (v1.4.0)
 
 ### Tested Compositors
@@ -443,7 +443,7 @@ monitor=DP-1         # DisplayPort monitor
 **Common fixes:**
 
 - Install development packages: `libwayland-dev wayland-protocols`
-- Ensure C23 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
+- Ensure C23/C++26 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
 - Install `wayland-scanner` package
 </details>
 
@@ -495,10 +495,24 @@ make debug
 
 ### Code Standards
 
-- C23 standard compliance
+- C23/C++26 standard compliance
 - Comprehensive error handling
 - Memory safety with leak detection
 - Extensive documentation
+
+#### Moving to C++
+
+I'm moving this Project a little bit to C++.
+
+* using modern C++26 compiler (required for `#embed`)
+* rename files `.c` -> `.cpp`
+* **reduce usage of pre-processor** - replace `define` with `constexpr`
+* use `ref&` instead of pointer (when possible)
+* use `nullptr` instead of `NULL`
+* **NO STL** - keep it as close as possible to the original, it's still C and Linux development with C libraries
+* **Memory Management** - Simple Wrapper for malloc/free calls
+* use of `enum class`
+* brace initialization
 
 ## 📄 License
 

@@ -3,7 +3,6 @@
 
 #include "core/bongocat.h"
 #include "utils/error.h"
-#include <cstdint>
 
 enum class overlay_position_t : uint8_t {
     POSITION_TOP,
@@ -41,8 +40,8 @@ struct config_time_t {
 
 struct config_t {
     int bar_height{0};
-    char *output_name{NULL};
-    char *keyboard_devices[MAX_INPUT_DEVICES];
+    char *output_name{nullptr};
+    char *keyboard_devices[MAX_INPUT_DEVICES]{};
     int num_keyboard_devices{0};
     int cat_x_offset{0};
     int cat_y_offset{0};
@@ -76,9 +75,9 @@ struct config_t {
 struct load_config_overwrite_parameters_t {
     const char* output_name;
 };
-bongocat_error_t load_config(config_t *config, const char *config_file_path, const load_config_overwrite_parameters_t *overwrite_parameters);
-void config_cleanup(config_t *config);
+bongocat_error_t load_config(config_t& config, const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
+void config_cleanup(config_t& config);
 
-void config_set_defaults(config_t *config);
+void config_set_defaults(config_t& config);
 
-#endif // CONFIG_H
+#endif // BONGOCAT_CONFIG_H
