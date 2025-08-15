@@ -4,13 +4,15 @@
 #include "graphics/animation_context.h"
 #include "platform/input_context.h"
 
-struct animation_trigger_context_t {
-    // event file descriptor
-    FileDescriptor trigger_efd;
-    FileDescriptor render_efd;
+namespace bongocat::animation {
+    struct animation_trigger_context_t {
+        // event file descriptor
+        platform::FileDescriptor trigger_efd;
+        platform::FileDescriptor render_efd;
 
-    input_context_t *_input{nullptr};
-    animation_context_t *_anim{nullptr};
-};
+        platform::input_context_t *_input{nullptr};
+        animation_context_t *_anim{nullptr};
+    };
+}
 
 #endif

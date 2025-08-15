@@ -1,6 +1,7 @@
 #ifndef BONGOCAT_ANIMATION_CONST_H
 #define BONGOCAT_ANIMATION_CONST_H
 
+namespace bongocat::animation {
 // Bongocat Frames
 inline static constexpr int BONGOCAT_FRAME_BOTH_UP = 0;
 inline static constexpr int BONGOCAT_FRAME_LEFT_DOWN = 1;
@@ -29,5 +30,6 @@ static inline constexpr int DIGIMON_FRAME_MOVEMENT2 = 14;
 
 static inline constexpr int HAPPY_CHANCE_PERCENT = 60;
 #endif
+}
 
 #endif

@@ -15,4 +15,6 @@ inline static constexpr int BGRA_CHANNELS = 4;
 
 inline static constexpr size_t MAX_INPUT_DEVICES = 256;
 
+namespace bongocat {}
+
 #endif // BONGOCAT_BONGOCAT_H
