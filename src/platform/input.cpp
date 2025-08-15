@@ -10,6 +10,7 @@
 #include <linux/input.h>
 #include <unistd.h>
 #include <cassert>
+#include <climits>
 #include <fcntl.h>
 #include <poll.h>
 
@@ -25,49 +26,41 @@ static inline constexpr time_sec_t MAX_ADAPTIVE_CHECK_INTERVAL_SEC   = 30;
 
 static inline constexpr time_ms_t RESET_KPM_TIMEOUT_MS = 5 * 1000;
 
-static inline constexpr int CHILD_TERMINATE_WAIT_ATTEMPTS               = 10;
-static inline constexpr time_ms_t CHILD_TERMINATE_WAIT_ATTEMPT_SLEEP_MS = 100;
-
 
 static void set_default_input_thread_context(input_context_t& input) {
-    input._device_paths = nullptr;
-    input._device_paths_count = 0;
-
-    input._fds = nullptr;
-    input._fds_count = 0;
-
-    input._unique_paths_indices = nullptr;
-    input._unique_paths_indices_count = 0;
+    input._device_paths = {};
+    input._fds = {};
+    input._unique_paths_indices = {};
 }
 
 static void cleanup_input_thread_context(input_context_t& input) {
-    assert(input._device_paths_count >= 0);
+    assert(input._device_paths.count >= 0);
     if (input._device_paths) {
-        for (int i = 0; i < input._device_paths_count; i++) {
+        for (int i = 0; i < input._device_paths.count; i++) {
             if (input._device_paths[i]) free(input._device_paths[i]);
             input._device_paths[i] = nullptr;
         }
     }
-    BONGOCAT_SAFE_FREE(input._device_paths);
+    BONGOCAT_SAFE_FREE(input._device_paths.data);
     input._device_paths = nullptr;
-    input._device_paths_count = 0;
+    input._device_paths.count = 0;
 
     // Close and free file descriptors
     if (input._fds) {
-        for (size_t i = 0; i < input._fds_count; ++i) {
+        for (size_t i = 0; i < input._fds.count; ++i) {
             if (input._fds[i] >= 0) {
                 close(input._fds[i]);
-                input._fds[i] = -1;
+                input._fds[i]._fd = -1;
             }
         }
-        BONGOCAT_SAFE_FREE(input._fds);
+        BONGOCAT_SAFE_FREE(input._fds.data);
     }
     input._fds = nullptr;
-    input._fds_count = 0;
+    input._fds.count = 0;
 
-    BONGOCAT_SAFE_FREE(input._unique_paths_indices);
+    BONGOCAT_SAFE_FREE(input._unique_paths_indices.data);
     input._unique_paths_indices = nullptr;
-    input._unique_paths_indices_count = 0;
+    input._unique_paths_indices.count = 0;
 
     set_default_input_thread_context(input);
 }
@@ -103,14 +96,14 @@ static void* capture_input_thread(void* arg) {
     // keep local copies of device_paths
     do {
         assert(current_config.num_keyboard_devices >= 0);
-        input._device_paths_count = current_config.num_keyboard_devices;
+        int device_paths_count = current_config.num_keyboard_devices;
         const char *const *device_paths = current_config.keyboard_devices;        // pls don't modify single keyboard_devices (string)
-        input._device_paths = static_cast<char **>(BONGOCAT_MALLOC(input._device_paths_count * sizeof(char*)));
-        for (int i = 0; i < input._device_paths_count; i++) {
+        input._device_paths = make_allocated_array<char*>(device_paths_count);
+        for (size_t i = 0; i < input._device_paths.count; i++) {
             input._device_paths[i] = strdup(device_paths[i]);
             if (!input._device_paths[i]) {
                 atomic_store(&input._capture_input_running, false);
-                for (int j = 0; j < i; j++) {
+                for (size_t j = 0; j < i; j++) {
                     if (input._device_paths[j]) free(input._device_paths[j]);
                     input._device_paths[j] = nullptr;
                 }
@@ -121,20 +114,18 @@ static void* capture_input_thread(void* arg) {
         }
     } while(false);
 
-    BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", input._device_paths_count);
+    BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", input._device_paths.count);
 
-    input._fds_count = input._device_paths_count;
-    input._fds = static_cast<int *>(BONGOCAT_MALLOC(input._fds_count * sizeof(int)));
-    input._unique_paths_indices_count = input._device_paths_count;
-    input._unique_paths_indices = static_cast<size_t *>(BONGOCAT_MALLOC(input._unique_paths_indices_count * sizeof(size_t)));
+    input._fds = make_allocated_array<FileDescriptor>(input._device_paths.count);
+    input._unique_paths_indices = make_allocated_array<size_t>(input._device_paths.count);
     if (!input._fds || !input._unique_paths_indices) {
         atomic_store(&input._capture_input_running, false);
-        BONGOCAT_SAFE_FREE(input._fds);
-        input._fds = nullptr;
-        input._fds_count = 0;
-        BONGOCAT_SAFE_FREE(input._unique_paths_indices);
-        input._unique_paths_indices = nullptr;
-        input._unique_paths_indices_count = 0;
+        BONGOCAT_SAFE_FREE(input._fds.data);
+        input._fds.data = nullptr;
+        input._fds.count = 0;
+        BONGOCAT_SAFE_FREE(input._unique_paths_indices.data);
+        input._unique_paths_indices.data = nullptr;
+        input._unique_paths_indices.count = 0;
         cleanup_input_thread_context(input);
         BONGOCAT_LOG_ERROR("Failed to allocate memory for file descriptors");
         return nullptr;
@@ -142,37 +133,36 @@ static void* capture_input_thread(void* arg) {
 
     int num_unique_devices = 0;
     // First pass: deduplicate device paths
-    assert(input._fds_count <= INT_MAX);
-    assert(input._device_paths_count <= INT_MAX);
-    assert(input._unique_paths_indices_count <= INT_MAX);
-    for (int i = 0; i < static_cast<int>(input._fds_count) && i < input._device_paths_count; i++) {
+    assert(input._fds.count <= INT_MAX);
+    assert(input._device_paths.count <= INT_MAX);
+    assert(input._unique_paths_indices.count <= INT_MAX);
+    for (size_t i = 0; i < input._fds.count && i < input._device_paths.count; i++) {
         bool is_duplicate = false;
-        for (int j = 0; j < num_unique_devices && j < static_cast<int>(input._unique_paths_indices_count); j++) {
-            const char* device_path = input._device_paths[i];
-            if (strcmp(device_path, input._device_paths[input._unique_paths_indices[j]]) == 0) {
+        assert(num_unique_devices >= 0);
+        for (size_t j = 0; j < static_cast<size_t>(num_unique_devices) && j < input._unique_paths_indices.count; j++) {
+            if (const char* device_path = input._device_paths[i]; strcmp(device_path, input._device_paths[input._unique_paths_indices[j]]) == 0) {
                 is_duplicate = true;
                 break;
             }
         }
 
-        if (!is_duplicate && num_unique_devices < static_cast<int>(input._unique_paths_indices_count)) {
+        if (!is_duplicate && num_unique_devices < static_cast<int>(input._unique_paths_indices.count)) {
             input._unique_paths_indices[num_unique_devices] = i;
             num_unique_devices++;
         }
     }
-    assert(num_unique_devices <= input._device_paths_count);
+    assert(num_unique_devices >= 0 && static_cast<size_t>(num_unique_devices) <= input._device_paths.count);
 
-    BONGOCAT_LOG_DEBUG("Deduplicated %d devices to %d unique devices", input._device_paths_count, num_unique_devices);
+    BONGOCAT_LOG_DEBUG("Deduplicated %d devices to %d unique devices", input._device_paths.count, num_unique_devices);
 
     // Open all unique devices
     int valid_devices = 0;
-    assert(input._fds_count <= INT_MAX);
-    assert(input._device_paths_count <= INT_MAX);
-    assert(input._unique_paths_indices_count <= INT_MAX);
-    assert(input._device_paths_count >= 0);
-    for (int i = 0; i < static_cast<int>(input._fds_count); i++) {
-        input._fds[i] = -1;
-        if (i < input._device_paths_count && i < static_cast<int>(input._unique_paths_indices_count) && input._unique_paths_indices[i] < static_cast<size_t>(input._device_paths_count)) {
+    assert(input._fds.count <= INT_MAX);
+    assert(input._device_paths.count <= INT_MAX);
+    assert(input._unique_paths_indices.count <= INT_MAX);
+    for (size_t i = 0; i < input._fds.count; i++) {
+        input._fds[i] = {};
+        if (i < input._device_paths.count && i < input._unique_paths_indices.count && input._unique_paths_indices[i] < input._device_paths.count) {
             const char* device_path = input._device_paths[input._unique_paths_indices[i]];
 
             // Validate device path exists and is readable
@@ -187,13 +177,13 @@ static void* capture_input_thread(void* arg) {
                 continue;
             }
 
-            input._fds[i] = open(device_path, O_RDONLY | O_NONBLOCK);
+            input._fds[i] = FileDescriptor(open(device_path, O_RDONLY | O_NONBLOCK));
             if (input._fds[i] < 0) {
                 BONGOCAT_LOG_WARNING("Failed to open %s: %s", device_path, strerror(errno));
                 continue;
             }
 
-            BONGOCAT_LOG_INFO("Input monitoring started on %s (fd=%d)", device_path, input._fds[i]);
+            BONGOCAT_LOG_INFO("Input monitoring started on %s (fd=%d)", device_path, input._fds[i]._fd);
             valid_devices++;
         }
     }
@@ -206,7 +196,7 @@ static void* capture_input_thread(void* arg) {
         return nullptr;
     }
 
-    BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths_count);
+    BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths.count);
     // trigger initial render
     wayland_request_render(trigger_ctx);
 
@@ -223,7 +213,7 @@ static void* capture_input_thread(void* arg) {
 
         // init pollfd array
         nfds_t nfds = 0;
-        for (size_t i = 0; i < input._unique_paths_indices_count && i < MAX_POLL_FDS; i++) {
+        for (size_t i = 0; i < input._unique_paths_indices.count && i < MAX_POLL_FDS; i++) {
             if (input._fds[i] >= 0) {
                 nfds++;
             }
@@ -232,12 +222,11 @@ static void* capture_input_thread(void* arg) {
             BONGOCAT_LOG_ERROR("All input devices became unavailable");
             break;
         } else if (nfds > MAX_POLL_FDS) {
-            BONGOCAT_LOG_ERROR("Max input devices fds: %d/%d (%d)", nfds, MAX_POLL_FDS, input._unique_paths_indices_count);
+            BONGOCAT_LOG_ERROR("Max input devices fds: %d/%d (%d)", nfds, MAX_POLL_FDS, input._unique_paths_indices.count);
         }
         do {
             nfds_t pfds_idx = 0;
-            assert(input._device_paths_count >= 0);
-            for (size_t i = 0; i < input._unique_paths_indices_count && i < static_cast<size_t>(input._device_paths_count) && i < MAX_POLL_FDS; i++) {
+            for (size_t i = 0; i < input._unique_paths_indices.count && i < static_cast<size_t>(input._device_paths.count) && i < MAX_POLL_FDS; i++) {
                 if (input._fds[i] >= 0) {
                     pfds[pfds_idx].fd = input._fds[i];
                     pfds[pfds_idx].events = POLLIN;
@@ -255,14 +244,13 @@ static void* capture_input_thread(void* arg) {
         }
 
         if (poll_result == 0) {
-            assert(input._device_paths_count >= 0);
             // Timeout — adaptive device checking
             check_counter++;
             if (check_counter >= (adaptive_check_interval_sec * (1000 / 100))) {
                 check_counter = 0;
                 bool found_new_device = false;
-                for (size_t i = 0; i < input._unique_paths_indices_count && i < static_cast<size_t>(input._device_paths_count) && i < MAX_POLL_FDS; i++) {
-                    if (input._unique_paths_indices[i] >= static_cast<size_t>(input._device_paths_count)) continue;
+                for (size_t i = 0; i < input._unique_paths_indices.count && i < input._device_paths.count && i < MAX_POLL_FDS; i++) {
+                    if (input._unique_paths_indices[i] >= input._device_paths.count) continue;
 
                     const char* device_path = input._device_paths[input._unique_paths_indices[i]];
                     if (input._fds[i] < 0) {
@@ -270,7 +258,7 @@ static void* capture_input_thread(void* arg) {
                         if (stat(device_path, &st) == 0 && S_ISCHR(st.st_mode)) {
                             int new_fd = open(device_path, O_RDONLY | O_NONBLOCK);
                             if (new_fd >= 0) {
-                                input._fds[i] = new_fd;
+                                input._fds[i] = FileDescriptor(new_fd);
                                 found_new_device = true;
                                 BONGOCAT_LOG_INFO("New input device detected and opened: %s (fd=%d)", device_path, new_fd);
                             }
@@ -301,9 +289,9 @@ static void* capture_input_thread(void* arg) {
                     if (errno == EAGAIN) continue;
                     BONGOCAT_LOG_WARNING("Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
                     close(pfds[p].fd);
-                    for (size_t i = 0; i < input._unique_paths_indices_count; i++) {
+                    for (size_t i = 0; i < input._unique_paths_indices.count; i++) {
                         if (input._fds[i] == pfds[p].fd) {
-                            input._fds[i] = -1;
+                            input._fds[i]._fd = -1;
                             pfds[i].fd = -1;
                             break;
                         }
@@ -314,9 +302,9 @@ static void* capture_input_thread(void* arg) {
                 if (rd == 0 || rd % sizeof(input_event) != 0) {
                     BONGOCAT_LOG_WARNING("EOF or partial read on fd=%d", pfds[p].fd);
                     close(pfds[p].fd);
-                    for (size_t i = 0; i < input._unique_paths_indices_count; i++) {
+                    for (size_t i = 0; i < input._unique_paths_indices.count; i++) {
                         if (input._fds[i] == pfds[p].fd) {
-                            input._fds[i] = -1;
+                            input._fds[i] = {};
                             pfds[i].fd = -1;
                             break;
                         }
@@ -367,9 +355,9 @@ static void* capture_input_thread(void* arg) {
 
             if (pfds[p].revents & (POLLERR | POLLHUP | POLLNVAL)) {
                 close(pfds[p].fd);
-                for (size_t i = 0; i < input._unique_paths_indices_count; i++) {
+                for (size_t i = 0; i < input._unique_paths_indices.count; i++) {
                     if (input._fds[i] == pfds[p].fd) {
-                        input._fds[i] = -1;
+                        input._fds[i] = {};
                         pfds[i].fd = -1;
                         break;
                     }
@@ -380,13 +368,12 @@ static void* capture_input_thread(void* arg) {
 
         // revalidate valid devices
         valid_devices = 0;
-        assert(input._fds_count <= INT_MAX);
-        assert(input._device_paths_count <= INT_MAX);
-        assert(input._unique_paths_indices_count <= INT_MAX);
-        assert(input._device_paths_count >= 0);
-        for (int i = 0; i < static_cast<int>(input._fds_count); i++) {
-            input._fds[i] = -1;
-            if (i < input._device_paths_count && i < static_cast<int>(input._unique_paths_indices_count) && input._unique_paths_indices[i] < static_cast<size_t>(input._device_paths_count)) {
+        assert(input._fds.count <= INT_MAX);
+        assert(input._device_paths.count <= INT_MAX);
+        assert(input._unique_paths_indices.count <= INT_MAX);
+        for (size_t i = 0; i < input._fds.count; i++) {
+            input._fds[i] = {};
+            if (i < input._device_paths.count && i < input._unique_paths_indices.count && input._unique_paths_indices[i] < input._device_paths.count) {
                 const char* device_path = input._device_paths[input._unique_paths_indices[i]];
 
                 // Validate device path exists and is readable
@@ -394,16 +381,16 @@ static void* capture_input_thread(void* arg) {
                 if (stat(device_path, &st) != 0) {
                     BONGOCAT_LOG_VERBOSE("Input device does not exist: %s", device_path);
                     if (input._fds[i] >= 0) close(input._fds[i]);
-                    input._fds[i] = -1;
+                    input._fds[i] = {};
                 }
                 if (!S_ISCHR(st.st_mode)) {
                     BONGOCAT_LOG_VERBOSE("Input device is not a character device: %s", device_path);
                     if (input._fds[i] >= 0) close(input._fds[i]);
-                    input._fds[i] = -1;
+                    input._fds[i] = {};
                 }
 
                 if (input._fds[i] < 0) {
-                    input._fds[i] = open(device_path, O_RDONLY | O_NONBLOCK);
+                    input._fds[i] = FileDescriptor(open(device_path, O_RDONLY | O_NONBLOCK));
                     if (input._fds[i] < 0) {
                         BONGOCAT_LOG_VERBOSE("Failed to re-open %s: %s", device_path, strerror(errno));
                         continue;
@@ -412,12 +399,12 @@ static void* capture_input_thread(void* arg) {
                     if (stat(device_path, &st) != 0) {
                         BONGOCAT_LOG_VERBOSE("Input device does not exist: %s", device_path);
                         if (input._fds[i] >= 0) close(input._fds[i]);
-                        input._fds[i] = -1;
+                        input._fds[i] = {};
                     }
                     if (!S_ISCHR(st.st_mode)) {
                         BONGOCAT_LOG_VERBOSE("Input device is not a character device: %s", device_path);
                         if (input._fds[i] >= 0) close(input._fds[i]);
-                        input._fds[i] = -1;
+                        input._fds[i] = {};
                     }
                 }
                 valid_devices++;
@@ -434,9 +421,9 @@ static void* capture_input_thread(void* arg) {
 
     // done when callback cleanup_input_thread
     //cleanup_input_thread_context(arg);
-    assert(input._device_paths == nullptr);
-    assert(input._fds == nullptr);
-    assert(input._unique_paths_indices == nullptr);
+    assert(!input._device_paths);
+    assert(!input._fds);
+    assert(!input._unique_paths_indices);
 
     BONGOCAT_LOG_INFO("Input monitoring stopped");
 
@@ -460,9 +447,8 @@ bongocat_error_t input_start_monitoring(animation_trigger_context_t& trigger_ctx
     BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", num_devices);
     
     // Initialize shared memory for key press flag
-    ctx.shm = static_cast<input_shared_memory_t *>(mmap(nullptr, sizeof(input_shared_memory_t), PROT_READ | PROT_WRITE,
-                                                        MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-    if (ctx.shm == MAP_FAILED) {
+    ctx.shm = make_allocated_mmap<input_shared_memory_t>();
+    if (!ctx.shm.ptr) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
@@ -472,10 +458,8 @@ bongocat_error_t input_start_monitoring(animation_trigger_context_t& trigger_ctx
     ctx.shm->last_key_pressed_timestamp = 0;
 
     // Initialize shared memory for local config
-    ctx._local_copy_config = static_cast<config_t *>(mmap(nullptr, sizeof(config_t), PROT_READ | PROT_WRITE,
-                                                          MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-    if (ctx._local_copy_config == MAP_FAILED) {
-        if (ctx.shm && ctx.shm != MAP_FAILED) munmap(ctx.shm, sizeof(input_shared_memory_t));
+    ctx._local_copy_config = make_allocated_mmap<config_t>();
+    if (!ctx._local_copy_config.ptr) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
@@ -497,7 +481,6 @@ bongocat_error_t input_start_monitoring(animation_trigger_context_t& trigger_ctx
     if (result != 0) {
         atomic_store(&ctx._capture_input_running, false);
         BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
-        if (ctx.shm && ctx.shm != MAP_FAILED) munmap(ctx.shm, sizeof(int));
         ctx.shm = nullptr;
         ctx._local_copy_config = nullptr;
         cleanup_input_thread_context(ctx);
@@ -538,15 +521,14 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t& trigger_c
 
     // already done when stop current input thread
     //cleanup_input_thread_context(ctx);
-    assert(ctx._device_paths == nullptr);
-    assert(ctx._fds == nullptr);
-    assert(ctx._unique_paths_indices == nullptr);
+    assert(!ctx._device_paths);
+    assert(!ctx._fds);
+    assert(!ctx._unique_paths_indices);
     
     // Start new monitoring (reuse shared memory if it exists)
-    if (ctx.shm == nullptr || ctx.shm == MAP_FAILED) {
-        ctx.shm = static_cast<input_shared_memory_t *>(mmap(nullptr, sizeof(input_shared_memory_t), PROT_READ | PROT_WRITE,
-                                                            MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-        if (ctx.shm == MAP_FAILED) {
+    if (!ctx.shm) {
+        ctx.shm = make_allocated_mmap<input_shared_memory_t>();
+        if (ctx.shm.ptr == MAP_FAILED) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             cleanup_input_thread_context(ctx);
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
@@ -560,12 +542,11 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t& trigger_c
     }
 
 
-    if (ctx._local_copy_config == nullptr || ctx._local_copy_config == MAP_FAILED) {
-        ctx._local_copy_config = static_cast<config_t *>(mmap(nullptr, sizeof(config_t), PROT_READ | PROT_WRITE,
-                                                              MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-        if (ctx._local_copy_config == MAP_FAILED) {
+    if (!ctx._local_copy_config) {
+        ctx._local_copy_config = make_allocated_mmap<config_t>();
+        if (!ctx._local_copy_config) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-            if (ctx.shm && ctx.shm != MAP_FAILED) munmap(ctx.shm, sizeof(input_shared_memory_t));
+            ctx.shm = nullptr;
             cleanup_input_thread_context(ctx);
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
@@ -586,8 +567,6 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t& trigger_c
     // start input monitoring
     if (pthread_create(&ctx._input_thread, nullptr, capture_input_thread, &trigger_ctx) != 0) {
         BONGOCAT_LOG_ERROR("Failed to fork input monitoring process: %s", strerror(errno));
-        if (ctx.shm && ctx.shm != MAP_FAILED) munmap(ctx.shm, sizeof(input_shared_memory_t));
-        if (ctx._local_copy_config && ctx._local_copy_config != MAP_FAILED) munmap(ctx._local_copy_config, sizeof(config_t));
         ctx.shm = nullptr;
         ctx._local_copy_config = nullptr;
         cleanup_input_thread_context(ctx);
@@ -618,20 +597,13 @@ void input_cleanup(input_context_t& ctx) {
 
     // should be done in cancel thread
     //cleanup_input_thread_context(ctx);
-    assert(ctx._device_paths == nullptr);
-    assert(ctx._fds == nullptr);
-    assert(ctx._unique_paths_indices == nullptr);
+    assert(!ctx._device_paths);
+    assert(!ctx._fds);
+    assert(!ctx._unique_paths_indices);
     
     // Cleanup shared memory
-    if (ctx.shm && ctx.shm != MAP_FAILED) {
-        munmap(ctx.shm, sizeof(input_shared_memory_t));
-        ctx.shm = nullptr;
-    }
-
-    if (ctx._local_copy_config && ctx._local_copy_config != MAP_FAILED) {
-        munmap(ctx._local_copy_config, sizeof(config_t));
-        ctx._local_copy_config = nullptr;
-    }
+    ctx.shm = nullptr;
+    ctx._local_copy_config = nullptr;
 
     ctx._input_kpm_counter = 0;
     ctx._latest_kpm_update_ms = 0;
@@ -640,11 +612,7 @@ void input_cleanup(input_context_t& ctx) {
 }
 
 void input_update_config(input_context_t& ctx, const config_t& config) {
-    assert(ctx._local_copy_config && ctx._local_copy_config != MAP_FAILED);
+    assert(ctx._local_copy_config);
 
-    memcpy(ctx._local_copy_config, &config, sizeof(config_t));
-    /// @TODO: deep copy from config for keyboard_devices
-    memset(ctx._local_copy_config->keyboard_devices, 0, MAX_INPUT_DEVICES * sizeof(char*));
-    ctx._local_copy_config->num_keyboard_devices = 0;
-    ctx._local_copy_config->output_name = nullptr;
+    *ctx._local_copy_config = config;
 }

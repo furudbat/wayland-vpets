@@ -20,17 +20,17 @@ struct wayland_context_t {
     zwlr_layer_surface_v1 *layer_surface{nullptr};
 
     // @NOTE: variable can be shared between child process and parent (see mmap)
-    wayland_shared_memory_t *ctx_shm{nullptr};
+    MMapMemory<wayland_shared_memory_t> ctx_shm;
 
     // local copy from other thread, update after reload (shared memory)
-    config_t *_local_copy_config{nullptr};
+    MMapMemory<config_t> _local_copy_config;
     int _screen_width{0};
     char* _output_name_str;                  // Will default to automatic one if kept null
     bool _fullscreen_detected{false};
 
     // frame done callback data
     wl_callback *_frame_cb{nullptr};
-    pthread_mutex_t _frame_cb_lock{};
+    Mutex _frame_cb_lock;
     atomic_bool _frame_pending{false};
     atomic_bool _redraw_after_frame{false};
     timestamp_ms_t _last_frame_timestamp_ms{0};

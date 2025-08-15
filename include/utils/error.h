@@ -22,7 +22,7 @@ enum class bongocat_error_t : uint8_t {
 // Error handling macros
 #define BONGOCAT_CHECK_NULL(ptr, error_code) \
     do { \
-        if ((ptr) == NULL) { \
+        if ((ptr) == nullptr) { \
             BONGOCAT_LOG_ERROR("NULL pointer: %s at %s:%d", #ptr, __FILE__, __LINE__); \
             return (error_code); \
         } \

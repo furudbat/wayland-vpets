@@ -30,7 +30,7 @@ static animation_trigger_context_t g_animation_trigger_ctx{};
 static wayland_context_t g_wayland_ctx{};
 static wayland_listeners_context_t g_wayland_listeners_ctx{};
 
-static pthread_mutex_t g_config_reload_mutex = PTHREAD_MUTEX_INITIALIZER;
+static Mutex g_config_reload_mutex{};
 static const char *g_signal_watch_path = nullptr;
 
 static load_config_overwrite_parameters_t g_overwrite_parameters{};
@@ -208,7 +208,7 @@ static bool config_devices_changed(const config_t& old_config, const config_t& n
 
 static void config_reload_callback() {
     BONGOCAT_LOG_INFO("Reloading configuration from: %s", g_config_watcher.config_path);
-    
+
     // Create a temporary config to test loading
     config_t new_config;
     config_set_defaults(new_config);
@@ -220,47 +220,38 @@ static void config_reload_callback() {
     }
 
 
-    // If successful, check if input devices changed before updating config
-    const bool devices_changed = config_devices_changed(g_config, new_config);
 
     // If successful, update the global config
-    pthread_mutex_lock(&g_config_reload_mutex);
-    // free old config (make g_config 'available' for new_config)
-    config_t old_config = g_config;
-    for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
-        if (old_config.keyboard_devices[i]) free(old_config.keyboard_devices[i]);
-        old_config.keyboard_devices[i] = nullptr;
-        g_config.keyboard_devices[i] = nullptr;
-    }
-    old_config.num_keyboard_devices = 0;
-    g_config.num_keyboard_devices = 0;
-    // Clean up old output_name if it exists and is different
-    if (old_config.output_name) free(old_config.output_name);
-    g_config.output_name = nullptr;
-    // move new_config into g_config, move devices too
-    memcpy(&g_config, &new_config, sizeof(config_t));
-    // Update the running systems with new config
-    input_update_config(g_input_ctx, g_config);
-    animation_update_config(g_animation_ctx, g_config);
-    wayland_update_config(g_wayland_ctx, g_config, g_animation_trigger_ctx);
-    
-    // Check if input devices changed and restart monitoring if needed
-    if (devices_changed) {
-        BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
-        const bongocat_error_t input_result = input_restart_monitoring(g_animation_trigger_ctx, g_input_ctx,
-                                                                 g_config.keyboard_devices,
-                                                                 g_config.num_keyboard_devices,
-                                                                 g_config.enable_debug);
-        if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat_error_string(input_result));
-        } else {
-            BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
-        }
-    }
+    do {
+        LockGuard config_reload_mutex_guard(g_config_reload_mutex);
 
-    // free old keyboard_devices
-    config_cleanup(old_config);
-    pthread_mutex_unlock(&g_config_reload_mutex);
+        config_t old_config = g_config;
+        // If successful, check if input devices changed before updating config
+        const bool devices_changed = config_devices_changed(old_config, new_config);
+        g_config = bongocat_move(new_config);
+        /// @NOTE: don't use new_config after move
+        // Update the running systems with new config
+        input_update_config(g_input_ctx, g_config);
+        animation_update_config(g_animation_ctx, g_config);
+        wayland_update_config(g_wayland_ctx, g_config, g_animation_trigger_ctx);
+
+        // Check if input devices changed and restart monitoring if needed
+        if (devices_changed) {
+            BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
+            const bongocat_error_t input_result = input_restart_monitoring(g_animation_trigger_ctx, g_input_ctx,
+                                                                     g_config.keyboard_devices,
+                                                                     g_config.num_keyboard_devices,
+                                                                     g_config.enable_debug);
+            if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+                BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat_error_string(input_result));
+            } else {
+                BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
+            }
+        }
+
+        // free old keyboard_devices
+        config_cleanup(old_config);
+    } while(false);
 
     BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
     BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", g_wayland_ctx._screen_width, g_config.bar_height);

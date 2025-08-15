@@ -2,6 +2,7 @@
 #include "utils/time.h"
 #include "utils/error.h"
 #include "utils/memory.h"
+#include "utils/system_memory.h"
 #include <cstring>
 #include <unistd.h>
 #include <climits>
@@ -10,6 +11,7 @@
 #include <sys/inotify.h>
 #include <sys/eventfd.h>
 #include <cstdlib>
+
 
 
 static inline constexpr time_ms_t RELOAD_DEBOUNCE_MS = 1000;
@@ -115,7 +117,7 @@ bongocat_error_t config_watcher_init(config_watcher_t& watcher, const char *conf
                                          IN_MODIFY | IN_MOVED_TO | IN_CREATE);
     if (watcher.watch_fd < 0) {
         BONGOCAT_LOG_ERROR("Failed to add inotify watch for %s: %s", config_path, strerror(errno));
-        free(watcher.config_path);
+        if (watcher.config_path) free(watcher.config_path);
         watcher.config_path = nullptr;
         close(watcher.inotify_fd);
         return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
@@ -124,7 +126,7 @@ bongocat_error_t config_watcher_init(config_watcher_t& watcher, const char *conf
     watcher.reload_efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if (watcher.reload_efd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create notify pipe for config reload: %s", strerror(errno));
-        free(watcher.config_path);
+        if (watcher.config_path) free(watcher.config_path);
         watcher.config_path = nullptr;
         close(watcher.inotify_fd);
         watcher.inotify_fd = -1;

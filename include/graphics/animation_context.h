@@ -4,18 +4,20 @@
 #include "animation_shared_memory.h"
 #include "config/config.h"
 #include "platform/input_context.h"
+#include "utils/system_memory.h"
 #include <stdatomic.h>
 
 struct animation_context_t {
-    animation_shared_memory_t *shm{nullptr};
-    pthread_mutex_t anim_lock{};
+    /// @NOTE: variables can be shared between child process and parent (see mmap)
+    MMapMemory<animation_shared_memory_t> shm;
 
     // local copy from other thread, update after reload (shared memory)
-    config_t* _local_copy_config{nullptr};
+    MMapMemory<config_t> _local_copy_config;
 
     // Animation system state
     atomic_bool _animation_running{false};
     pthread_t _anim_thread{0};
+    Mutex anim_lock;
 };
 
 #endif //BONGOCAT_ANIMATION_CONTEXT_H

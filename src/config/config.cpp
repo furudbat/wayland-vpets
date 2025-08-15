@@ -6,6 +6,7 @@
 #include "graphics/embedded_assets.h"
 #include <cassert>
 #include <cctype>
+#include <climits>
 #include <cstdlib>
 
 
@@ -559,49 +560,40 @@ static bongocat_error_t config_parse_file(config_t& config, const char *config_f
 // =============================================================================
 
 void config_set_defaults(config_t& config) {
-    config = {
-        .bar_height = DEFAULT_BAR_HEIGHT,
-        .output_name = nullptr,
-        /*
-        .asset_paths = {
-            "assets/bongo-cat-both-up.png",
-            "assets/bongo-cat-left-down.png",
-            "assets/bongo-cat-right-down.png"
-        },
-        */
-        .num_keyboard_devices = 0,
-        .cat_x_offset = DEFAULT_CAT_X_OFFSET,
-        .cat_y_offset = DEFAULT_CAT_Y_OFFSET,
-        .cat_height = DEFAULT_CAT_HEIGHT,
-        .overlay_height = DEFAULT_OVERLAY_HEIGHT,
-        .idle_frame = DEFAULT_IDLE_FRAME,
-        .keypress_duration_ms = DEFAULT_KEYPRESS_DURATION_MS,
-        .test_animation_duration_ms = DEFAULT_TEST_ANIMATION_DURATION_MS,
-        .test_animation_interval_sec = DEFAULT_TEST_ANIMATION_INTERVAL_SEC,
-        .fps = DEFAULT_FPS,
-        .overlay_opacity = DEFAULT_OVERLAY_OPACITY,
-        .enable_debug = DEFAULT_ENABLE_DEBUG,
-        .layer = DEFAULT_LAYER,
-        .overlay_position = DEFAULT_OVERLAY_POSITION,
+    config_t cfg;
 
-        .animation_index = DEFAULT_ANIMATION_INDEX,
-        .invert_color = 0,
-        .padding_x = 0,
-        .padding_y = 0,
-
-        .enable_scheduled_sleep = 0,
-        .sleep_begin = {},
-        .sleep_end = {},
-        .idle_sleep_timeout_sec = DEFAULT_IDLE_SLEEP_TIMEOUT_SEC,
-
-        .happy_kpm = DEFAULT_HAPPY_KPM,
-
-        .cat_align = DEFAULT_CAT_ALIGN,
-    };
-    for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
-        config.keyboard_devices[i] = nullptr;
+    cfg.bar_height = DEFAULT_BAR_HEIGHT;
+    cfg.output_name = nullptr;
+    assert(MAX_INPUT_DEVICES <= INT_MAX);
+    for (int i = 0; i < (int)MAX_INPUT_DEVICES; i++) {
+        cfg.keyboard_devices[i] = nullptr;
     }
-    config.num_keyboard_devices = 0;
+    cfg.num_keyboard_devices = 0;
+    cfg.cat_x_offset = DEFAULT_CAT_X_OFFSET;
+    cfg.cat_y_offset = DEFAULT_CAT_Y_OFFSET;
+    cfg.cat_height = DEFAULT_CAT_HEIGHT;
+    cfg.overlay_height = DEFAULT_OVERLAY_HEIGHT;
+    cfg.idle_frame = DEFAULT_IDLE_FRAME;
+    cfg.keypress_duration_ms = DEFAULT_KEYPRESS_DURATION_MS;
+    cfg.test_animation_duration_ms = DEFAULT_TEST_ANIMATION_DURATION_MS;
+    cfg.test_animation_interval_sec = DEFAULT_TEST_ANIMATION_INTERVAL_SEC;
+    cfg.fps = DEFAULT_FPS;
+    cfg.overlay_opacity = DEFAULT_OVERLAY_OPACITY;
+    cfg.enable_debug = DEFAULT_ENABLE_DEBUG;
+    cfg.layer = DEFAULT_LAYER;
+    cfg.overlay_position = DEFAULT_OVERLAY_POSITION;
+    cfg.animation_index = DEFAULT_ANIMATION_INDEX;
+    cfg.invert_color = 0;
+    cfg.padding_x = 0;
+    cfg.padding_y = 0;
+    cfg.enable_scheduled_sleep = 0;
+    cfg.sleep_begin = {};
+    cfg.sleep_end = {};
+    cfg.idle_sleep_timeout_sec = DEFAULT_IDLE_SLEEP_TIMEOUT_SEC;
+    cfg.happy_kpm = DEFAULT_HAPPY_KPM;
+    cfg.cat_align = DEFAULT_CAT_ALIGN;
+
+    config = cfg;
 }
 
 static bongocat_error_t config_set_default_devices(config_t& config) {

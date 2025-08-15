@@ -201,8 +201,9 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
     out_frames.sprite_sheet_height = sheet_height;
     out_frames.channels = channels;
     // move pixel ownership into out frames
-    out_frames.pixels = dest_pixels;
-    out_frames.pixels_size = dest_pixels_size;
+    out_frames.pixels.data = dest_pixels;
+    out_frames.pixels.count = dest_pixels_size;
+    out_frames.pixels._size_bytes = dest_pixels_size;
     dest_pixels = nullptr;
     out_frames.frame_width = dest_frame_width;
     out_frames.frame_height = dest_frame_height;
@@ -382,9 +383,7 @@ static void anim_free_pixels(generic_sprite_sheet_animation_t& anims) {
     for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
         anims.frames[i] = { .valid = false, .col = 0, .row = 0 };
     }
-    if (anims.pixels) BONGOCAT_FREE(anims.pixels);
     anims.pixels = nullptr;
-    anims.pixels_size = 0;
     anims.sprite_sheet_width = 0;
     anims.sprite_sheet_height = 0;
     anims.channels = 0;
@@ -441,13 +440,11 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
     anim->sprite_sheet_width = max_frame_width * total_frames;
     anim->sprite_sheet_height = max_frame_height;
     anim->channels = max_channels;
-    anim->pixels_size = anim->sprite_sheet_width * anim->sprite_sheet_height * anim->channels;
-    anim->pixels = static_cast<uint8_t *>(BONGOCAT_MALLOC(anim->pixels_size));
+    anim->pixels = make_allocated_array<uint8_t>(anim->sprite_sheet_width * anim->sprite_sheet_height * anim->channels);
     if (!anim->pixels) {
         anim->frame_width = 0;
         anim->frame_height = 0;
         anim->total_frames = 0;
-        anim->pixels_size = 0;
         anim->sprite_sheet_width = 0;
         anim->sprite_sheet_height = 0;
         anim->channels = 0;
@@ -461,9 +458,9 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
 
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
-    memset(anim->pixels, 0, anim->pixels_size);
+    memset(anim->pixels.data, 0, anim->pixels.count * sizeof(uint8_t));
     for (size_t i = 0;i < MAX_NUM_FRAMES;i++) {
-        anim->frames[i] = sprite_sheet_animation_region_t{};
+        anim->frames[i] = {};
     }
     assert(total_frames >= 0);
     for (size_t frame = 0; frame < static_cast<size_t>(total_frames); frame++) {
@@ -476,7 +473,7 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
         }
 
         for (int y = 0; y < src->frame_height; y++) {
-            unsigned char* dest_row = anim->pixels +
+            unsigned char* dest_row = anim->pixels.data +
                 ((y) * anim->sprite_sheet_width + (frame * max_frame_width)) * max_channels;
             const unsigned char* src_row = src->pixels + (y * src->frame_width * src->channels);
             memcpy(dest_row, src_row, src->frame_width * max_channels);
@@ -526,8 +523,8 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
-    BONGOCAT_CHECK_NULL(ctx.shm, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
-    BONGOCAT_CHECK_NULL(ctx._local_copy_config, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
     const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
     if (sprite_sheet_count < 0) {
@@ -548,12 +545,11 @@ bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animat
     BONGOCAT_LOG_INFO("Initializing animation system");
 
     ctx._animation_running = false;
-    pthread_mutex_init(&ctx.anim_lock, nullptr);
+    pthread_mutex_init(&ctx.anim_lock.pt_mutex, nullptr);
 
     // Initialize shared memory
-    ctx.shm = static_cast<animation_shared_memory_t *>(mmap(nullptr, sizeof(animation_shared_memory_t), PROT_READ | PROT_WRITE,
-                                                            MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-    if (ctx.shm == MAP_FAILED) {
+    ctx.shm = make_allocated_mmap<animation_shared_memory_t>();
+    if (!ctx.shm) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
@@ -567,7 +563,6 @@ bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animat
             ctx.shm->anims[i].sprite_sheet.sprite_sheet_height = 0;
             ctx.shm->anims[i].sprite_sheet.channels = RGBA_CHANNELS;
             ctx.shm->anims[i].sprite_sheet.pixels = nullptr;
-            ctx.shm->anims[i].sprite_sheet.pixels_size = 0;
             ctx.shm->anims[i].sprite_sheet.frame_width = 0;
             ctx.shm->anims[i].sprite_sheet.frame_height = 0;
             ctx.shm->anims[i].sprite_sheet.total_frames = 0;
@@ -578,11 +573,9 @@ bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animat
     }
 
     // Initialize shared memory for local config
-    ctx._local_copy_config = static_cast<config_t *>(mmap(nullptr, sizeof(config_t), PROT_READ | PROT_WRITE,
-                                                          MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-    if (ctx._local_copy_config == MAP_FAILED) {
+    ctx._local_copy_config = make_allocated_mmap<config_t>();
+    if (!ctx._local_copy_config) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-        munmap(ctx.shm, sizeof(animation_shared_memory_t));
         ctx.shm = nullptr;
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
@@ -595,14 +588,12 @@ bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animat
     trigger_ctx.trigger_efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if (trigger_ctx.trigger_efd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create notify pipe for animation trigger: %s", strerror(errno));
-        munmap(ctx._local_copy_config, sizeof(config_t));
         ctx._local_copy_config = nullptr;
         return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
     trigger_ctx.render_efd = eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC);
     if (trigger_ctx.render_efd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create notify pipe for animation render: %s", strerror(errno));
-        munmap(ctx._local_copy_config, sizeof(config_t));
         ctx._local_copy_config = nullptr;
         if (trigger_ctx.trigger_efd >= 0) close(trigger_ctx.trigger_efd);
         trigger_ctx.trigger_efd = -1;
@@ -613,7 +604,6 @@ bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animat
     const embedded_image_t* bongocat_embedded_images = init_bongocat_embedded_images();
     const auto result = anim_load_embedded_images_into_sprite_sheet(&ctx.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
     if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        munmap(ctx._local_copy_config, sizeof(config_t));
         ctx._local_copy_config = nullptr;
         if (trigger_ctx.trigger_efd >= 0) close(trigger_ctx.trigger_efd);
         trigger_ctx.trigger_efd = -1;
@@ -656,7 +646,7 @@ void animation_cleanup(animation_trigger_context_t& trigger_ctx, animation_conte
     animation_stop(ctx);
 
     // Cleanup mutex
-    pthread_mutex_destroy(&ctx.anim_lock);
+    pthread_mutex_destroy(&ctx.anim_lock.pt_mutex);
 
     if (trigger_ctx.trigger_efd >= 0) close(trigger_ctx.trigger_efd);
     trigger_ctx.trigger_efd = -1;
@@ -664,17 +654,15 @@ void animation_cleanup(animation_trigger_context_t& trigger_ctx, animation_conte
     if (trigger_ctx.render_efd >= 0) close(trigger_ctx.render_efd);
     trigger_ctx.render_efd = -1;
 
-    if (ctx._local_copy_config && ctx._local_copy_config != MAP_FAILED) {
-        munmap(ctx._local_copy_config, sizeof(config_t));
+    if (ctx._local_copy_config) {
         ctx._local_copy_config = nullptr;
     }
 
-    if (ctx.shm && ctx.shm != MAP_FAILED) {
+    if (ctx.shm) {
         // Cleanup loaded images
         for (size_t i = 0;i < ANIMS_COUNT; i++) {
             anim_free_pixels(ctx.shm->anims[i].sprite_sheet);
         }
-        munmap(ctx.shm, sizeof(animation_shared_memory_t));
         ctx.shm = nullptr;
     }
 

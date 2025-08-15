@@ -6,12 +6,60 @@
 #include "utils/time.h"
 
 struct animation_shared_memory_t {
-    /// @NOTE: variables can be shared between child process and parent (see mmap)
     // Animation frame data
     animation_t anims[ANIMS_COUNT];
     int anim_index{0};
     int anim_frame_index{0};
     timestamp_ms_t time_until_next_frame_ms{0};
+
+    animation_shared_memory_t() = default;
+    animation_shared_memory_t(const animation_shared_memory_t& other)
+        : anim_index(other.anim_index),
+          anim_frame_index(other.anim_frame_index),
+          time_until_next_frame_ms(other.time_until_next_frame_ms)
+    {
+        for (size_t i = 0; i < ANIMS_COUNT; ++i) {
+            anims[i] = other.anims[i];
+        }
+    }
+    animation_shared_memory_t& operator=(const animation_shared_memory_t& other) {
+        if (this != &other) {
+            anim_index = other.anim_index;
+            anim_frame_index = other.anim_frame_index;
+            time_until_next_frame_ms = other.time_until_next_frame_ms;
+            for (size_t i = 0; i < ANIMS_COUNT; ++i) {
+                anims[i] = other.anims[i];
+            }
+        }
+        return *this;
+    }
+
+    animation_shared_memory_t(animation_shared_memory_t&& other) noexcept
+        : anim_index(other.anim_index),
+          anim_frame_index(other.anim_frame_index),
+          time_until_next_frame_ms(other.time_until_next_frame_ms)
+    {
+        for (size_t i = 0; i < ANIMS_COUNT; ++i) {
+            anims[i] = bongocat_move(other.anims[i]);
+        }
+        other.anim_index = 0;
+        other.anim_frame_index = 0;
+        other.time_until_next_frame_ms = 0;
+    }
+    animation_shared_memory_t& operator=(animation_shared_memory_t&& other) noexcept {
+        if (this != &other) {
+            anim_index = other.anim_index;
+            anim_frame_index = other.anim_frame_index;
+            time_until_next_frame_ms = other.time_until_next_frame_ms;
+            for (size_t i = 0; i < ANIMS_COUNT; ++i) {
+                anims[i] = bongocat_move(other.anims[i]);
+            }
+            other.anim_index = 0;
+            other.anim_frame_index = 0;
+            other.time_until_next_frame_ms = 0;
+        }
+        return *this;
+    }
 };
 
 #endif // BONGOCAT_ANIMATION_SHARED_MEMORY_H

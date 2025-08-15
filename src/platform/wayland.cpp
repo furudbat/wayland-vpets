@@ -745,11 +745,9 @@ static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t& ctx) 
 
 static void wayland_cleanup_shm_buffer(wayland_shm_buffer_t& buffer) {
     wl_buffer_destroy(buffer.buffer);
-    if (buffer.pixels && buffer.pixels != MAP_FAILED) {
-        munmap(buffer.pixels, buffer.pixels_size);
+    if (buffer.pixels) {
         buffer.pixels = nullptr;
     }
-    buffer.pixels_size = 0;
     atomic_store(&buffer.busy, false);
     atomic_store(&buffer.pending, false);
     buffer.index = 0;
@@ -786,10 +784,8 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context,
 
     for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
         assert(buffer_size >= 0 && (size_t)buffer_size <= SIZE_MAX);
-        wayland_ctx_shm->buffers[i].pixels_size = buffer_size;
-        wayland_ctx_shm->buffers[i].pixels = static_cast<uint8_t *>(mmap(nullptr, wayland_ctx_shm->buffers[i].pixels_size, PROT_READ | PROT_WRITE, MAP_SHARED, fd,
-                                                                         static_cast<off_t>(i) * buffer_size));
-        if (wayland_ctx_shm->buffers[i].pixels == MAP_FAILED) {
+        wayland_ctx_shm->buffers[i].pixels = make_allocated_mmap_file_buffer<uint8_t>(buffer_size, fd, static_cast<off_t>(i) * buffer_size);
+        if (!wayland_ctx_shm->buffers[i].pixels) {
             BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
             for (size_t j = 0; j < i; j++) {
                 wayland_cleanup_shm_buffer(wayland_ctx_shm->buffers[j]);
@@ -874,12 +870,11 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
     wayland._frame_pending = false;
     wayland._redraw_after_frame = false;
     wayland._last_frame_timestamp_ms = 0;
-    pthread_mutex_init(&wayland._frame_cb_lock, nullptr);
+    pthread_mutex_init(&wayland._frame_cb_lock.pt_mutex, nullptr);
 
     // Initialize shared memory
-    wayland.ctx_shm = static_cast<wayland_shared_memory_t *>(mmap(nullptr, sizeof(wayland_shared_memory_t), PROT_READ | PROT_WRITE,
-                                                                  MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-    if (wayland.ctx_shm == MAP_FAILED) {
+    wayland.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
+    if (!wayland.ctx_shm ) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
@@ -888,7 +883,6 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
         for (size_t i = 0;i < WAYLAND_NUM_BUFFERS;i++) {
             wayland.ctx_shm->buffers[i].buffer = nullptr;
             wayland.ctx_shm->buffers[i].pixels = nullptr;
-            wayland.ctx_shm->buffers[i].pixels_size = 0;
             atomic_store(&wayland.ctx_shm->buffers[i].busy, false);
             atomic_store(&wayland.ctx_shm->buffers[i].pending, false);
             wayland.ctx_shm->buffers[i]._animation_trigger_context = nullptr;
@@ -899,9 +893,8 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
     }
 
     // Initialize shared memory for local config
-    wayland._local_copy_config = static_cast<config_t *>(mmap(nullptr, sizeof(config_t), PROT_READ | PROT_WRITE,
-                                                              MAP_SHARED | MAP_ANONYMOUS, -1, 0));
-    if (wayland._local_copy_config == MAP_FAILED) {
+    wayland._local_copy_config = make_allocated_mmap<config_t>();
+    if (!wayland._local_copy_config ) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         if (wayland.ctx_shm && wayland.ctx_shm != MAP_FAILED) {
             munmap(wayland.ctx_shm, sizeof(wayland_shared_memory_t));
@@ -1209,14 +1202,7 @@ int wayland_get_screen_width(const wayland_listeners_context_t& ctx) {
 void wayland_update_config(wayland_context_t& ctx, const config_t& config, animation_trigger_context_t& trigger_ctx) {
     assert(ctx._local_copy_config && ctx._local_copy_config != MAP_FAILED);
 
-    memcpy(ctx._local_copy_config, &config, sizeof(config_t));
-    ctx._local_copy_config->output_name = config.output_name ? strdup(config.output_name) : nullptr;
-
-    /// @FIXME: make deep copy of keyboard_devices ?
-    // keyboard_devices not used, get rid of out-side reference
-    for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
-        ctx._local_copy_config->keyboard_devices[i] = nullptr;
-    }
+    *ctx._local_copy_config = config;
 
     /// @NOTE: assume animation has the same local copy as wayland config
     //animation_update_config(anim, config);
@@ -1232,7 +1218,7 @@ void wayland_cleanup(wayland_listeners_context_t& ctx) {
     //animation_context_t* anim = ctx.animation_context;
     //animation_trigger_context_t* trigger_ctx = ctx.animation_trigger_context;
 
-    wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx ? wayland_ctx->ctx_shm : nullptr;
+    wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx ? wayland_ctx->ctx_shm.ptr : nullptr;
     if (wayland_ctx_shm && wayland_ctx_shm != MAP_FAILED) {
         atomic_store(&wayland_ctx_shm->configured, false);
     }
@@ -1244,7 +1230,7 @@ void wayland_cleanup(wayland_listeners_context_t& ctx) {
             while (wl_display_dispatch_pending(wayland_ctx->display) > 0);
         }
 
-        pthread_mutex_destroy(&wayland_ctx->_frame_cb_lock);
+        pthread_mutex_destroy(&wayland_ctx->_frame_cb_lock.pt_mutex);
         atomic_store(&wayland_ctx->_frame_pending, false);
         atomic_store(&wayland_ctx->_redraw_after_frame, false);
         if (wayland_ctx->_frame_cb) wl_callback_destroy(wayland_ctx->_frame_cb);

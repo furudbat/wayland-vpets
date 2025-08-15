@@ -74,7 +74,7 @@ static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused
 
     return rand_minmax(1, 2); // Frame 1 or 2 (active frames)
 #else
-    assert(ctx.shm && ctx.shm != MAP_FAILED);
+    assert(ctx.shm);
     const animation_shared_memory_t& anim_shm = *ctx.shm;
 
     const int current_frame = anim_shm.anim_frame_index;
@@ -169,7 +169,7 @@ static bool anim_handle_test_animation(animation_context_t& ctx, const input_con
     bool ret = false;
     if (state.test_counter > state.test_interval_frames) {
         assert(input.shm);
-        const int new_frame = anim_get_random_active_frame(ctx, *input.shm);
+        const int new_frame = anim_get_random_active_frame(ctx, *input.shm.ptr);
         const time_us_t duration_us = current_config.test_animation_duration_ms * 1000;
         
         BONGOCAT_LOG_VERBOSE("Test animation trigger");
@@ -320,15 +320,15 @@ static bool anim_update_state(animation_trigger_context_t& animation_trigger_ctx
     //const config_t& current_config = *ctx->_local_copy_config;
 
     const timestamp_us_t current_time_us = get_current_time_us();
-    
-    pthread_mutex_lock(&ctx.anim_lock);
 
     bool ret = false;
-    ret |= anim_handle_test_animation(ctx, input, state, current_time_us);
-    ret |= anim_handle_key_press(animation_trigger_ctx, state, current_time_us);
-    ret |= anim_handle_idle_return(ctx, input, state, current_time_us);
-    
-    pthread_mutex_unlock(&ctx.anim_lock);
+    do {
+        LockGuard guard (ctx.anim_lock);
+
+        ret |= anim_handle_test_animation(ctx, input, state, current_time_us);
+        ret |= anim_handle_key_press(animation_trigger_ctx, state, current_time_us);
+        ret |= anim_handle_idle_return(ctx, input, state, current_time_us);
+    } while(false);
 
     return ret;
 }
@@ -452,8 +452,8 @@ void animation_trigger(animation_trigger_context_t& trigger_ctx) {
 }
 
 void animation_update_config(animation_context_t& ctx, const config_t& config) {
-    assert(ctx._local_copy_config && ctx._local_copy_config != MAP_FAILED);
-    assert(ctx.shm && ctx.shm != MAP_FAILED);
+    assert(ctx._local_copy_config);
+    assert(ctx.shm);
 
 #ifndef NDEBUG
     assert(ANIMS_COUNT <= INT_MAX);
@@ -462,14 +462,7 @@ void animation_update_config(animation_context_t& ctx, const config_t& config) {
     }
 #endif
 
-    memcpy(ctx._local_copy_config, &config, sizeof(config_t));
-    /// @FIXME: make deep copy of keyboard_devices ?
-    // output_name and keyboard_devices not used, get rid of out-side reference
-    ctx._local_copy_config->output_name = nullptr;
-    for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
-        ctx._local_copy_config->keyboard_devices[i] = nullptr;
-    }
-    ctx._local_copy_config->num_keyboard_devices = 0;
+    *ctx._local_copy_config = config;
 
     assert(ANIMS_COUNT <= INT_MAX);
     ctx.shm->anim_index = config.animation_index % static_cast<int>(ANIMS_COUNT);

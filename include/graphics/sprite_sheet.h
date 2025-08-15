@@ -1,8 +1,10 @@
 #ifndef BONGOCAT_ANIMATION_SPRITE_SHEET_H
 #define BONGOCAT_ANIMATION_SPRITE_SHEET_H
 
+#include "utils/memory.h"
 #include <cstdint>
 #include <cstddef>
+
 
 // both-up, left-down, right-down, both-down
 inline static constexpr size_t BONGOCAT_NUM_FRAMES = 4;
@@ -21,8 +23,7 @@ struct digimon_animation_t {
     int sprite_sheet_width{0};
     int sprite_sheet_height{0};
     int channels{0};
-    uint8_t *pixels{nullptr};
-    size_t pixels_size{0};
+    AllocatedArray<uint8_t> pixels;
 
     int frame_width{0};
     int frame_height{0};
@@ -53,8 +54,7 @@ struct bongocat_animation_t {
     int sprite_sheet_width{0};
     int sprite_sheet_height{0};
     int channels{0};
-    uint8_t *pixels{nullptr};
-    size_t pixels_size{0};
+    AllocatedArray<uint8_t> pixels;
 
     int frame_width{0};
     int frame_height{0};
@@ -72,8 +72,7 @@ struct generic_sprite_sheet_animation_t {
     int sprite_sheet_width{0};
     int sprite_sheet_height{0};
     int channels{0};
-    uint8_t *pixels{nullptr};
-    size_t pixels_size{0};
+    AllocatedArray<uint8_t> pixels;
 
     int frame_width{0};
     int frame_height{0};
@@ -83,13 +82,118 @@ struct generic_sprite_sheet_animation_t {
 };
 
 static_assert(sizeof(digimon_animation_t) == sizeof(bongocat_animation_t));
-union animation_t {
-    bongocat_animation_t bongocat;
-    digimon_animation_t digimon;
-    generic_sprite_sheet_animation_t sprite_sheet;
-};
 static_assert(sizeof(bongocat_animation_t) == sizeof(digimon_animation_t));
 static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(bongocat_animation_t));
 static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(digimon_animation_t));
+struct animation_t {
+    union {
+        bongocat_animation_t bongocat;
+        digimon_animation_t digimon;
+        generic_sprite_sheet_animation_t sprite_sheet;
+    };
+
+    animation_t() {
+        sprite_sheet.sprite_sheet_width = 0;
+        sprite_sheet.sprite_sheet_height = 0;
+        sprite_sheet.channels = 0;
+        sprite_sheet.pixels = {};
+        sprite_sheet.frame_width = 0;
+        sprite_sheet.frame_height = 0;
+        sprite_sheet.total_frames = 0;
+        for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+            sprite_sheet.frames[i] = {};
+        }
+    }
+    ~animation_t() {
+        sprite_sheet.sprite_sheet_width = 0;
+        sprite_sheet.sprite_sheet_height = 0;
+        sprite_sheet.channels = 0;
+        sprite_sheet.pixels = {};
+        sprite_sheet.frame_width = 0;
+        sprite_sheet.frame_height = 0;
+        sprite_sheet.total_frames = 0;
+        for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+            sprite_sheet.frames[i] = {};
+        }
+    }
+
+    animation_t(const animation_t& other) {
+        sprite_sheet.sprite_sheet_width = other.sprite_sheet.sprite_sheet_width;
+        sprite_sheet.sprite_sheet_height = other.sprite_sheet.sprite_sheet_height;
+        sprite_sheet.channels = other.sprite_sheet.channels;
+        sprite_sheet.pixels = other.sprite_sheet.pixels;
+        sprite_sheet.frame_width = other.sprite_sheet.frame_width;
+        sprite_sheet.frame_height = other.sprite_sheet.frame_height;
+        sprite_sheet.total_frames = other.sprite_sheet.total_frames;
+        for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+            sprite_sheet.frames[i] = other.sprite_sheet.frames[i];
+        }
+    }
+    animation_t& operator=(const animation_t& other) {
+        if (this != &other) {
+            sprite_sheet.sprite_sheet_width = other.sprite_sheet.sprite_sheet_width;
+            sprite_sheet.sprite_sheet_height = other.sprite_sheet.sprite_sheet_height;
+            sprite_sheet.channels = other.sprite_sheet.channels;
+            sprite_sheet.pixels = other.sprite_sheet.pixels;
+            sprite_sheet.frame_width = other.sprite_sheet.frame_width;
+            sprite_sheet.frame_height = other.sprite_sheet.frame_height;
+            sprite_sheet.total_frames = other.sprite_sheet.total_frames;
+            for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+                sprite_sheet.frames[i] = other.sprite_sheet.frames[i];
+            }
+        }
+        return *this;
+    }
+
+    animation_t(animation_t&& other) noexcept {
+        sprite_sheet.sprite_sheet_width = other.sprite_sheet.sprite_sheet_width;
+        sprite_sheet.sprite_sheet_height = other.sprite_sheet.sprite_sheet_height;
+        sprite_sheet.channels = other.sprite_sheet.channels;
+        sprite_sheet.pixels = bongocat_move(other.sprite_sheet.pixels);
+        sprite_sheet.frame_width = other.sprite_sheet.frame_width;
+        sprite_sheet.frame_height = other.sprite_sheet.frame_height;
+        sprite_sheet.total_frames = other.sprite_sheet.total_frames;
+        for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+            sprite_sheet.frames[i] = bongocat_move(other.sprite_sheet.frames[i]);
+        }
+
+        other.sprite_sheet.sprite_sheet_width = 0;
+        other.sprite_sheet.sprite_sheet_height = 0;
+        other.sprite_sheet.channels = 0;
+        other.sprite_sheet.pixels = {};
+        other.sprite_sheet.frame_width = 0;
+        other.sprite_sheet.frame_height = 0;
+        other.sprite_sheet.total_frames = 0;
+        for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+            sprite_sheet.frames[i] = {};
+        }
+    }
+    animation_t& operator=(animation_t&& other) noexcept {
+        if (this != &other) {
+            sprite_sheet.sprite_sheet_width = other.sprite_sheet.sprite_sheet_width;
+            sprite_sheet.sprite_sheet_height = other.sprite_sheet.sprite_sheet_height;
+            sprite_sheet.channels = other.sprite_sheet.channels;
+            sprite_sheet.pixels = bongocat_move(other.sprite_sheet.pixels);
+            sprite_sheet.frame_width = other.sprite_sheet.frame_width;
+            sprite_sheet.frame_height = other.sprite_sheet.frame_height;
+            sprite_sheet.total_frames = other.sprite_sheet.total_frames;
+            for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+                sprite_sheet.frames[i] = bongocat_move(other.sprite_sheet.frames[i]);
+            }
+
+            other.sprite_sheet.sprite_sheet_width = 0;
+            other.sprite_sheet.sprite_sheet_height = 0;
+            other.sprite_sheet.channels = 0;
+            other.sprite_sheet.pixels = {};
+            other.sprite_sheet.frame_width = 0;
+            other.sprite_sheet.frame_height = 0;
+            other.sprite_sheet.total_frames = 0;
+            for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+                sprite_sheet.frames[i] = {};
+            }
+        }
+        return *this;
+    }
+};
 
 #endif //BONGOCAT_ANIMATION_SPRITE_SHEET_H

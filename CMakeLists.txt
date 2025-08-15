@@ -79,6 +79,7 @@ set(SOURCES
     ${SRC_DIR}/platform/wayland.cpp
     ${SRC_DIR}/utils/error.cpp
     ${SRC_DIR}/utils/memory.cpp
+    ${SRC_DIR}/utils/system_memory.cpp
     ${SRC_DIR}/utils/time.cpp
 )
 if (INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS)

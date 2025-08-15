@@ -3,6 +3,8 @@
 
 #include "core/bongocat.h"
 #include "utils/error.h"
+#include <cstdlib>
+#include <cassert>
 
 enum class overlay_position_t : uint8_t {
     POSITION_TOP,
@@ -70,6 +72,185 @@ struct config_t {
     int happy_kpm{0};
 
     align_type_t cat_align{align_type_t::ALIGN_CENTER};
+
+
+
+    // Make Config movable and copyable
+    config_t() {
+        for (size_t i = 0; i < MAX_INPUT_DEVICES; ++i) {
+            keyboard_devices[i] = nullptr;
+        }
+    }
+    ~config_t() {
+        if (output_name) free(output_name);
+        output_name = nullptr;
+        _free_keyboard_devices();
+    }
+
+    config_t(const config_t& other)
+        : bar_height(other.bar_height),
+          cat_x_offset(other.cat_x_offset),
+          cat_y_offset(other.cat_y_offset),
+          cat_height(other.cat_height),
+          overlay_height(other.overlay_height),
+          idle_frame(other.idle_frame),
+          keypress_duration_ms(other.keypress_duration_ms),
+          test_animation_duration_ms(other.test_animation_duration_ms),
+          test_animation_interval_sec(other.test_animation_interval_sec),
+          fps(other.fps),
+          overlay_opacity(other.overlay_opacity),
+          enable_debug(other.enable_debug),
+          layer(other.layer),
+          overlay_position(other.overlay_position),
+          animation_index(other.animation_index),
+          invert_color(other.invert_color),
+          padding_x(other.padding_x),
+          padding_y(other.padding_y),
+          enable_scheduled_sleep(other.enable_scheduled_sleep),
+          sleep_begin(other.sleep_begin),
+          sleep_end(other.sleep_end),
+          idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
+          happy_kpm(other.happy_kpm),
+          cat_align(other.cat_align)
+    {
+        output_name = other.output_name ? strdup(other.output_name) : nullptr;
+        _copy_keyboard_devices_from(other);
+    }
+
+    config_t& operator=(const config_t& other) {
+        if (this != &other) {
+            if (output_name) free(output_name);
+            output_name = nullptr;
+            _free_keyboard_devices();
+
+            bar_height = other.bar_height;
+            cat_x_offset = other.cat_x_offset;
+            cat_y_offset = other.cat_y_offset;
+            cat_height = other.cat_height;
+            overlay_height = other.overlay_height;
+            idle_frame = other.idle_frame;
+            keypress_duration_ms = other.keypress_duration_ms;
+            test_animation_duration_ms = other.test_animation_duration_ms;
+            test_animation_interval_sec = other.test_animation_interval_sec;
+            fps = other.fps;
+            overlay_opacity = other.overlay_opacity;
+            enable_debug = other.enable_debug;
+            layer = other.layer;
+            overlay_position = other.overlay_position;
+            animation_index = other.animation_index;
+            invert_color = other.invert_color;
+            padding_x = other.padding_x;
+            padding_y = other.padding_y;
+            enable_scheduled_sleep = other.enable_scheduled_sleep;
+            sleep_begin = other.sleep_begin;
+            sleep_end = other.sleep_end;
+            idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
+            happy_kpm = other.happy_kpm;
+            cat_align = other.cat_align;
+
+            output_name = other.output_name ? strdup(other.output_name) : nullptr;
+            _copy_keyboard_devices_from(other);
+        }
+        return *this;
+    }
+
+    config_t(config_t&& other) noexcept
+        : bar_height(other.bar_height),
+          output_name(other.output_name),
+          num_keyboard_devices(other.num_keyboard_devices),
+          cat_x_offset(other.cat_x_offset),
+          cat_y_offset(other.cat_y_offset),
+          cat_height(other.cat_height),
+          overlay_height(other.overlay_height),
+          idle_frame(other.idle_frame),
+          keypress_duration_ms(other.keypress_duration_ms),
+          test_animation_duration_ms(other.test_animation_duration_ms),
+          test_animation_interval_sec(other.test_animation_interval_sec),
+          fps(other.fps),
+          overlay_opacity(other.overlay_opacity),
+          enable_debug(other.enable_debug),
+          layer(other.layer),
+          overlay_position(other.overlay_position),
+          animation_index(other.animation_index),
+          invert_color(other.invert_color),
+          padding_x(other.padding_x),
+          padding_y(other.padding_y),
+          enable_scheduled_sleep(other.enable_scheduled_sleep),
+          sleep_begin(other.sleep_begin),
+          sleep_end(other.sleep_end),
+          idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
+          happy_kpm(other.happy_kpm),
+          cat_align(other.cat_align)
+    {
+        for (int i = 0; i < num_keyboard_devices; ++i) {
+            keyboard_devices[i] = other.keyboard_devices[i];
+            other.keyboard_devices[i] = nullptr;
+        }
+        other.output_name = nullptr;
+        other.num_keyboard_devices = 0;
+    }
+
+    config_t& operator=(config_t&& other) noexcept {
+        if (this != &other) {
+            if (output_name) free(output_name);
+            output_name = nullptr;
+            _free_keyboard_devices();
+
+            bar_height = other.bar_height;
+            output_name = other.output_name;
+            num_keyboard_devices = other.num_keyboard_devices;
+            cat_x_offset = other.cat_x_offset;
+            cat_y_offset = other.cat_y_offset;
+            cat_height = other.cat_height;
+            overlay_height = other.overlay_height;
+            idle_frame = other.idle_frame;
+            keypress_duration_ms = other.keypress_duration_ms;
+            test_animation_duration_ms = other.test_animation_duration_ms;
+            test_animation_interval_sec = other.test_animation_interval_sec;
+            fps = other.fps;
+            overlay_opacity = other.overlay_opacity;
+            enable_debug = other.enable_debug;
+            layer = other.layer;
+            overlay_position = other.overlay_position;
+            animation_index = other.animation_index;
+            invert_color = other.invert_color;
+            padding_x = other.padding_x;
+            padding_y = other.padding_y;
+            enable_scheduled_sleep = other.enable_scheduled_sleep;
+            sleep_begin = other.sleep_begin;
+            sleep_end = other.sleep_end;
+            idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
+            happy_kpm = other.happy_kpm;
+            cat_align = other.cat_align;
+
+            for (int i = 0; i < num_keyboard_devices; ++i) {
+                keyboard_devices[i] = other.keyboard_devices[i];
+                other.keyboard_devices[i] = nullptr;
+            }
+            other.output_name = nullptr;
+            other.num_keyboard_devices = 0;
+        }
+        return *this;
+    }
+
+
+    void _free_keyboard_devices() {
+        assert(num_keyboard_devices >= 0);
+        for (size_t i = 0; i < static_cast<size_t>(num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
+            if (keyboard_devices[i]) free(keyboard_devices[i]);
+            keyboard_devices[i] = nullptr;
+        }
+        num_keyboard_devices = 0;
+    }
+
+    void _copy_keyboard_devices_from(const config_t& other) {
+        _free_keyboard_devices();
+        num_keyboard_devices = other.num_keyboard_devices;
+        assert(num_keyboard_devices >= 0);
+        for (size_t i = 0; i < static_cast<size_t>(num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
+            keyboard_devices[i] = other.keyboard_devices[i] ? strdup(other.keyboard_devices[i]) : nullptr;
+        }
+    }
 };
 
 struct load_config_overwrite_parameters_t {

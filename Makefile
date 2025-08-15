@@ -58,7 +58,7 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Source files (including embedded assets which are now committed)
-SOURCES = src/utils/memory.cpp src/utils/time.cpp src/utils/error.cpp src/core/main.cpp src/platform/wayland.cpp src/platform/input.cpp src/graphics/bar.cpp src/graphics/animation.cpp src/graphics/animation_init.cpp src/graphics/embedded_assets.cpp src/config/config_watcher.cpp src/config/config.cpp
+SOURCES = src/utils/system_memory.cpp src/utils/memory.cpp src/utils/time.cpp src/utils/error.cpp src/core/main.cpp src/platform/wayland.cpp src/platform/input.cpp src/graphics/bar.cpp src/graphics/animation.cpp src/graphics/animation_init.cpp src/graphics/embedded_assets.cpp src/config/config_watcher.cpp src/config/config.cpp
 
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 

@@ -5,7 +5,6 @@
 #include <stdatomic.h>
 
 struct input_shared_memory_t {
-    /// @NOTE: variables can be shared between child process and parent (see mmap)
     int any_key_pressed{0};
     int kpm{0};                    // keystrokes per minute
     atomic_int input_counter{0};
