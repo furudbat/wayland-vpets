@@ -992,8 +992,8 @@ bongocat_error_t wayland_run(wayland_listeners_context_t& ctx, volatile sig_atom
         constexpr nfds_t fds_count = 4;
         pollfd fds[fds_count] = {
             { .fd = signal_fd, .events = POLLIN, .revents = 0 },
-            { .fd = config_watcher.reload_efd, .events = POLLIN, .revents = 0 },
-            { .fd = trigger_ctx.render_efd, .events = POLLIN, .revents = 0 },
+            { .fd = config_watcher.reload_efd._fd, .events = POLLIN, .revents = 0 },
+            { .fd = trigger_ctx.render_efd._fd, .events = POLLIN, .revents = 0 },
             { .fd = wl_display_get_fd(wayland_ctx.display), .events = POLLIN, .revents = 0 },
         };
         static_assert(fds_count == LEN_ARRAY(fds));
@@ -1100,7 +1100,7 @@ bongocat_error_t wayland_run(wayland_listeners_context_t& ctx, volatile sig_atom
 
                 int attempts = 0;
                 uint64_t u;
-                while (read(trigger_ctx.render_efd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                while (read(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
                     attempts++;
                     // continue draining if multiple writes queued
                 }
@@ -1368,12 +1368,12 @@ const char* wayland_get_current_layer_name() {
 }
 
 bongocat_error_t wayland_request_render(animation_trigger_context_t& trigger_ctx) {
-    if (trigger_ctx.render_efd < 0) {
+    if (trigger_ctx.render_efd._fd < 0) {
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 
     constexpr uint64_t u = 1;
-    const ssize_t s = write(trigger_ctx.render_efd, &u, sizeof(u));
+    const ssize_t s = write(trigger_ctx.render_efd._fd, &u, sizeof(u));
     if (s != sizeof(u)) {
         BONGOCAT_LOG_WARNING("Failed to write render eventfd: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;

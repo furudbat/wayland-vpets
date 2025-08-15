@@ -52,12 +52,12 @@ static bool is_sleep_time(const config_t& config) {
                         : (now_minutes >= begin || now_minutes < end));
 }
 
-typedef struct {
-    timestamp_us_t hold_until_us;
-    int test_counter;
-    int test_interval_frames;
-    time_ns_t frame_time_ns;
-} animation_state_t;
+struct animation_state_t {
+    timestamp_us_t hold_until_us{0};
+    int test_counter{0};
+    int test_interval_frames{0};
+    time_ns_t frame_time_ns{0};
+};
 
 static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused]] const input_shared_memory_t& input_shm) {
 #ifdef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
@@ -193,7 +193,7 @@ static bool anim_handle_key_press(animation_trigger_context_t& animation_trigger
     constexpr size_t fds_animation_trigger_index = 0;
     constexpr int fds_count = 1;
     pollfd fds[fds_count] = {
-        { .fd = animation_trigger_ctx.trigger_efd, .events = POLLIN, .revents = 0 },
+        { .fd = animation_trigger_ctx.trigger_efd._fd, .events = POLLIN, .revents = 0 },
     };
     assert(fds_count == LEN_ARRAY(fds));
 
@@ -213,7 +213,7 @@ static bool anim_handle_key_press(animation_trigger_context_t& animation_trigger
 
             uint64_t u;
             assert(MAX_ATTEMPTS <= INT_MAX);
-            while (read(animation_trigger_ctx.trigger_efd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && any_key_pressed <= static_cast<int>(MAX_ATTEMPTS)) {
+            while (read(animation_trigger_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && any_key_pressed <= static_cast<int>(MAX_ATTEMPTS)) {
                 any_key_pressed++;
             }
             // supress compiler warning
@@ -378,7 +378,7 @@ static void *anim_thread_main(void *arg) {
         const bool frame_changed = anim_update_state(trigger_ctx, state);
         if (frame_changed) {
             uint64_t u = 1;
-            if (write(trigger_ctx.render_efd, &u, sizeof(uint64_t)) >= 0) {
+            if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
                 BONGOCAT_LOG_VERBOSE("Write animation render event");
             } else {
                 BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
@@ -444,7 +444,7 @@ bongocat_error_t animation_start(animation_trigger_context_t& trigger_ctx, anima
 
 void animation_trigger(animation_trigger_context_t& trigger_ctx) {
     constexpr uint64_t u = 1;
-    if (write(trigger_ctx.trigger_efd, &u, sizeof(uint64_t)) >= 0) {
+    if (write(trigger_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) >= 0) {
         BONGOCAT_LOG_VERBOSE("Write animation trigger event");
     } else {
         BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));

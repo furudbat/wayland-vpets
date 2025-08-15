@@ -1,6 +1,7 @@
 #ifndef BONGOCAT_WAYLAND_H
 #define BONGOCAT_WAYLAND_H
 
+#include "config/config_watcher.h"
 #include "wayland_context.h"
 #include "graphics/animation_context.h"
 #include "graphics/animation_event_context.h"

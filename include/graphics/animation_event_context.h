@@ -6,8 +6,8 @@
 
 struct animation_trigger_context_t {
     // event file descriptor
-    int trigger_efd{-1};
-    int render_efd{-1};
+    FileDescriptor trigger_efd;
+    FileDescriptor render_efd;
 
     input_context_t *_input{nullptr};
     animation_context_t *_anim{nullptr};

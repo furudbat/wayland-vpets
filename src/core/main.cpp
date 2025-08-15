@@ -482,10 +482,10 @@ int main(int argc, char *argv[]) {
     // init default values
     config_set_defaults(g_config);
     // in case config watcher is not started/inited
-    g_config_watcher.inotify_fd = -1;
-    g_config_watcher.watch_fd = -1;
+    g_config_watcher.inotify_fd = {};
+    g_config_watcher.watch_fd = {};
     g_config_watcher.config_path = nullptr;
-    g_config_watcher.reload_efd = -1;
+    g_config_watcher.reload_efd = {};
     g_config_watcher._watcher_thread = 0;
     g_config_watcher._running = false;
 
