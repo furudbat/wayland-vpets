@@ -61,7 +61,7 @@ struct animation_state_t {
 
 static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused]] const input_shared_memory_t& input_shm) {
 #ifdef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-    assert(ctx.shm && ctx.shm != MAP_FAILED);
+    assert(ctx.shm != nullptr && ctx.shm != MAP_FAILED);
     const animation_shared_memory_t& anim_shm = *ctx.shm;
 
     const int current_frame = anim_shm.anim_frame_index;
@@ -74,7 +74,7 @@ static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused
 
     return rand_minmax(1, 2); // Frame 1 or 2 (active frames)
 #else
-    assert(ctx.shm);
+    assert(ctx.shm != nullptr);
     const animation_shared_memory_t& anim_shm = *ctx.shm;
 
     const int current_frame = anim_shm.anim_frame_index;
@@ -88,7 +88,7 @@ static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused
     }
 
     // read-only config
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     const config_t& current_config = *ctx._local_copy_config;
 
     // toggle sleep frame (if 2 frame exists for sleeping)
@@ -140,14 +140,14 @@ static bool anim_trigger_frame_change(animation_context_t& ctx,
                                       int new_frame, long duration_us, long current_time_us,
                                       animation_state_t& state) {
     // read-only config
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     const config_t& current_config = *ctx._local_copy_config;
 
     if (current_config.enable_debug) {
         BONGOCAT_LOG_VERBOSE("Animation frame change: %d (duration: %ld us)", new_frame, duration_us);
     }
 
-    assert(ctx.shm);
+    assert(ctx.shm != nullptr);
     const bool changed = ctx.shm->anim_frame_index != new_frame;
     ctx.shm->anim_frame_index = new_frame;
     if (changed) {
@@ -158,7 +158,7 @@ static bool anim_trigger_frame_change(animation_context_t& ctx,
 
 static bool anim_handle_test_animation(animation_context_t& ctx, const input_context_t& input, animation_state_t& state, timestamp_us_t current_time_us) {
     // read-only config
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     const config_t& current_config = *ctx._local_copy_config;
 
     if (current_config.test_animation_interval_sec <= 0) {
@@ -180,13 +180,13 @@ static bool anim_handle_test_animation(animation_context_t& ctx, const input_con
 }
 
 static bool anim_handle_key_press(animation_trigger_context_t& animation_trigger_ctx, animation_state_t& state, timestamp_us_t current_time_us) {
-    assert(animation_trigger_ctx._input);
-    assert(animation_trigger_ctx._input->shm);
-    assert(animation_trigger_ctx._anim);
+    assert(animation_trigger_ctx._input != nullptr);
+    assert(animation_trigger_ctx._input->shm != nullptr);
+    assert(animation_trigger_ctx._anim != nullptr);
     const input_shared_memory_t& input_shm = *animation_trigger_ctx._input->shm;
     animation_context_t& ctx = *animation_trigger_ctx._anim;
     // read-only config
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     const config_t& current_config = *ctx._local_copy_config;
 
 
@@ -247,10 +247,10 @@ static bool anim_handle_idle_return(animation_context_t& ctx, const input_contex
     assert(input.shm);
     const input_shared_memory_t& input_shm = *input.shm;
     // read-only config
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     const config_t& current_config = *ctx._local_copy_config;
-    assert(ctx.shm);
 
+    assert(ctx.shm != nullptr);
     const int old_anim_frame_index = ctx.shm->anim_frame_index;
 
     // Sleep Mode
@@ -339,7 +339,7 @@ static bool anim_update_state(animation_trigger_context_t& animation_trigger_ctx
 
 static void anim_init_state(animation_context_t& ctx, animation_state_t& state) {
     // read-only config
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     const config_t& current_config = *ctx._local_copy_config;
     assert(current_config.fps > 0);
 
@@ -452,8 +452,8 @@ void animation_trigger(animation_trigger_context_t& trigger_ctx) {
 }
 
 void animation_update_config(animation_context_t& ctx, const config_t& config) {
-    assert(ctx._local_copy_config);
-    assert(ctx.shm);
+    assert(ctx._local_copy_config != nullptr);
+    assert(ctx.shm != nullptr);
 
 #ifndef NDEBUG
     assert(ANIMS_COUNT <= INT_MAX);

@@ -18,7 +18,7 @@ static void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t ti
     animation_trigger_context_t& trigger_ctx = *ctx->animation_trigger_context;
     //wayland_shared_memory_t& wayland_ctx_shm = wayland_ctx->ctx_shm;
     // read-only
-    assert(wayland_ctx._local_copy_config);
+    assert(wayland_ctx._local_copy_config != nullptr);
     const config_t& current_config = *wayland_ctx._local_copy_config;
     //const animation_shared_memory_t *const anim_shm = anim->shm;
     //assert(anim_shm);
@@ -93,10 +93,14 @@ bool draw_bar(wayland_listeners_context_t& ctx) {
 
     const int effective_opacity = wayland_ctx->_fullscreen_detected ? 0 : current_config->overlay_opacity;
 
+    assert(wayland_ctx->_screen_width >= 0);
+    assert(current_config->bar_height >= 0);
+    assert(effective_opacity >= 0);
+
     // Fast clear with 32-bit fill
-    const uint32_t fill = (effective_opacity << 24); // RGBA, little-endian
+    const uint32_t fill = (static_cast<unsigned>(effective_opacity) << 24u); // RGBA, little-endian
     auto *p = reinterpret_cast<uint32_t *>(pixels);
-    const size_t total_pixels = static_cast<size_t>(wayland_ctx->_screen_width) * current_config->bar_height;
+    const size_t total_pixels = static_cast<size_t>(wayland_ctx->_screen_width) * static_cast<size_t>(current_config->bar_height);
     if (current_config->enable_debug) {
         if (const size_t expected_bytes = total_pixels * sizeof(uint32_t); expected_bytes > pixels_size) {
             BONGOCAT_LOG_VERBOSE("draw_bar: pixel write would overflow buffer (expected %zu bytes, have %zu). Aborting draw.",

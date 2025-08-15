@@ -151,8 +151,8 @@ static void config_validate_appearance(config_t& config) {
     } else {
 #ifdef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
         // digimon animation
-        assert(BONGOCAT_NUM_FRAMES <= INT_MAX);
-        if (config.idle_frame < 0 || config.idle_frame >= (int)MAX_DIGIMON_FRAMES) {
+        assert(MAX_DIGIMON_FRAMES <= INT_MAX);
+        if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MAX_DIGIMON_FRAMES)) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
                                  IDLE_FRAME_KEY, config.idle_frame, MAX_DIGIMON_FRAMES - 1);
             config.idle_frame = 0;
@@ -565,7 +565,7 @@ void config_set_defaults(config_t& config) {
     cfg.bar_height = DEFAULT_BAR_HEIGHT;
     cfg.output_name = nullptr;
     assert(MAX_INPUT_DEVICES <= INT_MAX);
-    for (int i = 0; i < (int)MAX_INPUT_DEVICES; i++) {
+    for (int i = 0; i < static_cast<int>(MAX_INPUT_DEVICES); i++) {
         cfg.keyboard_devices[i] = nullptr;
     }
     cfg.num_keyboard_devices = 0;

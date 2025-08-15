@@ -48,21 +48,21 @@ bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animat
 
     // Initialize shared memory
     ctx.shm = make_allocated_mmap<animation_shared_memory_t>();
-    if (!ctx.shm) {
+    if (ctx.shm == nullptr) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
-    assert(ctx.shm);
+    assert(ctx.shm != nullptr);
     set_defaults_animation_shared_memory(*ctx.shm);
 
     // Initialize shared memory for local config
     ctx._local_copy_config = make_allocated_mmap<config_t>();
-    if (!ctx._local_copy_config) {
+    if (ctx._local_copy_config == nullptr) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         ctx.shm._release();
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     //config_set_defaults(*ctx._local_copy_config);
     animation_update_config(ctx, config);
     ctx.shm->anim_frame_index = config.idle_frame;  // initial frame
@@ -86,7 +86,7 @@ bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animat
     
     // Initialize embedded images data
     const embedded_image_t* bongocat_embedded_images = init_bongocat_embedded_images();
-    const auto result = anim_load_embedded_images_into_sprite_sheet(&ctx.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
+    const auto result = anim_load_embedded_images_into_sprite_sheet(ctx.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
     if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Load Bongocat images failed");
         /*
@@ -141,7 +141,7 @@ void animation_cleanup(animation_trigger_context_t& trigger_ctx, animation_conte
 
     ctx._local_copy_config._release();
 
-    if (ctx.shm) {
+    if (ctx.shm != nullptr) {
         // Cleanup loaded images
         for (size_t i = 0;i < ANIMS_COUNT; i++) {
             anim_free_pixels(ctx.shm->anims[i].sprite_sheet);

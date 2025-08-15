@@ -1,7 +1,7 @@
 # Bongo Cat + Digimon Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
+[![Version](https://img.shields.io/badge/version-2.0.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
 
 A delightful Wayland overlay that displays an animated V-Pet (bongo cat or digimon) reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
@@ -270,7 +270,7 @@ The `bongocat-find-devices` tool provides professional input device analysis wit
 $ bongocat-find-devices
 
 ╔══════════════════════════════════════════════════════════════════╗
-║ Wayland Bongo Cat - Input Device Discovery v1.4.0                ║
+║ Wayland Bongo Cat - Input Device Discovery v2.0.0                ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 [SCAN] Scanning for input devices...
@@ -332,7 +332,7 @@ bongocat-find-devices --help
 
 - **CPU:** Any modern x86_64 or ARM64 processor
 - **RAM:** ~12MB runtime usage
-- **Storage:** ~245K executable size
+- **Storage:** ~312K executable size
 - **Compositor:** Wayland with layer shell protocol support
 
 ### Performance Metrics (v1.4.0)
@@ -342,7 +342,6 @@ bongocat-find-devices --help
 - **Device Monitoring:** Adaptive 5-30 second intervals
 - **Memory:** Optimized with leak detection
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
-- **Binary Size:** ~245K executable size
 - **Event-based Rendering:** Only updates frame buffer when needed (on frame change, input, ...) (v1.4.0)
 
 ### Tested Compositors
@@ -533,5 +532,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v1.4.0** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v2.0.0** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon VPets.

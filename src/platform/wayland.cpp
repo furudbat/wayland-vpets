@@ -105,10 +105,10 @@ static constexpr zxdg_output_v1_listener xdg_output_listener = {
 // =============================================================================
 
 static bool fs_update_state(wayland_listeners_context_t& ctx, bool new_state) {
-    assert(ctx.animation_trigger_context);
-    assert(ctx.animation_context);
-    assert(ctx.wayland_context);
-    assert(ctx.wayland_context->ctx_shm);
+    assert(ctx.animation_trigger_context != nullptr);
+    assert(ctx.animation_context != nullptr);
+    assert(ctx.wayland_context != nullptr);
+    assert(ctx.wayland_context->ctx_shm != nullptr);
     const wayland_shared_memory_t& wayland_ctx_shm = *ctx.wayland_context->ctx_shm;
 
     if (new_state != ctx.fs_detector.has_fullscreen_toplevel) {
@@ -366,7 +366,8 @@ FileDescriptor create_shm(off_t size) {
 
     for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
         for (size_t j = 0; j < name_suffix_len; j++) {
-            name[name_prefix_len + j] = charset[rand() % (sizeof(charset) - 1)];
+            assert(sizeof(charset) - 1 > 0);
+            name[name_prefix_len + j] = charset[rand() % static_cast<int>(sizeof(charset) - 1)];
         }
         fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
         if (fd >= 0) {
@@ -392,9 +393,9 @@ static void layer_surface_configure(void *data,
     assert(data);
     wayland_listeners_context_t& ctx = *static_cast<wayland_listeners_context_t *>(data);
 
-    assert(ctx.animation_trigger_context);
-    assert(ctx.wayland_context);
-    assert(ctx.wayland_context->ctx_shm);
+    assert(ctx.animation_trigger_context != nullptr);
+    assert(ctx.wayland_context != nullptr);
+    assert(ctx.wayland_context->ctx_shm != nullptr);
     wayland_shared_memory_t& wayland_ctx_shm = *ctx.wayland_context->ctx_shm;
 
     zwlr_layer_surface_v1_ack_configure(ls, serial);
@@ -610,7 +611,7 @@ static bongocat_error_t wayland_setup_protocols(wayland_listeners_context_t& ctx
     //animation_trigger_context_t& trigger_ctx = *ctx->animation_trigger_context;
 
     // read-only config
-    assert(wayland_ctx._local_copy_config);
+    assert(wayland_ctx._local_copy_config != nullptr);
     const config_t& current_config = *wayland_ctx._local_copy_config;
 
     wl_registry *registry = wl_display_get_registry(wayland_ctx.display);
@@ -691,7 +692,7 @@ static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t& ctx) 
     //animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
     // read-only config
-    assert(wayland_ctx._local_copy_config);
+    assert(wayland_ctx._local_copy_config != nullptr);
     const config_t& current_config = *wayland_ctx._local_copy_config;
 
     wayland_ctx.surface = wl_compositor_create_surface(wayland_ctx.compositor);
@@ -723,9 +724,11 @@ static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t& ctx) 
             anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
             break;
     }
-    
+
+    assert(current_config.bar_height >= 0);
+    //assert(current_config.bar_height <= UINT32_MAX);
     zwlr_layer_surface_v1_set_anchor(wayland_ctx.layer_surface, anchor);
-    zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, current_config.bar_height);
+    zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(current_config.bar_height));
     zwlr_layer_surface_v1_set_exclusive_zone(wayland_ctx.layer_surface, -1);
     zwlr_layer_surface_v1_set_keyboard_interactivity(wayland_ctx.layer_surface,
                                                      ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_NONE);
@@ -752,7 +755,7 @@ static void wayland_cleanup_shm_buffer(wayland_shm_buffer_t& buffer) {
 }
 static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animation_trigger_context_t& trigger_ctx) {
     // read-only config
-    assert(wayland_context._local_copy_config);
+    assert(wayland_context._local_copy_config != nullptr);
     const config_t& current_config = *wayland_context._local_copy_config;
 
     wayland_shared_memory_t *wayland_ctx_shm = wayland_context.ctx_shm;
@@ -780,7 +783,7 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context,
 
     for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
         assert(buffer_size >= 0 && static_cast<size_t>(buffer_size) <= SIZE_MAX);
-        wayland_ctx_shm->buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, buffer_size, fd, static_cast<off_t>(i) * buffer_size);
+        wayland_ctx_shm->buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, static_cast<size_t>(buffer_size), fd, static_cast<off_t>(i) * buffer_size);
         if (!wayland_ctx_shm->buffers[i].pixels) {
             BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
             for (size_t j = 0; j < i; j++) {
@@ -877,11 +880,11 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
 
     // Initialize shared memory
     wayland.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
-    if (!wayland.ctx_shm) {
+    if (wayland.ctx_shm == nullptr) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
-    if (wayland.ctx_shm) {
+    if (wayland.ctx_shm != nullptr) {
         static_assert(WAYLAND_NUM_BUFFERS <= INT_MAX);
         for (size_t i = 0;i < WAYLAND_NUM_BUFFERS;i++) {
             /*
@@ -900,7 +903,7 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
 
     // Initialize shared memory for local config
     wayland._local_copy_config = make_allocated_mmap<config_t>();
-    if (!wayland._local_copy_config ) {
+    if (wayland._local_copy_config == nullptr) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         wayland.ctx_shm._release();
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
@@ -911,7 +914,7 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
 
     wayland.display = wl_display_connect(nullptr);
     if (!wayland.display) {
-        if (wayland._local_copy_config && wayland._local_copy_config != MAP_FAILED) {
+        if (wayland._local_copy_config != nullptr && wayland._local_copy_config != MAP_FAILED) {
             wayland._local_copy_config = {};
         }
         wayland.ctx_shm._release();
@@ -1197,7 +1200,7 @@ int wayland_get_screen_width(const wayland_listeners_context_t& ctx) {
 }
 
 void wayland_update_config(wayland_context_t& ctx, const config_t& config, animation_trigger_context_t& trigger_ctx) {
-    assert(ctx._local_copy_config && ctx._local_copy_config != MAP_FAILED);
+    assert(ctx._local_copy_config != nullptr && ctx._local_copy_config != MAP_FAILED);
 
     *ctx._local_copy_config = config;
 
@@ -1325,7 +1328,7 @@ void wayland_cleanup(wayland_listeners_context_t& ctx) {
             wayland_ctx->display = nullptr;
         }
 
-        if (wayland_ctx->_local_copy_config && wayland_ctx->_local_copy_config != MAP_FAILED) {
+        if (wayland_ctx->_local_copy_config != nullptr && wayland_ctx->_local_copy_config != MAP_FAILED) {
             if (wayland_ctx->_local_copy_config->output_name) free(wayland_ctx->_local_copy_config->output_name);
             wayland_ctx->_local_copy_config->output_name = nullptr;
             wayland_ctx->_local_copy_config._release();
@@ -1341,7 +1344,7 @@ void wayland_cleanup(wayland_listeners_context_t& ctx) {
     ctx.screen_info = {};
 
     if (wayland_ctx) {
-        if (wayland_ctx->ctx_shm && wayland_ctx->ctx_shm != MAP_FAILED) {
+        if (wayland_ctx->ctx_shm != nullptr && wayland_ctx->ctx_shm != MAP_FAILED) {
             wayland_ctx->ctx_shm._release();
             wayland_ctx_shm = nullptr;
         }

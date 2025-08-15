@@ -115,9 +115,9 @@ struct AllocatedMemory {
         : _size_bytes(other._size_bytes)
     {
         _size_bytes = sizeof(T);
-        if (other.ptr && _size_bytes > 0) {
+        if (other.ptr != nullptr && _size_bytes > 0) {
             ptr = static_cast<T*>(BONGOCAT_MALLOC(_size_bytes));
-            if (ptr) {
+            if (ptr != nullptr) {
                 if constexpr (bongocat_is_trivially_copyable<T>::value) {
                     memcpy(ptr, other.ptr, _size_bytes);
                 } else {
@@ -136,7 +136,7 @@ struct AllocatedMemory {
         if (this != &other) {
             _release();
             _size_bytes = sizeof(T);
-            if (other.ptr && _size_bytes > 0) {
+            if (other.ptr != nullptr && _size_bytes > 0) {
                 ptr = static_cast<T*>(BONGOCAT_MALLOC(_size_bytes));
                 if (ptr) {
                     if constexpr (bongocat_is_trivially_copyable<T>::value) {
@@ -234,7 +234,7 @@ inline static AllocatedMemory<T> make_allocated_memory() {
     ret._size_bytes = sizeof(T);
     if (ret._size_bytes > 0) {
         ret.ptr = static_cast<T*>(BONGOCAT_MALLOC(ret._size_bytes));
-        if (ret.ptr) {
+        if (ret.ptr != nullptr) {
             // default ctor
             new (ret.ptr) T();
             return ret;
@@ -358,7 +358,7 @@ struct AllocatedArray {
 
     // Release memory manually
     void _release() {
-        if (data) {
+        if (data != nullptr) {
             if (!bongocat_is_trivially_destructible<T>::value) {
                 for (size_t i = 0; i < count; i++) {
                     data[i].~T();

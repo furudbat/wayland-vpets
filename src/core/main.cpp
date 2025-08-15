@@ -502,10 +502,11 @@ int main(int argc, char *argv[]) {
     // set pid file, based on output_name
     char* pid_filename = nullptr;
     if (g_config.output_name && g_config.output_name[0] != '\0') {
-        const size_t needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name) + 1;
-        pid_filename = static_cast<char *>(malloc(needed_size));
+        const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name) + 1;
+        assert(needed_size >= 0);
+        pid_filename = static_cast<char *>(malloc(static_cast<size_t>(needed_size)));
         if (pid_filename != nullptr) {
-            snprintf(pid_filename, needed_size, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name);
+            snprintf(pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name);
         } else {
             BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
             config_cleanup(g_config);
@@ -540,7 +541,8 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("PID file created: %s", pid_filename);
 
     // more randomness is needed to create better shm names, see create_shm
-    srand(static_cast<unsigned>(time(nullptr)) ^ getpid()); // seed once, include pid for better randomness
+    const auto pid = getpid();
+    srand(static_cast<unsigned>(time(nullptr)) ^ static_cast<unsigned>(pid)); // seed once, include pid for better randomness
 
     // Setup signal handlers
     g_signal_watch_path = args.config_file;

@@ -75,7 +75,7 @@ static void* capture_input_thread(void* arg) {
     input_context_t& input = *trigger_ctx._input;
 
     // read-only config
-    assert(input._local_copy_config);
+    assert(input._local_copy_config != nullptr);
     const config_t& current_config = *input._local_copy_config;
     const bool enable_debug = current_config.enable_debug;
 
@@ -84,7 +84,8 @@ static void* capture_input_thread(void* arg) {
         assert(current_config.num_keyboard_devices >= 0);
         int device_paths_count = current_config.num_keyboard_devices;
         const char *const *device_paths = current_config.keyboard_devices;        // pls don't modify single keyboard_devices (string)
-        input._device_paths = make_allocated_array<char*>(device_paths_count);
+        assert(device_paths_count >= 0);
+        input._device_paths = make_allocated_array<char*>(static_cast<size_t>(device_paths_count));
         for (size_t i = 0; i < input._device_paths.count; i++) {
             input._device_paths[i] = strdup(device_paths[i]);
             if (!input._device_paths[i]) {
@@ -308,7 +309,8 @@ static void* capture_input_thread(void* arg) {
                     pfds[p].fd = -1;
                     continue;
                 }
-                if (rd == 0 || rd % sizeof(input_event) != 0) {
+                assert(rd >= 0);
+                if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
                     BONGOCAT_LOG_WARNING("EOF or partial read on fd=%d", pfds[p].fd);
                     close(pfds[p].fd);
                     // pfds[p].fd is only a reference, reset also the owner (unique_fd)
@@ -323,7 +325,9 @@ static void* capture_input_thread(void* arg) {
                     continue;
                 }
 
-                const ssize_t num_events = rd / sizeof(input_event);
+                assert(rd >= 0);
+                assert(sizeof(input_event) > 0);
+                const auto num_events =  static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
                 bool key_pressed = false;
                 for (ssize_t j = 0; j < num_events; j++) {
                     if (ev[j].type == EV_KEY && ev[j].value == 1) {
@@ -345,8 +349,13 @@ static void* capture_input_thread(void* arg) {
                     if (duration_ms >= static_cast<time_ms_t>(2000.0 / current_config.fps)) {
                         const int input_kpm_counter = atomic_load(&input._input_kpm_counter);
                         if (input_kpm_counter > 0) {
-                            const double duration_min = duration_ms / 60000.0;
-                            input.shm->kpm = input_kpm_counter / duration_min;
+                            if (duration_ms > 0) {
+                                const double duration_min = static_cast<double>(duration_ms) / 60000.0;
+                                assert(duration_min > 0.0);
+                                input.shm->kpm = static_cast<int>(static_cast<double>(input_kpm_counter) / duration_min);
+                            } else {
+                                input.shm->kpm = 0;
+                            }
                             atomic_store(&input._input_kpm_counter, 0);
                             input._latest_kpm_update_ms = now;
                         }
@@ -477,7 +486,7 @@ bongocat_error_t input_start_monitoring(animation_trigger_context_t& trigger_ctx
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     *ctx._local_copy_config = config;
 
     //if (trigger_ctx._input != ctx._input) {
@@ -526,7 +535,7 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t& trigger_c
     //ctx._latest_kpm_update_ms = get_current_time_ms();
     
     // Start new monitoring (reuse shared memory if it exists)
-    if (!ctx.shm) {
+    if (ctx.shm == nullptr) {
         ctx.shm = make_allocated_mmap<input_shared_memory_t>();
         if (ctx.shm.ptr == MAP_FAILED) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
@@ -534,7 +543,7 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t& trigger_c
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
     }
-    if (ctx.shm) {
+    if (ctx.shm != nullptr) {
         ctx.shm->any_key_pressed = 0;
         ctx.shm->kpm = 0;
         ctx.shm->input_counter = 0;
@@ -542,16 +551,16 @@ bongocat_error_t input_restart_monitoring(animation_trigger_context_t& trigger_c
     }
 
 
-    if (!ctx._local_copy_config) {
+    if (ctx._local_copy_config == nullptr) {
         ctx._local_copy_config = make_allocated_mmap<config_t>();
-        if (!ctx._local_copy_config) {
+        if (ctx._local_copy_config != nullptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             ctx.shm._release();
             cleanup_input_thread_context(ctx);
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
     }
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
     *ctx._local_copy_config = config;
 
     //if (trigger_ctx._input != ctx._input) {
@@ -609,7 +618,7 @@ void input_cleanup(input_context_t& ctx) {
 }
 
 void input_update_config(input_context_t& ctx, const config_t& config) {
-    assert(ctx._local_copy_config);
+    assert(ctx._local_copy_config != nullptr);
 
     *ctx._local_copy_config = config;
     /// @NOTE: input thread required so the new config has affect

@@ -5,7 +5,7 @@
 #include <cstddef>
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "1.4.0";
+inline static constexpr const char* BONGOCAT_VERSION = "2.0.0";
 
 // Common constants
 inline static constexpr int DEFAULT_SCREEN_WIDTH = 1920;

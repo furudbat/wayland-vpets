@@ -17,6 +17,15 @@
 #pragma GCC diagnostic ignored "-Wdouble-promotion"
 #pragma GCC diagnostic ignored "-Wsign-compare"
 #pragma GCC diagnostic ignored "-Wunused-function"
+#pragma GCC diagnostic ignored "-Wold-style-cast"
+#pragma GCC diagnostic ignored "-Wsign-conversion"
+#pragma GCC diagnostic ignored "-Wcast-align"
+#pragma GCC diagnostic ignored "-Wconversion"
+#if defined(__GNUC__) && !defined(__clang__)
+#pragma GCC diagnostic ignored "-Wduplicated-branches"
+#pragma GCC diagnostic ignored "-Wuseless-cast"
+//#pragma GCC diagnostic ignored "-Wimplicit-int-conversion"
+#endif
 #endif
 #include "../lib/stb_image.h"
 #if defined(__GNUC__) || defined(__clang__)
@@ -115,9 +124,9 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 
-    const int frame_width = sheet_width / frame_columns;
-    const int frame_height = sheet_height / frame_rows;
-    const int total_frames = frame_columns * frame_rows;
+    const auto frame_width = sheet_width / frame_columns;
+    const auto frame_height = sheet_height / frame_rows;
+    const auto total_frames = frame_columns * frame_rows;
 
     /*
     assert(MAX_NUM_FRAMES <= INT_MAX);
@@ -129,11 +138,14 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
     }
     */
 
-    const int dest_frame_width = frame_width + padding_x*2;
-    const int dest_frame_height = frame_height + padding_y*2;
-    const int dest_pixels_width = dest_frame_width * frame_columns;
-    const int dest_pixels_height = dest_frame_height * frame_rows;
-    const size_t dest_pixels_size = dest_pixels_width * dest_pixels_height * channels;
+    const auto dest_frame_width = frame_width + padding_x*2;
+    const auto dest_frame_height = frame_height + padding_y*2;
+    const auto dest_pixels_width = dest_frame_width * frame_columns;
+    const auto dest_pixels_height = dest_frame_height * frame_rows;
+    assert(dest_pixels_width >= 0);
+    assert(dest_pixels_height >= 0);
+    assert(channels >= 0);
+    const size_t dest_pixels_size = static_cast<size_t>(dest_pixels_width) * static_cast<size_t>(dest_pixels_height) * static_cast<size_t>(channels);
     auto dest_pixels = AllocatedArray<uint8_t>(dest_pixels_size);
     if (!dest_pixels) {
         BONGOCAT_LOG_ERROR("Failed to allocate memory for dest_pixels (%zu bytes)\n", dest_pixels_size);
@@ -143,28 +155,31 @@ static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_anima
     }
     //memset(dest_pixels.data, 0, dest_pixels_size);
 
-    const int src_frame_width = frame_width;
-    const int src_frame_height = frame_height;
-    const int src_pixels_width = sheet_width;
-    const int src_pixels_height = sheet_height;
-    const size_t src_pixels_size = src_pixels_width * src_pixels_height * channels;
+    const auto src_frame_width = frame_width;
+    const auto src_frame_height = frame_height;
+    const auto src_pixels_width = sheet_width;
+    const auto src_pixels_height = sheet_height;
+    assert(src_pixels_width >= 0);
+    assert(src_pixels_height >= 0);
+    assert(channels >= 0);
+    const size_t src_pixels_size = static_cast<size_t>(src_pixels_width) * static_cast<size_t>(src_pixels_height) * static_cast<size_t>(channels);
     size_t frame_index = 0;
     for (int row = 0; row < frame_rows; ++row) {
         for (int col = 0; col < frame_columns; ++col) {
-            const int src_x = col * src_frame_width;
-            const int src_y = row * src_frame_height;
-            const int dst_x = col * dest_frame_width + padding_x;
-            const int dst_y = row * dest_frame_height + padding_y;
-            [[maybe_unused]] const int src_idx = (src_y * src_pixels_width + src_x) * channels;
-            [[maybe_unused]] const int dst_idx = (dst_y * dest_pixels_width + dst_x) * channels;
+            const auto src_x = col * src_frame_width;
+            const auto src_y = row * src_frame_height;
+            const auto dst_x = col * dest_frame_width + padding_x;
+            const auto dst_y = row * dest_frame_height + padding_y;
+            [[maybe_unused]] const auto src_idx = (src_y * src_pixels_width + src_x) * channels;
+            [[maybe_unused]] const auto dst_idx = (dst_y * dest_pixels_width + dst_x) * channels;
             assert(src_idx >= 0);
             assert(dst_idx >= 0);
 
             bool set_frames = false;
             for (int fy = 0; fy < src_frame_height; fy++) {
                 for (int fx = 0; fx < src_frame_width; fx++) {
-                    const int src_px_idx = ((src_y + fy) * src_pixels_width + (src_x + fx)) * channels;
-                    const int dst_px_idx = ((dst_y + fy) * dest_pixels_width + (dst_x + fx)) * channels;
+                    const auto src_px_idx = ((src_y + fy) * src_pixels_width + (src_x + fx)) * channels;
+                    const auto dst_px_idx = ((dst_y + fy) * dest_pixels_width + (dst_x + fx)) * channels;
 
                     if (src_px_idx >= 0 && dst_px_idx >= 0 &&
                         static_cast<size_t>(src_px_idx) < src_pixels_size &&
@@ -279,8 +294,8 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
 
     // Loop over clipped target Y
     for (int ty = y0; ty < y1; ++ty) {
-        const int dy = offset_y + ty;  // dest y
-        assert((unsigned)dy < (unsigned)dest_h);
+        const auto dy = offset_y + ty;  // dest y
+        assert(dy < dest_h);
         // fixed-point source y for this target y
         const int32_t sy_fixed = src_y_start + static_cast<int32_t>(static_cast<int64_t>(ty) * inc_y);
         const int sy = sy_fixed >> FIXED_SHIFT;
@@ -294,14 +309,16 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
         int32_t sx_fixed = src_x_start + static_cast<int32_t>(static_cast<int64_t>(x0) * inc_x);
 
         // Destination x start and destination pointer
-        const int dx = offset_x + x0;
-        const unsigned char *dest_ptr = dest_row + static_cast<size_t>(dx) * dest_channels;
+        const auto dx = offset_x + x0;
+        assert(dest_channels >= 0);
+        const unsigned char *dest_ptr = dest_row + static_cast<size_t>(dx) * static_cast<size_t>(dest_channels);
 
         // For each x in clipped horizontal range
         for (int tx = x0; tx < x1; ++tx) {
-            // If sampled source pixel is outside source bounds, skip (safe-guard)
+            // If sampled source pixel is outside source bounds, skip (safeguard)
             if (int sx = sx_fixed >> FIXED_SHIFT; static_cast<unsigned>(sx) < static_cast<unsigned>(src_w)) {
-                const uint8_t *src_pixel = src_row + static_cast<size_t>(sx) * src_channels;
+                assert(src_channels >= 0);
+                const uint8_t *src_pixel = src_row + static_cast<size_t>(sx) * static_cast<size_t>(src_channels);
                 if (dest_ptr >= dest && src_pixel >= src) {
                     const int dest_idx = static_cast<int>(dest_ptr - dest); // index in bytes from dest base
                     const int src_idx  = static_cast<int>(src_pixel - src); // index in bytes from src base
@@ -394,9 +411,7 @@ typedef struct {
     int frame_width;
     int frame_height;
 } loaded_sprite_sheet_frame_t;
-static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t *anim, const embedded_image_t *embedded_images, size_t embedded_images_count) {
-    assert(anim);
-
+static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, const embedded_image_t *embedded_images, size_t embedded_images_count) {
     int total_frames = 0;
     int max_frame_width = 0;
     int max_frame_height = 0;
@@ -417,7 +432,10 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
             BONGOCAT_LOG_ERROR("Failed to load embedded image: %s", img->name);
             continue;
         }
-        loaded_images[i].pixels_size = loaded_images[i].frame_width * loaded_images[i].frame_height * loaded_images[i].channels;
+        assert(loaded_images[i].frame_width >= 0);
+        assert(loaded_images[i].frame_height >= 0);
+        assert(loaded_images[i].channels >= 0);
+        loaded_images[i].pixels_size = static_cast<size_t>(loaded_images[i].frame_width) * static_cast<size_t>(loaded_images[i].frame_height) * static_cast<size_t>(loaded_images[i].channels);
 
         max_frame_width = loaded_images[i].frame_width > max_frame_width ? loaded_images[i].frame_width : max_frame_width;
         max_frame_height = loaded_images[i].frame_height > max_frame_height ? loaded_images[i].frame_height : max_frame_height;
@@ -428,21 +446,24 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
         total_frames++;
     }
 
-    anim->frame_width = max_frame_width;
-    anim->frame_height = max_frame_height;
-    anim->total_frames = total_frames;
-    anim->sprite_sheet_width = max_frame_width * total_frames;
-    anim->sprite_sheet_height = max_frame_height;
-    anim->channels = max_channels;
+    anim.frame_width = max_frame_width;
+    anim.frame_height = max_frame_height;
+    anim.total_frames = total_frames;
+    anim.sprite_sheet_width = max_frame_width * total_frames;
+    anim.sprite_sheet_height = max_frame_height;
+    anim.channels = max_channels;
     // create sprite sheet
-    anim->pixels = make_allocated_array<uint8_t>(anim->sprite_sheet_width * anim->sprite_sheet_height * anim->channels);
-    if (!anim->pixels) {
-        anim->frame_width = 0;
-        anim->frame_height = 0;
-        anim->total_frames = 0;
-        anim->sprite_sheet_width = 0;
-        anim->sprite_sheet_height = 0;
-        anim->channels = 0;
+    assert(anim.sprite_sheet_width >= 0);
+    assert(anim.sprite_sheet_height >= 0);
+    assert(anim.channels >= 0);
+    anim.pixels = make_allocated_array<uint8_t>(static_cast<size_t>(anim.sprite_sheet_width) * static_cast<size_t>(anim.sprite_sheet_height) * static_cast<size_t>(anim.channels));
+    if (!anim.pixels) {
+        anim.frame_width = 0;
+        anim.frame_height = 0;
+        anim.total_frames = 0;
+        anim.sprite_sheet_width = 0;
+        anim.sprite_sheet_height = 0;
+        anim.channels = 0;
 
         for (size_t i = 0; i < loaded_images.count; i++) {
             if (loaded_images[i].pixels) stbi_image_free(loaded_images[i].pixels);
@@ -453,28 +474,34 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
     // reset frames
     //memset(anim->pixels.data, 0, anim->pixels.count * sizeof(uint8_t));
     for (size_t i = 0;i < MAX_NUM_FRAMES;i++) {
-        anim->frames[i] = {};
+        anim.frames[i] = {};
     }
     // append images into one sprite sheet
+    assert(max_frame_width >= 0);
+    assert(max_channels >= 0);
+    assert(anim.sprite_sheet_width >= 0);
     for (size_t frame = 0; frame < loaded_images.count; frame++) {
         const loaded_sprite_sheet_frame_t& src = loaded_images[frame];
+        assert(src.channels >= 0);
+        assert(src.frame_width >= 0);
+        assert(src.frame_height >= 0);
         if (src.pixels && src.frame_height > 0) {
             // copy pixel data of sub-region
             assert(src.frame_height >= 0);
             for (size_t y = 0; y < static_cast<size_t>(src.frame_height); y++) {
-                unsigned char* dest_row = anim->pixels.data +
-                    ((y) * anim->sprite_sheet_width + (frame * max_frame_width)) * max_channels;
-                const unsigned char* src_row = src.pixels + (y * src.frame_width * src.channels);
-                memcpy(dest_row, src_row, src.frame_width * max_channels);
+                unsigned char* dest_row = anim.pixels.data +
+                    ((y) * static_cast<size_t>(anim.sprite_sheet_width) + (frame * static_cast<size_t>(max_frame_width))) * static_cast<size_t>(max_channels);
+                const unsigned char* src_row = src.pixels + (y * static_cast<size_t>(src.frame_width) * static_cast<size_t>(src.channels));
+                memcpy(dest_row, src_row, static_cast<size_t>(src.frame_width) * static_cast<size_t>(max_channels));
             }
 
             // update sub-region
             if (frame < MAX_NUM_FRAMES) {
-                anim->frames[frame] = { .valid = true, .col = static_cast<int>(frame), .row = 0 };
+                anim.frames[frame] = { .valid = true, .col = static_cast<int>(frame), .row = 0 };
             }
         } else {
             if (frame < MAX_NUM_FRAMES) {
-                anim->frames[frame] = { .valid = false, .col = static_cast<int>(frame), .row = 0 };
+                anim.frames[frame] = { .valid = false, .col = static_cast<int>(frame), .row = 0 };
             }
         }
     }
@@ -495,7 +522,7 @@ static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_spri
     assert(sprite_sheet_image.size <= INT_MAX);
 
     const auto result = load_sprite_sheet_from_memory(anim,
-                                  sprite_sheet_image.data, static_cast<int>(sprite_sheet_image.size),
+                                  sprite_sheet_image.data, sprite_sheet_image.size,
                                   sprite_sheet_cols, sprite_sheet_rows,
                                   config.padding_x, config.padding_y,
                                   config.invert_color ? drawing_copy_pixel_color_option_t::COPY_PIXEL_OPTION_INVERT : drawing_copy_pixel_color_option_t::COPY_PIXEL_OPTION_NORMAL);

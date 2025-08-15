@@ -1,4 +1,6 @@
 #include "utils/error.h"
+
+#include <cassert>
 #include <cstdarg>
 #include <ctime>
 #include <sys/time.h>
@@ -29,8 +31,9 @@ void bongocat_error_init(bool enable_debug) {
 
 // Core log function using va_list
 inline void log_vprintf(const char* name, const char* format, va_list args) {
+    assert(strlen(name) > 0);
     log_timestamp(stdout);
-    fprintf(stdout, "%.*s: ", (int)strlen(name), name);
+    fprintf(stdout, "%.*s: ", static_cast<int>(strlen(name)), name);
     vfprintf(stdout, format, args);
     fprintf(stdout, "\n");
     fflush(stdout);
