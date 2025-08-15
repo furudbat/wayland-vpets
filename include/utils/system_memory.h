@@ -738,8 +738,8 @@ struct FileDescriptor {
     }
     */
 
-    // Implicit conversion to int
-    explicit(false) operator int() const noexcept {
+    // conversion to int
+    operator int() const noexcept {
         return _fd;
     }
 };

@@ -8,6 +8,10 @@
 #include <pthread.h>
 #include <stdatomic.h>
 
+struct input_unique_file_t {
+    const char* device_path{nullptr};     // ref to _device_paths
+    FileDescriptor fd;
+};
 
 struct input_context_t {
     /// @NOTE: variables can be shared between child process and parent (see mmap)
@@ -23,8 +27,9 @@ struct input_context_t {
 
     // thread context
     AllocatedArray<char*> _device_paths;           // local copy of devices
-    AllocatedArray<FileDescriptor> _fds;
     AllocatedArray<size_t> _unique_paths_indices;
+    size_t _unique_paths_indices_capacity{0};      // keep real _unique_paths_indices count here, shrink _unique_paths_indices.count to used unique_paths_indices
+    AllocatedArray<input_unique_file_t> _unique_devices;
 };
 
 #endif // BONGOCAT_INPUT_CONTEXT_H
