@@ -123,8 +123,6 @@ set(C_WARNING_FLAGS
     -Wredundant-decls
     -Wnested-externs
     -Wmissing-include-dirs
-    -Wlogical-op
-    -Wjump-misses-init
     -Wdouble-promotion
     -Wshadow
 )
@@ -135,7 +133,6 @@ set(CXX_WARNING_FLAGS
         -Wformat=2
         -Wredundant-decls
         -Wmissing-include-dirs
-        -Wlogical-op
         -Wdouble-promotion
         -Wshadow
 )
@@ -145,16 +142,28 @@ target_compile_options(bongocat PRIVATE
         ${C_WARNING_FLAGS}
         -fstack-protector-strong
     >
+    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:GNU>>:-Wlogical-op -Wjump-misses-init>
+
     $<$<COMPILE_LANGUAGE:CXX>:
         ${CXX_WARNING_FLAGS}
         -fstack-protector-strong
     >
+    $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU>>:-Wlogical-op>
 )
+
+# supress warning: embed is a Clang extension [-Wc23-extensions]
+target_compile_options(bongocat PRIVATE
+    $<$<AND:$<COMPILE_LANGUAGE:C>,$<CXX_COMPILER_ID:Clang>>:-std=gnu23>
+    $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:-std=gnu++26>
+    $<$<AND:$<COMPILE_LANGUAGE:C>,$<CXX_COMPILER_ID:Clang>>:-Wno-c23-extensions>
+    $<$<AND:$<COMPILE_LANGUAGE:CCC>,$<CXX_COMPILER_ID:Clang>>:-Wno-c23-extensions>
+)
+
 target_compile_options(bongocat PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:
             -fno-exceptions -fno-rtti
             #-ffreestanding
-            -nostdlib++
+            #-nostdlib++
         >
 )
 
@@ -198,7 +207,8 @@ target_link_libraries(bongocat PRIVATE m rt pthread)
 
 set_target_properties(bongocat PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE TRUE)
 target_compile_options(bongocat PRIVATE
-        $<$<CONFIG:Release>:-flto=8>
+        $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:GNU>>:-flto=8>
+        $<$<AND:$<CONFIG:Release>,$<CXX_COMPILER_ID:Clang>>:-flto>
 )
 
 include(GNUInstallDirs)

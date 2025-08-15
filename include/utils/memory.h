@@ -5,6 +5,9 @@
 #include "utils/error.h"
 #include <stdatomic.h>
 #include <cassert>
+#if defined(__GNUC__) || defined(__GNUG__)
+#include <type_traits>
+#endif
 
 // Memory pool for efficient allocation
 struct memory_pool_t {
@@ -64,12 +67,34 @@ void memory_leak_check();
 
 
 
+
 template <typename T>
 struct bongocat_is_trivially_copyable {
-#if defined(__GNUC__) || defined(__clang__)
-    static const bool value = __is_trivially_copyable(T);
+#if defined(__clang__)
+    static constexpr bool value = __is_trivially_copyable(T);
+#elif defined(__GNUC__) || defined(__GNUG__)
+    static constexpr bool value = __is_trivially_copyable(T);
+#elif defined(_MSC_VER)
+    static constexpr bool value = __is_trivially_copyable(T);
 #else
-    static const bool value = false; // fallback: assume non-trivial
+    static constexpr bool value = false;
+#endif
+};
+
+template <typename T>
+struct bongocat_is_trivially_destructible {
+#if defined(__clang__)
+    static constexpr bool value = __is_trivially_destructible(T);
+#elif defined(__GNUC__) || defined(__GNUG__)
+    // GCC requires `typename T` to be fully resolved
+    //static constexpr bool value = __is_trivially_destructible(T);
+    /// @FIXME: expected nested-name-specifier before »T« [-Wtemplate-body]
+    /// Fallback to STL
+    static constexpr bool value = std::is_trivially_destructible<T>::value;
+#elif defined(_MSC_VER)
+    static constexpr bool value = __is_trivially_destructible(T);
+#else
+    static constexpr bool value = false;
 #endif
 };
 
@@ -151,6 +176,9 @@ struct AllocatedMemory {
     // Release memory manually
     void _release() {
         if (ptr) {
+            if (!bongocat_is_trivially_destructible<T>::value) {
+                ptr->~T();
+            }
             BONGOCAT_FREE(ptr);
             ptr = nullptr;
             _size_bytes = 0;
@@ -207,12 +235,8 @@ inline static AllocatedMemory<T> make_allocated_memory() {
     if (ret._size_bytes > 0) {
         ret.ptr = static_cast<T*>(BONGOCAT_MALLOC(ret._size_bytes));
         if (ret.ptr) {
-            if constexpr (bongocat_is_trivially_copyable<T>::value) {
-                memset(ret.ptr, 0, ret._size_bytes);
-            } else {
-                // default ctor
-                new (ret.ptr) T();
-            }
+            // default ctor
+            new (ret.ptr) T();
             return ret;
         } else {
             BONGOCAT_LOG_ERROR("memory allocation failed");
@@ -335,6 +359,11 @@ struct AllocatedArray {
     // Release memory manually
     void _release() {
         if (data) {
+            if (!bongocat_is_trivially_destructible<T>::value) {
+                for (size_t i = 0; i < count; i++) {
+                    data[i].~T();
+                }
+            }
             BONGOCAT_FREE(data);
             data = nullptr;
             count = 0;

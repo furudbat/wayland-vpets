@@ -147,6 +147,9 @@ struct MMapMemory {
 
     void _release() {
         if (ptr) {
+            if (!bongocat_is_trivially_destructible<T>::value) {
+                ptr->~T();
+            }
             munmap(ptr, _size_bytes);
             ptr = nullptr;
             _size_bytes = 0;
@@ -206,12 +209,8 @@ inline static MMapMemory<T> make_allocated_mmap() {
                                         MAP_SHARED | MAP_ANONYMOUS,
                                         -1, 0));
         if (ret.ptr && ret.ptr != MAP_FAILED) {
-            if constexpr (bongocat_is_trivially_copyable<T>::value) {
-                memset(ret.ptr, 0, ret._size_bytes);
-            } else {
-                // default ctor
-                new (ret.ptr) T();
-            }
+            // default ctor
+            new (ret.ptr) T();
             return ret;
         } else {
             BONGOCAT_LOG_ERROR("malloc failed");
@@ -335,6 +334,11 @@ struct MMapArray {
     // Release memory manually
     void _release() {
         if (data) {
+            if (!bongocat_is_trivially_destructible<T>::value) {
+                for (size_t i = 0; i < count; i++) {
+                    data[i].~T();
+                }
+            }
             munmap(data, _size_bytes);
             data = nullptr;
             count = 0;
@@ -523,9 +527,26 @@ inline static MMapFile<T> make_unallocated_mmap_file() {
     return MMapFile<T>();
 }
 template <typename T>
-inline static MMapFile<T> make_allocated_mmap_file(int fd, off_t offset = 0) {
+inline static MMapFile<T> make_allocated_mmap_file_uninitialized(int fd, off_t offset = 0) {
     return MMapFile<T>(fd, offset);
 }
+template <typename T>
+inline static MMapFile<T> make_allocated_mmap_file_defaulted(int fd, off_t offset = 0) {
+    auto ret = MMapFile<T>(fd, offset);
+    if (ret.ptr) {
+        new (ret.ptr) T();
+    }
+    return ret;
+}
+template <typename T>
+inline static MMapFile<T> make_allocated_mmap_file_value(const T& value, int fd, off_t offset = 0) {
+    auto ret = MMapFile<T>(fd, offset);
+    for (size_t i = 0;i < ret.size;i++) {
+        *ret.ptr = value;
+    }
+    return ret;
+}
+
 
 
 template <typename T>
@@ -678,8 +699,24 @@ inline static MMapFileBuffer<T> make_unallocated_mmap_file_buffer() {
     return MMapFileBuffer<T>();
 }
 template <typename T>
-inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer(size_t count, int fd, off_t offset = 0) {
+inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_uninitialized(size_t count, int fd, off_t offset = 0) {
     return MMapFileBuffer<T>(count, fd, offset);
+}
+template <typename T>
+inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_defaulted(size_t count, int fd, off_t offset = 0) {
+    auto ret = count > 0 ? MMapFileBuffer<T>(count, fd, offset) : MMapFileBuffer<T>();
+    for (size_t i = 0;i < ret.count;i++) {
+        new (&ret.data[i]) T();
+    }
+    return ret;
+}
+template <typename T>
+inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_value(const T& value, size_t count, int fd, off_t offset = 0) {
+    auto ret = count > 0 ? MMapFileBuffer<T>(count, fd, offset) : MMapFileBuffer<T>();
+    for (size_t i = 0;i < ret.count;i++) {
+        ret.data[i] = value;
+    }
+    return ret;
 }
 
 

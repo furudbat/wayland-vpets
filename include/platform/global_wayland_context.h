@@ -1,10 +1,11 @@
 #ifndef BONGOCAT_GLOBAL_WAYLAND_CONTEXT_CONTEXT_H
 #define BONGOCAT_GLOBAL_WAYLAND_CONTEXT_CONTEXT_H
 
+#include "platform/wayland-protocols.hpp"
+
 #include "wayland_context.h"
 #include "graphics/animation_context.h"
 #include "graphics/animation_event_context.h"
-#include "../protocols/xdg-output-unstable-v1-client-protocol.h"
 #include <sys/time.h>
 
 inline static constexpr size_t MAX_TOPLEVELS = 64;

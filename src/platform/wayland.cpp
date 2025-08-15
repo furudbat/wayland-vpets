@@ -1,11 +1,11 @@
+#include "platform/wayland-protocols.hpp"
+
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "platform/wayland_shared_memory.h"
 #include "platform/global_wayland_context.h"
 #include "utils/memory.h"
 #include "../graphics/bar.h"
-#include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
-#include "../protocols/xdg-output-unstable-v1-client-protocol.h"
 #include <cassert>
 #include <poll.h>
 #include <unistd.h>
@@ -356,7 +356,7 @@ static void screen_calculate_dimensions(wayland_listeners_context_t& ctx) {
 // BUFFER AND DRAWING MANAGEMENT
 // =============================================================================
 
-int create_shm(off_t size) {
+FileDescriptor create_shm(off_t size) {
     constexpr size_t name_suffix_len = 8;
     constexpr size_t name_prefix_len = 9;
     char name[] = "/bar-shm-XXXXXXXX";
@@ -377,10 +377,9 @@ int create_shm(off_t size) {
 
     if (fd < 0 || ftruncate(fd, size) < 0) {
         perror("shm");
-        return -1;
     }
 
-    return fd;
+    return FileDescriptor(fd);
 }
 
 // =============================================================================
@@ -744,10 +743,8 @@ static bongocat_error_t wayland_setup_surface(wayland_listeners_context_t& ctx) 
 }
 
 static void wayland_cleanup_shm_buffer(wayland_shm_buffer_t& buffer) {
-    wl_buffer_destroy(buffer.buffer);
-    if (buffer.pixels) {
-        buffer.pixels = nullptr;
-    }
+    if (buffer.buffer) wl_buffer_destroy(buffer.buffer);
+    buffer.pixels._release();
     atomic_store(&buffer.busy, false);
     atomic_store(&buffer.pending, false);
     buffer.index = 0;
@@ -770,21 +767,20 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context,
     assert(WAYLAND_NUM_BUFFERS <= INT32_MAX);
     const int32_t total_size = buffer_size * static_cast<int32_t>(WAYLAND_NUM_BUFFERS);
 
-    const int fd = create_shm(total_size);
+    FileDescriptor fd = create_shm(total_size);
     if (fd < 0) {
         return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
-    wl_shm_pool *pool = wl_shm_create_pool(wayland_context.shm, fd, total_size);
+    wl_shm_pool *pool = wl_shm_create_pool(wayland_context.shm, fd._fd, total_size);
     if (!pool) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory pool");
-        close(fd);
         return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
 
     for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
-        assert(buffer_size >= 0 && (size_t)buffer_size <= SIZE_MAX);
-        wayland_ctx_shm->buffers[i].pixels = make_allocated_mmap_file_buffer<uint8_t>(buffer_size, fd, static_cast<off_t>(i) * buffer_size);
+        assert(buffer_size >= 0 && static_cast<size_t>(buffer_size) <= SIZE_MAX);
+        wayland_ctx_shm->buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, buffer_size, fd, static_cast<off_t>(i) * buffer_size);
         if (!wayland_ctx_shm->buffers[i].pixels) {
             BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
             for (size_t j = 0; j < i; j++) {
@@ -805,7 +801,6 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context,
                 wayland_cleanup_shm_buffer(wayland_ctx_shm->buffers[j]);
             }
             wl_shm_pool_destroy(pool);
-            close(fd);
             return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
         }
 
@@ -818,7 +813,6 @@ static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context,
     }
 
     wl_shm_pool_destroy(pool);
-    close(fd);
 
     wayland_ctx_shm->current_buffer_index = 0;
 
@@ -834,18 +828,25 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
     }
     ctx.num_toplevels = 0;
     for (size_t i = 0; i < MAX_OUTPUTS; i++) {
+        /*
         ctx.outputs[i].wl_output = nullptr;
         ctx.outputs[i].xdg_output = nullptr;
         ctx.outputs[i].name = 0;
         ctx.outputs[i].name_received = false;
         memset(ctx.outputs[i].name_str, 0, OUTPUT_NAME_SIZE);
+        */
+        ctx.outputs[i] = {};
     }
     ctx.output_count = 0;
     ctx.xdg_output_manager = nullptr;
 
+    /*
     ctx.fs_detector.has_fullscreen_toplevel = false;
     ctx.fs_detector.manager = nullptr;
+    */
+    ctx.fs_detector = {};
 
+    /*
     ctx.screen_info.screen_width = 0;
     ctx.screen_info.screen_height = 0;
     ctx.screen_info.transform = 0;
@@ -853,6 +854,8 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
     ctx.screen_info.raw_height = 0;
     ctx.screen_info.mode_received = false;
     ctx.screen_info.geometry_received = false;
+    */
+    ctx.screen_info = {};
 
     wayland.display = nullptr;
     wayland.compositor = nullptr;
@@ -874,13 +877,14 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
 
     // Initialize shared memory
     wayland.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
-    if (!wayland.ctx_shm ) {
+    if (!wayland.ctx_shm) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     if (wayland.ctx_shm) {
         static_assert(WAYLAND_NUM_BUFFERS <= INT_MAX);
         for (size_t i = 0;i < WAYLAND_NUM_BUFFERS;i++) {
+            /*
             wayland.ctx_shm->buffers[i].buffer = nullptr;
             wayland.ctx_shm->buffers[i].pixels = nullptr;
             atomic_store(&wayland.ctx_shm->buffers[i].busy, false);
@@ -888,6 +892,8 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
             wayland.ctx_shm->buffers[i]._animation_trigger_context = nullptr;
 
             wayland.ctx_shm->buffers[i].index = static_cast<int>(i);
+            */
+            wayland.ctx_shm->buffers[i] = {};
         }
         atomic_store(&wayland.ctx_shm->configured, false);
     }
@@ -896,10 +902,7 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
     wayland._local_copy_config = make_allocated_mmap<config_t>();
     if (!wayland._local_copy_config ) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-        if (wayland.ctx_shm && wayland.ctx_shm != MAP_FAILED) {
-            munmap(wayland.ctx_shm, sizeof(wayland_shared_memory_t));
-            wayland.ctx_shm = nullptr;
-        }
+        wayland.ctx_shm._release();
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
     wayland_update_config(wayland, config, trigger_ctx);
@@ -909,15 +912,9 @@ bongocat_error_t wayland_init(wayland_listeners_context_t& ctx, wayland_context_
     wayland.display = wl_display_connect(nullptr);
     if (!wayland.display) {
         if (wayland._local_copy_config && wayland._local_copy_config != MAP_FAILED) {
-            if (wayland._local_copy_config->output_name) free(wayland._local_copy_config->output_name);
-            wayland._local_copy_config->output_name = nullptr;
-            munmap(wayland._local_copy_config, sizeof(config_t));
-            wayland._local_copy_config = nullptr;
+            wayland._local_copy_config = {};
         }
-        if (wayland.ctx_shm && wayland.ctx_shm != MAP_FAILED) {
-            munmap(wayland.ctx_shm, sizeof(wayland_shared_memory_t));
-            wayland.ctx_shm = nullptr;
-        }
+        wayland.ctx_shm._release();
         BONGOCAT_LOG_ERROR("Failed to connect to Wayland display");
         return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
     }
@@ -1331,8 +1328,7 @@ void wayland_cleanup(wayland_listeners_context_t& ctx) {
         if (wayland_ctx->_local_copy_config && wayland_ctx->_local_copy_config != MAP_FAILED) {
             if (wayland_ctx->_local_copy_config->output_name) free(wayland_ctx->_local_copy_config->output_name);
             wayland_ctx->_local_copy_config->output_name = nullptr;
-            munmap(wayland_ctx->_local_copy_config, sizeof(config_t));
-            wayland_ctx->_local_copy_config = nullptr;
+            wayland_ctx->_local_copy_config._release();
         }
         wayland_ctx->_screen_width = 0;
         wayland_ctx->_output_name_str = nullptr;
@@ -1346,8 +1342,7 @@ void wayland_cleanup(wayland_listeners_context_t& ctx) {
 
     if (wayland_ctx) {
         if (wayland_ctx->ctx_shm && wayland_ctx->ctx_shm != MAP_FAILED) {
-            munmap(wayland_ctx->ctx_shm, sizeof(wayland_shared_memory_t));
-            wayland_ctx->ctx_shm = nullptr;
+            wayland_ctx->ctx_shm._release();
             wayland_ctx_shm = nullptr;
         }
     }

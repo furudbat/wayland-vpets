@@ -155,6 +155,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "};" >> "$C_SOURCE_OUT"
     echo "const size_t $SIZE_SYMBOL = sizeof($EMBED_SYMBOL);" >> "$C_SOURCE_OUT"
     echo >> "$C_SOURCE_OUT"
+    echo >> "$C_HEADER_OUT" # extra EOL
 
     ((INDEX++))
 done

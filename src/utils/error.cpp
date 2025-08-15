@@ -3,11 +3,13 @@
 #include <ctime>
 #include <sys/time.h>
 #include <cstdio>
+#include <stdatomic.h>
+#include <cstring>
 
-static bool debug_enabled = true;
+static atomic_bool debug_enabled = true;
 
 void bongocat_error_init(bool enable_debug) {
-    debug_enabled = enable_debug;
+    atomic_store(&debug_enabled, enable_debug);
 }
 
 [[maybe_unused]] static void log_timestamp(FILE *stream) {
@@ -24,37 +26,37 @@ void bongocat_error_init(bool enable_debug) {
 
 #ifndef BONGOCAT_DISABLE_LOGGER
 
-#define bongocat_log_x(format, name) \
-    va_list args; \
-    log_timestamp(stdout); \
-    fprintf(stdout, name ": "); \
-    va_start(args, format); \
-    vfprintf(stdout, format, args); \
-    va_end(args); \
-    fprintf(stdout, "\n"); \
+
+// Core log function using va_list
+inline void log_vprintf(const char* name, const char* format, va_list args) {
+    log_timestamp(stdout);
+    fprintf(stdout, "%.*s: ", (int)strlen(name), name);
+    vfprintf(stdout, format, args);
+    fprintf(stdout, "\n");
     fflush(stdout);
-
-void bongocat_log_error(const char *format, ...) {
-    bongocat_log_x(format, "ERROR")
 }
 
-void bongocat_log_warning(const char *format, ...) {
-    bongocat_log_x(format, "WARNING")
+// Convenience inline functions
+void bongocat_log_error(const char* fmt, ...) {
+    va_list args; va_start(args, fmt); log_vprintf("ERROR", fmt, args); va_end(args);
 }
 
-void bongocat_log_info(const char *format, ...) {
-    bongocat_log_x(format, "INFO")
+void bongocat_log_warning(const char* fmt, ...) {
+    va_list args; va_start(args, fmt); log_vprintf("WARNING", fmt, args); va_end(args);
 }
 
-void bongocat_log_debug(const char *format, ...) {
-    if (!debug_enabled) return;
-    
-    bongocat_log_x(format, "DEBUG")
+void bongocat_log_info(const char* fmt, ...) {
+    va_list args; va_start(args, fmt); log_vprintf("INFO", fmt, args); va_end(args);
 }
-void bongocat_log_verbose(const char *format, ...) {
-    if (!debug_enabled) return;
 
-    bongocat_log_x(format, "VERBOSE")
+void bongocat_log_debug(const char* fmt, ...) {
+    if (!debug_enabled.load()) return;
+    va_list args; va_start(args, fmt); log_vprintf("DEBUG", fmt, args); va_end(args);
+}
+
+void bongocat_log_verbose(const char* fmt, ...) {
+    if (!debug_enabled.load()) return;
+    va_list args; va_start(args, fmt); log_vprintf("VERBOSE", fmt, args); va_end(args);
 }
 
 #endif

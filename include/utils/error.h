@@ -50,41 +50,41 @@ void bongocat_log_verbose(const char *format, ...);
 void bongocat_error_init(bool enable_debug);
 const char* bongocat_error_string(bongocat_error_t error);
 
-// 0 = Error
-// 1 = Warning
-// 2 = Info
-// 3 = Debug
-// 3 = Verbose
+// 1 = Error
+// 2 = Warning
+// 3 = Info
+// 4 = Debug
+// 5 = Verbose
 #ifndef BONGOCAT_LOG_LEVEL
-#define BONGOCAT_LOG_LEVEL 3
+#define BONGOCAT_LOG_LEVEL 4
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 0
-#define BONGOCAT_LOG_ERROR(format, ...) bongocat_log_error(format, ##__VA_ARGS__)
+#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 1
+#define BONGOCAT_LOG_ERROR(format, ...) bongocat_log_error(format __VA_OPT__(,) __VA_ARGS__)
 #else
 #define BONGOCAT_LOG_ERROR(format, ...) ((void)0)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 1
-#define BONGOCAT_LOG_WARNING(format, ...) bongocat_log_warning(format, ##__VA_ARGS__)
+#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 2
+#define BONGOCAT_LOG_WARNING(format, ...) bongocat_log_warning(format __VA_OPT__(,) __VA_ARGS__)
 #else
 #define BONGOCAT_LOG_WARNING(format, ...) ((void)0)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 2
-#define BONGOCAT_LOG_INFO(format, ...) bongocat_log_info(format, ##__VA_ARGS__)
+#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 3
+#define BONGOCAT_LOG_INFO(format, ...) bongocat_log_info(format __VA_OPT__(,) __VA_ARGS__)
 #else
 #define BONGOCAT_LOG_INFO(format, ...) ((void)0)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 3
-#define BONGOCAT_LOG_DEBUG(format, ...) bongocat_log_debug(format, ##__VA_ARGS__)
+#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 4
+#define BONGOCAT_LOG_DEBUG(format, ...) bongocat_log_debug(format __VA_OPT__(,) __VA_ARGS__)
 #else
 #define BONGOCAT_LOG_DEBUG(format, ...) ((void)0)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 4
-#define BONGOCAT_LOG_VERBOSE(format, ...) bongocat_log_verbose(format, ##__VA_ARGS__)
+#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 5
+#define BONGOCAT_LOG_VERBOSE(format, ...) bongocat_log_verbose(format __VA_OPT__(,) __VA_ARGS__)
 #else
 #define BONGOCAT_LOG_VERBOSE(format, ...) ((void)0)
 #endif

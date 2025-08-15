@@ -1,12 +1,11 @@
+#include "platform/wayland-protocols.hpp"
+
 #include "bar.h"
 #include "graphics/animation_context.h"
 #include "platform/wayland.h"
 #include "graphics/animation.h"
-#include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
 #include <wayland-client.h>
 #include <cassert>
-#include <climits>
-#include <pthread.h>
 
 static void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t time) {
     assert(data);

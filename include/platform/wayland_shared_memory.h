@@ -2,7 +2,6 @@
 #define BONGOCAT_WAYLAND_SHARED_MEMORY_H
 
 #include "graphics/animation_event_context.h"
-#include "../protocols/xdg-shell-client-protocol.h"
 #include <wayland-client.h>
 #include <stdatomic.h>
 

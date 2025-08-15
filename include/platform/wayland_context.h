@@ -3,10 +3,11 @@
 
 #include "wayland_shared_memory.h"
 #include "config/config.h"
-#include "../protocols/zwlr-layer-shell-v1-client-protocol.h"
-#include "../protocols/xdg-shell-client-protocol.h"
 #include <wayland-client.h>
 #include <stdatomic.h>
+
+struct zwlr_layer_shell_v1;
+struct zwlr_layer_surface_v1;
 
 // Wayland globals
 struct wayland_context_t {
