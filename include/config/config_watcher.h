@@ -26,10 +26,10 @@ namespace bongocat::config {
     };
 
     // Config watcher function declarations
-    bongocat_error_t config_watcher_init(config_watcher_t& watcher, const char *config_path);
-    void config_watcher_start(config_watcher_t& watcher);
-    void config_watcher_stop(config_watcher_t& watcher);
-    void config_watcher_cleanup(config_watcher_t& watcher);
+    bongocat_error_t init(config_watcher_t& watcher, const char *config_path);
+    void start_watcher(config_watcher_t& watcher);
+    void stop_watcher(config_watcher_t& watcher);
+    void cleanup_watcher(config_watcher_t& watcher);
 }
 
 #endif // BONGOCAT_CONFIG_WATCHER_H

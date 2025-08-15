@@ -425,7 +425,7 @@ namespace bongocat::animation {
     // PUBLIC API IMPLEMENTATION
     // =============================================================================
 
-    bongocat_error_t animation_start(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, platform::input_context_t& input) {
+    bongocat_error_t start(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, platform::input_context_t& input) {
         BONGOCAT_LOG_INFO("Starting animation thread");
 
         trigger_ctx._anim = &ctx;
@@ -442,7 +442,7 @@ namespace bongocat::animation {
     }
 
 
-    void animation_trigger(animation_trigger_context_t& trigger_ctx) {
+    void trigger(animation_trigger_context_t& trigger_ctx) {
         constexpr uint64_t u = 1;
         if (write(trigger_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) >= 0) {
             BONGOCAT_LOG_VERBOSE("Write animation trigger event");
@@ -451,7 +451,7 @@ namespace bongocat::animation {
         }
     }
 
-    void animation_update_config(animation_context_t& ctx, const config::config_t& config) {
+    void update_config(animation_context_t& ctx, const config::config_t& config) {
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
 

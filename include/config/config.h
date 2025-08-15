@@ -257,10 +257,10 @@ namespace bongocat::config {
     struct load_config_overwrite_parameters_t {
         const char* output_name;
     };
-    bongocat_error_t load_config(config_t& config, const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
-    void config_cleanup(config_t& config);
+    bongocat_error_t load(config_t& config, const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
+    void cleanup(config_t& config);
 
-    void config_set_defaults(config_t& config);
+    void set_defaults(config_t& config);
 }
 
 #endif // BONGOCAT_CONFIG_H

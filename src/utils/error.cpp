@@ -11,7 +11,7 @@
 namespace bongocat {
     static atomic_bool debug_enabled = true;
 
-    void bongocat_error_init(bool enable_debug) {
+    void error_init(bool enable_debug) {
         atomic_store(&debug_enabled, enable_debug);
     }
 
@@ -41,31 +41,31 @@ namespace bongocat {
     }
 
     // Convenience inline functions
-    void bongocat_log_error(const char* fmt, ...) {
+    void log_error(const char* fmt, ...) {
         va_list args; va_start(args, fmt); log_vprintf("ERROR", fmt, args); va_end(args);
     }
 
-    void bongocat_log_warning(const char* fmt, ...) {
+    void log_warning(const char* fmt, ...) {
         va_list args; va_start(args, fmt); log_vprintf("WARNING", fmt, args); va_end(args);
     }
 
-    void bongocat_log_info(const char* fmt, ...) {
+    void log_info(const char* fmt, ...) {
         va_list args; va_start(args, fmt); log_vprintf("INFO", fmt, args); va_end(args);
     }
 
-    void bongocat_log_debug(const char* fmt, ...) {
+    void log_debug(const char* fmt, ...) {
         if (!debug_enabled.load()) return;
         va_list args; va_start(args, fmt); log_vprintf("DEBUG", fmt, args); va_end(args);
     }
 
-    void bongocat_log_verbose(const char* fmt, ...) {
+    void log_verbose(const char* fmt, ...) {
         if (!debug_enabled.load()) return;
         va_list args; va_start(args, fmt); log_vprintf("VERBOSE", fmt, args); va_end(args);
     }
 
 #endif
 
-    const char* bongocat_error_string(bongocat_error_t error) {
+    const char* error_string(bongocat_error_t error) {
         switch (error) {
             case bongocat_error_t::BONGOCAT_SUCCESS: return "Success";
             case bongocat_error_t::BONGOCAT_ERROR_MEMORY: return "Memory allocation error";

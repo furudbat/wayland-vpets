@@ -62,29 +62,27 @@ namespace bongocat {
     inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_TEMPLATE = "/tmp/bongocat-%s.pid";
 
-    static int process_create_pid_file(const char *pid_filename) {
-        const int fd = open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644);
+    static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
+        platform::FileDescriptor fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644));
         if (fd < 0) {
             BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
-            return -1;
+            return platform::FileDescriptor(-1);
         }
 
-        if (flock(fd, LOCK_EX | LOCK_NB) < 0) {
-            close(fd);
+        if (flock(fd._fd, LOCK_EX | LOCK_NB) < 0) {
             if (errno == EWOULDBLOCK) {
                 BONGOCAT_LOG_INFO("Another instance is already running");
-                return -2; // Already running
+                return platform::FileDescriptor(-2); // Already running
             }
             BONGOCAT_LOG_ERROR("Failed to lock PID file: %s", strerror(errno));
-            return -1;
+            return platform::FileDescriptor(-1);
         }
 
-        char pid_str[PID_STR_BUF] = {0};
+        char pid_str[PID_STR_BUF] = {};
         snprintf(pid_str, sizeof(pid_str), "%d\n", getpid());
-        if (write(fd, pid_str, strlen(pid_str)) < 0) {
+        if (write(fd._fd, pid_str, strlen(pid_str)) < 0) {
             BONGOCAT_LOG_ERROR("Failed to write PID to file: %s", strerror(errno));
-            close(fd);
-            return -1;
+            return platform::FileDescriptor(-1);
         }
 
         return fd; // Keep file descriptor open to maintain lock
@@ -97,18 +95,18 @@ namespace bongocat {
 
     static pid_t process_get_running_pid(const char* pid_filename) {
         assert(pid_filename);
-        int fd = open(pid_filename, O_RDONLY);
+        platform::FileDescriptor fd = platform::FileDescriptor(::open(pid_filename, O_RDONLY));
         if (fd < 0) {
             return -1; // No PID file exists
         }
 
         // Try to get a shared lock to read the file
-        if (flock(fd, LOCK_SH | LOCK_NB) < 0) {
-            close(fd);
+        if (flock(fd._fd, LOCK_SH | LOCK_NB) < 0) {
+            fd._close();
             if (errno == EWOULDBLOCK) {
                 // File is locked by another process, so it's running
                 // We need to read the PID anyway, so let's try without lock
-                fd = open(DEFAULT_PID_FILE, O_RDONLY);
+                fd = platform::FileDescriptor(::open(DEFAULT_PID_FILE, O_RDONLY));
                 if (fd < 0) return -1;
             } else {
                 return -1;
@@ -212,10 +210,10 @@ namespace bongocat {
 
         // Create a temporary config to test loading
         config::config_t new_config;
-        config_set_defaults(new_config);
-        const bongocat_error_t result = load_config(new_config, g_config_watcher.config_path, g_overwrite_parameters);
+        set_defaults(new_config);
+        const bongocat_error_t result = load(new_config, g_config_watcher.config_path, g_overwrite_parameters);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat_error_string(result));
+            BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat::error_string(result));
             BONGOCAT_LOG_INFO("Keeping current configuration");
             return;
         }
@@ -233,7 +231,7 @@ namespace bongocat {
             /// @NOTE: don't use new_config after move
             // Update the running systems with new config
             platform::input_update_config(g_input_ctx, g_config);
-            animation::animation_update_config(g_animation_ctx, g_config);
+            animation::update_config(g_animation_ctx, g_config);
             platform::wayland_update_config(g_wayland_ctx, g_config, g_animation_trigger_ctx);
 
             // Check if input devices changed and restart monitoring if needed
@@ -241,14 +239,14 @@ namespace bongocat {
                 BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
                 const bongocat_error_t input_result = platform::input_restart_monitoring(g_animation_trigger_ctx, g_input_ctx, g_config);
                 if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                    BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat_error_string(input_result));
+                    BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat::error_string(input_result));
                 } else {
                     BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
                 }
             }
 
             // free old keyboard_devices
-            config_cleanup(old_config);
+            cleanup(old_config);
         } while(false);
 
         BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
@@ -259,8 +257,8 @@ namespace bongocat {
         const char *watch_path = config_file ? config_file : "bongocat.conf";
         g_signal_watch_path = config_file ? config_file : "bongocat.conf";
 
-        if (config::config_watcher_init(g_config_watcher, watch_path) == bongocat_error_t::BONGOCAT_SUCCESS) {
-            config::config_watcher_start(g_config_watcher);
+        if (config::init(g_config_watcher, watch_path) == bongocat_error_t::BONGOCAT_SUCCESS) {
+            config::start_watcher(g_config_watcher);
             BONGOCAT_LOG_INFO("Config file watching enabled for: %s", watch_path);
             return bongocat_error_t::BONGOCAT_SUCCESS;
         } else {
@@ -306,28 +304,28 @@ namespace bongocat {
         bongocat_error_t result = platform::wayland_init(g_wayland_listeners_ctx, g_wayland_ctx, g_animation_ctx,
                                                          g_animation_trigger_ctx, g_config);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat_error_string(result));
+            BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat::error_string(result));
             return result;
         }
 
         // Initialize animation system
-        result = animation::animation_init(g_animation_trigger_ctx, g_animation_ctx, g_config);
+        result = animation::init(g_animation_trigger_ctx, g_animation_ctx, g_config);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat_error_string(result));
+            BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(result));
             return result;
         }
 
         // Start input monitoring
         result = platform::input_start_monitoring(g_animation_trigger_ctx, g_input_ctx, g_config);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat_error_string(result));
+            BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat::error_string(result));
             return result;
         }
 
         // Start animation thread
-        result = animation::animation_start(g_animation_trigger_ctx, g_animation_ctx, g_input_ctx);
+        result = animation::start(g_animation_trigger_ctx, g_animation_ctx, g_input_ctx);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat_error_string(result));
+            BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat::error_string(result));
             return result;
         }
 
@@ -354,16 +352,16 @@ namespace bongocat {
         platform::join_thread_with_timeout(g_animation_ctx._anim_thread, 1000);
         platform::join_thread_with_timeout(g_input_ctx._input_thread, 2000);
         platform::join_thread_with_timeout(g_config_watcher._watcher_thread, 5000);
-        animation::animation_stop(g_animation_ctx);
+        animation::stop(g_animation_ctx);
         platform::input_stop(g_input_ctx);
-        config::config_watcher_stop(g_config_watcher);
+        config::stop_watcher(g_config_watcher);
 
         // Cleanup input system
         platform::input_cleanup(g_input_ctx);
         // Cleanup animation system
-        animation::animation_cleanup(g_animation_trigger_ctx, g_animation_ctx);
+        animation::cleanup(g_animation_trigger_ctx, g_animation_ctx);
         // Cleanup config watcher
-        config::config_watcher_cleanup(g_config_watcher);
+        config::cleanup_watcher(g_config_watcher);
 
         if (signal_fd >= 0) close(signal_fd);
         g_signal_watch_path = nullptr;
@@ -376,7 +374,7 @@ namespace bongocat {
 #endif
 
         // Cleanup configuration
-        config::config_cleanup(g_config);
+        config::cleanup(g_config);
         g_overwrite_parameters.output_name = nullptr;
 
 #ifndef NDEBUG
@@ -462,7 +460,7 @@ int main(int argc, char *argv[]) {
     using namespace bongocat;
 
     // Initialize error system early
-    bongocat_error_init(true); // Enable debug initially
+    bongocat::error_init(true); // Enable debug initially
 
     BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
 
@@ -484,7 +482,7 @@ int main(int argc, char *argv[]) {
     }
 
     // init default values
-    config::config_set_defaults(g_config);
+    config::set_defaults(g_config);
     // in case config watcher is not started/inited
     g_config_watcher.inotify_fd = {};
     g_config_watcher.watch_fd = {};
@@ -497,9 +495,9 @@ int main(int argc, char *argv[]) {
     g_overwrite_parameters = {
         .output_name = args.output_name,
     };
-    bongocat_error_t result = config::load_config(g_config, args.config_file, g_overwrite_parameters);
+    bongocat_error_t result = config::load(g_config, args.config_file, g_overwrite_parameters);
     if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(result));
         return EXIT_FAILURE;
     }
 
@@ -508,12 +506,12 @@ int main(int argc, char *argv[]) {
     if (g_config.output_name && g_config.output_name[0] != '\0') {
         const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name) + 1;
         assert(needed_size >= 0);
-        pid_filename = static_cast<char *>(malloc(static_cast<size_t>(needed_size)));
+        pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
         if (pid_filename != nullptr) {
             snprintf(pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_TEMPLATE, g_config.output_name);
         } else {
             BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
-            config::config_cleanup(g_config);
+            config::cleanup(g_config);
             return EXIT_FAILURE;
         }
     } else {
@@ -523,7 +521,7 @@ int main(int argc, char *argv[]) {
     // Handle toggle mode
     if (args.toggle_mode) {
         if (const int toggle_result = process_handle_toggle(pid_filename); toggle_result >= 0) {
-            if (pid_filename) free(pid_filename);
+            if (pid_filename) ::free(pid_filename);
             return toggle_result; // Either successfully toggled off or error
         }
         // toggle_result == -1 means continue with startup
@@ -533,13 +531,13 @@ int main(int argc, char *argv[]) {
     const int pid_fd = process_create_pid_file(pid_filename);
     if (pid_fd == -2) {
         BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
-        if (pid_filename) free(pid_filename);
-        config::config_cleanup(g_config);
+        if (pid_filename) ::free(pid_filename);
+        config::cleanup(g_config);
         return EXIT_FAILURE;
     } else if (pid_fd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create PID file");
-        if (pid_filename) free(pid_filename);
-        config::config_cleanup(g_config);
+        if (pid_filename) ::free(pid_filename);
+        config::cleanup(g_config);
         return EXIT_FAILURE;
     }
     BONGOCAT_LOG_INFO("PID file created: %s", pid_filename);
@@ -552,10 +550,10 @@ int main(int argc, char *argv[]) {
     g_signal_watch_path = args.config_file;
     result = signal_setup_handlers();
     if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        config::config_cleanup(g_config);
+        config::cleanup(g_config);
         process_remove_pid_file(pid_filename);
-        if (pid_filename) free(pid_filename);
-        BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat_error_string(result));
+        if (pid_filename) ::free(pid_filename);
+        BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat::error_string(result));
         return EXIT_FAILURE;
     }
 
@@ -589,7 +587,7 @@ int main(int argc, char *argv[]) {
     // Main Wayland event loop with graceful shutdown
     result = platform::wayland_run(g_wayland_listeners_ctx, running, signal_fd, g_config, g_config_watcher, config_reload_callback);
     if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat_error_string(result));
+        BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat::error_string(result));
         system_cleanup_and_exit(pid_filename, EXIT_FAILURE);
     }
     

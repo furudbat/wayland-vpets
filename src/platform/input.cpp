@@ -363,7 +363,7 @@ namespace bongocat::platform {
                         input.shm->last_key_pressed_timestamp = now;
                         atomic_fetch_add(&input.shm->input_counter, 1);
                         atomic_fetch_add(&input._input_kpm_counter, 1);
-                        animation_trigger(trigger_ctx);
+                        trigger(trigger_ctx);
                     } else {
                         if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
                             input.shm->kpm = 0;

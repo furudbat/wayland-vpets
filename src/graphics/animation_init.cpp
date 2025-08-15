@@ -41,7 +41,7 @@ namespace bongocat::animation {
     // PUBLIC API IMPLEMENTATION
     // =============================================================================
 
-    bongocat_error_t animation_init(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, const config::config_t& config) {
+    bongocat_error_t init(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, const config::config_t& config) {
         using namespace assets;
         BONGOCAT_LOG_INFO("Initializing animation system");
 
@@ -66,7 +66,7 @@ namespace bongocat::animation {
         }
         assert(ctx._local_copy_config != nullptr);
         //config_set_defaults(*ctx._local_copy_config);
-        animation_update_config(ctx, config);
+        update_config(ctx, config);
         ctx.shm->anim_frame_index = config.idle_frame;  // initial frame
 
         trigger_ctx.trigger_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
@@ -118,7 +118,7 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    void animation_stop(animation_context_t& ctx) {
+    void stop(animation_context_t& ctx) {
         atomic_store(&ctx._animation_running, false);
         if (ctx._anim_thread) {
             BONGOCAT_LOG_DEBUG("Stopping animation thread");
@@ -132,8 +132,8 @@ namespace bongocat::animation {
         ctx._anim_thread = 0;
     }
 
-    void animation_cleanup(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx) {
-        animation_stop(ctx);
+    void cleanup(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx) {
+        stop(ctx);
 
         // Cleanup mutex
         pthread_mutex_destroy(&ctx.anim_lock.pt_mutex);

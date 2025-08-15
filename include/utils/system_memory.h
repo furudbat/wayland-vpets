@@ -88,7 +88,7 @@ namespace bongocat::platform {
                                             MAP_SHARED | MAP_ANONYMOUS,
                                             -1, 0));
                 if (ptr != MAP_FAILED) {
-                    if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                    if constexpr (is_trivially_copyable<T>::value) {
                         memcpy(ptr, other.ptr, _size_bytes);
                     } else {
                         // assign/copy
@@ -113,7 +113,7 @@ namespace bongocat::platform {
                                                     -1, 0));
                     if (p != MAP_FAILED) {
                         ptr = static_cast<T*>(p);
-                        if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                        if constexpr (is_trivially_copyable<T>::value) {
                             memcpy(ptr, other.ptr, _size_bytes);
                         } else {
                             // assign/copy
@@ -148,7 +148,7 @@ namespace bongocat::platform {
 
         void _release() {
             if (ptr) {
-                if (!bongocat_is_trivially_destructible<T>::value) {
+                if (!is_trivially_destructible<T>::value) {
                     ptr->~T();
                 }
                 munmap(ptr, _size_bytes);
@@ -223,7 +223,7 @@ namespace bongocat::platform {
     }
 
     template <typename T>
-    requires bongocat_is_trivially_copyable<T>::value
+    requires is_trivially_copyable<T>::value
     struct MMapArray {
         T* data{nullptr};
         size_t count{0};
@@ -266,7 +266,7 @@ namespace bongocat::platform {
                                              MAP_SHARED | MAP_ANONYMOUS,
                                              -1, 0));
                 if (data != MAP_FAILED) {
-                    if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                    if constexpr (is_trivially_copyable<T>::value) {
                         memcpy(data, other.data, _size_bytes);
                     } else {
                         for (size_t i = 0; i < other.count; i++) {
@@ -293,7 +293,7 @@ namespace bongocat::platform {
                                                  MAP_SHARED | MAP_ANONYMOUS,
                                                  -1, 0));
                     if (data != MAP_FAILED) {
-                        if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                        if constexpr (is_trivially_copyable<T>::value) {
                             memcpy(data, other.data, _size_bytes);
                         } else {
                             for (size_t i = 0; i < other.count; i++) {
@@ -335,7 +335,7 @@ namespace bongocat::platform {
         // Release memory manually
         void _release() {
             if (data) {
-                if (!bongocat_is_trivially_destructible<T>::value) {
+                if (!is_trivially_destructible<T>::value) {
                     for (size_t i = 0; i < count; i++) {
                         data[i].~T();
                     }
@@ -390,7 +390,7 @@ namespace bongocat::platform {
     }
 
     template <typename T>
-    requires bongocat_is_trivially_copyable<T>::value
+    requires is_trivially_copyable<T>::value
     struct MMapFile {
         T* ptr{nullptr};
         size_t _size_bytes{0};
@@ -551,7 +551,7 @@ namespace bongocat::platform {
 
 
     template <typename T>
-    requires bongocat_is_trivially_copyable<T>::value
+    requires is_trivially_copyable<T>::value
     struct MMapFileBuffer {
         T* data{nullptr};
         size_t count{0};

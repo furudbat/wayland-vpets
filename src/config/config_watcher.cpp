@@ -92,7 +92,7 @@ namespace bongocat::config {
         return nullptr;
     }
 
-    bongocat_error_t config_watcher_init(config::config_watcher_t& watcher, const char *config_path) {
+    bongocat_error_t init(config::config_watcher_t& watcher, const char *config_path) {
         BONGOCAT_CHECK_NULL(config_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
         // Initialize inotify
@@ -133,7 +133,7 @@ namespace bongocat::config {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    void config_watcher_start(config::config_watcher_t& watcher) {
+    void start_watcher(config::config_watcher_t& watcher) {
         if (pthread_create(&watcher._watcher_thread, nullptr, config_watcher_thread, &watcher) != 0) {
             atomic_store(&watcher._running, false);
             BONGOCAT_LOG_ERROR("Failed to create config watcher thread: %s", strerror(errno));
@@ -143,7 +143,7 @@ namespace bongocat::config {
         BONGOCAT_LOG_INFO("Config watcher thread started");
     }
 
-    void config_watcher_stop(config::config_watcher_t& watcher) {
+    void stop_watcher(config::config_watcher_t& watcher) {
         atomic_store(&watcher._running, false);
         if (watcher._watcher_thread) {
             BONGOCAT_LOG_DEBUG("Stopping config watcher thread");
@@ -157,8 +157,8 @@ namespace bongocat::config {
         watcher._watcher_thread = 0;
     }
 
-    void config_watcher_cleanup(config::config_watcher_t& watcher) {
-        config_watcher_stop(watcher);
+    void cleanup_watcher(config::config_watcher_t& watcher) {
+        stop_watcher(watcher);
 
         if (watcher.watch_fd >= 0) {
             inotify_rm_watch(watcher.inotify_fd, watcher.watch_fd);

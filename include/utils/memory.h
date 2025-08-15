@@ -19,10 +19,10 @@ namespace bongocat {
     };
 
     // Safe memory allocation functions
-    void* bongocat_malloc(size_t size);
-    void* bongocat_calloc(size_t count, size_t size);
-    void* bongocat_realloc(void *ptr, size_t size);
-    void bongocat_free(void *ptr);
+    void* malloc(size_t size);
+    void* calloc(size_t count, size_t size);
+    void* realloc(void *ptr, size_t size);
+    void free(void *ptr);
 
     // Memory pool functions
     memory_pool_t* memory_pool_create(size_t size, size_t alignment);
@@ -46,14 +46,14 @@ namespace bongocat {
 
     // Memory leak detection (debug builds)
 #ifndef NDEBUG
-#define BONGOCAT_MALLOC(size) bongocat_malloc_debug(size, __FILE__, __LINE__)
-#define BONGOCAT_FREE(ptr) bongocat_free_debug(ptr, __FILE__, __LINE__)
-    void* bongocat_malloc_debug(size_t size, const char *file, int line);
-    void bongocat_free_debug(void *ptr, const char *file, int line);
+#define BONGOCAT_MALLOC(size) ::bongocat::malloc_debug(size, __FILE__, __LINE__)
+#define BONGOCAT_FREE(ptr) ::bongocat::free_debug(ptr, __FILE__, __LINE__)
+    void* malloc_debug(size_t size, const char *file, int line);
+    void free_debug(void *ptr, const char *file, int line);
     void memory_leak_check();
 #else
-#define BONGOCAT_MALLOC(size) bongocat_malloc(size)
-#define BONGOCAT_FREE(ptr) bongocat_free(ptr)
+#define BONGOCAT_MALLOC(size) ::bongocat::malloc(size)
+#define BONGOCAT_FREE(ptr) ::bongocat::free(ptr)
 #endif
 
 #define BONGOCAT_SAFE_FREE(ptr) \
@@ -68,9 +68,8 @@ ptr = NULL; \
 
 
 
-
     template <typename T>
-    struct bongocat_is_trivially_copyable {
+    struct is_trivially_copyable {
 #if defined(__clang__)
         static constexpr bool value = __is_trivially_copyable(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
@@ -83,7 +82,7 @@ ptr = NULL; \
     };
 
     template <typename T>
-    struct bongocat_is_trivially_destructible {
+    struct is_trivially_destructible {
 #if defined(__clang__)
         static constexpr bool value = __is_trivially_destructible(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
@@ -119,7 +118,7 @@ ptr = NULL; \
             if (other.ptr != nullptr && _size_bytes > 0) {
                 ptr = static_cast<T*>(BONGOCAT_MALLOC(_size_bytes));
                 if (ptr != nullptr) {
-                    if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                    if constexpr (is_trivially_copyable<T>::value) {
                         memcpy(ptr, other.ptr, _size_bytes);
                     } else {
                         *ptr = *other.ptr;
@@ -140,7 +139,7 @@ ptr = NULL; \
                 if (other.ptr != nullptr && _size_bytes > 0) {
                     ptr = static_cast<T*>(BONGOCAT_MALLOC(_size_bytes));
                     if (ptr) {
-                        if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                        if constexpr (is_trivially_copyable<T>::value) {
                             memcpy(ptr, other.ptr, _size_bytes);
                         } else {
                             *ptr = *other.ptr;
@@ -177,7 +176,7 @@ ptr = NULL; \
         // Release memory manually
         void _release() {
             if (ptr) {
-                if (!bongocat_is_trivially_destructible<T>::value) {
+                if (!is_trivially_destructible<T>::value) {
                     ptr->~T();
                 }
                 BONGOCAT_FREE(ptr);
@@ -283,7 +282,7 @@ ptr = NULL; \
             if (other.data && _size_bytes > 0) {
                 data = static_cast<T*>(BONGOCAT_MALLOC(_size_bytes));
                 if (data) {
-                    if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                    if constexpr (is_trivially_copyable<T>::value) {
                         memcpy(data, other.data, _size_bytes);
                     } else {
                         for (size_t i = 0; i < other.count; i++) {
@@ -308,7 +307,7 @@ ptr = NULL; \
                 if (other.data && _size_bytes > 0) {
                     data = static_cast<T*>(BONGOCAT_MALLOC(_size_bytes));
                     if (data) {
-                        if constexpr (bongocat_is_trivially_copyable<T>::value) {
+                        if constexpr (is_trivially_copyable<T>::value) {
                             memcpy(data, other.data, _size_bytes);
                         } else {
                             for (size_t i = 0; i < other.count; i++) {
@@ -360,7 +359,7 @@ ptr = NULL; \
         // Release memory manually
         void _release() {
             if (data != nullptr) {
-                if (!bongocat_is_trivially_destructible<T>::value) {
+                if (!is_trivially_destructible<T>::value) {
                     for (size_t i = 0; i < count; i++) {
                         data[i].~T();
                     }
@@ -414,14 +413,14 @@ ptr = NULL; \
     }
 
     // remove_reference implementation (no STL)
-    template <typename T> struct bongocat_remove_reference      { typedef T type; };
-    template <typename T> struct bongocat_remove_reference<T&>  { typedef T type; };
-    template <typename T> struct bongocat_remove_reference<T&&> { typedef T type; };
+    template <typename T> struct remove_reference      { typedef T type; };
+    template <typename T> struct remove_reference<T&>  { typedef T type; };
+    template <typename T> struct remove_reference<T&&> { typedef T type; };
 
     // move implementation (no STL)
     template <typename T>
-    typename bongocat_remove_reference<T>::type&& bongocat_move(T&& t) {
-        typedef typename bongocat_remove_reference<T>::type U;
+    typename remove_reference<T>::type&& bongocat_move(T&& t) {
+        typedef typename remove_reference<T>::type U;
         return static_cast<U&&>(t);
     }
 }

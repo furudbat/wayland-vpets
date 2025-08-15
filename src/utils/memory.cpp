@@ -16,7 +16,7 @@ namespace bongocat {
     struct allocation_record_t {
         void *ptr{nullptr};
         size_t size{0};
-        const char *file;
+        const char *file{};
         int line{0};
         allocation_record_t *next{nullptr};
     };
@@ -24,13 +24,13 @@ namespace bongocat {
     static allocation_record_t *g_allocations = nullptr;
 #endif
 
-    void* bongocat_malloc(size_t size) {
+    void* malloc(size_t size) {
         if (size == 0) {
             BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
             return nullptr;
         }
 
-        void *ptr = malloc(size);
+        void *ptr = ::malloc(size);
         if (!ptr) {
             BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", size);
             return nullptr;
@@ -50,7 +50,7 @@ namespace bongocat {
         return ptr;
     }
 
-    void* bongocat_calloc(size_t count, size_t size) {
+    void* calloc(size_t count, size_t size) {
         if (count == 0 || size == 0) {
             BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
             return nullptr;
@@ -63,7 +63,7 @@ namespace bongocat {
             return nullptr;
         }
 
-        void *ptr = calloc(count, size);
+        void *ptr = ::calloc(count, size);
         if (!ptr) {
             BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", count * size);
             return nullptr;
@@ -86,11 +86,11 @@ namespace bongocat {
 
     void* bongocat_realloc(void *ptr, size_t size) {
         if (size == 0) {
-            bongocat_free(ptr);
+            bongocat::free(ptr);
             return nullptr;
         }
 
-        void *new_ptr = realloc(ptr, size);
+        void *new_ptr = ::realloc(ptr, size);
         if (!new_ptr) {
             BONGOCAT_LOG_ERROR("Failed to reallocate to %zu bytes", size);
             return nullptr;
@@ -102,10 +102,10 @@ namespace bongocat {
         return new_ptr;
     }
 
-    void bongocat_free(void *ptr) {
+    void free(void *ptr) {
         if (!ptr) return;
 
-        free(ptr);
+        ::free(ptr);
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
         pthread_mutex_lock(&g_memory_mutex);
@@ -120,12 +120,12 @@ namespace bongocat {
             return nullptr;
         }
 
-        auto *pool = static_cast<memory_pool_t *>(bongocat_malloc(sizeof(memory_pool_t)));
+        auto *pool = static_cast<memory_pool_t *>(bongocat::malloc(sizeof(memory_pool_t)));
         if (!pool) return nullptr;
 
-        pool->data = bongocat_malloc(size);
+        pool->data = bongocat::malloc(size);
         if (!pool->data) {
-            bongocat_free(pool);
+            bongocat::free(pool);
             return nullptr;
         }
 
@@ -161,8 +161,8 @@ namespace bongocat {
 
     void memory_pool_destroy(memory_pool_t *pool) {
         if (pool) {
-            bongocat_free(pool->data);
-            bongocat_free(pool);
+            bongocat::free(pool->data);
+            bongocat::free(pool);
         }
     }
 
@@ -192,20 +192,20 @@ namespace bongocat {
         assert(allocation_count <= INT_MAX);
         assert(free_count <= INT_MAX);
 
-        bongocat_log_info("Memory Statistics:");
-        bongocat_log_info("  Total allocated: %zu bytes (%.2f MB)", total_allocated, static_cast<double>(total_allocated) / (1024.0 * 1024.0));
-        bongocat_log_info("  Current allocated: %zu bytes (%.2f MB)", current_allocated, static_cast<double>(current_allocated) / (1024.0 * 1024.0));
-        bongocat_log_info("  Peak allocated: %zu bytes (%.2f MB)", peak_allocated, static_cast<double>(peak_allocated) / (1024.0 * 1024.0));
-        bongocat_log_info("  Allocations: %zu", allocation_count);
-        bongocat_log_info("  Frees: %zu", free_count);
-        bongocat_log_info("  Potential leaks: %d", static_cast<int>(allocation_count) - static_cast<int>(free_count));
+        bongocat::log_info("Memory Statistics:");
+        bongocat::log_info("  Total allocated: %zu bytes (%.2f MB)", total_allocated, static_cast<double>(total_allocated) / (1024.0 * 1024.0));
+        bongocat::log_info("  Current allocated: %zu bytes (%.2f MB)", current_allocated, static_cast<double>(current_allocated) / (1024.0 * 1024.0));
+        bongocat::log_info("  Peak allocated: %zu bytes (%.2f MB)", peak_allocated, static_cast<double>(peak_allocated) / (1024.0 * 1024.0));
+        bongocat::log_info("  Allocations: %zu", allocation_count);
+        bongocat::log_info("  Frees: %zu", free_count);
+        bongocat::log_info("  Potential leaks: %d", static_cast<int>(allocation_count) - static_cast<int>(free_count));
     }
 #endif
 
 #ifndef NDEBUG
-    void* bongocat_malloc_debug(size_t size, const char *file, int line) {
-        void *ptr = bongocat_malloc(size);
-        if (!ptr) return NULL;
+    void* malloc_debug(size_t size, const char *file, int line) {
+        void *ptr = bongocat::malloc(size);
+        if (!ptr) return nullptr;
 
         auto *record = static_cast<allocation_record_t *>(malloc(sizeof(allocation_record_t)));
         if (record) {
@@ -220,7 +220,7 @@ namespace bongocat {
         return ptr;
     }
 
-    void bongocat_free_debug(void *ptr, const char *file, int line) {
+    void free_debug(void *ptr, const char *file, int line) {
         if (!ptr) return;
 
         allocation_record_t **current = &g_allocations;
@@ -235,7 +235,7 @@ namespace bongocat {
             current = &(*current)->next;
         }
 
-        bongocat_free(ptr);
+        bongocat::free(ptr);
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
         if (g_memory_stats.free_count > g_memory_stats.current_allocated) {
@@ -246,7 +246,7 @@ namespace bongocat {
 
     void memory_leak_check() {
         if (!g_allocations) {
-            bongocat_log_info("No memory leaks detected");
+            bongocat::log_info("No memory leaks detected");
             return;
         }
 
