@@ -110,6 +110,11 @@ namespace bongocat {
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
         pthread_mutex_lock(&g_memory_mutex);
         ++g_memory_stats.free_count;
+        /*
+        if (static_cast<int>(g_memory_stats.free_count) > static_cast<int>(g_memory_stats.allocation_count)) {
+            BONGOCAT_LOG_VERBOSE("Potential double free: %d/%d", atomic_load(&g_memory_stats.allocation_count), atomic_load(&g_memory_stats.free_count));
+        }
+        */
         pthread_mutex_unlock(&g_memory_mutex);
 #endif
     }
@@ -207,7 +212,7 @@ namespace bongocat {
         void *ptr = bongocat::malloc(size);
         if (!ptr) return nullptr;
 
-        auto *record = static_cast<allocation_record_t *>(malloc(sizeof(allocation_record_t)));
+        auto *record = static_cast<allocation_record_t *>(::malloc(sizeof(allocation_record_t)));
         if (record) {
             record->ptr = ptr;
             record->size = size;
@@ -229,7 +234,7 @@ namespace bongocat {
                 allocation_record_t *to_remove = *current;
                 *current = (*current)->next;
                 assert(to_remove);
-                free(to_remove);
+                ::free(to_remove);
                 break;
             }
             current = &(*current)->next;

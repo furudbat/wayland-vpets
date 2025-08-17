@@ -59,7 +59,7 @@ namespace bongocat::animation {
         platform::time_ns_t frame_time_ns{0};
     };
 
-    static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input_shared_memory_t& input_shm) {
+    static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_shared_memory_t& input_shm) {
 #ifdef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
         assert(ctx.shm != nullptr && ctx.shm != MAP_FAILED);
         const animation_shared_memory_t& anim_shm = *ctx.shm;
@@ -156,7 +156,7 @@ namespace bongocat::animation {
         return changed;
     }
 
-    static bool anim_handle_test_animation(animation_context_t& ctx, const platform::input_context_t& input, animation_state_t& state, platform::timestamp_us_t current_time_us) {
+    static bool anim_handle_test_animation(animation_context_t& ctx, const platform::input::input_context_t& input, animation_state_t& state, platform::timestamp_us_t current_time_us) {
         // read-only config
         assert(ctx._local_copy_config != nullptr);
         const config::config_t& current_config = *ctx._local_copy_config;
@@ -179,12 +179,11 @@ namespace bongocat::animation {
         return ret;
     }
 
-    static bool anim_handle_key_press(animation_trigger_context_t& animation_trigger_ctx, animation_state_t& state, platform::timestamp_us_t current_time_us) {
+    static bool anim_handle_key_press(animation_session_t& animation_trigger_ctx, animation_state_t& state, platform::timestamp_us_t current_time_us) {
         assert(animation_trigger_ctx._input != nullptr);
         assert(animation_trigger_ctx._input->shm != nullptr);
-        assert(animation_trigger_ctx._anim != nullptr);
-        const platform::input_shared_memory_t& input_shm = *animation_trigger_ctx._input->shm;
-        animation_context_t& ctx = *animation_trigger_ctx._anim;
+        const platform::input::input_shared_memory_t& input_shm = *animation_trigger_ctx._input->shm;
+        animation_context_t& ctx = animation_trigger_ctx.anim;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
         const config::config_t& current_config = *ctx._local_copy_config;
@@ -243,9 +242,9 @@ namespace bongocat::animation {
         return ret;
     }
 
-    static bool anim_handle_idle_return(animation_context_t& ctx, const platform::input_context_t& input, const animation_state_t& state, platform::timestamp_us_t current_time_us) {
+    static bool anim_handle_idle_return(animation_context_t& ctx, const platform::input::input_context_t& input, const animation_state_t& state, platform::timestamp_us_t current_time_us) {
         assert(input.shm);
-        const platform::input_shared_memory_t& input_shm = *input.shm;
+        const platform::input::input_shared_memory_t& input_shm = *input.shm;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
         const config::config_t& current_config = *ctx._local_copy_config;
@@ -310,11 +309,10 @@ namespace bongocat::animation {
         return false;
     }
 
-    static bool anim_update_state(animation_trigger_context_t& animation_trigger_ctx, animation_state_t& state) {
+    static bool anim_update_state(animation_session_t& animation_trigger_ctx, animation_state_t& state) {
         assert(animation_trigger_ctx._input);
-        assert(animation_trigger_ctx._anim);
-        const platform::input_context_t& input = *animation_trigger_ctx._input;
-        animation_context_t& ctx = *animation_trigger_ctx._anim;
+        const platform::input::input_context_t& input = *animation_trigger_ctx._input;
+        animation_context_t& ctx = animation_trigger_ctx.anim;
         // read-only config
         //assert(ctx->_local_copy_config);
         //const config_t& current_config = *ctx->_local_copy_config;
@@ -352,10 +350,9 @@ namespace bongocat::animation {
 
     static void *anim_thread_main(void *arg) {
         assert(arg);
-        auto& trigger_ctx = *static_cast<animation_trigger_context_t *>(arg);
-        assert(trigger_ctx._anim);
+        auto& trigger_ctx = *static_cast<animation_session_t *>(arg);
         assert(trigger_ctx._input);
-        animation_context_t& ctx = *trigger_ctx._anim;
+        animation_context_t& ctx = trigger_ctx.anim;
         //input_context_t& input = *trigger_ctx._input;
 
         // read-only config
@@ -372,7 +369,7 @@ namespace bongocat::animation {
         clock_gettime(CLOCK_MONOTONIC, &next_frame_time);
 
         // trigger initial render
-        platform::wayland_request_render(trigger_ctx);
+        platform::wayland::request_render(trigger_ctx);
 
         while (atomic_load(&ctx._animation_running)) {
             const bool frame_changed = anim_update_state(trigger_ctx, state);
@@ -416,7 +413,7 @@ namespace bongocat::animation {
             }
         }
 
-        BONGOCAT_LOG_DEBUG("Animation thread main loop exited");
+        BONGOCAT_LOG_INFO("Animation thread main loop exited");
 
         return nullptr;
     }
@@ -425,13 +422,12 @@ namespace bongocat::animation {
     // PUBLIC API IMPLEMENTATION
     // =============================================================================
 
-    bongocat_error_t start(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, platform::input_context_t& input) {
+    bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input) {
         BONGOCAT_LOG_INFO("Starting animation thread");
 
-        trigger_ctx._anim = &ctx;
         trigger_ctx._input = &input;
 
-        const int result = pthread_create(&ctx._anim_thread, nullptr, anim_thread_main, &trigger_ctx);
+        const int result = pthread_create(&trigger_ctx.anim._anim_thread, nullptr, anim_thread_main, &trigger_ctx);
         if (result != 0) {
             BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
             return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -442,7 +438,7 @@ namespace bongocat::animation {
     }
 
 
-    void trigger(animation_trigger_context_t& trigger_ctx) {
+    void trigger(animation_session_t& trigger_ctx) {
         constexpr uint64_t u = 1;
         if (write(trigger_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) >= 0) {
             BONGOCAT_LOG_VERBOSE("Write animation trigger event");
@@ -462,6 +458,7 @@ namespace bongocat::animation {
         }
 #endif
 
+        /// @TODO: make updating config thrad-safe (animation thread)
         *ctx._local_copy_config = config;
 
         assert(assets::ANIMS_COUNT <= INT_MAX);

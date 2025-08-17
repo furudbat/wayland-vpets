@@ -239,7 +239,7 @@ namespace bongocat::config {
         if (!config.keyboard_devices[old_num_keyboard_devices]) {
             // free new copied strings
             for (int i = 0; i < old_num_keyboard_devices; i++) {
-                if (config.keyboard_devices[i]) free(config.keyboard_devices[i]);
+                if (config.keyboard_devices[i]) ::free(config.keyboard_devices[i]);
                 config.keyboard_devices[i] = nullptr;
             }
             config.num_keyboard_devices = old_num_keyboard_devices;
@@ -257,7 +257,7 @@ namespace bongocat::config {
         assert(config.num_keyboard_devices >= 0);
         for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
             if (i < static_cast<size_t>(config.num_keyboard_devices)) {
-                if (config.keyboard_devices[i]) free(config.keyboard_devices[i]);
+                if (config.keyboard_devices[i]) ::free(config.keyboard_devices[i]);
             }
             config.keyboard_devices[i] = nullptr;
         }
@@ -391,7 +391,7 @@ namespace bongocat::config {
         using namespace assets;
         if (strcmp(key, "monitor") == 0) {
             if (config.output_name) {
-                free(config.output_name);
+                ::free(config.output_name);
                 config.output_name = nullptr;
             }
             if (value && value[0] != '\0') {
@@ -594,7 +594,7 @@ namespace bongocat::config {
         cfg.happy_kpm = DEFAULT_HAPPY_KPM;
         cfg.cat_align = DEFAULT_CAT_ALIGN;
 
-        config = cfg;
+        config = bongocat::move(cfg);
     }
 
     static bongocat_error_t config_set_default_devices(config_t& config) {
@@ -637,25 +637,24 @@ namespace bongocat::config {
     // PUBLIC API IMPLEMENTATION
     // =============================================================================
 
-    bongocat_error_t load(config_t& config, const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
-        // Clear existing keyboard devices to prevent accumulation during reloads
-        config_cleanup_devices(config);
-        set_defaults(config);
+    created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
+        config_t ret;
+        set_defaults(ret);
 
         // Parse config file and override defaults
-        bongocat_error_t result = config_parse_file(config, config_file_path);
+        bongocat_error_t result = config_parse_file(ret, config_file_path);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to parse configuration file: %s", bongocat::error_string(result));
             return result;
         }
         if (overwrite_parameters.output_name) {
-            if (config.output_name) free(config.output_name);
-            config.output_name = strdup(overwrite_parameters.output_name);
+            if (ret.output_name) ::free(ret.output_name);
+            ret.output_name = strdup(overwrite_parameters.output_name);
         }
 
         // Set default keyboard device if none specified
-        if (config.num_keyboard_devices == 0) {
-            result = config_set_default_devices(config);
+        if (ret.num_keyboard_devices == 0) {
+            result = config_set_default_devices(ret);
             if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
                 BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
                 return result;
@@ -663,15 +662,15 @@ namespace bongocat::config {
         }
 
         // Validate and sanitize configuration
-        result = config_validate(config);
+        result = config_validate(ret);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Configuration validation failed: %s", bongocat::error_string(result));
             return result;
         }
 
-        if (config.num_keyboard_devices == 0) {
+        if (ret.num_keyboard_devices == 0) {
             // Set default keyboard device if none specified
-            result = config_set_default_devices(config);
+            result = config_set_default_devices(ret);
             if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
                 BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
                 return result;
@@ -681,20 +680,16 @@ namespace bongocat::config {
         }
 
         // Finalize configuration
-        config_finalize(config);
+        config_finalize(ret);
 
         // Log configuration summary
-        config_log_summary(config);
+        config_log_summary(ret);
 
-        return bongocat_error_t::BONGOCAT_SUCCESS;
+        return ret;
     }
 
-    void cleanup(config_t& config) {
+    void reset(config_t& config) {
         config_cleanup_devices(config);
-        if (config.output_name) {
-            free(config.output_name);
-            config.output_name = nullptr;
-        }
         set_defaults(config);
     }
 }

@@ -332,7 +332,7 @@ bongocat-find-devices --help
 
 - **CPU:** Any modern x86_64 or ARM64 processor
 - **RAM:** ~12MB runtime usage
-- **Storage:** ~312K executable size
+- **Storage:** ~335K executable size
 - **Compositor:** Wayland with layer shell protocol support
 
 ### Performance Metrics (v1.4.0)
@@ -510,6 +510,8 @@ I'm moving this Project a little bit to C++.
 * use `nullptr` instead of `NULL`
 * **NO STL** - keep it as close as possible to the original, it's still C and Linux development with C libraries
 * **Memory Management** - Simple Wrapper for malloc/free calls
+  * move semantics
+  * reduce manuel clean up
 * use of `enum class`
 * brace initialization
 

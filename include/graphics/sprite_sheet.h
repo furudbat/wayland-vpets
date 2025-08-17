@@ -81,6 +81,9 @@ namespace bongocat::animation {
         sprite_sheet_animation_region_t frames[MAX_NUM_FRAMES];
     };
 
+    struct animation_t;
+    void cleanup_animation(animation_t& anim);
+
     static_assert(sizeof(digimon_animation_t) == sizeof(bongocat_animation_t));
     static_assert(sizeof(bongocat_animation_t) == sizeof(digimon_animation_t));
     static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(bongocat_animation_t));
@@ -105,16 +108,7 @@ namespace bongocat::animation {
             }
         }
         ~animation_t() {
-            sprite_sheet.sprite_sheet_width = 0;
-            sprite_sheet.sprite_sheet_height = 0;
-            sprite_sheet.channels = 0;
-            sprite_sheet.pixels = {};
-            sprite_sheet.frame_width = 0;
-            sprite_sheet.frame_height = 0;
-            sprite_sheet.total_frames = 0;
-            for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
-                sprite_sheet.frames[i] = {};
-            }
+            cleanup_animation(*this);
         }
 
         animation_t(const animation_t& other) {
@@ -131,6 +125,7 @@ namespace bongocat::animation {
         }
         animation_t& operator=(const animation_t& other) {
             if (this != &other) {
+                cleanup_animation(*this);
                 sprite_sheet.sprite_sheet_width = other.sprite_sheet.sprite_sheet_width;
                 sprite_sheet.sprite_sheet_height = other.sprite_sheet.sprite_sheet_height;
                 sprite_sheet.channels = other.sprite_sheet.channels;
@@ -149,12 +144,12 @@ namespace bongocat::animation {
             sprite_sheet.sprite_sheet_width = other.sprite_sheet.sprite_sheet_width;
             sprite_sheet.sprite_sheet_height = other.sprite_sheet.sprite_sheet_height;
             sprite_sheet.channels = other.sprite_sheet.channels;
-            sprite_sheet.pixels = bongocat_move(other.sprite_sheet.pixels);
+            sprite_sheet.pixels = bongocat::move(other.sprite_sheet.pixels);
             sprite_sheet.frame_width = other.sprite_sheet.frame_width;
             sprite_sheet.frame_height = other.sprite_sheet.frame_height;
             sprite_sheet.total_frames = other.sprite_sheet.total_frames;
             for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
-                sprite_sheet.frames[i] = bongocat_move(other.sprite_sheet.frames[i]);
+                sprite_sheet.frames[i] = bongocat::move(other.sprite_sheet.frames[i]);
             }
 
             other.sprite_sheet.sprite_sheet_width = 0;
@@ -173,12 +168,12 @@ namespace bongocat::animation {
                 sprite_sheet.sprite_sheet_width = other.sprite_sheet.sprite_sheet_width;
                 sprite_sheet.sprite_sheet_height = other.sprite_sheet.sprite_sheet_height;
                 sprite_sheet.channels = other.sprite_sheet.channels;
-                sprite_sheet.pixels = bongocat_move(other.sprite_sheet.pixels);
+                sprite_sheet.pixels = bongocat::move(other.sprite_sheet.pixels);
                 sprite_sheet.frame_width = other.sprite_sheet.frame_width;
                 sprite_sheet.frame_height = other.sprite_sheet.frame_height;
                 sprite_sheet.total_frames = other.sprite_sheet.total_frames;
                 for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
-                    sprite_sheet.frames[i] = bongocat_move(other.sprite_sheet.frames[i]);
+                    sprite_sheet.frames[i] = bongocat::move(other.sprite_sheet.frames[i]);
                 }
 
                 other.sprite_sheet.sprite_sheet_width = 0;
@@ -195,6 +190,18 @@ namespace bongocat::animation {
             return *this;
         }
     };
+    inline void cleanup_animation(animation_t& anim) {
+        release_allocated_array(anim.sprite_sheet.pixels);
+        anim.sprite_sheet.sprite_sheet_width = 0;
+        anim.sprite_sheet.sprite_sheet_height = 0;
+        anim.sprite_sheet.channels = 0;
+        anim.sprite_sheet.frame_width = 0;
+        anim.sprite_sheet.frame_height = 0;
+        anim.sprite_sheet.total_frames = 0;
+        for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
+            anim.sprite_sheet.frames[i] = {};
+        }
+    }
 }
 
 #endif //BONGOCAT_ANIMATION_SPRITE_SHEET_H

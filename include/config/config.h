@@ -41,6 +41,11 @@ namespace bongocat::config {
         int min{0};
     };
 
+    struct config_t;
+    void config_free_keyboard_devices(config_t& config);
+    void config_copy_keyboard_devices_from(config_t& config, const config_t& other);
+    void cleanup(config_t& config);
+
     struct config_t {
         int bar_height{0};
         char *output_name{nullptr};
@@ -83,9 +88,7 @@ namespace bongocat::config {
             }
         }
         ~config_t() {
-            if (output_name) free(output_name);
-            output_name = nullptr;
-            _free_keyboard_devices();
+            cleanup(*this);
         }
 
         config_t(const config_t& other)
@@ -115,14 +118,12 @@ namespace bongocat::config {
               cat_align(other.cat_align)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
-            _copy_keyboard_devices_from(other);
+            config_copy_keyboard_devices_from(*this, other);
         }
 
         config_t& operator=(const config_t& other) {
             if (this != &other) {
-                if (output_name) free(output_name);
-                output_name = nullptr;
-                _free_keyboard_devices();
+                cleanup(*this);
 
                 bar_height = other.bar_height;
                 cat_x_offset = other.cat_x_offset;
@@ -150,7 +151,7 @@ namespace bongocat::config {
                 cat_align = other.cat_align;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
-                _copy_keyboard_devices_from(other);
+                config_copy_keyboard_devices_from(*this, other);
             }
             return *this;
         }
@@ -193,9 +194,7 @@ namespace bongocat::config {
 
         config_t& operator=(config_t&& other) noexcept {
             if (this != &other) {
-                if (output_name) free(output_name);
-                output_name = nullptr;
-                _free_keyboard_devices();
+                cleanup(*this);
 
                 bar_height = other.bar_height;
                 output_name = other.output_name;
@@ -233,32 +232,35 @@ namespace bongocat::config {
             }
             return *this;
         }
-
-
-        void _free_keyboard_devices() {
-            assert(num_keyboard_devices >= 0);
-            for (size_t i = 0; i < static_cast<size_t>(num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
-                if (keyboard_devices[i]) free(keyboard_devices[i]);
-                keyboard_devices[i] = nullptr;
-            }
-            num_keyboard_devices = 0;
-        }
-
-        void _copy_keyboard_devices_from(const config_t& other) {
-            _free_keyboard_devices();
-            num_keyboard_devices = other.num_keyboard_devices;
-            assert(num_keyboard_devices >= 0);
-            for (size_t i = 0; i < static_cast<size_t>(num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
-                keyboard_devices[i] = other.keyboard_devices[i] ? strdup(other.keyboard_devices[i]) : nullptr;
-            }
-        }
     };
+    inline void cleanup(config_t& config) {
+        if (config.output_name) ::free(config.output_name);
+        config.output_name = nullptr;
+        config_free_keyboard_devices(config);
+    }
+
+    inline void config_free_keyboard_devices(config_t& config) {
+        assert(config.num_keyboard_devices >= 0);
+        for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
+            if (config.keyboard_devices[i]) ::free(config.keyboard_devices[i]);
+            config.keyboard_devices[i] = nullptr;
+        }
+        config.num_keyboard_devices = 0;
+    }
+    inline void config_copy_keyboard_devices_from(config_t& config, const config_t& other) {
+        config_free_keyboard_devices(config);
+        config.num_keyboard_devices = other.num_keyboard_devices;
+        assert(config.num_keyboard_devices >= 0);
+        for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
+            config.keyboard_devices[i] = other.keyboard_devices[i] ? strdup(other.keyboard_devices[i]) : nullptr;
+        }
+    }
 
     struct load_config_overwrite_parameters_t {
-        const char* output_name;
+        const char* output_name{nullptr};
     };
-    bongocat_error_t load(config_t& config, const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
-    void cleanup(config_t& config);
+    created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
+    void reset(config_t& config);
 
     void set_defaults(config_t& config);
 }

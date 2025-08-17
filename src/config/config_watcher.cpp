@@ -16,7 +16,7 @@ namespace bongocat::config {
 
     static void *config_watcher_thread(void *arg) {
         assert(arg);
-        auto& watcher = *static_cast<config::config_watcher_t *>(arg);
+        auto& watcher = *static_cast<config_watcher_t *>(arg);
 
         char buffer[INOTIFY_BUF_LEN] = {};
         platform::timestamp_ms_t last_reload_timestamp = platform::get_current_time_ms();
@@ -92,48 +92,41 @@ namespace bongocat::config {
         return nullptr;
     }
 
-    bongocat_error_t init(config::config_watcher_t& watcher, const char *config_path) {
+    created_result_t<config_watcher_t> create_watcher(const char *config_path) {
         BONGOCAT_CHECK_NULL(config_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+        config_watcher_t ret;
 
         // Initialize inotify
-        watcher.inotify_fd._fd = inotify_init1(IN_NONBLOCK);
-        if (watcher.inotify_fd._fd < 0) {
+        ret.inotify_fd = platform::FileDescriptor(inotify_init1(IN_NONBLOCK));
+        if (ret.inotify_fd._fd < 0) {
             BONGOCAT_LOG_ERROR("Failed to initialize inotify: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
         // Store config path
-        watcher.config_path = strdup(config_path);
-        if (!watcher.config_path) {
-            watcher.inotify_fd._close();
+        ret.config_path = strdup(config_path);
+        if (!ret.config_path) {
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
 
         // Add watch for the config file
-        watcher.watch_fd._fd = inotify_add_watch(watcher.inotify_fd, config_path,
-                                             IN_MODIFY | IN_MOVED_TO | IN_CREATE);
-        if (watcher.watch_fd < 0) {
+        ret.watch_fd = platform::FileDescriptor(inotify_add_watch(ret.inotify_fd._fd, config_path,
+                                            IN_MODIFY | IN_MOVED_TO | IN_CREATE));
+        if (ret.watch_fd._fd < 0) {
             BONGOCAT_LOG_ERROR("Failed to add inotify watch for %s: %s", config_path, strerror(errno));
-            if (watcher.config_path) free(watcher.config_path);
-            watcher.config_path = nullptr;
-            watcher.inotify_fd._close();
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        watcher.reload_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
-        if (watcher.reload_efd < 0) {
+        ret.reload_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+        if (ret.reload_efd._fd < 0) {
             BONGOCAT_LOG_ERROR("Failed to create notify pipe for config reload: %s", strerror(errno));
-            if (watcher.config_path) free(watcher.config_path);
-            watcher.config_path = nullptr;
-            watcher.watch_fd._close();
-            watcher.inotify_fd._close();
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        return bongocat_error_t::BONGOCAT_SUCCESS;
+        return ret;
     }
 
-    void start_watcher(config::config_watcher_t& watcher) {
+    void start_watcher(config_watcher_t& watcher) {
         if (pthread_create(&watcher._watcher_thread, nullptr, config_watcher_thread, &watcher) != 0) {
             atomic_store(&watcher._running, false);
             BONGOCAT_LOG_ERROR("Failed to create config watcher thread: %s", strerror(errno));
@@ -143,7 +136,7 @@ namespace bongocat::config {
         BONGOCAT_LOG_INFO("Config watcher thread started");
     }
 
-    void stop_watcher(config::config_watcher_t& watcher) {
+    void stop_watcher(config_watcher_t& watcher) {
         atomic_store(&watcher._running, false);
         if (watcher._watcher_thread) {
             BONGOCAT_LOG_DEBUG("Stopping config watcher thread");
@@ -155,23 +148,5 @@ namespace bongocat::config {
             BONGOCAT_LOG_DEBUG("config watcher thread terminated");
         }
         watcher._watcher_thread = 0;
-    }
-
-    void cleanup_watcher(config::config_watcher_t& watcher) {
-        stop_watcher(watcher);
-
-        if (watcher.watch_fd >= 0) {
-            inotify_rm_watch(watcher.inotify_fd, watcher.watch_fd);
-            watcher.inotify_fd._fd = -1;
-            watcher.watch_fd._fd = -1;
-        }
-        watcher.inotify_fd._close();
-
-        if (watcher.config_path) {
-            free(watcher.config_path);
-            watcher.config_path = nullptr;
-        }
-
-        watcher.reload_efd._close();
     }
 }

@@ -10,6 +10,8 @@ namespace bongocat::platform {
 
 
     int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms) {
+        if (thread == 0) return 0;
+
         timespec start{};
         timespec now{};
         clock_gettime(CLOCK_MONOTONIC, &start);

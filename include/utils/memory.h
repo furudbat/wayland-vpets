@@ -57,15 +57,17 @@ namespace bongocat {
 #endif
 
 #define BONGOCAT_SAFE_FREE(ptr) \
-do { \
-if (ptr) { \
-BONGOCAT_FREE(ptr); \
-ptr = NULL; \
-} \
-} while(false)
+    do { \
+        if (ptr) { \
+            BONGOCAT_FREE(ptr); \
+            ptr = NULL; \
+        } \
+    } while(false)
 
-#define LEN_ARRAY(x)  (sizeof(x) / sizeof((x)[0]))
-
+    template <typename T, std::size_t N>
+    constexpr std::size_t LEN_ARRAY(const T (&)[N]) noexcept {
+        return N;
+    }
 
 
     template <typename T>
@@ -99,15 +101,23 @@ ptr = NULL; \
     };
 
     template<typename T>
+    struct AllocatedMemory;
+    template<typename T>
+    void release_allocated_memory(AllocatedMemory<T>& memory) noexcept;
+
+    template<typename T>
     struct AllocatedMemory {
         T* ptr{nullptr};
         size_t _size_bytes{0};
 
         AllocatedMemory() = default;
+        ~AllocatedMemory() noexcept {
+            release_allocated_memory(*this);
+        }
 
         AllocatedMemory(decltype(nullptr)) noexcept {}
         AllocatedMemory& operator=(decltype(nullptr)) noexcept {
-            _release();
+            release_allocated_memory(*this);
             return *this;
         }
 
@@ -121,7 +131,7 @@ ptr = NULL; \
                     if constexpr (is_trivially_copyable<T>::value) {
                         memcpy(ptr, other.ptr, _size_bytes);
                     } else {
-                        *ptr = *other.ptr;
+                        new (ptr) T(*other.ptr);
                     }
                 } else {
                     _size_bytes = 0;
@@ -134,7 +144,7 @@ ptr = NULL; \
         }
         AllocatedMemory& operator=(const AllocatedMemory& other) {
             if (this != &other) {
-                _release();
+                release_allocated_memory(*this);
                 _size_bytes = sizeof(T);
                 if (other.ptr != nullptr && _size_bytes > 0) {
                     ptr = static_cast<T*>(BONGOCAT_MALLOC(_size_bytes));
@@ -142,7 +152,7 @@ ptr = NULL; \
                         if constexpr (is_trivially_copyable<T>::value) {
                             memcpy(ptr, other.ptr, _size_bytes);
                         } else {
-                            *ptr = *other.ptr;
+                            new (ptr) T(*other.ptr);
                         }
                     } else {
                         _size_bytes = 0;
@@ -164,7 +174,7 @@ ptr = NULL; \
         }
         AllocatedMemory& operator=(AllocatedMemory&& other) noexcept {
             if (this != &other) {
-                _release();
+                release_allocated_memory(*this);
                 ptr = other.ptr;
                 _size_bytes = other._size_bytes;
                 other.ptr = nullptr;
@@ -173,23 +183,6 @@ ptr = NULL; \
             return *this;
         }
 
-        // Release memory manually
-        void _release() {
-            if (ptr) {
-                if (!is_trivially_destructible<T>::value) {
-                    ptr->~T();
-                }
-                BONGOCAT_FREE(ptr);
-                ptr = nullptr;
-                _size_bytes = 0;
-            }
-        }
-
-        ~AllocatedMemory() {
-            _release();
-        }
-
-        // Implicit conversion to bool
         explicit(false) operator bool() const noexcept {
             return ptr != nullptr;
         }
@@ -224,8 +217,19 @@ ptr = NULL; \
             return ptr != nullptr;
         }
     };
+    template<typename T>
+    void release_allocated_memory(AllocatedMemory<T>& memory) noexcept {
+        if (memory.ptr != nullptr) {
+            if constexpr (!is_trivially_destructible<T>::value) {
+                memory.ptr->~T();
+            }
+            BONGOCAT_SAFE_FREE(memory.ptr);
+            memory.ptr = nullptr;
+            memory._size_bytes = 0;
+        }
+    }
     template <typename T>
-    inline static AllocatedMemory<T> make_null_memory() {
+    inline static AllocatedMemory<T> make_null_memory() noexcept {
         return AllocatedMemory<T>();
     }
     template <typename T>
@@ -247,6 +251,12 @@ ptr = NULL; \
         return ret;
     }
 
+
+    template<typename T>
+    struct AllocatedArray;
+    template<typename T>
+    void release_allocated_array(AllocatedArray<T>& memory) noexcept;
+
     template <typename T>
     struct AllocatedArray {
         T* data{nullptr};
@@ -254,10 +264,13 @@ ptr = NULL; \
         size_t _size_bytes{0};
 
         AllocatedArray() = default;
+        ~AllocatedArray() noexcept {
+            release_allocated_array(*this);
+        }
 
         AllocatedArray(decltype(nullptr)) noexcept {}
         AllocatedArray& operator=(decltype(nullptr)) noexcept {
-            _release();
+            release_allocated_array(*this);
             return *this;
         }
 
@@ -301,7 +314,7 @@ ptr = NULL; \
         }
         AllocatedArray& operator=(const AllocatedArray& other) {
             if (this != &other) {
-                _release();
+                release_allocated_array(*this);
                 count = other.count;
                 _size_bytes = other._size_bytes;
                 if (other.data && _size_bytes > 0) {
@@ -336,7 +349,7 @@ ptr = NULL; \
         }
         AllocatedArray& operator=(AllocatedArray&& other) noexcept {
             if (this != &other) {
-                _release();
+                release_allocated_array(*this);
                 data = other.data;
                 count = other.count;
                 _size_bytes = other._size_bytes;
@@ -356,25 +369,6 @@ ptr = NULL; \
             return data[index];
         }
 
-        // Release memory manually
-        void _release() {
-            if (data != nullptr) {
-                if (!is_trivially_destructible<T>::value) {
-                    for (size_t i = 0; i < count; i++) {
-                        data[i].~T();
-                    }
-                }
-                BONGOCAT_FREE(data);
-                data = nullptr;
-                count = 0;
-                _size_bytes = 0;
-            }
-        }
-
-        ~AllocatedArray() {
-            _release();
-        }
-
         // Implicit conversion to bool
         explicit(false) operator bool() const noexcept {
             return data != nullptr;
@@ -388,7 +382,22 @@ ptr = NULL; \
         }
     };
     template <typename T>
-    inline static AllocatedArray<T> make_unallocated_array() {
+    void release_allocated_array(AllocatedArray<T>& memory) noexcept {
+        if (memory.data != nullptr) {
+            if constexpr (!is_trivially_destructible<T>::value) {
+                for (size_t i = 0; i < memory.count; i++) {
+                    memory.data[i].~T();
+                }
+            }
+            BONGOCAT_SAFE_FREE(memory.data);
+            memory.data = nullptr;
+            memory.count = 0;
+            memory._size_bytes = 0;
+        }
+    }
+
+    template <typename T>
+    inline static AllocatedArray<T> make_unallocated_array() noexcept {
         return AllocatedArray<T>();
     }
     template <typename T>
@@ -419,7 +428,7 @@ ptr = NULL; \
 
     // move implementation (no STL)
     template <typename T>
-    typename remove_reference<T>::type&& bongocat_move(T&& t) {
+    typename remove_reference<T>::type&& move(T&& t) {
         typedef typename remove_reference<T>::type U;
         return static_cast<U&&>(t);
     }

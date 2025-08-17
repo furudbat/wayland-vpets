@@ -14,7 +14,7 @@
 #include <fcntl.h>
 #include <poll.h>
 
-namespace bongocat::platform {
+namespace bongocat::platform::input {
     static inline constexpr size_t INPUT_EVENT_BUF = 128;
     static inline constexpr size_t MAX_POLL_FDS = 256;
 
@@ -28,26 +28,25 @@ namespace bongocat::platform {
 
     static void cleanup_input_devices_paths(input_context_t& input, size_t device_paths_count) {
         for (size_t i = 0; i < device_paths_count; i++) {
-            if (input._device_paths[i]) free(input._device_paths[i]);
+            if (input._device_paths[i]) ::free(input._device_paths[i]);
             input._device_paths[i] = nullptr;
         }
-        input._device_paths._release();
+        release_allocated_array(input._device_paths);
     }
 
     static void cleanup_input_thread_context(input_context_t& input) {
         cleanup_input_devices_paths(input, input._device_paths.count);
-        input._device_paths._release();
-        input._unique_paths_indices._release();
+        release_allocated_array(input._device_paths);
+        release_allocated_array(input._unique_paths_indices);
         input._unique_paths_indices_capacity = 0;
-        input._unique_devices._release();
+        release_allocated_array(input._unique_devices);
     }
 
     static void cleanup_input_thread(void* arg) {
         assert(arg);
-        animation::animation_trigger_context_t& trigger_ctx = *static_cast<animation::animation_trigger_context_t *>(arg);
-        assert(trigger_ctx._anim);
+        animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
         assert(trigger_ctx._input);
-        //animation_context_t* ctx = trigger_ctx->_anim;
+        //animation_context_t& ctx = trigger_ctx.anim;
         input_context_t& input = *trigger_ctx._input;
 
         atomic_store(&input._capture_input_running, false);
@@ -68,10 +67,9 @@ namespace bongocat::platform {
 
     static void* capture_input_thread(void* arg) {
         assert(arg);
-        animation::animation_trigger_context_t& trigger_ctx = *static_cast<animation::animation_trigger_context_t *>(arg);
-        assert(trigger_ctx._anim);
+        animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
         assert(trigger_ctx._input);
-        //animation_context_t* ctx = trigger_ctx->_anim;
+        //animation_context_t& anim = trigger_ctx.anim;
         input_context_t& input = *trigger_ctx._input;
 
         // read-only config
@@ -135,7 +133,7 @@ namespace bongocat::platform {
 
         size_t track_valid_devices = 0;
         // Open all unique devices
-        do {
+        if (input._unique_paths_indices.count > 0) {
             input._unique_devices = make_allocated_array<input_unique_file_t>(input._unique_paths_indices.count);
             if (!input._unique_devices) {
                 atomic_store(&input._capture_input_running, false);
@@ -179,10 +177,10 @@ namespace bongocat::platform {
 
             track_valid_devices = valid_devices;
             BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths.count);
-        } while (false);
+        }
 
         // trigger initial render
-        wayland_request_render(trigger_ctx);
+        wayland::request_render(trigger_ctx);
 
         pthread_cleanup_push(cleanup_input_thread, arg);
 
@@ -255,7 +253,7 @@ namespace bongocat::platform {
                         if (need_reopen) {
                             // Close old FD if still open
                             if (input._unique_devices[i].fd._fd >= 0) {
-                                input._unique_devices[i].fd._close();
+                                close_fd(input._unique_devices[i].fd);
                             }
 
                             if (int new_fd = open(device_path, O_RDONLY | O_NONBLOCK | O_CLOEXEC); new_fd >= 0) {
@@ -399,7 +397,7 @@ namespace bongocat::platform {
                         if (is_open_device_valid(input._unique_devices[i].fd._fd)) {
                             is_valid = true;
                         } else {
-                            input._unique_devices[i].fd._close();
+                            close_fd(input._unique_devices[i].fd);
                         }
                     }
 
@@ -425,7 +423,7 @@ namespace bongocat::platform {
                         valid_devices++;
                     } else {
                         // reset to invalid
-                        input._unique_devices[i].fd = {};
+                        close_fd(input._unique_devices[i].fd);
                     }
                 }
 
@@ -455,53 +453,81 @@ namespace bongocat::platform {
         return nullptr;
     }
 
-    bongocat_error_t input_start_monitoring(animation::animation_trigger_context_t& trigger_ctx, input_context_t& ctx, const config::config_t& config) {
+    created_result_t<input_context_t> create(const config::config_t& config) {
+        input_context_t ret;
+
         if (config.num_keyboard_devices <= 0) {
             BONGOCAT_LOG_ERROR("No input devices specified");
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
         }
 
-        cleanup_input_thread_context(ctx);
         const timestamp_ms_t now = get_current_time_ms();
-        ctx._capture_input_running = false;
-        ctx._input_kpm_counter = 0;
-        ctx._latest_kpm_update_ms = now;
+        ret._capture_input_running = false;
+        ret._input_kpm_counter = 0;
+        ret._latest_kpm_update_ms = now;
 
         BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", config.num_keyboard_devices);
 
         // Initialize shared memory for key press flag
-        ctx.shm = make_allocated_mmap<input_shared_memory_t>();
-        if (!ctx.shm.ptr) {
+        ret.shm = make_allocated_mmap<input_shared_memory_t>();
+        if (!ret.shm.ptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-        ctx.shm->any_key_pressed = 0;
-        ctx.shm->kpm = 0;
-        ctx.shm->input_counter = 0;
-        ctx.shm->last_key_pressed_timestamp = 0;
+        ret.shm->any_key_pressed = 0;
+        ret.shm->kpm = 0;
+        ret.shm->input_counter = 0;
+        ret.shm->last_key_pressed_timestamp = 0;
 
         // Initialize shared memory for local config
-        ctx._local_copy_config = make_allocated_mmap<config::config_t>();
-        if (!ctx._local_copy_config.ptr) {
+        ret._local_copy_config = make_allocated_mmap<config::config_t>();
+        if (!ret._local_copy_config.ptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-        assert(ctx._local_copy_config != nullptr);
-        *ctx._local_copy_config = config;
+        assert(ret._local_copy_config != nullptr);
+        *ret._local_copy_config = config;
 
-        //if (trigger_ctx._input != ctx._input) {
-        //    BONGOCAT_LOG_DEBUG("Input context in animation differs from animation trigger input context");
-        //}
-        trigger_ctx._input = &ctx;
+        BONGOCAT_LOG_INFO("Input monitoring started");
+        return ret;
+    }
+
+    bongocat_error_t start_monitoring(input_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config) {
+        if (config.num_keyboard_devices <= 0) {
+            BONGOCAT_LOG_ERROR("No input devices specified");
+            return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        }
+
+        const timestamp_ms_t now = get_current_time_ms();
+        input._latest_kpm_update_ms = now;
+
+        BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", config.num_keyboard_devices);
+
+        // Initialize shared memory for key press flag
+        input.shm = make_allocated_mmap<input_shared_memory_t>();
+        if (!input.shm.ptr) {
+            BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
+        input.shm->any_key_pressed = 0;
+        input.shm->kpm = 0;
+        input.shm->input_counter = 0;
+        input.shm->last_key_pressed_timestamp = 0;
+
+        // Initialize shared memory for local config
+        input._local_copy_config = make_allocated_mmap<config::config_t>();
+        if (!input._local_copy_config.ptr) {
+            BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
+        assert(input._local_copy_config != nullptr);
+        *input._local_copy_config = config;
 
         // start input monitoring
-        const int result = pthread_create(&ctx._input_thread, nullptr, capture_input_thread, &trigger_ctx);
+        trigger_ctx._input = &input;
+        const int result = pthread_create(&input._input_thread, nullptr, capture_input_thread, &trigger_ctx);
         if (result != 0) {
-            atomic_store(&ctx._capture_input_running, false);
             BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
-            ctx.shm._release();
-            ctx._local_copy_config._release();
-            cleanup_input_thread_context(ctx);
             return bongocat_error_t::BONGOCAT_ERROR_THREAD;
         }
 
@@ -509,15 +535,14 @@ namespace bongocat::platform {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    bongocat_error_t input_restart_monitoring(animation::animation_trigger_context_t& trigger_ctx, input_context_t& ctx, const config::config_t& config) {
+    bongocat_error_t restart_monitoring(input_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config) {
         BONGOCAT_LOG_INFO("Restarting input monitoring system");
-
         // Stop current monitoring
-        if (ctx._input_thread) {
+        if (input._input_thread) {
             BONGOCAT_LOG_DEBUG("Input monitoring thread");
-            atomic_store(&ctx._capture_input_running, false);
+            atomic_store(&input._capture_input_running, false);
             //pthread_cancel(ctx->_input_thread);
-            if (stop_thread_graceful_or_cancel(ctx._input_thread, ctx._capture_input_running) != 0) {
+            if (stop_thread_graceful_or_cancel(input._input_thread, input._capture_input_running) != 0) {
                 BONGOCAT_LOG_ERROR("Failed to join input thread: %s", strerror(errno));
             }
             BONGOCAT_LOG_DEBUG("Input monitoring thread terminated");
@@ -525,55 +550,45 @@ namespace bongocat::platform {
 
         // already done when stop current input thread
         //cleanup_input_thread_context(ctx);
-        assert(!ctx._device_paths);
-        assert(!ctx._unique_paths_indices);
-        assert(!ctx._unique_devices);
-        assert(ctx._unique_paths_indices_capacity == 0);
+        assert(!input._device_paths);
+        assert(!input._unique_paths_indices);
+        assert(!input._unique_devices);
+        assert(input._unique_paths_indices_capacity == 0);
+
+        input_context_t ret;
 
         // reset stats
-        ctx._input_kpm_counter = 0;
-        //ctx._latest_kpm_update_ms = get_current_time_ms();
+        //ret._latest_kpm_update_ms = get_current_time_ms();
 
         // Start new monitoring (reuse shared memory if it exists)
-        if (ctx.shm == nullptr) {
-            ctx.shm = make_allocated_mmap<input_shared_memory_t>();
-            if (ctx.shm.ptr == MAP_FAILED) {
+        if (ret.shm == nullptr) {
+            ret.shm = make_allocated_mmap<input_shared_memory_t>();
+            if (ret.shm.ptr == MAP_FAILED) {
                 BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-                cleanup_input_thread_context(ctx);
                 return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
             }
         }
-        if (ctx.shm != nullptr) {
-            ctx.shm->any_key_pressed = 0;
-            ctx.shm->kpm = 0;
-            ctx.shm->input_counter = 0;
-            ctx.shm->last_key_pressed_timestamp = 0;
-        }
 
 
-        if (ctx._local_copy_config == nullptr) {
-            ctx._local_copy_config = make_allocated_mmap<config::config_t>();
-            if (ctx._local_copy_config != nullptr) {
+        if (ret._local_copy_config == nullptr) {
+            ret._local_copy_config = make_unallocated_mmap_value<config::config_t>(config);
+            if (ret._local_copy_config != nullptr) {
                 BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-                ctx.shm._release();
-                cleanup_input_thread_context(ctx);
                 return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
             }
         }
-        assert(ctx._local_copy_config != nullptr);
-        *ctx._local_copy_config = config;
+        assert(ret._local_copy_config != nullptr);
 
         //if (trigger_ctx._input != ctx._input) {
         //    BONGOCAT_LOG_DEBUG("Input context in animation differs from animation trigger input context");
         //}
-        trigger_ctx._input = &ctx;
 
+        input = bongocat::move(ret);
+        trigger_ctx._input = &input;
         // start input monitoring
-        if (pthread_create(&ctx._input_thread, nullptr, capture_input_thread, &trigger_ctx) != 0) {
+        if (pthread_create(&input._input_thread, nullptr, capture_input_thread, &trigger_ctx) != 0) {
             BONGOCAT_LOG_ERROR("Failed to fork input monitoring process: %s", strerror(errno));
-            ctx.shm._release();
-            ctx._local_copy_config._release();
-            cleanup_input_thread_context(ctx);
+            cleanup_input_thread_context(input);
             return bongocat_error_t::BONGOCAT_ERROR_THREAD;
         }
 
@@ -581,7 +596,7 @@ namespace bongocat::platform {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    void input_stop(input_context_t& ctx) {
+    void stop(input_context_t& ctx) {
         atomic_store(&ctx._capture_input_running, false);
         if (ctx._input_thread) {
             BONGOCAT_LOG_DEBUG("Stopping input thread");
@@ -594,30 +609,7 @@ namespace bongocat::platform {
         ctx._input_thread = 0;
     }
 
-    void input_cleanup(input_context_t& ctx) {
-        BONGOCAT_LOG_INFO("Cleaning up input monitoring system");
-
-        input_stop(ctx);
-
-        // should be done in cancel thread
-        //cleanup_input_thread_context(ctx);
-        assert(!ctx._device_paths);
-        assert(!ctx._unique_paths_indices);
-        assert(!ctx._unique_devices);
-        assert(ctx._unique_paths_indices_capacity == 0);
-
-        // Cleanup shared memory
-        ctx.shm._release();
-        ctx._local_copy_config._release();
-
-        // reset stats
-        ctx._input_kpm_counter = 0;
-        ctx._latest_kpm_update_ms = 0;
-
-        BONGOCAT_LOG_DEBUG("Input monitoring cleanup complete");
-    }
-
-    void input_update_config(input_context_t& ctx, const config::config_t& config) {
+    void update_config(input_context_t& ctx, const config::config_t& config) {
         assert(ctx._local_copy_config != nullptr);
 
         *ctx._local_copy_config = config;

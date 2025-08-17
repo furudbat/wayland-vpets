@@ -212,7 +212,7 @@ namespace bongocat::animation {
         out_frames.sprite_sheet_height = sheet_height;
         out_frames.channels = channels;
         // move pixels ownership into out_frames
-        out_frames.pixels = bongocat_move(dest_pixels);
+        out_frames.pixels = move(dest_pixels);
         dest_pixels = nullptr;
         out_frames.frame_width = dest_frame_width;
         out_frames.frame_height = dest_frame_height;
@@ -392,6 +392,7 @@ namespace bongocat::animation {
 #endif
 
     // clean up image data allocated (copied)
+    /*
     static void anim_free_pixels(generic_sprite_sheet_animation_t& anims) {
         for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
             anims.frames[i] = { .valid = false, .col = 0, .row = 0 };
@@ -404,15 +405,15 @@ namespace bongocat::animation {
         anims.frame_height = 0;
         anims.total_frames = 0;
     }
+    */
 
-
-    typedef struct {
-        int channels;
-        uint8_t *pixels;
-        size_t pixels_size;
-        int frame_width;
-        int frame_height;
-    } loaded_sprite_sheet_frame_t;
+    struct loaded_sprite_sheet_frame_t {
+        int channels{0};
+        uint8_t *pixels{nullptr};
+        size_t pixels_size{0};
+        int frame_width{0};
+        int frame_height{0};
+    };
     static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, const embedded_image_t *embedded_images, size_t embedded_images_count) {
         int total_frames = 0;
         int max_frame_width = 0;
@@ -423,7 +424,6 @@ namespace bongocat::animation {
             const embedded_image_t *img = &embedded_images[i];
 
             BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img->name);
-
             loaded_images[i].channels = STBI_rgb_alpha;
             assert(img->size <= INT_MAX);
             loaded_images[i].pixels = stbi_load_from_memory(img->data, static_cast<int>(img->size),
@@ -439,12 +439,12 @@ namespace bongocat::animation {
             assert(loaded_images[i].channels >= 0);
             loaded_images[i].pixels_size = static_cast<size_t>(loaded_images[i].frame_width) * static_cast<size_t>(loaded_images[i].frame_height) * static_cast<size_t>(loaded_images[i].channels);
 
+            // update image properties
             max_frame_width = loaded_images[i].frame_width > max_frame_width ? loaded_images[i].frame_width : max_frame_width;
             max_frame_height = loaded_images[i].frame_height > max_frame_height ? loaded_images[i].frame_height : max_frame_height;
             max_channels = loaded_images[i].channels > max_channels ? loaded_images[i].channels : max_channels;
 
             BONGOCAT_LOG_DEBUG("Loaded %dx%d embedded image", loaded_images[i].frame_width, loaded_images[i].frame_height);
-
             total_frames++;
         }
 

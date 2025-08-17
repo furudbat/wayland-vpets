@@ -5,14 +5,12 @@
 #include "utils/error.h"
 #include "platform/input_context.h"
 #include "animation_context.h"
-#include "animation_event_context.h"
+#include "global_animation_context.h"
 
 namespace bongocat::animation {
-    bongocat_error_t init(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, const config::config_t& config);
-    bongocat_error_t start(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx, platform::input_context_t& input);
-    void stop(animation_context_t& ctx);
-    void cleanup(animation_trigger_context_t& trigger_ctx, animation_context_t& ctx);
-    void trigger(animation_trigger_context_t& ctx);
+    created_result_t<animation_session_t> create(const config::config_t& config);
+    bongocat_error_t start(animation_session_t& ctx, platform::input::input_context_t& input);
+    void trigger(animation_session_t& ctx);
     void update_config(animation_context_t& ctx, const config::config_t& config);
 
     enum class drawing_copy_pixel_color_option_t : uint8_t {
