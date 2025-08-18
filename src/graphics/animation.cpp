@@ -3,7 +3,7 @@
 #include "graphics/animation_context.h"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
-#include "animation_constants.h"
+#include "../../include/graphics/animation_constants.h"
 #include "utils/time.h"
 #include "utils/memory.h"
 #include <ctime>

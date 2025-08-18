@@ -55,7 +55,7 @@ namespace bongocat::animation {
 
         // Initialize embedded images data
         assert(ret.anim.shm != nullptr);
-        const auto result = anim_load_embedded_images_into_sprite_sheet(ret.anim.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
+        const auto result = anim_load_embedded_images_into_sprite_sheet(ret.anim.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Load Bongocat images failed");
             //return result;

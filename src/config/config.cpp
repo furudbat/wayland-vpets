@@ -141,7 +141,7 @@ namespace bongocat::config {
         }
 
         // Validate idle frame
-        if (config.animation_index == BONGOCAT_ANIM_INDEX) {
+        if (config.animation_index == assets::BONGOCAT_ANIM_INDEX) {
             assert(animation::BONGOCAT_NUM_FRAMES <= INT_MAX);
             if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::BONGOCAT_NUM_FRAMES)) {
                 BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
@@ -616,7 +616,7 @@ namespace bongocat::config {
     static void config_log_summary(const config_t& config) {
         BONGOCAT_LOG_DEBUG("Configuration loaded successfully");
         BONGOCAT_LOG_DEBUG("  Bar: %dpx", config.bar_height);
-        if (config.animation_index == BONGOCAT_ANIM_INDEX) {
+        if (config.animation_index == assets::BONGOCAT_ANIM_INDEX) {
             BONGOCAT_LOG_DEBUG("  Cat: %dx%d at offset (%d,%d)",
                               config.cat_height, (config.cat_height * 954) / 393,
                               config.cat_x_offset, config.cat_y_offset);

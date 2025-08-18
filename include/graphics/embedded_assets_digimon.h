@@ -1,0 +1,95 @@
+#ifndef BONGOCAT_EMBEDDED_ASSETS_DIGIMON_H
+#define BONGOCAT_EMBEDDED_ASSETS_DIGIMON_H
+
+#include "embedded_assets_image.h"
+#include "sprite_sheet.h"
+#include <cstddef>
+#include <cstdint>
+
+
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
+#include "embedded_assets/dm.h"
+#else
+//#define DM_ANIM_COUNT 0
+#include "embedded_assets/min_dm.hpp"
+#endif
+namespace bongocat::assets {
+    inline static constexpr size_t DM_ANIM_START_INDEX  = 0;
+}
+
+#ifdef FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS
+#include "embedded_assets/dm20.h"
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t DM20_ANIM_COUNT = 0;
+}
+#endif
+namespace bongocat::assets {
+    inline static constexpr size_t DM20_ANIM_START_INDEX = DM_ANIM_START_INDEX+DM_ANIM_COUNT;
+}
+
+#ifdef FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS
+#include "embedded_assets/dmc.h"
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t DMC_ANIM_COUNT = 0;
+}
+#endif
+namespace bongocat::assets {
+    inline static constexpr size_t DMC_ANIM_START_INDEX = DM20_ANIM_START_INDEX+DM20_ANIM_COUNT;
+}
+
+#ifdef FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS
+#include "embedded_assets/dmx.h"
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t DMX_ANIM_COUNT = 0;
+}
+#endif
+namespace bongocat::assets {
+    inline static constexpr size_t DMX_ANIM_START_INDEX = DMC_ANIM_START_INDEX+DMC_ANIM_COUNT;
+}
+
+#ifdef FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS
+#include "embedded_assets/pen20.h"
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t PEN20_ANIM_COUNT = 0;
+}
+#endif
+namespace bongocat::assets {
+    inline static constexpr size_t PEN20_ANIM_START_INDEX = DMX_ANIM_START_INDEX+DMX_ANIM_COUNT;
+}
+
+namespace bongocat::assets {
+    inline static constexpr size_t DIGIMON_ANIMATIONS_COUNT = DM_ANIM_COUNT+DM20_ANIM_COUNT+DMC_ANIM_COUNT+DMX_ANIM_COUNT+PEN20_ANIM_COUNT;
+}
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t DIGIMON_ANIMATIONS_COUNT = 0;
+}
+#endif
+
+namespace bongocat::assets {
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    static inline constexpr size_t DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = (1+DIGIMON_ANIMATIONS_COUNT);
+    /*
+    inline constinit embedded_image_t digimon_sprite_sheet_embedded_images[DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT] = {
+        // index 0 is reserved for bongocat, no sprite sheet exists
+        {nullptr, 0, "bongocat.png"},
+#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
+    /// @TODO: add full assets
+#else
+    //{dm_agumon_png, dm_agumon_png_size, "embedded agumon"},
+#include "../../src/graphics/embedded_assets/min_dm_digimon_embedded_images_array.cpp.inl"
+    /// @TODO: index more digimons here
+#endif
+    };
+    */
+
+    #include "../../src/graphics/embedded_assets/min_dm_get_sprite_sheet.hpp.inl"
+#endif
+}
+
+#endif // BONGOCAT_EMBEDDED_ASSETS_H

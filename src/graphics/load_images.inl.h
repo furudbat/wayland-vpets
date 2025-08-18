@@ -371,24 +371,26 @@ namespace bongocat::animation {
         int frame_width{0};
         int frame_height{0};
     };
-    static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, const assets::embedded_image_t *embedded_images, size_t embedded_images_count) {
+
+    using get_sprite_callback_t = assets::embedded_image_t (*)(size_t);
+    static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
         int total_frames = 0;
         int max_frame_width = 0;
         int max_frame_height = 0;
         int max_channels = 0;
         auto loaded_images = AllocatedArray<loaded_sprite_sheet_frame_t>(embedded_images_count);
         for (size_t i = 0;i < embedded_images_count && i < loaded_images.count; i++) {
-            const assets::embedded_image_t *img = &embedded_images[i];
+            const assets::embedded_image_t img = get_sprite(i);
 
-            BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img->name);
+            BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img.name);
             loaded_images[i].channels = STBI_rgb_alpha;
-            assert(img->size <= INT_MAX);
-            loaded_images[i].pixels = stbi_load_from_memory(img->data, static_cast<int>(img->size),
+            assert(img.size <= INT_MAX);
+            loaded_images[i].pixels = stbi_load_from_memory(img.data, static_cast<int>(img.size),
                                                       &loaded_images[i].frame_width,
                                                       &loaded_images[i].frame_height,
                                                       nullptr, loaded_images[i].channels);
             if (!loaded_images[i].pixels) {
-                BONGOCAT_LOG_ERROR("Failed to load embedded image: %s", img->name);
+                BONGOCAT_LOG_ERROR("Failed to load embedded image: %s", img.name);
                 continue;
             }
             assert(loaded_images[i].frame_width >= 0);
