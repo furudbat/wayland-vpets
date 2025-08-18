@@ -7,10 +7,8 @@
 #include <ctime>
 #include <pthread.h>
 #include <sys/stat.h>
-#include <sys/types.h>
 #include <cassert>
 #include <sys/eventfd.h>
-#include <unistd.h>
 
 #include "load_images.inl.h"
 
@@ -21,7 +19,6 @@ namespace bongocat::animation {
 
     created_result_t<animation_session_t> create(const config::config_t& config) {
         using namespace assets;
-        using namespace assets::details;
         BONGOCAT_LOG_INFO("Initializing animation system");
         animation_session_t ret;
 

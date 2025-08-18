@@ -371,14 +371,14 @@ namespace bongocat::animation {
         int frame_width{0};
         int frame_height{0};
     };
-    static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, const assets::details::embedded_image_t *embedded_images, size_t embedded_images_count) {
+    static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, const assets::embedded_image_t *embedded_images, size_t embedded_images_count) {
         int total_frames = 0;
         int max_frame_width = 0;
         int max_frame_height = 0;
         int max_channels = 0;
         auto loaded_images = AllocatedArray<loaded_sprite_sheet_frame_t>(embedded_images_count);
         for (size_t i = 0;i < embedded_images_count && i < loaded_images.count; i++) {
-            const assets::details::embedded_image_t *img = &embedded_images[i];
+            const assets::embedded_image_t *img = &embedded_images[i];
 
             BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img->name);
             loaded_images[i].channels = STBI_rgb_alpha;
@@ -473,7 +473,7 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    [[maybe_unused]] static int anim_load_sprite_sheet(const config::config_t& config, generic_sprite_sheet_animation_t& anim, const assets::details::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    [[maybe_unused]] static int anim_load_sprite_sheet(const config::config_t& config, generic_sprite_sheet_animation_t& anim, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         if (sprite_sheet_cols < 0 || sprite_sheet_rows < 0) {
             return -1;
         }
@@ -501,7 +501,7 @@ namespace bongocat::animation {
     }
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-    static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const assets::details::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
