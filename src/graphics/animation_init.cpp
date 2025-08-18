@@ -21,6 +21,7 @@ namespace bongocat::animation {
 
     created_result_t<animation_session_t> create(const config::config_t& config) {
         using namespace assets;
+        using namespace assets::details;
         BONGOCAT_LOG_INFO("Initializing animation system");
         animation_session_t ret;
 
@@ -56,7 +57,6 @@ namespace bongocat::animation {
         }
 
         // Initialize embedded images data
-        const embedded_image_t* bongocat_embedded_images = init_bongocat_embedded_images();
         assert(ret.anim.shm != nullptr);
         const auto result = anim_load_embedded_images_into_sprite_sheet(ret.anim.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, bongocat_embedded_images, BONGOCAT_EMBEDDED_IMAGES_COUNT);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -67,7 +67,6 @@ namespace bongocat::animation {
         BONGOCAT_LOG_INFO("Bongocat loaded into sprite sheet");
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-        const embedded_image_t* digimon_sprite_sheet_embedded_images = init_digimon_embedded_images();
         BONGOCAT_LOG_INFO("Load more sprite sheets: %i", DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
         do {
             animation_context_t& ctx = ret.anim; // alias for inits in includes

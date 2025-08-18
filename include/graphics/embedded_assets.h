@@ -4,6 +4,8 @@
 #include <cstdint>
 #include <cstddef>
 
+#include "sprite_sheet.h"
+
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
 #include "embedded_assets/dm.h"
@@ -69,6 +71,23 @@ namespace bongocat::assets {
 #endif
 namespace bongocat::assets {
     inline static constexpr size_t ANIMS_COUNT = 1+DIGIMON_ANIMATIONS_COUNT;
+}
+
+
+namespace bongocat::assets::details {
+    struct embedded_image_t {
+        const unsigned char *data{nullptr};
+        size_t size{0};
+        const char *name{""};
+    };
+
+    inline static constexpr size_t BONGOCAT_EMBEDDED_IMAGES_COUNT = animation::BONGOCAT_NUM_FRAMES;
+    extern const embedded_image_t* bongocat_embedded_images;
+
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    static inline constexpr size_t DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = (1+DIGIMON_ANIMATIONS_COUNT);
+    extern const embedded_image_t* digimon_sprite_sheet_embedded_images;
+#endif
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_H

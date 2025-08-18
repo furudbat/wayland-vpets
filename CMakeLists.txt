@@ -106,6 +106,7 @@ if(ENABLE_TIME_TRACE)
 endif()
 if(OPT_ENABLE_IPO)
     set(ENABLE_IPO "ENABLE_INTERPROCEDURAL_OPTIMIZATION ENABLE_NATIVE_OPTIMIZATION")
+    set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
 endif()
 if(OPT_WARNINGS_AS_ERRORS)
     set(WARNINGS_AS_ERRORS "WARNINGS_AS_ERRORS")
@@ -336,8 +337,10 @@ target_compile_options(bongocat PRIVATE
 target_compile_options(bongocat PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:
             -fno-exceptions -fno-rtti
-            #-ffreestanding
-            #-nostdlib++
+            #-ffreestanding                 # free, malloc etc. is in use
+            -nostdlib++
+            -fno-use-cxa-atexit             # global destructs not needed ?
+            #-fno-threadsafe-statics        # local statics are in use
         >
 )
 
@@ -349,6 +352,7 @@ target_compile_options(bongocat PRIVATE
             -funroll-loops
             -finline-functions
         >
+        $<$<CONFIG:MinSizeRel>:-fno-inline-functions -fomit-frame-pointer -fno-asynchronous-unwind-tables -fno-unwind-tables -ffunction-sections -fdata-sections>
 )
 target_compile_definitions(bongocat PRIVATE
         $<$<CONFIG:Debug>:BONGOCAT_LOG_LEVEL=5>
@@ -356,6 +360,7 @@ target_compile_definitions(bongocat PRIVATE
         $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_MEMORY_STATISTICS>
         $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>
 )
+target_link_options(bongocat PRIVATE $<$<CONFIG:MinSizeRel>:-Wl,--gc-sections -s>)
 
 # wayland-client dependency
 find_package(PkgConfig REQUIRED)

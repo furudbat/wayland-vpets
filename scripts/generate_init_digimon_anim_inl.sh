@@ -20,6 +20,7 @@ OUTPUT_FILE_3="${OUTPUT_DIR}/${PREFIX_LOWER}_config_parse_enum_key.c.inl"
 OUTPUT_FILE_4="${OUTPUT_DIR}/${PREFIX_LOWER}_config_parse_enum_key.cpp.inl"
 OUTPUT_FILE_5="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_embedded_images.cpp.inl"
 OUTPUT_FILE_6="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_anim.cpp.inl"
+OUTPUT_FILE_7="${OUTPUT_DIR}/${PREFIX_LOWER}_digimon_embedded_images_array.cpp.inl"
 
 # Clean output files at the start
 > "$OUTPUT_FILE_1"
@@ -28,6 +29,7 @@ OUTPUT_FILE_6="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_anim.cpp.inl"
 > "$OUTPUT_FILE_4"
 > "$OUTPUT_FILE_5"
 > "$OUTPUT_FILE_6"
+> "$OUTPUT_FILE_7"
 
 # Extract lowercase digimon names based on the 'extern const unsigned char ..._*_png[];' pattern
 grep -oP "extern const unsigned char ${PREFIX_LOWER}_\K[a-z0-9_]+(?=_png)" "$HEADER_FILE" | while read -r name; do
@@ -52,4 +54,6 @@ grep -oP "extern const unsigned char ${PREFIX_LOWER}_\K[a-z0-9_]+(?=_png)" "$HEA
     echo "digimon_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX] = {${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"};" >> "$OUTPUT_FILE_5"
 
     echo "init_digimon_anim(ctx, ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX, digimon_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX], ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_COLS, ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_6"
+
+    echo "{${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"}," >> "$OUTPUT_FILE_7"
 done

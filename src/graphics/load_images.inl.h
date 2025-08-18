@@ -2,13 +2,10 @@
 #define STB_IMAGE_IMPLEMENTATION
 #define STBI_ONLY_PNG
 #include "graphics/embedded_assets.h"
-#include "graphics/embedded_assets/bongocat.hpp"
 #include "graphics/animation_context.h"
 #include "graphics/animation.h"
 #include "utils/memory.h"
-#include "animation_constants.h"
 #include <pthread.h>
-#include <sys/types.h>
 #include <cassert>
 
 // include stb_image
@@ -190,7 +187,7 @@ namespace bongocat::animation {
                             if (!set_frames && frame_index < MAX_NUM_FRAMES) {
                                 set_frames = true;
                             }
-                            }
+                        }
                     }
                 }
                 if (frame_index < MAX_NUM_FRAMES) {
@@ -351,46 +348,6 @@ namespace bongocat::animation {
     // IMAGE LOADING MODULE
     // =============================================================================
 
-    struct embedded_image_t {
-        const unsigned char *data{nullptr};
-        size_t size{0};
-        const char *name{""};
-    };
-
-#define BONGOCAT_EMBEDDED_IMAGES_COUNT BONGOCAT_NUM_FRAMES
-    static embedded_image_t* init_bongocat_embedded_images() {
-        using namespace assets;
-        static embedded_image_t bongocat_embedded_images[BONGOCAT_EMBEDDED_IMAGES_COUNT];
-
-        bongocat_embedded_images[BONGOCAT_FRAME_BOTH_UP] = {bongo_cat_both_up_png, bongo_cat_both_up_png_size, "embedded bongo-cat-both-up.png"};
-        bongocat_embedded_images[BONGOCAT_FRAME_LEFT_DOWN] = {bongo_cat_left_down_png, bongo_cat_left_down_png_size, "embedded bongo-cat-left-down.png"};
-        bongocat_embedded_images[BONGOCAT_FRAME_RIGHT_DOWN] = {bongo_cat_right_down_png, bongo_cat_right_down_png_size, "embedded bongo-cat-right-down.png"};
-        bongocat_embedded_images[BONGOCAT_FRAME_BOTH_DOWN] = {bongo_cat_both_down_png, bongo_cat_both_down_png_size, "embedded bongo-cat-both-down.png"};
-
-        return bongocat_embedded_images;
-    }
-
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-    static inline constexpr size_t DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = (1+assets::DIGIMON_ANIMATIONS_COUNT);
-    static embedded_image_t* init_digimon_embedded_images() {
-        using namespace assets;
-        static embedded_image_t digimon_sprite_sheet_embedded_images[DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT];
-
-        // index 0 is reserved for bongocat, no sprite sheet exists
-        digimon_sprite_sheet_embedded_images[assets::BONGOCAT_ANIM_INDEX] = {nullptr, 0, "bongocat.png"};
-
-#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
-        /// @TODO: add full assets
-#else
-        //digimon_sprite_sheet_embedded_images[DM_AGUMON_ANIM_INDEX] = {dm_agumon_png, dm_agumon_png_size, "embedded agumon"};
-#include "embedded_assets/min_dm_init_digimon_embedded_images.cpp.inl"
-        /// @TODO: index more digimons here
-#endif
-
-        return digimon_sprite_sheet_embedded_images;
-    }
-#endif
-
     // clean up image data allocated (copied)
     /*
     static void anim_free_pixels(generic_sprite_sheet_animation_t& anims) {
@@ -414,14 +371,14 @@ namespace bongocat::animation {
         int frame_width{0};
         int frame_height{0};
     };
-    static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, const embedded_image_t *embedded_images, size_t embedded_images_count) {
+    static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, const assets::details::embedded_image_t *embedded_images, size_t embedded_images_count) {
         int total_frames = 0;
         int max_frame_width = 0;
         int max_frame_height = 0;
         int max_channels = 0;
         auto loaded_images = AllocatedArray<loaded_sprite_sheet_frame_t>(embedded_images_count);
         for (size_t i = 0;i < embedded_images_count && i < loaded_images.count; i++) {
-            const embedded_image_t *img = &embedded_images[i];
+            const assets::details::embedded_image_t *img = &embedded_images[i];
 
             BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img->name);
             loaded_images[i].channels = STBI_rgb_alpha;
@@ -516,7 +473,7 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    [[maybe_unused]] static int anim_load_sprite_sheet(const config::config_t& config, generic_sprite_sheet_animation_t& anim, const embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    [[maybe_unused]] static int anim_load_sprite_sheet(const config::config_t& config, generic_sprite_sheet_animation_t& anim, const assets::details::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         if (sprite_sheet_cols < 0 || sprite_sheet_rows < 0) {
             return -1;
         }
@@ -544,7 +501,7 @@ namespace bongocat::animation {
     }
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-    static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const assets::details::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
