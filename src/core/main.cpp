@@ -23,6 +23,10 @@ namespace bongocat {
     inline static constexpr platform::time_ms_t SLEEP_WAIT_FOR_SHUTDOWN_MS = 100;
     static_assert(SLEEP_WAIT_FOR_SHUTDOWN_MS > 0);
 
+    struct main_context_t;
+    void stop_threads(main_context_t& context);
+    void cleanup(main_context_t& context);
+
     struct main_context_t {
         volatile sig_atomic_t running {0};
         platform::FileDescriptor signal_fd {-1};
@@ -37,7 +41,56 @@ namespace bongocat {
 
         platform::Mutex config_reload_mutex;
         const char *signal_watch_path{nullptr};
+
+        main_context_t() = default;
+        ~main_context_t() {
+            cleanup(*this);
+        }
+        main_context_t(const main_context_t&) = delete;
+        main_context_t& operator=(const main_context_t&) = delete;
+        main_context_t(main_context_t&&) noexcept = default;
+        main_context_t& operator=(main_context_t&&) noexcept = default;
     };
+    inline void stop_threads(main_context_t& context) {
+        context.running = 0;
+        // stop threads
+        atomic_store(&context.animation.anim._animation_running, false);
+        atomic_store(&context.input._capture_input_running, false);
+        atomic_store(&context.config_watcher._running, false);
+        platform::join_thread_with_timeout(context.animation.anim._anim_thread, 2000);
+        platform::join_thread_with_timeout(context.input._input_thread, 2000);
+        platform::join_thread_with_timeout(context.config_watcher._watcher_thread, 5000);
+        animation::stop(context.animation.anim);
+        platform::input::stop(context.input);
+        config::stop_watcher(context.config_watcher);
+        //context.animation.anim._anim_thread = 0;
+        //context.input._input_thread = 0;
+        //context.config_watcher._watcher_thread = 0;
+    }
+    void cleanup(main_context_t& context) {
+        stop_threads(context);
+
+        // Cleanup Wayland
+        cleanup_wayland(context.wayland);
+
+        // remove references (avoid dangling pointers)
+        context.wayland.animation_trigger_context = nullptr;
+        context.animation._input = nullptr;
+
+        // Cleanup systems
+        cleanup(context.animation);
+        cleanup(context.input);
+        if (context.signal_fd._fd >= 0) close_fd(context.signal_fd);
+        context.signal_watch_path = nullptr;
+        cleanup_watcher(context.config_watcher);
+
+        // Cleanup configuration
+        cleanup(context.config);
+        context.overwrite_config_parameters.output_name = nullptr;
+
+        // cleanup signals handler
+        platform::close_fd(context.signal_fd);
+    }
 
     // =============================================================================
     // COMMAND LINE ARGUMENTS STRUCTURE
@@ -351,50 +404,22 @@ namespace bongocat {
     [[ noreturn ]] static void system_cleanup_and_exit(main_context_t& ctx, char* pid_filename, int exit_code) {
         BONGOCAT_LOG_INFO("Performing cleanup...");
 
-        ctx.running = 0;
+         [[maybe_unused]] const bool enable_debug = ctx.config.enable_debug;
 
+        ctx.running = 0;
         // Remove PID file
         process_remove_pid_file(pid_filename);
         if (pid_filename) ::free(pid_filename);
 
-        // stop threads
-        atomic_store(&ctx.animation.anim._animation_running, false);
-        atomic_store(&ctx.input._capture_input_running, false);
-        atomic_store(&ctx.config_watcher._running, false);
-        platform::join_thread_with_timeout(ctx.animation.anim._anim_thread, 2000);
-        platform::join_thread_with_timeout(ctx.input._input_thread, 2000);
-        platform::join_thread_with_timeout(ctx.config_watcher._watcher_thread, 5000);
-        animation::stop(ctx.animation.anim);
-        platform::input::stop(ctx.input);
-        config::stop_watcher(ctx.config_watcher);
-
-        // Cleanup Wayland
-        cleanup_wayland(ctx.wayland);
-
-        // remove references (avoid dangling pointers)
-        ctx.wayland.animation_trigger_context = nullptr;
-        ctx.animation._input = nullptr;
-
-        // Cleanup systems
-        cleanup(ctx.animation);
-        cleanup(ctx.input);
-        if (ctx.signal_fd._fd >= 0) close_fd(ctx.signal_fd);
-        ctx.signal_watch_path = nullptr;
-        cleanup_watcher(ctx.config_watcher);
+        cleanup(ctx);
+        g_main_context = nullptr;
 
 #ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
         // Print memory statistics in debug mode
-        if (ctx.config.enable_debug) {
+        if (enable_debug) {
             memory_print_stats();
         }
 #endif
-
-        // Cleanup configuration
-        cleanup(ctx.config);
-        ctx.overwrite_config_parameters.output_name = nullptr;
-
-        // cleanup signals handler
-        platform::close_fd(ctx.signal_fd);
 
 #ifndef NDEBUG
         memory_leak_check();
@@ -499,7 +524,7 @@ int main(int argc, char *argv[]) {
         return EXIT_SUCCESS;
     }
 
-    main_context_t ctx;
+    static main_context_t ctx;
     g_main_context = &ctx;
 
     // Load configuration

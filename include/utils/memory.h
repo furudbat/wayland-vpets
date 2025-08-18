@@ -91,8 +91,8 @@ namespace bongocat {
         // GCC requires `typename T` to be fully resolved
         //static constexpr bool value = __is_trivially_destructible(T);
         /// @FIXME: expected nested-name-specifier before »T« [-Wtemplate-body]
-        /// Fallback to STL
-        static constexpr bool value = std::is_trivially_destructible<T>::value;
+        /// Fallback: use STL
+        static constexpr bool value = std::is_trivially_destructible_v<T>;
 #elif defined(_MSC_VER)
         static constexpr bool value = __is_trivially_destructible(T);
 #else

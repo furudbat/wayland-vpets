@@ -100,7 +100,7 @@ namespace bongocat::animation {
         if (dest_channels >= 4) dest[dest_idx + 3]  = a;
     }
 
-    static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_animation_t& out_frames,
+    [[maybe_unused]] static bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_animation_t& out_frames,
                                               const uint8_t* sprite_data, size_t sprite_data_size,
                                               int frame_columns, int frame_rows,
                                               int padding_x, int padding_y,
