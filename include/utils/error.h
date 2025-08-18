@@ -1,9 +1,6 @@
 #ifndef BONGOCAT_ERROR_H
 #define BONGOCAT_ERROR_H
 
-#include <cstdio>
-#include <cerrno>
-#include <cstring>
 #include <cstdint>
 
 namespace bongocat {

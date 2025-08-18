@@ -5,6 +5,7 @@
 #include "utils/error.h"
 #include <cstdlib>
 #include <cassert>
+#include <cstring>
 
 namespace bongocat::config {
     enum class overlay_position_t : uint8_t {

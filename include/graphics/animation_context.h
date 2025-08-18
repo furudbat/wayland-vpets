@@ -3,7 +3,6 @@
 
 #include "animation_shared_memory.h"
 #include "config/config.h"
-#include "platform/input_context.h"
 #include "utils/system_memory.h"
 #include <stdatomic.h>
 

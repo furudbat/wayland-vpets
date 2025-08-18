@@ -10,6 +10,7 @@
 #include <sys/file.h>
 #include <unistd.h>
 #include <cstdlib>
+#include <cstdio>
 #include <cassert>
 #include <fcntl.h>
 #include <sys/signalfd.h>

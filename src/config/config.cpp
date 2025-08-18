@@ -6,7 +6,7 @@
 #include "graphics/embedded_assets.h"
 #include <cassert>
 #include <cctype>
-#include <climits>
+#include <cstdio>
 #include <cstdlib>
 
 

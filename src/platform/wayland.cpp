@@ -12,6 +12,8 @@
 #include <fcntl.h>
 #include <cerrno>
 #include <climits>
+#include <cstdlib>
+#include <cstdio>
 #include <sys/mman.h>
 #include <sys/stat.h>
 #include <sys/time.h>
@@ -888,7 +890,7 @@ reinterpret_cast<const char*>(pos) < \
         for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
             assert(buffer_size >= 0 && static_cast<size_t>(buffer_size) <= SIZE_MAX);
             wayland_ctx_shm->buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, static_cast<size_t>(buffer_size), fd._fd, static_cast<off_t>(i) * buffer_size);
-            if (!wayland_ctx_shm->buffers[i].pixels) {
+            if (wayland_ctx_shm->buffers[i].pixels == nullptr) {
                 BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
                 for (size_t j = 0; j < i; j++) {
                     cleanup_shm_buffer(wayland_ctx_shm->buffers[j]);
@@ -901,7 +903,7 @@ reinterpret_cast<const char*>(pos) < \
                                               current_config.bar_height,
                                               wayland_context._screen_width * RGBA_CHANNELS,
                                               WL_SHM_FORMAT_ARGB8888);
-            if (!wayland_ctx_shm->buffers[i].buffer) {
+            if (wayland_ctx_shm->buffers[i].buffer == nullptr) {
                 BONGOCAT_LOG_ERROR("Failed to create buffer");
                 for (size_t j = 0; j < i; j++) {
                     cleanup_shm_buffer(wayland_ctx_shm->buffers[j]);
@@ -1062,7 +1064,7 @@ reinterpret_cast<const char*>(pos) < \
                 prepared_read = attempts < MAX_ATTEMPTS;
             } while(false);
 
-            if (timeout_ms > INT_MAX) timeout_ms = INT_MAX;
+            if (timeout_ms <= INT_MAX) timeout_ms = INT_MAX;
             const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
             if (poll_result > 0) {
                 constexpr size_t fds_signals_index = 0;

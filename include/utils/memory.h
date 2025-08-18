@@ -5,6 +5,7 @@
 #include "utils/error.h"
 #include <stdatomic.h>
 #include <cassert>
+#include <cstring>
 #if defined(__GNUC__) || defined(__GNUG__)
 #include <type_traits>
 #endif

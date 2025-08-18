@@ -3,7 +3,6 @@
 
 #include "config/config_watcher.h"
 #include "wayland_context.h"
-#include "graphics/animation_context.h"
 #include "graphics/global_animation_context.h"
 #include "global_wayland_context.h"
 #include "config/config.h"
