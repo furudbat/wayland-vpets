@@ -202,6 +202,95 @@ namespace bongocat::animation {
             anim.sprite_sheet.frames[i] = {};
         }
     }
+
+
+    struct ms_pet_sprite_sheet_t;
+    void cleanup_animation(ms_pet_sprite_sheet_t& sprite_sheet);
+
+    struct ms_pet_sprite_sheet_t {
+        int sprite_sheet_width{0};
+        int sprite_sheet_height{0};
+        int channels{0};
+        AllocatedArray<uint8_t> pixels;
+
+        int frame_width{0};
+        int frame_height{0};
+
+        ms_pet_sprite_sheet_t() {
+            sprite_sheet_width = 0;
+            sprite_sheet_height = 0;
+            channels = 0;
+            pixels = {};
+            frame_width = 0;
+            frame_height = 0;
+        }
+        ~ms_pet_sprite_sheet_t() {
+            cleanup_animation(*this);
+        }
+
+        ms_pet_sprite_sheet_t(const ms_pet_sprite_sheet_t& other) {
+            sprite_sheet_width = other.sprite_sheet_width;
+            sprite_sheet_height = other.sprite_sheet_height;
+            channels = other.channels;
+            pixels = other.pixels;
+            frame_width = other.frame_width;
+            frame_height = other.frame_height;
+        }
+        ms_pet_sprite_sheet_t& operator=(const ms_pet_sprite_sheet_t& other) {
+            if (this != &other) {
+                cleanup_animation(*this);
+                sprite_sheet_width = other.sprite_sheet_width;
+                sprite_sheet_height = other.sprite_sheet_height;
+                channels = other.channels;
+                pixels = other.pixels;
+                frame_width = other.frame_width;
+                frame_height = other.frame_height;
+            }
+            return *this;
+        }
+
+        ms_pet_sprite_sheet_t(ms_pet_sprite_sheet_t&& other) noexcept {
+            sprite_sheet_width = other.sprite_sheet_width;
+            sprite_sheet_height = other.sprite_sheet_height;
+            channels = other.channels;
+            pixels = bongocat::move(other.pixels);
+            frame_width = other.frame_width;
+            frame_height = other.frame_height;
+
+            other.sprite_sheet_width = 0;
+            other.sprite_sheet_height = 0;
+            other.channels = 0;
+            other.pixels = {};
+            other.frame_width = 0;
+            other.frame_height = 0;
+        }
+        ms_pet_sprite_sheet_t& operator=(ms_pet_sprite_sheet_t&& other) noexcept {
+            if (this != &other) {
+                sprite_sheet_width = other.sprite_sheet_width;
+                sprite_sheet_height = other.sprite_sheet_height;
+                channels = other.channels;
+                pixels = bongocat::move(other.pixels);
+                frame_width = other.frame_width;
+                frame_height = other.frame_height;
+
+                other.sprite_sheet_width = 0;
+                other.sprite_sheet_height = 0;
+                other.channels = 0;
+                other.pixels = {};
+                other.frame_width = 0;
+                other.frame_height = 0;
+            }
+            return *this;
+        }
+    };
+    inline void cleanup_animation(ms_pet_sprite_sheet_t& sprite_sheet) {
+        release_allocated_array(sprite_sheet.pixels);
+        sprite_sheet.sprite_sheet_width = 0;
+        sprite_sheet.sprite_sheet_height = 0;
+        sprite_sheet.channels = 0;
+        sprite_sheet.frame_width = 0;
+        sprite_sheet.frame_height = 0;
+    }
 }
 
 #endif //BONGOCAT_ANIMATION_SPRITE_SHEET_H

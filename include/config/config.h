@@ -47,8 +47,14 @@ namespace bongocat::config {
     void config_copy_keyboard_devices_from(config_t& config, const config_t& other);
     void cleanup(config_t& config);
 
+    enum class config_animation_type_t : uint8_t {
+        None,
+        Bongocat,
+        Digimon,
+        MsPet,
+    };
+
     struct config_t {
-        int bar_height{0};
         char *output_name{nullptr};
         char *keyboard_devices[MAX_INPUT_DEVICES]{};
         int num_keyboard_devices{0};
@@ -80,6 +86,7 @@ namespace bongocat::config {
 
         align_type_t cat_align{align_type_t::ALIGN_CENTER};
 
+        config_animation_type_t animation_type{config_animation_type_t::None};
 
 
         // Make Config movable and copyable
@@ -93,8 +100,7 @@ namespace bongocat::config {
         }
 
         config_t(const config_t& other)
-            : bar_height(other.bar_height),
-              cat_x_offset(other.cat_x_offset),
+            : cat_x_offset(other.cat_x_offset),
               cat_y_offset(other.cat_y_offset),
               cat_height(other.cat_height),
               overlay_height(other.overlay_height),
@@ -116,7 +122,8 @@ namespace bongocat::config {
               sleep_end(other.sleep_end),
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
-              cat_align(other.cat_align)
+              cat_align(other.cat_align),
+              animation_type(other.animation_type)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
@@ -126,7 +133,6 @@ namespace bongocat::config {
             if (this != &other) {
                 cleanup(*this);
 
-                bar_height = other.bar_height;
                 cat_x_offset = other.cat_x_offset;
                 cat_y_offset = other.cat_y_offset;
                 cat_height = other.cat_height;
@@ -150,6 +156,7 @@ namespace bongocat::config {
                 idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
+                animation_type = other.animation_type;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
@@ -158,8 +165,7 @@ namespace bongocat::config {
         }
 
         config_t(config_t&& other) noexcept
-            : bar_height(other.bar_height),
-              output_name(other.output_name),
+            : output_name(other.output_name),
               num_keyboard_devices(other.num_keyboard_devices),
               cat_x_offset(other.cat_x_offset),
               cat_y_offset(other.cat_y_offset),
@@ -183,7 +189,8 @@ namespace bongocat::config {
               sleep_end(other.sleep_end),
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
-              cat_align(other.cat_align)
+              cat_align(other.cat_align),
+              animation_type(other.animation_type)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
@@ -197,7 +204,6 @@ namespace bongocat::config {
             if (this != &other) {
                 cleanup(*this);
 
-                bar_height = other.bar_height;
                 output_name = other.output_name;
                 num_keyboard_devices = other.num_keyboard_devices;
                 cat_x_offset = other.cat_x_offset;
@@ -223,6 +229,7 @@ namespace bongocat::config {
                 idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
+                animation_type = other.animation_type;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];

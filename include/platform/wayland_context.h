@@ -32,6 +32,7 @@ namespace bongocat::platform::wayland {
 
         // local copy from other thread, update after reload (shared memory)
         MMapMemory<config::config_t> _local_copy_config;
+        int _bar_height{0};
         int _screen_width{0};
         char* _output_name_str{nullptr};                  // ref to existing name in output, Will default to automatic one if kept null
         bool _fullscreen_detected{false};
@@ -62,6 +63,7 @@ namespace bongocat::platform::wayland {
               layer_surface(other.layer_surface),
               ctx_shm(bongocat::move(other.ctx_shm)),
               _local_copy_config(bongocat::move(other._local_copy_config)),
+              _bar_height(other._bar_height),
               _screen_width(other._screen_width),
               _output_name_str(other._output_name_str),
               _fullscreen_detected(other._fullscreen_detected),
@@ -83,6 +85,7 @@ namespace bongocat::platform::wayland {
             other._frame_cb = nullptr;
             other._frame_pending = false;
             other._redraw_after_frame = false;
+            other._bar_height = 0;
             other._screen_width = 0;
             other._fullscreen_detected = false;
             other._last_frame_timestamp_ms = 0;
@@ -103,6 +106,7 @@ namespace bongocat::platform::wayland {
                 ctx_shm = bongocat::move(other.ctx_shm);
                 _local_copy_config = bongocat::move(other._local_copy_config);
 
+                _bar_height = other._bar_height;
                 _screen_width = other._screen_width;
                 _output_name_str = other._output_name_str;
                 _fullscreen_detected = other._fullscreen_detected;
@@ -127,6 +131,7 @@ namespace bongocat::platform::wayland {
                 other._frame_pending = false;
                 other._redraw_after_frame = false;
                 other._screen_width = 0;
+                other._bar_height = 0;
                 other._fullscreen_detected = false;
                 other._last_frame_timestamp_ms = 0;
             }
@@ -218,6 +223,7 @@ namespace bongocat::platform::wayland {
         ctx._output_name_str = nullptr;
         ctx._frame_pending = false;
         ctx._redraw_after_frame = false;
+        ctx._bar_height = 0;
         ctx._screen_width = 0;
         ctx._fullscreen_detected = false;
     }

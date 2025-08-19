@@ -444,12 +444,16 @@ namespace bongocat::config {
                 lower_value[i] = value ? static_cast<char>(tolower(value[i])) : '\0';
             }
 
+            config.animation_type = config_animation_type_t::None;
             config.animation_index = -1;
 
+            // check for bongocat
             if (strcmp(lower_value, BONGOCAT_NAME) == 0) {
                 config.animation_index = BONGOCAT_ANIM_INDEX;
+                config.animation_type = config_animation_type_t::Bongocat;
             }
 
+            // check for digimon
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
             /// @TODO: add full assets
@@ -459,11 +463,28 @@ namespace bongocat::config {
             //}
 #include "../graphics/embedded_assets/min_dm_config_parse_enum_key.cpp.inl"
 #endif
+            // assume animation type is not set yet, but index got set/overwriten above
+            if (config.animation_index >= 0 && config.animation_type == config_animation_type_t::None) {
+                config.animation_type = config_animation_type_t::Digimon;
+            }
 #endif
 
-            if (config.animation_index < 0) {
+            // check for clippy
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+            if (strcmp(lower_value, "clippy") == 0) {
+                config.animation_index = CLIPPY_ANIM_INDEX;
+                config.animation_type = config_animation_type_t::MsPet;
+            }
+            /// @NOTE(config): add more MS Pets here
+#endif
+
+            if (config.animation_index < 0 || config.animation_type == config_animation_type_t::None) {
+                if (config.animation_index >= 0 && config.animation_type == config_animation_type_t::None) {
+                    BONGOCAT_LOG_WARNING("animation_index is set, but not animation_type (unknown type for index=%i and value='%s')", config.animation_index, value);
+                }
                 BONGOCAT_LOG_WARNING("Invalid %s '%s', using '%s'", ANIMATION_NAME_KEY, value, BONGOCAT_NAME);
                 config.animation_index = BONGOCAT_ANIM_INDEX;
+                config.animation_type = config_animation_type_t::Bongocat;
             }
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
@@ -563,7 +584,6 @@ namespace bongocat::config {
     void set_defaults(config_t& config) {
         config_t cfg;
 
-        cfg.bar_height = DEFAULT_BAR_HEIGHT;
         cfg.output_name = nullptr;
         assert(MAX_INPUT_DEVICES <= INT_MAX);
         for (int i = 0; i < static_cast<int>(MAX_INPUT_DEVICES); i++) {
@@ -593,6 +613,7 @@ namespace bongocat::config {
         cfg.idle_sleep_timeout_sec = DEFAULT_IDLE_SLEEP_TIMEOUT_SEC;
         cfg.happy_kpm = DEFAULT_HAPPY_KPM;
         cfg.cat_align = DEFAULT_CAT_ALIGN;
+        cfg.animation_type = config_animation_type_t::Bongocat;
 
         config = bongocat::move(cfg);
     }
@@ -604,18 +625,9 @@ namespace bongocat::config {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    static void config_finalize(config_t& config) {
-        // Update bar_height from config
-        // Update bar_height from config
-        config.bar_height = config.overlay_height;
-
-        // Initialize error system with debug setting
-        bongocat::error_init(config.enable_debug);
-    }
-
     static void config_log_summary(const config_t& config) {
         BONGOCAT_LOG_DEBUG("Configuration loaded successfully");
-        BONGOCAT_LOG_DEBUG("  Bar: %dpx", config.bar_height);
+        BONGOCAT_LOG_DEBUG("  Overlay Height: %dpx", config.overlay_height);
         if (config.animation_index == assets::BONGOCAT_ANIM_INDEX) {
             BONGOCAT_LOG_DEBUG("  Cat: %dx%d at offset (%d,%d)",
                               config.cat_height, (config.cat_height * 954) / 393,
@@ -678,9 +690,6 @@ namespace bongocat::config {
                 BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
             }
         }
-
-        // Finalize configuration
-        config_finalize(ret);
 
         // Log configuration summary
         config_log_summary(ret);

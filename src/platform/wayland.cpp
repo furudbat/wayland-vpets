@@ -842,7 +842,7 @@ reinterpret_cast<const char*>(pos) < \
         assert(current_config.bar_height >= 0);
         //assert(current_config.bar_height <= UINT32_MAX);
         zwlr_layer_surface_v1_set_anchor(wayland_ctx.layer_surface, anchor);
-        zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(current_config.bar_height));
+        zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(wayland_ctx._bar_height));
         zwlr_layer_surface_v1_set_exclusive_zone(wayland_ctx.layer_surface, -1);
         zwlr_layer_surface_v1_set_keyboard_interactivity(wayland_ctx.layer_surface,
                                                          ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_NONE);
@@ -867,7 +867,7 @@ reinterpret_cast<const char*>(pos) < \
         wayland_shared_memory_t *wayland_ctx_shm = wayland_context.ctx_shm;
 
         const int32_t buffer_width = wayland_context._screen_width;
-        const int32_t buffer_height = current_config.bar_height;
+        const int32_t buffer_height = wayland_context._bar_height;
         const int32_t buffer_size = buffer_width * buffer_height * RGBA_CHANNELS;
         if (buffer_size <= 0) {
             BONGOCAT_LOG_ERROR("Invalid buffer size: %d", buffer_size);
@@ -900,7 +900,7 @@ reinterpret_cast<const char*>(pos) < \
             }
 
             wayland_ctx_shm->buffers[i].buffer = wl_shm_pool_create_buffer(pool, 0, wayland_context._screen_width,
-                                              current_config.bar_height,
+                                              wayland_context._bar_height,
                                               wayland_context._screen_width * RGBA_CHANNELS,
                                               WL_SHM_FORMAT_ARGB8888);
             if (wayland_ctx_shm->buffers[i].buffer == nullptr) {
@@ -932,6 +932,7 @@ reinterpret_cast<const char*>(pos) < \
         wayland_session_t ret;
 
         ret.animation_trigger_context = &anim;
+        ret.wayland_context._bar_height = DEFAULT_BAR_HEIGHT;
 
         // Initialize shared memory
         ret.wayland_context.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
@@ -955,6 +956,7 @@ reinterpret_cast<const char*>(pos) < \
         }
         assert(ret.wayland_context._local_copy_config != nullptr);
         *ret.wayland_context._local_copy_config = config;
+        ret.wayland_context._bar_height = config.overlay_height;
 
         return ret;
     }
@@ -999,7 +1001,7 @@ reinterpret_cast<const char*>(pos) < \
         wl_display_roundtrip(ctx.wayland_context.display);
         BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)",
                           ctx.wayland_context._screen_width,
-                          ctx.wayland_context._local_copy_config->bar_height);
+                          ctx.wayland_context._bar_height);
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 

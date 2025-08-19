@@ -1,9 +1,10 @@
 #include "graphics/embedded_assets.h"
-#include "graphics/embedded_assets/bongocat.hpp"
+#include "graphics/embedded_assets_bongocat.h"
+#include "graphics/embedded_assets_digimon.h"
+#include "graphics/embedded_assets_clippy.h"
 #include "graphics/animation_context.h"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
-#include "../../include/graphics/animation_constants.h"
 #include "utils/time.h"
 #include "utils/memory.h"
 #include <ctime>
@@ -13,7 +14,6 @@
 #include <climits>
 #include <poll.h>
 #include <unistd.h>
-#include <sys/mman.h>
 
 namespace bongocat::animation {
     // =============================================================================
@@ -60,6 +60,7 @@ namespace bongocat::animation {
     };
 
     static int anim_get_random_active_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_shared_memory_t& input_shm) {
+        using namespace assets;
 #ifdef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
         assert(ctx.shm != nullptr && ctx.shm != MAP_FAILED);
         const animation_shared_memory_t& anim_shm = *ctx.shm;
@@ -77,8 +78,8 @@ namespace bongocat::animation {
         assert(ctx.shm != nullptr);
         const animation_shared_memory_t& anim_shm = *ctx.shm;
 
-        const int current_frame = anim_shm.anim_frame_index;
-        if (anim_shm.anim_index == assets::BONGOCAT_ANIM_INDEX) {
+        const int current_frame = anim_shm.animation_player_data.frame_index;
+        if (anim_shm.anim_index == BONGOCAT_ANIM_INDEX) {
             if (current_frame == 1) {
                 return 2;
             } else if (current_frame == 2) {
@@ -93,7 +94,7 @@ namespace bongocat::animation {
 
         // toggle sleep frame (if 2 frame exists for sleeping)
         if (current_config.enable_scheduled_sleep && is_sleep_time(current_config)) {
-            if (current_frame == animation::DIGIMON_FRAME_SLEEP1) {
+            if (current_frame == DIGIMON_FRAME_SLEEP1) {
                 if (anim_shm.anims[anim_shm.anim_index].digimon.sleep_2.valid) {
                     return DIGIMON_FRAME_SLEEP2;
                 } else if (anim_shm.anims[anim_shm.anim_index].digimon.sleep1.valid) {
@@ -148,8 +149,8 @@ namespace bongocat::animation {
         }
 
         assert(ctx.shm != nullptr);
-        const bool changed = ctx.shm->anim_frame_index != new_frame;
-        ctx.shm->anim_frame_index = new_frame;
+        const bool changed = ctx.shm->animation_player_data.frame_index != new_frame;
+        ctx.shm->animation_player_data.frame_index = new_frame;
         if (changed) {
             state.hold_until_us = current_time_us + duration_us;
         }
@@ -243,6 +244,8 @@ namespace bongocat::animation {
     }
 
     static bool anim_handle_idle_return(animation_context_t& ctx, const platform::input::input_context_t& input, const animation_state_t& state, platform::timestamp_us_t current_time_us) {
+        using namespace assets;
+
         assert(input.shm);
         const platform::input::input_shared_memory_t& input_shm = *input.shm;
         // read-only config
@@ -250,26 +253,26 @@ namespace bongocat::animation {
         const config::config_t& current_config = *ctx._local_copy_config;
 
         assert(ctx.shm != nullptr);
-        const int old_anim_frame_index = ctx.shm->anim_frame_index;
+        const int old_anim_frame_index = ctx.shm->animation_player_data.frame_index;
 
         // Sleep Mode
         if (current_config.enable_scheduled_sleep) {
             if (is_sleep_time(current_config)) {
                 if (ctx.shm->anim_index == assets::BONGOCAT_ANIM_INDEX) {
-                    ctx.shm->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
-                    return old_anim_frame_index != ctx.shm->anim_frame_index;
+                    ctx.shm->animation_player_data.frame_index = BONGOCAT_FRAME_BOTH_DOWN;
+                    return old_anim_frame_index != ctx.shm->animation_player_data.frame_index;
                 }
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
                 // assume it's a digimon
                 if (ctx.shm->anims[ctx.shm->anim_index].digimon.sleep1.valid) {
-                    ctx.shm->anim_frame_index = DIGIMON_FRAME_SLEEP1;
-                    return old_anim_frame_index != ctx.shm->anim_frame_index;
+                    ctx.shm->animation_player_data.frame_index = DIGIMON_FRAME_SLEEP1;
+                    return old_anim_frame_index != ctx.shm->animation_player_data.frame_index;
                 }
                 if (ctx.shm->anims[ctx.shm->anim_index].digimon.down1.valid) {
                     // fallback frame
-                    ctx.shm->anim_frame_index = DIGIMON_FRAME_DOWN1;
-                    return old_anim_frame_index != ctx.shm->anim_frame_index;
+                    ctx.shm->animation_player_data.frame_index = DIGIMON_FRAME_DOWN1;
+                    return old_anim_frame_index != ctx.shm->animation_player_data.frame_index;
                 }
 #endif
             }
@@ -282,15 +285,15 @@ namespace bongocat::animation {
             const platform::time_ms_t idle_sleep_timeout_ms = current_config.idle_sleep_timeout_sec*1000;
             if (now - last_key_pressed_timestamp >= idle_sleep_timeout_ms) {
                 if (ctx.shm->anim_index == assets::BONGOCAT_ANIM_INDEX) {
-                    ctx.shm->anim_frame_index = BONGOCAT_FRAME_BOTH_DOWN;
-                    return old_anim_frame_index != ctx.shm->anim_frame_index;
+                    ctx.shm->animation_player_data.frame_index = BONGOCAT_FRAME_BOTH_DOWN;
+                    return old_anim_frame_index != ctx.shm->animation_player_data.frame_index;
                 }
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
                 // assume it's a digimon
                 if (ctx.shm->anims[ctx.shm->anim_index].digimon.down1.valid) {
-                    ctx.shm->anim_frame_index = DIGIMON_FRAME_DOWN1;
-                    return old_anim_frame_index != ctx.shm->anim_frame_index;
+                    ctx.shm->animation_player_data.frame_index = DIGIMON_FRAME_DOWN1;
+                    return old_anim_frame_index != ctx.shm->animation_player_data.frame_index;
                 }
 #endif
             }
@@ -302,7 +305,7 @@ namespace bongocat::animation {
 
         if (old_anim_frame_index != current_config.idle_frame) {
             BONGOCAT_LOG_VERBOSE("Returning to idle frame %d", current_config.idle_frame);
-            ctx.shm->anim_frame_index = current_config.idle_frame;
+            ctx.shm->animation_player_data.frame_index = current_config.idle_frame;
             return true;
         }
 
@@ -399,15 +402,15 @@ namespace bongocat::animation {
                 sec_diff--;
             }
 
-            ctx.shm->time_until_next_frame_ms =
+            ctx.shm->animation_player_data.time_until_next_frame_ms =
                 static_cast<platform::time_ms_t>(sec_diff * 1000L + (nsec_diff + 999999LL) / 1000000LL);
 
             if (sec_diff >= 0) {
                 timespec sleep_time = { .tv_sec = sec_diff, .tv_nsec = nsec_diff };
                 nanosleep(&sleep_time, nullptr);
-                //BONGOCAT_LOG_VERBOSE("Animation frame sleep: %dms", ctx->shm->time_until_next_frame_ms);
+                //BONGOCAT_LOG_VERBOSE("Animation frame sleep: %dms", ctx->shm->animation_player_data.time_until_next_frame_ms);
             } else {
-                ctx.shm->time_until_next_frame_ms = 0;
+                ctx.shm->animation_player_data.time_until_next_frame_ms = 0;
                 next_frame_time = now; // resync
                 //BONGOCAT_LOG_VERBOSE("Animation skip wait");
             }
@@ -461,7 +464,20 @@ namespace bongocat::animation {
         /// @TODO: make updating config thrad-safe (animation thread)
         *ctx._local_copy_config = config;
 
+        ctx.shm->anim_type = ctx._local_copy_config->animation_type;
+
         assert(assets::ANIMS_COUNT <= INT_MAX);
-        ctx.shm->anim_index = config.animation_index % static_cast<int>(assets::ANIMS_COUNT);
+        switch (config.animation_type) {
+            case config::config_animation_type_t::None:
+                ctx.shm->anim_index = 0;
+                break;
+            case config::config_animation_type_t::Bongocat:
+            case config::config_animation_type_t::Digimon:
+                ctx.shm->anim_index = config.animation_index % static_cast<int>(assets::ANIMS_COUNT);
+                break;
+            case config::config_animation_type_t::MsPet:
+                ctx.shm->anim_index = config.animation_index % static_cast<int>(assets::MS_PETS_COUNT);
+                break;
+        }
     }
 }

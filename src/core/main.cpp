@@ -281,6 +281,8 @@ namespace bongocat {
             // If successful, check if input devices changed before updating config
             const bool devices_changed = config_devices_changed(old_config, new_config);
             g_main_context->config = bongocat::move(new_config);
+            // Initialize error system with debug setting
+            bongocat::error_init(g_main_context->config.enable_debug);
             /// @NOTE: don't use new_config after move
             // Update the running systems with new config
             platform::input::update_config(g_main_context->input, g_main_context->config);
@@ -300,7 +302,7 @@ namespace bongocat {
         } while(false);
 
         BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
-        BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", g_main_context->wayland.wayland_context._screen_width, g_main_context->config.bar_height);
+        BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", g_main_context->wayland.wayland_context._screen_width, g_main_context->wayland.wayland_context._bar_height);
     }
 
     static bongocat_error_t start_config_watcher(main_context_t& ctx, const char *config_file) {
@@ -538,6 +540,7 @@ int main(int argc, char *argv[]) {
         return EXIT_FAILURE;
     }
     ctx.config = bongocat::move(config);
+    bongocat::error_init(ctx.config.enable_debug);
 
     // set pid file, based on output_name
     char* pid_filename = nullptr;
@@ -610,7 +613,7 @@ int main(int argc, char *argv[]) {
                             ctx.config.cat_x_offset, ctx.wayland.wayland_context._screen_width);
     }
 
-    BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland.wayland_context._screen_width, ctx.config.bar_height);
+    BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland.wayland_context._screen_width, ctx.config.overlay_height);
 
     BONGOCAT_LOG_INFO("Bongo Cat Overlay configured successfully");
 

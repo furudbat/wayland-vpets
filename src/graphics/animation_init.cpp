@@ -39,7 +39,7 @@ namespace bongocat::animation {
         assert(ret.anim._local_copy_config != nullptr);
         //config_set_defaults(*ctx._local_copy_config);
         update_config(ret.anim, config);
-        ret.anim.shm->anim_frame_index = config.idle_frame;  // initial frame
+        ret.anim.shm->animation_player_data.frame_index = config.idle_frame;  // initial frame
 
         ret.trigger_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
         if (ret.trigger_efd._fd < 0) {

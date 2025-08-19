@@ -1,13 +1,18 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H
 #define BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H
 
-#include "animation_constants.h"
 #include "sprite_sheet.h"
 #include "embedded_assets_image.h"
 #include "graphics/embedded_assets/bongocat.hpp"
 #include <cstddef>
 
 namespace bongocat::assets {
+    // Bongocat Frames
+    inline static constexpr int BONGOCAT_FRAME_BOTH_UP = 0;
+    inline static constexpr int BONGOCAT_FRAME_LEFT_DOWN = 1;
+    inline static constexpr int BONGOCAT_FRAME_RIGHT_DOWN = 2;
+    inline static constexpr int BONGOCAT_FRAME_BOTH_DOWN = 3;
+
     inline static constexpr size_t BONGOCAT_EMBEDDED_IMAGES_COUNT = animation::BONGOCAT_NUM_FRAMES;
     /*
     inline constinit embedded_image_t bongocat_embedded_images[BONGOCAT_EMBEDDED_IMAGES_COUNT] = {
