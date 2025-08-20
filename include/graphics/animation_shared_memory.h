@@ -20,7 +20,9 @@ namespace bongocat::animation {
         int anim_index{0};
         animation_player_data_t animation_player_data{};
         animation_t anims[assets::ANIMS_COUNT];
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
         ms_pet_sprite_sheet_t ms_anims[assets::MS_PETS_COUNT];
+#endif
 
         animation_shared_memory_t() = default;
         ~animation_shared_memory_t() {
@@ -30,9 +32,11 @@ namespace bongocat::animation {
             for (size_t i = 0; i < assets::ANIMS_COUNT; i++) {
                 cleanup_animation(anims[i]);
             }
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
             for (size_t i = 0; i < assets::MS_PETS_COUNT; i++) {
                 cleanup_animation(ms_anims[i]);
             }
+#endif
         }
         animation_shared_memory_t(const animation_shared_memory_t& other)
             : anim_type(other.anim_type), anim_index(other.anim_index),
@@ -41,9 +45,11 @@ namespace bongocat::animation {
             for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                 anims[i] = other.anims[i];
             }
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
             for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                 ms_anims[i] = other.ms_anims[i];
             }
+#endif
         }
         animation_shared_memory_t& operator=(const animation_shared_memory_t& other) {
             if (this != &other) {
@@ -53,9 +59,11 @@ namespace bongocat::animation {
                 for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                     anims[i] = other.anims[i];
                 }
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
                 for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                     ms_anims[i] = other.ms_anims[i];
                 }
+#endif
             }
             return *this;
         }
@@ -67,9 +75,11 @@ namespace bongocat::animation {
             for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                 anims[i] = move(other.anims[i]);
             }
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
             for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                 ms_anims[i] = move(other.ms_anims[i]);
             }
+#endif
 
             other.anim_type = config::config_animation_type_t::None;
             other.anim_index = 0;
@@ -83,9 +93,11 @@ namespace bongocat::animation {
                 for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                     anims[i] = move(other.anims[i]);
                 }
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
                 for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                     ms_anims[i] = move(other.ms_anims[i]);
                 }
+#endif
 
                 other.anim_type = config::config_animation_type_t::None;
                 other.anim_index = 0;

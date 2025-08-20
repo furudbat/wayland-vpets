@@ -2,12 +2,13 @@
 #include "core/bongocat.h"
 #include "utils/error.h"
 #include "graphics/animation_context.h"
-#include "graphics/embedded_assets/bongocat.h"
 #include "graphics/embedded_assets.h"
+#include "graphics/embedded_assets/bongocat.hpp"
 #include <cassert>
 #include <cctype>
 #include <cstdio>
 #include <cstdlib>
+
 
 
 // =============================================================================
@@ -478,7 +479,7 @@ namespace bongocat::config {
             }
 #endif
 
-            // check for clippy
+            // check for ms pets (clippy)
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
             if (strcmp(lower_value, "clippy") == 0) {
                 config.animation_index = CLIPPY_ANIM_INDEX;

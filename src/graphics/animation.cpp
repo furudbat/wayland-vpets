@@ -915,10 +915,10 @@ namespace bongocat::animation {
                 break;
             case config::config_animation_type_t::Bongocat:
             case config::config_animation_type_t::Digimon:
-                ctx.shm->anim_index = config.animation_index % static_cast<int>(assets::ANIMS_COUNT);
+                ctx.shm->anim_index = assets::ANIMS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::ANIMS_COUNT) : 0;
                 break;
             case config::config_animation_type_t::MsPet:
-                ctx.shm->anim_index = config.animation_index % static_cast<int>(assets::MS_PETS_COUNT);
+                ctx.shm->anim_index = assets::MS_PETS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::MS_PETS_COUNT) : 0;
                 break;
         }
     }

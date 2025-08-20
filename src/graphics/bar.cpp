@@ -70,6 +70,136 @@ namespace bongocat::animation {
     // DRAWING MANAGEMENT
     // =============================================================================
 
+    struct cat_rect_t {
+        int x;
+        int y;
+        int width;
+        int height;
+    };
+
+    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const generic_sprite_sheet_animation_t& sheet, const config::config_t& config) {
+        const int cat_height = config.cat_height;
+        const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
+
+        int cat_x = 0;
+        switch (config.cat_align) {
+            case config::align_type_t::ALIGN_CENTER:
+                cat_x = (wayland_ctx._screen_width - cat_width) / 2 + config.cat_x_offset;
+                break;
+            case config::align_type_t::ALIGN_LEFT:
+                cat_x = config.cat_x_offset;
+                break;
+            case config::align_type_t::ALIGN_RIGHT:
+                cat_x = wayland_ctx._screen_width - cat_width - config.cat_x_offset;
+                break;
+            default:
+                BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", config.cat_align);
+                break;
+        }
+        const int cat_y = (wayland_ctx._bar_height - cat_height) / 2 + config.cat_y_offset;
+
+        return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
+    }
+    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const ms_pet_sprite_sheet_t& sheet, const config::config_t& config) {
+        const int cat_height = config.cat_height;
+        const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
+
+        int cat_x = 0;
+        switch (config.cat_align) {
+            case config::align_type_t::ALIGN_CENTER:
+                cat_x = (wayland_ctx._screen_width - cat_width) / 2 + config.cat_x_offset;
+                break;
+            case config::align_type_t::ALIGN_LEFT:
+                cat_x = config.cat_x_offset;
+                break;
+            case config::align_type_t::ALIGN_RIGHT:
+                cat_x = wayland_ctx._screen_width - cat_width - config.cat_x_offset;
+                break;
+            default:
+                BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", config.cat_align);
+                break;
+        }
+        const int cat_y = (wayland_ctx._bar_height - cat_height) / 2 + config.cat_y_offset;
+
+        return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
+    }
+
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet) {
+        if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
+            return;
+        }
+
+        platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+        animation_context_t& anim = ctx.animation_trigger_context->anim;
+        //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+
+        assert(wayland_ctx._local_copy_config != nullptr);
+        assert(anim.shm != nullptr);
+        const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
+        const animation_shared_memory_t& anim_shm = *anim.shm;
+
+        assert(wayland_ctx_shm->current_buffer_index >= 0);
+        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
+        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
+        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
+
+        uint8_t *pixels = shm_buffer->pixels.data;
+        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+
+        const sprite_sheet_animation_region_t* region = sheet.frames[anim_shm.animation_player_data.frame_index].valid
+                    ? &sheet.frames[anim_shm.animation_player_data.frame_index]
+                    : nullptr;
+
+        auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+
+        if (region) {
+            blit_image_scaled(pixels, pixels_size,
+                              wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+                              sheet.pixels.data, sheet.pixels._size_bytes,  sheet.sprite_sheet_width, sheet.sprite_sheet_height, sheet.channels,
+                              region->col * sheet.frame_width, region->row * sheet.frame_height,
+                              sheet.frame_width, sheet.frame_height,
+                              cat_x, cat_y, cat_width, cat_height,
+                              drawing_color_order_t::COLOR_ORDER_BGRA, drawing_color_order_t::COLOR_ORDER_RGBA);
+        }
+    }
+
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const ms_pet_sprite_sheet_t& sheet, int col, int row) {
+        if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
+            return;
+        }
+
+        platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+        //animation_context_t& anim = ctx.animation_trigger_context->anim;
+        //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+
+        assert(wayland_ctx._local_copy_config != nullptr);
+        //assert(anim.shm != nullptr);
+        const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
+        //const animation_shared_memory_t& anim_shm = *anim.shm;
+
+        assert(wayland_ctx_shm->current_buffer_index >= 0);
+        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
+        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
+        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
+
+        uint8_t *pixels = shm_buffer->pixels.data;
+        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+
+        auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+
+        blit_image_scaled(pixels, pixels_size,
+                          wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+                          sheet.pixels.data, sheet.pixels._size_bytes,  sheet.sprite_sheet_width, sheet.sprite_sheet_height, sheet.channels,
+                          col * sheet.frame_width, row * sheet.frame_height,
+                          sheet.frame_width, sheet.frame_height,
+                          cat_x, cat_y, cat_width, cat_height,
+                          drawing_color_order_t::COLOR_ORDER_BGRA, drawing_color_order_t::COLOR_ORDER_RGBA);
+    }
+#endif
+
     bool draw_bar(platform::wayland::wayland_session_t& ctx) {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         animation_context_t& anim = ctx.animation_trigger_context->anim;
@@ -126,69 +256,29 @@ namespace bongocat::animation {
         do {
             platform::LockGuard guard (anim.anim_lock);
 
-            const animation_t *cur_anim = nullptr;
-            const generic_sprite_sheet_animation_t *sheet = nullptr;
-            const sprite_sheet_animation_region_t *region = nullptr;
-            switch (anim_shm.anim_type) {
-                case config::config_animation_type_t::None:
-                    break;
-                case config::config_animation_type_t::Bongocat:
-                case config::config_animation_type_t::Digimon:
-                    cur_anim = &anim_shm.anims[anim_shm.anim_index];
-                    sheet = &cur_anim->sprite_sheet;
-                    region = cur_anim->sprite_sheet.frames[anim_shm.animation_player_data.frame_index].valid
-                        ? &sheet->frames[anim_shm.animation_player_data.frame_index]
-                        : nullptr;
-                    break;
-                case config::config_animation_type_t::MsPet:
-                    break;
-            }
-
             if (!wayland_ctx._fullscreen_detected) {
-                if (sheet && sheet->frame_width > 0 && sheet->frame_height > 0) {
-                    const int cat_height = current_config.cat_height;
-                    const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet->frame_width) / static_cast<float>(sheet->frame_height)));
-
-                    int cat_x = 0;
-                    switch (current_config.cat_align) {
-                        case config::align_type_t::ALIGN_CENTER:
-                            cat_x = (wayland_ctx._screen_width - cat_width) / 2 + current_config.cat_x_offset;
-                            break;
-                        case config::align_type_t::ALIGN_LEFT:
-                            cat_x = current_config.cat_x_offset;
-                            break;
-                        case config::align_type_t::ALIGN_RIGHT:
-                            cat_x = wayland_ctx._screen_width - cat_width - current_config.cat_x_offset;
-                            break;
-                        default:
-                            BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", current_config.cat_align);
-                            break;
-                    }
-                    const int cat_y = (wayland_ctx._bar_height - cat_height) / 2 + current_config.cat_y_offset;
-
-
-                    switch (anim_shm.anim_type) {
-                        case config::config_animation_type_t::None:
-                            break;
-                        case config::config_animation_type_t::Bongocat:
-                        case config::config_animation_type_t::Digimon:
-                            // Draw cat
-                            if (region) {
-                                blit_image_scaled(pixels, pixels_size,
-                                                  wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
-                                                  sheet->pixels.data, sheet->pixels._size_bytes,  sheet->sprite_sheet_width, sheet->sprite_sheet_height, sheet->channels,
-                                                  region->col * sheet->frame_width, region->row * sheet->frame_height,
-                                                  sheet->frame_width, sheet->frame_height,
-                                                  cat_x, cat_y, cat_width, cat_height,
-                                                  drawing_color_order_t::COLOR_ORDER_BGRA, drawing_color_order_t::COLOR_ORDER_RGBA);
-                            }
-                            break;
-                        case config::config_animation_type_t::MsPet:
-                            break;
-                    }
-                } else {
-                    BONGOCAT_LOG_VERBOSE("Skip drawing empty frame: index=%d, frame=%d", anim_shm.anim_index, anim_shm.animation_player_data.frame_index);
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+                switch (anim_shm.anim_type) {
+                    case config::config_animation_type_t::None:
+                        break;
+                    case config::config_animation_type_t::Bongocat:
+                    case config::config_animation_type_t::Digimon: {
+                        const animation_t& cur_anim = anim_shm.anims[anim_shm.anim_index];
+                        const generic_sprite_sheet_animation_t& sheet = cur_anim.sprite_sheet;
+                        draw_sprite(ctx, sheet);
+                    }break;
+                    case config::config_animation_type_t::MsPet:{
+                        const ms_pet_sprite_sheet_t& sheet = anim_shm.ms_anims[anim_shm.anim_index];
+                        const int col = anim_shm.animation_player_data.frame_index;
+                        const int row = anim_shm.animation_player_data.sprite_sheet_row;
+                        draw_sprite(ctx, sheet, col, row);
+                    }break;
                 }
+#else
+                const animation_t& cur_anim = anim_shm.anims[anim_shm.anim_index];
+                const generic_sprite_sheet_animation_t& sheet = cur_anim.sprite_sheet;
+                draw_sprite(ctx, sheet);
+#endif
             } else {
                 BONGOCAT_LOG_VERBOSE("fullscreen detected, skip drawing, keep buffer clean");
             }

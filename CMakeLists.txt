@@ -249,6 +249,7 @@ set(SOURCES
     ${SRC_DIR}/graphics/animation_init.cpp
     ${SRC_DIR}/graphics/bar.cpp
     ${SRC_DIR}/graphics/embedded_assets.cpp
+    ${SRC_DIR}/graphics/embedded_assets_bongocat.cpp
     ${SRC_DIR}/platform/input.cpp
     ${SRC_DIR}/platform/wayland.cpp
     ${SRC_DIR}/utils/error.cpp
@@ -259,6 +260,8 @@ set(SOURCES
 if (INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS)
     target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS)
 else()
+    set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets_digimon.cpp")
+    set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets_clippy.cpp")
     if (INCLUDE_DM_EMBEDDED_ASSETS)
         set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets/dm.c")
         target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_DM_EMBEDDED_ASSETS)
@@ -327,9 +330,9 @@ target_compile_options(bongocat PRIVATE
 )
 # supress warning: embed is a Clang extension [-Wc23-extensions]
 target_compile_options(bongocat PRIVATE
-    $<$<AND:$<COMPILE_LANGUAGE:C>,$<CXX_COMPILER_ID:Clang>>:-std=gnu23>
+    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:Clang>>:-std=gnu23>
     $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:-std=gnu++26>
-    $<$<AND:$<COMPILE_LANGUAGE:C>,$<CXX_COMPILER_ID:Clang>>:-Wno-c23-extensions>
+    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:Clang>>:-Wno-c23-extensions>
     $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:-Wno-c23-extensions>
 )
 
@@ -352,7 +355,18 @@ target_compile_options(bongocat PRIVATE
             -funroll-loops
             -finline-functions
         >
-        $<$<CONFIG:MinSizeRel>:-fno-inline-functions -fomit-frame-pointer -fno-asynchronous-unwind-tables -fno-unwind-tables -ffunction-sections -fdata-sections>
+        $<$<CONFIG:MinSizeRel>:
+            -fno-inline-functions
+            -fomit-frame-pointer
+            -fno-asynchronous-unwind-tables
+            -fno-unwind-tables
+            -ffunction-sections
+            -fdata-sections
+            -fno-unroll-loops
+            -fmerge-all-constants
+            -fno-math-errno
+            -fno-stack-protector
+        >
 )
 target_compile_definitions(bongocat PRIVATE
         $<$<CONFIG:Debug>:BONGOCAT_LOG_LEVEL=5>
@@ -364,10 +378,14 @@ target_link_options(bongocat PRIVATE $<$<CONFIG:MinSizeRel>:-Wl,--gc-sections -s
 
 # wayland-client dependency
 find_package(PkgConfig REQUIRED)
+
 pkg_check_modules(WAYLAND_CLIENT REQUIRED wayland-client)
-target_include_directories(bongocat PRIVATE ${WAYLAND_CLIENT_INCLUDE_DIRS})
-target_compile_options(bongocat PRIVATE ${WAYLAND_CLIENT_CFLAGS_OTHER})
-target_link_libraries(bongocat PRIVATE ${WAYLAND_CLIENT_LIBRARIES})
+add_library(wayland_client INTERFACE)
+target_include_directories(wayland_client INTERFACE ${WAYLAND_CLIENT_INCLUDE_DIRS})
+target_compile_options(wayland_client INTERFACE ${WAYLAND_CLIENT_CFLAGS_OTHER})
+target_link_libraries(wayland_client INTERFACE ${WAYLAND_CLIENT_LIBRARIES})
+target_link_libraries(bongocat PRIVATE wayland_client)
+
 find_package(Threads REQUIRED)
 target_link_libraries(bongocat PRIVATE m rt Threads::Threads)
 

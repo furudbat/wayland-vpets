@@ -2,10 +2,7 @@
 #define BONGOCAT_EMBEDDED_ASSETS_DIGIMON_H
 
 #include "embedded_assets_image.h"
-#include "sprite_sheet.h"
 #include <cstddef>
-#include <cstdint>
-
 
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
@@ -72,7 +69,6 @@ namespace bongocat::assets {
 #endif
 
 namespace bongocat::assets {
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
     static inline constexpr int DIGIMON_FRAME_IDLE1     = 0;
     static inline constexpr int DIGIMON_FRAME_IDLE2     = 1;
     static inline constexpr int DIGIMON_FRAME_ANGRY     = 2;  // Angry/Refuse or Hit (Fallback), Eat Frame Fallback
@@ -97,21 +93,9 @@ namespace bongocat::assets {
     inline static constexpr size_t DIGIMON_SPRITE_SHEET_ROWS = 1;
 
     static inline constexpr size_t DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = (1+DIGIMON_ANIMATIONS_COUNT);
-    /*
-    inline constinit embedded_image_t digimon_sprite_sheet_embedded_images[DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT] = {
-        // index 0 is reserved for bongocat, no sprite sheet exists
-        {nullptr, 0, "bongocat.png"},
-#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
-    /// @TODO: add full assets
-#else
-    //{dm_agumon_png, dm_agumon_png_size, "embedded agumon"},
-#include "../../src/graphics/embedded_assets/min_dm_digimon_embedded_images_array.cpp.inl"
-    /// @TODO: index more digimons here
-#endif
-    };
-    */
 
-    #include "../../src/graphics/embedded_assets/min_dm_get_sprite_sheet.hpp.inl"
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    extern embedded_image_t get_min_dm_sprite_sheet(size_t i);
 #endif
 }
 

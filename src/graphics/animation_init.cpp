@@ -54,6 +54,7 @@ namespace bongocat::animation {
         }
 
         // Initialize embedded images data
+        // Load Bongocat
         assert(ret.anim.shm != nullptr);
         const auto result = anim_load_embedded_images_into_sprite_sheet(ret.anim.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -63,6 +64,8 @@ namespace bongocat::animation {
         }
         BONGOCAT_LOG_INFO("Bongocat loaded into sprite sheet");
 
+
+        // Load Digimon
 #ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
         BONGOCAT_LOG_INFO("Load more sprite sheets: %i", DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
         do {
@@ -73,6 +76,16 @@ namespace bongocat::animation {
             //init_digimon_anim(ctx, DM_AGUMON_ANIM_INDEX, digimon_sprite_sheet_embedded_images[DM_AGUMON_ANIM_INDEX], DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
 #include "embedded_assets/min_dm_init_digimon_anim.cpp.inl"
 #endif
+        } while (false);
+#endif
+
+
+        // Load Ms Pets (Clippy)
+#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+        BONGOCAT_LOG_INFO("Load more sprite sheets: %i", MS_PETS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
+        do {
+            animation_context_t& ctx = ret.anim; // alias for inits in includes
+            init_ms_pet_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_pet_sprite(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS);
         } while (false);
 #endif
 

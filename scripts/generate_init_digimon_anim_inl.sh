@@ -22,6 +22,7 @@ OUTPUT_FILE_5="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_embedded_images.cpp.in
 OUTPUT_FILE_6="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_anim.cpp.inl"
 OUTPUT_FILE_7="${OUTPUT_DIR}/${PREFIX_LOWER}_digimon_embedded_images_array.cpp.inl"
 OUTPUT_FILE_8="${OUTPUT_DIR}/${PREFIX_LOWER}_get_digimon_sprite_sheet.hpp.inl"
+OUTPUT_FILE_9="${OUTPUT_DIR}/${PREFIX_LOWER}_get_digimon_sprite_sheet.cpp.inl"
 
 # Clean output files at the start
 > "$OUTPUT_FILE_1"
@@ -32,10 +33,15 @@ OUTPUT_FILE_8="${OUTPUT_DIR}/${PREFIX_LOWER}_get_digimon_sprite_sheet.hpp.inl"
 > "$OUTPUT_FILE_6"
 > "$OUTPUT_FILE_7"
 > "$OUTPUT_FILE_8"
+> "$OUTPUT_FILE_9"
 
 echo "constexpr embedded_image_t get_${PREFIX_LOWER}_sprite_sheet(size_t i) {" >> "$OUTPUT_FILE_8"
 echo "using namespace animation;" >> "$OUTPUT_FILE_8"
 echo "switch (i) {" >> "$OUTPUT_FILE_8"
+
+echo "embedded_image_t get_${PREFIX_LOWER}_sprite_sheet(size_t i) {" >> "$OUTPUT_FILE_9"
+echo "using namespace animation;" >> "$OUTPUT_FILE_9"
+echo "switch (i) {" >> "$OUTPUT_FILE_9"
 
 # Extract lowercase digimon names based on the 'extern const unsigned char ..._*_png[];' pattern
 grep -oP "extern const unsigned char ${PREFIX_LOWER}_\K[a-z0-9_]+(?=_png)" "$HEADER_FILE" | while read -r name; do
@@ -65,9 +71,16 @@ grep -oP "extern const unsigned char ${PREFIX_LOWER}_\K[a-z0-9_]+(?=_png)" "$HEA
 
 
     echo "case ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX: return {${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"};" >> "$OUTPUT_FILE_8"
+
+    echo "case ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX: return {${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"};" >> "$OUTPUT_FILE_9"
 done
 
 echo "        default: return { nullptr, 0, "" };" >> "$OUTPUT_FILE_8"
 echo "    }" >> "$OUTPUT_FILE_8"
 echo "}" >> "$OUTPUT_FILE_8"
 echo "" >> "$OUTPUT_FILE_8"
+
+echo "        default: return { nullptr, 0, "" };" >> "$OUTPUT_FILE_9"
+echo "    }" >> "$OUTPUT_FILE_9"
+echo "}" >> "$OUTPUT_FILE_9"
+echo "" >> "$OUTPUT_FILE_9"
