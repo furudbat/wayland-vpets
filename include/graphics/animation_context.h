@@ -4,6 +4,7 @@
 #include "animation_shared_memory.h"
 #include "config/config.h"
 #include "utils/system_memory.h"
+#include "utils/random.h"
 #include <stdatomic.h>
 
 namespace bongocat::animation {
@@ -23,7 +24,7 @@ namespace bongocat::animation {
         atomic_bool _animation_running{false};
         pthread_t _anim_thread{0};
         platform::Mutex anim_lock;
-
+        platform::random_xoshiro128 rng;
 
 
         animation_context_t() = default;
@@ -39,7 +40,8 @@ namespace bongocat::animation {
               _local_copy_config(bongocat::move(other._local_copy_config)),
               _animation_running(atomic_load(&other._animation_running)),
               _anim_thread(other._anim_thread),
-              anim_lock(bongocat::move(other.anim_lock)) {
+              anim_lock(bongocat::move(other.anim_lock)),
+              rng(bongocat::move(other.rng)) {
             other._animation_running = false;
             other._anim_thread = 0;
         }
@@ -52,9 +54,11 @@ namespace bongocat::animation {
                 atomic_store(&_animation_running, atomic_load(&other._animation_running));
                 _anim_thread = other._anim_thread;
                 anim_lock = bongocat::move(other.anim_lock);
+                rng = bongocat::move(other.rng);
 
                 other._animation_running = false;
                 other._anim_thread = 0;
+                other.rng = platform::random_xoshiro128(0);
             }
             return *this;
         }
@@ -68,6 +72,7 @@ namespace bongocat::animation {
         ctx._anim_thread = 0;
         platform::release_allocated_mmap_memory(ctx.shm);
         platform::release_allocated_mmap_memory(ctx._local_copy_config);
+        ctx.rng = platform::random_xoshiro128(0);
     }
 }
 

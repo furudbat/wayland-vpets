@@ -839,7 +839,7 @@ reinterpret_cast<const char*>(pos) < \
                 break;
         }
 
-        assert(current_config.bar_height >= 0);
+        assert(wayland_ctx._bar_height >= 0);
         //assert(current_config.bar_height <= UINT32_MAX);
         zwlr_layer_surface_v1_set_anchor(wayland_ctx.layer_surface, anchor);
         zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(wayland_ctx._bar_height));
@@ -862,7 +862,7 @@ reinterpret_cast<const char*>(pos) < \
     static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animation::animation_session_t& anim) {
         // read-only config
         assert(wayland_context._local_copy_config != nullptr);
-        const config::config_t& current_config = *wayland_context._local_copy_config;
+        //const config::config_t& current_config = *wayland_context._local_copy_config;
 
         wayland_shared_memory_t *wayland_ctx_shm = wayland_context.ctx_shm;
 

@@ -582,7 +582,8 @@ int main(int argc, char *argv[]) {
 
     // more randomness is needed to create better shm names, see create_shm
     const auto pid = getpid();
-    srand(static_cast<unsigned>(time(nullptr)) ^ static_cast<unsigned>(pid)); // seed once, include pid for better randomness
+    // seed once, include pid for better randomness
+    srand(static_cast<unsigned>(time(nullptr)) ^ static_cast<unsigned>(pid));
 
     // Setup signal handlers
     ctx.signal_watch_path = args.config_file;

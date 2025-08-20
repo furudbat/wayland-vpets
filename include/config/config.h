@@ -66,6 +66,7 @@ namespace bongocat::config {
         int keypress_duration_ms{0};
         int test_animation_duration_ms{0};
         int test_animation_interval_sec{0};
+        int animation_speed_ms{0};
         int fps{0};
         int overlay_opacity{0};
         int enable_debug{0};

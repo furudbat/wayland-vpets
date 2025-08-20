@@ -77,8 +77,8 @@ namespace bongocat::animation {
         platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         // read-only
-        assert(wayland_ctx._local_copy_config.ptr);
-        assert(anim.shm);
+        assert(wayland_ctx._local_copy_config != nullptr);
+        assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
 
@@ -105,7 +105,7 @@ namespace bongocat::animation {
         const int effective_opacity = wayland_ctx._fullscreen_detected ? 0 : current_config.overlay_opacity;
 
         assert(wayland_ctx._screen_width >= 0);
-        assert(current_config->bar_height >= 0);
+        assert(wayland_ctx._bar_height >= 0);
         assert(effective_opacity >= 0);
 
         // Fast clear with 32-bit fill
@@ -161,7 +161,7 @@ namespace bongocat::animation {
                             cat_x = wayland_ctx._screen_width - cat_width - current_config.cat_x_offset;
                             break;
                         default:
-                            BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", current_config->cat_align);
+                            BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", current_config.cat_align);
                             break;
                     }
                     const int cat_y = (wayland_ctx._bar_height - cat_height) / 2 + current_config.cat_y_offset;
@@ -187,7 +187,7 @@ namespace bongocat::animation {
                             break;
                     }
                 } else {
-                    BONGOCAT_LOG_VERBOSE("Skip drawing empty frame: index=%d, frame=%d", anim_shm->anim_index, anim_shm->anim_frame_index);
+                    BONGOCAT_LOG_VERBOSE("Skip drawing empty frame: index=%d, frame=%d", anim_shm.anim_index, anim_shm.animation_player_data.frame_index);
                 }
             } else {
                 BONGOCAT_LOG_VERBOSE("fullscreen detected, skip drawing, keep buffer clean");

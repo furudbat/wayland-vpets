@@ -21,9 +21,9 @@ namespace bongocat::config {
     static inline constexpr int MAX_OVERLAY_HEIGHT = 300;
     static inline constexpr int MIN_FPS = 1;
     static inline constexpr int MAX_FPS = 144;
-    static inline constexpr int MIN_DURATION = 10;
-    static inline constexpr int MAX_DURATION = 5000;
-    static inline constexpr int MAX_INTERVAL = 3600;
+    static inline constexpr int MIN_DURATION_MS = 10;
+    static inline constexpr int MAX_DURATION_MS = 5000;
+    static inline constexpr int MAX_INTERVAL_SEC = 3600;
     static inline constexpr int MIN_TIMEOUT = 0;
     static inline constexpr int MAX_TIMEOUT = INT32_MAX;
     static inline constexpr int MIN_KPM = 0;
@@ -62,32 +62,33 @@ namespace bongocat::config {
 #endif
 
 
-    static inline constexpr auto CAT_X_OFFSET_KEY              = "cat_x_offset";
-    static inline constexpr auto CAT_Y_OFFSET_KEY              = "cat_y_offset";
-    static inline constexpr auto CAT_HEIGHT_KEY                = "cat_height";
-    static inline constexpr auto OVERLAY_HEIGHT_KEY            = "overlay_height";
-    static inline constexpr auto OVERLAY_POSITION_KEY          = "overlay_position";
-    static inline constexpr auto ANIMATION_NAME_KEY            = "animation_name";
-    static inline constexpr auto INVERT_COLOR_KEY              = "invert_color";
-    static inline constexpr auto PADDING_X_KEY                 = "padding_x";
-    static inline constexpr auto PADDING_Y_KEY                 = "padding_y";
-    static inline constexpr auto IDLE_FRAME_KEY                = "idle_frame";
-    static inline constexpr auto ENABLE_SCHEDULED_SLEEP_KEY    = "enable_scheduled_sleep";
-    static inline constexpr auto SLEEP_BEGIN_KEY               = "sleep_begin";
-    static inline constexpr auto SLEEP_END_KEY                 = "sleep_end";
-    static inline constexpr auto IDLE_SLEEP_TIMEOUT_KEY        = "idle_sleep_timeout";
-    static inline constexpr auto HAPPY_KPM_KEY                 = "happy_kpm";
-    static inline constexpr auto KEYPRESS_DURATION_KEY         = "keypress_duration";
-    static inline constexpr auto TEST_ANIMATION_DURATION_KEY   = "test_animation_duration";
-    static inline constexpr auto TEST_ANIMATION_INTERVAL_KEY   = "test_animation_interval";
-    static inline constexpr auto FPS_KEY                       = "fps";
-    static inline constexpr auto OVERLAY_OPACITY_KEY           = "overlay_opacity";
-    static inline constexpr auto ENABLE_DEBUG_KEY              = "enable_debug";
-    static inline constexpr auto KEYBOARD_DEVICE_KEY           = "keyboard_device";
-    static inline constexpr auto KEYBOARD_DEVICES_KEY          = "keyboard_devices";
-    static inline constexpr auto ANIMATION_INDEX_KEY           = "animation_index";
-    static inline constexpr auto LAYER_KEY                     = "layer";
-    static inline constexpr auto CAT_ALIGN_KEY                 = "cat_align";
+    static inline constexpr auto CAT_X_OFFSET_KEY                   = "cat_x_offset";
+    static inline constexpr auto CAT_Y_OFFSET_KEY                   = "cat_y_offset";
+    static inline constexpr auto CAT_HEIGHT_KEY                     = "cat_height";
+    static inline constexpr auto OVERLAY_HEIGHT_KEY                 = "overlay_height";
+    static inline constexpr auto OVERLAY_POSITION_KEY               = "overlay_position";
+    static inline constexpr auto ANIMATION_NAME_KEY                 = "animation_name";
+    static inline constexpr auto INVERT_COLOR_KEY                   = "invert_color";
+    static inline constexpr auto PADDING_X_KEY                      = "padding_x";
+    static inline constexpr auto PADDING_Y_KEY                      = "padding_y";
+    static inline constexpr auto IDLE_FRAME_KEY                     = "idle_frame";
+    static inline constexpr auto ENABLE_SCHEDULED_SLEEP_KEY         = "enable_scheduled_sleep";
+    static inline constexpr auto SLEEP_BEGIN_KEY                    = "sleep_begin";
+    static inline constexpr auto SLEEP_END_KEY                      = "sleep_end";
+    static inline constexpr auto IDLE_SLEEP_TIMEOUT_KEY             = "idle_sleep_timeout";
+    static inline constexpr auto HAPPY_KPM_KEY                      = "happy_kpm";
+    static inline constexpr auto KEYPRESS_DURATION_KEY              = "keypress_duration";
+    static inline constexpr auto TEST_ANIMATION_DURATION_KEY        = "test_animation_duration";
+    static inline constexpr auto TEST_ANIMATION_INTERVAL_KEY        = "test_animation_interval";
+    static inline constexpr auto ANIMATION_SPEED_KEY                = "animation_speed";
+    static inline constexpr auto FPS_KEY                            = "fps";
+    static inline constexpr auto OVERLAY_OPACITY_KEY                = "overlay_opacity";
+    static inline constexpr auto ENABLE_DEBUG_KEY                   = "enable_debug";
+    static inline constexpr auto KEYBOARD_DEVICE_KEY                = "keyboard_device";
+    static inline constexpr auto KEYBOARD_DEVICES_KEY               = "keyboard_devices";
+    static inline constexpr auto ANIMATION_INDEX_KEY                = "animation_index";
+    static inline constexpr auto LAYER_KEY                          = "layer";
+    static inline constexpr auto CAT_ALIGN_KEY                      = "cat_align";
 
     static inline constexpr size_t VALUE_BUF = 256;
     static inline constexpr size_t LINE_BUF  = 512;
@@ -112,15 +113,21 @@ namespace bongocat::config {
 
     static void config_validate_timing(config_t& config) {
         config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY);
-        config_clamp_int(config.keypress_duration_ms, MIN_DURATION, MAX_DURATION, KEYPRESS_DURATION_KEY);
-        config_clamp_int(config.test_animation_duration_ms, MIN_DURATION, MAX_DURATION, TEST_ANIMATION_DURATION_KEY);
+        config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY);
+        config_clamp_int(config.test_animation_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
+        config_clamp_int(config.animation_speed_ms, MIN_DURATION_MS, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
         config_clamp_int(config.idle_sleep_timeout_sec, MIN_TIMEOUT, MAX_TIMEOUT, IDLE_SLEEP_TIMEOUT_KEY);
 
         // Validate interval (0 is allowed to disable)
-        if (config.test_animation_interval_sec < 0 || config.test_animation_interval_sec > MAX_INTERVAL) {
-            BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], clamping",
-                                 TEST_ANIMATION_INTERVAL_KEY, config.test_animation_interval_sec, MAX_INTERVAL);
-            config.test_animation_interval_sec = (config.test_animation_interval_sec < 0) ? 0 : MAX_INTERVAL;
+        if (config.test_animation_interval_sec < 0 || config.test_animation_interval_sec > MAX_INTERVAL_SEC) {
+            BONGOCAT_LOG_WARNING("%s %d out of range [0-%dsec], clamping",
+                                 TEST_ANIMATION_INTERVAL_KEY, config.test_animation_interval_sec, MAX_INTERVAL_SEC);
+            config.test_animation_interval_sec = (config.test_animation_interval_sec < 0) ? 0 : MAX_INTERVAL_SEC;
+        }
+        if (config.animation_speed_ms < 0 || config.animation_speed_ms > MAX_INTERVAL_SEC*1000) {
+            BONGOCAT_LOG_WARNING("%s %d out of range [0-%dms], clamping",
+                                 ANIMATION_SPEED_KEY, config.test_animation_interval_sec, MAX_INTERVAL_SEC*1000);
+            config.animation_speed_ms = (config.animation_speed_ms < 0) ? 0 : MAX_INTERVAL_SEC*1000;
         }
     }
 
@@ -320,6 +327,8 @@ namespace bongocat::config {
             config.idle_sleep_timeout_sec = int_value;
         } else if (strcmp(key, HAPPY_KPM_KEY) == 0) {
             config.happy_kpm = int_value;
+        } else if (strcmp(key, ANIMATION_SPEED_KEY) == 0) {
+            config.animation_speed_ms = int_value;
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
         }

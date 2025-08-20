@@ -94,6 +94,7 @@ namespace bongocat::assets {
 
     static inline constexpr int HAPPY_CHANCE_PERCENT = 60;
 
+    inline static constexpr size_t DIGIMON_SPRITE_SHEET_ROWS = 1;
 
     static inline constexpr size_t DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = (1+DIGIMON_ANIMATIONS_COUNT);
     /*
