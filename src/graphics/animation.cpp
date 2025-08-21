@@ -809,7 +809,7 @@ namespace bongocat::animation {
         assert(animation_trigger_ctx._input != nullptr);
         assert(animation_trigger_ctx._input->shm != nullptr);
         animation_context_t& ctx = animation_trigger_ctx.anim;
-        const platform::input::input_context_t& input = *animation_trigger_ctx._input;
+        [[maybe_unused]] const platform::input::input_context_t& input = *animation_trigger_ctx._input;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);

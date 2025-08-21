@@ -20,8 +20,8 @@
 // =============================================================================
 
 namespace bongocat {
-    inline static constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_MS = 5000;
-    inline static constexpr platform::time_ms_t SLEEP_WAIT_FOR_SHUTDOWN_MS = 100;
+    static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_MS = 5000;
+    static inline constexpr platform::time_ms_t SLEEP_WAIT_FOR_SHUTDOWN_MS = 100;
     static_assert(SLEEP_WAIT_FOR_SHUTDOWN_MS > 0);
 
     struct main_context_t;

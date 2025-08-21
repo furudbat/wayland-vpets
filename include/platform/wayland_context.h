@@ -12,7 +12,7 @@ struct zwlr_layer_surface_v1;
 
 
 namespace bongocat::platform::wayland {
-    static inline constexpr int MAX_ATTEMPTS = 2048;
+    inline static constexpr int MAX_ATTEMPTS = 2048;
 
     struct wayland_context_t;
     void cleanup_wayland_context(wayland_context_t& ctx);
