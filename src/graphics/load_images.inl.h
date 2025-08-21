@@ -502,7 +502,6 @@ namespace bongocat::animation {
         return anim.total_frames;
     }
 
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
     [[maybe_unused]] static bongocat_error_t load_sprite_sheet_from_memory(ms_pet_sprite_sheet_t& out_frames,
                                               const uint8_t* sprite_data, size_t sprite_data_size,
                                               int frame_columns, int frame_rows,
@@ -636,6 +635,7 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
     static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
@@ -649,7 +649,9 @@ namespace bongocat::animation {
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
+#endif
 
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
     static bongocat_error_t init_ms_pet_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);

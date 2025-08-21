@@ -4,6 +4,7 @@
 #include "graphics/animation_context.h"
 #include "graphics/embedded_assets.h"
 #include "graphics/embedded_assets/bongocat.hpp"
+#include "graphics/embedded_assets/clippy.hpp"
 #include <cassert>
 #include <cctype>
 #include <cstdio>
@@ -465,30 +466,48 @@ namespace bongocat::config {
             config.animation_type = config_animation_type_t::None;
             config.animation_index = -1;
 
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
             // check for bongocat
             if (strcmp(lower_value, BONGOCAT_NAME) == 0) {
                 config.animation_index = BONGOCAT_ANIM_INDEX;
                 config.animation_type = config_animation_type_t::Bongocat;
             }
+#endif
 
             // check for digimon
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
-            /// @TODO: add full assets
+#include "../graphics/embedded_assets/dm_config_parse_enum_key.cpp.inl"
 #else
             //if (strcmp(lower_value, "agumon") == 0) {
             //    config->animation_index = DM_AGUMON_ANIM_INDEX;
             //}
 #include "../graphics/embedded_assets/min_dm_config_parse_enum_key.cpp.inl"
 #endif
-            // assume animation type is not set yet, but index got set/overwriten above
+
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/dm20_config_parse_enum_key.cpp.inl"
+#endif
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/dmc_config_parse_enum_key.cpp.inl"
+#endif
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/dmx_config_parse_enum_key.cpp.inl"
+#endif
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/pen20_config_parse_enum_key.cpp.inl"
+#endif
+            /// @NOTE(config): add more digimon here
+
+            // assume animation type is not set yet, but index got set/overwritten above
             if (config.animation_index >= 0 && config.animation_type == config_animation_type_t::None) {
                 config.animation_type = config_animation_type_t::Digimon;
             }
 #endif
 
             // check for ms pets (clippy)
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
             if (strcmp(lower_value, "clippy") == 0) {
                 config.animation_index = CLIPPY_ANIM_INDEX;
                 config.animation_type = config_animation_type_t::MsPet;

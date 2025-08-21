@@ -1,5 +1,4 @@
 #include "utils/error.h"
-
 #include <cassert>
 #include <cstdarg>
 #include <ctime>

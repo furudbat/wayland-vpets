@@ -2,7 +2,9 @@
 #define BONGOCAT_ANIMATION_SHARED_MEMORY_H
 
 #include "sprite_sheet.h"
-#include "embedded_assets.h"
+#include "graphics/embedded_assets.h"
+#include "graphics/embedded_assets/bongocat.hpp"
+#include "graphics/embedded_assets/clippy.hpp"
 #include "config/config.h"
 #include "utils/time.h"
 
@@ -20,7 +22,7 @@ namespace bongocat::animation {
         int anim_index{0};
         animation_player_data_t animation_player_data{};
         animation_t anims[assets::ANIMS_COUNT];
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
         ms_pet_sprite_sheet_t ms_anims[assets::MS_PETS_COUNT];
 #endif
 
@@ -32,7 +34,7 @@ namespace bongocat::animation {
             for (size_t i = 0; i < assets::ANIMS_COUNT; i++) {
                 cleanup_animation(anims[i]);
             }
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
             for (size_t i = 0; i < assets::MS_PETS_COUNT; i++) {
                 cleanup_animation(ms_anims[i]);
             }
@@ -45,7 +47,7 @@ namespace bongocat::animation {
             for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                 anims[i] = other.anims[i];
             }
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
             for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                 ms_anims[i] = other.ms_anims[i];
             }
@@ -59,7 +61,7 @@ namespace bongocat::animation {
                 for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                     anims[i] = other.anims[i];
                 }
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                     ms_anims[i] = other.ms_anims[i];
                 }
@@ -75,7 +77,7 @@ namespace bongocat::animation {
             for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                 anims[i] = move(other.anims[i]);
             }
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
             for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                 ms_anims[i] = move(other.ms_anims[i]);
             }
@@ -93,7 +95,7 @@ namespace bongocat::animation {
                 for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
                     anims[i] = move(other.anims[i]);
                 }
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
                     ms_anims[i] = move(other.ms_anims[i]);
                 }

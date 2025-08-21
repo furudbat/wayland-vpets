@@ -41,7 +41,7 @@ RELEASE_CXXFLAGS += -fomit-frame-pointer -funroll-loops -finline-functions -D_FO
 # Set flags based on build type
 ifeq ($(BUILD_TYPE),debug)
     CFLAGS = $(DEBUG_CFLAGS)
-    CCCFLAGS = $(DEBUG_CCCFLAGS)
+    CXXFLAGS = $(DEBUG_CXXFLAGS)
     LDFLAGS = -lwayland-client -lm -lpthread -lrt $(DEBUG_LDFLAGS)
 else
     CFLAGS = $(RELEASE_CFLAGS)
@@ -59,6 +59,8 @@ WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Source files (including embedded assets which are now committed)
 SOURCES = src/utils/system_memory.cpp src/utils/memory.cpp src/utils/time.cpp src/utils/error.cpp src/core/main.cpp src/platform/wayland.cpp src/platform/input.cpp src/graphics/bar.cpp src/graphics/animation.cpp src/graphics/animation_init.cpp src/graphics/embedded_assets.cpp src/graphics/embedded_assets_bongocat.cpp src/graphics/embedded_assets_clippy.cpp src/graphics/embedded_assets_digimon.cpp src/config/config_watcher.cpp src/config/config.cpp
+CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_DIGIMON_EMBEDDED_ASSETS -DFEATURE_CLIPPY_EMBEDDED_ASSETS
+CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_DIGIMON_EMBEDDED_ASSETS -DFEATURE_CLIPPY_EMBEDDED_ASSETS
 
 OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 

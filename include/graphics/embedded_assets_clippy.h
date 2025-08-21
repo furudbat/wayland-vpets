@@ -5,8 +5,8 @@
 #include <cstddef>
 #include <cstdint>
 
-
 namespace bongocat::assets {
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROW_IDLE = 0;
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROW_BORING = 0;
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROW_START_WRITING = 1;
@@ -28,7 +28,6 @@ namespace bongocat::assets {
     // Clippy
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_COLS = 40;
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr size_t CLIPPY_ANIM_INDEX = 0;
     inline static constexpr size_t CLIPPY_FRAMES_IDLE = 4;
     inline static constexpr size_t CLIPPY_FRAMES_BORING = 40;
     inline static constexpr size_t CLIPPY_FRAMES_START_WRITING = 9;
@@ -41,14 +40,11 @@ namespace bongocat::assets {
     static inline constexpr size_t MS_PETS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 1;
     inline static constexpr size_t MS_PETS_SPRITE_SHEET_ROWS = 6;
 
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
     inline static constexpr size_t MS_PETS_ANIMATIONS_COUNT = 1;
+
+    embedded_image_t get_ms_pet_sprite(size_t i);
 #else
     inline static constexpr size_t MS_PETS_ANIMATIONS_COUNT = 0;
-#endif
-
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-    embedded_image_t get_ms_pet_sprite(size_t i);
 #endif
 }
 

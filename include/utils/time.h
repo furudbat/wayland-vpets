@@ -18,4 +18,4 @@ namespace bongocat::platform {
     time_ms_t get_uptime_ms();
 }
 
-#endif // TIME_H
+#endif // BONGOCAT_TIME_H

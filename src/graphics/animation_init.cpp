@@ -1,6 +1,7 @@
 #include "graphics/embedded_assets.h"
-#include "graphics/embedded_assets/bongocat.hpp"
 #include "graphics/animation_context.h"
+#include "graphics/embedded_assets/bongocat.hpp"
+#include "graphics/embedded_assets/clippy.hpp"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "utils/memory.h"
@@ -55,6 +56,7 @@ namespace bongocat::animation {
 
         // Initialize embedded images data
         // Load Bongocat
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
         assert(ret.anim.shm != nullptr);
         const auto result = anim_load_embedded_images_into_sprite_sheet(ret.anim.shm->anims[BONGOCAT_ANIM_INDEX].sprite_sheet, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -63,25 +65,48 @@ namespace bongocat::animation {
             // ignore error ?
         }
         BONGOCAT_LOG_INFO("Bongocat loaded into sprite sheet");
+#endif
 
 
         // Load Digimon
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
         BONGOCAT_LOG_INFO("Load more sprite sheets: %i", DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
         do {
             animation_context_t& ctx = ret.anim; // alias for inits in includes
-#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
 
+            // dm
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+#include "embedded_assets/dm_init_digimon_anim.cpp.inl"
 #else
             //init_digimon_anim(ctx, DM_AGUMON_ANIM_INDEX, digimon_sprite_sheet_embedded_images[DM_AGUMON_ANIM_INDEX], DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
 #include "embedded_assets/min_dm_init_digimon_anim.cpp.inl"
+#endif
+
+            // dm20
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+#include "embedded_assets/dm20_init_digimon_anim.cpp.inl"
+#endif
+
+            // dmc
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+#include "embedded_assets/dmc_init_digimon_anim.cpp.inl"
+#endif
+
+            // dmx
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
+#include "embedded_assets/dmx_init_digimon_anim.cpp.inl"
+#endif
+
+            // pen20
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "embedded_assets/pen20_init_digimon_anim.cpp.inl"
 #endif
         } while (false);
 #endif
 
 
         // Load Ms Pets (Clippy)
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
         BONGOCAT_LOG_INFO("Load more sprite sheets: %i", MS_PETS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
         do {
             animation_context_t& ctx = ret.anim; // alias for inits in includes

@@ -1,12 +1,10 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_CLIPPY_HPP
 #define BONGOCAT_EMBEDDED_ASSETS_CLIPPY_HPP
 
+#include <cstddef>
+
 namespace bongocat::assets {
-    // Embedded asset data
-    inline static constexpr unsigned char clippy_png[] = {
-#embed "../../../assets/clippy.png"
-    };
-    inline static constexpr size_t clippy_png_size = sizeof(clippy_png);
+    inline static constexpr size_t CLIPPY_ANIM_INDEX = 0;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_CLIPPY_HPP

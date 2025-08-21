@@ -73,13 +73,16 @@ option(OPT_ENABLE_HARDENING "Enable hardening" ${DEFAULT_OPT_ENABLE_HARDENING})
 
 project(bongocat LANGUAGES C CXX VERSION 2.0.0)
 
-# TODO: add assets options and fully implement switching assets + optimization
-#option(INCLUDE_DM_EMBEDDED_ASSETS "Include dm embedded assets (fully)" OFF)
-#option(INCLUDE_DM20_EMBEDDED_ASSETS "Include dm20 embedded assets" OFF)
-#option(INCLUDE_DMC_EMBEDDED_ASSETS "Include dmc embedded assets" OFF)
-#option(INCLUDE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF)
-#option(INCLUDE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF)
-option(INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS "Include only bongocat assets, exclude digimon assets" OFF)
+# Feature Flags
+option(FEATURE_BONGOCAT_EMBEDDED_ASSETS "Include bongocat assets (default)" ON)
+option(FEATURE_DIGIMON_EMBEDDED_ASSETS "Include digimon embedded assets" ON)
+#cmake_dependent_option(FEATURE_DM_EMBEDDED_ASSETS "Include dm embedded assets" OFF FEATURE_DIGIMON_EMBEDDED_ASSETS OFF)
+#cmake_dependent_option(FEATURE_DM20_EMBEDDED_ASSETS "Include dm20 embedded assets" OFF FEATURE_DIGIMON_EMBEDDED_ASSETS OFF)
+#cmake_dependent_option(FEATURE_DMC_EMBEDDED_ASSETS "Include dmc embedded assets" OFF FEATURE_DIGIMON_EMBEDDED_ASSETS OFF)
+#cmake_dependent_option(FEATURE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF FEATURE_DIGIMON_EMBEDDED_ASSETS OFF)
+#cmake_dependent_option(FEATURE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF FEATURE_DIGIMON_EMBEDDED_ASSETS OFF)
+option(FEATURE_CLIPPY_EMBEDDED_ASSETS "Include clippy embedded assets" ON)
+option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 
 # project_options
 find_linker(PROJECT_OPTIONS_LINKER)
@@ -249,7 +252,6 @@ set(SOURCES
     ${SRC_DIR}/graphics/animation_init.cpp
     ${SRC_DIR}/graphics/bar.cpp
     ${SRC_DIR}/graphics/embedded_assets.cpp
-    ${SRC_DIR}/graphics/embedded_assets_bongocat.cpp
     ${SRC_DIR}/platform/input.cpp
     ${SRC_DIR}/platform/wayland.cpp
     ${SRC_DIR}/utils/error.cpp
@@ -257,35 +259,34 @@ set(SOURCES
     ${SRC_DIR}/utils/system_memory.cpp
     ${SRC_DIR}/utils/time.cpp
 )
-if (INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS)
-    target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS)
-else()
-    set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets_digimon.cpp")
-    set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets_clippy.cpp")
-    if (INCLUDE_DM_EMBEDDED_ASSETS)
-        set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets/dm.c")
-        target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_DM_EMBEDDED_ASSETS)
-    elseif (INCLUDE_DM20_EMBEDDED_ASSETS)
-        set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets/dm20.c")
-        target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS)
-    elseif (INCLUDE_DMC_EMBEDDED_ASSETS)
-        set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets/dmc.c")
-        target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS)
-    elseif (INCLUDE_DMX_EMBEDDED_ASSETS)
-        set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets/dmx.c")
-        target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS)
-    elseif (INCLUDE_PEN20_EMBEDDED_ASSETS)
-        set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets/pen20.c")
-        target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS)
-    else()
-        # Fallback digimon assets
-        set(SOURCES ${SOURCES} "${SRC_DIR}/graphics/embedded_assets/min_dm.c")
-        target_compile_definitions(bongocat PRIVATE FEATURE_INCLUDE_MIN_DM_EMBEDDED_ASSETS)
-    endif()
-endif()
-
 target_sources(bongocat PRIVATE ${SOURCES} ${GENERATED_PROTOCOLS_SOURCES})
 add_dependencies(bongocat protocols)
+
+if (FEATURE_BONGOCAT_EMBEDDED_ASSETS)
+    add_library(assets_bongocat OBJECT ${SRC_DIR}/graphics/embedded_assets_bongocat.cpp)
+    target_include_directories(assets_bongocat PRIVATE ${INCLUDE_DIR})
+    target_compile_definitions(assets_bongocat PUBLIC FEATURE_BONGOCAT_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_bongocat>)
+    target_compile_definitions(bongocat PRIVATE FEATURE_BONGOCAT_EMBEDDED_ASSETS)
+endif()
+if (FEATURE_DIGIMON_EMBEDDED_ASSETS)
+    add_library(assets_dm OBJECT ${SRC_DIR}/graphics/embedded_assets_digimon.cpp)
+    target_include_directories(assets_dm PRIVATE ${INCLUDE_DIR})
+    target_compile_definitions(assets_dm PUBLIC FEATURE_DIGIMON_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_dm>)
+    target_compile_definitions(bongocat PRIVATE FEATURE_DIGIMON_EMBEDDED_ASSETS)
+endif()
+if (FEATURE_CLIPPY_EMBEDDED_ASSETS)
+    add_library(assets_clippy OBJECT ${SRC_DIR}/graphics/embedded_assets_clippy.cpp)
+    target_include_directories(assets_clippy PRIVATE ${INCLUDE_DIR})
+    target_compile_definitions(assets_clippy PUBLIC FEATURE_CLIPPY_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_clippy>)
+    target_compile_definitions(bongocat PRIVATE FEATURE_CLIPPY_EMBEDDED_ASSETS)
+endif()
+if (FEATURE_DISABLE_LOGGER)
+    target_compile_definitions(bongocat PRIVATE BONGOCAT_DISABLE_MEMORY_STATISTICS BONGOCAT_DISABLE_LOGGER)
+endif()
+
 target_include_directories(bongocat PRIVATE ${INCLUDE_DIR})
 target_include_directories(bongocat SYSTEM PRIVATE ${PROTOCOLS_DIR} ${CMAKE_SOURCE_DIR}/lib)
 

@@ -1,5 +1,7 @@
 #include "graphics/embedded_assets_bongocat.h"
+#include "graphics/sprite_sheet.h"
 #include "graphics/embedded_assets/bongocat.hpp"
+#include "graphics/embedded_assets/bongocat_images.hpp"
 
 namespace bongocat::assets {
     embedded_image_t get_bongocat_sprite(size_t i) {

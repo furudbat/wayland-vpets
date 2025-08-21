@@ -10,7 +10,6 @@
 #include <linux/input.h>
 #include <unistd.h>
 #include <cassert>
-#include <climits>
 #include <fcntl.h>
 #include <poll.h>
 

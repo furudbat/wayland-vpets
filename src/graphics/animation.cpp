@@ -1,7 +1,4 @@
 #include "graphics/embedded_assets.h"
-#include "graphics/embedded_assets_bongocat.h"
-#include "graphics/embedded_assets_digimon.h"
-#include "graphics/embedded_assets_clippy.h"
 #include "graphics/animation_context.h"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
@@ -73,6 +70,7 @@ namespace bongocat::animation {
         int new_frame{0};
     };
 
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
                                                                   animation_state_t& state) {
         using namespace assets;
@@ -162,7 +160,9 @@ namespace bongocat::animation {
 
         return { .changed = changed, .new_frame = new_frame};
     }
+#endif
 
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_digimon_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
                                                                  animation_state_t& state) {
         using namespace assets;
@@ -300,8 +300,9 @@ namespace bongocat::animation {
 
         return { .changed = changed, .new_frame = new_frame};
     }
+#endif
 
-
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_ms_pet_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
                                                                 animation_state_t& state, bool any_key_pressed) {
         using namespace assets;
@@ -526,8 +527,9 @@ namespace bongocat::animation {
 
         return { .changed = changed, .new_frame = new_frame };
     }
+#endif
 
-
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(animation_context_t& ctx,
                                                                          animation_state_t& state) {
         using namespace assets;
@@ -584,6 +586,10 @@ namespace bongocat::animation {
 
         return { .changed = changed, .new_frame = new_frame};
     }
+#endif
+
+
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_digimon_key_pressed_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
                                                                         animation_state_t& state) {
         using namespace assets;
@@ -654,6 +660,9 @@ namespace bongocat::animation {
 
         return { .changed = changed, .new_frame = new_frame};
     }
+#endif
+
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_ms_pet_key_pressed_next_frame(animation_context_t& ctx,
                                                                        animation_state_t& state) {
         using namespace assets;
@@ -729,6 +738,7 @@ namespace bongocat::animation {
 
         return { .changed = changed, .new_frame = new_frame };
     }
+#endif
 
     static bool anim_handle_idle_animation(animation_context_t& ctx, const platform::input::input_context_t& input, animation_state_t& state, bool any_key_pressed) {
         using namespace assets;
@@ -752,7 +762,7 @@ namespace bongocat::animation {
         }
 
         const bool hold_frame_after_release = any_key_pressed || state.hold_frame_ms < current_config.keypress_duration_ms;
-        const bool process_idle_animation = current_config.idle_animation && state.frame_delta_ms_counter > current_config.animation_speed_ms;
+        [[maybe_unused]] const bool process_idle_animation = current_config.idle_animation && state.frame_delta_ms_counter > current_config.animation_speed_ms;
         const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec * current_config.fps;
         const bool check_for_idle_sleep = current_config.idle_sleep_timeout_sec > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms/2;
 
@@ -761,23 +771,29 @@ namespace bongocat::animation {
             case config::config_animation_type_t::None:
                 break;
             case config::config_animation_type_t::Bongocat: {
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                 if (!hold_frame_after_release || trigger_test_animation || check_for_idle_sleep) {
                     auto [changed, new_frame] = anim_bongocat_idle_next_frame(ctx, input, state);
                     ret = changed;
                 }
+#endif
             }break;
             case config::config_animation_type_t::Digimon: {
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                 if (!hold_frame_after_release || trigger_test_animation || process_idle_animation || check_for_idle_sleep) {
                     auto [changed, new_frame] = anim_digimon_idle_next_frame(ctx, input, state);
                     ret = changed;
                 }
+#endif
             }break;
             case config::config_animation_type_t::MsPet: {
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 // show next frame by animation speed or when any key was pressed (writing animation)
                 if (state.frame_delta_ms_counter > current_config.animation_speed_ms || any_key_pressed || check_for_idle_sleep) {
                     auto [changed, new_frame] = anim_ms_pet_idle_next_frame(ctx, input, state, any_key_pressed);
                     ret = changed;
                 }
+#endif
             }break;
         }
         return ret;
@@ -858,19 +874,25 @@ namespace bongocat::animation {
             case config::config_animation_type_t::None:
                 break;
             case config::config_animation_type_t::Bongocat: {
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_bongocat_key_pressed_next_frame(ctx, state);
                 ret = changed;
                 ret_new_frame = new_frame;
+#endif
             }break;
             case config::config_animation_type_t::Digimon: {
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_digimon_key_pressed_next_frame(ctx, input, state);
                 ret = changed;
                 ret_new_frame = new_frame;
+#endif
             }break;
             case config::config_animation_type_t::MsPet: {
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_ms_pet_key_pressed_next_frame(ctx, state);
                 ret = changed;
                 ret_new_frame = new_frame;
+#endif
             }break;
         }
         BONGOCAT_LOG_VERBOSE("Key press detected - switching to frame %d", ret_new_frame);
@@ -953,25 +975,31 @@ namespace bongocat::animation {
             case config::config_animation_type_t::None:
                 break;
             case config::config_animation_type_t::Bongocat:
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                 animation_player_data.frame_index = current_config.idle_frame;
                 animation_player_data.sprite_sheet_row = assets::BONGOCAT_SPRITE_SHEET_ROWS-1;
                 animation_player_data.start_frame_index = 0;
                 animation_player_data.end_frame_index = 1;
                 state.row_state = animation_state_row_t::Idle;
+#endif
                 break;
             case config::config_animation_type_t::Digimon:
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                 animation_player_data.frame_index = current_config.idle_frame;
                 animation_player_data.sprite_sheet_row = assets::DIGIMON_SPRITE_SHEET_ROWS-1;
                 animation_player_data.start_frame_index = 0;
                 animation_player_data.end_frame_index = 1;
                 state.row_state = animation_state_row_t::Idle;
+#endif
                 break;
             case config::config_animation_type_t::MsPet:
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 animation_player_data.frame_index = current_config.idle_frame;
                 animation_player_data.sprite_sheet_row = assets::CLIPPY_SPRITE_SHEET_ROW_IDLE;
                 animation_player_data.start_frame_index = 0;
                 animation_player_data.end_frame_index = assets::CLIPPY_FRAMES_IDLE-1;
                 state.row_state = animation_state_row_t::Idle;
+#endif
                 break;
         }
 

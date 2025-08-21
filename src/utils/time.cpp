@@ -1,6 +1,5 @@
 #include "utils/time.h"
 #include <ctime>
-#include <cstdlib>
 #include <sys/time.h>
 
 namespace bongocat::platform {

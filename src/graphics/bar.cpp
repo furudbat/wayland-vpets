@@ -257,28 +257,32 @@ namespace bongocat::animation {
             platform::LockGuard guard (anim.anim_lock);
 
             if (!wayland_ctx._fullscreen_detected) {
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
                 switch (anim_shm.anim_type) {
                     case config::config_animation_type_t::None:
                         break;
-                    case config::config_animation_type_t::Bongocat:
-                    case config::config_animation_type_t::Digimon: {
+                    case config::config_animation_type_t::Bongocat: {
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                         const animation_t& cur_anim = anim_shm.anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = cur_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
+#endif
+                    }break;
+                    case config::config_animation_type_t::Digimon: {
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+                        const animation_t& cur_anim = anim_shm.anims[anim_shm.anim_index];
+                        const generic_sprite_sheet_animation_t& sheet = cur_anim.sprite_sheet;
+                        draw_sprite(ctx, sheet);
+#endif
                     }break;
                     case config::config_animation_type_t::MsPet:{
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                         const ms_pet_sprite_sheet_t& sheet = anim_shm.ms_anims[anim_shm.anim_index];
                         const int col = anim_shm.animation_player_data.frame_index;
                         const int row = anim_shm.animation_player_data.sprite_sheet_row;
                         draw_sprite(ctx, sheet, col, row);
+#endif
                     }break;
                 }
-#else
-                const animation_t& cur_anim = anim_shm.anims[anim_shm.anim_index];
-                const generic_sprite_sheet_animation_t& sheet = cur_anim.sprite_sheet;
-                draw_sprite(ctx, sheet);
-#endif
             } else {
                 BONGOCAT_LOG_VERBOSE("fullscreen detected, skip drawing, keep buffer clean");
             }

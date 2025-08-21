@@ -5,7 +5,10 @@
 #include "embedded_assets_image.h"
 #include <cstddef>
 
+#include "embedded_assets/bongocat.hpp"
+
 namespace bongocat::assets {
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
     // Bongocat Frames
     inline static constexpr int BONGOCAT_FRAME_BOTH_UP = 0;
     inline static constexpr int BONGOCAT_FRAME_LEFT_DOWN = 1;
@@ -18,6 +21,9 @@ namespace bongocat::assets {
     inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;
 
     extern embedded_image_t get_bongocat_sprite(size_t i);
+#else
+    inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 0;
+#endif
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H
