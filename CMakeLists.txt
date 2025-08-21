@@ -71,7 +71,7 @@ endif()
 option(OPT_ENABLE_HARDENING "Enable hardening" ${DEFAULT_OPT_ENABLE_HARDENING})
 
 
-project(bongocat LANGUAGES C CXX VERSION 2.0.0)
+project(bongocat LANGUAGES C CXX VERSION 2.1.0)
 
 # Feature Flags
 option(FEATURE_BONGOCAT_EMBEDDED_ASSETS "Include bongocat assets (default)" ON)
