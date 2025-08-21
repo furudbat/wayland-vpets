@@ -90,6 +90,8 @@ namespace bongocat::config {
     static inline constexpr auto ANIMATION_INDEX_KEY                = "animation_index";
     static inline constexpr auto LAYER_KEY                          = "layer";
     static inline constexpr auto CAT_ALIGN_KEY                      = "cat_align";
+    static inline constexpr auto IDLE_ANIMATION_KEY                 = "idle_animation";
+    static inline constexpr auto INPUT_FPS_KEY                      = "input_fps";
 
     static inline constexpr size_t VALUE_BUF = 256;
     static inline constexpr size_t LINE_BUF  = 512;
@@ -118,6 +120,7 @@ namespace bongocat::config {
         config_clamp_int(config.test_animation_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
         config_clamp_int(config.animation_speed_ms, MIN_DURATION_MS, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
         config_clamp_int(config.idle_sleep_timeout_sec, MIN_TIMEOUT, MAX_TIMEOUT, IDLE_SLEEP_TIMEOUT_KEY);
+        config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY);
 
         // Validate interval (0 is allowed to disable)
         if (config.test_animation_interval_sec < 0 || config.test_animation_interval_sec > MAX_INTERVAL_SEC) {
@@ -210,6 +213,7 @@ namespace bongocat::config {
         // Normalize boolean values
         config.enable_debug = config.enable_debug ? 1 : 0;
         config.invert_color = config.invert_color ? 1 : 0;
+        config.idle_animation = config.idle_animation ? 1 : 0;
         config.enable_scheduled_sleep = config.enable_scheduled_sleep ? 1 : 0;
 
         config_validate_dimensions(config);
@@ -330,6 +334,10 @@ namespace bongocat::config {
             config.happy_kpm = int_value;
         } else if (strcmp(key, ANIMATION_SPEED_KEY) == 0) {
             config.animation_speed_ms = int_value;
+        } else if (strcmp(key, IDLE_ANIMATION_KEY) == 0) {
+            config.idle_animation = int_value;
+        } else if (strcmp(key, INPUT_FPS_KEY) == 0) {
+            config.input_fps = int_value;
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
         }
@@ -624,6 +632,8 @@ namespace bongocat::config {
         cfg.happy_kpm = DEFAULT_HAPPY_KPM;
         cfg.cat_align = DEFAULT_CAT_ALIGN;
         cfg.animation_type = config_animation_type_t::Bongocat;
+        cfg.idle_animation = 0;
+        cfg.input_fps = 0;          // when 0 fallback to fps
 
         config = bongocat::move(cfg);
     }
@@ -672,6 +682,9 @@ namespace bongocat::config {
         if (overwrite_parameters.output_name) {
             if (ret.output_name) ::free(ret.output_name);
             ret.output_name = strdup(overwrite_parameters.output_name);
+        }
+        if (ret.input_fps <= 0) {
+            ret.input_fps = ret.fps;
         }
 
         // Set default keyboard device if none specified

@@ -18,7 +18,7 @@ namespace bongocat::platform::input {
     static inline constexpr size_t INPUT_EVENT_BUF = 128;
     static inline constexpr size_t MAX_POLL_FDS = 256;
 
-    static inline constexpr auto INPUT_POOL_TIMEOUT_MS = MAX_INPUT_DEVICES;
+    static inline constexpr auto INPUT_POOL_TIMEOUT_MS = 10;
 
     static inline constexpr time_sec_t START_ADAPTIVE_CHECK_INTERVAL_SEC = 5;
     static inline constexpr time_sec_t MID_ADAPTIVE_CHECK_INTERVAL_SEC   = 15;
@@ -211,7 +211,13 @@ namespace bongocat::platform::input {
                 nfds = MAX_POLL_FDS;
             }
 
-            const int poll_result = poll(pfds, nfds, INPUT_POOL_TIMEOUT_MS);
+            int timeout = INPUT_POOL_TIMEOUT_MS;
+            if (current_config.input_fps > 0) {
+                timeout = 1000 / current_config.input_fps;
+            } else if (current_config.fps > 0) {
+                timeout = 1000 / current_config.fps / 2;
+            }
+            const int poll_result = poll(pfds, nfds, timeout);
             if (poll_result < 0) {
                 if (errno == EINTR) continue; // Interrupted by signal
                 BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
@@ -344,7 +350,13 @@ namespace bongocat::platform::input {
                     const timestamp_ms_t now = get_current_time_ms();
                     if (key_pressed) {
                         const time_ms_t duration_ms = now - input._latest_kpm_update_ms;
-                        if (duration_ms >= static_cast<time_ms_t>(2000.0 / current_config.fps)) {
+                        time_ms_t min_key_press_check_time_ms = timeout*2;
+                        if (current_config.input_fps > 0) {
+                            min_key_press_check_time_ms = 2000 / current_config.input_fps;
+                        } else if (current_config.fps > 0) {
+                            min_key_press_check_time_ms = 2000 / current_config.fps;
+                        }
+                        if (duration_ms >= min_key_press_check_time_ms) {
                             const int input_kpm_counter = atomic_load(&input._input_kpm_counter);
                             if (input_kpm_counter > 0) {
                                 if (duration_ms > 0) {
@@ -512,7 +524,7 @@ namespace bongocat::platform::input {
         input.shm->any_key_pressed = 0;
         input.shm->kpm = 0;
         input.shm->input_counter = 0;
-        input.shm->last_key_pressed_timestamp = 0;
+        input.shm->last_key_pressed_timestamp = now;        // for idle check timestamp should be zero
 
         // Initialize shared memory for local config
         input._local_copy_config = make_allocated_mmap<config::config_t>();

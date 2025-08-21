@@ -88,6 +88,8 @@ namespace bongocat::config {
         align_type_t cat_align{align_type_t::ALIGN_CENTER};
 
         config_animation_type_t animation_type{config_animation_type_t::None};
+        int idle_animation{0};
+        int input_fps{0};
 
 
         // Make Config movable and copyable
@@ -109,6 +111,7 @@ namespace bongocat::config {
               keypress_duration_ms(other.keypress_duration_ms),
               test_animation_duration_ms(other.test_animation_duration_ms),
               test_animation_interval_sec(other.test_animation_interval_sec),
+              animation_speed_ms(other.animation_speed_ms),
               fps(other.fps),
               overlay_opacity(other.overlay_opacity),
               enable_debug(other.enable_debug),
@@ -124,7 +127,9 @@ namespace bongocat::config {
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
-              animation_type(other.animation_type)
+              animation_type(other.animation_type),
+              idle_animation(other.idle_animation),
+              input_fps(other.input_fps)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
@@ -142,6 +147,7 @@ namespace bongocat::config {
                 keypress_duration_ms = other.keypress_duration_ms;
                 test_animation_duration_ms = other.test_animation_duration_ms;
                 test_animation_interval_sec = other.test_animation_interval_sec;
+                animation_speed_ms = other.animation_speed_ms;
                 fps = other.fps;
                 overlay_opacity = other.overlay_opacity;
                 enable_debug = other.enable_debug;
@@ -158,6 +164,8 @@ namespace bongocat::config {
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
                 animation_type = other.animation_type;
+                idle_animation = other.idle_animation;
+                input_fps = other.input_fps;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
@@ -176,6 +184,7 @@ namespace bongocat::config {
               keypress_duration_ms(other.keypress_duration_ms),
               test_animation_duration_ms(other.test_animation_duration_ms),
               test_animation_interval_sec(other.test_animation_interval_sec),
+              animation_speed_ms(other.animation_speed_ms),
               fps(other.fps),
               overlay_opacity(other.overlay_opacity),
               enable_debug(other.enable_debug),
@@ -191,7 +200,9 @@ namespace bongocat::config {
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
-              animation_type(other.animation_type)
+              animation_type(other.animation_type),
+              idle_animation(other.idle_animation),
+              input_fps(other.input_fps)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
@@ -215,6 +226,7 @@ namespace bongocat::config {
                 keypress_duration_ms = other.keypress_duration_ms;
                 test_animation_duration_ms = other.test_animation_duration_ms;
                 test_animation_interval_sec = other.test_animation_interval_sec;
+                animation_speed_ms = other.animation_speed_ms;
                 fps = other.fps;
                 overlay_opacity = other.overlay_opacity;
                 enable_debug = other.enable_debug;
@@ -231,6 +243,8 @@ namespace bongocat::config {
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
                 animation_type = other.animation_type;
+                idle_animation = other.idle_animation;
+                input_fps = other.input_fps;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];
