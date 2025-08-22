@@ -1,4 +1,4 @@
-# Bongo Cat + Digimon Wayland Overlay
+# Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
@@ -6,16 +6,19 @@
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
 
-![Bongocat - Demo](assets/demo.gif)
+![Bongocat - Demo](assets/demo.gif)  
+_Classic Bongocat_
 
-![Digimon - Demo](assets/digimon-demo.png)
+![Digimon - Demo animated](assets/digimon-demo.gif)  
+_Digimon V-Pets_
 
-![Digimon - Demo animated](assets/digimon-demo.gif)
+![Clippy - Demo animated](assets/clippy-demo.gif)  
+_MS Agent Clippy_
 
 ## ✨ Features
 
 - **🐈 More Pets** - More Sprite to choose from
-  - Bongocat <span aria-hidden="true" role="icon" aria-label="bongocat-icon"> ฅ^•ﻌ•^ฅ </span>
+  - Bongocat <span aria-hidden="true" role="icon" aria-label="bongocat-icon"> ^•ﻌ•^ </span>
   - Digimon V-Pets 🦖 (v1.3.0)
   - Clippy 📎 (v2.1.0)
 - **🎯 Real-time Animation** - Bongo cat reacts instantly to keyboard input
@@ -543,4 +546,4 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 ---
 
 **₍^. .^₎ Wayland Bongo Cat Overlay v2.1.0** - Making desktops more delightful, one keystroke at a time!
-Now with Digimon VPets and Clippy 📎.
+Now with Digimon V-Pets and Clippy 📎.
