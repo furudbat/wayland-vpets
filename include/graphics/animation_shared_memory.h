@@ -21,9 +21,14 @@ namespace bongocat::animation {
         config::config_animation_type_t anim_type{config::config_animation_type_t::None};
         int anim_index{0};
         animation_player_data_t animation_player_data{};
-        animation_t anims[assets::ANIMS_COUNT];
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+        animation_t bongocat_anims[assets::BONGOCAT_ANIMATIONS_COUNT];
+#endif
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+        animation_t dm_anims[assets::DIGIMON_ANIMATIONS_COUNT];
+#endif
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
-        ms_pet_sprite_sheet_t ms_anims[assets::MS_PETS_COUNT];
+        ms_pet_sprite_sheet_t ms_anims[assets::MS_PETS_ANIMATIONS_COUNT];
 #endif
 
         animation_shared_memory_t() = default;
@@ -31,11 +36,18 @@ namespace bongocat::animation {
             anim_type = config::config_animation_type_t::None;
             animation_player_data = {};
             anim_index = 0;
-            for (size_t i = 0; i < assets::ANIMS_COUNT; i++) {
-                cleanup_animation(anims[i]);
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+            for (size_t i = 0; i < assets::BONGOCAT_ANIMATIONS_COUNT; i++) {
+                cleanup_animation(bongocat_anims[i]);
             }
+#endif
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+            for (size_t i = 0; i < assets::DIGIMON_ANIMATIONS_COUNT; i++) {
+                cleanup_animation(dm_anims[i]);
+            }
+#endif
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
-            for (size_t i = 0; i < assets::MS_PETS_COUNT; i++) {
+            for (size_t i = 0; i < assets::MS_PETS_ANIMATIONS_COUNT; i++) {
                 cleanup_animation(ms_anims[i]);
             }
 #endif
@@ -44,11 +56,18 @@ namespace bongocat::animation {
             : anim_type(other.anim_type), anim_index(other.anim_index),
               animation_player_data(other.animation_player_data)
         {
-            for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
-                anims[i] = other.anims[i];
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+            for (size_t i = 0; i < assets::BONGOCAT_ANIMATIONS_COUNT; i++) {
+                bongocat_anims[i] = other.bongocat_anims[i];
             }
+#endif
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+            for (size_t i = 0; i < assets::DIGIMON_ANIMATIONS_COUNT; i++) {
+                dm_anims[i] = other.dm_anims[i];
+            }
+#endif
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
-            for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
+            for (size_t i = 0; i < assets::MS_PETS_ANIMATIONS_COUNT; i++) {
                 ms_anims[i] = other.ms_anims[i];
             }
 #endif
@@ -58,11 +77,18 @@ namespace bongocat::animation {
                 anim_type = other.anim_type;
                 anim_index = other.anim_index;
                 animation_player_data = other.animation_player_data;
-                for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
-                    anims[i] = other.anims[i];
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+                for (size_t i = 0; i < assets::BONGOCAT_ANIMATIONS_COUNT; i++) {
+                    bongocat_anims[i] = other.bongocat_anims[i];
                 }
+#endif
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+                for (size_t i = 0; i < assets::DIGIMON_ANIMATIONS_COUNT; i++) {
+                    dm_anims[i] = other.dm_anims[i];
+                }
+#endif
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
-                for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
+                for (size_t i = 0; i < assets::MS_PETS_ANIMATIONS_COUNT; i++) {
                     ms_anims[i] = other.ms_anims[i];
                 }
 #endif
@@ -74,12 +100,19 @@ namespace bongocat::animation {
             : anim_type(other.anim_type), anim_index(other.anim_index),
               animation_player_data(other.animation_player_data)
         {
-            for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
-                anims[i] = move(other.anims[i]);
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+            for (size_t i = 0; i < assets::BONGOCAT_ANIMATIONS_COUNT; i++) {
+                bongocat_anims[i] = bongocat::move(other.bongocat_anims[i]);
             }
+#endif
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+            for (size_t i = 0; i < assets::DIGIMON_ANIMATIONS_COUNT; i++) {
+                dm_anims[i] = bongocat::move(other.dm_anims[i]);
+            }
+#endif
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
-            for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
-                ms_anims[i] = move(other.ms_anims[i]);
+            for (size_t i = 0; i < assets::MS_PETS_ANIMATIONS_COUNT; i++) {
+                ms_anims[i] = bongocat::move(other.ms_anims[i]);
             }
 #endif
 
@@ -92,12 +125,19 @@ namespace bongocat::animation {
                 anim_type = other.anim_type;
                 anim_index = other.anim_index;
                 animation_player_data = other.animation_player_data;
-                for (size_t i = 0; i < assets::ANIMS_COUNT; ++i) {
-                    anims[i] = move(other.anims[i]);
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+                for (size_t i = 0; i < assets::BONGOCAT_ANIMATIONS_COUNT; i++) {
+                    bongocat_anims[i] = bongocat::move(other.bongocat_anims[i]);
                 }
+#endif
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+                for (size_t i = 0; i < assets::DIGIMON_ANIMATIONS_COUNT; i++) {
+                    dm_anims[i] = bongocat::move(other.dm_anims[i]);
+                }
+#endif
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
-                for (size_t i = 0; i < assets::MS_PETS_COUNT; ++i) {
-                    ms_anims[i] = move(other.ms_anims[i]);
+                for (size_t i = 0; i < assets::MS_PETS_ANIMATIONS_COUNT; i++) {
+                    ms_anims[i] = bongocat::move(other.ms_anims[i]);
                 }
 #endif
 

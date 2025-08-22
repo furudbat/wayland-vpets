@@ -113,13 +113,12 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        if (frame_columns == 0 || frame_rows == 0 ||
-            sheet_width % frame_columns != 0 || sheet_height % frame_rows != 0) {
+        if (frame_columns == 0 || frame_rows == 0 || sheet_width % frame_columns != 0 || sheet_height % frame_rows != 0) {
             BONGOCAT_LOG_ERROR("Sprite sheet dimensions not divisible by frame grid.");
             stbi_image_free(sprite_sheet_pixels);
             sprite_sheet_pixels = nullptr;
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-            }
+        }
 
         const auto frame_width = sheet_width / frame_columns;
         const auto frame_height = sheet_height / frame_rows;
@@ -373,7 +372,7 @@ namespace bongocat::animation {
     };
 
     using get_sprite_callback_t = assets::embedded_image_t (*)(size_t);
-    static bongocat_error_t anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
+    static int anim_load_embedded_images_into_sprite_sheet(generic_sprite_sheet_animation_t& anim, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
         int total_frames = 0;
         int max_frame_width = 0;
         int max_frame_height = 0;
@@ -430,7 +429,7 @@ namespace bongocat::animation {
                 if (loaded_images[i].pixels) stbi_image_free(loaded_images[i].pixels);
                 loaded_images[i].pixels = nullptr;
             }
-            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+            return -1;
         }
         // reset frames
         //memset(anim->pixels.data, 0, anim->pixels.count * sizeof(uint8_t));
@@ -472,7 +471,7 @@ namespace bongocat::animation {
             if (loaded_images[i].pixels) stbi_image_free(loaded_images[i].pixels);
             loaded_images[i].pixels = nullptr;
         }
-        return bongocat_error_t::BONGOCAT_SUCCESS;
+        return total_frames;
     }
 
     [[maybe_unused]] static int anim_load_sprite_sheet(const config::config_t& config, generic_sprite_sheet_animation_t& anim, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
@@ -636,11 +635,27 @@ namespace bongocat::animation {
     }
 
 #ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+    static bongocat_error_t init_bongocat_anim(animation_context_t& ctx, int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
+        BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+        BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+
+        const int sprite_sheet_count = anim_load_embedded_images_into_sprite_sheet(ctx.shm->bongocat_anims[anim_index].sprite_sheet, get_sprite, embedded_images_count);
+        if (sprite_sheet_count < 0) {
+            BONGOCAT_LOG_ERROR("Load Digimon Animation failed: index: %d", anim_index);
+
+            return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+        }
+
+        return bongocat_error_t::BONGOCAT_SUCCESS;
+    }
+#endif
+
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
     static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
+        const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dm_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (sprite_sheet_count < 0) {
             BONGOCAT_LOG_ERROR("Load Digimon Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
 

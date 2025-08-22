@@ -1,12 +1,9 @@
 #include "graphics/embedded_assets.h"
-#include "graphics/embedded_assets_digimon.h"
 #include "graphics/sprite_sheet.h"
 
 // dm
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #include "graphics/embedded_assets/dm_images.hpp"
-#else
-#include "graphics/embedded_assets/min_dm_images.hpp"
 #endif
 
 // dm20
@@ -29,19 +26,34 @@
 #include "graphics/embedded_assets/pen20_images.hpp"
 #endif
 
+// Fallback
+#ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
+#include "graphics/embedded_assets/min_dm_images.hpp"
+#endif
+
 namespace bongocat::assets {
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #include "embedded_assets/dm_get_sprite_sheet.cpp.inl"
-#elifdef FEATURE_DM20_EMBEDDED_ASSETS
+#endif
+
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #include "embedded_assets/dm20_get_sprite_sheet.cpp.inl"
-#elifdef FEATURE_DMC_EMBEDDED_ASSETS
+#endif
+
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
 #include "embedded_assets/dmc_get_sprite_sheet.cpp.inl"
-#elifdef FEATURE_DMX_EMBEDDED_ASSETS
+#endif
+
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
 #include "embedded_assets/dmx_get_sprite_sheet.cpp.inl"
-#elifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#endif
+
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
 #include "embedded_assets/pen20_get_sprite_sheet.cpp.inl"
-#else
-// Fallback for digimon
+#endif
+
+// Fallback for digimon (minimal set)
+#ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
 #include "embedded_assets/min_dm_get_sprite_sheet.cpp.inl"
 #endif
 }

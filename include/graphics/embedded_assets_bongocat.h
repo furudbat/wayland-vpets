@@ -5,8 +5,6 @@
 #include "embedded_assets_image.h"
 #include <cstddef>
 
-#include "embedded_assets/bongocat.hpp"
-
 namespace bongocat::assets {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
     // Bongocat Frames

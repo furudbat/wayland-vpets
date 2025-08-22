@@ -45,6 +45,7 @@ option(FEATURE_DIGIMON_EMBEDDED_ASSETS "Include digimon embedded assets" ON)
 #cmake_dependent_option(FEATURE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF FEATURE_DIGIMON_EMBEDDED_ASSETS OFF)
 option(FEATURE_CLIPPY_EMBEDDED_ASSETS "Include clippy embedded assets" ON)
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
+option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, sprite switching on hot-reload)" OFF)
 
 # project_options
 # More Warnings
@@ -170,6 +171,9 @@ if (FEATURE_CLIPPY_EMBEDDED_ASSETS)
 endif()
 if (FEATURE_DISABLE_LOGGER)
     target_compile_definitions(bongocat PRIVATE BONGOCAT_DISABLE_MEMORY_STATISTICS BONGOCAT_DISABLE_LOGGER)
+endif()
+if (FEATURE_PRELOAD_ASSETS)
+    target_compile_definitions(bongocat PRIVATE FEATURE_PRELOAD_ASSETS)
 endif()
 
 target_include_directories(bongocat PRIVATE ${INCLUDE_DIR})

@@ -51,15 +51,13 @@ namespace bongocat::config {
     static inline constexpr int DEFAULT_HAPPY_KPM = 0;
     static inline constexpr platform::time_sec_t DEFAULT_IDLE_SLEEP_TIMEOUT_SEC = 0;
     static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
+    static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
+    static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 0;
 
     // Debug-specific defaults
 #ifndef NDEBUG
-    static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 200;
-    static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 3;
     static inline constexpr bool DEFAULT_ENABLE_DEBUG = true;
 #else
-    static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
-    static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 0;
     static inline constexpr bool DEFAULT_ENABLE_DEBUG = false;
 #endif
 
@@ -144,32 +142,61 @@ namespace bongocat::config {
         // Validate opacity
         config_clamp_int(config.overlay_opacity, 0, 255, OVERLAY_OPACITY_KEY);
 
-        // Validate animation index
-        assert(assets::ANIMS_COUNT <= INT_MAX);
-        if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::ANIMS_COUNT)) {
-            BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                 ANIMATION_INDEX_KEY, config.animation_index, assets::ANIMS_COUNT - 1);
-            config.animation_index = 0;
-        }
-
-        // Validate idle frame
-        if (config.animation_index == assets::BONGOCAT_ANIM_INDEX) {
-            assert(animation::BONGOCAT_NUM_FRAMES <= INT_MAX);
-            if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::BONGOCAT_NUM_FRAMES)) {
-                BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                     IDLE_FRAME_KEY, config.idle_frame, animation::BONGOCAT_NUM_FRAMES - 1);
-                config.idle_frame = 0;
-            }
-        } else {
-#ifdef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-            // digimon animation
-            assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
-            if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::MAX_DIGIMON_FRAMES)) {
-                BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                     IDLE_FRAME_KEY, config.idle_frame, animation::MAX_DIGIMON_FRAMES - 1);
-                config.idle_frame = 0;
-            }
+        switch (config.animation_type) {
+            case config_animation_type_t::None:
+                break;
+            case config_animation_type_t::Bongocat:
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+                // Validate animation index
+                assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
+                if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT)) {
+                    BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                         ANIMATION_INDEX_KEY, config.animation_index, assets::BONGOCAT_ANIMATIONS_COUNT - 1);
+                    config.animation_index = 0;
+                }
+                // Validate idle frame
+                assert(animation::BONGOCAT_NUM_FRAMES <= INT_MAX);
+                if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::BONGOCAT_NUM_FRAMES)) {
+                    BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                         IDLE_FRAME_KEY, config.idle_frame, animation::BONGOCAT_NUM_FRAMES - 1);
+                    config.idle_frame = 0;
+                }
 #endif
+                break;
+            case config_animation_type_t::Digimon:
+                // Validate animation index
+                assert(assets::DIGIMON_ANIMATIONS_COUNT <= INT_MAX);
+                if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::DIGIMON_ANIMATIONS_COUNT)) {
+                    BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                         ANIMATION_INDEX_KEY, config.animation_index, assets::DIGIMON_ANIMATIONS_COUNT - 1);
+                    config.animation_index = 0;
+                }
+                // Validate idle frame
+                assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
+                if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::MAX_DIGIMON_FRAMES)) {
+                    BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                         IDLE_FRAME_KEY, config.idle_frame, animation::MAX_DIGIMON_FRAMES - 1);
+                    config.idle_frame = 0;
+                }
+                break;
+            case config_animation_type_t::MsPet:
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+                // Validate animation index
+                assert(assets::MS_PETS_ANIMATIONS_COUNT <= INT_MAX);
+                if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::MS_PETS_ANIMATIONS_COUNT)) {
+                    BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                         ANIMATION_INDEX_KEY, config.animation_index, assets::MS_PETS_ANIMATIONS_COUNT - 1);
+                    config.animation_index = 0;
+                }
+                // Validate idle frame
+                assert(assets::CLIPPY_FRAMES_IDLE <= INT_MAX);
+                if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(assets::CLIPPY_FRAMES_IDLE)) {
+                    BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                         IDLE_FRAME_KEY, config.idle_frame, assets::CLIPPY_FRAMES_IDLE - 1);
+                    config.idle_frame = 0;
+                }
+#endif
+                break;
         }
     }
 

@@ -262,15 +262,15 @@ namespace bongocat::animation {
                         break;
                     case config::config_animation_type_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                        const animation_t& cur_anim = anim_shm.anims[anim_shm.anim_index];
-                        const generic_sprite_sheet_animation_t& sheet = cur_anim.sprite_sheet;
+                        const animation_t& cat_anim = anim_shm.bongocat_anims[anim_shm.anim_index];
+                        const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
 #endif
                     }break;
                     case config::config_animation_type_t::Digimon: {
 #ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
-                        const animation_t& cur_anim = anim_shm.anims[anim_shm.anim_index];
-                        const generic_sprite_sheet_animation_t& sheet = cur_anim.sprite_sheet;
+                        const animation_t& dm_anim = anim_shm.dm_anims[anim_shm.anim_index];
+                        const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
 #endif
                     }break;

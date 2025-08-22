@@ -22,10 +22,11 @@ Perfect for streamers, content creators, or anyone who wants to add some fun to 
 - **🔥 Hot-Reload Configuration** - Modify settings without restarting (v1.2.0)
 - **🔄 Dynamic Device Detection** - Automatically detects Bluetooth/USB keyboards (v1.2.0)
 - **⚡ Performance Optimized** - Adaptive monitoring and batch processing (v1.4.0)
+  - trigger rendering, only when needed (v2.0.0)
 - **🖥️ Screen Detection** - Automatic screen detection for all sizes and orientations (v1.2.2)
 - **🎮 Smart Fullscreen Detection** - Automatically hides during fullscreen applications (v1.2.3)
 - **🖥️ Multi-Monitor Support** - Choose which monitor to display on in multi-monitor setups (v1.2.4)
-- **💾 Lightweight** - Minimal resource usage (~10MB RAM)
+- **💾 Lightweight** - Minimal resource usage (~10MB-22MB RAM, depends on the loaded sprites)
 - **🎛️ Multi-device Support** - Monitor multiple keyboards simultaneously
 - **🏗️ Cross-platform** - Works on x86_64 and ARM64
 - **🎞️ More Animations** - Besides the Input/Idle Animation, we have now Happy and Sleep-Mode (v1.3.0)
@@ -334,16 +335,19 @@ bongocat-find-devices --help
 ### System Requirements
 
 - **CPU:** Any modern x86_64 or ARM64 processor
-- **RAM:** ~22MB runtime usage
-- **Storage:** ~1MB executable size (with all assets included)
+- **RAM:** ~24MB (with all assets preloaded)
+- **Storage:** ~1MB executable size (all assets included)
 - **Compositor:** Wayland with layer shell protocol support
 
-### Performance Metrics (v2.0.0)
+### Performance Metrics (v2.1.0)
 
 - **Input Latency:** <1ms with batch processing
 - **CPU Usage:** <1% on modern systems
 - **Device Monitoring:** Adaptive 5-30 second intervals
-- **Memory:** Optimized with leak detection
+- **Memory:** Optimized with leak detection (only load assets needed at start)
+  - Bongocat: ~9MB usage
+  - Digimon: ~7MB usage
+  - Clippy: ~16MB usage
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
 - **Event-based Rendering:** Only updates frame buffer when needed (on frame change, input, ...) (v1.4.0)
 

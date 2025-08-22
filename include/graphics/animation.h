@@ -14,8 +14,8 @@ namespace bongocat::animation {
     void update_config(animation_context_t& ctx, const config::config_t& config);
 
     enum class drawing_copy_pixel_color_option_t : uint8_t {
-        COPY_PIXEL_OPTION_NORMAL,
-        COPY_PIXEL_OPTION_INVERT,
+        COPY_PIXEL_OPTION_NORMAL = (1u << 0),
+        COPY_PIXEL_OPTION_INVERT = (1u << 1),
     };
     enum class drawing_color_order_t : uint8_t {
         COLOR_ORDER_RGBA,
