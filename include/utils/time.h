@@ -1,19 +1,21 @@
 #ifndef BONGOCAT_TIME_H
 #define BONGOCAT_TIME_H
 
-#include <time.h>
-#include <stdint.h>
+#include <cstdint>
 
-typedef int64_t timestamp_us_t;
-typedef int64_t timestamp_ms_t;
-typedef int64_t time_us_t;
-typedef int64_t time_ms_t;
-typedef int64_t time_ns_t;
+namespace bongocat::platform {
+    using timestamp_us_t = int64_t;
+    using timestamp_ms_t = int64_t;
+    using time_us_t = int64_t;
+    using time_ms_t = int64_t;
+    using time_ns_t = int64_t;
+    using time_sec_t = int64_t;
 
-timestamp_us_t get_current_time_us(void);
-timestamp_ms_t get_current_time_ms(void);
+    timestamp_us_t get_current_time_us();
+    timestamp_ms_t get_current_time_ms();
 
-time_us_t get_uptime_us(void);
-time_ms_t get_uptime_ms(void);
+    time_us_t get_uptime_us();
+    time_ms_t get_uptime_ms();
+}
 
-#endif // TIME_H
+#endif // BONGOCAT_TIME_H

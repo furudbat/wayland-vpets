@@ -1,32 +1,39 @@
-# Bongo Cat + Digimon Wayland Overlay
+# Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-1.4.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
+[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
 
-A delightful Wayland overlay that displays an animated V-Pet (bongo cat or digimon) reacting to your keyboard input! 
+A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
 
-![Bongocat - Demo](assets/demo.gif)
+![Bongocat - Demo](assets/demo.gif)  
+_Classic Bongocat_
 
-![Digimon - Demo](assets/digimon-demo.png)
+![Digimon - Demo animated](assets/digimon-demo.gif)  
+_Digimon V-Pets_
 
-![Digimon - Demo animated](assets/digimon-demo.gif)
+![Clippy - Demo animated](assets/clippy-demo.gif)  
+_MS Agent Clippy_
 
 ## ✨ Features
 
-- **🐈 More Pets** - More Sprite to choose from: Bongocat or Digimon V-Pets (v1.3.0)
+- **🐈 More Pets** - More Sprite to choose from
+  - Bongocat <span aria-hidden="true" role="icon" aria-label="bongocat-icon"> ^•ﻌ•^ </span>
+  - Digimon V-Pets 🦖 (v1.3.0)
+  - Clippy 📎 (v2.1.0)
 - **🎯 Real-time Animation** - Bongo cat reacts instantly to keyboard input
 - **🔥 Hot-Reload Configuration** - Modify settings without restarting (v1.2.0)
 - **🔄 Dynamic Device Detection** - Automatically detects Bluetooth/USB keyboards (v1.2.0)
 - **⚡ Performance Optimized** - Adaptive monitoring and batch processing (v1.4.0)
+  - trigger rendering, only when needed (v2.0.0)
 - **🖥️ Screen Detection** - Automatic screen detection for all sizes and orientations (v1.2.2)
 - **🎮 Smart Fullscreen Detection** - Automatically hides during fullscreen applications (v1.2.3)
 - **🖥️ Multi-Monitor Support** - Choose which monitor to display on in multi-monitor setups (v1.2.4)
-- **💾 Lightweight** - Minimal resource usage (~10MB RAM)
+- **💾 Lightweight** - Minimal resource usage (~10MB-22MB RAM, depends on the loaded sprites)
 - **🎛️ Multi-device Support** - Monitor multiple keyboards simultaneously
 - **🏗️ Cross-platform** - Works on x86_64 and ARM64
 - **🎞️ More Animations** - Besides the Input/Idle Animation, we have now Happy and Sleep-Mode (v1.3.0)
-  - 😄 Happy: Reach KPM (Keystroke per minute) to trigger the happy frame
+  - 😄 Happy: Reach KPM (Keystroke per minute) to trigger the happy frame (Digimon)
   - 😴 Sleep: Sleeping time for your Pet
 
 ## 🚀 Installation
@@ -166,26 +173,26 @@ enable_debug=1                   # Show debug messages
 
 ### Configuration Reference
 
-| Setting                   | Type    | Range                        | Default             | Description                                                                  |
-|---------------------------|---------|------------------------------|---------------------|------------------------------------------------------------------------------|
-| `cat_height`              | Integer | 16-128                       | 50                  | Height of bongo cat in pixels                                                |
-| `cat_x_offset`            | Integer | -9999 to 9999                | 0                   | Horizontal offset from center                                                |
-| `cat_y_offset`            | Integer | -9999 to 9999                | 0                   | Vertical offset from center                                                  |
-| `overlay_opacity`         | Integer | 0-255                        | 150                 | Background opacity (0=transparent)                                           |
-| `overlay_position`        | String  | "top" or "bottom"            | "top"               | Position of overlay on screen                                                |
-| `fps`                     | Integer | 1-144                        | 60                  | Animation frame rate                                                         |
-| `keypress_duration`       | Integer | 50-5000                      | 100                 | Animation duration after keypress (ms)                                       |
-| `test_animation_interval` | Integer | 0-60                         | 3                   | Test animation interval (seconds, 0=disabled)                                |
-| `keyboard_device`         | String  | Valid path                   | `/dev/input/event4` | Input device path (multiple allowed)                                         |
-| `enable_debug`            | Boolean | 0 or 1                       | 0                   | Enable debug logging                                                         |
-| `animation_name`          | String  | "bongocat" or "digimon name" | "bongocat"          | Name of the V-Pet sprite                                                     |
-| `invert_color`            | Boolean | 0 or 1                       | 0                   | Invert color of the Sprite (usefull for white digimon sprites and dark mode) |
-| `enable_scheduled_sleep`  | Boolean | 0 or 1                       | 0                   | Enable Sleep mode                                                            |
-| `sleep_begin`             | String  | "00:00" - "23:59"            | "00:00"             | Begin of the sleeping phase                                                  |
-| `sleep_end`               | String  | "00:00" - "23:59"            | "00:00"             | End of the sleeping phase                                                    |
-| `idle_sleep_timeout`      | Integer | 0+                           | 0                   | Duration of user inactivity before entering sleep                            |
-| `happy_kpm`               | Integer | 0-10000                      | 0                   | Minimal (KPM) keystrokes per minute for happy animation (0=disabled)         |
-| `monitor`                 | String  | Monitor name                 | Auto-detect         | Monitor to display on (e.g., "eDP-1", "HDMI-A-1")                            |
+| Setting                   | Type    | Range                                      | Default             | Description                                                                  |
+|---------------------------|---------|--------------------------------------------|---------------------|------------------------------------------------------------------------------|
+| `cat_height`              | Integer | 16-128                                     | 50                  | Height of bongo cat in pixels                                                |
+| `cat_x_offset`            | Integer | -9999 to 9999                              | 0                   | Horizontal offset from center                                                |
+| `cat_y_offset`            | Integer | -9999 to 9999                              | 0                   | Vertical offset from center                                                  |
+| `overlay_opacity`         | Integer | 0-255                                      | 150                 | Background opacity (0=transparent)                                           |
+| `overlay_position`        | String  | "top" or "bottom"                          | "top"               | Position of overlay on screen                                                |
+| `fps`                     | Integer | 1-144                                      | 60                  | Animation frame rate                                                         |
+| `keypress_duration`       | Integer | 50-5000                                    | 100                 | Animation duration after keypress (ms)                                       |
+| `test_animation_interval` | Integer | 0-60                                       | 3                   | Test animation interval (seconds, 0=disabled)                                |
+| `keyboard_device`         | String  | Valid path                                 | `/dev/input/event4` | Input device path (multiple allowed)                                         |
+| `enable_debug`            | Boolean | 0 or 1                                     | 0                   | Enable debug logging                                                         |
+| `animation_name`          | String  | "bongocat", "\<digimon name\>" or "clippy" | "bongocat"          | Name of the V-Pet sprite                                                     |
+| `invert_color`            | Boolean | 0 or 1                                     | 0                   | Invert color of the Sprite (usefull for white digimon sprites and dark mode) |
+| `enable_scheduled_sleep`  | Boolean | 0 or 1                                     | 0                   | Enable Sleep mode                                                            |
+| `sleep_begin`             | String  | "00:00" - "23:59"                          | "00:00"             | Begin of the sleeping phase                                                  |
+| `sleep_end`               | String  | "00:00" - "23:59"                          | "00:00"             | End of the sleeping phase                                                    |
+| `idle_sleep_timeout`      | Integer | 0+                                         | 0                   | Duration of user inactivity before entering sleep                            |
+| `happy_kpm`               | Integer | 0-10000                                    | 0                   | Minimal (KPM) keystrokes per minute for happy animation (0=disabled)         |
+| `monitor`                 | String  | Monitor name                               | Auto-detect         | Monitor to display on (e.g., "eDP-1", "HDMI-A-1")                            |
 
 ## 🔧 Usage
 
@@ -232,7 +239,7 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 **Required:**
 
 - Wayland compositor with layer shell support
-- C23 compiler (GCC 15+ or Clang 19+)
+- C23/C++26 compiler (GCC 15+ or Clang 19+)
 - Make or CMake
 - libwayland-client
 - wayland-protocols
@@ -270,7 +277,7 @@ The `bongocat-find-devices` tool provides professional input device analysis wit
 $ bongocat-find-devices
 
 ╔══════════════════════════════════════════════════════════════════╗
-║ Wayland Bongo Cat - Input Device Discovery v1.4.0                ║
+║ Wayland Bongo Cat - Input Device Discovery v2.1.0                ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 [SCAN] Scanning for input devices...
@@ -331,18 +338,20 @@ bongocat-find-devices --help
 ### System Requirements
 
 - **CPU:** Any modern x86_64 or ARM64 processor
-- **RAM:** ~10MB runtime usage
-- **Storage:** ~240K executable size
+- **RAM:** ~24MB (with all assets preloaded)
+- **Storage:** ~1MB executable size (all assets included)
 - **Compositor:** Wayland with layer shell protocol support
 
-### Performance Metrics (v1.4.0)
+### Performance Metrics (v2.1.0)
 
 - **Input Latency:** <1ms with batch processing
 - **CPU Usage:** <1% on modern systems
 - **Device Monitoring:** Adaptive 5-30 second intervals
-- **Memory:** Optimized with leak detection
+- **Memory:** Optimized with leak detection (only load assets needed at start)
+  - Bongocat: ~9MB usage
+  - Digimon: ~7MB usage
+  - Clippy: ~16MB usage
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
-- **Binary Size:** ~240K executable size
 - **Event-based Rendering:** Only updates frame buffer when needed (on frame change, input, ...) (v1.4.0)
 
 ### Tested Compositors
@@ -443,7 +452,7 @@ monitor=DP-1         # DisplayPort monitor
 **Common fixes:**
 
 - Install development packages: `libwayland-dev wayland-protocols`
-- Ensure C23 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
+- Ensure C23/C++26 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
 - Install `wayland-scanner` package
 </details>
 
@@ -495,10 +504,26 @@ make debug
 
 ### Code Standards
 
-- C23 standard compliance
+- C23/C++26 standard compliance
 - Comprehensive error handling
 - Memory safety with leak detection
 - Extensive documentation
+
+#### Moving to C++
+
+I'm moving this Project a little bit to C++.
+
+* using modern C++26 compiler (required for `#embed`)
+* rename files `.c` -> `.cpp`
+* **reduce usage of pre-processor** - replace `define` with `constexpr`
+* use `ref&` instead of pointer
+* use `nullptr` instead of `NULL`
+* ~~**NO STL** - keep it as close as possible to the original, it's still C and Linux development with C libraries~~ - Almost NO STL - I had to use `<type_traits>` :(
+* **Memory Management** - Simple Wrapper for malloc/free calls
+  * move semantics
+  * reduce manually clean up
+* use of `enum class`
+* brace initialization
 
 ## 📄 License
 
@@ -514,10 +539,11 @@ Built with ❤️ for the Wayland community. Special thanks to:
 
 
 Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.
+Clippy and other MS Agents are owed by Microsoft.
 This project is **free**, **non-commercial** and not associated with these entities.
 See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v1.4.0** - Making desktops more delightful, one keystroke at a time!
-Now with Digimon VPets.
+**₍^. .^₎ Wayland Bongo Cat Overlay v2.1.0** - Making desktops more delightful, one keystroke at a time!
+Now with Digimon V-Pets and Clippy 📎.

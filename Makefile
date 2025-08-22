@@ -1,5 +1,6 @@
 # Compiler
 CC = gcc
+CXX = g++
 
 # Build type (debug or release)
 BUILD_TYPE ?= release
@@ -12,26 +13,39 @@ BASE_CFLAGS += -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
 BASE_CFLAGS += -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
 BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
 BASE_CFLAGS += -Wjump-misses-init -Wdouble-promotion -Wshadow
-BASE_CFLAGS += -fstack-protector-strong -D_FORTIFY_SOURCE=2
+BASE_CFLAGS += -fstack-protector-strong
+
+BASE_CXXFLAGS = -std=c++26 -Iinclude -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CXXFLAGS += -Wall -Wextra -Wpedantic -Wformat=2
+BASE_CXXFLAGS += -Wredundant-decls
+BASE_CXXFLAGS += -Wmissing-include-dirs -Wlogical-op
+BASE_CXXFLAGS += -Wdouble-promotion -Wshadow
+BASE_CXXFLAGS += -fstack-protector-strong
 
 ifeq ($(ONLY_BONGOCAT),1)
     BASE_CFLAGS += -DFEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    BASE_CXXFLAGS += -DFEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
 endif
 
 # Debug flags
 DEBUG_CFLAGS = $(BASE_CFLAGS) -g3 -O0 -DDEBUG -fsanitize=address -fsanitize=undefined
+DEBUG_CXXFLAGS = $(BASE_CXXFLAGS) -g3 -O0 -DDEBUG -fsanitize=address -fsanitize=undefined
 DEBUG_LDFLAGS = -fsanitize=address -fsanitize=undefined
 
 # Release flags  
-RELEASE_CFLAGS = $(BASE_CFLAGS) -O3 -DNDEBUG -flto -march=native
-RELEASE_CFLAGS += -fomit-frame-pointer -funroll-loops -finline-functions
+RELEASE_CFLAGS = $(BASE_CFLAGS) -O3 -DNDEBUG -flto -march=native -D_FORTIFY_SOURCE=2
+RELEASE_CFLAGS += -fomit-frame-pointer -funroll-loops -finline-functions -D_FORTIFY_SOURCE=2
+RELEASE_CXXFLAGS = $(BASE_CXXFLAGS) -O3 -DNDEBUG -flto -march=native -D_FORTIFY_SOURCE=2
+RELEASE_CXXFLAGS += -fomit-frame-pointer -funroll-loops -finline-functions -D_FORTIFY_SOURCE=2
 
 # Set flags based on build type
 ifeq ($(BUILD_TYPE),debug)
     CFLAGS = $(DEBUG_CFLAGS)
+    CXXFLAGS = $(DEBUG_CXXFLAGS)
     LDFLAGS = -lwayland-client -lm -lpthread -lrt $(DEBUG_LDFLAGS)
 else
     CFLAGS = $(RELEASE_CFLAGS)
+    CXXFLAGS = $(RELEASE_CXXFLAGS)
     LDFLAGS = -lwayland-client -lm -lpthread -lrt -flto
 endif
 
@@ -44,12 +58,11 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Source files (including embedded assets which are now committed)
-SOURCES = src/utils/memory.c src/utils/time.c src/utils/error.c src/core/main.c src/platform/wayland.c src/platform/input.c src/graphics/bar.c src/graphics/animation.c src/graphics/animation_init.c src/graphics/embedded_assets/bongocat.c src/graphics/embedded_assets.c src/config/config_watcher.c src/config/config.c
-ifeq ($(ONLY_BONGOCAT),0)
-    SOURCES += src/graphics/embedded_assets/min_dm.c
-endif
+SOURCES = src/utils/system_memory.cpp src/utils/memory.cpp src/utils/time.cpp src/utils/error.cpp src/core/main.cpp src/platform/wayland.cpp src/platform/input.cpp src/graphics/bar.cpp src/graphics/animation.cpp src/graphics/animation_init.cpp src/graphics/embedded_assets.cpp src/graphics/embedded_assets_bongocat.cpp src/graphics/embedded_assets_clippy.cpp src/graphics/embedded_assets_digimon.cpp src/config/config_watcher.cpp src/config/config.cpp
+CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_DIGIMON_EMBEDDED_ASSETS -DFEATURE_CLIPPY_EMBEDDED_ASSETS
+CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_DIGIMON_EMBEDDED_ASSETS -DFEATURE_CLIPPY_EMBEDDED_ASSETS
 
-OBJECTS = $(SOURCES:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 # Protocol files
 C_PROTOCOL_SRC = $(PROTOCOLDIR)/zwlr-layer-shell-v1-protocol.c $(PROTOCOLDIR)/xdg-shell-protocol.c $(PROTOCOLDIR)/wlr-foreign-toplevel-management-v1-protocol.c $(PROTOCOLDIR)/xdg-output-unstable-v1-protocol.c
@@ -80,13 +93,15 @@ $(OBJDIR):
 # Compile source files (depends on protocol headers)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(H_PROTOCOL_HDR) | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(H_PROTOCOL_HDR) | $(OBJDIR)
+	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Compile protocol files
 $(OBJDIR)/%.o: $(PROTOCOLDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 $(TARGET): $(OBJECTS) $(PROTOCOL_OBJECTS)
-	$(CC) $(OBJECTS) $(PROTOCOL_OBJECTS) -o $(TARGET) $(LDFLAGS)
+	$(CXX) $(OBJECTS) $(PROTOCOL_OBJECTS) -o $(TARGET) $(LDFLAGS)
 
 # Rule to generate Wayland protocol files
 $(C_PROTOCOL_SRC) $(H_PROTOCOL_HDR): $(PROTOCOLDIR)/wlr-layer-shell-unstable-v1.xml $(PROTOCOLDIR)/wlr-foreign-toplevel-management-unstable-v1.xml $(PROTOCOLDIR)/xdg-output-unstable-v1.xml

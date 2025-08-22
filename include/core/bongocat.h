@@ -1,47 +1,33 @@
 #ifndef BONGOCAT_BONGOCAT_H
 #define BONGOCAT_BONGOCAT_H
 
-#include "utils/error.h"
-#include <pthread.h>
-#include <stdatomic.h>
-#include <stdint.h>
+#include <cstdint>
+#include <cstddef>
 
-#ifndef _POSIX_C_SOURCE
-#define _POSIX_C_SOURCE 200809L
-#endif
+#include "utils/error.h"
+#include "utils/memory.h"
 
 // Version
-#define BONGOCAT_VERSION "1.4.0"
+inline static constexpr const char* BONGOCAT_VERSION = "2.1.0";
 
 // Common constants
-#define DEFAULT_SCREEN_WIDTH 1920
-#define DEFAULT_BAR_HEIGHT 40
-#define RGBA_CHANNELS 4
-#define BGRA_CHANNELS 4
+inline static constexpr int DEFAULT_SCREEN_WIDTH = 1920;
+inline static constexpr int DEFAULT_BAR_HEIGHT = 40;
+inline static constexpr int RGBA_CHANNELS = 4;
+inline static constexpr int BGRA_CHANNELS = 4;
 
-#define MAX_INPUT_DEVICES 256
+inline static constexpr size_t MAX_INPUT_DEVICES = 256;
 
-// Config watcher constants
-#define INOTIFY_EVENT_SIZE (sizeof(struct inotify_event))
-#define INOTIFY_BUF_LEN (1024 * (INOTIFY_EVENT_SIZE + 16))
+namespace bongocat {
+    template<typename T>
+    struct created_result_t {
+        T result{};
+        bongocat_error_t error{bongocat_error_t::BONGOCAT_SUCCESS};
 
-// Config watcher structure
-typedef struct {
-    int inotify_fd;
-    int watch_fd;
-    char *config_path;
+        created_result_t() = default;
+        explicit(false) created_result_t(bongocat_error_t err) : error(err) {}
+        explicit(false) created_result_t(T&& res) : result(bongocat::move(res)) {}
+    };
+}
 
-    // event file descriptor
-    int reload_efd;
-
-    pthread_t _watcher_thread;
-    atomic_bool _running;
-} config_watcher_t;
-
-// Config watcher function declarations
-bongocat_error_t config_watcher_init(config_watcher_t *watcher, const char *config_path);
-void config_watcher_start(config_watcher_t *watcher);
-void config_watcher_stop(config_watcher_t *watcher);
-void config_watcher_cleanup(config_watcher_t *watcher);
-
-#endif // BONGOCAT_H
+#endif // BONGOCAT_BONGOCAT_H

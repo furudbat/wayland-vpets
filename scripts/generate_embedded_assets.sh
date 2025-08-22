@@ -3,15 +3,17 @@
 # === Usage Check ===
 if [[ $# -lt 3 ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
-    echo "Example: $0 assets/dm20 assets/input/dm20 include/graphics/embedded_assets/dm20.h src/graphics/dm20.c"
+    echo "Example: $0 assets/dm20 assets/input/dm20 include/graphics/embedded_assets/dm20.h src/graphics/dm20.c src/graphics/dm20_images.hpp src/graphics/dm20.hpp"
     exit 1
 fi
 
 # === Arguments ===
 INPUT_DIR="$1"
 OG_INPUT_DIR="$2"
-HEADER_OUT="$3"
-SOURCE_OUT="$4"
+C_HEADER_OUT="$3"
+C_SOURCE_OUT="$4"
+CPP_HEADER_IMAGES_OUT="$5"
+CPP_HEADER_OUT="$6"
 FRAME_SIZE=""
 COLS=""
 ROWS=""
@@ -56,25 +58,45 @@ ASSETS_PREFIX_LOWER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:upper:]' '[:lower:]')
 ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
 # Clean output files at the start
-> "$HEADER_OUT"
-> "$SOURCE_OUT"
+> "$C_HEADER_OUT"
+> "$C_SOURCE_OUT"
+> "$CPP_HEADER_OUT"
 
 # === Header file intro ===
-HEADER_GUARD="${ASSETS_PREFIX_UPPER}_EMBEDDED_ASSETS_H"
-echo "#ifndef $HEADER_GUARD" >> "$HEADER_OUT"
-echo "#define $HEADER_GUARD" >> "$HEADER_OUT"
-echo >> "$HEADER_OUT"
-echo "#include <stddef.h>" >> "$HEADER_OUT"
-echo >> "$HEADER_OUT"
-echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$HEADER_OUT"
-echo >> "$HEADER_OUT"
+C_HEADER_GUARD="${ASSETS_PREFIX_UPPER}_EMBEDDED_ASSETS_H"
+echo "#ifndef $C_HEADER_GUARD" >> "$C_HEADER_OUT"
+echo "#define $C_HEADER_GUARD" >> "$C_HEADER_OUT"
+echo >> "$C_HEADER_OUT"
+echo "#include <stddef.h>" >> "$C_HEADER_OUT"
+echo >> "$C_HEADER_OUT"
+echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_HEADER_OUT"
+echo >> "$C_HEADER_OUT"
+
+CPP_HEADER_GUARD="${ASSETS_PREFIX_UPPER}_EMBEDDED_ASSETS_HPP"
+echo "#ifndef $CPP_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo "#define $CPP_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "#include <cstddef>" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "/// @NOTE: Generated embedded assets images data from $INPUT_DIR" >> "$CPP_HEADER_IMAGES_OUT"
+echo "/// Tip: include this only in the cpp file needed, reduce bloat" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+
+CPP_HEADER_IMAGES_GUARD="${ASSETS_PREFIX_UPPER}_EMBEDDED_ASSETS_IMAGES_HPP"
+echo "#ifndef $CPP_HEADER_IMAGES_GUARD" >> "$CPP_HEADER_OUT"
+echo "#define $CPP_HEADER_IMAGES_GUARD" >> "$CPP_HEADER_OUT"
+echo >> "$CPP_HEADER_OUT"
+echo "#include <cstddef>" >> "$CPP_HEADER_OUT"
+echo >> "$CPP_HEADER_OUT"
+echo "/// @NOTE: Generated embedded assets meta data from $INPUT_DIR" >> "$CPP_HEADER_OUT"
+echo >> "$CPP_HEADER_OUT"
 
 # === Source file intro ===
-HEADER_RELATIVE_PATH="${HEADER_OUT#include/}"
-echo "#include \"$HEADER_RELATIVE_PATH\"" >> "$SOURCE_OUT"
-echo >> "$SOURCE_OUT"
-echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$SOURCE_OUT"
-echo >> "$SOURCE_OUT"
+HEADER_RELATIVE_PATH="${C_HEADER_OUT#include/}"
+echo "#include \"$HEADER_RELATIVE_PATH\"" >> "$C_SOURCE_OUT"
+echo >> "$C_SOURCE_OUT"
+echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_SOURCE_OUT"
+echo >> "$C_SOURCE_OUT"
 
 # === Start animation index counter ===
 START_INDEX=1
@@ -114,29 +136,55 @@ for FILE in "$INPUT_DIR"/*.png; do
     RELATIVE_PATH="../../../$INPUT_DIR/$BASENAME"
 
     # === Header content ===
-    echo "// Name: $NAME_NO_EXT" >> "$HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_NAME \"$NAME_NO_EXT\"" >> "$HEADER_OUT"
-    echo "extern const unsigned char $EMBED_SYMBOL[];" >> "$HEADER_OUT"
-    echo "extern const size_t $SIZE_SYMBOL;" >> "$HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_COLS $COLS" >> "$HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_ROWS $ROWS" >> "$HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT $FRAMES_COUNT" >> "$HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_ANIM_INDEX $INDEX" >> "$HEADER_OUT"
-    echo >> "$HEADER_OUT"
+    echo "// Name: $NAME_NO_EXT" >> "$C_HEADER_OUT"
+    echo "#define ${MACRO_PREFIX}_NAME \"$NAME_NO_EXT\"" >> "$C_HEADER_OUT"
+    echo "extern const unsigned char $EMBED_SYMBOL[];" >> "$C_HEADER_OUT"
+    echo "extern const size_t $SIZE_SYMBOL;" >> "$C_HEADER_OUT"
+    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_COLS $COLS" >> "$C_HEADER_OUT"
+    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_ROWS $ROWS" >> "$C_HEADER_OUT"
+    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT $FRAMES_COUNT" >> "$C_HEADER_OUT"
+    echo "#define ${MACRO_PREFIX}_ANIM_INDEX $INDEX" >> "$C_HEADER_OUT"
+    echo >> "$C_HEADER_OUT"
+
+
+    echo "// Name: $NAME_NO_EXT" >> "$CPP_HEADER_IMAGES_OUT"
+    echo "inline static constexpr unsigned char $EMBED_SYMBOL[] = {" >> "$CPP_HEADER_IMAGES_OUT"
+    echo "#embed \"$RELATIVE_PATH\"" >> "$CPP_HEADER_IMAGES_OUT"
+    echo "};" >> "$CCPP_HEADER_IMAGES_OUT"
+    echo "inline static constexpr size_t $SIZE_SYMBOL = sizeof($EMBED_SYMBOL);" >> "$CPP_HEADER_IMAGES_OUT"
+    echo >> "$CPP_HEADER_IMAGES_OUT"
+
+    echo "// Name: $NAME_NO_EXT" >> "$CPP_HEADER_OUT"
+    echo "inline static constexpr const char* ${MACRO_PREFIX}_NAME = \"$NAME_NO_EXT\";" >> "$CPP_HEADER_OUT"
+    echo "inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_COLS = $COLS;" >> "$CPP_HEADER_OUT"
+    echo "inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_ROWS = $ROWS;" >> "$CPP_HEADER_OUT"
+    echo "inline static constexpr size_t ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT = $FRAMES_COUNT;" >> "$CPP_HEADER_OUT"
+    echo "inline static constexpr size_t ${MACRO_PREFIX}_ANIM_INDEX = ${MACRO_PREFIX}_ANIM_START_INDEX+$INDEX;" >> "$CPP_HEADER_OUT"
+    echo >> "$CPP_HEADER_OUT"
 
     # === Source content ===
-    echo "// Name: $NAME_NO_EXT" >> "$SOURCE_OUT"
-    echo "const unsigned char $EMBED_SYMBOL[] = {" >> "$SOURCE_OUT"
-    echo "#embed \"$RELATIVE_PATH\"" >> "$SOURCE_OUT"
-    echo "};" >> "$SOURCE_OUT"
-    echo "const size_t $SIZE_SYMBOL = sizeof($EMBED_SYMBOL);" >> "$SOURCE_OUT"
-    echo >> "$SOURCE_OUT"
+    echo "// Name: $NAME_NO_EXT" >> "$C_SOURCE_OUT"
+    echo "const unsigned char $EMBED_SYMBOL[] = {" >> "$C_SOURCE_OUT"
+    echo "#embed \"$RELATIVE_PATH\"" >> "$C_SOURCE_OUT"
+    echo "};" >> "$C_SOURCE_OUT"
+    echo "const size_t $SIZE_SYMBOL = sizeof($EMBED_SYMBOL);" >> "$C_SOURCE_OUT"
+    echo >> "$C_SOURCE_OUT"
+    echo >> "$C_HEADER_OUT" # extra EOL
 
     ((INDEX++))
 done
 
 
-echo "#define ${ASSETS_PREFIX_UPPER}_ANIM_COUNT $((INDEX-START_INDEX))" >> "$HEADER_OUT"
-echo >> "$HEADER_OUT"
+echo "#define ${ASSETS_PREFIX_UPPER}_ANIM_COUNT $((INDEX-START_INDEX))" >> "$C_HEADER_OUT"
+echo >> "$C_HEADER_OUT"
+echo "#endif // $C_HEADER_GUARD" >> "$C_HEADER_OUT"
+echo >> "$C_HEADER_OUT"
 
-echo "#endif // $HEADER_GUARD" >> "$HEADER_OUT"
+echo "inline static constexpr size_t ${ASSETS_PREFIX_UPPER}_ANIM_COUNT = $((INDEX-START_INDEX));" >> "$CPP_HEADER_OUT"
+echo >> "$CPP_HEADER_OUT"
+echo "#endif // $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
+echo >> "$CPP_HEADER_OUT"
+
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "#endif // $CPP_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
