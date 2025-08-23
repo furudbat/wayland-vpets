@@ -1,0 +1,11 @@
+# Dockerfile
+FROM nixos/nix
+
+RUN nix-channel --update
+
+WORKDIR /workspace
+COPY . /workspace
+RUN chmod +x /workspace/scripts/*.sh
+
+# Default command
+CMD ["/workspace/scripts/test-nix-build.sh"]
