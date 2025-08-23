@@ -59,11 +59,20 @@ namespace bongocat::platform {
         */
     };
     struct LockGuard {
-        explicit LockGuard(Mutex& m) : _mutex(m) {
-            _mutex._lock();
+        explicit LockGuard(Mutex& m) : pt_mutex(&m.pt_mutex) {
+            if (const int rc = pthread_mutex_lock(pt_mutex); rc != 0) {
+                BONGOCAT_LOG_ERROR("pthread_mutex_lock failed");
+            }
+        }
+        explicit LockGuard(pthread_mutex_t& m) : pt_mutex(&m) {
+            if (const int rc = pthread_mutex_lock(pt_mutex); rc != 0) {
+                BONGOCAT_LOG_ERROR("pthread_mutex_lock failed");
+            }
         }
         ~LockGuard() {
-            _mutex._unlock();
+            if (const int rc = pthread_mutex_unlock(pt_mutex); rc != 0) {
+                BONGOCAT_LOG_ERROR("pthread_mutex_unlock failed");
+            }
         }
 
         // No copying, no move
@@ -72,7 +81,7 @@ namespace bongocat::platform {
         LockGuard(const LockGuard&&) = delete;
         LockGuard&& operator=(const LockGuard&&) = delete;
 
-        Mutex& _mutex;
+        pthread_mutex_t *pt_mutex;
     };
 
     template<typename T>

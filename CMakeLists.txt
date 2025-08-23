@@ -207,7 +207,7 @@ target_compile_options(bongocat PRIVATE
             -fno-exceptions -fno-rtti
             #-ffreestanding                 # free, malloc etc. are in use
             -nostdlib++
-            -fno-use-cxa-atexit             # global destructs not needed ?
+            -fno-use-cxa-atexit             # global destructs not needed ?, cleanup is done manually
             -fno-threadsafe-statics         # no local statics are in use (?)
         >
 )

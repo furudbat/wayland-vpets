@@ -11,6 +11,8 @@ namespace bongocat::platform::input {
         atomic_int input_counter{0};
         timestamp_ms_t last_key_pressed_timestamp{0};
 
+
+
         input_shared_memory_t() = default;
         ~input_shared_memory_t() = default;
 

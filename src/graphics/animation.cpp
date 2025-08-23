@@ -124,7 +124,7 @@ namespace bongocat::animation {
                 static_assert(BONGOCAT_FRAME_RIGHT_DOWN >= BONGOCAT_FRAME_LEFT_DOWN);
                 static_assert(BONGOCAT_FRAME_LEFT_DOWN >= 0);
                 static_assert(BONGOCAT_FRAME_RIGHT_DOWN >= 0);
-                new_frame = static_cast<int>(ctx.rng.range(BONGOCAT_FRAME_LEFT_DOWN, BONGOCAT_FRAME_RIGHT_DOWN));
+                new_frame = static_cast<int>(ctx._rng.range(BONGOCAT_FRAME_LEFT_DOWN, BONGOCAT_FRAME_RIGHT_DOWN));
             }
         }
         // Idle Animation
@@ -239,7 +239,7 @@ namespace bongocat::animation {
                 static_assert(DIGIMON_FRAME_IDLE2 >= DIGIMON_FRAME_IDLE1);
                 static_assert(DIGIMON_FRAME_IDLE1 >= 0);
                 static_assert(DIGIMON_FRAME_IDLE2 >= 0);
-                new_frame = static_cast<int>(ctx.rng.range(DIGIMON_FRAME_IDLE1, DIGIMON_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+                new_frame = static_cast<int>(ctx._rng.range(DIGIMON_FRAME_IDLE1, DIGIMON_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
             }
         }
         // Idle Animation
@@ -256,7 +256,7 @@ namespace bongocat::animation {
                 static_assert(DIGIMON_FRAME_IDLE2 >= DIGIMON_FRAME_IDLE1);
                 static_assert(DIGIMON_FRAME_IDLE1 >= 0);
                 static_assert(DIGIMON_FRAME_IDLE2 >= 0);
-                new_frame = static_cast<int>(ctx.rng.range(DIGIMON_FRAME_IDLE1, DIGIMON_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+                new_frame = static_cast<int>(ctx._rng.range(DIGIMON_FRAME_IDLE1, DIGIMON_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
             }
         }
         // Sleep animation
@@ -658,7 +658,7 @@ namespace bongocat::animation {
             static_assert(BONGOCAT_FRAME_RIGHT_DOWN >= BONGOCAT_FRAME_LEFT_DOWN);
             static_assert(BONGOCAT_FRAME_LEFT_DOWN >= 0);
             static_assert(BONGOCAT_FRAME_RIGHT_DOWN >= 0);
-            new_frame = static_cast<int>(ctx.rng.range(BONGOCAT_FRAME_LEFT_DOWN, BONGOCAT_FRAME_RIGHT_DOWN));
+            new_frame = static_cast<int>(ctx._rng.range(BONGOCAT_FRAME_LEFT_DOWN, BONGOCAT_FRAME_RIGHT_DOWN));
         }
         // in Writing mode/start writing
         new_row = BONGOCAT_SPRITE_SHEET_ROWS-1;
@@ -725,7 +725,7 @@ namespace bongocat::animation {
             if (input_shm.kpm > 0) {
                 if (current_config.happy_kpm > 0 && input_shm.kpm >= current_config.happy_kpm) {
                     if (current_frames.happy.valid) {
-                        if (HAPPY_CHANCE_PERCENT >= 100 || ctx.rng.range(0, 99) < HAPPY_CHANCE_PERCENT) {
+                        if (HAPPY_CHANCE_PERCENT >= 100 || ctx._rng.range(0, 99) < HAPPY_CHANCE_PERCENT) {
                             BONGOCAT_LOG_VERBOSE("Show Happy Frame at %d KPM", input_shm.kpm);
                             new_start_frame_index = DIGIMON_FRAME_HAPPY;
                             new_end_frame_index = DIGIMON_FRAME_HAPPY;
@@ -741,7 +741,7 @@ namespace bongocat::animation {
             static_assert(DIGIMON_FRAME_IDLE2 >= DIGIMON_FRAME_IDLE1);
             static_assert(DIGIMON_FRAME_IDLE1 >= 0);
             static_assert(DIGIMON_FRAME_IDLE2 >= 0);
-            new_frame = static_cast<int>(ctx.rng.range(DIGIMON_FRAME_IDLE1, DIGIMON_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+            new_frame = static_cast<int>(ctx._rng.range(DIGIMON_FRAME_IDLE1, DIGIMON_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
         }
 
         const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || current_row_state != new_row_state;
@@ -864,21 +864,21 @@ namespace bongocat::animation {
 
         bool ret = false;
         switch (anim_shm.anim_type) {
-            case config::config_animation_type_t::None:
+            case config::config_animation_sprite_sheet_layout_t::None:
                 break;
-            case config::config_animation_type_t::Bongocat: {
+            case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_bongocat_idle_next_frame(ctx, input, state, any_key_pressed);
                 ret = changed;
 #endif
             }break;
-            case config::config_animation_type_t::Digimon: {
+            case config::config_animation_sprite_sheet_layout_t::Digimon: {
 #ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_digimon_idle_next_frame(ctx, input, state, any_key_pressed);
                 ret = changed;
 #endif
             }break;
-            case config::config_animation_type_t::MsPet: {
+            case config::config_animation_sprite_sheet_layout_t::MsPet: {
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_ms_pet_idle_next_frame(ctx, input, state, any_key_pressed);
                 ret = changed;
@@ -902,6 +902,7 @@ namespace bongocat::animation {
         // read-only config
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
+        assert(animation_trigger_ctx._config != nullptr);
         const config::config_t& current_config = *ctx._local_copy_config;
 
 
@@ -960,23 +961,23 @@ namespace bongocat::animation {
         bool ret = false;
         [[maybe_unused]] int ret_new_frame = current_frame;
         switch (anim_shm.anim_type) {
-            case config::config_animation_type_t::None:
+            case config::config_animation_sprite_sheet_layout_t::None:
                 break;
-            case config::config_animation_type_t::Bongocat: {
+            case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_bongocat_key_pressed_next_frame(ctx, state);
                 ret = changed;
                 ret_new_frame = new_frame;
 #endif
             }break;
-            case config::config_animation_type_t::Digimon: {
+            case config::config_animation_sprite_sheet_layout_t::Digimon: {
 #ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_digimon_key_pressed_next_frame(ctx, input, state);
                 ret = changed;
                 ret_new_frame = new_frame;
 #endif
             }break;
-            case config::config_animation_type_t::MsPet: {
+            case config::config_animation_sprite_sheet_layout_t::MsPet: {
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_ms_pet_key_pressed_next_frame(ctx, state);
                 ret = changed;
@@ -990,7 +991,7 @@ namespace bongocat::animation {
 
     static bool anim_update_state(animation_session_t& animation_trigger_ctx, animation_state_t& state) {
         assert(animation_trigger_ctx._input);
-        const platform::input::input_context_t& input = *animation_trigger_ctx._input;
+        platform::input::input_context_t& input = *animation_trigger_ctx._input;
         animation_context_t& ctx = animation_trigger_ctx.anim;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
@@ -1001,8 +1002,16 @@ namespace bongocat::animation {
             platform::LockGuard guard (ctx.anim_lock);
             state.frame_delta_ms_counter += state.frame_time_ms;
 
-            const auto [any_key_pressed, press_changed] = anim_handle_key_press(animation_trigger_ctx, state);
-            const bool idle_changed = anim_handle_idle_animation(ctx, input, state, any_key_pressed);
+            bool idle_changed = false;
+            bool any_key_pressed = false;
+            bool press_changed = false;
+            do {
+                platform::LockGuard input_guard (input.input_lock);
+                const auto [r_any_key_pressed, r_press_changed] = anim_handle_key_press(animation_trigger_ctx, state);
+                any_key_pressed = r_any_key_pressed;
+                press_changed = r_press_changed;
+                idle_changed = anim_handle_idle_animation(ctx, input, state, any_key_pressed);
+            } while (false);
 
             if (press_changed) {
                 BONGOCAT_LOG_VERBOSE("Trigger key press animation");
@@ -1047,7 +1056,7 @@ namespace bongocat::animation {
     }
 
 
-    static void *anim_thread_main(void *arg) {
+    static void *anim_thread(void *arg) {
         assert(arg);
         auto& trigger_ctx = *static_cast<animation_session_t *>(arg);
         assert(trigger_ctx._input);
@@ -1061,14 +1070,22 @@ namespace bongocat::animation {
         assert(ctx._local_copy_config != nullptr);
         const config::config_t& current_config = *ctx._local_copy_config;
 
+        // sanity checks
+        assert(trigger_ctx._config != nullptr);
+        assert(trigger_ctx.config_reload_mutex != nullptr);
+        assert(trigger_ctx.config_reload_cond != nullptr);
+        assert(trigger_ctx.config_generation != nullptr);
+        //assert(trigger_ctx._input != nullptr);
+        //assert(trigger_ctx._config != nullptr);
+
         animation_state_t state;
         anim_init_state(ctx, state);
 
         // setup animation player
-        switch (current_config.animation_type) {
-            case config::config_animation_type_t::None:
+        switch (current_config.animation_sprite_sheet_layout) {
+            case config::config_animation_sprite_sheet_layout_t::None:
                 break;
-            case config::config_animation_type_t::Bongocat:
+            case config::config_animation_sprite_sheet_layout_t::Bongocat:
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                 animation_player_data.frame_index = current_config.idle_frame;
                 animation_player_data.sprite_sheet_row = assets::BONGOCAT_SPRITE_SHEET_ROWS-1;
@@ -1077,7 +1094,7 @@ namespace bongocat::animation {
                 state.row_state = animation_state_row_t::Idle;
 #endif
                 break;
-            case config::config_animation_type_t::Digimon:
+            case config::config_animation_sprite_sheet_layout_t::Digimon:
 #ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                 animation_player_data.frame_index = current_config.idle_frame;
                 animation_player_data.sprite_sheet_row = assets::DIGIMON_SPRITE_SHEET_ROWS-1;
@@ -1086,7 +1103,7 @@ namespace bongocat::animation {
                 state.row_state = animation_state_row_t::Idle;
 #endif
                 break;
-            case config::config_animation_type_t::MsPet:
+            case config::config_animation_sprite_sheet_layout_t::MsPet:
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 animation_player_data.frame_index = current_config.idle_frame;
                 animation_player_data.sprite_sheet_row = assets::CLIPPY_SPRITE_SHEET_ROW_IDLE;
@@ -1107,6 +1124,50 @@ namespace bongocat::animation {
         platform::wayland::request_render(trigger_ctx);
 
         while (atomic_load(&ctx._animation_running)) {
+            // Handle reload events
+            constexpr size_t fds_update_config_index = 0;
+            constexpr nfds_t fds_count = 1;
+            pollfd fds[fds_count] = {
+                { .fd = trigger_ctx.update_config_efd._fd, .events = POLLIN, .revents = 0 },
+            };
+            const platform::time_ms_t check_config_timeout_ms = current_config.fps > 0 ? 1000 / current_config.fps / 3 : 0;
+            const int poll_result = poll(fds, fds_count, static_cast<int>(check_config_timeout_ms));
+            if (poll_result > 0) {
+                // update config event
+                if (fds[fds_update_config_index].revents & POLLIN) {
+                    BONGOCAT_LOG_DEBUG("Receive update config event");
+                    size_t attempts = 0;
+                    uint64_t u;
+                    while (read(trigger_ctx.update_config_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                        attempts++;
+                        // continue draining if multiple writes queued
+                    }
+                    // supress compiler warning
+#if EAGAIN == EWOULDBLOCK
+                    if (errno != EAGAIN) {
+                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
+                    }
+#else
+                    if (errno != EAGAIN && errno != EWOULDBLOCK) {
+                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
+                    }
+#endif
+                    uint64_t gen;
+                    do {
+                        platform::LockGuard config_guard(*trigger_ctx.config_reload_mutex);
+                        update_config(trigger_ctx.anim, *trigger_ctx._config);
+                        // Acknowledge this generation
+                        gen = atomic_load(trigger_ctx.config_generation);
+                        atomic_store(&trigger_ctx.config_seen_generation, gen);
+                        pthread_cond_broadcast(trigger_ctx.config_reload_cond);
+                        assert(&current_config == ctx._local_copy_config.ptr);
+                    } while (false);
+
+                    BONGOCAT_LOG_INFO("Animation config reloaded (gen=%ull)", gen);
+                }
+            }
+
+            // Update Animations
             const bool frame_changed = anim_update_state(trigger_ctx, state);
             if (frame_changed) {
                 uint64_t u = 1;
@@ -1159,6 +1220,10 @@ namespace bongocat::animation {
             state.frame_time_ms = state.frame_time_ns / 1000000LL;
         }
 
+        pthread_mutex_lock(trigger_ctx.config_reload_mutex);
+        pthread_cond_broadcast(trigger_ctx.config_reload_cond);
+        pthread_mutex_unlock(trigger_ctx.config_reload_mutex);
+
         BONGOCAT_LOG_INFO("Animation thread main loop exited");
 
         return nullptr;
@@ -1168,12 +1233,17 @@ namespace bongocat::animation {
     // PUBLIC API IMPLEMENTATION
     // =============================================================================
 
-    bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input) {
+    bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input, const config::config_t& config, pthread_mutex_t& config_reload_mutex, pthread_cond_t& config_reload_cond, atomic_uint64_t& config_generation) {
         BONGOCAT_LOG_INFO("Starting animation thread");
 
         trigger_ctx._input = &input;
+        trigger_ctx._config = &config;
+        trigger_ctx.config_reload_mutex = &config_reload_mutex;
+        trigger_ctx.config_reload_cond = &config_reload_cond;
+        trigger_ctx.config_generation = &config_generation;
+        atomic_store(&trigger_ctx.config_seen_generation, atomic_load(&config_generation));
 
-        const int result = pthread_create(&trigger_ctx.anim._anim_thread, nullptr, anim_thread_main, &trigger_ctx);
+        const int result = pthread_create(&trigger_ctx.anim._anim_thread, nullptr, anim_thread, &trigger_ctx);
         if (result != 0) {
             BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
             return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -1193,21 +1263,33 @@ namespace bongocat::animation {
         }
     }
 
+    void trigger_update_config(animation_session_t& trigger_ctx, const config::config_t& config) {
+        //assert(trigger_ctx.anim._local_copy_config != nullptr);
+        //assert(trigger_ctx.anim.shm != nullptr);
+
+        trigger_ctx._config = &config;
+
+        constexpr uint64_t u = 1;
+        if (write(trigger_ctx.update_config_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+            BONGOCAT_LOG_VERBOSE("Write animation trigger update config");
+        } else {
+            BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
+        }
+    }
+
     void update_config(animation_context_t& ctx, const config::config_t& config) {
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
 
-
-        /// @TODO: make updating config thrad-safe (animation thread)
         *ctx._local_copy_config = config;
 
-        ctx.shm->anim_type = ctx._local_copy_config->animation_type;
+        ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
 
-        switch (config.animation_type) {
-            case config::config_animation_type_t::None:
+        switch (config.animation_sprite_sheet_layout) {
+            case config::config_animation_sprite_sheet_layout_t::None:
                 ctx.shm->anim_index = 0;
                 break;
-            case config::config_animation_type_t::Bongocat:
+            case config::config_animation_sprite_sheet_layout_t::Bongocat:
                 assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
 #ifndef NDEBUG
                 if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT)) {
@@ -1216,7 +1298,7 @@ namespace bongocat::animation {
 #endif
                 ctx.shm->anim_index = assets::BONGOCAT_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT) : 0;
                 break;
-            case config::config_animation_type_t::Digimon:
+            case config::config_animation_sprite_sheet_layout_t::Digimon:
                 assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
 #ifndef NDEBUG
                 if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::DIGIMON_ANIMATIONS_COUNT)) {
@@ -1225,7 +1307,7 @@ namespace bongocat::animation {
 #endif
                 ctx.shm->anim_index = assets::DIGIMON_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::DIGIMON_ANIMATIONS_COUNT) : 0;
                 break;
-            case config::config_animation_type_t::MsPet:
+            case config::config_animation_sprite_sheet_layout_t::MsPet:
                 assert(assets::MS_PETS_ANIMATIONS_COUNT <= INT_MAX);
 #ifndef NDEBUG
                 if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::MS_PETS_ANIMATIONS_COUNT)) {

@@ -138,6 +138,7 @@ namespace bongocat::animation {
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
+        const int frame_index = anim_shm.animation_player_data.frame_index;
 
         assert(wayland_ctx_shm->current_buffer_index >= 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
@@ -147,8 +148,9 @@ namespace bongocat::animation {
         uint8_t *pixels = shm_buffer->pixels.data;
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
-        const sprite_sheet_animation_region_t* region = sheet.frames[anim_shm.animation_player_data.frame_index].valid
-                    ? &sheet.frames[anim_shm.animation_player_data.frame_index]
+        assert(frame_index >= 0 && static_cast<size_t>(frame_index) < MAX_NUM_FRAMES);
+        const sprite_sheet_animation_region_t* region = sheet.frames[frame_index].valid
+                    ? &sheet.frames[frame_index]
                     : nullptr;
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
@@ -258,23 +260,23 @@ namespace bongocat::animation {
 
             if (!wayland_ctx._fullscreen_detected) {
                 switch (anim_shm.anim_type) {
-                    case config::config_animation_type_t::None:
+                    case config::config_animation_sprite_sheet_layout_t::None:
                         break;
-                    case config::config_animation_type_t::Bongocat: {
+                    case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                         const animation_t& cat_anim = anim_shm.bongocat_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
 #endif
                     }break;
-                    case config::config_animation_type_t::Digimon: {
+                    case config::config_animation_sprite_sheet_layout_t::Digimon: {
 #ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                         const animation_t& dm_anim = anim_shm.dm_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
 #endif
                     }break;
-                    case config::config_animation_type_t::MsPet:{
+                    case config::config_animation_sprite_sheet_layout_t::MsPet:{
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                         const ms_pet_sprite_sheet_t& sheet = anim_shm.ms_anims[anim_shm.anim_index];
                         const int col = anim_shm.animation_player_data.frame_index;

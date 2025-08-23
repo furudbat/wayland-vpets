@@ -18,7 +18,7 @@ namespace bongocat::animation {
     };
     struct animation_shared_memory_t {
         // Animation frame data
-        config::config_animation_type_t anim_type{config::config_animation_type_t::None};
+        config::config_animation_sprite_sheet_layout_t anim_type{config::config_animation_sprite_sheet_layout_t::None};
         int anim_index{0};
         animation_player_data_t animation_player_data{};
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
@@ -31,9 +31,11 @@ namespace bongocat::animation {
         ms_pet_sprite_sheet_t ms_anims[assets::MS_PETS_ANIMATIONS_COUNT];
 #endif
 
+
+
         animation_shared_memory_t() = default;
         ~animation_shared_memory_t() {
-            anim_type = config::config_animation_type_t::None;
+            anim_type = config::config_animation_sprite_sheet_layout_t::None;
             animation_player_data = {};
             anim_index = 0;
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
@@ -116,7 +118,7 @@ namespace bongocat::animation {
             }
 #endif
 
-            other.anim_type = config::config_animation_type_t::None;
+            other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
             other.anim_index = 0;
             other.animation_player_data = {};
         }
@@ -141,7 +143,7 @@ namespace bongocat::animation {
                 }
 #endif
 
-                other.anim_type = config::config_animation_type_t::None;
+                other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
                 other.anim_index = 0;
                 other.animation_player_data = {};
             }

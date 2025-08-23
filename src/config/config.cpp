@@ -3,8 +3,6 @@
 #include "utils/error.h"
 #include "graphics/animation_context.h"
 #include "graphics/embedded_assets.h"
-#include "graphics/embedded_assets/bongocat.hpp"
-#include "graphics/embedded_assets/clippy.hpp"
 #include <cassert>
 #include <cctype>
 #include <cstdio>
@@ -142,10 +140,10 @@ namespace bongocat::config {
         // Validate opacity
         config_clamp_int(config.overlay_opacity, 0, 255, OVERLAY_OPACITY_KEY);
 
-        switch (config.animation_type) {
-            case config_animation_type_t::None:
+        switch (config.animation_sprite_sheet_layout) {
+            case config_animation_sprite_sheet_layout_t::None:
                 break;
-            case config_animation_type_t::Bongocat:
+            case config_animation_sprite_sheet_layout_t::Bongocat:
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
                 // Validate animation index
                 assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
@@ -163,7 +161,8 @@ namespace bongocat::config {
                 }
 #endif
                 break;
-            case config_animation_type_t::Digimon:
+            case config_animation_sprite_sheet_layout_t::Digimon:
+#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
                 // Validate animation index
                 assert(assets::DIGIMON_ANIMATIONS_COUNT <= INT_MAX);
                 if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::DIGIMON_ANIMATIONS_COUNT)) {
@@ -178,9 +177,10 @@ namespace bongocat::config {
                                          IDLE_FRAME_KEY, config.idle_frame, animation::MAX_DIGIMON_FRAMES - 1);
                     config.idle_frame = 0;
                 }
+#endif
                 break;
-            case config_animation_type_t::MsPet:
-#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+            case config_animation_sprite_sheet_layout_t::MsPet:
+#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                 // Validate animation index
                 assert(assets::MS_PETS_ANIMATIONS_COUNT <= INT_MAX);
                 if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::MS_PETS_ANIMATIONS_COUNT)) {
@@ -490,14 +490,14 @@ namespace bongocat::config {
                 lower_value[i] = value ? static_cast<char>(tolower(value[i])) : '\0';
             }
 
-            config.animation_type = config_animation_type_t::None;
+            config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::None;
             config.animation_index = -1;
 
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
             // check for bongocat
             if (strcmp(lower_value, BONGOCAT_NAME) == 0) {
                 config.animation_index = BONGOCAT_ANIM_INDEX;
-                config.animation_type = config_animation_type_t::Bongocat;
+                config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
             }
 #endif
 
@@ -528,8 +528,8 @@ namespace bongocat::config {
             /// @NOTE(config): add more digimon here
 
             // assume animation type is not set yet, but index got set/overwritten above
-            if (config.animation_index >= 0 && config.animation_type == config_animation_type_t::None) {
-                config.animation_type = config_animation_type_t::Digimon;
+            if (config.animation_index >= 0 && config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
+                config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Digimon;
             }
 #endif
 
@@ -537,18 +537,18 @@ namespace bongocat::config {
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
             if (strcmp(lower_value, "clippy") == 0) {
                 config.animation_index = CLIPPY_ANIM_INDEX;
-                config.animation_type = config_animation_type_t::MsPet;
+                config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsPet;
             }
             /// @NOTE(config): add more MS Pets here
 #endif
 
-            if (config.animation_index < 0 || config.animation_type == config_animation_type_t::None) {
-                if (config.animation_index >= 0 && config.animation_type == config_animation_type_t::None) {
+            if (config.animation_index < 0 || config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
+                if (config.animation_index >= 0 && config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
                     BONGOCAT_LOG_WARNING("animation_index is set, but not animation_type (unknown type for index=%i and value='%s')", config.animation_index, value);
                 }
                 BONGOCAT_LOG_WARNING("Invalid %s '%s', using '%s'", ANIMATION_NAME_KEY, value, BONGOCAT_NAME);
                 config.animation_index = BONGOCAT_ANIM_INDEX;
-                config.animation_type = config_animation_type_t::Bongocat;
+                config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
             }
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
@@ -677,7 +677,7 @@ namespace bongocat::config {
         cfg.idle_sleep_timeout_sec = DEFAULT_IDLE_SLEEP_TIMEOUT_SEC;
         cfg.happy_kpm = DEFAULT_HAPPY_KPM;
         cfg.cat_align = DEFAULT_CAT_ALIGN;
-        cfg.animation_type = config_animation_type_t::Bongocat;
+        cfg.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
         cfg.idle_animation = 0;
         cfg.input_fps = 0;          // when 0 fallback to fps
 

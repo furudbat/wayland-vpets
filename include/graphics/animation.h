@@ -9,8 +9,9 @@
 
 namespace bongocat::animation {
     created_result_t<animation_session_t> create(const config::config_t& config);
-    bongocat_error_t start(animation_session_t& ctx, platform::input::input_context_t& input);
+    bongocat_error_t start(animation_session_t& ctx, platform::input::input_context_t& input, const config::config_t& config, pthread_mutex_t& config_reload_mutex, pthread_cond_t& config_reload_cond, atomic_uint64_t& config_generation);
     void trigger(animation_session_t& ctx);
+    void trigger_update_config(animation_session_t& ctx, const config::config_t& config);
     void update_config(animation_context_t& ctx, const config::config_t& config);
 
     enum class drawing_copy_pixel_color_option_t : uint8_t {

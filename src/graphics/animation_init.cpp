@@ -14,25 +14,25 @@
 #include "load_images.cpp.inl"
 
 namespace bongocat::animation {
-    static bool should_load_bongocat(const config::config_t& config) {
+    [[maybe_unused]] static bool should_load_bongocat([[maybe_unused]] const config::config_t& config) {
 #ifdef FEATURE_PRELOAD_ASSETS
         return true;
 #else
-        return config.animation_type == config::config_animation_type_t::Bongocat;
+        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Bongocat;
 #endif
     }
-    static bool should_load_digimon(const config::config_t& config) {
+    [[maybe_unused]] static bool should_load_digimon([[maybe_unused]] const config::config_t& config) {
 #ifdef FEATURE_PRELOAD_ASSETS
         return true;
 #else
-        return config.animation_type == config::config_animation_type_t::Digimon;
+        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Digimon;
 #endif
     }
-    static bool should_load_ms_pet(const config::config_t& config) {
+    [[maybe_unused]] static bool should_load_ms_pet([[maybe_unused]] const config::config_t& config) {
 #ifdef FEATURE_PRELOAD_ASSETS
         return true;
 #else
-        return config.animation_type == config::config_animation_type_t::MsPet;
+        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::MsPet;
 #endif
     }
 
@@ -44,6 +44,8 @@ namespace bongocat::animation {
         using namespace assets;
         BONGOCAT_LOG_INFO("Initializing animation system");
         animation_session_t ret;
+
+        ret._config = &config;
 
         // Initialize shared memory
         ret.anim.shm = platform::make_allocated_mmap<animation_shared_memory_t>();
@@ -76,13 +78,19 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
+        ret.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+        if (ret.update_config_efd._fd < 0) {
+            BONGOCAT_LOG_ERROR("Failed to create notify pipe for animation update config: %s", strerror(errno));
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+
         // Initialize embedded images data
         /// @TODO: async assets load
 
         // Load Bongocat
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
         if (should_load_bongocat(config)) {
-            BONGOCAT_LOG_INFO("Load more sprite sheets: %i", DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
+            BONGOCAT_LOG_INFO("Load sprite sheet frames: %i", BONGOCAT_EMBEDDED_IMAGES_COUNT);
             assert(ret.anim.shm != nullptr);
             animation_context_t& ctx = ret.anim; // alias for inits in includes
 

@@ -47,7 +47,7 @@ namespace bongocat::config {
     void config_copy_keyboard_devices_from(config_t& config, const config_t& other);
     void cleanup(config_t& config);
 
-    enum class config_animation_type_t : uint8_t {
+    enum class config_animation_sprite_sheet_layout_t : uint8_t {
         None,
         Bongocat,
         Digimon,
@@ -87,7 +87,7 @@ namespace bongocat::config {
 
         align_type_t cat_align{align_type_t::ALIGN_CENTER};
 
-        config_animation_type_t animation_type{config_animation_type_t::None};
+        config_animation_sprite_sheet_layout_t animation_sprite_sheet_layout{config_animation_sprite_sheet_layout_t::None};
         int idle_animation{0};
         int input_fps{0};
 
@@ -127,7 +127,7 @@ namespace bongocat::config {
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
-              animation_type(other.animation_type),
+              animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps)
         {
@@ -163,7 +163,7 @@ namespace bongocat::config {
                 idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
-                animation_type = other.animation_type;
+                animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
 
@@ -200,7 +200,7 @@ namespace bongocat::config {
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
-              animation_type(other.animation_type),
+              animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps)
         {
@@ -242,7 +242,7 @@ namespace bongocat::config {
                 idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
-                animation_type = other.animation_type;
+                animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
 

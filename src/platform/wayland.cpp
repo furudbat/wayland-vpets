@@ -1033,6 +1033,7 @@ reinterpret_cast<const char*>(pos) < \
             }
 
             // Handle Wayland events
+            constexpr size_t fds_signals_index = 0;
             constexpr size_t fds_config_reload_index = 1;
             constexpr size_t fds_animation_render_index = 2;
             constexpr size_t fds_wayland_index = 3;
@@ -1069,7 +1070,6 @@ reinterpret_cast<const char*>(pos) < \
             if (timeout_ms <= INT_MAX) timeout_ms = INT_MAX;
             const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
             if (poll_result > 0) {
-                constexpr size_t fds_signals_index = 0;
                 // signal events
                 if (fds[fds_signals_index].revents & POLLIN) {
                     signalfd_siginfo fdsi{};
