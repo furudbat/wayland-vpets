@@ -52,7 +52,7 @@ namespace bongocat::assets {
 #include "embedded_assets/pen20_get_sprite_sheet.cpp.inl"
 #endif
 
-// Fallback for digimon (minimal set)
+// Fallback for dm (minimal set)
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
 #include "embedded_assets/min_dm_get_sprite_sheet.cpp.inl"
 #endif

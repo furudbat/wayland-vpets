@@ -3,7 +3,7 @@
 
 #include "input_context.h"
 #include "config/config.h"
-#include "graphics/global_animation_context.h"
+#include "graphics/global_animation_session.h"
 #include "utils/error.h"
 
 namespace bongocat::platform::input {
@@ -14,4 +14,4 @@ namespace bongocat::platform::input {
     void trigger_update_config(input_context_t& ctx, const config::config_t& config);
 }
 
-#endif // INPUT_H
+#endif // BONGOCAT_INPUT_H

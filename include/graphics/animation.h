@@ -5,7 +5,7 @@
 #include "utils/error.h"
 #include "platform/input_context.h"
 #include "animation_context.h"
-#include "global_animation_context.h"
+#include "global_animation_session.h"
 
 namespace bongocat::animation {
     created_result_t<animation_session_t> create(const config::config_t& config);
@@ -14,7 +14,7 @@ namespace bongocat::animation {
     void trigger_update_config(animation_session_t& ctx, const config::config_t& config);
     void update_config(animation_context_t& ctx, const config::config_t& config);
 
-    enum class drawing_copy_pixel_color_option_t : uint8_t {
+    enum class drawing_copy_pixel_color_option_t : uint32_t {
         COPY_PIXEL_OPTION_NORMAL = (1u << 0),
         COPY_PIXEL_OPTION_INVERT = (1u << 1),
     };

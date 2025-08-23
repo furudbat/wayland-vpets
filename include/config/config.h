@@ -50,8 +50,8 @@ namespace bongocat::config {
     enum class config_animation_sprite_sheet_layout_t : uint8_t {
         None,
         Bongocat,
-        Digimon,
-        MsPet,
+        Dm,
+        MsAgent,
     };
 
     struct config_t {

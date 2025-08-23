@@ -15,6 +15,10 @@ namespace bongocat::assets {
     inline static constexpr std::size_t BONGOCAT_SPRITE_SHEET_COLS = 4;
     inline static constexpr std::size_t BONGOCAT_SPRITE_SHEET_ROWS = 1;
 
+    // apparently
+    inline static constexpr int BONGOCAT_FRAME_WIDTH = 864;
+    inline static constexpr int BONGOCAT_FRAME_HEIGHT = 360;
+
     inline static constexpr size_t BONGOCAT_EMBEDDED_IMAGES_COUNT = animation::BONGOCAT_NUM_FRAMES;
     inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;
 

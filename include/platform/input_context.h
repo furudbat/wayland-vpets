@@ -10,7 +10,8 @@
 
 namespace bongocat::platform::input {
     struct input_unique_file_t {
-        const char* device_path{nullptr};     // ref to _device_paths
+        // ref to input_context_t._device_paths[i]
+        const char* device_path{nullptr};
         FileDescriptor fd;
     };
 
@@ -31,7 +32,7 @@ namespace bongocat::platform::input {
         timestamp_ms_t _latest_kpm_update_ms{0};
 
         // thread context
-        AllocatedArray<char*> _device_paths;           // local copy of devices
+        AllocatedArray<char*> _device_paths;           // local copy of devices (from config)
         AllocatedArray<size_t> _unique_paths_indices;
         size_t _unique_paths_indices_capacity{0};      // keep real _unique_paths_indices count here, shrink _unique_paths_indices.count to used unique_paths_indices
         AllocatedArray<input_unique_file_t> _unique_devices;
@@ -121,26 +122,26 @@ namespace bongocat::platform::input {
             return *this;
         }
     };
-    inline void cleanup(input_context_t& input) {
-        if (atomic_load(&input._capture_input_running)) {
-            input.input_lock._unlock();
-            stop(input);
+    inline void cleanup(input_context_t& ctx) {
+        if (atomic_load(&ctx._capture_input_running)) {
+            ctx.input_lock._unlock();
+            stop(ctx);
         }
-        atomic_store(&input._capture_input_running, false);
-        input._input_thread = 0;
-        release_allocated_array(input._unique_devices);
-        input._unique_paths_indices_capacity = 0;
-        release_allocated_array(input._unique_paths_indices);
-        for (size_t i = 0; i < input._device_paths.count; i++) {
-            if (input._device_paths[i]) ::free(input._device_paths[i]);
-            input._device_paths[i] = nullptr;
+        atomic_store(&ctx._capture_input_running, false);
+        ctx._input_thread = 0;
+        release_allocated_array(ctx._unique_devices);
+        ctx._unique_paths_indices_capacity = 0;
+        release_allocated_array(ctx._unique_paths_indices);
+        for (size_t i = 0; i < ctx._device_paths.count; i++) {
+            if (ctx._device_paths[i]) ::free(ctx._device_paths[i]);
+            ctx._device_paths[i] = nullptr;
         }
-        release_allocated_array(input._device_paths);
-        input._config = nullptr;
-        input.config_reload_mutex = nullptr;
-        input.config_reload_cond = nullptr;
-        atomic_store(&input.config_seen_generation, 0);
-        input.config_generation = nullptr;
+        release_allocated_array(ctx._device_paths);
+        ctx._config = nullptr;
+        ctx.config_reload_mutex = nullptr;
+        ctx.config_reload_cond = nullptr;
+        atomic_store(&ctx.config_seen_generation, 0);
+        ctx.config_generation = nullptr;
     }
 }
 

@@ -3,8 +3,8 @@
 
 #include "config/config_watcher.h"
 #include "wayland_context.h"
-#include "graphics/global_animation_context.h"
-#include "global_wayland_context.h"
+#include "graphics/global_animation_session.h"
+#include "global_wayland_session.h"
 #include "config/config.h"
 #include "utils/error.h"
 #include <csignal>

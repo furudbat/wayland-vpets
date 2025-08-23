@@ -27,11 +27,10 @@ namespace bongocat::platform::wayland {
         wl_surface *surface{nullptr};
         zwlr_layer_surface_v1 *layer_surface{nullptr};
 
-        // @NOTE: variable can be shared between child process and parent (see mmap)
-        MMapMemory<wayland_shared_memory_t> ctx_shm;
-
         // local copy from other thread, update after reload (shared memory)
         MMapMemory<config::config_t> _local_copy_config;
+        MMapMemory<wayland_shared_memory_t> ctx_shm;
+
         int _bar_height{0};
         int _screen_width{0};
         char* _output_name_str{nullptr};                  // ref to existing name in output, Will default to automatic one if kept null
@@ -61,8 +60,8 @@ namespace bongocat::platform::wayland {
               output(other.output),
               surface(other.surface),
               layer_surface(other.layer_surface),
-              ctx_shm(bongocat::move(other.ctx_shm)),
               _local_copy_config(bongocat::move(other._local_copy_config)),
+              ctx_shm(bongocat::move(other.ctx_shm)),
               _bar_height(other._bar_height),
               _screen_width(other._screen_width),
               _output_name_str(other._output_name_str),
@@ -103,8 +102,8 @@ namespace bongocat::platform::wayland {
                 surface = other.surface;
                 layer_surface = other.layer_surface;
 
-                ctx_shm = bongocat::move(other.ctx_shm);
                 _local_copy_config = bongocat::move(other._local_copy_config);
+                ctx_shm = bongocat::move(other.ctx_shm);
 
                 _bar_height = other._bar_height;
                 _screen_width = other._screen_width;

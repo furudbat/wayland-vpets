@@ -5,7 +5,7 @@
 
 #include "wayland_context.h"
 #include "graphics/animation_context.h"
-#include "graphics/global_animation_context.h"
+#include "graphics/global_animation_session.h"
 #include <sys/time.h>
 
 namespace bongocat::platform::wayland {

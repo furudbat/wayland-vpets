@@ -641,7 +641,7 @@ namespace bongocat::animation {
 
         const int sprite_sheet_count = anim_load_embedded_images_into_sprite_sheet(ctx.shm->bongocat_anims[anim_index].sprite_sheet, get_sprite, embedded_images_count);
         if (sprite_sheet_count < 0) {
-            BONGOCAT_LOG_ERROR("Load Digimon Animation failed: index: %d", anim_index);
+            BONGOCAT_LOG_ERROR("Load dm Animation failed: index: %d", anim_index);
 
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
@@ -650,14 +650,14 @@ namespace bongocat::animation {
     }
 #endif
 
-#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
-    static bongocat_error_t init_digimon_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+    static bongocat_error_t init_dm_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
         const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dm_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (sprite_sheet_count < 0) {
-            BONGOCAT_LOG_ERROR("Load Digimon Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
 
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
@@ -673,7 +673,7 @@ namespace bongocat::animation {
 
         const bongocat_error_t result = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->ms_anims[anim_index], sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Load Digimon Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
 
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }

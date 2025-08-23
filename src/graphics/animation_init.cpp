@@ -21,18 +21,18 @@ namespace bongocat::animation {
         return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Bongocat;
 #endif
     }
-    [[maybe_unused]] static bool should_load_digimon([[maybe_unused]] const config::config_t& config) {
+    [[maybe_unused]] static bool should_load_dm([[maybe_unused]] const config::config_t& config) {
 #ifdef FEATURE_PRELOAD_ASSETS
         return true;
 #else
-        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Digimon;
+        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Dm;
 #endif
     }
     [[maybe_unused]] static bool should_load_ms_pet([[maybe_unused]] const config::config_t& config) {
 #ifdef FEATURE_PRELOAD_ASSETS
         return true;
 #else
-        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::MsPet;
+        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::MsAgent;
 #endif
     }
 
@@ -105,37 +105,38 @@ namespace bongocat::animation {
 #endif
 
 
-        // Load Digimon
-#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
-        if (should_load_digimon(config)) {
-            BONGOCAT_LOG_INFO("Load more sprite sheets: %i", DIGIMON_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
+        // Load dm
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+        if (should_load_dm(config)) {
+            BONGOCAT_LOG_INFO("Load more sprite sheets: %i", DM_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
             assert(ret.anim.shm != nullptr);
             animation_context_t& ctx = ret.anim; // alias for inits in includes
 
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
-            //init_digimon_anim(ctx, DM_AGUMON_ANIM_INDEX, get_min_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
-#include "embedded_assets/min_dm_init_digimon_anim.cpp.inl"
+            //init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_min_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
+#include "embedded_assets/min_dm_init_dm_anim.cpp.inl"
+
 #endif
 
             // dm
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-#include "embedded_assets/dm_init_digimon_anim.cpp.inl"
+#include "embedded_assets/dm_init_dm_anim.cpp.inl"
 #endif
             // dm20
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-#include "embedded_assets/dm20_init_digimon_anim.cpp.inl"
+#include "embedded_assets/dm20_init_dm_anim.cpp.inl"
 #endif
             // dmc
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "embedded_assets/dmc_init_digimon_anim.cpp.inl"
+#include "embedded_assets/dmc_init_dm_anim.cpp.inl"
 #endif
             // dmx
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
-#include "embedded_assets/dmx_init_digimon_anim.cpp.inl"
+#include "embedded_assets/dmx_init_dm_anim.cpp.inl"
 #endif
             // pen20
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "embedded_assets/pen20_init_digimon_anim.cpp.inl"
+#include "embedded_assets/pen20_init_dm_anim.cpp.inl"
 #endif
         }
 #endif
@@ -144,12 +145,12 @@ namespace bongocat::animation {
         // Load Ms Pets (Clippy)
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
         if (should_load_ms_pet(config)) {
-            BONGOCAT_LOG_INFO("Load more sprite sheets: %i", MS_PETS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
+            BONGOCAT_LOG_INFO("Load more sprite sheets: %i", MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
             assert(ret.anim.shm != nullptr);
             animation_context_t& ctx = ret.anim; // alias for inits in includes
 
             // clippy
-            init_ms_pet_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_pet_sprite(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS);
+            init_ms_pet_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS);
         }
 #endif
 

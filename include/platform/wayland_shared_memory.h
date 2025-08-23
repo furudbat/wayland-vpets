@@ -1,7 +1,7 @@
 #ifndef BONGOCAT_WAYLAND_SHARED_MEMORY_H
 #define BONGOCAT_WAYLAND_SHARED_MEMORY_H
 
-#include "graphics/global_animation_context.h"
+#include "graphics/global_animation_session.h"
 #include <wayland-client.h>
 #include <stdatomic.h>
 

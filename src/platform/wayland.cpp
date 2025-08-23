@@ -3,7 +3,7 @@
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "platform/wayland_shared_memory.h"
-#include "platform/global_wayland_context.h"
+#include "platform/global_wayland_session.h"
 #include "utils/memory.h"
 #include "../graphics/bar.h"
 #include <cassert>

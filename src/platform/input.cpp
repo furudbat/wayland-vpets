@@ -350,7 +350,7 @@ namespace bongocat::platform::input {
                     assert(&current_config == input._local_copy_config.ptr);
                 } while (false);
 
-                BONGOCAT_LOG_INFO("Input config reloaded (gen=%ull)", gen);
+                BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", gen);
             }
             do {
                 platform::LockGuard guard (input.input_lock);

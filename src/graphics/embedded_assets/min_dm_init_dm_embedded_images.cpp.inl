@@ -1,0 +1,17 @@
+dm_sprite_sheets[DM_BOTAMON_ANIM_INDEX] = {dm_botamon_png, dm_botamon_png_size, "embedded botamon"};
+dm_sprite_sheets[DM_KOROMON_ANIM_INDEX] = {dm_koromon_png, dm_koromon_png_size, "embedded koromon"};
+dm_sprite_sheets[DM_AGUMON_ANIM_INDEX] = {dm_agumon_png, dm_agumon_png_size, "embedded agumon"};
+dm_sprite_sheets[DM_BETAMON_ANIM_INDEX] = {dm_betamon_png, dm_betamon_png_size, "embedded betamon"};
+dm_sprite_sheets[DM_GREYMON_ANIM_INDEX] = {dm_greymon_png, dm_greymon_png_size, "embedded greymon"};
+dm_sprite_sheets[DM_TYRANOMON_ANIM_INDEX] = {dm_tyranomon_png, dm_tyranomon_png_size, "embedded tyranomon"};
+dm_sprite_sheets[DM_DEVIMON_ANIM_INDEX] = {dm_devimon_png, dm_devimon_png_size, "embedded devimon"};
+dm_sprite_sheets[DM_MERAMON_ANIM_INDEX] = {dm_meramon_png, dm_meramon_png_size, "embedded meramon"};
+dm_sprite_sheets[DM_AIRDRAMON_ANIM_INDEX] = {dm_airdramon_png, dm_airdramon_png_size, "embedded airdramon"};
+dm_sprite_sheets[DM_SEADRAMON_ANIM_INDEX] = {dm_seadramon_png, dm_seadramon_png_size, "embedded seadramon"};
+dm_sprite_sheets[DM_NUMEMON_ANIM_INDEX] = {dm_numemon_png, dm_numemon_png_size, "embedded numemon"};
+dm_sprite_sheets[DM_METAL_GREYMON_ANIM_INDEX] = {dm_metal_greymon_png, dm_metal_greymon_png_size, "embedded metal_greymon"};
+dm_sprite_sheets[DM_MAMEMON_ANIM_INDEX] = {dm_mamemon_png, dm_mamemon_png_size, "embedded mamemon"};
+dm_sprite_sheets[DM_MONZAEMON_ANIM_INDEX] = {dm_monzaemon_png, dm_monzaemon_png_size, "embedded monzaemon"};
+dm_sprite_sheets[DM_BLITZ_GREYMON_ANIM_INDEX] = {dm_blitz_greymon_png, dm_blitz_greymon_png_size, "embedded blitz_greymon"};
+dm_sprite_sheets[DM_BANCHO_MAMEMON_ANIM_INDEX] = {dm_bancho_mamemon_png, dm_bancho_mamemon_png_size, "embedded bancho_mamemon"};
+dm_sprite_sheets[DM_OMEGAMON_ALTER_S_ANIM_INDEX] = {dm_omegamon_alter_s_png, dm_omegamon_alter_s_png_size, "embedded omegamon_alter_s"};

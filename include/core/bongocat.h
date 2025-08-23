@@ -8,7 +8,7 @@
 #include "utils/memory.h"
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "2.1.0";
+inline static constexpr const char* BONGOCAT_VERSION = "2.1.1";
 
 // Common constants
 inline static constexpr int DEFAULT_SCREEN_WIDTH = 1920;

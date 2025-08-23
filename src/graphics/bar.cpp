@@ -269,14 +269,14 @@ namespace bongocat::animation {
                         draw_sprite(ctx, sheet);
 #endif
                     }break;
-                    case config::config_animation_sprite_sheet_layout_t::Digimon: {
-#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+                    case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
                         const animation_t& dm_anim = anim_shm.dm_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
 #endif
                     }break;
-                    case config::config_animation_sprite_sheet_layout_t::MsPet:{
+                    case config::config_animation_sprite_sheet_layout_t::MsAgent:{
 #ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
                         const ms_pet_sprite_sheet_t& sheet = anim_shm.ms_anims[anim_shm.anim_index];
                         const int col = anim_shm.animation_player_data.frame_index;

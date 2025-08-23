@@ -39,7 +39,7 @@ namespace bongocat::platform::input {
 
             other.any_key_pressed = 0;
             other.kpm = 0;
-            atomic_store(&other.input_counter, false);
+            atomic_store(&other.input_counter, 0);
         }
         input_shared_memory_t& operator=(input_shared_memory_t&& other) noexcept {
             if (this != &other) {
@@ -50,7 +50,7 @@ namespace bongocat::platform::input {
 
                 other.any_key_pressed = 0;
                 other.kpm = 0;
-                atomic_store(&other.input_counter, false);
+                atomic_store(&other.input_counter, 0);
             }
             return *this;
         }
