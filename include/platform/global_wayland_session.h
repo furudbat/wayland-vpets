@@ -23,6 +23,11 @@ namespace bongocat::platform::wayland {
         bool has_fullscreen_toplevel{false};
         timeval last_check{};
     };
+    struct tracked_toplevel_t {
+        struct zwlr_foreign_toplevel_handle_v1 *handle{nullptr};
+        wl_output *output{nullptr};
+        bool is_fullscreen{false};
+    };
 
     // =============================================================================
     // SCREEN DIMENSION MANAGEMENT
@@ -38,14 +43,23 @@ namespace bongocat::platform::wayland {
         bool geometry_received{false};
     };
 
-
+    enum class output_ref_received_flags_t : uint32_t {
+        None            = (1u << 0),
+        Name            = (1u << 1),
+        LogicalPosition = (1u << 2),
+        LogicalSize     = (1u << 3),
+    };
     // Output monitor reference structure
     struct output_ref_t {
         struct wl_output *wl_output{nullptr};
         zxdg_output_v1 *xdg_output{nullptr};
         uint32_t name{0};                         // Registry name
         char name_str[OUTPUT_NAME_SIZE]{};        // From xdg-output
-        bool name_received{false};
+        int32_t x{0};
+        int32_t y{0};
+        int32_t width{0};
+        int32_t height{0};
+        output_ref_received_flags_t received{output_ref_received_flags_t::None};
     };
 
     struct wayland_session_t;
@@ -55,7 +69,7 @@ namespace bongocat::platform::wayland {
         wayland_context_t wayland_context;
         animation::animation_session_t* animation_trigger_context{nullptr};
 
-        struct zwlr_foreign_toplevel_handle_v1* tracked_toplevels[MAX_TOP_LEVELS]{};
+        tracked_toplevel_t tracked_toplevels[MAX_TOP_LEVELS];
         size_t num_toplevels{0};
 
         output_ref_t outputs[MAX_OUTPUTS];
@@ -71,7 +85,7 @@ namespace bongocat::platform::wayland {
 
         wayland_session_t() {
             for (size_t i = 0; i < MAX_TOP_LEVELS; i++) {
-                tracked_toplevels[i] = nullptr;
+                tracked_toplevels[i] = {};
             }
             for (size_t i = 0; i < MAX_OUTPUTS; i++) {
                 outputs[i] = {};
@@ -95,7 +109,7 @@ namespace bongocat::platform::wayland {
         {
             for (size_t i = 0; i < MAX_TOP_LEVELS; ++i) {
                 tracked_toplevels[i] = other.tracked_toplevels[i];
-                other.tracked_toplevels[i] = nullptr;
+                other.tracked_toplevels[i] = {};
             }
             for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
                 outputs[i] = other.outputs[i];
@@ -126,7 +140,7 @@ namespace bongocat::platform::wayland {
 
                 for (size_t i = 0; i < MAX_TOP_LEVELS; ++i) {
                     tracked_toplevels[i] = other.tracked_toplevels[i];
-                    other.tracked_toplevels[i] = nullptr;
+                    other.tracked_toplevels[i] = {};
                 }
                 for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
                     outputs[i] = other.outputs[i];
@@ -181,8 +195,8 @@ namespace bongocat::platform::wayland {
         }
 
         for (size_t i = 0; i < ctx.num_toplevels; ++i) {
-            if (ctx.tracked_toplevels[i]) zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i]);
-            ctx.tracked_toplevels[i] = nullptr;
+            if (ctx.tracked_toplevels[i].handle) zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);
+            ctx.tracked_toplevels[i] = {};
         }
         ctx.num_toplevels = 0;
 

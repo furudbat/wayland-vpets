@@ -68,27 +68,39 @@ reinterpret_cast<const char*>(pos) < \
         auto *oref = static_cast<output_ref_t *>(data);
 
         snprintf(oref->name_str, sizeof(oref->name_str), "%s", name);
-        oref->name_received = true;
+        oref->received = static_cast<output_ref_received_flags_t>(static_cast<uint32_t>(oref->received) | static_cast<uint32_t>(
+                                                                      output_ref_received_flags_t::Name));
+
         BONGOCAT_LOG_DEBUG("xdg_output.name: xdg-output name received: %s", name);
     }
 
     static void handle_xdg_output_logical_position(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_output,
-                                                   [[maybe_unused]] int32_t x, [[maybe_unused]] int32_t y) {
+                                                   int32_t x, int32_t y) {
         if (!data) {
             BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
             return;
         }
-        //auto *oref = static_cast<output_ref_t *>(data);
+        auto *oref = static_cast<output_ref_t *>(data);
+
+        oref->x = x;
+        oref->y = y;
+        oref->received = static_cast<output_ref_received_flags_t>(static_cast<uint32_t>(oref->received) | static_cast<uint32_t>(
+                                                                      output_ref_received_flags_t::LogicalPosition));
 
         BONGOCAT_LOG_VERBOSE("xdg_output.logical_position: %d,%d received", x, y);
     }
     static void handle_xdg_output_logical_size(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_output,
-                                               [[maybe_unused]] int32_t width, [[maybe_unused]] int32_t height) {
+                                               int32_t width, int32_t height) {
         if (!data) {
             BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
             return;
         }
-        //auto *oref = static_cast<output_ref_t *>(data);
+        auto *oref = static_cast<output_ref_t *>(data);
+
+        oref->width = width;
+        oref->height = height;
+        oref->received = static_cast<output_ref_received_flags_t>(static_cast<uint32_t>(oref->received) | static_cast<uint32_t>(
+                                                                      output_ref_received_flags_t::LogicalSize));
 
         BONGOCAT_LOG_VERBOSE("xdg_output.logical_size: %dx%d received", width, height);
     }
@@ -217,6 +229,24 @@ reinterpret_cast<const char*>(pos) < \
         return fs_check_compositor_fallback();
     }
 
+    struct update_fullscreen_state_toplevel_result_t { bool output_found{false}; bool changed{false}; };
+    static update_fullscreen_state_toplevel_result_t update_fullscreen_state_toplevel(wayland_session_t& ctx, tracked_toplevel_t& tracked, bool is_fullscreen) {
+        bool state_changed = tracked.is_fullscreen != is_fullscreen;
+        tracked.is_fullscreen = is_fullscreen;
+
+        /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggert
+        // Only trigger overlay update if this fullscreen window is on our output
+        if (tracked.output == ctx.wayland_context.output && state_changed) {
+            state_changed = fs_update_state(ctx, is_fullscreen);
+            BONGOCAT_LOG_VERBOSE("Fullscreen state updated for window %p: %d",
+                                 (void*)tracked.handle,
+                                 is_fullscreen);
+            return { .output_found = true, .changed = state_changed };
+        }
+
+        return { .output_found = false, .changed = state_changed };
+    }
+
     // Foreign toplevel protocol event handlers
     static void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel_handle_v1 *handle,
                                          wl_array *state) {
@@ -231,6 +261,7 @@ reinterpret_cast<const char*>(pos) < \
         }
         // only check for state changes when everything is ready, no need to do something before like fullscreen check
 
+        // check if fullscreen state event change
         bool is_fullscreen = false;
         wl_array_for_each_typed(state_ptr, state, uint32_t) {
             if (*state_ptr == ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_FULLSCREEN) {
@@ -239,6 +270,20 @@ reinterpret_cast<const char*>(pos) < \
             }
         }
 
+        /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggert
+        for (size_t i = 0; i < ctx.num_toplevels; ++i) {
+            if (ctx.tracked_toplevels[i].handle == handle) {
+                auto [output_found, changed] = update_fullscreen_state_toplevel(ctx, ctx.tracked_toplevels[i], is_fullscreen);
+                if (output_found) {
+                    if (changed) {
+                        BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d", is_fullscreen);
+                    }
+                    return;
+                }
+            }
+        }
+
+        // Fallback for when no toplevel was found
         const bool changed = fs_update_state(ctx, is_fullscreen);
         if (changed) {
             BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d", is_fullscreen);
@@ -260,13 +305,13 @@ reinterpret_cast<const char*>(pos) < \
 
         // remove from tracked_toplevels if present
         for (size_t i = 0; i < ctx.num_toplevels; ++i) {
-            if (ctx.tracked_toplevels[i] == handle) {
-                ctx.tracked_toplevels[i] = nullptr;
+            if (ctx.tracked_toplevels[i].handle == handle) {
+                ctx.tracked_toplevels[i].handle = nullptr;
                 // compact array to keep contiguous
                 for (size_t j = i; j + 1 < ctx.num_toplevels; ++j) {
                     ctx.tracked_toplevels[j] = ctx.tracked_toplevels[j+1];
                 }
-                ctx.tracked_toplevels[ctx.num_toplevels - 1] = nullptr;
+                ctx.tracked_toplevels[ctx.num_toplevels - 1].handle = {};
                 ctx.num_toplevels--;
                 break;
             }
@@ -301,7 +346,21 @@ reinterpret_cast<const char*>(pos) < \
             BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
             return;
         }
-        //wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+        wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+
+        for (size_t i = 0; i < ctx.num_toplevels; i++) {
+            auto &tracked = ctx.tracked_toplevels[i];
+            if (tracked.handle == handle) {
+                BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_enter: update tracked_toplevels[%i] output", i);
+                tracked.output = output;
+                if (tracked.is_fullscreen) {
+                    if (tracked.output == ctx.wayland_context.output) {
+                        fs_update_state(ctx, true);
+                    }
+                }
+                break;
+            }
+        }
 
         BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_enter: output received");
     }
@@ -311,7 +370,19 @@ reinterpret_cast<const char*>(pos) < \
             BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
             return;
         }
-        //wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+        wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+
+        for (size_t i = 0; i < ctx.num_toplevels; i++) {
+            auto &tracked = ctx.tracked_toplevels[i];
+            if (tracked.handle == handle && tracked.output == output) {
+                BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_leave: update tracked_toplevels[%i] output", i);
+                if (tracked.is_fullscreen && tracked.output == ctx.wayland_context.output) {
+                    fs_update_state(ctx, false);
+                }
+                tracked.output = nullptr;
+                break;
+            }
+        }
 
         BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_leave: output received");
     }
@@ -347,6 +418,25 @@ reinterpret_cast<const char*>(pos) < \
         .closed = fs_handle_toplevel_closed,
         .parent = fs_handle_parent,
     };
+    void fs_update_state_fallback(wayland_session_t& ctx) {
+        for (size_t i = 0; i < ctx.num_toplevels; ++i) {
+            const tracked_toplevel_t& tracked = ctx.tracked_toplevels[i];
+            // Skip handles that are not mapped or destroyed
+            if (!tracked.handle) continue;
+            if (tracked.is_fullscreen) {
+                // Only update overlay if on our output
+                if (tracked.output == ctx.wayland_context.output) {
+                    fs_update_state(ctx, true);
+                    return;
+                }
+            }
+        }
+
+        const bool new_state = fs_check_status(ctx);
+        if (new_state != ctx.wayland_context._fullscreen_detected) {
+            fs_update_state(ctx, new_state);
+        }
+    }
 
     static void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplevel_manager_v1 *manager,
                                           zwlr_foreign_toplevel_handle_v1 *toplevel) {
@@ -362,13 +452,13 @@ reinterpret_cast<const char*>(pos) < \
         if (ctx.num_toplevels < MAX_TOP_LEVELS) {
             bool already_tracked = false;
             for (size_t i = 0; i < ctx.num_toplevels; i++) {
-                if (ctx.tracked_toplevels[i] == toplevel) {
+                if (ctx.tracked_toplevels[i].handle == toplevel) {
                     already_tracked = true;
                     break;
                 }
             }
             if (!already_tracked) {
-                ctx.tracked_toplevels[ctx.num_toplevels] = toplevel;
+                ctx.tracked_toplevels[ctx.num_toplevels].handle = toplevel;
                 ctx.num_toplevels++;
             }
         } else {
@@ -745,13 +835,15 @@ reinterpret_cast<const char*>(pos) < \
             }
 
             // Wait for all xdg_output events
-            wl_display_roundtrip(wayland_ctx.display);
+            wl_display_roundtrip(wayland_ctx.display);  // Process initial events
+            wl_display_roundtrip(wayland_ctx.display);  // Ensure all `done` events arrive
+            BONGOCAT_LOG_DEBUG("Listener bound for xdg_output and foreign toplevel handle");
         }
 
         wayland_ctx.output = nullptr;
         if (current_config.output_name) {
             for (size_t i = 0; i < ctx.output_count; ++i) {
-                if (ctx.outputs[i].name_received &&
+                if (static_cast<uint32_t>(ctx.outputs[i].received) & static_cast<uint32_t>(output_ref_received_flags_t::Name) &&
                     strcmp(ctx.outputs[i].name_str, current_config.output_name) == 0) {
                     wayland_ctx.output = ctx.outputs[i].wl_output;
                     wayland_ctx._output_name_str = ctx.outputs[i].name_str;
@@ -1019,16 +1111,15 @@ reinterpret_cast<const char*>(pos) < \
 
         running = 1;
         while (running && wayland_ctx.display) {
-            // Periodic fullscreen check for fallback detection
+            const time_ms_t frame_based_timeout = config.fps > 0 ? 1000 / config.fps : 0;
+            // Periodic fullscreen check for fallback fullscreen detection
             timeval now{};
             gettimeofday(&now, nullptr);
-            const time_ms_t elapsed_ms = (now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L +
-                                         (now.tv_usec - ctx.fs_detector.last_check.tv_usec) / 1000L;
-            if (elapsed_ms >= CHECK_INTERVAL_MS) {
-                const bool new_state = fs_check_status(ctx);
-                if (new_state != wayland_ctx._fullscreen_detected) {
-                    fs_update_state(ctx, new_state);
-                }
+            const time_ms_t elapsed_ms = (now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L + (now.tv_usec - ctx.fs_detector.last_check.tv_usec) / 1000L;
+            time_ms_t fullscreen_check_interval = frame_based_timeout;
+            if (fullscreen_check_interval < CHECK_INTERVAL_MS) fullscreen_check_interval = CHECK_INTERVAL_MS;
+            if (elapsed_ms >= fullscreen_check_interval) {
+                fs_update_state_fallback(ctx);
                 ctx.fs_detector.last_check = now;
             }
 
@@ -1047,7 +1138,6 @@ reinterpret_cast<const char*>(pos) < \
             static_assert(fds_count == LEN_ARRAY(fds));
 
             // compute desired timeout
-            const time_ms_t frame_based_timeout = config.fps > 0 ? 1000 / config.fps : 0;
             time_ms_t timeout_ms = frame_based_timeout;
             if (timeout_ms < POOL_MIN_TIMEOUT_MS) timeout_ms = POOL_MIN_TIMEOUT_MS;
             if (timeout_ms > POOL_MAX_TIMEOUT_MS) timeout_ms = POOL_MAX_TIMEOUT_MS;
