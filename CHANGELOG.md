@@ -8,6 +8,9 @@ All notable changes to this project will be documented in this file.
 - multi-threading locking
 - update thread config via epoll
 
+### Fixed
+- fullscreen support for multi-monitor (hyprland)
+
 ## [2.1.0] - 2025-08-22
 
 ### Added 

@@ -24,21 +24,22 @@
 #include <sys/signalfd.h>
 #include <sys/wait.h>
 
+#include "wayland_hyprland.cpp.inl"
+#include "wayland_sway.cpp.inl"
+
 namespace bongocat::platform::wayland {
+
 #ifdef __cplusplus
 #define wl_array_for_each_typed(pos, array, type) \
-for (type *pos = static_cast<type*>((array)->data); \
-reinterpret_cast<const char*>(pos) < \
-(reinterpret_cast<const char*>((array)->data) + (array)->size); \
-++pos)
+for (type *pos = reinterpret_cast<type*>((array)->data); \
+     reinterpret_cast<const char*>(pos) < (reinterpret_cast<const char*>((array)->data) + (array)->size); \
+     ++pos)
 #endif
 
     // =============================================================================
     // GLOBAL STATE AND CONFIGURATION
     // =============================================================================
 
-    static inline constexpr size_t LINE_BUF = 512;
-    static inline constexpr size_t SWAY_BUF = 4096;
 
     static inline constexpr int CREATE_SHM_MAX_ATTEMPTS     = 100;
     static inline constexpr time_ms_t CHECK_INTERVAL_MS     = 100;
@@ -169,47 +170,43 @@ reinterpret_cast<const char*>(pos) < \
         return false;
     }
 
+    namespace hyprland {
+        static int fs_update_state(wayland_session_t& ctx) {
+            window_info_t win;
+            if (get_active_window(win)) {
+                bool fullscreen_on_same_output = false;
+                for (size_t i = 0; i < ctx.output_count; i++) {
+                    if (ctx.outputs[i].hypr_id == win.monitor_id) {
+                        if (ctx.wayland_context.output == ctx.outputs[i].wl_output) {
+                            fullscreen_on_same_output = true;
+                            break;
+                        }
+                    }
+                }
+                if (fullscreen_on_same_output) {
+                    fs_update_state(ctx, win.fullscreen);
+                    return win.fullscreen ? 1 : 0;
+                }
+
+                fs_update_state(ctx, false);
+                return 0;
+            }
+
+            return -1;
+        }
+    }
+
     static bool fs_check_compositor_fallback() {
         BONGOCAT_LOG_VERBOSE("Using compositor-specific fullscreen detection");
 
         // Try Hyprland first
-        FILE *fp = popen("hyprctl activewindow 2>/dev/null", "r");
-        if (fp) {
-            char line[LINE_BUF] = {};
-            bool is_fullscreen = false;
-
-            while (fgets(line, sizeof(line), fp)) {
-                size_t len = strlen(line);
-                if (len > 0 && line[len-1] == '\n') {
-                    line[len-1] = '\0';
-                }
-
-                if (strstr(line, "fullscreen: 1") || strstr(line, "fullscreen: 2") ||
-                    strstr(line, "fullscreen: true")) {
-                    is_fullscreen = true;
-                    BONGOCAT_LOG_DEBUG("Fullscreen detected in Hyprland");
-                    break;
-                    }
-            }
-            pclose(fp);
-            return is_fullscreen;
+        if (const int result = hyprland::fs_check_compositor_fallback(); result >= 0) {
+            return result == 1;
         }
 
         // Try Sway as fallback
-        fp = popen("swaymsg -t get_tree 2>/dev/null", "r");
-        if (fp) {
-            char sway_buffer[SWAY_BUF] = {0};
-            bool is_fullscreen = false;
-
-            while (fgets(sway_buffer, sizeof(sway_buffer), fp)) {
-                if (strstr(sway_buffer, "\"fullscreen_mode\":1")) {
-                    is_fullscreen = true;
-                    BONGOCAT_LOG_DEBUG("Fullscreen detected in Sway");
-                    break;
-                }
-            }
-            pclose(fp);
-            return is_fullscreen;
+        if (const int result = sway::fs_check_compositor_fallback(); result >= 0) {
+            return result == 1;
         }
 
         BONGOCAT_LOG_DEBUG("No supported compositor found for fullscreen detection");
@@ -281,6 +278,13 @@ reinterpret_cast<const char*>(pos) < \
                     return;
                 }
             }
+        }
+
+
+        // check for hyprland
+        if (const int result = hyprland::fs_update_state(ctx); result >= 0) {
+            BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d (hyprland)", result);
+            return;
         }
 
         // Fallback for when no toplevel was found
@@ -495,7 +499,10 @@ reinterpret_cast<const char*>(pos) < \
     // =============================================================================
 
     static void screen_calculate_dimensions(wayland_session_t& ctx) {
-        if (!ctx.screen_info.mode_received || !ctx.screen_info.geometry_received || ctx.screen_info.screen_width > 0) {
+        if (ctx.screen_info.received == screen_info_received_flags_t::None ||
+            (static_cast<uint32_t>(ctx.screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Geometry)) == 0 ||
+            (static_cast<uint32_t>(ctx.screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Mode)) == 0 ||
+            ctx.screen_info.screen_width > 0) {
             return;
         }
 
@@ -624,7 +631,8 @@ reinterpret_cast<const char*>(pos) < \
         wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
 
         ctx.screen_info.transform = transform;
-        ctx.screen_info.geometry_received = true;
+        ctx.screen_info.received = static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_info.received) | static_cast<uint32_t>(
+                                                                                 screen_info_received_flags_t::Geometry));
         BONGOCAT_LOG_DEBUG("wl_output.geometry: Output transform: %d", transform);
         screen_calculate_dimensions(ctx);
     }
@@ -644,7 +652,8 @@ reinterpret_cast<const char*>(pos) < \
         if (flags & WL_OUTPUT_MODE_CURRENT) {
             ctx.screen_info.raw_width = width;
             ctx.screen_info.raw_height = height;
-            ctx.screen_info.mode_received = true;
+            ctx.screen_info.received = static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_info.received) | static_cast<uint32_t>(
+                                                                                     screen_info_received_flags_t::Mode));
             BONGOCAT_LOG_DEBUG("wl_output.mode: Received raw screen mode: %dx%d", width, height);
             screen_calculate_dimensions(ctx);
         }
@@ -838,6 +847,9 @@ reinterpret_cast<const char*>(pos) < \
             wl_display_roundtrip(wayland_ctx.display);  // Process initial events
             wl_display_roundtrip(wayland_ctx.display);  // Ensure all `done` events arrive
             BONGOCAT_LOG_DEBUG("Listener bound for xdg_output and foreign toplevel handle");
+
+            // DE specific inits
+            hyprland::update_outputs_with_monitor_ids(ctx);
         }
 
         wayland_ctx.output = nullptr;

@@ -33,14 +33,18 @@ namespace bongocat::platform::wayland {
     // SCREEN DIMENSION MANAGEMENT
     // =============================================================================
 
+    enum class screen_info_received_flags_t : uint32_t {
+        None            = (1u << 0),
+        Mode            = (1u << 1),
+        Geometry        = (1u << 2),
+    };
     struct screen_info_t {
         int screen_width{0};
         int screen_height{0};
         int transform{0};
         int raw_width{0};
         int raw_height{0};
-        bool mode_received{false};
-        bool geometry_received{false};
+        screen_info_received_flags_t received{screen_info_received_flags_t::None};
     };
 
     enum class output_ref_received_flags_t : uint32_t {
@@ -60,6 +64,8 @@ namespace bongocat::platform::wayland {
         int32_t width{0};
         int32_t height{0};
         output_ref_received_flags_t received{output_ref_received_flags_t::None};
+        // monitor ID in Hyprland
+        int hypr_id{-1};
     };
 
     struct wayland_session_t;
