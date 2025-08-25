@@ -36,61 +36,122 @@ namespace bongocat {
         config::config_watcher_t config_watcher;
         config::load_config_overwrite_parameters_t overwrite_config_parameters;
 
-        platform::input::input_context_t input;
-        animation::animation_session_t animation;
-        platform::wayland::wayland_session_t wayland;
+        AllocatedMemory<platform::input::input_context_t> input;
+        AllocatedMemory<animation::animation_session_t> animation;
+        AllocatedMemory<platform::wayland::wayland_session_t> wayland;
 
         platform::Mutex config_reload_mutex;
+        pthread_cond_t config_reload_cond = PTHREAD_COND_INITIALIZER;
         const char *signal_watch_path{nullptr};
+        atomic_uint64_t config_generation{0};
 
-        main_context_t() = default;
+        main_context_t() {
+            pthread_cond_init(&config_reload_cond, nullptr);
+        }
         ~main_context_t() {
             cleanup(*this);
         }
         main_context_t(const main_context_t&) = delete;
         main_context_t& operator=(const main_context_t&) = delete;
-        main_context_t(main_context_t&&) noexcept = default;
-        main_context_t& operator=(main_context_t&&) noexcept = default;
+        main_context_t(main_context_t&& other) noexcept = delete;
+        main_context_t& operator=(main_context_t&& other) noexcept = delete;
+
+        /*
+        main_context_t(main_context_t&& other) noexcept
+            : running(other.running),
+              signal_fd(bongocat::move(other.signal_fd)),
+              config(bongocat::move(other.config)),
+              config_watcher(bongocat::move(other.config_watcher)),
+              overwrite_config_parameters(bongocat::move(other.overwrite_config_parameters)),
+              input(bongocat::move(other.input)),
+              animation(bongocat::move(other.animation)),
+              wayland(bongocat::move(other.wayland)),
+              signal_watch_path(other.signal_watch_path),
+              config_generation(other.config_generation.load())
+        {
+            pthread_cond_init(&config_reload_cond, nullptr);
+            other.signal_watch_path = nullptr;
+            other.running = 0;
+            other.config_generation = 0;
+        }
+
+        main_context_t& operator=(main_context_t&& other) noexcept {
+            if (this != &other) {
+                cleanup(*this);
+
+                running = other.running;
+                signal_fd = bongocat::move(other.signal_fd);
+                config = bongocat::move(other.config);
+                config_watcher = bongocat::move(other.config_watcher);
+                overwrite_config_parameters = bongocat::move(other.overwrite_config_parameters);
+                input = bongocat::move(other.input);
+                animation = bongocat::move(other.animation);
+                wayland = bongocat::move(other.wayland);
+
+                pthread_cond_init(&config_reload_cond, nullptr);
+
+                signal_watch_path = other.signal_watch_path;
+                atomic_store(&config_generation, atomic_load(&other.config_generation));
+
+                other.signal_watch_path = nullptr;
+                other.running = 0;
+                other.config_generation = 0;
+            }
+            return *this;
+        }
+        */
     };
     inline void stop_threads(main_context_t& context) {
         context.running = 0;
         // stop threads
-        atomic_store(&context.animation.anim._animation_running, false);
-        atomic_store(&context.input._capture_input_running, false);
+        if (context.animation != nullptr) atomic_store(&context.animation->anim._animation_running, false);
+        if (context.input != nullptr) atomic_store(&context.input->_capture_input_running, false);
         atomic_store(&context.config_watcher._running, false);
-        platform::join_thread_with_timeout(context.animation.anim._anim_thread, 2000);
-        platform::join_thread_with_timeout(context.input._input_thread, 2000);
+        if (context.animation != nullptr) platform::join_thread_with_timeout(context.animation->anim._anim_thread, 5000);
+        if (context.input != nullptr) platform::join_thread_with_timeout(context.input->_input_thread, 5000);
         platform::join_thread_with_timeout(context.config_watcher._watcher_thread, 5000);
-        animation::stop(context.animation.anim);
-        platform::input::stop(context.input);
+        if (context.animation != nullptr) animation::stop(*context.animation);
+        if (context.input != nullptr) platform::input::stop(*context.input);
         config::stop_watcher(context.config_watcher);
         //context.animation.anim._anim_thread = 0;
         //context.input._input_thread = 0;
         //context.config_watcher._watcher_thread = 0;
+        context.config_generation = 0;
     }
     void cleanup(main_context_t& context) {
         stop_threads(context);
 
         // Cleanup Wayland
-        cleanup_wayland(context.wayland);
+        if (context.wayland != nullptr) cleanup_wayland(*context.wayland);
 
         // remove references (avoid dangling pointers)
-        context.wayland.animation_trigger_context = nullptr;
-        context.animation._input = nullptr;
+        if (context.wayland != nullptr) context.wayland->animation_trigger_context = nullptr;
+        if (context.animation != nullptr) context.animation->_input = nullptr;
 
         // Cleanup systems
-        cleanup(context.animation);
-        cleanup(context.input);
+        if (context.animation != nullptr) cleanup(*context.animation);
+        if (context.input != nullptr) cleanup(*context.input);
         if (context.signal_fd._fd >= 0) close_fd(context.signal_fd);
         context.signal_watch_path = nullptr;
         cleanup_watcher(context.config_watcher);
+
+        release_allocated_memory(context.input);
+        release_allocated_memory(context.animation);
+        release_allocated_memory(context.wayland);
 
         // Cleanup configuration
         cleanup(context.config);
         context.overwrite_config_parameters.output_name = nullptr;
 
+        pthread_cond_destroy(&context.config_reload_cond);
+
         // cleanup signals handler
         platform::close_fd(context.signal_fd);
+    }
+
+    inline main_context_t& get_main_context() {
+        static main_context_t g_instance;
+        return g_instance;
     }
 
     // =============================================================================
@@ -231,7 +292,6 @@ namespace bongocat {
         return 0;
     }
 
-
     // =============================================================================
     // CONFIGURATION MANAGEMENT MODULE
     // =============================================================================
@@ -258,63 +318,74 @@ namespace bongocat {
         return false;
     }
 
-    main_context_t* g_main_context = nullptr;
     static void config_reload_callback() {
-        assert(g_main_context);
-        BONGOCAT_LOG_INFO("Reloading configuration from: %s", g_main_context->config_watcher.config_path);
+        assert(get_main_context().input != nullptr);
+        assert(get_main_context().animation != nullptr);
+        BONGOCAT_LOG_INFO("Reloading configuration from: %s", get_main_context().config_watcher.config_path);
 
         // Create a temporary config to test loading
-        auto [new_config, result] = config::load(g_main_context->config_watcher.config_path, g_main_context->overwrite_config_parameters);
-        if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat::error_string(result));
+        auto [new_config, error] = config::load(get_main_context().config_watcher.config_path, get_main_context().overwrite_config_parameters);
+        if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+            BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat::error_string(error));
             BONGOCAT_LOG_INFO("Keeping current configuration");
             return;
         }
 
-
-
         // If successful, update the global config
-        do {
-            platform::LockGuard config_reload_mutex_guard(g_main_context->config_reload_mutex);
+        {
+            platform::LockGuard config_reload_mutex_guard(get_main_context().config_reload_mutex);
 
-            config::config_t old_config = g_main_context->config;
-            // If successful, check if input devices changed before updating config
-            const bool devices_changed = config_devices_changed(old_config, new_config);
-            g_main_context->config = bongocat::move(new_config);
-            // Initialize error system with debug setting
-            bongocat::error_init(g_main_context->config.enable_debug);
-            /// @NOTE: don't use new_config after move
-            // Update the running systems with new config
-            platform::input::update_config(g_main_context->input, g_main_context->config);
-            animation::update_config(g_main_context->animation.anim, g_main_context->config);
-            update_config(g_main_context->wayland.wayland_context, g_main_context->config, g_main_context->animation);
+            bool devices_changed = false;
+            uint64_t new_gen{atomic_load(&get_main_context().config_generation)};
+            {
+                config::config_t old_config = get_main_context().config;
+                // If successful, check if input devices changed before updating config
+                devices_changed = config_devices_changed(old_config, new_config);
+                get_main_context().config = bongocat::move(new_config);
+                /// @NOTE: don't use new_config after move
+                new_config = {};
+                // Initialize error system with debug setting
+                bongocat::error_init(get_main_context().config.enable_debug);
+
+                // Increment generation atomically
+                new_gen = atomic_fetch_add(&get_main_context().config_generation, 1) + 1;
+
+                // Update the running systems with new config
+                platform::input::trigger_update_config(*get_main_context().input, get_main_context().config);
+                animation::trigger_update_config(*get_main_context().animation, get_main_context().config);
+                update_config(get_main_context().wayland->wayland_context, get_main_context().config, *get_main_context().animation);
+            }
 
             // Check if input devices changed and restart monitoring if needed
             if (devices_changed) {
                 BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
-                const bongocat_error_t input_result = platform::input::restart_monitoring(g_main_context->input, g_main_context->animation, g_main_context->config);
+                const bongocat_error_t input_result = platform::input::restart_monitoring(*get_main_context().input, *get_main_context().animation, get_main_context().config, get_main_context().config_reload_mutex.pt_mutex, get_main_context().config_reload_cond, get_main_context().config_generation);
                 if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
                     BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat::error_string(input_result));
                 } else {
                     BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
                 }
             }
-        } while(false);
+            // Wait until all workers caught up
+            while (get_main_context().running && (get_main_context().animation->config_seen_generation < new_gen || get_main_context().input->config_seen_generation < new_gen)) {
+                pthread_cond_wait(&get_main_context().config_reload_cond, &get_main_context().config_reload_mutex.pt_mutex);
+            }
+        }
 
         BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
-        BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", g_main_context->wayland.wayland_context._screen_width, g_main_context->wayland.wayland_context._bar_height);
+        BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", get_main_context().wayland->wayland_context._screen_width, get_main_context().wayland->wayland_context._bar_height);
     }
 
     static bongocat_error_t start_config_watcher(main_context_t& ctx, const char *config_file) {
-        auto [config_watcher, result] = config::create_watcher(config_file);
-        if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
+        auto [config_watcher, error] = config::create_watcher(config_file);
+        if (error == bongocat_error_t::BONGOCAT_SUCCESS) {
             ctx.config_watcher = bongocat::move(config_watcher);
             config::start_watcher(ctx.config_watcher);
             BONGOCAT_LOG_INFO("Config file watching enabled for: %s", config_file);
         } else {
             BONGOCAT_LOG_WARNING("Failed to initialize config watcher, continuing without hot-reload");
         }
-        return result;
+        return error;
     }
 
     // =============================================================================
@@ -350,52 +421,57 @@ namespace bongocat {
 
     static bongocat_error_t system_initialize_components(main_context_t& ctx) {
         // Initialize input system
-        do {
-            auto [input, input_result] = platform::input::create(ctx.config);
-            if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(input_result));
-                return input_result;
+        {
+            auto [input, input_error] = platform::input::create(ctx.config);
+            if (input_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(input_error));
+                return input_error;
             }
             ctx.input = bongocat::move(input);
-        } while (false);
+        }
 
         // Initialize animation system
-        do {
-            auto [animation, animation_result] = animation::create(ctx.config);
-            if (animation_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(animation_result));
-                return animation_result;
+        {
+            auto [animation, animation_error] = animation::create(ctx.config);
+            if (animation_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(animation_error));
+                return animation_error;
             }
             ctx.animation = bongocat::move(animation);
-        } while (false);
+        }
 
         // Initialize Wayland
-        do {
+        {
+            assert(ctx.animation != nullptr);
             /// @NOTE: animation needed only for reference
-            auto [wayland, wayland_result] = platform::wayland::create(ctx.animation, ctx.config);
-            if (wayland_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat::error_string(wayland_result));
-                return wayland_result;
+            auto [wayland, wayland_error] = platform::wayland::create(*ctx.animation, ctx.config);
+            if (wayland_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat::error_string(wayland_error));
+                return wayland_error;
             }
             ctx.wayland = bongocat::move(wayland);
-        } while (false);
+        }
+
+        pthread_cond_init(&ctx.config_reload_cond, nullptr);
 
         // Setup wayland
-        bongocat_error_t setup_wayland_result = setup(ctx.wayland, ctx.animation);
+        assert(ctx.input != nullptr);
+        assert(ctx.animation != nullptr);
+        bongocat_error_t setup_wayland_result = setup(*ctx.wayland, *ctx.animation);
         if (setup_wayland_result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to setup wayland: %s", bongocat::error_string(setup_wayland_result));
             return setup_wayland_result;
         }
 
         // Start input monitoring
-        bongocat_error_t start_input_result = platform::input::start_monitoring(ctx.input, ctx.animation, ctx.config);
+        bongocat_error_t start_input_result = platform::input::start_monitoring(*ctx.input, *ctx.animation, ctx.config, get_main_context().config_reload_mutex.pt_mutex, get_main_context().config_reload_cond, get_main_context().config_generation);
         if (start_input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat::error_string(start_input_result));
             return start_input_result;
         }
 
         // Start animation thread
-        bongocat_error_t start_animation_result = animation::start(ctx.animation, ctx.input);
+        bongocat_error_t start_animation_result = animation::start(*ctx.animation, *ctx.input, ctx.config, get_main_context().config_reload_mutex.pt_mutex, get_main_context().config_reload_cond, get_main_context().config_generation);
         if (start_animation_result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat::error_string(start_animation_result));
             return start_animation_result;
@@ -407,26 +483,14 @@ namespace bongocat {
     [[ noreturn ]] static void system_cleanup_and_exit(main_context_t& ctx, char* pid_filename, int exit_code) {
         BONGOCAT_LOG_INFO("Performing cleanup...");
 
-         [[maybe_unused]] const bool enable_debug = ctx.config.enable_debug;
-
         ctx.running = 0;
         // Remove PID file
         process_remove_pid_file(pid_filename);
         if (pid_filename) ::free(pid_filename);
 
+        stop_threads(ctx);
+        // clean up context before global cleanup (log mutex, etc.)
         cleanup(ctx);
-        g_main_context = nullptr;
-
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-        // Print memory statistics in debug mode
-        if (enable_debug) {
-            memory_print_stats();
-        }
-#endif
-
-#ifndef NDEBUG
-        memory_leak_check();
-#endif
 
         BONGOCAT_LOG_INFO("Cleanup complete, exiting with code %d", exit_code);
         exit(exit_code);
@@ -527,16 +591,15 @@ int main(int argc, char *argv[]) {
         return EXIT_SUCCESS;
     }
 
-    static main_context_t ctx;
-    g_main_context = &ctx;
+    main_context_t& ctx = get_main_context();
 
     // Load configuration
     ctx.overwrite_config_parameters = {
         .output_name = args.output_name,
     };
-    auto [config, config_result] = config::load(args.config_file, ctx.overwrite_config_parameters);
-    if (config_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_result));
+    auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
+    if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_error));
         return EXIT_FAILURE;
     }
     ctx.config = bongocat::move(config);
@@ -609,19 +672,23 @@ int main(int argc, char *argv[]) {
         system_cleanup_and_exit(ctx, pid_filename, EXIT_FAILURE);
     }
 
-    if (abs(ctx.config.cat_x_offset) > ctx.wayland.wayland_context._screen_width) {
+    assert(ctx.input != nullptr);
+    assert(ctx.animation != nullptr);
+    assert(ctx.wayland != nullptr);
+
+    if (abs(ctx.config.cat_x_offset) > ctx.wayland->wayland_context._screen_width) {
         BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)",
-                            ctx.config.cat_x_offset, ctx.wayland.wayland_context._screen_width);
+                            ctx.config.cat_x_offset, ctx.wayland->wayland_context._screen_width);
     }
 
-    BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland.wayland_context._screen_width, ctx.config.overlay_height);
+    BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland->wayland_context._screen_width, ctx.config.overlay_height);
 
     BONGOCAT_LOG_INFO("Bongo Cat Overlay configured successfully");
 
     // trigger initial rendering
-    platform::wayland::request_render(ctx.animation);
+    platform::wayland::request_render(*ctx.animation);
     // Main Wayland event loop with graceful shutdown
-    result = run(ctx.wayland, ctx.running, ctx.signal_fd._fd, ctx.input, ctx.config, ctx.config_watcher, config_reload_callback);
+    result = run(*ctx.wayland, ctx.running, ctx.signal_fd._fd, *ctx.input, ctx.config, ctx.config_watcher, config_reload_callback);
     if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat::error_string(result));
         system_cleanup_and_exit(ctx, pid_filename, EXIT_FAILURE);

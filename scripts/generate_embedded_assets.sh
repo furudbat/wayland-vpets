@@ -94,6 +94,7 @@ echo >> "$CPP_HEADER_OUT"
 # === Source file intro ===
 HEADER_RELATIVE_PATH="${C_HEADER_OUT#include/}"
 echo "#include \"$HEADER_RELATIVE_PATH\"" >> "$C_SOURCE_OUT"
+echo "#include <stddef.h>" >> "$C_SOURCE_OUT"
 echo >> "$C_SOURCE_OUT"
 echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_SOURCE_OUT"
 echo >> "$C_SOURCE_OUT"
@@ -137,13 +138,13 @@ for FILE in "$INPUT_DIR"/*.png; do
 
     # === Header content ===
     echo "// Name: $NAME_NO_EXT" >> "$C_HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_NAME \"$NAME_NO_EXT\"" >> "$C_HEADER_OUT"
+    #echo "#define ${MACRO_PREFIX}_NAME \"$NAME_NO_EXT\"" >> "$C_HEADER_OUT"
     echo "extern const unsigned char $EMBED_SYMBOL[];" >> "$C_HEADER_OUT"
     echo "extern const size_t $SIZE_SYMBOL;" >> "$C_HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_COLS $COLS" >> "$C_HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_ROWS $ROWS" >> "$C_HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT $FRAMES_COUNT" >> "$C_HEADER_OUT"
-    echo "#define ${MACRO_PREFIX}_ANIM_INDEX $INDEX" >> "$C_HEADER_OUT"
+    #echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_COLS $COLS" >> "$C_HEADER_OUT"
+    #echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_ROWS $ROWS" >> "$C_HEADER_OUT"
+    #echo "#define ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT $FRAMES_COUNT" >> "$C_HEADER_OUT"
+    #echo "#define ${MACRO_PREFIX}_ANIM_INDEX $INDEX" >> "$C_HEADER_OUT"
     echo >> "$C_HEADER_OUT"
 
 

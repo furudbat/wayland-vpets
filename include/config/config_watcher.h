@@ -3,7 +3,6 @@
 
 #include "core/bongocat.h"
 #include "utils/system_memory.h"
-#include <pthread.h>
 #include <stdatomic.h>
 #include <sys/inotify.h>
 #include <cstdlib>

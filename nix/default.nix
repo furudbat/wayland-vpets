@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-bongocat";
-  version = "2.1.0";
+  version = "2.1.1";
   src = ../.;
 
   # Build toolchain and dependencies
@@ -17,7 +17,6 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     wayland
     wayland-protocols
-    wayland-scanner
   ];
 
   # Build phases

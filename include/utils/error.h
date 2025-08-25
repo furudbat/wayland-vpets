@@ -19,29 +19,30 @@ namespace bongocat {
 
     // Error handling macros
 #define BONGOCAT_CHECK_NULL(ptr, error_code) \
-do { \
-if ((ptr) == nullptr) { \
-BONGOCAT_LOG_ERROR("NULL pointer: %s at %s:%d", #ptr, __FILE__, __LINE__); \
-return (error_code); \
-} \
-} while(false)
+    { \
+        if ((ptr) == nullptr) { \
+            BONGOCAT_LOG_ERROR("NULL pointer: %s at %s:%d", #ptr, __FILE__, __LINE__); \
+            return (error_code); \
+        } \
+    }
 
 #define BONGOCAT_CHECK_ERROR(condition, error_code, message) \
-do { \
-if (condition) { \
-BONGOCAT_LOG_ERROR("%s at %s:%d", message, __FILE__, __LINE__); \
-return (error_code); \
-} \
-} while(false)
+    { \
+        if (condition) { \
+            BONGOCAT_LOG_ERROR("%s at %s:%d", message, __FILE__, __LINE__); \
+            return (error_code); \
+        } \
+    }
 
-#ifndef BONGOCAT_DISABLE_LOGGER
-    // Logging functions
-    void log_error(const char *format, ...);
-    void log_warning(const char *format, ...);
-    void log_info(const char *format, ...);
-    void log_debug(const char *format, ...);
-    void log_verbose(const char *format, ...);
-
+#if !defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)
+    namespace details {
+        // Logging functions
+        void log_error(const char *format, ...);
+        void log_warning(const char *format, ...);
+        void log_info(const char *format, ...);
+        void log_debug(const char *format, ...);
+        void log_verbose(const char *format, ...);
+    }
 #endif
 
     // Error handling initialization
@@ -56,35 +57,40 @@ return (error_code); \
 #ifndef BONGOCAT_LOG_LEVEL
 #define BONGOCAT_LOG_LEVEL 4
 #endif
+    namespace features {
+#if defined(BONGOCAT_LOG_LEVEL)
+        inline static constexpr int LogLevel = BONGOCAT_LOG_LEVEL;
+#endif
+    }
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 1
-#define BONGOCAT_LOG_ERROR(format, ...) ::bongocat::log_error(format __VA_OPT__(,) __VA_ARGS__)
+#if (!defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)) && BONGOCAT_LOG_LEVEL >= 1
+#define BONGOCAT_LOG_ERROR(format, ...) ::bongocat::details::log_error(format __VA_OPT__(,) __VA_ARGS__)
 #else
-#define BONGOCAT_LOG_ERROR(format, ...) ((void)0)
+#define BONGOCAT_LOG_ERROR(format, ...)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 2
-#define BONGOCAT_LOG_WARNING(format, ...) ::bongocat::log_warning(format __VA_OPT__(,) __VA_ARGS__)
+#if (!defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)) && BONGOCAT_LOG_LEVEL >= 2
+#define BONGOCAT_LOG_WARNING(format, ...) ::bongocat::details::log_warning(format __VA_OPT__(,) __VA_ARGS__)
 #else
-#define BONGOCAT_LOG_WARNING(format, ...) ((void)0)
+#define BONGOCAT_LOG_WARNING(format, ...)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 3
-#define BONGOCAT_LOG_INFO(format, ...) ::bongocat::log_info(format __VA_OPT__(,) __VA_ARGS__)
+#if (!defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)) && BONGOCAT_LOG_LEVEL >= 3
+#define BONGOCAT_LOG_INFO(format, ...) ::bongocat::details::log_info(format __VA_OPT__(,) __VA_ARGS__)
 #else
-#define BONGOCAT_LOG_INFO(format, ...) ((void)0)
+#define BONGOCAT_LOG_INFO(format, ...)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 4
-#define BONGOCAT_LOG_DEBUG(format, ...) ::bongocat::log_debug(format __VA_OPT__(,) __VA_ARGS__)
+#if (!defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)) && BONGOCAT_LOG_LEVEL >= 4
+#define BONGOCAT_LOG_DEBUG(format, ...) ::bongocat::details::log_debug(format __VA_OPT__(,) __VA_ARGS__)
 #else
-#define BONGOCAT_LOG_DEBUG(format, ...) ((void)0)
+#define BONGOCAT_LOG_DEBUG(format, ...)
 #endif
 
-#if !defined(BONGOCAT_DISABLE_LOGGER) && BONGOCAT_LOG_LEVEL >= 5
-#define BONGOCAT_LOG_VERBOSE(format, ...) ::bongocat::log_verbose(format __VA_OPT__(,) __VA_ARGS__)
+#if (!defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)) && BONGOCAT_LOG_LEVEL >= 5
+#define BONGOCAT_LOG_VERBOSE(format, ...) ::bongocat::details::log_verbose(format __VA_OPT__(,) __VA_ARGS__)
 #else
-#define BONGOCAT_LOG_VERBOSE(format, ...) ((void)0)
+#define BONGOCAT_LOG_VERBOSE(format, ...)
 #endif
 }
 

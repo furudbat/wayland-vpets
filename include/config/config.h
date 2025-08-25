@@ -47,49 +47,49 @@ namespace bongocat::config {
     void config_copy_keyboard_devices_from(config_t& config, const config_t& other);
     void cleanup(config_t& config);
 
-    enum class config_animation_type_t : uint8_t {
+    enum class config_animation_sprite_sheet_layout_t : uint8_t {
         None,
         Bongocat,
-        Digimon,
-        MsPet,
+        Dm,
+        MsAgent,
     };
 
     struct config_t {
         char *output_name{nullptr};
         char *keyboard_devices[MAX_INPUT_DEVICES]{};
-        int num_keyboard_devices{0};
-        int cat_x_offset{0};
-        int cat_y_offset{0};
-        int cat_height{0};
-        int overlay_height{0};
-        int idle_frame{0};
-        int keypress_duration_ms{0};
-        int test_animation_duration_ms{0};
-        int test_animation_interval_sec{0};
-        int animation_speed_ms{0};
-        int fps{0};
-        int overlay_opacity{0};
-        int enable_debug{0};
+        int32_t num_keyboard_devices{0};
+        int32_t cat_x_offset{0};
+        int32_t cat_y_offset{0};
+        int32_t cat_height{0};
+        int32_t overlay_height{0};
+        int32_t idle_frame{0};
+        int32_t keypress_duration_ms{0};
+        int32_t test_animation_duration_ms{0};
+        int32_t test_animation_interval_sec{0};
+        int32_t animation_speed_ms{0};
+        int32_t fps{0};
+        int32_t overlay_opacity{0};
+        int32_t enable_debug{0};
         layer_type_t layer{layer_type_t::LAYER_TOP};
         overlay_position_t overlay_position{overlay_position_t::POSITION_TOP};
 
-        int animation_index{0};
-        int invert_color{0};
-        int padding_x{0};
-        int padding_y{0};
+        int32_t animation_index{0};
+        int32_t invert_color{0};
+        int32_t padding_x{0};
+        int32_t padding_y{0};
 
-        int enable_scheduled_sleep{0};
+        int32_t enable_scheduled_sleep{0};
         config_time_t sleep_begin;
         config_time_t sleep_end;
-        int idle_sleep_timeout_sec{0};
+        int32_t idle_sleep_timeout_sec{0};
 
-        int happy_kpm{0};
+        int32_t happy_kpm{0};
 
         align_type_t cat_align{align_type_t::ALIGN_CENTER};
 
-        config_animation_type_t animation_type{config_animation_type_t::None};
-        int idle_animation{0};
-        int input_fps{0};
+        config_animation_sprite_sheet_layout_t animation_sprite_sheet_layout{config_animation_sprite_sheet_layout_t::None};
+        int32_t idle_animation{0};
+        int32_t input_fps{0};
 
 
         // Make Config movable and copyable
@@ -127,7 +127,7 @@ namespace bongocat::config {
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
-              animation_type(other.animation_type),
+              animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps)
         {
@@ -163,7 +163,7 @@ namespace bongocat::config {
                 idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
-                animation_type = other.animation_type;
+                animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
 
@@ -200,7 +200,7 @@ namespace bongocat::config {
               idle_sleep_timeout_sec(other.idle_sleep_timeout_sec),
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
-              animation_type(other.animation_type),
+              animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps)
         {
@@ -242,7 +242,7 @@ namespace bongocat::config {
                 idle_sleep_timeout_sec = other.idle_sleep_timeout_sec;
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
-                animation_type = other.animation_type;
+                animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
 

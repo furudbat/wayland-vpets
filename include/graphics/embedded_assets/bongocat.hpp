@@ -4,9 +4,9 @@
 #include <cstddef>
 
 namespace bongocat::assets {
-    // Embedded asset data
+    inline static constexpr std::size_t BONGOCAT_ANIM_INDEX = 0;
 
-    inline static constexpr size_t BONGOCAT_ANIM_INDEX = 0;
+    inline static constexpr std::size_t BONGOCAT_ANIM_COUNT = 1;
 }
 
-#endif // EMBEDDED_ASSETS_BINGOCAT_HPP
+#endif // BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_HPP

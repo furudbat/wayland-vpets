@@ -2,6 +2,41 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.1] - 2025-08-25
+
+### Improved
+- multi-threading locking
+- fix sanitizer warnings and errors (UB, data races, deadlocks)
+- update thread config via epoll
+
+### Fixed
+- fullscreen support for multi-monitor (hyprland)
+
+## [2.1.0] - 2025-08-22
+
+### Added 
+
+- **More Sprite** - add Clippy (MS Agent)
+
+## [2.0.0] - 2025-08-22
+
+### Moving to C++
+
+_Moving towards C++_
+
+* **reduce usage of pre-processor** - replace `#define` with `constexpr`
+* use `ref&` instead of pointer
+* use `nullptr` instead of `NULL`
+* **Memory Management** - Simple Wrapper for malloc/free calls
+  * move semantics
+  * reduce manually clean up
+* use of `enum class`
+* brace initialization
+* [add more asserts](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md?trk=public_post_comment-text#safety)
+
+_keep it as close as possible to the original, it's still C and Linux development with C libraries_
+
+
 ## [1.3.1] - 2025-08-08
 
 _include changes from 1.2.4 (upstream)_

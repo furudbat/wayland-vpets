@@ -1,6 +1,7 @@
 #include "platform/wayland-protocols.hpp"
 
 #include "bar.h"
+#include "graphics/drawing.h"
 #include "graphics/animation_context.h"
 #include "platform/wayland.h"
 #include "graphics/animation.h"
@@ -34,7 +35,7 @@ namespace bongocat::animation {
         //const animation_shared_memory_t *const anim_shm = anim->shm;
         //assert(anim_shm);
 
-        do {
+        {
             platform::LockGuard guard (wayland_ctx._frame_cb_lock);
             if (wayland_ctx._frame_cb == cb) {
                 wl_callback_destroy(wayland_ctx._frame_cb);
@@ -58,7 +59,7 @@ namespace bongocat::animation {
             } else {
                 BONGOCAT_LOG_VERBOSE("wl_callback.done: cb is not matching");
             }
-        } while (false);
+        }
     }
 
     /// @NOTE: frame_listeners MUST pass data as wayland_listeners_context_t, see wl_callback_add_listener
@@ -124,6 +125,7 @@ namespace bongocat::animation {
         return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
     }
 
+#if defined(FEATURE_BONGOCAT_EMBEDDED_ASSETS) || defined(FEATURE_DM_EMBEDDED_ASSETS)
     void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
@@ -138,6 +140,7 @@ namespace bongocat::animation {
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
+        const int frame_index = anim_shm.animation_player_data.frame_index;
 
         assert(wayland_ctx_shm->current_buffer_index >= 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
@@ -147,24 +150,31 @@ namespace bongocat::animation {
         uint8_t *pixels = shm_buffer->pixels.data;
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
-        const sprite_sheet_animation_region_t* region = sheet.frames[anim_shm.animation_player_data.frame_index].valid
-                    ? &sheet.frames[anim_shm.animation_player_data.frame_index]
+        assert(frame_index >= 0 && static_cast<size_t>(frame_index) < MAX_NUM_FRAMES);
+        const sprite_sheet_animation_region_t* region = sheet.frames[frame_index].valid
+                    ? &sheet.frames[frame_index]
                     : nullptr;
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
 
         if (region) {
+            blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
+            if (current_config.invert_color) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
+            }
+
             blit_image_scaled(pixels, pixels_size,
                               wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
                               sheet.pixels.data, sheet.pixels._size_bytes,  sheet.sprite_sheet_width, sheet.sprite_sheet_height, sheet.channels,
                               region->col * sheet.frame_width, region->row * sheet.frame_height,
                               sheet.frame_width, sheet.frame_height,
                               cat_x, cat_y, cat_width, cat_height,
-                              drawing_color_order_t::COLOR_ORDER_BGRA, drawing_color_order_t::COLOR_ORDER_RGBA);
+                              blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
         }
     }
+#endif
 
-#ifndef FEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
     void draw_sprite(platform::wayland::wayland_session_t& ctx, const ms_pet_sprite_sheet_t& sheet, int col, int row) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
@@ -190,13 +200,19 @@ namespace bongocat::animation {
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
 
+
+        blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
+        if (current_config.invert_color) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
+        }
+
         blit_image_scaled(pixels, pixels_size,
                           wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
                           sheet.pixels.data, sheet.pixels._size_bytes,  sheet.sprite_sheet_width, sheet.sprite_sheet_height, sheet.channels,
                           col * sheet.frame_width, row * sheet.frame_height,
                           sheet.frame_width, sheet.frame_height,
                           cat_x, cat_y, cat_width, cat_height,
-                          drawing_color_order_t::COLOR_ORDER_BGRA, drawing_color_order_t::COLOR_ORDER_RGBA);
+                          blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
     }
 #endif
 
@@ -253,29 +269,33 @@ namespace bongocat::animation {
             p[i] = fill;
         }
 
-        do {
+        {
             platform::LockGuard guard (anim.anim_lock);
 
             if (!wayland_ctx._fullscreen_detected) {
+                using namespace assets;
                 switch (anim_shm.anim_type) {
-                    case config::config_animation_type_t::None:
+                    case config::config_animation_sprite_sheet_layout_t::None:
                         break;
-                    case config::config_animation_type_t::Bongocat: {
+                    case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+                        assert(anim_shm.anim_index < BONGOCAT_ANIMATIONS_COUNT);
                         const animation_t& cat_anim = anim_shm.bongocat_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
 #endif
                     }break;
-                    case config::config_animation_type_t::Digimon: {
-#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+                    case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+                        assert(anim_shm.anim_index < DM_ANIMATIONS_COUNT);
                         const animation_t& dm_anim = anim_shm.dm_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
 #endif
                     }break;
-                    case config::config_animation_type_t::MsPet:{
-#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
+                    case config::config_animation_sprite_sheet_layout_t::MsAgent:{
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+                        assert(anim_shm.anim_index < MS_AGENTS_ANIMATIONS_COUNT);
                         const ms_pet_sprite_sheet_t& sheet = anim_shm.ms_anims[anim_shm.anim_index];
                         const int col = anim_shm.animation_player_data.frame_index;
                         const int row = anim_shm.animation_player_data.sprite_sheet_row;
@@ -286,7 +306,7 @@ namespace bongocat::animation {
             } else {
                 BONGOCAT_LOG_VERBOSE("fullscreen detected, skip drawing, keep buffer clean");
             }
-        } while (false);
+        }
 
         assert(shm_buffer->buffer);
 
@@ -296,7 +316,7 @@ namespace bongocat::animation {
         wl_surface_commit(wayland_ctx.surface);
         wayland_ctx_shm->current_buffer_index = next_buffer_index;
 
-        do {
+        {
             platform::LockGuard guard (wayland_ctx._frame_cb_lock);
             if (!atomic_load(&wayland_ctx._frame_pending) && !wayland_ctx._frame_cb) {
                 wayland_ctx._frame_cb = wl_surface_frame(wayland_ctx.surface);
@@ -304,7 +324,7 @@ namespace bongocat::animation {
                 atomic_store(&wayland_ctx._frame_pending, true);
                 BONGOCAT_LOG_VERBOSE("Set frame pending");
             }
-        } while (false);
+        }
 
         return true;
     }

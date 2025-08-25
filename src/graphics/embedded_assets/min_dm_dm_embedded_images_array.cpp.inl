@@ -12,6 +12,3 @@
 {dm_metal_greymon_png, dm_metal_greymon_png_size, "embedded metal_greymon"},
 {dm_mamemon_png, dm_mamemon_png_size, "embedded mamemon"},
 {dm_monzaemon_png, dm_monzaemon_png_size, "embedded monzaemon"},
-{dm_blitz_greymon_png, dm_blitz_greymon_png_size, "embedded blitz_greymon"},
-{dm_bancho_mamemon_png, dm_bancho_mamemon_png_size, "embedded bancho_mamemon"},
-{dm_omegamon_alter_s_png, dm_omegamon_alter_s_png_size, "embedded omegamon_alter_s"},

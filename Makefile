@@ -8,14 +8,14 @@ BUILD_TYPE ?= release
 ONLY_BONGOCAT ?= 0
 
 # Base flags
-BASE_CFLAGS = -std=c23 -Iinclude -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CFLAGS = -std=c23 -Iinclude -Isrc -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CFLAGS += -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
 BASE_CFLAGS += -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
 BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
 BASE_CFLAGS += -Wjump-misses-init -Wdouble-promotion -Wshadow
 BASE_CFLAGS += -fstack-protector-strong
 
-BASE_CXXFLAGS = -std=c++26 -Iinclude -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CXXFLAGS = -std=c++26 -Iinclude -Isrc -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CXXFLAGS += -Wall -Wextra -Wpedantic -Wformat=2
 BASE_CXXFLAGS += -Wredundant-decls
 BASE_CXXFLAGS += -Wmissing-include-dirs -Wlogical-op
@@ -23,8 +23,11 @@ BASE_CXXFLAGS += -Wdouble-promotion -Wshadow
 BASE_CXXFLAGS += -fstack-protector-strong
 
 ifeq ($(ONLY_BONGOCAT),1)
-    BASE_CFLAGS += -DFEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
-    BASE_CXXFLAGS += -DFEATURE_INCLUDE_ONLY_BONGOCAT_EMBEDDED_ASSETS
+    BASE_CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS
+    BASE_CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS
+else
+    BASE_CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS
+    BASE_CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS
 endif
 
 # Debug flags
@@ -58,11 +61,27 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Source files (including embedded assets which are now committed)
-SOURCES = src/utils/system_memory.cpp src/utils/memory.cpp src/utils/time.cpp src/utils/error.cpp src/core/main.cpp src/platform/wayland.cpp src/platform/input.cpp src/graphics/bar.cpp src/graphics/animation.cpp src/graphics/animation_init.cpp src/graphics/embedded_assets.cpp src/graphics/embedded_assets_bongocat.cpp src/graphics/embedded_assets_clippy.cpp src/graphics/embedded_assets_digimon.cpp src/config/config_watcher.cpp src/config/config.cpp
-CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_DIGIMON_EMBEDDED_ASSETS -DFEATURE_CLIPPY_EMBEDDED_ASSETS
-CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_DIGIMON_EMBEDDED_ASSETS -DFEATURE_CLIPPY_EMBEDDED_ASSETS
+CXX_SRC = $(SRCDIR)/config/config.cpp \
+    $(SRCDIR)/config/config_watcher.cpp \
+    $(SRCDIR)/core/main.cpp \
+    $(SRCDIR)/graphics/animation.cpp \
+    $(SRCDIR)/graphics/animation_init.cpp \
+    $(SRCDIR)/graphics/bar.cpp \
+    $(SRCDIR)/graphics/drawing_images.cpp \
+    $(SRCDIR)/graphics/load_images.cpp \
+    $(SRCDIR)/graphics/embedded_assets.cpp \
+    $(SRCDIR)/graphics/stb_image.cpp \
+    $(SRCDIR)/platform/input.cpp \
+    $(SRCDIR)/platform/wayland.cpp \
+    $(SRCDIR)/utils/error.cpp \
+    $(SRCDIR)/utils/memory.cpp \
+    $(SRCDIR)/utils/system_memory.cpp \
+    $(SRCDIR)/utils/time.cpp
+CXX_SRC += $(SRCDIR)/graphics/embedded_assets_bongocat.cpp $(SRCDIR)/graphics/embedded_assets_dm.cpp $(SRCDIR)/graphics/embedded_assets_clippy.cpp
+C_SRC = $(SRCDIR)/graphics/embedded_assets/bongocat_images.c $(SRCDIR)/graphics/embedded_assets/min_dm_images.c $(SRCDIR)/graphics/embedded_assets/clippy_images.c
 
-OBJECTS = $(SOURCES:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
+C_OBJECTS = $(C_SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
+CXX_OBJECTS = $(CXX_SRC:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 
 # Protocol files
 C_PROTOCOL_SRC = $(PROTOCOLDIR)/zwlr-layer-shell-v1-protocol.c $(PROTOCOLDIR)/xdg-shell-protocol.c $(PROTOCOLDIR)/wlr-foreign-toplevel-management-v1-protocol.c $(PROTOCOLDIR)/xdg-output-unstable-v1-protocol.c
@@ -93,15 +112,17 @@ $(OBJDIR):
 # Compile source files (depends on protocol headers)
 $(OBJDIR)/%.o: $(SRCDIR)/%.c $(H_PROTOCOL_HDR) | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
-$(OBJDIR)/%.o: $(SRCDIR)/%.cpp $(H_PROTOCOL_HDR) | $(OBJDIR)
+$(OBJDIR)/%.o: $(SRCDIR)/%.cpp | $(OBJDIR)
 	$(CXX) $(CXXFLAGS) -c $< -o $@
 
 # Compile protocol files
 $(OBJDIR)/%.o: $(PROTOCOLDIR)/%.c | $(OBJDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+$(OBJDIR)/%.o: $(PROTOCOLDIR)/%.cpp | $(OBJDIR)
+	$(CXX) $(CFLAGS) -c $< -o $@
 
-$(TARGET): $(OBJECTS) $(PROTOCOL_OBJECTS)
-	$(CXX) $(OBJECTS) $(PROTOCOL_OBJECTS) -o $(TARGET) $(LDFLAGS)
+$(TARGET): $(C_OBJECTS) $(CXX_OBJECTS) $(PROTOCOL_OBJECTS)
+	$(CXX) $(C_OBJECTS) $(CXX_OBJECTS) $(PROTOCOL_OBJECTS) -o $(TARGET) $(LDFLAGS)
 
 # Rule to generate Wayland protocol files
 $(C_PROTOCOL_SRC) $(H_PROTOCOL_HDR): $(PROTOCOLDIR)/wlr-layer-shell-unstable-v1.xml $(PROTOCOLDIR)/wlr-foreign-toplevel-management-unstable-v1.xml $(PROTOCOLDIR)/xdg-output-unstable-v1.xml

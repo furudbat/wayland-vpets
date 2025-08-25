@@ -1,11 +1,12 @@
 #ifndef BONGOCAT_WAYLAND_SHARED_MEMORY_H
 #define BONGOCAT_WAYLAND_SHARED_MEMORY_H
 
-#include "graphics/global_animation_context.h"
+#include "graphics/global_animation_session.h"
 #include <wayland-client.h>
 #include <stdatomic.h>
 
 namespace bongocat::platform::wayland {
+    // single-buffer, double-buffer or triple-buffer
     inline static constexpr size_t WAYLAND_NUM_BUFFERS = 1;
 
     struct wayland_shm_buffer_t;
@@ -20,6 +21,8 @@ namespace bongocat::platform::wayland {
 
         // extra context for listeners
         animation::animation_session_t *_animation_trigger_context{nullptr};
+
+
 
         wayland_shm_buffer_t() = default;
         ~wayland_shm_buffer_t() {
@@ -68,6 +71,8 @@ namespace bongocat::platform::wayland {
         wayland_shm_buffer_t buffers[WAYLAND_NUM_BUFFERS];
         int current_buffer_index{0};
         atomic_bool configured{false};
+
+
 
         wayland_shared_memory_t() = default;
         ~wayland_shared_memory_t() {

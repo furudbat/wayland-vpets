@@ -2,8 +2,6 @@
 #define BONGOCAT_EMBEDDED_ASSETS_IMAGE_H
 
 #include "sprite_sheet.h"
-#include <cstddef>
-#include <cstdint>
 
 namespace bongocat::assets {
     struct embedded_image_t {

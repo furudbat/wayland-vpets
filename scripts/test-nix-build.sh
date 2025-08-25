@@ -1,4 +1,4 @@
-# Test script for Nix builds
+#!/usr/bin/env bash
 set -e
 
 echo "🧪 Testing Nix builds for wayland-bongocat"
@@ -36,4 +36,3 @@ fi
 echo ""
 echo "🎉 All available Nix builds completed successfully!"
 echo ""
-

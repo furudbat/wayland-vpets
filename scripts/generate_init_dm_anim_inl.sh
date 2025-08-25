@@ -14,15 +14,15 @@ PREFIX_LOWER=$(echo "$PREFIX" | tr '[:upper:]' '[:lower:]')
 PREFIX_UPPER=$(echo "$PREFIX" | tr '[:lower:]' '[:upper:]')
 
 
-OUTPUT_FILE_1="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_anim.c.inl"
-OUTPUT_FILE_2="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_embedded_images.c.inl"
+OUTPUT_FILE_1="${OUTPUT_DIR}/${PREFIX_LOWER}_init_dm_anim.c.inl"
+OUTPUT_FILE_2="${OUTPUT_DIR}/${PREFIX_LOWER}_init_dm_embedded_images.c.inl"
 OUTPUT_FILE_3="${OUTPUT_DIR}/${PREFIX_LOWER}_config_parse_enum_key.c.inl"
 OUTPUT_FILE_4="${OUTPUT_DIR}/${PREFIX_LOWER}_config_parse_enum_key.cpp.inl"
-OUTPUT_FILE_5="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_embedded_images.cpp.inl"
-OUTPUT_FILE_6="${OUTPUT_DIR}/${PREFIX_LOWER}_init_digimon_anim.cpp.inl"
-OUTPUT_FILE_7="${OUTPUT_DIR}/${PREFIX_LOWER}_digimon_embedded_images_array.cpp.inl"
-OUTPUT_FILE_8="${OUTPUT_DIR}/${PREFIX_LOWER}_get_digimon_sprite_sheet.hpp.inl"
-OUTPUT_FILE_9="${OUTPUT_DIR}/${PREFIX_LOWER}_get_digimon_sprite_sheet.cpp.inl"
+OUTPUT_FILE_5="${OUTPUT_DIR}/${PREFIX_LOWER}_init_dm_embedded_images.cpp.inl"
+OUTPUT_FILE_6="${OUTPUT_DIR}/${PREFIX_LOWER}_init_dm_anim.cpp.inl"
+OUTPUT_FILE_7="${OUTPUT_DIR}/${PREFIX_LOWER}_dm_embedded_images_array.cpp.inl"
+OUTPUT_FILE_8="${OUTPUT_DIR}/${PREFIX_LOWER}_get_dm_sprite_sheet.hpp.inl"
+OUTPUT_FILE_9="${OUTPUT_DIR}/${PREFIX_LOWER}_get_dm_sprite_sheet.cpp.inl"
 
 # Clean output files at the start
 > "$OUTPUT_FILE_1"
@@ -43,14 +43,14 @@ echo "embedded_image_t get_${PREFIX_LOWER}_sprite_sheet(size_t i) {" >> "$OUTPUT
 echo "using namespace animation;" >> "$OUTPUT_FILE_9"
 echo "switch (i) {" >> "$OUTPUT_FILE_9"
 
-# Extract lowercase digimon names based on the 'extern const unsigned char ..._*_png[];' pattern
+# Extract lowercase dm names based on the 'extern const unsigned char ..._*_png[];' pattern
 grep -oP "extern const unsigned char ${PREFIX_LOWER}_\K[a-z0-9_]+(?=_png)" "$HEADER_FILE" | while read -r name; do
     upper_name=$(echo "$name" | tr '[:lower:]' '[:upper:]')
     lower_name=$(echo "$name" | tr '[:upper:]' '[:lower:]')
 
-    echo "init_digimon_anim(ctx, ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX, &digimon_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX], ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_COLS, ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_1"
+    echo "init_digimon_anim(ctx, ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX, &dm_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX], ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_COLS, ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_1"
 
-    echo "digimon_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX] = (embedded_image_t){${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"};" >> "$OUTPUT_FILE_2"
+    echo "dm_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX] = (embedded_image_t){${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"};" >> "$OUTPUT_FILE_2"
 
     echo "if (strcmp(lower_value, \"${lower_name}\") == 0) {" >> "$OUTPUT_FILE_3"
     echo "    config->animation_index = ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX;" >> "$OUTPUT_FILE_3"
@@ -63,9 +63,9 @@ grep -oP "extern const unsigned char ${PREFIX_LOWER}_\K[a-z0-9_]+(?=_png)" "$HEA
     echo "    }" >> "$OUTPUT_FILE_4"
     echo "} while(false);" >> "$OUTPUT_FILE_4"
 
-    echo "digimon_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX] = {${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"};" >> "$OUTPUT_FILE_5"
+    echo "dm_sprite_sheet_embedded_images[${PREFIX_UPPER}_${upper_name}_ANIM_INDEX] = {${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"};" >> "$OUTPUT_FILE_5"
 
-    echo "init_digimon_anim(ctx, ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX, get_${PREFIX_LOWER}_sprite_sheet(${PREFIX_UPPER}_${upper_name}_ANIM_INDEX), ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_COLS, ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_6"
+    echo "init_dm_anim(ctx, ${PREFIX_UPPER}_${upper_name}_ANIM_INDEX, get_${PREFIX_LOWER}_sprite_sheet(${PREFIX_UPPER}_${upper_name}_ANIM_INDEX), ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_COLS, ${PREFIX_UPPER}_${upper_name}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_6"
 
     echo "{${PREFIX_LOWER}_${lower_name}_png, ${PREFIX_LOWER}_${lower_name}_png_size, \"embedded ${name}\"}," >> "$OUTPUT_FILE_7"
 

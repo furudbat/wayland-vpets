@@ -2,44 +2,43 @@
 #define BONGOCAT_EMBEDDED_ASSETS_H
 
 #include "sprite_sheet.h"
-#include <cstddef>
 
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
 namespace bongocat::assets {
     // sprite sheet uses it own array
-    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX  = 0;
+    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX    = 0;
 }
 #include "embedded_assets_bongocat.h"
 #else
 namespace bongocat::assets {
-    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX  = 0;
-    inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT  = 0;
+    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX    = 0;
+    inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT    = 0;
 }
 #endif
 
-#ifdef FEATURE_DIGIMON_EMBEDDED_ASSETS
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 namespace bongocat::assets {
     // sprite sheet uses it own array
-    inline static constexpr size_t DM_ANIM_START_INDEX        = 0;
+    inline static constexpr size_t DM_ANIM_START_INDEX          = 0;
 }
-#include "embedded_assets_digimon.h"
+#include "embedded_assets_dms.h"
 #else
 namespace bongocat::assets {
-    inline static constexpr size_t DM_ANIM_START_INDEX        = 0;
-    inline static constexpr size_t DIGIMON_ANIMATIONS_COUNT   = 0;
+    inline static constexpr size_t DM_ANIM_START_INDEX          = 0;
+    inline static constexpr size_t DM_ANIMATIONS_COUNT          = 0;
 }
 #endif
 
-#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
 namespace bongocat::assets {
     // sprite sheet uses it own array
-    inline static constexpr size_t MS_PETS_ANIM_START_INDEX   = 0;
+    inline static constexpr size_t MS_AGENTS_ANIM_START_INDEX   = 0;
 }
-#include "embedded_assets_clippy.h"
+#include "embedded_assets_ms_agents.h"
 #else
 namespace bongocat::assets {
-    inline static constexpr size_t MS_PETS_ANIM_START_INDEX   = 0;
-    inline static constexpr size_t MS_PETS_ANIMATIONS_COUNT   = 0;
+    inline static constexpr size_t MS_AGENTS_ANIM_START_INDEX   = 0;
+    inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT   = 0;
 }
 #endif
 

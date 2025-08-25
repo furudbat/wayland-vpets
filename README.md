@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-2.1.0-blue.svg)](https://github.com/furudbat/wayland-digimon/releases)
+[![Version](https://img.shields.io/badge/version-2.1.1-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
@@ -29,7 +29,7 @@ _MS Agent Clippy_
 - **🖥️ Screen Detection** - Automatic screen detection for all sizes and orientations (v1.2.2)
 - **🎮 Smart Fullscreen Detection** - Automatically hides during fullscreen applications (v1.2.3)
 - **🖥️ Multi-Monitor Support** - Choose which monitor to display on in multi-monitor setups (v1.2.4)
-- **💾 Lightweight** - Minimal resource usage (~10MB-22MB RAM, depends on the loaded sprites)
+- **💾 Lightweight** - Minimal resource usage (~10MB-24MB RAM, depends on the loaded sprites)
 - **🎛️ Multi-device Support** - Monitor multiple keyboards simultaneously
 - **🏗️ Cross-platform** - Works on x86_64 and ARM64
 - **🎞️ More Animations** - Besides the Input/Idle Animation, we have now Happy and Sleep-Mode (v1.3.0)
@@ -64,8 +64,8 @@ bongocat --config ~/.config/bongocat.conf --watch-config
 sudo apt install libwayland-dev wayland-protocols build-essential
 
 # Build from source
-git clone https://github.com/furudbat/wayland-digimon.git
-cd wayland-digimon
+git clone https://github.com/furudbat/wayland-vpets.git
+cd wayland-vpets
 make
 
 # Run
@@ -82,8 +82,8 @@ make
 sudo dnf install wayland-devel wayland-protocols-devel gcc make
 
 # Build from source
-git clone https://github.com/furudbat/wayland-digimon.git
-cd wayland-bongocat
+git clone https://github.com/furudbat/wayland-vpets.git
+cd wayland-vpets
 make
 
 # Run
@@ -97,10 +97,10 @@ make
 
 ```bash
 # Quick start with flakes
-nix run github:furudbat/wayland-digimon -- --watch-config
+nix run github:furudbat/wayland-vpets -- --watch-config
 
 # Install to user profile
-nix profile install github:furudbat/wayland-digimon
+nix profile install github:furudbat/wayland-vpets
 ```
 
 📖 **For comprehensive NixOS setup, see [nix/NIXOS.md](nix/NIXOS.md)**
@@ -173,26 +173,70 @@ enable_debug=1                   # Show debug messages
 
 ### Configuration Reference
 
-| Setting                   | Type    | Range                                      | Default             | Description                                                                  |
-|---------------------------|---------|--------------------------------------------|---------------------|------------------------------------------------------------------------------|
-| `cat_height`              | Integer | 16-128                                     | 50                  | Height of bongo cat in pixels                                                |
-| `cat_x_offset`            | Integer | -9999 to 9999                              | 0                   | Horizontal offset from center                                                |
-| `cat_y_offset`            | Integer | -9999 to 9999                              | 0                   | Vertical offset from center                                                  |
-| `overlay_opacity`         | Integer | 0-255                                      | 150                 | Background opacity (0=transparent)                                           |
-| `overlay_position`        | String  | "top" or "bottom"                          | "top"               | Position of overlay on screen                                                |
-| `fps`                     | Integer | 1-144                                      | 60                  | Animation frame rate                                                         |
-| `keypress_duration`       | Integer | 50-5000                                    | 100                 | Animation duration after keypress (ms)                                       |
-| `test_animation_interval` | Integer | 0-60                                       | 3                   | Test animation interval (seconds, 0=disabled)                                |
-| `keyboard_device`         | String  | Valid path                                 | `/dev/input/event4` | Input device path (multiple allowed)                                         |
-| `enable_debug`            | Boolean | 0 or 1                                     | 0                   | Enable debug logging                                                         |
-| `animation_name`          | String  | "bongocat", "\<digimon name\>" or "clippy" | "bongocat"          | Name of the V-Pet sprite                                                     |
-| `invert_color`            | Boolean | 0 or 1                                     | 0                   | Invert color of the Sprite (usefull for white digimon sprites and dark mode) |
-| `enable_scheduled_sleep`  | Boolean | 0 or 1                                     | 0                   | Enable Sleep mode                                                            |
-| `sleep_begin`             | String  | "00:00" - "23:59"                          | "00:00"             | Begin of the sleeping phase                                                  |
-| `sleep_end`               | String  | "00:00" - "23:59"                          | "00:00"             | End of the sleeping phase                                                    |
-| `idle_sleep_timeout`      | Integer | 0+                                         | 0                   | Duration of user inactivity before entering sleep                            |
-| `happy_kpm`               | Integer | 0-10000                                    | 0                   | Minimal (KPM) keystrokes per minute for happy animation (0=disabled)         |
-| `monitor`                 | String  | Monitor name                               | Auto-detect         | Monitor to display on (e.g., "eDP-1", "HDMI-A-1")                            |
+| Setting                   | Type    | Range / Options                        | Default             | Description                                                                    |
+| ------------------------- | ------- | -------------------------------------- |---------------------|--------------------------------------------------------------------------------|
+| `cat_height`              | Integer | 16–128                                 | 40                  | Height of bongo cat in pixels (width auto-calculated to maintain aspect ratio) |
+| `cat_x_offset`            | Integer | -9999 to 9999                          | 100                 | Horizontal offset from center (behavior depends on `cat_align`)                |
+| `cat_y_offset`            | Integer | -9999 to 9999                          | 10                  | Vertical offset from center (positive = down, negative = up)                   |
+| `cat_align`               | String  | "center", "left", "right"              | "center"            | Horizontal alignment of cat inside overlay bar                                 |
+| `overlay_height`          | Integer | 16–9999                                | 50                  | Height of the entire overlay bar                                               |
+| `overlay_position`        | String  | "top" or "bottom"                      | "top"               | Position of overlay on screen                                                  |
+| `overlay_opacity`         | Integer | 0–255                                  | 60                  | Background opacity (0 = transparent, 255 = opaque)                             |
+| `animation_name`          | String  | "bongocat", `<digimon name>`, "clippy" | "bongocat"          | Name of the V-Pet sprite (see list below)                                      |
+| `invert_color`            | Boolean | 0 or 1                                 | 0                   | Invert color (useful for white digimon sprites & dark mode)                    |
+| `padding_x`               | Integer | 0–9999                                 | 0                   | Horizontal padding per frame (ignored for bongocat)                            |
+| `padding_y`               | Integer | 0–9999                                 | 0                   | Vertical padding per frame (ignored for bongocat)                              |
+| `idle_frame`              | Integer | 0–2 (varies by sprite type)            | 0                   | Which frame to use when idle (sprite-specific options)                         |
+| `idle_animation`          | Boolean | 0 or 1                                 | 0                   | Enable idle animation                                                          |
+| `animation_speed`         | Integer | 0–5000                                 | 0                   | Frame duration in ms (0 = use `fps`)                                           |
+| `keypress_duration`       | Integer | 50–5000                                | 100                 | Duration to display keypress animation (ms)                                    |
+| `test_animation_duration` | Integer | 0–5000                                 | 0                   | Duration of test animation (ms) (deprecated, use `animation_speed`)            |
+| `test_animation_interval` | Integer | 0–60                                   | 0                   | Interval for test animation in seconds (0 = disabled, deprecated)              |
+| `fps`                     | Integer | 1–144                                  | 60                  | Animation frame rate                                                           |
+| `input_fps`               | Integer | 0–144                                  | 0                   | Input thread frame rate (0 = use `fps`)                                        |
+| `enable_scheduled_sleep`  | Boolean | 0 or 1                                 | 0                   | Enable scheduled sleep mode                                                    |
+| `sleep_begin`             | String  | "00:00"–"23:59"                        | "00:00"             | Start time of scheduled sleep (24h format)                                     |
+| `sleep_end`               | String  | "00:00"–"23:59"                        | "00:00"             | End time of scheduled sleep (24h format)                                       |
+| `idle_sleep_timeout`      | Integer | 0+ (seconds)                           | 0                   | Time of inactivity before entering sleep (0 = disabled)                        |
+| `happy_kpm`               | Integer | 0–10000                                | 0                   | Minimum keystrokes per minute to trigger happy animation (0 = disabled)        |
+| `keyboard_device`         | String  | Valid `/dev/input/*` path(s)           | `/dev/input/event4` | Input device path (multiple entries allowed)                                   |
+| `enable_debug`            | Boolean | 0 or 1                                 | 0                   | Enable debug logging                                                           |
+| `monitor`                 | String  | Monitor name                           | Auto-detect         | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                        |
+
+#### Available Sprites (`animation_name`)
+
+##### Bongocat
+
+- `bongocat`
+
+##### MS Agent
+
+- `clippy`
+
+##### Digimon
+
+###### Original [dm](https://humulos.com/digimon/dm/) (Version 1)
+
+<details>
+<summary>Default Minimal Sprite when no other dm Version is compiled</summary>
+
+- `botamon`
+- `koromon`
+- `agumon`
+- `betamon`
+- `greymon`
+- `tyranomon`
+- `devimon`
+- `meramon`
+- `airdramon`
+- `seadramon`
+- `numemon`
+- `metal_greymon`
+- `mamemon`
+- `monzaemon`
+
+</details>
+
 
 ## 🔧 Usage
 
@@ -249,8 +293,8 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 
 ```bash
 # Clone repository
-git clone https://github.com/fudurbat/wayland-digimon.git
-cd wayland-bongocat
+git clone https://github.com/fudurbat/wayland-vpets.git
+cd wayland-vpets
 
 # Build (production)
 make
@@ -347,9 +391,9 @@ bongocat-find-devices --help
 - **Input Latency:** <1ms with batch processing
 - **CPU Usage:** <1% on modern systems
 - **Device Monitoring:** Adaptive 5-30 second intervals
-- **Memory:** Optimized with leak detection (only load assets needed at start)
-  - Bongocat: ~9MB usage
-  - Digimon: ~7MB usage
+- **Memory:** Optimized, only pre-load assets needed at start
+  - Bongocat: ~10MB usage
+  - Digimon: ~8MB usage
   - Clippy: ~16MB usage
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
 - **Event-based Rendering:** Only updates frame buffer when needed (on frame change, input, ...) (v1.4.0)
@@ -443,7 +487,6 @@ monitor=DP-1         # DisplayPort monitor
 - If monitor name is wrong, bongocat falls back to first available monitor
 - Monitor names are case-sensitive
 - Remove or comment out `monitor=` line to use auto-detection
-
 </details>
 
 <details>
@@ -468,7 +511,7 @@ monitor=DP-1         # DisplayPort monitor
 ### Project Structure
 
 ```
-wayland-bongocat/
+wayland-vpets/
 ├── src/                 # Source code
 │   ├── main.c          # Application entry point
 │   ├── config.c        # Configuration management
@@ -497,8 +540,8 @@ This project follows industry best practices with a modular architecture. Contri
 ### Development Setup
 
 ```bash
-git clone https://github.com/furudbat/wayland-digimon.git
-cd wayland-digimon
+git clone https://github.com/furudbat/wayland-vpets.git
+cd wayland-vpets
 make debug
 ```
 
@@ -511,19 +554,43 @@ make debug
 
 #### Moving to C++
 
-I'm moving this Project a little bit to C++.
+I'm moving this Project ~~a little bit~~ to C++.
 
-* using modern C++26 compiler (required for `#embed`)
-* rename files `.c` -> `.cpp`
-* **reduce usage of pre-processor** - replace `define` with `constexpr`
-* use `ref&` instead of pointer
+* using modern C++26/C23 compiler (required for `#embed`)
+* thread-safe Logging
+* use assert and static_assert (Preconditions, postconditions, invariants.)
+* use mmap for multi-threading and shared memory
+* use Mutex and LockGuard
+* prefer stack over heap
+  * use heap when: Mutex is used in structs or other non-movable objects
+  * use mmap for shared memory
+  * dynamics arrays like buffers
+* **reduce usage of pre-processor** - replace `#define` with `constexpr`
+* use `ref&` instead of pointer parameter (not-nullable)
 * use `nullptr` instead of `NULL`
-* ~~**NO STL** - keep it as close as possible to the original, it's still C and Linux development with C libraries~~ - Almost NO STL - I had to use `<type_traits>` :(
 * **Memory Management** - Simple Wrapper for malloc/free calls
   * move semantics
   * reduce manually clean up
-* use of `enum class`
-* brace initialization
+  * system memory and resources use RAII
+    * Mutex
+    * MMap + MMapArray (for shared memory)
+    * MMap mapped Files (Buffers)
+    * malloc/free
+    * FileDescriptor
+* use `enum class`
+* use default and brace initialization
+* It's still C with Linux + Wayland libraries under the hood
+* ~~NO STL~~ - Almost NO STL - I had to use `<type_traits>` :(
+* NO classes (except for RAII)
+  * **Rule of five** 😬
+* keep templates at minimum
+* move big assets (like embedded images) into its own TU (cpp file) and get needed asset from a function call
+* reduce globals, use context structs and pass parameter
+* use C atomic style (`atomic_store` and `atomic_load`), `atomic_bool`, `atomic_int` is still fine
+* fixed-size types
+* try to allocate upfront, before starting a thread (see ~~`init` or~~`create` functions)
+* prefer `create` functions with RVO, instead of `init` with out-ref-parameter
+* stop (all) threads before releasing memory
 
 ## 📄 License
 
