@@ -2,7 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.1.2] - 2025-08-26
+
+_include changes from 1.2.5 (upstream)_
+
 ## [2.1.1] - 2025-08-25
+
+### Added
+- add CMakePresets
 
 ### Improved
 - multi-threading locking
@@ -14,8 +21,7 @@ All notable changes to this project will be documented in this file.
 
 ## [2.1.0] - 2025-08-22
 
-### Added 
-
+### Added
 - **More Sprite** - add Clippy (MS Agent)
 
 ## [2.0.0] - 2025-08-22
@@ -78,6 +84,18 @@ _include changes from 1.2.4 (upstream)_
 - fix potential memory leaks
 - code cleanup
 - reduce globals variables, use context variables and structs
+
+## [1.2.5] - 2025-08-26 (upstream)
+
+### Added
+- **Enhanced Configuration System** - New config variables for fine-tuning appearance and behavior
+- **Sleep Mode** - Scheduled or idle-based sleep mode with customizable timing
+
+### Fixed
+- **Fixed Positioning** - Fine-tune position, defaults to center
+
+### Improved
+- **Default Values** - Refined default configuration values for better out-of-box experience
 
 ## [1.2.4] - 2025-08-08
 
