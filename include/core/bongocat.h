@@ -3,7 +3,6 @@
 
 #include <cstdint>
 #include <cstddef>
-
 #include "utils/error.h"
 #include "utils/memory.h"
 

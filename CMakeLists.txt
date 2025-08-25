@@ -192,6 +192,7 @@ set(SOURCES
     ${SRC_DIR}/graphics/drawing_images.cpp
     ${SRC_DIR}/graphics/load_images.cpp
     ${SRC_DIR}/graphics/embedded_assets.cpp
+    ${SRC_DIR}/graphics/stb_image.cpp
     ${SRC_DIR}/platform/input.cpp
     ${SRC_DIR}/platform/wayland.cpp
     ${SRC_DIR}/utils/error.cpp

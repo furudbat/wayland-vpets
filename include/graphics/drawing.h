@@ -1,8 +1,8 @@
 #ifndef BONGOCAT_ANIMATION_DRAWING_IMAGES_H
 #define BONGOCAT_ANIMATION_DRAWING_IMAGES_H
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
 namespace bongocat::animation {
     enum class blit_image_color_option_flags_t : uint32_t {
