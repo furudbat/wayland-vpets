@@ -40,12 +40,3 @@ if (strcmp(lower_value, "mamemon") == 0) {
 if (strcmp(lower_value, "monzaemon") == 0) {
     config.animation_index = DM_MONZAEMON_ANIM_INDEX;
 }
-if (strcmp(lower_value, "blitz_greymon") == 0) {
-    config.animation_index = DM_BLITZ_GREYMON_ANIM_INDEX;
-}
-if (strcmp(lower_value, "bancho_mamemon") == 0) {
-    config.animation_index = DM_BANCHO_MAMEMON_ANIM_INDEX;
-}
-if (strcmp(lower_value, "omegamon_alter_s") == 0) {
-    config.animation_index = DM_OMEGAMON_ALTER_S_ANIM_INDEX;
-}

@@ -84,22 +84,3 @@ const unsigned char dm_monzaemon_png[] = {
 #embed "../../../assets/dm/Monzaemon.png"
 };
 const size_t dm_monzaemon_png_size = sizeof(dm_monzaemon_png);
-
-// Blitz Greymon
-const unsigned char dm_blitz_greymon_png[] = {
-#embed "../../../assets/dm/Blitz Greymon.png"
-};
-const size_t dm_blitz_greymon_png_size = sizeof(dm_blitz_greymon_png);
-
-// Bancho Mamemon
-const unsigned char dm_bancho_mamemon_png[] = {
-#embed "../../../assets/dm/Bancho Mamemon.png"
-};
-const size_t dm_bancho_mamemon_png_size = sizeof(dm_bancho_mamemon_png);
-
-// Omegamon Alter S
-const unsigned char dm_omegamon_alter_s_png[] = {
-#embed "../../../assets/dm/Omegamon Alter S.png"
-};
-const size_t dm_omegamon_alter_s_png_size = sizeof(dm_omegamon_alter_s_png);
-

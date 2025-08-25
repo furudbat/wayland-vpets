@@ -15,9 +15,6 @@ constexpr embedded_image_t get_min_dm_sprite_sheet(size_t i) {
         case DM_METAL_GREYMON_ANIM_INDEX: return {dm_metal_greymon_png, dm_metal_greymon_png_size, "embedded metal_greymon"};
         case DM_MAMEMON_ANIM_INDEX: return {dm_mamemon_png, dm_mamemon_png_size, "embedded mamemon"};
         case DM_MONZAEMON_ANIM_INDEX: return {dm_monzaemon_png, dm_monzaemon_png_size, "embedded monzaemon"};
-        case DM_BLITZ_GREYMON_ANIM_INDEX: return {dm_blitz_greymon_png, dm_blitz_greymon_png_size, "embedded blitz_greymon"};
-        case DM_BANCHO_MAMEMON_ANIM_INDEX: return {dm_bancho_mamemon_png, dm_bancho_mamemon_png_size, "embedded bancho_mamemon"};
-        case DM_OMEGAMON_ALTER_S_ANIM_INDEX: return {dm_omegamon_alter_s_png, dm_omegamon_alter_s_png_size, "embedded omegamon_alter_s"};
         default: return { nullptr, 0, "" };
     }
 }

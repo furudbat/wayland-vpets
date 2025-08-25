@@ -273,6 +273,7 @@ namespace bongocat::animation {
             platform::LockGuard guard (anim.anim_lock);
 
             if (!wayland_ctx._fullscreen_detected) {
+                using namespace assets;
                 switch (anim_shm.anim_type) {
                     case config::config_animation_sprite_sheet_layout_t::None:
                         break;

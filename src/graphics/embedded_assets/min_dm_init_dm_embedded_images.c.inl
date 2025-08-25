@@ -12,6 +12,3 @@ dm_sprite_sheet_embedded_images[DM_NUMEMON_ANIM_INDEX] = (embedded_image_t){dm_n
 dm_sprite_sheet_embedded_images[DM_METAL_GREYMON_ANIM_INDEX] = (embedded_image_t){dm_metal_greymon_png, dm_metal_greymon_png_size, "embedded metal_greymon"};
 dm_sprite_sheet_embedded_images[DM_MAMEMON_ANIM_INDEX] = (embedded_image_t){dm_mamemon_png, dm_mamemon_png_size, "embedded mamemon"};
 dm_sprite_sheet_embedded_images[DM_MONZAEMON_ANIM_INDEX] = (embedded_image_t){dm_monzaemon_png, dm_monzaemon_png_size, "embedded monzaemon"};
-dm_sprite_sheet_embedded_images[DM_BLITZ_GREYMON_ANIM_INDEX] = (embedded_image_t){dm_blitz_greymon_png, dm_blitz_greymon_png_size, "embedded blitz_greymon"};
-dm_sprite_sheet_embedded_images[DM_BANCHO_MAMEMON_ANIM_INDEX] = (embedded_image_t){dm_bancho_mamemon_png, dm_bancho_mamemon_png_size, "embedded bancho_mamemon"};
-dm_sprite_sheet_embedded_images[DM_OMEGAMON_ALTER_S_ANIM_INDEX] = (embedded_image_t){dm_omegamon_alter_s_png, dm_omegamon_alter_s_png_size, "embedded omegamon_alter_s"};

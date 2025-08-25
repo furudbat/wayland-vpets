@@ -88,25 +88,7 @@ namespace bongocat::assets {
     inline static constexpr std::size_t DM_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
     inline static constexpr std::size_t DM_MONZAEMON_ANIM_INDEX = DM_ANIM_START_INDEX+14;
 
-    // Blitz Greymon
-    inline static constexpr std::size_t DM_BLITZ_GREYMON_SPRITE_SHEET_COLS = 13;
-    inline static constexpr std::size_t DM_BLITZ_GREYMON_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr std::size_t DM_BLITZ_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr std::size_t DM_BLITZ_GREYMON_ANIM_INDEX = DM_ANIM_START_INDEX+15;
-
-    // Bancho Mamemon
-    inline static constexpr std::size_t DM_BANCHO_MAMEMON_SPRITE_SHEET_COLS = 13;
-    inline static constexpr std::size_t DM_BANCHO_MAMEMON_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr std::size_t DM_BANCHO_MAMEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr std::size_t DM_BANCHO_MAMEMON_ANIM_INDEX = DM_ANIM_START_INDEX+16;
-
-    // Omegamon Alter S
-    inline static constexpr std::size_t DM_OMEGAMON_ALTER_S_SPRITE_SHEET_COLS = 13;
-    inline static constexpr std::size_t DM_OMEGAMON_ALTER_S_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr std::size_t DM_OMEGAMON_ALTER_S_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr std::size_t DM_OMEGAMON_ALTER_S_ANIM_INDEX = DM_ANIM_START_INDEX+17;
-
-    inline static constexpr std::size_t DM_ANIM_COUNT = 18;
+    inline static constexpr std::size_t DM_ANIM_COUNT = 15;
 }
 
 #endif // DM_EMBEDDED_ASSETS_HPP

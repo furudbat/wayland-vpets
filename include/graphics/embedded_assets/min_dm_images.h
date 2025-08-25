@@ -58,16 +58,4 @@ extern const size_t dm_mamemon_png_size;
 extern const unsigned char dm_monzaemon_png[];
 extern const size_t dm_monzaemon_png_size;
 
-// Blitz Greymon
-extern const unsigned char dm_blitz_greymon_png[];
-extern const size_t dm_blitz_greymon_png_size;
-
-// Bancho Mamemon
-extern const unsigned char dm_bancho_mamemon_png[];
-extern const size_t dm_bancho_mamemon_png_size;
-
-// Omegamon Alter S
-extern const unsigned char dm_omegamon_alter_s_png[];
-extern const size_t dm_omegamon_alter_s_png_size;
-
 #endif // DM_EMBEDDED_ASSETS_IMAGES_H
