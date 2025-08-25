@@ -6,26 +6,26 @@
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
 namespace bongocat::assets {
     // sprite sheet uses it own array
-    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX  = 0;
+    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX    = 0;
 }
 #include "embedded_assets_bongocat.h"
 #else
 namespace bongocat::assets {
-    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX  = 0;
-    inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT  = 0;
+    inline static constexpr size_t BONGOCAT_ANIM_START_INDEX    = 0;
+    inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT    = 0;
 }
 #endif
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 namespace bongocat::assets {
     // sprite sheet uses it own array
-    inline static constexpr size_t DM_ANIM_START_INDEX        = 0;
+    inline static constexpr size_t DM_ANIM_START_INDEX          = 0;
 }
 #include "embedded_assets_dms.h"
 #else
 namespace bongocat::assets {
-    inline static constexpr size_t DM_ANIM_START_INDEX        = 0;
-    inline static constexpr size_t DM_ANIMATIONS_COUNT   = 0;
+    inline static constexpr size_t DM_ANIM_START_INDEX          = 0;
+    inline static constexpr size_t DM_ANIMATIONS_COUNT          = 0;
 }
 #endif
 

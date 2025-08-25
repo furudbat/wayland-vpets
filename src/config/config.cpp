@@ -116,9 +116,9 @@ namespace bongocat::config {
     static void config_validate_timing(config_t& config) {
         config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY);
         config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY);
-        config_clamp_int(config.test_animation_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
-        config_clamp_int(config.animation_speed_ms, MIN_DURATION_MS, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
-        config_clamp_int(config.idle_sleep_timeout_sec, MIN_TIMEOUT, MAX_TIMEOUT, IDLE_SLEEP_TIMEOUT_KEY);
+        config_clamp_int(config.test_animation_duration_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
+        config_clamp_int(config.animation_speed_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
+        config_clamp_int(config.idle_sleep_timeout_sec, 0, MAX_TIMEOUT, IDLE_SLEEP_TIMEOUT_KEY);
         config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY);
 
         // Validate interval (0 is allowed to disable)

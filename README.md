@@ -244,6 +244,7 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 - libwayland-client
 - wayland-protocols
 - wayland-scanner
+
 ### Build Process
 
 ```bash
@@ -346,9 +347,9 @@ bongocat-find-devices --help
 - **Input Latency:** <1ms with batch processing
 - **CPU Usage:** <1% on modern systems
 - **Device Monitoring:** Adaptive 5-30 second intervals
-- **Memory:** Optimized with leak detection (only load assets needed at start)
-  - Bongocat: ~9MB usage
-  - Digimon: ~7MB usage
+- **Memory:** Optimized, only pre-load assets needed at start
+  - Bongocat: ~10MB usage
+  - Digimon: ~8MB usage
   - Clippy: ~16MB usage
 - **Fullscreen Detection:** Intelligent hiding with minimal overhead
 - **Event-based Rendering:** Only updates frame buffer when needed (on frame change, input, ...) (v1.4.0)

@@ -3,7 +3,6 @@
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "utils/time.h"
-#include "utils/memory.h"
 #include <ctime>
 #include <pthread.h>
 #include <sys/stat.h>

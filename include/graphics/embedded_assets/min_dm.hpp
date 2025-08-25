@@ -106,7 +106,7 @@ namespace bongocat::assets {
     inline static constexpr std::size_t DM_OMEGAMON_ALTER_S_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr std::size_t DM_OMEGAMON_ALTER_S_ANIM_INDEX = DM_ANIM_START_INDEX+17;
 
-    inline static constexpr std::size_t DM_ANIM_COUNT = 17;
+    inline static constexpr std::size_t DM_ANIM_COUNT = 18;
 }
 
 #endif // DM_EMBEDDED_ASSETS_HPP

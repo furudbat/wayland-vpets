@@ -179,6 +179,7 @@ add_custom_command(OUTPUT ${GENERATED_PROTOCOLS}
     COMMENT "Generating Wayland protocol files..."
 )
 add_custom_target(protocols DEPENDS ${GENERATED_PROTOCOLS})
+set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${GENERATED_PROTOCOLS}")
 
 
 add_executable(bongocat)
@@ -204,26 +205,31 @@ target_sources(bongocat PRIVATE ${SOURCES} ${GENERATED_PROTOCOLS_SOURCES})
 add_dependencies(bongocat protocols)
 
 if (FEATURE_BONGOCAT_EMBEDDED_ASSETS)
-    add_library(assets_bongocat OBJECT ${SRC_DIR}/graphics/embedded_assets_bongocat.cpp)
+    set(BONGOCAT_SOURCES ${SRC_DIR}/graphics/embedded_assets_bongocat.cpp ${SRC_DIR}/graphics/embedded_assets/bongocat_images.c)
+    add_library(assets_bongocat STATIC ${BONGOCAT_SOURCES})
+    target_compile_options(assets_bongocat PUBLIC -ffunction-sections -fdata-sections)
     target_include_directories(assets_bongocat PRIVATE ${INCLUDE_DIR})
     target_compile_definitions(assets_bongocat PUBLIC FEATURE_BONGOCAT_EMBEDDED_ASSETS)
-    target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_bongocat>)
-    target_compile_definitions(bongocat PRIVATE FEATURE_BONGOCAT_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE assets_bongocat)
 endif()
 if (FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
-    add_library(assets_dm OBJECT ${SRC_DIR}/graphics/embedded_assets_digimon.cpp)
+    set(DM_SOURCES ${SRC_DIR}/graphics/embedded_assets_dm.cpp ${SRC_DIR}/graphics/embedded_assets/min_dm_images.c)
+    add_library(assets_dm STATIC ${DM_SOURCES})
+    target_compile_options(assets_dm PUBLIC -ffunction-sections -fdata-sections)
     target_include_directories(assets_dm PRIVATE ${INCLUDE_DIR})
     target_compile_definitions(assets_dm PUBLIC FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
-    target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_dm>)
-    target_compile_definitions(bongocat PRIVATE FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE assets_dm)
 endif()
 if (FEATURE_MS_AGENT_EMBEDDED_ASSETS)
-    add_library(assets_clippy OBJECT ${SRC_DIR}/graphics/embedded_assets_clippy.cpp)
+    set(MS_AGENT_SOURCES ${SRC_DIR}/graphics/embedded_assets_clippy.cpp ${SRC_DIR}/graphics/embedded_assets/clippy_images.c)
+    add_library(assets_clippy STATIC ${MS_AGENT_SOURCES})
+    target_compile_options(assets_clippy PUBLIC -ffunction-sections -fdata-sections)
     target_include_directories(assets_clippy PRIVATE ${INCLUDE_DIR})
     target_compile_definitions(assets_clippy PUBLIC FEATURE_MS_AGENT_EMBEDDED_ASSETS)
-    target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_clippy>)
-    target_compile_definitions(bongocat PRIVATE FEATURE_MS_AGENT_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE assets_clippy)
 endif()
+target_link_options(bongocat PRIVATE -Wl,--gc-sections)
+
 if (FEATURE_DISABLE_LOGGER)
     target_compile_definitions(bongocat PRIVATE BONGOCAT_DISABLE_MEMORY_STATISTICS BONGOCAT_DISABLE_LOGGER)
 endif()
@@ -251,7 +257,6 @@ target_compile_options(bongocat PRIVATE
 target_compile_options(bongocat PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:
             -fno-exceptions -fno-unwind-tables -fno-rtti
-            #-ffreestanding                 # free, malloc etc. are in use
             -nostdlib++
         >
 )
@@ -268,8 +273,6 @@ target_compile_options(bongocat PRIVATE
             -fno-inline-functions
             -fomit-frame-pointer
             -fno-asynchronous-unwind-tables
-            -ffunction-sections
-            -fdata-sections
             -fno-unroll-loops
             -fmerge-all-constants
             -fno-math-errno
@@ -286,7 +289,6 @@ target_link_options(bongocat PRIVATE $<$<CONFIG:MinSizeRel>:-Wl,--gc-sections -s
 
 # wayland-client dependency
 find_package(PkgConfig REQUIRED)
-
 pkg_check_modules(WAYLAND_CLIENT REQUIRED wayland-client)
 add_library(wayland_client INTERFACE)
 target_include_directories(wayland_client INTERFACE ${WAYLAND_CLIENT_INCLUDE_DIRS})
@@ -294,16 +296,16 @@ target_compile_options(wayland_client INTERFACE ${WAYLAND_CLIENT_CFLAGS_OTHER})
 target_link_libraries(wayland_client INTERFACE ${WAYLAND_CLIENT_LIBRARIES})
 target_link_libraries(bongocat PRIVATE wayland_client)
 
+# Thread dependency
 find_package(Threads REQUIRED)
 target_link_libraries(bongocat PRIVATE m rt Threads::Threads)
 
-
+# Install
 include(GNUInstallDirs)
 install(TARGETS bongocat DESTINATION ${CMAKE_INSTALL_BINDIR})
 install(FILES bongocat.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat RENAME bongocat.conf.example)
 install(PROGRAMS scripts/find_input_devices.sh DESTINATION ${CMAKE_INSTALL_BINDIR} RENAME bongocat-find-devices)
 
-set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${GENERATED_PROTOCOLS}")
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we
 # can run the target from visual studio
