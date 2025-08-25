@@ -2,7 +2,7 @@
 #define BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H
 
 #include "sprite_sheet.h"
-#include "embedded_assets_image.h"
+#include "embedded_image.h"
 #include <cstddef>
 
 namespace bongocat::assets {

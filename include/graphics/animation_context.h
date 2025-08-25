@@ -21,9 +21,9 @@ namespace bongocat::animation {
         // Animation system state
         atomic_bool _animation_running{false};
         pthread_t _anim_thread{0};
+        platform::random_xoshiro128 _rng;
         // lock for shm
         platform::Mutex anim_lock;
-        platform::random_xoshiro128 _rng;
 
 
 
@@ -34,7 +34,11 @@ namespace bongocat::animation {
 
         animation_context_t(const animation_context_t&) = delete;
         animation_context_t& operator=(const animation_context_t&) = delete;
+        animation_context_t(animation_context_t&& other) = delete;
+        animation_context_t& operator=(animation_context_t&& other) = delete;
 
+        /*
+        /// @TODO: anim_lock is not movable, move it into heap, make it movable
         animation_context_t(animation_context_t&& other) noexcept
             : _local_copy_config(bongocat::move(other._local_copy_config)),
               shm(bongocat::move(other.shm)),
@@ -62,11 +66,12 @@ namespace bongocat::animation {
             }
             return *this;
         }
+        */
     };
     inline void cleanup(animation_context_t& ctx) {
         if (atomic_load(&ctx._animation_running)) {
-            ctx.anim_lock._unlock();
             stop(ctx);
+            // ctx.anim_lock should be unlocked
         }
         atomic_store(&ctx._animation_running, false);
         ctx._anim_thread = 0;

@@ -26,10 +26,10 @@ namespace bongocat::platform::input {
 
         atomic_bool _capture_input_running{false};
         pthread_t _input_thread{0};
-        // lock for shm
-        Mutex input_lock;
         atomic_int _input_kpm_counter{0};
         timestamp_ms_t _latest_kpm_update_ms{0};
+        // lock for shm
+        Mutex input_lock;
 
         // thread context
         AllocatedArray<char*> _device_paths;           // local copy of devices (from config)
@@ -54,7 +54,11 @@ namespace bongocat::platform::input {
 
         input_context_t(const input_context_t&) = delete;
         input_context_t& operator=(const input_context_t&) = delete;
+        input_context_t(input_context_t&& other) noexcept = delete;
+        input_context_t& operator=(input_context_t&& other) noexcept = delete;
 
+        /*
+        /// @TODO: input_lock is not movable, move it into heap, make it movable
         input_context_t(input_context_t&& other) noexcept
             : _local_copy_config(bongocat::move(other._local_copy_config)),
               shm(bongocat::move(other.shm)),
@@ -121,11 +125,12 @@ namespace bongocat::platform::input {
             }
             return *this;
         }
+        */
     };
     inline void cleanup(input_context_t& ctx) {
         if (atomic_load(&ctx._capture_input_running)) {
-            ctx.input_lock._unlock();
             stop(ctx);
+            // input_lock should be unlocked
         }
         atomic_store(&ctx._capture_input_running, false);
         ctx._input_thread = 0;

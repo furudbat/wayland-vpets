@@ -2,10 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.1.1] - 2025-08-23
+## [2.1.1] - 2025-08-25
 
 ### Improved
 - multi-threading locking
+- fix sanitizer warnings and errors (UB, data races, deadlocks)
 - update thread config via epoll
 
 ### Fixed
@@ -23,7 +24,7 @@ All notable changes to this project will be documented in this file.
 
 _Moving towards C++_
 
-* **reduce usage of pre-processor** - replace `define` with `constexpr`
+* **reduce usage of pre-processor** - replace `#define` with `constexpr`
 * use `ref&` instead of pointer
 * use `nullptr` instead of `NULL`
 * **Memory Management** - Simple Wrapper for malloc/free calls
@@ -31,6 +32,7 @@ _Moving towards C++_
   * reduce manually clean up
 * use of `enum class`
 * brace initialization
+* [add more asserts](https://github.com/tigerbeetle/tigerbeetle/blob/main/docs/TIGER_STYLE.md?trk=public_post_comment-text#safety)
 
 _keep it as close as possible to the original, it's still C and Linux development with C libraries_
 

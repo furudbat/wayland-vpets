@@ -172,8 +172,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
     namespace hyprland {
         static int fs_update_state(wayland_session_t& ctx) {
-            window_info_t win;
-            if (get_active_window(win)) {
+            if (window_info_t win; get_active_window(win)) {
                 bool fullscreen_on_same_output = false;
                 for (size_t i = 0; i < ctx.output_count; i++) {
                     if (ctx.outputs[i].hypr_id == win.monitor_id) {
@@ -236,7 +235,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         if (tracked.output == ctx.wayland_context.output && state_changed) {
             state_changed = fs_update_state(ctx, is_fullscreen);
             BONGOCAT_LOG_VERBOSE("Fullscreen state updated for window %p: %d",
-                                 (void*)tracked.handle,
+                                 static_cast<void *>(tracked.handle),
                                  is_fullscreen);
             return { .output_found = true, .changed = state_changed };
         }
@@ -968,7 +967,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         assert(wayland_context._local_copy_config != nullptr);
         //const config::config_t& current_config = *wayland_context._local_copy_config;
 
-        wayland_shared_memory_t *wayland_ctx_shm = wayland_context.ctx_shm;
+        wayland_shared_memory_t& wayland_ctx_shm = *wayland_context.ctx_shm;
 
         const int32_t buffer_width = wayland_context._screen_width;
         const int32_t buffer_height = wayland_context._bar_height;
@@ -993,24 +992,24 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
         for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
             assert(buffer_size >= 0 && static_cast<size_t>(buffer_size) <= SIZE_MAX);
-            wayland_ctx_shm->buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, static_cast<size_t>(buffer_size), fd._fd, static_cast<off_t>(i) * buffer_size);
-            if (wayland_ctx_shm->buffers[i].pixels == nullptr) {
+            wayland_ctx_shm.buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, static_cast<size_t>(buffer_size), fd._fd, static_cast<off_t>(i) * buffer_size);
+            if (wayland_ctx_shm.buffers[i].pixels == nullptr) {
                 BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
                 for (size_t j = 0; j < i; j++) {
-                    cleanup_shm_buffer(wayland_ctx_shm->buffers[j]);
+                    cleanup_shm_buffer(wayland_ctx_shm.buffers[j]);
                 }
                 wl_shm_pool_destroy(pool);
                 return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
             }
 
-            wayland_ctx_shm->buffers[i].buffer = wl_shm_pool_create_buffer(pool, 0, wayland_context._screen_width,
+            wayland_ctx_shm.buffers[i].buffer = wl_shm_pool_create_buffer(pool, 0, wayland_context._screen_width,
                                               wayland_context._bar_height,
                                               wayland_context._screen_width * RGBA_CHANNELS,
                                               WL_SHM_FORMAT_ARGB8888);
-            if (wayland_ctx_shm->buffers[i].buffer == nullptr) {
+            if (wayland_ctx_shm.buffers[i].buffer == nullptr) {
                 BONGOCAT_LOG_ERROR("Failed to create buffer");
                 for (size_t j = 0; j < i; j++) {
-                    cleanup_shm_buffer(wayland_ctx_shm->buffers[j]);
+                    cleanup_shm_buffer(wayland_ctx_shm.buffers[j]);
                 }
                 wl_shm_pool_destroy(pool);
                 return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
@@ -1018,49 +1017,50 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
             // created buffer successfully, set other properties
             assert(i <= INT_MAX);
-            wl_buffer_add_listener(wayland_ctx_shm->buffers[i].buffer, &buffer_listener, &wayland_ctx_shm->buffers[i]);
-            wayland_ctx_shm->buffers[i].index = i;
-            atomic_store(&wayland_ctx_shm->buffers[i].busy, false);
-            atomic_store(&wayland_ctx_shm->buffers[i].pending, false);
-            wayland_ctx_shm->buffers[i]._animation_trigger_context = &anim;
+            wl_buffer_add_listener(wayland_ctx_shm.buffers[i].buffer, &buffer_listener, &wayland_ctx_shm.buffers[i]);
+            wayland_ctx_shm.buffers[i].index = i;
+            atomic_store(&wayland_ctx_shm.buffers[i].busy, false);
+            atomic_store(&wayland_ctx_shm.buffers[i].pending, false);
+            wayland_ctx_shm.buffers[i]._animation_trigger_context = &anim;
         }
 
         wl_shm_pool_destroy(pool);
 
-        wayland_ctx_shm->current_buffer_index = 0;
+        wayland_ctx_shm.current_buffer_index = 0;
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    created_result_t<wayland_session_t> create(animation::animation_session_t& anim, const config::config_t& config) {
-        wayland_session_t ret;
+    created_result_t<AllocatedMemory<wayland_session_t>> create(animation::animation_session_t& anim, const config::config_t& config) {
+        AllocatedMemory<wayland_session_t> ret = make_allocated_memory<wayland_session_t>();
 
-        ret.animation_trigger_context = &anim;
-        ret.wayland_context._bar_height = DEFAULT_BAR_HEIGHT;
+        assert(ret != nullptr);
+        ret->animation_trigger_context = &anim;
+        ret->wayland_context._bar_height = DEFAULT_BAR_HEIGHT;
 
         // Initialize shared memory
-        ret.wayland_context.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
-        if (ret.wayland_context.ctx_shm == nullptr) {
+        ret->wayland_context.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
+        if (ret->wayland_context.ctx_shm == nullptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-        if (ret.wayland_context.ctx_shm != nullptr) {
+        if (ret->wayland_context.ctx_shm != nullptr) {
             static_assert(WAYLAND_NUM_BUFFERS <= INT_MAX);
             for (size_t i = 0;i < WAYLAND_NUM_BUFFERS;i++) {
-                ret.wayland_context.ctx_shm->buffers[i] = {};
+                ret->wayland_context.ctx_shm->buffers[i] = {};
             }
-            atomic_store(&ret.wayland_context.ctx_shm->configured, false);
+            atomic_store(&ret->wayland_context.ctx_shm->configured, false);
         }
 
         // Initialize shared memory for local config
-        ret.wayland_context._local_copy_config = make_allocated_mmap<config::config_t>();
-        if (ret.wayland_context._local_copy_config == nullptr) {
+        ret->wayland_context._local_copy_config = make_allocated_mmap<config::config_t>();
+        if (ret->wayland_context._local_copy_config == nullptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-        assert(ret.wayland_context._local_copy_config != nullptr);
-        *ret.wayland_context._local_copy_config = config;
-        ret.wayland_context._bar_height = config.overlay_height;
+        assert(ret->wayland_context._local_copy_config != nullptr);
+        *ret->wayland_context._local_copy_config = config;
+        ret->wayland_context._bar_height = config.overlay_height;
 
         return ret;
     }
@@ -1160,14 +1160,14 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             bool needs_flush = false;
 
             bool prepared_read = false;
-            do {
+            {
                 int attempts = 0;
                 while (wl_display_prepare_read(wayland_ctx.display) != 0 && attempts < MAX_ATTEMPTS) {
                     wl_display_dispatch_pending(wayland_ctx.display);
                     attempts++;
                 }
                 prepared_read = attempts < MAX_ATTEMPTS;
-            } while(false);
+            }
 
             if (timeout_ms <= INT_MAX) timeout_ms = INT_MAX;
             const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
@@ -1350,7 +1350,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
     }
 
     void update_config(wayland_context_t& ctx, const config::config_t& config, animation::animation_session_t& trigger_ctx) {
-        assert(ctx._local_copy_config != nullptr && ctx._local_copy_config != MAP_FAILED);
+        assert(ctx._local_copy_config != nullptr && ctx._local_copy_config.ptr != MAP_FAILED);
 
         *ctx._local_copy_config = config;
 

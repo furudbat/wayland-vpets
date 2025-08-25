@@ -43,42 +43,94 @@ option(FEATURE_ENABLE_DM_EMBEDDED_ASSETS "Enable include dm embedded assets" ON)
 #cmake_dependent_option(FEATURE_DMC_EMBEDDED_ASSETS "Include dmc embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 #cmake_dependent_option(FEATURE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 #cmake_dependent_option(FEATURE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-option(FEATURE_CLIPPY_EMBEDDED_ASSETS "Include clippy embedded assets" ON)
+option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agents (clippy) embedded assets" ON)
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, sprite switching on hot-reload)" OFF)
 
+option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
+option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
+option(ENABLE_TSAN "Enable Thread Sanitizer" OFF)
+
 # project_options
 # More Warnings
+set(CLANG_WARNINGS
+        -Wall
+        -Wextra # reasonable and standard
+        -Wextra-semi # Warn about semicolon after in-class function definition.
+        -Wshadow # warn the user if a variable declaration shadows one from a parent context
+        -Wnon-virtual-dtor # warn the user if a class with virtual functions has a non-virtual destructor. This helps
+        # catch hard to track down memory errors
+        -Wold-style-cast # warn for c-style casts
+        -Wcast-align # warn for potential performance problem casts
+        -Wunused # warn on anything being unused
+        -Woverloaded-virtual # warn if you overload (not override) a virtual function
+        -Wpedantic # warn if non-standard C++ is used
+        -Wconversion # warn on type conversions that may lose data
+        -Wsign-conversion # warn on sign conversions
+        -Wnull-dereference # warn if a null dereference is detected
+        -Wdouble-promotion # warn if float is implicit promoted to double
+        -Wformat=2 # warn on security issues around functions that format output (ie printf)
+        -Wimplicit-fallthrough # warn on statements that fallthrough without an explicit annotation
+)
+set(GCC_WARNINGS
+        ${CLANG_WARNINGS}
+        -Wmisleading-indentation # warn if indentation implies blocks where blocks do not exist
+        -Wduplicated-cond # warn if if / else chain has duplicated conditions
+        -Wduplicated-branches # warn if if / else branches have duplicated code
+        -Wlogical-op # warn about logical operations being used where bitwise were probably wanted
+        -Wuseless-cast # warn if you perform a cast to the same type
+)
 set(C_WARNING_FLAGS
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wformat=2
-        -Wstrict-prototypes
-        -Wmissing-prototypes
-        -Wold-style-definition
-        -Wredundant-decls
-        -Wnested-externs
-        -Wmissing-include-dirs
-        -Wdouble-promotion
-        -Wshadow
+        -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
+        -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
+        -Wnested-externs -Wmissing-include-dirs -Wlogical-op
+        -Wjump-misses-init -Wdouble-promotion -Wshadow
 )
-set(CXX_WARNING_FLAGS
-        -Wall
-        -Wextra
-        -Wpedantic
-        -Wformat=2
-        -Wredundant-decls
-        -Wmissing-include-dirs
-        -Wdouble-promotion
-        -Wshadow
-)
+set(GCC_C_WARNING_FLAGS
+        -Wall -Wextra -Wpedantic -Wshadow -Wcast-align -Wunused 
+        -Wconversion -Wsign-conversion -Wformat=2 -Wimplicit-fallthrough 
+        -Wnull-dereference -Wdouble-promotion -Wmissing-prototypes 
+        -Wstrict-prototypes -Wpointer-arith -Wundef 
+        -Wmissing-field-initializers -Wvla)
+set(CLANG_C_WARNING_FLAGS
+        -Wall -Wextra -Wpedantic -Wshadow -Wcast-align -Wunused 
+        -Wconversion -Wsign-conversion -Wformat=2 -Wimplicit-fallthrough 
+        -Wnull-dereference -Wdouble-promotion -Wmissing-prototypes 
+        -Wstrict-prototypes -Wpointer-arith -Wundef 
+        -Wmissing-field-initializers -Wvla 
+        -Wmisleading-indentation -Wduplicated-cond -Wduplicated-branches -Wlogical-op)
 add_library(project_warnings INTERFACE)
-target_compile_options(project_warnings INTERFACE $<$<COMPILE_LANGUAGE:C>:${C_WARNING_FLAGS}> $<$<COMPILE_LANGUAGE:CXX>:${CXX_WARNING_FLAGS}>)
+target_compile_options(project_warnings INTERFACE $<$<COMPILE_LANGUAGE:C>:${C_WARNING_FLAGS}>)
+target_compile_options(project_warnings INTERFACE
+        $<$<AND:$<COMPILE_LANGUAGE:C>,$<CXX_COMPILER_ID:Clang>>:${CLANG_C_WARNINGS}>
+        $<$<AND:$<COMPILE_LANGUAGE:C>,$<CXX_COMPILER_ID:GNU>>:${GCC_C_WARNINGS}>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:${CLANG_WARNINGS}>
+        $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU>>:${GCC_WARNINGS}>
+)
 add_library(project_options INTERFACE)
-target_compile_options(project_options INTERFACE $<$<C_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>)
-target_compile_options(project_options INTERFACE $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>)
-
+#target_compile_options(project_options INTERFACE $<$<C_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>)
+#target_compile_options(project_options INTERFACE $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>)
+set_target_properties(project_options PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELEASE ON)
+set_target_properties(project_options PROPERTIES INTERPROCEDURAL_OPTIMIZATION_RELWITHDEBINFO ON)
+add_library(project_sanitizers INTERFACE)
+if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
+    # Check for incompatible options
+    if(ENABLE_ASAN AND ENABLE_TSAN)
+        message(FATAL_ERROR "ASan and TSan are incompatible. Please enable only one of them.")
+    endif()
+    if(ENABLE_ASAN)
+        target_compile_options(project_sanitizers INTERFACE -fsanitize=address)
+        target_link_options(project_sanitizers INTERFACE -fsanitize=address)
+    endif()
+    if(ENABLE_UBSAN)
+        target_compile_options(project_sanitizers INTERFACE -fsanitize=undefined)
+        target_link_options(project_sanitizers INTERFACE -fsanitize=undefined)
+    endif()
+    if(ENABLE_TSAN)
+        target_compile_options(project_sanitizers INTERFACE -fsanitize=thread)
+        target_link_options(project_sanitizers INTERFACE -fsanitize=thread)
+    endif()
+endif()
 
 
 set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
@@ -137,6 +189,8 @@ set(SOURCES
     ${SRC_DIR}/graphics/animation.cpp
     ${SRC_DIR}/graphics/animation_init.cpp
     ${SRC_DIR}/graphics/bar.cpp
+    ${SRC_DIR}/graphics/drawing_images.cpp
+    ${SRC_DIR}/graphics/load_images.cpp
     ${SRC_DIR}/graphics/embedded_assets.cpp
     ${SRC_DIR}/platform/input.cpp
     ${SRC_DIR}/platform/wayland.cpp
@@ -162,12 +216,12 @@ if (FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
     target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_dm>)
     target_compile_definitions(bongocat PRIVATE FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
 endif()
-if (FEATURE_CLIPPY_EMBEDDED_ASSETS)
+if (FEATURE_MS_AGENT_EMBEDDED_ASSETS)
     add_library(assets_clippy OBJECT ${SRC_DIR}/graphics/embedded_assets_clippy.cpp)
     target_include_directories(assets_clippy PRIVATE ${INCLUDE_DIR})
-    target_compile_definitions(assets_clippy PUBLIC FEATURE_CLIPPY_EMBEDDED_ASSETS)
+    target_compile_definitions(assets_clippy PUBLIC FEATURE_MS_AGENT_EMBEDDED_ASSETS)
     target_link_libraries(bongocat PRIVATE $<TARGET_OBJECTS:assets_clippy>)
-    target_compile_definitions(bongocat PRIVATE FEATURE_CLIPPY_EMBEDDED_ASSETS)
+    target_compile_definitions(bongocat PRIVATE FEATURE_MS_AGENT_EMBEDDED_ASSETS)
 endif()
 if (FEATURE_DISABLE_LOGGER)
     target_compile_definitions(bongocat PRIVATE BONGOCAT_DISABLE_MEMORY_STATISTICS BONGOCAT_DISABLE_LOGGER)
@@ -179,19 +233,10 @@ endif()
 target_include_directories(bongocat PRIVATE ${INCLUDE_DIR})
 target_include_directories(bongocat SYSTEM PRIVATE ${PROTOCOLS_DIR} ${CMAKE_SOURCE_DIR}/lib)
 
-target_link_libraries(bongocat PRIVATE project_warnings project_options)
+target_link_libraries(bongocat PRIVATE project_warnings project_options project_sanitizers)
 target_compile_options(bongocat PRIVATE
-    $<$<COMPILE_LANGUAGE:C>:
-        ${C_WARNING_FLAGS}
-        -fstack-protector-strong
-    >
-    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:GNU>>:-Wlogical-op -Wjump-misses-init>
-
-    $<$<COMPILE_LANGUAGE:CXX>:
-        ${CXX_WARNING_FLAGS}
-        -fstack-protector-strong
-    >
-    $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU>>:-Wlogical-op>
+    $<$<COMPILE_LANGUAGE:C>:-fstack-protector-strong>
+    $<$<COMPILE_LANGUAGE:CXX>:-fstack-protector-strong>
 )
 # supress warning: embed is a Clang extension [-Wc23-extensions]
 target_compile_options(bongocat PRIVATE
@@ -204,11 +249,9 @@ target_compile_options(bongocat PRIVATE
 # no exceptions
 target_compile_options(bongocat PRIVATE
         $<$<COMPILE_LANGUAGE:CXX>:
-            -fno-exceptions -fno-rtti
+            -fno-exceptions -fno-unwind-tables -fno-rtti
             #-ffreestanding                 # free, malloc etc. are in use
             -nostdlib++
-            -fno-use-cxa-atexit             # global destructs not needed ?, cleanup is done manually
-            -fno-threadsafe-statics         # no local statics are in use (?)
         >
 )
 
@@ -224,7 +267,6 @@ target_compile_options(bongocat PRIVATE
             -fno-inline-functions
             -fomit-frame-pointer
             -fno-asynchronous-unwind-tables
-            -fno-unwind-tables
             -ffunction-sections
             -fdata-sections
             -fno-unroll-loops
@@ -240,7 +282,6 @@ target_compile_definitions(bongocat PRIVATE
         $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>
 )
 target_link_options(bongocat PRIVATE $<$<CONFIG:MinSizeRel>:-Wl,--gc-sections -s>)
-set_target_properties(bongocat PROPERTIES INTERPROCEDURAL_OPTIMIZATION TRUE)
 
 # wayland-client dependency
 find_package(PkgConfig REQUIRED)

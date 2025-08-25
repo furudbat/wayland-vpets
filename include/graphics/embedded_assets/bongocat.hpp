@@ -1,8 +1,6 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_HPP
 #define BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_HPP
 
-#include <cstddef>
-
 namespace bongocat::assets {
     // Embedded asset data
 

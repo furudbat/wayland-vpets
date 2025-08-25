@@ -1,12 +1,11 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_CLIPPY_H
 #define BONGOCAT_EMBEDDED_ASSETS_CLIPPY_H
 
-#include "embedded_assets_image.h"
-#include <cstddef>
+#include "embedded_image.h"
 #include <cstdint>
 
 namespace bongocat::assets {
-#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROW_IDLE = 0;
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROW_BORING = 0;
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROW_START_WRITING = 1;
@@ -48,4 +47,4 @@ namespace bongocat::assets {
 #endif
 }
 
-#endif // BONGOCAT_EMBEDDED_ASSETS_H
+#endif // BONGOCAT_EMBEDDED_ASSETS_CLIPPY_H

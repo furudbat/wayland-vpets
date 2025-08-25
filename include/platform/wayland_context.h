@@ -31,8 +31,8 @@ namespace bongocat::platform::wayland {
         MMapMemory<config::config_t> _local_copy_config;
         MMapMemory<wayland_shared_memory_t> ctx_shm;
 
-        int _bar_height{0};
-        int _screen_width{0};
+        int32_t _bar_height{0};
+        int32_t _screen_width{0};
         char* _output_name_str{nullptr};                  // ref to existing name in output, Will default to automatic one if kept null
         bool _fullscreen_detected{false};
 
@@ -43,6 +43,8 @@ namespace bongocat::platform::wayland {
         atomic_bool _redraw_after_frame{false};
         timestamp_ms_t _last_frame_timestamp_ms{0};
 
+
+
         wayland_context_t() = default;
         ~wayland_context_t() {
             cleanup_wayland_context(*this);
@@ -50,7 +52,11 @@ namespace bongocat::platform::wayland {
 
         wayland_context_t(const wayland_context_t&) = delete;
         wayland_context_t& operator=(const wayland_context_t&) = delete;
+        wayland_context_t(wayland_context_t&& other) noexcept = delete;
+        wayland_context_t& operator=(wayland_context_t&& other) noexcept = delete;
 
+        /*
+        /// @TODO: _frame_cb_lock is not movable, move it into heap, make it movable
         wayland_context_t(wayland_context_t&& other) noexcept
             : display(other.display),
               compositor(other.compositor),
@@ -136,6 +142,7 @@ namespace bongocat::platform::wayland {
             }
             return *this;
         }
+        */
     };
 
     inline void cleanup_wayland_context(wayland_context_t& ctx) {
@@ -157,9 +164,9 @@ namespace bongocat::platform::wayland {
         }
 
         // release frame.done handler
-        ctx._frame_pending.store(false);
-        ctx._redraw_after_frame.store(false);
-        ctx._frame_cb_lock._unlock();
+        atomic_store(&ctx._frame_pending, false);
+        atomic_store(&ctx._redraw_after_frame, false);
+        // ctx._frame_cb_lock should be unlocked
         if (ctx._frame_cb) wl_callback_destroy(ctx._frame_cb);
         ctx._frame_cb = nullptr;
         ctx._last_frame_timestamp_ms = 0;

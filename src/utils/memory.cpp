@@ -1,28 +1,41 @@
 #include "utils/memory.h"
 #include "utils/system_memory.h"
 #include "utils/error.h"
+#include "core/bongocat.h"
 #include <cstdint>
 #include <cassert>
 #include <pthread.h>
 #include <cstdlib>
 
 namespace bongocat {
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-    static memory_stats_t g_memory_stats{};
-    static pthread_mutex_t g_memory_mutex = PTHREAD_MUTEX_INITIALIZER;
+    namespace details {
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
+        inline memory_stats_t& get_memory_stats() {
+            static memory_stats_t g_instance{};
+            return g_instance;
+        }
+        inline platform::Mutex& get_memory_mutex() {
+            static platform::Mutex g_instance;
+            return g_instance;
+        }
 #endif
 
 #ifndef NDEBUG
-    struct allocation_record_t {
-        void *ptr{nullptr};
-        size_t size{0};
-        const char *file{};
-        int line{0};
-        allocation_record_t *next{nullptr};
-    };
+        struct allocation_record_t {
+            void *ptr{nullptr};
+            size_t size{0};
+            const char *file{};
+            int line{0};
+            allocation_record_t *next{nullptr};
+        };
 
-    static allocation_record_t *g_allocations = nullptr;
+        inline allocation_record_t*& get_allocations() {
+            static allocation_record_t *g_instance = nullptr;
+            return g_instance;
+        }
 #endif
+    }
+
 
     void* malloc(size_t size) {
         if (size == 0) {
@@ -36,15 +49,17 @@ namespace bongocat {
             return nullptr;
         }
 
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-        pthread_mutex_lock(&g_memory_mutex);
-        g_memory_stats.total_allocated += size;
-        g_memory_stats.current_allocated += size;
-        if (g_memory_stats.current_allocated > g_memory_stats.peak_allocated) {
-            atomic_store(&g_memory_stats.peak_allocated, atomic_load(&g_memory_stats.current_allocated));
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
+        {
+            using namespace details;
+            platform::LockGuard guard(get_memory_mutex());
+            get_memory_stats().total_allocated += size;
+            get_memory_stats().current_allocated += size;
+            if (get_memory_stats().current_allocated > get_memory_stats().peak_allocated) {
+                atomic_store(&get_memory_stats().peak_allocated, atomic_load(&get_memory_stats().current_allocated));
+            }
+            ++get_memory_stats().allocation_count;
         }
-        ++g_memory_stats.allocation_count;
-        pthread_mutex_unlock(&g_memory_mutex);
 #endif
 
         return ptr;
@@ -69,16 +84,18 @@ namespace bongocat {
             return nullptr;
         }
 
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-        pthread_mutex_lock(&g_memory_mutex);
-        const size_t total_size = count * size;
-        g_memory_stats.total_allocated += total_size;
-        g_memory_stats.current_allocated += total_size;
-        if (g_memory_stats.current_allocated > g_memory_stats.peak_allocated) {
-            atomic_store(&g_memory_stats.peak_allocated, atomic_load(&g_memory_stats.current_allocated));
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
+        {
+            using namespace details;
+            platform::LockGuard guard(get_memory_mutex());
+            const size_t total_size = count * size;
+            get_memory_stats().total_allocated += total_size;
+            get_memory_stats().current_allocated += total_size;
+            if (get_memory_stats().current_allocated > get_memory_stats().peak_allocated) {
+                atomic_store(&get_memory_stats().peak_allocated, atomic_load(&get_memory_stats().current_allocated));
+            }
+            ++get_memory_stats().allocation_count;
         }
-        ++g_memory_stats.allocation_count;
-        pthread_mutex_unlock(&g_memory_mutex);
 #endif
 
         return ptr;
@@ -107,15 +124,17 @@ namespace bongocat {
 
         ::free(ptr);
 
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-        pthread_mutex_lock(&g_memory_mutex);
-        ++g_memory_stats.free_count;
-        /*
-        if (static_cast<int>(g_memory_stats.free_count) > static_cast<int>(g_memory_stats.allocation_count)) {
-            BONGOCAT_LOG_VERBOSE("Potential double free: %d/%d", atomic_load(&g_memory_stats.allocation_count), atomic_load(&g_memory_stats.free_count));
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
+        {
+            using namespace details;
+            platform::LockGuard guard(get_memory_mutex());
+            ++get_memory_stats().free_count;
+            /*
+            if (static_cast<int>(g_memory_stats.free_count) > static_cast<int>(g_memory_stats.allocation_count)) {
+                BONGOCAT_LOG_VERBOSE("Potential double free: %d/%d", atomic_load(&g_memory_stats.allocation_count), atomic_load(&g_memory_stats.free_count));
+            }
+            */
         }
-        */
-        pthread_mutex_unlock(&g_memory_mutex);
 #endif
     }
 
@@ -171,40 +190,48 @@ namespace bongocat {
         }
     }
 
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
     void memory_get_stats(memory_stats_t *stats) {
         if (!stats) return;
 
-        pthread_mutex_lock(&g_memory_mutex);
-        stats->total_allocated    = atomic_load(&g_memory_stats.total_allocated);
-        stats->current_allocated  = atomic_load(&g_memory_stats.current_allocated);
-        stats->peak_allocated     = atomic_load(&g_memory_stats.peak_allocated);
-        stats->allocation_count   = atomic_load(&g_memory_stats.allocation_count);
-        stats->free_count         = atomic_load(&g_memory_stats.free_count);
-        pthread_mutex_unlock(&g_memory_mutex);
+        {
+            using namespace details;
+            platform::LockGuard guard(get_memory_mutex());
+            stats->total_allocated    = atomic_load(&get_memory_stats().total_allocated);
+            stats->current_allocated  = atomic_load(&get_memory_stats().current_allocated);
+            stats->peak_allocated     = atomic_load(&get_memory_stats().peak_allocated);
+            stats->allocation_count   = atomic_load(&get_memory_stats().allocation_count);
+            stats->free_count         = atomic_load(&get_memory_stats().free_count);
+        }
     }
 
     void memory_print_stats() {
         memory_stats_t stats;
         memory_get_stats(&stats);
 
-        const size_t total_allocated = atomic_load(&stats.total_allocated);
-        const size_t current_allocated = atomic_load(&stats.current_allocated);
-        const size_t peak_allocated = atomic_load(&stats.peak_allocated);
-        const size_t allocation_count = atomic_load(&stats.allocation_count);
-        const size_t free_count = atomic_load(&stats.free_count);
+        {
+            using namespace details;
+            platform::LockGuard guard(get_memory_mutex());
+            const size_t total_allocated = atomic_load(&stats.total_allocated);
+            const size_t current_allocated = atomic_load(&stats.current_allocated);
+            const size_t peak_allocated = atomic_load(&stats.peak_allocated);
+            const size_t allocation_count = atomic_load(&stats.allocation_count);
+            const size_t free_count = atomic_load(&stats.free_count);
 
-        assert(allocation_count <= INT_MAX);
-        assert(free_count <= INT_MAX);
+            assert(allocation_count <= INT_MAX);
+            assert(free_count <= INT_MAX);
 
-        bongocat::log_info("Memory Statistics:");
-        bongocat::log_info("  Total allocated: %zu bytes (%.2f MB)", total_allocated, static_cast<double>(total_allocated) / (1024.0 * 1024.0));
-        bongocat::log_info("  Current allocated: %zu bytes (%.2f MB)", current_allocated, static_cast<double>(current_allocated) / (1024.0 * 1024.0));
-        bongocat::log_info("  Peak allocated: %zu bytes (%.2f MB)", peak_allocated, static_cast<double>(peak_allocated) / (1024.0 * 1024.0));
-        bongocat::log_info("  Allocations: %zu", allocation_count);
-        bongocat::log_info("  Frees: %zu", free_count);
-        bongocat::log_info("  Potential leaks: %d", static_cast<int>(allocation_count) - static_cast<int>(free_count));
+            bongocat::details::log_info("Memory Statistics:");
+            bongocat::details::log_info("  Total allocated: %zu bytes (%.2f MB)", total_allocated, static_cast<double>(total_allocated) / (1024.0 * 1024.0));
+            bongocat::details::log_info("  Current allocated: %zu bytes (%.2f MB)", current_allocated, static_cast<double>(current_allocated) / (1024.0 * 1024.0));
+            bongocat::details::log_info("  Peak allocated: %zu bytes (%.2f MB)", peak_allocated, static_cast<double>(peak_allocated) / (1024.0 * 1024.0));
+            bongocat::details::log_info("  Allocations: %zu", allocation_count);
+            bongocat::details::log_info("  Frees: %zu", free_count);
+            bongocat::details::log_info("  Potential leaks: %d", static_cast<int>(allocation_count) - static_cast<int>(free_count));
+        }
     }
+#else
+    void memory_print_stats() {}
 #endif
 
 #ifndef NDEBUG
@@ -212,14 +239,18 @@ namespace bongocat {
         void *ptr = bongocat::malloc(size);
         if (!ptr) return nullptr;
 
-        auto *record = static_cast<allocation_record_t *>(::malloc(sizeof(allocation_record_t)));
-        if (record) {
-            record->ptr = ptr;
-            record->size = size;
-            record->file = file;
-            record->line = line;
-            record->next = g_allocations;
-            g_allocations = record;
+        {
+            using namespace details;
+            platform::LockGuard guard(details::get_memory_mutex());
+            auto *record = static_cast<allocation_record_t *>(::malloc(sizeof(allocation_record_t)));
+            if (record) {
+                record->ptr = ptr;
+                record->size = size;
+                record->file = file;
+                record->line = line;
+                record->next = get_allocations();
+                get_allocations() = record;
+            }
         }
 
         return ptr;
@@ -228,35 +259,47 @@ namespace bongocat {
     void free_debug(void *ptr, const char *file, int line) {
         if (!ptr) return;
 
-        allocation_record_t **current = &g_allocations;
-        while (*current) {
-            if ((*current)->ptr == ptr) {
-                allocation_record_t *to_remove = *current;
-                *current = (*current)->next;
-                assert(to_remove);
-                ::free(to_remove);
-                break;
+        {
+            using namespace details;
+            platform::LockGuard guard(details::get_memory_mutex());
+            allocation_record_t **current = &get_allocations();
+            while (*current) {
+                if ((*current)->ptr == ptr) {
+                    allocation_record_t *to_remove = *current;
+                    *current = (*current)->next;
+                    assert(to_remove);
+                    ::free(to_remove);
+                    break;
+                }
+                current = &(*current)->next;
             }
-            current = &(*current)->next;
         }
 
         bongocat::free(ptr);
 
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
-        if (g_memory_stats.free_count > g_memory_stats.current_allocated) {
-            BONGOCAT_LOG_WARNING("possible double free, one free is to much: Frees: %zu; Allocations: %zu %s:%d", g_memory_stats.free_count > g_memory_stats.current_allocated, file, line);
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
+        {
+            using namespace details;
+            platform::LockGuard guard(details::get_memory_mutex());
+            const size_t free_count = atomic_load(&get_memory_stats().free_count);
+            const size_t current_allocated = atomic_load(&get_memory_stats().current_allocated);
+            if (free_count > current_allocated) {
+                BONGOCAT_LOG_WARNING("possible double free, one free is to much: Frees: %zu; Allocations: %zu %s:%d", free_count > current_allocated, file, line);
+            }
         }
 #endif
     }
 
     void memory_leak_check() {
-        if (!g_allocations) {
-            bongocat::log_info("No memory leaks detected");
+        using namespace details;
+        platform::LockGuard guard(get_memory_mutex());
+        if (!get_allocations()) {
+            BONGOCAT_LOG_INFO("No memory leaks detected");
             return;
         }
 
         BONGOCAT_LOG_ERROR("Memory leaks detected:");
-        allocation_record_t *current = g_allocations;
+        allocation_record_t *current = get_allocations();
         while (current) {
             BONGOCAT_LOG_ERROR("  %zu bytes at %s:%d", current->size, current->file, current->line);
             current = current->next;

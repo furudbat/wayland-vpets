@@ -6,8 +6,8 @@
 
 namespace bongocat::platform::input {
     struct input_shared_memory_t {
-        int any_key_pressed{0};
-        int kpm{0};                                     // keystrokes per minute
+        int32_t any_key_pressed{0};
+        int32_t kpm{0};                                     // keystrokes per minute
         atomic_int input_counter{0};
         timestamp_ms_t last_key_pressed_timestamp{0};
 

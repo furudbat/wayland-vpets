@@ -31,7 +31,7 @@ namespace bongocat {
     void memory_pool_reset(memory_pool_t& pool);
     void memory_pool_destroy(memory_pool_t& pool);
 
-#ifndef BONGOCAT_DISABLE_MEMORY_STATISTICS
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
     // Memory statistics
     struct memory_stats_t {
         atomic_size_t total_allocated;
@@ -42,8 +42,8 @@ namespace bongocat {
     };
 
     void memory_get_stats(memory_stats_t& stats);
-    void memory_print_stats();
 #endif
+    void memory_print_stats();
 
     // Memory leak detection (debug builds)
 #ifndef NDEBUG
@@ -58,12 +58,12 @@ namespace bongocat {
 #endif
 
 #define BONGOCAT_SAFE_FREE(ptr) \
-    do { \
+    { \
         if (ptr) { \
             BONGOCAT_FREE(ptr); \
-            ptr = NULL; \
+            (ptr) = NULL; \
         } \
-    } while(false)
+    }
 
     template <typename T, std::size_t N>
     constexpr std::size_t LEN_ARRAY(const T (&)[N]) noexcept {
@@ -74,30 +74,30 @@ namespace bongocat {
     template <typename T>
     struct is_trivially_copyable {
 #if defined(__clang__)
-        static constexpr bool value = __is_trivially_copyable(T);
+        inline static constexpr bool value = __is_trivially_copyable(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
-        static constexpr bool value = __is_trivially_copyable(T);
+        inline static constexpr bool value = __is_trivially_copyable(T);
 #elif defined(_MSC_VER)
-        static constexpr bool value = __is_trivially_copyable(T);
+        inline static constexpr bool value = __is_trivially_copyable(T);
 #else
-        static constexpr bool value = false;
+        inline static constexpr bool value = false;
 #endif
     };
 
     template <typename T>
     struct is_trivially_destructible {
 #if defined(__clang__)
-        static constexpr bool value = __is_trivially_destructible(T);
+        inline static constexpr bool value = __is_trivially_destructible(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
         // GCC requires `typename T` to be fully resolved
         //static constexpr bool value = __is_trivially_destructible(T);
         /// @FIXME: expected nested-name-specifier before »T« [-Wtemplate-body]
         /// Fallback: use STL
-        static constexpr bool value = std::is_trivially_destructible_v<T>;
+        inline static constexpr bool value = std::is_trivially_destructible_v<T>;
 #elif defined(_MSC_VER)
-        static constexpr bool value = __is_trivially_destructible(T);
+        inline static constexpr bool value = __is_trivially_destructible(T);
 #else
-        static constexpr bool value = false;
+        inline static constexpr bool value = false;
 #endif
     };
 
@@ -116,7 +116,7 @@ namespace bongocat {
             release_allocated_memory(*this);
         }
 
-        AllocatedMemory(decltype(nullptr)) noexcept {}
+        explicit AllocatedMemory(decltype(nullptr)) noexcept {}
         AllocatedMemory& operator=(decltype(nullptr)) noexcept {
             release_allocated_memory(*this);
             return *this;
@@ -184,7 +184,7 @@ namespace bongocat {
             return *this;
         }
 
-        explicit(false) operator bool() const noexcept {
+        operator bool() const noexcept {
             return ptr != nullptr;
         }
 
@@ -204,10 +204,10 @@ namespace bongocat {
             assert(ptr);
             return ptr;
         }
-        operator T*() noexcept {
+        explicit operator T*() noexcept {
             return ptr;
         }
-        operator const T*() const noexcept {
+        explicit operator const T*() const noexcept {
             return ptr;
         }
 
@@ -269,7 +269,7 @@ namespace bongocat {
             release_allocated_array(*this);
         }
 
-        AllocatedArray(decltype(nullptr)) noexcept {}
+        explicit AllocatedArray(decltype(nullptr)) noexcept {}
         AllocatedArray& operator=(decltype(nullptr)) noexcept {
             release_allocated_array(*this);
             return *this;
@@ -370,8 +370,7 @@ namespace bongocat {
             return data[index];
         }
 
-        // Implicit conversion to bool
-        explicit(false) operator bool() const noexcept {
+        explicit operator bool() const noexcept {
             return data != nullptr;
         }
 
@@ -429,7 +428,7 @@ namespace bongocat {
 
     // move implementation (no STL)
     template <typename T>
-    typename remove_reference<T>::type&& move(T&& t) {
+    inline typename remove_reference<T>::type&& move(T&& t) {
         typedef typename remove_reference<T>::type U;
         return static_cast<U&&>(t);
     }

@@ -2,7 +2,6 @@
 #define BONGOCAT_EMBEDDED_ASSETS_H
 
 #include "sprite_sheet.h"
-#include <cstddef>
 
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
 namespace bongocat::assets {
@@ -30,12 +29,12 @@ namespace bongocat::assets {
 }
 #endif
 
-#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
 namespace bongocat::assets {
     // sprite sheet uses it own array
     inline static constexpr size_t MS_AGENTS_ANIM_START_INDEX   = 0;
 }
-#include "embedded_assets_clippy.h"
+#include "embedded_assets_ms_agents.h"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t MS_AGENTS_ANIM_START_INDEX   = 0;

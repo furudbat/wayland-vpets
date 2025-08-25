@@ -3,7 +3,6 @@
 
 #include "utils/memory.h"
 #include <cstdint>
-#include <cstddef>
 
 namespace bongocat::animation {
     // both-up, left-down, right-down, both-down
@@ -16,18 +15,18 @@ namespace bongocat::animation {
 
     struct sprite_sheet_animation_region_t {
         bool valid{false};
-        int col{0};
-        int row{0};
+        int32_t col{0};
+        int32_t row{0};
     };
     struct dm_animation_t {
-        int sprite_sheet_width{0};
-        int sprite_sheet_height{0};
-        int channels{0};
+        int32_t sprite_sheet_width{0};
+        int32_t sprite_sheet_height{0};
+        int32_t channels{0};
         AllocatedArray<uint8_t> pixels;
 
-        int frame_width{0};
-        int frame_height{0};
-        int total_frames{0};
+        int32_t frame_width{0};
+        int32_t frame_height{0};
+        int32_t total_frames{0};
 
         sprite_sheet_animation_region_t idle_1;
         sprite_sheet_animation_region_t idle_2;
@@ -51,14 +50,14 @@ namespace bongocat::animation {
     };
 
     struct bongocat_animation_t {
-        int sprite_sheet_width{0};
-        int sprite_sheet_height{0};
-        int channels{0};
+        int32_t sprite_sheet_width{0};
+        int32_t sprite_sheet_height{0};
+        int32_t channels{0};
         AllocatedArray<uint8_t> pixels;
 
-        int frame_width{0};
-        int frame_height{0};
-        int total_frames{0};
+        int32_t frame_width{0};
+        int32_t frame_height{0};
+        int32_t total_frames{0};
 
         sprite_sheet_animation_region_t both_up;
         sprite_sheet_animation_region_t left_down;
@@ -69,14 +68,14 @@ namespace bongocat::animation {
     };
 
     struct generic_sprite_sheet_animation_t {
-        int sprite_sheet_width{0};
-        int sprite_sheet_height{0};
-        int channels{0};
+        int32_t sprite_sheet_width{0};
+        int32_t sprite_sheet_height{0};
+        int32_t channels{0};
         AllocatedArray<uint8_t> pixels;
 
-        int frame_width{0};
-        int frame_height{0};
-        int total_frames{0};
+        int32_t frame_width{0};
+        int32_t frame_height{0};
+        int32_t total_frames{0};
 
         sprite_sheet_animation_region_t frames[MAX_NUM_FRAMES];
     };
@@ -208,13 +207,13 @@ namespace bongocat::animation {
     void cleanup_animation(ms_pet_sprite_sheet_t& sprite_sheet);
 
     struct ms_pet_sprite_sheet_t {
-        int sprite_sheet_width{0};
-        int sprite_sheet_height{0};
-        int channels{0};
+        int32_t sprite_sheet_width{0};
+        int32_t sprite_sheet_height{0};
+        int32_t channels{0};
         AllocatedArray<uint8_t> pixels;
 
-        int frame_width{0};
-        int frame_height{0};
+        int32_t frame_width{0};
+        int32_t frame_height{0};
 
         ms_pet_sprite_sheet_t() {
             sprite_sheet_width = 0;

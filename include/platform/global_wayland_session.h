@@ -65,7 +65,7 @@ namespace bongocat::platform::wayland {
         int32_t height{0};
         output_ref_received_flags_t received{output_ref_received_flags_t::None};
         // monitor ID in Hyprland
-        int hypr_id{-1};
+        int64_t hypr_id{-1};
     };
 
     struct wayland_session_t;
@@ -73,7 +73,7 @@ namespace bongocat::platform::wayland {
 
     struct wayland_session_t {
         wayland_context_t wayland_context;
-        animation::animation_session_t* animation_trigger_context{nullptr};
+        animation::animation_session_t *animation_trigger_context{nullptr};
 
         tracked_toplevel_t tracked_toplevels[MAX_TOP_LEVELS];
         size_t num_toplevels{0};
@@ -103,8 +103,12 @@ namespace bongocat::platform::wayland {
 
         wayland_session_t(const wayland_session_t&) = delete;
         wayland_session_t& operator=(const wayland_session_t&) = delete;
+        wayland_session_t(wayland_session_t&& other) noexcept = delete;
+        wayland_session_t& operator=(wayland_session_t&& other) noexcept = delete;
 
-         wayland_session_t(wayland_session_t&& other) noexcept
+        /*
+        /// @TODO: mutex in wayland_context is not movable
+        wayland_session_t(wayland_session_t&& other) noexcept
             : wayland_context(bongocat::move(other.wayland_context)),
               animation_trigger_context(other.animation_trigger_context),
               num_toplevels(other.num_toplevels),
@@ -165,6 +169,7 @@ namespace bongocat::platform::wayland {
             }
             return *this;
         }
+        */
     };
 
     inline void cleanup_wayland(wayland_session_t& ctx) {

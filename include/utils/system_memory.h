@@ -18,28 +18,32 @@ namespace bongocat::platform {
         pthread_mutex_t pt_mutex{};
 
         Mutex() {
-            if (pthread_mutex_init(&pt_mutex, nullptr) != 0) {
+            pthread_mutexattr_t attr;
+            pthread_mutexattr_init(&attr);
+            pthread_mutexattr_settype(&attr, PTHREAD_MUTEX_ERRORCHECK);
+            if (pthread_mutex_init(&pt_mutex, &attr) != 0) {
                 BONGOCAT_LOG_ERROR("Failed to initialize mutex");
             }
+            pthread_mutexattr_destroy(&attr);
         }
         ~Mutex() {
-            pthread_mutex_destroy(&pt_mutex);
+            int rc = pthread_mutex_destroy(&pt_mutex);
+            if (rc == EBUSY) {
+                // still locked → try to unlock first
+                rc = pthread_mutex_unlock(&pt_mutex);
+                if (rc != 0) {
+                    BONGOCAT_LOG_ERROR("pthread_mutex_unlock in destructor failed");
+                }
+                pthread_mutex_destroy(&pt_mutex);
+            } else if (rc != 0) {
+                BONGOCAT_LOG_ERROR("pthread_mutex_destroy failed");
+            }
         }
 
         Mutex(const Mutex&) = delete;
         Mutex& operator=(const Mutex&) = delete;
-
-        Mutex(Mutex&& other) noexcept {
-            pt_mutex = other.pt_mutex;
-            other.pt_mutex = PTHREAD_MUTEX_INITIALIZER;
-        }
-        Mutex& operator=(Mutex&& other) noexcept {
-            if (this != &other) {
-                pt_mutex = other.pt_mutex;
-                other.pt_mutex = PTHREAD_MUTEX_INITIALIZER;
-            }
-            return *this;
-        }
+        Mutex(Mutex&&) = delete;
+        Mutex& operator=(Mutex&&) = delete;
 
         void _lock() {
             if (const int rc = pthread_mutex_lock(&pt_mutex); rc != 0) {
@@ -48,7 +52,9 @@ namespace bongocat::platform {
         }
         void _unlock() {
             if (const int rc = pthread_mutex_unlock(&pt_mutex); rc != 0) {
-                BONGOCAT_LOG_ERROR("pthread_mutex_unlock failed");
+                if (rc != EPERM) { // ignore "not owner"
+                    BONGOCAT_LOG_ERROR("pthread_mutex_unlock failed");
+                }
             }
         }
 
@@ -61,17 +67,17 @@ namespace bongocat::platform {
     struct LockGuard {
         explicit LockGuard(Mutex& m) : pt_mutex(&m.pt_mutex) {
             if (const int rc = pthread_mutex_lock(pt_mutex); rc != 0) {
-                BONGOCAT_LOG_ERROR("pthread_mutex_lock failed");
+                BONGOCAT_LOG_ERROR("LockGuard: pthread_mutex_lock failed");
             }
         }
         explicit LockGuard(pthread_mutex_t& m) : pt_mutex(&m) {
             if (const int rc = pthread_mutex_lock(pt_mutex); rc != 0) {
-                BONGOCAT_LOG_ERROR("pthread_mutex_lock failed");
+                BONGOCAT_LOG_ERROR("LockGuard: pthread_mutex_lock failed");
             }
         }
         ~LockGuard() {
             if (const int rc = pthread_mutex_unlock(pt_mutex); rc != 0) {
-                BONGOCAT_LOG_ERROR("pthread_mutex_unlock failed");
+                BONGOCAT_LOG_ERROR("LockGuard: pthread_mutex_unlock failed");
             }
         }
 
@@ -99,7 +105,7 @@ namespace bongocat::platform {
             release_allocated_mmap_memory(*this);
         }
 
-        MMapMemory(decltype(nullptr)) noexcept {}
+        explicit MMapMemory(decltype(nullptr)) noexcept {}
         MMapMemory& operator=(decltype(nullptr)) noexcept {
             release_allocated_mmap_memory(*this);
             return *this;
@@ -188,10 +194,10 @@ namespace bongocat::platform {
             assert(ptr && ptr != MAP_FAILED);
             return ptr;
         }
-        operator T*() noexcept {
+        explicit operator T*() noexcept {
             return ptr;
         }
-        operator const T*() const noexcept {
+        explicit operator const T*() const noexcept {
             return ptr;
         }
 
@@ -269,7 +275,7 @@ namespace bongocat::platform {
             release_allocated_mmap_array(*this);
         }
 
-        MMapArray(decltype(nullptr)) noexcept {}
+        explicit MMapArray(decltype(nullptr)) noexcept {}
         MMapArray& operator=(decltype(nullptr)) noexcept {
             release_allocated_mmap_array(*this);
             return *this;
@@ -439,13 +445,13 @@ namespace bongocat::platform {
             release_allocated_mmap_file(*this);
         }
 
-        MMapFile(decltype(nullptr)) noexcept {}
+        explicit MMapFile(decltype(nullptr)) noexcept {}
         MMapFile& operator=(decltype(nullptr)) noexcept {
             release_allocated_mmap_file(*this);
             return *this;
         }
 
-        MMapFile(int fd, off_t offset = 0)
+        explicit MMapFile(int fd, off_t offset = 0)
             : _size_bytes(sizeof(T)), _fd(fd), _offset(offset)
         {
             if (_size_bytes > 0) {
@@ -613,7 +619,7 @@ namespace bongocat::platform {
             release_allocated_mmap_file_buffer(*this);
         }
 
-        MMapFileBuffer(decltype(nullptr)) noexcept {}
+        explicit MMapFileBuffer(decltype(nullptr)) noexcept {}
         MMapFileBuffer& operator=(decltype(nullptr)) noexcept {
             release_allocated_mmap_file_buffer(*this);
             return *this;
@@ -796,7 +802,7 @@ namespace bongocat::platform {
             close_fd(*this);
         }
 
-        FileDescriptor(decltype(nullptr)) noexcept {}
+        explicit FileDescriptor(decltype(nullptr)) noexcept {}
         FileDescriptor& operator=(decltype(nullptr)) noexcept {
             close_fd(*this);
             return *this;

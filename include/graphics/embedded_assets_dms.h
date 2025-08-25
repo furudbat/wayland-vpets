@@ -1,9 +1,7 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_DMS_H
 #define BONGOCAT_EMBEDDED_ASSETS_DMS_H
 
-#include "embedded_assets_image.h"
-#include <cstddef>
-#include <cstdint>
+#include "embedded_image.h"
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 #if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS)

@@ -76,6 +76,7 @@ namespace bongocat::platform::input {
     static void* input_thread(void* arg) {
         assert(arg);
         animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
+        trigger_ctx.input_lock._lock();
         assert(trigger_ctx._input);
         //animation_context_t& anim = trigger_ctx.anim;
         input_context_t& input = *trigger_ctx._input;
@@ -91,9 +92,10 @@ namespace bongocat::platform::input {
         assert(input.config_reload_cond != nullptr);
         assert(input.config_generation != nullptr);
         //assert(trigger_ctx._input != nullptr);
+        trigger_ctx.input_lock._unlock();
 
         // keep local copies of device_paths
-        do {
+        {
             assert(current_config.num_keyboard_devices >= 0);
             int device_paths_count = current_config.num_keyboard_devices;
             const char *const *device_paths = current_config.keyboard_devices;        // pls don't modify single keyboard_devices (string)
@@ -109,7 +111,7 @@ namespace bongocat::platform::input {
                     return nullptr;
                 }
             }
-        } while(false);
+        }
 
         BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", input._device_paths.count);
 
@@ -340,7 +342,7 @@ namespace bongocat::platform::input {
                 }
 #endif
                 uint64_t gen;
-                do {
+                {
                     platform::LockGuard config_guard(*input.config_reload_mutex);
                     update_config(input, *input._config);
                     // Acknowledge this generation
@@ -348,11 +350,11 @@ namespace bongocat::platform::input {
                     atomic_store(&input.config_seen_generation, gen);
                     pthread_cond_broadcast(input.config_reload_cond);
                     assert(&current_config == input._local_copy_config.ptr);
-                } while (false);
+                }
 
                 BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", gen);
             }
-            do {
+            {
                 platform::LockGuard guard (input.input_lock);
                 // Handle ready devices
                 for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
@@ -456,10 +458,10 @@ namespace bongocat::platform::input {
                         pfds[p].fd = -1;
                     }
                 }
-            } while (false);
+            }
 
             // Revalidate valid devices
-            do {
+            {
                 size_t valid_devices = 0;
                 for (size_t i = 0; i < input._unique_devices.count; i++) {
                     const char* device_path = input._unique_devices[i].device_path;
@@ -504,7 +506,7 @@ namespace bongocat::platform::input {
                 if (valid_devices == 0) {
                     BONGOCAT_LOG_VERBOSE("All input devices became unavailable");
                 }
-            } while (false);
+            }
         }
         atomic_store(&input._capture_input_running, false);
         if (track_valid_devices == 0) {
@@ -529,8 +531,8 @@ namespace bongocat::platform::input {
         return nullptr;
     }
 
-    created_result_t<input_context_t> create(const config::config_t& config) {
-        input_context_t ret;
+    created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t& config) {
+        AllocatedMemory<input_context_t> ret = make_allocated_memory<input_context_t>();
 
         if (config.num_keyboard_devices <= 0) {
             BONGOCAT_LOG_ERROR("No input devices specified");
@@ -538,35 +540,35 @@ namespace bongocat::platform::input {
         }
 
         const timestamp_ms_t now = get_current_time_ms();
-        ret._capture_input_running = false;
-        ret._input_kpm_counter = 0;
-        ret._latest_kpm_update_ms = now;
+        ret->_capture_input_running = false;
+        ret->_input_kpm_counter = 0;
+        ret->_latest_kpm_update_ms = now;
 
         BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", config.num_keyboard_devices);
 
         // Initialize shared memory for key press flag
-        ret.shm = make_allocated_mmap<input_shared_memory_t>();
-        if (!ret.shm.ptr) {
+        ret->shm = make_allocated_mmap<input_shared_memory_t>();
+        if (!ret->shm.ptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-        ret.shm->any_key_pressed = 0;
-        ret.shm->kpm = 0;
-        ret.shm->input_counter = 0;
-        ret.shm->last_key_pressed_timestamp = 0;
+        ret->shm->any_key_pressed = 0;
+        ret->shm->kpm = 0;
+        ret->shm->input_counter = 0;
+        ret->shm->last_key_pressed_timestamp = 0;
 
         // Initialize shared memory for local config
-        ret._local_copy_config = make_allocated_mmap<config::config_t>();
-        if (!ret._local_copy_config.ptr) {
+        ret->_local_copy_config = make_allocated_mmap<config::config_t>();
+        if (!ret->_local_copy_config.ptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-        assert(ret._local_copy_config != nullptr);
-        *ret._local_copy_config = config;
+        assert(ret->_local_copy_config != nullptr);
+        *ret->_local_copy_config = config;
 
 
-        ret.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
-        if (ret.update_config_efd._fd < 0) {
+        ret->update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+        if (ret->update_config_efd._fd < 0) {
             BONGOCAT_LOG_ERROR("Failed to create notify pipe for input update config: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
@@ -645,36 +647,33 @@ namespace bongocat::platform::input {
         assert(!input._unique_devices);
         assert(input._unique_paths_indices_capacity == 0);
 
-        input_context_t ret;
+        cleanup(input);
 
         // reset stats
         //ret._latest_kpm_update_ms = get_current_time_ms();
 
         // Start new monitoring (reuse shared memory if it exists)
-        if (ret.shm == nullptr) {
-            ret.shm = make_allocated_mmap<input_shared_memory_t>();
-            if (ret.shm.ptr == MAP_FAILED) {
+        if (input.shm == nullptr) {
+            input.shm = make_allocated_mmap<input_shared_memory_t>();
+            if (input.shm.ptr == MAP_FAILED) {
                 BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
                 return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
             }
         }
 
 
-        if (ret._local_copy_config == nullptr) {
-            ret._local_copy_config = make_unallocated_mmap_value<config::config_t>(config);
-            if (ret._local_copy_config != nullptr) {
+        if (input._local_copy_config == nullptr) {
+            input._local_copy_config = make_unallocated_mmap_value<config::config_t>(config);
+            if (input._local_copy_config != nullptr) {
                 BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
                 return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
             }
         }
-        assert(ret._local_copy_config != nullptr);
+        assert(input._local_copy_config != nullptr);
 
         //if (trigger_ctx._input != ctx._input) {
         //    BONGOCAT_LOG_DEBUG("Input context in animation differs from animation trigger input context");
         //}
-
-        // overwrite current input
-        input = bongocat::move(ret);
 
         // set extern/global references
         trigger_ctx._input = &input;

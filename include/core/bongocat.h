@@ -11,12 +11,13 @@
 inline static constexpr const char* BONGOCAT_VERSION = "2.1.1";
 
 // Common constants
-inline static constexpr int DEFAULT_SCREEN_WIDTH = 1920;
-inline static constexpr int DEFAULT_BAR_HEIGHT = 40;
-inline static constexpr int RGBA_CHANNELS = 4;
-inline static constexpr int BGRA_CHANNELS = 4;
+inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
+inline static constexpr int32_t DEFAULT_BAR_HEIGHT = 40;
+inline static constexpr int32_t RGBA_CHANNELS = 4;
+inline static constexpr int32_t BGRA_CHANNELS = 4;
 
 inline static constexpr size_t MAX_INPUT_DEVICES = 256;
+static_assert(MAX_INPUT_DEVICES <= INT32_MAX);
 
 namespace bongocat {
     template<typename T>
@@ -28,6 +29,114 @@ namespace bongocat {
         explicit(false) created_result_t(bongocat_error_t err) : error(err) {}
         explicit(false) created_result_t(T&& res) : result(bongocat::move(res)) {}
     };
+
+    namespace features {
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+        inline static constexpr bool EnableBongocatEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableBongocatEmbeddedAssets = false;
+#endif
+
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+        inline static constexpr bool EnableDmEmbeddedAssets = true;
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+        inline static constexpr bool EnableFullDmEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableFullDmEmbeddedAssets = false;
+#endif
+#ifdef FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS
+        inline static constexpr bool EnableDm20EmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableDm20EmbeddedAssets = false;
+#endif
+#ifdef FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS
+        inline static constexpr bool EnableDmcEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableDmcEmbeddedAssets = false;
+#endif
+#ifdef FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS
+        inline static constexpr bool EnableDmxEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableDmxEmbeddedAssets = false;
+#endif
+#ifdef FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS
+        inline static constexpr bool EnablePen20EmbeddedAssets = true;
+#else
+        inline static constexpr bool EnablePen20EmbeddedAssets = false;
+#endif
+#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS)
+        inline static constexpr bool EnableMinDmEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+#endif
+#else
+        inline static constexpr bool EnableDmEmbeddedAssets = false;
+        inline static constexpr bool EnableFullDmEmbeddedAssets = false;
+        inline static constexpr bool EnableDm20EmbeddedAssets = false;
+        inline static constexpr bool EnableDmcEmbeddedAssets = false;
+        inline static constexpr bool EnableDmxEmbeddedAssets = false;
+        inline static constexpr bool EnablePen20EmbeddedAssets = false;
+        inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+#endif
+
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+        inline static constexpr bool MsAgentEmbeddedAssets = true;
+#else
+        inline static constexpr bool MsAgentEmbeddedAssets = false;
+#endif
+
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
+        inline static constexpr bool EnableMemoryStatistics = true;
+#else
+        inline static constexpr bool EnableMemoryStatistics = false;
+#endif
+
+#if !defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)
+        inline static constexpr bool EnableLogger = true;
+#else
+        inline static constexpr bool EnableLogger = false;
+#endif
+
+#ifndef FEATURE_PRELOAD_ASSETS
+        inline static constexpr bool EnablePreloadAssets = true;
+#else
+        inline static constexpr bool EnablePreloadAssets = false;
+#endif
+
+    }
+
+
+
+    template <typename Enum>
+    inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
+        return static_cast<Enum>(static_cast<uint32_t>(lhs) | static_cast<uint32_t>(rhs));
+    }
+    template <typename Enum>
+    inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
+        return static_cast<Enum>(static_cast<uint32_t>(lhs) & static_cast<uint32_t>(rhs));
+    }
+    template <typename Enum>
+    inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
+        return static_cast<Enum>(static_cast<uint32_t>(lhs) ^ static_cast<uint32_t>(rhs));
+    }
+    template <typename Enum>
+    inline constexpr Enum flag_not(Enum rhs) noexcept {
+        return static_cast<Enum>(~static_cast<uint32_t>(rhs));
+    }
+    template <typename Enum>
+    inline constexpr Enum flag_add(Enum& lhs, Enum rhs) noexcept {
+        lhs = flag_or(lhs, rhs);
+        return lhs;
+    }
+    template <typename Enum>
+    inline constexpr Enum flag_assign(Enum& lhs, Enum rhs) noexcept {
+        lhs = flag_and(lhs, rhs);
+        return lhs;
+    }
+    template <typename Enum>
+    inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
+        return (static_cast<uint32_t>(value) & static_cast<uint32_t>(flag)) != 0;
+    }
 }
 
 #endif // BONGOCAT_BONGOCAT_H

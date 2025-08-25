@@ -7,8 +7,8 @@
 namespace bongocat::animation {
 
     struct animation_session_t;
-    void stop(animation_session_t& ctx);
-    void cleanup(animation_session_t& anim);
+    void stop(animation_session_t& anim_ctx);
+    void cleanup(animation_session_t& anim_ctx);
 
     struct animation_session_t {
         animation_context_t anim;
@@ -23,6 +23,7 @@ namespace bongocat::animation {
         atomic_uint64_t config_seen_generation{0};
         pthread_cond_t *config_reload_cond{nullptr};
         atomic_uint64_t *config_generation{nullptr};
+        platform::Mutex input_lock;                     // for syncing input/animation thread (start)
 
         // globals (references)
         platform::input::input_context_t *_input{nullptr};
@@ -37,7 +38,11 @@ namespace bongocat::animation {
 
         animation_session_t(const animation_session_t& other) = delete;
         animation_session_t& operator=(const animation_session_t& other) = delete;
+        animation_session_t(animation_session_t&& other) noexcept = delete;
+        animation_session_t& operator=(animation_session_t&& other) noexcept = delete;
 
+        /*
+        /// @TODO: mutex in anim is not movable
         animation_session_t(animation_session_t&& other) noexcept
             : anim(bongocat::move(other.anim)),
               trigger_efd(bongocat::move(other.trigger_efd)),
@@ -79,6 +84,7 @@ namespace bongocat::animation {
             }
             return *this;
         }
+        */
     };
     inline void stop(animation_session_t& anim_ctx) {
         stop(anim_ctx.anim);

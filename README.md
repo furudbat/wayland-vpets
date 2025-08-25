@@ -509,19 +509,43 @@ make debug
 
 #### Moving to C++
 
-I'm moving this Project a little bit to C++.
+I'm moving this Project ~~a little bit~~ to C++.
 
-* using modern C++26 compiler (required for `#embed`)
-* rename files `.c` -> `.cpp`
-* **reduce usage of pre-processor** - replace `define` with `constexpr`
-* use `ref&` instead of pointer
+* using modern C++26/C23 compiler (required for `#embed`)
+* thread-safe Logging
+* use assert and static_assert (Preconditions, postconditions, invariants.)
+* use mmap for multi-threading and shared memory
+* use Mutex and LockGuard
+* prefer stack over heap
+  * use heap when: Mutex is used in structs or other non-movable objects
+  * use mmap for shared memory
+  * dynamics arrays like buffers
+* **reduce usage of pre-processor** - replace `#define` with `constexpr`
+* use `ref&` instead of pointer parameter (not-nullable)
 * use `nullptr` instead of `NULL`
-* ~~**NO STL** - keep it as close as possible to the original, it's still C and Linux development with C libraries~~ - Almost NO STL - I had to use `<type_traits>` :(
 * **Memory Management** - Simple Wrapper for malloc/free calls
   * move semantics
   * reduce manually clean up
-* use of `enum class`
-* brace initialization
+  * system memory and resources use RAII
+    * Mutex
+    * MMap + MMapArray (for shared memory)
+    * MMap mapped Files (Buffers)
+    * malloc/free
+    * FileDescriptor
+* use `enum class`
+* use default and brace initialization
+* It's still C with Linux + Wayland libraries under the hood
+* ~~NO STL~~ - Almost NO STL - I had to use `<type_traits>` :(
+* NO classes (except for RAII)
+  * **Rule of five** 😬
+* keep templates at minimum
+* move big assets (like embedded images) into its own TU (cpp file) and get needed asset from a function call
+* reduce globals, use context structs and pass parameter
+* use C atomic style (`atomic_store` and `atomic_load`), `atomic_bool`, `atomic_int` is still fine
+* fixed-size types
+* try to allocate upfront, before starting a thread (see ~~`init` or~~`create` functions)
+* prefer `create` functions with RVO, instead of `init` with out-ref-parameter
+* stop (all) threads before releasing memory
 
 ## 📄 License
 

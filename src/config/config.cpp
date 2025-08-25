@@ -3,6 +3,8 @@
 #include "utils/error.h"
 #include "graphics/animation_context.h"
 #include "graphics/embedded_assets.h"
+#include "graphics/embedded_assets/bongocat.hpp"
+#include "graphics/embedded_assets/clippy.hpp"
 #include <cassert>
 #include <cctype>
 #include <cstdio>
@@ -181,7 +183,7 @@ namespace bongocat::config {
 #endif
                 break;
             case config_animation_sprite_sheet_layout_t::MsAgent:
-#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
                 // Validate animation index
                 assert(assets::MS_AGENTS_ANIMATIONS_COUNT <= INT_MAX);
                 if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::MS_AGENTS_ANIMATIONS_COUNT)) {
@@ -504,7 +506,6 @@ namespace bongocat::config {
 
             // check for dm
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-
 #ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
 #include "../graphics/embedded_assets/dm_config_parse_enum_key.cpp.inl"
 #else
@@ -535,7 +536,7 @@ namespace bongocat::config {
 #endif
 
             // check for ms pets (clippy)
-#ifdef FEATURE_CLIPPY_EMBEDDED_ASSETS
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
             if (strcmp(lower_value, "clippy") == 0) {
                 config.animation_index = CLIPPY_ANIM_INDEX;
                 config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
