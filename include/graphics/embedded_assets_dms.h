@@ -7,6 +7,7 @@
 #if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS)
 // Fallback dm (minimal set)
 #define FEATURE_MIN_DM_EMBEDDED_ASSETS
+// DM_ANIM_START_INDEX is defined in embedded_assets.h
 #include "embedded_assets/min_dm.hpp"
 namespace bongocat::assets {
     inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT;
@@ -18,7 +19,11 @@ namespace bongocat::assets {
 #else
 // dm
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
+// DM_ANIM_START_INDEX is defined in embedded_assets.h
 #include "embedded_assets/dm.hpp"
+namespace bongocat::assets {
+    extern embedded_image_t get_dm_sprite_sheet(size_t i);
+}
 #endif
 
 // dm20

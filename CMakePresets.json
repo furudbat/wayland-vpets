@@ -66,7 +66,7 @@
       "displayName": "Release Build (Include and preload all Assets)",
       "description": "Release build with optimizations",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets",
+      "binaryDir": "${sourceDir}/cmake-build-release-preload-assets",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
@@ -80,7 +80,7 @@
       "displayName": "RelWithDebInfo Build (Include and preload all Assets)",
       "description": "Release build with debug info and thread sanitizer",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-assets",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-preload-assets",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "ENABLE_TSAN": "ON",
@@ -117,6 +117,20 @@
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF"
+      }
+    },
+    {
+      "name": "release_all_assets",
+      "displayName": "Release Build with ALL assets (full dm versions)",
+      "description": "Release build with optimizations",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-all-assets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON"
       }
     }
   ],

@@ -31,6 +31,7 @@
 #include "graphics/embedded_assets/min_dm_images.h"
 #endif
 
+
 namespace bongocat::assets {
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #include "embedded_assets/dm_get_sprite_sheet.cpp.inl"

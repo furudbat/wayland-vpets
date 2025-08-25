@@ -122,7 +122,7 @@ namespace bongocat::animation {
 #include "embedded_assets/dm_init_dm_anim.cpp.inl"
 #endif
             // dm20
-#ifdef FEATURE_DM_EMBEDDED_ASSETS
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #include "embedded_assets/dm20_init_dm_anim.cpp.inl"
 #endif
             // dmc
