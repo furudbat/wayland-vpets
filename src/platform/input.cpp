@@ -172,6 +172,19 @@ namespace bongocat::platform::input {
                         }
 
                         input._unique_devices[i].device_path = nullptr;
+#ifndef NDEBUG
+                        if (strcmp(device_path, "stdin") == 0 || strcmp(device_path, "/dev/stdin") == 0) {
+                            // Use stdin as a fake input device for testing
+                            int new_fd = dup(STDIN_FILENO);
+                            if (new_fd >= 0) {
+                                BONGOCAT_LOG_VERBOSE("Using stdin as input device (fd=%d)", new_fd);
+                                input._unique_devices[i].fd = FileDescriptor(new_fd);
+                                input._unique_devices[i].device_path = device_path;
+                                valid_devices++;
+                            }
+                            continue;
+                        }
+#endif
                         input._unique_devices[i].fd = FileDescriptor(open(device_path, O_RDONLY | O_NONBLOCK));
                         if (input._unique_devices[i].fd._fd < 0) {
                             BONGOCAT_LOG_WARNING("Failed to open %s: %s", device_path, strerror(errno));
@@ -377,6 +390,20 @@ namespace bongocat::platform::input {
                         }
                         assert(rd >= 0);
                         if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
+#ifndef NDEBUG
+                            bool skip = false;
+                            for (size_t i = 0; i < input._unique_devices.count; i++) {
+                                if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+                                    const char* device_path = input._unique_devices[i].device_path;
+                                    if (strcmp(device_path, "stdin") == 0 || strcmp(device_path, "/dev/stdin") == 0) {
+                                        // Use stdin as a fake input device for testing
+                                        skip = true;
+                                        break;
+                                    }
+                                }
+                            }
+                            if (skip) continue;
+#endif
                             BONGOCAT_LOG_WARNING("EOF or partial read on fd=%d", pfds[p].fd);
                             close(pfds[p].fd);
                             // pfds[p].fd is only a reference, reset also the owner (unique_fd)
@@ -465,6 +492,14 @@ namespace bongocat::platform::input {
                 size_t valid_devices = 0;
                 for (size_t i = 0; i < input._unique_devices.count; i++) {
                     const char* device_path = input._unique_devices[i].device_path;
+
+#ifndef NDEBUG
+                    if (strcmp(device_path, "stdin") == 0 || strcmp(device_path, "/dev/stdin") == 0) {
+                        //BONGOCAT_LOG_VERBOSE("Using stdin as input device");
+                        valid_devices++;
+                        continue;
+                    }
+#endif
 
                     bool is_valid = false;
                     // Check if existing fd is still valid

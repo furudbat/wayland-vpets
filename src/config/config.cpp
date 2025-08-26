@@ -690,6 +690,7 @@ namespace bongocat::config {
         if (config.num_keyboard_devices == 0) {
             return config_add_keyboard_device(config, DEFAULT_DEVICE);
         }
+
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
@@ -771,6 +772,12 @@ namespace bongocat::config {
                 BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
             }
         }
+
+#ifndef NDEBUG
+        // Add stdin as an extra debug input device
+        config_add_keyboard_device(ret, "/dev/stdin");
+        BONGOCAT_LOG_INFO("Add stdin for debugging: %s", "/dev/stdin");
+#endif
 
         // Log configuration summary
         config_log_summary(ret);
