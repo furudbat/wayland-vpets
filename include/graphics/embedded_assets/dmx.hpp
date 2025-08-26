@@ -1182,7 +1182,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ZERIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t DMX_ZERIMON_ANIM_INDEX = DMX_ANIM_START_INDEX+168;
 
-inline static constexpr size_t DMX_ANIM_COUNT = 169;
+    inline static constexpr size_t DMX_ANIM_COUNT = 169;
 }
 
 #endif // DMX_EMBEDDED_ASSETS_HPP

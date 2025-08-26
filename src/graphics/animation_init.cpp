@@ -116,7 +116,6 @@ namespace bongocat::animation {
             //init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_min_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
 #include "embedded_assets/min_dm_init_dm_anim.cpp.inl"
 #endif
-
             // dm
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #include "embedded_assets/dm_init_dm_anim.cpp.inl"
@@ -125,17 +124,17 @@ namespace bongocat::animation {
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #include "embedded_assets/dm20_init_dm_anim.cpp.inl"
 #endif
-            // dmc
-#ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "embedded_assets/dmc_init_dm_anim.cpp.inl"
+            // pen20
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "embedded_assets/pen20_init_dm_anim.cpp.inl"
 #endif
             // dmx
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
 #include "embedded_assets/dmx_init_dm_anim.cpp.inl"
 #endif
-            // pen20
-#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "embedded_assets/pen20_init_dm_anim.cpp.inl"
+            // dmc
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+#include "embedded_assets/dmc_init_dm_anim.cpp.inl"
 #endif
         }
 #endif

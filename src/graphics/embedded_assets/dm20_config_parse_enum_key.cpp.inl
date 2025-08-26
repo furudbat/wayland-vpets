@@ -169,9 +169,6 @@ if (strncmp(lower_value, "greymon", sizeof("greymon") - 1) == 0) {
 if (strncmp(lower_value, "groundramon", sizeof("groundramon") - 1) == 0) {
     config.animation_index = DM20_GROUNDRAMON_ANIM_INDEX;
 }
-if (strncmp(lower_value, "hack_egg", sizeof("hack_egg") - 1) == 0) {
-    config.animation_index = DM20_HACK_EGG_ANIM_INDEX;
-}
 if (strncmp(lower_value, "hackmon", sizeof("hackmon") - 1) == 0) {
     config.animation_index = DM20_HACKMON_ANIM_INDEX;
 }
@@ -204,9 +201,6 @@ if (strncmp(lower_value, "lekismon", sizeof("lekismon") - 1) == 0) {
 }
 if (strncmp(lower_value, "leomon", sizeof("leomon") - 1) == 0) {
     config.animation_index = DM20_LEOMON_ANIM_INDEX;
-}
-if (strncmp(lower_value, "luna_egg", sizeof("luna_egg") - 1) == 0) {
-    config.animation_index = DM20_LUNA_EGG_ANIM_INDEX;
 }
 if (strncmp(lower_value, "lunamon", sizeof("lunamon") - 1) == 0) {
     config.animation_index = DM20_LUNAMON_ANIM_INDEX;

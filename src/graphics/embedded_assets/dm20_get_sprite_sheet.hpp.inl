@@ -58,7 +58,6 @@ constexpr embedded_image_t get_dm20_sprite_sheet(size_t i) {
         case DM20_GRACE_NOVAMON_ANIM_INDEX: return {dm20_grace_novamon_png, dm20_grace_novamon_png_size, "embedded grace_novamon"};
         case DM20_GREYMON_ANIM_INDEX: return {dm20_greymon_png, dm20_greymon_png_size, "embedded greymon"};
         case DM20_GROUNDRAMON_ANIM_INDEX: return {dm20_groundramon_png, dm20_groundramon_png_size, "embedded groundramon"};
-        case DM20_HACK_EGG_ANIM_INDEX: return {dm20_hack_egg_png, dm20_hack_egg_png_size, "embedded hack_egg"};
         case DM20_HACKMON_ANIM_INDEX: return {dm20_hackmon_png, dm20_hackmon_png_size, "embedded hackmon"};
         case DM20_HI_ANDROMON_ANIM_INDEX: return {dm20_hi_andromon_png, dm20_hi_andromon_png_size, "embedded hi_andromon"};
         case DM20_JESMON_ANIM_INDEX: return {dm20_jesmon_png, dm20_jesmon_png_size, "embedded jesmon"};
@@ -70,7 +69,6 @@ constexpr embedded_image_t get_dm20_sprite_sheet(size_t i) {
         case DM20_KUWAGAMON_ANIM_INDEX: return {dm20_kuwagamon_png, dm20_kuwagamon_png_size, "embedded kuwagamon"};
         case DM20_LEKISMON_ANIM_INDEX: return {dm20_lekismon_png, dm20_lekismon_png_size, "embedded lekismon"};
         case DM20_LEOMON_ANIM_INDEX: return {dm20_leomon_png, dm20_leomon_png_size, "embedded leomon"};
-        case DM20_LUNA_EGG_ANIM_INDEX: return {dm20_luna_egg_png, dm20_luna_egg_png_size, "embedded luna_egg"};
         case DM20_LUNAMON_ANIM_INDEX: return {dm20_lunamon_png, dm20_lunamon_png_size, "embedded lunamon"};
         case DM20_MAMEMON_ANIM_INDEX: return {dm20_mamemon_png, dm20_mamemon_png_size, "embedded mamemon"};
         case DM20_MEGADRAMON_ANIM_INDEX: return {dm20_megadramon_png, dm20_megadramon_png_size, "embedded megadramon"};

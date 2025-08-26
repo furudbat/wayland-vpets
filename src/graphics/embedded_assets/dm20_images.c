@@ -402,13 +402,6 @@ const unsigned char dm20_groundramon_png[] = {
 const size_t dm20_groundramon_png_size = sizeof(dm20_groundramon_png);
 
 
-// Name: Hack Egg
-const unsigned char dm20_hack_egg_png[] = {
-#embed "../../../assets/dm20/Hack Egg.png"
-};
-const size_t dm20_hack_egg_png_size = sizeof(dm20_hack_egg_png);
-
-
 // Name: Hackmon
 const unsigned char dm20_hackmon_png[] = {
 #embed "../../../assets/dm20/Hackmon.png"
@@ -484,13 +477,6 @@ const unsigned char dm20_leomon_png[] = {
 #embed "../../../assets/dm20/Leomon.png"
 };
 const size_t dm20_leomon_png_size = sizeof(dm20_leomon_png);
-
-
-// Name: Luna Egg
-const unsigned char dm20_luna_egg_png[] = {
-#embed "../../../assets/dm20/Luna Egg.png"
-};
-const size_t dm20_luna_egg_png_size = sizeof(dm20_luna_egg_png);
 
 
 // Name: Lunamon

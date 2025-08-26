@@ -512,21 +512,20 @@ namespace bongocat::config {
             //}
 #include "../graphics/embedded_assets/min_dm_config_parse_enum_key.cpp.inl"
 #endif
-
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #include "../graphics/embedded_assets/dm_config_parse_enum_key.cpp.inl"
 #endif
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #include "../graphics/embedded_assets/dm20_config_parse_enum_key.cpp.inl"
 #endif
-#ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "../graphics/embedded_assets/dmc_config_parse_enum_key.cpp.inl"
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/pen20_config_parse_enum_key.cpp.inl"
 #endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
 #include "../graphics/embedded_assets/dmx_config_parse_enum_key.cpp.inl"
 #endif
-#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "../graphics/embedded_assets/pen20_config_parse_enum_key.cpp.inl"
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/dmc_config_parse_enum_key.cpp.inl"
 #endif
             /// @NOTE(config): add more dm versions here
 

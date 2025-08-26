@@ -134,7 +134,8 @@
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -151,6 +152,26 @@
         "FEATURE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "debug_all_assets_preload",
+      "displayName": "Debug Build",
+      "description": "Debug build with sanitizers",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-preload",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PRELOAD_ASSETS": "ON"
       }
     }
   ],

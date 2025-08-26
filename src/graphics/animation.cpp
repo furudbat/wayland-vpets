@@ -260,55 +260,23 @@ namespace bongocat::animation {
         }
         // Sleep animation
         if (current_config.enable_scheduled_sleep && is_sleep_time(current_config)) {
-            // toggle sleep frame (if 2 frame exists for sleeping)
-            if (current_frame == DM_FRAME_SLEEP1) {
-                if (current_frames.sleep_2.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP2;
-                    new_end_frame_index = DM_FRAME_SLEEP2;
-                    new_frame = DM_FRAME_SLEEP2;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.sleep1.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP1;
-                    new_end_frame_index = DM_FRAME_SLEEP1;
-                    new_frame = DM_FRAME_SLEEP1;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.down1.valid) {
-                    BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
-                    // fallback frame
-                    new_start_frame_index = DM_FRAME_DOWN1;
-                    new_end_frame_index = DM_FRAME_DOWN1;
-                    new_frame = DM_FRAME_DOWN1;
-                    new_row_state = animation_state_row_t::Sleep;
-                }
-            } else if (current_frame == DM_FRAME_SLEEP2) {
-                if (current_frames.sleep1.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP1;
-                    new_end_frame_index = DM_FRAME_SLEEP1;
-                    new_frame = DM_FRAME_SLEEP1;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.down1.valid) {
-                    BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
-                    // fallback frame
-                    new_start_frame_index = DM_FRAME_DOWN1;
-                    new_end_frame_index = DM_FRAME_DOWN1;
-                    new_frame = DM_FRAME_DOWN1;
-                    new_row_state = animation_state_row_t::Sleep;
-                }
-            } else {
-                // start sleeping
-                if (current_frames.sleep1.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP1;
-                    new_end_frame_index = DM_FRAME_SLEEP1;
-                    new_frame = DM_FRAME_SLEEP1;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.down1.valid) {
-                    BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
-                    // fallback frame
-                    new_start_frame_index = DM_FRAME_DOWN1;
-                    new_end_frame_index = DM_FRAME_DOWN1;
-                    new_frame = DM_FRAME_DOWN1;
-                    new_row_state = animation_state_row_t::Sleep;
-                }
+            if (current_frames.sleep_2.valid) {
+                new_start_frame_index = DM_FRAME_SLEEP2;
+                new_end_frame_index = DM_FRAME_SLEEP2;
+                new_frame = DM_FRAME_SLEEP1;
+                new_row_state = animation_state_row_t::Sleep;
+            } else if (current_frames.sleep1.valid) {
+                new_start_frame_index = DM_FRAME_SLEEP1;
+                new_end_frame_index = DM_FRAME_SLEEP1;
+                new_frame = DM_FRAME_SLEEP1;
+                new_row_state = animation_state_row_t::Sleep;
+            } else if (current_frames.down1.valid) {
+                BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
+                // fallback frame
+                new_start_frame_index = DM_FRAME_DOWN1;
+                new_end_frame_index = DM_FRAME_DOWN1;
+                new_frame = DM_FRAME_DOWN1;
+                new_row_state = animation_state_row_t::Sleep;
             }
         }
         // Idle Sleep

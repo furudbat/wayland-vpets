@@ -233,10 +233,6 @@ extern const size_t dm20_greymon_png_size;
 extern const unsigned char dm20_groundramon_png[];
 extern const size_t dm20_groundramon_png_size;
 
-// Name: Hack Egg
-extern const unsigned char dm20_hack_egg_png[];
-extern const size_t dm20_hack_egg_png_size;
-
 // Name: Hackmon
 extern const unsigned char dm20_hackmon_png[];
 extern const size_t dm20_hackmon_png_size;
@@ -280,10 +276,6 @@ extern const size_t dm20_lekismon_png_size;
 // Name: Leomon
 extern const unsigned char dm20_leomon_png[];
 extern const size_t dm20_leomon_png_size;
-
-// Name: Luna Egg
-extern const unsigned char dm20_luna_egg_png[];
-extern const size_t dm20_luna_egg_png_size;
 
 // Name: Lunamon
 extern const unsigned char dm20_lunamon_png[];

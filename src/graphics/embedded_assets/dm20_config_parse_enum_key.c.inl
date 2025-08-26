@@ -169,9 +169,6 @@ if (strcmp(lower_value, "greymon") == 0) {
 if (strcmp(lower_value, "groundramon") == 0) {
     config->animation_index = DM20_GROUNDRAMON_ANIM_INDEX;
 }
-if (strcmp(lower_value, "hack_egg") == 0) {
-    config->animation_index = DM20_HACK_EGG_ANIM_INDEX;
-}
 if (strcmp(lower_value, "hackmon") == 0) {
     config->animation_index = DM20_HACKMON_ANIM_INDEX;
 }
@@ -204,9 +201,6 @@ if (strcmp(lower_value, "lekismon") == 0) {
 }
 if (strcmp(lower_value, "leomon") == 0) {
     config->animation_index = DM20_LEOMON_ANIM_INDEX;
-}
-if (strcmp(lower_value, "luna_egg") == 0) {
-    config->animation_index = DM20_LUNA_EGG_ANIM_INDEX;
 }
 if (strcmp(lower_value, "lunamon") == 0) {
     config->animation_index = DM20_LUNAMON_ANIM_INDEX;

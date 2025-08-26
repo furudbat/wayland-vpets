@@ -110,11 +110,21 @@ for FILE in "$INPUT_DIR"/*.png; do
     if [[ -n "$FRAME_SIZE" ]]; then
         OG_FILE="$OG_INPUT_DIR/$BASENAME"
         if [ -f "$OG_FILE" ]; then
-            SHEET_WIDTH=$(magick identify -format "%w" "$OG_FILE")
-            SHEET_HEIGHT=$(magick identify -format "%h" "$OG_FILE")
+          SHEET_WIDTH=$(magick identify -format "%w" "$OG_FILE")
+          SHEET_HEIGHT=$(magick identify -format "%h" "$OG_FILE")
 
-            COLS=$(( SHEET_WIDTH / FRAME_SIZE ))
-            ROWS=$(( SHEET_HEIGHT / FRAME_SIZE ))
+          # Compute cols/rows based on fixed frame size
+          if [[ -n "$FRAME_SIZE" ]]; then
+              COLS=$(( SHEET_WIDTH / FRAME_SIZE ))
+              ROWS=$(( SHEET_HEIGHT / FRAME_SIZE ))
+          else
+              # fallback if frame size not specified
+              COLS=1
+              ROWS=$(( SHEET_HEIGHT / SHEET_WIDTH ))
+          fi
+
+          # Frames count is always original width*height / (frame_size^2)
+          FRAMES_COUNT=$(( (SHEET_WIDTH / FRAME_SIZE) * (SHEET_HEIGHT / FRAME_SIZE) ))
         else
             COLS=0
             ROWS=0
@@ -122,7 +132,6 @@ for FILE in "$INPUT_DIR"/*.png; do
             continue
         fi
     fi
-    FRAMES_COUNT=$(( COLS * ROWS ))
 
     NAME_NO_EXT="${BASENAME%.png}"
     NAME_CLEAN=$(echo "$NAME_NO_EXT" | sed "s/['().:]//g")

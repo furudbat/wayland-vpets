@@ -405,658 +405,644 @@ namespace bongocat::assets {
     inline static constexpr size_t DM20_GROUNDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t DM20_GROUNDRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+57;
 
-    // Name: Hack Egg
-    inline static constexpr const char* DM20_HACK_EGG_NAME = "Hack Egg";
-    inline static constexpr int DM20_HACK_EGG_SPRITE_SHEET_COLS = 7;
-    inline static constexpr int DM20_HACK_EGG_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr size_t DM20_HACK_EGG_SPRITE_SHEET_FRAMES_COUNT = 7;
-    inline static constexpr size_t DM20_HACK_EGG_ANIM_INDEX = DM20_ANIM_START_INDEX+58;
-
     // Name: Hackmon
     inline static constexpr const char* DM20_HACKMON_NAME = "Hackmon";
     inline static constexpr int DM20_HACKMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_HACKMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_HACKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_HACKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+59;
+    inline static constexpr size_t DM20_HACKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+58;
 
     // Name: Hi Andromon
     inline static constexpr const char* DM20_HI_ANDROMON_NAME = "Hi Andromon";
     inline static constexpr int DM20_HI_ANDROMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_HI_ANDROMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_HI_ANDROMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_HI_ANDROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+60;
+    inline static constexpr size_t DM20_HI_ANDROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+59;
 
     // Name: Jesmon
     inline static constexpr const char* DM20_JESMON_NAME = "Jesmon";
     inline static constexpr int DM20_JESMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_JESMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_JESMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_JESMON_ANIM_INDEX = DM20_ANIM_START_INDEX+61;
+    inline static constexpr size_t DM20_JESMON_ANIM_INDEX = DM20_ANIM_START_INDEX+60;
 
     // Name: Jijimon
     inline static constexpr const char* DM20_JIJIMON_NAME = "Jijimon";
     inline static constexpr int DM20_JIJIMON_SPRITE_SHEET_COLS = 4;
     inline static constexpr int DM20_JIJIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_JIJIMON_SPRITE_SHEET_FRAMES_COUNT = 4;
-    inline static constexpr size_t DM20_JIJIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+62;
+    inline static constexpr size_t DM20_JIJIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+61;
 
     // Name: Kabuterimon
     inline static constexpr const char* DM20_KABUTERIMON_NAME = "Kabuterimon";
     inline static constexpr int DM20_KABUTERIMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_KABUTERIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_KABUTERIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_KABUTERIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+63;
+    inline static constexpr size_t DM20_KABUTERIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+62;
 
     // Name: King Etemon
     inline static constexpr const char* DM20_KING_ETEMON_NAME = "King Etemon";
     inline static constexpr int DM20_KING_ETEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_KING_ETEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_KING_ETEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_KING_ETEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+64;
+    inline static constexpr size_t DM20_KING_ETEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+63;
 
     // Name: Koromon
     inline static constexpr const char* DM20_KOROMON_NAME = "Koromon";
     inline static constexpr int DM20_KOROMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_KOROMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_KOROMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_KOROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+65;
+    inline static constexpr size_t DM20_KOROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+64;
 
     // Name: Kunemon
     inline static constexpr const char* DM20_KUNEMON_NAME = "Kunemon";
     inline static constexpr int DM20_KUNEMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_KUNEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_KUNEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_KUNEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+66;
+    inline static constexpr size_t DM20_KUNEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+65;
 
     // Name: Kuwagamon
     inline static constexpr const char* DM20_KUWAGAMON_NAME = "Kuwagamon";
     inline static constexpr int DM20_KUWAGAMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_KUWAGAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_KUWAGAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_KUWAGAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+67;
+    inline static constexpr size_t DM20_KUWAGAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+66;
 
     // Name: Lekismon
     inline static constexpr const char* DM20_LEKISMON_NAME = "Lekismon";
     inline static constexpr int DM20_LEKISMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_LEKISMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_LEKISMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_LEKISMON_ANIM_INDEX = DM20_ANIM_START_INDEX+68;
+    inline static constexpr size_t DM20_LEKISMON_ANIM_INDEX = DM20_ANIM_START_INDEX+67;
 
     // Name: Leomon
     inline static constexpr const char* DM20_LEOMON_NAME = "Leomon";
     inline static constexpr int DM20_LEOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_LEOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_LEOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_LEOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+69;
-
-    // Name: Luna Egg
-    inline static constexpr const char* DM20_LUNA_EGG_NAME = "Luna Egg";
-    inline static constexpr int DM20_LUNA_EGG_SPRITE_SHEET_COLS = 7;
-    inline static constexpr int DM20_LUNA_EGG_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr size_t DM20_LUNA_EGG_SPRITE_SHEET_FRAMES_COUNT = 7;
-    inline static constexpr size_t DM20_LUNA_EGG_ANIM_INDEX = DM20_ANIM_START_INDEX+70;
+    inline static constexpr size_t DM20_LEOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+68;
 
     // Name: Lunamon
     inline static constexpr const char* DM20_LUNAMON_NAME = "Lunamon";
     inline static constexpr int DM20_LUNAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_LUNAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_LUNAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_LUNAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+71;
+    inline static constexpr size_t DM20_LUNAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+69;
 
     // Name: Mamemon
     inline static constexpr const char* DM20_MAMEMON_NAME = "Mamemon";
     inline static constexpr int DM20_MAMEMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_MAMEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MAMEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_MAMEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+72;
+    inline static constexpr size_t DM20_MAMEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+70;
 
     // Name: Megadramon
     inline static constexpr const char* DM20_MEGADRAMON_NAME = "Megadramon";
     inline static constexpr int DM20_MEGADRAMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_MEGADRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MEGADRAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_MEGADRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+73;
+    inline static constexpr size_t DM20_MEGADRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+71;
 
     // Name: Meicoomon
     inline static constexpr const char* DM20_MEICOOMON_NAME = "Meicoomon";
     inline static constexpr int DM20_MEICOOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_MEICOOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MEICOOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_MEICOOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+74;
+    inline static constexpr size_t DM20_MEICOOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+72;
 
     // Name: Meicrackmon
     inline static constexpr const char* DM20_MEICRACKMON_NAME = "Meicrackmon";
     inline static constexpr int DM20_MEICRACKMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_MEICRACKMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MEICRACKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_MEICRACKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+75;
+    inline static constexpr size_t DM20_MEICRACKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+73;
 
     // Name: Meramon
     inline static constexpr const char* DM20_MERAMON_NAME = "Meramon";
     inline static constexpr int DM20_MERAMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_MERAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MERAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_MERAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+76;
+    inline static constexpr size_t DM20_MERAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+74;
 
     // Name: Metal Garurumon
     inline static constexpr const char* DM20_METAL_GARURUMON_NAME = "Metal Garurumon";
     inline static constexpr int DM20_METAL_GARURUMON_SPRITE_SHEET_COLS = 12;
     inline static constexpr int DM20_METAL_GARURUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_METAL_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t DM20_METAL_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+77;
+    inline static constexpr size_t DM20_METAL_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+75;
 
     // Name: Metal Greymon
     inline static constexpr const char* DM20_METAL_GREYMON_NAME = "Metal Greymon";
     inline static constexpr int DM20_METAL_GREYMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_METAL_GREYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_METAL_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_METAL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+78;
+    inline static constexpr size_t DM20_METAL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+76;
 
     // Name: Metal Greymon (Virus)
     inline static constexpr const char* DM20_METAL_GREYMON_VIRUS_NAME = "Metal Greymon (Virus)";
     inline static constexpr int DM20_METAL_GREYMON_VIRUS_SPRITE_SHEET_COLS = 8;
     inline static constexpr int DM20_METAL_GREYMON_VIRUS_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_METAL_GREYMON_VIRUS_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t DM20_METAL_GREYMON_VIRUS_ANIM_INDEX = DM20_ANIM_START_INDEX+79;
+    inline static constexpr size_t DM20_METAL_GREYMON_VIRUS_ANIM_INDEX = DM20_ANIM_START_INDEX+77;
 
     // Name: Metal Mamemon
     inline static constexpr const char* DM20_METAL_MAMEMON_NAME = "Metal Mamemon";
     inline static constexpr int DM20_METAL_MAMEMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_METAL_MAMEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_METAL_MAMEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_METAL_MAMEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+80;
+    inline static constexpr size_t DM20_METAL_MAMEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+78;
 
     // Name: Metal Tyranomon
     inline static constexpr const char* DM20_METAL_TYRANOMON_NAME = "Metal Tyranomon";
     inline static constexpr int DM20_METAL_TYRANOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_METAL_TYRANOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_METAL_TYRANOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_METAL_TYRANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+81;
+    inline static constexpr size_t DM20_METAL_TYRANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+79;
 
     // Name: Mojyamon
     inline static constexpr const char* DM20_MOJYAMON_NAME = "Mojyamon";
     inline static constexpr int DM20_MOJYAMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_MOJYAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MOJYAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_MOJYAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+82;
+    inline static constexpr size_t DM20_MOJYAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+80;
 
     // Name: Monchromon
     inline static constexpr const char* DM20_MONCHROMON_NAME = "Monchromon";
     inline static constexpr int DM20_MONCHROMON_SPRITE_SHEET_COLS = 8;
     inline static constexpr int DM20_MONCHROMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MONCHROMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t DM20_MONCHROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+83;
+    inline static constexpr size_t DM20_MONCHROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+81;
 
     // Name: Monochromon
     inline static constexpr const char* DM20_MONOCHROMON_NAME = "Monochromon";
     inline static constexpr int DM20_MONOCHROMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_MONOCHROMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MONOCHROMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_MONOCHROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+84;
+    inline static constexpr size_t DM20_MONOCHROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+82;
 
     // Name: Monzaemon
     inline static constexpr const char* DM20_MONZAEMON_NAME = "Monzaemon";
     inline static constexpr int DM20_MONZAEMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_MONZAEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_MONZAEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+85;
+    inline static constexpr size_t DM20_MONZAEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+83;
 
     // Name: Mozaemon
     inline static constexpr const char* DM20_MOZAEMON_NAME = "Mozaemon";
     inline static constexpr int DM20_MOZAEMON_SPRITE_SHEET_COLS = 8;
     inline static constexpr int DM20_MOZAEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MOZAEMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t DM20_MOZAEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+86;
+    inline static constexpr size_t DM20_MOZAEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+84;
 
     // Name: Mugendramon
     inline static constexpr const char* DM20_MUGENDRAMON_NAME = "Mugendramon";
     inline static constexpr int DM20_MUGENDRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_MUGENDRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_MUGENDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_MUGENDRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+87;
+    inline static constexpr size_t DM20_MUGENDRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+85;
 
     // Name: Nanimon
     inline static constexpr const char* DM20_NANIMON_NAME = "Nanimon";
     inline static constexpr int DM20_NANIMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_NANIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_NANIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_NANIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+88;
+    inline static constexpr size_t DM20_NANIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+86;
 
     // Name: Nanomon
     inline static constexpr const char* DM20_NANOMON_NAME = "Nanomon";
     inline static constexpr int DM20_NANOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_NANOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_NANOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_NANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+89;
+    inline static constexpr size_t DM20_NANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+87;
 
     // Name: Numemon
     inline static constexpr const char* DM20_NUMEMON_NAME = "Numemon";
     inline static constexpr int DM20_NUMEMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_NUMEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_NUMEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_NUMEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+90;
+    inline static constexpr size_t DM20_NUMEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+88;
 
     // Name: Nyaromon
     inline static constexpr const char* DM20_NYAROMON_NAME = "Nyaromon";
     inline static constexpr int DM20_NYAROMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_NYAROMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_NYAROMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_NYAROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+91;
+    inline static constexpr size_t DM20_NYAROMON_ANIM_INDEX = DM20_ANIM_START_INDEX+89;
 
     // Name: Ogremon
     inline static constexpr const char* DM20_OGREMON_NAME = "Ogremon";
     inline static constexpr int DM20_OGREMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_OGREMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_OGREMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_OGREMON_ANIM_INDEX = DM20_ANIM_START_INDEX+92;
+    inline static constexpr size_t DM20_OGREMON_ANIM_INDEX = DM20_ANIM_START_INDEX+90;
 
     // Name: Omegamon Alter S
     inline static constexpr const char* DM20_OMEGAMON_ALTER_S_NAME = "Omegamon Alter S";
     inline static constexpr int DM20_OMEGAMON_ALTER_S_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_OMEGAMON_ALTER_S_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_OMEGAMON_ALTER_S_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_OMEGAMON_ALTER_S_ANIM_INDEX = DM20_ANIM_START_INDEX+93;
+    inline static constexpr size_t DM20_OMEGAMON_ALTER_S_ANIM_INDEX = DM20_ANIM_START_INDEX+91;
 
     // Name: Omegamon
     inline static constexpr const char* DM20_OMEGAMON_NAME = "Omegamon";
     inline static constexpr int DM20_OMEGAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_OMEGAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_OMEGAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_OMEGAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+94;
+    inline static constexpr size_t DM20_OMEGAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+92;
 
     // Name: Orgemon
     inline static constexpr const char* DM20_ORGEMON_NAME = "Orgemon";
     inline static constexpr int DM20_ORGEMON_SPRITE_SHEET_COLS = 8;
     inline static constexpr int DM20_ORGEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_ORGEMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t DM20_ORGEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+95;
+    inline static constexpr size_t DM20_ORGEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+93;
 
     // Name: Pagumon
     inline static constexpr const char* DM20_PAGUMON_NAME = "Pagumon";
     inline static constexpr int DM20_PAGUMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_PAGUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PAGUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_PAGUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+96;
+    inline static constexpr size_t DM20_PAGUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+94;
 
     // Name: Pakumon
     inline static constexpr const char* DM20_PAKUMON_NAME = "Pakumon";
     inline static constexpr int DM20_PAKUMON_SPRITE_SHEET_COLS = 12;
     inline static constexpr int DM20_PAKUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PAKUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t DM20_PAKUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+97;
+    inline static constexpr size_t DM20_PAKUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+95;
 
     // Name: Palmon
     inline static constexpr const char* DM20_PALMON_NAME = "Palmon";
     inline static constexpr int DM20_PALMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_PALMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PALMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_PALMON_ANIM_INDEX = DM20_ANIM_START_INDEX+98;
+    inline static constexpr size_t DM20_PALMON_ANIM_INDEX = DM20_ANIM_START_INDEX+96;
 
     // Name: Patamon
     inline static constexpr const char* DM20_PATAMON_NAME = "Patamon";
     inline static constexpr int DM20_PATAMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_PATAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PATAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_PATAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+99;
+    inline static constexpr size_t DM20_PATAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+97;
 
     // Name: Petitmon
     inline static constexpr const char* DM20_PETITMON_NAME = "Petitmon";
     inline static constexpr int DM20_PETITMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_PETITMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PETITMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_PETITMON_ANIM_INDEX = DM20_ANIM_START_INDEX+100;
+    inline static constexpr size_t DM20_PETITMON_ANIM_INDEX = DM20_ANIM_START_INDEX+98;
 
     // Name: Piccolomon
     inline static constexpr const char* DM20_PICCOLOMON_NAME = "Piccolomon";
     inline static constexpr int DM20_PICCOLOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_PICCOLOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PICCOLOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_PICCOLOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+101;
+    inline static constexpr size_t DM20_PICCOLOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+99;
 
     // Name: Pinochimon
     inline static constexpr const char* DM20_PINOCHIMON_NAME = "Pinochimon";
     inline static constexpr int DM20_PINOCHIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_PINOCHIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PINOCHIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_PINOCHIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+102;
+    inline static constexpr size_t DM20_PINOCHIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+100;
 
     // Name: Pitchmon
     inline static constexpr const char* DM20_PITCHMON_NAME = "Pitchmon";
     inline static constexpr int DM20_PITCHMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_PITCHMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PITCHMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_PITCHMON_ANIM_INDEX = DM20_ANIM_START_INDEX+103;
+    inline static constexpr size_t DM20_PITCHMON_ANIM_INDEX = DM20_ANIM_START_INDEX+101;
 
     // Name: Piyomon
     inline static constexpr const char* DM20_PIYOMON_NAME = "Piyomon";
     inline static constexpr int DM20_PIYOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_PIYOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PIYOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_PIYOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+104;
+    inline static constexpr size_t DM20_PIYOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+102;
 
     // Name: Plotmon
     inline static constexpr const char* DM20_PLOTMON_NAME = "Plotmon";
     inline static constexpr int DM20_PLOTMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_PLOTMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PLOTMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_PLOTMON_ANIM_INDEX = DM20_ANIM_START_INDEX+105;
+    inline static constexpr size_t DM20_PLOTMON_ANIM_INDEX = DM20_ANIM_START_INDEX+103;
 
     // Name: Poyomon
     inline static constexpr const char* DM20_POYOMON_NAME = "Poyomon";
     inline static constexpr int DM20_POYOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_POYOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_POYOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_POYOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+106;
+    inline static constexpr size_t DM20_POYOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+104;
 
     // Name: Pukamon
     inline static constexpr const char* DM20_PUKAMON_NAME = "Pukamon";
     inline static constexpr int DM20_PUKAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_PUKAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PUKAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_PUKAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+107;
+    inline static constexpr size_t DM20_PUKAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+105;
 
     // Name: Punimon
     inline static constexpr const char* DM20_PUNIMON_NAME = "Punimon";
     inline static constexpr int DM20_PUNIMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_PUNIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_PUNIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_PUNIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+108;
+    inline static constexpr size_t DM20_PUNIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+106;
 
     // Name: Raremon
     inline static constexpr const char* DM20_RAREMON_NAME = "Raremon";
     inline static constexpr int DM20_RAREMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_RAREMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_RAREMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_RAREMON_ANIM_INDEX = DM20_ANIM_START_INDEX+109;
+    inline static constexpr size_t DM20_RAREMON_ANIM_INDEX = DM20_ANIM_START_INDEX+107;
 
     // Name: Rasielmon
     inline static constexpr const char* DM20_RASIELMON_NAME = "Rasielmon";
     inline static constexpr int DM20_RASIELMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_RASIELMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_RASIELMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_RASIELMON_ANIM_INDEX = DM20_ANIM_START_INDEX+110;
+    inline static constexpr size_t DM20_RASIELMON_ANIM_INDEX = DM20_ANIM_START_INDEX+108;
 
     // Name: Rust Tyranomon
     inline static constexpr const char* DM20_RUST_TYRANOMON_NAME = "Rust Tyranomon";
     inline static constexpr int DM20_RUST_TYRANOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_RUST_TYRANOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_RUST_TYRANOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_RUST_TYRANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+111;
+    inline static constexpr size_t DM20_RUST_TYRANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+109;
 
     // Name: Sakumon
     inline static constexpr const char* DM20_SAKUMON_NAME = "Sakumon";
     inline static constexpr int DM20_SAKUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_SAKUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SAKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_SAKUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+112;
+    inline static constexpr size_t DM20_SAKUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+110;
 
     // Name: Sakuttomon
     inline static constexpr const char* DM20_SAKUTTOMON_NAME = "Sakuttomon";
     inline static constexpr int DM20_SAKUTTOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_SAKUTTOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SAKUTTOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_SAKUTTOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+113;
+    inline static constexpr size_t DM20_SAKUTTOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+111;
 
     // Name: Savior Hackmon
     inline static constexpr const char* DM20_SAVIOR_HACKMON_NAME = "Savior Hackmon";
     inline static constexpr int DM20_SAVIOR_HACKMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_SAVIOR_HACKMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SAVIOR_HACKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_SAVIOR_HACKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+114;
+    inline static constexpr size_t DM20_SAVIOR_HACKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+112;
 
     // Name: Scumon
     inline static constexpr const char* DM20_SCUMON_NAME = "Scumon";
     inline static constexpr int DM20_SCUMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_SCUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SCUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_SCUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+115;
+    inline static constexpr size_t DM20_SCUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+113;
 
     // Name: Seadramon
     inline static constexpr const char* DM20_SEADRAMON_NAME = "Seadramon";
     inline static constexpr int DM20_SEADRAMON_SPRITE_SHEET_COLS = 8;
     inline static constexpr int DM20_SEADRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t DM20_SEADRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+116;
+    inline static constexpr size_t DM20_SEADRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+114;
 
     // Name: Shellmon
     inline static constexpr const char* DM20_SHELLMON_NAME = "Shellmon";
     inline static constexpr int DM20_SHELLMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_SHELLMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SHELLMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_SHELLMON_ANIM_INDEX = DM20_ANIM_START_INDEX+117;
+    inline static constexpr size_t DM20_SHELLMON_ANIM_INDEX = DM20_ANIM_START_INDEX+115;
 
     // Name: Skull Greymon
     inline static constexpr const char* DM20_SKULL_GREYMON_NAME = "Skull Greymon";
     inline static constexpr int DM20_SKULL_GREYMON_SPRITE_SHEET_COLS = 7;
     inline static constexpr int DM20_SKULL_GREYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SKULL_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 7;
-    inline static constexpr size_t DM20_SKULL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+118;
+    inline static constexpr size_t DM20_SKULL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+116;
 
     // Name: Skull Mammon
     inline static constexpr const char* DM20_SKULL_MAMMON_NAME = "Skull Mammon";
     inline static constexpr int DM20_SKULL_MAMMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_SKULL_MAMMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SKULL_MAMMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_SKULL_MAMMON_ANIM_INDEX = DM20_ANIM_START_INDEX+119;
+    inline static constexpr size_t DM20_SKULL_MAMMON_ANIM_INDEX = DM20_ANIM_START_INDEX+117;
 
     // Name: Slayerdramon
     inline static constexpr const char* DM20_SLAYERDRAMON_NAME = "Slayerdramon";
     inline static constexpr int DM20_SLAYERDRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_SLAYERDRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_SLAYERDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_SLAYERDRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+120;
+    inline static constexpr size_t DM20_SLAYERDRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+118;
 
     // Name: Taichi Metal Greymon
     inline static constexpr const char* DM20_TAICHI_METAL_GREYMON_NAME = "Taichi Metal Greymon";
     inline static constexpr int DM20_TAICHI_METAL_GREYMON_SPRITE_SHEET_COLS = 12;
     inline static constexpr int DM20_TAICHI_METAL_GREYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TAICHI_METAL_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t DM20_TAICHI_METAL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+121;
+    inline static constexpr size_t DM20_TAICHI_METAL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+119;
 
     // Name: Taichis Agumon
     inline static constexpr const char* DM20_TAICHIS_AGUMON_NAME = "Taichis Agumon";
     inline static constexpr int DM20_TAICHIS_AGUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_TAICHIS_AGUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TAICHIS_AGUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_TAICHIS_AGUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+122;
+    inline static constexpr size_t DM20_TAICHIS_AGUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+120;
 
     // Name: Taichis Greymon
     inline static constexpr const char* DM20_TAICHIS_GREYMON_NAME = "Taichis Greymon";
     inline static constexpr int DM20_TAICHIS_GREYMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_TAICHIS_GREYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TAICHIS_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_TAICHIS_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+123;
+    inline static constexpr size_t DM20_TAICHIS_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+121;
 
     // Name: Taichis Metal Greymon
     inline static constexpr const char* DM20_TAICHIS_METAL_GREYMON_NAME = "Taichis Metal Greymon";
     inline static constexpr int DM20_TAICHIS_METAL_GREYMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_TAICHIS_METAL_GREYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TAICHIS_METAL_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_TAICHIS_METAL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+124;
+    inline static constexpr size_t DM20_TAICHIS_METAL_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+122;
 
     // Name: Taichis War Greymon
     inline static constexpr const char* DM20_TAICHIS_WAR_GREYMON_NAME = "Taichis War Greymon";
     inline static constexpr int DM20_TAICHIS_WAR_GREYMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_TAICHIS_WAR_GREYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TAICHIS_WAR_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+125;
+    inline static constexpr size_t DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+123;
 
     // Name: Tanemon
     inline static constexpr const char* DM20_TANEMON_NAME = "Tanemon";
     inline static constexpr int DM20_TANEMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_TANEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TANEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_TANEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+126;
+    inline static constexpr size_t DM20_TANEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+124;
 
     // Name: Titamon
     inline static constexpr const char* DM20_TITAMON_NAME = "Titamon";
     inline static constexpr int DM20_TITAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_TITAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TITAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_TITAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+127;
+    inline static constexpr size_t DM20_TITAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+125;
 
     // Name: Tokomon
     inline static constexpr const char* DM20_TOKOMON_NAME = "Tokomon";
     inline static constexpr int DM20_TOKOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_TOKOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TOKOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_TOKOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+128;
+    inline static constexpr size_t DM20_TOKOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+126;
 
     // Name: Tsunomon
     inline static constexpr const char* DM20_TSUNOMON_NAME = "Tsunomon";
     inline static constexpr int DM20_TSUNOMON_SPRITE_SHEET_COLS = 8;
     inline static constexpr int DM20_TSUNOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TSUNOMON_SPRITE_SHEET_FRAMES_COUNT = 8;
-    inline static constexpr size_t DM20_TSUNOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+129;
+    inline static constexpr size_t DM20_TSUNOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+127;
 
     // Name: Tunomon
     inline static constexpr const char* DM20_TUNOMON_NAME = "Tunomon";
     inline static constexpr int DM20_TUNOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_TUNOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TUNOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_TUNOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+130;
+    inline static constexpr size_t DM20_TUNOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+128;
 
     // Name: Tuskmon
     inline static constexpr const char* DM20_TUSKMON_NAME = "Tuskmon";
     inline static constexpr int DM20_TUSKMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_TUSKMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TUSKMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_TUSKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+131;
+    inline static constexpr size_t DM20_TUSKMON_ANIM_INDEX = DM20_ANIM_START_INDEX+129;
 
     // Name: Tyranomon
     inline static constexpr const char* DM20_TYRANOMON_NAME = "Tyranomon";
     inline static constexpr int DM20_TYRANOMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_TYRANOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_TYRANOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_TYRANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+132;
+    inline static constexpr size_t DM20_TYRANOMON_ANIM_INDEX = DM20_ANIM_START_INDEX+130;
 
     // Name: Unimon
     inline static constexpr const char* DM20_UNIMON_NAME = "Unimon";
     inline static constexpr int DM20_UNIMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_UNIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_UNIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_UNIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+133;
+    inline static constexpr size_t DM20_UNIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+131;
 
     // Name: Vademon
     inline static constexpr const char* DM20_VADEMON_NAME = "Vademon";
     inline static constexpr int DM20_VADEMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_VADEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_VADEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_VADEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+134;
+    inline static constexpr size_t DM20_VADEMON_ANIM_INDEX = DM20_ANIM_START_INDEX+132;
 
     // Name: Vegimon
     inline static constexpr const char* DM20_VEGIMON_NAME = "Vegimon";
     inline static constexpr int DM20_VEGIMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_VEGIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_VEGIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_VEGIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+135;
+    inline static constexpr size_t DM20_VEGIMON_ANIM_INDEX = DM20_ANIM_START_INDEX+133;
 
     // Name: War Greymon
     inline static constexpr const char* DM20_WAR_GREYMON_NAME = "War Greymon";
     inline static constexpr int DM20_WAR_GREYMON_SPRITE_SHEET_COLS = 12;
     inline static constexpr int DM20_WAR_GREYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_WAR_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t DM20_WAR_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+136;
+    inline static constexpr size_t DM20_WAR_GREYMON_ANIM_INDEX = DM20_ANIM_START_INDEX+134;
 
     // Name: Were Garurumon
     inline static constexpr const char* DM20_WERE_GARURUMON_NAME = "Were Garurumon";
     inline static constexpr int DM20_WERE_GARURUMON_SPRITE_SHEET_COLS = 12;
     inline static constexpr int DM20_WERE_GARURUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_WERE_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t DM20_WERE_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+137;
+    inline static constexpr size_t DM20_WERE_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+135;
 
     // Name: Whamon
     inline static constexpr const char* DM20_WHAMON_NAME = "Whamon";
     inline static constexpr int DM20_WHAMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_WHAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_WHAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_WHAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+138;
+    inline static constexpr size_t DM20_WHAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+136;
 
     // Name: Wingdramon
     inline static constexpr const char* DM20_WINGDRAMON_NAME = "Wingdramon";
     inline static constexpr int DM20_WINGDRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_WINGDRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_WINGDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_WINGDRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+139;
+    inline static constexpr size_t DM20_WINGDRAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+137;
 
     // Name: Yamato Gabumon
     inline static constexpr const char* DM20_YAMATO_GABUMON_NAME = "Yamato Gabumon";
     inline static constexpr int DM20_YAMATO_GABUMON_SPRITE_SHEET_COLS = 12;
     inline static constexpr int DM20_YAMATO_GABUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YAMATO_GABUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
-    inline static constexpr size_t DM20_YAMATO_GABUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+140;
+    inline static constexpr size_t DM20_YAMATO_GABUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+138;
 
     // Name: Yamatos Gabumon
     inline static constexpr const char* DM20_YAMATOS_GABUMON_NAME = "Yamatos Gabumon";
     inline static constexpr int DM20_YAMATOS_GABUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_YAMATOS_GABUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YAMATOS_GABUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_YAMATOS_GABUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+141;
+    inline static constexpr size_t DM20_YAMATOS_GABUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+139;
 
     // Name: Yamatos Garurumon
     inline static constexpr const char* DM20_YAMATOS_GARURUMON_NAME = "Yamatos Garurumon";
     inline static constexpr int DM20_YAMATOS_GARURUMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_YAMATOS_GARURUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YAMATOS_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_YAMATOS_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+142;
+    inline static constexpr size_t DM20_YAMATOS_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+140;
 
     // Name: Yamatos Metal Garurumon
     inline static constexpr const char* DM20_YAMATOS_METAL_GARURUMON_NAME = "Yamatos Metal Garurumon";
     inline static constexpr int DM20_YAMATOS_METAL_GARURUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_YAMATOS_METAL_GARURUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YAMATOS_METAL_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+143;
+    inline static constexpr size_t DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+141;
 
     // Name: Yamatos Were Garurumon
     inline static constexpr const char* DM20_YAMATOS_WERE_GARURUMON_NAME = "Yamatos Were Garurumon";
     inline static constexpr int DM20_YAMATOS_WERE_GARURUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_YAMATOS_WERE_GARURUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YAMATOS_WERE_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_YAMATOS_WERE_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+144;
+    inline static constexpr size_t DM20_YAMATOS_WERE_GARURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+142;
 
     // Name: Yukidarumon
     inline static constexpr const char* DM20_YUKIDARUMON_NAME = "Yukidarumon";
     inline static constexpr int DM20_YUKIDARUMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_YUKIDARUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YUKIDARUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_YUKIDARUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+145;
+    inline static constexpr size_t DM20_YUKIDARUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+143;
 
     // Name: Yukimi Botamon
     inline static constexpr const char* DM20_YUKIMI_BOTAMON_NAME = "Yukimi Botamon";
     inline static constexpr int DM20_YUKIMI_BOTAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_YUKIMI_BOTAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YUKIMI_BOTAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_YUKIMI_BOTAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+146;
+    inline static constexpr size_t DM20_YUKIMI_BOTAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+144;
 
     // Name: Yuramon
     inline static constexpr const char* DM20_YURAMON_NAME = "Yuramon";
     inline static constexpr int DM20_YURAMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_YURAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_YURAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_YURAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+147;
+    inline static constexpr size_t DM20_YURAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+145;
 
     // Name: Zubaeagermon
     inline static constexpr const char* DM20_ZUBAEAGERMON_NAME = "Zubaeagermon";
     inline static constexpr int DM20_ZUBAEAGERMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_ZUBAEAGERMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_ZUBAEAGERMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_ZUBAEAGERMON_ANIM_INDEX = DM20_ANIM_START_INDEX+148;
+    inline static constexpr size_t DM20_ZUBAEAGERMON_ANIM_INDEX = DM20_ANIM_START_INDEX+146;
 
     // Name: Zubamon
     inline static constexpr const char* DM20_ZUBAMON_NAME = "Zubamon";
     inline static constexpr int DM20_ZUBAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int DM20_ZUBAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_ZUBAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DM20_ZUBAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+149;
+    inline static constexpr size_t DM20_ZUBAMON_ANIM_INDEX = DM20_ANIM_START_INDEX+147;
 
     // Name: Zurumon
     inline static constexpr const char* DM20_ZURUMON_NAME = "Zurumon";
     inline static constexpr int DM20_ZURUMON_SPRITE_SHEET_COLS = 9;
     inline static constexpr int DM20_ZURUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM20_ZURUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
-    inline static constexpr size_t DM20_ZURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+150;
+    inline static constexpr size_t DM20_ZURUMON_ANIM_INDEX = DM20_ANIM_START_INDEX+148;
 
-inline static constexpr size_t DM20_ANIM_COUNT = 151;
+    inline static constexpr size_t DM20_ANIM_COUNT = 149;
 }
 
 #endif // DM20_EMBEDDED_ASSETS_HPP

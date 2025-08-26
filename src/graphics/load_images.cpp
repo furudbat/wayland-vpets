@@ -13,7 +13,6 @@ namespace bongocat::animation {
     // =============================================================================
 
 #if defined(FEATURE_BONGOCAT_EMBEDDED_ASSETS) || defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
-
     bongocat_error_t load_sprite_sheet_from_memory(generic_sprite_sheet_animation_t& out_frames,
                                                   const uint8_t* sprite_data, size_t sprite_data_size,
                                                   int frame_columns, int frame_rows,
@@ -29,8 +28,9 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
+        assert(frame_columns != 0 && frame_rows != 0 && sheet_width % frame_columns == 0 && sheet_height % frame_rows == 0);
         if (frame_columns == 0 || frame_rows == 0 || sheet_width % frame_columns != 0 || sheet_height % frame_rows != 0) {
-            BONGOCAT_LOG_ERROR("Sprite sheet dimensions not divisible by frame grid.");
+            BONGOCAT_LOG_ERROR("Sprite sheet dimensions not divisible by frame grid; frame_columns=%d, frame_rows=%d vs %dx%d sprite size", frame_columns, frame_rows, sheet_width, sheet_height);
             stbi_image_free(sprite_sheet_pixels);
             sprite_sheet_pixels = nullptr;
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
@@ -40,15 +40,14 @@ namespace bongocat::animation {
         const auto frame_height = sheet_height / frame_rows;
         const auto total_frames = frame_columns * frame_rows;
 
-        /*
         assert(MAX_NUM_FRAMES <= INT_MAX);
-        if (total_frames > (int)MAX_NUM_FRAMES) {
+        assert(total_frames <= static_cast<int>(MAX_NUM_FRAMES));
+        if (total_frames > static_cast<int>(MAX_NUM_FRAMES)) {
             BONGOCAT_LOG_ERROR("Sprite Sheet does not fit in out_frames: %d, total_frames: %d", MAX_NUM_FRAMES, total_frames);
             stbi_image_free(sprite_sheet_pixels);
             sprite_sheet_pixels = NULL;
-            return BONGOCAT_ERROR_INVALID_PARAM;
+            return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
         }
-        */
 
         const auto dest_frame_width = frame_width + padding_x*2;
         const auto dest_frame_height = frame_height + padding_y*2;
@@ -236,9 +235,7 @@ namespace bongocat::animation {
         }
         return total_frames;
     }
-#endif
 
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
     int anim_load_sprite_sheet(const config::config_t& config, generic_sprite_sheet_animation_t& anim, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         if (sprite_sheet_cols < 0 || sprite_sheet_rows < 0) {
             return -1;
@@ -266,6 +263,7 @@ namespace bongocat::animation {
     }
 #endif
 
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
     bongocat_error_t load_sprite_sheet_from_memory(ms_pet_sprite_sheet_t& out_frames,
                                               const uint8_t* sprite_data, size_t sprite_data_size,
                                               int frame_columns, int frame_rows,
@@ -281,13 +279,13 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        if (frame_columns == 0 || frame_rows == 0 ||
-            sheet_width % frame_columns != 0 || sheet_height % frame_rows != 0) {
-            BONGOCAT_LOG_ERROR("Sprite sheet dimensions not divisible by frame grid.");
+        assert(frame_columns != 0 && frame_rows != 0 && sheet_width % frame_columns == 0 && sheet_height % frame_rows == 0);
+        if (frame_columns == 0 || frame_rows == 0 || sheet_width % frame_columns != 0 || sheet_height % frame_rows != 0) {
+            BONGOCAT_LOG_ERROR("Sprite sheet dimensions not divisible by frame grid; frame_columns=%d, frame_rows=%d vs %dx%d sprite size", frame_columns, frame_rows, sheet_width, sheet_height);
             stbi_image_free(sprite_sheet_pixels);
             sprite_sheet_pixels = nullptr;
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-            }
+        }
 
         const auto frame_width = sheet_width / frame_columns;
         const auto frame_height = sheet_height / frame_rows;
@@ -378,7 +376,6 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
     bongocat_error_t anim_load_sprite_sheet(const config::config_t& config, ms_pet_sprite_sheet_t& anim, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         if (sprite_sheet_cols < 0 || sprite_sheet_rows < 0) {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
