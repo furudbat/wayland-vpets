@@ -6,6 +6,14 @@ All notable changes to this project will be documented in this file.
 
 _include changes from 1.2.5 (upstream)_
 
+### Added
+- **More Sprites** - add more Digimon sprites (optional)
+  - [dm](https://humulos.com/digimon/dm/)
+  - [dm20](https://humulos.com/digimon/dm20/)
+  - [dmx](https://humulos.com/digimon/dmx/)
+  - [dmc](https://humulos.com/digimon/dmc/)
+
+
 ## [2.1.1] - 2025-08-25
 
 ### Added
