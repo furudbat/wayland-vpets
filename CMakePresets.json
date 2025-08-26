@@ -120,6 +120,24 @@
       }
     },
     {
+      "name": "debug_all_assets",
+      "displayName": "Debug Build",
+      "description": "Debug build with sanitizers",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
       "name": "release_all_assets",
       "displayName": "Release Build with ALL assets (full dm versions)",
       "description": "Release build with optimizations",
@@ -130,7 +148,9 @@
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
       }
     }
   ],

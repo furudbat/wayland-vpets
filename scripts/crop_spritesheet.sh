@@ -67,7 +67,7 @@ FRAME_HEIGHT=$(magick identify -format "%[fx:h/$ROWS]" "$INPUT")
 echo "Splitting into ${COLS}x${ROWS} of ${FRAME_WIDTH}x${FRAME_HEIGHT} frames..."
 
 # === Step 1: Split into individual frames ===
-magick "$INPUT" -crop "${FRAME_WIDTH}x${FRAME_HEIGHT}" +repage +adjoin PNG:"$WORKDIR/frame.png"
+magick "$INPUT" -crop "${FRAME_WIDTH}x${FRAME_HEIGHT}" +repage +adjoin PNG:"$WORKDIR/frame-%04d.png"
 
 # === Step 2: Trim frames and record bounding boxes ===
 MAX_W=0
@@ -76,7 +76,7 @@ MIN_TOP=99999  # track highest pixel
 
 N=0
 for f in "$WORKDIR"/frame-*.png; do
-    NN=$(printf "%04d" "$N")
+    NN=$(printf "%05d" "$N")
     OUT="$WORKDIR/trimmed-frame-$NN.png"
     magick "$f" -trim +repage "$OUT"
 
@@ -112,7 +112,7 @@ fi
 # === Step 3: Create padded, bottom-aligned frames ===
 N=0
 for f in "$WORKDIR"/trimmed-frame-*.png; do
-    NN=$(printf "%04d" "$N")
+    NN=$(printf "%05d" "$N")
     PADDED="$WORKDIR/padded_$NN.png"
 
     echo "Generating padded frame: $PADDED"

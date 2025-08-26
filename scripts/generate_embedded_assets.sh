@@ -171,7 +171,7 @@ echo >> "$C_HEADER_IMAGES_OUT"
 echo "#endif // $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
 
-echo "inline static constexpr size_t ${ASSETS_PREFIX_UPPER}_ANIM_COUNT = $((INDEX-START_INDEX));" >> "$CPP_HEADER_OUT"
+echo "    inline static constexpr size_t ${ASSETS_PREFIX_UPPER}_ANIM_COUNT = $((INDEX-START_INDEX+1));" >> "$CPP_HEADER_OUT"
 echo "}" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "#endif // $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"

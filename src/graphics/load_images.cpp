@@ -407,7 +407,7 @@ namespace bongocat::animation {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        assert(anim_index < BONGOCAT_ANIMATIONS_COUNT);
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < BONGOCAT_ANIMATIONS_COUNT);
         const int sprite_sheet_count = anim_load_embedded_images_into_sprite_sheet(ctx.shm->bongocat_anims[anim_index].sprite_sheet, get_sprite, embedded_images_count);
         if (sprite_sheet_count < 0) {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: index: %d", anim_index);
@@ -425,7 +425,7 @@ namespace bongocat::animation {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        assert(anim_index < DM_ANIMATIONS_COUNT);
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < DM_ANIMATIONS_COUNT);
         const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dm_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (sprite_sheet_count < 0) {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
@@ -443,7 +443,7 @@ namespace bongocat::animation {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        assert(anim_index < MS_AGENTS_ANIMATIONS_COUNT);
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < MS_AGENTS_ANIMATIONS_COUNT);
         const bongocat_error_t result = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->ms_anims[anim_index], sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);

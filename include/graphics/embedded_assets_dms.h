@@ -4,9 +4,11 @@
 #include "embedded_image.h"
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS)
+#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS)
 // Fallback dm (minimal set)
+#ifndef FEATURE_MIN_DM_EMBEDDED_ASSETS
 #define FEATURE_MIN_DM_EMBEDDED_ASSETS
+#endif
 // DM_ANIM_START_INDEX is defined in embedded_assets.h
 #include "embedded_assets/min_dm.hpp"
 namespace bongocat::assets {
@@ -22,12 +24,18 @@ namespace bongocat::assets {
 // DM_ANIM_START_INDEX is defined in embedded_assets.h
 #include "embedded_assets/dm.hpp"
 namespace bongocat::assets {
+    inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT;
+
     extern embedded_image_t get_dm_sprite_sheet(size_t i);
+}
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t DM_ANIM_COUNT = 0;
 }
 #endif
 
 // dm20
-#ifdef FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
 namespace bongocat::assets {
     inline static constexpr size_t DM20_ANIM_START_INDEX = DM_ANIM_START_INDEX+DM_ANIM_COUNT;
 }
@@ -37,12 +45,13 @@ namespace bongocat::assets {
 }
 #else
 namespace bongocat::assets {
+    inline static constexpr size_t DM20_ANIM_START_INDEX = DM_ANIM_START_INDEX+DM_ANIM_COUNT;
     inline static constexpr size_t DM20_ANIM_COUNT = 0;
 }
 #endif
 
 // dmc
-#ifdef FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
 namespace bongocat::assets {
     inline static constexpr size_t DMC_ANIM_START_INDEX = DM20_ANIM_START_INDEX+DM20_ANIM_COUNT;
 }
@@ -52,12 +61,13 @@ namespace bongocat::assets {
 }
 #else
 namespace bongocat::assets {
+    inline static constexpr size_t DMC_ANIM_START_INDEX = DM20_ANIM_START_INDEX+DM20_ANIM_COUNT;
     inline static constexpr size_t DMC_ANIM_COUNT = 0;
 }
 #endif
 
 // dmx
-#ifdef FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
 namespace bongocat::assets {
     inline static constexpr size_t DMX_ANIM_START_INDEX = DMC_ANIM_START_INDEX+DMC_ANIM_COUNT;
 }
@@ -67,12 +77,13 @@ namespace bongocat::assets {
 }
 #else
 namespace bongocat::assets {
+    inline static constexpr size_t DMX_ANIM_START_INDEX = DMC_ANIM_START_INDEX+DMC_ANIM_COUNT;
     inline static constexpr size_t DMX_ANIM_COUNT = 0;
 }
 #endif
 
 // pen20
-#ifdef FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
 namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANIM_START_INDEX = DMX_ANIM_START_INDEX+DMX_ANIM_COUNT;
 }
@@ -82,6 +93,7 @@ namespace bongocat::assets {
 }
 #else
 namespace bongocat::assets {
+    inline static constexpr size_t PEN20_ANIM_START_INDEX = DMX_ANIM_START_INDEX+DMX_ANIM_COUNT;
     inline static constexpr size_t PEN20_ANIM_COUNT = 0;
 }
 #endif

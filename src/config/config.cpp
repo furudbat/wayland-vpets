@@ -506,15 +506,16 @@ namespace bongocat::config {
 
             // check for dm
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
-#include "../graphics/embedded_assets/dm_config_parse_enum_key.cpp.inl"
-#else
+#ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
             //if (strcmp(lower_value, "agumon") == 0) {
             //    config->animation_index = DM_AGUMON_ANIM_INDEX;
             //}
 #include "../graphics/embedded_assets/min_dm_config_parse_enum_key.cpp.inl"
 #endif
 
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/dm_config_parse_enum_key.cpp.inl"
+#endif
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #include "../graphics/embedded_assets/dm20_config_parse_enum_key.cpp.inl"
 #endif
@@ -694,6 +695,7 @@ namespace bongocat::config {
     }
 
     static void config_log_summary(const config_t& config) {
+        using namespace assets;
         BONGOCAT_LOG_DEBUG("Configuration loaded successfully");
         BONGOCAT_LOG_DEBUG("  Overlay Height: %dpx", config.overlay_height);
         switch (config.animation_sprite_sheet_layout) {
@@ -701,12 +703,12 @@ namespace bongocat::config {
                 break;
             case config_animation_sprite_sheet_layout_t::Bongocat:
                 BONGOCAT_LOG_DEBUG("  Cat: %dx%d at offset (%d,%d)",
-                                  config.cat_height, (config.cat_height * assets::BONGOCAT_FRAME_WIDTH) / assets::BONGOCAT_FRAME_HEIGHT,
+                                  config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::Dm:
-                BONGOCAT_LOG_DEBUG("  dm: %02d at offset (%d,%d)",
-                                  config.animation_index,
+                BONGOCAT_LOG_DEBUG("  dm: %03d/%d at offset (%d,%d)",
+                                  config.animation_index, DM_ANIMATIONS_COUNT,
                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::MsAgent:

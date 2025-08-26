@@ -378,7 +378,7 @@ bongocat-find-devices --help
 
 - **CPU:** Any modern x86_64 or ARM64 processor
 - **RAM:** ~24MB (with all assets preloaded)
-- **Storage:** ~1MB executable size (all assets included)
+- **Storage:** ~1.5MB executable size (with all assets included), below 1MB with minimal assets
 - **Compositor:** Wayland with layer shell protocol support
 
 ### Tested Compositors
