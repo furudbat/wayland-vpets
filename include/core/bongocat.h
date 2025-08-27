@@ -30,6 +30,12 @@ namespace bongocat {
     };
 
     namespace features {
+#ifndef NDEBUG
+        inline static constexpr bool Debug = true;
+#else
+        inline static constexpr bool Debug = false;
+#endif
+
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
         inline static constexpr bool EnableBongocatEmbeddedAssets = true;
 #else

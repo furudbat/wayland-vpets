@@ -773,12 +773,6 @@ namespace bongocat::config {
             }
         }
 
-#ifndef NDEBUG
-        // Add stdin as an extra debug input device
-        config_add_keyboard_device(ret, "/dev/stdin");
-        BONGOCAT_LOG_INFO("Add stdin for debugging: %s", "/dev/stdin");
-#endif
-
         // Log configuration summary
         config_log_summary(ret);
 

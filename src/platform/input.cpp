@@ -72,6 +72,49 @@ namespace bongocat::platform::input {
         struct stat fd_st{};
         return fd >= 0 && fstat(fd, &fd_st) == 0 && (S_ISCHR(fd_st.st_mode) && !S_ISLNK(fd_st.st_mode));
     }
+    inline static void trigger_key_press(animation::animation_session_t& trigger_ctx) {
+        assert(trigger_ctx._input);
+        //animation_context_t& anim = trigger_ctx.anim;
+        input_context_t& input = *trigger_ctx._input;
+
+        // read-only config
+        assert(input._local_copy_config != nullptr);
+        const config::config_t& current_config = *input._local_copy_config;
+
+        int timeout = INPUT_POOL_TIMEOUT_MS;
+        if (current_config.input_fps > 0) {
+            timeout = 1000 / current_config.input_fps;
+        } else if (current_config.fps > 0) {
+            timeout = 1000 / current_config.fps / 3;
+        }
+
+        const timestamp_ms_t now = get_current_time_ms();
+        const time_ms_t duration_ms = now - input._latest_kpm_update_ms;
+        time_ms_t min_key_press_check_time_ms = timeout*2;
+        if (current_config.input_fps > 0) {
+            min_key_press_check_time_ms = 2000 / current_config.input_fps;
+        } else if (current_config.fps > 0) {
+            min_key_press_check_time_ms = 2000 / current_config.fps;
+        }
+        if (duration_ms >= min_key_press_check_time_ms) {
+            const int input_kpm_counter = atomic_load(&input._input_kpm_counter);
+            if (input_kpm_counter > 0) {
+                if (duration_ms > 0) {
+                    const double duration_min = static_cast<double>(duration_ms) / 60000.0;
+                    assert(duration_min > 0.0);
+                    input.shm->kpm = static_cast<int>(static_cast<double>(input_kpm_counter) / duration_min);
+                } else {
+                    input.shm->kpm = 0;
+                }
+                atomic_store(&input._input_kpm_counter, 0);
+                input._latest_kpm_update_ms = now;
+            }
+        }
+        input.shm->last_key_pressed_timestamp = now;
+        atomic_fetch_add(&input.shm->input_counter, 1);
+        atomic_fetch_add(&input._input_kpm_counter, 1);
+        animation::trigger(trigger_ctx);
+    }
 
     static void* input_thread(void* arg) {
         assert(arg);
@@ -164,27 +207,12 @@ namespace bongocat::platform::input {
                 if (i < input._unique_paths_indices.count) {
                     if (input._unique_paths_indices[i] < input._device_paths.count) {
                         const char* device_path = input._device_paths[input._unique_paths_indices[i]];
-
                         if (!is_device_valid(device_path)) {
                             // @TODO: better message why it's NOT valid
                             BONGOCAT_LOG_WARNING("Invalid input device: %s", device_path);
                             continue;
                         }
-
                         input._unique_devices[i].device_path = nullptr;
-#ifndef NDEBUG
-                        if (strcmp(device_path, "stdin") == 0 || strcmp(device_path, "/dev/stdin") == 0) {
-                            // Use stdin as a fake input device for testing
-                            int new_fd = dup(STDIN_FILENO);
-                            if (new_fd >= 0) {
-                                BONGOCAT_LOG_VERBOSE("Using stdin as input device (fd=%d)", new_fd);
-                                input._unique_devices[i].fd = FileDescriptor(new_fd);
-                                input._unique_devices[i].device_path = device_path;
-                                valid_devices++;
-                            }
-                            continue;
-                        }
-#endif
                         input._unique_devices[i].fd = FileDescriptor(open(device_path, O_RDONLY | O_NONBLOCK));
                         if (input._unique_devices[i].fd._fd < 0) {
                             BONGOCAT_LOG_WARNING("Failed to open %s: %s", device_path, strerror(errno));
@@ -218,6 +246,14 @@ namespace bongocat::platform::input {
         time_sec_t adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
         pollfd pfds[MAX_POLL_FDS+1];
         input_event ev[INPUT_EVENT_BUF];
+
+        // stdin for testing
+        FileDescriptor test_fd = (features::Debug) ? FileDescriptor(dup(STDIN_FILENO)) : FileDescriptor();
+        if (test_fd._fd >= 0) {
+            /// @TODO: move test_fd into pool
+            fcntl(test_fd._fd, F_SETFL, fcntl(test_fd._fd, F_GETFL) | O_NONBLOCK);
+            BONGOCAT_LOG_INFO("Open stdin for testing (fd=%d)", test_fd._fd);
+        }
 
         atomic_store(&input._capture_input_running, true);
         while (atomic_load(&input._capture_input_running)) {
@@ -291,7 +327,7 @@ namespace bongocat::platform::input {
                                             need_reopen = true;
                                         }
                                     }
-                                    }
+                                }
                             }
                         } else {
                             // FD never opened
@@ -364,14 +400,14 @@ namespace bongocat::platform::input {
                     pthread_cond_broadcast(input.config_reload_cond);
                     assert(&current_config == input._local_copy_config.ptr);
                 }
-
                 BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", gen);
             }
             {
                 platform::LockGuard guard (input.input_lock);
-                // Handle ready devices
                 for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
+                    // Handle ready devices
                     if (pfds[p].revents & POLLIN) {
+                        // handle evdev input
                         const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
                         if (rd < 0) {
                             if (errno == EAGAIN) continue;
@@ -390,20 +426,6 @@ namespace bongocat::platform::input {
                         }
                         assert(rd >= 0);
                         if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
-#ifndef NDEBUG
-                            bool skip = false;
-                            for (size_t i = 0; i < input._unique_devices.count; i++) {
-                                if (input._unique_devices[i].fd._fd == pfds[p].fd) {
-                                    const char* device_path = input._unique_devices[i].device_path;
-                                    if (strcmp(device_path, "stdin") == 0 || strcmp(device_path, "/dev/stdin") == 0) {
-                                        // Use stdin as a fake input device for testing
-                                        skip = true;
-                                        break;
-                                    }
-                                }
-                            }
-                            if (skip) continue;
-#endif
                             BONGOCAT_LOG_WARNING("EOF or partial read on fd=%d", pfds[p].fd);
                             close(pfds[p].fd);
                             // pfds[p].fd is only a reference, reset also the owner (unique_fd)
@@ -418,10 +440,10 @@ namespace bongocat::platform::input {
                             continue;
                         }
 
+                        bool key_pressed = false;
                         assert(rd >= 0);
                         assert(sizeof(input_event) > 0);
                         const auto num_events =  static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
-                        bool key_pressed = false;
                         for (ssize_t j = 0; j < num_events; j++) {
                             if (ev[j].type == EV_KEY && ev[j].value == 1) {
                                 key_pressed = true;
@@ -436,33 +458,10 @@ namespace bongocat::platform::input {
                             }
                         }
 
+
                         const timestamp_ms_t now = get_current_time_ms();
                         if (key_pressed) {
-                            const time_ms_t duration_ms = now - input._latest_kpm_update_ms;
-                            time_ms_t min_key_press_check_time_ms = timeout*2;
-                            if (current_config.input_fps > 0) {
-                                min_key_press_check_time_ms = 2000 / current_config.input_fps;
-                            } else if (current_config.fps > 0) {
-                                min_key_press_check_time_ms = 2000 / current_config.fps;
-                            }
-                            if (duration_ms >= min_key_press_check_time_ms) {
-                                const int input_kpm_counter = atomic_load(&input._input_kpm_counter);
-                                if (input_kpm_counter > 0) {
-                                    if (duration_ms > 0) {
-                                        const double duration_min = static_cast<double>(duration_ms) / 60000.0;
-                                        assert(duration_min > 0.0);
-                                        input.shm->kpm = static_cast<int>(static_cast<double>(input_kpm_counter) / duration_min);
-                                    } else {
-                                        input.shm->kpm = 0;
-                                    }
-                                    atomic_store(&input._input_kpm_counter, 0);
-                                    input._latest_kpm_update_ms = now;
-                                }
-                            }
-                            input.shm->last_key_pressed_timestamp = now;
-                            atomic_fetch_add(&input.shm->input_counter, 1);
-                            atomic_fetch_add(&input._input_kpm_counter, 1);
-                            trigger(trigger_ctx);
+                            trigger_key_press(trigger_ctx);
                         } else {
                             if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
                                 input.shm->kpm = 0;
@@ -485,6 +484,18 @@ namespace bongocat::platform::input {
                         pfds[p].fd = -1;
                     }
                 }
+
+                // simulate test key press by stdin
+                if constexpr (features::Debug) {
+                    if (test_fd._fd >= 0) {
+                        constexpr size_t STDIN_INPUT_BUF = 1;
+                        char buf[STDIN_INPUT_BUF];
+                        ssize_t rd = read(test_fd._fd, buf, sizeof(buf));
+                        if (rd > 0) {
+                            trigger_key_press(trigger_ctx);
+                        }
+                    }
+                }
             }
 
             // Revalidate valid devices
@@ -492,15 +503,6 @@ namespace bongocat::platform::input {
                 size_t valid_devices = 0;
                 for (size_t i = 0; i < input._unique_devices.count; i++) {
                     const char* device_path = input._unique_devices[i].device_path;
-
-#ifndef NDEBUG
-                    if (strcmp(device_path, "stdin") == 0 || strcmp(device_path, "/dev/stdin") == 0) {
-                        //BONGOCAT_LOG_VERBOSE("Using stdin as input device");
-                        valid_devices++;
-                        continue;
-                    }
-#endif
-
                     bool is_valid = false;
                     // Check if existing fd is still valid
                     if (input._unique_devices[i].fd._fd >= 0) {

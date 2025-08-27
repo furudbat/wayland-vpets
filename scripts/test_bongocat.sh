@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-PROGRAM="./cmake-build-debug-all-assets-preload/bongocat"          # path to your program
-CONFIG="./debug.bongocat.conf"  # config file to modify
-INPUT_DEV="/dev/stdin"          # replace with correct device
+#PROGRAM="./cmake-build-debug-all-assets-colored-preload/bongocat"
+#PROGRAM="./cmake-build-debug/bongocat"
+PROGRAM="./build/bongocat"
+
+WORKDIR=$(mktemp -d)
+CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
+cp ./examples/digimon.bongocat.conf $CONFIG
 
 # --- start program ---
 echo "[TEST] Starting program..."
@@ -12,17 +16,23 @@ PID=$!
 echo "[TEST] Program PID = $PID"
 sleep 20
 
+# --- trap cleanup ---
+cleanup() {
+    echo "[TEST] Cleaning up..."
+    kill -9 "$PID" 2>/dev/null || true
+    rm -rf "$WORKDIR"
+}
+trap cleanup EXIT
+
 # --- function to toggle idle_sleep_timeout ---
 toggle_config() {
     if grep -q '^idle_sleep_timeout=10' "$CONFIG"; then
-        echo "[TEST] Changing idle_sleep_timeout=10 → 3600"
-        sed -i 's/^idle_sleep_timeout=10/idle_sleep_timeout=3600/' "$CONFIG"
-    elif grep -q '^idle_sleep_timeout=[0-9]\+' "$CONFIG"; then
-        echo "[TEST] Changing idle_sleep_timeout → 10"
-        sed -i 's/^idle_sleep_timeout=[0-9]\+/idle_sleep_timeout=10/' "$CONFIG"
+        new=3600
     else
-        echo "[WARN] idle_sleep_timeout line not found in config"
+        new=10
     fi
+    echo "[TEST] Setting idle_sleep_timeout=$new"
+    sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=$new/" "$CONFIG"
 }
 
 # --- modify config to trigger hot reload ---
@@ -31,23 +41,41 @@ sleep 5
 toggle_config
 sleep 15
 toggle_config
-sleep 10
+sleep 15
+echo "[TEST] Trigger Sleep"
+sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=10/" "$CONFIG"
 sed -i 's/^enable_scheduled_sleep=0/enable_scheduled_sleep=1/' "$CONFIG"
-sleep 10
+sleep 20
+echo "[TEST] Wake up Sleep"
 printf '\e' > /proc/$PID/fd/0
 sleep 5
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=3600/" "$CONFIG"
 sleep 5
-sed -i 's/^enable_scheduled_sleep=0/enable_scheduled_sleep=1/' "$CONFIG"
-sed -i 's/^idle_sleep_timeout=[0-9]\+/idle_sleep_timeout=3600/' "$CONFIG"
+echo "[TEST] Change animation sprite"
+sed -i -E 's/^animation_name=[A-Za-z_]+/animation_name=agumon/' "$CONFIG"
+sleep 5
+sed -i -E 's/^animation_name=[A-Za-z_]+/animation_name=greymon/' "$CONFIG"
+sleep 1
+
+echo "[TEST] move and delete config..."
+cp $CONFIG "${CONFIG}.bak"
+mv $CONFIG "${CONFIG}.del"
+sleep 5
+rm "${CONFIG}.del"
+rm "${CONFIG}.bak"
+sleep 5
+cp ./examples/digimon.bongocat.conf $CONFIG
+sleep 10
+rm $CONFIG
+sleep 10
+cp ./examples/digimon.bongocat.conf $CONFIG
+sleep 5
 
 # --- simulate pressing ESC ---
 echo "[TEST] Sending ESC key..."
 # Example if stdin is used:
 printf '\e' > /proc/$PID/fd/0
-# Example if /dev/input is used (requires root & evemu):
-# evemu-event "$INPUT_DEV" --type EV_KEY --code KEY_ESC --value 1
-# evemu-event "$INPUT_DEV" --type EV_KEY --code KEY_ESC --value 0
 sleep 5
 printf '\e' > /proc/$PID/fd/0
 sleep 1
@@ -56,12 +84,22 @@ printf '\e' > /proc/$PID/fd/0
 printf '\e' > /proc/$PID/fd/0
 printf '\e' > /proc/$PID/fd/0
 printf '\e' > /proc/$PID/fd/0
+sleep 5
+printf '\e' > /proc/$PID/fd/0
+sleep 1
+printf '\e' > /proc/$PID/fd/0
+sleep 1
+printf '\e' > /proc/$PID/fd/0
+sleep 1
+printf '\e' > /proc/$PID/fd/0
+sleep 5
 
 echo "[TEST] Sending SIGUSR2..."
 kill -USR2 "$PID"
 sleep 5
 kill -USR2 "$PID"
 sleep 10
+# a bit of a spam
 kill -USR2 "$PID"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
@@ -79,13 +117,20 @@ fi
 # --- send SIGTERM ---
 echo "[TEST] Sending SIGTERM..."
 kill -TERM "$PID"
-sleep 10
+sleep 15
 
-# --- wait and check exit status ---
-if wait "$PID"; then
-    EXIT_CODE=0
-else
-    EXIT_CODE=$?
+# wait up to 5 seconds
+for i in {1..5}; do
+    if ! kill -0 "$PID" 2>/dev/null; then
+        break
+    fi
+    sleep 1
+done
+
+# if still alive, force kill
+if kill -0 "$PID" 2>/dev/null; then
+    echo "[TEST] SIGTERM timed out, killing..."
+    exit 1
 fi
 
 echo "[TEST] Program exited with code $EXIT_CODE"
