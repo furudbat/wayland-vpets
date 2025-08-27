@@ -570,6 +570,59 @@ namespace bongocat {
 int main(int argc, char *argv[]) {
     using namespace bongocat;
 
+    /// @TODO: move into tests
+    // sanity check for indexes under different (asset) options
+#ifndef NDEBUG
+    {
+        using namespace assets;
+        // only dm
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DM_ANIM_START_INDEX == 0);
+#endif
+
+        // only dm20 overwrites dm
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DM20_ANIM_START_INDEX == 0);
+#endif
+
+        // only dmx
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DMC_ANIM_START_INDEX == 0);
+#endif
+
+        // only dm20 and dmx
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DM20_ANIM_START_INDEX == 0);
+        static_assert(DMX_ANIM_START_INDEX == 149);
+#endif
+        // only dm and dmx
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DM_ANIM_START_INDEX == 0);
+        static_assert(DMX_ANIM_START_INDEX == 149);
+#endif
+
+        // include all dm version (except dmc): dm, dm20 (overwrites dm), dmx
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DM20_ANIM_START_INDEX == 0);
+        static_assert(DMX_ANIM_START_INDEX == 149);
+#endif
+
+        // include all assets (+ dmc, colored sprites): dm, dm20 (overwrites dm), dmx, dmc
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DM20_ANIM_START_INDEX == 0);
+        static_assert(DMX_ANIM_START_INDEX == 149);
+        static_assert(DMC_ANIM_START_INDEX == 318);
+#endif
+        // include all assets (+ dmc, colored sprites): dm20, dmx, dmc (all modern stuff)
+#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && defined(FEATURE_DMC_EMBEDDED_ASSETS)
+        static_assert(DM20_ANIM_START_INDEX == 0);
+        static_assert(DMX_ANIM_START_INDEX == 149);
+        static_assert(DMC_ANIM_START_INDEX == 318);
+#endif
+    }
+#endif
+
+
     // Initialize error system early
     bongocat::error_init(true); // Enable debug initially
 

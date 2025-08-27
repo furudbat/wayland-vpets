@@ -57,7 +57,7 @@ namespace bongocat::assets {
 /// pen20
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
 namespace bongocat::assets {
-    inline static constexpr size_t PEN20_ANIM_START_INDEX = DM_ANIM_START_INDEX+DM_ANIM_COUNT;
+    inline static constexpr size_t PEN20_ANIM_START_INDEX = DM20_ANIM_START_INDEX+DM20_ANIM_COUNT;
 }
 #include "embedded_assets/pen20.h"
 namespace bongocat::assets {
@@ -65,7 +65,7 @@ namespace bongocat::assets {
 }
 #else
 namespace bongocat::assets {
-    inline static constexpr size_t PEN20_ANIM_START_INDEX = DM_ANIM_START_INDEX+DM_ANIM_COUNT;
+    inline static constexpr size_t PEN20_ANIM_START_INDEX = DM20_ANIM_START_INDEX+DM20_ANIM_COUNT;
     inline static constexpr size_t PEN20_ANIM_COUNT = 0;
 }
 #endif

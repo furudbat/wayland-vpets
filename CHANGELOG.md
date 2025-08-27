@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-## [2.1.2] - 2025-08-26
+## [2.2.0] - 2025-08-26
 
 _include changes from 1.2.5 (upstream)_
 

@@ -52,8 +52,8 @@
     },
     {
       "name": "release_no_logger",
-      "displayName": "Release Build (No Logger)",
-      "description": "Release build with optimizations",
+      "displayName": "Release (No Logger)",
+      "description": "Release without logging",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release-no-logger",
       "cacheVariables": {
@@ -63,8 +63,8 @@
     },
     {
       "name": "release_preload_assets",
-      "displayName": "Release Build (Include and preload all Assets)",
-      "description": "Release build with optimizations",
+      "displayName": "Release (preload assets)",
+      "description": "Release with assets preloaded at the start",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release-preload-assets",
       "cacheVariables": {
@@ -76,25 +76,9 @@
       }
     },
     {
-      "name": "relwithdebinfo_preload_assets",
-      "displayName": "RelWithDebInfo Build (Include and preload all Assets)",
-      "description": "Release build with debug info and thread sanitizer",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-preload-assets",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "ENABLE_TSAN": "ON",
-        "ENABLE_UBSAN": "ON",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_PRELOAD_ASSETS": "ON"
-      }
-    },
-    {
       "name": "debug_only_bongocat",
-      "displayName": "Debug Build (Only Bongocat)",
-      "description": "Debug build with sanitizers enabled",
+      "displayName": "Debug (Only Bongocat)",
+      "description": "Debug build include only bongocat as asset",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-only-bongocat",
       "cacheVariables": {
@@ -108,7 +92,7 @@
     },
     {
       "name": "release_only_bongocat",
-      "displayName": "Release Build (Only Bongocat)",
+      "displayName": "Release (Only Bongocat)",
       "description": "Release build with optimizations",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release-only-bongocat",
@@ -121,10 +105,44 @@
     },
     {
       "name": "debug_all_assets",
-      "displayName": "Debug Build",
-      "description": "Debug build with sanitizers",
+      "displayName": "Debug (All Assets)",
+      "description": "Debug build with ALL assets (full dm versions)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-all-assets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "release_all_assets",
+      "displayName": "Release (All Assets)",
+      "description": "Release build with ALL assets (full dm versions)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-all-assets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "debug_all_assets_colored",
+      "displayName": "Debug (All Assets + colored sprites)",
+      "description": "Debug build with ALL assets (full dm versions + colored sprites) (for testing)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
@@ -139,27 +157,11 @@
       }
     },
     {
-      "name": "release_all_assets",
-      "displayName": "Release Build with ALL assets (full dm versions)",
-      "description": "Release build with optimizations",
+      "name": "debug_all_assets_colored_preload",
+      "displayName": "Debug (All Assets + colored sprites, assets preloaded)",
+      "description": "Debug build with ALL assets (full dm versions + colored sprites), pre-loaded at start (for testing)",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "debug_all_assets_preload",
-      "displayName": "Debug Build",
-      "description": "Debug build with sanitizers",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-preload",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored-preload",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
