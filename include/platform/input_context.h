@@ -32,20 +32,22 @@ namespace bongocat::platform::input {
         Mutex input_lock;
 
         // thread context
-        AllocatedArray<char*> _device_paths;           // local copy of devices (from config)
+        AllocatedArray<char*> _device_paths;            // local copy of devices (from config)
         AllocatedArray<size_t> _unique_paths_indices;
-        size_t _unique_paths_indices_capacity{0};      // keep real _unique_paths_indices count here, shrink _unique_paths_indices.count to used unique_paths_indices
+        size_t _unique_paths_indices_capacity{0};       // keep real _unique_paths_indices count here, shrink _unique_paths_indices.count to used unique_paths_indices
         AllocatedArray<input_unique_file_t> _unique_devices;
 
         // config reload threading
-        pthread_mutex_t *config_reload_mutex{nullptr};
-        FileDescriptor update_config_efd;
+        FileDescriptor update_config_efd;               // get new_gen from here
         atomic_uint64_t config_seen_generation{0};
-        pthread_cond_t *config_reload_cond{nullptr};
-        atomic_uint64_t *config_generation{nullptr};
+        platform::CondVariable config_updated;
 
         // globals (references)
         const config::config_t *_config{nullptr};
+        platform::CondVariable *_configs_reloaded_cond{nullptr};
+        atomic_uint64_t* _config_generation{nullptr};
+        atomic_bool ready;
+        platform::CondVariable init_cond;
 
         input_context_t() = default;
         ~input_context_t() {
@@ -56,76 +58,6 @@ namespace bongocat::platform::input {
         input_context_t& operator=(const input_context_t&) = delete;
         input_context_t(input_context_t&& other) noexcept = delete;
         input_context_t& operator=(input_context_t&& other) noexcept = delete;
-
-        /*
-        /// @TODO: input_lock is not movable, move it into heap, make it movable
-        input_context_t(input_context_t&& other) noexcept
-            : _local_copy_config(bongocat::move(other._local_copy_config)),
-              shm(bongocat::move(other.shm)),
-              _capture_input_running(atomic_load(&other._capture_input_running)),
-              _input_thread(other._input_thread),
-              input_lock(bongocat::move(other.input_lock)),
-              _input_kpm_counter(atomic_load(&other._input_kpm_counter)),
-              _latest_kpm_update_ms(other._latest_kpm_update_ms),
-              _device_paths(bongocat::move(other._device_paths)),
-              _unique_paths_indices(bongocat::move(other._unique_paths_indices)),
-              _unique_paths_indices_capacity(other._unique_paths_indices_capacity),
-              _unique_devices(bongocat::move(other._unique_devices)),
-              config_reload_mutex(other.config_reload_mutex),
-              update_config_efd(bongocat::move(other.update_config_efd)),
-              config_seen_generation(atomic_load(&other.config_seen_generation)),
-              config_reload_cond(other.config_reload_cond),
-              config_generation(other.config_generation),
-              _config(other._config)
-        {
-            other._input_thread = 0;
-            other._capture_input_running = false;
-            other._input_kpm_counter = 0;
-            other._latest_kpm_update_ms = 0;
-            other._unique_paths_indices_capacity = 0;
-            other.config_reload_mutex = nullptr;
-            other.config_reload_cond = nullptr;
-            other.config_generation = nullptr;
-            atomic_store(&other.config_seen_generation, 0);
-            other._config = nullptr;
-        }
-
-        input_context_t& operator=(input_context_t&& other) noexcept {
-            if (this != &other) {
-                cleanup(*this);
-
-                _local_copy_config = bongocat::move(other._local_copy_config);
-                shm = bongocat::move(other.shm);
-                atomic_store(&_capture_input_running, atomic_load(&other._capture_input_running));
-                _input_thread = other._input_thread;
-                input_lock = bongocat::move(other.input_lock);
-                atomic_store(&_input_kpm_counter, atomic_load(&other._input_kpm_counter));
-                _latest_kpm_update_ms = other._latest_kpm_update_ms;
-                _device_paths = bongocat::move(other._device_paths);
-                _unique_paths_indices = bongocat::move(other._unique_paths_indices);
-                _unique_paths_indices_capacity = other._unique_paths_indices_capacity;
-                _unique_devices = bongocat::move(other._unique_devices);
-                config_reload_mutex = other.config_reload_mutex;
-                update_config_efd = bongocat::move(other.update_config_efd);
-                atomic_store(&config_seen_generation, atomic_load(&other.config_seen_generation));
-                config_reload_cond = other.config_reload_cond;
-                config_generation = other.config_generation;
-                _config = other._config;
-
-                other._input_thread = 0;
-                other._capture_input_running = false;
-                other._input_kpm_counter = 0;
-                other._latest_kpm_update_ms = 0;
-                other._unique_paths_indices_capacity = 0;
-                other._config = nullptr;
-                other.config_reload_mutex = nullptr;
-                other.config_reload_cond = nullptr;
-                atomic_store(&other.config_seen_generation, 0);
-                other.config_generation = nullptr;
-            }
-            return *this;
-        }
-        */
     };
     inline void cleanup(input_context_t& ctx) {
         if (atomic_load(&ctx._capture_input_running)) {
@@ -134,6 +66,7 @@ namespace bongocat::platform::input {
         }
         atomic_store(&ctx._capture_input_running, false);
         ctx._input_thread = 0;
+
         release_allocated_array(ctx._unique_devices);
         ctx._unique_paths_indices_capacity = 0;
         release_allocated_array(ctx._unique_paths_indices);
@@ -142,11 +75,18 @@ namespace bongocat::platform::input {
             ctx._device_paths[i] = nullptr;
         }
         release_allocated_array(ctx._device_paths);
-        ctx._config = nullptr;
-        ctx.config_reload_mutex = nullptr;
-        ctx.config_reload_cond = nullptr;
+
+        close_fd(ctx.update_config_efd);
         atomic_store(&ctx.config_seen_generation, 0);
-        ctx.config_generation = nullptr;
+
+        release_allocated_mmap_memory(ctx._local_copy_config);
+        release_allocated_mmap_memory(ctx.shm);
+
+        ctx._config = nullptr;
+        ctx._configs_reloaded_cond = nullptr;
+        ctx._config_generation = nullptr;
+        atomic_store(&ctx.ready, false);
+        ctx.init_cond.notify_all();
     }
 }
 

@@ -76,7 +76,7 @@ namespace bongocat::platform {
             }
         }
         ~LockGuard() {
-            if (const int rc = pthread_mutex_unlock(pt_mutex); rc != 0) {
+          if (const int rc = pthread_mutex_unlock(pt_mutex); rc != 0) {
                 BONGOCAT_LOG_ERROR("LockGuard: pthread_mutex_unlock failed");
             }
         }
@@ -87,8 +87,163 @@ namespace bongocat::platform {
         LockGuard(const LockGuard&&) = delete;
         LockGuard&& operator=(const LockGuard&&) = delete;
 
-        pthread_mutex_t *pt_mutex;
+        pthread_mutex_t *pt_mutex{nullptr};
     };
+
+    struct SingleCondVariable;
+    void cond_destroy(SingleCondVariable& cond);
+    struct SingleCondVariable {
+        Mutex mutex;
+        pthread_cond_t cond;
+        atomic_bool _predicate{false};
+        bool _inited{false};
+
+        SingleCondVariable() {
+            pthread_cond_init(&cond, nullptr);
+            _inited = true;
+        }
+
+        ~SingleCondVariable() {
+            cond_destroy(*this);
+        }
+
+        // No copying, no move
+        SingleCondVariable(const SingleCondVariable&) = delete;
+        SingleCondVariable& operator=(const SingleCondVariable&) = delete;
+        SingleCondVariable(const SingleCondVariable&&) = delete;
+        SingleCondVariable&& operator=(const SingleCondVariable&&) = delete;
+    };
+    inline void cond_destroy(SingleCondVariable& cond) {
+        atomic_store(&cond._predicate, true);
+        if (cond._inited) pthread_cond_broadcast(&cond.cond);
+        if (cond._inited) pthread_cond_destroy(&cond.cond);
+        cond._inited = false;
+    }
+
+    struct CondVariable {
+        CondVariable() {
+            pthread_mutex_init(&_mutex, nullptr);
+            pthread_cond_init(&_cond, nullptr);
+        }
+
+        // No copying, no move
+        CondVariable(const CondVariable&) = delete;
+        CondVariable& operator=(const CondVariable&) = delete;
+        CondVariable(const CondVariable&&) = delete;
+        CondVariable&& operator=(const CondVariable&&) = delete;
+
+        ~CondVariable() {
+            pthread_cond_broadcast(&_cond);
+            pthread_cond_destroy(&_cond);
+            pthread_mutex_destroy(&_mutex);
+        }
+
+        template <typename Predicate>
+        int wait(Predicate&& pred) {
+            int ret = 0;
+            pthread_mutex_lock(&_mutex);
+            while (!pred()) {
+                ret = pthread_cond_wait(&_cond, &_mutex);
+            }
+            pthread_mutex_unlock(&_mutex);
+            return ret;
+        }
+
+        template <typename Predicate>
+        int timed_wait(Predicate&& pred, time_ms_t timeout_ms) {
+            struct timespec ts;
+            clock_gettime(CLOCK_REALTIME, &ts);
+            ts.tv_sec  += timeout_ms / 1000;
+            ts.tv_nsec += (timeout_ms % 1000) * 1000000LL;
+            // normalize time
+            if (ts.tv_nsec >= 1000000000LL) {
+                ts.tv_sec++;
+                ts.tv_nsec -= 1000000000LL;
+            }
+
+            int ret = 0;
+            pthread_mutex_lock(&_mutex);
+            while (!pred()) {
+                ret = pthread_cond_timedwait(&_cond, &_mutex, &ts);
+                if (ret == ETIMEDOUT) {
+                    pthread_mutex_unlock(&_mutex);
+                    return ret;
+                }
+            }
+            pthread_mutex_unlock(&_mutex);
+            return ret;
+        }
+
+        void notify_all() {
+            pthread_mutex_lock(&_mutex);
+            pthread_cond_broadcast(&_cond);
+            pthread_mutex_unlock(&_mutex);
+        }
+
+        pthread_mutex_t _mutex;
+        pthread_cond_t _cond;
+    };
+
+    struct CondVarGuard {
+        explicit CondVarGuard(pthread_mutex_t& m, pthread_cond_t& c, atomic_bool& pred)
+            : _mutex(m), _cond(c), _predicate(pred)
+        {
+            pthread_mutex_lock(&_mutex);
+        }
+        explicit CondVarGuard(SingleCondVariable& cond)
+            : _mutex(cond.mutex.pt_mutex), _cond(cond.cond), _predicate(cond._predicate)
+        {
+            pthread_mutex_lock(&_mutex);
+        }
+
+        ~CondVarGuard() {
+            pthread_mutex_unlock(&_mutex);
+        }
+
+        // No copying, no move
+        CondVarGuard(const CondVarGuard&) = delete;
+        CondVariable& operator=(const CondVarGuard&) = delete;
+        CondVarGuard(const CondVarGuard&&) = delete;
+        CondVarGuard&& operator=(const CondVarGuard&&) = delete;
+
+        // Wait until predicate becomes true
+        int wait() {
+            int ret = 0;
+            while (!atomic_load(&_predicate)) {
+                ret = pthread_cond_wait(&_cond, &_mutex);
+            }
+            return ret;
+        }
+
+        int timedwait(time_ms_t timeout) {
+            struct timespec ts;
+            clock_gettime(CLOCK_REALTIME, &ts);
+            ts.tv_sec  += timeout / 1000;
+            ts.tv_nsec += (timeout % 1000) * 1000000LL;
+            // normalize time
+            if (ts.tv_nsec >= 1000000000LL) {
+                ts.tv_sec++;
+                ts.tv_nsec -= 1000000000LL;
+            }
+
+            int ret = 0;
+            while (!atomic_load(&_predicate)) {
+                ret = pthread_cond_timedwait(&_cond, &_mutex, &ts);
+            }
+            return ret;
+        }
+
+        // Set predicate and signal all waiting threads
+        void notify() {
+            atomic_store(&_predicate, true);
+            pthread_cond_broadcast(&_cond);
+        }
+
+        pthread_mutex_t& _mutex;
+        pthread_cond_t& _cond;
+        atomic_bool& _predicate;
+    };
+
 
     template<typename T>
     struct MMapMemory;

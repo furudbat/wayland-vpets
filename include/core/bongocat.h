@@ -12,6 +12,7 @@ inline static constexpr const char* BONGOCAT_VERSION = "2.1.2";
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
 inline static constexpr int32_t DEFAULT_BAR_HEIGHT = 40;
+static inline constexpr int32_t DEFAULT_FPS = 60;
 inline static constexpr int32_t RGBA_CHANNELS = 4;
 inline static constexpr int32_t BGRA_CHANNELS = 4;
 

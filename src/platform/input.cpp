@@ -17,7 +17,7 @@
 namespace bongocat::platform::input {
     static inline constexpr size_t INPUT_EVENT_BUF = 128;
     static inline constexpr size_t MAX_POLL_FDS = 256;
-    inline static constexpr size_t MAX_ATTEMPTS = 2048;
+    inline static constexpr int MAX_ATTEMPTS = 2048;
 
     static inline constexpr auto INPUT_POOL_TIMEOUT_MS = 10;
 
@@ -26,6 +26,8 @@ namespace bongocat::platform::input {
     static inline constexpr time_sec_t MAX_ADAPTIVE_CHECK_INTERVAL_SEC   = 30;
 
     static inline constexpr time_ms_t RESET_KPM_TIMEOUT_MS = 5 * 1000;
+
+    inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
 
     static void cleanup_input_devices_paths(input_context_t& input, size_t device_paths_count) {
         for (size_t i = 0; i < device_paths_count; i++) {
@@ -36,13 +38,6 @@ namespace bongocat::platform::input {
     }
 
     static void cleanup_input_thread_context(input_context_t& input) {
-        assert(input.config_reload_mutex != nullptr);
-        assert(input.config_reload_cond != nullptr);
-
-        pthread_mutex_lock(input.config_reload_mutex);
-        pthread_cond_broadcast(input.config_reload_cond);
-        pthread_mutex_unlock(input.config_reload_mutex);
-
         cleanup_input_devices_paths(input, input._device_paths.count);
         release_allocated_array(input._device_paths);
         release_allocated_array(input._unique_paths_indices);
@@ -54,12 +49,13 @@ namespace bongocat::platform::input {
         assert(arg);
         animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
         assert(trigger_ctx._input);
-        //animation_context_t& ctx = trigger_ctx.anim;
         input_context_t& input = *trigger_ctx._input;
 
         atomic_store(&input._capture_input_running, false);
 
-        cleanup_input_thread_context(input);
+        input.config_updated.notify_all();
+
+        cleanup_input_thread_context(*trigger_ctx._input);
 
         BONGOCAT_LOG_INFO("Input thread cleanup completed (via pthread_cancel)");
     }
@@ -116,29 +112,30 @@ namespace bongocat::platform::input {
         animation::trigger(trigger_ctx);
     }
 
+
     static void* input_thread(void* arg) {
         assert(arg);
         animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
-        trigger_ctx.input_lock._lock();
-        assert(trigger_ctx._input);
-        //animation_context_t& anim = trigger_ctx.anim;
-        input_context_t& input = *trigger_ctx._input;
 
-        // read-only config
-        assert(input._local_copy_config != nullptr);
-        const config::config_t& current_config = *input._local_copy_config;
-        const bool enable_debug = current_config.enable_debug;
+        // from thread context
+        //animation_context_t& anim = trigger_ctx.anim;
+        // wait for input context (in animation start)
+        trigger_ctx.init_cond.timed_wait([&]() {
+            return atomic_load(&trigger_ctx.ready);
+        }, COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
+        assert(trigger_ctx._input != nullptr);
+        input_context_t& input = *trigger_ctx._input;
 
         // sanity checks
         assert(input._config != nullptr);
-        assert(input.config_reload_mutex != nullptr);
-        assert(input.config_reload_cond != nullptr);
-        assert(input.config_generation != nullptr);
-        //assert(trigger_ctx._input != nullptr);
-        trigger_ctx.input_lock._unlock();
+        assert(input._configs_reloaded_cond != nullptr);
 
         // keep local copies of device_paths
         {
+            // read-only config
+            assert(input._local_copy_config != nullptr);
+            const config::config_t& current_config = *input._local_copy_config;
+
             assert(current_config.num_keyboard_devices >= 0);
             int device_paths_count = current_config.num_keyboard_devices;
             const char *const *device_paths = current_config.keyboard_devices;        // pls don't modify single keyboard_devices (string)
@@ -159,82 +156,86 @@ namespace bongocat::platform::input {
         BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", input._device_paths.count);
 
         // init unique devices
-        input._unique_paths_indices_capacity = input._device_paths.count;
-        input._unique_paths_indices = make_allocated_array_with_value<size_t>(input._unique_paths_indices_capacity, 0);
-        if (!input._unique_paths_indices) {
-            atomic_store(&input._capture_input_running, false);
-            cleanup_input_thread_context(input);
-            BONGOCAT_LOG_ERROR("Failed to allocate memory for file descriptors");
-            return nullptr;
-        }
-        size_t num_unique_devices = 0;
-        // First pass: deduplicate device paths
-        for (size_t i = 0; i < input._device_paths.count; i++) {
-            if (i >= input._unique_paths_indices.count) break;
-            bool is_duplicate = false;
-            for (size_t j = 0; j < input._device_paths.count; j++) {
-                if (j >= input._unique_paths_indices.count) break;
-                if (const char* device_path = input._device_paths[i]; strcmp(device_path, input._device_paths[input._unique_paths_indices[j]]) == 0) {
-                    is_duplicate = true;
-                    break;
-                }
-            }
-
-            if (!is_duplicate && num_unique_devices < input._unique_paths_indices.count) {
-                input._unique_paths_indices[num_unique_devices] = i;
-                num_unique_devices++;
-            }
-        }
-        assert(num_unique_devices <= input._device_paths.count);
-        // shrink size, @NOTE: don't do this with mmap array
-        input._unique_paths_indices.count = num_unique_devices;
-
-        BONGOCAT_LOG_DEBUG("Deduplicated %d devices to %d unique devices", input._device_paths.count, num_unique_devices);
-
-        size_t track_valid_devices = 0;
-        // Open all unique devices
-        if (input._unique_paths_indices.count > 0) {
-            input._unique_devices = make_allocated_array<input_unique_file_t>(input._unique_paths_indices.count);
-            if (!input._unique_devices) {
+        {
+            input._unique_paths_indices_capacity = input._device_paths.count;
+            input._unique_paths_indices = make_allocated_array_with_value<size_t>(input._unique_paths_indices_capacity, 0);
+            if (!input._unique_paths_indices) {
                 atomic_store(&input._capture_input_running, false);
                 cleanup_input_thread_context(input);
                 BONGOCAT_LOG_ERROR("Failed to allocate memory for file descriptors");
                 return nullptr;
             }
-            size_t valid_devices = 0;
-            for (size_t i = 0;i < input._unique_paths_indices.count; i++) {
-                input._unique_devices[i] = {};
-                if (i < input._unique_paths_indices.count) {
-                    if (input._unique_paths_indices[i] < input._device_paths.count) {
-                        const char* device_path = input._device_paths[input._unique_paths_indices[i]];
-                        if (!is_device_valid(device_path)) {
-                            // @TODO: better message why it's NOT valid
-                            BONGOCAT_LOG_WARNING("Invalid input device: %s", device_path);
-                            continue;
-                        }
-                        input._unique_devices[i].device_path = nullptr;
-                        input._unique_devices[i].fd = FileDescriptor(open(device_path, O_RDONLY | O_NONBLOCK));
-                        if (input._unique_devices[i].fd._fd < 0) {
-                            BONGOCAT_LOG_WARNING("Failed to open %s: %s", device_path, strerror(errno));
-                            continue;
-                        }
-                        input._unique_devices[i].device_path = device_path;
-                        valid_devices++;
-
-                        BONGOCAT_LOG_INFO("Input monitoring started on %s (fd=%d)", input._unique_devices[i].device_path, input._unique_devices[i].fd._fd);
+            size_t num_unique_devices = 0;
+            // First pass: deduplicate device paths
+            for (size_t i = 0; i < input._device_paths.count; i++) {
+                if (i >= input._unique_paths_indices.count) break;
+                bool is_duplicate = false;
+                for (size_t j = 0; j < input._device_paths.count; j++) {
+                    if (j >= input._unique_paths_indices.count) break;
+                    if (const char* device_path = input._device_paths[i]; strcmp(device_path, input._device_paths[input._unique_paths_indices[j]]) == 0) {
+                        is_duplicate = true;
+                        break;
                     }
                 }
-            }
-            // Update num_devices to reflect unique devices for the rest of the function
-            if (valid_devices == 0) {
-                atomic_store(&input._capture_input_running, false);
-                BONGOCAT_LOG_ERROR("No valid input devices found");
-                cleanup_input_thread_context(input);
-                return nullptr;
-            }
 
-            track_valid_devices = valid_devices;
-            BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths.count);
+                if (!is_duplicate && num_unique_devices < input._unique_paths_indices.count) {
+                    input._unique_paths_indices[num_unique_devices] = i;
+                    num_unique_devices++;
+                }
+            }
+            assert(num_unique_devices <= input._device_paths.count);
+            // shrink size, @NOTE: don't do this with mmap array
+            input._unique_paths_indices.count = num_unique_devices;
+
+            BONGOCAT_LOG_DEBUG("Deduplicated %d devices to %d unique devices", input._device_paths.count, num_unique_devices);
+        }
+
+        // Open all unique devices
+        size_t track_valid_devices = 0;
+        {
+            if (input._unique_paths_indices.count > 0) {
+                input._unique_devices = make_allocated_array<input_unique_file_t>(input._unique_paths_indices.count);
+                if (!input._unique_devices) {
+                    atomic_store(&input._capture_input_running, false);
+                    cleanup_input_thread_context(input);
+                    BONGOCAT_LOG_ERROR("Failed to allocate memory for file descriptors");
+                    return nullptr;
+                }
+                size_t valid_devices = 0;
+                for (size_t i = 0;i < input._unique_paths_indices.count; i++) {
+                    input._unique_devices[i] = {};
+                    if (i < input._unique_paths_indices.count) {
+                        if (input._unique_paths_indices[i] < input._device_paths.count) {
+                            const char* device_path = input._device_paths[input._unique_paths_indices[i]];
+                            if (!is_device_valid(device_path)) {
+                                // @TODO: better message why it's NOT valid
+                                BONGOCAT_LOG_WARNING("Invalid input device: %s", device_path);
+                                continue;
+                            }
+                            input._unique_devices[i].device_path = nullptr;
+                            input._unique_devices[i].fd = FileDescriptor(open(device_path, O_RDONLY | O_NONBLOCK));
+                            if (input._unique_devices[i].fd._fd < 0) {
+                                BONGOCAT_LOG_WARNING("Failed to open %s: %s", device_path, strerror(errno));
+                                continue;
+                            }
+                            input._unique_devices[i].device_path = device_path;
+                            valid_devices++;
+
+                            BONGOCAT_LOG_INFO("Input monitoring started on %s (fd=%d)", input._unique_devices[i].device_path, input._unique_devices[i].fd._fd);
+                        }
+                    }
+                }
+                // Update num_devices to reflect unique devices for the rest of the function
+                if (valid_devices == 0) {
+                    atomic_store(&input._capture_input_running, false);
+                    BONGOCAT_LOG_ERROR("No valid input devices found");
+                    cleanup_input_thread_context(input);
+                    return nullptr;
+                }
+
+                track_valid_devices = valid_devices;
+                BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths.count);
+            }
         }
 
         // trigger initial render
@@ -242,28 +243,34 @@ namespace bongocat::platform::input {
 
         pthread_cleanup_push(cleanup_input_thread, arg);
 
+        // local thread context
         int check_counter = 0;  // check is done periodically
         time_sec_t adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
+        /// event poll
+        // 0: reload config event
+        // 1+: device events
         pollfd pfds[MAX_POLL_FDS+1];
         input_event ev[INPUT_EVENT_BUF];
-
-        // stdin for testing
-        FileDescriptor test_fd = (features::Debug) ? FileDescriptor(dup(STDIN_FILENO)) : FileDescriptor();
-        if (test_fd._fd >= 0) {
-            /// @TODO: move test_fd into pool
-            fcntl(test_fd._fd, F_SETFL, fcntl(test_fd._fd, F_GETFL) | O_NONBLOCK);
-            BONGOCAT_LOG_INFO("Open stdin for testing (fd=%d)", test_fd._fd);
-        }
 
         atomic_store(&input._capture_input_running, true);
         while (atomic_load(&input._capture_input_running)) {
             pthread_testcancel();  // optional, but makes cancellation more responsive
 
+            // read from config
             int timeout = INPUT_POOL_TIMEOUT_MS;
-            if (current_config.input_fps > 0) {
-                timeout = 1000 / current_config.input_fps;
-            } else if (current_config.fps > 0) {
-                timeout = 1000 / current_config.fps / 3;
+            bool enable_debug = false;
+            {
+                // read-only config
+                assert(input._local_copy_config != nullptr);
+                const config::config_t& current_config = *input._local_copy_config;
+
+                enable_debug = current_config.enable_debug;
+
+                if (current_config.input_fps > 0) {
+                    timeout = 1000 / current_config.input_fps;
+                } else if (current_config.fps > 0) {
+                    timeout = 1000 / current_config.fps / 3;
+                }
             }
 
             // only map valid fds into pfds
@@ -294,14 +301,13 @@ namespace bongocat::platform::input {
                 nfds = MAX_POLL_FDS+1;
             }
 
-            // Handle reload AND device events events
+            // poll events
             const int poll_result = poll(pfds, nfds, timeout);
             if (poll_result < 0) {
                 if (errno == EINTR) continue; // Interrupted by signal
                 BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
                 break;
             }
-
             if (poll_result == 0) {
                 // Timeout — adaptive device checking
                 check_counter++;
@@ -371,12 +377,32 @@ namespace bongocat::platform::input {
                 continue;
             }
 
-            // handle config update
+            // cancel pooling (when not running anymore)
+            if (!atomic_load(&input._capture_input_running)) {
+                // draining pools
+                if (pfds[fds_update_config_index].revents & POLLIN) {
+                    int attempts = 0;
+                    uint64_t u;
+                    while (read(pfds[fds_update_config_index].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                        attempts++;
+                    }
+                }
+                for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
+                    // Handle ready devices
+                    if (pfds[p].revents & POLLIN) {
+                        // discard evdev input
+                        read(pfds[p].fd, ev, sizeof(ev));
+                    }
+                }
+                break;
+            }
+
+            // Handle config update
             if (pfds[fds_update_config_index].revents & POLLIN) {
                 BONGOCAT_LOG_DEBUG("Receive update config event");
-                size_t attempts = 0;
-                uint64_t u;
-                while (read(input.update_config_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                int attempts = 0;
+                uint64_t new_gen;
+                while (read(input.update_config_efd._fd, &new_gen, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
                     attempts++;
                     // continue draining if multiple writes queued
                 }
@@ -390,20 +416,27 @@ namespace bongocat::platform::input {
                     BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
                 }
 #endif
-                uint64_t gen;
+
                 {
-                    platform::LockGuard config_guard(*input.config_reload_mutex);
-                    update_config(input, *input._config);
-                    // Acknowledge this generation
-                    gen = atomic_load(input.config_generation);
-                    atomic_store(&input.config_seen_generation, gen);
-                    pthread_cond_broadcast(input.config_reload_cond);
-                    assert(&current_config == input._local_copy_config.ptr);
+                    assert(input._config_generation != nullptr);
+                    assert(input._configs_reloaded_cond != nullptr);
+                    assert(input._config != nullptr);
+
+                    update_config(input, *input._config, new_gen);
+
+                    // wait for reload config to be done (all configs)
+                    input._configs_reloaded_cond->wait([&] {
+                        return atomic_load(input._config_generation) >= new_gen;
+                    });
                 }
-                BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", gen);
+                BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", new_gen);
             }
+
+            // Handle device events
             {
                 platform::LockGuard guard (input.input_lock);
+                assert(input.shm != nullptr);
+                //auto& input_shm = *input.shm;
                 for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
                     // Handle ready devices
                     if (pfds[p].revents & POLLIN) {
@@ -484,22 +517,14 @@ namespace bongocat::platform::input {
                         pfds[p].fd = -1;
                     }
                 }
-
-                // simulate test key press by stdin
-                if constexpr (features::Debug) {
-                    if (test_fd._fd >= 0) {
-                        constexpr size_t STDIN_INPUT_BUF = 1;
-                        char buf[STDIN_INPUT_BUF];
-                        ssize_t rd = read(test_fd._fd, buf, sizeof(buf));
-                        if (rd > 0) {
-                            trigger_key_press(trigger_ctx);
-                        }
-                    }
-                }
             }
 
             // Revalidate valid devices
             {
+                platform::LockGuard guard (input.input_lock);
+                assert(input.shm != nullptr);
+                //auto& input_shm = *input.shm;
+
                 size_t valid_devices = 0;
                 for (size_t i = 0; i < input._unique_devices.count; i++) {
                     const char* device_path = input._unique_devices[i].device_path;
@@ -545,6 +570,7 @@ namespace bongocat::platform::input {
                 }
             }
         }
+
         atomic_store(&input._capture_input_running, false);
         if (track_valid_devices == 0) {
             BONGOCAT_LOG_ERROR("All input devices are unavailable");
@@ -552,15 +578,13 @@ namespace bongocat::platform::input {
 
         // Will run only on normal return
         pthread_cleanup_pop(1);  // 1 = call cleanup even if not canceled
-        //pthread_mutex_lock(input.config_reload_mutex);
-        //pthread_cond_broadcast(input.config_reload_cond);
-        //pthread_mutex_unlock(input.config_reload_mutex);
 
         // done when callback cleanup_input_thread
         //cleanup_input_thread_context(arg);
-        assert(!input._device_paths);
-        assert(!input._unique_devices);
-        assert(!input._unique_paths_indices);
+        // sanity check for clean up
+        assert(input._device_paths == nullptr);
+        assert(input._unique_devices == nullptr);
+        assert(input._unique_paths_indices == nullptr);
         assert(input._unique_paths_indices_capacity == 0);
 
         BONGOCAT_LOG_INFO("Input monitoring stopped");
@@ -570,6 +594,10 @@ namespace bongocat::platform::input {
 
     created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t& config) {
         AllocatedMemory<input_context_t> ret = make_allocated_memory<input_context_t>();
+        assert(ret != nullptr);
+        if (ret == nullptr) {
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
 
         if (config.num_keyboard_devices <= 0) {
             BONGOCAT_LOG_ERROR("No input devices specified");
@@ -596,13 +624,12 @@ namespace bongocat::platform::input {
 
         // Initialize shared memory for local config
         ret->_local_copy_config = make_allocated_mmap<config::config_t>();
-        if (!ret->_local_copy_config.ptr) {
+        if (ret->_local_copy_config == nullptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
         assert(ret->_local_copy_config != nullptr);
         *ret->_local_copy_config = config;
-
 
         ret->update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
         if (ret->update_config_efd._fd < 0) {
@@ -614,7 +641,7 @@ namespace bongocat::platform::input {
         return ret;
     }
 
-    bongocat_error_t start_monitoring(input_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config, pthread_mutex_t& config_reload_mutex, pthread_cond_t& config_reload_cond, atomic_uint64_t& config_generation) {
+    bongocat_error_t start(input_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config, CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
         if (config.num_keyboard_devices <= 0) {
             BONGOCAT_LOG_ERROR("No input devices specified");
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
@@ -638,22 +665,34 @@ namespace bongocat::platform::input {
 
         // Initialize shared memory for local config
         input._local_copy_config = make_allocated_mmap<config::config_t>();
-        if (!input._local_copy_config.ptr) {
+        if (input._local_copy_config.ptr == nullptr) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
         assert(input._local_copy_config != nullptr);
-        *input._local_copy_config = config;
+        update_config(input, config, atomic_load(&config_generation));
 
+        // wait for animation trigger to be ready (input should be the same)
+        int cond_ret = trigger_ctx.init_cond.timed_wait([&]() {
+            return atomic_load(&trigger_ctx.ready);
+        }, COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
+        if (cond_ret == ETIMEDOUT) {
+            BONGOCAT_LOG_ERROR("Failed to initialize input monitoring: waiting for animation thread to start in time");
+        } else {
+            assert(trigger_ctx._input == &input);
+        }
         // set extern/global references
         trigger_ctx._input = &input;
+        trigger_ctx.init_cond.notify_all();
         input._config = &config;
-        input.config_reload_mutex = &config_reload_mutex;
-        input.config_reload_cond = &config_reload_cond;
-        input.config_generation = &config_generation;
-        atomic_store(&input.config_seen_generation, atomic_load(&config_generation));
+        input._configs_reloaded_cond = &configs_reloaded_cond;
+        input._config_generation = &config_generation;
+        atomic_store(&input.ready, true);
+        input.init_cond.notify_all();
 
-        // start input monitoring
+        input._configs_reloaded_cond->notify_all();
+
+        // start input monitoring thread
         const int result = pthread_create(&input._input_thread, nullptr, input_thread, &trigger_ctx);
         if (result != 0) {
             BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
@@ -664,7 +703,7 @@ namespace bongocat::platform::input {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    bongocat_error_t restart_monitoring(input_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config, pthread_mutex_t& config_reload_mutex, pthread_cond_t& config_reload_cond, atomic_uint64_t& config_generation) {
+    bongocat_error_t restart(input_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config, CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
         BONGOCAT_LOG_INFO("Restarting input monitoring system");
         // Stop current monitoring
         if (input._input_thread) {
@@ -698,7 +737,6 @@ namespace bongocat::platform::input {
             }
         }
 
-
         if (input._local_copy_config == nullptr) {
             input._local_copy_config = make_unallocated_mmap_value<config::config_t>(config);
             if (input._local_copy_config != nullptr) {
@@ -707,6 +745,7 @@ namespace bongocat::platform::input {
             }
         }
         assert(input._local_copy_config != nullptr);
+        update_config(input, config, atomic_load(&config_generation));
 
         //if (trigger_ctx._input != ctx._input) {
         //    BONGOCAT_LOG_DEBUG("Input context in animation differs from animation trigger input context");
@@ -715,15 +754,16 @@ namespace bongocat::platform::input {
         // set extern/global references
         trigger_ctx._input = &input;
         input._config = &config;
-        input.config_reload_mutex = &config_reload_mutex;
-        input.config_reload_cond = &config_reload_cond;
-        input.config_generation = &config_generation;
+        input._configs_reloaded_cond = &configs_reloaded_cond;
+        input._config_generation = &config_generation;
         atomic_store(&input.config_seen_generation, atomic_load(&config_generation));
+        input.init_cond.notify_all();
+        input._configs_reloaded_cond->notify_all();
 
         // start input monitoring
-        if (pthread_create(&input._input_thread, nullptr, input_thread, &trigger_ctx) != 0) {
-            BONGOCAT_LOG_ERROR("Failed to fork input monitoring process: %s", strerror(errno));
-            cleanup_input_thread_context(input);
+        const int result = pthread_create(&input._input_thread, nullptr, input_thread, &trigger_ctx);
+        if (result != 0) {
+            BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_THREAD;
         }
 
@@ -742,30 +782,35 @@ namespace bongocat::platform::input {
             BONGOCAT_LOG_DEBUG("Input monitoring thread terminated");
         }
         ctx._input_thread = 0;
-        // make sure broadcast on exit
-        if (ctx.config_reload_mutex && ctx.config_reload_cond) pthread_mutex_lock(ctx.config_reload_mutex);
-        if (ctx.config_reload_cond) pthread_cond_broadcast(ctx.config_reload_cond);
-        if (ctx.config_reload_mutex && ctx.config_reload_cond) pthread_mutex_unlock(ctx.config_reload_mutex);
+
+        ctx._config = nullptr;
+        ctx._configs_reloaded_cond = nullptr;
+        ctx._config_generation = nullptr;
+
+        ctx.config_updated.notify_all();
+        atomic_store(&ctx.ready, false);
+        ctx.init_cond.notify_all();
     }
 
-    void trigger_update_config(input_context_t& input, const config::config_t& config) {
+    void trigger_update_config(input_context_t& input, const config::config_t& config, uint64_t config_generation) {
         //assert(input.anim._local_copy_config != nullptr);
         //assert(input.anim.shm != nullptr);
 
         input._config = &config;
-
-        constexpr uint64_t u = 1;
-        if (write(input.update_config_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+        if (write(input.update_config_efd._fd, &config_generation, sizeof(uint64_t)) >= 0) {
             BONGOCAT_LOG_VERBOSE("Write input trigger update config");
         } else {
             BONGOCAT_LOG_ERROR("Failed to write to notify pipe in input: %s", strerror(errno));
         }
     }
 
-    void update_config(input_context_t& input, const config::config_t& config) {
+    void update_config(input_context_t& input, const config::config_t& config, uint64_t new_gen) {
         assert(input._local_copy_config != nullptr);
 
         *input._local_copy_config = config;
-        /// @NOTE: input thread restart required so the new config has affect
+
+        atomic_store(&input.config_seen_generation, new_gen);
+        // Signal main that reload is done
+        input.config_updated.notify_all();
     }
 }

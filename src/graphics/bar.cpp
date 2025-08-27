@@ -226,7 +226,6 @@ namespace bongocat::animation {
         assert(wayland_ctx._local_copy_config != nullptr);
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
-        const animation_shared_memory_t& anim_shm = *anim.shm;
 
         if (!atomic_load(&wayland_ctx_shm->configured)) {
             BONGOCAT_LOG_VERBOSE("Surface not configured yet, skipping draw");
@@ -271,6 +270,7 @@ namespace bongocat::animation {
 
         {
             platform::LockGuard guard (anim.anim_lock);
+            const animation_shared_memory_t& anim_shm = *anim.shm;
 
             if (!wayland_ctx._fullscreen_detected) {
                 using namespace assets;

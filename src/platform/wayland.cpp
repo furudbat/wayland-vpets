@@ -45,8 +45,9 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
     static inline constexpr time_ms_t CHECK_INTERVAL_MS     = 100;
     static inline constexpr time_ms_t POOL_MIN_TIMEOUT_MS   = 5;
     static inline constexpr time_ms_t POOL_MAX_TIMEOUT_MS   = 1000;
-
     static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
+
+    inline static constexpr time_ms_t COND_INIT_TIMEOUT_MS = 5000;
 
     static inline constexpr auto WAYLAND_LAYER_NAME = "OVERLAY";
     static inline constexpr auto WAYLAND_LAYER_NAMESPACE = "bongocat-overlay";
@@ -1033,8 +1034,11 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
     created_result_t<AllocatedMemory<wayland_session_t>> create(animation::animation_session_t& anim, const config::config_t& config) {
         AllocatedMemory<wayland_session_t> ret = make_allocated_memory<wayland_session_t>();
-
         assert(ret != nullptr);
+        if (ret == nullptr) {
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
+
         ret->animation_trigger_context = &anim;
         ret->wayland_context._bar_height = DEFAULT_BAR_HEIGHT;
 
@@ -1098,11 +1102,11 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
             return result;
         }
-        atomic_store(&ctx.ready, true);
-
 
         wl_display_flush(ctx.wayland_context.display);
         wl_display_roundtrip(ctx.wayland_context.display);
+        atomic_store(&ctx.ready, true);
+
         BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)",
                           ctx.wayland_context._screen_width,
                           ctx.wayland_context._bar_height);
@@ -1113,10 +1117,19 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         BONGOCAT_CHECK_NULL(config_reload_callback, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx.animation_trigger_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        // setup references
+        // from thread context
         wayland_context_t& wayland_ctx = ctx.wayland_context;
+        //animation_context_t& anim = trigger_ctx.anim;
+        // wait for context
+        ctx.animation_trigger_context->init_cond.timed_wait([&]() {
+            return atomic_load(&ctx.animation_trigger_context->ready);
+        }, COND_INIT_TIMEOUT_MS);
+        input.init_cond.timed_wait([&]() {
+            return atomic_load(&ctx.animation_trigger_context->ready);
+        }, COND_INIT_TIMEOUT_MS);
         animation::animation_session_t& trigger_ctx = *ctx.animation_trigger_context;
-        trigger_ctx._input = &input;
+        assert(trigger_ctx._input != nullptr);
+        assert(trigger_ctx._input == &input);
         //wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm;
 
         BONGOCAT_LOG_INFO("Starting Wayland event loop");
@@ -1169,7 +1182,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 prepared_read = attempts < MAX_ATTEMPTS;
             }
 
-            if (timeout_ms <= INT_MAX) timeout_ms = INT_MAX;
+            if (timeout_ms >= INT_MAX) timeout_ms = INT_MAX;
             const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
             if (poll_result > 0) {
                 // signal events

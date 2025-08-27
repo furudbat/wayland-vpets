@@ -43,8 +43,11 @@ namespace bongocat::animation {
         using namespace assets;
         BONGOCAT_LOG_INFO("Initializing animation system");
         AllocatedMemory<animation_session_t> ret = make_allocated_memory<animation_session_t>();
-
         assert(ret != nullptr);
+        if (ret == nullptr) {
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
+
         ret->_config = &config;
 
         // Initialize shared memory
@@ -63,7 +66,7 @@ namespace bongocat::animation {
         }
         assert(ret->anim._local_copy_config != nullptr);
         //config_set_defaults(*ctx._local_copy_config);
-        update_config(ret->anim, config);
+        *ret->anim._local_copy_config = config;
         ret->anim.shm->animation_player_data.frame_index = config.idle_frame;  // initial frame
 
         ret->trigger_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
@@ -78,9 +81,9 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        ret->update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
-        if (ret->update_config_efd._fd < 0) {
-            BONGOCAT_LOG_ERROR("Failed to create notify pipe for animation update config: %s", strerror(errno));
+        ret->anim.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+        if (ret->anim.update_config_efd._fd < 0) {
+            BONGOCAT_LOG_ERROR("Failed to create notify pipe for input update config: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
@@ -168,5 +171,7 @@ namespace bongocat::animation {
             BONGOCAT_LOG_DEBUG("Animation thread terminated");
         }
         ctx._anim_thread = 0;
+
+        ctx.config_updated.notify_all();
     }
 }

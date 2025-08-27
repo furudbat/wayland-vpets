@@ -37,18 +37,17 @@ namespace bongocat::config {
     static inline constexpr auto DEFAULT_DEVICE = "/dev/input/event4";
     static inline constexpr auto DEFAULT_CONFIG_FILE_PATH = "bongocat.conf";
 
-    static inline constexpr int DEFAULT_CAT_X_OFFSET = 100;
-    static inline constexpr int DEFAULT_CAT_Y_OFFSET = 10;
-    static inline constexpr int DEFAULT_CAT_HEIGHT = 40;
-    static inline constexpr int DEFAULT_OVERLAY_HEIGHT = 50;
-    static inline constexpr int DEFAULT_IDLE_FRAME = 0;
+    static inline constexpr int32_t DEFAULT_CAT_X_OFFSET = 100;
+    static inline constexpr int32_t DEFAULT_CAT_Y_OFFSET = 10;
+    static inline constexpr int32_t DEFAULT_CAT_HEIGHT = 40;
+    static inline constexpr int32_t DEFAULT_OVERLAY_HEIGHT = 50;
+    static inline constexpr int32_t DEFAULT_IDLE_FRAME = 0;
     static inline constexpr platform::time_ms_t DEFAULT_KEYPRESS_DURATION_MS = 100;
-    static inline constexpr int DEFAULT_FPS = 60;
-    static inline constexpr int DEFAULT_OVERLAY_OPACITY = 60;
-    static inline constexpr int DEFAULT_ANIMATION_INDEX = 0;
+    static inline constexpr int32_t DEFAULT_OVERLAY_OPACITY = 60;
+    static inline constexpr int32_t DEFAULT_ANIMATION_INDEX = 0;
     static inline constexpr layer_type_t DEFAULT_LAYER = layer_type_t::LAYER_TOP;       // Requires enum or constant elsewhere
     static inline constexpr overlay_position_t DEFAULT_OVERLAY_POSITION = overlay_position_t::POSITION_TOP;
-    static inline constexpr int DEFAULT_HAPPY_KPM = 0;
+    static inline constexpr int32_t DEFAULT_HAPPY_KPM = 0;
     static inline constexpr platform::time_sec_t DEFAULT_IDLE_SLEEP_TIMEOUT_SEC = 0;
     static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
     static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
