@@ -1113,7 +1113,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    bongocat_error_t run(wayland_session_t& ctx, volatile sig_atomic_t& running, int signal_fd, input::input_context_t& input, const config::config_t& config, const config::config_watcher_t& config_watcher, config_reload_callback_t config_reload_callback) {
+    bongocat_error_t run(wayland_session_t& ctx, volatile sig_atomic_t& running, int signal_fd, input::input_context_t& input, const config::config_t& config, const config::config_watcher_t* config_watcher, config_reload_callback_t config_reload_callback) {
         BONGOCAT_CHECK_NULL(config_reload_callback, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx.animation_trigger_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -1121,10 +1121,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         wayland_context_t& wayland_ctx = ctx.wayland_context;
         //animation_context_t& anim = trigger_ctx.anim;
         // wait for context
-        ctx.animation_trigger_context->init_cond.timed_wait([&]() {
+        ctx.animation_trigger_context->init_cond.timedwait([&]() {
             return atomic_load(&ctx.animation_trigger_context->ready);
         }, COND_INIT_TIMEOUT_MS);
-        input.init_cond.timed_wait([&]() {
+        input.init_cond.timedwait([&]() {
             return atomic_load(&ctx.animation_trigger_context->ready);
         }, COND_INIT_TIMEOUT_MS);
         animation::animation_session_t& trigger_ctx = *ctx.animation_trigger_context;
@@ -1156,7 +1156,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             constexpr nfds_t fds_count = 4;
             pollfd fds[fds_count] = {
                 { .fd = signal_fd, .events = POLLIN, .revents = 0 },
-                { .fd = config_watcher.reload_efd._fd, .events = POLLIN, .revents = 0 },
+                { .fd = config_watcher ? config_watcher->reload_efd._fd : -1, .events = POLLIN, .revents = 0 },
                 { .fd = trigger_ctx.render_efd._fd, .events = POLLIN, .revents = 0 },
                 { .fd = wl_display_get_fd(wayland_ctx.display), .events = POLLIN, .revents = 0 },
             };
@@ -1182,7 +1182,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 prepared_read = attempts < MAX_ATTEMPTS;
             }
 
-            if (timeout_ms >= INT_MAX) timeout_ms = INT_MAX;
+            assert(timeout_ms <= INT_MAX);
             const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
             if (poll_result > 0) {
                 // signal events
@@ -1233,7 +1233,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
                     int attempts = 0;
                     uint64_t u;
-                    while (read(config_watcher.reload_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                    while (read(config_watcher ? config_watcher->reload_efd._fd : -1, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
                         attempts++;
                         // continue draining if multiple writes queued
                     }
@@ -1249,12 +1249,6 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 #endif
 
                     config_reload_requested = true;
-                }
-
-                // do reload once
-                if (config_reload_requested && config_reload_callback) {
-                    config_reload_callback();
-                    render_requested = true;
                 }
 
                 // render event
@@ -1325,6 +1319,12 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                     running = 0;
                     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
                 }
+            }
+
+            // do reload once
+            if (config_reload_requested && config_reload_callback) {
+                config_reload_callback();
+                render_requested = true;
             }
 
             if (render_requested) {

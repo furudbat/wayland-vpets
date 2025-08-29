@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+#make debug
 #PROGRAM="./cmake-build-debug-all-assets-colored-preload/bongocat"
-PROGRAM="./cmake-build-debug/bongocat"
-#PROGRAM="./build/bongocat"
+#PROGRAM="./cmake-build-debug/bongocat"
+PROGRAM="./build/bongocat"
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
@@ -69,14 +70,16 @@ sleep 15
 echo "[TEST] Trigger Sleep"
 echo "[INFO] Enable idle_sleep_timeout..."
 sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=10/" "$CONFIG"
+sleep 5
 sed -i 's/^enable_scheduled_sleep=0/enable_scheduled_sleep=1/' "$CONFIG"
 sleep 20
 echo "[TEST] Wake up Sleep"
 printf '\e' > /proc/$PID/fd/0
 sleep 5
 echo "[INFO] Disable idle_sleep_timeout..."
-sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=3600/" "$CONFIG"
+sleep 5
+sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 sleep 5
 echo "[TEST] Change animation sprite"
 echo "[INFO] Set animation_name..."
@@ -140,8 +143,34 @@ kill -USR2 "$PID"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
 sleep 15
+echo "[INFO] Spam SIGUSR2 slower"
+kill -USR2 "$PID"
+sleep 5
+kill -USR2 "$PID"
+sleep 3
+kill -USR2 "$PID"
+sleep 2
+kill -USR2 "$PID"
+sleep 10
 
-# --- verify not running ---
+
+echo "[TEST] replace config..."
+echo "[INFO] Replace Config: $CONFIG > ${CONFIG}.del"
+cp ./examples/idle-only-digimon.bongocat.conf $CONFIG
+sleep 10
+echo "[TEST] Sending ESC key..."
+echo "[INFO] Send stdin"
+printf '\e' > /proc/$PID/fd/0
+sleep 2
+printf '\e' > /proc/$PID/fd/0
+sleep 2
+printf '\e' > /proc/$PID/fd/0
+sleep 5
+echo "[INFO] Restore old config"
+cp $OG_CONFIG $CONFIG
+sleep 5
+
+# --- verify running ---
 if kill -0 "$PID" 2>/dev/null; then
     echo "[PASS] Process $PID still running!"
 else

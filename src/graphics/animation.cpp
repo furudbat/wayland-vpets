@@ -21,6 +21,8 @@ namespace bongocat::animation {
     inline static constexpr int MAX_ATTEMPTS = 2048;
     static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
 
+    inline static constexpr platform::time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
+
     // =============================================================================
     // ANIMATION STATE MANAGEMENT MODULE
     // =============================================================================
@@ -1119,6 +1121,9 @@ namespace bongocat::animation {
                 check_config_timeout_ms = current_config.fps > 0 ? 1000 / current_config.fps / 3 : 0;
             }
 
+            bool reload_config = false;
+            uint64_t new_gen{atomic_load(trigger_ctx._config_generation)};
+
             /// event poll
             constexpr size_t fds_update_config_index = 0;
             constexpr nfds_t fds_count = 1;
@@ -1147,11 +1152,10 @@ namespace bongocat::animation {
                     break;
                 }
 
-                // update config event
+                // Handle config update
                 if (fds[fds_update_config_index].revents & POLLIN) {
                     BONGOCAT_LOG_DEBUG("Receive update config event");
                     int attempts = 0;
-                    uint64_t new_gen;
                     while (read(trigger_ctx.anim.update_config_efd._fd, &new_gen, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
                         attempts++;
                         // continue draining if multiple writes queued
@@ -1167,20 +1171,7 @@ namespace bongocat::animation {
                     }
 #endif
 
-
-                    {
-                        assert(trigger_ctx._config_generation != nullptr);
-                        assert(trigger_ctx._configs_reloaded_cond != nullptr);
-                        assert(trigger_ctx._config != nullptr);
-
-                        update_config(ctx, *trigger_ctx._config, new_gen);
-
-                        // wait for reload config to be done (all configs)
-                        trigger_ctx._configs_reloaded_cond->wait([&] {
-                            return atomic_load(trigger_ctx._config_generation) >= new_gen;
-                        });
-                    }
-                    BONGOCAT_LOG_INFO("Animation config reloaded (gen=%u)", new_gen);
+                    reload_config = new_gen > 0;
                 }
             }
 
@@ -1238,6 +1229,26 @@ namespace bongocat::animation {
                 // Update variables from config in case FPS changed
                 state.frame_time_ns = (fps > 0) ? 1000000000LL / fps : 1000000000LL / DEFAULT_FPS;
                 state.frame_time_ms = state.frame_time_ns / 1000000LL;
+            }
+
+            // handle update config
+            if (reload_config) {
+                assert(trigger_ctx._config_generation != nullptr);
+                assert(trigger_ctx._configs_reloaded_cond != nullptr);
+                assert(trigger_ctx._config != nullptr);
+
+                update_config(ctx, *trigger_ctx._config, new_gen);
+
+                // wait for reload config to be done (all configs)
+                const int rc = trigger_ctx._configs_reloaded_cond->timedwait([&] {
+                    return atomic_load(trigger_ctx._config_generation) >= new_gen;
+                }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+                if (rc == ETIMEDOUT) {
+                    BONGOCAT_LOG_WARNING("Animation: Timed out waiting for reload eventfd: %s", strerror(errno));
+                }
+                assert(atomic_load(&trigger_ctx.anim.config_seen_generation) == atomic_load(trigger_ctx._config_generation));
+                atomic_store(&trigger_ctx.anim.config_seen_generation, atomic_load(trigger_ctx._config_generation));
+                BONGOCAT_LOG_INFO("Animation config reloaded (gen=%u)", new_gen);
             }
         }
 

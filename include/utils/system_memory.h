@@ -139,7 +139,7 @@ namespace bongocat::platform {
         }
 
         template <typename Predicate>
-        int wait(Predicate&& pred) {
+        [[deprecated("better use timedwait")]] int wait(Predicate&& pred) {
             int ret = 0;
             pthread_mutex_lock(&_mutex);
             while (!pred()) {
@@ -150,7 +150,7 @@ namespace bongocat::platform {
         }
 
         template <typename Predicate>
-        int timed_wait(Predicate&& pred, time_ms_t timeout_ms) {
+        int timedwait(Predicate&& pred, time_ms_t timeout_ms) {
             struct timespec ts;
             clock_gettime(CLOCK_REALTIME, &ts);
             ts.tv_sec  += timeout_ms / 1000;
@@ -207,7 +207,7 @@ namespace bongocat::platform {
         CondVarGuard&& operator=(const CondVarGuard&&) = delete;
 
         // Wait until predicate becomes true
-        int wait() {
+        [[deprecated("better use timedwait")]] int wait() {
             int ret = 0;
             while (!atomic_load(&_predicate)) {
                 ret = pthread_cond_wait(&_cond, &_mutex);

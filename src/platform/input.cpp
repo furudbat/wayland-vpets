@@ -13,10 +13,11 @@
 #include <fcntl.h>
 #include <poll.h>
 #include <sys/eventfd.h>
+#include <cstdio>
 
 namespace bongocat::platform::input {
     static inline constexpr size_t INPUT_EVENT_BUF = 128;
-    static inline constexpr size_t MAX_POLL_FDS = 256;
+    static inline constexpr size_t MAX_DEVICE_FDS = 256;
     inline static constexpr int MAX_ATTEMPTS = 2048;
 
     static inline constexpr auto INPUT_POOL_TIMEOUT_MS = 10;
@@ -28,6 +29,9 @@ namespace bongocat::platform::input {
     static inline constexpr time_ms_t RESET_KPM_TIMEOUT_MS = 5 * 1000;
 
     inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
+    inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
+
+    inline static constexpr size_t TEST_STDIN_BUF_LEN = 256;
 
     static void cleanup_input_devices_paths(input_context_t& input, size_t device_paths_count) {
         for (size_t i = 0; i < device_paths_count; i++) {
@@ -112,6 +116,28 @@ namespace bongocat::platform::input {
         animation::trigger(trigger_ctx);
     }
 
+    // for testing
+    static FileDescriptor open_tty_nonblocking() {
+        int fd = dup(STDIN_FILENO);
+        if (fd < 0) {
+            BONGOCAT_LOG_ERROR("dup stdin");
+            return FileDescriptor(fd);
+        }
+        int flags = fcntl(fd, F_GETFL, 0);
+        if (flags < 0) {
+            BONGOCAT_LOG_ERROR("fcntl getfl");
+            close(fd);
+            fd = -1;
+            return FileDescriptor(fd);
+        }
+        if (fcntl(fd, F_SETFL, flags | O_NONBLOCK) < 0) {
+            BONGOCAT_LOG_ERROR("fcntl setfl");
+            close(fd);
+            fd = -1;
+            return FileDescriptor(fd);
+        }
+        return FileDescriptor(fd);
+    }
 
     static void* input_thread(void* arg) {
         assert(arg);
@@ -120,7 +146,7 @@ namespace bongocat::platform::input {
         // from thread context
         //animation_context_t& anim = trigger_ctx.anim;
         // wait for input context (in animation start)
-        trigger_ctx.init_cond.timed_wait([&]() {
+        trigger_ctx.init_cond.timedwait([&]() {
             return atomic_load(&trigger_ctx.ready);
         }, COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
         assert(trigger_ctx._input != nullptr);
@@ -247,10 +273,19 @@ namespace bongocat::platform::input {
         int check_counter = 0;  // check is done periodically
         time_sec_t adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
         /// event poll
-        // 0: reload config event
-        // 1+: device events
-        pollfd pfds[MAX_POLL_FDS+1];
+        // 0:       reload config event
+        // 1 - n:   device events
+        // last:    stdin (optional)
+        constexpr size_t MAX_PFDS = 1 + MAX_DEVICE_FDS + ((features::Debug) ? 1 : 0);
+        pollfd pfds[MAX_PFDS];
         input_event ev[INPUT_EVENT_BUF];
+
+        constexpr bool include_stdin = features::Debug;
+        FileDescriptor tty_fd;
+        if constexpr (include_stdin) {
+            tty_fd = open_tty_nonblocking();
+            BONGOCAT_LOG_INFO("Open stdin for testing (fd=%d)", tty_fd._fd);
+        }
 
         atomic_store(&input._capture_input_running, true);
         while (atomic_load(&input._capture_input_running)) {
@@ -275,30 +310,135 @@ namespace bongocat::platform::input {
 
             // only map valid fds into pfds
             constexpr size_t fds_update_config_index = 0;
-            constexpr size_t fds_device_start_index = 1;
-            size_t fds_device_end_index = 1;
             pfds[0] = { .fd = input.update_config_efd._fd, .events = POLLIN, .revents = 0 };
+
+            ssize_t fds_device_start_index = input._unique_devices.count > 0 ? 1 : -1;
+            ssize_t fds_device_end_index = input._unique_devices.count > 0 ? fds_device_start_index : -1;
             nfds_t nfds = 1;
             nfds_t device_nfds = 0;
-            for (size_t i = 0; i < input._unique_devices.count && i < MAX_POLL_FDS; i++) {
+            for (size_t i = 0; i < input._unique_devices.count && i < MAX_DEVICE_FDS; i++) {
                 if (input._unique_devices[i].fd._fd >= 0) {
                     pfds[nfds].fd = input._unique_devices[i].fd._fd;
                     pfds[nfds].events = POLLIN;
                     pfds[nfds].revents = 0;
                     nfds++;
                     device_nfds++;
-                    fds_device_end_index++;
                 }
             }
-            if (device_nfds == 0) {
+            assert(device_nfds <= input._unique_devices.count);
+            assert(input._unique_devices.count <= SSIZE_MAX);
+            fds_device_end_index = (fds_device_start_index >= 0 && input._unique_devices.count > 0)? fds_device_start_index + static_cast<ssize_t>(input._unique_devices.count) : fds_device_start_index;
+
+            ssize_t fds_stdin_index = -1;
+            if constexpr (include_stdin) {
+                if (fds_device_end_index >= 0) {
+                    fds_stdin_index = fds_device_end_index+1;
+                } else {
+                    fds_stdin_index = 1;
+                }
+            }
+            if (device_nfds == 0 && !include_stdin) {
                 BONGOCAT_LOG_ERROR("All input devices became unavailable");
                 break;
-            } else if (device_nfds > MAX_POLL_FDS) {
-                BONGOCAT_LOG_WARNING("Max input devices fds: %d/%d (%d)", device_nfds, MAX_POLL_FDS+1, input._unique_devices.count);
-                device_nfds = MAX_POLL_FDS;
+            } else if (device_nfds > MAX_DEVICE_FDS) {
+                BONGOCAT_LOG_WARNING("Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
+                device_nfds = MAX_DEVICE_FDS;
+                fds_stdin_index = -1;
             }
-            if (nfds > MAX_POLL_FDS+1) {
-                nfds = MAX_POLL_FDS+1;
+            if (nfds > MAX_PFDS) {
+                nfds = MAX_PFDS - ((include_stdin) ? 2 : 1);
+            }
+            if (fds_stdin_index >= 0) {
+                pfds[fds_stdin_index] = { .fd = tty_fd._fd, .events = POLLIN, .revents = 0 };
+                nfds++;
+            }
+
+            /// @TODO: move to tests
+            // check indices
+            if constexpr (features::Debug) {
+                const bool has_update_config = fds_update_config_index >= 0;
+                const bool has_std_in = fds_stdin_index >= 0;
+                const bool has_devices = input._unique_devices.count > 0;
+
+                // include every fd
+                if (has_devices && has_std_in && has_update_config) {
+                    assert(fds_update_config_index >= 0);
+                    assert(fds_device_start_index >= 0);
+                    assert(fds_device_end_index >= 0);
+                    assert(fds_stdin_index >= 0);
+
+                    assert(fds_update_config_index == 0);
+                    assert(fds_device_start_index > fds_update_config_index);
+                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(fds_device_end_index >= fds_device_start_index);
+                    assert(fds_stdin_index > fds_device_end_index);
+
+                    assert(device_nfds > 0);
+                    assert(device_nfds == fds_device_end_index-fds_device_start_index);
+                    assert(nfds == fds_device_end_index-fds_device_start_index + 2);
+                }
+                // only update + devices
+                if (has_devices && has_update_config && !has_std_in) {
+                    assert(fds_update_config_index >= 0);
+                    assert(fds_device_start_index >= 0);
+                    assert(fds_device_end_index >= 0);
+                    assert(fds_stdin_index == -1);
+
+                    assert(fds_update_config_index == 0);
+                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(fds_device_end_index >= fds_device_start_index);
+
+                    assert(device_nfds > 0);
+                    assert(device_nfds == fds_device_end_index-fds_device_start_index);
+                    assert(nfds == fds_device_end_index-fds_device_start_index + 1);
+                }
+                // only devices
+                if (has_devices && !has_update_config && !has_std_in) {
+                    assert(fds_update_config_index == -1);
+                    assert(fds_device_start_index >= 0);
+                    assert(fds_device_end_index >= 0);
+                    assert(fds_stdin_index == -1);
+
+                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(fds_device_end_index >= fds_device_start_index);
+
+                    assert(device_nfds > 0);
+                    assert(device_nfds == fds_device_end_index-fds_device_start_index);
+                    assert(nfds == fds_device_end_index-fds_device_start_index);
+                }
+                // nothing (empty)
+                if (!has_devices && !has_update_config && !has_std_in) {
+                    assert(fds_update_config_index == -1);
+                    assert(fds_device_start_index == -1);
+                    assert(fds_device_end_index == -1);
+                    assert(fds_stdin_index == -1);
+
+                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(fds_device_end_index >= fds_device_start_index);
+
+                    assert(device_nfds == 0);
+                    assert(nfds == 0);
+                }
+                // no devices, only config
+                if (!has_devices && has_update_config && !has_std_in) {
+                    assert(fds_update_config_index == 0);
+                    assert(fds_device_start_index == -1);
+                    assert(fds_device_end_index == -1);
+                    assert(fds_stdin_index == -1);
+
+                    assert(device_nfds == 0);
+                    assert(nfds == 1);
+                }
+                // no devices, only config + stdin
+                if (!has_devices && has_update_config && has_std_in) {
+                    assert(fds_update_config_index == 0);
+                    assert(fds_device_start_index == -1);
+                    assert(fds_device_end_index == -1);
+                    assert(fds_stdin_index == 1);
+
+                    assert(device_nfds == 0);
+                    assert(nfds == 2);
+                }
             }
 
             // poll events
@@ -387,21 +527,45 @@ namespace bongocat::platform::input {
                         attempts++;
                     }
                 }
-                for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
-                    // Handle ready devices
-                    if (pfds[p].revents & POLLIN) {
-                        // discard evdev input
-                        read(pfds[p].fd, ev, sizeof(ev));
+                if (fds_device_start_index >= 0) {
+                    assert(fds_device_start_index >= 0);
+                    assert(fds_device_end_index >= 0);
+                    for (nfds_t p = static_cast<nfds_t>(fds_device_start_index); p <= static_cast<nfds_t>(fds_device_end_index); p++) {
+                        // Handle ready devices
+                        if (pfds[p].revents & POLLIN) {
+                            // discard evdev input
+                            read(pfds[p].fd, ev, sizeof(ev));
+                        }
+                    }
+                }
+                if (fds_stdin_index >= 0) {
+                    if (pfds[fds_stdin_index].revents & POLLIN) {
+                        char buf[TEST_STDIN_BUF_LEN] = {0};
+                        // Drain stdin until empty (EAGAIN)
+                        int attempts = 0;
+                        ssize_t rd = 0;
+                        while (attempts < MAX_ATTEMPTS) {
+                            rd = read(pfds[fds_stdin_index].fd, buf, TEST_STDIN_BUF_LEN);
+                            if (rd > 0) {
+                                continue;
+                            } else if (rd == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+                                break; // drained completely
+                            } else {
+                                break; // EOF or error
+                            }
+                        }
                     }
                 }
                 break;
             }
 
             // Handle config update
+            assert(input._config_generation != nullptr);
+            bool reload_config = false;
+            uint64_t new_gen{atomic_load(input._config_generation)};
             if (pfds[fds_update_config_index].revents & POLLIN) {
                 BONGOCAT_LOG_DEBUG("Receive update config event");
                 int attempts = 0;
-                uint64_t new_gen;
                 while (read(input.update_config_efd._fd, &new_gen, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
                     attempts++;
                     // continue draining if multiple writes queued
@@ -417,19 +581,7 @@ namespace bongocat::platform::input {
                 }
 #endif
 
-                {
-                    assert(input._config_generation != nullptr);
-                    assert(input._configs_reloaded_cond != nullptr);
-                    assert(input._config != nullptr);
-
-                    update_config(input, *input._config, new_gen);
-
-                    // wait for reload config to be done (all configs)
-                    input._configs_reloaded_cond->wait([&] {
-                        return atomic_load(input._config_generation) >= new_gen;
-                    });
-                }
-                BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", new_gen);
+                reload_config = new_gen > 0;
             }
 
             // Handle device events
@@ -437,14 +589,78 @@ namespace bongocat::platform::input {
                 platform::LockGuard guard (input.input_lock);
                 assert(input.shm != nullptr);
                 //auto& input_shm = *input.shm;
-                for (nfds_t p = fds_device_start_index; p < fds_device_end_index; p++) {
-                    // Handle ready devices
-                    if (pfds[p].revents & POLLIN) {
-                        // handle evdev input
-                        const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
-                        if (rd < 0) {
-                            if (errno == EAGAIN) continue;
-                            BONGOCAT_LOG_WARNING("Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
+
+                if (fds_device_start_index >= 0) {
+                    assert(fds_device_start_index >= 0);
+                    assert(fds_device_end_index >= 0);
+                    for (nfds_t p = static_cast<nfds_t>(fds_device_start_index); p <= static_cast<nfds_t>(fds_device_end_index); p++) {
+                        // Handle ready devices
+                        if (pfds[p].revents & POLLIN) {
+                            // handle evdev input
+                            const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
+                            if (rd < 0) {
+                                if (errno == EAGAIN) continue;
+                                BONGOCAT_LOG_WARNING("Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
+                                close(pfds[p].fd);
+                                // pfds[p].fd is only a reference, reset also the owner (unique_fd)
+                                for (size_t i = 0; i < input._unique_devices.count; i++) {
+                                    if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+                                        input._unique_devices[i].fd._fd = -1;
+                                        pfds[i].fd = -1;
+                                        break;
+                                    }
+                                }
+                                pfds[p].fd = -1;
+                                continue;
+                            }
+                            assert(rd >= 0);
+                            if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
+                                BONGOCAT_LOG_WARNING("EOF or partial read on fd=%d", pfds[p].fd);
+                                close(pfds[p].fd);
+                                // pfds[p].fd is only a reference, reset also the owner (unique_fd)
+                                for (size_t i = 0; i < input._unique_devices.count; i++) {
+                                    if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+                                        input._unique_devices[i].fd._fd = -1;
+                                        pfds[i].fd = -1;
+                                        break;
+                                    }
+                                }
+                                pfds[p].fd = -1;
+                                continue;
+                            }
+
+                            bool key_pressed = false;
+                            assert(rd >= 0);
+                            assert(sizeof(input_event) > 0);
+                            const auto num_events =  static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
+                            for (ssize_t j = 0; j < num_events; j++) {
+                                if (ev[j].type == EV_KEY && ev[j].value == 1) {
+                                    key_pressed = true;
+                                    if (enable_debug) {
+                                        BONGOCAT_LOG_VERBOSE("Key event: fd=%d, code=%d, time=%lld.%06lld",
+                                                             pfds[p].fd, ev[j].code,
+                                                             ev[j].time.tv_sec, ev[j].time.tv_usec);
+                                    } else {
+                                        // break early, when no debug (no print needed for every key press)
+                                        break;
+                                    }
+                                }
+                            }
+
+
+                            const timestamp_ms_t now = get_current_time_ms();
+                            if (key_pressed) {
+                                trigger_key_press(trigger_ctx);
+                            } else {
+                                if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
+                                    input.shm->kpm = 0;
+                                    atomic_store(&input._input_kpm_counter, 0);
+                                    input._latest_kpm_update_ms = now;
+                                }
+                            }
+                        }
+
+                        if (pfds[p].revents & (POLLERR | POLLHUP | POLLNVAL)) {
                             close(pfds[p].fd);
                             // pfds[p].fd is only a reference, reset also the owner (unique_fd)
                             for (size_t i = 0; i < input._unique_devices.count; i++) {
@@ -455,66 +671,37 @@ namespace bongocat::platform::input {
                                 }
                             }
                             pfds[p].fd = -1;
-                            continue;
-                        }
-                        assert(rd >= 0);
-                        if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
-                            BONGOCAT_LOG_WARNING("EOF or partial read on fd=%d", pfds[p].fd);
-                            close(pfds[p].fd);
-                            // pfds[p].fd is only a reference, reset also the owner (unique_fd)
-                            for (size_t i = 0; i < input._unique_devices.count; i++) {
-                                if (input._unique_devices[i].fd._fd == pfds[p].fd) {
-                                    input._unique_devices[i].fd._fd = -1;
-                                    pfds[i].fd = -1;
-                                    break;
-                                }
-                            }
-                            pfds[p].fd = -1;
-                            continue;
-                        }
-
-                        bool key_pressed = false;
-                        assert(rd >= 0);
-                        assert(sizeof(input_event) > 0);
-                        const auto num_events =  static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
-                        for (ssize_t j = 0; j < num_events; j++) {
-                            if (ev[j].type == EV_KEY && ev[j].value == 1) {
-                                key_pressed = true;
-                                if (enable_debug) {
-                                    BONGOCAT_LOG_VERBOSE("Key event: fd=%d, code=%d, time=%lld.%06lld",
-                                                         pfds[p].fd, ev[j].code,
-                                                         ev[j].time.tv_sec, ev[j].time.tv_usec);
-                                } else {
-                                    // break early, when no debug (no print needed for every key press)
-                                    break;
-                                }
-                            }
-                        }
-
-
-                        const timestamp_ms_t now = get_current_time_ms();
-                        if (key_pressed) {
-                            trigger_key_press(trigger_ctx);
-                        } else {
-                            if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
-                                input.shm->kpm = 0;
-                                atomic_store(&input._input_kpm_counter, 0);
-                                input._latest_kpm_update_ms = now;
-                            }
                         }
                     }
+                }
 
-                    if (pfds[p].revents & (POLLERR | POLLHUP | POLLNVAL)) {
-                        close(pfds[p].fd);
-                        // pfds[p].fd is only a reference, reset also the owner (unique_fd)
-                        for (size_t i = 0; i < input._unique_devices.count; i++) {
-                            if (input._unique_devices[i].fd._fd == pfds[p].fd) {
-                                input._unique_devices[i].fd._fd = -1;
-                                pfds[i].fd = -1;
-                                break;
+                // simulate "any key pressed"
+                if (fds_stdin_index >= 0) {
+                    if (pfds[fds_stdin_index].revents & POLLIN) {
+                        char buf[TEST_STDIN_BUF_LEN] = {0};
+                        bool got_key = false;
+
+                        // Drain stdin until empty (EAGAIN)
+                        int attempts = 0;
+                        ssize_t rd = 0;
+                        while (attempts < MAX_ATTEMPTS) {
+                            rd = read(pfds[fds_stdin_index].fd, buf, TEST_STDIN_BUF_LEN);
+                            if (rd > 0) {
+                                got_key = true;
+                            } else if (rd == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+                                break; // drained completely
+                            } else {
+                                break; // EOF or error
                             }
                         }
-                        pfds[p].fd = -1;
+
+                        if (got_key) {
+                            trigger_key_press(trigger_ctx);
+                            if (enable_debug) {
+                                buf[rd < TEST_STDIN_BUF_LEN ? rd : TEST_STDIN_BUF_LEN-1] = '\0';
+                                BONGOCAT_LOG_VERBOSE("stdin input: %s", buf);
+                            }
+                        }
                     }
                 }
             }
@@ -569,7 +756,29 @@ namespace bongocat::platform::input {
                     BONGOCAT_LOG_VERBOSE("All input devices became unavailable");
                 }
             }
+
+            // handle update config
+            if (reload_config) {
+                assert(input._config_generation != nullptr);
+                assert(input._configs_reloaded_cond != nullptr);
+                assert(input._config != nullptr);
+
+                update_config(input, *input._config, new_gen);
+
+                // wait for reload config to be done (all configs)
+                const int rc = input._configs_reloaded_cond->timedwait([&] {
+                    return atomic_load(input._config_generation) >= new_gen;
+                }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+                if (rc == ETIMEDOUT) {
+                    BONGOCAT_LOG_WARNING("Input: Timed out waiting for reload eventfd: %s", strerror(errno));
+                }
+                assert(atomic_load(&input.config_seen_generation) == atomic_load(input._config_generation));
+                atomic_store(&input.config_seen_generation, atomic_load(input._config_generation));
+                BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", new_gen);
+            }
         }
+
+        close_fd(tty_fd);
 
         atomic_store(&input._capture_input_running, false);
         if (track_valid_devices == 0) {
@@ -673,7 +882,7 @@ namespace bongocat::platform::input {
         update_config(input, config, atomic_load(&config_generation));
 
         // wait for animation trigger to be ready (input should be the same)
-        int cond_ret = trigger_ctx.init_cond.timed_wait([&]() {
+        int cond_ret = trigger_ctx.init_cond.timedwait([&]() {
             return atomic_load(&trigger_ctx.ready);
         }, COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
         if (cond_ret == ETIMEDOUT) {
