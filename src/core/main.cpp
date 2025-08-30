@@ -174,6 +174,7 @@ namespace bongocat {
     }
 
     static pid_t process_get_running_pid(const char* program_name, const char* pid_filename) {
+        assert(program_name);
         assert(pid_filename);
         platform::FileDescriptor fd = platform::FileDescriptor(::open(pid_filename, O_RDONLY));
         if (fd._fd < 0) {
@@ -225,7 +226,14 @@ namespace bongocat {
         ssize_t len = readlink(exe_path, buf, sizeof(buf) - 1);
         if (len > 0) {
             buf[len] = '\0';
-            if (strstr(buf, program_name) == nullptr) {
+
+            const char* exe_basename = strrchr(buf, '/');
+            exe_basename = exe_basename ? exe_basename + 1 : buf;
+
+            const char* prog_basename = strrchr(program_name, '/');
+            prog_basename = prog_basename ? prog_basename + 1 : program_name;
+
+            if (strcmp(exe_basename, prog_basename) != 0) {
                 return -1;
             }
         }
@@ -672,6 +680,7 @@ int main(int argc, char *argv[]) {
 
     // Handle toggle mode
     if (args.toggle_mode) {
+        BONGOCAT_LOG_INFO("Toggle... (pid=%s)", ctx.pid_filename);
         if (const int toggle_result = process_handle_toggle(argv[0], ctx.pid_filename); toggle_result >= 0) {
             return toggle_result; // Either successfully toggled off or error
         }
@@ -694,7 +703,7 @@ int main(int argc, char *argv[]) {
     // seed once, include pid for better randomness
     srand(static_cast<unsigned>(time(nullptr)) ^ static_cast<unsigned>(pid));
 
-    BONGOCAT_LOG_DEBUG("bongocat PID: %d", pid);
+    BONGOCAT_LOG_INFO("bongocat PID: %d", pid);
 
     // Setup signal handlers
     ctx.signal_watch_path = args.config_file;
