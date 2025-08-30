@@ -162,6 +162,12 @@ namespace bongocat::animation {
             if (current_config.invert_color) {
                 drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
             }
+            if (current_config.mirror_x) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+            }
+            if (current_config.mirror_y) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
+            }
 
             blit_image_scaled(pixels, pixels_size,
                               wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
@@ -204,6 +210,12 @@ namespace bongocat::animation {
         blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
         if (current_config.invert_color) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
+        }
+        if (current_config.mirror_x) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+        }
+        if (current_config.mirror_y) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
         }
 
         blit_image_scaled(pixels, pixels_size,

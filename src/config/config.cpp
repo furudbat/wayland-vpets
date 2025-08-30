@@ -90,6 +90,8 @@ namespace bongocat::config {
     static inline constexpr auto CAT_ALIGN_KEY                      = "cat_align";
     static inline constexpr auto IDLE_ANIMATION_KEY                 = "idle_animation";
     static inline constexpr auto INPUT_FPS_KEY                      = "input_fps";
+    static inline constexpr auto MIRROR_X_KEY                      = "mirror_x";
+    static inline constexpr auto MIRROR_Y_KEY                      = "mirror_y";
 
     static inline constexpr size_t VALUE_BUF = 256;
     static inline constexpr size_t LINE_BUF  = 512;
@@ -245,6 +247,8 @@ namespace bongocat::config {
         config.invert_color = config.invert_color ? 1 : 0;
         config.idle_animation = config.idle_animation ? 1 : 0;
         config.enable_scheduled_sleep = config.enable_scheduled_sleep ? 1 : 0;
+        config.mirror_x = config.mirror_x ? 1 : 0;
+        config.mirror_y = config.mirror_y ? 1 : 0;
 
         config_validate_dimensions(config);
         config_validate_timing(config);
@@ -346,6 +350,10 @@ namespace bongocat::config {
             config.fps = int_value;
         } else if (strcmp(key, OVERLAY_OPACITY_KEY) == 0) {
             config.overlay_opacity = int_value;
+        } else if (strcmp(key, MIRROR_X_KEY) == 0) {
+            config.mirror_x = int_value;
+        } else if (strcmp(key, MIRROR_Y_KEY) == 0) {
+            config.mirror_y = int_value;
         } else if (strcmp(key, ENABLE_DEBUG_KEY) == 0) {
             config.enable_debug = int_value;
         } else if (strcmp(key, ANIMATION_INDEX_KEY) == 0) {
@@ -671,6 +679,8 @@ namespace bongocat::config {
         cfg.test_animation_interval_sec = DEFAULT_TEST_ANIMATION_INTERVAL_SEC;
         cfg.fps = DEFAULT_FPS;
         cfg.overlay_opacity = DEFAULT_OVERLAY_OPACITY;
+        cfg.mirror_x = 0;
+        cfg.mirror_y = 0;
         cfg.enable_debug = DEFAULT_ENABLE_DEBUG;
         cfg.layer = DEFAULT_LAYER;
         cfg.overlay_position = DEFAULT_OVERLAY_POSITION;

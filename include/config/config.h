@@ -69,6 +69,8 @@ namespace bongocat::config {
         int32_t animation_speed_ms{0};
         int32_t fps{0};
         int32_t overlay_opacity{0};
+        int32_t mirror_x{0};                // reflect across Y axis (horizontal flip)
+        int32_t mirror_y{0};                // reflect across X axis (vertical flip)
         int32_t enable_debug{0};
         layer_type_t layer{layer_type_t::LAYER_TOP};
         overlay_position_t overlay_position{overlay_position_t::POSITION_TOP};
@@ -114,6 +116,8 @@ namespace bongocat::config {
               animation_speed_ms(other.animation_speed_ms),
               fps(other.fps),
               overlay_opacity(other.overlay_opacity),
+              mirror_x(other.mirror_x),
+              mirror_y(other.mirror_y),
               enable_debug(other.enable_debug),
               layer(other.layer),
               overlay_position(other.overlay_position),
@@ -150,6 +154,8 @@ namespace bongocat::config {
                 animation_speed_ms = other.animation_speed_ms;
                 fps = other.fps;
                 overlay_opacity = other.overlay_opacity;
+                mirror_x = other.mirror_x;
+                mirror_y = other.mirror_y;
                 enable_debug = other.enable_debug;
                 layer = other.layer;
                 overlay_position = other.overlay_position;
@@ -187,6 +193,8 @@ namespace bongocat::config {
               animation_speed_ms(other.animation_speed_ms),
               fps(other.fps),
               overlay_opacity(other.overlay_opacity),
+              mirror_x(other.mirror_x),
+              mirror_y(other.mirror_y),
               enable_debug(other.enable_debug),
               layer(other.layer),
               overlay_position(other.overlay_position),
@@ -229,6 +237,8 @@ namespace bongocat::config {
                 animation_speed_ms = other.animation_speed_ms;
                 fps = other.fps;
                 overlay_opacity = other.overlay_opacity;
+                mirror_x = other.mirror_x;
+                mirror_y = other.mirror_y;
                 enable_debug = other.enable_debug;
                 layer = other.layer;
                 overlay_position = other.overlay_position;
