@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.3.0] - 2025-08-30
+
+### Added
+- **more Sprite** - add more MS agents (optional)
+  - [Links](https://www.spriters-resource.com/pc_computer/microsoftofficexp/asset/104490/)
+
+### Improved
+- make toggle more robust
+
+
 ## [2.2.0] - 2025-08-26
 
 _include changes from 1.2.5 (upstream)_
