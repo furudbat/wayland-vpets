@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-2.2.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-2.3.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
@@ -208,12 +208,21 @@ enable_debug=0                   # Show debug messages
 
 - `clippy`
 
+<details>
+<summary>More Agents</summary>
+
+_Build with `-DFEATURE_MS_AGENT_EMBEDDED_ASSETS` and `-DFEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
+
+- `links`
+
+</details>
+
 ##### Digimon 🦖
 
-###### Original [dm](https://humulos.com/digimon/dm/) (Version 1)
+###### Original [dm](https://humulos.com/digimon/dm/)
 
 <details>
-<summary>Default Minimal Sprite when no other dm Version is compiled</summary>
+<summary>Default Minimal Sprites (from dm Version 1) when no other dms are compiled</summary>
 
 - `botamon`
 - `koromon`
@@ -232,6 +241,365 @@ enable_debug=0                   # Show debug messages
 
 </details>
 
+
+<details>
+
+<summary>Full List</summary>
+
+_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
+
+- `aegisdramon`
+- `agumon`
+- `airdramon`
+- `alphamon`
+- `andromon`
+- `angemon`
+- `apollomon`
+- `babydmon`
+- `bakemon`
+- `bancho_mamemon`
+- `bao_hackmon`
+- `barbamon`
+- `beezlebumon`
+- `belial_vamdemon`
+- `belphemon_rage_mode`
+- `betamon`
+- `birdramon`
+- `blitz_greymon`
+- `botamon`
+- `breakdramon`
+- `centalmon`
+- `cockatrimon`
+- `coelamon`
+- `coredramon_blue`
+- `coredramon_green`
+- `coronamon`
+- `craniummon`
+- `crescemon`
+- `cres_garurumon`
+- `cyclomon`
+- `dark_tyranomon`
+- `deathmon`
+- `deltamon`
+- `demon`
+- `devidramon`
+- `devimon`
+- `dianamon`
+- `digitamamon`
+- `dodomon`
+- `dorimon`
+- `dorugamon`
+- `doruguremon`
+- `dorumon`
+- `dracomon`
+- `drimogemon`
+- `duftmon`
+- `dukemon`
+- `duramon`
+- `durandamon`
+- `dynasmon`
+- `elecmon`
+- `etemon`
+- `examon`
+- `ex_tyranomon`
+- `firamon`
+- `flaremon`
+- `flymon`
+- `gabumon`
+- `gankoomon`
+- `garurumon`
+- `gazimon`
+- `giromon`
+- `gizamon`
+- `grace_novamon`
+- `greymon`
+- `groundramon`
+- `hackmon`
+- `hi_andromon`
+- `imperiadramon_paladin`
+- `jesmon`
+- `jijimon`
+- `kabuterimon`
+- `king_etemon`
+- `koromon`
+- `kunemon`
+- `kuwagamon`
+- `lekismon`
+- `leomon`
+- `leviamon`
+- `lilithmon`
+- `lord_knightmon`
+- `lucemon_falldown`
+- `lunamon`
+- `magnamon`
+- `mamemon`
+- `megadramon`
+- `meicoomon`
+- `meicrackmon`
+- `meramon`
+- `metal_greymon`
+- `metal_greymon_virus`
+- `metal_mamemon`
+- `metal_tyranomon`
+- `mojyamon`
+- `monochromon`
+- `monzaemon`
+- `mugendramon`
+- `murmukusmon`
+- `nanimon`
+- `nanomon`
+- `numemon`
+- `nyaromon`
+- `ogremon`
+- `omegamon_alter_s`
+- `omegamon`
+- `pagumon`
+- `palmon`
+- `patamon`
+- `petitmon`
+- `piccolomon`
+- `pinochimon`
+- `pitchmon`
+- `piyomon`
+- `plotmon`
+- `poyomon`
+- `pukamon`
+- `punimon`
+- `raremon`
+- `rasielmon`
+- `rust_tyranomon`
+- `sakumon`
+- `sakuttomon`
+- `savior_hackmon`
+- `scumon`
+- `seadramon`
+- `shellmon`
+- `skull_greymon`
+- `skull_mammon`
+- `slayerdramon`
+- `sleipmon`
+- `taichis_agumon`
+- `taichis_greymon`
+- `taichis_metal_greymon`
+- `taichis_war_greymon`
+- `tanemon`
+- `titamon`
+- `tokomon`
+- `tunomon`
+- `tuskmon`
+- `tyranomon`
+- `ulforce_v_dramon`
+- `unimon`
+- `vademon`
+- `vegimon`
+- `whamon`
+- `wingdramon`
+- `yamatos_gabumon`
+- `yamatos_garurumon`
+- `yamatos_metal_garurumon`
+- `yamatos_were_garurumon`
+- `yukidarumon`
+- `yukimi_botamon`
+- `yuramon`
+- `zubaeagermon`
+- `zubamon`
+- `zurumon`
+
+</details>
+
+
+###### 20th Anniversary [dm20](https://humulos.com/digimon/dm20/)
+
+<details>
+<summary>Full List</summary>
+
+_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM20_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
+_dm20 will replace dm, if both are enabled_
+
+Should be the same as dm, but with some extras:
+
+
+
+</details>
+
+
+###### X [dmx](https://humulos.com/digimon/dmx/)
+
+<details>
+<summary>Full List</summary>
+
+_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DMX_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
+
+- `agumon_black_x`
+- `agumon_x`
+- `allomon_x`
+- `alphamon_ouryuken`
+- `alphamon`
+- `ancient_sphinxmon`
+- `angewomon_x`
+- `anomalocarimon_x`
+- `bagramon`
+- `barbamon_x`
+- `beel_starmon_x`
+- `beelzebumon_x`
+- `belial_vamdemon`
+- `belphemon_x`
+- `black_wargreymon_x`
+- `cannon_beemon`
+- `cerberumon_x`
+- `chaosdramon_x`
+- `cherubimon_vice_x`
+- `cherubimon_virtue_x`
+- `chocomon`
+- `cho_hakkaimon`
+- `cocomon`
+- `craniummon_x`
+- `crys_paledramon`
+- `cyberdramon_x`
+- `damemon`
+- `dark_knightmon_x`
+- `darkness_bagramon`
+- `dark_tyranomon_x`
+- `demon_x`
+- `diablomon_x`
+- `dinorexmon`
+- `dinotigermon`
+- `dorugamon`
+- `doruguremon`
+- `dorumon`
+- `dracomon_x`
+- `duftmon_x`
+- `dukemon_x`
+- `duskmon`
+- `dynasmon_x`
+- `ebemon_x`
+- `examon`
+- `examon_x`
+- `filmon`
+- `gabumon_x`
+- `gaioumon`
+- `gankoomon_x`
+- `garudamon_x`
+- `giga_seadramon`
+- `ginryumon`
+- `goddramon_x`
+- `gomamon_x`
+- `grademon`
+- `grand_darcumon`
+- `grandis_kuwagamon`
+- `growmon_x`
+- `gummymon`
+- `herissmon`
+- `hexeblaumon`
+- `hisyaryumon`
+- `holydramon_x`
+- `hououmon_x`
+- `impmon_x`
+- `jararchimon`
+- `jazamon`
+- `jazardmon`
+- `jesmon_gx`
+- `jesmon_x`
+- `justimon_x`
+- `kaiser_leomon`
+- `keemon`
+- `keramon_x`
+- `kiimon`
+- `kokuwamon_x`
+- `kuwagamon_x`
+- `lady_devimon_x`
+- `leomon_x`
+- `leviamon_x`
+- `lilimon_x`
+- `lilithmon_x`
+- `lopmon_x`
+- `lord_kightmon_x`
+- `lucemon_x`
+- `magidramon_x`
+- `magnamon_x`
+- `mamemon_x`
+- `mame_tyramon`
+- `mammon_x`
+- `mantaraymon_x`
+- `megalo_growmon_x`
+- `mega_seadramon_x`
+- `mephismon_x`
+- `meramon_x`
+- `metal_fantomon`
+- `metal_garurumon_x`
+- `metal_greymon_virus_x`
+- `metal_greymon_x`
+- `metallicdramon`
+- `metal_piranimon`
+- `metal_tyranomon_x`
+- `minervamon_x`
+- `monzaemon_x`
+- `nefertimon_x`
+- `noble_pumpmon`
+- `numemon_x`
+- `ogremon_x`
+- `ogudomon_x`
+- `okuwamon_x`
+- `omegamon_x`
+- `omega_shoutmon_x`
+- `omekamon`
+- `ophanimon_falldown_mode`
+- `ophanimon_x`
+- `otamamon_x`
+- `ouryumon`
+- `paledramon`
+- `palmon_x`
+- `pegasmon_x`
+- `platinum_numemon`
+- `plesiomon_x`
+- `plotmon_x`
+- `prince_mamemon_x`
+- `pteranmon_x`
+- `pumpmon`
+- `puttimon`
+- `rafflesimon`
+- `raihimon`
+- `rapidmon_x`
+- `rasenmon_fury_mode`
+- `rasenmon`
+- `rekamon_x`
+- `rhinomon_x`
+- `rize_greymon_x`
+- `rosemon_x`
+- `ryudamon`
+- `sakuyamon_x`
+- `sangoupmon`
+- `seadramon_x`
+- `shakomon_x`
+- `siesamon_x`
+- `sistermon_blanc`
+- `skull_baluchimon`
+- `skull_mammon_x`
+- `sleipmon_x`
+- `stiffimon`
+- `tailmon_x`
+- `tierriermon_x`
+- `tiger_vespamon`
+- `tobcatmon`
+- `togemon_x`
+- `tokomon_x`
+- `triceramon_x`
+- `tylomon_x`
+- `tyranomon_x`
+- `ulforce_v_dramon_x`
+- `ultimate_brachimon`
+- `valdurmon`
+- `vamdemon_x`
+- `velgrman`
+- `voltobautamon`
+- `war_greymon_x`
+- `were_garurumon_x`
+- `wizarmon_x`
+- `yaamon`
+- `yatagaramon`
+- `zerimon`
+
+</details>
 
 ## 🔧 Usage
 
@@ -316,7 +684,7 @@ The `bongocat-find-devices` tool provides professional input device analysis wit
 $ bongocat-find-devices
 
 ╔══════════════════════════════════════════════════════════════════╗
-║ Wayland Bongo Cat - Input Device Discovery v2.2.0                ║
+║ Wayland Bongo Cat - Input Device Discovery v2.3.0                ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 [SCAN] Scanning for input devices...
@@ -588,5 +956,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v2.1.0** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v2.2.0** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon V-Pets and Clippy 📎.
