@@ -15,7 +15,7 @@ if [[ $# -ge 1 ]]; then
     echo "[TEST] Using provided PID = $TOGGLE_PID"
 else
     echo "[TEST] Starting program..."
-    "$PROGRAM" --toggle &
+    "$PROGRAM" --toggle --config bongocat.conf &
     TOGGLE_PID=$!
     echo "[TEST] Program PID = $TOGGLE_PID"
     sleep 20
@@ -25,7 +25,7 @@ sleep 2
 
 # Toggle off
 echo "[TEST] Sending --toggle to stop the instance..."
-"$PROGRAM" --toggle
+"$PROGRAM" --toggle --config bongocat.conf
 # Wait for shutdown
 for i in {1..10}; do
     if ! kill -0 "$TOGGLE_PID" 2>/dev/null; then break; fi
@@ -42,7 +42,7 @@ fi
 
 # Toggle on (should start new instance)
 echo "[TEST] Sending --toggle to start a new instance..."
-"$PROGRAM" --toggle &
+"$PROGRAM" --toggle --config bongocat.conf  &
 NEW_PID=$!
 sleep 2
 

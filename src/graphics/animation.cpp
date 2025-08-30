@@ -87,8 +87,8 @@ namespace bongocat::animation {
         animation_shared_memory_t& anim_shm = *ctx.shm;
         const auto& input_shm = *input.shm;
         auto& animation_player_data = anim_shm.animation_player_data;
-        const int current_frame = animation_player_data.frame_index;
-        //const int current_row = animation_player_data.sprite_sheet_row;
+        const auto current_frame = animation_player_data.frame_index;
+        //const auto current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
         //const int anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
@@ -200,10 +200,10 @@ namespace bongocat::animation {
         animation_shared_memory_t& anim_shm = *ctx.shm;
         const auto& input_shm = *input.shm;
         auto& animation_player_data = anim_shm.animation_player_data;
-        const int current_frame = animation_player_data.frame_index;
+        const auto current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
-        const int anim_index = anim_shm.anim_index;
+        const auto anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
         animation_state_row_t new_row_state = state.row_state;
@@ -357,17 +357,17 @@ namespace bongocat::animation {
         animation_shared_memory_t& anim_shm = *ctx.shm;
         const auto& input_shm = *input.shm;
         auto& animation_player_data = anim_shm.animation_player_data;
-        const int current_frame = animation_player_data.frame_index;
+        const auto current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
         //const int anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
         animation_state_row_t new_row_state = state.row_state;
-        int new_row = animation_player_data.sprite_sheet_row;
-        int new_start_frame_index = animation_player_data.start_frame_index;
-        int new_end_frame_index = animation_player_data.end_frame_index;
-        int new_frame = current_frame;
+        auto new_row = animation_player_data.sprite_sheet_row;
+        auto new_start_frame_index = animation_player_data.start_frame_index;
+        auto new_end_frame_index = animation_player_data.end_frame_index;
+        auto new_frame = current_frame;
 
         const bool go_next_frame = (current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
         const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
@@ -383,20 +383,23 @@ namespace bongocat::animation {
 
         /// @TODO: extract state change and player_data update
 
+        assert(anim_shm.anim_index >= 0);
+        const ms_agent_animation_indices_t animation_indices = get_ms_agent_animation_indices(static_cast<size_t>(anim_shm.anim_index));
+
         switch (state.row_state) {
             case animation_state_row_t::Test:
             case animation_state_row_t::Happy:
                 // not supported, same as idle
             case animation_state_row_t::Idle: {
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_IDLE-1;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_IDLE;
+                new_start_frame_index = animation_indices.start_index_frame_idle;
+                new_end_frame_index = animation_indices.end_index_frame_idle;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_IDLE;
                 new_row_state = animation_state_row_t::Idle;
                 if (current_config.idle_animation && process_idle_animation) {
                     // loop idle animation
-                    const int range = animation_player_data.end_frame_index - animation_player_data.start_frame_index + 1;
-                    new_frame = (range != 0) ? animation_player_data.start_frame_index +
-                        ((current_frame - animation_player_data.start_frame_index + 1) % range) : current_frame;
+                    new_frame = current_frame + 1;
+                    if (new_frame > animation_player_data.end_frame_index) new_frame = animation_player_data.start_frame_index;
+                    //if (new_frame < animation_player_data.start_frame_index) new_frame = animation_player_data.end_frame_index;
                 } else if (!current_config.idle_animation) {
                     new_frame = current_config.idle_animation;
                 }
@@ -407,9 +410,9 @@ namespace bongocat::animation {
                         if (is_sleep_time(current_config)) {
                             // start sleeping
                             new_frame = 0;
-                            new_start_frame_index = 0;
-                            new_end_frame_index = CLIPPY_FRAMES_SLEEP-1;
-                            new_row = CLIPPY_SPRITE_SHEET_ROW_SLEEP;
+                            new_start_frame_index = animation_indices.start_index_frame_sleep;
+                            new_end_frame_index = animation_indices.end_index_frame_sleep;
+                            new_row = MS_AGENT_SPRITE_SHEET_ROW_SLEEP;
                             new_row_state = animation_state_row_t::Sleep;
                         }
                     }
@@ -421,18 +424,18 @@ namespace bongocat::animation {
                         if (!state.boring_frame_showed && now - last_key_pressed_timestamp >= idle_sleep_timeout_ms/2) {
                             // start boring animation
                             new_frame = 0;
-                            new_start_frame_index = 0;
-                            new_end_frame_index = CLIPPY_FRAMES_BORING-1;
-                            new_row = CLIPPY_SPRITE_SHEET_ROW_BORING;
+                            new_start_frame_index = animation_indices.start_index_frame_boring;
+                            new_end_frame_index = animation_indices.end_index_frame_boring;
+                            new_row = MS_AGENT_SPRITE_SHEET_ROW_BORING;
                             new_row_state = animation_state_row_t::Boring;
                         }
                         // sleeping
                         if (now - last_key_pressed_timestamp >= idle_sleep_timeout_ms) {
                             // start sleeping
                             new_frame = 0;
-                            new_start_frame_index = 0;
-                            new_end_frame_index = CLIPPY_FRAMES_SLEEP-1;
-                            new_row = CLIPPY_SPRITE_SHEET_ROW_SLEEP;
+                            new_start_frame_index = animation_indices.start_index_frame_sleep;
+                            new_end_frame_index = animation_indices.end_index_frame_sleep;
+                            new_row = MS_AGENT_SPRITE_SHEET_ROW_SLEEP;
                             new_row_state = animation_state_row_t::Sleep;
                         }
                     }
@@ -440,15 +443,15 @@ namespace bongocat::animation {
             }break;
             case animation_state_row_t::Writing: {
                 // keep writing
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_WRITING-1;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_WRITING;
+                new_start_frame_index = animation_indices.start_index_frame_writing;
+                new_end_frame_index = animation_indices.end_index_frame_writing;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_WRITING;
                 new_row_state = animation_state_row_t::Writing;
-                // loop idle animation
                 if (any_key_pressed || go_next_frame) {
-                    const int range = animation_player_data.end_frame_index - animation_player_data.start_frame_index + 1;
-                    new_frame = (range != 0) ? animation_player_data.start_frame_index +
-                        ((current_frame - animation_player_data.start_frame_index + 1) % range) : current_frame;
+                    // loop writing animation
+                    new_frame = current_frame + 1;
+                    if (new_frame > animation_player_data.end_frame_index) new_frame = animation_player_data.start_frame_index;
+                    //if (new_frame < animation_player_data.start_frame_index) new_frame = animation_player_data.end_frame_index;
                 }
                 // still in writing process ?
                 if (state.hold_frame_after_release && any_key_pressed) {
@@ -459,27 +462,27 @@ namespace bongocat::animation {
                 if (hold_frame_after_release) {
                     // start, end writing animation
                     new_frame = 0;
-                    new_start_frame_index = 0;
-                    new_end_frame_index = CLIPPY_FRAMES_END_WRITING-1;
-                    new_row = CLIPPY_SPRITE_SHEET_ROW_END_WRITING;
+                    new_start_frame_index = animation_indices.start_index_frame_end_writing;
+                    new_end_frame_index = animation_indices.end_index_frame_end_writing;
+                    new_row = MS_AGENT_SPRITE_SHEET_ROW_END_WRITING;
                     new_row_state = animation_state_row_t::EndWriting;
                 }
             }break;
             case animation_state_row_t::StartWriting:
                 // end current animation
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_START_WRITING-1;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_START_WRITING;
+                new_start_frame_index = animation_indices.start_index_frame_start_writing;
+                new_end_frame_index = animation_indices.end_index_frame_start_writing;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_START_WRITING;
                 new_row_state = animation_state_row_t::StartWriting;
                 if (go_next_frame) {
                     new_frame = current_frame + 1;
                 }
                 if (new_frame > new_end_frame_index) {
                     // start writing animation
-                    new_frame = 0;
-                    new_start_frame_index = 0;
-                    new_end_frame_index = CLIPPY_FRAMES_WRITING-1;
-                    new_row = CLIPPY_SPRITE_SHEET_ROW_WRITING;
+                    new_start_frame_index = animation_indices.start_index_frame_writing;
+                    new_end_frame_index = animation_indices.end_index_frame_writing;
+                    new_frame = new_start_frame_index;
+                    new_row = MS_AGENT_SPRITE_SHEET_ROW_WRITING;
                     new_row_state = animation_state_row_t::Writing;
                     // reset release counter after writing is started (for real)
                     state.hold_frame_after_release = true;
@@ -488,30 +491,30 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::EndWriting:
                 // end current animation
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_END_WRITING-1;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_END_WRITING;
+                new_start_frame_index = animation_indices.start_index_frame_end_writing;
+                new_end_frame_index = animation_indices.end_index_frame_end_writing;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_END_WRITING;
                 new_row_state = animation_state_row_t::EndWriting;
                 if (go_next_frame) {
                     new_frame = current_frame + 1;
                 }
                 if (new_frame > new_end_frame_index) {
+                    new_start_frame_index = animation_indices.start_index_frame_idle;
+                    new_end_frame_index = animation_indices.end_index_frame_idle;
                     // back to idle
                     if (current_config.idle_animation) {
-                        new_frame = 0;
+                        new_frame = new_start_frame_index;
                     } else {
                         new_frame = current_config.idle_frame;
                     }
-                    new_start_frame_index = 0;
-                    new_end_frame_index = CLIPPY_FRAMES_IDLE-1;
-                    new_row = CLIPPY_SPRITE_SHEET_ROW_IDLE;
+                    new_row = MS_AGENT_SPRITE_SHEET_ROW_IDLE;
                     new_row_state = animation_state_row_t::Idle;
                 }
                 break;
             case animation_state_row_t::Sleep:
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_SLEEP-1;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_SLEEP;
+                new_start_frame_index = animation_indices.start_index_frame_sleep;
+                new_end_frame_index = animation_indices.end_index_frame_sleep;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_SLEEP;
                 new_row_state = animation_state_row_t::Sleep;
                 // continue (start) sleeping, stop at last frame
                 if (go_next_frame) {
@@ -523,45 +526,45 @@ namespace bongocat::animation {
                 }
                 break;
             case animation_state_row_t::WakeUp:
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_WAKE_UP-1;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_WAKE_UP;
+                new_start_frame_index = animation_indices.start_index_frame_wake_up;
+                new_end_frame_index = animation_indices.end_index_frame_wake_up;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_WAKE_UP;
                 new_row_state = animation_state_row_t::WakeUp;
                 if (go_next_frame) {
                     new_frame = current_frame + 1;
                 }
                 if (new_frame > new_end_frame_index) {
                     // back to idle
+                    new_start_frame_index = animation_indices.start_index_frame_idle;
+                    new_end_frame_index = animation_indices.end_index_frame_idle;
                     if (current_config.idle_animation) {
-                        new_frame = 0;
+                        new_frame = new_start_frame_index;
                     } else {
                         new_frame = current_config.idle_frame;
                     }
-                    new_start_frame_index = 0;
-                    new_end_frame_index = CLIPPY_FRAMES_IDLE-1;
-                    new_row = CLIPPY_SPRITE_SHEET_ROW_IDLE;
+                    new_row = MS_AGENT_SPRITE_SHEET_ROW_IDLE;
                     new_row_state = animation_state_row_t::Idle;
                 }
                 break;
             case animation_state_row_t::Boring:
                 // end current animation
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_BORING-1;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_BORING;
+                new_start_frame_index = animation_indices.start_index_frame_boring;
+                new_end_frame_index = animation_indices.end_index_frame_boring;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_BORING;
                 new_row_state = animation_state_row_t::Boring;
                 if (go_next_frame) {
                     new_frame = current_frame + 1;
                 }
                 if (new_frame > new_end_frame_index) {
                     // back to idle
+                    new_start_frame_index = animation_indices.start_index_frame_idle;
+                    new_end_frame_index = animation_indices.end_index_frame_idle;
                     if (current_config.idle_animation) {
-                        new_frame = 0;
+                        new_frame = new_start_frame_index;
                     } else {
                         new_frame = current_config.idle_frame;
                     }
-                    new_start_frame_index = 0;
-                    new_end_frame_index = CLIPPY_FRAMES_IDLE-1;
-                    new_row = CLIPPY_SPRITE_SHEET_ROW_IDLE;
+                    new_row = MS_AGENT_SPRITE_SHEET_ROW_IDLE;
                     new_row_state = animation_state_row_t::Idle;
                 }
                 break;
@@ -582,7 +585,7 @@ namespace bongocat::animation {
                 state.boring_frame_showed = false;
             }
             if (current_config.enable_debug) {
-                BONGOCAT_LOG_VERBOSE("Animation frame change: %d", new_frame);
+                BONGOCAT_LOG_VERBOSE("Idle Animation frame change: %d", new_frame);
             }
             state.frame_delta_ms_counter = 0;
         }
@@ -592,8 +595,7 @@ namespace bongocat::animation {
 #endif
 
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-    static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(animation_context_t& ctx,
-                                                                         animation_state_t& state) {
+    static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(animation_context_t& ctx, animation_state_t& state) {
         using namespace assets;
 
         // read-only config
@@ -604,17 +606,17 @@ namespace bongocat::animation {
         animation_shared_memory_t& anim_shm = *ctx.shm;
         //const auto& input_shm = *input.shm;
         auto& animation_player_data = anim_shm.animation_player_data;
-        const int current_frame = animation_player_data.frame_index;
-        //const int current_row = animation_player_data.sprite_sheet_row;
+        const auto current_frame = animation_player_data.frame_index;
+        //const auto current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
-        //const int anim_index = anim_shm.anim_index;
+        //const auto anim_index = anim_shm.anim_index;
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
         animation_state_row_t new_row_state = state.row_state;
-        int new_row = animation_player_data.sprite_sheet_row;
-        int new_start_frame_index = animation_player_data.start_frame_index;
-        int new_end_frame_index = animation_player_data.end_frame_index;
-        int new_frame = current_frame;
+        auto new_row = animation_player_data.sprite_sheet_row;
+        auto new_start_frame_index = animation_player_data.start_frame_index;
+        auto new_end_frame_index = animation_player_data.end_frame_index;
+        auto new_frame = current_frame;
 
         /// @TODO: use state machine for animation (states)
 
@@ -667,10 +669,10 @@ namespace bongocat::animation {
         animation_shared_memory_t& anim_shm = *ctx.shm;
         const auto& input_shm = *input.shm;
         auto& animation_player_data = anim_shm.animation_player_data;
-        const int current_frame = animation_player_data.frame_index;
-        //const int current_row = animation_player_data.sprite_sheet_row;
+        const auto current_frame = animation_player_data.frame_index;
+        //const auto current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
-        //const int anim_index = anim_shm.anim_index;
+        //const auto anim_index = anim_shm.anim_index;
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
         const auto& current_frames = anim_shm.dm_anims[anim_shm.anim_index].dm;
 
@@ -743,19 +745,22 @@ namespace bongocat::animation {
         animation_shared_memory_t& anim_shm = *ctx.shm;
         //const auto& input_shm = *input.shm;
         auto& animation_player_data = anim_shm.animation_player_data;
-        const int current_frame = animation_player_data.frame_index;
-        //const int current_row = animation_player_data.sprite_sheet_row;
+        const auto current_frame = animation_player_data.frame_index;
+        //const auto current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
-        //const int anim_index = anim_shm.anim_index;
+        //const auto anim_index = anim_shm.anim_index;
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
         volatile animation_state_row_t new_row_state = state.row_state;
-        int new_row = animation_player_data.sprite_sheet_row;
-        int new_start_frame_index = animation_player_data.start_frame_index;
-        int new_end_frame_index = animation_player_data.end_frame_index;
-        int new_frame = current_frame;
+        auto new_row = animation_player_data.sprite_sheet_row;
+        auto new_start_frame_index = animation_player_data.start_frame_index;
+        auto new_end_frame_index = animation_player_data.end_frame_index;
+        auto new_frame = current_frame;
 
         /// @TODO: use state machine for animation (states)
+
+        assert(anim_shm.anim_index >= 0);
+        const ms_agent_animation_indices_t animation_indices = get_ms_agent_animation_indices(static_cast<size_t>(anim_shm.anim_index));
 
         // in Writing mode/start writing
         switch (state.row_state) {
@@ -763,10 +768,10 @@ namespace bongocat::animation {
             case animation_state_row_t::Happy:
             case animation_state_row_t::Idle:
                 // START Writing
-                new_frame = 0;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_START_WRITING;
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_START_WRITING-1;
+                new_start_frame_index = animation_indices.start_index_frame_start_writing;
+                new_end_frame_index = animation_indices.end_index_frame_start_writing;
+                new_frame = new_start_frame_index;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_START_WRITING;
                 new_row_state = animation_state_row_t::StartWriting;
                 break;
             case animation_state_row_t::StartWriting:
@@ -780,10 +785,10 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::Sleep:
                 // wake up when sleeping
-                new_frame = 0;
-                new_row = CLIPPY_SPRITE_SHEET_ROW_WAKE_UP;
-                new_start_frame_index = 0;
-                new_end_frame_index = CLIPPY_FRAMES_WAKE_UP-1;
+                new_row = MS_AGENT_SPRITE_SHEET_ROW_WAKE_UP;
+                new_start_frame_index = animation_indices.start_index_frame_wake_up;
+                new_end_frame_index = animation_indices.end_index_frame_sleep;
+                new_frame = new_start_frame_index;
                 new_row_state = animation_state_row_t::WakeUp;
             case animation_state_row_t::WakeUp:
                 // process animation in anim_ms_pet_idle_next_frame
@@ -801,7 +806,7 @@ namespace bongocat::animation {
             animation_player_data.end_frame_index = new_end_frame_index;
             state.row_state = new_row_state;
             if (current_config.enable_debug) {
-                BONGOCAT_LOG_VERBOSE("Animation frame change: %d", new_frame);
+                BONGOCAT_LOG_VERBOSE("Key pressed Animation frame change: %d", new_frame);
             }
             state.frame_delta_ms_counter = 0;
         }
@@ -1035,6 +1040,8 @@ namespace bongocat::animation {
     }
 
     static void *anim_thread(void *arg) {
+        using namespace assets;
+
         assert(arg);
         auto& trigger_ctx = *static_cast<animation_session_t *>(arg);
 
@@ -1058,6 +1065,9 @@ namespace bongocat::animation {
             const config::config_t& current_config = *ctx._local_copy_config;
 
             anim_init_state(ctx, state);
+
+            assert(anim_shm.anim_index >= 0);
+            const ms_agent_animation_indices_t animation_indices = get_ms_agent_animation_indices(static_cast<size_t>(anim_shm.anim_index));
 
             // setup animation player
             switch (current_config.animation_sprite_sheet_layout) {
@@ -1084,9 +1094,9 @@ namespace bongocat::animation {
                 case config::config_animation_sprite_sheet_layout_t::MsAgent:
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
                     animation_player_data.frame_index = current_config.idle_frame;
-                    animation_player_data.sprite_sheet_row = assets::CLIPPY_SPRITE_SHEET_ROW_IDLE;
-                    animation_player_data.start_frame_index = 0;
-                    animation_player_data.end_frame_index = assets::CLIPPY_FRAMES_IDLE-1;
+                    animation_player_data.sprite_sheet_row = assets::MS_AGENT_SPRITE_SHEET_ROW_IDLE;
+                    animation_player_data.start_frame_index = animation_indices.start_index_frame_idle;
+                    animation_player_data.end_frame_index = animation_indices.end_index_frame_idle;
                     state.row_state = animation_state_row_t::Idle;
 #endif
                     break;
@@ -1191,8 +1201,8 @@ namespace bongocat::animation {
 
                 // Advance next frame time by exactly one frame
                 next_frame_time.tv_nsec += state.frame_time_ns;
-                while (next_frame_time.tv_nsec >= 1000000000L) {
-                    next_frame_time.tv_nsec -= 1000000000L;
+                while (next_frame_time.tv_nsec >= 1000000000LL) {
+                    next_frame_time.tv_nsec -= 1000000000LL;
                     next_frame_time.tv_sec += 1;
                 }
 
@@ -1205,8 +1215,8 @@ namespace bongocat::animation {
                     // Skip ahead until next_frame_time is >= now
                     do {
                         next_frame_time.tv_nsec += state.frame_time_ns;
-                        while (next_frame_time.tv_nsec >= 1000000000L) {
-                            next_frame_time.tv_nsec -= 1000000000L;
+                        while (next_frame_time.tv_nsec >= 1000000000LL) {
+                            next_frame_time.tv_nsec -= 1000000000LL;
                             next_frame_time.tv_sec += 1;
                         }
                     } while ((now.tv_sec > next_frame_time.tv_sec) ||
@@ -1216,8 +1226,8 @@ namespace bongocat::animation {
                     //BONGOCAT_LOG_VERBOSE("Animation skipped frame(s) to catch up");
                 } else {
                     // Sleep until the next frame using absolute time
-                    const long sec_diff  = next_frame_time.tv_sec  - now.tv_sec;
-                    const long nsec_diff = next_frame_time.tv_nsec - now.tv_nsec;
+                    const auto sec_diff  = next_frame_time.tv_sec  - now.tv_sec;
+                    const auto nsec_diff = next_frame_time.tv_nsec - now.tv_nsec;
                     ctx.shm->animation_player_data.time_until_next_frame_ms =
                         static_cast<platform::time_ms_t>(sec_diff * 1000L + (nsec_diff + 999999LL) / 1000000LL);
 

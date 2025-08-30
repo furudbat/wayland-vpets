@@ -31,7 +31,7 @@ endif()
 
 
 
-project(bongocat LANGUAGES C CXX VERSION 2.2.0)
+project(bongocat LANGUAGES C CXX VERSION 2.3.0)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -43,7 +43,8 @@ cmake_dependent_option(FEATURE_DM20_EMBEDDED_ASSETS "Include dm20 embedded asset
 cmake_dependent_option(FEATURE_DMC_EMBEDDED_ASSETS "Include dmc embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 #cmake_dependent_option(FEATURE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agents (clippy) embedded assets" ON)
+option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" ON)
+cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS agents (Links) embedded assets" OFF FEATURE_MS_AGENT_EMBEDDED_ASSETS OFF)
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, sprite switching on hot-reload)" OFF)
 
@@ -252,6 +253,10 @@ if (FEATURE_MS_AGENT_EMBEDDED_ASSETS)
     target_compile_options(assets_clippy PUBLIC -ffunction-sections -fdata-sections)
     target_include_directories(assets_clippy PRIVATE ${INCLUDE_DIR})
     target_compile_definitions(assets_clippy PUBLIC FEATURE_MS_AGENT_EMBEDDED_ASSETS)
+    if (FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS)
+        target_compile_definitions(assets_clippy PUBLIC FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS)
+    endif()
+
     target_link_libraries(bongocat PRIVATE assets_clippy)
 endif()
 target_link_options(bongocat PRIVATE -Wl,--gc-sections)

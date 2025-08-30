@@ -170,6 +170,11 @@ echo "[INFO] Restore old config"
 cp $OG_CONFIG $CONFIG
 sleep 5
 
+echo "[Test] Change Config by other config (Digimon -> Clippy): $CONFIG"
+cp ./examples/clippy.bongocat.conf $CONFIG
+sleep 5
+
+
 # --- verify running ---
 if kill -0 "$PID" 2>/dev/null; then
     echo "[PASS] Process $PID still running!"

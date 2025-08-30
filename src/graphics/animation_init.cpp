@@ -152,6 +152,10 @@ namespace bongocat::animation {
 
             // clippy
             init_ms_pet_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS);
+#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+            /// @NOTE(config): add more MS Pets here
+            init_ms_pet_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS);
+#endif
         }
 #endif
 
