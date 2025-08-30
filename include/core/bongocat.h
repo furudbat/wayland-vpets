@@ -7,11 +7,12 @@
 #include "utils/memory.h"
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "2.1.1";
+inline static constexpr const char* BONGOCAT_VERSION = "2.2.0";
 
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
 inline static constexpr int32_t DEFAULT_BAR_HEIGHT = 40;
+static inline constexpr int32_t DEFAULT_FPS = 60;
 inline static constexpr int32_t RGBA_CHANNELS = 4;
 inline static constexpr int32_t BGRA_CHANNELS = 4;
 
@@ -30,6 +31,12 @@ namespace bongocat {
     };
 
     namespace features {
+#ifndef NDEBUG
+        inline static constexpr bool Debug = true;
+#else
+        inline static constexpr bool Debug = false;
+#endif
+
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
         inline static constexpr bool EnableBongocatEmbeddedAssets = true;
 #else

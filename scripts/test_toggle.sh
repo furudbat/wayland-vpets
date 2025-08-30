@@ -1,36 +1,62 @@
 echo "Testing bongocat toggle functionality..."
 echo
 
-echo "1. Starting bongocat with --toggle (should start since not running):"
-./build/bongocat --toggle &
-TOGGLE_PID=$!
+#make
+#PROGRAM="./cmake-build-debug/bongocat"
+PROGRAM="./build/bongocat"
+
+trap 'killall bongocat 2>/dev/null' EXIT
+
+echo "[TEST] --- Toggle Functionality ---"
+
+# Start initial instance
+if [[ $# -ge 1 ]]; then
+    TOGGLE_PID="$1"
+    echo "[TEST] Using provided PID = $TOGGLE_PID"
+else
+    echo "[TEST] Starting program..."
+    "$PROGRAM" --toggle &
+    TOGGLE_PID=$!
+    echo "[TEST] Program PID = $TOGGLE_PID"
+    sleep 20
+fi
+echo "[TEST] Initial bongocat PID = $TOGGLE_PID"
 sleep 2
 
-echo
-echo "2. Checking if bongocat is running:"
-ps aux | grep bongocat | grep -v grep | grep -v test_toggle
+# Toggle off
+echo "[TEST] Sending --toggle to stop the instance..."
+"$PROGRAM" --toggle
+# Wait for shutdown
+for i in {1..10}; do
+    if ! kill -0 "$TOGGLE_PID" 2>/dev/null; then break; fi
+    sleep 0.5
+done
 
-echo
-echo "3. Toggling bongocat off (should stop the running instance):"
-./build/bongocat --toggle
+if kill -0 "$TOGGLE_PID" 2>/dev/null; then
+    echo "[FAIL] Toggle failed: Process $TOGGLE_PID still running!"
+    kill -9 "$TOGGLE_PID" 2>/dev/null || true
+    exit 1
+else
+    echo "[PASS] Process terminated successfully via toggle"
+fi
 
-echo
-echo "4. Checking if bongocat is still running:"
-ps aux | grep bongocat | grep -v grep | grep -v test_toggle || echo "No bongocat processes found - toggle worked!"
-
-echo
-echo "5. Toggling bongocat on again (should start since not running):"
-./build/bongocat --toggle &
-TOGGLE_PID2=$!
+# Toggle on (should start new instance)
+echo "[TEST] Sending --toggle to start a new instance..."
+"$PROGRAM" --toggle &
+NEW_PID=$!
 sleep 2
 
-echo
-echo "6. Final check - bongocat should be running:"
-ps aux | grep bongocat | grep -v grep | grep -v test_toggle
+if kill -0 "$NEW_PID" 2>/dev/null; then
+    echo "[PASS] New process $NEW_PID started successfully via toggle"
+else
+    echo "[FAIL] Toggle failed to start new instance!"
+    exit 1
+fi
 
-echo
-echo "7. Cleaning up - stopping bongocat:"
-./build/bongocat --toggle
-
-echo
-echo "Toggle functionality test completed!"
+# Clean up new instance
+kill -TERM "$NEW_PID"
+for i in {1..10}; do
+    if ! kill -0 "$NEW_PID" 2>/dev/null; then break; fi
+    sleep 0.5
+done
+echo "[TEST] Toggle functionality test completed!"

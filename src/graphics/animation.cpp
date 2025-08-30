@@ -18,8 +18,10 @@ namespace bongocat::animation {
 
     inline static constexpr platform::time_ms_t POOL_MIN_TIMEOUT_MS = 5;
     inline static constexpr platform::time_ms_t POOL_MAX_TIMEOUT_MS = 1000;
-    inline static constexpr size_t MAX_ATTEMPTS = 2048;
+    inline static constexpr int MAX_ATTEMPTS = 2048;
     static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
+
+    inline static constexpr platform::time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
     // =============================================================================
     // ANIMATION STATE MANAGEMENT MODULE
@@ -87,7 +89,7 @@ namespace bongocat::animation {
         auto& animation_player_data = anim_shm.animation_player_data;
         const int current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
-        const animation_state_row_t current_row_state = state.row_state;
+        //const animation_state_row_t current_row_state = state.row_state;
         //const int anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
@@ -109,7 +111,7 @@ namespace bongocat::animation {
         }
 
         // Test animation
-        if (!any_key_pressed && trigger_test_animation && current_row_state == animation_state_row_t::Idle) {
+        if (!any_key_pressed && trigger_test_animation && state.row_state == animation_state_row_t::Idle) {
             new_row = BONGOCAT_SPRITE_SHEET_ROWS-1;
             new_start_frame_index = BONGOCAT_FRAME_LEFT_DOWN;
             new_end_frame_index = BONGOCAT_FRAME_RIGHT_DOWN;
@@ -127,7 +129,7 @@ namespace bongocat::animation {
             }
         }
         // Idle Animation
-        if (hold_frame_after_release || (trigger_test_animation && current_row_state == animation_state_row_t::Test && release_test_frame)) {
+        if (hold_frame_after_release || (trigger_test_animation && state.row_state == animation_state_row_t::Test && release_test_frame)) {
             // back to idle
             new_start_frame_index = BONGOCAT_FRAME_BOTH_UP;
             new_end_frame_index = BONGOCAT_FRAME_BOTH_UP;
@@ -165,7 +167,7 @@ namespace bongocat::animation {
             }
         }
 
-        const bool changed = animation_player_data.frame_index != new_frame || animation_player_data.sprite_sheet_row != new_row || current_row_state != new_row_state;
+        const bool changed = animation_player_data.frame_index != new_frame || animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
         if (changed) {
             ctx.shm->animation_player_data.frame_index = new_frame;
             animation_player_data.sprite_sheet_row = new_row;
@@ -200,7 +202,7 @@ namespace bongocat::animation {
         auto& animation_player_data = anim_shm.animation_player_data;
         const int current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
-        const animation_state_row_t current_row_state = state.row_state;
+        //const animation_state_row_t current_row_state = state.row_state;
         const int anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
@@ -225,7 +227,7 @@ namespace bongocat::animation {
         const auto& current_frames = anim_shm.dm_anims[anim_index].dm;
         new_row = DM_SPRITE_SHEET_ROWS-1;
         // Test Animation
-        if (!any_key_pressed && trigger_test_animation && current_row_state == animation_state_row_t::Idle) {
+        if (!any_key_pressed && trigger_test_animation && state.row_state == animation_state_row_t::Idle) {
             new_start_frame_index = DM_FRAME_IDLE1;
             new_end_frame_index = DM_FRAME_IDLE2;
             new_row_state = animation_state_row_t::Test;
@@ -242,7 +244,7 @@ namespace bongocat::animation {
             }
         }
         // Idle Animation
-        if (hold_frame_after_release || process_idle_animation || (trigger_test_animation && release_test_frame && current_row_state == animation_state_row_t::Test)) {
+        if (hold_frame_after_release || process_idle_animation || (trigger_test_animation && release_test_frame && state.row_state == animation_state_row_t::Test)) {
             new_start_frame_index = DM_FRAME_IDLE1;
             new_end_frame_index = DM_FRAME_IDLE2;
             new_row_state = animation_state_row_t::Idle;
@@ -260,55 +262,23 @@ namespace bongocat::animation {
         }
         // Sleep animation
         if (current_config.enable_scheduled_sleep && is_sleep_time(current_config)) {
-            // toggle sleep frame (if 2 frame exists for sleeping)
-            if (current_frame == DM_FRAME_SLEEP1) {
-                if (current_frames.sleep_2.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP2;
-                    new_end_frame_index = DM_FRAME_SLEEP2;
-                    new_frame = DM_FRAME_SLEEP2;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.sleep1.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP1;
-                    new_end_frame_index = DM_FRAME_SLEEP1;
-                    new_frame = DM_FRAME_SLEEP1;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.down1.valid) {
-                    BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
-                    // fallback frame
-                    new_start_frame_index = DM_FRAME_DOWN1;
-                    new_end_frame_index = DM_FRAME_DOWN1;
-                    new_frame = DM_FRAME_DOWN1;
-                    new_row_state = animation_state_row_t::Sleep;
-                }
-            } else if (current_frame == DM_FRAME_SLEEP2) {
-                if (current_frames.sleep1.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP1;
-                    new_end_frame_index = DM_FRAME_SLEEP1;
-                    new_frame = DM_FRAME_SLEEP1;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.down1.valid) {
-                    BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
-                    // fallback frame
-                    new_start_frame_index = DM_FRAME_DOWN1;
-                    new_end_frame_index = DM_FRAME_DOWN1;
-                    new_frame = DM_FRAME_DOWN1;
-                    new_row_state = animation_state_row_t::Sleep;
-                }
-            } else {
-                // start sleeping
-                if (current_frames.sleep1.valid) {
-                    new_start_frame_index = DM_FRAME_SLEEP1;
-                    new_end_frame_index = DM_FRAME_SLEEP1;
-                    new_frame = DM_FRAME_SLEEP1;
-                    new_row_state = animation_state_row_t::Sleep;
-                } else if (current_frames.down1.valid) {
-                    BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
-                    // fallback frame
-                    new_start_frame_index = DM_FRAME_DOWN1;
-                    new_end_frame_index = DM_FRAME_DOWN1;
-                    new_frame = DM_FRAME_DOWN1;
-                    new_row_state = animation_state_row_t::Sleep;
-                }
+            if (current_frames.sleep_2.valid) {
+                new_start_frame_index = DM_FRAME_SLEEP2;
+                new_end_frame_index = DM_FRAME_SLEEP2;
+                new_frame = DM_FRAME_SLEEP1;
+                new_row_state = animation_state_row_t::Sleep;
+            } else if (current_frames.sleep1.valid) {
+                new_start_frame_index = DM_FRAME_SLEEP1;
+                new_end_frame_index = DM_FRAME_SLEEP1;
+                new_frame = DM_FRAME_SLEEP1;
+                new_row_state = animation_state_row_t::Sleep;
+            } else if (current_frames.down1.valid) {
+                BONGOCAT_LOG_VERBOSE("No Sleeping Frame for %d", anim_index);
+                // fallback frame
+                new_start_frame_index = DM_FRAME_DOWN1;
+                new_end_frame_index = DM_FRAME_DOWN1;
+                new_frame = DM_FRAME_DOWN1;
+                new_row_state = animation_state_row_t::Sleep;
             }
         }
         // Idle Sleep
@@ -350,7 +320,7 @@ namespace bongocat::animation {
             }
         }
 
-        const bool changed = animation_player_data.frame_index != new_frame || animation_player_data.sprite_sheet_row != new_row || current_row_state != new_row_state;
+        const bool changed = animation_player_data.frame_index != new_frame || animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
         if (changed) {
             animation_player_data.frame_index = new_frame;
             animation_player_data.sprite_sheet_row = new_row;
@@ -389,7 +359,7 @@ namespace bongocat::animation {
         auto& animation_player_data = anim_shm.animation_player_data;
         const int current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
-        const animation_state_row_t current_row_state = state.row_state;
+        //const animation_state_row_t current_row_state = state.row_state;
         //const int anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
@@ -413,7 +383,7 @@ namespace bongocat::animation {
 
         /// @TODO: extract state change and player_data update
 
-        switch (current_row_state) {
+        switch (state.row_state) {
             case animation_state_row_t::Test:
             case animation_state_row_t::Happy:
                 // not supported, same as idle
@@ -431,7 +401,7 @@ namespace bongocat::animation {
                     new_frame = current_config.idle_animation;
                 }
                 // is not sleeping, yet
-                if (current_row_state != animation_state_row_t::Sleep) {
+                if (state.row_state != animation_state_row_t::Sleep) {
                     // Sleep Mode
                     if (current_config.enable_scheduled_sleep) {
                         if (is_sleep_time(current_config)) {
@@ -598,7 +568,7 @@ namespace bongocat::animation {
         }
 
 
-        const bool changed = animation_player_data.frame_index != new_frame || animation_player_data.sprite_sheet_row != new_row || current_row_state != new_row_state;
+        const bool changed = animation_player_data.frame_index != new_frame || animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
         if (changed) {
             animation_player_data.frame_index = new_frame;
             animation_player_data.sprite_sheet_row = new_row;
@@ -636,7 +606,7 @@ namespace bongocat::animation {
         auto& animation_player_data = anim_shm.animation_player_data;
         const int current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
-        const animation_state_row_t current_row_state = state.row_state;
+        //const animation_state_row_t current_row_state = state.row_state;
         //const int anim_index = anim_shm.anim_index;
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
@@ -665,7 +635,7 @@ namespace bongocat::animation {
         new_end_frame_index = BONGOCAT_FRAME_RIGHT_DOWN;
         new_row_state = animation_state_row_t::Writing;
 
-        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || current_row_state != new_row_state;
+        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
         if (changed) {
             anim_shm.animation_player_data.frame_index = new_frame;
             animation_player_data.sprite_sheet_row = new_row;
@@ -699,7 +669,7 @@ namespace bongocat::animation {
         auto& animation_player_data = anim_shm.animation_player_data;
         const int current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
-        const animation_state_row_t current_row_state = state.row_state;
+        //const animation_state_row_t current_row_state = state.row_state;
         //const int anim_index = anim_shm.anim_index;
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
         const auto& current_frames = anim_shm.dm_anims[anim_shm.anim_index].dm;
@@ -743,7 +713,7 @@ namespace bongocat::animation {
             new_frame = static_cast<int>(ctx._rng.range(DM_FRAME_IDLE1, DM_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
         }
 
-        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || current_row_state != new_row_state;
+        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
         if (changed) {
             anim_shm.animation_player_data.frame_index = new_frame;
             animation_player_data.sprite_sheet_row = new_row;
@@ -775,11 +745,11 @@ namespace bongocat::animation {
         auto& animation_player_data = anim_shm.animation_player_data;
         const int current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
-        const animation_state_row_t current_row_state = state.row_state;
+        //const animation_state_row_t current_row_state = state.row_state;
         //const int anim_index = anim_shm.anim_index;
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
-        animation_state_row_t new_row_state = state.row_state;
+        volatile animation_state_row_t new_row_state = state.row_state;
         int new_row = animation_player_data.sprite_sheet_row;
         int new_start_frame_index = animation_player_data.start_frame_index;
         int new_end_frame_index = animation_player_data.end_frame_index;
@@ -788,7 +758,7 @@ namespace bongocat::animation {
         /// @TODO: use state machine for animation (states)
 
         // in Writing mode/start writing
-        switch (current_row_state) {
+        switch (state.row_state) {
             case animation_state_row_t::Test:
             case animation_state_row_t::Happy:
             case animation_state_row_t::Idle:
@@ -823,7 +793,7 @@ namespace bongocat::animation {
                 break;
         }
 
-        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || current_row_state != new_row_state;
+        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
         if (changed) {
             anim_shm.animation_player_data.frame_index = new_frame;
             animation_player_data.sprite_sheet_row = new_row;
@@ -998,7 +968,6 @@ namespace bongocat::animation {
 
         bool ret = false;
         {
-            platform::LockGuard guard (ctx.anim_lock);
             state.frame_delta_ms_counter += state.frame_time_ms;
 
             bool idle_changed = false;
@@ -1006,9 +975,9 @@ namespace bongocat::animation {
             bool press_changed = false;
             {
                 platform::LockGuard input_guard (input.input_lock);
-                const auto [r_any_key_pressed, r_press_changed] = anim_handle_key_press(animation_trigger_ctx, state);
-                any_key_pressed = r_any_key_pressed;
-                press_changed = r_press_changed;
+                const volatile auto key_press_result = anim_handle_key_press(animation_trigger_ctx, state);
+                any_key_pressed = key_press_result.any_key_pressed;
+                press_changed = key_press_result.changed;
                 idle_changed = anim_handle_idle_animation(ctx, input, state, any_key_pressed);
             }
 
@@ -1054,92 +1023,140 @@ namespace bongocat::animation {
         state.boring_frame_showed = false;
     }
 
+    static void cleanup_anim_thread(void* arg) {
+        assert(arg);
+        animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
+
+        atomic_store(&trigger_ctx.anim._animation_running, false);
+
+        trigger_ctx.anim.config_updated.notify_all();
+
+        BONGOCAT_LOG_INFO("Animation thread cleanup completed (via pthread_cancel)");
+    }
 
     static void *anim_thread(void *arg) {
         assert(arg);
         auto& trigger_ctx = *static_cast<animation_session_t *>(arg);
-        trigger_ctx.input_lock._lock();
-        assert(trigger_ctx._input);
-        animation_context_t& ctx = trigger_ctx.anim;
-        //input_context_t& input = *trigger_ctx._input;
-        assert(ctx.shm != nullptr);
-        animation_shared_memory_t& anim_shm = *ctx.shm;
-        auto& animation_player_data = anim_shm.animation_player_data;
-
-        // read-only config
-        assert(ctx._local_copy_config != nullptr);
-        const config::config_t& current_config = *ctx._local_copy_config;
 
         // sanity checks
+        assert(trigger_ctx._input);
         assert(trigger_ctx._config != nullptr);
-        assert(trigger_ctx.config_reload_mutex != nullptr);
-        assert(trigger_ctx.config_reload_cond != nullptr);
-        assert(trigger_ctx.config_generation != nullptr);
-        //assert(trigger_ctx._input != nullptr);
-        //assert(trigger_ctx._config != nullptr);
-        trigger_ctx.input_lock._unlock();
+        assert(trigger_ctx._input != nullptr);
+        assert(trigger_ctx._configs_reloaded_cond != nullptr);
 
+        // init animation state
         animation_state_t state;
-        anim_init_state(ctx, state);
+        {
+            platform::LockGuard guard (trigger_ctx.anim.anim_lock);
+            animation_context_t& ctx = trigger_ctx.anim;
+            assert(ctx.shm != nullptr);
+            animation_shared_memory_t& anim_shm = *ctx.shm;
+            auto& animation_player_data = anim_shm.animation_player_data;
 
-        // setup animation player
-        switch (current_config.animation_sprite_sheet_layout) {
-            case config::config_animation_sprite_sheet_layout_t::None:
-                break;
-            case config::config_animation_sprite_sheet_layout_t::Bongocat:
+            // read-only config
+            assert(ctx._local_copy_config != nullptr);
+            const config::config_t& current_config = *ctx._local_copy_config;
+
+            anim_init_state(ctx, state);
+
+            // setup animation player
+            switch (current_config.animation_sprite_sheet_layout) {
+                case config::config_animation_sprite_sheet_layout_t::None:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Bongocat:
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                animation_player_data.frame_index = current_config.idle_frame;
-                animation_player_data.sprite_sheet_row = assets::BONGOCAT_SPRITE_SHEET_ROWS-1;
-                animation_player_data.start_frame_index = 0;
-                animation_player_data.end_frame_index = 1;
-                state.row_state = animation_state_row_t::Idle;
+                    animation_player_data.frame_index = current_config.idle_frame;
+                    animation_player_data.sprite_sheet_row = assets::BONGOCAT_SPRITE_SHEET_ROWS-1;
+                    animation_player_data.start_frame_index = 0;
+                    animation_player_data.end_frame_index = 1;
+                    state.row_state = animation_state_row_t::Idle;
 #endif
-                break;
-            case config::config_animation_sprite_sheet_layout_t::Dm:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Dm:
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-                animation_player_data.frame_index = current_config.idle_frame;
-                animation_player_data.sprite_sheet_row = assets::DM_SPRITE_SHEET_ROWS-1;
-                animation_player_data.start_frame_index = 0;
-                animation_player_data.end_frame_index = 1;
-                state.row_state = animation_state_row_t::Idle;
+                    animation_player_data.frame_index = current_config.idle_frame;
+                    animation_player_data.sprite_sheet_row = assets::DM_SPRITE_SHEET_ROWS-1;
+                    animation_player_data.start_frame_index = 0;
+                    animation_player_data.end_frame_index = 1;
+                    state.row_state = animation_state_row_t::Idle;
 #endif
-                break;
-            case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::MsAgent:
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-                animation_player_data.frame_index = current_config.idle_frame;
-                animation_player_data.sprite_sheet_row = assets::CLIPPY_SPRITE_SHEET_ROW_IDLE;
-                animation_player_data.start_frame_index = 0;
-                animation_player_data.end_frame_index = assets::CLIPPY_FRAMES_IDLE-1;
-                state.row_state = animation_state_row_t::Idle;
+                    animation_player_data.frame_index = current_config.idle_frame;
+                    animation_player_data.sprite_sheet_row = assets::CLIPPY_SPRITE_SHEET_ROW_IDLE;
+                    animation_player_data.start_frame_index = 0;
+                    animation_player_data.end_frame_index = assets::CLIPPY_FRAMES_IDLE-1;
+                    state.row_state = animation_state_row_t::Idle;
 #endif
-                break;
+                    break;
+            }
         }
 
-        atomic_store(&ctx._animation_running, true);
         BONGOCAT_LOG_DEBUG("Animation thread main loop started");
-
-        timespec next_frame_time{};
-        clock_gettime(CLOCK_MONOTONIC, &next_frame_time);
 
         // trigger initial render
         platform::wayland::request_render(trigger_ctx);
 
-        while (atomic_load(&ctx._animation_running)) {
-            // Handle reload events
+        pthread_cleanup_push(cleanup_anim_thread, arg);
+
+        // local thread context
+        timespec next_frame_time{};
+        clock_gettime(CLOCK_MONOTONIC, &next_frame_time);
+
+        atomic_store(&trigger_ctx.anim._animation_running, true);
+        while (atomic_load(&trigger_ctx.anim._animation_running)) {
+            pthread_testcancel();  // optional, but makes cancellation more responsive
+
+            animation_context_t& ctx = trigger_ctx.anim;
+
+            // read from config
+            platform::time_ms_t check_config_timeout_ms;
+            int32_t fps = 1;
+            {
+                assert(ctx._local_copy_config != nullptr);
+                const config::config_t& current_config = *ctx._local_copy_config;
+
+                fps = current_config.fps;
+                check_config_timeout_ms = current_config.fps > 0 ? 1000 / current_config.fps / 3 : 0;
+            }
+
+            bool reload_config = false;
+            uint64_t new_gen{atomic_load(trigger_ctx._config_generation)};
+
+            /// event poll
             constexpr size_t fds_update_config_index = 0;
             constexpr nfds_t fds_count = 1;
             pollfd fds[fds_count] = {
-                { .fd = trigger_ctx.update_config_efd._fd, .events = POLLIN, .revents = 0 },
+                { .fd = trigger_ctx.anim.update_config_efd._fd, .events = POLLIN, .revents = 0 },
             };
-            const platform::time_ms_t check_config_timeout_ms = current_config.fps > 0 ? 1000 / current_config.fps / 3 : 0;
             const int poll_result = poll(fds, fds_count, static_cast<int>(check_config_timeout_ms));
+            if (poll_result < 0) {
+                if (errno == EINTR) continue; // Interrupted by signal
+                BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
+                break;
+            }
             if (poll_result > 0) {
-                // update config event
+                // cancel pooling (when not running anymore)
+                if (!atomic_load(&ctx._animation_running)) {
+                    // draining pools
+                    for (size_t i = 0; i < fds_count; i++) {
+                        if (fds[i].revents & POLLIN) {
+                            int attempts = 0;
+                            uint64_t u;
+                            while (read(fds[i].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                                attempts++;
+                            }
+                        }
+                    }
+                    break;
+                }
+
+                // Handle config update
                 if (fds[fds_update_config_index].revents & POLLIN) {
                     BONGOCAT_LOG_DEBUG("Receive update config event");
-                    size_t attempts = 0;
-                    uint64_t u;
-                    while (read(trigger_ctx.update_config_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                    int attempts = 0;
+                    while (read(trigger_ctx.anim.update_config_efd._fd, &new_gen, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
                         attempts++;
                         // continue draining if multiple writes queued
                     }
@@ -1153,77 +1170,93 @@ namespace bongocat::animation {
                         BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
                     }
 #endif
-                    uint64_t gen;
-                    {
-                        platform::LockGuard config_guard(*trigger_ctx.config_reload_mutex);
-                        update_config(trigger_ctx.anim, *trigger_ctx._config);
-                        // Acknowledge this generation
-                        gen = atomic_load(trigger_ctx.config_generation);
-                        atomic_store(&trigger_ctx.config_seen_generation, gen);
-                        pthread_cond_broadcast(trigger_ctx.config_reload_cond);
-                        assert(&current_config == ctx._local_copy_config.ptr);
-                    }
 
-                    BONGOCAT_LOG_INFO("Animation config reloaded (gen=%u)", gen);
+                    reload_config = new_gen > 0;
                 }
             }
 
             // Update Animations
-            const bool frame_changed = anim_update_state(trigger_ctx, state);
-            if (frame_changed) {
-                uint64_t u = 1;
-                if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
-                    BONGOCAT_LOG_VERBOSE("Write animation render event");
-                } else {
-                    BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
-                }
-            }
-
-            // Advance next frame time by exactly one frame
-            next_frame_time.tv_nsec += state.frame_time_ns;
-            while (next_frame_time.tv_nsec >= 1000000000L) {
-                next_frame_time.tv_nsec -= 1000000000L;
-                next_frame_time.tv_sec += 1;
-            }
-
-            timespec now{};
-            clock_gettime(CLOCK_MONOTONIC, &now);
-
-            // If we're already past the next frame time, catch up (skip missed frames)
-            if ((now.tv_sec > next_frame_time.tv_sec) ||
-                (now.tv_sec == next_frame_time.tv_sec && now.tv_nsec > next_frame_time.tv_nsec)) {
-                // Skip ahead until next_frame_time is >= now
-                do {
-                    next_frame_time.tv_nsec += state.frame_time_ns;
-                    while (next_frame_time.tv_nsec >= 1000000000L) {
-                        next_frame_time.tv_nsec -= 1000000000L;
-                        next_frame_time.tv_sec += 1;
+            {
+                platform::LockGuard guard (trigger_ctx.anim.anim_lock);
+                assert(ctx.shm != nullptr);
+                const bool frame_changed = anim_update_state(trigger_ctx, state);
+                if (frame_changed) {
+                    uint64_t u = 1;
+                    if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+                        BONGOCAT_LOG_VERBOSE("Write animation render event");
+                    } else {
+                        BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
                     }
-                } while ((now.tv_sec > next_frame_time.tv_sec) ||
-                         (now.tv_sec == next_frame_time.tv_sec && now.tv_nsec > next_frame_time.tv_nsec));
-
-                ctx.shm->animation_player_data.time_until_next_frame_ms = 0;
-                //BONGOCAT_LOG_VERBOSE("Animation skipped frame(s) to catch up");
-            } else {
-                // Sleep until the next frame using absolute time
-                const long sec_diff  = next_frame_time.tv_sec  - now.tv_sec;
-                const long nsec_diff = next_frame_time.tv_nsec - now.tv_nsec;
-                ctx.shm->animation_player_data.time_until_next_frame_ms =
-                    static_cast<platform::time_ms_t>(sec_diff * 1000L + (nsec_diff + 999999LL) / 1000000LL);
-
-                if (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_frame_time, nullptr) != 0) {
-                    // Interrupted, just continue
                 }
+
+                // Advance next frame time by exactly one frame
+                next_frame_time.tv_nsec += state.frame_time_ns;
+                while (next_frame_time.tv_nsec >= 1000000000L) {
+                    next_frame_time.tv_nsec -= 1000000000L;
+                    next_frame_time.tv_sec += 1;
+                }
+
+                timespec now{};
+                clock_gettime(CLOCK_MONOTONIC, &now);
+
+                // If we're already past the next frame time, catch up (skip missed frames)
+                if ((now.tv_sec > next_frame_time.tv_sec) ||
+                    (now.tv_sec == next_frame_time.tv_sec && now.tv_nsec > next_frame_time.tv_nsec)) {
+                    // Skip ahead until next_frame_time is >= now
+                    do {
+                        next_frame_time.tv_nsec += state.frame_time_ns;
+                        while (next_frame_time.tv_nsec >= 1000000000L) {
+                            next_frame_time.tv_nsec -= 1000000000L;
+                            next_frame_time.tv_sec += 1;
+                        }
+                    } while ((now.tv_sec > next_frame_time.tv_sec) ||
+                             (now.tv_sec == next_frame_time.tv_sec && now.tv_nsec > next_frame_time.tv_nsec));
+
+                    ctx.shm->animation_player_data.time_until_next_frame_ms = 0;
+                    //BONGOCAT_LOG_VERBOSE("Animation skipped frame(s) to catch up");
+                } else {
+                    // Sleep until the next frame using absolute time
+                    const long sec_diff  = next_frame_time.tv_sec  - now.tv_sec;
+                    const long nsec_diff = next_frame_time.tv_nsec - now.tv_nsec;
+                    ctx.shm->animation_player_data.time_until_next_frame_ms =
+                        static_cast<platform::time_ms_t>(sec_diff * 1000L + (nsec_diff + 999999LL) / 1000000LL);
+
+                    if (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_frame_time, nullptr) != 0) {
+                        // Interrupted, just continue
+                    }
+                }
+
+                // Update variables from config in case FPS changed
+                state.frame_time_ns = (fps > 0) ? 1000000000LL / fps : 1000000000LL / DEFAULT_FPS;
+                state.frame_time_ms = state.frame_time_ns / 1000000LL;
             }
 
-            // Update variables from config in case FPS changed
-            state.frame_time_ns = 1000000000LL / current_config.fps;
-            state.frame_time_ms = state.frame_time_ns / 1000000LL;
+            // handle update config
+            if (reload_config) {
+                assert(trigger_ctx._config_generation != nullptr);
+                assert(trigger_ctx._configs_reloaded_cond != nullptr);
+                assert(trigger_ctx._config != nullptr);
+
+                update_config(ctx, *trigger_ctx._config, new_gen);
+
+                // wait for reload config to be done (all configs)
+                const int rc = trigger_ctx._configs_reloaded_cond->timedwait([&] {
+                    return atomic_load(trigger_ctx._config_generation) >= new_gen;
+                }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
+                if (rc == ETIMEDOUT) {
+                    BONGOCAT_LOG_WARNING("Animation: Timed out waiting for reload eventfd: %s", strerror(errno));
+                }
+                assert(atomic_load(&trigger_ctx.anim.config_seen_generation) == atomic_load(trigger_ctx._config_generation));
+                atomic_store(&trigger_ctx.anim.config_seen_generation, atomic_load(trigger_ctx._config_generation));
+                BONGOCAT_LOG_INFO("Animation config reloaded (gen=%u)", new_gen);
+            }
         }
 
-        pthread_mutex_lock(trigger_ctx.config_reload_mutex);
-        pthread_cond_broadcast(trigger_ctx.config_reload_cond);
-        pthread_mutex_unlock(trigger_ctx.config_reload_mutex);
+        // Will run only on normal return
+        pthread_cleanup_pop(1);  // 1 = call cleanup even if not canceled
+
+        // done when callback cleanup_anim_context
+        //cleanup_anim_context(arg);
 
         BONGOCAT_LOG_INFO("Animation thread main loop exited");
 
@@ -1234,19 +1267,29 @@ namespace bongocat::animation {
     // PUBLIC API IMPLEMENTATION
     // =============================================================================
 
-    bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input, const config::config_t& config, pthread_mutex_t& config_reload_mutex, pthread_cond_t& config_reload_cond, atomic_uint64_t& config_generation) {
+    bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input, const config::config_t& config, platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
         BONGOCAT_LOG_INFO("Starting animation thread");
 
-        {
-            platform::LockGuard guard (trigger_ctx.input_lock);
-            trigger_ctx._input = &input;
-            trigger_ctx._config = &config;
-            trigger_ctx.config_reload_mutex = &config_reload_mutex;
-            trigger_ctx.config_reload_cond = &config_reload_cond;
-            trigger_ctx.config_generation = &config_generation;
-            atomic_store(&trigger_ctx.config_seen_generation, atomic_load(&config_generation));
+        // Initialize shared memory for local config
+        trigger_ctx.anim._local_copy_config = platform::make_allocated_mmap<config::config_t>();
+        if (!trigger_ctx.anim._local_copy_config.ptr) {
+            BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
+        assert(trigger_ctx.anim._local_copy_config != nullptr);
+        update_config(trigger_ctx.anim, config, atomic_load(&config_generation));
 
+        // set extern/global references
+        trigger_ctx._input = &input;
+        trigger_ctx._config = &config;
+        trigger_ctx._configs_reloaded_cond = &configs_reloaded_cond;
+        trigger_ctx._config_generation = &config_generation;
+        atomic_store(&trigger_ctx.ready, true);
+        trigger_ctx.init_cond.notify_all();
+
+        trigger_ctx._configs_reloaded_cond->notify_all();
+
+        // start animation thread
         const int result = pthread_create(&trigger_ctx.anim._anim_thread, nullptr, anim_thread, &trigger_ctx);
         if (result != 0) {
             BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
@@ -1267,59 +1310,62 @@ namespace bongocat::animation {
         }
     }
 
-    void trigger_update_config(animation_session_t& trigger_ctx, const config::config_t& config) {
+    void trigger_update_config(animation_session_t& trigger_ctx, const config::config_t& config, uint64_t config_generation) {
         //assert(trigger_ctx.anim._local_copy_config != nullptr);
         //assert(trigger_ctx.anim.shm != nullptr);
 
         trigger_ctx._config = &config;
-
-        constexpr uint64_t u = 1;
-        if (write(trigger_ctx.update_config_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+        if (write(trigger_ctx.anim.update_config_efd._fd, &config_generation, sizeof(uint64_t)) >= 0) {
             BONGOCAT_LOG_VERBOSE("Write animation trigger update config");
         } else {
             BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
         }
     }
 
-    void update_config(animation_context_t& ctx, const config::config_t& config) {
+    void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
 
         *ctx._local_copy_config = config;
-
-        ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
-
-        switch (config.animation_sprite_sheet_layout) {
-            case config::config_animation_sprite_sheet_layout_t::None:
-                ctx.shm->anim_index = 0;
-                break;
-            case config::config_animation_sprite_sheet_layout_t::Bongocat:
-                assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
+        {
+            platform::LockGuard guard (ctx.anim_lock);
+            ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
+            switch (config.animation_sprite_sheet_layout) {
+                case config::config_animation_sprite_sheet_layout_t::None:
+                    ctx.shm->anim_index = 0;
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                    assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
 #ifndef NDEBUG
-                if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT)) {
-                    BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                }
+                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT)) {
+                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
+                    }
 #endif
-                ctx.shm->anim_index = assets::BONGOCAT_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT) : 0;
-                break;
-            case config::config_animation_sprite_sheet_layout_t::Dm:
-                assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
+                    ctx.shm->anim_index = assets::BONGOCAT_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT) : 0;
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Dm:
+                    assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
 #ifndef NDEBUG
-                if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::DM_ANIMATIONS_COUNT)) {
-                    BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                }
+                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::DM_ANIMATIONS_COUNT)) {
+                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
+                    }
 #endif
-                ctx.shm->anim_index = assets::DM_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::DM_ANIMATIONS_COUNT) : 0;
-                break;
-            case config::config_animation_sprite_sheet_layout_t::MsAgent:
-                assert(assets::MS_AGENTS_ANIMATIONS_COUNT <= INT_MAX);
+                    ctx.shm->anim_index = assets::DM_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::DM_ANIMATIONS_COUNT) : 0;
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                    assert(assets::MS_AGENTS_ANIMATIONS_COUNT <= INT_MAX);
 #ifndef NDEBUG
-                if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::MS_AGENTS_ANIMATIONS_COUNT)) {
-                    BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                }
+                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::MS_AGENTS_ANIMATIONS_COUNT)) {
+                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
+                    }
 #endif
-                ctx.shm->anim_index = assets::MS_AGENTS_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::MS_AGENTS_ANIMATIONS_COUNT) : 0;
-                break;
+                    ctx.shm->anim_index = assets::MS_AGENTS_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::MS_AGENTS_ANIMATIONS_COUNT) : 0;
+                    break;
+            }
         }
+
+        atomic_store(&ctx.config_seen_generation, new_gen);
+        // Signal main that reload is done
+        ctx.config_updated.notify_all();
     }
 }

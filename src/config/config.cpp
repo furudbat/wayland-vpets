@@ -37,18 +37,17 @@ namespace bongocat::config {
     static inline constexpr auto DEFAULT_DEVICE = "/dev/input/event4";
     static inline constexpr auto DEFAULT_CONFIG_FILE_PATH = "bongocat.conf";
 
-    static inline constexpr int DEFAULT_CAT_X_OFFSET = 100;
-    static inline constexpr int DEFAULT_CAT_Y_OFFSET = 10;
-    static inline constexpr int DEFAULT_CAT_HEIGHT = 40;
-    static inline constexpr int DEFAULT_OVERLAY_HEIGHT = 50;
-    static inline constexpr int DEFAULT_IDLE_FRAME = 0;
+    static inline constexpr int32_t DEFAULT_CAT_X_OFFSET = 100;
+    static inline constexpr int32_t DEFAULT_CAT_Y_OFFSET = 10;
+    static inline constexpr int32_t DEFAULT_CAT_HEIGHT = 40;
+    static inline constexpr int32_t DEFAULT_OVERLAY_HEIGHT = 50;
+    static inline constexpr int32_t DEFAULT_IDLE_FRAME = 0;
     static inline constexpr platform::time_ms_t DEFAULT_KEYPRESS_DURATION_MS = 100;
-    static inline constexpr int DEFAULT_FPS = 60;
-    static inline constexpr int DEFAULT_OVERLAY_OPACITY = 60;
-    static inline constexpr int DEFAULT_ANIMATION_INDEX = 0;
+    static inline constexpr int32_t DEFAULT_OVERLAY_OPACITY = 60;
+    static inline constexpr int32_t DEFAULT_ANIMATION_INDEX = 0;
     static inline constexpr layer_type_t DEFAULT_LAYER = layer_type_t::LAYER_TOP;       // Requires enum or constant elsewhere
     static inline constexpr overlay_position_t DEFAULT_OVERLAY_POSITION = overlay_position_t::POSITION_TOP;
-    static inline constexpr int DEFAULT_HAPPY_KPM = 0;
+    static inline constexpr int32_t DEFAULT_HAPPY_KPM = 0;
     static inline constexpr platform::time_sec_t DEFAULT_IDLE_SLEEP_TIMEOUT_SEC = 0;
     static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
     static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
@@ -506,26 +505,26 @@ namespace bongocat::config {
 
             // check for dm
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-#ifdef FEATURE_INCLUDE_DM_EMBEDDED_ASSETS
-#include "../graphics/embedded_assets/dm_config_parse_enum_key.cpp.inl"
-#else
+#ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
             //if (strcmp(lower_value, "agumon") == 0) {
             //    config->animation_index = DM_AGUMON_ANIM_INDEX;
             //}
 #include "../graphics/embedded_assets/min_dm_config_parse_enum_key.cpp.inl"
 #endif
-
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/dm_config_parse_enum_key.cpp.inl"
+#endif
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #include "../graphics/embedded_assets/dm20_config_parse_enum_key.cpp.inl"
 #endif
-#ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "../graphics/embedded_assets/dmc_config_parse_enum_key.cpp.inl"
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/pen20_config_parse_enum_key.cpp.inl"
 #endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
 #include "../graphics/embedded_assets/dmx_config_parse_enum_key.cpp.inl"
 #endif
-#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "../graphics/embedded_assets/pen20_config_parse_enum_key.cpp.inl"
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+#include "../graphics/embedded_assets/dmc_config_parse_enum_key.cpp.inl"
 #endif
             /// @NOTE(config): add more dm versions here
 
@@ -690,10 +689,12 @@ namespace bongocat::config {
         if (config.num_keyboard_devices == 0) {
             return config_add_keyboard_device(config, DEFAULT_DEVICE);
         }
+
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
     static void config_log_summary(const config_t& config) {
+        using namespace assets;
         BONGOCAT_LOG_DEBUG("Configuration loaded successfully");
         BONGOCAT_LOG_DEBUG("  Overlay Height: %dpx", config.overlay_height);
         switch (config.animation_sprite_sheet_layout) {
@@ -701,12 +702,12 @@ namespace bongocat::config {
                 break;
             case config_animation_sprite_sheet_layout_t::Bongocat:
                 BONGOCAT_LOG_DEBUG("  Cat: %dx%d at offset (%d,%d)",
-                                  config.cat_height, (config.cat_height * assets::BONGOCAT_FRAME_WIDTH) / assets::BONGOCAT_FRAME_HEIGHT,
+                                  config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::Dm:
-                BONGOCAT_LOG_DEBUG("  dm: %02d at offset (%d,%d)",
-                                  config.animation_index,
+                BONGOCAT_LOG_DEBUG("  dm: %03d/%d at offset (%d,%d)",
+                                  config.animation_index, DM_ANIMATIONS_COUNT,
                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::MsAgent:

@@ -226,7 +226,6 @@ namespace bongocat::animation {
         assert(wayland_ctx._local_copy_config != nullptr);
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
-        const animation_shared_memory_t& anim_shm = *anim.shm;
 
         if (!atomic_load(&wayland_ctx_shm->configured)) {
             BONGOCAT_LOG_VERBOSE("Surface not configured yet, skipping draw");
@@ -271,6 +270,7 @@ namespace bongocat::animation {
 
         {
             platform::LockGuard guard (anim.anim_lock);
+            const animation_shared_memory_t& anim_shm = *anim.shm;
 
             if (!wayland_ctx._fullscreen_detected) {
                 using namespace assets;
@@ -279,7 +279,7 @@ namespace bongocat::animation {
                         break;
                     case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                        assert(anim_shm.anim_index < BONGOCAT_ANIMATIONS_COUNT);
+                        assert(BONGOCAT_ANIMATIONS_COUNT < INT32_MAX && anim_shm.anim_index < static_cast<int32_t>(BONGOCAT_ANIMATIONS_COUNT));
                         const animation_t& cat_anim = anim_shm.bongocat_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);

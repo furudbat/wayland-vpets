@@ -45,7 +45,7 @@ namespace bongocat::platform {
         atomic_store(&running_flag, false);
         const int ret = join_thread_with_timeout(thread, THREAD_JOIN_TIMEOUT_MS);
         if (thread != 0 && ret == ETIMEDOUT) {
-            BONGOCAT_LOG_WARNING("Thread did not exit in time, cancelling");
+            BONGOCAT_LOG_WARNING("Thread did not exit in time, cancelling: %dms", THREAD_JOIN_TIMEOUT_MS);
             pthread_cancel(thread);
             pthread_join(thread, nullptr);
         }

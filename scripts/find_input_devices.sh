@@ -2,7 +2,7 @@
 
 # Wayland Bongo Cat - Input Device Discovery Tool
 # Professional input device finder with comprehensive analysis
-# Version: 1.4.0
+# Version: 2.2.0
 
 set -euo pipefail
 
@@ -53,7 +53,7 @@ readonly TEST="[TEST]"
 
 # Script metadata
 readonly SCRIPT_NAME="bongocat-find-devices"
-readonly VERSION="1.4.0"
+readonly VERSION="2.2.0"
 
 # Command line options
 SHOW_ALL=false

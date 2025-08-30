@@ -4,15 +4,26 @@
 #include "utils/system_memory.h"
 #include <cstring>
 #include <unistd.h>
-#include <sys/select.h>
 #include <cassert>
+#include <pthread.h>
+#include <sys/stat.h>
+#include <poll.h>
 #include <sys/inotify.h>
 #include <sys/eventfd.h>
-#include <cstdlib>
+#include <libgen.h>
+
+#include "platform/wayland_context.h"
 
 namespace bongocat::config {
+    static inline constexpr int MAX_ATTEMPTS = 2048;
+    static inline constexpr int RECREATE_MAX_ATTEMPTS = 10;
     static inline constexpr platform::time_ms_t RELOAD_DEBOUNCE_MS = 1000;
     static inline constexpr platform::time_ms_t RELOAD_DELAY_MS = 100;
+    static inline constexpr platform::time_ms_t RECREATE_SLEEP_ATTEMPT_MS = 100;
+    static inline constexpr platform::time_ms_t TIMEOUT_MS = 100;
+
+    static constexpr uint32_t FILE_MASK = IN_MODIFY | IN_CLOSE_WRITE | IN_ATTRIB | IN_MOVE_SELF | IN_DELETE_SELF;
+    static constexpr uint32_t DIR_MASK  = IN_CREATE | IN_MOVED_TO | IN_DELETE | IN_MOVED_FROM;
 
     static void *config_watcher_thread(void *arg) {
         assert(arg);
@@ -21,58 +32,129 @@ namespace bongocat::config {
         char buffer[INOTIFY_BUF_LEN] = {};
         platform::timestamp_ms_t last_reload_timestamp = platform::get_current_time_ms();
 
+        constexpr size_t fds_inotify_index = 0;
+        constexpr nfds_t fds_count = 1;
+        pollfd fds[fds_count] = {
+        { .fd = watcher.inotify_fd._fd, .events = POLLIN, .revents = 0 },
+        };
+        constexpr int timeout_ms = TIMEOUT_MS;
+
         BONGOCAT_LOG_INFO("Config watcher started for: %s", watcher.config_path);
 
         atomic_store(&watcher._running, true);
         while (atomic_load(&watcher._running)) {
-            fd_set read_fds;
-
-            FD_ZERO(&read_fds);
-            FD_SET(watcher.inotify_fd._fd, &read_fds);
-
-            // Set timeout to 1 second to allow checking watching flag
-            timeval timeout {.tv_sec = 1, .tv_usec = 0};
-            const int select_result = select(watcher.inotify_fd._fd + 1, &read_fds, nullptr, nullptr, &timeout);
-
-            if (select_result < 0) {
+            int ret = poll(fds, fds_count, timeout_ms);
+            if (ret < 0) {
                 if (errno == EINTR) continue;
-                BONGOCAT_LOG_ERROR("Config watcher select failed: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("Config watcher poll failed: %s", strerror(errno));
+                break;
+            }
+            if (!atomic_load(&watcher._running)) {
+                // draining pools
+                for (size_t i = 0; i < fds_count; i++) {
+                    if (fds[i].revents & POLLIN) {
+                        int attempts = 0;
+                        uint64_t u;
+                        while (read(fds[i].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
+                            attempts++;
+                        }
+                    }
+                }
                 break;
             }
 
-            if (select_result == 0) {
-                // Timeout, continue to check watching flag
-                continue;
-            }
-
-            if (FD_ISSET(watcher.inotify_fd._fd, &read_fds)) {
+            if (fds[fds_inotify_index].revents & POLLIN) {
                 const ssize_t length = read(watcher.inotify_fd._fd, buffer, config::INOTIFY_BUF_LEN);
-
                 if (length < 0) {
                     BONGOCAT_LOG_ERROR("Config watcher read failed: %s", strerror(errno));
                     continue;
                 }
 
                 bool should_reload = false;
-                ssize_t i = 0;
-                while (i < length) {
-                    const auto *event = reinterpret_cast<struct inotify_event *>(&buffer[i]);
+                bool file_went_away = false;
+                bool file_recreated = false;
 
-                    if (event->mask & (IN_MODIFY | IN_MOVED_TO)) {
-                        should_reload = true;
+                ssize_t i = 0;
+                int attempts = 0;
+                while (i < length && attempts < MAX_ATTEMPTS) {
+                    const auto *event = reinterpret_cast<const struct inotify_event *>(&buffer[i]);
+                    assert(event);
+
+                    BONGOCAT_LOG_VERBOSE("inotify event: wd=%d mask=0x%08X name=%s",
+                                         event->wd, event->mask,
+                                         event->len ? event->name : "(none)");
+
+                    if (event->wd == watcher.wd_file._fd) {
+                        if (event->mask & (IN_MODIFY | IN_CLOSE_WRITE | IN_ATTRIB)) should_reload = true;
+                        if (event->mask & (IN_MOVE_SELF | IN_DELETE_SELF))          file_went_away = true;
+                    } else if (event->wd == watcher.wd_dir._fd) {
+                        if ((event->mask & (IN_CREATE | IN_MOVED_TO)) && event->len > 0) {
+                            if (strcmp(event->name, basename(watcher.config_path)) == 0) file_recreated = true;
+                        }
                     }
+
 
                     assert(config::INOTIFY_EVENT_SIZE <= SSIZE_MAX);
                     i += static_cast<ssize_t>(config::INOTIFY_EVENT_SIZE) + event->len;
+                    attempts++;
+                }
+
+                if (file_went_away) {
+                    BONGOCAT_LOG_VERBOSE("Config file went away; removing file watch");
+                    if (watcher.wd_file._fd >= 0) {
+                        inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_file._fd);
+                        watcher.wd_file._fd = -1;
+                    }
+                    // the file is gone, wait for recreation
+                    should_reload = false;
+                }
+
+                if (file_recreated) {
+                    BONGOCAT_LOG_VERBOSE("Config file recreated; re-adding file watch");
+                    int new_wd = inotify_add_watch(watcher.inotify_fd._fd, watcher.config_path, FILE_MASK);
+                    if (new_wd >= 0) {
+                        watcher.wd_file = platform::FileDescriptor(new_wd);
+                        new_wd = -1;
+                        should_reload = true;
+                    } else {
+                        BONGOCAT_LOG_ERROR("Failed to re-add file watch: %s", strerror(errno));
+                        should_reload = false;
+                    }
+                }
+
+                // ensure file exists (from IN_CLOSE_WRITE/IN_MODIFY)
+                if (should_reload) {
+                    // If we don't currently have a file watch (it was removed), try stat the file
+                    bool file_exists = false;
+                    if (watcher.wd_file._fd >= 0) {
+                        file_exists = true;
+                    } else {
+                        // small retry loop to handle race where create races with our handling
+                        struct stat st{};
+                        for (int attempt = 0; attempt < RECREATE_MAX_ATTEMPTS; attempt++) {
+                            if (stat(watcher.config_path, &st) == 0) {
+                                file_exists = true;
+                                break;
+                            }
+                            // small sleep before next stat
+                            usleep(RECREATE_SLEEP_ATTEMPT_MS*1000);
+                        }
+                    }
+
+                    if (!file_exists) {
+                        BONGOCAT_LOG_VERBOSE("Reload skipped: config file not present yet (will wait for recreate)");
+                        should_reload = false;
+                    }
                 }
 
                 if (should_reload) {
                     // Debounce: only reload if at least some time have passed since last reload
-                    const platform::timestamp_ms_t current_time = platform::get_current_time_ms();
-                    if (current_time - last_reload_timestamp >= RELOAD_DEBOUNCE_MS) {
-                        BONGOCAT_LOG_INFO("Config file changed, reloading...");
+                    const platform::timestamp_ms_t now = platform::get_current_time_ms();
+                    if (now - last_reload_timestamp >= RELOAD_DEBOUNCE_MS) {
+                        BONGOCAT_LOG_INFO("Config file changed, trigger reload");
                         // Small delay to ensure file write is complete
                         usleep(RELOAD_DELAY_MS*1000);
+                        last_reload_timestamp = now;
 
                         uint64_t u = 1;
                         if (write(watcher.reload_efd._fd, &u, sizeof(uint64_t)) >= 0) {
@@ -80,8 +162,6 @@ namespace bongocat::config {
                         } else {
                             BONGOCAT_LOG_ERROR("Failed to write to notify pipe in watcher: %s", strerror(errno));
                         }
-
-                        last_reload_timestamp = current_time;
                     }
                 }
             }
@@ -92,33 +172,51 @@ namespace bongocat::config {
         return nullptr;
     }
 
-    created_result_t<config_watcher_t> create_watcher(const char *config_path) {
+    created_result_t<AllocatedMemory<config_watcher_t>> create_watcher(const char *config_path) {
         BONGOCAT_CHECK_NULL(config_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
-        config_watcher_t ret;
+        AllocatedMemory<config_watcher_t> ret = make_allocated_memory<config_watcher_t>();
+        assert(ret != nullptr);
+        if (ret == nullptr) {
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
+
+        // Store config path
+        ret->config_path = strdup(config_path);
+        if (!ret->config_path) {
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
 
         // Initialize inotify
-        ret.inotify_fd = platform::FileDescriptor(inotify_init1(IN_NONBLOCK));
-        if (ret.inotify_fd._fd < 0) {
+        ret->inotify_fd = platform::FileDescriptor(inotify_init1(IN_NONBLOCK));
+        if (ret->inotify_fd._fd < 0) {
             BONGOCAT_LOG_ERROR("Failed to initialize inotify: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        // Store config path
-        ret.config_path = strdup(config_path);
-        if (!ret.config_path) {
-            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-        }
-
-        // Add watch for the config file
-        ret.watch_fd = platform::FileDescriptor(inotify_add_watch(ret.inotify_fd._fd, config_path,
-                                            IN_MODIFY | IN_MOVED_TO | IN_CREATE));
-        if (ret.watch_fd._fd < 0) {
-            BONGOCAT_LOG_ERROR("Failed to add inotify watch for %s: %s", config_path, strerror(errno));
+        constexpr size_t dirbuf_size = PATH_MAX;
+        char dirbuf[dirbuf_size] = {0};
+        strncpy(dirbuf, config_path, dirbuf_size-1);
+        dirbuf[dirbuf_size-1] = '\0';
+        const char* dir = dirname(dirbuf);
+        if (!dir) {
+            BONGOCAT_LOG_ERROR("dirname() failed for path %s", ret->config_path);
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        ret.reload_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
-        if (ret.reload_efd._fd < 0) {
+        ret->wd_file = platform::FileDescriptor(inotify_add_watch(ret->inotify_fd._fd, ret->config_path, FILE_MASK));
+        if (ret->wd_file._fd < 0) {
+            BONGOCAT_LOG_ERROR("Failed to add inotify watch for file %s: %s", ret->config_path, strerror(errno));
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+
+        ret->wd_dir = platform::FileDescriptor(inotify_add_watch(ret->inotify_fd._fd, dir, DIR_MASK));
+        if (ret->wd_dir._fd < 0) {
+            BONGOCAT_LOG_ERROR("Failed to add inotify watch for dir %s: %s", dir, strerror(errno));
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+
+        ret->reload_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+        if (ret->reload_efd._fd < 0) {
             BONGOCAT_LOG_ERROR("Failed to create notify pipe for config reload: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }

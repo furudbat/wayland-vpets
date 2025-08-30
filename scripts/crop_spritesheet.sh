@@ -67,7 +67,7 @@ FRAME_HEIGHT=$(magick identify -format "%[fx:h/$ROWS]" "$INPUT")
 echo "Splitting into ${COLS}x${ROWS} of ${FRAME_WIDTH}x${FRAME_HEIGHT} frames..."
 
 # === Step 1: Split into individual frames ===
-magick "$INPUT" -crop "${FRAME_WIDTH}x${FRAME_HEIGHT}" +repage +adjoin PNG:"$WORKDIR/frame.png"
+magick "$INPUT" -crop "${FRAME_WIDTH}x${FRAME_HEIGHT}" +repage +adjoin PNG:"$WORKDIR/frame-%04d.png"
 
 # === Step 2: Trim frames and record bounding boxes ===
 MAX_W=0
@@ -76,7 +76,7 @@ MIN_TOP=99999  # track highest pixel
 
 N=0
 for f in "$WORKDIR"/frame-*.png; do
-    NN=$(printf "%04d" "$N")
+    NN=$(printf "%05d" "$N")
     OUT="$WORKDIR/trimmed-frame-$NN.png"
     magick "$f" -trim +repage "$OUT"
 
@@ -112,7 +112,7 @@ fi
 # === Step 3: Create padded, bottom-aligned frames ===
 N=0
 for f in "$WORKDIR"/trimmed-frame-*.png; do
-    NN=$(printf "%04d" "$N")
+    NN=$(printf "%05d" "$N")
     PADDED="$WORKDIR/padded_$NN.png"
 
     echo "Generating padded frame: $PADDED"
@@ -141,8 +141,44 @@ done
 
 # === Step 4: Reassemble sprite sheet ===
 echo "Reassembling sprite sheet to: $OUTPUT"
-magick montage "$WORKDIR"/padded_*.png -tile "${COLS}x${ROWS}" -geometry +0+0 -background none "$OUTPUT" || echo "Warning: Failed to generate $OUTPUT"
 
-echo "magick montage ${WORKDIR}/padded_*.png -tile ${COLS}x${ROWS} -geometry +0+0 -background none ${OUTPUT}"
+# Compute initial frame count
+FRAME_COUNT=$(ls "$WORKDIR"/padded_*.png | wc -l)
 
-echo "Output path: $OUTPUT"
+# Compute required rows/cols if not explicitly set
+COLS=${COLS:-$((SHEET_WIDTH / FRAME_WIDTH))}
+ROWS=${ROWS:-$(( (FRAME_COUNT + COLS - 1) / COLS ))}
+
+# Add dummy frames if needed to fill the grid evenly
+TOTAL_FRAMES=$((COLS * ROWS))
+EXTRA=$((TOTAL_FRAMES - FRAME_COUNT))
+if (( EXTRA > 0 )); then
+    echo "Adding $EXTRA extra blank frames to fill grid"
+    for ((i=0;i<EXTRA;i++)); do
+        BLANK="$WORKDIR/padded-blank-$i.png"
+        convert -size "${FRAME_WIDTH}x${FRAME_HEIGHT}" xc:none "$BLANK"
+        cp "$BLANK" "$WORKDIR/padded-extra-$i.png"
+    done
+fi
+
+# Merge padded + extra frames
+magick montage "$WORKDIR"/padded_*.png "$WORKDIR"/padded-extra-*.png \
+    -tile "${COLS}x${ROWS}" -geometry +0+0 -background none \
+    "$OUTPUT"
+
+# === Step 5: Ensure sheet dimensions divisible ===
+SHEET_W=$(identify -format "%w" "$OUTPUT")
+SHEET_H=$(identify -format "%h" "$OUTPUT")
+
+# Compute target width/height for exact grid
+FRAME_W=$((SHEET_W / COLS))
+FRAME_H=$((SHEET_H / ROWS))
+NEW_W=$((FRAME_W * COLS))
+NEW_H=$((FRAME_H * ROWS))
+
+if [[ $NEW_W -ne $SHEET_W || $NEW_H -ne $SHEET_H ]]; then
+    convert "$OUTPUT" -gravity northwest -background none -extent "${NEW_W}x${NEW_H}" "$OUTPUT"
+    echo "⚠️ Padded sprite sheet from ${SHEET_W}x${SHEET_H} → ${NEW_W}x${NEW_H}"
+fi
+
+echo "Sprite sheet ready: $OUTPUT (${COLS}x${ROWS} frames of ${FRAME_W}x${FRAME_H})"
