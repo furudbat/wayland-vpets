@@ -31,7 +31,7 @@ endif()
 
 
 
-project(bongocat LANGUAGES C CXX VERSION 2.1.2)
+project(bongocat LANGUAGES C CXX VERSION 2.2.0)
 
 # Feature Flags
 include(CMakeDependentOption)

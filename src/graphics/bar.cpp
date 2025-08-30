@@ -279,7 +279,7 @@ namespace bongocat::animation {
                         break;
                     case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                        assert(anim_shm.anim_index < BONGOCAT_ANIMATIONS_COUNT);
+                        assert(BONGOCAT_ANIMATIONS_COUNT < INT32_MAX && anim_shm.anim_index < static_cast<int32_t>(BONGOCAT_ANIMATIONS_COUNT));
                         const animation_t& cat_anim = anim_shm.bongocat_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
