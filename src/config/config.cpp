@@ -191,10 +191,10 @@ namespace bongocat::config {
                     config.animation_index = 0;
                 }
                 // Validate idle frame
-                assert(assets::CLIPPY_FRAMES_IDLE <= INT_MAX);
-                if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(assets::CLIPPY_FRAMES_IDLE)) {
+                assert(assets::MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
+                if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(assets::MAX_SPRITE_SHEET_COL_FRAMES)) {
                     BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                         IDLE_FRAME_KEY, config.idle_frame, assets::CLIPPY_FRAMES_IDLE - 1);
+                                         IDLE_FRAME_KEY, config.idle_frame, assets::MAX_SPRITE_SHEET_COL_FRAMES - 1);
                     config.idle_frame = 0;
                 }
 #endif
@@ -540,7 +540,13 @@ namespace bongocat::config {
                 config.animation_index = CLIPPY_ANIM_INDEX;
                 config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
             }
+#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
             /// @NOTE(config): add more MS Pets here
+            if (strcmp(lower_value, "links") == 0) {
+                config.animation_index = LINKS_ANIM_INDEX;
+                config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
+            }
+#endif
 #endif
 
             if (config.animation_index < 0 || config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
