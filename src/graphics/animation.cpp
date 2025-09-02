@@ -1066,9 +1066,6 @@ namespace bongocat::animation {
 
             anim_init_state(ctx, state);
 
-            assert(anim_shm.anim_index >= 0);
-            const ms_agent_animation_indices_t animation_indices = get_ms_agent_animation_indices(static_cast<size_t>(anim_shm.anim_index));
-
             // setup animation player
             switch (current_config.animation_sprite_sheet_layout) {
                 case config::config_animation_sprite_sheet_layout_t::None:
@@ -1091,15 +1088,17 @@ namespace bongocat::animation {
                     state.row_state = animation_state_row_t::Idle;
 #endif
                     break;
-                case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                case config::config_animation_sprite_sheet_layout_t::MsAgent: {
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+                    assert(anim_shm.anim_index >= 0);
+                    const ms_agent_animation_indices_t animation_indices = get_ms_agent_animation_indices(static_cast<size_t>(anim_shm.anim_index));
                     animation_player_data.frame_index = current_config.idle_frame;
                     animation_player_data.sprite_sheet_row = assets::MS_AGENT_SPRITE_SHEET_ROW_IDLE;
                     animation_player_data.start_frame_index = animation_indices.start_index_frame_idle;
                     animation_player_data.end_frame_index = animation_indices.end_index_frame_idle;
                     state.row_state = animation_state_row_t::Idle;
 #endif
-                    break;
+                }break;
             }
         }
 

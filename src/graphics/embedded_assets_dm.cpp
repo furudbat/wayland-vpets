@@ -1,6 +1,8 @@
 #include "graphics/embedded_assets.h"
 #include "graphics/sprite_sheet.h"
 
+/// @TODO: split file into more units, better usage in CMake build
+
 // Fallback for dm (minimal set, Version 1) (images)
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
 #include "graphics/embedded_assets/min_dm_images.h"

@@ -28,8 +28,6 @@ namespace bongocat::assets {
 // DM_ANIM_START_INDEX is defined in embedded_assets.h
 #include "embedded_assets/dm.hpp"
 namespace bongocat::assets {
-    inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT;
-
     extern embedded_image_t get_dm_sprite_sheet(size_t i);
 }
 #else
@@ -106,22 +104,6 @@ namespace bongocat::assets {
     inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT+DM20_ANIM_COUNT+PEN20_ANIM_COUNT+DMX_ANIM_COUNT+DMC_ANIM_COUNT;
 }
 #endif
-#else
-// no dm featured
-namespace bongocat::assets {
-    //inline static constexpr size_t DM_ANIM_START_INDEX = 0;
-    //inline static constexpr size_t DM_ANIM_COUNT = 0;
-    //inline static constexpr size_t DM20_ANIM_START_INDEX = 0;
-    //inline static constexpr size_t DM20_ANIM_COUNT = 0;
-    //inline static constexpr size_t PEN20_ANIM_START_INDEX = 0;
-    //inline static constexpr size_t PEN20_ANIM_COUNT = 0;
-    //inline static constexpr size_t DMX_ANIM_START_INDEX = 0;
-    //inline static constexpr size_t DMX_ANIM_COUNT = 0;
-    //inline static constexpr size_t DMC_ANIM_START_INDEX = 0;
-    //inline static constexpr size_t DMC_ANIM_COUNT = 0;
-
-    inline static constexpr size_t DM_ANIMATIONS_COUNT = 0;
-}
 #endif
 
 namespace bongocat::assets {

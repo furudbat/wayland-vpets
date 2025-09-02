@@ -327,7 +327,7 @@ namespace bongocat::platform::input {
             }
             assert(device_nfds <= input._unique_devices.count);
             assert(input._unique_devices.count <= SSIZE_MAX);
-            fds_device_end_index = (fds_device_start_index >= 0 && input._unique_devices.count > 0)? fds_device_start_index + static_cast<ssize_t>(input._unique_devices.count) : fds_device_start_index;
+            fds_device_end_index = (fds_device_start_index >= 0 && device_nfds > 0)? fds_device_start_index + static_cast<ssize_t>(device_nfds) : fds_device_start_index;
 
             ssize_t fds_stdin_index = -1;
             if constexpr (include_stdin) {
@@ -457,6 +457,7 @@ namespace bongocat::platform::input {
                     for (size_t i = 0; i < input._unique_devices.count; i++) {
                         const char* device_path = input._unique_devices[i].device_path;
                         bool need_reopen = false;
+                        if (device_path == nullptr) continue;
                         // If an fd is already open, check if it is still valid
                         if (input._unique_devices[i].fd._fd >= 0) {
                             if (!is_open_device_valid(input._unique_devices[i].fd._fd)) {
@@ -716,6 +717,7 @@ namespace bongocat::platform::input {
                 for (size_t i = 0; i < input._unique_devices.count; i++) {
                     const char* device_path = input._unique_devices[i].device_path;
                     bool is_valid = false;
+                    if (device_path == nullptr) continue;
                     // Check if existing fd is still valid
                     if (input._unique_devices[i].fd._fd >= 0) {
                         if (is_open_device_valid(input._unique_devices[i].fd._fd)) {

@@ -24,7 +24,7 @@ namespace bongocat::animation {
         /// @TODO: stbi_load_from_memory C++ RAII wrapper
         uint8_t* sprite_sheet_pixels = stbi_load_from_memory(sprite_data, static_cast<int>(sprite_data_size), &sheet_width, &sheet_height, nullptr, channels); // Force RGBA
         if (!sprite_sheet_pixels) {
-            BONGOCAT_LOG_ERROR("Failed to load sprite sheet.");
+            BONGOCAT_LOG_ERROR("Failed to load sprite sheet. %dx%d", sheet_width, sheet_height);
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
@@ -244,9 +244,9 @@ namespace bongocat::animation {
         assert(sprite_sheet_image.size <= INT_MAX);
 
         const auto result = load_sprite_sheet_from_memory(anim,
-                                      sprite_sheet_image.data, sprite_sheet_image.size,
-                                      sprite_sheet_cols, sprite_sheet_rows,
-                                      config.padding_x, config.padding_y);
+                                                                          sprite_sheet_image.data, sprite_sheet_image.size,
+                                                                          sprite_sheet_cols, sprite_sheet_rows,
+                                                                          config.padding_x, config.padding_y);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Sprite Sheet load failed: %s", sprite_sheet_image.name);
             return -1;
@@ -406,12 +406,11 @@ namespace bongocat::animation {
 
         assert(anim_index >= 0 && static_cast<size_t>(anim_index) < BONGOCAT_ANIMATIONS_COUNT);
         const int sprite_sheet_count = anim_load_embedded_images_into_sprite_sheet(ctx.shm->bongocat_anims[anim_index].sprite_sheet, get_sprite, embedded_images_count);
-        assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
         if (sprite_sheet_count < 0) {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: index: %d", anim_index);
-
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
+        assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
@@ -425,12 +424,11 @@ namespace bongocat::animation {
 
         assert(anim_index >= 0 && static_cast<size_t>(anim_index) < DM_ANIMATIONS_COUNT);
         const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dm_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
-        assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
         if (sprite_sheet_count < 0) {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
-
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
+        assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
@@ -444,12 +442,11 @@ namespace bongocat::animation {
 
         assert(anim_index >= 0 && static_cast<size_t>(anim_index) < MS_AGENTS_ANIMATIONS_COUNT);
         const bongocat_error_t result = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->ms_anims[anim_index], sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
-        assert(result == bongocat_error_t::BONGOCAT_SUCCESS); ///< this SHOULD always work if it's an valid EMBEDDED image
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
-
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
+        assert(result == bongocat_error_t::BONGOCAT_SUCCESS); ///< this SHOULD always work if it's an valid EMBEDDED image
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }

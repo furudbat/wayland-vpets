@@ -291,7 +291,7 @@ namespace bongocat::animation {
                         break;
                     case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                        assert(BONGOCAT_ANIMATIONS_COUNT < INT32_MAX && anim_shm.anim_index < static_cast<int32_t>(BONGOCAT_ANIMATIONS_COUNT));
+                        assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < BONGOCAT_ANIMATIONS_COUNT);
                         const animation_t& cat_anim = anim_shm.bongocat_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
@@ -299,7 +299,7 @@ namespace bongocat::animation {
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-                        assert(anim_shm.anim_index < DM_ANIMATIONS_COUNT);
+                        assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < DM_ANIMATIONS_COUNT);
                         const animation_t& dm_anim = anim_shm.dm_anims[anim_shm.anim_index];
                         const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
@@ -307,7 +307,7 @@ namespace bongocat::animation {
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-                        assert(anim_shm.anim_index < MS_AGENTS_ANIMATIONS_COUNT);
+                        assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < MS_AGENTS_ANIMATIONS_COUNT);
                         const ms_pet_sprite_sheet_t& sheet = anim_shm.ms_anims[anim_shm.anim_index];
                         const int col = anim_shm.animation_player_data.frame_index;
                         const int row = anim_shm.animation_player_data.sprite_sheet_row;

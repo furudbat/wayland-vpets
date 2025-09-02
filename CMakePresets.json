@@ -179,6 +179,17 @@
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "ON"
       }
+    },
+    {
+      "name": "release_all_assets_multi_install",
+      "displayName": "Release (All Assets)",
+      "description": "Release build with ALL assets (full dm versions)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-multi",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_MULTI_VERSIONS": "ON"
+      }
     }
   ],
   "buildPresets": [
