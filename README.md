@@ -750,10 +750,18 @@ bongocat-find-devices --help
 
 ### System Requirements
 
-- **CPU:** Any modern x86_64 or ARM64 processor
-- **RAM:** ~24MB (with all assets preloaded)
-- **Storage:** ~1.5MB executable size (with all assets included), below 1MB with minimal assets
-- **Compositor:** Wayland with layer shell protocol support
+This program is lightweight and runs even on very modern desktop systems.  
+Minimal builds require just a few MB of RAM, while asset-heavy builds may use more memory but remain modest compared to modern desktops.
+
+## 🖥️ System Requirements
+
+|                | Minimum                                                  | Recommended                                                                   |
+|----------------|----------------------------------------------------------|-------------------------------------------------------------------------------|
+| **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                   |
+| **RAM**        | **10 MB free** (minimal build with minimal assets)       | **128 MB free** (full builds with all assets, preloaded, and config overhead) |
+| **Storage**    | **1 MB free** (binary + config files)                    | **5 MB free** (multiple binaries/builds + config files)                       |
+| **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)             |
+
 
 ### Tested Compositors
 

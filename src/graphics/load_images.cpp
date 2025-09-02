@@ -404,10 +404,11 @@ namespace bongocat::animation {
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < BONGOCAT_ANIMATIONS_COUNT);
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < ctx.shm->bongocat_anims_count);
+        BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
         const int sprite_sheet_count = anim_load_embedded_images_into_sprite_sheet(ctx.shm->bongocat_anims[anim_index].sprite_sheet, get_sprite, embedded_images_count);
         if (sprite_sheet_count < 0) {
-            BONGOCAT_LOG_ERROR("Load dm Animation failed: index: %d", anim_index);
+            BONGOCAT_LOG_ERROR("Load bongocat Animation failed: index: %d", anim_index);
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
         assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
@@ -417,12 +418,14 @@ namespace bongocat::animation {
 #endif
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+#if defined(FEATURE_DM20_EMBEDDED_ASSETS) || defined(FEATURE_DM_EMBEDDED_ASSETS) ||  defined(FEATURE_MIN_DM_EMBEDDED_ASSETS)
     bongocat_error_t init_dm_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < DM_ANIMATIONS_COUNT);
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < ctx.shm->dm_anims_count);
+        BONGOCAT_LOG_VERBOSE("Load dm Animation (%d/%d): %s ...", anim_index, ctx.shm->dm_anims_count, sprite_sheet_image.name);
         const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dm_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (sprite_sheet_count < 0) {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
@@ -434,16 +437,75 @@ namespace bongocat::animation {
     }
 #endif
 
+#if defined(FEATURE_DM20_EMBEDDED_ASSETS)
+    bongocat_error_t init_dm20_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+        using namespace assets;
+        BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+        BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < ctx.shm->dm_anims_count);
+        BONGOCAT_LOG_VERBOSE("Load dm Animation (%d/%d): %s ...", anim_index, ctx.shm->dm_anims_count, sprite_sheet_image.name);
+        const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dm_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
+        if (sprite_sheet_count < 0) {
+            BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+        }
+        assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
+
+        return bongocat_error_t::BONGOCAT_SUCCESS;
+    }
+#endif
+
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
+    bongocat_error_t init_dmx_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+        using namespace assets;
+        BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+        BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < ctx.shm->dmx_anims_count);
+        BONGOCAT_LOG_VERBOSE("Load dm Animation (%d/%d): %s ...", anim_index, ctx.shm->dmx_anims_count, sprite_sheet_image.name);
+        const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dmx_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
+        if (sprite_sheet_count < 0) {
+            BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+        }
+        assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
+
+        return bongocat_error_t::BONGOCAT_SUCCESS;
+    }
+#endif
+
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+    bongocat_error_t init_dmc_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+        using namespace assets;
+        BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+        BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < ctx.shm->dmc_anims_count);
+        BONGOCAT_LOG_VERBOSE("Load dm Animation (%d/%d): %s ...", anim_index, ctx.shm->dmc_anims_count, sprite_sheet_image.name);
+        const int sprite_sheet_count = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->dmc_anims[anim_index].sprite_sheet, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
+        if (sprite_sheet_count < 0) {
+            BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+        }
+        assert(sprite_sheet_count > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
+
+        return bongocat_error_t::BONGOCAT_SUCCESS;
+    }
+#endif
+#endif
+
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
     bongocat_error_t init_ms_pet_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < MS_AGENTS_ANIMATIONS_COUNT);
+        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < ctx.shm->ms_anims_count);
+        BONGOCAT_LOG_VERBOSE("Load MS agent Animation (%d/%d): %s ...", anim_index, ctx.shm->ms_anims_count, sprite_sheet_image.name);
         const bongocat_error_t result = anim_load_sprite_sheet(*ctx._local_copy_config, ctx.shm->ms_anims[anim_index], sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            BONGOCAT_LOG_ERROR("Load MS agent Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
         assert(result == bongocat_error_t::BONGOCAT_SUCCESS); ///< this SHOULD always work if it's an valid EMBEDDED image

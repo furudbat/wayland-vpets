@@ -501,6 +501,7 @@ namespace bongocat::config {
             }
 
             config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::None;
+            config.animation_dm_set = config_animation_dm_set_t::None;
             config.animation_index = -1;
 
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
@@ -535,11 +536,6 @@ namespace bongocat::config {
 #include "../graphics/embedded_assets/dmc_config_parse_enum_key.cpp.inl"
 #endif
             /// @NOTE(config): add more dm versions here
-
-            // assume animation type is not set yet, but index got set/overwritten above
-            if (config.animation_index >= 0 && config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
-                config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
-            }
 #endif
 
             // check for ms pets (clippy)
@@ -695,6 +691,7 @@ namespace bongocat::config {
         cfg.happy_kpm = DEFAULT_HAPPY_KPM;
         cfg.cat_align = DEFAULT_CAT_ALIGN;
         cfg.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
+        cfg.animation_dm_set = config_animation_dm_set_t::None;
         cfg.idle_animation = 0;
         cfg.input_fps = 0;          // when 0 fallback to fps
 

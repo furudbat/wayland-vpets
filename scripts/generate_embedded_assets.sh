@@ -16,6 +16,7 @@ CPP_HEADER_OUT="$5"
 FRAME_SIZE=""
 COLS=""
 ROWS=""
+START_INDEX="$6"
 
 # === Parse args ===
 POSITIONAL_ARGS=()
@@ -36,6 +37,7 @@ OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
 C_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
 C_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
 CPP_HEADER_OUT="${POSITIONAL_ARGS[4]}"
+START_INDEX="${POSITIONAL_ARGS[5]:-0}"
 
 # === Dependency check ===
 if ! command -v magick &>/dev/null; then
@@ -99,7 +101,6 @@ echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_SOURCE_IMAGES
 echo >> "$C_SOURCE_IMAGES_OUT"
 
 # === Start animation index counter ===
-START_INDEX=1
 INDEX=$START_INDEX
 
 # === Process all PNGs ===
@@ -161,7 +162,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_COLS = $COLS;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_ROWS = $ROWS;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT = $FRAMES_COUNT;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ANIM_INDEX = ${ASSETS_PREFIX_UPPER}_ANIM_START_INDEX+$INDEX;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ANIM_INDEX = $INDEX;" >> "$CPP_HEADER_OUT"
     echo >> "$CPP_HEADER_OUT"
 
     # === Source content ===

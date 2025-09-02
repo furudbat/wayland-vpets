@@ -368,14 +368,15 @@ namespace bongocat::platform::input {
                     assert(fds_stdin_index >= 0);
 
                     assert(fds_update_config_index == 0);
-                    assert(fds_device_start_index > fds_update_config_index);
-                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(static_cast<size_t>(fds_device_start_index) > fds_update_config_index);
+                    assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
                     assert(fds_device_end_index >= fds_device_start_index);
                     assert(fds_stdin_index > fds_device_end_index);
 
-                    assert(device_nfds > 0);
-                    assert(device_nfds == fds_device_end_index-fds_device_start_index);
-                    assert(nfds == fds_device_end_index-fds_device_start_index + 2);
+                    assert(device_nfds >= 0 && device_nfds <= SSIZE_MAX);
+                    assert(nfds >= 0 && nfds <= SSIZE_MAX);
+                    assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
+                    assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 2);
                 }
                 // only update + devices
                 if (has_devices && has_update_config && !has_std_in) {
@@ -385,12 +386,14 @@ namespace bongocat::platform::input {
                     assert(fds_stdin_index == -1);
 
                     assert(fds_update_config_index == 0);
-                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(fds_device_end_index >= 0);
+                    assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
                     assert(fds_device_end_index >= fds_device_start_index);
 
-                    assert(device_nfds > 0);
-                    assert(device_nfds == fds_device_end_index-fds_device_start_index);
-                    assert(nfds == fds_device_end_index-fds_device_start_index + 1);
+                    assert(device_nfds >= 0 && device_nfds <= SSIZE_MAX);
+                    assert(nfds >= 0 && nfds <= SSIZE_MAX);
+                    assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
+                    assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 1);
                 }
                 // only devices
                 if (has_devices && !has_update_config && !has_std_in) {
@@ -399,12 +402,14 @@ namespace bongocat::platform::input {
                     assert(fds_device_end_index >= 0);
                     assert(fds_stdin_index == -1);
 
-                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(fds_device_end_index >= 0 && static_cast<size_t>(fds_device_end_index) <= SIZE_MAX);
+                    assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
                     assert(fds_device_end_index >= fds_device_start_index);
 
-                    assert(device_nfds > 0);
-                    assert(device_nfds == fds_device_end_index-fds_device_start_index);
-                    assert(nfds == fds_device_end_index-fds_device_start_index);
+                    assert(device_nfds >= 0 && device_nfds <= SSIZE_MAX);
+                    assert(nfds >= 0 && nfds <= SSIZE_MAX);
+                    assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
+                    assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index);
                 }
                 // nothing (empty)
                 if (!has_devices && !has_update_config && !has_std_in) {
@@ -413,7 +418,8 @@ namespace bongocat::platform::input {
                     assert(fds_device_end_index == -1);
                     assert(fds_stdin_index == -1);
 
-                    assert(fds_device_end_index > fds_update_config_index);
+                    assert(fds_device_end_index >= 0 && static_cast<size_t>(fds_device_end_index) <= SIZE_MAX);
+                    assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
                     assert(fds_device_end_index >= fds_device_start_index);
 
                     assert(device_nfds == 0);

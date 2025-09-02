@@ -121,10 +121,6 @@ extern const size_t dm20_devidramon_png_size;
 extern const unsigned char dm20_devimon_png[];
 extern const size_t dm20_devimon_png_size;
 
-// Name: Dianaman
-extern const unsigned char dm20_dianaman_png[];
-extern const size_t dm20_dianaman_png_size;
-
 // Name: Dianamon
 extern const unsigned char dm20_dianamon_png[];
 extern const size_t dm20_dianamon_png_size;
@@ -309,10 +305,6 @@ extern const size_t dm20_metal_garurumon_png_size;
 extern const unsigned char dm20_metal_greymon_png[];
 extern const size_t dm20_metal_greymon_png_size;
 
-// Name: Metal Greymon (Virus)
-extern const unsigned char dm20_metal_greymon_virus_png[];
-extern const size_t dm20_metal_greymon_virus_png_size;
-
 // Name: Metal Mamemon
 extern const unsigned char dm20_metal_mamemon_png[];
 extern const size_t dm20_metal_mamemon_png_size;
@@ -372,10 +364,6 @@ extern const size_t dm20_omegamon_alter_s_png_size;
 // Name: Omegamon
 extern const unsigned char dm20_omegamon_png[];
 extern const size_t dm20_omegamon_png_size;
-
-// Name: Orgemon
-extern const unsigned char dm20_orgemon_png[];
-extern const size_t dm20_orgemon_png_size;
 
 // Name: Pagumon
 extern const unsigned char dm20_pagumon_png[];

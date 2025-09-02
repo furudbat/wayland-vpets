@@ -38,7 +38,18 @@ namespace bongocat::animation {
 #endif
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+#if defined(FEATURE_DM20_EMBEDDED_ASSETS) || defined(FEATURE_DM_EMBEDDED_ASSETS) || defined(FEATURE_MIN_DM_EMBEDDED_ASSETS)
     bongocat_error_t init_dm_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
+#endif
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
+    bongocat_error_t init_dm20_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
+#endif
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
+    bongocat_error_t init_dmx_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
+#endif
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+    bongocat_error_t init_dmc_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
+#endif
 #endif
 
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS

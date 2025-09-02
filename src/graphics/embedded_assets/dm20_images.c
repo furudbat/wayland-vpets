@@ -206,13 +206,6 @@ const unsigned char dm20_devimon_png[] = {
 const size_t dm20_devimon_png_size = sizeof(dm20_devimon_png);
 
 
-// Name: Dianaman
-const unsigned char dm20_dianaman_png[] = {
-#embed "../../../assets/dm20/Dianaman.png"
-};
-const size_t dm20_dianaman_png_size = sizeof(dm20_dianaman_png);
-
-
 // Name: Dianamon
 const unsigned char dm20_dianamon_png[] = {
 #embed "../../../assets/dm20/Dianamon.png"
@@ -535,13 +528,6 @@ const unsigned char dm20_metal_greymon_png[] = {
 const size_t dm20_metal_greymon_png_size = sizeof(dm20_metal_greymon_png);
 
 
-// Name: Metal Greymon (Virus)
-const unsigned char dm20_metal_greymon_virus_png[] = {
-#embed "../../../assets/dm20/Metal Greymon (Virus).png"
-};
-const size_t dm20_metal_greymon_virus_png_size = sizeof(dm20_metal_greymon_virus_png);
-
-
 // Name: Metal Mamemon
 const unsigned char dm20_metal_mamemon_png[] = {
 #embed "../../../assets/dm20/Metal Mamemon.png"
@@ -645,13 +631,6 @@ const unsigned char dm20_omegamon_png[] = {
 #embed "../../../assets/dm20/Omegamon.png"
 };
 const size_t dm20_omegamon_png_size = sizeof(dm20_omegamon_png);
-
-
-// Name: Orgemon
-const unsigned char dm20_orgemon_png[] = {
-#embed "../../../assets/dm20/Orgemon.png"
-};
-const size_t dm20_orgemon_png_size = sizeof(dm20_orgemon_png);
 
 
 // Name: Pagumon

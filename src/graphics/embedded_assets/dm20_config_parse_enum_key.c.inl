@@ -85,9 +85,6 @@ if (strcmp(lower_value, "devidramon") == 0) {
 if (strcmp(lower_value, "devimon") == 0) {
     config->animation_index = DM20_DEVIMON_ANIM_INDEX;
 }
-if (strcmp(lower_value, "dianaman") == 0) {
-    config->animation_index = DM20_DIANAMAN_ANIM_INDEX;
-}
 if (strcmp(lower_value, "dianamon") == 0) {
     config->animation_index = DM20_DIANAMON_ANIM_INDEX;
 }
@@ -226,9 +223,6 @@ if (strcmp(lower_value, "metal_garurumon") == 0) {
 if (strcmp(lower_value, "metal_greymon") == 0) {
     config->animation_index = DM20_METAL_GREYMON_ANIM_INDEX;
 }
-if (strcmp(lower_value, "metal_greymon_virus") == 0) {
-    config->animation_index = DM20_METAL_GREYMON_VIRUS_ANIM_INDEX;
-}
 if (strcmp(lower_value, "metal_mamemon") == 0) {
     config->animation_index = DM20_METAL_MAMEMON_ANIM_INDEX;
 }
@@ -273,9 +267,6 @@ if (strcmp(lower_value, "omegamon_alter_s") == 0) {
 }
 if (strcmp(lower_value, "omegamon") == 0) {
     config->animation_index = DM20_OMEGAMON_ANIM_INDEX;
-}
-if (strcmp(lower_value, "orgemon") == 0) {
-    config->animation_index = DM20_ORGEMON_ANIM_INDEX;
 }
 if (strcmp(lower_value, "pagumon") == 0) {
     config->animation_index = DM20_PAGUMON_ANIM_INDEX;

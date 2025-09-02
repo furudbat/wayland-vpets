@@ -53,6 +53,13 @@ namespace bongocat::config {
         Dm,
         MsAgent,
     };
+    enum class config_animation_dm_set_t : uint8_t {
+        None,
+        dm,
+        dm20,
+        dmx,
+        dmc,
+    };
 
     struct config_t {
         char *output_name{nullptr};
@@ -90,6 +97,7 @@ namespace bongocat::config {
         align_type_t cat_align{align_type_t::ALIGN_CENTER};
 
         config_animation_sprite_sheet_layout_t animation_sprite_sheet_layout{config_animation_sprite_sheet_layout_t::None};
+        config_animation_dm_set_t animation_dm_set{config_animation_dm_set_t::None};
         int32_t idle_animation{0};
         int32_t input_fps{0};
 
@@ -132,6 +140,7 @@ namespace bongocat::config {
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
+              animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps)
         {
@@ -170,6 +179,7 @@ namespace bongocat::config {
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
                 animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
+                animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
 
@@ -209,6 +219,7 @@ namespace bongocat::config {
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
+              animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps)
         {
@@ -253,6 +264,7 @@ namespace bongocat::config {
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
                 animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
+                animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
 
