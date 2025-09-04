@@ -48,6 +48,7 @@ cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS ag
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, sprite switching on hot-reload)" OFF)
 option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" OFF)
+option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (less RAM usage, more CPU usage, sprite lacy-load on config reload) (Recommended)" ON)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
@@ -134,261 +135,67 @@ if(CMAKE_CXX_COMPILER_ID MATCHES "Clang|GNU")
     endif()
 endif()
 
-
-set(SRC_DIR ${CMAKE_SOURCE_DIR}/src)
-set(PROTOCOLS_DIR ${CMAKE_SOURCE_DIR}/protocols)
-set(INCLUDE_DIR ${CMAKE_SOURCE_DIR}/include)
-if(DEFINED ENV{WAYLAND_PROTOCOLS_DIR})
-    set(WAYLAND_PROTOCOLS_DIR "$ENV{WAYLAND_PROTOCOLS_DIR}" CACHE PATH "Path to wayland-protocols")
-else()
-    set(WAYLAND_PROTOCOLS_DIR "/usr/share/wayland-protocols" CACHE PATH "Path to wayland-protocols")
-endif()
+set(PROTOCOLS_DIR ${PROJECT_SOURCE_DIR}/protocols)
+add_subdirectory(protocols)
 
 
+set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
+set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
+add_subdirectory(src)
 
 
-set(PROTOCOL_XML_WLR ${PROTOCOLS_DIR}/wlr-layer-shell-unstable-v1.xml)
-set(PROTOCOL_XML_XDG ${WAYLAND_PROTOCOLS_DIR}/stable/xdg-shell/xdg-shell.xml)
-set(PROTOCOL_XML_WLR_FOREIGN ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-unstable-v1.xml)
-set(PROTOCOL_XML_XDG_OUTPUT ${PROTOCOLS_DIR}/xdg-output-unstable-v1.xml)
-set(GENERATED_PROTOCOLS_SOURCES
-    ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
-    ${PROTOCOLS_DIR}/xdg-shell-protocol.c
-    ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
-    ${PROTOCOLS_DIR}/xdg-output-unstable-v1-protocol.c
-)
-set(GENERATED_PROTOCOLS_HEADERS
-    ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-client-protocol.h
-    ${PROTOCOLS_DIR}/xdg-shell-client-protocol.h
-    ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
-    ${PROTOCOLS_DIR}/xdg-output-unstable-v1-client-protocol.h
-)
-set(GENERATED_PROTOCOLS
-    ${GENERATED_PROTOCOLS_SOURCES}
-    ${GENERATED_PROTOCOLS_HEADERS}
-)
-find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner REQUIRED)
-add_custom_command(OUTPUT ${GENERATED_PROTOCOLS}
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_XDG} ${PROTOCOLS_DIR}/xdg-shell-client-protocol.h
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_XDG} ${PROTOCOLS_DIR}/xdg-shell-protocol.c
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-client-protocol.h
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR} ${PROTOCOLS_DIR}/zwlr-layer-shell-v1-protocol.c
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-protocol.c
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOLS_DIR}/wlr-foreign-toplevel-management-v1-client-protocol.h
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} client-header ${PROTOCOL_XML_XDG_OUTPUT} ${PROTOCOLS_DIR}/xdg-output-unstable-v1-client-protocol.h
-    COMMAND ${WAYLAND_SCANNER_EXECUTABLE} private-code ${PROTOCOL_XML_XDG_OUTPUT} ${PROTOCOLS_DIR}/xdg-output-unstable-v1-protocol.c
-    DEPENDS ${PROTOCOL_XML_WLR} ${PROTOCOL_XML_XDG} ${PROTOCOL_XML_WLR_FOREIGN} ${PROTOCOL_XML_XDG_OUTPUT}
-    COMMENT "Generating Wayland protocol files..."
-)
-add_custom_target(gen_protocols DEPENDS ${GENERATED_PROTOCOLS})
-set_directory_properties(PROPERTIES ADDITIONAL_MAKE_CLEAN_FILES "${GENERATED_PROTOCOLS}")
-add_library(protocols STATIC ${GENERATED_PROTOCOLS_SOURCES})
-target_sources(protocols PRIVATE ${GENERATED_PROTOCOLS_SOURCES})
-target_sources(protocols
-    PUBLIC
-    FILE_SET HEADERS
-    BASE_DIRS ${PROTOCOLS_DIR}
-    FILES ${GENERATED_PROTOCOLS_HEADERS}
-)
-add_dependencies(protocols gen_protocols)
-target_include_directories(protocols SYSTEM PUBLIC ${PROTOCOLS_DIR})
-
-# assets_bongocat
-set(BONGOCAT_SOURCES ${SRC_DIR}/graphics/embedded_assets_bongocat.cpp ${SRC_DIR}/graphics/embedded_assets/bongocat_images.c)
-add_library(assets_bongocat STATIC)
-target_sources(assets_bongocat PRIVATE ${BONGOCAT_SOURCES})
-target_compile_options(assets_bongocat PUBLIC -ffunction-sections -fdata-sections)
-target_include_directories(assets_bongocat PUBLIC ${INCLUDE_DIR})
-target_compile_definitions(assets_bongocat PUBLIC FEATURE_BONGOCAT_EMBEDDED_ASSETS)
-
-
-# assets_dm
-set(DM_SOURCES ${SRC_DIR}/graphics/embedded_assets/dm_images.c ${SRC_DIR}/graphics/embedded_assets_dm.cpp)
-set(DM_DEFS FEATURE_ENABLE_DM_EMBEDDED_ASSETS FEATURE_DM_EMBEDDED_ASSETS)
-add_library(assets_dm STATIC)
-target_sources(assets_dm PRIVATE ${DM_SOURCES})
-target_compile_options(assets_dm PUBLIC -ffunction-sections -fdata-sections)
-target_include_directories(assets_dm PUBLIC ${INCLUDE_DIR})
-target_compile_definitions(assets_dm PUBLIC ${DM_DEFS})
-# assets_dm20
-set(DM20_SOURCES ${SRC_DIR}/graphics/embedded_assets/dm20_images.c ${SRC_DIR}/graphics/embedded_assets_dm.cpp)
-set(DM20_DEFS FEATURE_ENABLE_DM_EMBEDDED_ASSETS FEATURE_DM20_EMBEDDED_ASSETS)
-add_library(assets_dm20 STATIC)
-target_sources(assets_dm20 PRIVATE ${DM20_SOURCES})
-target_compile_options(assets_dm20 PUBLIC -ffunction-sections -fdata-sections)
-target_include_directories(assets_dm20 PUBLIC ${INCLUDE_DIR})
-target_compile_definitions(assets_dm20 PUBLIC ${DM20_DEFS})
-# assets_dmx
-set(DMX_SOURCES ${SRC_DIR}/graphics/embedded_assets/dmx_images.c ${SRC_DIR}/graphics/embedded_assets_dm.cpp)
-set(DMX_DEFS FEATURE_ENABLE_DM_EMBEDDED_ASSETS FEATURE_DMX_EMBEDDED_ASSETS)
-add_library(assets_dmx STATIC)
-target_sources(assets_dmx PRIVATE ${DMX_SOURCES})
-target_compile_options(assets_dmx PUBLIC -ffunction-sections -fdata-sections)
-target_include_directories(assets_dmx PUBLIC ${INCLUDE_DIR})
-target_compile_definitions(assets_dmx PUBLIC ${DMX_DEFS})
-# assets_dmc
-set(DMC_SOURCES ${SRC_DIR}/graphics/embedded_assets/dmc_images.c ${SRC_DIR}/graphics/embedded_assets_dm.cpp)
-set(DMC_DEFS FEATURE_ENABLE_DM_EMBEDDED_ASSETS FEATURE_DMC_EMBEDDED_ASSETS)
-add_library(assets_dmc STATIC)
-target_sources(assets_dmc PRIVATE ${DMC_SOURCES})
-target_compile_options(assets_dmc PUBLIC -ffunction-sections -fdata-sections)
-target_include_directories(assets_dmc PUBLIC ${INCLUDE_DIR})
-target_compile_definitions(assets_dmc PUBLIC ${DMC_DEFS})
-# assets_min_dm
-set(MIN_DM_SOURCES ${SRC_DIR}/graphics/embedded_assets/min_dm_images.c ${SRC_DIR}/graphics/embedded_assets_dm.cpp)
-set(MIN_DM_DEFS FEATURE_ENABLE_DM_EMBEDDED_ASSETS FEATURE_MIN_DM_EMBEDDED_ASSETS)
-add_library(assets_min_dm STATIC)
-target_sources(assets_min_dm PRIVATE ${MIN_DM_SOURCES})
-target_compile_options(assets_min_dm PUBLIC -ffunction-sections -fdata-sections)
-target_include_directories(assets_min_dm PUBLIC ${INCLUDE_DIR})
-target_compile_definitions(assets_min_dm PUBLIC ${MIN_DM_DEFS})
-
-# assets_clippy
-set(MS_AGENT_SOURCES ${SRC_DIR}/graphics/embedded_assets_clippy.cpp ${SRC_DIR}/graphics/embedded_assets/clippy_images.c)
-add_library(assets_clippy STATIC)
-target_sources(assets_clippy PRIVATE ${MS_AGENT_SOURCES})
-target_compile_options(assets_clippy PUBLIC -ffunction-sections -fdata-sections)
-target_include_directories(assets_clippy PUBLIC ${INCLUDE_DIR})
-target_compile_definitions(assets_clippy PUBLIC FEATURE_MS_AGENT_EMBEDDED_ASSETS)
-if (FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS)
-    target_compile_definitions(assets_clippy PUBLIC FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS)
-endif()
-
-# base options for all execs
-add_library(bongocat_options INTERFACE)
-if (FEATURE_DISABLE_LOGGER)
-    target_compile_definitions(bongocat_options INTERFACE BONGOCAT_DISABLE_MEMORY_STATISTICS BONGOCAT_DISABLE_LOGGER)
-endif()
-if (FEATURE_PRELOAD_ASSETS)
-    target_compile_definitions(bongocat_options INTERFACE FEATURE_PRELOAD_ASSETS)
-endif()
-target_include_directories(bongocat_options INTERFACE ${INCLUDE_DIR})
-target_include_directories(bongocat_options SYSTEM INTERFACE ${PROTOCOLS_DIR} ${CMAKE_SOURCE_DIR}/lib)
-target_link_libraries(bongocat_options INTERFACE project_warnings project_options project_sanitizers)
-target_compile_options(bongocat_options INTERFACE
-    $<$<COMPILE_LANGUAGE:C>:-fstack-protector-strong>
-    $<$<COMPILE_LANGUAGE:CXX>:-fstack-protector-strong>
-)
-# supress warning: embed is a Clang extension [-Wc23-extensions]
-target_compile_options(bongocat_options INTERFACE
-    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:Clang>>:-std=gnu23>
-    $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:-std=gnu++26>
-    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:Clang>>:-Wno-c23-extensions>
-    $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:-Wno-c23-extensions>
-)
-# no exceptions
-target_compile_options(bongocat_options INTERFACE
-    $<$<COMPILE_LANGUAGE:CXX>:
-        -fno-exceptions -fno-unwind-tables -fno-rtti
-        -nostdlib++
-    >
-)
-# optimization
-target_compile_options(bongocat_options INTERFACE
-    $<$<CONFIG:Release>:
-        -march=native
-        -fomit-frame-pointer
-        -funroll-loops
-        -finline-functions
-    >
-    $<$<CONFIG:MinSizeRel>:
-        -fno-inline-functions
-        -fomit-frame-pointer
-        -fno-asynchronous-unwind-tables
-        -fno-unroll-loops
-        -fmerge-all-constants
-        -fno-math-errno
-        -fno-stack-protector
-    >
-)
-target_compile_definitions(bongocat_options INTERFACE
-    $<$<CONFIG:Debug>:BONGOCAT_LOG_LEVEL=5>
-    $<$<CONFIG:RelWithDebInfo>:BONGOCAT_LOG_LEVEL=4>
-    $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_MEMORY_STATISTICS>
-    $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>
-)
-target_link_options(bongocat_options INTERFACE $<$<CONFIG:MinSizeRel>:-Wl,--gc-sections -s>)
-# wayland-client dependency
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(WAYLAND_CLIENT REQUIRED wayland-client)
-add_library(wayland_client INTERFACE)
-target_include_directories(wayland_client INTERFACE ${WAYLAND_CLIENT_INCLUDE_DIRS})
-target_compile_options(wayland_client INTERFACE ${WAYLAND_CLIENT_CFLAGS_OTHER})
-target_link_libraries(wayland_client INTERFACE ${WAYLAND_CLIENT_LIBRARIES})
-target_link_libraries(bongocat_options INTERFACE protocols wayland_client)
-# Thread dependency
-find_package(Threads REQUIRED)
-target_link_libraries(bongocat_options INTERFACE m rt Threads::Threads)
-target_link_options(bongocat_options INTERFACE -Wl,--gc-sections)
-
-
-# assemble exec(s)
-set(SOURCES
-        ${SRC_DIR}/config/config.cpp
-        ${SRC_DIR}/config/config_watcher.cpp
-        ${SRC_DIR}/core/main.cpp
-        ${SRC_DIR}/graphics/animation.cpp
-        ${SRC_DIR}/graphics/animation_init.cpp
-        ${SRC_DIR}/graphics/bar.cpp
-        ${SRC_DIR}/graphics/drawing_images.cpp
-        ${SRC_DIR}/graphics/load_images.cpp
-        ${SRC_DIR}/graphics/embedded_assets.cpp
-        ${SRC_DIR}/graphics/stb_image.cpp
-        ${SRC_DIR}/platform/input.cpp
-        ${SRC_DIR}/platform/wayland.cpp
-        ${SRC_DIR}/utils/error.cpp
-        ${SRC_DIR}/utils/memory.cpp
-        ${SRC_DIR}/utils/system_memory.cpp
-        ${SRC_DIR}/utils/time.cpp)
 
 add_executable(bongocat)
-target_sources(bongocat PRIVATE ${SOURCES})
-target_link_libraries(bongocat PRIVATE bongocat_options)
 if (FEATURE_BONGOCAT_EMBEDDED_ASSETS)
-    target_link_libraries(bongocat PRIVATE assets_bongocat)
+    target_link_libraries(bongocat PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    message(STATUS "Include bongocat assets")
 endif()
 if (FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
     if (NOT FEATURE_DM20_EMBEDDED_ASSETS AND NOT FEATURE_DM_EMBEDDED_ASSETS AND NOT FEATURE_DMX_EMBEDDED_ASSETS AND NOT FEATURE_DMC_EMBEDDED_ASSETS)
-        target_link_libraries(bongocat PRIVATE assets_min_dm)
+        target_link_libraries(bongocat PRIVATE assets_min_dm_loader assets_min_dm assets_min_dm_feature assets_min_dm_interface)
+        message(STATUS "Include min_dm assets")
     else()
         if (FEATURE_DM20_EMBEDDED_ASSETS)
-            target_link_libraries(bongocat PRIVATE assets_dm20)
+            target_link_libraries(bongocat PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+            message(STATUS "Include dm20 assets")
         elseif (FEATURE_DM_EMBEDDED_ASSETS)
-            target_link_libraries(bongocat PRIVATE assets_dm)
+            target_link_libraries(bongocat PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
+            message(STATUS "Include dm assets")
         endif()
         if (FEATURE_DMX_EMBEDDED_ASSETS)
-            target_link_libraries(bongocat PRIVATE assets_dmx)
+            target_link_libraries(bongocat PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+            message(STATUS "Include dmx assets")
         endif()
         if (FEATURE_DMC_EMBEDDED_ASSETS)
-            target_link_libraries(bongocat PRIVATE assets_dmc)
+            target_link_libraries(bongocat PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
+            message(STATUS "Include dmc assets")
         endif()
     endif()
 endif()
 if (FEATURE_MS_AGENT_EMBEDDED_ASSETS)
-    target_link_libraries(bongocat PRIVATE assets_clippy)
+    target_link_libraries(bongocat PRIVATE assets_ms_agent_loader assets_ms_agent assets_ms_agent_feature assets_ms_agent_interface)
+    message(STATUS "Include MS agent assets")
 endif()
+target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_libs)
 
 if (FEATURE_MULTI_VERSIONS)
     add_executable(bongocat-digimon)
-    target_sources(bongocat-digimon PRIVATE ${SOURCES})
-    target_link_libraries(bongocat-digimon PRIVATE assets_bongocat)
-    target_link_libraries(bongocat-digimon PRIVATE bongocat_options)
-    target_link_libraries(bongocat-digimon PRIVATE assets_dm20)
-    target_link_libraries(bongocat-digimon PRIVATE assets_dmx)
+    target_link_libraries(bongocat-digimon PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-digimon PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+    target_link_libraries(bongocat-digimon PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+    target_link_libraries(bongocat-digimon PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     add_executable(bongocat-digimon-colored)
-    target_sources(bongocat-digimon-colored PRIVATE ${SOURCES})
-    target_link_libraries(bongocat-digimon-colored PRIVATE bongocat_options)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_bongocat)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dm20)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dmx)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dmc)
+    target_link_libraries(bongocat-digimon-colored PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
+    target_link_libraries(bongocat-digimon-colored PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     add_executable(bongocat-clippy)
-    target_sources(bongocat-clippy PRIVATE ${SOURCES})
-    target_link_libraries(bongocat-clippy PRIVATE bongocat_options)
-    target_link_libraries(bongocat-clippy PRIVATE assets_bongocat)
-    target_link_libraries(bongocat-clippy PRIVATE assets_clippy)
+    target_link_libraries(bongocat-clippy PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-clippy PRIVATE assets_ms_agent_loader assets_ms_agent assets_ms_agent_feature assets_ms_agent_interface)
+    target_link_libraries(bongocat-clippy PRIVATE bongocat_base bongocat_options bongocat_libs)
 endif()
 
 

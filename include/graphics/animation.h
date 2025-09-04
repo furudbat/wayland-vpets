@@ -13,6 +13,8 @@ namespace bongocat::animation {
     void trigger(animation_session_t& ctx);
     void trigger_update_config(animation_session_t& ctx, const config::config_t& config, uint64_t config_generation);
     void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen);
+    created_result_t<animation_t*> hot_load_animation(animation_context_t& ctx);
+    animation_t& get_current_animation(animation_context_t& ctx);
 }
 
 #endif // BONGOCAT_ANIMATION_H

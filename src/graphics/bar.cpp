@@ -101,7 +101,7 @@ namespace bongocat::animation {
 
         return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
     }
-    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const ms_pet_sprite_sheet_t& sheet, const config::config_t& config) {
+    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const ms_agent_sprite_sheet_t& sheet, const config::config_t& config) {
         const int cat_height = config.cat_height;
         const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
 
@@ -125,7 +125,6 @@ namespace bongocat::animation {
         return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
     }
 
-#if defined(FEATURE_BONGOCAT_EMBEDDED_ASSETS) || defined(FEATURE_DM_EMBEDDED_ASSETS)
     void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
@@ -171,17 +170,15 @@ namespace bongocat::animation {
 
             blit_image_scaled(pixels, pixels_size,
                               wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
-                              sheet.pixels.data, sheet.pixels._size_bytes,  sheet.sprite_sheet_width, sheet.sprite_sheet_height, sheet.channels,
+                              sheet.image.pixels.data, sheet.image.pixels._size_bytes,  sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height, sheet.image.channels,
                               region->col * sheet.frame_width, region->row * sheet.frame_height,
                               sheet.frame_width, sheet.frame_height,
                               cat_x, cat_y, cat_width, cat_height,
                               blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
         }
     }
-#endif
 
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const ms_pet_sprite_sheet_t& sheet, int col, int row) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const ms_agent_sprite_sheet_t& sheet, int col, int row) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -220,13 +217,12 @@ namespace bongocat::animation {
 
         blit_image_scaled(pixels, pixels_size,
                           wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
-                          sheet.pixels.data, sheet.pixels._size_bytes,  sheet.sprite_sheet_width, sheet.sprite_sheet_height, sheet.channels,
+                          sheet.image.pixels.data, sheet.image.pixels._size_bytes,  sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height, sheet.image.channels,
                           col * sheet.frame_width, row * sheet.frame_height,
                           sheet.frame_width, sheet.frame_height,
                           cat_x, cat_y, cat_width, cat_height,
                           blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
     }
-#endif
 
     bool draw_bar(platform::wayland::wayland_session_t& ctx) {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
@@ -285,59 +281,52 @@ namespace bongocat::animation {
             const animation_shared_memory_t& anim_shm = *anim.shm;
 
             if (!wayland_ctx._fullscreen_detected) {
-                using namespace assets;
                 switch (anim_shm.anim_type) {
                     case config::config_animation_sprite_sheet_layout_t::None:
                         break;
                     case config::config_animation_sprite_sheet_layout_t::Bongocat: {
-#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                        assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.bongocat_anims_count);
-                        const animation_t& cat_anim = anim_shm.bongocat_anims[anim_shm.anim_index];
+                        if (features::EnablePreloadAssets) {
+                            assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.bongocat_anims.count);
+                        }
+                        const animation_t& cat_anim = get_current_animation(anim);
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
-#endif
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
-#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-                        switch (anim_shm.anim_dm_set) {
-                            case config::config_animation_dm_set_t::None:
-                                break;
-                            case config::config_animation_dm_set_t::dm:
-                            case config::config_animation_dm_set_t::dm20: {
-#if defined(FEATURE_DM20_EMBEDDED_ASSETS) || defined(FEATURE_DM_EMBEDDED_ASSETS) || defined(FEATURE_MIN_DM_EMBEDDED_ASSETS)
-                                assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dm_anims_count);
-                                const animation_t& dm_anim = anim_shm.dm_anims[anim_shm.anim_index];
-                                const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
-                                draw_sprite(ctx, sheet);
-#endif
-                            }break;
-                            case config::config_animation_dm_set_t::dmx: {
-#ifdef FEATURE_DMX_EMBEDDED_ASSETS
-                                assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmx_anims_count);
-                                const animation_t& dm_anim = anim_shm.dmx_anims[anim_shm.anim_index];
-                                const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
-                                draw_sprite(ctx, sheet);
-#endif
-                            }break;
-                            case config::config_animation_dm_set_t::dmc: {
-#ifdef FEATURE_DMC_EMBEDDED_ASSETS
-                                assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmc_anims_count);
-                                const animation_t& dm_anim = anim_shm.dmc_anims[anim_shm.anim_index];
-                                const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
-                                draw_sprite(ctx, sheet);
-#endif
-                            }break;
+                        if (features::EnablePreloadAssets) {
+                            switch (anim_shm.anim_dm_set) {
+                                case config::config_animation_dm_set_t::None:
+                                    break;
+                                case config::config_animation_dm_set_t::min_dm: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.min_dm_anims.count);
+                                }break;
+                                case config::config_animation_dm_set_t::dm: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dm_anims.count);
+                                }break;
+                                case config::config_animation_dm_set_t::dm20: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dm20_anims.count);
+                                }break;
+                                case config::config_animation_dm_set_t::dmx: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmx_anims.count);
+                                }break;
+                                case config::config_animation_dm_set_t::dmc: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmc_anims.count);
+                                }break;
+                            }
                         }
-#endif
+                        const animation_t& dm_anim = get_current_animation(anim);
+                        const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
+                        draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-                        assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.ms_anims_count);
-                        const ms_pet_sprite_sheet_t& sheet = anim_shm.ms_anims[anim_shm.anim_index];
+                        if (features::EnablePreloadAssets) {
+                            assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.ms_anims.count);
+                        }
+                        const animation_t& ms_anim = get_current_animation(anim);
+                        const ms_agent_sprite_sheet_t& sheet = ms_anim.ms_agent;
                         const int col = anim_shm.animation_player_data.frame_index;
                         const int row = anim_shm.animation_player_data.sprite_sheet_row;
                         draw_sprite(ctx, sheet, col, row);
-#endif
                     }break;
                 }
             } else {

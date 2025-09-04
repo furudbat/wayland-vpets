@@ -55,6 +55,7 @@ namespace bongocat::config {
     };
     enum class config_animation_dm_set_t : uint8_t {
         None,
+        min_dm,
         dm,
         dm20,
         dmx,

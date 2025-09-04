@@ -1,38 +1,210 @@
-#include "graphics/embedded_assets.h"
 #include "graphics/animation_context.h"
-#include "graphics/embedded_assets/bongocat.hpp"
-#include "graphics/embedded_assets/clippy.hpp"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "utils/memory.h"
-#include "load_images.h"
 #include <ctime>
 #include <pthread.h>
 #include <sys/stat.h>
 #include <cassert>
 #include <sys/eventfd.h>
 
+// assets
+#include "graphics/embedded_assets_dms.h"
+#include "embedded_assets/bongocat/bongocat.hpp"
+#include "embedded_assets/ms_agent/ms_agent.hpp"
+#include "embedded_assets/bongocat/bongocat.h"
+#include "embedded_assets/ms_agent/ms_agent.h"
+#include "embedded_assets/dm/dm.h"
+#include "embedded_assets/min_dm/min_dm.h"
+#include "embedded_assets/dm20/dm20.h"
+#include "embedded_assets/dmc/dmc.h"
+#include "embedded_assets/dmx/dmx.h"
+
+// image loader
+#include "image_loader/bongocat/load_images_bongocat.h"
+#include "image_loader/ms_agent/load_images_ms_agent.h"
+#include "image_loader/dm/load_images_dm.h"
+#include "image_loader/min_dm/load_images_min_dm.h"
+#include "image_loader/dm20/load_images_dm20.h"
+#include "image_loader/dmc/load_images_dmc.h"
+#include "image_loader/dmx/load_images_dmx.h"
+
+
 namespace bongocat::animation {
-    [[maybe_unused]] static bool should_load_bongocat([[maybe_unused]] const config::config_t& config) {
-#ifdef FEATURE_PRELOAD_ASSETS
-        return true;
-#else
-        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Bongocat;
-#endif
+    [[maybe_unused]] static constexpr bool should_load_bongocat([[maybe_unused]] const config::config_t& config) {
+        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Bongocat;
     }
-    [[maybe_unused]] static bool should_load_dm([[maybe_unused]] const config::config_t& config) {
-#ifdef FEATURE_PRELOAD_ASSETS
-        return true;
-#else
-        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Dm;
-#endif
+    [[maybe_unused]] static constexpr bool should_load_dm([[maybe_unused]] const config::config_t& config) {
+        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Dm;
     }
-    [[maybe_unused]] static bool should_load_ms_pet([[maybe_unused]] const config::config_t& config) {
-#ifdef FEATURE_PRELOAD_ASSETS
-        return true;
-#else
-        return config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::MsAgent;
-#endif
+    [[maybe_unused]] static constexpr bool should_load_ms_agent([[maybe_unused]] const config::config_t& config) {
+        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::MsAgent;
+    }
+
+    created_result_t<animation_t*> hot_load_animation(animation_context_t& ctx) {
+        // read-only config
+        assert(ctx._local_copy_config != nullptr);
+        //const config::config_t& current_config = *ctx._local_copy_config;
+        assert(ctx.shm != nullptr);
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+        const int anim_index = anim_shm.anim_index;
+
+        switch (anim_shm.anim_type) {
+            case config::config_animation_sprite_sheet_layout_t::None:
+                // unload other sprite sheets
+                cleanup_animation(anim_shm.bongocat_sprite_sheet);
+                cleanup_animation(anim_shm.dm_sprite_sheet);
+                cleanup_animation(anim_shm.ms_agent_sprite_sheet);
+                break;
+            case config::config_animation_sprite_sheet_layout_t::Bongocat: {
+                if constexpr (features::EnableBongocatEmbeddedAssets) {
+                    auto [result, error] = load_bongocat_sprite_sheet(ctx, anim_index);
+                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                        return error;
+                    }
+                    anim_shm.bongocat_sprite_sheet = bongocat::move(result);
+                    // unload other sprite sheets
+                    cleanup_animation(anim_shm.dm_sprite_sheet);
+                    cleanup_animation(anim_shm.ms_agent_sprite_sheet);
+                }
+            }break;
+            case config::config_animation_sprite_sheet_layout_t::Dm: {
+                bongocat_error_t error = bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+                dm_animation_t result;
+                switch (anim_shm.anim_dm_set) {
+                    case config::config_animation_dm_set_t::None:
+                        cleanup_animation(result);
+                        error = bongocat_error_t::BONGOCAT_SUCCESS;
+                        break;
+                    case config::config_animation_dm_set_t::min_dm:{
+                        if constexpr (features::EnableMinDmEmbeddedAssets) {
+                            auto [l_result, l_error] = load_min_dm_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
+                    case config::config_animation_dm_set_t::dm:{
+                        if constexpr (features::EnableFullDmEmbeddedAssets) {
+                            auto [l_result, l_error] = load_dm_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
+                    case config::config_animation_dm_set_t::dm20:{
+                        if constexpr (features::EnableDm20EmbeddedAssets) {
+                            auto [l_result, l_error] = load_dm20_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
+                    case config::config_animation_dm_set_t::dmx:{
+                        if constexpr (features::EnableDmxEmbeddedAssets) {
+                            auto [l_result, l_error] = load_dmx_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
+                    case config::config_animation_dm_set_t::dmc:{
+                        if constexpr (features::EnableDmcEmbeddedAssets) {
+                            auto [l_result, l_error] = load_dmc_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
+                }
+                if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    return error;
+                }
+                anim_shm.dm_sprite_sheet = bongocat::move(result);
+                // unload other sprite sheets
+                anim_shm.bongocat_sprite_sheet = {};
+                anim_shm.ms_agent_sprite_sheet = {};
+            }break;
+            case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                if constexpr (features::EnableMsAgentEmbeddedAssets) {
+                    auto [result, error] = load_ms_agent_sprite_sheet(ctx, anim_index);
+                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                        return error;
+                    }
+                    anim_shm.ms_agent_sprite_sheet = bongocat::move(result);
+                    // unload other sprite sheets
+                    anim_shm.bongocat_sprite_sheet = {};
+                    anim_shm.dm_sprite_sheet = {};
+                }
+                break;
+        }
+
+        created_result_t<animation_t*> ret;
+        ret.result = &get_current_animation(ctx);
+        ret.error = bongocat_error_t::BONGOCAT_SUCCESS;
+        return ret;
+    }
+
+    animation_t& get_current_animation(animation_context_t& ctx) {
+        // fallback sprite
+        static animation_t none_sprite_sheet{};
+
+        // read-only config
+        assert(ctx._local_copy_config != nullptr);
+        //const config::config_t& current_config = *ctx._local_copy_config;
+        assert(ctx.shm != nullptr);
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+        const int anim_index = anim_shm.anim_index;
+
+        switch (anim_shm.anim_type) {
+            case config::config_animation_sprite_sheet_layout_t::None:
+                return none_sprite_sheet;
+            case config::config_animation_sprite_sheet_layout_t::Bongocat: {
+                if (features::EnableLazyLoadAssets) {
+                    return reinterpret_cast<animation_t&>(anim_shm.bongocat_sprite_sheet);
+                }
+                assert(anim_index >= 0);
+                return static_cast<size_t>(anim_index) < anim_shm.bongocat_anims.count ? anim_shm.bongocat_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+            }
+            case config::config_animation_sprite_sheet_layout_t::Dm: {
+                switch (anim_shm.anim_dm_set) {
+                    case config::config_animation_dm_set_t::None:
+                        return none_sprite_sheet;
+                    case config::config_animation_dm_set_t::min_dm:
+                        if (features::EnableLazyLoadAssets) {
+                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                        }
+                        assert(anim_index >= 0);
+                        return static_cast<size_t>(anim_index) < anim_shm.min_dm_anims.count ? anim_shm.min_dm_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                    case config::config_animation_dm_set_t::dm:
+                        if (features::EnableLazyLoadAssets) {
+                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                        }
+                        return static_cast<size_t>(anim_index) < anim_shm.dm_anims.count ? anim_shm.dm_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                    case config::config_animation_dm_set_t::dm20:
+                        if (features::EnableLazyLoadAssets) {
+                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                        }
+                        assert(anim_index >= 0);
+                        return static_cast<size_t>(anim_index) < anim_shm.dm20_anims.count ? anim_shm.dm20_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                    case config::config_animation_dm_set_t::dmx:
+                        if (features::EnableLazyLoadAssets) {
+                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                        }
+                        assert(anim_index >= 0);
+                        return static_cast<size_t>(anim_index) < anim_shm.dmx_anims.count ? anim_shm.dmx_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                    case config::config_animation_dm_set_t::dmc:
+                        if (features::EnableLazyLoadAssets) {
+                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                        }
+                        assert(anim_index >= 0);
+                        return static_cast<size_t>(anim_index) < anim_shm.dmc_anims.count ? anim_shm.dmc_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                }
+            }break;
+            case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                if (features::EnableLazyLoadAssets) {
+                    return reinterpret_cast<animation_t&>(anim_shm.ms_agent_sprite_sheet);
+                }
+                assert(anim_index >= 0);
+                return static_cast<size_t>(anim_index) < anim_shm.ms_anims.count ? anim_shm.ms_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+        }
+
+        return none_sprite_sheet;
     }
 
     // =============================================================================
@@ -87,77 +259,102 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
-        // Initialize embedded images data
         /// @TODO: async assets load
+        // Initialize embedded images/animations
+        if constexpr (features::EnableLazyLoadAssets) {
+            hot_load_animation(ret->anim);
+        }
+        if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+            // preload assets
+            if constexpr (features::EnableBongocatEmbeddedAssets) {
+                // Load Bongocat
+                if (should_load_bongocat(config)) {
+                    BONGOCAT_LOG_INFO("Load bongocat sprite sheet frames: %i", BONGOCAT_EMBEDDED_IMAGES_COUNT);
+                    assert(ret->anim.shm != nullptr);
+                    animation_context_t& ctx = ret->anim; // alias for inits in includes
 
-        // Load Bongocat
-#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-        if (should_load_bongocat(config)) {
-            BONGOCAT_LOG_INFO("Load sprite sheet frames: %i", BONGOCAT_EMBEDDED_IMAGES_COUNT);
-            assert(ret->anim.shm != nullptr);
-            animation_context_t& ctx = ret->anim; // alias for inits in includes
+                    ctx.shm->bongocat_anims = platform::make_allocated_mmap_array<animation_t>(BONGOCAT_ANIM_COUNT);
 
-            const auto result = init_bongocat_anim(ctx, BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT);
-            if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Load Bongocat images failed");
-                //return result;
-                // ignore error ?
+                    init_bongocat_anim(ctx, BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT);
+                }
             }
-            BONGOCAT_LOG_INFO("Bongocat loaded into sprite sheet");
-        }
-#endif
 
+            if constexpr (features::EnableDmEmbeddedAssets) {
+                // Load dm
+                if (should_load_dm(config)) {
+                    BONGOCAT_LOG_INFO("Load dm sprite sheets: %i", DM_ANIMATIONS_COUNT);
+                    assert(ret->anim.shm != nullptr);
+                    animation_context_t& ctx = ret->anim; // alias for inits in includes
 
-        // Load dm
-#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-        if (should_load_dm(config)) {
-            BONGOCAT_LOG_INFO("Load more sprite sheets: %i", DM_ANIMATIONS_COUNT);
-            assert(ret->anim.shm != nullptr);
-            animation_context_t& ctx = ret->anim; // alias for inits in includes
-
+                    if constexpr (features::EnableMinDmEmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %i", MIN_DM_ANIM_COUNT);
+                        ctx.shm->min_dm_anims = platform::make_allocated_mmap_array<animation_t>(MIN_DM_ANIM_COUNT);
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
-            //init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_min_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
-#include "embedded_assets/min_dm_init_dm_anim.cpp.inl"
+                        //init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
+#include "min_dm_init_dm_anim.cpp.inl"
 #endif
-            // dm
+                    }
+                    if constexpr (features::EnableFullDmEmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init dm sprite sheets: %i", DM_ANIM_COUNT);
+                        ctx.shm->dm_anims = platform::make_allocated_mmap_array<animation_t>(DM_ANIM_COUNT);
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-#include "embedded_assets/dm_init_dm_anim.cpp.inl"
+                        // dm
+#include "dm_init_dm_anim.cpp.inl"
 #endif
-            // dm20
+                    }
+                    if constexpr (features::EnableDm20EmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init dm20 sprite sheets: %i", DM20_ANIM_COUNT);
+                        ctx.shm->dm20_anims = platform::make_allocated_mmap_array<animation_t>(DM20_ANIM_COUNT);
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
-#include "embedded_assets/dm20_init_dm_anim.cpp.inl"
+                        // dm20
+#include "dm20_init_dm_anim.cpp.inl"
 #endif
-            // pen20
+                    }
+                    if constexpr (features::EnablePen20EmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init pen20 sprite sheets: %i", PEN20_ANIM_COUNT);
+                        //ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "embedded_assets/pen20_init_dm_anim.cpp.inl"
+                        // pen20
+#include "pen20_init_dm_anim.cpp.inl"
 #endif
-            // dmx
+                    }
+                    if constexpr (features::EnableDmxEmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init dmx sprite sheets: %i", DMX_ANIM_COUNT);
+                        ctx.shm->dmx_anims = platform::make_allocated_mmap_array<animation_t>(DMX_ANIM_COUNT);
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
-#include "embedded_assets/dmx_init_dm_anim.cpp.inl"
+                        // dmx
+#include "dmx_init_dm_anim.cpp.inl"
 #endif
-            // dmc
+                    }
+                    if constexpr (features::EnableDmcEmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init dmc sprite sheets: %i", DMC_ANIM_COUNT);
+                        ctx.shm->dmc_anims = platform::make_allocated_mmap_array<animation_t>(DMC_ANIM_COUNT);
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "embedded_assets/dmc_init_dm_anim.cpp.inl"
+                        // dmc
+#include "dmc_init_dm_anim.cpp.inl"
 #endif
-        }
-#endif
+                    }
+                }
+            }
 
+            if constexpr (features::EnableMsAgentEmbeddedAssets) {
+                // Load Ms Pets (Clippy)
+                if (should_load_ms_agent(config)) {
+                    BONGOCAT_LOG_INFO("Load MS agent sprite sheets: %i", MS_AGENTS_ANIM_COUNT);
+                    assert(ret->anim.shm != nullptr);
+                    animation_context_t& ctx = ret->anim; // alias for inits in includes
 
-        // Load Ms Pets (Clippy)
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-        if (should_load_ms_pet(config)) {
-            BONGOCAT_LOG_INFO("Load more sprite sheets: %i", MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT);
-            assert(ret->anim.shm != nullptr);
-            animation_context_t& ctx = ret->anim; // alias for inits in includes
+                    ctx.shm->ms_anims = platform::make_allocated_mmap_array<animation_t>(MS_AGENTS_ANIM_COUNT);
 
-            // clippy
-            init_ms_pet_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS);
+                    // clippy
+                    init_ms_agent_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS);
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-            /// @NOTE(config): add more MS Pets here
-            init_ms_pet_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS);
+                    /// @NOTE(config): add more MS Pets here
+                    init_ms_agent_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS);
 #endif
+                }
+            }
         }
-#endif
 
         BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets");
         return ret;

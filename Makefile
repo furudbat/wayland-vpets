@@ -7,15 +7,23 @@ BUILD_TYPE ?= release
 
 ONLY_BONGOCAT ?= 0
 
+# Directories
+SRCDIR = src
+INCDIR = include
+BUILDDIR = build
+OBJDIR = $(BUILDDIR)/obj
+PROTOCOLDIR = protocols
+WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
+
 # Base flags
-BASE_CFLAGS = -std=c23 -Iinclude -Isrc -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CFLAGS = -std=c23 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CFLAGS += -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
 BASE_CFLAGS += -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
 BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
 BASE_CFLAGS += -Wjump-misses-init -Wdouble-promotion -Wshadow
 BASE_CFLAGS += -fstack-protector-strong
 
-BASE_CXXFLAGS = -std=c++26 -Iinclude -Isrc -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CXXFLAGS = -std=c++26 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CXXFLAGS += -Wall -Wextra -Wpedantic -Wformat=2
 BASE_CXXFLAGS += -Wredundant-decls
 BASE_CXXFLAGS += -Wmissing-include-dirs -Wlogical-op
@@ -28,6 +36,8 @@ ifeq ($(ONLY_BONGOCAT),1)
 else
     BASE_CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS
     BASE_CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS
+	BASE_CFLAGS += -I$(INCDIR)/embedded_assets/min_dm -I$(INCDIR)/image_loader/min_dm -I$(SRCDIR)/embedded_assets/min_dm/include
+	BASE_CXXFLAGS += -I$(INCDIR)/embedded_assets/min_dm -I$(INCDIR)/image_loader/min_dm -I$(SRCDIR)/embedded_assets/min_dm/include
 endif
 
 # Debug flags
@@ -52,33 +62,31 @@ else
     LDFLAGS = -lwayland-client -lm -lpthread -lrt -flto
 endif
 
-# Directories
-SRCDIR = src
-INCDIR = include
-BUILDDIR = build
-OBJDIR = $(BUILDDIR)/obj
-PROTOCOLDIR = protocols
-WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
-
 # Source files (including embedded assets which are now committed)
-CXX_SRC = $(SRCDIR)/config/config.cpp \
-    $(SRCDIR)/config/config_watcher.cpp \
-    $(SRCDIR)/core/main.cpp \
-    $(SRCDIR)/graphics/animation.cpp \
-    $(SRCDIR)/graphics/animation_init.cpp \
-    $(SRCDIR)/graphics/bar.cpp \
-    $(SRCDIR)/graphics/drawing_images.cpp \
-    $(SRCDIR)/graphics/load_images.cpp \
-    $(SRCDIR)/graphics/embedded_assets.cpp \
-    $(SRCDIR)/graphics/stb_image.cpp \
-    $(SRCDIR)/platform/input.cpp \
-    $(SRCDIR)/platform/wayland.cpp \
-    $(SRCDIR)/utils/error.cpp \
+CXX_SRC = $(SRCDIR)/image_loader/min_dm/load_images_min_dm.cpp \
+    $(SRCDIR)/image_loader/min_dm/min_dm_load_sprite_sheet.cpp \
+    $(SRCDIR)/image_loader/stb_image.cpp \
+    $(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp \
+    $(SRCDIR)/image_loader/base_dm/load_dm.cpp \
+    $(SRCDIR)/image_loader/load_images.cpp \
+    $(SRCDIR)/image_loader/ms_agent/load_images_ms_agent.cpp \
     $(SRCDIR)/utils/memory.cpp \
     $(SRCDIR)/utils/system_memory.cpp \
-    $(SRCDIR)/utils/time.cpp
-CXX_SRC += $(SRCDIR)/graphics/embedded_assets_bongocat.cpp $(SRCDIR)/graphics/embedded_assets_dm.cpp $(SRCDIR)/graphics/embedded_assets_clippy.cpp
-C_SRC = $(SRCDIR)/graphics/embedded_assets/bongocat_images.c $(SRCDIR)/graphics/embedded_assets/min_dm_images.c $(SRCDIR)/graphics/embedded_assets/clippy_images.c
+    $(SRCDIR)/utils/error.cpp \
+    $(SRCDIR)/utils/time.cpp \
+    $(SRCDIR)/embedded_assets/min_dm/min_dm_get_sprite_sheet.cpp \
+    $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp \
+    $(SRCDIR)/embedded_assets/ms_agent/embedded_assets_ms_agent.cpp \
+    $(SRCDIR)/core/main.cpp \
+    $(SRCDIR)/platform/input.cpp \
+    $(SRCDIR)/platform/wayland.cpp \
+    $(SRCDIR)/graphics/bar.cpp \
+    $(SRCDIR)/graphics/animation.cpp \
+    $(SRCDIR)/graphics/animation_init.cpp \
+    $(SRCDIR)/graphics/drawing_images.cpp \
+    $(SRCDIR)/config/config_watcher.cpp \
+    $(SRCDIR)/config/config.cpp
+C_SRC = $(SRCDIR)/embedded_assets/min_dm/min_dm_images.c $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c $(SRCDIR)/embedded_assets/ms_agent/ms_agent_images.c
 
 C_OBJECTS = $(C_SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 CXX_OBJECTS = $(CXX_SRC:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
@@ -101,11 +109,27 @@ protocols: $(C_PROTOCOL_SRC) $(H_PROTOCOL_HDR)
 # Create build directories
 $(OBJDIR):
 	mkdir -p $(OBJDIR)
-	mkdir -p $(OBJDIR)/core
-	mkdir -p $(OBJDIR)/graphics
-	mkdir -p $(OBJDIR)/graphics/embedded_assets
-	mkdir -p $(OBJDIR)/platform
 	mkdir -p $(OBJDIR)/config
+	mkdir -p $(OBJDIR)/core
+	mkdir -p $(OBJDIR)/embedded_assets
+	mkdir -p $(OBJDIR)/embedded_assets/bongocat
+	mkdir -p $(OBJDIR)/embedded_assets/dm
+	mkdir -p $(OBJDIR)/embedded_assets/dm20
+	mkdir -p $(OBJDIR)/embedded_assets/dmc
+	mkdir -p $(OBJDIR)/embedded_assets/dmx
+	mkdir -p $(OBJDIR)/embedded_assets/min_dm
+	mkdir -p $(OBJDIR)/embedded_assets/ms_agent
+	mkdir -p $(OBJDIR)/graphics
+	mkdir -p $(OBJDIR)/image_loader
+	mkdir -p $(OBJDIR)/image_loader/base_dm
+	mkdir -p $(OBJDIR)/image_loader/bongocat
+	mkdir -p $(OBJDIR)/image_loader/dm
+	mkdir -p $(OBJDIR)/image_loader/dm20
+	mkdir -p $(OBJDIR)/image_loader/dmc
+	mkdir -p $(OBJDIR)/image_loader/dmx
+	mkdir -p $(OBJDIR)/image_loader/min_dm
+	mkdir -p $(OBJDIR)/image_loader/ms_agent
+	mkdir -p $(OBJDIR)/platform
 	mkdir -p $(OBJDIR)/utils
 	mkdir -p $(BUILDDIR)
 

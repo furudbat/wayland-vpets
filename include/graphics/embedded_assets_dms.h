@@ -1,32 +1,40 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_DMS_H
 #define BONGOCAT_EMBEDDED_ASSETS_DMS_H
 
-#include "embedded_image.h"
+#include <cstddef>
 
-#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 #if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS)
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 // Fallback dm (minimal set)
 #ifndef FEATURE_MIN_DM_EMBEDDED_ASSETS
 #define FEATURE_MIN_DM_EMBEDDED_ASSETS
 #endif
-// DM_ANIM_START_INDEX is defined in embedded_assets.h
-#include "embedded_assets/min_dm.hpp"
+#include "embedded_assets/min_dm/min_dm.hpp"
 namespace bongocat::assets {
-    inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT;
-
-    extern embedded_image_t get_min_dm_sprite_sheet(size_t i);
+    inline static constexpr size_t DM_ANIM_COUNT = MIN_DM_ANIM_COUNT;
+}
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t MIN_DM_ANIM_COUNT = 0;
+    inline static constexpr size_t DM_ANIM_COUNT = 0;
+}
+#endif
+namespace bongocat::assets {
+    inline static constexpr size_t DM20_ANIM_COUNT = 0;
+    inline static constexpr size_t PEN20_ANIM_COUNT = 0;
+    inline static constexpr size_t DMX_ANIM_COUNT = 0;
+    inline static constexpr size_t DMC_ANIM_COUNT = 0;
 }
 
 // feature full assets
 #else
+namespace bongocat::assets {
+    inline static constexpr size_t MIN_DM_ANIM_COUNT = 0;
+}
 
 /// dm
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-// DM_ANIM_START_INDEX is defined in embedded_assets.h
-#include "embedded_assets/dm.hpp"
-namespace bongocat::assets {
-    extern embedded_image_t get_dm_sprite_sheet(size_t i);
-}
+#include "image_loader/embedded_assets/dm/dm.hpp"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t DM_ANIM_COUNT = 0;
@@ -35,10 +43,7 @@ namespace bongocat::assets {
 
 /// dm20
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
-#include "embedded_assets/dm20.hpp"
-namespace bongocat::assets {
-    extern embedded_image_t get_dm20_sprite_sheet(size_t i);
-}
+#include "embedded_assets/dm20/dm20.hpp"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t DM20_ANIM_COUNT = 0;
@@ -47,10 +52,7 @@ namespace bongocat::assets {
 
 /// pen20
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "embedded_assets/pen20.h"
-namespace bongocat::assets {
-    extern embedded_image_t get_pen20_sprite_sheet(size_t i);
-}
+#include "embedded_assets/pen20/pen20.hpp"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANIM_COUNT = 0;
@@ -59,10 +61,7 @@ namespace bongocat::assets {
 
 /// dmx
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
-#include "embedded_assets/dmx.hpp"
-namespace bongocat::assets {
-    extern embedded_image_t get_dmx_sprite_sheet(size_t i);
-}
+#include "embedded_assets/dmx/dmx.hpp"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t DMX_ANIM_COUNT = 0;
@@ -71,24 +70,20 @@ namespace bongocat::assets {
 
 /// dmc
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "embedded_assets/dmc.hpp"
-namespace bongocat::assets {
-    extern embedded_image_t get_dmc_sprite_sheet(size_t i);
-}
+#include "embedded_assets/dmc/dmc.hpp"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t DMC_ANIM_COUNT = 0;
 }
 #endif
 
-namespace bongocat::assets {
-    inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT+DM20_ANIM_COUNT+PEN20_ANIM_COUNT+DMX_ANIM_COUNT+DMC_ANIM_COUNT;
-}
-#endif
 #endif
 
 namespace bongocat::assets {
-#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+    inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT+DM20_ANIM_COUNT+PEN20_ANIM_COUNT+DMX_ANIM_COUNT+DMC_ANIM_COUNT;
+}
+
+namespace bongocat::assets {
     static inline constexpr int DM_FRAME_IDLE1     = 0;
     static inline constexpr int DM_FRAME_IDLE2     = 1;
     static inline constexpr int DM_FRAME_ANGRY     = 2;  // Angry/Refuse or Hit (Fallback), Eat Frame Fallback
@@ -111,7 +106,6 @@ namespace bongocat::assets {
     static inline constexpr int DM_HAPPY_CHANCE_PERCENT = 60;
 
     inline static constexpr size_t DM_SPRITE_SHEET_ROWS = 1;
-#endif
 }
 
 #endif

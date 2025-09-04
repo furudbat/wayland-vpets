@@ -111,7 +111,7 @@ namespace bongocat {
         T* ptr{nullptr};
         size_t _size_bytes{0};
 
-        AllocatedMemory() = default;
+        constexpr AllocatedMemory() = default;
         ~AllocatedMemory() noexcept {
             release_allocated_memory(*this);
         }
@@ -184,7 +184,7 @@ namespace bongocat {
             return *this;
         }
 
-        operator bool() const noexcept {
+        constexpr operator bool() const noexcept {
             return ptr != nullptr;
         }
 
@@ -192,7 +192,7 @@ namespace bongocat {
             assert(ptr);
             return *ptr;
         }
-        const T& operator*() const {
+        constexpr const T& operator*() const {
             assert(ptr);
             return *ptr;
         }
@@ -200,21 +200,21 @@ namespace bongocat {
             assert(ptr);
             return ptr;
         }
-        const T* operator->() const {
+        constexpr const T* operator->() const {
             assert(ptr);
             return ptr;
         }
         explicit operator T*() noexcept {
             return ptr;
         }
-        explicit operator const T*() const noexcept {
+        constexpr explicit operator const T*() const noexcept {
             return ptr;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return ptr == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return ptr != nullptr;
         }
     };
@@ -264,7 +264,7 @@ namespace bongocat {
         size_t count{0};
         size_t _size_bytes{0};
 
-        AllocatedArray() = default;
+        constexpr AllocatedArray() = default;
         ~AllocatedArray() noexcept {
             release_allocated_array(*this);
         }
@@ -365,19 +365,19 @@ namespace bongocat {
             assert(index < count);
             return data[index];
         }
-        const T& operator[](size_t index) const {
+        constexpr const T& operator[](size_t index) const {
             assert(index < count);
             return data[index];
         }
 
-        explicit operator bool() const noexcept {
+        constexpr explicit operator bool() const noexcept {
             return data != nullptr;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return data == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return data != nullptr;
         }
     };
