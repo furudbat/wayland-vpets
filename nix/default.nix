@@ -8,7 +8,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-bongocat";
-  version = "2.3.0";
+  version = "2.4.0";
   src = ../.;
 
   # Build toolchain and dependencies

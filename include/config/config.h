@@ -101,6 +101,7 @@ namespace bongocat::config {
         config_animation_dm_set_t animation_dm_set{config_animation_dm_set_t::None};
         int32_t idle_animation{0};
         int32_t input_fps{0};
+        int32_t random_index{0};
 
 
         // Make Config movable and copyable
@@ -143,7 +144,8 @@ namespace bongocat::config {
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
-              input_fps(other.input_fps)
+              input_fps(other.input_fps),
+              random_index(other.random_index)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
@@ -183,6 +185,7 @@ namespace bongocat::config {
                 animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
+                random_index = other.random_index;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
@@ -222,7 +225,8 @@ namespace bongocat::config {
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
-              input_fps(other.input_fps)
+              input_fps(other.input_fps),
+              random_index(other.random_index)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
@@ -268,6 +272,7 @@ namespace bongocat::config {
                 animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
+                random_index = other.random_index;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];
@@ -304,6 +309,7 @@ namespace bongocat::config {
 
     struct load_config_overwrite_parameters_t {
         const char* output_name{nullptr};
+        int32_t random_index{-1};
     };
     [[nodiscard]] created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
     void reset(config_t& config);

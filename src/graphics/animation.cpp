@@ -1342,6 +1342,83 @@ namespace bongocat::animation {
         }
     }
 
+    [[nodiscard]] static int rand_animation_index(animation_context_t& ctx, const config::config_t& config) {
+        using namespace assets;
+        assert(ctx._local_copy_config != nullptr);
+        assert(ctx.shm != nullptr);
+        platform::random_xoshiro128& rng = ctx._rng;
+
+        if (config.random_index) {
+            if constexpr (features::EnableLazyLoadAssets) {
+                switch (config.animation_sprite_sheet_layout) {
+                    case config::config_animation_sprite_sheet_layout_t::None:
+                        return config.animation_index;
+                    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                        assert(BONGOCAT_ANIM_COUNT <= INT32_MAX && BONGOCAT_ANIM_COUNT <= UINT32_MAX);
+                        return BONGOCAT_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, BONGOCAT_ANIM_COUNT-1)) : 0;
+                    case config::config_animation_sprite_sheet_layout_t::Dm:
+                        switch (ctx.shm->anim_dm_set) {
+                        case config::config_animation_dm_set_t::None:
+                            return config.animation_index;
+                        case config::config_animation_dm_set_t::min_dm:
+                            assert(MIN_DM_ANIM_COUNT <= INT32_MAX && MIN_DM_ANIM_COUNT<= UINT32_MAX);
+                            return MIN_DM_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MIN_DM_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dm:
+                            assert(DM_ANIM_COUNT <= INT32_MAX && DM_ANIM_COUNT <= UINT32_MAX);
+                            return DM_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DM_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dm20:
+                            assert(DM20_ANIM_COUNT <= INT32_MAX && DM20_ANIM_COUNT <= UINT32_MAX);
+                            return DM20_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DM20_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dmx:
+                            assert(DMX_ANIM_COUNT<= INT32_MAX && DMX_ANIM_COUNT <= UINT32_MAX);
+                            return DMX_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMX_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dmc:
+                            assert(DMC_ANIM_COUNT <= INT32_MAX && DMC_ANIM_COUNT <= UINT32_MAX);
+                            return DMC_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMC_ANIM_COUNT-1)) : 0;
+                        }
+                        break;
+                    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                        assert(MS_AGENTS_ANIM_COUNT <= INT32_MAX && MS_AGENTS_ANIM_COUNT <= UINT32_MAX);
+                        return MS_AGENTS_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MS_AGENTS_ANIM_COUNT-1)) : 0;
+                }
+            }
+            if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+                switch (config.animation_sprite_sheet_layout) {
+                    case config::config_animation_sprite_sheet_layout_t::None:
+                        return config.animation_index;
+                    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                        assert(ctx.shm->bongocat_anims.count <= INT32_MAX && ctx.shm->bongocat_anims.count <= UINT32_MAX);
+                        return ctx.shm->bongocat_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->bongocat_anims.count-1))) : 0;
+                    case config::config_animation_sprite_sheet_layout_t::Dm:
+                        switch (ctx.shm->anim_dm_set) {
+                        case config::config_animation_dm_set_t::None:
+                            return config.animation_index;
+                        case config::config_animation_dm_set_t::min_dm:
+                            assert(ctx.shm->min_dm_anims.count <= INT32_MAX && ctx.shm->min_dm_anims.count <= UINT32_MAX);
+                            return ctx.shm->min_dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->min_dm_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dm:
+                            assert(ctx.shm->dm_anims.count <= INT32_MAX && ctx.shm->dm_anims.count <= UINT32_MAX);
+                            return ctx.shm->dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dm20:
+                            assert(ctx.shm->dm20_anims.count <= INT32_MAX && ctx.shm->dm20_anims.count <= UINT32_MAX);
+                            return ctx.shm->dm20_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm20_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dmx:
+                            assert(ctx.shm->dmx_anims.count <= INT32_MAX && ctx.shm->dmx_anims.count <= UINT32_MAX);
+                            return ctx.shm->dmx_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmx_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dmc:
+                            assert(ctx.shm->dmc_anims.count <= INT32_MAX && ctx.shm->dmc_anims.count <= UINT32_MAX);
+                            return ctx.shm->dmc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmc_anims.count-1))) : 0;
+                        }
+                        break;
+                    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                        assert(ctx.shm->ms_anims.count <= INT32_MAX && ctx.shm->ms_anims.count <= UINT32_MAX);
+                        return ctx.shm->ms_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->ms_anims.count-1))) : 0;
+                }
+            }
+        }
+
+        return config.animation_index;
+    }
     void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
@@ -1353,87 +1430,12 @@ namespace bongocat::animation {
             ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
             const auto old_anim_index = ctx.shm->anim_index;
 
+            ctx.shm->anim_index = rand_animation_index(ctx, config);
             if constexpr (features::EnableLazyLoadAssets) {
-                ctx.shm->anim_index = config.animation_index;
                 auto [result, error] = hot_load_animation(ctx);
                 if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
                     // rollback
                     ctx.shm->anim_index = old_anim_index;
-                }
-            } else {
-                switch (config.animation_sprite_sheet_layout) {
-                    case config::config_animation_sprite_sheet_layout_t::None:
-                        ctx.shm->anim_index = 0;
-                        break;
-                    case config::config_animation_sprite_sheet_layout_t::Bongocat:
-                        assert(ctx.shm->bongocat_anims.count <= INT_MAX);
-                        if constexpr (features::Debug) {
-                            if (config.animation_index < 0 || config.animation_index >= static_cast<int>(ctx.shm->bongocat_anims.count)) {
-                                BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                            }
-                        }
-                        ctx.shm->anim_index = ctx.shm->bongocat_anims.count > 0 ? config.animation_index % static_cast<int>(ctx.shm->bongocat_anims.count) : 0;
-                        break;
-                    case config::config_animation_sprite_sheet_layout_t::Dm:
-                        switch (ctx.shm->anim_dm_set) {
-                            case config::config_animation_dm_set_t::None:
-                                break;
-                            case config::config_animation_dm_set_t::min_dm:
-                                assert(ctx.shm->min_dm_anims.count <= INT_MAX);
-                                if constexpr (features::Debug) {
-                                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(ctx.shm->min_dm_anims.count)) {
-                                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                                    }
-                                }
-                                ctx.shm->anim_index = ctx.shm->min_dm_anims.count > 0 ? config.animation_index % static_cast<int>(ctx.shm->min_dm_anims.count) : 0;
-                                break;
-                            case config::config_animation_dm_set_t::dm:
-                                assert(ctx.shm->dm_anims.count <= INT_MAX);
-                                if constexpr (features::Debug) {
-                                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(ctx.shm->dm_anims.count)) {
-                                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                                    }
-                                }
-                                ctx.shm->anim_index = ctx.shm->dm_anims.count > 0 ? config.animation_index % static_cast<int>(ctx.shm->dm_anims.count) : 0;
-                                break;
-                            case config::config_animation_dm_set_t::dm20:
-                                assert(ctx.shm->dm_anims.count <= INT_MAX);
-                                if constexpr (features::Debug) {
-                                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(ctx.shm->dm20_anims.count)) {
-                                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                                    }
-                                }
-                                ctx.shm->anim_index = ctx.shm->dm20_anims.count > 0 ? config.animation_index % static_cast<int>(ctx.shm->dm20_anims.count) : 0;
-                                break;
-                            case config::config_animation_dm_set_t::dmx:
-                                assert(ctx.shm->dmx_anims.count <= INT_MAX);
-                                if constexpr (features::Debug) {
-                                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(ctx.shm->dmx_anims.count)) {
-                                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                                    }
-                                }
-                                ctx.shm->anim_index = ctx.shm->dmx_anims.count > 0 ? config.animation_index % static_cast<int>(ctx.shm->dmx_anims.count) : 0;
-                                break;
-                            case config::config_animation_dm_set_t::dmc:
-                                assert(ctx.shm->dmc_anims.count <= INT_MAX);
-                                if constexpr (features::Debug) {
-                                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(ctx.shm->dmc_anims.count)) {
-                                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                                    }
-                                }
-                                ctx.shm->anim_index = ctx.shm->dmc_anims.count > 0 ? config.animation_index % static_cast<int>(ctx.shm->dmc_anims.count) : 0;
-                                break;
-                            }
-                        break;
-                    case config::config_animation_sprite_sheet_layout_t::MsAgent:
-                        assert(ctx.shm->ms_anims.count <= INT_MAX);
-                        if constexpr (features::Debug) {
-                            if (config.animation_index < 0 || config.animation_index >= static_cast<int>(ctx.shm->ms_anims.count)) {
-                                BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                            }
-                        }
-                        ctx.shm->anim_index = ctx.shm->ms_anims.count > 0 ? config.animation_index % static_cast<int>(ctx.shm->ms_anims.count) : 0;
-                        break;
                 }
             }
         }

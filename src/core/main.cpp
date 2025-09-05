@@ -130,6 +130,7 @@ namespace bongocat {
         bool show_help{false};
         bool show_version{false};
         const char *output_name{};
+        int32_t random_index{-1};
     };
 
     // =============================================================================
@@ -514,6 +515,7 @@ namespace bongocat {
         printf("  -w, --watch-config    Watch config file for changes and reload automatically\n");
         printf("  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)\n");
         printf("  -o, --output-name     Specify output name (overwrite output_name from config)\n");
+        printf("      --random          Enable random animation_index, at start (overwrite random_index from config)\n");
         printf("\nConfiguration is loaded from bongocat.conf in the current directory.\n");
     }
 
@@ -531,6 +533,7 @@ namespace bongocat {
             .show_help = false,
             .show_version = false,
             .output_name = nullptr,
+            .random_index = -1,
         };
 
         for (int i = 1; i < argc; i++) {
@@ -550,6 +553,8 @@ namespace bongocat {
                 args.watch_config = true;
             } else if (strcmp(argv[i], "--toggle") == 0 || strcmp(argv[i], "-t") == 0) {
                 args.toggle_mode = true;
+            } else if (strcmp(argv[i], "--random") == 0) {
+                args.random_index = 1;
             } else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
                 if (i + 1 < argc) {
                     args.output_name = argv[i + 1];
@@ -599,6 +604,7 @@ int main(int argc, char *argv[]) {
     // Load configuration
     ctx.overwrite_config_parameters = {
         .output_name = args.output_name,
+        .random_index = args.random_index,
     };
     auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {

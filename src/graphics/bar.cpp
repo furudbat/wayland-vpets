@@ -285,7 +285,7 @@ namespace bongocat::animation {
                     case config::config_animation_sprite_sheet_layout_t::None:
                         break;
                     case config::config_animation_sprite_sheet_layout_t::Bongocat: {
-                        if (features::EnablePreloadAssets) {
+                        if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.bongocat_anims.count);
                         }
                         const animation_t& cat_anim = get_current_animation(anim);
@@ -293,7 +293,7 @@ namespace bongocat::animation {
                         draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
-                        if (features::EnablePreloadAssets) {
+                        if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                             switch (anim_shm.anim_dm_set) {
                                 case config::config_animation_dm_set_t::None:
                                     break;
@@ -319,7 +319,7 @@ namespace bongocat::animation {
                         draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
-                        if (features::EnablePreloadAssets) {
+                        if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.ms_anims.count);
                         }
                         const animation_t& ms_anim = get_current_animation(anim);
