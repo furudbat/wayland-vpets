@@ -379,12 +379,12 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapMemory<T> make_unallocated_mmap() noexcept {
+    [[nodiscard]] inline static MMapMemory<T> make_unallocated_mmap() noexcept {
         return MMapMemory<T>();
     }
     // Allocate shared memory using mmap
     template <typename T>
-    inline static MMapMemory<T> make_allocated_mmap() {
+    [[nodiscard]] inline static MMapMemory<T> make_allocated_mmap() {
         MMapMemory<T> ret;
         ret._size_bytes = sizeof(T);
         if (ret._size_bytes > 0) {
@@ -405,7 +405,7 @@ namespace bongocat::platform {
         return ret;
     }
     template <typename T>
-    inline static MMapMemory<T> make_unallocated_mmap_value(const T& value) {
+    [[nodiscard]] inline static MMapMemory<T> make_unallocated_mmap_value(const T& value) {
         auto ret = make_allocated_mmap<T>();
         if (ret.ptr != nullptr) {
             *ret.ptr = value;
@@ -567,15 +567,15 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapArray<T> make_unallocated_mmap_array() noexcept {
+    [[nodiscard]] inline static MMapArray<T> make_unallocated_mmap_array() noexcept {
         return MMapArray<T>();
     }
     template <typename T>
-    inline static MMapArray<T> make_allocated_mmap_array_uninitialized(size_t count) {
+    [[nodiscard]] inline static MMapArray<T> make_allocated_mmap_array_uninitialized(size_t count) {
         return count > 0? MMapArray<T>(count) : MMapArray<T>();
     }
     template <typename T>
-    inline static MMapArray<T> make_allocated_mmap_array(size_t count) {
+    [[nodiscard]] inline static MMapArray<T> make_allocated_mmap_array(size_t count) {
         auto ret= count > 0 ? MMapArray<T>(count) : MMapArray<T>();
         for (size_t i = 0;i < ret.count;i++) {
             new (&ret.data[i]) T();
@@ -731,15 +731,15 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapFile<T> make_unallocated_mmap_file() noexcept {
+    [[nodiscard]] inline static MMapFile<T> make_unallocated_mmap_file() noexcept {
         return MMapFile<T>();
     }
     template <typename T>
-    inline static MMapFile<T> make_allocated_mmap_file_uninitialized(int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFile<T> make_allocated_mmap_file_uninitialized(int fd, off_t offset = 0) {
         return MMapFile<T>(fd, offset);
     }
     template <typename T>
-    inline static MMapFile<T> make_allocated_mmap_file_defaulted(int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFile<T> make_allocated_mmap_file_defaulted(int fd, off_t offset = 0) {
         auto ret = MMapFile<T>(fd, offset);
         if (ret.ptr) {
             new (ret.ptr) T();
@@ -747,7 +747,7 @@ namespace bongocat::platform {
         return ret;
     }
     template <typename T>
-    inline static MMapFile<T> make_allocated_mmap_file_value(const T& value, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFile<T> make_allocated_mmap_file_value(const T& value, int fd, off_t offset = 0) {
         auto ret = MMapFile<T>(fd, offset);
         for (size_t i = 0;i < ret.size;i++) {
             *ret.ptr = value;
@@ -921,15 +921,15 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_unallocated_mmap_file_buffer() {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_unallocated_mmap_file_buffer() {
         return MMapFileBuffer<T>();
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_uninitialized(size_t count, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_uninitialized(size_t count, int fd, off_t offset = 0) {
         return MMapFileBuffer<T>(count, fd, offset);
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_defaulted(size_t count, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_defaulted(size_t count, int fd, off_t offset = 0) {
         auto ret = count > 0 ? MMapFileBuffer<T>(count, fd, offset) : MMapFileBuffer<T>();
         for (size_t i = 0;i < ret.count;i++) {
             new (&ret.data[i]) T();
@@ -937,7 +937,7 @@ namespace bongocat::platform {
         return ret;
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_value(const T& value, size_t count, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_value(const T& value, size_t count, int fd, off_t offset = 0) {
         auto ret = count > 0 ? MMapFileBuffer<T>(count, fd, offset) : MMapFileBuffer<T>();
         for (size_t i = 0;i < ret.count;i++) {
             ret.data[i] = value;

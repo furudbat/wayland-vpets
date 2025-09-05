@@ -120,33 +120,33 @@ namespace bongocat {
 
 
     template <typename Enum>
-    inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<uint32_t>(lhs) | static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<uint32_t>(lhs) & static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<uint32_t>(lhs) ^ static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_not(Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_not(Enum rhs) noexcept {
         return static_cast<Enum>(~static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_add(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_add(Enum& lhs, Enum rhs) noexcept {
         lhs = flag_or(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
-    inline constexpr Enum flag_assign(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_assign(Enum& lhs, Enum rhs) noexcept {
         lhs = flag_and(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
-    inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
+    [[nodiscard]] inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
         return (static_cast<uint32_t>(value) & static_cast<uint32_t>(flag)) != 0;
     }
 }

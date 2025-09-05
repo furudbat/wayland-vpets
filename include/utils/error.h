@@ -47,7 +47,7 @@ namespace bongocat {
 
     // Error handling initialization
     void error_init(bool enable_debug);
-    const char* error_string(bongocat_error_t error);
+    [[nodiscard]] const char* error_string(bongocat_error_t error);
 
     // 1 = Error
     // 2 = Warning

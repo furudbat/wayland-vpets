@@ -56,8 +56,8 @@ namespace bongocat::assets {
     inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 1;
 #endif
 
-    embedded_image_t get_ms_agent_sprite_sheet(size_t i);
-    ms_agent_animation_indices_t get_ms_agent_animation_indices(size_t i);
+    [[nodiscard]] embedded_image_t get_ms_agent_sprite_sheet(size_t i);
+    [[nodiscard]] ms_agent_animation_indices_t get_ms_agent_animation_indices(size_t i);
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_CLIPPY_H

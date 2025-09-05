@@ -24,8 +24,8 @@ namespace bongocat::assets {
     inline static constexpr size_t BONGOCAT_EMBEDDED_IMAGES_COUNT = animation::BONGOCAT_NUM_FRAMES;
     inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;
 
-    extern embedded_image_t get_bongocat_sprite(size_t i);
-    extern created_result_t<animation::generic_sprite_sheet_animation_t> get_bongocat_sprite_sheet(const animation::animation_context_t& ctx, int index);
+    [[nodiscard]] extern embedded_image_t get_bongocat_sprite(size_t i);
+    [[nodiscard]] extern created_result_t<animation::generic_sprite_sheet_animation_t> get_bongocat_sprite_sheet(const animation::animation_context_t& ctx, int index);
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H

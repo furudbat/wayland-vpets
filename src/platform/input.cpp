@@ -373,8 +373,10 @@ namespace bongocat::platform::input {
                     assert(fds_device_end_index >= fds_device_start_index);
                     assert(fds_stdin_index > fds_device_end_index);
 
-                    assert(device_nfds >= 0 && device_nfds <= SSIZE_MAX);
-                    assert(nfds >= 0 && nfds <= SSIZE_MAX);
+                    //assert(device_nfds >= 0);
+                    //assert(nfds >= 0);
+                    assert(device_nfds <= SSIZE_MAX);
+                    assert(nfds <= SSIZE_MAX);
                     assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
                     assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 2);
                 }
@@ -390,8 +392,10 @@ namespace bongocat::platform::input {
                     assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
                     assert(fds_device_end_index >= fds_device_start_index);
 
-                    assert(device_nfds >= 0 && device_nfds <= SSIZE_MAX);
-                    assert(nfds >= 0 && nfds <= SSIZE_MAX);
+                    //assert(device_nfds >= 0);
+                    //assert(nfds >= 0);
+                    assert(device_nfds <= SSIZE_MAX);
+                    assert(nfds <= SSIZE_MAX);
                     assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
                     assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 1);
                 }
@@ -406,8 +410,10 @@ namespace bongocat::platform::input {
                     assert(static_cast<size_t>(fds_device_end_index) > fds_update_config_index);
                     assert(fds_device_end_index >= fds_device_start_index);
 
-                    assert(device_nfds >= 0 && device_nfds <= SSIZE_MAX);
-                    assert(nfds >= 0 && nfds <= SSIZE_MAX);
+                    //assert(device_nfds >= 0);
+                    //assert(nfds >= 0);
+                    assert(device_nfds <= SSIZE_MAX);
+                    assert(nfds <= SSIZE_MAX);
                     assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
                     assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index);
                 }
@@ -555,7 +561,12 @@ namespace bongocat::platform::input {
                             rd = read(pfds[fds_stdin_index].fd, buf, TEST_STDIN_BUF_LEN);
                             if (rd > 0) {
                                 continue;
-                            } else if (rd == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+                            }
+#if EAGAIN != EWOULDBLOCK
+                            if (rd == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+#else
+                            if (rd == -1 && errno == EAGAIN) {
+#endif
                                 break; // drained completely
                             } else {
                                 break; // EOF or error
@@ -695,7 +706,12 @@ namespace bongocat::platform::input {
                             rd = read(pfds[fds_stdin_index].fd, buf, TEST_STDIN_BUF_LEN);
                             if (rd > 0) {
                                 got_key = true;
-                            } else if (rd == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+                            }
+#if EAGAIN != EWOULDBLOCK
+                            if (rd == -1 && (errno == EAGAIN || errno == EWOULDBLOCK)) {
+#else
+                            if (rd == -1 && errno == EAGAIN) {
+#endif
                                 break; // drained completely
                             } else {
                                 break; // EOF or error
@@ -705,7 +721,8 @@ namespace bongocat::platform::input {
                         if (got_key) {
                             trigger_key_press(trigger_ctx);
                             if (enable_debug) {
-                                buf[rd < TEST_STDIN_BUF_LEN ? rd : TEST_STDIN_BUF_LEN-1] = '\0';
+                                size_t len = (rd > 0) ? (static_cast<size_t>(rd) < TEST_STDIN_BUF_LEN ? static_cast<size_t>(rd) : TEST_STDIN_BUF_LEN-1) : 0;
+                                buf[len] = '\0';
                                 BONGOCAT_LOG_VERBOSE("stdin input: %s", buf);
                             }
                         }

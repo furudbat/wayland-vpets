@@ -9,7 +9,7 @@
 
 
 namespace bongocat::animation {
-    created_result_t<bongocat_animation_t> load_bongocat_anim(int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
+    created_result_t<bongocat_animation_t> load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
         BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
         auto result = anim_sprite_sheet_from_embedded_images(get_sprite, embedded_images_count);
         if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {

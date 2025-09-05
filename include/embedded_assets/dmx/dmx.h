@@ -4,7 +4,7 @@
 #include "embedded_assets/embedded_image.h"
 
 namespace bongocat::assets {
-    extern embedded_image_t get_dmx_sprite_sheet(size_t i);
+    [[nodiscard]] extern embedded_image_t get_dmx_sprite_sheet(size_t i);
 }
 
 #endif

@@ -305,7 +305,7 @@ namespace bongocat::config {
     struct load_config_overwrite_parameters_t {
         const char* output_name{nullptr};
     };
-    created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
+    [[nodiscard]] created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
     void reset(config_t& config);
 
     void set_defaults(config_t& config);
