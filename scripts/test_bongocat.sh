@@ -1,4 +1,5 @@
 #!/usr/bin/env bash
+
 set -euo pipefail
 
 #make debug
@@ -105,6 +106,9 @@ echo "[INFO] Recreate Config: $CONFIG"
 cp ./examples/digimon.bongocat.conf $CONFIG
 sleep 5
 
+echo "[INFO] Disable sleep"
+sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+sleep 10
 # --- simulate pressing ESC ---
 echo "[TEST] Sending ESC key..."
 echo "[INFO] Send stdin"
@@ -130,6 +134,8 @@ sleep 1
 printf '\e' > /proc/$PID/fd/0
 sleep 5
 
+echo "[INFO] Disable sleep"
+sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
@@ -200,6 +206,7 @@ done
 # --- verify not running ---
 if kill -0 "$PID" 2>/dev/null; then
     echo "[FAIL] Process $PID still running!"
+    kill -9 "$PID" 2>/dev/null
     exit 1
 else
     echo "[PASS] Process terminated successfully"

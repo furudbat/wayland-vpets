@@ -31,7 +31,8 @@ _MS Agent Clippy_
 - **🖥️ Multi-Monitor Support** - Choose which monitor to display on in multi-monitor setups (v1.2.4)
 - **😴 Sleep Mode** - Scheduled or idle-based sleep mode with custom timing (v1.2.5)
 - **🎨 Customizable Appearance** - Fine-tune position, size, alignment, and opacity
-- **💾 Lightweight** - Minimal resource usage (~10MB-24MB RAM, depends on the loaded sprites)
+- **💾 Lightweight** - Minimal resource usage (~10MB RAM, depends on the loaded sprites)
+  - Lazy loading - Load only used assets into RAM (v2.4.0)
 - **🎛️ Multi-device Support** - Monitor multiple keyboards simultaneously
 - **🏗️ Cross-platform** - Works on x86_64 and ARM64
 - **😄 Happy Frame** - Reach KPM (Keystroke per minute) to trigger the happy frame (Digimon)
@@ -751,16 +752,16 @@ bongocat-find-devices --help
 ### System Requirements
 
 This program is lightweight and runs even on very modern desktop systems.  
-Minimal builds require just a few MB of RAM, while asset-heavy builds may use more memory but remain modest compared to modern desktops.
+Minimal builds require just a few MB of RAM, while asset-heavy builds may use more memory.
 
 ## 🖥️ System Requirements
 
-|                | Minimum                                                  | Recommended                                                                   |
-|----------------|----------------------------------------------------------|-------------------------------------------------------------------------------|
-| **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                   |
-| **RAM**        | **10 MB free** (minimal build with minimal assets)       | **128 MB free** (full builds with all assets, preloaded, and config overhead) |
-| **Storage**    | **1 MB free** (binary + config files)                    | **5 MB free** (multiple binaries/builds + config files)                       |
-| **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)             |
+|                | Minimum                                                  | Recommended                                                                  |
+|----------------|----------------------------------------------------------|------------------------------------------------------------------------------|
+| **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                  |
+| **RAM**        | **5 MB free** (minimal build with minimal assets)        | **32 MB free** (full builds with all assets, preloaded, and config overhead) |
+| **Storage**    | **1 MB free** (binary + config files)                    | **5 MB free** (multiple binaries/builds + config files)                      |
+| **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)            |
 
 
 ### Tested Compositors
