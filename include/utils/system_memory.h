@@ -255,7 +255,7 @@ namespace bongocat::platform {
         T* ptr{nullptr};
         size_t _size_bytes{0};
 
-        MMapMemory() = default;
+        constexpr MMapMemory() = default;
         ~MMapMemory() noexcept {
             release_allocated_mmap_memory(*this);
         }
@@ -337,7 +337,7 @@ namespace bongocat::platform {
             assert(ptr && ptr != MAP_FAILED);
             return *ptr;
         }
-        const T& operator*() const {
+        constexpr const T& operator*() const {
             assert(ptr && ptr != MAP_FAILED);
             return *ptr;
         }
@@ -345,25 +345,25 @@ namespace bongocat::platform {
             assert(ptr && ptr != MAP_FAILED);
             return ptr;
         }
-        const T* operator->() const {
+        constexpr const T* operator->() const {
             assert(ptr && ptr != MAP_FAILED);
             return ptr;
         }
         explicit operator T*() noexcept {
             return ptr;
         }
-        explicit operator const T*() const noexcept {
+        constexpr explicit operator const T*() const noexcept {
             return ptr;
         }
 
-        explicit operator bool() const noexcept {
+        constexpr explicit operator bool() const noexcept {
             return ptr != nullptr && ptr != MAP_FAILED;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return ptr == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return ptr != nullptr;
         }
     };
@@ -379,12 +379,12 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapMemory<T> make_unallocated_mmap() noexcept {
+    [[nodiscard]] inline static MMapMemory<T> make_unallocated_mmap() noexcept {
         return MMapMemory<T>();
     }
     // Allocate shared memory using mmap
     template <typename T>
-    inline static MMapMemory<T> make_allocated_mmap() {
+    [[nodiscard]] inline static MMapMemory<T> make_allocated_mmap() {
         MMapMemory<T> ret;
         ret._size_bytes = sizeof(T);
         if (ret._size_bytes > 0) {
@@ -405,7 +405,7 @@ namespace bongocat::platform {
         return ret;
     }
     template <typename T>
-    inline static MMapMemory<T> make_unallocated_mmap_value(const T& value) {
+    [[nodiscard]] inline static MMapMemory<T> make_unallocated_mmap_value(const T& value) {
         auto ret = make_allocated_mmap<T>();
         if (ret.ptr != nullptr) {
             *ret.ptr = value;
@@ -425,7 +425,7 @@ namespace bongocat::platform {
         size_t count{0};
         size_t _size_bytes{0};
 
-        MMapArray() = default;
+        constexpr MMapArray() = default;
         ~MMapArray() noexcept {
             release_allocated_mmap_array(*this);
         }
@@ -496,7 +496,7 @@ namespace bongocat::platform {
                             memcpy(data, other.data, _size_bytes);
                         } else {
                             for (size_t i = 0; i < other.count; i++) {
-                                *data[i] = *other.data[i];
+                                data[i] = other.data[i];
                             }
                         }
                         return *this;
@@ -536,19 +536,19 @@ namespace bongocat::platform {
             assert(index < count);
             return data[index];
         }
-        const T& operator[](size_t index) const {
+        constexpr const T& operator[](size_t index) const {
             assert(index < count);
             return data[index];
         }
 
-        explicit operator bool() const noexcept {
+        constexpr explicit operator bool() const noexcept {
             return data != nullptr && data != MAP_FAILED;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return data == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return data != nullptr;
         }
     };
@@ -567,17 +567,17 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapArray<T> make_unallocated_mmap_array() noexcept {
+    [[nodiscard]] inline static MMapArray<T> make_unallocated_mmap_array() noexcept {
         return MMapArray<T>();
     }
     template <typename T>
-    inline static MMapArray<T> make_allocated_mmap_array_uninitialized(size_t count) {
+    [[nodiscard]] inline static MMapArray<T> make_allocated_mmap_array_uninitialized(size_t count) {
         return count > 0? MMapArray<T>(count) : MMapArray<T>();
     }
     template <typename T>
-    inline static MMapArray<T> make_allocated_mmap_array(size_t count) {
+    [[nodiscard]] inline static MMapArray<T> make_allocated_mmap_array(size_t count) {
         auto ret= count > 0 ? MMapArray<T>(count) : MMapArray<T>();
-        for (size_t i = 0;i < ret.size;i++) {
+        for (size_t i = 0;i < ret.count;i++) {
             new (&ret.data[i]) T();
         }
         return ret;
@@ -595,7 +595,7 @@ namespace bongocat::platform {
         int _fd{-1};
         off_t _offset{0};
 
-        MMapFile() = default;
+        constexpr MMapFile() = default;
         ~MMapFile() noexcept {
             release_allocated_mmap_file(*this);
         }
@@ -706,14 +706,14 @@ namespace bongocat::platform {
             return ptr;
         }
 
-        explicit operator bool() const noexcept {
+        constexpr explicit operator bool() const noexcept {
             return ptr != nullptr && ptr != MAP_FAILED;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return ptr == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return ptr != nullptr;
         }
     };
@@ -731,15 +731,15 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapFile<T> make_unallocated_mmap_file() noexcept {
+    [[nodiscard]] inline static MMapFile<T> make_unallocated_mmap_file() noexcept {
         return MMapFile<T>();
     }
     template <typename T>
-    inline static MMapFile<T> make_allocated_mmap_file_uninitialized(int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFile<T> make_allocated_mmap_file_uninitialized(int fd, off_t offset = 0) {
         return MMapFile<T>(fd, offset);
     }
     template <typename T>
-    inline static MMapFile<T> make_allocated_mmap_file_defaulted(int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFile<T> make_allocated_mmap_file_defaulted(int fd, off_t offset = 0) {
         auto ret = MMapFile<T>(fd, offset);
         if (ret.ptr) {
             new (ret.ptr) T();
@@ -747,7 +747,7 @@ namespace bongocat::platform {
         return ret;
     }
     template <typename T>
-    inline static MMapFile<T> make_allocated_mmap_file_value(const T& value, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFile<T> make_allocated_mmap_file_value(const T& value, int fd, off_t offset = 0) {
         auto ret = MMapFile<T>(fd, offset);
         for (size_t i = 0;i < ret.size;i++) {
             *ret.ptr = value;
@@ -769,7 +769,7 @@ namespace bongocat::platform {
         int _fd{-1};
         off_t _offset{0};
 
-        MMapFileBuffer() = default;
+        constexpr MMapFileBuffer() = default;
         ~MMapFileBuffer() noexcept {
             release_allocated_mmap_file_buffer(*this);
         }
@@ -893,14 +893,14 @@ namespace bongocat::platform {
             return data[index];
         }
 
-        explicit operator bool() const noexcept {
+        constexpr explicit operator bool() const noexcept {
             return data != nullptr && data != MAP_FAILED;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return data == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return data != nullptr;
         }
     };
@@ -921,15 +921,15 @@ namespace bongocat::platform {
         }
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_unallocated_mmap_file_buffer() {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_unallocated_mmap_file_buffer() {
         return MMapFileBuffer<T>();
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_uninitialized(size_t count, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_uninitialized(size_t count, int fd, off_t offset = 0) {
         return MMapFileBuffer<T>(count, fd, offset);
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_defaulted(size_t count, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_defaulted(size_t count, int fd, off_t offset = 0) {
         auto ret = count > 0 ? MMapFileBuffer<T>(count, fd, offset) : MMapFileBuffer<T>();
         for (size_t i = 0;i < ret.count;i++) {
             new (&ret.data[i]) T();
@@ -937,7 +937,7 @@ namespace bongocat::platform {
         return ret;
     }
     template <typename T>
-    inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_value(const T& value, size_t count, int fd, off_t offset = 0) {
+    [[nodiscard]] inline static MMapFileBuffer<T> make_allocated_mmap_file_buffer_value(const T& value, size_t count, int fd, off_t offset = 0) {
         auto ret = count > 0 ? MMapFileBuffer<T>(count, fd, offset) : MMapFileBuffer<T>();
         for (size_t i = 0;i < ret.count;i++) {
             ret.data[i] = value;
@@ -951,7 +951,7 @@ namespace bongocat::platform {
     struct FileDescriptor {
         int _fd{-1};
 
-        FileDescriptor() = default;
+        constexpr FileDescriptor() = default;
         explicit FileDescriptor(int fd) noexcept : _fd(fd) {}
         ~FileDescriptor() noexcept {
             close_fd(*this);

@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.4.0] - 2025-09-05
+
+### Added
+- `random` option - randomize animation_index at start (Digimon sprites)
+
+### Improved
+- **Lazy Loading** - load sprite sheets on demand
+
+
 ## [2.3.0] - 2025-08-30
 
 ### Added

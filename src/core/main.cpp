@@ -43,8 +43,7 @@ namespace bongocat {
         config::load_config_overwrite_parameters_t overwrite_config_parameters;
 
         AllocatedMemory<config::config_watcher_t> config_watcher;
-        AllocatedMemory<platform::input::input_context_t> input;
-        AllocatedMemory<animation::animation_session_t> animation;
+        AllocatedMemory<platform::input::input_context_t> input;   AllocatedMemory<animation::animation_session_t> animation;
         AllocatedMemory<platform::wayland::wayland_session_t> wayland;
 
         const char *signal_watch_path{nullptr};
@@ -131,6 +130,7 @@ namespace bongocat {
         bool show_help{false};
         bool show_version{false};
         const char *output_name{};
+        int32_t random_index{-1};
     };
 
     // =============================================================================
@@ -515,6 +515,7 @@ namespace bongocat {
         printf("  -w, --watch-config    Watch config file for changes and reload automatically\n");
         printf("  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)\n");
         printf("  -o, --output-name     Specify output name (overwrite output_name from config)\n");
+        printf("      --random          Enable random animation_index, at start (overwrite random_index from config)\n");
         printf("\nConfiguration is loaded from bongocat.conf in the current directory.\n");
     }
 
@@ -532,6 +533,7 @@ namespace bongocat {
             .show_help = false,
             .show_version = false,
             .output_name = nullptr,
+            .random_index = -1,
         };
 
         for (int i = 1; i < argc; i++) {
@@ -551,6 +553,8 @@ namespace bongocat {
                 args.watch_config = true;
             } else if (strcmp(argv[i], "--toggle") == 0 || strcmp(argv[i], "-t") == 0) {
                 args.toggle_mode = true;
+            } else if (strcmp(argv[i], "--random") == 0) {
+                args.random_index = 1;
             } else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
                 if (i + 1 < argc) {
                     args.output_name = argv[i + 1];
@@ -574,60 +578,6 @@ namespace bongocat {
 
 int main(int argc, char *argv[]) {
     using namespace bongocat;
-
-    /// @TODO: move into tests
-    // sanity check for indexes under different (asset) options
-#ifndef NDEBUG
-    {
-        using namespace assets;
-        // only dm
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DM_ANIM_START_INDEX == 0);
-#endif
-
-        // only dm20 overwrites dm
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DM20_ANIM_START_INDEX == 0);
-#endif
-
-        // only dmx
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DMC_ANIM_START_INDEX == 0);
-#endif
-
-        // only dm20 and dmx
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DM20_ANIM_START_INDEX == 0);
-        static_assert(DMX_ANIM_START_INDEX == 149);
-#endif
-        // only dm and dmx
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DM_ANIM_START_INDEX == 0);
-        static_assert(DMX_ANIM_START_INDEX == 149);
-#endif
-
-        // include all dm version (except dmc): dm, dm20 (overwrites dm), dmx
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DM20_ANIM_START_INDEX == 0);
-        static_assert(DMX_ANIM_START_INDEX == 149);
-#endif
-
-        // include all assets (+ dmc, colored sprites): dm, dm20 (overwrites dm), dmx, dmc
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DM20_ANIM_START_INDEX == 0);
-        static_assert(DMX_ANIM_START_INDEX == 149);
-        static_assert(DMC_ANIM_START_INDEX == 318);
-#endif
-        // include all assets (+ dmc, colored sprites): dm20, dmx, dmc (all modern stuff)
-#if defined(FEATURE_ENABLE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM_EMBEDDED_ASSETS) && defined(FEATURE_DM20_EMBEDDED_ASSETS) && defined(FEATURE_DMX_EMBEDDED_ASSETS) && defined(FEATURE_DMC_EMBEDDED_ASSETS)
-        static_assert(DM20_ANIM_START_INDEX == 0);
-        static_assert(DMX_ANIM_START_INDEX == 149);
-        static_assert(DMC_ANIM_START_INDEX == 318);
-#endif
-    }
-#endif
-
-
     // Initialize error system early
     bongocat::error_init(true); // Enable debug initially
 
@@ -654,6 +604,7 @@ int main(int argc, char *argv[]) {
     // Load configuration
     ctx.overwrite_config_parameters = {
         .output_name = args.output_name,
+        .random_index = args.random_index,
     };
     auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {

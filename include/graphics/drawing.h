@@ -9,6 +9,8 @@ namespace bongocat::animation {
         Invisible = (1u << 0),
         Normal = (1u << 1),
         Invert = (1u << 2),
+        MirrorX = (1u << 3),
+        MirrorY = (1u << 4),
     };
     enum class blit_image_color_order_t : uint8_t {
         RGBA,

@@ -7,7 +7,7 @@
 #include "utils/memory.h"
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "2.3.0";
+inline static constexpr const char* BONGOCAT_VERSION = "2.4.0";
 
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
@@ -27,7 +27,7 @@ namespace bongocat {
 
         created_result_t() = default;
         explicit(false) created_result_t(bongocat_error_t err) : error(err) {}
-        explicit(false) created_result_t(T&& res) : result(bongocat::move(res)) {}
+        explicit(false) created_result_t(T&& res) : result(bongocat::move(res)), error(bongocat_error_t::BONGOCAT_SUCCESS) {}
     };
 
     namespace features {
@@ -50,27 +50,27 @@ namespace bongocat {
 #else
         inline static constexpr bool EnableFullDmEmbeddedAssets = false;
 #endif
-#ifdef FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
         inline static constexpr bool EnableDm20EmbeddedAssets = true;
 #else
         inline static constexpr bool EnableDm20EmbeddedAssets = false;
 #endif
-#ifdef FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
         inline static constexpr bool EnableDmcEmbeddedAssets = true;
 #else
         inline static constexpr bool EnableDmcEmbeddedAssets = false;
 #endif
-#ifdef FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
         inline static constexpr bool EnableDmxEmbeddedAssets = true;
 #else
         inline static constexpr bool EnableDmxEmbeddedAssets = false;
 #endif
-#ifdef FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
         inline static constexpr bool EnablePen20EmbeddedAssets = true;
 #else
         inline static constexpr bool EnablePen20EmbeddedAssets = false;
 #endif
-#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_INCLUDE_PEN20_EMBEDDED_ASSETS)
+#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS)
         inline static constexpr bool EnableMinDmEmbeddedAssets = true;
 #else
         inline static constexpr bool EnableMinDmEmbeddedAssets = false;
@@ -86,9 +86,9 @@ namespace bongocat {
 #endif
 
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-        inline static constexpr bool MsAgentEmbeddedAssets = true;
+        inline static constexpr bool EnableMsAgentEmbeddedAssets = true;
 #else
-        inline static constexpr bool MsAgentEmbeddedAssets = false;
+        inline static constexpr bool EnableMsAgentEmbeddedAssets = false;
 #endif
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
@@ -103,10 +103,16 @@ namespace bongocat {
         inline static constexpr bool EnableLogger = false;
 #endif
 
-#ifndef FEATURE_PRELOAD_ASSETS
+#ifdef FEATURE_PRELOAD_ASSETS
         inline static constexpr bool EnablePreloadAssets = true;
 #else
         inline static constexpr bool EnablePreloadAssets = false;
+#endif
+
+#ifdef FEATURE_LAZY_LOAD_ASSETS
+        inline static constexpr bool EnableLazyLoadAssets = true;
+#else
+        inline static constexpr bool EnableLazyLoadAssets = false;
 #endif
 
     }
@@ -114,33 +120,33 @@ namespace bongocat {
 
 
     template <typename Enum>
-    inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<uint32_t>(lhs) | static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<uint32_t>(lhs) & static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<uint32_t>(lhs) ^ static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_not(Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_not(Enum rhs) noexcept {
         return static_cast<Enum>(~static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    inline constexpr Enum flag_add(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_add(Enum& lhs, Enum rhs) noexcept {
         lhs = flag_or(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
-    inline constexpr Enum flag_assign(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_assign(Enum& lhs, Enum rhs) noexcept {
         lhs = flag_and(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
-    inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
+    [[nodiscard]] inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
         return (static_cast<uint32_t>(value) & static_cast<uint32_t>(flag)) != 0;
     }
 }

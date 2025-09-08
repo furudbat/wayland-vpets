@@ -1,4 +1,3 @@
-#include "graphics/embedded_assets.h"
 #include "graphics/animation_context.h"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
@@ -10,6 +9,19 @@
 #include <climits>
 #include <poll.h>
 #include <unistd.h>
+
+#include "embedded_assets/bongocat/bongocat.hpp"
+#include "graphics/embedded_assets_dms.h"
+#include "image_loader/bongocat/load_images_bongocat.h"
+#include "image_loader/ms_agent/load_images_ms_agent.h"
+#include "image_loader/dm/load_images_dm.h"
+#include "image_loader/dm20/load_images_dm20.h"
+#include "image_loader/dmc/load_images_dmc.h"
+#include "image_loader/dmx/load_images_dmx.h"
+#include "embedded_assets/bongocat/bongocat.h"
+#include "embedded_assets/ms_agent/ms_agent.hpp"
+#include "embedded_assets/ms_agent/ms_agent.h"
+#include "embedded_assets/min_dm/min_dm.h"
 
 namespace bongocat::animation {
     // =============================================================================
@@ -77,7 +89,6 @@ namespace bongocat::animation {
     static anim_next_frame_result_t anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
                                                                   animation_state_t& state, bool any_key_pressed) {
         using namespace assets;
-
         // read-only config
         assert(ctx._local_copy_config != nullptr);
         const config::config_t& current_config = *ctx._local_copy_config;
@@ -90,7 +101,7 @@ namespace bongocat::animation {
         const auto current_frame = animation_player_data.frame_index;
         //const auto current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
-        //const int anim_index = anim_shm.anim_index;
+        [[maybe_unused]] const int anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
         animation_state_row_t new_row_state = state.row_state;
@@ -203,7 +214,7 @@ namespace bongocat::animation {
         const auto current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
         //const animation_state_row_t current_row_state = state.row_state;
-        const auto anim_index = anim_shm.anim_index;
+        [[maybe_unused]] const auto anim_index = anim_shm.anim_index;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
 
         animation_state_row_t new_row_state = state.row_state;
@@ -224,7 +235,7 @@ namespace bongocat::animation {
 
         /// @TODO: extract set animation state
 
-        const auto& current_frames = anim_shm.dm_anims[anim_index].dm;
+        const auto& current_frames = reinterpret_cast<dm_animation_t&>(get_current_animation(ctx));
         new_row = DM_SPRITE_SHEET_ROWS-1;
         // Test Animation
         if (!any_key_pressed && trigger_test_animation && state.row_state == animation_state_row_t::Idle) {
@@ -674,7 +685,7 @@ namespace bongocat::animation {
         //const animation_state_row_t current_row_state = state.row_state;
         //const auto anim_index = anim_shm.anim_index;
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-        const auto& current_frames = anim_shm.dm_anims[anim_shm.anim_index].dm;
+        const auto& current_frames = reinterpret_cast<dm_animation_t&>(get_current_animation(ctx));
 
         animation_state_row_t new_row_state = state.row_state;
         int new_row = animation_player_data.sprite_sheet_row;
@@ -1066,9 +1077,6 @@ namespace bongocat::animation {
 
             anim_init_state(ctx, state);
 
-            assert(anim_shm.anim_index >= 0);
-            const ms_agent_animation_indices_t animation_indices = get_ms_agent_animation_indices(static_cast<size_t>(anim_shm.anim_index));
-
             // setup animation player
             switch (current_config.animation_sprite_sheet_layout) {
                 case config::config_animation_sprite_sheet_layout_t::None:
@@ -1091,15 +1099,17 @@ namespace bongocat::animation {
                     state.row_state = animation_state_row_t::Idle;
 #endif
                     break;
-                case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                case config::config_animation_sprite_sheet_layout_t::MsAgent: {
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+                    assert(anim_shm.anim_index >= 0);
+                    const ms_agent_animation_indices_t animation_indices = get_ms_agent_animation_indices(static_cast<size_t>(anim_shm.anim_index));
                     animation_player_data.frame_index = current_config.idle_frame;
                     animation_player_data.sprite_sheet_row = assets::MS_AGENT_SPRITE_SHEET_ROW_IDLE;
                     animation_player_data.start_frame_index = animation_indices.start_index_frame_idle;
                     animation_player_data.end_frame_index = animation_indices.end_index_frame_idle;
                     state.row_state = animation_state_row_t::Idle;
 #endif
-                    break;
+                }break;
             }
         }
 
@@ -1332,6 +1342,83 @@ namespace bongocat::animation {
         }
     }
 
+    [[nodiscard]] static int rand_animation_index(animation_context_t& ctx, const config::config_t& config) {
+        using namespace assets;
+        assert(ctx._local_copy_config != nullptr);
+        assert(ctx.shm != nullptr);
+        platform::random_xoshiro128& rng = ctx._rng;
+
+        if (config.random_index) {
+            if constexpr (features::EnableLazyLoadAssets) {
+                switch (config.animation_sprite_sheet_layout) {
+                    case config::config_animation_sprite_sheet_layout_t::None:
+                        return config.animation_index;
+                    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                        assert(BONGOCAT_ANIM_COUNT <= INT32_MAX && BONGOCAT_ANIM_COUNT <= UINT32_MAX);
+                        return BONGOCAT_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, BONGOCAT_ANIM_COUNT-1)) : 0;
+                    case config::config_animation_sprite_sheet_layout_t::Dm:
+                        switch (ctx.shm->anim_dm_set) {
+                        case config::config_animation_dm_set_t::None:
+                            return config.animation_index;
+                        case config::config_animation_dm_set_t::min_dm:
+                            assert(MIN_DM_ANIM_COUNT <= INT32_MAX && MIN_DM_ANIM_COUNT<= UINT32_MAX);
+                            return MIN_DM_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MIN_DM_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dm:
+                            assert(DM_ANIM_COUNT <= INT32_MAX && DM_ANIM_COUNT <= UINT32_MAX);
+                            return DM_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DM_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dm20:
+                            assert(DM20_ANIM_COUNT <= INT32_MAX && DM20_ANIM_COUNT <= UINT32_MAX);
+                            return DM20_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DM20_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dmx:
+                            assert(DMX_ANIM_COUNT<= INT32_MAX && DMX_ANIM_COUNT <= UINT32_MAX);
+                            return DMX_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMX_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dmc:
+                            assert(DMC_ANIM_COUNT <= INT32_MAX && DMC_ANIM_COUNT <= UINT32_MAX);
+                            return DMC_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMC_ANIM_COUNT-1)) : 0;
+                        }
+                        break;
+                    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                        assert(MS_AGENTS_ANIM_COUNT <= INT32_MAX && MS_AGENTS_ANIM_COUNT <= UINT32_MAX);
+                        return MS_AGENTS_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MS_AGENTS_ANIM_COUNT-1)) : 0;
+                }
+            }
+            if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+                switch (config.animation_sprite_sheet_layout) {
+                    case config::config_animation_sprite_sheet_layout_t::None:
+                        return config.animation_index;
+                    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                        assert(ctx.shm->bongocat_anims.count <= INT32_MAX && ctx.shm->bongocat_anims.count <= UINT32_MAX);
+                        return ctx.shm->bongocat_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->bongocat_anims.count-1))) : 0;
+                    case config::config_animation_sprite_sheet_layout_t::Dm:
+                        switch (ctx.shm->anim_dm_set) {
+                        case config::config_animation_dm_set_t::None:
+                            return config.animation_index;
+                        case config::config_animation_dm_set_t::min_dm:
+                            assert(ctx.shm->min_dm_anims.count <= INT32_MAX && ctx.shm->min_dm_anims.count <= UINT32_MAX);
+                            return ctx.shm->min_dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->min_dm_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dm:
+                            assert(ctx.shm->dm_anims.count <= INT32_MAX && ctx.shm->dm_anims.count <= UINT32_MAX);
+                            return ctx.shm->dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dm20:
+                            assert(ctx.shm->dm20_anims.count <= INT32_MAX && ctx.shm->dm20_anims.count <= UINT32_MAX);
+                            return ctx.shm->dm20_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm20_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dmx:
+                            assert(ctx.shm->dmx_anims.count <= INT32_MAX && ctx.shm->dmx_anims.count <= UINT32_MAX);
+                            return ctx.shm->dmx_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmx_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dmc:
+                            assert(ctx.shm->dmc_anims.count <= INT32_MAX && ctx.shm->dmc_anims.count <= UINT32_MAX);
+                            return ctx.shm->dmc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmc_anims.count-1))) : 0;
+                        }
+                        break;
+                    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                        assert(ctx.shm->ms_anims.count <= INT32_MAX && ctx.shm->ms_anims.count <= UINT32_MAX);
+                        return ctx.shm->ms_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->ms_anims.count-1))) : 0;
+                }
+            }
+        }
+
+        return config.animation_index;
+    }
     void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
@@ -1340,37 +1427,16 @@ namespace bongocat::animation {
         {
             platform::LockGuard guard (ctx.anim_lock);
             ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
-            switch (config.animation_sprite_sheet_layout) {
-                case config::config_animation_sprite_sheet_layout_t::None:
-                    ctx.shm->anim_index = 0;
-                    break;
-                case config::config_animation_sprite_sheet_layout_t::Bongocat:
-                    assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
-#ifndef NDEBUG
-                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT)) {
-                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                    }
-#endif
-                    ctx.shm->anim_index = assets::BONGOCAT_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::BONGOCAT_ANIMATIONS_COUNT) : 0;
-                    break;
-                case config::config_animation_sprite_sheet_layout_t::Dm:
-                    assert(assets::BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
-#ifndef NDEBUG
-                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::DM_ANIMATIONS_COUNT)) {
-                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                    }
-#endif
-                    ctx.shm->anim_index = assets::DM_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::DM_ANIMATIONS_COUNT) : 0;
-                    break;
-                case config::config_animation_sprite_sheet_layout_t::MsAgent:
-                    assert(assets::MS_AGENTS_ANIMATIONS_COUNT <= INT_MAX);
-#ifndef NDEBUG
-                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(assets::MS_AGENTS_ANIMATIONS_COUNT)) {
-                        BONGOCAT_LOG_VERBOSE("Invalid animation index %d", config.animation_index);
-                    }
-#endif
-                    ctx.shm->anim_index = assets::MS_AGENTS_ANIMATIONS_COUNT > 0 ? config.animation_index % static_cast<int>(assets::MS_AGENTS_ANIMATIONS_COUNT) : 0;
-                    break;
+            ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
+            const auto old_anim_index = ctx.shm->anim_index;
+
+            ctx.shm->anim_index = rand_animation_index(ctx, config);
+            if constexpr (features::EnableLazyLoadAssets) {
+                auto [result, error] = hot_load_animation(ctx);
+                if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    // rollback
+                    ctx.shm->anim_index = old_anim_index;
+                }
             }
         }
 

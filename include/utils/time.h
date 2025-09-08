@@ -11,11 +11,11 @@ namespace bongocat::platform {
     using time_ns_t = int64_t;
     using time_sec_t = int64_t;
 
-    timestamp_us_t get_current_time_us();
-    timestamp_ms_t get_current_time_ms();
+    [[nodiscard]] timestamp_us_t get_current_time_us();
+    [[nodiscard]] timestamp_ms_t get_current_time_ms();
 
-    time_us_t get_uptime_us();
-    time_ms_t get_uptime_ms();
+    [[nodiscard]] time_us_t get_uptime_us();
+    [[nodiscard]] time_ms_t get_uptime_ms();
 }
 
 #endif // BONGOCAT_TIME_H

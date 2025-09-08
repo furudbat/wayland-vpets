@@ -63,7 +63,7 @@ namespace bongocat::config {
     }
 
     // Config watcher function declarations
-    created_result_t<AllocatedMemory<config_watcher_t>> create_watcher(const char *config_path);
+    [[nodiscard]] created_result_t<AllocatedMemory<config_watcher_t>> create_watcher(const char *config_path);
     void start_watcher(config_watcher_t& watcher);
 }
 

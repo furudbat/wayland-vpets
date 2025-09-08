@@ -25,6 +25,7 @@ cp ./assets/input/dmx/*.png ./assets/dmx/.
 cp ./assets/input/pen20/*.png ./assets/pen20/.
 
 mkdir -p ./assets/input/dmc-fixed
+rm -rf ./assets/input/dmc-fixed/*.png
 cp ./assets/input/dmc/*.png ./assets/input/dmc-fixed/.
 rsync -av --existing ./assets/input/all-colored/ ./assets/input/dmc-fixed
 cp ./assets/input/dmc-fixed/*.png ./assets/dmc/.

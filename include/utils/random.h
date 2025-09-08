@@ -80,21 +80,21 @@ public:
   //***************************************************************************
   /// Get the next random_xoshiro128 number.
   //***************************************************************************
-  constexpr uint32_t operator()() { return next(); }
+  [[nodiscard]] constexpr uint32_t operator()() { return next(); }
 
   //***************************************************************************
   /// Get the next random_xoshiro128 number in a specified inclusive range.
   //***************************************************************************
-  constexpr uint32_t range(uint32_t low, uint32_t high) {
+  [[nodiscard]] constexpr uint32_t range(uint32_t low, uint32_t high) {
     const uint32_t r = high - low + 1;
     return (operator()() % r) + low;
   }
 
-  constexpr inline uint32_t range_max() {
+  [[nodiscard]] constexpr inline uint32_t range_max() {
     return range(std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max());
   }
 
-  constexpr inline uint32_t range_min(uint32_t min) { return range(min, std::numeric_limits<uint32_t>::max()); }
+  [[nodiscard]] constexpr inline uint32_t range_min(uint32_t min) { return range(min, std::numeric_limits<uint32_t>::max()); }
 
 private:
   uint32_t state[4]{};

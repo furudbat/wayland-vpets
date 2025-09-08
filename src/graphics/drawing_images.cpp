@@ -90,102 +90,95 @@ namespace bongocat::animation {
         if (frame_w <= 0 || frame_h <= 0) return;
         if (has_flag(options, blit_image_color_option_flags_t::Invisible)) return;
 
-        // Verify buffers are large enough (simple conservative check)
         assert(dest_w >= 0);
         assert(dest_h >= 0);
         assert(dest_channels >= 0);
         assert(src_w >= 0);
         assert(src_h >= 0);
         assert(src_channels >= 0);
+        // Verify buffers are large enough
         const size_t needed_dest = static_cast<size_t>(dest_w) * static_cast<size_t>(dest_h) * static_cast<size_t>(dest_channels);
-        const size_t needed_src  = static_cast<size_t>(src_w)  * static_cast<size_t>(src_h)  * static_cast<size_t>(src_channels);
-        if (dest_size < needed_dest || src_size < needed_src) {
-            return;
-        }
+        const size_t needed_src  = static_cast<size_t>(src_w) * static_cast<size_t>(src_h) * static_cast<size_t>(src_channels);
+        if (dest_size < needed_dest || src_size < needed_src) return;
 
-        // Clip the destination rectangle to dest bounds:
-        // target rectangle top-left in dest coordinates:
+        // Clip destination rectangle
         const int dst_left   = offset_x;
         const int dst_top    = offset_y;
-        const int dst_right  = offset_x + target_w;   // exclusive
-        const int dst_bottom = offset_y + target_h;   // exclusive
+        const int dst_right  = offset_x + target_w;
+        const int dst_bottom = offset_y + target_h;
 
-        // compute clipped range [x0, x1) in target coordinates (x is 0..target_w-1)
-        int x0 = 0, x1 = target_w;
-        if (dst_left < 0)         x0 = -dst_left;
-        if (dst_right > dest_w)   x1 = target_w - (dst_right - dest_w);
+        int x0 = 0;
+        int x1 = target_w;
+        if (dst_left < 0)       x0 = -dst_left;
+        if (dst_right > dest_w) x1 = target_w - (dst_right - dest_w);
         if (x0 >= x1) return;
 
-        // similarly for y
-        int y0 = 0, y1 = target_h;
-        if (dst_top < 0)          y0 = -dst_top;
-        if (dst_bottom > dest_h)  y1 = target_h - (dst_bottom - dest_h);
+        int y0 = 0;
+        int y1 = target_h;
+        if (dst_top < 0)         y0 = -dst_top;
+        if (dst_bottom > dest_h) y1 = target_h - (dst_bottom - dest_h);
         if (y0 >= y1) return;
 
-        // Fixed-point increments (16.16)
-        const auto inc_x = static_cast<int32_t>((static_cast<int64_t>(frame_w) << FIXED_SHIFT) / static_cast<int64_t>(target_w));
-        const auto inc_y = static_cast<int32_t>((static_cast<int64_t>(frame_h) << FIXED_SHIFT) / static_cast<int64_t>(target_h));
+        // Fixed-point increments
+        const auto inc_x = static_cast<int32_t>((static_cast<int64_t>(frame_w) << FIXED_SHIFT) / target_w);
+        const auto inc_y = static_cast<int32_t>((static_cast<int64_t>(frame_h) << FIXED_SHIFT) / target_h);
 
-        // Starting fixed positions for sampling: (src_x, src_y) in fixed point
         const int32_t src_x_start = src_x << FIXED_SHIFT;
         const int32_t src_y_start = src_y << FIXED_SHIFT;
 
-        // Precompute some constants for row indexing
         const size_t src_row_bytes  = static_cast<size_t>(src_w) * static_cast<size_t>(src_channels);
         const size_t dest_row_bytes = static_cast<size_t>(dest_w) * static_cast<size_t>(dest_channels);
 
-        // Loop over clipped target Y
         for (int ty = y0; ty < y1; ++ty) {
-            const auto dy = offset_y + ty;  // dest y
+            const int dy = offset_y + ty;
             assert(dy < dest_h);
-            // fixed-point source y for this target y
-            const int32_t sy_fixed = src_y_start + static_cast<int32_t>(static_cast<int64_t>(ty) * inc_y);
-            const int sy = sy_fixed >> FIXED_SHIFT;
-            if (static_cast<unsigned>(sy) >= static_cast<unsigned>(src_h)) continue; // out of source bounds (shouldn't happen with clipping but safe)
 
-            // Pointers to the start of the rows
-            const uint8_t *dest_row = dest + static_cast<size_t>(dy) * dest_row_bytes;
-            const uint8_t *src_row = src + static_cast<size_t>(sy) * src_row_bytes;
+            int32_t sy_fixed = src_y_start + static_cast<int32_t>(static_cast<int64_t>(ty) * inc_y);
+            int sy = sy_fixed >> FIXED_SHIFT;
 
-            // Start x in target coords and compute corresponding initial sx_fixed for x0
+            // MirrorY
+            if (has_flag(options, blit_image_color_option_flags_t::MirrorY)) {
+                sy = (src_h - 1) - sy;
+            }
+
+            if (static_cast<unsigned>(sy) >= static_cast<unsigned>(src_h)) continue;
+
+            uint8_t *dest_row = dest + static_cast<size_t>(dy) * dest_row_bytes;
+            const unsigned char *src_row  = src  + static_cast<size_t>(sy) * src_row_bytes;
+
             int32_t sx_fixed = src_x_start + static_cast<int32_t>(static_cast<int64_t>(x0) * inc_x);
+            uint8_t *dest_ptr = dest_row + static_cast<size_t>(offset_x + x0) * static_cast<size_t>(dest_channels);
 
-            // Destination x start and destination pointer
-            const auto dx = offset_x + x0;
-            assert(dest_channels >= 0);
-            const unsigned char *dest_ptr = dest_row + static_cast<size_t>(dx) * static_cast<size_t>(dest_channels);
-
-            // For each x in clipped horizontal range
             for (int tx = x0; tx < x1; ++tx) {
-                // If sampled source pixel is outside source bounds, skip (safeguard)
-                if (int sx = sx_fixed >> FIXED_SHIFT; static_cast<unsigned>(sx) < static_cast<unsigned>(src_w)) {
-                    assert(src_channels >= 0);
-                    const uint8_t *src_pixel = src_row + static_cast<size_t>(sx) * static_cast<size_t>(src_channels);
-                    if (dest_ptr >= dest && src_pixel >= src) {
-                        const int dest_idx = static_cast<int>(dest_ptr - dest); // index in bytes from dest base
-                        const int src_idx  = static_cast<int>(src_pixel - src); // index in bytes from src base
+                int sx = sx_fixed >> FIXED_SHIFT;
 
-                        // If source has alpha channel and is transparent (<= threshold), skip.
-                        if (src_channels >= 4) {
-                            if (src_pixel[3] > THRESHOLD_ALPHA) {
-                                // compute indices for drawing_copy_pixel (byte offsets)
-                                drawing_copy_pixel(dest, dest_channels, dest_idx,
-                                                   src, src_channels, src_idx,
-                                                   options, dest_order, src_order);
-                            }
-                        } else {
-                            // opaque source (no alpha), just copy
+                // MirrorX
+                if (has_flag(options, blit_image_color_option_flags_t::MirrorX)) {
+                    sx = (src_w - 1) - sx;
+                }
+
+                if (static_cast<unsigned>(sx) < static_cast<unsigned>(src_w)) {
+                    const uint8_t *src_pixel = src_row + static_cast<size_t>(sx) * static_cast<size_t>(src_channels);
+                    int dest_idx = static_cast<int>(dest_ptr - dest);
+                    int src_idx  = static_cast<int>(src_pixel - src);
+
+                    if (src_channels >= 4) {
+                        if (src_pixel[3] > THRESHOLD_ALPHA) {
                             drawing_copy_pixel(dest, dest_channels, dest_idx,
                                                src, src_channels, src_idx,
                                                options, dest_order, src_order);
                         }
+                    } else {
+                        drawing_copy_pixel(dest, dest_channels, dest_idx,
+                                           src, src_channels, src_idx,
+                                           options, dest_order, src_order);
                     }
                 }
 
-                // advance fixed x and destination pointer
                 sx_fixed += inc_x;
                 dest_ptr += dest_channels;
             }
         }
     }
+
 }

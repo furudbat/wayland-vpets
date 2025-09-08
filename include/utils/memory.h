@@ -26,7 +26,7 @@ namespace bongocat {
     void free(void *ptr);
 
     // Memory pool functions
-    memory_pool_t* memory_pool_create(size_t size, size_t alignment);
+    [[nodiscard]] memory_pool_t* memory_pool_create(size_t size, size_t alignment);
     void* memory_pool_alloc(memory_pool_t& pool, size_t size);
     void memory_pool_reset(memory_pool_t& pool);
     void memory_pool_destroy(memory_pool_t& pool);
@@ -111,7 +111,7 @@ namespace bongocat {
         T* ptr{nullptr};
         size_t _size_bytes{0};
 
-        AllocatedMemory() = default;
+        constexpr AllocatedMemory() = default;
         ~AllocatedMemory() noexcept {
             release_allocated_memory(*this);
         }
@@ -184,7 +184,7 @@ namespace bongocat {
             return *this;
         }
 
-        operator bool() const noexcept {
+        constexpr operator bool() const noexcept {
             return ptr != nullptr;
         }
 
@@ -192,7 +192,7 @@ namespace bongocat {
             assert(ptr);
             return *ptr;
         }
-        const T& operator*() const {
+        constexpr const T& operator*() const {
             assert(ptr);
             return *ptr;
         }
@@ -200,21 +200,21 @@ namespace bongocat {
             assert(ptr);
             return ptr;
         }
-        const T* operator->() const {
+        constexpr const T* operator->() const {
             assert(ptr);
             return ptr;
         }
         explicit operator T*() noexcept {
             return ptr;
         }
-        explicit operator const T*() const noexcept {
+        constexpr explicit operator const T*() const noexcept {
             return ptr;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return ptr == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return ptr != nullptr;
         }
     };
@@ -230,11 +230,11 @@ namespace bongocat {
         }
     }
     template <typename T>
-    inline static AllocatedMemory<T> make_null_memory() noexcept {
+    [[nodiscard]] inline static AllocatedMemory<T> make_null_memory() noexcept {
         return AllocatedMemory<T>();
     }
     template <typename T>
-    inline static AllocatedMemory<T> make_allocated_memory() {
+    [[nodiscard]] inline static AllocatedMemory<T> make_allocated_memory() {
         AllocatedMemory<T> ret;
         ret._size_bytes = sizeof(T);
         if (ret._size_bytes > 0) {
@@ -264,7 +264,7 @@ namespace bongocat {
         size_t count{0};
         size_t _size_bytes{0};
 
-        AllocatedArray() = default;
+        constexpr AllocatedArray() = default;
         ~AllocatedArray() noexcept {
             release_allocated_array(*this);
         }
@@ -365,19 +365,19 @@ namespace bongocat {
             assert(index < count);
             return data[index];
         }
-        const T& operator[](size_t index) const {
+        constexpr const T& operator[](size_t index) const {
             assert(index < count);
             return data[index];
         }
 
-        explicit operator bool() const noexcept {
+        constexpr explicit operator bool() const noexcept {
             return data != nullptr;
         }
 
-        bool operator==(decltype(nullptr)) const noexcept {
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
             return data == nullptr;
         }
-        bool operator!=(decltype(nullptr)) const noexcept {
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
             return data != nullptr;
         }
     };
@@ -397,15 +397,15 @@ namespace bongocat {
     }
 
     template <typename T>
-    inline static AllocatedArray<T> make_unallocated_array() noexcept {
+    [[nodiscard]] inline static AllocatedArray<T> make_unallocated_array() noexcept {
         return AllocatedArray<T>();
     }
     template <typename T>
-    inline static AllocatedArray<T> make_allocated_array_uninitialized(size_t count) {
+    [[nodiscard]] inline static AllocatedArray<T> make_allocated_array_uninitialized(size_t count) {
         return count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
     }
     template <typename T>
-    inline static AllocatedArray<T> make_allocated_array(size_t count) {
+    [[nodiscard]] inline static AllocatedArray<T> make_allocated_array(size_t count) {
         auto ret= count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
         for (size_t i = 0;i < ret.count;i++) {
             new (&ret.data[i]) T();
@@ -413,7 +413,7 @@ namespace bongocat {
         return ret;
     }
     template <typename T>
-    inline static AllocatedArray<T> make_allocated_array_with_value(size_t count, const T& value) {
+    [[nodiscard]] inline static AllocatedArray<T> make_allocated_array_with_value(size_t count, const T& value) {
         auto ret= count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
         for (size_t i = 0;i < ret.count;i++) {
             ret.data[i] = value;

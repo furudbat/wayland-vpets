@@ -53,6 +53,14 @@ namespace bongocat::config {
         Dm,
         MsAgent,
     };
+    enum class config_animation_dm_set_t : uint8_t {
+        None,
+        min_dm,
+        dm,
+        dm20,
+        dmx,
+        dmc,
+    };
 
     struct config_t {
         char *output_name{nullptr};
@@ -69,6 +77,8 @@ namespace bongocat::config {
         int32_t animation_speed_ms{0};
         int32_t fps{0};
         int32_t overlay_opacity{0};
+        int32_t mirror_x{0};                // reflect across Y axis (horizontal flip)
+        int32_t mirror_y{0};                // reflect across X axis (vertical flip)
         int32_t enable_debug{0};
         layer_type_t layer{layer_type_t::LAYER_TOP};
         overlay_position_t overlay_position{overlay_position_t::POSITION_TOP};
@@ -88,8 +98,10 @@ namespace bongocat::config {
         align_type_t cat_align{align_type_t::ALIGN_CENTER};
 
         config_animation_sprite_sheet_layout_t animation_sprite_sheet_layout{config_animation_sprite_sheet_layout_t::None};
+        config_animation_dm_set_t animation_dm_set{config_animation_dm_set_t::None};
         int32_t idle_animation{0};
         int32_t input_fps{0};
+        int32_t random_index{0};
 
 
         // Make Config movable and copyable
@@ -114,6 +126,8 @@ namespace bongocat::config {
               animation_speed_ms(other.animation_speed_ms),
               fps(other.fps),
               overlay_opacity(other.overlay_opacity),
+              mirror_x(other.mirror_x),
+              mirror_y(other.mirror_y),
               enable_debug(other.enable_debug),
               layer(other.layer),
               overlay_position(other.overlay_position),
@@ -128,8 +142,10 @@ namespace bongocat::config {
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
+              animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
-              input_fps(other.input_fps)
+              input_fps(other.input_fps),
+              random_index(other.random_index)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
@@ -150,6 +166,8 @@ namespace bongocat::config {
                 animation_speed_ms = other.animation_speed_ms;
                 fps = other.fps;
                 overlay_opacity = other.overlay_opacity;
+                mirror_x = other.mirror_x;
+                mirror_y = other.mirror_y;
                 enable_debug = other.enable_debug;
                 layer = other.layer;
                 overlay_position = other.overlay_position;
@@ -164,8 +182,10 @@ namespace bongocat::config {
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
                 animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
+                animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
+                random_index = other.random_index;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
@@ -187,6 +207,8 @@ namespace bongocat::config {
               animation_speed_ms(other.animation_speed_ms),
               fps(other.fps),
               overlay_opacity(other.overlay_opacity),
+              mirror_x(other.mirror_x),
+              mirror_y(other.mirror_y),
               enable_debug(other.enable_debug),
               layer(other.layer),
               overlay_position(other.overlay_position),
@@ -201,8 +223,10 @@ namespace bongocat::config {
               happy_kpm(other.happy_kpm),
               cat_align(other.cat_align),
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
+              animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
-              input_fps(other.input_fps)
+              input_fps(other.input_fps),
+              random_index(other.random_index)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
@@ -229,6 +253,8 @@ namespace bongocat::config {
                 animation_speed_ms = other.animation_speed_ms;
                 fps = other.fps;
                 overlay_opacity = other.overlay_opacity;
+                mirror_x = other.mirror_x;
+                mirror_y = other.mirror_y;
                 enable_debug = other.enable_debug;
                 layer = other.layer;
                 overlay_position = other.overlay_position;
@@ -243,8 +269,10 @@ namespace bongocat::config {
                 happy_kpm = other.happy_kpm;
                 cat_align = other.cat_align;
                 animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
+                animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
+                random_index = other.random_index;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];
@@ -281,8 +309,9 @@ namespace bongocat::config {
 
     struct load_config_overwrite_parameters_t {
         const char* output_name{nullptr};
+        int32_t random_index{-1};
     };
-    created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
+    [[nodiscard]] created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
     void reset(config_t& config);
 
     void set_defaults(config_t& config);
