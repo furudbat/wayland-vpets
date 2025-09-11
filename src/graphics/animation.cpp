@@ -1348,7 +1348,7 @@ namespace bongocat::animation {
         assert(ctx.shm != nullptr);
         platform::random_xoshiro128& rng = ctx._rng;
 
-        if (config.random_index) {
+        if (config.randomize_index) {
             if constexpr (features::EnableLazyLoadAssets) {
                 switch (config.animation_sprite_sheet_layout) {
                     case config::config_animation_sprite_sheet_layout_t::None:
@@ -1430,7 +1430,7 @@ namespace bongocat::animation {
             ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
             const auto old_anim_index = ctx.shm->anim_index;
 
-            ctx.shm->anim_index = rand_animation_index(ctx, config);
+            ctx.shm->anim_index = !config.keep_old_animation_index ? rand_animation_index(ctx, config) : old_anim_index;
             if constexpr (features::EnableLazyLoadAssets) {
                 auto [result, error] = hot_load_animation(ctx);
                 if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -1438,6 +1438,7 @@ namespace bongocat::animation {
                     ctx.shm->anim_index = old_anim_index;
                 }
             }
+            ctx.shm->animation_player_data.frame_index = !config.idle_animation ? config.idle_frame : ctx.shm->animation_player_data.frame_index;  // initial frame
         }
 
         atomic_store(&ctx.config_seen_generation, new_gen);

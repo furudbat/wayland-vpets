@@ -329,6 +329,12 @@ namespace bongocat {
             platform::LockGuard guard (get_main_context().sync_configs);
             uint64_t new_gen{atomic_load(&get_main_context().config_generation)};
             config::config_t old_config = get_main_context().config;
+            // keep old animation, don't randomize
+            if (old_config.randomize_index && new_config.randomize_index &&
+                old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
+                old_config.animation_dm_set == new_config.animation_dm_set) {
+                new_config.keep_old_animation_index = 1;
+            }
             // If successful, check if input devices changed before updating config
             devices_changed = config_devices_changed(old_config, new_config);
             get_main_context().config = bongocat::move(new_config);
@@ -354,6 +360,7 @@ namespace bongocat {
                 return !atomic_load(&get_main_context().animation->anim._animation_running) || get_main_context().animation->anim.config_seen_generation >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
 
+            get_main_context().config.keep_old_animation_index = 0;
             // fallback when cond hits timeout (sync config generations)
             if (atomic_load(&get_main_context().input->_capture_input_running)) {
                 atomic_store(&get_main_context().input->config_seen_generation, new_gen);
