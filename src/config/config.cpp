@@ -253,7 +253,7 @@ namespace bongocat::config {
         config.enable_scheduled_sleep = config.enable_scheduled_sleep ? 1 : 0;
         config.mirror_x = config.mirror_x ? 1 : 0;
         config.mirror_y = config.mirror_y ? 1 : 0;
-        config.random_index = config.random_index ? 1 : 0;
+        config.randomize_index = config.randomize_index ? 1 : 0;
 
         config_validate_dimensions(config);
         config_validate_timing(config);
@@ -382,7 +382,7 @@ namespace bongocat::config {
         } else if (strcmp(key, INPUT_FPS_KEY) == 0) {
             config.input_fps = int_value;
         } else if (strcmp(key, RANDOM_KEY) == 0) {
-            config.random_index = int_value;
+            config.randomize_index = int_value;
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
         }
@@ -702,7 +702,8 @@ namespace bongocat::config {
         cfg.animation_dm_set = config_animation_dm_set_t::None;
         cfg.idle_animation = 0;
         cfg.input_fps = 0;          // when 0 fallback to fps
-        cfg.random_index = 0;
+        cfg.randomize_index = 0;
+        cfg.keep_old_animation_index = 0;
 
         config = bongocat::move(cfg);
     }
@@ -738,7 +739,7 @@ namespace bongocat::config {
                                   config.cat_x_offset, config.cat_y_offset);
                 break;
         }
-        BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.random_index);
+        BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.randomize_index);
         BONGOCAT_LOG_DEBUG("  Position: %s", config.overlay_position == overlay_position_t::POSITION_TOP ? "top" : "bottom");
         BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align, config.cat_align == align_type_t::ALIGN_CENTER ? "(center)" : "");
         BONGOCAT_LOG_DEBUG("  Layer: %s", config.layer == layer_type_t::LAYER_TOP ? "top" : "overlay");
@@ -764,7 +765,7 @@ namespace bongocat::config {
             ret.output_name = strdup(overwrite_parameters.output_name);
         }
         if (overwrite_parameters.random_index >= 0) {
-            ret.random_index = overwrite_parameters.random_index ? 1 : 0;
+            ret.randomize_index = overwrite_parameters.random_index ? 1 : 0;
         }
         if (ret.input_fps <= 0) {
             ret.input_fps = ret.fps;

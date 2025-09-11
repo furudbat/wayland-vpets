@@ -101,7 +101,10 @@ namespace bongocat::config {
         config_animation_dm_set_t animation_dm_set{config_animation_dm_set_t::None};
         int32_t idle_animation{0};
         int32_t input_fps{0};
-        int32_t random_index{0};
+        int32_t randomize_index{0};
+
+        // for keep old index when reload config
+        int32_t keep_old_animation_index{0};
 
 
         // Make Config movable and copyable
@@ -145,7 +148,8 @@ namespace bongocat::config {
               animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
-              random_index(other.random_index)
+              randomize_index(other.randomize_index),
+              keep_old_animation_index(other.keep_old_animation_index)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
@@ -185,7 +189,8 @@ namespace bongocat::config {
                 animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
-                random_index = other.random_index;
+                randomize_index = other.randomize_index;
+                keep_old_animation_index = other.keep_old_animation_index;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
@@ -226,7 +231,8 @@ namespace bongocat::config {
               animation_dm_set(other.animation_dm_set),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
-              random_index(other.random_index)
+              randomize_index(other.randomize_index),
+              keep_old_animation_index(other.keep_old_animation_index)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
@@ -272,7 +278,8 @@ namespace bongocat::config {
                 animation_dm_set = other.animation_dm_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
-                random_index = other.random_index;
+                randomize_index = other.randomize_index;
+                keep_old_animation_index = other.keep_old_animation_index;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];
