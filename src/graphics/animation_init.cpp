@@ -259,6 +259,7 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
 
+        [[maybe_unused]] const auto t0 = platform::get_current_time_us();
         /// @TODO: async assets load
         // Initialize embedded images/animations
         if constexpr (features::EnableLazyLoadAssets) {
@@ -355,8 +356,9 @@ namespace bongocat::animation {
                 }
             }
         }
+        [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
-        BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets");
+        BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.4fsec)", static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
         return ret;
     }
 
