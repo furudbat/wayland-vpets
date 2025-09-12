@@ -413,6 +413,7 @@ namespace bongocat {
         sigaddset(&mask, SIGINT);
         sigaddset(&mask, SIGTERM);
         sigaddset(&mask, SIGCHLD);
+        sigaddset(&mask, SIGUSR1);
         sigaddset(&mask, SIGUSR2);
 
         // Block signals globally so they are only delivered via signalfd

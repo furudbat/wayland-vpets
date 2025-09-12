@@ -255,7 +255,8 @@ namespace bongocat::animation {
         uint8_t *pixels = shm_buffer->pixels.data;
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
-        const int effective_opacity = wayland_ctx._fullscreen_detected ? 0 : current_config.overlay_opacity;
+        const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+        const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
 
         assert(wayland_ctx._screen_width >= 0);
         assert(wayland_ctx._bar_height >= 0);
@@ -280,7 +281,7 @@ namespace bongocat::animation {
             platform::LockGuard guard (anim.anim_lock);
             const animation_shared_memory_t& anim_shm = *anim.shm;
 
-            if (!wayland_ctx._fullscreen_detected) {
+            if (bar_visible) {
                 switch (anim_shm.anim_type) {
                     case config::config_animation_sprite_sheet_layout_t::None:
                         break;
@@ -330,7 +331,7 @@ namespace bongocat::animation {
                     }break;
                 }
             } else {
-                BONGOCAT_LOG_VERBOSE("fullscreen detected, skip drawing, keep buffer clean");
+                BONGOCAT_LOG_VERBOSE("skip drawing, keep buffer clean: fullscreen=%d, visibility=%d", wayland_ctx._fullscreen_detected, wayland_ctx.bar_visibility);
             }
         }
 

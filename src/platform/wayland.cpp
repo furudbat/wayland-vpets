@@ -1171,6 +1171,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             bool config_reload_requested = false;
             bool render_requested = false;
             bool needs_flush = false;
+            bool toggle_visibility_requested = false;
 
             bool prepared_read = false;
             {
@@ -1201,6 +1202,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                             case SIGCHLD:
                                 while (waitpid(-1, nullptr, WNOHANG) > 0){}
                                 break;
+                            case SIGUSR1:
+                                BONGOCAT_LOG_INFO("Received SIGUSR1, toggle bar visibility");
+                                toggle_visibility_requested = true;
+                                break;
                             case SIGUSR2:
                                 BONGOCAT_LOG_INFO("Received SIGUSR2, reloading config");
                                 config_reload_requested = true;
@@ -1224,6 +1229,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                     }
                     if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
                     render_requested = false;
+                    toggle_visibility_requested = false;
                     break;
                 }
 
@@ -1326,6 +1332,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 config_reload_callback();
                 render_requested = true;
             }
+            if (toggle_visibility_requested) {
+                wayland_ctx.bar_visibility = wayland_ctx.bar_visibility == bar_visibility_t::Show ? bar_visibility_t::Hide : bar_visibility_t::Show;
+                render_requested = true;
+            }
 
             if (render_requested) {
                 BONGOCAT_LOG_VERBOSE("Receive render event");
@@ -1343,6 +1353,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 }
                 render_requested = false;
             }
+            toggle_visibility_requested = false;
 
             if (needs_flush) {
                 wl_display_flush(wayland_ctx.display);
