@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+## [2.5.0] - 2025-09-12
+
+_include changes from 1.2.6 (upstream)_
+
+### Added
+- toggle bar visibility via signal (SIGUSR1)
+- strict mode - only start up when valid config
+
+
 ## [2.4.0] - 2025-09-05
 
 ### Added

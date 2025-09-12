@@ -828,6 +828,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         assert(wayland_ctx._local_copy_config != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
+        /// @TODO: add RAII wrapper for wl_registry
         wl_registry *registry = wl_display_get_registry(wayland_ctx.display);
         if (!registry) {
             BONGOCAT_LOG_ERROR("Failed to get Wayland registry");
@@ -875,6 +876,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             wayland_ctx.output = ctx.outputs[0].wl_output;
             wayland_ctx._output_name_str = ctx.outputs[0].name_str;
             BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
+            if (current_config.strict) {
+                wl_registry_destroy(registry);
+                return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            }
         }
 
         if (!wayland_ctx.compositor || !wayland_ctx.shm || !wayland_ctx.layer_shell) {
@@ -897,6 +902,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         } else {
             BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
             screen_width = DEFAULT_SCREEN_WIDTH;
+            if (current_config.strict) {
+                wl_registry_destroy(registry);
+                return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            }
         }
         wayland_ctx._screen_width = screen_width;
 

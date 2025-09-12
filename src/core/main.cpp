@@ -130,7 +130,8 @@ namespace bongocat {
         bool show_help{false};
         bool show_version{false};
         const char *output_name{};
-        int32_t random_index{-1};
+        int32_t randomize_index{-1};
+        int32_t strict{-1};
     };
 
     // =============================================================================
@@ -524,6 +525,7 @@ namespace bongocat {
         printf("  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)\n");
         printf("  -o, --output-name     Specify output name (overwrite output_name from config)\n");
         printf("      --random          Enable random animation_index, at start (overwrite random_index from config)\n");
+        printf("      --strict          Enable strict mode, only start up with a valid config and valid parameter\n");
         printf("\nConfiguration is loaded from bongocat.conf in the current directory.\n");
     }
 
@@ -532,17 +534,8 @@ namespace bongocat {
         printf("Built with fast optimizations\n");
     }
 
-    static int cli_parse_arguments(int argc, char *argv[], cli_args_t& args) {
-        // Initialize arguments with defaults
-        args = {
-            .config_file = nullptr,
-            .watch_config = false,
-            .toggle_mode = false,
-            .show_help = false,
-            .show_version = false,
-            .output_name = nullptr,
-            .random_index = -1,
-        };
+    static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) {
+        cli_args_t args{};
 
         for (int i = 1; i < argc; i++) {
             if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
@@ -555,28 +548,30 @@ namespace bongocat {
                     i++; // Skip the next argument since it's the config file path
                 } else {
                     BONGOCAT_LOG_ERROR("--config option requires a file path");
-                    return EXIT_FAILURE;
+                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
                 }
             } else if (strcmp(argv[i], "--watch-config") == 0 || strcmp(argv[i], "-w") == 0) {
                 args.watch_config = true;
             } else if (strcmp(argv[i], "--toggle") == 0 || strcmp(argv[i], "-t") == 0) {
                 args.toggle_mode = true;
             } else if (strcmp(argv[i], "--random") == 0) {
-                args.random_index = 1;
+                args.randomize_index = 1;
+            } else if (strcmp(argv[i], "--strict") == 0) {
+                args.strict = 1;
             } else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
                 if (i + 1 < argc) {
                     args.output_name = argv[i + 1];
                     i++; // Skip the next argument since it's the output name
                 } else {
                     BONGOCAT_LOG_ERROR("--output-name option requires a output name");
-                    return EXIT_FAILURE;
+                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
                 }
             } else {
                 BONGOCAT_LOG_WARNING("Unknown argument: %s", argv[i]);
             }
         }
 
-        return 0;
+        return args;
     }
 }
 
@@ -592,8 +587,8 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
 
     // Parse command line arguments
-    cli_args_t args{};
-    if (cli_parse_arguments(argc, argv, args) != 0) {
+    const auto [args, args_result] = cli_parse_arguments(argc, argv);
+    if (args_result != bongocat_error_t::BONGOCAT_SUCCESS) {
         return EXIT_FAILURE;
     }
 
@@ -612,7 +607,8 @@ int main(int argc, char *argv[]) {
     // Load configuration
     ctx.overwrite_config_parameters = {
         .output_name = args.output_name,
-        .random_index = args.random_index,
+        .randomize_index = args.randomize_index,
+        .strict = args.strict,
     };
     auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
