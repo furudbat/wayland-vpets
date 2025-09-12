@@ -142,6 +142,9 @@ cat_height=80                    # Height of bongo cat (10-200)
 mirror_x=0                       # Flip horizontally (mirror across Y axis)
 mirror_y=0                       # Flip vertically (mirror across X axis)
 
+# Anti-aliasing settings
+enable_antialiasing=1            # Use bilinear interpolation for smooth scaling (0=off, 1=on)
+
 # Overlay settings (requires restart)
 overlay_height=60                # Height of the entire overlay bar (20-300)
 overlay_opacity=150              # Background opacity (0-255)
@@ -203,6 +206,7 @@ enable_debug=0                   # Show debug messages
 | `idle_sleep_timeout`      | Integer  | 0+                                     | 0                   | Time of inactivity before entering sleep (0 = disabled) (in seconds)                    |
 | `happy_kpm`               | Integer  | 0–10000                                | 0                   | Minimum keystrokes per minute to trigger happy animation (0 = disabled)                 |
 | `keyboard_device`         | String   | Valid `/dev/input/*` path(s)           | `/dev/input/event4` | Input device path (multiple entries allowed)                                            |
+| `enable_antialiasing`     | Boolean  | 0 or 1                                 | 1                   | Enable bilinear interpolation for smooth scaling (Bongocat and MS Agent only)           |
 | `enable_debug`            | Boolean  | 0 or 1                                 | 0                   | Enable debug logging                                                                    |
 | `monitor`                 | String   | Monitor name                           | Auto-detect         | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                                 |
 | `random`                  | Boolean  | 0 or 1                                 | 0                   | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set) |

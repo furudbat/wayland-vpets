@@ -136,12 +136,12 @@ namespace bongocat {
         return static_cast<Enum>(~static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    [[nodiscard]] inline constexpr Enum flag_add(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_add(Enum lhs, Enum rhs) noexcept {
         lhs = flag_or(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
-    [[nodiscard]] inline constexpr Enum flag_assign(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_assign(Enum lhs, Enum rhs) noexcept {
         lhs = flag_and(lhs, rhs);
         return lhs;
     }

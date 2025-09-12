@@ -1,14 +1,14 @@
 #include "graphics/drawing.h"
 #include "graphics/animation_context.h"
-#include "graphics/animation.h"
 #include <cassert>
+#include <cmath>
 
 namespace bongocat::animation {
     // =============================================================================
     // GLOBAL STATE AND CONFIGURATION
     // =============================================================================
 
-    static inline constexpr uint8_t THRESHOLD_ALPHA = 127;
+    static inline constexpr uint8_t THRESHOLD_ALPHA = 120;
     static inline constexpr unsigned int FIXED_SHIFT = 16;
     static inline constexpr unsigned int FIXED_ONE   = (1u << FIXED_SHIFT);
 
@@ -26,6 +26,20 @@ namespace bongocat::animation {
         return v ^ (invert ? 0xFF : 0x00); // branchless invert
     }
 
+    static void drawing_copy_pixel_rgba(uint8_t *dest, int dest_channels, int dest_idx,
+                                        blit_image_color_order_t dest_order,
+                                        uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
+        // Map destination channel indices
+        const int dr = (dest_order == blit_image_color_order_t::RGBA) ? 0 : 2;
+        constexpr int dg = 1;
+        const int db = (dest_order == blit_image_color_order_t::RGBA) ? 2 : 0;
+
+        // Store without branching
+        if (dest_channels >= 1) dest[dest_idx + dr] = r;
+        if (dest_channels >= 2) dest[dest_idx + dg] = g;
+        if (dest_channels >= 3) dest[dest_idx + db] = b;
+        if (dest_channels >= 4) dest[dest_idx + 3]  = a;
+    }
     void drawing_copy_pixel(uint8_t *dest, int dest_channels, int dest_idx,
                                    const unsigned char *src, int src_channels, int src_idx,
                                    blit_image_color_option_flags_t options,
@@ -62,16 +76,52 @@ namespace bongocat::animation {
             a = (src_channels >= 4) ? src[src_idx + 3] : 255; // Alpha not inverted
         }
 
-        // Map destination channel indices
-        const int dr = (dest_order == blit_image_color_order_t::RGBA) ? 0 : 2;
-        constexpr int dg = 1;
-        const int db = (dest_order == blit_image_color_order_t::RGBA) ? 2 : 0;
+        drawing_copy_pixel_rgba(dest, dest_channels, dest_idx, dest_order, r, g, b, a);
+    }
 
-        // Store without branching
-        if (dest_channels >= 1) dest[dest_idx + dr] = r;
-        if (dest_channels >= 2) dest[dest_idx + dg] = g;
-        if (dest_channels >= 3) dest[dest_idx + db] = b;
-        if (dest_channels >= 4) dest[dest_idx + 3]  = a;
+
+    struct drawing_get_interpolated_pixel_result_t { unsigned char r{0}; unsigned char g{0}; unsigned char b{0}; unsigned char a{0}; };
+    // Bilinear interpolation for smooth scaling
+    static drawing_get_interpolated_pixel_result_t drawing_get_interpolated_pixel(const unsigned char *src, size_t src_size, int src_w, int src_h, int src_channels, float fx, float fy) {
+        // Clamp coordinates to image bounds
+        if (fx < 0) fx = 0;
+        if (fy < 0) fy = 0;
+        if (fx >= static_cast<float>(src_w - 1)) fx = static_cast<float>(src_w - 1);
+        if (fy >= static_cast<float>(src_h - 1)) fy = static_cast<float>(src_h - 1);
+
+        int x1 = static_cast<int>(fx);
+        int y1 = static_cast<int>(fy);
+        int x2 = x1 + 1;
+        int y2 = y1 + 1;
+
+        // Clamp to bounds
+        if (x2 >= src_w) x2 = src_w - 1;
+        if (y2 >= src_h) y2 = src_h - 1;
+
+        float dx = fx - static_cast<float>(x1);
+        float dy = fy - static_cast<float>(y1);
+
+        // Get the four surrounding pixels
+        int idx_tl = (y1 * src_w + x1) * src_channels; // top-left
+        int idx_tr = (y1 * src_w + x2) * src_channels; // top-right
+        int idx_bl = (y2 * src_w + x1) * src_channels; // bottom-left
+        int idx_br = (y2 * src_w + x2) * src_channels; // bottom-right
+
+        // Interpolate each channel
+        drawing_get_interpolated_pixel_result_t ret;
+        for (int c = 0; c < src_channels; c++) {
+            float top = src[idx_tl + c] * (1.0f - dx) + src[idx_tr + c] * dx;
+            float bottom = src[idx_bl + c] * (1.0f - dx) + src[idx_br + c] * dx;
+            float result = top * (1.0f - dy) + bottom * dy;
+
+            switch (c) {
+                case 0: ret.r = static_cast<uint8_t>(result + 0.5f); break; // R
+                case 1: ret.g = static_cast<uint8_t>(result + 0.5f); break; // G
+                case 2: ret.b = static_cast<uint8_t>(result + 0.5f); break; // B
+                case 3: ret.a = static_cast<uint8_t>(result + 0.5f); break; // A
+            }
+        }
+        return ret;
     }
 
     void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, int dest_channels,
@@ -120,6 +170,8 @@ namespace bongocat::animation {
         if (y0 >= y1) return;
 
         // Fixed-point increments
+        assert(target_w > 0);
+        assert(target_h > 0);
         const auto inc_x = static_cast<int32_t>((static_cast<int64_t>(frame_w) << FIXED_SHIFT) / target_w);
         const auto inc_y = static_cast<int32_t>((static_cast<int64_t>(frame_h) << FIXED_SHIFT) / target_h);
 
@@ -128,6 +180,8 @@ namespace bongocat::animation {
 
         const size_t src_row_bytes  = static_cast<size_t>(src_w) * static_cast<size_t>(src_channels);
         const size_t dest_row_bytes = static_cast<size_t>(dest_w) * static_cast<size_t>(dest_channels);
+
+        const bool use_bilinear_interpolation = has_flag(options, blit_image_color_option_flags_t::BilinearInterpolation);
 
         for (int ty = y0; ty < y1; ++ty) {
             const int dy = offset_y + ty;
@@ -162,16 +216,32 @@ namespace bongocat::animation {
                     int dest_idx = static_cast<int>(dest_ptr - dest);
                     int src_idx  = static_cast<int>(src_pixel - src);
 
-                    if (src_channels >= 4) {
-                        if (src_pixel[3] > THRESHOLD_ALPHA) {
+                    if (use_bilinear_interpolation) {
+                        // Use bilinear interpolation for smooth scaling
+                        float fx = static_cast<float>(sx_fixed) / static_cast<float>(1 << FIXED_SHIFT);
+                        float fy = static_cast<float>(sy_fixed) / static_cast<float>(1 << FIXED_SHIFT);
+
+                        auto pixel = drawing_get_interpolated_pixel(src, src_size, src_w, src_h, src_channels, fx, fy);
+                        if (src_channels >= 4) {
+                            if (src_pixel[3] > THRESHOLD_ALPHA) {
+                                drawing_copy_pixel_rgba(dest, dest_channels, dest_idx, dest_order, pixel.r, pixel.g, pixel.b, pixel.a);
+                            }
+                        } else {
+                            drawing_copy_pixel_rgba(dest, dest_channels, dest_idx, dest_order, pixel.r, pixel.g, pixel.b, 255);
+                        }
+                    } else {
+                        // Use nearest-neighbor scaling (original behavior)
+                        if (src_channels >= 4) {
+                            if (src_pixel[3] > THRESHOLD_ALPHA) {
+                                drawing_copy_pixel(dest, dest_channels, dest_idx,
+                                                   src, src_channels, src_idx,
+                                                   options, dest_order, src_order);
+                            }
+                        } else {
                             drawing_copy_pixel(dest, dest_channels, dest_idx,
                                                src, src_channels, src_idx,
                                                options, dest_order, src_order);
                         }
-                    } else {
-                        drawing_copy_pixel(dest, dest_channels, dest_idx,
-                                           src, src_channels, src_idx,
-                                           options, dest_order, src_order);
                     }
                 }
 
@@ -180,5 +250,4 @@ namespace bongocat::animation {
             }
         }
     }
-
 }

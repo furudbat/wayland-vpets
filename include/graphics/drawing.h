@@ -11,6 +11,7 @@ namespace bongocat::animation {
         Invert = (1u << 2),
         MirrorX = (1u << 3),
         MirrorY = (1u << 4),
+        BilinearInterpolation = (1u << 5),
     };
     enum class blit_image_color_order_t : uint8_t {
         RGBA,

@@ -125,7 +125,7 @@ namespace bongocat::animation {
         return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
     }
 
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -166,6 +166,9 @@ namespace bongocat::animation {
             }
             if (current_config.mirror_y) {
                 drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
+            }
+            if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
+                drawing_option = flag_add(drawing_option, extra_drawing_option);
             }
 
             blit_image_scaled(pixels, pixels_size,
@@ -213,6 +216,9 @@ namespace bongocat::animation {
         }
         if (current_config.mirror_y) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
+        }
+        if (current_config.enable_antialiasing) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
         }
 
         blit_image_scaled(pixels, pixels_size,
@@ -291,7 +297,7 @@ namespace bongocat::animation {
                         }
                         const animation_t& cat_anim = get_current_animation(anim);
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
-                        draw_sprite(ctx, sheet);
+                        draw_sprite(ctx, sheet, current_config.enable_antialiasing ? blit_image_color_option_flags_t::BilinearInterpolation : blit_image_color_option_flags_t::Normal);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
                         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {

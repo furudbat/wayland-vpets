@@ -54,12 +54,13 @@ namespace bongocat::config {
     static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
     static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
     static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 0;
+    static inline constexpr int32_t DEFAULT_ENABLE_ANTIALIASING = 1;
 
     // Debug-specific defaults
 #ifndef NDEBUG
-    static inline constexpr bool DEFAULT_ENABLE_DEBUG = true;
+    static inline constexpr int32_t DEFAULT_ENABLE_DEBUG = 1;
 #else
-    static inline constexpr bool DEFAULT_ENABLE_DEBUG = false;
+    static inline constexpr int32_t DEFAULT_ENABLE_DEBUG = 0;
 #endif
 
 
@@ -95,6 +96,7 @@ namespace bongocat::config {
     static inline constexpr auto MIRROR_X_KEY                       = "mirror_x";
     static inline constexpr auto MIRROR_Y_KEY                       = "mirror_y";
     static inline constexpr auto RANDOM_KEY                         = "random";
+    static inline constexpr auto ENABLE_ANTIALIASING_KEY            = "enable_antialiasing";
 
     static inline constexpr size_t VALUE_BUF = 256;
     static inline constexpr size_t LINE_BUF  = 512;
@@ -254,6 +256,7 @@ namespace bongocat::config {
         config.mirror_x = config.mirror_x ? 1 : 0;
         config.mirror_y = config.mirror_y ? 1 : 0;
         config.randomize_index = config.randomize_index ? 1 : 0;
+        config.enable_antialiasing = config.enable_antialiasing ? 1 : 0;
 
         config_validate_dimensions(config);
         config_validate_timing(config);
@@ -359,6 +362,8 @@ namespace bongocat::config {
             config.mirror_x = int_value;
         } else if (strcmp(key, MIRROR_Y_KEY) == 0) {
             config.mirror_y = int_value;
+        } else if (strcmp(key, ENABLE_ANTIALIASING_KEY) == 0) {
+            config.enable_antialiasing = int_value;
         } else if (strcmp(key, ENABLE_DEBUG_KEY) == 0) {
             config.enable_debug = int_value;
         } else if (strcmp(key, ANIMATION_INDEX_KEY) == 0) {
@@ -685,6 +690,7 @@ namespace bongocat::config {
         cfg.overlay_opacity = DEFAULT_OVERLAY_OPACITY;
         cfg.mirror_x = 0;
         cfg.mirror_y = 0;
+        cfg.enable_antialiasing = DEFAULT_ENABLE_ANTIALIASING;
         cfg.enable_debug = DEFAULT_ENABLE_DEBUG;
         cfg.layer = DEFAULT_LAYER;
         cfg.overlay_position = DEFAULT_OVERLAY_POSITION;
@@ -740,6 +746,8 @@ namespace bongocat::config {
                 break;
         }
         BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.randomize_index);
+        BONGOCAT_LOG_DEBUG("  Mirror: X=%d, Y=%d", config.mirror_x, config.mirror_y);
+        BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing ? "enabled" : "disabled");
         BONGOCAT_LOG_DEBUG("  Position: %s", config.overlay_position == overlay_position_t::POSITION_TOP ? "top" : "bottom");
         BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align, config.cat_align == align_type_t::ALIGN_CENTER ? "(center)" : "");
         BONGOCAT_LOG_DEBUG("  Layer: %s", config.layer == layer_type_t::LAYER_TOP ? "top" : "overlay");
