@@ -261,6 +261,90 @@ _Build with `-DFEATURE_MS_AGENT_EMBEDDED_ASSETS` and `-DFEATURE_MORE_MS_AGENT_EM
 
 _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
 
+- `agumon`
+- `airdramon`
+- `andromon`
+- `angemon`
+- `bakemon`
+- `betamon`
+- `birdramon`
+- `botamon`
+- `centalmon`
+- `cockatrimon`
+- `coelamon`
+- `coronamon`
+- `cyclomon`
+- `dark_tyranomon`
+- `deltamon`
+- `devidramon`
+- `devimon`
+- `digitamamon`
+- `drimogemon`
+- `elecmon`
+- `etemon`
+- `ex_tyranomon`
+- `flymon`
+- `gabumon`
+- `garurumon`
+- `gazimon`
+- `giromon`
+- `gizamon`
+- `greymon`
+- `kabuterimon`
+- `koromon`
+- `kunemon`
+- `kuwagamon`
+- `leomon`
+- `mamemon`
+- `megadramon`
+- `meramon`
+- `metal_greymon`
+- `metal_mamemon`
+- `metal_tyranomon`
+- `mojyamon`
+- `monochromon`
+- `monzaemon`
+- `nanimon`
+- `nanomon`
+- `numemon`
+- `ogremon`
+- `pagumon`
+- `palmon`
+- `patamon`
+- `piccolomon`
+- `piyomon`
+- `poyomon`
+- `punimon`
+- `raremon`
+- `scumon`
+- `seadramon`
+- `shellmon`
+- `skull_greymon`
+- `tanemon`
+- `tokomon`
+- `tunomon`
+- `tuskmon`
+- `tyranomon`
+- `unimon`
+- `vademon`
+- `vegimon`
+- `whamon`
+- `yukidarumon`
+- `yuramon`
+
+</details>
+
+
+###### 20th Anniversary [dm20](https://humulos.com/digimon/dm20/)
+
+<details>
+<summary>Full List</summary>
+
+_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM20_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
+_dm20 will replace dm, if both are enabled_
+
+Should be the same as dm, but with some extras:
+
 - `aegisdramon`
 - `agumon`
 - `airdramon`
@@ -272,10 +356,6 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `bakemon`
 - `bancho_mamemon`
 - `bao_hackmon`
-- `barbamon`
-- `beezlebumon`
-- `belial_vamdemon`
-- `belphemon_rage_mode`
 - `betamon`
 - `birdramon`
 - `blitz_greymon`
@@ -287,14 +367,11 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `coredramon_blue`
 - `coredramon_green`
 - `coronamon`
-- `craniummon`
 - `crescemon`
 - `cres_garurumon`
 - `cyclomon`
 - `dark_tyranomon`
-- `deathmon`
 - `deltamon`
-- `demon`
 - `devidramon`
 - `devimon`
 - `dianamon`
@@ -306,11 +383,9 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `dorumon`
 - `dracomon`
 - `drimogemon`
-- `duftmon`
-- `dukemon`
 - `duramon`
 - `durandamon`
-- `dynasmon`
+- `durandramon`
 - `elecmon`
 - `etemon`
 - `examon`
@@ -319,7 +394,6 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `flaremon`
 - `flymon`
 - `gabumon`
-- `gankoomon`
 - `garurumon`
 - `gazimon`
 - `giromon`
@@ -329,7 +403,6 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `groundramon`
 - `hackmon`
 - `hi_andromon`
-- `imperiadramon_paladin`
 - `jesmon`
 - `jijimon`
 - `kabuterimon`
@@ -339,26 +412,22 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `kuwagamon`
 - `lekismon`
 - `leomon`
-- `leviamon`
-- `lilithmon`
-- `lord_knightmon`
-- `lucemon_falldown`
 - `lunamon`
-- `magnamon`
 - `mamemon`
 - `megadramon`
 - `meicoomon`
 - `meicrackmon`
 - `meramon`
+- `metal_garurumon`
 - `metal_greymon`
-- `metal_greymon_virus`
 - `metal_mamemon`
 - `metal_tyranomon`
 - `mojyamon`
+- `monchromon`
 - `monochromon`
 - `monzaemon`
+- `mozaemon`
 - `mugendramon`
-- `murmukusmon`
 - `nanimon`
 - `nanomon`
 - `numemon`
@@ -367,6 +436,7 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `omegamon_alter_s`
 - `omegamon`
 - `pagumon`
+- `pakumon`
 - `palmon`
 - `patamon`
 - `petitmon`
@@ -390,7 +460,7 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `skull_greymon`
 - `skull_mammon`
 - `slayerdramon`
-- `sleipmon`
+- `taichi_metal_greymon`
 - `taichis_agumon`
 - `taichis_greymon`
 - `taichis_metal_greymon`
@@ -398,15 +468,18 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `tanemon`
 - `titamon`
 - `tokomon`
+- `tsunomon`
 - `tunomon`
 - `tuskmon`
 - `tyranomon`
-- `ulforce_v_dramon`
 - `unimon`
 - `vademon`
 - `vegimon`
+- `war_greymon`
+- `were_garurumon`
 - `whamon`
 - `wingdramon`
+- `yamato_gabumon`
 - `yamatos_gabumon`
 - `yamatos_garurumon`
 - `yamatos_metal_garurumon`
@@ -417,21 +490,6 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASS
 - `zubaeagermon`
 - `zubamon`
 - `zurumon`
-
-</details>
-
-
-###### 20th Anniversary [dm20](https://humulos.com/digimon/dm20/)
-
-<details>
-<summary>Full List</summary>
-
-_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM20_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
-_dm20 will replace dm, if both are enabled_
-
-Should be the same as dm, but with some extras:
-
-
 
 </details>
 
