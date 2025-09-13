@@ -2,7 +2,6 @@
 #include "graphics/animation_context.h"
 #include "graphics/animation.h"
 #include "utils/memory.h"
-#include "image_loader/stb_image.hpp"
 #include "image_loader/load_images.h"
 #include <cassert>
 
@@ -16,12 +15,10 @@ namespace bongocat::animation {
                                                                                             int padding_x, int padding_y) {
         generic_sprite_sheet_animation_t ret;
 
-        assert(sprite_data_size <= INT_MAX);
-        /// @TODO: stbi_load_from_memory C++ RAII wrapper
-        Image sprite_sheet = Image(sprite_data, static_cast<int>(sprite_data_size), STBI_rgb_alpha); // Force RGBA
-        if (!sprite_sheet.pixels) {
+        auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS);
+        if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to load sprite sheet. %dx%d", sprite_sheet.width, sprite_sheet.height);
-            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+            return sprite_sheet_error;
         }
 
         assert(frame_columns != 0 && frame_rows != 0 && sprite_sheet.width % frame_columns == 0 && sprite_sheet.height % frame_rows == 0);
@@ -126,12 +123,12 @@ namespace bongocat::animation {
             const assets::embedded_image_t img = get_sprite(i);
 
             BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img.name);
-            assert(img.size <= INT_MAX);
-            loaded_images[i] = Image(img.data, static_cast<int>(img.size), STBI_rgb_alpha);
-            if (!loaded_images[i].pixels) {
-                BONGOCAT_LOG_ERROR("Failed to load embedded image: %s", img.name);
+            auto [loaded_image, image_error] = load_image(img.data, img.size, RGBA_CHANNELS);
+            if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                BONGOCAT_LOG_ERROR("Failed to load embedded image: %s (%d)", img.name, image_error);
                 continue;
             }
+            loaded_images[i] = bongocat::move(loaded_image);
             assert(loaded_images[i].width >= 0);
             assert(loaded_images[i].height >= 0);
             assert(loaded_images[i].channels >= 0);
@@ -165,7 +162,7 @@ namespace bongocat::animation {
             ret.image.channels = 0;
 
             for (size_t i = 0; i < loaded_images.count; i++) {
-                if (loaded_images[i].pixels) stbi_image_free(loaded_images[i].pixels);
+                if (loaded_images[i].pixels) ::free(loaded_images[i].pixels);
                 loaded_images[i].pixels = nullptr;
             }
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
@@ -207,7 +204,7 @@ namespace bongocat::animation {
 
 
         for (size_t i = 0; i < loaded_images.count; i++) {
-            if (loaded_images[i].pixels) stbi_image_free(loaded_images[i].pixels);
+            if (loaded_images[i].pixels) ::free(loaded_images[i].pixels);
             loaded_images[i].pixels = nullptr;
         }
         return ret;

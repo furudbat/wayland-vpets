@@ -15,6 +15,8 @@
 #include <fcntl.h>
 #include <sys/signalfd.h>
 
+#include "image_loader/load_images.h"
+
 // =============================================================================
 // GLOBAL STATE AND CONFIGURATION
 // =============================================================================
@@ -449,6 +451,7 @@ namespace bongocat {
 
         // Initialize animation system
         {
+            animation::init_image_loader();
             auto [animation, animation_error] = animation::create(ctx.config);
             if (animation_error != bongocat_error_t::BONGOCAT_SUCCESS) {
                 BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(animation_error));

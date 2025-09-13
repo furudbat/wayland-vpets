@@ -98,27 +98,39 @@ namespace bongocat::animation {
         if (x2 >= src_w) x2 = src_w - 1;
         if (y2 >= src_h) y2 = src_h - 1;
 
-        float dx = fx - static_cast<float>(x1);
-        float dy = fy - static_cast<float>(y1);
+        const float dx = fx - static_cast<float>(x1);
+        const float dy = fy - static_cast<float>(y1);
 
         // Get the four surrounding pixels
-        int idx_tl = (y1 * src_w + x1) * src_channels; // top-left
-        int idx_tr = (y1 * src_w + x2) * src_channels; // top-right
-        int idx_bl = (y2 * src_w + x1) * src_channels; // bottom-left
-        int idx_br = (y2 * src_w + x2) * src_channels; // bottom-right
+        const int idx_tl = (y1 * src_w + x1) * src_channels; // top-left
+        const int idx_tr = (y1 * src_w + x2) * src_channels; // top-right
+        const int idx_bl = (y2 * src_w + x1) * src_channels; // bottom-left
+        const int idx_br = (y2 * src_w + x2) * src_channels; // bottom-right
 
         // Interpolate each channel
         drawing_get_interpolated_pixel_result_t ret;
         for (int c = 0; c < src_channels; c++) {
-            float top = src[idx_tl + c] * (1.0f - dx) + src[idx_tr + c] * dx;
-            float bottom = src[idx_bl + c] * (1.0f - dx) + src[idx_br + c] * dx;
-            float result = top * (1.0f - dy) + bottom * dy;
+            assert(idx_tl >= 0);
+            assert(idx_tr >= 0);
+            assert(idx_bl >= 0);
+            assert(idx_br >= 0);
+            const size_t tl_idx_c = static_cast<size_t>(idx_tl) + static_cast<size_t>(c);
+            const size_t tr_idx_c = static_cast<size_t>(idx_tr) + static_cast<size_t>(c);
+            const size_t bl_idx_c = static_cast<size_t>(idx_bl) + static_cast<size_t>(c);
+            const size_t br_idx_c = static_cast<size_t>(idx_br) + static_cast<size_t>(c);
 
-            switch (c) {
-                case 0: ret.r = static_cast<uint8_t>(result + 0.5f); break; // R
-                case 1: ret.g = static_cast<uint8_t>(result + 0.5f); break; // G
-                case 2: ret.b = static_cast<uint8_t>(result + 0.5f); break; // B
-                case 3: ret.a = static_cast<uint8_t>(result + 0.5f); break; // A
+            if (tl_idx_c < src_size && tr_idx_c < src_size && bl_idx_c < src_size && br_idx_c < src_size) {
+                float top = static_cast<float>(src[tl_idx_c]) * (1.0f - dx) + static_cast<float>(src[tr_idx_c]) * dx;
+                float bottom = static_cast<float>(src[bl_idx_c]) * (1.0f - dx) + static_cast<float>(src[br_idx_c]) * dx;
+                float result = top * (1.0f - dy) + bottom * dy;
+
+                switch (c) {
+                    case 0: ret.r = static_cast<uint8_t>(result + 0.5f); break; // R
+                    case 1: ret.g = static_cast<uint8_t>(result + 0.5f); break; // G
+                    case 2: ret.b = static_cast<uint8_t>(result + 0.5f); break; // B
+                    case 3: ret.a = static_cast<uint8_t>(result + 0.5f); break; // A
+                    default: break;
+                }
             }
         }
         return ret;

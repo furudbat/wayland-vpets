@@ -15,6 +15,7 @@ namespace bongocat {
         BONGOCAT_ERROR_ANIMATION,
         BONGOCAT_ERROR_THREAD,
         BONGOCAT_ERROR_INVALID_PARAM,
+        BONGOCAT_ERROR_IMAGE,
     };
 
     // Error handling macros

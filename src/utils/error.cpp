@@ -88,6 +88,7 @@ namespace bongocat {
             case bongocat_error_t::BONGOCAT_ERROR_ANIMATION: return "Animation error";
             case bongocat_error_t::BONGOCAT_ERROR_THREAD: return "Thread error";
             case bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM: return "Invalid parameter";
+            case bongocat_error_t::BONGOCAT_ERROR_IMAGE: return "Load image error";
             default: return "Unknown error";
         }
     }
