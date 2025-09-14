@@ -37,7 +37,6 @@ project(bongocat LANGUAGES C CXX VERSION 2.4.0)
 include(CMakeDependentOption)
 option(FEATURE_BONGOCAT_EMBEDDED_ASSETS "Include bongocat assets (default)" ON)
 option(FEATURE_ENABLE_DM_EMBEDDED_ASSETS "Enable include dm embedded assets" ON)
-# TODO: add more dm version assets
 cmake_dependent_option(FEATURE_DM_EMBEDDED_ASSETS "Include dm embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DM20_EMBEDDED_ASSETS "Include dm20 embedded assets (replaces original dm)" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DMC_EMBEDDED_ASSETS "Include dmc embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
@@ -49,7 +48,7 @@ cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS ag
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, sprite switching on hot-reload)" OFF)
 option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" OFF)
-option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (less RAM usage, more CPU usage, sprite lacy-load on config reload) (Recommended)" ON)
+option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)

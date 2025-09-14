@@ -57,9 +57,9 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_i
 echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_sprite.h\"" >> "$OUTPUT_FILE_3"
 echo "" >> "$OUTPUT_FILE_3"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_3"
-echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t i) {" >> "$OUTPUT_FILE_3"
+echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_3"
 echo "        using namespace assets;" >> "$OUTPUT_FILE_3"
-echo "        switch (i) {" >> "$OUTPUT_FILE_3"
+echo "        switch (index) {" >> "$OUTPUT_FILE_3"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -78,7 +78,11 @@ for FILE in "$INPUT_DIR"/*.png; do
     EMBED_SYMBOL="${ASSETS_PREFIX_LOWER}_${IDENTIFIER}_png"
     SIZE_SYMBOL="${EMBED_SYMBOL}_size"
 
-    echo "if (strncmp(lower_value, \"${IDENTIFIER}\", sizeof(\"${IDENTIFIER}\") - 1) == 0) {" >> "$OUTPUT_FILE_1"
+    echo "// check for ${NAME_NO_EXT} (${IDENTIFIER})" >> "$OUTPUT_FILE_1"
+    echo "if (strcmp(lower_value, ${MACRO_PREFIX}_NAME) == 0 ||" >> "$OUTPUT_FILE_1"
+    echo "    strcmp(lower_value, ${MACRO_PREFIX}_ID) == 0 ||" >> "$OUTPUT_FILE_1"
+    echo "    strcmp(lower_value, ${MACRO_PREFIX}_FQID) == 0 ||" >> "$OUTPUT_FILE_1"
+    echo "    strcmp(lower_value, ${MACRO_PREFIX}_FQNAME) == 0) {" >> "$OUTPUT_FILE_1"
     echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
     echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
     echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;" >> "$OUTPUT_FILE_1"
@@ -86,7 +90,7 @@ for FILE in "$INPUT_DIR"/*.png; do
 
     echo "init_${ASSETS_PREFIX_LOWER}_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_2"
 
-    echo "        case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
+    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
 
 
     ((INDEX++))

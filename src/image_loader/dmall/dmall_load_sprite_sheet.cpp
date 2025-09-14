@@ -9,9 +9,8 @@
 
 namespace bongocat::animation {
     created_result_t<dm_animation_t> load_dmall_sprite_sheet(const animation_context_t& ctx, int index) {
-        using namespace animation;
         using namespace assets;
-        switch(index) {
+        switch (index) {
             case DMALL_AEGISDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMALL_AEGISDRAMON_ANIM_INDEX, get_dmall_sprite_sheet(DMALL_AEGISDRAMON_ANIM_INDEX), DMALL_AEGISDRAMON_SPRITE_SHEET_COLS, DMALL_AEGISDRAMON_SPRITE_SHEET_ROWS);
             case DMALL_AERO_V_DRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMALL_AERO_V_DRAMON_ANIM_INDEX, get_dmall_sprite_sheet(DMALL_AERO_V_DRAMON_ANIM_INDEX), DMALL_AERO_V_DRAMON_SPRITE_SHEET_COLS, DMALL_AERO_V_DRAMON_SPRITE_SHEET_ROWS);
             case DMALL_AGUMON_2006_ANIM_INDEX: return load_dm_anim(ctx, DMALL_AGUMON_2006_ANIM_INDEX, get_dmall_sprite_sheet(DMALL_AGUMON_2006_ANIM_INDEX), DMALL_AGUMON_2006_SPRITE_SHEET_COLS, DMALL_AGUMON_2006_SPRITE_SHEET_ROWS);

@@ -101,8 +101,6 @@ namespace bongocat::config {
     static inline constexpr size_t VALUE_BUF = 256;
     static inline constexpr size_t LINE_BUF  = 512;
 
-    static inline constexpr auto BONGOCAT_NAME = "bongocat";
-
     // =============================================================================
     // CONFIGURATION VALIDATION MODULE
     // =============================================================================
@@ -539,6 +537,7 @@ namespace bongocat::config {
                 config.sleep_end.min = 0;
             }
         } else if (strcmp(key, ANIMATION_NAME_KEY) == 0) {
+            using namespace assets;
             char lower_value[VALUE_BUF] = {};
             memset(lower_value, 0, VALUE_BUF);
             for(size_t i = 0; i < strlen(value) && i < VALUE_BUF; i++) {
@@ -552,7 +551,10 @@ namespace bongocat::config {
 
             if constexpr (features::EnableBongocatEmbeddedAssets) {
                 // check for bongocat
-                if (strcmp(lower_value, BONGOCAT_NAME) == 0) {
+                if (strcmp(lower_value, BONGOCAT_NAME) == 0 ||
+                    strcmp(lower_value, BONGOCAT_ID) == 0 ||
+                    strcmp(lower_value, BONGOCAT_FQID) == 0 ||
+                    strcmp(lower_value, BONGOCAT_FQNAME) == 0) {
                     config.animation_index = BONGOCAT_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
                 }
@@ -584,18 +586,24 @@ namespace bongocat::config {
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
 #include "dmall_config_parse_enum_key.cpp.inl"
 #endif
-            /// @NOTE(config): add more dm versions here
+            /// @NOTE(assets): 3. add more dm versions here
             }
 
             if constexpr (features::EnableMsAgentEmbeddedAssets) {
-                // check for ms pets (clipp
-                if (strcmp(lower_value, "clippy") == 0) {
+                // check for ms pets (clippy)
+                if (strcmp(lower_value, CLIPPY_NAME) == 0 ||
+                    strcmp(lower_value, CLIPPY_ID) == 0 ||
+                    strcmp(lower_value, CLIPPY_FQID) == 0 ||
+                    strcmp(lower_value, CLIPPY_FQNAME) == 0) {
                     config.animation_index = CLIPPY_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-                /// @NOTE(config): add more MS Pets here
-                if (strcmp(lower_value, "links") == 0) {
+                /// @NOTE(assets): 3. add more MS Pets here
+                if (strcmp(lower_value, LINKS_NAME) == 0 ||
+                    strcmp(lower_value, LINKS_ID) == 0 ||
+                    strcmp(lower_value, LINKS_FQID) == 0 ||
+                    strcmp(lower_value, LINKS_FQNAME) == 0) {
                     config.animation_index = LINKS_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }

@@ -530,14 +530,14 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
     FileDescriptor create_shm(off_t size) {
         char* name = strdup(CREATE_SHM_NAME_TEMPLATE);
-        constexpr auto charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        constexpr size_t charset_len = sizeof(charset) - 1;
+        constexpr char charset_arr[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        constexpr size_t charset_len = sizeof(charset_arr) - 1;
         int fd = -1;
 
         for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
             for (size_t j = 0; j < CREATE_SHM_NAME_SUFFIX_LEN; j++) {
-                assert(sizeof(charset) - 1 > 0);
-                name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset[rand() % static_cast<int>(charset_len)];
+                assert(sizeof(charset_arr) - 1 > 0);
+                name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rand() % static_cast<int>(charset_len)];
             }
             fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
             if (fd >= 0) {

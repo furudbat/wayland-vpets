@@ -3,15 +3,15 @@ pkgs.mkShellNoCC {
   nativeBuildInputs = with pkgs; [
     # Build dependencies
     # Core
-    pkg-config # Finds build dependencies
-    gcc # C/C++ compiler and also for `make`
+    pkg-config  # Finds build dependencies
+    gcc         # C/C++ compiler and also for `make`
 
     # Wayland
     wayland-scanner
 
     # Devtools
-    gdb # Debugger
-    valgrind # Memory debugger
+    gdb         # Debugger
+    valgrind    # Memory debugger
     clang-tools # Useful tools for C/C++ including a formatter `clang-format`
 
     # Optional tools for input device debugging
@@ -35,7 +35,6 @@ pkgs.mkShellNoCC {
     echo "  make debug        - Build with debug symbols"
     echo "  make release      - Build in release mode with optimizations and such (Longer compile time)"
     echo "  make protocols    - Generate protocol files"
-    echo "  make embed-assets - Generate embedded assets"
     echo "  make clean        - Clean build artifacts"
     echo "  make memcheck     - Run with valgrind (Requires debug build)"
     echo ""

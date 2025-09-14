@@ -1,5 +1,5 @@
-#ifndef BONGOCAT_EMBEDDED_ASSETS_DM20_H
-#define BONGOCAT_EMBEDDED_ASSETS_DM20_H
+#ifndef BONGOCAT_EMBEDDED_ASSETS_DM20_SPRITE_H
+#define BONGOCAT_EMBEDDED_ASSETS_DM20_SPRITE_H
 
 #include "embedded_assets/embedded_image.h"
 
@@ -8,3 +8,4 @@ namespace bongocat::assets {
 }
 
 #endif
+

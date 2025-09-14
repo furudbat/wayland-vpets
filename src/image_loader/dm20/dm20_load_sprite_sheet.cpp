@@ -9,7 +9,6 @@
 
 namespace bongocat::animation {
     created_result_t<dm_animation_t> load_dm20_sprite_sheet(const animation_context_t& ctx, int index) {
-        using namespace animation;
         using namespace assets;
         switch (index) {
             case DM20_AEGISDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_AEGISDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_AEGISDRAMON_ANIM_INDEX), DM20_AEGISDRAMON_SPRITE_SHEET_COLS, DM20_AEGISDRAMON_SPRITE_SHEET_ROWS);
@@ -162,3 +161,4 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 }
+

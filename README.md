@@ -63,12 +63,13 @@ bongocat --config ~/.config/bongocat.conf --watch-config
 
 ```bash
 # Install dependencies
-sudo dnf install wayland-devel wayland-protocols-devel gcc make
+sudo dnf install wayland-devel wayland-protocols-devel gcc make cmake
 
 # Build from source
 git clone https://github.com/furudbat/wayland-vpets.git
 cd wayland-vpets
-make
+cmake -B build
+cmake --build build
 
 # Run
 ./build/bongocat

@@ -5,7 +5,7 @@ CXX = g++
 # Build type (debug or release)
 BUILD_TYPE ?= release
 
-ONLY_BONGOCAT ?= 0
+ONLY_BONGOCAT ?= 1
 
 # Directories
 SRCDIR = src
@@ -63,20 +63,12 @@ else
 endif
 
 # Source files (including embedded assets which are now committed)
-CXX_SRC = $(SRCDIR)/image_loader/min_dm/load_images_min_dm.cpp \
-    $(SRCDIR)/image_loader/min_dm/min_dm_load_sprite_sheet.cpp \
-    $(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp \
-    $(SRCDIR)/image_loader/base_dm/load_dm.cpp \
-    $(SRCDIR)/image_loader/load_images.cpp \
+CXX_SRC = $(SRCDIR)/image_loader/load_images.cpp \
     $(SRCDIR)/image_loader/load_images_stb_image.cpp \
-    $(SRCDIR)/image_loader/ms_agent/load_images_ms_agent.cpp \
     $(SRCDIR)/utils/memory.cpp \
     $(SRCDIR)/utils/system_memory.cpp \
     $(SRCDIR)/utils/error.cpp \
     $(SRCDIR)/utils/time.cpp \
-    $(SRCDIR)/embedded_assets/min_dm/min_dm_get_sprite_sheet.cpp \
-    $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp \
-    $(SRCDIR)/embedded_assets/ms_agent/embedded_assets_ms_agent.cpp \
     $(SRCDIR)/core/main.cpp \
     $(SRCDIR)/platform/input.cpp \
     $(SRCDIR)/platform/wayland.cpp \
@@ -86,7 +78,21 @@ CXX_SRC = $(SRCDIR)/image_loader/min_dm/load_images_min_dm.cpp \
     $(SRCDIR)/graphics/drawing_images.cpp \
     $(SRCDIR)/config/config_watcher.cpp \
     $(SRCDIR)/config/config.cpp
-C_SRC = $(SRCDIR)/embedded_assets/min_dm/min_dm_images.c $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c $(SRCDIR)/embedded_assets/ms_agent/ms_agent_images.c $(SRCDIR)/image_loader/stb_image.c
+C_SRC = $(SRCDIR)/image_loader/stb_image.c
+ifeq ($(ONLY_BONGOCAT),1)
+	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c
+	CXX_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp $(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp
+else
+	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c $(SRCDIR)/embedded_assets/min_dm/min_dm_images.c $(SRCDIR)/embedded_assets/ms_agent/ms_agent_images.c
+	CXX_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp \
+		$(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp \
+		$(SRCDIR)/image_loader/min_dm/load_images_min_dm.cpp \
+		$(SRCDIR)/image_loader/min_dm/min_dm_load_sprite_sheet.cpp \
+		$(SRCDIR)/image_loader/base_dm/load_dm.cpp \
+		$(SRCDIR)/embedded_assets/min_dm/min_dm_get_sprite_sheet.cpp \
+		$(SRCDIR)/image_loader/ms_agent/load_images_ms_agent.cpp \
+    	$(SRCDIR)/embedded_assets/ms_agent/embedded_assets_ms_agent.cpp
+endif
 
 C_OBJECTS = $(C_SRC:$(SRCDIR)/%.c=$(OBJDIR)/%.o)
 CXX_OBJECTS = $(CXX_SRC:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
@@ -117,6 +123,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)/embedded_assets/dm20
 	mkdir -p $(OBJDIR)/embedded_assets/dmc
 	mkdir -p $(OBJDIR)/embedded_assets/dmx
+	mkdir -p $(OBJDIR)/embedded_assets/dmall
 	mkdir -p $(OBJDIR)/embedded_assets/min_dm
 	mkdir -p $(OBJDIR)/embedded_assets/ms_agent
 	mkdir -p $(OBJDIR)/graphics
@@ -127,6 +134,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)/image_loader/dm20
 	mkdir -p $(OBJDIR)/image_loader/dmc
 	mkdir -p $(OBJDIR)/image_loader/dmx
+	mkdir -p $(OBJDIR)/image_loader/dmall
 	mkdir -p $(OBJDIR)/image_loader/min_dm
 	mkdir -p $(OBJDIR)/image_loader/ms_agent
 	mkdir -p $(OBJDIR)/platform

@@ -1,5 +1,5 @@
-#ifndef DM20_EMBEDDED_ASSETS_H
-#define DM20_EMBEDDED_ASSETS_H
+#ifndef BONGOCAT_EMBEDDED_ASSETS_DM20_H
+#define BONGOCAT_EMBEDDED_ASSETS_DM20_H
 
 #include <stddef.h>
 
@@ -586,5 +586,5 @@ extern const unsigned char dm20_zurumon_png[];
 extern const size_t dm20_zurumon_png_size;
 
 
-#endif // DM20_EMBEDDED_ASSETS_H
+#endif // BONGOCAT_EMBEDDED_ASSETS_DM20_H
 

@@ -9,7 +9,6 @@
 
 namespace bongocat::animation {
     created_result_t<dm_animation_t> load_dmc_sprite_sheet(const animation_context_t& ctx, int index) {
-        using namespace animation;
         using namespace assets;
         switch (index) {
             case DMC_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_AGUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_AGUMON_ANIM_INDEX), DMC_AGUMON_SPRITE_SHEET_COLS, DMC_AGUMON_SPRITE_SHEET_ROWS);
@@ -106,3 +105,4 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 }
+

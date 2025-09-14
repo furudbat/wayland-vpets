@@ -4,9 +4,9 @@
 #include "embedded_assets/dmc/dmc_sprite.h"
 
 namespace bongocat::assets {
-    embedded_image_t get_dmc_sprite_sheet(size_t i) {
+    embedded_image_t get_dmc_sprite_sheet(size_t index) {
         using namespace assets;
-        switch (i) {
+        switch (index) {
             case DMC_AGUMON_ANIM_INDEX: return {dmc_agumon_png, dmc_agumon_png_size, "agumon"};
             case DMC_AIRDRAMON_ANIM_INDEX: return {dmc_airdramon_png, dmc_airdramon_png_size, "airdramon"};
             case DMC_ANDROMON_ANIM_INDEX: return {dmc_andromon_png, dmc_andromon_png_size, "andromon"};
@@ -101,3 +101,4 @@ namespace bongocat::assets {
         return { nullptr, 0, "" };
     }
 }
+

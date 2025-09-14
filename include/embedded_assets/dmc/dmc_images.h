@@ -1,5 +1,5 @@
-#ifndef DMC_EMBEDDED_ASSETS_H
-#define DMC_EMBEDDED_ASSETS_H
+#ifndef BONGOCAT_EMBEDDED_ASSETS_DMC_H
+#define BONGOCAT_EMBEDDED_ASSETS_DMC_H
 
 #include <stddef.h>
 
@@ -362,5 +362,5 @@ extern const unsigned char dmc_zurumon_png[];
 extern const size_t dmc_zurumon_png_size;
 
 
-#endif // DMC_EMBEDDED_ASSETS_H
+#endif // BONGOCAT_EMBEDDED_ASSETS_DMC_H
 
