@@ -5,7 +5,6 @@
 
 namespace bongocat::assets {
     embedded_image_t get_dmall_sprite_sheet(size_t index) {
-        using namespace assets;
         switch (index) {
             case DMALL_AEGISDRAMON_ANIM_INDEX: return {dmall_aegisdramon_png, dmall_aegisdramon_png_size, "aegisdramon"};
             case DMALL_AERO_V_DRAMON_ANIM_INDEX: return {dmall_aero_v_dramon_png, dmall_aero_v_dramon_png_size, "aero_v_dramon"};

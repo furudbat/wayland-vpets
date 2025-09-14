@@ -13,6 +13,24 @@
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+#include "dm_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
+#include "dm20_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "pen20_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
+#include "dmx_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+#include "dmc_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+#include "dmall_config_parse_animation_name.h"
+#endif
 
 // =============================================================================
 // CONFIGURATION CONSTANTS AND VALIDATION RANGES
@@ -562,31 +580,33 @@ namespace bongocat::config {
 
             // check for dm
             if constexpr (features::EnableDmEmbeddedAssets) {
+                using namespace assets;
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
             //if (strcmp(lower_value, "agumon") == 0) {
             //    config->animation_index = DM_AGUMON_ANIM_INDEX;
             //}
 #include "min_dm_config_parse_enum_key.cpp.inl"
 #endif
+
+                /// @NOTE(assets): 3. add more dm versions here, config animation_name parsing
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-#include "dm_config_parse_enum_key.cpp.inl"
+                config_parse_animation_name_dm(config, lower_value);
 #endif
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
-#include "dm20_config_parse_enum_key.cpp.inl"
+                config_parse_animation_name_dm20(config, lower_value);
 #endif
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "pen20_config_parse_enum_key.cpp.inl"
+                config_parse_animation_name_pen20(config, lower_value);
 #endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
-#include "dmx_config_parse_enum_key.cpp.inl"
+                config_parse_animation_name_dmx(config, lower_value);
 #endif
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "dmc_config_parse_enum_key.cpp.inl"
+                config_parse_animation_name_dmc(config, lower_value);
 #endif
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
-#include "dmall_config_parse_enum_key.cpp.inl"
+                config_parse_animation_name_dmall(config, lower_value);
 #endif
-            /// @NOTE(assets): 3. add more dm versions here
             }
 
             if constexpr (features::EnableMsAgentEmbeddedAssets) {

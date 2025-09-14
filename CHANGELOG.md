@@ -7,6 +7,7 @@ All notable changes to this project will be documented in this file.
 _include changes from 1.2.6 (upstream)_
 
 ### Added
+- **more Sprite** - add custom colored dm sprites (optional)
 - toggle bar visibility via signal (SIGUSR1)
 - strict mode - only start up when valid config
 

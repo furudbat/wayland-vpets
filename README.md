@@ -681,12 +681,13 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DMX_EMBEDDED_AS
 bongocat [OPTIONS]
 
 Options:
-  -h, --help             Show this help message
-  -v, --version          Show version information
-  -c, --config           Specify config file (default: bongocat.conf)
-  -w, --watch-config     Watch config file for changes and reload automatically
+  -h, --help            Show this help message
+  -v, --version         Show version information
+  -c, --config          Specify config file (default: bongocat.conf)
+  -w, --watch-config    Watch config file for changes and reload automatically
   -o, --output-name     Specify output name (overwrite output_name from config)
-  -t, --toggle           Toggle bongocat on/off (start if not running, stop if running)
+  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)
+  --random              Randomize animation_name at start up
 ```
 
 ### Examples
@@ -732,13 +733,15 @@ git clone https://github.com/fudurbat/wayland-vpets.git
 cd wayland-vpets
 
 # Build (production)
-make
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
 
 # Build (debug)
-make debug
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
 
 # Clean
-make clean
+cmake --build build --target clean
 ```
 
 The build process automatically:
@@ -824,7 +827,7 @@ Minimal builds require just a few MB of RAM, while asset-heavy builds may use mo
 |                | Minimum                                                  | Recommended                                                                  |
 |----------------|----------------------------------------------------------|------------------------------------------------------------------------------|
 | **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                  |
-| **RAM**        | **5 MB free** (minimal build with minimal assets)        | **32 MB free** (full builds with all assets, preloaded, and config overhead) |
+| **RAM**        | **10 MB free** (minimal build with minimal assets)       | **64 MB free** (full builds with all assets, preloaded, and config overhead) |
 | **Storage**    | **1 MB free** (binary + config files)                    | **5 MB free** (multiple binaries/builds + config files)                      |
 | **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)            |
 

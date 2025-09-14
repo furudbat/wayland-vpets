@@ -211,7 +211,7 @@ endif()
 # Install
 include(GNUInstallDirs)
 if (FEATURE_MULTI_VERSIONS)
-    # sudo cmake --install ./cmake-build-release-all-assets-multi-lazy-load
+    # sudo cmake --install ./cmake-build-release-all-assets-multi
     install(TARGETS bongocat bongocat-digimon bongocat-digimon-colored bongocat-digimon-colored-all bongocat-ms-agent COMPONENT bongocat-targets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 else()
     install(TARGETS bongocat RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})

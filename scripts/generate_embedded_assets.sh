@@ -132,7 +132,6 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_s
 echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
-echo "        using namespace assets;" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "        switch (index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
 

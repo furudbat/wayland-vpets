@@ -5,7 +5,7 @@ add_library(assets_dmc_feature INTERFACE)
 target_compile_definitions(assets_dmc_feature INTERFACE FEATURE_ENABLE_DM_EMBEDDED_ASSETS FEATURE_DMC_EMBEDDED_ASSETS)
 
 add_library(assets_dmc STATIC)
-target_sources(assets_dmc PRIVATE dmc_get_sprite_sheet.cpp dmc_images.c)
+target_sources(assets_dmc PRIVATE dmc_get_sprite_sheet.cpp dmc_config_parse_animation_name.cpp dmc_images.c)
 target_compile_options(assets_dmc PRIVATE -ffunction-sections -fdata-sections)
 target_include_directories(assets_dmc
         PRIVATE ${INCLUDE_DIR}/embedded_assets/dmc

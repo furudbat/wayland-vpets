@@ -14,23 +14,27 @@ echo "" >> "$REPORT"
 
 P="$(pwd)"
 
-echo '`bloaty ./cmake-build-relwithdebinfo-all-assets-colored-preload/bongocat -d compileunits`' >> "$REPORT"
+echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets-colored-preload/bongocat -d compileunits --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
+echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits,symbols`' >> "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
 
-
-echo '`bloaty ./cmake-build-relwithdebinfo-all-assets-colored-preload/bongocat -d compileunits,symbols`' >> "$REPORT"
+echo '`bloaty ./cmake-build-relwithdebinfo/bongocat -d compileunits,symbols`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets-colored-preload/bongocat -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo/bongocat -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
-
-
 
 echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat -- ./cmake-build-debug/bongocat`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
@@ -39,6 +43,9 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
+
+
+echo '`du -h ./cmake-build-*/bongocat*`' >>  "$REPORT"
 echo '```bash' >> "$REPORT"
 echo "$(du -h ./cmake-build-*/bongocat*)" >>  "$REPORT"
 echo '```' >> "$REPORT"

@@ -43,11 +43,15 @@ mkdir -p "${OUTPUT_DIR}/include"
 OUTPUT_FILE_1="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_config_parse_enum_key.cpp.inl"
 OUTPUT_FILE_2="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_init_dm_anim.cpp.inl"
 OUTPUT_FILE_3="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_get_sprite_sheet.cpp"
+OUTPUT_FILE_4="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_config_parse_animation_name.h"
+OUTPUT_FILE_5="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_config_parse_animation_name.cpp"
 
 # Clean output files at the start
 > "${OUTPUT_FILE_1}"
 > "${OUTPUT_FILE_2}"
 > "${OUTPUT_FILE_3}"
+> "${OUTPUT_FILE_4}"
+> "${OUTPUT_FILE_5}"
 
 GET_SPRITE_SHEET_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet"
 
@@ -58,8 +62,34 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_s
 echo "" >> "$OUTPUT_FILE_3"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_3"
 echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_3"
-echo "        using namespace assets;" >> "$OUTPUT_FILE_3"
 echo "        switch (index) {" >> "$OUTPUT_FILE_3"
+
+
+
+GET_CONFIG_ANIMATION_NAME_FUNC_NAME="get_config_animation_name_${ASSETS_PREFIX_LOWER}"
+CONFIG_PARSE_FUNC_NAME="config_parse_animation_name_${ASSETS_PREFIX_LOWER}"
+OUTPUT_FILE_4_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CONFIG_PARSE_${ASSETS_PREFIX_UPPER}_ANIMATION_NAME_H"
+echo "#ifndef $OUTPUT_FILE_4_HEADER_GUARD" >> "$OUTPUT_FILE_4"
+echo "#define $OUTPUT_FILE_4_HEADER_GUARD" >> "$OUTPUT_FILE_4"
+echo >> "$OUTPUT_FILE_4"
+echo "#include \"config/config.h\"" >> "$OUTPUT_FILE_4"
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$OUTPUT_FILE_4"
+echo >> "$OUTPUT_FILE_4"
+echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_4"
+echo "    [[nodiscard]] extern config_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t i);" >> "$OUTPUT_FILE_4"
+echo "    extern void ${CONFIG_PARSE_FUNC_NAME}(config::config_t& config, const char *value);" >> "$OUTPUT_FILE_4"
+echo "}" >> "$OUTPUT_FILE_4"
+echo >> "$OUTPUT_FILE_4"
+echo "#endif" >> "$OUTPUT_FILE_4"
+echo >> "$OUTPUT_FILE_4"
+
+
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$OUTPUT_FILE_5"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$OUTPUT_FILE_5"
+echo "#include \"${ASSETS_PREFIX_LOWER}_config_parse_animation_name.h\"" >> "$OUTPUT_FILE_5"
+echo "" >> "$OUTPUT_FILE_5"
+echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_5"
+echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -92,6 +122,7 @@ for FILE in "$INPUT_DIR"/*.png; do
 
     echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
 
+    echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::Dm }," >> "$OUTPUT_FILE_5"
 
     ((INDEX++))
 done
@@ -102,3 +133,25 @@ echo "        return { nullptr, 0, \"\" };" >> "$OUTPUT_FILE_3"
 echo "    }" >> "$OUTPUT_FILE_3"
 echo "}" >> "$OUTPUT_FILE_3"
 echo "" >> "$OUTPUT_FILE_3"
+
+echo "    };" >> "$OUTPUT_FILE_5"
+echo "" >> "$OUTPUT_FILE_5"
+echo "    config_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_5"
+echo "        return ${ASSETS_PREFIX_LOWER}_animation_table[index];" >> "$OUTPUT_FILE_5"
+echo "    }" >> "$OUTPUT_FILE_5"
+echo "" >> "$OUTPUT_FILE_5"
+echo "    void ${CONFIG_PARSE_FUNC_NAME}(config::config_t& config, const char *value) {" >> "$OUTPUT_FILE_5"
+echo "        for (const auto& entry : ${ASSETS_PREFIX_LOWER}_animation_table) {" >> "$OUTPUT_FILE_5"
+echo "            if (strcmp(value, entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
+echo "                strcmp(value, entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
+echo "                strcmp(value, entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
+echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
+echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
+echo "                config.animation_dm_set = entry.set;" >> "$OUTPUT_FILE_5"
+echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "$OUTPUT_FILE_5"
+echo "                break;" >> "$OUTPUT_FILE_5"
+echo "            }" >> "$OUTPUT_FILE_5"
+echo "        }" >> "$OUTPUT_FILE_5"
+echo "    }" >> "$OUTPUT_FILE_5"
+echo "}" >> "$OUTPUT_FILE_5"
+echo "" >> "$OUTPUT_FILE_5"

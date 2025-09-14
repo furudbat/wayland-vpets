@@ -118,6 +118,23 @@
       }
     },
     {
+      "name": "relwithdebinfo_all_assets",
+      "displayName": "RelWithDebInfo (All Assets)",
+      "description": "Release build with debug info and ALL assets (full dm versions)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-assets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
       "name": "release_all_assets_colored",
       "displayName": "Release (All Assets + colored)",
       "description": "Release build with ALL assets (full dm versions + dmc)",
