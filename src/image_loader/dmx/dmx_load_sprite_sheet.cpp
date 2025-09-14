@@ -4,7 +4,8 @@
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dmx/dmx.hpp"
 #include "embedded_assets/embedded_image.h"
-#include "embedded_assets/dmx/dmx.h"
+#include "embedded_assets/dmx/dmx_sprite.h"
+#include "image_loader/dmx/load_images_dmx.h"
 
 namespace bongocat::animation {
     created_result_t<dm_animation_t> load_dmx_sprite_sheet(const animation_context_t& ctx, int index) {

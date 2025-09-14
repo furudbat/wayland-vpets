@@ -6,23 +6,27 @@ mkdir -p ./assets/dm20
 mkdir -p ./assets/dmx
 mkdir -p ./assets/dmc
 mkdir -p ./assets/pen20
+mkdir -p ./assets/dmall
 
 touch ./assets/dm/.gitkeep
 touch ./assets/dm20/.gitkeep
 touch ./assets/dmx/.gitkeep
 touch ./assets/dmc/.gitkeep
 touch ./assets/pen20/.gitkeep
+touch ./assets/dmall/.gitkeep
 
 rm ./assets./dm/*.png 2> /dev/null
 rm ./assets./dm20/*.png 2> /dev/null
 rm ./assets./dmx/*.png 2> /dev/null
 rm ./assets./dmc/*.png 2> /dev/null
 rm ./assets./pen20/*.png 2> /dev/null
+rm ./assets./dmall/*.png 2> /dev/null
 
 cp ./assets/input/dm/*.png ./assets/dm/.
 cp ./assets/input/dm20/*.png ./assets/dm20/.
 cp ./assets/input/dmx/*.png ./assets/dmx/.
 cp ./assets/input/pen20/*.png ./assets/pen20/.
+cp ./assets/input/all-colored/*.png ./assets/dmall/.
 
 mkdir -p ./assets/input/dmc-fixed
 rm -rf ./assets/input/dmc-fixed/*.png

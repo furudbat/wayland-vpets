@@ -4,7 +4,8 @@
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dmc/dmc.hpp"
 #include "embedded_assets/embedded_image.h"
-#include "embedded_assets/dmc/dmc.h"
+#include "embedded_assets/dmc/dmc_sprite.h"
+#include "image_loader/dmc/load_images_dmc.h"
 
 namespace bongocat::animation {
     created_result_t<dm_animation_t> load_dmc_sprite_sheet(const animation_context_t& ctx, int index) {

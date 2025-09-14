@@ -60,6 +60,7 @@ namespace bongocat::config {
         dm20,
         dmx,
         dmc,
+        dmall,
     };
 
     struct config_t {

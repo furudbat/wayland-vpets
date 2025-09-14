@@ -3,7 +3,7 @@
 #include "graphics/animation.h"
 #include "utils/memory.h"
 #include "image_loader/load_images.h"
-#include "embedded_assets/ms_agent/ms_agent.h"
+#include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include <cassert>
 

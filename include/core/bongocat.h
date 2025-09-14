@@ -70,7 +70,12 @@ namespace bongocat {
 #else
         inline static constexpr bool EnablePen20EmbeddedAssets = false;
 #endif
-#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS)
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+        inline static constexpr bool EnableDmAllEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableDmAllEmbeddedAssets = false;
+#endif
+#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS) && !defined(FEATURE_DMALL_EMBEDDED_ASSETS)
         inline static constexpr bool EnableMinDmEmbeddedAssets = true;
 #else
         inline static constexpr bool EnableMinDmEmbeddedAssets = false;
@@ -83,6 +88,7 @@ namespace bongocat {
         inline static constexpr bool EnableDmxEmbeddedAssets = false;
         inline static constexpr bool EnablePen20EmbeddedAssets = false;
         inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+        inline static constexpr bool EnableDmAllEmbeddedAssets = false;
 #endif
 
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS

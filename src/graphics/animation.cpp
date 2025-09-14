@@ -20,8 +20,8 @@
 #include "image_loader/dmx/load_images_dmx.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
-#include "embedded_assets/ms_agent/ms_agent.h"
-#include "embedded_assets/min_dm/min_dm.h"
+#include "embedded_assets/ms_agent/ms_agent_sprite.h"
+#include "embedded_assets/min_dm/min_dm_sprite.h"
 
 namespace bongocat::animation {
     // =============================================================================
@@ -1375,6 +1375,9 @@ namespace bongocat::animation {
                         case config::config_animation_dm_set_t::dmc:
                             assert(DMC_ANIM_COUNT <= INT32_MAX && DMC_ANIM_COUNT <= UINT32_MAX);
                             return DMC_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMC_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::dmall:
+                            assert(DMALL_ANIM_COUNT <= INT32_MAX && DMALL_ANIM_COUNT <= UINT32_MAX);
+                            return DMALL_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMALL_ANIM_COUNT-1)) : 0;
                         }
                         break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:
@@ -1408,6 +1411,9 @@ namespace bongocat::animation {
                         case config::config_animation_dm_set_t::dmc:
                             assert(ctx.shm->dmc_anims.count <= INT32_MAX && ctx.shm->dmc_anims.count <= UINT32_MAX);
                             return ctx.shm->dmc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmc_anims.count-1))) : 0;
+                        case config::config_animation_dm_set_t::dmall:
+                            assert(ctx.shm->dmall_anims.count <= INT32_MAX && ctx.shm->dmall_anims.count <= UINT32_MAX);
+                            return ctx.shm->dmall_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmall_anims.count-1))) : 0;
                         }
                         break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:

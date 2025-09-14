@@ -3,7 +3,7 @@
 # === Usage Check ===
 if [[ $# -lt 3 ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
-    echo "Example: $0 assets/dm20 assets/input/dm20 include/graphics/embedded_assets/dm20_images.h src/graphics/embedded_assets/dm20_images.c src/graphics/embedded_assets/dm20.hpp"
+    echo "Example: $0 assets/dm20 assets/input/dm20 include/graphics/embedded_assets/dm20_images.h src/embedded_assets/dm20_images.c include/embedded_assets/dm20.hpp include/embedded_assets/dm20_sprite.h src/embedded_assets/dm20_images.c"
     exit 1
 fi
 
@@ -13,10 +13,14 @@ OG_INPUT_DIR="$2"
 C_HEADER_IMAGES_OUT="$3"
 C_SOURCE_IMAGES_OUT="$4"
 CPP_HEADER_OUT="$5"
+CPP_HEADER_GET_SPRITE_OUT="$6"
+CPP_SOURCE_GET_SPRITE_OUT="$7"
+CPP_SOURCE_LOAD_SPRITE_OUT="$8"
+START_INDEX="$9"
+
 FRAME_SIZE=""
 COLS=""
 ROWS=""
-START_INDEX="$6"
 
 # === Parse args ===
 POSITIONAL_ARGS=()
@@ -37,7 +41,10 @@ OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
 C_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
 C_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
 CPP_HEADER_OUT="${POSITIONAL_ARGS[4]}"
-START_INDEX="${POSITIONAL_ARGS[5]:-0}"
+CPP_HEADER_GET_SPRITE_OUT="${POSITIONAL_ARGS[5]}"
+CPP_SOURCE_GET_SPRITE_OUT="${POSITIONAL_ARGS[6]}"
+CPP_SOURCE_LOAD_SPRITE_OUT="${POSITIONAL_ARGS[7]}"
+START_INDEX="${POSITIONAL_ARGS[8]:-0}"
 
 # === Dependency check ===
 if ! command -v magick &>/dev/null; then
@@ -71,9 +78,12 @@ ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 > "$C_HEADER_IMAGES_OUT"
 > "$C_SOURCE_IMAGES_OUT"
 > "$CPP_HEADER_OUT"
+> "$CPP_HEADER_GET_SPRITE_OUT"
+> "$CPP_SOURCE_GET_SPRITE_OUT"
+> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
 # === Header file intro ===
-C_HEADER_GUARD="${ASSETS_PREFIX_UPPER}_EMBEDDED_ASSETS_H"
+C_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_H"
 echo "#ifndef $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
 echo "#define $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
@@ -82,7 +92,7 @@ echo >> "$C_HEADER_IMAGES_OUT"
 echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
 
-CPP_HEADER_GUARD="${ASSETS_PREFIX_UPPER}_EMBEDDED_ASSETS_HPP"
+CPP_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_HPP"
 echo "#ifndef $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo "#define $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
@@ -99,6 +109,48 @@ echo "#include <stddef.h>" >> "$C_SOURCE_IMAGES_OUT"
 echo >> "$C_SOURCE_IMAGES_OUT"
 echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_SOURCE_IMAGES_OUT"
 echo >> "$C_SOURCE_IMAGES_OUT"
+
+
+GET_SPRITE_SHEET_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet"
+CPP_HEADER_GET_SPRITE_OUT_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_SPRITE_H"
+echo "#ifndef $CPP_HEADER_GET_SPRITE_OUT_HEADER_GUARD" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo "#define $CPP_HEADER_GET_SPRITE_OUT_HEADER_GUARD" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo "namespace bongocat::assets {" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo "    [[nodiscard]] extern embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t i);" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo "}" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo "#endif" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo >> "$CPP_HEADER_GET_SPRITE_OUT"
+
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_images.h\"" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_sprite.h\"" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t i) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "    using namespace assets;" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "    switch(i) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+
+
+LOAD_DM_ANIM_FUNC_NAME="load_dm_anim"
+LOAD_SPRITE_SHEET_FUNC_NAME="load_${ASSETS_PREFIX_LOWER}_sprite_sheet"
+echo "#include \"core/bongocat.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"graphics/animation_context.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"graphics/sprite_sheet.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"image_loader/base_dm/load_dm.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_sprite.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"image_loader/${ASSETS_PREFIX_LOWER}/load_images_${ASSETS_PREFIX_LOWER}.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    created_result_t<dm_animation_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        switch(index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -174,6 +226,10 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo >> "$C_SOURCE_IMAGES_OUT"
     echo >> "$C_SOURCE_IMAGES_OUT" # extra EOL
 
+    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return { $EMBED_SYMBOL, $SIZE_SYMBOL, \"${IDENTIFIER}\"};" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+
+    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+
     ((INDEX++))
 done
 
@@ -186,3 +242,17 @@ echo "}" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "#endif // $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
+
+echo "            default: return { nullptr, 0, "" };" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "        }" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "        return { nullptr, 0, "" };" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "    }" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "}" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
+
+echo "            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        }" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    }" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

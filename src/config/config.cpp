@@ -11,7 +11,7 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
-#include "embedded_assets/ms_agent/ms_agent.h"
+#include "embedded_assets/ms_agent/ms_agent_sprite.h"
 
 
 // =============================================================================
@@ -580,6 +580,9 @@ namespace bongocat::config {
 #endif
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
 #include "dmc_config_parse_enum_key.cpp.inl"
+#endif
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+#include "dmall_config_parse_enum_key.cpp.inl"
 #endif
             /// @NOTE(config): add more dm versions here
             }

@@ -1,6 +1,6 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
-#include "embedded_assets/ms_agent/ms_agent.h"
+#include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/ms_agent/ms_agent_images.h"
 
 namespace bongocat::assets {

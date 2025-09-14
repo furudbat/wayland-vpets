@@ -100,4 +100,20 @@ done
 #    fi
 #done
 
+
+INPUT_DIR="assets/input/all-colored"
+OUTPUT_DIR="assets/dmall"
+for FILE in "$INPUT_DIR"/*.png; do
+    BASENAME=$(basename "$FILE")
+    echo "Processing: $BASENAME"
+
+    "$SCRIPT" "$FILE" "$OUTPUT_DIR/$BASENAME" "$BOTTOM_PADDING" --frame-size "$FRAME_SIZE" --padding "$PADDING"
+
+    if [[ $? -ne 0 ]]; then
+        echo "Failed to process $FILE"
+    else
+        echo "Finished $FILE"
+    fi
+done
+
 echo "All done!"

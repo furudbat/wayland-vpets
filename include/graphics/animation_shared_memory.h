@@ -28,6 +28,7 @@ namespace bongocat::animation {
         platform::MMapArray<animation_t> dm20_anims;
         platform::MMapArray<animation_t> dmc_anims;
         platform::MMapArray<animation_t> dmx_anims;
+        platform::MMapArray<animation_t> dmall_anims;
         platform::MMapArray<animation_t> min_dm_anims;
         platform::MMapArray<animation_t> ms_anims;
 
@@ -68,6 +69,11 @@ namespace bongocat::animation {
             }
             platform::release_allocated_mmap_array(dmx_anims);
 
+            for (size_t i = 0; i < dmall_anims.count; i++) {
+                cleanup_animation(dmall_anims[i]);
+            }
+            platform::release_allocated_mmap_array(dmall_anims);
+
             for (size_t i = 0; i < min_dm_anims.count; i++) {
                 cleanup_animation(min_dm_anims[i]);
             }
@@ -91,6 +97,7 @@ namespace bongocat::animation {
             dm20_anims = other.dm20_anims;
             dmc_anims = other.dmc_anims;
             dmx_anims = other.dmx_anims;
+            dmall_anims = other.dmall_anims;
             min_dm_anims = other.min_dm_anims;
             ms_anims = other.ms_anims;
 
@@ -110,6 +117,7 @@ namespace bongocat::animation {
                 dm20_anims = other.dm20_anims;
                 dmc_anims = other.dmc_anims;
                 dmx_anims = other.dmx_anims;
+                dmall_anims = other.dmall_anims;
                 min_dm_anims = other.min_dm_anims;
                 ms_anims = other.ms_anims;
 
@@ -128,6 +136,7 @@ namespace bongocat::animation {
             dm20_anims = bongocat::move(other.dm20_anims);
             dmc_anims = bongocat::move(other.dmc_anims);
             dmx_anims = bongocat::move(other.dmx_anims);
+            dmall_anims = bongocat::move(other.dmall_anims);
             min_dm_anims = bongocat::move(other.min_dm_anims);
             ms_anims = bongocat::move(other.ms_anims);
 
@@ -143,6 +152,7 @@ namespace bongocat::animation {
             platform::release_allocated_mmap_array(other.dm20_anims);
             platform::release_allocated_mmap_array(other.dmc_anims);
             platform::release_allocated_mmap_array(other.dmx_anims);
+            platform::release_allocated_mmap_array(other.dmall_anims);
             platform::release_allocated_mmap_array(other.min_dm_anims);
             platform::release_allocated_mmap_array(other.ms_anims);
             other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
@@ -161,6 +171,7 @@ namespace bongocat::animation {
                 dm20_anims = bongocat::move(other.dm20_anims);
                 dmc_anims = bongocat::move(other.dmc_anims);
                 dmx_anims = bongocat::move(other.dmx_anims);
+                dmall_anims = bongocat::move(other.dmall_anims);
                 min_dm_anims = bongocat::move(other.min_dm_anims);
                 ms_anims = bongocat::move(other.ms_anims);
 
@@ -176,6 +187,7 @@ namespace bongocat::animation {
                 platform::release_allocated_mmap_array(other.dm20_anims);
                 platform::release_allocated_mmap_array(other.dmc_anims);
                 platform::release_allocated_mmap_array(other.dmx_anims);
+                platform::release_allocated_mmap_array(other.dmall_anims);
                 platform::release_allocated_mmap_array(other.min_dm_anims);
                 platform::release_allocated_mmap_array(other.ms_anims);
                 other.anim_type = config::config_animation_sprite_sheet_layout_t::None;

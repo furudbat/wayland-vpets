@@ -4,7 +4,8 @@
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dm20/dm20.hpp"
 #include "embedded_assets/embedded_image.h"
-#include "embedded_assets/dm20/dm20.h"
+#include "embedded_assets/dm20/dm20_sprite.h"
+#include "image_loader/dm20/load_images_dm20.h"
 
 namespace bongocat::animation {
     created_result_t<dm_animation_t> load_dm20_sprite_sheet(const animation_context_t& ctx, int index) {

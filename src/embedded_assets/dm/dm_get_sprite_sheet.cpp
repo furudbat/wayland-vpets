@@ -1,7 +1,7 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dm/dm.hpp"
 #include "embedded_assets/dm/dm_images.h"
-#include "embedded_assets/dm/dm.h"
+#include "embedded_assets/dm/dm_sprite.h"
 
 namespace bongocat::assets {
     embedded_image_t get_dm_sprite_sheet(size_t i) {

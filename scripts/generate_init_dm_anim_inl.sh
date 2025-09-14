@@ -38,29 +38,28 @@ ASSETS_PREFIX_CLEAN=$(echo "$ASSETS_PREFIX_CLEAN" | sed 's/_\+/_/g')
 ASSETS_PREFIX_LOWER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:upper:]' '[:lower:]')
 ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
+mkdir -p "${OUTPUT_DIR}/include"
 
-OUTPUT_FILE_4="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_config_parse_enum_key.cpp.inl"
-OUTPUT_FILE_6="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_init_dm_anim.cpp.inl"
-OUTPUT_FILE_9="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_get_sprite_sheet.cpp.inl"
-OUTPUT_FILE_10="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_load_sprite_sheet.cpp.inl"
+OUTPUT_FILE_1="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_config_parse_enum_key.cpp.inl"
+OUTPUT_FILE_2="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_init_dm_anim.cpp.inl"
+OUTPUT_FILE_3="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_get_sprite_sheet.cpp"
 
 # Clean output files at the start
-> "$OUTPUT_FILE_4"
-> "$OUTPUT_FILE_6"
-> "$OUTPUT_FILE_9"
+> "${OUTPUT_FILE_1}"
+> "${OUTPUT_FILE_2}"
+> "${OUTPUT_FILE_3}"
 
 GET_SPRITE_SHEET_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet"
-LOAD_SPRITE_SHEET_FUNC_NAME="load_${ASSETS_PREFIX_LOWER}_sprite_sheet"
 
-echo "embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t i) {" >> "$OUTPUT_FILE_9"
-echo "    using namespace animation;" >> "$OUTPUT_FILE_9"
-echo "    using namespace assets;" >> "$OUTPUT_FILE_9"
-echo "    switch (i) {" >> "$OUTPUT_FILE_9"
-
-echo "created_result_t<generic_sprite_sheet_animation_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$OUTPUT_FILE_10"
-echo "    using namespace animation;" >> "$OUTPUT_FILE_10"
-echo "    using namespace assets;" >> "$OUTPUT_FILE_10"
-echo "    switch (index) {" >> "$OUTPUT_FILE_10"
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$OUTPUT_FILE_3"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$OUTPUT_FILE_3"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_images.h\"" >> "$OUTPUT_FILE_3"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_sprite.h\"" >> "$OUTPUT_FILE_3"
+echo "" >> "$OUTPUT_FILE_3"
+echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_3"
+echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t i) {" >> "$OUTPUT_FILE_3"
+echo "        using namespace assets;" >> "$OUTPUT_FILE_3"
+echo "        switch (i) {" >> "$OUTPUT_FILE_3"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -79,30 +78,23 @@ for FILE in "$INPUT_DIR"/*.png; do
     EMBED_SYMBOL="${ASSETS_PREFIX_LOWER}_${IDENTIFIER}_png"
     SIZE_SYMBOL="${EMBED_SYMBOL}_size"
 
-    echo "if (strncmp(lower_value, \"${IDENTIFIER}\", sizeof(\"${IDENTIFIER}\") - 1) == 0) {" >> "$OUTPUT_FILE_4"
-    echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_4"
-    echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_4"
-    echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;" >> "$OUTPUT_FILE_4"
-    echo "}" >> "$OUTPUT_FILE_4"
+    echo "if (strncmp(lower_value, \"${IDENTIFIER}\", sizeof(\"${IDENTIFIER}\") - 1) == 0) {" >> "$OUTPUT_FILE_1"
+    echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
+    echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
+    echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;" >> "$OUTPUT_FILE_1"
+    echo "}" >> "$OUTPUT_FILE_1"
 
-    echo "init_${ASSETS_PREFIX_LOWER}_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_6"
+    echo "init_${ASSETS_PREFIX_LOWER}_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_2"
 
-    echo "        case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_9"
+    echo "        case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
 
-    echo "        case ${MACRO_PREFIX}_ANIM_INDEX: return load_dm_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_10"
 
     ((INDEX++))
 done
 
-echo "        default: return { nullptr, 0, \"\" };" >> "$OUTPUT_FILE_9"
-echo "    }" >> "$OUTPUT_FILE_9"
-echo "    return { nullptr, 0, \"\" };" >> "$OUTPUT_FILE_9"
-echo "}" >> "$OUTPUT_FILE_9"
-echo "" >> "$OUTPUT_FILE_9"
-
-
-echo "        default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;" >> "$OUTPUT_FILE_10"
-echo "    }" >> "$OUTPUT_FILE_10"
-echo "    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;" >> "$OUTPUT_FILE_10"
-echo "}" >> "$OUTPUT_FILE_10"
-echo "" >> "$OUTPUT_FILE_10"
+echo "            default: return { nullptr, 0, \"\" };" >> "$OUTPUT_FILE_3"
+echo "        }" >> "$OUTPUT_FILE_3"
+echo "        return { nullptr, 0, \"\" };" >> "$OUTPUT_FILE_3"
+echo "    }" >> "$OUTPUT_FILE_3"
+echo "}" >> "$OUTPUT_FILE_3"
+echo "" >> "$OUTPUT_FILE_3"

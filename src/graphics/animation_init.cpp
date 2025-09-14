@@ -13,12 +13,13 @@
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/bongocat/bongocat.h"
-#include "embedded_assets/ms_agent/ms_agent.h"
-#include "embedded_assets/dm/dm.h"
-#include "embedded_assets/min_dm/min_dm.h"
-#include "embedded_assets/dm20/dm20.h"
-#include "embedded_assets/dmc/dmc.h"
-#include "embedded_assets/dmx/dmx.h"
+#include "embedded_assets/ms_agent/ms_agent_sprite.h"
+#include "embedded_assets/dm/dm_sprite.h"
+#include "embedded_assets/min_dm/min_dm_sprite.h"
+#include "embedded_assets/dm20/dm20_sprite.h"
+#include "embedded_assets/dmc/dmc_sprite.h"
+#include "embedded_assets/dmx/dmx_sprite.h"
+#include "embedded_assets/dmall/dmall_sprite.h"
 
 // image loader
 #include "image_loader/bongocat/load_images_bongocat.h"
@@ -28,6 +29,7 @@
 #include "image_loader/dm20/load_images_dm20.h"
 #include "image_loader/dmc/load_images_dmc.h"
 #include "image_loader/dmx/load_images_dmx.h"
+#include "image_loader/dmall/load_images_dmall.h"
 
 
 namespace bongocat::animation {
@@ -107,6 +109,13 @@ namespace bongocat::animation {
                     case config::config_animation_dm_set_t::dmc:{
                         if constexpr (features::EnableDmcEmbeddedAssets) {
                             auto [l_result, l_error] = load_dmc_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
+                    case config::config_animation_dm_set_t::dmall:{
+                        if constexpr (features::EnableDmAllEmbeddedAssets) {
+                            auto [l_result, l_error] = load_dmall_sprite_sheet(ctx, anim_index);
                             result = bongocat::move(l_result);
                             error = bongocat::move(l_error);
                         }
@@ -194,6 +203,12 @@ namespace bongocat::animation {
                         }
                         assert(anim_index >= 0);
                         return static_cast<size_t>(anim_index) < anim_shm.dmc_anims.count ? anim_shm.dmc_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                    case config::config_animation_dm_set_t::dmall:
+                        if (features::EnableLazyLoadAssets) {
+                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                        }
+                        assert(anim_index >= 0);
+                        return static_cast<size_t>(anim_index) < anim_shm.dmall_anims.count ? anim_shm.dmall_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
                 }
             }break;
             case config::config_animation_sprite_sheet_layout_t::MsAgent:
