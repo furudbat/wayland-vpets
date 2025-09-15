@@ -3,33 +3,49 @@ name: Release Build
 on:
   push:
     tags:
-      - 'v*.*.*'  # Trigger on version tags
+      - 'v*.*.*'
+      - 'v*-*'
+  workflow_dispatch:
 
 jobs:
-  release:
-    runs-on: ubuntu-latest
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler: [gcc, clang]
+    container:
+      image: archlinux:latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
 
-      - name: Install dependencies
+      - name: Install base dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm \
+            base-devel \
             cmake \
-            pkg-config \
-            libinput-dev \
-            libudev-dev \
-            libwayland-dev \
+            ninja \
+            git \
+            pkgconf \
+            libinput \
+            wayland \
             wayland-protocols \
-            locales \
-            ninja-build \
-            fakeroot \
-            dpkg-dev \
-            rpm \
-            cpack
+            unzip
+
+      - name: Install compiler
+        run: pacman -S --noconfirm ${{ matrix.compiler }}
+
+      - name: Set compiler env
+        run: |
+          if [[ "${{ matrix.compiler }}" == "gcc" ]]; then
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+          else
+            echo "CC=clang" >> $GITHUB_ENV
+            echo "CXX=clang++" >> $GITHUB_ENV
+          fi
 
       - name: Configure CMake (Release)
         run: |
@@ -42,28 +58,33 @@ jobs:
           cd build
           cmake --build . -- -j$(nproc)
 
-      - name: Package
+      - name: Package (TGZ + ZIP)
         run: |
           cd build
-          cpack  # Will generate DEB, RPM, ZIP according to your CPack setup
+          cpack -G TGZ
+          cpack -G ZIP
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.compiler }}
+          path: build/*.{tar.gz,zip}
+
+  publish:
+    needs: build
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Download artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: artifacts
 
       - name: Create GitHub Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        uses: softprops/action-gh-release@v1
         with:
           tag_name: ${{ github.ref_name }}
-          release_name: Release ${{ github.ref_name }}
-          draft: false
-          prerelease: false
-
-      - name: Upload all packages
-        uses: actions/upload-release-asset@v1
+          name: Release ${{ github.ref_name }}
+          prerelease: ${{ contains(github.ref_name, '-') }}
+          files: artifacts/**/*
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        with:
-          upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: build/*
-          asset_name: bongocat-${{ github.ref_name }}.tar.gz
-          asset_content_type: application/octet-stream

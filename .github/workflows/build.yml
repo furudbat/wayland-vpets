@@ -6,23 +6,42 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+          - gcc
+          - clang
+    container:
+      image: archlinux:latest
 
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install dependencies
+      - uses: actions/checkout@v3
+      - name: Install base dependencies
         run: |
-          sudo apt-get update
-          sudo apt-get install -y \
-            build-essential \
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm \
+            base-devel \
             cmake \
-            pkg-config \
-            libinput-dev \
-            libudev-dev \
-            libwayland-dev \
+            ninja \
+            git \
+            pkgconf \
+            libinput \
+            wayland \
             wayland-protocols
+      - name: Install compiler
+        run: |
+          pacman -S --noconfirm ${{ matrix.compiler }}
+      - name: Set compiler env
+        run: |
+          if [[ "${{ matrix.compiler }}" == "gcc" ]]; then
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+          else
+            echo "CC=clang" >> $GITHUB_ENV
+            echo "CXX=clang++" >> $GITHUB_ENV
+          fi
 
       - name: Configure CMake (Debug)
         run: |
@@ -34,8 +53,3 @@ jobs:
         run: |
           cd build
           cmake --build . -- -j$(nproc)
-
-      - name: Run tests (if any)
-        run: |
-          cd build
-          ctest --output-on-failure || true
