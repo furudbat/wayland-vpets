@@ -315,7 +315,7 @@ namespace bongocat::animation {
             if constexpr (features::EnableBongocatEmbeddedAssets) {
                 // Load Bongocat
                 if (should_load_bongocat(config)) {
-                    BONGOCAT_LOG_INFO("Load bongocat sprite sheet frames: %i", BONGOCAT_EMBEDDED_IMAGES_COUNT);
+                    BONGOCAT_LOG_INFO("Load bongocat sprite sheet frames: %d", BONGOCAT_EMBEDDED_IMAGES_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
 
@@ -328,12 +328,12 @@ namespace bongocat::animation {
             if constexpr (features::EnableDmEmbeddedAssets) {
                 // Load dm
                 if (should_load_dm(config)) {
-                    BONGOCAT_LOG_INFO("Load dm sprite sheets: %i", DM_ANIMATIONS_COUNT);
+                    BONGOCAT_LOG_INFO("Load dm sprite sheets: %d", DM_ANIMATIONS_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
 
                     if constexpr (features::EnableMinDmEmbeddedAssets) {
-                        BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %i", MIN_DM_ANIM_COUNT);
+                        BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %d", MIN_DM_ANIM_COUNT);
                         ctx.shm->min_dm_anims = platform::make_allocated_mmap_array<animation_t>(MIN_DM_ANIM_COUNT);
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
                         //init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
@@ -341,7 +341,7 @@ namespace bongocat::animation {
 #endif
                     }
                     if constexpr (features::EnableFullDmEmbeddedAssets) {
-                        BONGOCAT_LOG_INFO("Init dm sprite sheets: %i", DM_ANIM_COUNT);
+                        BONGOCAT_LOG_INFO("Init dm sprite sheets: %d", DM_ANIM_COUNT);
                         ctx.shm->dm_anims = platform::make_allocated_mmap_array<animation_t>(DM_ANIM_COUNT);
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
                         // dm
@@ -349,7 +349,7 @@ namespace bongocat::animation {
 #endif
                     }
                     if constexpr (features::EnableDm20EmbeddedAssets) {
-                        BONGOCAT_LOG_INFO("Init dm20 sprite sheets: %i", DM20_ANIM_COUNT);
+                        BONGOCAT_LOG_INFO("Init dm20 sprite sheets: %d", DM20_ANIM_COUNT);
                         ctx.shm->dm20_anims = platform::make_allocated_mmap_array<animation_t>(DM20_ANIM_COUNT);
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
                         // dm20
@@ -357,7 +357,7 @@ namespace bongocat::animation {
 #endif
                     }
                     if constexpr (features::EnablePen20EmbeddedAssets) {
-                        BONGOCAT_LOG_INFO("Init pen20 sprite sheets: %i", PEN20_ANIM_COUNT);
+                        BONGOCAT_LOG_INFO("Init pen20 sprite sheets: %d", PEN20_ANIM_COUNT);
                         //ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
                         // pen20
@@ -365,7 +365,7 @@ namespace bongocat::animation {
 #endif
                     }
                     if constexpr (features::EnableDmxEmbeddedAssets) {
-                        BONGOCAT_LOG_INFO("Init dmx sprite sheets: %i", DMX_ANIM_COUNT);
+                        BONGOCAT_LOG_INFO("Init dmx sprite sheets: %d", DMX_ANIM_COUNT);
                         ctx.shm->dmx_anims = platform::make_allocated_mmap_array<animation_t>(DMX_ANIM_COUNT);
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
                         // dmx
@@ -373,7 +373,7 @@ namespace bongocat::animation {
 #endif
                     }
                     if constexpr (features::EnableDmcEmbeddedAssets) {
-                        BONGOCAT_LOG_INFO("Init dmc sprite sheets: %i", DMC_ANIM_COUNT);
+                        BONGOCAT_LOG_INFO("Init dmc sprite sheets: %d", DMC_ANIM_COUNT);
                         ctx.shm->dmc_anims = platform::make_allocated_mmap_array<animation_t>(DMC_ANIM_COUNT);
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
                         // dmc
@@ -386,7 +386,7 @@ namespace bongocat::animation {
             if constexpr (features::EnableMsAgentEmbeddedAssets) {
                 // Load Ms Pets (Clippy)
                 if (should_load_ms_agent(config)) {
-                    BONGOCAT_LOG_INFO("Load MS agent sprite sheets: %i", MS_AGENTS_ANIM_COUNT);
+                    BONGOCAT_LOG_INFO("Load MS agent sprite sheets: %d", MS_AGENTS_ANIM_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
 
@@ -404,7 +404,7 @@ namespace bongocat::animation {
             if constexpr (features::EnableDmEmbeddedAssets) {
                 // Load pkmn
                 if (should_load_pkmn(config)) {
-                    BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %i", PKMN_ANIM_COUNT);
+                    BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %d", PKMN_ANIM_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
 

@@ -34,6 +34,8 @@ for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
 
     NAME_NO_EXT="${BASENAME%.png}"
+    NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
+    NAME_NO_EXT="${NAME_NO_EXT^}"
     NAME_CLEAN=$(echo "$NAME_NO_EXT" | sed "s/['().:]//g")
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/[^a-zA-Z0-9]/_/g')
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/_\+/_/g')
@@ -55,6 +57,8 @@ for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
 
     NAME_NO_EXT="${BASENAME%.png}"
+    NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
+    NAME_NO_EXT="${NAME_NO_EXT^}"
     NAME_CLEAN=$(echo "$NAME_NO_EXT" | sed "s/['().:]//g")
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/[^a-zA-Z0-9]/_/g')
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/_\+/_/g')

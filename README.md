@@ -9,11 +9,14 @@ Perfect for streamers, content creators, or anyone who wants to add some fun to 
 ![Bongocat - Demo](assets/demo.gif)  
 _Classic Bongocat_
 
-![Digimon - Demo animated](assets/digimon-demo.gif)  
+![Digimon Greymon - Demo animated](assets/digimon-demo.gif)  
 _Digimon V-Pets_
 
 ![Clippy - Demo animated](assets/clippy-demo.gif)  
 _MS Agent Clippy_
+
+![Pokemon Charizard - Demo](assets/pokemon-demo.png)  
+_Pokemon_
 
 ## ✨ Features
 
@@ -234,25 +237,25 @@ _Build with `-DFEATURE_MS_AGENT_EMBEDDED_ASSETS` and `-DFEATURE_MORE_MS_AGENT_EM
 
 ##### Digimon 🦖
 
-###### Original [dm](https://humulos.com/digimon/dm/)
+###### Original ([`dm`](https://humulos.com/digimon/dm/))
 
 <details>
 <summary>Default Minimal Sprites (from dm Version 1) when no other dms are compiled</summary>
 
-- `botamon`
-- `koromon`
-- `agumon`
-- `betamon`
-- `greymon`
-- `tyranomon`
-- `devimon`
-- `meramon`
-- `airdramon`
-- `seadramon`
-- `numemon`
-- `metal_greymon`
-- `mamemon`
-- `monzaemon`
+- `Botamon`
+- `Koromon`
+- `Agumon`
+- `Betamon`
+- `Greymon`
+- `Tyranomon`
+- `Devimon`
+- `Meramon`
+- `Airdramon`
+- `Seadramon`
+- `Numemon`
+- `Metal Greymon`
+- `Mamemon`
+- `Monzaemon`
 
 </details>
 
@@ -263,81 +266,81 @@ _Build with `-DFEATURE_MS_AGENT_EMBEDDED_ASSETS` and `-DFEATURE_MORE_MS_AGENT_EM
 
 _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
 
-- `agumon`
-- `airdramon`
-- `andromon`
-- `angemon`
-- `bakemon`
-- `betamon`
-- `birdramon`
-- `botamon`
-- `centalmon`
-- `cockatrimon`
-- `coelamon`
-- `coronamon`
-- `cyclomon`
-- `dark_tyranomon`
-- `deltamon`
-- `devidramon`
-- `devimon`
-- `digitamamon`
-- `drimogemon`
-- `elecmon`
-- `etemon`
-- `ex_tyranomon`
-- `flymon`
-- `gabumon`
-- `garurumon`
-- `gazimon`
-- `giromon`
-- `gizamon`
-- `greymon`
-- `kabuterimon`
-- `koromon`
-- `kunemon`
-- `kuwagamon`
-- `leomon`
-- `mamemon`
-- `megadramon`
-- `meramon`
-- `metal_greymon`
-- `metal_mamemon`
-- `metal_tyranomon`
-- `mojyamon`
-- `monochromon`
-- `monzaemon`
-- `nanimon`
-- `nanomon`
-- `numemon`
-- `ogremon`
-- `pagumon`
-- `palmon`
-- `patamon`
-- `piccolomon`
-- `piyomon`
-- `poyomon`
-- `punimon`
-- `raremon`
-- `scumon`
-- `seadramon`
-- `shellmon`
-- `skull_greymon`
-- `tanemon`
-- `tokomon`
-- `tunomon`
-- `tuskmon`
-- `tyranomon`
-- `unimon`
-- `vademon`
-- `vegimon`
-- `whamon`
-- `yukidarumon`
-- `yuramon`
+- `Agumon`
+- `Airdramon`
+- `Andromon`
+- `Angemon`
+- `Bakemon`
+- `Betamon`
+- `Birdramon`
+- `Botamon`
+- `Centalmon`
+- `Cockatrimon`
+- `Coelamon`
+- `Coronamon`
+- `Cyclomon`
+- `Dark Tyranomon`
+- `Deltamon`
+- `Devidramon`
+- `Devimon`
+- `Digitamamon`
+- `Drimogemon`
+- `Elecmon`
+- `Etemon`
+- `Ex-Tyranomon`
+- `Flymon`
+- `Gabumon`
+- `Garurumon`
+- `Gazimon`
+- `Giromon`
+- `Gizamon`
+- `Greymon`
+- `Kabuterimon`
+- `Koromon`
+- `Kunemon`
+- `Kuwagamon`
+- `Leomon`
+- `Mamemon`
+- `Megadramon`
+- `Meramon`
+- `Metal Greymon`
+- `Metal Mamemon`
+- `Metal Tyranomon`
+- `Mojyamon`
+- `Monochromon`
+- `Monzaemon`
+- `Nanimon`
+- `Nanomon`
+- `Numemon`
+- `Ogremon`
+- `Pagumon`
+- `Palmon`
+- `Patamon`
+- `Piccolomon`
+- `Piyomon`
+- `Poyomon`
+- `Punimon`
+- `Raremon`
+- `Scumon`
+- `Seadramon`
+- `Shellmon`
+- `Skull Greymon`
+- `Tanemon`
+- `Tokomon`
+- `Tunomon`
+- `Tuskmon`
+- `Tyranomon`
+- `Unimon`
+- `Vademon`
+- `Vegimon`
+- `Whamon`
+- `Yukidarumon`
+- `Yuramon`
 
 </details>
 
 
-###### 20th Anniversary [dm20](https://humulos.com/digimon/dm20/)
+###### 20th Anniversary ([`dm20`](https://humulos.com/digimon/dm20/))
 
 <details>
 <summary>Full List</summary>
@@ -347,332 +350,995 @@ _dm20 will replace dm, if both are enabled_
 
 Should be the same as dm, but with some extras:
 
-- `aegisdramon`
-- `agumon`
-- `airdramon`
-- `alphamon`
-- `andromon`
-- `angemon`
-- `apollomon`
-- `babydmon`
-- `bakemon`
-- `bancho_mamemon`
-- `bao_hackmon`
-- `betamon`
-- `birdramon`
-- `blitz_greymon`
-- `botamon`
-- `breakdramon`
-- `centalmon`
-- `cockatrimon`
-- `coelamon`
-- `coredramon_blue`
-- `coredramon_green`
-- `coronamon`
-- `crescemon`
-- `cres_garurumon`
-- `cyclomon`
-- `dark_tyranomon`
-- `deltamon`
-- `devidramon`
-- `devimon`
-- `dianamon`
-- `digitamamon`
-- `dodomon`
-- `dorimon`
-- `dorugamon`
-- `doruguremon`
-- `dorumon`
-- `dracomon`
-- `drimogemon`
-- `duramon`
-- `durandamon`
-- `durandramon`
-- `elecmon`
-- `etemon`
-- `examon`
-- `ex_tyranomon`
-- `firamon`
-- `flaremon`
-- `flymon`
-- `gabumon`
-- `garurumon`
-- `gazimon`
-- `giromon`
-- `gizamon`
-- `grace_novamon`
-- `greymon`
-- `groundramon`
-- `hackmon`
-- `hi_andromon`
-- `jesmon`
-- `jijimon`
-- `kabuterimon`
-- `king_etemon`
-- `koromon`
-- `kunemon`
-- `kuwagamon`
-- `lekismon`
-- `leomon`
-- `lunamon`
-- `mamemon`
-- `megadramon`
-- `meicoomon`
-- `meicrackmon`
-- `meramon`
-- `metal_garurumon`
-- `metal_greymon`
-- `metal_mamemon`
-- `metal_tyranomon`
-- `mojyamon`
-- `monchromon`
-- `monochromon`
-- `monzaemon`
-- `mozaemon`
-- `mugendramon`
-- `nanimon`
-- `nanomon`
-- `numemon`
-- `nyaromon`
-- `ogremon`
-- `omegamon_alter_s`
-- `omegamon`
-- `pagumon`
-- `pakumon`
-- `palmon`
-- `patamon`
-- `petitmon`
-- `piccolomon`
-- `pinochimon`
-- `pitchmon`
-- `piyomon`
-- `plotmon`
-- `poyomon`
-- `pukamon`
-- `punimon`
-- `raremon`
-- `rasielmon`
-- `rust_tyranomon`
-- `sakumon`
-- `sakuttomon`
-- `savior_hackmon`
-- `scumon`
-- `seadramon`
-- `shellmon`
-- `skull_greymon`
-- `skull_mammon`
-- `slayerdramon`
-- `taichi_metal_greymon`
-- `taichis_agumon`
-- `taichis_greymon`
-- `taichis_metal_greymon`
-- `taichis_war_greymon`
-- `tanemon`
-- `titamon`
-- `tokomon`
-- `tsunomon`
-- `tunomon`
-- `tuskmon`
-- `tyranomon`
-- `unimon`
-- `vademon`
-- `vegimon`
-- `war_greymon`
-- `were_garurumon`
-- `whamon`
-- `wingdramon`
-- `yamato_gabumon`
-- `yamatos_gabumon`
-- `yamatos_garurumon`
-- `yamatos_metal_garurumon`
-- `yamatos_were_garurumon`
-- `yukidarumon`
-- `yukimi_botamon`
-- `yuramon`
-- `zubaeagermon`
-- `zubamon`
-- `zurumon`
+- `Aegisdramon`
+- `Agumon`
+- `Airdramon`
+- `Alphamon`
+- `Andromon`
+- `Angemon`
+- `Apollomon`
+- `Babydmon`
+- `Bakemon`
+- `Bancho Mamemon`
+- `Bao Hackmon`
+- `Betamon`
+- `Birdramon`
+- `Blitz Greymon`
+- `Botamon`
+- `Breakdramon`
+- `Centalmon`
+- `Cockatrimon`
+- `Coelamon`
+- `Coredramon (Blue)`
+- `Coredramon (Green)`
+- `Coronamon`
+- `Crescemon`
+- `Cres Garurumon`
+- `Cyclomon`
+- `Dark Tyranomon`
+- `Deltamon`
+- `Devidramon`
+- `Devimon`
+- `Dianamon`
+- `Digitamamon`
+- `Dodomon`
+- `Dorimon`
+- `DORUgamon`
+- `DORUguremon`
+- `DORUmon`
+- `Dracomon`
+- `Drimogemon`
+- `Duramon`
+- `Durandamon`
+- `Durandramon`
+- `Elecmon`
+- `Etemon`
+- `Examon`
+- `Ex-Tyranomon`
+- `Firamon`
+- `Flaremon`
+- `Flymon`
+- `Gabumon`
+- `Garurumon`
+- `Gazimon`
+- `Giromon`
+- `Gizamon`
+- `Grace Novamon`
+- `Greymon`
+- `Groundramon`
+- `Hackmon`
+- `Hi Andromon`
+- `Jesmon`
+- `Jijimon`
+- `Kabuterimon`
+- `King Etemon`
+- `Koromon`
+- `Kunemon`
+- `Kuwagamon`
+- `Lekismon`
+- `Leomon`
+- `Lunamon`
+- `Mamemon`
+- `Megadramon`
+- `Meicoomon`
+- `Meicrackmon`
+- `Meramon`
+- `Metal Garurumon`
+- `Metal Greymon`
+- `Metal Mamemon`
+- `Metal Tyranomon`
+- `Mojyamon`
+- `Monchromon`
+- `Monochromon`
+- `Monzaemon`
+- `Mozaemon`
+- `Mugendramon`
+- `Nanimon`
+- `Nanomon`
+- `Numemon`
+- `Nyaromon`
+- `Ogremon`
+- `Omegamon Alter S`
+- `Omegamon`
+- `Pagumon`
+- `Pakumon`
+- `Palmon`
+- `Patamon`
+- `Petitmon`
+- `Piccolomon`
+- `Pinochimon`
+- `Pitchmon`
+- `Piyomon`
+- `Plotmon`
+- `Poyomon`
+- `Pukamon`
+- `Punimon`
+- `Raremon`
+- `Rasielmon`
+- `Rust Tyranomon`
+- `Sakumon`
+- `Sakuttomon`
+- `Savior Hackmon`
+- `Scumon`
+- `Seadramon`
+- `Shellmon`
+- `Skull Greymon`
+- `Skull Mammon`
+- `Slayerdramon`
+- `Taichi Metal Greymon`
+- `Taichis Agumon`
+- `Taichis Greymon`
+- `Taichis Metal Greymon`
+- `Taichis War Greymon`
+- `Tanemon`
+- `Titamon`
+- `Tokomon`
+- `Tsunomon`
+- `Tunomon`
+- `Tuskmon`
+- `Tyranomon`
+- `Unimon`
+- `Vademon`
+- `Vegimon`
+- `War Greymon`
+- `Were Garurumon`
+- `Whamon`
+- `Wingdramon`
+- `Yamato Gabumon`
+- `Yamatos Gabumon`
+- `Yamatos Garurumon`
+- `Yamatos Metal Garurumon`
+- `Yamatos Were Garurumon`
+- `Yukidarumon`
+- `Yukimi Botamon`
+- `Yuramon`
+- `Zubaeagermon`
+- `Zubamon`
+- `Zurumon`
 
 </details>
 
 
-###### X [dmx](https://humulos.com/digimon/dmx/)
+###### X ([`dmx`](https://humulos.com/digimon/dmx/))
 
 <details>
 <summary>Full List</summary>
 
 _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DMX_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
 
-- `agumon_black_x`
-- `agumon_x`
-- `allomon_x`
-- `alphamon_ouryuken`
-- `alphamon`
-- `ancient_sphinxmon`
-- `angewomon_x`
-- `anomalocarimon_x`
-- `bagramon`
-- `barbamon_x`
-- `beel_starmon_x`
-- `beelzebumon_x`
-- `belial_vamdemon`
-- `belphemon_x`
-- `black_wargreymon_x`
-- `cannon_beemon`
-- `cerberumon_x`
-- `chaosdramon_x`
-- `cherubimon_vice_x`
-- `cherubimon_virtue_x`
-- `chocomon`
-- `cho_hakkaimon`
-- `cocomon`
-- `craniummon_x`
-- `crys_paledramon`
-- `cyberdramon_x`
-- `damemon`
-- `dark_knightmon_x`
-- `darkness_bagramon`
-- `dark_tyranomon_x`
-- `demon_x`
-- `diablomon_x`
-- `dinorexmon`
-- `dinotigermon`
-- `dorugamon`
-- `doruguremon`
-- `dorumon`
-- `dracomon_x`
-- `duftmon_x`
-- `dukemon_x`
-- `duskmon`
-- `dynasmon_x`
-- `ebemon_x`
-- `examon`
-- `examon_x`
-- `filmon`
-- `gabumon_x`
-- `gaioumon`
-- `gankoomon_x`
-- `garudamon_x`
-- `giga_seadramon`
-- `ginryumon`
-- `goddramon_x`
-- `gomamon_x`
-- `grademon`
-- `grand_darcumon`
-- `grandis_kuwagamon`
-- `growmon_x`
-- `gummymon`
-- `herissmon`
-- `hexeblaumon`
-- `hisyaryumon`
-- `holydramon_x`
-- `hououmon_x`
-- `impmon_x`
-- `jararchimon`
-- `jazamon`
-- `jazardmon`
-- `jesmon_gx`
-- `jesmon_x`
-- `justimon_x`
-- `kaiser_leomon`
-- `keemon`
-- `keramon_x`
-- `kiimon`
-- `kokuwamon_x`
-- `kuwagamon_x`
-- `lady_devimon_x`
-- `leomon_x`
-- `leviamon_x`
-- `lilimon_x`
-- `lilithmon_x`
-- `lopmon_x`
-- `lord_kightmon_x`
-- `lucemon_x`
-- `magidramon_x`
-- `magnamon_x`
-- `mamemon_x`
-- `mame_tyramon`
-- `mammon_x`
-- `mantaraymon_x`
-- `megalo_growmon_x`
-- `mega_seadramon_x`
-- `mephismon_x`
-- `meramon_x`
-- `metal_fantomon`
-- `metal_garurumon_x`
-- `metal_greymon_virus_x`
-- `metal_greymon_x`
-- `metallicdramon`
-- `metal_piranimon`
-- `metal_tyranomon_x`
-- `minervamon_x`
-- `monzaemon_x`
-- `nefertimon_x`
-- `noble_pumpmon`
-- `numemon_x`
-- `ogremon_x`
-- `ogudomon_x`
-- `okuwamon_x`
-- `omegamon_x`
-- `omega_shoutmon_x`
-- `omekamon`
-- `ophanimon_falldown_mode`
-- `ophanimon_x`
-- `otamamon_x`
-- `ouryumon`
-- `paledramon`
-- `palmon_x`
-- `pegasmon_x`
-- `platinum_numemon`
-- `plesiomon_x`
-- `plotmon_x`
-- `prince_mamemon_x`
-- `pteranmon_x`
-- `pumpmon`
-- `puttimon`
-- `rafflesimon`
-- `raihimon`
-- `rapidmon_x`
-- `rasenmon_fury_mode`
-- `rasenmon`
-- `rekamon_x`
-- `rhinomon_x`
-- `rize_greymon_x`
-- `rosemon_x`
-- `ryudamon`
-- `sakuyamon_x`
-- `sangoupmon`
-- `seadramon_x`
-- `shakomon_x`
-- `siesamon_x`
-- `sistermon_blanc`
-- `skull_baluchimon`
-- `skull_mammon_x`
-- `sleipmon_x`
-- `stiffimon`
-- `tailmon_x`
-- `tierriermon_x`
-- `tiger_vespamon`
-- `tobcatmon`
-- `togemon_x`
-- `tokomon_x`
-- `triceramon_x`
-- `tylomon_x`
-- `tyranomon_x`
-- `ulforce_v_dramon_x`
-- `ultimate_brachimon`
-- `valdurmon`
-- `vamdemon_x`
-- `velgrman`
-- `voltobautamon`
-- `war_greymon_x`
-- `were_garurumon_x`
-- `wizarmon_x`
-- `yaamon`
-- `yatagaramon`
-- `zerimon`
+
+- `Agumon (Black) X`
+- `Agumon X`
+- `Allomon X`
+- `Alphamon Ouryuken`
+- `Alphamon`
+- `Ancient Sphinxmon`
+- `Angewomon X`
+- `Anomalocarimon X`
+- `Bagramon`
+- `Barbamon X`
+- `Beel Starmon X`
+- `Beelzebumon X`
+- `Belial Vamdemon`
+- `Belphemon X`
+- `Black Wargreymon X`
+- `Cannon Beemon`
+- `Cerberumon X`
+- `Chaosdramon X`
+- `Cherubimon (Vice) X`
+- `Cherubimon (Virtue) X`
+- `Chocomon`
+- `Cho Hakkaimon`
+- `Cocomon`
+- `Craniummon X`
+- `Crys Paledramon`
+- `Cyberdramon X`
+- `Damemon`
+- `Dark Knightmon X`
+- `Darkness Bagramon`
+- `Dark Tyranomon X`
+- `Demon X`
+- `Diablomon X`
+- `Dinorexmon`
+- `Dinotigermon`
+- `DORUgamon`
+- `DORUguremon`
+- `DORUmon`
+- `Dracomon X`
+- `Duftmon X`
+- `Dukemon X`
+- `Duskmon`
+- `Dynasmon X`
+- `Ebemon X`
+- `Examon`
+- `Examon X`
+- `Filmon`
+- `Gabumon X`
+- `Gaioumon`
+- `Gankoomon X`
+- `Garudamon X`
+- `Giga Seadramon`
+- `Ginryumon`
+- `Goddramon X`
+- `Gomamon X`
+- `Grademon`
+- `Grand Darcumon`
+- `Grandis Kuwagamon`
+- `Growmon X`
+- `Gummymon`
+- `Herissmon`
+- `Hexeblaumon`
+- `Hisyaryumon`
+- `Holydramon X`
+- `Hououmon X`
+- `Impmon X`
+- `Jararchimon`
+- `Jazamon`
+- `Jazardmon`
+- `Jesmon GX`
+- `Jesmon X`
+- `Justimon X`
+- `Kaiser Leomon`
+- `Keemon`
+- `Keramon X`
+- `Kiimon`
+- `Kokuwamon X`
+- `Kuwagamon X`
+- `Lady Devimon X`
+- `Leomon X`
+- `Leviamon X`
+- `Lilimon X`
+- `Lilithmon X`
+- `Lopmon X`
+- `Lord Kightmon X`
+- `Lucemon X`
+- `Magidramon X`
+- `Magnamon X`
+- `Mamemon X`
+- `Mame Tyramon`
+- `Mammon X`
+- `Mantaraymon X`
+- `Megalo Growmon X`
+- `Mega Seadramon X`
+- `Mephismon X`
+- `Meramon X`
+- `Metal Fantomon`
+- `Metal Garurumon X`
+- `Metal Greymon (Virus) X`
+- `Metal Greymon X`
+- `Metallicdramon`
+- `Metal Piranimon`
+- `Metal Tyranomon X`
+- `Minervamon X`
+- `Monzaemon X`
+- `Nefertimon X`
+- `Noble Pumpmon`
+- `Numemon X`
+- `Ogremon X`
+- `Ogudomon X`
+- `Okuwamon X`
+- `Omegamon X`
+- `Omega Shoutmon X`
+- `Omekamon`
+- `Ophanimon Falldown Mode`
+- `Ophanimon X`
+- `Otamamon X`
+- `Ouryumon`
+- `Paledramon`
+- `Palmon X`
+- `Pegasmon X`
+- `Platinum Numemon`
+- `Plesiomon X`
+- `Plotmon X`
+- `Prince Mamemon X`
+- `Pteranmon X`
+- `Pumpmon`
+- `Puttimon`
+- `Rafflesimon`
+- `Raihimon`
+- `Rapidmon X`
+- `Rasenmon Fury Mode`
+- `Rasenmon`
+- `Rekamon X`
+- `Rhinomon X`
+- `Rize Greymon X`
+- `Rosemon X`
+- `Ryudamon`
+- `Sakuyamon X`
+- `Sangoupmon`
+- `Seadramon X`
+- `Shakomon X`
+- `Siesamon X`
+- `Sistermon Blanc`
+- `Skull Baluchimon`
+- `Skull Mammon X`
+- `Sleipmon X`
+- `Stiffimon`
+- `Tailmon X`
+- `Tierriermon X`
+- `Tiger Vespamon`
+- `Tobcatmon`
+- `Togemon X`
+- `Tokomon X`
+- `Triceramon X`
+- `Tylomon X`
+- `Tyranomon X`
+- `Ulforce V-dramon X`
+- `Ultimate Brachimon`
+- `Valdurmon`
+- `Vamdemon X`
+- `Velgrman`
+- `Voltobautamon`
+- `War Greymon X`
+- `Were Garurumon X`
+- `Wizarmon X`
+- `Yaamon`
+- `Yatagaramon`
+- `Zerimon`
 
 </details>
+
+
+##### Pokemon 🐭 (`pkmn`)
+
+<details>
+<summary>Full List</summary>
+
+_Build with `-DFEATURE_PKMN_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
+
+- `Bulbasaur`
+- `Ivysaur`
+- `Venusaur`
+- `Charmander`
+- `Charmeleon`
+- `Charizard`
+- `Squirtle`
+- `Wartortle`
+- `Blastoise`
+- `Caterpie`
+- `Metapod`
+- `Butterfree`
+- `Weedle`
+- `Kakuna`
+- `Beedrill`
+- `Pidgey`
+- `Pidgeotto`
+- `Pidgeot`
+- `Rattata`
+- `Raticate`
+- `Spearow`
+- `Fearow`
+- `Ekans`
+- `Arbok`
+- `Pikachu`
+- `Raichu`
+- `Sandshrew`
+- `Sandslash`
+- `Nidoran-f`
+- `Nidorina`
+- `Nidoqueen`
+- `Nidoran-m`
+- `Nidorino`
+- `Nidoking`
+- `Clefairy`
+- `Clefable`
+- `Vulpix`
+- `Ninetales`
+- `Jigglypuff`
+- `Wigglytuff`
+- `Zubat`
+- `Golbat`
+- `Oddish`
+- `Gloom`
+- `Vileplume`
+- `Paras`
+- `Parasect`
+- `Venonat`
+- `Venomoth`
+- `Diglett`
+- `Dugtrio`
+- `Meowth`
+- `Persian`
+- `Psyduck`
+- `Golduck`
+- `Mankey`
+- `Primeape`
+- `Growlithe`
+- `Arcanine`
+- `Poliwag`
+- `Poliwhirl`
+- `Poliwrath`
+- `Abra`
+- `Kadabra`
+- `Alakazam`
+- `Machop`
+- `Machoke`
+- `Machamp`
+- `Bellsprout`
+- `Weepinbell`
+- `Victreebel`
+- `Tentacool`
+- `Tentacruel`
+- `Geodude`
+- `Graveler`
+- `Golem`
+- `Ponyta`
+- `Rapidash`
+- `Slowpoke`
+- `Slowbro`
+- `Magnemite`
+- `Magneton`
+- `Farfetchd`
+- `Doduo`
+- `Dodrio`
+- `Seel`
+- `Dewgong`
+- `Grimer`
+- `Muk`
+- `Shellder`
+- `Cloyster`
+- `Gastly`
+- `Haunter`
+- `Gengar`
+- `Onix`
+- `Drowzee`
+- `Hypno`
+- `Krabby`
+- `Kingler`
+- `Voltorb`
+- `Electrode`
+- `Exeggcute`
+- `Exeggutor`
+- `Cubone`
+- `Marowak`
+- `Hitmonlee`
+- `Hitmonchan`
+- `Lickitung`
+- `Koffing`
+- `Weezing`
+- `Rhyhorn`
+- `Rhydon`
+- `Chansey`
+- `Tangela`
+- `Kangaskhan`
+- `Horsea`
+- `Seadra`
+- `Goldeen`
+- `Seaking`
+- `Staryu`
+- `Starmie`
+- `Mr-mime`
+- `Scyther`
+- `Jynx`
+- `Electabuzz`
+- `Magmar`
+- `Pinsir`
+- `Tauros`
+- `Magikarp`
+- `Gyarados`
+- `Lapras`
+- `Ditto`
+- `Eevee`
+- `Vaporeon`
+- `Jolteon`
+- `Flareon`
+- `Porygon`
+- `Omanyte`
+- `Omastar`
+- `Kabuto`
+- `Kabutops`
+- `Aerodactyl`
+- `Snorlax`
+- `Articuno`
+- `Zapdos`
+- `Moltres`
+- `Dratini`
+- `Dragonair`
+- `Dragonite`
+- `Mewtwo`
+- `Mew`
+- `Chikorita`
+- `Bayleef`
+- `Meganium`
+- `Cyndaquil`
+- `Quilava`
+- `Typhlosion`
+- `Totodile`
+- `Croconaw`
+- `Feraligatr`
+- `Sentret`
+- `Furret`
+- `Hoothoot`
+- `Noctowl`
+- `Ledyba`
+- `Ledian`
+- `Spinarak`
+- `Ariados`
+- `Crobat`
+- `Chinchou`
+- `Lanturn`
+- `Pichu`
+- `Cleffa`
+- `Igglybuff`
+- `Togepi`
+- `Togetic`
+- `Natu`
+- `Xatu`
+- `Mareep`
+- `Flaaffy`
+- `Ampharos`
+- `Bellossom`
+- `Marill`
+- `Azumarill`
+- `Sudowoodo`
+- `Politoed`
+- `Hoppip`
+- `Skiploom`
+- `Jumpluff`
+- `Aipom`
+- `Sunkern`
+- `Sunflora`
+- `Yanma`
+- `Wooper`
+- `Quagsire`
+- `Espeon`
+- `Umbreon`
+- `Murkrow`
+- `Slowking`
+- `Misdreavus`
+- `Unown`
+- `Wobbuffet`
+- `Girafarig`
+- `Pineco`
+- `Forretress`
+- `Dunsparce`
+- `Gligar`
+- `Steelix`
+- `Snubbull`
+- `Granbull`
+- `Qwilfish`
+- `Scizor`
+- `Shuckle`
+- `Heracross`
+- `Sneasel`
+- `Teddiursa`
+- `Ursaring`
+- `Slugma`
+- `Magcargo`
+- `Swinub`
+- `Piloswine`
+- `Corsola`
+- `Remoraid`
+- `Octillery`
+- `Delibird`
+- `Mantine`
+- `Skarmory`
+- `Houndour`
+- `Houndoom`
+- `Kingdra`
+- `Phanpy`
+- `Donphan`
+- `Porygon2`
+- `Stantler`
+- `Smeargle`
+- `Tyrogue`
+- `Hitmontop`
+- `Smoochum`
+- `Elekid`
+- `Magby`
+- `Miltank`
+- `Blissey`
+- `Raikou`
+- `Entei`
+- `Suicune`
+- `Larvitar`
+- `Pupitar`
+- `Tyranitar`
+- `Lugia`
+- `Ho-oh`
+- `Celebi`
+- `Treecko`
+- `Grovyle`
+- `Sceptile`
+- `Torchic`
+- `Combusken`
+- `Blaziken`
+- `Mudkip`
+- `Marshtomp`
+- `Swampert`
+- `Poochyena`
+- `Mightyena`
+- `Zigzagoon`
+- `Linoone`
+- `Wurmple`
+- `Silcoon`
+- `Beautifly`
+- `Cascoon`
+- `Dustox`
+- `Lotad`
+- `Lombre`
+- `Ludicolo`
+- `Seedot`
+- `Nuzleaf`
+- `Shiftry`
+- `Taillow`
+- `Swellow`
+- `Wingull`
+- `Pelipper`
+- `Ralts`
+- `Kirlia`
+- `Gardevoir`
+- `Surskit`
+- `Masquerain`
+- `Shroomish`
+- `Breloom`
+- `Slakoth`
+- `Vigoroth`
+- `Slaking`
+- `Nincada`
+- `Ninjask`
+- `Shedinja`
+- `Whismur`
+- `Loudred`
+- `Exploud`
+- `Makuhita`
+- `Hariyama`
+- `Azurill`
+- `Nosepass`
+- `Skitty`
+- `Delcatty`
+- `Sableye`
+- `Mawile`
+- `Aron`
+- `Lairon`
+- `Aggron`
+- `Meditite`
+- `Medicham`
+- `Electrike`
+- `Manectric`
+- `Plusle`
+- `Minun`
+- `Volbeat`
+- `Illumise`
+- `Roselia`
+- `Gulpin`
+- `Swalot`
+- `Carvanha`
+- `Sharpedo`
+- `Wailmer`
+- `Wailord`
+- `Numel`
+- `Camerupt`
+- `Torkoal`
+- `Spoink`
+- `Grumpig`
+- `Spinda`
+- `Trapinch`
+- `Vibrava`
+- `Flygon`
+- `Cacnea`
+- `Cacturne`
+- `Swablu`
+- `Altaria`
+- `Zangoose`
+- `Seviper`
+- `Lunatone`
+- `Solrock`
+- `Barboach`
+- `Whiscash`
+- `Corphish`
+- `Crawdaunt`
+- `Baltoy`
+- `Claydol`
+- `Lileep`
+- `Cradily`
+- `Anorith`
+- `Armaldo`
+- `Feebas`
+- `Milotic`
+- `Castform`
+- `Kecleon`
+- `Shuppet`
+- `Banette`
+- `Duskull`
+- `Dusclops`
+- `Tropius`
+- `Chimecho`
+- `Absol`
+- `Wynaut`
+- `Snorunt`
+- `Glalie`
+- `Spheal`
+- `Sealeo`
+- `Walrein`
+- `Clamperl`
+- `Huntail`
+- `Gorebyss`
+- `Relicanth`
+- `Luvdisc`
+- `Bagon`
+- `Shelgon`
+- `Salamence`
+- `Beldum`
+- `Metang`
+- `Metagross`
+- `Regirock`
+- `Regice`
+- `Registeel`
+- `Latias`
+- `Latios`
+- `Kyogre`
+- `Groudon`
+- `Rayquaza`
+- `Jirachi`
+- `Deoxys`
+- `Turtwig`
+- `Grotle`
+- `Torterra`
+- `Chimchar`
+- `Monferno`
+- `Infernape`
+- `Piplup`
+- `Prinplup`
+- `Empoleon`
+- `Starly`
+- `Staravia`
+- `Staraptor`
+- `Bidoof`
+- `Bibarel`
+- `Kricketot`
+- `Kricketune`
+- `Shinx`
+- `Luxio`
+- `Luxray`
+- `Budew`
+- `Roserade`
+- `Cranidos`
+- `Rampardos`
+- `Shieldon`
+- `Bastiodon`
+- `Burmy`
+- `Wormadam`
+- `Mothim`
+- `Combee`
+- `Vespiquen`
+- `Pachirisu`
+- `Buizel`
+- `Floatzel`
+- `Cherubi`
+- `Cherrim`
+- `Shellos`
+- `Gastrodon`
+- `Ambipom`
+- `Drifloon`
+- `Drifblim`
+- `Buneary`
+- `Lopunny`
+- `Mismagius`
+- `Honchkrow`
+- `Glameow`
+- `Purugly`
+- `Chingling`
+- `Stunky`
+- `Skuntank`
+- `Bronzor`
+- `Bronzong`
+- `Bonsly`
+- `Mime-jr`
+- `Happiny`
+- `Chatot`
+- `Spiritomb`
+- `Gible`
+- `Gabite`
+- `Garchomp`
+- `Munchlax`
+- `Riolu`
+- `Lucario`
+- `Hippopotas`
+- `Hippowdon`
+- `Skorupi`
+- `Drapion`
+- `Croagunk`
+- `Toxicroak`
+- `Carnivine`
+- `Finneon`
+- `Lumineon`
+- `Mantyke`
+- `Snover`
+- `Abomasnow`
+- `Weavile`
+- `Magnezone`
+- `Lickilicky`
+- `Rhyperior`
+- `Tangrowth`
+- `Electivire`
+- `Magmortar`
+- `Togekiss`
+- `Yanmega`
+- `Leafeon`
+- `Glaceon`
+- `Gliscor`
+- `Mamoswine`
+- `Porygon-z`
+- `Gallade`
+- `Probopass`
+- `Dusknoir`
+- `Froslass`
+- `Rotom`
+- `Uxie`
+- `Mesprit`
+- `Azelf`
+- `Dialga`
+- `Palkia`
+- `Heatran`
+- `Regigigas`
+- `Giratina`
+- `Cresselia`
+- `Phione`
+- `Manaphy`
+- `Darkrai`
+- `Shaymin`
+- `Arceus`
+- `Victini`
+- `Snivy`
+- `Servine`
+- `Serperior`
+- `Tepig`
+- `Pignite`
+- `Emboar`
+- `Oshawott`
+- `Dewott`
+- `Samurott`
+- `Patrat`
+- `Watchog`
+- `Lillipup`
+- `Herdier`
+- `Stoutland`
+- `Purrloin`
+- `Liepard`
+- `Pansage`
+- `Simisage`
+- `Pansear`
+- `Simisear`
+- `Panpour`
+- `Simipour`
+- `Munna`
+- `Musharna`
+- `Pidove`
+- `Tranquill`
+- `Unfezant`
+- `Blitzle`
+- `Zebstrika`
+- `Roggenrola`
+- `Boldore`
+- `Gigalith`
+- `Woobat`
+- `Swoobat`
+- `Drilbur`
+- `Excadrill`
+- `Audino`
+- `Timburr`
+- `Gurdurr`
+- `Conkeldurr`
+- `Tympole`
+- `Palpitoad`
+- `Seismitoad`
+- `Throh`
+- `Sawk`
+- `Sewaddle`
+- `Swadloon`
+- `Leavanny`
+- `Venipede`
+- `Whirlipede`
+- `Scolipede`
+- `Cottonee`
+- `Whimsicott`
+- `Petilil`
+- `Lilligant`
+- `Basculin`
+- `Sandile`
+- `Krokorok`
+- `Krookodile`
+- `Darumaka`
+- `Darmanitan`
+- `Maractus`
+- `Dwebble`
+- `Crustle`
+- `Scraggy`
+- `Scrafty`
+- `Sigilyph`
+- `Yamask`
+- `Cofagrigus`
+- `Tirtouga`
+- `Carracosta`
+- `Archen`
+- `Archeops`
+- `Trubbish`
+- `Garbodor`
+- `Zorua`
+- `Zoroark`
+- `Minccino`
+- `Cinccino`
+- `Gothita`
+- `Gothorita`
+- `Gothitelle`
+- `Solosis`
+- `Duosion`
+- `Reuniclus`
+- `Ducklett`
+- `Swanna`
+- `Vanillite`
+- `Vanillish`
+- `Vanilluxe`
+- `Deerling`
+- `Sawsbuck`
+- `Emolga`
+- `Karrablast`
+- `Escavalier`
+- `Foongus`
+- `Amoonguss`
+- `Frillish`
+- `Jellicent`
+- `Alomomola`
+- `Joltik`
+- `Galvantula`
+- `Ferroseed`
+- `Ferrothorn`
+- `Klink`
+- `Klang`
+- `Klinklang`
+- `Tynamo`
+- `Eelektrik`
+- `Eelektross`
+- `Elgyem`
+- `Beheeyem`
+- `Litwick`
+- `Lampent`
+- `Chandelure`
+- `Axew`
+- `Fraxure`
+- `Haxorus`
+- `Cubchoo`
+- `Beartic`
+- `Cryogonal`
+- `Shelmet`
+- `Accelgor`
+- `Stunfisk`
+- `Mienfoo`
+- `Mienshao`
+- `Druddigon`
+- `Golett`
+- `Golurk`
+- `Pawniard`
+- `Bisharp`
+- `Bouffalant`
+- `Rufflet`
+- `Braviary`
+- `Vullaby`
+- `Mandibuzz`
+- `Heatmor`
+- `Durant`
+- `Deino`
+- `Zweilous`
+- `Hydreigon`
+- `Larvesta`
+- `Volcarona`
+- `Cobalion`
+- `Terrakion`
+- `Virizion`
+- `Tornadus`
+- `Thundurus`
+- `Reshiram`
+- `Zekrom`
+- `Landorus`
+- `Kyurem`
+- `Keldeo`
+- `Meloetta`
+- `Genesect`
+
+</details>
+
+
 
 ## 🔧 Usage
 
@@ -689,6 +1355,7 @@ Options:
   -o, --output-name     Specify output name (overwrite output_name from config)
   -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)
   --random              Randomize animation_name at start up
+  --strict              Only start up with a valid config and valid parameter
 ```
 
 ### Examples

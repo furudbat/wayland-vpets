@@ -398,7 +398,7 @@ namespace bongocat::config {
     // CONFIGURATION PARSING MODULE
     // =============================================================================
 
-    static char* config_trim_key(char *key) {
+    static char* config_trim_str(char *key) {
         char *key_start = key;
         while (*key_start == ' ' || *key_start == '\t') key_start++;
 
@@ -744,10 +744,11 @@ namespace bongocat::config {
 
             // Parse key=value pairs
             static_assert(255 < VALUE_BUF);
-            if (sscanf(line, " %255[^=] = %255s", key, value) == 2) {
-                char *trimmed_key = config_trim_key(key);
+            if (sscanf(line, " %255[^=]=%255[^\n]", key, value) == 2) {
+                char *trimmed_key = config_trim_str(key);
+                char *trimmed_value = config_trim_str(value);
 
-                bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, value);
+                bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, trimmed_value);
                 if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
                     BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
                 } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -893,10 +894,12 @@ namespace bongocat::config {
 
         // Set default keyboard device if none specified
         if (ret.num_keyboard_devices == 0) {
-            result = config_set_default_devices(ret);
-            if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
-                return result;
+            if (!ret.strict) {
+                result = config_set_default_devices(ret);
+                if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
+                    return result;
+                }
             }
         }
 
@@ -908,13 +911,15 @@ namespace bongocat::config {
         }
 
         if (ret.num_keyboard_devices == 0) {
-            // Set default keyboard device if none specified
-            result = config_set_default_devices(ret);
-            if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
-                return result;
-            } else {
-                BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
+            if (!ret.strict) {
+                // Set default keyboard device if none specified
+                result = config_set_default_devices(ret);
+                if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
+                    return result;
+                } else {
+                    BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
+                }
             }
         }
 
