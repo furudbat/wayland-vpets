@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-set(CMAKE_CXX_STANDARD 26)
+set(CMAKE_CXX_STANDARD 23)
 set(CMAKE_C_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD_REQUIRED ON)
@@ -31,26 +31,26 @@ endif()
 
 
 
-project(bongocat LANGUAGES C CXX VERSION 2.4.0)
+project(bongocat LANGUAGES C CXX VERSION 3.0.0)
 
 # Feature Flags
 include(CMakeDependentOption)
 option(FEATURE_BONGOCAT_EMBEDDED_ASSETS "Include bongocat assets (default)" ON)
-option(FEATURE_ENABLE_DM_EMBEDDED_ASSETS "Enable include dm embedded assets" ON)
+option(FEATURE_ENABLE_DM_EMBEDDED_ASSETS "Enable include dm embedded assets" OFF)
 cmake_dependent_option(FEATURE_DM_EMBEDDED_ASSETS "Include dm embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DM20_EMBEDDED_ASSETS "Include dm20 embedded assets (replaces original dm)" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DMC_EMBEDDED_ASSETS "Include dmc embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 #cmake_dependent_option(FEATURE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DMALL_EMBEDDED_ASSETS "Include custom colored dm (replace dmc) embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" ON)
+option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" OFF)
 cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS agents (Links) embedded assets" OFF FEATURE_MS_AGENT_EMBEDDED_ASSETS OFF)
-option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" ON)
+option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" OFF)
 # @NOTE(assets): 1. add feature flag for embedded assets
 
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
-option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, sprite switching on hot-reload)" OFF)
-option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" OFF)
+option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, faster sprite switching on hot-reload)" OFF)
+option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" ON)
 option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
@@ -191,7 +191,7 @@ target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_l
 
 if (FEATURE_MULTI_VERSIONS)
     add_executable(bongocat-dm)
-    target_link_libraries(bongocat-dm PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-dm PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)   # include bongocat as fallback
     target_link_libraries(bongocat-dm PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
     target_link_libraries(bongocat-dm PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
     target_link_libraries(bongocat-dm PRIVATE bongocat_base bongocat_options bongocat_libs)
@@ -217,6 +217,17 @@ if (FEATURE_MULTI_VERSIONS)
     target_link_libraries(bongocat-pkmn PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
     target_link_libraries(bongocat-pkmn PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
     target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
+
+    add_executable(bongocat-all)
+    target_link_libraries(bongocat-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)   # include bongocat as fallback
+    target_link_libraries(bongocat-all PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
+    target_link_libraries(bongocat-all PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+    target_link_libraries(bongocat-all PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+    target_link_libraries(bongocat-all PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
+    target_link_libraries(bongocat-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
+    target_link_libraries(bongocat-all PRIVATE assets_ms_agent_loader assets_ms_agent assets_ms_agent_feature assets_ms_agent_interface)
+    target_link_libraries(bongocat-all PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
+    target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     # @NOTE(assets): 1.2. add exec for multi versions
 endif()

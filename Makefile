@@ -23,7 +23,7 @@ BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
 BASE_CFLAGS += -Wjump-misses-init -Wdouble-promotion -Wshadow
 BASE_CFLAGS += -fstack-protector-strong
 
-BASE_CXXFLAGS = -std=c++26 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CXXFLAGS = -std=c++23 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CXXFLAGS += -Wall -Wextra -Wpedantic -Wformat=2
 BASE_CXXFLAGS += -Wredundant-decls
 BASE_CXXFLAGS += -Wmissing-include-dirs -Wlogical-op
@@ -126,6 +126,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)/embedded_assets/dmall
 	mkdir -p $(OBJDIR)/embedded_assets/min_dm
 	mkdir -p $(OBJDIR)/embedded_assets/ms_agent
+	mkdir -p $(OBJDIR)/embedded_assets/pkmn
 	mkdir -p $(OBJDIR)/graphics
 	mkdir -p $(OBJDIR)/image_loader
 	mkdir -p $(OBJDIR)/image_loader/base_dm
@@ -137,6 +138,7 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)/image_loader/dmall
 	mkdir -p $(OBJDIR)/image_loader/min_dm
 	mkdir -p $(OBJDIR)/image_loader/ms_agent
+	mkdir -p $(OBJDIR)/image_loader/pkmn
 	mkdir -p $(OBJDIR)/platform
 	mkdir -p $(OBJDIR)/utils
 	mkdir -p $(BUILDDIR)

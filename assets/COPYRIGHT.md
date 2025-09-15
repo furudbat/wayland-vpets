@@ -15,7 +15,7 @@ Digimon and all related characters, and associated images are owned by Bandai Co
 
 ### Pokemon
 
-Pokemon sprite- and images are owned by Nintendo/Creatures Inc./GAME FREAK Inc.
+Pokemon sprite- and images are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
 
 ### MS Agent (Clippy)
 

@@ -21,6 +21,7 @@ START_INDEX="$9"
 FRAME_SIZE=""
 COLS=""
 ROWS=""
+SET="Dm"
 
 # === Parse args ===
 POSITIONAL_ARGS=()
@@ -29,6 +30,7 @@ while [[ $# -gt 0 ]]; do
         --frame-size) FRAME_SIZE="$2"; shift 2 ;;
         --cols) COLS="$2"; shift 2 ;;
         --rows) ROWS="$2"; shift 2 ;;
+        --set) SET="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -135,7 +137,8 @@ echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$C
 echo "        switch (index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
 
-LOAD_DM_ANIM_FUNC_NAME="load_dm_anim"
+SET_LOWER=$(echo "$SET" | tr '[:upper:]' '[:lower:]')
+LOAD_DM_ANIM_FUNC_NAME="load_${SET_LOWER}_anim"
 LOAD_SPRITE_SHEET_FUNC_NAME="load_${ASSETS_PREFIX_LOWER}_sprite_sheet"
 echo "#include \"core/bongocat.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"graphics/animation_context.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
@@ -147,7 +150,7 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_s
 echo "#include \"image_loader/${ASSETS_PREFIX_LOWER}/load_images_${ASSETS_PREFIX_LOWER}.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    created_result_t<dm_animation_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    created_result_t<${SET_LOWER}_animation_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        switch (index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
@@ -183,9 +186,13 @@ for FILE in "$INPUT_DIR"/*.png; do
             echo "$OG_FILE not found"
             continue
         fi
+    else
+      FRAMES_COUNT=$((COLS * ROWS))
     fi
 
     NAME_NO_EXT="${BASENAME%.png}"
+    NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
+    NAME_NO_EXT="${NAME_NO_EXT^}"
     NAME_CLEAN=$(echo "$NAME_NO_EXT" | sed "s/['().:]//g")
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/[^a-zA-Z0-9]/_/g')
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/_\+/_/g')
@@ -232,7 +239,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo >> "$C_SOURCE_IMAGES_OUT"
     echo >> "$C_SOURCE_IMAGES_OUT" # extra EOL
 
-    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return { $EMBED_SYMBOL, $SIZE_SYMBOL, \"${IDENTIFIER}\"};" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {$EMBED_SYMBOL, $SIZE_SYMBOL, \"${IDENTIFIER}\"};" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
     echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
@@ -243,22 +250,22 @@ echo >> "$C_HEADER_IMAGES_OUT"
 echo "#endif // $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
 
-echo "    inline static constexpr size_t ${ASSETS_PREFIX_UPPER}_ANIM_COUNT = $((INDEX-START_INDEX+1));" >> "$CPP_HEADER_OUT"
-echo "}" >> "$CPP_HEADER_OUT"
+echo "    inline static constexpr size_t ${ASSETS_PREFIX_UPPER}_ANIM_COUNT = $((INDEX-START_INDEX));" >> "$CPP_HEADER_OUT"
+echo '}' >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "#endif // $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 
-echo "            default: return { nullptr, 0, "" };" >> "$CPP_SOURCE_GET_SPRITE_OUT"
-echo "        }" >> "$CPP_SOURCE_GET_SPRITE_OUT"
-echo "        return { nullptr, 0, "" };" >> "$CPP_SOURCE_GET_SPRITE_OUT"
-echo "    }" >> "$CPP_SOURCE_GET_SPRITE_OUT"
-echo "}" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo '            default: return { nullptr, 0, "" };' >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo '        }' >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo '        return { nullptr, 0, "" };' >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo '    }' >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo '}' >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
-echo "            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        }" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    }" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '        }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '}' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

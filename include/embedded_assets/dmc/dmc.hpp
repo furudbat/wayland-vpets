@@ -1608,7 +1608,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMC_ZURUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t DMC_ZURUMON_ANIM_INDEX = 88;
 
-    inline static constexpr size_t DMC_ANIM_COUNT = 90;
+    inline static constexpr size_t DMC_ANIM_COUNT = 89;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_DMC_HPP

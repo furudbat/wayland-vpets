@@ -177,8 +177,8 @@ NEW_W=$((FRAME_W * COLS))
 NEW_H=$((FRAME_H * ROWS))
 
 if [[ $NEW_W -ne $SHEET_W || $NEW_H -ne $SHEET_H ]]; then
-    convert "$OUTPUT" -gravity northwest -background none -extent "${NEW_W}x${NEW_H}" "$OUTPUT"
-    echo "⚠️ Padded sprite sheet from ${SHEET_W}x${SHEET_H} → ${NEW_W}x${NEW_H}"
+    magick convert "$OUTPUT" -gravity northwest -background none -extent "${NEW_W}x${NEW_H}" "$OUTPUT"
+    echo "Padded sprite sheet from ${SHEET_W}x${SHEET_H} → ${NEW_W}x${NEW_H}"
 fi
 
 echo "Sprite sheet ready: $OUTPUT (${COLS}x${ROWS} frames of ${FRAME_W}x${FRAME_H})"

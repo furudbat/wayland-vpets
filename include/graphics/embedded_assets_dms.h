@@ -35,7 +35,7 @@ namespace bongocat::assets {
 
 /// dm
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-#include "image_loader/embedded_assets/dm/dm.hpp"
+#include "embedded_assets/dm/dm.hpp"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t DM_ANIM_COUNT = 0;

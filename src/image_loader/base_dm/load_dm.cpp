@@ -26,6 +26,7 @@ namespace bongocat::animation {
         ret.frame_width = bongocat::move(result.result.frame_width);
         ret.frame_height = bongocat::move(result.result.frame_height);
         ret.total_frames = bongocat::move(result.result.total_frames);
+
         ret.idle_1 = bongocat::move(result.result.frames[0]);
         ret.idle_2 = bongocat::move(result.result.frames[1]);
         ret.angry = bongocat::move(result.result.frames[2]);

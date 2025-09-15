@@ -11688,7 +11688,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PKMN_GENESECT_SPRITE_SHEET_FRAMES_COUNT = 2;
     inline static constexpr size_t PKMN_GENESECT_ANIM_INDEX = 648;
 
-    inline static constexpr size_t PKMN_ANIM_COUNT = 650;
+    inline static constexpr size_t PKMN_ANIM_COUNT = 649;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_PKMN_HPP

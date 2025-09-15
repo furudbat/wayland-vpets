@@ -5,11 +5,13 @@ OUTPUT_DIR="$2"
 HEADER_FILE="$3"
 PREFIX="$4"
 START_INDEX="$5"
+SET="Dm"
 
 # === Parse args ===
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
     case $1 in
+        --set) SET="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -38,10 +40,12 @@ ASSETS_PREFIX_CLEAN=$(echo "$ASSETS_PREFIX_CLEAN" | sed 's/_\+/_/g')
 ASSETS_PREFIX_LOWER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:upper:]' '[:lower:]')
 ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
+SET_LOWER=$(echo "$SET" | tr '[:upper:]' '[:lower:]')
+
 mkdir -p "${OUTPUT_DIR}/include"
 
 OUTPUT_FILE_1="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_config_parse_enum_key.cpp.inl"
-OUTPUT_FILE_2="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_init_dm_anim.cpp.inl"
+OUTPUT_FILE_2="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_init_${SET_LOWER}_anim.cpp.inl"
 OUTPUT_FILE_3="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_get_sprite_sheet.cpp"
 OUTPUT_FILE_4="${OUTPUT_DIR}/include/${ASSETS_PREFIX_LOWER}_config_parse_animation_name.h"
 OUTPUT_FILE_5="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_config_parse_animation_name.cpp"
@@ -99,6 +103,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
 
     NAME_NO_EXT="${BASENAME%.png}"
+    NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
     NAME_CLEAN=$(echo "$NAME_NO_EXT" | sed "s/['().:]//g")
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/[^a-zA-Z0-9]/_/g')
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/_\+/_/g')
@@ -108,38 +113,38 @@ for FILE in "$INPUT_DIR"/*.png; do
     EMBED_SYMBOL="${ASSETS_PREFIX_LOWER}_${IDENTIFIER}_png"
     SIZE_SYMBOL="${EMBED_SYMBOL}_size"
 
-    echo "// check for ${NAME_NO_EXT} (${IDENTIFIER})" >> "$OUTPUT_FILE_1"
+    echo "// check for ${NAME_NO_EXT^} (${IDENTIFIER})" >> "$OUTPUT_FILE_1"
     echo "if (strcmp(lower_value, ${MACRO_PREFIX}_NAME) == 0 ||" >> "$OUTPUT_FILE_1"
     echo "    strcmp(lower_value, ${MACRO_PREFIX}_ID) == 0 ||" >> "$OUTPUT_FILE_1"
     echo "    strcmp(lower_value, ${MACRO_PREFIX}_FQID) == 0 ||" >> "$OUTPUT_FILE_1"
     echo "    strcmp(lower_value, ${MACRO_PREFIX}_FQNAME) == 0) {" >> "$OUTPUT_FILE_1"
     echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
     echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
-    echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;" >> "$OUTPUT_FILE_1"
+    echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::${SET};" >> "$OUTPUT_FILE_1"
     echo "}" >> "$OUTPUT_FILE_1"
 
     echo "init_${ASSETS_PREFIX_LOWER}_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_2"
 
     echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
 
-    echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::Dm }," >> "$OUTPUT_FILE_5"
+    echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${SET} }," >> "$OUTPUT_FILE_5"
 
     ((INDEX++))
 done
 
-echo "            default: return { nullptr, 0, \"\" };" >> "$OUTPUT_FILE_3"
-echo "        }" >> "$OUTPUT_FILE_3"
-echo "        return { nullptr, 0, \"\" };" >> "$OUTPUT_FILE_3"
-echo "    }" >> "$OUTPUT_FILE_3"
-echo "}" >> "$OUTPUT_FILE_3"
-echo "" >> "$OUTPUT_FILE_3"
+echo '            default: return { nullptr, 0, "" };' >> "$OUTPUT_FILE_3"
+echo '        }' >> "$OUTPUT_FILE_3"
+echo '        return { nullptr, 0, "" };' >> "$OUTPUT_FILE_3"
+echo '    }' >> "$OUTPUT_FILE_3"
+echo '}' >> "$OUTPUT_FILE_3"
+echo >> "$OUTPUT_FILE_3"
 
-echo "    };" >> "$OUTPUT_FILE_5"
-echo "" >> "$OUTPUT_FILE_5"
+echo '    };' >> "$OUTPUT_FILE_5"
+echo >> "$OUTPUT_FILE_5"
 echo "    config_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_5"
 echo "        return ${ASSETS_PREFIX_LOWER}_animation_table[index];" >> "$OUTPUT_FILE_5"
-echo "    }" >> "$OUTPUT_FILE_5"
-echo "" >> "$OUTPUT_FILE_5"
+echo '    }' >> "$OUTPUT_FILE_5"
+echo >> "$OUTPUT_FILE_5"
 echo "    void ${CONFIG_PARSE_FUNC_NAME}(config::config_t& config, const char *value) {" >> "$OUTPUT_FILE_5"
 echo "        for (const auto& entry : ${ASSETS_PREFIX_LOWER}_animation_table) {" >> "$OUTPUT_FILE_5"
 echo "            if (strcmp(value, entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
@@ -149,9 +154,9 @@ echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
 echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
 echo "                config.animation_dm_set = entry.set;" >> "$OUTPUT_FILE_5"
 echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "$OUTPUT_FILE_5"
-echo "                break;" >> "$OUTPUT_FILE_5"
-echo "            }" >> "$OUTPUT_FILE_5"
-echo "        }" >> "$OUTPUT_FILE_5"
-echo "    }" >> "$OUTPUT_FILE_5"
-echo "}" >> "$OUTPUT_FILE_5"
-echo "" >> "$OUTPUT_FILE_5"
+echo '                break;' >> "$OUTPUT_FILE_5"
+echo '            }' >> "$OUTPUT_FILE_5"
+echo '        }' >> "$OUTPUT_FILE_5"
+echo '    }' >> "$OUTPUT_FILE_5"
+echo '}' >> "$OUTPUT_FILE_5"
+echo >> "$OUTPUT_FILE_5"

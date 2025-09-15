@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-2.4.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
@@ -21,6 +21,7 @@ _MS Agent Clippy_
   - Bongocat 😺
   - Digimon V-Pets 🦖 (v1.3.0)
   - Clippy 📎 (v2.1.0)
+  - Pokemon 🐭 (v3.0.0)
 - **🎯 Real-time Animation** - Bongo cat reacts instantly to keyboard input
 - **🔥 Hot-Reload Configuration** - Modify settings without restarting (v1.2.0)
 - **🔄 Dynamic Device Detection** - Automatically detects Bluetooth/USB keyboards (v1.2.0)
@@ -719,7 +720,7 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 **Required:**
 
 - Wayland compositor with layer shell support
-- C23/C++26 compiler (GCC 15+ or Clang 19+)
+- C23/C++23 compiler (GCC 15+ or Clang 19+)
 - Make or CMake
 - libwayland-client
 - wayland-protocols
@@ -929,7 +930,7 @@ monitor=DP-1         # DisplayPort monitor
 **Common fixes:**
 
 - Install development packages: `libwayland-dev wayland-protocols`
-- Ensure C23/C++26 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
+- Ensure C23/C++23 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
 - Install `wayland-scanner` package
 </details>
 
@@ -974,7 +975,7 @@ make debug
 
 ### Code Standards
 
-- C23/C++26 standard compliance
+- C23/C++23 standard compliance
 - Comprehensive error handling
 - Memory safety with leak detection
 - Extensive documentation
@@ -983,12 +984,12 @@ make debug
 
 I'm moving this Project ~~a little bit~~ to C++.
 
-* using modern C++26/C23 compiler (required for `#embed`)
+* using modern C++23/C23 compiler (required for `#embed`)
 * thread-safe Logging
 * use assert and static_assert (Preconditions, postconditions, invariants.)
 * use mmap for multi-threading and shared memory
 * use Mutex and LockGuard
-* prefer stack over heap
+* prefer stack to heap
   * use heap when: Mutex is used in structs or other non-movable objects
   * use mmap for shared memory
   * dynamics arrays like buffers
@@ -1032,6 +1033,7 @@ Built with ❤️ for the Wayland community. Special thanks to:
 - All the contributors and users
 
 
+Pokémon are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
 Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.
 Clippy and other MS Agents are owed by Microsoft.
 This project is **free**, **non-commercial** and not associated with these entities.
@@ -1039,5 +1041,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v2.2.0** - Making desktops more delightful, one keystroke at a time!
-Now with Digimon V-Pets and Clippy 📎.
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.0.0** - Making desktops more delightful, one keystroke at a time!
+Now with Digimon V-Pets, Clippy and Pokemon.

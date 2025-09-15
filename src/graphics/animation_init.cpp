@@ -402,16 +402,16 @@ namespace bongocat::animation {
             }
 
             if constexpr (features::EnableDmEmbeddedAssets) {
-                // Load dm
-                if (should_load_dm(config)) {
-                    BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %i", DM_ANIMATIONS_COUNT);
+                // Load pkmn
+                if (should_load_pkmn(config)) {
+                    BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %i", PKMN_ANIM_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
 
                     ctx.shm->pkmn_anims = platform::make_allocated_mmap_array<animation_t>(PKMN_ANIM_COUNT);
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-                    // dmc
-#include "pkmn_init_dm_anim.cpp.inl"
+                    // pkmn
+#include "pkmn_init_pkmn_anim.cpp.inl"
 #endif
                 }
             }

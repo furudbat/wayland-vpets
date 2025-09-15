@@ -114,7 +114,9 @@
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -131,25 +133,9 @@
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "release_all_assets_colored",
-      "displayName": "Release (All Assets + colored)",
-      "description": "Release build with ALL assets (full dm versions + dmc)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-colored",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMC_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -168,7 +154,8 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -202,27 +189,9 @@
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "debug_all_assets_colored",
-      "displayName": "Debug (All Assets + colored sprites)",
-      "description": "Debug build with ALL assets (full dm versions + colored sprites) (for testing)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "ENABLE_ASAN": "ON",
-        "ENABLE_UBSAN": "ON",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMC_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -243,7 +212,8 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -264,6 +234,7 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "ON",
         "FEATURE_LAZY_LOAD_ASSETS": "OFF"
       }
@@ -286,6 +257,7 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "OFF",
         "FEATURE_LAZY_LOAD_ASSETS": "ON"
       }
