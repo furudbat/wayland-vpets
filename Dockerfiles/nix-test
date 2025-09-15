@@ -1,0 +1,36 @@
+# vim: ft=Dockerfile
+FROM ubuntu:24.04
+
+# Install dependencies
+RUN apt-get update && apt-get install -y curl git sudo xz-utils bzip2 build-essential && \
+    rm -rf /var/lib/apt/lists/*
+
+# Create non-root user first
+RUN useradd -m nixuser
+
+# Create /nix owned by nixuser
+RUN mkdir -m 0755 /nix && chown nixuser:nixuser /nix
+
+# Switch to nixuser
+USER nixuser
+WORKDIR /home/nixuser
+
+# Install Nix (single-user)
+RUN curl -L https://nixos.org/nix/install | sh
+
+# Set environment
+ENV HOME=/home/nixuser
+ENV PATH=/home/nixuser/.nix-profile/bin:/home/nixuser/.nix-profile/sbin:/home/nixuser/.nix-profile/libexec:/home/nixuser/.nix-profile/share:$PATH
+ENV NIX_PATH=/home/nixuser/.nix-defexpr/channels
+
+# Enable flakes
+RUN mkdir -p /home/nixuser/.config/nix \
+ && echo "experimental-features = nix-command flakes" > /home/nixuser/.config/nix/nix.conf
+
+# Source nix.sh to update PATH
+SHELL ["/bin/bash", "-c"]
+RUN . /home/nixuser/.nix-profile/etc/profile.d/nix.sh
+
+# Optional: verify
+RUN nix --version
+RUN nix flake show github:NixOS/nixpkgs/nixos-unstable

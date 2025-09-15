@@ -41,6 +41,7 @@ cp ./assets/input/dmc-fixed/*.png ./assets/dmc/.
 # @NOTE(assets): 0. add assets folder, (input) assets and sub folder in image_loader etc.
 
 ./scripts/make_poke_sheets.sh
+cp ./assets/input/pkmn-fixed/*.png ./assets/pkmn/.
 
 ./scripts/all_crop_spritesheets.sh
 

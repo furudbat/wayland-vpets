@@ -1031,6 +1031,7 @@ Built with ❤️ for the Wayland community. Special thanks to:
 - Redditor: [u/akonzu](https://www.reddit.com/user/akonzu/) for the inspiration
 - [@Shreyabardia](https://github.com/Shreyabardia) for the beautiful custom-drawn bongo cat artwork
 - All the contributors and users
+- [Waybar](https://github.com/Alexays/Waybar)
 
 
 Pokémon are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.

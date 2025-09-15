@@ -1,0 +1,13 @@
+# vim: ft=Dockerfile
+
+FROM opensuse/tumbleweed:latest
+
+RUN zypper -n up && \
+    zypper addrepo https://download.opensuse.org/repositories/X11:Wayland/openSUSE_Tumbleweed/X11:Wayland.repo | echo 'a' && \
+    zypper -n refresh && \
+    zypper -n install -t pattern devel_C_C++ && \
+    zypper -n install git cmake gcc clang pkg-config \
+        libinput10 libinput-devel \
+        libwayland-client0 libwayland-cursor0 \
+        wayland-utils wayland-protocols-devel wayland-devel \
+        Mesa-libEGL-devel Mesa-libGLESv2-devel libudev-devel

@@ -247,13 +247,13 @@ install(PROGRAMS scripts/find_input_devices.sh DESTINATION ${CMAKE_INSTALL_BINDI
 
 
 # Package
-#set(CPACK_PACKAGE_NAME "bongocat")
-#set(CPACK_PACKAGE_VERSION "2.2.0")
-#set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
-#set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
-#set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
-#set(CPACK_GENERATOR "DEB;RPM")
-#include(CPack)
+set(CPACK_PACKAGE_NAME "bongocat")
+set(CPACK_PACKAGE_VERSION "3.0.0")
+set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+set(CPACK_GENERATOR "DEB;RPM;TGZ;ZIP")
+include(CPack)
 
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we

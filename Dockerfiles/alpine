@@ -1,0 +1,5 @@
+# vim: ft=Dockerfile
+
+FROM alpine:edge
+
+RUN apk add --no-cache git cmake gcc g++ clang alpine-sdk libinput-dev wayland-dev wayland-protocols
