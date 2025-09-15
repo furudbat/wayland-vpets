@@ -12,6 +12,7 @@ namespace bongocat::animation {
     // both-up, left-down, right-down, both-down, ...
     inline static constexpr size_t MAX_NUM_FRAMES = 15;
     inline static constexpr size_t MAX_DIGIMON_FRAMES = 15;
+    inline static constexpr size_t MAX_PKMN_FRAMES = 2;
 
     struct sprite_sheet_animation_region_t {
         bool valid{false};
@@ -52,6 +53,19 @@ namespace bongocat::animation {
         // extra frames
         sprite_sheet_animation_region_t movement_1;
         sprite_sheet_animation_region_t movement_2;
+    };
+
+    struct pkmn_animation_t {
+        generic_sprite_sheet_image_t image;
+
+        int32_t frame_width{0};
+        int32_t frame_height{0};
+        int32_t total_frames{0};
+
+        sprite_sheet_animation_region_t idle_1;
+        sprite_sheet_animation_region_t idle_2;
+
+        sprite_sheet_animation_region_t _placeholder[MAX_NUM_FRAMES-2];
     };
 
     struct bongocat_animation_t {
@@ -97,11 +111,13 @@ namespace bongocat::animation {
     static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(bongocat_animation_t));
     static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(dm_animation_t));
     static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(ms_agent_sprite_sheet_t));
+    static_assert(sizeof(generic_sprite_sheet_animation_t) == sizeof(pkmn_animation_t));
     struct animation_t {
         union {
             bongocat_animation_t bongocat;
             dm_animation_t dm;
             ms_agent_sprite_sheet_t ms_agent;
+            pkmn_animation_t pkmn;
             generic_sprite_sheet_animation_t sprite_sheet;
         };
 
@@ -208,6 +224,15 @@ namespace bongocat::animation {
         }
     }
     inline void cleanup_animation(dm_animation_t& sprite_sheet) {
+        release_allocated_array(sprite_sheet.image.pixels);
+        sprite_sheet.image.sprite_sheet_width = 0;
+        sprite_sheet.image.sprite_sheet_height = 0;
+        sprite_sheet.image.channels = 0;
+        sprite_sheet.frame_width = 0;
+        sprite_sheet.frame_height = 0;
+        sprite_sheet.total_frames = 0;
+    }
+    inline void cleanup_animation(pkmn_animation_t& sprite_sheet) {
         release_allocated_array(sprite_sheet.image.pixels);
         sprite_sheet.image.sprite_sheet_width = 0;
         sprite_sheet.image.sprite_sheet_height = 0;

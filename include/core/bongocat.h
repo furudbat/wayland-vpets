@@ -97,6 +97,12 @@ namespace bongocat {
         inline static constexpr bool EnableMsAgentEmbeddedAssets = false;
 #endif
 
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+        inline static constexpr bool EnablePkmnEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnablePkmnEmbeddedAssets = false;
+#endif
+
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
         inline static constexpr bool EnableMemoryStatistics = true;
 #else

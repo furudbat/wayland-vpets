@@ -328,6 +328,14 @@ namespace bongocat::animation {
                         const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
                     }break;
+                    case config::config_animation_sprite_sheet_layout_t::Pkmn: {
+                        if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+                            assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pkmn_anims.count);
+                        }
+                        const animation_t& cat_anim = get_current_animation(anim);
+                        const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
+                        draw_sprite(ctx, sheet);
+                    }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
                         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.ms_anims.count);

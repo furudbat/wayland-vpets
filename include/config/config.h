@@ -52,6 +52,7 @@ namespace bongocat::config {
         Bongocat,
         Dm,
         MsAgent,
+        Pkmn,
     };
     enum class config_animation_dm_set_t : uint8_t {
         None,

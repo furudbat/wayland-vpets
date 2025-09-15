@@ -19,6 +19,7 @@ target_link_libraries(assets_image_loader PRIVATE stb_image)
 target_compile_definitions(assets_image_loader PUBLIC FEATURE_USE_STB_IMAGE)
 
 
+# @NOTE(assets): 3. add image_loader sub directory
 add_subdirectory(bongocat)
 add_subdirectory(ms_agent)
 add_subdirectory(base_dm)
@@ -28,3 +29,7 @@ add_subdirectory(dmc)
 add_subdirectory(dmx)
 add_subdirectory(dmall)
 add_subdirectory(min_dm)
+add_subdirectory(pkmn)
+
+# @NOTE(assets): 3.1. add image_loader in include/image_loader (see other load_images_...h as reference)
+# @NOTE(assets): 3.2. add image_loader in src/image_loader/xxx (see other load_images_...cpp as reference)

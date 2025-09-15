@@ -22,6 +22,8 @@
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
+#include "graphics/embedded_assets_pkmn.h"
+#include "embedded_assets/pkmn/pkmn_sprite.h"
 
 namespace bongocat::animation {
     // =============================================================================
@@ -605,6 +607,98 @@ namespace bongocat::animation {
     }
 #endif
 
+
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+    static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+                                                              animation_state_t& state, bool any_key_pressed) {
+        using namespace assets;
+        // read-only config
+        assert(ctx._local_copy_config != nullptr);
+        const config::config_t& current_config = *ctx._local_copy_config;
+
+        assert(input.shm != nullptr);
+        assert(ctx.shm != nullptr);
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+        //const auto& input_shm = *input.shm;
+        auto& animation_player_data = anim_shm.animation_player_data;
+        const auto current_frame = animation_player_data.frame_index;
+        //const auto current_row = animation_player_data.sprite_sheet_row;
+        //const animation_state_row_t current_row_state = state.row_state;
+        [[maybe_unused]] const int anim_index = anim_shm.anim_index;
+        //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+
+        volatile animation_state_row_t new_row_state = state.row_state;
+        int new_row = animation_player_data.sprite_sheet_row;
+        int new_start_frame_index = animation_player_data.start_frame_index;
+        int new_end_frame_index = animation_player_data.end_frame_index;
+        int new_frame = current_frame;
+
+        // @TODO: get variables as struct to make it more reusable
+        const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
+        const bool process_idle_animation = (current_config.idle_animation && current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.idle_animation && current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
+        const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec*1000;
+        const bool release_test_frame = current_config.test_animation_duration_ms > 0 && state.frame_delta_ms_counter > current_config.test_animation_duration_ms;
+
+        if (!hold_frame_after_release && !trigger_test_animation && !release_test_frame && !process_idle_animation && !current_config.enable_scheduled_sleep) {
+            return { .changed = false, .new_frame = new_frame};
+        }
+
+        //const auto& current_frames = reinterpret_cast<pkmn_animation_t&>(get_current_animation(ctx));
+        new_row = PKMN_SPRITE_SHEET_ROWS-1;
+        // Test animation
+        if (!any_key_pressed && trigger_test_animation && state.row_state == animation_state_row_t::Idle) {
+            new_row = PKMN_SPRITE_SHEET_ROWS-1;
+            new_start_frame_index = PKMN_FRAME_IDLE1;
+            new_end_frame_index = PKMN_FRAME_IDLE2;
+            new_row_state = animation_state_row_t::Test;
+            // toggle frame
+            if (current_frame == PKMN_FRAME_IDLE2) {
+                new_frame = PKMN_FRAME_IDLE1;
+            } else if (current_frame == PKMN_FRAME_IDLE1) {
+                new_frame = PKMN_FRAME_IDLE2;
+            } else {
+                static_assert(PKMN_FRAME_IDLE2 >= PKMN_FRAME_IDLE1);
+                static_assert(PKMN_FRAME_IDLE1 >= 0);
+                static_assert(PKMN_FRAME_IDLE2 >= 0);
+                new_frame = static_cast<int>(ctx._rng.range(PKMN_FRAME_IDLE1, PKMN_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+            }
+        }
+        // Idle Animation
+        if (hold_frame_after_release || process_idle_animation || (trigger_test_animation && release_test_frame && state.row_state == animation_state_row_t::Test)) {
+            new_start_frame_index = PKMN_FRAME_IDLE1;
+            new_end_frame_index = PKMN_FRAME_IDLE2;
+            new_row_state = animation_state_row_t::Idle;
+            // toggle frame
+            if (current_frame == PKMN_FRAME_IDLE2) {
+                new_frame = PKMN_FRAME_IDLE1;
+            } else if (current_frame == PKMN_FRAME_IDLE1) {
+                new_frame = PKMN_FRAME_IDLE2;
+            } else {
+                static_assert(PKMN_FRAME_IDLE2 >= PKMN_FRAME_IDLE1);
+                static_assert(PKMN_FRAME_IDLE1 >= 0);
+                static_assert(DM_FRAME_IDLE2 >= 0);
+                new_frame = static_cast<int>(ctx._rng.range(PKMN_FRAME_IDLE1, PKMN_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+            }
+        }
+
+        const bool changed = animation_player_data.frame_index != new_frame || animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
+        if (changed) {
+            ctx.shm->animation_player_data.frame_index = new_frame;
+            animation_player_data.sprite_sheet_row = new_row;
+            animation_player_data.start_frame_index = new_start_frame_index;
+            animation_player_data.end_frame_index = new_end_frame_index;
+            state.row_state = new_row_state;
+            if (current_config.enable_debug) {
+                BONGOCAT_LOG_VERBOSE("Animation frame change: %d", new_frame);
+            }
+            state.frame_delta_ms_counter = 0;
+        }
+
+        return { .changed = changed, .new_frame = new_frame};
+    }
+#endif
+
+
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(animation_context_t& ctx, animation_state_t& state) {
         using namespace assets;
@@ -724,6 +818,69 @@ namespace bongocat::animation {
             static_assert(DM_FRAME_IDLE1 >= 0);
             static_assert(DM_FRAME_IDLE2 >= 0);
             new_frame = static_cast<int>(ctx._rng.range(DM_FRAME_IDLE1, DM_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+        }
+
+        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
+        if (changed) {
+            anim_shm.animation_player_data.frame_index = new_frame;
+            animation_player_data.sprite_sheet_row = new_row;
+            animation_player_data.start_frame_index = new_start_frame_index;
+            animation_player_data.end_frame_index = new_end_frame_index;
+            state.row_state = new_row_state;
+            if (current_config.enable_debug) {
+                BONGOCAT_LOG_VERBOSE("Animation frame change: %d", new_frame);
+            }
+            state.frame_delta_ms_counter = 0;
+        }
+
+        return { .changed = changed, .new_frame = new_frame};
+    }
+#endif
+
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+    static anim_next_frame_result_t anim_pkmn_key_pressed_next_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+                                                                     animation_state_t& state) {
+        using namespace assets;
+
+        // read-only config
+        assert(ctx._local_copy_config != nullptr);
+        const config::config_t& current_config = *ctx._local_copy_config;
+
+        assert(input.shm != nullptr);
+        assert(ctx.shm != nullptr);
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+        //const auto& input_shm = *input.shm;
+        auto& animation_player_data = anim_shm.animation_player_data;
+        const auto current_frame = animation_player_data.frame_index;
+        //const auto current_row = animation_player_data.sprite_sheet_row;
+        //const animation_state_row_t current_row_state = state.row_state;
+        //const auto anim_index = anim_shm.anim_index;
+        //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+        //const auto& current_frames = reinterpret_cast<pkmn_animation_t&>(get_current_animation(ctx));
+
+        animation_state_row_t new_row_state = state.row_state;
+        int new_row = animation_player_data.sprite_sheet_row;
+        int new_start_frame_index = animation_player_data.start_frame_index;
+        int new_end_frame_index = animation_player_data.end_frame_index;
+        int new_frame = current_frame;
+
+        /// @TODO: use state machine for animation (states)
+
+        // in Writing mode/start writing
+        new_row = PKMN_SPRITE_SHEET_ROWS-1;
+        new_start_frame_index = PKMN_FRAME_IDLE1;
+        new_end_frame_index = PKMN_FRAME_IDLE2;
+        new_row_state = animation_state_row_t::Writing;
+        // toggle frame
+        if (current_frame == PKMN_FRAME_IDLE1) {
+            new_frame = PKMN_FRAME_IDLE2;
+        } else if (current_frame == PKMN_FRAME_IDLE2) {
+            new_frame = PKMN_FRAME_IDLE1;
+        } else {
+            static_assert(PKMN_FRAME_IDLE2 >= PKMN_FRAME_IDLE1);
+            static_assert(PKMN_FRAME_IDLE1 >= 0);
+            static_assert(PKMN_FRAME_IDLE2 >= 0);
+            new_frame = static_cast<int>(ctx._rng.range(PKMN_FRAME_IDLE1, PKMN_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
         }
 
         const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
@@ -863,6 +1020,12 @@ namespace bongocat::animation {
                 ret = changed;
 #endif
             }break;
+            case config::config_animation_sprite_sheet_layout_t::Pkmn: {
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+                auto [changed, new_frame] = anim_pkmn_idle_next_frame(ctx, input, state, any_key_pressed);
+                ret = changed;
+#endif
+            }break;
             case config::config_animation_sprite_sheet_layout_t::MsAgent: {
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_ms_pet_idle_next_frame(ctx, input, state, any_key_pressed);
@@ -958,6 +1121,13 @@ namespace bongocat::animation {
             case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
                 auto [changed, new_frame] = anim_dm_key_pressed_next_frame(ctx, input, state);
+                ret = changed;
+                ret_new_frame = new_frame;
+#endif
+            }break;
+            case config::config_animation_sprite_sheet_layout_t::Pkmn: {
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+                auto [changed, new_frame] = anim_pkmn_key_pressed_next_frame(ctx, input, state);
                 ret = changed;
                 ret_new_frame = new_frame;
 #endif
@@ -1094,6 +1264,15 @@ namespace bongocat::animation {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
                     animation_player_data.frame_index = current_config.idle_frame;
                     animation_player_data.sprite_sheet_row = assets::DM_SPRITE_SHEET_ROWS-1;
+                    animation_player_data.start_frame_index = 0;
+                    animation_player_data.end_frame_index = 1;
+                    state.row_state = animation_state_row_t::Idle;
+#endif
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Pkmn:
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+                    animation_player_data.frame_index = current_config.idle_frame;
+                    animation_player_data.sprite_sheet_row = assets::PKMN_SPRITE_SHEET_ROWS-1;
                     animation_player_data.start_frame_index = 0;
                     animation_player_data.end_frame_index = 1;
                     state.row_state = animation_state_row_t::Idle;
@@ -1380,6 +1559,9 @@ namespace bongocat::animation {
                             return DMALL_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMALL_ANIM_COUNT-1)) : 0;
                         }
                         break;
+                    case config::config_animation_sprite_sheet_layout_t::Pkmn:
+                        assert(PKMN_ANIM_COUNT <= INT32_MAX && PKMN_ANIM_COUNT <= UINT32_MAX);
+                        return PKMN_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, PKMN_ANIM_COUNT-1)) : 0;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:
                         assert(MS_AGENTS_ANIM_COUNT <= INT32_MAX && MS_AGENTS_ANIM_COUNT <= UINT32_MAX);
                         return MS_AGENTS_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MS_AGENTS_ANIM_COUNT-1)) : 0;
@@ -1416,6 +1598,9 @@ namespace bongocat::animation {
                             return ctx.shm->dmall_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmall_anims.count-1))) : 0;
                         }
                         break;
+                    case config::config_animation_sprite_sheet_layout_t::Pkmn:
+                        assert(ctx.shm->pkmn_anims.count <= INT32_MAX && ctx.shm->pkmn_anims.count <= UINT32_MAX);
+                        return ctx.shm->pkmn_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->pkmn_anims.count-1))) : 0;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:
                         assert(ctx.shm->ms_anims.count <= INT32_MAX && ctx.shm->ms_anims.count <= UINT32_MAX);
                         return ctx.shm->ms_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->ms_anims.count-1))) : 0;

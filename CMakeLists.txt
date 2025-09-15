@@ -45,6 +45,9 @@ cmake_dependent_option(FEATURE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets"
 cmake_dependent_option(FEATURE_DMALL_EMBEDDED_ASSETS "Include custom colored dm (replace dmc) embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" ON)
 cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS agents (Links) embedded assets" OFF FEATURE_MS_AGENT_EMBEDDED_ASSETS OFF)
+option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" ON)
+# @NOTE(assets): 1. add feature flag for embedded assets
+
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, sprite switching on hot-reload)" OFF)
 option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" OFF)
@@ -179,31 +182,43 @@ if (FEATURE_MS_AGENT_EMBEDDED_ASSETS)
     target_link_libraries(bongocat PRIVATE assets_ms_agent_loader assets_ms_agent assets_ms_agent_feature assets_ms_agent_interface)
     message(STATUS "Include MS agent assets")
 endif()
+if (FEATURE_PKMN_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
+    message(STATUS "Include pkmn assets")
+endif()
+# @NOTE(assets): 1.1. link embedded assets
 target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_libs)
 
 if (FEATURE_MULTI_VERSIONS)
-    add_executable(bongocat-digimon)
-    target_link_libraries(bongocat-digimon PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-    target_link_libraries(bongocat-digimon PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
-    target_link_libraries(bongocat-digimon PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
-    target_link_libraries(bongocat-digimon PRIVATE bongocat_base bongocat_options bongocat_libs)
+    add_executable(bongocat-dm)
+    target_link_libraries(bongocat-dm PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-dm PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+    target_link_libraries(bongocat-dm PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+    target_link_libraries(bongocat-dm PRIVATE bongocat_base bongocat_options bongocat_libs)
 
-    add_executable(bongocat-digimon-colored)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
-    target_link_libraries(bongocat-digimon-colored PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
-    target_link_libraries(bongocat-digimon-colored PRIVATE bongocat_base bongocat_options bongocat_libs)
+    add_executable(bongocat-dm-colored)
+    target_link_libraries(bongocat-dm-colored PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-dm-colored PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+    target_link_libraries(bongocat-dm-colored PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+    target_link_libraries(bongocat-dm-colored PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
+    target_link_libraries(bongocat-dm-colored PRIVATE bongocat_base bongocat_options bongocat_libs)
 
-    add_executable(bongocat-digimon-colored-all)
-    target_link_libraries(bongocat-digimon-colored-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-    target_link_libraries(bongocat-digimon-colored-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
-    target_link_libraries(bongocat-digimon-colored-all PRIVATE bongocat_base bongocat_options bongocat_libs)
+    add_executable(bongocat-dm-colored-all)
+    target_link_libraries(bongocat-dm-colored-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-dm-colored-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
+    target_link_libraries(bongocat-dm-colored-all PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     add_executable(bongocat-ms-agent)
     target_link_libraries(bongocat-ms-agent PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
     target_link_libraries(bongocat-ms-agent PRIVATE assets_ms_agent_loader assets_ms_agent assets_ms_agent_feature assets_ms_agent_interface)
     target_link_libraries(bongocat-ms-agent PRIVATE bongocat_base bongocat_options bongocat_libs)
+
+    add_executable(bongocat-pkmn)
+    target_link_libraries(bongocat-pkmn PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-pkmn PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
+    target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
+
+    # @NOTE(assets): 1.2. add exec for multi versions
 endif()
 
 
@@ -212,19 +227,20 @@ endif()
 include(GNUInstallDirs)
 if (FEATURE_MULTI_VERSIONS)
     # sudo cmake --install ./cmake-build-release-all-assets-multi
-    install(TARGETS bongocat bongocat-digimon bongocat-digimon-colored bongocat-digimon-colored-all bongocat-ms-agent COMPONENT bongocat-targets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(TARGETS bongocat bongocat-dm bongocat-dm-colored bongocat-dm-colored-all bongocat-ms-agent bongocat-pkmn COMPONENT bongocat-targets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 else()
     install(TARGETS bongocat RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 install(FILES bongocat.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat RENAME bongocat.conf.example)
 install(PROGRAMS scripts/find_input_devices.sh DESTINATION ${CMAKE_INSTALL_BINDIR} RENAME bongocat-find-devices)
 
+
 # Package
 #set(CPACK_PACKAGE_NAME "bongocat")
 #set(CPACK_PACKAGE_VERSION "2.2.0")
 #set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
 #set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
-#set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_SOURCE_DIR}/LICENSE")
+#set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
 #set(CPACK_GENERATOR "DEB;RPM")
 #include(CPack)
 

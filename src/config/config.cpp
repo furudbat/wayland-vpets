@@ -12,6 +12,8 @@
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
+#include "graphics/embedded_assets_pkmn.h"
+#include "embedded_assets/pkmn/pkmn_sprite.h"
 
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #include "dm_config_parse_animation_name.h"
@@ -30,6 +32,10 @@
 #endif
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
 #include "dmall_config_parse_animation_name.h"
+#endif
+
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+#include "pkmn_config_parse_animation_name.h"
 #endif
 
 // =============================================================================
@@ -219,6 +225,26 @@ namespace bongocat::config {
                     }
                 }
                 break;
+            case config_animation_sprite_sheet_layout_t::Pkmn:
+                if constexpr (features::EnablePkmnEmbeddedAssets) {
+                    // Validate animation index
+                    assert(DM_ANIMATIONS_COUNT <= INT_MAX);
+                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(PKMN_ANIMATIONS_COUNT)) {
+                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                             ANIMATION_INDEX_KEY, config.animation_index, assets::PKMN_ANIMATIONS_COUNT - 1);
+                        config.animation_index = 0;
+                        ret = 5;
+                    }
+                    // Validate idle frame
+                    assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
+                    if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::MAX_DIGIMON_FRAMES)) {
+                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                             IDLE_FRAME_KEY, config.idle_frame, animation::MAX_PKMN_FRAMES - 1);
+                        config.idle_frame = 0;
+                        ret = 6;
+                    }
+                }
+                break;
             case config_animation_sprite_sheet_layout_t::MsAgent:
                 if constexpr (features::EnableMsAgentEmbeddedAssets) {
                     // Validate animation index
@@ -239,6 +265,7 @@ namespace bongocat::config {
                     }
                 }
                 break;
+            /// @NOTE(assets): 5. add animation_index validation
         }
         return ret;
     }
@@ -619,7 +646,7 @@ namespace bongocat::config {
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-                /// @NOTE(assets): 3. add more MS Pets here
+                /// @NOTE(assets): 4. add more MS Pets here
                 if (strcmp(lower_value, LINKS_NAME) == 0 ||
                     strcmp(lower_value, LINKS_ID) == 0 ||
                     strcmp(lower_value, LINKS_FQID) == 0 ||
@@ -629,6 +656,15 @@ namespace bongocat::config {
                 }
 #endif
             }
+
+            // check for dm
+            if constexpr (features::EnablePkmnEmbeddedAssets) {
+                using namespace assets;
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+                config_parse_animation_name_pkmn(config, lower_value);
+#endif
+            }
+            /// @NOTE(assets): 4. add more config animation_name parsring here
 
             if (config.animation_index < 0 || config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
                 if (config.animation_index >= 0 && config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
@@ -799,18 +835,23 @@ namespace bongocat::config {
                 break;
             case config_animation_sprite_sheet_layout_t::Bongocat:
                 BONGOCAT_LOG_DEBUG("  Cat: %dx%d at offset (%d,%d)",
-                                  config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
-                                  config.cat_x_offset, config.cat_y_offset);
+                                   config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
+                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::Dm:
                 BONGOCAT_LOG_DEBUG("  dm: %03d/%03d (set=%d) at offset (%d,%d)",
-                                  config.animation_index, DM_ANIMATIONS_COUNT, config.animation_dm_set,
-                                  config.cat_x_offset, config.cat_y_offset);
+                                   config.animation_index, DM_ANIMATIONS_COUNT, config.animation_dm_set,
+                                   config.cat_x_offset, config.cat_y_offset);
+                break;
+            case config_animation_sprite_sheet_layout_t::Pkmn:
+                BONGOCAT_LOG_DEBUG("  pkmn: %03d at offset (%d,%d)",
+                                   config.animation_index,
+                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::MsAgent:
                 BONGOCAT_LOG_DEBUG("  MS Agent: %02d at offset (%d,%d)",
-                                  config.animation_index,
-                                  config.cat_x_offset, config.cat_y_offset);
+                                   config.animation_index,
+                                   config.cat_x_offset, config.cat_y_offset);
                 break;
         }
         BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.randomize_index);
