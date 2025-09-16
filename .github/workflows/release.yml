@@ -32,7 +32,8 @@ jobs:
             libinput \
             wayland \
             wayland-protocols \
-            unzip
+            unzip \
+            pandoc-cli
 
       - name: Install compiler
         run: pacman -S --noconfirm ${{ matrix.compiler }}
@@ -51,7 +52,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DFEATURE_LAZY_LOAD_ASSETS=ON -DFEATURE_MULTI_VERSIONS=ON
 
       - name: Build
         run: |

@@ -5,6 +5,8 @@ pkgs.mkShellNoCC {
     # Core
     pkg-config  # Finds build dependencies
     gcc         # C/C++ compiler and also for `make`
+    clang
+    cmake
 
     # Wayland
     wayland-scanner
@@ -34,9 +36,7 @@ pkgs.mkShellNoCC {
     echo "  make              - Build the project"
     echo "  make debug        - Build with debug symbols"
     echo "  make release      - Build in release mode with optimizations and such (Longer compile time)"
-    echo "  make protocols    - Generate protocol files"
     echo "  make clean        - Clean build artifacts"
-    echo "  make memcheck     - Run with valgrind (Requires debug build)"
     echo ""
     echo "Helper scripts:"
     echo "  ./scripts/find_input_devices.sh - Find input devices"

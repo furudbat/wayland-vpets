@@ -920,6 +920,8 @@ namespace bongocat::config {
                 } else {
                     BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
                 }
+            } else {
+                BONGOCAT_LOG_INFO("No device loaded");
             }
         }
 

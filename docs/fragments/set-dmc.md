@@ -1,0 +1,92 @@
+## dmx
+Digital Monster Color
+
+- Agumon
+- Airdramon
+- Andromon
+- Angemon
+- Babydmon
+- Bakemon
+- Bancho Mamemon
+- Betamon
+- Birdramon
+- Blitz Greymon
+- Botamon
+- Centalmon
+- Cockatrimon
+- Coelamon
+- Coronamon
+- Cres Garurumon
+- Cyclomon
+- Dark Tyranomon
+- Deltamon
+- Devidramon
+- Devimon
+- Digitamamon
+- Drimogemon
+- Elecmon
+- Etemon
+- Ex-Tyranomon
+- Flymon
+- Gabumon
+- Garurumon
+- Gazimon
+- Giromon
+- Gizamon
+- Greymon
+- Hi Andromon
+- Kabuterimon
+- Koromon
+- Kunemon
+- Kuwagamon
+- Leomon
+- Mamemon
+- Megadramon
+- Meramon
+- Metal Garurumon
+- Metal Greymon
+- Metal Greymon (Virus)
+- Metal Mamemon
+- Metal Tyranomon
+- Mojymon
+- Monochromon
+- Mozaemon
+- Mugendramon
+- Nanimon
+- Nanomon
+- Numemon
+- Omegamon Alter S
+- Omegamon
+- Orgemon
+- Pagumon
+- Palmon
+- Patamon
+- Petitmon
+- Piccolomon
+- Piyomon
+- Poyomon
+- Punimon
+- Raidenmon
+- Raremon
+- Rust Tyranomon
+- Scumon
+- Seadramon
+- Shellmon
+- Shin Monzaemon
+- Skull Greymon
+- Skull Mammon
+- Tanemon
+- Titamon
+- Tokomon
+- Tsunomon
+- Tuskmon
+- Tyranomon
+- Unimon
+- Vademon
+- Vegimon
+- War Greymon
+- Were Garurumon
+- Whamon
+- Yukidarumon
+- Yuramon
+- Zurumon

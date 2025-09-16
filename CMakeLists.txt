@@ -190,11 +190,12 @@ endif()
 target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_libs)
 
 if (FEATURE_MULTI_VERSIONS)
-    add_executable(bongocat-dm)
-    target_link_libraries(bongocat-dm PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)   # include bongocat as fallback
-    target_link_libraries(bongocat-dm PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
-    target_link_libraries(bongocat-dm PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
-    target_link_libraries(bongocat-dm PRIVATE bongocat_base bongocat_options bongocat_libs)
+    add_executable(bongocat-dm-classic)
+    target_link_libraries(bongocat-dm-classic PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)   # include bongocat as fallback
+    target_link_libraries(bongocat-dm-classic PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
+    target_link_libraries(bongocat-dm-classic PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+    target_link_libraries(bongocat-dm-classic PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+    target_link_libraries(bongocat-dm-classic PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     add_executable(bongocat-dm-colored)
     target_link_libraries(bongocat-dm-colored PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
@@ -207,6 +208,13 @@ if (FEATURE_MULTI_VERSIONS)
     target_link_libraries(bongocat-dm-colored-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
     target_link_libraries(bongocat-dm-colored-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
     target_link_libraries(bongocat-dm-colored-all PRIVATE bongocat_base bongocat_options bongocat_libs)
+
+    add_executable(bongocat-dm)
+    target_link_libraries(bongocat-dm PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-dm PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+    target_link_libraries(bongocat-dm PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+    target_link_libraries(bongocat-dm PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
+    target_link_libraries(bongocat-dm PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     add_executable(bongocat-ms-agent)
     target_link_libraries(bongocat-ms-agent PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
@@ -238,7 +246,7 @@ endif()
 include(GNUInstallDirs)
 if (FEATURE_MULTI_VERSIONS)
     # sudo cmake --install ./cmake-build-release-all-assets-multi
-    install(TARGETS bongocat bongocat-dm bongocat-dm-colored bongocat-dm-colored-all bongocat-ms-agent bongocat-pkmn COMPONENT bongocat-targets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    install(TARGETS bongocat bongocat-dm-classic bongocat-dm bongocat-ms-agent bongocat-pkmn bongocat-all COMPONENT bongocat-targets RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 else()
     install(TARGETS bongocat RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
@@ -252,14 +260,71 @@ set(CPACK_PACKAGE_VERSION "3.0.0")
 set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
-set(CPACK_GENERATOR "DEB;RPM;TGZ;ZIP")
+set(CPACK_GENERATOR "TGZ;ZIP")
 include(CPack)
+
+# man pages
+find_program(PANDOC pandoc)
+if (PANDOC)
+    # List all binaries
+    set(BINARY_TARGETS
+        bongocat
+        bongocat-dm-classic
+        bongocat-dm
+        bongocat-ms-agent
+        bongocat-pkmn
+        bongocat-all
+    )
+
+    set(ALL_MAN_OUTPUTS)
+    foreach(BIN ${BINARY_TARGETS})
+        set(MD_FILE_1 ${PROJECT_SOURCE_DIR}/docs/${BIN}.md)
+        set(MAN_OUTPUT_1 ${CMAKE_CURRENT_BINARY_DIR}/${BIN}.1)
+        # man exec
+        add_custom_command(
+            OUTPUT ${MAN_OUTPUT_1}
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
+            COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_1} ${MD_FILE_1}
+            DEPENDS ${MD_FILE_1}
+            COMMENT "Generating man page for ${BIN} using Pandoc"
+            VERBATIM
+        )
+
+        set(MD_FILE_5 ${PROJECT_SOURCE_DIR}/docs/${BIN}.conf.md)
+        set(MAN_OUTPUT_5 ${CMAKE_CURRENT_BINARY_DIR}/${BIN}.5)
+        # man conf
+        add_custom_command(
+                OUTPUT ${MAN_OUTPUT_5}
+                WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
+                COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_5} ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
+                DEPENDS ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
+                COMMENT "Generating man page for ${BIN}.conf using Pandoc"
+                VERBATIM
+        )
+
+        # Target to build manpages
+        add_custom_target(manpages-${BIN} ALL DEPENDS ${MAN_OUTPUT_1} ${MAN_OUTPUT_5})
+        list(APPEND ALL_MAN_OUTPUTS ${MAN_OUTPUT_1} ${MAN_OUTPUT_5})
+
+        # Install manpage
+        install(
+            FILES ${MAN_OUTPUT_1}
+            DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+        )
+        install(
+            FILES ${MAN_OUTPUT_5}
+            DESTINATION ${CMAKE_INSTALL_MANDIR}/man5
+        )
+    endforeach()
+
+    add_custom_target(manpages ALL DEPENDS ${ALL_MAN_OUTPUTS})
+endif()
 
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we
 # can run the target from visual studio
-if(MSVC)
-    get_all_installable_targets(all_targets)
-    message("all_targets=${all_targets}")
-    set_target_properties(${all_targets} PROPERTIES VS_DEBUGGER_ENVIRONMENT "PATH=$(VC_ExecutablePath_x64);%PATH%")
-endif()
+#if(MSVC)
+#    get_all_installable_targets(all_targets)
+#    message("all_targets=${all_targets}")
+#    set_target_properties(${all_targets} PROPERTIES VS_DEBUGGER_ENVIRONMENT "PATH=$(VC_ExecutablePath_x64);%PATH%")
+#endif()

@@ -5,9 +5,10 @@
   wayland,
   wayland-protocols,
   wayland-scanner,
+  cmake
 }:
 stdenv.mkDerivation (finalAttrs: {
-  pname = "wayland-bongocat";
+  pname = "wayland-vpets";
   version = "3.0.0";
   src = ../.;
 
@@ -38,10 +39,10 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Package information
   meta = {
-    description = "Delightful Wayland overlay that displays an animated bongo cat reacting to your keyboard input!";
-    homepage = "https://github.com/saatvik333/wayland-bongocat";
+    description = "Delightful Wayland overlay that displays an animated v-pet reacting to your keyboard input!";
+    homepage = "https://github.com/furudbat/wayland-vpets";
     license = lib.licenses.mit;
-    maintainers = with lib.maintainers; [voxi0];
+    maintainers = with lib.maintainers; [voxi0 furudbat];
     mainProgram = "bongocat";
     platforms = lib.platforms.linux;
   };

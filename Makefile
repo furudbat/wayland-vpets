@@ -1,3 +1,4 @@
+# keep Makefile for older scripts, cmake still needed
 BUILDDIR = build
 
 ONLY_BONGOCAT ?= 1
@@ -21,7 +22,7 @@ build:
 	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 	cmake --build build
 release:
-	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+	cmake -S . -B build -DCMAKE_BUILD_TYPE=Release -DFEATURE_LAZY_LOAD_ASSETS=ON -DFEATURE_MULTI_VERSIONS=ON
 	cmake --build build
 
 # Debug build
@@ -35,6 +36,12 @@ debug:
 # Install target
 install: build
 	cmake --install build
+
+pack: release
+	cd build && cpack
+
+doc: release
+	cmake --build build --target manpages
 
 # Clean build directory
 clean:

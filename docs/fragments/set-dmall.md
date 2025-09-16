@@ -1,0 +1,674 @@
+## dmall
+custom colored Digital Monster sprites
+
+- Aegisdramon
+- Aero V-dramon
+- Agumon (2006)
+- Agumon (Black)
+- Agumon (Black) X
+- Agumon
+- Agumon X
+- Agumon - Yuki no Kizuna
+- Airdramon
+- Algomon (Adult)
+- Algomon (BabyII)
+- Algomon (BabyI)
+- Algomon (Child)
+- Algomon (Ultimate)
+- Allomon X
+- Alphamon Ouryuken
+- Alphamon
+- Alraumon
+- Ancient Beatmon
+- Ancient Megatheriumon
+- Ancient Mermaimon
+- Ancient Sphinxmon
+- Andiramon (Data)
+- Andiramon (Virus)
+- Andromon
+- Angemon
+- Angewomon
+- Angewomon X
+- Anomalocarimon
+- Anomalocarimon X
+- Apocalymon
+- Apollomon
+- Archnemon
+- Arkadimon (Baby)
+- Arkadimon (Child)
+- Armadimon
+- Armagemon
+- Astamon
+- Asuramon
+- Atlur Kabuterimon (Blue)
+- Atlur Kabuterimon (Red)
+- AxeKnightmon
+- Baalmon
+- Baboongamon
+- Babydmon
+- Bagramon
+- Bakemon
+- Bakumon
+- Bancho Leomon
+- Bancho Lilimon
+- Bancho Mamemon
+- Barbamon
+- Barbamon X
+- Bearmon
+- Beel Starmon X
+- Beelzebumon Blast Mode
+- Beelzebumon
+- Beelzebumon X
+- Belial Vamdemon
+- Belphemon Rage Mode
+- Belphemon X
+- Beowolfmon
+- Bibimon
+- Big Mamemon
+- Birdramon
+- Bitmon
+- Black Galgomon
+- Black Gaogamon
+- Black Growmon
+- Black Guilmon
+- Black King Numemon
+- Black Mach Gaogamon
+- Black Megalo Growmon
+- Black Rapidmon
+- Black Saint Galgomon
+- Black Seraphimon
+- Black Tailmon
+- Black War Greymon
+- Black War Greymon X
+- Blitz Greymon
+- Bloom Lordmon
+- Blossomon
+- Blucomon
+- Blue Meramon
+- Boltmon
+- Bombmon
+- Bommon
+- Boutmon
+- Bryweludramon
+- Bubbmon
+- Budmon
+- Burgermon (Mama)
+- Burgermon (Papa)
+- Candmon
+- Cannonbeemon
+- Caprimon
+- CatchMamemon
+- Caturamon
+- Centalmon
+- Cerberumon X
+- Chamblemon
+- Chaosdramon
+- Chaosdramon X
+- Chaos Dukemon Core
+- Chaos Dukemon
+- Chaosmon
+- Cherubimon (Vice)
+- Cherubimon (Vice) X
+- Cherubimon (Virtue)
+- Cherubimon (Virtue) X
+- Chibickmon
+- Chibimon
+- Chicchimon
+- Chicomon
+- Chimairamon
+- Chocomon
+- Cho Hakkaimon
+- Choromon
+- Clear Agumon
+- Clockmon
+- Cocomon
+- Coelamon
+- Commandramon
+- Coronamon
+- Cotsucomon
+- Craniummon
+- Craniummon X
+- Crescemon
+- Cres Garurumon
+- Crys Paledramon
+- Cthyllamon
+- Cupimon
+- Curimon
+- Cyberdramon
+- Cyberdramon X
+- Cyclomon
+- Dagomon
+- Damemon
+- Darkdramon
+- Dark Knightmon
+- Darkness Bagramon
+- Dark Superstarmon
+- Dark Tyranomon X
+- Death Meramon
+- Deathmon (Black)
+- Deathmon
+- Death-X-DORUgamon
+- Delumon
+- Demon
+- Demon X
+- Devimon
+- Diablomon
+- Diablomon X
+- Dianamon
+- Diginorimon
+- Digitamamon
+- Dinohumon
+- Dinorexmon
+- Dinotigermon
+- Dobermon
+- Dodomon
+- Dogmon
+- Dokimon
+- Dokugumon
+- Dokunemon
+- Dorimon
+- DORUgamon
+- DORUgoramon
+- DORUguremon
+- DORUmon
+- Dracomon X
+- Dracumon
+- Drimogemon
+- Duftmon
+- Duftmon X
+- Dukemon
+- Dukemon X
+- Duramon
+- Duskmon
+- Dynasmon X
+- Ebemon
+- Ebemon X
+- Ebidramon
+- Ekakimon
+- Elecmon
+- Elecmon (Violet)
+- Entmon
+- Etemon
+- Examon X
+- Filmon
+- Firamon
+- Flaremon
+- Floramon
+- Fufumon
+- Fugamon
+- Funbeemon
+- Gabumon X
+- Gaioumon
+- Galgomon
+- Gammamon
+- Ganimon
+- Gankoomon
+- Gankoomon X
+- Gaogamon
+- Gaomon
+- Garudamon
+- Garudamon X
+- Garurumon (Black)
+- Garurumon
+- Gawappamon
+- Gazimon
+- Gazimon X
+- Gekomon
+- Geo Greymon
+- Gerbemon
+- Geremon
+- Gesomon
+- Ghostmon
+- Gigadramon
+- Giga Seadramon
+- Gigimon
+- Ginryumon
+- Giromon
+- Gizamon
+- Goddramon X
+- Gogmamon
+- Gokimon
+- Gokumon
+- Gold Numemon
+- Gold V-dramon
+- Gomamon
+- Gomamon X
+- Goromon
+- Gotsumon
+- Grace Novamon
+- Grademon
+- Grand Dracumon
+- Grandis Kuwagamon
+- Grand Locomon
+- Grappleomon
+- Great King Scumon
+- Greymon (2010)
+- Greymon (Blue)
+- Greymon
+- Greymon X
+- Griffomon
+- Growmon (Orange)
+- Growmon
+- Growmon X
+- Gryzmon
+- Guardromon (Gold)
+- Guardromon
+- Guilmon
+- Guilmon X
+- Gummymon
+- Gundramon
+- Gururumon
+- Gusokumon
+- Hackmon
+- Hagurumon
+- Hangyomon
+- Hanumon
+- Herakle Kabuterimon
+- Herissmon
+- Hexeblaumon
+- Hi Andromon
+- Hisyaryumon
+- Hiyarimon
+- Holy Angemon
+- Holy Digitamamon
+- Holydramon
+- Holydramon X
+- Hookmon
+- Hououmon
+- Hououmon X
+- Hyokomon
+- Hyougamon
+- Ice Devimon
+- Icemon
+- Igamon
+- Ikkakumon
+- Imperialdramon Fighter Mode (Black)
+- Imperialdramon Fighter Mode
+- Imperialdramon Paladin Mode
+- Impmon
+- Impmon X
+- Insekimon
+- Jazamon
+- Jazardmon
+- Jazarichmon
+- Jesmon GX
+- Jesmon
+- Jesmon X
+- Junkmon
+- Justimon X
+- Jyagamon
+- Jyarimon
+- Jyureimon
+- Kabuterimon
+- Kaiser Greymon
+- Kaiser Leomon
+- Kakkinmon
+- Karatsuki Numemon
+- Kazuchimon
+- Keramon
+- Keramon X
+- Ketomon
+- Kiimon
+- King Etemon
+- Kiwimon
+- Knightmon
+- Koemon
+- Kokabuterimon
+- Kokuwamon
+- Kokuwamon X
+- Koromon
+- Kougamon
+- Kozenimon
+- Kunemon
+- Kuramon
+- Kuwagamon
+- Kuwagamon X
+- Kuzuhamon
+- Kyokyomon
+- Kyubimon
+- Kyubimon (Silver)
+- Labramon
+- LadyDevimon
+- LadyDevimon X
+- Lalamon
+- Lavogaritamon
+- Lavorvomon
+- Leafmon
+- Lekismon
+- Leomon
+- Leomon X
+- Leviamon
+- Leviamon X
+- Lilamon
+- Lilimon
+- Lilimon X
+- Lilithmon
+- Lilithmon X
+- Lopmon
+- Lopmon X
+- LordKnightmon X
+- Lotusmon
+- Lucemon Falldown Mode
+- Lucemon
+- Lucemon Satan Mode
+- Lucemon X
+- Ludomon
+- Lunamon
+- Lynxmon
+- Mach Gaogamon
+- Mad Leomon
+- Magnamon X
+- Mambomon
+- Mamemon
+- Mamemon X
+- Mametyramon
+- Mammon
+- Mammon X
+- Mantaraymon X
+- Manticoremon
+- Marin Angemon
+- Marin Chimairamon
+- Marin Devimon
+- Mastemon
+- Mechanorimon
+- Megadramon
+- Megalo Growmon (Orange)
+- Megalo Growmon
+- Megalo Growmon X
+- Mega Seadramon
+- Mega Seadramon X
+- Megidramon
+- Megidramon X
+- MeicooBaby
+- Meicoo (Child)
+- Meicoomon
+- Meicrackmon
+- Meicrackmon Vicious Mode
+- Mephismon
+- Mephismon X
+- Meramon
+- Meramon X
+- Mermaimon
+- Metal Etemon
+- Metal Garurumon (Black)
+- Metal Garurumon
+- Metal Garurumon X
+- Metal Greymon
+- Metal Greymon (Virus)
+- Metal Greymon (Virus) X
+- MetalGreymon X
+- Metallicdramon
+- Metal Mamemon
+- Metal Mamemon X
+- Metal Phantomon
+- Metal Piranimon
+- Metal Seadramon
+- Metal Tyranomon
+- Metal Tyranomon X
+- Mikemon
+- Millenniumon
+- Mimicmon
+- Minervamon X
+- Minomon
+- Mochimon
+- Mokumon
+- Monimon
+- Monochromon
+- Monochromon X
+- Monzaemon
+- Monzaemon X
+- Moonmon
+- Mori Shellmon
+- Morphomon
+- Muchomon
+- Mugendramon
+- Mushmon
+- Nanomon
+- Nefertimon X
+- Neo Devimon
+- Nise Drimogemon
+- Noble Pumpmon
+- Numemon
+- Numemon X
+- Nyaromon
+- Nyokimon
+- Ofanimon Core
+- Ofanimon Falldown Mode
+- Ogremon
+- Ogremon X
+- Ogudomon
+- Ogudomon X
+- Okuwamon
+- Okuwamon X
+- Omegamon Alter S
+- Omegamon
+- Omegamon X
+- Omegamon Zwart
+- Omega Shoutmon X
+- Omekamon
+- Ophanimon
+- Ophanimon X
+- Ordinemon
+- Orochimon
+- Otamamon
+- Otamamon (Red)
+- Otamamon X
+- Ouryumon
+- Pafumon
+- Pagumon
+- Paildramon
+- Paledramon
+- Palmon
+- Palmon X
+- Pandamon
+- Panjyamon
+- Panjyamon X
+- Paomon
+- Parasaurmon
+- Pegasmon X
+- Penmon
+- PetiMeramon
+- PetitMamon
+- Petitmon
+- Phantomon
+- Phascomon
+- Piccolomon
+- Pickmon
+- Pico Devimon
+- Pidmon
+- Piemon
+- Pinochimon
+- Pipimon
+- Piranimon
+- Pitchmon
+- Piyomon
+- Platinum Numemon
+- Platinum Scumon
+- Plesiomon
+- Plesiomon X
+- Plotmon
+- Plotmon X
+- Pokomon
+- Popomon
+- Porcupamon
+- Poromon
+- Prince Mamemon
+- Prince Mamemon X
+- Pteranomon X
+- Pukamon
+- Pukumon
+- Pulsemon
+- Pumpmon
+- Pupumon
+- Puroromon
+- Pururumon
+- Pusumon
+- Pusurimon
+- Puttimon
+- Puyomon
+- Pyocomon
+- Pyonmon
+- Rafflesimon
+- Ragna Lordmon
+- Raguelmon
+- Raidenmon
+- Raihimon
+- Raiji Ludomon
+- Rapidmon (Armor)
+- Rapidmon
+- Rapidmon X
+- Raptordramon
+- Rasenmon Fury Mode
+- Rasenmon
+- Rasielmon
+- Rebellimon
+- Red V-dramon
+- Red Vegimon
+- Regalecusmon
+- Relemon
+- Renamon
+- Renamon X
+- Reppamon
+- Rhinomon
+- Rhinomon X
+- Rize Greymon
+- RizeGreymon X
+- Rosemon Burst Mode
+- Rosemon
+- Rosemon X
+- Rukamon
+- Rust Tyrannomon
+- Ryudamon
+- Saberdramon
+- Saber Leomon
+- Sagomon
+- Saint Galgomon
+- Sakuyamon
+- Sakuyamon X
+- Sand Yanmamon
+- Sangloupmon
+- Sangomon
+- SaviorHackmon
+- Scorpiomon
+- Scumon
+- Seadramon
+- Seadramon X
+- Seraphimon
+- Shadramon
+- Shakomon
+- Shakomon X
+- Shawujinmon
+- Sheepmon
+- Shellmon
+- Shima Unimon
+- Shin Monzaemon
+- Shootmon
+- Siesamon X
+- Sirenmon
+- Sistermon Blanc
+- Skull Baluchimon
+- Skull Greymon
+- SkullKnightmon
+- Skull Mammon
+- Skull Mammon X
+- Sleipmon X
+- Solarmon
+- Sorcerymon
+- Soulmon
+- Starmon
+- Stiffilmon
+- Submarinmon
+- Sunamon
+- Sunarizamon
+- Sunflowmon
+- Sunmon
+- Superstarmon
+- Susanoomon
+- Swimmon
+- Tailmon
+- Tailmon X
+- Tanemon
+- Tankmon
+- Targetmon
+- Tekkamon
+- Tentomon
+- Terriermon
+- Terriermon X
+- Thunderballmon
+- Tia Ludomon
+- Tiger Vespamon
+- Tinkermon
+- Titamon
+- Tobiumon
+- Tobucatmon
+- Togemon
+- Togemon X
+- Tokomon X
+- Tonosama Gekomon
+- Torikara Ballmon
+- Tortamon
+- ToyAgumon (Black)
+- ToyAgumon
+- Triceramon
+- Triceramon X
+- Troopmon
+- Tsubumon
+- Tsuchidarumon
+- Tsumemon
+- Tsunomon
+- Tunomon
+- Turuiemon
+- Tylomon X
+- Tyrannomon
+- Tyrannomon X
+- Tyranomon
+- Tyranomon X
+- Ulforce V-dramon
+- Ulforce V-dramon X
+- Ultimate Brachimon
+- Upamon
+- Vademon
+- Valdurmon
+- Vamdemon
+- Vamdemon_X
+- V-dramon (Black)
+- V-dramon
+- Vegimon
+- Velgrmon
+- Venom Vamdemon
+- Vermillimon
+- V-mon
+- Volcanicdramon
+- Volto Bautamon
+- Vorvomon
+- Wanyamon
+- War Greymon
+- War Greymon X
+- Waru Monzaemon
+- Waru Seadramon
+- Waspmon
+- WereGarurumon (Black)
+- Were Garurumon
+- Were Garurumon X
+- Whamon
+- Wizarmon
+- Wizarmon X
+- Woodmon
+- Wormmon
+- Xiaomon
+- XV-mon (Black)
+- XV-mon
+- Yaamon
+- Yanmamon
+- Yatagaramon (2006)
+- Yatagaramon
+- Youkomon
+- Yuki Agumon
+- Yukidarumon
+- Yukimi Botamon
+- Yuramon
+- Zassoumon
+- Zenimon
+- Zerimon
+- Zudomon
+- Zurumon

@@ -1,0 +1,73 @@
+## dm
+Digital Monster Original
+
+- Agumon
+- Airdramon
+- Andromon
+- Angemon
+- Bakemon
+- Betamon
+- Birdramon
+- Botamon
+- Centalmon
+- Cockatrimon
+- Coelamon
+- Coronamon
+- Cyclomon
+- Dark Tyranomon
+- Deltamon
+- Devidramon
+- Devimon
+- Digitamamon
+- Drimogemon
+- Elecmon
+- Etemon
+- Ex-Tyranomon
+- Flymon
+- Gabumon
+- Garurumon
+- Gazimon
+- Giromon
+- Gizamon
+- Greymon
+- Kabuterimon
+- Koromon
+- Kunemon
+- Kuwagamon
+- Leomon
+- Mamemon
+- Megadramon
+- Meramon
+- Metal Greymon
+- Metal Mamemon
+- Metal Tyranomon
+- Mojyamon
+- Monochromon
+- Monzaemon
+- Nanimon
+- Nanomon
+- Numemon
+- Ogremon
+- Pagumon
+- Palmon
+- Patamon
+- Piccolomon
+- Piyomon
+- Poyomon
+- Punimon
+- Raremon
+- Scumon
+- Seadramon
+- Shellmon
+- Skull Greymon
+- Tanemon
+- Tokomon
+- Tunomon
+- Tuskmon
+- Tyranomon
+- Unimon
+- Vademon
+- Vegimon
+- Whamon
+- Yukidarumon
+- Yuramon

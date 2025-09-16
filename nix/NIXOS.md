@@ -6,10 +6,10 @@
 ### Direct Installation with Flakes
 ```bash
 # Try `wayland-bongocat` without installing
-nix run github:saatvik333/wayland-bongocat
+nix run github:furudbat/wayland-vpets
 
 # Install to user profile
-nix profile install github:saatvik333/wayland-bongocat
+nix profile install github:furudbat/wayland-vpets
 
 # Find your input devices
 bongocat-find-devices
@@ -25,7 +25,7 @@ If you use flakes for your NixOS configuration (Which you should):
 {
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-    bongocat.url = "github:saatvik333/wayland-bongocat";
+    bongocat.url = "github:furudbat/wayland-vpets";
   };
 
   outputs = inputs: {

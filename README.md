@@ -63,6 +63,24 @@ bongocat --watch-config
 bongocat --config ~/.config/bongocat.conf --watch-config
 ```
 
+#### From Source
+
+```bash
+# Install dependencies
+pacman -S gcc make cmake libinput wayland wayland-protocols
+
+# Clone repository
+git clone https://github.com/furudbat/wayland-vpets.git
+cd wayland-vpets
+
+# Build
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+
+# Install
+sudo cmake --install build
+```
+
 ### Other Distributions
 
 <details>
@@ -239,6 +257,8 @@ _Build with `-DFEATURE_MS_AGENT_EMBEDDED_ASSETS` and `-DFEATURE_MORE_MS_AGENT_EM
 </details>
 
 ##### Digimon 🦖
+
+_If you build with ALL assets included you can void naming conflicts by using the full name: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`_
 
 ###### Original ([`dm`](https://humulos.com/digimon/dm/))
 
@@ -1400,7 +1420,7 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 
 ```bash
 # Clone repository
-git clone https://github.com/fudurbat/wayland-vpets.git
+git clone https://github.com/furudbat/wayland-vpets.git
 cd wayland-vpets
 
 # Build (production)
