@@ -8,6 +8,6 @@ fragments/set-dm20.md
 fragments/set-dmx.md
 fragments/set-dmc.md
 fragments/set-dmall.md
-fragments/set-ms-agent.md
+fragments/set-more-ms-agent.md
 fragments/set-pkmn.md
 ```

@@ -123,7 +123,7 @@ namespace bongocat::animation {
             return { .changed = false, .new_frame = new_frame};
         }
 
-        // Test animation
+        // Idle/Test animation
         if (!any_key_pressed && trigger_test_animation && state.row_state == animation_state_row_t::Idle) {
             new_row = BONGOCAT_SPRITE_SHEET_ROWS-1;
             new_start_frame_index = BONGOCAT_FRAME_LEFT_DOWN;
