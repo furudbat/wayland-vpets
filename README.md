@@ -18,9 +18,6 @@ _Clippy_
 ![Pokemon Charizard - Demo](assets/pokemon-demo.png)  
 _Pokemon_
 
-![Pokemon Charizard - Demo](assets/pokemon-demo.png)  
-_Pokemon_
-
 ## ✨ Features
 
 - **🐈 More Pets** - More Sprite to choose from
@@ -51,19 +48,19 @@ _Pokemon_
 
 ```bash
 # Using yay
-yay -S bongocat
+yay -S wpets
 
 # Using paru
-paru -S bongocat
+paru -S wpets
 
 # Run immediately
-bongocat --watch-config
+wpets --watch-config
 
 # Custom config with hot-reload
-bongocat --config ~/.config/bongocat.conf --watch-config
+wpets --config ~/.config/bongocat.conf --watch-config
 ```
 
-#### From Source
+#### From Source ⚠️
 
 ```bash
 # Install dependencies
@@ -77,9 +74,11 @@ cd wayland-vpets
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 
-# Install
+# Install - ⚠️ 
 sudo cmake --install build
 ```
+
+**⚠️ this will overwrite the original installation of [bongocat](https://github.com/saatvik333/wayland-bongocat) ⚠️**
 
 ### Other Distributions
 
