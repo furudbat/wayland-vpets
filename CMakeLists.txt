@@ -261,15 +261,6 @@ if (FEATURE_MULTI_VERSIONS)
     install(FILES examples/clippy.bongocat.conf examples/digimon.bongocat.conf examples/pokemon.bongocat.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat)
 endif ()
 
-# Package
-set(CPACK_PACKAGE_NAME "bongocat")
-set(CPACK_PACKAGE_VERSION "3.0.0")
-set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
-set(CPACK_GENERATOR "TGZ;ZIP")
-include(CPack)
-
 # man pages
 find_program(PANDOC pandoc)
 if (PANDOC)
@@ -327,6 +318,15 @@ if (PANDOC)
     add_custom_target(manpages ALL DEPENDS ${ALL_MAN_OUTPUTS})
 endif()
 
+# Package
+set(CPACK_PACKAGE_NAME "bongocat")
+set(CPACK_PACKAGE_VERSION "3.0.0")
+set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
+set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+set(CPACK_GENERATOR "TGZ;ZIP")
+#set(CPACK_DEBIAN_PACKAGE_DEPENDS "libc6, libstdc++6, libgcc-s1, libwayland-client0, libffi8")
+include(CPack)
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we
 # can run the target from visual studio
