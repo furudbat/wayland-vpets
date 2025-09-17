@@ -583,11 +583,6 @@ namespace bongocat::config {
             }
         } else if (strcmp(key, ANIMATION_NAME_KEY) == 0) {
             using namespace assets;
-            char lower_value[VALUE_BUF] = {};
-            memset(lower_value, 0, VALUE_BUF);
-            for(size_t i = 0; i < strlen(value) && i < VALUE_BUF; i++) {
-                lower_value[i] = value ? static_cast<char>(tolower(value[i])) : '\0';
-            }
 
             // reset state
             config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::None;
@@ -596,10 +591,10 @@ namespace bongocat::config {
 
             if constexpr (features::EnableBongocatEmbeddedAssets) {
                 // check for bongocat
-                if (strcmp(lower_value, BONGOCAT_NAME) == 0 ||
-                    strcmp(lower_value, BONGOCAT_ID) == 0 ||
-                    strcmp(lower_value, BONGOCAT_FQID) == 0 ||
-                    strcmp(lower_value, BONGOCAT_FQNAME) == 0) {
+                if (strcmp(value, BONGOCAT_NAME) == 0 ||
+                    strcmp(value, BONGOCAT_ID) == 0 ||
+                    strcmp(value, BONGOCAT_FQID) == 0 ||
+                    strcmp(value, BONGOCAT_FQNAME) == 0) {
                     config.animation_index = BONGOCAT_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
                 }
@@ -609,7 +604,7 @@ namespace bongocat::config {
             if constexpr (features::EnableDmEmbeddedAssets) {
                 using namespace assets;
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
-            //if (strcmp(lower_value, "agumon") == 0) {
+            //if (strcmp(value, "agumon") == 0) {
             //    config->animation_index = DM_AGUMON_ANIM_INDEX;
             //}
 #include "min_dm_config_parse_enum_key.cpp.inl"
@@ -617,40 +612,40 @@ namespace bongocat::config {
 
                 /// @NOTE(assets): 3. add more dm versions here, config animation_name parsing
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-                config_parse_animation_name_dm(config, lower_value);
+                config_parse_animation_name_dm(config, value);
 #endif
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
-                config_parse_animation_name_dm20(config, lower_value);
+                config_parse_animation_name_dm20(config, value);
 #endif
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-                config_parse_animation_name_pen20(config, lower_value);
+                config_parse_animation_name_pen20(config, value);
 #endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
-                config_parse_animation_name_dmx(config, lower_value);
+                config_parse_animation_name_dmx(config, value);
 #endif
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
-                config_parse_animation_name_dmc(config, lower_value);
+                config_parse_animation_name_dmc(config, value);
 #endif
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
-                config_parse_animation_name_dmall(config, lower_value);
+                config_parse_animation_name_dmall(config, value);
 #endif
             }
 
             if constexpr (features::EnableMsAgentEmbeddedAssets) {
                 // check for ms pets (clippy)
-                if (strcmp(lower_value, CLIPPY_NAME) == 0 ||
-                    strcmp(lower_value, CLIPPY_ID) == 0 ||
-                    strcmp(lower_value, CLIPPY_FQID) == 0 ||
-                    strcmp(lower_value, CLIPPY_FQNAME) == 0) {
+                if (strcmp(value, CLIPPY_NAME) == 0 ||
+                    strcmp(value, CLIPPY_ID) == 0 ||
+                    strcmp(value, CLIPPY_FQID) == 0 ||
+                    strcmp(value, CLIPPY_FQNAME) == 0) {
                     config.animation_index = CLIPPY_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
                 /// @NOTE(assets): 4. add more MS Pets here
-                if (strcmp(lower_value, LINKS_NAME) == 0 ||
-                    strcmp(lower_value, LINKS_ID) == 0 ||
-                    strcmp(lower_value, LINKS_FQID) == 0 ||
-                    strcmp(lower_value, LINKS_FQNAME) == 0) {
+                if (strcmp(value, LINKS_NAME) == 0 ||
+                    strcmp(value, LINKS_ID) == 0 ||
+                    strcmp(value, LINKS_FQID) == 0 ||
+                    strcmp(value, LINKS_FQNAME) == 0) {
                     config.animation_index = LINKS_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
@@ -661,7 +656,7 @@ namespace bongocat::config {
             if constexpr (features::EnablePkmnEmbeddedAssets) {
                 using namespace assets;
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-                config_parse_animation_name_pkmn(config, lower_value);
+                config_parse_animation_name_pkmn(config, value);
 #endif
             }
             /// @NOTE(assets): 4. add more config animation_name parsring here

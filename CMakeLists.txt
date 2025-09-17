@@ -256,7 +256,10 @@ else()
 endif()
 install(FILES bongocat.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat RENAME bongocat.conf.example)
 install(PROGRAMS scripts/find_input_devices.sh DESTINATION ${CMAKE_INSTALL_BINDIR} RENAME bongocat-find-devices)
-
+if (FEATURE_MULTI_VERSIONS)
+    # more configs
+    install(FILES examples/clippy.bongocat.conf examples/digimon.bongocat.conf examples/pokemon.bongocat.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat)
+endif ()
 
 # Package
 set(CPACK_PACKAGE_NAME "bongocat")
