@@ -6,7 +6,7 @@ target_compile_definitions(assets_dm20_feature INTERFACE FEATURE_ENABLE_DM_EMBED
 
 add_library(assets_dm20 STATIC)
 target_sources(assets_dm20 PRIVATE dm20_get_sprite_sheet.cpp dm20_config_parse_animation_name.cpp dm20_images.c)
-target_compile_options(assets_dm20 PRIVATE -ffunction-sections -fdata-sections)
+target_compile_options(assets_dm20 PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)
 target_include_directories(assets_dm20
         PRIVATE ${INCLUDE_DIR}/embedded_assets/dm20
         PUBLIC ${INCLUDE_DIR})

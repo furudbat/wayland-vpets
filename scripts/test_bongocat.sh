@@ -5,7 +5,7 @@ set -euo pipefail
 #make debug
 #PROGRAM="./cmake-build-debug-all-assets-colored-preload/bongocat"
 #PROGRAM="./cmake-build-debug/bongocat"
-PROGRAM="./build/bongocat"
+PROGRAM="./build/bongocat-all"
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
@@ -20,7 +20,7 @@ if [[ $# -ge 1 ]]; then
     echo "[TEST] Using provided PID = $PID"
 else
     echo "[TEST] Starting program..."
-    "$PROGRAM" --watch-config --config "$CONFIG" &
+    "$PROGRAM" --watch-config --config "$CONFIG" --ignore-running --strict &
     PID=$!
     echo "[TEST] Program PID = $PID"
     sleep 20

@@ -6,7 +6,7 @@ target_compile_definitions(assets_dmall_feature INTERFACE FEATURE_ENABLE_DM_EMBE
 
 add_library(assets_dmall STATIC)
 target_sources(assets_dmall PRIVATE dmall_get_sprite_sheet.cpp dmall_config_parse_animation_name.cpp dmall_images.c)
-target_compile_options(assets_dmall PRIVATE -ffunction-sections -fdata-sections)
+target_compile_options(assets_dmall PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)
 target_include_directories(assets_dmall
         PRIVATE ${INCLUDE_DIR}/embedded_assets/dmall
         PUBLIC ${INCLUDE_DIR})

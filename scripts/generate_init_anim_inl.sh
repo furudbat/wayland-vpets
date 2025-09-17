@@ -6,12 +6,14 @@ HEADER_FILE="$3"
 PREFIX="$4"
 START_INDEX="$5"
 SET="Dm"
+ALT=""
 
 # === Parse args ===
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
     case $1 in
         --set) SET="$2"; shift 2 ;;
+        --alt) ALT="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -110,24 +112,56 @@ for FILE in "$INPUT_DIR"/*.png; do
     IDENTIFIER=$(echo "$NAME_CLEAN" | tr '[:upper:]' '[:lower:]')
     MACRO_PREFIX=$(echo "${ASSETS_PREFIX_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
 
+    FQID="${ASSETS_PREFIX_LOWER}:${IDENTIFIER}"
+    FQNAME="${ASSETS_PREFIX_LOWER}:${NAME_NO_EXT}"
+
     EMBED_SYMBOL="${ASSETS_PREFIX_LOWER}_${IDENTIFIER}_png"
     SIZE_SYMBOL="${EMBED_SYMBOL}_size"
 
     echo "// check for ${NAME_NO_EXT^} (${IDENTIFIER})" >> "$OUTPUT_FILE_1"
-    echo "if (strcmp(lower_value, ${MACRO_PREFIX}_NAME) == 0 ||" >> "$OUTPUT_FILE_1"
-    echo "    strcmp(lower_value, ${MACRO_PREFIX}_ID) == 0 ||" >> "$OUTPUT_FILE_1"
-    echo "    strcmp(lower_value, ${MACRO_PREFIX}_FQID) == 0 ||" >> "$OUTPUT_FILE_1"
-    echo "    strcmp(lower_value, ${MACRO_PREFIX}_FQNAME) == 0) {" >> "$OUTPUT_FILE_1"
-    echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
-    echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
-    echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::${SET};" >> "$OUTPUT_FILE_1"
-    echo "}" >> "$OUTPUT_FILE_1"
+    if [[ -n $ALT ]]; then
+      ALT_LOWER=$(echo "$ALT" | tr '[:upper:]' '[:lower:]')
+      ALT_UPPER=$(echo "$ALT" | tr '[:lower:]' '[:upper:]')
+
+      ALT_FQID="${ALT_LOWER}:${IDENTIFIER}"
+      ALT_FQNAME="${ALT_LOWER}:${NAME_NO_EXT}"
+
+      echo "if (strcmp(value, ${MACRO_PREFIX}_NAME) == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, ${MACRO_PREFIX}_ID) == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, ${MACRO_PREFIX}_FQID) == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, ${MACRO_PREFIX}_FQNAME) == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    // alt" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, \"${ALT_FQID}\") == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, \"${ALT_FQNAME}\") == 0) {" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::${SET};" >> "$OUTPUT_FILE_1"
+      echo "}" >> "$OUTPUT_FILE_1"
+    else
+      echo "if (strcmp(value, ${MACRO_PREFIX}_NAME) == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, ${MACRO_PREFIX}_ID) == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, ${MACRO_PREFIX}_FQID) == 0 ||" >> "$OUTPUT_FILE_1"
+      echo "    strcmp(value, ${MACRO_PREFIX}_FQNAME) == 0) {" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::${SET};" >> "$OUTPUT_FILE_1"
+      echo "}" >> "$OUTPUT_FILE_1"
+    fi
 
     echo "init_${ASSETS_PREFIX_LOWER}_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_2"
 
     echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
 
     echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${SET} }," >> "$OUTPUT_FILE_5"
+    if [[ -n $ALT ]]; then
+      ALT_LOWER=$(echo "$ALT" | tr '[:upper:]' '[:lower:]')
+      ALT_UPPER=$(echo "$ALT" | tr '[:lower:]' '[:upper:]')
+
+      ALT_FQID="${ALT_LOWER}:${IDENTIFIER}"
+      ALT_FQNAME="${ALT_LOWER}:${NAME_NO_EXT}"
+
+      echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, \"${ALT_FQID}\", \"${ALT_FQNAME}\", ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${SET} },  // alt ids for ${NAME_NO_EXT}" >> "$OUTPUT_FILE_5"
+    fi
 
     ((INDEX++))
 done

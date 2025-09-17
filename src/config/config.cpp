@@ -589,6 +589,9 @@ namespace bongocat::config {
             config.animation_dm_set = config_animation_dm_set_t::None;
             config.animation_index = -1;
 
+            // fully name like dm:..., dm20:..., dmc:...
+            [[maybe_unused]] const bool is_fq = strchr(value, ':') != nullptr;
+
             if constexpr (features::EnableBongocatEmbeddedAssets) {
                 // check for bongocat
                 if (strcmp(value, BONGOCAT_NAME) == 0 ||
@@ -600,34 +603,57 @@ namespace bongocat::config {
                 }
             }
 
+            bool animation_found = config.animation_index >= 0;
+
             // check for dm
             if constexpr (features::EnableDmEmbeddedAssets) {
                 using namespace assets;
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
-            //if (strcmp(value, "agumon") == 0) {
-            //    config->animation_index = DM_AGUMON_ANIM_INDEX;
-            //}
-#include "min_dm_config_parse_enum_key.cpp.inl"
+                #include "min_dm_config_parse_enum_key.cpp.inl"
+                animation_found = config.animation_index >= 0;
 #endif
 
                 /// @NOTE(assets): 3. add more dm versions here, config animation_name parsing
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-                config_parse_animation_name_dm(config, value);
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {    // overwrite animation when needed
+                    config_parse_animation_name_dm(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
-                config_parse_animation_name_dm20(config, value);
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dm20(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-                config_parse_animation_name_pen20(config, value);
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_pen20(config, value);
+                }
+                find_animation = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
-                config_parse_animation_name_dmx(config, value);
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dmx(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
-                config_parse_animation_name_dmc(config, value);
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dmc(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
-                config_parse_animation_name_dmall(config, value);
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dmall(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
             }
 
@@ -641,7 +667,7 @@ namespace bongocat::config {
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-                /// @NOTE(assets): 4. add more MS Pets here
+                /// @NOTE(assets): 4. add more MS Agents here
                 if (strcmp(value, LINKS_NAME) == 0 ||
                     strcmp(value, LINKS_ID) == 0 ||
                     strcmp(value, LINKS_FQID) == 0 ||
@@ -656,12 +682,16 @@ namespace bongocat::config {
             if constexpr (features::EnablePkmnEmbeddedAssets) {
                 using namespace assets;
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-                config_parse_animation_name_pkmn(config, value);
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_pkmn(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
             }
             /// @NOTE(assets): 4. add more config animation_name parsring here
 
-            if (config.animation_index < 0 || config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
+            animation_found = config.animation_index >= 0 && config.animation_sprite_sheet_layout != config_animation_sprite_sheet_layout_t::None;
+            if (!animation_found) {
                 if (config.animation_index >= 0 && config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
                     BONGOCAT_LOG_WARNING("animation_index is set, but not animation_type (unknown type for index=%i and value='%s')", config.animation_index, value);
                     if (config.strict) {

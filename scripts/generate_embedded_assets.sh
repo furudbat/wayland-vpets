@@ -210,9 +210,11 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "extern const size_t $SIZE_SYMBOL;" >> "$C_HEADER_IMAGES_OUT"
     echo >> "$C_HEADER_IMAGES_OUT"
 
+    FQID="${ASSETS_PREFIX_LOWER}:${IDENTIFIER}"
+    FQNAME="${ASSETS_PREFIX_LOWER}:${NAME_NO_EXT}"
 
     echo "    // Name: $NAME_NO_EXT" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr char ${MACRO_PREFIX}_FQID_ARR[] = \"${ASSETS_PREFIX_LOWER}:${IDENTIFIER}\";" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr char ${MACRO_PREFIX}_FQID_ARR[] = \"${FQID}\";" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr const char* ${MACRO_PREFIX}_FQID = ${MACRO_PREFIX}_FQID_ARR;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQID_LEN = sizeof(${MACRO_PREFIX}_FQID_ARR)-1;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr char ${MACRO_PREFIX}_ID_ARR[] = \"${IDENTIFIER}\";" >> "$CPP_HEADER_OUT"
@@ -221,7 +223,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "    inline static constexpr char ${MACRO_PREFIX}_NAME_ARR[] = \"${NAME_NO_EXT}\";" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr const char* ${MACRO_PREFIX}_NAME = ${MACRO_PREFIX}_NAME_ARR;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_NAME_LEN = sizeof(${MACRO_PREFIX}_NAME_ARR)-1;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr char ${MACRO_PREFIX}_FQNAME_ARR[] = \"${ASSETS_PREFIX_LOWER}:${NAME_NO_EXT}\";" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr char ${MACRO_PREFIX}_FQNAME_ARR[] = \"${FQNAME}\";" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr const char* ${MACRO_PREFIX}_FQNAME = ${MACRO_PREFIX}_FQNAME_ARR;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQNAME_LEN = sizeof(${MACRO_PREFIX}_FQNAME_ARR)-1;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_COLS = $COLS;" >> "$CPP_HEADER_OUT"

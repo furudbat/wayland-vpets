@@ -21,9 +21,9 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
-echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits,symbols`' >> "$REPORT"
+echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat-all -d compileunits,symbols`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -36,18 +36,18 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
-echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat -- ./cmake-build-debug/bongocat`' >> "$REPORT"
+echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat -- ./cmake-build-debug/bongocat | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
 
 
-echo '`du -h ./cmake-build-*/bongocat*`' >>  "$REPORT"
+echo '`du -h ./cmake-build-*/bongocat* --exclude=*.1 --exclude=*.5`' >>  "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(du -h ./cmake-build-*/bongocat*)" >>  "$REPORT"
+echo "$(du -h ./cmake-build-*/bongocat* --exclude='*.1' --exclude='*.5')" >>  "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -105,7 +105,7 @@ for group in release minsizerel relwithdebinfo debug; do
         echo "Testing $binary (size $size)..."
 
         # Run binary
-        "$binary" --watch-config --config debug.bongocat.conf &
+        "$binary" --watch-config --config debug.bongocat.conf --ignore-running &
         PID=$!
 
         # Give it time to start
