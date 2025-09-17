@@ -2,9 +2,12 @@
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
 [![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
+
+## 🖼️ Demo
 
 ![Bongocat - Demo](assets/demo.gif)  
 _Classic Bongocat_
@@ -42,12 +45,75 @@ _Pokemon_
 - **😄 Happy Frame** - Reach KPM (Keystroke per minute) to trigger the happy frame (Digimon)
 - **🎲 Random Frame** - Randomize sprite frame at start up (Digimon) (v2.4.0)
 
+## 🏁 Getting Started
+
+### 1. Install the App, Arch Linux (Recommended)
+
+```bash
+# Install using yay
+yay -S wpets
+
+# Or using paru
+paru -S wpets
+```
+
+### 2. Configure Permissions
+
+```bash
+# Add user to input group for keyboard access
+sudo usermod -a -G input $USER
+# Log out and back in for changes to take effect
+```
+
+### 3. Find Your Input Devices
+
+```bash
+# Installed via AUR
+wpets-find-devices
+
+# Built from source
+./scripts/find_input_devices.sh
+```
+
+### 4. Configure Bongo Cat
+
+Create or edit `~/.config/bongocat/bongocat.conf`:
+
+```ini
+# Example minimal configuration
+cat_x_offset=0
+cat_y_offset=0
+cat_align=center
+cat_height=60
+overlay_height=80
+overlay_opacity=150
+overlay_position=top
+layer=top
+fps=60
+enable_antialiasing=1
+animation_name=bongocat
+keypress_duration=200
+
+# from input device found 
+keyboard_device=/dev/input/event4
+```
+
+Full configuration reference: see the [Configuration Section](#-configuration) below.
+
+### 5. Run the Overlay
+
+```bash
+wpets --watch-config --config ~/.config/bongocat/bongocat.conf
+```
+
+
+
 ## 🚀 Installation
 
 ### Arch Linux (Recommended)
 
 ```bash
-# Using yay
+# Install using yay
 yay -S wpets
 
 # Using paru
@@ -58,7 +124,19 @@ wpets --watch-config
 
 # Custom config with hot-reload
 wpets --config ~/.config/bongocat.conf --watch-config
+
+
+# drop-in replacement for bongocat
+wpets --config ~/.config/bongocat.conf --watch-config
+
+# only pokemon sprites
+wpets-pkmn --config ~/.config/pkmn.bongocat.conf --watch-config
+
+# all sprites available (Recommended)
+wpets-all --config ~/.config/bongocat.conf --watch-config
 ```
+
+_`wpets` is the default minimal binary. **`wpets-all`** and `wpets-pkmn` are variants with specific sprite sets._
 
 #### From Source ⚠️
 
@@ -74,11 +152,13 @@ cd wayland-vpets
 cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 
-# Install - ⚠️ 
+# Install - ⚠️ - If you only want to test without replacing bongocat, run the binary directly from `./build/` instead of installing.
 sudo cmake --install build
 ```
 
 **⚠️ this will overwrite the original installation of [bongocat](https://github.com/saatvik333/wayland-bongocat) ⚠️**
+
+
 
 ### Other Distributions
 
@@ -116,9 +196,9 @@ nix profile install github:furudbat/wayland-vpets
 
 </details>
 
-## 🎮 Quick Start
+## 🎮 Run
 
-### 1. Setup Permissions
+### 1. Setup Permissions (once)
 
 ```bash
 # Add your user to the input group
@@ -126,21 +206,11 @@ sudo usermod -a -G input $USER
 # Log out and back in for changes to take effect
 ```
 
-### 2. Find Your Input Devices
-
-```bash
-# If installed via AUR
-bongocat-find-devices
-
-# If built from source
-./scripts/find_input_devices.sh
-```
-
 ### 3. Run with Hot-Reload
 
 ```bash
 # AUR installation
-bongocat --watch-config
+wpets --watch-config
 
 # From source
 ./build/bongocat --watch-config
@@ -148,7 +218,7 @@ bongocat --watch-config
 
 ## ⚙️ Configuration
 
-Bongo Cat uses a simple configuration file format. With hot-reload enabled (`--watch-config`), changes apply instantly without restarting.
+Once installed, you can customize Bongo Cat Bar using a simple config file.
 
 ### Basic Configuration
 
@@ -180,8 +250,6 @@ layer=top                        # Layer type (top/overlay)
 idle_frame=0                     # Frame to show when idle (0-3)
 fps=60                           # Frame rate (1-120)
 keypress_duration=100            # Animation duration (ms)
-test_animation_duration=200      # Test animation duration (ms)
-test_animation_interval=0        # Test animation every N seconds (0=off)
 
 # Input devices (add multiple lines for multiple keyboards)
 keyboard_device=/dev/input/event4
@@ -266,8 +334,8 @@ Options:
   -v, --version         Show version information
   -c, --config          Specify config file (default: bongocat.conf)
   -w, --watch-config    Watch config file for changes and reload automatically
-  -o, --output-name     Specify output name (overwrite output_name from config)
   -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)
+  -o, --output-name     Specify output name (overwrite output_name from config)
       --random          Randomize animation_name at start up
       --strict          Only start up with a valid config and valid parameter
 ```
@@ -296,32 +364,60 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 
 See [`examples/`](examples) for more configs.
 
+#### Hyprland
+
+For [`hyprland`](https://hypr.land/) users, you can autostart `wpets` in your `hyprland.conf`:
+
+```ini
+# Auto start
+exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen1.bongocat.conf -o HDMI-A-1
+exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen2.bongocat.conf -o DP-1
+exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen3.bongocat.conf
+exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen4.bongocat.conf --random
+```
+
 ## 🛠️ Building from Source
 
 ### Prerequisites
 
-**Required:**
+Before building, ensure your system has the required tools and libraries:
+
+#### Required:
 
 - Wayland compositor with layer shell support
 - C23/C++23 compiler (GCC 15+ or Clang 19+)
-- Make or CMake
-- libwayland-client
-- wayland-protocols
-- wayland-scanner
+- CMake and make
+- `libwayland-client`
+- `wayland-protocols`
+- `wayland-scanner`
 
-### Build Process
+##### Arch Linux / Manjaro:
+
+```bash
+sudo pacman -S git gcc g++ clang cmake base-devel libinput wayland wayland-protocols`
+```
+
+##### Fedora: 
+
+```bash
+sudo dnf install -y @c-development git-core cmake glibc-langpack-en 'pkgconfig(libevdev)' 'pkgconfig(libinput)' 'pkgconfig(libudev)' 'pkgconfig(wayland-client)' 'pkgconfig(wayland-protocols)'
+```
+
+##### Debian / Ubuntu:
+
+```bash
+sudo apt-get install build-essential cmake libinput-dev libudev-dev libwayland-dev wayland-protocols
+```
+
+### Build Instructions
 
 ```bash
 # Clone repository
 git clone https://github.com/furudbat/wayland-vpets.git
 cd wayland-vpets
 
-# Build (production)
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
-cmake --build build
-
-# Build (debug)
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+# Build (Release or Debug)
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release   # Or Debug
 cmake --build build
 
 # Clean
@@ -335,15 +431,17 @@ The build process automatically:
 3. Embeds assets directly in the binary
 4. Links with required libraries
 
+
+
 ## 🔍 Device Discovery
 
-The `bongocat-find-devices` tool provides professional input device analysis with a clean, user-friendly interface:
+The `wpets-find-devices` tool provides professional input device analysis with a clean, user-friendly interface:
 
 ```bash
-$ bongocat-find-devices
+$ wpets-find-devices
 
 ╔══════════════════════════════════════════════════════════════════╗
-║ Wayland Bongo Cat - Input Device Discovery v2.4.0                ║
+║ Wayland Bongo Cat - Input Device Discovery v3.0.0                ║
 ╚══════════════════════════════════════════════════════════════════╝
 
 [SCAN] Scanning for input devices...
@@ -374,19 +472,19 @@ keyboard_device=/dev/input/event20  # Logitech MX Keys
 
 ```bash
 # Show all input devices (including mice, touchpads)
-bongocat-find-devices --all
+wpets-find-devices --all
 
 # Generate complete configuration file
-bongocat-find-devices --generate-config > bongocat.conf
+wpets-find-devices --generate-config > bongocat.conf
 
 # Test device responsiveness (requires root)
-sudo bongocat-find-devices --test
+sudo wpets-find-devices --test
 
 # Show detailed device information
-bongocat-find-devices --verbose
+wpets-find-devices --verbose
 
 # Get help and usage information
-bongocat-find-devices --help
+wpets-find-devices --help
 ```
 
 ### Key Features
@@ -404,7 +502,7 @@ bongocat-find-devices --help
 ### System Requirements
 
 This program is lightweight and runs even on very modern desktop systems.  
-Minimal builds require just a few MB of RAM, while asset-heavy builds may use more memory.
+Minimal builds require only a few MB of RAM, whereas asset-heavy builds use more.
 
 ## 🖥️ System Requirements
 
@@ -426,10 +524,15 @@ Minimal builds require just a few MB of RAM, while asset-heavy builds may use mo
 
 ## 🐛 Troubleshooting
 
+Enable debug logging for detailed output:
+```bash
+wpets --watch-config (ensure enable_debug=1 in config)
+```
+
 ### Common Issues
 
 <details>
-<summary>Permission denied accessing /dev/input/eventX</summary>
+<summary>Permission denied accessing `/dev/input/eventX`</summary>
 
 **Solution:**
 
@@ -452,7 +555,7 @@ sudo udevadm control --reload-rules
 
 ```bash
 # Find correct device
-bongocat-find-devices
+wpets-find-devices
 
 # Test device manually
 sudo evtest /dev/input/event4
@@ -488,7 +591,7 @@ wlr-randr
 swaymsg -t get_outputs
 
 # Check bongocat logs for detected monitors
-bongocat --watch-config  # Look for "xdg-output name received" messages
+wpets --watch-config  # Look for "xdg-output name received" messages
 ```
 
 **Configuration:**
@@ -519,7 +622,7 @@ monitor=DP-1         # DisplayPort monitor
 
 ### Getting Help
 
-1. Enable debug logging: `bongocat --watch-config` (ensure `enable_debug=1`)
+1. Enable debug logging: `wpets --watch-config` (ensure `enable_debug=1`)
 2. Check compositor compatibility
 3. Verify all dependencies are installed
 4. Test with minimal configuration
@@ -527,6 +630,12 @@ monitor=DP-1         # DisplayPort monitor
 ## 🏗️ Architecture
 
 ### Project Structure
+
+- `assets/` - Sprite sheets and media
+- `src/` - Core application logic and platform-specific code
+- `include/` - Headers
+- `scripts/` - Utilities and codegen
+- `lib/` - External libraries
 
 ```
 wayland-vpets/
@@ -550,15 +659,30 @@ wayland-vpets/
 
 ## 🤝 Contributing
 
-This project follows industry best practices with a modular architecture. Contributions are welcome!
+This project follows industry best practices with a modular architecture.  
+Issues and pull requests are welcome! See [CONTRIBUTING.md](CONTRIBUTING.md) for details.
+
 
 ### Development Setup
+
+#### Build with CMake (Recommended)
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
+```
+
+#### Legacy `make` (for old `bongocat` users)
 
 ```bash
 git clone https://github.com/furudbat/wayland-vpets.git
 cd wayland-vpets
 make debug
 ```
+
+`make debug` provides a quick debug build.
+You can inspect the old workflow in the old [`Makefile`](Makefile.old).  
+_**Note:** The binary name in AUR is `wpets`, but during development and `make install` it is still `bongocat`._
 
 ### Code Standards
 
@@ -569,43 +693,36 @@ make debug
 
 #### Moving to C++
 
-I'm moving this Project ~~a little bit~~ to C++.
+The project is gradually migrating to C++ while retaining a C-style foundation for performance and Wayland compatibility.
 
-* using modern C++23/C23 compiler (required for `#embed`)
-* thread-safe Logging
-* use assert and static_assert (Preconditions, postconditions, invariants.)
-* use mmap for multi-threading and shared memory
-* use Mutex and LockGuard
-* prefer stack to heap
-  * use heap when: Mutex is used in structs or other non-movable objects
-  * use mmap for shared memory
-  * dynamics arrays like buffers
-* **reduce usage of pre-processor** - replace `#define` with `constexpr`
-* use `ref&` instead of pointer parameter (not-nullable)
-* use `nullptr` instead of `NULL`
-* **Memory Management** - Simple Wrapper for malloc/free calls
-  * move semantics
-  * reduce manually clean up
-  * system memory and resources use RAII
-    * Mutex
-    * MMap + MMapArray (for shared memory)
-    * MMap mapped Files (Buffers)
-    * malloc/free
-    * FileDescriptor
-* use `enum class`
-* use default and brace initialization
-* It's still C with Linux + Wayland libraries under the hood
-* ~~NO STL~~ - Almost NO STL - I had to use `<type_traits>` :(
-* NO classes (except for RAII)
-  * **Rule of five** 😬
-* keep templates at minimum
-* move big assets (like embedded images) into its own TU (cpp file) and get needed asset from a function call
-* reduce globals, use context structs and pass parameter
-* use C atomic style (`atomic_store` and `atomic_load`), `atomic_bool`, `atomic_int` is still fine
-* fixed-size types
-* try to allocate upfront, before starting a thread (see ~~`init` or~~`create` functions)
-* prefer `create` functions with RVO, instead of `init` with out-ref-parameter
-* stop (all) threads before releasing memory
+##### Key practices:
+
+* **Modern Compiler Features:** Requires C23/C++23 (`#embed`)
+* **Thread Safety:** Thread-safe logging, mutexes, LockGuard, and atomic operations (`atomic_store/load`)
+* **Memory & Resource Management:**
+  * Prefer stack over heap; use heap only when required for mutexes or dynamic arrays
+  * RAII for resources: Mutex, MMap, Buffers, FileDescriptors
+  * Move semantics for cleanup reduction
+* **Code Modernization:**
+  * Use `ref&` instead of raw pointers (not-nullable)
+  * Use `nullptr` instead of `NULL`
+  * Replace `#define` with `constexpr` where possible
+  * Use `enum class` and default/brace initialization
+* **C++ Usage Restrictions:**
+  * _Almost_ NO STL (only `<type_traits>` used)
+  * No classes except for RAII; apply **Rule of Five**
+  * Minimal templates
+* **Asset Management:**
+  * Embed large assets in separate translation units
+  * Access via dedicated functions
+* **Global State:**
+  * Reduce globals, prefer context structs passed as parameters
+* **Threading:**
+  * Allocate memory upfront before starting threads
+  * Prefer `create` functions with RVO instead of `init` with out-parameters
+  * Stop all threads before releasing memory
+
+The project remains largely C under the hood, using Linux + Wayland libraries, while gradually adopting modern C++ practices for safety and maintainability.
 
 ## 📄 License
 
@@ -621,11 +738,15 @@ Built with ❤️ for the Wayland community. Special thanks to:
 - [Waybar](https://github.com/Alexays/Waybar)
 
 
+<details>
+<summary>Copyright</summary>
+
+This project is **free**, **non-commercial** and not associated with these entities.
 Pokémon are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
 Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.
 Clippy and other MS Agents are owed by Microsoft.
-This project is **free**, **non-commercial** and not associated with these entities.
 See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
+</details>
 
 ---
 
