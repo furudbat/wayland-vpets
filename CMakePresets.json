@@ -77,18 +77,14 @@
       }
     },
     {
-      "name": "debug_only_bongocat",
-      "displayName": "Debug (Only Bongocat)",
-      "description": "Debug build include only bongocat as asset",
+      "name": "release_multi_install",
+      "displayName": "Release (Multi Versions)",
+      "description": "Release build with multiple execs",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-only-bongocat",
+      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-multi",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "ENABLE_ASAN": "ON",
-        "ENABLE_UBSAN": "ON",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF"
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_MULTI_VERSIONS": "ON"
       }
     },
     {
@@ -99,6 +95,79 @@
       "binaryDir": "${sourceDir}/cmake-build-release-only-bongocat",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF"
+      }
+    },
+    {
+      "name": "release_all_assets",
+      "displayName": "Release (All Assets)",
+      "description": "Release build with ALL assets (full dm versions)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-all-assets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "relwithdebinfo_all_assets",
+      "displayName": "RelWithDebInfo (All Assets)",
+      "description": "Release build with debug info and ALL assets (full dm versions)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-assets",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "release_all_assets_colored_custom",
+      "displayName": "Release (All Assets + custom colored)",
+      "description": "Release build with ALL assets (full dm versions + custom colored sprites)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-custom-colored",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "debug_only_bongocat",
+      "displayName": "Debug (Only Bongocat)",
+      "description": "Debug build include only bongocat as asset",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-only-bongocat",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF"
@@ -120,32 +189,17 @@
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
-      "name": "release_all_assets",
-      "displayName": "Release (All Assets)",
-      "description": "Release build with ALL assets (full dm versions)",
+      "name": "debug_all_assets_colored_custom",
+      "displayName": "Debug (All Assets + custom colored sprites)",
+      "description": "Debug build with ALL assets (full dm versions + custom colored sprites) (for testing)",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "debug_all_assets_colored",
-      "displayName": "Debug (All Assets + colored sprites)",
-      "description": "Debug build with ALL assets (full dm versions + colored sprites) (for testing)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored-custom",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
@@ -157,21 +211,9 @@
         "FEATURE_DM_EMBEDDED_ASSETS": "ON",
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMC_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "debug_no_lazy_load",
-      "displayName": "Debug Build (No Lazy load)",
-      "description": "Debug build without lazy load, preload current asset",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-no-lazy-load",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "ENABLE_ASAN": "ON",
-        "ENABLE_UBSAN": "ON",
-        "FEATURE_PRELOAD_ASSETS": "OFF",
-        "FEATURE_LAZY_LOAD_ASSETS": "OFF"
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -192,6 +234,7 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "ON",
         "FEATURE_LAZY_LOAD_ASSETS": "OFF"
       }
@@ -214,30 +257,7 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_PRELOAD_ASSETS": "OFF",
-        "FEATURE_LAZY_LOAD_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "release_all_assets_multi_install",
-      "displayName": "Release (All Assets)",
-      "description": "Release build with ALL assets (full dm versions)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-multi",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_MULTI_VERSIONS": "ON"
-      }
-    },
-    {
-      "name": "release_all_assets_multi_install_lazy_load",
-      "displayName": "Release (All Assets)",
-      "description": "Release build with ALL assets (full dm versions) with asset lazy loading",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-multi-lazy-load",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_MULTI_VERSIONS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "OFF",
         "FEATURE_LAZY_LOAD_ASSETS": "ON"
       }

@@ -530,14 +530,14 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
     FileDescriptor create_shm(off_t size) {
         char* name = strdup(CREATE_SHM_NAME_TEMPLATE);
-        constexpr auto charset = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        constexpr size_t charset_len = sizeof(charset) - 1;
+        constexpr char charset_arr[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+        constexpr size_t charset_len = sizeof(charset_arr) - 1;
         int fd = -1;
 
         for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
             for (size_t j = 0; j < CREATE_SHM_NAME_SUFFIX_LEN; j++) {
-                assert(sizeof(charset) - 1 > 0);
-                name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset[rand() % static_cast<int>(charset_len)];
+                assert(sizeof(charset_arr) - 1 > 0);
+                name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rand() % static_cast<int>(charset_len)];
             }
             fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
             if (fd >= 0) {
@@ -828,6 +828,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         assert(wayland_ctx._local_copy_config != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
+        /// @TODO: add RAII wrapper for wl_registry
         wl_registry *registry = wl_display_get_registry(wayland_ctx.display);
         if (!registry) {
             BONGOCAT_LOG_ERROR("Failed to get Wayland registry");
@@ -875,6 +876,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             wayland_ctx.output = ctx.outputs[0].wl_output;
             wayland_ctx._output_name_str = ctx.outputs[0].name_str;
             BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
+            if (current_config.strict) {
+                wl_registry_destroy(registry);
+                return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            }
         }
 
         if (!wayland_ctx.compositor || !wayland_ctx.shm || !wayland_ctx.layer_shell) {
@@ -897,6 +902,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         } else {
             BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
             screen_width = DEFAULT_SCREEN_WIDTH;
+            if (current_config.strict) {
+                wl_registry_destroy(registry);
+                return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            }
         }
         wayland_ctx._screen_width = screen_width;
 
@@ -1171,6 +1180,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             bool config_reload_requested = false;
             bool render_requested = false;
             bool needs_flush = false;
+            bool toggle_visibility_requested = false;
 
             bool prepared_read = false;
             {
@@ -1201,6 +1211,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                             case SIGCHLD:
                                 while (waitpid(-1, nullptr, WNOHANG) > 0){}
                                 break;
+                            case SIGUSR1:
+                                BONGOCAT_LOG_INFO("Received SIGUSR1, toggle bar visibility");
+                                toggle_visibility_requested = true;
+                                break;
                             case SIGUSR2:
                                 BONGOCAT_LOG_INFO("Received SIGUSR2, reloading config");
                                 config_reload_requested = true;
@@ -1224,6 +1238,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                     }
                     if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
                     render_requested = false;
+                    toggle_visibility_requested = false;
                     break;
                 }
 
@@ -1326,6 +1341,10 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 config_reload_callback();
                 render_requested = true;
             }
+            if (toggle_visibility_requested) {
+                wayland_ctx.bar_visibility = wayland_ctx.bar_visibility == bar_visibility_t::Show ? bar_visibility_t::Hide : bar_visibility_t::Show;
+                render_requested = true;
+            }
 
             if (render_requested) {
                 BONGOCAT_LOG_VERBOSE("Receive render event");
@@ -1343,6 +1362,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 }
                 render_requested = false;
             }
+            toggle_visibility_requested = false;
 
             if (needs_flush) {
                 wl_display_flush(wayland_ctx.display);

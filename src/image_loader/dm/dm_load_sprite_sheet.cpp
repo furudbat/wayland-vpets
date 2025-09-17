@@ -4,11 +4,11 @@
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dm/dm.hpp"
 #include "embedded_assets/embedded_image.h"
-#include "embedded_assets/dm/dm.h"
+#include "embedded_assets/dm/dm_sprite.h"
+#include "image_loader/dm/load_images_dm.h"
 
 namespace bongocat::animation {
     created_result_t<dm_animation_t> load_dm_sprite_sheet(const animation_context_t& ctx, int index) {
-        using namespace animation;
         using namespace assets;
         switch (index) {
             case DM_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
@@ -86,3 +86,4 @@ namespace bongocat::animation {
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 }
+

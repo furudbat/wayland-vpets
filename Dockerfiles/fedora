@@ -1,0 +1,18 @@
+# vim: ft=Dockerfile
+
+FROM fedora:latest
+
+RUN dnf install -y @c-development \
+    git-core glibc-langpack-en meson scdoc \
+    cmake glibc-langpack-en \
+    'pkgconfig(gdk-pixbuf-2.0)' \
+    'pkgconfig(gio-unix-2.0)' \
+    'pkgconfig(gtk-layer-shell-0)' \
+    'pkgconfig(gtkmm-3.0)' \
+    'pkgconfig(libevdev)' \
+    'pkgconfig(libinput)' \
+    'pkgconfig(libudev)' \
+    'pkgconfig(wayland-client)' \
+    'pkgconfig(wayland-cursor)' \
+    'pkgconfig(wayland-protocols)' && \
+    dnf clean all -y

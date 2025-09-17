@@ -4,7 +4,7 @@
 #include <cstddef>
 
 namespace bongocat::assets {
-    // Clippy
+    // Name: Clippy
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_COLS = 40;
     inline static constexpr size_t CLIPPY_SPRITE_SHEET_ROWS = 6;
     inline static constexpr size_t CLIPPY_FRAMES_IDLE = 4;
@@ -14,10 +14,23 @@ namespace bongocat::assets {
     inline static constexpr size_t CLIPPY_FRAMES_END_WRITING = 5;
     inline static constexpr size_t CLIPPY_FRAMES_SLEEP = 19;
     inline static constexpr size_t CLIPPY_FRAMES_WAKE_UP = 16;
+
+    inline static constexpr char CLIPPY_FQID_ARR[] = "ms_agent:clippy";
+    inline static constexpr const char* CLIPPY_FQID = CLIPPY_FQID_ARR;
+    inline static constexpr std::size_t CLIPPY_FQID_LEN = sizeof(CLIPPY_FQID_ARR)-1;
+    inline static constexpr char CLIPPY_ID_ARR[] = "clippy";
+    inline static constexpr const char* CLIPPY_ID = CLIPPY_ID_ARR;
+    inline static constexpr std::size_t CLIPPY_ID_LEN = sizeof(CLIPPY_ID_ARR)-1;
+    inline static constexpr char CLIPPY_NAME_ARR[] = "Clippy";
+    inline static constexpr const char* CLIPPY_NAME = CLIPPY_NAME_ARR;
+    inline static constexpr std::size_t CLIPPY_NAME_LEN = sizeof(CLIPPY_NAME_ARR)-1;
+    inline static constexpr char CLIPPY_FQNAME_ARR[] = "ms_agent:Clippy";
+    inline static constexpr const char* CLIPPY_FQNAME = CLIPPY_FQNAME_ARR;
+    inline static constexpr std::size_t CLIPPY_FQNAME_LEN = sizeof(CLIPPY_FQNAME_ARR)-1;
     inline static constexpr size_t CLIPPY_ANIM_INDEX = 0;
 
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-    // Links
+    // Name: Links
     inline static constexpr size_t LINKS_SPRITE_SHEET_COLS = 35;
     inline static constexpr size_t LINKS_SPRITE_SHEET_ROWS = 6;
     inline static constexpr size_t LINKS_FRAMES_IDLE = 3;
@@ -27,6 +40,19 @@ namespace bongocat::assets {
     inline static constexpr size_t LINKS_FRAMES_END_WRITING = 5;
     inline static constexpr size_t LINKS_FRAMES_SLEEP = 20;
     inline static constexpr size_t LINKS_FRAMES_WAKE_UP = 14;
+
+    inline static constexpr char LINKS_FQID_ARR[] = "ms_agent:links";
+    inline static constexpr const char* LINKS_FQID = LINKS_FQID_ARR;
+    inline static constexpr std::size_t LINKS_FQID_LEN = sizeof(LINKS_FQID_ARR)-1;
+    inline static constexpr char LINKS_ID_ARR[] = "links";
+    inline static constexpr const char* LINKS_ID = LINKS_ID_ARR;
+    inline static constexpr std::size_t LINKS_ID_LEN = sizeof(LINKS_ID_ARR)-1;
+    inline static constexpr char LINKS_NAME_ARR[] = "Links";
+    inline static constexpr const char* LINKS_NAME = LINKS_NAME_ARR;
+    inline static constexpr std::size_t LINKS_NAME_LEN = sizeof(LINKS_NAME_ARR)-1;
+    inline static constexpr char LINKS_FQNAME_ARR[] = "ms_agent:Links";
+    inline static constexpr const char* LINKS_FQNAME = LINKS_FQNAME_ARR;
+    inline static constexpr std::size_t LINKS_FQNAME_LEN = sizeof(LINKS_FQNAME_ARR)-1;
     inline static constexpr size_t LINKS_ANIM_INDEX = 1;
 
     inline static constexpr size_t MS_AGENTS_ANIM_COUNT = 2;

@@ -1,0 +1,20 @@
+# vim: ft=Dockerfile
+
+FROM debian:sid-slim
+
+RUN apt-get update && \
+    DEBIAN_FRONTEND=noninteractive apt-get install --no-install-recommends --no-install-suggests -y \
+        build-essential \
+        catch2 \
+        cmake \
+        git \
+        gcc g++ clang \
+        libinput-dev \
+        libudev-dev \
+        libwayland-dev \
+        locales \
+        ninja-build \
+        pkg-config \
+        sudo \
+        wayland-protocols \
+    && rm -rf /var/lib/apt/lists/*

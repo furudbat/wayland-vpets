@@ -3,7 +3,7 @@
 
 #include <cstddef>
 
-#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS)
+#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS) && !defined(FEATURE_DMALL_EMBEDDED_ASSETS)
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
 // Fallback dm (minimal set)
 #ifndef FEATURE_MIN_DM_EMBEDDED_ASSETS
@@ -24,6 +24,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANIM_COUNT = 0;
     inline static constexpr size_t DMX_ANIM_COUNT = 0;
     inline static constexpr size_t DMC_ANIM_COUNT = 0;
+    inline static constexpr size_t DMALL_ANIM_COUNT = 0;
 }
 
 // feature full assets
@@ -34,7 +35,7 @@ namespace bongocat::assets {
 
 /// dm
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-#include "image_loader/embedded_assets/dm/dm.hpp"
+#include "embedded_assets/dm/dm.hpp"
 #else
 namespace bongocat::assets {
     inline static constexpr size_t DM_ANIM_COUNT = 0;
@@ -77,10 +78,19 @@ namespace bongocat::assets {
 }
 #endif
 
+/// dmall
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+#include "embedded_assets/dmall/dmall.hpp"
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t DMALL_ANIM_COUNT = 0;
+}
+#endif
+
 #endif
 
 namespace bongocat::assets {
-    inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT+DM20_ANIM_COUNT+PEN20_ANIM_COUNT+DMX_ANIM_COUNT+DMC_ANIM_COUNT;
+    inline static constexpr size_t DM_ANIMATIONS_COUNT = DM_ANIM_COUNT+DM20_ANIM_COUNT+PEN20_ANIM_COUNT+DMX_ANIM_COUNT+DMC_ANIM_COUNT+DMALL_ANIM_COUNT;
 }
 
 namespace bongocat::assets {

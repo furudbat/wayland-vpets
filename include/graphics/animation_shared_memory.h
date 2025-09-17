@@ -28,13 +28,16 @@ namespace bongocat::animation {
         platform::MMapArray<animation_t> dm20_anims;
         platform::MMapArray<animation_t> dmc_anims;
         platform::MMapArray<animation_t> dmx_anims;
+        platform::MMapArray<animation_t> dmall_anims;
         platform::MMapArray<animation_t> min_dm_anims;
         platform::MMapArray<animation_t> ms_anims;
+        platform::MMapArray<animation_t> pkmn_anims;
 
         // for sprite sheet hot reload
         bongocat_animation_t bongocat_sprite_sheet;
         dm_animation_t dm_sprite_sheet;
         ms_agent_sprite_sheet_t ms_agent_sprite_sheet;
+        pkmn_animation_t pkmn_sprite_sheet;
 
         animation_shared_memory_t() = default;
         ~animation_shared_memory_t() {
@@ -68,6 +71,11 @@ namespace bongocat::animation {
             }
             platform::release_allocated_mmap_array(dmx_anims);
 
+            for (size_t i = 0; i < dmall_anims.count; i++) {
+                cleanup_animation(dmall_anims[i]);
+            }
+            platform::release_allocated_mmap_array(dmall_anims);
+
             for (size_t i = 0; i < min_dm_anims.count; i++) {
                 cleanup_animation(min_dm_anims[i]);
             }
@@ -78,9 +86,15 @@ namespace bongocat::animation {
             }
             platform::release_allocated_mmap_array(ms_anims);
 
+            for (size_t i = 0; i < pkmn_anims.count; i++) {
+                cleanup_animation(pkmn_anims[i]);
+            }
+            platform::release_allocated_mmap_array(pkmn_anims);
+
             cleanup_animation(bongocat_sprite_sheet);
             cleanup_animation(dm_sprite_sheet);
             cleanup_animation(ms_agent_sprite_sheet);
+            cleanup_animation(pkmn_sprite_sheet);
 
         }
         animation_shared_memory_t(const animation_shared_memory_t& other)
@@ -91,12 +105,15 @@ namespace bongocat::animation {
             dm20_anims = other.dm20_anims;
             dmc_anims = other.dmc_anims;
             dmx_anims = other.dmx_anims;
+            dmall_anims = other.dmall_anims;
             min_dm_anims = other.min_dm_anims;
             ms_anims = other.ms_anims;
+            pkmn_anims = other.pkmn_anims;
 
             bongocat_sprite_sheet = other.bongocat_sprite_sheet;
             dm_sprite_sheet = other.dm_sprite_sheet;
             ms_agent_sprite_sheet = other.ms_agent_sprite_sheet;
+            pkmn_sprite_sheet = other.pkmn_sprite_sheet;
         }
         animation_shared_memory_t& operator=(const animation_shared_memory_t& other) {
             if (this != &other) {
@@ -110,12 +127,15 @@ namespace bongocat::animation {
                 dm20_anims = other.dm20_anims;
                 dmc_anims = other.dmc_anims;
                 dmx_anims = other.dmx_anims;
+                dmall_anims = other.dmall_anims;
                 min_dm_anims = other.min_dm_anims;
                 ms_anims = other.ms_anims;
+                pkmn_anims = other.pkmn_anims;
 
                 bongocat_sprite_sheet = other.bongocat_sprite_sheet;
                 dm_sprite_sheet = other.dm_sprite_sheet;
                 ms_agent_sprite_sheet = other.ms_agent_sprite_sheet;
+                pkmn_sprite_sheet = other.pkmn_sprite_sheet;
             }
             return *this;
         }
@@ -128,23 +148,29 @@ namespace bongocat::animation {
             dm20_anims = bongocat::move(other.dm20_anims);
             dmc_anims = bongocat::move(other.dmc_anims);
             dmx_anims = bongocat::move(other.dmx_anims);
+            dmall_anims = bongocat::move(other.dmall_anims);
             min_dm_anims = bongocat::move(other.min_dm_anims);
             ms_anims = bongocat::move(other.ms_anims);
+            pkmn_anims = bongocat::move(other.pkmn_anims);
 
             bongocat_sprite_sheet = bongocat::move(other.bongocat_sprite_sheet);
             dm_sprite_sheet = bongocat::move(other.dm_sprite_sheet);
             ms_agent_sprite_sheet = bongocat::move(other.ms_agent_sprite_sheet);
+            pkmn_sprite_sheet = bongocat::move(other.pkmn_sprite_sheet);
 
             cleanup_animation(other.bongocat_sprite_sheet);
             cleanup_animation(other.dm_sprite_sheet);
             cleanup_animation(other.ms_agent_sprite_sheet);
+            cleanup_animation(other.pkmn_sprite_sheet);
             platform::release_allocated_mmap_array(other.bongocat_anims);
             platform::release_allocated_mmap_array(other.dm_anims);
             platform::release_allocated_mmap_array(other.dm20_anims);
             platform::release_allocated_mmap_array(other.dmc_anims);
             platform::release_allocated_mmap_array(other.dmx_anims);
+            platform::release_allocated_mmap_array(other.dmall_anims);
             platform::release_allocated_mmap_array(other.min_dm_anims);
             platform::release_allocated_mmap_array(other.ms_anims);
+            platform::release_allocated_mmap_array(other.pkmn_anims);
             other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
             other.anim_dm_set = config::config_animation_dm_set_t::None;
             other.anim_index = 0;
@@ -161,23 +187,29 @@ namespace bongocat::animation {
                 dm20_anims = bongocat::move(other.dm20_anims);
                 dmc_anims = bongocat::move(other.dmc_anims);
                 dmx_anims = bongocat::move(other.dmx_anims);
+                dmall_anims = bongocat::move(other.dmall_anims);
                 min_dm_anims = bongocat::move(other.min_dm_anims);
                 ms_anims = bongocat::move(other.ms_anims);
+                pkmn_anims = bongocat::move(other.pkmn_anims);
 
                 bongocat_sprite_sheet = bongocat::move(other.bongocat_sprite_sheet);
                 dm_sprite_sheet = bongocat::move(other.dm_sprite_sheet);
                 ms_agent_sprite_sheet = bongocat::move(other.ms_agent_sprite_sheet);
+                pkmn_sprite_sheet = bongocat::move(other.pkmn_sprite_sheet);
 
                 cleanup_animation(other.bongocat_sprite_sheet);
                 cleanup_animation(other.dm_sprite_sheet);
                 cleanup_animation(other.ms_agent_sprite_sheet);
+                cleanup_animation(other.pkmn_sprite_sheet);
                 platform::release_allocated_mmap_array(other.bongocat_anims);
                 platform::release_allocated_mmap_array(other.dm_anims);
                 platform::release_allocated_mmap_array(other.dm20_anims);
                 platform::release_allocated_mmap_array(other.dmc_anims);
                 platform::release_allocated_mmap_array(other.dmx_anims);
+                platform::release_allocated_mmap_array(other.dmall_anims);
                 platform::release_allocated_mmap_array(other.min_dm_anims);
                 platform::release_allocated_mmap_array(other.ms_anims);
+                platform::release_allocated_mmap_array(other.pkmn_anims);
                 other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
                 other.anim_dm_set = config::config_animation_dm_set_t::None;
                 other.anim_index = 0;

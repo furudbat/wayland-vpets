@@ -9,17 +9,25 @@ REPORT="ram_report.md"
 echo "# Memory Report" >> "$REPORT"
 echo "" >> "$REPORT"
 
-echo "# Binary Size" >> "$REPORT"
+echo "## Binary Size" >> "$REPORT"
 echo "" >> "$REPORT"
 
 P="$(pwd)"
-echo '`bloaty ./cmake-build-relwithdebinfo/bongocat -d compileunits`' >> "$REPORT"
+
+echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-P="$(pwd)"
-echo "$(bloaty ./cmake-build-relwithdebinfo/bongocat -d compileunits --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
+
+echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat-all -d compileunits,symbols`' >> "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
 
 echo '`bloaty ./cmake-build-relwithdebinfo/bongocat -d compileunits,symbols`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
@@ -28,15 +36,18 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
-echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat -- ./cmake-build-debug/bongocat`' >> "$REPORT"
+echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat -- ./cmake-build-debug/bongocat | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
+
+
+echo '`du -h ./cmake-build-*/bongocat* --exclude=*.1 --exclude=*.5`' >>  "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(du -h ./cmake-build-*/bongocat*)" >>  "$REPORT"
+echo "$(du -h ./cmake-build-*/bongocat* --exclude='*.1' --exclude='*.5')" >>  "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -94,7 +105,7 @@ for group in release minsizerel relwithdebinfo debug; do
         echo "Testing $binary (size $size)..."
 
         # Run binary
-        "$binary" --watch-config --config debug.bongocat.conf &
+        "$binary" --watch-config --config debug.bongocat.conf --ignore-running &
         PID=$!
 
         # Give it time to start
@@ -102,9 +113,11 @@ for group in release minsizerel relwithdebinfo debug; do
         echo "[INFO] Disable sleep"
         sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' debug.bongocat.conf  # Reload config
         sleep 5
-        echo "[INFO] Send stdin"
-        printf '\e' > /proc/$PID/fd/0
-        sleep 5
+        if [[ -f "/proc/$PID/fd/0" ]]; then
+          echo "[INFO] Send stdin"
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 5
+        fi
         echo "[TEST] Send SIGUSR2"
         kill -USR2 "$PID"
         sleep 5

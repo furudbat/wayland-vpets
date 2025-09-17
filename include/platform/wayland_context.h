@@ -17,6 +17,8 @@ namespace bongocat::platform::wayland {
     struct wayland_context_t;
     void cleanup_wayland_context(wayland_context_t& ctx);
 
+    enum class bar_visibility_t : bool { Hide = false, Show = true };
+
     struct wayland_context_t {
         wl_display *display{nullptr};
         wl_compositor *compositor{nullptr};
@@ -30,6 +32,7 @@ namespace bongocat::platform::wayland {
         // local copy from other thread, update after reload (shared memory)
         MMapMemory<config::config_t> _local_copy_config;
         MMapMemory<wayland_shared_memory_t> ctx_shm;
+        bar_visibility_t bar_visibility {bar_visibility_t::Show};
 
         int32_t _bar_height{0};
         int32_t _screen_width{0};

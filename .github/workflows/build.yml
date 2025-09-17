@@ -1,0 +1,55 @@
+name: PR Build
+
+on:
+  pull_request:
+    branches: [main]
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+    strategy:
+      fail-fast: false
+      matrix:
+        compiler:
+          - gcc
+          - clang
+    container:
+      image: archlinux:latest
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install base dependencies
+        run: |
+          pacman -Syu --noconfirm
+          pacman -S --noconfirm \
+            base-devel \
+            cmake \
+            ninja \
+            git \
+            pkgconf \
+            libinput \
+            wayland \
+            wayland-protocols
+      - name: Install compiler
+        run: |
+          pacman -S --noconfirm ${{ matrix.compiler }}
+      - name: Set compiler env
+        run: |
+          if [[ "${{ matrix.compiler }}" == "gcc" ]]; then
+            echo "CC=gcc" >> $GITHUB_ENV
+            echo "CXX=g++" >> $GITHUB_ENV
+          else
+            echo "CC=clang" >> $GITHUB_ENV
+            echo "CXX=clang++" >> $GITHUB_ENV
+          fi
+
+      - name: Configure CMake (Debug)
+        run: |
+          mkdir -p build
+          cd build
+          cmake .. -DCMAKE_BUILD_TYPE=Debug
+
+      - name: Build
+        run: |
+          cd build
+          cmake --build . -- -j$(nproc)

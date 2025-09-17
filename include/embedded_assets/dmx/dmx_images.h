@@ -1,5 +1,5 @@
-#ifndef DMX_EMBEDDED_ASSETS_H
-#define DMX_EMBEDDED_ASSETS_H
+#ifndef BONGOCAT_EMBEDDED_ASSETS_DMX_H
+#define BONGOCAT_EMBEDDED_ASSETS_DMX_H
 
 #include <stddef.h>
 
@@ -678,5 +678,5 @@ extern const unsigned char dmx_zerimon_png[];
 extern const size_t dmx_zerimon_png_size;
 
 
-#endif // DMX_EMBEDDED_ASSETS_H
+#endif // BONGOCAT_EMBEDDED_ASSETS_DMX_H
 

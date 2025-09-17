@@ -1,34 +1,36 @@
-#ifndef BONGOCAT_EMBEDDED_LOAD_iMAGES_H
-#define BONGOCAT_EMBEDDED_LOAD_iMAGES_H
+#ifndef BONGOCAT_EMBEDDED_LOAD_IMAGES_H
+#define BONGOCAT_EMBEDDED_LOAD_IMAGES_H
 
+#include "graphics/sprite_sheet.h"
+#include "core/bongocat.h"
+#include "config/config.h"
 #include "utils/memory.h"
-#include "stb_image.hpp"
 #include "embedded_assets/embedded_image.h"
+#include <cstdlib>
 
 namespace bongocat::animation {
     // =============================================================================
     // IMAGE LOADING MODULE
     // =============================================================================
 
+    struct Image;
+    created_result_t<Image> load_image(const unsigned char *data, size_t size, int desired_channels = RGBA_CHANNELS);
+    void cleanup_image(Image& image);
+    void init_image_loader();
+
     struct Image {
-        stbi_uc *pixels{nullptr};
+        unsigned char *pixels{nullptr};
         int width{0};
         int height{0};
         int channels{0};
-        int _channels_in_file{0};
 
         Image() = default;
-        explicit Image(stbi_uc const *data, int size, int desired_channels = STBI_rgb_alpha) {
-            pixels = stbi_load_from_memory(data, size, &width, &height, &_channels_in_file, desired_channels);
-            channels = desired_channels;
-        }
         ~Image() {
-            if (pixels) stbi_image_free(pixels);
-            pixels = nullptr;
+            cleanup_image(*this);
         }
 
         Image(const Image& other)
-            : width(other.width), height(other.height), channels(other.channels), _channels_in_file(other._channels_in_file)
+            : width(other.width), height(other.height), channels(other.channels)
         {
             assert(width >= 0);
             assert(height >= 0);
@@ -40,13 +42,11 @@ namespace bongocat::animation {
         Image& operator=(const Image& other) {
             if (this == &other) return *this;
 
-            if (pixels) stbi_image_free(pixels);
-            pixels = nullptr;
+            cleanup_image(*this);
 
             width = other.width;
             height = other.height;
             channels = other.channels;
-            _channels_in_file = other._channels_in_file;
 
             assert(width >= 0);
             assert(height >= 0);
@@ -59,31 +59,27 @@ namespace bongocat::animation {
         }
 
         Image(Image&& other) noexcept
-            : pixels(other.pixels), width(other.width), height(other.height), channels(other.channels), _channels_in_file(other._channels_in_file)
+            : pixels(other.pixels), width(other.width), height(other.height), channels(other.channels)
         {
             other.pixels = nullptr;
             other.width = 0;
             other.height = 0;
             other.channels = 0;
-            other._channels_in_file = 0;
         }
         Image& operator=(Image&& other) noexcept {
             if (this == &other) return *this;
 
-            if (pixels) stbi_image_free(pixels);
-            pixels = nullptr;
+            cleanup_image(*this);
 
             pixels = other.pixels;
             width = other.width;
             height = other.height;
             channels = other.channels;
-            _channels_in_file = other._channels_in_file;
 
             other.pixels = nullptr;
             other.width = 0;
             other.height = 0;
             other.channels = 0;
-            other._channels_in_file = 0;
 
             return *this;
         }

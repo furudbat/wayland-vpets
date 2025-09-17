@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-2.4.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.0.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
 Perfect for streamers, content creators, or anyone who wants to add some fun to their desktop.
@@ -9,11 +9,14 @@ Perfect for streamers, content creators, or anyone who wants to add some fun to 
 ![Bongocat - Demo](assets/demo.gif)  
 _Classic Bongocat_
 
-![Digimon - Demo animated](assets/digimon-demo.gif)  
+![Digimon Greymon - Demo animated](assets/digimon-demo.gif)  
 _Digimon V-Pets_
 
-![Clippy - Demo animated](assets/clippy-demo.gif)  
-_MS Agent Clippy_
+![MS Agent Clippy - Demo animated](assets/clippy-demo.gif)  
+_Clippy_
+
+![Pokemon Charizard - Demo](assets/pokemon-demo.png)  
+_Pokemon_
 
 ## ✨ Features
 
@@ -21,6 +24,7 @@ _MS Agent Clippy_
   - Bongocat 😺
   - Digimon V-Pets 🦖 (v1.3.0)
   - Clippy 📎 (v2.1.0)
+  - Pokemon 🐭 (v3.0.0)
 - **🎯 Real-time Animation** - Bongo cat reacts instantly to keyboard input
 - **🔥 Hot-Reload Configuration** - Modify settings without restarting (v1.2.0)
 - **🔄 Dynamic Device Detection** - Automatically detects Bluetooth/USB keyboards (v1.2.0)
@@ -44,17 +48,37 @@ _MS Agent Clippy_
 
 ```bash
 # Using yay
-yay -S bongocat
+yay -S wpets
 
 # Using paru
-paru -S bongocat
+paru -S wpets
 
 # Run immediately
-bongocat --watch-config
+wpets --watch-config
 
 # Custom config with hot-reload
-bongocat --config ~/.config/bongocat.conf --watch-config
+wpets --config ~/.config/bongocat.conf --watch-config
 ```
+
+#### From Source ⚠️
+
+```bash
+# Install dependencies
+pacman -S gcc make cmake libinput wayland wayland-protocols
+
+# Clone repository
+git clone https://github.com/furudbat/wayland-vpets.git
+cd wayland-vpets
+
+# Build
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
+
+# Install - ⚠️ 
+sudo cmake --install build
+```
+
+**⚠️ this will overwrite the original installation of [bongocat](https://github.com/saatvik333/wayland-bongocat) ⚠️**
 
 ### Other Distributions
 
@@ -63,12 +87,13 @@ bongocat --config ~/.config/bongocat.conf --watch-config
 
 ```bash
 # Install dependencies
-sudo dnf install wayland-devel wayland-protocols-devel gcc make
+sudo dnf install wayland-devel wayland-protocols-devel gcc make cmake
 
 # Build from source
 git clone https://github.com/furudbat/wayland-vpets.git
 cd wayland-vpets
-make
+cmake -B build
+cmake --build build
 
 # Run
 ./build/bongocat
@@ -142,6 +167,9 @@ cat_height=80                    # Height of bongo cat (10-200)
 mirror_x=0                       # Flip horizontally (mirror across Y axis)
 mirror_y=0                       # Flip vertically (mirror across X axis)
 
+# Anti-aliasing settings
+enable_antialiasing=1            # Use bilinear interpolation for smooth scaling (0=off, 1=on)
+
 # Overlay settings (requires restart)
 overlay_height=60                # Height of the entire overlay bar (20-300)
 overlay_opacity=150              # Background opacity (0-255)
@@ -174,441 +202,57 @@ enable_debug=0                   # Show debug messages
 
 ### Configuration Reference
 
-| Setting                   | Type     | Range / Options                        | Default             | Description                                                                             |
-|---------------------------|----------|----------------------------------------|---------------------|-----------------------------------------------------------------------------------------|
-| `cat_height`              | Integer  | 10–200                                 | 40                  | Height of bongo cat in pixels (width auto-calculated to maintain aspect ratio)          |
-| `cat_x_offset`            | Integer  | -9999 to 9999                          | 100                 | Horizontal offset from center (behavior depends on `cat_align`)                         |
-| `cat_y_offset`            | Integer  | -9999 to 9999                          | 10                  | Vertical offset from center (positive=down, negative=up)                                |
-| `cat_align`               | String   | "center", "left", "right"              | "center"            | Horizontal alignment of cat inside overlay bar                                          |
-| `overlay_height`          | Integer  | 20–300                                 | 50                  | Height of the entire overlay bar                                                        |
-| `overlay_position`        | String   | "top" or "bottom"                      | "top"               | Position of overlay on screen                                                           |
-| `overlay_opacity`         | Integer  | 0–255                                  | 60                  | Background opacity (0=transparent, 255=opaque)                                          |
-| `animation_name`          | String   | "bongocat", `<digimon name>`, "clippy" | "bongocat"          | Name of the V-Pet sprite (see list below)                                               |
-| `invert_color`            | Boolean  | 0 or 1                                 | 0                   | Invert color (useful for white digimon sprites & dark mode)                             |
-| `padding_x`               | Integer  | 0–9999                                 | 0                   | Horizontal padding per frame (ignored for bongocat)                                     |
-| `padding_y`               | Integer  | 0–9999                                 | 0                   | Vertical padding per frame (ignored for bongocat)                                       |
-| `idle_frame`              | Integer  | 0–2 (varies by sprite type)            | 0                   | Which frame to use when idle (sprite-specific options)                                  |
-| `idle_animation`          | Boolean  | 0 or 1                                 | 0                   | Enable idle animation                                                                   |
-| `animation_speed`         | Integer  | 0–5000                                 | 0                   | Frame duration in ms (0 = use `fps`)                                                    |
-| `keypress_duration`       | Integer  | 50–5000                                | 100                 | Duration to display keypress animation (ms)                                             |
-| `mirror_x`                | Boolean  | 0 or 1                                 | 0                   | Flip cat horizontally (mirror across Y axis)                                            |
-| `mirror_y`                | Boolean  | 0 or 1                                 | 0                   | Flip cat vertically (mirror across X axis)                                              |
-| `test_animation_duration` | Integer  | 0–5000                                 | 0                   | Duration of test animation (ms) (deprecated, use `animation_speed`)                     |
-| `test_animation_interval` | Integer  | 0–60                                   | 0                   | Interval for test animation in seconds (0 = disabled, deprecated)                       |
-| `fps`                     | Integer  | 1–144                                  | 60                  | Animation frame rate                                                                    |
-| `input_fps`               | Integer  | 0–144                                  | 0                   | Input thread frame rate (0 = use `fps`)                                                 |
-| `enable_scheduled_sleep`  | Boolean  | 0 or 1                                 | 0                   | Enable scheduled sleep mode                                                             |
-| `sleep_begin`             | String   | "00:00" – "23:59"                      | "00:00"             | Start time of scheduled sleep (24h format)                                              |
-| `sleep_end`               | String   | "00:00" – "23:59"                      | "00:00"             | End time of scheduled sleep (24h format)                                                |
-| `idle_sleep_timeout`      | Integer  | 0+                                     | 0                   | Time of inactivity before entering sleep (0 = disabled) (in seconds)                    |
-| `happy_kpm`               | Integer  | 0–10000                                | 0                   | Minimum keystrokes per minute to trigger happy animation (0 = disabled)                 |
-| `keyboard_device`         | String   | Valid `/dev/input/*` path(s)           | `/dev/input/event4` | Input device path (multiple entries allowed)                                            |
-| `enable_debug`            | Boolean  | 0 or 1                                 | 0                   | Enable debug logging                                                                    |
-| `monitor`                 | String   | Monitor name                           | Auto-detect         | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                                 |
-| `random`                  | Boolean  | 0 or 1                                 | 0                   | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set) |
+| Setting                   | Type     | Range / Options                                            | Default             | Description                                                                             |
+|---------------------------|----------|------------------------------------------------------------|---------------------|-----------------------------------------------------------------------------------------|
+| `cat_height`              | Integer  | 10–200                                                     | 40                  | Height of bongo cat in pixels (width auto-calculated to maintain aspect ratio)          |
+| `cat_x_offset`            | Integer  | -9999 to 9999                                              | 100                 | Horizontal offset from center (behavior depends on `cat_align`)                         |
+| `cat_y_offset`            | Integer  | -9999 to 9999                                              | 10                  | Vertical offset from center (positive=down, negative=up)                                |
+| `cat_align`               | String   | "center", "left", "right"                                  | "center"            | Horizontal alignment of cat inside overlay bar                                          |
+| `overlay_height`          | Integer  | 20–300                                                     | 50                  | Height of the entire overlay bar                                                        |
+| `overlay_position`        | String   | "top" or "bottom"                                          | "top"               | Position of overlay on screen                                                           |
+| `overlay_opacity`         | Integer  | 0–255                                                      | 60                  | Background opacity (0=transparent, 255=opaque)                                          |
+| `animation_name`          | String   | "bongocat", `<digimon name>`, "clippy" or `<pokemon name>` | "bongocat"          | Name of the V-Pet sprite (see list below)                                               |
+| `invert_color`            | Boolean  | 0 or 1                                                     | 0                   | Invert color (useful for white digimon sprites & dark mode)                             |
+| `padding_x`               | Integer  | 0–9999                                                     | 0                   | Horizontal padding per frame (ignored for bongocat)                                     |
+| `padding_y`               | Integer  | 0–9999                                                     | 0                   | Vertical padding per frame (ignored for bongocat)                                       |
+| `idle_frame`              | Integer  | 0–2 (varies by sprite type)                                | 0                   | Which frame to use when idle (sprite-specific options)                                  |
+| `idle_animation`          | Boolean  | 0 or 1                                                     | 0                   | Enable idle animation                                                                   |
+| `animation_speed`         | Integer  | 0–5000                                                     | 0                   | Frame duration in ms (0 = use `fps`)                                                    |
+| `keypress_duration`       | Integer  | 50–5000                                                    | 100                 | Duration to display keypress animation (ms)                                             |
+| `mirror_x`                | Boolean  | 0 or 1                                                     | 0                   | Flip cat horizontally (mirror across Y axis)                                            |
+| `mirror_y`                | Boolean  | 0 or 1                                                     | 0                   | Flip cat vertically (mirror across X axis)                                              |
+| `test_animation_duration` | Integer  | 0–5000                                                     | 0                   | Duration of test animation (ms) (deprecated, use `animation_speed`)                     |
+| `test_animation_interval` | Integer  | 0–60                                                       | 0                   | Interval for test animation in seconds (0 = disabled, deprecated)                       |
+| `fps`                     | Integer  | 1–144                                                      | 60                  | Animation frame rate                                                                    |
+| `input_fps`               | Integer  | 0–144                                                      | 0                   | Input thread frame rate (0 = use `fps`)                                                 |
+| `enable_scheduled_sleep`  | Boolean  | 0 or 1                                                     | 0                   | Enable scheduled sleep mode                                                             |
+| `sleep_begin`             | String   | "00:00" – "23:59"                                          | "00:00"             | Start time of scheduled sleep (24h format)                                              |
+| `sleep_end`               | String   | "00:00" – "23:59"                                          | "00:00"             | End time of scheduled sleep (24h format)                                                |
+| `idle_sleep_timeout`      | Integer  | 0+                                                         | 0                   | Time of inactivity before entering sleep (0 = disabled) (in seconds)                    |
+| `happy_kpm`               | Integer  | 0–10000                                                    | 0                   | Minimum keystrokes per minute to trigger happy animation (0 = disabled)                 |
+| `keyboard_device`         | String   | Valid `/dev/input/*` path(s)                               | `/dev/input/event4` | Input device path (multiple entries allowed)                                            |
+| `enable_antialiasing`     | Boolean  | 0 or 1                                                     | 1                   | Enable bilinear interpolation for smooth scaling (Bongocat and MS Agent only)           |
+| `enable_debug`            | Boolean  | 0 or 1                                                     | 0                   | Enable debug logging                                                                    |
+| `monitor`                 | String   | Monitor name                                               | Auto-detect         | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                                 |
+| `random`                  | Boolean  | 0 or 1                                                     | 0                   | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set) |
 
 #### Available Sprites (`animation_name`)
 
-##### Bongocat 😺
+See man pages for more details and full list:
 
-- `bongocat`
-
-##### MS Agent 📎
-
-- `clippy`
-
-<details>
-<summary>More Agents</summary>
-
-_Build with `-DFEATURE_MS_AGENT_EMBEDDED_ASSETS` and `-DFEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
-
-- `links`
-
-</details>
+ - [Bongocat 😺](docs/fragments/set-bongocat.md)
+ - [MS Agent 📎](docs/fragments/set-ms-agent.md) Clippy and friends
+ - [Pokemon 🐭](docs/fragments/set-pkmn.md) up to Gen. 7
 
 ##### Digimon 🦖
 
-###### Original [dm](https://humulos.com/digimon/dm/)
+ - [Original](docs/fragments/set-dm.md) [`dm`](https://humulos.com/digimon/dm/)
+ - [20th Anniversary](docs/fragments/set-dm20.md) [`dm20`](https://humulos.com/digimon/dm20/)
+ - [X](docs/fragments/set-dmx.md) [`dmx`](https://humulos.com/digimon/dmx/)
+ - [Colored](docs/fragments/set-dmc.md) [`dmc`](https://humulos.com/digimon/dmc/)
 
-<details>
-<summary>Default Minimal Sprites (from dm Version 1) when no other dms are compiled</summary>
+_If you build with ALL assets included you can void naming conflicts by using the full name: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`_
 
-- `botamon`
-- `koromon`
-- `agumon`
-- `betamon`
-- `greymon`
-- `tyranomon`
-- `devimon`
-- `meramon`
-- `airdramon`
-- `seadramon`
-- `numemon`
-- `metal_greymon`
-- `mamemon`
-- `monzaemon`
-
-</details>
-
-
-<details>
-
-<summary>Full List</summary>
-
-_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
-
-- `aegisdramon`
-- `agumon`
-- `airdramon`
-- `alphamon`
-- `andromon`
-- `angemon`
-- `apollomon`
-- `babydmon`
-- `bakemon`
-- `bancho_mamemon`
-- `bao_hackmon`
-- `barbamon`
-- `beezlebumon`
-- `belial_vamdemon`
-- `belphemon_rage_mode`
-- `betamon`
-- `birdramon`
-- `blitz_greymon`
-- `botamon`
-- `breakdramon`
-- `centalmon`
-- `cockatrimon`
-- `coelamon`
-- `coredramon_blue`
-- `coredramon_green`
-- `coronamon`
-- `craniummon`
-- `crescemon`
-- `cres_garurumon`
-- `cyclomon`
-- `dark_tyranomon`
-- `deathmon`
-- `deltamon`
-- `demon`
-- `devidramon`
-- `devimon`
-- `dianamon`
-- `digitamamon`
-- `dodomon`
-- `dorimon`
-- `dorugamon`
-- `doruguremon`
-- `dorumon`
-- `dracomon`
-- `drimogemon`
-- `duftmon`
-- `dukemon`
-- `duramon`
-- `durandamon`
-- `dynasmon`
-- `elecmon`
-- `etemon`
-- `examon`
-- `ex_tyranomon`
-- `firamon`
-- `flaremon`
-- `flymon`
-- `gabumon`
-- `gankoomon`
-- `garurumon`
-- `gazimon`
-- `giromon`
-- `gizamon`
-- `grace_novamon`
-- `greymon`
-- `groundramon`
-- `hackmon`
-- `hi_andromon`
-- `imperiadramon_paladin`
-- `jesmon`
-- `jijimon`
-- `kabuterimon`
-- `king_etemon`
-- `koromon`
-- `kunemon`
-- `kuwagamon`
-- `lekismon`
-- `leomon`
-- `leviamon`
-- `lilithmon`
-- `lord_knightmon`
-- `lucemon_falldown`
-- `lunamon`
-- `magnamon`
-- `mamemon`
-- `megadramon`
-- `meicoomon`
-- `meicrackmon`
-- `meramon`
-- `metal_greymon`
-- `metal_greymon_virus`
-- `metal_mamemon`
-- `metal_tyranomon`
-- `mojyamon`
-- `monochromon`
-- `monzaemon`
-- `mugendramon`
-- `murmukusmon`
-- `nanimon`
-- `nanomon`
-- `numemon`
-- `nyaromon`
-- `ogremon`
-- `omegamon_alter_s`
-- `omegamon`
-- `pagumon`
-- `palmon`
-- `patamon`
-- `petitmon`
-- `piccolomon`
-- `pinochimon`
-- `pitchmon`
-- `piyomon`
-- `plotmon`
-- `poyomon`
-- `pukamon`
-- `punimon`
-- `raremon`
-- `rasielmon`
-- `rust_tyranomon`
-- `sakumon`
-- `sakuttomon`
-- `savior_hackmon`
-- `scumon`
-- `seadramon`
-- `shellmon`
-- `skull_greymon`
-- `skull_mammon`
-- `slayerdramon`
-- `sleipmon`
-- `taichis_agumon`
-- `taichis_greymon`
-- `taichis_metal_greymon`
-- `taichis_war_greymon`
-- `tanemon`
-- `titamon`
-- `tokomon`
-- `tunomon`
-- `tuskmon`
-- `tyranomon`
-- `ulforce_v_dramon`
-- `unimon`
-- `vademon`
-- `vegimon`
-- `whamon`
-- `wingdramon`
-- `yamatos_gabumon`
-- `yamatos_garurumon`
-- `yamatos_metal_garurumon`
-- `yamatos_were_garurumon`
-- `yukidarumon`
-- `yukimi_botamon`
-- `yuramon`
-- `zubaeagermon`
-- `zubamon`
-- `zurumon`
-
-</details>
-
-
-###### 20th Anniversary [dm20](https://humulos.com/digimon/dm20/)
-
-<details>
-<summary>Full List</summary>
-
-_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DM20_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
-_dm20 will replace dm, if both are enabled_
-
-Should be the same as dm, but with some extras:
-
-
-
-</details>
-
-
-###### X [dmx](https://humulos.com/digimon/dmx/)
-
-<details>
-<summary>Full List</summary>
-
-_Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DMX_EMBEDDED_ASSETS`, see [CMake](CMakeLists.txt)_
-
-- `agumon_black_x`
-- `agumon_x`
-- `allomon_x`
-- `alphamon_ouryuken`
-- `alphamon`
-- `ancient_sphinxmon`
-- `angewomon_x`
-- `anomalocarimon_x`
-- `bagramon`
-- `barbamon_x`
-- `beel_starmon_x`
-- `beelzebumon_x`
-- `belial_vamdemon`
-- `belphemon_x`
-- `black_wargreymon_x`
-- `cannon_beemon`
-- `cerberumon_x`
-- `chaosdramon_x`
-- `cherubimon_vice_x`
-- `cherubimon_virtue_x`
-- `chocomon`
-- `cho_hakkaimon`
-- `cocomon`
-- `craniummon_x`
-- `crys_paledramon`
-- `cyberdramon_x`
-- `damemon`
-- `dark_knightmon_x`
-- `darkness_bagramon`
-- `dark_tyranomon_x`
-- `demon_x`
-- `diablomon_x`
-- `dinorexmon`
-- `dinotigermon`
-- `dorugamon`
-- `doruguremon`
-- `dorumon`
-- `dracomon_x`
-- `duftmon_x`
-- `dukemon_x`
-- `duskmon`
-- `dynasmon_x`
-- `ebemon_x`
-- `examon`
-- `examon_x`
-- `filmon`
-- `gabumon_x`
-- `gaioumon`
-- `gankoomon_x`
-- `garudamon_x`
-- `giga_seadramon`
-- `ginryumon`
-- `goddramon_x`
-- `gomamon_x`
-- `grademon`
-- `grand_darcumon`
-- `grandis_kuwagamon`
-- `growmon_x`
-- `gummymon`
-- `herissmon`
-- `hexeblaumon`
-- `hisyaryumon`
-- `holydramon_x`
-- `hououmon_x`
-- `impmon_x`
-- `jararchimon`
-- `jazamon`
-- `jazardmon`
-- `jesmon_gx`
-- `jesmon_x`
-- `justimon_x`
-- `kaiser_leomon`
-- `keemon`
-- `keramon_x`
-- `kiimon`
-- `kokuwamon_x`
-- `kuwagamon_x`
-- `lady_devimon_x`
-- `leomon_x`
-- `leviamon_x`
-- `lilimon_x`
-- `lilithmon_x`
-- `lopmon_x`
-- `lord_kightmon_x`
-- `lucemon_x`
-- `magidramon_x`
-- `magnamon_x`
-- `mamemon_x`
-- `mame_tyramon`
-- `mammon_x`
-- `mantaraymon_x`
-- `megalo_growmon_x`
-- `mega_seadramon_x`
-- `mephismon_x`
-- `meramon_x`
-- `metal_fantomon`
-- `metal_garurumon_x`
-- `metal_greymon_virus_x`
-- `metal_greymon_x`
-- `metallicdramon`
-- `metal_piranimon`
-- `metal_tyranomon_x`
-- `minervamon_x`
-- `monzaemon_x`
-- `nefertimon_x`
-- `noble_pumpmon`
-- `numemon_x`
-- `ogremon_x`
-- `ogudomon_x`
-- `okuwamon_x`
-- `omegamon_x`
-- `omega_shoutmon_x`
-- `omekamon`
-- `ophanimon_falldown_mode`
-- `ophanimon_x`
-- `otamamon_x`
-- `ouryumon`
-- `paledramon`
-- `palmon_x`
-- `pegasmon_x`
-- `platinum_numemon`
-- `plesiomon_x`
-- `plotmon_x`
-- `prince_mamemon_x`
-- `pteranmon_x`
-- `pumpmon`
-- `puttimon`
-- `rafflesimon`
-- `raihimon`
-- `rapidmon_x`
-- `rasenmon_fury_mode`
-- `rasenmon`
-- `rekamon_x`
-- `rhinomon_x`
-- `rize_greymon_x`
-- `rosemon_x`
-- `ryudamon`
-- `sakuyamon_x`
-- `sangoupmon`
-- `seadramon_x`
-- `shakomon_x`
-- `siesamon_x`
-- `sistermon_blanc`
-- `skull_baluchimon`
-- `skull_mammon_x`
-- `sleipmon_x`
-- `stiffimon`
-- `tailmon_x`
-- `tierriermon_x`
-- `tiger_vespamon`
-- `tobcatmon`
-- `togemon_x`
-- `tokomon_x`
-- `triceramon_x`
-- `tylomon_x`
-- `tyranomon_x`
-- `ulforce_v_dramon_x`
-- `ultimate_brachimon`
-- `valdurmon`
-- `vamdemon_x`
-- `velgrman`
-- `voltobautamon`
-- `war_greymon_x`
-- `were_garurumon_x`
-- `wizarmon_x`
-- `yaamon`
-- `yatagaramon`
-- `zerimon`
-
-</details>
 
 ## 🔧 Usage
 
@@ -618,12 +262,14 @@ _Build with `-DFEATURE_ENABLE_DM_EMBEDDED_ASSETS` and `-DFEATURE_DMX_EMBEDDED_AS
 bongocat [OPTIONS]
 
 Options:
-  -h, --help             Show this help message
-  -v, --version          Show version information
-  -c, --config           Specify config file (default: bongocat.conf)
-  -w, --watch-config     Watch config file for changes and reload automatically
+  -h, --help            Show this help message
+  -v, --version         Show version information
+  -c, --config          Specify config file (default: bongocat.conf)
+  -w, --watch-config    Watch config file for changes and reload automatically
   -o, --output-name     Specify output name (overwrite output_name from config)
-  -t, --toggle           Toggle bongocat on/off (start if not running, stop if running)
+  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)
+      --random          Randomize animation_name at start up
+      --strict          Only start up with a valid config and valid parameter
 ```
 
 ### Examples
@@ -648,6 +294,8 @@ bongocat --toggle
 bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 ```
 
+See [`examples/`](examples) for more configs.
+
 ## 🛠️ Building from Source
 
 ### Prerequisites
@@ -655,7 +303,7 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 **Required:**
 
 - Wayland compositor with layer shell support
-- C23/C++26 compiler (GCC 15+ or Clang 19+)
+- C23/C++23 compiler (GCC 15+ or Clang 19+)
 - Make or CMake
 - libwayland-client
 - wayland-protocols
@@ -665,17 +313,19 @@ bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 
 ```bash
 # Clone repository
-git clone https://github.com/fudurbat/wayland-vpets.git
+git clone https://github.com/furudbat/wayland-vpets.git
 cd wayland-vpets
 
 # Build (production)
-make
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
+cmake --build build
 
 # Build (debug)
-make debug
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
+cmake --build build
 
 # Clean
-make clean
+cmake --build build --target clean
 ```
 
 The build process automatically:
@@ -761,7 +411,7 @@ Minimal builds require just a few MB of RAM, while asset-heavy builds may use mo
 |                | Minimum                                                  | Recommended                                                                  |
 |----------------|----------------------------------------------------------|------------------------------------------------------------------------------|
 | **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                  |
-| **RAM**        | **5 MB free** (minimal build with minimal assets)        | **32 MB free** (full builds with all assets, preloaded, and config overhead) |
+| **RAM**        | **10 MB free** (minimal build with minimal assets)       | **64 MB free** (full builds with all assets, preloaded, and config overhead) |
 | **Storage**    | **1 MB free** (binary + config files)                    | **5 MB free** (multiple binaries/builds + config files)                      |
 | **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)            |
 
@@ -863,7 +513,7 @@ monitor=DP-1         # DisplayPort monitor
 **Common fixes:**
 
 - Install development packages: `libwayland-dev wayland-protocols`
-- Ensure C23/C++26 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
+- Ensure C23/C++23 compiler: GCC 15+ or Clang 19+ _(requires [`#embed`](https://en.cppreference.com/w/c/preprocessor/embed.html) feature)_
 - Install `wayland-scanner` package
 </details>
 
@@ -880,18 +530,22 @@ monitor=DP-1         # DisplayPort monitor
 
 ```
 wayland-vpets/
-├── src/                 # Source code
-│   ├── main.c          # Application entry point
-│   ├── config.c        # Configuration management
-│   ├── config_watcher.c # Hot-reload system (v1.2.1)
-│   ├── input.c         # Input device monitoring
-│   ├── wayland.c       # Wayland protocol handling
-│   └── ...
-├── include/            # Header files
-├── scripts/            # Build and utility scripts
-├── assets/             # Animation frames
+├── assets/             # sprite sheets and media resources
+├── Dockerfiles/        # Container build definitions
+├── examples/           # Example configurations
+├── include/            # Header files (same structure as src/)
+├── lib/                # External libraries (image loader)
+├── nix/                # NixOS integration
 ├── protocols/          # Generated Wayland protocols
-└── nix/               # NixOS integration
+├── scripts/            # Codegen and utility scripts
+└── src/                # Source code
+├──── config/           # Configuration system implementation
+├──── core/             # Core application logic (main)
+├──── embedded_assets/  # Embedded assets
+├──── graphics/         # Rendering and graphics implementation
+├──── image_loader/     # Assets loading implementations
+├──── platform/         # Platform-specific code (input and wayland)
+└──── utils/            # General utilities
 ```
 
 ## 🤝 Contributing
@@ -908,7 +562,7 @@ make debug
 
 ### Code Standards
 
-- C23/C++26 standard compliance
+- C23/C++23 standard compliance
 - Comprehensive error handling
 - Memory safety with leak detection
 - Extensive documentation
@@ -917,12 +571,12 @@ make debug
 
 I'm moving this Project ~~a little bit~~ to C++.
 
-* using modern C++26/C23 compiler (required for `#embed`)
+* using modern C++23/C23 compiler (required for `#embed`)
 * thread-safe Logging
 * use assert and static_assert (Preconditions, postconditions, invariants.)
 * use mmap for multi-threading and shared memory
 * use Mutex and LockGuard
-* prefer stack over heap
+* prefer stack to heap
   * use heap when: Mutex is used in structs or other non-movable objects
   * use mmap for shared memory
   * dynamics arrays like buffers
@@ -964,8 +618,10 @@ Built with ❤️ for the Wayland community. Special thanks to:
 - Redditor: [u/akonzu](https://www.reddit.com/user/akonzu/) for the inspiration
 - [@Shreyabardia](https://github.com/Shreyabardia) for the beautiful custom-drawn bongo cat artwork
 - All the contributors and users
+- [Waybar](https://github.com/Alexays/Waybar)
 
 
+Pokémon are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
 Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.
 Clippy and other MS Agents are owed by Microsoft.
 This project is **free**, **non-commercial** and not associated with these entities.
@@ -973,5 +629,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v2.2.0** - Making desktops more delightful, one keystroke at a time!
-Now with Digimon V-Pets and Clippy 📎.
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.0.0** - Making desktops more delightful, one keystroke at a time!
+Now with Digimon V-Pets, Clippy and Pokémon.

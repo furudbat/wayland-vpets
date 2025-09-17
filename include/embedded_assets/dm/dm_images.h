@@ -1,5 +1,5 @@
-#ifndef DM_EMBEDDED_ASSETS_H
-#define DM_EMBEDDED_ASSETS_H
+#ifndef BONGOCAT_EMBEDDED_ASSETS_DM_H
+#define BONGOCAT_EMBEDDED_ASSETS_DM_H
 
 #include <stddef.h>
 
@@ -286,5 +286,5 @@ extern const unsigned char dm_yuramon_png[];
 extern const size_t dm_yuramon_png_size;
 
 
-#endif // DM_EMBEDDED_ASSETS_H
+#endif // BONGOCAT_EMBEDDED_ASSETS_DM_H
 

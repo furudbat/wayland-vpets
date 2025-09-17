@@ -1,12 +1,11 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dmx/dmx.hpp"
 #include "embedded_assets/dmx/dmx_images.h"
-#include "embedded_assets/dmx/dmx.h"
+#include "embedded_assets/dmx/dmx_sprite.h"
 
 namespace bongocat::assets {
-    embedded_image_t get_dmx_sprite_sheet(size_t i) {
-        using namespace assets;
-        switch (i) {
+    embedded_image_t get_dmx_sprite_sheet(size_t index) {
+        switch (index) {
             case DMX_AGUMON_BLACK_X_ANIM_INDEX: return {dmx_agumon_black_x_png, dmx_agumon_black_x_png_size, "agumon_black_x"};
             case DMX_AGUMON_X_ANIM_INDEX: return {dmx_agumon_x_png, dmx_agumon_x_png_size, "agumon_x"};
             case DMX_ALLOMON_X_ANIM_INDEX: return {dmx_allomon_x_png, dmx_allomon_x_png_size, "allomon_x"};
@@ -180,3 +179,4 @@ namespace bongocat::assets {
         return { nullptr, 0, "" };
     }
 }
+

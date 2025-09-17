@@ -7,7 +7,7 @@
 #include "utils/memory.h"
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "2.4.0";
+inline static constexpr const char* BONGOCAT_VERSION = "3.0.0";
 
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
@@ -70,7 +70,12 @@ namespace bongocat {
 #else
         inline static constexpr bool EnablePen20EmbeddedAssets = false;
 #endif
-#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS)
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+        inline static constexpr bool EnableDmAllEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableDmAllEmbeddedAssets = false;
+#endif
+#if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && !defined(FEATURE_PEN20_EMBEDDED_ASSETS) && !defined(FEATURE_DMALL_EMBEDDED_ASSETS)
         inline static constexpr bool EnableMinDmEmbeddedAssets = true;
 #else
         inline static constexpr bool EnableMinDmEmbeddedAssets = false;
@@ -83,12 +88,19 @@ namespace bongocat {
         inline static constexpr bool EnableDmxEmbeddedAssets = false;
         inline static constexpr bool EnablePen20EmbeddedAssets = false;
         inline static constexpr bool EnableMinDmEmbeddedAssets = false;
+        inline static constexpr bool EnableDmAllEmbeddedAssets = false;
 #endif
 
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
         inline static constexpr bool EnableMsAgentEmbeddedAssets = true;
 #else
         inline static constexpr bool EnableMsAgentEmbeddedAssets = false;
+#endif
+
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+        inline static constexpr bool EnablePkmnEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnablePkmnEmbeddedAssets = false;
 #endif
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
@@ -136,12 +148,12 @@ namespace bongocat {
         return static_cast<Enum>(~static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
-    [[nodiscard]] inline constexpr Enum flag_add(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_add(Enum lhs, Enum rhs) noexcept {
         lhs = flag_or(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
-    [[nodiscard]] inline constexpr Enum flag_assign(Enum& lhs, Enum rhs) noexcept {
+    [[nodiscard]] inline constexpr Enum flag_assign(Enum lhs, Enum rhs) noexcept {
         lhs = flag_and(lhs, rhs);
         return lhs;
     }

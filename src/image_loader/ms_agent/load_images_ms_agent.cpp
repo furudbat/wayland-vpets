@@ -3,7 +3,7 @@
 #include "graphics/animation.h"
 #include "utils/memory.h"
 #include "image_loader/load_images.h"
-#include "embedded_assets/ms_agent/ms_agent.h"
+#include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include <cassert>
 
@@ -12,12 +12,10 @@ namespace bongocat::animation {
     static created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet_from_memory(const uint8_t* sprite_data, size_t sprite_data_size,
                                                                                           int frame_columns, int frame_rows,
                                                                                           int padding_x, int padding_y) {
-        assert(sprite_data_size <= INT_MAX);
-        /// @TODO: stbi_load_from_memory C++ RAII wrapper
-        Image sprite_sheet (sprite_data, static_cast<int>(sprite_data_size), STBI_rgb_alpha); // Force RGBA
-        if (!sprite_sheet.pixels) {
+        auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS); // Force RGBA
+        if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to load sprite sheet.");
-            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+            return sprite_sheet_error;
         }
 
         assert(frame_columns != 0 && frame_rows != 0 && sprite_sheet.width % frame_columns == 0 && sprite_sheet.height % frame_rows == 0);
@@ -33,8 +31,6 @@ namespace bongocat::animation {
         assert(MAX_NUM_FRAMES <= INT_MAX);
         if (total_frames > (int)MAX_NUM_FRAMES) {
             BONGOCAT_LOG_ERROR("Sprite Sheet does not fit in out_frames: %d, total_frames: %d", MAX_NUM_FRAMES, total_frames);
-            stbi_image_free(sprite_sheet_pixels);
-            sprite_sheet_pixels = NULL;
             return BONGOCAT_ERROR_INVALID_PARAM;
         }
         */
@@ -126,7 +122,7 @@ namespace bongocat::animation {
         }
 
         // assume every frame is the same size, pick first frame
-        BONGOCAT_LOG_DEBUG("Loaded %dx%d sprite sheet with %d frames", result.result.image.sprite_sheet_width, result.result.image.sprite_sheet_height);
+        BONGOCAT_LOG_DEBUG("Loaded %dx%d sprite sheet", result.result.image.sprite_sheet_width, result.result.image.sprite_sheet_height);
 
         return result;
     }

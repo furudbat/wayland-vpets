@@ -547,7 +547,8 @@ namespace bongocat::platform::input {
                         // Handle ready devices
                         if (pfds[p].revents & POLLIN) {
                             // discard evdev input
-                            read(pfds[p].fd, ev, sizeof(ev));
+                            [[maybe_unused]] auto discard_result = read(pfds[p].fd, ev, sizeof(ev));
+                            ((void)discard_result);
                         }
                     }
                 }

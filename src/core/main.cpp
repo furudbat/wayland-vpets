@@ -14,6 +14,9 @@
 #include <cassert>
 #include <fcntl.h>
 #include <sys/signalfd.h>
+#include <libgen.h>
+
+#include "image_loader/load_images.h"
 
 // =============================================================================
 // GLOBAL STATE AND CONFIGURATION
@@ -129,8 +132,10 @@ namespace bongocat {
         bool toggle_mode{false};
         bool show_help{false};
         bool show_version{false};
-        const char *output_name{};
-        int32_t random_index{-1};
+        const char *output_name{nullptr};
+        int32_t randomize_index{-1};
+        int32_t strict{-1};
+        bool ignore_running{false};
     };
 
     // =============================================================================
@@ -141,6 +146,7 @@ namespace bongocat {
     
     inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_TEMPLATE = "/tmp/bongocat-%s.pid";
+    inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE = "/tmp/bongocat-%s.%d.pid";
 
     static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
         platform::FileDescriptor fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644));
@@ -258,7 +264,7 @@ namespace bongocat {
             BONGOCAT_LOG_INFO("Stopping bongocat (PID: %d)", running_pid);
             if (kill(running_pid, SIGTERM) == 0) {
                 // Wait a bit for graceful shutdown
-                for (int i = 0; i < WAIT_FOR_SHUTDOWN_MS/SLEEP_WAIT_FOR_SHUTDOWN_MS; i++) { // Wait up to 5 seconds
+                for (int i = 0; i < WAIT_FOR_SHUTDOWN_MS/SLEEP_WAIT_FOR_SHUTDOWN_MS; i++) {
                     if (kill(running_pid, 0) != 0) {
                         BONGOCAT_LOG_INFO("Bongocat stopped successfully");
                         return 0;
@@ -413,6 +419,7 @@ namespace bongocat {
         sigaddset(&mask, SIGINT);
         sigaddset(&mask, SIGTERM);
         sigaddset(&mask, SIGCHLD);
+        sigaddset(&mask, SIGUSR1);
         sigaddset(&mask, SIGUSR2);
 
         // Block signals globally so they are only delivered via signalfd
@@ -447,6 +454,7 @@ namespace bongocat {
 
         // Initialize animation system
         {
+            animation::init_image_loader();
             auto [animation, animation_error] = animation::create(ctx.config);
             if (animation_error != bongocat_error_t::BONGOCAT_SUCCESS) {
                 BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(animation_error));
@@ -513,35 +521,57 @@ namespace bongocat {
     // =============================================================================
 
     static void cli_show_help(const char *program_name) {
-        printf("Bongo Cat Wayland Overlay\n");
-        printf("Usage: %s [options]\n", program_name);
+        char *base_program_name = strdup(program_name);
+        if (!base_program_name) {
+            perror("strdup");
+            return;
+        }
+
+        printf("Bongo Cat Wayland Overlay.\n\n");
+        printf("Usage: %s [OPTIONS]\n\n", basename(base_program_name));
         printf("Options:\n");
-        printf("  -h, --help            Show this help message\n");
-        printf("  -v, --version         Show version information\n");
-        printf("  -c, --config          Specify config file (default: bongocat.conf)\n");
-        printf("  -w, --watch-config    Watch config file for changes and reload automatically\n");
-        printf("  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)\n");
-        printf("  -o, --output-name     Specify output name (overwrite output_name from config)\n");
-        printf("      --random          Enable random animation_index, at start (overwrite random_index from config)\n");
-        printf("\nConfiguration is loaded from bongocat.conf in the current directory.\n");
+        printf("  -h, --help                  Show this help message\n");
+        printf("  -v, --version               Show version information\n");
+        printf("  -c, --config                Specify config file (default: bongocat.conf)\n");
+        printf("  -w, --watch-config          Watch config file for changes and reload automatically\n");
+        printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
+        printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
+        printf("      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
+        printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
+        printf("      --ignore-running        Ignore current running instance\n");
+        printf("\n");
+        printf("Included sets:\n");
+        if constexpr (features::EnableBongocatEmbeddedAssets) {
+            printf("  %8s - Classic Bongo cat\n", "bongocat");
+        }
+        if constexpr (features::EnableDmEmbeddedAssets) {
+            if constexpr (features::EnableDmEmbeddedAssets) {
+                printf("  %8s - Digital Monster Original\n", "dm");
+            }
+            if constexpr (features::EnableDm20EmbeddedAssets) {
+                printf("  %8s - Digital Monster Ver.20th\n", "dm20");
+            }
+            if constexpr (features::EnableDmxEmbeddedAssets) {
+                printf("  %8s - Digital Monster X\n", "dmx");
+            }
+            if constexpr (features::EnableDmcEmbeddedAssets) {
+                printf("  %8s - Digital Monster Color\n", "dmc");
+            }
+        }
+        if constexpr (features::EnablePkmnEmbeddedAssets) {
+            printf("  %8s - Pokemon, up to Gen 7\n", "pkmn");
+        }
+        printf("\n");
+
+        ::free(base_program_name);
     }
 
     static void cli_show_version() {
-        printf("Bongo Cat Overlay v%s\n", BONGOCAT_VERSION);
-        printf("Built with fast optimizations\n");
+        printf("bongocat version %s\n", BONGOCAT_VERSION);
     }
 
-    static int cli_parse_arguments(int argc, char *argv[], cli_args_t& args) {
-        // Initialize arguments with defaults
-        args = {
-            .config_file = nullptr,
-            .watch_config = false,
-            .toggle_mode = false,
-            .show_help = false,
-            .show_version = false,
-            .output_name = nullptr,
-            .random_index = -1,
-        };
+    static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) {
+        cli_args_t args{};
 
         for (int i = 1; i < argc; i++) {
             if (strcmp(argv[i], "--help") == 0 || strcmp(argv[i], "-h") == 0) {
@@ -554,28 +584,32 @@ namespace bongocat {
                     i++; // Skip the next argument since it's the config file path
                 } else {
                     BONGOCAT_LOG_ERROR("--config option requires a file path");
-                    return EXIT_FAILURE;
+                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
                 }
             } else if (strcmp(argv[i], "--watch-config") == 0 || strcmp(argv[i], "-w") == 0) {
                 args.watch_config = true;
             } else if (strcmp(argv[i], "--toggle") == 0 || strcmp(argv[i], "-t") == 0) {
                 args.toggle_mode = true;
             } else if (strcmp(argv[i], "--random") == 0) {
-                args.random_index = 1;
-            } else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
+                args.randomize_index = 1;
+            } else if (strcmp(argv[i], "--strict") == 0) {
+                args.strict = 1;
+            } else if (strcmp(argv[i], "--ignore-running") == 0) {
+                args.ignore_running = true;
+            }else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
                 if (i + 1 < argc) {
                     args.output_name = argv[i + 1];
                     i++; // Skip the next argument since it's the output name
                 } else {
                     BONGOCAT_LOG_ERROR("--output-name option requires a output name");
-                    return EXIT_FAILURE;
+                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
                 }
             } else {
                 BONGOCAT_LOG_WARNING("Unknown argument: %s", argv[i]);
             }
         }
 
-        return 0;
+        return args;
     }
 }
 
@@ -588,11 +622,9 @@ int main(int argc, char *argv[]) {
     // Initialize error system early
     bongocat::error_init(true); // Enable debug initially
 
-    BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
-
     // Parse command line arguments
-    cli_args_t args{};
-    if (cli_parse_arguments(argc, argv, args) != 0) {
+    const auto [args, args_result] = cli_parse_arguments(argc, argv);
+    if (args_result != bongocat_error_t::BONGOCAT_SUCCESS) {
         return EXIT_FAILURE;
     }
 
@@ -606,12 +638,15 @@ int main(int argc, char *argv[]) {
         return EXIT_SUCCESS;
     }
 
+    BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
+
     main_context_t& ctx = get_main_context();
 
     // Load configuration
     ctx.overwrite_config_parameters = {
         .output_name = args.output_name,
-        .random_index = args.random_index,
+        .randomize_index = args.randomize_index,
+        .strict = args.strict,
     };
     auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -623,12 +658,24 @@ int main(int argc, char *argv[]) {
 
     // set pid file, based on output_name
     if (ctx.config.output_name && ctx.config.output_name[0] != '\0') {
-        const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name) + 1;
-        assert(needed_size >= 0);
-        ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
-        if (ctx.pid_filename != nullptr) {
-            snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name);
+        if (!args.ignore_running) {
+            const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name) + 1;
+            assert(needed_size >= 0);
+            ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
+            if (ctx.pid_filename != nullptr) {
+                snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name);
+            }
         } else {
+            srand(static_cast<unsigned>(time(nullptr)));
+            const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name, rand()) + 1;
+            assert(needed_size >= 0);
+            ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
+            if (ctx.pid_filename != nullptr) {
+                snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name, rand());
+            }
+        }
+
+        if (ctx.pid_filename == nullptr) {
             BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
             return EXIT_FAILURE;
         }
@@ -647,12 +694,15 @@ int main(int argc, char *argv[]) {
 
     // Create PID file to track this instance
     const platform::FileDescriptor pid_fd = process_create_pid_file(ctx.pid_filename);
-    if (pid_fd._fd == -2) {
-        BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
-        return EXIT_FAILURE;
-    } else if (pid_fd._fd < 0) {
+    if (pid_fd._fd < 0) {
         BONGOCAT_LOG_ERROR("Failed to create PID file");
         return EXIT_FAILURE;
+    }
+    if (!args.ignore_running) {
+        if (pid_fd._fd == -2) {
+            BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
+            return EXIT_FAILURE;
+        }
     }
     BONGOCAT_LOG_INFO("PID file created: %s", ctx.pid_filename);
 

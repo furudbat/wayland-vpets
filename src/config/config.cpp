@@ -11,8 +11,32 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
-#include "embedded_assets/ms_agent/ms_agent.h"
+#include "embedded_assets/ms_agent/ms_agent_sprite.h"
+#include "graphics/embedded_assets_pkmn.h"
+#include "embedded_assets/pkmn/pkmn_sprite.h"
 
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+#include "dm_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
+#include "dm20_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "pen20_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DMX_EMBEDDED_ASSETS
+#include "dmx_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DMC_EMBEDDED_ASSETS
+#include "dmc_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+#include "dmall_config_parse_animation_name.h"
+#endif
+
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+#include "pkmn_config_parse_animation_name.h"
+#endif
 
 // =============================================================================
 // CONFIGURATION CONSTANTS AND VALIDATION RANGES
@@ -54,12 +78,13 @@ namespace bongocat::config {
     static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
     static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
     static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 0;
+    static inline constexpr int32_t DEFAULT_ENABLE_ANTIALIASING = 1;
 
     // Debug-specific defaults
 #ifndef NDEBUG
-    static inline constexpr bool DEFAULT_ENABLE_DEBUG = true;
+    static inline constexpr int32_t DEFAULT_ENABLE_DEBUG = 1;
 #else
-    static inline constexpr bool DEFAULT_ENABLE_DEBUG = false;
+    static inline constexpr int32_t DEFAULT_ENABLE_DEBUG = 0;
 #endif
 
 
@@ -95,61 +120,70 @@ namespace bongocat::config {
     static inline constexpr auto MIRROR_X_KEY                       = "mirror_x";
     static inline constexpr auto MIRROR_Y_KEY                       = "mirror_y";
     static inline constexpr auto RANDOM_KEY                         = "random";
+    static inline constexpr auto ENABLE_ANTIALIASING_KEY            = "enable_antialiasing";
 
     static inline constexpr size_t VALUE_BUF = 256;
     static inline constexpr size_t LINE_BUF  = 512;
-
-    static inline constexpr auto BONGOCAT_NAME = "bongocat";
 
     // =============================================================================
     // CONFIGURATION VALIDATION MODULE
     // =============================================================================
 
-    static constexpr void config_clamp_int(int& value, int min, int max, [[maybe_unused]] const char *name) {
+    static constexpr int32_t config_clamp_int(int& value, int min, int max, [[maybe_unused]] const char *name) {
         if (value < min || value > max) {
             BONGOCAT_LOG_WARNING("%s %d out of range [%d-%d], clamping", name, value, min, max);
             value = (value < min) ? min : max;
+            return 1;
         }
+        return 0;
     }
 
-    static void config_validate_dimensions(config_t& config) {
-        config_clamp_int(config.cat_height, MIN_CAT_HEIGHT, MAX_CAT_HEIGHT, CAT_HEIGHT_KEY);
-        config_clamp_int(config.overlay_height, MIN_OVERLAY_HEIGHT, MAX_OVERLAY_HEIGHT, OVERLAY_HEIGHT_KEY);
+    static int32_t config_validate_dimensions(config_t& config) {
+        int32_t ret{0};
+        ret |= config_clamp_int(config.cat_height, MIN_CAT_HEIGHT, MAX_CAT_HEIGHT, CAT_HEIGHT_KEY);
+        ret |= config_clamp_int(config.overlay_height, MIN_OVERLAY_HEIGHT, MAX_OVERLAY_HEIGHT, OVERLAY_HEIGHT_KEY);
+        return ret;
     }
 
-    static void config_validate_timing(config_t& config) {
-        config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY);
-        config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY);
-        config_clamp_int(config.test_animation_duration_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
-        config_clamp_int(config.animation_speed_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
-        config_clamp_int(config.idle_sleep_timeout_sec, 0, MAX_TIMEOUT, IDLE_SLEEP_TIMEOUT_KEY);
-        config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY);
+    static int32_t config_validate_timing(config_t& config) {
+        int32_t ret{0};
+        ret |= config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY);
+        ret |= config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY);
+        ret |= config_clamp_int(config.test_animation_duration_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
+        ret |= config_clamp_int(config.animation_speed_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
+        ret |= config_clamp_int(config.idle_sleep_timeout_sec, 0, MAX_TIMEOUT, IDLE_SLEEP_TIMEOUT_KEY);
+        ret |= config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY);
 
         // Validate interval (0 is allowed to disable)
         if (config.test_animation_interval_sec < 0 || config.test_animation_interval_sec > MAX_INTERVAL_SEC) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%dsec], clamping",
                                  TEST_ANIMATION_INTERVAL_KEY, config.test_animation_interval_sec, MAX_INTERVAL_SEC);
             config.test_animation_interval_sec = (config.test_animation_interval_sec < 0) ? 0 : MAX_INTERVAL_SEC;
+            ret = 2;
         }
         if (config.animation_speed_ms < 0 || config.animation_speed_ms > MAX_INTERVAL_SEC*1000) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%dms], clamping",
                                  ANIMATION_SPEED_KEY, config.test_animation_interval_sec, MAX_INTERVAL_SEC*1000);
             config.animation_speed_ms = (config.animation_speed_ms < 0) ? 0 : MAX_INTERVAL_SEC*1000;
+            ret = 3;
         }
+        return ret;
     }
 
-    static void config_validate_kpm(config_t& config) {
-        config_clamp_int(config.happy_kpm, MIN_KPM, MAX_KPM, HAPPY_KPM_KEY);
+    static int32_t config_validate_kpm(config_t& config) {
+        return config_clamp_int(config.happy_kpm, MIN_KPM, MAX_KPM, HAPPY_KPM_KEY);
     }
 
-    static void config_validate_appearance(config_t& config) {
+    static int32_t config_validate_appearance(config_t& config) {
         using namespace assets;
+        int32_t ret{0};
         // Validate opacity
-        config_clamp_int(config.overlay_opacity, 0, 255, OVERLAY_OPACITY_KEY);
+        ret |= config_clamp_int(config.overlay_opacity, 0, 255, OVERLAY_OPACITY_KEY);
 
         switch (config.animation_sprite_sheet_layout) {
             case config_animation_sprite_sheet_layout_t::None:
                 BONGOCAT_LOG_WARNING("Cant determine sprite sheet layout");
+                ret = 2;
                 break;
             case config_animation_sprite_sheet_layout_t::Bongocat:
                 if constexpr (features::EnableBongocatEmbeddedAssets) {
@@ -159,6 +193,7 @@ namespace bongocat::config {
                         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
                                              ANIMATION_INDEX_KEY, config.animation_index, assets::BONGOCAT_ANIMATIONS_COUNT - 1);
                         config.animation_index = 0;
+                        ret = 3;
                     }
                     // Validate idle frame
                     assert(animation::BONGOCAT_NUM_FRAMES <= INT_MAX);
@@ -166,6 +201,7 @@ namespace bongocat::config {
                         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
                                              IDLE_FRAME_KEY, config.idle_frame, animation::BONGOCAT_NUM_FRAMES - 1);
                         config.idle_frame = 0;
+                        ret = 4;
                     }
                 }
                 break;
@@ -177,6 +213,7 @@ namespace bongocat::config {
                         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
                                              ANIMATION_INDEX_KEY, config.animation_index, assets::DM_ANIMATIONS_COUNT - 1);
                         config.animation_index = 0;
+                        ret = 5;
                     }
                     // Validate idle frame
                     assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
@@ -184,6 +221,27 @@ namespace bongocat::config {
                         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
                                              IDLE_FRAME_KEY, config.idle_frame, animation::MAX_DIGIMON_FRAMES - 1);
                         config.idle_frame = 0;
+                        ret = 6;
+                    }
+                }
+                break;
+            case config_animation_sprite_sheet_layout_t::Pkmn:
+                if constexpr (features::EnablePkmnEmbeddedAssets) {
+                    // Validate animation index
+                    assert(DM_ANIMATIONS_COUNT <= INT_MAX);
+                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(PKMN_ANIMATIONS_COUNT)) {
+                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                             ANIMATION_INDEX_KEY, config.animation_index, assets::PKMN_ANIMATIONS_COUNT - 1);
+                        config.animation_index = 0;
+                        ret = 5;
+                    }
+                    // Validate idle frame
+                    assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
+                    if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::MAX_DIGIMON_FRAMES)) {
+                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                             IDLE_FRAME_KEY, config.idle_frame, animation::MAX_PKMN_FRAMES - 1);
+                        config.idle_frame = 0;
+                        ret = 6;
                     }
                 }
                 break;
@@ -195,6 +253,7 @@ namespace bongocat::config {
                         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
                                              ANIMATION_INDEX_KEY, config.animation_index, assets::MS_AGENTS_ANIMATIONS_COUNT - 1);
                         config.animation_index = 0;
+                        ret = 7;
                     }
                     // Validate idle frame
                     assert(assets::MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
@@ -202,33 +261,43 @@ namespace bongocat::config {
                         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
                                              IDLE_FRAME_KEY, config.idle_frame, assets::MAX_SPRITE_SHEET_COL_FRAMES - 1);
                         config.idle_frame = 0;
+                        ret = 8;
                     }
                 }
                 break;
+            /// @NOTE(assets): 5. add animation_index validation
         }
+        return ret;
     }
 
-    static void config_validate_enums(config_t& config) {
+    static int32_t config_validate_enums(config_t& config) {
+        int32_t ret{0};
         // Validate layer
         if (config.layer != layer_type_t::LAYER_TOP && config.layer != layer_type_t::LAYER_OVERLAY) {
             BONGOCAT_LOG_WARNING("Invalid layer %d, resetting to top", config.layer);
             config.layer = layer_type_t::LAYER_TOP;
+            ret = 1;
         }
 
         // Validate overlay_position
         if (config.overlay_position != overlay_position_t::POSITION_TOP && config.overlay_position != overlay_position_t::POSITION_BOTTOM) {
             BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to top", OVERLAY_OPACITY_KEY, config.overlay_position);
             config.overlay_position = overlay_position_t::POSITION_TOP;
+            ret = 2;
         }
 
         // Validate cat_align
         if (config.cat_align != align_type_t::ALIGN_CENTER && config.cat_align != align_type_t::ALIGN_LEFT && config.cat_align != align_type_t::ALIGN_RIGHT) {
             BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to center", CAT_ALIGN_KEY, config.cat_align);
             config.cat_align = align_type_t::ALIGN_CENTER;
+            ret = 3;
         }
+
+        return ret;
     }
 
-    static void config_validate_time(config_t& config) {
+    static int32_t config_validate_time(config_t& config) {
+        int32_t ret{0};
         if (config.enable_scheduled_sleep) {
             const int begin_minutes = config.sleep_begin.hour * 60 + config.sleep_begin.min;
             const int end_minutes = config.sleep_end.hour * 60 + config.sleep_end.min;
@@ -241,11 +310,14 @@ namespace bongocat::config {
                 //config.sleep_begin.min = 0;
                 //config.sleep_end.hour = 0;
                 //config.sleep_end.min = 0;
+                ret = 1;
             }
         }
+        return ret;
     }
 
     static bongocat_error_t config_validate(config_t& config) {
+        int32_t ret{0};
         // Normalize boolean values
         config.enable_debug = config.enable_debug ? 1 : 0;
         config.invert_color = config.invert_color ? 1 : 0;
@@ -254,14 +326,21 @@ namespace bongocat::config {
         config.mirror_x = config.mirror_x ? 1 : 0;
         config.mirror_y = config.mirror_y ? 1 : 0;
         config.randomize_index = config.randomize_index ? 1 : 0;
+        config.enable_antialiasing = config.enable_antialiasing ? 1 : 0;
 
-        config_validate_dimensions(config);
-        config_validate_timing(config);
-        config_validate_appearance(config);
-        config_validate_enums(config);
-        config_validate_time(config);
-        config_validate_kpm(config);
+        ret |= config_validate_dimensions(config);
+        ret |= config_validate_timing(config);
+        ret |= config_validate_appearance(config);
+        ret |= config_validate_enums(config);
+        ret |= config_validate_time(config);
+        ret |= config_validate_kpm(config);
 
+        if (config.strict) {
+            if (ret != 0) {
+                BONGOCAT_LOG_ERROR("Failed to load configuration in struct mode: %x", ret);
+                return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            }
+        }
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
@@ -279,7 +358,7 @@ namespace bongocat::config {
         assert(MAX_INPUT_DEVICES <= INT_MAX);
         if (old_num_keyboard_devices >= static_cast<int>(MAX_INPUT_DEVICES)) {
             BONGOCAT_LOG_WARNING("Can not add more devices from config, max. reach: %d", MAX_INPUT_DEVICES);
-            return bongocat_error_t::BONGOCAT_SUCCESS;
+            return config.strict ? bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM : bongocat_error_t::BONGOCAT_SUCCESS;
         }
         const int new_num_keyboard_devices = old_num_keyboard_devices + 1;
         assert(new_num_keyboard_devices >= 0);
@@ -319,7 +398,7 @@ namespace bongocat::config {
     // CONFIGURATION PARSING MODULE
     // =============================================================================
 
-    static char* config_trim_key(char *key) {
+    static char* config_trim_str(char *key) {
         char *key_start = key;
         while (*key_start == ' ' || *key_start == '\t') key_start++;
 
@@ -359,6 +438,8 @@ namespace bongocat::config {
             config.mirror_x = int_value;
         } else if (strcmp(key, MIRROR_Y_KEY) == 0) {
             config.mirror_y = int_value;
+        } else if (strcmp(key, ENABLE_ANTIALIASING_KEY) == 0) {
+            config.enable_antialiasing = int_value;
         } else if (strcmp(key, ENABLE_DEBUG_KEY) == 0) {
             config.enable_debug = int_value;
         } else if (strcmp(key, ANIMATION_INDEX_KEY) == 0) {
@@ -501,69 +582,121 @@ namespace bongocat::config {
                 config.sleep_end.min = 0;
             }
         } else if (strcmp(key, ANIMATION_NAME_KEY) == 0) {
-            char lower_value[VALUE_BUF] = {};
-            memset(lower_value, 0, VALUE_BUF);
-            for(size_t i = 0; i < strlen(value) && i < VALUE_BUF; i++) {
-                lower_value[i] = value ? static_cast<char>(tolower(value[i])) : '\0';
-            }
+            using namespace assets;
 
             // reset state
             config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::None;
             config.animation_dm_set = config_animation_dm_set_t::None;
             config.animation_index = -1;
 
+            // fully name like dm:..., dm20:..., dmc:...
+            [[maybe_unused]] const bool is_fq = strchr(value, ':') != nullptr;
+
             if constexpr (features::EnableBongocatEmbeddedAssets) {
                 // check for bongocat
-                if (strcmp(lower_value, BONGOCAT_NAME) == 0) {
+                if (strcmp(value, BONGOCAT_NAME) == 0 ||
+                    strcmp(value, BONGOCAT_ID) == 0 ||
+                    strcmp(value, BONGOCAT_FQID) == 0 ||
+                    strcmp(value, BONGOCAT_FQNAME) == 0) {
                     config.animation_index = BONGOCAT_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
                 }
             }
 
+            bool animation_found = config.animation_index >= 0;
+
             // check for dm
             if constexpr (features::EnableDmEmbeddedAssets) {
+                using namespace assets;
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
-            //if (strcmp(lower_value, "agumon") == 0) {
-            //    config->animation_index = DM_AGUMON_ANIM_INDEX;
-            //}
-#include "min_dm_config_parse_enum_key.cpp.inl"
+                #include "min_dm_config_parse_enum_key.cpp.inl"
+                animation_found = config.animation_index >= 0;
 #endif
+
+                /// @NOTE(assets): 3. add more dm versions here, config animation_name parsing
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
-#include "dm_config_parse_enum_key.cpp.inl"
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {    // overwrite animation when needed
+                    config_parse_animation_name_dm(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
-#include "dm20_config_parse_enum_key.cpp.inl"
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dm20(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "pen20_config_parse_enum_key.cpp.inl"
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_pen20(config, value);
+                }
+                find_animation = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
-#include "dmx_config_parse_enum_key.cpp.inl"
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dmx(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
-#include "dmc_config_parse_enum_key.cpp.inl"
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dmc(config, value);
+                }
+                animation_found = config.animation_index >= 0;
 #endif
-            /// @NOTE(config): add more dm versions here
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+                // overwrite animation when not found or full name
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_dmall(config, value);
+                }
+                animation_found = config.animation_index >= 0;
+#endif
             }
 
             if constexpr (features::EnableMsAgentEmbeddedAssets) {
-                // check for ms pets (clipp
-                if (strcmp(lower_value, "clippy") == 0) {
+                // check for ms pets (clippy)
+                if (strcmp(value, CLIPPY_NAME) == 0 ||
+                    strcmp(value, CLIPPY_ID) == 0 ||
+                    strcmp(value, CLIPPY_FQID) == 0 ||
+                    strcmp(value, CLIPPY_FQNAME) == 0) {
                     config.animation_index = CLIPPY_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-                /// @NOTE(config): add more MS Pets here
-                if (strcmp(lower_value, "links") == 0) {
+                /// @NOTE(assets): 4. add more MS Agents here
+                if (strcmp(value, LINKS_NAME) == 0 ||
+                    strcmp(value, LINKS_ID) == 0 ||
+                    strcmp(value, LINKS_FQID) == 0 ||
+                    strcmp(value, LINKS_FQNAME) == 0) {
                     config.animation_index = LINKS_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
 #endif
             }
 
-            if (config.animation_index < 0 || config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
+            // check for dm
+            if constexpr (features::EnablePkmnEmbeddedAssets) {
+                using namespace assets;
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+                if ((!is_fq && animation_found) || (is_fq && !animation_found)) {
+                    config_parse_animation_name_pkmn(config, value);
+                }
+                animation_found = config.animation_index >= 0;
+#endif
+            }
+            /// @NOTE(assets): 4. add more config animation_name parsring here
+
+            animation_found = config.animation_index >= 0 && config.animation_sprite_sheet_layout != config_animation_sprite_sheet_layout_t::None;
+            if (!animation_found) {
                 if (config.animation_index >= 0 && config.animation_sprite_sheet_layout == config_animation_sprite_sheet_layout_t::None) {
                     BONGOCAT_LOG_WARNING("animation_index is set, but not animation_type (unknown type for index=%i and value='%s')", config.animation_index, value);
+                    if (config.strict) {
+                        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+                    }
                 }
                 BONGOCAT_LOG_WARNING("Invalid %s '%s', using '%s'", ANIMATION_NAME_KEY, value, BONGOCAT_NAME);
                 config.animation_index = BONGOCAT_ANIM_INDEX;
@@ -636,10 +769,11 @@ namespace bongocat::config {
 
             // Parse key=value pairs
             static_assert(255 < VALUE_BUF);
-            if (sscanf(line, " %255[^=] = %255s", key, value) == 2) {
-                char *trimmed_key = config_trim_key(key);
+            if (sscanf(line, " %255[^=]=%255[^\n]", key, value) == 2) {
+                char *trimmed_key = config_trim_str(key);
+                char *trimmed_value = config_trim_str(value);
 
-                bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, value);
+                bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, trimmed_value);
                 if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
                     BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
                 } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -685,6 +819,7 @@ namespace bongocat::config {
         cfg.overlay_opacity = DEFAULT_OVERLAY_OPACITY;
         cfg.mirror_x = 0;
         cfg.mirror_y = 0;
+        cfg.enable_antialiasing = DEFAULT_ENABLE_ANTIALIASING;
         cfg.enable_debug = DEFAULT_ENABLE_DEBUG;
         cfg.layer = DEFAULT_LAYER;
         cfg.overlay_position = DEFAULT_OVERLAY_POSITION;
@@ -704,6 +839,7 @@ namespace bongocat::config {
         cfg.input_fps = 0;          // when 0 fallback to fps
         cfg.randomize_index = 0;
         cfg.keep_old_animation_index = 0;
+        cfg.strict = 0;
 
         config = bongocat::move(cfg);
     }
@@ -725,21 +861,28 @@ namespace bongocat::config {
                 break;
             case config_animation_sprite_sheet_layout_t::Bongocat:
                 BONGOCAT_LOG_DEBUG("  Cat: %dx%d at offset (%d,%d)",
-                                  config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
-                                  config.cat_x_offset, config.cat_y_offset);
+                                   config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
+                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::Dm:
                 BONGOCAT_LOG_DEBUG("  dm: %03d/%03d (set=%d) at offset (%d,%d)",
-                                  config.animation_index, DM_ANIMATIONS_COUNT, config.animation_dm_set,
-                                  config.cat_x_offset, config.cat_y_offset);
+                                   config.animation_index, DM_ANIMATIONS_COUNT, config.animation_dm_set,
+                                   config.cat_x_offset, config.cat_y_offset);
+                break;
+            case config_animation_sprite_sheet_layout_t::Pkmn:
+                BONGOCAT_LOG_DEBUG("  pkmn: %03d at offset (%d,%d)",
+                                   config.animation_index,
+                                   config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::MsAgent:
                 BONGOCAT_LOG_DEBUG("  MS Agent: %02d at offset (%d,%d)",
-                                  config.animation_index,
-                                  config.cat_x_offset, config.cat_y_offset);
+                                   config.animation_index,
+                                   config.cat_x_offset, config.cat_y_offset);
                 break;
         }
         BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.randomize_index);
+        BONGOCAT_LOG_DEBUG("  Mirror: X=%d, Y=%d", config.mirror_x, config.mirror_y);
+        BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing ? "enabled" : "disabled");
         BONGOCAT_LOG_DEBUG("  Position: %s", config.overlay_position == overlay_position_t::POSITION_TOP ? "top" : "bottom");
         BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align, config.cat_align == align_type_t::ALIGN_CENTER ? "(center)" : "");
         BONGOCAT_LOG_DEBUG("  Layer: %s", config.layer == layer_type_t::LAYER_TOP ? "top" : "overlay");
@@ -764,8 +907,11 @@ namespace bongocat::config {
             if (ret.output_name) ::free(ret.output_name);
             ret.output_name = strdup(overwrite_parameters.output_name);
         }
-        if (overwrite_parameters.random_index >= 0) {
-            ret.randomize_index = overwrite_parameters.random_index ? 1 : 0;
+        if (overwrite_parameters.randomize_index >= 0) {
+            ret.randomize_index = overwrite_parameters.randomize_index ? 1 : 0;
+        }
+        if (overwrite_parameters.strict >= 0) {
+            ret.strict = overwrite_parameters.strict ? 1 : 0;
         }
         if (ret.input_fps <= 0) {
             ret.input_fps = ret.fps;
@@ -773,10 +919,12 @@ namespace bongocat::config {
 
         // Set default keyboard device if none specified
         if (ret.num_keyboard_devices == 0) {
-            result = config_set_default_devices(ret);
-            if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
-                return result;
+            if (!ret.strict) {
+                result = config_set_default_devices(ret);
+                if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
+                    return result;
+                }
             }
         }
 
@@ -788,13 +936,17 @@ namespace bongocat::config {
         }
 
         if (ret.num_keyboard_devices == 0) {
-            // Set default keyboard device if none specified
-            result = config_set_default_devices(ret);
-            if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
-                return result;
+            if (!ret.strict) {
+                // Set default keyboard device if none specified
+                result = config_set_default_devices(ret);
+                if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
+                    return result;
+                } else {
+                    BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
+                }
             } else {
-                BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
+                BONGOCAT_LOG_INFO("No device loaded");
             }
         }
 

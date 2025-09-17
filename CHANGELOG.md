@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.0] - 2025-09-15
+
+### Added
+- **more Sprite** - add pkmn sprites
+  - [menu sprites](https://archives.bulbagarden.net/wiki/Category:Animated_menu_sprites)
+
+
+## [2.5.0] - 2025-09-12
+
+_include changes from upstream_
+
+### Added
+- **more Sprite** - add custom colored dm sprites (optional)
+- toggle bar visibility via signal (SIGUSR1)
+- strict mode - only start up when valid config
+
+
 ## [2.4.0] - 2025-09-05
 
 ### Added

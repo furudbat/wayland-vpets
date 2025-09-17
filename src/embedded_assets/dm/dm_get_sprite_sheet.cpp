@@ -1,12 +1,11 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dm/dm.hpp"
 #include "embedded_assets/dm/dm_images.h"
-#include "embedded_assets/dm/dm.h"
+#include "embedded_assets/dm/dm_sprite.h"
 
 namespace bongocat::assets {
-    embedded_image_t get_dm_sprite_sheet(size_t i) {
-        using namespace assets;
-        switch (i) {
+    embedded_image_t get_dm_sprite_sheet(size_t index) {
+        switch (index) {
             case DM_AGUMON_ANIM_INDEX: return {dm_agumon_png, dm_agumon_png_size, "agumon"};
             case DM_AIRDRAMON_ANIM_INDEX: return {dm_airdramon_png, dm_airdramon_png_size, "airdramon"};
             case DM_ANDROMON_ANIM_INDEX: return {dm_andromon_png, dm_andromon_png_size, "andromon"};
@@ -77,8 +76,9 @@ namespace bongocat::assets {
             case DM_WHAMON_ANIM_INDEX: return {dm_whamon_png, dm_whamon_png_size, "whamon"};
             case DM_YUKIDARUMON_ANIM_INDEX: return {dm_yukidarumon_png, dm_yukidarumon_png_size, "yukidarumon"};
             case DM_YURAMON_ANIM_INDEX: return {dm_yuramon_png, dm_yuramon_png_size, "yuramon"};
-            default: return {};
+            default: return { nullptr, 0, "" };
         }
-        return {};
+        return { nullptr, 0, "" };
     }
 }
+

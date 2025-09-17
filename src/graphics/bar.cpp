@@ -125,7 +125,7 @@ namespace bongocat::animation {
         return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
     }
 
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -166,6 +166,9 @@ namespace bongocat::animation {
             }
             if (current_config.mirror_y) {
                 drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
+            }
+            if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
+                drawing_option = flag_add(drawing_option, extra_drawing_option);
             }
 
             blit_image_scaled(pixels, pixels_size,
@@ -214,6 +217,9 @@ namespace bongocat::animation {
         if (current_config.mirror_y) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
         }
+        if (current_config.enable_antialiasing) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
+        }
 
         blit_image_scaled(pixels, pixels_size,
                           wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
@@ -255,7 +261,8 @@ namespace bongocat::animation {
         uint8_t *pixels = shm_buffer->pixels.data;
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
-        const int effective_opacity = wayland_ctx._fullscreen_detected ? 0 : current_config.overlay_opacity;
+        const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+        const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
 
         assert(wayland_ctx._screen_width >= 0);
         assert(wayland_ctx._bar_height >= 0);
@@ -280,7 +287,7 @@ namespace bongocat::animation {
             platform::LockGuard guard (anim.anim_lock);
             const animation_shared_memory_t& anim_shm = *anim.shm;
 
-            if (!wayland_ctx._fullscreen_detected) {
+            if (bar_visible) {
                 switch (anim_shm.anim_type) {
                     case config::config_animation_sprite_sheet_layout_t::None:
                         break;
@@ -290,7 +297,7 @@ namespace bongocat::animation {
                         }
                         const animation_t& cat_anim = get_current_animation(anim);
                         const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
-                        draw_sprite(ctx, sheet);
+                        draw_sprite(ctx, sheet, current_config.enable_antialiasing ? blit_image_color_option_flags_t::BilinearInterpolation : blit_image_color_option_flags_t::Normal);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
                         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
@@ -312,10 +319,21 @@ namespace bongocat::animation {
                                 case config::config_animation_dm_set_t::dmc: {
                                     assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmc_anims.count);
                                 }break;
+                                case config::config_animation_dm_set_t::dmall: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmall_anims.count);
+                                }break;
                             }
                         }
                         const animation_t& dm_anim = get_current_animation(anim);
                         const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
+                        draw_sprite(ctx, sheet);
+                    }break;
+                    case config::config_animation_sprite_sheet_layout_t::Pkmn: {
+                        if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+                            assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pkmn_anims.count);
+                        }
+                        const animation_t& cat_anim = get_current_animation(anim);
+                        const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
@@ -330,7 +348,7 @@ namespace bongocat::animation {
                     }break;
                 }
             } else {
-                BONGOCAT_LOG_VERBOSE("fullscreen detected, skip drawing, keep buffer clean");
+                BONGOCAT_LOG_VERBOSE("skip drawing, keep buffer clean: fullscreen=%d, visibility=%d", wayland_ctx._fullscreen_detected, wayland_ctx.bar_visibility);
             }
         }
 
