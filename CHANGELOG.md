@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.0.1] - 2025-19-18
+
+### Fixed
+- read config with comments
+
 ## [3.0.0] - 2025-09-15
 
 ### Added

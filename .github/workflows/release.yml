@@ -69,7 +69,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: release-${{ matrix.compiler }}
-          path: build/*.{tar.gz,zip}
+          path: |
+            build/*.tar.gz
+            build/*.zip
 
   publish:
     needs: build
@@ -86,6 +88,6 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           prerelease: ${{ contains(github.ref_name, '-') }}
-          files: artifacts/**/*
+          files: artifacts/**/*.tar.gz,artifacts/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

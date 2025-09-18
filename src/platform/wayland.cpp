@@ -1085,7 +1085,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-        if (ctx.wayland_context._local_copy_config == nullptr) {
+        if (!ctx.wayland_context._local_copy_config) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }

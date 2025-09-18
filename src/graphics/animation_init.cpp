@@ -269,7 +269,7 @@ namespace bongocat::animation {
 
         // Initialize shared memory
         ret->anim.shm = platform::make_allocated_mmap<animation_shared_memory_t>();
-        if (ret->anim.shm == nullptr) {
+        if (!ret->anim.shm) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
@@ -277,7 +277,7 @@ namespace bongocat::animation {
 
         // Initialize shared memory for local config
         ret->anim._local_copy_config = platform::make_allocated_mmap<config::config_t>();
-        if (ret->anim._local_copy_config == nullptr) {
+        if (!ret->anim._local_copy_config) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }

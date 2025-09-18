@@ -4,13 +4,13 @@ set -euo pipefail
 
 #make debug
 #PROGRAM="./cmake-build-debug-all-assets-colored-preload/bongocat"
-#PROGRAM="./cmake-build-debug/bongocat"
-PROGRAM="./build/bongocat-all"
+PROGRAM="./cmake-build-debug/bongocat-all"
+#PROGRAM="./build/bongocat-all"
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
 OG_CONFIG=./examples/digimon.bongocat.conf
-cp ./examples/digimon.bongocat.conf $CONFIG
+cp $OG_CONFIG $CONFIG
 
 if [[ $# -ge 1 ]]; then
     PID="$1"
@@ -86,10 +86,18 @@ sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 sleep 5
 echo "[TEST] Change animation sprite"
 echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=[A-Za-z_]+/animation_name=agumon/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z_. ]+/animation_name=agumon/' "$CONFIG"
 sleep 5
 echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=[A-Za-z_]+/animation_name=greymon/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z_. ]+/animation_name=greymon/' "$CONFIG"
+sleep 1
+
+echo "[TEST] Invalid animation sprite"
+echo "[INFO] Set animation_name..."
+sed -i -E 's/^animation_name=[:A-Za-z_. ]+/animation_name=NoNo/' "$CONFIG"
+sleep 5
+echo "[INFO] Set animation_name..."
+sed -i -E 's/^animation_name=[:A-Za-z. ]+/animation_name=greymon/' "$CONFIG"
 sleep 1
 
 echo "[TEST] move and delete config..."
@@ -208,7 +216,7 @@ kill -TERM "$PID"
 sleep 15
 
 echo "[INFO] Wait for TERM"
-# wait up to 5 seconds
+# wait up to 10 seconds
 for i in {1..10}; do
     if ! kill -0 "$PID" 2>/dev/null; then
         break

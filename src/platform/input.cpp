@@ -859,7 +859,7 @@ namespace bongocat::platform::input {
 
         // Initialize shared memory for local config
         ret->_local_copy_config = make_allocated_mmap<config::config_t>();
-        if (ret->_local_copy_config == nullptr) {
+        if (!ret->_local_copy_config) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
@@ -900,7 +900,7 @@ namespace bongocat::platform::input {
 
         // Initialize shared memory for local config
         input._local_copy_config = make_allocated_mmap<config::config_t>();
-        if (input._local_copy_config.ptr == nullptr) {
+        if (!input._local_copy_config) {
             BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
@@ -972,9 +972,9 @@ namespace bongocat::platform::input {
             }
         }
 
-        if (input._local_copy_config == nullptr) {
+        if (!input._local_copy_config) {
             input._local_copy_config = make_unallocated_mmap_value<config::config_t>(config);
-            if (input._local_copy_config != nullptr) {
+            if (!input._local_copy_config) {
                 BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
                 return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
             }
