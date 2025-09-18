@@ -318,7 +318,7 @@ namespace bongocat {
         assert(get_main_context().input != nullptr);
         assert(get_main_context().animation != nullptr);
         assert(get_main_context().signal_watch_path != nullptr);
-        BONGOCAT_LOG_INFO("Reloading configuration from: %s (%s)", get_main_context().signal_watch_path, (get_main_context().config_watcher) ? get_main_context().config_watcher->config_path : "");
+        BONGOCAT_LOG_INFO("Reloading configuration from: %s (config_watcher=%s)", get_main_context().signal_watch_path, (get_main_context().config_watcher) ? get_main_context().config_watcher->config_path : "OFF");
         assert(get_main_context().config_watcher == nullptr || strcmp(get_main_context().config_watcher->config_path, get_main_context().signal_watch_path) == 0);
 
         // Create a temporary config to test loading

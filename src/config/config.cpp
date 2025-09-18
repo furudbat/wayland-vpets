@@ -770,6 +770,12 @@ namespace bongocat::config {
             // Parse key=value pairs
             static_assert(255 < VALUE_BUF);
             if (sscanf(line, " %255[^=]=%255[^\n]", key, value) == 2) {
+                // Cut off trailing comment in value
+                char *comment = strchr(value, '#');
+                if (comment) {
+                    *comment = '\0';  // terminate string before '#'
+                }
+
                 char *trimmed_key = config_trim_str(key);
                 char *trimmed_value = config_trim_str(value);
 

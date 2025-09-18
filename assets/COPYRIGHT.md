@@ -1,5 +1,7 @@
 # Copyright
 
+![Demo](test-demo.gif)
+
 ## Bongocat
 
 custom-drawn bongo cat artwork by [@Shreyabardia](https://github.com/Shreyabardia)

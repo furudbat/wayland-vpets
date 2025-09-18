@@ -92,6 +92,17 @@ convert_file_size() {
     fi
 }
 
+WORKDIR=$(mktemp -d)
+CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
+OG_CONFIG=./examples/test.bongocat.conf
+cp $OG_CONFIG $CONFIG
+# --- trap cleanup ---
+cleanup() {
+    echo "[TEST] Cleaning up..."
+    kill -9 "$PID" 2>/dev/null || true
+    rm -rf "$WORKDIR"
+}
+trap cleanup EXIT
 
 # Group by build type
 for group in release minsizerel relwithdebinfo debug; do
@@ -105,33 +116,75 @@ for group in release minsizerel relwithdebinfo debug; do
         echo "Testing $binary (size $size)..."
 
         # Run binary
-        "$binary" --watch-config --config debug.bongocat.conf --ignore-running &
+        "$binary" --config "$CONFIG" --ignore-running &
         PID=$!
 
         # Give it time to start
-        sleep 10
-        echo "[INFO] Disable sleep"
-        sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' debug.bongocat.conf  # Reload config
-        sleep 5
+        sleep 3
+        echo "[INFO] Update Config"
+        sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Bongocat/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
         if [[ -f "/proc/$PID/fd/0" ]]; then
           echo "[INFO] Send stdin"
           printf '\e' > "/proc/$PID/fd/0"
-          sleep 5
+          sleep 1
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
         fi
-        echo "[TEST] Send SIGUSR2"
-        kill -USR2 "$PID"
         sleep 5
+
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Agumon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        if [[ -f "/proc/$PID/fd/0" ]]; then
+          echo "[INFO] Send stdin"
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+        fi
+        sleep 3
+
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmc:Agumon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        if [[ -f "/proc/$PID/fd/0" ]]; then
+          echo "[INFO] Send stdin"
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+        fi
+        sleep 3
+
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Clippy/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        if [[ -f "/proc/$PID/fd/0" ]]; then
+          echo "[INFO] Send stdin"
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+        fi
+        sleep 7
 
         ram_kib=$(measure_ram "$PID" || echo 0)
 
         # --- send SIGTERM ---
         echo "[INFO] Sending SIGTERM..."
         kill -TERM "$PID"
-        sleep 10
+        sleep 5
 
         echo "[INFO] Wait for TERM"
         # wait up to 5 seconds
-        for i in {1..10}; do
+        for i in {1..5}; do
             if ! kill -0 "$PID" 2>/dev/null; then
                 break
             fi
