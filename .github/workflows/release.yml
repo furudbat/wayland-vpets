@@ -10,10 +10,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-24.04
-    strategy:
-      fail-fast: false
-      matrix:
-        compiler: [gcc, clang]
+    permissions:
+      contents: write
     container:
       image: archlinux:latest
 
@@ -25,6 +23,7 @@ jobs:
           pacman -Syu --noconfirm
           pacman -S --noconfirm \
             base-devel \
+            gcc \
             cmake \
             ninja \
             git \
@@ -34,19 +33,6 @@ jobs:
             wayland-protocols \
             unzip \
             pandoc-cli
-
-      - name: Install compiler
-        run: pacman -S --noconfirm ${{ matrix.compiler }}
-
-      - name: Set compiler env
-        run: |
-          if [[ "${{ matrix.compiler }}" == "gcc" ]]; then
-            echo "CC=gcc" >> $GITHUB_ENV
-            echo "CXX=g++" >> $GITHUB_ENV
-          else
-            echo "CC=clang" >> $GITHUB_ENV
-            echo "CXX=clang++" >> $GITHUB_ENV
-          fi
 
       - name: Configure CMake (Release)
         run: |
@@ -88,6 +74,8 @@ jobs:
           tag_name: ${{ github.ref_name }}
           name: Release ${{ github.ref_name }}
           prerelease: ${{ contains(github.ref_name, '-') }}
-          files: artifacts/**/*.tar.gz,artifacts/**/*.zip
+          files: |
+            artifacts/**/*.tar.gz
+            artifacts/**/*.zip
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
