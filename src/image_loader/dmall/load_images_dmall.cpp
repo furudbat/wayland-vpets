@@ -14,7 +14,7 @@ namespace bongocat::animation {
         BONGOCAT_LOG_VERBOSE("Load dmall Animation (%d/%d): %s ...", anim_index, DMALL_ANIM_COUNT, sprite_sheet_image.name);
         auto result = load_dm_anim(ctx, anim_index, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Load dm20 Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            BONGOCAT_LOG_ERROR("Load dmall Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
         assert(result.result.total_frames > 0); ///< this SHOULD always work if it's an valid EMBEDDED image

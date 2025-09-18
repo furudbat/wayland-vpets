@@ -13,7 +13,7 @@ namespace bongocat::animation {
 
         auto result = load_sprite_sheet_anim(*ctx._local_copy_config, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
-            BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
+            BONGOCAT_LOG_ERROR("Load pkmn Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }
         assert(result.result.total_frames > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
