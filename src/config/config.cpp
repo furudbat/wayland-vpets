@@ -122,8 +122,9 @@ namespace bongocat::config {
     static inline constexpr auto RANDOM_KEY                         = "random";
     static inline constexpr auto ENABLE_ANTIALIASING_KEY            = "enable_antialiasing";
 
-    static inline constexpr size_t VALUE_BUF = 256;
-    static inline constexpr size_t LINE_BUF  = 512;
+    static inline constexpr size_t KEY_BUF = 256;
+    static inline constexpr size_t VALUE_BUF = 4096;
+    static inline constexpr size_t LINE_BUF  = KEY_BUF-1+VALUE_BUF-1+1;
 
     // =============================================================================
     // CONFIGURATION VALIDATION MODULE
@@ -748,7 +749,7 @@ namespace bongocat::config {
         }
 
         char line[LINE_BUF] = {0};
-        char key[VALUE_BUF] = {0};
+        char key[KEY_BUF] = {0};
         char value[VALUE_BUF] = {0};
         int line_number = 0;
         bongocat_error_t result = bongocat_error_t::BONGOCAT_SUCCESS;
@@ -768,8 +769,10 @@ namespace bongocat::config {
             }
 
             // Parse key=value pairs
-            static_assert(255 < VALUE_BUF);
-            if (sscanf(line, " %255[^=]=%255[^\n]", key, value) == 2) {
+            static_assert(VALUE_BUF >= PATH_MAX);
+            static_assert(255 < KEY_BUF);
+            static_assert(4095 < VALUE_BUF);
+            if (sscanf(line, " %255[^=]=%4095[^\n]", key, value) == 2) {
                 // Cut off trailing comment in value
                 char *comment = strchr(value, '#');
                 if (comment) {

@@ -9,10 +9,48 @@
 #include <stdatomic.h>
 
 namespace bongocat::platform::input {
+    enum class input_unique_file_type_t : uint8_t {
+        NONE,
+        File,
+        Symlink,
+    };
     struct input_unique_file_t {
         // ref to input_context_t._device_paths[i]
         const char* device_path{nullptr};
+        char* real_device_path{nullptr};
         FileDescriptor fd;
+        input_unique_file_type_t type{input_unique_file_type_t::NONE};
+
+        input_unique_file_t() = default;
+        ~input_unique_file_t() {
+            if (real_device_path) ::free(real_device_path);
+            real_device_path = nullptr;
+        }
+
+        input_unique_file_t(const input_unique_file_t& other) = delete;
+        input_unique_file_t& operator=(const input_unique_file_t& other) = delete;
+
+        input_unique_file_t(input_unique_file_t&& other) noexcept
+            : device_path(other.device_path),
+              real_device_path(other.real_device_path),
+              fd(bongocat::move(other.fd)),
+              type(other.type)
+        {
+            other.real_device_path = nullptr;
+        }
+        input_unique_file_t& operator=(input_unique_file_t&& other) noexcept {
+            if (this != &other) {
+                if (real_device_path) ::free(real_device_path);
+
+                device_path = other.device_path;
+                real_device_path = other.real_device_path;
+                fd = bongocat::move(other.fd);
+                type = other.type;
+
+                other.real_device_path = nullptr;
+            }
+            return *this;
+        }
     };
 
     struct input_context_t;
