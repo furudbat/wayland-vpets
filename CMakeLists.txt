@@ -315,6 +315,24 @@ if (PANDOC)
         )
     endforeach()
 
+    # find-devices
+    set(FD_MD_FILE_1 ${PROJECT_SOURCE_DIR}/docs/bongocat-find-devices.md)
+    set(FD_MAN_OUTPUT_1 ${CMAKE_CURRENT_BINARY_DIR}/bongocat-find-devices.1)
+    add_custom_command(
+            OUTPUT ${FD_MAN_OUTPUT_1}
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
+            COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${FD_MAN_OUTPUT_1} ${FD_MD_FILE_1}
+            DEPENDS ${FD_MD_FILE_1}
+            COMMENT "Generating man page for bongocat-find-devices using Pandoc"
+            VERBATIM
+    )
+    add_custom_target(manpages-bongocat-find-devices ALL DEPENDS ${FD_MAN_OUTPUT_1})
+    list(APPEND ALL_MAN_OUTPUTS ${FD_MAN_OUTPUT_1})
+    install(
+            FILES ${FD_MAN_OUTPUT_1}
+            DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+    )
+
     add_custom_target(manpages ALL DEPENDS ${ALL_MAN_OUTPUTS})
 endif()
 

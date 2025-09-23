@@ -37,7 +37,7 @@ debug:
 install: build
 	cmake --install build
 
-pack: release
+pack: release doc
 	cd build && cpack
 
 doc: release

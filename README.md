@@ -70,9 +70,6 @@ sudo usermod -a -G input $USER
 ```bash
 # Installed via AUR
 wpets-find-devices
-
-# Built from source
-./scripts/find_input_devices.sh
 ```
 
 ### 4. Configure Bongo Cat
@@ -94,8 +91,8 @@ enable_antialiasing=1
 animation_name=bongocat
 keypress_duration=200
 
-# from input device found 
-keyboard_device=/dev/input/event4
+# add devices from input device found 
+keyboard_device=/dev/input/event4       # Keyboard
 ```
 
 Full configuration reference: see the [Configuration Section](#-configuration) below.
