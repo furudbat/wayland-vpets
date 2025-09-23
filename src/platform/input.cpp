@@ -139,6 +139,132 @@ namespace bongocat::platform::input {
         return FileDescriptor(fd);
     }
 
+    static created_result_t<size_t> sync_devices(input_context_t& input) {
+        assert(input.shm != nullptr);
+
+        size_t valid_devices = 0;
+        // Ensure buffer size
+        if (input._unique_paths_indices_capacity < input._device_paths.count) {
+            auto new_unique_devices = make_allocated_array<input_unique_file_t>(input._device_paths.count);
+            if (!new_unique_devices) {
+                BONGOCAT_LOG_ERROR("Failed to allocate memory for unique devices");
+                return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+            }
+            auto new_unique_paths_indices = make_allocated_array<size_t>(input._device_paths.count);
+            if (!new_unique_paths_indices) {
+                release_allocated_array(input._unique_devices);
+                BONGOCAT_LOG_ERROR("Failed to allocate memory for unique path indices");
+                return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+            }
+            input._unique_devices = bongocat::move(new_unique_devices);
+            input._unique_paths_indices = bongocat::move(new_unique_paths_indices);
+            input._unique_paths_indices_capacity = input._unique_paths_indices.count;
+        }
+
+        size_t num_unique_devices = 0;
+        for (size_t i = 0; i < input._device_paths.count; i++) {
+            const char* device_path = input._device_paths[i];
+
+            // Resolve to canonical path
+            char resolved[PATH_MAX];
+            const char* candidate = nullptr;
+            input_unique_file_type_t new_type = input_unique_file_type_t::File;
+
+            struct stat lst{};
+            if (lstat(device_path, &lst) == 0 && S_ISLNK(lst.st_mode)) {
+                new_type = input_unique_file_type_t::Symlink;
+                if (realpath(device_path, resolved)) {
+                    candidate = resolved;
+                } else {
+                    BONGOCAT_LOG_WARNING("Broken symlink: %s", device_path);
+                    continue;
+                }
+            } else {
+                candidate = device_path;
+            }
+
+            // Skip if non-existent
+            if (access(candidate, F_OK) != 0) {
+                BONGOCAT_LOG_WARNING("Device missing: %s", candidate);
+                continue;
+            }
+
+            // Check if we already added this canonical path
+            bool duplicate = false;
+            for (size_t j = 0; j < num_unique_devices; j++) {
+                const input_unique_file_t& prev = input._unique_devices[j];
+                if (prev.canonical_path && strcmp(prev.canonical_path, candidate) == 0) {
+                    duplicate = true;
+                    break;
+                }
+            }
+            if (duplicate) continue;
+
+            input_unique_file_t& cur = input._unique_devices[num_unique_devices];
+            input._unique_paths_indices[num_unique_devices] = i;
+
+            // Decide if we need to replace real_device_path
+            bool need_reopen = false;
+            bool need_replace = false;
+            if (cur.canonical_path) {
+                need_replace = strcmp(cur.canonical_path, candidate) != 0;
+            }
+            if (static_cast<bool>(cur.canonical_path) != static_cast<bool>(candidate)) {
+                need_reopen = !cur.canonical_path && candidate;
+                need_replace = true;
+            }
+            if (!need_reopen && cur.type != new_type) {
+                need_reopen = true;
+            }
+
+            // Check existing FD
+            if (!need_reopen && cur.fd._fd >= 0 && is_open_device_valid(cur.fd._fd)) {
+                valid_devices++;
+                num_unique_devices++;
+                continue;
+            }
+
+            // Reopen
+            if (need_reopen || need_replace) {
+                close_fd(cur.fd);
+                struct stat st{};
+                if (stat(candidate, &st) == 0 && S_ISCHR(st.st_mode)) {
+                    if (need_reopen) {
+                        int fd = open(candidate, O_RDONLY | O_NONBLOCK | O_CLOEXEC);
+                        if (fd >= 0 && is_open_device_valid(fd)) {
+                            cur.fd = FileDescriptor(fd);
+                            BONGOCAT_LOG_INFO("Opened input device: %s (fd=%d)", candidate, cur.fd._fd);
+                        }
+                    }
+                    if (cur.fd._fd >= 0 && is_open_device_valid(cur.fd._fd)) {
+                        // Replace canonical path if changed
+                        if (need_replace) {
+                            if (cur.canonical_path) ::free(cur.canonical_path);
+                            cur.canonical_path = ::strdup(candidate);
+                        }
+                        cur.type = new_type;
+                        cur._device_path = device_path;
+                        valid_devices++;
+                    } else {
+                        cleanup(cur);
+                        BONGOCAT_LOG_WARNING("Failed to open %s", candidate);
+                    }
+                } else {
+                    cleanup(cur);
+                    BONGOCAT_LOG_WARNING("Ignoring non-char device: %s", candidate);
+                }
+            }
+
+            num_unique_devices++;
+        }
+
+        assert(num_unique_devices <= input._device_paths.count);
+        // shrink size, @NOTE: don't do this with mmap array
+        input._unique_devices.count = num_unique_devices;
+        input._unique_paths_indices.count = num_unique_devices;
+        return valid_devices;
+    }
+
     static void* input_thread(void* arg) {
         assert(arg);
         animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
@@ -164,7 +290,7 @@ namespace bongocat::platform::input {
 
             assert(current_config.num_keyboard_devices >= 0);
             int device_paths_count = current_config.num_keyboard_devices;
-            const char *const *device_paths = current_config.keyboard_devices;        // pls don't modify single keyboard_devices (string)
+            const char *const *device_paths = current_config.keyboard_devices;
             assert(device_paths_count >= 0);
             input._device_paths = make_allocated_array<char*>(static_cast<size_t>(device_paths_count));
             for (size_t i = 0; i < input._device_paths.count; i++) {
@@ -182,130 +308,17 @@ namespace bongocat::platform::input {
         BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", input._device_paths.count);
 
         // init unique devices
-        {
-            input._unique_paths_indices_capacity = input._device_paths.count;
-            input._unique_paths_indices = make_allocated_array_with_value<size_t>(input._unique_paths_indices_capacity, 0);
-            if (!input._unique_paths_indices) {
-                atomic_store(&input._capture_input_running, false);
-                cleanup_input_thread_context(input);
-                BONGOCAT_LOG_ERROR("Failed to allocate memory for file descriptors");
-                return nullptr;
-            }
-            size_t num_unique_devices = 0;
-            // First pass: deduplicate device paths
-            for (size_t i = 0; i < input._device_paths.count; i++) {
-                if (i >= input._unique_paths_indices.count) break;
-                bool is_duplicate = false;
-                for (size_t j = 0; j < input._device_paths.count; j++) {
-                    if (j >= input._unique_paths_indices.count) break;
-                    if (const char* device_path = input._device_paths[i]; strcmp(device_path, input._device_paths[input._unique_paths_indices[j]]) == 0) {
-                        is_duplicate = true;
-                        break;
-                    }
-                }
-
-                if (!is_duplicate && num_unique_devices < input._unique_paths_indices.count) {
-                    input._unique_paths_indices[num_unique_devices] = i;
-                    num_unique_devices++;
-                }
-            }
-            assert(num_unique_devices <= input._device_paths.count);
-            // shrink size, @NOTE: don't do this with mmap array
-            input._unique_paths_indices.count = num_unique_devices;
-
-            BONGOCAT_LOG_DEBUG("Deduplicated %d devices to %d unique devices", input._device_paths.count, num_unique_devices);
-        }
-
-        // Open all unique devices
         size_t track_valid_devices = 0;
         {
-            if (input._unique_paths_indices.count > 0) {
-                input._unique_devices = make_allocated_array<input_unique_file_t>(input._unique_paths_indices.count);
-                if (!input._unique_devices) {
-                    atomic_store(&input._capture_input_running, false);
-                    cleanup_input_thread_context(input);
-                    BONGOCAT_LOG_ERROR("Failed to allocate memory for file descriptors");
-                    return nullptr;
-                }
-                size_t valid_devices = 0;
-                for (size_t i = 0;i < input._unique_paths_indices.count; i++) {
-                    input._unique_devices[i] = {};
-                    if (i < input._unique_paths_indices.count) {
-                        if (input._unique_paths_indices[i] < input._device_paths.count) {
-                            size_t dev_idx = input._unique_paths_indices[i];
-                            const char* device_path = input._device_paths[dev_idx];
-                            struct stat st{};
-                            struct stat lst{};
-                            char resolved_path[PATH_MAX] = {0};
-
-                            input_unique_file_t uf;
-                            uf.device_path = device_path;
-                            // lstat to detect symlink
-                            if (lstat(device_path, &lst) == 0 && S_ISLNK(lst.st_mode)) {
-                                uf.type = input_unique_file_type_t::Symlink;
-                                if (realpath(device_path, resolved_path)) {
-                                    uf.real_device_path = ::strdup(resolved_path);
-                                } else {
-                                    BONGOCAT_LOG_WARNING("Failed to resolve symlink: %s", device_path);
-                                    continue; // skip broken symlink
-                                }
-                                uf.type = input_unique_file_type_t::Symlink;
-                            } else {
-                                uf.type = input_unique_file_type_t::File;
-                                uf.real_device_path = ::strdup(device_path);
-                            }
-
-                            // Check existence first
-                            if (access(uf.real_device_path, F_OK) != 0) {
-                                BONGOCAT_LOG_WARNING("Device path does not exist: %s", uf.real_device_path);
-                                continue;
-                            }
-
-                            // Validate resolved file
-                            if (stat(uf.real_device_path, &st) == 0 && S_ISCHR(st.st_mode)) {
-                                // Lazy-open later, or here if you want
-                                input._unique_devices[i] = bongocat::move(uf);
-                                BONGOCAT_LOG_DEBUG("Registered input device: %s (real=%s, type=%s)",
-                                                   uf.device_path,
-                                                   uf.real_device_path,
-                                                   uf.type == input_unique_file_type_t::Symlink ? "symlink" : "file");
-                            } else {
-                                BONGOCAT_LOG_WARNING("Ignoring non-character device: %s", uf.real_device_path);
-                                continue;
-                            }
-
-                            if (!is_device_valid(input._unique_devices[i].real_device_path)) {
-                                // @TODO: better message why it's NOT valid
-                                BONGOCAT_LOG_WARNING("Invalid input device: %s", input._unique_devices[i].real_device_path);
-                                continue;
-                            }
-
-                            input._unique_devices[i].fd = FileDescriptor(open(input._unique_devices[i].real_device_path, O_RDONLY | O_NONBLOCK));
-                            if (input._unique_devices[i].fd._fd < 0) {
-                                BONGOCAT_LOG_WARNING("Failed to open %s: %s", input._unique_devices[i].real_device_path, strerror(errno));
-                                input._unique_devices[i].device_path = nullptr;
-                                if (input._unique_devices[i].real_device_path) ::free(input._unique_devices[i].real_device_path);
-                                input._unique_devices[i].real_device_path = nullptr;
-                                input._unique_devices[i].type = input_unique_file_type_t::NONE;
-                                continue;
-                            }
-                            valid_devices++;
-
-                            BONGOCAT_LOG_INFO("Input monitoring started on %s (fd=%d) => %s", input._unique_devices[i].device_path, input._unique_devices[i].fd._fd, input._unique_devices[i].real_device_path);
-                        }
-                    }
-                }
-                // Update num_devices to reflect unique devices for the rest of the function
-                if (valid_devices == 0) {
-                    atomic_store(&input._capture_input_running, false);
-                    BONGOCAT_LOG_ERROR("No valid input devices found");
-                    cleanup_input_thread_context(input);
-                    return nullptr;
-                }
-
-                track_valid_devices = valid_devices;
-                BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths.count);
+            auto [valid_devices, init_devices_result] = sync_devices(input);
+            if (init_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+                atomic_store(&input._capture_input_running, false);
+                cleanup_input_thread_context(input);
+                BONGOCAT_LOG_ERROR("Failed to init devices and file descriptors");
+                return nullptr;
             }
+            BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths.count);
+            track_valid_devices = valid_devices;
         }
 
         // trigger initial render
@@ -511,7 +524,7 @@ namespace bongocat::platform::input {
                     check_counter = 0;
                     bool found_new_device = false;
                     for (size_t i = 0; i < input._unique_devices.count; i++) {
-                        const char* device_path = input._unique_devices[i].real_device_path;
+                        const char* device_path = input._unique_devices[i].canonical_path;
                         bool need_reopen = false;
                         if (device_path == nullptr) continue;
                         // If an fd is already open, check if it is still valid
@@ -775,101 +788,19 @@ namespace bongocat::platform::input {
                 }
             }
 
-            /// @TODO: merge init open with validation with revalidation/re-open into one function
             // Revalidate valid devices
             {
                 platform::LockGuard guard (input.input_lock);
-                assert(input.shm != nullptr);
-                //auto& input_shm = *input.shm;
 
-                size_t valid_devices = 0;
-                for (size_t i = 0; i < input._unique_devices.count; i++) {
-                    bool reopen_symlink = false;
-                    {
-                        const char* try_device_path = input._unique_devices[i].device_path;
-                        struct stat st{};
-                        struct stat lst{};
-                        char resolved_path[PATH_MAX];
-
-                        input_unique_file_t uf;
-                        uf.device_path = try_device_path;
-
-                        // lstat to detect symlink
-                        if (lstat(try_device_path, &lst) == 0 && S_ISLNK(lst.st_mode)) {
-                            uf.type = input_unique_file_type_t::Symlink;
-                            if (realpath(try_device_path, resolved_path)) {
-                                uf.real_device_path = ::strdup(resolved_path);
-                                // path have changed, re-open symlink
-                                reopen_symlink = strcmp(uf.real_device_path, input._unique_devices[i].real_device_path) != 0 || uf.type != input._unique_devices[i].type;
-                            } else {
-                                BONGOCAT_LOG_WARNING("Failed to resolve symlink: %s", try_device_path);
-                                reopen_symlink = false;
-                            }
-                        } else {
-                            uf.type = input_unique_file_type_t::File;
-                            uf.real_device_path = ::strdup(try_device_path);
-                        }
-
-                        // Check existence first
-                        if (!access(uf.real_device_path, F_OK) != 0) {
-                            close_fd(input._unique_devices[i].fd);
-                            input._unique_devices[i] = bongocat::move(uf);
-                            reopen_symlink = false;
-                        } else {
-                            // Validate resolved file
-                            if (reopen_symlink && stat(uf.real_device_path, &st) == 0 && S_ISCHR(st.st_mode)) {
-                                close_fd(input._unique_devices[i].fd);
-                                // Lazy-open later, fd should be invalid and re-open later
-                                input._unique_devices[i] = bongocat::move(uf);
-                            } else if (uf.type == input_unique_file_type_t::File && (strcmp(uf.real_device_path, input._unique_devices[i].real_device_path) != 0 || uf.type != input._unique_devices[i].type)) {
-                                close_fd(input._unique_devices[i].fd);
-                                input._unique_devices[i] = bongocat::move(uf);
-                            }
-                        }
-                    }
-
-                    const char* device_path = input._unique_devices[i].real_device_path;
-                    bool is_valid = false;
-                    if (device_path == nullptr) continue;
-                    // Check if existing fd is still valid
-                    if (input._unique_devices[i].fd._fd >= 0) {
-                        if (is_open_device_valid(input._unique_devices[i].fd._fd)) {
-                            is_valid = true;
-                        } else {
-                            close_fd(input._unique_devices[i].fd);
-                        }
-                    }
-
-                    if (!is_valid) {
-                        // reopen device
-                        if (int new_fd = open(device_path, O_RDONLY | O_NONBLOCK | O_CLOEXEC); new_fd >= 0) {
-                            if (is_open_device_valid(input._unique_devices[i].fd._fd)) {
-                                input._unique_devices[i].fd = FileDescriptor(new_fd);
-                                new_fd = -1;
-                                BONGOCAT_LOG_VERBOSE("Re-opened input device: %s (fd=%d)", device_path, input._unique_devices[i].fd._fd);
-                                is_valid = true;
-                            } else {
-                                close(new_fd);
-                                new_fd = -1;
-                                BONGOCAT_LOG_VERBOSE("Opened but invalid device: %s", device_path);
-                            }
-                        } else {
-                            BONGOCAT_LOG_VERBOSE("Failed to re-open %s: %s", device_path, strerror(errno));
-                        }
-                    }
-
-                    if (is_valid) {
-                        valid_devices++;
-                    } else {
-                        // reset to invalid
-                        close_fd(input._unique_devices[i].fd);
+                auto [valid_devices, revalid_devices_result] = sync_devices(input);
+                if (revalid_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    BONGOCAT_LOG_ERROR("Failed to revalidate devices and file descriptors");
+                } else {
+                    if (valid_devices == 0) {
+                        BONGOCAT_LOG_VERBOSE("All input devices became unavailable");
                     }
                 }
-
                 track_valid_devices = valid_devices;
-                if (valid_devices == 0) {
-                    BONGOCAT_LOG_VERBOSE("All input devices became unavailable");
-                }
             }
 
             // handle update config

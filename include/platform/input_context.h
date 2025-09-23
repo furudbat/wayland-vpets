@@ -14,44 +14,55 @@ namespace bongocat::platform::input {
         File,
         Symlink,
     };
+    struct input_unique_file_t;
+    void cleanup(input_unique_file_t& file);
     struct input_unique_file_t {
-        // ref to input_context_t._device_paths[i]
-        const char* device_path{nullptr};
-        char* real_device_path{nullptr};
+        const char* _device_path{nullptr};   // original string from config (ref to input_context_t._device_paths[i])
+        char* canonical_path{nullptr};       // resolved real path (malloc'd)
         FileDescriptor fd;
         input_unique_file_type_t type{input_unique_file_type_t::NONE};
 
         input_unique_file_t() = default;
         ~input_unique_file_t() {
-            if (real_device_path) ::free(real_device_path);
-            real_device_path = nullptr;
+            cleanup(*this);
         }
 
         input_unique_file_t(const input_unique_file_t& other) = delete;
         input_unique_file_t& operator=(const input_unique_file_t& other) = delete;
 
         input_unique_file_t(input_unique_file_t&& other) noexcept
-            : device_path(other.device_path),
-              real_device_path(other.real_device_path),
+            : _device_path(other._device_path),
+              canonical_path(other.canonical_path),
               fd(bongocat::move(other.fd)),
               type(other.type)
         {
-            other.real_device_path = nullptr;
+            other._device_path = nullptr;
+            other.canonical_path = nullptr;
+            other.type = input_unique_file_type_t::NONE;
         }
         input_unique_file_t& operator=(input_unique_file_t&& other) noexcept {
             if (this != &other) {
-                if (real_device_path) ::free(real_device_path);
+                cleanup(*this);
 
-                device_path = other.device_path;
-                real_device_path = other.real_device_path;
+                _device_path = other._device_path;
+                canonical_path = other.canonical_path;
                 fd = bongocat::move(other.fd);
                 type = other.type;
 
-                other.real_device_path = nullptr;
+                other._device_path = nullptr;
+                other.canonical_path = nullptr;
+                other.type = input_unique_file_type_t::NONE;
             }
             return *this;
         }
     };
+    inline void cleanup(input_unique_file_t& file) {
+        close_fd(file.fd);
+        file._device_path = nullptr;
+        if (file.canonical_path) ::free(file.canonical_path);
+        file.canonical_path = nullptr;
+        file.type = input_unique_file_type_t::NONE;
+    }
 
     struct input_context_t;
     void stop(input_context_t& ctx);

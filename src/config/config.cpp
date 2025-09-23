@@ -123,8 +123,8 @@ namespace bongocat::config {
     static inline constexpr auto ENABLE_ANTIALIASING_KEY            = "enable_antialiasing";
 
     static inline constexpr size_t KEY_BUF = 256;
-    static inline constexpr size_t VALUE_BUF = 4096;
-    static inline constexpr size_t LINE_BUF  = KEY_BUF-1+VALUE_BUF-1+1;
+    static inline constexpr size_t VALUE_BUF = PATH_MAX + 256; // max value + comment
+    static inline constexpr size_t LINE_BUF  = KEY_BUF-1+VALUE_BUF-1+1 + 1;
 
     // =============================================================================
     // CONFIGURATION VALIDATION MODULE
@@ -771,8 +771,8 @@ namespace bongocat::config {
             // Parse key=value pairs
             static_assert(VALUE_BUF >= PATH_MAX);
             static_assert(255 < KEY_BUF);
-            static_assert(4095 < VALUE_BUF);
-            if (sscanf(line, " %255[^=]=%4095[^\n]", key, value) == 2) {
+            static_assert(4351 < VALUE_BUF);
+            if (sscanf(line, " %255[^=]=%4351[^\n]", key, value) == 2) {
                 // Cut off trailing comment in value
                 char *comment = strchr(value, '#');
                 if (comment) {
