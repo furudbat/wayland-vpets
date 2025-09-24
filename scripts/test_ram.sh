@@ -162,6 +162,19 @@ for group in release minsizerel relwithdebinfo debug; do
         fi
         sleep 3
 
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:Pikachu/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        if [[ -f "/proc/$PID/fd/0" ]]; then
+          echo "[INFO] Send stdin"
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+          printf '\e' > "/proc/$PID/fd/0"
+          sleep 1
+        fi
+        sleep 3
+
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Clippy/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config

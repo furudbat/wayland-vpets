@@ -31,9 +31,19 @@
     {
       "name": "relwithdebinfo",
       "displayName": "RelWithDebInfo Build",
-      "description": "Release build with debug info and thread sanitizer",
+      "description": "Release build with debug info",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+      }
+    },
+    {
+      "name": "relwithdebinfo_tsan",
+      "displayName": "RelWithDebInfo Build (TSAN)",
+      "description": "Release build with debug info and thread sanitizer",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-tsan",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "ENABLE_TSAN": "ON",
@@ -156,6 +166,28 @@
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
         "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "release_pngle",
+      "displayName": "Release Build (pngle image loader)",
+      "description": "Release build with optimizations and pngle loader",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-pngle",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_USE_PNGLE": "ON"
+      }
+    },
+    {
+      "name": "relwithdebinfo_pngle",
+      "displayName": "RelWithDebInfo Build",
+      "description": "Release build with debug info and pngle loader",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-pngle",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "FEATURE_USE_PNGLE": "ON"
       }
     },
     {

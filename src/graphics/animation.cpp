@@ -1610,27 +1610,38 @@ namespace bongocat::animation {
 
         return config.animation_index;
     }
+
+    static void update_config_reload_sprite_sheet(animation_context_t& ctx) {
+        assert(ctx._local_copy_config != nullptr);
+
+        platform::LockGuard guard (ctx.anim_lock);
+        ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
+        ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
+        const auto old_anim_index = ctx.shm->anim_index;
+
+        [[maybe_unused]] const auto t0 = platform::get_current_time_us();
+
+        ctx.shm->anim_index = !ctx._local_copy_config->keep_old_animation_index ? rand_animation_index(ctx, *ctx._local_copy_config) : old_anim_index;
+        if constexpr (features::EnableLazyLoadAssets) {
+            auto [result, error] = hot_load_animation(ctx);
+            if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                // rollback
+                ctx.shm->anim_index = old_anim_index;
+            }
+        }
+        ctx.shm->animation_player_data.frame_index = !ctx._local_copy_config->idle_animation ? ctx._local_copy_config->idle_frame : ctx.shm->animation_player_data.frame_index;  // initial frame
+
+        [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+
+        BONGOCAT_LOG_DEBUG("Update sprite sheet; load assets in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
+    }
     void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
 
         *ctx._local_copy_config = config;
-        {
-            platform::LockGuard guard (ctx.anim_lock);
-            ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
-            ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
-            const auto old_anim_index = ctx.shm->anim_index;
 
-            ctx.shm->anim_index = !config.keep_old_animation_index ? rand_animation_index(ctx, config) : old_anim_index;
-            if constexpr (features::EnableLazyLoadAssets) {
-                auto [result, error] = hot_load_animation(ctx);
-                if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
-                    // rollback
-                    ctx.shm->anim_index = old_anim_index;
-                }
-            }
-            ctx.shm->animation_player_data.frame_index = !config.idle_animation ? config.idle_frame : ctx.shm->animation_player_data.frame_index;  // initial frame
-        }
+        update_config_reload_sprite_sheet(ctx);
 
         atomic_store(&ctx.config_seen_generation, new_gen);
         // Signal main that reload is done

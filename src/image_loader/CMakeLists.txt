@@ -6,17 +6,27 @@ target_include_directories(assets_image_loader
         SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
 target_link_libraries(assets_image_loader PRIVATE bongocat_options)
 
-add_library(stb_image STATIC)
-target_include_directories(stb_image SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
-target_sources(stb_image PRIVATE stb_image.c)
-target_compile_definitions(stb_image PUBLIC STBI_NO_STDIO STBI_ONLY_PNG)
-target_compile_definitions(stb_image PUBLIC
-        $<$<CONFIG:MinSizeRel>:STBI_NO_LINEAR>
-)
+if (FEATURE_USE_PNGLE)
+    add_library(pngle STATIC)
+    target_include_directories(pngle SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
+    target_sources(pngle PRIVATE pngle.c miniz.c)
 
-target_sources(assets_image_loader PRIVATE load_images.cpp load_images_stb_image.cpp)
-target_link_libraries(assets_image_loader PRIVATE stb_image)
-target_compile_definitions(assets_image_loader PUBLIC FEATURE_USE_STB_IMAGE)
+    target_sources(assets_image_loader PRIVATE load_images.cpp load_images_pngle.cpp)
+    target_link_libraries(assets_image_loader PRIVATE pngle)
+    target_compile_definitions(assets_image_loader PUBLIC FEATURE_USE_PNGLE)
+else()
+    add_library(stb_image STATIC)
+    target_include_directories(stb_image SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
+    target_sources(stb_image PRIVATE stb_image.c)
+    target_compile_definitions(stb_image PUBLIC STBI_NO_STDIO STBI_ONLY_PNG)
+    target_compile_definitions(stb_image PUBLIC
+            $<$<CONFIG:MinSizeRel>:STBI_NO_LINEAR>
+    )
+
+    target_sources(assets_image_loader PRIVATE load_images.cpp load_images_stb_image.cpp)
+    target_link_libraries(assets_image_loader PRIVATE stb_image)
+    target_compile_definitions(assets_image_loader PUBLIC FEATURE_USE_STB_IMAGE)
+endif()
 
 
 # @NOTE(assets): 3. add image_loader sub directory

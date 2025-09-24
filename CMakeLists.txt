@@ -51,7 +51,8 @@ option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets"
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, faster sprite switching on hot-reload)" OFF)
 option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" ON)
-option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
+option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (Less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
+option(FEATURE_USE_PNGLE "Use pngle as assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
