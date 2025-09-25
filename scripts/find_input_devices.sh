@@ -53,7 +53,7 @@ readonly TEST="[TEST]"
 
 # Script metadata
 readonly SCRIPT_NAME="bongocat-find-devices"
-readonly VERSION="3.0.1"
+readonly VERSION="3.1.0"
 
 # Command line options
 SHOW_ALL=false
@@ -62,6 +62,8 @@ GENERATE_CONFIG=false
 TEST_DEVICES=false
 VERBOSE=false
 IGNORE_DEVICES=()
+GENERATE_DEVICES_ONLY=false
+INCLUDE_MOUSE_DEVICES=false
 
 # Usage information
 usage() {
@@ -75,6 +77,8 @@ usage() {
         printf "    -i, --by-id             Show input devices as id (symlink, if available)\n"
         printf "    -e, --ignore-device     Ignore device (multiple arguments)\n"
         printf "    -g, --generate-config   Generate configuration file to stdout\n"
+        printf "    -d, --devices-only      Print Input devices only (when generating configuration)\n"
+        printf "    -m, --include-mouse     Include Mouse Device in config\n"
         printf "    -t, --test              Test device responsiveness (requires root)\n"
         printf "    -v, --verbose           Show detailed device information\n"
         printf "    -h, --help              Show this help message\n\n"
@@ -104,6 +108,8 @@ OPTIONS:
     -i, --by-id             Show input devices as id (symlink, if available)
     -e, --ignore-device     Ignore device (multiple arguments)
     -g, --generate-config   Generate configuration file to stdout
+    -d, --devices-only      Print Input devices only (when generating configuration)
+    -m, --include-mouse     Include Mouse Device in config
     -t, --test              Test device responsiveness (requires root)
     -v, --verbose           Show detailed device information
     -h, --help              Show this help message
@@ -142,7 +148,7 @@ parse_args() {
                 ;;
             -e|--ignore-device)
                 if [[ -n "$2" ]]; then
-                    IGNORE_DEVICES+=("$2")   # Add next argument as a pattern
+                    IGNORE_DEVICES+=("$2")
                     shift 2
                 else
                     echo "Error: --ignore-device requires a value" >&2
@@ -151,6 +157,14 @@ parse_args() {
                 ;;
             -g|--generate-config)
                 GENERATE_CONFIG=true
+                shift
+                ;;
+            -d|--devices-only)
+                GENERATE_DEVICES_ONLY=true
+                shift
+                ;;
+            -m|--include-mouse)
+                INCLUDE_MOUSE_DEVICES=true
                 shift
                 ;;
             -t|--test)
@@ -251,7 +265,9 @@ get_device_type() {
                 echo "Keyboard"
             fi
         fi
-    elif [[ "$name_lower" =~ mouse ]] || [[ "$capabilities" =~ "110000" ]]; then
+    elif [[ "$name_lower" =~ mouse ]] || [[ "$handlers_lower" =~ mouse ]]; then
+        echo "Mouse"
+    elif [[ "$capabilities" =~ (110000|17|7) ]]; then
         echo "Mouse"
     elif [[ "$name_lower" =~ (touchpad|trackpad|synaptics) ]]; then
         echo "Touchpad"
@@ -264,7 +280,8 @@ get_device_type() {
 
 device_is_ignored() {
     local name="$1"
-    local ignore_devices="$2"
+    shift
+    local ignore_devices=("$@")
     for pattern in "${ignore_devices[@]}"; do
         if [[ "$name" =~ $pattern ]]; then
             return 0  # ignored
@@ -276,7 +293,8 @@ device_is_ignored() {
 parse_devices() {
     local show_all="$1"
     local prefer_byid="$2"   # "true" = prefer /dev/input/by-id symlinks
-    local ignore_devices="$3"
+    shift 2
+    local ignore_devices=("$@")   # now receives array properly
     local devices=()
 
     if [[ ! -r /proc/bus/input/devices ]]; then
@@ -301,9 +319,11 @@ parse_devices() {
         elif [[ "$line" =~ ^B:\ EV=(.*) ]]; then
             current_capabilities="${BASH_REMATCH[1]}"
         elif [[ "$line" =~ ^$ ]] && [[ -n "$current_name" ]]; then
-            # Skip ignored devices
-            if device_is_ignored "$current_name" "$ignore_devices"; then
-                continue
+            if [ ${#ignore_devices[@]} -gt 0 ]; then
+              # Skip ignored devices
+              if device_is_ignored "$current_name" "${ignore_devices[@]}"; then
+                  continue
+              fi
             fi
 
             local device_type
@@ -331,7 +351,7 @@ parse_devices() {
     done < /proc/bus/input/devices
 
     # Handle last block if file didn't end with newline
-    if [[ -n "$current_name" ]] && ! device_is_ignored "$current_name" "$ignore_devices"; then
+    if [[ -n "$current_name" ]] && ! device_is_ignored "$current_name" "${ignore_devices[@]}"; then
         local device_type
         device_type=$(get_device_type "$current_name" "$current_capabilities" "$current_handlers")
         local event_handlers=($(echo "$current_handlers" | grep -o 'event[0-9]\+' || true))
@@ -361,7 +381,8 @@ parse_devices() {
 display_devices() {
     local show_all="$1"
     local prefer_byid="$2"
-    local ignore_devices="$3"
+    shift 2
+    local ignore_devices=("$@")
     local devices
 
     if [[ "$GENERATE_CONFIG" == "false" ]]; then
@@ -374,7 +395,7 @@ display_devices() {
     fi
 
     # Get device list
-    if ! devices=$(parse_devices "$show_all" "$prefer_byid" "$ignore_devices"); then
+    if ! devices=$(parse_devices "$show_all" "$prefer_byid" "${ignore_devices[@]}"); then
         return 1
     fi
 
@@ -387,7 +408,9 @@ display_devices() {
     fi
 
     local keyboard_devices=()
+    local mouse_devices=()
     local accessible_keyboards=()
+    local accessible_mice=()
 
     if [[ "$GENERATE_CONFIG" == "false" ]]; then
         echo -e "${KEYBOARD} ${WHITE}Found Input Devices:${NC}"
@@ -408,27 +431,45 @@ display_devices() {
             echo
         fi
 
-        # Collect keyboard devices for configuration
+        # Collect devices for configuration
         if [[ "$type" =~ Keyboard ]]; then
             keyboard_devices+=("$path|$name")
             if [[ -r "$path" ]]; then
                 accessible_keyboards+=("$path|$name")
             fi
+        elif [[ "$type" =~ Mouse ]]; then
+            mouse_devices+=("$path|$name")
+            if [[ -r "$path" ]]; then
+                accessible_mice+=("$path|$name")
+            fi
         fi
     done <<< "$devices"
 
-    # Generate configuration suggestions
-    if [[ "${#keyboard_devices[@]}" -gt 0 ]]; then
-        generate_config_suggestions "${keyboard_devices[@]}"
+    local all_input_devices=()
+    if [[ "$INCLUDE_MOUSE_DEVICES" == "true" ]]; then
+      all_input_devices+=("${keyboard_devices[@]}" "${mouse_devices[@]}")
+    else
+      all_input_devices+=("${keyboard_devices[@]}")
+    fi
+
+    if [[ "${#all_input_devices[@]}" -gt 0 ]]; then
+        generate_config_suggestions "${all_input_devices[@]}"
     else
         if [[ "$GENERATE_CONFIG" == "false" ]]; then
-            echo -e "${WARNING} ${YELLOW}No keyboard devices found${NC}"
+            echo -e "${WARNING} ${YELLOW}No keyboard or mouse devices found${NC}"
         fi
     fi
 
     # Show permission help if needed
-    if [[ "${#accessible_keyboards[@]}" -lt "${#keyboard_devices[@]}" ]] && [[ "$GENERATE_CONFIG" == "false" ]]; then
-        show_permission_help
+    if [[ "$INCLUDE_MOUSE_DEVICES" == "true" ]]; then
+    local total_accessible=$(( ${#accessible_keyboards[@]} + ${#accessible_mice[@]} ))
+      if [[ "$total_accessible" -lt "${#all_input_devices[@]}" ]] && [[ "$GENERATE_CONFIG" == "false" ]]; then
+          show_permission_help
+      fi
+    else
+      if [[ "${#accessible_keyboards[@]}" -lt "${#keyboard_devices[@]}" ]] && [[ "$GENERATE_CONFIG" == "false" ]]; then
+          show_permission_help
+      fi
     fi
 }
 
@@ -445,7 +486,8 @@ generate_config_suggestions() {
         done
 
         # Generate full config file
-        cat << 'EOF'
+        if [[ "$GENERATE_DEVICES_ONLY" == "false" ]]; then
+          cat << 'EOF'
 # Wayland Bongo Cat Configuration
 # Generated by bongocat-find-devices
 
@@ -467,8 +509,10 @@ keypress_duration=200           # How long to show animation after keypress
 enable_antialiasing=1
 animation_name=bongocat
 
-# Input devices
 EOF
+        fi
+
+        printf "# Input devices\n"
         for device_info in "${devices[@]}"; do
             IFS='|' read -r path name <<< "$device_info"
 
@@ -480,11 +524,14 @@ EOF
               printf "keyboard_device=%-${maxlen}s   # %s\n" "$path" "$name"
             fi
         done
-        cat << 'EOF'
+
+        if [[ "$GENERATE_DEVICES_ONLY" == "false" ]]; then
+          cat << 'EOF'
 
 # Debug
 enable_debug=1                   # Show debug messages
 EOF
+        fi
     else
         echo -e "${CONFIG} ${WHITE}Configuration Suggestions:${NC}"
         echo -e "${WHITE}Add these lines to your bongocat.conf:${NC}"
@@ -559,7 +606,7 @@ main() {
     fi
 
     print_header
-    display_devices "$SHOW_ALL" "$PREFER_BYID" "$IGNORE_DEVICES"
+    display_devices "$SHOW_ALL" "$PREFER_BYID" "${IGNORE_DEVICES[@]}"
 }
 
 # Run main function with all arguments

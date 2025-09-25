@@ -15,7 +15,11 @@ permissions, and generates ready-to-use configuration snippets.
 
 # OPTIONS
         -a, --all              Show all input devices (including mice, touchpads)
+        -i, --by-id            Show input devices as id (symlink, if available)
+        -e, --ignore-device    Ignore device (multiple arguments)
         -g, --generate-config  Generate configuration file to stdout
+        -d, --devices-only     Print Input devices only (when generating configuration)
+        -m, --include-mouse    Include Mouse Device in config
         -t, --test             Test device responsiveness (requires root)
         -v, --verbose          Show detailed device information
         -h, --help             Show this help message
