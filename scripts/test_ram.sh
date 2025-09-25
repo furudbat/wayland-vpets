@@ -14,24 +14,18 @@ echo "" >> "$REPORT"
 
 P="$(pwd)"
 
-echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits`' >> "$REPORT"
-echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat -d compileunits --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
-echo '```' >> "$REPORT"
-echo "" >> "$REPORT"
-echo "" >> "$REPORT"
 
-echo '`bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat-all -d compileunits,symbols`' >> "$REPORT"
+echo '`bloaty ./cmake-build-relwithdebinfo/bongocat-all -d compileunits`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo-all-assets/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
 
-echo '`bloaty ./cmake-build-relwithdebinfo/bongocat -d compileunits,symbols`' >> "$REPORT"
+echo '`bloaty ./cmake-build-relwithdebinfo/bongocat-all -d compileunits,symbols`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo/bongocat -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -98,11 +92,19 @@ OG_CONFIG=./examples/test.bongocat.conf
 cp $OG_CONFIG $CONFIG
 # --- trap cleanup ---
 cleanup() {
-    echo "[TEST] Cleaning up..."
-    kill -9 "$PID" 2>/dev/null || true
+    echo "[INFO] Cleaning up..."
+    #kill -9 "$PID" 2>/dev/null || true
     rm -rf "$WORKDIR"
 }
 trap cleanup EXIT
+
+
+USE_HEAPTRACK=true
+HEAPTRACK_BIN=$(command -v heaptrack || true)
+if [ "$USE_HEAPTRACK" = true ] && [ -z "$HEAPTRACK_BIN" ]; then
+    echo "Warning: heaptrack not found, running binary without it"
+    USE_HEAPTRACK=false
+fi
 
 # Group by build type
 for group in release minsizerel relwithdebinfo debug; do
@@ -115,14 +117,32 @@ for group in release minsizerel relwithdebinfo debug; do
         size=$(convert_file_size "$binary")
         echo "Testing $binary (size $size)..."
 
-        # Run binary
+        # Start binary normally
         "$binary" --config "$CONFIG" --ignore-running &
         PID=$!
+        echo "Binary PID: $PID"
+
+        if [ "$USE_HEAPTRACK" = true ]; then
+            BINARY_NAME=$(basename "$binary")
+            HEAPTRACK_FILE="heaptrack.${group}.${BINARY_NAME}.$(date +%s).gz"
+            echo "Attaching heaptrack with --use-inject, output: $HEAPTRACK_FILE"
+
+            # Wait a bit for the binary to initialize
+            sleep 1
+
+            #echo 0 | sudo tee /proc/sys/kernel/yama/ptrace_scope
+
+            # Attach heaptrack to the running process
+            "$HEAPTRACK_BIN" --use-inject --record-only -p "$PID" -o "$HEAPTRACK_FILE" &
+            HEAPTRACK_PID=$!
+        fi
 
         # Give it time to start
-        sleep 3
+        sleep 2
         echo "[INFO] Update Config"
         sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+        echo "[INFO] Set Sprite Sheet: bongocat"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Bongocat/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
@@ -134,66 +154,67 @@ for group in release minsizerel relwithdebinfo debug; do
           printf '\e' > "/proc/$PID/fd/0"
           sleep 1
         fi
+        sleep 2
+
+        echo "[INFO] Load biggest assets"
+        echo "[INFO] Set Sprite Sheet: Links"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Links/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        echo "[INFO] Set Sprite Sheet: pkmn:dialga"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:dialga/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmx:Hexeblaumon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        echo "[INFO] Set Sprite Sheet: dm:Coronamon"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm:Coronamon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        echo "[INFO] Set Sprite Sheet: Metal Greymon"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Metal Greymon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
         sleep 5
 
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Agumon/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        if [[ -f "/proc/$PID/fd/0" ]]; then
-          echo "[INFO] Send stdin"
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
-        fi
-        sleep 3
 
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmc:Agumon/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        if [[ -f "/proc/$PID/fd/0" ]]; then
-          echo "[INFO] Send stdin"
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
+        # --- verify running ---
+        if kill -0 "$PID" 2>/dev/null; then
+            echo "[INFO] Process $PID still running!"
+        else
+            echo "[FAIL] Process terminated"
+            exit 1
         fi
-        sleep 3
-
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:Pikachu/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        if [[ -f "/proc/$PID/fd/0" ]]; then
-          echo "[INFO] Send stdin"
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
-        fi
-        sleep 3
-
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Clippy/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        if [[ -f "/proc/$PID/fd/0" ]]; then
-          echo "[INFO] Send stdin"
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
-        fi
-        sleep 7
 
         ram_kib=$(measure_ram "$PID" || echo 0)
 
         # --- send SIGTERM ---
         echo "[INFO] Sending SIGTERM..."
         kill -TERM "$PID"
-        sleep 5
+        sleep 7
 
         echo "[INFO] Wait for TERM"
         # wait up to 5 seconds
@@ -213,12 +234,23 @@ for group in release minsizerel relwithdebinfo debug; do
             echo "[PASS] Process terminated successfully"
         fi
 
+        if [ "$USE_HEAPTRACK" = true ]; then
+            echo "Heaptrack file generated: $HEAPTRACK_FILE"
+        fi
+
         ram=$(convert_size "$ram_kib")
 
         # Variant name = path relative to build dir
         variant=$(basename "$(dirname "$binary")")/$(basename "$binary")
 
         echo "| \`$variant\` | $size | $ram |" >> "$REPORT"
+
+        if [ "$USE_HEAPTRACK" = true ]; then
+            if ps -p $HEAPTRACK_PID > /dev/null; then
+                kill -TERM "$HEAPTRACK_PID"
+            fi
+            echo "Heaptrack recording finished for PID $PID"
+        fi
     done
     echo "" >> "$REPORT"
 done

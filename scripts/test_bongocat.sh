@@ -197,8 +197,53 @@ echo "[INFO] Restore old config"
 cp $OG_CONFIG $CONFIG
 sleep 5
 
-echo "[Test] Change Config by other config (Digimon -> Clippy): $CONFIG"
+echo "[TEST] Change Config by other config (Digimon -> Clippy): $CONFIG"
 cp ./examples/clippy.bongocat.conf $CONFIG
+sleep 5
+
+
+echo "[TEST] Load biggest assets"
+echo "[INFO] Set Sprite Sheet: Links"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Links/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: pkmn:dialga"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:dialga/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmx:Hexeblaumon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: dm:Coronamon"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm:Coronamon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: Metal Greymon"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Metal Greymon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
 sleep 5
 
 
@@ -216,8 +261,8 @@ kill -TERM "$PID"
 sleep 15
 
 echo "[INFO] Wait for TERM"
-# wait up to 10 seconds
-for i in {1..10}; do
+# wait up to 5 seconds
+for i in {1..5}; do
     if ! kill -0 "$PID" 2>/dev/null; then
         break
     fi

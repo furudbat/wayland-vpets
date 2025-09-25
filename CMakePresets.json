@@ -87,17 +87,6 @@
       }
     },
     {
-      "name": "release_multi_install",
-      "displayName": "Release (Multi Versions)",
-      "description": "Release build with multiple execs",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-multi",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_MULTI_VERSIONS": "ON"
-      }
-    },
-    {
       "name": "release_only_bongocat",
       "displayName": "Release (Only Bongocat)",
       "description": "Release build with optimizations",
@@ -108,64 +97,6 @@
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF"
-      }
-    },
-    {
-      "name": "release_all_assets",
-      "displayName": "Release (All Assets)",
-      "description": "Release build with ALL assets (full dm versions)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "relwithdebinfo_all_assets",
-      "displayName": "RelWithDebInfo (All Assets)",
-      "description": "Release build with debug info and ALL assets (full dm versions)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-assets",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "release_all_assets_colored_custom",
-      "displayName": "Release (All Assets + custom colored)",
-      "description": "Release build with ALL assets (full dm versions + custom colored sprites)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-all-assets-custom-colored",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
-        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
@@ -181,13 +112,35 @@
     },
     {
       "name": "relwithdebinfo_pngle",
-      "displayName": "RelWithDebInfo Build",
+      "displayName": "RelWithDebInfo Build (pngle image loader)",
       "description": "Release build with debug info and pngle loader",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-pngle",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "FEATURE_USE_PNGLE": "ON"
+      }
+    },
+    {
+      "name": "release_hybrid",
+      "displayName": "Release Build (hybrid image loader)",
+      "description": "Release build with optimizations and hybrid loader (stb_image + pngle)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-hybrid",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON"
+      }
+    },
+    {
+      "name": "relwithdebinfo_hybrid",
+      "displayName": "RelWithDebInfo Build (hybrid image loader)",
+      "description": "Release build with debug info and hybrid loader (stb_image + pngle)",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-hybrid",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON"
       }
     },
     {
@@ -223,28 +176,6 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
-      }
-    },
-    {
-      "name": "debug_all_assets_colored_custom",
-      "displayName": "Debug (All Assets + custom colored sprites)",
-      "description": "Debug build with ALL assets (full dm versions + custom colored sprites) (for testing)",
-      "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored-custom",
-      "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Debug",
-        "ENABLE_ASAN": "ON",
-        "ENABLE_UBSAN": "ON",
-        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
-        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
         "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
