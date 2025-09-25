@@ -61,6 +61,7 @@ PREFER_BYID=false
 GENERATE_CONFIG=false
 TEST_DEVICES=false
 VERBOSE=false
+IGNORE_DEVICES=()
 
 # Usage information
 usage() {
@@ -72,6 +73,7 @@ usage() {
         printf "${WHITE}OPTIONS:${NC}\n"
         printf "    -a, --all               Show all input devices (including mice, touchpads)\n"
         printf "    -i, --by-id             Show input devices as id (symlink, if available)\n"
+        printf "    -e, --ignore-device     Ignore device (multiple arguments)\n"
         printf "    -g, --generate-config   Generate configuration file to stdout\n"
         printf "    -t, --test              Test device responsiveness (requires root)\n"
         printf "    -v, --verbose           Show detailed device information\n"
@@ -100,6 +102,7 @@ USAGE:
 OPTIONS:
     -a, --all               Show all input devices (including mice, touchpads)
     -i, --by-id             Show input devices as id (symlink, if available)
+    -e, --ignore-device     Ignore device (multiple arguments)
     -g, --generate-config   Generate configuration file to stdout
     -t, --test              Test device responsiveness (requires root)
     -v, --verbose           Show detailed device information
@@ -136,6 +139,15 @@ parse_args() {
             -i|--by-id)
                 PREFER_BYID=true
                 shift
+                ;;
+            -e|--ignore-device)
+                if [[ -n "$2" ]]; then
+                    IGNORE_DEVICES+=("$2")   # Add next argument as a pattern
+                    shift 2
+                else
+                    echo "Error: --ignore-device requires a value" >&2
+                    exit 1
+                fi
                 ;;
             -g|--generate-config)
                 GENERATE_CONFIG=true
@@ -250,10 +262,21 @@ get_device_type() {
     fi
 }
 
+device_is_ignored() {
+    local name="$1"
+    local ignore_devices="$2"
+    for pattern in "${ignore_devices[@]}"; do
+        if [[ "$name" =~ $pattern ]]; then
+            return 0  # ignored
+        fi
+    done
+    return 1  # not ignored
+}
 # Parse device information from /proc/bus/input/devices
 parse_devices() {
     local show_all="$1"
     local prefer_byid="$2"   # "true" = prefer /dev/input/by-id symlinks
+    local ignore_devices="$3"
     local devices=()
 
     if [[ ! -r /proc/bus/input/devices ]]; then
@@ -278,6 +301,11 @@ parse_devices() {
         elif [[ "$line" =~ ^B:\ EV=(.*) ]]; then
             current_capabilities="${BASH_REMATCH[1]}"
         elif [[ "$line" =~ ^$ ]] && [[ -n "$current_name" ]]; then
+            # Skip ignored devices
+            if device_is_ignored "$current_name" "$ignore_devices"; then
+                continue
+            fi
+
             local device_type
             device_type=$(get_device_type "$current_name" "$current_capabilities" "$current_handlers")
 
@@ -303,7 +331,7 @@ parse_devices() {
     done < /proc/bus/input/devices
 
     # Handle last block if file didn't end with newline
-    if [[ -n "$current_name" ]]; then
+    if [[ -n "$current_name" ]] && ! device_is_ignored "$current_name" "$ignore_devices"; then
         local device_type
         device_type=$(get_device_type "$current_name" "$current_capabilities" "$current_handlers")
         local event_handlers=($(echo "$current_handlers" | grep -o 'event[0-9]\+' || true))
@@ -333,6 +361,7 @@ parse_devices() {
 display_devices() {
     local show_all="$1"
     local prefer_byid="$2"
+    local ignore_devices="$3"
     local devices
 
     if [[ "$GENERATE_CONFIG" == "false" ]]; then
@@ -345,7 +374,7 @@ display_devices() {
     fi
 
     # Get device list
-    if ! devices=$(parse_devices "$show_all" "$prefer_byid"); then
+    if ! devices=$(parse_devices "$show_all" "$prefer_byid" "$ignore_devices"); then
         return 1
     fi
 
@@ -448,7 +477,7 @@ EOF
               resolved=$(readlink -f "$path" 2>/dev/null || echo "$path")
               printf "keyboard_device=%-${maxlen}s   # %s (%s)\n" "$path" "$name" "$resolved"
             else
-              printf "keyboard_device=%-${maxlen}s   # %s (%s)\n" "$path" "$name"
+              printf "keyboard_device=%-${maxlen}s   # %s\n" "$path" "$name"
             fi
         done
         cat << 'EOF'
@@ -530,7 +559,7 @@ main() {
     fi
 
     print_header
-    display_devices "$SHOW_ALL" "$PREFER_BYID"
+    display_devices "$SHOW_ALL" "$PREFER_BYID" "$IGNORE_DEVICES"
 }
 
 # Run main function with all arguments
