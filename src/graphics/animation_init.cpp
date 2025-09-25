@@ -68,7 +68,7 @@ namespace bongocat::animation {
             case config::config_animation_sprite_sheet_layout_t::Bongocat: {
                 if constexpr (features::EnableBongocatEmbeddedAssets) {
                     auto [result, error] = load_bongocat_sprite_sheet(ctx, anim_index);
-                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                         return error;
                     }
                     anim_shm.bongocat_sprite_sheet = bongocat::move(result);

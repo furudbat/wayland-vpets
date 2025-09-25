@@ -337,7 +337,7 @@ namespace bongocat::config {
         ret |= config_validate_kpm(config);
 
         if (config.strict) {
-            if (ret != 0) {
+            if (ret != 0) [[unlikely]] {
                 BONGOCAT_LOG_ERROR("Failed to load configuration in struct mode: %x", ret);
                 return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
             }
@@ -739,15 +739,8 @@ namespace bongocat::config {
         return (line[0] == '#' || line[0] == '\0' || strspn(line, " \t") == strlen(line));
     }
 
-    static bongocat_error_t config_parse_file(config_t& config, const char *config_file_path) {
-        const char *file_path = config_file_path ? config_file_path : DEFAULT_CONFIG_FILE_PATH;
 
-        FILE *file = fopen(file_path, "r");
-        if (!file) {
-            BONGOCAT_LOG_INFO("Config file '%s' not found, using defaults", file_path);
-            return bongocat_error_t::BONGOCAT_SUCCESS;
-        }
-
+    static bongocat_error_t config_parse_file(FILE *file, config_t& config) {
         char line[LINE_BUF] = {0};
         char key[KEY_BUF] = {0};
         char value[VALUE_BUF] = {0};
@@ -794,10 +787,35 @@ namespace bongocat::config {
             }
         }
 
+        return result;
+    }
+
+    static bongocat_error_t config_parse_file(config_t& config, const char *config_file_path) {
+        const char *file_path = config_file_path ? config_file_path : DEFAULT_CONFIG_FILE_PATH;
+
+        FILE *file = fopen(file_path, "r");
+        if (!file) {
+            BONGOCAT_LOG_INFO("Config file '%s' not found, using defaults", file_path);
+            return bongocat_error_t::BONGOCAT_SUCCESS;
+        }
+
+        bongocat_error_t result = config_parse_file(file, config);
+
         fclose(file);
 
         if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_INFO("Loaded configuration from %s", file_path);
+        }
+
+        return result;
+    }
+
+    static bongocat_error_t config_parse_stdin(config_t& config) {
+        FILE *file = stdin;
+
+        bongocat_error_t result = config_parse_file(file, config);
+        if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
+            BONGOCAT_LOG_INFO("Loaded configuration from stdin");
         }
 
         return result;
@@ -907,8 +925,14 @@ namespace bongocat::config {
         set_defaults(ret);
 
         // Parse config file and override defaults
-        bongocat_error_t result = config_parse_file(ret, config_file_path);
-        if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+        bongocat_error_t result = bongocat_error_t::BONGOCAT_ERROR_CONFIG;
+        if (strcmp(config_file_path, "-") == 0) {
+            result = config_parse_stdin(ret);
+        } else {
+            result = config_parse_file(ret, config_file_path);
+        }
+
+        if (result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to parse configuration file: %s", bongocat::error_string(result));
             return result;
         }

@@ -9,7 +9,7 @@ namespace bongocat::animation {
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
         auto result = load_sprite_sheet_anim(*ctx._local_copy_config, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
-        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Load dm Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }

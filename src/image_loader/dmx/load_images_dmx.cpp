@@ -14,7 +14,7 @@ namespace bongocat::animation {
         assert(anim_index >= 0 && static_cast<size_t>(anim_index) < DMX_ANIM_COUNT);
         BONGOCAT_LOG_VERBOSE("Load dmx Animation (%d/%d): %s ...", anim_index, DMX_ANIM_COUNT, sprite_sheet_image.name);
         auto result = load_dm_anim(ctx, anim_index, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
-        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Load dmx Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
         }

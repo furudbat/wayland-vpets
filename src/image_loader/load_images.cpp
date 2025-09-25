@@ -16,7 +16,7 @@ namespace bongocat::animation {
         generic_sprite_sheet_animation_t ret;
 
         auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS);
-        if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to load sprite sheet. %dx%d", sprite_sheet.width, sprite_sheet.height);
             return sprite_sheet_error;
         }
@@ -124,7 +124,7 @@ namespace bongocat::animation {
 
             BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img.name);
             auto [loaded_image, image_error] = load_image(img.data, img.size, RGBA_CHANNELS);
-            if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+            if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 BONGOCAT_LOG_ERROR("Failed to load embedded image: %s (%d)", img.name, image_error);
                 continue;
             }
@@ -219,7 +219,7 @@ namespace bongocat::animation {
         auto result = load_sprite_sheet_from_memory(sprite_sheet_image.data, sprite_sheet_image.size,
                                                     sprite_sheet_cols, sprite_sheet_rows,
                                                     config.padding_x, config.padding_y);
-        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Sprite Sheet load failed: %s", sprite_sheet_image.name);
             return result.error;
         }

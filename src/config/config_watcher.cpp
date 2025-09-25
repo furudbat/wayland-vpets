@@ -176,19 +176,19 @@ namespace bongocat::config {
         BONGOCAT_CHECK_NULL(config_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         AllocatedMemory<config_watcher_t> ret = make_allocated_memory<config_watcher_t>();
         assert(ret != nullptr);
-        if (ret == nullptr) {
+        if (ret == nullptr) [[unlikely]] {
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
 
         // Store config path
         ret->config_path = strdup(config_path);
-        if (!ret->config_path) {
+        if (!ret->config_path) [[unlikely]] {
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
 
         // Initialize inotify
         ret->inotify_fd = platform::FileDescriptor(inotify_init1(IN_NONBLOCK));
-        if (ret->inotify_fd._fd < 0) {
+        if (ret->inotify_fd._fd < 0) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to initialize inotify: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
@@ -198,7 +198,7 @@ namespace bongocat::config {
         strncpy(dirbuf, config_path, dirbuf_size-1);
         dirbuf[dirbuf_size-1] = '\0';
         const char* dir = dirname(dirbuf);
-        if (!dir) {
+        if (!dir) [[unlikely]] {
             BONGOCAT_LOG_ERROR("dirname() failed for path %s", ret->config_path);
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }

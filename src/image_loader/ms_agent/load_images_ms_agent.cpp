@@ -13,7 +13,7 @@ namespace bongocat::animation {
                                                                                           int frame_columns, int frame_rows,
                                                                                           int padding_x, int padding_y) {
         auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS); // Force RGBA
-        if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to load sprite sheet.");
             return sprite_sheet_error;
         }
@@ -116,7 +116,7 @@ namespace bongocat::animation {
         auto result = load_ms_agent_sprite_sheet_from_memory(sprite_sheet_image.data, sprite_sheet_image.size,
                                                        sprite_sheet_cols, sprite_sheet_rows,
                                                        config.padding_x, config.padding_y);
-        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Sprite Sheet load failed: %s", sprite_sheet_image.name);
             return result.error;
         }
@@ -132,7 +132,7 @@ namespace bongocat::animation {
 
         BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
         auto result = load_ms_agent_sprite_sheet(*ctx._local_copy_config, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
-        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             return result.error;
         }
 

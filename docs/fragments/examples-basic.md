@@ -32,3 +32,11 @@ Custom config with hot-reload and custom `output_name`
 ```bash
 bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 ```
+
+## Config from stdin
+Load multiple configs via pipe(`|`) and `stdin`
+
+```bash
+cat ~/.config/base.bongocat.conf ~/.config/devices.bongocat.conf | bongocat --config -
+```
+

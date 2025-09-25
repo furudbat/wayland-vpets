@@ -23,7 +23,7 @@ else
     "$PROGRAM" --watch-config --config "$CONFIG" --ignore-running --strict &
     PID=$!
     echo "[TEST] Program PID = $PID"
-    sleep 20
+    sleep 10
 fi
 
 # --- trap cleanup ---
@@ -256,10 +256,34 @@ else
 fi
 
 # --- send SIGTERM ---
+echo "[INFO] Sending SIGTERM..."
+kill -TERM "$PID"
+sleep 15
+echo "[INFO] Wait for TERM"
+# wait up to 5 seconds
+for i in {1..5}; do
+    if ! kill -0 "$PID" 2>/dev/null; then
+        break
+    fi
+    sleep 1
+done
+echo "[TEST] Start with stdin config..."
+cat "$CONFIG" | "$PROGRAM" --ignore-running --strict --config - &
+PID=$!
+sleep 10
+# --- verify running ---
+if kill -0 "$PID" 2>/dev/null; then
+    echo "[PASS] Process $PID still running!"
+else
+    echo "[FAIL] Process terminated"
+    exit 1
+fi
+
+
+# --- send SIGTERM ---
 echo "[TEST] Sending SIGTERM..."
 kill -TERM "$PID"
 sleep 15
-
 echo "[INFO] Wait for TERM"
 # wait up to 5 seconds
 for i in {1..5}; do

@@ -12,7 +12,7 @@ namespace bongocat::animation {
     created_result_t<bongocat_animation_t> load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
         BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
         auto result = anim_sprite_sheet_from_embedded_images(get_sprite, embedded_images_count);
-        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             return result.error;
         }
 
@@ -37,7 +37,7 @@ namespace bongocat::animation {
         assert(anim_index >= 0 && static_cast<size_t>(anim_index) < BONGOCAT_ANIM_COUNT);
         BONGOCAT_LOG_VERBOSE("Load bongocat Animation (%d/%d): %s ...", anim_index, BONGOCAT_ANIM_COUNT, get_sprite(embedded_images_count).name);
         auto result = load_bongocat_anim(anim_index, get_sprite, embedded_images_count);
-        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Load bongocat Animation failed: index: %d", anim_index);
             return result.error;
         }

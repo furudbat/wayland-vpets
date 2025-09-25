@@ -321,9 +321,15 @@ namespace bongocat {
         BONGOCAT_LOG_INFO("Reloading configuration from: %s (config_watcher=%s)", get_main_context().signal_watch_path, (get_main_context().config_watcher) ? get_main_context().config_watcher->config_path : "OFF");
         assert(get_main_context().config_watcher == nullptr || strcmp(get_main_context().config_watcher->config_path, get_main_context().signal_watch_path) == 0);
 
+        if (strcmp(get_main_context().signal_watch_path, "-") == 0) {
+            BONGOCAT_LOG_WARNING("No reload config for stdin");
+            BONGOCAT_LOG_INFO("Keeping current configuration");
+            return;
+        }
+
         // Create a temporary config to test loading
         auto [new_config, error] = config::load(get_main_context().signal_watch_path, get_main_context().overwrite_config_parameters);
-        if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat::error_string(error));
             BONGOCAT_LOG_INFO("Keeping current configuration");
             return;
@@ -389,7 +395,7 @@ namespace bongocat {
         if (devices_changed) {
             BONGOCAT_LOG_INFO("Input devices changed, restarting input monitoring");
             const bongocat_error_t input_result = platform::input::restart(*get_main_context().input, *get_main_context().animation, get_main_context().config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
-            if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+            if (input_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat::error_string(input_result));
             } else {
                 BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
@@ -399,7 +405,7 @@ namespace bongocat {
 
     static bongocat_error_t start_config_watcher(main_context_t& ctx, const char *config_file) {
         auto [config_watcher, error] = config::create_watcher(config_file);
-        if (error == bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (error == bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             ctx.config_watcher = bongocat::move(config_watcher);
             config::start_watcher(*ctx.config_watcher);
             BONGOCAT_LOG_INFO("Config file watching enabled for: %s", config_file);
@@ -423,13 +429,13 @@ namespace bongocat {
         sigaddset(&mask, SIGUSR2);
 
         // Block signals globally so they are only delivered via signalfd
-        if (sigprocmask(SIG_BLOCK, &mask, nullptr) == -1) {
+        if (sigprocmask(SIG_BLOCK, &mask, nullptr) == -1) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to block signals: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_THREAD;
         }
 
         ctx.signal_fd = platform::FileDescriptor(signalfd(-1, &mask, SFD_NONBLOCK | SFD_CLOEXEC));
-        if (ctx.signal_fd._fd == -1) {
+        if (ctx.signal_fd._fd == -1) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to create signalfd: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_THREAD;
         }
@@ -445,7 +451,7 @@ namespace bongocat {
         // Initialize input system
         {
             auto [input, input_error] = platform::input::create(ctx.config);
-            if (input_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+            if (input_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(input_error));
                 return input_error;
             }
@@ -456,7 +462,7 @@ namespace bongocat {
         {
             animation::init_image_loader();
             auto [animation, animation_error] = animation::create(ctx.config);
-            if (animation_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+            if (animation_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(animation_error));
                 return animation_error;
             }
@@ -468,7 +474,7 @@ namespace bongocat {
             assert(ctx.animation != nullptr);
             /// @NOTE: animation needed only for reference
             auto [wayland, wayland_error] = platform::wayland::create(*ctx.animation, ctx.config);
-            if (wayland_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+            if (wayland_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 BONGOCAT_LOG_ERROR("Failed to initialize Wayland: %s", bongocat::error_string(wayland_error));
                 return wayland_error;
             }
@@ -479,21 +485,21 @@ namespace bongocat {
         assert(ctx.input != nullptr);
         assert(ctx.animation != nullptr);
         bongocat_error_t setup_wayland_result = setup(*ctx.wayland, *ctx.animation);
-        if (setup_wayland_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (setup_wayland_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to setup wayland: %s", bongocat::error_string(setup_wayland_result));
             return setup_wayland_result;
         }
 
         // Start animation thread
         bongocat_error_t start_animation_result = animation::start(*ctx.animation, *ctx.input, ctx.config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
-        if (start_animation_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (start_animation_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat::error_string(start_animation_result));
             return start_animation_result;
         }
 
         // Start input monitoring
         bongocat_error_t start_input_result = platform::input::start(*ctx.input, *ctx.animation, ctx.config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
-        if (start_input_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (start_input_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat::error_string(start_input_result));
             return start_input_result;
         }
@@ -724,7 +730,11 @@ int main(int argc, char *argv[]) {
     
     // Initialize config watcher if requested
     if (args.watch_config && args.config_file) {
-        start_config_watcher(ctx, args.config_file);
+        if (strcmp(args.config_file, "-") != 0) {
+            start_config_watcher(ctx, args.config_file);
+        } else {
+            BONGOCAT_LOG_INFO("Skip config watcher, no config watcher fir stdin");
+        }
     } else {
         BONGOCAT_LOG_INFO("No config watcher, continuing without hot-reload");
     }

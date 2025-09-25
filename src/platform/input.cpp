@@ -311,7 +311,7 @@ namespace bongocat::platform::input {
         size_t track_valid_devices = 0;
         {
             auto [valid_devices, init_devices_result] = sync_devices(input);
-            if (init_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+            if (init_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 atomic_store(&input._capture_input_running, false);
                 cleanup_input_thread_context(input);
                 BONGOCAT_LOG_ERROR("Failed to init devices and file descriptors");
