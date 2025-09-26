@@ -23,7 +23,6 @@ enable_antialiasing=1            # Use bilinear interpolation for smooth scaling
 overlay_height=60                # Height of the entire overlay bar (20-300)
 overlay_opacity=150              # Background opacity (0-255)
 overlay_position=top             # Position on screen (top/bottom)
-layer=top                        # Layer type (top/overlay)
 
 # Animation settings
 idle_frame=0                     # Frame to show when idle (0-3)
@@ -51,7 +50,7 @@ enable_debug=0                   # Show debug messages
 
 # SEE ALSO
 
-`bongocat(1)`
+`bongocat(1)`, `bongocat-find-devices(1)`
 
 # AUTHOR
 

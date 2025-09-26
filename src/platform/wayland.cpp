@@ -928,9 +928,23 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
         }
 
+        zwlr_layer_shell_v1_layer layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
+        switch (current_config.layer) {
+            case config::layer_type_t::LAYER_BACKGROUND:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_BACKGROUND;
+                break;
+            case config::layer_type_t::LAYER_BOTTOM:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_BOTTOM;
+                break;
+            case config::layer_type_t::LAYER_TOP:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_TOP;
+                break;
+            case config::layer_type_t::LAYER_OVERLAY:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
+                break;
+        }
         wayland_ctx.layer_surface = zwlr_layer_shell_v1_get_layer_surface(wayland_ctx.layer_shell, wayland_ctx.surface, wayland_ctx.output,
-                                                          ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY,
-                                                          WAYLAND_LAYER_NAMESPACE);
+                                                                          layer, WAYLAND_LAYER_NAMESPACE);
 
         if (!wayland_ctx.layer_surface) {
             BONGOCAT_LOG_ERROR("Failed to create layer surface");

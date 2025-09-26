@@ -23,7 +23,7 @@ else
     "$PROGRAM" --watch-config --config "$CONFIG" --ignore-running --strict &
     PID=$!
     echo "[TEST] Program PID = $PID"
-    sleep 10
+    sleep 5
 fi
 
 # --- trap cleanup ---
@@ -39,16 +39,16 @@ trap cleanup EXIT
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
-sleep 5
+sleep 3
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
-sleep 10
+sleep 5
 echo "[INFO] Spam SIGUSR2"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
-sleep 15
+sleep 7
 
 # --- function to toggle idle_sleep_timeout ---
 toggle_config() {
@@ -63,11 +63,11 @@ toggle_config() {
 
 # --- modify config to trigger hot reload ---
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
-sleep 5
+sleep 3
 toggle_config
-sleep 15
+sleep 10
 toggle_config
-sleep 15
+sleep 10
 echo "[TEST] Trigger Sleep"
 echo "[INFO] Enable idle_sleep_timeout..."
 sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=10/" "$CONFIG"
@@ -108,13 +108,13 @@ rm "${CONFIG}.del"
 sleep 5
 echo "[INFO] Recreate Config: $CONFIG"
 cp ./examples/digimon.bongocat.conf $CONFIG
-sleep 10
+sleep 5
 echo "[INFO] Delete Config: $CONFIG"
 rm $CONFIG
-sleep 10
+sleep 5
 echo "[INFO] Recreate Config: $CONFIG"
 cp ./examples/digimon.bongocat.conf $CONFIG
-sleep 5
+sleep 3
 
 echo "[INFO] Disable sleep"
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
@@ -143,7 +143,7 @@ if [[ -f "/proc/$PID/fd/0" ]]; then
   printf '\e' > /proc/$PID/fd/0
   sleep 1
   printf '\e' > /proc/$PID/fd/0
-  sleep 5
+  sleep 3
 fi
 
 echo "[INFO] Disable sleep"
@@ -151,16 +151,16 @@ sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
-sleep 5
+sleep 3
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
-sleep 10
+sleep 5
 echo "[INFO] Spam SIGUSR2"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
 kill -USR2 "$PID"
-sleep 15
+sleep 10
 echo "[INFO] Spam SIGUSR2 slower"
 kill -USR2 "$PID"
 sleep 5
@@ -169,7 +169,7 @@ sleep 3
 kill -USR2 "$PID"
 sleep 2
 kill -USR2 "$PID"
-sleep 10
+sleep 15
 
 echo "[TEST] Sending SIGUSR1..."
 echo "[INFO] Send SIGUSR1"
@@ -182,7 +182,7 @@ sleep 2
 echo "[TEST] replace config..."
 echo "[INFO] Replace Config: $CONFIG > ${CONFIG}.del"
 cp ./examples/idle-only-digimon.bongocat.conf $CONFIG
-sleep 10
+sleep 5
 echo "[TEST] Sending ESC key..."
 if [[ -f "/proc/$PID/fd/0" ]]; then
   echo "[INFO] Send stdin"

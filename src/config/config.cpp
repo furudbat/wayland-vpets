@@ -71,7 +71,7 @@ namespace bongocat::config {
     static inline constexpr platform::time_ms_t DEFAULT_KEYPRESS_DURATION_MS = 100;
     static inline constexpr int32_t DEFAULT_OVERLAY_OPACITY = 60;
     static inline constexpr int32_t DEFAULT_ANIMATION_INDEX = 0;
-    static inline constexpr layer_type_t DEFAULT_LAYER = layer_type_t::LAYER_TOP;       // Requires enum or constant elsewhere
+    static inline constexpr layer_type_t DEFAULT_LAYER = layer_type_t::LAYER_OVERLAY;
     static inline constexpr overlay_position_t DEFAULT_OVERLAY_POSITION = overlay_position_t::POSITION_TOP;
     static inline constexpr int32_t DEFAULT_HAPPY_KPM = 0;
     static inline constexpr platform::time_sec_t DEFAULT_IDLE_SLEEP_TIMEOUT_SEC = 0;
@@ -113,7 +113,8 @@ namespace bongocat::config {
     static inline constexpr auto KEYBOARD_DEVICE_KEY                = "keyboard_device";
     static inline constexpr auto KEYBOARD_DEVICES_KEY               = "keyboard_devices";
     static inline constexpr auto ANIMATION_INDEX_KEY                = "animation_index";
-    static inline constexpr auto LAYER_KEY                          = "layer";
+    static inline constexpr auto LAYER_KEY                          = "layer";                      ///< DEPRECATED: use overlay_layer
+    static inline constexpr auto OVERLAY_LAYER_KEY                  = "overlay_layer";
     static inline constexpr auto CAT_ALIGN_KEY                      = "cat_align";
     static inline constexpr auto IDLE_ANIMATION_KEY                 = "idle_animation";
     static inline constexpr auto INPUT_FPS_KEY                      = "input_fps";
@@ -274,7 +275,10 @@ namespace bongocat::config {
     static int32_t config_validate_enums(config_t& config) {
         int32_t ret{0};
         // Validate layer
-        if (config.layer != layer_type_t::LAYER_TOP && config.layer != layer_type_t::LAYER_OVERLAY) {
+        if (config.layer != layer_type_t::LAYER_BACKGROUND &&
+            config.layer != layer_type_t::LAYER_BOTTOM &&
+            config.layer != layer_type_t::LAYER_TOP &&
+            config.layer != layer_type_t::LAYER_OVERLAY) {
             BONGOCAT_LOG_WARNING("Invalid layer %d, resetting to top", config.layer);
             config.layer = layer_type_t::LAYER_TOP;
             ret = 1;
@@ -473,11 +477,15 @@ namespace bongocat::config {
     }
 
     static bongocat_error_t config_parse_enum_key(config_t& config, const char *key, const char *value) {
-        if (strcmp(key, LAYER_KEY) == 0) {
+        if (strcmp(key, LAYER_KEY) == 0 || strcmp(key, OVERLAY_LAYER_KEY) == 0) {
             if (strcmp(value, LAYER_TOP_STR) == 0) {
                 config.layer = layer_type_t::LAYER_TOP;
             } else if (strcmp(value, LAYER_OVERLAY_STR) == 0) {
                 config.layer = layer_type_t::LAYER_OVERLAY;
+            } else if (strcmp(value, LAYER_BOTTOM_STR) == 0) {
+                config.layer = layer_type_t::LAYER_BOTTOM;
+            } else if (strcmp(value, LAYER_BACKGROUND_STR) == 0) {
+                config.layer = layer_type_t::LAYER_BACKGROUND;
             } else {
                 BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'top'", LAYER_KEY, value);
                 config.layer = layer_type_t::LAYER_TOP;

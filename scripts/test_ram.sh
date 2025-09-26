@@ -99,7 +99,7 @@ cleanup() {
 trap cleanup EXIT
 
 
-USE_HEAPTRACK=true
+USE_HEAPTRACK=false
 HEAPTRACK_BIN=$(command -v heaptrack || true)
 if [ "$USE_HEAPTRACK" = true ] && [ -z "$HEAPTRACK_BIN" ]; then
     echo "Warning: heaptrack not found, running binary without it"
@@ -138,7 +138,7 @@ for group in release minsizerel relwithdebinfo debug; do
         fi
 
         # Give it time to start
-        sleep 2
+        sleep 5
         echo "[INFO] Update Config"
         sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
         echo "[INFO] Set Sprite Sheet: bongocat"

@@ -21,10 +21,14 @@ namespace bongocat::config {
     inline static constexpr const char* POSITION_TOP_STR = "top";
     inline static constexpr const char* POSITION_BOTTOM_STR = "bottom";
 
-    enum class layer_type_t : uint8_t {
-        LAYER_TOP = 0,
-        LAYER_OVERLAY = 1
+    enum class layer_type_t : int8_t {
+        LAYER_BACKGROUND = 0,
+        LAYER_BOTTOM = 1,
+        LAYER_TOP = 2,
+        LAYER_OVERLAY = 3,
     };
+    inline static constexpr const char* LAYER_BACKGROUND_STR = "background";
+    inline static constexpr const char* LAYER_BOTTOM_STR = "bottom";
     inline static constexpr const char* LAYER_TOP_STR = "top";
     inline static constexpr const char* LAYER_OVERLAY_STR = "overlay";
 
