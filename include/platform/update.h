@@ -12,6 +12,7 @@ namespace bongocat::platform::update {
     bongocat_error_t restart(update_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config, CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation);
     void trigger_update_config(update_context_t& ctx, const config::config_t& config, uint64_t config_generation);
     void update_config(update_context_t& ctx, const config::config_t& config, uint64_t new_gen);
+    const cpu_snapshot_t& get_latest_snapshot(update_context_t& ctx);
 }
 
 #endif // BONGOCAT_UPDATE_H

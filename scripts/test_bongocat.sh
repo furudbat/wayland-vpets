@@ -62,6 +62,7 @@ toggle_config() {
 }
 
 # --- modify config to trigger hot reload ---
+sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=0/' "$CONFIG"
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 sleep 3
 toggle_config
@@ -246,6 +247,31 @@ echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
 
+
+echo "[TEST] CPU threshold"
+echo "[INFO] Enable CPU threshold"
+sed -i -E 's/^update_rate=[0-9]+/update_rate=1000/' "$CONFIG"
+sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=30/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+if command -v stress-ng >/dev/null 2>&1; then
+    echo "[INFO] Running stress-ng to generate load"
+    stress-ng --cpu 0 --timeout 15s --metrics-brief &
+    sleep 20
+elif command -v stress >/dev/null 2>&1; then
+    echo "[INFO] Running stress to generate load"
+    stress --cpu "$(nproc)" --timeout 15s &
+    sleep 20
+else
+    echo "[WARN] No stress tool found, skipping load generation"
+fi
+echo "[INFO] Disable CPU threshold"
+sed -i -E 's/^update_rate=[0-9]+/update_rate=0/' "$CONFIG"
+sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 3
 
 # --- verify running ---
 if kill -0 "$PID" 2>/dev/null; then

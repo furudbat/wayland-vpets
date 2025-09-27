@@ -56,6 +56,8 @@ namespace bongocat::config {
     static inline constexpr int MAX_TIMEOUT = INT32_MAX;
     static inline constexpr int MIN_KPM = 0;
     static inline constexpr int MAX_KPM = 10000;
+    static inline constexpr int MIN_CPU_THRESHOLD = 0;
+    static inline constexpr int MAX_CPU_THRESHOLD = 100;
 
     static_assert(MIN_FPS > 0, "FPS cannot be zero, for math reasons");
 
@@ -122,6 +124,8 @@ namespace bongocat::config {
     static inline constexpr auto MIRROR_Y_KEY                       = "mirror_y";
     static inline constexpr auto RANDOM_KEY                         = "random";
     static inline constexpr auto ENABLE_ANTIALIASING_KEY            = "enable_antialiasing";
+    static inline constexpr auto UPDATE_RATE_KEY                    = "update_rate";
+    static inline constexpr auto CPU_THRESHOLD_KEY                  = "cpu_threshold";
 
     static inline constexpr size_t KEY_BUF = 256;
     static inline constexpr size_t VALUE_BUF = PATH_MAX + 256; // max value + comment
@@ -134,6 +138,14 @@ namespace bongocat::config {
     static constexpr int32_t config_clamp_int(int& value, int min, int max, [[maybe_unused]] const char *name) {
         if (value < min || value > max) {
             BONGOCAT_LOG_WARNING("%s %d out of range [%d-%d], clamping", name, value, min, max);
+            value = (value < min) ? min : max;
+            return 1;
+        }
+        return 0;
+    }
+    static constexpr int32_t config_clamp_double(double& value, double min, double max, [[maybe_unused]] const char *name) {
+        if (value < min || value > max) {
+            BONGOCAT_LOG_WARNING("%s %.2f out of range [%.0f-%.0f], clamping", name, value, min, max);
             value = (value < min) ? min : max;
             return 1;
         }
@@ -174,6 +186,15 @@ namespace bongocat::config {
 
     static int32_t config_validate_kpm(config_t& config) {
         return config_clamp_int(config.happy_kpm, MIN_KPM, MAX_KPM, HAPPY_KPM_KEY);
+    }
+
+    static int32_t config_validate_update(config_t& config) {
+        int32_t ret{0};
+
+        ret |= config_clamp_int(config.update_rate_ms, 0, MAX_DURATION_MS, UPDATE_RATE_KEY);
+        ret |= config_clamp_double(config.cpu_threshold, MIN_CPU_THRESHOLD, MAX_CPU_THRESHOLD, CPU_THRESHOLD_KEY);
+
+        return ret;
     }
 
     static int32_t config_validate_appearance(config_t& config) {
@@ -339,6 +360,7 @@ namespace bongocat::config {
         ret |= config_validate_enums(config);
         ret |= config_validate_time(config);
         ret |= config_validate_kpm(config);
+        ret |= config_validate_update(config);
 
         if (config.strict) {
             if (ret != 0) [[unlikely]] {
@@ -360,14 +382,14 @@ namespace bongocat::config {
 
         const int old_num_keyboard_devices = config.num_keyboard_devices;
 
-        assert(MAX_INPUT_DEVICES <= INT_MAX);
-        if (old_num_keyboard_devices >= static_cast<int>(MAX_INPUT_DEVICES)) {
-            BONGOCAT_LOG_WARNING("Can not add more devices from config, max. reach: %d", MAX_INPUT_DEVICES);
+        assert(input::MAX_INPUT_DEVICES <= INT_MAX);
+        if (old_num_keyboard_devices >= static_cast<int>(input::MAX_INPUT_DEVICES)) {
+            BONGOCAT_LOG_WARNING("Can not add more devices from config, max. reach: %d", input::MAX_INPUT_DEVICES);
             return config.strict ? bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM : bongocat_error_t::BONGOCAT_SUCCESS;
         }
         const int new_num_keyboard_devices = old_num_keyboard_devices + 1;
         assert(new_num_keyboard_devices >= 0);
-        assert(static_cast<size_t>(new_num_keyboard_devices) <= MAX_INPUT_DEVICES);
+        assert(static_cast<size_t>(new_num_keyboard_devices) <= input::MAX_INPUT_DEVICES);
 
         // Add new device path
         config.keyboard_devices[old_num_keyboard_devices] = strdup(device_path);
@@ -390,7 +412,7 @@ namespace bongocat::config {
 
     static void config_cleanup_devices(config_t& config) {
         assert(config.num_keyboard_devices >= 0);
-        for (size_t i = 0; i < MAX_INPUT_DEVICES; i++) {
+        for (size_t i = 0; i < input::MAX_INPUT_DEVICES; i++) {
             if (i < static_cast<size_t>(config.num_keyboard_devices)) {
                 if (config.keyboard_devices[i]) ::free(config.keyboard_devices[i]);
             }
@@ -469,6 +491,10 @@ namespace bongocat::config {
             config.input_fps = int_value;
         } else if (strcmp(key, RANDOM_KEY) == 0) {
             config.randomize_index = int_value;
+        } else if (strcmp(key, UPDATE_RATE_KEY) == 0) {
+            config.update_rate_ms = int_value;
+        } else if (strcmp(key, CPU_THRESHOLD_KEY) == 0) {
+            config.cpu_threshold = int_value;
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
         }
@@ -837,8 +863,8 @@ namespace bongocat::config {
         config_t cfg;
 
         cfg.output_name = nullptr;
-        assert(MAX_INPUT_DEVICES <= INT_MAX);
-        for (int i = 0; i < static_cast<int>(MAX_INPUT_DEVICES); i++) {
+        assert(input::MAX_INPUT_DEVICES <= INT_MAX);
+        for (int i = 0; i < static_cast<int>(input::MAX_INPUT_DEVICES); i++) {
             cfg.keyboard_devices[i] = nullptr;
         }
         cfg.num_keyboard_devices = 0;

@@ -13,12 +13,12 @@ namespace bongocat::platform::update {
     inline static constexpr size_t CpuSnapshotRingBufferMaxHistory = 8;
 
     struct cpu_stat_t {
-        size_t idle_time;
-        size_t total_time;
+        size_t idle_time{0};
+        size_t total_time{0};
     };
     struct cpu_snapshot_t {
-        cpu_stat_t stats[MaxCpus];
-        size_t count;               // how many CPUs in this snapshot
+        cpu_stat_t stats[MaxCpus]{};
+        size_t count{0};               // how many CPUs in this snapshot
     };
 
     struct cpu_snapshot_ring_buffer_t {
@@ -30,6 +30,12 @@ namespace bongocat::platform::update {
 
     struct update_shared_memory_t {
         cpu_snapshot_ring_buffer_t cpu_snapshots;
+        const cpu_snapshot_t* latest_snapshot{nullptr};
+        double avg_cpu_usage{0};
+        double max_cpu_usage{0};
+        double last_avg_cpu_usage{0};
+        double last_max_cpu_usage{0};
+        bool cpu_active{false};
     };
 }
 

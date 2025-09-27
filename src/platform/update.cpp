@@ -10,18 +10,27 @@
 #include <linux/input.h>
 #include <unistd.h>
 #include <cassert>
+#include <cctype>
 #include <fcntl.h>
 #include <poll.h>
 #include <sys/eventfd.h>
 #include <cstdio>
+#include <sys/epoll.h>
 
 namespace bongocat::platform::update {
     inline static constexpr int MAX_ATTEMPTS = 2048;
+    inline static constexpr size_t GET_CPU_PRESENT_LAST_BUF = 256;
+    inline static constexpr size_t CPU_INFO_BUF = 8192;
 
     static inline constexpr auto UPDATE_POOL_TIMEOUT_MS = 1000;
+    static inline constexpr auto COND_STORED_TIMEOUT_MS = 1000;
 
     inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
     inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
+    inline static constexpr double TRIGGER_ANIMATION_CPU_DIFF_PERCENT = 1.0; // in percent
+
+    inline static constexpr const char* FILENAME_CPU_PRESET = "/sys/devices/system/cpu/present";
+    inline static constexpr const char* FILENAME_PROC_STAT = "/proc/stat";
 
     static void cleanup_update_thread(void* arg) {
         assert(arg);
@@ -36,6 +45,161 @@ namespace bongocat::platform::update {
         BONGOCAT_LOG_INFO("Update thread cleanup completed (via pthread_cancel)");
     }
 
+
+    static int set_nonblocking(int fd) {
+        int flags = fcntl(fd, F_GETFL, 0);
+        if (flags == -1) return -1;
+        return fcntl(fd, F_SETFL, flags | O_NONBLOCK);
+    }
+
+    /*
+    static size_t get_cpu_present_last(int fd) {
+        lseek(fd, 0, SEEK_SET);
+        char buf[GET_CPU_PRESENT_LAST_BUF] = {0};
+        ssize_t len = read(fd, buf, sizeof(buf)-1);
+        if (len <= 0) return 0;
+        assert(len >= 0 && static_cast<size_t>(len) < GET_CPU_PRESENT_LAST_BUF);
+        buf[len] = '\0';
+
+        const char* last_sep = strpbrk(buf, "-,");
+        if (last_sep) {
+            return strtoul(last_sep + 1, nullptr, 10);
+        }
+        return 0;
+    }
+    */
+
+    static const cpu_snapshot_t& get_latest_snapshot_unlocked(update_context_t& ctx) {
+        assert(ctx.shm != nullptr);
+        auto& update_shm = *ctx.shm;
+        ctx.update_cond.timedwait([&]() {
+            return update_shm.cpu_snapshots.stored > 0;
+        }, COND_STORED_TIMEOUT_MS);
+        assert(CpuSnapshotRingBufferMaxHistory > 0);
+        const size_t latest = (update_shm.cpu_snapshots.head + CpuSnapshotRingBufferMaxHistory - 1) % CpuSnapshotRingBufferMaxHistory;
+        assert(latest < CpuSnapshotRingBufferMaxHistory);
+        return update_shm.cpu_snapshots.history[latest];
+    }
+
+    const cpu_snapshot_t& get_latest_snapshot(update_context_t& ctx) {
+        LockGuard guard (ctx.update_lock);
+        return get_latest_snapshot_unlocked(ctx);
+    }
+
+    static size_t parse_cpuinfo_fd(int fd, size_t cpu_present_last, cpu_stat_t* out, size_t out_size) {
+        lseek(fd, 0, SEEK_SET);
+        char buf[CPU_INFO_BUF] = {0};
+        const ssize_t len = read(fd, buf, sizeof(buf)-1);
+        if (len <= 0) return 0;
+        assert(len >= 0 && static_cast<size_t>(len) < CPU_INFO_BUF);
+        buf[len] = '\0';
+
+        ssize_t current_cpu_number = -1;
+        size_t used = 0;
+
+        char* saveptr = nullptr;
+        char* line = strtok_r(buf, "\n", &saveptr);
+        while (line) {
+            if (strncmp(line, "cpu", 3) != 0) break;
+
+            size_t line_cpu_number = 0;
+            if (current_cpu_number >= 0) {
+                line_cpu_number = strtoul(line + 3, nullptr, 10);
+                assert(current_cpu_number >= 0);
+                //assert(current_cpu_number <= SIZE_MAX);
+                while (line_cpu_number > static_cast<size_t>(current_cpu_number) && used < out_size) {
+                    out[used] = {};
+                    used++;
+                    current_cpu_number++;
+                }
+            }
+
+            char* p = line;
+            while (*p && !isspace(static_cast<unsigned char>(*p))) p++;
+            while (*p && isspace(static_cast<unsigned char>(*p))) p++;
+
+            constexpr size_t times_size = 16;
+            size_t times[times_size] = {0};
+            size_t times_count = 0;
+            char* tok = strtok(p, " \t");
+            while (tok && times_count < times_size) {
+                times[times_count++] = strtoull(tok, nullptr, 10);
+                tok = strtok(nullptr, " \t");
+            }
+
+            size_t idle_time = 0;
+            size_t total_time = 0;
+            assert(times_size >= 5);
+            if (times_count >= 5) {
+                idle_time = times[3] + times[4];
+                for (size_t i = 0; i < times_count; i++) total_time += times[i];
+            }
+
+            if (used < MaxCpus) {
+                out[used] = cpu_stat_t{.idle_time = idle_time, .total_time = total_time};
+                used++;
+            }
+            current_cpu_number++;
+
+            line = strtok_r(nullptr, "\n", &saveptr);
+        }
+
+        if (current_cpu_number >= 0) {
+            assert(current_cpu_number >= 0);
+            //assert(current_cpu_number <= SIZE_MAX);
+            while (static_cast<size_t>(current_cpu_number) <= cpu_present_last && used < out_size) {
+                out[used] = {};
+                used++;
+                current_cpu_number++;
+            }
+        }
+
+        return used;
+    }
+
+    static double compute_avg_cpu_usage(const cpu_snapshot_t& prev, const cpu_snapshot_t& curr) {
+        assert(curr.count == prev.count);  // both snapshots must have same CPU count
+
+        size_t total_delta = 0;
+        size_t idle_delta = 0;
+        for (size_t i = 0; i < curr.count; i++) {
+            const cpu_stat_t& p = prev.stats[i];
+            const cpu_stat_t& c = curr.stats[i];
+
+            const size_t d_total = (c.total_time > p.total_time) ? (c.total_time - p.total_time) : 0;
+            const size_t d_idle  = (c.idle_time  > p.idle_time)  ? (c.idle_time  - p.idle_time)  : 0;
+
+            total_delta += d_total;
+            idle_delta  += d_idle;
+        }
+
+        if (total_delta == 0) return 0.0;
+        return 100.0 * static_cast<double>(total_delta - idle_delta) / static_cast<double>(total_delta);
+    }
+
+    static double compute_max_cpu_usage(const cpu_snapshot_t& prev, const cpu_snapshot_t& curr) {
+        assert(curr.count == prev.count);  // both snapshots must have same CPU count
+
+        double max_usage = 0.0;
+
+        for (size_t i = 0; i < curr.count; i++) {
+            const cpu_stat_t* p = &prev.stats[i];
+            const cpu_stat_t* c = &curr.stats[i];
+
+            const size_t d_total = (c->total_time > p->total_time) ? (c->total_time - p->total_time) : 0;
+            const size_t d_idle  = (c->idle_time  > p->idle_time)  ? (c->idle_time  - p->idle_time)  : 0;
+            if (d_total == 0) {
+                continue; // skip if no change
+            }
+
+            const double usage = 100.0 * static_cast<double>(d_total - d_idle) / static_cast<double>(d_total);
+            if (usage > max_usage) {
+                max_usage = usage;
+            }
+        }
+
+        return max_usage;
+    }
 
     static void* update_thread(void* arg) {
         assert(arg);
@@ -54,26 +218,17 @@ namespace bongocat::platform::update {
         assert(upd._config != nullptr);
         assert(upd._configs_reloaded_cond != nullptr);
 
-        // keep local copies of device_paths
-        {
-            // read-only config
-            assert(upd._local_copy_config != nullptr);
-            const config::config_t& current_config = *upd._local_copy_config;
-
-            /// @TODO: init fd and CPU listeners
-        }
-
         // trigger initial render
         wayland::request_render(trigger_ctx);
 
         pthread_cleanup_push(cleanup_update_thread, arg);
 
-        // @TODO: init local thread context varaibles
-
+        // local thread context
         /// event poll
         // 0:       reload config event
-        // 1 - n:   ???
-        constexpr size_t nfds = 1;
+        // 1:       fd_stat
+        // 2:       fd_present
+        constexpr size_t nfds = 3;
         pollfd pfds[nfds];
 
         atomic_store(&upd._running, true);
@@ -81,29 +236,42 @@ namespace bongocat::platform::update {
             pthread_testcancel();  // optional, but makes cancellation more responsive
 
             // read from config
-            int timeout = UPDATE_POOL_TIMEOUT_MS;
-            bool enable_debug = false;
+            time_ms_t timeout = UPDATE_POOL_TIMEOUT_MS;
+            time_ms_t update_rate_ms = 0;
+            time_ms_t animation_speed_ms = 0;
+            double cpu_threshold = 0;
+            int fps = 0;
+            //bool enable_debug = false;
             {
                 // read-only config
                 assert(upd._local_copy_config != nullptr);
                 const config::config_t& current_config = *upd._local_copy_config;
 
-                enable_debug = current_config.enable_debug;
+                //enable_debug = current_config.enable_debug;
 
-                if (current_config.input_fps > 0) {
-                    /// @TODO: use update_fps from confg or "harthbeat" for update rate
-                    //timeout = 1000 / current_config.update_fps;
+                cpu_threshold = current_config.cpu_threshold;
+                update_rate_ms = current_config.update_rate_ms;
+                animation_speed_ms = current_config.animation_speed_ms;
+                fps = current_config.fps;
+                if (update_rate_ms > 0) {
+                    timeout = update_rate_ms;
+                } else if (animation_speed_ms > 0) {
+                    timeout = animation_speed_ms;
                 } else if (current_config.fps > 0) {
-                    timeout = 1000 / current_config.fps * 2;
+                    timeout = 1000 / current_config.fps / 2;
                 }
             }
 
             // init pfds
             constexpr size_t fds_update_config_index = 0;
+            constexpr size_t fds_stat_index = 1;
+            constexpr size_t fds_preset_index = 2;
             pfds[fds_update_config_index] = { .fd = upd.update_config_efd._fd, .events = POLLIN, .revents = 0 };
+            pfds[fds_stat_index] = { .fd = upd.fd_stat._fd, .events = POLLIN, .revents = 0 };
+            pfds[fds_preset_index] = { .fd = upd.fd_present._fd, .events = POLLIN, .revents = 0 };
 
             // poll events
-            const int poll_result = poll(pfds, nfds, timeout);
+            const int poll_result = poll(pfds, nfds, static_cast<int>(timeout));
             if (poll_result < 0) {
                 if (errno == EINTR) continue; // Interrupted by signal
                 BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
@@ -115,11 +283,7 @@ namespace bongocat::platform::update {
                 // draining pools
                 for (size_t i = 0;i < nfds;i++) {
                     if (pfds[i].revents & POLLIN) {
-                        int attempts = 0;
-                        uint64_t u;
-                        while (read(pfds[i].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                            attempts++;
-                        }
+                        drain_event(pfds[i], MAX_ATTEMPTS, "update; cancel pooling");
                     }
                 }
                 break;
@@ -130,33 +294,82 @@ namespace bongocat::platform::update {
             bool reload_config = false;
             uint64_t new_gen{atomic_load(upd._config_generation)};
             if (pfds[fds_update_config_index].revents & POLLIN) {
-                BONGOCAT_LOG_DEBUG("Receive update config event");
-                int attempts = 0;
-                while (read(upd.update_config_efd._fd, &new_gen, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                    attempts++;
-                    // continue draining if multiple writes queued
-                }
-                // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                if (errno != EAGAIN) {
-                    BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                }
-#else
-                if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                    BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                }
-#endif
-
+                BONGOCAT_LOG_DEBUG("update: Receive update config event");
+                drain_event(pfds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
                 reload_config = new_gen > 0;
             }
 
-            // Handle device events
-            {
-                platform::LockGuard guard (upd.update_lock);
-                assert(upd.shm != nullptr);
-                //auto& input_shm = *upd.shm;
+            // Handle stat
+            if (pfds[fds_stat_index].revents & POLLIN) {
+                BONGOCAT_LOG_VERBOSE("Receive update CPU stats event");
+                drain_event(pfds[fds_stat_index], MAX_ATTEMPTS, FILENAME_PROC_STAT);
 
-                // update shm data
+                if (update_rate_ms > 0) {
+                    platform::LockGuard guard (upd.update_lock);
+                    assert(upd.shm != nullptr);
+                    auto& update_shm = *upd.shm;
+
+                    const size_t count = parse_cpuinfo_fd(upd.fd_stat._fd, 0, update_shm.cpu_snapshots.history[update_shm.cpu_snapshots.head].stats, MaxCpus);
+                    update_shm.cpu_snapshots.history[update_shm.cpu_snapshots.head].count = count;
+
+                    {
+                        LockGuard guard_cond (upd.update_cond._mutex);
+                        update_shm.cpu_snapshots.head = (update_shm.cpu_snapshots.head + 1) % CpuSnapshotRingBufferMaxHistory;
+                        if (update_shm.cpu_snapshots.stored < CpuSnapshotRingBufferMaxHistory) update_shm.cpu_snapshots.stored++;
+                        pthread_cond_broadcast(&upd.update_cond._cond);
+                    }
+                }
+            }
+
+            // cpu_present file changed
+            if (pfds[fds_preset_index].revents & POLLIN) {
+                BONGOCAT_LOG_VERBOSE("Receive update CPU present event");
+                drain_event(pfds[fds_preset_index], MAX_ATTEMPTS, FILENAME_CPU_PRESET);
+
+                if (update_rate_ms > 0) {
+                    BONGOCAT_LOG_VERBOSE("cpu_present file changed (hotplug)");
+                }
+            }
+
+            // trigger animation
+            bool animation_triggered = false;
+            if (update_rate_ms > 0) {
+                LockGuard guard (upd.update_lock);
+                assert(upd.shm != nullptr);
+                auto& update_shm = *upd.shm;
+
+                // read-only config
+                assert(upd._local_copy_config != nullptr);
+                const config::config_t& current_config = *upd._local_copy_config;
+
+                update_shm.latest_snapshot = &get_latest_snapshot_unlocked(upd);
+
+                if (update_shm.cpu_snapshots.stored >= 2) {
+                    const size_t latest = (update_shm.cpu_snapshots.head + CpuSnapshotRingBufferMaxHistory - 1) % CpuSnapshotRingBufferMaxHistory;
+                    const size_t prev_i = (latest + CpuSnapshotRingBufferMaxHistory - 1) % CpuSnapshotRingBufferMaxHistory;
+
+                    const cpu_snapshot_t& curr = update_shm.cpu_snapshots.history[latest];
+                    const cpu_snapshot_t& prev = update_shm.cpu_snapshots.history[prev_i];
+
+                    update_shm.avg_cpu_usage = compute_avg_cpu_usage(prev, curr);
+                    update_shm.max_cpu_usage = compute_max_cpu_usage(prev, curr);
+
+                    const bool above_threshold = current_config.cpu_threshold >= ENABLED_MIN_CPU_PERCENT && (update_shm.avg_cpu_usage >= current_config.cpu_threshold || update_shm.max_cpu_usage >= current_config.cpu_threshold);
+                    const bool crossed_delta = fabs(update_shm.avg_cpu_usage - update_shm.last_avg_cpu_usage) >= TRIGGER_ANIMATION_CPU_DIFF_PERCENT || fabs(update_shm.max_cpu_usage - update_shm.last_max_cpu_usage) >= TRIGGER_ANIMATION_CPU_DIFF_PERCENT;
+                    if (above_threshold) {
+                        if (!update_shm.cpu_active || crossed_delta) {
+                            BONGOCAT_LOG_VERBOSE("avg. CPU: %.2f (max: %.2f)", update_shm.avg_cpu_usage, update_shm.max_cpu_usage);
+                            animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
+                            animation_triggered = true;
+                        }
+                        update_shm.cpu_active = true;
+                    } else {
+                        update_shm.cpu_active = false;
+                    }
+                }
+
+                update_shm.last_avg_cpu_usage = update_shm.avg_cpu_usage;
+                update_shm.last_max_cpu_usage = update_shm.max_cpu_usage;
             }
 
             // handle update config
@@ -172,11 +385,47 @@ namespace bongocat::platform::update {
                     return atomic_load(upd._config_generation) >= new_gen;
                 }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
                 if (rc == ETIMEDOUT) {
-                    BONGOCAT_LOG_WARNING("Input: Timed out waiting for reload eventfd: %s", strerror(errno));
+                    BONGOCAT_LOG_WARNING("Update: Timed out waiting for reload eventfd: %s", strerror(errno));
                 }
-                assert(atomic_load(&upd.config_seen_generation) == atomic_load(upd._config_generation));
+                if constexpr (features::Debug) {
+                    if (atomic_load(&upd.config_seen_generation) > atomic_load(upd._config_generation)) {
+                        BONGOCAT_LOG_VERBOSE("Update: update.config_seen_generation > update._config_generation; %d > %d", atomic_load(&upd.config_seen_generation), atomic_load(upd._config_generation));
+                    }
+                }
+                assert(atomic_load(&upd.config_seen_generation) >= atomic_load(upd._config_generation));
                 atomic_store(&upd.config_seen_generation, atomic_load(upd._config_generation));
-                BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", new_gen);
+                BONGOCAT_LOG_INFO("Update config reloaded (gen=%u)", new_gen);
+            }
+
+            if (update_rate_ms) {
+                // sleep
+                struct timespec ts;
+                ts.tv_sec = 0;
+                assert(fps > 0);
+                if (animation_triggered && animation_speed_ms > 0) {
+                    // when animation were triggered, wait for animation to end (assumption), before triggering a possible new animation
+                    ts.tv_nsec = animation_speed_ms * 1000 * 1000;
+                } else if (animation_triggered) {
+                    ts.tv_nsec = (1000 / fps) * 1000 * 1000;
+                } else {
+                    ts.tv_nsec = timeout * 1000 * 1000;
+                }
+                while (ts.tv_nsec >= 1000000000LL) {
+                    ts.tv_nsec -= 1000000000LL;
+                    ts.tv_sec += 1;
+                }
+                nanosleep(&ts, nullptr);
+                {
+                    LockGuard guard (upd.update_lock);
+                    assert(upd.shm != nullptr);
+                    auto& update_shm = *upd.shm;
+                    update_shm.cpu_active = false;
+                }
+            } else {
+                if (update_rate_ms == 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT) {
+                    atomic_store(&upd._running, false);
+                    BONGOCAT_LOG_WARNING("Stop update thread, not needed");
+                }
             }
         }
 
@@ -222,6 +471,21 @@ namespace bongocat::platform::update {
             BONGOCAT_LOG_ERROR("Failed to create notify pipe for update update config: %s", strerror(errno));
             return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
         }
+
+        // open files
+        ret->fd_present = FileDescriptor(open(FILENAME_CPU_PRESET, O_RDONLY));
+        if (ret->fd_present._fd < 0) {
+            BONGOCAT_LOG_ERROR("Failed to open cpu_present");
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+        set_nonblocking(ret->fd_present._fd);
+
+        ret->fd_stat = FileDescriptor(open(FILENAME_PROC_STAT, O_RDONLY));
+        if (ret->fd_stat._fd < 0) {
+            BONGOCAT_LOG_ERROR("Failed to open proc stat");
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+        set_nonblocking(ret->fd_stat._fd);
 
         BONGOCAT_LOG_INFO("Input monitoring started");
         return ret;

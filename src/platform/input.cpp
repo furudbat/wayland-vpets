@@ -113,7 +113,7 @@ namespace bongocat::platform::input {
         input.shm->last_key_pressed_timestamp = now;
         atomic_fetch_add(&input.shm->input_counter, 1);
         atomic_fetch_add(&input._input_kpm_counter, 1);
-        animation::trigger(trigger_ctx);
+        animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::KeyPress);
     }
 
     // for testing
@@ -606,11 +606,7 @@ namespace bongocat::platform::input {
             if (!atomic_load(&input._capture_input_running)) {
                 // draining pools
                 if (pfds[fds_update_config_index].revents & POLLIN) {
-                    int attempts = 0;
-                    uint64_t u;
-                    while (read(pfds[fds_update_config_index].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                        attempts++;
-                    }
+                    drain_event(pfds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
                 }
                 if (fds_device_start_index >= 0) {
                     assert(fds_device_start_index >= 0);
@@ -655,23 +651,8 @@ namespace bongocat::platform::input {
             bool reload_config = false;
             uint64_t new_gen{atomic_load(input._config_generation)};
             if (pfds[fds_update_config_index].revents & POLLIN) {
-                BONGOCAT_LOG_DEBUG("Receive update config event");
-                int attempts = 0;
-                while (read(input.update_config_efd._fd, &new_gen, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                    attempts++;
-                    // continue draining if multiple writes queued
-                }
-                // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                if (errno != EAGAIN) {
-                    BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                }
-#else
-                if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                    BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                }
-#endif
-
+                BONGOCAT_LOG_DEBUG("input: Receive update config event");
+                drain_event(pfds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
                 reload_config = new_gen > 0;
             }
 
@@ -833,7 +814,12 @@ namespace bongocat::platform::input {
                 if (rc == ETIMEDOUT) {
                     BONGOCAT_LOG_WARNING("Input: Timed out waiting for reload eventfd: %s", strerror(errno));
                 }
-                assert(atomic_load(&input.config_seen_generation) == atomic_load(input._config_generation));
+                if constexpr (features::Debug) {
+                    if (atomic_load(&input.config_seen_generation) > atomic_load(input._config_generation)) {
+                        BONGOCAT_LOG_VERBOSE("Input: input.config_seen_generation > input._config_generation; %d > %d", atomic_load(&input.config_seen_generation), atomic_load(input._config_generation));
+                    }
+                }
+                assert(atomic_load(&input.config_seen_generation) >= atomic_load(input._config_generation));
                 atomic_store(&input.config_seen_generation, atomic_load(input._config_generation));
                 BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", new_gen);
             }

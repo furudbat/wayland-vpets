@@ -70,7 +70,7 @@ namespace bongocat::config {
 
     struct config_t {
         char *output_name{nullptr};
-        char *keyboard_devices[MAX_INPUT_DEVICES]{};
+        char *keyboard_devices[input::MAX_INPUT_DEVICES]{};
         int32_t num_keyboard_devices{0};
         int32_t cat_x_offset{0};
         int32_t cat_y_offset{0};
@@ -114,10 +114,13 @@ namespace bongocat::config {
         int32_t keep_old_animation_index{0};
         int32_t strict{0};
 
+        int32_t update_rate_ms{0};
+        double cpu_threshold{0};
+
 
         // Make Config movable and copyable
         config_t() {
-            for (size_t i = 0; i < MAX_INPUT_DEVICES; ++i) {
+            for (size_t i = 0; i < input::MAX_INPUT_DEVICES; ++i) {
                 keyboard_devices[i] = nullptr;
             }
         }
@@ -159,7 +162,9 @@ namespace bongocat::config {
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
               keep_old_animation_index(other.keep_old_animation_index),
-              strict(other.strict)
+              strict(other.strict),
+              update_rate_ms(other.update_rate_ms),
+              cpu_threshold(other.cpu_threshold)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
@@ -203,6 +208,8 @@ namespace bongocat::config {
                 randomize_index = other.randomize_index;
                 keep_old_animation_index = other.keep_old_animation_index;
                 strict = other.strict;
+                update_rate_ms = other.update_rate_ms;
+                cpu_threshold = other.cpu_threshold;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
@@ -246,7 +253,9 @@ namespace bongocat::config {
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
               keep_old_animation_index(other.keep_old_animation_index),
-              strict(other.strict)
+              strict(other.strict),
+              update_rate_ms(other.update_rate_ms),
+              cpu_threshold(other.cpu_threshold)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
@@ -296,6 +305,8 @@ namespace bongocat::config {
                 randomize_index = other.randomize_index;
                 keep_old_animation_index = other.keep_old_animation_index;
                 strict = other.strict;
+                update_rate_ms = other.update_rate_ms;
+                cpu_threshold = other.cpu_threshold;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];
@@ -315,7 +326,7 @@ namespace bongocat::config {
 
     inline void config_free_keyboard_devices(config_t& config) {
         assert(config.num_keyboard_devices >= 0);
-        for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
+        for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < input::MAX_INPUT_DEVICES; i++) {
             if (config.keyboard_devices[i]) ::free(config.keyboard_devices[i]);
             config.keyboard_devices[i] = nullptr;
         }
@@ -325,7 +336,7 @@ namespace bongocat::config {
         config_free_keyboard_devices(config);
         config.num_keyboard_devices = other.num_keyboard_devices;
         assert(config.num_keyboard_devices >= 0);
-        for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < MAX_INPUT_DEVICES; i++) {
+        for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < input::MAX_INPUT_DEVICES; i++) {
             config.keyboard_devices[i] = other.keyboard_devices[i] ? strdup(other.keyboard_devices[i]) : nullptr;
         }
     }

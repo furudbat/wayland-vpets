@@ -87,9 +87,15 @@ namespace bongocat::animation {
         int new_frame{0};
     };
 
+    struct anim_handle_key_press_result_t {
+        int any_key_press_counter{0};
+        bool changed{false};
+        trigger_animation_cause_mask_t triggered_anim_cause{trigger_animation_cause_mask_t::NONE};
+    };
+
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
-                                                                  animation_state_t& state, bool any_key_pressed) {
+                                                                  animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
@@ -111,6 +117,8 @@ namespace bongocat::animation {
         int new_start_frame_index = animation_player_data.start_frame_index;
         int new_end_frame_index = animation_player_data.end_frame_index;
         int new_frame = current_frame;
+
+        const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
 
         // @TODO: get variables as struct to make it more reusable
         const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
@@ -202,7 +210,7 @@ namespace bongocat::animation {
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
-                                                                 animation_state_t& state, bool any_key_pressed) {
+                                                                 animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
 
         // read-only config
@@ -225,7 +233,9 @@ namespace bongocat::animation {
         int new_end_frame_index = animation_player_data.end_frame_index;
         int new_frame = current_frame;
 
-        const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
+        const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
+
+        const bool hold_frame_after_release = (!any_key_pressed && !has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) && state.hold_frame_ms > current_config.keypress_duration_ms;
         const bool process_idle_animation = (current_config.idle_animation && current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.idle_animation && current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
         const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec*1000;
         const bool release_test_frame = current_config.test_animation_duration_ms > 0 && state.frame_delta_ms_counter > current_config.test_animation_duration_ms;
@@ -358,7 +368,7 @@ namespace bongocat::animation {
 
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_ms_pet_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
-                                                                animation_state_t& state, bool any_key_pressed) {
+                                                                animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
 
         // read-only config
@@ -382,8 +392,10 @@ namespace bongocat::animation {
         auto new_end_frame_index = animation_player_data.end_frame_index;
         auto new_frame = current_frame;
 
+        const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
+
         const bool go_next_frame = (current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
-        const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
+        const bool hold_frame_after_release = (!any_key_pressed && !has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) && state.hold_frame_ms > current_config.keypress_duration_ms;
         const bool process_idle_animation = (current_config.idle_animation && current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.idle_animation && current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
         //const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec*1000;
         //const bool release_test_frame = current_config.test_animation_duration_ms > 0 && state.frame_delta_ms_counter > current_config.test_animation_duration_ms;
@@ -610,7 +622,7 @@ namespace bongocat::animation {
 
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
     static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
-                                                              animation_state_t& state, bool any_key_pressed) {
+                                                              animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
@@ -632,6 +644,8 @@ namespace bongocat::animation {
         int new_start_frame_index = animation_player_data.start_frame_index;
         int new_end_frame_index = animation_player_data.end_frame_index;
         int new_frame = current_frame;
+
+        const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
 
         // @TODO: get variables as struct to make it more reusable
         const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
@@ -835,6 +849,95 @@ namespace bongocat::animation {
 
         return { .changed = changed, .new_frame = new_frame};
     }
+
+    static anim_next_frame_result_t anim_dm_working_next_frame(animation_context_t& ctx, const platform::update::update_context_t& upd,
+                                                               animation_state_t& state) {
+        using namespace assets;
+
+        // read-only config
+        assert(ctx._local_copy_config != nullptr);
+        const config::config_t& current_config = *ctx._local_copy_config;
+
+        assert(upd.shm != nullptr);
+        assert(ctx.shm != nullptr);
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+        const auto& update_shm = *upd.shm;
+        auto& animation_player_data = anim_shm.animation_player_data;
+        const auto current_frame = animation_player_data.frame_index;
+        //const auto current_row = animation_player_data.sprite_sheet_row;
+        //const animation_state_row_t current_row_state = state.row_state;
+        //const auto anim_index = anim_shm.anim_index;
+        //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+        const auto& current_frames = reinterpret_cast<dm_animation_t&>(get_current_animation(ctx));
+
+        animation_state_row_t new_row_state = state.row_state;
+        int new_row = animation_player_data.sprite_sheet_row;
+        int new_start_frame_index = animation_player_data.start_frame_index;
+        int new_end_frame_index = animation_player_data.end_frame_index;
+        int new_frame = current_frame;
+
+        /// @TODO: use state machine for animation (states)
+
+        // in Working mode/start working
+        new_row = DM_SPRITE_SHEET_ROWS-1;
+        new_start_frame_index = DM_FRAME_IDLE1;
+        new_end_frame_index = DM_FRAME_IDLE2;
+        /// @TODO: set new Working mode
+        new_row_state = animation_state_row_t::Writing;
+        // toggle frame, show attack animation
+        if (current_frame == DM_FRAME_IDLE1 || current_frame == DM_FRAME_IDLE2) {
+            if (current_config.cpu_threshold > 0 && update_shm.avg_cpu_usage >= current_config.cpu_threshold) {
+                if (current_frames.attack.valid) {
+                    new_start_frame_index = DM_FRAME_ATTACK;
+                    new_end_frame_index = DM_FRAME_ATTACK;
+                    new_frame = DM_FRAME_ATTACK;
+                } else if (current_frames.angry.valid) {
+                    new_start_frame_index = DM_FRAME_ANGRY;
+                    new_end_frame_index = DM_FRAME_ANGRY;
+                    new_frame = DM_FRAME_ANGRY;
+                } else {
+                    // toggle frame
+                    if (current_frame == DM_FRAME_IDLE1) {
+                        new_frame = DM_FRAME_IDLE2;
+                    } else if (current_frame == DM_FRAME_IDLE2) {
+                        new_frame = DM_FRAME_IDLE1;
+                    } else {
+                        static_assert(DM_FRAME_IDLE2 >= DM_FRAME_IDLE1);
+                        static_assert(DM_FRAME_IDLE1 >= 0);
+                        static_assert(DM_FRAME_IDLE2 >= 0);
+                        new_frame = static_cast<int>(ctx._rng.range(DM_FRAME_IDLE1, DM_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+                    }
+                }
+            } else if (current_frame == DM_FRAME_ATTACK || current_frame == DM_FRAME_ANGRY) {
+                // back to idle
+                new_start_frame_index = DM_FRAME_IDLE1;
+                new_end_frame_index = DM_FRAME_IDLE2;
+                new_row_state = animation_state_row_t::Idle;
+                new_frame = DM_FRAME_IDLE1;
+            }
+        } else if (current_frame == DM_FRAME_ATTACK || current_frame == DM_FRAME_ANGRY || current_frame == DM_FRAME_IDLE2) {
+            // back to idle
+            new_start_frame_index = DM_FRAME_IDLE1;
+            new_end_frame_index = DM_FRAME_IDLE2;
+            new_row_state = animation_state_row_t::Idle;
+            new_frame = DM_FRAME_IDLE1;
+        }
+
+        const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
+        if (changed) {
+            anim_shm.animation_player_data.frame_index = new_frame;
+            animation_player_data.sprite_sheet_row = new_row;
+            animation_player_data.start_frame_index = new_start_frame_index;
+            animation_player_data.end_frame_index = new_end_frame_index;
+            state.row_state = new_row_state;
+            if (current_config.enable_debug) {
+                BONGOCAT_LOG_VERBOSE("Animation frame change: %d", new_frame);
+            }
+            state.frame_delta_ms_counter = 0;
+        }
+
+        return { .changed = changed, .new_frame = new_frame};
+    }
 #endif
 
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
@@ -983,7 +1086,7 @@ namespace bongocat::animation {
     }
 #endif
 
-    static bool anim_handle_idle_animation(animation_context_t& ctx, const platform::input::input_context_t& input, animation_state_t& state, bool any_key_pressed) {
+    static bool anim_handle_idle_animation(animation_context_t& ctx, const platform::input::input_context_t& input, animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
 
         // read-only config
@@ -1010,25 +1113,25 @@ namespace bongocat::animation {
                 break;
             case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_bongocat_idle_next_frame(ctx, input, state, any_key_pressed);
+                auto [changed, new_frame] = anim_bongocat_idle_next_frame(ctx, input, state, trigger_result);
                 ret = changed;
 #endif
             }break;
             case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_dm_idle_next_frame(ctx, input, state, any_key_pressed);
+                auto [changed, new_frame] = anim_dm_idle_next_frame(ctx, input, state, trigger_result);
                 ret = changed;
 #endif
             }break;
             case config::config_animation_sprite_sheet_layout_t::Pkmn: {
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_pkmn_idle_next_frame(ctx, input, state, any_key_pressed);
+                auto [changed, new_frame] = anim_pkmn_idle_next_frame(ctx, input, state, trigger_result);
                 ret = changed;
 #endif
             }break;
             case config::config_animation_sprite_sheet_layout_t::MsAgent: {
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_ms_pet_idle_next_frame(ctx, input, state, any_key_pressed);
+                auto [changed, new_frame] = anim_ms_pet_idle_next_frame(ctx, input, state, trigger_result);
                 ret = changed;
 #endif
             }break;
@@ -1036,17 +1139,16 @@ namespace bongocat::animation {
         return ret;
     }
 
-    struct anim_handle_key_press_result_t {
-        bool any_key_pressed{false};
-        bool changed{false};
-    };
-    static anim_handle_key_press_result_t anim_handle_key_press(animation_session_t& animation_trigger_ctx, animation_state_t& state) {
+    static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_session_t& animation_trigger_ctx, animation_state_t& state) {
         using namespace assets;
 
         assert(animation_trigger_ctx._input != nullptr);
         assert(animation_trigger_ctx._input->shm != nullptr);
+        assert(animation_trigger_ctx._update != nullptr);
+        assert(animation_trigger_ctx._update->shm != nullptr);
         animation_context_t& ctx = animation_trigger_ctx.anim;
         [[maybe_unused]] const platform::input::input_context_t& input = *animation_trigger_ctx._input;
+        [[maybe_unused]] const platform::update::update_context_t& upd = *animation_trigger_ctx._update;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);
@@ -1066,37 +1168,55 @@ namespace bongocat::animation {
         timeout_ms = timeout_ms < POOL_MIN_TIMEOUT_MS ? POOL_MIN_TIMEOUT_MS : timeout_ms;
         timeout_ms = timeout_ms > POOL_MAX_TIMEOUT_MS ? POOL_MAX_TIMEOUT_MS : timeout_ms;
 
-        int any_key_pressed = 0;
+        trigger_animation_cause_mask_t triggered_anim_cause = trigger_animation_cause_mask_t::NONE;
+        int any_key_press_counter = 0;
+
         timeout_ms = timeout_ms >= INT_MAX ? INT_MAX : timeout_ms;
         const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
         if (poll_result > 0) {
             // animation trigger event
             if (fds[fds_animation_trigger_index].revents & POLLIN) {
                 BONGOCAT_LOG_VERBOSE("Receive animation trigger event");
-                any_key_pressed = 1;
-
                 uint64_t u;
+                ssize_t rc;
+                int attempts = 0;
                 assert(MAX_ATTEMPTS <= INT_MAX);
-                while (read(animation_trigger_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && any_key_pressed <= static_cast<int>(MAX_ATTEMPTS)) {
-                    any_key_pressed++;
+                while ((rc = read(animation_trigger_ctx.trigger_efd._fd, &u, sizeof(u))) == sizeof(u) &&
+                       attempts < static_cast<int>(MAX_ATTEMPTS))
+                {
+                    attempts++;
+                    auto cause = static_cast<trigger_animation_cause_mask_t>(u);
+                    switch (cause) {
+                        case trigger_animation_cause_mask_t::NONE:
+                            break;
+                        case trigger_animation_cause_mask_t::Init:
+                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                            break;
+                        case trigger_animation_cause_mask_t::KeyPress:
+                            any_key_press_counter++;
+                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                            break;
+                        case trigger_animation_cause_mask_t::IdleUpdate:
+                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                            break;
+                        case trigger_animation_cause_mask_t::CpuUpdate:
+                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                            break;
+                        case trigger_animation_cause_mask_t::UpdateConfig:
+                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                            break;
+                    }
                 }
-                // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                if (errno != EAGAIN) {
-                    BONGOCAT_LOG_ERROR("Error reading animation trigger eventfd: %s", strerror(errno));
+                if (rc < 0) {
+                    check_errno("animation trigger eventfd");
                 }
-#else
-                if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                    BONGOCAT_LOG_ERROR("Error reading animation trigger eventfd: %s", strerror(errno));
-                }
-#endif
+
+                BONGOCAT_LOG_VERBOSE("animation trigger: %zu", triggered_anim_cause);
             }
-        }
-        if (any_key_pressed <= 0) {
-            return { .any_key_pressed = false, .changed = false};
         }
 
         assert(input.shm != nullptr);
+        assert(upd.shm != nullptr);
         assert(ctx.shm != nullptr);
         animation_shared_memory_t& anim_shm = *ctx.shm;
         //const auto& input_shm = *input.shm;
@@ -1108,45 +1228,73 @@ namespace bongocat::animation {
 
         bool ret = false;
         [[maybe_unused]] int ret_new_frame = current_frame;
-        switch (anim_shm.anim_type) {
-            case config::config_animation_sprite_sheet_layout_t::None:
-                break;
-            case config::config_animation_sprite_sheet_layout_t::Bongocat: {
-#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_bongocat_key_pressed_next_frame(ctx, state);
-                ret = changed;
-                ret_new_frame = new_frame;
-#endif
-            }break;
-            case config::config_animation_sprite_sheet_layout_t::Dm: {
+
+        // handle working animation
+        if (has_flag(triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) {
+            switch (anim_shm.anim_type) {
+                case config::config_animation_sprite_sheet_layout_t::None:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_dm_key_pressed_next_frame(ctx, input, state);
-                ret = changed;
-                ret_new_frame = new_frame;
+                    auto [changed, new_frame] = anim_dm_working_next_frame(ctx, upd, state);
+                    ret = changed;
+                    ret_new_frame = new_frame;
 #endif
-            }break;
-            case config::config_animation_sprite_sheet_layout_t::Pkmn: {
-#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_pkmn_key_pressed_next_frame(ctx, input, state);
-                ret = changed;
-                ret_new_frame = new_frame;
-#endif
-            }break;
-            case config::config_animation_sprite_sheet_layout_t::MsAgent: {
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_ms_pet_key_pressed_next_frame(ctx, state);
-                ret = changed;
-                ret_new_frame = new_frame;
-#endif
-            }break;
+                }break;
+                case config::config_animation_sprite_sheet_layout_t::Pkmn:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                    break;
+            }
+            BONGOCAT_LOG_VERBOSE("CPU update detected - switching to frame %d (%zu)", ret_new_frame, triggered_anim_cause);
         }
-        BONGOCAT_LOG_VERBOSE("Key press detected - switching to frame %d", ret_new_frame);
-        return { .any_key_pressed = any_key_pressed > 0, .changed = ret };
+
+        // handle key press animation
+        if (has_flag(triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress)) {
+            switch (anim_shm.anim_type) {
+                case config::config_animation_sprite_sheet_layout_t::None:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Bongocat: {
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+                    auto [changed, new_frame] = anim_bongocat_key_pressed_next_frame(ctx, state);
+                    ret = changed;
+                    ret_new_frame = new_frame;
+#endif
+                }break;
+                case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+                    auto [changed, new_frame] = anim_dm_key_pressed_next_frame(ctx, input, state);
+                    ret = changed;
+                    ret_new_frame = new_frame;
+#endif
+                }break;
+                case config::config_animation_sprite_sheet_layout_t::Pkmn: {
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+                    auto [changed, new_frame] = anim_pkmn_key_pressed_next_frame(ctx, input, state);
+                    ret = changed;
+                    ret_new_frame = new_frame;
+#endif
+                }break;
+                case config::config_animation_sprite_sheet_layout_t::MsAgent: {
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+                    auto [changed, new_frame] = anim_ms_pet_key_pressed_next_frame(ctx, state);
+                    ret = changed;
+                    ret_new_frame = new_frame;
+#endif
+                }break;
+            }
+            BONGOCAT_LOG_VERBOSE("Key press detected - switching to frame %d (%zu)", ret_new_frame, triggered_anim_cause);
+        }
+
+        return { .any_key_press_counter = any_key_press_counter, .changed = ret, .triggered_anim_cause = triggered_anim_cause };
     }
 
     static bool anim_update_state(animation_session_t& animation_trigger_ctx, animation_state_t& state) {
         assert(animation_trigger_ctx._input);
         platform::input::input_context_t& input = *animation_trigger_ctx._input;
+        platform::update::update_context_t& upd = *animation_trigger_ctx._update;
         animation_context_t& ctx = animation_trigger_ctx.anim;
         // read-only config
         assert(ctx._local_copy_config != nullptr);
@@ -1156,29 +1304,30 @@ namespace bongocat::animation {
         {
             state.frame_delta_ms_counter += state.frame_time_ms;
 
+            anim_handle_key_press_result_t trigger_result;
             bool idle_changed = false;
-            bool any_key_pressed = false;
-            bool press_changed = false;
+            bool hold_frame = false;
+            bool key_pressed = false;
             {
                 platform::LockGuard input_guard (input.input_lock);
-                const volatile auto key_press_result = anim_handle_key_press(animation_trigger_ctx, state);
-                any_key_pressed = key_press_result.any_key_pressed;
-                press_changed = key_press_result.changed;
-                idle_changed = anim_handle_idle_animation(ctx, input, state, any_key_pressed);
+                platform::LockGuard update_guard (upd.update_lock);
+                trigger_result = anim_handle_animation_trigger(animation_trigger_ctx, state);
+                hold_frame = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) || has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate);
+                idle_changed = anim_handle_idle_animation(ctx, input, state, trigger_result);
             }
-
-            if (press_changed) {
+            key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
+            ret = idle_changed || trigger_result.changed;
+            if (key_pressed) {
                 BONGOCAT_LOG_VERBOSE("Trigger key press animation");
             }
             if (idle_changed) {
                 BONGOCAT_LOG_VERBOSE("Trigger idle animation");
             }
 
-            ret = idle_changed || press_changed;
-            if (!state.hold_frame_after_release && any_key_pressed) {
+            if (!state.hold_frame_after_release && hold_frame) {
                 state.hold_frame_after_release = true;
             }
-            if (state.hold_frame_after_release && !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms && idle_changed) {
+            if (state.hold_frame_after_release && (!key_pressed && !hold_frame) && state.hold_frame_ms > current_config.keypress_duration_ms && idle_changed) {
                 state.hold_frame_after_release = false;
                 state.hold_frame_ms = 0;
             }
@@ -1211,7 +1360,7 @@ namespace bongocat::animation {
 
     static void cleanup_anim_thread(void* arg) {
         assert(arg);
-        animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
+        animation_session_t& trigger_ctx = *static_cast<animation_session_t*>(arg);
 
         atomic_store(&trigger_ctx.anim._animation_running, false);
 
@@ -1224,7 +1373,7 @@ namespace bongocat::animation {
         using namespace assets;
 
         assert(arg);
-        auto& trigger_ctx = *static_cast<animation_session_t *>(arg);
+        auto& trigger_ctx = *static_cast<animation_session_t*>(arg);
 
         // sanity checks
         assert(trigger_ctx._input);
@@ -1340,36 +1489,15 @@ namespace bongocat::animation {
                 if (!atomic_load(&ctx._animation_running)) {
                     // draining pools
                     for (size_t i = 0; i < fds_count; i++) {
-                        if (fds[i].revents & POLLIN) {
-                            int attempts = 0;
-                            uint64_t u;
-                            while (read(fds[i].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                                attempts++;
-                            }
-                        }
+                        platform::drain_event(fds[i], MAX_ATTEMPTS, "animation; cancel pooling");
                     }
                     break;
                 }
 
                 // Handle config update
                 if (fds[fds_update_config_index].revents & POLLIN) {
-                    BONGOCAT_LOG_DEBUG("Receive update config event");
-                    int attempts = 0;
-                    while (read(trigger_ctx.anim.update_config_efd._fd, &new_gen, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                        attempts++;
-                        // continue draining if multiple writes queued
-                    }
-                    // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                    if (errno != EAGAIN) {
-                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                    }
-#else
-                    if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                    }
-#endif
-
+                    BONGOCAT_LOG_DEBUG("animation: Receive update config event");
+                    platform::drain_event(fds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
                     reload_config = new_gen > 0;
                 }
             }
@@ -1445,7 +1573,12 @@ namespace bongocat::animation {
                 if (rc == ETIMEDOUT) {
                     BONGOCAT_LOG_WARNING("Animation: Timed out waiting for reload eventfd: %s", strerror(errno));
                 }
-                assert(atomic_load(&trigger_ctx.anim.config_seen_generation) == atomic_load(trigger_ctx._config_generation));
+                if constexpr (features::Debug) {
+                    if (atomic_load(&trigger_ctx.anim.config_seen_generation) > atomic_load(trigger_ctx._config_generation)) {
+                        BONGOCAT_LOG_VERBOSE("Animation: trigger_ctx.anim.config_seen_generation > trigger_ctx._config_generation; %d > %d", atomic_load(&trigger_ctx.anim.config_seen_generation), atomic_load(trigger_ctx._config_generation));
+                    }
+                }
+                assert(atomic_load(&trigger_ctx.anim.config_seen_generation) >= atomic_load(trigger_ctx._config_generation));
                 atomic_store(&trigger_ctx.anim.config_seen_generation, atomic_load(trigger_ctx._config_generation));
                 BONGOCAT_LOG_INFO("Animation config reloaded (gen=%u)", new_gen);
             }
@@ -1501,10 +1634,10 @@ namespace bongocat::animation {
     }
 
 
-    void trigger(animation_session_t& trigger_ctx) {
-        constexpr uint64_t u = 1;
+    void trigger(animation_session_t& trigger_ctx, trigger_animation_cause_mask_t cause) {
+        const auto u = static_cast<uint64_t>(cause);
         if (write(trigger_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) >= 0) {
-            BONGOCAT_LOG_VERBOSE("Write animation trigger event");
+            BONGOCAT_LOG_VERBOSE("Write animation trigger event: %zu", cause);
         } else {
             BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
         }

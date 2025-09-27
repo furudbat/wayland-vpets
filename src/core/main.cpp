@@ -353,6 +353,7 @@ namespace bongocat {
 
         // If successful, update the global config
         bool devices_changed = false;
+        bool update_needed = false;
         {
             platform::LockGuard guard (get_main_context().sync_configs);
             uint64_t new_gen{atomic_load(&get_main_context().config_generation)};
@@ -365,6 +366,9 @@ namespace bongocat {
             }
             // If successful, check if input devices changed before updating config
             devices_changed = config_devices_changed(old_config, new_config);
+            // update features had been enabled
+            update_needed = (new_config.cpu_threshold > old_config.cpu_threshold && old_config.cpu_threshold < platform::ENABLED_MIN_CPU_PERCENT && new_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT) ||
+                            (new_config.update_rate_ms > 0 && old_config.update_rate_ms <= 0);
             get_main_context().config = bongocat::move(new_config);
             /// @NOTE: don't use new_config after move
             new_config = {};
@@ -412,7 +416,7 @@ namespace bongocat {
         BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", get_main_context().wayland->wayland_context._screen_width, get_main_context().wayland->wayland_context._bar_height);
 
         assert(get_main_context().animation != nullptr);
-        animation::trigger(*get_main_context().animation);
+        animation::trigger(*get_main_context().animation, animation::trigger_animation_cause_mask_t::UpdateConfig);
 
         // Check if input devices changed and restart monitoring if needed
         if (devices_changed) {
@@ -422,6 +426,17 @@ namespace bongocat {
                 BONGOCAT_LOG_ERROR("Failed to restart input monitoring: %s", bongocat::error_string(input_result));
             } else {
                 BONGOCAT_LOG_INFO("Input monitoring restarted successfully");
+            }
+        }
+
+        // Check if update features are enabled and restart update if needed
+        if (update_needed) {
+            BONGOCAT_LOG_INFO("Update features enabled, restarting update thread");
+            const bongocat_error_t update_result = platform::update::restart(*get_main_context().update, *get_main_context().animation, get_main_context().config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
+            if (update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Failed to restart update thread: %s", bongocat::error_string(update_result));
+            } else {
+                BONGOCAT_LOG_INFO("Update thread restarted successfully");
             }
         }
     }

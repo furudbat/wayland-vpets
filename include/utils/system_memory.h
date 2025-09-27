@@ -9,6 +9,7 @@
 #include <stdatomic.h>
 #include <pthread.h>
 #include <cassert>
+#include <sys/poll.h>
 
 namespace bongocat::platform {
     int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms);
@@ -999,6 +1000,34 @@ namespace bongocat::platform {
             ::close(fd._fd);
             fd._fd = -1;
         }
+    }
+
+    struct drain_event_result_t { uint64_t result{0}; int err{0}; };
+    inline drain_event_result_t drain_event(pollfd& pfd, int max_attempts, [[maybe_unused]] const char* fd_name) noexcept {
+        drain_event_result_t ret;
+        if (pfd.revents & POLLIN) {
+            int attempts = 0;
+            ssize_t rc{0};
+            uint64_t u{0};
+            while ((rc = read(pfd.fd, &u, sizeof(u))) == sizeof(u) && attempts < max_attempts) {
+                ret.result = u;
+                attempts++;
+            }
+            ret.err = errno;
+            if (max_attempts > 1 && rc < 0) {
+                // supress compiler warning
+#if EAGAIN == EWOULDBLOCK
+                if (ret.err != EAGAIN) {
+                    BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(ret.err));
+                }
+#else
+                if (ret.err != EAGAIN && ret.err != EWOULDBLOCK) {
+                    BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(ret.err));
+                }
+#endif
+            }
+        }
+        return ret;
     }
 }
 

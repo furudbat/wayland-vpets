@@ -16,9 +16,6 @@ static inline constexpr int32_t DEFAULT_FPS = 60;
 inline static constexpr int32_t RGBA_CHANNELS = 4;
 inline static constexpr int32_t BGRA_CHANNELS = 4;
 
-inline static constexpr size_t MAX_INPUT_DEVICES = 256;
-static_assert(MAX_INPUT_DEVICES <= INT32_MAX);
-
 namespace bongocat {
     template<typename T>
     struct created_result_t {
@@ -147,6 +144,14 @@ namespace bongocat {
 
     }
 
+    // Global consts
+    namespace input {
+        inline static constexpr size_t MAX_INPUT_DEVICES = 256;
+        static_assert(MAX_INPUT_DEVICES <= INT32_MAX);
+    }
+    namespace platform {
+        inline static constexpr double ENABLED_MIN_CPU_PERCENT = 1.0; // in percent
+    }
 
 
     template <typename Enum>

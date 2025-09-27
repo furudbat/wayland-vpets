@@ -1242,13 +1242,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 if (!running) {
                     // draining pools
                     for (size_t i = 0; i < fds_count; i++) {
-                        if (fds[i].revents & POLLIN) {
-                            int attempts = 0;
-                            uint64_t u;
-                            while (read(fds[i].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                                attempts++;
-                            }
-                        }
+                        platform::drain_event(fds[i], MAX_ATTEMPTS, "wayland; cancel pooling");
                     }
                     if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
                     render_requested = false;
@@ -1259,48 +1253,16 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 // reload config event
                 if (fds[fds_config_reload_index].revents & POLLIN) {
                     BONGOCAT_LOG_DEBUG("Receive reload event");
-
-                    int attempts = 0;
-                    uint64_t u;
-                    while (read(config_watcher ? config_watcher->reload_efd._fd : -1, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                        attempts++;
-                        // continue draining if multiple writes queued
+                    if (config_watcher) {
+                        platform::drain_event(fds[fds_config_reload_index], MAX_ATTEMPTS, "update config eventfd");
                     }
-                    // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                    if (errno != EAGAIN) {
-                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                    }
-#else
-                    if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                    }
-#endif
-
                     config_reload_requested = true;
                 }
 
                 // render event
                 if (fds[fds_animation_render_index].revents & POLLIN) {
                     BONGOCAT_LOG_VERBOSE("Receive render event");
-
-                    int attempts = 0;
-                    uint64_t u;
-                    while (read(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                        attempts++;
-                        // continue draining if multiple writes queued
-                    }
-                    // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                    if (errno != EAGAIN) {
-                        BONGOCAT_LOG_ERROR("Error reading render eventfd: %s", strerror(errno));
-                    }
-#else
-                    if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                        BONGOCAT_LOG_ERROR("Error reading render eventfd: %s", strerror(errno));
-                    }
-#endif
-
+                    platform::drain_event(fds[fds_animation_render_index], MAX_ATTEMPTS, "render eventfd");
                     render_requested = true;
                 }
 
