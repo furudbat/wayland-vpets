@@ -1466,7 +1466,7 @@ namespace bongocat::animation {
     // PUBLIC API IMPLEMENTATION
     // =============================================================================
 
-    bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input, const config::config_t& config, platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
+    bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input, platform::update::update_context_t& upd, const config::config_t& config, platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
         BONGOCAT_LOG_INFO("Starting animation thread");
 
         // Initialize shared memory for local config
@@ -1480,6 +1480,7 @@ namespace bongocat::animation {
 
         // set extern/global references
         trigger_ctx._input = &input;
+        trigger_ctx._update = &upd;
         trigger_ctx._config = &config;
         trigger_ctx._configs_reloaded_cond = &configs_reloaded_cond;
         trigger_ctx._config_generation = &config_generation;

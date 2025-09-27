@@ -3,6 +3,7 @@
 
 #include "graphics/animation_context.h"
 #include "platform/input_context.h"
+#include "platform/update_context.h"
 
 namespace bongocat::animation {
 
@@ -21,7 +22,8 @@ namespace bongocat::animation {
         const config::config_t *_config{nullptr};
         platform::CondVariable *_configs_reloaded_cond{nullptr};
         platform::input::input_context_t *_input{nullptr};
-        atomic_uint64_t* _config_generation{nullptr};
+        platform::update::update_context_t *_update{nullptr};
+        atomic_uint64_t *_config_generation{nullptr};
         atomic_bool ready;
         platform::CondVariable init_cond;
 
@@ -56,6 +58,7 @@ namespace bongocat::animation {
 
         anim_ctx._config = nullptr;
         anim_ctx._input = nullptr;
+        anim_ctx._update = nullptr;
         anim_ctx._configs_reloaded_cond = nullptr;
         atomic_store(&anim_ctx.ready, false);
         anim_ctx.init_cond.notify_all();

@@ -83,6 +83,7 @@ set(SOURCES
         graphics/bar.cpp
         graphics/drawing_images.cpp
         platform/input.cpp
+        platform/update.cpp
         platform/wayland.cpp
 )
 add_library(bongocat_base INTERFACE)

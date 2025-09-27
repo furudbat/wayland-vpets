@@ -2,6 +2,7 @@
 #include "platform/wayland.h"
 #include "graphics/animation.h"
 #include "platform/input.h"
+#include "platform/update.h"
 #include "config/config.h"
 #include "utils/error.h"
 #include "utils/memory.h"
@@ -30,6 +31,7 @@ namespace bongocat {
 
     static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS = 5000;
     static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_INPUT_THREAD_MS = 2000;
+    static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS = 5000;
     static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS = 1000;
     inline static constexpr platform::time_ms_t COND_RELOAD_CONFIG_TIMEOUT_MS = 5000;
 
@@ -47,7 +49,9 @@ namespace bongocat {
         config::load_config_overwrite_parameters_t overwrite_config_parameters;
 
         AllocatedMemory<config::config_watcher_t> config_watcher;
-        AllocatedMemory<platform::input::input_context_t> input;   AllocatedMemory<animation::animation_session_t> animation;
+        AllocatedMemory<platform::input::input_context_t> input;
+        AllocatedMemory<platform::update::update_context_t> update;
+        AllocatedMemory<animation::animation_session_t> animation;
         AllocatedMemory<platform::wayland::wayland_session_t> wayland;
 
         const char *signal_watch_path{nullptr};
@@ -71,16 +75,19 @@ namespace bongocat {
         // stop threads
         if (context.animation != nullptr) atomic_store(&context.animation->anim._animation_running, false);
         if (context.input != nullptr) atomic_store(&context.input->_capture_input_running, false);
+        if (context.update != nullptr) atomic_store(&context.update->_running, false);
         if (context.config_watcher != nullptr) atomic_store(&context.config_watcher->_running, false);
 
         // wait for threads
         if (context.animation != nullptr) platform::join_thread_with_timeout(context.animation->anim._anim_thread, WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS);
         if (context.input != nullptr) platform::join_thread_with_timeout(context.input->_input_thread, WAIT_FOR_SHUTDOWN_INPUT_THREAD_MS);
+        if (context.update != nullptr) platform::join_thread_with_timeout(context.update->_update_thread, WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS);
         if (context.config_watcher != nullptr) platform::join_thread_with_timeout(context.config_watcher->_watcher_thread, WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS);
 
         // stop threads
         if (context.animation != nullptr) animation::stop(*context.animation);
         if (context.input != nullptr) platform::input::stop(*context.input);
+        if (context.update != nullptr) platform::update::stop(*context.update);
         if (context.config_watcher != nullptr) config::stop_watcher(*context.config_watcher);
 
         context.config_generation = 0;
@@ -98,12 +105,14 @@ namespace bongocat {
         // Cleanup systems
         if (context.animation != nullptr) cleanup(*context.animation);
         if (context.input != nullptr) cleanup(*context.input);
+        if (context.update != nullptr) cleanup(*context.update);
         if (context.signal_fd._fd >= 0) close_fd(context.signal_fd);
         if (context.config_watcher != nullptr) cleanup_watcher(*context.config_watcher);
         context.signal_watch_path = nullptr;
 
         release_allocated_memory(context.config_watcher);
         release_allocated_memory(context.input);
+        release_allocated_memory(context.update);
         release_allocated_memory(context.animation);
         release_allocated_memory(context.wayland);
 
@@ -367,6 +376,7 @@ namespace bongocat {
 
             // Update the running systems with new config
             platform::input::trigger_update_config(*get_main_context().input, get_main_context().config, new_gen);
+            platform::update::trigger_update_config(*get_main_context().update, get_main_context().config, new_gen);
             animation::trigger_update_config(*get_main_context().animation, get_main_context().config, new_gen);
             update_config(get_main_context().wayland->wayland_context, get_main_context().config, *get_main_context().animation);
 
@@ -374,6 +384,9 @@ namespace bongocat {
             // Wait for both workers to catch up
             get_main_context().input->config_updated.timedwait([&] {
                 return !atomic_load(&get_main_context().input->_capture_input_running) || get_main_context().input->config_seen_generation >= new_gen;
+            }, COND_RELOAD_CONFIG_TIMEOUT_MS);
+            get_main_context().update->config_updated.timedwait([&] {
+                return !atomic_load(&get_main_context().update->_running) || get_main_context().update->config_seen_generation >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
             get_main_context().animation->anim.config_updated.timedwait([&] {
                 return !atomic_load(&get_main_context().animation->anim._animation_running) || get_main_context().animation->anim.config_seen_generation >= new_gen;
@@ -383,6 +396,9 @@ namespace bongocat {
             // fallback when cond hits timeout (sync config generations)
             if (atomic_load(&get_main_context().input->_capture_input_running)) {
                 atomic_store(&get_main_context().input->config_seen_generation, new_gen);
+            }
+            if (atomic_load(&get_main_context().update->_running)) {
+                atomic_store(&get_main_context().update->config_seen_generation, new_gen);
             }
             if (atomic_load(&get_main_context().animation->anim._animation_running)) {
                 atomic_store(&get_main_context().animation->anim.config_seen_generation, new_gen);
@@ -465,6 +481,16 @@ namespace bongocat {
             ctx.input = bongocat::move(input);
         }
 
+        // Initialize update system
+        {
+            auto [update, update_error] = platform::update::create(ctx.config);
+            if (update_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Failed to initialize updfate system: %s", bongocat::error_string(update_error));
+                return update_error;
+            }
+            ctx.update = bongocat::move(update);
+        }
+
         // Initialize animation system
         {
             animation::init_image_loader();
@@ -489,26 +515,48 @@ namespace bongocat {
         }
 
         // Setup wayland
-        assert(ctx.input != nullptr);
-        assert(ctx.animation != nullptr);
-        bongocat_error_t setup_wayland_result = setup(*ctx.wayland, *ctx.animation);
-        if (setup_wayland_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-            BONGOCAT_LOG_ERROR("Failed to setup wayland: %s", bongocat::error_string(setup_wayland_result));
-            return setup_wayland_result;
+        {
+            assert(ctx.wayland != nullptr);
+            assert(ctx.animation != nullptr);
+            bongocat_error_t setup_wayland_result = setup(*ctx.wayland, *ctx.animation);
+            if (setup_wayland_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Failed to setup wayland: %s", bongocat::error_string(setup_wayland_result));
+                return setup_wayland_result;
+            }
         }
 
         // Start animation thread
-        bongocat_error_t start_animation_result = animation::start(*ctx.animation, *ctx.input, ctx.config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
-        if (start_animation_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-            BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat::error_string(start_animation_result));
-            return start_animation_result;
+        {
+            assert(ctx.animation != nullptr);
+            assert(ctx.input != nullptr);
+            assert(ctx.update != nullptr);
+            bongocat_error_t start_animation_result = animation::start(*ctx.animation, *ctx.input, *ctx.update, ctx.config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
+            if (start_animation_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat::error_string(start_animation_result));
+                return start_animation_result;
+            }
         }
 
         // Start input monitoring
-        bongocat_error_t start_input_result = platform::input::start(*ctx.input, *ctx.animation, ctx.config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
-        if (start_input_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-            BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat::error_string(start_input_result));
-            return start_input_result;
+        {
+            assert(ctx.animation != nullptr);
+            assert(ctx.input != nullptr);
+            bongocat_error_t start_input_result = platform::input::start(*ctx.input, *ctx.animation, ctx.config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
+            if (start_input_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Failed to start input monitoring: %s", bongocat::error_string(start_input_result));
+                return start_input_result;
+            }
+        }
+
+        // Start update monitoring
+        {
+            assert(ctx.animation != nullptr);
+            assert(ctx.update != nullptr);
+            bongocat_error_t start_update_result = platform::update::start(*ctx.update, *ctx.animation, ctx.config, get_main_context().configs_reloaded_cond, get_main_context().config_generation);
+            if (start_update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Failed to start update thread: %s", bongocat::error_string(start_update_result));
+                return start_update_result;
+            }
         }
 
         return bongocat_error_t::BONGOCAT_SUCCESS;

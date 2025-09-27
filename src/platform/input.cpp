@@ -310,6 +310,7 @@ namespace bongocat::platform::input {
         // init unique devices
         size_t track_valid_devices = 0;
         {
+            [[maybe_unused]] const auto t0 = platform::get_current_time_us();
             auto [valid_devices, init_devices_result] = sync_devices(input);
             if (init_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 atomic_store(&input._capture_input_running, false);
@@ -317,7 +318,9 @@ namespace bongocat::platform::input {
                 BONGOCAT_LOG_ERROR("Failed to init devices and file descriptors");
                 return nullptr;
             }
-            BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices", valid_devices, input._device_paths.count);
+            [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+
+            BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices; init time %.3fms (%.6fsec)", valid_devices, input._device_paths.count, static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
             track_valid_devices = valid_devices;
         }
 
@@ -367,7 +370,7 @@ namespace bongocat::platform::input {
 
             // only map valid fds into pfds
             constexpr size_t fds_update_config_index = 0;
-            pfds[0] = { .fd = input.update_config_efd._fd, .events = POLLIN, .revents = 0 };
+            pfds[fds_update_config_index] = { .fd = input.update_config_efd._fd, .events = POLLIN, .revents = 0 };
 
             ssize_t fds_device_start_index = input._unique_devices.count > 0 ? 1 : -1;
             ssize_t fds_device_end_index = input._unique_devices.count > 0 ? fds_device_start_index : -1;
@@ -398,7 +401,6 @@ namespace bongocat::platform::input {
                 BONGOCAT_LOG_ERROR("All input devices became unavailable");
                 break;
             } else if (device_nfds > MAX_DEVICE_FDS) {
-                BONGOCAT_LOG_WARNING("Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
                 device_nfds = MAX_DEVICE_FDS;
                 fds_stdin_index = -1;
             }
@@ -408,6 +410,19 @@ namespace bongocat::platform::input {
             if (fds_stdin_index >= 0) {
                 pfds[fds_stdin_index] = { .fd = tty_fd._fd, .events = POLLIN, .revents = 0 };
                 nfds++;
+            }
+            {
+                // read-only config
+                assert(input._local_copy_config != nullptr);
+                const config::config_t& current_config = *input._local_copy_config;
+                if (device_nfds > MAX_DEVICE_FDS) {
+                    if (current_config.strict) {
+                        BONGOCAT_LOG_ERROR("Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
+                        break;
+                    } else {
+                        BONGOCAT_LOG_WARNING("Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
+                    }
+                }
             }
 
             /// @TODO: move to tests
