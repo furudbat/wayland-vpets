@@ -15,6 +15,7 @@
 #include <fcntl.h>
 #include <sys/signalfd.h>
 #include <libgen.h>
+#include <cerrno>
 
 #include "image_loader/load_images.h"
 
@@ -127,7 +128,7 @@ namespace bongocat {
     // =============================================================================
 
     struct cli_args_t {
-        const char *config_file{};
+        const char *config_file{nullptr};
         bool watch_config{false};
         bool toggle_mode{false};
         bool show_help{false};
@@ -136,6 +137,11 @@ namespace bongocat {
         int32_t randomize_index{-1};
         int32_t strict{-1};
         bool ignore_running{false};
+        int64_t nr{-1};
+
+        bool nr_set{false};
+        bool output_name_set{false};
+        bool config_file_set{false};
     };
 
     // =============================================================================
@@ -147,6 +153,7 @@ namespace bongocat {
     inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_TEMPLATE = "/tmp/bongocat-%s.pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE = "/tmp/bongocat-%s.%d.pid";
+    inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_TEMPLATE = "/tmp/bongocat-%" PRId64 ".pid";
 
     static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
         platform::FileDescriptor fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644));
@@ -544,6 +551,7 @@ namespace bongocat {
         printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
         printf("      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
         printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
+        printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting ruinning instances\n");
         printf("      --ignore-running        Ignore current running instance\n");
         printf("\n");
         printf("Included sets:\n");
@@ -585,6 +593,7 @@ namespace bongocat {
             } else if (strcmp(argv[i], "--version") == 0 || strcmp(argv[i], "-v") == 0) {
                 args.show_version = true;
             } else if (strcmp(argv[i], "--config") == 0 || strcmp(argv[i], "-c") == 0) {
+                args.config_file_set = true;
                 if (i + 1 < argc) {
                     args.config_file = argv[i + 1];
                     i++; // Skip the next argument since it's the config file path
@@ -602,7 +611,22 @@ namespace bongocat {
                 args.strict = 1;
             } else if (strcmp(argv[i], "--ignore-running") == 0) {
                 args.ignore_running = true;
-            }else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
+            } else if (strcmp(argv[i], "--nr") == 0) {
+                args.nr_set = true;
+                if (i + 1 < argc) {
+                    char *endptr{nullptr};
+                    args.nr = strtoll(argv[i + 1], &endptr, 10);
+                    if (*endptr != '\0' || errno == ERANGE) {
+                        BONGOCAT_LOG_ERROR("--nr option requires a valid number");
+                        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+                    }
+                    i++; // Skip the next argument since it's the nr value
+                } else {
+                    BONGOCAT_LOG_ERROR("--nr option requires a number");
+                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+                }
+            } else if (strcmp(argv[i], "--output-name") == 0 || strcmp(argv[i], "-o") == 0) {
+                args.output_name_set = true;
                 if (i + 1 < argc) {
                     args.output_name = argv[i + 1];
                     i++; // Skip the next argument since it's the output name
@@ -662,8 +686,32 @@ int main(int argc, char *argv[]) {
     ctx.config = bongocat::move(config);
     bongocat::error_init(ctx.config.enable_debug);
 
-    // set pid file, based on output_name
-    if (ctx.config.output_name && ctx.config.output_name[0] != '\0') {
+    // validate args
+    if (config.strict) {
+        if (args.nr_set && args.nr < 0) {
+            BONGOCAT_LOG_ERROR("--nr needs to be a positive number");
+            return EXIT_FAILURE;
+        }
+        if (args.output_name_set && (!args.output_name || strlen(args.output_name) <= 0)) {
+            BONGOCAT_LOG_ERROR("--output_name value is missing");
+            return EXIT_FAILURE;
+        }
+        if (args.config_file_set && (!args.config_file || strlen(args.config_file) <= 0)) {
+            BONGOCAT_LOG_ERROR("--config_file value is missing");
+            return EXIT_FAILURE;
+        }
+    }
+
+    if (args.nr >= 0) {
+        // set pid file, based on nr
+        const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_NR_TEMPLATE, args.nr) + 1;
+        assert(needed_size >= 0);
+        ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
+        if (ctx.pid_filename != nullptr) {
+            snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_NR_TEMPLATE, args.nr);
+        }
+    } else if (ctx.config.output_name && ctx.config.output_name[0] != '\0') {
+        // set pid file, based on output_name
         if (!args.ignore_running) {
             const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name) + 1;
             assert(needed_size >= 0);
