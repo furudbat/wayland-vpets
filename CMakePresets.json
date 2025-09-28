@@ -176,15 +176,16 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
         "FEATURE_PKMN_EMBEDDED_ASSETS": "ON"
       }
     },
     {
-      "name": "debug_all_assets_colored_preload",
+      "name": "debug_all_assets_preload",
       "displayName": "Debug (All Assets + colored sprites, assets preloaded)",
       "description": "Debug build with ALL assets (full dm versions + colored sprites), pre-loaded at start (for testing)",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored-preload",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-preload",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
@@ -197,17 +198,18 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
         "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "ON",
         "FEATURE_LAZY_LOAD_ASSETS": "OFF"
       }
     },
     {
-      "name": "debug_all_assets_colored_lazy_load",
+      "name": "debug_all_assets_lazy_load",
       "displayName": "Debug (All Assets + colored sprites, assets lazy load)",
       "description": "Debug build with ALL assets (full dm versions + colored sprites), lazy load assets on demand",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-colored-lazy-load",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-lazy-load",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
@@ -220,6 +222,7 @@
         "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
         "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
         "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "OFF",
         "FEATURE_LAZY_LOAD_ASSETS": "ON"

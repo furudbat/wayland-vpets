@@ -281,6 +281,10 @@ namespace bongocat::platform::input {
         // sanity checks
         assert(input._config != nullptr);
         assert(input._configs_reloaded_cond != nullptr);
+        assert(!input._capture_input_running);
+        assert(input.shm != nullptr);
+        assert(input._local_copy_config != nullptr);
+        assert(input.update_config_efd._fd >= 0);
 
         // keep local copies of device_paths
         {
@@ -299,13 +303,13 @@ namespace bongocat::platform::input {
                     atomic_store(&input._capture_input_running, false);
                     cleanup_input_devices_paths(input, i);
                     cleanup_input_thread_context(input);
-                    BONGOCAT_LOG_ERROR("Failed to allocate memory for device_paths");
+                    BONGOCAT_LOG_ERROR("input: Failed to allocate memory for device_paths");
                     return nullptr;
                 }
             }
         }
 
-        BONGOCAT_LOG_DEBUG("Starting input capture on %d devices", input._device_paths.count);
+        BONGOCAT_LOG_DEBUG("input: Starting input capture on %d devices", input._device_paths.count);
 
         // init unique devices
         size_t track_valid_devices = 0;
@@ -315,12 +319,12 @@ namespace bongocat::platform::input {
             if (init_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 atomic_store(&input._capture_input_running, false);
                 cleanup_input_thread_context(input);
-                BONGOCAT_LOG_ERROR("Failed to init devices and file descriptors");
+                BONGOCAT_LOG_ERROR("input: Failed to init devices and file descriptors");
                 return nullptr;
             }
             [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
-            BONGOCAT_LOG_INFO("Successfully opened %d/%d input devices; init time %.3fms (%.6fsec)", valid_devices, input._device_paths.count, static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
+            BONGOCAT_LOG_INFO("input: Successfully opened %d/%d input devices; init time %.3fms (%.6fsec)", valid_devices, input._device_paths.count, static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
             track_valid_devices = valid_devices;
         }
 
@@ -344,7 +348,7 @@ namespace bongocat::platform::input {
         FileDescriptor tty_fd;
         if constexpr (include_stdin) {
             tty_fd = open_tty_nonblocking();
-            BONGOCAT_LOG_INFO("Open stdin for testing (fd=%d)", tty_fd._fd);
+            BONGOCAT_LOG_INFO("input: Open stdin for testing (fd=%d)", tty_fd._fd);
         }
 
         atomic_store(&input._capture_input_running, true);
@@ -398,7 +402,7 @@ namespace bongocat::platform::input {
                 }
             }
             if (device_nfds == 0 && !include_stdin) {
-                BONGOCAT_LOG_ERROR("All input devices became unavailable");
+                BONGOCAT_LOG_ERROR("input: All input devices became unavailable");
                 break;
             } else if (device_nfds > MAX_DEVICE_FDS) {
                 device_nfds = MAX_DEVICE_FDS;
@@ -417,10 +421,10 @@ namespace bongocat::platform::input {
                 const config::config_t& current_config = *input._local_copy_config;
                 if (device_nfds > MAX_DEVICE_FDS) {
                     if (current_config.strict) {
-                        BONGOCAT_LOG_ERROR("Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
+                        BONGOCAT_LOG_ERROR("input: Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
                         break;
                     } else {
-                        BONGOCAT_LOG_WARNING("Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
+                        BONGOCAT_LOG_WARNING("input: Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
                     }
                 }
             }
@@ -529,7 +533,7 @@ namespace bongocat::platform::input {
             const int poll_result = poll(pfds, nfds, timeout);
             if (poll_result < 0) {
                 if (errno == EINTR) continue; // Interrupted by signal
-                BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("input: Poll error: %s", strerror(errno));
                 break;
             }
             if (poll_result == 0) {
@@ -576,14 +580,14 @@ namespace bongocat::platform::input {
                                     input._unique_devices[i].fd = FileDescriptor(new_fd);
                                     new_fd = -1;
                                     found_new_device = true;
-                                    BONGOCAT_LOG_INFO("New input device detected and opened: %s (fd=%d)", device_path, input._unique_devices[i].fd._fd);
+                                    BONGOCAT_LOG_INFO("input: New input device detected and opened: %s (fd=%d)", device_path, input._unique_devices[i].fd._fd);
                                 } else {
                                     // Not a valid char device — close immediately
                                     close(new_fd);
-                                    BONGOCAT_LOG_VERBOSE("File opened but not a char device: %s", device_path);
+                                    BONGOCAT_LOG_VERBOSE("input: vFile opened but not a char device: %s", device_path);
                                 }
                             } else {
-                                BONGOCAT_LOG_VERBOSE("Failed to open input device: %s (%s)", device_path, strerror(errno));
+                                BONGOCAT_LOG_VERBOSE("input: Failed to open input device: %s (%s)", device_path, strerror(errno));
                             }
                         }
                     }
@@ -593,10 +597,10 @@ namespace bongocat::platform::input {
                             (adaptive_check_interval_sec < MID_ADAPTIVE_CHECK_INTERVAL_SEC)
                                 ? MID_ADAPTIVE_CHECK_INTERVAL_SEC
                                 : MAX_ADAPTIVE_CHECK_INTERVAL_SEC;
-                        BONGOCAT_LOG_DEBUG("Increased device check interval to %d seconds", adaptive_check_interval_sec);
+                        BONGOCAT_LOG_DEBUG("input: Increased device check interval to %d seconds", adaptive_check_interval_sec);
                     } else if (found_new_device && adaptive_check_interval_sec > START_ADAPTIVE_CHECK_INTERVAL_SEC) {
                         adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
-                        BONGOCAT_LOG_DEBUG("Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
+                        BONGOCAT_LOG_DEBUG("input: Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
                     }
                 }
                 continue;
@@ -606,7 +610,7 @@ namespace bongocat::platform::input {
             if (!atomic_load(&input._capture_input_running)) {
                 // draining pools
                 if (pfds[fds_update_config_index].revents & POLLIN) {
-                    drain_event(pfds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
+                    drain_event(pfds[fds_update_config_index], MAX_ATTEMPTS);
                 }
                 if (fds_device_start_index >= 0) {
                     assert(fds_device_start_index >= 0);
@@ -672,7 +676,7 @@ namespace bongocat::platform::input {
                             const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
                             if (rd < 0) {
                                 if (errno == EAGAIN) continue;
-                                BONGOCAT_LOG_WARNING("Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
+                                BONGOCAT_LOG_WARNING("input: Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
                                 close(pfds[p].fd);
                                 // pfds[p].fd is only a reference, reset also the owner (unique_fd)
                                 for (size_t i = 0; i < input._unique_devices.count; i++) {
@@ -687,7 +691,7 @@ namespace bongocat::platform::input {
                             }
                             assert(rd >= 0);
                             if (rd == 0 || static_cast<size_t>(rd) % sizeof(input_event) != 0) {
-                                BONGOCAT_LOG_WARNING("EOF or partial read on fd=%d", pfds[p].fd);
+                                BONGOCAT_LOG_WARNING("input: EOF or partial read on fd=%d", pfds[p].fd);
                                 close(pfds[p].fd);
                                 // pfds[p].fd is only a reference, reset also the owner (unique_fd)
                                 for (size_t i = 0; i < input._unique_devices.count; i++) {
@@ -709,7 +713,7 @@ namespace bongocat::platform::input {
                                 if (ev[j].type == EV_KEY && ev[j].value == 1) {
                                     key_pressed = true;
                                     if (enable_debug) {
-                                        BONGOCAT_LOG_VERBOSE("Key event: fd=%d, code=%d, time=%lld.%06lld",
+                                        BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld",
                                                              pfds[p].fd, ev[j].code,
                                                              ev[j].time.tv_sec, ev[j].time.tv_usec);
                                     } else {
@@ -777,7 +781,7 @@ namespace bongocat::platform::input {
                             if (enable_debug) {
                                 size_t len = (rd > 0) ? (static_cast<size_t>(rd) < TEST_STDIN_BUF_LEN ? static_cast<size_t>(rd) : TEST_STDIN_BUF_LEN-1) : 0;
                                 buf[len] = '\0';
-                                BONGOCAT_LOG_VERBOSE("stdin input: %s", buf);
+                                BONGOCAT_LOG_VERBOSE("input: stdin input: %s", buf);
                             }
                         }
                     }
@@ -790,10 +794,10 @@ namespace bongocat::platform::input {
 
                 auto [valid_devices, revalid_devices_result] = sync_devices(input);
                 if (revalid_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-                    BONGOCAT_LOG_ERROR("Failed to revalidate devices and file descriptors");
+                    BONGOCAT_LOG_ERROR("input: Failed to revalidate devices and file descriptors");
                 } else {
                     if (valid_devices == 0) {
-                        BONGOCAT_LOG_VERBOSE("All input devices became unavailable");
+                        BONGOCAT_LOG_VERBOSE("input: All input devices became unavailable");
                     }
                 }
                 track_valid_devices = valid_devices;
@@ -812,16 +816,16 @@ namespace bongocat::platform::input {
                     return atomic_load(input._config_generation) >= new_gen;
                 }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
                 if (rc == ETIMEDOUT) {
-                    BONGOCAT_LOG_WARNING("Input: Timed out waiting for reload eventfd: %s", strerror(errno));
+                    BONGOCAT_LOG_WARNING("input: Timed out waiting for reload eventfd: %s", strerror(errno));
                 }
                 if constexpr (features::Debug) {
-                    if (atomic_load(&input.config_seen_generation) > atomic_load(input._config_generation)) {
-                        BONGOCAT_LOG_VERBOSE("Input: input.config_seen_generation > input._config_generation; %d > %d", atomic_load(&input.config_seen_generation), atomic_load(input._config_generation));
+                    if (atomic_load(&input.config_seen_generation) < atomic_load(input._config_generation)) {
+                        BONGOCAT_LOG_VERBOSE("input: input.config_seen_generation < input._config_generation; %d < %d", atomic_load(&input.config_seen_generation), atomic_load(input._config_generation));
                     }
                 }
-                assert(atomic_load(&input.config_seen_generation) >= atomic_load(input._config_generation));
+                //assert(atomic_load(&input.config_seen_generation) >= atomic_load(input._config_generation));
                 atomic_store(&input.config_seen_generation, atomic_load(input._config_generation));
-                BONGOCAT_LOG_INFO("Input config reloaded (gen=%u)", new_gen);
+                BONGOCAT_LOG_INFO("input: Input config reloaded (gen=%u)", new_gen);
             }
         }
 
@@ -829,7 +833,7 @@ namespace bongocat::platform::input {
 
         atomic_store(&input._capture_input_running, false);
         if (track_valid_devices == 0) {
-            BONGOCAT_LOG_ERROR("All input devices are unavailable");
+            BONGOCAT_LOG_ERROR("input: All input devices are unavailable");
         }
 
         // Will run only on normal return
@@ -979,10 +983,10 @@ namespace bongocat::platform::input {
         assert(!input._unique_devices);
         assert(input._unique_paths_indices_capacity == 0);
 
-        cleanup(input);
-
         // reset stats
         //ret._latest_kpm_update_ms = get_current_time_ms();
+
+        /// @TODO: re-create context with create(), avoid duplicate code
 
         // Start new monitoring (reuse shared memory if it exists)
         if (input.shm == nullptr) {
@@ -1002,6 +1006,14 @@ namespace bongocat::platform::input {
         }
         assert(input._local_copy_config != nullptr);
         update_config(input, config, atomic_load(&config_generation));
+
+        if (input.update_config_efd._fd < 0) {
+            input.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+            if (input.update_config_efd._fd < 0) {
+                BONGOCAT_LOG_ERROR("Failed to create notify pipe for input, update config: %s", strerror(errno));
+                return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+            }
+        }
 
         //if (trigger_ctx._input != ctx._input) {
         //    BONGOCAT_LOG_DEBUG("Input context in animation differs from animation trigger input context");

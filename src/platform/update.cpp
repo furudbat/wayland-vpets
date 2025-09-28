@@ -217,6 +217,12 @@ namespace bongocat::platform::update {
         // sanity checks
         assert(upd._config != nullptr);
         assert(upd._configs_reloaded_cond != nullptr);
+        assert(!upd._running);
+        assert(upd.shm != nullptr);
+        assert(upd._local_copy_config != nullptr);
+        assert(upd.update_config_efd._fd >= 0);
+        assert(upd.fd_present._fd >= 0);
+        assert(upd.fd_stat._fd >= 0);
 
         // trigger initial render
         wayland::request_render(trigger_ctx);
@@ -274,7 +280,7 @@ namespace bongocat::platform::update {
             const int poll_result = poll(pfds, nfds, static_cast<int>(timeout));
             if (poll_result < 0) {
                 if (errno == EINTR) continue; // Interrupted by signal
-                BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("update: Poll error: %s", strerror(errno));
                 break;
             }
 
@@ -283,7 +289,7 @@ namespace bongocat::platform::update {
                 // draining pools
                 for (size_t i = 0;i < nfds;i++) {
                     if (pfds[i].revents & POLLIN) {
-                        drain_event(pfds[i], MAX_ATTEMPTS, "update; cancel pooling");
+                        drain_event(pfds[i], MAX_ATTEMPTS);
                     }
                 }
                 break;
@@ -301,7 +307,7 @@ namespace bongocat::platform::update {
 
             // Handle stat
             if (pfds[fds_stat_index].revents & POLLIN) {
-                BONGOCAT_LOG_VERBOSE("Receive update CPU stats event");
+                BONGOCAT_LOG_VERBOSE("update: Receive update CPU stats event");
                 drain_event(pfds[fds_stat_index], MAX_ATTEMPTS, FILENAME_PROC_STAT);
 
                 if (update_rate_ms > 0) {
@@ -323,11 +329,11 @@ namespace bongocat::platform::update {
 
             // cpu_present file changed
             if (pfds[fds_preset_index].revents & POLLIN) {
-                BONGOCAT_LOG_VERBOSE("Receive update CPU present event");
+                BONGOCAT_LOG_VERBOSE("update: Receive update CPU present event");
                 drain_event(pfds[fds_preset_index], MAX_ATTEMPTS, FILENAME_CPU_PRESET);
 
                 if (update_rate_ms > 0) {
-                    BONGOCAT_LOG_VERBOSE("cpu_present file changed (hotplug)");
+                    BONGOCAT_LOG_VERBOSE("update: cpu_present file changed (hotplug)");
                 }
             }
 
@@ -358,7 +364,7 @@ namespace bongocat::platform::update {
                     const bool crossed_delta = fabs(update_shm.avg_cpu_usage - update_shm.last_avg_cpu_usage) >= TRIGGER_ANIMATION_CPU_DIFF_PERCENT || fabs(update_shm.max_cpu_usage - update_shm.last_max_cpu_usage) >= TRIGGER_ANIMATION_CPU_DIFF_PERCENT;
                     if (above_threshold) {
                         if (!update_shm.cpu_active || crossed_delta) {
-                            BONGOCAT_LOG_VERBOSE("avg. CPU: %.2f (max: %.2f)", update_shm.avg_cpu_usage, update_shm.max_cpu_usage);
+                            BONGOCAT_LOG_VERBOSE("update: avg. CPU: %.2f (max: %.2f)", update_shm.avg_cpu_usage, update_shm.max_cpu_usage);
                             animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
                             animation_triggered = true;
                         }
@@ -385,16 +391,16 @@ namespace bongocat::platform::update {
                     return atomic_load(upd._config_generation) >= new_gen;
                 }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
                 if (rc == ETIMEDOUT) {
-                    BONGOCAT_LOG_WARNING("Update: Timed out waiting for reload eventfd: %s", strerror(errno));
+                    BONGOCAT_LOG_WARNING("update: Timed out waiting for reload eventfd: %s", strerror(errno));
                 }
                 if constexpr (features::Debug) {
-                    if (atomic_load(&upd.config_seen_generation) > atomic_load(upd._config_generation)) {
-                        BONGOCAT_LOG_VERBOSE("Update: update.config_seen_generation > update._config_generation; %d > %d", atomic_load(&upd.config_seen_generation), atomic_load(upd._config_generation));
+                    if (atomic_load(&upd.config_seen_generation) < atomic_load(upd._config_generation)) {
+                        BONGOCAT_LOG_VERBOSE("update: update.config_seen_generation < update._config_generation; %d < %d", atomic_load(&upd.config_seen_generation), atomic_load(upd._config_generation));
                     }
                 }
-                assert(atomic_load(&upd.config_seen_generation) >= atomic_load(upd._config_generation));
+                //assert(atomic_load(&upd.config_seen_generation) >= atomic_load(upd._config_generation));
                 atomic_store(&upd.config_seen_generation, atomic_load(upd._config_generation));
-                BONGOCAT_LOG_INFO("Update config reloaded (gen=%u)", new_gen);
+                BONGOCAT_LOG_INFO("update: Update config reloaded (gen=%u)", new_gen);
             }
 
             if (update_rate_ms) {
@@ -424,7 +430,7 @@ namespace bongocat::platform::update {
             } else {
                 if (update_rate_ms == 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT) {
                     atomic_store(&upd._running, false);
-                    BONGOCAT_LOG_WARNING("Stop update thread, not needed");
+                    BONGOCAT_LOG_WARNING("update: Stop update thread, not needed");
                 }
             }
         }
@@ -554,13 +560,13 @@ namespace bongocat::platform::update {
             BONGOCAT_LOG_DEBUG("Update thread terminated");
         }
 
-        cleanup(upd);
+        /// @TODO: re-create context with create(), avoid duplicate code
 
         // Start new monitoring (reuse shared memory if it exists)
         if (upd.shm == nullptr) {
             upd.shm = make_allocated_mmap<update_shared_memory_t>();
             if (upd.shm.ptr == MAP_FAILED) {
-                BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("Failed to create shared memory for update thread: %s", strerror(errno));
                 return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
             }
         }
@@ -574,6 +580,34 @@ namespace bongocat::platform::update {
         }
         assert(upd._local_copy_config != nullptr);
         update_config(upd, config, atomic_load(&config_generation));
+
+        if (upd.update_config_efd._fd < 0) {
+            upd.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+            if (upd.update_config_efd._fd < 0) {
+                BONGOCAT_LOG_ERROR("Failed to create notify pipe for update, update config: %s", strerror(errno));
+                return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+            }
+        }
+
+        // re-open files
+        /// @TODO: healthcheck of fd before re-start
+
+        if (upd.fd_present._fd < 0) {
+            upd.fd_present = FileDescriptor(open(FILENAME_CPU_PRESET, O_RDONLY));
+            if (upd.fd_present._fd < 0) {
+                BONGOCAT_LOG_ERROR("Failed to open cpu_present");
+                return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+            }
+            set_nonblocking(upd.fd_present._fd);
+        }
+        if (upd.fd_stat._fd < 0) {
+            upd.fd_stat = FileDescriptor(open(FILENAME_PROC_STAT, O_RDONLY));
+            if (upd.fd_stat._fd < 0) {
+                BONGOCAT_LOG_ERROR("Failed to open proc stat");
+                return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+            }
+            set_nonblocking(upd.fd_stat._fd);
+        }
 
         //if (trigger_ctx._update != ctx._update) {
         //    BONGOCAT_LOG_DEBUG("Update context in animation differs from animation trigger update context");

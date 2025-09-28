@@ -34,6 +34,7 @@ namespace bongocat {
     static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS = 5000;
     static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS = 1000;
     inline static constexpr platform::time_ms_t COND_RELOAD_CONFIG_TIMEOUT_MS = 5000;
+    inline static constexpr platform::time_ms_t COND_INIT_TIMEOUT_MS = 5000;
 
     inline static constexpr platform::time_ms_t WAIT_FOR_FLUSH_BEFORE_EXIT_MS = 100;
 
@@ -376,24 +377,23 @@ namespace bongocat {
             bongocat::error_init(get_main_context().config.enable_debug);
 
             // Increment generation atomically
-            new_gen = atomic_fetch_add(&get_main_context().config_generation, 1) + 1;
+            new_gen = atomic_fetch_add(&get_main_context().config_generation, 1);
 
             // Update the running systems with new config
+            update_config(get_main_context().wayland->wayland_context, get_main_context().config, *get_main_context().animation);
             platform::input::trigger_update_config(*get_main_context().input, get_main_context().config, new_gen);
             platform::update::trigger_update_config(*get_main_context().update, get_main_context().config, new_gen);
             animation::trigger_update_config(*get_main_context().animation, get_main_context().config, new_gen);
-            update_config(get_main_context().wayland->wayland_context, get_main_context().config, *get_main_context().animation);
 
-            /// @TODO: use pthread barrier
             // Wait for both workers to catch up
             get_main_context().input->config_updated.timedwait([&] {
-                return !atomic_load(&get_main_context().input->_capture_input_running) || get_main_context().input->config_seen_generation >= new_gen;
+                return !atomic_load(&get_main_context().input->_capture_input_running) || atomic_load(&get_main_context().input->config_seen_generation) >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
             get_main_context().update->config_updated.timedwait([&] {
-                return !atomic_load(&get_main_context().update->_running) || get_main_context().update->config_seen_generation >= new_gen;
+                return !atomic_load(&get_main_context().update->_running) || atomic_load(&get_main_context().update->config_seen_generation) >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
             get_main_context().animation->anim.config_updated.timedwait([&] {
-                return !atomic_load(&get_main_context().animation->anim._animation_running) || get_main_context().animation->anim.config_seen_generation >= new_gen;
+                return !atomic_load(&get_main_context().animation->anim._animation_running) || atomic_load(&get_main_context().animation->anim.config_seen_generation) >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
 
             get_main_context().config.keep_old_animation_index = 0;
@@ -408,6 +408,11 @@ namespace bongocat {
                 atomic_store(&get_main_context().animation->anim.config_seen_generation, new_gen);
             }
             atomic_store(&get_main_context().config_generation, new_gen);
+
+            BONGOCAT_LOG_VERBOSE("Input: config gen: %d", atomic_load(&get_main_context().input->config_seen_generation));
+            BONGOCAT_LOG_VERBOSE("Update: config gen: %d", atomic_load(&get_main_context().update->config_seen_generation));
+            BONGOCAT_LOG_VERBOSE("Animation: config gen: %d", atomic_load(&get_main_context().animation->anim.config_seen_generation));
+            BONGOCAT_LOG_VERBOSE("Main: config gen: %d", atomic_load(&get_main_context().config_generation));
         }
         // Tell workers they can continue
         get_main_context().configs_reloaded_cond.notify_all();
@@ -439,6 +444,27 @@ namespace bongocat {
                 BONGOCAT_LOG_INFO("Update thread restarted successfully");
             }
         }
+
+        // Wait for (new) threads to be ready
+        // wait for context
+        if (atomic_load(&get_main_context().animation->anim._animation_running)) {
+            get_main_context().animation->init_cond.timedwait([&]() {
+                return !atomic_load(&get_main_context().input->_capture_input_running) || atomic_load(&get_main_context().animation->ready);
+            }, COND_INIT_TIMEOUT_MS);
+        }
+        if (atomic_load(&get_main_context().input->_capture_input_running)) {
+            get_main_context().input->init_cond.timedwait([&]() {
+                return !atomic_load(&get_main_context().input->_capture_input_running) || atomic_load(&get_main_context().input->ready);
+            }, COND_INIT_TIMEOUT_MS);
+        }
+        if (atomic_load(&get_main_context().update->_running)) {
+            get_main_context().update->init_cond.timedwait([&]() {
+                return !atomic_load(&get_main_context().update->_running) || atomic_load(&get_main_context().update->ready);
+            }, COND_INIT_TIMEOUT_MS);
+        }
+        BONGOCAT_LOG_VERBOSE("Animation: running %d (ready=%d)", atomic_load(&get_main_context().animation->anim._animation_running), atomic_load(&get_main_context().animation->ready));
+        BONGOCAT_LOG_VERBOSE("Input: running %d (ready=%d)", atomic_load(&get_main_context().input->_capture_input_running), atomic_load(&get_main_context().input->ready));
+        BONGOCAT_LOG_VERBOSE("Update: running %d (ready=%d)", atomic_load(&get_main_context().update->_running), atomic_load(&get_main_context().update->ready));
     }
 
     static bongocat_error_t start_config_watcher(main_context_t& ctx, const char *config_file) {

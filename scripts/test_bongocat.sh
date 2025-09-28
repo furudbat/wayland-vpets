@@ -230,7 +230,7 @@ kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmc:Omegamon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
@@ -250,6 +250,8 @@ sleep 5
 
 echo "[TEST] CPU threshold"
 echo "[INFO] Enable CPU threshold"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Agumon/' "$CONFIG"
 sed -i -E 's/^update_rate=[0-9]+/update_rate=1000/' "$CONFIG"
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=30/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
@@ -271,7 +273,7 @@ sed -i -E 's/^update_rate=[0-9]+/update_rate=0/' "$CONFIG"
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
-sleep 3
+sleep 5
 
 # --- verify running ---
 if kill -0 "$PID" 2>/dev/null; then

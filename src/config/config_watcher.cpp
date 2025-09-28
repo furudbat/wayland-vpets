@@ -39,14 +39,14 @@ namespace bongocat::config {
         };
         constexpr int timeout_ms = TIMEOUT_MS;
 
-        BONGOCAT_LOG_INFO("Config watcher started for: %s", watcher.config_path);
+        BONGOCAT_LOG_INFO("config_watcher: Config watcher started for: %s", watcher.config_path);
 
         atomic_store(&watcher._running, true);
         while (atomic_load(&watcher._running)) {
             int ret = poll(fds, fds_count, timeout_ms);
             if (ret < 0) {
                 if (errno == EINTR) continue;
-                BONGOCAT_LOG_ERROR("Config watcher poll failed: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("config_watcher: Config watcher poll failed: %s", strerror(errno));
                 break;
             }
             if (!atomic_load(&watcher._running)) {
@@ -66,7 +66,7 @@ namespace bongocat::config {
             if (fds[fds_inotify_index].revents & POLLIN) {
                 const ssize_t length = read(watcher.inotify_fd._fd, buffer, config::INOTIFY_BUF_LEN);
                 if (length < 0) {
-                    BONGOCAT_LOG_ERROR("Config watcher read failed: %s", strerror(errno));
+                    BONGOCAT_LOG_ERROR("config_watcher: Config watcher read failed: %s", strerror(errno));
                     continue;
                 }
 
@@ -80,7 +80,7 @@ namespace bongocat::config {
                     const auto *event = reinterpret_cast<const struct inotify_event *>(&buffer[i]);
                     assert(event);
 
-                    BONGOCAT_LOG_VERBOSE("inotify event: wd=%d mask=0x%08X name=%s",
+                    BONGOCAT_LOG_VERBOSE("config_watcher: inotify event: wd=%d mask=0x%08X name=%s",
                                          event->wd, event->mask,
                                          event->len ? event->name : "(none)");
 
@@ -100,7 +100,7 @@ namespace bongocat::config {
                 }
 
                 if (file_went_away) {
-                    BONGOCAT_LOG_VERBOSE("Config file went away; removing file watch");
+                    BONGOCAT_LOG_VERBOSE("config_watcher: Config file went away; removing file watch");
                     if (watcher.wd_file._fd >= 0) {
                         inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_file._fd);
                         watcher.wd_file._fd = -1;
@@ -110,14 +110,14 @@ namespace bongocat::config {
                 }
 
                 if (file_recreated) {
-                    BONGOCAT_LOG_VERBOSE("Config file recreated; re-adding file watch");
+                    BONGOCAT_LOG_VERBOSE("config_watcher: Config file recreated; re-adding file watch");
                     int new_wd = inotify_add_watch(watcher.inotify_fd._fd, watcher.config_path, FILE_MASK);
                     if (new_wd >= 0) {
                         watcher.wd_file = platform::FileDescriptor(new_wd);
                         new_wd = -1;
                         should_reload = true;
                     } else {
-                        BONGOCAT_LOG_ERROR("Failed to re-add file watch: %s", strerror(errno));
+                        BONGOCAT_LOG_ERROR("config_watcher: Failed to re-add file watch: %s", strerror(errno));
                         should_reload = false;
                     }
                 }
@@ -142,7 +142,7 @@ namespace bongocat::config {
                     }
 
                     if (!file_exists) {
-                        BONGOCAT_LOG_VERBOSE("Reload skipped: config file not present yet (will wait for recreate)");
+                        BONGOCAT_LOG_VERBOSE("config_watcher: Reload skipped: config file not present yet (will wait for recreate)");
                         should_reload = false;
                     }
                 }
@@ -151,16 +151,16 @@ namespace bongocat::config {
                     // Debounce: only reload if at least some time have passed since last reload
                     const platform::timestamp_ms_t now = platform::get_current_time_ms();
                     if (now - last_reload_timestamp >= RELOAD_DEBOUNCE_MS) {
-                        BONGOCAT_LOG_INFO("Config file changed, trigger reload");
+                        BONGOCAT_LOG_INFO("config_watcher: Config file changed, trigger reload");
                         // Small delay to ensure file write is complete
                         usleep(RELOAD_DELAY_MS*1000);
                         last_reload_timestamp = now;
 
                         uint64_t u = 1;
                         if (write(watcher.reload_efd._fd, &u, sizeof(uint64_t)) >= 0) {
-                            BONGOCAT_LOG_DEBUG("Write reload event in watcher");
+                            BONGOCAT_LOG_DEBUG("config_watcher: Write reload event in watcher");
                         } else {
-                            BONGOCAT_LOG_ERROR("Failed to write to notify pipe in watcher: %s", strerror(errno));
+                            BONGOCAT_LOG_ERROR("config_watcher: Failed to write to notify pipe in watcher: %s", strerror(errno));
                         }
                     }
                 }
@@ -168,7 +168,7 @@ namespace bongocat::config {
         }
         atomic_store(&watcher._running, false);
 
-        BONGOCAT_LOG_INFO("Config watcher stopped");
+        BONGOCAT_LOG_INFO("config_watcher: Config watcher stopped");
         return nullptr;
     }
 

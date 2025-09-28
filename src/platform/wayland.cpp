@@ -1242,7 +1242,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 if (!running) {
                     // draining pools
                     for (size_t i = 0; i < fds_count; i++) {
-                        platform::drain_event(fds[i], MAX_ATTEMPTS, "wayland; cancel pooling");
+                        platform::drain_event(fds[i], MAX_ATTEMPTS);
                     }
                     if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
                     render_requested = false;

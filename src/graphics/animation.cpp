@@ -121,13 +121,13 @@ namespace bongocat::animation {
         const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
 
         // @TODO: get variables as struct to make it more reusable
-        const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
+        const bool release_frame_after_press = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
         //const bool process_idle_animation = (current_config.idle_animation && current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.idle_animation && current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
         const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec*1000;
         const bool release_test_frame = current_config.test_animation_duration_ms > 0 && state.frame_delta_ms_counter > current_config.test_animation_duration_ms;
         const bool check_for_idle_sleep = current_config.idle_sleep_timeout_sec > 0 && state.frame_delta_ms_counter > current_config.idle_sleep_timeout_sec*1000/2;
 
-        if (!hold_frame_after_release && !trigger_test_animation && !release_test_frame && !check_for_idle_sleep && !current_config.enable_scheduled_sleep) {
+        if (!release_frame_after_press && !trigger_test_animation && !release_test_frame && !check_for_idle_sleep && !current_config.enable_scheduled_sleep) {
             return { .changed = false, .new_frame = new_frame};
         }
 
@@ -150,7 +150,7 @@ namespace bongocat::animation {
             }
         }
         // Idle Animation
-        if (hold_frame_after_release || (trigger_test_animation && state.row_state == animation_state_row_t::Test && release_test_frame)) {
+        if (release_frame_after_press || (trigger_test_animation && state.row_state == animation_state_row_t::Test && release_test_frame)) {
             // back to idle
             new_start_frame_index = BONGOCAT_FRAME_BOTH_UP;
             new_end_frame_index = BONGOCAT_FRAME_BOTH_UP;
@@ -235,13 +235,13 @@ namespace bongocat::animation {
 
         const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
 
-        const bool hold_frame_after_release = (!any_key_pressed && !has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) && state.hold_frame_ms > current_config.keypress_duration_ms;
+        const bool release_frame_after_press = (!any_key_pressed && !has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) && state.hold_frame_ms > current_config.keypress_duration_ms;
         const bool process_idle_animation = (current_config.idle_animation && current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.idle_animation && current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
         const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec*1000;
         const bool release_test_frame = current_config.test_animation_duration_ms > 0 && state.frame_delta_ms_counter > current_config.test_animation_duration_ms;
         const bool check_for_idle_sleep = current_config.idle_sleep_timeout_sec > 0 && state.frame_delta_ms_counter > current_config.idle_sleep_timeout_sec*1000/2;
 
-        if (!hold_frame_after_release && !trigger_test_animation && !release_test_frame && !process_idle_animation && !check_for_idle_sleep && !current_config.enable_scheduled_sleep) {
+        if (!release_frame_after_press && !trigger_test_animation && !release_test_frame && !process_idle_animation && !check_for_idle_sleep && !current_config.enable_scheduled_sleep) {
             return { .changed = false, .new_frame = new_frame};
         }
 
@@ -267,7 +267,7 @@ namespace bongocat::animation {
             }
         }
         // Idle Animation
-        if (hold_frame_after_release || process_idle_animation || (trigger_test_animation && release_test_frame && state.row_state == animation_state_row_t::Test)) {
+        if (release_frame_after_press || process_idle_animation || (trigger_test_animation && release_test_frame && state.row_state == animation_state_row_t::Test)) {
             new_start_frame_index = DM_FRAME_IDLE1;
             new_end_frame_index = DM_FRAME_IDLE2;
             new_row_state = animation_state_row_t::Idle;
@@ -395,7 +395,7 @@ namespace bongocat::animation {
         const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
 
         const bool go_next_frame = (current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
-        const bool hold_frame_after_release = (!any_key_pressed && !has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) && state.hold_frame_ms > current_config.keypress_duration_ms;
+        const bool release_frame_after_press = (!any_key_pressed && !has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) && state.hold_frame_ms > current_config.keypress_duration_ms;
         const bool process_idle_animation = (current_config.idle_animation && current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.idle_animation && current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
         //const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec*1000;
         //const bool release_test_frame = current_config.test_animation_duration_ms > 0 && state.frame_delta_ms_counter > current_config.test_animation_duration_ms;
@@ -484,7 +484,7 @@ namespace bongocat::animation {
                     state.hold_frame_ms = 0;
                 }
                 // cancel writing
-                if (hold_frame_after_release) {
+                if (release_frame_after_press) {
                     // start, end writing animation
                     new_frame = 0;
                     new_start_frame_index = animation_indices.start_index_frame_end_writing;
@@ -648,12 +648,12 @@ namespace bongocat::animation {
         const bool any_key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
 
         // @TODO: get variables as struct to make it more reusable
-        const bool hold_frame_after_release = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
+        const bool release_frame_after_press = !any_key_pressed && state.hold_frame_ms > current_config.keypress_duration_ms;
         const bool process_idle_animation = (current_config.idle_animation && current_config.animation_speed_ms > 0 && state.frame_delta_ms_counter > current_config.animation_speed_ms) || (current_config.idle_animation && current_config.animation_speed_ms <= 0 && state.frame_delta_ms_counter > 1000/current_config.fps);
         const bool trigger_test_animation = current_config.test_animation_interval_sec > 0 && state.frame_delta_ms_counter > current_config.test_animation_interval_sec*1000;
         const bool release_test_frame = current_config.test_animation_duration_ms > 0 && state.frame_delta_ms_counter > current_config.test_animation_duration_ms;
 
-        if (!hold_frame_after_release && !trigger_test_animation && !release_test_frame && !process_idle_animation && !current_config.enable_scheduled_sleep) {
+        if (!release_frame_after_press && !trigger_test_animation && !release_test_frame && !process_idle_animation && !current_config.enable_scheduled_sleep) {
             return { .changed = false, .new_frame = new_frame};
         }
 
@@ -678,7 +678,7 @@ namespace bongocat::animation {
             }
         }
         // Idle Animation
-        if (hold_frame_after_release || process_idle_animation || (trigger_test_animation && release_test_frame && state.row_state == animation_state_row_t::Test)) {
+        if (release_frame_after_press || process_idle_animation || (trigger_test_animation && release_test_frame && state.row_state == animation_state_row_t::Test)) {
             new_start_frame_index = PKMN_FRAME_IDLE1;
             new_end_frame_index = PKMN_FRAME_IDLE2;
             new_row_state = animation_state_row_t::Idle;
@@ -1376,10 +1376,14 @@ namespace bongocat::animation {
         auto& trigger_ctx = *static_cast<animation_session_t*>(arg);
 
         // sanity checks
-        assert(trigger_ctx._input);
         assert(trigger_ctx._config != nullptr);
         assert(trigger_ctx._input != nullptr);
+        assert(trigger_ctx._update != nullptr);
         assert(trigger_ctx._configs_reloaded_cond != nullptr);
+        assert(trigger_ctx.anim.shm != nullptr);
+        assert(trigger_ctx.trigger_efd._fd >= 0);
+        assert(trigger_ctx.render_efd._fd >= 0);
+        assert(trigger_ctx.anim.update_config_efd._fd >= 0);
 
         // init animation state
         animation_state_t state;
@@ -1481,7 +1485,7 @@ namespace bongocat::animation {
             const int poll_result = poll(fds, fds_count, static_cast<int>(check_config_timeout_ms));
             if (poll_result < 0) {
                 if (errno == EINTR) continue; // Interrupted by signal
-                BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
+                BONGOCAT_LOG_ERROR("animation: Poll error: %s", strerror(errno));
                 break;
             }
             if (poll_result > 0) {
@@ -1489,7 +1493,7 @@ namespace bongocat::animation {
                 if (!atomic_load(&ctx._animation_running)) {
                     // draining pools
                     for (size_t i = 0; i < fds_count; i++) {
-                        platform::drain_event(fds[i], MAX_ATTEMPTS, "animation; cancel pooling");
+                        platform::drain_event(fds[i], MAX_ATTEMPTS);
                     }
                     break;
                 }
@@ -1510,9 +1514,9 @@ namespace bongocat::animation {
                 if (frame_changed) {
                     uint64_t u = 1;
                     if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
-                        BONGOCAT_LOG_VERBOSE("Write animation render event");
+                        BONGOCAT_LOG_VERBOSE("animation: Write animation render event");
                     } else {
-                        BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
+                        BONGOCAT_LOG_ERROR("animation: Failed to write to notify pipe in animation: %s", strerror(errno));
                     }
                 }
 
@@ -1571,16 +1575,16 @@ namespace bongocat::animation {
                     return atomic_load(trigger_ctx._config_generation) >= new_gen;
                 }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
                 if (rc == ETIMEDOUT) {
-                    BONGOCAT_LOG_WARNING("Animation: Timed out waiting for reload eventfd: %s", strerror(errno));
+                    BONGOCAT_LOG_WARNING("animation: Timed out waiting for reload eventfd: %s", strerror(errno));
                 }
                 if constexpr (features::Debug) {
-                    if (atomic_load(&trigger_ctx.anim.config_seen_generation) > atomic_load(trigger_ctx._config_generation)) {
-                        BONGOCAT_LOG_VERBOSE("Animation: trigger_ctx.anim.config_seen_generation > trigger_ctx._config_generation; %d > %d", atomic_load(&trigger_ctx.anim.config_seen_generation), atomic_load(trigger_ctx._config_generation));
+                    if (atomic_load(&trigger_ctx.anim.config_seen_generation) < atomic_load(trigger_ctx._config_generation)) {
+                        BONGOCAT_LOG_VERBOSE("animation: trigger_ctx.anim.config_seen_generation < trigger_ctx._config_generation; %d < %d", atomic_load(&trigger_ctx.anim.config_seen_generation), atomic_load(trigger_ctx._config_generation));
                     }
                 }
-                assert(atomic_load(&trigger_ctx.anim.config_seen_generation) >= atomic_load(trigger_ctx._config_generation));
+                //assert(atomic_load(&trigger_ctx.anim.config_seen_generation) >= atomic_load(trigger_ctx._config_generation));
                 atomic_store(&trigger_ctx.anim.config_seen_generation, atomic_load(trigger_ctx._config_generation));
-                BONGOCAT_LOG_INFO("Animation config reloaded (gen=%u)", new_gen);
+                BONGOCAT_LOG_INFO("animation: Animation config reloaded (gen=%u)", new_gen);
             }
         }
 

@@ -1003,7 +1003,7 @@ namespace bongocat::platform {
     }
 
     struct drain_event_result_t { uint64_t result{0}; int err{0}; };
-    inline drain_event_result_t drain_event(pollfd& pfd, int max_attempts, [[maybe_unused]] const char* fd_name) noexcept {
+    inline drain_event_result_t drain_event(pollfd& pfd, int max_attempts, [[maybe_unused]] const char* fd_name = nullptr) noexcept {
         drain_event_result_t ret;
         if (pfd.revents & POLLIN) {
             int attempts = 0;
@@ -1018,11 +1018,15 @@ namespace bongocat::platform {
                 // supress compiler warning
 #if EAGAIN == EWOULDBLOCK
                 if (ret.err != EAGAIN) {
-                    BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(ret.err));
+                    if (fd_name) {
+                        BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(ret.err));
+                    }
                 }
 #else
                 if (ret.err != EAGAIN && ret.err != EWOULDBLOCK) {
-                    BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(ret.err));
+                    if (fd_name) {
+                        BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(ret.err));
+                    }
                 }
 #endif
             }
