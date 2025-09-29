@@ -302,7 +302,7 @@ enable_debug=0                   # Show debug messages
 | `enable_debug`            | Boolean  | 0 or 1                                                     | 0             | Enable debug logging                                                                    |
 | `monitor`                 | String   | Monitor name                                               | Auto-detect   | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                                 |
 | `random`                  | Boolean  | 0 or 1                                                     | 0             | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set) |
-| `update_rate`             | Integer  | 0–5000                                                     | 0             | Check (CPU) states rate (0 = disabled) (in milliseconds)                                |
+| `update_rate`             | Integer  | 0–10000                                                    | 0             | Check (CPU) states rate (0 = disabled) (in milliseconds)                                |
 | `cpu_threshold`           | Integer  | 0–100                                                      | 0             | Threshold of CPU usage for triggering work animation (0 = disabled)                     |
 
 #### Available Sprites (`animation_name`)

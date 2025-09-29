@@ -2,6 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.0] - 2025-08-28
+
+### Added
+- **CPU usage** - digimon react to CPU usage
+- stdin config - pipe config via `stdin` with `--config -`
+- Extend `find-devices` functionality
+  - add `--by-id` option
+  - add `--ignore-device` option
+  - add `--include-mouse` option
+
+### Fixed
+- possible race condition and threading bugs
+
+### Improved
+- **add pngle** - alternative image loader; less RAM usage
+
+
 ## [3.0.1] - 2025-19-18
 
 ### Fixed
