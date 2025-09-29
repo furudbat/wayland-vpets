@@ -2,7 +2,7 @@
 
 # Wayland Bongo Cat - Input Device Discovery Tool
 # Professional input device finder with comprehensive analysis
-# Version: 3.0.1
+# Version: 3.1.0
 
 set -euo pipefail
 

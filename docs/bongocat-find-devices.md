@@ -54,6 +54,19 @@ bongocat-find-devices --all --verbose
 bongocat-find-devices --generate-config > bongocat.conf
 ```
 
+## Generate config file for devices only
+
+```bash
+bongocat-find-devices --generate-config --by-id --devices-only > devices.bongocat.conf
+```
+
+_`/dev/input/eventX` can be mapped to a different device at boot, use `--by-id` for more coherent paths and consistency_
+
+## Ignore devices
+
+```bash
+bongocat-find-devices --generate-config -a --by-id --devices-only -e "Power Button" -e "Mic Consumer" > devices.bongocat.conf
+```
 
 ```{.include}
 fragments/files.md

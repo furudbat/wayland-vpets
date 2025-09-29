@@ -1759,7 +1759,7 @@ namespace bongocat::animation {
 
         [[maybe_unused]] const auto t0 = platform::get_current_time_us();
 
-        ctx.shm->anim_index = !ctx._local_copy_config->keep_old_animation_index ? rand_animation_index(ctx, *ctx._local_copy_config) : old_anim_index;
+        ctx.shm->anim_index = !ctx._local_copy_config->_keep_old_animation_index ? rand_animation_index(ctx, *ctx._local_copy_config) : old_anim_index;
         if constexpr (features::EnableLazyLoadAssets) {
             auto [result, error] = hot_load_animation(ctx);
             if (error != bongocat_error_t::BONGOCAT_SUCCESS) {

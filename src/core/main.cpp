@@ -357,13 +357,12 @@ namespace bongocat {
         bool update_needed = false;
         {
             platform::LockGuard guard (get_main_context().sync_configs);
-            uint64_t new_gen{atomic_load(&get_main_context().config_generation)};
             config::config_t old_config = get_main_context().config;
             // keep old animation, don't randomize
             if (old_config.randomize_index && new_config.randomize_index &&
                 old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
                 old_config.animation_dm_set == new_config.animation_dm_set) {
-                new_config.keep_old_animation_index = 1;
+                new_config._keep_old_animation_index = 1;
             }
             // If successful, check if input devices changed before updating config
             devices_changed = config_devices_changed(old_config, new_config);
@@ -377,10 +376,10 @@ namespace bongocat {
             bongocat::error_init(get_main_context().config.enable_debug);
 
             // Increment generation atomically
-            new_gen = atomic_fetch_add(&get_main_context().config_generation, 1);
-
             // Update the running systems with new config
             update_config(get_main_context().wayland->wayland_context, get_main_context().config, *get_main_context().animation);
+            atomic_fetch_add(&get_main_context().config_generation, 1);
+            uint64_t new_gen{ atomic_load(&get_main_context().config_generation)};
             platform::input::trigger_update_config(*get_main_context().input, get_main_context().config, new_gen);
             platform::update::trigger_update_config(*get_main_context().update, get_main_context().config, new_gen);
             animation::trigger_update_config(*get_main_context().animation, get_main_context().config, new_gen);
@@ -396,7 +395,7 @@ namespace bongocat {
                 return !atomic_load(&get_main_context().animation->anim._animation_running) || atomic_load(&get_main_context().animation->anim.config_seen_generation) >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
 
-            get_main_context().config.keep_old_animation_index = 0;
+            get_main_context().config._keep_old_animation_index = 0;
             // fallback when cond hits timeout (sync config generations)
             if (atomic_load(&get_main_context().input->_capture_input_running)) {
                 atomic_store(&get_main_context().input->config_seen_generation, new_gen);
@@ -516,7 +515,7 @@ namespace bongocat {
         {
             auto [input, input_error] = platform::input::create(ctx.config);
             if (input_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-                BONGOCAT_LOG_ERROR("Failed to initialize animation system: %s", bongocat::error_string(input_error));
+                BONGOCAT_LOG_ERROR("Failed to initialize input system: %s", bongocat::error_string(input_error));
                 return input_error;
             }
             ctx.input = bongocat::move(input);
@@ -776,7 +775,7 @@ int main(int argc, char *argv[]) {
     bongocat::error_init(ctx.config.enable_debug);
 
     // validate args
-    if (config.strict) {
+    if (config._strict) {
         if (args.nr_set && args.nr < 0) {
             BONGOCAT_LOG_ERROR("--nr needs to be a positive number");
             return EXIT_FAILURE;

@@ -96,10 +96,15 @@ namespace bongocat::assets {
     };
 
     config_animation_entry_t get_config_animation_name_dmc(size_t index) {
+        // keep aliases in mind
+        for (const auto& entry : dmc_animation_table) {
+            assert(entry.anim_index >= 0);
+            if (static_cast<size_t>(entry.anim_index) == index) return entry;
+        }
         return dmc_animation_table[index];
     }
 
-    void config_parse_animation_name_dmc(config::config_t& config, const char *value) {
+    int config_parse_animation_name_dmc(config::config_t& config, const char *value) {
         for (const auto& entry : dmc_animation_table) {
             if (strcmp(value, entry.name) == 0 ||
                 strcmp(value, entry.id) == 0 ||
@@ -108,9 +113,10 @@ namespace bongocat::assets {
                 config.animation_index = entry.anim_index;
                 config.animation_dm_set = entry.set;
                 config.animation_sprite_sheet_layout = entry.layout;
-                break;
+                return entry.anim_index;
             }
         }
+        return -1;
     }
 }
 

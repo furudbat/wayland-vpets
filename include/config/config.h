@@ -110,12 +110,12 @@ namespace bongocat::config {
         int32_t input_fps{0};
         int32_t randomize_index{0};
 
-        // for keep old index when reload config
-        int32_t keep_old_animation_index{0};
-        int32_t strict{0};
-
         int32_t update_rate_ms{0};
         double cpu_threshold{0};
+
+        // for keep old index when reload config
+        int32_t _keep_old_animation_index{0};
+        int32_t _strict{0};
 
 
         // Make Config movable and copyable
@@ -161,10 +161,10 @@ namespace bongocat::config {
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
-              keep_old_animation_index(other.keep_old_animation_index),
-              strict(other.strict),
               update_rate_ms(other.update_rate_ms),
-              cpu_threshold(other.cpu_threshold)
+              cpu_threshold(other.cpu_threshold),
+              _keep_old_animation_index(other._keep_old_animation_index),
+              _strict(other._strict)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
@@ -206,10 +206,10 @@ namespace bongocat::config {
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
                 randomize_index = other.randomize_index;
-                keep_old_animation_index = other.keep_old_animation_index;
-                strict = other.strict;
                 update_rate_ms = other.update_rate_ms;
                 cpu_threshold = other.cpu_threshold;
+                _keep_old_animation_index = other._keep_old_animation_index;
+                _strict = other._strict;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
@@ -252,10 +252,10 @@ namespace bongocat::config {
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
-              keep_old_animation_index(other.keep_old_animation_index),
-              strict(other.strict),
               update_rate_ms(other.update_rate_ms),
-              cpu_threshold(other.cpu_threshold)
+              cpu_threshold(other.cpu_threshold),
+              _keep_old_animation_index(other._keep_old_animation_index),
+              _strict(other._strict)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
@@ -303,10 +303,10 @@ namespace bongocat::config {
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
                 randomize_index = other.randomize_index;
-                keep_old_animation_index = other.keep_old_animation_index;
-                strict = other.strict;
                 update_rate_ms = other.update_rate_ms;
                 cpu_threshold = other.cpu_threshold;
+                _keep_old_animation_index = other._keep_old_animation_index;
+                _strict = other._strict;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];

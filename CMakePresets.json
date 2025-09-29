@@ -107,6 +107,7 @@
       "binaryDir": "${sourceDir}/cmake-build-release-pngle",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "OFF",
         "FEATURE_USE_PNGLE": "ON"
       }
     },
@@ -118,6 +119,7 @@
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-pngle",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "OFF",
         "FEATURE_USE_PNGLE": "ON"
       }
     },
@@ -129,7 +131,8 @@
       "binaryDir": "${sourceDir}/cmake-build-release-hybrid",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON"
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON",
+        "FEATURE_USE_PNGLE": "OFF"
       }
     },
     {
@@ -140,7 +143,8 @@
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-hybrid",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
-        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON"
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON",
+        "FEATURE_USE_PNGLE": "OFF"
       }
     },
     {
@@ -155,7 +159,14 @@
         "ENABLE_UBSAN": "ON",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
-        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF"
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DM_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "OFF"
       }
     },
     {

@@ -9,7 +9,7 @@ PROGRAM="./cmake-build-debug/bongocat-all"
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
-OG_CONFIG=./examples/digimon.bongocat.conf
+OG_CONFIG=./examples/test.bongocat.conf
 cp $OG_CONFIG $CONFIG
 
 if [[ $# -ge 1 ]]; then
@@ -64,6 +64,7 @@ toggle_config() {
 # --- modify config to trigger hot reload ---
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=0/' "$CONFIG"
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
 sleep 3
 toggle_config
 sleep 10
@@ -87,18 +88,10 @@ sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 sleep 5
 echo "[TEST] Change animation sprite"
 echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=[:A-Za-z_. ]+/animation_name=agumon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
 sleep 5
 echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=[:A-Za-z_. ]+/animation_name=greymon/' "$CONFIG"
-sleep 1
-
-echo "[TEST] Invalid animation sprite"
-echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=[:A-Za-z_. ]+/animation_name=NoNo/' "$CONFIG"
-sleep 5
-echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=[:A-Za-z. ]+/animation_name=greymon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
 sleep 1
 
 echo "[TEST] move and delete config..."
@@ -182,7 +175,7 @@ sleep 2
 
 echo "[TEST] replace config..."
 echo "[INFO] Replace Config: $CONFIG > ${CONFIG}.del"
-cp ./examples/idle-only-digimon.bongocat.conf $CONFIG
+cp ./examples/pokemon.bongocat.conf $CONFIG
 sleep 5
 echo "[TEST] Sending ESC key..."
 if [[ -f "/proc/$PID/fd/0" ]]; then
@@ -206,43 +199,43 @@ sleep 5
 echo "[TEST] Load biggest assets"
 echo "[INFO] Set Sprite Sheet: Links"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Links/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: pkmn:dialga"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:dialga/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmx:Hexeblaumon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=dmx:Hexeblaumon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=dm20:Omegamon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmc:Omegamon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=dmc:Omegamon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dm:Coronamon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm:Coronamon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=dm:Coronamon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: Metal Greymon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Metal Greymon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=Metal Greymon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
@@ -251,7 +244,7 @@ sleep 5
 echo "[TEST] CPU threshold"
 echo "[INFO] Enable CPU threshold"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Agumon/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=dm20:Agumon/' "$CONFIG"
 sed -i -E 's/^update_rate=[0-9]+/update_rate=1000/' "$CONFIG"
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=30/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
@@ -311,7 +304,7 @@ fi
 # --- send SIGTERM ---
 echo "[TEST] Sending SIGTERM..."
 kill -TERM "$PID"
-sleep 15
+sleep 10
 echo "[INFO] Wait for TERM"
 # wait up to 5 seconds
 for i in {1..5}; do

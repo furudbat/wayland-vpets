@@ -420,7 +420,7 @@ namespace bongocat::platform::input {
                 assert(input._local_copy_config != nullptr);
                 const config::config_t& current_config = *input._local_copy_config;
                 if (device_nfds > MAX_DEVICE_FDS) {
-                    if (current_config.strict) {
+                    if (current_config._strict) {
                         BONGOCAT_LOG_ERROR("input: Max input devices fds: %d/%d (%d)", device_nfds, MAX_DEVICE_FDS, input._unique_devices.count);
                         break;
                     } else {
@@ -858,10 +858,8 @@ namespace bongocat::platform::input {
         if (ret == nullptr) {
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
-
         if (config.num_keyboard_devices <= 0) {
-            BONGOCAT_LOG_ERROR("No input devices specified");
-            return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            BONGOCAT_LOG_WARNING("No input devices specified");
         }
 
         const timestamp_ms_t now = get_current_time_ms();
@@ -902,9 +900,11 @@ namespace bongocat::platform::input {
     }
 
     bongocat_error_t start(input_context_t& input, animation::animation_session_t& trigger_ctx, const config::config_t& config, CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
-        if (config.num_keyboard_devices <= 0) {
+        if (config.num_keyboard_devices < 0) {
             BONGOCAT_LOG_ERROR("No input devices specified");
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        } else if (config.num_keyboard_devices == 0) {
+            BONGOCAT_LOG_WARNING("No input devices specified");
         }
 
         const timestamp_ms_t now = get_current_time_ms();

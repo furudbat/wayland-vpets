@@ -876,7 +876,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             wayland_ctx.output = ctx.outputs[0].wl_output;
             wayland_ctx._output_name_str = ctx.outputs[0].name_str;
             BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
-            if (current_config.strict) {
+            if (current_config._strict) {
                 wl_registry_destroy(registry);
                 return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
             }
@@ -902,7 +902,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         } else {
             BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
             screen_width = DEFAULT_SCREEN_WIDTH;
-            if (current_config.strict) {
+            if (current_config._strict) {
                 wl_registry_destroy(registry);
                 return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
             }

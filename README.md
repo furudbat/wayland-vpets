@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.0.1-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.1.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
@@ -44,6 +44,7 @@ _Pokemon_
 - **🏗️ Cross-platform** - Works on x86_64 and ARM64
 - **😄 Happy Frame** - Reach KPM (Keystroke per minute) to trigger the happy frame (Digimon)
 - **🎲 Random Frame** - Randomize sprite frame at start up (Digimon) (v2.4.0)
+- **🔲 CPU Stat** - React to CPU usage (Digimon) (v3.1.0)
 
 ## 🏁 Getting Started
 
@@ -301,6 +302,8 @@ enable_debug=0                   # Show debug messages
 | `enable_debug`            | Boolean  | 0 or 1                                                     | 0             | Enable debug logging                                                                    |
 | `monitor`                 | String   | Monitor name                                               | Auto-detect   | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                                 |
 | `random`                  | Boolean  | 0 or 1                                                     | 0             | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set) |
+| `update_rate`             | Integer  | 0–5000                                                     | 0             | Check (CPU) states rate (0 = disabled) (in milliseconds)                                |
+| `cpu_threshold`           | Integer  | 0–100                                                      | 0             | Threshold of CPU usage for triggering work animation (0 = disabled)                     |
 
 #### Available Sprites (`animation_name`)
 
@@ -325,39 +328,41 @@ _If you build with ALL assets included you can void naming conflicts by using th
 ### Command Line Options
 
 ```bash
-bongocat [OPTIONS]
+wpets [OPTIONS]
 
 Options:
-  -h, --help            Show this help message
-  -v, --version         Show version information
-  -c, --config          Specify config file (default: bongocat.conf)
-  -w, --watch-config    Watch config file for changes and reload automatically
-  -t, --toggle          Toggle bongocat on/off (start if not running, stop if running)
-  -o, --output-name     Specify output name (overwrite output_name from config)
-      --random          Randomize animation_name at start up
-      --strict          Only start up with a valid config and valid parameter
+  -h, --help                Show this help message
+  -v, --version             Show version information
+  -c, --config              Specify config file (default: bongocat.conf)
+  -w, --watch-config        Watch config file for changes and reload automatically
+  -t, --toggle              Toggle bongocat on/off (start if not running, stop if running)
+  -o, --output-name NAME    Specify output name (overwrite output_name from config)
+      --random              Randomize animation_name at start up
+      --strict              Only start up with a valid config and valid parameter
+      --nr NR               Specify Nr. for PID file to avoid conflicting ruinning instances
+      --ignore-running      Ignore current running instance (avoid PID file conflicts)
 ```
 
 ### Examples
 
 ```bash
 # Basic usage
-bongocat
+wpets
 
 # With hot-reload (recommended)
-bongocat --watch-config
+wpets --watch-config
 
 # Custom config with hot-reload
-bongocat --config ~/.config/bongocat.conf --watch-config
+wpets --config ~/.config/bongocat.conf --watch-config
 
 # Debug mode
-bongocat --watch-config --config bongocat.conf
+wpets --watch-config --config bongocat.conf
 
 # Toggle mode
-bongocat --toggle
+wpets --toggle
 
 # Custom config with hot-reload and custom output_name
-bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
+wpets --watch-config --output-name DP-2 --config ~/.config/bongocat.conf
 ```
 
 See [`examples/`](examples) for more configs.
@@ -474,6 +479,9 @@ wpets-find-devices --all
 
 # Generate complete configuration file
 wpets-find-devices --generate-config > bongocat.conf
+
+# Generate complete configuration file with named devices by-id
+wpets-find-devices --generate-config --by-id > bongocat.conf
 
 # Test device responsiveness (requires root)
 sudo wpets-find-devices --test
@@ -748,5 +756,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v3.0.1** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.1.0** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon V-Pets, Clippy and Pokémon.
