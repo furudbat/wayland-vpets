@@ -47,8 +47,10 @@ target_compile_options(bongocat_options INTERFACE
     >
 )
 target_compile_definitions(bongocat_options INTERFACE
-    $<$<CONFIG:Debug>:BONGOCAT_LOG_LEVEL=5>
-    $<$<CONFIG:RelWithDebInfo>:BONGOCAT_LOG_LEVEL=4>
+    $<$<CONFIG:Debug>:BONGOCAT_LOG_LEVEL=5>             # Verbose
+    $<$<CONFIG:RelWithDebInfo>:BONGOCAT_LOG_LEVEL=4>    # Debug
+    $<$<CONFIG:Release>:BONGOCAT_LOG_LEVEL=3>           # Info
+    #$<$<CONFIG:MinSizeRel>:BONGOCAT_LOG_LEVEL=0>        # NONE
     $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_MEMORY_STATISTICS>
     $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>
 )
@@ -83,6 +85,7 @@ set(SOURCES
         graphics/bar.cpp
         graphics/drawing_images.cpp
         platform/input.cpp
+        platform/update.cpp
         platform/wayland.cpp
 )
 add_library(bongocat_base INTERFACE)

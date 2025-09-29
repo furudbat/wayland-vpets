@@ -27,4 +27,4 @@ fragments/copyright.md
 ```
 
 # SEE ALSO
-wayland(7), bongocat.conf(5)
+wayland(7), bongocat.conf(5), bongocat-find-devices(1)

@@ -27,7 +27,7 @@ namespace bongocat::animation {
         assert(size <= INT_MAX);
         int channels_in_file;
         ret.pixels = stbi_load_from_memory(data, static_cast<int>(size), &ret.width, &ret.height, &channels_in_file, desired_channels);
-        if (ret.pixels == nullptr) {
+        if (ret.pixels == nullptr) [[unlikely]] {
             ret.pixels = nullptr;
             return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
         }

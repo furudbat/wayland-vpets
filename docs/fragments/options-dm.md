@@ -6,6 +6,7 @@
 
       -c, --config                
             Specify config file (default: bongocat.conf)
+            Use "-" to read configuration from standard input.
 
       -w, --watch-config          
             Watch config file for changes and reload automatically

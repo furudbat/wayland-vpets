@@ -26,6 +26,7 @@ Changes to some settings require restarting Bongo Cat to take effect.
 - **cat_x_offset**: Horizontal offset from center (pixels). Positive moves right, negative moves left. Behavior changes based on **cat_align** (`center`, `left`, `right`).
 - **cat_y_offset**: Vertical offset (pixels). Positive moves down, negative moves up.
 - **cat_align**: Horizontal alignment in the bar. Options: `center` (default), `left`, `right`.
+- **cat_height**: Height of the cat in pixels. Width auto-calculated.
 
 # MIRRORING
 
@@ -38,9 +39,9 @@ Changes to some settings require restarting Bongo Cat to take effect.
 
 # SIZE SETTINGS
 
-- **cat_height**: Height of the cat in pixels. Width auto-calculated.
 - **overlay_height**: Height of overlay bar (pixels).
 - **overlay_position**: Screen position of overlay. Options: `top`, `bottom`.
+- **overlay_layer**: Layer of overlay. Options: `overlay`, `top`, `bottom` or `background`.
 
 # FRAME RATE
 
@@ -58,7 +59,18 @@ Changes to some settings require restarting Bongo Cat to take effect.
 # INPUT DEVICES
 
 - **keyboard_device**: Input device path (can specify multiple).  
-  Example: `/dev/input/event4`
+
+## Example
+
+      keyboard_device=/dev/input/event4     # Keyboard
+      keyboard_device=/dev/input/event20    # External/Bluetooth keyboard
+
+## Example with devices by-id
+
+      keyboard_device=/dev/input/by-id/usb-MY_KEYBOARD-event-kbd                                                          # MY_KEYBOARD  (/dev/input/event9)
+      keyboard_device=/dev/input/by-id/usb-MY_KEYBOARD-event-if01                                                         # MY_KEYBOARD  Consumer Control (/dev/input/event10)
+      keyboard_device=/dev/input/event11                                                                                  # MY_KEYBOARD  System Control
+      keyboard_device=/dev/input/by-id/usb-MY_KEYBOARD-if01-event-kbd                                                     # MY_KEYBOARD  Keyboard (/dev/input/event12)
 
 # MULTI-MONITOR
 
@@ -67,7 +79,7 @@ Changes to some settings require restarting Bongo Cat to take effect.
 
 # ANIMATION
 
-- **animation_name**: Animation set. Examples: `bongocat`, `Clippy`, `Bulbasaur`.
+- **animation_name**: Animation set. Examples: `bongocat`, `Clippy`, `Bulbasaur`. _(see below for full list)_
 - **invert_color**: Invert colors for dark mode (0 = off, 1 = on).
 - **random**: Random animation index (0 = off, 1 = on).
 - **idle_frame**: Frame to use when idle (0–3 for Bongo Cat).
@@ -77,5 +89,5 @@ Changes to some settings require restarting Bongo Cat to take effect.
 - **happy_kpm**: Minimum keystrokes per minute to trigger happy animation.
 - **keypress_duration**: Duration (ms) to display keypress animation.
 - **idle_animation**: Enable idle animation (0 = off, 1 = on).
-- **animation_speed**: Milliseconds per frame (0 = use FPS).
+- **animation_speed**: Milliseconds per frame (0 = use FPS speed).
 - ~~**test_animation_duration** / **test_animation_interval**~~: Deprecated, use **animation_speed** and **idle_animation**.

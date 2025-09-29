@@ -68,7 +68,7 @@ namespace bongocat::animation {
             case config::config_animation_sprite_sheet_layout_t::Bongocat: {
                 if constexpr (features::EnableBongocatEmbeddedAssets) {
                     auto [result, error] = load_bongocat_sprite_sheet(ctx, anim_index);
-                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                         return error;
                     }
                     anim_shm.bongocat_sprite_sheet = bongocat::move(result);
@@ -380,6 +380,14 @@ namespace bongocat::animation {
 #include "dmc_init_dm_anim.cpp.inl"
 #endif
                     }
+                    if constexpr (features::EnableDmAllEmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init dmall sprite sheets: %d", DMALL_ANIM_COUNT);
+                        ctx.shm->dmall_anims = platform::make_allocated_mmap_array<animation_t>(DMALL_ANIM_COUNT);
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+                        // dmall
+#include "dmall_init_dm_anim.cpp.inl"
+#endif
+                    }
                 }
             }
 
@@ -401,7 +409,7 @@ namespace bongocat::animation {
                 }
             }
 
-            if constexpr (features::EnableDmEmbeddedAssets) {
+            if constexpr (features::EnablePkmnEmbeddedAssets) {
                 // Load pkmn
                 if (should_load_pkmn(config)) {
                     BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %d", PKMN_ANIM_COUNT);

@@ -9,11 +9,60 @@
 #include <stdatomic.h>
 
 namespace bongocat::platform::input {
-    struct input_unique_file_t {
-        // ref to input_context_t._device_paths[i]
-        const char* device_path{nullptr};
-        FileDescriptor fd;
+    enum class input_unique_file_type_t : uint8_t {
+        NONE,
+        File,
+        Symlink,
     };
+    struct input_unique_file_t;
+    void cleanup(input_unique_file_t& file);
+    struct input_unique_file_t {
+        const char* _device_path{nullptr};   // original string from config (ref to input_context_t._device_paths[i])
+        char* canonical_path{nullptr};       // resolved real path (malloc'd)
+        FileDescriptor fd;
+        input_unique_file_type_t type{input_unique_file_type_t::NONE};
+
+        input_unique_file_t() = default;
+        ~input_unique_file_t() {
+            cleanup(*this);
+        }
+
+        input_unique_file_t(const input_unique_file_t& other) = delete;
+        input_unique_file_t& operator=(const input_unique_file_t& other) = delete;
+
+        input_unique_file_t(input_unique_file_t&& other) noexcept
+            : _device_path(other._device_path),
+              canonical_path(other.canonical_path),
+              fd(bongocat::move(other.fd)),
+              type(other.type)
+        {
+            other._device_path = nullptr;
+            other.canonical_path = nullptr;
+            other.type = input_unique_file_type_t::NONE;
+        }
+        input_unique_file_t& operator=(input_unique_file_t&& other) noexcept {
+            if (this != &other) {
+                cleanup(*this);
+
+                _device_path = other._device_path;
+                canonical_path = other.canonical_path;
+                fd = bongocat::move(other.fd);
+                type = other.type;
+
+                other._device_path = nullptr;
+                other.canonical_path = nullptr;
+                other.type = input_unique_file_type_t::NONE;
+            }
+            return *this;
+        }
+    };
+    inline void cleanup(input_unique_file_t& file) {
+        close_fd(file.fd);
+        file._device_path = nullptr;
+        if (file.canonical_path) ::free(file.canonical_path);
+        file.canonical_path = nullptr;
+        file.type = input_unique_file_type_t::NONE;
+    }
 
     struct input_context_t;
     void stop(input_context_t& ctx);

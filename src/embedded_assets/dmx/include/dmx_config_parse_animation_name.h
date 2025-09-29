@@ -6,7 +6,7 @@
 
 namespace bongocat::assets {
     [[nodiscard]] extern config_animation_entry_t get_config_animation_name_dmx(size_t i);
-    extern void config_parse_animation_name_dmx(config::config_t& config, const char *value);
+    extern int config_parse_animation_name_dmx(config::config_t& config, const char *value);
 }
 
 #endif

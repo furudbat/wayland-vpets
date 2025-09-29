@@ -1,7 +1,9 @@
 #ifndef BONGOCAT_ERROR_H
 #define BONGOCAT_ERROR_H
 
+#include <cerrno>
 #include <cstdint>
+#include <cstring>
 
 namespace bongocat {
     // Error codes
@@ -56,7 +58,7 @@ namespace bongocat {
     // 4 = Debug
     // 5 = Verbose
 #ifndef BONGOCAT_LOG_LEVEL
-#define BONGOCAT_LOG_LEVEL 4
+#define BONGOCAT_LOG_LEVEL 3
 #endif
     namespace features {
 #if defined(BONGOCAT_LOG_LEVEL)
@@ -93,6 +95,22 @@ namespace bongocat {
 #else
 #define BONGOCAT_LOG_VERBOSE(format, ...)
 #endif
+
+
+    inline int check_errno([[maybe_unused]] const char* fd_name) {
+        int err = errno;
+        // supress compiler warning
+#if EAGAIN == EWOULDBLOCK
+        if (err != EAGAIN) {
+            BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(err));
+        }
+#else
+        if (err != EAGAIN && err != EWOULDBLOCK) {
+            BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(err));
+        }
+#endif
+        return err;
+    }
 }
 
 #endif // ERROR_H

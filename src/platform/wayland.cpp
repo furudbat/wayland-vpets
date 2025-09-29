@@ -876,7 +876,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             wayland_ctx.output = ctx.outputs[0].wl_output;
             wayland_ctx._output_name_str = ctx.outputs[0].name_str;
             BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
-            if (current_config.strict) {
+            if (current_config._strict) {
                 wl_registry_destroy(registry);
                 return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
             }
@@ -902,7 +902,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         } else {
             BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
             screen_width = DEFAULT_SCREEN_WIDTH;
-            if (current_config.strict) {
+            if (current_config._strict) {
                 wl_registry_destroy(registry);
                 return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
             }
@@ -928,9 +928,23 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
         }
 
+        zwlr_layer_shell_v1_layer layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
+        switch (current_config.layer) {
+            case config::layer_type_t::LAYER_BACKGROUND:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_BACKGROUND;
+                break;
+            case config::layer_type_t::LAYER_BOTTOM:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_BOTTOM;
+                break;
+            case config::layer_type_t::LAYER_TOP:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_TOP;
+                break;
+            case config::layer_type_t::LAYER_OVERLAY:
+                layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
+                break;
+        }
         wayland_ctx.layer_surface = zwlr_layer_shell_v1_get_layer_surface(wayland_ctx.layer_shell, wayland_ctx.surface, wayland_ctx.output,
-                                                          ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY,
-                                                          WAYLAND_LAYER_NAMESPACE);
+                                                                          layer, WAYLAND_LAYER_NAMESPACE);
 
         if (!wayland_ctx.layer_surface) {
             BONGOCAT_LOG_ERROR("Failed to create layer surface");
@@ -1228,13 +1242,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 if (!running) {
                     // draining pools
                     for (size_t i = 0; i < fds_count; i++) {
-                        if (fds[i].revents & POLLIN) {
-                            int attempts = 0;
-                            uint64_t u;
-                            while (read(fds[i].fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                                attempts++;
-                            }
-                        }
+                        platform::drain_event(fds[i], MAX_ATTEMPTS);
                     }
                     if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
                     render_requested = false;
@@ -1245,48 +1253,16 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 // reload config event
                 if (fds[fds_config_reload_index].revents & POLLIN) {
                     BONGOCAT_LOG_DEBUG("Receive reload event");
-
-                    int attempts = 0;
-                    uint64_t u;
-                    while (read(config_watcher ? config_watcher->reload_efd._fd : -1, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                        attempts++;
-                        // continue draining if multiple writes queued
+                    if (config_watcher) {
+                        platform::drain_event(fds[fds_config_reload_index], MAX_ATTEMPTS, "update config eventfd");
                     }
-                    // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                    if (errno != EAGAIN) {
-                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                    }
-#else
-                    if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                        BONGOCAT_LOG_ERROR("Error reading reload eventfd: %s", strerror(errno));
-                    }
-#endif
-
                     config_reload_requested = true;
                 }
 
                 // render event
                 if (fds[fds_animation_render_index].revents & POLLIN) {
                     BONGOCAT_LOG_VERBOSE("Receive render event");
-
-                    int attempts = 0;
-                    uint64_t u;
-                    while (read(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) == sizeof(uint64_t) && attempts < MAX_ATTEMPTS) {
-                        attempts++;
-                        // continue draining if multiple writes queued
-                    }
-                    // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-                    if (errno != EAGAIN) {
-                        BONGOCAT_LOG_ERROR("Error reading render eventfd: %s", strerror(errno));
-                    }
-#else
-                    if (errno != EAGAIN && errno != EWOULDBLOCK) {
-                        BONGOCAT_LOG_ERROR("Error reading render eventfd: %s", strerror(errno));
-                    }
-#endif
-
+                    platform::drain_event(fds[fds_animation_render_index], MAX_ATTEMPTS, "render eventfd");
                     render_requested = true;
                 }
 

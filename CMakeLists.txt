@@ -31,7 +31,7 @@ endif()
 
 
 
-project(bongocat LANGUAGES C CXX VERSION 3.0.1)
+project(bongocat LANGUAGES C CXX VERSION 3.1.0)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -51,7 +51,9 @@ option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets"
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, faster sprite switching on hot-reload)" OFF)
 option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" ON)
-option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
+option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (Less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
+option(FEATURE_USE_HYBRID_IMAGE_BACKEND "Use pngle or stb_image as assets (png) loader (Less RAM usage, more loading time, balanced) (Recommended)" ON)
+option(FEATURE_USE_PNGLE "Use pngle as assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
@@ -315,12 +317,30 @@ if (PANDOC)
         )
     endforeach()
 
+    # find-devices
+    set(FD_MD_FILE_1 ${PROJECT_SOURCE_DIR}/docs/bongocat-find-devices.md)
+    set(FD_MAN_OUTPUT_1 ${CMAKE_CURRENT_BINARY_DIR}/bongocat-find-devices.1)
+    add_custom_command(
+            OUTPUT ${FD_MAN_OUTPUT_1}
+            WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
+            COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${FD_MAN_OUTPUT_1} ${FD_MD_FILE_1}
+            DEPENDS ${FD_MD_FILE_1}
+            COMMENT "Generating man page for bongocat-find-devices using Pandoc"
+            VERBATIM
+    )
+    add_custom_target(manpages-bongocat-find-devices ALL DEPENDS ${FD_MAN_OUTPUT_1})
+    list(APPEND ALL_MAN_OUTPUTS ${FD_MAN_OUTPUT_1})
+    install(
+            FILES ${FD_MAN_OUTPUT_1}
+            DESTINATION ${CMAKE_INSTALL_MANDIR}/man1
+    )
+
     add_custom_target(manpages ALL DEPENDS ${ALL_MAN_OUTPUTS})
 endif()
 
 # Package
 set(CPACK_PACKAGE_NAME "bongocat")
-set(CPACK_PACKAGE_VERSION "3.0.1")
+set(CPACK_PACKAGE_VERSION "3.1.0")
 set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")

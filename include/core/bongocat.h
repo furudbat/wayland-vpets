@@ -7,7 +7,7 @@
 #include "utils/memory.h"
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "3.0.1";
+inline static constexpr const char* BONGOCAT_VERSION = "3.1.0";
 
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
@@ -15,9 +15,6 @@ inline static constexpr int32_t DEFAULT_BAR_HEIGHT = 40;
 static inline constexpr int32_t DEFAULT_FPS = 60;
 inline static constexpr int32_t RGBA_CHANNELS = 4;
 inline static constexpr int32_t BGRA_CHANNELS = 4;
-
-inline static constexpr size_t MAX_INPUT_DEVICES = 256;
-static_assert(MAX_INPUT_DEVICES <= INT32_MAX);
 
 namespace bongocat {
     template<typename T>
@@ -127,8 +124,34 @@ namespace bongocat {
         inline static constexpr bool EnableLazyLoadAssets = false;
 #endif
 
+#ifdef FEATURE_USE_HYBRID_IMAGE_BACKEND
+        inline static constexpr bool UseHybridImageBackend = true;
+#else
+        inline static constexpr bool UseHybridImageBackend = false;
+
+#ifdef FEATURE_USE_PNGLE
+        inline static constexpr bool UsePngleImageBackend = true;
+#else
+        inline static constexpr bool UsePngleImageBackend = false;
+#endif
+
+#ifdef FEATURE_USE_STB_IMAGE
+        inline static constexpr bool UseStbImageBackend = true;
+#else
+        inline static constexpr bool UseStbImageBackend = false;
+#endif
+#endif
+
     }
 
+    // Global consts
+    namespace input {
+        inline static constexpr size_t MAX_INPUT_DEVICES = 256;
+        static_assert(MAX_INPUT_DEVICES <= INT32_MAX);
+    }
+    namespace platform {
+        inline static constexpr double ENABLED_MIN_CPU_PERCENT = 1.0; // in percent
+    }
 
 
     template <typename Enum>
