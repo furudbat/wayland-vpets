@@ -7,7 +7,7 @@
 #include "utils/memory.h"
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "3.1.0";
+inline static constexpr const char* BONGOCAT_VERSION = "3.1.1";
 
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
@@ -151,6 +151,7 @@ namespace bongocat {
     }
     namespace platform {
         inline static constexpr double ENABLED_MIN_CPU_PERCENT = 1.0; // in percent
+        inline static constexpr double TRIGGER_ANIMATION_CPU_DIFF_PERCENT = 1.0; // in percent
     }
 
 

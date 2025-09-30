@@ -209,8 +209,8 @@ namespace bongocat::animation {
 #endif
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-    static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
-                                                                 animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
+    static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input, const platform::update::update_context_t& upd,
+                                                            animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
 
         // read-only config
@@ -220,6 +220,7 @@ namespace bongocat::animation {
         assert(ctx.shm != nullptr);
         animation_shared_memory_t& anim_shm = *ctx.shm;
         const auto& input_shm = *input.shm;
+        const auto& update_shm = *upd.shm;
         auto& animation_player_data = anim_shm.animation_player_data;
         const auto current_frame = animation_player_data.frame_index;
         //const int current_row = animation_player_data.sprite_sheet_row;
@@ -277,10 +278,15 @@ namespace bongocat::animation {
             } else if (current_frame == DM_FRAME_IDLE1) {
                 new_frame = DM_FRAME_IDLE2;
             } else {
-                static_assert(DM_FRAME_IDLE2 >= DM_FRAME_IDLE1);
-                static_assert(DM_FRAME_IDLE1 >= 0);
-                static_assert(DM_FRAME_IDLE2 >= 0);
-                new_frame = static_cast<int>(ctx._rng.range(DM_FRAME_IDLE1, DM_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+                // recover from working animation
+                if (!update_shm.cpu_active && (current_frame == DM_FRAME_ATTACK || current_frame == DM_FRAME_ANGRY)) {
+                    new_frame = DM_FRAME_IDLE1;
+                } else {
+                    static_assert(DM_FRAME_IDLE2 >= DM_FRAME_IDLE1);
+                    static_assert(DM_FRAME_IDLE1 >= 0);
+                    static_assert(DM_FRAME_IDLE2 >= 0);
+                    new_frame = static_cast<int>(ctx._rng.range(DM_FRAME_IDLE1, DM_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+                }
             }
         }
         // Sleep animation
@@ -885,8 +891,23 @@ namespace bongocat::animation {
         /// @TODO: set new Working mode
         new_row_state = animation_state_row_t::Writing;
         // toggle frame, show attack animation
-        if (current_frame == DM_FRAME_IDLE1 || current_frame == DM_FRAME_IDLE2) {
-            if (current_config.cpu_threshold > 0 && update_shm.avg_cpu_usage >= current_config.cpu_threshold) {
+        const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT && (update_shm.avg_cpu_usage >= current_config.cpu_threshold || update_shm.max_cpu_usage >= current_config.cpu_threshold);
+        const bool lower_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT && (update_shm.avg_cpu_usage < current_config.cpu_threshold || update_shm.max_cpu_usage < current_config.cpu_threshold);
+        if (above_threshold) {
+            if (!update_shm.cpu_active && (current_frame == DM_FRAME_ATTACK || current_frame == DM_FRAME_ANGRY)) {
+                // toggle frame
+                if (current_frame == DM_FRAME_IDLE1) {
+                    new_frame = DM_FRAME_IDLE2;
+                } else if (current_frame == DM_FRAME_IDLE2) {
+                    new_frame = DM_FRAME_IDLE1;
+                } else {
+                    static_assert(DM_FRAME_IDLE2 >= DM_FRAME_IDLE1);
+                    static_assert(DM_FRAME_IDLE1 >= 0);
+                    static_assert(DM_FRAME_IDLE2 >= 0);
+                    new_frame = static_cast<int>(ctx._rng.range(DM_FRAME_IDLE1, DM_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
+                }
+            } else if (current_frame == DM_FRAME_IDLE1 || current_frame == DM_FRAME_IDLE2) {
+                // show attack/working frame
                 if (current_frames.attack.valid) {
                     new_start_frame_index = DM_FRAME_ATTACK;
                     new_end_frame_index = DM_FRAME_ATTACK;
@@ -908,19 +929,15 @@ namespace bongocat::animation {
                         new_frame = static_cast<int>(ctx._rng.range(DM_FRAME_IDLE1, DM_FRAME_IDLE2)); // Frame 0 or 1 (active frames)
                     }
                 }
-            } else if (current_frame == DM_FRAME_ATTACK || current_frame == DM_FRAME_ANGRY) {
+            }
+        } else if (lower_threshold) {
+            if (current_frame == DM_FRAME_ATTACK || current_frame == DM_FRAME_ANGRY) {
                 // back to idle
                 new_start_frame_index = DM_FRAME_IDLE1;
                 new_end_frame_index = DM_FRAME_IDLE2;
                 new_row_state = animation_state_row_t::Idle;
                 new_frame = DM_FRAME_IDLE1;
             }
-        } else if (current_frame == DM_FRAME_ATTACK || current_frame == DM_FRAME_ANGRY || current_frame == DM_FRAME_IDLE2) {
-            // back to idle
-            new_start_frame_index = DM_FRAME_IDLE1;
-            new_end_frame_index = DM_FRAME_IDLE2;
-            new_row_state = animation_state_row_t::Idle;
-            new_frame = DM_FRAME_IDLE1;
         }
 
         const bool changed = anim_shm.animation_player_data.frame_index != new_frame || anim_shm.animation_player_data.sprite_sheet_row != new_row || state.row_state != new_row_state;
@@ -1086,7 +1103,10 @@ namespace bongocat::animation {
     }
 #endif
 
-    static bool anim_handle_idle_animation(animation_context_t& ctx, const platform::input::input_context_t& input, animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
+    static bool anim_handle_idle_animation(animation_context_t& ctx,
+                                            [[maybe_unused]] const platform::input::input_context_t& input,
+                                            [[maybe_unused]] const platform::update::update_context_t& upd,
+                                            animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
 
         // read-only config
@@ -1119,7 +1139,7 @@ namespace bongocat::animation {
             }break;
             case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-                auto [changed, new_frame] = anim_dm_idle_next_frame(ctx, input, state, trigger_result);
+                auto [changed, new_frame] = anim_dm_idle_next_frame(ctx, input, upd, state, trigger_result);
                 ret = changed;
 #endif
             }break;
@@ -1313,7 +1333,7 @@ namespace bongocat::animation {
                 platform::LockGuard update_guard (upd.update_lock);
                 trigger_result = anim_handle_animation_trigger(animation_trigger_ctx, state);
                 hold_frame = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) || has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate);
-                idle_changed = anim_handle_idle_animation(ctx, input, state, trigger_result);
+                idle_changed = anim_handle_idle_animation(ctx, input, upd, state, trigger_result);
             }
             key_pressed = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.any_key_press_counter > 0;
             ret = idle_changed || trigger_result.changed;

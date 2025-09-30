@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.1] - 2025-08-30
+
+### Fixed
+- improve CPU usage animation
+
 ## [3.1.0] - 2025-08-28
 
 ### Added

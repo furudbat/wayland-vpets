@@ -27,7 +27,6 @@ namespace bongocat::platform::update {
 
     inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
     inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
-    inline static constexpr double TRIGGER_ANIMATION_CPU_DIFF_PERCENT = 1.0; // in percent
 
     inline static constexpr const char* FILENAME_CPU_PRESET = "/sys/devices/system/cpu/present";
     inline static constexpr const char* FILENAME_PROC_STAT = "/proc/stat";
@@ -361,11 +360,15 @@ namespace bongocat::platform::update {
                     update_shm.max_cpu_usage = compute_max_cpu_usage(prev, curr);
 
                     const bool above_threshold = current_config.cpu_threshold >= ENABLED_MIN_CPU_PERCENT && (update_shm.avg_cpu_usage >= current_config.cpu_threshold || update_shm.max_cpu_usage >= current_config.cpu_threshold);
+                    const bool lower_threshold = current_config.cpu_threshold >= ENABLED_MIN_CPU_PERCENT && (update_shm.last_avg_cpu_usage >= current_config.cpu_threshold || update_shm.last_max_cpu_usage >= current_config.cpu_threshold) && (update_shm.avg_cpu_usage < current_config.cpu_threshold || update_shm.max_cpu_usage < current_config.cpu_threshold);
                     const bool crossed_delta = fabs(update_shm.avg_cpu_usage - update_shm.last_avg_cpu_usage) >= TRIGGER_ANIMATION_CPU_DIFF_PERCENT || fabs(update_shm.max_cpu_usage - update_shm.last_max_cpu_usage) >= TRIGGER_ANIMATION_CPU_DIFF_PERCENT;
-                    if (above_threshold) {
+                    if (above_threshold || lower_threshold) {
                         if (!update_shm.cpu_active || crossed_delta) {
                             BONGOCAT_LOG_VERBOSE("update: avg. CPU: %.2f (max: %.2f)", update_shm.avg_cpu_usage, update_shm.max_cpu_usage);
                             animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
+                            if (lower_threshold) {
+                                animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::IdleUpdate);
+                            }
                             animation_triggered = true;
                         }
                         update_shm.cpu_active = true;
