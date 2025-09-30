@@ -151,6 +151,7 @@ namespace bongocat {
     }
     namespace platform {
         inline static constexpr double ENABLED_MIN_CPU_PERCENT = 1.0; // in percent
+        inline static constexpr double TRIGGER_ANIMATION_CPU_DIFF_PERCENT = 1.0; // in percent
     }
 
 
