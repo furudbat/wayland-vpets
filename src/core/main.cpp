@@ -766,6 +766,10 @@ int main(int argc, char *argv[]) {
         .randomize_index = args.randomize_index,
         .strict = args.strict,
     };
+    if (args.config_file == nullptr) {
+        BONGOCAT_LOG_ERROR("Missing required argument: --config");
+        return EXIT_FAILURE;
+    }
     auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_error));
@@ -782,10 +786,6 @@ int main(int argc, char *argv[]) {
         }
         if (args.output_name_set && (!args.output_name || strlen(args.output_name) <= 0)) {
             BONGOCAT_LOG_ERROR("--output_name value is missing");
-            return EXIT_FAILURE;
-        }
-        if (args.config_file_set && (!args.config_file || strlen(args.config_file) <= 0)) {
-            BONGOCAT_LOG_ERROR("--config_file value is missing");
             return EXIT_FAILURE;
         }
     }
