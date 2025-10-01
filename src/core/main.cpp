@@ -17,6 +17,8 @@
 #include <sys/signalfd.h>
 #include <libgen.h>
 #include <cerrno>
+#include <format>
+#include <string>
 
 #include "image_loader/load_images.h"
 
@@ -478,6 +480,14 @@ namespace bongocat {
         return error;
     }
 
+    static std::string default_config_file_path() {
+        const std::string config_file_name{"bongocat.conf"};
+        if (const auto xdg_config_path = std::getenv("XDG_CONFIG_HOME"); xdg_config_path != nullptr) {
+            return std::format("{}/{}", xdg_config_path, config_file_name);
+        }
+        return std::format("{}/.config/{}", getenv("HOME"), config_file_name);
+    }
+
     // =============================================================================
     // SIGNAL HANDLING MODULE
     // =============================================================================
@@ -766,11 +776,10 @@ int main(int argc, char *argv[]) {
         .randomize_index = args.randomize_index,
         .strict = args.strict,
     };
-    if (args.config_file == nullptr) {
-        BONGOCAT_LOG_ERROR("Missing required argument: --config");
-        return EXIT_FAILURE;
-    }
-    auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
+
+    const auto config_file = args.config_file == nullptr ? default_config_file_path() : std::string{args.config_file};
+
+    auto [config, config_error] = config::load(config_file.c_str(), ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_error));
         return EXIT_FAILURE;
@@ -856,7 +865,7 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("bongocat PID: %d", pid);
 
     // Setup signal handlers
-    ctx.signal_watch_path = args.config_file;
+    ctx.signal_watch_path = config_file.c_str();
     bongocat_error_t signal_result = signal_setup_handlers(ctx);
     if (signal_result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat::error_string(signal_result));
@@ -865,9 +874,9 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("Signal handler configure (fd=%i)", ctx.signal_fd._fd);
     
     // Initialize config watcher if requested
-    if (args.watch_config && args.config_file) {
-        if (strcmp(args.config_file, "-") != 0) {
-            start_config_watcher(ctx, args.config_file);
+    if (args.watch_config) {
+        if (config_file != "-") {
+            start_config_watcher(ctx, config_file.c_str());
         } else {
             BONGOCAT_LOG_INFO("Skip config watcher, no config watcher fir stdin");
         }

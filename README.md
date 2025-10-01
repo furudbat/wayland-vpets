@@ -75,7 +75,7 @@ wpets-find-devices
 
 ### 4. Configure Bongo Cat
 
-Create or edit `~/.config/bongocat/bongocat.conf`:
+Create or edit `~/.config/bongocat.conf`:
 
 ```ini
 # Example minimal configuration
@@ -101,7 +101,7 @@ Full configuration reference: see the [Configuration Section](#-configuration) b
 ### 5. Run the Overlay
 
 ```bash
-wpets --watch-config --config ~/.config/bongocat/bongocat.conf
+wpets --watch-config --config ~/.config/bongocat.conf
 ```
 
 
@@ -333,7 +333,7 @@ wpets [OPTIONS]
 Options:
   -h, --help                Show this help message
   -v, --version             Show version information
-  -c, --config              Specify config file (default: bongocat.conf)
+  -c, --config              Specify config file (default: ~/.config/bongocat.conf)
   -w, --watch-config        Watch config file for changes and reload automatically
   -t, --toggle              Toggle bongocat on/off (start if not running, stop if running)
   -o, --output-name NAME    Specify output name (overwrite output_name from config)
