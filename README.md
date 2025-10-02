@@ -701,32 +701,7 @@ _**Note:** The binary name in AUR is `wpets`, but during development and `make i
 
 The project is gradually migrating to C++ while retaining a C-style foundation for performance and Wayland compatibility.
 
-##### Key practices:
-
-* **Modern Compiler Features:** Requires C23/C++23 (`#embed`)
-* **Thread Safety:** Thread-safe logging, mutexes, LockGuard, and atomic operations (`atomic_store/load`)
-* **Memory & Resource Management:**
-  * Prefer stack over heap; use heap only when required for mutexes or dynamic arrays
-  * RAII for resources: Mutex, MMap, Buffers, FileDescriptors
-  * Move semantics for cleanup reduction
-* **Code Modernization:**
-  * Use `ref&` instead of raw pointers (not-nullable)
-  * Use `nullptr` instead of `NULL`
-  * Replace `#define` with `constexpr` where possible
-  * Use `enum class` and default/brace initialization
-* **C++ Usage Restrictions:**
-  * _Almost_ NO STL (only `<type_traits>` used)
-  * No classes except for RAII; apply **Rule of Five**
-  * Minimal templates
-* **Asset Management:**
-  * Embed large assets in separate translation units
-  * Access via dedicated functions
-* **Global State:**
-  * Reduce globals, prefer context structs passed as parameters
-* **Threading:**
-  * Allocate memory upfront before starting threads
-  * Prefer `create` functions with RVO instead of `init` with out-parameters
-  * Stop all threads before releasing memory
+For more details, see the [Code Standards section in CONTRIBUTING](CONTRIBUTING.md#code-standards).  
 
 The project remains largely C under the hood, using Linux + Wayland libraries, while gradually adopting modern C++ practices for safety and maintainability.
 
