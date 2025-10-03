@@ -5,7 +5,7 @@
             Show version information
 
       -c, --config                
-            Specify config file (default: bongocat.conf)
+            Specify config file (default: ~/.config/bongocat.conf)
             Use "-" to read configuration from standard input.
 
       -w, --watch-config          

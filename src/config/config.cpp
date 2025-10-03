@@ -997,6 +997,8 @@ namespace bongocat::config {
     // =============================================================================
 
     created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
+        BONGOCAT_CHECK_NULL(config_file_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+
         config_t ret;
         set_defaults(ret);
 

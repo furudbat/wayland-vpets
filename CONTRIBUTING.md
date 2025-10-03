@@ -76,7 +76,34 @@ Follow the project’s coding guidelines:
 * **Assets**: Embed large assets in separate TUs
 * **Global State**: Avoid globals, pass context structs
 
-For more details, see the [Code Standards section in README](README.md#code-standards).
+### Key practices
+
+* **Modern Compiler Features:** Requires C23/C++23 (`#embed`)
+* **Thread Safety:** Thread-safe logging, mutexes, LockGuard, and atomic operations (`atomic_store/load`)
+* **Memory & Resource Management:**
+    * Prefer stack over heap; use heap only when required for mutexes or dynamic arrays
+    * RAII for resources: Mutex, MMap, Buffers, FileDescriptors
+    * Move semantics for cleanup reduction
+* **Code Modernization:**
+    * Use `ref&` instead of raw pointers (not-nullable)
+    * Use `nullptr` instead of `NULL`
+    * Replace `#define` with `constexpr` where possible
+    * Use `enum class` and default/brace initialization
+* **C++ Usage Restrictions:**
+    * _Almost_ NO STL (only `<type_traits>` used)
+        * Try to avoid using STL, keep core functions coherent with [upstream](https://github.com/saatvik333/wayland-bongocat)
+        * Use Linux, Wayland and standard C libs
+    * No classes except for RAII; apply **Rule of Five**
+    * Minimal `template` usage
+* **Asset Management:**
+    * Embed large assets in separate translation units
+    * Access via dedicated functions
+* **Global State:**
+    * Reduce globals, prefer context structs passed as parameters
+* **Threading:**
+    * Allocate memory upfront before starting threads
+    * Prefer `create` functions with RVO instead of `init` with out-parameters
+    * Stop all threads before releasing memory
 
 ---
 

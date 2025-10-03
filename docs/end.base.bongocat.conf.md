@@ -48,6 +48,12 @@ idle_sleep_timeout=0             # Inactivity timeout before sleep (seconds, 0=o
 enable_debug=0                   # Show debug messages
 ```
 
+# FILES
+
+    ~/.config/bongocat.conf     Default configuration file
+    bongocat.conf               Fallback configuration file in the current directory.
+
+
 # SEE ALSO
 
 `bongocat(1)`, `bongocat-find-devices(1)`
