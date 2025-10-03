@@ -158,9 +158,12 @@ namespace bongocat::platform::input {
             }
             input._unique_devices = bongocat::move(new_unique_devices);
             input._unique_paths_indices = bongocat::move(new_unique_paths_indices);
-            input._unique_paths_indices_capacity = input._unique_paths_indices.count;
+            input._unique_paths_indices_capacity = input._device_paths.count;
         }
 
+        // recover real size for syncing
+        input._unique_devices.count = input._unique_paths_indices_capacity;
+        input._unique_paths_indices.count = input._unique_paths_indices_capacity;
         size_t num_unique_devices = 0;
         for (size_t i = 0; i < input._device_paths.count; i++) {
             const char* device_path = input._device_paths[i];
