@@ -5,7 +5,9 @@
   wayland,
   wayland-protocols,
   wayland-scanner,
-  cmake
+  cmake,
+  pandoc,
+  systemd
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-vpets";
@@ -14,10 +16,11 @@ stdenv.mkDerivation (finalAttrs: {
 
   # Build toolchain and dependencies
   strictDeps = true;
-  nativeBuildInputs = [pkg-config wayland-scanner];
+  nativeBuildInputs = [pkg-config cmake wayland-scanner pandoc];
   buildInputs = [
     wayland
     wayland-protocols
+    systemd
   ];
 
   # Build phases
@@ -36,6 +39,10 @@ stdenv.mkDerivation (finalAttrs: {
 
     runHook postInstall
   '';
+
+  cmakeFlags = [
+    "-DCMAKE_BUILD_TYPE=Release"
+  ];
 
   # Package information
   meta = {

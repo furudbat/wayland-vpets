@@ -66,6 +66,10 @@ target_include_directories(wayland_client INTERFACE ${WAYLAND_CLIENT_INCLUDE_DIR
 target_compile_options(wayland_client INTERFACE ${WAYLAND_CLIENT_CFLAGS_OTHER})
 target_link_libraries(wayland_client INTERFACE ${WAYLAND_CLIENT_LIBRARIES})
 target_link_libraries(bongocat_libs INTERFACE protocols wayland_client)
+# udev dependency
+pkg_check_modules(UDEV REQUIRED libudev)
+target_include_directories(bongocat_libs INTERFACE ${UDEV_INCLUDE_DIRS})
+target_link_libraries(bongocat_libs INTERFACE ${UDEV_LIBRARIES})
 # Thread dependency
 find_package(Threads REQUIRED)
 target_link_libraries(bongocat_libs INTERFACE m rt Threads::Threads)

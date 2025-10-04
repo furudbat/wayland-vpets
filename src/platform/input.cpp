@@ -14,6 +14,7 @@
 #include <poll.h>
 #include <sys/eventfd.h>
 #include <cstdio>
+#include <libudev.h>
 
 namespace bongocat::platform::input {
     static inline constexpr size_t INPUT_EVENT_BUF = 128;
@@ -47,6 +48,11 @@ namespace bongocat::platform::input {
         release_allocated_array(input._unique_paths_indices);
         input._unique_paths_indices_capacity = 0;
         release_allocated_array(input._unique_devices);
+        if (input._udev_mon) udev_monitor_unref(input._udev_mon);
+        if (input._udev) udev_unref(input._udev);
+        input._udev_mon = nullptr;
+        input._udev = nullptr;
+        input._udev_fd = -1;
     }
 
     static void cleanup_input_thread(void* arg) {
@@ -139,12 +145,21 @@ namespace bongocat::platform::input {
         return FileDescriptor(fd);
     }
 
-    static created_result_t<size_t> sync_devices(input_context_t& input) {
+    struct sync_devices_options_t {
+        bool reload_devices_needed{false};
+    };
+    struct sync_devices_options_result_t {
+        size_t valid_devices{0};
+        size_t broken_symlink{0};
+        size_t failed{0};
+        size_t ignore{0};
+    };
+    [[nodiscard]] static created_result_t<sync_devices_options_result_t> sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
         assert(input.shm != nullptr);
 
         size_t valid_devices = 0;
         // Ensure buffer size
-        if (input._unique_paths_indices_capacity < input._device_paths.count) {
+        if (input._unique_paths_indices_capacity < input._device_paths.count || options.reload_devices_needed) {
             auto new_unique_devices = make_allocated_array<input_unique_file_t>(input._device_paths.count);
             if (!new_unique_devices) {
                 BONGOCAT_LOG_ERROR("Failed to allocate memory for unique devices");
@@ -160,6 +175,10 @@ namespace bongocat::platform::input {
             input._unique_paths_indices = bongocat::move(new_unique_paths_indices);
             input._unique_paths_indices_capacity = input._device_paths.count;
         }
+
+        size_t broken_symlink = 0;
+        size_t failed = 0;
+        size_t ignore = 0;
 
         // recover real size for syncing
         input._unique_devices.count = input._unique_paths_indices_capacity;
@@ -180,6 +199,7 @@ namespace bongocat::platform::input {
                     candidate = resolved;
                 } else {
                     BONGOCAT_LOG_WARNING("Broken symlink: %s", device_path);
+                    broken_symlink++;
                     continue;
                 }
             } else {
@@ -188,6 +208,7 @@ namespace bongocat::platform::input {
 
             // Skip if non-existent
             if (access(candidate, F_OK) != 0) {
+                failed++;
                 BONGOCAT_LOG_WARNING("Device missing: %s", candidate);
                 continue;
             }
@@ -250,10 +271,12 @@ namespace bongocat::platform::input {
                         valid_devices++;
                     } else {
                         cleanup(cur);
+                        failed++;
                         BONGOCAT_LOG_WARNING("Failed to open %s", candidate);
                     }
                 } else {
                     cleanup(cur);
+                    ignore++;
                     BONGOCAT_LOG_WARNING("Ignoring non-char device: %s", candidate);
                 }
             }
@@ -265,7 +288,41 @@ namespace bongocat::platform::input {
         // shrink size, @NOTE: don't do this with mmap array
         input._unique_devices.count = num_unique_devices;
         input._unique_paths_indices.count = num_unique_devices;
-        return valid_devices;
+        return sync_devices_options_result_t {
+            .valid_devices = valid_devices,
+            .broken_symlink = broken_symlink,
+            .failed = failed,
+            .ignore = ignore,
+        };
+    }
+
+    static bongocat_error_t setup_udev_monitor(input_context_t& input) {
+        if (input._udev_mon) udev_monitor_unref(input._udev_mon);
+        if (input._udev) udev_unref(input._udev);
+        input._udev_mon = nullptr;
+        input._udev = nullptr;
+        input._udev_fd = -1;
+
+        input._udev = udev_new();
+        if (!input._udev) {
+            BONGOCAT_LOG_ERROR("Failed to init udev\n");
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
+
+        input._udev_mon = udev_monitor_new_from_netlink(input._udev, "udev");
+        if (!input._udev_mon) {
+            BONGOCAT_LOG_ERROR("Failed to create udev monitor\n");
+            udev_unref(input._udev);
+            input._udev = nullptr;
+            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        }
+
+        // only care about input subsystem
+        udev_monitor_filter_add_match_subsystem_devtype(input._udev_mon, "input", nullptr);
+        udev_monitor_enable_receiving(input._udev_mon);
+
+        input._udev_fd = udev_monitor_get_fd(input._udev_mon);
+        return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
     static void* input_thread(void* arg) {
@@ -318,7 +375,7 @@ namespace bongocat::platform::input {
         size_t track_valid_devices = 0;
         {
             [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-            auto [valid_devices, init_devices_result] = sync_devices(input);
+            auto [sync_devices_result, init_devices_result] = sync_devices(input);
             if (init_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                 atomic_store(&input._capture_input_running, false);
                 cleanup_input_thread_context(input);
@@ -327,8 +384,18 @@ namespace bongocat::platform::input {
             }
             [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
-            BONGOCAT_LOG_INFO("input: Successfully opened %d/%d input devices; init time %.3fms (%.6fsec)", valid_devices, input._device_paths.count, static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
-            track_valid_devices = valid_devices;
+            BONGOCAT_LOG_INFO("input: Successfully opened %d/%d input devices; init time %.3fms (%.6fsec)", sync_devices_result.valid_devices, input._device_paths.count, static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
+            track_valid_devices = sync_devices_result.valid_devices;
+        }
+
+        // udev monitoring
+        {
+            const bongocat_error_t udev_result = setup_udev_monitor(input);
+            if (udev_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_WARNING("Can't create udev monitoring");
+            } else {
+                BONGOCAT_LOG_INFO("Start udev monitoring");
+            }
         }
 
         // trigger initial render
@@ -341,9 +408,10 @@ namespace bongocat::platform::input {
         time_sec_t adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
         /// event poll
         // 0:       reload config event
-        // 1 - n:   device events
+        // 1:       udev monitor fd
+        // 2 - n:   device events
         // last:    stdin (optional)
-        constexpr size_t MAX_PFDS = 1 + MAX_DEVICE_FDS + ((features::Debug) ? 1 : 0);
+        constexpr size_t MAX_PFDS = 2 + MAX_DEVICE_FDS + ((features::Debug) ? 1 : 0);
         pollfd pfds[MAX_PFDS];
         input_event ev[INPUT_EVENT_BUF];
 
@@ -377,11 +445,15 @@ namespace bongocat::platform::input {
 
             // only map valid fds into pfds
             constexpr size_t fds_update_config_index = 0;
+            constexpr size_t fds_udev_monitor_index = 1;
+            constexpr size_t fds_device_potential_start_index = 2;
             pfds[fds_update_config_index] = { .fd = input.update_config_efd._fd, .events = POLLIN, .revents = 0 };
+            pfds[fds_udev_monitor_index] = { .fd = input._udev_fd, .events = POLLIN, .revents = 0 };
 
-            ssize_t fds_device_start_index = input._unique_devices.count > 0 ? 1 : -1;
+            assert(fds_device_potential_start_index < SSIZE_MAX);
+            ssize_t fds_device_start_index = input._unique_devices.count > 0 ? static_cast<ssize_t>(fds_device_potential_start_index) : -1;
             ssize_t fds_device_end_index = input._unique_devices.count > 0 ? fds_device_start_index : -1;
-            nfds_t nfds = 1;
+            nfds_t nfds = fds_device_potential_start_index;
             nfds_t device_nfds = 0;
             for (size_t i = 0; i < input._unique_devices.count && i < MAX_DEVICE_FDS; i++) {
                 if (input._unique_devices[i].fd._fd >= 0) {
@@ -435,13 +507,15 @@ namespace bongocat::platform::input {
             /// @TODO: move to tests
             // check indices
             if constexpr (features::Debug) {
-                const bool has_update_config = fds_update_config_index >= 0;
+                //const bool has_update_config = fds_update_config_index >= 0;
+                //const bool has_udev = fds_udev_monitor_index >= 0;
                 const bool has_std_in = fds_stdin_index >= 0;
                 const bool has_devices = input._unique_devices.count > 0;
 
                 // include every fd
-                if (has_devices && has_std_in && has_update_config) {
-                    assert(fds_update_config_index >= 0);
+                if (has_devices && has_std_in) {
+                    assert(fds_update_config_index == 0);
+                    assert(fds_udev_monitor_index == 1);
                     assert(fds_device_start_index >= 0);
                     assert(fds_device_end_index >= 0);
                     assert(fds_stdin_index >= 0);
@@ -457,11 +531,12 @@ namespace bongocat::platform::input {
                     assert(device_nfds <= SSIZE_MAX);
                     assert(nfds <= SSIZE_MAX);
                     assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
-                    assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 2);
+                    assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 3);
                 }
                 // only update + devices
-                if (has_devices && has_update_config && !has_std_in) {
-                    assert(fds_update_config_index >= 0);
+                if (has_devices && !has_std_in) {
+                    assert(fds_update_config_index == 0);
+                    assert(fds_udev_monitor_index == 1);
                     assert(fds_device_start_index >= 0);
                     assert(fds_device_end_index >= 0);
                     assert(fds_stdin_index == -1);
@@ -476,11 +551,12 @@ namespace bongocat::platform::input {
                     assert(device_nfds <= SSIZE_MAX);
                     assert(nfds <= SSIZE_MAX);
                     assert(static_cast<ssize_t>(device_nfds) == fds_device_end_index-fds_device_start_index);
-                    assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 1);
+                    assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index + 3);
                 }
                 // only devices
-                if (has_devices && !has_update_config && !has_std_in) {
-                    assert(fds_update_config_index == -1);
+                if (has_devices && !has_std_in) {
+                    assert(fds_update_config_index == 0);
+                    assert(fds_udev_monitor_index == 1);
                     assert(fds_device_start_index >= 0);
                     assert(fds_device_end_index >= 0);
                     assert(fds_stdin_index == -1);
@@ -497,8 +573,9 @@ namespace bongocat::platform::input {
                     assert(static_cast<ssize_t>(nfds) == fds_device_end_index-fds_device_start_index);
                 }
                 // nothing (empty)
-                if (!has_devices && !has_update_config && !has_std_in) {
-                    assert(fds_update_config_index == -1);
+                if (!has_devices && !has_std_in) {
+                    assert(fds_update_config_index == 0);
+                    assert(fds_udev_monitor_index == 1);
                     assert(fds_device_start_index == -1);
                     assert(fds_device_end_index == -1);
                     assert(fds_stdin_index == -1);
@@ -508,27 +585,30 @@ namespace bongocat::platform::input {
                     assert(fds_device_end_index >= fds_device_start_index);
 
                     assert(device_nfds == 0);
-                    assert(nfds == 0);
+                    assert(nfds == 2);
                 }
                 // no devices, only config
-                if (!has_devices && has_update_config && !has_std_in) {
+                if (!has_devices && !has_std_in) {
                     assert(fds_update_config_index == 0);
+                    assert(fds_udev_monitor_index == 1);
+                    assert(fds_udev_monitor_index == 1);
                     assert(fds_device_start_index == -1);
                     assert(fds_device_end_index == -1);
                     assert(fds_stdin_index == -1);
 
                     assert(device_nfds == 0);
-                    assert(nfds == 1);
+                    assert(nfds == 2);
                 }
                 // no devices, only config + stdin
-                if (!has_devices && has_update_config && has_std_in) {
+                if (!has_devices && has_std_in) {
                     assert(fds_update_config_index == 0);
+                    assert(fds_udev_monitor_index == 1);
                     assert(fds_device_start_index == -1);
                     assert(fds_device_end_index == -1);
                     assert(fds_stdin_index == 1);
 
                     assert(device_nfds == 0);
-                    assert(nfds == 2);
+                    assert(nfds == 3);
                 }
             }
 
@@ -615,6 +695,9 @@ namespace bongocat::platform::input {
                 if (pfds[fds_update_config_index].revents & POLLIN) {
                     drain_event(pfds[fds_update_config_index], MAX_ATTEMPTS);
                 }
+                if (pfds[fds_udev_monitor_index].revents & POLLIN) {
+                    drain_event(pfds[fds_udev_monitor_index], MAX_ATTEMPTS);
+                }
                 if (fds_device_start_index >= 0) {
                     assert(fds_device_start_index >= 0);
                     assert(fds_device_end_index >= 0);
@@ -653,6 +736,31 @@ namespace bongocat::platform::input {
                 break;
             }
 
+            // handle hotplug
+            bool sync_devices_needed = false;
+            bool reload_devices_needed = false;
+            if (pfds[fds_udev_monitor_index].revents & POLLIN) {
+                BONGOCAT_LOG_DEBUG("input: Receive udev event");
+                size_t attempts = 0;
+                udev_device *dev = nullptr;
+                while ((dev = udev_monitor_receive_device(input._udev_mon)) != nullptr && attempts < MAX_ATTEMPTS) {
+                    const char* action = udev_device_get_action(dev);
+                    const char* node   = udev_device_get_devnode(dev);
+
+                    if (action && node) {
+                        BONGOCAT_LOG_VERBOSE("input: udev %s: %s", action, node);
+                        if (strcmp(action, "add") == 0 || strcmp(action, "remove") == 0) {
+                            sync_devices_needed = true;
+                            reload_devices_needed = true;
+                        }
+                    }
+
+                    udev_device_unref(dev);
+                    attempts++;
+                }
+                drain_event(pfds[fds_udev_monitor_index], MAX_ATTEMPTS, "udev monitor fd");
+            }
+
             // Handle config update
             assert(input._config_generation != nullptr);
             bool reload_config = false;
@@ -661,6 +769,7 @@ namespace bongocat::platform::input {
                 BONGOCAT_LOG_DEBUG("input: Receive update config event");
                 drain_event(pfds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
                 reload_config = new_gen > 0;
+                sync_devices_needed |= reload_config;
             }
 
             // Handle device events
@@ -678,6 +787,7 @@ namespace bongocat::platform::input {
                             // handle evdev input
                             const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
                             if (rd < 0) {
+                                if (errno == ENODEV) sync_devices_needed = true;
                                 if (errno == EAGAIN) continue;
                                 BONGOCAT_LOG_WARNING("input: Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
                                 close(pfds[p].fd);
@@ -690,6 +800,7 @@ namespace bongocat::platform::input {
                                     }
                                 }
                                 pfds[p].fd = -1;
+                                sync_devices_needed = true;
                                 continue;
                             }
                             assert(rd >= 0);
@@ -705,6 +816,7 @@ namespace bongocat::platform::input {
                                     }
                                 }
                                 pfds[p].fd = -1;
+                                sync_devices_needed = true;
                                 continue;
                             }
 
@@ -720,7 +832,7 @@ namespace bongocat::platform::input {
                                                              pfds[p].fd, ev[j].code,
                                                              ev[j].time.tv_sec, ev[j].time.tv_usec);
                                     } else {
-                                        // break early, when no debug (no print needed for every key press)
+                                        // break loop early, when no debug (no print needed for every key press)
                                         break;
                                     }
                                 }
@@ -750,6 +862,7 @@ namespace bongocat::platform::input {
                                 }
                             }
                             pfds[p].fd = -1;
+                            sync_devices_needed = true;
                         }
                     }
                 }
@@ -792,18 +905,18 @@ namespace bongocat::platform::input {
             }
 
             // Revalidate valid devices
-            {
+            if (sync_devices_needed) {
                 platform::LockGuard guard (input.input_lock);
 
-                auto [valid_devices, revalid_devices_result] = sync_devices(input);
+                auto [sync_devices_result, revalid_devices_result] = sync_devices(input, { .reload_devices_needed = reload_devices_needed });
                 if (revalid_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) {
                     BONGOCAT_LOG_ERROR("input: Failed to revalidate devices and file descriptors");
                 } else {
-                    if (valid_devices == 0) {
+                    if (sync_devices_result.valid_devices == 0) {
                         BONGOCAT_LOG_VERBOSE("input: All input devices became unavailable");
                     }
                 }
-                track_valid_devices = valid_devices;
+                track_valid_devices = sync_devices_result.valid_devices;
             }
 
             // handle update config

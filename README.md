@@ -393,11 +393,12 @@ Before building, ensure your system has the required tools and libraries:
 - `libwayland-client`
 - `wayland-protocols`
 - `wayland-scanner`
+- `libudev`
 
 ##### Arch Linux / Manjaro:
 
 ```bash
-sudo pacman -S git gcc g++ clang cmake base-devel libinput wayland wayland-protocols`
+sudo pacman -S git gcc g++ clang cmake base-devel libinput wayland wayland-protocols systemd-libs`
 ```
 
 ##### Fedora: 

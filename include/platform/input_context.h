@@ -7,6 +7,7 @@
 #include "utils/time.h"
 #include <pthread.h>
 #include <stdatomic.h>
+#include <libudev.h>
 
 namespace bongocat::platform::input {
     enum class input_unique_file_type_t : uint8_t {
@@ -85,6 +86,10 @@ namespace bongocat::platform::input {
         AllocatedArray<size_t> _unique_paths_indices;
         size_t _unique_paths_indices_capacity{0};       // keep real _unique_paths_indices count here, shrink _unique_paths_indices.count to used unique_paths_indices
         AllocatedArray<input_unique_file_t> _unique_devices;
+        /// udev monitoring
+        udev *_udev{nullptr};
+        udev_monitor *_udev_mon{nullptr};
+        int _udev_fd{-1};
 
         // config reload threading
         FileDescriptor update_config_efd;               // get new_gen from here
@@ -124,6 +129,12 @@ namespace bongocat::platform::input {
             ctx._device_paths[i] = nullptr;
         }
         release_allocated_array(ctx._device_paths);
+
+        if (ctx._udev_mon) udev_monitor_unref(ctx._udev_mon);
+        if (ctx._udev) udev_unref(ctx._udev);
+        ctx._udev_mon = nullptr;
+        ctx._udev = nullptr;
+        ctx._udev_fd = -1;
 
         close_fd(ctx.update_config_efd);
         atomic_store(&ctx.config_seen_generation, 0);

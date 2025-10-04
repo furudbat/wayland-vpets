@@ -52,7 +52,7 @@ namespace bongocat::animation {
         Image *image{nullptr};
         int desired_channels{RGBA_CHANNELS};
     };
-    static created_result_t<Image> load_image_pngle(const unsigned char *data, size_t size, int desired_channels) {
+    [[nodiscard]] static created_result_t<Image> load_image_pngle(const unsigned char *data, size_t size, int desired_channels) {
         Image ret;
         pngle_t *pngle = pngle_new();
         if (!pngle) {
@@ -114,7 +114,7 @@ namespace bongocat::animation {
         return ret;
     }
 
-    static created_result_t<Image> load_image_stb_image(const unsigned char *data, size_t size, int desired_channels) {
+    [[nodiscard]] static created_result_t<Image> load_image_stb_image(const unsigned char *data, size_t size, int desired_channels) {
         Image ret;
         assert(size <= INT_MAX);
         int channels_in_file;

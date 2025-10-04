@@ -19,7 +19,7 @@ namespace bongocat::animation {
     };
 
     [[nodiscard]] created_result_t<AllocatedMemory<animation_session_t>> create(const config::config_t& config);
-    bongocat_error_t start(animation_session_t& ctx, platform::input::input_context_t& input, platform::update::update_context_t& upd, const config::config_t& config, platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation);
+    [[nodiscard]] bongocat_error_t start(animation_session_t& ctx, platform::input::input_context_t& input, platform::update::update_context_t& upd, const config::config_t& config, platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation);
     void trigger(animation_session_t& ctx, trigger_animation_cause_mask_t cause);
     void trigger_update_config(animation_session_t& ctx, const config::config_t& config, uint64_t config_generation);
     void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen);

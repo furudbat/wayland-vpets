@@ -919,7 +919,7 @@ int main(int argc, char *argv[]) {
         if (strcmp(config_file, "-") == 0) {
             start_config_watcher(ctx, config_file);
         } else {
-            BONGOCAT_LOG_INFO("Skip config watcher, no config watcher fir stdin");
+            BONGOCAT_LOG_INFO("Skip config watcher, no config watcher for stdin");
         }
     } else {
         BONGOCAT_LOG_INFO("No config watcher, continuing without hot-reload");

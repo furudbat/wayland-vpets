@@ -14,6 +14,8 @@ for group in debug relwithdebinfo; do
     PID=$!
     echo "[TEST] Program PID = $PID"
     sleep 5
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
 
     # --- trap cleanup ---
     cleanup() {
@@ -108,6 +110,7 @@ for group in debug relwithdebinfo; do
 
     echo "[INFO] Disable sleep"
     sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
     sleep 10
     if [[ -f "/proc/$PID/fd/0" ]]; then
       # --- simulate pressing ESC ---
@@ -138,6 +141,8 @@ for group in debug relwithdebinfo; do
 
     echo "[INFO] Disable sleep"
     sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
     echo "[TEST] Sending SIGUSR2..."
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID"
@@ -288,6 +293,8 @@ for group in debug relwithdebinfo; do
     cat "$CONFIG" | "$PROGRAM" --ignore-running --strict --config - &
     PID=$!
     sleep 10
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
     # --- verify running ---
     if kill -0 "$PID" 2>/dev/null; then
         echo "[PASS] Process $PID still running!"
@@ -301,6 +308,8 @@ for group in debug relwithdebinfo; do
     echo "[TEST] Sending SIGTERM..."
     kill -TERM "$PID"
     sleep 10
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
     echo "[INFO] Wait for TERM"
     # wait up to 5 seconds
     for i in {1..5}; do
