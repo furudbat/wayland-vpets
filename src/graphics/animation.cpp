@@ -1159,7 +1159,11 @@ namespace bongocat::animation {
         return ret;
     }
 
-    static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_session_t& animation_trigger_ctx, animation_state_t& state) {
+    struct animation_trigger_t {
+        trigger_animation_cause_mask_t triggered_anim_cause{trigger_animation_cause_mask_t::NONE};
+        int any_key_press_counter{0};
+    };
+    static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_session_t& animation_trigger_ctx, animation_state_t& state, const animation_trigger_t& trigger) {
         using namespace assets;
 
         assert(animation_trigger_ctx._input != nullptr);
@@ -1169,71 +1173,12 @@ namespace bongocat::animation {
         animation_context_t& ctx = animation_trigger_ctx.anim;
         [[maybe_unused]] const platform::input::input_context_t& input = *animation_trigger_ctx._input;
         [[maybe_unused]] const platform::update::update_context_t& upd = *animation_trigger_ctx._update;
+
         // read-only config
-        assert(ctx._local_copy_config != nullptr);
-        assert(ctx.shm != nullptr);
-        assert(animation_trigger_ctx._config != nullptr);
-        const config::config_t& current_config = *ctx._local_copy_config;
-
-
-        constexpr size_t fds_animation_trigger_index = 0;
-        constexpr int fds_count = 1;
-        pollfd fds[fds_count] = {
-            { .fd = animation_trigger_ctx.trigger_efd._fd, .events = POLLIN, .revents = 0 },
-        };
-        assert(fds_count == LEN_ARRAY(fds));
-
-        // check poll, close to FPS, 1/3 part of worktime (max) ?
-        platform::time_ms_t timeout_ms = current_config.fps > 0 ? 1000 / current_config.fps / 3 : 0;
-        timeout_ms = timeout_ms < POOL_MIN_TIMEOUT_MS ? POOL_MIN_TIMEOUT_MS : timeout_ms;
-        timeout_ms = timeout_ms > POOL_MAX_TIMEOUT_MS ? POOL_MAX_TIMEOUT_MS : timeout_ms;
-
-        trigger_animation_cause_mask_t triggered_anim_cause = trigger_animation_cause_mask_t::NONE;
-        int any_key_press_counter = 0;
-
-        timeout_ms = timeout_ms >= INT_MAX ? INT_MAX : timeout_ms;
-        const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
-        if (poll_result > 0) {
-            // animation trigger event
-            if (fds[fds_animation_trigger_index].revents & POLLIN) {
-                BONGOCAT_LOG_VERBOSE("Receive animation trigger event");
-                uint64_t u;
-                ssize_t rc;
-                int attempts = 0;
-                assert(MAX_ATTEMPTS <= INT_MAX);
-                while ((rc = read(animation_trigger_ctx.trigger_efd._fd, &u, sizeof(u))) == sizeof(u) &&
-                       attempts < static_cast<int>(MAX_ATTEMPTS))
-                {
-                    attempts++;
-                    auto cause = static_cast<trigger_animation_cause_mask_t>(u);
-                    switch (cause) {
-                        case trigger_animation_cause_mask_t::NONE:
-                            break;
-                        case trigger_animation_cause_mask_t::Init:
-                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
-                            break;
-                        case trigger_animation_cause_mask_t::KeyPress:
-                            any_key_press_counter++;
-                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
-                            break;
-                        case trigger_animation_cause_mask_t::IdleUpdate:
-                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
-                            break;
-                        case trigger_animation_cause_mask_t::CpuUpdate:
-                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
-                            break;
-                        case trigger_animation_cause_mask_t::UpdateConfig:
-                            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
-                            break;
-                    }
-                }
-                if (rc < 0) {
-                    check_errno("animation trigger eventfd");
-                }
-
-                BONGOCAT_LOG_VERBOSE("animation trigger: %zu", triggered_anim_cause);
-            }
-        }
+        //assert(ctx._local_copy_config != nullptr);
+        //assert(ctx.shm != nullptr);
+        //assert(animation_trigger_ctx._config != nullptr);
+        //const config::config_t& current_config = *ctx._local_copy_config;
 
         assert(input.shm != nullptr);
         assert(upd.shm != nullptr);
@@ -1250,7 +1195,7 @@ namespace bongocat::animation {
         [[maybe_unused]] int ret_new_frame = current_frame;
 
         // handle working animation
-        if (has_flag(triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) {
+        if (has_flag(trigger.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) {
             switch (anim_shm.anim_type) {
                 case config::config_animation_sprite_sheet_layout_t::None:
                     break;
@@ -1268,11 +1213,11 @@ namespace bongocat::animation {
                 case config::config_animation_sprite_sheet_layout_t::MsAgent:
                     break;
             }
-            BONGOCAT_LOG_VERBOSE("CPU update detected - switching to frame %d (%zu)", ret_new_frame, triggered_anim_cause);
+            BONGOCAT_LOG_VERBOSE("CPU update detected - switching to frame %d (%zu)", ret_new_frame, trigger.triggered_anim_cause);
         }
 
         // handle key press animation
-        if (has_flag(triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress)) {
+        if (has_flag(trigger.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress)) {
             switch (anim_shm.anim_type) {
                 case config::config_animation_sprite_sheet_layout_t::None:
                     break;
@@ -1305,13 +1250,13 @@ namespace bongocat::animation {
 #endif
                 }break;
             }
-            BONGOCAT_LOG_VERBOSE("Key press detected - switching to frame %d (%zu)", ret_new_frame, triggered_anim_cause);
+            BONGOCAT_LOG_VERBOSE("Key press detected - switching to frame %d (%zu)", ret_new_frame, trigger.triggered_anim_cause);
         }
 
-        return { .any_key_press_counter = any_key_press_counter, .changed = ret, .triggered_anim_cause = triggered_anim_cause };
+        return { .any_key_press_counter = trigger.any_key_press_counter, .changed = ret, .triggered_anim_cause = trigger.triggered_anim_cause };
     }
 
-    static bool anim_update_state(animation_session_t& animation_trigger_ctx, animation_state_t& state) {
+    static bool anim_update_state(animation_session_t& animation_trigger_ctx, animation_state_t& state, const animation_trigger_t& trigger) {
         assert(animation_trigger_ctx._input);
         platform::input::input_context_t& input = *animation_trigger_ctx._input;
         platform::update::update_context_t& upd = *animation_trigger_ctx._update;
@@ -1331,7 +1276,7 @@ namespace bongocat::animation {
             {
                 platform::LockGuard input_guard (input.input_lock);
                 platform::LockGuard update_guard (upd.update_lock);
-                trigger_result = anim_handle_animation_trigger(animation_trigger_ctx, state);
+                trigger_result = anim_handle_animation_trigger(animation_trigger_ctx, state, trigger);
                 hold_frame = has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::KeyPress) || has_flag(trigger_result.triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate);
                 idle_changed = anim_handle_idle_animation(ctx, input, upd, state, trigger_result);
             }
@@ -1483,26 +1428,35 @@ namespace bongocat::animation {
             animation_context_t& ctx = trigger_ctx.anim;
 
             // read from config
-            platform::time_ms_t check_config_timeout_ms;
+            platform::time_ms_t timeout_ms;
             int32_t fps = 1;
             {
                 assert(ctx._local_copy_config != nullptr);
                 const config::config_t& current_config = *ctx._local_copy_config;
 
                 fps = current_config.fps;
-                check_config_timeout_ms = current_config.fps > 0 ? 1000 / current_config.fps / 3 : 0;
+                timeout_ms = current_config.fps > 0 ? 1000 / current_config.fps / 3 : POOL_MIN_TIMEOUT_MS;
+                timeout_ms = timeout_ms < POOL_MIN_TIMEOUT_MS ? POOL_MIN_TIMEOUT_MS : timeout_ms;
+                timeout_ms = timeout_ms > POOL_MAX_TIMEOUT_MS ? POOL_MAX_TIMEOUT_MS : timeout_ms;
             }
+
+            trigger_animation_cause_mask_t triggered_anim_cause = trigger_animation_cause_mask_t::NONE;
+            int any_key_press_counter = 0;
 
             bool reload_config = false;
             uint64_t new_gen{atomic_load(trigger_ctx._config_generation)};
 
             /// event poll
             constexpr size_t fds_update_config_index = 0;
-            constexpr nfds_t fds_count = 1;
+            constexpr size_t fds_animation_trigger_index = 1;
+            constexpr nfds_t fds_count = 2;
             pollfd fds[fds_count] = {
                 { .fd = trigger_ctx.anim.update_config_efd._fd, .events = POLLIN, .revents = 0 },
+                { .fd = trigger_ctx.trigger_efd._fd, .events = POLLIN, .revents = 0 },
             };
-            const int poll_result = poll(fds, fds_count, static_cast<int>(check_config_timeout_ms));
+
+            assert(timeout_ms <= INT_MAX);
+            const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
             if (poll_result < 0) {
                 if (errno == EINTR) continue; // Interrupted by signal
                 BONGOCAT_LOG_ERROR("animation: Poll error: %s", strerror(errno));
@@ -1524,13 +1478,62 @@ namespace bongocat::animation {
                     platform::drain_event(fds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
                     reload_config = new_gen > 0;
                 }
+
+                // animation trigger event
+                if (fds[fds_animation_trigger_index].revents & POLLIN) {
+                    BONGOCAT_LOG_VERBOSE("Receive animation trigger event");
+                    uint64_t u;
+                    ssize_t rc;
+                    int attempts = 0;
+                    assert(MAX_ATTEMPTS <= INT_MAX);
+                    while ((rc = read(trigger_ctx.trigger_efd._fd, &u, sizeof(u))) == sizeof(u) &&
+                           attempts < static_cast<int>(MAX_ATTEMPTS))
+                    {
+                        attempts++;
+                        auto cause = static_cast<trigger_animation_cause_mask_t>(u);
+                        switch (cause) {
+                            case trigger_animation_cause_mask_t::NONE:
+                                break;
+                            case trigger_animation_cause_mask_t::Init:
+                                triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                                break;
+                            case trigger_animation_cause_mask_t::KeyPress:
+                                any_key_press_counter++;
+                                triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                                break;
+                            case trigger_animation_cause_mask_t::IdleUpdate:
+                                triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                                break;
+                            case trigger_animation_cause_mask_t::CpuUpdate:
+                                triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                                break;
+                            case trigger_animation_cause_mask_t::UpdateConfig:
+                                triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                                break;
+                            case trigger_animation_cause_mask_t::Timeout:
+                                triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+                                break;
+                        }
+                    }
+                    if (rc < 0) {
+                        check_errno("animation trigger eventfd");
+                    }
+
+                    BONGOCAT_LOG_VERBOSE("animation trigger: %zu", triggered_anim_cause);
+                } else {
+                    triggered_anim_cause = flag_add(triggered_anim_cause, trigger_animation_cause_mask_t::Timeout);
+                    triggered_anim_cause = flag_add(triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate);
+                }
             }
 
             // Update Animations
             {
                 platform::LockGuard guard (trigger_ctx.anim.anim_lock);
                 assert(ctx.shm != nullptr);
-                const bool frame_changed = anim_update_state(trigger_ctx, state);
+                const bool frame_changed = anim_update_state(trigger_ctx, state, {
+                    .triggered_anim_cause = triggered_anim_cause,
+                    .any_key_press_counter = any_key_press_counter,
+                });
                 if (frame_changed) {
                     uint64_t u = 1;
                     if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {

@@ -16,6 +16,7 @@ namespace bongocat::animation {
         IdleUpdate = (1u << 2),
         CpuUpdate = (1u << 3),
         UpdateConfig = (1u << 4),
+        Timeout = (1u << 5),
     };
 
     [[nodiscard]] created_result_t<AllocatedMemory<animation_session_t>> create(const config::config_t& config);
