@@ -36,6 +36,7 @@ cleanup() {
 trap cleanup EXIT
 
 
+sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"

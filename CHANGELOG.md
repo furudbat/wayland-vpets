@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.1.1] - 2025-09-05
+
+### Fixed
+- config file handling
+
+
 ## [3.1.1] - 2025-08-30
 
 ### Fixed

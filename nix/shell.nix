@@ -23,6 +23,7 @@ pkgs.mkShellNoCC {
   buildInputs = with pkgs; [
     wayland
     wayland-protocols
+    systemd
   ];
   shellHook = ''
     # Ensure that the Makefile can find and access the Wayland protocols

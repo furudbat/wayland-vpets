@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.1.1-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.1.2-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
@@ -75,7 +75,7 @@ wpets-find-devices
 
 ### 4. Configure Bongo Cat
 
-Create or edit `~/.config/bongocat/bongocat.conf`:
+Create or edit `~/.config/bongocat.conf`:
 
 ```ini
 # Example minimal configuration
@@ -101,7 +101,7 @@ Full configuration reference: see the [Configuration Section](#-configuration) b
 ### 5. Run the Overlay
 
 ```bash
-wpets --watch-config --config ~/.config/bongocat/bongocat.conf
+wpets --watch-config --config ~/.config/bongocat.conf
 ```
 
 
@@ -333,7 +333,7 @@ wpets [OPTIONS]
 Options:
   -h, --help                Show this help message
   -v, --version             Show version information
-  -c, --config              Specify config file (default: bongocat.conf)
+  -c, --config              Specify config file (default: ~/.config/bongocat.conf)
   -w, --watch-config        Watch config file for changes and reload automatically
   -t, --toggle              Toggle bongocat on/off (start if not running, stop if running)
   -o, --output-name NAME    Specify output name (overwrite output_name from config)
@@ -393,11 +393,12 @@ Before building, ensure your system has the required tools and libraries:
 - `libwayland-client`
 - `wayland-protocols`
 - `wayland-scanner`
+- `libudev`
 
 ##### Arch Linux / Manjaro:
 
 ```bash
-sudo pacman -S git gcc g++ clang cmake base-devel libinput wayland wayland-protocols`
+sudo pacman -S git gcc g++ clang cmake base-devel libinput wayland wayland-protocols systemd-libs`
 ```
 
 ##### Fedora: 
@@ -701,32 +702,7 @@ _**Note:** The binary name in AUR is `wpets`, but during development and `make i
 
 The project is gradually migrating to C++ while retaining a C-style foundation for performance and Wayland compatibility.
 
-##### Key practices:
-
-* **Modern Compiler Features:** Requires C23/C++23 (`#embed`)
-* **Thread Safety:** Thread-safe logging, mutexes, LockGuard, and atomic operations (`atomic_store/load`)
-* **Memory & Resource Management:**
-  * Prefer stack over heap; use heap only when required for mutexes or dynamic arrays
-  * RAII for resources: Mutex, MMap, Buffers, FileDescriptors
-  * Move semantics for cleanup reduction
-* **Code Modernization:**
-  * Use `ref&` instead of raw pointers (not-nullable)
-  * Use `nullptr` instead of `NULL`
-  * Replace `#define` with `constexpr` where possible
-  * Use `enum class` and default/brace initialization
-* **C++ Usage Restrictions:**
-  * _Almost_ NO STL (only `<type_traits>` used)
-  * No classes except for RAII; apply **Rule of Five**
-  * Minimal templates
-* **Asset Management:**
-  * Embed large assets in separate translation units
-  * Access via dedicated functions
-* **Global State:**
-  * Reduce globals, prefer context structs passed as parameters
-* **Threading:**
-  * Allocate memory upfront before starting threads
-  * Prefer `create` functions with RVO instead of `init` with out-parameters
-  * Stop all threads before releasing memory
+For more details, see the [Code Standards section in CONTRIBUTING](CONTRIBUTING.md#code-standards).  
 
 The project remains largely C under the hood, using Linux + Wayland libraries, while gradually adopting modern C++ practices for safety and maintainability.
 
@@ -756,5 +732,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v3.1.1** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.1.2** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon V-Pets, Clippy and Pokémon.

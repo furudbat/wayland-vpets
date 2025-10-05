@@ -103,6 +103,8 @@ sleep 5
 echo "[INFO] Recreate Config: $CONFIG"
 cp ./examples/digimon.bongocat.conf $CONFIG
 sleep 5
+sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+sleep 5
 echo "[INFO] Delete Config: $CONFIG"
 rm $CONFIG
 sleep 5
@@ -142,6 +144,7 @@ fi
 
 echo "[INFO] Disable sleep"
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
@@ -276,7 +279,8 @@ else
     exit 1
 fi
 
-# --- send SIGTERM ---
+# Restart - stdin config
+echo "[INFO] Restart..."
 echo "[INFO] Sending SIGTERM..."
 kill -TERM "$PID"
 sleep 15
@@ -290,6 +294,33 @@ for i in {1..5}; do
 done
 echo "[TEST] Start with stdin config..."
 cat "$CONFIG" | "$PROGRAM" --ignore-running --strict --config - &
+PID=$!
+sleep 10
+sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+sleep 5
+# --- verify running ---
+if kill -0 "$PID" 2>/dev/null; then
+    echo "[PASS] Process $PID still running!"
+else
+    echo "[FAIL] Process terminated"
+    exit 1
+fi
+
+# Restart - stdin default config
+echo "[INFO] Restart..."
+echo "[INFO] Sending SIGTERM..."
+kill -TERM "$PID"
+sleep 15
+echo "[INFO] Wait for TERM"
+# wait up to 5 seconds
+for i in {1..5}; do
+    if ! kill -0 "$PID" 2>/dev/null; then
+        break
+    fi
+    sleep 1
+done
+echo "[TEST] Start with stdin default config..."
+cat bongocat.conf | "$PROGRAM" --ignore-running --config - &
 PID=$!
 sleep 10
 # --- verify running ---

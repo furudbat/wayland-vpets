@@ -9,7 +9,7 @@
 
 
 namespace bongocat::animation {
-    static created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet_from_memory(const uint8_t* sprite_data, size_t sprite_data_size,
+    [[nodiscard]] static created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet_from_memory(const uint8_t* sprite_data, size_t sprite_data_size,
                                                                                           int frame_columns, int frame_rows,
                                                                                           int padding_x, int padding_y) {
         auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS); // Force RGBA

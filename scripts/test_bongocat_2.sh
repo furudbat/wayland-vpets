@@ -14,6 +14,8 @@ for group in debug relwithdebinfo; do
     PID=$!
     echo "[TEST] Program PID = $PID"
     sleep 5
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
 
     # --- trap cleanup ---
     cleanup() {
@@ -108,6 +110,7 @@ for group in debug relwithdebinfo; do
 
     echo "[INFO] Disable sleep"
     sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
     sleep 10
     if [[ -f "/proc/$PID/fd/0" ]]; then
       # --- simulate pressing ESC ---
@@ -138,6 +141,8 @@ for group in debug relwithdebinfo; do
 
     echo "[INFO] Disable sleep"
     sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
     echo "[TEST] Sending SIGUSR2..."
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID"
@@ -192,46 +197,69 @@ for group in debug relwithdebinfo; do
     sleep 5
 
 
+    # --- send SIGTERM ---
+    echo "[INFO] Sending SIGTERM..."
+    kill -TERM "$PID"
+    sleep 15
+    echo "[INFO] Wait for TERM"
+    # wait up to 5 seconds
+    for i in {1..5}; do
+        if ! kill -0 "$PID" 2>/dev/null; then
+            break
+        fi
+        sleep 1
+    done
+    echo "[TEST] Re-start..."
+    "$PROGRAM" --ignore-running --strict --config "$CONFIG" &
+    PID=$!
+    sleep 10
     echo "[TEST] Load biggest assets"
     echo "[INFO] Set Sprite Sheet: Links"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
+    sleep 2
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
     echo "[INFO] Set Sprite Sheet: pkmn:dialga"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
+    sleep 2
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
     echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=dmx:Hexeblaumon/' "$CONFIG"
+    sleep 2
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
     echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=dm20:Omegamon/' "$CONFIG"
+    sleep 2
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
     echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=dmc:Omegamon/' "$CONFIG"
+    sleep 2
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
     echo "[INFO] Set Sprite Sheet: dm:Coronamon"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=dm:Coronamon/' "$CONFIG"
+    sleep 2
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
     echo "[INFO] Set Sprite Sheet: Metal Greymon"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=Metal Greymon/' "$CONFIG"
+    sleep 2
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 5
@@ -288,6 +316,8 @@ for group in debug relwithdebinfo; do
     cat "$CONFIG" | "$PROGRAM" --ignore-running --strict --config - &
     PID=$!
     sleep 10
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
     # --- verify running ---
     if kill -0 "$PID" 2>/dev/null; then
         echo "[PASS] Process $PID still running!"
@@ -301,6 +331,8 @@ for group in debug relwithdebinfo; do
     echo "[TEST] Sending SIGTERM..."
     kill -TERM "$PID"
     sleep 10
+    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+    sleep 5
     echo "[INFO] Wait for TERM"
     # wait up to 5 seconds
     for i in {1..5}; do

@@ -17,6 +17,7 @@
 #include <sys/signalfd.h>
 #include <libgen.h>
 #include <cerrno>
+#include <unistd.h>
 
 #include "image_loader/load_images.h"
 
@@ -61,6 +62,7 @@ namespace bongocat {
         platform::Mutex sync_configs;
 
         char* pid_filename{nullptr};
+        char* default_config_filename{nullptr};
 
         main_context_t() = default;
         ~main_context_t() {
@@ -126,6 +128,9 @@ namespace bongocat {
 
         if (context.pid_filename) ::free(context.pid_filename);
         context.pid_filename = nullptr;
+
+        if (context.default_config_filename) ::free(context.pid_filename);
+        context.default_config_filename = nullptr;
     }
 
     inline main_context_t& get_main_context() {
@@ -164,6 +169,8 @@ namespace bongocat {
     inline static constexpr auto PID_FILE_WITH_SUFFIX_TEMPLATE = "/tmp/bongocat-%s.pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE = "/tmp/bongocat-%s.%d.pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_TEMPLATE = "/tmp/bongocat-%" PRId64 ".pid";
+
+    inline static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
 
     static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
         platform::FileDescriptor fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644));
@@ -478,6 +485,42 @@ namespace bongocat {
         return error;
     }
 
+    static char *default_config_file_path() {
+        const char *xdg_config_home = getenv("XDG_CONFIG_HOME");
+        const char *home = getenv("HOME");
+
+        if (xdg_config_home != nullptr) {
+            size_t len = strlen(xdg_config_home) + 1 + strlen(DEFAULT_CONF_FILENAME) + 1;
+            char *path = static_cast<char *>(::malloc(len));
+            if (!path) return nullptr;
+            snprintf(path, len, "%s/%s", xdg_config_home, DEFAULT_CONF_FILENAME);
+
+            if (access(path, F_OK) == 0) {
+                return path; // file exists
+            }
+
+            free(path);
+            path = nullptr;
+        }
+
+        if (home != nullptr) {
+            size_t len = strlen(home) + strlen("/.config/") + strlen(DEFAULT_CONF_FILENAME) + 1;
+            char *path = static_cast<char *>(::malloc(len));
+            if (!path) return nullptr;
+            snprintf(path, len, "%s/.config/%s", home, DEFAULT_CONF_FILENAME);
+
+            if (access(path, F_OK) == 0) {
+                return path; // file exists
+            }
+
+            free(path);
+            path = nullptr;
+        }
+
+        // If neither env var is set, fallback to just filename in current dir
+        return strdup(DEFAULT_CONF_FILENAME);
+    }
+
     // =============================================================================
     // SIGNAL HANDLING MODULE
     // =============================================================================
@@ -633,7 +676,7 @@ namespace bongocat {
         printf("Options:\n");
         printf("  -h, --help                  Show this help message\n");
         printf("  -v, --version               Show version information\n");
-        printf("  -c, --config                Specify config file (default: bongocat.conf)\n");
+        printf("  -c, --config                Specify config file (default: ~/.config/bongocat.conf)\n");
         printf("  -w, --watch-config          Watch config file for changes and reload automatically\n");
         printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
         printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
@@ -766,7 +809,18 @@ int main(int argc, char *argv[]) {
         .randomize_index = args.randomize_index,
         .strict = args.strict,
     };
-    auto [config, config_error] = config::load(args.config_file, ctx.overwrite_config_parameters);
+    if (args.config_file == nullptr) {
+        get_main_context().default_config_filename = default_config_file_path();
+    }
+    const char* config_file = args.config_file == nullptr ? get_main_context().default_config_filename : args.config_file;
+    if (args.strict) {
+        if (strcmp(config_file, "-") != 0 && access(config_file, F_OK) != 0) {
+            BONGOCAT_LOG_ERROR("Configuration file required: %s", config_file);
+            return EXIT_FAILURE;
+        }
+    }
+
+    auto [config, config_error] = config::load(config_file, ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_error));
         return EXIT_FAILURE;
@@ -782,10 +836,6 @@ int main(int argc, char *argv[]) {
         }
         if (args.output_name_set && (!args.output_name || strlen(args.output_name) <= 0)) {
             BONGOCAT_LOG_ERROR("--output_name value is missing");
-            return EXIT_FAILURE;
-        }
-        if (args.config_file_set && (!args.config_file || strlen(args.config_file) <= 0)) {
-            BONGOCAT_LOG_ERROR("--config_file value is missing");
             return EXIT_FAILURE;
         }
     }
@@ -856,7 +906,7 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("bongocat PID: %d", pid);
 
     // Setup signal handlers
-    ctx.signal_watch_path = args.config_file;
+    ctx.signal_watch_path = config_file;
     bongocat_error_t signal_result = signal_setup_handlers(ctx);
     if (signal_result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat::error_string(signal_result));
@@ -865,11 +915,11 @@ int main(int argc, char *argv[]) {
     BONGOCAT_LOG_INFO("Signal handler configure (fd=%i)", ctx.signal_fd._fd);
     
     // Initialize config watcher if requested
-    if (args.watch_config && args.config_file) {
-        if (strcmp(args.config_file, "-") != 0) {
-            start_config_watcher(ctx, args.config_file);
+    if (args.watch_config) {
+        if (strcmp(config_file, "-") == 0) {
+            start_config_watcher(ctx, config_file);
         } else {
-            BONGOCAT_LOG_INFO("Skip config watcher, no config watcher fir stdin");
+            BONGOCAT_LOG_INFO("Skip config watcher, no config watcher for stdin");
         }
     } else {
         BONGOCAT_LOG_INFO("No config watcher, continuing without hot-reload");

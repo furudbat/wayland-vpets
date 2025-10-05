@@ -25,6 +25,27 @@ namespace bongocat::config {
     static constexpr uint32_t FILE_MASK = IN_MODIFY | IN_CLOSE_WRITE | IN_ATTRIB | IN_MOVE_SELF | IN_DELETE_SELF;
     static constexpr uint32_t DIR_MASK  = IN_CREATE | IN_MOVED_TO | IN_DELETE | IN_MOVED_FROM;
 
+    static bongocat_error_t reinitialize_inotify(config_watcher_t& watcher) {
+        if (watcher.inotify_fd._fd >= 0) {
+            platform::close_fd(watcher.inotify_fd);
+        }
+
+        watcher.inotify_fd = platform::FileDescriptor(inotify_init1(IN_NONBLOCK | IN_CLOEXEC));
+        if (watcher.inotify_fd._fd < 0) {
+            BONGOCAT_LOG_ERROR("config_watcher: Failed to reinit inotify: %s", strerror(errno));
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+
+        watcher.wd_dir  = platform::FileDescriptor(inotify_add_watch(watcher.inotify_fd._fd, dirname(watcher.config_path), DIR_MASK));
+        watcher.wd_file = platform::FileDescriptor(inotify_add_watch(watcher.inotify_fd._fd, watcher.config_path, FILE_MASK));
+
+        if (watcher.wd_dir._fd < 0 || watcher.wd_file._fd < 0) {
+            BONGOCAT_LOG_WARNING("config_watcher: partial reinit of inotify watches");
+        }
+
+        return bongocat_error_t::BONGOCAT_SUCCESS;
+    }
+
     static void *config_watcher_thread(void *arg) {
         assert(arg);
         auto& watcher = *static_cast<config_watcher_t *>(arg);
@@ -65,7 +86,12 @@ namespace bongocat::config {
 
             if (fds[fds_inotify_index].revents & POLLIN) {
                 const ssize_t length = read(watcher.inotify_fd._fd, buffer, config::INOTIFY_BUF_LEN);
-                if (length < 0) {
+                if (length <= 0) {
+                    if (errno == EINVAL || errno == EBADF) {
+                        BONGOCAT_LOG_WARNING("config_watcher: inotify fd invalidated (likely after suspend). Reinitializing...");
+                        reinitialize_inotify(watcher);
+                        continue;
+                    }
                     BONGOCAT_LOG_ERROR("config_watcher: Config watcher read failed: %s", strerror(errno));
                     continue;
                 }
@@ -84,13 +110,21 @@ namespace bongocat::config {
                                          event->wd, event->mask,
                                          event->len ? event->name : "(none)");
 
+                    // File events
                     if (event->wd == watcher.wd_file._fd) {
-                        if (event->mask & (IN_MODIFY | IN_CLOSE_WRITE | IN_ATTRIB)) should_reload = true;
-                        if (event->mask & (IN_MOVE_SELF | IN_DELETE_SELF))          file_went_away = true;
-                    } else if (event->wd == watcher.wd_dir._fd) {
+                        should_reload |= event->mask & (IN_MODIFY | IN_CLOSE_WRITE | IN_ATTRIB);
+                        file_went_away |= event->mask & (IN_MOVE_SELF | IN_DELETE_SELF);
+                    }
+                    // Directory events (watch for recreate)
+                    else if (event->wd == watcher.wd_dir._fd) {
                         if ((event->mask & (IN_CREATE | IN_MOVED_TO)) && event->len > 0) {
-                            if (strcmp(event->name, basename(watcher.config_path)) == 0) file_recreated = true;
+                            file_recreated |= strcmp(event->name, basename(watcher.config_path)) == 0;
                         }
+                    }
+                    // Inotify queue overflow (critical)
+                    else if (event->mask & IN_Q_OVERFLOW) {
+                        BONGOCAT_LOG_WARNING("config_watcher: inotify event queue overflow, forcing full reload");
+                        should_reload = true;
                     }
 
 
@@ -99,16 +133,16 @@ namespace bongocat::config {
                     attempts++;
                 }
 
-                if (file_went_away) {
+                // Handle file disappearance
+                if (file_went_away && watcher.wd_file._fd >= 0) {
                     BONGOCAT_LOG_VERBOSE("config_watcher: Config file went away; removing file watch");
-                    if (watcher.wd_file._fd >= 0) {
-                        inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_file._fd);
-                        watcher.wd_file._fd = -1;
-                    }
+                    inotify_rm_watch(watcher.inotify_fd._fd, watcher.wd_file._fd);
+                    watcher.wd_file._fd = -1;
                     // the file is gone, wait for recreation
                     should_reload = false;
                 }
 
+                // Handle recreation
                 if (file_recreated) {
                     BONGOCAT_LOG_VERBOSE("config_watcher: Config file recreated; re-adding file watch");
                     int new_wd = inotify_add_watch(watcher.inotify_fd._fd, watcher.config_path, FILE_MASK);
@@ -147,15 +181,16 @@ namespace bongocat::config {
                     }
                 }
 
+                // Debounce reloads
                 if (should_reload) {
                     // Debounce: only reload if at least some time have passed since last reload
                     const platform::timestamp_ms_t now = platform::get_current_time_ms();
                     if (now - last_reload_timestamp >= RELOAD_DEBOUNCE_MS) {
-                        BONGOCAT_LOG_INFO("config_watcher: Config file changed, trigger reload");
                         // Small delay to ensure file write is complete
                         usleep(RELOAD_DELAY_MS*1000);
                         last_reload_timestamp = now;
 
+                        BONGOCAT_LOG_INFO("config_watcher: Config file changed, trigger reload");
                         uint64_t u = 1;
                         if (write(watcher.reload_efd._fd, &u, sizeof(uint64_t)) >= 0) {
                             BONGOCAT_LOG_DEBUG("config_watcher: Write reload event in watcher");
