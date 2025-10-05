@@ -49,8 +49,8 @@ namespace bongocat::assets {
     inline static constexpr size_t MAX_SPRITE_SHEET_COL_FRAMES = 40;
 
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-    inline static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 2;
-    inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 2;
+    inline static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 3;
+    inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 3;
 #else
     inline static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 1;
     inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 1;

@@ -13,4 +13,9 @@ const unsigned char links_png[] = {
 #embed "../../../assets/links.png"
 };
 const size_t links_png_size = sizeof(links_png);
+
+const unsigned char rover_png[] = {
+#embed "../../../assets/rover.png"
+};
+const size_t rover_png_size = sizeof(rover_png);
 #endif
