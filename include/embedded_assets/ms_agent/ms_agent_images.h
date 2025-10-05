@@ -13,6 +13,9 @@ extern const size_t links_png_size;
 
 extern const unsigned char rover_png[];
 extern const size_t rover_png_size;
+
+extern const unsigned char merlin_png[];
+extern const size_t merlin_png_size;
 #endif
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_CLIPPY_IMAGES_H

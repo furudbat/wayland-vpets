@@ -406,6 +406,7 @@ namespace bongocat::animation {
                     /// @NOTE(config): add more MS Pets here
                     init_ms_agent_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS);
                     init_ms_agent_anim(ctx, ROVER_ANIM_INDEX, get_ms_agent_sprite_sheet(ROVER_ANIM_INDEX), ROVER_SPRITE_SHEET_COLS, ROVER_SPRITE_SHEET_ROWS);
+                    init_ms_agent_anim(ctx, MERLIN_ANIM_INDEX, get_ms_agent_sprite_sheet(MERLIN_ANIM_INDEX), MERLIN_SPRITE_SHEET_COLS, MERLIN_SPRITE_SHEET_ROWS);
 #endif
                 }
             }

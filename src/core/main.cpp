@@ -706,6 +706,9 @@ namespace bongocat {
         if constexpr (features::EnablePkmnEmbeddedAssets) {
             printf("  %8s - Pokemon, up to Gen 7\n", "pkmn");
         }
+        if constexpr (features::EnableMsAgentEmbeddedAssets) {
+            printf("  %8s - MS Agent\n", "ms_agent");
+        }
         printf("\n");
 
         ::free(base_program_name);

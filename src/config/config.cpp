@@ -740,14 +740,21 @@ namespace bongocat::config {
                     strcmp(value, LINKS_FQNAME) == 0) {
                     config.animation_index = LINKS_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
-                    }
+                }
                 if (strcmp(value, ROVER_NAME) == 0 ||
                     strcmp(value, ROVER_ID) == 0 ||
                     strcmp(value, ROVER_FQID) == 0 ||
                     strcmp(value, ROVER_FQNAME) == 0) {
                     config.animation_index = ROVER_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
-                    }
+                }
+                if (strcmp(value, MERLIN_NAME) == 0 ||
+                    strcmp(value, MERLIN_ID) == 0 ||
+                    strcmp(value, MERLIN_FQID) == 0 ||
+                    strcmp(value, MERLIN_FQNAME) == 0) {
+                    config.animation_index = MERLIN_ANIM_INDEX;
+                    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
+                }
 #endif
 
                 animation_found = config.animation_index >= 0;
