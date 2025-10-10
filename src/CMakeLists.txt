@@ -79,6 +79,7 @@ target_link_options(bongocat_libs INTERFACE -Wl,--gc-sections)
 set(SOURCES
         utils/error.cpp
         utils/memory.cpp
+        utils/random.cpp
         utils/system_memory.cpp
         utils/time.cpp
         config/config.cpp

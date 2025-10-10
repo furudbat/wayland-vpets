@@ -534,10 +534,11 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         constexpr size_t charset_len = sizeof(charset_arr) - 1;
         int fd = -1;
 
+        random_xoshiro128 rng (slow_rand());
         for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
             for (size_t j = 0; j < CREATE_SHM_NAME_SUFFIX_LEN; j++) {
                 assert(sizeof(charset_arr) - 1 > 0);
-                name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rand() % static_cast<int>(charset_len)];
+                name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rng.range(0, charset_len-1)];
             }
             fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
             if (fd >= 0) {

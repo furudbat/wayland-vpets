@@ -430,6 +430,9 @@ namespace bongocat::animation {
         }
         [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
+        // init anim
+        ret->anim._rng = platform::random_xoshiro128(platform::slow_rand());
+
         BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
         return ret;
     }

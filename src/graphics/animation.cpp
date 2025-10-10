@@ -394,7 +394,7 @@ namespace bongocat::animation {
 
                     assert(max_move_distance >= 0);
                     assert(min_movement >= 0);
-                    state.anim_distance = ctx._rng.range(static_cast<uint32_t>(min_movement), static_cast<uint32_t>(max_move_distance));
+                    state.anim_distance = static_cast<float>(ctx._rng.range(static_cast<uint32_t>(min_movement), static_cast<uint32_t>(max_move_distance)));
 
                     if (anim_shm.movement_offset_x >= max_movement_offset_x_right) {
                         // run against wall, change direction
@@ -1107,7 +1107,8 @@ namespace bongocat::animation {
         //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
         const auto& current_frames = reinterpret_cast<dm_animation_t&>(get_current_animation(ctx));
 
-        animation_state_row_t new_row_state = state.row_state;
+        /// @NOTE: add volatile for clobbered warning
+        volatile animation_state_row_t new_row_state = state.row_state;
         int new_row = animation_player_data.sprite_sheet_row;
         int new_start_frame_index = animation_player_data.start_frame_index;
         int new_end_frame_index = animation_player_data.end_frame_index;

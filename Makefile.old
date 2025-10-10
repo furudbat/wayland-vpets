@@ -67,6 +67,7 @@ CXX_SRC = $(SRCDIR)/image_loader/load_images.cpp \
     $(SRCDIR)/image_loader/load_images_stb_image.cpp \
     $(SRCDIR)/utils/memory.cpp \
     $(SRCDIR)/utils/system_memory.cpp \
+    $(SRCDIR)/utils/random.cpp \
     $(SRCDIR)/utils/error.cpp \
     $(SRCDIR)/utils/time.cpp \
     $(SRCDIR)/core/main.cpp \

@@ -861,12 +861,11 @@ int main(int argc, char *argv[]) {
                 snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name);
             }
         } else {
-            srand(static_cast<unsigned>(time(nullptr)));
-            const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name, rand()) + 1;
+            const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name, platform::slow_rand()) + 1;
             assert(needed_size >= 0);
             ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
             if (ctx.pid_filename != nullptr) {
-                snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name, rand());
+                snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name, platform::slow_rand());
             }
         }
 
@@ -900,13 +899,7 @@ int main(int argc, char *argv[]) {
         }
     }
     BONGOCAT_LOG_INFO("PID file created: %s", ctx.pid_filename);
-
-    // more randomness is needed to create better shm names, see create_shm
-    const auto pid = getpid();
-    // seed once, include pid for better randomness
-    srand(static_cast<unsigned>(time(nullptr)) ^ static_cast<unsigned>(pid));
-
-    BONGOCAT_LOG_INFO("bongocat PID: %d", pid);
+    BONGOCAT_LOG_INFO("bongocat PID: %d", getpid());
 
     // Setup signal handlers
     ctx.signal_watch_path = config_file;
