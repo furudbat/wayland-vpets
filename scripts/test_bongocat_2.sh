@@ -56,6 +56,10 @@ for group in debug relwithdebinfo; do
     sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
     sleep 3
+    echo "[TEST] Sending SIGUSR2..."
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
     toggle_config
     sleep 10
     toggle_config
@@ -63,8 +67,16 @@ for group in debug relwithdebinfo; do
     echo "[TEST] Trigger Sleep"
     echo "[INFO] Enable idle_sleep_timeout..."
     sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=10/" "$CONFIG"
+    echo "[TEST] Sending SIGUSR2..."
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
     sleep 5
     sed -i 's/^enable_scheduled_sleep=0/enable_scheduled_sleep=1/' "$CONFIG"
+    echo "[TEST] Sending SIGUSR2..."
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
     sleep 20
     echo "[TEST] Wake up Sleep"
     if [[ -f "/proc/$PID/fd/0" ]]; then
@@ -74,8 +86,16 @@ for group in debug relwithdebinfo; do
     echo "[INFO] Disable idle_sleep_timeout..."
     sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=3600/" "$CONFIG"
     sleep 5
+    echo "[TEST] Sending SIGUSR2..."
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
     sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
     sleep 5
+    echo "[TEST] Sending SIGUSR2..."
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
     echo "[TEST] Change animation sprite"
     echo "[INFO] Set animation_name..."
     sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
@@ -83,6 +103,10 @@ for group in debug relwithdebinfo; do
     echo "[INFO] Set animation_name..."
     sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
     sleep 1
+    echo "[TEST] Sending SIGUSR2..."
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
 
     echo "[TEST] Invalid animation sprite"
     echo "[INFO] Set animation_name..."
@@ -91,6 +115,10 @@ for group in debug relwithdebinfo; do
     echo "[INFO] Set animation_name..."
     sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
     sleep 5
+    echo "[TEST] Sending SIGUSR2..."
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
 
     echo "[TEST] move and delete config..."
     echo "[INFO] Move Config: $CONFIG > ${CONFIG}.del"

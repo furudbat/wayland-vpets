@@ -1105,11 +1105,14 @@ namespace bongocat::platform::input {
         /// @TODO: re-create context with create(), avoid duplicate code
 
         // Start new monitoring (reuse shared memory if it exists)
-        if (input.shm == nullptr) {
-            input.shm = make_allocated_mmap<input_shared_memory_t>();
-            if (input.shm.ptr == MAP_FAILED) {
-                BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-                return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        {
+            LockGuard guard (input.input_lock);
+            if (input.shm == nullptr) {
+                input.shm = make_allocated_mmap<input_shared_memory_t>();
+                if (input.shm.ptr == MAP_FAILED) {
+                    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+                    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+                }
             }
         }
 
