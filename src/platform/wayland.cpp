@@ -498,29 +498,29 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
     // SCREEN DIMENSION MANAGEMENT
     // =============================================================================
 
-    static void screen_calculate_dimensions(wayland_session_t& ctx) {
-        if (ctx.screen_info.received == screen_info_received_flags_t::None ||
-            (static_cast<uint32_t>(ctx.screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Geometry)) == 0 ||
-            (static_cast<uint32_t>(ctx.screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Mode)) == 0 ||
-            ctx.screen_info.screen_width > 0) {
+    static void screen_calculate_dimensions(screen_info_t& screen_info) {
+        if (screen_info.received == screen_info_received_flags_t::None ||
+            (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Geometry)) == 0 ||
+            (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Mode)) == 0 ||
+            screen_info.screen_width > 0) {
             return;
         }
 
-        const bool is_rotated = (ctx.screen_info.transform == WL_OUTPUT_TRANSFORM_90 ||
-                                 ctx.screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
-                                 ctx.screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
-                                 ctx.screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270);
+        const bool is_rotated = (screen_info.transform == WL_OUTPUT_TRANSFORM_90 ||
+                                 screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
+                                 screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
+                                 screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270);
 
         if (is_rotated) {
-            ctx.screen_info.screen_width = ctx.screen_info.raw_height;
-            ctx.screen_info.screen_height = ctx.screen_info.raw_width;
+            screen_info.screen_width = screen_info.raw_height;
+            screen_info.screen_height = screen_info.raw_width;
             BONGOCAT_LOG_INFO("Detected rotated screen: %dx%d (transform: %d)",
-                              ctx.screen_info.raw_height, ctx.screen_info.raw_width, ctx.screen_info.transform);
+                              screen_info.raw_height, screen_info.raw_width, screen_info.transform);
         } else {
-            ctx.screen_info.screen_width = ctx.screen_info.raw_width;
-            ctx.screen_info.screen_height = ctx.screen_info.raw_height;
+            screen_info.screen_width = screen_info.raw_width;
+            screen_info.screen_height = screen_info.raw_height;
             BONGOCAT_LOG_INFO("Detected screen: %dx%d (transform: %d)",
-                              ctx.screen_info.raw_width, ctx.screen_info.raw_height, ctx.screen_info.transform);
+                              screen_info.raw_width, screen_info.raw_height, screen_info.transform);
         }
     }
 
@@ -631,11 +631,15 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         }
         wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
 
-        ctx.screen_info.transform = transform;
-        ctx.screen_info.received = static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_info.received) | static_cast<uint32_t>(
-                                                                                 screen_info_received_flags_t::Geometry));
+        for (size_t i = 0; i < MAX_OUTPUTS; i++) {
+            if (ctx.screen_infos[i].wl_output == wl_output) {
+                ctx.screen_infos[i].transform = transform;
+                ctx.screen_infos[i].received = static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_infos[i].received) | static_cast<uint32_t>(
+                                                                                         screen_info_received_flags_t::Geometry));
+                screen_calculate_dimensions(ctx.screen_infos[i]);
+            }
+        }
         BONGOCAT_LOG_DEBUG("wl_output.geometry: Output transform: %d", transform);
-        screen_calculate_dimensions(ctx);
     }
 
     static void output_mode(void *data ,
@@ -651,24 +655,31 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         BONGOCAT_LOG_VERBOSE("wl_output.mode: mode received: %u", flags);
 
         if (flags & WL_OUTPUT_MODE_CURRENT) {
-            ctx.screen_info.raw_width = width;
-            ctx.screen_info.raw_height = height;
-            ctx.screen_info.received = static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_info.received) | static_cast<uint32_t>(
-                                                                                     screen_info_received_flags_t::Mode));
-            BONGOCAT_LOG_DEBUG("wl_output.mode: Received raw screen mode: %dx%d", width, height);
-            screen_calculate_dimensions(ctx);
+            for (size_t i = 0; i < MAX_OUTPUTS; i++) {
+                if (ctx.screen_infos[i].wl_output == wl_output) {
+                    ctx.screen_infos[i].raw_width = width;
+                    ctx.screen_infos[i].raw_height = height;
+                    ctx.screen_infos[i].received = static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_infos[i].received) | static_cast<uint32_t>(
+                                                                                             screen_info_received_flags_t::Mode));
+                    BONGOCAT_LOG_DEBUG("wl_output.mode: Received raw screen mode: %dx%d", width, height);
+                    screen_calculate_dimensions(ctx.screen_infos[i]);
+                }
+            }
         }
     }
 
-    static void output_done(void *data,
-    [[maybe_unused]] wl_output *wl_output) {
+    static void output_done(void *data, [[maybe_unused]] wl_output *wl_output) {
         if (!data) {
             BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
             return;
         }
         wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
 
-        screen_calculate_dimensions(ctx);
+        for (size_t i = 0; i < MAX_OUTPUTS; i++) {
+            if (ctx.screen_infos[i].wl_output == wl_output) {
+                screen_calculate_dimensions(ctx.screen_infos[i]);
+            }
+        }
         BONGOCAT_LOG_DEBUG("wl_output.done: Output configuration complete");
     }
 
@@ -840,9 +851,12 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         wl_display_roundtrip(wayland_ctx.display);
 
         if (ctx.xdg_output_manager) {
-            for (size_t i = 0; i < ctx.output_count; i++) {
+            for (size_t i = 0; i < ctx.output_count && i < MAX_OUTPUTS; i++) {
                 ctx.outputs[i].xdg_output = zxdg_output_manager_v1_get_xdg_output(ctx.xdg_output_manager, ctx.outputs[i].wl_output);
                 zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &xdg_output_listener, &ctx.outputs[i]);
+                ctx.screen_infos[i] = {};
+                assert(ctx.outputs[i].wl_output);
+                ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
             }
 
             // Wait for all xdg_output events
@@ -861,6 +875,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                     strcmp(ctx.outputs[i].name_str, current_config.output_name) == 0) {
                     wayland_ctx.output = ctx.outputs[i].wl_output;
                     wayland_ctx._output_name_str = ctx.outputs[i].name_str;
+                    wayland_ctx._screen_info = &ctx.screen_infos[i];
                     BONGOCAT_LOG_INFO("Matched output: %s", wayland_ctx._output_name_str);
                     break;
                 }
@@ -881,6 +896,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         if (!wayland_ctx.output && ctx.output_count > 0) {
             wayland_ctx.output = ctx.outputs[0].wl_output;
             wayland_ctx._output_name_str = ctx.outputs[0].name_str;
+            wayland_ctx._screen_info = &ctx.screen_infos[0];
             BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
         }
 
@@ -892,22 +908,29 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
         // Configure screen dimensions
         int screen_width {DEFAULT_SCREEN_WIDTH};
-        if (wayland_ctx.output) {
-            wl_display_roundtrip(wayland_ctx.display);
-            if (ctx.screen_info.screen_width > 0) {
-                BONGOCAT_LOG_INFO("Detected screen width: %d", ctx.screen_info.screen_width);
-                screen_width = ctx.screen_info.screen_width;
-            } else {
-                BONGOCAT_LOG_WARNING("Using default screen width: %d", DEFAULT_SCREEN_WIDTH);
-                screen_width = DEFAULT_SCREEN_WIDTH;
-            }
+        if (current_config.screen_width > 0) {
+            BONGOCAT_LOG_WARNING("Use screen width from config: %d", current_config.screen_width);
+            screen_width = current_config.screen_width;
         } else {
-            BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
-            screen_width = DEFAULT_SCREEN_WIDTH;
-            if (current_config._strict) {
-                wl_registry_destroy(registry);
-                return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            // auto-detect screen width
+            if (wayland_ctx.output) {
+                wl_display_roundtrip(wayland_ctx.display);
+                if (wayland_ctx._screen_info && wayland_ctx._screen_info->screen_width > 0) {
+                    BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->screen_width);
+                    screen_width = wayland_ctx._screen_info->screen_width;
+                } else {
+                    BONGOCAT_LOG_WARNING("Using default screen width: %d", DEFAULT_SCREEN_WIDTH);
+                    screen_width = DEFAULT_SCREEN_WIDTH;
+                }
+            } else {
+                BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
+                screen_width = DEFAULT_SCREEN_WIDTH;
+                if (current_config._strict) {
+                    wl_registry_destroy(registry);
+                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+                }
             }
+
         }
         wayland_ctx._screen_width = screen_width;
 
@@ -1357,7 +1380,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
     // =============================================================================
 
     int get_screen_width(const wayland_session_t& ctx) {
-        return ctx.screen_info.screen_width;
+        return (ctx.wayland_context._screen_info) ? ctx.wayland_context._screen_info->screen_width : 0;
     }
 
     void update_config(wayland_context_t& ctx, const config::config_t& config, animation::animation_session_t& trigger_ctx) {

@@ -39,6 +39,7 @@ namespace bongocat::platform::wayland {
         Geometry        = (1u << 2),
     };
     struct screen_info_t {
+        struct wl_output *wl_output{nullptr};   // ref of output
         int screen_width{0};
         int screen_height{0};
         int transform{0};
@@ -84,7 +85,7 @@ namespace bongocat::platform::wayland {
 
         fullscreen_detector_t fs_detector;
 
-        screen_info_t screen_info;
+        screen_info_t screen_infos[MAX_OUTPUTS];
         atomic_bool ready{false};
 
 
@@ -147,7 +148,9 @@ namespace bongocat::platform::wayland {
         ctx.num_toplevels = 0;
 
         ctx.fs_detector = {};
-        ctx.screen_info = {};
+        for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
+            ctx.screen_infos[i] = {};
+        }
 
         // clean up wayland context
         cleanup_wayland_context(ctx.wayland_context);

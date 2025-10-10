@@ -19,6 +19,8 @@ namespace bongocat::platform::wayland {
 
     enum class bar_visibility_t : bool { Hide = false, Show = true };
 
+    struct screen_info_t;
+
     struct wayland_context_t {
         wl_display *display{nullptr};
         wl_compositor *compositor{nullptr};
@@ -38,6 +40,7 @@ namespace bongocat::platform::wayland {
         int32_t _screen_width{0};
         char* _output_name_str{nullptr};                  // ref to existing name in output, Will default to automatic one if kept null
         bool _fullscreen_detected{false};
+        screen_info_t *_screen_info{nullptr};
 
         // frame done callback data
         wl_callback *_frame_cb{nullptr};
@@ -146,6 +149,7 @@ namespace bongocat::platform::wayland {
         ctx._bar_height = 0;
         ctx._screen_width = 0;
         ctx._fullscreen_detected = false;
+        ctx._screen_info = nullptr;
     }
 }
 

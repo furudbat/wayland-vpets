@@ -167,7 +167,7 @@ namespace bongocat {
     
     inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_TEMPLATE = "/tmp/bongocat-%s.pid";
-    inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE = "/tmp/bongocat-%s.%d.pid";
+    inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE = "/tmp/bongocat-%s.%" PRIu32 ".pid";
     inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_TEMPLATE = "/tmp/bongocat-%" PRId64 ".pid";
 
     inline static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
