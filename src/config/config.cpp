@@ -125,10 +125,13 @@ namespace bongocat::config {
     static inline constexpr auto ENABLE_ANTIALIASING_KEY            = "enable_antialiasing";
     static inline constexpr auto UPDATE_RATE_KEY                    = "update_rate";
     static inline constexpr auto CPU_THRESHOLD_KEY                  = "cpu_threshold";
+    static inline constexpr auto MOVEMENT_RADIUS_KEY                = "movement_radius";
+    static inline constexpr auto ENABLE_MOVEMENT_DEBUG_KEY          = "enable_movement_debug";
+    static inline constexpr auto MOVEMENT_SPEED_KEY                 = "movement_speed";
 
     static inline constexpr size_t KEY_BUF = 256;
     static inline constexpr size_t VALUE_BUF = PATH_MAX + 256; // max value + comment
-    static inline constexpr size_t LINE_BUF  = KEY_BUF-1+VALUE_BUF-1+1 + 1;
+    static inline constexpr size_t LINE_BUF  = KEY_BUF-1 + VALUE_BUF-1 + 1 + 1; // key + '=' + value + '\0'
 
     // =============================================================================
     // CONFIGURATION VALIDATION MODULE
@@ -352,6 +355,7 @@ namespace bongocat::config {
         config.mirror_y = config.mirror_y ? 1 : 0;
         config.randomize_index = config.randomize_index ? 1 : 0;
         config.enable_antialiasing = config.enable_antialiasing ? 1 : 0;
+        config.enable_movement_debug = config.enable_movement_debug ? 1 : 0;
 
         ret |= config_validate_dimensions(config);
         ret |= config_validate_timing(config);
@@ -494,6 +498,12 @@ namespace bongocat::config {
             config.update_rate_ms = int_value;
         } else if (strcmp(key, CPU_THRESHOLD_KEY) == 0) {
             config.cpu_threshold = int_value;
+        } else if (strcmp(key, MOVEMENT_RADIUS_KEY) == 0) {
+            config.movement_radius = int_value;
+        } else if (strcmp(key, ENABLE_MOVEMENT_DEBUG_KEY) == 0) {
+            config.enable_movement_debug = int_value;
+        } else if (strcmp(key, MOVEMENT_SPEED_KEY) == 0) {
+            config.movement_speed = int_value;
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
         }
@@ -723,6 +733,7 @@ namespace bongocat::config {
 #endif
             }
 
+            // check for MS agent
             if constexpr (features::EnableMsAgentEmbeddedAssets) {
                 // check for ms pets (clippy)
                 if (strcmp(value, CLIPPY_NAME) == 0 ||
@@ -734,6 +745,7 @@ namespace bongocat::config {
                 }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
                 /// @NOTE(assets): 4. add more MS Agents here
+                // Links
                 if (strcmp(value, LINKS_NAME) == 0 ||
                     strcmp(value, LINKS_ID) == 0 ||
                     strcmp(value, LINKS_FQID) == 0 ||
@@ -741,6 +753,7 @@ namespace bongocat::config {
                     config.animation_index = LINKS_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
+                // Rover
                 if (strcmp(value, ROVER_NAME) == 0 ||
                     strcmp(value, ROVER_ID) == 0 ||
                     strcmp(value, ROVER_FQID) == 0 ||
@@ -748,6 +761,7 @@ namespace bongocat::config {
                     config.animation_index = ROVER_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
+                // Merlin
                 if (strcmp(value, MERLIN_NAME) == 0 ||
                     strcmp(value, MERLIN_ID) == 0 ||
                     strcmp(value, MERLIN_FQID) == 0 ||
@@ -760,7 +774,7 @@ namespace bongocat::config {
                 animation_found = config.animation_index >= 0;
             }
 
-            // check for dm
+            // check for pkmn
             if constexpr (features::EnablePkmnEmbeddedAssets) {
                 using namespace assets;
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
