@@ -76,13 +76,20 @@ Changes to some settings require restarting Bongo Cat to take effect.
 
 - **monitor**: Monitor to display Bongo Cat. Uses first available if unspecified.
 
+# MOVEMENT
+
+- **movement_radius**: Moving area, the radius from center (0 = disabled).
+- **movement_speed**: Traveling distance per movement animation.
+- **enable_movement_debug**: Show Moving area, in _red_. (0 = off, 1 = on).
+
+_Use Movement with `animation_speed`_
 
 # ANIMATION
 
 - **animation_name**: Animation set. Examples: `bongocat`, `Clippy`, `Bulbasaur`. _(see below for full list)_
 - **invert_color**: Invert colors for dark mode (0 = off, 1 = on).
 - **random**: Random animation index (0 = off, 1 = on).
-- **idle_frame**: Frame to use when idle (0–3 for Bongo Cat).
+- **idle_frame**: Frame to use when idle (0–3 for Bongo Cat), otherwise 0 or 1 should be the idle frames in the other sets.
 - **enable_scheduled_sleep**: Scheduled sleep mode (0 = off, 1 = on).
 - **sleep_begin** / **sleep_end**: Start/end times for sleep mode (24-hour format).
 - **idle_sleep_timeout**: Seconds of inactivity before sleep (0 = disabled).
