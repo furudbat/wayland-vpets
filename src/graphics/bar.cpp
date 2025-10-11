@@ -201,10 +201,6 @@ namespace bongocat::animation {
                 if (!current_config.mirror_x) {
                     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
                 }
-            } else if (anim_shm.anim_direction <= -1.0f) {
-                if (current_config.mirror_x) {
-                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
-                }
             } else {
                 if (current_config.mirror_x) {
                     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);

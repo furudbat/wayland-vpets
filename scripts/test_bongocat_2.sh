@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-for group in debug relwithdebinfo; do
+for group in debug relwithdebinfo-tsan; do
   find ./cmake-build-* -type f -executable -name "bongocat*" | grep -i "$group" | while read -r PROGRAM; do
     WORKDIR=$(mktemp -d)
     CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
@@ -16,6 +16,9 @@ for group in debug relwithdebinfo; do
     sleep 5
     sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
     sleep 5
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID"
+    sleep 3
 
     # --- trap cleanup ---
     cleanup() {
@@ -102,11 +105,11 @@ for group in debug relwithdebinfo; do
     sleep 5
     echo "[INFO] Set animation_name..."
     sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
-    sleep 1
+    sleep 3
     echo "[TEST] Sending SIGUSR2..."
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID"
-    sleep 3
+    sleep 5
 
     echo "[TEST] Invalid animation sprite"
     echo "[INFO] Set animation_name..."

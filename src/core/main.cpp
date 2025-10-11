@@ -912,7 +912,7 @@ int main(int argc, char *argv[]) {
     
     // Initialize config watcher if requested
     if (args.watch_config) {
-        if (strcmp(config_file, "-") == 0) {
+        if (strcmp(config_file, "-") != 0) {
             start_config_watcher(ctx, config_file);
         } else {
             BONGOCAT_LOG_INFO("Skip config watcher, no config watcher for stdin");
