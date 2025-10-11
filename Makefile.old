@@ -55,11 +55,11 @@ RELEASE_CXXFLAGS += -fomit-frame-pointer -funroll-loops -finline-functions -D_FO
 ifeq ($(BUILD_TYPE),debug)
     CFLAGS = $(DEBUG_CFLAGS)
     CXXFLAGS = $(DEBUG_CXXFLAGS)
-    LDFLAGS = -lwayland-client -lm -lpthread -lrt $(DEBUG_LDFLAGS)
+    LDFLAGS = -lwayland-client -lm -lpthread -lrt -ludev $(DEBUG_LDFLAGS)
 else
     CFLAGS = $(RELEASE_CFLAGS)
     CXXFLAGS = $(RELEASE_CXXFLAGS)
-    LDFLAGS = -lwayland-client -lm -lpthread -lrt -flto
+    LDFLAGS = -lwayland-client -lm -lpthread -lrt -ludev -flto
 endif
 
 # Source files (including embedded assets which are now committed)
@@ -72,6 +72,7 @@ CXX_SRC = $(SRCDIR)/image_loader/load_images.cpp \
     $(SRCDIR)/utils/time.cpp \
     $(SRCDIR)/core/main.cpp \
     $(SRCDIR)/platform/input.cpp \
+    $(SRCDIR)/platform/update.cpp \
     $(SRCDIR)/platform/wayland.cpp \
     $(SRCDIR)/graphics/bar.cpp \
     $(SRCDIR)/graphics/animation.cpp \
