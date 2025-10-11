@@ -26,6 +26,9 @@
           --ignore-running        
             Ignore current running instance
 
+          --nr NR                 
+            Specify Nr. for PID file to avoid conflicting ruinning instances
+
 Included sets:
   bongocat - Classic Bongo cat
   ms_agent - MS Agent
