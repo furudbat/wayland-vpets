@@ -101,11 +101,11 @@ namespace bongocat {
         int err = errno;
         // supress compiler warning
 #if EAGAIN == EWOULDBLOCK
-        if (err != EAGAIN) {
+        if (err != EAGAIN && err != -1) {
             BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(err));
         }
 #else
-        if (err != EAGAIN && err != EWOULDBLOCK) {
+        if (err != EAGAIN && err != EWOULDBLOCK && err != -1) {
             BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(err));
         }
 #endif
