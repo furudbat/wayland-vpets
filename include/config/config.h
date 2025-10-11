@@ -113,6 +113,12 @@ namespace bongocat::config {
         int32_t update_rate_ms{0};
         double cpu_threshold{0};
 
+        int32_t movement_radius{0};
+        int32_t enable_movement_debug{0};
+        int32_t movement_speed{0};
+
+        int32_t screen_width{0};
+
         // for keep old index when reload config
         int32_t _keep_old_animation_index{0};
         int32_t _strict{0};
@@ -163,6 +169,10 @@ namespace bongocat::config {
               randomize_index(other.randomize_index),
               update_rate_ms(other.update_rate_ms),
               cpu_threshold(other.cpu_threshold),
+              movement_radius(other.movement_radius),
+              enable_movement_debug(other.enable_movement_debug),
+              movement_speed(other.movement_speed),
+              screen_width(other.screen_width),
               _keep_old_animation_index(other._keep_old_animation_index),
               _strict(other._strict)
         {
@@ -207,7 +217,11 @@ namespace bongocat::config {
                 input_fps = other.input_fps;
                 randomize_index = other.randomize_index;
                 update_rate_ms = other.update_rate_ms;
+                movement_radius = other.movement_radius;
+                enable_movement_debug = other.enable_movement_debug;
+                movement_speed = other.movement_speed;
                 cpu_threshold = other.cpu_threshold;
+                screen_width = other.screen_width;
                 _keep_old_animation_index = other._keep_old_animation_index;
                 _strict = other._strict;
 
@@ -254,6 +268,10 @@ namespace bongocat::config {
               randomize_index(other.randomize_index),
               update_rate_ms(other.update_rate_ms),
               cpu_threshold(other.cpu_threshold),
+              movement_radius(other.movement_radius),
+              enable_movement_debug(other.enable_movement_debug),
+              movement_speed(other.movement_speed),
+              screen_width(other.screen_width),
               _keep_old_animation_index(other._keep_old_animation_index),
               _strict(other._strict)
         {
@@ -305,6 +323,10 @@ namespace bongocat::config {
                 randomize_index = other.randomize_index;
                 update_rate_ms = other.update_rate_ms;
                 cpu_threshold = other.cpu_threshold;
+                movement_radius = other.movement_radius;
+                enable_movement_debug = other.enable_movement_debug;
+                movement_speed = other.movement_speed;
+                screen_width = other.screen_width;
                 _keep_old_animation_index = other._keep_old_animation_index;
                 _strict = other._strict;
 

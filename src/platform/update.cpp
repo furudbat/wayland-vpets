@@ -408,7 +408,7 @@ namespace bongocat::platform::update {
 
             if (update_rate_ms) {
                 // sleep
-                struct timespec ts;
+                timespec ts;
                 ts.tv_sec = 0;
                 assert(fps > 0);
                 if (animation_triggered && animation_speed_ms > 0) {
@@ -564,13 +564,15 @@ namespace bongocat::platform::update {
         }
 
         /// @TODO: re-create context with create(), avoid duplicate code
-
-        // Start new monitoring (reuse shared memory if it exists)
-        if (upd.shm == nullptr) {
-            upd.shm = make_allocated_mmap<update_shared_memory_t>();
-            if (upd.shm.ptr == MAP_FAILED) {
-                BONGOCAT_LOG_ERROR("Failed to create shared memory for update thread: %s", strerror(errno));
-                return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        {
+            LockGuard guard (upd.update_lock);
+            // Start new monitoring (reuse shared memory if it exists)
+            if (upd.shm == nullptr) {
+                upd.shm = make_allocated_mmap<update_shared_memory_t>();
+                if (upd.shm.ptr == MAP_FAILED) {
+                    BONGOCAT_LOG_ERROR("Failed to create shared memory for update thread: %s", strerror(errno));
+                    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+                }
             }
         }
 

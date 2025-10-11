@@ -21,6 +21,8 @@ namespace bongocat::animation {
         int32_t anim_index{0};
         config::config_animation_sprite_sheet_layout_t anim_type{config::config_animation_sprite_sheet_layout_t::None};
         config::config_animation_dm_set_t anim_dm_set{config::config_animation_dm_set_t::None};
+        float movement_offset_x{0.0};
+        float anim_direction{0.0};
 
         // Animation frame data for sprite sheet preload
         platform::MMapArray<animation_t> bongocat_anims;
@@ -45,6 +47,8 @@ namespace bongocat::animation {
             anim_dm_set = config::config_animation_dm_set_t::None;
             animation_player_data = {};
             anim_index = 0;
+            movement_offset_x = 0;
+            anim_direction = 0;
 
             for (size_t i = 0; i < bongocat_anims.count; i++) {
                 cleanup_animation(bongocat_anims[i]);

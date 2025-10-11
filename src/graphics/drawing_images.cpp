@@ -184,11 +184,21 @@ namespace bongocat::animation {
         // Fixed-point increments
         assert(target_w > 0);
         assert(target_h > 0);
-        const auto inc_x = static_cast<int32_t>((static_cast<int64_t>(frame_w) << FIXED_SHIFT) / target_w);
-        const auto inc_y = static_cast<int32_t>((static_cast<int64_t>(frame_h) << FIXED_SHIFT) / target_h);
+        int32_t inc_x = static_cast<int32_t>((static_cast<int64_t>(frame_w) << FIXED_SHIFT) / target_w);
+        int32_t inc_y = static_cast<int32_t>((static_cast<int64_t>(frame_h) << FIXED_SHIFT) / target_h);
 
-        const int32_t src_x_start = src_x << FIXED_SHIFT;
-        const int32_t src_y_start = src_y << FIXED_SHIFT;
+        int32_t src_x_start = src_x << FIXED_SHIFT;
+        int32_t src_y_start = src_y << FIXED_SHIFT;
+
+        // MirrorX / MirrorY affect direction and start point
+        if (has_flag(options, blit_image_color_option_flags_t::MirrorX)) {
+            src_x_start = (src_x + frame_w - 1) << FIXED_SHIFT;
+            inc_x = -inc_x;
+        }
+        if (has_flag(options, blit_image_color_option_flags_t::MirrorY)) {
+            src_y_start = (src_y + frame_h - 1) << FIXED_SHIFT;
+            inc_y = -inc_y;
+        }
 
         const size_t src_row_bytes  = static_cast<size_t>(src_w) * static_cast<size_t>(src_channels);
         const size_t dest_row_bytes = static_cast<size_t>(dest_w) * static_cast<size_t>(dest_channels);
@@ -200,12 +210,7 @@ namespace bongocat::animation {
             assert(dy < dest_h);
 
             int32_t sy_fixed = src_y_start + static_cast<int32_t>(static_cast<int64_t>(ty) * inc_y);
-            int sy = sy_fixed >> FIXED_SHIFT;
-
-            // MirrorY
-            if (has_flag(options, blit_image_color_option_flags_t::MirrorY)) {
-                sy = (src_h - 1) - sy;
-            }
+            const int sy = sy_fixed >> FIXED_SHIFT;
 
             if (static_cast<unsigned>(sy) >= static_cast<unsigned>(src_h)) continue;
 
@@ -216,12 +221,7 @@ namespace bongocat::animation {
             uint8_t *dest_ptr = dest_row + static_cast<size_t>(offset_x + x0) * static_cast<size_t>(dest_channels);
 
             for (int tx = x0; tx < x1; ++tx) {
-                int sx = sx_fixed >> FIXED_SHIFT;
-
-                // MirrorX
-                if (has_flag(options, blit_image_color_option_flags_t::MirrorX)) {
-                    sx = (src_w - 1) - sx;
-                }
+                const int sx = sx_fixed >> FIXED_SHIFT;
 
                 if (static_cast<unsigned>(sx) < static_cast<unsigned>(src_w)) {
                     const uint8_t *src_pixel = src_row + static_cast<size_t>(sx) * static_cast<size_t>(src_channels);

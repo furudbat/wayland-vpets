@@ -55,7 +55,58 @@ namespace bongocat::assets {
     inline static constexpr std::size_t LINKS_FQNAME_LEN = sizeof(LINKS_FQNAME_ARR)-1;
     inline static constexpr size_t LINKS_ANIM_INDEX = 1;
 
-    inline static constexpr size_t MS_AGENTS_ANIM_COUNT = 2;
+    // Name: Rover
+    inline static constexpr size_t ROVER_SPRITE_SHEET_COLS = 102;
+    inline static constexpr size_t ROVER_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr size_t ROVER_FRAMES_IDLE = 1;
+    inline static constexpr size_t ROVER_FRAMES_BORING = 102;
+    inline static constexpr size_t ROVER_FRAMES_START_WRITING = 9;
+    inline static constexpr size_t ROVER_FRAMES_WRITING = 34;
+    inline static constexpr size_t ROVER_FRAMES_END_WRITING = 12;
+    inline static constexpr size_t ROVER_FRAMES_SLEEP = 85;
+    inline static constexpr size_t ROVER_FRAMES_WAKE_UP = 14;
+
+    inline static constexpr char ROVER_FQID_ARR[] = "ms_agent:rover";
+    inline static constexpr const char* ROVER_FQID = ROVER_FQID_ARR;
+    inline static constexpr std::size_t ROVER_FQID_LEN = sizeof(ROVER_FQID_ARR)-1;
+    inline static constexpr char ROVER_ID_ARR[] = "rover";
+    inline static constexpr const char* ROVER_ID = ROVER_ID_ARR;
+    inline static constexpr std::size_t ROVER_ID_LEN = sizeof(ROVER_ID_ARR)-1;
+    inline static constexpr char ROVER_NAME_ARR[] = "Rover";
+    inline static constexpr const char* ROVER_NAME = ROVER_NAME_ARR;
+    inline static constexpr std::size_t ROVER_NAME_LEN = sizeof(ROVER_NAME_ARR)-1;
+    inline static constexpr char ROVER_FQNAME_ARR[] = "ms_agent:Rover";
+    inline static constexpr const char* ROVER_FQNAME = ROVER_FQNAME_ARR;
+    inline static constexpr std::size_t ROVER_FQNAME_LEN = sizeof(ROVER_FQNAME_ARR)-1;
+    inline static constexpr size_t ROVER_ANIM_INDEX = 2;
+
+    // Name: Merlin
+    inline static constexpr size_t MERLIN_SPRITE_SHEET_COLS = 22;
+    inline static constexpr size_t MERLIN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr size_t MERLIN_FRAMES_IDLE = 1;
+    inline static constexpr size_t MERLIN_FRAMES_BORING = 22;
+    inline static constexpr size_t MERLIN_FRAMES_START_WRITING = 6;
+    inline static constexpr size_t MERLIN_FRAMES_WRITING = 14;
+    inline static constexpr size_t MERLIN_FRAMES_END_WRITING = 6;
+    inline static constexpr size_t MERLIN_FRAMES_SLEEP = 20;
+    inline static constexpr size_t MERLIN_FRAMES_WAKE_UP = 6;
+
+    inline static constexpr char MERLIN_FQID_ARR[] = "ms_agent:merlin";
+    inline static constexpr const char* MERLIN_FQID = MERLIN_FQID_ARR;
+    inline static constexpr std::size_t MERLIN_FQID_LEN = sizeof(MERLIN_FQID_ARR)-1;
+    inline static constexpr char MERLIN_ID_ARR[] = "merlin";
+    inline static constexpr const char* MERLIN_ID = MERLIN_ID_ARR;
+    inline static constexpr std::size_t MERLIN_ID_LEN = sizeof(MERLIN_ID_ARR)-1;
+    inline static constexpr char MERLIN_NAME_ARR[] = "Merlin";
+    inline static constexpr const char* MERLIN_NAME = MERLIN_NAME_ARR;
+    inline static constexpr std::size_t MERLIN_NAME_LEN = sizeof(MERLIN_NAME_ARR)-1;
+    inline static constexpr char MERLIN_FQNAME_ARR[] = "ms_agent:Merlin";
+    inline static constexpr const char* MERLIN_FQNAME = MERLIN_FQNAME_ARR;
+    inline static constexpr std::size_t MERLIN_FQNAME_LEN = sizeof(MERLIN_FQNAME_ARR)-1;
+    inline static constexpr size_t MERLIN_ANIM_INDEX = 3;
+
+
+    inline static constexpr size_t MS_AGENTS_ANIM_COUNT = 4;
 #else
     inline static constexpr size_t MS_AGENTS_ANIM_COUNT = 1;
 #endif

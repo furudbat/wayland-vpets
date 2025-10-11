@@ -191,3 +191,49 @@ input_fps=60
 
 #TODO: Your Input devices here
 ```
+
+
+## Moving Digimon
+
+![moving digimon demo](../assets/moving-digimon.gif)
+
+```ini
+cat_x_offset=45
+cat_y_offset=-18
+cat_align=right
+cat_height=45
+
+overlay_height=100
+overlay_position=bottom
+overlay_opacity=0
+
+animation_name=dmc:Tyranomon
+invert_color=0
+
+# Sleep Mode settings
+enable_scheduled_sleep=0
+sleep_begin=21:00
+sleep_end=06:00
+idle_sleep_timeout=3600
+
+# Animation timing (in milliseconds)
+keypress_duration=300
+animation_speed=1000
+
+# Movement Settings (experimental)
+movement_radius=90
+movement_speed=15
+enable_movement_debug=0
+
+fps=15
+input_fps=60
+
+# Input devices (you can specify multiple devices)
+# Use keyboard_device for each device you want to monitor
+# Examples:
+# keyboard_device=/dev/input/event4
+# keyboard_device=/dev/input/event20  # External bluetooth keyboard (commented out - doesn't exist)
+# keyboard_device=/dev/input/event5   # Another input device
+
+#TODO: Your Input devices here
+```

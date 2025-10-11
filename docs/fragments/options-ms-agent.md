@@ -28,4 +28,5 @@
 
 Included sets:
   bongocat - Classic Bongo cat
+  ms_agent - MS Agent
 

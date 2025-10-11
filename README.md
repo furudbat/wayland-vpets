@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.1.2-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
@@ -45,6 +45,7 @@ _Pokemon_
 - **😄 Happy Frame** - Reach KPM (Keystroke per minute) to trigger the happy frame (Digimon)
 - **🎲 Random Frame** - Randomize sprite frame at start up (Digimon) (v2.4.0)
 - **🔲 CPU Stat** - React to CPU usage (Digimon) (v3.1.0)
+- **↔️ Movement** - Movement on screen (Digimon) (v3.2.0)
 
 ## 🏁 Getting Started
 
@@ -271,8 +272,8 @@ enable_debug=0                   # Show debug messages
 | Setting                   | Type     | Range / Options                                            | Default       | Description                                                                             |
 |---------------------------|----------|------------------------------------------------------------|---------------|-----------------------------------------------------------------------------------------|
 | `cat_height`              | Integer  | 10–200                                                     | 40            | Height of bongo cat in pixels (width auto-calculated to maintain aspect ratio)          |
-| `cat_x_offset`            | Integer  | -9999 to 9999                                              | 100           | Horizontal offset from center (behavior depends on `cat_align`)                         |
-| `cat_y_offset`            | Integer  | -9999 to 9999                                              | 10            | Vertical offset from center (positive=down, negative=up)                                |
+| `cat_x_offset`            | Integer  | -16000 to 16000                                            | 100           | Horizontal offset from center (behavior depends on `cat_align`)                         |
+| `cat_y_offset`            | Integer  | -16000 to 16000                                            | 10            | Vertical offset from center (positive=down, negative=up)                                |
 | `cat_align`               | String   | "center", "left", "right"                                  | "center"      | Horizontal alignment of cat inside overlay bar                                          |
 | `overlay_height`          | Integer  | 20–300                                                     | 50            | Height of the entire overlay bar                                                        |
 | `overlay_position`        | String   | "top" or "bottom"                                          | "top"         | Position of overlay on screen                                                           |
@@ -304,6 +305,9 @@ enable_debug=0                   # Show debug messages
 | `random`                  | Boolean  | 0 or 1                                                     | 0             | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set) |
 | `update_rate`             | Integer  | 0–10000                                                    | 0             | Check (CPU) states rate (0 = disabled) (in milliseconds)                                |
 | `cpu_threshold`           | Integer  | 0–100                                                      | 0             | Threshold of CPU usage for triggering work animation (0 = disabled)                     |
+| `movement_radius`         | Integer  | 0-8000                                                     | 0             | Radius of moving area (0 = disabled)                                                    |
+| `movement_speed`          | Integer  | 0–5000                                                     | 0             | Movement speed (0 = disabled)                                                           |
+| `enable_movement_debug`   | Boolean  | 0 or 1                                                     | 0             | Show Movement area                                                                      |
 
 #### Available Sprites (`animation_name`)
 
@@ -732,5 +736,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v3.1.2** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.2.0** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon V-Pets, Clippy and Pokémon.

@@ -31,7 +31,6 @@ namespace bongocat::animation {
         platform::CondVariable config_updated;
 
 
-
         animation_context_t() = default;
         ~animation_context_t() {
             cleanup(*this);

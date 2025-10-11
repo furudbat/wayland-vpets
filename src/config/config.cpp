@@ -57,6 +57,10 @@ namespace bongocat::config {
     static inline constexpr int MAX_CPU_THRESHOLD = 100;
     static inline constexpr int MAX_UPDATE_RATE_MS = 60 * 60 * 1000;
     static inline constexpr int MAX_SLEEP_TIMEOUT_SEC = 30 * 24 * 60 * 60;
+    static inline constexpr int MIN_OFFSET = -16000;
+    static inline constexpr int MAX_OFFSET = 16000;
+    static inline constexpr int MIN_MOVEMENT_RADIUS = 0;
+    static inline constexpr int MAX_MOVEMENT_RADIUS = MAX_OFFSET/2;
 
     static_assert(MIN_FPS > 0, "FPS cannot be zero, for math reasons");
 
@@ -125,10 +129,14 @@ namespace bongocat::config {
     static inline constexpr auto ENABLE_ANTIALIASING_KEY            = "enable_antialiasing";
     static inline constexpr auto UPDATE_RATE_KEY                    = "update_rate";
     static inline constexpr auto CPU_THRESHOLD_KEY                  = "cpu_threshold";
+    static inline constexpr auto MOVEMENT_RADIUS_KEY                = "movement_radius";
+    static inline constexpr auto ENABLE_MOVEMENT_DEBUG_KEY          = "enable_movement_debug";
+    static inline constexpr auto MOVEMENT_SPEED_KEY                 = "movement_speed";
+    static inline constexpr auto SCREEN_WIDTH_KEY                   = "screen_width";
 
     static inline constexpr size_t KEY_BUF = 256;
     static inline constexpr size_t VALUE_BUF = PATH_MAX + 256; // max value + comment
-    static inline constexpr size_t LINE_BUF  = KEY_BUF-1+VALUE_BUF-1+1 + 1;
+    static inline constexpr size_t LINE_BUF  = KEY_BUF-1 + VALUE_BUF-1 + 1 + 1; // key + '=' + value + '\0'
 
     // =============================================================================
     // CONFIGURATION VALIDATION MODULE
@@ -155,6 +163,12 @@ namespace bongocat::config {
         int32_t ret{0};
         ret |= config_clamp_int(config.cat_height, MIN_CAT_HEIGHT, MAX_CAT_HEIGHT, CAT_HEIGHT_KEY);
         ret |= config_clamp_int(config.overlay_height, MIN_OVERLAY_HEIGHT, MAX_OVERLAY_HEIGHT, OVERLAY_HEIGHT_KEY);
+        ret |= config_clamp_int(config.cat_x_offset, MIN_OFFSET, MAX_OFFSET, CAT_X_OFFSET_KEY);
+        ret |= config_clamp_int(config.cat_y_offset, MIN_OFFSET, MAX_OFFSET, CAT_Y_OFFSET_KEY);
+        ret |= config_clamp_int(config.movement_radius, MIN_MOVEMENT_RADIUS, MAX_MOVEMENT_RADIUS, CAT_Y_OFFSET_KEY);
+        ret |= config_clamp_int(config.padding_x, 0, MAX_OFFSET, PADDING_X_KEY);
+        ret |= config_clamp_int(config.padding_y, 0, MAX_OFFSET, PADDING_Y_KEY);
+        ret |= config_clamp_int(config.screen_width, 0, MAX_OFFSET, SCREEN_WIDTH_KEY);
         return ret;
     }
 
@@ -163,9 +177,10 @@ namespace bongocat::config {
         ret |= config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY);
         ret |= config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY);
         ret |= config_clamp_int(config.test_animation_duration_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
-        ret |= config_clamp_int(config.animation_speed_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
+        ret |= config_clamp_int(config.animation_speed_ms, 0, MAX_DURATION_MS, ANIMATION_SPEED_KEY);
         ret |= config_clamp_int(config.idle_sleep_timeout_sec, 0, MAX_SLEEP_TIMEOUT_SEC, IDLE_SLEEP_TIMEOUT_KEY);
         ret |= config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY);
+        ret |= config_clamp_int(config.movement_speed, 0, MAX_DURATION_MS, MOVEMENT_SPEED_KEY);
 
         // Validate interval (0 is allowed to disable)
         if (config.test_animation_interval_sec < 0 || config.test_animation_interval_sec > MAX_INTERVAL_SEC) {
@@ -352,6 +367,7 @@ namespace bongocat::config {
         config.mirror_y = config.mirror_y ? 1 : 0;
         config.randomize_index = config.randomize_index ? 1 : 0;
         config.enable_antialiasing = config.enable_antialiasing ? 1 : 0;
+        config.enable_movement_debug = config.enable_movement_debug ? 1 : 0;
 
         ret |= config_validate_dimensions(config);
         ret |= config_validate_timing(config);
@@ -494,6 +510,14 @@ namespace bongocat::config {
             config.update_rate_ms = int_value;
         } else if (strcmp(key, CPU_THRESHOLD_KEY) == 0) {
             config.cpu_threshold = int_value;
+        } else if (strcmp(key, MOVEMENT_RADIUS_KEY) == 0) {
+            config.movement_radius = int_value;
+        } else if (strcmp(key, ENABLE_MOVEMENT_DEBUG_KEY) == 0) {
+            config.enable_movement_debug = int_value;
+        } else if (strcmp(key, MOVEMENT_SPEED_KEY) == 0) {
+            config.movement_speed = int_value;
+        } else if (strcmp(key, SCREEN_WIDTH_KEY) == 0) {
+            config.screen_width = int_value;
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
         }
@@ -723,6 +747,7 @@ namespace bongocat::config {
 #endif
             }
 
+            // check for MS agent
             if constexpr (features::EnableMsAgentEmbeddedAssets) {
                 // check for ms pets (clippy)
                 if (strcmp(value, CLIPPY_NAME) == 0 ||
@@ -734,6 +759,7 @@ namespace bongocat::config {
                 }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
                 /// @NOTE(assets): 4. add more MS Agents here
+                // Links
                 if (strcmp(value, LINKS_NAME) == 0 ||
                     strcmp(value, LINKS_ID) == 0 ||
                     strcmp(value, LINKS_FQID) == 0 ||
@@ -741,12 +767,28 @@ namespace bongocat::config {
                     config.animation_index = LINKS_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
                 }
+                // Rover
+                if (strcmp(value, ROVER_NAME) == 0 ||
+                    strcmp(value, ROVER_ID) == 0 ||
+                    strcmp(value, ROVER_FQID) == 0 ||
+                    strcmp(value, ROVER_FQNAME) == 0) {
+                    config.animation_index = ROVER_ANIM_INDEX;
+                    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
+                }
+                // Merlin
+                if (strcmp(value, MERLIN_NAME) == 0 ||
+                    strcmp(value, MERLIN_ID) == 0 ||
+                    strcmp(value, MERLIN_FQID) == 0 ||
+                    strcmp(value, MERLIN_FQNAME) == 0) {
+                    config.animation_index = MERLIN_ANIM_INDEX;
+                    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
+                }
 #endif
 
                 animation_found = config.animation_index >= 0;
             }
 
-            // check for dm
+            // check for pkmn
             if constexpr (features::EnablePkmnEmbeddedAssets) {
                 using namespace assets;
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
@@ -902,7 +944,7 @@ namespace bongocat::config {
     // =============================================================================
 
     void set_defaults(config_t& config) {
-        config_t cfg;
+        config_t cfg{};
 
         cfg.output_name = nullptr;
         assert(input::MAX_INPUT_DEVICES <= INT_MAX);
@@ -941,6 +983,7 @@ namespace bongocat::config {
         cfg.idle_animation = 0;
         cfg.input_fps = 0;          // when 0 fallback to fps
         cfg.randomize_index = 0;
+        cfg.screen_width = 0;
         cfg._keep_old_animation_index = 0;
         cfg._strict = 0;
 

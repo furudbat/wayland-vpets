@@ -405,6 +405,8 @@ namespace bongocat::animation {
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
                     /// @NOTE(config): add more MS Pets here
                     init_ms_agent_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS);
+                    init_ms_agent_anim(ctx, ROVER_ANIM_INDEX, get_ms_agent_sprite_sheet(ROVER_ANIM_INDEX), ROVER_SPRITE_SHEET_COLS, ROVER_SPRITE_SHEET_ROWS);
+                    init_ms_agent_anim(ctx, MERLIN_ANIM_INDEX, get_ms_agent_sprite_sheet(MERLIN_ANIM_INDEX), MERLIN_SPRITE_SHEET_COLS, MERLIN_SPRITE_SHEET_ROWS);
 #endif
                 }
             }
@@ -427,6 +429,9 @@ namespace bongocat::animation {
             /// @NOTE(assets): 7. add pre-load asset
         }
         [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+
+        // init anim
+        ret->anim._rng = platform::random_xoshiro128(platform::slow_rand());
 
         BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
         return ret;

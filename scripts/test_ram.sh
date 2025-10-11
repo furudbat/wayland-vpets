@@ -163,7 +163,13 @@ for group in release minsizerel relwithdebinfo debug; do
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Links/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 2
+        sleep 3
+        echo "[INFO] Set Sprite Sheet: Rover"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Rover/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 3
         echo "[INFO] Set Sprite Sheet: pkmn:dialga"
         sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:dialga/' "$CONFIG"

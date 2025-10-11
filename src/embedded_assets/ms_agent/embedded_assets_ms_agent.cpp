@@ -9,6 +9,8 @@ namespace bongocat::assets {
             case CLIPPY_ANIM_INDEX: return {clippy_png, clippy_png_size, "clippy"};
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
             case LINKS_ANIM_INDEX: return {links_png, links_png_size, "links"};
+            case ROVER_ANIM_INDEX: return {rover_png, rover_png_size, "rover"};
+            case MERLIN_ANIM_INDEX: return {merlin_png, merlin_png_size, "merlin"};
 #endif
             default: return {};
         }
@@ -61,6 +63,50 @@ namespace bongocat::assets {
 
                 .start_index_frame_wake_up = 0,
                 .end_index_frame_wake_up = LINKS_FRAMES_WAKE_UP-1,
+            };
+            case ROVER_ANIM_INDEX: return {
+                .start_index_frame_idle = 0,
+                .end_index_frame_idle = ROVER_FRAMES_IDLE-1,
+                
+                .start_index_frame_boring = 0,
+                .end_index_frame_boring = ROVER_FRAMES_BORING-1,
+
+                .start_index_frame_start_writing = 0,
+                .end_index_frame_start_writing = ROVER_FRAMES_START_WRITING-1,
+
+                .start_index_frame_writing = 0,
+                .end_index_frame_writing = ROVER_FRAMES_WRITING-1,
+
+                .start_index_frame_end_writing = 0,
+                .end_index_frame_end_writing = ROVER_FRAMES_END_WRITING-1,
+
+                .start_index_frame_sleep = 0,
+                .end_index_frame_sleep = ROVER_FRAMES_SLEEP-1,
+
+                .start_index_frame_wake_up = 0,
+                .end_index_frame_wake_up = ROVER_FRAMES_WAKE_UP-1,
+            };
+            case MERLIN_ANIM_INDEX: return {
+                .start_index_frame_idle = 0,
+                .end_index_frame_idle = MERLIN_FRAMES_IDLE-1,
+                
+                .start_index_frame_boring = 0,
+                .end_index_frame_boring = MERLIN_FRAMES_BORING-1,
+
+                .start_index_frame_start_writing = 0,
+                .end_index_frame_start_writing = MERLIN_FRAMES_START_WRITING-1,
+
+                .start_index_frame_writing = 0,
+                .end_index_frame_writing = MERLIN_FRAMES_WRITING-1,
+
+                .start_index_frame_end_writing = 0,
+                .end_index_frame_end_writing = MERLIN_FRAMES_END_WRITING-1,
+
+                .start_index_frame_sleep = 0,
+                .end_index_frame_sleep = MERLIN_FRAMES_SLEEP-1,
+
+                .start_index_frame_wake_up = 0,
+                .end_index_frame_wake_up = MERLIN_FRAMES_WAKE_UP-1,
             };
 #endif
             default: return {};

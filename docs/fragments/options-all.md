@@ -33,4 +33,5 @@ Included sets:
        dmx - Digital Monster X
        dmc - Digital Monster Color
       pkmn - Pokemon, up to Gen 7
+  ms_agent - MS Agent
 

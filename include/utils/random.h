@@ -2,7 +2,8 @@
 #define BONGOCAT_RANDOM_H_
 
 #include <cstdint>
-#include <limits>
+#include <cstddef>
+#include <climits>
 
 namespace bongocat::platform {
 
@@ -91,10 +92,10 @@ public:
   }
 
   [[nodiscard]] constexpr inline uint32_t range_max() {
-    return range(std::numeric_limits<uint32_t>::min(), std::numeric_limits<uint32_t>::max());
+    return range(0, UINT32_MAX);
   }
 
-  [[nodiscard]] constexpr inline uint32_t range_min(uint32_t min) { return range(min, std::numeric_limits<uint32_t>::max()); }
+  [[nodiscard]] constexpr inline uint32_t range_min(uint32_t min) { return range(min, UINT32_MAX); }
 
 private:
   uint32_t state[4]{};
@@ -194,6 +195,9 @@ private:
   }
   */
 };
+
+// for seeding
+extern uint32_t slow_rand();
 
 }
 

@@ -9,6 +9,9 @@
 #include <cassert>
 
 namespace bongocat::animation {
+    inline static uint32_t DEFAULT_FILL_COLOR = 0x00000000; // ARGB
+    inline static uint32_t DEBUG_MOVEMENT_BAR_COLOR = 0xFFFF0000; // ARGB
+
     static void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t time) {
         if (!data) {
             BONGOCAT_LOG_WARNING("Handler called with null data (ignored)");
@@ -155,14 +158,53 @@ namespace bongocat::animation {
                     : nullptr;
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+        auto cat_x_with_offset  = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
         if (region) {
+            // draw debug rectangle
+            if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+                cat_rect_t movement_debug_bar{};
+                switch (current_config.cat_align) {
+                    case config::align_type_t::ALIGN_CENTER:
+                        movement_debug_bar = { .x = cat_x + cat_width/2 - current_config.movement_radius, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                    case config::align_type_t::ALIGN_LEFT:
+                        movement_debug_bar = { .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                    case config::align_type_t::ALIGN_RIGHT:
+                        movement_debug_bar = { .x = cat_x + cat_width - current_config.movement_radius*2, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                }
+
+                const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+                const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
+                const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR & (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u)); // RGBA, little-endian
+                auto *p = reinterpret_cast<uint32_t *>(pixels);
+                assert(wayland_ctx._screen_width >= 0);
+                [[maybe_unused]] const size_t total_pixels = static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+                for (int32_t y = movement_debug_bar.y;y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+                    for (int32_t x = movement_debug_bar.x;x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+                        if (x >= 0 && y >= 0) {
+                            size_t pi = static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+                            assert(pi < total_pixels);
+                            p[pi] = fill;
+                        }
+                    }
+                }
+            }
+
             blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
             if (current_config.invert_color) {
                 drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
             }
-            if (current_config.mirror_x) {
-                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+            if (anim_shm.anim_direction >= 1.0f) {
+                if (!current_config.mirror_x) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+            } else {
+                if (current_config.mirror_x) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
             }
             if (current_config.mirror_y) {
                 drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
@@ -176,7 +218,7 @@ namespace bongocat::animation {
                               sheet.image.pixels.data, sheet.image.pixels._size_bytes,  sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height, sheet.image.channels,
                               region->col * sheet.frame_width, region->row * sheet.frame_height,
                               sheet.frame_width, sheet.frame_height,
-                              cat_x, cat_y, cat_width, cat_height,
+                              cat_x_with_offset, cat_y, cat_width, cat_height,
                               blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
         }
     }
@@ -205,7 +247,6 @@ namespace bongocat::animation {
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
-
 
         blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
         if (current_config.invert_color) {
@@ -269,7 +310,7 @@ namespace bongocat::animation {
         assert(effective_opacity >= 0);
 
         // Fast clear with 32-bit fill
-        const uint32_t fill = (static_cast<unsigned>(effective_opacity) << 24u); // RGBA, little-endian
+        const uint32_t fill = DEFAULT_FILL_COLOR | (static_cast<uint32_t>(effective_opacity) << 24u); // RGBA, little-endian
         auto *p = reinterpret_cast<uint32_t *>(pixels);
         const size_t total_pixels = static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
         if (current_config.enable_debug) {
