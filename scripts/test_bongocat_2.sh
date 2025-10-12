@@ -50,8 +50,8 @@ for group in relwithdebinfo-tsan debug-all-assets-preload debug relwithdebinfo; 
         else
             new=10
         fi
+        sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=$new/" "$CONFIG"
         echo "[TEST] Setting idle_sleep_timeout=$new"
-        #sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=$new/" "$CONFIG"
     }
 
     # --- modify config to trigger hot reload ---

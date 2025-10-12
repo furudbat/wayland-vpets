@@ -54,14 +54,16 @@ endif()
 
 # @NOTE(assets): 3. add image_loader sub directory
 add_subdirectory(bongocat)
-add_subdirectory(ms_agent)
 add_subdirectory(base_dm)
 add_subdirectory(dm)
 add_subdirectory(dm20)
 add_subdirectory(dmc)
 add_subdirectory(dmx)
+add_subdirectory(pen)
+add_subdirectory(pen20)
 add_subdirectory(dmall)
 add_subdirectory(min_dm)
+add_subdirectory(ms_agent)
 add_subdirectory(pkmn)
 
 # @NOTE(assets): 3.1. add image_loader in include/image_loader (see other load_images_...h as reference)

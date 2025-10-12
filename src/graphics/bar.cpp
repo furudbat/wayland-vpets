@@ -357,6 +357,12 @@ namespace bongocat::animation {
                                 case config::config_animation_dm_set_t::dmx: {
                                     assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmx_anims.count);
                                 }break;
+                                case config::config_animation_dm_set_t::pen: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pen_anims.count);
+                                }break;
+                                case config::config_animation_dm_set_t::pen20: {
+                                    assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pen20_anims.count);
+                                }break;
                                 case config::config_animation_dm_set_t::dmc: {
                                     assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.dmc_anims.count);
                                 }break;

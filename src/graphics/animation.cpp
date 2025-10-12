@@ -16,8 +16,10 @@
 #include "image_loader/ms_agent/load_images_ms_agent.h"
 #include "image_loader/dm/load_images_dm.h"
 #include "image_loader/dm20/load_images_dm20.h"
-#include "image_loader/dmc/load_images_dmc.h"
 #include "image_loader/dmx/load_images_dmx.h"
+#include "image_loader/pen/load_images_pen.h"
+#include "image_loader/pen20/load_images_pen20.h"
+#include "image_loader/dmc/load_images_dmc.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
@@ -1962,7 +1964,13 @@ namespace bongocat::animation {
                             return DM20_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DM20_ANIM_COUNT-1)) : 0;
                         case config::config_animation_dm_set_t::dmx:
                             assert(DMX_ANIM_COUNT<= INT32_MAX && DMX_ANIM_COUNT <= UINT32_MAX);
-                            return DMX_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMX_ANIM_COUNT-1)) : 0;
+                                return DMX_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMX_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::pen:
+                                assert(PEN_ANIM_COUNT <= INT32_MAX && PEN_ANIM_COUNT <= UINT32_MAX);
+                                return PEN_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, PEN_ANIM_COUNT-1)) : 0;
+                        case config::config_animation_dm_set_t::pen20:
+                                assert(PEN20_ANIM_COUNT <= INT32_MAX && PEN20_ANIM_COUNT <= UINT32_MAX);
+                                return PEN20_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, PEN20_ANIM_COUNT-1)) : 0;
                         case config::config_animation_dm_set_t::dmc:
                             assert(DMC_ANIM_COUNT <= INT32_MAX && DMC_ANIM_COUNT <= UINT32_MAX);
                             return DMC_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, DMC_ANIM_COUNT-1)) : 0;
@@ -1988,26 +1996,32 @@ namespace bongocat::animation {
                         return ctx.shm->bongocat_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->bongocat_anims.count-1))) : 0;
                     case config::config_animation_sprite_sheet_layout_t::Dm:
                         switch (ctx.shm->anim_dm_set) {
-                        case config::config_animation_dm_set_t::None:
-                            return config.animation_index;
-                        case config::config_animation_dm_set_t::min_dm:
-                            assert(ctx.shm->min_dm_anims.count <= INT32_MAX && ctx.shm->min_dm_anims.count <= UINT32_MAX);
-                            return ctx.shm->min_dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->min_dm_anims.count-1))) : 0;
-                        case config::config_animation_dm_set_t::dm:
-                            assert(ctx.shm->dm_anims.count <= INT32_MAX && ctx.shm->dm_anims.count <= UINT32_MAX);
-                            return ctx.shm->dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm_anims.count-1))) : 0;
-                        case config::config_animation_dm_set_t::dm20:
-                            assert(ctx.shm->dm20_anims.count <= INT32_MAX && ctx.shm->dm20_anims.count <= UINT32_MAX);
-                            return ctx.shm->dm20_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm20_anims.count-1))) : 0;
-                        case config::config_animation_dm_set_t::dmx:
-                            assert(ctx.shm->dmx_anims.count <= INT32_MAX && ctx.shm->dmx_anims.count <= UINT32_MAX);
-                            return ctx.shm->dmx_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmx_anims.count-1))) : 0;
-                        case config::config_animation_dm_set_t::dmc:
-                            assert(ctx.shm->dmc_anims.count <= INT32_MAX && ctx.shm->dmc_anims.count <= UINT32_MAX);
-                            return ctx.shm->dmc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmc_anims.count-1))) : 0;
-                        case config::config_animation_dm_set_t::dmall:
-                            assert(ctx.shm->dmall_anims.count <= INT32_MAX && ctx.shm->dmall_anims.count <= UINT32_MAX);
-                            return ctx.shm->dmall_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmall_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::None:
+                                return config.animation_index;
+                            case config::config_animation_dm_set_t::min_dm:
+                                assert(ctx.shm->min_dm_anims.count <= INT32_MAX && ctx.shm->min_dm_anims.count <= UINT32_MAX);
+                                return ctx.shm->min_dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->min_dm_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::dm:
+                                assert(ctx.shm->dm_anims.count <= INT32_MAX && ctx.shm->dm_anims.count <= UINT32_MAX);
+                                return ctx.shm->dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::dm20:
+                                assert(ctx.shm->dm20_anims.count <= INT32_MAX && ctx.shm->dm20_anims.count <= UINT32_MAX);
+                                return ctx.shm->dm20_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm20_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::dmx:
+                                assert(ctx.shm->dmx_anims.count <= INT32_MAX && ctx.shm->dmx_anims.count <= UINT32_MAX);
+                                return ctx.shm->dmx_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmx_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::pen:
+                                assert(ctx.shm->pen_anims.count <= INT32_MAX && ctx.shm->pen_anims.count <= UINT32_MAX);
+                                return ctx.shm->pen_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->pen_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::pen20:
+                                assert(ctx.shm->pen20_anims.count <= INT32_MAX && ctx.shm->pen20_anims.count <= UINT32_MAX);
+                                return ctx.shm->pen20_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->pen20_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::dmc:
+                                assert(ctx.shm->dmc_anims.count <= INT32_MAX && ctx.shm->dmc_anims.count <= UINT32_MAX);
+                                return ctx.shm->dmc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmc_anims.count-1))) : 0;
+                            case config::config_animation_dm_set_t::dmall:
+                                assert(ctx.shm->dmall_anims.count <= INT32_MAX && ctx.shm->dmall_anims.count <= UINT32_MAX);
+                                return ctx.shm->dmall_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmall_anims.count-1))) : 0;
                         }
                         break;
                     case config::config_animation_sprite_sheet_layout_t::Pkmn:

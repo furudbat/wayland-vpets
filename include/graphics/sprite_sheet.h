@@ -7,12 +7,12 @@
 namespace bongocat::animation {
     // both-up, left-down, right-down, both-down
     inline static constexpr size_t BONGOCAT_NUM_FRAMES = 4;
-
     // Idle 1, Idle 2, Angry, Down1, Happy, Eat1, Sleep1, Refuse, Down2 ~~, Eat2, Sleep2, Attack~~
-    // both-up, left-down, right-down, both-down, ...
-    inline static constexpr size_t MAX_NUM_FRAMES = 15;
     inline static constexpr size_t MAX_DIGIMON_FRAMES = 15;
+    // Idle 1, Idle 2
     inline static constexpr size_t MAX_PKMN_FRAMES = 2;
+
+    inline static constexpr size_t MAX_NUM_FRAMES = 15;
 
     struct sprite_sheet_animation_region_t {
         bool valid{false};
@@ -83,14 +83,39 @@ namespace bongocat::animation {
         sprite_sheet_animation_region_t _placeholder[MAX_NUM_FRAMES-4];
     };
 
+    struct ms_agent_sprite_sheet_animation_region_t {
+        bool valid{false};
+        int16_t start_col{0};
+        int16_t end_col{0};
+        int32_t row{0};
+    };
+    static_assert(sizeof(sprite_sheet_animation_region_t) == sizeof(ms_agent_sprite_sheet_animation_region_t));
     struct ms_agent_sprite_sheet_t {
         generic_sprite_sheet_image_t image;
 
         int32_t frame_width{0};
         int32_t frame_height{0};
-
         int32_t _placeholder_total_frames{0};
-        sprite_sheet_animation_region_t _placeholder[MAX_NUM_FRAMES];
+
+        ms_agent_sprite_sheet_animation_region_t idle;
+        ms_agent_sprite_sheet_animation_region_t boring;
+
+        ms_agent_sprite_sheet_animation_region_t start_writing;
+        ms_agent_sprite_sheet_animation_region_t writing;
+        ms_agent_sprite_sheet_animation_region_t end_writing;
+
+        ms_agent_sprite_sheet_animation_region_t sleep;
+        ms_agent_sprite_sheet_animation_region_t wake_up;
+
+        ms_agent_sprite_sheet_animation_region_t start_working;
+        ms_agent_sprite_sheet_animation_region_t working;
+        ms_agent_sprite_sheet_animation_region_t end_working;
+
+        ms_agent_sprite_sheet_animation_region_t start_moving;
+        ms_agent_sprite_sheet_animation_region_t moving;
+        ms_agent_sprite_sheet_animation_region_t end_moving;
+
+        sprite_sheet_animation_region_t _placeholder[MAX_NUM_FRAMES-13];
     };
 
     struct generic_sprite_sheet_animation_t {
@@ -257,6 +282,20 @@ namespace bongocat::animation {
         sprite_sheet.image.channels = 0;
         sprite_sheet.frame_width = 0;
         sprite_sheet.frame_height = 0;
+
+        sprite_sheet.idle = {};
+        sprite_sheet.boring = {};
+        sprite_sheet.start_writing = {};
+        sprite_sheet.writing = {};
+        sprite_sheet.end_writing = {};
+        sprite_sheet.sleep = {};
+        sprite_sheet.wake_up = {};
+        sprite_sheet.start_working = {};
+        sprite_sheet.working = {};
+        sprite_sheet.end_working = {};
+        sprite_sheet.start_moving = {};
+        sprite_sheet.moving = {};
+        sprite_sheet.end_moving = {};
     }
     inline void cleanup_animation(animation_t& anim) {
         release_allocated_array(anim.sprite_sheet.image.pixels);

@@ -1,5 +1,4 @@
 #include "load_images_dm.h"
-
 #include "embedded_assets/dm/dm.hpp"
 #include "graphics/animation_context.h"
 #include "image_loader/load_images.h"

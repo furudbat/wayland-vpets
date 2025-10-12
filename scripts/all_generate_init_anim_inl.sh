@@ -5,7 +5,8 @@
 ./scripts/generate_init_anim_inl.sh assets/dmc src/embedded_assets/dmc ./include/embedded_assets/dmc/dmc_images.h dmc --set Dm
 ./scripts/generate_init_anim_inl.sh assets/dmx src/embedded_assets/dmx ./include/embedded_assets/dmx/dmx_images.h dmx --set Dm
 
-#./scripts/generate_init_anim_inl.sh assets/pen20 src/embedded_assets/pen20 ./include/embedded_assets/pen20/pen20_images.h pen20 --set Dm
+./scripts/generate_init_anim_inl.sh assets/pen src/embedded_assets/pen ./include/embedded_assets/pen/pen_images.h pen --set Dm
+./scripts/generate_init_anim_inl.sh assets/pen20 src/embedded_assets/pen20 ./include/embedded_assets/pen20/pen20_images.h pen20 --set Dm --alt pen
 
 ./scripts/generate_init_anim_inl.sh assets/dmall src/embedded_assets/dmall ./include/embedded_assets/dmall/dmall_images.h dmall --set Dm --alt dmc
 
