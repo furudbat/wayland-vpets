@@ -1058,7 +1058,11 @@ namespace bongocat::platform::input {
             assert(trigger_ctx._input == &input);
         }
         // set extern/global references
-        trigger_ctx._input = &input;
+        {
+            // guard for anim_update_state
+            LockGuard guard (trigger_ctx.anim.anim_lock);
+            trigger_ctx._input = &input;
+        }
         trigger_ctx.init_cond.notify_all();
         input._config = &config;
         input._configs_reloaded_cond = &configs_reloaded_cond;
@@ -1139,7 +1143,11 @@ namespace bongocat::platform::input {
         //}
 
         // set extern/global references
-        trigger_ctx._input = &input;
+        {
+            // guard for anim_update_state
+            LockGuard guard (trigger_ctx.anim.anim_lock);
+            trigger_ctx._input = &input;
+        }
         input._config = &config;
         input._configs_reloaded_cond = &configs_reloaded_cond;
         input._config_generation = &config_generation;

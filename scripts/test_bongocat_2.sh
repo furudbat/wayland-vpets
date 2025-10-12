@@ -2,7 +2,7 @@
 
 set -euo pipefail
 
-for group in debug relwithdebinfo-tsan; do
+for group in relwithdebinfo-tsan debug-all-assets-preload debug relwithdebinfo; do
   find ./cmake-build-* -type f -executable -name "bongocat*" | grep -i "$group" | while read -r PROGRAM; do
     WORKDIR=$(mktemp -d)
     CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
@@ -223,7 +223,7 @@ for group in debug relwithdebinfo-tsan; do
     cp $OG_CONFIG $CONFIG
     sleep 5
 
-    echo "[TEST] Change Config by other config (Digimon -> Clippy): $CONFIG"
+    echo "[TEST] Fully replace config (Digimon -> Clippy): $CONFIG"
     cp ./examples/clippy.bongocat.conf $CONFIG
     sleep 5
 
@@ -334,6 +334,12 @@ for group in debug relwithdebinfo-tsan; do
     # --- send SIGTERM ---
     echo "[INFO] Sending SIGTERM..."
     kill -TERM "$PID"
+    echo "[TEST] Reload config while terminating..."
+    # set config when terminating
+    sed -i -E 's/^animation_name=.*/animation_name=Tyranomon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 5
     sleep 15
     echo "[INFO] Wait for TERM"
     # wait up to 5 seconds
@@ -362,8 +368,6 @@ for group in debug relwithdebinfo-tsan; do
     echo "[TEST] Sending SIGTERM..."
     kill -TERM "$PID"
     sleep 10
-    sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
-    sleep 5
     echo "[INFO] Wait for TERM"
     # wait up to 5 seconds
     for i in {1..5}; do

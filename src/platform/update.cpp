@@ -529,7 +529,11 @@ namespace bongocat::platform::update {
             assert(trigger_ctx._update == &upd);
         }
         // set extern/global references
-        trigger_ctx._update = &upd;
+        {
+            // guard for anim_update_state
+            LockGuard guard (trigger_ctx.anim.anim_lock);
+            trigger_ctx._update = &upd;
+        }
         trigger_ctx.init_cond.notify_all();
         upd._config = &config;
         upd._configs_reloaded_cond = &configs_reloaded_cond;
@@ -619,7 +623,11 @@ namespace bongocat::platform::update {
         //}
 
         // set extern/global references
-        trigger_ctx._update = &upd;
+        {
+            // guard for anim_update_state
+            LockGuard guard (trigger_ctx.anim.anim_lock);
+            trigger_ctx._update = &upd;
+        }
         upd._config = &config;
         upd._configs_reloaded_cond = &configs_reloaded_cond;
         upd._config_generation = &config_generation;

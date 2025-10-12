@@ -520,8 +520,8 @@ Minimal builds require only a few MB of RAM, whereas asset-heavy builds use more
 |                | Minimum                                                  | Recommended                                                                  |
 |----------------|----------------------------------------------------------|------------------------------------------------------------------------------|
 | **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                  |
-| **RAM**        | **10 MB free** (minimal build with minimal assets)       | **64 MB free** (full builds with all assets, preloaded, and config overhead) |
-| **Storage**    | **1 MB free** (binary + config files)                    | **5 MB free** (multiple binaries/builds + config files)                      |
+| **RAM**        | **8 MB free** (minimal build with minimal assets)        | **64 MB free** (full builds with all assets, preloaded, and config overhead) |
+| **Storage**    | **1 MB free** (binary + config files)                    | **10 MB free** (multiple binaries/builds + config files)                     |
 | **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)            |
 
 
@@ -537,7 +537,8 @@ Minimal builds require only a few MB of RAM, whereas asset-heavy builds use more
 
 Enable debug logging for detailed output:
 ```bash
-wpets --watch-config (ensure enable_debug=1 in config)
+# ensure enable_debug=1 in bongocat.conf
+wpets --watch-config --config bongocat.conf
 ```
 
 ### Common Issues

@@ -22,7 +22,7 @@ Pokemon sprite- and images are owned by Nintendo, Creatures Inc. and GAME FREAK 
 ### MS Agent (Clippy)
 
 Clippy and other MS Agents are owed by Microsoft.
-This project is **free**, **non-commercial** and not associated with these entities.
+
 
 ## Special Thanks
 
