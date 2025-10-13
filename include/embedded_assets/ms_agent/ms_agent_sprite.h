@@ -33,7 +33,6 @@ namespace bongocat::assets {
         int32_t start_index_frame_end_working{0};
         int32_t end_index_frame_end_working{0};
 
-
         int32_t start_index_frame_start_moving{0};
         int32_t end_index_frame_start_moving{0};
         int32_t start_index_frame_moving{0};
