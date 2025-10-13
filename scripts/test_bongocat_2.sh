@@ -273,6 +273,12 @@ for group in relwithdebinfo-tsan debug-all-assets-preload debug relwithdebinfo; 
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
+    echo "[INFO] Set Sprite Sheet: pen20:Megalo Growmon"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+    sed -i -E 's/^animation_name=.*/animation_name=pen20:Megalo Growmon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
     echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=dmc:Omegamon/' "$CONFIG"

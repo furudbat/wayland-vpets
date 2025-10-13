@@ -1,0 +1,169 @@
+## pen20
+Digimon Pendulum Ver.20th
+
+- Aero V-dramon
+- Agumon Hakase
+- Alphamon Ouryuken
+- Andiramon
+- Angewomon
+- Anomalocarimon
+- Arresterdramon
+- Astramon
+- Asuramon
+- Atlur Kabuterimon
+- Baalmon
+- Bakumon
+- Bancho Leomon
+- Beelzebumon Blast Mode
+- Beowulfmon
+- Big Mamemon
+- Blossomon
+- Boltmon
+- Bryweludramon
+- Bubbmon
+- Budmon
+- Bushi Agumon
+- Candmon
+- Caprimon
+- Chaosmon
+- Cherubimon
+- Chibimon
+- Chicomon
+- Choromon
+- Clockmon
+- Cocomon
+- Cotsucomon
+- Cyberdramon
+- Dagomon
+- Darkdramon
+- Dark Knightmon
+- Death Meramon
+- Delumon
+- Dokugumon
+- DORUgoramon
+- Ebidramon
+- Fantomon
+- Floramon
+- Fufumon
+- Galgomon
+- Ganimon
+- Garudamon
+- Gekomon
+- Gerbemon
+- Gesomon
+- Ginryumon
+- Gomamon
+- Gottsumon
+- Griffomon
+- Growmon
+- Guardromon
+- Guimon
+- Gummymon
+- Hagurumon
+- Hangymon
+- Hanumon
+- Herkule Kabuterimon
+- Hisyaryumon
+- Holy Angemon
+- Holydramon
+- Hououmon
+- Ignamon
+- Ikkakumon
+- Imperialdramon Fighter Mode
+- Impmon
+- Jesmon X
+- Jyagamon
+- Jyureimon
+- Kakkinmon
+- Kiwimon
+- Knightmon
+- Kokuwamon
+- Kyokyomon
+- Lady Devimon
+- Lalamon
+- Lavogaritamon
+- Lavorvomon
+- Lilamon
+- Lilimon
+- Lopmon
+- Lotusmon
+- Ludomon
+- Mad Leomon
+- Mambomon
+- Mammon
+- Marin Angemon
+- Marin Devimon
+- Mastemon
+- Mechanorimon
+- Megalo Growmon
+- Mega Seadramon
+- Meicrackmon Vicious Mode
+- Metal Etemon
+- Metal Seadramon
+- Mochimon
+- Mokumon
+- Mushmon
+- Nyokimon
+- Octmon
+- Ofanimon
+- Ogudomon
+- Okuwamon
+- Ordinemon
+- Otamamon
+- Ouryumon
+- Paildramon
+- Peti Meramon
+- Phascomon
+- Pico Devimon
+- Piemon
+- Plesiomon
+- Porcupmon
+- Pukumon
+- Pumpmon
+- Pyocomon
+- Rafflesimon
+- Ragna Lordmon
+- Raguelmon
+- Raiji Ludomon
+- Rakamon
+- Rapidmon
+- Red Vegimon
+- Reppamon
+- Revolmon
+- Rize Greymon
+- Rosemon
+- Ryudamon
+- Saber Leomon
+- Saint Galgomon
+- Seraphimon
+- Shadramon
+- Shakomon
+- Starmon
+- Sunflowmon
+- Tailmon
+- Tankmon
+- Targetmon
+- Tentomon
+- Terriermon
+- Thunderballmon
+- Tia Ludomon
+- Togemon
+- Tonosama Gekomon
+- Tortamon
+- Toy Agumon
+- Triceramon
+- Troopmon
+- Turuiemon
+- V-dramon
+- Vemdemon
+- Venom Vamdemon
+- V-mon
+- Volcanicdramon
+- Voltobautamon
+- Vorvomon
+- Waru Mozaemon
+- Wizarmon
+- Woodmon
+- XV-mon
+- Zerimon
+- Zudomom
