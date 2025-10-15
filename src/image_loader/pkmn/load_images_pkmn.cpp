@@ -7,7 +7,7 @@
 #include "utils/error.h"
 
 namespace bongocat::animation {
-    created_result_t<pkmn_animation_t> load_pkmn_anim(const animation_context_t& ctx, [[maybe_unused]] int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    created_result_t<pkmn_sprite_sheet_t> load_pkmn_anim(const animation_context_t& ctx, [[maybe_unused]] int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -24,7 +24,7 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
         }
 
-        pkmn_animation_t ret;
+        pkmn_sprite_sheet_t ret;
         ret.image = bongocat::move(result.result.image);
         ret.frame_width = bongocat::move(result.result.frame_width);
         ret.frame_height = bongocat::move(result.result.frame_height);

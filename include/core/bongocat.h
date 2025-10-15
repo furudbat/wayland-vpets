@@ -28,6 +28,11 @@ namespace bongocat {
     };
 
     namespace features {
+        // experimental
+        inline static constexpr bool BongocatIdleAnimation = false;
+        inline static constexpr bool BongocatBoringAnimation = false;
+
+
 #ifndef NDEBUG
         inline static constexpr bool Debug = true;
 #else

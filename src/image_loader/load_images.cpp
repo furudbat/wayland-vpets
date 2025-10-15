@@ -10,10 +10,10 @@ namespace bongocat::animation {
     // IMAGE LOADING MODULE
     // =============================================================================
 
-    [[nodiscard]] static created_result_t<generic_sprite_sheet_animation_t> load_sprite_sheet_from_memory(const uint8_t* sprite_data, size_t sprite_data_size,
+    [[nodiscard]] static created_result_t<generic_sprite_sheet_t> load_sprite_sheet_from_memory(const uint8_t* sprite_data, size_t sprite_data_size,
                                                                                                           int frame_columns, int frame_rows,
                                                                                                           int padding_x, int padding_y) {
-        generic_sprite_sheet_animation_t ret;
+        generic_sprite_sheet_t ret;
 
         auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS);
         if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -111,8 +111,8 @@ namespace bongocat::animation {
         return ret;
     }
 
-    created_result_t<generic_sprite_sheet_animation_t> anim_sprite_sheet_from_embedded_images(get_sprite_callback_t get_sprite, size_t embedded_images_count) {
-        generic_sprite_sheet_animation_t ret;
+    created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(get_sprite_callback_t get_sprite, size_t embedded_images_count) {
+        generic_sprite_sheet_t ret;
 
         int total_frames = 0;
         int max_frame_width = 0;
@@ -210,7 +210,7 @@ namespace bongocat::animation {
         return ret;
     }
 
-    created_result_t<generic_sprite_sheet_animation_t> load_sprite_sheet_anim(const config::config_t& config, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    created_result_t<generic_sprite_sheet_t> load_sprite_sheet_anim(const config::config_t& config, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         if (sprite_sheet_cols < 0 || sprite_sheet_rows < 0) {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
         }

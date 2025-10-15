@@ -7,17 +7,14 @@
 #include "utils/time.h"
 
 namespace bongocat::animation {
-    struct animation_player_data_t {
-        int32_t frame_index{0};
+    struct animation_player_result_t {
+        int32_t sprite_sheet_col{0};
         int32_t sprite_sheet_row{0};
-        int32_t start_frame_index{0};
-        int32_t end_frame_index{0};
-        platform::timestamp_ms_t time_until_next_frame_ms{0};
     };
 
     struct animation_shared_memory_t {
         // animation state
-        animation_player_data_t animation_player_data{};
+        animation_player_result_t animation_player_result{};
         int32_t anim_index{0};
         config::config_animation_sprite_sheet_layout_t anim_type{config::config_animation_sprite_sheet_layout_t::None};
         config::config_animation_dm_set_t anim_dm_set{config::config_animation_dm_set_t::None};
@@ -38,16 +35,16 @@ namespace bongocat::animation {
         platform::MMapArray<animation_t> pkmn_anims;
 
         // for sprite sheet hot reload
-        bongocat_animation_t bongocat_sprite_sheet;
-        dm_animation_t dm_sprite_sheet;
+        bongocat_sprite_sheet_t bongocat_sprite_sheet;
+        dm_sprite_sheet_t dm_sprite_sheet;
         ms_agent_sprite_sheet_t ms_agent_sprite_sheet;
-        pkmn_animation_t pkmn_sprite_sheet;
+        pkmn_sprite_sheet_t pkmn_sprite_sheet;
 
         animation_shared_memory_t() = default;
         ~animation_shared_memory_t() {
             anim_type = config::config_animation_sprite_sheet_layout_t::None;
             anim_dm_set = config::config_animation_dm_set_t::None;
-            animation_player_data = {};
+            animation_player_result = {};
             anim_index = 0;
             movement_offset_x = 0;
             anim_direction = 0;
@@ -114,7 +111,7 @@ namespace bongocat::animation {
 
         }
         animation_shared_memory_t(const animation_shared_memory_t& other)
-            : animation_player_data(other.animation_player_data), anim_index(other.anim_index), anim_type(other.anim_type), anim_dm_set(other.anim_dm_set)
+            : animation_player_result(other.animation_player_result), anim_index(other.anim_index), anim_type(other.anim_type), anim_dm_set(other.anim_dm_set)
         {
             bongocat_anims = other.bongocat_anims;
             dm_anims = other.dm_anims;
@@ -138,7 +135,7 @@ namespace bongocat::animation {
                 anim_type = other.anim_type;
                 anim_dm_set = other.anim_dm_set;
                 anim_index = other.anim_index;
-                animation_player_data = other.animation_player_data;
+                animation_player_result = other.animation_player_result;
 
                 bongocat_anims = other.bongocat_anims;
                 dm_anims = other.dm_anims;
@@ -161,7 +158,7 @@ namespace bongocat::animation {
         }
 
         animation_shared_memory_t(animation_shared_memory_t&& other) noexcept
-            : animation_player_data(other.animation_player_data), anim_index(other.anim_index), anim_type(other.anim_type), anim_dm_set(other.anim_dm_set)
+            : animation_player_result(other.animation_player_result), anim_index(other.anim_index), anim_type(other.anim_type), anim_dm_set(other.anim_dm_set)
         {
             bongocat_anims = bongocat::move(other.bongocat_anims);
             dm_anims = bongocat::move(other.dm_anims);
@@ -198,13 +195,13 @@ namespace bongocat::animation {
             other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
             other.anim_dm_set = config::config_animation_dm_set_t::None;
             other.anim_index = 0;
-            other.animation_player_data = {};
+            other.animation_player_result = {};
         }
         animation_shared_memory_t& operator=(animation_shared_memory_t&& other) noexcept {
             if (this != &other) {
                 anim_type = other.anim_type;
                 anim_index = other.anim_index;
-                animation_player_data = other.animation_player_data;
+                animation_player_result = other.animation_player_result;
 
                 bongocat_anims = bongocat::move(other.bongocat_anims);
                 dm_anims = bongocat::move(other.dm_anims);
@@ -241,7 +238,7 @@ namespace bongocat::animation {
                 other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
                 other.anim_dm_set = config::config_animation_dm_set_t::None;
                 other.anim_index = 0;
-                other.animation_player_data = {};
+                other.animation_player_result = {};
             }
             return *this;
         }

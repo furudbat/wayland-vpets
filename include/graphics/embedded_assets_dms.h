@@ -126,6 +126,7 @@ namespace bongocat::assets {
     static inline constexpr int DM_HAPPY_CHANCE_PERCENT = 60;
 
     inline static constexpr size_t DM_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t DM_SPRITE_SHEET_ROW = 0;
 }
 
 #endif

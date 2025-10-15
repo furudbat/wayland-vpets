@@ -84,7 +84,7 @@ namespace bongocat::animation {
             }break;
             case config::config_animation_sprite_sheet_layout_t::Dm: {
                 bongocat_error_t error = bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-                dm_animation_t result;
+                dm_sprite_sheet_t result;
                 switch (anim_shm.anim_dm_set) {
                     case config::config_animation_dm_set_t::None:
                         cleanup_animation(result);
@@ -313,7 +313,7 @@ namespace bongocat::animation {
         assert(ret->anim._local_copy_config != nullptr);
         //config_set_defaults(*ctx._local_copy_config);
         *ret->anim._local_copy_config = config;
-        ret->anim.shm->animation_player_data.frame_index = config.idle_frame;  // initial frame
+        ret->anim.shm->animation_player_result.sprite_sheet_col = config.idle_frame;  // initial frame
 
         ret->trigger_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
         if (ret->trigger_efd._fd < 0) {

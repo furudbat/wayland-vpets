@@ -81,7 +81,7 @@ namespace bongocat::animation {
         int height;
     };
 
-    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const generic_sprite_sheet_animation_t& sheet, const config::config_t& config) {
+    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const generic_sprite_sheet_t& sheet, const config::config_t& config) {
         const int cat_height = config.cat_height;
         const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
 
@@ -128,7 +128,7 @@ namespace bongocat::animation {
         return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
     }
 
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_animation_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -142,7 +142,7 @@ namespace bongocat::animation {
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
-        const int frame_index = anim_shm.animation_player_data.frame_index;
+        const int frame_index = anim_shm.animation_player_result.sprite_sheet_col;
 
         assert(wayland_ctx_shm->current_buffer_index >= 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
@@ -153,7 +153,7 @@ namespace bongocat::animation {
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
         assert(frame_index >= 0 && static_cast<size_t>(frame_index) < MAX_NUM_FRAMES);
-        const sprite_sheet_animation_region_t* region = sheet.frames[frame_index].valid
+        const sprite_sheet_animation_frame_t* region = sheet.frames[frame_index].valid
                     ? &sheet.frames[frame_index]
                     : nullptr;
 
@@ -337,7 +337,7 @@ namespace bongocat::animation {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.bongocat_anims.count);
                         }
                         const animation_t& cat_anim = get_current_animation(anim);
-                        const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
+                        const generic_sprite_sheet_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet, current_config.enable_antialiasing ? blit_image_color_option_flags_t::BilinearInterpolation : blit_image_color_option_flags_t::Normal);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
@@ -372,7 +372,7 @@ namespace bongocat::animation {
                             }
                         }
                         const animation_t& dm_anim = get_current_animation(anim);
-                        const generic_sprite_sheet_animation_t& sheet = dm_anim.sprite_sheet;
+                        const generic_sprite_sheet_t& sheet = dm_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Pkmn: {
@@ -380,7 +380,7 @@ namespace bongocat::animation {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pkmn_anims.count);
                         }
                         const animation_t& cat_anim = get_current_animation(anim);
-                        const generic_sprite_sheet_animation_t& sheet = cat_anim.sprite_sheet;
+                        const generic_sprite_sheet_t& sheet = cat_anim.sprite_sheet;
                         draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
@@ -389,8 +389,8 @@ namespace bongocat::animation {
                         }
                         const animation_t& ms_anim = get_current_animation(anim);
                         const ms_agent_sprite_sheet_t& sheet = ms_anim.ms_agent;
-                        const int col = anim_shm.animation_player_data.frame_index;
-                        const int row = anim_shm.animation_player_data.sprite_sheet_row;
+                        const int col = anim_shm.animation_player_result.sprite_sheet_col;
+                        const int row = anim_shm.animation_player_result.sprite_sheet_row;
                         draw_sprite(ctx, sheet, col, row);
                     }break;
                 }

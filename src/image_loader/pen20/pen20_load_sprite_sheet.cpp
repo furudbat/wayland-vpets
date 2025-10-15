@@ -8,7 +8,7 @@
 #include "image_loader/pen20/load_images_pen20.h"
 
 namespace bongocat::animation {
-    created_result_t<dm_animation_t> load_pen20_sprite_sheet(const animation_context_t& ctx, int index) {
+    created_result_t<dm_sprite_sheet_t> load_pen20_sprite_sheet(const animation_context_t& ctx, int index) {
         using namespace assets;
         switch (index) {
             case PEN20_AERO_V_DRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_AERO_V_DRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_AERO_V_DRAMON_ANIM_INDEX), PEN20_AERO_V_DRAMON_SPRITE_SHEET_COLS, PEN20_AERO_V_DRAMON_SPRITE_SHEET_ROWS);

@@ -6,5 +6,5 @@
 
 namespace bongocat::animation {
     struct animation_context_t;
-    [[nodiscard]] created_result_t<dm_animation_t> load_dm_anim(const animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
+    [[nodiscard]] created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
 }

@@ -4,7 +4,7 @@
 
 namespace bongocat::animation {
 
-    created_result_t<dm_animation_t> load_dm_anim(const animation_context_t& ctx, [[maybe_unused]] int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_context_t& ctx, [[maybe_unused]] int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -21,29 +21,112 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
         }
 
-        dm_animation_t ret;
+        dm_sprite_sheet_t ret;
         ret.image = bongocat::move(result.result.image);
         ret.frame_width = bongocat::move(result.result.frame_width);
         ret.frame_height = bongocat::move(result.result.frame_height);
         ret.total_frames = bongocat::move(result.result.total_frames);
 
-        ret.idle_1 = bongocat::move(result.result.frames[0]);
-        ret.idle_2 = bongocat::move(result.result.frames[1]);
-        ret.angry = bongocat::move(result.result.frames[2]);
-        ret.down1 = bongocat::move(result.result.frames[3]);
-        ret.happy = bongocat::move(result.result.frames[4]);
-        ret.eat1 = bongocat::move(result.result.frames[5]);
-        ret.sleep1 = bongocat::move(result.result.frames[6]);
-        ret.refuse = bongocat::move(result.result.frames[7]);
-        ret.sad = bongocat::move(result.result.frames[8]);
+        ret.frames.idle_1 = bongocat::move(result.result.frames[0]);
+        ret.frames.idle_2 = bongocat::move(result.result.frames[1]);
+        ret.frames.angry = bongocat::move(result.result.frames[2]);
+        ret.frames.down_1 = bongocat::move(result.result.frames[3]);
+        ret.frames.happy = bongocat::move(result.result.frames[4]);
+        ret.frames.eat_1 = bongocat::move(result.result.frames[5]);
+        ret.frames.sleep_1 = bongocat::move(result.result.frames[6]);
+        ret.frames.refuse = bongocat::move(result.result.frames[7]);
+        ret.frames.sad = bongocat::move(result.result.frames[8]);
 
-        ret.down_2 = bongocat::move(result.result.frames[9]);
-        ret.eat_2 = bongocat::move(result.result.frames[10]);
-        ret.sleep_2 = bongocat::move(result.result.frames[11]);
-        ret.attack = bongocat::move(result.result.frames[12]);
+        ret.frames.down_2 = bongocat::move(result.result.frames[9]);
+        ret.frames.eat_2 = bongocat::move(result.result.frames[10]);
+        ret.frames.sleep_2 = bongocat::move(result.result.frames[11]);
+        ret.frames.attack_1 = bongocat::move(result.result.frames[12]);
 
-        ret.movement_1 = bongocat::move(result.result.frames[13]);
-        ret.movement_2 = bongocat::move(result.result.frames[14]);
+        ret.frames.movement_1 = bongocat::move(result.result.frames[13]);
+        ret.frames.movement_2 = bongocat::move(result.result.frames[14]);
+
+        // setup animations
+        using namespace assets;
+        assert(MAX_ANIMATION_FRAMES >= 4);
+        ret.animations.idle[0] = ret.frames.idle_1.col;
+        ret.animations.idle[1] = ret.frames.idle_2.col;
+        ret.animations.idle[2] = ret.frames.idle_1.col;
+        ret.animations.idle[3] = ret.frames.idle_2.col;
+
+        ret.animations.boring[0] = ret.frames.sad.col ? ret.frames.sad.col : ret.frames.idle_1.col;
+        ret.animations.boring[1] = ret.frames.down_1.col ? ret.frames.down_1.col : ret.frames.idle_2.col;
+        ret.animations.boring[2] = ret.frames.down_2.col ? ret.frames.down_2.col : ret.frames.idle_1.col;
+        ret.animations.boring[3] = ret.frames.idle_2.col;
+
+        ret.animations.writing[0] = ret.frames.idle_1.col;
+        ret.animations.writing[1] = ret.frames.idle_2.col;
+        ret.animations.writing[2] = ret.frames.idle_1.col;
+        ret.animations.writing[3] = ret.frames.idle_2.col;
+
+        // sleep animation
+        if (ret.frames.sleep_1.valid || ret.frames.sleep_2.valid) {
+            ret.animations.sleep[0] = ret.frames.sleep_1.valid ? ret.frames.sleep_1.col : ret.frames.sleep_2.col;
+            ret.animations.sleep[1] = ret.frames.sleep_2.valid ? ret.frames.sleep_2.col : ret.frames.sleep_1.col;
+            ret.animations.sleep[2] = ret.frames.sleep_1.valid ? ret.frames.sleep_1.col : ret.frames.sleep_2.col;
+            ret.animations.sleep[3] = ret.frames.sleep_2.valid ? ret.frames.sleep_2.col : ret.frames.sleep_1.col;
+        } else if (ret.frames.down_1.valid) {
+            ret.animations.sleep[0] = ret.frames.down_1.col;
+            ret.animations.sleep[1] = ret.frames.down_1.col;
+            ret.animations.sleep[2] = ret.frames.down_1.col;
+            ret.animations.sleep[3] = ret.frames.down_1.col;
+        } else {
+            // fallback
+            ret.animations.sleep[0] = ret.frames.idle_2.col;
+            ret.animations.sleep[1] = ret.frames.idle_2.col;
+            ret.animations.sleep[2] = ret.frames.idle_2.col;
+            ret.animations.sleep[3] = ret.frames.idle_2.col;
+        }
+
+        ret.animations.wake_up[0] = ret.frames.idle_1.col;
+        ret.animations.wake_up[1] = ret.frames.idle_2.col;
+        ret.animations.wake_up[2] = ret.frames.idle_1.col;
+        ret.animations.wake_up[3] = ret.frames.idle_2.col;
+
+        // working/attack animation
+        ret.animations.working[0] = ret.frames.idle_1.col;
+        ret.animations.working[1] = ret.frames.idle_2.col;
+        if (ret.frames.attack_1.valid || ret.frames.attack_2.valid) {
+            ret.animations.working[2] = ret.frames.attack_1.valid;
+            ret.animations.working[3] = ret.frames.attack_2.valid ? ret.frames.attack_2.col : ret.frames.idle_2.col;
+        } else {
+            if (ret.frames.angry.valid) {
+                ret.animations.working[2] = ret.frames.angry.col;
+            }
+            ret.animations.working[3] = ret.frames.idle_2.col;
+        }
+
+        // moving/walking animation
+        if (ret.frames.movement_1.valid || ret.frames.movement_2.valid) {
+            ret.animations.sleep[0] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
+            ret.animations.sleep[1] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
+            ret.animations.sleep[2] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
+            ret.animations.sleep[3] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
+        } else {
+            // fallback
+            ret.animations.sleep[0] = ret.frames.idle_1.col;
+            ret.animations.sleep[1] = ret.frames.idle_2.col;
+            ret.animations.sleep[2] = ret.frames.idle_1.col;
+            ret.animations.sleep[3] = ret.frames.idle_2.col;
+        }
+
+        // happy animation
+        if (ret.frames.happy.valid) {
+            ret.animations.happy[0] = ret.frames.idle_1.col;
+            ret.animations.happy[1] = ret.frames.happy.valid ? ret.frames.happy.col : ret.frames.idle_2.col;
+            ret.animations.happy[2] = ret.frames.idle_1.col;
+            ret.animations.happy[3] = ret.frames.happy.valid ? ret.frames.happy.col : ret.frames.idle_2.col;
+        } else {
+            // fallback
+            ret.animations.happy[0] = ret.frames.idle_1.col;
+            ret.animations.happy[1] = ret.frames.idle_2.col;
+            ret.animations.happy[2] = ret.frames.idle_1.col;
+            ret.animations.happy[3] = ret.frames.idle_2.col;
+        }
 
         return ret;
     }
