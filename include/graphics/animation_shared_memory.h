@@ -35,10 +35,7 @@ namespace bongocat::animation {
         platform::MMapArray<animation_t> pkmn_anims;
 
         // for sprite sheet hot reload
-        bongocat_sprite_sheet_t bongocat_sprite_sheet;
-        dm_sprite_sheet_t dm_sprite_sheet;
-        ms_agent_sprite_sheet_t ms_agent_sprite_sheet;
-        pkmn_sprite_sheet_t pkmn_sprite_sheet;
+        animation_t anim;
 
         animation_shared_memory_t() = default;
         ~animation_shared_memory_t() {
@@ -104,10 +101,7 @@ namespace bongocat::animation {
             }
             platform::release_allocated_mmap_array(pkmn_anims);
 
-            cleanup_animation(bongocat_sprite_sheet);
-            cleanup_animation(dm_sprite_sheet);
-            cleanup_animation(ms_agent_sprite_sheet);
-            cleanup_animation(pkmn_sprite_sheet);
+            cleanup_animation(anim);
 
         }
         animation_shared_memory_t(const animation_shared_memory_t& other)
@@ -125,10 +119,7 @@ namespace bongocat::animation {
             ms_anims = other.ms_anims;
             pkmn_anims = other.pkmn_anims;
 
-            bongocat_sprite_sheet = other.bongocat_sprite_sheet;
-            dm_sprite_sheet = other.dm_sprite_sheet;
-            ms_agent_sprite_sheet = other.ms_agent_sprite_sheet;
-            pkmn_sprite_sheet = other.pkmn_sprite_sheet;
+            anim = other.anim;
         }
         animation_shared_memory_t& operator=(const animation_shared_memory_t& other) {
             if (this != &other) {
@@ -149,10 +140,7 @@ namespace bongocat::animation {
                 ms_anims = other.ms_anims;
                 pkmn_anims = other.pkmn_anims;
 
-                bongocat_sprite_sheet = other.bongocat_sprite_sheet;
-                dm_sprite_sheet = other.dm_sprite_sheet;
-                ms_agent_sprite_sheet = other.ms_agent_sprite_sheet;
-                pkmn_sprite_sheet = other.pkmn_sprite_sheet;
+                anim = other.anim;
             }
             return *this;
         }
@@ -172,15 +160,9 @@ namespace bongocat::animation {
             ms_anims = bongocat::move(other.ms_anims);
             pkmn_anims = bongocat::move(other.pkmn_anims);
 
-            bongocat_sprite_sheet = bongocat::move(other.bongocat_sprite_sheet);
-            dm_sprite_sheet = bongocat::move(other.dm_sprite_sheet);
-            ms_agent_sprite_sheet = bongocat::move(other.ms_agent_sprite_sheet);
-            pkmn_sprite_sheet = bongocat::move(other.pkmn_sprite_sheet);
+            anim = bongocat::move(other.anim);
 
-            cleanup_animation(other.bongocat_sprite_sheet);
-            cleanup_animation(other.dm_sprite_sheet);
-            cleanup_animation(other.ms_agent_sprite_sheet);
-            cleanup_animation(other.pkmn_sprite_sheet);
+            cleanup_animation(other.anim);
             platform::release_allocated_mmap_array(other.bongocat_anims);
             platform::release_allocated_mmap_array(other.dm_anims);
             platform::release_allocated_mmap_array(other.dm20_anims);
@@ -215,15 +197,9 @@ namespace bongocat::animation {
                 ms_anims = bongocat::move(other.ms_anims);
                 pkmn_anims = bongocat::move(other.pkmn_anims);
 
-                bongocat_sprite_sheet = bongocat::move(other.bongocat_sprite_sheet);
-                dm_sprite_sheet = bongocat::move(other.dm_sprite_sheet);
-                ms_agent_sprite_sheet = bongocat::move(other.ms_agent_sprite_sheet);
-                pkmn_sprite_sheet = bongocat::move(other.pkmn_sprite_sheet);
+                anim = bongocat::move(other.anim);
 
-                cleanup_animation(other.bongocat_sprite_sheet);
-                cleanup_animation(other.dm_sprite_sheet);
-                cleanup_animation(other.ms_agent_sprite_sheet);
-                cleanup_animation(other.pkmn_sprite_sheet);
+                cleanup_animation(other.anim);
                 platform::release_allocated_mmap_array(other.bongocat_anims);
                 platform::release_allocated_mmap_array(other.dm_anims);
                 platform::release_allocated_mmap_array(other.dm20_anims);

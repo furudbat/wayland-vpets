@@ -28,46 +28,52 @@ namespace bongocat::animation {
 
         // setup animations (cache)
         using namespace assets;
+
+        assert(ret.both_up.valid);
+        assert(ret.left_down.valid);
+        assert(ret.right_down.valid);
+        assert(ret.both_down.valid);
+
         assert(MAX_ANIMATION_FRAMES >= 4);
-        ret._cached_animations.idle[0] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.idle[1] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.idle[2] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.idle[3] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.idle[0] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.idle[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.idle[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.idle[3] = BONGOCAT_FRAME_BOTH_UP;
 
-        ret._cached_animations.boring[0] = BONGOCAT_FRAME_BOTH_DOWN;
-        ret._cached_animations.boring[1] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.boring[2] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.boring[3] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.boring[0] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.boring[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.boring[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.boring[3] = BONGOCAT_FRAME_BOTH_UP;
 
-        ret._cached_animations.writing[0] = BONGOCAT_FRAME_LEFT_DOWN;
-        ret._cached_animations.writing[1] = BONGOCAT_FRAME_RIGHT_DOWN;
-        ret._cached_animations.writing[2] = BONGOCAT_FRAME_LEFT_DOWN;
-        ret._cached_animations.writing[3] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.writing[0] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.writing[1] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.writing[2] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.writing[3] = BONGOCAT_FRAME_RIGHT_DOWN;
 
-        ret._cached_animations.sleep[0] = BONGOCAT_FRAME_BOTH_DOWN;
-        ret._cached_animations.sleep[1] = BONGOCAT_FRAME_BOTH_DOWN;
-        ret._cached_animations.sleep[2] = BONGOCAT_FRAME_BOTH_DOWN;
-        ret._cached_animations.sleep[3] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.sleep[0] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.sleep[1] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.sleep[2] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.sleep[3] = BONGOCAT_FRAME_BOTH_DOWN;
 
-        ret._cached_animations.wake_up[0] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.wake_up[1] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.wake_up[2] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.wake_up[3] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.wake_up[0] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.wake_up[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.wake_up[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.wake_up[3] = BONGOCAT_FRAME_BOTH_UP;
 
-        ret._cached_animations.working[0] = BONGOCAT_FRAME_LEFT_DOWN;
-        ret._cached_animations.working[1] = BONGOCAT_FRAME_RIGHT_DOWN;
-        ret._cached_animations.working[2] = BONGOCAT_FRAME_LEFT_DOWN;
-        ret._cached_animations.working[3] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.working[0] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.working[1] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.working[2] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.working[3] = BONGOCAT_FRAME_RIGHT_DOWN;
 
-        ret._cached_animations.moving[0] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.moving[1] = BONGOCAT_FRAME_BOTH_DOWN;
-        ret._cached_animations.moving[2] = BONGOCAT_FRAME_BOTH_UP;
-        ret._cached_animations.moving[3] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.moving[0] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.moving[1] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.moving[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.moving[3] = BONGOCAT_FRAME_BOTH_DOWN;
 
-        ret._cached_animations.happy[0] = BONGOCAT_FRAME_LEFT_DOWN;
-        ret._cached_animations.happy[1] = BONGOCAT_FRAME_RIGHT_DOWN;
-        ret._cached_animations.happy[2] = BONGOCAT_FRAME_LEFT_DOWN;
-        ret._cached_animations.happy[3] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.happy[0] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.happy[1] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.happy[2] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.happy[3] = BONGOCAT_FRAME_RIGHT_DOWN;
 
         return ret;
     }

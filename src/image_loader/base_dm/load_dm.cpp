@@ -47,6 +47,12 @@ namespace bongocat::animation {
 
         // setup animations
         using namespace assets;
+
+        assert(ret.frames.idle_1.valid);
+        assert(ret.frames.idle_2.valid);
+        assert(ret.frames.angry.valid);
+        assert(ret.frames.down_1.valid);
+
         assert(MAX_ANIMATION_FRAMES >= 4);
         ret.animations.idle[0] = ret.frames.idle_1.col;
         ret.animations.idle[1] = ret.frames.idle_2.col;
@@ -58,10 +64,10 @@ namespace bongocat::animation {
         ret.animations.boring[2] = ret.frames.down_2.col ? ret.frames.down_2.col : ret.frames.idle_1.col;
         ret.animations.boring[3] = ret.frames.idle_2.col;
 
-        ret.animations.writing[0] = ret.frames.idle_1.col;
-        ret.animations.writing[1] = ret.frames.idle_2.col;
-        ret.animations.writing[2] = ret.frames.idle_1.col;
-        ret.animations.writing[3] = ret.frames.idle_2.col;
+        ret.animations.writing[0] = ret.frames.idle_2.col;
+        ret.animations.writing[1] = ret.frames.idle_1.col;
+        ret.animations.writing[2] = ret.frames.idle_2.col;
+        ret.animations.writing[3] = ret.frames.idle_1.col;
 
         // sleep animation
         if (ret.frames.sleep_1.valid || ret.frames.sleep_2.valid) {
@@ -90,36 +96,31 @@ namespace bongocat::animation {
         // working/attack animation
         ret.animations.working[0] = ret.frames.idle_1.col;
         ret.animations.working[1] = ret.frames.idle_2.col;
-        if (ret.frames.attack_1.valid || ret.frames.attack_2.valid) {
-            ret.animations.working[2] = ret.frames.attack_1.valid;
-            ret.animations.working[3] = ret.frames.attack_2.valid ? ret.frames.attack_2.col : ret.frames.idle_2.col;
-        } else {
-            if (ret.frames.angry.valid) {
-                ret.animations.working[2] = ret.frames.angry.col;
-            }
-            ret.animations.working[3] = ret.frames.idle_2.col;
-        }
+        ret.animations.working[2] = ret.frames.angry.valid ? ret.frames.angry.col : ret.frames.idle_1.col;
+        ret.animations.working[3] = ret.frames.idle_2.col;
+        ret.animations.working[2] = ret.frames.attack_1.valid ? ret.frames.attack_1.col : ret.animations.working[2];
+        ret.animations.working[3] = ret.frames.attack_2.valid ? ret.frames.attack_2.col : ret.animations.working[3];
 
         // moving/walking animation
         if (ret.frames.movement_1.valid || ret.frames.movement_2.valid) {
-            ret.animations.sleep[0] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
-            ret.animations.sleep[1] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
-            ret.animations.sleep[2] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
-            ret.animations.sleep[3] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
+            ret.animations.moving[0] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
+            ret.animations.moving[1] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
+            ret.animations.moving[2] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
+            ret.animations.moving[3] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
         } else {
             // fallback
-            ret.animations.sleep[0] = ret.frames.idle_1.col;
-            ret.animations.sleep[1] = ret.frames.idle_2.col;
-            ret.animations.sleep[2] = ret.frames.idle_1.col;
-            ret.animations.sleep[3] = ret.frames.idle_2.col;
+            ret.animations.moving[0] = ret.frames.idle_1.col;
+            ret.animations.moving[1] = ret.frames.idle_1.col;
+            ret.animations.moving[2] = ret.frames.idle_2.col;
+            ret.animations.moving[3] = ret.frames.idle_2.col;
         }
 
         // happy animation
         if (ret.frames.happy.valid) {
-            ret.animations.happy[0] = ret.frames.idle_1.col;
-            ret.animations.happy[1] = ret.frames.happy.valid ? ret.frames.happy.col : ret.frames.idle_2.col;
-            ret.animations.happy[2] = ret.frames.idle_1.col;
-            ret.animations.happy[3] = ret.frames.happy.valid ? ret.frames.happy.col : ret.frames.idle_2.col;
+            ret.animations.happy[0] = ret.frames.happy.valid ? ret.frames.happy.col : ret.frames.idle_2.col;
+            ret.animations.happy[1] = ret.frames.idle_1.col;
+            ret.animations.happy[2] = ret.frames.happy.valid ? ret.frames.happy.col : ret.frames.idle_2.col;
+            ret.animations.happy[3] = ret.frames.idle_1.col;
         } else {
             // fallback
             ret.animations.happy[0] = ret.frames.idle_1.col;
