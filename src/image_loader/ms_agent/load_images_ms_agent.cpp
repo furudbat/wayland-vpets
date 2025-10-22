@@ -145,70 +145,47 @@ namespace bongocat::animation {
 
             assert(sprite_sheet_rows > 0);
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_IDLE) {
-                assert(animation_data.start_index_frame_idle <= INT16_MAX);
-                assert(animation_data.end_index_frame_idle <= INT16_MAX);
-                result.result.idle = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_idle), .end_col = static_cast<int16_t>(animation_data.end_index_frame_idle), .row = MS_AGENT_SPRITE_SHEET_ROW_IDLE };
+                result.result.idle = { .valid = true, .start_col = animation_data.start_index_frame_idle, .end_col = animation_data.end_index_frame_idle, .row = MS_AGENT_SPRITE_SHEET_ROW_IDLE };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_BORING) {
-                assert(animation_data.start_index_frame_boring <= INT16_MAX);
-                assert(animation_data.end_index_frame_boring <= INT16_MAX);
-                result.result.boring = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_boring), .end_col = static_cast<int16_t>(animation_data.end_index_frame_boring), .row = MS_AGENT_SPRITE_SHEET_ROW_BORING };
+                result.result.boring = { .valid = true, .start_col = animation_data.start_index_frame_boring, .end_col = animation_data.end_index_frame_boring, .row = MS_AGENT_SPRITE_SHEET_ROW_BORING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_START_WRITING) {
-                assert(animation_data.start_index_frame_start_writing <= INT16_MAX);
-                assert(animation_data.end_index_frame_start_writing <= INT16_MAX);
-                result.result.start_writing = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_start_writing), .end_col = static_cast<int16_t>(animation_data.end_index_frame_start_writing), .row = MS_AGENT_SPRITE_SHEET_ROW_START_WRITING };
+                result.result.start_writing = { .valid = true, .start_col = animation_data.start_index_frame_start_writing, .end_col = animation_data.end_index_frame_start_writing, .row = MS_AGENT_SPRITE_SHEET_ROW_START_WRITING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_WRITING) {
-                assert(animation_data.start_index_frame_writing <= INT16_MAX);
-                assert(animation_data.end_index_frame_writing <= INT16_MAX);
-                result.result.writing = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_writing), .end_col = static_cast<int16_t>(animation_data.end_index_frame_writing), .row = MS_AGENT_SPRITE_SHEET_ROW_WRITING };
+                result.result.writing = { .valid = true, .start_col = animation_data.start_index_frame_writing, .end_col = animation_data.end_index_frame_writing, .row = MS_AGENT_SPRITE_SHEET_ROW_WRITING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_END_WRITING) {
-                assert(animation_data.start_index_frame_end_writing <= INT16_MAX);
-                assert(animation_data.end_index_frame_end_writing <= INT16_MAX);
-                result.result.end_writing = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_end_writing), .end_col = static_cast<int16_t>(animation_data.end_index_frame_end_writing), .row = MS_AGENT_SPRITE_SHEET_ROW_END_WRITING };
+                result.result.end_writing = { .valid = true, .start_col = animation_data.start_index_frame_end_writing, .end_col = animation_data.end_index_frame_end_writing, .row = MS_AGENT_SPRITE_SHEET_ROW_END_WRITING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_SLEEP) {
-                assert(animation_data.start_index_frame_sleep <= INT16_MAX);
-                assert(animation_data.end_index_frame_sleep <= INT16_MAX);
-                result.result.sleep = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_sleep), .end_col = static_cast<int16_t>(animation_data.end_index_frame_sleep), .row = MS_AGENT_SPRITE_SHEET_ROW_SLEEP };
+                result.result.sleep = { .valid = true, .start_col = animation_data.start_index_frame_sleep, .end_col = animation_data.end_index_frame_sleep, .row = MS_AGENT_SPRITE_SHEET_ROW_SLEEP };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_WAKE_UP) {
-                assert(animation_data.start_index_frame_wake_up <= INT16_MAX);
-                assert(animation_data.end_index_frame_wake_up <= INT16_MAX);
-                result.result.wake_up = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_wake_up), .end_col = static_cast<int16_t>(animation_data.end_index_frame_wake_up), .row = MS_AGENT_SPRITE_SHEET_ROW_WAKE_UP };
+                result.result.wake_up = { .valid = true, .start_col = animation_data.start_index_frame_wake_up, .end_col = animation_data.end_index_frame_wake_up, .row = MS_AGENT_SPRITE_SHEET_ROW_WAKE_UP };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_START_WORKING) {
-                assert(animation_data.start_index_frame_start_working <= INT16_MAX);
-                assert(animation_data.end_index_frame_start_working <= INT16_MAX);
-                result.result.start_working = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_start_working), .end_col = static_cast<int16_t>(animation_data.end_index_frame_start_working), .row = MS_AGENT_SPRITE_SHEET_ROW_START_WORKING };
+                result.result.start_working = { .valid = true, .start_col = animation_data.start_index_frame_start_working, .end_col = animation_data.end_index_frame_start_working, .row = MS_AGENT_SPRITE_SHEET_ROW_START_WORKING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_WORKING) {
-                assert(animation_data.start_index_frame_working <= INT16_MAX);
-                assert(animation_data.end_index_frame_working <= INT16_MAX);
-                result.result.working = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_working), .end_col = static_cast<int16_t>(animation_data.end_index_frame_working), .row = MS_AGENT_SPRITE_SHEET_ROW_WORKING };
+                result.result.working = { .valid = true, .start_col = animation_data.start_index_frame_working, .end_col = animation_data.end_index_frame_working, .row = MS_AGENT_SPRITE_SHEET_ROW_WORKING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_END_WORKING) {
-                assert(animation_data.start_index_frame_end_working <= INT16_MAX);
-                assert(animation_data.end_index_frame_end_working <= INT16_MAX);
-                result.result.end_working = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_end_working), .end_col = static_cast<int16_t>(animation_data.end_index_frame_end_working), .row = MS_AGENT_SPRITE_SHEET_ROW_END_WORKING };
+                result.result.end_working = { .valid = true, .start_col = animation_data.start_index_frame_end_working, .end_col = animation_data.end_index_frame_end_working, .row = MS_AGENT_SPRITE_SHEET_ROW_END_WORKING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_START_MOVING) {
-                assert(animation_data.start_index_frame_start_moving <= INT16_MAX);
-                assert(animation_data.end_index_frame_start_moving <= INT16_MAX);
-                result.result.start_moving = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_start_moving), .end_col = static_cast<int16_t>(animation_data.end_index_frame_start_moving), .row = MS_AGENT_SPRITE_SHEET_ROW_START_MOVING };
+                result.result.start_moving = { .valid = true, .start_col = animation_data.start_index_frame_start_moving, .end_col = animation_data.end_index_frame_start_moving, .row = MS_AGENT_SPRITE_SHEET_ROW_START_MOVING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_MOVING) {
-                assert(animation_data.start_index_frame_moving <= INT16_MAX);
-                assert(animation_data.end_index_frame_moving <= INT16_MAX);
-                result.result.moving = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_moving), .end_col = static_cast<int16_t>(animation_data.end_index_frame_moving), .row = MS_AGENT_SPRITE_SHEET_ROW_MOVING };
+                result.result.moving = { .valid = true, .start_col = animation_data.start_index_frame_moving, .end_col = animation_data.end_index_frame_moving, .row = MS_AGENT_SPRITE_SHEET_ROW_MOVING };
             }
             if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_END_MOVING) {
-                assert(animation_data.start_index_frame_end_moving <= INT16_MAX);
-                assert(animation_data.end_index_frame_end_moving <= INT16_MAX);
-                result.result.end_moving = { .valid = true, .start_col = static_cast<int16_t>(animation_data.start_index_frame_end_moving), .end_col = static_cast<int16_t>(animation_data.end_index_frame_end_moving), .row = MS_AGENT_SPRITE_SHEET_ROW_END_MOVING };
+                result.result.end_moving = { .valid = true, .start_col = animation_data.start_index_frame_end_moving, .end_col = animation_data.end_index_frame_end_moving, .row = MS_AGENT_SPRITE_SHEET_ROW_END_MOVING };
             }
+            //if (static_cast<size_t>(sprite_sheet_rows - 1) >= MS_AGENT_SPRITE_SHEET_ROW_HAPPY) {
+            //    result.result.happy = { .valid = true, .start_col = animation_data.start_index_frame_happy), .end_col = animation_data.end_index_happy_moving), .row = MS_AGENT_SPRITE_SHEET_ROW_HAPPY };
+            //}
         }
 
         return bongocat::move(result.result);

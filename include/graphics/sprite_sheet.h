@@ -102,18 +102,15 @@ namespace bongocat::animation {
         sprite_sheet_animation_frame_t right_down;
         sprite_sheet_animation_frame_t both_down;
 
-        sprite_sheet_animation_frame_t _rest_frames[MAX_NUM_FRAMES-4];
-
         sprite_sheet_animations_t animations;
     };
 
     struct ms_agent_sprite_sheet_animation_section_t {
         bool valid{false};
-        int16_t start_col{0};
-        int16_t end_col{0};
+        int32_t start_col{0};
+        int32_t end_col{0};
         int32_t row{0};
     };
-    static_assert(sizeof(sprite_sheet_animation_frame_t) == sizeof(ms_agent_sprite_sheet_animation_section_t));
     struct ms_agent_sprite_sheet_t {
         generic_sprite_sheet_image_t image;
 
@@ -137,6 +134,8 @@ namespace bongocat::animation {
         ms_agent_sprite_sheet_animation_section_t start_moving;
         ms_agent_sprite_sheet_animation_section_t moving;
         ms_agent_sprite_sheet_animation_section_t end_moving;
+
+        ms_agent_sprite_sheet_animation_section_t happy;
     };
 
     struct generic_sprite_sheet_t {
