@@ -33,6 +33,54 @@ namespace bongocat::animation {
         ret.idle_1 = bongocat::move(result.result.frames[0]);
         ret.idle_2 = bongocat::move(result.result.frames[1]);
 
+        // setup animations
+        using namespace assets;
+
+        assert(ret.idle_1.valid);
+        assert(ret.idle_2.valid);
+
+        assert(MAX_ANIMATION_FRAMES >= 4);
+
+        ret.animations.idle[0] = ret.idle_1.col;
+        ret.animations.idle[1] = ret.idle_2.col;
+        ret.animations.idle[2] = ret.idle_1.col;
+        ret.animations.idle[3] = ret.idle_2.col;
+
+        ret.animations.boring[0] = ret.idle_1.col;
+        ret.animations.boring[1] = ret.idle_2.col;
+        ret.animations.boring[2] = ret.idle_1.col;
+        ret.animations.boring[3] = ret.idle_2.col;
+
+        ret.animations.writing[0] = ret.idle_1.col;
+        ret.animations.writing[1] = ret.idle_2.col;
+        ret.animations.writing[2] = ret.idle_1.col;
+        ret.animations.writing[3] = ret.idle_2.col;
+
+        ret.animations.sleep[0] = ret.idle_2.col;
+        ret.animations.sleep[1] = ret.idle_2.col;
+        ret.animations.sleep[2] = ret.idle_2.col;
+        ret.animations.sleep[3] = ret.idle_2.col;
+
+        ret.animations.wake_up[0] = ret.idle_1.col;
+        ret.animations.wake_up[1] = ret.idle_2.col;
+        ret.animations.wake_up[2] = ret.idle_1.col;
+        ret.animations.wake_up[3] = ret.idle_2.col;
+
+        ret.animations.working[0] = ret.idle_1.col;
+        ret.animations.working[1] = ret.idle_2.col;
+        ret.animations.working[2] = ret.idle_1.col;
+        ret.animations.working[3] = ret.idle_2.col;
+
+        ret.animations.moving[0] = ret.idle_1.col;
+        ret.animations.moving[1] = ret.idle_2.col;
+        ret.animations.moving[2] = ret.idle_1.col;
+        ret.animations.moving[3] = ret.idle_2.col;
+
+        ret.animations.happy[0] = ret.idle_1.col;
+        ret.animations.happy[1] = ret.idle_2.col;
+        ret.animations.happy[2] = ret.idle_1.col;
+        ret.animations.happy[3] = ret.idle_2.col;
+
         return ret;
     }
 
