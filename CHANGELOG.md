@@ -2,11 +2,45 @@
 
 All notable changes to this project will be documented in this file.
 
-## [3.1.1] - 2025-09-05
+## [3.2.2] - 2025-10-23
+
+### Added
+- **Add Missing Sprites** - add pen/pen20 dm versions
+  - pen
+  - pen20
+
+### Improved
+- refactor animation system - improve animations
+  - smoother animation transitions
+
+## [3.2.1] - 2025-10-11
+
+### Fixed
+- fix epoll draining
+- fix TSAN warnings
+- fix default config
+- update man pages
+
+## [3.2.0] - 2025-10-11
+
+### Added
+- **More Sprites** - add more MS Agents
+  - Merlin
+  - Rover
+- **Movement** - Digimon can walk
+
+### Fixed
+- fix config watcher
+- use urandom device for RNG seeding
+- fix auto-detect resolution with multi-monitor setup
+
+## [3.1.2] - 2025-09-05
 
 ### Fixed
 - config file handling
-
+- improve input devices check
+- improve config watcher
+- improve animation update poll
 
 ## [3.1.1] - 2025-08-30
 
