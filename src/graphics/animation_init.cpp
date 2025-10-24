@@ -26,7 +26,10 @@
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 
 // image loader
+#include "embedded_assets/misc/misc.hpp"
+#include "embedded_assets/misc/misc_sprite.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
+#include "image_loader/custom/load_custom.h"
 #include "image_loader/ms_agent/load_images_ms_agent.h"
 #include "image_loader/dm/load_images_dm.h"
 #include "image_loader/min_dm/load_images_min_dm.h"
@@ -37,6 +40,7 @@
 #include "image_loader/dmc/load_images_dmc.h"
 #include "image_loader/dmall/load_images_dmall.h"
 #include "image_loader/pkmn/load_images_pkmn.h"
+#include "image_loader/misc/load_images_misc.h"
 
 
 namespace bongocat::animation {
@@ -51,6 +55,12 @@ namespace bongocat::animation {
     }
     [[maybe_unused]] static constexpr bool should_load_pkmn([[maybe_unused]] const config::config_t& config) {
         return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Pkmn;
+    }
+    [[maybe_unused]] static constexpr bool should_load_misc([[maybe_unused]] const config::config_t& config) {
+        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom;
+    }
+    [[maybe_unused]] static constexpr bool should_load_custom([[maybe_unused]] const config::config_t& config) {
+        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom;
     }
 
     created_result_t<animation_t*> hot_load_animation(animation_context_t& ctx) {
@@ -163,6 +173,33 @@ namespace bongocat::animation {
                     anim_shm.anim = bongocat::move(result);
                 }
                 break;
+            case config::config_animation_sprite_sheet_layout_t::Custom:
+                assert(anim_index >= 0);
+                if constexpr (features::EnableCustomSpriteSheetsAssets && features::EnableMiscEmbeddedAssets) {
+                    assert(assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
+                }
+                if constexpr (features::EnableCustomSpriteSheetsAssets) {
+                    if (anim_index == assets::CUSTOM_ANIM_INDEX) {
+                        /// @TODO: load custom sprite sheet from config
+                        /*
+                        auto [result, error] = load_custom_anim(ctx, anim_index);
+                        if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                            return error;
+                        }
+                        anim_shm.anim = bongocat::move(result);
+                        */
+                    }
+                }
+                if constexpr (features::EnableMiscEmbeddedAssets) {
+                    if (static_cast<size_t>(anim_index) <= assets::MAX_MISC_ANIM_INDEX) {
+                        auto [result, error] = load_misc_sprite_sheet(ctx, anim_index);
+                        if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                            return error;
+                        }
+                        anim_shm.anim = bongocat::move(result);
+                    }
+                }
+                break;
             /// @NOTE(assets): 6. add hot reload asset
         }
 
@@ -173,6 +210,7 @@ namespace bongocat::animation {
     }
 
     animation_t& get_current_animation(animation_context_t& ctx) {
+        using namespace assets;
         // fallback sprite
         static animation_t none_sprite_sheet{};
 
@@ -268,6 +306,18 @@ namespace bongocat::animation {
                 }
                 assert(anim_index >= 0);
                 return static_cast<size_t>(anim_index) < anim_shm.ms_anims.count ? anim_shm.ms_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+            case config::config_animation_sprite_sheet_layout_t::Custom:
+                if (features::EnableLazyLoadAssets) {
+                    assert(anim_shm.anim.type == animation_t::Type::Custom);
+                    return anim_shm.anim;
+                }
+                assert(anim_index >= 0);
+                assert(CUSTOM_ANIM_INDEX > MAX_MISC_ANIM_INDEX);
+                if (static_cast<size_t>(anim_index) <= MAX_MISC_ANIM_INDEX) {
+                    return static_cast<size_t>(anim_index) < anim_shm.misc_anims.count ? anim_shm.misc_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                } else if (static_cast<size_t>(anim_index) == CUSTOM_ANIM_INDEX) {
+                    return anim_shm.custom_anim;
+                }
         }
 
         return none_sprite_sheet;
@@ -452,6 +502,35 @@ namespace bongocat::animation {
                     // pkmn
 #include "pkmn_init_pkmn_anim.cpp.inl"
 #endif
+                }
+            }
+
+            if constexpr (features::EnableMiscEmbeddedAssets) {
+                // Load Misc Pets (neko)
+                if (should_load_misc(config)) {
+                    BONGOCAT_LOG_INFO("Load Misc sprite sheets: %d", MISC_ANIM_COUNT);
+                    assert(ret->anim.shm != nullptr);
+                    animation_context_t& ctx = ret->anim; // alias for inits in includes
+
+                    ctx.shm->misc_anims = platform::make_allocated_mmap_array<animation_t>(MISC_ANIM_COUNT);
+
+                    // neko
+                    init_misc_anim(ctx, CLIPPY_ANIM_INDEX, get_misc_sprite_sheet(MISC_NEKO_ANIM_INDEX), get_misc_sprite_sheet_columns(MISC_NEKO_ANIM_INDEX));
+                }
+            }
+
+            if constexpr (features::EnableCustomSpriteSheetsAssets) {
+                // Load custom sprite sheet
+                if (should_load_custom(config)) {
+                    /// @TODO: log custom sprite sheet name
+                    BONGOCAT_LOG_INFO("Load custom sprite sheets: %s", "<custom sprite sheet name>");
+                    assert(ret->anim.shm != nullptr);
+                    animation_context_t& ctx = ret->anim; // alias for inits in includes
+
+                    custom_sprite_sheet_t custom_sprite_sheet;
+                    /// @TODO: load custom sprite sheet
+
+                    ctx.shm->custom_anim = bongocat::move(custom_sprite_sheet);
                 }
             }
 

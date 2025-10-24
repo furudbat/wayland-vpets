@@ -39,6 +39,9 @@ namespace bongocat::assets {
         int32_t end_index_frame_moving{0};
         int32_t start_index_frame_end_moving{0};
         int32_t end_index_frame_end_moving{0};
+
+        int32_t start_index_frame_happy{0};
+        int32_t end_index_frame_happy{0};
     };
 
     inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_IDLE = 0;
@@ -54,6 +57,7 @@ namespace bongocat::assets {
     inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_START_MOVING = 9;
     inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_MOVING = 10;
     inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_END_MOVING = 11;
+    inline static constexpr size_t MS_AGENT_SPRITE_SHEET_ROW_HAPPY = 12;
     enum class ClippyAnimations : uint8_t {
         Idle = MS_AGENT_SPRITE_SHEET_ROW_IDLE,
         Boring = MS_AGENT_SPRITE_SHEET_ROW_BORING,
@@ -69,6 +73,7 @@ namespace bongocat::assets {
         StartMoving = MS_AGENT_SPRITE_SHEET_ROW_START_MOVING,
         Moving = MS_AGENT_SPRITE_SHEET_ROW_MOVING,
         EndMoving = MS_AGENT_SPRITE_SHEET_ROW_END_MOVING,
+        Happy = MS_AGENT_SPRITE_SHEET_ROW_HAPPY,
     };
 
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS

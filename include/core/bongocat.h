@@ -111,6 +111,12 @@ namespace bongocat {
         inline static constexpr bool EnablePkmnEmbeddedAssets = false;
 #endif
 
+#ifdef FEATURE_MISC_EMBEDDED_ASSETS
+        inline static constexpr bool EnableMiscEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnableMiscEmbeddedAssets = false;
+#endif
+
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
         inline static constexpr bool EnableMemoryStatistics = true;
 #else
@@ -151,6 +157,12 @@ namespace bongocat {
 #else
         inline static constexpr bool UseStbImageBackend = false;
 #endif
+#endif
+
+#ifdef FEATURE_CUSTOM_SPRITE_SHEETS
+        inline static constexpr bool EnableCustomSpriteSheetsAssets = true;
+#else
+        inline static constexpr bool EnableCustomSpriteSheetsAssets = false;
 #endif
 
     }

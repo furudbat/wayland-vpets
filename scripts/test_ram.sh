@@ -107,7 +107,7 @@ if [ "$USE_HEAPTRACK" = true ] && [ -z "$HEAPTRACK_BIN" ]; then
 fi
 
 # Group by build type
-for group in release minsizerel relwithdebinfo debug; do
+for group in release-preload-assets release-hybrid release-pngle release minsizerel relwithdebinfo debug; do
     echo "## $(tr '[:lower:]' '[:upper:]' <<< ${group:0:1})${group:1}" >> "$REPORT"
     echo "" >> "$REPORT"
     echo "| Variant | Binary Size | Peak RAM |" >> "$REPORT"

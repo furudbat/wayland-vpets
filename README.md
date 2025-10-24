@@ -523,7 +523,7 @@ Minimal builds require only a few MB of RAM, whereas asset-heavy builds use more
 |----------------|----------------------------------------------------------|------------------------------------------------------------------------------|
 | **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                  |
 | **RAM**        | **8 MB free** (minimal build with minimal assets)        | **64 MB free** (full builds with all assets, preloaded, and config overhead) |
-| **Storage**    | **1 MB free** (binary + config files)                    | **10 MB free** (multiple binaries/builds + config files)                     |
+| **Storage**    | **6 MB free** (binary + config files)                    | **20 MB free** (multiple binaries/builds + config files)                     |
 | **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)            |
 
 

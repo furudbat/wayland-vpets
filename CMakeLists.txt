@@ -47,6 +47,7 @@ cmake_dependent_option(FEATURE_DMALL_EMBEDDED_ASSETS "Include custom colored dm 
 option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" OFF)
 cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS agents (Links) embedded assets" OFF FEATURE_MS_AGENT_EMBEDDED_ASSETS OFF)
 option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" OFF)
+option(FEATURE_MISC_EMBEDDED_ASSETS "Enable include misc embedded assets" OFF)
 # @NOTE(assets): 1. add feature flag for embedded assets
 
 option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolete)" OFF)
@@ -55,6 +56,7 @@ option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for
 option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (Less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
 option(FEATURE_USE_HYBRID_IMAGE_BACKEND "Use pngle or stb_image as assets (png) loader (Less RAM usage, more loading time, balanced) (Recommended)" ON)
 option(FEATURE_USE_PNGLE "Use pngle as assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
+option(FEATURE_CUSTOM_SPRITE_SHEETS "Enable custom sprite sheet at runtime" ON)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
@@ -200,6 +202,14 @@ if (FEATURE_PKMN_EMBEDDED_ASSETS)
     target_link_libraries(bongocat PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
     message(STATUS "Include pkmn assets")
 endif()
+if (FEATURE_MISC_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
+    message(STATUS "Include misc assets")
+endif()
+if (FEATURE_CUSTOM_SPRITE_SHEETS)
+    target_compile_definitions(bongocat PRIVATE FEATURE_CUSTOM_SPRITE_SHEETS)
+    target_link_libraries(bongocat PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
+endif ()
 # @NOTE(assets): 1.1. link embedded assets
 target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_libs)
 
@@ -255,7 +265,14 @@ if (FEATURE_MULTI_VERSIONS)
     target_link_libraries(bongocat-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
     target_link_libraries(bongocat-all PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface)
     target_link_libraries(bongocat-all PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
+    target_link_libraries(bongocat-all PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
+    target_link_libraries(bongocat-all PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
     target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)
+
+    add_executable(bongocat-neko)
+    target_link_libraries(bongocat-neko PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+    target_link_libraries(bongocat-neko PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
+    target_link_libraries(bongocat-neko PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     # @NOTE(assets): 1.2. add exec for multi versions
 endif()
