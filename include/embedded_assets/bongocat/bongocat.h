@@ -14,8 +14,10 @@ namespace bongocat::assets {
     inline static constexpr int BONGOCAT_FRAME_LEFT_DOWN = 1;
     inline static constexpr int BONGOCAT_FRAME_RIGHT_DOWN = 2;
     inline static constexpr int BONGOCAT_FRAME_BOTH_DOWN = 3;
-    inline static constexpr std::size_t BONGOCAT_SPRITE_SHEET_COLS = 4;
-    inline static constexpr std::size_t BONGOCAT_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROW = 0;
+
+    inline static constexpr size_t BONGOCAT_SPRITE_SHEET_COLS = 4;
+    inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROWS = 1;
 
     // apparently
     inline static constexpr int BONGOCAT_FRAME_WIDTH = 864;
@@ -25,7 +27,7 @@ namespace bongocat::assets {
     inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;
 
     [[nodiscard]] extern embedded_image_t get_bongocat_sprite(size_t i);
-    [[nodiscard]] extern created_result_t<animation::generic_sprite_sheet_animation_t> get_bongocat_sprite_sheet(const animation::animation_context_t& ctx, int index);
+    [[nodiscard]] extern created_result_t<animation::generic_sprite_sheet_t> get_bongocat_sprite_sheet(const animation::animation_context_t& ctx, int index);
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H

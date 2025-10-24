@@ -392,26 +392,31 @@ namespace bongocat {
             animation::trigger_update_config(*get_main_context().animation, get_main_context().config, new_gen);
 
             // Wait for both workers to catch up
-            get_main_context().input->config_updated.timedwait([&] {
+            int timedwait_result{0};
+            timedwait_result |= get_main_context().input->config_updated.timedwait([&] {
                 return !atomic_load(&get_main_context().input->_capture_input_running) || atomic_load(&get_main_context().input->config_seen_generation) >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
-            get_main_context().update->config_updated.timedwait([&] {
+            timedwait_result |= get_main_context().update->config_updated.timedwait([&] {
                 return !atomic_load(&get_main_context().update->_running) || atomic_load(&get_main_context().update->config_seen_generation) >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
-            get_main_context().animation->anim.config_updated.timedwait([&] {
+            timedwait_result |= get_main_context().animation->anim.config_updated.timedwait([&] {
                 return !atomic_load(&get_main_context().animation->anim._animation_running) || atomic_load(&get_main_context().animation->anim.config_seen_generation) >= new_gen;
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
 
+            // reset config internal state
             get_main_context().config._keep_old_animation_index = 0;
-            // fallback when cond hits timeout (sync config generations)
-            if (atomic_load(&get_main_context().input->_capture_input_running)) {
-                atomic_store(&get_main_context().input->config_seen_generation, new_gen);
-            }
-            if (atomic_load(&get_main_context().update->_running)) {
-                atomic_store(&get_main_context().update->config_seen_generation, new_gen);
-            }
-            if (atomic_load(&get_main_context().animation->anim._animation_running)) {
-                atomic_store(&get_main_context().animation->anim.config_seen_generation, new_gen);
+            if (timedwait_result != 0) {
+                // fallback when cond hits timeout (sync config generations)
+                if (atomic_load(&get_main_context().input->_capture_input_running)) {
+                    atomic_store(&get_main_context().input->config_seen_generation, new_gen);
+                }
+                if (atomic_load(&get_main_context().update->_running)) {
+                    atomic_store(&get_main_context().update->config_seen_generation, new_gen);
+                }
+                if (atomic_load(&get_main_context().animation->anim._animation_running)) {
+                    atomic_store(&get_main_context().animation->anim.config_seen_generation, new_gen);
+                }
+                BONGOCAT_LOG_VERBOSE("timedwait timeouted, sync all config gen: %d", timedwait_result);
             }
             atomic_store(&get_main_context().config_generation, new_gen);
 
@@ -698,6 +703,12 @@ namespace bongocat {
             }
             if constexpr (features::EnableDmxEmbeddedAssets) {
                 printf("  %8s - Digital Monster X\n", "dmx");
+            }
+            if constexpr (features::EnablePenEmbeddedAssets) {
+                printf("  %8s - Digimon Pendulum\n", "pen");
+            }
+            if constexpr (features::EnablePen20EmbeddedAssets) {
+                printf("  %8s - Digimon Pendulum Ver.20th\n", "pen20");
             }
             if constexpr (features::EnableDmcEmbeddedAssets) {
                 printf("  %8s - Digital Monster Color\n", "dmc");

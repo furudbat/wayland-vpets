@@ -57,8 +57,8 @@ toggle_config() {
     else
         new=10
     fi
+    sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=$new/" "$CONFIG"
     echo "[TEST] Setting idle_sleep_timeout=$new"
-    #sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=$new/" "$CONFIG"
 }
 
 # --- modify config to trigger hot reload ---
@@ -221,6 +221,12 @@ sleep 2
 echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dm20:Omegamon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: pen20:Megalo Growmon"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=pen20:Megalo Growmon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2

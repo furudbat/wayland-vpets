@@ -21,14 +21,17 @@
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #include "dm20_config_parse_animation_name.h"
 #endif
-#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-#include "pen20_config_parse_animation_name.h"
-#endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
 #include "dmx_config_parse_animation_name.h"
 #endif
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
 #include "dmc_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_PEN_EMBEDDED_ASSETS
+#include "pen_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+#include "pen20_config_parse_animation_name.h"
 #endif
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
 #include "dmall_config_parse_animation_name.h"
@@ -701,17 +704,6 @@ namespace bongocat::config {
                     animation_found = config.animation_index >= 0;
                 }
 #endif
-#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-                // overwrite animation when not found or full name
-                if ((!is_fqn && animation_found) || (is_fqn && !animation_found) || (!is_fqn && !animation_found)) {
-                    const int found_index = config_parse_animation_name_pen20(config, value);
-                    if (found_index >= 0) {
-                        assert(found_index >= 0);
-                        BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, get_config_animation_name_pen20(static_cast<size_t>(found_index)).fqname);
-                    }
-                    animation_found = config.animation_index >= 0;
-                }
-#endif
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
                 // overwrite animation when not found or full name
                 if ((!is_fqn && animation_found) || (is_fqn && !animation_found) || (!is_fqn && !animation_found)) {
@@ -730,6 +722,28 @@ namespace bongocat::config {
                     if (found_index >= 0) {
                         assert(config.animation_index >= 0);
                         BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, get_config_animation_name_dmc(static_cast<size_t>(found_index)).fqname);
+                    }
+                    animation_found = config.animation_index >= 0;
+                }
+#endif
+#ifdef FEATURE_PEN_EMBEDDED_ASSETS
+                // overwrite animation when not found or full name
+                if ((!is_fqn && animation_found) || (is_fqn && !animation_found) || (!is_fqn && !animation_found)) {
+                    const int found_index = config_parse_animation_name_pen(config, value);
+                    if (found_index >= 0) {
+                        assert(found_index >= 0);
+                        BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, get_config_animation_name_pen(static_cast<size_t>(found_index)).fqname);
+                    }
+                    animation_found = config.animation_index >= 0;
+                }
+#endif
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+                // overwrite animation when not found or full name
+                if ((!is_fqn && animation_found) || (is_fqn && !animation_found) || (!is_fqn && !animation_found)) {
+                    const int found_index = config_parse_animation_name_pen20(config, value);
+                    if (found_index >= 0) {
+                        assert(found_index >= 0);
+                        BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, get_config_animation_name_pen20(static_cast<size_t>(found_index)).fqname);
                     }
                     animation_found = config.animation_index >= 0;
                 }

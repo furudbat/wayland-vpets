@@ -57,8 +57,8 @@ toggle_config() {
     else
         new=10
     fi
+    sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=$new/" "$CONFIG"
     echo "[TEST] Setting idle_sleep_timeout=$new"
-    #sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=$new/" "$CONFIG"
 }
 
 # --- modify config to trigger hot reload ---
@@ -270,24 +270,30 @@ sed -i -E 's/^update_rate=[0-9]+/update_rate=5000/' "$CONFIG"
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=50/' "$CONFIG"
 echo "[INFO] Enable Movement"
 sed -i -E 's/^cat_align=.*+/cat_align=center/' "$CONFIG"
-sed -i -E 's/^animation_speed=[0-9]+/movement_radius=500/' "$CONFIG"
+sed -i -E 's/^animation_speed=[0-9]+/animation_speed=500/' "$CONFIG"
 sed -i -E 's/^movement_radius=[0-9]+/movement_radius=960/' "$CONFIG"
 sed -i -E 's/^enable_movement_debug=[0-9]+/enable_movement_debug=0/' "$CONFIG"
 sed -i -E 's/^movement_speed=[0-9]+/movement_speed=30/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
-sleep 20
+sleep 10
+echo "[INFO] Enable idle animation"
+sed -i -E 's/^idle_animation=[0-9]+/idle_animation=1/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 15
 echo "[INFO] Disable CPU threshold"
 sed -i -E 's/^update_rate=[0-9]+/update_rate=0/' "$CONFIG"
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
-sleep 1
+sleep 5
 echo "[INFO] Disable Movement"
 sed -i -E 's/^movement_speed=[0-9]+/movement_speed=0/' "$CONFIG"
+sed -i -E 's/^idle_animation=[0-9]+/idle_animation=0/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
-sleep 3
+sleep 5
 
 
 # --- verify running ---

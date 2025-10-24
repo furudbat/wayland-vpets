@@ -20,7 +20,7 @@ namespace bongocat::animation {
         assert(result.result.total_frames > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
 
         assert(anim_index >= 0);
-        ctx.shm->dmc_anims[static_cast<size_t>(anim_index)].dm = bongocat::move(result.result);
+        ctx.shm->dmc_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }

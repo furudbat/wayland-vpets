@@ -34,4 +34,6 @@ Included sets:
         dm - Digital Monster Original
       dm20 - Digital Monster Ver.20th
        dmx - Digital Monster X
+       pen - Digimon Pendulum
+     pen20 - Digimon Pendulum Ver.20th
 

@@ -17,8 +17,10 @@
 #include "embedded_assets/dm/dm_sprite.h"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
 #include "embedded_assets/dm20/dm20_sprite.h"
-#include "embedded_assets/dmc/dmc_sprite.h"
 #include "embedded_assets/dmx/dmx_sprite.h"
+#include "embedded_assets/pen/pen_sprite.h"
+#include "embedded_assets/pen20/pen20_sprite.h"
+#include "embedded_assets/dmc/dmc_sprite.h"
 #include "embedded_assets/dmall/dmall_sprite.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
@@ -29,8 +31,10 @@
 #include "image_loader/dm/load_images_dm.h"
 #include "image_loader/min_dm/load_images_min_dm.h"
 #include "image_loader/dm20/load_images_dm20.h"
-#include "image_loader/dmc/load_images_dmc.h"
 #include "image_loader/dmx/load_images_dmx.h"
+#include "image_loader/pen/load_images_pen.h"
+#include "image_loader/pen20/load_images_pen20.h"
+#include "image_loader/dmc/load_images_dmc.h"
 #include "image_loader/dmall/load_images_dmall.h"
 #include "image_loader/pkmn/load_images_pkmn.h"
 
@@ -60,10 +64,7 @@ namespace bongocat::animation {
         switch (anim_shm.anim_type) {
             case config::config_animation_sprite_sheet_layout_t::None:
                 // unload other sprite sheets
-                cleanup_animation(anim_shm.bongocat_sprite_sheet);
-                cleanup_animation(anim_shm.dm_sprite_sheet);
-                cleanup_animation(anim_shm.ms_agent_sprite_sheet);
-                cleanup_animation(anim_shm.pkmn_sprite_sheet);
+                cleanup_animation(anim_shm.anim);
                 break;
             case config::config_animation_sprite_sheet_layout_t::Bongocat: {
                 if constexpr (features::EnableBongocatEmbeddedAssets) {
@@ -71,16 +72,12 @@ namespace bongocat::animation {
                     if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                         return error;
                     }
-                    anim_shm.bongocat_sprite_sheet = bongocat::move(result);
-                    // unload other sprite sheets
-                    cleanup_animation(anim_shm.dm_sprite_sheet);
-                    cleanup_animation(anim_shm.ms_agent_sprite_sheet);
-                    cleanup_animation(anim_shm.pkmn_sprite_sheet);
+                    anim_shm.anim = bongocat::move(result);
                 }
             }break;
             case config::config_animation_sprite_sheet_layout_t::Dm: {
                 bongocat_error_t error = bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-                dm_animation_t result;
+                dm_sprite_sheet_t result;
                 switch (anim_shm.anim_dm_set) {
                     case config::config_animation_dm_set_t::None:
                         cleanup_animation(result);
@@ -114,6 +111,20 @@ namespace bongocat::animation {
                             error = bongocat::move(l_error);
                         }
                     }break;
+                    case config::config_animation_dm_set_t::pen:{
+                        if constexpr (features::EnablePenEmbeddedAssets) {
+                            auto [l_result, l_error] = load_pen_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
+                    case config::config_animation_dm_set_t::pen20:{
+                        if constexpr (features::EnablePen20EmbeddedAssets) {
+                            auto [l_result, l_error] = load_pen20_sprite_sheet(ctx, anim_index);
+                            result = bongocat::move(l_result);
+                            error = bongocat::move(l_error);
+                        }
+                    }break;
                     case config::config_animation_dm_set_t::dmc:{
                         if constexpr (features::EnableDmcEmbeddedAssets) {
                             auto [l_result, l_error] = load_dmc_sprite_sheet(ctx, anim_index);
@@ -132,11 +143,7 @@ namespace bongocat::animation {
                 if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
                     return error;
                 }
-                anim_shm.dm_sprite_sheet = bongocat::move(result);
-                // unload other sprite sheets
-                cleanup_animation(anim_shm.bongocat_sprite_sheet);
-                cleanup_animation(anim_shm.ms_agent_sprite_sheet);
-                cleanup_animation(anim_shm.pkmn_sprite_sheet);
+                anim_shm.anim = bongocat::move(result);
             }break;
             case config::config_animation_sprite_sheet_layout_t::Pkmn:
                 if constexpr (features::EnablePkmnEmbeddedAssets) {
@@ -144,11 +151,7 @@ namespace bongocat::animation {
                     if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
                         return error;
                     }
-                    anim_shm.pkmn_sprite_sheet = bongocat::move(result);
-                    // unload other sprite sheets
-                    cleanup_animation(anim_shm.bongocat_sprite_sheet);
-                    cleanup_animation(anim_shm.dm_sprite_sheet);
-                    cleanup_animation(anim_shm.ms_agent_sprite_sheet);
+                    anim_shm.anim = bongocat::move(result);
                 }
                 break;
             case config::config_animation_sprite_sheet_layout_t::MsAgent:
@@ -157,11 +160,7 @@ namespace bongocat::animation {
                     if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
                         return error;
                     }
-                    anim_shm.ms_agent_sprite_sheet = bongocat::move(result);
-                    // unload other sprite sheets
-                    cleanup_animation(anim_shm.bongocat_sprite_sheet);
-                    cleanup_animation(anim_shm.dm_sprite_sheet);
-                    cleanup_animation(anim_shm.pkmn_sprite_sheet);
+                    anim_shm.anim = bongocat::move(result);
                 }
                 break;
             /// @NOTE(assets): 6. add hot reload asset
@@ -189,7 +188,8 @@ namespace bongocat::animation {
                 return none_sprite_sheet;
             case config::config_animation_sprite_sheet_layout_t::Bongocat: {
                 if (features::EnableLazyLoadAssets) {
-                    return reinterpret_cast<animation_t&>(anim_shm.bongocat_sprite_sheet);
+                    assert(anim_shm.anim.type == animation_t::Type::Bongocat);
+                    return anim_shm.anim;
                 }
                 assert(anim_index >= 0);
                 return static_cast<size_t>(anim_index) < anim_shm.bongocat_anims.count ? anim_shm.bongocat_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
@@ -200,36 +200,55 @@ namespace bongocat::animation {
                         return none_sprite_sheet;
                     case config::config_animation_dm_set_t::min_dm:
                         if (features::EnableLazyLoadAssets) {
-                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
                         }
                         assert(anim_index >= 0);
                         return static_cast<size_t>(anim_index) < anim_shm.min_dm_anims.count ? anim_shm.min_dm_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
                     case config::config_animation_dm_set_t::dm:
                         if (features::EnableLazyLoadAssets) {
-                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
                         }
                         return static_cast<size_t>(anim_index) < anim_shm.dm_anims.count ? anim_shm.dm_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
                     case config::config_animation_dm_set_t::dm20:
                         if (features::EnableLazyLoadAssets) {
-                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
                         }
                         assert(anim_index >= 0);
                         return static_cast<size_t>(anim_index) < anim_shm.dm20_anims.count ? anim_shm.dm20_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
                     case config::config_animation_dm_set_t::dmx:
                         if (features::EnableLazyLoadAssets) {
-                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
                         }
                         assert(anim_index >= 0);
                         return static_cast<size_t>(anim_index) < anim_shm.dmx_anims.count ? anim_shm.dmx_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                    case config::config_animation_dm_set_t::pen:
+                        if (features::EnableLazyLoadAssets) {
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
+                        }
+                        return static_cast<size_t>(anim_index) < anim_shm.pen_anims.count ? anim_shm.pen_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                    case config::config_animation_dm_set_t::pen20:
+                        if (features::EnableLazyLoadAssets) {
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
+                        }
+                        assert(anim_index >= 0);
+                        return static_cast<size_t>(anim_index) < anim_shm.pen20_anims.count ? anim_shm.pen20_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
                     case config::config_animation_dm_set_t::dmc:
                         if (features::EnableLazyLoadAssets) {
-                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
                         }
                         assert(anim_index >= 0);
                         return static_cast<size_t>(anim_index) < anim_shm.dmc_anims.count ? anim_shm.dmc_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
                     case config::config_animation_dm_set_t::dmall:
                         if (features::EnableLazyLoadAssets) {
-                            return reinterpret_cast<animation_t&>(anim_shm.dm_sprite_sheet);
+                            assert(anim_shm.anim.type == animation_t::Type::Dm);
+                            return anim_shm.anim;
                         }
                         assert(anim_index >= 0);
                         return static_cast<size_t>(anim_index) < anim_shm.dmall_anims.count ? anim_shm.dmall_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
@@ -237,13 +256,15 @@ namespace bongocat::animation {
             }break;
             case config::config_animation_sprite_sheet_layout_t::Pkmn:
                 if (features::EnableLazyLoadAssets) {
-                    return reinterpret_cast<animation_t&>(anim_shm.pkmn_sprite_sheet);
+                    assert(anim_shm.anim.type == animation_t::Type::Pkmn);
+                    return anim_shm.anim;
                 }
                 assert(anim_index >= 0);
                 return static_cast<size_t>(anim_index) < anim_shm.pkmn_anims.count ? anim_shm.pkmn_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
             case config::config_animation_sprite_sheet_layout_t::MsAgent:
                 if (features::EnableLazyLoadAssets) {
-                    return reinterpret_cast<animation_t&>(anim_shm.ms_agent_sprite_sheet);
+                    assert(anim_shm.anim.type == animation_t::Type::MsAgent);
+                    return anim_shm.anim;
                 }
                 assert(anim_index >= 0);
                 return static_cast<size_t>(anim_index) < anim_shm.ms_anims.count ? anim_shm.ms_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
@@ -284,7 +305,7 @@ namespace bongocat::animation {
         assert(ret->anim._local_copy_config != nullptr);
         //config_set_defaults(*ctx._local_copy_config);
         *ret->anim._local_copy_config = config;
-        ret->anim.shm->animation_player_data.frame_index = config.idle_frame;  // initial frame
+        ret->anim.shm->animation_player_result.sprite_sheet_col = config.idle_frame;  // initial frame
 
         ret->trigger_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
         if (ret->trigger_efd._fd < 0) {
@@ -356,20 +377,28 @@ namespace bongocat::animation {
 #include "dm20_init_dm_anim.cpp.inl"
 #endif
                     }
-                    if constexpr (features::EnablePen20EmbeddedAssets) {
-                        BONGOCAT_LOG_INFO("Init pen20 sprite sheets: %d", PEN20_ANIM_COUNT);
-                        //ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
-#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-                        // pen20
-#include "pen20_init_dm_anim.cpp.inl"
-#endif
-                    }
                     if constexpr (features::EnableDmxEmbeddedAssets) {
                         BONGOCAT_LOG_INFO("Init dmx sprite sheets: %d", DMX_ANIM_COUNT);
                         ctx.shm->dmx_anims = platform::make_allocated_mmap_array<animation_t>(DMX_ANIM_COUNT);
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
                         // dmx
 #include "dmx_init_dm_anim.cpp.inl"
+#endif
+                    }
+                    if constexpr (features::EnablePenEmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init pen sprite sheets: %d", PEN20_ANIM_COUNT);
+                        ctx.shm->pen_anims = platform::make_allocated_mmap_array<animation_t>(PEN_ANIM_COUNT);
+#ifdef FEATURE_PEN_EMBEDDED_ASSETS
+                        // pen
+#include "pen_init_dm_anim.cpp.inl"
+#endif
+                    }
+                    if constexpr (features::EnablePen20EmbeddedAssets) {
+                        BONGOCAT_LOG_INFO("Init pen20 sprite sheets: %d", PEN20_ANIM_COUNT);
+                        ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
+#ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+                        // pen20
+#include "pen20_init_dm_anim.cpp.inl"
 #endif
                     }
                     if constexpr (features::EnableDmcEmbeddedAssets) {
@@ -401,12 +430,12 @@ namespace bongocat::animation {
                     ctx.shm->ms_anims = platform::make_allocated_mmap_array<animation_t>(MS_AGENTS_ANIM_COUNT);
 
                     // clippy
-                    init_ms_agent_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS);
+                    init_ms_agent_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX), CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS, get_ms_agent_animation_indices(CLIPPY_ANIM_INDEX));
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
                     /// @NOTE(config): add more MS Pets here
-                    init_ms_agent_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS);
-                    init_ms_agent_anim(ctx, ROVER_ANIM_INDEX, get_ms_agent_sprite_sheet(ROVER_ANIM_INDEX), ROVER_SPRITE_SHEET_COLS, ROVER_SPRITE_SHEET_ROWS);
-                    init_ms_agent_anim(ctx, MERLIN_ANIM_INDEX, get_ms_agent_sprite_sheet(MERLIN_ANIM_INDEX), MERLIN_SPRITE_SHEET_COLS, MERLIN_SPRITE_SHEET_ROWS);
+                    init_ms_agent_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS, get_ms_agent_animation_indices(LINKS_ANIM_INDEX));
+                    init_ms_agent_anim(ctx, ROVER_ANIM_INDEX, get_ms_agent_sprite_sheet(ROVER_ANIM_INDEX), ROVER_SPRITE_SHEET_COLS, ROVER_SPRITE_SHEET_ROWS, get_ms_agent_animation_indices(ROVER_ANIM_INDEX));
+                    init_ms_agent_anim(ctx, MERLIN_ANIM_INDEX, get_ms_agent_sprite_sheet(MERLIN_ANIM_INDEX), MERLIN_SPRITE_SHEET_COLS, MERLIN_SPRITE_SHEET_ROWS, get_ms_agent_animation_indices(MERLIN_ANIM_INDEX));
 #endif
                 }
             }

@@ -9,14 +9,14 @@
 
 
 namespace bongocat::animation {
-    created_result_t<bongocat_animation_t> load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
+    created_result_t<bongocat_sprite_sheet_t> load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count) {
         BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
         auto result = anim_sprite_sheet_from_embedded_images(get_sprite, embedded_images_count);
         if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
             return result.error;
         }
 
-        bongocat_animation_t ret;
+        bongocat_sprite_sheet_t ret;
         ret.image = bongocat::move(result.result.image);
         ret.frame_width = bongocat::move(result.result.frame_width);
         ret.frame_height = bongocat::move(result.result.frame_height);
@@ -25,6 +25,55 @@ namespace bongocat::animation {
         ret.left_down = bongocat::move(result.result.frames[1]);
         ret.right_down = bongocat::move(result.result.frames[2]);
         ret.both_down = bongocat::move(result.result.frames[3]);
+
+        // setup animations (cache)
+        using namespace assets;
+
+        assert(ret.both_up.valid);
+        assert(ret.left_down.valid);
+        assert(ret.right_down.valid);
+        assert(ret.both_down.valid);
+
+        assert(MAX_ANIMATION_FRAMES >= 4);
+        ret.animations.idle[0] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.idle[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.idle[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.idle[3] = BONGOCAT_FRAME_BOTH_UP;
+
+        ret.animations.boring[0] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.boring[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.boring[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.boring[3] = BONGOCAT_FRAME_BOTH_UP;
+
+        ret.animations.writing[0] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.writing[1] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.writing[2] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.writing[3] = BONGOCAT_FRAME_RIGHT_DOWN;
+
+        ret.animations.sleep[0] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.sleep[1] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.sleep[2] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.sleep[3] = BONGOCAT_FRAME_BOTH_DOWN;
+
+        ret.animations.wake_up[0] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.wake_up[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.wake_up[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.wake_up[3] = BONGOCAT_FRAME_BOTH_UP;
+
+        ret.animations.working[0] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.working[1] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.working[2] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.working[3] = BONGOCAT_FRAME_RIGHT_DOWN;
+
+        ret.animations.moving[0] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.moving[1] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.moving[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.moving[3] = BONGOCAT_FRAME_BOTH_DOWN;
+
+        ret.animations.happy[0] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.happy[1] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.happy[2] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.happy[3] = BONGOCAT_FRAME_RIGHT_DOWN;
 
         return ret;
     }
@@ -50,12 +99,13 @@ namespace bongocat::animation {
         }
 
         assert(anim_index >= 0);
-        ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)].bongocat = bongocat::move(result.result);
+        ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
+        assert(ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Bongocat);
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    created_result_t<bongocat_animation_t> load_bongocat_sprite_sheet(const animation_context_t& /*ctx*/, int index) {
+    created_result_t<bongocat_sprite_sheet_t> load_bongocat_sprite_sheet(const animation_context_t& /*ctx*/, int index) {
         using namespace assets;
         using namespace animation;
         switch (index) {

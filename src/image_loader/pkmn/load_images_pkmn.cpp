@@ -7,7 +7,7 @@
 #include "utils/error.h"
 
 namespace bongocat::animation {
-    created_result_t<pkmn_animation_t> load_pkmn_anim(const animation_context_t& ctx, [[maybe_unused]] int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    created_result_t<pkmn_sprite_sheet_t> load_pkmn_anim(const animation_context_t& ctx, [[maybe_unused]] int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -24,7 +24,7 @@ namespace bongocat::animation {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
         }
 
-        pkmn_animation_t ret;
+        pkmn_sprite_sheet_t ret;
         ret.image = bongocat::move(result.result.image);
         ret.frame_width = bongocat::move(result.result.frame_width);
         ret.frame_height = bongocat::move(result.result.frame_height);
@@ -32,6 +32,54 @@ namespace bongocat::animation {
 
         ret.idle_1 = bongocat::move(result.result.frames[0]);
         ret.idle_2 = bongocat::move(result.result.frames[1]);
+
+        // setup animations
+        using namespace assets;
+
+        assert(ret.idle_1.valid);
+        assert(ret.idle_2.valid);
+
+        assert(MAX_ANIMATION_FRAMES >= 4);
+
+        ret.animations.idle[0] = ret.idle_1.col;
+        ret.animations.idle[1] = ret.idle_2.col;
+        ret.animations.idle[2] = ret.idle_1.col;
+        ret.animations.idle[3] = ret.idle_2.col;
+
+        ret.animations.boring[0] = ret.idle_1.col;
+        ret.animations.boring[1] = ret.idle_2.col;
+        ret.animations.boring[2] = ret.idle_1.col;
+        ret.animations.boring[3] = ret.idle_2.col;
+
+        ret.animations.writing[0] = ret.idle_1.col;
+        ret.animations.writing[1] = ret.idle_2.col;
+        ret.animations.writing[2] = ret.idle_1.col;
+        ret.animations.writing[3] = ret.idle_2.col;
+
+        ret.animations.sleep[0] = ret.idle_2.col;
+        ret.animations.sleep[1] = ret.idle_2.col;
+        ret.animations.sleep[2] = ret.idle_2.col;
+        ret.animations.sleep[3] = ret.idle_2.col;
+
+        ret.animations.wake_up[0] = ret.idle_1.col;
+        ret.animations.wake_up[1] = ret.idle_2.col;
+        ret.animations.wake_up[2] = ret.idle_1.col;
+        ret.animations.wake_up[3] = ret.idle_2.col;
+
+        ret.animations.working[0] = ret.idle_1.col;
+        ret.animations.working[1] = ret.idle_2.col;
+        ret.animations.working[2] = ret.idle_1.col;
+        ret.animations.working[3] = ret.idle_2.col;
+
+        ret.animations.moving[0] = ret.idle_1.col;
+        ret.animations.moving[1] = ret.idle_2.col;
+        ret.animations.moving[2] = ret.idle_1.col;
+        ret.animations.moving[3] = ret.idle_2.col;
+
+        ret.animations.happy[0] = ret.idle_1.col;
+        ret.animations.happy[1] = ret.idle_2.col;
+        ret.animations.happy[2] = ret.idle_1.col;
+        ret.animations.happy[3] = ret.idle_2.col;
 
         return ret;
     }
@@ -51,7 +99,8 @@ namespace bongocat::animation {
         assert(result.result.total_frames > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
 
         assert(anim_index >= 0);
-        ctx.shm->pkmn_anims[static_cast<size_t>(anim_index)].pkmn = bongocat::move(result.result);
+        ctx.shm->pkmn_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
+        assert(ctx.shm->pkmn_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Pkmn);
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }

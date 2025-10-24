@@ -8,7 +8,7 @@
 #include "image_loader/min_dm/load_images_min_dm.h"
 
 namespace bongocat::animation {
-    created_result_t<dm_animation_t> load_min_dm_sprite_sheet(const animation_context_t& ctx, int index) {
+    created_result_t<dm_sprite_sheet_t> load_min_dm_sprite_sheet(const animation_context_t& ctx, int index) {
         using namespace animation;
         using namespace assets;
         switch (index) {

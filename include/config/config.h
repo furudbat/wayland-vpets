@@ -64,6 +64,8 @@ namespace bongocat::config {
         dm,
         dm20,
         dmx,
+        pen,
+        pen20,
         dmc,
         dmall,
     };

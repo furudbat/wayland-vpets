@@ -28,6 +28,11 @@ namespace bongocat {
     };
 
     namespace features {
+        // experimental
+        inline static constexpr bool BongocatIdleAnimation = false;
+        inline static constexpr bool BongocatBoringAnimation = false;
+
+
 #ifndef NDEBUG
         inline static constexpr bool Debug = true;
 #else
@@ -62,6 +67,11 @@ namespace bongocat {
 #else
         inline static constexpr bool EnableDmxEmbeddedAssets = false;
 #endif
+#ifdef FEATURE_PEN_EMBEDDED_ASSETS
+        inline static constexpr bool EnablePenEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnablePenEmbeddedAssets = false;
+#endif
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
         inline static constexpr bool EnablePen20EmbeddedAssets = true;
 #else
@@ -83,6 +93,7 @@ namespace bongocat {
         inline static constexpr bool EnableDm20EmbeddedAssets = false;
         inline static constexpr bool EnableDmcEmbeddedAssets = false;
         inline static constexpr bool EnableDmxEmbeddedAssets = false;
+        inline static constexpr bool EnablePenEmbeddedAssets = false;
         inline static constexpr bool EnablePen20EmbeddedAssets = false;
         inline static constexpr bool EnableMinDmEmbeddedAssets = false;
         inline static constexpr bool EnableDmAllEmbeddedAssets = false;
@@ -144,7 +155,7 @@ namespace bongocat {
 
     }
 
-    // Global consts
+    // Global constants
     namespace input {
         inline static constexpr size_t MAX_INPUT_DEVICES = 256;
         static_assert(MAX_INPUT_DEVICES <= INT32_MAX);

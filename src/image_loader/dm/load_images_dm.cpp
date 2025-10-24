@@ -1,5 +1,4 @@
 #include "load_images_dm.h"
-
 #include "embedded_assets/dm/dm.hpp"
 #include "graphics/animation_context.h"
 #include "image_loader/load_images.h"
@@ -21,7 +20,8 @@ bongocat_error_t init_dm_anim(animation_context_t& ctx, int anim_index, const as
     assert(result.result.total_frames > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
 
     assert(anim_index >= 0);
-    ctx.shm->dm_anims[static_cast<size_t>(anim_index)].dm = bongocat::move(result.result);
+    ctx.shm->dm_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
+    assert(ctx.shm->dm_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Dm);
 
     return bongocat_error_t::BONGOCAT_SUCCESS;
 }

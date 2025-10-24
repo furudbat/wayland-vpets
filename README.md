@@ -320,7 +320,9 @@ See man pages for more details and full list:
 ##### Digimon 🦖
 
  - [Original](docs/fragments/set-dm.md) [`dm`](https://humulos.com/digimon/dm/)
+ - [Pendulum Original](docs/fragments/set-pen.md) [`dm`](https://humulos.com/digimon/pen/)
  - [20th Anniversary](docs/fragments/set-dm20.md) [`dm20`](https://humulos.com/digimon/dm20/)
+ - [Pendulum Ver.20th](docs/fragments/set-pen20.md) [`pen20`](https://humulos.com/digimon/pen20/)
  - [X](docs/fragments/set-dmx.md) [`dmx`](https://humulos.com/digimon/dmx/)
  - [Colored](docs/fragments/set-dmc.md) [`dmc`](https://humulos.com/digimon/dmc/)
 

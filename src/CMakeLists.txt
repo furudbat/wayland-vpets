@@ -101,12 +101,14 @@ target_compile_options(bongocat_base INTERFACE -ffunction-sections -fdata-sectio
 
 # @NOTE(assets): 2. add embedded_assets sub directory
 add_subdirectory(embedded_assets/bongocat)
-add_subdirectory(embedded_assets/ms_agent)
 add_subdirectory(embedded_assets/dm)
 add_subdirectory(embedded_assets/dm20)
-add_subdirectory(embedded_assets/dmc)
 add_subdirectory(embedded_assets/dmx)
-add_subdirectory(embedded_assets/min_dm)
+add_subdirectory(embedded_assets/pen)
+add_subdirectory(embedded_assets/pen20)
+add_subdirectory(embedded_assets/dmc)
 add_subdirectory(embedded_assets/dmall)
+add_subdirectory(embedded_assets/min_dm)
+add_subdirectory(embedded_assets/ms_agent)
 add_subdirectory(embedded_assets/pkmn)
 add_subdirectory(image_loader)
