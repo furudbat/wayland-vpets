@@ -2192,7 +2192,7 @@ namespace bongocat::animation {
 
     static anim_next_frame_result_t anim_ms_agent_key_pressed_next_frame(animation_context_t& ctx,
                                                                          animation_state_t& state,
-                                                                         const platform::input::input_context_t& input,
+                                                                         [[maybe_unused]] const platform::input::input_context_t& input,
                                                                          [[maybe_unused]] const animation_trigger_t& trigger) {
         using namespace assets;
 
