@@ -206,7 +206,8 @@ namespace bongocat::animation {
         assert(result.error == bongocat_error_t::BONGOCAT_SUCCESS); ///< this SHOULD always work if it's an valid EMBEDDED image
 
         assert(anim_index >= 0);
-        ctx.shm->ms_anims[static_cast<size_t>(anim_index)].ms_agent = bongocat::move(result.result);
+        ctx.shm->ms_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
+        assert(ctx.shm->ms_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::MsAgent);
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }

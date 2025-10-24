@@ -387,7 +387,7 @@ namespace bongocat::animation {
                     }
                     if constexpr (features::EnablePenEmbeddedAssets) {
                         BONGOCAT_LOG_INFO("Init pen sprite sheets: %d", PEN20_ANIM_COUNT);
-                        //ctx.shm->pen_anims = platform::make_allocated_mmap_array<animation_t>(PEN_ANIM_COUNT);
+                        ctx.shm->pen_anims = platform::make_allocated_mmap_array<animation_t>(PEN_ANIM_COUNT);
 #ifdef FEATURE_PEN_EMBEDDED_ASSETS
                         // pen
 #include "pen_init_dm_anim.cpp.inl"
@@ -395,7 +395,7 @@ namespace bongocat::animation {
                     }
                     if constexpr (features::EnablePen20EmbeddedAssets) {
                         BONGOCAT_LOG_INFO("Init pen20 sprite sheets: %d", PEN20_ANIM_COUNT);
-                        //ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
+                        ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
                         // pen20
 #include "pen20_init_dm_anim.cpp.inl"
