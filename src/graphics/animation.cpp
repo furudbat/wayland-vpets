@@ -3304,7 +3304,7 @@ namespace bongocat::animation {
         assert(ctx.shm != nullptr);
         assert(input.shm != nullptr);
         animation_shared_memory_t& anim_shm = *ctx.shm;
-        //const auto& input_shm = *input.shm;
+        const auto& input_shm = *input.shm;
         const auto current_state = state;
         const auto& current_animation_result = anim_shm.animation_player_result;
         [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -3316,16 +3316,33 @@ namespace bongocat::animation {
 
         const auto conditions = get_anim_conditions(ctx, input, current_state, trigger, current_config);
 
+        bool show_happy = false;
+        if (current_frames.feature_writing_happy) {
+            if (input_shm.kpm > 0) {
+                if (current_config.happy_kpm > 0 && input_shm.kpm >= current_config.happy_kpm) {
+                    show_happy = DM_HAPPY_CHANCE_PERCENT >= 100 || ctx._rng.range(0, 99) < DM_HAPPY_CHANCE_PERCENT;
+                }
+            }
+        }
+
         // in Writing mode/start writing
         switch (current_state.row_state) {
             case animation_state_row_t::StartMoving:
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
                 // moving not supported
-            case animation_state_row_t::Test:
+                break;
             case animation_state_row_t::Happy:
+                // end happy animation in idle
+                break;
+            case animation_state_row_t::Test:
             case animation_state_row_t::Idle:
-                if (current_frames.feature_writing) {
+                if (current_frames.feature_writing_happy && show_happy) {
+                    // show happy animation (KPM)
+                    anim_custom_restart_animation(ctx, animation_state_row_t::Happy, animation_state_row_t::Writing, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                } else if (current_frames.feature_writing) {
                     anim_custom_restart_animation(ctx, animation_state_row_t::StartWriting, animation_state_row_t::Writing, animation_state_row_t::EndWriting,
                                                     new_animation_result, new_state,
                                                     current_state, current_frames, current_config);
@@ -3336,9 +3353,24 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::Writing:
                 if (current_frames.feature_writing) {
-                    // reset hold frame so we can continue writing
-                    new_state.hold_frame_ms = 0;
-                    // start end writing and process animation in anim_ms_pet_idle_next_frame
+                    if (current_frames.feature_writing_happy && show_happy && conditions.is_writing) {
+                        // show happy animation (KPM)
+                        anim_custom_restart_animation(ctx, animation_state_row_t::Happy, animation_state_row_t::Writing, animation_state_row_t::Idle,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                        new_state.hold_frame_ms = 0;
+                    } else if (!current_frames.start_writing.valid) {
+                        // restart writing when so "continues writing" exists
+                        anim_custom_restart_animation(ctx, animation_state_row_t::Writing, animation_state_row_t::StartWriting, animation_state_row_t::EndWriting,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                        new_state.hold_frame_ms = 0;
+                        /// @TODO: toggle frame ? (option)
+                    } else {
+                        // reset hold frame so we can continue writing
+                        new_state.hold_frame_ms = 0;
+                        // start end writing and process animation in anim_ms_pet_idle_next_frame
+                    }
                 }
                 break;
             case animation_state_row_t::EndWriting:
