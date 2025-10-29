@@ -27,6 +27,8 @@ namespace bongocat::assets {
         int32_t start_moving_frames{0};
         int32_t moving_frames{0};
         int32_t end_moving_frames{0};
+
+        int32_t feature_toggle_writing_frames{-1};
     };
 
     inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_IDLE = 0;

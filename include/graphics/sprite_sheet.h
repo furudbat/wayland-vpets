@@ -179,6 +179,7 @@ namespace bongocat::animation {
         bool feature_sleep_wake_up{false};
         bool feature_working{false};
         bool feature_moving{false};
+        bool feature_writing_toggle_frames{false};
     };
 
     struct generic_sprite_sheet_t {

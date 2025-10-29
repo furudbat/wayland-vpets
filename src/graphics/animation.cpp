@@ -3025,15 +3025,27 @@ namespace bongocat::animation {
         switch (current_state.row_state) {
             case animation_state_row_t::Happy:
                 if (current_frames.feature_writing_happy) {
-                    if (conditions.go_next_frame) {
-                        if (conditions.continue_writing) {
-                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::StartWorking, animation_state_row_t::Working,
+                    if (current_frames.feature_writing_toggle_frames && current_frames.happy.end_col == 0) {
+                        // animation for
+                        const bool stop_happy_kpm = current_state.row_state == animation_state_row_t::Happy && conditions.release_frame_after_press && !conditions.process_idle_animation;
+                        if (stop_happy_kpm) {
+                            // back to idle
+                            anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
                                                             new_animation_result, new_state,
                                                             current_state, current_frames, current_config);
-                        } else {
-                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle,
-                                                            new_animation_result, new_state,
-                                                            current_state, current_frames, current_config);
+                        }
+                    }
+                    if (new_state.row_state == animation_state_row_t::Happy) {
+                        if (conditions.go_next_frame) {
+                            if (conditions.continue_writing) {
+                                anim_custom_start_or_process_animation(ctx, animation_state_row_t::StartWorking, animation_state_row_t::Working,
+                                                                new_animation_result, new_state,
+                                                                current_state, current_frames, current_config);
+                            } else {
+                                anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle,
+                                                                new_animation_result, new_state,
+                                                                current_state, current_frames, current_config);
+                            }
                         }
                     }
                 } else {
@@ -3061,8 +3073,18 @@ namespace bongocat::animation {
                 }
                 break;
             case animation_state_row_t::Test:
-                if (current_config.idle_animation && conditions.go_next_frame) {
-                    anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+                if (current_frames.feature_writing_toggle_frames) {
+                    const bool stop_test_animation = conditions.trigger_test_animation && current_state.row_state == animation_state_row_t::Test && conditions.release_test_frame;
+                    if (stop_test_animation) {
+                        // back to idle
+                        anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                    }
+                } else {
+                    if (current_config.idle_animation && conditions.go_next_frame) {
+                        anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+                    }
                 }
                 break;
             case animation_state_row_t::Idle: {
@@ -3191,22 +3213,42 @@ namespace bongocat::animation {
             case animation_state_row_t::Writing: {
                 if (current_frames.feature_writing) {
                     if (conditions.continue_writing) {
-                        if (conditions.go_next_frame) {
-                            // loop writing animation
-                            const auto animation_result = anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
-                            if ((animation_result.status == anim_custom_process_animation_result_status_t::End || animation_result.status == anim_custom_process_animation_result_status_t::Looped) && !conditions.any_key_pressed) {
-                                // end writing
+                        if (current_frames.feature_writing_toggle_frames) {
+                            // back to Idle Animation (after writing)
+                            const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
+                            const bool stop_happy_kpm = current_state.row_state == animation_state_row_t::Happy && conditions.release_frame_after_press && !conditions.process_idle_animation;
+                            if (stop_writing || stop_happy_kpm) {
+                                // back to idle
+                                anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                                                new_animation_result, new_state,
+                                                                current_state, current_frames, current_config);
+                            }
+                        } else {
+                            if (conditions.go_next_frame) {
+                                // loop writing animation
+                                const auto animation_result = anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+                                if ((animation_result.status == anim_custom_process_animation_result_status_t::End || animation_result.status == anim_custom_process_animation_result_status_t::Looped) && !conditions.any_key_pressed) {
+                                    // end writing
+                                    anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndWriting, animation_state_row_t::Idle,
+                                                                        new_animation_result, new_state,
+                                                                        current_state, current_frames, current_config);
+                                }
+                            }
+                        }
+                    } else {
+                        // cancel writing
+                        if (current_frames.feature_writing_toggle_frames) {
+                            if (conditions.release_frame_after_press) {
+                                anim_custom_restart_animation(ctx, animation_state_row_t::EndWriting, animation_state_row_t::Idle, animation_state_row_t::Idle,
+                                                                    new_animation_result, new_state,
+                                                                    current_state, current_frames, current_config);
+                            }
+                        } else {
+                            if (conditions.go_next_frame) {
                                 anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndWriting, animation_state_row_t::Idle,
                                                                     new_animation_result, new_state,
                                                                     current_state, current_frames, current_config);
                             }
-                        }
-                    } else {
-                        if (conditions.release_frame_after_press) {
-                            // cancel writing
-                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndWriting, animation_state_row_t::Idle,
-                                                                new_animation_result, new_state,
-                                                                current_state, current_frames, current_config);
                         }
                     }
                 } else {
@@ -3359,13 +3401,12 @@ namespace bongocat::animation {
                                                         new_animation_result, new_state,
                                                         current_state, current_frames, current_config);
                         new_state.hold_frame_ms = 0;
-                    } else if (!current_frames.start_writing.valid) {
-                        // restart writing when so "continues writing" exists
-                        anim_custom_restart_animation(ctx, animation_state_row_t::Writing, animation_state_row_t::StartWriting, animation_state_row_t::EndWriting,
-                                                        new_animation_result, new_state,
-                                                        current_state, current_frames, current_config);
+                    } else if (current_frames.feature_writing_happy && current_state.row_state == animation_state_row_t::Happy) {
+                        // wait for happy animation to end
                         new_state.hold_frame_ms = 0;
-                        /// @TODO: toggle frame ? (option)
+                    } else if (current_frames.feature_writing_toggle_frames) {
+                        // keep writing
+                        anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
                     } else {
                         // reset hold frame so we can continue writing
                         new_state.hold_frame_ms = 0;

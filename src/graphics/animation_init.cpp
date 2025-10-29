@@ -199,6 +199,7 @@ namespace bongocat::animation {
                         anim_shm.anim = bongocat::move(result);
                     }
                 }
+
                 break;
             /// @NOTE(assets): 6. add hot reload asset
         }
@@ -407,6 +408,7 @@ namespace bongocat::animation {
                         BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %d", MIN_DM_ANIM_COUNT);
                         ctx.shm->min_dm_anims = platform::make_allocated_mmap_array<animation_t>(MIN_DM_ANIM_COUNT);
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
+                        // init minimal dm
                         //init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
 #include "min_dm_init_dm_anim.cpp.inl"
 #endif

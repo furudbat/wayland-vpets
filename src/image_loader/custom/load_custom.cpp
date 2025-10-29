@@ -151,6 +151,8 @@ namespace bongocat::animation {
         ret.feature_sleep_wake_up = ret.feature_sleep && ret.wake_up.valid;
         ret.feature_working = ret.working.valid || ret.start_working.valid || ret.end_working.valid;
         ret.feature_moving = ret.moving.valid || ret.start_moving.valid || ret.end_moving.valid;
+        // is feature_toggle_writing_frames enabled or writing has only 2 frames (default)
+        ret.feature_writing_toggle_frames = ret.working.valid && (sprite_sheet_settings.feature_toggle_writing_frames >= 1 || (sprite_sheet_settings.feature_toggle_writing_frames < 0 && !ret.start_moving.valid && !ret.end_working.valid && ret.working.valid && sprite_sheet_settings.working_frames == 2));
 
         if (!ret.feature_idle) [[unlikely]] {
             BONGOCAT_LOG_WARNING("Custom Animation without idle animation: %s", sprite_sheet_image.name);

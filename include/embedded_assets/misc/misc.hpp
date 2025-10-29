@@ -29,6 +29,7 @@ namespace bongocat::assets {
         .wake_up_frames = 1,
         .working_frames = 2,
         .moving_frames = 2,
+        .feature_toggle_writing_frames = 1,
     };
     inline static constexpr std::size_t MISC_NEKO_SPRITE_SHEET_ROWS = 9;
     inline static constexpr std::size_t MISC_NEKO_SPRITE_SHEET_MAX_COLS = 2;
