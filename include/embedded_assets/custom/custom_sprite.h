@@ -71,6 +71,9 @@ namespace bongocat::assets {
     inline static constexpr char CUSTOM_NAME_ARR[] = "custom";
     inline static constexpr const char* CUSTOM_NAME = CUSTOM_NAME_ARR;
     inline static constexpr std::size_t CUSTOM_NAME_LEN = sizeof(CUSTOM_NAME_ARR)-1;
+
+
+    static inline constexpr int CUSTOM_HAPPY_CHANCE_PERCENT = 60;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_CUSTOM_SPRITE_H
