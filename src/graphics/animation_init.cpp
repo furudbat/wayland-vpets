@@ -517,7 +517,7 @@ namespace bongocat::animation {
                     ctx.shm->misc_anims = platform::make_allocated_mmap_array<animation_t>(MISC_ANIM_COUNT);
 
                     // neko
-                    init_misc_anim(ctx, CLIPPY_ANIM_INDEX, get_misc_sprite_sheet(MISC_NEKO_ANIM_INDEX), get_misc_sprite_sheet_columns(MISC_NEKO_ANIM_INDEX));
+                    init_misc_anim(ctx, MISC_NEKO_ANIM_INDEX, get_misc_sprite_sheet(MISC_NEKO_ANIM_INDEX), get_misc_sprite_sheet_columns(MISC_NEKO_ANIM_INDEX));
                 }
             }
 

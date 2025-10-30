@@ -302,14 +302,14 @@ namespace bongocat::animation {
         }
 
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
-        //animation_context_t& anim = ctx.animation_trigger_context->anim;
+        animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
         platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         assert(wayland_ctx._local_copy_config != nullptr);
-        //assert(anim.shm != nullptr);
+        assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
-        //const animation_shared_memory_t& anim_shm = *anim.shm;
+        const animation_shared_memory_t& anim_shm = *anim.shm;
 
         assert(wayland_ctx_shm->current_buffer_index >= 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
@@ -320,13 +320,52 @@ namespace bongocat::animation {
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+        auto cat_x_with_offset  = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
+
+        // draw debug rectangle
+        if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+            cat_rect_t movement_debug_bar{};
+            switch (current_config.cat_align) {
+                case config::align_type_t::ALIGN_CENTER:
+                    movement_debug_bar = { .x = cat_x + cat_width/2 - current_config.movement_radius, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                    break;
+                case config::align_type_t::ALIGN_LEFT:
+                    movement_debug_bar = { .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                    break;
+                case config::align_type_t::ALIGN_RIGHT:
+                    movement_debug_bar = { .x = cat_x + cat_width - current_config.movement_radius*2, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                    break;
+            }
+
+            const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+            const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
+            const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR & (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u)); // RGBA, little-endian
+            auto *p = reinterpret_cast<uint32_t *>(pixels);
+            assert(wayland_ctx._screen_width >= 0);
+            [[maybe_unused]] const size_t total_pixels = static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+            for (int32_t y = movement_debug_bar.y;y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+                for (int32_t x = movement_debug_bar.x;x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+                    if (x >= 0 && y >= 0) {
+                        size_t pi = static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+                        assert(pi < total_pixels);
+                        p[pi] = fill;
+                    }
+                }
+            }
+        }
 
         blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
         if (current_config.invert_color) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
         }
-        if (current_config.mirror_x) {
-            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+        if (anim_shm.anim_direction >= 1.0f) {
+            if (!current_config.mirror_x) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+            }
+        } else {
+            if (current_config.mirror_x) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+            }
         }
         if (current_config.mirror_y) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
@@ -334,13 +373,18 @@ namespace bongocat::animation {
         if (current_config.enable_antialiasing) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
         }
+        /*
+        if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
+            drawing_option = flag_add(drawing_option, extra_drawing_option);
+        }
+        */
 
         blit_image_scaled(pixels, pixels_size,
                           wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
                           sheet.image.pixels.data, sheet.image.pixels._size_bytes,  sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height, sheet.image.channels,
                           col * sheet.frame_width, row * sheet.frame_height,
                           sheet.frame_width, sheet.frame_height,
-                          cat_x, cat_y, cat_width, cat_height,
+                          cat_x_with_offset, cat_y, cat_width, cat_height,
                           blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
     }
 

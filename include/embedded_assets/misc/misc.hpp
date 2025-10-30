@@ -35,11 +35,10 @@ namespace bongocat::assets {
     inline static constexpr std::size_t MISC_NEKO_SPRITE_SHEET_MAX_COLS = 2;
 
     inline static constexpr std::size_t MAX_MISC_ANIM_INDEX = 0;
+    inline static constexpr std::size_t MISC_ANIM_COUNT = 1;
     // custom sprite sheet (at run time)
     inline static constexpr std::size_t CUSTOM_ANIM_INDEX = 1;
 
-    inline static constexpr std::size_t MISC_ANIM_COUNT = 2;
-    // +1 for custom sprite sheet as placeholder
     inline static constexpr size_t MISC_MAX_SPRITE_SHEET_COL_FRAMES = 2;
 }
 

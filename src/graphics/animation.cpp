@@ -86,6 +86,7 @@ namespace bongocat::animation {
         Writing,
         EndWriting,
         Happy,
+        FallASleep,
         Sleep,
         WakeUp,
         Boring,
@@ -303,6 +304,10 @@ namespace bongocat::animation {
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
                 break;
+            case animation_state_row_t::FallASleep:
+                // not supported
+                new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+                break;
             case animation_state_row_t::Sleep:
                 new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
                 break;
@@ -360,6 +365,10 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
+                break;
+            case animation_state_row_t::FallASleep:
+                // not supported
+                new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
                 break;
             case animation_state_row_t::Sleep:
                 new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
@@ -806,6 +815,10 @@ namespace bongocat::animation {
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
                 break;
+            case animation_state_row_t::FallASleep:
+                // not supported
+                new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+                break;
             case animation_state_row_t::Sleep:
                 new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
                 break;
@@ -861,6 +874,10 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
+                break;
+            case animation_state_row_t::FallASleep:
+                // not supported
+                new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
                 break;
             case animation_state_row_t::Sleep:
                 new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
@@ -934,6 +951,16 @@ namespace bongocat::animation {
                     } else {
                         new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? DM_FRAME_IDLE1 : DM_FRAME_IDLE2;
                     }
+                }
+                break;
+            case animation_state_row_t::FallASleep:
+                // not fully supported
+                if (current_frames.frames.sleep_1.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.sleep_1.col;
+                } else if (current_frames.frames.down_1.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.down_1.col;
+                } else {
+                    new_animation_result.sprite_sheet_col = DM_FRAME_IDLE1;
                 }
                 break;
             case animation_state_row_t::Sleep:
@@ -1837,6 +1864,10 @@ namespace bongocat::animation {
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
                 break;
+            case animation_state_row_t::FallASleep:
+                // not supported
+                new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+                break;
             case animation_state_row_t::Sleep:
                 new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
                 break;
@@ -1892,6 +1923,10 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
+                break;
+            case animation_state_row_t::FallASleep:
+                // not supported
+                new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
                 break;
             case animation_state_row_t::Sleep:
                 new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
@@ -2203,6 +2238,10 @@ namespace bongocat::animation {
             case animation_state_row_t::Happy:
                 section = current_frames.happy.valid ? &current_frames.happy : nullptr;
                 break;
+            case animation_state_row_t::FallASleep:
+                // use sleep animation for ms agent
+                section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+                break;
             case animation_state_row_t::Sleep:
                 section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
                 break;
@@ -2293,6 +2332,9 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::Happy:
                 section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+                break;
+            case animation_state_row_t::FallASleep:
+                section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
                 break;
             case animation_state_row_t::Sleep:
                 section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
@@ -2549,6 +2591,14 @@ namespace bongocat::animation {
                                                         current_state, current_frames, current_config);
                 }
                 break;
+            case animation_state_row_t::FallASleep:
+                if (conditions.go_next_frame) {
+                    // finish animation
+                    anim_ms_agent_start_or_process_animation(ctx, animation_state_row_t::Sleep,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                }
+                break;
             case animation_state_row_t::Sleep:
                 if (conditions.go_next_frame) {
                     anim_ms_agent_process_animation(new_animation_result, new_state, current_state, current_frames);
@@ -2619,15 +2669,18 @@ namespace bongocat::animation {
                                                 current_state, current_frames, current_config);
                 break;
             case animation_state_row_t::StartWriting:
-                // start end writing and process animation in anim_ms_pet_idle_next_frame
+                // start end writing and process animation in anim_ms_agent_idle_next_frame
                 break;
             case animation_state_row_t::Writing:
                 // reset hold frame so we can continue writing
                 new_state.hold_frame_ms = 0;
-                // start end writing and process animation in anim_ms_pet_idle_next_frame
+                // start end writing and process animation in anim_ms_agent_idle_next_frame
                 break;
             case animation_state_row_t::EndWriting:
-                // start end writing and process animation in anim_ms_pet_idle_next_frame
+                // start end writing and process animation in anim_ms_agent_idle_next_frame
+                break;
+            case animation_state_row_t::FallASleep:
+                // process animation in anim_ms_agent_idle_next_frame
                 break;
             case animation_state_row_t::Sleep:
                 if (current_state.is_idle_sleep) {
@@ -2638,10 +2691,10 @@ namespace bongocat::animation {
                     new_state.is_idle_sleep = false;
                 }
             case animation_state_row_t::WakeUp:
-                // process animation in anim_ms_pet_idle_next_frame
+                // process animation in anim_ms_agent_idle_next_frame
                 break;
             case animation_state_row_t::Boring:
-                // process animation in anim_ms_pet_idle_next_frame
+                // process animation in anim_ms_agent_idle_next_frame
                 break;
             case animation_state_row_t::StartWorking:
             case animation_state_row_t::Working:
@@ -2695,7 +2748,7 @@ namespace bongocat::animation {
 #endif
 
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-    enum class anim_custom_process_animation_result_status_t : uint8_t { None, Started, Updated, End, Looped, NextAnimationStarted };
+    enum class anim_custom_process_animation_result_status_t : uint8_t { None, Started, Updated, End, Looped, NextAnimationStarted, SkipMovement, Moved, Stop };
     struct anim_custom_process_animation_result_t {
         animation_state_row_t row_state;
         anim_custom_process_animation_result_status_t status{anim_custom_process_animation_result_status_t::None};
@@ -2722,6 +2775,9 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::Happy:
                 section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+                break;
+            case animation_state_row_t::FallASleep:
+                section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : nullptr;
                 break;
             case animation_state_row_t::Sleep:
                 section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
@@ -2804,6 +2860,9 @@ namespace bongocat::animation {
             case animation_state_row_t::Happy:
                 section = current_frames.happy.valid ? &current_frames.happy : nullptr;
                 break;
+            case animation_state_row_t::FallASleep:
+                section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : nullptr;
+                break;
             case animation_state_row_t::Sleep:
                 section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
                 break;
@@ -2885,6 +2944,9 @@ namespace bongocat::animation {
                     break;
                 case animation_state_row_t::Happy:
                     section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+                    break;
+                case animation_state_row_t::FallASleep:
+                    section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : nullptr;
                     break;
                 case animation_state_row_t::Sleep:
                     section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
@@ -2988,6 +3050,203 @@ namespace bongocat::animation {
     }
 
 
+    static anim_custom_process_animation_result_t anim_custom_handle_movement(animation_context_t& ctx,
+                                                                      const platform::input::input_context_t& input,
+                                                                      animation_player_result_t& new_animation_result,
+                                                                      animation_state_t& new_state,
+                                                                      const anim_handle_key_press_result_t& trigger_result,
+                                                                      const animation_state_t& current_state,
+                                                                      const custom_sprite_sheet_t& current_frames,
+                                                                      const config::config_t& current_config) {
+        using namespace assets;
+
+        assert(ctx.shm != nullptr);
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+
+        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+
+        anim_custom_process_animation_result_t ret {.row_state = new_state.row_state, .status = anim_custom_process_animation_result_status_t::None};
+        if (!conditions.is_writing && current_config.movement_speed > 0 && current_config.movement_radius > 0 && current_config.fps > 0) {
+            if ((conditions.go_next_frame || conditions.process_idle_animation) || conditions.process_movement || conditions.process_movement_animation) {
+                const float delta = 1.0f / static_cast<float>(current_config.fps);
+                const auto delta_ms = static_cast<int32_t>(delta * 1000);
+                const auto frame_height = current_config.cat_height;
+                const auto frame_width  = static_cast<int>(static_cast<float>(frame_height) * (static_cast<float>(current_frames.frame_width) / static_cast<float>(current_frames.frame_height)));
+                const auto fmovement_radius = static_cast<float>(current_config.movement_radius);
+
+                assert(current_config.movement_radius > 0);
+                float max_movement_offset_x_left = 0.0f;
+                float max_movement_offset_x_right = 0.0f;
+                float wall_distance = 0.0f;
+                switch (current_config.cat_align) {
+                    case config::align_type_t::ALIGN_CENTER:
+                        // range: [-r, +r]
+                        max_movement_offset_x_left = -static_cast<float>(current_config.movement_radius) + static_cast<float>(frame_width) / 2.0f;
+                        max_movement_offset_x_right = static_cast<float>(current_config.movement_radius - frame_width);
+                        wall_distance = anim_shm.movement_offset_x / fmovement_radius;
+                        break;
+                    case config::align_type_t::ALIGN_LEFT:
+                        // range: [0, +2r]
+                        max_movement_offset_x_left = 0.0f;
+                        max_movement_offset_x_right = static_cast<float>(current_config.movement_radius) * 2.0f - static_cast<float>(frame_width);
+                        wall_distance = (anim_shm.movement_offset_x / (fmovement_radius * 2.0f)) * 2.0f - 1.0f;
+                        break;
+                    case config::align_type_t::ALIGN_RIGHT:
+                        // range: [-2r, 0]
+                        max_movement_offset_x_left = -(static_cast<float>(current_config.movement_radius) * 2.0f) + static_cast<float>(frame_width);
+                        max_movement_offset_x_right = 0.0f;
+                        wall_distance = (anim_shm.movement_offset_x / (fmovement_radius * 2.0f)) * 2.0f + 1.0f;  // normalize to -1 → 1
+                        break;
+                }
+
+                if (current_state.row_state == animation_state_row_t::Idle && (current_state.anim_pause_after_movement_ms > 0 || (ctx._rng.range(0, 100) <= CHANCE_FOR_SKIPPING_MOVEMENT_PERCENT))) {
+                    // skip movement
+                    anim_shm.anim_direction = 0.0;
+                    new_state.anim_velocity = 0.0f;
+                    new_state.anim_distance = 0.0f;
+                    if (new_state.anim_pause_after_movement_ms > 0) {
+                        new_state.anim_pause_after_movement_ms -= delta_ms;
+                        if (new_state.anim_pause_after_movement_ms <= 0) {
+                            new_state.anim_pause_after_movement_ms = 0;
+                        }
+                    }
+                    ret.status = anim_custom_process_animation_result_status_t::SkipMovement;
+                } else {
+                    // moving animation
+                    constexpr float DIR_EPSILON = 1e-3f;
+                    assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
+                    const int movement_part = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL ? SMALL_MAX_DISTANCE_PER_MOVEMENT_PART : MAX_DISTANCE_PER_MOVEMENT_PART;
+                    const float fmovement_part = static_cast<float>(movement_part);
+                    if (current_state.row_state == animation_state_row_t::Idle) {
+                        // start movement
+                        const auto min_movement = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL ? (fmovement_radius / fmovement_part / 2) + 1 : (fmovement_radius / fmovement_part / fmovement_part) + 1;
+                        float max_move_distance = fmovement_radius / fmovement_part;
+                        max_move_distance = max_move_distance <= min_movement ? min_movement : max_move_distance;
+
+                        assert(max_move_distance >= 0);
+                        assert(min_movement >= 0);
+                        new_state.anim_distance = static_cast<float>(ctx._rng.range(static_cast<uint32_t>(min_movement), static_cast<uint32_t>(max_move_distance)));
+
+                        if (anim_shm.movement_offset_x >= max_movement_offset_x_right) {
+                            // run against wall, change direction
+                            anim_shm.anim_direction = -1.0;
+                            anim_shm.movement_offset_x = max_movement_offset_x_right;
+                        } else if (anim_shm.movement_offset_x <= max_movement_offset_x_left) {
+                            // run against wall, change direction
+                            anim_shm.anim_direction = 1.0;
+                            anim_shm.movement_offset_x = max_movement_offset_x_left;
+                        } else {
+                            float toward_wall_bias = fabs(wall_distance);
+                            toward_wall_bias = toward_wall_bias >= 1.0f ? 1.0f : toward_wall_bias;
+                            toward_wall_bias = toward_wall_bias <= 0.0f ? 0.0f : toward_wall_bias;
+
+                            const int flip_direction_chance = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL ? SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT : FLIP_DIRECTION_NEAR_WALL_PERCENT;
+
+                            assert(toward_wall_bias >= 0.0f);
+                            // change direction: chance drops at center, changes falloff steeper near walls
+                            const auto dir_chance = static_cast<uint32_t>(static_cast<float>(100 - flip_direction_chance + 10) * (1.0f - pow(toward_wall_bias, 1.5f)));
+
+                            if (fabs(new_state.anim_last_direction) >= DIR_EPSILON) {
+                                anim_shm.anim_direction = (ctx._rng.range(0, 100) < dir_chance) ? -new_state.anim_last_direction : new_state.anim_last_direction;
+                            } else if (fabs(anim_shm.anim_direction) < DIR_EPSILON) {
+                                // idle: choose random start direction
+                                anim_shm.anim_direction = (ctx._rng.range(0, 100) < dir_chance) ? 1.0f : -1.0f;
+                            } else {
+                                if (wall_distance > (100.0f / static_cast<float>(flip_direction_chance))) {
+                                    anim_shm.anim_direction = (ctx._rng.range(0, 100) < dir_chance) ? -1.0f : 1.0f;
+                                } else if (wall_distance < -(100.0f / static_cast<float>(flip_direction_chance))) {
+                                    anim_shm.anim_direction = (ctx._rng.range(0, 100) < dir_chance) ? 1.0f : -1.0f;
+                                } else {
+                                    anim_shm.anim_direction = (ctx._rng.range(0, 100) < dir_chance) ? anim_shm.anim_direction : -anim_shm.anim_direction;
+                                }
+                            }
+                        }
+                        // start moving animation
+                        new_state.anim_velocity = anim_shm.anim_direction * static_cast<float>(current_config.movement_speed);
+                        ret = anim_custom_restart_animation(ctx, animation_state_row_t::StartMoving, animation_state_row_t::Moving, animation_state_row_t::EndMoving,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                    } else if (current_state.row_state == animation_state_row_t::StartMoving) {
+                        if (conditions.process_idle_animation) {
+                            ret = anim_custom_start_or_process_animation(ctx, animation_state_row_t::Moving, animation_state_row_t::EndMoving,
+                                                            new_animation_result, new_state,
+                                                            current_state, current_frames, current_config);
+                            ret.status = anim_custom_process_animation_result_status_t::Updated;
+                        } else if (conditions.process_movement_animation) {
+                            ret = anim_custom_restart_animation(ctx, animation_state_row_t::Moving, animation_state_row_t::EndMoving, animation_state_row_t::Idle,
+                                                            new_animation_result, new_state,
+                                                            current_state, current_frames, current_config);
+                            ret.status = anim_custom_process_animation_result_status_t::Updated;
+                        }
+                    } else if (current_state.row_state == animation_state_row_t::Moving) {
+                        if (conditions.process_movement) {
+                            ret = anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+                            ret.status = anim_custom_process_animation_result_status_t::Moved;
+
+                            new_state.anim_distance -= fabs(new_state.anim_velocity);
+                            anim_shm.movement_offset_x += new_state.anim_velocity;
+                            // clamp walking/movement area
+                            if (anim_shm.movement_offset_x > max_movement_offset_x_right) {
+                                anim_shm.movement_offset_x = max_movement_offset_x_right;
+                                ret = anim_custom_restart_animation(ctx, animation_state_row_t::EndMoving, animation_state_row_t::Idle, animation_state_row_t::Idle,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                                ret.status = anim_custom_process_animation_result_status_t::Stop;
+                            } else if (anim_shm.movement_offset_x < max_movement_offset_x_left) {
+                                anim_shm.movement_offset_x = max_movement_offset_x_left;
+                                ret = anim_custom_restart_animation(ctx, animation_state_row_t::EndMoving, animation_state_row_t::Idle, animation_state_row_t::Idle,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                                ret.status = anim_custom_process_animation_result_status_t::Stop;
+                            }
+
+                            if (new_state.anim_distance <= 0 || (fabs(new_state.anim_distance) < DIR_EPSILON || fabs(new_state.anim_velocity) < DIR_EPSILON)) {
+                                ret = anim_custom_restart_animation(ctx, animation_state_row_t::EndMoving, animation_state_row_t::Idle, animation_state_row_t::Idle,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                                ret.status = anim_custom_process_animation_result_status_t::Stop;
+                            }
+                        }
+                    } else if (current_state.row_state == animation_state_row_t::EndMoving) {
+                        if (conditions.process_idle_animation) {
+                            ret = anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle,
+                                                            new_animation_result, new_state,
+                                                            current_state, current_frames, current_config);
+                        } else {
+                            ret = anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                        }
+                        new_state.anim_last_direction = anim_shm.anim_direction;
+                        new_state.anim_velocity = 0.0f;
+                        if (ret.row_state == animation_state_row_t::Idle && new_state.anim_distance <= 0) {
+                            assert(current_config.animation_speed_ms >= 0);
+                            assert(movement_part >= 0);
+                            const auto min_wait = current_config.animation_speed_ms * movement_part / 2;
+                            const auto max_wait = current_config.animation_speed_ms * movement_part * 2;
+                            assert(min_wait >= 0);
+                            assert(max_wait >= 0);
+                            new_state.anim_pause_after_movement_ms = static_cast<int>(ctx._rng.range(static_cast<uint32_t>(min_wait), static_cast<uint32_t>(max_wait)));
+                            ret.status = anim_custom_process_animation_result_status_t::End;
+                        }
+                    }
+                }
+            }
+        } else {
+            // movement got disabled, back to idle
+            if ((current_config.movement_speed <= 0 || current_config.movement_radius <= 0) && conditions.is_moving) {
+                // back to idle
+                ret = anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                        new_animation_result, new_state,
+                                        current_state, current_frames, current_config);
+                new_state.anim_velocity = 0.0f;
+                ret.status = anim_custom_process_animation_result_status_t::Stop;
+            }
+        }
+
+
+        return ret;
+    }
     static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
                                                                 [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                 animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
@@ -3059,7 +3318,9 @@ namespace bongocat::animation {
             case animation_state_row_t::StartMoving:
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
-                /// @TODO: moving animation, anim_custom_moving_next_frame()
+                if (current_frames.feature_moving) {
+                    anim_custom_handle_movement(ctx, input, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
+                }
                 break;
             case animation_state_row_t::StartWorking:
                 if (current_frames.feature_working) {
@@ -3124,6 +3385,11 @@ namespace bongocat::animation {
                     anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
                 }
 
+                if (current_frames.feature_moving) {
+                    // Move Animation
+                    anim_custom_handle_movement(ctx, input, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
+                }
+
                 if (current_frames.feature_sleep || current_frames.feature_boring) {
                     // handle sleep
                     const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
@@ -3151,16 +3417,16 @@ namespace bongocat::animation {
                                         anim_custom_process_animation_result_t animation_result{ .row_state = current_state.row_state };
                                         if (conditions.is_moving) {
                                             if (conditions.go_next_frame) {
-                                                animation_result = anim_custom_start_or_process_animation(ctx, animation_state_row_t::Sleep, // wait for moving to end
+                                                animation_result = anim_custom_start_or_process_animation(ctx, animation_state_row_t::FallASleep, animation_state_row_t::Sleep,
                                                                                 new_animation_result, new_state,
                                                                                 current_state, current_frames, current_config);
                                             }
                                         } else {
-                                            animation_result = anim_custom_restart_animation(ctx, animation_state_row_t::Sleep,
+                                            animation_result = anim_custom_restart_animation(ctx, animation_state_row_t::FallASleep, animation_state_row_t::Sleep, animation_state_row_t::WakeUp,
                                                                             new_animation_result, new_state,
                                                                             current_state, current_frames, current_config);
                                         }
-                                        if (animation_result.row_state == animation_state_row_t::Sleep) {
+                                        if (animation_result.row_state == animation_state_row_t::FallASleep || animation_result.row_state == animation_state_row_t::Sleep || animation_result.row_state == animation_state_row_t::WakeUp) {
                                             new_state.anim_last_direction = 0.0f;
                                             new_state.is_idle_sleep = true;
                                             new_state.show_boring_animation_once = false;
@@ -3202,7 +3468,7 @@ namespace bongocat::animation {
                         if (current_config.enable_scheduled_sleep) {
                             if (is_sleeping_time) {
                                 if (new_state.row_state == animation_state_row_t::Idle) {
-                                    anim_custom_restart_animation(ctx, animation_state_row_t::Sleep,
+                                    anim_custom_restart_animation(ctx, animation_state_row_t::FallASleep, animation_state_row_t::Sleep, animation_state_row_t::WakeUp,
                                                                     new_animation_result, new_state,
                                                                     current_state, current_frames, current_config);
                                     new_state.anim_last_direction = 0.0f;
@@ -3334,6 +3600,19 @@ namespace bongocat::animation {
                                                     current_state, current_frames, current_config);
                 }
                 break;
+            case animation_state_row_t::FallASleep:
+                if (current_frames.feature_sleep) {
+                    if (conditions.go_next_frame) {
+                        anim_custom_start_or_process_animation(ctx, animation_state_row_t::Sleep, animation_state_row_t::WakeUp,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                    }
+                } else {
+                    anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                }
+                break;
             case animation_state_row_t::WakeUp:
                 if (current_frames.feature_sleep_wake_up) {
                     if (conditions.go_next_frame) {
@@ -3406,7 +3685,7 @@ namespace bongocat::animation {
             case animation_state_row_t::StartMoving:
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
-                // moving not supported
+                // moving is handle in anim_custom_handle_movement
                 break;
             case animation_state_row_t::Happy:
                 // end happy animation in idle
@@ -3425,7 +3704,7 @@ namespace bongocat::animation {
                 }
                 break;
             case animation_state_row_t::StartWriting:
-                // start end writing and process animation in anim_ms_pet_idle_next_frame
+                // start end writing and process animation in anim_custom_idle_next_frame
                 break;
             case animation_state_row_t::Writing:
                 if (current_frames.feature_writing) {
@@ -3444,13 +3723,14 @@ namespace bongocat::animation {
                     } else {
                         // reset hold frame so we can continue writing
                         new_state.hold_frame_ms = 0;
-                        // start end writing and process animation in anim_ms_pet_idle_next_frame
+                        // start end writing and process animation in anim_custom_idle_next_frame
                     }
                 }
                 break;
             case animation_state_row_t::EndWriting:
-                // start end writing and process animation in anim_ms_pet_idle_next_frame
+                // start end writing and process animation in anim_custom_idle_next_frame
                 break;
+            case animation_state_row_t::FallASleep:
             case animation_state_row_t::Sleep:
                 if (current_state.is_idle_sleep) {
                     anim_custom_process_animation_result_t animation_result{.row_state = current_state.row_state};
@@ -4241,6 +4521,14 @@ namespace bongocat::animation {
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:
                         assert(MS_AGENTS_ANIM_COUNT <= INT32_MAX && MS_AGENTS_ANIM_COUNT <= UINT32_MAX);
                         return MS_AGENTS_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MS_AGENTS_ANIM_COUNT-1)) : 0;
+                    case config::config_animation_sprite_sheet_layout_t::Custom:
+                        assert(MAX_MISC_ANIM_INDEX <= INT32_MAX);
+                        if (config.animation_index == CUSTOM_ANIM_INDEX) {
+                            return config.animation_index;
+                        } else if (config.animation_index <= static_cast<int32_t>(MAX_MISC_ANIM_INDEX)) {
+                            assert(MISC_ANIM_COUNT <= INT32_MAX && MISC_ANIM_COUNT <= UINT32_MAX);
+                            return MISC_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MISC_ANIM_COUNT-1)) : 0;
+                        }
                 }
             }
             if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
@@ -4248,6 +4536,7 @@ namespace bongocat::animation {
                     case config::config_animation_sprite_sheet_layout_t::None:
                         return config.animation_index;
                     case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                        assert(ctx.shm->bongocat_anims.count > 0);
                         assert(ctx.shm->bongocat_anims.count <= INT32_MAX && ctx.shm->bongocat_anims.count <= UINT32_MAX);
                         return ctx.shm->bongocat_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->bongocat_anims.count-1))) : 0;
                     case config::config_animation_sprite_sheet_layout_t::Dm:
@@ -4255,37 +4544,56 @@ namespace bongocat::animation {
                             case config::config_animation_dm_set_t::None:
                                 return config.animation_index;
                             case config::config_animation_dm_set_t::min_dm:
+                                assert(ctx.shm->min_dm_anims.count > 0);
                                 assert(ctx.shm->min_dm_anims.count <= INT32_MAX && ctx.shm->min_dm_anims.count <= UINT32_MAX);
                                 return ctx.shm->min_dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->min_dm_anims.count-1))) : 0;
                             case config::config_animation_dm_set_t::dm:
+                                assert(ctx.shm->dm_anims.count > 0);
                                 assert(ctx.shm->dm_anims.count <= INT32_MAX && ctx.shm->dm_anims.count <= UINT32_MAX);
                                 return ctx.shm->dm_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm_anims.count-1))) : 0;
                             case config::config_animation_dm_set_t::dm20:
+                                assert(ctx.shm->dm20_anims.count > 0);
                                 assert(ctx.shm->dm20_anims.count <= INT32_MAX && ctx.shm->dm20_anims.count <= UINT32_MAX);
                                 return ctx.shm->dm20_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dm20_anims.count-1))) : 0;
                             case config::config_animation_dm_set_t::dmx:
+                                assert(ctx.shm->dmx_anims.count > 0);
                                 assert(ctx.shm->dmx_anims.count <= INT32_MAX && ctx.shm->dmx_anims.count <= UINT32_MAX);
                                 return ctx.shm->dmx_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmx_anims.count-1))) : 0;
                             case config::config_animation_dm_set_t::pen:
+                                assert(ctx.shm->pen_anims.count > 0);
                                 assert(ctx.shm->pen_anims.count <= INT32_MAX && ctx.shm->pen_anims.count <= UINT32_MAX);
                                 return ctx.shm->pen_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->pen_anims.count-1))) : 0;
                             case config::config_animation_dm_set_t::pen20:
+                                assert(ctx.shm->pen20_anims.count > 0);
                                 assert(ctx.shm->pen20_anims.count <= INT32_MAX && ctx.shm->pen20_anims.count <= UINT32_MAX);
                                 return ctx.shm->pen20_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->pen20_anims.count-1))) : 0;
                             case config::config_animation_dm_set_t::dmc:
+                                assert(ctx.shm->dmc_anims.count > 0);
                                 assert(ctx.shm->dmc_anims.count <= INT32_MAX && ctx.shm->dmc_anims.count <= UINT32_MAX);
                                 return ctx.shm->dmc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmc_anims.count-1))) : 0;
                             case config::config_animation_dm_set_t::dmall:
+                                assert(ctx.shm->dmall_anims.count > 0);
                                 assert(ctx.shm->dmall_anims.count <= INT32_MAX && ctx.shm->dmall_anims.count <= UINT32_MAX);
                                 return ctx.shm->dmall_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->dmall_anims.count-1))) : 0;
                         }
                         break;
                     case config::config_animation_sprite_sheet_layout_t::Pkmn:
+                        assert(ctx.shm->pkmn_anims.count > 0);
                         assert(ctx.shm->pkmn_anims.count <= INT32_MAX && ctx.shm->pkmn_anims.count <= UINT32_MAX);
                         return ctx.shm->pkmn_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->pkmn_anims.count-1))) : 0;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                        assert(ctx.shm->ms_anims.count > 0);
                         assert(ctx.shm->ms_anims.count <= INT32_MAX && ctx.shm->ms_anims.count <= UINT32_MAX);
                         return ctx.shm->ms_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->ms_anims.count-1))) : 0;
+                    case config::config_animation_sprite_sheet_layout_t::Custom:
+                        assert(MAX_MISC_ANIM_INDEX <= INT32_MAX);
+                        if (config.animation_index == CUSTOM_ANIM_INDEX) {
+                            return config.animation_index;
+                        } else if (config.animation_index <= static_cast<int32_t>(MAX_MISC_ANIM_INDEX)) {
+                            assert(ctx.shm->misc_anims.count > 0);
+                            assert(ctx.shm->misc_anims.count <= INT32_MAX && ctx.shm->misc_anims.count <= UINT32_MAX);
+                            return ctx.shm->misc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->misc_anims.count-1))) : 0;
+                        }
                 }
             }
         }

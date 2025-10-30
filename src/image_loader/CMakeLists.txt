@@ -2,8 +2,8 @@
 add_library(assets_image_loader STATIC)
 target_include_directories(assets_image_loader
         PRIVATE ${INCLUDE_DIR}/image_loader
-        PUBLIC ${INCLUDE_DIR}
-        SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
+        PUBLIC ${INCLUDE_DIR})
+target_include_directories(assets_image_loader SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
 target_link_libraries(assets_image_loader PRIVATE bongocat_options)
 
 if (FEATURE_USE_HYBRID_IMAGE_BACKEND)
