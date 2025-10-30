@@ -12,4 +12,5 @@ fragments/set-dmc.md
 fragments/set-dmall.md
 fragments/set-more-ms-agent.md
 fragments/set-pkmn.md
+fragments/set-misc.md
 ```

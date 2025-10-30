@@ -11,7 +11,7 @@
 }:
 stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-vpets";
-  version = "3.2.2";
+  version = "3.2.3";
   src = ../.;
 
   # Build toolchain and dependencies
