@@ -529,10 +529,24 @@ namespace bongocat::animation {
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
 
-                    custom_sprite_sheet_t custom_sprite_sheet;
-                    /// @TODO: load custom sprite sheet
+                    assert(ctx.shm.ptr);
+                    assert(ctx._local_copy_config.ptr);
 
-                    ctx.shm->custom_anim = bongocat::move(custom_sprite_sheet);
+                    BONGOCAT_LOG_VERBOSE("Load custom Animation: %s ...", config.custom_sprite_sheet_filename);
+                    auto sprite_sheet_image_result = load_custom_sprite_sheet_file(config.custom_sprite_sheet_filename);
+                    if (sprite_sheet_image_result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                        BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename);
+                        return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+                    }
+
+                    auto result = load_custom_anim(ctx, sprite_sheet_image_result.result, config.custom_sprite_sheet_settings);
+                    free_custom_sprite_sheet_file(sprite_sheet_image_result.result);
+                    if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                        BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename);
+                        return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+                    }
+
+                    ctx.shm->custom_anim = bongocat::move(result.result);
                 }
             }
 

@@ -19,7 +19,7 @@ namespace bongocat::assets {
     inline static constexpr const char* MISC_NEKO_FQNAME = MISC_NEKO_FQNAME_ARR;
     inline static constexpr std::size_t MISC_NEKO_FQNAME_LEN = sizeof(MISC_NEKO_FQNAME_ARR)-1;
     inline static constexpr std::size_t MISC_NEKO_ANIM_INDEX = 0;
-    inline static constexpr custom_animation_columns_t MISC_NEKO_SPRITE_SHEET_SETTINGS {
+    inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = 2,
         .writing_frames = 2,

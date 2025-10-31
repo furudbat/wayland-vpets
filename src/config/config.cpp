@@ -139,6 +139,25 @@ namespace bongocat::config {
     static inline constexpr auto ENABLE_MOVEMENT_DEBUG_KEY          = "enable_movement_debug";
     static inline constexpr auto MOVEMENT_SPEED_KEY                 = "movement_speed";
     static inline constexpr auto SCREEN_WIDTH_KEY                   = "screen_width";
+    static inline constexpr auto MONITOR_KEY                        = "monitor";
+    static inline constexpr auto OUTPUT_NAME_KEY                    = "output_name";  // monitor alt key
+
+    static inline constexpr auto CUSTOM_SPRITE_SHEET_FILENAME_KEY   = "custom_sprite_sheet_filename";
+    static inline constexpr auto CUSTOM_IDLE_FRAMES_KEY             = "custom_idle_frames";
+    static inline constexpr auto CUSTOM_BORING_FRAMES_KEY           = "custom_boring_frames";
+    static inline constexpr auto CUSTOM_START_WRITING_FRAMES_KEY    = "custom_start_writing_frames";
+    static inline constexpr auto CUSTOM_WRITING_FRAMES_KEY          = "custom_writing_frames";
+    static inline constexpr auto CUSTOM_END_WRITING_FRAMES_KEY      = "custom_end_writing_frames";
+    static inline constexpr auto CUSTOM_HAPPY_FRAMES_KEY            = "custom_happy_frames";
+    static inline constexpr auto CUSTOM_ASLEEP_FRAMES_KEY           = "custom_asleep_frames";
+    static inline constexpr auto CUSTOM_SLEEP_FRAMES_KEY            = "custom_sleep_frames";
+    static inline constexpr auto CUSTOM_WAKE_UP_FRAMES_KEY          = "custom_wake_up_frames";
+    static inline constexpr auto CUSTOM_START_WORKING_FRAMES_KEY    = "custom_start_working_frames";
+    static inline constexpr auto CUSTOM_WORKING_FRAMES_KEY          = "custom_working_frames";
+    static inline constexpr auto CUSTOM_END_WORKING_FRAMES_KEY      = "custom_end_working_frames";
+    static inline constexpr auto CUSTOM_START_MOVING_FRAMES_KEY     = "custom_start_moving_frames";
+    static inline constexpr auto CUSTOM_MOVING_FRAMES_KEY           = "custom_moving_frames";
+    static inline constexpr auto CUSTOM_END_MOVING_FRAMES_KEY       = "custom_end_moving_frames";
 
     static inline constexpr size_t KEY_BUF = 256;
     static inline constexpr size_t VALUE_BUF = PATH_MAX + 256; // max value + comment
@@ -626,9 +645,9 @@ namespace bongocat::config {
         min = static_cast<int>(m);
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
-    static bongocat_error_t config_parse_string(config_t& config, const char *key, const char *value) {
+    static bongocat_error_t config_parse_string(config_t& config, const char *key, const char *value, const load_config_overwrite_parameters_t& overwrite_parameters) {
         using namespace assets;
-        if (strcmp(key, "monitor") == 0) {
+        if (strcmp(key, MONITOR_KEY) == 0 || strcmp(key, "monitor") == 0) {
             if (config.output_name) {
                 ::free(config.output_name);
                 config.output_name = nullptr;
@@ -641,6 +660,20 @@ namespace bongocat::config {
                 }
             } else {
                 config.output_name = nullptr;
+            }
+        } else if (strcmp(key, CUSTOM_SPRITE_SHEET_FILENAME_KEY) == 0) {
+            if (config.custom_sprite_sheet_filename) {
+                ::free(config.custom_sprite_sheet_filename);
+                config.custom_sprite_sheet_filename = nullptr;
+            }
+            if (value && value[0] != '\0') {
+                config.custom_sprite_sheet_filename = strdup(value);
+                if (!config.custom_sprite_sheet_filename) {
+                    BONGOCAT_LOG_ERROR("Failed to allocate memory for custom sprite sheet filename");
+                    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+                }
+            } else {
+                config.custom_sprite_sheet_filename = nullptr;
             }
         } else if (strcmp(key, SLEEP_BEGIN_KEY) == 0) {
             if (value && value[0] != '\0') {
@@ -678,10 +711,19 @@ namespace bongocat::config {
             }
         } else if (strcmp(key, ANIMATION_NAME_KEY) == 0) {
             using namespace assets;
+            if (overwrite_parameters.animation_name) {
+                value = overwrite_parameters.animation_name;
+            }
+
+            // set config._animation_name
+            if (config._animation_name) ::free(config._animation_name);
+            config._animation_name = nullptr;
+            config._animation_name = value ? strdup(value) : nullptr;
 
             // reset state
             config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::None;
             config.animation_dm_set = config_animation_dm_set_t::None;
+            config.animation_custom_set = config_animation_custom_set_t::None;
             config.animation_index = -1;
 
             // is fully name like dm:..., dm20:..., dmc:...
@@ -860,6 +902,7 @@ namespace bongocat::config {
                     strcmp(value, MISC_NEKO_FQNAME) == 0) {
                     config.animation_index = MISC_NEKO_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+                    config.animation_custom_set = config_animation_custom_set_t::misc;
                     animation_found = config.animation_index >= 0;
                 }
             }
@@ -872,7 +915,9 @@ namespace bongocat::config {
                     strcmp(value, CUSTOM_ID) == 0) {
                     config.animation_index = CUSTOM_ANIM_INDEX;
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+                    config.animation_custom_set = config_animation_custom_set_t::custom;
                     animation_found = config.animation_index >= 0;
+                    config._custom = config.animation_index == CUSTOM_ANIM_INDEX ? 1 : 0;
                 }
             }
 
@@ -896,7 +941,7 @@ namespace bongocat::config {
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
 
-    static bongocat_error_t config_parse_key_value(config_t& config, const char *key, const char *value) {
+    static bongocat_error_t config_parse_key_value(config_t& config, const char *key, const char *value, const load_config_overwrite_parameters_t& overwrite_parameters) {
         // Try integer keys first
         if (config_parse_integer_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
             return bongocat_error_t::BONGOCAT_SUCCESS;
@@ -908,7 +953,7 @@ namespace bongocat::config {
         }
 
         // Try string
-        if (config_parse_string(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (config_parse_string(config, key, value, overwrite_parameters) == bongocat_error_t::BONGOCAT_SUCCESS) {
             return bongocat_error_t::BONGOCAT_SUCCESS;
         }
 
@@ -926,7 +971,7 @@ namespace bongocat::config {
     }
 
 
-    static bongocat_error_t config_parse_file(FILE *file, config_t& config) {
+    static bongocat_error_t config_parse_file(FILE *file, config_t& config, const load_config_overwrite_parameters_t& overwrite_parameters) {
         char line[LINE_BUF] = {0};
         char key[KEY_BUF] = {0};
         char value[VALUE_BUF] = {0};
@@ -961,7 +1006,7 @@ namespace bongocat::config {
                 char *trimmed_key = config_trim_str(key);
                 char *trimmed_value = config_trim_str(value);
 
-                bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, trimmed_value);
+                bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
                 if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
                     BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
                 } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -989,7 +1034,7 @@ namespace bongocat::config {
             return bongocat_error_t::BONGOCAT_SUCCESS;
         }
 
-        bongocat_error_t result = config_parse_file(file, config);
+        bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
 
         fclose(file);
 
@@ -1000,10 +1045,10 @@ namespace bongocat::config {
         return result;
     }
 
-    static bongocat_error_t config_parse_stdin(config_t& config) {
+    static bongocat_error_t config_parse_stdin(config_t& config, const load_config_overwrite_parameters_t& overwrite_parameters) {
         FILE *file = stdin;
 
-        bongocat_error_t result = config_parse_file(file, config);
+        bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
         if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_INFO("Loaded configuration from stdin");
         }
@@ -1052,12 +1097,17 @@ namespace bongocat::config {
         cfg.cat_align = DEFAULT_CAT_ALIGN;
         cfg.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
         cfg.animation_dm_set = config_animation_dm_set_t::None;
+        cfg.animation_custom_set = config_animation_custom_set_t::None;
         cfg.idle_animation = 0;
         cfg.input_fps = 0;          // when 0 fallback to fps
         cfg.randomize_index = 0;
         cfg.screen_width = 0;
+        cfg.custom_sprite_sheet_settings = {};
         cfg._keep_old_animation_index = 0;
         cfg._strict = 0;
+        cfg._custom = 0;
+        cfg.custom_sprite_sheet_filename = nullptr;
+        cfg._animation_name = nullptr;
 
         config = bongocat::move(cfg);
     }
@@ -1098,14 +1148,13 @@ namespace bongocat::config {
                                    config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::Custom:
-                assert(MAX_MISC_ANIM_INDEX <= INT_MAX);
-                if (config.animation_index <= static_cast<int>(MAX_MISC_ANIM_INDEX)) {
+                assert(MAX_MISC_ANIM_INDEX <= INT32_MAX);
+                if (config.animation_index <= static_cast<int32_t>(MAX_MISC_ANIM_INDEX)) {
                     BONGOCAT_LOG_DEBUG("  Misc: %03d/%03d at offset (%d,%d)",
                                        config.animation_index, MAX_MISC_ANIM_INDEX,
                                        config.cat_x_offset, config.cat_y_offset);
                 } else if (config.animation_index == CUSTOM_ANIM_INDEX) {
-                    /// @TODO: show custom sprite sheet name
-                    BONGOCAT_LOG_DEBUG("  Custom: %s at offset (%d,%d)", "<name>",
+                    BONGOCAT_LOG_DEBUG("  Custom: %s at offset (%d,%d)", config.custom_sprite_sheet_filename,
                                        config.cat_x_offset, config.cat_y_offset);
                 }
                 break;
@@ -1132,7 +1181,7 @@ namespace bongocat::config {
         // Parse config file and override defaults
         bongocat_error_t result = bongocat_error_t::BONGOCAT_ERROR_CONFIG;
         if (strcmp(config_file_path, "-") == 0) {
-            result = config_parse_stdin(ret);
+            result = config_parse_stdin(ret, overwrite_parameters);
         } else {
             result = config_parse_file(ret, config_file_path, overwrite_parameters);
         }
@@ -1151,6 +1200,7 @@ namespace bongocat::config {
         if (overwrite_parameters.strict >= 0) {
             ret._strict = overwrite_parameters.strict ? 1 : 0;
         }
+
         if (ret.input_fps <= 0) {
             ret.input_fps = ret.fps;
         }

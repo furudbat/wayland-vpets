@@ -1,36 +1,10 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_CUSTOM_SPRITE_H
 #define BONGOCAT_EMBEDDED_ASSETS_CUSTOM_SPRITE_H
 
-#include "embedded_assets/embedded_image.h"
 #include <cstddef>
 #include <cstdint>
 
 namespace bongocat::assets {
-    struct custom_animation_columns_t {
-        int32_t idle_frames{0};
-        
-        int32_t boring_frames{0};
-
-        int32_t start_writing_frames{0};
-        int32_t writing_frames{0};
-        int32_t end_writing_frames{0};
-        int32_t happy_frames{0};
-
-        int32_t asleep_frames{0};
-        int32_t sleep_frames{0};
-        int32_t wake_up_frames{0};
-
-        int32_t start_working_frames{0};
-        int32_t working_frames{0};
-        int32_t end_working_frames{0};
-
-        int32_t start_moving_frames{0};
-        int32_t moving_frames{0};
-        int32_t end_moving_frames{0};
-
-        int32_t feature_toggle_writing_frames{-1};
-    };
-
     inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_IDLE = 0;
     inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_BORING = 1;
     inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_START_WRITING = 2;
@@ -74,6 +48,55 @@ namespace bongocat::assets {
 
 
     static inline constexpr int CUSTOM_HAPPY_CHANCE_PERCENT = 60;
+
+
+    struct custom_animation_settings_t {
+        int32_t idle_frames{0};
+
+        int32_t boring_frames{0};
+
+        int32_t start_writing_frames{0};
+        int32_t writing_frames{0};
+        int32_t end_writing_frames{0};
+        int32_t happy_frames{0};
+
+        int32_t asleep_frames{0};
+        int32_t sleep_frames{0};
+        int32_t wake_up_frames{0};
+
+        int32_t start_working_frames{0};
+        int32_t working_frames{0};
+        int32_t end_working_frames{0};
+
+        int32_t start_moving_frames{0};
+        int32_t moving_frames{0};
+        int32_t end_moving_frames{0};
+
+        int32_t feature_toggle_writing_frames{-1};
+        int32_t feature_toggle_writing_frames_random{-1};
+
+        // row lines (optional)
+        int32_t idle_row_index{-1};
+
+        int32_t boring_row_index{-1};
+
+        int32_t start_writing_row_index{-1};
+        int32_t writing_row_index{-1};
+        int32_t end_writing_row_index{-1};
+        int32_t happy_row_index{-1};
+
+        int32_t asleep_row_index{-1};
+        int32_t sleep_row_index{-1};
+        int32_t wake_up_row_index{-1};
+
+        int32_t start_working_row_index{-1};
+        int32_t working_row_index{-1};
+        int32_t end_working_row_index{-1};
+
+        int32_t start_moving_row_index{-1};
+        int32_t moving_row_index{-1};
+        int32_t end_moving_row_index{-1};
+    };
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_CUSTOM_SPRITE_H

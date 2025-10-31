@@ -8,7 +8,7 @@ namespace bongocat::assets {
     inline static constexpr size_t MISC_ANIMATIONS_COUNT = 1;
 
     [[nodiscard]] extern embedded_image_t get_misc_sprite_sheet(size_t i);
-    [[nodiscard]] extern custom_animation_columns_t get_misc_sprite_sheet_columns(size_t i);
+    [[nodiscard]] extern custom_animation_settings_t get_misc_sprite_sheet_columns(size_t i);
 }
 
 #endif

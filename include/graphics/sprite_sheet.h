@@ -180,6 +180,7 @@ namespace bongocat::animation {
         bool feature_working{false};
         bool feature_moving{false};
         bool feature_writing_toggle_frames{false};
+        bool feature_writing_toggle_frames_random{false};
     };
 
     struct generic_sprite_sheet_t {

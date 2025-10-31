@@ -13,7 +13,7 @@ namespace bongocat::assets {
         return { nullptr, 0, "" };
     }
 
-    custom_animation_columns_t get_misc_sprite_sheet_columns(size_t i) {
+    custom_animation_settings_t get_misc_sprite_sheet_columns(size_t i) {
         using namespace assets;
         switch (i) {
             case MISC_NEKO_ANIM_INDEX: return MISC_NEKO_SPRITE_SHEET_SETTINGS;

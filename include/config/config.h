@@ -1,6 +1,7 @@
 #ifndef BONGOCAT_CONFIG_H
 #define BONGOCAT_CONFIG_H
 
+#include "embedded_assets/custom/custom_sprite.h"
 #include "core/bongocat.h"
 #include "utils/error.h"
 #include <cstdlib>
@@ -70,6 +71,11 @@ namespace bongocat::config {
         dmc,
         dmall,
     };
+    enum class config_animation_custom_set_t : uint8_t {
+        None,
+        misc,
+        custom,
+    };
 
     struct config_t {
         char *output_name{nullptr};
@@ -109,6 +115,7 @@ namespace bongocat::config {
 
         config_animation_sprite_sheet_layout_t animation_sprite_sheet_layout{config_animation_sprite_sheet_layout_t::None};
         config_animation_dm_set_t animation_dm_set{config_animation_dm_set_t::None};
+        config_animation_custom_set_t animation_custom_set{config_animation_custom_set_t::None};
         int32_t idle_animation{0};
         int32_t input_fps{0};
         int32_t randomize_index{0};
@@ -122,9 +129,14 @@ namespace bongocat::config {
 
         int32_t screen_width{0};
 
+        char *custom_sprite_sheet_filename{nullptr};       // must be png file
+        assets::custom_animation_settings_t custom_sprite_sheet_settings{};
+
         // for keep old index when reload config
         int32_t _keep_old_animation_index{0};
         int32_t _strict{0};
+        int32_t _custom{0};                                 // is custom sprite sheet
+        char *_animation_name{nullptr};                     // original animation_anim from parsing config
 
 
         // Make Config movable and copyable
@@ -176,11 +188,15 @@ namespace bongocat::config {
               enable_movement_debug(other.enable_movement_debug),
               movement_speed(other.movement_speed),
               screen_width(other.screen_width),
+              custom_sprite_sheet_settings(other.custom_sprite_sheet_settings),
               _keep_old_animation_index(other._keep_old_animation_index),
-              _strict(other._strict)
+              _strict(other._strict),
+              _custom(other._custom)
         {
             output_name = other.output_name ? strdup(other.output_name) : nullptr;
             config_copy_keyboard_devices_from(*this, other);
+            custom_sprite_sheet_filename = other.custom_sprite_sheet_filename ? strdup(other.custom_sprite_sheet_filename) : nullptr;
+            _animation_name = other._animation_name ? strdup(other._animation_name) : nullptr;
         }
 
         config_t& operator=(const config_t& other) {
@@ -225,11 +241,15 @@ namespace bongocat::config {
                 movement_speed = other.movement_speed;
                 cpu_threshold = other.cpu_threshold;
                 screen_width = other.screen_width;
+                custom_sprite_sheet_settings = other.custom_sprite_sheet_settings;
                 _keep_old_animation_index = other._keep_old_animation_index;
                 _strict = other._strict;
+                _custom = other._custom;
 
                 output_name = other.output_name ? strdup(other.output_name) : nullptr;
                 config_copy_keyboard_devices_from(*this, other);
+                custom_sprite_sheet_filename = other.custom_sprite_sheet_filename ? strdup(other.custom_sprite_sheet_filename) : nullptr;
+                _animation_name = other._animation_name ? strdup(other._animation_name) : nullptr;
             }
             return *this;
         }
@@ -275,15 +295,21 @@ namespace bongocat::config {
               enable_movement_debug(other.enable_movement_debug),
               movement_speed(other.movement_speed),
               screen_width(other.screen_width),
+              custom_sprite_sheet_filename(other.custom_sprite_sheet_filename),
+              custom_sprite_sheet_settings(other.custom_sprite_sheet_settings),
               _keep_old_animation_index(other._keep_old_animation_index),
-              _strict(other._strict)
+              _strict(other._strict),
+              _custom(other._custom),
+              _animation_name(other._animation_name)
         {
             for (int i = 0; i < num_keyboard_devices; ++i) {
                 keyboard_devices[i] = other.keyboard_devices[i];
                 other.keyboard_devices[i] = nullptr;
             }
-            other.output_name = nullptr;
             other.num_keyboard_devices = 0;
+            other.output_name = nullptr;
+            other.custom_sprite_sheet_filename = nullptr;
+            other._animation_name = nullptr;
         }
 
         config_t& operator=(config_t&& other) noexcept {
@@ -329,16 +355,22 @@ namespace bongocat::config {
                 movement_radius = other.movement_radius;
                 enable_movement_debug = other.enable_movement_debug;
                 movement_speed = other.movement_speed;
+                custom_sprite_sheet_filename = other.custom_sprite_sheet_filename;
                 screen_width = other.screen_width;
+                custom_sprite_sheet_settings = other.custom_sprite_sheet_settings;
                 _keep_old_animation_index = other._keep_old_animation_index;
                 _strict = other._strict;
+                _custom = other._custom;
+                _animation_name = other._animation_name;
 
                 for (int i = 0; i < num_keyboard_devices; ++i) {
                     keyboard_devices[i] = other.keyboard_devices[i];
                     other.keyboard_devices[i] = nullptr;
                 }
-                other.output_name = nullptr;
                 other.num_keyboard_devices = 0;
+                other.output_name = nullptr;
+                other.custom_sprite_sheet_filename = nullptr;
+                other._animation_name = nullptr;
             }
             return *this;
         }
@@ -347,6 +379,10 @@ namespace bongocat::config {
         if (config.output_name) ::free(config.output_name);
         config.output_name = nullptr;
         config_free_keyboard_devices(config);
+        if (config.custom_sprite_sheet_filename) ::free(config.custom_sprite_sheet_filename);
+        config.custom_sprite_sheet_filename = nullptr;
+        if (config._animation_name) ::free(config._animation_name);
+        config._animation_name = nullptr;
     }
 
     inline void config_free_keyboard_devices(config_t& config) {
@@ -370,6 +406,7 @@ namespace bongocat::config {
         const char* output_name{nullptr};
         int32_t randomize_index{-1};
         int32_t strict{-1};
+        const char* animation_name{nullptr};
     };
     [[nodiscard]] created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
     void reset(config_t& config);

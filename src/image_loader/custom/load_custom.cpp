@@ -4,7 +4,31 @@
 
 namespace bongocat::animation {
 
-    created_result_t<custom_sprite_sheet_t> load_custom_anim(const animation_context_t& ctx, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_columns_t& sprite_sheet_settings) {
+    created_result_t<assets::custom_image_t> load_custom_sprite_sheet_file(const char* filename) {
+        using namespace assets;
+        BONGOCAT_CHECK_NULL(filename, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+
+        auto file_content_result = platform::make_allocated_mmap_file_content_open(filename);
+        if (file_content_result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+            return file_content_result.error;
+        }
+
+        assets::custom_image_t ret;
+        ret.data = bongocat::move(file_content_result.result);
+        ret.name = ::strdup(filename);
+        return ret;
+    }
+    void free_custom_sprite_sheet_file(assets::custom_image_t& image) noexcept {
+        platform::release_allocated_mmap_file_content(image.data);
+        if (image.name) ::free(image.name);
+        image.name = nullptr;
+    }
+
+    created_result_t<custom_sprite_sheet_t> load_custom_anim(const animation_context_t& ctx, const assets::custom_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings) {
+        assert(sprite_sheet_image.data._size_bytes >= 0);
+        return load_custom_anim(ctx, assets::embedded_image_t{ .data = sprite_sheet_image.data.data, .size = static_cast<size_t>(sprite_sheet_image.data._size_bytes), .name = sprite_sheet_image.name ? sprite_sheet_image.name : "" }, sprite_sheet_settings);
+    }
+    created_result_t<custom_sprite_sheet_t> load_custom_anim(const animation_context_t& ctx, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -75,69 +99,69 @@ namespace bongocat::animation {
             int row = 0;
 
             if (sprite_sheet_settings.idle_frames > 0) {
-                ret.idle = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.idle_frames-1, .row = row };
+                ret.idle = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.idle_frames-1, .row = sprite_sheet_settings.idle_row_index >= 0 ? sprite_sheet_settings.idle_row_index : row };
                 row++;
             }
 
             if (sprite_sheet_settings.boring_frames > 0) {
-                ret.boring = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.boring_frames-1, .row = row };
+                ret.boring = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.boring_frames-1, .row = sprite_sheet_settings.boring_row_index >= 0 ? sprite_sheet_settings.boring_row_index : row };
                 row++;
             }
 
             if (sprite_sheet_settings.start_writing_frames > 0) {
-                ret.start_writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_writing_frames-1, .row = row };
+                ret.start_writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_writing_frames-1, .row = sprite_sheet_settings.start_writing_row_index >= 0 ? sprite_sheet_settings.start_writing_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.writing_frames > 0) {
-                ret.writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.writing_frames-1, .row = row };
+                ret.writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.writing_frames-1, .row = sprite_sheet_settings.writing_row_index >= 0 ? sprite_sheet_settings.writing_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.end_writing_frames > 0) {
-                ret.end_writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_writing_frames-1, .row = row };
+                ret.end_writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_writing_frames-1, .row = sprite_sheet_settings.end_writing_row_index >= 0 ? sprite_sheet_settings.end_writing_row_index : row };
                 row++;
             }
 
             if (sprite_sheet_settings.happy_frames > 0) {
-                ret.happy = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.happy_frames-1, .row = row };
+                ret.happy = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.happy_frames-1, .row = sprite_sheet_settings.happy_row_index >= 0 ? sprite_sheet_settings.happy_row_index : row };
                 row++;
             }
 
             if (sprite_sheet_settings.asleep_frames > 0) {
-                ret.fall_asleep = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.asleep_frames-1, .row = row };
+                ret.fall_asleep = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.asleep_frames-1, .row = sprite_sheet_settings.asleep_row_index >= 0 ? sprite_sheet_settings.asleep_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.sleep_frames > 0) {
-                ret.sleep = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.sleep_frames-1, .row = row };
+                ret.sleep = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.sleep_frames-1, .row = sprite_sheet_settings.sleep_row_index >= 0 ? sprite_sheet_settings.sleep_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.wake_up_frames > 0) {
-                ret.wake_up = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.wake_up_frames-1, .row = row };
+                ret.wake_up = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.wake_up_frames-1, .row = sprite_sheet_settings.wake_up_row_index >= 0 ? sprite_sheet_settings.wake_up_row_index : row };
                 row++;
             }
 
             if (sprite_sheet_settings.start_working_frames > 0) {
-                ret.start_working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_working_frames-1, .row = row };
+                ret.start_working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_working_frames-1, .row = sprite_sheet_settings.start_working_row_index >= 0 ? sprite_sheet_settings.start_working_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.working_frames > 0) {
-                ret.working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.working_frames-1, .row = row };
+                ret.working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.working_frames-1, .row = sprite_sheet_settings.working_row_index >= 0 ? sprite_sheet_settings.working_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.end_working_frames > 0) {
-                ret.end_working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_working_frames-1, .row = row };
+                ret.end_working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_working_frames-1, .row = sprite_sheet_settings.end_working_row_index >= 0 ? sprite_sheet_settings.end_working_row_index : row };
                 row++;
             }
 
             if (sprite_sheet_settings.start_moving_frames > 0) {
-                ret.start_moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_moving_frames-1, .row = row };
+                ret.start_moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_moving_frames-1, .row = sprite_sheet_settings.start_moving_row_index >= 0 ? sprite_sheet_settings.start_moving_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.moving_frames > 0) {
-                ret.moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.moving_frames-1, .row = row };
+                ret.moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.moving_frames-1, .row = sprite_sheet_settings.moving_row_index >= 0 ? sprite_sheet_settings.moving_row_index : row };
                 row++;
             }
             if (sprite_sheet_settings.end_moving_frames > 0) {
-                ret.end_moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_moving_frames-1, .row = row };
+                ret.end_moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_moving_frames-1, .row = sprite_sheet_settings.end_moving_row_index >= 0 ? sprite_sheet_settings.end_moving_row_index : row };
                 row++;
             }
         }
@@ -153,6 +177,7 @@ namespace bongocat::animation {
         ret.feature_moving = ret.moving.valid || ret.start_moving.valid || ret.end_moving.valid;
         // is feature_toggle_writing_frames enabled or writing has only 2 frames (default)
         ret.feature_writing_toggle_frames = ret.working.valid && (sprite_sheet_settings.feature_toggle_writing_frames >= 1 || (sprite_sheet_settings.feature_toggle_writing_frames < 0 && !ret.start_moving.valid && !ret.end_working.valid && ret.working.valid && sprite_sheet_settings.working_frames == 2));
+        ret.feature_writing_toggle_frames_random = ret.working.valid && (sprite_sheet_settings.feature_toggle_writing_frames_random >= 1 || (sprite_sheet_settings.feature_toggle_writing_frames_random < 0 && !ret.start_moving.valid && !ret.end_working.valid && ret.working.valid && sprite_sheet_settings.working_frames == 2));
 
         if (!ret.feature_idle) [[unlikely]] {
             BONGOCAT_LOG_WARNING("Custom Animation without idle animation: %s", sprite_sheet_image.name);

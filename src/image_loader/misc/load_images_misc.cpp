@@ -5,7 +5,7 @@
 #include "embedded_assets/misc/misc.hpp"
 
 namespace bongocat::animation {
-    bongocat_error_t init_misc_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_columns_t& sprite_sheet_settings) {
+    bongocat_error_t init_misc_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);

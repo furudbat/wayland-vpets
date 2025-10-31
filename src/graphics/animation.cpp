@@ -3698,9 +3698,15 @@ namespace bongocat::animation {
                                                     new_animation_result, new_state,
                                                     current_state, current_frames, current_config);
                 } else if (current_frames.feature_writing) {
-                    anim_custom_restart_animation(ctx, animation_state_row_t::StartWriting, animation_state_row_t::Writing, animation_state_row_t::EndWriting,
+                    // start writing
+                    const auto animation_result = anim_custom_restart_animation(ctx, animation_state_row_t::StartWriting, animation_state_row_t::Writing, animation_state_row_t::EndWriting,
                                                     new_animation_result, new_state,
                                                     current_state, current_frames, current_config);
+                    if (current_frames.feature_writing_toggle_frames_random &&
+                        animation_result.row_state == animation_state_row_t::Writing && (animation_result.status == anim_custom_process_animation_result_status_t::Started || animation_result.status == anim_custom_process_animation_result_status_t::NextAnimationStarted || animation_result.status == anim_custom_process_animation_result_status_t::Looped) &&
+                        current_frames.writing.valid && current_frames.writing.start_col >= 0 && current_frames.writing.end_col >= 0) {
+                        new_animation_result.sprite_sheet_col = static_cast<int32_t>(ctx._rng.range(static_cast<uint32_t>(current_frames.writing.start_col), static_cast<uint32_t>(current_frames.writing.end_col)));
+                    }
                 }
                 break;
             case animation_state_row_t::StartWriting:
@@ -4177,7 +4183,7 @@ namespace bongocat::animation {
 #ifdef FEATURE_MISC_EMBEDDED_ASSETS
                     assert(anim_shm.anim_index >= 0);
                     if (static_cast<size_t>(anim_shm.anim_index) <= MAX_MISC_ANIM_INDEX) {
-                        const custom_animation_columns_t custom_columns = get_misc_sprite_sheet_columns(static_cast<size_t>(anim_shm.anim_index));
+                        const custom_animation_settings_t custom_columns = get_misc_sprite_sheet_columns(static_cast<size_t>(anim_shm.anim_index));
                         current_animation_result.sprite_sheet_col = current_config.idle_frame;
                         current_animation_result.sprite_sheet_row = CUSTOM_SPRITE_SHEET_ROW_IDLE;
                         state.start_col_index = 0;

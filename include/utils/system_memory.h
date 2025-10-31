@@ -3,13 +3,17 @@
 
 #include "./memory.h"
 #include "./time.h"
+#include "core/bongocat.h"
 #include "utils/error.h"
 #include <sys/mman.h>
 #include <unistd.h>
 #include <stdatomic.h>
 #include <pthread.h>
 #include <cassert>
+#include <fcntl.h>
 #include <sys/poll.h>
+#include <sys/stat.h>
+
 
 namespace bongocat::platform {
     int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms);
@@ -1000,6 +1004,169 @@ namespace bongocat::platform {
             ::close(fd._fd);
             fd._fd = -1;
         }
+    }
+
+
+
+    struct MMapFileContent;
+    void release_allocated_mmap_file_content(MMapFileContent& memory) noexcept;
+
+    struct MMapFileContent {
+        /// @NOTE: memory is private (not sharable within threads)
+        unsigned char* data{nullptr};
+        off_t _size_bytes{0};
+        FileDescriptor _fd{-1};
+        off_t _offset{0};
+
+        constexpr MMapFileContent() = default;
+        ~MMapFileContent() noexcept {
+            release_allocated_mmap_file_content(*this);
+        }
+
+        explicit MMapFileContent(decltype(nullptr)) noexcept {}
+        MMapFileContent& operator=(decltype(nullptr)) noexcept {
+            release_allocated_mmap_file_content(*this);
+            return *this;
+        }
+
+        // Allocate shared memory using mmap
+        explicit MMapFileContent(FileDescriptor&& fd, off_t offset = 0)
+            : _fd(bongocat::move(fd)), _offset(offset)
+        {
+            // Get file size
+            struct stat st {};
+            if (::fstat(_fd._fd, &st) < 0) {
+                close_fd(fd);
+                return;
+            }
+            if (st.st_size <= 0) {
+                close_fd(fd);
+                return;
+            }
+            if (st.st_size <= offset) {
+                close_fd(fd);
+                return;
+            }
+            _size_bytes = st.st_size - _offset;
+
+            long page_size = sysconf(_SC_PAGE_SIZE);
+            assert(page_size > 0);
+            off_t aligned_offset = (_offset / page_size) * page_size;
+            off_t delta = _offset - aligned_offset;
+            _size_bytes = st.st_size - _offset;
+            size_t map_length = static_cast<size_t>(_size_bytes + delta);
+
+            if (_size_bytes > 0) {
+                void* mapped = mmap(nullptr, map_length,
+                                             PROT_READ,
+                                             MAP_PRIVATE,
+                                             _fd._fd, aligned_offset);
+                if (mapped != MAP_FAILED) {
+                    data = static_cast<unsigned char*>(mapped) + delta;
+                    return;
+                } else {
+                    BONGOCAT_LOG_ERROR("mmap file content failed to map file");
+                }
+            }
+
+            data = nullptr;
+            _size_bytes = 0;
+            close_fd(fd);
+        }
+
+        MMapFileContent(MMapFileContent&& other) noexcept
+            : data(other.data), _size_bytes(other._size_bytes), _fd(bongocat::move(other._fd)), _offset(other._offset)
+        {
+            other.data = nullptr;
+            other._size_bytes = 0;
+            other._fd._fd = -1;
+            other._offset = 0;
+        }
+        MMapFileContent& operator=(MMapFileContent&& other) noexcept {
+            if (this != &other) {
+                release_allocated_mmap_file_content(*this);
+                data = other.data;
+                _size_bytes = other._size_bytes;
+                _fd = bongocat::move(other._fd);
+                _offset = other._offset;
+                other.data = nullptr;
+                other._size_bytes = 0;
+                other._fd._fd = -1;
+                other._offset = 0;
+            }
+            return *this;
+        }
+
+        const unsigned char& operator[](size_t index) const {
+            assert(_size_bytes >= 0);
+            assert(index < static_cast<size_t>(_size_bytes));
+            return data[index];
+        }
+
+        constexpr explicit operator bool() const noexcept {
+            return data != nullptr && data != MAP_FAILED && _fd._fd >= 0;
+        }
+
+        constexpr bool operator==(decltype(nullptr)) const noexcept {
+            return data == nullptr;
+        }
+        constexpr bool operator!=(decltype(nullptr)) const noexcept {
+            return data != nullptr;
+        }
+    };
+    inline void release_allocated_mmap_file_content(MMapFileContent& memory) noexcept {
+        if (memory.data) {
+            assert(memory._size_bytes >= 0);
+            munmap(memory.data, static_cast<size_t>(memory._size_bytes));
+            close_fd(memory._fd);
+            memory.data = nullptr;
+            memory._size_bytes = 0;
+            memory._offset = 0;
+        }
+    }
+    [[nodiscard]] inline static MMapFileContent make_unallocated_mmap_file_content() {
+        return {};
+    }
+    [[nodiscard]] inline static created_result_t<MMapFileContent> make_allocated_mmap_file_content(FileDescriptor&& fd, off_t offset = 0) {
+        // Get file size
+        struct stat st {};
+        if (::fstat(fd._fd, &st) < 0) {
+            BONGOCAT_LOG_ERROR("Failed to open file for mmap: fd=%d", fd._fd);
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+        if (st.st_size <= 0) {
+            BONGOCAT_LOG_ERROR("Failed to open file for mmap, fstat failed on file descriptor: fd=%d", fd._fd);
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+        if (st.st_size <= offset) {
+            BONGOCAT_LOG_ERROR("Failed to open file for mmap, Invalid mmap offset (beyond EOF): fd=%d", fd._fd);
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+
+        return MMapFileContent(bongocat::move(fd), offset);
+    }
+    [[nodiscard]] inline static created_result_t<MMapFileContent> make_allocated_mmap_file_content_open(const char* filename, off_t offset = 0) {
+        int fd = ::open(filename, O_RDONLY);
+        if (fd < 0) {
+            BONGOCAT_LOG_ERROR("Failed to open file for mmap: %s", filename);
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+        // Get file size
+        struct stat st {};
+        if (::fstat(fd, &st) < 0) {
+            BONGOCAT_LOG_ERROR("Failed to open file for mmap: %s", filename);
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+        if (st.st_size <= 0) {
+            BONGOCAT_LOG_ERROR("Failed to open file for mmap, fstat failed on file descriptor: %s", filename);
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+        if (st.st_size <= offset) {
+            BONGOCAT_LOG_ERROR("Failed to open file for mmap, Invalid mmap offset (beyond EOF): %s", filename);
+            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+        }
+
+        return MMapFileContent(FileDescriptor(fd), offset);
     }
 
     struct drain_event_result_t { uint64_t result{0}; int err{0}; };
