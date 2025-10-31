@@ -7,7 +7,7 @@ set -euo pipefail
 PROGRAM="./cmake-build-relwithdebinfo-tsan/bongocat-all"
 #PROGRAM="./build/bongocat-all"
 
-find ./examples -type f -name "*.conf" | while read -r OG_CONFIG; do
+find ./examples -maxdepth 1 -type f -name "*.conf" | while read -r OG_CONFIG; do
   WORKDIR=$(mktemp -d)
   CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
   cp $OG_CONFIG $CONFIG
