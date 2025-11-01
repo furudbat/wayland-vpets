@@ -35,6 +35,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
+echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"

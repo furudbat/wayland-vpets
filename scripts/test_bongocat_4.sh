@@ -8,7 +8,7 @@ PROGRAM="./cmake-build-debug/bongocat-all"
 #PROGRAM="./build/bongocat-all"
 
 echo "[TEST] Starting program (without config)..."
-"$PROGRAM" --watch-config --ignore-running &
+"$PROGRAM" --ignore-running &
 PID=$!
 echo "[TEST] Program PID = $PID"
 sleep 5
@@ -20,6 +20,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
+echo "[INFO] Test Program: ${PROGRAM} (pid=${PID})"
 
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"

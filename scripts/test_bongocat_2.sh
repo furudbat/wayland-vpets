@@ -9,8 +9,9 @@ for group in relwithdebinfo-tsan debug-all-assets-preload debug relwithdebinfo; 
     OG_CONFIG=./examples/test.bongocat.conf
     cp $OG_CONFIG $CONFIG
 
+    echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG ..."
     echo "[TEST] Starting program..."
-    "$PROGRAM" --watch-config --config "$CONFIG" --ignore-running &
+    "$PROGRAM" --config "$CONFIG" --ignore-running &
     PID=$!
     echo "[TEST] Program PID = $PID"
     sleep 5
@@ -19,6 +20,8 @@ for group in relwithdebinfo-tsan debug-all-assets-preload debug relwithdebinfo; 
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID"
     sleep 3
+
+    echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
     # --- trap cleanup ---
     cleanup() {

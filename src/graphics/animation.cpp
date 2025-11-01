@@ -4625,6 +4625,7 @@ namespace bongocat::animation {
                 ctx.shm->anim_index = old_anim_index;
             }
         }
+                    /// @TODO: reload custom sprite sheet, using pre-loaded custom assets makes no sense (needs to tobe more dynamic)
         ctx.shm->animation_player_result.sprite_sheet_col = !ctx._local_copy_config->idle_animation ? ctx._local_copy_config->idle_frame : ctx.shm->animation_player_result.sprite_sheet_col;  // initial frame
 
         [[maybe_unused]] const auto t1 = platform::get_current_time_us();

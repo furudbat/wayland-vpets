@@ -48,7 +48,7 @@ namespace bongocat::animation {
         return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Bongocat;
     }
     [[maybe_unused]] static constexpr bool should_load_dm([[maybe_unused]] const config::config_t& config) {
-        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Dm;
+        return features::EnablePreloadAssets || (config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Dm && config.animation_dm_set != config::config_animation_dm_set_t::None);
     }
     [[maybe_unused]] static constexpr bool should_load_ms_agent([[maybe_unused]] const config::config_t& config) {
         return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::MsAgent;
@@ -57,10 +57,10 @@ namespace bongocat::animation {
         return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Pkmn;
     }
     [[maybe_unused]] static constexpr bool should_load_misc([[maybe_unused]] const config::config_t& config) {
-        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom;
+        return features::EnablePreloadAssets || (config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom && config.animation_custom_set == config::config_animation_custom_set_t::misc);
     }
     [[maybe_unused]] static constexpr bool should_load_custom([[maybe_unused]] const config::config_t& config) {
-        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom;
+        return (features::EnablePreloadAssets && config._custom == 1) || (config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom && config._custom == 1 && config.animation_custom_set == config::config_animation_custom_set_t::custom);
     }
 
     created_result_t<animation_t*> hot_load_animation(animation_context_t& ctx) {
@@ -377,11 +377,13 @@ namespace bongocat::animation {
         }
 
         [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-        /// @TODO: async assets load
-        // Initialize embedded images/animations
+        // Load embedded images/animations
         if constexpr (features::EnableLazyLoadAssets) {
             hot_load_animation(ret->anim);
         }
+
+        /// @TODO: async assets load
+        // Initialize embedded images/animations
         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
             // preload assets
             if constexpr (features::EnableBongocatEmbeddedAssets) {

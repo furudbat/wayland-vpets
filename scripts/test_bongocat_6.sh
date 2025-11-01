@@ -13,7 +13,7 @@ find ./examples -maxdepth 1 -type f -name "*.conf" | while read -r OG_CONFIG; do
   cp $OG_CONFIG $CONFIG
 
   echo "[TEST] Starting program..."
-  "$PROGRAM" --watch-config --config "$CONFIG" --ignore-running --strict &
+  "$PROGRAM" --config "$CONFIG" --ignore-running --strict &
   PID=$!
   echo "[TEST] Program PID = $PID"
   sleep 10
@@ -26,6 +26,9 @@ find ./examples -maxdepth 1 -type f -name "*.conf" | while read -r OG_CONFIG; do
       rm -rf "$WORKDIR"
   }
   trap cleanup EXIT
+
+
+  echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
   echo "[TEST] Sending SIGUSR2..."
   echo "[INFO] Send SIGUSR2"

@@ -20,7 +20,7 @@ if [[ $# -ge 1 ]]; then
     echo "[TEST] Using provided PID = $PID"
 else
     echo "[TEST] Starting program..."
-    "$PROGRAM" --watch-config --config "$CONFIG" --ignore-running --strict &
+    "$PROGRAM" --config "$CONFIG" --ignore-running --strict &
     PID=$!
     echo "[TEST] Program PID = $PID"
     sleep 5
@@ -35,6 +35,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
+  echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
