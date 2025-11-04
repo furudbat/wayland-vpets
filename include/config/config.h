@@ -133,9 +133,9 @@ namespace bongocat::config {
         assets::custom_animation_settings_t custom_sprite_sheet_settings{};
 
         // for keep old index when reload config
-        int32_t _keep_old_animation_index{0};
-        int32_t _strict{0};
-        int32_t _custom{0};                                 // is custom sprite sheet
+        bool _keep_old_animation_index{false};
+        bool _strict{false};
+        bool _custom{false};                                 // is custom sprite sheet
         char *_animation_name{nullptr};                     // original animation_anim from parsing config
 
 
@@ -179,6 +179,7 @@ namespace bongocat::config {
               cat_align(other.cat_align),
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               animation_dm_set(other.animation_dm_set),
+              animation_custom_set(other.animation_custom_set),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
@@ -232,6 +233,7 @@ namespace bongocat::config {
                 cat_align = other.cat_align;
                 animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
                 animation_dm_set = other.animation_dm_set;
+                animation_custom_set = other.animation_custom_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
                 randomize_index = other.randomize_index;
@@ -286,6 +288,7 @@ namespace bongocat::config {
               cat_align(other.cat_align),
               animation_sprite_sheet_layout(other.animation_sprite_sheet_layout),
               animation_dm_set(other.animation_dm_set),
+              animation_custom_set(other.animation_custom_set),
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
@@ -347,6 +350,7 @@ namespace bongocat::config {
                 cat_align = other.cat_align;
                 animation_sprite_sheet_layout = other.animation_sprite_sheet_layout;
                 animation_dm_set = other.animation_dm_set;
+                animation_custom_set = other.animation_custom_set;
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
                 randomize_index = other.randomize_index;

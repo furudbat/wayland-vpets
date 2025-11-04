@@ -369,7 +369,7 @@ namespace bongocat {
             if (old_config.randomize_index && new_config.randomize_index &&
                 old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
                 old_config.animation_dm_set == new_config.animation_dm_set) {
-                new_config._keep_old_animation_index = 1;
+                new_config._keep_old_animation_index = true;
             }
             // If successful, check if input devices changed before updating config
             devices_changed = config_devices_changed(old_config, new_config);
@@ -404,7 +404,7 @@ namespace bongocat {
             }, COND_RELOAD_CONFIG_TIMEOUT_MS);
 
             // reset config internal state
-            get_main_context().config._keep_old_animation_index = 0;
+            get_main_context().config._keep_old_animation_index = false;
             if (timedwait_result != 0) {
                 // fallback when cond hits timeout (sync config generations)
                 if (atomic_load(&get_main_context().input->_capture_input_running)) {

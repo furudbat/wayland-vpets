@@ -4195,10 +4195,9 @@ namespace bongocat::animation {
                     assert(anim_shm.anim_index >= 0);
                     if (static_cast<size_t>(anim_shm.anim_index) == CUSTOM_ANIM_INDEX) {
                         current_animation_result.sprite_sheet_col = current_config.idle_frame;
-                        current_animation_result.sprite_sheet_row = CUSTOM_SPRITE_SHEET_ROW_IDLE;
-                        /// @TODO: get columns from config
+                        current_animation_result.sprite_sheet_row = current_config.custom_sprite_sheet_settings.idle_row_index >= 0 ? current_config.custom_sprite_sheet_settings.idle_row_index : static_cast<int32_t>(CUSTOM_SPRITE_SHEET_ROW_IDLE);
                         state.start_col_index = 0;
-                        state.end_col_index = 0;
+                        state.end_col_index = current_config.custom_sprite_sheet_settings.idle_frames > 0 ? current_config.custom_sprite_sheet_settings.idle_frames-1 : 0;
                         state.row_state = animation_state_row_t::Idle;
                     }
 #endif
@@ -4608,25 +4607,49 @@ namespace bongocat::animation {
     }
 
     static void update_config_reload_sprite_sheet(animation_context_t& ctx) {
+        using namespace assets;
         assert(ctx._local_copy_config != nullptr);
 
         platform::LockGuard guard (ctx.anim_lock);
-        ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
-        ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
         const auto old_anim_index = ctx.shm->anim_index;
-
-        [[maybe_unused]] const auto t0 = platform::get_current_time_us();
+        const auto old_anim_type = ctx.shm->anim_type;
+        const auto old_anim_dm_set = ctx.shm->anim_dm_set;
+        const auto old_anim_custom_set = ctx.shm->anim_custom_set;
 
         ctx.shm->anim_index = !ctx._local_copy_config->_keep_old_animation_index ? rand_animation_index(ctx, *ctx._local_copy_config) : old_anim_index;
+        ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
+        ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
+        ctx.shm->anim_custom_set = ctx._local_copy_config->animation_custom_set;
+
+        [[maybe_unused]] const auto t0 = platform::get_current_time_us();
         if constexpr (features::EnableLazyLoadAssets) {
             auto [result, error] = hot_load_animation(ctx);
             if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
                 // rollback
                 ctx.shm->anim_index = old_anim_index;
+                ctx.shm->anim_type = old_anim_type;
+                ctx.shm->anim_dm_set = old_anim_dm_set;
+                ctx.shm->anim_custom_set = old_anim_custom_set;
+            }
+        } else {
+            if constexpr (features::EnableCustomSpriteSheetsAssets) {
+                if (ctx._local_copy_config->_custom && static_cast<size_t>(ctx.shm->anim_index) == CUSTOM_ANIM_INDEX) {
+                    auto [result, error] = details::anim_load_custom_animation(ctx, *ctx._local_copy_config);
+                    if (error == bongocat_error_t::BONGOCAT_SUCCESS) {
+                        ctx.shm->anim = bongocat::move(result);
+                    } else {
+                        // rollback
+                        ctx.shm->anim_index = old_anim_index;
+                        ctx.shm->anim_type = old_anim_type;
+                        ctx.shm->anim_dm_set = old_anim_dm_set;
+                        ctx.shm->anim_custom_set = old_anim_custom_set;
+                    }
+                }
             }
         }
-                    /// @TODO: reload custom sprite sheet, using pre-loaded custom assets makes no sense (needs to tobe more dynamic)
-        ctx.shm->animation_player_result.sprite_sheet_col = !ctx._local_copy_config->idle_animation ? ctx._local_copy_config->idle_frame : ctx.shm->animation_player_result.sprite_sheet_col;  // initial frame
+
+        ctx.shm->animation_player_result.sprite_sheet_col = ctx._local_copy_config->idle_frame ? ctx._local_copy_config->idle_frame : ctx.shm->animation_player_result.sprite_sheet_col;  // initial frame
+        ctx.shm->animation_player_result.sprite_sheet_row = features::EnableCustomSpriteSheetsAssets && ctx._local_copy_config->_custom && ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index > 0 ? ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index : static_cast<int32_t>(CUSTOM_SPRITE_SHEET_ROW_IDLE);
 
         [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 

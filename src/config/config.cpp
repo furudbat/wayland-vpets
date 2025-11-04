@@ -331,30 +331,35 @@ namespace bongocat::config {
             case config_animation_sprite_sheet_layout_t::Custom:
                 assert(CUSTOM_ANIM_INDEX <= INT_MAX);
                 assert(MAX_MISC_ANIM_INDEX <= INT_MAX);
-                if (features::EnableCustomSpriteSheetsAssets && config.animation_index > static_cast<int>(CUSTOM_ANIM_INDEX)) {
-                    // Validate animation index
-                    if (config.animation_index < 0 || config.animation_index > static_cast<int>(CUSTOM_ANIM_INDEX)) {
-                        BONGOCAT_LOG_WARNING("%s %d out of range [%d], resetting to 0",
-                                             ANIMATION_INDEX_KEY, config.animation_index, CUSTOM_ANIM_INDEX);
-                        config.animation_index = 0;
-                        ret = 9;
+                if constexpr (features::EnableCustomSpriteSheetsAssets) {
+                    if (config._custom) {
+                        // Validate animation index
+                        if (config.animation_index < 0 || config.animation_index > static_cast<int>(CUSTOM_ANIM_INDEX)) {
+                            BONGOCAT_LOG_WARNING("%s %d out of range [%d], resetting to 0",
+                                                 ANIMATION_INDEX_KEY, config.animation_index, CUSTOM_ANIM_INDEX);
+                            config.animation_index = 0;
+                            ret = 9;
+                        }
+                        /// @TODO: validate max (idle) frames
                     }
-                    /// @TODO: validate max (idle) frames
-                } else if (features::EnableMiscEmbeddedAssets) {
-                    // Validate animation index
-                    if (config.animation_index < 0 || config.animation_index > static_cast<int>(MAX_MISC_ANIM_INDEX)) {
-                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                             ANIMATION_INDEX_KEY, config.animation_index, MAX_MISC_ANIM_INDEX);
-                        config.animation_index = 0;
-                        ret = 10;
-                    }
-                    // Validate idle frame
-                    assert(assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
-                    if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MISC_MAX_SPRITE_SHEET_COL_FRAMES)) {
-                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                             IDLE_FRAME_KEY, config.idle_frame, assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES - 1);
-                        config.idle_frame = 0;
-                        ret = 11;
+                }
+                if constexpr (features::EnableMiscEmbeddedAssets) {
+                    if (!config._custom) {
+                        // Validate animation index
+                        if (config.animation_index < 0 || config.animation_index > static_cast<int>(MAX_MISC_ANIM_INDEX)) {
+                            BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                                 ANIMATION_INDEX_KEY, config.animation_index, MAX_MISC_ANIM_INDEX);
+                            config.animation_index = 0;
+                            ret = 10;
+                        }
+                        // Validate idle frame
+                        assert(assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
+                        if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MISC_MAX_SPRITE_SHEET_COL_FRAMES)) {
+                            BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                                 IDLE_FRAME_KEY, config.idle_frame, assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES - 1);
+                            config.idle_frame = 0;
+                            ret = 11;
+                        }
                     }
                 }
                 break;
@@ -574,6 +579,36 @@ namespace bongocat::config {
             config.movement_speed = int_value;
         } else if (strcmp(key, SCREEN_WIDTH_KEY) == 0) {
             config.screen_width = int_value;
+        } else if (strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.idle_frames = int_value;
+        } else if (strcmp(key, CUSTOM_BORING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.boring_frames = int_value;
+        } else if (strcmp(key, CUSTOM_START_WRITING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.start_writing_frames = int_value;
+        } else if (strcmp(key, CUSTOM_WRITING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.writing_frames = int_value;
+        } else if (strcmp(key, CUSTOM_END_WRITING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.end_writing_frames = int_value;
+        } else if (strcmp(key, CUSTOM_HAPPY_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.happy_frames = int_value;
+        } else if (strcmp(key, CUSTOM_ASLEEP_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.asleep_frames = int_value;
+        } else if (strcmp(key, CUSTOM_SLEEP_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.sleep_frames = int_value;
+        } else if (strcmp(key, CUSTOM_WAKE_UP_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.wake_up_frames = int_value;
+        } else if (strcmp(key, CUSTOM_START_WORKING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.start_working_frames = int_value;
+        } else if (strcmp(key, CUSTOM_WORKING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.working_frames = int_value;
+        } else if (strcmp(key, CUSTOM_END_WORKING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.end_working_frames = int_value;
+        } else if (strcmp(key, CUSTOM_START_MOVING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.start_moving_frames = int_value;
+        } else if (strcmp(key, CUSTOM_MOVING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.moving_frames = int_value;
+        } else if (strcmp(key, CUSTOM_END_MOVING_FRAMES_KEY) == 0) {
+            config.custom_sprite_sheet_settings.end_moving_frames = int_value;
         } else {
             return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM; // Unknown key
         }
@@ -917,7 +952,7 @@ namespace bongocat::config {
                     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
                     config.animation_custom_set = config_animation_custom_set_t::custom;
                     animation_found = config.animation_index >= 0;
-                    config._custom = config.animation_index == CUSTOM_ANIM_INDEX ? 1 : 0;
+                    config._custom = config.animation_index == CUSTOM_ANIM_INDEX;
                 }
             }
 
@@ -1103,9 +1138,9 @@ namespace bongocat::config {
         cfg.randomize_index = 0;
         cfg.screen_width = 0;
         cfg.custom_sprite_sheet_settings = {};
-        cfg._keep_old_animation_index = 0;
-        cfg._strict = 0;
-        cfg._custom = 0;
+        cfg._keep_old_animation_index = false;
+        cfg._strict = false;
+        cfg._custom = false;
         cfg.custom_sprite_sheet_filename = nullptr;
         cfg._animation_name = nullptr;
 
@@ -1149,11 +1184,11 @@ namespace bongocat::config {
                 break;
             case config_animation_sprite_sheet_layout_t::Custom:
                 assert(MAX_MISC_ANIM_INDEX <= INT32_MAX);
-                if (config.animation_index <= static_cast<int32_t>(MAX_MISC_ANIM_INDEX)) {
+                if (config.animation_custom_set == config_animation_custom_set_t::misc) {
                     BONGOCAT_LOG_DEBUG("  Misc: %03d/%03d at offset (%d,%d)",
                                        config.animation_index, MAX_MISC_ANIM_INDEX,
                                        config.cat_x_offset, config.cat_y_offset);
-                } else if (config.animation_index == CUSTOM_ANIM_INDEX) {
+                } else if (config.animation_custom_set == config_animation_custom_set_t::custom) {
                     BONGOCAT_LOG_DEBUG("  Custom: %s at offset (%d,%d)", config.custom_sprite_sheet_filename,
                                        config.cat_x_offset, config.cat_y_offset);
                 }
@@ -1198,7 +1233,7 @@ namespace bongocat::config {
             ret.randomize_index = overwrite_parameters.randomize_index ? 1 : 0;
         }
         if (overwrite_parameters.strict >= 0) {
-            ret._strict = overwrite_parameters.strict ? 1 : 0;
+            ret._strict = overwrite_parameters.strict >= 1;
         }
 
         if (ret.input_fps <= 0) {
