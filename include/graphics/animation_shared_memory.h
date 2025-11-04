@@ -7,9 +7,15 @@
 #include "utils/time.h"
 
 namespace bongocat::animation {
+    enum class animation_player_custom_overwrite_mirror_x : uint32_t {
+        None,
+        NoMirror,
+        Mirror
+    };
     struct animation_player_result_t {
         int32_t sprite_sheet_col{0};
         int32_t sprite_sheet_row{0};
+        animation_player_custom_overwrite_mirror_x overwrite_mirror_x{animation_player_custom_overwrite_mirror_x::None};
     };
 
     struct animation_shared_memory_t {

@@ -37,6 +37,7 @@ namespace bongocat::assets {
         Moving = CUSTOM_SPRITE_SHEET_ROW_MOVING,
         EndMoving = CUSTOM_SPRITE_SHEET_ROW_END_MOVING,
     };
+    inline static constexpr size_t CUSTOM_SPRITE_SHEET_MAX_ROWS = 15;
 
     // custom (sprite sheet)
     inline static constexpr char CUSTOM_ID_ARR[] = "custom";
@@ -74,6 +75,7 @@ namespace bongocat::assets {
 
         int32_t feature_toggle_writing_frames{-1};
         int32_t feature_toggle_writing_frames_random{-1};
+        int32_t feature_mirror_x_moving{-1};
 
         // row lines (optional)
         int32_t idle_row_index{-1};
@@ -97,6 +99,57 @@ namespace bongocat::assets {
         int32_t moving_row_index{-1};
         int32_t end_moving_row_index{-1};
     };
+
+    inline int get_custom_animation_settings_rows_count(const custom_animation_settings_t& sprite_sheet_settings) {
+        int sprite_sheet_rows{0};
+
+        // detect sprite sheet rows
+        if (sprite_sheet_settings.idle_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.boring_frames > 0) sprite_sheet_rows++;
+
+        if (sprite_sheet_settings.start_writing_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.writing_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.end_writing_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.happy_frames > 0) sprite_sheet_rows++;
+
+        if (sprite_sheet_settings.asleep_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.sleep_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.wake_up_frames > 0) sprite_sheet_rows++;
+
+        if (sprite_sheet_settings.start_working_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.working_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.end_working_frames > 0) sprite_sheet_rows++;
+
+        if (sprite_sheet_settings.start_moving_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.moving_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.end_moving_frames > 0) sprite_sheet_rows++;
+
+        return sprite_sheet_rows;
+    }
+    inline int get_custom_animation_settings_max_cols(const custom_animation_settings_t& sprite_sheet_settings) {
+        int sprite_sheet_cols = sprite_sheet_settings.idle_frames;
+
+        if (sprite_sheet_settings.boring_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.boring_frames;
+
+        if (sprite_sheet_settings.start_writing_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_writing_frames;
+        if (sprite_sheet_settings.writing_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.writing_frames;
+        if (sprite_sheet_settings.end_writing_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_writing_frames;
+        if (sprite_sheet_settings.happy_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.happy_frames;
+
+        if (sprite_sheet_settings.asleep_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.asleep_frames;
+        if (sprite_sheet_settings.sleep_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.sleep_frames;
+        if (sprite_sheet_settings.wake_up_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.wake_up_frames;
+
+        if (sprite_sheet_settings.start_working_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_working_frames;
+        if (sprite_sheet_settings.working_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.working_frames;
+        if (sprite_sheet_settings.end_working_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_working_frames;
+
+        if (sprite_sheet_settings.start_moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_moving_frames;
+        if (sprite_sheet_settings.moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.moving_frames;
+        if (sprite_sheet_settings.end_moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_moving_frames;
+
+        return sprite_sheet_cols;
+    }
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_CUSTOM_SPRITE_H

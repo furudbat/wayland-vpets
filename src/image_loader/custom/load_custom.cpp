@@ -32,51 +32,8 @@ namespace bongocat::animation {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        int sprite_sheet_cols{0};
-        int sprite_sheet_rows{0};
-
-        // detect sprite sheet cols
-        sprite_sheet_cols = sprite_sheet_settings.idle_frames;
-
-        if (sprite_sheet_settings.boring_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.boring_frames;
-
-        if (sprite_sheet_settings.start_writing_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_writing_frames;
-        if (sprite_sheet_settings.writing_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.writing_frames;
-        if (sprite_sheet_settings.end_writing_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_writing_frames;
-        if (sprite_sheet_settings.happy_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.happy_frames;
-
-        if (sprite_sheet_settings.asleep_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.asleep_frames;
-        if (sprite_sheet_settings.sleep_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.sleep_frames;
-        if (sprite_sheet_settings.wake_up_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.wake_up_frames;
-
-        if (sprite_sheet_settings.start_working_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_working_frames;
-        if (sprite_sheet_settings.working_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.working_frames;
-        if (sprite_sheet_settings.end_working_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_working_frames;
-
-        if (sprite_sheet_settings.start_moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_moving_frames;
-        if (sprite_sheet_settings.moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.moving_frames;
-        if (sprite_sheet_settings.end_moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_moving_frames;
-
-        // detect sprite sheet rows
-        if (sprite_sheet_settings.idle_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.boring_frames > 0) sprite_sheet_rows++;
-
-        if (sprite_sheet_settings.start_writing_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.writing_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.end_writing_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.happy_frames > 0) sprite_sheet_rows++;
-
-        if (sprite_sheet_settings.asleep_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.sleep_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.wake_up_frames > 0) sprite_sheet_rows++;
-
-        if (sprite_sheet_settings.start_working_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.working_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.end_working_frames > 0) sprite_sheet_rows++;
-
-        if (sprite_sheet_settings.start_moving_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.moving_frames > 0) sprite_sheet_rows++;
-        if (sprite_sheet_settings.end_moving_frames > 0) sprite_sheet_rows++;
+        const int sprite_sheet_cols = get_custom_animation_settings_max_cols(sprite_sheet_settings);
+        const int sprite_sheet_rows = get_custom_animation_settings_rows_count(sprite_sheet_settings);
 
         if (sprite_sheet_cols == 0 || sprite_sheet_rows == 0) [[unlikely]] {
             BONGOCAT_LOG_ERROR("Load custom Animation failed, no cols and rows: %s; %i, %i", sprite_sheet_image.name, sprite_sheet_cols, sprite_sheet_rows);
@@ -95,73 +52,103 @@ namespace bongocat::animation {
         ret.frame_height = bongocat::move(result.result.frame_height);
 
         // setup animations
-        {
+        if (sprite_sheet_rows > 0) {
             int row = 0;
 
             if (sprite_sheet_settings.idle_frames > 0) {
                 ret.idle = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.idle_frames-1, .row = sprite_sheet_settings.idle_row_index >= 0 ? sprite_sheet_settings.idle_row_index : row };
+                ret.idle.row = ret.idle.row >= 0 ? ret.idle.row : 0;
+                ret.idle.row = ret.idle.row < sprite_sheet_rows ? ret.idle.row : sprite_sheet_rows-1;
                 row++;
             }
 
             if (sprite_sheet_settings.boring_frames > 0) {
                 ret.boring = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.boring_frames-1, .row = sprite_sheet_settings.boring_row_index >= 0 ? sprite_sheet_settings.boring_row_index : row };
+                ret.boring.row = ret.boring.row >= 0 ? ret.boring.row : 0;
+                ret.boring.row = ret.boring.row < sprite_sheet_rows ? ret.boring.row : sprite_sheet_rows-1;
                 row++;
             }
 
             if (sprite_sheet_settings.start_writing_frames > 0) {
                 ret.start_writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_writing_frames-1, .row = sprite_sheet_settings.start_writing_row_index >= 0 ? sprite_sheet_settings.start_writing_row_index : row };
+                ret.start_writing.row = ret.start_writing.row >= 0 ? ret.start_writing.row : 0;
+                ret.start_writing.row = ret.start_writing.row < sprite_sheet_rows ? ret.start_writing.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.writing_frames > 0) {
                 ret.writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.writing_frames-1, .row = sprite_sheet_settings.writing_row_index >= 0 ? sprite_sheet_settings.writing_row_index : row };
+                ret.writing.row = ret.writing.row >= 0 ? ret.writing.row : 0;
+                ret.writing.row = ret.writing.row < sprite_sheet_rows ? ret.writing.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.end_writing_frames > 0) {
                 ret.end_writing = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_writing_frames-1, .row = sprite_sheet_settings.end_writing_row_index >= 0 ? sprite_sheet_settings.end_writing_row_index : row };
+                ret.end_writing.row = ret.end_writing.row >= 0 ? ret.end_writing.row : 0;
+                ret.end_writing.row = ret.end_writing.row < sprite_sheet_rows ? ret.end_writing.row : sprite_sheet_rows-1;
                 row++;
             }
 
             if (sprite_sheet_settings.happy_frames > 0) {
                 ret.happy = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.happy_frames-1, .row = sprite_sheet_settings.happy_row_index >= 0 ? sprite_sheet_settings.happy_row_index : row };
+                ret.happy.row = ret.happy.row >= 0 ? ret.happy.row : 0;
+                ret.happy.row = ret.happy.row < sprite_sheet_rows ? ret.happy.row : sprite_sheet_rows-1;
                 row++;
             }
 
             if (sprite_sheet_settings.asleep_frames > 0) {
                 ret.fall_asleep = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.asleep_frames-1, .row = sprite_sheet_settings.asleep_row_index >= 0 ? sprite_sheet_settings.asleep_row_index : row };
+                ret.fall_asleep.row = ret.fall_asleep.row >= 0 ? ret.fall_asleep.row : 0;
+                ret.fall_asleep.row = ret.fall_asleep.row < sprite_sheet_rows ? ret.fall_asleep.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.sleep_frames > 0) {
                 ret.sleep = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.sleep_frames-1, .row = sprite_sheet_settings.sleep_row_index >= 0 ? sprite_sheet_settings.sleep_row_index : row };
+                ret.sleep.row = ret.sleep.row >= 0 ? ret.sleep.row : 0;
+                ret.sleep.row = ret.sleep.row < sprite_sheet_rows ? ret.sleep.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.wake_up_frames > 0) {
                 ret.wake_up = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.wake_up_frames-1, .row = sprite_sheet_settings.wake_up_row_index >= 0 ? sprite_sheet_settings.wake_up_row_index : row };
+                ret.wake_up.row = ret.wake_up.row >= 0 ? ret.wake_up.row : 0;
+                ret.wake_up.row = ret.wake_up.row < sprite_sheet_rows ? ret.wake_up.row : sprite_sheet_rows-1;
                 row++;
             }
 
             if (sprite_sheet_settings.start_working_frames > 0) {
                 ret.start_working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_working_frames-1, .row = sprite_sheet_settings.start_working_row_index >= 0 ? sprite_sheet_settings.start_working_row_index : row };
+                ret.start_working.row = ret.start_working.row >= 0 ? ret.start_working.row : 0;
+                ret.start_working.row = ret.start_working.row < sprite_sheet_rows ? ret.start_working.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.working_frames > 0) {
                 ret.working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.working_frames-1, .row = sprite_sheet_settings.working_row_index >= 0 ? sprite_sheet_settings.working_row_index : row };
+                ret.working.row = ret.working.row >= 0 ? ret.working.row : 0;
+                ret.working.row = ret.working.row < sprite_sheet_rows ? ret.working.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.end_working_frames > 0) {
                 ret.end_working = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_working_frames-1, .row = sprite_sheet_settings.end_working_row_index >= 0 ? sprite_sheet_settings.end_working_row_index : row };
+                ret.end_working.row = ret.end_working.row >= 0 ? ret.end_working.row : 0;
+                ret.end_working.row = ret.end_working.row < sprite_sheet_rows ? ret.end_working.row : sprite_sheet_rows-1;
                 row++;
             }
 
             if (sprite_sheet_settings.start_moving_frames > 0) {
                 ret.start_moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_moving_frames-1, .row = sprite_sheet_settings.start_moving_row_index >= 0 ? sprite_sheet_settings.start_moving_row_index : row };
+                ret.start_moving.row = ret.start_moving.row >= 0 ? ret.start_moving.row : 0;
+                ret.start_moving.row = ret.start_moving.row < sprite_sheet_rows ? ret.start_moving.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.moving_frames > 0) {
                 ret.moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.moving_frames-1, .row = sprite_sheet_settings.moving_row_index >= 0 ? sprite_sheet_settings.moving_row_index : row };
+                ret.moving.row = ret.moving.row >= 0 ? ret.moving.row : 0;
+                ret.moving.row = ret.moving.row < sprite_sheet_rows ? ret.moving.row : sprite_sheet_rows-1;
                 row++;
             }
             if (sprite_sheet_settings.end_moving_frames > 0) {
                 ret.end_moving = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_moving_frames-1, .row = sprite_sheet_settings.end_moving_row_index >= 0 ? sprite_sheet_settings.end_moving_row_index : row };
+                ret.end_moving.row = ret.end_moving.row >= 0 ? ret.end_moving.row : 0;
+                ret.end_moving.row = ret.end_moving.row < sprite_sheet_rows ? ret.end_moving.row : sprite_sheet_rows-1;
                 row++;
             }
         }

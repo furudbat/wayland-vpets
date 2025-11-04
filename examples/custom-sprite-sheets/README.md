@@ -67,6 +67,16 @@ Moving feature can be enabled (see config `movement` options).
 ```ini
 # Sprite Sheet Settings
 animation_name=custom
+custom_sprite_sheet_filename=neko.png
+custom_idle_frames=2
+custom_boring_frames=2
+custom_writing_frames=2
+custom_happy_frames=2
+custom_asleep_frames=2
+custom_sleep_frames=2
+custom_wake_up_frames=1
+custom_working_frames=2
+custom_moving_frames=2
 ```
 
 ## skink
@@ -83,6 +93,65 @@ _minimal moving example, frames can vary_
 ```ini
 # Sprite Sheet Settings
 animation_name=custom
+custom_sprite_sheet_filename=skink.png
+custom_idle_frames=2
+custom_moving_frames=4
+```
+
+## Blue witch
+
+[Blue Witch](https://9e0.itch.io/witches-pack) by 9e0
+
+_no writing animation, but with movement and more_
+
+![blue witch sprite sheet](B_witch.png)
+
+- Idle animation (6 frames)
+- Fall asleep animation (12 frames)
+- Sleep animation (1 frames)
+- Wake up animation (12 frames)
+- Working animation (5 frames)
+- Moving animation (8 frames)
+
+```ini
+# Sprite Sheet Settings
+animation_name=custom
+custom_sprite_sheet_filename=witch.png
+custom_idle_frames=6
+custom_asleep_frames=12
+custom_sleep_frames=1
+custom_wake_up_frames=12
+custom_working_frames=5
+custom_moving_frames=8
+custom_mirror_x_moving=1
+```
+
+_flip moving frames so the move direction is correct_
+
+## ferret
+
+[ferret](https://elthen.itch.io/2d-pixel-art-ferret-sprites) by Elthen
+
+![ferret sprite sheet](B_witch.png)
+
+- Idle animation (8 frames)
+- Boring animation (8 frames)
+- Writing animation (8 frames)
+- Sleep animation (8 frames)
+- Working animation (8 frames)
+- Moving animation (8 frames)
+
+```ini
+# Sprite Sheet Settings
+animation_name=custom
+custom_sprite_sheet_filename=ferret.png
+custom_idle_frames=8
+custom_boring_frames=8
+custom_writing_frames=8
+custom_sleep_frames=8
+custom_working_frames=8
+custom_moving_frames=8
+custom_mirror_x_moving=1
 ```
 
 

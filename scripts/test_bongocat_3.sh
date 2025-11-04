@@ -7,37 +7,21 @@ set -euo pipefail
 PROGRAM="./cmake-build-debug/bongocat-all"
 #PROGRAM="./build/bongocat-all"
 
-WORKDIR=$(mktemp -d)
-CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
-OG_CONFIG=./examples/test.bongocat.conf
-cp $OG_CONFIG $CONFIG
-
-if [[ $# -ge 1 ]]; then
-    PID="$1"
-    CONFIG="$2"
-    cp $CONFIG "${CONFIG}.bak"
-    OG_CONFIG="${CONFIG}.bak"
-    echo "[TEST] Using provided PID = $PID"
-else
-    echo "[TEST] Starting program..."
-    "$PROGRAM" --config "$CONFIG" --ignore-running &
-    PID=$!
-    echo "[TEST] Program PID = $PID"
-    sleep 5
-fi
+echo "[TEST] Starting program (without config)..."
+"$PROGRAM" --ignore-running &
+PID=$!
+echo "[TEST] Program PID = $PID"
+sleep 5
 
 # --- trap cleanup ---
 cleanup() {
     echo "[TEST] Cleaning up..."
     kill -9 "$PID" 2>/dev/null || true
-    cp $OG_CONFIG $CONFIG
-    rm -rf "$WORKDIR"
 }
 trap cleanup EXIT
 
-echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
+echo "[INFO] Test Program: ${PROGRAM} (pid=${PID})"
 
-sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
@@ -52,27 +36,6 @@ kill -USR2 "$PID"
 kill -USR2 "$PID"
 sleep 7
 
-echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
-sleep 2
-
-# --- modify config to trigger hot reload ---
-echo "[TEST] Invalid animation sprite"
-echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=.*/animation_name=NoNo/' "$CONFIG"
-sleep 5
-
-echo "[TEST] Sending SIGUSR1..."
-echo "[INFO] Send SIGUSR1"
-kill -USR1 "$PID"
-sleep 1
-echo "[INFO] Send SIGUSR1"
-kill -USR1 "$PID"
-sleep 1
-
-echo "[INFO] Set animation_name..."
-sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
-sleep 2
 
 # --- verify running ---
 if kill -0 "$PID" 2>/dev/null; then
@@ -83,7 +46,7 @@ else
 fi
 
 # --- send SIGTERM ---
-echo "[INFO] Sending SIGTERM..."
+echo "[TEST] Sending SIGTERM..."
 kill -TERM "$PID"
 sleep 10
 echo "[INFO] Wait for TERM"

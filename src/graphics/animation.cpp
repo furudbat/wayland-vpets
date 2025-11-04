@@ -2900,12 +2900,23 @@ namespace bongocat::animation {
             new_state.row_state = new_row_state;
             new_animation_result.sprite_sheet_row = section->row;
             new_animation_result.sprite_sheet_col = section->start_col;
+            new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::None;
             if (new_state.row_state == animation_state_row_t::Idle) {
                 assert(current_frames.idle.end_col >= 0);
                 if (current_config.idle_frame) {
                     new_animation_result.sprite_sheet_col = current_config.idle_frame % (current_frames.idle.end_col+1);
                 }
+            } else if (new_state.row_state == animation_state_row_t::StartMoving || new_state.row_state == animation_state_row_t::Moving || new_state.row_state == animation_state_row_t::EndMoving) {
+                // flip movement frame when configured
+                if (current_config.custom_sprite_sheet_settings.feature_mirror_x_moving >= 0) {
+                    if (current_config.custom_sprite_sheet_settings.feature_mirror_x_moving == 1) {
+                        new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::Mirror;
+                    } else if (current_config.custom_sprite_sheet_settings.feature_mirror_x_moving == 0) {
+                        new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::NoMirror;
+                    }
+                }
             }
+
             ret.row_state = new_state.row_state;
             ret.status = anim_custom_process_animation_result_status_t::Started;
         }
@@ -2986,10 +2997,20 @@ namespace bongocat::animation {
             new_state.row_state = new_row_state;
             new_animation_result.sprite_sheet_row = section->row;
             new_animation_result.sprite_sheet_col = section->start_col;
+            new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::None;
             if (new_state.row_state == animation_state_row_t::Idle) {
                 assert(current_frames.idle.end_col >= 0);
                 if (current_config.idle_frame) {
                     new_animation_result.sprite_sheet_col = current_config.idle_frame % (current_frames.idle.end_col+1);
+                }
+            } else if (new_state.row_state == animation_state_row_t::StartMoving || new_state.row_state == animation_state_row_t::Moving || new_state.row_state == animation_state_row_t::EndMoving) {
+                // flip movement frame when configured
+                if (current_config.custom_sprite_sheet_settings.feature_mirror_x_moving >= 0) {
+                    if (current_config.custom_sprite_sheet_settings.feature_mirror_x_moving == 1) {
+                        new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::Mirror;
+                    } else if (current_config.custom_sprite_sheet_settings.feature_mirror_x_moving == 0) {
+                        new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::NoMirror;
+                    }
                 }
             }
             ret.row_state = new_state.row_state;

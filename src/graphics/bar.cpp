@@ -518,7 +518,12 @@ namespace bongocat::animation {
                           blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
     }
 
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const custom_sprite_sheet_t& sheet, int col, int row) {
+    enum class draw_sprite_overwrite_option_t : uint32_t {
+        None = 0,
+        MovementNoMirror = (1 << 0),
+        MovementMirror = (1 << 1),
+    };
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const custom_sprite_sheet_t& sheet, int col, int row, draw_sprite_overwrite_option_t overwrite_option = draw_sprite_overwrite_option_t::None) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -580,26 +585,35 @@ namespace bongocat::animation {
         if (current_config.invert_color) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
         }
-        if (anim_shm.anim_direction >= 1.0f) {
-            if (!current_config.mirror_x) {
-                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
-            }
-        } else {
-            if (current_config.mirror_x) {
-                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
-            }
-        }
         if (current_config.mirror_y) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
         }
         if (current_config.enable_antialiasing) {
             drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
         }
-        /*
-        if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
-            drawing_option = flag_add(drawing_option, extra_drawing_option);
+        switch (overwrite_option) {
+            case draw_sprite_overwrite_option_t::None:
+                if (anim_shm.anim_direction >= 1.0f) {
+                    if (!current_config.mirror_x) {
+                        drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                    }
+                } else {
+                    if (current_config.mirror_x) {
+                        drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                    }
+                }
+                break;
+            case draw_sprite_overwrite_option_t::MovementNoMirror:
+                if (anim_shm.anim_direction >= 1.0f) {
+                    drawing_option = flag_remove(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+                break;
+            case draw_sprite_overwrite_option_t::MovementMirror:
+                if (anim_shm.anim_direction < 0.0f) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+                break;
         }
-        */
 
         blit_image_scaled(pixels, pixels_size,
                           wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
@@ -744,7 +758,18 @@ namespace bongocat::animation {
                             const animation_t& custom_anim = get_current_animation(anim);
                             assert(custom_anim.type == animation_t::Type::Custom);
                             const custom_sprite_sheet_t& sheet = custom_anim.custom;
-                            draw_sprite(ctx, sheet, col, row);
+                            draw_sprite_overwrite_option_t overwrite_mirror_x {draw_sprite_overwrite_option_t::None};
+                            switch (anim_shm.animation_player_result.overwrite_mirror_x) {
+                                case animation_player_custom_overwrite_mirror_x::None:
+                                    break;
+                                case animation_player_custom_overwrite_mirror_x::NoMirror:
+                                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementNoMirror;
+                                    break;
+                                case animation_player_custom_overwrite_mirror_x::Mirror:
+                                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
+                                    break;
+                            }
+                            draw_sprite(ctx, sheet, col, row, overwrite_mirror_x);
                         } else if (features::EnableMiscEmbeddedAssets) {
                             if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                                 assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.misc_anims.count);
