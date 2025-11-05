@@ -3,12 +3,20 @@
 All notable changes to this project will be documented in this file.
 
 
+## [3.3.0] - 2025-11-05
+
+### Added
+- **Custom Sprite Sheets** - load custom sprite sheet
+  - [Examples](./examples)
+
+### Fixed
+- fix pre-loading pen/pen20
+
 ## [3.2.3] - 2025-10-30
 
 ### Added
 - **Add NEW sprite sheet set** - misc
   - [neko](https://github.com/eliot-akira/neko?tab=readme-ov-file#readme)
-
 
 ## [3.2.2] - 2025-10-23
 

@@ -1,7 +1,7 @@
 # Custom Sprite Sheets
 
-Custom and misc sprite sheets, each row is a full animation.
-Number of frames needs to be provided per row.
+Custom sprite sheets has a full animation per row.
+To determine the number of rows, the number of frames needs to be provided per row.
 
 - `Idle` -- Idle Pose
 - `Boring` -- Boring animation for inactivity
@@ -19,7 +19,7 @@ Number of frames needs to be provided per row.
 - `Moving` -- Moving (looping)
 - `EndMoving` -- Stop moving
 
-Rows can be skipped by not providing the columns, but order needs to be the same.
+Rows can be skipped by not providing the frames/columns, but the order of the rows needs to be the same.
 
 
 ## General Example
@@ -42,12 +42,12 @@ Rows can be skipped by not providing the columns, but order needs to be the same
 - Wake Up = 1 frame
 - Moving = 2 frame
 
-`Idle` and `Writing` should be required.
-No `StartWriting` and `EndWriting` animation are played when start typing, directly start the `Writing` animation.
+`Idle`, `Writing`, `Sleeping` and `Moving` animations are set.
+No `StartWriting` and `EndWriting` animation are provided when start typing, directly play the `Writing` animation.
 `Sleeping` and `Wake Up` animation are provided so "Sleeping Mode" feature can be used.
 If rows and animations are missing, some features can't be used, for example Working feature is disabled.
 `Boring` animation are played after inactivity and before going to sleep.
-Moving feature can be enabled (see config `movement` options).
+`Moving` feature available and can can be enabled with moving options (see config `movement` options).
 
 
 ## Neko
@@ -104,7 +104,7 @@ custom_moving_frames=4
 
 _no writing animation, but with movement and more_
 
-![blue witch sprite sheet](B_witch.png)
+![blue witch sprite sheet](witch.png)
 
 - Idle animation (6 frames)
 - Fall asleep animation (12 frames)
@@ -132,7 +132,7 @@ _flip moving frames so the move direction is correct_
 
 [ferret](https://elthen.itch.io/2d-pixel-art-ferret-sprites) by Elthen
 
-![ferret sprite sheet](B_witch.png)
+![ferret sprite sheet](ferret.png)
 
 - Idle animation (8 frames)
 - Boring animation (8 frames)
