@@ -1,3 +1,7 @@
+add_library(assets_custom_sprite_sheet_feature INTERFACE)
+target_compile_definitions(assets_custom_sprite_sheet_feature INTERFACE FEATURE_CUSTOM_SPRITE_SHEETS)
+target_link_libraries(assets_custom_sprite_sheet_feature INTERFACE assets_custom_loader)
+
 # base options for all execs
 add_library(bongocat_options INTERFACE)
 if (FEATURE_DISABLE_LOGGER)
@@ -8,7 +12,11 @@ if (FEATURE_PRELOAD_ASSETS)
 endif()
 if (FEATURE_LAZY_LOAD_ASSETS)
     target_compile_definitions(bongocat_options INTERFACE FEATURE_LAZY_LOAD_ASSETS)
-endif ()
+endif()
+if (FEATURE_CUSTOM_SPRITE_SHEETS)
+    target_compile_definitions(bongocat_options INTERFACE FEATURE_CUSTOM_SPRITE_SHEETS)
+    target_link_libraries(bongocat_options INTERFACE assets_custom_sprite_sheet_feature assets_custom_loader)
+endif()
 target_link_libraries(bongocat_options INTERFACE project_warnings project_options project_sanitizers)
 target_compile_options(bongocat_options INTERFACE
     $<$<COMPILE_LANGUAGE:C>:-fstack-protector-strong>
@@ -111,4 +119,5 @@ add_subdirectory(embedded_assets/dmall)
 add_subdirectory(embedded_assets/min_dm)
 add_subdirectory(embedded_assets/ms_agent)
 add_subdirectory(embedded_assets/pkmn)
+add_subdirectory(embedded_assets/misc)
 add_subdirectory(image_loader)

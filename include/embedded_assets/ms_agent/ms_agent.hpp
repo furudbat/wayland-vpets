@@ -108,10 +108,10 @@ namespace bongocat::assets {
 
     inline static constexpr size_t MS_AGENTS_ANIM_COUNT = 4;
     /// @TODO: determine the biggest cols from MS agents
-    inline static constexpr size_t MAX_SPRITE_SHEET_COL_FRAMES = ROVER_SPRITE_SHEET_COLS;
+    inline static constexpr size_t MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES = ROVER_SPRITE_SHEET_COLS;
 #else
     inline static constexpr size_t MS_AGENTS_ANIM_COUNT = 1;
-    inline static constexpr size_t MAX_SPRITE_SHEET_COL_FRAMES = CLIPPY_SPRITE_SHEET_COLS;
+    inline static constexpr size_t MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES = CLIPPY_SPRITE_SHEET_COLS;
 #endif
 }
 

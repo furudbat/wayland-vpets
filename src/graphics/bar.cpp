@@ -8,6 +8,11 @@
 #include <wayland-client.h>
 #include <cassert>
 
+#include "embedded_assets/bongocat/bongocat.h"
+#include "embedded_assets/misc/misc.hpp"
+#include "graphics/embedded_assets_dms.h"
+#include "graphics/embedded_assets_pkmn.h"
+
 namespace bongocat::animation {
     inline static uint32_t DEFAULT_FILL_COLOR = 0x00000000; // ARGB
     inline static uint32_t DEBUG_MOVEMENT_BAR_COLOR = 0xFFFF0000; // ARGB
@@ -81,7 +86,9 @@ namespace bongocat::animation {
         int height;
     };
 
-    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const generic_sprite_sheet_t& sheet, const config::config_t& config) {
+    template<class SpriteSheet>
+    /// @TODO: required SpriteSheet must be _sprite_sheet_t
+    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const SpriteSheet& sheet, const config::config_t& config) {
         const int cat_height = config.cat_height;
         const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
 
@@ -104,31 +111,10 @@ namespace bongocat::animation {
 
         return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
     }
-    cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const ms_agent_sprite_sheet_t& sheet, const config::config_t& config) {
-        const int cat_height = config.cat_height;
-        const int cat_width  = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
 
-        int cat_x = 0;
-        switch (config.cat_align) {
-            case config::align_type_t::ALIGN_CENTER:
-                cat_x = (wayland_ctx._screen_width - cat_width) / 2 + config.cat_x_offset;
-                break;
-            case config::align_type_t::ALIGN_LEFT:
-                cat_x = config.cat_x_offset;
-                break;
-            case config::align_type_t::ALIGN_RIGHT:
-                cat_x = wayland_ctx._screen_width - cat_width - config.cat_x_offset;
-                break;
-            default:
-                BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", config.cat_align);
-                break;
-        }
-        const int cat_y = (wayland_ctx._bar_height - cat_height) / 2 + config.cat_y_offset;
-
-        return { .x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height };
-    }
-
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const generic_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+    /// @TODO: make draw_sprite more generic (template?)
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const bongocat_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+        using namespace assets;
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -142,7 +128,6 @@ namespace bongocat::animation {
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
-        const int frame_index = anim_shm.animation_player_result.sprite_sheet_col;
 
         assert(wayland_ctx_shm->current_buffer_index >= 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
@@ -152,10 +137,272 @@ namespace bongocat::animation {
         uint8_t *pixels = shm_buffer->pixels.data;
         const size_t pixels_size = shm_buffer->pixels._size_bytes;
 
-        assert(frame_index >= 0 && static_cast<size_t>(frame_index) < MAX_NUM_FRAMES);
-        const sprite_sheet_animation_frame_t* region = sheet.frames[frame_index].valid
-                    ? &sheet.frames[frame_index]
-                    : nullptr;
+        const sprite_sheet_animation_frame_t* region = nullptr;
+        switch (anim_shm.animation_player_result.sprite_sheet_col) {
+            case BONGOCAT_FRAME_BOTH_UP:
+                region = &sheet.both_up;
+                break;
+            case BONGOCAT_FRAME_LEFT_DOWN:
+                region = &sheet.left_down;
+                break;
+            case BONGOCAT_FRAME_RIGHT_DOWN:
+                region = &sheet.right_down;
+                break;
+            case BONGOCAT_FRAME_BOTH_DOWN:
+                region = &sheet.both_down;
+                break;
+            default:
+                assert(anim_shm.animation_player_result.sprite_sheet_col >= 0 && static_cast<size_t>(anim_shm.animation_player_result.sprite_sheet_col) < BONGOCAT_SPRITE_SHEET_COLS);
+                break;
+        }
+
+        auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+        auto cat_x_with_offset  = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
+
+        if (region) {
+            // draw debug rectangle
+            if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+                cat_rect_t movement_debug_bar{};
+                switch (current_config.cat_align) {
+                    case config::align_type_t::ALIGN_CENTER:
+                        movement_debug_bar = { .x = cat_x + cat_width/2 - current_config.movement_radius, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                    case config::align_type_t::ALIGN_LEFT:
+                        movement_debug_bar = { .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                    case config::align_type_t::ALIGN_RIGHT:
+                        movement_debug_bar = { .x = cat_x + cat_width - current_config.movement_radius*2, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                }
+
+                const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+                const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
+                const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR & (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u)); // RGBA, little-endian
+                auto *p = reinterpret_cast<uint32_t *>(pixels);
+                assert(wayland_ctx._screen_width >= 0);
+                [[maybe_unused]] const size_t total_pixels = static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+                for (int32_t y = movement_debug_bar.y;y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+                    for (int32_t x = movement_debug_bar.x;x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+                        if (x >= 0 && y >= 0) {
+                            size_t pi = static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+                            assert(pi < total_pixels);
+                            p[pi] = fill;
+                        }
+                    }
+                }
+            }
+
+            blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
+            if (current_config.invert_color) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
+            }
+            if (anim_shm.anim_direction >= 1.0f) {
+                if (!current_config.mirror_x) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+            } else {
+                if (current_config.mirror_x) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+            }
+            if (current_config.mirror_y) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
+            }
+            if (current_config.enable_antialiasing) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
+            }
+            if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
+                drawing_option = flag_add(drawing_option, extra_drawing_option);
+            }
+
+            blit_image_scaled(pixels, pixels_size,
+                              wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+                              sheet.image.pixels.data, sheet.image.pixels._size_bytes,  sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height, sheet.image.channels,
+                              region->col * sheet.frame_width, region->row * sheet.frame_height,
+                              sheet.frame_width, sheet.frame_height,
+                              cat_x_with_offset, cat_y, cat_width, cat_height,
+                              blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
+        }
+    }
+
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const dm_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+        using namespace assets;
+        if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
+            return;
+        }
+
+        platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+        animation_context_t& anim = ctx.animation_trigger_context->anim;
+        //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+
+        assert(wayland_ctx._local_copy_config != nullptr);
+        assert(anim.shm != nullptr);
+        const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
+        const animation_shared_memory_t& anim_shm = *anim.shm;
+
+        assert(wayland_ctx_shm->current_buffer_index >= 0);
+        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
+        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
+        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
+
+        uint8_t *pixels = shm_buffer->pixels.data;
+        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+
+        const sprite_sheet_animation_frame_t* region = nullptr;
+        switch (anim_shm.animation_player_result.sprite_sheet_col) {
+            case DM_FRAME_IDLE1:
+                region = &sheet.frames.idle_1;
+                break;
+            case DM_FRAME_IDLE2:
+                region = &sheet.frames.idle_2;
+                break;
+            case DM_FRAME_ANGRY:
+                region = &sheet.frames.angry;
+                break;
+            case DM_FRAME_DOWN1:
+                region = &sheet.frames.down_1;
+                break;
+            case DM_FRAME_HAPPY:
+                region = &sheet.frames.happy;
+                break;
+            case DM_FRAME_EAT1:
+                region = &sheet.frames.eat_1;
+                break;
+            case DM_FRAME_SLEEP1:
+                region = &sheet.frames.sleep_1;
+                break;
+            case DM_FRAME_REFUSE:
+                region = &sheet.frames.refuse;
+                break;
+            case DM_FRAME_SAD:
+                region = &sheet.frames.sad;
+                break;
+            case DM_FRAME_DOWN2:
+                region = &sheet.frames.down_2;
+                break;
+            case DM_FRAME_EAT2:
+                region = &sheet.frames.eat_2;
+                break;
+            case DM_FRAME_SLEEP2:
+                region = &sheet.frames.sleep_2;
+                break;
+            case DM_FRAME_ATTACK:
+                region = &sheet.frames.attack_1;
+                break;
+            case DM_FRAME_MOVEMENT1:
+                region = &sheet.frames.movement_1;
+                break;
+            case DM_FRAME_MOVEMENT2:
+                region = &sheet.frames.movement_2;
+                break;
+            default:
+                assert(anim_shm.animation_player_result.sprite_sheet_col >= 0 && static_cast<size_t>(anim_shm.animation_player_result.sprite_sheet_col) < DM_SPRITE_SHEET_MAX_COLS);
+                break;
+        }
+
+        auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+        auto cat_x_with_offset  = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
+
+        if (region) {
+            // draw debug rectangle
+            if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+                cat_rect_t movement_debug_bar{};
+                switch (current_config.cat_align) {
+                    case config::align_type_t::ALIGN_CENTER:
+                        movement_debug_bar = { .x = cat_x + cat_width/2 - current_config.movement_radius, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                    case config::align_type_t::ALIGN_LEFT:
+                        movement_debug_bar = { .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                    case config::align_type_t::ALIGN_RIGHT:
+                        movement_debug_bar = { .x = cat_x + cat_width - current_config.movement_radius*2, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                        break;
+                }
+
+                const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+                const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
+                const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR & (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u)); // RGBA, little-endian
+                auto *p = reinterpret_cast<uint32_t *>(pixels);
+                assert(wayland_ctx._screen_width >= 0);
+                [[maybe_unused]] const size_t total_pixels = static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+                for (int32_t y = movement_debug_bar.y;y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+                    for (int32_t x = movement_debug_bar.x;x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+                        if (x >= 0 && y >= 0) {
+                            size_t pi = static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+                            assert(pi < total_pixels);
+                            p[pi] = fill;
+                        }
+                    }
+                }
+            }
+
+            blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
+            if (current_config.invert_color) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
+            }
+            if (anim_shm.anim_direction >= 1.0f) {
+                if (!current_config.mirror_x) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+            } else {
+                if (current_config.mirror_x) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+            }
+            if (current_config.mirror_y) {
+                drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
+            }
+            if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
+                drawing_option = flag_add(drawing_option, extra_drawing_option);
+            }
+
+            blit_image_scaled(pixels, pixels_size,
+                              wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+                              sheet.image.pixels.data, sheet.image.pixels._size_bytes,  sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height, sheet.image.channels,
+                              region->col * sheet.frame_width, region->row * sheet.frame_height,
+                              sheet.frame_width, sheet.frame_height,
+                              cat_x_with_offset, cat_y, cat_width, cat_height,
+                              blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
+        }
+    }
+
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const pkmn_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+        using namespace assets;
+        if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
+            return;
+        }
+
+        platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+        animation_context_t& anim = ctx.animation_trigger_context->anim;
+        //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+
+        assert(wayland_ctx._local_copy_config != nullptr);
+        assert(anim.shm != nullptr);
+        const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
+        const animation_shared_memory_t& anim_shm = *anim.shm;
+
+        assert(wayland_ctx_shm->current_buffer_index >= 0);
+        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
+        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
+        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
+
+        uint8_t *pixels = shm_buffer->pixels.data;
+        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+
+        const sprite_sheet_animation_frame_t* region = nullptr;
+        switch (anim_shm.animation_player_result.sprite_sheet_col) {
+            case PKMN_FRAME_IDLE1:
+                region = &sheet.idle_1;
+                break;
+            case PKMN_FRAME_IDLE2:
+                region = &sheet.idle_2;
+                break;
+            default:
+                assert(anim_shm.animation_player_result.sprite_sheet_col >= 0 && static_cast<size_t>(anim_shm.animation_player_result.sprite_sheet_col) < PKMN_SPRITE_SHEET_COLS);
+                break;
+        }
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
         auto cat_x_with_offset  = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
@@ -271,6 +518,112 @@ namespace bongocat::animation {
                           blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
     }
 
+    enum class draw_sprite_overwrite_option_t : uint32_t {
+        None = 0,
+        MovementNoMirror = (1 << 0),
+        MovementMirror = (1 << 1),
+    };
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, const custom_sprite_sheet_t& sheet, int col, int row, draw_sprite_overwrite_option_t overwrite_option = draw_sprite_overwrite_option_t::None) {
+        if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
+            return;
+        }
+
+        platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+        animation_context_t& anim = ctx.animation_trigger_context->anim;
+        //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+
+        assert(wayland_ctx._local_copy_config != nullptr);
+        assert(anim.shm != nullptr);
+        const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
+        const animation_shared_memory_t& anim_shm = *anim.shm;
+
+        assert(wayland_ctx_shm->current_buffer_index >= 0);
+        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
+        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
+        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
+
+        uint8_t *pixels = shm_buffer->pixels.data;
+        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+
+        auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+        auto cat_x_with_offset  = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
+
+        // draw debug rectangle
+        if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+            cat_rect_t movement_debug_bar{};
+            switch (current_config.cat_align) {
+                case config::align_type_t::ALIGN_CENTER:
+                    movement_debug_bar = { .x = cat_x + cat_width/2 - current_config.movement_radius, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                    break;
+                case config::align_type_t::ALIGN_LEFT:
+                    movement_debug_bar = { .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                    break;
+                case config::align_type_t::ALIGN_RIGHT:
+                    movement_debug_bar = { .x = cat_x + cat_width - current_config.movement_radius*2, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height };
+                    break;
+            }
+
+            const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+            const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
+            const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR & (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u)); // RGBA, little-endian
+            auto *p = reinterpret_cast<uint32_t *>(pixels);
+            assert(wayland_ctx._screen_width >= 0);
+            [[maybe_unused]] const size_t total_pixels = static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+            for (int32_t y = movement_debug_bar.y;y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+                for (int32_t x = movement_debug_bar.x;x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+                    if (x >= 0 && y >= 0) {
+                        size_t pi = static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+                        assert(pi < total_pixels);
+                        p[pi] = fill;
+                    }
+                }
+            }
+        }
+
+        blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
+        if (current_config.invert_color) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
+        }
+        if (current_config.mirror_y) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
+        }
+        if (current_config.enable_antialiasing) {
+            drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
+        }
+        switch (overwrite_option) {
+            case draw_sprite_overwrite_option_t::None:
+                if (anim_shm.anim_direction >= 1.0f) {
+                    if (!current_config.mirror_x) {
+                        drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                    }
+                } else {
+                    if (current_config.mirror_x) {
+                        drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                    }
+                }
+                break;
+            case draw_sprite_overwrite_option_t::MovementNoMirror:
+                if (anim_shm.anim_direction >= 1.0f) {
+                    drawing_option = flag_remove(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+                break;
+            case draw_sprite_overwrite_option_t::MovementMirror:
+                if (anim_shm.anim_direction < 0.0f) {
+                    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
+                }
+                break;
+        }
+
+        blit_image_scaled(pixels, pixels_size,
+                          wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+                          sheet.image.pixels.data, sheet.image.pixels._size_bytes,  sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height, sheet.image.channels,
+                          col * sheet.frame_width, row * sheet.frame_height,
+                          sheet.frame_width, sheet.frame_height,
+                          cat_x_with_offset, cat_y, cat_width, cat_height,
+                          blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
+    }
+
     bool draw_bar(platform::wayland::wayland_session_t& ctx) {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         animation_context_t& anim = ctx.animation_trigger_context->anim;
@@ -337,7 +690,8 @@ namespace bongocat::animation {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.bongocat_anims.count);
                         }
                         const animation_t& cat_anim = get_current_animation(anim);
-                        const generic_sprite_sheet_t& sheet = cat_anim.sprite_sheet;
+                        assert(cat_anim.type == animation_t::Type::Bongocat);
+                        const bongocat_sprite_sheet_t& sheet = cat_anim.bongocat;
                         draw_sprite(ctx, sheet, current_config.enable_antialiasing ? blit_image_color_option_flags_t::BilinearInterpolation : blit_image_color_option_flags_t::Normal);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
@@ -372,15 +726,17 @@ namespace bongocat::animation {
                             }
                         }
                         const animation_t& dm_anim = get_current_animation(anim);
-                        const generic_sprite_sheet_t& sheet = dm_anim.sprite_sheet;
+                        assert(dm_anim.type == animation_t::Type::Dm);
+                        const dm_sprite_sheet_t& sheet = dm_anim.dm;
                         draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Pkmn: {
                         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pkmn_anims.count);
                         }
-                        const animation_t& cat_anim = get_current_animation(anim);
-                        const generic_sprite_sheet_t& sheet = cat_anim.sprite_sheet;
+                        const animation_t& pkmn_anim = get_current_animation(anim);
+                        assert(pkmn_anim.type == animation_t::Type::Pkmn);
+                        const auto& sheet = pkmn_anim.pkmn;
                         draw_sprite(ctx, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
@@ -388,10 +744,41 @@ namespace bongocat::animation {
                             assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.ms_anims.count);
                         }
                         const animation_t& ms_anim = get_current_animation(anim);
+                        assert(ms_anim.type == animation_t::Type::MsAgent);
                         const ms_agent_sprite_sheet_t& sheet = ms_anim.ms_agent;
                         const int col = anim_shm.animation_player_result.sprite_sheet_col;
                         const int row = anim_shm.animation_player_result.sprite_sheet_row;
                         draw_sprite(ctx, sheet, col, row);
+                    }break;
+                    case config::config_animation_sprite_sheet_layout_t::Custom:{
+                        const int col = anim_shm.animation_player_result.sprite_sheet_col;
+                        const int row = anim_shm.animation_player_result.sprite_sheet_row;
+                        assert(anim_shm.anim_index >= 0);
+                        if (features::EnableCustomSpriteSheetsAssets && anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) == assets::CUSTOM_ANIM_INDEX) {
+                            const animation_t& custom_anim = get_current_animation(anim);
+                            assert(custom_anim.type == animation_t::Type::Custom);
+                            const custom_sprite_sheet_t& sheet = custom_anim.custom;
+                            draw_sprite_overwrite_option_t overwrite_mirror_x {draw_sprite_overwrite_option_t::None};
+                            switch (anim_shm.animation_player_result.overwrite_mirror_x) {
+                                case animation_player_custom_overwrite_mirror_x::None:
+                                    break;
+                                case animation_player_custom_overwrite_mirror_x::NoMirror:
+                                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementNoMirror;
+                                    break;
+                                case animation_player_custom_overwrite_mirror_x::Mirror:
+                                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
+                                    break;
+                            }
+                            draw_sprite(ctx, sheet, col, row, overwrite_mirror_x);
+                        } else if (features::EnableMiscEmbeddedAssets) {
+                            if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+                                assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.misc_anims.count);
+                            }
+                            const animation_t& custom_anim = get_current_animation(anim);
+                            assert(custom_anim.type == animation_t::Type::Custom);
+                            const custom_sprite_sheet_t& sheet = custom_anim.custom;
+                            draw_sprite(ctx, sheet, col, row);
+                        }
                     }break;
                 }
             } else {

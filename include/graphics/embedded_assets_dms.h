@@ -123,10 +123,11 @@ namespace bongocat::assets {
     static inline constexpr int DM_FRAME_MOVEMENT1 = 13;
     static inline constexpr int DM_FRAME_MOVEMENT2 = 14;
 
-    static inline constexpr int DM_HAPPY_CHANCE_PERCENT = 60;
-
+    inline static constexpr size_t DM_SPRITE_SHEET_MAX_COLS = 15;
     inline static constexpr size_t DM_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM_SPRITE_SHEET_ROW = 0;
+
+    static inline constexpr int DM_HAPPY_CHANCE_PERCENT = 60;
 }
 
 #endif

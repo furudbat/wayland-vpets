@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.2.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.3.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
@@ -28,6 +28,7 @@ _Pokemon_
   - Digimon V-Pets 🦖 (v1.3.0)
   - Clippy 📎 (v2.1.0)
   - Pokemon 🐭 (v3.0.0)
+  - Misc 🐈‍⬛ (v3.2.2)
 - **🎯 Real-time Animation** - Bongo cat reacts instantly to keyboard input
 - **🔥 Hot-Reload Configuration** - Modify settings without restarting (v1.2.0)
 - **🔄 Dynamic Device Detection** - Automatically detects Bluetooth/USB keyboards (v1.2.0)
@@ -46,6 +47,7 @@ _Pokemon_
 - **🎲 Random Frame** - Randomize sprite frame at start up (Digimon) (v2.4.0)
 - **🔲 CPU Stat** - React to CPU usage (Digimon) (v3.1.0)
 - **↔️ Movement** - Movement on screen (Digimon) (v3.2.0)
+- **🔢 Custom Sprite-Sheet** - Load your own Sprite Sheet at runtime (v3.3.0)
 
 ## 🏁 Getting Started
 
@@ -316,6 +318,7 @@ See man pages for more details and full list:
  - [Bongocat 😺](docs/fragments/set-bongocat.md)
  - [MS Agent 📎](docs/fragments/set-ms-agent.md) Clippy and friends
  - [Pokemon 🐭](docs/fragments/set-pkmn.md) up to Gen. 7
+ - [Misc 🐈‍⬛](docs/fragments/set-misc.md)
 
 ##### Digimon 🦖
 
@@ -328,6 +331,49 @@ See man pages for more details and full list:
 
 _If you build with ALL assets included you can void naming conflicts by using the full name: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`_
 
+
+#### Custom Sprite Sheet (`custom_...`)
+
+| **Key**                               | **Type** | **Range / Example** | **Default**       | **Description**                                                                      |
+| ------------------------------------- | -------- |---------------------|-------------------|--------------------------------------------------------------------------------------|
+| `animation_name`                      | String   | `"custom"`          |                   | Must be `"custom"` for custom-options to work                                        |
+| `custom_sprite_sheet_filename`        | String   | Path to image file  |                   | Path to the custom sprite sheet image (**must be png**)                              |
+| `custom_idle_frames`                  | Integer  | 1-500               | 0 (disabled)      | Number of frames for idle animation                                                  |
+| `custom_boring_frames`                | Integer  | 1-500               | 0 (disabled)      | Number of frames for boring animation                                                |
+| `custom_start_writing_frames`         | Integer  | 1-500               | 0 (disabled)      | Number of frames for start writing animation                                         |
+| `custom_writing_frames`               | Integer  | 1-500               | 0 (disabled)      | Number of frames for writing animation                                               |
+| `custom_end_writing_frames`           | Integer  | 1-500               | 0 (disabled)      | Number of frames for end writing animation                                           |
+| `custom_happy_frames`                 | Integer  | 1-500               | 0 (disabled)      | Number of frames for happy animation                                                 |
+| `custom_asleep_frames`                | Integer  | 1-500               | 0 (disabled)      | Number of frames for falling asleep animation                                        |
+| `custom_sleep_frames`                 | Integer  | 1-500               | 0 (disabled)      | Number of frames for sleeping animation                                              |
+| `custom_wake_up_frames`               | Integer  | 1-500               | 0 (disabled)      | Number of frames for waking up animation                                             |
+| `custom_start_working_frames`         | Integer  | 1-500               | 0 (disabled)      | Number of frames for start working animation                                         |
+| `custom_working_frames`               | Integer  | 1-500               | 0 (disabled)      | Number of frames for working animation                                               |
+| `custom_end_working_frames`           | Integer  | 1-500               | 0 (disabled)      | Number of frames for end working animation                                           |
+| `custom_start_moving_frames`          | Integer  | 1-500               | 0 (disabled)      | Number of frames for start moving animation                                          |
+| `custom_moving_frames`                | Integer  | 1-500               | 0 (disabled)      | Number of frames for moving animation                                                |
+| `custom_end_moving_frames`            | Integer  | 1-500               | 0 (disabled)      | Number of frames for end moving animation                                            |
+| `custom_toggle_writing_frames`        | Boolean  | 0 or 1              | -1 (auto)         | Toggle writing frames when writing (`custom_writing_frames` needs to be `2`)         |
+| `custom_toggle_writing_frames_random` | Boolean  | 0 or 1              | -1 (auto)         | Randomize writing frame when start writing (`custom_writing_frames` needs to be `2`) |
+| `custom_mirror_x_moving`              | Boolean  | 0 or 1              | -1 (ignore)       | Mirror frames horizontally when moving                                               |
+| `custom_idle_row`                     | Integer  | 1-15                | -1 (auto)         | Row nr for idle animation in sprite sheet                                            |
+| `custom_boring_row`                   | Integer  | 1-15                | -1 (auto)         | Row nr for boring animation                                                          |
+| `custom_start_writing_row`            | Integer  | 1-15                | -1 (auto)         | Row nr for start writing animation                                                   |
+| `custom_writing_row`                  | Integer  | 1-15                | -1 (auto)         | Row nr for writing animation                                                         |
+| `custom_end_writing_row`              | Integer  | 1-15                | -1 (auto)         | Row nr for end writing animation                                                     |
+| `custom_happy_row`                    | Integer  | 1-15                | -1 (auto)         | Row nr for happy animation                                                           |
+| `custom_asleep_row`                   | Integer  | 1-15                | -1 (auto)         | Row nr for asleep animation                                                          |
+| `custom_sleep_row`                    | Integer  | 1-15                | -1 (auto)         | Row nr for sleep animation                                                           |
+| `custom_wake_up_row`                  | Integer  | 1-15                | -1 (auto)         | Row nr for wake-up animation                                                         |
+| `custom_start_working_row`            | Integer  | 1-15                | -1 (auto)         | Row nr for start working animation                                                   |
+| `custom_working_row`                  | Integer  | 1-15                | -1 (auto)         | Row nr for working animation                                                         |
+| `custom_end_working_row`              | Integer  | 1-15                | -1 (auto)         | Row nr for end working animation                                                     |
+| `custom_start_moving_row`             | Integer  | 1-15                | -1 (auto)         | Row nr for start moving animation                                                    |
+| `custom_moving_row`                   | Integer  | 1-15                | -1 (auto)         | Row nr for moving animation                                                          |
+| `custom_end_moving_row`               | Integer  | 1-15                | -1 (auto)         | Row nr for end moving animation                                                      |
+
+
+See [examples](examples/custom-sprite-sheets) for more details.
 
 ## 🔧 Usage
 
@@ -523,7 +569,7 @@ Minimal builds require only a few MB of RAM, whereas asset-heavy builds use more
 |----------------|----------------------------------------------------------|------------------------------------------------------------------------------|
 | **CPU**        | Any modern **x86_64** or **ARM64** processor (SSE2/NEON) | Dual-core **x86_64** or **ARM64** processor                                  |
 | **RAM**        | **8 MB free** (minimal build with minimal assets)        | **64 MB free** (full builds with all assets, preloaded, and config overhead) |
-| **Storage**    | **1 MB free** (binary + config files)                    | **10 MB free** (multiple binaries/builds + config files)                     |
+| **Storage**    | **6 MB free** (binary + config files)                    | **20 MB free** (multiple binaries/builds + config files)                     |
 | **Compositor** | Wayland with **wlr-layer-shell** protocol support        | Modern Wayland compositor (Sway, Hyprland, Wayfire, KDE Plasma 6)            |
 
 
@@ -739,5 +785,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v3.2.0** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.3.0** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon V-Pets, Clippy and Pokémon.

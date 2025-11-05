@@ -75,3 +75,10 @@ Frame Size: varies from 22x22 - 32x32px
 
 - `idle1`
 - `idle2`
+
+
+### custom/misc
+
+Custom and misc sprite sheets, each row is a full animation.
+Number of frames needs to be provided per row.
+See [custom sprite sheets](../examples/custom-sprite-sheets) for custom sprite and config settings.

@@ -7,9 +7,15 @@
 #include "utils/time.h"
 
 namespace bongocat::animation {
+    enum class animation_player_custom_overwrite_mirror_x : uint32_t {
+        None,
+        NoMirror,
+        Mirror
+    };
     struct animation_player_result_t {
         int32_t sprite_sheet_col{0};
         int32_t sprite_sheet_row{0};
+        animation_player_custom_overwrite_mirror_x overwrite_mirror_x{animation_player_custom_overwrite_mirror_x::None};
     };
 
     struct animation_shared_memory_t {
@@ -18,6 +24,7 @@ namespace bongocat::animation {
         int32_t anim_index{0};
         config::config_animation_sprite_sheet_layout_t anim_type{config::config_animation_sprite_sheet_layout_t::None};
         config::config_animation_dm_set_t anim_dm_set{config::config_animation_dm_set_t::None};
+        config::config_animation_custom_set_t anim_custom_set{config::config_animation_custom_set_t::None};
         float movement_offset_x{0.0};
         float anim_direction{0.0};
 
@@ -33,14 +40,16 @@ namespace bongocat::animation {
         platform::MMapArray<animation_t> min_dm_anims;
         platform::MMapArray<animation_t> ms_anims;
         platform::MMapArray<animation_t> pkmn_anims;
+        platform::MMapArray<animation_t> misc_anims;
 
-        // for sprite sheet hot reload
+        // for sprite sheet hot reload (or custom sprite sheet)
         animation_t anim;
 
         animation_shared_memory_t() = default;
         ~animation_shared_memory_t() {
             anim_type = config::config_animation_sprite_sheet_layout_t::None;
             anim_dm_set = config::config_animation_dm_set_t::None;
+            anim_custom_set = config::config_animation_custom_set_t::None;
             animation_player_result = {};
             anim_index = 0;
             movement_offset_x = 0;
@@ -101,8 +110,12 @@ namespace bongocat::animation {
             }
             platform::release_allocated_mmap_array(pkmn_anims);
 
-            cleanup_animation(anim);
+            for (size_t i = 0; i < misc_anims.count; i++) {
+                cleanup_animation(misc_anims[i]);
+            }
+            platform::release_allocated_mmap_array(misc_anims);
 
+            cleanup_animation(anim);
         }
         animation_shared_memory_t(const animation_shared_memory_t& other)
             : animation_player_result(other.animation_player_result), anim_index(other.anim_index), anim_type(other.anim_type), anim_dm_set(other.anim_dm_set)
@@ -118,6 +131,7 @@ namespace bongocat::animation {
             min_dm_anims = other.min_dm_anims;
             ms_anims = other.ms_anims;
             pkmn_anims = other.pkmn_anims;
+            misc_anims = other.misc_anims;
 
             anim = other.anim;
         }
@@ -139,6 +153,7 @@ namespace bongocat::animation {
                 min_dm_anims = other.min_dm_anims;
                 ms_anims = other.ms_anims;
                 pkmn_anims = other.pkmn_anims;
+                misc_anims = other.misc_anims;
 
                 anim = other.anim;
             }
@@ -146,7 +161,7 @@ namespace bongocat::animation {
         }
 
         animation_shared_memory_t(animation_shared_memory_t&& other) noexcept
-            : animation_player_result(other.animation_player_result), anim_index(other.anim_index), anim_type(other.anim_type), anim_dm_set(other.anim_dm_set)
+            : animation_player_result(other.animation_player_result), anim_index(other.anim_index), anim_type(other.anim_type), anim_dm_set(other.anim_dm_set), anim_custom_set(other.anim_custom_set)
         {
             bongocat_anims = bongocat::move(other.bongocat_anims);
             dm_anims = bongocat::move(other.dm_anims);
@@ -159,6 +174,7 @@ namespace bongocat::animation {
             min_dm_anims = bongocat::move(other.min_dm_anims);
             ms_anims = bongocat::move(other.ms_anims);
             pkmn_anims = bongocat::move(other.pkmn_anims);
+            misc_anims = bongocat::move(other.misc_anims);
 
             anim = bongocat::move(other.anim);
 
@@ -174,16 +190,21 @@ namespace bongocat::animation {
             platform::release_allocated_mmap_array(other.min_dm_anims);
             platform::release_allocated_mmap_array(other.ms_anims);
             platform::release_allocated_mmap_array(other.pkmn_anims);
+            platform::release_allocated_mmap_array(other.misc_anims);
+
             other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
             other.anim_dm_set = config::config_animation_dm_set_t::None;
+            other.anim_custom_set = config::config_animation_custom_set_t::None;
             other.anim_index = 0;
             other.animation_player_result = {};
         }
         animation_shared_memory_t& operator=(animation_shared_memory_t&& other) noexcept {
             if (this != &other) {
-                anim_type = other.anim_type;
-                anim_index = other.anim_index;
                 animation_player_result = other.animation_player_result;
+                anim_index = other.anim_index;
+                anim_type = other.anim_type;
+                anim_dm_set = other.anim_dm_set;
+                anim_custom_set = other.anim_custom_set;
 
                 bongocat_anims = bongocat::move(other.bongocat_anims);
                 dm_anims = bongocat::move(other.dm_anims);
@@ -196,6 +217,7 @@ namespace bongocat::animation {
                 min_dm_anims = bongocat::move(other.min_dm_anims);
                 ms_anims = bongocat::move(other.ms_anims);
                 pkmn_anims = bongocat::move(other.pkmn_anims);
+                misc_anims = bongocat::move(other.misc_anims);
 
                 anim = bongocat::move(other.anim);
 
@@ -211,8 +233,11 @@ namespace bongocat::animation {
                 platform::release_allocated_mmap_array(other.min_dm_anims);
                 platform::release_allocated_mmap_array(other.ms_anims);
                 platform::release_allocated_mmap_array(other.pkmn_anims);
+                platform::release_allocated_mmap_array(other.misc_anims);
+
                 other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
                 other.anim_dm_set = config::config_animation_dm_set_t::None;
+                other.anim_custom_set = config::config_animation_custom_set_t::None;
                 other.anim_index = 0;
                 other.animation_player_result = {};
             }

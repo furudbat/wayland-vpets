@@ -2,8 +2,8 @@
 add_library(assets_image_loader STATIC)
 target_include_directories(assets_image_loader
         PRIVATE ${INCLUDE_DIR}/image_loader
-        PUBLIC ${INCLUDE_DIR}
-        SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
+        PUBLIC ${INCLUDE_DIR})
+target_include_directories(assets_image_loader SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
 target_link_libraries(assets_image_loader PRIVATE bongocat_options)
 
 if (FEATURE_USE_HYBRID_IMAGE_BACKEND)
@@ -65,6 +65,8 @@ add_subdirectory(dmall)
 add_subdirectory(min_dm)
 add_subdirectory(ms_agent)
 add_subdirectory(pkmn)
+add_subdirectory(custom)
+add_subdirectory(misc)
 
 # @NOTE(assets): 3.1. add image_loader in include/image_loader (see other load_images_...h as reference)
 # @NOTE(assets): 3.2. add image_loader in src/image_loader/xxx (see other load_images_...cpp as reference)

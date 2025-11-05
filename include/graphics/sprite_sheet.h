@@ -138,6 +138,51 @@ namespace bongocat::animation {
         ms_agent_sprite_sheet_animation_section_t happy;
     };
 
+    struct custom_sprite_sheet_animation_section_t {
+        bool valid{false};
+        int32_t start_col{0};
+        int32_t end_col{0};
+        int32_t row{0};
+    };
+    struct custom_sprite_sheet_t {
+        generic_sprite_sheet_image_t image;
+
+        int32_t frame_width{0};
+        int32_t frame_height{0};
+
+        custom_sprite_sheet_animation_section_t idle;
+        custom_sprite_sheet_animation_section_t boring;
+
+        custom_sprite_sheet_animation_section_t start_writing;
+        custom_sprite_sheet_animation_section_t writing;
+        custom_sprite_sheet_animation_section_t end_writing;
+        custom_sprite_sheet_animation_section_t happy;
+
+        custom_sprite_sheet_animation_section_t fall_asleep;
+        custom_sprite_sheet_animation_section_t sleep;
+        custom_sprite_sheet_animation_section_t wake_up;
+
+        custom_sprite_sheet_animation_section_t start_working;
+        custom_sprite_sheet_animation_section_t working;
+        custom_sprite_sheet_animation_section_t end_working;
+
+        custom_sprite_sheet_animation_section_t start_moving;
+        custom_sprite_sheet_animation_section_t moving;
+        custom_sprite_sheet_animation_section_t end_moving;
+
+        // features
+        bool feature_idle{false};
+        bool feature_boring{false};
+        bool feature_writing{false};
+        bool feature_writing_happy{false};
+        bool feature_sleep{false};
+        bool feature_sleep_wake_up{false};
+        bool feature_working{false};
+        bool feature_moving{false};
+        bool feature_writing_toggle_frames{false};
+        bool feature_writing_toggle_frames_random{false};
+    };
+
     struct generic_sprite_sheet_t {
         generic_sprite_sheet_image_t image{};
 
@@ -158,9 +203,10 @@ namespace bongocat::animation {
             dm_sprite_sheet_t dm;
             ms_agent_sprite_sheet_t ms_agent;
             pkmn_sprite_sheet_t pkmn;
+            custom_sprite_sheet_t custom;
             generic_sprite_sheet_t sprite_sheet;
         };
-        enum class Type : uint8_t { Generic, Bongocat, Dm, MsAgent, Pkmn } type{Type::Generic};
+        enum class Type : uint8_t { Generic, Bongocat, Dm, MsAgent, Pkmn, Custom } type{Type::Generic};
 
         animation_t() {
             sprite_sheet.image.pixels.data = nullptr;
@@ -183,10 +229,11 @@ namespace bongocat::animation {
         animation_t(const animation_t& other) {
             type = other.type;
             switch (other.type) {
-                case Type::Bongocat:  bongocat  = other.bongocat;  break;
-                case Type::Dm:        dm        = other.dm;        break;
-                case Type::MsAgent:   ms_agent  = other.ms_agent;  break;
-                case Type::Pkmn:      pkmn      = other.pkmn;      break;
+                case Type::Bongocat:  bongocat     = other.bongocat;  break;
+                case Type::Dm:        dm           = other.dm;        break;
+                case Type::MsAgent:   ms_agent     = other.ms_agent;  break;
+                case Type::Pkmn:      pkmn         = other.pkmn;      break;
+                case Type::Custom:    custom       = other.custom;      break;
                 case Type::Generic:   sprite_sheet = other.sprite_sheet; break;
             }
         }
@@ -195,10 +242,11 @@ namespace bongocat::animation {
                 cleanup_animation(*this);
                 type = other.type;
                 switch (other.type) {
-                    case Type::Bongocat:  bongocat  = other.bongocat;  break;
-                    case Type::Dm:        dm        = other.dm;        break;
-                    case Type::MsAgent:   ms_agent  = other.ms_agent;  break;
-                    case Type::Pkmn:      pkmn      = other.pkmn;      break;
+                    case Type::Bongocat:  bongocat     = other.bongocat;  break;
+                    case Type::Dm:        dm           = other.dm;        break;
+                    case Type::MsAgent:   ms_agent     = other.ms_agent;  break;
+                    case Type::Pkmn:      pkmn         = other.pkmn;      break;
+                    case Type::Custom:   custom        = other.custom;      break;
                     case Type::Generic:   sprite_sheet = other.sprite_sheet; break;
                 }
             }
@@ -219,6 +267,9 @@ namespace bongocat::animation {
                     break;
                 case Type::Pkmn:
                     new (&pkmn) pkmn_sprite_sheet_t(bongocat::move(other.pkmn));
+                    break;
+                case Type::Custom:
+                    new (&custom) custom_sprite_sheet_t(bongocat::move(other.custom));
                     break;
                 case Type::Generic:
                     new (&sprite_sheet) generic_sprite_sheet_t(bongocat::move(other.sprite_sheet));
@@ -244,6 +295,9 @@ namespace bongocat::animation {
                     case Type::Pkmn:
                         new (&pkmn) pkmn_sprite_sheet_t(bongocat::move(other.pkmn));
                         break;
+                    case Type::Custom:
+                        new (&custom) custom_sprite_sheet_t(bongocat::move(other.custom));
+                        break;
                     case Type::Generic:
                         new (&sprite_sheet) generic_sprite_sheet_t(bongocat::move(other.sprite_sheet));
                         break;
@@ -265,6 +319,9 @@ namespace bongocat::animation {
 
         explicit animation_t(pkmn_sprite_sheet_t&& sheet) noexcept
             : pkmn(bongocat::move(sheet)), type(Type::Pkmn) {}
+
+        explicit animation_t(custom_sprite_sheet_t&& sheet) noexcept
+            : custom(bongocat::move(sheet)), type(Type::Custom) {}
 
         explicit animation_t(generic_sprite_sheet_t&& sheet) noexcept
             : sprite_sheet(bongocat::move(sheet)), type(Type::Generic) {}
@@ -292,6 +349,12 @@ namespace bongocat::animation {
             cleanup_animation(*this);
             new (&pkmn) pkmn_sprite_sheet_t(bongocat::move(sheet));
             type = Type::Pkmn;
+            return *this;
+        }
+        animation_t& operator=(custom_sprite_sheet_t&& sheet) noexcept {
+            cleanup_animation(*this);
+            new (&custom) custom_sprite_sheet_t(bongocat::move(sheet));
+            type = Type::Custom;
             return *this;
         }
         animation_t& operator=(generic_sprite_sheet_t&& sheet) noexcept {
@@ -353,14 +416,48 @@ namespace bongocat::animation {
 
         sprite_sheet.idle = {};
         sprite_sheet.boring = {};
+
         sprite_sheet.start_writing = {};
         sprite_sheet.writing = {};
         sprite_sheet.end_writing = {};
+
         sprite_sheet.sleep = {};
         sprite_sheet.wake_up = {};
+
         sprite_sheet.start_working = {};
         sprite_sheet.working = {};
         sprite_sheet.end_working = {};
+
+        sprite_sheet.start_moving = {};
+        sprite_sheet.moving = {};
+        sprite_sheet.end_moving = {};
+
+        sprite_sheet.happy = {};
+    }
+    inline void cleanup_animation(custom_sprite_sheet_t& sprite_sheet) {
+        release_allocated_array(sprite_sheet.image.pixels);
+        sprite_sheet.image.sprite_sheet_width = 0;
+        sprite_sheet.image.sprite_sheet_height = 0;
+        sprite_sheet.image.channels = 0;
+        sprite_sheet.frame_width = 0;
+        sprite_sheet.frame_height = 0;
+
+        sprite_sheet.idle = {};
+        sprite_sheet.boring = {};
+
+        sprite_sheet.start_writing = {};
+        sprite_sheet.writing = {};
+        sprite_sheet.end_writing = {};
+        sprite_sheet.happy = {};
+
+        sprite_sheet.fall_asleep = {};
+        sprite_sheet.sleep = {};
+        sprite_sheet.wake_up = {};
+
+        sprite_sheet.start_working = {};
+        sprite_sheet.working = {};
+        sprite_sheet.end_working = {};
+
         sprite_sheet.start_moving = {};
         sprite_sheet.moving = {};
         sprite_sheet.end_moving = {};
@@ -400,6 +497,14 @@ namespace bongocat::animation {
                 anim.pkmn.image.channels = 0;
                 anim.pkmn.frame_width = 0;
                 anim.pkmn.frame_height = 0;
+                break;
+            case animation_t::Type::Custom:
+                release_allocated_array(anim.custom.image.pixels);
+                anim.custom.image.sprite_sheet_width = 0;
+                anim.custom.image.sprite_sheet_height = 0;
+                anim.custom.image.channels = 0;
+                anim.custom.frame_width = 0;
+                anim.custom.frame_height = 0;
                 break;
             case animation_t::Type::Generic:
                 release_allocated_array(anim.sprite_sheet.image.pixels);

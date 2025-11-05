@@ -20,10 +20,10 @@ namespace bongocat::assets {
 namespace bongocat::assets {
     static inline constexpr int PKMN_FRAME_IDLE1     = 0;
     static inline constexpr int PKMN_FRAME_IDLE2     = 1;
-    inline static constexpr size_t PKMN_SPRITE_SHEET_ROW = 0;
 
     inline static constexpr size_t PKMN_SPRITE_SHEET_COLS = 2;
     inline static constexpr size_t PKMN_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PKMN_SPRITE_SHEET_ROW = 0;
 }
 
 #endif

@@ -20,7 +20,7 @@ if [[ $# -ge 1 ]]; then
     echo "[TEST] Using provided PID = $PID"
 else
     echo "[TEST] Starting program..."
-    "$PROGRAM" --watch-config --config "$CONFIG" --ignore-running --strict &
+    "$PROGRAM" --config "$CONFIG" --ignore-running --strict &
     PID=$!
     echo "[TEST] Program PID = $PID"
     sleep 5
@@ -35,6 +35,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
+  echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
@@ -245,6 +246,12 @@ sleep 2
 echo "[INFO] Set Sprite Sheet: Metal Greymon"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=Metal Greymon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
+echo "[INFO] Set Sprite Sheet: neko"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=neko/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5

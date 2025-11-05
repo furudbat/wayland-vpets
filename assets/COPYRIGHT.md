@@ -6,6 +6,17 @@
 
 custom-drawn bongo cat artwork by [@Shreyabardia](https://github.com/Shreyabardia)
 
+## Neko
+
+Old [Neko](https://github.com/eliot-akira/neko/tree/main) cat screenmate.
+Part of the oneko-2.0, created by Tatsuya Kato.
+
+Oneko-2.0 is based on xneko created by Masayuki Koba,
+and image files of xneko is based on nekoDA created by Kenji Gotoh.
+
+For more information, see following pages:  
+http://www.3bit.co.jp/~sasaki/oneko/COPYRIGHTS  
+http://en.wikipedia.org/wiki/Neko_(computer_program)  
 
 ## 3rd Party
 

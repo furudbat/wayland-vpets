@@ -26,7 +26,10 @@
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 
 // image loader
+#include "embedded_assets/misc/misc.hpp"
+#include "embedded_assets/misc/misc_sprite.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
+#include "image_loader/custom/load_custom.h"
 #include "image_loader/ms_agent/load_images_ms_agent.h"
 #include "image_loader/dm/load_images_dm.h"
 #include "image_loader/min_dm/load_images_min_dm.h"
@@ -37,6 +40,7 @@
 #include "image_loader/dmc/load_images_dmc.h"
 #include "image_loader/dmall/load_images_dmall.h"
 #include "image_loader/pkmn/load_images_pkmn.h"
+#include "image_loader/misc/load_images_misc.h"
 
 
 namespace bongocat::animation {
@@ -44,7 +48,7 @@ namespace bongocat::animation {
         return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Bongocat;
     }
     [[maybe_unused]] static constexpr bool should_load_dm([[maybe_unused]] const config::config_t& config) {
-        return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Dm;
+        return features::EnablePreloadAssets || (config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Dm && config.animation_dm_set != config::config_animation_dm_set_t::None);
     }
     [[maybe_unused]] static constexpr bool should_load_ms_agent([[maybe_unused]] const config::config_t& config) {
         return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::MsAgent;
@@ -52,11 +56,40 @@ namespace bongocat::animation {
     [[maybe_unused]] static constexpr bool should_load_pkmn([[maybe_unused]] const config::config_t& config) {
         return features::EnablePreloadAssets || config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Pkmn;
     }
+    [[maybe_unused]] static constexpr bool should_load_misc([[maybe_unused]] const config::config_t& config) {
+        return features::EnablePreloadAssets || (config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom && config.animation_custom_set == config::config_animation_custom_set_t::misc);
+    }
+    [[maybe_unused]] static constexpr bool should_load_custom([[maybe_unused]] const config::config_t& config) {
+        return (features::EnablePreloadAssets && config._custom) || (config._custom && config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Custom && config.animation_custom_set == config::config_animation_custom_set_t::custom);
+    }
+
+    namespace details {
+        created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_context_t& ctx, const config::config_t& config) {
+            assert(ctx.shm.ptr);
+            assert(ctx._local_copy_config.ptr);
+
+            BONGOCAT_LOG_VERBOSE("Load custom Animation: %s ...", config.custom_sprite_sheet_filename);
+            auto sprite_sheet_image_result = load_custom_sprite_sheet_file(config.custom_sprite_sheet_filename);
+            if (sprite_sheet_image_result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename);
+                return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+            }
+
+            auto result = load_custom_anim(ctx, sprite_sheet_image_result.result, config.custom_sprite_sheet_settings);
+            free_custom_sprite_sheet_file(sprite_sheet_image_result.result);
+            if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename);
+                return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+            }
+
+            return result;
+        }
+    }
 
     created_result_t<animation_t*> hot_load_animation(animation_context_t& ctx) {
         // read-only config
         assert(ctx._local_copy_config != nullptr);
-        //const config::config_t& current_config = *ctx._local_copy_config;
+        const config::config_t& current_config = *ctx._local_copy_config;
         assert(ctx.shm != nullptr);
         animation_shared_memory_t& anim_shm = *ctx.shm;
         const int anim_index = anim_shm.anim_index;
@@ -140,7 +173,7 @@ namespace bongocat::animation {
                         }
                     }break;
                 }
-                if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                     return error;
                 }
                 anim_shm.anim = bongocat::move(result);
@@ -148,7 +181,7 @@ namespace bongocat::animation {
             case config::config_animation_sprite_sheet_layout_t::Pkmn:
                 if constexpr (features::EnablePkmnEmbeddedAssets) {
                     auto [result, error] = load_pkmn_sprite_sheet(ctx, anim_index);
-                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                         return error;
                     }
                     anim_shm.anim = bongocat::move(result);
@@ -157,11 +190,37 @@ namespace bongocat::animation {
             case config::config_animation_sprite_sheet_layout_t::MsAgent:
                 if constexpr (features::EnableMsAgentEmbeddedAssets) {
                     auto [result, error] = load_ms_agent_sprite_sheet(ctx, anim_index);
-                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                    if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
                         return error;
                     }
                     anim_shm.anim = bongocat::move(result);
                 }
+                break;
+            case config::config_animation_sprite_sheet_layout_t::Custom:
+                assert(anim_index >= 0);
+                if constexpr (features::EnableCustomSpriteSheetsAssets && features::EnableMiscEmbeddedAssets) {
+                    assert(assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
+                }
+                if constexpr (features::EnableCustomSpriteSheetsAssets) {
+                    if (current_config._custom && anim_index == assets::CUSTOM_ANIM_INDEX) {
+                        auto [result, error] = details::anim_load_custom_animation(ctx, current_config);
+                        if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                            return error;
+                        }
+                        anim_shm.anim = bongocat::move(result);
+                    }
+                }
+                if constexpr (features::EnableMiscEmbeddedAssets) {
+                    assert(anim_index >= 0);
+                    if (current_config.animation_custom_set == config::config_animation_custom_set_t::misc && static_cast<size_t>(anim_index) <= assets::MAX_MISC_ANIM_INDEX) {
+                        auto [result, error] = load_misc_sprite_sheet(ctx, anim_index);
+                        if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+                            return error;
+                        }
+                        anim_shm.anim = bongocat::move(result);
+                    }
+                }
+
                 break;
             /// @NOTE(assets): 6. add hot reload asset
         }
@@ -173,6 +232,7 @@ namespace bongocat::animation {
     }
 
     animation_t& get_current_animation(animation_context_t& ctx) {
+        using namespace assets;
         // fallback sprite
         static animation_t none_sprite_sheet{};
 
@@ -268,6 +328,18 @@ namespace bongocat::animation {
                 }
                 assert(anim_index >= 0);
                 return static_cast<size_t>(anim_index) < anim_shm.ms_anims.count ? anim_shm.ms_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+            case config::config_animation_sprite_sheet_layout_t::Custom:
+                if (features::EnableLazyLoadAssets) {
+                    assert(anim_shm.anim.type == animation_t::Type::Custom);
+                    return anim_shm.anim;
+                }
+                assert(anim_index >= 0);
+                assert(CUSTOM_ANIM_INDEX > MAX_MISC_ANIM_INDEX);
+                if (static_cast<size_t>(anim_index) <= MAX_MISC_ANIM_INDEX) {
+                    return static_cast<size_t>(anim_index) < anim_shm.misc_anims.count ? anim_shm.misc_anims[static_cast<size_t>(anim_index)] : none_sprite_sheet;
+                } else if (static_cast<size_t>(anim_index) == CUSTOM_ANIM_INDEX) {
+                    return anim_shm.anim;
+                }
         }
 
         return none_sprite_sheet;
@@ -326,16 +398,19 @@ namespace bongocat::animation {
         }
 
         [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-        /// @TODO: async assets load
-        // Initialize embedded images/animations
+        // Load embedded images/animations
         if constexpr (features::EnableLazyLoadAssets) {
             hot_load_animation(ret->anim);
         }
+
+        /// @TODO: async assets load
+        // Initialize embedded images/animations
         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+            assert(ret->anim._local_copy_config.ptr);
             // preload assets
             if constexpr (features::EnableBongocatEmbeddedAssets) {
                 // Load Bongocat
-                if (should_load_bongocat(config)) {
+                if (should_load_bongocat(*ret->anim._local_copy_config)) {
                     BONGOCAT_LOG_INFO("Load bongocat sprite sheet frames: %d", BONGOCAT_EMBEDDED_IMAGES_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
@@ -348,7 +423,7 @@ namespace bongocat::animation {
 
             if constexpr (features::EnableDmEmbeddedAssets) {
                 // Load dm
-                if (should_load_dm(config)) {
+                if (should_load_dm(*ret->anim._local_copy_config)) {
                     BONGOCAT_LOG_INFO("Load dm sprite sheets: %d", DM_ANIMATIONS_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
@@ -357,6 +432,7 @@ namespace bongocat::animation {
                         BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %d", MIN_DM_ANIM_COUNT);
                         ctx.shm->min_dm_anims = platform::make_allocated_mmap_array<animation_t>(MIN_DM_ANIM_COUNT);
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
+                        // init minimal dm
                         //init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX), DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
 #include "min_dm_init_dm_anim.cpp.inl"
 #endif
@@ -422,7 +498,7 @@ namespace bongocat::animation {
 
             if constexpr (features::EnableMsAgentEmbeddedAssets) {
                 // Load Ms Pets (Clippy)
-                if (should_load_ms_agent(config)) {
+                if (should_load_ms_agent(*ret->anim._local_copy_config)) {
                     BONGOCAT_LOG_INFO("Load MS agent sprite sheets: %d", MS_AGENTS_ANIM_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
@@ -442,7 +518,7 @@ namespace bongocat::animation {
 
             if constexpr (features::EnablePkmnEmbeddedAssets) {
                 // Load pkmn
-                if (should_load_pkmn(config)) {
+                if (should_load_pkmn(*ret->anim._local_copy_config)) {
                     BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %d", PKMN_ANIM_COUNT);
                     assert(ret->anim.shm != nullptr);
                     animation_context_t& ctx = ret->anim; // alias for inits in includes
@@ -452,6 +528,42 @@ namespace bongocat::animation {
                     // pkmn
 #include "pkmn_init_pkmn_anim.cpp.inl"
 #endif
+                }
+            }
+
+            if constexpr (features::EnableMiscEmbeddedAssets) {
+                // Load Misc Pets (neko)
+                if (should_load_misc(*ret->anim._local_copy_config)) {
+                    BONGOCAT_LOG_INFO("Load Misc sprite sheets: %d", MISC_ANIM_COUNT);
+                    assert(ret->anim.shm != nullptr);
+                    animation_context_t& ctx = ret->anim; // alias for inits in includes
+
+                    ctx.shm->misc_anims = platform::make_allocated_mmap_array<animation_t>(MISC_ANIM_COUNT);
+
+                    // neko
+                    init_misc_anim(ctx, MISC_NEKO_ANIM_INDEX, get_misc_sprite_sheet(MISC_NEKO_ANIM_INDEX), get_misc_sprite_sheet_columns(MISC_NEKO_ANIM_INDEX));
+                }
+            }
+
+            if constexpr (features::EnableCustomSpriteSheetsAssets) {
+                assert(ret->anim._local_copy_config.ptr);
+                // Load custom sprite sheet
+                if (should_load_custom(*ret->anim._local_copy_config)) {
+                    assert(ret->anim.shm != nullptr);
+                    animation_context_t& ctx = ret->anim; // alias for inits in includes
+                    assert(ctx.shm.ptr);
+                    assert(ctx._local_copy_config.ptr);
+
+                    if (ctx._local_copy_config->_custom) {
+                        BONGOCAT_LOG_INFO("Load custom sprite sheets: %s", ctx._local_copy_config->custom_sprite_sheet_filename);
+
+                        auto result = details::anim_load_custom_animation(ctx, *ctx._local_copy_config);
+                        if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+                            return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
+                        }
+
+                        ctx.shm->anim = bongocat::move(result.result);
+                    }
                 }
             }
 

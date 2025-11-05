@@ -21,6 +21,7 @@ namespace bongocat::animation {
 
         assert(anim_index >= 0);
         ctx.shm->min_dm_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
+        assert(ctx.shm->min_dm_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Dm);
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }

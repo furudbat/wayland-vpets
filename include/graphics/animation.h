@@ -26,6 +26,10 @@ namespace bongocat::animation {
     void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen);
     created_result_t<animation_t*> hot_load_animation(animation_context_t& ctx);
     [[nodiscard]] animation_t& get_current_animation(animation_context_t& ctx);
+
+    namespace details {
+        created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_context_t& ctx, const config::config_t& config);
+    }
 }
 
 #endif // BONGOCAT_ANIMATION_H
