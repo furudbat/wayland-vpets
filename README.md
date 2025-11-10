@@ -99,7 +99,7 @@ keypress_duration=200
 keyboard_device=/dev/input/event4       # Keyboard
 ```
 
-Full configuration reference: see the [Configuration Section](#-configuration) below.
+Full configuration reference: see the [Configuration Section](#%EF%B8%8F-configuration) below.
 
 ### 5. Run the Overlay
 
@@ -323,7 +323,7 @@ See man pages for more details and full list:
 ##### Digimon 🦖
 
  - [Original](docs/fragments/set-dm.md) [`dm`](https://humulos.com/digimon/dm/)
- - [Pendulum Original](docs/fragments/set-pen.md) [`dm`](https://humulos.com/digimon/pen/)
+ - [Pendulum Original](docs/fragments/set-pen.md) [`pen`](https://humulos.com/digimon/pen/)
  - [20th Anniversary](docs/fragments/set-dm20.md) [`dm20`](https://humulos.com/digimon/dm20/)
  - [Pendulum Ver.20th](docs/fragments/set-pen20.md) [`pen20`](https://humulos.com/digimon/pen20/)
  - [X](docs/fragments/set-dmx.md) [`dmx`](https://humulos.com/digimon/dmx/)
