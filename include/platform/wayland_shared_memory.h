@@ -6,7 +6,7 @@
 #include <stdatomic.h>
 
 namespace bongocat::platform::wayland {
-    // single-buffer, double-buffer or triple-buffer
+    // single-, double- or triple-buffer
     inline static constexpr size_t WAYLAND_NUM_BUFFERS = 1;
 
     struct wayland_shm_buffer_t;
@@ -69,7 +69,7 @@ namespace bongocat::platform::wayland {
     // Wayland globals
     struct wayland_shared_memory_t {
         wayland_shm_buffer_t buffers[WAYLAND_NUM_BUFFERS];
-        int current_buffer_index{0};
+        size_t current_buffer_index{0};
         atomic_bool configured{false};
 
 

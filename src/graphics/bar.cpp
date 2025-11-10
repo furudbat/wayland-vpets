@@ -39,7 +39,7 @@ namespace bongocat::animation {
         //wayland_shared_memory_t& wayland_ctx_shm = wayland_ctx->ctx_shm;
         // read-only
         assert(wayland_ctx._local_copy_config != nullptr);
-        const config::config_t& current_config = *wayland_ctx._local_copy_config;
+        //const config::config_t& current_config = *wayland_ctx._local_copy_config;
         //const animation_shared_memory_t *const anim_shm = anim->shm;
         //assert(anim_shm);
 
@@ -48,19 +48,11 @@ namespace bongocat::animation {
             if (wayland_ctx._frame_cb == cb) {
                 wl_callback_destroy(wayland_ctx._frame_cb);
                 wayland_ctx._frame_cb = nullptr;
-
                 atomic_store(&wayland_ctx._frame_pending, false);
-                const platform::timestamp_ms_t now = platform::get_current_time_ms();
-                assert(current_config.fps > 0);
-                if (const platform::time_ms_t frame_interval_ms = 1000 / current_config.fps; wayland_ctx._last_frame_timestamp_ms <= 0 || (now - wayland_ctx._last_frame_timestamp_ms) >= frame_interval_ms) {
-                    wayland_ctx._last_frame_timestamp_ms = now;
 
-                    if (atomic_exchange(&wayland_ctx._redraw_after_frame, false)) {
-                        platform::wayland::request_render(trigger_ctx);
-                    }
-                } else {
-                    // Schedule redraw later
-                    atomic_store(&wayland_ctx._redraw_after_frame, true);
+                if (atomic_exchange(&wayland_ctx._redraw_after_frame, false)) {
+                    BONGOCAT_LOG_VERBOSE("frame_done: redraw after frame triggered");
+                    platform::wayland::request_render(trigger_ctx);
                 }
 
                 BONGOCAT_LOG_VERBOSE("wl_callback.done: frame done");
@@ -113,7 +105,7 @@ namespace bongocat::animation {
     }
 
     /// @TODO: make draw_sprite more generic (template?)
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const bongocat_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer, const bongocat_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
         using namespace assets;
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
@@ -122,20 +114,15 @@ namespace bongocat::animation {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
-        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+        //platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         assert(wayland_ctx._local_copy_config != nullptr);
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
 
-        assert(wayland_ctx_shm->current_buffer_index >= 0);
-        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
-        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
-
-        uint8_t *pixels = shm_buffer->pixels.data;
-        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+        uint8_t *pixels = shm_buffer.pixels.data;
+        const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
         const sprite_sheet_animation_frame_t* region = nullptr;
         switch (anim_shm.animation_player_result.sprite_sheet_col) {
@@ -225,7 +212,7 @@ namespace bongocat::animation {
         }
     }
 
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const dm_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer, const dm_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
         using namespace assets;
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
@@ -234,20 +221,15 @@ namespace bongocat::animation {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
-        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+        //platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         assert(wayland_ctx._local_copy_config != nullptr);
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
 
-        assert(wayland_ctx_shm->current_buffer_index >= 0);
-        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
-        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
-
-        uint8_t *pixels = shm_buffer->pixels.data;
-        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+        uint8_t *pixels = shm_buffer.pixels.data;
+        const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
         const sprite_sheet_animation_frame_t* region = nullptr;
         switch (anim_shm.animation_player_result.sprite_sheet_col) {
@@ -367,7 +349,7 @@ namespace bongocat::animation {
         }
     }
 
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const pkmn_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer, const pkmn_sprite_sheet_t& sheet, blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
         using namespace assets;
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
@@ -376,20 +358,15 @@ namespace bongocat::animation {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
-        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+        //platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         assert(wayland_ctx._local_copy_config != nullptr);
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
 
-        assert(wayland_ctx_shm->current_buffer_index >= 0);
-        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
-        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
-
-        uint8_t *pixels = shm_buffer->pixels.data;
-        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+        uint8_t *pixels = shm_buffer.pixels.data;
+        const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
         const sprite_sheet_animation_frame_t* region = nullptr;
         switch (anim_shm.animation_player_result.sprite_sheet_col) {
@@ -470,7 +447,7 @@ namespace bongocat::animation {
         }
     }
 
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const ms_agent_sprite_sheet_t& sheet, int col, int row) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer, const ms_agent_sprite_sheet_t& sheet, int col, int row) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -478,20 +455,15 @@ namespace bongocat::animation {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         //animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
-        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+        //platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         assert(wayland_ctx._local_copy_config != nullptr);
         //assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         //const animation_shared_memory_t& anim_shm = *anim.shm;
 
-        assert(wayland_ctx_shm->current_buffer_index >= 0);
-        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
-        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
-
-        uint8_t *pixels = shm_buffer->pixels.data;
-        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+        uint8_t *pixels = shm_buffer.pixels.data;
+        const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
 
@@ -523,7 +495,7 @@ namespace bongocat::animation {
         MovementNoMirror = (1 << 0),
         MovementMirror = (1 << 1),
     };
-    void draw_sprite(platform::wayland::wayland_session_t& ctx, const custom_sprite_sheet_t& sheet, int col, int row, draw_sprite_overwrite_option_t overwrite_option = draw_sprite_overwrite_option_t::None) {
+    void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer, const custom_sprite_sheet_t& sheet, int col, int row, draw_sprite_overwrite_option_t overwrite_option = draw_sprite_overwrite_option_t::None) {
         if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
             return;
         }
@@ -531,20 +503,15 @@ namespace bongocat::animation {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
-        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+        //platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         assert(wayland_ctx._local_copy_config != nullptr);
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
         const animation_shared_memory_t& anim_shm = *anim.shm;
 
-        assert(wayland_ctx_shm->current_buffer_index >= 0);
-        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
-        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
-
-        uint8_t *pixels = shm_buffer->pixels.data;
-        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+        uint8_t *pixels = shm_buffer.pixels.data;
+        const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
         auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
         auto cat_x_with_offset  = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
@@ -624,36 +591,19 @@ namespace bongocat::animation {
                           blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
     }
 
-    bool draw_bar(platform::wayland::wayland_session_t& ctx) {
+    static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer) {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
-        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+        //platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
         // read-only
         assert(wayland_ctx._local_copy_config != nullptr);
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
 
-        if (!atomic_load(&wayland_ctx_shm->configured)) {
-            BONGOCAT_LOG_VERBOSE("Surface not configured yet, skipping draw");
-            return false;
-        }
-
-        assert(wayland_ctx_shm->current_buffer_index >= 0);
-        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        const int next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
-        platform::wayland::wayland_shm_buffer_t *shm_buffer = &wayland_ctx_shm->buffers[next_buffer_index];
-
-        if (atomic_load(&shm_buffer->busy)) {
-            BONGOCAT_LOG_VERBOSE("Buffer still busy, skip drawing: buffer: %i", next_buffer_index);
-            atomic_store(&shm_buffer->pending, true);
-            return false;
-        }
-
-
-        uint8_t *pixels = shm_buffer->pixels.data;
-        const size_t pixels_size = shm_buffer->pixels._size_bytes;
+        uint8_t *pixels = shm_buffer.pixels.data;
+        const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
         const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
         const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
@@ -692,7 +642,7 @@ namespace bongocat::animation {
                         const animation_t& cat_anim = get_current_animation(anim);
                         assert(cat_anim.type == animation_t::Type::Bongocat);
                         const bongocat_sprite_sheet_t& sheet = cat_anim.bongocat;
-                        draw_sprite(ctx, sheet, current_config.enable_antialiasing ? blit_image_color_option_flags_t::BilinearInterpolation : blit_image_color_option_flags_t::Normal);
+                        draw_sprite(ctx, shm_buffer, sheet, current_config.enable_antialiasing ? blit_image_color_option_flags_t::BilinearInterpolation : blit_image_color_option_flags_t::Normal);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Dm: {
                         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
@@ -728,7 +678,7 @@ namespace bongocat::animation {
                         const animation_t& dm_anim = get_current_animation(anim);
                         assert(dm_anim.type == animation_t::Type::Dm);
                         const dm_sprite_sheet_t& sheet = dm_anim.dm;
-                        draw_sprite(ctx, sheet);
+                        draw_sprite(ctx, shm_buffer, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Pkmn: {
                         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
@@ -737,7 +687,7 @@ namespace bongocat::animation {
                         const animation_t& pkmn_anim = get_current_animation(anim);
                         assert(pkmn_anim.type == animation_t::Type::Pkmn);
                         const auto& sheet = pkmn_anim.pkmn;
-                        draw_sprite(ctx, sheet);
+                        draw_sprite(ctx, shm_buffer, sheet);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::MsAgent:{
                         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
@@ -748,7 +698,7 @@ namespace bongocat::animation {
                         const ms_agent_sprite_sheet_t& sheet = ms_anim.ms_agent;
                         const int col = anim_shm.animation_player_result.sprite_sheet_col;
                         const int row = anim_shm.animation_player_result.sprite_sheet_row;
-                        draw_sprite(ctx, sheet, col, row);
+                        draw_sprite(ctx, shm_buffer, sheet, col, row);
                     }break;
                     case config::config_animation_sprite_sheet_layout_t::Custom:{
                         const int col = anim_shm.animation_player_result.sprite_sheet_col;
@@ -769,7 +719,7 @@ namespace bongocat::animation {
                                     overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
                                     break;
                             }
-                            draw_sprite(ctx, sheet, col, row, overwrite_mirror_x);
+                            draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_mirror_x);
                         } else if (features::EnableMiscEmbeddedAssets) {
                             if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                                 assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.misc_anims.count);
@@ -777,7 +727,7 @@ namespace bongocat::animation {
                             const animation_t& custom_anim = get_current_animation(anim);
                             assert(custom_anim.type == animation_t::Type::Custom);
                             const custom_sprite_sheet_t& sheet = custom_anim.custom;
-                            draw_sprite(ctx, sheet, col, row);
+                            draw_sprite(ctx, shm_buffer, sheet, col, row);
                         }
                     }break;
                 }
@@ -786,24 +736,101 @@ namespace bongocat::animation {
             }
         }
 
-        assert(shm_buffer->buffer);
+        return true;
+    }
 
+    draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx) {
+        platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+        animation_context_t& anim = ctx.animation_trigger_context->anim;
+        //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+
+        // read-only
+        assert(wayland_ctx._local_copy_config != nullptr);
+        assert(anim.shm != nullptr);
+        const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
+
+        if (!atomic_load(&wayland_ctx_shm->configured)) {
+            BONGOCAT_LOG_VERBOSE("Surface not configured yet, skipping draw");
+            return draw_bar_result_t::Skip;
+        }
+
+        //assert(wayland_ctx_shm->current_buffer_index >= 0);
+        assert(platform::wayland::WAYLAND_NUM_BUFFERS > 0);
+        assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
+        [[maybe_unused]] size_t current_buffer_index{0};
+        [[maybe_unused]] size_t next_buffer_index{0};
+        platform::wayland::wayland_shm_buffer_t *shm_buffer = nullptr;
+        if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS == 1) {
+            // Single-buffer
+            shm_buffer = &wayland_ctx_shm->buffers[0];
+            current_buffer_index = 0;
+            next_buffer_index = 0;
+        } else {
+            // Multi-buffer: pick next free buffer
+            for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
+                //assert(next_buffer_index >= 0);
+                auto *buf = &wayland_ctx_shm->buffers[next_buffer_index];
+                if (!atomic_load(&buf->busy)) {
+                    shm_buffer = buf;
+                    current_buffer_index = i;
+                    next_buffer_index = i;
+                    break;
+                }
+                next_buffer_index = (next_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
+            }
+
+            assert(ctx.animation_trigger_context);
+            if (!shm_buffer) {
+                BONGOCAT_LOG_VERBOSE("All buffers busy, skip drawing");
+                // Mark pending so it redraws once any buffer is released
+                for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
+                    atomic_store(&wayland_ctx_shm->buffers[i].pending, true);
+                }
+                platform::wayland::request_render(*ctx.animation_trigger_context); // force redraw, in the next frame (wait for rendering done)
+                return draw_bar_result_t::Busy;
+            }
+        }
+
+        assert(shm_buffer);
         atomic_store(&shm_buffer->busy, true);
+        atomic_store(&shm_buffer->pending, false);
+
+        draw_bar_on_buffer(ctx, *shm_buffer);
+
+        assert(shm_buffer->buffer);
         wl_surface_attach(wayland_ctx.surface, shm_buffer->buffer, 0, 0);
         wl_surface_damage_buffer(wayland_ctx.surface, 0, 0, wayland_ctx._screen_width, wayland_ctx._bar_height);
-        wl_surface_commit(wayland_ctx.surface);
-        wayland_ctx_shm->current_buffer_index = next_buffer_index;
 
         {
             platform::LockGuard guard (wayland_ctx._frame_cb_lock);
             if (!atomic_load(&wayland_ctx._frame_pending) && !wayland_ctx._frame_cb) {
+                atomic_store(&wayland_ctx._frame_pending, true);
                 wayland_ctx._frame_cb = wl_surface_frame(wayland_ctx.surface);
                 wl_callback_add_listener(wayland_ctx._frame_cb, &frame_listener, &ctx);
-                atomic_store(&wayland_ctx._frame_pending, true);
                 BONGOCAT_LOG_VERBOSE("Set frame pending");
+            } else {
+                // Frame callback is pending: queue redraw after current frame
+                atomic_store(&wayland_ctx._redraw_after_frame, true);
+                BONGOCAT_LOG_VERBOSE("Queued redraw after pending frame");
             }
         }
 
-        return true;
+        wl_surface_commit(wayland_ctx.surface);
+
+        // Mark buffer busy after commit (ensures compositor gets it)
+        atomic_store(&shm_buffer->busy, true);
+        atomic_store(&shm_buffer->pending, false);
+        if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS > 1) {
+            wayland_ctx_shm->current_buffer_index = next_buffer_index;
+        }
+
+        const platform::timestamp_ms_t now = platform::get_current_time_ms();
+        assert(current_config.fps > 0);
+        if (const platform::time_ms_t frame_interval_ms = 1000 / current_config.fps; wayland_ctx._last_frame_timestamp_ms <= 0 || (now - wayland_ctx._last_frame_timestamp_ms) >= frame_interval_ms) {
+            wayland_ctx._last_frame_timestamp_ms = now;
+        }
+
+        return draw_bar_result_t::FlushNeeded;
     }
 }

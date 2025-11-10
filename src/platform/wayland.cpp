@@ -1231,6 +1231,27 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 prepared_read = attempts < MAX_ATTEMPTS;
             }
 
+
+            if (prepared_read) {
+                // Try to flush queued requests to the compositor so it can process them and send replies.
+                // If flush would block (EAGAIN), cancel the prepared read and dispatch pending events to make progress.
+                const int flush_ret = wl_display_flush(wayland_ctx.display);
+                if (flush_ret == -1 && errno == EAGAIN) {
+                    // send buffer full; need to make progress by reading pending events first
+                    wl_display_cancel_read(wayland_ctx.display);
+                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+                        BONGOCAT_LOG_ERROR("wl_display_dispatch_pending failed after EAGAIN");
+                        running = 0;
+                    }
+                } else if (flush_ret == -1) {
+                    BONGOCAT_LOG_ERROR("wl_display_flush failed: %s", strerror(errno));
+                    wl_display_cancel_read(wayland_ctx.display);
+                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+                        running = 0;
+                    }
+                }
+            }
+
             assert(timeout_ms <= INT_MAX);
             const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
             if (poll_result > 0) {
@@ -1310,6 +1331,13 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                             running = 0;
                             return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
                         }
+                    } else {
+                        // dispatch any events already read
+                        if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+                            BONGOCAT_LOG_ERROR("Failed to dispatch pending Wayland events");
+                            running = 0;
+                            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+                        }
                     }
                 }
 
@@ -1353,12 +1381,12 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
                 if (!atomic_load(&wayland_ctx._frame_pending)) {
                     wl_display_dispatch_pending(wayland_ctx.display);
-                    if (animation::draw_bar(ctx)) {
-                        needs_flush = true;
-                    }
+                    const auto draw_bar_result = animation::draw_bar(ctx);
+                    needs_flush = draw_bar_result == animation::draw_bar_result_t::FlushNeeded;
                 } else {
                     if (!atomic_exchange(&wayland_ctx._redraw_after_frame, true)) {
                         BONGOCAT_LOG_VERBOSE("Queued redraw after frame");
+                        request_render(trigger_ctx);
                     }
                 }
                 render_requested = false;
