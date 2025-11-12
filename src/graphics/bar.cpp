@@ -52,7 +52,7 @@ namespace bongocat::animation {
 
                 if (atomic_exchange(&wayland_ctx._redraw_after_frame, false)) {
                     BONGOCAT_LOG_VERBOSE("frame_done: redraw after frame triggered");
-                    platform::wayland::request_render(trigger_ctx);
+                    platform::wayland::reques   t_render(trigger_ctx);
                 }
 
                 BONGOCAT_LOG_VERBOSE("wl_callback.done: frame done");
@@ -758,44 +758,28 @@ namespace bongocat::animation {
         //assert(wayland_ctx_shm->current_buffer_index >= 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS > 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        [[maybe_unused]] size_t current_buffer_index{0};
-        [[maybe_unused]] size_t next_buffer_index{0};
+        [[maybe_unused]] const size_t current_buffer_index = wayland_ctx_shm->current_buffer_index;
+        [[maybe_unused]] size_t next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % platform::wayland::WAYLAND_NUM_BUFFERS;
         platform::wayland::wayland_shm_buffer_t *shm_buffer = nullptr;
-        if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS == 1) {
-            // Single-buffer
-            shm_buffer = &wayland_ctx_shm->buffers[0];
-            current_buffer_index = 0;
-            next_buffer_index = 0;
-        } else {
-            // Multi-buffer: pick next free buffer
-            for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
-                //assert(next_buffer_index >= 0);
-                auto *buf = &wayland_ctx_shm->buffers[next_buffer_index];
-                if (!atomic_load(&buf->busy)) {
-                    shm_buffer = buf;
-                    current_buffer_index = i;
-                    next_buffer_index = i;
-                    break;
-                }
-                next_buffer_index = (next_buffer_index + 1) % static_cast<int>(platform::wayland::WAYLAND_NUM_BUFFERS);
+        for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
+            //assert(next_buffer_index >= 0);
+            auto *buf = &wayland_ctx_shm->buffers[next_buffer_index];
+            if (!atomic_load(&buf->busy)) {
+                shm_buffer = buf;
+                next_buffer_index = i;
+                break;
             }
+            next_buffer_index = (next_buffer_index + 1) % platform::wayland::WAYLAND_NUM_BUFFERS;
+        }
 
-            assert(ctx.animation_trigger_context);
-            if (!shm_buffer) {
-                BONGOCAT_LOG_VERBOSE("All buffers busy, skip drawing");
-                // Mark pending so it redraws once any buffer is released
-                for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
-                    atomic_store(&wayland_ctx_shm->buffers[i].pending, true);
-                }
-                platform::wayland::request_render(*ctx.animation_trigger_context); // force redraw, in the next frame (wait for rendering done)
-                return draw_bar_result_t::Busy;
-            }
+        assert(ctx.animation_trigger_context);
+        if (!shm_buffer) {
+            BONGOCAT_LOG_VERBOSE("draw_bar: All buffers busy, skip drawing");
+            atomic_store(&wayland_ctx._redraw_after_frame, true);
+            return draw_bar_result_t::Busy;
         }
 
         assert(shm_buffer);
-        atomic_store(&shm_buffer->busy, true);
-        atomic_store(&shm_buffer->pending, false);
-
         draw_bar_on_buffer(ctx, *shm_buffer);
 
         assert(shm_buffer->buffer);
@@ -805,24 +789,37 @@ namespace bongocat::animation {
         {
             platform::LockGuard guard (wayland_ctx._frame_cb_lock);
             if (!atomic_load(&wayland_ctx._frame_pending) && !wayland_ctx._frame_cb) {
-                atomic_store(&wayland_ctx._frame_pending, true);
                 wayland_ctx._frame_cb = wl_surface_frame(wayland_ctx.surface);
                 wl_callback_add_listener(wayland_ctx._frame_cb, &frame_listener, &ctx);
-                BONGOCAT_LOG_VERBOSE("Set frame pending");
+                atomic_store(&wayland_ctx._frame_pending, true);
+                BONGOCAT_LOG_VERBOSE("draw_bar: Set frame pending");
             } else {
                 // Frame callback is pending: queue redraw after current frame
                 atomic_store(&wayland_ctx._redraw_after_frame, true);
-                BONGOCAT_LOG_VERBOSE("Queued redraw after pending frame");
+                BONGOCAT_LOG_VERBOSE("draw_bar: Queued redraw after pending frame");
             }
         }
 
         wl_surface_commit(wayland_ctx.surface);
-
-        // Mark buffer busy after commit (ensures compositor gets it)
         atomic_store(&shm_buffer->busy, true);
-        atomic_store(&shm_buffer->pending, false);
+
+        wayland_ctx_shm->current_buffer_index = current_buffer_index;
+        const int flush_ret = wl_display_flush(wayland_ctx.display);
+        if (flush_ret == -1 && errno == EAGAIN) {
+            // send buffer full; need to make progress by reading pending events first
+            wl_display_cancel_read(wayland_ctx.display);
+            if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+                BONGOCAT_LOG_ERROR("draw_bar: wl_display_dispatch_pending failed after EAGAIN");
+            }
+        } else if (flush_ret == -1) {
+            BONGOCAT_LOG_ERROR("draw_bar: wl_display_flush failed: %s", strerror(errno));
+            wl_display_cancel_read(wayland_ctx.display);
+            wl_display_dispatch_pending(wayland_ctx.display);
+        }
+
         if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS > 1) {
             wayland_ctx_shm->current_buffer_index = next_buffer_index;
+            BONGOCAT_LOG_VERBOSE("draw_bar: new current_buffer_index: %i", next_buffer_index);
         }
 
         const platform::timestamp_ms_t now = platform::get_current_time_ms();
@@ -831,6 +828,6 @@ namespace bongocat::animation {
             wayland_ctx._last_frame_timestamp_ms = now;
         }
 
-        return draw_bar_result_t::FlushNeeded;
+        return draw_bar_result_t::NoFlushNeeded;
     }
 }

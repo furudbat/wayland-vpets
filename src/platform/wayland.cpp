@@ -737,16 +737,6 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         if (wayland_ctx_shm_buffer.buffer == buffer) {
             atomic_store(&wayland_ctx_shm_buffer.busy, false);
             BONGOCAT_LOG_VERBOSE("wl_buffer.release: buffer %d freed", wayland_ctx_shm_buffer.index);
-
-            /* if someone asked for a render while this was busy, reschedule it */
-            if (wayland_ctx_shm_buffer._animation_trigger_context != nullptr) {
-                if (atomic_exchange(&wayland_ctx_shm_buffer.pending, false)) {
-                    BONGOCAT_LOG_VERBOSE("wl_buffer.release: pending render -> request render");
-                    request_render(*wayland_ctx_shm_buffer._animation_trigger_context);
-                }
-            } else {
-                BONGOCAT_LOG_VERBOSE("Wayland configured yet, skip request render");
-            }
         } else {
             BONGOCAT_LOG_VERBOSE("wl_buffer.release: buffer is not matching with data.buffer");
         }
@@ -1387,6 +1377,9 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                     if (!atomic_exchange(&wayland_ctx._redraw_after_frame, true)) {
                         BONGOCAT_LOG_VERBOSE("Queued redraw after frame");
                         request_render(trigger_ctx);
+                    } else {
+                        const auto draw_bar_result = animation::draw_bar(ctx);
+                        needs_flush = draw_bar_result == animation::draw_bar_result_t::FlushNeeded;
                     }
                 }
                 render_requested = false;
@@ -1394,7 +1387,21 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             toggle_visibility_requested = false;
 
             if (needs_flush) {
-                wl_display_flush(wayland_ctx.display);
+                const int flush_ret = wl_display_flush(wayland_ctx.display);
+                if (flush_ret == -1 && errno == EAGAIN) {
+                    // send buffer full; need to make progress by reading pending events first
+                    wl_display_cancel_read(wayland_ctx.display);
+                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+                        BONGOCAT_LOG_ERROR("wl_display_dispatch_pending failed after EAGAIN");
+                        running = 0;
+                    }
+                } else if (flush_ret == -1) {
+                    BONGOCAT_LOG_ERROR("wl_display_flush failed: %s", strerror(errno));
+                    wl_display_cancel_read(wayland_ctx.display);
+                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+                        running = 0;
+                    }
+                }
             }
         }
         running = 0;
@@ -1419,6 +1426,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
         /// @NOTE: assume animation has the same local copy as wayland config
         //animation_update_config(anim, config);
         if (atomic_load(&ctx.ctx_shm->configured)) {
+            wl_surface_commit(ctx.surface);
             request_render(trigger_ctx);
         }
     }
