@@ -1,19 +1,19 @@
-#pragma once
+#include "wayland_hyprland.h"
+#include "utils/error.h"
+#include <cassert>
+#include <cerrno>
+#include <cstdlib>
+#include <cstdio>
+#include <sys/time.h>
+#include <sys/types.h>
+#include <pthread.h>
+#include <wayland-client.h>
+#include <sys/signalfd.h>
+#include <sys/wait.h>
 
 namespace bongocat::platform::wayland::hyprland {
 
-static inline constexpr size_t LINE_BUF = 512;
-
-typedef struct {
-    int monitor_id{-1};     // monitor number in Hyprland
-    int x{0};
-    int y{0};
-    int width{0};
-    int height{0};
-    bool fullscreen{false};
-} window_info_t;
-
-static int fs_check_compositor_fallback() {
+int fs_check_compositor_fallback() {
     FILE *fp = popen("hyprctl activewindow 2>/dev/null", "r");
     if (fp) {
         bool is_fullscreen = false;
@@ -39,7 +39,7 @@ static int fs_check_compositor_fallback() {
     return -1;
 }
 
-static void update_outputs_with_monitor_ids(wayland_session_t& ctx) {
+void update_outputs_with_monitor_ids(wayland_session_t& ctx) {
     FILE *fp = popen("hyprctl monitors 2>/dev/null", "r");
     if (!fp) return;
 
@@ -67,7 +67,7 @@ static void update_outputs_with_monitor_ids(wayland_session_t& ctx) {
     pclose(fp);
 }
 
-static bool get_active_window(window_info_t& win) {
+bool get_active_window(window_info_t& win) {
     FILE *fp = popen("hyprctl activewindow 2>/dev/null", "r");
     if (!fp) return false;
 

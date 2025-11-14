@@ -7,10 +7,13 @@
 
 namespace bongocat::platform::wayland {
     // single-, double- or triple-buffer
+    // @FIXME: fix for double buffer on (KWin)
     inline static constexpr size_t WAYLAND_NUM_BUFFERS = 1;
 
     struct wayland_shm_buffer_t;
     void cleanup_shm_buffer(wayland_shm_buffer_t& buffer);
+
+    struct wayland_context_t;
 
     struct wayland_shm_buffer_t {
         wl_buffer *buffer{nullptr};
@@ -21,6 +24,7 @@ namespace bongocat::platform::wayland {
 
         // extra context for listeners
         animation::animation_session_t *_animation_trigger_context{nullptr};
+        wayland_context_t *_wayland_context{nullptr};   // parent ref. for buffer_release
 
 
 
@@ -36,7 +40,8 @@ namespace bongocat::platform::wayland {
             : buffer(other.buffer),
               pixels(bongocat::move(other.pixels)),
               index(other.index),
-              _animation_trigger_context(other._animation_trigger_context)
+              _animation_trigger_context(other._animation_trigger_context),
+              _wayland_context(other._wayland_context)
         {
             atomic_store(&busy, atomic_load(&other.busy));
             atomic_store(&pending, atomic_load(&other.pending));
@@ -55,10 +60,12 @@ namespace bongocat::platform::wayland {
                 atomic_store(&pending, atomic_load(&other.pending));
                 index = other.index;
                 _animation_trigger_context = other._animation_trigger_context;
+                _wayland_context = other._wayland_context;
 
                 other.buffer = nullptr;
                 other.index = 0;
                 other._animation_trigger_context = nullptr;
+                other._wayland_context = nullptr;
                 atomic_store(&other.busy, false);
                 atomic_store(&other.pending, false);
             }
@@ -71,8 +78,6 @@ namespace bongocat::platform::wayland {
         wayland_shm_buffer_t buffers[WAYLAND_NUM_BUFFERS];
         size_t current_buffer_index{0};
         atomic_bool configured{false};
-
-
 
         wayland_shared_memory_t() = default;
         ~wayland_shared_memory_t() {
@@ -125,6 +130,7 @@ namespace bongocat::platform::wayland {
         atomic_store(&buffer.busy, false);
         buffer.index = 0;
         buffer._animation_trigger_context = nullptr;
+        buffer._wayland_context = nullptr;
     }
 }
 
