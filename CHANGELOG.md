@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.3.1] - 2025-11-15
+
+### Fixed
+- randomize at start-up
+- KDE (Kwin) rendering (animation freeze)
 
 ## [3.3.0] - 2025-11-05
 
