@@ -62,7 +62,7 @@ toggle_config() {
     echo "[TEST] Setting idle_sleep_timeout=$new"
 }
 
-# --- modify config to trigger hot reload ---
+# Test Sleep
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=0/' "$CONFIG"
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
@@ -76,6 +76,8 @@ echo "[INFO] Enable idle_sleep_timeout..."
 sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=10/" "$CONFIG"
 sleep 5
 sed -i 's/^enable_scheduled_sleep=0/enable_scheduled_sleep=1/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
 sleep 20
 echo "[TEST] Wake up Sleep"
 if [[ -f "/proc/$PID/fd/0" ]]; then
@@ -84,15 +86,23 @@ if [[ -f "/proc/$PID/fd/0" ]]; then
 fi
 echo "[INFO] Disable idle_sleep_timeout..."
 sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=3600/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
 sleep 5
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
 sleep 5
 echo "[TEST] Change animation sprite"
 echo "[INFO] Set animation_name..."
 sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
 sleep 5
 echo "[INFO] Set animation_name..."
 sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
 sleep 1
 
 echo "[TEST] move and delete config..."
@@ -283,6 +293,42 @@ sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
+
+
+# Test Sleep + reload in middle
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=dm20:Agumon/' "$CONFIG"
+echo "[TEST] Trigger Sleep"
+echo "[INFO] Enable idle_sleep_timeout..."
+sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=10/" "$CONFIG"
+sed -i 's/^enable_scheduled_sleep=0/enable_scheduled_sleep=1/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 25
+echo "[TEST] Reload config while sleeping Sleep"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+echo "[INFO] Disable idle_sleep_timeout..."
+sed -i -E "s/^idle_sleep_timeout=[0-9]+/idle_sleep_timeout=3600/" "$CONFIG"
+sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+echo "[TEST] Change animation sprite"
+echo "[INFO] Set animation_name..."
+sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+echo "[INFO] Set animation_name..."
+sed -i -E 's/^animation_name=.*/animation_name=greymon/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 1
+
 
 # --- verify running ---
 if kill -0 "$PID" 2>/dev/null; then

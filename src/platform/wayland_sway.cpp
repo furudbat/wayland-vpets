@@ -1,10 +1,18 @@
-#pragma once
+#include "wayland_sway.h"
+#include "utils/error.h"
+#include <cassert>
+#include <fcntl.h>
+#include <cstdlib>
+#include <cstdio>
+#include <sys/types.h>
+#include <pthread.h>
+#include <cstring>
+#include <wayland-client.h>
+#include <sys/signalfd.h>
 
 namespace bongocat::platform::wayland::sway {
 
-static inline constexpr size_t SWAY_BUF = 4096;
-
-static int fs_check_compositor_fallback() {
+int fs_check_compositor_fallback() {
     FILE *fp = popen("swaymsg -t get_tree 2>/dev/null", "r");
     if (fp) {
         bool is_fullscreen = false;

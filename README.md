@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.3.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.3.1-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
@@ -99,7 +99,7 @@ keypress_duration=200
 keyboard_device=/dev/input/event4       # Keyboard
 ```
 
-Full configuration reference: see the [Configuration Section](#-configuration) below.
+Full configuration reference: see the [Configuration Section](#%EF%B8%8F-configuration) below.
 
 ### 5. Run the Overlay
 
@@ -323,7 +323,7 @@ See man pages for more details and full list:
 ##### Digimon 🦖
 
  - [Original](docs/fragments/set-dm.md) [`dm`](https://humulos.com/digimon/dm/)
- - [Pendulum Original](docs/fragments/set-pen.md) [`dm`](https://humulos.com/digimon/pen/)
+ - [Pendulum Original](docs/fragments/set-pen.md) [`pen`](https://humulos.com/digimon/pen/)
  - [20th Anniversary](docs/fragments/set-dm20.md) [`dm20`](https://humulos.com/digimon/dm20/)
  - [Pendulum Ver.20th](docs/fragments/set-pen20.md) [`pen20`](https://humulos.com/digimon/pen20/)
  - [X](docs/fragments/set-dmx.md) [`dmx`](https://humulos.com/digimon/dmx/)
@@ -785,5 +785,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v3.3.0** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.3.1** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon V-Pets, Clippy and Pokémon.

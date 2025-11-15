@@ -74,6 +74,9 @@ CXX_SRC = $(SRCDIR)/image_loader/load_images.cpp \
     $(SRCDIR)/platform/input.cpp \
     $(SRCDIR)/platform/update.cpp \
     $(SRCDIR)/platform/wayland.cpp \
+    $(SRCDIR)/platform/wayland_callbacks.cpp \
+    $(SRCDIR)/platform/wayland_hyprland.cpp \
+    $(SRCDIR)/platform/wayland_sway.cpp \
     $(SRCDIR)/graphics/bar.cpp \
     $(SRCDIR)/graphics/animation.cpp \
     $(SRCDIR)/graphics/animation_init.cpp \
