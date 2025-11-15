@@ -631,7 +631,12 @@ namespace bongocat::platform::wayland {
                     }
                 }
 
-                BONGOCAT_LOG_VERBOSE("Poll revents: signal=%x, reload=%x, render=%x, wayland=%x", fds[fds_signals_index].revents, fds[fds_config_reload_index].revents, fds[fds_animation_render_index].revents, fds[fds_wayland_index].revents);
+                BONGOCAT_LOG_VERBOSE("Poll revents: poll_result=%d; signal=%x, reload=%x, render=%x, wayland=%x",
+                    poll_result,
+                    fds[fds_signals_index].revents,
+                    fds[fds_config_reload_index].revents,
+                    fds[fds_animation_render_index].revents,
+                    fds[fds_wayland_index].revents);
             } else if (poll_result == 0) {
                 if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
                 if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {

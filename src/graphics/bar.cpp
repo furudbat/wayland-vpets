@@ -740,6 +740,11 @@ namespace bongocat::animation {
         }
 
         BONGOCAT_LOG_VERBOSE("draw_bar: using buffer %zu", next_buffer_index);
+        if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS > 1) {
+            wayland_ctx_shm->current_buffer_index = next_buffer_index;
+            BONGOCAT_LOG_VERBOSE("draw_bar: new current_buffer_index: %i", next_buffer_index);
+        }
+        assert(wayland_ctx_shm->current_buffer_index < platform::wayland::WAYLAND_NUM_BUFFERS);
 
         assert(shm_buffer);
         draw_bar_on_buffer(ctx, *shm_buffer);
@@ -779,12 +784,6 @@ namespace bongocat::animation {
             wl_display_cancel_read(wayland_ctx.display);
             wl_display_dispatch_pending(wayland_ctx.display);
         }
-
-        if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS > 1) {
-            wayland_ctx_shm->current_buffer_index = next_buffer_index;
-            BONGOCAT_LOG_VERBOSE("draw_bar: new current_buffer_index: %i", next_buffer_index);
-        }
-        assert(wayland_ctx_shm->current_buffer_index < platform::wayland::WAYLAND_NUM_BUFFERS);
 
         const platform::timestamp_ms_t now = platform::get_current_time_ms();
         assert(current_config.fps > 0);

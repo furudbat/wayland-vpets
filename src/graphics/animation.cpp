@@ -4670,8 +4670,9 @@ namespace bongocat::animation {
             }
         }
 
-        ctx.shm->animation_player_result.sprite_sheet_col = ctx._local_copy_config->idle_frame ? ctx._local_copy_config->idle_frame : ctx.shm->animation_player_result.sprite_sheet_col;  // initial frame
-        ctx.shm->animation_player_result.sprite_sheet_row = features::EnableCustomSpriteSheetsAssets && ctx._local_copy_config->_custom && ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index > 0 ? ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index : static_cast<int32_t>(CUSTOM_SPRITE_SHEET_ROW_IDLE);
+        // initial frame
+        ctx.shm->animation_player_result.sprite_sheet_col = ctx._local_copy_config->idle_frame ? ctx._local_copy_config->idle_frame : 0;
+        ctx.shm->animation_player_result.sprite_sheet_row = features::EnableCustomSpriteSheetsAssets && ctx._local_copy_config->_custom && ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index > 0 ? ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index : 0;
 
         [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
