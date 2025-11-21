@@ -112,9 +112,15 @@ namespace bongocat::assets {
         int32_t start_running_row_index{-1};
         int32_t running_row_index{-1};
         int32_t end_running_row_index{-1};
+
+        int32_t rows{-1};
     };
 
     inline int get_custom_animation_settings_rows_count(const custom_animation_settings_t& sprite_sheet_settings) {
+        if (sprite_sheet_settings.rows >= 1) {
+            return sprite_sheet_settings.rows;
+        }
+
         int sprite_sheet_rows{0};
 
         // detect sprite sheet rows
