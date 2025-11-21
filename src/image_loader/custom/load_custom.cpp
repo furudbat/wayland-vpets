@@ -151,6 +151,43 @@ namespace bongocat::animation {
                 ret.end_moving.row = ret.end_moving.row < sprite_sheet_rows ? ret.end_moving.row : sprite_sheet_rows-1;
                 row++;
             }
+
+            if (sprite_sheet_settings.start_running_frames > 0) {
+                ret.start_running = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.start_running_frames-1, .row = sprite_sheet_settings.start_running_row_index >= 0 ? sprite_sheet_settings.start_running_row_index : row };
+                if (ret.start_moving.valid) {
+                    ret.start_running.row = ret.start_moving.row;
+                } else {
+                    ret.start_running.row = ret.start_running.row >= 0 ? ret.start_running.row : 0;
+                    ret.start_running.row = ret.start_running.row < sprite_sheet_rows ? ret.start_running.row : sprite_sheet_rows-1;
+                }
+                row++;
+            } else if (ret.start_moving.valid) {
+                ret.start_running = { .valid = true, .start_col = ret.start_moving.start_col, .end_col = ret.start_moving.end_col, .row = sprite_sheet_settings.start_running_row_index >= 0 ? sprite_sheet_settings.start_running_row_index : ret.start_moving.row };
+            }
+            if (sprite_sheet_settings.running_frames > 0) {
+                ret.running = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.running_frames-1, .row = sprite_sheet_settings.running_row_index >= 0 ? sprite_sheet_settings.running_row_index : row };
+                if (ret.moving.valid) {
+                    ret.running.row = ret.moving.row;
+                } else {
+                    ret.running.row = ret.running.row >= 0 ? ret.running.row : 0;
+                    ret.running.row = ret.running.row < sprite_sheet_rows ? ret.running.row : sprite_sheet_rows-1;
+                }
+                row++;
+            } else if (ret.moving.valid) {
+                ret.running = { .valid = true, .start_col = ret.moving.start_col, .end_col = ret.moving.end_col, .row = sprite_sheet_settings.running_row_index >= 0 ? sprite_sheet_settings.running_row_index : ret.moving.row };
+            }
+            if (sprite_sheet_settings.end_running_frames > 0) {
+                ret.end_running = { .valid = true, .start_col = 0, .end_col = sprite_sheet_settings.end_running_frames-1, .row = sprite_sheet_settings.end_running_row_index >= 0 ? sprite_sheet_settings.end_running_row_index : row };
+                if (ret.end_moving.valid) {
+                    ret.end_running.row = ret.end_moving.row;
+                } else {
+                    ret.end_running.row = ret.end_running.row >= 0 ? ret.end_running.row : 0;
+                    ret.end_running.row = ret.end_running.row < sprite_sheet_rows ? ret.end_running.row : sprite_sheet_rows-1;
+                }
+                row++;
+            } else if (ret.end_moving.valid) {
+                ret.end_running = { .valid = true, .start_col = ret.end_moving.start_col, .end_col = ret.end_moving.end_col, .row = sprite_sheet_settings.end_running_row_index >= 0 ? sprite_sheet_settings.end_running_row_index : ret.end_moving.row };
+            }
         }
 
         // features
@@ -162,12 +199,17 @@ namespace bongocat::animation {
         ret.feature_sleep_wake_up = ret.feature_sleep && ret.wake_up.valid;
         ret.feature_working = ret.working.valid || ret.start_working.valid || ret.end_working.valid;
         ret.feature_moving = ret.moving.valid || ret.start_moving.valid || ret.end_moving.valid;
+        ret.feature_running = ret.running.valid || ret.start_running.valid || ret.end_running.valid;
         // is feature_toggle_writing_frames enabled or writing has only 2 frames (default)
         ret.feature_writing_toggle_frames = ret.working.valid && (sprite_sheet_settings.feature_toggle_writing_frames >= 1 || (sprite_sheet_settings.feature_toggle_writing_frames < 0 && !ret.start_moving.valid && !ret.end_working.valid && ret.working.valid && sprite_sheet_settings.working_frames == 2));
         ret.feature_writing_toggle_frames_random = ret.working.valid && (sprite_sheet_settings.feature_toggle_writing_frames_random >= 1 || (sprite_sheet_settings.feature_toggle_writing_frames_random < 0 && !ret.start_moving.valid && !ret.end_working.valid && ret.working.valid && sprite_sheet_settings.working_frames == 2));
 
         if (!ret.feature_idle) [[unlikely]] {
             BONGOCAT_LOG_WARNING("Custom Animation without idle animation: %s", sprite_sheet_image.name);
+            // default to first frame
+            ret.idle = { .valid = true, .start_col = 0, .end_col = 0, .row = sprite_sheet_settings.idle_row_index >= 0 ? sprite_sheet_settings.idle_row_index : 0 };
+            ret.idle.row = ret.idle.row >= 0 ? ret.idle.row : 0;
+            ret.idle.row = ret.idle.row < sprite_sheet_rows ? ret.idle.row : sprite_sheet_rows-1;
         }
 
         return ret;

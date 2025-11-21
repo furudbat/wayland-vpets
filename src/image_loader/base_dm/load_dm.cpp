@@ -114,6 +114,19 @@ namespace bongocat::animation {
             ret.animations.moving[2] = ret.frames.idle_2.col;
             ret.animations.moving[3] = ret.frames.idle_2.col;
         }
+        // running animation (same as moving)
+        if (ret.frames.movement_1.valid || ret.frames.movement_2.valid) {
+            ret.animations.running[0] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
+            ret.animations.running[1] = ret.frames.movement_1.valid ? ret.frames.movement_1.col : ret.frames.idle_1.col;
+            ret.animations.running[2] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
+            ret.animations.running[3] = ret.frames.movement_2.valid ? ret.frames.movement_2.col : ret.frames.idle_2.col;
+        } else {
+            // fallback
+            ret.animations.running[0] = ret.frames.idle_1.col;
+            ret.animations.running[1] = ret.frames.idle_1.col;
+            ret.animations.running[2] = ret.frames.idle_2.col;
+            ret.animations.running[3] = ret.frames.idle_2.col;
+        }
 
         // happy animation
         if (ret.frames.happy.valid) {

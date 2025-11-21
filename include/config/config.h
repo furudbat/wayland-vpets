@@ -119,9 +119,11 @@ namespace bongocat::config {
         int32_t idle_animation{0};
         int32_t input_fps{0};
         int32_t randomize_index{0};
+        int32_t randomize_on_reload{0};
 
         int32_t update_rate_ms{0};
         double cpu_threshold{0};
+        double cpu_running_factor{0};
 
         int32_t movement_radius{0};
         int32_t enable_movement_debug{0};
@@ -183,8 +185,10 @@ namespace bongocat::config {
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
+              randomize_on_reload(other.randomize_on_reload),
               update_rate_ms(other.update_rate_ms),
               cpu_threshold(other.cpu_threshold),
+              cpu_running_factor(other.cpu_running_factor),
               movement_radius(other.movement_radius),
               enable_movement_debug(other.enable_movement_debug),
               movement_speed(other.movement_speed),
@@ -237,11 +241,13 @@ namespace bongocat::config {
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
                 randomize_index = other.randomize_index;
+                randomize_on_reload = other.randomize_on_reload;
                 update_rate_ms = other.update_rate_ms;
                 movement_radius = other.movement_radius;
                 enable_movement_debug = other.enable_movement_debug;
                 movement_speed = other.movement_speed;
                 cpu_threshold = other.cpu_threshold;
+                cpu_running_factor = other.cpu_running_factor;
                 screen_width = other.screen_width;
                 custom_sprite_sheet_settings = other.custom_sprite_sheet_settings;
                 _keep_old_animation_index = other._keep_old_animation_index;
@@ -292,8 +298,10 @@ namespace bongocat::config {
               idle_animation(other.idle_animation),
               input_fps(other.input_fps),
               randomize_index(other.randomize_index),
+              randomize_on_reload(other.randomize_on_reload),
               update_rate_ms(other.update_rate_ms),
               cpu_threshold(other.cpu_threshold),
+              cpu_running_factor(other.cpu_running_factor),
               movement_radius(other.movement_radius),
               enable_movement_debug(other.enable_movement_debug),
               movement_speed(other.movement_speed),
@@ -354,8 +362,10 @@ namespace bongocat::config {
                 idle_animation = other.idle_animation;
                 input_fps = other.input_fps;
                 randomize_index = other.randomize_index;
+                randomize_on_reload = other.randomize_on_reload;
                 update_rate_ms = other.update_rate_ms;
                 cpu_threshold = other.cpu_threshold;
+                cpu_running_factor = other.cpu_running_factor;
                 movement_radius = other.movement_radius;
                 enable_movement_debug = other.enable_movement_debug;
                 movement_speed = other.movement_speed;
