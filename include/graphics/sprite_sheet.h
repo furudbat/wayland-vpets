@@ -63,6 +63,7 @@ namespace bongocat::animation {
         int32_t working[MAX_ANIMATION_FRAMES]{};  // attack
         int32_t moving[MAX_ANIMATION_FRAMES]{};
         int32_t happy[MAX_ANIMATION_FRAMES]{};
+        int32_t running[MAX_ANIMATION_FRAMES]{};
     };
 
     struct dm_sprite_sheet_t {
@@ -136,6 +137,10 @@ namespace bongocat::animation {
         ms_agent_sprite_sheet_animation_section_t end_moving;
 
         ms_agent_sprite_sheet_animation_section_t happy;
+
+        ms_agent_sprite_sheet_animation_section_t start_running;
+        ms_agent_sprite_sheet_animation_section_t running;
+        ms_agent_sprite_sheet_animation_section_t end_running;
     };
 
     struct custom_sprite_sheet_animation_section_t {
@@ -170,6 +175,10 @@ namespace bongocat::animation {
         custom_sprite_sheet_animation_section_t moving;
         custom_sprite_sheet_animation_section_t end_moving;
 
+        custom_sprite_sheet_animation_section_t start_running;
+        custom_sprite_sheet_animation_section_t running;
+        custom_sprite_sheet_animation_section_t end_running;
+
         // features
         bool feature_idle{false};
         bool feature_boring{false};
@@ -179,6 +188,7 @@ namespace bongocat::animation {
         bool feature_sleep_wake_up{false};
         bool feature_working{false};
         bool feature_moving{false};
+        bool feature_running{false};
         bool feature_writing_toggle_frames{false};
         bool feature_writing_toggle_frames_random{false};
     };

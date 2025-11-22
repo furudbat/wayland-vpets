@@ -154,6 +154,24 @@ custom_moving_frames=8
 custom_mirror_x_moving=1
 ```
 
+## RunCat
+
+[gnome-runcat](https://github.com/win0err/gnome-runcat) by win0err
+
+![runcat sprite sheet](runcat.png)
+
+- Running animation (5 frames)
+
+```ini
+# Sprite Sheet Settings
+animation_name=custom
+custom_sprite_sheet_filename=runcat.png
+custom_idle_row=1
+custom_idle_frames=1
+custom_running_row=1
+custom_running_frames=5
+custom_rows=1
+```
 
 ## Know issues
 

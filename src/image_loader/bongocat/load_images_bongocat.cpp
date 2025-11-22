@@ -75,6 +75,11 @@ namespace bongocat::animation {
         ret.animations.happy[2] = BONGOCAT_FRAME_LEFT_DOWN;
         ret.animations.happy[3] = BONGOCAT_FRAME_RIGHT_DOWN;
 
+        ret.animations.running[0] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.running[1] = BONGOCAT_FRAME_BOTH_DOWN;
+        ret.animations.running[2] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.running[3] = BONGOCAT_FRAME_BOTH_DOWN;
+
         return ret;
     }
 

@@ -20,6 +20,9 @@ namespace bongocat::assets {
     inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_START_MOVING = 12;
     inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_MOVING = 13;
     inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_END_MOVING = 14;
+    inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_START_RUNNING = 15;
+    inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_RUNNING = 16;
+    inline static constexpr size_t CUSTOM_SPRITE_SHEET_ROW_END_RUNNING = 17;
     enum class CustomAnimations : uint8_t {
         Idle = CUSTOM_SPRITE_SHEET_ROW_IDLE,
         Boring = CUSTOM_SPRITE_SHEET_ROW_BORING,
@@ -36,8 +39,11 @@ namespace bongocat::assets {
         StartMoving = CUSTOM_SPRITE_SHEET_ROW_START_MOVING,
         Moving = CUSTOM_SPRITE_SHEET_ROW_MOVING,
         EndMoving = CUSTOM_SPRITE_SHEET_ROW_END_MOVING,
+        StartRunning = CUSTOM_SPRITE_SHEET_ROW_START_RUNNING,
+        Running = CUSTOM_SPRITE_SHEET_ROW_RUNNING,
+        EndRunning = CUSTOM_SPRITE_SHEET_ROW_END_RUNNING,
     };
-    inline static constexpr size_t CUSTOM_SPRITE_SHEET_MAX_ROWS = 15;
+    inline static constexpr size_t CUSTOM_SPRITE_SHEET_MAX_ROWS = 18;
 
     // custom (sprite sheet)
     inline static constexpr char CUSTOM_ID_ARR[] = "custom";
@@ -73,6 +79,10 @@ namespace bongocat::assets {
         int32_t moving_frames{0};
         int32_t end_moving_frames{0};
 
+        int32_t start_running_frames{0};
+        int32_t running_frames{0};
+        int32_t end_running_frames{0};
+
         int32_t feature_toggle_writing_frames{-1};
         int32_t feature_toggle_writing_frames_random{-1};
         int32_t feature_mirror_x_moving{-1};
@@ -98,9 +108,19 @@ namespace bongocat::assets {
         int32_t start_moving_row_index{-1};
         int32_t moving_row_index{-1};
         int32_t end_moving_row_index{-1};
+
+        int32_t start_running_row_index{-1};
+        int32_t running_row_index{-1};
+        int32_t end_running_row_index{-1};
+
+        int32_t rows{-1};
     };
 
     inline int get_custom_animation_settings_rows_count(const custom_animation_settings_t& sprite_sheet_settings) {
+        if (sprite_sheet_settings.rows >= 1) {
+            return sprite_sheet_settings.rows;
+        }
+
         int sprite_sheet_rows{0};
 
         // detect sprite sheet rows
@@ -123,6 +143,10 @@ namespace bongocat::assets {
         if (sprite_sheet_settings.start_moving_frames > 0) sprite_sheet_rows++;
         if (sprite_sheet_settings.moving_frames > 0) sprite_sheet_rows++;
         if (sprite_sheet_settings.end_moving_frames > 0) sprite_sheet_rows++;
+
+        if (sprite_sheet_settings.start_running_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.running_frames > 0) sprite_sheet_rows++;
+        if (sprite_sheet_settings.end_running_frames > 0) sprite_sheet_rows++;
 
         return sprite_sheet_rows;
     }
@@ -147,6 +171,10 @@ namespace bongocat::assets {
         if (sprite_sheet_settings.start_moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_moving_frames;
         if (sprite_sheet_settings.moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.moving_frames;
         if (sprite_sheet_settings.end_moving_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_moving_frames;
+
+        if (sprite_sheet_settings.start_running_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.start_running_frames;
+        if (sprite_sheet_settings.running_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.running_frames;
+        if (sprite_sheet_settings.end_running_frames >= sprite_sheet_cols) sprite_sheet_cols = sprite_sheet_settings.end_running_frames;
 
         return sprite_sheet_cols;
     }

@@ -97,6 +97,9 @@ namespace bongocat::animation {
         StartMoving,
         Moving,
         EndMoving,
+        StartRunning,
+        Running,
+        EndRunning,
     };
 
     struct animation_state_t {
@@ -165,22 +168,27 @@ namespace bongocat::animation {
         bool process_idle_animation{false};
         bool process_movement_animation{false};
         bool process_working_animation{false};
+        bool process_running_animation{false};
         bool go_next_frame{false};
+        bool go_next_frame_running{false};
         bool release_frame_for_non_idle{false};
 
         // current animation
         bool is_writing{false};
         bool is_moving{false};
         bool is_working{false};
+        bool is_running{false};
         bool continue_writing{false};
     };
     static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_context_t& ctx,
                                                  const platform::input::input_context_t& input,
+                                                 [[maybe_unused]] const platform::update::update_context_t& upd,
                                                  const animation_state_t& current_state,
                                                  const animation_trigger_t& trigger,
                                                  const config::config_t& current_config) {
         assert(input.shm != nullptr);
         const auto& input_shm = *input.shm;
+        const auto& update_shm = *upd.shm;
         const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
         const platform::timestamp_ms_t fps_ms = 1000/current_config.fps;
 
@@ -199,14 +207,27 @@ namespace bongocat::animation {
         const bool process_movement_animation_by_fps = current_config.movement_speed > 0 && current_config.movement_radius > 0 && current_config.animation_speed_ms <= 0 && current_state.frame_delta_ms_counter > fps_ms;
         const bool process_movement_animation = process_movement_animation_by_animation_speed || process_movement_animation_by_fps;
 
-        const bool process_working_animation_by_animation_speed = current_config.cpu_threshold > 0 && current_config.update_rate_ms > 0 && current_config.animation_speed_ms > 0 && current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
-        const bool process_working_animation_by_fps = current_config.cpu_threshold > 0 && current_config.update_rate_ms > 0 && current_config.animation_speed_ms <= 0 && current_state.frame_delta_ms_counter > fps_ms;
+        const bool process_working_animation_by_animation_speed = current_config.cpu_running_factor < 1.0 && current_config.cpu_threshold > 0 && current_config.update_rate_ms > 0 && current_config.animation_speed_ms > 0 && current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
+        const bool process_working_animation_by_fps = current_config.cpu_running_factor < 1.0 && current_config.cpu_threshold > 0 && current_config.update_rate_ms > 0 && current_config.animation_speed_ms <= 0 && current_state.frame_delta_ms_counter > fps_ms;
         const bool process_working_animation = process_working_animation_by_animation_speed || process_working_animation_by_fps;
+
+        const bool process_running_animation_by_animation_speed = current_config.cpu_running_factor >= 1.0 && current_config.cpu_threshold > 0 && current_config.update_rate_ms > 0 && current_config.animation_speed_ms > 0 && current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
+        const bool process_running_animation_by_fps = current_config.cpu_running_factor >= 1.0 && current_config.cpu_threshold > 0 && current_config.update_rate_ms > 0 && current_config.animation_speed_ms <= 0 && current_state.frame_delta_ms_counter > fps_ms;
+        const bool process_running_animation = process_running_animation_by_animation_speed || process_running_animation_by_fps;
 
         const bool process_movement = current_config.movement_speed > 0 && current_config.movement_radius > 0 && current_state.update_delta_ms_counter > current_config.animation_speed_ms;
 
         const bool is_writing = current_state.row_state == animation_state_row_t::StartWriting || current_state.row_state == animation_state_row_t::Writing || current_state.row_state == animation_state_row_t::EndWriting;
         const bool release_frame_after_press = !any_key_pressed && current_state.hold_frame_ms > current_config.keypress_duration_ms;
+
+        const bool is_running = current_state.row_state == animation_state_row_t::StartRunning || current_state.row_state == animation_state_row_t::Running;
+        double running_animation_speed_factor = 1.0;
+        if (current_config.cpu_running_factor >= 1.0 && update_shm.cpu_active) {
+            running_animation_speed_factor = update_shm.avg_cpu_usage > 0 ? 1.0 / ((update_shm.avg_cpu_usage/100.0) * (current_config.cpu_running_factor)) : 0;
+        }
+        const double running_animation_speed_ms = running_animation_speed_factor * current_config.animation_speed_ms;
+        const bool go_next_frame_running = current_config.cpu_running_factor >= 1.0 && ((running_animation_speed_ms > 0 && static_cast<double>(current_state.frame_delta_ms_counter) > running_animation_speed_ms) || (running_animation_speed_ms <= 0 && (running_animation_speed_factor*static_cast<double>(current_state.frame_delta_ms_counter)) > static_cast<double>(fps_ms)));
+
 
         assert(SMALL_MAX_DISTANCE_PER_MOVEMENT_PART > 0);
         assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
@@ -228,12 +249,15 @@ namespace bongocat::animation {
             .process_idle_animation = process_idle_animation,
             .process_movement_animation = process_movement_animation,
             .process_working_animation = process_working_animation,
+            .process_running_animation = process_running_animation,
             .go_next_frame = go_next_frame,
-            .release_frame_for_non_idle = release_frame_for_non_idle || go_next_frame,
+            .go_next_frame_running = go_next_frame_running,
+            .release_frame_for_non_idle = release_frame_for_non_idle || go_next_frame || (is_running && go_next_frame_running),
 
             .is_writing = is_writing,
             .is_moving = current_state.row_state == animation_state_row_t::StartMoving || current_state.row_state == animation_state_row_t::Moving || current_state.row_state == animation_state_row_t::EndMoving,
             .is_working = current_state.row_state == animation_state_row_t::StartWorking || current_state.row_state == animation_state_row_t::Working,
+            .is_running = is_running,
             .continue_writing = ((!any_key_pressed && current_state.hold_frame_ms < current_config.keypress_duration_ms) || !release_frame_after_press) && is_writing,
         };
     }
@@ -330,6 +354,11 @@ namespace bongocat::animation {
             case animation_state_row_t::EndMoving:
                 new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
                 break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
+                new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
+                break;
         }
         return ret;
     }
@@ -391,6 +420,11 @@ namespace bongocat::animation {
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
                 new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
+                break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
+                new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
                 break;
         }
         return ret;
@@ -502,7 +536,9 @@ namespace bongocat::animation {
                                                current_state, current_frames, current_config);
     }
 
-    static anim_next_frame_result_t anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
+    static anim_next_frame_result_t anim_bongocat_idle_next_frame(animation_context_t& ctx,
+                                                                  const platform::input::input_context_t& input,
+                                                                  [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                   animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
         // read-only config
@@ -524,7 +560,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
 
         // Idle Animation
         const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
@@ -699,6 +735,7 @@ namespace bongocat::animation {
 
     static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(animation_context_t& ctx, animation_state_t& state,
                                                                          const platform::input::input_context_t& input,
+                                                                         [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                          const animation_trigger_t& trigger) {
         using namespace assets;
 
@@ -720,7 +757,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
 
         /// @TODO: use state machine for animation (states)
 
@@ -841,6 +878,11 @@ namespace bongocat::animation {
             case animation_state_row_t::EndMoving:
                 new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
                 break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
+                new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
+                break;
         }
         return ret;
     }
@@ -900,6 +942,11 @@ namespace bongocat::animation {
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
                 new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
+                break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
+                new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
                 break;
         }
         return ret;
@@ -1054,6 +1101,35 @@ namespace bongocat::animation {
                     }
                 }
                 break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+                if (current_frames.frames.movement_1.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.movement_1.col;
+                } else {
+                    // toggle frame
+                    if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE1) {
+                        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE2;
+                    } else if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE2) {
+                        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE1;
+                    } else {
+                        new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? DM_FRAME_IDLE1 : DM_FRAME_IDLE2;
+                    }
+                }
+                break;
+            case animation_state_row_t::EndRunning:
+                if (current_frames.frames.movement_2.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.movement_2.col;
+                } else {
+                    // toggle frame
+                    if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE1) {
+                        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE2;
+                    } else if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE2) {
+                        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE1;
+                    } else {
+                        new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? DM_FRAME_IDLE1 : DM_FRAME_IDLE2;
+                    }
+                }
+                break;
         }
         return ret;
     }
@@ -1083,6 +1159,7 @@ namespace bongocat::animation {
 
     static anim_dm_process_animation_result_t anim_dm_handle_movement(animation_context_t& ctx,
                                                                       const platform::input::input_context_t& input,
+                                                                      [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                       animation_player_result_t& new_animation_result,
                                                                       animation_state_t& new_state,
                                                                       const anim_handle_key_press_result_t& trigger_result,
@@ -1094,7 +1171,7 @@ namespace bongocat::animation {
         assert(ctx.shm != nullptr);
         animation_shared_memory_t& anim_shm = *ctx.shm;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
 
         anim_dm_process_animation_result_t ret {.row_state = new_state.row_state, .status = anim_dm_process_animation_result_status_t::None};
         if (!conditions.is_writing && current_config.movement_speed > 0 && current_config.movement_radius > 0 && current_config.fps > 0) {
@@ -1303,7 +1380,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
 
         /// @TODO: make animation state machine ?
 
@@ -1380,16 +1457,16 @@ namespace bongocat::animation {
                                                                 current_state, current_frames, current_config);
                             }
                         }
-                    } else if (conditions.is_working && current_state.row_state != animation_state_row_t::EndMoving && !update_shm.cpu_active) {
+                    } else if (conditions.is_working && current_state.row_state != animation_state_row_t::EndWorking && !update_shm.cpu_active) {
                         // Cancel Working
                         if (conditions.process_idle_animation) {
                             // back to idle
-                            anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndMoving,
+                            anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndWorking,
                                                     new_animation_result, new_state,
                                                     current_state, current_frames, current_config);
                         } else {
                             if (conditions.release_frame_for_non_idle) {
-                                anim_dm_show_single_frame(ctx, animation_state_row_t::EndMoving,
+                                anim_dm_show_single_frame(ctx, animation_state_row_t::EndWorking,
                                                                 new_animation_result, new_state,
                                                                 current_state, current_frames, current_config);
                             }
@@ -1414,7 +1491,7 @@ namespace bongocat::animation {
 
         /// @TODO: move moving handle into own anim_handle_moving_animation
         // Move Animation
-        anim_dm_handle_movement(ctx, input, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
+        anim_dm_handle_movement(ctx, input, upd, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
 
         const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
 
@@ -1578,7 +1655,9 @@ namespace bongocat::animation {
                                             current_config);
     }
 
-    static anim_next_frame_result_t anim_dm_key_pressed_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
+    static anim_next_frame_result_t anim_dm_key_pressed_next_frame(animation_context_t& ctx,
+                                                                   const platform::input::input_context_t& input,
+                                                                   [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                    animation_state_t& state,
                                                                    const animation_trigger_t& trigger) {
         using namespace assets;
@@ -1600,7 +1679,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
 
         bool show_happy = false;
         if (input_shm.kpm > 0) {
@@ -1725,7 +1804,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
 
         /// @TODO: use state machine for animation (states)
 
@@ -1890,6 +1969,11 @@ namespace bongocat::animation {
             case animation_state_row_t::EndMoving:
                 new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
                 break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
+                new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
+                break;
         }
         return ret;
     }
@@ -1948,7 +2032,12 @@ namespace bongocat::animation {
             case animation_state_row_t::StartMoving:
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
-                new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
+                new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
+                break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
+                new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
                 break;
         }
         return ret;
@@ -2067,7 +2156,9 @@ namespace bongocat::animation {
                                                current_state, current_frames, current_config);
     }
 
-    static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+    static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_context_t& ctx,
+                                                              [[maybe_unused]] const platform::input::input_context_t& input,
+                                                              [[maybe_unused]] const platform::update::update_context_t& upd,
                                                               animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
         using namespace assets;
         // read-only config
@@ -2087,7 +2178,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
 
         // Idle Animation
         const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
@@ -2144,7 +2235,9 @@ namespace bongocat::animation {
                                             current_config);
     }
 
-    static anim_next_frame_result_t anim_pkmn_key_pressed_next_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+    static anim_next_frame_result_t anim_pkmn_key_pressed_next_frame(animation_context_t& ctx,
+                                                                     [[maybe_unused]] const platform::input::input_context_t& input,
+                                                                     [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                      animation_state_t& state,
                                                                      const animation_trigger_t& trigger) {
         using namespace assets;
@@ -2167,7 +2260,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
 
         // in Writing mode/start writing
         if (!conditions.is_writing) {
@@ -2272,6 +2365,15 @@ namespace bongocat::animation {
             case animation_state_row_t::EndMoving:
                 section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
                 break;
+            case animation_state_row_t::StartRunning:
+                section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+                break;
+            case animation_state_row_t::Running:
+                section = current_frames.running.valid ? &current_frames.running : nullptr;
+                break;
+            case animation_state_row_t::EndRunning:
+                section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+                break;
         }
 
         anim_ms_agent_process_animation_result_t ret {.row_state = new_state.row_state, .status = anim_ms_agent_process_animation_result_status_t::None};
@@ -2366,6 +2468,15 @@ namespace bongocat::animation {
             case animation_state_row_t::EndMoving:
                 section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
                 break;
+            case animation_state_row_t::StartRunning:
+                section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+                break;
+            case animation_state_row_t::Running:
+                section = current_frames.running.valid ? &current_frames.running : nullptr;
+                break;
+            case animation_state_row_t::EndRunning:
+                section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+                break;
         }
 
         anim_ms_agent_process_animation_result_t ret {.row_state = new_state.row_state, .status = anim_ms_agent_process_animation_result_status_t::None};
@@ -2432,7 +2543,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
 
         /// @TODO: make animation fsm
 
@@ -2449,6 +2560,9 @@ namespace bongocat::animation {
             case animation_state_row_t::StartMoving:
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
                 // not supported, same as idle
                 break;
             case animation_state_row_t::StartWorking:
@@ -2633,6 +2747,7 @@ namespace bongocat::animation {
     static anim_next_frame_result_t anim_ms_agent_key_pressed_next_frame(animation_context_t& ctx,
                                                                          animation_state_t& state,
                                                                          [[maybe_unused]] const platform::input::input_context_t& input,
+                                                                         [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                          [[maybe_unused]] const animation_trigger_t& trigger) {
         using namespace assets;
 
@@ -2660,6 +2775,9 @@ namespace bongocat::animation {
             case animation_state_row_t::StartMoving:
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
                 // moving not supported
             case animation_state_row_t::Test:
             case animation_state_row_t::Happy:
@@ -2699,7 +2817,7 @@ namespace bongocat::animation {
             case animation_state_row_t::StartWorking:
             case animation_state_row_t::Working:
             case animation_state_row_t::EndWorking:
-                // start end writing and process animation in anim_ms_pet_idle_next_frame
+                // start end writing and process animation in anim_ms_agent_idle_next_frame
                 break;
         }
 
@@ -2809,6 +2927,15 @@ namespace bongocat::animation {
             case animation_state_row_t::EndMoving:
                 section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
                 break;
+            case animation_state_row_t::StartRunning:
+                section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+                break;
+            case animation_state_row_t::Running:
+                section = current_frames.running.valid ? &current_frames.running : nullptr;
+                break;
+            case animation_state_row_t::EndRunning:
+                section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+                break;
         }
 
         anim_custom_process_animation_result_t ret {.row_state = new_state.row_state, .status = anim_custom_process_animation_result_status_t::None};
@@ -2892,6 +3019,15 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::EndMoving:
                 section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
+                break;
+            case animation_state_row_t::StartRunning:
+                section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+                break;
+            case animation_state_row_t::Running:
+                section = current_frames.running.valid ? &current_frames.running : nullptr;
+                break;
+            case animation_state_row_t::EndRunning:
+                section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
                 break;
         }
 
@@ -2989,6 +3125,15 @@ namespace bongocat::animation {
                 case animation_state_row_t::EndMoving:
                     section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
                     break;
+                case animation_state_row_t::StartRunning:
+                    section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+                    break;
+                case animation_state_row_t::Running:
+                    section = current_frames.running.valid ? &current_frames.running : nullptr;
+                    break;
+                case animation_state_row_t::EndRunning:
+                    section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+                    break;
             }
         }
 
@@ -3073,6 +3218,7 @@ namespace bongocat::animation {
 
     static anim_custom_process_animation_result_t anim_custom_handle_movement(animation_context_t& ctx,
                                                                       const platform::input::input_context_t& input,
+                                                                      [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                       animation_player_result_t& new_animation_result,
                                                                       animation_state_t& new_state,
                                                                       const anim_handle_key_press_result_t& trigger_result,
@@ -3084,7 +3230,7 @@ namespace bongocat::animation {
         assert(ctx.shm != nullptr);
         animation_shared_memory_t& anim_shm = *ctx.shm;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
 
         anim_custom_process_animation_result_t ret {.row_state = new_state.row_state, .status = anim_custom_process_animation_result_status_t::None};
         if (!conditions.is_writing && current_config.movement_speed > 0 && current_config.movement_radius > 0 && current_config.fps > 0) {
@@ -3293,7 +3439,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger_result.trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
 
         /// @TODO: make animation fsm
 
@@ -3340,7 +3486,7 @@ namespace bongocat::animation {
             case animation_state_row_t::Moving:
             case animation_state_row_t::EndMoving:
                 if (current_frames.feature_moving) {
-                    anim_custom_handle_movement(ctx, input, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
+                    anim_custom_handle_movement(ctx, input, upd, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
                 }
                 break;
             case animation_state_row_t::StartWorking:
@@ -3408,7 +3554,7 @@ namespace bongocat::animation {
 
                 if (current_frames.feature_moving) {
                     // Move Animation
-                    anim_custom_handle_movement(ctx, input, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
+                    anim_custom_handle_movement(ctx, input, upd, new_animation_result, new_state, trigger_result, current_state, current_frames, current_config);
                 }
 
                 if (current_frames.feature_sleep || current_frames.feature_boring) {
@@ -3660,6 +3806,49 @@ namespace bongocat::animation {
                     }
                 }
                 break;
+            case animation_state_row_t::StartRunning:
+                if (current_frames.feature_running) {
+                    if (conditions.go_next_frame_running) {
+                        anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running, animation_state_row_t::EndRunning,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                    }
+                } else {
+                    anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                }
+                break;
+            case animation_state_row_t::Running:
+                if (current_frames.feature_running) {
+                    if (conditions.go_next_frame_running) {
+                        if (update_shm.cpu_active) {
+                            anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+                        } else {
+                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Idle,
+                                                            new_animation_result, new_state,
+                                                            current_state, current_frames, current_config);
+                        }
+                    }
+                } else {
+                    anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                }
+                break;
+            case animation_state_row_t::EndRunning:
+                if (current_frames.feature_running) {
+                    if (conditions.go_next_frame_running) {
+                        anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                    }
+                } else {
+                    anim_custom_restart_animation(ctx, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                }
+                break;
         }
 
         return anim_update_animation_state(anim_shm, state,
@@ -3670,6 +3859,7 @@ namespace bongocat::animation {
     static anim_next_frame_result_t anim_custom_key_pressed_next_frame(animation_context_t& ctx,
                                                                          animation_state_t& state,
                                                                          [[maybe_unused]] const platform::input::input_context_t& input,
+                                                                         [[maybe_unused]] const platform::update::update_context_t& upd,
                                                                          [[maybe_unused]] const animation_trigger_t& trigger) {
         using namespace assets;
 
@@ -3690,7 +3880,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
 
         bool show_happy = false;
         if (current_frames.feature_writing_happy) {
@@ -3785,7 +3975,12 @@ namespace bongocat::animation {
             case animation_state_row_t::StartWorking:
             case animation_state_row_t::Working:
             case animation_state_row_t::EndWorking:
-                // start end writing and process animation in anim_custom_idle_next_frame
+                // start end working and process animation in anim_custom_idle_next_frame
+                break;
+            case animation_state_row_t::StartRunning:
+            case animation_state_row_t::Running:
+            case animation_state_row_t::EndRunning:
+                // start end running and process animation in anim_custom_idle_next_frame
                 break;
         }
 
@@ -3822,7 +4017,7 @@ namespace bongocat::animation {
         auto new_animation_result = anim_shm.animation_player_result;
         auto new_state = state;
 
-        const auto conditions = get_anim_conditions(ctx, input, current_state, trigger, current_config);
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
 
         /// @TODO: use state machine for animation (states)
 
@@ -3892,6 +4087,104 @@ namespace bongocat::animation {
                                             current_animation_result, current_state,
                                             current_config);
     }
+
+    static anim_next_frame_result_t anim_custom_running_next_frame(animation_context_t& ctx,
+                                                                    const platform::input::input_context_t& input,
+                                                                    const platform::update::update_context_t& upd,
+                                                                    animation_state_t& state,
+                                                                    const animation_trigger_t& trigger) {
+        using namespace assets;
+
+        // read-only config
+        assert(ctx._local_copy_config != nullptr);
+        const config::config_t& current_config = *ctx._local_copy_config;
+
+        assert(ctx.shm != nullptr);
+        //assert(input.shm != nullptr);
+        assert(upd.shm != nullptr);
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+        //const auto& input_shm = *input.shm;
+        const auto& update_shm = *upd.shm;
+        const auto current_state = state;
+        const auto& current_animation_result = anim_shm.animation_player_result;
+        [[maybe_unused]] const int anim_index = anim_shm.anim_index;
+        //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+        assert(get_current_animation(ctx).type == animation_t::Type::Custom);
+        const auto& current_frames = get_current_animation(ctx).custom;
+
+        auto new_animation_result = anim_shm.animation_player_result;
+        auto new_state = state;
+
+        const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+
+        /// @TODO: use state machine for animation (states)
+
+        if (current_frames.feature_running) {
+            if (conditions.process_running_animation) {
+                // toggle frame, show running animation
+                const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT && (update_shm.avg_cpu_usage >= current_config.cpu_threshold || update_shm.max_cpu_usage >= current_config.cpu_threshold);
+                const bool lower_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT && (update_shm.avg_cpu_usage < current_config.cpu_threshold && update_shm.max_cpu_usage < current_config.cpu_threshold);
+
+                if (above_threshold) {
+                    if (current_state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
+                        anim_custom_restart_animation(ctx, animation_state_row_t::StartRunning, animation_state_row_t::Running, animation_state_row_t::EndRunning,
+                                                        new_animation_result, new_state,
+                                                        current_state, current_frames, current_config);
+                        BONGOCAT_LOG_VERBOSE("Start Running: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+                    } else if (conditions.is_running) {
+                        if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartRunning) {
+                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running, animation_state_row_t::EndRunning,
+                                                            new_animation_result, new_state,
+                                                            current_state, current_frames, current_config);
+                        } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartRunning || state.row_state == animation_state_row_t::Running)) {
+                            // end running, cool down
+                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Running,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                        } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndRunning) {
+                            // back to idle
+                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                        }
+                    }
+                } else if (lower_threshold) {
+                    // End Running
+                    if (conditions.is_running && current_state.row_state != animation_state_row_t::EndRunning) {
+                        if (conditions.go_next_frame_running) {
+                            // end running, cool down
+                            anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Idle,
+                                                    new_animation_result, new_state,
+                                                    current_state, current_frames, current_config);
+                            BONGOCAT_LOG_VERBOSE("Stop Running: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+                        }
+                    }
+                } else {
+                    // Cancel Running
+                    if (conditions.is_running && current_state.row_state != animation_state_row_t::EndRunning && !update_shm.cpu_active) {
+                        // back to idle
+                        anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Idle,
+                                                new_animation_result, new_state,
+                                                current_state, current_frames, current_config);
+                        BONGOCAT_LOG_VERBOSE("Stop Running: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+                    }
+                }
+            }
+        } else {
+            // Cancel Running
+            if (conditions.is_running && !update_shm.cpu_active) {
+                // back to idle
+                anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle,
+                                        new_animation_result, new_state,
+                                        current_state, current_frames, current_config);
+            }
+        }
+
+        return anim_update_animation_state(anim_shm, state,
+                                            new_animation_result, new_state,
+                                            current_animation_result, current_state,
+                                            current_config);
+    }
 #endif
 
     static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& ctx,
@@ -3919,7 +4212,7 @@ namespace bongocat::animation {
                 break;
             case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                return anim_bongocat_idle_next_frame(ctx, input, state, trigger_result);
+                return anim_bongocat_idle_next_frame(ctx, input, upd, state, trigger_result);
 #endif
             }break;
             case config::config_animation_sprite_sheet_layout_t::Dm: {
@@ -3929,7 +4222,7 @@ namespace bongocat::animation {
             }break;
             case config::config_animation_sprite_sheet_layout_t::Pkmn: {
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-                return anim_pkmn_idle_next_frame(ctx, input, state, trigger_result);
+                return anim_pkmn_idle_next_frame(ctx, input, upd, state, trigger_result);
 #endif
             }break;
             case config::config_animation_sprite_sheet_layout_t::MsAgent: {
@@ -3974,8 +4267,8 @@ namespace bongocat::animation {
 
         anim_next_frame_result_t update_frame_result{};
 
-        // handle working animation
         if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) {
+            // handle working animation
             switch (anim_shm.anim_type) {
                 case config::config_animation_sprite_sheet_layout_t::None:
                     break;
@@ -4000,6 +4293,24 @@ namespace bongocat::animation {
 #endif
                 }break;
             }
+            // handle running animation
+            switch (anim_shm.anim_type) {
+                case config::config_animation_sprite_sheet_layout_t::None:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Bongocat:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Dm:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Pkmn:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::MsAgent:
+                    break;
+                case config::config_animation_sprite_sheet_layout_t::Custom: {
+#ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
+                    update_frame_result = anim_custom_running_next_frame(ctx, input, upd, state, trigger);
+#endif
+                }break;
+            }
             BONGOCAT_LOG_VERBOSE("CPU update detected - switching to frame %d (%zu)", update_frame_result.new_col, trigger.anim_cause);
         }
 
@@ -4010,27 +4321,27 @@ namespace bongocat::animation {
                     break;
                 case config::config_animation_sprite_sheet_layout_t::Bongocat: {
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-                    update_frame_result = anim_bongocat_key_pressed_next_frame(ctx, state, input, trigger);
+                    update_frame_result = anim_bongocat_key_pressed_next_frame(ctx, state, input, upd, trigger);
 #endif
                 }break;
                 case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-                    update_frame_result = anim_dm_key_pressed_next_frame(ctx, input, state, trigger);
+                    update_frame_result = anim_dm_key_pressed_next_frame(ctx, input, upd, state, trigger);
 #endif
                 }break;
                 case config::config_animation_sprite_sheet_layout_t::Pkmn: {
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-                    update_frame_result = anim_pkmn_key_pressed_next_frame(ctx, input, state, trigger);
+                    update_frame_result = anim_pkmn_key_pressed_next_frame(ctx, input, upd, state, trigger);
 #endif
                 }break;
                 case config::config_animation_sprite_sheet_layout_t::MsAgent: {
 #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-                    update_frame_result = anim_ms_agent_key_pressed_next_frame(ctx, state, input, trigger);
+                    update_frame_result = anim_ms_agent_key_pressed_next_frame(ctx, state, input, upd, trigger);
 #endif
                 }break;
                 case config::config_animation_sprite_sheet_layout_t::Custom: {
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-                    update_frame_result = anim_custom_key_pressed_next_frame(ctx, state, input, trigger);
+                    update_frame_result = anim_custom_key_pressed_next_frame(ctx, state, input, upd, trigger);
 #endif
                 }break;
             }

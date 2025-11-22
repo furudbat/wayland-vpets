@@ -81,6 +81,11 @@ namespace bongocat::animation {
         ret.animations.happy[2] = ret.idle_1.col;
         ret.animations.happy[3] = ret.idle_2.col;
 
+        ret.animations.running[0] = ret.idle_1.col;
+        ret.animations.running[1] = ret.idle_2.col;
+        ret.animations.running[2] = ret.idle_1.col;
+        ret.animations.running[3] = ret.idle_2.col;
+
         return ret;
     }
 
