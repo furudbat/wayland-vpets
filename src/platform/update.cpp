@@ -373,7 +373,11 @@ namespace bongocat::platform::update {
                         }
                         update_shm.cpu_active = true;
                     } else {
-                        update_shm.cpu_active = false;
+                        if (update_shm.cpu_active) {
+                            update_shm.cpu_active = false;
+                            animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
+                            animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::IdleUpdate);
+                        }
                     }
                 }
 

@@ -1444,9 +1444,9 @@ namespace bongocat::animation {
                         }
                     }
                     // Finish Working
-                    if (current_state.row_state == animation_state_row_t::EndWorking && conditions.release_frame_after_update && !update_shm.cpu_active) {
+                    if (current_state.row_state == animation_state_row_t::EndWorking && (conditions.release_frame_after_update || conditions.release_frame_for_non_idle) && !update_shm.cpu_active) {
                         if (conditions.process_idle_animation) {
-                            anim_dm_start_or_process_animation(ctx, animation_state_row_t::Idle, // back to idle, when animation ended
+                            anim_dm_start_or_process_animation(ctx, animation_state_row_t::Idle,            // back to idle, when animation ended
                                                             new_animation_result, new_state,
                                                             current_state, current_frames, current_config);
                         } else {
@@ -1880,10 +1880,10 @@ namespace bongocat::animation {
                 }
             } else {
                 // Cancel Working
-                if (conditions.is_working && current_state.row_state != animation_state_row_t::EndMoving && !update_shm.cpu_active) {
+                if (conditions.is_working && current_state.row_state != animation_state_row_t::EndWorking && !update_shm.cpu_active) {
                     if (conditions.process_idle_animation) {
                         // back to idle
-                        anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndMoving,
+                        anim_dm_start_or_process_animation(ctx, animation_state_row_t::EndWorking,
                                                 new_animation_result, new_state,
                                                 current_state, current_frames, current_config);
                     } else {
