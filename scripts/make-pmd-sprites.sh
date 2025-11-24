@@ -13,7 +13,7 @@ OUTPUT_ROOT_FINAL="${2:-assets/input/pmd-fixed}"
 JSON_ROOT="${3:-assets/input}"
 
 mkdir -p "$OUTPUT_ROOT"
-mkdir -p "OUTPUT_ROOT_FINAL"
+mkdir -p "$OUTPUT_ROOT_FINAL"
 mkdir -p "$JSON_ROOT"
 
 CACHE_FILE="${JSON_ROOT}/pkmn_cache.json"
@@ -138,7 +138,7 @@ GLOBAL_H=0
 FIXED_FRAME_SIZE=48
 FRAME_SIZE=0
 PADDING=4
-for folder in "$INPUT_ROOT"/00*/; do
+for folder in "$INPUT_ROOT"/*/; do
     base="$(basename "$folder")"
     [[ "$base" =~ ^[0-9]+$ ]] || continue
     echo ">>> Processing $base ..."

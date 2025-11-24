@@ -16,9 +16,9 @@ CPP_HEADER_OUT="$5"
 CPP_HEADER_GET_SPRITE_OUT="$6"
 CPP_SOURCE_GET_SPRITE_OUT="$7"
 CPP_SOURCE_LOAD_SPRITE_OUT="$8"
-CPP_SOURCE_GET_SPRITE_OUT="$9"
-JSON_META="$10"
-START_INDEX="$11"
+CPP_SOURCE_GET_SPRITE_OUT_2="$9"
+JSON_META="${10}"
+START_INDEX="${11:-0}"
 
 LAYOUT="Custom"
 SET=""
@@ -37,7 +37,7 @@ while [[ $# -gt 0 ]]; do
 done
 set -- "${POSITIONAL_ARGS[@]}"
 
-INPUT="${POSITIONAL_ARGS[0]}"
+INPUT_DIR="${POSITIONAL_ARGS[0]}"
 OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
 C_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
 C_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
@@ -55,17 +55,24 @@ if ! command -v magick &>/dev/null; then
     exit 1
 fi
 
-if [[ -z "$INPUT" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" || -z "$SET" ]]; then
-    echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
-    exit 1
-fi
-
-#echo $INPUT
+#echo $INPUT_DIR
 #echo $OG_INPUT_DIR
 #echo $C_HEADER_IMAGES_OUT
 #echo $C_SOURCE_IMAGES_OUT
 #echo $CPP_HEADER_OUT
+#echo $CPP_HEADER_GET_SPRITE_OUT
+#echo $CPP_SOURCE_GET_SPRITE_OUT
+#echo $CPP_SOURCE_LOAD_SPRITE_OUT
+#echo $CPP_SOURCE_GET_SPRITE_OUT_2
+#echo $JSON_META
+#echo $SET
+#echo $LAYOUT
 #exit 1
+
+if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" || -z "$LAYOUT" ]]; then
+    echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
+    exit 1
+fi
 
 # === Derived prefix from directory (after 'assets/') ===
 ASSETS_PREFIX=${INPUT_DIR#assets/}
@@ -81,8 +88,9 @@ ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 > "$C_SOURCE_IMAGES_OUT"
 > "$CPP_HEADER_OUT"
 > "$CPP_HEADER_GET_SPRITE_OUT"
-> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+> "$CPP_SOURCE_GET_SPRITE_OUT"
 > "$CPP_SOURCE_LOAD_SPRITE_OUT"
+> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 
 # === Header file intro ===
 C_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CUSTOM_${ASSETS_PREFIX_UPPER}_H"
@@ -99,7 +107,7 @@ echo "#ifndef $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo "#define $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "#include <cstddef>" >> "$CPP_HEADER_OUT"
-echo ''#include "embedded_assets/custom/custom_sprite.h"' >> "$CPP_HEADER_OUT"
+echo '#include "embedded_assets/custom/custom_sprite.h"' >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "/// @NOTE: Generated embedded assets images data from $INPUT_DIR" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
@@ -174,43 +182,46 @@ MAX_COLS=0
 for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
 
-    COLS=$(jq -r --arg k "$BASENAME" '.[$k].cols // 0' "$JSON")
-    ROWS=$(jq -r --arg k "$BASENAME" '.[$k].rows // 0' "$JSON")
-
-    idle_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_idle // -1' "$JSON_META")
-    boring_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_boring // -1' "$JSON_META")
-    start_writing_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_writing // -1' "$JSON_META")
-    writing_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_writing // -1' "$JSON_META")
-    end_writing_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_writing // -1' "$JSON_META")
-
-    happy_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_happy // -1' "$JSON_META")
-    asleep_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_asleep // -1' "$JSON_META")
-    sleep_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_sleep // -1' "$JSON_META")
-    wake_up_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_wake_up // -1' "$JSON_META")
-
-    start_working_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_working // -1' "$JSON_META")
-    working_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_working // -1' "$JSON_META")
-    end_working_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_working // -1' "$JSON_META")
-
-    start_moving_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_moving // -1' "$JSON_META")
-    moving_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_moving // -1' "$JSON_META")
-    end_moving_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_moving // -1' "$JSON_META")
-
-    start_running_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_running // -1' "$JSON_META")
-    running_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_running // -1' "$JSON_META")
-    end_running_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_running // -1' "$JSON_META")
-
-    FRAMES_COUNT=$((COLS * ROWS))
-    (( COLS > MAX_COLS )) && MAX_COLS=$COLS
-
     NAME_NO_EXT="${BASENAME%.png}"
     NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
     NAME_NO_EXT="${NAME_NO_EXT^}"
+
     NAME_CLEAN=$(echo "$NAME_NO_EXT" | sed "s/['().:]//g")
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/[^a-zA-Z0-9]/_/g')
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/_\+/_/g')
     IDENTIFIER=$(echo "$NAME_CLEAN" | tr '[:upper:]' '[:lower:]')
     MACRO_PREFIX=$(echo "${ASSETS_PREFIX_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
+
+    KEY="${BASENAME%.png}"
+
+    COLS=$(jq -r --arg k "$KEY" '.[$k].cols // 0' "$JSON_META")
+    ROWS=$(jq -r --arg k "$KEY" '.[$k].rows // 0' "$JSON_META")
+
+    idle_frames=$(jq -r --arg k "$KEY" '.[$k].frames_idle // -1' "$JSON_META")
+    boring_frames=$(jq -r --arg k "$KEY" '.[$k].frames_boring // -1' "$JSON_META")
+    start_writing_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_writing // -1' "$JSON_META")
+    writing_frames=$(jq -r --arg k "$KEY" '.[$k].frames_writing // -1' "$JSON_META")
+    end_writing_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_writing // -1' "$JSON_META")
+
+    happy_frames=$(jq -r --arg k "$KEY" '.[$k].frames_happy // -1' "$JSON_META")
+    asleep_frames=$(jq -r --arg k "$KEY" '.[$k].frames_asleep // -1' "$JSON_META")
+    sleep_frames=$(jq -r --arg k "$KEY" '.[$k].frames_sleep // -1' "$JSON_META")
+    wake_up_frames=$(jq -r --arg k "$KEY" '.[$k].frames_wake_up // -1' "$JSON_META")
+
+    start_working_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_working // -1' "$JSON_META")
+    working_frames=$(jq -r --arg k "$KEY" '.[$k].frames_working // -1' "$JSON_META")
+    end_working_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_working // -1' "$JSON_META")
+
+    start_moving_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_moving // -1' "$JSON_META")
+    moving_frames=$(jq -r --arg k "$KEY" '.[$k].frames_moving // -1' "$JSON_META")
+    end_moving_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_moving // -1' "$JSON_META")
+
+    start_running_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_running // -1' "$JSON_META")
+    running_frames=$(jq -r --arg k "$KEY" '.[$k].frames_running // -1' "$JSON_META")
+    end_running_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_running // -1' "$JSON_META")
+
+    FRAMES_COUNT=$((COLS * ROWS))
+    (( COLS > MAX_COLS )) && MAX_COLS=$COLS
 
     EMBED_SYMBOL="${ASSETS_PREFIX_LOWER}_${IDENTIFIER}_png"
     SIZE_SYMBOL="${EMBED_SYMBOL}_size"
@@ -281,7 +292,7 @@ for FILE in "$INPUT_DIR"/*.png; do
 
     echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS;" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 
-    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_CUSTOM_ANIM_FUNC_NAME}(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX));" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_CUSTOM_ANIM_FUNC_NAME}(ctx, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX));" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
     ((INDEX++))
 done

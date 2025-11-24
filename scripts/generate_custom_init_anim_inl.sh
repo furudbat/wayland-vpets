@@ -5,6 +5,7 @@ OUTPUT_DIR="$2"
 HEADER_FILE="$3"
 PREFIX="$4"
 START_INDEX="$5"
+
 LAYOUT="Dm"
 SET=""
 ALT=""
@@ -62,6 +63,7 @@ OUTPUT_FILE_5="${OUTPUT_DIR}/${ASSETS_PREFIX_LOWER}_config_parse_animation_name.
 > "${OUTPUT_FILE_5}"
 
 GET_SPRITE_SHEET_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet"
+GET_SPRITE_SHEET_SETTINGS_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet_settings"
 
 echo "#include \"embedded_assets/embedded_image.h\"" >> "$OUTPUT_FILE_3"
 echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$OUTPUT_FILE_3"
@@ -76,7 +78,7 @@ echo "        switch (index) {" >> "$OUTPUT_FILE_3"
 
 GET_CONFIG_ANIMATION_NAME_FUNC_NAME="get_config_animation_name_${ASSETS_PREFIX_LOWER}"
 CONFIG_PARSE_FUNC_NAME="config_parse_animation_name_${ASSETS_PREFIX_LOWER}"
-OUTPUT_FILE_4_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CONFIG_PARSE_${ASSETS_PREFIX_UPPER}_ANIMATION_NAME_H"
+OUTPUT_FILE_4_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CONFIG_PARSE_CUSTOM_${ASSETS_PREFIX_UPPER}_ANIMATION_NAME_H"
 echo "#ifndef $OUTPUT_FILE_4_HEADER_GUARD" >> "$OUTPUT_FILE_4"
 echo "#define $OUTPUT_FILE_4_HEADER_GUARD" >> "$OUTPUT_FILE_4"
 echo >> "$OUTPUT_FILE_4"
@@ -84,7 +86,7 @@ echo "#include \"config/config.h\"" >> "$OUTPUT_FILE_4"
 echo "#include \"embedded_assets/embedded_image.h\"" >> "$OUTPUT_FILE_4"
 echo >> "$OUTPUT_FILE_4"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_4"
-echo "    [[nodiscard]] extern config_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t i);" >> "$OUTPUT_FILE_4"
+echo "    [[nodiscard]] extern config_custom_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t i);" >> "$OUTPUT_FILE_4"
 echo "    extern int ${CONFIG_PARSE_FUNC_NAME}(config::config_t& config, const char *value);" >> "$OUTPUT_FILE_4"
 echo "}" >> "$OUTPUT_FILE_4"
 echo >> "$OUTPUT_FILE_4"
@@ -97,7 +99,7 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.h
 echo "#include \"${ASSETS_PREFIX_LOWER}_config_parse_animation_name.h\"" >> "$OUTPUT_FILE_5"
 echo "" >> "$OUTPUT_FILE_5"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_5"
-echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
+echo "    static const config_custom_animation_entry_t ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -113,6 +115,8 @@ for FILE in "$INPUT_DIR"/*.png; do
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/_\+/_/g')
     IDENTIFIER=$(echo "$NAME_CLEAN" | tr '[:upper:]' '[:lower:]')
     MACRO_PREFIX=$(echo "${ASSETS_PREFIX_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
+
+    KEY="${BASENAME%.png}"
 
     FQID="${ASSETS_PREFIX_LOWER}:${IDENTIFIER}"
     FQNAME="${ASSETS_PREFIX_LOWER}:${NAME_NO_EXT}"
@@ -136,7 +140,7 @@ for FILE in "$INPUT_DIR"/*.png; do
       echo "    strcmp(value, \"${ALT_FQID}\") == 0 ||" >> "$OUTPUT_FILE_1"
       echo "    strcmp(value, \"${ALT_FQNAME}\") == 0) {" >> "$OUTPUT_FILE_1"
       echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
-      echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_custom_set = config_animation_custom_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
       echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::${LAYOUT};" >> "$OUTPUT_FILE_1"
       echo "}" >> "$OUTPUT_FILE_1"
     else
@@ -145,16 +149,16 @@ for FILE in "$INPUT_DIR"/*.png; do
       echo "    strcmp(value, ${MACRO_PREFIX}_FQID) == 0 ||" >> "$OUTPUT_FILE_1"
       echo "    strcmp(value, ${MACRO_PREFIX}_FQNAME) == 0) {" >> "$OUTPUT_FILE_1"
       echo "    config.animation_index = ${MACRO_PREFIX}_ANIM_INDEX;" >> "$OUTPUT_FILE_1"
-      echo "    config.animation_dm_set = config_animation_dm_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
+      echo "    config.animation_custom_set = config_animation_custom_set_t::${ASSETS_PREFIX_LOWER};" >> "$OUTPUT_FILE_1"
       echo "    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::${LAYOUT};" >> "$OUTPUT_FILE_1"
       echo "}" >> "$OUTPUT_FILE_1"
     fi
 
-    echo "init_${ASSETS_PREFIX_LOWER}_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$OUTPUT_FILE_2"
+    echo "init_${ASSETS_PREFIX_LOWER}_anim(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX));" >> "$OUTPUT_FILE_2"
 
     echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
 
-    echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} }," >> "$OUTPUT_FILE_5"
+    echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_custom_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} }," >> "$OUTPUT_FILE_5"
     if [[ -n $ALT ]]; then
       ALT_LOWER=$(echo "$ALT" | tr '[:upper:]' '[:lower:]')
       ALT_UPPER=$(echo "$ALT" | tr '[:lower:]' '[:upper:]')
@@ -162,7 +166,7 @@ for FILE in "$INPUT_DIR"/*.png; do
       ALT_FQID="${ALT_LOWER}:${IDENTIFIER}"
       ALT_FQNAME="${ALT_LOWER}:${NAME_NO_EXT}"
 
-      echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, \"${ALT_FQID}\", \"${ALT_FQNAME}\", ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}" >> "$OUTPUT_FILE_5"
+      echo "        { ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, \"${ALT_FQID}\", \"${ALT_FQNAME}\", ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_custom_set_t::${ASSETS_PREFIX_LOWER}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}" >> "$OUTPUT_FILE_5"
     fi
 
     ((INDEX++))
@@ -177,7 +181,7 @@ echo >> "$OUTPUT_FILE_3"
 
 echo '    };' >> "$OUTPUT_FILE_5"
 echo >> "$OUTPUT_FILE_5"
-echo "    config_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_5"
+echo "    config_custom_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_5"
 echo "        for (const auto& entry : ${ASSETS_PREFIX_LOWER}_animation_table) {" >> "$OUTPUT_FILE_5"
 echo "            assert(entry.anim_index >= 0);" >> "$OUTPUT_FILE_5"
 echo "            if (static_cast<size_t>(entry.anim_index) == index) return entry;" >> "$OUTPUT_FILE_5"
@@ -192,7 +196,7 @@ echo "                strcmp(value, entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
 echo "                strcmp(value, entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
 echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
 echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
-echo "                config.animation_dm_set = entry.set;" >> "$OUTPUT_FILE_5"
+echo "                config.animation_custom_set = entry.set;" >> "$OUTPUT_FILE_5"
 echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "$OUTPUT_FILE_5"
 echo '                return entry.anim_index;' >> "$OUTPUT_FILE_5"
 echo '            }' >> "$OUTPUT_FILE_5"

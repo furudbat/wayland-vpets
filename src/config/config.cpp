@@ -8,14 +8,15 @@
 #include <cstdlib>
 
 #include "graphics/embedded_assets_dms.h"
+#include "graphics/embedded_assets_pkmn.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
-#include "graphics/embedded_assets_pkmn.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
+#include "embedded_assets/pmd/pmd_sprite.h"
 
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #include "dm_config_parse_animation_name.h"
@@ -41,6 +42,9 @@
 
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
 #include "pkmn_config_parse_animation_name.h"
+#endif
+#ifdef FEATURE_PMD_EMBEDDED_ASSETS
+#include "pmd_config_parse_animation_name.h"
 #endif
 
 
@@ -1332,6 +1336,20 @@ namespace bongocat::config {
                     if (found_index >= 0) {
                         assert(found_index >= 0);
                         BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, get_config_animation_name_pkmn(static_cast<size_t>(found_index)).fqname);
+                    }
+                    animation_found = config.animation_index >= 0;
+                }
+#endif
+            }
+            // check for pmd (pkmn)
+            if constexpr (features::EnablePmdEmbeddedAssets) {
+                using namespace assets;
+#ifdef FEATURE_PMD_EMBEDDED_ASSETS
+                if ((!is_fqn && animation_found) || (is_fqn && !animation_found) || (!is_fqn && !animation_found)) {
+                    const int found_index = config_parse_animation_name_pmd(config, value);
+                    if (found_index >= 0) {
+                        assert(found_index >= 0);
+                        BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, get_config_animation_name_pmd(static_cast<size_t>(found_index)).fqname);
                     }
                     animation_found = config.animation_index >= 0;
                 }

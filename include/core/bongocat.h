@@ -111,6 +111,12 @@ namespace bongocat {
         inline static constexpr bool EnablePkmnEmbeddedAssets = false;
 #endif
 
+#ifdef FEATURE_PMD_EMBEDDED_ASSETS
+        inline static constexpr bool EnablePmdEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnablePmdEmbeddedAssets = false;
+#endif
+
 #ifdef FEATURE_MISC_EMBEDDED_ASSETS
         inline static constexpr bool EnableMiscEmbeddedAssets = true;
 #else

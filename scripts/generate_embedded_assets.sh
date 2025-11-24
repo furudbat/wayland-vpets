@@ -40,7 +40,7 @@ while [[ $# -gt 0 ]]; do
 done
 set -- "${POSITIONAL_ARGS[@]}"
 
-INPUT="${POSITIONAL_ARGS[0]}"
+INPUT_DIR="${POSITIONAL_ARGS[0]}"
 OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
 C_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
 C_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
@@ -56,12 +56,12 @@ if ! command -v magick &>/dev/null; then
     exit 1
 fi
 
-if [[ -z "$INPUT" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" ]]; then
+if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
     exit 1
 fi
 
-#echo $INPUT
+#echo $INPUT_DIR
 #echo $OG_INPUT_DIR
 #echo $C_HEADER_IMAGES_OUT
 #echo $C_SOURCE_IMAGES_OUT

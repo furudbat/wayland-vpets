@@ -4859,12 +4859,20 @@ namespace bongocat::animation {
                         assert(MS_AGENTS_ANIM_COUNT <= INT32_MAX && MS_AGENTS_ANIM_COUNT <= UINT32_MAX);
                         return MS_AGENTS_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MS_AGENTS_ANIM_COUNT-1)) : 0;
                     case config::config_animation_sprite_sheet_layout_t::Custom:
-                        assert(MAX_MISC_ANIM_INDEX <= INT32_MAX);
-                        if (config.animation_index == CUSTOM_ANIM_INDEX) {
-                            return config.animation_index;
-                        } else if (config.animation_index <= static_cast<int32_t>(MAX_MISC_ANIM_INDEX)) {
-                            assert(MISC_ANIM_COUNT <= INT32_MAX && MISC_ANIM_COUNT <= UINT32_MAX);
-                            return MISC_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MISC_ANIM_COUNT-1)) : 0;
+                        switch (ctx.shm->anim_custom_set) {
+                            case config::config_animation_custom_set_t::None:
+                                break;
+                            case config::config_animation_custom_set_t::misc:
+                                assert(MISC_ANIM_COUNT <= INT32_MAX && MISC_ANIM_COUNT <= UINT32_MAX);
+                                return MISC_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, MISC_ANIM_COUNT-1)) : 0;
+                            case config::config_animation_custom_set_t::pmd:
+                                assert(PMD_ANIM_COUNT <= INT32_MAX && PMD_ANIM_COUNT <= UINT32_MAX);
+                                return PMD_ANIM_COUNT > 0 ? static_cast<int32_t>(rng.range(0, PMD_ANIM_COUNT-1)) : 0;
+                            case config::config_animation_custom_set_t::custom:
+                                if (config.animation_index == CUSTOM_ANIM_INDEX) {
+                                    return config.animation_index;
+                                }
+                                break;
                         }
                 }
             }
@@ -4923,13 +4931,22 @@ namespace bongocat::animation {
                         assert(ctx.shm->ms_anims.count <= INT32_MAX && ctx.shm->ms_anims.count <= UINT32_MAX);
                         return ctx.shm->ms_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->ms_anims.count-1))) : 0;
                     case config::config_animation_sprite_sheet_layout_t::Custom:
-                        assert(MAX_MISC_ANIM_INDEX <= INT32_MAX);
-                        if (config.animation_index == CUSTOM_ANIM_INDEX) {
-                            return config.animation_index;
-                        } else if (config.animation_index <= static_cast<int32_t>(MAX_MISC_ANIM_INDEX)) {
-                            assert(ctx.shm->misc_anims.count > 0);
-                            assert(ctx.shm->misc_anims.count <= INT32_MAX && ctx.shm->misc_anims.count <= UINT32_MAX);
-                            return ctx.shm->misc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->misc_anims.count-1))) : 0;
+                        switch(ctx.shm->anim_custom_set) {
+                            case config::config_animation_custom_set_t::None:
+                                break;
+                            case config::config_animation_custom_set_t::misc:
+                                assert(ctx.shm->misc_anims.count > 0);
+                                assert(ctx.shm->misc_anims.count <= INT32_MAX && ctx.shm->misc_anims.count <= UINT32_MAX);
+                                return ctx.shm->misc_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->misc_anims.count-1))) : 0;
+                            case config::config_animation_custom_set_t::pmd:
+                                assert(ctx.shm->pmd_anims.count > 0);
+                                assert(ctx.shm->pmd_anims.count <= INT32_MAX && ctx.shm->pmd_anims.count <= UINT32_MAX);
+                                return ctx.shm->pmd_anims.count > 0 ? static_cast<int32_t>(rng.range(0, static_cast<uint32_t>(ctx.shm->pmd_anims.count-1))) : 0;
+                            case config::config_animation_custom_set_t::custom:
+                                if (config.animation_index == CUSTOM_ANIM_INDEX) {
+                                    return config.animation_index;
+                                }
+                                break;
                         }
                 }
             }

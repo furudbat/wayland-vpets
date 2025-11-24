@@ -12,6 +12,6 @@
 
 ./scripts/generate_embedded_assets.sh assets/pkmn assets/input/pkmn include/embedded_assets/pkmn/pkmn_images.h src/embedded_assets/pkmn/pkmn_images.c include/embedded_assets/pkmn/pkmn.hpp include/embedded_assets/pkmn/pkmn_sprite.h src/embedded_assets/pkmn/pkmn_get_sprite_sheet.cpp src/image_loader/pkmn/pkmn_load_sprite_sheet.cpp --cols 2 --rows 1 --layout Pkmn
 
-./scripts/generate_embedded_custom_assets.sh assets/pmd assets/input/pmd include/embedded_assets/pmd/pmd_images.h src/embedded_assets/pmd/pmd_images.c include/embedded_assets/pmd/pmd.hpp include/embedded_assets/pmd/pmd_sprite.h src/embedded_assets/pkmn/pmd_get_sprite_sheet.cpp src/image_loader/pmd/pmd_load_sprite_sheet.cpp src/embedded_assets/pmd/pmd_get_sprite_sheet_settings.cpp assets/input/pmd-sprite-meta.json --layout Custom --set pmd
+./scripts/generate_embedded_custom_assets.sh assets/pmd assets/input/pmd include/embedded_assets/pmd/pmd_images.h src/embedded_assets/pmd/pmd_images.c include/embedded_assets/pmd/pmd.hpp include/embedded_assets/pmd/pmd_sprite.h src/embedded_assets/pmd/pmd_get_sprite_sheet.cpp src/image_loader/pmd/pmd_load_sprite_sheet.cpp src/embedded_assets/pmd/pmd_get_sprite_sheet_settings.cpp assets/input/pmd-sprite-meta.json --layout Custom --set pmd
 
 # @NOTE(assets): 2.1. generate embedded_assets code
