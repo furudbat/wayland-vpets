@@ -74,6 +74,7 @@ namespace bongocat::config {
     enum class config_animation_custom_set_t : uint8_t {
         None,
         misc,
+        pmd,
         custom,
     };
 

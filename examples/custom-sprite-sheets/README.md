@@ -9,15 +9,18 @@ To determine the number of rows, the number of frames needs to be provided per r
 - `Writing` -- Keep Typing (looping)
 - `EndWriting` -- After last keystroke (return to Idle pose)
 - `Happy` -- Show Happy animation when KPM is reached, while writing
-- `FallAsleep` -- Start falling asleep
+- `ASleep` -- Start falling asleep
 - `Sleep` -- Sleep (looping)
 - `WakeUp` -- After sleep (back to Idle pose)
 - `StartWorking` -- Start seen spike in CPU usage
 - `Working` -- CPU usage over threshold (looping)
 - `EndWorking` -- CPU usage under threshold (cooldown)
-- `StartMoving` -- Start Moving
+- `StartMoving` -- Start moving
 - `Moving` -- Moving (looping)
 - `EndMoving` -- Stop moving
+- `StartRunning` -- Start running
+- `Running` -- Running (looping)
+- `EndRunning` -- Stop running
 
 Rows can be skipped by not providing the frames/columns, but the order of the rows needs to be the same.
 

@@ -138,7 +138,7 @@ GLOBAL_H=0
 FIXED_FRAME_SIZE=48
 FRAME_SIZE=0
 PADDING=4
-for folder in "$INPUT_ROOT"/0*/; do
+for folder in "$INPUT_ROOT"/00*/; do
     base="$(basename "$folder")"
     [[ "$base" =~ ^[0-9]+$ ]] || continue
     echo ">>> Processing $base ..."
@@ -277,6 +277,8 @@ for folder in "$INPUT_ROOT"/0*/; do
         magick "${row_images[@]}" -background none -append -gravity center "$OUTPUT_ROOT/$out_name"
         META["$base:rows"]=${#row_images[@]}
         META["$new_base:rows"]=${#row_images[@]}
+        META["$base:cols"]=${max_cols}
+        META["$new_base:cols"]=${max_cols}
         echo "   => Cols: ${max_cols} Rows: ${#row_images[@]}"
         echo "   => written $OUTPUT_ROOT_FINAL/$out_name"
 

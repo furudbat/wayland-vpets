@@ -3,7 +3,7 @@
 # === Usage Check ===
 if [[ $# -lt 3 ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
-    echo "Example: $0 assets/dm20 assets/input/dm20 include/graphics/embedded_assets/dm20_images.h src/embedded_assets/dm20_images.c include/embedded_assets/dm20.hpp include/embedded_assets/dm20_sprite.h src/embedded_assets/dm20_images.c"
+    echo "Example: $0 assets/pmd assets/input/pmd include/graphics/embedded_assets/pmd_images.h src/embedded_assets/pmd_images.c include/embedded_assets/pmd.hpp include/embedded_assets/pmd_sprite.h src/embedded_assets/pmd_images.c"
     exit 1
 fi
 
@@ -16,23 +16,20 @@ CPP_HEADER_OUT="$5"
 CPP_HEADER_GET_SPRITE_OUT="$6"
 CPP_SOURCE_GET_SPRITE_OUT="$7"
 CPP_SOURCE_LOAD_SPRITE_OUT="$8"
-START_INDEX="$9"
+CPP_SOURCE_GET_SPRITE_OUT="$9"
+JSON_META="$10"
+START_INDEX="$11"
 
-FRAME_SIZE=""
-COLS=""
-ROWS=""
-LAYOUT="Dm"
+LAYOUT="Custom"
 SET=""
 
 # === Parse args ===
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --frame-size) FRAME_SIZE="$2"; shift 2 ;;
-        --cols) COLS="$2"; shift 2 ;;
-        --rows) ROWS="$2"; shift 2 ;;
         --set) SET="$2"; shift 2 ;;
         --layout) LAYOUT="$2"; shift 2 ;;
+        --json) JSON_META="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -48,7 +45,9 @@ CPP_HEADER_OUT="${POSITIONAL_ARGS[4]}"
 CPP_HEADER_GET_SPRITE_OUT="${POSITIONAL_ARGS[5]}"
 CPP_SOURCE_GET_SPRITE_OUT="${POSITIONAL_ARGS[6]}"
 CPP_SOURCE_LOAD_SPRITE_OUT="${POSITIONAL_ARGS[7]}"
-START_INDEX="${POSITIONAL_ARGS[8]:-0}"
+CPP_SOURCE_GET_SPRITE_OUT_2="${POSITIONAL_ARGS[8]}"
+JSON_META="${POSITIONAL_ARGS[9]}"
+START_INDEX="${POSITIONAL_ARGS[10]:-0}"
 
 # === Dependency check ===
 if ! command -v magick &>/dev/null; then
@@ -56,7 +55,7 @@ if ! command -v magick &>/dev/null; then
     exit 1
 fi
 
-if [[ -z "$INPUT" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" ]]; then
+if [[ -z "$INPUT" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" || -z "$SET" ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
     exit 1
 fi
@@ -66,7 +65,6 @@ fi
 #echo $C_HEADER_IMAGES_OUT
 #echo $C_SOURCE_IMAGES_OUT
 #echo $CPP_HEADER_OUT
-#echo $FRAME_SIZE
 #exit 1
 
 # === Derived prefix from directory (after 'assets/') ===
@@ -83,11 +81,11 @@ ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 > "$C_SOURCE_IMAGES_OUT"
 > "$CPP_HEADER_OUT"
 > "$CPP_HEADER_GET_SPRITE_OUT"
-> "$CPP_SOURCE_GET_SPRITE_OUT"
+> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 > "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
 # === Header file intro ===
-C_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_H"
+C_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CUSTOM_${ASSETS_PREFIX_UPPER}_H"
 echo "#ifndef $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
 echo "#define $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
@@ -96,11 +94,12 @@ echo >> "$C_HEADER_IMAGES_OUT"
 echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
 
-CPP_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_HPP"
+CPP_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CUSTOM_${ASSETS_PREFIX_UPPER}_HPP"
 echo "#ifndef $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo "#define $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "#include <cstddef>" >> "$CPP_HEADER_OUT"
+echo ''#include "embedded_assets/custom/custom_sprite.h"' >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "/// @NOTE: Generated embedded assets images data from $INPUT_DIR" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
@@ -116,6 +115,7 @@ echo >> "$C_SOURCE_IMAGES_OUT"
 
 
 GET_SPRITE_SHEET_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet"
+GET_SPRITE_SHEET_SETTINGS_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet_settings"
 CPP_HEADER_GET_SPRITE_OUT_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_SPRITE_H"
 echo "#ifndef $CPP_HEADER_GET_SPRITE_OUT_HEADER_GUARD" >> "$CPP_HEADER_GET_SPRITE_OUT"
 echo "#define $CPP_HEADER_GET_SPRITE_OUT_HEADER_GUARD" >> "$CPP_HEADER_GET_SPRITE_OUT"
@@ -124,6 +124,7 @@ echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_HEADER_GET_SPRITE_
 echo >> "$CPP_HEADER_GET_SPRITE_OUT"
 echo "namespace bongocat::assets {" >> "$CPP_HEADER_GET_SPRITE_OUT"
 echo "    [[nodiscard]] extern embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t i);" >> "$CPP_HEADER_GET_SPRITE_OUT"
+echo "    [[nodiscard]] extern custom_animation_settings_t ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(size_t i);" >> "$CPP_HEADER_GET_SPRITE_OUT"
 echo "}" >> "$CPP_HEADER_GET_SPRITE_OUT"
 echo >> "$CPP_HEADER_GET_SPRITE_OUT"
 echo "#endif" >> "$CPP_HEADER_GET_SPRITE_OUT"
@@ -138,59 +139,69 @@ echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "        switch (index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_images.h\"" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_sprite.h\"" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo "    custom_animation_settings_t ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo "        switch (index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+
 
 LAYOUT_LOWER=$(echo "$LAYOUT" | tr '[:upper:]' '[:lower:]')
-LOAD_DM_ANIM_FUNC_NAME="load_${LAYOUT_LOWER}_anim"
+LOAD_CUSTOM_ANIM_FUNC_NAME="load_${LAYOUT_LOWER}_anim"
 LOAD_SPRITE_SHEET_FUNC_NAME="load_${ASSETS_PREFIX_LOWER}_sprite_sheet"
 echo "#include \"core/bongocat.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"graphics/animation_context.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"graphics/sprite_sheet.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "#include \"image_loader/base_dm/load_dm.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include \"image_loader/${LAYOUT_LOWER}/load_${LAYOUT_LOWER}.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_sprite.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"image_loader/${ASSETS_PREFIX_LOWER}/load_images_${ASSETS_PREFIX_LOWER}.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    created_result_t<${LAYOUT_LOWER}_animation_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    created_result_t<${LAYOUT_LOWER}_sprite_sheet_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        switch (index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
 
+MAX_COLS=0
 # === Process all PNGs ===
 for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
 
-    # Handle optional frame size or COLS/ROWS
-    if [[ -n "$FRAME_SIZE" ]]; then
-        OG_FILE="$OG_INPUT_DIR/$BASENAME"
-        if [ -f "$OG_FILE" ]; then
-          SHEET_WIDTH=$(magick identify -format "%w" "$OG_FILE")
-          SHEET_HEIGHT=$(magick identify -format "%h" "$OG_FILE")
+    COLS=$(jq -r --arg k "$BASENAME" '.[$k].cols // 0' "$JSON")
+    ROWS=$(jq -r --arg k "$BASENAME" '.[$k].rows // 0' "$JSON")
 
-          # Compute cols/rows based on fixed frame size
-          if [[ -n "$FRAME_SIZE" ]]; then
-              COLS=$(( SHEET_WIDTH / FRAME_SIZE ))
-              ROWS=$(( SHEET_HEIGHT / FRAME_SIZE ))
-          else
-              # fallback if frame size not specified
-              COLS=1
-              ROWS=$(( SHEET_HEIGHT / SHEET_WIDTH ))
-          fi
+    idle_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_idle // -1' "$JSON_META")
+    boring_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_boring // -1' "$JSON_META")
+    start_writing_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_writing // -1' "$JSON_META")
+    writing_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_writing // -1' "$JSON_META")
+    end_writing_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_writing // -1' "$JSON_META")
 
-          # Frames count is always original width*height / (frame_size^2)
-          FRAMES_COUNT=$(( (SHEET_WIDTH / FRAME_SIZE) * (SHEET_HEIGHT / FRAME_SIZE) ))
-        else
-            COLS=0
-            ROWS=0
-            echo "$OG_FILE not found"
-            continue
-        fi
-    else
-      FRAMES_COUNT=$((COLS * ROWS))
-    fi
+    happy_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_happy // -1' "$JSON_META")
+    asleep_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_asleep // -1' "$JSON_META")
+    sleep_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_sleep // -1' "$JSON_META")
+    wake_up_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_wake_up // -1' "$JSON_META")
+
+    start_working_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_working // -1' "$JSON_META")
+    working_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_working // -1' "$JSON_META")
+    end_working_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_working // -1' "$JSON_META")
+
+    start_moving_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_moving // -1' "$JSON_META")
+    moving_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_moving // -1' "$JSON_META")
+    end_moving_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_moving // -1' "$JSON_META")
+
+    start_running_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_start_running // -1' "$JSON_META")
+    running_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_running // -1' "$JSON_META")
+    end_running_frames=$(jq -r --arg k "$BASENAME" '.[$k].frames_end_running // -1' "$JSON_META")
+
+    FRAMES_COUNT=$((COLS * ROWS))
+    (( COLS > MAX_COLS )) && MAX_COLS=$COLS
 
     NAME_NO_EXT="${BASENAME%.png}"
     NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
@@ -228,10 +239,33 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "    inline static constexpr char ${MACRO_PREFIX}_FQNAME_ARR[] = \"${FQNAME}\";" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr const char* ${MACRO_PREFIX}_FQNAME = ${MACRO_PREFIX}_FQNAME_ARR;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQNAME_LEN = sizeof(${MACRO_PREFIX}_FQNAME_ARR)-1;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_COLS = $COLS;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_ROWS = $ROWS;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT = $FRAMES_COUNT;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_ANIM_INDEX = $INDEX;" >> "$CPP_HEADER_OUT"
+
+    echo "    inline static constexpr custom_animation_settings_t ${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS {" >> "$CPP_HEADER_OUT"
+    echo "        .idle_frames = ${idle_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .boring_frames = ${boring_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .start_writing_frames = ${start_writing_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .writing_frames = ${writing_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .end_writing_frames = ${end_writing_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .happy_frames = ${happy_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .asleep_frames = ${asleep_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .sleep_frames = ${sleep_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .wake_up_frames = ${wake_up_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .start_working_frames = ${start_working_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .working_frames = ${working_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .end_working_frames = ${end_working_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .start_moving_frames = ${start_moving_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .moving_frames = ${moving_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .end_moving_frames = ${end_moving_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .start_running_frames = ${start_running_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .running_frames = ${running_frames}," >> "$CPP_HEADER_OUT"
+    echo "        .end_running_frames = ${end_running_frames}," >> "$CPP_HEADER_OUT"
+    echo "    };" >> "$CPP_HEADER_OUT"
+
+    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_ROWS = $ROWS;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_MAX_COLS = $COLS;" >> "$CPP_HEADER_OUT"
+
     echo >> "$CPP_HEADER_OUT"
 
     # === Source content ===
@@ -245,7 +279,9 @@ for FILE in "$INPUT_DIR"/*.png; do
 
     echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {$EMBED_SYMBOL, $SIZE_SYMBOL, \"${IDENTIFIER}\"};" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
-    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS;" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+
+    echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_CUSTOM_ANIM_FUNC_NAME}(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX));" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
     ((INDEX++))
 done
@@ -266,6 +302,13 @@ echo '        return { nullptr, 0, "" };' >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo '}' >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
+
+echo '            default: return {};' >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo '        }' >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo '        return {};' >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo '    }' >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo '}' >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 
 echo '            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '        }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
