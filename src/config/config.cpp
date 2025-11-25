@@ -667,6 +667,7 @@ namespace bongocat::config {
                 assert(MAX_MISC_ANIM_INDEX <= INT_MAX);
                 if constexpr (features::EnableCustomSpriteSheetsAssets) {
                     if (config._custom) {
+                        assert(config.animation_custom_set == config_animation_custom_set_t::custom);
                         // Validate animation index
                         if (config.animation_index < 0 || config.animation_index > static_cast<int>(CUSTOM_ANIM_INDEX)) {
                             BONGOCAT_LOG_WARNING("%s %d out of range [%d], resetting to 0",
@@ -679,20 +680,49 @@ namespace bongocat::config {
                 }
                 if constexpr (features::EnableMiscEmbeddedAssets) {
                     if (!config._custom) {
-                        // Validate animation index
-                        if (config.animation_index < 0 || config.animation_index > static_cast<int>(MAX_MISC_ANIM_INDEX)) {
-                            BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                                 ANIMATION_INDEX_KEY, config.animation_index, MAX_MISC_ANIM_INDEX);
-                            config.animation_index = 0;
-                            ret |= (1u << 27);
-                        }
-                        // Validate idle frame
-                        assert(assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
-                        if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MISC_MAX_SPRITE_SHEET_COL_FRAMES)) {
-                            BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
-                                                 IDLE_FRAME_KEY, config.idle_frame, assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES - 1);
-                            config.idle_frame = 0;
-                            ret |= (1u << 28);
+                        switch (config.animation_custom_set) {
+                            case config_animation_custom_set_t::None:
+                                break;
+                            case config_animation_custom_set_t::misc:
+                                if constexpr (features::EnableMiscEmbeddedAssets) {
+                                    // Validate animation index
+                                    if (config.animation_index < 0 || config.animation_index > static_cast<int>(MAX_MISC_ANIM_INDEX)) {
+                                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                                             ANIMATION_INDEX_KEY, config.animation_index, MAX_MISC_ANIM_INDEX);
+                                        config.animation_index = 0;
+                                        ret |= (1u << 27);
+                                    }
+                                    // Validate idle frame
+                                    assert(assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
+                                    if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MISC_MAX_SPRITE_SHEET_COL_FRAMES)) {
+                                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                                             IDLE_FRAME_KEY, config.idle_frame, assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES - 1);
+                                        config.idle_frame = 0;
+                                        ret |= (1u << 28);
+                                    }
+                                }
+                                break;
+                            case config_animation_custom_set_t::pmd:
+                                if constexpr (features::EnablePmdEmbeddedAssets) {
+                                    assert(assets::PMD_ANIM_COUNT <= INT_MAX);
+                                    // Validate animation index
+                                    if (config.animation_index < 0 || config.animation_index >= static_cast<int>(PMD_ANIM_COUNT)) {
+                                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                                             ANIMATION_INDEX_KEY, config.animation_index, PMD_ANIM_COUNT - 1);
+                                        config.animation_index = 0;
+                                        ret |= (1uz << 29);
+                                    }
+                                    // Validate idle frame
+                                    if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(PMD_ANIM_COUNT)) {
+                                        BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0",
+                                                             IDLE_FRAME_KEY, config.idle_frame, assets::PMD_ANIM_COUNT - 1);
+                                        config.idle_frame = 0;
+                                        ret |= (1uz << 30);
+                                    }
+                                }
+                                break;
+                            case config_animation_custom_set_t::custom:
+                                break;
                         }
                     }
                 }
@@ -702,8 +732,8 @@ namespace bongocat::config {
         return ret;
     }
 
-    static uint32_t config_validate_enums(config_t& config) {
-        uint32_t ret{0};
+    static uint64_t config_validate_enums(config_t& config) {
+        uint64_t ret{0};
         // Validate layer
         if (config.layer != layer_type_t::LAYER_BACKGROUND &&
             config.layer != layer_type_t::LAYER_BOTTOM &&
@@ -711,21 +741,21 @@ namespace bongocat::config {
             config.layer != layer_type_t::LAYER_OVERLAY) {
             BONGOCAT_LOG_WARNING("Invalid layer %d, resetting to top", config.layer);
             config.layer = layer_type_t::LAYER_TOP;
-            ret |= (1uz << 29);
+            ret |= (1uz << 31);
         }
 
         // Validate overlay_position
         if (config.overlay_position != overlay_position_t::POSITION_TOP && config.overlay_position != overlay_position_t::POSITION_BOTTOM) {
             BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to top", OVERLAY_OPACITY_KEY, config.overlay_position);
             config.overlay_position = overlay_position_t::POSITION_TOP;
-            ret |= (1uz << 30);
+            ret |= (1uz << 32);
         }
 
         // Validate cat_align
         if (config.cat_align != align_type_t::ALIGN_CENTER && config.cat_align != align_type_t::ALIGN_LEFT && config.cat_align != align_type_t::ALIGN_RIGHT) {
             BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to center", CAT_ALIGN_KEY, config.cat_align);
             config.cat_align = align_type_t::ALIGN_CENTER;
-            ret |= (1uz << 31);
+            ret |= (1uz << 33);
         }
 
         return ret;
@@ -745,7 +775,7 @@ namespace bongocat::config {
                 //config.sleep_begin.min = 0;
                 //config.sleep_end.hour = 0;
                 //config.sleep_end.min = 0;
-                ret |= (1uz << 32);
+                ret |= (1uz << 34);
             }
         }
         return ret;

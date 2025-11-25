@@ -713,9 +713,15 @@ namespace bongocat {
             if constexpr (features::EnableDmcEmbeddedAssets) {
                 printf("  %8s - Digital Monster Color\n", "dmc");
             }
+            if constexpr (features::EnableDmAllEmbeddedAssets) {
+                printf("  %8s - Custom Digital Monster Colored (fan sprites)\n", "dmall");
+            }
         }
         if constexpr (features::EnablePkmnEmbeddedAssets) {
-            printf("  %8s - Pokemon, up to Gen 7\n", "pkmn");
+            printf("  %8s - Pokemon, up to Gen 5\n", "pkmn");
+        }
+        if constexpr (features::EnablePmdEmbeddedAssets) {
+            printf("  %8s - Pokemon Mystery Dungeon, up to Gen 6 (fan sprites)\n", "pmd");
         }
         if constexpr (features::EnableMsAgentEmbeddedAssets) {
             printf("  %8s - MS Agent\n", "ms_agent");

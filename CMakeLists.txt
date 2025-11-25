@@ -200,7 +200,7 @@ if (FEATURE_MS_AGENT_EMBEDDED_ASSETS)
     message(STATUS "Include MS agent assets")
 endif()
 if (FEATURE_PMD_EMBEDDED_ASSETS)
-    target_link_libraries(bongocat PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface)
+    target_link_libraries(bongocat PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
     message(STATUS "Include pkmn pmd assets")
 elseif (FEATURE_PKMN_EMBEDDED_ASSETS)
     target_link_libraries(bongocat PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
@@ -256,7 +256,7 @@ if (FEATURE_MULTI_VERSIONS)
     add_executable(bongocat-pkmn)
     target_link_libraries(bongocat-pkmn PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
     target_link_libraries(bongocat-pkmn PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
-    target_link_libraries(bongocat-pkmn PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface)
+    target_link_libraries(bongocat-pkmn PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
     target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     add_executable(bongocat-all)
@@ -270,7 +270,14 @@ if (FEATURE_MULTI_VERSIONS)
     target_link_libraries(bongocat-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
     target_link_libraries(bongocat-all PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface)
     target_link_libraries(bongocat-all PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
-    target_link_libraries(bongocat-all PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface)
+    # TODO: include pmd in -all when ready (experimental) ?
+    target_link_libraries(bongocat-all PRIVATE
+            # only include pmd for testing
+            $<$<CONFIG:Debug>:assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader>
+            $<$<CONFIG:RelWithDebInfo>:assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader>
+            $<$<BOOL:${FEATURE_PRELOAD_ASSETS}>:assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader>
+    )
+    #target_link_libraries(bongocat-all PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
     target_link_libraries(bongocat-all PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
     target_link_libraries(bongocat-all PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
     target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)

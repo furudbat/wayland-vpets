@@ -265,6 +265,12 @@ sed -i -E 's/^animation_name=.*/animation_name=neko/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
+echo "[INFO] Set Sprite Sheet: pmd:volcanion"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=pmd:volcanion/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
 
 
 echo "[TEST] CPU threshold"

@@ -317,7 +317,7 @@ See man pages for more details and full list:
 
  - [Bongocat 😺](docs/fragments/set-bongocat.md)
  - [MS Agent 📎](docs/fragments/set-ms-agent.md) Clippy and friends
- - [Pokemon 🐭](docs/fragments/set-pkmn.md) up to Gen. 7
+ - [Pokemon 🐭](docs/fragments/set-pkmn.md) up to Gen. 5
  - [Misc 🐈‍⬛](docs/fragments/set-misc.md)
 
 ##### Digimon 🦖

@@ -655,30 +655,63 @@ namespace bongocat::animation {
                         const int col = anim_shm.animation_player_result.sprite_sheet_col;
                         const int row = anim_shm.animation_player_result.sprite_sheet_row;
                         assert(anim_shm.anim_index >= 0);
-                        if (features::EnableCustomSpriteSheetsAssets && anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) == assets::CUSTOM_ANIM_INDEX) {
-                            const animation_t& custom_anim = get_current_animation(anim);
-                            assert(custom_anim.type == animation_t::Type::Custom);
-                            const custom_sprite_sheet_t& sheet = custom_anim.custom;
-                            draw_sprite_overwrite_option_t overwrite_mirror_x {draw_sprite_overwrite_option_t::None};
-                            switch (anim_shm.animation_player_result.overwrite_mirror_x) {
-                                case animation_player_custom_overwrite_mirror_x::None:
-                                    break;
-                                case animation_player_custom_overwrite_mirror_x::NoMirror:
-                                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementNoMirror;
-                                    break;
-                                case animation_player_custom_overwrite_mirror_x::Mirror:
-                                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
-                                    break;
-                            }
-                            draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_mirror_x);
-                        } else if (features::EnableMiscEmbeddedAssets) {
-                            if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
-                                assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.misc_anims.count);
-                            }
-                            const animation_t& custom_anim = get_current_animation(anim);
-                            assert(custom_anim.type == animation_t::Type::Custom);
-                            const custom_sprite_sheet_t& sheet = custom_anim.custom;
-                            draw_sprite(ctx, shm_buffer, sheet, col, row);
+                        switch (anim_shm.anim_custom_set) {
+                            case config::config_animation_custom_set_t::None:
+                                break;
+                            case config::config_animation_custom_set_t::misc:
+                                if (features::EnableMiscEmbeddedAssets) {
+                                    if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+                                        assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.misc_anims.count);
+                                    }
+                                    const animation_t& custom_anim = get_current_animation(anim);
+                                    assert(custom_anim.type == animation_t::Type::Custom);
+                                    const custom_sprite_sheet_t& sheet = custom_anim.custom;
+                                    draw_sprite(ctx, shm_buffer, sheet, col, row);
+                                }
+                                break;
+                            case config::config_animation_custom_set_t::pmd:
+                                if (features::EnableMiscEmbeddedAssets) {
+                                    if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
+                                        assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pmd_anims.count);
+                                    }
+                                    const animation_t& custom_anim = get_current_animation(anim);
+                                    assert(custom_anim.type == animation_t::Type::Custom);
+                                    const custom_sprite_sheet_t& sheet = custom_anim.custom;
+                                    draw_sprite_overwrite_option_t overwrite_mirror_x {draw_sprite_overwrite_option_t::None};
+                                    /*
+                                    switch (anim_shm.animation_player_result.overwrite_mirror_x) {
+                                        case animation_player_custom_overwrite_mirror_x::None:
+                                            break;
+                                        case animation_player_custom_overwrite_mirror_x::NoMirror:
+                                            overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementNoMirror;
+                                            break;
+                                        case animation_player_custom_overwrite_mirror_x::Mirror:
+                                            overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
+                                            break;
+                                    }
+                                    */
+                                    draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_mirror_x);
+                                }
+                                break;
+                            case config::config_animation_custom_set_t::custom:
+                                if (features::EnableCustomSpriteSheetsAssets && anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) == assets::CUSTOM_ANIM_INDEX) {
+                                    const animation_t& custom_anim = get_current_animation(anim);
+                                    assert(custom_anim.type == animation_t::Type::Custom);
+                                    const custom_sprite_sheet_t& sheet = custom_anim.custom;
+                                    draw_sprite_overwrite_option_t overwrite_mirror_x {draw_sprite_overwrite_option_t::None};
+                                    switch (anim_shm.animation_player_result.overwrite_mirror_x) {
+                                        case animation_player_custom_overwrite_mirror_x::None:
+                                            break;
+                                        case animation_player_custom_overwrite_mirror_x::NoMirror:
+                                            overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementNoMirror;
+                                            break;
+                                        case animation_player_custom_overwrite_mirror_x::Mirror:
+                                            overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
+                                            break;
+                                    }
+                                    draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_mirror_x);
+                                }
+                                break;
                         }
                     }break;
                 }
