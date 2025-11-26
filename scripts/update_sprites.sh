@@ -9,6 +9,7 @@ mkdir -p ./assets/pen
 mkdir -p ./assets/pen20
 mkdir -p ./assets/dmall
 mkdir -p ./assets/pkmn
+mkdir -p ./assets/pmd
 
 touch ./assets/dm/.gitkeep
 touch ./assets/dm20/.gitkeep
@@ -18,15 +19,17 @@ touch ./assets/pen/.gitkeep
 touch ./assets/pen20/.gitkeep
 touch ./assets/dmall/.gitkeep
 touch ./assets/pkmn/.gitkeep
+touch ./assets/pmd/.gitkeep
 
-rm ./assets./dm/*.png 2> /dev/null
-rm ./assets./dm20/*.png 2> /dev/null
-rm ./assets./dmx/*.png 2> /dev/null
-rm ./assets./dmc/*.png 2> /dev/null
-rm ./assets./pen/*.png 2> /dev/null
-rm ./assets./pen20/*.png 2> /dev/null
-rm ./assets./dmall/*.png 2> /dev/null
-rm ./assets./pkmn/*.png 2> /dev/null
+rm ./assets/dm/*.png 2> /dev/null
+rm ./assets/dm20/*.png 2> /dev/null
+rm ./assets/dmx/*.png 2> /dev/null
+rm ./assets/dmc/*.png 2> /dev/null
+rm ./assets/pen/*.png 2> /dev/null
+rm ./assets/pen20/*.png 2> /dev/null
+rm ./assets/dmall/*.png 2> /dev/null
+rm ./assets/pkmn/*.png 2> /dev/null
+rm ./assets/pmd/*.png 2> /dev/null
 
 cp ./assets/input/dm/*.png ./assets/dm/.
 cp ./assets/input/dm20/*.png ./assets/dm20/.
@@ -45,7 +48,18 @@ cp ./assets/input/dmc-fixed/*.png ./assets/dmc/.
 # @NOTE(assets): 0. add assets folder, (input) assets and sub folder in image_loader etc.
 
 #./scripts/make_poke_sheets.sh
-#cp ./assets/input/pkmn-fixed/*.png ./assets/pkmn/.
+#cp ./assets/input/pkmn-fixed/*.png ./assets/pkmn/
+./scripts/make-pmd-sprites.sh
+cp ./assets/input/pmd-fixed/*_*.png ./assets/pmd/.
+rm ./assets/pmd/0000_*.png 2>/dev/null
+# Remove anything above 0905_*, keep until gen 8
+for f in ./assets/pmd/*.png; do
+    base=$(basename "$f")
+    num=${base%%_*}   # extract number before first underscore
+    if [ "$num" -gt 905 ]; then
+        rm "$f"
+    fi
+done
 
 ./scripts/all_crop_spritesheets.sh
 

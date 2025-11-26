@@ -28,7 +28,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -134,20 +134,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHARMANDER_FQNAME_ARR[] = "pmd:Charmander";
     inline static constexpr const char* PMD_CHARMANDER_FQNAME = PMD_CHARMANDER_FQNAME_ARR;
     inline static constexpr size_t PMD_CHARMANDER_FQNAME_LEN = sizeof(PMD_CHARMANDER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHARMANDER_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_CHARMANDER_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_CHARMANDER_ANIM_INDEX = 3;
     inline static constexpr custom_animation_settings_t PMD_CHARMANDER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -157,7 +157,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CHARMANDER_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_CHARMANDER_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_CHARMANDER_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Charmeleon
     inline static constexpr char PMD_CHARMELEON_FQID_ARR[] = "pmd:charmeleon";
@@ -172,15 +172,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHARMELEON_FQNAME_ARR[] = "pmd:Charmeleon";
     inline static constexpr const char* PMD_CHARMELEON_FQNAME = PMD_CHARMELEON_FQNAME_ARR;
     inline static constexpr size_t PMD_CHARMELEON_FQNAME_LEN = sizeof(PMD_CHARMELEON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHARMELEON_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_CHARMELEON_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_CHARMELEON_ANIM_INDEX = 4;
     inline static constexpr custom_animation_settings_t PMD_CHARMELEON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -195,7 +195,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CHARMELEON_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_CHARMELEON_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_CHARMELEON_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Charizard
     inline static constexpr char PMD_CHARIZARD_FQID_ARR[] = "pmd:charizard";
@@ -210,13 +210,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHARIZARD_FQNAME_ARR[] = "pmd:Charizard";
     inline static constexpr const char* PMD_CHARIZARD_FQNAME = PMD_CHARIZARD_FQNAME_ARR;
     inline static constexpr size_t PMD_CHARIZARD_FQNAME_LEN = sizeof(PMD_CHARIZARD_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHARIZARD_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CHARIZARD_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_CHARIZARD_ANIM_INDEX = 5;
     inline static constexpr custom_animation_settings_t PMD_CHARIZARD_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -233,7 +233,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CHARIZARD_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CHARIZARD_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_CHARIZARD_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Squirtle
     inline static constexpr char PMD_SQUIRTLE_FQID_ARR[] = "pmd:squirtle";
@@ -248,7 +248,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SQUIRTLE_FQNAME_ARR[] = "pmd:Squirtle";
     inline static constexpr const char* PMD_SQUIRTLE_FQNAME = PMD_SQUIRTLE_FQNAME_ARR;
     inline static constexpr size_t PMD_SQUIRTLE_FQNAME_LEN = sizeof(PMD_SQUIRTLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SQUIRTLE_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SQUIRTLE_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_SQUIRTLE_ANIM_INDEX = 6;
     inline static constexpr custom_animation_settings_t PMD_SQUIRTLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -256,12 +256,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -271,7 +271,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SQUIRTLE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SQUIRTLE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SQUIRTLE_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Wartortle
     inline static constexpr char PMD_WARTORTLE_FQID_ARR[] = "pmd:wartortle";
@@ -286,20 +286,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WARTORTLE_FQNAME_ARR[] = "pmd:Wartortle";
     inline static constexpr const char* PMD_WARTORTLE_FQNAME = PMD_WARTORTLE_FQNAME_ARR;
     inline static constexpr size_t PMD_WARTORTLE_FQNAME_LEN = sizeof(PMD_WARTORTLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WARTORTLE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_WARTORTLE_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_WARTORTLE_ANIM_INDEX = 7;
     inline static constexpr custom_animation_settings_t PMD_WARTORTLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 17,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -309,7 +309,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_WARTORTLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WARTORTLE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_WARTORTLE_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Blastoise
     inline static constexpr char PMD_BLASTOISE_FQID_ARR[] = "pmd:blastoise";
@@ -324,20 +324,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BLASTOISE_FQNAME_ARR[] = "pmd:Blastoise";
     inline static constexpr const char* PMD_BLASTOISE_FQNAME = PMD_BLASTOISE_FQNAME_ARR;
     inline static constexpr size_t PMD_BLASTOISE_FQNAME_LEN = sizeof(PMD_BLASTOISE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BLASTOISE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_BLASTOISE_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_BLASTOISE_ANIM_INDEX = 8;
     inline static constexpr custom_animation_settings_t PMD_BLASTOISE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 17,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 6,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -347,7 +347,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BLASTOISE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BLASTOISE_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_BLASTOISE_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Caterpie
     inline static constexpr char PMD_CATERPIE_FQID_ARR[] = "pmd:caterpie";
@@ -438,13 +438,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BUTTERFREE_FQNAME_ARR[] = "pmd:Butterfree";
     inline static constexpr const char* PMD_BUTTERFREE_FQNAME = PMD_BUTTERFREE_FQNAME_ARR;
     inline static constexpr size_t PMD_BUTTERFREE_FQNAME_LEN = sizeof(PMD_BUTTERFREE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BUTTERFREE_SPRITE_SHEET_FRAMES_COUNT = 144;
+    inline static constexpr size_t PMD_BUTTERFREE_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_BUTTERFREE_ANIM_INDEX = 11;
     inline static constexpr custom_animation_settings_t PMD_BUTTERFREE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 24,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -461,7 +461,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BUTTERFREE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BUTTERFREE_SPRITE_SHEET_MAX_COLS = 24;
+    inline static constexpr int PMD_BUTTERFREE_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Weedle
     inline static constexpr char PMD_WEEDLE_FQID_ARR[] = "pmd:weedle";
@@ -514,11 +514,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KAKUNA_FQNAME_ARR[] = "pmd:Kakuna";
     inline static constexpr const char* PMD_KAKUNA_FQNAME = PMD_KAKUNA_FQNAME_ARR;
     inline static constexpr size_t PMD_KAKUNA_FQNAME_LEN = sizeof(PMD_KAKUNA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KAKUNA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_KAKUNA_SPRITE_SHEET_FRAMES_COUNT = 119;
     inline static constexpr size_t PMD_KAKUNA_ANIM_INDEX = 13;
     inline static constexpr custom_animation_settings_t PMD_KAKUNA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 17,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -527,7 +527,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -536,8 +536,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_KAKUNA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KAKUNA_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_KAKUNA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_KAKUNA_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Beedrill
     inline static constexpr char PMD_BEEDRILL_FQID_ARR[] = "pmd:beedrill";
@@ -552,13 +552,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BEEDRILL_FQNAME_ARR[] = "pmd:Beedrill";
     inline static constexpr const char* PMD_BEEDRILL_FQNAME = PMD_BEEDRILL_FQNAME_ARR;
     inline static constexpr size_t PMD_BEEDRILL_FQNAME_LEN = sizeof(PMD_BEEDRILL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BEEDRILL_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_BEEDRILL_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_BEEDRILL_ANIM_INDEX = 14;
     inline static constexpr custom_animation_settings_t PMD_BEEDRILL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -575,7 +575,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BEEDRILL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BEEDRILL_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_BEEDRILL_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Pidgey
     inline static constexpr char PMD_PIDGEY_FQID_ARR[] = "pmd:pidgey";
@@ -590,15 +590,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PIDGEY_FQNAME_ARR[] = "pmd:Pidgey";
     inline static constexpr const char* PMD_PIDGEY_FQNAME = PMD_PIDGEY_FQNAME_ARR;
     inline static constexpr size_t PMD_PIDGEY_FQNAME_LEN = sizeof(PMD_PIDGEY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PIDGEY_SPRITE_SHEET_FRAMES_COUNT = 126;
+    inline static constexpr size_t PMD_PIDGEY_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_PIDGEY_ANIM_INDEX = 15;
     inline static constexpr custom_animation_settings_t PMD_PIDGEY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -613,7 +613,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PIDGEY_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_PIDGEY_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_PIDGEY_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Pidgeotto
     inline static constexpr char PMD_PIDGEOTTO_FQID_ARR[] = "pmd:pidgeotto";
@@ -628,13 +628,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PIDGEOTTO_FQNAME_ARR[] = "pmd:Pidgeotto";
     inline static constexpr const char* PMD_PIDGEOTTO_FQNAME = PMD_PIDGEOTTO_FQNAME_ARR;
     inline static constexpr size_t PMD_PIDGEOTTO_FQNAME_LEN = sizeof(PMD_PIDGEOTTO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PIDGEOTTO_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_PIDGEOTTO_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_PIDGEOTTO_ANIM_INDEX = 16;
     inline static constexpr custom_animation_settings_t PMD_PIDGEOTTO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -651,7 +651,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PIDGEOTTO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PIDGEOTTO_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_PIDGEOTTO_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Pidgeot
     inline static constexpr char PMD_PIDGEOT_FQID_ARR[] = "pmd:pidgeot";
@@ -666,13 +666,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PIDGEOT_FQNAME_ARR[] = "pmd:Pidgeot";
     inline static constexpr const char* PMD_PIDGEOT_FQNAME = PMD_PIDGEOT_FQNAME_ARR;
     inline static constexpr size_t PMD_PIDGEOT_FQNAME_LEN = sizeof(PMD_PIDGEOT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PIDGEOT_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_PIDGEOT_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_PIDGEOT_ANIM_INDEX = 17;
     inline static constexpr custom_animation_settings_t PMD_PIDGEOT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -689,7 +689,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PIDGEOT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PIDGEOT_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_PIDGEOT_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Rattata
     inline static constexpr char PMD_RATTATA_FQID_ARR[] = "pmd:rattata";
@@ -704,11 +704,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RATTATA_FQNAME_ARR[] = "pmd:Rattata";
     inline static constexpr const char* PMD_RATTATA_FQNAME = PMD_RATTATA_FQNAME_ARR;
     inline static constexpr size_t PMD_RATTATA_FQNAME_LEN = sizeof(PMD_RATTATA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RATTATA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_RATTATA_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_RATTATA_ANIM_INDEX = 18;
     inline static constexpr custom_animation_settings_t PMD_RATTATA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 12,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -726,7 +726,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_RATTATA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_RATTATA_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_RATTATA_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Raticate
@@ -742,11 +742,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RATICATE_FQNAME_ARR[] = "pmd:Raticate";
     inline static constexpr const char* PMD_RATICATE_FQNAME = PMD_RATICATE_FQNAME_ARR;
     inline static constexpr size_t PMD_RATICATE_FQNAME_LEN = sizeof(PMD_RATICATE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RATICATE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_RATICATE_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_RATICATE_ANIM_INDEX = 19;
     inline static constexpr custom_animation_settings_t PMD_RATICATE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 8,
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
@@ -764,7 +764,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_RATICATE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_RATICATE_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_RATICATE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Spearow
@@ -932,7 +932,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PIKACHU_FQNAME_ARR[] = "pmd:Pikachu";
     inline static constexpr const char* PMD_PIKACHU_FQNAME = PMD_PIKACHU_FQNAME_ARR;
     inline static constexpr size_t PMD_PIKACHU_FQNAME_LEN = sizeof(PMD_PIKACHU_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PIKACHU_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_PIKACHU_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_PIKACHU_ANIM_INDEX = 24;
     inline static constexpr custom_animation_settings_t PMD_PIKACHU_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -940,12 +940,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -955,7 +955,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PIKACHU_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_PIKACHU_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_PIKACHU_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Raichu
     inline static constexpr char PMD_RAICHU_FQID_ARR[] = "pmd:raichu";
@@ -970,7 +970,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RAICHU_FQNAME_ARR[] = "pmd:Raichu";
     inline static constexpr const char* PMD_RAICHU_FQNAME = PMD_RAICHU_FQNAME_ARR;
     inline static constexpr size_t PMD_RAICHU_FQNAME_LEN = sizeof(PMD_RAICHU_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RAICHU_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_RAICHU_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_RAICHU_ANIM_INDEX = 25;
     inline static constexpr custom_animation_settings_t PMD_RAICHU_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -983,7 +983,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -993,7 +993,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_RAICHU_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_RAICHU_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_RAICHU_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Sandshrew
     inline static constexpr char PMD_SANDSHREW_FQID_ARR[] = "pmd:sandshrew";
@@ -1014,14 +1014,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 5,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -1052,14 +1052,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 5,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -1084,7 +1084,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_NIDORAN_F_FQNAME_ARR[] = "pmd:Nidoran-f";
     inline static constexpr const char* PMD_NIDORAN_F_FQNAME = PMD_NIDORAN_F_FQNAME_ARR;
     inline static constexpr size_t PMD_NIDORAN_F_FQNAME_LEN = sizeof(PMD_NIDORAN_F_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NIDORAN_F_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_NIDORAN_F_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_NIDORAN_F_ANIM_INDEX = 28;
     inline static constexpr custom_animation_settings_t PMD_NIDORAN_F_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -1097,7 +1097,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -1107,7 +1107,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_NIDORAN_F_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NIDORAN_F_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_NIDORAN_F_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Nidorina
     inline static constexpr char PMD_NIDORINA_FQID_ARR[] = "pmd:nidorina";
@@ -1122,165 +1122,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_NIDORINA_FQNAME_ARR[] = "pmd:Nidorina";
     inline static constexpr const char* PMD_NIDORINA_FQNAME = PMD_NIDORINA_FQNAME_ARR;
     inline static constexpr size_t PMD_NIDORINA_FQNAME_LEN = sizeof(PMD_NIDORINA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NIDORINA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_NIDORINA_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_NIDORINA_ANIM_INDEX = 29;
     inline static constexpr custom_animation_settings_t PMD_NIDORINA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 10,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 13,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 4,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_NIDORINA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NIDORINA_SPRITE_SHEET_MAX_COLS = 13;
-
-    // Name: Nidoqueen
-    inline static constexpr char PMD_NIDOQUEEN_FQID_ARR[] = "pmd:nidoqueen";
-    inline static constexpr const char* PMD_NIDOQUEEN_FQID = PMD_NIDOQUEEN_FQID_ARR;
-    inline static constexpr size_t PMD_NIDOQUEEN_FQID_LEN = sizeof(PMD_NIDOQUEEN_FQID_ARR)-1;
-    inline static constexpr char PMD_NIDOQUEEN_ID_ARR[] = "nidoqueen";
-    inline static constexpr const char* PMD_NIDOQUEEN_ID = PMD_NIDOQUEEN_ID_ARR;
-    inline static constexpr size_t PMD_NIDOQUEEN_ID_LEN = sizeof(PMD_NIDOQUEEN_ID)-1;
-    inline static constexpr char PMD_NIDOQUEEN_NAME_ARR[] = "Nidoqueen";
-    inline static constexpr const char* PMD_NIDOQUEEN_NAME = PMD_NIDOQUEEN_NAME_ARR;
-    inline static constexpr size_t PMD_NIDOQUEEN_NAME_LEN = sizeof(PMD_NIDOQUEEN_NAME_ARR)-1;
-    inline static constexpr char PMD_NIDOQUEEN_FQNAME_ARR[] = "pmd:Nidoqueen";
-    inline static constexpr const char* PMD_NIDOQUEEN_FQNAME = PMD_NIDOQUEEN_FQNAME_ARR;
-    inline static constexpr size_t PMD_NIDOQUEEN_FQNAME_LEN = sizeof(PMD_NIDOQUEEN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NIDOQUEEN_SPRITE_SHEET_FRAMES_COUNT = 84;
-    inline static constexpr size_t PMD_NIDOQUEEN_ANIM_INDEX = 30;
-    inline static constexpr custom_animation_settings_t PMD_NIDOQUEEN_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 5,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 9,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 14,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 4,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_NIDOQUEEN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NIDOQUEEN_SPRITE_SHEET_MAX_COLS = 14;
-
-    // Name: Nidoran-m
-    inline static constexpr char PMD_NIDORAN_M_FQID_ARR[] = "pmd:nidoran_m";
-    inline static constexpr const char* PMD_NIDORAN_M_FQID = PMD_NIDORAN_M_FQID_ARR;
-    inline static constexpr size_t PMD_NIDORAN_M_FQID_LEN = sizeof(PMD_NIDORAN_M_FQID_ARR)-1;
-    inline static constexpr char PMD_NIDORAN_M_ID_ARR[] = "nidoran_m";
-    inline static constexpr const char* PMD_NIDORAN_M_ID = PMD_NIDORAN_M_ID_ARR;
-    inline static constexpr size_t PMD_NIDORAN_M_ID_LEN = sizeof(PMD_NIDORAN_M_ID)-1;
-    inline static constexpr char PMD_NIDORAN_M_NAME_ARR[] = "Nidoran-m";
-    inline static constexpr const char* PMD_NIDORAN_M_NAME = PMD_NIDORAN_M_NAME_ARR;
-    inline static constexpr size_t PMD_NIDORAN_M_NAME_LEN = sizeof(PMD_NIDORAN_M_NAME_ARR)-1;
-    inline static constexpr char PMD_NIDORAN_M_FQNAME_ARR[] = "pmd:Nidoran-m";
-    inline static constexpr const char* PMD_NIDORAN_M_FQNAME = PMD_NIDORAN_M_FQNAME_ARR;
-    inline static constexpr size_t PMD_NIDORAN_M_FQNAME_LEN = sizeof(PMD_NIDORAN_M_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NIDORAN_M_SPRITE_SHEET_FRAMES_COUNT = 78;
-    inline static constexpr size_t PMD_NIDORAN_M_ANIM_INDEX = 31;
-    inline static constexpr custom_animation_settings_t PMD_NIDORAN_M_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 5,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 10,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 13,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 6,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_NIDORAN_M_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NIDORAN_M_SPRITE_SHEET_MAX_COLS = 13;
-
-    // Name: Nidorino
-    inline static constexpr char PMD_NIDORINO_FQID_ARR[] = "pmd:nidorino";
-    inline static constexpr const char* PMD_NIDORINO_FQID = PMD_NIDORINO_FQID_ARR;
-    inline static constexpr size_t PMD_NIDORINO_FQID_LEN = sizeof(PMD_NIDORINO_FQID_ARR)-1;
-    inline static constexpr char PMD_NIDORINO_ID_ARR[] = "nidorino";
-    inline static constexpr const char* PMD_NIDORINO_ID = PMD_NIDORINO_ID_ARR;
-    inline static constexpr size_t PMD_NIDORINO_ID_LEN = sizeof(PMD_NIDORINO_ID)-1;
-    inline static constexpr char PMD_NIDORINO_NAME_ARR[] = "Nidorino";
-    inline static constexpr const char* PMD_NIDORINO_NAME = PMD_NIDORINO_NAME_ARR;
-    inline static constexpr size_t PMD_NIDORINO_NAME_LEN = sizeof(PMD_NIDORINO_NAME_ARR)-1;
-    inline static constexpr char PMD_NIDORINO_FQNAME_ARR[] = "pmd:Nidorino";
-    inline static constexpr const char* PMD_NIDORINO_FQNAME = PMD_NIDORINO_FQNAME_ARR;
-    inline static constexpr size_t PMD_NIDORINO_FQNAME_LEN = sizeof(PMD_NIDORINO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NIDORINO_SPRITE_SHEET_FRAMES_COUNT = 66;
-    inline static constexpr size_t PMD_NIDORINO_ANIM_INDEX = 32;
-    inline static constexpr custom_animation_settings_t PMD_NIDORINO_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 10,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 11,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 11,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 4,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_NIDORINO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NIDORINO_SPRITE_SHEET_MAX_COLS = 11;
-
-    // Name: Nidoking
-    inline static constexpr char PMD_NIDOKING_FQID_ARR[] = "pmd:nidoking";
-    inline static constexpr const char* PMD_NIDOKING_FQID = PMD_NIDOKING_FQID_ARR;
-    inline static constexpr size_t PMD_NIDOKING_FQID_LEN = sizeof(PMD_NIDOKING_FQID_ARR)-1;
-    inline static constexpr char PMD_NIDOKING_ID_ARR[] = "nidoking";
-    inline static constexpr const char* PMD_NIDOKING_ID = PMD_NIDOKING_ID_ARR;
-    inline static constexpr size_t PMD_NIDOKING_ID_LEN = sizeof(PMD_NIDOKING_ID)-1;
-    inline static constexpr char PMD_NIDOKING_NAME_ARR[] = "Nidoking";
-    inline static constexpr const char* PMD_NIDOKING_NAME = PMD_NIDOKING_NAME_ARR;
-    inline static constexpr size_t PMD_NIDOKING_NAME_LEN = sizeof(PMD_NIDOKING_NAME_ARR)-1;
-    inline static constexpr char PMD_NIDOKING_FQNAME_ARR[] = "pmd:Nidoking";
-    inline static constexpr const char* PMD_NIDOKING_FQNAME = PMD_NIDOKING_FQNAME_ARR;
-    inline static constexpr size_t PMD_NIDOKING_FQNAME_LEN = sizeof(PMD_NIDOKING_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NIDOKING_SPRITE_SHEET_FRAMES_COUNT = 90;
-    inline static constexpr size_t PMD_NIDOKING_ANIM_INDEX = 33;
-    inline static constexpr custom_animation_settings_t PMD_NIDOKING_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 2,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -1296,8 +1144,160 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
+    inline static constexpr int PMD_NIDORINA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_NIDORINA_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Nidoqueen
+    inline static constexpr char PMD_NIDOQUEEN_FQID_ARR[] = "pmd:nidoqueen";
+    inline static constexpr const char* PMD_NIDOQUEEN_FQID = PMD_NIDOQUEEN_FQID_ARR;
+    inline static constexpr size_t PMD_NIDOQUEEN_FQID_LEN = sizeof(PMD_NIDOQUEEN_FQID_ARR)-1;
+    inline static constexpr char PMD_NIDOQUEEN_ID_ARR[] = "nidoqueen";
+    inline static constexpr const char* PMD_NIDOQUEEN_ID = PMD_NIDOQUEEN_ID_ARR;
+    inline static constexpr size_t PMD_NIDOQUEEN_ID_LEN = sizeof(PMD_NIDOQUEEN_ID)-1;
+    inline static constexpr char PMD_NIDOQUEEN_NAME_ARR[] = "Nidoqueen";
+    inline static constexpr const char* PMD_NIDOQUEEN_NAME = PMD_NIDOQUEEN_NAME_ARR;
+    inline static constexpr size_t PMD_NIDOQUEEN_NAME_LEN = sizeof(PMD_NIDOQUEEN_NAME_ARR)-1;
+    inline static constexpr char PMD_NIDOQUEEN_FQNAME_ARR[] = "pmd:Nidoqueen";
+    inline static constexpr const char* PMD_NIDOQUEEN_FQNAME = PMD_NIDOQUEEN_FQNAME_ARR;
+    inline static constexpr size_t PMD_NIDOQUEEN_FQNAME_LEN = sizeof(PMD_NIDOQUEEN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NIDOQUEEN_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_NIDOQUEEN_ANIM_INDEX = 30;
+    inline static constexpr custom_animation_settings_t PMD_NIDOQUEEN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_NIDOQUEEN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_NIDOQUEEN_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Nidoran-m
+    inline static constexpr char PMD_NIDORAN_M_FQID_ARR[] = "pmd:nidoran_m";
+    inline static constexpr const char* PMD_NIDORAN_M_FQID = PMD_NIDORAN_M_FQID_ARR;
+    inline static constexpr size_t PMD_NIDORAN_M_FQID_LEN = sizeof(PMD_NIDORAN_M_FQID_ARR)-1;
+    inline static constexpr char PMD_NIDORAN_M_ID_ARR[] = "nidoran_m";
+    inline static constexpr const char* PMD_NIDORAN_M_ID = PMD_NIDORAN_M_ID_ARR;
+    inline static constexpr size_t PMD_NIDORAN_M_ID_LEN = sizeof(PMD_NIDORAN_M_ID)-1;
+    inline static constexpr char PMD_NIDORAN_M_NAME_ARR[] = "Nidoran-m";
+    inline static constexpr const char* PMD_NIDORAN_M_NAME = PMD_NIDORAN_M_NAME_ARR;
+    inline static constexpr size_t PMD_NIDORAN_M_NAME_LEN = sizeof(PMD_NIDORAN_M_NAME_ARR)-1;
+    inline static constexpr char PMD_NIDORAN_M_FQNAME_ARR[] = "pmd:Nidoran-m";
+    inline static constexpr const char* PMD_NIDORAN_M_FQNAME = PMD_NIDORAN_M_FQNAME_ARR;
+    inline static constexpr size_t PMD_NIDORAN_M_FQNAME_LEN = sizeof(PMD_NIDORAN_M_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NIDORAN_M_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_NIDORAN_M_ANIM_INDEX = 31;
+    inline static constexpr custom_animation_settings_t PMD_NIDORAN_M_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_NIDORAN_M_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_NIDORAN_M_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Nidorino
+    inline static constexpr char PMD_NIDORINO_FQID_ARR[] = "pmd:nidorino";
+    inline static constexpr const char* PMD_NIDORINO_FQID = PMD_NIDORINO_FQID_ARR;
+    inline static constexpr size_t PMD_NIDORINO_FQID_LEN = sizeof(PMD_NIDORINO_FQID_ARR)-1;
+    inline static constexpr char PMD_NIDORINO_ID_ARR[] = "nidorino";
+    inline static constexpr const char* PMD_NIDORINO_ID = PMD_NIDORINO_ID_ARR;
+    inline static constexpr size_t PMD_NIDORINO_ID_LEN = sizeof(PMD_NIDORINO_ID)-1;
+    inline static constexpr char PMD_NIDORINO_NAME_ARR[] = "Nidorino";
+    inline static constexpr const char* PMD_NIDORINO_NAME = PMD_NIDORINO_NAME_ARR;
+    inline static constexpr size_t PMD_NIDORINO_NAME_LEN = sizeof(PMD_NIDORINO_NAME_ARR)-1;
+    inline static constexpr char PMD_NIDORINO_FQNAME_ARR[] = "pmd:Nidorino";
+    inline static constexpr const char* PMD_NIDORINO_FQNAME = PMD_NIDORINO_FQNAME_ARR;
+    inline static constexpr size_t PMD_NIDORINO_FQNAME_LEN = sizeof(PMD_NIDORINO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NIDORINO_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_NIDORINO_ANIM_INDEX = 32;
+    inline static constexpr custom_animation_settings_t PMD_NIDORINO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_NIDORINO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_NIDORINO_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Nidoking
+    inline static constexpr char PMD_NIDOKING_FQID_ARR[] = "pmd:nidoking";
+    inline static constexpr const char* PMD_NIDOKING_FQID = PMD_NIDOKING_FQID_ARR;
+    inline static constexpr size_t PMD_NIDOKING_FQID_LEN = sizeof(PMD_NIDOKING_FQID_ARR)-1;
+    inline static constexpr char PMD_NIDOKING_ID_ARR[] = "nidoking";
+    inline static constexpr const char* PMD_NIDOKING_ID = PMD_NIDOKING_ID_ARR;
+    inline static constexpr size_t PMD_NIDOKING_ID_LEN = sizeof(PMD_NIDOKING_ID)-1;
+    inline static constexpr char PMD_NIDOKING_NAME_ARR[] = "Nidoking";
+    inline static constexpr const char* PMD_NIDOKING_NAME = PMD_NIDOKING_NAME_ARR;
+    inline static constexpr size_t PMD_NIDOKING_NAME_LEN = sizeof(PMD_NIDOKING_NAME_ARR)-1;
+    inline static constexpr char PMD_NIDOKING_FQNAME_ARR[] = "pmd:Nidoking";
+    inline static constexpr const char* PMD_NIDOKING_FQNAME = PMD_NIDOKING_FQNAME_ARR;
+    inline static constexpr size_t PMD_NIDOKING_FQNAME_LEN = sizeof(PMD_NIDOKING_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NIDOKING_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_NIDOKING_ANIM_INDEX = 33;
+    inline static constexpr custom_animation_settings_t PMD_NIDOKING_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
     inline static constexpr int PMD_NIDOKING_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NIDOKING_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_NIDOKING_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Clefairy
     inline static constexpr char PMD_CLEFAIRY_FQID_ARR[] = "pmd:clefairy";
@@ -1312,11 +1312,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CLEFAIRY_FQNAME_ARR[] = "pmd:Clefairy";
     inline static constexpr const char* PMD_CLEFAIRY_FQNAME = PMD_CLEFAIRY_FQNAME_ARR;
     inline static constexpr size_t PMD_CLEFAIRY_FQNAME_LEN = sizeof(PMD_CLEFAIRY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CLEFAIRY_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_CLEFAIRY_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_CLEFAIRY_ANIM_INDEX = 34;
     inline static constexpr custom_animation_settings_t PMD_CLEFAIRY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 6,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -1325,7 +1325,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -1334,8 +1334,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CLEFAIRY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CLEFAIRY_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_CLEFAIRY_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CLEFAIRY_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Clefable
     inline static constexpr char PMD_CLEFABLE_FQID_ARR[] = "pmd:clefable";
@@ -1350,11 +1350,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CLEFABLE_FQNAME_ARR[] = "pmd:Clefable";
     inline static constexpr const char* PMD_CLEFABLE_FQNAME = PMD_CLEFABLE_FQNAME_ARR;
     inline static constexpr size_t PMD_CLEFABLE_FQNAME_LEN = sizeof(PMD_CLEFABLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CLEFABLE_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_CLEFABLE_SPRITE_SHEET_FRAMES_COUNT = 154;
     inline static constexpr size_t PMD_CLEFABLE_ANIM_INDEX = 35;
     inline static constexpr custom_animation_settings_t PMD_CLEFABLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 6,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -1363,7 +1363,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 22,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -1372,8 +1372,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CLEFABLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CLEFABLE_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_CLEFABLE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CLEFABLE_SPRITE_SHEET_MAX_COLS = 22;
 
     // Name: Vulpix
     inline static constexpr char PMD_VULPIX_FQID_ARR[] = "pmd:vulpix";
@@ -1396,7 +1396,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -1434,7 +1434,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 11,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -1464,20 +1464,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_JIGGLYPUFF_FQNAME_ARR[] = "pmd:Jigglypuff";
     inline static constexpr const char* PMD_JIGGLYPUFF_FQNAME = PMD_JIGGLYPUFF_FQNAME_ARR;
     inline static constexpr size_t PMD_JIGGLYPUFF_FQNAME_LEN = sizeof(PMD_JIGGLYPUFF_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_JIGGLYPUFF_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_JIGGLYPUFF_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_JIGGLYPUFF_ANIM_INDEX = 38;
     inline static constexpr custom_animation_settings_t PMD_JIGGLYPUFF_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -1487,7 +1487,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_JIGGLYPUFF_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_JIGGLYPUFF_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_JIGGLYPUFF_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Wigglytuff
     inline static constexpr char PMD_WIGGLYTUFF_FQID_ARR[] = "pmd:wigglytuff";
@@ -1502,20 +1502,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WIGGLYTUFF_FQNAME_ARR[] = "pmd:Wigglytuff";
     inline static constexpr const char* PMD_WIGGLYTUFF_FQNAME = PMD_WIGGLYTUFF_FQNAME_ARR;
     inline static constexpr size_t PMD_WIGGLYTUFF_FQNAME_LEN = sizeof(PMD_WIGGLYTUFF_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WIGGLYTUFF_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_WIGGLYTUFF_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_WIGGLYTUFF_ANIM_INDEX = 39;
     inline static constexpr custom_animation_settings_t PMD_WIGGLYTUFF_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -1525,7 +1525,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_WIGGLYTUFF_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WIGGLYTUFF_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_WIGGLYTUFF_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Zubat
     inline static constexpr char PMD_ZUBAT_FQID_ARR[] = "pmd:zubat";
@@ -1616,11 +1616,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ODDISH_FQNAME_ARR[] = "pmd:Oddish";
     inline static constexpr const char* PMD_ODDISH_FQNAME = PMD_ODDISH_FQNAME_ARR;
     inline static constexpr size_t PMD_ODDISH_FQNAME_LEN = sizeof(PMD_ODDISH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ODDISH_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_ODDISH_SPRITE_SHEET_FRAMES_COUNT = 133;
     inline static constexpr size_t PMD_ODDISH_ANIM_INDEX = 42;
     inline static constexpr custom_animation_settings_t PMD_ODDISH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
-        .boring_frames = -1,
+        .boring_frames = 19,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -1638,8 +1638,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ODDISH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ODDISH_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_ODDISH_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ODDISH_SPRITE_SHEET_MAX_COLS = 19;
 
     // Name: Gloom
     inline static constexpr char PMD_GLOOM_FQID_ARR[] = "pmd:gloom";
@@ -1654,11 +1654,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GLOOM_FQNAME_ARR[] = "pmd:Gloom";
     inline static constexpr const char* PMD_GLOOM_FQNAME = PMD_GLOOM_FQNAME_ARR;
     inline static constexpr size_t PMD_GLOOM_FQNAME_LEN = sizeof(PMD_GLOOM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GLOOM_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_GLOOM_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_GLOOM_ANIM_INDEX = 43;
     inline static constexpr custom_animation_settings_t PMD_GLOOM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -1676,8 +1676,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GLOOM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GLOOM_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_GLOOM_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_GLOOM_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Vileplume
     inline static constexpr char PMD_VILEPLUME_FQID_ARR[] = "pmd:vileplume";
@@ -1692,11 +1692,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VILEPLUME_FQNAME_ARR[] = "pmd:Vileplume";
     inline static constexpr const char* PMD_VILEPLUME_FQNAME = PMD_VILEPLUME_FQNAME_ARR;
     inline static constexpr size_t PMD_VILEPLUME_FQNAME_LEN = sizeof(PMD_VILEPLUME_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VILEPLUME_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_VILEPLUME_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_VILEPLUME_ANIM_INDEX = 44;
     inline static constexpr custom_animation_settings_t PMD_VILEPLUME_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -1714,8 +1714,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_VILEPLUME_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VILEPLUME_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_VILEPLUME_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_VILEPLUME_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Paras
     inline static constexpr char PMD_PARAS_FQID_ARR[] = "pmd:paras";
@@ -1768,13 +1768,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PARASECT_FQNAME_ARR[] = "pmd:Parasect";
     inline static constexpr const char* PMD_PARASECT_FQNAME = PMD_PARASECT_FQNAME_ARR;
     inline static constexpr size_t PMD_PARASECT_FQNAME_LEN = sizeof(PMD_PARASECT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PARASECT_SPRITE_SHEET_FRAMES_COUNT = 114;
+    inline static constexpr size_t PMD_PARASECT_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_PARASECT_ANIM_INDEX = 46;
     inline static constexpr custom_animation_settings_t PMD_PARASECT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 19,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -1791,7 +1791,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PARASECT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PARASECT_SPRITE_SHEET_MAX_COLS = 19;
+    inline static constexpr int PMD_PARASECT_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Venonat
     inline static constexpr char PMD_VENONAT_FQID_ARR[] = "pmd:venonat";
@@ -1806,11 +1806,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VENONAT_FQNAME_ARR[] = "pmd:Venonat";
     inline static constexpr const char* PMD_VENONAT_FQNAME = PMD_VENONAT_FQNAME_ARR;
     inline static constexpr size_t PMD_VENONAT_FQNAME_LEN = sizeof(PMD_VENONAT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VENONAT_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_VENONAT_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_VENONAT_ANIM_INDEX = 47;
     inline static constexpr custom_animation_settings_t PMD_VENONAT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -1828,7 +1828,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_VENONAT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_VENONAT_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_VENONAT_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Venomoth
@@ -1850,7 +1850,7 @@ namespace bongocat::assets {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 16,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -1882,7 +1882,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DIGLETT_FQNAME_ARR[] = "pmd:Diglett";
     inline static constexpr const char* PMD_DIGLETT_FQNAME = PMD_DIGLETT_FQNAME_ARR;
     inline static constexpr size_t PMD_DIGLETT_FQNAME_LEN = sizeof(PMD_DIGLETT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DIGLETT_SPRITE_SHEET_FRAMES_COUNT = 63;
+    inline static constexpr size_t PMD_DIGLETT_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_DIGLETT_ANIM_INDEX = 49;
     inline static constexpr custom_animation_settings_t PMD_DIGLETT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -1895,7 +1895,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 3,
@@ -1905,7 +1905,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DIGLETT_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_DIGLETT_SPRITE_SHEET_MAX_COLS = 9;
+    inline static constexpr int PMD_DIGLETT_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Dugtrio
     inline static constexpr char PMD_DUGTRIO_FQID_ARR[] = "pmd:dugtrio";
@@ -1920,7 +1920,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DUGTRIO_FQNAME_ARR[] = "pmd:Dugtrio";
     inline static constexpr const char* PMD_DUGTRIO_FQNAME = PMD_DUGTRIO_FQNAME_ARR;
     inline static constexpr size_t PMD_DUGTRIO_FQNAME_LEN = sizeof(PMD_DUGTRIO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DUGTRIO_SPRITE_SHEET_FRAMES_COUNT = 63;
+    inline static constexpr size_t PMD_DUGTRIO_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_DUGTRIO_ANIM_INDEX = 50;
     inline static constexpr custom_animation_settings_t PMD_DUGTRIO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -1933,7 +1933,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 3,
@@ -1943,7 +1943,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DUGTRIO_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_DUGTRIO_SPRITE_SHEET_MAX_COLS = 9;
+    inline static constexpr int PMD_DUGTRIO_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Meowth
     inline static constexpr char PMD_MEOWTH_FQID_ARR[] = "pmd:meowth";
@@ -1958,20 +1958,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MEOWTH_FQNAME_ARR[] = "pmd:Meowth";
     inline static constexpr const char* PMD_MEOWTH_FQNAME = PMD_MEOWTH_FQNAME_ARR;
     inline static constexpr size_t PMD_MEOWTH_FQNAME_LEN = sizeof(PMD_MEOWTH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MEOWTH_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MEOWTH_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_MEOWTH_ANIM_INDEX = 51;
     inline static constexpr custom_animation_settings_t PMD_MEOWTH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -1981,7 +1981,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MEOWTH_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MEOWTH_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_MEOWTH_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Persian
     inline static constexpr char PMD_PERSIAN_FQID_ARR[] = "pmd:persian";
@@ -1996,13 +1996,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PERSIAN_FQNAME_ARR[] = "pmd:Persian";
     inline static constexpr const char* PMD_PERSIAN_FQNAME = PMD_PERSIAN_FQNAME_ARR;
     inline static constexpr size_t PMD_PERSIAN_FQNAME_LEN = sizeof(PMD_PERSIAN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PERSIAN_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_PERSIAN_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_PERSIAN_ANIM_INDEX = 52;
     inline static constexpr custom_animation_settings_t PMD_PERSIAN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 1,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 16,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -2019,7 +2019,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PERSIAN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PERSIAN_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_PERSIAN_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Psyduck
     inline static constexpr char PMD_PSYDUCK_FQID_ARR[] = "pmd:psyduck";
@@ -2034,7 +2034,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PSYDUCK_FQNAME_ARR[] = "pmd:Psyduck";
     inline static constexpr const char* PMD_PSYDUCK_FQNAME = PMD_PSYDUCK_FQNAME_ARR;
     inline static constexpr size_t PMD_PSYDUCK_FQNAME_LEN = sizeof(PMD_PSYDUCK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PSYDUCK_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_PSYDUCK_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_PSYDUCK_ANIM_INDEX = 53;
     inline static constexpr custom_animation_settings_t PMD_PSYDUCK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -2047,7 +2047,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2057,7 +2057,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PSYDUCK_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_PSYDUCK_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_PSYDUCK_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Golduck
     inline static constexpr char PMD_GOLDUCK_FQID_ARR[] = "pmd:golduck";
@@ -2085,7 +2085,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2110,11 +2110,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MANKEY_FQNAME_ARR[] = "pmd:Mankey";
     inline static constexpr const char* PMD_MANKEY_FQNAME = PMD_MANKEY_FQNAME_ARR;
     inline static constexpr size_t PMD_MANKEY_FQNAME_LEN = sizeof(PMD_MANKEY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MANKEY_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_MANKEY_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_MANKEY_ANIM_INDEX = 55;
     inline static constexpr custom_animation_settings_t PMD_MANKEY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -2123,7 +2123,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -2132,8 +2132,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MANKEY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MANKEY_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_MANKEY_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MANKEY_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Primeape
     inline static constexpr char PMD_PRIMEAPE_FQID_ARR[] = "pmd:primeape";
@@ -2154,14 +2154,14 @@ namespace bongocat::assets {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2186,11 +2186,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GROWLITHE_FQNAME_ARR[] = "pmd:Growlithe";
     inline static constexpr const char* PMD_GROWLITHE_FQNAME = PMD_GROWLITHE_FQNAME_ARR;
     inline static constexpr size_t PMD_GROWLITHE_FQNAME_LEN = sizeof(PMD_GROWLITHE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GROWLITHE_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_GROWLITHE_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_GROWLITHE_ANIM_INDEX = 57;
     inline static constexpr custom_animation_settings_t PMD_GROWLITHE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
@@ -2199,7 +2199,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2208,7 +2208,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GROWLITHE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_GROWLITHE_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_GROWLITHE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Arcanine
@@ -2237,7 +2237,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2262,11 +2262,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_POLIWAG_FQNAME_ARR[] = "pmd:Poliwag";
     inline static constexpr const char* PMD_POLIWAG_FQNAME = PMD_POLIWAG_FQNAME_ARR;
     inline static constexpr size_t PMD_POLIWAG_FQNAME_LEN = sizeof(PMD_POLIWAG_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_POLIWAG_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_POLIWAG_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_POLIWAG_ANIM_INDEX = 59;
     inline static constexpr custom_animation_settings_t PMD_POLIWAG_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -2284,8 +2284,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_POLIWAG_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_POLIWAG_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_POLIWAG_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_POLIWAG_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Poliwhirl
     inline static constexpr char PMD_POLIWHIRL_FQID_ARR[] = "pmd:poliwhirl";
@@ -2300,7 +2300,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_POLIWHIRL_FQNAME_ARR[] = "pmd:Poliwhirl";
     inline static constexpr const char* PMD_POLIWHIRL_FQNAME = PMD_POLIWHIRL_FQNAME_ARR;
     inline static constexpr size_t PMD_POLIWHIRL_FQNAME_LEN = sizeof(PMD_POLIWHIRL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_POLIWHIRL_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_POLIWHIRL_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_POLIWHIRL_ANIM_INDEX = 60;
     inline static constexpr custom_animation_settings_t PMD_POLIWHIRL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -2313,7 +2313,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2323,7 +2323,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_POLIWHIRL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_POLIWHIRL_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_POLIWHIRL_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Poliwrath
     inline static constexpr char PMD_POLIWRATH_FQID_ARR[] = "pmd:poliwrath";
@@ -2338,7 +2338,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_POLIWRATH_FQNAME_ARR[] = "pmd:Poliwrath";
     inline static constexpr const char* PMD_POLIWRATH_FQNAME = PMD_POLIWRATH_FQNAME_ARR;
     inline static constexpr size_t PMD_POLIWRATH_FQNAME_LEN = sizeof(PMD_POLIWRATH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_POLIWRATH_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_POLIWRATH_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_POLIWRATH_ANIM_INDEX = 61;
     inline static constexpr custom_animation_settings_t PMD_POLIWRATH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -2351,7 +2351,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2361,7 +2361,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_POLIWRATH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_POLIWRATH_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_POLIWRATH_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Abra
     inline static constexpr char PMD_ABRA_FQID_ARR[] = "pmd:abra";
@@ -2382,9 +2382,9 @@ namespace bongocat::assets {
         .idle_frames = 6,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -2414,48 +2414,10 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KADABRA_FQNAME_ARR[] = "pmd:Kadabra";
     inline static constexpr const char* PMD_KADABRA_FQNAME = PMD_KADABRA_FQNAME_ARR;
     inline static constexpr size_t PMD_KADABRA_FQNAME_LEN = sizeof(PMD_KADABRA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KADABRA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_KADABRA_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_KADABRA_ANIM_INDEX = 63;
     inline static constexpr custom_animation_settings_t PMD_KADABRA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 9,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 10,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 13,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 4,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_KADABRA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KADABRA_SPRITE_SHEET_MAX_COLS = 13;
-
-    // Name: Alakazam
-    inline static constexpr char PMD_ALAKAZAM_FQID_ARR[] = "pmd:alakazam";
-    inline static constexpr const char* PMD_ALAKAZAM_FQID = PMD_ALAKAZAM_FQID_ARR;
-    inline static constexpr size_t PMD_ALAKAZAM_FQID_LEN = sizeof(PMD_ALAKAZAM_FQID_ARR)-1;
-    inline static constexpr char PMD_ALAKAZAM_ID_ARR[] = "alakazam";
-    inline static constexpr const char* PMD_ALAKAZAM_ID = PMD_ALAKAZAM_ID_ARR;
-    inline static constexpr size_t PMD_ALAKAZAM_ID_LEN = sizeof(PMD_ALAKAZAM_ID)-1;
-    inline static constexpr char PMD_ALAKAZAM_NAME_ARR[] = "Alakazam";
-    inline static constexpr const char* PMD_ALAKAZAM_NAME = PMD_ALAKAZAM_NAME_ARR;
-    inline static constexpr size_t PMD_ALAKAZAM_NAME_LEN = sizeof(PMD_ALAKAZAM_NAME_ARR)-1;
-    inline static constexpr char PMD_ALAKAZAM_FQNAME_ARR[] = "pmd:Alakazam";
-    inline static constexpr const char* PMD_ALAKAZAM_FQNAME = PMD_ALAKAZAM_FQNAME_ARR;
-    inline static constexpr size_t PMD_ALAKAZAM_FQNAME_LEN = sizeof(PMD_ALAKAZAM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ALAKAZAM_SPRITE_SHEET_FRAMES_COUNT = 72;
-    inline static constexpr size_t PMD_ALAKAZAM_ANIM_INDEX = 64;
-    inline static constexpr custom_animation_settings_t PMD_ALAKAZAM_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 10,
@@ -2474,8 +2436,46 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
+    inline static constexpr int PMD_KADABRA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_KADABRA_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Alakazam
+    inline static constexpr char PMD_ALAKAZAM_FQID_ARR[] = "pmd:alakazam";
+    inline static constexpr const char* PMD_ALAKAZAM_FQID = PMD_ALAKAZAM_FQID_ARR;
+    inline static constexpr size_t PMD_ALAKAZAM_FQID_LEN = sizeof(PMD_ALAKAZAM_FQID_ARR)-1;
+    inline static constexpr char PMD_ALAKAZAM_ID_ARR[] = "alakazam";
+    inline static constexpr const char* PMD_ALAKAZAM_ID = PMD_ALAKAZAM_ID_ARR;
+    inline static constexpr size_t PMD_ALAKAZAM_ID_LEN = sizeof(PMD_ALAKAZAM_ID)-1;
+    inline static constexpr char PMD_ALAKAZAM_NAME_ARR[] = "Alakazam";
+    inline static constexpr const char* PMD_ALAKAZAM_NAME = PMD_ALAKAZAM_NAME_ARR;
+    inline static constexpr size_t PMD_ALAKAZAM_NAME_LEN = sizeof(PMD_ALAKAZAM_NAME_ARR)-1;
+    inline static constexpr char PMD_ALAKAZAM_FQNAME_ARR[] = "pmd:Alakazam";
+    inline static constexpr const char* PMD_ALAKAZAM_FQNAME = PMD_ALAKAZAM_FQNAME_ARR;
+    inline static constexpr size_t PMD_ALAKAZAM_FQNAME_LEN = sizeof(PMD_ALAKAZAM_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ALAKAZAM_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_ALAKAZAM_ANIM_INDEX = 64;
+    inline static constexpr custom_animation_settings_t PMD_ALAKAZAM_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 9,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
     inline static constexpr int PMD_ALAKAZAM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ALAKAZAM_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_ALAKAZAM_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Machop
     inline static constexpr char PMD_MACHOP_FQID_ARR[] = "pmd:machop";
@@ -2496,9 +2496,9 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 5,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -2528,20 +2528,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MACHOKE_FQNAME_ARR[] = "pmd:Machoke";
     inline static constexpr const char* PMD_MACHOKE_FQNAME = PMD_MACHOKE_FQNAME_ARR;
     inline static constexpr size_t PMD_MACHOKE_FQNAME_LEN = sizeof(PMD_MACHOKE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MACHOKE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MACHOKE_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_MACHOKE_ANIM_INDEX = 66;
     inline static constexpr custom_animation_settings_t PMD_MACHOKE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2551,7 +2551,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MACHOKE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MACHOKE_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_MACHOKE_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Machamp
     inline static constexpr char PMD_MACHAMP_FQID_ARR[] = "pmd:machamp";
@@ -2566,20 +2566,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MACHAMP_FQNAME_ARR[] = "pmd:Machamp";
     inline static constexpr const char* PMD_MACHAMP_FQNAME = PMD_MACHAMP_FQNAME_ARR;
     inline static constexpr size_t PMD_MACHAMP_FQNAME_LEN = sizeof(PMD_MACHAMP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MACHAMP_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_MACHAMP_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_MACHAMP_ANIM_INDEX = 67;
     inline static constexpr custom_animation_settings_t PMD_MACHAMP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 10,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2589,7 +2589,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MACHAMP_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MACHAMP_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_MACHAMP_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Bellsprout
     inline static constexpr char PMD_BELLSPROUT_FQID_ARR[] = "pmd:bellsprout";
@@ -2642,7 +2642,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WEEPINBELL_FQNAME_ARR[] = "pmd:Weepinbell";
     inline static constexpr const char* PMD_WEEPINBELL_FQNAME = PMD_WEEPINBELL_FQNAME_ARR;
     inline static constexpr size_t PMD_WEEPINBELL_FQNAME_LEN = sizeof(PMD_WEEPINBELL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WEEPINBELL_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_WEEPINBELL_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_WEEPINBELL_ANIM_INDEX = 69;
     inline static constexpr custom_animation_settings_t PMD_WEEPINBELL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -2655,7 +2655,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2665,7 +2665,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_WEEPINBELL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WEEPINBELL_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_WEEPINBELL_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Victreebel
     inline static constexpr char PMD_VICTREEBEL_FQID_ARR[] = "pmd:victreebel";
@@ -2686,7 +2686,7 @@ namespace bongocat::assets {
         .idle_frames = 9,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -2722,9 +2722,9 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TENTACOOL_ANIM_INDEX = 71;
     inline static constexpr custom_animation_settings_t PMD_TENTACOOL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
-        .boring_frames = -1,
+        .boring_frames = 10,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -2740,8 +2740,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TENTACOOL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TENTACOOL_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_TENTACOOL_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TENTACOOL_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Tentacruel
     inline static constexpr char PMD_TENTACRUEL_FQID_ARR[] = "pmd:tentacruel";
@@ -2756,13 +2756,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TENTACRUEL_FQNAME_ARR[] = "pmd:Tentacruel";
     inline static constexpr const char* PMD_TENTACRUEL_FQNAME = PMD_TENTACRUEL_FQNAME_ARR;
     inline static constexpr size_t PMD_TENTACRUEL_FQNAME_LEN = sizeof(PMD_TENTACRUEL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TENTACRUEL_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_TENTACRUEL_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_TENTACRUEL_ANIM_INDEX = 72;
     inline static constexpr custom_animation_settings_t PMD_TENTACRUEL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -2779,7 +2779,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TENTACRUEL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TENTACRUEL_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_TENTACRUEL_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Geodude
     inline static constexpr char PMD_GEODUDE_FQID_ARR[] = "pmd:geodude";
@@ -2800,7 +2800,7 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -2832,20 +2832,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GRAVELER_FQNAME_ARR[] = "pmd:Graveler";
     inline static constexpr const char* PMD_GRAVELER_FQNAME = PMD_GRAVELER_FQNAME_ARR;
     inline static constexpr size_t PMD_GRAVELER_FQNAME_LEN = sizeof(PMD_GRAVELER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GRAVELER_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_GRAVELER_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_GRAVELER_ANIM_INDEX = 74;
     inline static constexpr custom_animation_settings_t PMD_GRAVELER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2854,7 +2854,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GRAVELER_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_GRAVELER_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_GRAVELER_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Golem
@@ -2883,7 +2883,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 5,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2916,12 +2916,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -2959,7 +2959,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -3035,7 +3035,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -3073,7 +3073,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 7,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -3098,7 +3098,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MAGNETON_FQNAME_ARR[] = "pmd:Magneton";
     inline static constexpr const char* PMD_MAGNETON_FQNAME = PMD_MAGNETON_FQNAME_ARR;
     inline static constexpr size_t PMD_MAGNETON_FQNAME_LEN = sizeof(PMD_MAGNETON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MAGNETON_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_MAGNETON_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_MAGNETON_ANIM_INDEX = 81;
     inline static constexpr custom_animation_settings_t PMD_MAGNETON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -3111,7 +3111,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 7,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -3121,7 +3121,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MAGNETON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MAGNETON_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_MAGNETON_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Farfetchd
     inline static constexpr char PMD_FARFETCHD_FQID_ARR[] = "pmd:farfetchd";
@@ -3142,14 +3142,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -3180,14 +3180,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -3218,14 +3218,14 @@ namespace bongocat::assets {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -3402,7 +3402,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SHELLDER_FQNAME_ARR[] = "pmd:Shellder";
     inline static constexpr const char* PMD_SHELLDER_FQNAME = PMD_SHELLDER_FQNAME_ARR;
     inline static constexpr size_t PMD_SHELLDER_FQNAME_LEN = sizeof(PMD_SHELLDER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SHELLDER_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SHELLDER_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_SHELLDER_ANIM_INDEX = 89;
     inline static constexpr custom_animation_settings_t PMD_SHELLDER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -3415,7 +3415,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -3425,7 +3425,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SHELLDER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SHELLDER_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_SHELLDER_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Cloyster
     inline static constexpr char PMD_CLOYSTER_FQID_ARR[] = "pmd:cloyster";
@@ -3440,7 +3440,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CLOYSTER_FQNAME_ARR[] = "pmd:Cloyster";
     inline static constexpr const char* PMD_CLOYSTER_FQNAME = PMD_CLOYSTER_FQNAME_ARR;
     inline static constexpr size_t PMD_CLOYSTER_FQNAME_LEN = sizeof(PMD_CLOYSTER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CLOYSTER_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CLOYSTER_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_CLOYSTER_ANIM_INDEX = 90;
     inline static constexpr custom_animation_settings_t PMD_CLOYSTER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -3453,7 +3453,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -3463,7 +3463,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CLOYSTER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CLOYSTER_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_CLOYSTER_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Gastly
     inline static constexpr char PMD_GASTLY_FQID_ARR[] = "pmd:gastly";
@@ -3478,13 +3478,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GASTLY_FQNAME_ARR[] = "pmd:Gastly";
     inline static constexpr const char* PMD_GASTLY_FQNAME = PMD_GASTLY_FQNAME_ARR;
     inline static constexpr size_t PMD_GASTLY_FQNAME_LEN = sizeof(PMD_GASTLY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GASTLY_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_GASTLY_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_GASTLY_ANIM_INDEX = 91;
     inline static constexpr custom_animation_settings_t PMD_GASTLY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -3501,7 +3501,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GASTLY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GASTLY_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_GASTLY_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Haunter
     inline static constexpr char PMD_HAUNTER_FQID_ARR[] = "pmd:haunter";
@@ -3516,20 +3516,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HAUNTER_FQNAME_ARR[] = "pmd:Haunter";
     inline static constexpr const char* PMD_HAUNTER_FQNAME = PMD_HAUNTER_FQNAME_ARR;
     inline static constexpr size_t PMD_HAUNTER_FQNAME_LEN = sizeof(PMD_HAUNTER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HAUNTER_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_HAUNTER_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_HAUNTER_ANIM_INDEX = 92;
     inline static constexpr custom_animation_settings_t PMD_HAUNTER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 12,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 10,
@@ -3539,7 +3539,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HAUNTER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HAUNTER_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_HAUNTER_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Gengar
     inline static constexpr char PMD_GENGAR_FQID_ARR[] = "pmd:gengar";
@@ -3560,9 +3560,9 @@ namespace bongocat::assets {
         .idle_frames = 8,
         .boring_frames = 4,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -3630,13 +3630,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DROWZEE_FQNAME_ARR[] = "pmd:Drowzee";
     inline static constexpr const char* PMD_DROWZEE_FQNAME = PMD_DROWZEE_FQNAME_ARR;
     inline static constexpr size_t PMD_DROWZEE_FQNAME_LEN = sizeof(PMD_DROWZEE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DROWZEE_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_DROWZEE_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_DROWZEE_ANIM_INDEX = 95;
     inline static constexpr custom_animation_settings_t PMD_DROWZEE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 12,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -3653,7 +3653,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DROWZEE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DROWZEE_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_DROWZEE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Hypno
     inline static constexpr char PMD_HYPNO_FQID_ARR[] = "pmd:hypno";
@@ -3668,20 +3668,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HYPNO_FQNAME_ARR[] = "pmd:Hypno";
     inline static constexpr const char* PMD_HYPNO_FQNAME = PMD_HYPNO_FQNAME_ARR;
     inline static constexpr size_t PMD_HYPNO_FQNAME_LEN = sizeof(PMD_HYPNO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HYPNO_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_HYPNO_SPRITE_SHEET_FRAMES_COUNT = 132;
     inline static constexpr size_t PMD_HYPNO_ANIM_INDEX = 96;
     inline static constexpr custom_animation_settings_t PMD_HYPNO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 22,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -3691,7 +3691,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HYPNO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HYPNO_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_HYPNO_SPRITE_SHEET_MAX_COLS = 22;
 
     // Name: Krabby
     inline static constexpr char PMD_KRABBY_FQID_ARR[] = "pmd:krabby";
@@ -3706,13 +3706,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KRABBY_FQNAME_ARR[] = "pmd:Krabby";
     inline static constexpr const char* PMD_KRABBY_FQNAME = PMD_KRABBY_FQNAME_ARR;
     inline static constexpr size_t PMD_KRABBY_FQNAME_LEN = sizeof(PMD_KRABBY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KRABBY_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_KRABBY_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_KRABBY_ANIM_INDEX = 97;
     inline static constexpr custom_animation_settings_t PMD_KRABBY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 16,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -3729,7 +3729,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_KRABBY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KRABBY_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_KRABBY_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Kingler
     inline static constexpr char PMD_KINGLER_FQID_ARR[] = "pmd:kingler";
@@ -3744,13 +3744,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KINGLER_FQNAME_ARR[] = "pmd:Kingler";
     inline static constexpr const char* PMD_KINGLER_FQNAME = PMD_KINGLER_FQNAME_ARR;
     inline static constexpr size_t PMD_KINGLER_FQNAME_LEN = sizeof(PMD_KINGLER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KINGLER_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_KINGLER_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_KINGLER_ANIM_INDEX = 98;
     inline static constexpr custom_animation_settings_t PMD_KINGLER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 16,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -3767,7 +3767,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_KINGLER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KINGLER_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_KINGLER_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Voltorb
     inline static constexpr char PMD_VOLTORB_FQID_ARR[] = "pmd:voltorb";
@@ -3790,12 +3790,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -3820,11 +3820,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ELECTRODE_FQNAME_ARR[] = "pmd:Electrode";
     inline static constexpr const char* PMD_ELECTRODE_FQNAME = PMD_ELECTRODE_FQNAME_ARR;
     inline static constexpr size_t PMD_ELECTRODE_FQNAME_LEN = sizeof(PMD_ELECTRODE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ELECTRODE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_ELECTRODE_SPRITE_SHEET_FRAMES_COUNT = 161;
     inline static constexpr size_t PMD_ELECTRODE_ANIM_INDEX = 100;
     inline static constexpr custom_animation_settings_t PMD_ELECTRODE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 23,
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
@@ -3833,7 +3833,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -3842,8 +3842,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ELECTRODE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ELECTRODE_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_ELECTRODE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ELECTRODE_SPRITE_SHEET_MAX_COLS = 23;
 
     // Name: Exeggcute
     inline static constexpr char PMD_EXEGGCUTE_FQID_ARR[] = "pmd:exeggcute";
@@ -3858,11 +3858,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_EXEGGCUTE_FQNAME_ARR[] = "pmd:Exeggcute";
     inline static constexpr const char* PMD_EXEGGCUTE_FQNAME = PMD_EXEGGCUTE_FQNAME_ARR;
     inline static constexpr size_t PMD_EXEGGCUTE_FQNAME_LEN = sizeof(PMD_EXEGGCUTE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_EXEGGCUTE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_EXEGGCUTE_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_EXEGGCUTE_ANIM_INDEX = 101;
     inline static constexpr custom_animation_settings_t PMD_EXEGGCUTE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -3880,8 +3880,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_EXEGGCUTE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_EXEGGCUTE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_EXEGGCUTE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_EXEGGCUTE_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Exeggutor
     inline static constexpr char PMD_EXEGGUTOR_FQID_ARR[] = "pmd:exeggutor";
@@ -3896,11 +3896,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_EXEGGUTOR_FQNAME_ARR[] = "pmd:Exeggutor";
     inline static constexpr const char* PMD_EXEGGUTOR_FQNAME = PMD_EXEGGUTOR_FQNAME_ARR;
     inline static constexpr size_t PMD_EXEGGUTOR_FQNAME_LEN = sizeof(PMD_EXEGGUTOR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_EXEGGUTOR_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_EXEGGUTOR_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_EXEGGUTOR_ANIM_INDEX = 102;
     inline static constexpr custom_animation_settings_t PMD_EXEGGUTOR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 10,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -3918,7 +3918,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_EXEGGUTOR_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_EXEGGUTOR_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_EXEGGUTOR_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Cubone
@@ -3942,12 +3942,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 5,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 5,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -4016,14 +4016,14 @@ namespace bongocat::assets {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -4048,20 +4048,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HITMONCHAN_FQNAME_ARR[] = "pmd:Hitmonchan";
     inline static constexpr const char* PMD_HITMONCHAN_FQNAME = PMD_HITMONCHAN_FQNAME_ARR;
     inline static constexpr size_t PMD_HITMONCHAN_FQNAME_LEN = sizeof(PMD_HITMONCHAN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HITMONCHAN_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_HITMONCHAN_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_HITMONCHAN_ANIM_INDEX = 106;
     inline static constexpr custom_animation_settings_t PMD_HITMONCHAN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -4071,7 +4071,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HITMONCHAN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HITMONCHAN_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_HITMONCHAN_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Lickitung
     inline static constexpr char PMD_LICKITUNG_FQID_ARR[] = "pmd:lickitung";
@@ -4086,13 +4086,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LICKITUNG_FQNAME_ARR[] = "pmd:Lickitung";
     inline static constexpr const char* PMD_LICKITUNG_FQNAME = PMD_LICKITUNG_FQNAME_ARR;
     inline static constexpr size_t PMD_LICKITUNG_FQNAME_LEN = sizeof(PMD_LICKITUNG_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LICKITUNG_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_LICKITUNG_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_LICKITUNG_ANIM_INDEX = 107;
     inline static constexpr custom_animation_settings_t PMD_LICKITUNG_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4109,7 +4109,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LICKITUNG_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LICKITUNG_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_LICKITUNG_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Koffing
     inline static constexpr char PMD_KOFFING_FQID_ARR[] = "pmd:koffing";
@@ -4124,7 +4124,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KOFFING_FQNAME_ARR[] = "pmd:Koffing";
     inline static constexpr const char* PMD_KOFFING_FQNAME = PMD_KOFFING_FQNAME_ARR;
     inline static constexpr size_t PMD_KOFFING_FQNAME_LEN = sizeof(PMD_KOFFING_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KOFFING_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_KOFFING_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_KOFFING_ANIM_INDEX = 108;
     inline static constexpr custom_animation_settings_t PMD_KOFFING_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -4137,7 +4137,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 10,
@@ -4147,7 +4147,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_KOFFING_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KOFFING_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_KOFFING_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Weezing
     inline static constexpr char PMD_WEEZING_FQID_ARR[] = "pmd:weezing";
@@ -4162,7 +4162,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WEEZING_FQNAME_ARR[] = "pmd:Weezing";
     inline static constexpr const char* PMD_WEEZING_FQNAME = PMD_WEEZING_FQNAME_ARR;
     inline static constexpr size_t PMD_WEEZING_FQNAME_LEN = sizeof(PMD_WEEZING_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WEEZING_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_WEEZING_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_WEEZING_ANIM_INDEX = 109;
     inline static constexpr custom_animation_settings_t PMD_WEEZING_SPRITE_SHEET_SETTINGS {
         .idle_frames = 11,
@@ -4175,7 +4175,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -4185,7 +4185,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_WEEZING_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WEEZING_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_WEEZING_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Rhyhorn
     inline static constexpr char PMD_RHYHORN_FQID_ARR[] = "pmd:rhyhorn";
@@ -4200,13 +4200,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RHYHORN_FQNAME_ARR[] = "pmd:Rhyhorn";
     inline static constexpr const char* PMD_RHYHORN_FQNAME = PMD_RHYHORN_FQNAME_ARR;
     inline static constexpr size_t PMD_RHYHORN_FQNAME_LEN = sizeof(PMD_RHYHORN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RHYHORN_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_RHYHORN_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_RHYHORN_ANIM_INDEX = 110;
     inline static constexpr custom_animation_settings_t PMD_RHYHORN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4223,7 +4223,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_RHYHORN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_RHYHORN_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_RHYHORN_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Rhydon
     inline static constexpr char PMD_RHYDON_FQID_ARR[] = "pmd:rhydon";
@@ -4244,7 +4244,7 @@ namespace bongocat::assets {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4276,7 +4276,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHANSEY_FQNAME_ARR[] = "pmd:Chansey";
     inline static constexpr const char* PMD_CHANSEY_FQNAME = PMD_CHANSEY_FQNAME_ARR;
     inline static constexpr size_t PMD_CHANSEY_FQNAME_LEN = sizeof(PMD_CHANSEY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHANSEY_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_CHANSEY_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_CHANSEY_ANIM_INDEX = 112;
     inline static constexpr custom_animation_settings_t PMD_CHANSEY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -4289,7 +4289,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -4299,7 +4299,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CHANSEY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CHANSEY_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_CHANSEY_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Tangela
     inline static constexpr char PMD_TANGELA_FQID_ARR[] = "pmd:tangela";
@@ -4327,7 +4327,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 6,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -4358,7 +4358,7 @@ namespace bongocat::assets {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4656,13 +4656,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SCYTHER_FQNAME_ARR[] = "pmd:Scyther";
     inline static constexpr const char* PMD_SCYTHER_FQNAME = PMD_SCYTHER_FQNAME_ARR;
     inline static constexpr size_t PMD_SCYTHER_FQNAME_LEN = sizeof(PMD_SCYTHER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SCYTHER_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_SCYTHER_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_SCYTHER_ANIM_INDEX = 122;
     inline static constexpr custom_animation_settings_t PMD_SCYTHER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4679,7 +4679,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SCYTHER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SCYTHER_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_SCYTHER_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Jynx
     inline static constexpr char PMD_JYNX_FQID_ARR[] = "pmd:jynx";
@@ -4694,13 +4694,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_JYNX_FQNAME_ARR[] = "pmd:Jynx";
     inline static constexpr const char* PMD_JYNX_FQNAME = PMD_JYNX_FQNAME_ARR;
     inline static constexpr size_t PMD_JYNX_FQNAME_LEN = sizeof(PMD_JYNX_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_JYNX_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_JYNX_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_JYNX_ANIM_INDEX = 123;
     inline static constexpr custom_animation_settings_t PMD_JYNX_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 15,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4717,7 +4717,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_JYNX_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_JYNX_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_JYNX_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Electabuzz
     inline static constexpr char PMD_ELECTABUZZ_FQID_ARR[] = "pmd:electabuzz";
@@ -4732,13 +4732,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ELECTABUZZ_FQNAME_ARR[] = "pmd:Electabuzz";
     inline static constexpr const char* PMD_ELECTABUZZ_FQNAME = PMD_ELECTABUZZ_FQNAME_ARR;
     inline static constexpr size_t PMD_ELECTABUZZ_FQNAME_LEN = sizeof(PMD_ELECTABUZZ_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ELECTABUZZ_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_ELECTABUZZ_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_ELECTABUZZ_ANIM_INDEX = 124;
     inline static constexpr custom_animation_settings_t PMD_ELECTABUZZ_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4755,7 +4755,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ELECTABUZZ_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ELECTABUZZ_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_ELECTABUZZ_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Magmar
     inline static constexpr char PMD_MAGMAR_FQID_ARR[] = "pmd:magmar";
@@ -4770,13 +4770,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MAGMAR_FQNAME_ARR[] = "pmd:Magmar";
     inline static constexpr const char* PMD_MAGMAR_FQNAME = PMD_MAGMAR_FQNAME_ARR;
     inline static constexpr size_t PMD_MAGMAR_FQNAME_LEN = sizeof(PMD_MAGMAR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MAGMAR_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_MAGMAR_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_MAGMAR_ANIM_INDEX = 125;
     inline static constexpr custom_animation_settings_t PMD_MAGMAR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4793,7 +4793,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MAGMAR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MAGMAR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_MAGMAR_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Pinsir
     inline static constexpr char PMD_PINSIR_FQID_ARR[] = "pmd:pinsir";
@@ -4808,13 +4808,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PINSIR_FQNAME_ARR[] = "pmd:Pinsir";
     inline static constexpr const char* PMD_PINSIR_FQNAME = PMD_PINSIR_FQNAME_ARR;
     inline static constexpr size_t PMD_PINSIR_FQNAME_LEN = sizeof(PMD_PINSIR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PINSIR_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_PINSIR_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_PINSIR_ANIM_INDEX = 126;
     inline static constexpr custom_animation_settings_t PMD_PINSIR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -4831,7 +4831,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PINSIR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PINSIR_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_PINSIR_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Tauros
     inline static constexpr char PMD_TAUROS_FQID_ARR[] = "pmd:tauros";
@@ -4846,20 +4846,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TAUROS_FQNAME_ARR[] = "pmd:Tauros";
     inline static constexpr const char* PMD_TAUROS_FQNAME = PMD_TAUROS_FQNAME_ARR;
     inline static constexpr size_t PMD_TAUROS_FQNAME_LEN = sizeof(PMD_TAUROS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TAUROS_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_TAUROS_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_TAUROS_ANIM_INDEX = 127;
     inline static constexpr custom_animation_settings_t PMD_TAUROS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 12,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -4869,7 +4869,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TAUROS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TAUROS_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_TAUROS_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Magikarp
     inline static constexpr char PMD_MAGIKARP_FQID_ARR[] = "pmd:magikarp";
@@ -4973,7 +4973,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5044,7 +5044,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -5074,7 +5074,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VAPOREON_FQNAME_ARR[] = "pmd:Vaporeon";
     inline static constexpr const char* PMD_VAPOREON_FQNAME = PMD_VAPOREON_FQNAME_ARR;
     inline static constexpr size_t PMD_VAPOREON_FQNAME_LEN = sizeof(PMD_VAPOREON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VAPOREON_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_VAPOREON_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_VAPOREON_ANIM_INDEX = 133;
     inline static constexpr custom_animation_settings_t PMD_VAPOREON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -5087,7 +5087,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5097,7 +5097,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_VAPOREON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VAPOREON_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_VAPOREON_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Jolteon
     inline static constexpr char PMD_JOLTEON_FQID_ARR[] = "pmd:jolteon";
@@ -5112,7 +5112,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_JOLTEON_FQNAME_ARR[] = "pmd:Jolteon";
     inline static constexpr const char* PMD_JOLTEON_FQNAME = PMD_JOLTEON_FQNAME_ARR;
     inline static constexpr size_t PMD_JOLTEON_FQNAME_LEN = sizeof(PMD_JOLTEON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_JOLTEON_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_JOLTEON_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_JOLTEON_ANIM_INDEX = 134;
     inline static constexpr custom_animation_settings_t PMD_JOLTEON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -5120,12 +5120,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5135,7 +5135,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_JOLTEON_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_JOLTEON_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_JOLTEON_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Flareon
     inline static constexpr char PMD_FLAREON_FQID_ARR[] = "pmd:flareon";
@@ -5158,7 +5158,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -5188,7 +5188,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PORYGON_FQNAME_ARR[] = "pmd:Porygon";
     inline static constexpr const char* PMD_PORYGON_FQNAME = PMD_PORYGON_FQNAME_ARR;
     inline static constexpr size_t PMD_PORYGON_FQNAME_LEN = sizeof(PMD_PORYGON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PORYGON_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_PORYGON_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_PORYGON_ANIM_INDEX = 136;
     inline static constexpr custom_animation_settings_t PMD_PORYGON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -5201,7 +5201,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5211,7 +5211,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PORYGON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PORYGON_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_PORYGON_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Omanyte
     inline static constexpr char PMD_OMANYTE_FQID_ARR[] = "pmd:omanyte";
@@ -5226,7 +5226,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_OMANYTE_FQNAME_ARR[] = "pmd:Omanyte";
     inline static constexpr const char* PMD_OMANYTE_FQNAME = PMD_OMANYTE_FQNAME_ARR;
     inline static constexpr size_t PMD_OMANYTE_FQNAME_LEN = sizeof(PMD_OMANYTE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_OMANYTE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_OMANYTE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_OMANYTE_ANIM_INDEX = 137;
     inline static constexpr custom_animation_settings_t PMD_OMANYTE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -5239,7 +5239,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5249,7 +5249,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_OMANYTE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_OMANYTE_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_OMANYTE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Omastar
     inline static constexpr char PMD_OMASTAR_FQID_ARR[] = "pmd:omastar";
@@ -5264,7 +5264,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_OMASTAR_FQNAME_ARR[] = "pmd:Omastar";
     inline static constexpr const char* PMD_OMASTAR_FQNAME = PMD_OMASTAR_FQNAME_ARR;
     inline static constexpr size_t PMD_OMASTAR_FQNAME_LEN = sizeof(PMD_OMASTAR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_OMASTAR_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_OMASTAR_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_OMASTAR_ANIM_INDEX = 138;
     inline static constexpr custom_animation_settings_t PMD_OMASTAR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -5277,7 +5277,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5287,7 +5287,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_OMASTAR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_OMASTAR_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_OMASTAR_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Kabuto
     inline static constexpr char PMD_KABUTO_FQID_ARR[] = "pmd:kabuto";
@@ -5353,7 +5353,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -5378,13 +5378,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_AERODACTYL_FQNAME_ARR[] = "pmd:Aerodactyl";
     inline static constexpr const char* PMD_AERODACTYL_FQNAME = PMD_AERODACTYL_FQNAME_ARR;
     inline static constexpr size_t PMD_AERODACTYL_FQNAME_LEN = sizeof(PMD_AERODACTYL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_AERODACTYL_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_AERODACTYL_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_AERODACTYL_ANIM_INDEX = 141;
     inline static constexpr custom_animation_settings_t PMD_AERODACTYL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -5401,7 +5401,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_AERODACTYL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_AERODACTYL_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_AERODACTYL_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Snorlax
     inline static constexpr char PMD_SNORLAX_FQID_ARR[] = "pmd:snorlax";
@@ -5416,13 +5416,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SNORLAX_FQNAME_ARR[] = "pmd:Snorlax";
     inline static constexpr const char* PMD_SNORLAX_FQNAME = PMD_SNORLAX_FQNAME_ARR;
     inline static constexpr size_t PMD_SNORLAX_FQNAME_LEN = sizeof(PMD_SNORLAX_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SNORLAX_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_SNORLAX_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SNORLAX_ANIM_INDEX = 142;
     inline static constexpr custom_animation_settings_t PMD_SNORLAX_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -5439,7 +5439,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SNORLAX_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SNORLAX_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_SNORLAX_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Articuno
     inline static constexpr char PMD_ARTICUNO_FQID_ARR[] = "pmd:articuno";
@@ -5454,7 +5454,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ARTICUNO_FQNAME_ARR[] = "pmd:Articuno";
     inline static constexpr const char* PMD_ARTICUNO_FQNAME = PMD_ARTICUNO_FQNAME_ARR;
     inline static constexpr size_t PMD_ARTICUNO_FQNAME_LEN = sizeof(PMD_ARTICUNO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ARTICUNO_SPRITE_SHEET_FRAMES_COUNT = 114;
+    inline static constexpr size_t PMD_ARTICUNO_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_ARTICUNO_ANIM_INDEX = 143;
     inline static constexpr custom_animation_settings_t PMD_ARTICUNO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -5467,7 +5467,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 19,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5477,7 +5477,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ARTICUNO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ARTICUNO_SPRITE_SHEET_MAX_COLS = 19;
+    inline static constexpr int PMD_ARTICUNO_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Zapdos
     inline static constexpr char PMD_ZAPDOS_FQID_ARR[] = "pmd:zapdos";
@@ -5492,7 +5492,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ZAPDOS_FQNAME_ARR[] = "pmd:Zapdos";
     inline static constexpr const char* PMD_ZAPDOS_FQNAME = PMD_ZAPDOS_FQNAME_ARR;
     inline static constexpr size_t PMD_ZAPDOS_FQNAME_LEN = sizeof(PMD_ZAPDOS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ZAPDOS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ZAPDOS_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_ZAPDOS_ANIM_INDEX = 144;
     inline static constexpr custom_animation_settings_t PMD_ZAPDOS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -5505,7 +5505,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5515,7 +5515,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ZAPDOS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ZAPDOS_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_ZAPDOS_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Moltres
     inline static constexpr char PMD_MOLTRES_FQID_ARR[] = "pmd:moltres";
@@ -5568,7 +5568,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DRATINI_FQNAME_ARR[] = "pmd:Dratini";
     inline static constexpr const char* PMD_DRATINI_FQNAME = PMD_DRATINI_FQNAME_ARR;
     inline static constexpr size_t PMD_DRATINI_FQNAME_LEN = sizeof(PMD_DRATINI_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DRATINI_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_DRATINI_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_DRATINI_ANIM_INDEX = 146;
     inline static constexpr custom_animation_settings_t PMD_DRATINI_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -5581,7 +5581,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -5591,7 +5591,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DRATINI_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DRATINI_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_DRATINI_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Dragonair
     inline static constexpr char PMD_DRAGONAIR_FQID_ARR[] = "pmd:dragonair";
@@ -5606,20 +5606,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DRAGONAIR_FQNAME_ARR[] = "pmd:Dragonair";
     inline static constexpr const char* PMD_DRAGONAIR_FQNAME = PMD_DRAGONAIR_FQNAME_ARR;
     inline static constexpr size_t PMD_DRAGONAIR_FQNAME_LEN = sizeof(PMD_DRAGONAIR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DRAGONAIR_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_DRAGONAIR_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_DRAGONAIR_ANIM_INDEX = 147;
     inline static constexpr custom_animation_settings_t PMD_DRAGONAIR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 15,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -5629,7 +5629,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DRAGONAIR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DRAGONAIR_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_DRAGONAIR_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Dragonite
     inline static constexpr char PMD_DRAGONITE_FQID_ARR[] = "pmd:dragonite";
@@ -5657,7 +5657,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5682,15 +5682,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MEWTWO_FQNAME_ARR[] = "pmd:Mewtwo";
     inline static constexpr const char* PMD_MEWTWO_FQNAME = PMD_MEWTWO_FQNAME_ARR;
     inline static constexpr size_t PMD_MEWTWO_FQNAME_LEN = sizeof(PMD_MEWTWO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MEWTWO_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_MEWTWO_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_MEWTWO_ANIM_INDEX = 149;
     inline static constexpr custom_animation_settings_t PMD_MEWTWO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 15,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -5705,7 +5705,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MEWTWO_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MEWTWO_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_MEWTWO_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Mew
     inline static constexpr char PMD_MEW_FQID_ARR[] = "pmd:mew";
@@ -5728,7 +5728,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
@@ -5764,9 +5764,9 @@ namespace bongocat::assets {
         .idle_frames = 6,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -5847,7 +5847,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -5880,7 +5880,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -5910,15 +5910,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_QUILAVA_FQNAME_ARR[] = "pmd:Quilava";
     inline static constexpr const char* PMD_QUILAVA_FQNAME = PMD_QUILAVA_FQNAME_ARR;
     inline static constexpr size_t PMD_QUILAVA_FQNAME_LEN = sizeof(PMD_QUILAVA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_QUILAVA_SPRITE_SHEET_FRAMES_COUNT = 112;
+    inline static constexpr size_t PMD_QUILAVA_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_QUILAVA_ANIM_INDEX = 155;
     inline static constexpr custom_animation_settings_t PMD_QUILAVA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 16,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -5933,7 +5933,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_QUILAVA_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_QUILAVA_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_QUILAVA_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Typhlosion
     inline static constexpr char PMD_TYPHLOSION_FQID_ARR[] = "pmd:typhlosion";
@@ -5948,15 +5948,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TYPHLOSION_FQNAME_ARR[] = "pmd:Typhlosion";
     inline static constexpr const char* PMD_TYPHLOSION_FQNAME = PMD_TYPHLOSION_FQNAME_ARR;
     inline static constexpr size_t PMD_TYPHLOSION_FQNAME_LEN = sizeof(PMD_TYPHLOSION_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TYPHLOSION_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_TYPHLOSION_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_TYPHLOSION_ANIM_INDEX = 156;
     inline static constexpr custom_animation_settings_t PMD_TYPHLOSION_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -5971,7 +5971,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TYPHLOSION_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_TYPHLOSION_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_TYPHLOSION_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Totodile
     inline static constexpr char PMD_TOTODILE_FQID_ARR[] = "pmd:totodile";
@@ -5992,9 +5992,9 @@ namespace bongocat::assets {
         .idle_frames = 7,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -6024,48 +6024,10 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CROCONAW_FQNAME_ARR[] = "pmd:Croconaw";
     inline static constexpr const char* PMD_CROCONAW_FQNAME = PMD_CROCONAW_FQNAME_ARR;
     inline static constexpr size_t PMD_CROCONAW_FQNAME_LEN = sizeof(PMD_CROCONAW_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CROCONAW_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_CROCONAW_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_CROCONAW_ANIM_INDEX = 158;
     inline static constexpr custom_animation_settings_t PMD_CROCONAW_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 11,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 11,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 4,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_CROCONAW_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CROCONAW_SPRITE_SHEET_MAX_COLS = 11;
-
-    // Name: Feraligatr
-    inline static constexpr char PMD_FERALIGATR_FQID_ARR[] = "pmd:feraligatr";
-    inline static constexpr const char* PMD_FERALIGATR_FQID = PMD_FERALIGATR_FQID_ARR;
-    inline static constexpr size_t PMD_FERALIGATR_FQID_LEN = sizeof(PMD_FERALIGATR_FQID_ARR)-1;
-    inline static constexpr char PMD_FERALIGATR_ID_ARR[] = "feraligatr";
-    inline static constexpr const char* PMD_FERALIGATR_ID = PMD_FERALIGATR_ID_ARR;
-    inline static constexpr size_t PMD_FERALIGATR_ID_LEN = sizeof(PMD_FERALIGATR_ID)-1;
-    inline static constexpr char PMD_FERALIGATR_NAME_ARR[] = "Feraligatr";
-    inline static constexpr const char* PMD_FERALIGATR_NAME = PMD_FERALIGATR_NAME_ARR;
-    inline static constexpr size_t PMD_FERALIGATR_NAME_LEN = sizeof(PMD_FERALIGATR_NAME_ARR)-1;
-    inline static constexpr char PMD_FERALIGATR_FQNAME_ARR[] = "pmd:Feraligatr";
-    inline static constexpr const char* PMD_FERALIGATR_FQNAME = PMD_FERALIGATR_FQNAME_ARR;
-    inline static constexpr size_t PMD_FERALIGATR_FQNAME_LEN = sizeof(PMD_FERALIGATR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FERALIGATR_SPRITE_SHEET_FRAMES_COUNT = 72;
-    inline static constexpr size_t PMD_FERALIGATR_ANIM_INDEX = 159;
-    inline static constexpr custom_animation_settings_t PMD_FERALIGATR_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 12,
@@ -6084,8 +6046,46 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
+    inline static constexpr int PMD_CROCONAW_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CROCONAW_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Feraligatr
+    inline static constexpr char PMD_FERALIGATR_FQID_ARR[] = "pmd:feraligatr";
+    inline static constexpr const char* PMD_FERALIGATR_FQID = PMD_FERALIGATR_FQID_ARR;
+    inline static constexpr size_t PMD_FERALIGATR_FQID_LEN = sizeof(PMD_FERALIGATR_FQID_ARR)-1;
+    inline static constexpr char PMD_FERALIGATR_ID_ARR[] = "feraligatr";
+    inline static constexpr const char* PMD_FERALIGATR_ID = PMD_FERALIGATR_ID_ARR;
+    inline static constexpr size_t PMD_FERALIGATR_ID_LEN = sizeof(PMD_FERALIGATR_ID)-1;
+    inline static constexpr char PMD_FERALIGATR_NAME_ARR[] = "Feraligatr";
+    inline static constexpr const char* PMD_FERALIGATR_NAME = PMD_FERALIGATR_NAME_ARR;
+    inline static constexpr size_t PMD_FERALIGATR_NAME_LEN = sizeof(PMD_FERALIGATR_NAME_ARR)-1;
+    inline static constexpr char PMD_FERALIGATR_FQNAME_ARR[] = "pmd:Feraligatr";
+    inline static constexpr const char* PMD_FERALIGATR_FQNAME = PMD_FERALIGATR_FQNAME_ARR;
+    inline static constexpr size_t PMD_FERALIGATR_FQNAME_LEN = sizeof(PMD_FERALIGATR_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_FERALIGATR_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_FERALIGATR_ANIM_INDEX = 159;
+    inline static constexpr custom_animation_settings_t PMD_FERALIGATR_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
     inline static constexpr int PMD_FERALIGATR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_FERALIGATR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_FERALIGATR_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Sentret
     inline static constexpr char PMD_SENTRET_FQID_ARR[] = "pmd:sentret";
@@ -6100,20 +6100,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SENTRET_FQNAME_ARR[] = "pmd:Sentret";
     inline static constexpr const char* PMD_SENTRET_FQNAME = PMD_SENTRET_FQNAME_ARR;
     inline static constexpr size_t PMD_SENTRET_FQNAME_LEN = sizeof(PMD_SENTRET_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SENTRET_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SENTRET_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_SENTRET_ANIM_INDEX = 160;
     inline static constexpr custom_animation_settings_t PMD_SENTRET_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -6123,7 +6123,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SENTRET_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SENTRET_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SENTRET_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Furret
     inline static constexpr char PMD_FURRET_FQID_ARR[] = "pmd:furret";
@@ -6138,20 +6138,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FURRET_FQNAME_ARR[] = "pmd:Furret";
     inline static constexpr const char* PMD_FURRET_FQNAME = PMD_FURRET_FQNAME_ARR;
     inline static constexpr size_t PMD_FURRET_FQNAME_LEN = sizeof(PMD_FURRET_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FURRET_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_FURRET_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_FURRET_ANIM_INDEX = 161;
     inline static constexpr custom_animation_settings_t PMD_FURRET_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 9,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -6161,7 +6161,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_FURRET_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_FURRET_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_FURRET_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Hoothoot
     inline static constexpr char PMD_HOOTHOOT_FQID_ARR[] = "pmd:hoothoot";
@@ -6214,11 +6214,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_NOCTOWL_FQNAME_ARR[] = "pmd:Noctowl";
     inline static constexpr const char* PMD_NOCTOWL_FQNAME = PMD_NOCTOWL_FQNAME_ARR;
     inline static constexpr size_t PMD_NOCTOWL_FQNAME_LEN = sizeof(PMD_NOCTOWL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NOCTOWL_SPRITE_SHEET_FRAMES_COUNT = 112;
+    inline static constexpr size_t PMD_NOCTOWL_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_NOCTOWL_ANIM_INDEX = 163;
     inline static constexpr custom_animation_settings_t PMD_NOCTOWL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 16,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -6227,7 +6227,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -6236,7 +6236,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_NOCTOWL_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_NOCTOWL_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_NOCTOWL_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Ledyba
@@ -6260,7 +6260,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -6488,7 +6488,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
@@ -6526,7 +6526,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -6556,11 +6556,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CLEFFA_FQNAME_ARR[] = "pmd:Cleffa";
     inline static constexpr const char* PMD_CLEFFA_FQNAME = PMD_CLEFFA_FQNAME_ARR;
     inline static constexpr size_t PMD_CLEFFA_FQNAME_LEN = sizeof(PMD_CLEFFA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CLEFFA_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_CLEFFA_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_CLEFFA_ANIM_INDEX = 172;
     inline static constexpr custom_animation_settings_t PMD_CLEFFA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 6,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -6578,7 +6578,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CLEFFA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CLEFFA_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_CLEFFA_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Igglybuff
@@ -6607,7 +6607,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -6632,11 +6632,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TOGEPI_FQNAME_ARR[] = "pmd:Togepi";
     inline static constexpr const char* PMD_TOGEPI_FQNAME = PMD_TOGEPI_FQNAME_ARR;
     inline static constexpr size_t PMD_TOGEPI_FQNAME_LEN = sizeof(PMD_TOGEPI_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TOGEPI_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_TOGEPI_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_TOGEPI_ANIM_INDEX = 174;
     inline static constexpr custom_animation_settings_t PMD_TOGEPI_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 9,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -6654,7 +6654,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TOGEPI_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TOGEPI_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_TOGEPI_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Togetic
@@ -6678,7 +6678,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -6714,14 +6714,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = 8,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -6784,7 +6784,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MAREEP_FQNAME_ARR[] = "pmd:Mareep";
     inline static constexpr const char* PMD_MAREEP_FQNAME = PMD_MAREEP_FQNAME_ARR;
     inline static constexpr size_t PMD_MAREEP_FQNAME_LEN = sizeof(PMD_MAREEP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MAREEP_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_MAREEP_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_MAREEP_ANIM_INDEX = 178;
     inline static constexpr custom_animation_settings_t PMD_MAREEP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -6792,12 +6792,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 9,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -6807,7 +6807,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MAREEP_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MAREEP_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_MAREEP_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Flaaffy
     inline static constexpr char PMD_FLAAFFY_FQID_ARR[] = "pmd:flaaffy";
@@ -6822,7 +6822,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FLAAFFY_FQNAME_ARR[] = "pmd:Flaaffy";
     inline static constexpr const char* PMD_FLAAFFY_FQNAME = PMD_FLAAFFY_FQNAME_ARR;
     inline static constexpr size_t PMD_FLAAFFY_FQNAME_LEN = sizeof(PMD_FLAAFFY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FLAAFFY_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_FLAAFFY_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_FLAAFFY_ANIM_INDEX = 179;
     inline static constexpr custom_animation_settings_t PMD_FLAAFFY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -6830,12 +6830,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -6845,7 +6845,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_FLAAFFY_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_FLAAFFY_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_FLAAFFY_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Ampharos
     inline static constexpr char PMD_AMPHAROS_FQID_ARR[] = "pmd:ampharos";
@@ -6898,11 +6898,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BELLOSSOM_FQNAME_ARR[] = "pmd:Bellossom";
     inline static constexpr const char* PMD_BELLOSSOM_FQNAME = PMD_BELLOSSOM_FQNAME_ARR;
     inline static constexpr size_t PMD_BELLOSSOM_FQNAME_LEN = sizeof(PMD_BELLOSSOM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BELLOSSOM_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_BELLOSSOM_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_BELLOSSOM_ANIM_INDEX = 181;
     inline static constexpr custom_animation_settings_t PMD_BELLOSSOM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 13,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -6920,8 +6920,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_BELLOSSOM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BELLOSSOM_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_BELLOSSOM_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_BELLOSSOM_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Marill
     inline static constexpr char PMD_MARILL_FQID_ARR[] = "pmd:marill";
@@ -6936,7 +6936,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MARILL_FQNAME_ARR[] = "pmd:Marill";
     inline static constexpr const char* PMD_MARILL_FQNAME = PMD_MARILL_FQNAME_ARR;
     inline static constexpr size_t PMD_MARILL_FQNAME_LEN = sizeof(PMD_MARILL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MARILL_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_MARILL_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_MARILL_ANIM_INDEX = 182;
     inline static constexpr custom_animation_settings_t PMD_MARILL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -6944,12 +6944,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -6959,7 +6959,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MARILL_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MARILL_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_MARILL_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Azumarill
     inline static constexpr char PMD_AZUMARILL_FQID_ARR[] = "pmd:azumarill";
@@ -6974,11 +6974,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_AZUMARILL_FQNAME_ARR[] = "pmd:Azumarill";
     inline static constexpr const char* PMD_AZUMARILL_FQNAME = PMD_AZUMARILL_FQNAME_ARR;
     inline static constexpr size_t PMD_AZUMARILL_FQNAME_LEN = sizeof(PMD_AZUMARILL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_AZUMARILL_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_AZUMARILL_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_AZUMARILL_ANIM_INDEX = 183;
     inline static constexpr custom_animation_settings_t PMD_AZUMARILL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 15,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -6996,8 +6996,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_AZUMARILL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_AZUMARILL_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_AZUMARILL_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_AZUMARILL_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Sudowoodo
     inline static constexpr char PMD_SUDOWOODO_FQID_ARR[] = "pmd:sudowoodo";
@@ -7012,20 +7012,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SUDOWOODO_FQNAME_ARR[] = "pmd:Sudowoodo";
     inline static constexpr const char* PMD_SUDOWOODO_FQNAME = PMD_SUDOWOODO_FQNAME_ARR;
     inline static constexpr size_t PMD_SUDOWOODO_FQNAME_LEN = sizeof(PMD_SUDOWOODO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SUDOWOODO_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SUDOWOODO_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_SUDOWOODO_ANIM_INDEX = 184;
     inline static constexpr custom_animation_settings_t PMD_SUDOWOODO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 1,
-        .boring_frames = -1,
+        .boring_frames = 12,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -7034,8 +7034,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SUDOWOODO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SUDOWOODO_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SUDOWOODO_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SUDOWOODO_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Politoed
     inline static constexpr char PMD_POLITOED_FQID_ARR[] = "pmd:politoed";
@@ -7050,7 +7050,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_POLITOED_FQNAME_ARR[] = "pmd:Politoed";
     inline static constexpr const char* PMD_POLITOED_FQNAME = PMD_POLITOED_FQNAME_ARR;
     inline static constexpr size_t PMD_POLITOED_FQNAME_LEN = sizeof(PMD_POLITOED_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_POLITOED_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_POLITOED_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_POLITOED_ANIM_INDEX = 185;
     inline static constexpr custom_animation_settings_t PMD_POLITOED_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -7063,7 +7063,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -7073,7 +7073,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_POLITOED_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_POLITOED_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_POLITOED_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Hoppip
     inline static constexpr char PMD_HOPPIP_FQID_ARR[] = "pmd:hoppip";
@@ -7088,11 +7088,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HOPPIP_FQNAME_ARR[] = "pmd:Hoppip";
     inline static constexpr const char* PMD_HOPPIP_FQNAME = PMD_HOPPIP_FQNAME_ARR;
     inline static constexpr size_t PMD_HOPPIP_FQNAME_LEN = sizeof(PMD_HOPPIP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HOPPIP_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_HOPPIP_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_HOPPIP_ANIM_INDEX = 186;
     inline static constexpr custom_animation_settings_t PMD_HOPPIP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 15,
-        .boring_frames = -1,
+        .boring_frames = 17,
         .start_writing_frames = -1,
         .writing_frames = 18,
         .end_writing_frames = -1,
@@ -7110,7 +7110,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_HOPPIP_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_HOPPIP_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_HOPPIP_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Skiploom
@@ -7126,11 +7126,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SKIPLOOM_FQNAME_ARR[] = "pmd:Skiploom";
     inline static constexpr const char* PMD_SKIPLOOM_FQNAME = PMD_SKIPLOOM_FQNAME_ARR;
     inline static constexpr size_t PMD_SKIPLOOM_FQNAME_LEN = sizeof(PMD_SKIPLOOM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SKIPLOOM_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_SKIPLOOM_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_SKIPLOOM_ANIM_INDEX = 187;
     inline static constexpr custom_animation_settings_t PMD_SKIPLOOM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 17,
         .start_writing_frames = -1,
         .writing_frames = 18,
         .end_writing_frames = -1,
@@ -7148,7 +7148,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SKIPLOOM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SKIPLOOM_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_SKIPLOOM_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Jumpluff
@@ -7210,7 +7210,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -7291,7 +7291,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -7362,7 +7362,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -7392,11 +7392,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_QUAGSIRE_FQNAME_ARR[] = "pmd:Quagsire";
     inline static constexpr const char* PMD_QUAGSIRE_FQNAME = PMD_QUAGSIRE_FQNAME_ARR;
     inline static constexpr size_t PMD_QUAGSIRE_FQNAME_LEN = sizeof(PMD_QUAGSIRE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_QUAGSIRE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_QUAGSIRE_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_QUAGSIRE_ANIM_INDEX = 194;
     inline static constexpr custom_animation_settings_t PMD_QUAGSIRE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
-        .boring_frames = -1,
+        .boring_frames = 10,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -7414,7 +7414,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_QUAGSIRE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_QUAGSIRE_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_QUAGSIRE_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Espeon
@@ -7476,12 +7476,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -7506,15 +7506,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MURKROW_FQNAME_ARR[] = "pmd:Murkrow";
     inline static constexpr const char* PMD_MURKROW_FQNAME = PMD_MURKROW_FQNAME_ARR;
     inline static constexpr size_t PMD_MURKROW_FQNAME_LEN = sizeof(PMD_MURKROW_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MURKROW_SPRITE_SHEET_FRAMES_COUNT = 126;
+    inline static constexpr size_t PMD_MURKROW_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_MURKROW_ANIM_INDEX = 197;
     inline static constexpr custom_animation_settings_t PMD_MURKROW_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -7529,7 +7529,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MURKROW_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MURKROW_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_MURKROW_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Slowking
     inline static constexpr char PMD_SLOWKING_FQID_ARR[] = "pmd:slowking";
@@ -7544,7 +7544,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SLOWKING_FQNAME_ARR[] = "pmd:Slowking";
     inline static constexpr const char* PMD_SLOWKING_FQNAME = PMD_SLOWKING_FQNAME_ARR;
     inline static constexpr size_t PMD_SLOWKING_FQNAME_LEN = sizeof(PMD_SLOWKING_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SLOWKING_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SLOWKING_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_SLOWKING_ANIM_INDEX = 198;
     inline static constexpr custom_animation_settings_t PMD_SLOWKING_SPRITE_SHEET_SETTINGS {
         .idle_frames = 10,
@@ -7557,7 +7557,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -7567,7 +7567,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SLOWKING_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SLOWKING_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SLOWKING_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Misdreavus
     inline static constexpr char PMD_MISDREAVUS_FQID_ARR[] = "pmd:misdreavus";
@@ -7582,7 +7582,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MISDREAVUS_FQNAME_ARR[] = "pmd:Misdreavus";
     inline static constexpr const char* PMD_MISDREAVUS_FQNAME = PMD_MISDREAVUS_FQNAME_ARR;
     inline static constexpr size_t PMD_MISDREAVUS_FQNAME_LEN = sizeof(PMD_MISDREAVUS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MISDREAVUS_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_MISDREAVUS_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_MISDREAVUS_ANIM_INDEX = 199;
     inline static constexpr custom_animation_settings_t PMD_MISDREAVUS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -7590,12 +7590,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -7605,7 +7605,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MISDREAVUS_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MISDREAVUS_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_MISDREAVUS_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Unown
     inline static constexpr char PMD_UNOWN_FQID_ARR[] = "pmd:unown";
@@ -7671,7 +7671,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -7696,20 +7696,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GIRAFARIG_FQNAME_ARR[] = "pmd:Girafarig";
     inline static constexpr const char* PMD_GIRAFARIG_FQNAME = PMD_GIRAFARIG_FQNAME_ARR;
     inline static constexpr size_t PMD_GIRAFARIG_FQNAME_LEN = sizeof(PMD_GIRAFARIG_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GIRAFARIG_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_GIRAFARIG_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_GIRAFARIG_ANIM_INDEX = 202;
     inline static constexpr custom_animation_settings_t PMD_GIRAFARIG_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 15,
+        .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -7719,7 +7719,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GIRAFARIG_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_GIRAFARIG_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_GIRAFARIG_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Pineco
     inline static constexpr char PMD_PINECO_FQID_ARR[] = "pmd:pineco";
@@ -7734,20 +7734,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PINECO_FQNAME_ARR[] = "pmd:Pineco";
     inline static constexpr const char* PMD_PINECO_FQNAME = PMD_PINECO_FQNAME_ARR;
     inline static constexpr size_t PMD_PINECO_FQNAME_LEN = sizeof(PMD_PINECO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PINECO_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_PINECO_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_PINECO_ANIM_INDEX = 203;
     inline static constexpr custom_animation_settings_t PMD_PINECO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -7757,7 +7757,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PINECO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PINECO_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_PINECO_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Forretress
     inline static constexpr char PMD_FORRETRESS_FQID_ARR[] = "pmd:forretress";
@@ -7778,7 +7778,7 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 12,
+        .writing_frames = 15,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -7818,12 +7818,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -7848,20 +7848,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GLIGAR_FQNAME_ARR[] = "pmd:Gligar";
     inline static constexpr const char* PMD_GLIGAR_FQNAME = PMD_GLIGAR_FQNAME_ARR;
     inline static constexpr size_t PMD_GLIGAR_FQNAME_LEN = sizeof(PMD_GLIGAR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GLIGAR_SPRITE_SHEET_FRAMES_COUNT = 140;
+    inline static constexpr size_t PMD_GLIGAR_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_GLIGAR_ANIM_INDEX = 206;
     inline static constexpr custom_animation_settings_t PMD_GLIGAR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 20,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -7871,7 +7871,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GLIGAR_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_GLIGAR_SPRITE_SHEET_MAX_COLS = 20;
+    inline static constexpr int PMD_GLIGAR_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Steelix
     inline static constexpr char PMD_STEELIX_FQID_ARR[] = "pmd:steelix";
@@ -7886,11 +7886,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_STEELIX_FQNAME_ARR[] = "pmd:Steelix";
     inline static constexpr const char* PMD_STEELIX_FQNAME = PMD_STEELIX_FQNAME_ARR;
     inline static constexpr size_t PMD_STEELIX_FQNAME_LEN = sizeof(PMD_STEELIX_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_STEELIX_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_STEELIX_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_STEELIX_ANIM_INDEX = 207;
     inline static constexpr custom_animation_settings_t PMD_STEELIX_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 6,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -7908,7 +7908,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_STEELIX_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_STEELIX_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_STEELIX_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Snubbull
@@ -7924,11 +7924,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SNUBBULL_FQNAME_ARR[] = "pmd:Snubbull";
     inline static constexpr const char* PMD_SNUBBULL_FQNAME = PMD_SNUBBULL_FQNAME_ARR;
     inline static constexpr size_t PMD_SNUBBULL_FQNAME_LEN = sizeof(PMD_SNUBBULL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SNUBBULL_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_SNUBBULL_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_SNUBBULL_ANIM_INDEX = 208;
     inline static constexpr custom_animation_settings_t PMD_SNUBBULL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = 2,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -7947,7 +7947,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SNUBBULL_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SNUBBULL_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_SNUBBULL_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Granbull
     inline static constexpr char PMD_GRANBULL_FQID_ARR[] = "pmd:granbull";
@@ -7962,11 +7962,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GRANBULL_FQNAME_ARR[] = "pmd:Granbull";
     inline static constexpr const char* PMD_GRANBULL_FQNAME = PMD_GRANBULL_FQNAME_ARR;
     inline static constexpr size_t PMD_GRANBULL_FQNAME_LEN = sizeof(PMD_GRANBULL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GRANBULL_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_GRANBULL_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_GRANBULL_ANIM_INDEX = 209;
     inline static constexpr custom_animation_settings_t PMD_GRANBULL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -7984,8 +7984,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GRANBULL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GRANBULL_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_GRANBULL_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_GRANBULL_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Qwilfish
     inline static constexpr char PMD_QWILFISH_FQID_ARR[] = "pmd:qwilfish";
@@ -8000,7 +8000,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_QWILFISH_FQNAME_ARR[] = "pmd:Qwilfish";
     inline static constexpr const char* PMD_QWILFISH_FQNAME = PMD_QWILFISH_FQNAME_ARR;
     inline static constexpr size_t PMD_QWILFISH_FQNAME_LEN = sizeof(PMD_QWILFISH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_QWILFISH_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_QWILFISH_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_QWILFISH_ANIM_INDEX = 210;
     inline static constexpr custom_animation_settings_t PMD_QWILFISH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -8013,7 +8013,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8023,7 +8023,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_QWILFISH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_QWILFISH_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_QWILFISH_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Scizor
     inline static constexpr char PMD_SCIZOR_FQID_ARR[] = "pmd:scizor";
@@ -8038,7 +8038,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SCIZOR_FQNAME_ARR[] = "pmd:Scizor";
     inline static constexpr const char* PMD_SCIZOR_FQNAME = PMD_SCIZOR_FQNAME_ARR;
     inline static constexpr size_t PMD_SCIZOR_FQNAME_LEN = sizeof(PMD_SCIZOR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SCIZOR_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_SCIZOR_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SCIZOR_ANIM_INDEX = 211;
     inline static constexpr custom_animation_settings_t PMD_SCIZOR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -8051,7 +8051,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8061,7 +8061,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SCIZOR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SCIZOR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_SCIZOR_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Shuckle
     inline static constexpr char PMD_SHUCKLE_FQID_ARR[] = "pmd:shuckle";
@@ -8076,7 +8076,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SHUCKLE_FQNAME_ARR[] = "pmd:Shuckle";
     inline static constexpr const char* PMD_SHUCKLE_FQNAME = PMD_SHUCKLE_FQNAME_ARR;
     inline static constexpr size_t PMD_SHUCKLE_FQNAME_LEN = sizeof(PMD_SHUCKLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SHUCKLE_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_SHUCKLE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SHUCKLE_ANIM_INDEX = 212;
     inline static constexpr custom_animation_settings_t PMD_SHUCKLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -8089,7 +8089,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8099,7 +8099,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SHUCKLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SHUCKLE_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_SHUCKLE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Heracross
     inline static constexpr char PMD_HERACROSS_FQID_ARR[] = "pmd:heracross";
@@ -8127,7 +8127,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8152,7 +8152,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SNEASEL_FQNAME_ARR[] = "pmd:Sneasel";
     inline static constexpr const char* PMD_SNEASEL_FQNAME = PMD_SNEASEL_FQNAME_ARR;
     inline static constexpr size_t PMD_SNEASEL_FQNAME_LEN = sizeof(PMD_SNEASEL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SNEASEL_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SNEASEL_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_SNEASEL_ANIM_INDEX = 214;
     inline static constexpr custom_animation_settings_t PMD_SNEASEL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -8160,12 +8160,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8175,7 +8175,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SNEASEL_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SNEASEL_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SNEASEL_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Teddiursa
     inline static constexpr char PMD_TEDDIURSA_FQID_ARR[] = "pmd:teddiursa";
@@ -8190,11 +8190,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TEDDIURSA_FQNAME_ARR[] = "pmd:Teddiursa";
     inline static constexpr const char* PMD_TEDDIURSA_FQNAME = PMD_TEDDIURSA_FQNAME_ARR;
     inline static constexpr size_t PMD_TEDDIURSA_FQNAME_LEN = sizeof(PMD_TEDDIURSA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TEDDIURSA_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_TEDDIURSA_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_TEDDIURSA_ANIM_INDEX = 215;
     inline static constexpr custom_animation_settings_t PMD_TEDDIURSA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 8,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -8203,7 +8203,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8212,8 +8212,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TEDDIURSA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TEDDIURSA_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_TEDDIURSA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TEDDIURSA_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Ursaring
     inline static constexpr char PMD_URSARING_FQID_ARR[] = "pmd:ursaring";
@@ -8266,7 +8266,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SLUGMA_FQNAME_ARR[] = "pmd:Slugma";
     inline static constexpr const char* PMD_SLUGMA_FQNAME = PMD_SLUGMA_FQNAME_ARR;
     inline static constexpr size_t PMD_SLUGMA_FQNAME_LEN = sizeof(PMD_SLUGMA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SLUGMA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SLUGMA_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_SLUGMA_ANIM_INDEX = 217;
     inline static constexpr custom_animation_settings_t PMD_SLUGMA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -8279,7 +8279,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8289,7 +8289,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SLUGMA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SLUGMA_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_SLUGMA_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Magcargo
     inline static constexpr char PMD_MAGCARGO_FQID_ARR[] = "pmd:magcargo";
@@ -8304,7 +8304,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MAGCARGO_FQNAME_ARR[] = "pmd:Magcargo";
     inline static constexpr const char* PMD_MAGCARGO_FQNAME = PMD_MAGCARGO_FQNAME_ARR;
     inline static constexpr size_t PMD_MAGCARGO_FQNAME_LEN = sizeof(PMD_MAGCARGO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MAGCARGO_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_MAGCARGO_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_MAGCARGO_ANIM_INDEX = 218;
     inline static constexpr custom_animation_settings_t PMD_MAGCARGO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -8317,7 +8317,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8327,7 +8327,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MAGCARGO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MAGCARGO_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_MAGCARGO_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Swinub
     inline static constexpr char PMD_SWINUB_FQID_ARR[] = "pmd:swinub";
@@ -8342,7 +8342,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SWINUB_FQNAME_ARR[] = "pmd:Swinub";
     inline static constexpr const char* PMD_SWINUB_FQNAME = PMD_SWINUB_FQNAME_ARR;
     inline static constexpr size_t PMD_SWINUB_FQNAME_LEN = sizeof(PMD_SWINUB_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SWINUB_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SWINUB_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SWINUB_ANIM_INDEX = 219;
     inline static constexpr custom_animation_settings_t PMD_SWINUB_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -8350,12 +8350,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8365,7 +8365,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SWINUB_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SWINUB_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SWINUB_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Piloswine
     inline static constexpr char PMD_PILOSWINE_FQID_ARR[] = "pmd:piloswine";
@@ -8418,7 +8418,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CORSOLA_FQNAME_ARR[] = "pmd:Corsola";
     inline static constexpr const char* PMD_CORSOLA_FQNAME = PMD_CORSOLA_FQNAME_ARR;
     inline static constexpr size_t PMD_CORSOLA_FQNAME_LEN = sizeof(PMD_CORSOLA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CORSOLA_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_CORSOLA_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_CORSOLA_ANIM_INDEX = 221;
     inline static constexpr custom_animation_settings_t PMD_CORSOLA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
@@ -8431,7 +8431,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8441,7 +8441,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CORSOLA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CORSOLA_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_CORSOLA_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Remoraid
     inline static constexpr char PMD_REMORAID_FQID_ARR[] = "pmd:remoraid";
@@ -8456,7 +8456,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_REMORAID_FQNAME_ARR[] = "pmd:Remoraid";
     inline static constexpr const char* PMD_REMORAID_FQNAME = PMD_REMORAID_FQNAME_ARR;
     inline static constexpr size_t PMD_REMORAID_FQNAME_LEN = sizeof(PMD_REMORAID_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_REMORAID_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_REMORAID_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_REMORAID_ANIM_INDEX = 222;
     inline static constexpr custom_animation_settings_t PMD_REMORAID_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -8469,7 +8469,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8479,7 +8479,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_REMORAID_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_REMORAID_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_REMORAID_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Octillery
     inline static constexpr char PMD_OCTILLERY_FQID_ARR[] = "pmd:octillery";
@@ -8507,7 +8507,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 8,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -8532,11 +8532,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DELIBIRD_FQNAME_ARR[] = "pmd:Delibird";
     inline static constexpr const char* PMD_DELIBIRD_FQNAME = PMD_DELIBIRD_FQNAME_ARR;
     inline static constexpr size_t PMD_DELIBIRD_FQNAME_LEN = sizeof(PMD_DELIBIRD_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DELIBIRD_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_DELIBIRD_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_DELIBIRD_ANIM_INDEX = 224;
     inline static constexpr custom_animation_settings_t PMD_DELIBIRD_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -8554,7 +8554,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_DELIBIRD_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_DELIBIRD_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_DELIBIRD_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Mantine
@@ -8654,12 +8654,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8697,7 +8697,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8722,7 +8722,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KINGDRA_FQNAME_ARR[] = "pmd:Kingdra";
     inline static constexpr const char* PMD_KINGDRA_FQNAME = PMD_KINGDRA_FQNAME_ARR;
     inline static constexpr size_t PMD_KINGDRA_FQNAME_LEN = sizeof(PMD_KINGDRA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KINGDRA_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_KINGDRA_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_KINGDRA_ANIM_INDEX = 229;
     inline static constexpr custom_animation_settings_t PMD_KINGDRA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
@@ -8735,7 +8735,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8745,7 +8745,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_KINGDRA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KINGDRA_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_KINGDRA_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Phanpy
     inline static constexpr char PMD_PHANPY_FQID_ARR[] = "pmd:phanpy";
@@ -8768,12 +8768,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8798,11 +8798,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DONPHAN_FQNAME_ARR[] = "pmd:Donphan";
     inline static constexpr const char* PMD_DONPHAN_FQNAME = PMD_DONPHAN_FQNAME_ARR;
     inline static constexpr size_t PMD_DONPHAN_FQNAME_LEN = sizeof(PMD_DONPHAN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DONPHAN_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_DONPHAN_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_DONPHAN_ANIM_INDEX = 231;
     inline static constexpr custom_animation_settings_t PMD_DONPHAN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -8820,7 +8820,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_DONPHAN_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_DONPHAN_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_DONPHAN_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Porygon2
@@ -8836,7 +8836,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PORYGON2_FQNAME_ARR[] = "pmd:Porygon2";
     inline static constexpr const char* PMD_PORYGON2_FQNAME = PMD_PORYGON2_FQNAME_ARR;
     inline static constexpr size_t PMD_PORYGON2_FQNAME_LEN = sizeof(PMD_PORYGON2_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PORYGON2_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_PORYGON2_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_PORYGON2_ANIM_INDEX = 232;
     inline static constexpr custom_animation_settings_t PMD_PORYGON2_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -8849,7 +8849,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8859,7 +8859,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PORYGON2_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PORYGON2_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_PORYGON2_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Stantler
     inline static constexpr char PMD_STANTLER_FQID_ARR[] = "pmd:stantler";
@@ -8887,7 +8887,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -8912,7 +8912,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SMEARGLE_FQNAME_ARR[] = "pmd:Smeargle";
     inline static constexpr const char* PMD_SMEARGLE_FQNAME = PMD_SMEARGLE_FQNAME_ARR;
     inline static constexpr size_t PMD_SMEARGLE_FQNAME_LEN = sizeof(PMD_SMEARGLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SMEARGLE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SMEARGLE_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_SMEARGLE_ANIM_INDEX = 234;
     inline static constexpr custom_animation_settings_t PMD_SMEARGLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -8920,12 +8920,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -8935,7 +8935,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SMEARGLE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SMEARGLE_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_SMEARGLE_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Tyrogue
     inline static constexpr char PMD_TYROGUE_FQID_ARR[] = "pmd:tyrogue";
@@ -8950,13 +8950,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TYROGUE_FQNAME_ARR[] = "pmd:Tyrogue";
     inline static constexpr const char* PMD_TYROGUE_FQNAME = PMD_TYROGUE_FQNAME_ARR;
     inline static constexpr size_t PMD_TYROGUE_FQNAME_LEN = sizeof(PMD_TYROGUE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TYROGUE_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_TYROGUE_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_TYROGUE_ANIM_INDEX = 235;
     inline static constexpr custom_animation_settings_t PMD_TYROGUE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -8973,7 +8973,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TYROGUE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TYROGUE_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_TYROGUE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Hitmontop
     inline static constexpr char PMD_HITMONTOP_FQID_ARR[] = "pmd:hitmontop";
@@ -8988,11 +8988,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HITMONTOP_FQNAME_ARR[] = "pmd:Hitmontop";
     inline static constexpr const char* PMD_HITMONTOP_FQNAME = PMD_HITMONTOP_FQNAME_ARR;
     inline static constexpr size_t PMD_HITMONTOP_FQNAME_LEN = sizeof(PMD_HITMONTOP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HITMONTOP_SPRITE_SHEET_FRAMES_COUNT = 102;
+    inline static constexpr size_t PMD_HITMONTOP_SPRITE_SHEET_FRAMES_COUNT = 119;
     inline static constexpr size_t PMD_HITMONTOP_ANIM_INDEX = 236;
     inline static constexpr custom_animation_settings_t PMD_HITMONTOP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 17,
         .end_writing_frames = -1,
@@ -9010,7 +9010,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_HITMONTOP_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_HITMONTOP_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_HITMONTOP_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Smoochum
@@ -9034,7 +9034,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -9064,20 +9064,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ELEKID_FQNAME_ARR[] = "pmd:Elekid";
     inline static constexpr const char* PMD_ELEKID_FQNAME = PMD_ELEKID_FQNAME_ARR;
     inline static constexpr size_t PMD_ELEKID_FQNAME_LEN = sizeof(PMD_ELEKID_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ELEKID_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_ELEKID_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_ELEKID_ANIM_INDEX = 238;
     inline static constexpr custom_animation_settings_t PMD_ELEKID_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9087,7 +9087,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ELEKID_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ELEKID_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_ELEKID_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Magby
     inline static constexpr char PMD_MAGBY_FQID_ARR[] = "pmd:magby";
@@ -9102,15 +9102,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MAGBY_FQNAME_ARR[] = "pmd:Magby";
     inline static constexpr const char* PMD_MAGBY_FQNAME = PMD_MAGBY_FQNAME_ARR;
     inline static constexpr size_t PMD_MAGBY_FQNAME_LEN = sizeof(PMD_MAGBY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MAGBY_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_MAGBY_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_MAGBY_ANIM_INDEX = 239;
     inline static constexpr custom_animation_settings_t PMD_MAGBY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -9125,7 +9125,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MAGBY_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MAGBY_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_MAGBY_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Miltank
     inline static constexpr char PMD_MILTANK_FQID_ARR[] = "pmd:miltank";
@@ -9140,13 +9140,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MILTANK_FQNAME_ARR[] = "pmd:Miltank";
     inline static constexpr const char* PMD_MILTANK_FQNAME = PMD_MILTANK_FQNAME_ARR;
     inline static constexpr size_t PMD_MILTANK_FQNAME_LEN = sizeof(PMD_MILTANK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MILTANK_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_MILTANK_SPRITE_SHEET_FRAMES_COUNT = 133;
     inline static constexpr size_t PMD_MILTANK_ANIM_INDEX = 240;
     inline static constexpr custom_animation_settings_t PMD_MILTANK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 19,
         .start_writing_frames = -1,
-        .writing_frames = 15,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -9162,8 +9162,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MILTANK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MILTANK_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_MILTANK_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MILTANK_SPRITE_SHEET_MAX_COLS = 19;
 
     // Name: Blissey
     inline static constexpr char PMD_BLISSEY_FQID_ARR[] = "pmd:blissey";
@@ -9178,11 +9178,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BLISSEY_FQNAME_ARR[] = "pmd:Blissey";
     inline static constexpr const char* PMD_BLISSEY_FQNAME = PMD_BLISSEY_FQNAME_ARR;
     inline static constexpr size_t PMD_BLISSEY_FQNAME_LEN = sizeof(PMD_BLISSEY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BLISSEY_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_BLISSEY_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_BLISSEY_ANIM_INDEX = 241;
     inline static constexpr custom_animation_settings_t PMD_BLISSEY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 9,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -9191,7 +9191,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9200,8 +9200,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_BLISSEY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BLISSEY_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_BLISSEY_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_BLISSEY_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Raikou
     inline static constexpr char PMD_RAIKOU_FQID_ARR[] = "pmd:raikou";
@@ -9229,7 +9229,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9267,7 +9267,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9305,7 +9305,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9338,7 +9338,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -9528,7 +9528,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 16,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
@@ -9564,14 +9564,14 @@ namespace bongocat::assets {
         .idle_frames = 3,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9596,13 +9596,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GROVYLE_FQNAME_ARR[] = "pmd:Grovyle";
     inline static constexpr const char* PMD_GROVYLE_FQNAME = PMD_GROVYLE_FQNAME_ARR;
     inline static constexpr size_t PMD_GROVYLE_FQNAME_LEN = sizeof(PMD_GROVYLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GROVYLE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_GROVYLE_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_GROVYLE_ANIM_INDEX = 252;
     inline static constexpr custom_animation_settings_t PMD_GROVYLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -9619,7 +9619,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GROVYLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GROVYLE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_GROVYLE_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Sceptile
     inline static constexpr char PMD_SCEPTILE_FQID_ARR[] = "pmd:sceptile";
@@ -9634,13 +9634,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SCEPTILE_FQNAME_ARR[] = "pmd:Sceptile";
     inline static constexpr const char* PMD_SCEPTILE_FQNAME = PMD_SCEPTILE_FQNAME_ARR;
     inline static constexpr size_t PMD_SCEPTILE_FQNAME_LEN = sizeof(PMD_SCEPTILE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SCEPTILE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SCEPTILE_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_SCEPTILE_ANIM_INDEX = 253;
     inline static constexpr custom_animation_settings_t PMD_SCEPTILE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -9657,7 +9657,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SCEPTILE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SCEPTILE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SCEPTILE_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Torchic
     inline static constexpr char PMD_TORCHIC_FQID_ARR[] = "pmd:torchic";
@@ -9672,7 +9672,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TORCHIC_FQNAME_ARR[] = "pmd:Torchic";
     inline static constexpr const char* PMD_TORCHIC_FQNAME = PMD_TORCHIC_FQNAME_ARR;
     inline static constexpr size_t PMD_TORCHIC_FQNAME_LEN = sizeof(PMD_TORCHIC_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TORCHIC_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_TORCHIC_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_TORCHIC_ANIM_INDEX = 254;
     inline static constexpr custom_animation_settings_t PMD_TORCHIC_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -9680,12 +9680,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9695,7 +9695,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TORCHIC_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_TORCHIC_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_TORCHIC_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Combusken
     inline static constexpr char PMD_COMBUSKEN_FQID_ARR[] = "pmd:combusken";
@@ -9710,13 +9710,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_COMBUSKEN_FQNAME_ARR[] = "pmd:Combusken";
     inline static constexpr const char* PMD_COMBUSKEN_FQNAME = PMD_COMBUSKEN_FQNAME_ARR;
     inline static constexpr size_t PMD_COMBUSKEN_FQNAME_LEN = sizeof(PMD_COMBUSKEN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_COMBUSKEN_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_COMBUSKEN_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_COMBUSKEN_ANIM_INDEX = 255;
     inline static constexpr custom_animation_settings_t PMD_COMBUSKEN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -9733,7 +9733,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_COMBUSKEN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_COMBUSKEN_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_COMBUSKEN_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Blaziken
     inline static constexpr char PMD_BLAZIKEN_FQID_ARR[] = "pmd:blaziken";
@@ -9754,7 +9754,7 @@ namespace bongocat::assets {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 9,
+        .writing_frames = 10,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -9786,30 +9786,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MUDKIP_FQNAME_ARR[] = "pmd:Mudkip";
     inline static constexpr const char* PMD_MUDKIP_FQNAME = PMD_MUDKIP_FQNAME_ARR;
     inline static constexpr size_t PMD_MUDKIP_FQNAME_LEN = sizeof(PMD_MUDKIP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MUDKIP_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_MUDKIP_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_MUDKIP_ANIM_INDEX = 257;
     inline static constexpr custom_animation_settings_t PMD_MUDKIP_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
+        .idle_frames = 7,
+        .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 6,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MUDKIP_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_MUDKIP_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_MUDKIP_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MUDKIP_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Marshtomp
     inline static constexpr char PMD_MARSHTOMP_FQID_ARR[] = "pmd:marshtomp";
@@ -9824,7 +9824,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MARSHTOMP_FQNAME_ARR[] = "pmd:Marshtomp";
     inline static constexpr const char* PMD_MARSHTOMP_FQNAME = PMD_MARSHTOMP_FQNAME_ARR;
     inline static constexpr size_t PMD_MARSHTOMP_FQNAME_LEN = sizeof(PMD_MARSHTOMP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MARSHTOMP_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_MARSHTOMP_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_MARSHTOMP_ANIM_INDEX = 258;
     inline static constexpr custom_animation_settings_t PMD_MARSHTOMP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -9837,7 +9837,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9847,7 +9847,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MARSHTOMP_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MARSHTOMP_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_MARSHTOMP_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Swampert
     inline static constexpr char PMD_SWAMPERT_FQID_ARR[] = "pmd:swampert";
@@ -9870,12 +9870,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9900,7 +9900,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_POOCHYENA_FQNAME_ARR[] = "pmd:Poochyena";
     inline static constexpr const char* PMD_POOCHYENA_FQNAME = PMD_POOCHYENA_FQNAME_ARR;
     inline static constexpr size_t PMD_POOCHYENA_FQNAME_LEN = sizeof(PMD_POOCHYENA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_POOCHYENA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_POOCHYENA_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_POOCHYENA_ANIM_INDEX = 260;
     inline static constexpr custom_animation_settings_t PMD_POOCHYENA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -9908,12 +9908,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -9923,7 +9923,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_POOCHYENA_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_POOCHYENA_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_POOCHYENA_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Mightyena
     inline static constexpr char PMD_MIGHTYENA_FQID_ARR[] = "pmd:mightyena";
@@ -9938,7 +9938,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MIGHTYENA_FQNAME_ARR[] = "pmd:Mightyena";
     inline static constexpr const char* PMD_MIGHTYENA_FQNAME = PMD_MIGHTYENA_FQNAME_ARR;
     inline static constexpr size_t PMD_MIGHTYENA_FQNAME_LEN = sizeof(PMD_MIGHTYENA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MIGHTYENA_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_MIGHTYENA_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_MIGHTYENA_ANIM_INDEX = 261;
     inline static constexpr custom_animation_settings_t PMD_MIGHTYENA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -9946,12 +9946,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -9961,7 +9961,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MIGHTYENA_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MIGHTYENA_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_MIGHTYENA_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Zigzagoon
     inline static constexpr char PMD_ZIGZAGOON_FQID_ARR[] = "pmd:zigzagoon";
@@ -9976,11 +9976,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ZIGZAGOON_FQNAME_ARR[] = "pmd:Zigzagoon";
     inline static constexpr const char* PMD_ZIGZAGOON_FQNAME = PMD_ZIGZAGOON_FQNAME_ARR;
     inline static constexpr size_t PMD_ZIGZAGOON_FQNAME_LEN = sizeof(PMD_ZIGZAGOON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ZIGZAGOON_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ZIGZAGOON_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_ZIGZAGOON_ANIM_INDEX = 262;
     inline static constexpr custom_animation_settings_t PMD_ZIGZAGOON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 12,
         .end_writing_frames = -1,
@@ -9989,7 +9989,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -9998,7 +9998,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ZIGZAGOON_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ZIGZAGOON_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_ZIGZAGOON_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Linoone
@@ -10103,7 +10103,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 3,
@@ -10128,13 +10128,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BEAUTIFLY_FQNAME_ARR[] = "pmd:Beautifly";
     inline static constexpr const char* PMD_BEAUTIFLY_FQNAME = PMD_BEAUTIFLY_FQNAME_ARR;
     inline static constexpr size_t PMD_BEAUTIFLY_FQNAME_LEN = sizeof(PMD_BEAUTIFLY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BEAUTIFLY_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_BEAUTIFLY_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_BEAUTIFLY_ANIM_INDEX = 266;
     inline static constexpr custom_animation_settings_t PMD_BEAUTIFLY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -10151,7 +10151,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BEAUTIFLY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BEAUTIFLY_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_BEAUTIFLY_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Cascoon
     inline static constexpr char PMD_CASCOON_FQID_ARR[] = "pmd:cascoon";
@@ -10179,7 +10179,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 3,
@@ -10204,13 +10204,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DUSTOX_FQNAME_ARR[] = "pmd:Dustox";
     inline static constexpr const char* PMD_DUSTOX_FQNAME = PMD_DUSTOX_FQNAME_ARR;
     inline static constexpr size_t PMD_DUSTOX_FQNAME_LEN = sizeof(PMD_DUSTOX_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DUSTOX_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_DUSTOX_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_DUSTOX_ANIM_INDEX = 268;
     inline static constexpr custom_animation_settings_t PMD_DUSTOX_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -10227,7 +10227,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DUSTOX_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DUSTOX_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_DUSTOX_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Lotad
     inline static constexpr char PMD_LOTAD_FQID_ARR[] = "pmd:lotad";
@@ -10280,7 +10280,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LOMBRE_FQNAME_ARR[] = "pmd:Lombre";
     inline static constexpr const char* PMD_LOMBRE_FQNAME = PMD_LOMBRE_FQNAME_ARR;
     inline static constexpr size_t PMD_LOMBRE_FQNAME_LEN = sizeof(PMD_LOMBRE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LOMBRE_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_LOMBRE_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_LOMBRE_ANIM_INDEX = 270;
     inline static constexpr custom_animation_settings_t PMD_LOMBRE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -10293,7 +10293,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -10303,7 +10303,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LOMBRE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LOMBRE_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_LOMBRE_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Ludicolo
     inline static constexpr char PMD_LUDICOLO_FQID_ARR[] = "pmd:ludicolo";
@@ -10318,7 +10318,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LUDICOLO_FQNAME_ARR[] = "pmd:Ludicolo";
     inline static constexpr const char* PMD_LUDICOLO_FQNAME = PMD_LUDICOLO_FQNAME_ARR;
     inline static constexpr size_t PMD_LUDICOLO_FQNAME_LEN = sizeof(PMD_LUDICOLO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LUDICOLO_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_LUDICOLO_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_LUDICOLO_ANIM_INDEX = 271;
     inline static constexpr custom_animation_settings_t PMD_LUDICOLO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -10331,7 +10331,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -10341,7 +10341,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LUDICOLO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LUDICOLO_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_LUDICOLO_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Seedot
     inline static constexpr char PMD_SEEDOT_FQID_ARR[] = "pmd:seedot";
@@ -10356,7 +10356,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SEEDOT_FQNAME_ARR[] = "pmd:Seedot";
     inline static constexpr const char* PMD_SEEDOT_FQNAME = PMD_SEEDOT_FQNAME_ARR;
     inline static constexpr size_t PMD_SEEDOT_FQNAME_LEN = sizeof(PMD_SEEDOT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SEEDOT_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SEEDOT_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SEEDOT_ANIM_INDEX = 272;
     inline static constexpr custom_animation_settings_t PMD_SEEDOT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -10364,12 +10364,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -10379,7 +10379,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SEEDOT_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SEEDOT_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SEEDOT_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Nuzleaf
     inline static constexpr char PMD_NUZLEAF_FQID_ARR[] = "pmd:nuzleaf";
@@ -10432,7 +10432,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SHIFTRY_FQNAME_ARR[] = "pmd:Shiftry";
     inline static constexpr const char* PMD_SHIFTRY_FQNAME = PMD_SHIFTRY_FQNAME_ARR;
     inline static constexpr size_t PMD_SHIFTRY_FQNAME_LEN = sizeof(PMD_SHIFTRY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SHIFTRY_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SHIFTRY_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_SHIFTRY_ANIM_INDEX = 274;
     inline static constexpr custom_animation_settings_t PMD_SHIFTRY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -10445,7 +10445,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -10455,7 +10455,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SHIFTRY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SHIFTRY_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_SHIFTRY_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Taillow
     inline static constexpr char PMD_TAILLOW_FQID_ARR[] = "pmd:taillow";
@@ -10470,13 +10470,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TAILLOW_FQNAME_ARR[] = "pmd:Taillow";
     inline static constexpr const char* PMD_TAILLOW_FQNAME = PMD_TAILLOW_FQNAME_ARR;
     inline static constexpr size_t PMD_TAILLOW_FQNAME_LEN = sizeof(PMD_TAILLOW_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TAILLOW_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_TAILLOW_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_TAILLOW_ANIM_INDEX = 275;
     inline static constexpr custom_animation_settings_t PMD_TAILLOW_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -10493,7 +10493,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TAILLOW_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TAILLOW_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_TAILLOW_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Swellow
     inline static constexpr char PMD_SWELLOW_FQID_ARR[] = "pmd:swellow";
@@ -10508,13 +10508,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SWELLOW_FQNAME_ARR[] = "pmd:Swellow";
     inline static constexpr const char* PMD_SWELLOW_FQNAME = PMD_SWELLOW_FQNAME_ARR;
     inline static constexpr size_t PMD_SWELLOW_FQNAME_LEN = sizeof(PMD_SWELLOW_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SWELLOW_SPRITE_SHEET_FRAMES_COUNT = 126;
+    inline static constexpr size_t PMD_SWELLOW_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SWELLOW_ANIM_INDEX = 276;
     inline static constexpr custom_animation_settings_t PMD_SWELLOW_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -10530,8 +10530,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SWELLOW_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SWELLOW_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_SWELLOW_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SWELLOW_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Wingull
     inline static constexpr char PMD_WINGULL_FQID_ARR[] = "pmd:wingull";
@@ -10584,7 +10584,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PELIPPER_FQNAME_ARR[] = "pmd:Pelipper";
     inline static constexpr const char* PMD_PELIPPER_FQNAME = PMD_PELIPPER_FQNAME_ARR;
     inline static constexpr size_t PMD_PELIPPER_FQNAME_LEN = sizeof(PMD_PELIPPER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PELIPPER_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PELIPPER_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_PELIPPER_ANIM_INDEX = 278;
     inline static constexpr custom_animation_settings_t PMD_PELIPPER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -10597,7 +10597,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -10607,7 +10607,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PELIPPER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PELIPPER_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_PELIPPER_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Ralts
     inline static constexpr char PMD_RALTS_FQID_ARR[] = "pmd:ralts";
@@ -10630,7 +10630,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -10668,12 +10668,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 13,
@@ -10698,11 +10698,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GARDEVOIR_FQNAME_ARR[] = "pmd:Gardevoir";
     inline static constexpr const char* PMD_GARDEVOIR_FQNAME = PMD_GARDEVOIR_FQNAME_ARR;
     inline static constexpr size_t PMD_GARDEVOIR_FQNAME_LEN = sizeof(PMD_GARDEVOIR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GARDEVOIR_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_GARDEVOIR_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_GARDEVOIR_ANIM_INDEX = 281;
     inline static constexpr custom_animation_settings_t PMD_GARDEVOIR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 8,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -10720,7 +10720,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GARDEVOIR_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GARDEVOIR_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_GARDEVOIR_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Surskit
@@ -10812,7 +10812,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SHROOMISH_FQNAME_ARR[] = "pmd:Shroomish";
     inline static constexpr const char* PMD_SHROOMISH_FQNAME = PMD_SHROOMISH_FQNAME_ARR;
     inline static constexpr size_t PMD_SHROOMISH_FQNAME_LEN = sizeof(PMD_SHROOMISH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SHROOMISH_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SHROOMISH_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_SHROOMISH_ANIM_INDEX = 284;
     inline static constexpr custom_animation_settings_t PMD_SHROOMISH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -10825,7 +10825,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -10835,7 +10835,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SHROOMISH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SHROOMISH_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_SHROOMISH_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Breloom
     inline static constexpr char PMD_BRELOOM_FQID_ARR[] = "pmd:breloom";
@@ -10850,7 +10850,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BRELOOM_FQNAME_ARR[] = "pmd:Breloom";
     inline static constexpr const char* PMD_BRELOOM_FQNAME = PMD_BRELOOM_FQNAME_ARR;
     inline static constexpr size_t PMD_BRELOOM_FQNAME_LEN = sizeof(PMD_BRELOOM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BRELOOM_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_BRELOOM_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_BRELOOM_ANIM_INDEX = 285;
     inline static constexpr custom_animation_settings_t PMD_BRELOOM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
@@ -10858,12 +10858,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -10873,7 +10873,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BRELOOM_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_BRELOOM_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_BRELOOM_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Slakoth
     inline static constexpr char PMD_SLAKOTH_FQID_ARR[] = "pmd:slakoth";
@@ -10888,11 +10888,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SLAKOTH_FQNAME_ARR[] = "pmd:Slakoth";
     inline static constexpr const char* PMD_SLAKOTH_FQNAME = PMD_SLAKOTH_FQNAME_ARR;
     inline static constexpr size_t PMD_SLAKOTH_FQNAME_LEN = sizeof(PMD_SLAKOTH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SLAKOTH_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_SLAKOTH_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SLAKOTH_ANIM_INDEX = 286;
     inline static constexpr custom_animation_settings_t PMD_SLAKOTH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 12,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -10910,8 +10910,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SLAKOTH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SLAKOTH_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_SLAKOTH_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SLAKOTH_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Vigoroth
     inline static constexpr char PMD_VIGOROTH_FQID_ARR[] = "pmd:vigoroth";
@@ -10926,13 +10926,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VIGOROTH_FQNAME_ARR[] = "pmd:Vigoroth";
     inline static constexpr const char* PMD_VIGOROTH_FQNAME = PMD_VIGOROTH_FQNAME_ARR;
     inline static constexpr size_t PMD_VIGOROTH_FQNAME_LEN = sizeof(PMD_VIGOROTH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VIGOROTH_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_VIGOROTH_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_VIGOROTH_ANIM_INDEX = 287;
     inline static constexpr custom_animation_settings_t PMD_VIGOROTH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 12,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -10948,8 +10948,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_VIGOROTH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VIGOROTH_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_VIGOROTH_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_VIGOROTH_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Slaking
     inline static constexpr char PMD_SLAKING_FQID_ARR[] = "pmd:slaking";
@@ -10964,13 +10964,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SLAKING_FQNAME_ARR[] = "pmd:Slaking";
     inline static constexpr const char* PMD_SLAKING_FQNAME = PMD_SLAKING_FQNAME_ARR;
     inline static constexpr size_t PMD_SLAKING_FQNAME_LEN = sizeof(PMD_SLAKING_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SLAKING_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SLAKING_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SLAKING_ANIM_INDEX = 288;
     inline static constexpr custom_animation_settings_t PMD_SLAKING_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
-        .boring_frames = -1,
+        .boring_frames = 12,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -10986,8 +10986,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SLAKING_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SLAKING_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SLAKING_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SLAKING_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Nincada
     inline static constexpr char PMD_NINCADA_FQID_ARR[] = "pmd:nincada";
@@ -11002,7 +11002,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_NINCADA_FQNAME_ARR[] = "pmd:Nincada";
     inline static constexpr const char* PMD_NINCADA_FQNAME = PMD_NINCADA_FQNAME_ARR;
     inline static constexpr size_t PMD_NINCADA_FQNAME_LEN = sizeof(PMD_NINCADA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NINCADA_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_NINCADA_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_NINCADA_ANIM_INDEX = 289;
     inline static constexpr custom_animation_settings_t PMD_NINCADA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -11015,7 +11015,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11025,7 +11025,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_NINCADA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NINCADA_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_NINCADA_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Ninjask
     inline static constexpr char PMD_NINJASK_FQID_ARR[] = "pmd:ninjask";
@@ -11040,7 +11040,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_NINJASK_FQNAME_ARR[] = "pmd:Ninjask";
     inline static constexpr const char* PMD_NINJASK_FQNAME = PMD_NINJASK_FQNAME_ARR;
     inline static constexpr size_t PMD_NINJASK_FQNAME_LEN = sizeof(PMD_NINJASK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NINJASK_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_NINJASK_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_NINJASK_ANIM_INDEX = 290;
     inline static constexpr custom_animation_settings_t PMD_NINJASK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -11053,7 +11053,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11063,7 +11063,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_NINJASK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NINJASK_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_NINJASK_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Shedinja
     inline static constexpr char PMD_SHEDINJA_FQID_ARR[] = "pmd:shedinja";
@@ -11078,11 +11078,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SHEDINJA_FQNAME_ARR[] = "pmd:Shedinja";
     inline static constexpr const char* PMD_SHEDINJA_FQNAME = PMD_SHEDINJA_FQNAME_ARR;
     inline static constexpr size_t PMD_SHEDINJA_FQNAME_LEN = sizeof(PMD_SHEDINJA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SHEDINJA_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_SHEDINJA_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_SHEDINJA_ANIM_INDEX = 291;
     inline static constexpr custom_animation_settings_t PMD_SHEDINJA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -11100,8 +11100,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SHEDINJA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SHEDINJA_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_SHEDINJA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SHEDINJA_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Whismur
     inline static constexpr char PMD_WHISMUR_FQID_ARR[] = "pmd:whismur";
@@ -11116,11 +11116,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WHISMUR_FQNAME_ARR[] = "pmd:Whismur";
     inline static constexpr const char* PMD_WHISMUR_FQNAME = PMD_WHISMUR_FQNAME_ARR;
     inline static constexpr size_t PMD_WHISMUR_FQNAME_LEN = sizeof(PMD_WHISMUR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WHISMUR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_WHISMUR_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_WHISMUR_ANIM_INDEX = 292;
     inline static constexpr custom_animation_settings_t PMD_WHISMUR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 16,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -11138,8 +11138,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_WHISMUR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WHISMUR_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_WHISMUR_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_WHISMUR_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Loudred
     inline static constexpr char PMD_LOUDRED_FQID_ARR[] = "pmd:loudred";
@@ -11192,11 +11192,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_EXPLOUD_FQNAME_ARR[] = "pmd:Exploud";
     inline static constexpr const char* PMD_EXPLOUD_FQNAME = PMD_EXPLOUD_FQNAME_ARR;
     inline static constexpr size_t PMD_EXPLOUD_FQNAME_LEN = sizeof(PMD_EXPLOUD_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_EXPLOUD_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_EXPLOUD_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_EXPLOUD_ANIM_INDEX = 294;
     inline static constexpr custom_animation_settings_t PMD_EXPLOUD_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 8,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -11214,7 +11214,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_EXPLOUD_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_EXPLOUD_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_EXPLOUD_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Makuhita
@@ -11236,7 +11236,7 @@ namespace bongocat::assets {
         .idle_frames = 16,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -11268,13 +11268,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HARIYAMA_FQNAME_ARR[] = "pmd:Hariyama";
     inline static constexpr const char* PMD_HARIYAMA_FQNAME = PMD_HARIYAMA_FQNAME_ARR;
     inline static constexpr size_t PMD_HARIYAMA_FQNAME_LEN = sizeof(PMD_HARIYAMA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HARIYAMA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_HARIYAMA_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_HARIYAMA_ANIM_INDEX = 296;
     inline static constexpr custom_animation_settings_t PMD_HARIYAMA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -11291,7 +11291,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HARIYAMA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HARIYAMA_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_HARIYAMA_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Azurill
     inline static constexpr char PMD_AZURILL_FQID_ARR[] = "pmd:azurill";
@@ -11306,11 +11306,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_AZURILL_FQNAME_ARR[] = "pmd:Azurill";
     inline static constexpr const char* PMD_AZURILL_FQNAME = PMD_AZURILL_FQNAME_ARR;
     inline static constexpr size_t PMD_AZURILL_FQNAME_LEN = sizeof(PMD_AZURILL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_AZURILL_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_AZURILL_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_AZURILL_ANIM_INDEX = 297;
     inline static constexpr custom_animation_settings_t PMD_AZURILL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 7,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -11328,7 +11328,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_AZURILL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_AZURILL_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_AZURILL_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Nosepass
@@ -11344,7 +11344,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_NOSEPASS_FQNAME_ARR[] = "pmd:Nosepass";
     inline static constexpr const char* PMD_NOSEPASS_FQNAME = PMD_NOSEPASS_FQNAME_ARR;
     inline static constexpr size_t PMD_NOSEPASS_FQNAME_LEN = sizeof(PMD_NOSEPASS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NOSEPASS_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_NOSEPASS_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_NOSEPASS_ANIM_INDEX = 298;
     inline static constexpr custom_animation_settings_t PMD_NOSEPASS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -11357,7 +11357,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11367,7 +11367,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_NOSEPASS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NOSEPASS_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_NOSEPASS_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Skitty
     inline static constexpr char PMD_SKITTY_FQID_ARR[] = "pmd:skitty";
@@ -11390,7 +11390,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -11428,7 +11428,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -11458,7 +11458,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SABLEYE_FQNAME_ARR[] = "pmd:Sableye";
     inline static constexpr const char* PMD_SABLEYE_FQNAME = PMD_SABLEYE_FQNAME_ARR;
     inline static constexpr size_t PMD_SABLEYE_FQNAME_LEN = sizeof(PMD_SABLEYE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SABLEYE_SPRITE_SHEET_FRAMES_COUNT = 102;
+    inline static constexpr size_t PMD_SABLEYE_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_SABLEYE_ANIM_INDEX = 301;
     inline static constexpr custom_animation_settings_t PMD_SABLEYE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -11471,7 +11471,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 17,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11481,7 +11481,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SABLEYE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SABLEYE_SPRITE_SHEET_MAX_COLS = 17;
+    inline static constexpr int PMD_SABLEYE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Mawile
     inline static constexpr char PMD_MAWILE_FQID_ARR[] = "pmd:mawile";
@@ -11502,7 +11502,7 @@ namespace bongocat::assets {
         .idle_frames = 13,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 15,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -11534,7 +11534,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ARON_FQNAME_ARR[] = "pmd:Aron";
     inline static constexpr const char* PMD_ARON_FQNAME = PMD_ARON_FQNAME_ARR;
     inline static constexpr size_t PMD_ARON_FQNAME_LEN = sizeof(PMD_ARON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ARON_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_ARON_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_ARON_ANIM_INDEX = 303;
     inline static constexpr custom_animation_settings_t PMD_ARON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -11542,12 +11542,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11557,7 +11557,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ARON_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_ARON_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_ARON_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Lairon
     inline static constexpr char PMD_LAIRON_FQID_ARR[] = "pmd:lairon";
@@ -11572,7 +11572,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LAIRON_FQNAME_ARR[] = "pmd:Lairon";
     inline static constexpr const char* PMD_LAIRON_FQNAME = PMD_LAIRON_FQNAME_ARR;
     inline static constexpr size_t PMD_LAIRON_FQNAME_LEN = sizeof(PMD_LAIRON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LAIRON_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_LAIRON_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_LAIRON_ANIM_INDEX = 304;
     inline static constexpr custom_animation_settings_t PMD_LAIRON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -11585,7 +11585,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11595,7 +11595,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LAIRON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LAIRON_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_LAIRON_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Aggron
     inline static constexpr char PMD_AGGRON_FQID_ARR[] = "pmd:aggron";
@@ -11610,7 +11610,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_AGGRON_FQNAME_ARR[] = "pmd:Aggron";
     inline static constexpr const char* PMD_AGGRON_FQNAME = PMD_AGGRON_FQNAME_ARR;
     inline static constexpr size_t PMD_AGGRON_FQNAME_LEN = sizeof(PMD_AGGRON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_AGGRON_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_AGGRON_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_AGGRON_ANIM_INDEX = 305;
     inline static constexpr custom_animation_settings_t PMD_AGGRON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -11623,7 +11623,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11633,7 +11633,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_AGGRON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_AGGRON_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_AGGRON_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Meditite
     inline static constexpr char PMD_MEDITITE_FQID_ARR[] = "pmd:meditite";
@@ -11648,7 +11648,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MEDITITE_FQNAME_ARR[] = "pmd:Meditite";
     inline static constexpr const char* PMD_MEDITITE_FQNAME = PMD_MEDITITE_FQNAME_ARR;
     inline static constexpr size_t PMD_MEDITITE_FQNAME_LEN = sizeof(PMD_MEDITITE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MEDITITE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_MEDITITE_SPRITE_SHEET_FRAMES_COUNT = 120;
     inline static constexpr size_t PMD_MEDITITE_ANIM_INDEX = 306;
     inline static constexpr custom_animation_settings_t PMD_MEDITITE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -11661,7 +11661,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 20,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -11671,7 +11671,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MEDITITE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MEDITITE_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_MEDITITE_SPRITE_SHEET_MAX_COLS = 20;
 
     // Name: Medicham
     inline static constexpr char PMD_MEDICHAM_FQID_ARR[] = "pmd:medicham";
@@ -11692,7 +11692,7 @@ namespace bongocat::assets {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -11724,7 +11724,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ELECTRIKE_FQNAME_ARR[] = "pmd:Electrike";
     inline static constexpr const char* PMD_ELECTRIKE_FQNAME = PMD_ELECTRIKE_FQNAME_ARR;
     inline static constexpr size_t PMD_ELECTRIKE_FQNAME_LEN = sizeof(PMD_ELECTRIKE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ELECTRIKE_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_ELECTRIKE_SPRITE_SHEET_FRAMES_COUNT = 133;
     inline static constexpr size_t PMD_ELECTRIKE_ANIM_INDEX = 308;
     inline static constexpr custom_animation_settings_t PMD_ELECTRIKE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
@@ -11732,12 +11732,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 19,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11747,7 +11747,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ELECTRIKE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_ELECTRIKE_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_ELECTRIKE_SPRITE_SHEET_MAX_COLS = 19;
 
     // Name: Manectric
     inline static constexpr char PMD_MANECTRIC_FQID_ARR[] = "pmd:manectric";
@@ -11762,11 +11762,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MANECTRIC_FQNAME_ARR[] = "pmd:Manectric";
     inline static constexpr const char* PMD_MANECTRIC_FQNAME = PMD_MANECTRIC_FQNAME_ARR;
     inline static constexpr size_t PMD_MANECTRIC_FQNAME_LEN = sizeof(PMD_MANECTRIC_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MANECTRIC_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_MANECTRIC_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_MANECTRIC_ANIM_INDEX = 309;
     inline static constexpr custom_animation_settings_t PMD_MANECTRIC_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
@@ -11775,7 +11775,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -11784,8 +11784,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MANECTRIC_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MANECTRIC_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_MANECTRIC_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MANECTRIC_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Plusle
     inline static constexpr char PMD_PLUSLE_FQID_ARR[] = "pmd:plusle";
@@ -11808,7 +11808,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -11846,7 +11846,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -11876,11 +11876,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VOLBEAT_FQNAME_ARR[] = "pmd:Volbeat";
     inline static constexpr const char* PMD_VOLBEAT_FQNAME = PMD_VOLBEAT_FQNAME_ARR;
     inline static constexpr size_t PMD_VOLBEAT_FQNAME_LEN = sizeof(PMD_VOLBEAT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VOLBEAT_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_VOLBEAT_SPRITE_SHEET_FRAMES_COUNT = 133;
     inline static constexpr size_t PMD_VOLBEAT_ANIM_INDEX = 312;
     inline static constexpr custom_animation_settings_t PMD_VOLBEAT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 19,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -11889,7 +11889,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -11898,8 +11898,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_VOLBEAT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VOLBEAT_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_VOLBEAT_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_VOLBEAT_SPRITE_SHEET_MAX_COLS = 19;
 
     // Name: Illumise
     inline static constexpr char PMD_ILLUMISE_FQID_ARR[] = "pmd:illumise";
@@ -11960,7 +11960,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -12003,7 +12003,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -12028,7 +12028,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SWALOT_FQNAME_ARR[] = "pmd:Swalot";
     inline static constexpr const char* PMD_SWALOT_FQNAME = PMD_SWALOT_FQNAME_ARR;
     inline static constexpr size_t PMD_SWALOT_FQNAME_LEN = sizeof(PMD_SWALOT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SWALOT_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SWALOT_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_SWALOT_ANIM_INDEX = 316;
     inline static constexpr custom_animation_settings_t PMD_SWALOT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -12041,7 +12041,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -12051,7 +12051,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SWALOT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SWALOT_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_SWALOT_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Carvanha
     inline static constexpr char PMD_CARVANHA_FQID_ARR[] = "pmd:carvanha";
@@ -12072,14 +12072,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -12110,14 +12110,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -12231,7 +12231,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 9,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -12256,30 +12256,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CAMERUPT_FQNAME_ARR[] = "pmd:Camerupt";
     inline static constexpr const char* PMD_CAMERUPT_FQNAME = PMD_CAMERUPT_FQNAME_ARR;
     inline static constexpr size_t PMD_CAMERUPT_FQNAME_LEN = sizeof(PMD_CAMERUPT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CAMERUPT_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_CAMERUPT_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_CAMERUPT_ANIM_INDEX = 322;
     inline static constexpr custom_animation_settings_t PMD_CAMERUPT_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CAMERUPT_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_CAMERUPT_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_CAMERUPT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CAMERUPT_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Torkoal
     inline static constexpr char PMD_TORKOAL_FQID_ARR[] = "pmd:torkoal";
@@ -12294,11 +12294,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TORKOAL_FQNAME_ARR[] = "pmd:Torkoal";
     inline static constexpr const char* PMD_TORKOAL_FQNAME = PMD_TORKOAL_FQNAME_ARR;
     inline static constexpr size_t PMD_TORKOAL_FQNAME_LEN = sizeof(PMD_TORKOAL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TORKOAL_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_TORKOAL_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_TORKOAL_ANIM_INDEX = 323;
     inline static constexpr custom_animation_settings_t PMD_TORKOAL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 16,
         .start_writing_frames = -1,
         .writing_frames = 18,
         .end_writing_frames = -1,
@@ -12316,7 +12316,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TORKOAL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TORKOAL_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_TORKOAL_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Spoink
@@ -12332,11 +12332,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SPOINK_FQNAME_ARR[] = "pmd:Spoink";
     inline static constexpr const char* PMD_SPOINK_FQNAME = PMD_SPOINK_FQNAME_ARR;
     inline static constexpr size_t PMD_SPOINK_FQNAME_LEN = sizeof(PMD_SPOINK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SPOINK_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SPOINK_SPRITE_SHEET_FRAMES_COUNT = 154;
     inline static constexpr size_t PMD_SPOINK_ANIM_INDEX = 324;
     inline static constexpr custom_animation_settings_t PMD_SPOINK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 22,
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
@@ -12354,8 +12354,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SPOINK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SPOINK_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_SPOINK_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SPOINK_SPRITE_SHEET_MAX_COLS = 22;
 
     // Name: Grumpig
     inline static constexpr char PMD_GRUMPIG_FQID_ARR[] = "pmd:grumpig";
@@ -12370,11 +12370,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GRUMPIG_FQNAME_ARR[] = "pmd:Grumpig";
     inline static constexpr const char* PMD_GRUMPIG_FQNAME = PMD_GRUMPIG_FQNAME_ARR;
     inline static constexpr size_t PMD_GRUMPIG_FQNAME_LEN = sizeof(PMD_GRUMPIG_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GRUMPIG_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_GRUMPIG_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_GRUMPIG_ANIM_INDEX = 325;
     inline static constexpr custom_animation_settings_t PMD_GRUMPIG_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 15,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -12392,8 +12392,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GRUMPIG_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GRUMPIG_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_GRUMPIG_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_GRUMPIG_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Spinda
     inline static constexpr char PMD_SPINDA_FQID_ARR[] = "pmd:spinda";
@@ -12408,13 +12408,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SPINDA_FQNAME_ARR[] = "pmd:Spinda";
     inline static constexpr const char* PMD_SPINDA_FQNAME = PMD_SPINDA_FQNAME_ARR;
     inline static constexpr size_t PMD_SPINDA_FQNAME_LEN = sizeof(PMD_SPINDA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SPINDA_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SPINDA_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SPINDA_ANIM_INDEX = 326;
     inline static constexpr custom_animation_settings_t PMD_SPINDA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 9,
-        .boring_frames = -1,
+        .boring_frames = 9,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -12430,8 +12430,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SPINDA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SPINDA_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SPINDA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SPINDA_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Trapinch
     inline static constexpr char PMD_TRAPINCH_FQID_ARR[] = "pmd:trapinch";
@@ -12446,13 +12446,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TRAPINCH_FQNAME_ARR[] = "pmd:Trapinch";
     inline static constexpr const char* PMD_TRAPINCH_FQNAME = PMD_TRAPINCH_FQNAME_ARR;
     inline static constexpr size_t PMD_TRAPINCH_FQNAME_LEN = sizeof(PMD_TRAPINCH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TRAPINCH_SPRITE_SHEET_FRAMES_COUNT = 112;
+    inline static constexpr size_t PMD_TRAPINCH_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_TRAPINCH_ANIM_INDEX = 327;
     inline static constexpr custom_animation_settings_t PMD_TRAPINCH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -12468,7 +12468,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TRAPINCH_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TRAPINCH_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_TRAPINCH_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Vibrava
@@ -12522,13 +12522,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FLYGON_FQNAME_ARR[] = "pmd:Flygon";
     inline static constexpr const char* PMD_FLYGON_FQNAME = PMD_FLYGON_FQNAME_ARR;
     inline static constexpr size_t PMD_FLYGON_FQNAME_LEN = sizeof(PMD_FLYGON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FLYGON_SPRITE_SHEET_FRAMES_COUNT = 114;
+    inline static constexpr size_t PMD_FLYGON_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_FLYGON_ANIM_INDEX = 329;
     inline static constexpr custom_animation_settings_t PMD_FLYGON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 19,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -12545,7 +12545,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_FLYGON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_FLYGON_SPRITE_SHEET_MAX_COLS = 19;
+    inline static constexpr int PMD_FLYGON_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Cacnea
     inline static constexpr char PMD_CACNEA_FQID_ARR[] = "pmd:cacnea";
@@ -12598,7 +12598,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CACTURNE_FQNAME_ARR[] = "pmd:Cacturne";
     inline static constexpr const char* PMD_CACTURNE_FQNAME = PMD_CACTURNE_FQNAME_ARR;
     inline static constexpr size_t PMD_CACTURNE_FQNAME_LEN = sizeof(PMD_CACTURNE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CACTURNE_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_CACTURNE_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_CACTURNE_ANIM_INDEX = 331;
     inline static constexpr custom_animation_settings_t PMD_CACTURNE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -12611,7 +12611,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -12621,7 +12621,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CACTURNE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CACTURNE_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_CACTURNE_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Swablu
     inline static constexpr char PMD_SWABLU_FQID_ARR[] = "pmd:swablu";
@@ -12644,7 +12644,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -12682,7 +12682,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -12712,7 +12712,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ZANGOOSE_FQNAME_ARR[] = "pmd:Zangoose";
     inline static constexpr const char* PMD_ZANGOOSE_FQNAME = PMD_ZANGOOSE_FQNAME_ARR;
     inline static constexpr size_t PMD_ZANGOOSE_FQNAME_LEN = sizeof(PMD_ZANGOOSE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ZANGOOSE_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_ZANGOOSE_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_ZANGOOSE_ANIM_INDEX = 334;
     inline static constexpr custom_animation_settings_t PMD_ZANGOOSE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -12720,12 +12720,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -12735,7 +12735,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ZANGOOSE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_ZANGOOSE_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_ZANGOOSE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Seviper
     inline static constexpr char PMD_SEVIPER_FQID_ARR[] = "pmd:seviper";
@@ -12750,20 +12750,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SEVIPER_FQNAME_ARR[] = "pmd:Seviper";
     inline static constexpr const char* PMD_SEVIPER_FQNAME = PMD_SEVIPER_FQNAME_ARR;
     inline static constexpr size_t PMD_SEVIPER_FQNAME_LEN = sizeof(PMD_SEVIPER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SEVIPER_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SEVIPER_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_SEVIPER_ANIM_INDEX = 335;
     inline static constexpr custom_animation_settings_t PMD_SEVIPER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -12773,7 +12773,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SEVIPER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SEVIPER_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SEVIPER_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Lunatone
     inline static constexpr char PMD_LUNATONE_FQID_ARR[] = "pmd:lunatone";
@@ -12801,7 +12801,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -12839,7 +12839,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 10,
@@ -12864,11 +12864,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BARBOACH_FQNAME_ARR[] = "pmd:Barboach";
     inline static constexpr const char* PMD_BARBOACH_FQNAME = PMD_BARBOACH_FQNAME_ARR;
     inline static constexpr size_t PMD_BARBOACH_FQNAME_LEN = sizeof(PMD_BARBOACH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BARBOACH_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_BARBOACH_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_BARBOACH_ANIM_INDEX = 338;
     inline static constexpr custom_animation_settings_t PMD_BARBOACH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 9,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -12886,7 +12886,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_BARBOACH_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BARBOACH_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_BARBOACH_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Whiscash
@@ -12902,11 +12902,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WHISCASH_FQNAME_ARR[] = "pmd:Whiscash";
     inline static constexpr const char* PMD_WHISCASH_FQNAME = PMD_WHISCASH_FQNAME_ARR;
     inline static constexpr size_t PMD_WHISCASH_FQNAME_LEN = sizeof(PMD_WHISCASH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WHISCASH_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_WHISCASH_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_WHISCASH_ANIM_INDEX = 339;
     inline static constexpr custom_animation_settings_t PMD_WHISCASH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 10,
-        .boring_frames = -1,
+        .boring_frames = 9,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -12924,7 +12924,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_WHISCASH_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_WHISCASH_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_WHISCASH_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Corphish
@@ -12940,20 +12940,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CORPHISH_FQNAME_ARR[] = "pmd:Corphish";
     inline static constexpr const char* PMD_CORPHISH_FQNAME = PMD_CORPHISH_FQNAME_ARR;
     inline static constexpr size_t PMD_CORPHISH_FQNAME_LEN = sizeof(PMD_CORPHISH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CORPHISH_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_CORPHISH_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_CORPHISH_ANIM_INDEX = 340;
     inline static constexpr custom_animation_settings_t PMD_CORPHISH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -12963,7 +12963,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CORPHISH_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_CORPHISH_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_CORPHISH_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Crawdaunt
     inline static constexpr char PMD_CRAWDAUNT_FQID_ARR[] = "pmd:crawdaunt";
@@ -12978,20 +12978,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CRAWDAUNT_FQNAME_ARR[] = "pmd:Crawdaunt";
     inline static constexpr const char* PMD_CRAWDAUNT_FQNAME = PMD_CRAWDAUNT_FQNAME_ARR;
     inline static constexpr size_t PMD_CRAWDAUNT_FQNAME_LEN = sizeof(PMD_CRAWDAUNT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CRAWDAUNT_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_CRAWDAUNT_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_CRAWDAUNT_ANIM_INDEX = 341;
     inline static constexpr custom_animation_settings_t PMD_CRAWDAUNT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -13001,7 +13001,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CRAWDAUNT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CRAWDAUNT_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_CRAWDAUNT_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Baltoy
     inline static constexpr char PMD_BALTOY_FQID_ARR[] = "pmd:baltoy";
@@ -13029,7 +13029,7 @@ namespace bongocat::assets {
         .sleep_frames = 10,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 16,
@@ -13067,7 +13067,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -13138,7 +13138,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -13168,30 +13168,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ANORITH_FQNAME_ARR[] = "pmd:Anorith";
     inline static constexpr const char* PMD_ANORITH_FQNAME = PMD_ANORITH_FQNAME_ARR;
     inline static constexpr size_t PMD_ANORITH_FQNAME_LEN = sizeof(PMD_ANORITH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ANORITH_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_ANORITH_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_ANORITH_ANIM_INDEX = 346;
     inline static constexpr custom_animation_settings_t PMD_ANORITH_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 8,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ANORITH_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_ANORITH_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_ANORITH_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ANORITH_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Armaldo
     inline static constexpr char PMD_ARMALDO_FQID_ARR[] = "pmd:armaldo";
@@ -13212,7 +13212,7 @@ namespace bongocat::assets {
         .idle_frames = 14,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -13244,11 +13244,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FEEBAS_FQNAME_ARR[] = "pmd:Feebas";
     inline static constexpr const char* PMD_FEEBAS_FQNAME = PMD_FEEBAS_FQNAME_ARR;
     inline static constexpr size_t PMD_FEEBAS_FQNAME_LEN = sizeof(PMD_FEEBAS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FEEBAS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_FEEBAS_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_FEEBAS_ANIM_INDEX = 348;
     inline static constexpr custom_animation_settings_t PMD_FEEBAS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 12,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -13266,7 +13266,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_FEEBAS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_FEEBAS_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_FEEBAS_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Milotic
@@ -13282,7 +13282,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MILOTIC_FQNAME_ARR[] = "pmd:Milotic";
     inline static constexpr const char* PMD_MILOTIC_FQNAME = PMD_MILOTIC_FQNAME_ARR;
     inline static constexpr size_t PMD_MILOTIC_FQNAME_LEN = sizeof(PMD_MILOTIC_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MILOTIC_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_MILOTIC_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_MILOTIC_ANIM_INDEX = 349;
     inline static constexpr custom_animation_settings_t PMD_MILOTIC_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -13295,7 +13295,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -13305,7 +13305,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MILOTIC_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MILOTIC_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_MILOTIC_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Castform
     inline static constexpr char PMD_CASTFORM_FQID_ARR[] = "pmd:castform";
@@ -13320,11 +13320,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CASTFORM_FQNAME_ARR[] = "pmd:Castform";
     inline static constexpr const char* PMD_CASTFORM_FQNAME = PMD_CASTFORM_FQNAME_ARR;
     inline static constexpr size_t PMD_CASTFORM_FQNAME_LEN = sizeof(PMD_CASTFORM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CASTFORM_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_CASTFORM_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_CASTFORM_ANIM_INDEX = 350;
     inline static constexpr custom_animation_settings_t PMD_CASTFORM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -13342,8 +13342,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CASTFORM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CASTFORM_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_CASTFORM_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CASTFORM_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Kecleon
     inline static constexpr char PMD_KECLEON_FQID_ARR[] = "pmd:kecleon";
@@ -13358,20 +13358,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KECLEON_FQNAME_ARR[] = "pmd:Kecleon";
     inline static constexpr const char* PMD_KECLEON_FQNAME = PMD_KECLEON_FQNAME_ARR;
     inline static constexpr size_t PMD_KECLEON_FQNAME_LEN = sizeof(PMD_KECLEON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KECLEON_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_KECLEON_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_KECLEON_ANIM_INDEX = 351;
     inline static constexpr custom_animation_settings_t PMD_KECLEON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -13381,7 +13381,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_KECLEON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KECLEON_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_KECLEON_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Shuppet
     inline static constexpr char PMD_SHUPPET_FQID_ARR[] = "pmd:shuppet";
@@ -13402,14 +13402,14 @@ namespace bongocat::assets {
         .idle_frames = 6,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 20,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 20,
+        .working_frames = 19,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -13434,20 +13434,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BANETTE_FQNAME_ARR[] = "pmd:Banette";
     inline static constexpr const char* PMD_BANETTE_FQNAME = PMD_BANETTE_FQNAME_ARR;
     inline static constexpr size_t PMD_BANETTE_FQNAME_LEN = sizeof(PMD_BANETTE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BANETTE_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_BANETTE_SPRITE_SHEET_FRAMES_COUNT = 108;
     inline static constexpr size_t PMD_BANETTE_ANIM_INDEX = 353;
     inline static constexpr custom_animation_settings_t PMD_BANETTE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 9,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 18,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -13457,7 +13457,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BANETTE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BANETTE_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_BANETTE_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Duskull
     inline static constexpr char PMD_DUSKULL_FQID_ARR[] = "pmd:duskull";
@@ -13472,7 +13472,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DUSKULL_FQNAME_ARR[] = "pmd:Duskull";
     inline static constexpr const char* PMD_DUSKULL_FQNAME = PMD_DUSKULL_FQNAME_ARR;
     inline static constexpr size_t PMD_DUSKULL_FQNAME_LEN = sizeof(PMD_DUSKULL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DUSKULL_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_DUSKULL_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_DUSKULL_ANIM_INDEX = 354;
     inline static constexpr custom_animation_settings_t PMD_DUSKULL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -13485,7 +13485,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -13495,7 +13495,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DUSKULL_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_DUSKULL_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_DUSKULL_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Dusclops
     inline static constexpr char PMD_DUSCLOPS_FQID_ARR[] = "pmd:dusclops";
@@ -13510,20 +13510,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DUSCLOPS_FQNAME_ARR[] = "pmd:Dusclops";
     inline static constexpr const char* PMD_DUSCLOPS_FQNAME = PMD_DUSCLOPS_FQNAME_ARR;
     inline static constexpr size_t PMD_DUSCLOPS_FQNAME_LEN = sizeof(PMD_DUSCLOPS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DUSCLOPS_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_DUSCLOPS_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_DUSCLOPS_ANIM_INDEX = 355;
     inline static constexpr custom_animation_settings_t PMD_DUSCLOPS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -13533,7 +13533,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DUSCLOPS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DUSCLOPS_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_DUSCLOPS_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Tropius
     inline static constexpr char PMD_TROPIUS_FQID_ARR[] = "pmd:tropius";
@@ -13624,7 +13624,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ABSOL_FQNAME_ARR[] = "pmd:Absol";
     inline static constexpr const char* PMD_ABSOL_FQNAME = PMD_ABSOL_FQNAME_ARR;
     inline static constexpr size_t PMD_ABSOL_FQNAME_LEN = sizeof(PMD_ABSOL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ABSOL_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_ABSOL_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_ABSOL_ANIM_INDEX = 358;
     inline static constexpr custom_animation_settings_t PMD_ABSOL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -13632,12 +13632,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -13647,7 +13647,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ABSOL_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_ABSOL_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_ABSOL_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Wynaut
     inline static constexpr char PMD_WYNAUT_FQID_ARR[] = "pmd:wynaut";
@@ -13662,7 +13662,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WYNAUT_FQNAME_ARR[] = "pmd:Wynaut";
     inline static constexpr const char* PMD_WYNAUT_FQNAME = PMD_WYNAUT_FQNAME_ARR;
     inline static constexpr size_t PMD_WYNAUT_FQNAME_LEN = sizeof(PMD_WYNAUT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WYNAUT_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_WYNAUT_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_WYNAUT_ANIM_INDEX = 359;
     inline static constexpr custom_animation_settings_t PMD_WYNAUT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -13675,7 +13675,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -13685,7 +13685,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_WYNAUT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WYNAUT_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_WYNAUT_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Snorunt
     inline static constexpr char PMD_SNORUNT_FQID_ARR[] = "pmd:snorunt";
@@ -13700,15 +13700,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SNORUNT_FQNAME_ARR[] = "pmd:Snorunt";
     inline static constexpr const char* PMD_SNORUNT_FQNAME = PMD_SNORUNT_FQNAME_ARR;
     inline static constexpr size_t PMD_SNORUNT_FQNAME_LEN = sizeof(PMD_SNORUNT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SNORUNT_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SNORUNT_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_SNORUNT_ANIM_INDEX = 360;
     inline static constexpr custom_animation_settings_t PMD_SNORUNT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -13723,7 +13723,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SNORUNT_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SNORUNT_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SNORUNT_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Glalie
     inline static constexpr char PMD_GLALIE_FQID_ARR[] = "pmd:glalie";
@@ -13738,13 +13738,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GLALIE_FQNAME_ARR[] = "pmd:Glalie";
     inline static constexpr const char* PMD_GLALIE_FQNAME = PMD_GLALIE_FQNAME_ARR;
     inline static constexpr size_t PMD_GLALIE_FQNAME_LEN = sizeof(PMD_GLALIE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GLALIE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_GLALIE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_GLALIE_ANIM_INDEX = 361;
     inline static constexpr custom_animation_settings_t PMD_GLALIE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -13761,7 +13761,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GLALIE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GLALIE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_GLALIE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Spheal
     inline static constexpr char PMD_SPHEAL_FQID_ARR[] = "pmd:spheal";
@@ -13776,7 +13776,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SPHEAL_FQNAME_ARR[] = "pmd:Spheal";
     inline static constexpr const char* PMD_SPHEAL_FQNAME = PMD_SPHEAL_FQNAME_ARR;
     inline static constexpr size_t PMD_SPHEAL_FQNAME_LEN = sizeof(PMD_SPHEAL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SPHEAL_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SPHEAL_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_SPHEAL_ANIM_INDEX = 362;
     inline static constexpr custom_animation_settings_t PMD_SPHEAL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -13789,7 +13789,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -13799,7 +13799,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SPHEAL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SPHEAL_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SPHEAL_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Sealeo
     inline static constexpr char PMD_SEALEO_FQID_ARR[] = "pmd:sealeo";
@@ -13814,7 +13814,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SEALEO_FQNAME_ARR[] = "pmd:Sealeo";
     inline static constexpr const char* PMD_SEALEO_FQNAME = PMD_SEALEO_FQNAME_ARR;
     inline static constexpr size_t PMD_SEALEO_FQNAME_LEN = sizeof(PMD_SEALEO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SEALEO_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SEALEO_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_SEALEO_ANIM_INDEX = 363;
     inline static constexpr custom_animation_settings_t PMD_SEALEO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -13827,7 +13827,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -13837,7 +13837,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SEALEO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SEALEO_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SEALEO_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Walrein
     inline static constexpr char PMD_WALREIN_FQID_ARR[] = "pmd:walrein";
@@ -13852,7 +13852,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WALREIN_FQNAME_ARR[] = "pmd:Walrein";
     inline static constexpr const char* PMD_WALREIN_FQNAME = PMD_WALREIN_FQNAME_ARR;
     inline static constexpr size_t PMD_WALREIN_FQNAME_LEN = sizeof(PMD_WALREIN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WALREIN_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_WALREIN_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_WALREIN_ANIM_INDEX = 364;
     inline static constexpr custom_animation_settings_t PMD_WALREIN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -13865,7 +13865,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -13875,7 +13875,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_WALREIN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WALREIN_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_WALREIN_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Clamperl
     inline static constexpr char PMD_CLAMPERL_FQID_ARR[] = "pmd:clamperl";
@@ -13890,7 +13890,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CLAMPERL_FQNAME_ARR[] = "pmd:Clamperl";
     inline static constexpr const char* PMD_CLAMPERL_FQNAME = PMD_CLAMPERL_FQNAME_ARR;
     inline static constexpr size_t PMD_CLAMPERL_FQNAME_LEN = sizeof(PMD_CLAMPERL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CLAMPERL_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_CLAMPERL_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_CLAMPERL_ANIM_INDEX = 365;
     inline static constexpr custom_animation_settings_t PMD_CLAMPERL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -13903,7 +13903,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -13913,7 +13913,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CLAMPERL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CLAMPERL_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_CLAMPERL_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Huntail
     inline static constexpr char PMD_HUNTAIL_FQID_ARR[] = "pmd:huntail";
@@ -13966,11 +13966,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GOREBYSS_FQNAME_ARR[] = "pmd:Gorebyss";
     inline static constexpr const char* PMD_GOREBYSS_FQNAME = PMD_GOREBYSS_FQNAME_ARR;
     inline static constexpr size_t PMD_GOREBYSS_FQNAME_LEN = sizeof(PMD_GOREBYSS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GOREBYSS_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_GOREBYSS_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_GOREBYSS_ANIM_INDEX = 367;
     inline static constexpr custom_animation_settings_t PMD_GOREBYSS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 16,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -13988,8 +13988,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GOREBYSS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GOREBYSS_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_GOREBYSS_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_GOREBYSS_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Relicanth
     inline static constexpr char PMD_RELICANTH_FQID_ARR[] = "pmd:relicanth";
@@ -14042,11 +14042,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LUVDISC_FQNAME_ARR[] = "pmd:Luvdisc";
     inline static constexpr const char* PMD_LUVDISC_FQNAME = PMD_LUVDISC_FQNAME_ARR;
     inline static constexpr size_t PMD_LUVDISC_FQNAME_LEN = sizeof(PMD_LUVDISC_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LUVDISC_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_LUVDISC_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_LUVDISC_ANIM_INDEX = 369;
     inline static constexpr custom_animation_settings_t PMD_LUVDISC_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -14064,8 +14064,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_LUVDISC_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LUVDISC_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_LUVDISC_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_LUVDISC_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Bagon
     inline static constexpr char PMD_BAGON_FQID_ARR[] = "pmd:bagon";
@@ -14080,7 +14080,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BAGON_FQNAME_ARR[] = "pmd:Bagon";
     inline static constexpr const char* PMD_BAGON_FQNAME = PMD_BAGON_FQNAME_ARR;
     inline static constexpr size_t PMD_BAGON_FQNAME_LEN = sizeof(PMD_BAGON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BAGON_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_BAGON_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_BAGON_ANIM_INDEX = 370;
     inline static constexpr custom_animation_settings_t PMD_BAGON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -14088,12 +14088,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14103,7 +14103,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BAGON_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_BAGON_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_BAGON_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Shelgon
     inline static constexpr char PMD_SHELGON_FQID_ARR[] = "pmd:shelgon";
@@ -14118,7 +14118,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SHELGON_FQNAME_ARR[] = "pmd:Shelgon";
     inline static constexpr const char* PMD_SHELGON_FQNAME = PMD_SHELGON_FQNAME_ARR;
     inline static constexpr size_t PMD_SHELGON_FQNAME_LEN = sizeof(PMD_SHELGON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SHELGON_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_SHELGON_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_SHELGON_ANIM_INDEX = 371;
     inline static constexpr custom_animation_settings_t PMD_SHELGON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -14131,7 +14131,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14141,7 +14141,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SHELGON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SHELGON_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_SHELGON_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Salamence
     inline static constexpr char PMD_SALAMENCE_FQID_ARR[] = "pmd:salamence";
@@ -14164,12 +14164,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -14207,7 +14207,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 17,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -14270,13 +14270,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_METAGROSS_FQNAME_ARR[] = "pmd:Metagross";
     inline static constexpr const char* PMD_METAGROSS_FQNAME = PMD_METAGROSS_FQNAME_ARR;
     inline static constexpr size_t PMD_METAGROSS_FQNAME_LEN = sizeof(PMD_METAGROSS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_METAGROSS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_METAGROSS_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_METAGROSS_ANIM_INDEX = 375;
     inline static constexpr custom_animation_settings_t PMD_METAGROSS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -14293,7 +14293,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_METAGROSS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_METAGROSS_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_METAGROSS_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Regirock
     inline static constexpr char PMD_REGIROCK_FQID_ARR[] = "pmd:regirock";
@@ -14308,7 +14308,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_REGIROCK_FQNAME_ARR[] = "pmd:Regirock";
     inline static constexpr const char* PMD_REGIROCK_FQNAME = PMD_REGIROCK_FQNAME_ARR;
     inline static constexpr size_t PMD_REGIROCK_FQNAME_LEN = sizeof(PMD_REGIROCK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_REGIROCK_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_REGIROCK_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_REGIROCK_ANIM_INDEX = 376;
     inline static constexpr custom_animation_settings_t PMD_REGIROCK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -14321,7 +14321,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14331,7 +14331,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_REGIROCK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_REGIROCK_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_REGIROCK_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Regice
     inline static constexpr char PMD_REGICE_FQID_ARR[] = "pmd:regice";
@@ -14346,7 +14346,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_REGICE_FQNAME_ARR[] = "pmd:Regice";
     inline static constexpr const char* PMD_REGICE_FQNAME = PMD_REGICE_FQNAME_ARR;
     inline static constexpr size_t PMD_REGICE_FQNAME_LEN = sizeof(PMD_REGICE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_REGICE_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_REGICE_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_REGICE_ANIM_INDEX = 377;
     inline static constexpr custom_animation_settings_t PMD_REGICE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
@@ -14359,7 +14359,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -14369,7 +14369,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_REGICE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_REGICE_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_REGICE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Registeel
     inline static constexpr char PMD_REGISTEEL_FQID_ARR[] = "pmd:registeel";
@@ -14384,7 +14384,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_REGISTEEL_FQNAME_ARR[] = "pmd:Registeel";
     inline static constexpr const char* PMD_REGISTEEL_FQNAME = PMD_REGISTEEL_FQNAME_ARR;
     inline static constexpr size_t PMD_REGISTEEL_FQNAME_LEN = sizeof(PMD_REGISTEEL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_REGISTEEL_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_REGISTEEL_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_REGISTEEL_ANIM_INDEX = 378;
     inline static constexpr custom_animation_settings_t PMD_REGISTEEL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
@@ -14397,7 +14397,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14407,7 +14407,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_REGISTEEL_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_REGISTEEL_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_REGISTEEL_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Latias
     inline static constexpr char PMD_LATIAS_FQID_ARR[] = "pmd:latias";
@@ -14430,7 +14430,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -14504,14 +14504,14 @@ namespace bongocat::assets {
         .idle_frames = 10,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 10,
@@ -14549,7 +14549,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14574,7 +14574,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RAYQUAZA_FQNAME_ARR[] = "pmd:Rayquaza";
     inline static constexpr const char* PMD_RAYQUAZA_FQNAME = PMD_RAYQUAZA_FQNAME_ARR;
     inline static constexpr size_t PMD_RAYQUAZA_FQNAME_LEN = sizeof(PMD_RAYQUAZA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RAYQUAZA_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_RAYQUAZA_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_RAYQUAZA_ANIM_INDEX = 383;
     inline static constexpr custom_animation_settings_t PMD_RAYQUAZA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -14587,7 +14587,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 12,
@@ -14597,7 +14597,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_RAYQUAZA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_RAYQUAZA_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_RAYQUAZA_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Jirachi
     inline static constexpr char PMD_JIRACHI_FQID_ARR[] = "pmd:jirachi";
@@ -14620,7 +14620,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
@@ -14650,30 +14650,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DEOXYS_FQNAME_ARR[] = "pmd:Deoxys";
     inline static constexpr const char* PMD_DEOXYS_FQNAME = PMD_DEOXYS_FQNAME_ARR;
     inline static constexpr size_t PMD_DEOXYS_FQNAME_LEN = sizeof(PMD_DEOXYS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DEOXYS_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_DEOXYS_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_DEOXYS_ANIM_INDEX = 385;
     inline static constexpr custom_animation_settings_t PMD_DEOXYS_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 8,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_DEOXYS_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_DEOXYS_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_DEOXYS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DEOXYS_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Turtwig
     inline static constexpr char PMD_TURTWIG_FQID_ARR[] = "pmd:turtwig";
@@ -14688,7 +14688,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TURTWIG_FQNAME_ARR[] = "pmd:Turtwig";
     inline static constexpr const char* PMD_TURTWIG_FQNAME = PMD_TURTWIG_FQNAME_ARR;
     inline static constexpr size_t PMD_TURTWIG_FQNAME_LEN = sizeof(PMD_TURTWIG_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TURTWIG_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_TURTWIG_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_TURTWIG_ANIM_INDEX = 386;
     inline static constexpr custom_animation_settings_t PMD_TURTWIG_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -14696,12 +14696,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14711,7 +14711,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TURTWIG_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_TURTWIG_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_TURTWIG_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Grotle
     inline static constexpr char PMD_GROTLE_FQID_ARR[] = "pmd:grotle";
@@ -14726,7 +14726,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GROTLE_FQNAME_ARR[] = "pmd:Grotle";
     inline static constexpr const char* PMD_GROTLE_FQNAME = PMD_GROTLE_FQNAME_ARR;
     inline static constexpr size_t PMD_GROTLE_FQNAME_LEN = sizeof(PMD_GROTLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GROTLE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_GROTLE_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_GROTLE_ANIM_INDEX = 387;
     inline static constexpr custom_animation_settings_t PMD_GROTLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -14734,12 +14734,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14749,7 +14749,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GROTLE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_GROTLE_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_GROTLE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Torterra
     inline static constexpr char PMD_TORTERRA_FQID_ARR[] = "pmd:torterra";
@@ -14764,7 +14764,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TORTERRA_FQNAME_ARR[] = "pmd:Torterra";
     inline static constexpr const char* PMD_TORTERRA_FQNAME = PMD_TORTERRA_FQNAME_ARR;
     inline static constexpr size_t PMD_TORTERRA_FQNAME_LEN = sizeof(PMD_TORTERRA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TORTERRA_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_TORTERRA_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_TORTERRA_ANIM_INDEX = 388;
     inline static constexpr custom_animation_settings_t PMD_TORTERRA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -14777,7 +14777,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14787,7 +14787,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TORTERRA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TORTERRA_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_TORTERRA_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Chimchar
     inline static constexpr char PMD_CHIMCHAR_FQID_ARR[] = "pmd:chimchar";
@@ -14802,7 +14802,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHIMCHAR_FQNAME_ARR[] = "pmd:Chimchar";
     inline static constexpr const char* PMD_CHIMCHAR_FQNAME = PMD_CHIMCHAR_FQNAME_ARR;
     inline static constexpr size_t PMD_CHIMCHAR_FQNAME_LEN = sizeof(PMD_CHIMCHAR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHIMCHAR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CHIMCHAR_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_CHIMCHAR_ANIM_INDEX = 389;
     inline static constexpr custom_animation_settings_t PMD_CHIMCHAR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -14810,12 +14810,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -14825,7 +14825,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CHIMCHAR_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_CHIMCHAR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_CHIMCHAR_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Monferno
     inline static constexpr char PMD_MONFERNO_FQID_ARR[] = "pmd:monferno";
@@ -14840,20 +14840,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MONFERNO_FQNAME_ARR[] = "pmd:Monferno";
     inline static constexpr const char* PMD_MONFERNO_FQNAME = PMD_MONFERNO_FQNAME_ARR;
     inline static constexpr size_t PMD_MONFERNO_FQNAME_LEN = sizeof(PMD_MONFERNO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MONFERNO_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_MONFERNO_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_MONFERNO_ANIM_INDEX = 390;
     inline static constexpr custom_animation_settings_t PMD_MONFERNO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 11,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 10,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 9,
@@ -14863,7 +14863,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MONFERNO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MONFERNO_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_MONFERNO_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Infernape
     inline static constexpr char PMD_INFERNAPE_FQID_ARR[] = "pmd:infernape";
@@ -14884,14 +14884,14 @@ namespace bongocat::assets {
         .idle_frames = 15,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -14924,7 +14924,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -15152,7 +15152,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 5,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -15220,7 +15220,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KRICKETOT_FQNAME_ARR[] = "pmd:Kricketot";
     inline static constexpr const char* PMD_KRICKETOT_FQNAME = PMD_KRICKETOT_FQNAME_ARR;
     inline static constexpr size_t PMD_KRICKETOT_FQNAME_LEN = sizeof(PMD_KRICKETOT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KRICKETOT_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_KRICKETOT_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_KRICKETOT_ANIM_INDEX = 400;
     inline static constexpr custom_animation_settings_t PMD_KRICKETOT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -15233,7 +15233,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15243,7 +15243,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_KRICKETOT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KRICKETOT_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_KRICKETOT_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Kricketune
     inline static constexpr char PMD_KRICKETUNE_FQID_ARR[] = "pmd:kricketune";
@@ -15258,7 +15258,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KRICKETUNE_FQNAME_ARR[] = "pmd:Kricketune";
     inline static constexpr const char* PMD_KRICKETUNE_FQNAME = PMD_KRICKETUNE_FQNAME_ARR;
     inline static constexpr size_t PMD_KRICKETUNE_FQNAME_LEN = sizeof(PMD_KRICKETUNE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KRICKETUNE_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_KRICKETUNE_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_KRICKETUNE_ANIM_INDEX = 401;
     inline static constexpr custom_animation_settings_t PMD_KRICKETUNE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -15271,7 +15271,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15281,7 +15281,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_KRICKETUNE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_KRICKETUNE_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_KRICKETUNE_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Shinx
     inline static constexpr char PMD_SHINX_FQID_ARR[] = "pmd:shinx";
@@ -15304,12 +15304,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -15342,12 +15342,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15385,7 +15385,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15418,12 +15418,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -15456,7 +15456,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -15486,7 +15486,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CRANIDOS_FQNAME_ARR[] = "pmd:Cranidos";
     inline static constexpr const char* PMD_CRANIDOS_FQNAME = PMD_CRANIDOS_FQNAME_ARR;
     inline static constexpr size_t PMD_CRANIDOS_FQNAME_LEN = sizeof(PMD_CRANIDOS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CRANIDOS_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_CRANIDOS_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_CRANIDOS_ANIM_INDEX = 407;
     inline static constexpr custom_animation_settings_t PMD_CRANIDOS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -15499,7 +15499,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15509,7 +15509,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CRANIDOS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CRANIDOS_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_CRANIDOS_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Rampardos
     inline static constexpr char PMD_RAMPARDOS_FQID_ARR[] = "pmd:rampardos";
@@ -15524,7 +15524,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RAMPARDOS_FQNAME_ARR[] = "pmd:Rampardos";
     inline static constexpr const char* PMD_RAMPARDOS_FQNAME = PMD_RAMPARDOS_FQNAME_ARR;
     inline static constexpr size_t PMD_RAMPARDOS_FQNAME_LEN = sizeof(PMD_RAMPARDOS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RAMPARDOS_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_RAMPARDOS_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_RAMPARDOS_ANIM_INDEX = 408;
     inline static constexpr custom_animation_settings_t PMD_RAMPARDOS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -15537,7 +15537,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15547,7 +15547,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_RAMPARDOS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_RAMPARDOS_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_RAMPARDOS_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Shieldon
     inline static constexpr char PMD_SHIELDON_FQID_ARR[] = "pmd:shieldon";
@@ -15575,7 +15575,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15613,7 +15613,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15646,12 +15646,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 17,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -15676,30 +15676,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WORMADAM_FQNAME_ARR[] = "pmd:Wormadam";
     inline static constexpr const char* PMD_WORMADAM_FQNAME = PMD_WORMADAM_FQNAME_ARR;
     inline static constexpr size_t PMD_WORMADAM_FQNAME_LEN = sizeof(PMD_WORMADAM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WORMADAM_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_WORMADAM_SPRITE_SHEET_FRAMES_COUNT = 108;
     inline static constexpr size_t PMD_WORMADAM_ANIM_INDEX = 412;
     inline static constexpr custom_animation_settings_t PMD_WORMADAM_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 17,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 18,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 5,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_WORMADAM_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_WORMADAM_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_WORMADAM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_WORMADAM_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Mothim
     inline static constexpr char PMD_MOTHIM_FQID_ARR[] = "pmd:mothim";
@@ -15790,7 +15790,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VESPIQUEN_FQNAME_ARR[] = "pmd:Vespiquen";
     inline static constexpr const char* PMD_VESPIQUEN_FQNAME = PMD_VESPIQUEN_FQNAME_ARR;
     inline static constexpr size_t PMD_VESPIQUEN_FQNAME_LEN = sizeof(PMD_VESPIQUEN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VESPIQUEN_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_VESPIQUEN_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_VESPIQUEN_ANIM_INDEX = 415;
     inline static constexpr custom_animation_settings_t PMD_VESPIQUEN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
@@ -15803,7 +15803,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -15813,7 +15813,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_VESPIQUEN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VESPIQUEN_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_VESPIQUEN_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Pachirisu
     inline static constexpr char PMD_PACHIRISU_FQID_ARR[] = "pmd:pachirisu";
@@ -15836,7 +15836,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -15866,7 +15866,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BUIZEL_FQNAME_ARR[] = "pmd:Buizel";
     inline static constexpr const char* PMD_BUIZEL_FQNAME = PMD_BUIZEL_FQNAME_ARR;
     inline static constexpr size_t PMD_BUIZEL_FQNAME_LEN = sizeof(PMD_BUIZEL_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BUIZEL_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_BUIZEL_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_BUIZEL_ANIM_INDEX = 417;
     inline static constexpr custom_animation_settings_t PMD_BUIZEL_SPRITE_SHEET_SETTINGS {
         .idle_frames = 9,
@@ -15874,12 +15874,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15889,7 +15889,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BUIZEL_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_BUIZEL_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_BUIZEL_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Floatzel
     inline static constexpr char PMD_FLOATZEL_FQID_ARR[] = "pmd:floatzel";
@@ -15917,7 +15917,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15955,7 +15955,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -15993,7 +15993,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16031,7 +16031,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -16056,7 +16056,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GASTRODON_FQNAME_ARR[] = "pmd:Gastrodon";
     inline static constexpr const char* PMD_GASTRODON_FQNAME = PMD_GASTRODON_FQNAME_ARR;
     inline static constexpr size_t PMD_GASTRODON_FQNAME_LEN = sizeof(PMD_GASTRODON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GASTRODON_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_GASTRODON_SPRITE_SHEET_FRAMES_COUNT = 114;
     inline static constexpr size_t PMD_GASTRODON_ANIM_INDEX = 422;
     inline static constexpr custom_animation_settings_t PMD_GASTRODON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
@@ -16069,7 +16069,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 19,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -16079,7 +16079,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GASTRODON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GASTRODON_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_GASTRODON_SPRITE_SHEET_MAX_COLS = 19;
 
     // Name: Ambipom
     inline static constexpr char PMD_AMBIPOM_FQID_ARR[] = "pmd:ambipom";
@@ -16094,7 +16094,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_AMBIPOM_FQNAME_ARR[] = "pmd:Ambipom";
     inline static constexpr const char* PMD_AMBIPOM_FQNAME = PMD_AMBIPOM_FQNAME_ARR;
     inline static constexpr size_t PMD_AMBIPOM_FQNAME_LEN = sizeof(PMD_AMBIPOM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_AMBIPOM_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_AMBIPOM_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_AMBIPOM_ANIM_INDEX = 423;
     inline static constexpr custom_animation_settings_t PMD_AMBIPOM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -16107,7 +16107,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -16117,7 +16117,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_AMBIPOM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_AMBIPOM_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_AMBIPOM_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Drifloon
     inline static constexpr char PMD_DRIFLOON_FQID_ARR[] = "pmd:drifloon";
@@ -16145,7 +16145,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 9,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -16170,11 +16170,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DRIFBLIM_FQNAME_ARR[] = "pmd:Drifblim";
     inline static constexpr const char* PMD_DRIFBLIM_FQNAME = PMD_DRIFBLIM_FQNAME_ARR;
     inline static constexpr size_t PMD_DRIFBLIM_FQNAME_LEN = sizeof(PMD_DRIFBLIM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DRIFBLIM_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_DRIFBLIM_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_DRIFBLIM_ANIM_INDEX = 425;
     inline static constexpr custom_animation_settings_t PMD_DRIFBLIM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
-        .boring_frames = -1,
+        .boring_frames = 17,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -16192,7 +16192,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_DRIFBLIM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DRIFBLIM_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_DRIFBLIM_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Buneary
@@ -16216,7 +16216,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -16246,11 +16246,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LOPUNNY_FQNAME_ARR[] = "pmd:Lopunny";
     inline static constexpr const char* PMD_LOPUNNY_FQNAME = PMD_LOPUNNY_FQNAME_ARR;
     inline static constexpr size_t PMD_LOPUNNY_FQNAME_LEN = sizeof(PMD_LOPUNNY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LOPUNNY_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_LOPUNNY_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_LOPUNNY_ANIM_INDEX = 427;
     inline static constexpr custom_animation_settings_t PMD_LOPUNNY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
-        .boring_frames = -1,
+        .boring_frames = 10,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -16268,7 +16268,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_LOPUNNY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_LOPUNNY_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_LOPUNNY_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Mismagius
@@ -16297,7 +16297,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 9,
@@ -16330,7 +16330,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -16360,7 +16360,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GLAMEOW_FQNAME_ARR[] = "pmd:Glameow";
     inline static constexpr const char* PMD_GLAMEOW_FQNAME = PMD_GLAMEOW_FQNAME_ARR;
     inline static constexpr size_t PMD_GLAMEOW_FQNAME_LEN = sizeof(PMD_GLAMEOW_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GLAMEOW_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_GLAMEOW_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_GLAMEOW_ANIM_INDEX = 430;
     inline static constexpr custom_animation_settings_t PMD_GLAMEOW_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -16368,12 +16368,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16383,7 +16383,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GLAMEOW_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_GLAMEOW_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_GLAMEOW_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Purugly
     inline static constexpr char PMD_PURUGLY_FQID_ARR[] = "pmd:purugly";
@@ -16398,7 +16398,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PURUGLY_FQNAME_ARR[] = "pmd:Purugly";
     inline static constexpr const char* PMD_PURUGLY_FQNAME = PMD_PURUGLY_FQNAME_ARR;
     inline static constexpr size_t PMD_PURUGLY_FQNAME_LEN = sizeof(PMD_PURUGLY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PURUGLY_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PURUGLY_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_PURUGLY_ANIM_INDEX = 431;
     inline static constexpr custom_animation_settings_t PMD_PURUGLY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -16411,7 +16411,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16421,7 +16421,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PURUGLY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PURUGLY_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_PURUGLY_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Chingling
     inline static constexpr char PMD_CHINGLING_FQID_ARR[] = "pmd:chingling";
@@ -16449,7 +16449,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 7,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 9,
@@ -16474,7 +16474,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_STUNKY_FQNAME_ARR[] = "pmd:Stunky";
     inline static constexpr const char* PMD_STUNKY_FQNAME = PMD_STUNKY_FQNAME_ARR;
     inline static constexpr size_t PMD_STUNKY_FQNAME_LEN = sizeof(PMD_STUNKY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_STUNKY_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_STUNKY_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_STUNKY_ANIM_INDEX = 433;
     inline static constexpr custom_animation_settings_t PMD_STUNKY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -16487,7 +16487,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16497,7 +16497,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_STUNKY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_STUNKY_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_STUNKY_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Skuntank
     inline static constexpr char PMD_SKUNTANK_FQID_ARR[] = "pmd:skuntank";
@@ -16512,7 +16512,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SKUNTANK_FQNAME_ARR[] = "pmd:Skuntank";
     inline static constexpr const char* PMD_SKUNTANK_FQNAME = PMD_SKUNTANK_FQNAME_ARR;
     inline static constexpr size_t PMD_SKUNTANK_FQNAME_LEN = sizeof(PMD_SKUNTANK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SKUNTANK_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_SKUNTANK_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_SKUNTANK_ANIM_INDEX = 434;
     inline static constexpr custom_animation_settings_t PMD_SKUNTANK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -16525,7 +16525,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16535,7 +16535,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SKUNTANK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SKUNTANK_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_SKUNTANK_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Bronzor
     inline static constexpr char PMD_BRONZOR_FQID_ARR[] = "pmd:bronzor";
@@ -16550,7 +16550,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BRONZOR_FQNAME_ARR[] = "pmd:Bronzor";
     inline static constexpr const char* PMD_BRONZOR_FQNAME = PMD_BRONZOR_FQNAME_ARR;
     inline static constexpr size_t PMD_BRONZOR_FQNAME_LEN = sizeof(PMD_BRONZOR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BRONZOR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_BRONZOR_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_BRONZOR_ANIM_INDEX = 435;
     inline static constexpr custom_animation_settings_t PMD_BRONZOR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 10,
@@ -16563,7 +16563,7 @@ namespace bongocat::assets {
         .sleep_frames = 10,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -16573,7 +16573,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BRONZOR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BRONZOR_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_BRONZOR_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Bronzong
     inline static constexpr char PMD_BRONZONG_FQID_ARR[] = "pmd:bronzong";
@@ -16588,7 +16588,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BRONZONG_FQNAME_ARR[] = "pmd:Bronzong";
     inline static constexpr const char* PMD_BRONZONG_FQNAME = PMD_BRONZONG_FQNAME_ARR;
     inline static constexpr size_t PMD_BRONZONG_FQNAME_LEN = sizeof(PMD_BRONZONG_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BRONZONG_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_BRONZONG_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_BRONZONG_ANIM_INDEX = 436;
     inline static constexpr custom_animation_settings_t PMD_BRONZONG_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -16601,7 +16601,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -16611,7 +16611,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BRONZONG_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BRONZONG_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_BRONZONG_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Bonsly
     inline static constexpr char PMD_BONSLY_FQID_ARR[] = "pmd:bonsly";
@@ -16626,11 +16626,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BONSLY_FQNAME_ARR[] = "pmd:Bonsly";
     inline static constexpr const char* PMD_BONSLY_FQNAME = PMD_BONSLY_FQNAME_ARR;
     inline static constexpr size_t PMD_BONSLY_FQNAME_LEN = sizeof(PMD_BONSLY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BONSLY_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_BONSLY_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_BONSLY_ANIM_INDEX = 437;
     inline static constexpr custom_animation_settings_t PMD_BONSLY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -16648,7 +16648,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_BONSLY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BONSLY_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_BONSLY_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Mime-jr
@@ -16664,7 +16664,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MIME_JR_FQNAME_ARR[] = "pmd:Mime-jr";
     inline static constexpr const char* PMD_MIME_JR_FQNAME = PMD_MIME_JR_FQNAME_ARR;
     inline static constexpr size_t PMD_MIME_JR_FQNAME_LEN = sizeof(PMD_MIME_JR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MIME_JR_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_MIME_JR_SPRITE_SHEET_FRAMES_COUNT = 105;
     inline static constexpr size_t PMD_MIME_JR_ANIM_INDEX = 438;
     inline static constexpr custom_animation_settings_t PMD_MIME_JR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -16672,12 +16672,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 10,
@@ -16687,7 +16687,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MIME_JR_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MIME_JR_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_MIME_JR_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Happiny
     inline static constexpr char PMD_HAPPINY_FQID_ARR[] = "pmd:happiny";
@@ -16710,12 +16710,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -16740,11 +16740,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHATOT_FQNAME_ARR[] = "pmd:Chatot";
     inline static constexpr const char* PMD_CHATOT_FQNAME = PMD_CHATOT_FQNAME_ARR;
     inline static constexpr size_t PMD_CHATOT_FQNAME_LEN = sizeof(PMD_CHATOT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHATOT_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CHATOT_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_CHATOT_ANIM_INDEX = 440;
     inline static constexpr custom_animation_settings_t PMD_CHATOT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 16,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -16762,8 +16762,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CHATOT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CHATOT_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_CHATOT_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CHATOT_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Spiritomb
     inline static constexpr char PMD_SPIRITOMB_FQID_ARR[] = "pmd:spiritomb";
@@ -16791,7 +16791,7 @@ namespace bongocat::assets {
         .sleep_frames = 4,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -16816,7 +16816,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GIBLE_FQNAME_ARR[] = "pmd:Gible";
     inline static constexpr const char* PMD_GIBLE_FQNAME = PMD_GIBLE_FQNAME_ARR;
     inline static constexpr size_t PMD_GIBLE_FQNAME_LEN = sizeof(PMD_GIBLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GIBLE_SPRITE_SHEET_FRAMES_COUNT = 102;
+    inline static constexpr size_t PMD_GIBLE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_GIBLE_ANIM_INDEX = 442;
     inline static constexpr custom_animation_settings_t PMD_GIBLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -16829,7 +16829,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 17,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16839,7 +16839,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GIBLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GIBLE_SPRITE_SHEET_MAX_COLS = 17;
+    inline static constexpr int PMD_GIBLE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Gabite
     inline static constexpr char PMD_GABITE_FQID_ARR[] = "pmd:gabite";
@@ -16854,7 +16854,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GABITE_FQNAME_ARR[] = "pmd:Gabite";
     inline static constexpr const char* PMD_GABITE_FQNAME = PMD_GABITE_FQNAME_ARR;
     inline static constexpr size_t PMD_GABITE_FQNAME_LEN = sizeof(PMD_GABITE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GABITE_SPRITE_SHEET_FRAMES_COUNT = 102;
+    inline static constexpr size_t PMD_GABITE_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_GABITE_ANIM_INDEX = 443;
     inline static constexpr custom_animation_settings_t PMD_GABITE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -16867,7 +16867,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 17,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16877,7 +16877,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GABITE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GABITE_SPRITE_SHEET_MAX_COLS = 17;
+    inline static constexpr int PMD_GABITE_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Garchomp
     inline static constexpr char PMD_GARCHOMP_FQID_ARR[] = "pmd:garchomp";
@@ -16892,7 +16892,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GARCHOMP_FQNAME_ARR[] = "pmd:Garchomp";
     inline static constexpr const char* PMD_GARCHOMP_FQNAME = PMD_GARCHOMP_FQNAME_ARR;
     inline static constexpr size_t PMD_GARCHOMP_FQNAME_LEN = sizeof(PMD_GARCHOMP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GARCHOMP_SPRITE_SHEET_FRAMES_COUNT = 102;
+    inline static constexpr size_t PMD_GARCHOMP_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_GARCHOMP_ANIM_INDEX = 444;
     inline static constexpr custom_animation_settings_t PMD_GARCHOMP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -16905,7 +16905,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 17,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -16915,7 +16915,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GARCHOMP_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GARCHOMP_SPRITE_SHEET_MAX_COLS = 17;
+    inline static constexpr int PMD_GARCHOMP_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Munchlax
     inline static constexpr char PMD_MUNCHLAX_FQID_ARR[] = "pmd:munchlax";
@@ -16930,15 +16930,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MUNCHLAX_FQNAME_ARR[] = "pmd:Munchlax";
     inline static constexpr const char* PMD_MUNCHLAX_FQNAME = PMD_MUNCHLAX_FQNAME_ARR;
     inline static constexpr size_t PMD_MUNCHLAX_FQNAME_LEN = sizeof(PMD_MUNCHLAX_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MUNCHLAX_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_MUNCHLAX_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_MUNCHLAX_ANIM_INDEX = 445;
     inline static constexpr custom_animation_settings_t PMD_MUNCHLAX_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -16953,7 +16953,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MUNCHLAX_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MUNCHLAX_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_MUNCHLAX_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Riolu
     inline static constexpr char PMD_RIOLU_FQID_ARR[] = "pmd:riolu";
@@ -16968,15 +16968,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RIOLU_FQNAME_ARR[] = "pmd:Riolu";
     inline static constexpr const char* PMD_RIOLU_FQNAME = PMD_RIOLU_FQNAME_ARR;
     inline static constexpr size_t PMD_RIOLU_FQNAME_LEN = sizeof(PMD_RIOLU_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RIOLU_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_RIOLU_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_RIOLU_ANIM_INDEX = 446;
     inline static constexpr custom_animation_settings_t PMD_RIOLU_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 15,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -16991,7 +16991,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_RIOLU_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_RIOLU_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_RIOLU_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Lucario
     inline static constexpr char PMD_LUCARIO_FQID_ARR[] = "pmd:lucario";
@@ -17006,15 +17006,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LUCARIO_FQNAME_ARR[] = "pmd:Lucario";
     inline static constexpr const char* PMD_LUCARIO_FQNAME = PMD_LUCARIO_FQNAME_ARR;
     inline static constexpr size_t PMD_LUCARIO_FQNAME_LEN = sizeof(PMD_LUCARIO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LUCARIO_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_LUCARIO_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_LUCARIO_ANIM_INDEX = 447;
     inline static constexpr custom_animation_settings_t PMD_LUCARIO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 15,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -17029,7 +17029,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LUCARIO_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_LUCARIO_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_LUCARIO_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Hippopotas
     inline static constexpr char PMD_HIPPOPOTAS_FQID_ARR[] = "pmd:hippopotas";
@@ -17044,7 +17044,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HIPPOPOTAS_FQNAME_ARR[] = "pmd:Hippopotas";
     inline static constexpr const char* PMD_HIPPOPOTAS_FQNAME = PMD_HIPPOPOTAS_FQNAME_ARR;
     inline static constexpr size_t PMD_HIPPOPOTAS_FQNAME_LEN = sizeof(PMD_HIPPOPOTAS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HIPPOPOTAS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_HIPPOPOTAS_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_HIPPOPOTAS_ANIM_INDEX = 448;
     inline static constexpr custom_animation_settings_t PMD_HIPPOPOTAS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -17057,7 +17057,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17067,7 +17067,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HIPPOPOTAS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HIPPOPOTAS_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_HIPPOPOTAS_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Hippowdon
     inline static constexpr char PMD_HIPPOWDON_FQID_ARR[] = "pmd:hippowdon";
@@ -17082,7 +17082,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HIPPOWDON_FQNAME_ARR[] = "pmd:Hippowdon";
     inline static constexpr const char* PMD_HIPPOWDON_FQNAME = PMD_HIPPOWDON_FQNAME_ARR;
     inline static constexpr size_t PMD_HIPPOWDON_FQNAME_LEN = sizeof(PMD_HIPPOWDON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HIPPOWDON_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_HIPPOWDON_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_HIPPOWDON_ANIM_INDEX = 449;
     inline static constexpr custom_animation_settings_t PMD_HIPPOWDON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -17095,7 +17095,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17105,7 +17105,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HIPPOWDON_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HIPPOWDON_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_HIPPOWDON_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Skorupi
     inline static constexpr char PMD_SKORUPI_FQID_ARR[] = "pmd:skorupi";
@@ -17120,13 +17120,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SKORUPI_FQNAME_ARR[] = "pmd:Skorupi";
     inline static constexpr const char* PMD_SKORUPI_FQNAME = PMD_SKORUPI_FQNAME_ARR;
     inline static constexpr size_t PMD_SKORUPI_FQNAME_LEN = sizeof(PMD_SKORUPI_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SKORUPI_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SKORUPI_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_SKORUPI_ANIM_INDEX = 450;
     inline static constexpr custom_animation_settings_t PMD_SKORUPI_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 10,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -17143,7 +17143,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SKORUPI_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SKORUPI_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_SKORUPI_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Drapion
     inline static constexpr char PMD_DRAPION_FQID_ARR[] = "pmd:drapion";
@@ -17164,7 +17164,7 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 12,
+        .writing_frames = 10,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -17196,20 +17196,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CROAGUNK_FQNAME_ARR[] = "pmd:Croagunk";
     inline static constexpr const char* PMD_CROAGUNK_FQNAME = PMD_CROAGUNK_FQNAME_ARR;
     inline static constexpr size_t PMD_CROAGUNK_FQNAME_LEN = sizeof(PMD_CROAGUNK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CROAGUNK_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_CROAGUNK_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_CROAGUNK_ANIM_INDEX = 452;
     inline static constexpr custom_animation_settings_t PMD_CROAGUNK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17219,7 +17219,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CROAGUNK_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_CROAGUNK_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_CROAGUNK_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Toxicroak
     inline static constexpr char PMD_TOXICROAK_FQID_ARR[] = "pmd:toxicroak";
@@ -17234,20 +17234,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TOXICROAK_FQNAME_ARR[] = "pmd:Toxicroak";
     inline static constexpr const char* PMD_TOXICROAK_FQNAME = PMD_TOXICROAK_FQNAME_ARR;
     inline static constexpr size_t PMD_TOXICROAK_FQNAME_LEN = sizeof(PMD_TOXICROAK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TOXICROAK_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_TOXICROAK_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_TOXICROAK_ANIM_INDEX = 453;
     inline static constexpr custom_animation_settings_t PMD_TOXICROAK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17257,7 +17257,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TOXICROAK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TOXICROAK_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_TOXICROAK_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Carnivine
     inline static constexpr char PMD_CARNIVINE_FQID_ARR[] = "pmd:carnivine";
@@ -17272,7 +17272,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CARNIVINE_FQNAME_ARR[] = "pmd:Carnivine";
     inline static constexpr const char* PMD_CARNIVINE_FQNAME = PMD_CARNIVINE_FQNAME_ARR;
     inline static constexpr size_t PMD_CARNIVINE_FQNAME_LEN = sizeof(PMD_CARNIVINE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CARNIVINE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CARNIVINE_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_CARNIVINE_ANIM_INDEX = 454;
     inline static constexpr custom_animation_settings_t PMD_CARNIVINE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -17285,7 +17285,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 9,
@@ -17295,7 +17295,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CARNIVINE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CARNIVINE_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_CARNIVINE_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Finneon
     inline static constexpr char PMD_FINNEON_FQID_ARR[] = "pmd:finneon";
@@ -17318,7 +17318,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
@@ -17437,7 +17437,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17462,13 +17462,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ABOMASNOW_FQNAME_ARR[] = "pmd:Abomasnow";
     inline static constexpr const char* PMD_ABOMASNOW_FQNAME = PMD_ABOMASNOW_FQNAME_ARR;
     inline static constexpr size_t PMD_ABOMASNOW_FQNAME_LEN = sizeof(PMD_ABOMASNOW_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ABOMASNOW_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ABOMASNOW_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_ABOMASNOW_ANIM_INDEX = 459;
     inline static constexpr custom_animation_settings_t PMD_ABOMASNOW_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 10,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -17485,7 +17485,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ABOMASNOW_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ABOMASNOW_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_ABOMASNOW_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Weavile
     inline static constexpr char PMD_WEAVILE_FQID_ARR[] = "pmd:weavile";
@@ -17551,7 +17551,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -17576,20 +17576,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LICKILICKY_FQNAME_ARR[] = "pmd:Lickilicky";
     inline static constexpr const char* PMD_LICKILICKY_FQNAME = PMD_LICKILICKY_FQNAME_ARR;
     inline static constexpr size_t PMD_LICKILICKY_FQNAME_LEN = sizeof(PMD_LICKILICKY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LICKILICKY_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_LICKILICKY_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_LICKILICKY_ANIM_INDEX = 462;
     inline static constexpr custom_animation_settings_t PMD_LICKILICKY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17599,7 +17599,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LICKILICKY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LICKILICKY_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_LICKILICKY_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Rhyperior
     inline static constexpr char PMD_RHYPERIOR_FQID_ARR[] = "pmd:rhyperior";
@@ -17614,13 +17614,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RHYPERIOR_FQNAME_ARR[] = "pmd:Rhyperior";
     inline static constexpr const char* PMD_RHYPERIOR_FQNAME = PMD_RHYPERIOR_FQNAME_ARR;
     inline static constexpr size_t PMD_RHYPERIOR_FQNAME_LEN = sizeof(PMD_RHYPERIOR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RHYPERIOR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_RHYPERIOR_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_RHYPERIOR_ANIM_INDEX = 463;
     inline static constexpr custom_animation_settings_t PMD_RHYPERIOR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 11,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -17637,7 +17637,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_RHYPERIOR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_RHYPERIOR_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_RHYPERIOR_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Tangrowth
     inline static constexpr char PMD_TANGROWTH_FQID_ARR[] = "pmd:tangrowth";
@@ -17652,20 +17652,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TANGROWTH_FQNAME_ARR[] = "pmd:Tangrowth";
     inline static constexpr const char* PMD_TANGROWTH_FQNAME = PMD_TANGROWTH_FQNAME_ARR;
     inline static constexpr size_t PMD_TANGROWTH_FQNAME_LEN = sizeof(PMD_TANGROWTH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TANGROWTH_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_TANGROWTH_SPRITE_SHEET_FRAMES_COUNT = 108;
     inline static constexpr size_t PMD_TANGROWTH_ANIM_INDEX = 464;
     inline static constexpr custom_animation_settings_t PMD_TANGROWTH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 18,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17675,7 +17675,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TANGROWTH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TANGROWTH_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_TANGROWTH_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Electivire
     inline static constexpr char PMD_ELECTIVIRE_FQID_ARR[] = "pmd:electivire";
@@ -17703,7 +17703,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17728,20 +17728,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MAGMORTAR_FQNAME_ARR[] = "pmd:Magmortar";
     inline static constexpr const char* PMD_MAGMORTAR_FQNAME = PMD_MAGMORTAR_FQNAME_ARR;
     inline static constexpr size_t PMD_MAGMORTAR_FQNAME_LEN = sizeof(PMD_MAGMORTAR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MAGMORTAR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MAGMORTAR_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_MAGMORTAR_ANIM_INDEX = 466;
     inline static constexpr custom_animation_settings_t PMD_MAGMORTAR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17751,7 +17751,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MAGMORTAR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MAGMORTAR_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_MAGMORTAR_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Togekiss
     inline static constexpr char PMD_TOGEKISS_FQID_ARR[] = "pmd:togekiss";
@@ -17804,11 +17804,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_YANMEGA_FQNAME_ARR[] = "pmd:Yanmega";
     inline static constexpr const char* PMD_YANMEGA_FQNAME = PMD_YANMEGA_FQNAME_ARR;
     inline static constexpr size_t PMD_YANMEGA_FQNAME_LEN = sizeof(PMD_YANMEGA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_YANMEGA_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_YANMEGA_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_YANMEGA_ANIM_INDEX = 468;
     inline static constexpr custom_animation_settings_t PMD_YANMEGA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 12,
-        .boring_frames = -1,
+        .boring_frames = 16,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -17826,7 +17826,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_YANMEGA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_YANMEGA_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_YANMEGA_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Leafeon
@@ -17842,30 +17842,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LEAFEON_FQNAME_ARR[] = "pmd:Leafeon";
     inline static constexpr const char* PMD_LEAFEON_FQNAME = PMD_LEAFEON_FQNAME_ARR;
     inline static constexpr size_t PMD_LEAFEON_FQNAME_LEN = sizeof(PMD_LEAFEON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LEAFEON_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_LEAFEON_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_LEAFEON_ANIM_INDEX = 469;
     inline static constexpr custom_animation_settings_t PMD_LEAFEON_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
+        .idle_frames = 6,
+        .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_LEAFEON_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_LEAFEON_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_LEAFEON_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_LEAFEON_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Glaceon
     inline static constexpr char PMD_GLACEON_FQID_ARR[] = "pmd:glaceon";
@@ -17888,7 +17888,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -17969,7 +17969,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -17994,7 +17994,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PORYGON_Z_FQNAME_ARR[] = "pmd:Porygon-z";
     inline static constexpr const char* PMD_PORYGON_Z_FQNAME = PMD_PORYGON_Z_FQNAME_ARR;
     inline static constexpr size_t PMD_PORYGON_Z_FQNAME_LEN = sizeof(PMD_PORYGON_Z_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PORYGON_Z_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_PORYGON_Z_SPRITE_SHEET_FRAMES_COUNT = 114;
     inline static constexpr size_t PMD_PORYGON_Z_ANIM_INDEX = 473;
     inline static constexpr custom_animation_settings_t PMD_PORYGON_Z_SPRITE_SHEET_SETTINGS {
         .idle_frames = 16,
@@ -18007,7 +18007,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 19,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 7,
@@ -18017,7 +18017,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PORYGON_Z_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PORYGON_Z_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_PORYGON_Z_SPRITE_SHEET_MAX_COLS = 19;
 
     // Name: Gallade
     inline static constexpr char PMD_GALLADE_FQID_ARR[] = "pmd:gallade";
@@ -18032,20 +18032,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GALLADE_FQNAME_ARR[] = "pmd:Gallade";
     inline static constexpr const char* PMD_GALLADE_FQNAME = PMD_GALLADE_FQNAME_ARR;
     inline static constexpr size_t PMD_GALLADE_FQNAME_LEN = sizeof(PMD_GALLADE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GALLADE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_GALLADE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_GALLADE_ANIM_INDEX = 474;
     inline static constexpr custom_animation_settings_t PMD_GALLADE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -18055,7 +18055,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GALLADE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GALLADE_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_GALLADE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Probopass
     inline static constexpr char PMD_PROBOPASS_FQID_ARR[] = "pmd:probopass";
@@ -18070,7 +18070,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PROBOPASS_FQNAME_ARR[] = "pmd:Probopass";
     inline static constexpr const char* PMD_PROBOPASS_FQNAME = PMD_PROBOPASS_FQNAME_ARR;
     inline static constexpr size_t PMD_PROBOPASS_FQNAME_LEN = sizeof(PMD_PROBOPASS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PROBOPASS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_PROBOPASS_SPRITE_SHEET_FRAMES_COUNT = 108;
     inline static constexpr size_t PMD_PROBOPASS_ANIM_INDEX = 475;
     inline static constexpr custom_animation_settings_t PMD_PROBOPASS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -18083,7 +18083,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 18,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -18093,7 +18093,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PROBOPASS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PROBOPASS_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_PROBOPASS_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Dusknoir
     inline static constexpr char PMD_DUSKNOIR_FQID_ARR[] = "pmd:dusknoir";
@@ -18108,13 +18108,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DUSKNOIR_FQNAME_ARR[] = "pmd:Dusknoir";
     inline static constexpr const char* PMD_DUSKNOIR_FQNAME = PMD_DUSKNOIR_FQNAME_ARR;
     inline static constexpr size_t PMD_DUSKNOIR_FQNAME_LEN = sizeof(PMD_DUSKNOIR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DUSKNOIR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DUSKNOIR_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_DUSKNOIR_ANIM_INDEX = 476;
     inline static constexpr custom_animation_settings_t PMD_DUSKNOIR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 13,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 10,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -18131,7 +18131,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DUSKNOIR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DUSKNOIR_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_DUSKNOIR_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Froslass
     inline static constexpr char PMD_FROSLASS_FQID_ARR[] = "pmd:froslass";
@@ -18146,11 +18146,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FROSLASS_FQNAME_ARR[] = "pmd:Froslass";
     inline static constexpr const char* PMD_FROSLASS_FQNAME = PMD_FROSLASS_FQNAME_ARR;
     inline static constexpr size_t PMD_FROSLASS_FQNAME_LEN = sizeof(PMD_FROSLASS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FROSLASS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_FROSLASS_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_FROSLASS_ANIM_INDEX = 477;
     inline static constexpr custom_animation_settings_t PMD_FROSLASS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
-        .boring_frames = -1,
+        .boring_frames = 16,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -18168,8 +18168,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_FROSLASS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_FROSLASS_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_FROSLASS_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_FROSLASS_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Rotom
     inline static constexpr char PMD_ROTOM_FQID_ARR[] = "pmd:rotom";
@@ -18184,7 +18184,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ROTOM_FQNAME_ARR[] = "pmd:Rotom";
     inline static constexpr const char* PMD_ROTOM_FQNAME = PMD_ROTOM_FQNAME_ARR;
     inline static constexpr size_t PMD_ROTOM_FQNAME_LEN = sizeof(PMD_ROTOM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ROTOM_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_ROTOM_SPRITE_SHEET_FRAMES_COUNT = 120;
     inline static constexpr size_t PMD_ROTOM_ANIM_INDEX = 478;
     inline static constexpr custom_animation_settings_t PMD_ROTOM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -18197,7 +18197,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 20,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -18207,7 +18207,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ROTOM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ROTOM_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_ROTOM_SPRITE_SHEET_MAX_COLS = 20;
 
     // Name: Uxie
     inline static constexpr char PMD_UXIE_FQID_ARR[] = "pmd:uxie";
@@ -18268,7 +18268,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
@@ -18336,20 +18336,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DIALGA_FQNAME_ARR[] = "pmd:Dialga";
     inline static constexpr const char* PMD_DIALGA_FQNAME = PMD_DIALGA_FQNAME_ARR;
     inline static constexpr size_t PMD_DIALGA_FQNAME_LEN = sizeof(PMD_DIALGA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DIALGA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DIALGA_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_DIALGA_ANIM_INDEX = 482;
     inline static constexpr custom_animation_settings_t PMD_DIALGA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 8,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -18359,7 +18359,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DIALGA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DIALGA_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_DIALGA_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Palkia
     inline static constexpr char PMD_PALKIA_FQID_ARR[] = "pmd:palkia";
@@ -18387,7 +18387,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -18425,7 +18425,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -18450,10 +18450,48 @@ namespace bongocat::assets {
     inline static constexpr char PMD_REGIGIGAS_FQNAME_ARR[] = "pmd:Regigigas";
     inline static constexpr const char* PMD_REGIGIGAS_FQNAME = PMD_REGIGIGAS_FQNAME_ARR;
     inline static constexpr size_t PMD_REGIGIGAS_FQNAME_LEN = sizeof(PMD_REGIGIGAS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_REGIGIGAS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_REGIGIGAS_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_REGIGIGAS_ANIM_INDEX = 485;
     inline static constexpr custom_animation_settings_t PMD_REGIGIGAS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 16,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_REGIGIGAS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_REGIGIGAS_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Giratina
+    inline static constexpr char PMD_GIRATINA_FQID_ARR[] = "pmd:giratina";
+    inline static constexpr const char* PMD_GIRATINA_FQID = PMD_GIRATINA_FQID_ARR;
+    inline static constexpr size_t PMD_GIRATINA_FQID_LEN = sizeof(PMD_GIRATINA_FQID_ARR)-1;
+    inline static constexpr char PMD_GIRATINA_ID_ARR[] = "giratina";
+    inline static constexpr const char* PMD_GIRATINA_ID = PMD_GIRATINA_ID_ARR;
+    inline static constexpr size_t PMD_GIRATINA_ID_LEN = sizeof(PMD_GIRATINA_ID)-1;
+    inline static constexpr char PMD_GIRATINA_NAME_ARR[] = "Giratina";
+    inline static constexpr const char* PMD_GIRATINA_NAME = PMD_GIRATINA_NAME_ARR;
+    inline static constexpr size_t PMD_GIRATINA_NAME_LEN = sizeof(PMD_GIRATINA_NAME_ARR)-1;
+    inline static constexpr char PMD_GIRATINA_FQNAME_ARR[] = "pmd:Giratina";
+    inline static constexpr const char* PMD_GIRATINA_FQNAME = PMD_GIRATINA_FQNAME_ARR;
+    inline static constexpr size_t PMD_GIRATINA_FQNAME_LEN = sizeof(PMD_GIRATINA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GIRATINA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_GIRATINA_ANIM_INDEX = 486;
+    inline static constexpr custom_animation_settings_t PMD_GIRATINA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 14,
@@ -18472,46 +18510,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_REGIGIGAS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_REGIGIGAS_SPRITE_SHEET_MAX_COLS = 14;
-
-    // Name: Giratina
-    inline static constexpr char PMD_GIRATINA_FQID_ARR[] = "pmd:giratina";
-    inline static constexpr const char* PMD_GIRATINA_FQID = PMD_GIRATINA_FQID_ARR;
-    inline static constexpr size_t PMD_GIRATINA_FQID_LEN = sizeof(PMD_GIRATINA_FQID_ARR)-1;
-    inline static constexpr char PMD_GIRATINA_ID_ARR[] = "giratina";
-    inline static constexpr const char* PMD_GIRATINA_ID = PMD_GIRATINA_ID_ARR;
-    inline static constexpr size_t PMD_GIRATINA_ID_LEN = sizeof(PMD_GIRATINA_ID)-1;
-    inline static constexpr char PMD_GIRATINA_NAME_ARR[] = "Giratina";
-    inline static constexpr const char* PMD_GIRATINA_NAME = PMD_GIRATINA_NAME_ARR;
-    inline static constexpr size_t PMD_GIRATINA_NAME_LEN = sizeof(PMD_GIRATINA_NAME_ARR)-1;
-    inline static constexpr char PMD_GIRATINA_FQNAME_ARR[] = "pmd:Giratina";
-    inline static constexpr const char* PMD_GIRATINA_FQNAME = PMD_GIRATINA_FQNAME_ARR;
-    inline static constexpr size_t PMD_GIRATINA_FQNAME_LEN = sizeof(PMD_GIRATINA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GIRATINA_SPRITE_SHEET_FRAMES_COUNT = 0;
-    inline static constexpr size_t PMD_GIRATINA_ANIM_INDEX = 486;
-    inline static constexpr custom_animation_settings_t PMD_GIRATINA_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = -1,
-        .end_writing_frames = -1,
-        .happy_frames = -1,
-        .asleep_frames = -1,
-        .sleep_frames = -1,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = -1,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = -1,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_GIRATINA_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_GIRATINA_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_GIRATINA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GIRATINA_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Cresselia
     inline static constexpr char PMD_CRESSELIA_FQID_ARR[] = "pmd:cresselia";
@@ -18534,7 +18534,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
@@ -18572,7 +18572,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
@@ -18610,12 +18610,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 17,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -18640,7 +18640,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DARKRAI_FQNAME_ARR[] = "pmd:Darkrai";
     inline static constexpr const char* PMD_DARKRAI_FQNAME = PMD_DARKRAI_FQNAME_ARR;
     inline static constexpr size_t PMD_DARKRAI_FQNAME_LEN = sizeof(PMD_DARKRAI_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DARKRAI_SPRITE_SHEET_FRAMES_COUNT = 168;
+    inline static constexpr size_t PMD_DARKRAI_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_DARKRAI_ANIM_INDEX = 490;
     inline static constexpr custom_animation_settings_t PMD_DARKRAI_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -18648,12 +18648,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 24,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -18663,7 +18663,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DARKRAI_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_DARKRAI_SPRITE_SHEET_MAX_COLS = 24;
+    inline static constexpr int PMD_DARKRAI_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Shaymin
     inline static constexpr char PMD_SHAYMIN_FQID_ARR[] = "pmd:shaymin";
@@ -18678,30 +18678,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SHAYMIN_FQNAME_ARR[] = "pmd:Shaymin";
     inline static constexpr const char* PMD_SHAYMIN_FQNAME = PMD_SHAYMIN_FQNAME_ARR;
     inline static constexpr size_t PMD_SHAYMIN_FQNAME_LEN = sizeof(PMD_SHAYMIN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SHAYMIN_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_SHAYMIN_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_SHAYMIN_ANIM_INDEX = 491;
     inline static constexpr custom_animation_settings_t PMD_SHAYMIN_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
+        .idle_frames = 4,
+        .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SHAYMIN_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_SHAYMIN_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_SHAYMIN_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SHAYMIN_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Arceus
     inline static constexpr char PMD_ARCEUS_FQID_ARR[] = "pmd:arceus";
@@ -18724,7 +18724,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
@@ -18798,14 +18798,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -18868,13 +18868,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SERPERIOR_FQNAME_ARR[] = "pmd:Serperior";
     inline static constexpr const char* PMD_SERPERIOR_FQNAME = PMD_SERPERIOR_FQNAME_ARR;
     inline static constexpr size_t PMD_SERPERIOR_FQNAME_LEN = sizeof(PMD_SERPERIOR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SERPERIOR_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SERPERIOR_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_SERPERIOR_ANIM_INDEX = 496;
     inline static constexpr custom_animation_settings_t PMD_SERPERIOR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -18891,7 +18891,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SERPERIOR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SERPERIOR_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SERPERIOR_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Tepig
     inline static constexpr char PMD_TEPIG_FQID_ARR[] = "pmd:tepig";
@@ -18914,7 +18914,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -19028,7 +19028,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -19058,13 +19058,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DEWOTT_FQNAME_ARR[] = "pmd:Dewott";
     inline static constexpr const char* PMD_DEWOTT_FQNAME = PMD_DEWOTT_FQNAME_ARR;
     inline static constexpr size_t PMD_DEWOTT_FQNAME_LEN = sizeof(PMD_DEWOTT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DEWOTT_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_DEWOTT_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_DEWOTT_ANIM_INDEX = 501;
     inline static constexpr custom_animation_settings_t PMD_DEWOTT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -19081,7 +19081,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DEWOTT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DEWOTT_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_DEWOTT_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Samurott
     inline static constexpr char PMD_SAMUROTT_FQID_ARR[] = "pmd:samurott";
@@ -19096,13 +19096,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SAMUROTT_FQNAME_ARR[] = "pmd:Samurott";
     inline static constexpr const char* PMD_SAMUROTT_FQNAME = PMD_SAMUROTT_FQNAME_ARR;
     inline static constexpr size_t PMD_SAMUROTT_FQNAME_LEN = sizeof(PMD_SAMUROTT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SAMUROTT_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SAMUROTT_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SAMUROTT_ANIM_INDEX = 502;
     inline static constexpr custom_animation_settings_t PMD_SAMUROTT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -19119,7 +19119,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SAMUROTT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SAMUROTT_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SAMUROTT_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Patrat
     inline static constexpr char PMD_PATRAT_FQID_ARR[] = "pmd:patrat";
@@ -19172,7 +19172,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WATCHOG_FQNAME_ARR[] = "pmd:Watchog";
     inline static constexpr const char* PMD_WATCHOG_FQNAME = PMD_WATCHOG_FQNAME_ARR;
     inline static constexpr size_t PMD_WATCHOG_FQNAME_LEN = sizeof(PMD_WATCHOG_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WATCHOG_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_WATCHOG_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_WATCHOG_ANIM_INDEX = 504;
     inline static constexpr custom_animation_settings_t PMD_WATCHOG_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -19185,7 +19185,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19195,7 +19195,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_WATCHOG_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_WATCHOG_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_WATCHOG_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Lillipup
     inline static constexpr char PMD_LILLIPUP_FQID_ARR[] = "pmd:lillipup";
@@ -19218,7 +19218,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -19248,7 +19248,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HERDIER_FQNAME_ARR[] = "pmd:Herdier";
     inline static constexpr const char* PMD_HERDIER_FQNAME = PMD_HERDIER_FQNAME_ARR;
     inline static constexpr size_t PMD_HERDIER_FQNAME_LEN = sizeof(PMD_HERDIER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HERDIER_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_HERDIER_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_HERDIER_ANIM_INDEX = 506;
     inline static constexpr custom_animation_settings_t PMD_HERDIER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -19261,7 +19261,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 8,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19271,7 +19271,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HERDIER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HERDIER_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_HERDIER_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Stoutland
     inline static constexpr char PMD_STOUTLAND_FQID_ARR[] = "pmd:stoutland";
@@ -19324,13 +19324,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PURRLOIN_FQNAME_ARR[] = "pmd:Purrloin";
     inline static constexpr const char* PMD_PURRLOIN_FQNAME = PMD_PURRLOIN_FQNAME_ARR;
     inline static constexpr size_t PMD_PURRLOIN_FQNAME_LEN = sizeof(PMD_PURRLOIN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PURRLOIN_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_PURRLOIN_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_PURRLOIN_ANIM_INDEX = 508;
     inline static constexpr custom_animation_settings_t PMD_PURRLOIN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -19347,7 +19347,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PURRLOIN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PURRLOIN_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_PURRLOIN_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Liepard
     inline static constexpr char PMD_LIEPARD_FQID_ARR[] = "pmd:liepard";
@@ -19362,13 +19362,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LIEPARD_FQNAME_ARR[] = "pmd:Liepard";
     inline static constexpr const char* PMD_LIEPARD_FQNAME = PMD_LIEPARD_FQNAME_ARR;
     inline static constexpr size_t PMD_LIEPARD_FQNAME_LEN = sizeof(PMD_LIEPARD_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LIEPARD_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_LIEPARD_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_LIEPARD_ANIM_INDEX = 509;
     inline static constexpr custom_animation_settings_t PMD_LIEPARD_SPRITE_SHEET_SETTINGS {
         .idle_frames = 1,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 16,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -19385,7 +19385,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LIEPARD_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LIEPARD_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_LIEPARD_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Pansage
     inline static constexpr char PMD_PANSAGE_FQID_ARR[] = "pmd:pansage";
@@ -19400,7 +19400,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PANSAGE_FQNAME_ARR[] = "pmd:Pansage";
     inline static constexpr const char* PMD_PANSAGE_FQNAME = PMD_PANSAGE_FQNAME_ARR;
     inline static constexpr size_t PMD_PANSAGE_FQNAME_LEN = sizeof(PMD_PANSAGE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PANSAGE_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PANSAGE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_PANSAGE_ANIM_INDEX = 510;
     inline static constexpr custom_animation_settings_t PMD_PANSAGE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -19413,7 +19413,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19423,7 +19423,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PANSAGE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PANSAGE_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_PANSAGE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Simisage
     inline static constexpr char PMD_SIMISAGE_FQID_ARR[] = "pmd:simisage";
@@ -19444,7 +19444,7 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -19476,7 +19476,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PANSEAR_FQNAME_ARR[] = "pmd:Pansear";
     inline static constexpr const char* PMD_PANSEAR_FQNAME = PMD_PANSEAR_FQNAME_ARR;
     inline static constexpr size_t PMD_PANSEAR_FQNAME_LEN = sizeof(PMD_PANSEAR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PANSEAR_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PANSEAR_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_PANSEAR_ANIM_INDEX = 512;
     inline static constexpr custom_animation_settings_t PMD_PANSEAR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -19489,7 +19489,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19499,7 +19499,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PANSEAR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PANSEAR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_PANSEAR_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Panpour
     inline static constexpr char PMD_PANPOUR_FQID_ARR[] = "pmd:panpour";
@@ -19514,7 +19514,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PANPOUR_FQNAME_ARR[] = "pmd:Panpour";
     inline static constexpr const char* PMD_PANPOUR_FQNAME = PMD_PANPOUR_FQNAME_ARR;
     inline static constexpr size_t PMD_PANPOUR_FQNAME_LEN = sizeof(PMD_PANPOUR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PANPOUR_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PANPOUR_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_PANPOUR_ANIM_INDEX = 513;
     inline static constexpr custom_animation_settings_t PMD_PANPOUR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -19527,7 +19527,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19537,7 +19537,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PANPOUR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PANPOUR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_PANPOUR_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Munna
     inline static constexpr char PMD_MUNNA_FQID_ARR[] = "pmd:munna";
@@ -19628,13 +19628,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PIDOVE_FQNAME_ARR[] = "pmd:Pidove";
     inline static constexpr const char* PMD_PIDOVE_FQNAME = PMD_PIDOVE_FQNAME_ARR;
     inline static constexpr size_t PMD_PIDOVE_FQNAME_LEN = sizeof(PMD_PIDOVE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PIDOVE_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_PIDOVE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_PIDOVE_ANIM_INDEX = 516;
     inline static constexpr custom_animation_settings_t PMD_PIDOVE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -19651,7 +19651,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PIDOVE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PIDOVE_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_PIDOVE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Unfezant
     inline static constexpr char PMD_UNFEZANT_FQID_ARR[] = "pmd:unfezant";
@@ -19666,11 +19666,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_UNFEZANT_FQNAME_ARR[] = "pmd:Unfezant";
     inline static constexpr const char* PMD_UNFEZANT_FQNAME = PMD_UNFEZANT_FQNAME_ARR;
     inline static constexpr size_t PMD_UNFEZANT_FQNAME_LEN = sizeof(PMD_UNFEZANT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_UNFEZANT_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_UNFEZANT_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_UNFEZANT_ANIM_INDEX = 517;
     inline static constexpr custom_animation_settings_t PMD_UNFEZANT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -19688,7 +19688,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_UNFEZANT_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_UNFEZANT_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_UNFEZANT_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Roggenrola
@@ -19704,11 +19704,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ROGGENROLA_FQNAME_ARR[] = "pmd:Roggenrola";
     inline static constexpr const char* PMD_ROGGENROLA_FQNAME = PMD_ROGGENROLA_FQNAME_ARR;
     inline static constexpr size_t PMD_ROGGENROLA_FQNAME_LEN = sizeof(PMD_ROGGENROLA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ROGGENROLA_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_ROGGENROLA_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_ROGGENROLA_ANIM_INDEX = 518;
     inline static constexpr custom_animation_settings_t PMD_ROGGENROLA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -19726,8 +19726,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ROGGENROLA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ROGGENROLA_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_ROGGENROLA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ROGGENROLA_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Boldore
     inline static constexpr char PMD_BOLDORE_FQID_ARR[] = "pmd:boldore";
@@ -19742,7 +19742,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BOLDORE_FQNAME_ARR[] = "pmd:Boldore";
     inline static constexpr const char* PMD_BOLDORE_FQNAME = PMD_BOLDORE_FQNAME_ARR;
     inline static constexpr size_t PMD_BOLDORE_FQNAME_LEN = sizeof(PMD_BOLDORE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BOLDORE_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_BOLDORE_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_BOLDORE_ANIM_INDEX = 519;
     inline static constexpr custom_animation_settings_t PMD_BOLDORE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -19755,7 +19755,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19765,7 +19765,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BOLDORE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BOLDORE_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_BOLDORE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Gigalith
     inline static constexpr char PMD_GIGALITH_FQID_ARR[] = "pmd:gigalith";
@@ -19793,7 +19793,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19894,7 +19894,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DRILBUR_FQNAME_ARR[] = "pmd:Drilbur";
     inline static constexpr const char* PMD_DRILBUR_FQNAME = PMD_DRILBUR_FQNAME_ARR;
     inline static constexpr size_t PMD_DRILBUR_FQNAME_LEN = sizeof(PMD_DRILBUR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DRILBUR_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_DRILBUR_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_DRILBUR_ANIM_INDEX = 523;
     inline static constexpr custom_animation_settings_t PMD_DRILBUR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
@@ -19907,7 +19907,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19917,7 +19917,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DRILBUR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DRILBUR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_DRILBUR_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Excadrill
     inline static constexpr char PMD_EXCADRILL_FQID_ARR[] = "pmd:excadrill";
@@ -19970,20 +19970,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_AUDINO_FQNAME_ARR[] = "pmd:Audino";
     inline static constexpr const char* PMD_AUDINO_FQNAME = PMD_AUDINO_FQNAME_ARR;
     inline static constexpr size_t PMD_AUDINO_FQNAME_LEN = sizeof(PMD_AUDINO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_AUDINO_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_AUDINO_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_AUDINO_ANIM_INDEX = 525;
     inline static constexpr custom_animation_settings_t PMD_AUDINO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -19993,7 +19993,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_AUDINO_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_AUDINO_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_AUDINO_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Timburr
     inline static constexpr char PMD_TIMBURR_FQID_ARR[] = "pmd:timburr";
@@ -20016,12 +20016,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -20084,13 +20084,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CONKELDURR_FQNAME_ARR[] = "pmd:Conkeldurr";
     inline static constexpr const char* PMD_CONKELDURR_FQNAME = PMD_CONKELDURR_FQNAME_ARR;
     inline static constexpr size_t PMD_CONKELDURR_FQNAME_LEN = sizeof(PMD_CONKELDURR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CONKELDURR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CONKELDURR_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_CONKELDURR_ANIM_INDEX = 528;
     inline static constexpr custom_animation_settings_t PMD_CONKELDURR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 11,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -20107,7 +20107,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CONKELDURR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CONKELDURR_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_CONKELDURR_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Tympole
     inline static constexpr char PMD_TYMPOLE_FQID_ARR[] = "pmd:tympole";
@@ -20122,7 +20122,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TYMPOLE_FQNAME_ARR[] = "pmd:Tympole";
     inline static constexpr const char* PMD_TYMPOLE_FQNAME = PMD_TYMPOLE_FQNAME_ARR;
     inline static constexpr size_t PMD_TYMPOLE_FQNAME_LEN = sizeof(PMD_TYMPOLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TYMPOLE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_TYMPOLE_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_TYMPOLE_ANIM_INDEX = 529;
     inline static constexpr custom_animation_settings_t PMD_TYMPOLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -20135,7 +20135,7 @@ namespace bongocat::assets {
         .sleep_frames = 4,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -20145,7 +20145,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TYMPOLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TYMPOLE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_TYMPOLE_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Palpitoad
     inline static constexpr char PMD_PALPITOAD_FQID_ARR[] = "pmd:palpitoad";
@@ -20198,13 +20198,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SEISMITOAD_FQNAME_ARR[] = "pmd:Seismitoad";
     inline static constexpr const char* PMD_SEISMITOAD_FQNAME = PMD_SEISMITOAD_FQNAME_ARR;
     inline static constexpr size_t PMD_SEISMITOAD_FQNAME_LEN = sizeof(PMD_SEISMITOAD_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SEISMITOAD_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SEISMITOAD_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_SEISMITOAD_ANIM_INDEX = 531;
     inline static constexpr custom_animation_settings_t PMD_SEISMITOAD_SPRITE_SHEET_SETTINGS {
         .idle_frames = 10,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 11,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -20221,7 +20221,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SEISMITOAD_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SEISMITOAD_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_SEISMITOAD_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Sewaddle
     inline static constexpr char PMD_SEWADDLE_FQID_ARR[] = "pmd:sewaddle";
@@ -20236,11 +20236,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SEWADDLE_FQNAME_ARR[] = "pmd:Sewaddle";
     inline static constexpr const char* PMD_SEWADDLE_FQNAME = PMD_SEWADDLE_FQNAME_ARR;
     inline static constexpr size_t PMD_SEWADDLE_FQNAME_LEN = sizeof(PMD_SEWADDLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SEWADDLE_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SEWADDLE_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_SEWADDLE_ANIM_INDEX = 532;
     inline static constexpr custom_animation_settings_t PMD_SEWADDLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 10,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -20258,7 +20258,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SEWADDLE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SEWADDLE_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_SEWADDLE_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Swadloon
@@ -20358,7 +20358,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -20388,20 +20388,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_WHIRLIPEDE_FQNAME_ARR[] = "pmd:Whirlipede";
     inline static constexpr const char* PMD_WHIRLIPEDE_FQNAME = PMD_WHIRLIPEDE_FQNAME_ARR;
     inline static constexpr size_t PMD_WHIRLIPEDE_FQNAME_LEN = sizeof(PMD_WHIRLIPEDE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_WHIRLIPEDE_SPRITE_SHEET_FRAMES_COUNT = 119;
+    inline static constexpr size_t PMD_WHIRLIPEDE_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_WHIRLIPEDE_ANIM_INDEX = 536;
     inline static constexpr custom_animation_settings_t PMD_WHIRLIPEDE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 3,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 17,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 3,
@@ -20410,8 +20410,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_WHIRLIPEDE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_WHIRLIPEDE_SPRITE_SHEET_MAX_COLS = 17;
+    inline static constexpr int PMD_WHIRLIPEDE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_WHIRLIPEDE_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Scolipede
     inline static constexpr char PMD_SCOLIPEDE_FQID_ARR[] = "pmd:scolipede";
@@ -20464,13 +20464,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_COTTONEE_FQNAME_ARR[] = "pmd:Cottonee";
     inline static constexpr const char* PMD_COTTONEE_FQNAME = PMD_COTTONEE_FQNAME_ARR;
     inline static constexpr size_t PMD_COTTONEE_FQNAME_LEN = sizeof(PMD_COTTONEE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_COTTONEE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_COTTONEE_SPRITE_SHEET_FRAMES_COUNT = 119;
     inline static constexpr size_t PMD_COTTONEE_ANIM_INDEX = 538;
     inline static constexpr custom_animation_settings_t PMD_COTTONEE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 17,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 15,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -20486,8 +20486,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_COTTONEE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_COTTONEE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_COTTONEE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_COTTONEE_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Whimsicott
     inline static constexpr char PMD_WHIMSICOTT_FQID_ARR[] = "pmd:whimsicott";
@@ -20548,7 +20548,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -20586,7 +20586,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -20616,30 +20616,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BASCULIN_FQNAME_ARR[] = "pmd:Basculin";
     inline static constexpr const char* PMD_BASCULIN_FQNAME = PMD_BASCULIN_FQNAME_ARR;
     inline static constexpr size_t PMD_BASCULIN_FQNAME_LEN = sizeof(PMD_BASCULIN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BASCULIN_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_BASCULIN_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_BASCULIN_ANIM_INDEX = 542;
     inline static constexpr custom_animation_settings_t PMD_BASCULIN_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_BASCULIN_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_BASCULIN_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_BASCULIN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BASCULIN_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Sandile
     inline static constexpr char PMD_SANDILE_FQID_ARR[] = "pmd:sandile";
@@ -20705,7 +20705,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -20768,11 +20768,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DARUMAKA_FQNAME_ARR[] = "pmd:Darumaka";
     inline static constexpr const char* PMD_DARUMAKA_FQNAME = PMD_DARUMAKA_FQNAME_ARR;
     inline static constexpr size_t PMD_DARUMAKA_FQNAME_LEN = sizeof(PMD_DARUMAKA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DARUMAKA_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_DARUMAKA_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_DARUMAKA_ANIM_INDEX = 546;
     inline static constexpr custom_animation_settings_t PMD_DARUMAKA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = -1,
+        .boring_frames = 4,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -20781,7 +20781,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 10,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -20790,8 +20790,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_DARUMAKA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DARUMAKA_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_DARUMAKA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_DARUMAKA_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Darmanitan
     inline static constexpr char PMD_DARMANITAN_FQID_ARR[] = "pmd:darmanitan";
@@ -20806,30 +20806,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DARMANITAN_FQNAME_ARR[] = "pmd:Darmanitan";
     inline static constexpr const char* PMD_DARMANITAN_FQNAME = PMD_DARMANITAN_FQNAME_ARR;
     inline static constexpr size_t PMD_DARMANITAN_FQNAME_LEN = sizeof(PMD_DARMANITAN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DARMANITAN_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_DARMANITAN_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_DARMANITAN_ANIM_INDEX = 547;
     inline static constexpr custom_animation_settings_t PMD_DARMANITAN_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 7,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_DARMANITAN_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_DARMANITAN_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_DARMANITAN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DARMANITAN_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Maractus
     inline static constexpr char PMD_MARACTUS_FQID_ARR[] = "pmd:maractus";
@@ -20844,11 +20844,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MARACTUS_FQNAME_ARR[] = "pmd:Maractus";
     inline static constexpr const char* PMD_MARACTUS_FQNAME = PMD_MARACTUS_FQNAME_ARR;
     inline static constexpr size_t PMD_MARACTUS_FQNAME_LEN = sizeof(PMD_MARACTUS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MARACTUS_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_MARACTUS_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_MARACTUS_ANIM_INDEX = 548;
     inline static constexpr custom_animation_settings_t PMD_MARACTUS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -20866,8 +20866,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MARACTUS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MARACTUS_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_MARACTUS_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MARACTUS_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Dwebble
     inline static constexpr char PMD_DWEBBLE_FQID_ARR[] = "pmd:dwebble";
@@ -20890,7 +20890,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -20926,14 +20926,14 @@ namespace bongocat::assets {
         .idle_frames = 2,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -20958,13 +20958,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SCRAFTY_FQNAME_ARR[] = "pmd:Scrafty";
     inline static constexpr const char* PMD_SCRAFTY_FQNAME = PMD_SCRAFTY_FQNAME_ARR;
     inline static constexpr size_t PMD_SCRAFTY_FQNAME_LEN = sizeof(PMD_SCRAFTY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SCRAFTY_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SCRAFTY_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_SCRAFTY_ANIM_INDEX = 551;
     inline static constexpr custom_animation_settings_t PMD_SCRAFTY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -20981,7 +20981,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SCRAFTY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SCRAFTY_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_SCRAFTY_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Sigilyph
     inline static constexpr char PMD_SIGILYPH_FQID_ARR[] = "pmd:sigilyph";
@@ -20996,7 +20996,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SIGILYPH_FQNAME_ARR[] = "pmd:Sigilyph";
     inline static constexpr const char* PMD_SIGILYPH_FQNAME = PMD_SIGILYPH_FQNAME_ARR;
     inline static constexpr size_t PMD_SIGILYPH_FQNAME_LEN = sizeof(PMD_SIGILYPH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SIGILYPH_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SIGILYPH_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_SIGILYPH_ANIM_INDEX = 552;
     inline static constexpr custom_animation_settings_t PMD_SIGILYPH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -21009,7 +21009,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -21019,7 +21019,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SIGILYPH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SIGILYPH_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_SIGILYPH_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Yamask
     inline static constexpr char PMD_YAMASK_FQID_ARR[] = "pmd:yamask";
@@ -21034,13 +21034,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_YAMASK_FQNAME_ARR[] = "pmd:Yamask";
     inline static constexpr const char* PMD_YAMASK_FQNAME = PMD_YAMASK_FQNAME_ARR;
     inline static constexpr size_t PMD_YAMASK_FQNAME_LEN = sizeof(PMD_YAMASK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_YAMASK_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_YAMASK_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_YAMASK_ANIM_INDEX = 553;
     inline static constexpr custom_animation_settings_t PMD_YAMASK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -21057,7 +21057,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_YAMASK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_YAMASK_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_YAMASK_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Cofagrigus
     inline static constexpr char PMD_COFAGRIGUS_FQID_ARR[] = "pmd:cofagrigus";
@@ -21110,11 +21110,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ARCHEN_FQNAME_ARR[] = "pmd:Archen";
     inline static constexpr const char* PMD_ARCHEN_FQNAME = PMD_ARCHEN_FQNAME_ARR;
     inline static constexpr size_t PMD_ARCHEN_FQNAME_LEN = sizeof(PMD_ARCHEN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ARCHEN_SPRITE_SHEET_FRAMES_COUNT = 119;
+    inline static constexpr size_t PMD_ARCHEN_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_ARCHEN_ANIM_INDEX = 555;
     inline static constexpr custom_animation_settings_t PMD_ARCHEN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -21123,7 +21123,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 17,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -21132,8 +21132,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ARCHEN_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_ARCHEN_SPRITE_SHEET_MAX_COLS = 17;
+    inline static constexpr int PMD_ARCHEN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ARCHEN_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Archeops
     inline static constexpr char PMD_ARCHEOPS_FQID_ARR[] = "pmd:archeops";
@@ -21148,13 +21148,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ARCHEOPS_FQNAME_ARR[] = "pmd:Archeops";
     inline static constexpr const char* PMD_ARCHEOPS_FQNAME = PMD_ARCHEOPS_FQNAME_ARR;
     inline static constexpr size_t PMD_ARCHEOPS_FQNAME_LEN = sizeof(PMD_ARCHEOPS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ARCHEOPS_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_ARCHEOPS_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_ARCHEOPS_ANIM_INDEX = 556;
     inline static constexpr custom_animation_settings_t PMD_ARCHEOPS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -21171,7 +21171,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ARCHEOPS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ARCHEOPS_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_ARCHEOPS_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Trubbish
     inline static constexpr char PMD_TRUBBISH_FQID_ARR[] = "pmd:trubbish";
@@ -21194,12 +21194,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 5,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -21224,7 +21224,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GARBODOR_FQNAME_ARR[] = "pmd:Garbodor";
     inline static constexpr const char* PMD_GARBODOR_FQNAME = PMD_GARBODOR_FQNAME_ARR;
     inline static constexpr size_t PMD_GARBODOR_FQNAME_LEN = sizeof(PMD_GARBODOR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GARBODOR_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_GARBODOR_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_GARBODOR_ANIM_INDEX = 558;
     inline static constexpr custom_animation_settings_t PMD_GARBODOR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -21237,7 +21237,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -21247,7 +21247,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GARBODOR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GARBODOR_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_GARBODOR_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Zorua
     inline static constexpr char PMD_ZORUA_FQID_ARR[] = "pmd:zorua";
@@ -21270,7 +21270,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -21346,7 +21346,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -21380,7 +21380,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CINCCINO_ANIM_INDEX = 562;
     inline static constexpr custom_animation_settings_t PMD_CINCCINO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = 2,
+        .boring_frames = 11,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -21420,7 +21420,7 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -21452,11 +21452,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GOTHORITA_FQNAME_ARR[] = "pmd:Gothorita";
     inline static constexpr const char* PMD_GOTHORITA_FQNAME = PMD_GOTHORITA_FQNAME_ARR;
     inline static constexpr size_t PMD_GOTHORITA_FQNAME_LEN = sizeof(PMD_GOTHORITA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GOTHORITA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_GOTHORITA_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_GOTHORITA_ANIM_INDEX = 564;
     inline static constexpr custom_animation_settings_t PMD_GOTHORITA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
-        .boring_frames = -1,
+        .boring_frames = 8,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -21474,7 +21474,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GOTHORITA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GOTHORITA_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_GOTHORITA_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Gothitelle
@@ -21490,11 +21490,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GOTHITELLE_FQNAME_ARR[] = "pmd:Gothitelle";
     inline static constexpr const char* PMD_GOTHITELLE_FQNAME = PMD_GOTHITELLE_FQNAME_ARR;
     inline static constexpr size_t PMD_GOTHITELLE_FQNAME_LEN = sizeof(PMD_GOTHITELLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GOTHITELLE_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_GOTHITELLE_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_GOTHITELLE_ANIM_INDEX = 565;
     inline static constexpr custom_animation_settings_t PMD_GOTHITELLE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 8,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -21512,7 +21512,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_GOTHITELLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GOTHITELLE_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_GOTHITELLE_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Solosis
@@ -21536,7 +21536,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 4,
         .wake_up_frames = -1,
@@ -21566,7 +21566,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DUOSION_FQNAME_ARR[] = "pmd:Duosion";
     inline static constexpr const char* PMD_DUOSION_FQNAME = PMD_DUOSION_FQNAME_ARR;
     inline static constexpr size_t PMD_DUOSION_FQNAME_LEN = sizeof(PMD_DUOSION_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DUOSION_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_DUOSION_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_DUOSION_ANIM_INDEX = 567;
     inline static constexpr custom_animation_settings_t PMD_DUOSION_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -21579,7 +21579,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 10,
@@ -21589,7 +21589,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DUOSION_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_DUOSION_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_DUOSION_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Reuniclus
     inline static constexpr char PMD_REUNICLUS_FQID_ARR[] = "pmd:reuniclus";
@@ -21642,13 +21642,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SWANNA_FQNAME_ARR[] = "pmd:Swanna";
     inline static constexpr const char* PMD_SWANNA_FQNAME = PMD_SWANNA_FQNAME_ARR;
     inline static constexpr size_t PMD_SWANNA_FQNAME_LEN = sizeof(PMD_SWANNA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SWANNA_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_SWANNA_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_SWANNA_ANIM_INDEX = 569;
     inline static constexpr custom_animation_settings_t PMD_SWANNA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -21665,7 +21665,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SWANNA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_SWANNA_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_SWANNA_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Vanillite
     inline static constexpr char PMD_VANILLITE_FQID_ARR[] = "pmd:vanillite";
@@ -21688,12 +21688,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 19,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -21718,7 +21718,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VANILLISH_FQNAME_ARR[] = "pmd:Vanillish";
     inline static constexpr const char* PMD_VANILLISH_FQNAME = PMD_VANILLISH_FQNAME_ARR;
     inline static constexpr size_t PMD_VANILLISH_FQNAME_LEN = sizeof(PMD_VANILLISH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VANILLISH_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_VANILLISH_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_VANILLISH_ANIM_INDEX = 571;
     inline static constexpr custom_animation_settings_t PMD_VANILLISH_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -21731,7 +21731,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -21741,7 +21741,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_VANILLISH_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VANILLISH_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_VANILLISH_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Vanilluxe
     inline static constexpr char PMD_VANILLUXE_FQID_ARR[] = "pmd:vanilluxe";
@@ -21794,7 +21794,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DEERLING_FQNAME_ARR[] = "pmd:Deerling";
     inline static constexpr const char* PMD_DEERLING_FQNAME = PMD_DEERLING_FQNAME_ARR;
     inline static constexpr size_t PMD_DEERLING_FQNAME_LEN = sizeof(PMD_DEERLING_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DEERLING_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DEERLING_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_DEERLING_ANIM_INDEX = 573;
     inline static constexpr custom_animation_settings_t PMD_DEERLING_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -21802,12 +21802,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -21817,7 +21817,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_DEERLING_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_DEERLING_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_DEERLING_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Sawsbuck
     inline static constexpr char PMD_SAWSBUCK_FQID_ARR[] = "pmd:sawsbuck";
@@ -21870,7 +21870,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_EMOLGA_FQNAME_ARR[] = "pmd:Emolga";
     inline static constexpr const char* PMD_EMOLGA_FQNAME = PMD_EMOLGA_FQNAME_ARR;
     inline static constexpr size_t PMD_EMOLGA_FQNAME_LEN = sizeof(PMD_EMOLGA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_EMOLGA_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_EMOLGA_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_EMOLGA_ANIM_INDEX = 575;
     inline static constexpr custom_animation_settings_t PMD_EMOLGA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -21878,12 +21878,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -21893,7 +21893,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_EMOLGA_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_EMOLGA_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_EMOLGA_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Karrablast
     inline static constexpr char PMD_KARRABLAST_FQID_ARR[] = "pmd:karrablast";
@@ -21946,13 +21946,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ESCAVALIER_FQNAME_ARR[] = "pmd:Escavalier";
     inline static constexpr const char* PMD_ESCAVALIER_FQNAME = PMD_ESCAVALIER_FQNAME_ARR;
     inline static constexpr size_t PMD_ESCAVALIER_FQNAME_LEN = sizeof(PMD_ESCAVALIER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ESCAVALIER_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_ESCAVALIER_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_ESCAVALIER_ANIM_INDEX = 577;
     inline static constexpr custom_animation_settings_t PMD_ESCAVALIER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -21969,7 +21969,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ESCAVALIER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ESCAVALIER_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_ESCAVALIER_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Foongus
     inline static constexpr char PMD_FOONGUS_FQID_ARR[] = "pmd:foongus";
@@ -21984,7 +21984,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FOONGUS_FQNAME_ARR[] = "pmd:Foongus";
     inline static constexpr const char* PMD_FOONGUS_FQNAME = PMD_FOONGUS_FQNAME_ARR;
     inline static constexpr size_t PMD_FOONGUS_FQNAME_LEN = sizeof(PMD_FOONGUS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FOONGUS_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_FOONGUS_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_FOONGUS_ANIM_INDEX = 578;
     inline static constexpr custom_animation_settings_t PMD_FOONGUS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -21997,7 +21997,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -22007,7 +22007,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_FOONGUS_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_FOONGUS_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_FOONGUS_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Jellicent
     inline static constexpr char PMD_JELLICENT_FQID_ARR[] = "pmd:jellicent";
@@ -22060,11 +22060,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ALOMOMOLA_FQNAME_ARR[] = "pmd:Alomomola";
     inline static constexpr const char* PMD_ALOMOMOLA_FQNAME = PMD_ALOMOMOLA_FQNAME_ARR;
     inline static constexpr size_t PMD_ALOMOMOLA_FQNAME_LEN = sizeof(PMD_ALOMOMOLA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ALOMOMOLA_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_ALOMOMOLA_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_ALOMOMOLA_ANIM_INDEX = 580;
     inline static constexpr custom_animation_settings_t PMD_ALOMOMOLA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -22082,8 +22082,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ALOMOMOLA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_ALOMOMOLA_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_ALOMOMOLA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ALOMOMOLA_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Joltik
     inline static constexpr char PMD_JOLTIK_FQID_ARR[] = "pmd:joltik";
@@ -22182,12 +22182,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -22263,7 +22263,7 @@ namespace bongocat::assets {
         .sleep_frames = 4,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -22288,11 +22288,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_EELEKTRIK_FQNAME_ARR[] = "pmd:Eelektrik";
     inline static constexpr const char* PMD_EELEKTRIK_FQNAME = PMD_EELEKTRIK_FQNAME_ARR;
     inline static constexpr size_t PMD_EELEKTRIK_FQNAME_LEN = sizeof(PMD_EELEKTRIK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_EELEKTRIK_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_EELEKTRIK_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_EELEKTRIK_ANIM_INDEX = 586;
     inline static constexpr custom_animation_settings_t PMD_EELEKTRIK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 16,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -22310,8 +22310,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_EELEKTRIK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_EELEKTRIK_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_EELEKTRIK_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_EELEKTRIK_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Eelektross
     inline static constexpr char PMD_EELEKTROSS_FQID_ARR[] = "pmd:eelektross";
@@ -22326,20 +22326,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_EELEKTROSS_FQNAME_ARR[] = "pmd:Eelektross";
     inline static constexpr const char* PMD_EELEKTROSS_FQNAME = PMD_EELEKTROSS_FQNAME_ARR;
     inline static constexpr size_t PMD_EELEKTROSS_FQNAME_LEN = sizeof(PMD_EELEKTROSS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_EELEKTROSS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_EELEKTROSS_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_EELEKTROSS_ANIM_INDEX = 587;
     inline static constexpr custom_animation_settings_t PMD_EELEKTROSS_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -22348,8 +22348,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_EELEKTROSS_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_EELEKTROSS_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_EELEKTROSS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_EELEKTROSS_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Elgyem
     inline static constexpr char PMD_ELGYEM_FQID_ARR[] = "pmd:elgyem";
@@ -22372,7 +22372,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
@@ -22402,7 +22402,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BEHEEYEM_FQNAME_ARR[] = "pmd:Beheeyem";
     inline static constexpr const char* PMD_BEHEEYEM_FQNAME = PMD_BEHEEYEM_FQNAME_ARR;
     inline static constexpr size_t PMD_BEHEEYEM_FQNAME_LEN = sizeof(PMD_BEHEEYEM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BEHEEYEM_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_BEHEEYEM_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_BEHEEYEM_ANIM_INDEX = 589;
     inline static constexpr custom_animation_settings_t PMD_BEHEEYEM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
@@ -22415,7 +22415,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -22425,7 +22425,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BEHEEYEM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BEHEEYEM_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_BEHEEYEM_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Litwick
     inline static constexpr char PMD_LITWICK_FQID_ARR[] = "pmd:litwick";
@@ -22448,7 +22448,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -22478,7 +22478,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LAMPENT_FQNAME_ARR[] = "pmd:Lampent";
     inline static constexpr const char* PMD_LAMPENT_FQNAME = PMD_LAMPENT_FQNAME_ARR;
     inline static constexpr size_t PMD_LAMPENT_FQNAME_LEN = sizeof(PMD_LAMPENT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LAMPENT_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_LAMPENT_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_LAMPENT_ANIM_INDEX = 591;
     inline static constexpr custom_animation_settings_t PMD_LAMPENT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -22491,7 +22491,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -22501,7 +22501,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_LAMPENT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_LAMPENT_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_LAMPENT_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Chandelure
     inline static constexpr char PMD_CHANDELURE_FQID_ARR[] = "pmd:chandelure";
@@ -22516,7 +22516,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHANDELURE_FQNAME_ARR[] = "pmd:Chandelure";
     inline static constexpr const char* PMD_CHANDELURE_FQNAME = PMD_CHANDELURE_FQNAME_ARR;
     inline static constexpr size_t PMD_CHANDELURE_FQNAME_LEN = sizeof(PMD_CHANDELURE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHANDELURE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CHANDELURE_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_CHANDELURE_ANIM_INDEX = 592;
     inline static constexpr custom_animation_settings_t PMD_CHANDELURE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -22529,7 +22529,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -22539,7 +22539,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CHANDELURE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CHANDELURE_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_CHANDELURE_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Axew
     inline static constexpr char PMD_AXEW_FQID_ARR[] = "pmd:axew";
@@ -22560,9 +22560,9 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -22592,13 +22592,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FRAXURE_FQNAME_ARR[] = "pmd:Fraxure";
     inline static constexpr const char* PMD_FRAXURE_FQNAME = PMD_FRAXURE_FQNAME_ARR;
     inline static constexpr size_t PMD_FRAXURE_FQNAME_LEN = sizeof(PMD_FRAXURE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FRAXURE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_FRAXURE_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_FRAXURE_ANIM_INDEX = 594;
     inline static constexpr custom_animation_settings_t PMD_FRAXURE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -22615,7 +22615,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_FRAXURE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_FRAXURE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_FRAXURE_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Haxorus
     inline static constexpr char PMD_HAXORUS_FQID_ARR[] = "pmd:haxorus";
@@ -22636,7 +22636,7 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 9,
+        .writing_frames = 6,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -22668,11 +22668,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CUBCHOO_FQNAME_ARR[] = "pmd:Cubchoo";
     inline static constexpr const char* PMD_CUBCHOO_FQNAME = PMD_CUBCHOO_FQNAME_ARR;
     inline static constexpr size_t PMD_CUBCHOO_FQNAME_LEN = sizeof(PMD_CUBCHOO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CUBCHOO_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_CUBCHOO_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_CUBCHOO_ANIM_INDEX = 596;
     inline static constexpr custom_animation_settings_t PMD_CUBCHOO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 11,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 13,
         .end_writing_frames = -1,
@@ -22690,7 +22690,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CUBCHOO_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CUBCHOO_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_CUBCHOO_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Beartic
@@ -22757,7 +22757,7 @@ namespace bongocat::assets {
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -22820,20 +22820,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MIENFOO_FQNAME_ARR[] = "pmd:Mienfoo";
     inline static constexpr const char* PMD_MIENFOO_FQNAME = PMD_MIENFOO_FQNAME_ARR;
     inline static constexpr size_t PMD_MIENFOO_FQNAME_LEN = sizeof(PMD_MIENFOO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MIENFOO_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_MIENFOO_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_MIENFOO_ANIM_INDEX = 600;
     inline static constexpr custom_animation_settings_t PMD_MIENFOO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 15,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -22843,7 +22843,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_MIENFOO_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_MIENFOO_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_MIENFOO_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Mienshao
     inline static constexpr char PMD_MIENSHAO_FQID_ARR[] = "pmd:mienshao";
@@ -22858,11 +22858,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MIENSHAO_FQNAME_ARR[] = "pmd:Mienshao";
     inline static constexpr const char* PMD_MIENSHAO_FQNAME = PMD_MIENSHAO_FQNAME_ARR;
     inline static constexpr size_t PMD_MIENSHAO_FQNAME_LEN = sizeof(PMD_MIENSHAO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MIENSHAO_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_MIENSHAO_SPRITE_SHEET_FRAMES_COUNT = 126;
     inline static constexpr size_t PMD_MIENSHAO_ANIM_INDEX = 601;
     inline static constexpr custom_animation_settings_t PMD_MIENSHAO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 18,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -22880,8 +22880,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MIENSHAO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MIENSHAO_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_MIENSHAO_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MIENSHAO_SPRITE_SHEET_MAX_COLS = 18;
 
     // Name: Druddigon
     inline static constexpr char PMD_DRUDDIGON_FQID_ARR[] = "pmd:druddigon";
@@ -22909,7 +22909,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -22934,7 +22934,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GOLETT_FQNAME_ARR[] = "pmd:Golett";
     inline static constexpr const char* PMD_GOLETT_FQNAME = PMD_GOLETT_FQNAME_ARR;
     inline static constexpr size_t PMD_GOLETT_FQNAME_LEN = sizeof(PMD_GOLETT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GOLETT_SPRITE_SHEET_FRAMES_COUNT = 63;
+    inline static constexpr size_t PMD_GOLETT_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_GOLETT_ANIM_INDEX = 603;
     inline static constexpr custom_animation_settings_t PMD_GOLETT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -22942,12 +22942,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -22957,7 +22957,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GOLETT_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_GOLETT_SPRITE_SHEET_MAX_COLS = 9;
+    inline static constexpr int PMD_GOLETT_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Golurk
     inline static constexpr char PMD_GOLURK_FQID_ARR[] = "pmd:golurk";
@@ -22972,7 +22972,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GOLURK_FQNAME_ARR[] = "pmd:Golurk";
     inline static constexpr const char* PMD_GOLURK_FQNAME = PMD_GOLURK_FQNAME_ARR;
     inline static constexpr size_t PMD_GOLURK_FQNAME_LEN = sizeof(PMD_GOLURK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GOLURK_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_GOLURK_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_GOLURK_ANIM_INDEX = 604;
     inline static constexpr custom_animation_settings_t PMD_GOLURK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -22985,7 +22985,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -22995,7 +22995,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GOLURK_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GOLURK_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_GOLURK_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Pawniard
     inline static constexpr char PMD_PAWNIARD_FQID_ARR[] = "pmd:pawniard";
@@ -23016,14 +23016,14 @@ namespace bongocat::assets {
         .idle_frames = 3,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 9,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23048,20 +23048,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_BISHARP_FQNAME_ARR[] = "pmd:Bisharp";
     inline static constexpr const char* PMD_BISHARP_FQNAME = PMD_BISHARP_FQNAME_ARR;
     inline static constexpr size_t PMD_BISHARP_FQNAME_LEN = sizeof(PMD_BISHARP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BISHARP_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_BISHARP_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_BISHARP_ANIM_INDEX = 606;
     inline static constexpr custom_animation_settings_t PMD_BISHARP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23071,7 +23071,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_BISHARP_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_BISHARP_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_BISHARP_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Rufflet
     inline static constexpr char PMD_RUFFLET_FQID_ARR[] = "pmd:rufflet";
@@ -23086,15 +23086,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_RUFFLET_FQNAME_ARR[] = "pmd:Rufflet";
     inline static constexpr const char* PMD_RUFFLET_FQNAME = PMD_RUFFLET_FQNAME_ARR;
     inline static constexpr size_t PMD_RUFFLET_FQNAME_LEN = sizeof(PMD_RUFFLET_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_RUFFLET_SPRITE_SHEET_FRAMES_COUNT = 126;
+    inline static constexpr size_t PMD_RUFFLET_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_RUFFLET_ANIM_INDEX = 607;
     inline static constexpr custom_animation_settings_t PMD_RUFFLET_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -23109,7 +23109,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_RUFFLET_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_RUFFLET_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_RUFFLET_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Braviary
     inline static constexpr char PMD_BRAVIARY_FQID_ARR[] = "pmd:braviary";
@@ -23162,13 +23162,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VULLABY_FQNAME_ARR[] = "pmd:Vullaby";
     inline static constexpr const char* PMD_VULLABY_FQNAME = PMD_VULLABY_FQNAME_ARR;
     inline static constexpr size_t PMD_VULLABY_FQNAME_LEN = sizeof(PMD_VULLABY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VULLABY_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_VULLABY_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_VULLABY_ANIM_INDEX = 609;
     inline static constexpr custom_animation_settings_t PMD_VULLABY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -23185,7 +23185,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_VULLABY_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VULLABY_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_VULLABY_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Mandibuzz
     inline static constexpr char PMD_MANDIBUZZ_FQID_ARR[] = "pmd:mandibuzz";
@@ -23213,7 +23213,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 7,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23238,13 +23238,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HEATMOR_FQNAME_ARR[] = "pmd:Heatmor";
     inline static constexpr const char* PMD_HEATMOR_FQNAME = PMD_HEATMOR_FQNAME_ARR;
     inline static constexpr size_t PMD_HEATMOR_FQNAME_LEN = sizeof(PMD_HEATMOR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HEATMOR_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_HEATMOR_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_HEATMOR_ANIM_INDEX = 611;
     inline static constexpr custom_animation_settings_t PMD_HEATMOR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -23261,7 +23261,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HEATMOR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_HEATMOR_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_HEATMOR_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Durant
     inline static constexpr char PMD_DURANT_FQID_ARR[] = "pmd:durant";
@@ -23282,7 +23282,7 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 12,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -23322,7 +23322,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -23358,14 +23358,14 @@ namespace bongocat::assets {
         .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 16,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23466,7 +23466,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VOLCARONA_FQNAME_ARR[] = "pmd:Volcarona";
     inline static constexpr const char* PMD_VOLCARONA_FQNAME = PMD_VOLCARONA_FQNAME_ARR;
     inline static constexpr size_t PMD_VOLCARONA_FQNAME_LEN = sizeof(PMD_VOLCARONA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VOLCARONA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_VOLCARONA_SPRITE_SHEET_FRAMES_COUNT = 114;
     inline static constexpr size_t PMD_VOLCARONA_ANIM_INDEX = 617;
     inline static constexpr custom_animation_settings_t PMD_VOLCARONA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -23479,7 +23479,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 14,
+        .working_frames = 19,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23489,7 +23489,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_VOLCARONA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VOLCARONA_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_VOLCARONA_SPRITE_SHEET_MAX_COLS = 19;
 
     // Name: Cobalion
     inline static constexpr char PMD_COBALION_FQID_ARR[] = "pmd:cobalion";
@@ -23542,20 +23542,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TERRAKION_FQNAME_ARR[] = "pmd:Terrakion";
     inline static constexpr const char* PMD_TERRAKION_FQNAME = PMD_TERRAKION_FQNAME_ARR;
     inline static constexpr size_t PMD_TERRAKION_FQNAME_LEN = sizeof(PMD_TERRAKION_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TERRAKION_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_TERRAKION_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_TERRAKION_ANIM_INDEX = 619;
     inline static constexpr custom_animation_settings_t PMD_TERRAKION_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 14,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23564,7 +23564,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TERRAKION_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TERRAKION_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_TERRAKION_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Virizion
@@ -23593,7 +23593,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23618,30 +23618,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TORNADUS_FQNAME_ARR[] = "pmd:Tornadus";
     inline static constexpr const char* PMD_TORNADUS_FQNAME = PMD_TORNADUS_FQNAME_ARR;
     inline static constexpr size_t PMD_TORNADUS_FQNAME_LEN = sizeof(PMD_TORNADUS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TORNADUS_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_TORNADUS_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_TORNADUS_ANIM_INDEX = 621;
     inline static constexpr custom_animation_settings_t PMD_TORNADUS_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 9,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 9,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TORNADUS_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_TORNADUS_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_TORNADUS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TORNADUS_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Thundurus
     inline static constexpr char PMD_THUNDURUS_FQID_ARR[] = "pmd:thundurus";
@@ -23656,30 +23656,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_THUNDURUS_FQNAME_ARR[] = "pmd:Thundurus";
     inline static constexpr const char* PMD_THUNDURUS_FQNAME = PMD_THUNDURUS_FQNAME_ARR;
     inline static constexpr size_t PMD_THUNDURUS_FQNAME_LEN = sizeof(PMD_THUNDURUS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_THUNDURUS_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_THUNDURUS_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_THUNDURUS_ANIM_INDEX = 622;
     inline static constexpr custom_animation_settings_t PMD_THUNDURUS_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 9,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 9,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_THUNDURUS_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_THUNDURUS_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_THUNDURUS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_THUNDURUS_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Reshiram
     inline static constexpr char PMD_RESHIRAM_FQID_ARR[] = "pmd:reshiram";
@@ -23770,30 +23770,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_LANDORUS_FQNAME_ARR[] = "pmd:Landorus";
     inline static constexpr const char* PMD_LANDORUS_FQNAME = PMD_LANDORUS_FQNAME_ARR;
     inline static constexpr size_t PMD_LANDORUS_FQNAME_LEN = sizeof(PMD_LANDORUS_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_LANDORUS_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_LANDORUS_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_LANDORUS_ANIM_INDEX = 625;
     inline static constexpr custom_animation_settings_t PMD_LANDORUS_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 9,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 9,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_LANDORUS_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_LANDORUS_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_LANDORUS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_LANDORUS_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Kyurem
     inline static constexpr char PMD_KYUREM_FQID_ARR[] = "pmd:kyurem";
@@ -23808,11 +23808,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KYUREM_FQNAME_ARR[] = "pmd:Kyurem";
     inline static constexpr const char* PMD_KYUREM_FQNAME = PMD_KYUREM_FQNAME_ARR;
     inline static constexpr size_t PMD_KYUREM_FQNAME_LEN = sizeof(PMD_KYUREM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KYUREM_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_KYUREM_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_KYUREM_ANIM_INDEX = 626;
     inline static constexpr custom_animation_settings_t PMD_KYUREM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
@@ -23821,7 +23821,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -23830,7 +23830,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_KYUREM_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_KYUREM_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_KYUREM_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Keldeo
@@ -23846,30 +23846,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_KELDEO_FQNAME_ARR[] = "pmd:Keldeo";
     inline static constexpr const char* PMD_KELDEO_FQNAME = PMD_KELDEO_FQNAME_ARR;
     inline static constexpr size_t PMD_KELDEO_FQNAME_LEN = sizeof(PMD_KELDEO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_KELDEO_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_KELDEO_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_KELDEO_ANIM_INDEX = 627;
     inline static constexpr custom_animation_settings_t PMD_KELDEO_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 14,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_KELDEO_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_KELDEO_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_KELDEO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_KELDEO_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Meloetta
     inline static constexpr char PMD_MELOETTA_FQID_ARR[] = "pmd:meloetta";
@@ -23884,30 +23884,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MELOETTA_FQNAME_ARR[] = "pmd:Meloetta";
     inline static constexpr const char* PMD_MELOETTA_FQNAME = PMD_MELOETTA_FQNAME_ARR;
     inline static constexpr size_t PMD_MELOETTA_FQNAME_LEN = sizeof(PMD_MELOETTA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MELOETTA_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_MELOETTA_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_MELOETTA_ANIM_INDEX = 628;
     inline static constexpr custom_animation_settings_t PMD_MELOETTA_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
+        .idle_frames = 7,
+        .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MELOETTA_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_MELOETTA_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_MELOETTA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MELOETTA_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Genesect
     inline static constexpr char PMD_GENESECT_FQID_ARR[] = "pmd:genesect";
@@ -23968,7 +23968,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -23998,7 +23998,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_QUILLADIN_FQNAME_ARR[] = "pmd:Quilladin";
     inline static constexpr const char* PMD_QUILLADIN_FQNAME = PMD_QUILLADIN_FQNAME_ARR;
     inline static constexpr size_t PMD_QUILLADIN_FQNAME_LEN = sizeof(PMD_QUILLADIN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_QUILLADIN_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_QUILLADIN_SPRITE_SHEET_FRAMES_COUNT = 102;
     inline static constexpr size_t PMD_QUILLADIN_ANIM_INDEX = 631;
     inline static constexpr custom_animation_settings_t PMD_QUILLADIN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -24011,7 +24011,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 17,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -24021,7 +24021,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_QUILLADIN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_QUILLADIN_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_QUILLADIN_SPRITE_SHEET_MAX_COLS = 17;
 
     // Name: Chesnaught
     inline static constexpr char PMD_CHESNAUGHT_FQID_ARR[] = "pmd:chesnaught";
@@ -24036,7 +24036,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CHESNAUGHT_FQNAME_ARR[] = "pmd:Chesnaught";
     inline static constexpr const char* PMD_CHESNAUGHT_FQNAME = PMD_CHESNAUGHT_FQNAME_ARR;
     inline static constexpr size_t PMD_CHESNAUGHT_FQNAME_LEN = sizeof(PMD_CHESNAUGHT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CHESNAUGHT_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_CHESNAUGHT_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_CHESNAUGHT_ANIM_INDEX = 632;
     inline static constexpr custom_animation_settings_t PMD_CHESNAUGHT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
@@ -24049,7 +24049,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 16,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -24059,7 +24059,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_CHESNAUGHT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CHESNAUGHT_SPRITE_SHEET_MAX_COLS = 16;
+    inline static constexpr int PMD_CHESNAUGHT_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Fennekin
     inline static constexpr char PMD_FENNEKIN_FQID_ARR[] = "pmd:fennekin";
@@ -24082,7 +24082,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 12,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 8,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -24120,7 +24120,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -24196,7 +24196,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -24264,7 +24264,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_GRENINJA_FQNAME_ARR[] = "pmd:Greninja";
     inline static constexpr const char* PMD_GRENINJA_FQNAME = PMD_GRENINJA_FQNAME_ARR;
     inline static constexpr size_t PMD_GRENINJA_FQNAME_LEN = sizeof(PMD_GRENINJA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GRENINJA_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_GRENINJA_SPRITE_SHEET_FRAMES_COUNT = 96;
     inline static constexpr size_t PMD_GRENINJA_ANIM_INDEX = 638;
     inline static constexpr custom_animation_settings_t PMD_GRENINJA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -24277,7 +24277,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 16,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -24287,7 +24287,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_GRENINJA_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_GRENINJA_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_GRENINJA_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Bunnelby
     inline static constexpr char PMD_BUNNELBY_FQID_ARR[] = "pmd:bunnelby";
@@ -24340,13 +24340,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FLETCHLING_FQNAME_ARR[] = "pmd:Fletchling";
     inline static constexpr const char* PMD_FLETCHLING_FQNAME = PMD_FLETCHLING_FQNAME_ARR;
     inline static constexpr size_t PMD_FLETCHLING_FQNAME_LEN = sizeof(PMD_FLETCHLING_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FLETCHLING_SPRITE_SHEET_FRAMES_COUNT = 108;
+    inline static constexpr size_t PMD_FLETCHLING_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_FLETCHLING_ANIM_INDEX = 640;
     inline static constexpr custom_animation_settings_t PMD_FLETCHLING_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 18,
+        .writing_frames = 14,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -24363,7 +24363,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_FLETCHLING_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_FLETCHLING_SPRITE_SHEET_MAX_COLS = 18;
+    inline static constexpr int PMD_FLETCHLING_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Fletchinder
     inline static constexpr char PMD_FLETCHINDER_FQID_ARR[] = "pmd:fletchinder";
@@ -24386,7 +24386,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -24416,11 +24416,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TALONFLAME_FQNAME_ARR[] = "pmd:Talonflame";
     inline static constexpr const char* PMD_TALONFLAME_FQNAME = PMD_TALONFLAME_FQNAME_ARR;
     inline static constexpr size_t PMD_TALONFLAME_FQNAME_LEN = sizeof(PMD_TALONFLAME_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TALONFLAME_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_TALONFLAME_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_TALONFLAME_ANIM_INDEX = 642;
     inline static constexpr custom_animation_settings_t PMD_TALONFLAME_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -24438,7 +24438,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TALONFLAME_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TALONFLAME_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_TALONFLAME_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Scatterbug
@@ -24530,15 +24530,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VIVILLON_FQNAME_ARR[] = "pmd:Vivillon";
     inline static constexpr const char* PMD_VIVILLON_FQNAME = PMD_VIVILLON_FQNAME_ARR;
     inline static constexpr size_t PMD_VIVILLON_FQNAME_LEN = sizeof(PMD_VIVILLON_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VIVILLON_SPRITE_SHEET_FRAMES_COUNT = 168;
+    inline static constexpr size_t PMD_VIVILLON_SPRITE_SHEET_FRAMES_COUNT = 112;
     inline static constexpr size_t PMD_VIVILLON_ANIM_INDEX = 645;
     inline static constexpr custom_animation_settings_t PMD_VIVILLON_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 9,
         .start_writing_frames = -1,
-        .writing_frames = 24,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -24553,7 +24553,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_VIVILLON_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_VIVILLON_SPRITE_SHEET_MAX_COLS = 24;
+    inline static constexpr int PMD_VIVILLON_SPRITE_SHEET_MAX_COLS = 16;
 
     // Name: Litleo
     inline static constexpr char PMD_LITLEO_FQID_ARR[] = "pmd:litleo";
@@ -24576,7 +24576,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 15,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -24619,7 +24619,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 9,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -24644,11 +24644,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FLOETTE_FQNAME_ARR[] = "pmd:Floette";
     inline static constexpr const char* PMD_FLOETTE_FQNAME = PMD_FLOETTE_FQNAME_ARR;
     inline static constexpr size_t PMD_FLOETTE_FQNAME_LEN = sizeof(PMD_FLOETTE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FLOETTE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_FLOETTE_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_FLOETTE_ANIM_INDEX = 648;
     inline static constexpr custom_animation_settings_t PMD_FLOETTE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = -1,
+        .boring_frames = 14,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -24666,7 +24666,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_FLOETTE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_FLOETTE_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_FLOETTE_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Florges
@@ -24682,11 +24682,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FLORGES_FQNAME_ARR[] = "pmd:Florges";
     inline static constexpr const char* PMD_FLORGES_FQNAME = PMD_FLORGES_FQNAME_ARR;
     inline static constexpr size_t PMD_FLORGES_FQNAME_LEN = sizeof(PMD_FLORGES_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FLORGES_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_FLORGES_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_FLORGES_ANIM_INDEX = 649;
     inline static constexpr custom_animation_settings_t PMD_FLORGES_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 8,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -24704,7 +24704,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_FLORGES_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_FLORGES_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_FLORGES_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Skiddo
@@ -24720,7 +24720,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SKIDDO_FQNAME_ARR[] = "pmd:Skiddo";
     inline static constexpr const char* PMD_SKIDDO_FQNAME = PMD_SKIDDO_FQNAME_ARR;
     inline static constexpr size_t PMD_SKIDDO_FQNAME_LEN = sizeof(PMD_SKIDDO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SKIDDO_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SKIDDO_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_SKIDDO_ANIM_INDEX = 650;
     inline static constexpr custom_animation_settings_t PMD_SKIDDO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
@@ -24728,12 +24728,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 5,
@@ -24743,7 +24743,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SKIDDO_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SKIDDO_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_SKIDDO_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Gogoat
     inline static constexpr char PMD_GOGOAT_FQID_ARR[] = "pmd:gogoat";
@@ -24796,20 +24796,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PANCHAM_FQNAME_ARR[] = "pmd:Pancham";
     inline static constexpr const char* PMD_PANCHAM_FQNAME = PMD_PANCHAM_FQNAME_ARR;
     inline static constexpr size_t PMD_PANCHAM_FQNAME_LEN = sizeof(PMD_PANCHAM_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PANCHAM_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PANCHAM_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_PANCHAM_ANIM_INDEX = 652;
     inline static constexpr custom_animation_settings_t PMD_PANCHAM_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 10,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -24819,7 +24819,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PANCHAM_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PANCHAM_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_PANCHAM_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Pangoro
     inline static constexpr char PMD_PANGORO_FQID_ARR[] = "pmd:pangoro";
@@ -24834,13 +24834,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_PANGORO_FQNAME_ARR[] = "pmd:Pangoro";
     inline static constexpr const char* PMD_PANGORO_FQNAME = PMD_PANGORO_FQNAME_ARR;
     inline static constexpr size_t PMD_PANGORO_FQNAME_LEN = sizeof(PMD_PANGORO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PANGORO_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PANGORO_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_PANGORO_ANIM_INDEX = 653;
     inline static constexpr custom_animation_settings_t PMD_PANGORO_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 12,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -24857,7 +24857,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_PANGORO_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_PANGORO_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_PANGORO_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Furfrou
     inline static constexpr char PMD_FURFROU_FQID_ARR[] = "pmd:furfrou";
@@ -24872,11 +24872,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_FURFROU_FQNAME_ARR[] = "pmd:Furfrou";
     inline static constexpr const char* PMD_FURFROU_FQNAME = PMD_FURFROU_FQNAME_ARR;
     inline static constexpr size_t PMD_FURFROU_FQNAME_LEN = sizeof(PMD_FURFROU_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_FURFROU_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_FURFROU_SPRITE_SHEET_FRAMES_COUNT = 77;
     inline static constexpr size_t PMD_FURFROU_ANIM_INDEX = 654;
     inline static constexpr custom_animation_settings_t PMD_FURFROU_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = -1,
+        .boring_frames = 10,
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
@@ -24894,7 +24894,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_FURFROU_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_FURFROU_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_FURFROU_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Espurr
@@ -24910,15 +24910,15 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ESPURR_FQNAME_ARR[] = "pmd:Espurr";
     inline static constexpr const char* PMD_ESPURR_FQNAME = PMD_ESPURR_FQNAME_ARR;
     inline static constexpr size_t PMD_ESPURR_FQNAME_LEN = sizeof(PMD_ESPURR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ESPURR_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_ESPURR_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_ESPURR_ANIM_INDEX = 655;
     inline static constexpr custom_animation_settings_t PMD_ESPURR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 15,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -24933,7 +24933,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_ESPURR_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_ESPURR_SPRITE_SHEET_MAX_COLS = 15;
+    inline static constexpr int PMD_ESPURR_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Meowstic
     inline static constexpr char PMD_MEOWSTIC_FQID_ARR[] = "pmd:meowstic";
@@ -24948,30 +24948,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MEOWSTIC_FQNAME_ARR[] = "pmd:Meowstic";
     inline static constexpr const char* PMD_MEOWSTIC_FQNAME = PMD_MEOWSTIC_FQNAME_ARR;
     inline static constexpr size_t PMD_MEOWSTIC_FQNAME_LEN = sizeof(PMD_MEOWSTIC_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MEOWSTIC_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_MEOWSTIC_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_MEOWSTIC_ANIM_INDEX = 656;
     inline static constexpr custom_animation_settings_t PMD_MEOWSTIC_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
+        .idle_frames = 6,
+        .boring_frames = 3,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 9,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 4,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MEOWSTIC_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_MEOWSTIC_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_MEOWSTIC_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MEOWSTIC_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Honedge
     inline static constexpr char PMD_HONEDGE_FQID_ARR[] = "pmd:honedge";
@@ -24986,20 +24986,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HONEDGE_FQNAME_ARR[] = "pmd:Honedge";
     inline static constexpr const char* PMD_HONEDGE_FQNAME = PMD_HONEDGE_FQNAME_ARR;
     inline static constexpr size_t PMD_HONEDGE_FQNAME_LEN = sizeof(PMD_HONEDGE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HONEDGE_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_HONEDGE_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_HONEDGE_ANIM_INDEX = 657;
     inline static constexpr custom_animation_settings_t PMD_HONEDGE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = 5,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -25009,7 +25009,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HONEDGE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_HONEDGE_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_HONEDGE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Doublade
     inline static constexpr char PMD_DOUBLADE_FQID_ARR[] = "pmd:doublade";
@@ -25024,20 +25024,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_DOUBLADE_FQNAME_ARR[] = "pmd:Doublade";
     inline static constexpr const char* PMD_DOUBLADE_FQNAME = PMD_DOUBLADE_FQNAME_ARR;
     inline static constexpr size_t PMD_DOUBLADE_FQNAME_LEN = sizeof(PMD_DOUBLADE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_DOUBLADE_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_DOUBLADE_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_DOUBLADE_ANIM_INDEX = 658;
     inline static constexpr custom_animation_settings_t PMD_DOUBLADE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 8,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -25046,8 +25046,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_DOUBLADE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_DOUBLADE_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_DOUBLADE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DOUBLADE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Aegislash
     inline static constexpr char PMD_AEGISLASH_FQID_ARR[] = "pmd:aegislash";
@@ -25062,30 +25062,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_AEGISLASH_FQNAME_ARR[] = "pmd:Aegislash";
     inline static constexpr const char* PMD_AEGISLASH_FQNAME = PMD_AEGISLASH_FQNAME_ARR;
     inline static constexpr size_t PMD_AEGISLASH_FQNAME_LEN = sizeof(PMD_AEGISLASH_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_AEGISLASH_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_AEGISLASH_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_AEGISLASH_ANIM_INDEX = 659;
     inline static constexpr custom_animation_settings_t PMD_AEGISLASH_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 14,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 12,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 8,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_AEGISLASH_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_AEGISLASH_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_AEGISLASH_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_AEGISLASH_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Spritzee
     inline static constexpr char PMD_SPRITZEE_FQID_ARR[] = "pmd:spritzee";
@@ -25176,7 +25176,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SWIRLIX_FQNAME_ARR[] = "pmd:Swirlix";
     inline static constexpr const char* PMD_SWIRLIX_FQNAME = PMD_SWIRLIX_FQNAME_ARR;
     inline static constexpr size_t PMD_SWIRLIX_FQNAME_LEN = sizeof(PMD_SWIRLIX_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SWIRLIX_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SWIRLIX_SPRITE_SHEET_FRAMES_COUNT = 70;
     inline static constexpr size_t PMD_SWIRLIX_ANIM_INDEX = 662;
     inline static constexpr custom_animation_settings_t PMD_SWIRLIX_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
@@ -25184,12 +25184,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 6,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -25199,7 +25199,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_SWIRLIX_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_SWIRLIX_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_SWIRLIX_SPRITE_SHEET_MAX_COLS = 10;
 
     // Name: Slurpuff
     inline static constexpr char PMD_SLURPUFF_FQID_ARR[] = "pmd:slurpuff";
@@ -25252,11 +25252,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_INKAY_FQNAME_ARR[] = "pmd:Inkay";
     inline static constexpr const char* PMD_INKAY_FQNAME = PMD_INKAY_FQNAME_ARR;
     inline static constexpr size_t PMD_INKAY_FQNAME_LEN = sizeof(PMD_INKAY_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_INKAY_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_INKAY_SPRITE_SHEET_FRAMES_COUNT = 98;
     inline static constexpr size_t PMD_INKAY_ANIM_INDEX = 664;
     inline static constexpr custom_animation_settings_t PMD_INKAY_SPRITE_SHEET_SETTINGS {
         .idle_frames = 7,
-        .boring_frames = -1,
+        .boring_frames = 10,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -25274,7 +25274,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_INKAY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_INKAY_SPRITE_SHEET_ROWS = 7;
     inline static constexpr int PMD_INKAY_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Malamar
@@ -25290,13 +25290,89 @@ namespace bongocat::assets {
     inline static constexpr char PMD_MALAMAR_FQNAME_ARR[] = "pmd:Malamar";
     inline static constexpr const char* PMD_MALAMAR_FQNAME = PMD_MALAMAR_FQNAME_ARR;
     inline static constexpr size_t PMD_MALAMAR_FQNAME_LEN = sizeof(PMD_MALAMAR_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_MALAMAR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MALAMAR_SPRITE_SHEET_FRAMES_COUNT = 60;
     inline static constexpr size_t PMD_MALAMAR_ANIM_INDEX = 665;
     inline static constexpr custom_animation_settings_t PMD_MALAMAR_SPRITE_SHEET_SETTINGS {
         .idle_frames = 5,
         .boring_frames = -1,
         .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 8,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MALAMAR_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MALAMAR_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Binacle
+    inline static constexpr char PMD_BINACLE_FQID_ARR[] = "pmd:binacle";
+    inline static constexpr const char* PMD_BINACLE_FQID = PMD_BINACLE_FQID_ARR;
+    inline static constexpr size_t PMD_BINACLE_FQID_LEN = sizeof(PMD_BINACLE_FQID_ARR)-1;
+    inline static constexpr char PMD_BINACLE_ID_ARR[] = "binacle";
+    inline static constexpr const char* PMD_BINACLE_ID = PMD_BINACLE_ID_ARR;
+    inline static constexpr size_t PMD_BINACLE_ID_LEN = sizeof(PMD_BINACLE_ID)-1;
+    inline static constexpr char PMD_BINACLE_NAME_ARR[] = "Binacle";
+    inline static constexpr const char* PMD_BINACLE_NAME = PMD_BINACLE_NAME_ARR;
+    inline static constexpr size_t PMD_BINACLE_NAME_LEN = sizeof(PMD_BINACLE_NAME_ARR)-1;
+    inline static constexpr char PMD_BINACLE_FQNAME_ARR[] = "pmd:Binacle";
+    inline static constexpr const char* PMD_BINACLE_FQNAME = PMD_BINACLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_BINACLE_FQNAME_LEN = sizeof(PMD_BINACLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BINACLE_SPRITE_SHEET_FRAMES_COUNT = 161;
+    inline static constexpr size_t PMD_BINACLE_ANIM_INDEX = 666;
+    inline static constexpr custom_animation_settings_t PMD_BINACLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = 23,
+        .start_writing_frames = -1,
         .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BINACLE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_BINACLE_SPRITE_SHEET_MAX_COLS = 23;
+
+    // Name: Barbaracle
+    inline static constexpr char PMD_BARBARACLE_FQID_ARR[] = "pmd:barbaracle";
+    inline static constexpr const char* PMD_BARBARACLE_FQID = PMD_BARBARACLE_FQID_ARR;
+    inline static constexpr size_t PMD_BARBARACLE_FQID_LEN = sizeof(PMD_BARBARACLE_FQID_ARR)-1;
+    inline static constexpr char PMD_BARBARACLE_ID_ARR[] = "barbaracle";
+    inline static constexpr const char* PMD_BARBARACLE_ID = PMD_BARBARACLE_ID_ARR;
+    inline static constexpr size_t PMD_BARBARACLE_ID_LEN = sizeof(PMD_BARBARACLE_ID)-1;
+    inline static constexpr char PMD_BARBARACLE_NAME_ARR[] = "Barbaracle";
+    inline static constexpr const char* PMD_BARBARACLE_NAME = PMD_BARBARACLE_NAME_ARR;
+    inline static constexpr size_t PMD_BARBARACLE_NAME_LEN = sizeof(PMD_BARBARACLE_NAME_ARR)-1;
+    inline static constexpr char PMD_BARBARACLE_FQNAME_ARR[] = "pmd:Barbaracle";
+    inline static constexpr const char* PMD_BARBARACLE_FQNAME = PMD_BARBARACLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_BARBARACLE_FQNAME_LEN = sizeof(PMD_BARBARACLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BARBARACLE_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_BARBARACLE_ANIM_INDEX = 667;
+    inline static constexpr custom_animation_settings_t PMD_BARBARACLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -25312,84 +25388,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_MALAMAR_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_MALAMAR_SPRITE_SHEET_MAX_COLS = 14;
-
-    // Name: Binacle
-    inline static constexpr char PMD_BINACLE_FQID_ARR[] = "pmd:binacle";
-    inline static constexpr const char* PMD_BINACLE_FQID = PMD_BINACLE_FQID_ARR;
-    inline static constexpr size_t PMD_BINACLE_FQID_LEN = sizeof(PMD_BINACLE_FQID_ARR)-1;
-    inline static constexpr char PMD_BINACLE_ID_ARR[] = "binacle";
-    inline static constexpr const char* PMD_BINACLE_ID = PMD_BINACLE_ID_ARR;
-    inline static constexpr size_t PMD_BINACLE_ID_LEN = sizeof(PMD_BINACLE_ID)-1;
-    inline static constexpr char PMD_BINACLE_NAME_ARR[] = "Binacle";
-    inline static constexpr const char* PMD_BINACLE_NAME = PMD_BINACLE_NAME_ARR;
-    inline static constexpr size_t PMD_BINACLE_NAME_LEN = sizeof(PMD_BINACLE_NAME_ARR)-1;
-    inline static constexpr char PMD_BINACLE_FQNAME_ARR[] = "pmd:Binacle";
-    inline static constexpr const char* PMD_BINACLE_FQNAME = PMD_BINACLE_FQNAME_ARR;
-    inline static constexpr size_t PMD_BINACLE_FQNAME_LEN = sizeof(PMD_BINACLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BINACLE_SPRITE_SHEET_FRAMES_COUNT = 84;
-    inline static constexpr size_t PMD_BINACLE_ANIM_INDEX = 666;
-    inline static constexpr custom_animation_settings_t PMD_BINACLE_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 5,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 14,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 14,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 8,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_BINACLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BINACLE_SPRITE_SHEET_MAX_COLS = 14;
-
-    // Name: Barbaracle
-    inline static constexpr char PMD_BARBARACLE_FQID_ARR[] = "pmd:barbaracle";
-    inline static constexpr const char* PMD_BARBARACLE_FQID = PMD_BARBARACLE_FQID_ARR;
-    inline static constexpr size_t PMD_BARBARACLE_FQID_LEN = sizeof(PMD_BARBARACLE_FQID_ARR)-1;
-    inline static constexpr char PMD_BARBARACLE_ID_ARR[] = "barbaracle";
-    inline static constexpr const char* PMD_BARBARACLE_ID = PMD_BARBARACLE_ID_ARR;
-    inline static constexpr size_t PMD_BARBARACLE_ID_LEN = sizeof(PMD_BARBARACLE_ID)-1;
-    inline static constexpr char PMD_BARBARACLE_NAME_ARR[] = "Barbaracle";
-    inline static constexpr const char* PMD_BARBARACLE_NAME = PMD_BARBARACLE_NAME_ARR;
-    inline static constexpr size_t PMD_BARBARACLE_NAME_LEN = sizeof(PMD_BARBARACLE_NAME_ARR)-1;
-    inline static constexpr char PMD_BARBARACLE_FQNAME_ARR[] = "pmd:Barbaracle";
-    inline static constexpr const char* PMD_BARBARACLE_FQNAME = PMD_BARBARACLE_FQNAME_ARR;
-    inline static constexpr size_t PMD_BARBARACLE_FQNAME_LEN = sizeof(PMD_BARBARACLE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BARBARACLE_SPRITE_SHEET_FRAMES_COUNT = 84;
-    inline static constexpr size_t PMD_BARBARACLE_ANIM_INDEX = 667;
-    inline static constexpr custom_animation_settings_t PMD_BARBARACLE_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 10,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 14,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 6,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 4,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
     inline static constexpr int PMD_BARBARACLE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BARBARACLE_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_BARBARACLE_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Skrelp
     inline static constexpr char PMD_SKRELP_FQID_ARR[] = "pmd:skrelp";
@@ -25404,11 +25404,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_SKRELP_FQNAME_ARR[] = "pmd:Skrelp";
     inline static constexpr const char* PMD_SKRELP_FQNAME = PMD_SKRELP_FQNAME_ARR;
     inline static constexpr size_t PMD_SKRELP_FQNAME_LEN = sizeof(PMD_SKRELP_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_SKRELP_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_SKRELP_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_SKRELP_ANIM_INDEX = 668;
     inline static constexpr custom_animation_settings_t PMD_SKRELP_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -25426,7 +25426,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_SKRELP_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SKRELP_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_SKRELP_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Dragalge
@@ -25480,11 +25480,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_CLAUNCHER_FQNAME_ARR[] = "pmd:Clauncher";
     inline static constexpr const char* PMD_CLAUNCHER_FQNAME = PMD_CLAUNCHER_FQNAME_ARR;
     inline static constexpr size_t PMD_CLAUNCHER_FQNAME_LEN = sizeof(PMD_CLAUNCHER_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_CLAUNCHER_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_CLAUNCHER_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_CLAUNCHER_ANIM_INDEX = 670;
     inline static constexpr custom_animation_settings_t PMD_CLAUNCHER_SPRITE_SHEET_SETTINGS {
         .idle_frames = 2,
-        .boring_frames = -1,
+        .boring_frames = 12,
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
@@ -25502,8 +25502,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_CLAUNCHER_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_CLAUNCHER_SPRITE_SHEET_MAX_COLS = 10;
+    inline static constexpr int PMD_CLAUNCHER_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CLAUNCHER_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Clawitzer
     inline static constexpr char PMD_CLAWITZER_FQID_ARR[] = "pmd:clawitzer";
@@ -25556,7 +25556,7 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HELIOPTILE_FQNAME_ARR[] = "pmd:Helioptile";
     inline static constexpr const char* PMD_HELIOPTILE_FQNAME = PMD_HELIOPTILE_FQNAME_ARR;
     inline static constexpr size_t PMD_HELIOPTILE_FQNAME_LEN = sizeof(PMD_HELIOPTILE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HELIOPTILE_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_HELIOPTILE_SPRITE_SHEET_FRAMES_COUNT = 91;
     inline static constexpr size_t PMD_HELIOPTILE_ANIM_INDEX = 672;
     inline static constexpr custom_animation_settings_t PMD_HELIOPTILE_SPRITE_SHEET_SETTINGS {
         .idle_frames = 4,
@@ -25564,12 +25564,12 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -25579,7 +25579,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_HELIOPTILE_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_HELIOPTILE_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_HELIOPTILE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Heliolisk
     inline static constexpr char PMD_HELIOLISK_FQID_ARR[] = "pmd:heliolisk";
@@ -25594,11 +25594,11 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HELIOLISK_FQNAME_ARR[] = "pmd:Heliolisk";
     inline static constexpr const char* PMD_HELIOLISK_FQNAME = PMD_HELIOLISK_FQNAME_ARR;
     inline static constexpr size_t PMD_HELIOLISK_FQNAME_LEN = sizeof(PMD_HELIOLISK_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HELIOLISK_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_HELIOLISK_SPRITE_SHEET_FRAMES_COUNT = 84;
     inline static constexpr size_t PMD_HELIOLISK_ANIM_INDEX = 673;
     inline static constexpr custom_animation_settings_t PMD_HELIOLISK_SPRITE_SHEET_SETTINGS {
         .idle_frames = 14,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
         .writing_frames = 14,
         .end_writing_frames = -1,
@@ -25607,7 +25607,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 11,
+        .working_frames = 13,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -25616,7 +25616,7 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_HELIOLISK_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_HELIOLISK_SPRITE_SHEET_ROWS = 6;
     inline static constexpr int PMD_HELIOLISK_SPRITE_SHEET_MAX_COLS = 14;
 
     // Name: Tyrunt
@@ -25632,20 +25632,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TYRUNT_FQNAME_ARR[] = "pmd:Tyrunt";
     inline static constexpr const char* PMD_TYRUNT_FQNAME = PMD_TYRUNT_FQNAME_ARR;
     inline static constexpr size_t PMD_TYRUNT_FQNAME_LEN = sizeof(PMD_TYRUNT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TYRUNT_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_TYRUNT_SPRITE_SHEET_FRAMES_COUNT = 90;
     inline static constexpr size_t PMD_TYRUNT_ANIM_INDEX = 674;
     inline static constexpr custom_animation_settings_t PMD_TYRUNT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 15,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 15,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -25655,7 +25655,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_TYRUNT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TYRUNT_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_TYRUNT_SPRITE_SHEET_MAX_COLS = 15;
 
     // Name: Tyrantrum
     inline static constexpr char PMD_TYRANTRUM_FQID_ARR[] = "pmd:tyrantrum";
@@ -25716,7 +25716,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -25759,7 +25759,7 @@ namespace bongocat::assets {
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 12,
+        .working_frames = 11,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -25822,20 +25822,20 @@ namespace bongocat::assets {
     inline static constexpr char PMD_HAWLUCHA_FQNAME_ARR[] = "pmd:Hawlucha";
     inline static constexpr const char* PMD_HAWLUCHA_FQNAME = PMD_HAWLUCHA_FQNAME_ARR;
     inline static constexpr size_t PMD_HAWLUCHA_FQNAME_LEN = sizeof(PMD_HAWLUCHA_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_HAWLUCHA_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_HAWLUCHA_SPRITE_SHEET_FRAMES_COUNT = 78;
     inline static constexpr size_t PMD_HAWLUCHA_ANIM_INDEX = 679;
     inline static constexpr custom_animation_settings_t PMD_HAWLUCHA_SPRITE_SHEET_SETTINGS {
         .idle_frames = 6,
-        .boring_frames = 2,
+        .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 14,
+        .writing_frames = 13,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 13,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 4,
@@ -25844,8 +25844,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_HAWLUCHA_SPRITE_SHEET_ROWS = 7;
-    inline static constexpr int PMD_HAWLUCHA_SPRITE_SHEET_MAX_COLS = 14;
+    inline static constexpr int PMD_HAWLUCHA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_HAWLUCHA_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Dedenne
     inline static constexpr char PMD_DEDENNE_FQID_ARR[] = "pmd:dedenne";
@@ -26063,7 +26063,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 19,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -26094,14 +26094,14 @@ namespace bongocat::assets {
         .idle_frames = 6,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 20,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 20,
+        .working_frames = 19,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 6,
@@ -26126,13 +26126,127 @@ namespace bongocat::assets {
     inline static constexpr char PMD_TREVENANT_FQNAME_ARR[] = "pmd:Trevenant";
     inline static constexpr const char* PMD_TREVENANT_FQNAME = PMD_TREVENANT_FQNAME_ARR;
     inline static constexpr size_t PMD_TREVENANT_FQNAME_LEN = sizeof(PMD_TREVENANT_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_TREVENANT_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_TREVENANT_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_TREVENANT_ANIM_INDEX = 687;
     inline static constexpr custom_animation_settings_t PMD_TREVENANT_SPRITE_SHEET_SETTINGS {
         .idle_frames = 10,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TREVENANT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TREVENANT_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Pumpkaboo
+    inline static constexpr char PMD_PUMPKABOO_FQID_ARR[] = "pmd:pumpkaboo";
+    inline static constexpr const char* PMD_PUMPKABOO_FQID = PMD_PUMPKABOO_FQID_ARR;
+    inline static constexpr size_t PMD_PUMPKABOO_FQID_LEN = sizeof(PMD_PUMPKABOO_FQID_ARR)-1;
+    inline static constexpr char PMD_PUMPKABOO_ID_ARR[] = "pumpkaboo";
+    inline static constexpr const char* PMD_PUMPKABOO_ID = PMD_PUMPKABOO_ID_ARR;
+    inline static constexpr size_t PMD_PUMPKABOO_ID_LEN = sizeof(PMD_PUMPKABOO_ID)-1;
+    inline static constexpr char PMD_PUMPKABOO_NAME_ARR[] = "Pumpkaboo";
+    inline static constexpr const char* PMD_PUMPKABOO_NAME = PMD_PUMPKABOO_NAME_ARR;
+    inline static constexpr size_t PMD_PUMPKABOO_NAME_LEN = sizeof(PMD_PUMPKABOO_NAME_ARR)-1;
+    inline static constexpr char PMD_PUMPKABOO_FQNAME_ARR[] = "pmd:Pumpkaboo";
+    inline static constexpr const char* PMD_PUMPKABOO_FQNAME = PMD_PUMPKABOO_FQNAME_ARR;
+    inline static constexpr size_t PMD_PUMPKABOO_FQNAME_LEN = sizeof(PMD_PUMPKABOO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_PUMPKABOO_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_PUMPKABOO_ANIM_INDEX = 688;
+    inline static constexpr custom_animation_settings_t PMD_PUMPKABOO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_PUMPKABOO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_PUMPKABOO_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Gourgeist
+    inline static constexpr char PMD_GOURGEIST_FQID_ARR[] = "pmd:gourgeist";
+    inline static constexpr const char* PMD_GOURGEIST_FQID = PMD_GOURGEIST_FQID_ARR;
+    inline static constexpr size_t PMD_GOURGEIST_FQID_LEN = sizeof(PMD_GOURGEIST_FQID_ARR)-1;
+    inline static constexpr char PMD_GOURGEIST_ID_ARR[] = "gourgeist";
+    inline static constexpr const char* PMD_GOURGEIST_ID = PMD_GOURGEIST_ID_ARR;
+    inline static constexpr size_t PMD_GOURGEIST_ID_LEN = sizeof(PMD_GOURGEIST_ID)-1;
+    inline static constexpr char PMD_GOURGEIST_NAME_ARR[] = "Gourgeist";
+    inline static constexpr const char* PMD_GOURGEIST_NAME = PMD_GOURGEIST_NAME_ARR;
+    inline static constexpr size_t PMD_GOURGEIST_NAME_LEN = sizeof(PMD_GOURGEIST_NAME_ARR)-1;
+    inline static constexpr char PMD_GOURGEIST_FQNAME_ARR[] = "pmd:Gourgeist";
+    inline static constexpr const char* PMD_GOURGEIST_FQNAME = PMD_GOURGEIST_FQNAME_ARR;
+    inline static constexpr size_t PMD_GOURGEIST_FQNAME_LEN = sizeof(PMD_GOURGEIST_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GOURGEIST_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_GOURGEIST_ANIM_INDEX = 689;
+    inline static constexpr custom_animation_settings_t PMD_GOURGEIST_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 15,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 4,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 10,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GOURGEIST_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GOURGEIST_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Bergmite
+    inline static constexpr char PMD_BERGMITE_FQID_ARR[] = "pmd:bergmite";
+    inline static constexpr const char* PMD_BERGMITE_FQID = PMD_BERGMITE_FQID_ARR;
+    inline static constexpr size_t PMD_BERGMITE_FQID_LEN = sizeof(PMD_BERGMITE_FQID_ARR)-1;
+    inline static constexpr char PMD_BERGMITE_ID_ARR[] = "bergmite";
+    inline static constexpr const char* PMD_BERGMITE_ID = PMD_BERGMITE_ID_ARR;
+    inline static constexpr size_t PMD_BERGMITE_ID_LEN = sizeof(PMD_BERGMITE_ID)-1;
+    inline static constexpr char PMD_BERGMITE_NAME_ARR[] = "Bergmite";
+    inline static constexpr const char* PMD_BERGMITE_NAME = PMD_BERGMITE_NAME_ARR;
+    inline static constexpr size_t PMD_BERGMITE_NAME_LEN = sizeof(PMD_BERGMITE_NAME_ARR)-1;
+    inline static constexpr char PMD_BERGMITE_FQNAME_ARR[] = "pmd:Bergmite";
+    inline static constexpr const char* PMD_BERGMITE_FQNAME = PMD_BERGMITE_FQNAME_ARR;
+    inline static constexpr size_t PMD_BERGMITE_FQNAME_LEN = sizeof(PMD_BERGMITE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BERGMITE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_BERGMITE_ANIM_INDEX = 690;
+    inline static constexpr custom_animation_settings_t PMD_BERGMITE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -26148,122 +26262,8 @@ namespace bongocat::assets {
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_TREVENANT_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_TREVENANT_SPRITE_SHEET_MAX_COLS = 13;
-
-    // Name: Pumpkaboo
-    inline static constexpr char PMD_PUMPKABOO_FQID_ARR[] = "pmd:pumpkaboo";
-    inline static constexpr const char* PMD_PUMPKABOO_FQID = PMD_PUMPKABOO_FQID_ARR;
-    inline static constexpr size_t PMD_PUMPKABOO_FQID_LEN = sizeof(PMD_PUMPKABOO_FQID_ARR)-1;
-    inline static constexpr char PMD_PUMPKABOO_ID_ARR[] = "pumpkaboo";
-    inline static constexpr const char* PMD_PUMPKABOO_ID = PMD_PUMPKABOO_ID_ARR;
-    inline static constexpr size_t PMD_PUMPKABOO_ID_LEN = sizeof(PMD_PUMPKABOO_ID)-1;
-    inline static constexpr char PMD_PUMPKABOO_NAME_ARR[] = "Pumpkaboo";
-    inline static constexpr const char* PMD_PUMPKABOO_NAME = PMD_PUMPKABOO_NAME_ARR;
-    inline static constexpr size_t PMD_PUMPKABOO_NAME_LEN = sizeof(PMD_PUMPKABOO_NAME_ARR)-1;
-    inline static constexpr char PMD_PUMPKABOO_FQNAME_ARR[] = "pmd:Pumpkaboo";
-    inline static constexpr const char* PMD_PUMPKABOO_FQNAME = PMD_PUMPKABOO_FQNAME_ARR;
-    inline static constexpr size_t PMD_PUMPKABOO_FQNAME_LEN = sizeof(PMD_PUMPKABOO_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_PUMPKABOO_SPRITE_SHEET_FRAMES_COUNT = 0;
-    inline static constexpr size_t PMD_PUMPKABOO_ANIM_INDEX = 688;
-    inline static constexpr custom_animation_settings_t PMD_PUMPKABOO_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = -1,
-        .end_writing_frames = -1,
-        .happy_frames = -1,
-        .asleep_frames = -1,
-        .sleep_frames = -1,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = -1,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = -1,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_PUMPKABOO_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_PUMPKABOO_SPRITE_SHEET_MAX_COLS = 0;
-
-    // Name: Gourgeist
-    inline static constexpr char PMD_GOURGEIST_FQID_ARR[] = "pmd:gourgeist";
-    inline static constexpr const char* PMD_GOURGEIST_FQID = PMD_GOURGEIST_FQID_ARR;
-    inline static constexpr size_t PMD_GOURGEIST_FQID_LEN = sizeof(PMD_GOURGEIST_FQID_ARR)-1;
-    inline static constexpr char PMD_GOURGEIST_ID_ARR[] = "gourgeist";
-    inline static constexpr const char* PMD_GOURGEIST_ID = PMD_GOURGEIST_ID_ARR;
-    inline static constexpr size_t PMD_GOURGEIST_ID_LEN = sizeof(PMD_GOURGEIST_ID)-1;
-    inline static constexpr char PMD_GOURGEIST_NAME_ARR[] = "Gourgeist";
-    inline static constexpr const char* PMD_GOURGEIST_NAME = PMD_GOURGEIST_NAME_ARR;
-    inline static constexpr size_t PMD_GOURGEIST_NAME_LEN = sizeof(PMD_GOURGEIST_NAME_ARR)-1;
-    inline static constexpr char PMD_GOURGEIST_FQNAME_ARR[] = "pmd:Gourgeist";
-    inline static constexpr const char* PMD_GOURGEIST_FQNAME = PMD_GOURGEIST_FQNAME_ARR;
-    inline static constexpr size_t PMD_GOURGEIST_FQNAME_LEN = sizeof(PMD_GOURGEIST_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_GOURGEIST_SPRITE_SHEET_FRAMES_COUNT = 0;
-    inline static constexpr size_t PMD_GOURGEIST_ANIM_INDEX = 689;
-    inline static constexpr custom_animation_settings_t PMD_GOURGEIST_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = -1,
-        .end_writing_frames = -1,
-        .happy_frames = -1,
-        .asleep_frames = -1,
-        .sleep_frames = -1,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = -1,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = -1,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
-    inline static constexpr int PMD_GOURGEIST_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_GOURGEIST_SPRITE_SHEET_MAX_COLS = 0;
-
-    // Name: Bergmite
-    inline static constexpr char PMD_BERGMITE_FQID_ARR[] = "pmd:bergmite";
-    inline static constexpr const char* PMD_BERGMITE_FQID = PMD_BERGMITE_FQID_ARR;
-    inline static constexpr size_t PMD_BERGMITE_FQID_LEN = sizeof(PMD_BERGMITE_FQID_ARR)-1;
-    inline static constexpr char PMD_BERGMITE_ID_ARR[] = "bergmite";
-    inline static constexpr const char* PMD_BERGMITE_ID = PMD_BERGMITE_ID_ARR;
-    inline static constexpr size_t PMD_BERGMITE_ID_LEN = sizeof(PMD_BERGMITE_ID)-1;
-    inline static constexpr char PMD_BERGMITE_NAME_ARR[] = "Bergmite";
-    inline static constexpr const char* PMD_BERGMITE_NAME = PMD_BERGMITE_NAME_ARR;
-    inline static constexpr size_t PMD_BERGMITE_NAME_LEN = sizeof(PMD_BERGMITE_NAME_ARR)-1;
-    inline static constexpr char PMD_BERGMITE_FQNAME_ARR[] = "pmd:Bergmite";
-    inline static constexpr const char* PMD_BERGMITE_FQNAME = PMD_BERGMITE_FQNAME_ARR;
-    inline static constexpr size_t PMD_BERGMITE_FQNAME_LEN = sizeof(PMD_BERGMITE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_BERGMITE_SPRITE_SHEET_FRAMES_COUNT = 72;
-    inline static constexpr size_t PMD_BERGMITE_ANIM_INDEX = 690;
-    inline static constexpr custom_animation_settings_t PMD_BERGMITE_SPRITE_SHEET_SETTINGS {
-        .idle_frames = 4,
-        .boring_frames = -1,
-        .start_writing_frames = -1,
-        .writing_frames = 10,
-        .end_writing_frames = -1,
-        .happy_frames = 10,
-        .asleep_frames = -1,
-        .sleep_frames = 2,
-        .wake_up_frames = -1,
-        .start_working_frames = -1,
-        .working_frames = 12,
-        .end_working_frames = -1,
-        .start_moving_frames = -1,
-        .moving_frames = 4,
-        .end_moving_frames = -1,
-        .start_running_frames = -1,
-        .running_frames = -1,
-        .end_running_frames = -1,
-    };
     inline static constexpr int PMD_BERGMITE_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_BERGMITE_SPRITE_SHEET_MAX_COLS = 12;
+    inline static constexpr int PMD_BERGMITE_SPRITE_SHEET_MAX_COLS = 13;
 
     // Name: Noibat
     inline static constexpr char PMD_NOIBAT_FQID_ARR[] = "pmd:noibat";
@@ -26286,7 +26286,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 2,
         .wake_up_frames = -1,
@@ -26316,13 +26316,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_NOIVERN_FQNAME_ARR[] = "pmd:Noivern";
     inline static constexpr const char* PMD_NOIVERN_FQNAME = PMD_NOIVERN_FQNAME_ARR;
     inline static constexpr size_t PMD_NOIVERN_FQNAME_LEN = sizeof(PMD_NOIVERN_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_NOIVERN_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_NOIVERN_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_NOIVERN_ANIM_INDEX = 692;
     inline static constexpr custom_animation_settings_t PMD_NOIVERN_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 13,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -26339,7 +26339,7 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_NOIVERN_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_NOIVERN_SPRITE_SHEET_MAX_COLS = 13;
+    inline static constexpr int PMD_NOIVERN_SPRITE_SHEET_MAX_COLS = 12;
 
     // Name: Xerneas
     inline static constexpr char PMD_XERNEAS_FQID_ARR[] = "pmd:xerneas";
@@ -26430,30 +26430,30 @@ namespace bongocat::assets {
     inline static constexpr char PMD_ZYGARDE_FQNAME_ARR[] = "pmd:Zygarde";
     inline static constexpr const char* PMD_ZYGARDE_FQNAME = PMD_ZYGARDE_FQNAME_ARR;
     inline static constexpr size_t PMD_ZYGARDE_FQNAME_LEN = sizeof(PMD_ZYGARDE_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_ZYGARDE_SPRITE_SHEET_FRAMES_COUNT = 0;
+    inline static constexpr size_t PMD_ZYGARDE_SPRITE_SHEET_FRAMES_COUNT = 66;
     inline static constexpr size_t PMD_ZYGARDE_ANIM_INDEX = 695;
     inline static constexpr custom_animation_settings_t PMD_ZYGARDE_SPRITE_SHEET_SETTINGS {
-        .idle_frames = -1,
+        .idle_frames = 4,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = -1,
+        .writing_frames = 11,
         .end_writing_frames = -1,
-        .happy_frames = -1,
+        .happy_frames = 10,
         .asleep_frames = -1,
-        .sleep_frames = -1,
+        .sleep_frames = 2,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = -1,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
-        .moving_frames = -1,
+        .moving_frames = 3,
         .end_moving_frames = -1,
         .start_running_frames = -1,
         .running_frames = -1,
         .end_running_frames = -1,
     };
-    inline static constexpr int PMD_ZYGARDE_SPRITE_SHEET_ROWS = 0;
-    inline static constexpr int PMD_ZYGARDE_SPRITE_SHEET_MAX_COLS = 0;
+    inline static constexpr int PMD_ZYGARDE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ZYGARDE_SPRITE_SHEET_MAX_COLS = 11;
 
     // Name: Diancie
     inline static constexpr char PMD_DIANCIE_FQID_ARR[] = "pmd:diancie";
@@ -26476,7 +26476,7 @@ namespace bongocat::assets {
         .start_writing_frames = -1,
         .writing_frames = 10,
         .end_writing_frames = -1,
-        .happy_frames = 3,
+        .happy_frames = 10,
         .asleep_frames = -1,
         .sleep_frames = 6,
         .wake_up_frames = -1,
@@ -26519,7 +26519,7 @@ namespace bongocat::assets {
         .sleep_frames = 6,
         .wake_up_frames = -1,
         .start_working_frames = -1,
-        .working_frames = 15,
+        .working_frames = 10,
         .end_working_frames = -1,
         .start_moving_frames = -1,
         .moving_frames = 8,
@@ -26544,13 +26544,13 @@ namespace bongocat::assets {
     inline static constexpr char PMD_VOLCANION_FQNAME_ARR[] = "pmd:Volcanion";
     inline static constexpr const char* PMD_VOLCANION_FQNAME = PMD_VOLCANION_FQNAME_ARR;
     inline static constexpr size_t PMD_VOLCANION_FQNAME_LEN = sizeof(PMD_VOLCANION_FQNAME_ARR)-1;
-    inline static constexpr size_t PMD_VOLCANION_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_VOLCANION_SPRITE_SHEET_FRAMES_COUNT = 72;
     inline static constexpr size_t PMD_VOLCANION_ANIM_INDEX = 698;
     inline static constexpr custom_animation_settings_t PMD_VOLCANION_SPRITE_SHEET_SETTINGS {
         .idle_frames = 8,
         .boring_frames = -1,
         .start_writing_frames = -1,
-        .writing_frames = 11,
+        .writing_frames = 12,
         .end_writing_frames = -1,
         .happy_frames = 10,
         .asleep_frames = -1,
@@ -26567,9 +26567,6165 @@ namespace bongocat::assets {
         .end_running_frames = -1,
     };
     inline static constexpr int PMD_VOLCANION_SPRITE_SHEET_ROWS = 6;
-    inline static constexpr int PMD_VOLCANION_SPRITE_SHEET_MAX_COLS = 11;
+    inline static constexpr int PMD_VOLCANION_SPRITE_SHEET_MAX_COLS = 12;
 
-    inline static constexpr size_t PMD_ANIM_COUNT = 699;
+    // Name: Rowlet
+    inline static constexpr char PMD_ROWLET_FQID_ARR[] = "pmd:rowlet";
+    inline static constexpr const char* PMD_ROWLET_FQID = PMD_ROWLET_FQID_ARR;
+    inline static constexpr size_t PMD_ROWLET_FQID_LEN = sizeof(PMD_ROWLET_FQID_ARR)-1;
+    inline static constexpr char PMD_ROWLET_ID_ARR[] = "rowlet";
+    inline static constexpr const char* PMD_ROWLET_ID = PMD_ROWLET_ID_ARR;
+    inline static constexpr size_t PMD_ROWLET_ID_LEN = sizeof(PMD_ROWLET_ID)-1;
+    inline static constexpr char PMD_ROWLET_NAME_ARR[] = "Rowlet";
+    inline static constexpr const char* PMD_ROWLET_NAME = PMD_ROWLET_NAME_ARR;
+    inline static constexpr size_t PMD_ROWLET_NAME_LEN = sizeof(PMD_ROWLET_NAME_ARR)-1;
+    inline static constexpr char PMD_ROWLET_FQNAME_ARR[] = "pmd:Rowlet";
+    inline static constexpr const char* PMD_ROWLET_FQNAME = PMD_ROWLET_FQNAME_ARR;
+    inline static constexpr size_t PMD_ROWLET_FQNAME_LEN = sizeof(PMD_ROWLET_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ROWLET_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_ROWLET_ANIM_INDEX = 699;
+    inline static constexpr custom_animation_settings_t PMD_ROWLET_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ROWLET_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ROWLET_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Dartrix
+    inline static constexpr char PMD_DARTRIX_FQID_ARR[] = "pmd:dartrix";
+    inline static constexpr const char* PMD_DARTRIX_FQID = PMD_DARTRIX_FQID_ARR;
+    inline static constexpr size_t PMD_DARTRIX_FQID_LEN = sizeof(PMD_DARTRIX_FQID_ARR)-1;
+    inline static constexpr char PMD_DARTRIX_ID_ARR[] = "dartrix";
+    inline static constexpr const char* PMD_DARTRIX_ID = PMD_DARTRIX_ID_ARR;
+    inline static constexpr size_t PMD_DARTRIX_ID_LEN = sizeof(PMD_DARTRIX_ID)-1;
+    inline static constexpr char PMD_DARTRIX_NAME_ARR[] = "Dartrix";
+    inline static constexpr const char* PMD_DARTRIX_NAME = PMD_DARTRIX_NAME_ARR;
+    inline static constexpr size_t PMD_DARTRIX_NAME_LEN = sizeof(PMD_DARTRIX_NAME_ARR)-1;
+    inline static constexpr char PMD_DARTRIX_FQNAME_ARR[] = "pmd:Dartrix";
+    inline static constexpr const char* PMD_DARTRIX_FQNAME = PMD_DARTRIX_FQNAME_ARR;
+    inline static constexpr size_t PMD_DARTRIX_FQNAME_LEN = sizeof(PMD_DARTRIX_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DARTRIX_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DARTRIX_ANIM_INDEX = 700;
+    inline static constexpr custom_animation_settings_t PMD_DARTRIX_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DARTRIX_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DARTRIX_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Decidueye
+    inline static constexpr char PMD_DECIDUEYE_FQID_ARR[] = "pmd:decidueye";
+    inline static constexpr const char* PMD_DECIDUEYE_FQID = PMD_DECIDUEYE_FQID_ARR;
+    inline static constexpr size_t PMD_DECIDUEYE_FQID_LEN = sizeof(PMD_DECIDUEYE_FQID_ARR)-1;
+    inline static constexpr char PMD_DECIDUEYE_ID_ARR[] = "decidueye";
+    inline static constexpr const char* PMD_DECIDUEYE_ID = PMD_DECIDUEYE_ID_ARR;
+    inline static constexpr size_t PMD_DECIDUEYE_ID_LEN = sizeof(PMD_DECIDUEYE_ID)-1;
+    inline static constexpr char PMD_DECIDUEYE_NAME_ARR[] = "Decidueye";
+    inline static constexpr const char* PMD_DECIDUEYE_NAME = PMD_DECIDUEYE_NAME_ARR;
+    inline static constexpr size_t PMD_DECIDUEYE_NAME_LEN = sizeof(PMD_DECIDUEYE_NAME_ARR)-1;
+    inline static constexpr char PMD_DECIDUEYE_FQNAME_ARR[] = "pmd:Decidueye";
+    inline static constexpr const char* PMD_DECIDUEYE_FQNAME = PMD_DECIDUEYE_FQNAME_ARR;
+    inline static constexpr size_t PMD_DECIDUEYE_FQNAME_LEN = sizeof(PMD_DECIDUEYE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DECIDUEYE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DECIDUEYE_ANIM_INDEX = 701;
+    inline static constexpr custom_animation_settings_t PMD_DECIDUEYE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DECIDUEYE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DECIDUEYE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Litten
+    inline static constexpr char PMD_LITTEN_FQID_ARR[] = "pmd:litten";
+    inline static constexpr const char* PMD_LITTEN_FQID = PMD_LITTEN_FQID_ARR;
+    inline static constexpr size_t PMD_LITTEN_FQID_LEN = sizeof(PMD_LITTEN_FQID_ARR)-1;
+    inline static constexpr char PMD_LITTEN_ID_ARR[] = "litten";
+    inline static constexpr const char* PMD_LITTEN_ID = PMD_LITTEN_ID_ARR;
+    inline static constexpr size_t PMD_LITTEN_ID_LEN = sizeof(PMD_LITTEN_ID)-1;
+    inline static constexpr char PMD_LITTEN_NAME_ARR[] = "Litten";
+    inline static constexpr const char* PMD_LITTEN_NAME = PMD_LITTEN_NAME_ARR;
+    inline static constexpr size_t PMD_LITTEN_NAME_LEN = sizeof(PMD_LITTEN_NAME_ARR)-1;
+    inline static constexpr char PMD_LITTEN_FQNAME_ARR[] = "pmd:Litten";
+    inline static constexpr const char* PMD_LITTEN_FQNAME = PMD_LITTEN_FQNAME_ARR;
+    inline static constexpr size_t PMD_LITTEN_FQNAME_LEN = sizeof(PMD_LITTEN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_LITTEN_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_LITTEN_ANIM_INDEX = 702;
+    inline static constexpr custom_animation_settings_t PMD_LITTEN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 15,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_LITTEN_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_LITTEN_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Torracat
+    inline static constexpr char PMD_TORRACAT_FQID_ARR[] = "pmd:torracat";
+    inline static constexpr const char* PMD_TORRACAT_FQID = PMD_TORRACAT_FQID_ARR;
+    inline static constexpr size_t PMD_TORRACAT_FQID_LEN = sizeof(PMD_TORRACAT_FQID_ARR)-1;
+    inline static constexpr char PMD_TORRACAT_ID_ARR[] = "torracat";
+    inline static constexpr const char* PMD_TORRACAT_ID = PMD_TORRACAT_ID_ARR;
+    inline static constexpr size_t PMD_TORRACAT_ID_LEN = sizeof(PMD_TORRACAT_ID)-1;
+    inline static constexpr char PMD_TORRACAT_NAME_ARR[] = "Torracat";
+    inline static constexpr const char* PMD_TORRACAT_NAME = PMD_TORRACAT_NAME_ARR;
+    inline static constexpr size_t PMD_TORRACAT_NAME_LEN = sizeof(PMD_TORRACAT_NAME_ARR)-1;
+    inline static constexpr char PMD_TORRACAT_FQNAME_ARR[] = "pmd:Torracat";
+    inline static constexpr const char* PMD_TORRACAT_FQNAME = PMD_TORRACAT_FQNAME_ARR;
+    inline static constexpr size_t PMD_TORRACAT_FQNAME_LEN = sizeof(PMD_TORRACAT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TORRACAT_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_TORRACAT_ANIM_INDEX = 703;
+    inline static constexpr custom_animation_settings_t PMD_TORRACAT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 16,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TORRACAT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TORRACAT_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Incineroar
+    inline static constexpr char PMD_INCINEROAR_FQID_ARR[] = "pmd:incineroar";
+    inline static constexpr const char* PMD_INCINEROAR_FQID = PMD_INCINEROAR_FQID_ARR;
+    inline static constexpr size_t PMD_INCINEROAR_FQID_LEN = sizeof(PMD_INCINEROAR_FQID_ARR)-1;
+    inline static constexpr char PMD_INCINEROAR_ID_ARR[] = "incineroar";
+    inline static constexpr const char* PMD_INCINEROAR_ID = PMD_INCINEROAR_ID_ARR;
+    inline static constexpr size_t PMD_INCINEROAR_ID_LEN = sizeof(PMD_INCINEROAR_ID)-1;
+    inline static constexpr char PMD_INCINEROAR_NAME_ARR[] = "Incineroar";
+    inline static constexpr const char* PMD_INCINEROAR_NAME = PMD_INCINEROAR_NAME_ARR;
+    inline static constexpr size_t PMD_INCINEROAR_NAME_LEN = sizeof(PMD_INCINEROAR_NAME_ARR)-1;
+    inline static constexpr char PMD_INCINEROAR_FQNAME_ARR[] = "pmd:Incineroar";
+    inline static constexpr const char* PMD_INCINEROAR_FQNAME = PMD_INCINEROAR_FQNAME_ARR;
+    inline static constexpr size_t PMD_INCINEROAR_FQNAME_LEN = sizeof(PMD_INCINEROAR_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_INCINEROAR_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_INCINEROAR_ANIM_INDEX = 704;
+    inline static constexpr custom_animation_settings_t PMD_INCINEROAR_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_INCINEROAR_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_INCINEROAR_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Popplio
+    inline static constexpr char PMD_POPPLIO_FQID_ARR[] = "pmd:popplio";
+    inline static constexpr const char* PMD_POPPLIO_FQID = PMD_POPPLIO_FQID_ARR;
+    inline static constexpr size_t PMD_POPPLIO_FQID_LEN = sizeof(PMD_POPPLIO_FQID_ARR)-1;
+    inline static constexpr char PMD_POPPLIO_ID_ARR[] = "popplio";
+    inline static constexpr const char* PMD_POPPLIO_ID = PMD_POPPLIO_ID_ARR;
+    inline static constexpr size_t PMD_POPPLIO_ID_LEN = sizeof(PMD_POPPLIO_ID)-1;
+    inline static constexpr char PMD_POPPLIO_NAME_ARR[] = "Popplio";
+    inline static constexpr const char* PMD_POPPLIO_NAME = PMD_POPPLIO_NAME_ARR;
+    inline static constexpr size_t PMD_POPPLIO_NAME_LEN = sizeof(PMD_POPPLIO_NAME_ARR)-1;
+    inline static constexpr char PMD_POPPLIO_FQNAME_ARR[] = "pmd:Popplio";
+    inline static constexpr const char* PMD_POPPLIO_FQNAME = PMD_POPPLIO_FQNAME_ARR;
+    inline static constexpr size_t PMD_POPPLIO_FQNAME_LEN = sizeof(PMD_POPPLIO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_POPPLIO_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_POPPLIO_ANIM_INDEX = 705;
+    inline static constexpr custom_animation_settings_t PMD_POPPLIO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_POPPLIO_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_POPPLIO_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Brionne
+    inline static constexpr char PMD_BRIONNE_FQID_ARR[] = "pmd:brionne";
+    inline static constexpr const char* PMD_BRIONNE_FQID = PMD_BRIONNE_FQID_ARR;
+    inline static constexpr size_t PMD_BRIONNE_FQID_LEN = sizeof(PMD_BRIONNE_FQID_ARR)-1;
+    inline static constexpr char PMD_BRIONNE_ID_ARR[] = "brionne";
+    inline static constexpr const char* PMD_BRIONNE_ID = PMD_BRIONNE_ID_ARR;
+    inline static constexpr size_t PMD_BRIONNE_ID_LEN = sizeof(PMD_BRIONNE_ID)-1;
+    inline static constexpr char PMD_BRIONNE_NAME_ARR[] = "Brionne";
+    inline static constexpr const char* PMD_BRIONNE_NAME = PMD_BRIONNE_NAME_ARR;
+    inline static constexpr size_t PMD_BRIONNE_NAME_LEN = sizeof(PMD_BRIONNE_NAME_ARR)-1;
+    inline static constexpr char PMD_BRIONNE_FQNAME_ARR[] = "pmd:Brionne";
+    inline static constexpr const char* PMD_BRIONNE_FQNAME = PMD_BRIONNE_FQNAME_ARR;
+    inline static constexpr size_t PMD_BRIONNE_FQNAME_LEN = sizeof(PMD_BRIONNE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BRIONNE_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_BRIONNE_ANIM_INDEX = 706;
+    inline static constexpr custom_animation_settings_t PMD_BRIONNE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BRIONNE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BRIONNE_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Primarina
+    inline static constexpr char PMD_PRIMARINA_FQID_ARR[] = "pmd:primarina";
+    inline static constexpr const char* PMD_PRIMARINA_FQID = PMD_PRIMARINA_FQID_ARR;
+    inline static constexpr size_t PMD_PRIMARINA_FQID_LEN = sizeof(PMD_PRIMARINA_FQID_ARR)-1;
+    inline static constexpr char PMD_PRIMARINA_ID_ARR[] = "primarina";
+    inline static constexpr const char* PMD_PRIMARINA_ID = PMD_PRIMARINA_ID_ARR;
+    inline static constexpr size_t PMD_PRIMARINA_ID_LEN = sizeof(PMD_PRIMARINA_ID)-1;
+    inline static constexpr char PMD_PRIMARINA_NAME_ARR[] = "Primarina";
+    inline static constexpr const char* PMD_PRIMARINA_NAME = PMD_PRIMARINA_NAME_ARR;
+    inline static constexpr size_t PMD_PRIMARINA_NAME_LEN = sizeof(PMD_PRIMARINA_NAME_ARR)-1;
+    inline static constexpr char PMD_PRIMARINA_FQNAME_ARR[] = "pmd:Primarina";
+    inline static constexpr const char* PMD_PRIMARINA_FQNAME = PMD_PRIMARINA_FQNAME_ARR;
+    inline static constexpr size_t PMD_PRIMARINA_FQNAME_LEN = sizeof(PMD_PRIMARINA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_PRIMARINA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_PRIMARINA_ANIM_INDEX = 707;
+    inline static constexpr custom_animation_settings_t PMD_PRIMARINA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 7,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_PRIMARINA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_PRIMARINA_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Toucannon
+    inline static constexpr char PMD_TOUCANNON_FQID_ARR[] = "pmd:toucannon";
+    inline static constexpr const char* PMD_TOUCANNON_FQID = PMD_TOUCANNON_FQID_ARR;
+    inline static constexpr size_t PMD_TOUCANNON_FQID_LEN = sizeof(PMD_TOUCANNON_FQID_ARR)-1;
+    inline static constexpr char PMD_TOUCANNON_ID_ARR[] = "toucannon";
+    inline static constexpr const char* PMD_TOUCANNON_ID = PMD_TOUCANNON_ID_ARR;
+    inline static constexpr size_t PMD_TOUCANNON_ID_LEN = sizeof(PMD_TOUCANNON_ID)-1;
+    inline static constexpr char PMD_TOUCANNON_NAME_ARR[] = "Toucannon";
+    inline static constexpr const char* PMD_TOUCANNON_NAME = PMD_TOUCANNON_NAME_ARR;
+    inline static constexpr size_t PMD_TOUCANNON_NAME_LEN = sizeof(PMD_TOUCANNON_NAME_ARR)-1;
+    inline static constexpr char PMD_TOUCANNON_FQNAME_ARR[] = "pmd:Toucannon";
+    inline static constexpr const char* PMD_TOUCANNON_FQNAME = PMD_TOUCANNON_FQNAME_ARR;
+    inline static constexpr size_t PMD_TOUCANNON_FQNAME_LEN = sizeof(PMD_TOUCANNON_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TOUCANNON_SPRITE_SHEET_FRAMES_COUNT = 2;
+    inline static constexpr size_t PMD_TOUCANNON_ANIM_INDEX = 708;
+    inline static constexpr custom_animation_settings_t PMD_TOUCANNON_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 1,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 1,
+        .end_writing_frames = -1,
+        .happy_frames = -1,
+        .asleep_frames = -1,
+        .sleep_frames = -1,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = -1,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = -1,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TOUCANNON_SPRITE_SHEET_ROWS = 2;
+    inline static constexpr int PMD_TOUCANNON_SPRITE_SHEET_MAX_COLS = 1;
+
+    // Name: Grubbin
+    inline static constexpr char PMD_GRUBBIN_FQID_ARR[] = "pmd:grubbin";
+    inline static constexpr const char* PMD_GRUBBIN_FQID = PMD_GRUBBIN_FQID_ARR;
+    inline static constexpr size_t PMD_GRUBBIN_FQID_LEN = sizeof(PMD_GRUBBIN_FQID_ARR)-1;
+    inline static constexpr char PMD_GRUBBIN_ID_ARR[] = "grubbin";
+    inline static constexpr const char* PMD_GRUBBIN_ID = PMD_GRUBBIN_ID_ARR;
+    inline static constexpr size_t PMD_GRUBBIN_ID_LEN = sizeof(PMD_GRUBBIN_ID)-1;
+    inline static constexpr char PMD_GRUBBIN_NAME_ARR[] = "Grubbin";
+    inline static constexpr const char* PMD_GRUBBIN_NAME = PMD_GRUBBIN_NAME_ARR;
+    inline static constexpr size_t PMD_GRUBBIN_NAME_LEN = sizeof(PMD_GRUBBIN_NAME_ARR)-1;
+    inline static constexpr char PMD_GRUBBIN_FQNAME_ARR[] = "pmd:Grubbin";
+    inline static constexpr const char* PMD_GRUBBIN_FQNAME = PMD_GRUBBIN_FQNAME_ARR;
+    inline static constexpr size_t PMD_GRUBBIN_FQNAME_LEN = sizeof(PMD_GRUBBIN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GRUBBIN_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_GRUBBIN_ANIM_INDEX = 709;
+    inline static constexpr custom_animation_settings_t PMD_GRUBBIN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GRUBBIN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GRUBBIN_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Charjabug
+    inline static constexpr char PMD_CHARJABUG_FQID_ARR[] = "pmd:charjabug";
+    inline static constexpr const char* PMD_CHARJABUG_FQID = PMD_CHARJABUG_FQID_ARR;
+    inline static constexpr size_t PMD_CHARJABUG_FQID_LEN = sizeof(PMD_CHARJABUG_FQID_ARR)-1;
+    inline static constexpr char PMD_CHARJABUG_ID_ARR[] = "charjabug";
+    inline static constexpr const char* PMD_CHARJABUG_ID = PMD_CHARJABUG_ID_ARR;
+    inline static constexpr size_t PMD_CHARJABUG_ID_LEN = sizeof(PMD_CHARJABUG_ID)-1;
+    inline static constexpr char PMD_CHARJABUG_NAME_ARR[] = "Charjabug";
+    inline static constexpr const char* PMD_CHARJABUG_NAME = PMD_CHARJABUG_NAME_ARR;
+    inline static constexpr size_t PMD_CHARJABUG_NAME_LEN = sizeof(PMD_CHARJABUG_NAME_ARR)-1;
+    inline static constexpr char PMD_CHARJABUG_FQNAME_ARR[] = "pmd:Charjabug";
+    inline static constexpr const char* PMD_CHARJABUG_FQNAME = PMD_CHARJABUG_FQNAME_ARR;
+    inline static constexpr size_t PMD_CHARJABUG_FQNAME_LEN = sizeof(PMD_CHARJABUG_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CHARJABUG_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_CHARJABUG_ANIM_INDEX = 710;
+    inline static constexpr custom_animation_settings_t PMD_CHARJABUG_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CHARJABUG_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CHARJABUG_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Vikavolt
+    inline static constexpr char PMD_VIKAVOLT_FQID_ARR[] = "pmd:vikavolt";
+    inline static constexpr const char* PMD_VIKAVOLT_FQID = PMD_VIKAVOLT_FQID_ARR;
+    inline static constexpr size_t PMD_VIKAVOLT_FQID_LEN = sizeof(PMD_VIKAVOLT_FQID_ARR)-1;
+    inline static constexpr char PMD_VIKAVOLT_ID_ARR[] = "vikavolt";
+    inline static constexpr const char* PMD_VIKAVOLT_ID = PMD_VIKAVOLT_ID_ARR;
+    inline static constexpr size_t PMD_VIKAVOLT_ID_LEN = sizeof(PMD_VIKAVOLT_ID)-1;
+    inline static constexpr char PMD_VIKAVOLT_NAME_ARR[] = "Vikavolt";
+    inline static constexpr const char* PMD_VIKAVOLT_NAME = PMD_VIKAVOLT_NAME_ARR;
+    inline static constexpr size_t PMD_VIKAVOLT_NAME_LEN = sizeof(PMD_VIKAVOLT_NAME_ARR)-1;
+    inline static constexpr char PMD_VIKAVOLT_FQNAME_ARR[] = "pmd:Vikavolt";
+    inline static constexpr const char* PMD_VIKAVOLT_FQNAME = PMD_VIKAVOLT_FQNAME_ARR;
+    inline static constexpr size_t PMD_VIKAVOLT_FQNAME_LEN = sizeof(PMD_VIKAVOLT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_VIKAVOLT_SPRITE_SHEET_FRAMES_COUNT = 112;
+    inline static constexpr size_t PMD_VIKAVOLT_ANIM_INDEX = 711;
+    inline static constexpr custom_animation_settings_t PMD_VIKAVOLT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 12,
+        .boring_frames = 16,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 16,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_VIKAVOLT_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_VIKAVOLT_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Crabrawler
+    inline static constexpr char PMD_CRABRAWLER_FQID_ARR[] = "pmd:crabrawler";
+    inline static constexpr const char* PMD_CRABRAWLER_FQID = PMD_CRABRAWLER_FQID_ARR;
+    inline static constexpr size_t PMD_CRABRAWLER_FQID_LEN = sizeof(PMD_CRABRAWLER_FQID_ARR)-1;
+    inline static constexpr char PMD_CRABRAWLER_ID_ARR[] = "crabrawler";
+    inline static constexpr const char* PMD_CRABRAWLER_ID = PMD_CRABRAWLER_ID_ARR;
+    inline static constexpr size_t PMD_CRABRAWLER_ID_LEN = sizeof(PMD_CRABRAWLER_ID)-1;
+    inline static constexpr char PMD_CRABRAWLER_NAME_ARR[] = "Crabrawler";
+    inline static constexpr const char* PMD_CRABRAWLER_NAME = PMD_CRABRAWLER_NAME_ARR;
+    inline static constexpr size_t PMD_CRABRAWLER_NAME_LEN = sizeof(PMD_CRABRAWLER_NAME_ARR)-1;
+    inline static constexpr char PMD_CRABRAWLER_FQNAME_ARR[] = "pmd:Crabrawler";
+    inline static constexpr const char* PMD_CRABRAWLER_FQNAME = PMD_CRABRAWLER_FQNAME_ARR;
+    inline static constexpr size_t PMD_CRABRAWLER_FQNAME_LEN = sizeof(PMD_CRABRAWLER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CRABRAWLER_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_CRABRAWLER_ANIM_INDEX = 712;
+    inline static constexpr custom_animation_settings_t PMD_CRABRAWLER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 3,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CRABRAWLER_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CRABRAWLER_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Crabominable
+    inline static constexpr char PMD_CRABOMINABLE_FQID_ARR[] = "pmd:crabominable";
+    inline static constexpr const char* PMD_CRABOMINABLE_FQID = PMD_CRABOMINABLE_FQID_ARR;
+    inline static constexpr size_t PMD_CRABOMINABLE_FQID_LEN = sizeof(PMD_CRABOMINABLE_FQID_ARR)-1;
+    inline static constexpr char PMD_CRABOMINABLE_ID_ARR[] = "crabominable";
+    inline static constexpr const char* PMD_CRABOMINABLE_ID = PMD_CRABOMINABLE_ID_ARR;
+    inline static constexpr size_t PMD_CRABOMINABLE_ID_LEN = sizeof(PMD_CRABOMINABLE_ID)-1;
+    inline static constexpr char PMD_CRABOMINABLE_NAME_ARR[] = "Crabominable";
+    inline static constexpr const char* PMD_CRABOMINABLE_NAME = PMD_CRABOMINABLE_NAME_ARR;
+    inline static constexpr size_t PMD_CRABOMINABLE_NAME_LEN = sizeof(PMD_CRABOMINABLE_NAME_ARR)-1;
+    inline static constexpr char PMD_CRABOMINABLE_FQNAME_ARR[] = "pmd:Crabominable";
+    inline static constexpr const char* PMD_CRABOMINABLE_FQNAME = PMD_CRABOMINABLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_CRABOMINABLE_FQNAME_LEN = sizeof(PMD_CRABOMINABLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CRABOMINABLE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_CRABOMINABLE_ANIM_INDEX = 713;
+    inline static constexpr custom_animation_settings_t PMD_CRABOMINABLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CRABOMINABLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CRABOMINABLE_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Cutiefly
+    inline static constexpr char PMD_CUTIEFLY_FQID_ARR[] = "pmd:cutiefly";
+    inline static constexpr const char* PMD_CUTIEFLY_FQID = PMD_CUTIEFLY_FQID_ARR;
+    inline static constexpr size_t PMD_CUTIEFLY_FQID_LEN = sizeof(PMD_CUTIEFLY_FQID_ARR)-1;
+    inline static constexpr char PMD_CUTIEFLY_ID_ARR[] = "cutiefly";
+    inline static constexpr const char* PMD_CUTIEFLY_ID = PMD_CUTIEFLY_ID_ARR;
+    inline static constexpr size_t PMD_CUTIEFLY_ID_LEN = sizeof(PMD_CUTIEFLY_ID)-1;
+    inline static constexpr char PMD_CUTIEFLY_NAME_ARR[] = "Cutiefly";
+    inline static constexpr const char* PMD_CUTIEFLY_NAME = PMD_CUTIEFLY_NAME_ARR;
+    inline static constexpr size_t PMD_CUTIEFLY_NAME_LEN = sizeof(PMD_CUTIEFLY_NAME_ARR)-1;
+    inline static constexpr char PMD_CUTIEFLY_FQNAME_ARR[] = "pmd:Cutiefly";
+    inline static constexpr const char* PMD_CUTIEFLY_FQNAME = PMD_CUTIEFLY_FQNAME_ARR;
+    inline static constexpr size_t PMD_CUTIEFLY_FQNAME_LEN = sizeof(PMD_CUTIEFLY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CUTIEFLY_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_CUTIEFLY_ANIM_INDEX = 714;
+    inline static constexpr custom_animation_settings_t PMD_CUTIEFLY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 12,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CUTIEFLY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CUTIEFLY_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Ribombee
+    inline static constexpr char PMD_RIBOMBEE_FQID_ARR[] = "pmd:ribombee";
+    inline static constexpr const char* PMD_RIBOMBEE_FQID = PMD_RIBOMBEE_FQID_ARR;
+    inline static constexpr size_t PMD_RIBOMBEE_FQID_LEN = sizeof(PMD_RIBOMBEE_FQID_ARR)-1;
+    inline static constexpr char PMD_RIBOMBEE_ID_ARR[] = "ribombee";
+    inline static constexpr const char* PMD_RIBOMBEE_ID = PMD_RIBOMBEE_ID_ARR;
+    inline static constexpr size_t PMD_RIBOMBEE_ID_LEN = sizeof(PMD_RIBOMBEE_ID)-1;
+    inline static constexpr char PMD_RIBOMBEE_NAME_ARR[] = "Ribombee";
+    inline static constexpr const char* PMD_RIBOMBEE_NAME = PMD_RIBOMBEE_NAME_ARR;
+    inline static constexpr size_t PMD_RIBOMBEE_NAME_LEN = sizeof(PMD_RIBOMBEE_NAME_ARR)-1;
+    inline static constexpr char PMD_RIBOMBEE_FQNAME_ARR[] = "pmd:Ribombee";
+    inline static constexpr const char* PMD_RIBOMBEE_FQNAME = PMD_RIBOMBEE_FQNAME_ARR;
+    inline static constexpr size_t PMD_RIBOMBEE_FQNAME_LEN = sizeof(PMD_RIBOMBEE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_RIBOMBEE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_RIBOMBEE_ANIM_INDEX = 715;
+    inline static constexpr custom_animation_settings_t PMD_RIBOMBEE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 12,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_RIBOMBEE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_RIBOMBEE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Rockruff
+    inline static constexpr char PMD_ROCKRUFF_FQID_ARR[] = "pmd:rockruff";
+    inline static constexpr const char* PMD_ROCKRUFF_FQID = PMD_ROCKRUFF_FQID_ARR;
+    inline static constexpr size_t PMD_ROCKRUFF_FQID_LEN = sizeof(PMD_ROCKRUFF_FQID_ARR)-1;
+    inline static constexpr char PMD_ROCKRUFF_ID_ARR[] = "rockruff";
+    inline static constexpr const char* PMD_ROCKRUFF_ID = PMD_ROCKRUFF_ID_ARR;
+    inline static constexpr size_t PMD_ROCKRUFF_ID_LEN = sizeof(PMD_ROCKRUFF_ID)-1;
+    inline static constexpr char PMD_ROCKRUFF_NAME_ARR[] = "Rockruff";
+    inline static constexpr const char* PMD_ROCKRUFF_NAME = PMD_ROCKRUFF_NAME_ARR;
+    inline static constexpr size_t PMD_ROCKRUFF_NAME_LEN = sizeof(PMD_ROCKRUFF_NAME_ARR)-1;
+    inline static constexpr char PMD_ROCKRUFF_FQNAME_ARR[] = "pmd:Rockruff";
+    inline static constexpr const char* PMD_ROCKRUFF_FQNAME = PMD_ROCKRUFF_FQNAME_ARR;
+    inline static constexpr size_t PMD_ROCKRUFF_FQNAME_LEN = sizeof(PMD_ROCKRUFF_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ROCKRUFF_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_ROCKRUFF_ANIM_INDEX = 716;
+    inline static constexpr custom_animation_settings_t PMD_ROCKRUFF_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 15,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 7,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ROCKRUFF_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ROCKRUFF_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Lycanroc
+    inline static constexpr char PMD_LYCANROC_FQID_ARR[] = "pmd:lycanroc";
+    inline static constexpr const char* PMD_LYCANROC_FQID = PMD_LYCANROC_FQID_ARR;
+    inline static constexpr size_t PMD_LYCANROC_FQID_LEN = sizeof(PMD_LYCANROC_FQID_ARR)-1;
+    inline static constexpr char PMD_LYCANROC_ID_ARR[] = "lycanroc";
+    inline static constexpr const char* PMD_LYCANROC_ID = PMD_LYCANROC_ID_ARR;
+    inline static constexpr size_t PMD_LYCANROC_ID_LEN = sizeof(PMD_LYCANROC_ID)-1;
+    inline static constexpr char PMD_LYCANROC_NAME_ARR[] = "Lycanroc";
+    inline static constexpr const char* PMD_LYCANROC_NAME = PMD_LYCANROC_NAME_ARR;
+    inline static constexpr size_t PMD_LYCANROC_NAME_LEN = sizeof(PMD_LYCANROC_NAME_ARR)-1;
+    inline static constexpr char PMD_LYCANROC_FQNAME_ARR[] = "pmd:Lycanroc";
+    inline static constexpr const char* PMD_LYCANROC_FQNAME = PMD_LYCANROC_FQNAME_ARR;
+    inline static constexpr size_t PMD_LYCANROC_FQNAME_LEN = sizeof(PMD_LYCANROC_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_LYCANROC_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_LYCANROC_ANIM_INDEX = 717;
+    inline static constexpr custom_animation_settings_t PMD_LYCANROC_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 6,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_LYCANROC_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_LYCANROC_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Wishiwashi
+    inline static constexpr char PMD_WISHIWASHI_FQID_ARR[] = "pmd:wishiwashi";
+    inline static constexpr const char* PMD_WISHIWASHI_FQID = PMD_WISHIWASHI_FQID_ARR;
+    inline static constexpr size_t PMD_WISHIWASHI_FQID_LEN = sizeof(PMD_WISHIWASHI_FQID_ARR)-1;
+    inline static constexpr char PMD_WISHIWASHI_ID_ARR[] = "wishiwashi";
+    inline static constexpr const char* PMD_WISHIWASHI_ID = PMD_WISHIWASHI_ID_ARR;
+    inline static constexpr size_t PMD_WISHIWASHI_ID_LEN = sizeof(PMD_WISHIWASHI_ID)-1;
+    inline static constexpr char PMD_WISHIWASHI_NAME_ARR[] = "Wishiwashi";
+    inline static constexpr const char* PMD_WISHIWASHI_NAME = PMD_WISHIWASHI_NAME_ARR;
+    inline static constexpr size_t PMD_WISHIWASHI_NAME_LEN = sizeof(PMD_WISHIWASHI_NAME_ARR)-1;
+    inline static constexpr char PMD_WISHIWASHI_FQNAME_ARR[] = "pmd:Wishiwashi";
+    inline static constexpr const char* PMD_WISHIWASHI_FQNAME = PMD_WISHIWASHI_FQNAME_ARR;
+    inline static constexpr size_t PMD_WISHIWASHI_FQNAME_LEN = sizeof(PMD_WISHIWASHI_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_WISHIWASHI_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_WISHIWASHI_ANIM_INDEX = 718;
+    inline static constexpr custom_animation_settings_t PMD_WISHIWASHI_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_WISHIWASHI_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_WISHIWASHI_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Mareanie
+    inline static constexpr char PMD_MAREANIE_FQID_ARR[] = "pmd:mareanie";
+    inline static constexpr const char* PMD_MAREANIE_FQID = PMD_MAREANIE_FQID_ARR;
+    inline static constexpr size_t PMD_MAREANIE_FQID_LEN = sizeof(PMD_MAREANIE_FQID_ARR)-1;
+    inline static constexpr char PMD_MAREANIE_ID_ARR[] = "mareanie";
+    inline static constexpr const char* PMD_MAREANIE_ID = PMD_MAREANIE_ID_ARR;
+    inline static constexpr size_t PMD_MAREANIE_ID_LEN = sizeof(PMD_MAREANIE_ID)-1;
+    inline static constexpr char PMD_MAREANIE_NAME_ARR[] = "Mareanie";
+    inline static constexpr const char* PMD_MAREANIE_NAME = PMD_MAREANIE_NAME_ARR;
+    inline static constexpr size_t PMD_MAREANIE_NAME_LEN = sizeof(PMD_MAREANIE_NAME_ARR)-1;
+    inline static constexpr char PMD_MAREANIE_FQNAME_ARR[] = "pmd:Mareanie";
+    inline static constexpr const char* PMD_MAREANIE_FQNAME = PMD_MAREANIE_FQNAME_ARR;
+    inline static constexpr size_t PMD_MAREANIE_FQNAME_LEN = sizeof(PMD_MAREANIE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MAREANIE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_MAREANIE_ANIM_INDEX = 719;
+    inline static constexpr custom_animation_settings_t PMD_MAREANIE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MAREANIE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MAREANIE_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Mudbray
+    inline static constexpr char PMD_MUDBRAY_FQID_ARR[] = "pmd:mudbray";
+    inline static constexpr const char* PMD_MUDBRAY_FQID = PMD_MUDBRAY_FQID_ARR;
+    inline static constexpr size_t PMD_MUDBRAY_FQID_LEN = sizeof(PMD_MUDBRAY_FQID_ARR)-1;
+    inline static constexpr char PMD_MUDBRAY_ID_ARR[] = "mudbray";
+    inline static constexpr const char* PMD_MUDBRAY_ID = PMD_MUDBRAY_ID_ARR;
+    inline static constexpr size_t PMD_MUDBRAY_ID_LEN = sizeof(PMD_MUDBRAY_ID)-1;
+    inline static constexpr char PMD_MUDBRAY_NAME_ARR[] = "Mudbray";
+    inline static constexpr const char* PMD_MUDBRAY_NAME = PMD_MUDBRAY_NAME_ARR;
+    inline static constexpr size_t PMD_MUDBRAY_NAME_LEN = sizeof(PMD_MUDBRAY_NAME_ARR)-1;
+    inline static constexpr char PMD_MUDBRAY_FQNAME_ARR[] = "pmd:Mudbray";
+    inline static constexpr const char* PMD_MUDBRAY_FQNAME = PMD_MUDBRAY_FQNAME_ARR;
+    inline static constexpr size_t PMD_MUDBRAY_FQNAME_LEN = sizeof(PMD_MUDBRAY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MUDBRAY_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MUDBRAY_ANIM_INDEX = 720;
+    inline static constexpr custom_animation_settings_t PMD_MUDBRAY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MUDBRAY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MUDBRAY_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Mudsdale
+    inline static constexpr char PMD_MUDSDALE_FQID_ARR[] = "pmd:mudsdale";
+    inline static constexpr const char* PMD_MUDSDALE_FQID = PMD_MUDSDALE_FQID_ARR;
+    inline static constexpr size_t PMD_MUDSDALE_FQID_LEN = sizeof(PMD_MUDSDALE_FQID_ARR)-1;
+    inline static constexpr char PMD_MUDSDALE_ID_ARR[] = "mudsdale";
+    inline static constexpr const char* PMD_MUDSDALE_ID = PMD_MUDSDALE_ID_ARR;
+    inline static constexpr size_t PMD_MUDSDALE_ID_LEN = sizeof(PMD_MUDSDALE_ID)-1;
+    inline static constexpr char PMD_MUDSDALE_NAME_ARR[] = "Mudsdale";
+    inline static constexpr const char* PMD_MUDSDALE_NAME = PMD_MUDSDALE_NAME_ARR;
+    inline static constexpr size_t PMD_MUDSDALE_NAME_LEN = sizeof(PMD_MUDSDALE_NAME_ARR)-1;
+    inline static constexpr char PMD_MUDSDALE_FQNAME_ARR[] = "pmd:Mudsdale";
+    inline static constexpr const char* PMD_MUDSDALE_FQNAME = PMD_MUDSDALE_FQNAME_ARR;
+    inline static constexpr size_t PMD_MUDSDALE_FQNAME_LEN = sizeof(PMD_MUDSDALE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MUDSDALE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MUDSDALE_ANIM_INDEX = 721;
+    inline static constexpr custom_animation_settings_t PMD_MUDSDALE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MUDSDALE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MUDSDALE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Dewpider
+    inline static constexpr char PMD_DEWPIDER_FQID_ARR[] = "pmd:dewpider";
+    inline static constexpr const char* PMD_DEWPIDER_FQID = PMD_DEWPIDER_FQID_ARR;
+    inline static constexpr size_t PMD_DEWPIDER_FQID_LEN = sizeof(PMD_DEWPIDER_FQID_ARR)-1;
+    inline static constexpr char PMD_DEWPIDER_ID_ARR[] = "dewpider";
+    inline static constexpr const char* PMD_DEWPIDER_ID = PMD_DEWPIDER_ID_ARR;
+    inline static constexpr size_t PMD_DEWPIDER_ID_LEN = sizeof(PMD_DEWPIDER_ID)-1;
+    inline static constexpr char PMD_DEWPIDER_NAME_ARR[] = "Dewpider";
+    inline static constexpr const char* PMD_DEWPIDER_NAME = PMD_DEWPIDER_NAME_ARR;
+    inline static constexpr size_t PMD_DEWPIDER_NAME_LEN = sizeof(PMD_DEWPIDER_NAME_ARR)-1;
+    inline static constexpr char PMD_DEWPIDER_FQNAME_ARR[] = "pmd:Dewpider";
+    inline static constexpr const char* PMD_DEWPIDER_FQNAME = PMD_DEWPIDER_FQNAME_ARR;
+    inline static constexpr size_t PMD_DEWPIDER_FQNAME_LEN = sizeof(PMD_DEWPIDER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DEWPIDER_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DEWPIDER_ANIM_INDEX = 722;
+    inline static constexpr custom_animation_settings_t PMD_DEWPIDER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DEWPIDER_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DEWPIDER_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Araquanid
+    inline static constexpr char PMD_ARAQUANID_FQID_ARR[] = "pmd:araquanid";
+    inline static constexpr const char* PMD_ARAQUANID_FQID = PMD_ARAQUANID_FQID_ARR;
+    inline static constexpr size_t PMD_ARAQUANID_FQID_LEN = sizeof(PMD_ARAQUANID_FQID_ARR)-1;
+    inline static constexpr char PMD_ARAQUANID_ID_ARR[] = "araquanid";
+    inline static constexpr const char* PMD_ARAQUANID_ID = PMD_ARAQUANID_ID_ARR;
+    inline static constexpr size_t PMD_ARAQUANID_ID_LEN = sizeof(PMD_ARAQUANID_ID)-1;
+    inline static constexpr char PMD_ARAQUANID_NAME_ARR[] = "Araquanid";
+    inline static constexpr const char* PMD_ARAQUANID_NAME = PMD_ARAQUANID_NAME_ARR;
+    inline static constexpr size_t PMD_ARAQUANID_NAME_LEN = sizeof(PMD_ARAQUANID_NAME_ARR)-1;
+    inline static constexpr char PMD_ARAQUANID_FQNAME_ARR[] = "pmd:Araquanid";
+    inline static constexpr const char* PMD_ARAQUANID_FQNAME = PMD_ARAQUANID_FQNAME_ARR;
+    inline static constexpr size_t PMD_ARAQUANID_FQNAME_LEN = sizeof(PMD_ARAQUANID_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ARAQUANID_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_ARAQUANID_ANIM_INDEX = 723;
+    inline static constexpr custom_animation_settings_t PMD_ARAQUANID_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ARAQUANID_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ARAQUANID_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Fomantis
+    inline static constexpr char PMD_FOMANTIS_FQID_ARR[] = "pmd:fomantis";
+    inline static constexpr const char* PMD_FOMANTIS_FQID = PMD_FOMANTIS_FQID_ARR;
+    inline static constexpr size_t PMD_FOMANTIS_FQID_LEN = sizeof(PMD_FOMANTIS_FQID_ARR)-1;
+    inline static constexpr char PMD_FOMANTIS_ID_ARR[] = "fomantis";
+    inline static constexpr const char* PMD_FOMANTIS_ID = PMD_FOMANTIS_ID_ARR;
+    inline static constexpr size_t PMD_FOMANTIS_ID_LEN = sizeof(PMD_FOMANTIS_ID)-1;
+    inline static constexpr char PMD_FOMANTIS_NAME_ARR[] = "Fomantis";
+    inline static constexpr const char* PMD_FOMANTIS_NAME = PMD_FOMANTIS_NAME_ARR;
+    inline static constexpr size_t PMD_FOMANTIS_NAME_LEN = sizeof(PMD_FOMANTIS_NAME_ARR)-1;
+    inline static constexpr char PMD_FOMANTIS_FQNAME_ARR[] = "pmd:Fomantis";
+    inline static constexpr const char* PMD_FOMANTIS_FQNAME = PMD_FOMANTIS_FQNAME_ARR;
+    inline static constexpr size_t PMD_FOMANTIS_FQNAME_LEN = sizeof(PMD_FOMANTIS_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_FOMANTIS_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_FOMANTIS_ANIM_INDEX = 724;
+    inline static constexpr custom_animation_settings_t PMD_FOMANTIS_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 9,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_FOMANTIS_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_FOMANTIS_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Lurantis
+    inline static constexpr char PMD_LURANTIS_FQID_ARR[] = "pmd:lurantis";
+    inline static constexpr const char* PMD_LURANTIS_FQID = PMD_LURANTIS_FQID_ARR;
+    inline static constexpr size_t PMD_LURANTIS_FQID_LEN = sizeof(PMD_LURANTIS_FQID_ARR)-1;
+    inline static constexpr char PMD_LURANTIS_ID_ARR[] = "lurantis";
+    inline static constexpr const char* PMD_LURANTIS_ID = PMD_LURANTIS_ID_ARR;
+    inline static constexpr size_t PMD_LURANTIS_ID_LEN = sizeof(PMD_LURANTIS_ID)-1;
+    inline static constexpr char PMD_LURANTIS_NAME_ARR[] = "Lurantis";
+    inline static constexpr const char* PMD_LURANTIS_NAME = PMD_LURANTIS_NAME_ARR;
+    inline static constexpr size_t PMD_LURANTIS_NAME_LEN = sizeof(PMD_LURANTIS_NAME_ARR)-1;
+    inline static constexpr char PMD_LURANTIS_FQNAME_ARR[] = "pmd:Lurantis";
+    inline static constexpr const char* PMD_LURANTIS_FQNAME = PMD_LURANTIS_FQNAME_ARR;
+    inline static constexpr size_t PMD_LURANTIS_FQNAME_LEN = sizeof(PMD_LURANTIS_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_LURANTIS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_LURANTIS_ANIM_INDEX = 725;
+    inline static constexpr custom_animation_settings_t PMD_LURANTIS_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_LURANTIS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_LURANTIS_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Morelull
+    inline static constexpr char PMD_MORELULL_FQID_ARR[] = "pmd:morelull";
+    inline static constexpr const char* PMD_MORELULL_FQID = PMD_MORELULL_FQID_ARR;
+    inline static constexpr size_t PMD_MORELULL_FQID_LEN = sizeof(PMD_MORELULL_FQID_ARR)-1;
+    inline static constexpr char PMD_MORELULL_ID_ARR[] = "morelull";
+    inline static constexpr const char* PMD_MORELULL_ID = PMD_MORELULL_ID_ARR;
+    inline static constexpr size_t PMD_MORELULL_ID_LEN = sizeof(PMD_MORELULL_ID)-1;
+    inline static constexpr char PMD_MORELULL_NAME_ARR[] = "Morelull";
+    inline static constexpr const char* PMD_MORELULL_NAME = PMD_MORELULL_NAME_ARR;
+    inline static constexpr size_t PMD_MORELULL_NAME_LEN = sizeof(PMD_MORELULL_NAME_ARR)-1;
+    inline static constexpr char PMD_MORELULL_FQNAME_ARR[] = "pmd:Morelull";
+    inline static constexpr const char* PMD_MORELULL_FQNAME = PMD_MORELULL_FQNAME_ARR;
+    inline static constexpr size_t PMD_MORELULL_FQNAME_LEN = sizeof(PMD_MORELULL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MORELULL_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_MORELULL_ANIM_INDEX = 726;
+    inline static constexpr custom_animation_settings_t PMD_MORELULL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MORELULL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MORELULL_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Salandit
+    inline static constexpr char PMD_SALANDIT_FQID_ARR[] = "pmd:salandit";
+    inline static constexpr const char* PMD_SALANDIT_FQID = PMD_SALANDIT_FQID_ARR;
+    inline static constexpr size_t PMD_SALANDIT_FQID_LEN = sizeof(PMD_SALANDIT_FQID_ARR)-1;
+    inline static constexpr char PMD_SALANDIT_ID_ARR[] = "salandit";
+    inline static constexpr const char* PMD_SALANDIT_ID = PMD_SALANDIT_ID_ARR;
+    inline static constexpr size_t PMD_SALANDIT_ID_LEN = sizeof(PMD_SALANDIT_ID)-1;
+    inline static constexpr char PMD_SALANDIT_NAME_ARR[] = "Salandit";
+    inline static constexpr const char* PMD_SALANDIT_NAME = PMD_SALANDIT_NAME_ARR;
+    inline static constexpr size_t PMD_SALANDIT_NAME_LEN = sizeof(PMD_SALANDIT_NAME_ARR)-1;
+    inline static constexpr char PMD_SALANDIT_FQNAME_ARR[] = "pmd:Salandit";
+    inline static constexpr const char* PMD_SALANDIT_FQNAME = PMD_SALANDIT_FQNAME_ARR;
+    inline static constexpr size_t PMD_SALANDIT_FQNAME_LEN = sizeof(PMD_SALANDIT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SALANDIT_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_SALANDIT_ANIM_INDEX = 727;
+    inline static constexpr custom_animation_settings_t PMD_SALANDIT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SALANDIT_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SALANDIT_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Salazzle
+    inline static constexpr char PMD_SALAZZLE_FQID_ARR[] = "pmd:salazzle";
+    inline static constexpr const char* PMD_SALAZZLE_FQID = PMD_SALAZZLE_FQID_ARR;
+    inline static constexpr size_t PMD_SALAZZLE_FQID_LEN = sizeof(PMD_SALAZZLE_FQID_ARR)-1;
+    inline static constexpr char PMD_SALAZZLE_ID_ARR[] = "salazzle";
+    inline static constexpr const char* PMD_SALAZZLE_ID = PMD_SALAZZLE_ID_ARR;
+    inline static constexpr size_t PMD_SALAZZLE_ID_LEN = sizeof(PMD_SALAZZLE_ID)-1;
+    inline static constexpr char PMD_SALAZZLE_NAME_ARR[] = "Salazzle";
+    inline static constexpr const char* PMD_SALAZZLE_NAME = PMD_SALAZZLE_NAME_ARR;
+    inline static constexpr size_t PMD_SALAZZLE_NAME_LEN = sizeof(PMD_SALAZZLE_NAME_ARR)-1;
+    inline static constexpr char PMD_SALAZZLE_FQNAME_ARR[] = "pmd:Salazzle";
+    inline static constexpr const char* PMD_SALAZZLE_FQNAME = PMD_SALAZZLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_SALAZZLE_FQNAME_LEN = sizeof(PMD_SALAZZLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SALAZZLE_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_SALAZZLE_ANIM_INDEX = 728;
+    inline static constexpr custom_animation_settings_t PMD_SALAZZLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SALAZZLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SALAZZLE_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Stufful
+    inline static constexpr char PMD_STUFFUL_FQID_ARR[] = "pmd:stufful";
+    inline static constexpr const char* PMD_STUFFUL_FQID = PMD_STUFFUL_FQID_ARR;
+    inline static constexpr size_t PMD_STUFFUL_FQID_LEN = sizeof(PMD_STUFFUL_FQID_ARR)-1;
+    inline static constexpr char PMD_STUFFUL_ID_ARR[] = "stufful";
+    inline static constexpr const char* PMD_STUFFUL_ID = PMD_STUFFUL_ID_ARR;
+    inline static constexpr size_t PMD_STUFFUL_ID_LEN = sizeof(PMD_STUFFUL_ID)-1;
+    inline static constexpr char PMD_STUFFUL_NAME_ARR[] = "Stufful";
+    inline static constexpr const char* PMD_STUFFUL_NAME = PMD_STUFFUL_NAME_ARR;
+    inline static constexpr size_t PMD_STUFFUL_NAME_LEN = sizeof(PMD_STUFFUL_NAME_ARR)-1;
+    inline static constexpr char PMD_STUFFUL_FQNAME_ARR[] = "pmd:Stufful";
+    inline static constexpr const char* PMD_STUFFUL_FQNAME = PMD_STUFFUL_FQNAME_ARR;
+    inline static constexpr size_t PMD_STUFFUL_FQNAME_LEN = sizeof(PMD_STUFFUL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_STUFFUL_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_STUFFUL_ANIM_INDEX = 729;
+    inline static constexpr custom_animation_settings_t PMD_STUFFUL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_STUFFUL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_STUFFUL_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Bewear
+    inline static constexpr char PMD_BEWEAR_FQID_ARR[] = "pmd:bewear";
+    inline static constexpr const char* PMD_BEWEAR_FQID = PMD_BEWEAR_FQID_ARR;
+    inline static constexpr size_t PMD_BEWEAR_FQID_LEN = sizeof(PMD_BEWEAR_FQID_ARR)-1;
+    inline static constexpr char PMD_BEWEAR_ID_ARR[] = "bewear";
+    inline static constexpr const char* PMD_BEWEAR_ID = PMD_BEWEAR_ID_ARR;
+    inline static constexpr size_t PMD_BEWEAR_ID_LEN = sizeof(PMD_BEWEAR_ID)-1;
+    inline static constexpr char PMD_BEWEAR_NAME_ARR[] = "Bewear";
+    inline static constexpr const char* PMD_BEWEAR_NAME = PMD_BEWEAR_NAME_ARR;
+    inline static constexpr size_t PMD_BEWEAR_NAME_LEN = sizeof(PMD_BEWEAR_NAME_ARR)-1;
+    inline static constexpr char PMD_BEWEAR_FQNAME_ARR[] = "pmd:Bewear";
+    inline static constexpr const char* PMD_BEWEAR_FQNAME = PMD_BEWEAR_FQNAME_ARR;
+    inline static constexpr size_t PMD_BEWEAR_FQNAME_LEN = sizeof(PMD_BEWEAR_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BEWEAR_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_BEWEAR_ANIM_INDEX = 730;
+    inline static constexpr custom_animation_settings_t PMD_BEWEAR_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BEWEAR_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BEWEAR_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Bounsweet
+    inline static constexpr char PMD_BOUNSWEET_FQID_ARR[] = "pmd:bounsweet";
+    inline static constexpr const char* PMD_BOUNSWEET_FQID = PMD_BOUNSWEET_FQID_ARR;
+    inline static constexpr size_t PMD_BOUNSWEET_FQID_LEN = sizeof(PMD_BOUNSWEET_FQID_ARR)-1;
+    inline static constexpr char PMD_BOUNSWEET_ID_ARR[] = "bounsweet";
+    inline static constexpr const char* PMD_BOUNSWEET_ID = PMD_BOUNSWEET_ID_ARR;
+    inline static constexpr size_t PMD_BOUNSWEET_ID_LEN = sizeof(PMD_BOUNSWEET_ID)-1;
+    inline static constexpr char PMD_BOUNSWEET_NAME_ARR[] = "Bounsweet";
+    inline static constexpr const char* PMD_BOUNSWEET_NAME = PMD_BOUNSWEET_NAME_ARR;
+    inline static constexpr size_t PMD_BOUNSWEET_NAME_LEN = sizeof(PMD_BOUNSWEET_NAME_ARR)-1;
+    inline static constexpr char PMD_BOUNSWEET_FQNAME_ARR[] = "pmd:Bounsweet";
+    inline static constexpr const char* PMD_BOUNSWEET_FQNAME = PMD_BOUNSWEET_FQNAME_ARR;
+    inline static constexpr size_t PMD_BOUNSWEET_FQNAME_LEN = sizeof(PMD_BOUNSWEET_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BOUNSWEET_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_BOUNSWEET_ANIM_INDEX = 731;
+    inline static constexpr custom_animation_settings_t PMD_BOUNSWEET_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BOUNSWEET_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BOUNSWEET_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Steenee
+    inline static constexpr char PMD_STEENEE_FQID_ARR[] = "pmd:steenee";
+    inline static constexpr const char* PMD_STEENEE_FQID = PMD_STEENEE_FQID_ARR;
+    inline static constexpr size_t PMD_STEENEE_FQID_LEN = sizeof(PMD_STEENEE_FQID_ARR)-1;
+    inline static constexpr char PMD_STEENEE_ID_ARR[] = "steenee";
+    inline static constexpr const char* PMD_STEENEE_ID = PMD_STEENEE_ID_ARR;
+    inline static constexpr size_t PMD_STEENEE_ID_LEN = sizeof(PMD_STEENEE_ID)-1;
+    inline static constexpr char PMD_STEENEE_NAME_ARR[] = "Steenee";
+    inline static constexpr const char* PMD_STEENEE_NAME = PMD_STEENEE_NAME_ARR;
+    inline static constexpr size_t PMD_STEENEE_NAME_LEN = sizeof(PMD_STEENEE_NAME_ARR)-1;
+    inline static constexpr char PMD_STEENEE_FQNAME_ARR[] = "pmd:Steenee";
+    inline static constexpr const char* PMD_STEENEE_FQNAME = PMD_STEENEE_FQNAME_ARR;
+    inline static constexpr size_t PMD_STEENEE_FQNAME_LEN = sizeof(PMD_STEENEE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_STEENEE_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_STEENEE_ANIM_INDEX = 732;
+    inline static constexpr custom_animation_settings_t PMD_STEENEE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 3,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_STEENEE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_STEENEE_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Tsareena
+    inline static constexpr char PMD_TSAREENA_FQID_ARR[] = "pmd:tsareena";
+    inline static constexpr const char* PMD_TSAREENA_FQID = PMD_TSAREENA_FQID_ARR;
+    inline static constexpr size_t PMD_TSAREENA_FQID_LEN = sizeof(PMD_TSAREENA_FQID_ARR)-1;
+    inline static constexpr char PMD_TSAREENA_ID_ARR[] = "tsareena";
+    inline static constexpr const char* PMD_TSAREENA_ID = PMD_TSAREENA_ID_ARR;
+    inline static constexpr size_t PMD_TSAREENA_ID_LEN = sizeof(PMD_TSAREENA_ID)-1;
+    inline static constexpr char PMD_TSAREENA_NAME_ARR[] = "Tsareena";
+    inline static constexpr const char* PMD_TSAREENA_NAME = PMD_TSAREENA_NAME_ARR;
+    inline static constexpr size_t PMD_TSAREENA_NAME_LEN = sizeof(PMD_TSAREENA_NAME_ARR)-1;
+    inline static constexpr char PMD_TSAREENA_FQNAME_ARR[] = "pmd:Tsareena";
+    inline static constexpr const char* PMD_TSAREENA_FQNAME = PMD_TSAREENA_FQNAME_ARR;
+    inline static constexpr size_t PMD_TSAREENA_FQNAME_LEN = sizeof(PMD_TSAREENA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TSAREENA_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_TSAREENA_ANIM_INDEX = 733;
+    inline static constexpr custom_animation_settings_t PMD_TSAREENA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TSAREENA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TSAREENA_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Comfey
+    inline static constexpr char PMD_COMFEY_FQID_ARR[] = "pmd:comfey";
+    inline static constexpr const char* PMD_COMFEY_FQID = PMD_COMFEY_FQID_ARR;
+    inline static constexpr size_t PMD_COMFEY_FQID_LEN = sizeof(PMD_COMFEY_FQID_ARR)-1;
+    inline static constexpr char PMD_COMFEY_ID_ARR[] = "comfey";
+    inline static constexpr const char* PMD_COMFEY_ID = PMD_COMFEY_ID_ARR;
+    inline static constexpr size_t PMD_COMFEY_ID_LEN = sizeof(PMD_COMFEY_ID)-1;
+    inline static constexpr char PMD_COMFEY_NAME_ARR[] = "Comfey";
+    inline static constexpr const char* PMD_COMFEY_NAME = PMD_COMFEY_NAME_ARR;
+    inline static constexpr size_t PMD_COMFEY_NAME_LEN = sizeof(PMD_COMFEY_NAME_ARR)-1;
+    inline static constexpr char PMD_COMFEY_FQNAME_ARR[] = "pmd:Comfey";
+    inline static constexpr const char* PMD_COMFEY_FQNAME = PMD_COMFEY_FQNAME_ARR;
+    inline static constexpr size_t PMD_COMFEY_FQNAME_LEN = sizeof(PMD_COMFEY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_COMFEY_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_COMFEY_ANIM_INDEX = 734;
+    inline static constexpr custom_animation_settings_t PMD_COMFEY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 10,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_COMFEY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_COMFEY_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Passimian
+    inline static constexpr char PMD_PASSIMIAN_FQID_ARR[] = "pmd:passimian";
+    inline static constexpr const char* PMD_PASSIMIAN_FQID = PMD_PASSIMIAN_FQID_ARR;
+    inline static constexpr size_t PMD_PASSIMIAN_FQID_LEN = sizeof(PMD_PASSIMIAN_FQID_ARR)-1;
+    inline static constexpr char PMD_PASSIMIAN_ID_ARR[] = "passimian";
+    inline static constexpr const char* PMD_PASSIMIAN_ID = PMD_PASSIMIAN_ID_ARR;
+    inline static constexpr size_t PMD_PASSIMIAN_ID_LEN = sizeof(PMD_PASSIMIAN_ID)-1;
+    inline static constexpr char PMD_PASSIMIAN_NAME_ARR[] = "Passimian";
+    inline static constexpr const char* PMD_PASSIMIAN_NAME = PMD_PASSIMIAN_NAME_ARR;
+    inline static constexpr size_t PMD_PASSIMIAN_NAME_LEN = sizeof(PMD_PASSIMIAN_NAME_ARR)-1;
+    inline static constexpr char PMD_PASSIMIAN_FQNAME_ARR[] = "pmd:Passimian";
+    inline static constexpr const char* PMD_PASSIMIAN_FQNAME = PMD_PASSIMIAN_FQNAME_ARR;
+    inline static constexpr size_t PMD_PASSIMIAN_FQNAME_LEN = sizeof(PMD_PASSIMIAN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_PASSIMIAN_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_PASSIMIAN_ANIM_INDEX = 735;
+    inline static constexpr custom_animation_settings_t PMD_PASSIMIAN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 6,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_PASSIMIAN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_PASSIMIAN_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Wimpod
+    inline static constexpr char PMD_WIMPOD_FQID_ARR[] = "pmd:wimpod";
+    inline static constexpr const char* PMD_WIMPOD_FQID = PMD_WIMPOD_FQID_ARR;
+    inline static constexpr size_t PMD_WIMPOD_FQID_LEN = sizeof(PMD_WIMPOD_FQID_ARR)-1;
+    inline static constexpr char PMD_WIMPOD_ID_ARR[] = "wimpod";
+    inline static constexpr const char* PMD_WIMPOD_ID = PMD_WIMPOD_ID_ARR;
+    inline static constexpr size_t PMD_WIMPOD_ID_LEN = sizeof(PMD_WIMPOD_ID)-1;
+    inline static constexpr char PMD_WIMPOD_NAME_ARR[] = "Wimpod";
+    inline static constexpr const char* PMD_WIMPOD_NAME = PMD_WIMPOD_NAME_ARR;
+    inline static constexpr size_t PMD_WIMPOD_NAME_LEN = sizeof(PMD_WIMPOD_NAME_ARR)-1;
+    inline static constexpr char PMD_WIMPOD_FQNAME_ARR[] = "pmd:Wimpod";
+    inline static constexpr const char* PMD_WIMPOD_FQNAME = PMD_WIMPOD_FQNAME_ARR;
+    inline static constexpr size_t PMD_WIMPOD_FQNAME_LEN = sizeof(PMD_WIMPOD_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_WIMPOD_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_WIMPOD_ANIM_INDEX = 736;
+    inline static constexpr custom_animation_settings_t PMD_WIMPOD_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_WIMPOD_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_WIMPOD_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Golisopod
+    inline static constexpr char PMD_GOLISOPOD_FQID_ARR[] = "pmd:golisopod";
+    inline static constexpr const char* PMD_GOLISOPOD_FQID = PMD_GOLISOPOD_FQID_ARR;
+    inline static constexpr size_t PMD_GOLISOPOD_FQID_LEN = sizeof(PMD_GOLISOPOD_FQID_ARR)-1;
+    inline static constexpr char PMD_GOLISOPOD_ID_ARR[] = "golisopod";
+    inline static constexpr const char* PMD_GOLISOPOD_ID = PMD_GOLISOPOD_ID_ARR;
+    inline static constexpr size_t PMD_GOLISOPOD_ID_LEN = sizeof(PMD_GOLISOPOD_ID)-1;
+    inline static constexpr char PMD_GOLISOPOD_NAME_ARR[] = "Golisopod";
+    inline static constexpr const char* PMD_GOLISOPOD_NAME = PMD_GOLISOPOD_NAME_ARR;
+    inline static constexpr size_t PMD_GOLISOPOD_NAME_LEN = sizeof(PMD_GOLISOPOD_NAME_ARR)-1;
+    inline static constexpr char PMD_GOLISOPOD_FQNAME_ARR[] = "pmd:Golisopod";
+    inline static constexpr const char* PMD_GOLISOPOD_FQNAME = PMD_GOLISOPOD_FQNAME_ARR;
+    inline static constexpr size_t PMD_GOLISOPOD_FQNAME_LEN = sizeof(PMD_GOLISOPOD_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GOLISOPOD_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_GOLISOPOD_ANIM_INDEX = 737;
+    inline static constexpr custom_animation_settings_t PMD_GOLISOPOD_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GOLISOPOD_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GOLISOPOD_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Sandygast
+    inline static constexpr char PMD_SANDYGAST_FQID_ARR[] = "pmd:sandygast";
+    inline static constexpr const char* PMD_SANDYGAST_FQID = PMD_SANDYGAST_FQID_ARR;
+    inline static constexpr size_t PMD_SANDYGAST_FQID_LEN = sizeof(PMD_SANDYGAST_FQID_ARR)-1;
+    inline static constexpr char PMD_SANDYGAST_ID_ARR[] = "sandygast";
+    inline static constexpr const char* PMD_SANDYGAST_ID = PMD_SANDYGAST_ID_ARR;
+    inline static constexpr size_t PMD_SANDYGAST_ID_LEN = sizeof(PMD_SANDYGAST_ID)-1;
+    inline static constexpr char PMD_SANDYGAST_NAME_ARR[] = "Sandygast";
+    inline static constexpr const char* PMD_SANDYGAST_NAME = PMD_SANDYGAST_NAME_ARR;
+    inline static constexpr size_t PMD_SANDYGAST_NAME_LEN = sizeof(PMD_SANDYGAST_NAME_ARR)-1;
+    inline static constexpr char PMD_SANDYGAST_FQNAME_ARR[] = "pmd:Sandygast";
+    inline static constexpr const char* PMD_SANDYGAST_FQNAME = PMD_SANDYGAST_FQNAME_ARR;
+    inline static constexpr size_t PMD_SANDYGAST_FQNAME_LEN = sizeof(PMD_SANDYGAST_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SANDYGAST_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_SANDYGAST_ANIM_INDEX = 738;
+    inline static constexpr custom_animation_settings_t PMD_SANDYGAST_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 7,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 3,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SANDYGAST_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SANDYGAST_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Palossand
+    inline static constexpr char PMD_PALOSSAND_FQID_ARR[] = "pmd:palossand";
+    inline static constexpr const char* PMD_PALOSSAND_FQID = PMD_PALOSSAND_FQID_ARR;
+    inline static constexpr size_t PMD_PALOSSAND_FQID_LEN = sizeof(PMD_PALOSSAND_FQID_ARR)-1;
+    inline static constexpr char PMD_PALOSSAND_ID_ARR[] = "palossand";
+    inline static constexpr const char* PMD_PALOSSAND_ID = PMD_PALOSSAND_ID_ARR;
+    inline static constexpr size_t PMD_PALOSSAND_ID_LEN = sizeof(PMD_PALOSSAND_ID)-1;
+    inline static constexpr char PMD_PALOSSAND_NAME_ARR[] = "Palossand";
+    inline static constexpr const char* PMD_PALOSSAND_NAME = PMD_PALOSSAND_NAME_ARR;
+    inline static constexpr size_t PMD_PALOSSAND_NAME_LEN = sizeof(PMD_PALOSSAND_NAME_ARR)-1;
+    inline static constexpr char PMD_PALOSSAND_FQNAME_ARR[] = "pmd:Palossand";
+    inline static constexpr const char* PMD_PALOSSAND_FQNAME = PMD_PALOSSAND_FQNAME_ARR;
+    inline static constexpr size_t PMD_PALOSSAND_FQNAME_LEN = sizeof(PMD_PALOSSAND_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_PALOSSAND_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PALOSSAND_ANIM_INDEX = 739;
+    inline static constexpr custom_animation_settings_t PMD_PALOSSAND_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_PALOSSAND_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_PALOSSAND_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Pyukumuku
+    inline static constexpr char PMD_PYUKUMUKU_FQID_ARR[] = "pmd:pyukumuku";
+    inline static constexpr const char* PMD_PYUKUMUKU_FQID = PMD_PYUKUMUKU_FQID_ARR;
+    inline static constexpr size_t PMD_PYUKUMUKU_FQID_LEN = sizeof(PMD_PYUKUMUKU_FQID_ARR)-1;
+    inline static constexpr char PMD_PYUKUMUKU_ID_ARR[] = "pyukumuku";
+    inline static constexpr const char* PMD_PYUKUMUKU_ID = PMD_PYUKUMUKU_ID_ARR;
+    inline static constexpr size_t PMD_PYUKUMUKU_ID_LEN = sizeof(PMD_PYUKUMUKU_ID)-1;
+    inline static constexpr char PMD_PYUKUMUKU_NAME_ARR[] = "Pyukumuku";
+    inline static constexpr const char* PMD_PYUKUMUKU_NAME = PMD_PYUKUMUKU_NAME_ARR;
+    inline static constexpr size_t PMD_PYUKUMUKU_NAME_LEN = sizeof(PMD_PYUKUMUKU_NAME_ARR)-1;
+    inline static constexpr char PMD_PYUKUMUKU_FQNAME_ARR[] = "pmd:Pyukumuku";
+    inline static constexpr const char* PMD_PYUKUMUKU_FQNAME = PMD_PYUKUMUKU_FQNAME_ARR;
+    inline static constexpr size_t PMD_PYUKUMUKU_FQNAME_LEN = sizeof(PMD_PYUKUMUKU_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_PYUKUMUKU_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_PYUKUMUKU_ANIM_INDEX = 740;
+    inline static constexpr custom_animation_settings_t PMD_PYUKUMUKU_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_PYUKUMUKU_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_PYUKUMUKU_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Type-null
+    inline static constexpr char PMD_TYPE_NULL_FQID_ARR[] = "pmd:type_null";
+    inline static constexpr const char* PMD_TYPE_NULL_FQID = PMD_TYPE_NULL_FQID_ARR;
+    inline static constexpr size_t PMD_TYPE_NULL_FQID_LEN = sizeof(PMD_TYPE_NULL_FQID_ARR)-1;
+    inline static constexpr char PMD_TYPE_NULL_ID_ARR[] = "type_null";
+    inline static constexpr const char* PMD_TYPE_NULL_ID = PMD_TYPE_NULL_ID_ARR;
+    inline static constexpr size_t PMD_TYPE_NULL_ID_LEN = sizeof(PMD_TYPE_NULL_ID)-1;
+    inline static constexpr char PMD_TYPE_NULL_NAME_ARR[] = "Type-null";
+    inline static constexpr const char* PMD_TYPE_NULL_NAME = PMD_TYPE_NULL_NAME_ARR;
+    inline static constexpr size_t PMD_TYPE_NULL_NAME_LEN = sizeof(PMD_TYPE_NULL_NAME_ARR)-1;
+    inline static constexpr char PMD_TYPE_NULL_FQNAME_ARR[] = "pmd:Type-null";
+    inline static constexpr const char* PMD_TYPE_NULL_FQNAME = PMD_TYPE_NULL_FQNAME_ARR;
+    inline static constexpr size_t PMD_TYPE_NULL_FQNAME_LEN = sizeof(PMD_TYPE_NULL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TYPE_NULL_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_TYPE_NULL_ANIM_INDEX = 741;
+    inline static constexpr custom_animation_settings_t PMD_TYPE_NULL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 6,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TYPE_NULL_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TYPE_NULL_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Silvally
+    inline static constexpr char PMD_SILVALLY_FQID_ARR[] = "pmd:silvally";
+    inline static constexpr const char* PMD_SILVALLY_FQID = PMD_SILVALLY_FQID_ARR;
+    inline static constexpr size_t PMD_SILVALLY_FQID_LEN = sizeof(PMD_SILVALLY_FQID_ARR)-1;
+    inline static constexpr char PMD_SILVALLY_ID_ARR[] = "silvally";
+    inline static constexpr const char* PMD_SILVALLY_ID = PMD_SILVALLY_ID_ARR;
+    inline static constexpr size_t PMD_SILVALLY_ID_LEN = sizeof(PMD_SILVALLY_ID)-1;
+    inline static constexpr char PMD_SILVALLY_NAME_ARR[] = "Silvally";
+    inline static constexpr const char* PMD_SILVALLY_NAME = PMD_SILVALLY_NAME_ARR;
+    inline static constexpr size_t PMD_SILVALLY_NAME_LEN = sizeof(PMD_SILVALLY_NAME_ARR)-1;
+    inline static constexpr char PMD_SILVALLY_FQNAME_ARR[] = "pmd:Silvally";
+    inline static constexpr const char* PMD_SILVALLY_FQNAME = PMD_SILVALLY_FQNAME_ARR;
+    inline static constexpr size_t PMD_SILVALLY_FQNAME_LEN = sizeof(PMD_SILVALLY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SILVALLY_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_SILVALLY_ANIM_INDEX = 742;
+    inline static constexpr custom_animation_settings_t PMD_SILVALLY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 6,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SILVALLY_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SILVALLY_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Minior
+    inline static constexpr char PMD_MINIOR_FQID_ARR[] = "pmd:minior";
+    inline static constexpr const char* PMD_MINIOR_FQID = PMD_MINIOR_FQID_ARR;
+    inline static constexpr size_t PMD_MINIOR_FQID_LEN = sizeof(PMD_MINIOR_FQID_ARR)-1;
+    inline static constexpr char PMD_MINIOR_ID_ARR[] = "minior";
+    inline static constexpr const char* PMD_MINIOR_ID = PMD_MINIOR_ID_ARR;
+    inline static constexpr size_t PMD_MINIOR_ID_LEN = sizeof(PMD_MINIOR_ID)-1;
+    inline static constexpr char PMD_MINIOR_NAME_ARR[] = "Minior";
+    inline static constexpr const char* PMD_MINIOR_NAME = PMD_MINIOR_NAME_ARR;
+    inline static constexpr size_t PMD_MINIOR_NAME_LEN = sizeof(PMD_MINIOR_NAME_ARR)-1;
+    inline static constexpr char PMD_MINIOR_FQNAME_ARR[] = "pmd:Minior";
+    inline static constexpr const char* PMD_MINIOR_FQNAME = PMD_MINIOR_FQNAME_ARR;
+    inline static constexpr size_t PMD_MINIOR_FQNAME_LEN = sizeof(PMD_MINIOR_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MINIOR_SPRITE_SHEET_FRAMES_COUNT = 114;
+    inline static constexpr size_t PMD_MINIOR_ANIM_INDEX = 743;
+    inline static constexpr custom_animation_settings_t PMD_MINIOR_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 12,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 19,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 12,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MINIOR_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MINIOR_SPRITE_SHEET_MAX_COLS = 19;
+
+    // Name: Komala
+    inline static constexpr char PMD_KOMALA_FQID_ARR[] = "pmd:komala";
+    inline static constexpr const char* PMD_KOMALA_FQID = PMD_KOMALA_FQID_ARR;
+    inline static constexpr size_t PMD_KOMALA_FQID_LEN = sizeof(PMD_KOMALA_FQID_ARR)-1;
+    inline static constexpr char PMD_KOMALA_ID_ARR[] = "komala";
+    inline static constexpr const char* PMD_KOMALA_ID = PMD_KOMALA_ID_ARR;
+    inline static constexpr size_t PMD_KOMALA_ID_LEN = sizeof(PMD_KOMALA_ID)-1;
+    inline static constexpr char PMD_KOMALA_NAME_ARR[] = "Komala";
+    inline static constexpr const char* PMD_KOMALA_NAME = PMD_KOMALA_NAME_ARR;
+    inline static constexpr size_t PMD_KOMALA_NAME_LEN = sizeof(PMD_KOMALA_NAME_ARR)-1;
+    inline static constexpr char PMD_KOMALA_FQNAME_ARR[] = "pmd:Komala";
+    inline static constexpr const char* PMD_KOMALA_FQNAME = PMD_KOMALA_FQNAME_ARR;
+    inline static constexpr size_t PMD_KOMALA_FQNAME_LEN = sizeof(PMD_KOMALA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_KOMALA_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_KOMALA_ANIM_INDEX = 744;
+    inline static constexpr custom_animation_settings_t PMD_KOMALA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 8,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_KOMALA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_KOMALA_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Turtonator
+    inline static constexpr char PMD_TURTONATOR_FQID_ARR[] = "pmd:turtonator";
+    inline static constexpr const char* PMD_TURTONATOR_FQID = PMD_TURTONATOR_FQID_ARR;
+    inline static constexpr size_t PMD_TURTONATOR_FQID_LEN = sizeof(PMD_TURTONATOR_FQID_ARR)-1;
+    inline static constexpr char PMD_TURTONATOR_ID_ARR[] = "turtonator";
+    inline static constexpr const char* PMD_TURTONATOR_ID = PMD_TURTONATOR_ID_ARR;
+    inline static constexpr size_t PMD_TURTONATOR_ID_LEN = sizeof(PMD_TURTONATOR_ID)-1;
+    inline static constexpr char PMD_TURTONATOR_NAME_ARR[] = "Turtonator";
+    inline static constexpr const char* PMD_TURTONATOR_NAME = PMD_TURTONATOR_NAME_ARR;
+    inline static constexpr size_t PMD_TURTONATOR_NAME_LEN = sizeof(PMD_TURTONATOR_NAME_ARR)-1;
+    inline static constexpr char PMD_TURTONATOR_FQNAME_ARR[] = "pmd:Turtonator";
+    inline static constexpr const char* PMD_TURTONATOR_FQNAME = PMD_TURTONATOR_FQNAME_ARR;
+    inline static constexpr size_t PMD_TURTONATOR_FQNAME_LEN = sizeof(PMD_TURTONATOR_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TURTONATOR_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_TURTONATOR_ANIM_INDEX = 745;
+    inline static constexpr custom_animation_settings_t PMD_TURTONATOR_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TURTONATOR_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TURTONATOR_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Togedemaru
+    inline static constexpr char PMD_TOGEDEMARU_FQID_ARR[] = "pmd:togedemaru";
+    inline static constexpr const char* PMD_TOGEDEMARU_FQID = PMD_TOGEDEMARU_FQID_ARR;
+    inline static constexpr size_t PMD_TOGEDEMARU_FQID_LEN = sizeof(PMD_TOGEDEMARU_FQID_ARR)-1;
+    inline static constexpr char PMD_TOGEDEMARU_ID_ARR[] = "togedemaru";
+    inline static constexpr const char* PMD_TOGEDEMARU_ID = PMD_TOGEDEMARU_ID_ARR;
+    inline static constexpr size_t PMD_TOGEDEMARU_ID_LEN = sizeof(PMD_TOGEDEMARU_ID)-1;
+    inline static constexpr char PMD_TOGEDEMARU_NAME_ARR[] = "Togedemaru";
+    inline static constexpr const char* PMD_TOGEDEMARU_NAME = PMD_TOGEDEMARU_NAME_ARR;
+    inline static constexpr size_t PMD_TOGEDEMARU_NAME_LEN = sizeof(PMD_TOGEDEMARU_NAME_ARR)-1;
+    inline static constexpr char PMD_TOGEDEMARU_FQNAME_ARR[] = "pmd:Togedemaru";
+    inline static constexpr const char* PMD_TOGEDEMARU_FQNAME = PMD_TOGEDEMARU_FQNAME_ARR;
+    inline static constexpr size_t PMD_TOGEDEMARU_FQNAME_LEN = sizeof(PMD_TOGEDEMARU_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TOGEDEMARU_SPRITE_SHEET_FRAMES_COUNT = 119;
+    inline static constexpr size_t PMD_TOGEDEMARU_ANIM_INDEX = 746;
+    inline static constexpr custom_animation_settings_t PMD_TOGEDEMARU_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 17,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TOGEDEMARU_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TOGEDEMARU_SPRITE_SHEET_MAX_COLS = 17;
+
+    // Name: Mimikyu
+    inline static constexpr char PMD_MIMIKYU_FQID_ARR[] = "pmd:mimikyu";
+    inline static constexpr const char* PMD_MIMIKYU_FQID = PMD_MIMIKYU_FQID_ARR;
+    inline static constexpr size_t PMD_MIMIKYU_FQID_LEN = sizeof(PMD_MIMIKYU_FQID_ARR)-1;
+    inline static constexpr char PMD_MIMIKYU_ID_ARR[] = "mimikyu";
+    inline static constexpr const char* PMD_MIMIKYU_ID = PMD_MIMIKYU_ID_ARR;
+    inline static constexpr size_t PMD_MIMIKYU_ID_LEN = sizeof(PMD_MIMIKYU_ID)-1;
+    inline static constexpr char PMD_MIMIKYU_NAME_ARR[] = "Mimikyu";
+    inline static constexpr const char* PMD_MIMIKYU_NAME = PMD_MIMIKYU_NAME_ARR;
+    inline static constexpr size_t PMD_MIMIKYU_NAME_LEN = sizeof(PMD_MIMIKYU_NAME_ARR)-1;
+    inline static constexpr char PMD_MIMIKYU_FQNAME_ARR[] = "pmd:Mimikyu";
+    inline static constexpr const char* PMD_MIMIKYU_FQNAME = PMD_MIMIKYU_FQNAME_ARR;
+    inline static constexpr size_t PMD_MIMIKYU_FQNAME_LEN = sizeof(PMD_MIMIKYU_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MIMIKYU_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_MIMIKYU_ANIM_INDEX = 747;
+    inline static constexpr custom_animation_settings_t PMD_MIMIKYU_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MIMIKYU_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MIMIKYU_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Bruxish
+    inline static constexpr char PMD_BRUXISH_FQID_ARR[] = "pmd:bruxish";
+    inline static constexpr const char* PMD_BRUXISH_FQID = PMD_BRUXISH_FQID_ARR;
+    inline static constexpr size_t PMD_BRUXISH_FQID_LEN = sizeof(PMD_BRUXISH_FQID_ARR)-1;
+    inline static constexpr char PMD_BRUXISH_ID_ARR[] = "bruxish";
+    inline static constexpr const char* PMD_BRUXISH_ID = PMD_BRUXISH_ID_ARR;
+    inline static constexpr size_t PMD_BRUXISH_ID_LEN = sizeof(PMD_BRUXISH_ID)-1;
+    inline static constexpr char PMD_BRUXISH_NAME_ARR[] = "Bruxish";
+    inline static constexpr const char* PMD_BRUXISH_NAME = PMD_BRUXISH_NAME_ARR;
+    inline static constexpr size_t PMD_BRUXISH_NAME_LEN = sizeof(PMD_BRUXISH_NAME_ARR)-1;
+    inline static constexpr char PMD_BRUXISH_FQNAME_ARR[] = "pmd:Bruxish";
+    inline static constexpr const char* PMD_BRUXISH_FQNAME = PMD_BRUXISH_FQNAME_ARR;
+    inline static constexpr size_t PMD_BRUXISH_FQNAME_LEN = sizeof(PMD_BRUXISH_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BRUXISH_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_BRUXISH_ANIM_INDEX = 748;
+    inline static constexpr custom_animation_settings_t PMD_BRUXISH_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = 14,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 12,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BRUXISH_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_BRUXISH_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Drampa
+    inline static constexpr char PMD_DRAMPA_FQID_ARR[] = "pmd:drampa";
+    inline static constexpr const char* PMD_DRAMPA_FQID = PMD_DRAMPA_FQID_ARR;
+    inline static constexpr size_t PMD_DRAMPA_FQID_LEN = sizeof(PMD_DRAMPA_FQID_ARR)-1;
+    inline static constexpr char PMD_DRAMPA_ID_ARR[] = "drampa";
+    inline static constexpr const char* PMD_DRAMPA_ID = PMD_DRAMPA_ID_ARR;
+    inline static constexpr size_t PMD_DRAMPA_ID_LEN = sizeof(PMD_DRAMPA_ID)-1;
+    inline static constexpr char PMD_DRAMPA_NAME_ARR[] = "Drampa";
+    inline static constexpr const char* PMD_DRAMPA_NAME = PMD_DRAMPA_NAME_ARR;
+    inline static constexpr size_t PMD_DRAMPA_NAME_LEN = sizeof(PMD_DRAMPA_NAME_ARR)-1;
+    inline static constexpr char PMD_DRAMPA_FQNAME_ARR[] = "pmd:Drampa";
+    inline static constexpr const char* PMD_DRAMPA_FQNAME = PMD_DRAMPA_FQNAME_ARR;
+    inline static constexpr size_t PMD_DRAMPA_FQNAME_LEN = sizeof(PMD_DRAMPA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DRAMPA_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_DRAMPA_ANIM_INDEX = 749;
+    inline static constexpr custom_animation_settings_t PMD_DRAMPA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DRAMPA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DRAMPA_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Dhelmise
+    inline static constexpr char PMD_DHELMISE_FQID_ARR[] = "pmd:dhelmise";
+    inline static constexpr const char* PMD_DHELMISE_FQID = PMD_DHELMISE_FQID_ARR;
+    inline static constexpr size_t PMD_DHELMISE_FQID_LEN = sizeof(PMD_DHELMISE_FQID_ARR)-1;
+    inline static constexpr char PMD_DHELMISE_ID_ARR[] = "dhelmise";
+    inline static constexpr const char* PMD_DHELMISE_ID = PMD_DHELMISE_ID_ARR;
+    inline static constexpr size_t PMD_DHELMISE_ID_LEN = sizeof(PMD_DHELMISE_ID)-1;
+    inline static constexpr char PMD_DHELMISE_NAME_ARR[] = "Dhelmise";
+    inline static constexpr const char* PMD_DHELMISE_NAME = PMD_DHELMISE_NAME_ARR;
+    inline static constexpr size_t PMD_DHELMISE_NAME_LEN = sizeof(PMD_DHELMISE_NAME_ARR)-1;
+    inline static constexpr char PMD_DHELMISE_FQNAME_ARR[] = "pmd:Dhelmise";
+    inline static constexpr const char* PMD_DHELMISE_FQNAME = PMD_DHELMISE_FQNAME_ARR;
+    inline static constexpr size_t PMD_DHELMISE_FQNAME_LEN = sizeof(PMD_DHELMISE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DHELMISE_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_DHELMISE_ANIM_INDEX = 750;
+    inline static constexpr custom_animation_settings_t PMD_DHELMISE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 8,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DHELMISE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DHELMISE_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Jangmo-o
+    inline static constexpr char PMD_JANGMO_O_FQID_ARR[] = "pmd:jangmo_o";
+    inline static constexpr const char* PMD_JANGMO_O_FQID = PMD_JANGMO_O_FQID_ARR;
+    inline static constexpr size_t PMD_JANGMO_O_FQID_LEN = sizeof(PMD_JANGMO_O_FQID_ARR)-1;
+    inline static constexpr char PMD_JANGMO_O_ID_ARR[] = "jangmo_o";
+    inline static constexpr const char* PMD_JANGMO_O_ID = PMD_JANGMO_O_ID_ARR;
+    inline static constexpr size_t PMD_JANGMO_O_ID_LEN = sizeof(PMD_JANGMO_O_ID)-1;
+    inline static constexpr char PMD_JANGMO_O_NAME_ARR[] = "Jangmo-o";
+    inline static constexpr const char* PMD_JANGMO_O_NAME = PMD_JANGMO_O_NAME_ARR;
+    inline static constexpr size_t PMD_JANGMO_O_NAME_LEN = sizeof(PMD_JANGMO_O_NAME_ARR)-1;
+    inline static constexpr char PMD_JANGMO_O_FQNAME_ARR[] = "pmd:Jangmo-o";
+    inline static constexpr const char* PMD_JANGMO_O_FQNAME = PMD_JANGMO_O_FQNAME_ARR;
+    inline static constexpr size_t PMD_JANGMO_O_FQNAME_LEN = sizeof(PMD_JANGMO_O_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_JANGMO_O_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_JANGMO_O_ANIM_INDEX = 751;
+    inline static constexpr custom_animation_settings_t PMD_JANGMO_O_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_JANGMO_O_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_JANGMO_O_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Hakamo-o
+    inline static constexpr char PMD_HAKAMO_O_FQID_ARR[] = "pmd:hakamo_o";
+    inline static constexpr const char* PMD_HAKAMO_O_FQID = PMD_HAKAMO_O_FQID_ARR;
+    inline static constexpr size_t PMD_HAKAMO_O_FQID_LEN = sizeof(PMD_HAKAMO_O_FQID_ARR)-1;
+    inline static constexpr char PMD_HAKAMO_O_ID_ARR[] = "hakamo_o";
+    inline static constexpr const char* PMD_HAKAMO_O_ID = PMD_HAKAMO_O_ID_ARR;
+    inline static constexpr size_t PMD_HAKAMO_O_ID_LEN = sizeof(PMD_HAKAMO_O_ID)-1;
+    inline static constexpr char PMD_HAKAMO_O_NAME_ARR[] = "Hakamo-o";
+    inline static constexpr const char* PMD_HAKAMO_O_NAME = PMD_HAKAMO_O_NAME_ARR;
+    inline static constexpr size_t PMD_HAKAMO_O_NAME_LEN = sizeof(PMD_HAKAMO_O_NAME_ARR)-1;
+    inline static constexpr char PMD_HAKAMO_O_FQNAME_ARR[] = "pmd:Hakamo-o";
+    inline static constexpr const char* PMD_HAKAMO_O_FQNAME = PMD_HAKAMO_O_FQNAME_ARR;
+    inline static constexpr size_t PMD_HAKAMO_O_FQNAME_LEN = sizeof(PMD_HAKAMO_O_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_HAKAMO_O_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_HAKAMO_O_ANIM_INDEX = 752;
+    inline static constexpr custom_animation_settings_t PMD_HAKAMO_O_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_HAKAMO_O_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_HAKAMO_O_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Kommo-o
+    inline static constexpr char PMD_KOMMO_O_FQID_ARR[] = "pmd:kommo_o";
+    inline static constexpr const char* PMD_KOMMO_O_FQID = PMD_KOMMO_O_FQID_ARR;
+    inline static constexpr size_t PMD_KOMMO_O_FQID_LEN = sizeof(PMD_KOMMO_O_FQID_ARR)-1;
+    inline static constexpr char PMD_KOMMO_O_ID_ARR[] = "kommo_o";
+    inline static constexpr const char* PMD_KOMMO_O_ID = PMD_KOMMO_O_ID_ARR;
+    inline static constexpr size_t PMD_KOMMO_O_ID_LEN = sizeof(PMD_KOMMO_O_ID)-1;
+    inline static constexpr char PMD_KOMMO_O_NAME_ARR[] = "Kommo-o";
+    inline static constexpr const char* PMD_KOMMO_O_NAME = PMD_KOMMO_O_NAME_ARR;
+    inline static constexpr size_t PMD_KOMMO_O_NAME_LEN = sizeof(PMD_KOMMO_O_NAME_ARR)-1;
+    inline static constexpr char PMD_KOMMO_O_FQNAME_ARR[] = "pmd:Kommo-o";
+    inline static constexpr const char* PMD_KOMMO_O_FQNAME = PMD_KOMMO_O_FQNAME_ARR;
+    inline static constexpr size_t PMD_KOMMO_O_FQNAME_LEN = sizeof(PMD_KOMMO_O_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_KOMMO_O_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_KOMMO_O_ANIM_INDEX = 753;
+    inline static constexpr custom_animation_settings_t PMD_KOMMO_O_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_KOMMO_O_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_KOMMO_O_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Tapu-koko
+    inline static constexpr char PMD_TAPU_KOKO_FQID_ARR[] = "pmd:tapu_koko";
+    inline static constexpr const char* PMD_TAPU_KOKO_FQID = PMD_TAPU_KOKO_FQID_ARR;
+    inline static constexpr size_t PMD_TAPU_KOKO_FQID_LEN = sizeof(PMD_TAPU_KOKO_FQID_ARR)-1;
+    inline static constexpr char PMD_TAPU_KOKO_ID_ARR[] = "tapu_koko";
+    inline static constexpr const char* PMD_TAPU_KOKO_ID = PMD_TAPU_KOKO_ID_ARR;
+    inline static constexpr size_t PMD_TAPU_KOKO_ID_LEN = sizeof(PMD_TAPU_KOKO_ID)-1;
+    inline static constexpr char PMD_TAPU_KOKO_NAME_ARR[] = "Tapu-koko";
+    inline static constexpr const char* PMD_TAPU_KOKO_NAME = PMD_TAPU_KOKO_NAME_ARR;
+    inline static constexpr size_t PMD_TAPU_KOKO_NAME_LEN = sizeof(PMD_TAPU_KOKO_NAME_ARR)-1;
+    inline static constexpr char PMD_TAPU_KOKO_FQNAME_ARR[] = "pmd:Tapu-koko";
+    inline static constexpr const char* PMD_TAPU_KOKO_FQNAME = PMD_TAPU_KOKO_FQNAME_ARR;
+    inline static constexpr size_t PMD_TAPU_KOKO_FQNAME_LEN = sizeof(PMD_TAPU_KOKO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TAPU_KOKO_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_TAPU_KOKO_ANIM_INDEX = 754;
+    inline static constexpr custom_animation_settings_t PMD_TAPU_KOKO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 4,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TAPU_KOKO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TAPU_KOKO_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Tapu-lele
+    inline static constexpr char PMD_TAPU_LELE_FQID_ARR[] = "pmd:tapu_lele";
+    inline static constexpr const char* PMD_TAPU_LELE_FQID = PMD_TAPU_LELE_FQID_ARR;
+    inline static constexpr size_t PMD_TAPU_LELE_FQID_LEN = sizeof(PMD_TAPU_LELE_FQID_ARR)-1;
+    inline static constexpr char PMD_TAPU_LELE_ID_ARR[] = "tapu_lele";
+    inline static constexpr const char* PMD_TAPU_LELE_ID = PMD_TAPU_LELE_ID_ARR;
+    inline static constexpr size_t PMD_TAPU_LELE_ID_LEN = sizeof(PMD_TAPU_LELE_ID)-1;
+    inline static constexpr char PMD_TAPU_LELE_NAME_ARR[] = "Tapu-lele";
+    inline static constexpr const char* PMD_TAPU_LELE_NAME = PMD_TAPU_LELE_NAME_ARR;
+    inline static constexpr size_t PMD_TAPU_LELE_NAME_LEN = sizeof(PMD_TAPU_LELE_NAME_ARR)-1;
+    inline static constexpr char PMD_TAPU_LELE_FQNAME_ARR[] = "pmd:Tapu-lele";
+    inline static constexpr const char* PMD_TAPU_LELE_FQNAME = PMD_TAPU_LELE_FQNAME_ARR;
+    inline static constexpr size_t PMD_TAPU_LELE_FQNAME_LEN = sizeof(PMD_TAPU_LELE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TAPU_LELE_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_TAPU_LELE_ANIM_INDEX = 755;
+    inline static constexpr custom_animation_settings_t PMD_TAPU_LELE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TAPU_LELE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_TAPU_LELE_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Tapu-bulu
+    inline static constexpr char PMD_TAPU_BULU_FQID_ARR[] = "pmd:tapu_bulu";
+    inline static constexpr const char* PMD_TAPU_BULU_FQID = PMD_TAPU_BULU_FQID_ARR;
+    inline static constexpr size_t PMD_TAPU_BULU_FQID_LEN = sizeof(PMD_TAPU_BULU_FQID_ARR)-1;
+    inline static constexpr char PMD_TAPU_BULU_ID_ARR[] = "tapu_bulu";
+    inline static constexpr const char* PMD_TAPU_BULU_ID = PMD_TAPU_BULU_ID_ARR;
+    inline static constexpr size_t PMD_TAPU_BULU_ID_LEN = sizeof(PMD_TAPU_BULU_ID)-1;
+    inline static constexpr char PMD_TAPU_BULU_NAME_ARR[] = "Tapu-bulu";
+    inline static constexpr const char* PMD_TAPU_BULU_NAME = PMD_TAPU_BULU_NAME_ARR;
+    inline static constexpr size_t PMD_TAPU_BULU_NAME_LEN = sizeof(PMD_TAPU_BULU_NAME_ARR)-1;
+    inline static constexpr char PMD_TAPU_BULU_FQNAME_ARR[] = "pmd:Tapu-bulu";
+    inline static constexpr const char* PMD_TAPU_BULU_FQNAME = PMD_TAPU_BULU_FQNAME_ARR;
+    inline static constexpr size_t PMD_TAPU_BULU_FQNAME_LEN = sizeof(PMD_TAPU_BULU_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TAPU_BULU_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_TAPU_BULU_ANIM_INDEX = 756;
+    inline static constexpr custom_animation_settings_t PMD_TAPU_BULU_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 4,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 4,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TAPU_BULU_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TAPU_BULU_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Tapu-fini
+    inline static constexpr char PMD_TAPU_FINI_FQID_ARR[] = "pmd:tapu_fini";
+    inline static constexpr const char* PMD_TAPU_FINI_FQID = PMD_TAPU_FINI_FQID_ARR;
+    inline static constexpr size_t PMD_TAPU_FINI_FQID_LEN = sizeof(PMD_TAPU_FINI_FQID_ARR)-1;
+    inline static constexpr char PMD_TAPU_FINI_ID_ARR[] = "tapu_fini";
+    inline static constexpr const char* PMD_TAPU_FINI_ID = PMD_TAPU_FINI_ID_ARR;
+    inline static constexpr size_t PMD_TAPU_FINI_ID_LEN = sizeof(PMD_TAPU_FINI_ID)-1;
+    inline static constexpr char PMD_TAPU_FINI_NAME_ARR[] = "Tapu-fini";
+    inline static constexpr const char* PMD_TAPU_FINI_NAME = PMD_TAPU_FINI_NAME_ARR;
+    inline static constexpr size_t PMD_TAPU_FINI_NAME_LEN = sizeof(PMD_TAPU_FINI_NAME_ARR)-1;
+    inline static constexpr char PMD_TAPU_FINI_FQNAME_ARR[] = "pmd:Tapu-fini";
+    inline static constexpr const char* PMD_TAPU_FINI_FQNAME = PMD_TAPU_FINI_FQNAME_ARR;
+    inline static constexpr size_t PMD_TAPU_FINI_FQNAME_LEN = sizeof(PMD_TAPU_FINI_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TAPU_FINI_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_TAPU_FINI_ANIM_INDEX = 757;
+    inline static constexpr custom_animation_settings_t PMD_TAPU_FINI_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 4,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 4,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TAPU_FINI_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TAPU_FINI_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Cosmog
+    inline static constexpr char PMD_COSMOG_FQID_ARR[] = "pmd:cosmog";
+    inline static constexpr const char* PMD_COSMOG_FQID = PMD_COSMOG_FQID_ARR;
+    inline static constexpr size_t PMD_COSMOG_FQID_LEN = sizeof(PMD_COSMOG_FQID_ARR)-1;
+    inline static constexpr char PMD_COSMOG_ID_ARR[] = "cosmog";
+    inline static constexpr const char* PMD_COSMOG_ID = PMD_COSMOG_ID_ARR;
+    inline static constexpr size_t PMD_COSMOG_ID_LEN = sizeof(PMD_COSMOG_ID)-1;
+    inline static constexpr char PMD_COSMOG_NAME_ARR[] = "Cosmog";
+    inline static constexpr const char* PMD_COSMOG_NAME = PMD_COSMOG_NAME_ARR;
+    inline static constexpr size_t PMD_COSMOG_NAME_LEN = sizeof(PMD_COSMOG_NAME_ARR)-1;
+    inline static constexpr char PMD_COSMOG_FQNAME_ARR[] = "pmd:Cosmog";
+    inline static constexpr const char* PMD_COSMOG_FQNAME = PMD_COSMOG_FQNAME_ARR;
+    inline static constexpr size_t PMD_COSMOG_FQNAME_LEN = sizeof(PMD_COSMOG_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_COSMOG_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_COSMOG_ANIM_INDEX = 758;
+    inline static constexpr custom_animation_settings_t PMD_COSMOG_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 8,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 7,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_COSMOG_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_COSMOG_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Cosmoem
+    inline static constexpr char PMD_COSMOEM_FQID_ARR[] = "pmd:cosmoem";
+    inline static constexpr const char* PMD_COSMOEM_FQID = PMD_COSMOEM_FQID_ARR;
+    inline static constexpr size_t PMD_COSMOEM_FQID_LEN = sizeof(PMD_COSMOEM_FQID_ARR)-1;
+    inline static constexpr char PMD_COSMOEM_ID_ARR[] = "cosmoem";
+    inline static constexpr const char* PMD_COSMOEM_ID = PMD_COSMOEM_ID_ARR;
+    inline static constexpr size_t PMD_COSMOEM_ID_LEN = sizeof(PMD_COSMOEM_ID)-1;
+    inline static constexpr char PMD_COSMOEM_NAME_ARR[] = "Cosmoem";
+    inline static constexpr const char* PMD_COSMOEM_NAME = PMD_COSMOEM_NAME_ARR;
+    inline static constexpr size_t PMD_COSMOEM_NAME_LEN = sizeof(PMD_COSMOEM_NAME_ARR)-1;
+    inline static constexpr char PMD_COSMOEM_FQNAME_ARR[] = "pmd:Cosmoem";
+    inline static constexpr const char* PMD_COSMOEM_FQNAME = PMD_COSMOEM_FQNAME_ARR;
+    inline static constexpr size_t PMD_COSMOEM_FQNAME_LEN = sizeof(PMD_COSMOEM_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_COSMOEM_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_COSMOEM_ANIM_INDEX = 759;
+    inline static constexpr custom_animation_settings_t PMD_COSMOEM_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 4,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 10,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_COSMOEM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_COSMOEM_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Solgaleo
+    inline static constexpr char PMD_SOLGALEO_FQID_ARR[] = "pmd:solgaleo";
+    inline static constexpr const char* PMD_SOLGALEO_FQID = PMD_SOLGALEO_FQID_ARR;
+    inline static constexpr size_t PMD_SOLGALEO_FQID_LEN = sizeof(PMD_SOLGALEO_FQID_ARR)-1;
+    inline static constexpr char PMD_SOLGALEO_ID_ARR[] = "solgaleo";
+    inline static constexpr const char* PMD_SOLGALEO_ID = PMD_SOLGALEO_ID_ARR;
+    inline static constexpr size_t PMD_SOLGALEO_ID_LEN = sizeof(PMD_SOLGALEO_ID)-1;
+    inline static constexpr char PMD_SOLGALEO_NAME_ARR[] = "Solgaleo";
+    inline static constexpr const char* PMD_SOLGALEO_NAME = PMD_SOLGALEO_NAME_ARR;
+    inline static constexpr size_t PMD_SOLGALEO_NAME_LEN = sizeof(PMD_SOLGALEO_NAME_ARR)-1;
+    inline static constexpr char PMD_SOLGALEO_FQNAME_ARR[] = "pmd:Solgaleo";
+    inline static constexpr const char* PMD_SOLGALEO_FQNAME = PMD_SOLGALEO_FQNAME_ARR;
+    inline static constexpr size_t PMD_SOLGALEO_FQNAME_LEN = sizeof(PMD_SOLGALEO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SOLGALEO_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SOLGALEO_ANIM_INDEX = 760;
+    inline static constexpr custom_animation_settings_t PMD_SOLGALEO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SOLGALEO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SOLGALEO_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Lunala
+    inline static constexpr char PMD_LUNALA_FQID_ARR[] = "pmd:lunala";
+    inline static constexpr const char* PMD_LUNALA_FQID = PMD_LUNALA_FQID_ARR;
+    inline static constexpr size_t PMD_LUNALA_FQID_LEN = sizeof(PMD_LUNALA_FQID_ARR)-1;
+    inline static constexpr char PMD_LUNALA_ID_ARR[] = "lunala";
+    inline static constexpr const char* PMD_LUNALA_ID = PMD_LUNALA_ID_ARR;
+    inline static constexpr size_t PMD_LUNALA_ID_LEN = sizeof(PMD_LUNALA_ID)-1;
+    inline static constexpr char PMD_LUNALA_NAME_ARR[] = "Lunala";
+    inline static constexpr const char* PMD_LUNALA_NAME = PMD_LUNALA_NAME_ARR;
+    inline static constexpr size_t PMD_LUNALA_NAME_LEN = sizeof(PMD_LUNALA_NAME_ARR)-1;
+    inline static constexpr char PMD_LUNALA_FQNAME_ARR[] = "pmd:Lunala";
+    inline static constexpr const char* PMD_LUNALA_FQNAME = PMD_LUNALA_FQNAME_ARR;
+    inline static constexpr size_t PMD_LUNALA_FQNAME_LEN = sizeof(PMD_LUNALA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_LUNALA_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_LUNALA_ANIM_INDEX = 761;
+    inline static constexpr custom_animation_settings_t PMD_LUNALA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 11,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_LUNALA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_LUNALA_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Nihilego
+    inline static constexpr char PMD_NIHILEGO_FQID_ARR[] = "pmd:nihilego";
+    inline static constexpr const char* PMD_NIHILEGO_FQID = PMD_NIHILEGO_FQID_ARR;
+    inline static constexpr size_t PMD_NIHILEGO_FQID_LEN = sizeof(PMD_NIHILEGO_FQID_ARR)-1;
+    inline static constexpr char PMD_NIHILEGO_ID_ARR[] = "nihilego";
+    inline static constexpr const char* PMD_NIHILEGO_ID = PMD_NIHILEGO_ID_ARR;
+    inline static constexpr size_t PMD_NIHILEGO_ID_LEN = sizeof(PMD_NIHILEGO_ID)-1;
+    inline static constexpr char PMD_NIHILEGO_NAME_ARR[] = "Nihilego";
+    inline static constexpr const char* PMD_NIHILEGO_NAME = PMD_NIHILEGO_NAME_ARR;
+    inline static constexpr size_t PMD_NIHILEGO_NAME_LEN = sizeof(PMD_NIHILEGO_NAME_ARR)-1;
+    inline static constexpr char PMD_NIHILEGO_FQNAME_ARR[] = "pmd:Nihilego";
+    inline static constexpr const char* PMD_NIHILEGO_FQNAME = PMD_NIHILEGO_FQNAME_ARR;
+    inline static constexpr size_t PMD_NIHILEGO_FQNAME_LEN = sizeof(PMD_NIHILEGO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NIHILEGO_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_NIHILEGO_ANIM_INDEX = 762;
+    inline static constexpr custom_animation_settings_t PMD_NIHILEGO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 7,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_NIHILEGO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_NIHILEGO_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Buzzwole
+    inline static constexpr char PMD_BUZZWOLE_FQID_ARR[] = "pmd:buzzwole";
+    inline static constexpr const char* PMD_BUZZWOLE_FQID = PMD_BUZZWOLE_FQID_ARR;
+    inline static constexpr size_t PMD_BUZZWOLE_FQID_LEN = sizeof(PMD_BUZZWOLE_FQID_ARR)-1;
+    inline static constexpr char PMD_BUZZWOLE_ID_ARR[] = "buzzwole";
+    inline static constexpr const char* PMD_BUZZWOLE_ID = PMD_BUZZWOLE_ID_ARR;
+    inline static constexpr size_t PMD_BUZZWOLE_ID_LEN = sizeof(PMD_BUZZWOLE_ID)-1;
+    inline static constexpr char PMD_BUZZWOLE_NAME_ARR[] = "Buzzwole";
+    inline static constexpr const char* PMD_BUZZWOLE_NAME = PMD_BUZZWOLE_NAME_ARR;
+    inline static constexpr size_t PMD_BUZZWOLE_NAME_LEN = sizeof(PMD_BUZZWOLE_NAME_ARR)-1;
+    inline static constexpr char PMD_BUZZWOLE_FQNAME_ARR[] = "pmd:Buzzwole";
+    inline static constexpr const char* PMD_BUZZWOLE_FQNAME = PMD_BUZZWOLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_BUZZWOLE_FQNAME_LEN = sizeof(PMD_BUZZWOLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BUZZWOLE_SPRITE_SHEET_FRAMES_COUNT = 144;
+    inline static constexpr size_t PMD_BUZZWOLE_ANIM_INDEX = 763;
+    inline static constexpr custom_animation_settings_t PMD_BUZZWOLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 24,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BUZZWOLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BUZZWOLE_SPRITE_SHEET_MAX_COLS = 24;
+
+    // Name: Pheromosa
+    inline static constexpr char PMD_PHEROMOSA_FQID_ARR[] = "pmd:pheromosa";
+    inline static constexpr const char* PMD_PHEROMOSA_FQID = PMD_PHEROMOSA_FQID_ARR;
+    inline static constexpr size_t PMD_PHEROMOSA_FQID_LEN = sizeof(PMD_PHEROMOSA_FQID_ARR)-1;
+    inline static constexpr char PMD_PHEROMOSA_ID_ARR[] = "pheromosa";
+    inline static constexpr const char* PMD_PHEROMOSA_ID = PMD_PHEROMOSA_ID_ARR;
+    inline static constexpr size_t PMD_PHEROMOSA_ID_LEN = sizeof(PMD_PHEROMOSA_ID)-1;
+    inline static constexpr char PMD_PHEROMOSA_NAME_ARR[] = "Pheromosa";
+    inline static constexpr const char* PMD_PHEROMOSA_NAME = PMD_PHEROMOSA_NAME_ARR;
+    inline static constexpr size_t PMD_PHEROMOSA_NAME_LEN = sizeof(PMD_PHEROMOSA_NAME_ARR)-1;
+    inline static constexpr char PMD_PHEROMOSA_FQNAME_ARR[] = "pmd:Pheromosa";
+    inline static constexpr const char* PMD_PHEROMOSA_FQNAME = PMD_PHEROMOSA_FQNAME_ARR;
+    inline static constexpr size_t PMD_PHEROMOSA_FQNAME_LEN = sizeof(PMD_PHEROMOSA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_PHEROMOSA_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_PHEROMOSA_ANIM_INDEX = 764;
+    inline static constexpr custom_animation_settings_t PMD_PHEROMOSA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_PHEROMOSA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_PHEROMOSA_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Xurkitree
+    inline static constexpr char PMD_XURKITREE_FQID_ARR[] = "pmd:xurkitree";
+    inline static constexpr const char* PMD_XURKITREE_FQID = PMD_XURKITREE_FQID_ARR;
+    inline static constexpr size_t PMD_XURKITREE_FQID_LEN = sizeof(PMD_XURKITREE_FQID_ARR)-1;
+    inline static constexpr char PMD_XURKITREE_ID_ARR[] = "xurkitree";
+    inline static constexpr const char* PMD_XURKITREE_ID = PMD_XURKITREE_ID_ARR;
+    inline static constexpr size_t PMD_XURKITREE_ID_LEN = sizeof(PMD_XURKITREE_ID)-1;
+    inline static constexpr char PMD_XURKITREE_NAME_ARR[] = "Xurkitree";
+    inline static constexpr const char* PMD_XURKITREE_NAME = PMD_XURKITREE_NAME_ARR;
+    inline static constexpr size_t PMD_XURKITREE_NAME_LEN = sizeof(PMD_XURKITREE_NAME_ARR)-1;
+    inline static constexpr char PMD_XURKITREE_FQNAME_ARR[] = "pmd:Xurkitree";
+    inline static constexpr const char* PMD_XURKITREE_FQNAME = PMD_XURKITREE_FQNAME_ARR;
+    inline static constexpr size_t PMD_XURKITREE_FQNAME_LEN = sizeof(PMD_XURKITREE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_XURKITREE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_XURKITREE_ANIM_INDEX = 765;
+    inline static constexpr custom_animation_settings_t PMD_XURKITREE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_XURKITREE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_XURKITREE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Celesteela
+    inline static constexpr char PMD_CELESTEELA_FQID_ARR[] = "pmd:celesteela";
+    inline static constexpr const char* PMD_CELESTEELA_FQID = PMD_CELESTEELA_FQID_ARR;
+    inline static constexpr size_t PMD_CELESTEELA_FQID_LEN = sizeof(PMD_CELESTEELA_FQID_ARR)-1;
+    inline static constexpr char PMD_CELESTEELA_ID_ARR[] = "celesteela";
+    inline static constexpr const char* PMD_CELESTEELA_ID = PMD_CELESTEELA_ID_ARR;
+    inline static constexpr size_t PMD_CELESTEELA_ID_LEN = sizeof(PMD_CELESTEELA_ID)-1;
+    inline static constexpr char PMD_CELESTEELA_NAME_ARR[] = "Celesteela";
+    inline static constexpr const char* PMD_CELESTEELA_NAME = PMD_CELESTEELA_NAME_ARR;
+    inline static constexpr size_t PMD_CELESTEELA_NAME_LEN = sizeof(PMD_CELESTEELA_NAME_ARR)-1;
+    inline static constexpr char PMD_CELESTEELA_FQNAME_ARR[] = "pmd:Celesteela";
+    inline static constexpr const char* PMD_CELESTEELA_FQNAME = PMD_CELESTEELA_FQNAME_ARR;
+    inline static constexpr size_t PMD_CELESTEELA_FQNAME_LEN = sizeof(PMD_CELESTEELA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CELESTEELA_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_CELESTEELA_ANIM_INDEX = 766;
+    inline static constexpr custom_animation_settings_t PMD_CELESTEELA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 16,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CELESTEELA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CELESTEELA_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Kartana
+    inline static constexpr char PMD_KARTANA_FQID_ARR[] = "pmd:kartana";
+    inline static constexpr const char* PMD_KARTANA_FQID = PMD_KARTANA_FQID_ARR;
+    inline static constexpr size_t PMD_KARTANA_FQID_LEN = sizeof(PMD_KARTANA_FQID_ARR)-1;
+    inline static constexpr char PMD_KARTANA_ID_ARR[] = "kartana";
+    inline static constexpr const char* PMD_KARTANA_ID = PMD_KARTANA_ID_ARR;
+    inline static constexpr size_t PMD_KARTANA_ID_LEN = sizeof(PMD_KARTANA_ID)-1;
+    inline static constexpr char PMD_KARTANA_NAME_ARR[] = "Kartana";
+    inline static constexpr const char* PMD_KARTANA_NAME = PMD_KARTANA_NAME_ARR;
+    inline static constexpr size_t PMD_KARTANA_NAME_LEN = sizeof(PMD_KARTANA_NAME_ARR)-1;
+    inline static constexpr char PMD_KARTANA_FQNAME_ARR[] = "pmd:Kartana";
+    inline static constexpr const char* PMD_KARTANA_FQNAME = PMD_KARTANA_FQNAME_ARR;
+    inline static constexpr size_t PMD_KARTANA_FQNAME_LEN = sizeof(PMD_KARTANA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_KARTANA_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_KARTANA_ANIM_INDEX = 767;
+    inline static constexpr custom_animation_settings_t PMD_KARTANA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 8,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 15,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_KARTANA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_KARTANA_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Guzzlord
+    inline static constexpr char PMD_GUZZLORD_FQID_ARR[] = "pmd:guzzlord";
+    inline static constexpr const char* PMD_GUZZLORD_FQID = PMD_GUZZLORD_FQID_ARR;
+    inline static constexpr size_t PMD_GUZZLORD_FQID_LEN = sizeof(PMD_GUZZLORD_FQID_ARR)-1;
+    inline static constexpr char PMD_GUZZLORD_ID_ARR[] = "guzzlord";
+    inline static constexpr const char* PMD_GUZZLORD_ID = PMD_GUZZLORD_ID_ARR;
+    inline static constexpr size_t PMD_GUZZLORD_ID_LEN = sizeof(PMD_GUZZLORD_ID)-1;
+    inline static constexpr char PMD_GUZZLORD_NAME_ARR[] = "Guzzlord";
+    inline static constexpr const char* PMD_GUZZLORD_NAME = PMD_GUZZLORD_NAME_ARR;
+    inline static constexpr size_t PMD_GUZZLORD_NAME_LEN = sizeof(PMD_GUZZLORD_NAME_ARR)-1;
+    inline static constexpr char PMD_GUZZLORD_FQNAME_ARR[] = "pmd:Guzzlord";
+    inline static constexpr const char* PMD_GUZZLORD_FQNAME = PMD_GUZZLORD_FQNAME_ARR;
+    inline static constexpr size_t PMD_GUZZLORD_FQNAME_LEN = sizeof(PMD_GUZZLORD_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GUZZLORD_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_GUZZLORD_ANIM_INDEX = 768;
+    inline static constexpr custom_animation_settings_t PMD_GUZZLORD_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GUZZLORD_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GUZZLORD_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Necrozma
+    inline static constexpr char PMD_NECROZMA_FQID_ARR[] = "pmd:necrozma";
+    inline static constexpr const char* PMD_NECROZMA_FQID = PMD_NECROZMA_FQID_ARR;
+    inline static constexpr size_t PMD_NECROZMA_FQID_LEN = sizeof(PMD_NECROZMA_FQID_ARR)-1;
+    inline static constexpr char PMD_NECROZMA_ID_ARR[] = "necrozma";
+    inline static constexpr const char* PMD_NECROZMA_ID = PMD_NECROZMA_ID_ARR;
+    inline static constexpr size_t PMD_NECROZMA_ID_LEN = sizeof(PMD_NECROZMA_ID)-1;
+    inline static constexpr char PMD_NECROZMA_NAME_ARR[] = "Necrozma";
+    inline static constexpr const char* PMD_NECROZMA_NAME = PMD_NECROZMA_NAME_ARR;
+    inline static constexpr size_t PMD_NECROZMA_NAME_LEN = sizeof(PMD_NECROZMA_NAME_ARR)-1;
+    inline static constexpr char PMD_NECROZMA_FQNAME_ARR[] = "pmd:Necrozma";
+    inline static constexpr const char* PMD_NECROZMA_FQNAME = PMD_NECROZMA_FQNAME_ARR;
+    inline static constexpr size_t PMD_NECROZMA_FQNAME_LEN = sizeof(PMD_NECROZMA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NECROZMA_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_NECROZMA_ANIM_INDEX = 769;
+    inline static constexpr custom_animation_settings_t PMD_NECROZMA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 11,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 11,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_NECROZMA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_NECROZMA_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Magearna
+    inline static constexpr char PMD_MAGEARNA_FQID_ARR[] = "pmd:magearna";
+    inline static constexpr const char* PMD_MAGEARNA_FQID = PMD_MAGEARNA_FQID_ARR;
+    inline static constexpr size_t PMD_MAGEARNA_FQID_LEN = sizeof(PMD_MAGEARNA_FQID_ARR)-1;
+    inline static constexpr char PMD_MAGEARNA_ID_ARR[] = "magearna";
+    inline static constexpr const char* PMD_MAGEARNA_ID = PMD_MAGEARNA_ID_ARR;
+    inline static constexpr size_t PMD_MAGEARNA_ID_LEN = sizeof(PMD_MAGEARNA_ID)-1;
+    inline static constexpr char PMD_MAGEARNA_NAME_ARR[] = "Magearna";
+    inline static constexpr const char* PMD_MAGEARNA_NAME = PMD_MAGEARNA_NAME_ARR;
+    inline static constexpr size_t PMD_MAGEARNA_NAME_LEN = sizeof(PMD_MAGEARNA_NAME_ARR)-1;
+    inline static constexpr char PMD_MAGEARNA_FQNAME_ARR[] = "pmd:Magearna";
+    inline static constexpr const char* PMD_MAGEARNA_FQNAME = PMD_MAGEARNA_FQNAME_ARR;
+    inline static constexpr size_t PMD_MAGEARNA_FQNAME_LEN = sizeof(PMD_MAGEARNA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MAGEARNA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MAGEARNA_ANIM_INDEX = 770;
+    inline static constexpr custom_animation_settings_t PMD_MAGEARNA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = 9,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MAGEARNA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MAGEARNA_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Marshadow
+    inline static constexpr char PMD_MARSHADOW_FQID_ARR[] = "pmd:marshadow";
+    inline static constexpr const char* PMD_MARSHADOW_FQID = PMD_MARSHADOW_FQID_ARR;
+    inline static constexpr size_t PMD_MARSHADOW_FQID_LEN = sizeof(PMD_MARSHADOW_FQID_ARR)-1;
+    inline static constexpr char PMD_MARSHADOW_ID_ARR[] = "marshadow";
+    inline static constexpr const char* PMD_MARSHADOW_ID = PMD_MARSHADOW_ID_ARR;
+    inline static constexpr size_t PMD_MARSHADOW_ID_LEN = sizeof(PMD_MARSHADOW_ID)-1;
+    inline static constexpr char PMD_MARSHADOW_NAME_ARR[] = "Marshadow";
+    inline static constexpr const char* PMD_MARSHADOW_NAME = PMD_MARSHADOW_NAME_ARR;
+    inline static constexpr size_t PMD_MARSHADOW_NAME_LEN = sizeof(PMD_MARSHADOW_NAME_ARR)-1;
+    inline static constexpr char PMD_MARSHADOW_FQNAME_ARR[] = "pmd:Marshadow";
+    inline static constexpr const char* PMD_MARSHADOW_FQNAME = PMD_MARSHADOW_FQNAME_ARR;
+    inline static constexpr size_t PMD_MARSHADOW_FQNAME_LEN = sizeof(PMD_MARSHADOW_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MARSHADOW_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_MARSHADOW_ANIM_INDEX = 771;
+    inline static constexpr custom_animation_settings_t PMD_MARSHADOW_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MARSHADOW_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MARSHADOW_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Poipole
+    inline static constexpr char PMD_POIPOLE_FQID_ARR[] = "pmd:poipole";
+    inline static constexpr const char* PMD_POIPOLE_FQID = PMD_POIPOLE_FQID_ARR;
+    inline static constexpr size_t PMD_POIPOLE_FQID_LEN = sizeof(PMD_POIPOLE_FQID_ARR)-1;
+    inline static constexpr char PMD_POIPOLE_ID_ARR[] = "poipole";
+    inline static constexpr const char* PMD_POIPOLE_ID = PMD_POIPOLE_ID_ARR;
+    inline static constexpr size_t PMD_POIPOLE_ID_LEN = sizeof(PMD_POIPOLE_ID)-1;
+    inline static constexpr char PMD_POIPOLE_NAME_ARR[] = "Poipole";
+    inline static constexpr const char* PMD_POIPOLE_NAME = PMD_POIPOLE_NAME_ARR;
+    inline static constexpr size_t PMD_POIPOLE_NAME_LEN = sizeof(PMD_POIPOLE_NAME_ARR)-1;
+    inline static constexpr char PMD_POIPOLE_FQNAME_ARR[] = "pmd:Poipole";
+    inline static constexpr const char* PMD_POIPOLE_FQNAME = PMD_POIPOLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_POIPOLE_FQNAME_LEN = sizeof(PMD_POIPOLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_POIPOLE_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_POIPOLE_ANIM_INDEX = 772;
+    inline static constexpr custom_animation_settings_t PMD_POIPOLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 16,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 10,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_POIPOLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_POIPOLE_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Naganadel
+    inline static constexpr char PMD_NAGANADEL_FQID_ARR[] = "pmd:naganadel";
+    inline static constexpr const char* PMD_NAGANADEL_FQID = PMD_NAGANADEL_FQID_ARR;
+    inline static constexpr size_t PMD_NAGANADEL_FQID_LEN = sizeof(PMD_NAGANADEL_FQID_ARR)-1;
+    inline static constexpr char PMD_NAGANADEL_ID_ARR[] = "naganadel";
+    inline static constexpr const char* PMD_NAGANADEL_ID = PMD_NAGANADEL_ID_ARR;
+    inline static constexpr size_t PMD_NAGANADEL_ID_LEN = sizeof(PMD_NAGANADEL_ID)-1;
+    inline static constexpr char PMD_NAGANADEL_NAME_ARR[] = "Naganadel";
+    inline static constexpr const char* PMD_NAGANADEL_NAME = PMD_NAGANADEL_NAME_ARR;
+    inline static constexpr size_t PMD_NAGANADEL_NAME_LEN = sizeof(PMD_NAGANADEL_NAME_ARR)-1;
+    inline static constexpr char PMD_NAGANADEL_FQNAME_ARR[] = "pmd:Naganadel";
+    inline static constexpr const char* PMD_NAGANADEL_FQNAME = PMD_NAGANADEL_FQNAME_ARR;
+    inline static constexpr size_t PMD_NAGANADEL_FQNAME_LEN = sizeof(PMD_NAGANADEL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NAGANADEL_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_NAGANADEL_ANIM_INDEX = 773;
+    inline static constexpr custom_animation_settings_t PMD_NAGANADEL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_NAGANADEL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_NAGANADEL_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Stakataka
+    inline static constexpr char PMD_STAKATAKA_FQID_ARR[] = "pmd:stakataka";
+    inline static constexpr const char* PMD_STAKATAKA_FQID = PMD_STAKATAKA_FQID_ARR;
+    inline static constexpr size_t PMD_STAKATAKA_FQID_LEN = sizeof(PMD_STAKATAKA_FQID_ARR)-1;
+    inline static constexpr char PMD_STAKATAKA_ID_ARR[] = "stakataka";
+    inline static constexpr const char* PMD_STAKATAKA_ID = PMD_STAKATAKA_ID_ARR;
+    inline static constexpr size_t PMD_STAKATAKA_ID_LEN = sizeof(PMD_STAKATAKA_ID)-1;
+    inline static constexpr char PMD_STAKATAKA_NAME_ARR[] = "Stakataka";
+    inline static constexpr const char* PMD_STAKATAKA_NAME = PMD_STAKATAKA_NAME_ARR;
+    inline static constexpr size_t PMD_STAKATAKA_NAME_LEN = sizeof(PMD_STAKATAKA_NAME_ARR)-1;
+    inline static constexpr char PMD_STAKATAKA_FQNAME_ARR[] = "pmd:Stakataka";
+    inline static constexpr const char* PMD_STAKATAKA_FQNAME = PMD_STAKATAKA_FQNAME_ARR;
+    inline static constexpr size_t PMD_STAKATAKA_FQNAME_LEN = sizeof(PMD_STAKATAKA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_STAKATAKA_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_STAKATAKA_ANIM_INDEX = 774;
+    inline static constexpr custom_animation_settings_t PMD_STAKATAKA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 12,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 8,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_STAKATAKA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_STAKATAKA_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Blacephalon
+    inline static constexpr char PMD_BLACEPHALON_FQID_ARR[] = "pmd:blacephalon";
+    inline static constexpr const char* PMD_BLACEPHALON_FQID = PMD_BLACEPHALON_FQID_ARR;
+    inline static constexpr size_t PMD_BLACEPHALON_FQID_LEN = sizeof(PMD_BLACEPHALON_FQID_ARR)-1;
+    inline static constexpr char PMD_BLACEPHALON_ID_ARR[] = "blacephalon";
+    inline static constexpr const char* PMD_BLACEPHALON_ID = PMD_BLACEPHALON_ID_ARR;
+    inline static constexpr size_t PMD_BLACEPHALON_ID_LEN = sizeof(PMD_BLACEPHALON_ID)-1;
+    inline static constexpr char PMD_BLACEPHALON_NAME_ARR[] = "Blacephalon";
+    inline static constexpr const char* PMD_BLACEPHALON_NAME = PMD_BLACEPHALON_NAME_ARR;
+    inline static constexpr size_t PMD_BLACEPHALON_NAME_LEN = sizeof(PMD_BLACEPHALON_NAME_ARR)-1;
+    inline static constexpr char PMD_BLACEPHALON_FQNAME_ARR[] = "pmd:Blacephalon";
+    inline static constexpr const char* PMD_BLACEPHALON_FQNAME = PMD_BLACEPHALON_FQNAME_ARR;
+    inline static constexpr size_t PMD_BLACEPHALON_FQNAME_LEN = sizeof(PMD_BLACEPHALON_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BLACEPHALON_SPRITE_SHEET_FRAMES_COUNT = 126;
+    inline static constexpr size_t PMD_BLACEPHALON_ANIM_INDEX = 775;
+    inline static constexpr custom_animation_settings_t PMD_BLACEPHALON_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 21,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BLACEPHALON_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BLACEPHALON_SPRITE_SHEET_MAX_COLS = 21;
+
+    // Name: Zeraora
+    inline static constexpr char PMD_ZERAORA_FQID_ARR[] = "pmd:zeraora";
+    inline static constexpr const char* PMD_ZERAORA_FQID = PMD_ZERAORA_FQID_ARR;
+    inline static constexpr size_t PMD_ZERAORA_FQID_LEN = sizeof(PMD_ZERAORA_FQID_ARR)-1;
+    inline static constexpr char PMD_ZERAORA_ID_ARR[] = "zeraora";
+    inline static constexpr const char* PMD_ZERAORA_ID = PMD_ZERAORA_ID_ARR;
+    inline static constexpr size_t PMD_ZERAORA_ID_LEN = sizeof(PMD_ZERAORA_ID)-1;
+    inline static constexpr char PMD_ZERAORA_NAME_ARR[] = "Zeraora";
+    inline static constexpr const char* PMD_ZERAORA_NAME = PMD_ZERAORA_NAME_ARR;
+    inline static constexpr size_t PMD_ZERAORA_NAME_LEN = sizeof(PMD_ZERAORA_NAME_ARR)-1;
+    inline static constexpr char PMD_ZERAORA_FQNAME_ARR[] = "pmd:Zeraora";
+    inline static constexpr const char* PMD_ZERAORA_FQNAME = PMD_ZERAORA_FQNAME_ARR;
+    inline static constexpr size_t PMD_ZERAORA_FQNAME_LEN = sizeof(PMD_ZERAORA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ZERAORA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ZERAORA_ANIM_INDEX = 776;
+    inline static constexpr custom_animation_settings_t PMD_ZERAORA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ZERAORA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ZERAORA_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Meltan
+    inline static constexpr char PMD_MELTAN_FQID_ARR[] = "pmd:meltan";
+    inline static constexpr const char* PMD_MELTAN_FQID = PMD_MELTAN_FQID_ARR;
+    inline static constexpr size_t PMD_MELTAN_FQID_LEN = sizeof(PMD_MELTAN_FQID_ARR)-1;
+    inline static constexpr char PMD_MELTAN_ID_ARR[] = "meltan";
+    inline static constexpr const char* PMD_MELTAN_ID = PMD_MELTAN_ID_ARR;
+    inline static constexpr size_t PMD_MELTAN_ID_LEN = sizeof(PMD_MELTAN_ID)-1;
+    inline static constexpr char PMD_MELTAN_NAME_ARR[] = "Meltan";
+    inline static constexpr const char* PMD_MELTAN_NAME = PMD_MELTAN_NAME_ARR;
+    inline static constexpr size_t PMD_MELTAN_NAME_LEN = sizeof(PMD_MELTAN_NAME_ARR)-1;
+    inline static constexpr char PMD_MELTAN_FQNAME_ARR[] = "pmd:Meltan";
+    inline static constexpr const char* PMD_MELTAN_FQNAME = PMD_MELTAN_FQNAME_ARR;
+    inline static constexpr size_t PMD_MELTAN_FQNAME_LEN = sizeof(PMD_MELTAN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MELTAN_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_MELTAN_ANIM_INDEX = 777;
+    inline static constexpr custom_animation_settings_t PMD_MELTAN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 14,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MELTAN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MELTAN_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Melmetal
+    inline static constexpr char PMD_MELMETAL_FQID_ARR[] = "pmd:melmetal";
+    inline static constexpr const char* PMD_MELMETAL_FQID = PMD_MELMETAL_FQID_ARR;
+    inline static constexpr size_t PMD_MELMETAL_FQID_LEN = sizeof(PMD_MELMETAL_FQID_ARR)-1;
+    inline static constexpr char PMD_MELMETAL_ID_ARR[] = "melmetal";
+    inline static constexpr const char* PMD_MELMETAL_ID = PMD_MELMETAL_ID_ARR;
+    inline static constexpr size_t PMD_MELMETAL_ID_LEN = sizeof(PMD_MELMETAL_ID)-1;
+    inline static constexpr char PMD_MELMETAL_NAME_ARR[] = "Melmetal";
+    inline static constexpr const char* PMD_MELMETAL_NAME = PMD_MELMETAL_NAME_ARR;
+    inline static constexpr size_t PMD_MELMETAL_NAME_LEN = sizeof(PMD_MELMETAL_NAME_ARR)-1;
+    inline static constexpr char PMD_MELMETAL_FQNAME_ARR[] = "pmd:Melmetal";
+    inline static constexpr const char* PMD_MELMETAL_FQNAME = PMD_MELMETAL_FQNAME_ARR;
+    inline static constexpr size_t PMD_MELMETAL_FQNAME_LEN = sizeof(PMD_MELMETAL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MELMETAL_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_MELMETAL_ANIM_INDEX = 778;
+    inline static constexpr custom_animation_settings_t PMD_MELMETAL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 16,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 9,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MELMETAL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MELMETAL_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Grookey
+    inline static constexpr char PMD_GROOKEY_FQID_ARR[] = "pmd:grookey";
+    inline static constexpr const char* PMD_GROOKEY_FQID = PMD_GROOKEY_FQID_ARR;
+    inline static constexpr size_t PMD_GROOKEY_FQID_LEN = sizeof(PMD_GROOKEY_FQID_ARR)-1;
+    inline static constexpr char PMD_GROOKEY_ID_ARR[] = "grookey";
+    inline static constexpr const char* PMD_GROOKEY_ID = PMD_GROOKEY_ID_ARR;
+    inline static constexpr size_t PMD_GROOKEY_ID_LEN = sizeof(PMD_GROOKEY_ID)-1;
+    inline static constexpr char PMD_GROOKEY_NAME_ARR[] = "Grookey";
+    inline static constexpr const char* PMD_GROOKEY_NAME = PMD_GROOKEY_NAME_ARR;
+    inline static constexpr size_t PMD_GROOKEY_NAME_LEN = sizeof(PMD_GROOKEY_NAME_ARR)-1;
+    inline static constexpr char PMD_GROOKEY_FQNAME_ARR[] = "pmd:Grookey";
+    inline static constexpr const char* PMD_GROOKEY_FQNAME = PMD_GROOKEY_FQNAME_ARR;
+    inline static constexpr size_t PMD_GROOKEY_FQNAME_LEN = sizeof(PMD_GROOKEY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GROOKEY_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_GROOKEY_ANIM_INDEX = 779;
+    inline static constexpr custom_animation_settings_t PMD_GROOKEY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 7,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GROOKEY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GROOKEY_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Thwackey
+    inline static constexpr char PMD_THWACKEY_FQID_ARR[] = "pmd:thwackey";
+    inline static constexpr const char* PMD_THWACKEY_FQID = PMD_THWACKEY_FQID_ARR;
+    inline static constexpr size_t PMD_THWACKEY_FQID_LEN = sizeof(PMD_THWACKEY_FQID_ARR)-1;
+    inline static constexpr char PMD_THWACKEY_ID_ARR[] = "thwackey";
+    inline static constexpr const char* PMD_THWACKEY_ID = PMD_THWACKEY_ID_ARR;
+    inline static constexpr size_t PMD_THWACKEY_ID_LEN = sizeof(PMD_THWACKEY_ID)-1;
+    inline static constexpr char PMD_THWACKEY_NAME_ARR[] = "Thwackey";
+    inline static constexpr const char* PMD_THWACKEY_NAME = PMD_THWACKEY_NAME_ARR;
+    inline static constexpr size_t PMD_THWACKEY_NAME_LEN = sizeof(PMD_THWACKEY_NAME_ARR)-1;
+    inline static constexpr char PMD_THWACKEY_FQNAME_ARR[] = "pmd:Thwackey";
+    inline static constexpr const char* PMD_THWACKEY_FQNAME = PMD_THWACKEY_FQNAME_ARR;
+    inline static constexpr size_t PMD_THWACKEY_FQNAME_LEN = sizeof(PMD_THWACKEY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_THWACKEY_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_THWACKEY_ANIM_INDEX = 780;
+    inline static constexpr custom_animation_settings_t PMD_THWACKEY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 11,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 15,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_THWACKEY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_THWACKEY_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Rillaboom
+    inline static constexpr char PMD_RILLABOOM_FQID_ARR[] = "pmd:rillaboom";
+    inline static constexpr const char* PMD_RILLABOOM_FQID = PMD_RILLABOOM_FQID_ARR;
+    inline static constexpr size_t PMD_RILLABOOM_FQID_LEN = sizeof(PMD_RILLABOOM_FQID_ARR)-1;
+    inline static constexpr char PMD_RILLABOOM_ID_ARR[] = "rillaboom";
+    inline static constexpr const char* PMD_RILLABOOM_ID = PMD_RILLABOOM_ID_ARR;
+    inline static constexpr size_t PMD_RILLABOOM_ID_LEN = sizeof(PMD_RILLABOOM_ID)-1;
+    inline static constexpr char PMD_RILLABOOM_NAME_ARR[] = "Rillaboom";
+    inline static constexpr const char* PMD_RILLABOOM_NAME = PMD_RILLABOOM_NAME_ARR;
+    inline static constexpr size_t PMD_RILLABOOM_NAME_LEN = sizeof(PMD_RILLABOOM_NAME_ARR)-1;
+    inline static constexpr char PMD_RILLABOOM_FQNAME_ARR[] = "pmd:Rillaboom";
+    inline static constexpr const char* PMD_RILLABOOM_FQNAME = PMD_RILLABOOM_FQNAME_ARR;
+    inline static constexpr size_t PMD_RILLABOOM_FQNAME_LEN = sizeof(PMD_RILLABOOM_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_RILLABOOM_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_RILLABOOM_ANIM_INDEX = 781;
+    inline static constexpr custom_animation_settings_t PMD_RILLABOOM_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 1,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 16,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_RILLABOOM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_RILLABOOM_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Scorbunny
+    inline static constexpr char PMD_SCORBUNNY_FQID_ARR[] = "pmd:scorbunny";
+    inline static constexpr const char* PMD_SCORBUNNY_FQID = PMD_SCORBUNNY_FQID_ARR;
+    inline static constexpr size_t PMD_SCORBUNNY_FQID_LEN = sizeof(PMD_SCORBUNNY_FQID_ARR)-1;
+    inline static constexpr char PMD_SCORBUNNY_ID_ARR[] = "scorbunny";
+    inline static constexpr const char* PMD_SCORBUNNY_ID = PMD_SCORBUNNY_ID_ARR;
+    inline static constexpr size_t PMD_SCORBUNNY_ID_LEN = sizeof(PMD_SCORBUNNY_ID)-1;
+    inline static constexpr char PMD_SCORBUNNY_NAME_ARR[] = "Scorbunny";
+    inline static constexpr const char* PMD_SCORBUNNY_NAME = PMD_SCORBUNNY_NAME_ARR;
+    inline static constexpr size_t PMD_SCORBUNNY_NAME_LEN = sizeof(PMD_SCORBUNNY_NAME_ARR)-1;
+    inline static constexpr char PMD_SCORBUNNY_FQNAME_ARR[] = "pmd:Scorbunny";
+    inline static constexpr const char* PMD_SCORBUNNY_FQNAME = PMD_SCORBUNNY_FQNAME_ARR;
+    inline static constexpr size_t PMD_SCORBUNNY_FQNAME_LEN = sizeof(PMD_SCORBUNNY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SCORBUNNY_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_SCORBUNNY_ANIM_INDEX = 782;
+    inline static constexpr custom_animation_settings_t PMD_SCORBUNNY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SCORBUNNY_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SCORBUNNY_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Raboot
+    inline static constexpr char PMD_RABOOT_FQID_ARR[] = "pmd:raboot";
+    inline static constexpr const char* PMD_RABOOT_FQID = PMD_RABOOT_FQID_ARR;
+    inline static constexpr size_t PMD_RABOOT_FQID_LEN = sizeof(PMD_RABOOT_FQID_ARR)-1;
+    inline static constexpr char PMD_RABOOT_ID_ARR[] = "raboot";
+    inline static constexpr const char* PMD_RABOOT_ID = PMD_RABOOT_ID_ARR;
+    inline static constexpr size_t PMD_RABOOT_ID_LEN = sizeof(PMD_RABOOT_ID)-1;
+    inline static constexpr char PMD_RABOOT_NAME_ARR[] = "Raboot";
+    inline static constexpr const char* PMD_RABOOT_NAME = PMD_RABOOT_NAME_ARR;
+    inline static constexpr size_t PMD_RABOOT_NAME_LEN = sizeof(PMD_RABOOT_NAME_ARR)-1;
+    inline static constexpr char PMD_RABOOT_FQNAME_ARR[] = "pmd:Raboot";
+    inline static constexpr const char* PMD_RABOOT_FQNAME = PMD_RABOOT_FQNAME_ARR;
+    inline static constexpr size_t PMD_RABOOT_FQNAME_LEN = sizeof(PMD_RABOOT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_RABOOT_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_RABOOT_ANIM_INDEX = 783;
+    inline static constexpr custom_animation_settings_t PMD_RABOOT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_RABOOT_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_RABOOT_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Cinderace
+    inline static constexpr char PMD_CINDERACE_FQID_ARR[] = "pmd:cinderace";
+    inline static constexpr const char* PMD_CINDERACE_FQID = PMD_CINDERACE_FQID_ARR;
+    inline static constexpr size_t PMD_CINDERACE_FQID_LEN = sizeof(PMD_CINDERACE_FQID_ARR)-1;
+    inline static constexpr char PMD_CINDERACE_ID_ARR[] = "cinderace";
+    inline static constexpr const char* PMD_CINDERACE_ID = PMD_CINDERACE_ID_ARR;
+    inline static constexpr size_t PMD_CINDERACE_ID_LEN = sizeof(PMD_CINDERACE_ID)-1;
+    inline static constexpr char PMD_CINDERACE_NAME_ARR[] = "Cinderace";
+    inline static constexpr const char* PMD_CINDERACE_NAME = PMD_CINDERACE_NAME_ARR;
+    inline static constexpr size_t PMD_CINDERACE_NAME_LEN = sizeof(PMD_CINDERACE_NAME_ARR)-1;
+    inline static constexpr char PMD_CINDERACE_FQNAME_ARR[] = "pmd:Cinderace";
+    inline static constexpr const char* PMD_CINDERACE_FQNAME = PMD_CINDERACE_FQNAME_ARR;
+    inline static constexpr size_t PMD_CINDERACE_FQNAME_LEN = sizeof(PMD_CINDERACE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CINDERACE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_CINDERACE_ANIM_INDEX = 784;
+    inline static constexpr custom_animation_settings_t PMD_CINDERACE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CINDERACE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CINDERACE_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Sobble
+    inline static constexpr char PMD_SOBBLE_FQID_ARR[] = "pmd:sobble";
+    inline static constexpr const char* PMD_SOBBLE_FQID = PMD_SOBBLE_FQID_ARR;
+    inline static constexpr size_t PMD_SOBBLE_FQID_LEN = sizeof(PMD_SOBBLE_FQID_ARR)-1;
+    inline static constexpr char PMD_SOBBLE_ID_ARR[] = "sobble";
+    inline static constexpr const char* PMD_SOBBLE_ID = PMD_SOBBLE_ID_ARR;
+    inline static constexpr size_t PMD_SOBBLE_ID_LEN = sizeof(PMD_SOBBLE_ID)-1;
+    inline static constexpr char PMD_SOBBLE_NAME_ARR[] = "Sobble";
+    inline static constexpr const char* PMD_SOBBLE_NAME = PMD_SOBBLE_NAME_ARR;
+    inline static constexpr size_t PMD_SOBBLE_NAME_LEN = sizeof(PMD_SOBBLE_NAME_ARR)-1;
+    inline static constexpr char PMD_SOBBLE_FQNAME_ARR[] = "pmd:Sobble";
+    inline static constexpr const char* PMD_SOBBLE_FQNAME = PMD_SOBBLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_SOBBLE_FQNAME_LEN = sizeof(PMD_SOBBLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SOBBLE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SOBBLE_ANIM_INDEX = 785;
+    inline static constexpr custom_animation_settings_t PMD_SOBBLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SOBBLE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_SOBBLE_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Drizzile
+    inline static constexpr char PMD_DRIZZILE_FQID_ARR[] = "pmd:drizzile";
+    inline static constexpr const char* PMD_DRIZZILE_FQID = PMD_DRIZZILE_FQID_ARR;
+    inline static constexpr size_t PMD_DRIZZILE_FQID_LEN = sizeof(PMD_DRIZZILE_FQID_ARR)-1;
+    inline static constexpr char PMD_DRIZZILE_ID_ARR[] = "drizzile";
+    inline static constexpr const char* PMD_DRIZZILE_ID = PMD_DRIZZILE_ID_ARR;
+    inline static constexpr size_t PMD_DRIZZILE_ID_LEN = sizeof(PMD_DRIZZILE_ID)-1;
+    inline static constexpr char PMD_DRIZZILE_NAME_ARR[] = "Drizzile";
+    inline static constexpr const char* PMD_DRIZZILE_NAME = PMD_DRIZZILE_NAME_ARR;
+    inline static constexpr size_t PMD_DRIZZILE_NAME_LEN = sizeof(PMD_DRIZZILE_NAME_ARR)-1;
+    inline static constexpr char PMD_DRIZZILE_FQNAME_ARR[] = "pmd:Drizzile";
+    inline static constexpr const char* PMD_DRIZZILE_FQNAME = PMD_DRIZZILE_FQNAME_ARR;
+    inline static constexpr size_t PMD_DRIZZILE_FQNAME_LEN = sizeof(PMD_DRIZZILE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DRIZZILE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_DRIZZILE_ANIM_INDEX = 786;
+    inline static constexpr custom_animation_settings_t PMD_DRIZZILE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DRIZZILE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DRIZZILE_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Inteleon
+    inline static constexpr char PMD_INTELEON_FQID_ARR[] = "pmd:inteleon";
+    inline static constexpr const char* PMD_INTELEON_FQID = PMD_INTELEON_FQID_ARR;
+    inline static constexpr size_t PMD_INTELEON_FQID_LEN = sizeof(PMD_INTELEON_FQID_ARR)-1;
+    inline static constexpr char PMD_INTELEON_ID_ARR[] = "inteleon";
+    inline static constexpr const char* PMD_INTELEON_ID = PMD_INTELEON_ID_ARR;
+    inline static constexpr size_t PMD_INTELEON_ID_LEN = sizeof(PMD_INTELEON_ID)-1;
+    inline static constexpr char PMD_INTELEON_NAME_ARR[] = "Inteleon";
+    inline static constexpr const char* PMD_INTELEON_NAME = PMD_INTELEON_NAME_ARR;
+    inline static constexpr size_t PMD_INTELEON_NAME_LEN = sizeof(PMD_INTELEON_NAME_ARR)-1;
+    inline static constexpr char PMD_INTELEON_FQNAME_ARR[] = "pmd:Inteleon";
+    inline static constexpr const char* PMD_INTELEON_FQNAME = PMD_INTELEON_FQNAME_ARR;
+    inline static constexpr size_t PMD_INTELEON_FQNAME_LEN = sizeof(PMD_INTELEON_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_INTELEON_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_INTELEON_ANIM_INDEX = 787;
+    inline static constexpr custom_animation_settings_t PMD_INTELEON_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 11,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_INTELEON_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_INTELEON_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Skwovet
+    inline static constexpr char PMD_SKWOVET_FQID_ARR[] = "pmd:skwovet";
+    inline static constexpr const char* PMD_SKWOVET_FQID = PMD_SKWOVET_FQID_ARR;
+    inline static constexpr size_t PMD_SKWOVET_FQID_LEN = sizeof(PMD_SKWOVET_FQID_ARR)-1;
+    inline static constexpr char PMD_SKWOVET_ID_ARR[] = "skwovet";
+    inline static constexpr const char* PMD_SKWOVET_ID = PMD_SKWOVET_ID_ARR;
+    inline static constexpr size_t PMD_SKWOVET_ID_LEN = sizeof(PMD_SKWOVET_ID)-1;
+    inline static constexpr char PMD_SKWOVET_NAME_ARR[] = "Skwovet";
+    inline static constexpr const char* PMD_SKWOVET_NAME = PMD_SKWOVET_NAME_ARR;
+    inline static constexpr size_t PMD_SKWOVET_NAME_LEN = sizeof(PMD_SKWOVET_NAME_ARR)-1;
+    inline static constexpr char PMD_SKWOVET_FQNAME_ARR[] = "pmd:Skwovet";
+    inline static constexpr const char* PMD_SKWOVET_FQNAME = PMD_SKWOVET_FQNAME_ARR;
+    inline static constexpr size_t PMD_SKWOVET_FQNAME_LEN = sizeof(PMD_SKWOVET_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SKWOVET_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SKWOVET_ANIM_INDEX = 788;
+    inline static constexpr custom_animation_settings_t PMD_SKWOVET_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SKWOVET_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SKWOVET_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Rookidee
+    inline static constexpr char PMD_ROOKIDEE_FQID_ARR[] = "pmd:rookidee";
+    inline static constexpr const char* PMD_ROOKIDEE_FQID = PMD_ROOKIDEE_FQID_ARR;
+    inline static constexpr size_t PMD_ROOKIDEE_FQID_LEN = sizeof(PMD_ROOKIDEE_FQID_ARR)-1;
+    inline static constexpr char PMD_ROOKIDEE_ID_ARR[] = "rookidee";
+    inline static constexpr const char* PMD_ROOKIDEE_ID = PMD_ROOKIDEE_ID_ARR;
+    inline static constexpr size_t PMD_ROOKIDEE_ID_LEN = sizeof(PMD_ROOKIDEE_ID)-1;
+    inline static constexpr char PMD_ROOKIDEE_NAME_ARR[] = "Rookidee";
+    inline static constexpr const char* PMD_ROOKIDEE_NAME = PMD_ROOKIDEE_NAME_ARR;
+    inline static constexpr size_t PMD_ROOKIDEE_NAME_LEN = sizeof(PMD_ROOKIDEE_NAME_ARR)-1;
+    inline static constexpr char PMD_ROOKIDEE_FQNAME_ARR[] = "pmd:Rookidee";
+    inline static constexpr const char* PMD_ROOKIDEE_FQNAME = PMD_ROOKIDEE_FQNAME_ARR;
+    inline static constexpr size_t PMD_ROOKIDEE_FQNAME_LEN = sizeof(PMD_ROOKIDEE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ROOKIDEE_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_ROOKIDEE_ANIM_INDEX = 789;
+    inline static constexpr custom_animation_settings_t PMD_ROOKIDEE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ROOKIDEE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ROOKIDEE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Corvisquire
+    inline static constexpr char PMD_CORVISQUIRE_FQID_ARR[] = "pmd:corvisquire";
+    inline static constexpr const char* PMD_CORVISQUIRE_FQID = PMD_CORVISQUIRE_FQID_ARR;
+    inline static constexpr size_t PMD_CORVISQUIRE_FQID_LEN = sizeof(PMD_CORVISQUIRE_FQID_ARR)-1;
+    inline static constexpr char PMD_CORVISQUIRE_ID_ARR[] = "corvisquire";
+    inline static constexpr const char* PMD_CORVISQUIRE_ID = PMD_CORVISQUIRE_ID_ARR;
+    inline static constexpr size_t PMD_CORVISQUIRE_ID_LEN = sizeof(PMD_CORVISQUIRE_ID)-1;
+    inline static constexpr char PMD_CORVISQUIRE_NAME_ARR[] = "Corvisquire";
+    inline static constexpr const char* PMD_CORVISQUIRE_NAME = PMD_CORVISQUIRE_NAME_ARR;
+    inline static constexpr size_t PMD_CORVISQUIRE_NAME_LEN = sizeof(PMD_CORVISQUIRE_NAME_ARR)-1;
+    inline static constexpr char PMD_CORVISQUIRE_FQNAME_ARR[] = "pmd:Corvisquire";
+    inline static constexpr const char* PMD_CORVISQUIRE_FQNAME = PMD_CORVISQUIRE_FQNAME_ARR;
+    inline static constexpr size_t PMD_CORVISQUIRE_FQNAME_LEN = sizeof(PMD_CORVISQUIRE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CORVISQUIRE_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_CORVISQUIRE_ANIM_INDEX = 790;
+    inline static constexpr custom_animation_settings_t PMD_CORVISQUIRE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CORVISQUIRE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CORVISQUIRE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Corviknight
+    inline static constexpr char PMD_CORVIKNIGHT_FQID_ARR[] = "pmd:corviknight";
+    inline static constexpr const char* PMD_CORVIKNIGHT_FQID = PMD_CORVIKNIGHT_FQID_ARR;
+    inline static constexpr size_t PMD_CORVIKNIGHT_FQID_LEN = sizeof(PMD_CORVIKNIGHT_FQID_ARR)-1;
+    inline static constexpr char PMD_CORVIKNIGHT_ID_ARR[] = "corviknight";
+    inline static constexpr const char* PMD_CORVIKNIGHT_ID = PMD_CORVIKNIGHT_ID_ARR;
+    inline static constexpr size_t PMD_CORVIKNIGHT_ID_LEN = sizeof(PMD_CORVIKNIGHT_ID)-1;
+    inline static constexpr char PMD_CORVIKNIGHT_NAME_ARR[] = "Corviknight";
+    inline static constexpr const char* PMD_CORVIKNIGHT_NAME = PMD_CORVIKNIGHT_NAME_ARR;
+    inline static constexpr size_t PMD_CORVIKNIGHT_NAME_LEN = sizeof(PMD_CORVIKNIGHT_NAME_ARR)-1;
+    inline static constexpr char PMD_CORVIKNIGHT_FQNAME_ARR[] = "pmd:Corviknight";
+    inline static constexpr const char* PMD_CORVIKNIGHT_FQNAME = PMD_CORVIKNIGHT_FQNAME_ARR;
+    inline static constexpr size_t PMD_CORVIKNIGHT_FQNAME_LEN = sizeof(PMD_CORVIKNIGHT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CORVIKNIGHT_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_CORVIKNIGHT_ANIM_INDEX = 791;
+    inline static constexpr custom_animation_settings_t PMD_CORVIKNIGHT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 15,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CORVIKNIGHT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CORVIKNIGHT_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Blipbug
+    inline static constexpr char PMD_BLIPBUG_FQID_ARR[] = "pmd:blipbug";
+    inline static constexpr const char* PMD_BLIPBUG_FQID = PMD_BLIPBUG_FQID_ARR;
+    inline static constexpr size_t PMD_BLIPBUG_FQID_LEN = sizeof(PMD_BLIPBUG_FQID_ARR)-1;
+    inline static constexpr char PMD_BLIPBUG_ID_ARR[] = "blipbug";
+    inline static constexpr const char* PMD_BLIPBUG_ID = PMD_BLIPBUG_ID_ARR;
+    inline static constexpr size_t PMD_BLIPBUG_ID_LEN = sizeof(PMD_BLIPBUG_ID)-1;
+    inline static constexpr char PMD_BLIPBUG_NAME_ARR[] = "Blipbug";
+    inline static constexpr const char* PMD_BLIPBUG_NAME = PMD_BLIPBUG_NAME_ARR;
+    inline static constexpr size_t PMD_BLIPBUG_NAME_LEN = sizeof(PMD_BLIPBUG_NAME_ARR)-1;
+    inline static constexpr char PMD_BLIPBUG_FQNAME_ARR[] = "pmd:Blipbug";
+    inline static constexpr const char* PMD_BLIPBUG_FQNAME = PMD_BLIPBUG_FQNAME_ARR;
+    inline static constexpr size_t PMD_BLIPBUG_FQNAME_LEN = sizeof(PMD_BLIPBUG_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BLIPBUG_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_BLIPBUG_ANIM_INDEX = 792;
+    inline static constexpr custom_animation_settings_t PMD_BLIPBUG_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BLIPBUG_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BLIPBUG_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Dottler
+    inline static constexpr char PMD_DOTTLER_FQID_ARR[] = "pmd:dottler";
+    inline static constexpr const char* PMD_DOTTLER_FQID = PMD_DOTTLER_FQID_ARR;
+    inline static constexpr size_t PMD_DOTTLER_FQID_LEN = sizeof(PMD_DOTTLER_FQID_ARR)-1;
+    inline static constexpr char PMD_DOTTLER_ID_ARR[] = "dottler";
+    inline static constexpr const char* PMD_DOTTLER_ID = PMD_DOTTLER_ID_ARR;
+    inline static constexpr size_t PMD_DOTTLER_ID_LEN = sizeof(PMD_DOTTLER_ID)-1;
+    inline static constexpr char PMD_DOTTLER_NAME_ARR[] = "Dottler";
+    inline static constexpr const char* PMD_DOTTLER_NAME = PMD_DOTTLER_NAME_ARR;
+    inline static constexpr size_t PMD_DOTTLER_NAME_LEN = sizeof(PMD_DOTTLER_NAME_ARR)-1;
+    inline static constexpr char PMD_DOTTLER_FQNAME_ARR[] = "pmd:Dottler";
+    inline static constexpr const char* PMD_DOTTLER_FQNAME = PMD_DOTTLER_FQNAME_ARR;
+    inline static constexpr size_t PMD_DOTTLER_FQNAME_LEN = sizeof(PMD_DOTTLER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DOTTLER_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_DOTTLER_ANIM_INDEX = 793;
+    inline static constexpr custom_animation_settings_t PMD_DOTTLER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 15,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DOTTLER_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DOTTLER_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Orbeetle
+    inline static constexpr char PMD_ORBEETLE_FQID_ARR[] = "pmd:orbeetle";
+    inline static constexpr const char* PMD_ORBEETLE_FQID = PMD_ORBEETLE_FQID_ARR;
+    inline static constexpr size_t PMD_ORBEETLE_FQID_LEN = sizeof(PMD_ORBEETLE_FQID_ARR)-1;
+    inline static constexpr char PMD_ORBEETLE_ID_ARR[] = "orbeetle";
+    inline static constexpr const char* PMD_ORBEETLE_ID = PMD_ORBEETLE_ID_ARR;
+    inline static constexpr size_t PMD_ORBEETLE_ID_LEN = sizeof(PMD_ORBEETLE_ID)-1;
+    inline static constexpr char PMD_ORBEETLE_NAME_ARR[] = "Orbeetle";
+    inline static constexpr const char* PMD_ORBEETLE_NAME = PMD_ORBEETLE_NAME_ARR;
+    inline static constexpr size_t PMD_ORBEETLE_NAME_LEN = sizeof(PMD_ORBEETLE_NAME_ARR)-1;
+    inline static constexpr char PMD_ORBEETLE_FQNAME_ARR[] = "pmd:Orbeetle";
+    inline static constexpr const char* PMD_ORBEETLE_FQNAME = PMD_ORBEETLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_ORBEETLE_FQNAME_LEN = sizeof(PMD_ORBEETLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ORBEETLE_SPRITE_SHEET_FRAMES_COUNT = 90;
+    inline static constexpr size_t PMD_ORBEETLE_ANIM_INDEX = 794;
+    inline static constexpr custom_animation_settings_t PMD_ORBEETLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 8,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 15,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ORBEETLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ORBEETLE_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Nickit
+    inline static constexpr char PMD_NICKIT_FQID_ARR[] = "pmd:nickit";
+    inline static constexpr const char* PMD_NICKIT_FQID = PMD_NICKIT_FQID_ARR;
+    inline static constexpr size_t PMD_NICKIT_FQID_LEN = sizeof(PMD_NICKIT_FQID_ARR)-1;
+    inline static constexpr char PMD_NICKIT_ID_ARR[] = "nickit";
+    inline static constexpr const char* PMD_NICKIT_ID = PMD_NICKIT_ID_ARR;
+    inline static constexpr size_t PMD_NICKIT_ID_LEN = sizeof(PMD_NICKIT_ID)-1;
+    inline static constexpr char PMD_NICKIT_NAME_ARR[] = "Nickit";
+    inline static constexpr const char* PMD_NICKIT_NAME = PMD_NICKIT_NAME_ARR;
+    inline static constexpr size_t PMD_NICKIT_NAME_LEN = sizeof(PMD_NICKIT_NAME_ARR)-1;
+    inline static constexpr char PMD_NICKIT_FQNAME_ARR[] = "pmd:Nickit";
+    inline static constexpr const char* PMD_NICKIT_FQNAME = PMD_NICKIT_FQNAME_ARR;
+    inline static constexpr size_t PMD_NICKIT_FQNAME_LEN = sizeof(PMD_NICKIT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_NICKIT_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_NICKIT_ANIM_INDEX = 795;
+    inline static constexpr custom_animation_settings_t PMD_NICKIT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_NICKIT_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_NICKIT_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Thievul
+    inline static constexpr char PMD_THIEVUL_FQID_ARR[] = "pmd:thievul";
+    inline static constexpr const char* PMD_THIEVUL_FQID = PMD_THIEVUL_FQID_ARR;
+    inline static constexpr size_t PMD_THIEVUL_FQID_LEN = sizeof(PMD_THIEVUL_FQID_ARR)-1;
+    inline static constexpr char PMD_THIEVUL_ID_ARR[] = "thievul";
+    inline static constexpr const char* PMD_THIEVUL_ID = PMD_THIEVUL_ID_ARR;
+    inline static constexpr size_t PMD_THIEVUL_ID_LEN = sizeof(PMD_THIEVUL_ID)-1;
+    inline static constexpr char PMD_THIEVUL_NAME_ARR[] = "Thievul";
+    inline static constexpr const char* PMD_THIEVUL_NAME = PMD_THIEVUL_NAME_ARR;
+    inline static constexpr size_t PMD_THIEVUL_NAME_LEN = sizeof(PMD_THIEVUL_NAME_ARR)-1;
+    inline static constexpr char PMD_THIEVUL_FQNAME_ARR[] = "pmd:Thievul";
+    inline static constexpr const char* PMD_THIEVUL_FQNAME = PMD_THIEVUL_FQNAME_ARR;
+    inline static constexpr size_t PMD_THIEVUL_FQNAME_LEN = sizeof(PMD_THIEVUL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_THIEVUL_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_THIEVUL_ANIM_INDEX = 796;
+    inline static constexpr custom_animation_settings_t PMD_THIEVUL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_THIEVUL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_THIEVUL_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Gossifleur
+    inline static constexpr char PMD_GOSSIFLEUR_FQID_ARR[] = "pmd:gossifleur";
+    inline static constexpr const char* PMD_GOSSIFLEUR_FQID = PMD_GOSSIFLEUR_FQID_ARR;
+    inline static constexpr size_t PMD_GOSSIFLEUR_FQID_LEN = sizeof(PMD_GOSSIFLEUR_FQID_ARR)-1;
+    inline static constexpr char PMD_GOSSIFLEUR_ID_ARR[] = "gossifleur";
+    inline static constexpr const char* PMD_GOSSIFLEUR_ID = PMD_GOSSIFLEUR_ID_ARR;
+    inline static constexpr size_t PMD_GOSSIFLEUR_ID_LEN = sizeof(PMD_GOSSIFLEUR_ID)-1;
+    inline static constexpr char PMD_GOSSIFLEUR_NAME_ARR[] = "Gossifleur";
+    inline static constexpr const char* PMD_GOSSIFLEUR_NAME = PMD_GOSSIFLEUR_NAME_ARR;
+    inline static constexpr size_t PMD_GOSSIFLEUR_NAME_LEN = sizeof(PMD_GOSSIFLEUR_NAME_ARR)-1;
+    inline static constexpr char PMD_GOSSIFLEUR_FQNAME_ARR[] = "pmd:Gossifleur";
+    inline static constexpr const char* PMD_GOSSIFLEUR_FQNAME = PMD_GOSSIFLEUR_FQNAME_ARR;
+    inline static constexpr size_t PMD_GOSSIFLEUR_FQNAME_LEN = sizeof(PMD_GOSSIFLEUR_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GOSSIFLEUR_SPRITE_SHEET_FRAMES_COUNT = 126;
+    inline static constexpr size_t PMD_GOSSIFLEUR_ANIM_INDEX = 797;
+    inline static constexpr custom_animation_settings_t PMD_GOSSIFLEUR_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = 17,
+        .start_writing_frames = -1,
+        .writing_frames = 18,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GOSSIFLEUR_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_GOSSIFLEUR_SPRITE_SHEET_MAX_COLS = 18;
+
+    // Name: Eldegoss
+    inline static constexpr char PMD_ELDEGOSS_FQID_ARR[] = "pmd:eldegoss";
+    inline static constexpr const char* PMD_ELDEGOSS_FQID = PMD_ELDEGOSS_FQID_ARR;
+    inline static constexpr size_t PMD_ELDEGOSS_FQID_LEN = sizeof(PMD_ELDEGOSS_FQID_ARR)-1;
+    inline static constexpr char PMD_ELDEGOSS_ID_ARR[] = "eldegoss";
+    inline static constexpr const char* PMD_ELDEGOSS_ID = PMD_ELDEGOSS_ID_ARR;
+    inline static constexpr size_t PMD_ELDEGOSS_ID_LEN = sizeof(PMD_ELDEGOSS_ID)-1;
+    inline static constexpr char PMD_ELDEGOSS_NAME_ARR[] = "Eldegoss";
+    inline static constexpr const char* PMD_ELDEGOSS_NAME = PMD_ELDEGOSS_NAME_ARR;
+    inline static constexpr size_t PMD_ELDEGOSS_NAME_LEN = sizeof(PMD_ELDEGOSS_NAME_ARR)-1;
+    inline static constexpr char PMD_ELDEGOSS_FQNAME_ARR[] = "pmd:Eldegoss";
+    inline static constexpr const char* PMD_ELDEGOSS_FQNAME = PMD_ELDEGOSS_FQNAME_ARR;
+    inline static constexpr size_t PMD_ELDEGOSS_FQNAME_LEN = sizeof(PMD_ELDEGOSS_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ELDEGOSS_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_ELDEGOSS_ANIM_INDEX = 798;
+    inline static constexpr custom_animation_settings_t PMD_ELDEGOSS_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ELDEGOSS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ELDEGOSS_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Wooloo
+    inline static constexpr char PMD_WOOLOO_FQID_ARR[] = "pmd:wooloo";
+    inline static constexpr const char* PMD_WOOLOO_FQID = PMD_WOOLOO_FQID_ARR;
+    inline static constexpr size_t PMD_WOOLOO_FQID_LEN = sizeof(PMD_WOOLOO_FQID_ARR)-1;
+    inline static constexpr char PMD_WOOLOO_ID_ARR[] = "wooloo";
+    inline static constexpr const char* PMD_WOOLOO_ID = PMD_WOOLOO_ID_ARR;
+    inline static constexpr size_t PMD_WOOLOO_ID_LEN = sizeof(PMD_WOOLOO_ID)-1;
+    inline static constexpr char PMD_WOOLOO_NAME_ARR[] = "Wooloo";
+    inline static constexpr const char* PMD_WOOLOO_NAME = PMD_WOOLOO_NAME_ARR;
+    inline static constexpr size_t PMD_WOOLOO_NAME_LEN = sizeof(PMD_WOOLOO_NAME_ARR)-1;
+    inline static constexpr char PMD_WOOLOO_FQNAME_ARR[] = "pmd:Wooloo";
+    inline static constexpr const char* PMD_WOOLOO_FQNAME = PMD_WOOLOO_FQNAME_ARR;
+    inline static constexpr size_t PMD_WOOLOO_FQNAME_LEN = sizeof(PMD_WOOLOO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_WOOLOO_SPRITE_SHEET_FRAMES_COUNT = 91;
+    inline static constexpr size_t PMD_WOOLOO_ANIM_INDEX = 799;
+    inline static constexpr custom_animation_settings_t PMD_WOOLOO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_WOOLOO_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_WOOLOO_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Chewtle
+    inline static constexpr char PMD_CHEWTLE_FQID_ARR[] = "pmd:chewtle";
+    inline static constexpr const char* PMD_CHEWTLE_FQID = PMD_CHEWTLE_FQID_ARR;
+    inline static constexpr size_t PMD_CHEWTLE_FQID_LEN = sizeof(PMD_CHEWTLE_FQID_ARR)-1;
+    inline static constexpr char PMD_CHEWTLE_ID_ARR[] = "chewtle";
+    inline static constexpr const char* PMD_CHEWTLE_ID = PMD_CHEWTLE_ID_ARR;
+    inline static constexpr size_t PMD_CHEWTLE_ID_LEN = sizeof(PMD_CHEWTLE_ID)-1;
+    inline static constexpr char PMD_CHEWTLE_NAME_ARR[] = "Chewtle";
+    inline static constexpr const char* PMD_CHEWTLE_NAME = PMD_CHEWTLE_NAME_ARR;
+    inline static constexpr size_t PMD_CHEWTLE_NAME_LEN = sizeof(PMD_CHEWTLE_NAME_ARR)-1;
+    inline static constexpr char PMD_CHEWTLE_FQNAME_ARR[] = "pmd:Chewtle";
+    inline static constexpr const char* PMD_CHEWTLE_FQNAME = PMD_CHEWTLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_CHEWTLE_FQNAME_LEN = sizeof(PMD_CHEWTLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CHEWTLE_SPRITE_SHEET_FRAMES_COUNT = 102;
+    inline static constexpr size_t PMD_CHEWTLE_ANIM_INDEX = 800;
+    inline static constexpr custom_animation_settings_t PMD_CHEWTLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 17,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CHEWTLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CHEWTLE_SPRITE_SHEET_MAX_COLS = 17;
+
+    // Name: Drednaw
+    inline static constexpr char PMD_DREDNAW_FQID_ARR[] = "pmd:drednaw";
+    inline static constexpr const char* PMD_DREDNAW_FQID = PMD_DREDNAW_FQID_ARR;
+    inline static constexpr size_t PMD_DREDNAW_FQID_LEN = sizeof(PMD_DREDNAW_FQID_ARR)-1;
+    inline static constexpr char PMD_DREDNAW_ID_ARR[] = "drednaw";
+    inline static constexpr const char* PMD_DREDNAW_ID = PMD_DREDNAW_ID_ARR;
+    inline static constexpr size_t PMD_DREDNAW_ID_LEN = sizeof(PMD_DREDNAW_ID)-1;
+    inline static constexpr char PMD_DREDNAW_NAME_ARR[] = "Drednaw";
+    inline static constexpr const char* PMD_DREDNAW_NAME = PMD_DREDNAW_NAME_ARR;
+    inline static constexpr size_t PMD_DREDNAW_NAME_LEN = sizeof(PMD_DREDNAW_NAME_ARR)-1;
+    inline static constexpr char PMD_DREDNAW_FQNAME_ARR[] = "pmd:Drednaw";
+    inline static constexpr const char* PMD_DREDNAW_FQNAME = PMD_DREDNAW_FQNAME_ARR;
+    inline static constexpr size_t PMD_DREDNAW_FQNAME_LEN = sizeof(PMD_DREDNAW_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DREDNAW_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_DREDNAW_ANIM_INDEX = 801;
+    inline static constexpr custom_animation_settings_t PMD_DREDNAW_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 16,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DREDNAW_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DREDNAW_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Yamper
+    inline static constexpr char PMD_YAMPER_FQID_ARR[] = "pmd:yamper";
+    inline static constexpr const char* PMD_YAMPER_FQID = PMD_YAMPER_FQID_ARR;
+    inline static constexpr size_t PMD_YAMPER_FQID_LEN = sizeof(PMD_YAMPER_FQID_ARR)-1;
+    inline static constexpr char PMD_YAMPER_ID_ARR[] = "yamper";
+    inline static constexpr const char* PMD_YAMPER_ID = PMD_YAMPER_ID_ARR;
+    inline static constexpr size_t PMD_YAMPER_ID_LEN = sizeof(PMD_YAMPER_ID)-1;
+    inline static constexpr char PMD_YAMPER_NAME_ARR[] = "Yamper";
+    inline static constexpr const char* PMD_YAMPER_NAME = PMD_YAMPER_NAME_ARR;
+    inline static constexpr size_t PMD_YAMPER_NAME_LEN = sizeof(PMD_YAMPER_NAME_ARR)-1;
+    inline static constexpr char PMD_YAMPER_FQNAME_ARR[] = "pmd:Yamper";
+    inline static constexpr const char* PMD_YAMPER_FQNAME = PMD_YAMPER_FQNAME_ARR;
+    inline static constexpr size_t PMD_YAMPER_FQNAME_LEN = sizeof(PMD_YAMPER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_YAMPER_SPRITE_SHEET_FRAMES_COUNT = 105;
+    inline static constexpr size_t PMD_YAMPER_ANIM_INDEX = 802;
+    inline static constexpr custom_animation_settings_t PMD_YAMPER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 15,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 7,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_YAMPER_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_YAMPER_SPRITE_SHEET_MAX_COLS = 15;
+
+    // Name: Applin
+    inline static constexpr char PMD_APPLIN_FQID_ARR[] = "pmd:applin";
+    inline static constexpr const char* PMD_APPLIN_FQID = PMD_APPLIN_FQID_ARR;
+    inline static constexpr size_t PMD_APPLIN_FQID_LEN = sizeof(PMD_APPLIN_FQID_ARR)-1;
+    inline static constexpr char PMD_APPLIN_ID_ARR[] = "applin";
+    inline static constexpr const char* PMD_APPLIN_ID = PMD_APPLIN_ID_ARR;
+    inline static constexpr size_t PMD_APPLIN_ID_LEN = sizeof(PMD_APPLIN_ID)-1;
+    inline static constexpr char PMD_APPLIN_NAME_ARR[] = "Applin";
+    inline static constexpr const char* PMD_APPLIN_NAME = PMD_APPLIN_NAME_ARR;
+    inline static constexpr size_t PMD_APPLIN_NAME_LEN = sizeof(PMD_APPLIN_NAME_ARR)-1;
+    inline static constexpr char PMD_APPLIN_FQNAME_ARR[] = "pmd:Applin";
+    inline static constexpr const char* PMD_APPLIN_FQNAME = PMD_APPLIN_FQNAME_ARR;
+    inline static constexpr size_t PMD_APPLIN_FQNAME_LEN = sizeof(PMD_APPLIN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_APPLIN_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_APPLIN_ANIM_INDEX = 803;
+    inline static constexpr custom_animation_settings_t PMD_APPLIN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 5,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_APPLIN_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_APPLIN_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Flapple
+    inline static constexpr char PMD_FLAPPLE_FQID_ARR[] = "pmd:flapple";
+    inline static constexpr const char* PMD_FLAPPLE_FQID = PMD_FLAPPLE_FQID_ARR;
+    inline static constexpr size_t PMD_FLAPPLE_FQID_LEN = sizeof(PMD_FLAPPLE_FQID_ARR)-1;
+    inline static constexpr char PMD_FLAPPLE_ID_ARR[] = "flapple";
+    inline static constexpr const char* PMD_FLAPPLE_ID = PMD_FLAPPLE_ID_ARR;
+    inline static constexpr size_t PMD_FLAPPLE_ID_LEN = sizeof(PMD_FLAPPLE_ID)-1;
+    inline static constexpr char PMD_FLAPPLE_NAME_ARR[] = "Flapple";
+    inline static constexpr const char* PMD_FLAPPLE_NAME = PMD_FLAPPLE_NAME_ARR;
+    inline static constexpr size_t PMD_FLAPPLE_NAME_LEN = sizeof(PMD_FLAPPLE_NAME_ARR)-1;
+    inline static constexpr char PMD_FLAPPLE_FQNAME_ARR[] = "pmd:Flapple";
+    inline static constexpr const char* PMD_FLAPPLE_FQNAME = PMD_FLAPPLE_FQNAME_ARR;
+    inline static constexpr size_t PMD_FLAPPLE_FQNAME_LEN = sizeof(PMD_FLAPPLE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_FLAPPLE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_FLAPPLE_ANIM_INDEX = 804;
+    inline static constexpr custom_animation_settings_t PMD_FLAPPLE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_FLAPPLE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_FLAPPLE_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Appletun
+    inline static constexpr char PMD_APPLETUN_FQID_ARR[] = "pmd:appletun";
+    inline static constexpr const char* PMD_APPLETUN_FQID = PMD_APPLETUN_FQID_ARR;
+    inline static constexpr size_t PMD_APPLETUN_FQID_LEN = sizeof(PMD_APPLETUN_FQID_ARR)-1;
+    inline static constexpr char PMD_APPLETUN_ID_ARR[] = "appletun";
+    inline static constexpr const char* PMD_APPLETUN_ID = PMD_APPLETUN_ID_ARR;
+    inline static constexpr size_t PMD_APPLETUN_ID_LEN = sizeof(PMD_APPLETUN_ID)-1;
+    inline static constexpr char PMD_APPLETUN_NAME_ARR[] = "Appletun";
+    inline static constexpr const char* PMD_APPLETUN_NAME = PMD_APPLETUN_NAME_ARR;
+    inline static constexpr size_t PMD_APPLETUN_NAME_LEN = sizeof(PMD_APPLETUN_NAME_ARR)-1;
+    inline static constexpr char PMD_APPLETUN_FQNAME_ARR[] = "pmd:Appletun";
+    inline static constexpr const char* PMD_APPLETUN_FQNAME = PMD_APPLETUN_FQNAME_ARR;
+    inline static constexpr size_t PMD_APPLETUN_FQNAME_LEN = sizeof(PMD_APPLETUN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_APPLETUN_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_APPLETUN_ANIM_INDEX = 805;
+    inline static constexpr custom_animation_settings_t PMD_APPLETUN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_APPLETUN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_APPLETUN_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Silicobra
+    inline static constexpr char PMD_SILICOBRA_FQID_ARR[] = "pmd:silicobra";
+    inline static constexpr const char* PMD_SILICOBRA_FQID = PMD_SILICOBRA_FQID_ARR;
+    inline static constexpr size_t PMD_SILICOBRA_FQID_LEN = sizeof(PMD_SILICOBRA_FQID_ARR)-1;
+    inline static constexpr char PMD_SILICOBRA_ID_ARR[] = "silicobra";
+    inline static constexpr const char* PMD_SILICOBRA_ID = PMD_SILICOBRA_ID_ARR;
+    inline static constexpr size_t PMD_SILICOBRA_ID_LEN = sizeof(PMD_SILICOBRA_ID)-1;
+    inline static constexpr char PMD_SILICOBRA_NAME_ARR[] = "Silicobra";
+    inline static constexpr const char* PMD_SILICOBRA_NAME = PMD_SILICOBRA_NAME_ARR;
+    inline static constexpr size_t PMD_SILICOBRA_NAME_LEN = sizeof(PMD_SILICOBRA_NAME_ARR)-1;
+    inline static constexpr char PMD_SILICOBRA_FQNAME_ARR[] = "pmd:Silicobra";
+    inline static constexpr const char* PMD_SILICOBRA_FQNAME = PMD_SILICOBRA_FQNAME_ARR;
+    inline static constexpr size_t PMD_SILICOBRA_FQNAME_LEN = sizeof(PMD_SILICOBRA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SILICOBRA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SILICOBRA_ANIM_INDEX = 806;
+    inline static constexpr custom_animation_settings_t PMD_SILICOBRA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SILICOBRA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SILICOBRA_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Sandaconda
+    inline static constexpr char PMD_SANDACONDA_FQID_ARR[] = "pmd:sandaconda";
+    inline static constexpr const char* PMD_SANDACONDA_FQID = PMD_SANDACONDA_FQID_ARR;
+    inline static constexpr size_t PMD_SANDACONDA_FQID_LEN = sizeof(PMD_SANDACONDA_FQID_ARR)-1;
+    inline static constexpr char PMD_SANDACONDA_ID_ARR[] = "sandaconda";
+    inline static constexpr const char* PMD_SANDACONDA_ID = PMD_SANDACONDA_ID_ARR;
+    inline static constexpr size_t PMD_SANDACONDA_ID_LEN = sizeof(PMD_SANDACONDA_ID)-1;
+    inline static constexpr char PMD_SANDACONDA_NAME_ARR[] = "Sandaconda";
+    inline static constexpr const char* PMD_SANDACONDA_NAME = PMD_SANDACONDA_NAME_ARR;
+    inline static constexpr size_t PMD_SANDACONDA_NAME_LEN = sizeof(PMD_SANDACONDA_NAME_ARR)-1;
+    inline static constexpr char PMD_SANDACONDA_FQNAME_ARR[] = "pmd:Sandaconda";
+    inline static constexpr const char* PMD_SANDACONDA_FQNAME = PMD_SANDACONDA_FQNAME_ARR;
+    inline static constexpr size_t PMD_SANDACONDA_FQNAME_LEN = sizeof(PMD_SANDACONDA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SANDACONDA_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_SANDACONDA_ANIM_INDEX = 807;
+    inline static constexpr custom_animation_settings_t PMD_SANDACONDA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SANDACONDA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SANDACONDA_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Cramorant
+    inline static constexpr char PMD_CRAMORANT_FQID_ARR[] = "pmd:cramorant";
+    inline static constexpr const char* PMD_CRAMORANT_FQID = PMD_CRAMORANT_FQID_ARR;
+    inline static constexpr size_t PMD_CRAMORANT_FQID_LEN = sizeof(PMD_CRAMORANT_FQID_ARR)-1;
+    inline static constexpr char PMD_CRAMORANT_ID_ARR[] = "cramorant";
+    inline static constexpr const char* PMD_CRAMORANT_ID = PMD_CRAMORANT_ID_ARR;
+    inline static constexpr size_t PMD_CRAMORANT_ID_LEN = sizeof(PMD_CRAMORANT_ID)-1;
+    inline static constexpr char PMD_CRAMORANT_NAME_ARR[] = "Cramorant";
+    inline static constexpr const char* PMD_CRAMORANT_NAME = PMD_CRAMORANT_NAME_ARR;
+    inline static constexpr size_t PMD_CRAMORANT_NAME_LEN = sizeof(PMD_CRAMORANT_NAME_ARR)-1;
+    inline static constexpr char PMD_CRAMORANT_FQNAME_ARR[] = "pmd:Cramorant";
+    inline static constexpr const char* PMD_CRAMORANT_FQNAME = PMD_CRAMORANT_FQNAME_ARR;
+    inline static constexpr size_t PMD_CRAMORANT_FQNAME_LEN = sizeof(PMD_CRAMORANT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CRAMORANT_SPRITE_SHEET_FRAMES_COUNT = 114;
+    inline static constexpr size_t PMD_CRAMORANT_ANIM_INDEX = 808;
+    inline static constexpr custom_animation_settings_t PMD_CRAMORANT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 19,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CRAMORANT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CRAMORANT_SPRITE_SHEET_MAX_COLS = 19;
+
+    // Name: Arrokuda
+    inline static constexpr char PMD_ARROKUDA_FQID_ARR[] = "pmd:arrokuda";
+    inline static constexpr const char* PMD_ARROKUDA_FQID = PMD_ARROKUDA_FQID_ARR;
+    inline static constexpr size_t PMD_ARROKUDA_FQID_LEN = sizeof(PMD_ARROKUDA_FQID_ARR)-1;
+    inline static constexpr char PMD_ARROKUDA_ID_ARR[] = "arrokuda";
+    inline static constexpr const char* PMD_ARROKUDA_ID = PMD_ARROKUDA_ID_ARR;
+    inline static constexpr size_t PMD_ARROKUDA_ID_LEN = sizeof(PMD_ARROKUDA_ID)-1;
+    inline static constexpr char PMD_ARROKUDA_NAME_ARR[] = "Arrokuda";
+    inline static constexpr const char* PMD_ARROKUDA_NAME = PMD_ARROKUDA_NAME_ARR;
+    inline static constexpr size_t PMD_ARROKUDA_NAME_LEN = sizeof(PMD_ARROKUDA_NAME_ARR)-1;
+    inline static constexpr char PMD_ARROKUDA_FQNAME_ARR[] = "pmd:Arrokuda";
+    inline static constexpr const char* PMD_ARROKUDA_FQNAME = PMD_ARROKUDA_FQNAME_ARR;
+    inline static constexpr size_t PMD_ARROKUDA_FQNAME_LEN = sizeof(PMD_ARROKUDA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ARROKUDA_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_ARROKUDA_ANIM_INDEX = 809;
+    inline static constexpr custom_animation_settings_t PMD_ARROKUDA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 4,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ARROKUDA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ARROKUDA_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Toxel
+    inline static constexpr char PMD_TOXEL_FQID_ARR[] = "pmd:toxel";
+    inline static constexpr const char* PMD_TOXEL_FQID = PMD_TOXEL_FQID_ARR;
+    inline static constexpr size_t PMD_TOXEL_FQID_LEN = sizeof(PMD_TOXEL_FQID_ARR)-1;
+    inline static constexpr char PMD_TOXEL_ID_ARR[] = "toxel";
+    inline static constexpr const char* PMD_TOXEL_ID = PMD_TOXEL_ID_ARR;
+    inline static constexpr size_t PMD_TOXEL_ID_LEN = sizeof(PMD_TOXEL_ID)-1;
+    inline static constexpr char PMD_TOXEL_NAME_ARR[] = "Toxel";
+    inline static constexpr const char* PMD_TOXEL_NAME = PMD_TOXEL_NAME_ARR;
+    inline static constexpr size_t PMD_TOXEL_NAME_LEN = sizeof(PMD_TOXEL_NAME_ARR)-1;
+    inline static constexpr char PMD_TOXEL_FQNAME_ARR[] = "pmd:Toxel";
+    inline static constexpr const char* PMD_TOXEL_FQNAME = PMD_TOXEL_FQNAME_ARR;
+    inline static constexpr size_t PMD_TOXEL_FQNAME_LEN = sizeof(PMD_TOXEL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TOXEL_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_TOXEL_ANIM_INDEX = 810;
+    inline static constexpr custom_animation_settings_t PMD_TOXEL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 16,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TOXEL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TOXEL_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Toxtricity
+    inline static constexpr char PMD_TOXTRICITY_FQID_ARR[] = "pmd:toxtricity";
+    inline static constexpr const char* PMD_TOXTRICITY_FQID = PMD_TOXTRICITY_FQID_ARR;
+    inline static constexpr size_t PMD_TOXTRICITY_FQID_LEN = sizeof(PMD_TOXTRICITY_FQID_ARR)-1;
+    inline static constexpr char PMD_TOXTRICITY_ID_ARR[] = "toxtricity";
+    inline static constexpr const char* PMD_TOXTRICITY_ID = PMD_TOXTRICITY_ID_ARR;
+    inline static constexpr size_t PMD_TOXTRICITY_ID_LEN = sizeof(PMD_TOXTRICITY_ID)-1;
+    inline static constexpr char PMD_TOXTRICITY_NAME_ARR[] = "Toxtricity";
+    inline static constexpr const char* PMD_TOXTRICITY_NAME = PMD_TOXTRICITY_NAME_ARR;
+    inline static constexpr size_t PMD_TOXTRICITY_NAME_LEN = sizeof(PMD_TOXTRICITY_NAME_ARR)-1;
+    inline static constexpr char PMD_TOXTRICITY_FQNAME_ARR[] = "pmd:Toxtricity";
+    inline static constexpr const char* PMD_TOXTRICITY_FQNAME = PMD_TOXTRICITY_FQNAME_ARR;
+    inline static constexpr size_t PMD_TOXTRICITY_FQNAME_LEN = sizeof(PMD_TOXTRICITY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_TOXTRICITY_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_TOXTRICITY_ANIM_INDEX = 811;
+    inline static constexpr custom_animation_settings_t PMD_TOXTRICITY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_TOXTRICITY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_TOXTRICITY_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Sizzlipede
+    inline static constexpr char PMD_SIZZLIPEDE_FQID_ARR[] = "pmd:sizzlipede";
+    inline static constexpr const char* PMD_SIZZLIPEDE_FQID = PMD_SIZZLIPEDE_FQID_ARR;
+    inline static constexpr size_t PMD_SIZZLIPEDE_FQID_LEN = sizeof(PMD_SIZZLIPEDE_FQID_ARR)-1;
+    inline static constexpr char PMD_SIZZLIPEDE_ID_ARR[] = "sizzlipede";
+    inline static constexpr const char* PMD_SIZZLIPEDE_ID = PMD_SIZZLIPEDE_ID_ARR;
+    inline static constexpr size_t PMD_SIZZLIPEDE_ID_LEN = sizeof(PMD_SIZZLIPEDE_ID)-1;
+    inline static constexpr char PMD_SIZZLIPEDE_NAME_ARR[] = "Sizzlipede";
+    inline static constexpr const char* PMD_SIZZLIPEDE_NAME = PMD_SIZZLIPEDE_NAME_ARR;
+    inline static constexpr size_t PMD_SIZZLIPEDE_NAME_LEN = sizeof(PMD_SIZZLIPEDE_NAME_ARR)-1;
+    inline static constexpr char PMD_SIZZLIPEDE_FQNAME_ARR[] = "pmd:Sizzlipede";
+    inline static constexpr const char* PMD_SIZZLIPEDE_FQNAME = PMD_SIZZLIPEDE_FQNAME_ARR;
+    inline static constexpr size_t PMD_SIZZLIPEDE_FQNAME_LEN = sizeof(PMD_SIZZLIPEDE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SIZZLIPEDE_SPRITE_SHEET_FRAMES_COUNT = 102;
+    inline static constexpr size_t PMD_SIZZLIPEDE_ANIM_INDEX = 812;
+    inline static constexpr custom_animation_settings_t PMD_SIZZLIPEDE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 17,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SIZZLIPEDE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SIZZLIPEDE_SPRITE_SHEET_MAX_COLS = 17;
+
+    // Name: Centiskorch
+    inline static constexpr char PMD_CENTISKORCH_FQID_ARR[] = "pmd:centiskorch";
+    inline static constexpr const char* PMD_CENTISKORCH_FQID = PMD_CENTISKORCH_FQID_ARR;
+    inline static constexpr size_t PMD_CENTISKORCH_FQID_LEN = sizeof(PMD_CENTISKORCH_FQID_ARR)-1;
+    inline static constexpr char PMD_CENTISKORCH_ID_ARR[] = "centiskorch";
+    inline static constexpr const char* PMD_CENTISKORCH_ID = PMD_CENTISKORCH_ID_ARR;
+    inline static constexpr size_t PMD_CENTISKORCH_ID_LEN = sizeof(PMD_CENTISKORCH_ID)-1;
+    inline static constexpr char PMD_CENTISKORCH_NAME_ARR[] = "Centiskorch";
+    inline static constexpr const char* PMD_CENTISKORCH_NAME = PMD_CENTISKORCH_NAME_ARR;
+    inline static constexpr size_t PMD_CENTISKORCH_NAME_LEN = sizeof(PMD_CENTISKORCH_NAME_ARR)-1;
+    inline static constexpr char PMD_CENTISKORCH_FQNAME_ARR[] = "pmd:Centiskorch";
+    inline static constexpr const char* PMD_CENTISKORCH_FQNAME = PMD_CENTISKORCH_FQNAME_ARR;
+    inline static constexpr size_t PMD_CENTISKORCH_FQNAME_LEN = sizeof(PMD_CENTISKORCH_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CENTISKORCH_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_CENTISKORCH_ANIM_INDEX = 813;
+    inline static constexpr custom_animation_settings_t PMD_CENTISKORCH_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CENTISKORCH_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CENTISKORCH_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Clobbopus
+    inline static constexpr char PMD_CLOBBOPUS_FQID_ARR[] = "pmd:clobbopus";
+    inline static constexpr const char* PMD_CLOBBOPUS_FQID = PMD_CLOBBOPUS_FQID_ARR;
+    inline static constexpr size_t PMD_CLOBBOPUS_FQID_LEN = sizeof(PMD_CLOBBOPUS_FQID_ARR)-1;
+    inline static constexpr char PMD_CLOBBOPUS_ID_ARR[] = "clobbopus";
+    inline static constexpr const char* PMD_CLOBBOPUS_ID = PMD_CLOBBOPUS_ID_ARR;
+    inline static constexpr size_t PMD_CLOBBOPUS_ID_LEN = sizeof(PMD_CLOBBOPUS_ID)-1;
+    inline static constexpr char PMD_CLOBBOPUS_NAME_ARR[] = "Clobbopus";
+    inline static constexpr const char* PMD_CLOBBOPUS_NAME = PMD_CLOBBOPUS_NAME_ARR;
+    inline static constexpr size_t PMD_CLOBBOPUS_NAME_LEN = sizeof(PMD_CLOBBOPUS_NAME_ARR)-1;
+    inline static constexpr char PMD_CLOBBOPUS_FQNAME_ARR[] = "pmd:Clobbopus";
+    inline static constexpr const char* PMD_CLOBBOPUS_FQNAME = PMD_CLOBBOPUS_FQNAME_ARR;
+    inline static constexpr size_t PMD_CLOBBOPUS_FQNAME_LEN = sizeof(PMD_CLOBBOPUS_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CLOBBOPUS_SPRITE_SHEET_FRAMES_COUNT = 98;
+    inline static constexpr size_t PMD_CLOBBOPUS_ANIM_INDEX = 814;
+    inline static constexpr custom_animation_settings_t PMD_CLOBBOPUS_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 5,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CLOBBOPUS_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CLOBBOPUS_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Grapploct
+    inline static constexpr char PMD_GRAPPLOCT_FQID_ARR[] = "pmd:grapploct";
+    inline static constexpr const char* PMD_GRAPPLOCT_FQID = PMD_GRAPPLOCT_FQID_ARR;
+    inline static constexpr size_t PMD_GRAPPLOCT_FQID_LEN = sizeof(PMD_GRAPPLOCT_FQID_ARR)-1;
+    inline static constexpr char PMD_GRAPPLOCT_ID_ARR[] = "grapploct";
+    inline static constexpr const char* PMD_GRAPPLOCT_ID = PMD_GRAPPLOCT_ID_ARR;
+    inline static constexpr size_t PMD_GRAPPLOCT_ID_LEN = sizeof(PMD_GRAPPLOCT_ID)-1;
+    inline static constexpr char PMD_GRAPPLOCT_NAME_ARR[] = "Grapploct";
+    inline static constexpr const char* PMD_GRAPPLOCT_NAME = PMD_GRAPPLOCT_NAME_ARR;
+    inline static constexpr size_t PMD_GRAPPLOCT_NAME_LEN = sizeof(PMD_GRAPPLOCT_NAME_ARR)-1;
+    inline static constexpr char PMD_GRAPPLOCT_FQNAME_ARR[] = "pmd:Grapploct";
+    inline static constexpr const char* PMD_GRAPPLOCT_FQNAME = PMD_GRAPPLOCT_FQNAME_ARR;
+    inline static constexpr size_t PMD_GRAPPLOCT_FQNAME_LEN = sizeof(PMD_GRAPPLOCT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GRAPPLOCT_SPRITE_SHEET_FRAMES_COUNT = 96;
+    inline static constexpr size_t PMD_GRAPPLOCT_ANIM_INDEX = 815;
+    inline static constexpr custom_animation_settings_t PMD_GRAPPLOCT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 16,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GRAPPLOCT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GRAPPLOCT_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Sinistea
+    inline static constexpr char PMD_SINISTEA_FQID_ARR[] = "pmd:sinistea";
+    inline static constexpr const char* PMD_SINISTEA_FQID = PMD_SINISTEA_FQID_ARR;
+    inline static constexpr size_t PMD_SINISTEA_FQID_LEN = sizeof(PMD_SINISTEA_FQID_ARR)-1;
+    inline static constexpr char PMD_SINISTEA_ID_ARR[] = "sinistea";
+    inline static constexpr const char* PMD_SINISTEA_ID = PMD_SINISTEA_ID_ARR;
+    inline static constexpr size_t PMD_SINISTEA_ID_LEN = sizeof(PMD_SINISTEA_ID)-1;
+    inline static constexpr char PMD_SINISTEA_NAME_ARR[] = "Sinistea";
+    inline static constexpr const char* PMD_SINISTEA_NAME = PMD_SINISTEA_NAME_ARR;
+    inline static constexpr size_t PMD_SINISTEA_NAME_LEN = sizeof(PMD_SINISTEA_NAME_ARR)-1;
+    inline static constexpr char PMD_SINISTEA_FQNAME_ARR[] = "pmd:Sinistea";
+    inline static constexpr const char* PMD_SINISTEA_FQNAME = PMD_SINISTEA_FQNAME_ARR;
+    inline static constexpr size_t PMD_SINISTEA_FQNAME_LEN = sizeof(PMD_SINISTEA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SINISTEA_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SINISTEA_ANIM_INDEX = 816;
+    inline static constexpr custom_animation_settings_t PMD_SINISTEA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SINISTEA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SINISTEA_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Polteageist
+    inline static constexpr char PMD_POLTEAGEIST_FQID_ARR[] = "pmd:polteageist";
+    inline static constexpr const char* PMD_POLTEAGEIST_FQID = PMD_POLTEAGEIST_FQID_ARR;
+    inline static constexpr size_t PMD_POLTEAGEIST_FQID_LEN = sizeof(PMD_POLTEAGEIST_FQID_ARR)-1;
+    inline static constexpr char PMD_POLTEAGEIST_ID_ARR[] = "polteageist";
+    inline static constexpr const char* PMD_POLTEAGEIST_ID = PMD_POLTEAGEIST_ID_ARR;
+    inline static constexpr size_t PMD_POLTEAGEIST_ID_LEN = sizeof(PMD_POLTEAGEIST_ID)-1;
+    inline static constexpr char PMD_POLTEAGEIST_NAME_ARR[] = "Polteageist";
+    inline static constexpr const char* PMD_POLTEAGEIST_NAME = PMD_POLTEAGEIST_NAME_ARR;
+    inline static constexpr size_t PMD_POLTEAGEIST_NAME_LEN = sizeof(PMD_POLTEAGEIST_NAME_ARR)-1;
+    inline static constexpr char PMD_POLTEAGEIST_FQNAME_ARR[] = "pmd:Polteageist";
+    inline static constexpr const char* PMD_POLTEAGEIST_FQNAME = PMD_POLTEAGEIST_FQNAME_ARR;
+    inline static constexpr size_t PMD_POLTEAGEIST_FQNAME_LEN = sizeof(PMD_POLTEAGEIST_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_POLTEAGEIST_SPRITE_SHEET_FRAMES_COUNT = 114;
+    inline static constexpr size_t PMD_POLTEAGEIST_ANIM_INDEX = 817;
+    inline static constexpr custom_animation_settings_t PMD_POLTEAGEIST_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 19,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_POLTEAGEIST_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_POLTEAGEIST_SPRITE_SHEET_MAX_COLS = 19;
+
+    // Name: Hatenna
+    inline static constexpr char PMD_HATENNA_FQID_ARR[] = "pmd:hatenna";
+    inline static constexpr const char* PMD_HATENNA_FQID = PMD_HATENNA_FQID_ARR;
+    inline static constexpr size_t PMD_HATENNA_FQID_LEN = sizeof(PMD_HATENNA_FQID_ARR)-1;
+    inline static constexpr char PMD_HATENNA_ID_ARR[] = "hatenna";
+    inline static constexpr const char* PMD_HATENNA_ID = PMD_HATENNA_ID_ARR;
+    inline static constexpr size_t PMD_HATENNA_ID_LEN = sizeof(PMD_HATENNA_ID)-1;
+    inline static constexpr char PMD_HATENNA_NAME_ARR[] = "Hatenna";
+    inline static constexpr const char* PMD_HATENNA_NAME = PMD_HATENNA_NAME_ARR;
+    inline static constexpr size_t PMD_HATENNA_NAME_LEN = sizeof(PMD_HATENNA_NAME_ARR)-1;
+    inline static constexpr char PMD_HATENNA_FQNAME_ARR[] = "pmd:Hatenna";
+    inline static constexpr const char* PMD_HATENNA_FQNAME = PMD_HATENNA_FQNAME_ARR;
+    inline static constexpr size_t PMD_HATENNA_FQNAME_LEN = sizeof(PMD_HATENNA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_HATENNA_SPRITE_SHEET_FRAMES_COUNT = 112;
+    inline static constexpr size_t PMD_HATENNA_ANIM_INDEX = 818;
+    inline static constexpr custom_animation_settings_t PMD_HATENNA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 16,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_HATENNA_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_HATENNA_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Hattrem
+    inline static constexpr char PMD_HATTREM_FQID_ARR[] = "pmd:hattrem";
+    inline static constexpr const char* PMD_HATTREM_FQID = PMD_HATTREM_FQID_ARR;
+    inline static constexpr size_t PMD_HATTREM_FQID_LEN = sizeof(PMD_HATTREM_FQID_ARR)-1;
+    inline static constexpr char PMD_HATTREM_ID_ARR[] = "hattrem";
+    inline static constexpr const char* PMD_HATTREM_ID = PMD_HATTREM_ID_ARR;
+    inline static constexpr size_t PMD_HATTREM_ID_LEN = sizeof(PMD_HATTREM_ID)-1;
+    inline static constexpr char PMD_HATTREM_NAME_ARR[] = "Hattrem";
+    inline static constexpr const char* PMD_HATTREM_NAME = PMD_HATTREM_NAME_ARR;
+    inline static constexpr size_t PMD_HATTREM_NAME_LEN = sizeof(PMD_HATTREM_NAME_ARR)-1;
+    inline static constexpr char PMD_HATTREM_FQNAME_ARR[] = "pmd:Hattrem";
+    inline static constexpr const char* PMD_HATTREM_FQNAME = PMD_HATTREM_FQNAME_ARR;
+    inline static constexpr size_t PMD_HATTREM_FQNAME_LEN = sizeof(PMD_HATTREM_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_HATTREM_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_HATTREM_ANIM_INDEX = 819;
+    inline static constexpr custom_animation_settings_t PMD_HATTREM_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_HATTREM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_HATTREM_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Hatterene
+    inline static constexpr char PMD_HATTERENE_FQID_ARR[] = "pmd:hatterene";
+    inline static constexpr const char* PMD_HATTERENE_FQID = PMD_HATTERENE_FQID_ARR;
+    inline static constexpr size_t PMD_HATTERENE_FQID_LEN = sizeof(PMD_HATTERENE_FQID_ARR)-1;
+    inline static constexpr char PMD_HATTERENE_ID_ARR[] = "hatterene";
+    inline static constexpr const char* PMD_HATTERENE_ID = PMD_HATTERENE_ID_ARR;
+    inline static constexpr size_t PMD_HATTERENE_ID_LEN = sizeof(PMD_HATTERENE_ID)-1;
+    inline static constexpr char PMD_HATTERENE_NAME_ARR[] = "Hatterene";
+    inline static constexpr const char* PMD_HATTERENE_NAME = PMD_HATTERENE_NAME_ARR;
+    inline static constexpr size_t PMD_HATTERENE_NAME_LEN = sizeof(PMD_HATTERENE_NAME_ARR)-1;
+    inline static constexpr char PMD_HATTERENE_FQNAME_ARR[] = "pmd:Hatterene";
+    inline static constexpr const char* PMD_HATTERENE_FQNAME = PMD_HATTERENE_FQNAME_ARR;
+    inline static constexpr size_t PMD_HATTERENE_FQNAME_LEN = sizeof(PMD_HATTERENE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_HATTERENE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_HATTERENE_ANIM_INDEX = 820;
+    inline static constexpr custom_animation_settings_t PMD_HATTERENE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 9,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_HATTERENE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_HATTERENE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Impidimp
+    inline static constexpr char PMD_IMPIDIMP_FQID_ARR[] = "pmd:impidimp";
+    inline static constexpr const char* PMD_IMPIDIMP_FQID = PMD_IMPIDIMP_FQID_ARR;
+    inline static constexpr size_t PMD_IMPIDIMP_FQID_LEN = sizeof(PMD_IMPIDIMP_FQID_ARR)-1;
+    inline static constexpr char PMD_IMPIDIMP_ID_ARR[] = "impidimp";
+    inline static constexpr const char* PMD_IMPIDIMP_ID = PMD_IMPIDIMP_ID_ARR;
+    inline static constexpr size_t PMD_IMPIDIMP_ID_LEN = sizeof(PMD_IMPIDIMP_ID)-1;
+    inline static constexpr char PMD_IMPIDIMP_NAME_ARR[] = "Impidimp";
+    inline static constexpr const char* PMD_IMPIDIMP_NAME = PMD_IMPIDIMP_NAME_ARR;
+    inline static constexpr size_t PMD_IMPIDIMP_NAME_LEN = sizeof(PMD_IMPIDIMP_NAME_ARR)-1;
+    inline static constexpr char PMD_IMPIDIMP_FQNAME_ARR[] = "pmd:Impidimp";
+    inline static constexpr const char* PMD_IMPIDIMP_FQNAME = PMD_IMPIDIMP_FQNAME_ARR;
+    inline static constexpr size_t PMD_IMPIDIMP_FQNAME_LEN = sizeof(PMD_IMPIDIMP_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_IMPIDIMP_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_IMPIDIMP_ANIM_INDEX = 821;
+    inline static constexpr custom_animation_settings_t PMD_IMPIDIMP_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 5,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_IMPIDIMP_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_IMPIDIMP_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Morgrem
+    inline static constexpr char PMD_MORGREM_FQID_ARR[] = "pmd:morgrem";
+    inline static constexpr const char* PMD_MORGREM_FQID = PMD_MORGREM_FQID_ARR;
+    inline static constexpr size_t PMD_MORGREM_FQID_LEN = sizeof(PMD_MORGREM_FQID_ARR)-1;
+    inline static constexpr char PMD_MORGREM_ID_ARR[] = "morgrem";
+    inline static constexpr const char* PMD_MORGREM_ID = PMD_MORGREM_ID_ARR;
+    inline static constexpr size_t PMD_MORGREM_ID_LEN = sizeof(PMD_MORGREM_ID)-1;
+    inline static constexpr char PMD_MORGREM_NAME_ARR[] = "Morgrem";
+    inline static constexpr const char* PMD_MORGREM_NAME = PMD_MORGREM_NAME_ARR;
+    inline static constexpr size_t PMD_MORGREM_NAME_LEN = sizeof(PMD_MORGREM_NAME_ARR)-1;
+    inline static constexpr char PMD_MORGREM_FQNAME_ARR[] = "pmd:Morgrem";
+    inline static constexpr const char* PMD_MORGREM_FQNAME = PMD_MORGREM_FQNAME_ARR;
+    inline static constexpr size_t PMD_MORGREM_FQNAME_LEN = sizeof(PMD_MORGREM_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MORGREM_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_MORGREM_ANIM_INDEX = 822;
+    inline static constexpr custom_animation_settings_t PMD_MORGREM_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MORGREM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MORGREM_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Grimmsnarl
+    inline static constexpr char PMD_GRIMMSNARL_FQID_ARR[] = "pmd:grimmsnarl";
+    inline static constexpr const char* PMD_GRIMMSNARL_FQID = PMD_GRIMMSNARL_FQID_ARR;
+    inline static constexpr size_t PMD_GRIMMSNARL_FQID_LEN = sizeof(PMD_GRIMMSNARL_FQID_ARR)-1;
+    inline static constexpr char PMD_GRIMMSNARL_ID_ARR[] = "grimmsnarl";
+    inline static constexpr const char* PMD_GRIMMSNARL_ID = PMD_GRIMMSNARL_ID_ARR;
+    inline static constexpr size_t PMD_GRIMMSNARL_ID_LEN = sizeof(PMD_GRIMMSNARL_ID)-1;
+    inline static constexpr char PMD_GRIMMSNARL_NAME_ARR[] = "Grimmsnarl";
+    inline static constexpr const char* PMD_GRIMMSNARL_NAME = PMD_GRIMMSNARL_NAME_ARR;
+    inline static constexpr size_t PMD_GRIMMSNARL_NAME_LEN = sizeof(PMD_GRIMMSNARL_NAME_ARR)-1;
+    inline static constexpr char PMD_GRIMMSNARL_FQNAME_ARR[] = "pmd:Grimmsnarl";
+    inline static constexpr const char* PMD_GRIMMSNARL_FQNAME = PMD_GRIMMSNARL_FQNAME_ARR;
+    inline static constexpr size_t PMD_GRIMMSNARL_FQNAME_LEN = sizeof(PMD_GRIMMSNARL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_GRIMMSNARL_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_GRIMMSNARL_ANIM_INDEX = 823;
+    inline static constexpr custom_animation_settings_t PMD_GRIMMSNARL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_GRIMMSNARL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_GRIMMSNARL_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Obstagoon
+    inline static constexpr char PMD_OBSTAGOON_FQID_ARR[] = "pmd:obstagoon";
+    inline static constexpr const char* PMD_OBSTAGOON_FQID = PMD_OBSTAGOON_FQID_ARR;
+    inline static constexpr size_t PMD_OBSTAGOON_FQID_LEN = sizeof(PMD_OBSTAGOON_FQID_ARR)-1;
+    inline static constexpr char PMD_OBSTAGOON_ID_ARR[] = "obstagoon";
+    inline static constexpr const char* PMD_OBSTAGOON_ID = PMD_OBSTAGOON_ID_ARR;
+    inline static constexpr size_t PMD_OBSTAGOON_ID_LEN = sizeof(PMD_OBSTAGOON_ID)-1;
+    inline static constexpr char PMD_OBSTAGOON_NAME_ARR[] = "Obstagoon";
+    inline static constexpr const char* PMD_OBSTAGOON_NAME = PMD_OBSTAGOON_NAME_ARR;
+    inline static constexpr size_t PMD_OBSTAGOON_NAME_LEN = sizeof(PMD_OBSTAGOON_NAME_ARR)-1;
+    inline static constexpr char PMD_OBSTAGOON_FQNAME_ARR[] = "pmd:Obstagoon";
+    inline static constexpr const char* PMD_OBSTAGOON_FQNAME = PMD_OBSTAGOON_FQNAME_ARR;
+    inline static constexpr size_t PMD_OBSTAGOON_FQNAME_LEN = sizeof(PMD_OBSTAGOON_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_OBSTAGOON_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_OBSTAGOON_ANIM_INDEX = 824;
+    inline static constexpr custom_animation_settings_t PMD_OBSTAGOON_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_OBSTAGOON_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_OBSTAGOON_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Cursola
+    inline static constexpr char PMD_CURSOLA_FQID_ARR[] = "pmd:cursola";
+    inline static constexpr const char* PMD_CURSOLA_FQID = PMD_CURSOLA_FQID_ARR;
+    inline static constexpr size_t PMD_CURSOLA_FQID_LEN = sizeof(PMD_CURSOLA_FQID_ARR)-1;
+    inline static constexpr char PMD_CURSOLA_ID_ARR[] = "cursola";
+    inline static constexpr const char* PMD_CURSOLA_ID = PMD_CURSOLA_ID_ARR;
+    inline static constexpr size_t PMD_CURSOLA_ID_LEN = sizeof(PMD_CURSOLA_ID)-1;
+    inline static constexpr char PMD_CURSOLA_NAME_ARR[] = "Cursola";
+    inline static constexpr const char* PMD_CURSOLA_NAME = PMD_CURSOLA_NAME_ARR;
+    inline static constexpr size_t PMD_CURSOLA_NAME_LEN = sizeof(PMD_CURSOLA_NAME_ARR)-1;
+    inline static constexpr char PMD_CURSOLA_FQNAME_ARR[] = "pmd:Cursola";
+    inline static constexpr const char* PMD_CURSOLA_FQNAME = PMD_CURSOLA_FQNAME_ARR;
+    inline static constexpr size_t PMD_CURSOLA_FQNAME_LEN = sizeof(PMD_CURSOLA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CURSOLA_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_CURSOLA_ANIM_INDEX = 825;
+    inline static constexpr custom_animation_settings_t PMD_CURSOLA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CURSOLA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_CURSOLA_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Sirfetchd
+    inline static constexpr char PMD_SIRFETCHD_FQID_ARR[] = "pmd:sirfetchd";
+    inline static constexpr const char* PMD_SIRFETCHD_FQID = PMD_SIRFETCHD_FQID_ARR;
+    inline static constexpr size_t PMD_SIRFETCHD_FQID_LEN = sizeof(PMD_SIRFETCHD_FQID_ARR)-1;
+    inline static constexpr char PMD_SIRFETCHD_ID_ARR[] = "sirfetchd";
+    inline static constexpr const char* PMD_SIRFETCHD_ID = PMD_SIRFETCHD_ID_ARR;
+    inline static constexpr size_t PMD_SIRFETCHD_ID_LEN = sizeof(PMD_SIRFETCHD_ID)-1;
+    inline static constexpr char PMD_SIRFETCHD_NAME_ARR[] = "Sirfetchd";
+    inline static constexpr const char* PMD_SIRFETCHD_NAME = PMD_SIRFETCHD_NAME_ARR;
+    inline static constexpr size_t PMD_SIRFETCHD_NAME_LEN = sizeof(PMD_SIRFETCHD_NAME_ARR)-1;
+    inline static constexpr char PMD_SIRFETCHD_FQNAME_ARR[] = "pmd:Sirfetchd";
+    inline static constexpr const char* PMD_SIRFETCHD_FQNAME = PMD_SIRFETCHD_FQNAME_ARR;
+    inline static constexpr size_t PMD_SIRFETCHD_FQNAME_LEN = sizeof(PMD_SIRFETCHD_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SIRFETCHD_SPRITE_SHEET_FRAMES_COUNT = 12;
+    inline static constexpr size_t PMD_SIRFETCHD_ANIM_INDEX = 826;
+    inline static constexpr custom_animation_settings_t PMD_SIRFETCHD_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 4,
+        .end_writing_frames = -1,
+        .happy_frames = -1,
+        .asleep_frames = -1,
+        .sleep_frames = -1,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = -1,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SIRFETCHD_SPRITE_SHEET_ROWS = 3;
+    inline static constexpr int PMD_SIRFETCHD_SPRITE_SHEET_MAX_COLS = 4;
+
+    // Name: Runerigus
+    inline static constexpr char PMD_RUNERIGUS_FQID_ARR[] = "pmd:runerigus";
+    inline static constexpr const char* PMD_RUNERIGUS_FQID = PMD_RUNERIGUS_FQID_ARR;
+    inline static constexpr size_t PMD_RUNERIGUS_FQID_LEN = sizeof(PMD_RUNERIGUS_FQID_ARR)-1;
+    inline static constexpr char PMD_RUNERIGUS_ID_ARR[] = "runerigus";
+    inline static constexpr const char* PMD_RUNERIGUS_ID = PMD_RUNERIGUS_ID_ARR;
+    inline static constexpr size_t PMD_RUNERIGUS_ID_LEN = sizeof(PMD_RUNERIGUS_ID)-1;
+    inline static constexpr char PMD_RUNERIGUS_NAME_ARR[] = "Runerigus";
+    inline static constexpr const char* PMD_RUNERIGUS_NAME = PMD_RUNERIGUS_NAME_ARR;
+    inline static constexpr size_t PMD_RUNERIGUS_NAME_LEN = sizeof(PMD_RUNERIGUS_NAME_ARR)-1;
+    inline static constexpr char PMD_RUNERIGUS_FQNAME_ARR[] = "pmd:Runerigus";
+    inline static constexpr const char* PMD_RUNERIGUS_FQNAME = PMD_RUNERIGUS_FQNAME_ARR;
+    inline static constexpr size_t PMD_RUNERIGUS_FQNAME_LEN = sizeof(PMD_RUNERIGUS_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_RUNERIGUS_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_RUNERIGUS_ANIM_INDEX = 827;
+    inline static constexpr custom_animation_settings_t PMD_RUNERIGUS_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 3,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_RUNERIGUS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_RUNERIGUS_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Milcery
+    inline static constexpr char PMD_MILCERY_FQID_ARR[] = "pmd:milcery";
+    inline static constexpr const char* PMD_MILCERY_FQID = PMD_MILCERY_FQID_ARR;
+    inline static constexpr size_t PMD_MILCERY_FQID_LEN = sizeof(PMD_MILCERY_FQID_ARR)-1;
+    inline static constexpr char PMD_MILCERY_ID_ARR[] = "milcery";
+    inline static constexpr const char* PMD_MILCERY_ID = PMD_MILCERY_ID_ARR;
+    inline static constexpr size_t PMD_MILCERY_ID_LEN = sizeof(PMD_MILCERY_ID)-1;
+    inline static constexpr char PMD_MILCERY_NAME_ARR[] = "Milcery";
+    inline static constexpr const char* PMD_MILCERY_NAME = PMD_MILCERY_NAME_ARR;
+    inline static constexpr size_t PMD_MILCERY_NAME_LEN = sizeof(PMD_MILCERY_NAME_ARR)-1;
+    inline static constexpr char PMD_MILCERY_FQNAME_ARR[] = "pmd:Milcery";
+    inline static constexpr const char* PMD_MILCERY_FQNAME = PMD_MILCERY_FQNAME_ARR;
+    inline static constexpr size_t PMD_MILCERY_FQNAME_LEN = sizeof(PMD_MILCERY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MILCERY_SPRITE_SHEET_FRAMES_COUNT = 77;
+    inline static constexpr size_t PMD_MILCERY_ANIM_INDEX = 828;
+    inline static constexpr custom_animation_settings_t PMD_MILCERY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = 9,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MILCERY_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_MILCERY_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Alcremie
+    inline static constexpr char PMD_ALCREMIE_FQID_ARR[] = "pmd:alcremie";
+    inline static constexpr const char* PMD_ALCREMIE_FQID = PMD_ALCREMIE_FQID_ARR;
+    inline static constexpr size_t PMD_ALCREMIE_FQID_LEN = sizeof(PMD_ALCREMIE_FQID_ARR)-1;
+    inline static constexpr char PMD_ALCREMIE_ID_ARR[] = "alcremie";
+    inline static constexpr const char* PMD_ALCREMIE_ID = PMD_ALCREMIE_ID_ARR;
+    inline static constexpr size_t PMD_ALCREMIE_ID_LEN = sizeof(PMD_ALCREMIE_ID)-1;
+    inline static constexpr char PMD_ALCREMIE_NAME_ARR[] = "Alcremie";
+    inline static constexpr const char* PMD_ALCREMIE_NAME = PMD_ALCREMIE_NAME_ARR;
+    inline static constexpr size_t PMD_ALCREMIE_NAME_LEN = sizeof(PMD_ALCREMIE_NAME_ARR)-1;
+    inline static constexpr char PMD_ALCREMIE_FQNAME_ARR[] = "pmd:Alcremie";
+    inline static constexpr const char* PMD_ALCREMIE_FQNAME = PMD_ALCREMIE_FQNAME_ARR;
+    inline static constexpr size_t PMD_ALCREMIE_FQNAME_LEN = sizeof(PMD_ALCREMIE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ALCREMIE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ALCREMIE_ANIM_INDEX = 829;
+    inline static constexpr custom_animation_settings_t PMD_ALCREMIE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ALCREMIE_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_ALCREMIE_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Pincurchin
+    inline static constexpr char PMD_PINCURCHIN_FQID_ARR[] = "pmd:pincurchin";
+    inline static constexpr const char* PMD_PINCURCHIN_FQID = PMD_PINCURCHIN_FQID_ARR;
+    inline static constexpr size_t PMD_PINCURCHIN_FQID_LEN = sizeof(PMD_PINCURCHIN_FQID_ARR)-1;
+    inline static constexpr char PMD_PINCURCHIN_ID_ARR[] = "pincurchin";
+    inline static constexpr const char* PMD_PINCURCHIN_ID = PMD_PINCURCHIN_ID_ARR;
+    inline static constexpr size_t PMD_PINCURCHIN_ID_LEN = sizeof(PMD_PINCURCHIN_ID)-1;
+    inline static constexpr char PMD_PINCURCHIN_NAME_ARR[] = "Pincurchin";
+    inline static constexpr const char* PMD_PINCURCHIN_NAME = PMD_PINCURCHIN_NAME_ARR;
+    inline static constexpr size_t PMD_PINCURCHIN_NAME_LEN = sizeof(PMD_PINCURCHIN_NAME_ARR)-1;
+    inline static constexpr char PMD_PINCURCHIN_FQNAME_ARR[] = "pmd:Pincurchin";
+    inline static constexpr const char* PMD_PINCURCHIN_FQNAME = PMD_PINCURCHIN_FQNAME_ARR;
+    inline static constexpr size_t PMD_PINCURCHIN_FQNAME_LEN = sizeof(PMD_PINCURCHIN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_PINCURCHIN_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_PINCURCHIN_ANIM_INDEX = 830;
+    inline static constexpr custom_animation_settings_t PMD_PINCURCHIN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_PINCURCHIN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_PINCURCHIN_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Snom
+    inline static constexpr char PMD_SNOM_FQID_ARR[] = "pmd:snom";
+    inline static constexpr const char* PMD_SNOM_FQID = PMD_SNOM_FQID_ARR;
+    inline static constexpr size_t PMD_SNOM_FQID_LEN = sizeof(PMD_SNOM_FQID_ARR)-1;
+    inline static constexpr char PMD_SNOM_ID_ARR[] = "snom";
+    inline static constexpr const char* PMD_SNOM_ID = PMD_SNOM_ID_ARR;
+    inline static constexpr size_t PMD_SNOM_ID_LEN = sizeof(PMD_SNOM_ID)-1;
+    inline static constexpr char PMD_SNOM_NAME_ARR[] = "Snom";
+    inline static constexpr const char* PMD_SNOM_NAME = PMD_SNOM_NAME_ARR;
+    inline static constexpr size_t PMD_SNOM_NAME_LEN = sizeof(PMD_SNOM_NAME_ARR)-1;
+    inline static constexpr char PMD_SNOM_FQNAME_ARR[] = "pmd:Snom";
+    inline static constexpr const char* PMD_SNOM_FQNAME = PMD_SNOM_FQNAME_ARR;
+    inline static constexpr size_t PMD_SNOM_FQNAME_LEN = sizeof(PMD_SNOM_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SNOM_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_SNOM_ANIM_INDEX = 831;
+    inline static constexpr custom_animation_settings_t PMD_SNOM_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 8,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 3,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SNOM_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SNOM_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Frosmoth
+    inline static constexpr char PMD_FROSMOTH_FQID_ARR[] = "pmd:frosmoth";
+    inline static constexpr const char* PMD_FROSMOTH_FQID = PMD_FROSMOTH_FQID_ARR;
+    inline static constexpr size_t PMD_FROSMOTH_FQID_LEN = sizeof(PMD_FROSMOTH_FQID_ARR)-1;
+    inline static constexpr char PMD_FROSMOTH_ID_ARR[] = "frosmoth";
+    inline static constexpr const char* PMD_FROSMOTH_ID = PMD_FROSMOTH_ID_ARR;
+    inline static constexpr size_t PMD_FROSMOTH_ID_LEN = sizeof(PMD_FROSMOTH_ID)-1;
+    inline static constexpr char PMD_FROSMOTH_NAME_ARR[] = "Frosmoth";
+    inline static constexpr const char* PMD_FROSMOTH_NAME = PMD_FROSMOTH_NAME_ARR;
+    inline static constexpr size_t PMD_FROSMOTH_NAME_LEN = sizeof(PMD_FROSMOTH_NAME_ARR)-1;
+    inline static constexpr char PMD_FROSMOTH_FQNAME_ARR[] = "pmd:Frosmoth";
+    inline static constexpr const char* PMD_FROSMOTH_FQNAME = PMD_FROSMOTH_FQNAME_ARR;
+    inline static constexpr size_t PMD_FROSMOTH_FQNAME_LEN = sizeof(PMD_FROSMOTH_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_FROSMOTH_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_FROSMOTH_ANIM_INDEX = 832;
+    inline static constexpr custom_animation_settings_t PMD_FROSMOTH_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 7,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_FROSMOTH_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_FROSMOTH_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Stonjourner
+    inline static constexpr char PMD_STONJOURNER_FQID_ARR[] = "pmd:stonjourner";
+    inline static constexpr const char* PMD_STONJOURNER_FQID = PMD_STONJOURNER_FQID_ARR;
+    inline static constexpr size_t PMD_STONJOURNER_FQID_LEN = sizeof(PMD_STONJOURNER_FQID_ARR)-1;
+    inline static constexpr char PMD_STONJOURNER_ID_ARR[] = "stonjourner";
+    inline static constexpr const char* PMD_STONJOURNER_ID = PMD_STONJOURNER_ID_ARR;
+    inline static constexpr size_t PMD_STONJOURNER_ID_LEN = sizeof(PMD_STONJOURNER_ID)-1;
+    inline static constexpr char PMD_STONJOURNER_NAME_ARR[] = "Stonjourner";
+    inline static constexpr const char* PMD_STONJOURNER_NAME = PMD_STONJOURNER_NAME_ARR;
+    inline static constexpr size_t PMD_STONJOURNER_NAME_LEN = sizeof(PMD_STONJOURNER_NAME_ARR)-1;
+    inline static constexpr char PMD_STONJOURNER_FQNAME_ARR[] = "pmd:Stonjourner";
+    inline static constexpr const char* PMD_STONJOURNER_FQNAME = PMD_STONJOURNER_FQNAME_ARR;
+    inline static constexpr size_t PMD_STONJOURNER_FQNAME_LEN = sizeof(PMD_STONJOURNER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_STONJOURNER_SPRITE_SHEET_FRAMES_COUNT = 36;
+    inline static constexpr size_t PMD_STONJOURNER_ANIM_INDEX = 833;
+    inline static constexpr custom_animation_settings_t PMD_STONJOURNER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = -1,
+        .asleep_frames = -1,
+        .sleep_frames = -1,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 6,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_STONJOURNER_SPRITE_SHEET_ROWS = 4;
+    inline static constexpr int PMD_STONJOURNER_SPRITE_SHEET_MAX_COLS = 9;
+
+    // Name: Eiscue
+    inline static constexpr char PMD_EISCUE_FQID_ARR[] = "pmd:eiscue";
+    inline static constexpr const char* PMD_EISCUE_FQID = PMD_EISCUE_FQID_ARR;
+    inline static constexpr size_t PMD_EISCUE_FQID_LEN = sizeof(PMD_EISCUE_FQID_ARR)-1;
+    inline static constexpr char PMD_EISCUE_ID_ARR[] = "eiscue";
+    inline static constexpr const char* PMD_EISCUE_ID = PMD_EISCUE_ID_ARR;
+    inline static constexpr size_t PMD_EISCUE_ID_LEN = sizeof(PMD_EISCUE_ID)-1;
+    inline static constexpr char PMD_EISCUE_NAME_ARR[] = "Eiscue";
+    inline static constexpr const char* PMD_EISCUE_NAME = PMD_EISCUE_NAME_ARR;
+    inline static constexpr size_t PMD_EISCUE_NAME_LEN = sizeof(PMD_EISCUE_NAME_ARR)-1;
+    inline static constexpr char PMD_EISCUE_FQNAME_ARR[] = "pmd:Eiscue";
+    inline static constexpr const char* PMD_EISCUE_FQNAME = PMD_EISCUE_FQNAME_ARR;
+    inline static constexpr size_t PMD_EISCUE_FQNAME_LEN = sizeof(PMD_EISCUE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_EISCUE_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_EISCUE_ANIM_INDEX = 834;
+    inline static constexpr custom_animation_settings_t PMD_EISCUE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_EISCUE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_EISCUE_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Indeedee
+    inline static constexpr char PMD_INDEEDEE_FQID_ARR[] = "pmd:indeedee";
+    inline static constexpr const char* PMD_INDEEDEE_FQID = PMD_INDEEDEE_FQID_ARR;
+    inline static constexpr size_t PMD_INDEEDEE_FQID_LEN = sizeof(PMD_INDEEDEE_FQID_ARR)-1;
+    inline static constexpr char PMD_INDEEDEE_ID_ARR[] = "indeedee";
+    inline static constexpr const char* PMD_INDEEDEE_ID = PMD_INDEEDEE_ID_ARR;
+    inline static constexpr size_t PMD_INDEEDEE_ID_LEN = sizeof(PMD_INDEEDEE_ID)-1;
+    inline static constexpr char PMD_INDEEDEE_NAME_ARR[] = "Indeedee";
+    inline static constexpr const char* PMD_INDEEDEE_NAME = PMD_INDEEDEE_NAME_ARR;
+    inline static constexpr size_t PMD_INDEEDEE_NAME_LEN = sizeof(PMD_INDEEDEE_NAME_ARR)-1;
+    inline static constexpr char PMD_INDEEDEE_FQNAME_ARR[] = "pmd:Indeedee";
+    inline static constexpr const char* PMD_INDEEDEE_FQNAME = PMD_INDEEDEE_FQNAME_ARR;
+    inline static constexpr size_t PMD_INDEEDEE_FQNAME_LEN = sizeof(PMD_INDEEDEE_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_INDEEDEE_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_INDEEDEE_ANIM_INDEX = 835;
+    inline static constexpr custom_animation_settings_t PMD_INDEEDEE_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_INDEEDEE_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_INDEEDEE_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Morpeko
+    inline static constexpr char PMD_MORPEKO_FQID_ARR[] = "pmd:morpeko";
+    inline static constexpr const char* PMD_MORPEKO_FQID = PMD_MORPEKO_FQID_ARR;
+    inline static constexpr size_t PMD_MORPEKO_FQID_LEN = sizeof(PMD_MORPEKO_FQID_ARR)-1;
+    inline static constexpr char PMD_MORPEKO_ID_ARR[] = "morpeko";
+    inline static constexpr const char* PMD_MORPEKO_ID = PMD_MORPEKO_ID_ARR;
+    inline static constexpr size_t PMD_MORPEKO_ID_LEN = sizeof(PMD_MORPEKO_ID)-1;
+    inline static constexpr char PMD_MORPEKO_NAME_ARR[] = "Morpeko";
+    inline static constexpr const char* PMD_MORPEKO_NAME = PMD_MORPEKO_NAME_ARR;
+    inline static constexpr size_t PMD_MORPEKO_NAME_LEN = sizeof(PMD_MORPEKO_NAME_ARR)-1;
+    inline static constexpr char PMD_MORPEKO_FQNAME_ARR[] = "pmd:Morpeko";
+    inline static constexpr const char* PMD_MORPEKO_FQNAME = PMD_MORPEKO_FQNAME_ARR;
+    inline static constexpr size_t PMD_MORPEKO_FQNAME_LEN = sizeof(PMD_MORPEKO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_MORPEKO_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_MORPEKO_ANIM_INDEX = 836;
+    inline static constexpr custom_animation_settings_t PMD_MORPEKO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 7,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_MORPEKO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_MORPEKO_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Copperajah
+    inline static constexpr char PMD_COPPERAJAH_FQID_ARR[] = "pmd:copperajah";
+    inline static constexpr const char* PMD_COPPERAJAH_FQID = PMD_COPPERAJAH_FQID_ARR;
+    inline static constexpr size_t PMD_COPPERAJAH_FQID_LEN = sizeof(PMD_COPPERAJAH_FQID_ARR)-1;
+    inline static constexpr char PMD_COPPERAJAH_ID_ARR[] = "copperajah";
+    inline static constexpr const char* PMD_COPPERAJAH_ID = PMD_COPPERAJAH_ID_ARR;
+    inline static constexpr size_t PMD_COPPERAJAH_ID_LEN = sizeof(PMD_COPPERAJAH_ID)-1;
+    inline static constexpr char PMD_COPPERAJAH_NAME_ARR[] = "Copperajah";
+    inline static constexpr const char* PMD_COPPERAJAH_NAME = PMD_COPPERAJAH_NAME_ARR;
+    inline static constexpr size_t PMD_COPPERAJAH_NAME_LEN = sizeof(PMD_COPPERAJAH_NAME_ARR)-1;
+    inline static constexpr char PMD_COPPERAJAH_FQNAME_ARR[] = "pmd:Copperajah";
+    inline static constexpr const char* PMD_COPPERAJAH_FQNAME = PMD_COPPERAJAH_FQNAME_ARR;
+    inline static constexpr size_t PMD_COPPERAJAH_FQNAME_LEN = sizeof(PMD_COPPERAJAH_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_COPPERAJAH_SPRITE_SHEET_FRAMES_COUNT = 12;
+    inline static constexpr size_t PMD_COPPERAJAH_ANIM_INDEX = 837;
+    inline static constexpr custom_animation_settings_t PMD_COPPERAJAH_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 1,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 1,
+        .end_writing_frames = -1,
+        .happy_frames = -1,
+        .asleep_frames = -1,
+        .sleep_frames = -1,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = -1,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_COPPERAJAH_SPRITE_SHEET_ROWS = 3;
+    inline static constexpr int PMD_COPPERAJAH_SPRITE_SHEET_MAX_COLS = 4;
+
+    // Name: Dracozolt
+    inline static constexpr char PMD_DRACOZOLT_FQID_ARR[] = "pmd:dracozolt";
+    inline static constexpr const char* PMD_DRACOZOLT_FQID = PMD_DRACOZOLT_FQID_ARR;
+    inline static constexpr size_t PMD_DRACOZOLT_FQID_LEN = sizeof(PMD_DRACOZOLT_FQID_ARR)-1;
+    inline static constexpr char PMD_DRACOZOLT_ID_ARR[] = "dracozolt";
+    inline static constexpr const char* PMD_DRACOZOLT_ID = PMD_DRACOZOLT_ID_ARR;
+    inline static constexpr size_t PMD_DRACOZOLT_ID_LEN = sizeof(PMD_DRACOZOLT_ID)-1;
+    inline static constexpr char PMD_DRACOZOLT_NAME_ARR[] = "Dracozolt";
+    inline static constexpr const char* PMD_DRACOZOLT_NAME = PMD_DRACOZOLT_NAME_ARR;
+    inline static constexpr size_t PMD_DRACOZOLT_NAME_LEN = sizeof(PMD_DRACOZOLT_NAME_ARR)-1;
+    inline static constexpr char PMD_DRACOZOLT_FQNAME_ARR[] = "pmd:Dracozolt";
+    inline static constexpr const char* PMD_DRACOZOLT_FQNAME = PMD_DRACOZOLT_FQNAME_ARR;
+    inline static constexpr size_t PMD_DRACOZOLT_FQNAME_LEN = sizeof(PMD_DRACOZOLT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DRACOZOLT_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DRACOZOLT_ANIM_INDEX = 838;
+    inline static constexpr custom_animation_settings_t PMD_DRACOZOLT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 9,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DRACOZOLT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DRACOZOLT_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Arctozolt
+    inline static constexpr char PMD_ARCTOZOLT_FQID_ARR[] = "pmd:arctozolt";
+    inline static constexpr const char* PMD_ARCTOZOLT_FQID = PMD_ARCTOZOLT_FQID_ARR;
+    inline static constexpr size_t PMD_ARCTOZOLT_FQID_LEN = sizeof(PMD_ARCTOZOLT_FQID_ARR)-1;
+    inline static constexpr char PMD_ARCTOZOLT_ID_ARR[] = "arctozolt";
+    inline static constexpr const char* PMD_ARCTOZOLT_ID = PMD_ARCTOZOLT_ID_ARR;
+    inline static constexpr size_t PMD_ARCTOZOLT_ID_LEN = sizeof(PMD_ARCTOZOLT_ID)-1;
+    inline static constexpr char PMD_ARCTOZOLT_NAME_ARR[] = "Arctozolt";
+    inline static constexpr const char* PMD_ARCTOZOLT_NAME = PMD_ARCTOZOLT_NAME_ARR;
+    inline static constexpr size_t PMD_ARCTOZOLT_NAME_LEN = sizeof(PMD_ARCTOZOLT_NAME_ARR)-1;
+    inline static constexpr char PMD_ARCTOZOLT_FQNAME_ARR[] = "pmd:Arctozolt";
+    inline static constexpr const char* PMD_ARCTOZOLT_FQNAME = PMD_ARCTOZOLT_FQNAME_ARR;
+    inline static constexpr size_t PMD_ARCTOZOLT_FQNAME_LEN = sizeof(PMD_ARCTOZOLT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ARCTOZOLT_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ARCTOZOLT_ANIM_INDEX = 839;
+    inline static constexpr custom_animation_settings_t PMD_ARCTOZOLT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 11,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ARCTOZOLT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ARCTOZOLT_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Dracovish
+    inline static constexpr char PMD_DRACOVISH_FQID_ARR[] = "pmd:dracovish";
+    inline static constexpr const char* PMD_DRACOVISH_FQID = PMD_DRACOVISH_FQID_ARR;
+    inline static constexpr size_t PMD_DRACOVISH_FQID_LEN = sizeof(PMD_DRACOVISH_FQID_ARR)-1;
+    inline static constexpr char PMD_DRACOVISH_ID_ARR[] = "dracovish";
+    inline static constexpr const char* PMD_DRACOVISH_ID = PMD_DRACOVISH_ID_ARR;
+    inline static constexpr size_t PMD_DRACOVISH_ID_LEN = sizeof(PMD_DRACOVISH_ID)-1;
+    inline static constexpr char PMD_DRACOVISH_NAME_ARR[] = "Dracovish";
+    inline static constexpr const char* PMD_DRACOVISH_NAME = PMD_DRACOVISH_NAME_ARR;
+    inline static constexpr size_t PMD_DRACOVISH_NAME_LEN = sizeof(PMD_DRACOVISH_NAME_ARR)-1;
+    inline static constexpr char PMD_DRACOVISH_FQNAME_ARR[] = "pmd:Dracovish";
+    inline static constexpr const char* PMD_DRACOVISH_FQNAME = PMD_DRACOVISH_FQNAME_ARR;
+    inline static constexpr size_t PMD_DRACOVISH_FQNAME_LEN = sizeof(PMD_DRACOVISH_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DRACOVISH_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_DRACOVISH_ANIM_INDEX = 840;
+    inline static constexpr custom_animation_settings_t PMD_DRACOVISH_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 10,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DRACOVISH_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DRACOVISH_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Arctovish
+    inline static constexpr char PMD_ARCTOVISH_FQID_ARR[] = "pmd:arctovish";
+    inline static constexpr const char* PMD_ARCTOVISH_FQID = PMD_ARCTOVISH_FQID_ARR;
+    inline static constexpr size_t PMD_ARCTOVISH_FQID_LEN = sizeof(PMD_ARCTOVISH_FQID_ARR)-1;
+    inline static constexpr char PMD_ARCTOVISH_ID_ARR[] = "arctovish";
+    inline static constexpr const char* PMD_ARCTOVISH_ID = PMD_ARCTOVISH_ID_ARR;
+    inline static constexpr size_t PMD_ARCTOVISH_ID_LEN = sizeof(PMD_ARCTOVISH_ID)-1;
+    inline static constexpr char PMD_ARCTOVISH_NAME_ARR[] = "Arctovish";
+    inline static constexpr const char* PMD_ARCTOVISH_NAME = PMD_ARCTOVISH_NAME_ARR;
+    inline static constexpr size_t PMD_ARCTOVISH_NAME_LEN = sizeof(PMD_ARCTOVISH_NAME_ARR)-1;
+    inline static constexpr char PMD_ARCTOVISH_FQNAME_ARR[] = "pmd:Arctovish";
+    inline static constexpr const char* PMD_ARCTOVISH_FQNAME = PMD_ARCTOVISH_FQNAME_ARR;
+    inline static constexpr size_t PMD_ARCTOVISH_FQNAME_LEN = sizeof(PMD_ARCTOVISH_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ARCTOVISH_SPRITE_SHEET_FRAMES_COUNT = 48;
+    inline static constexpr size_t PMD_ARCTOVISH_ANIM_INDEX = 841;
+    inline static constexpr custom_animation_settings_t PMD_ARCTOVISH_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 9,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = -1,
+        .asleep_frames = -1,
+        .sleep_frames = -1,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ARCTOVISH_SPRITE_SHEET_ROWS = 4;
+    inline static constexpr int PMD_ARCTOVISH_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Duraludon
+    inline static constexpr char PMD_DURALUDON_FQID_ARR[] = "pmd:duraludon";
+    inline static constexpr const char* PMD_DURALUDON_FQID = PMD_DURALUDON_FQID_ARR;
+    inline static constexpr size_t PMD_DURALUDON_FQID_LEN = sizeof(PMD_DURALUDON_FQID_ARR)-1;
+    inline static constexpr char PMD_DURALUDON_ID_ARR[] = "duraludon";
+    inline static constexpr const char* PMD_DURALUDON_ID = PMD_DURALUDON_ID_ARR;
+    inline static constexpr size_t PMD_DURALUDON_ID_LEN = sizeof(PMD_DURALUDON_ID)-1;
+    inline static constexpr char PMD_DURALUDON_NAME_ARR[] = "Duraludon";
+    inline static constexpr const char* PMD_DURALUDON_NAME = PMD_DURALUDON_NAME_ARR;
+    inline static constexpr size_t PMD_DURALUDON_NAME_LEN = sizeof(PMD_DURALUDON_NAME_ARR)-1;
+    inline static constexpr char PMD_DURALUDON_FQNAME_ARR[] = "pmd:Duraludon";
+    inline static constexpr const char* PMD_DURALUDON_FQNAME = PMD_DURALUDON_FQNAME_ARR;
+    inline static constexpr size_t PMD_DURALUDON_FQNAME_LEN = sizeof(PMD_DURALUDON_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DURALUDON_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_DURALUDON_ANIM_INDEX = 842;
+    inline static constexpr custom_animation_settings_t PMD_DURALUDON_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 2,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DURALUDON_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_DURALUDON_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Dreepy
+    inline static constexpr char PMD_DREEPY_FQID_ARR[] = "pmd:dreepy";
+    inline static constexpr const char* PMD_DREEPY_FQID = PMD_DREEPY_FQID_ARR;
+    inline static constexpr size_t PMD_DREEPY_FQID_LEN = sizeof(PMD_DREEPY_FQID_ARR)-1;
+    inline static constexpr char PMD_DREEPY_ID_ARR[] = "dreepy";
+    inline static constexpr const char* PMD_DREEPY_ID = PMD_DREEPY_ID_ARR;
+    inline static constexpr size_t PMD_DREEPY_ID_LEN = sizeof(PMD_DREEPY_ID)-1;
+    inline static constexpr char PMD_DREEPY_NAME_ARR[] = "Dreepy";
+    inline static constexpr const char* PMD_DREEPY_NAME = PMD_DREEPY_NAME_ARR;
+    inline static constexpr size_t PMD_DREEPY_NAME_LEN = sizeof(PMD_DREEPY_NAME_ARR)-1;
+    inline static constexpr char PMD_DREEPY_FQNAME_ARR[] = "pmd:Dreepy";
+    inline static constexpr const char* PMD_DREEPY_FQNAME = PMD_DREEPY_FQNAME_ARR;
+    inline static constexpr size_t PMD_DREEPY_FQNAME_LEN = sizeof(PMD_DREEPY_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DREEPY_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_DREEPY_ANIM_INDEX = 843;
+    inline static constexpr custom_animation_settings_t PMD_DREEPY_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DREEPY_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DREEPY_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Drakloak
+    inline static constexpr char PMD_DRAKLOAK_FQID_ARR[] = "pmd:drakloak";
+    inline static constexpr const char* PMD_DRAKLOAK_FQID = PMD_DRAKLOAK_FQID_ARR;
+    inline static constexpr size_t PMD_DRAKLOAK_FQID_LEN = sizeof(PMD_DRAKLOAK_FQID_ARR)-1;
+    inline static constexpr char PMD_DRAKLOAK_ID_ARR[] = "drakloak";
+    inline static constexpr const char* PMD_DRAKLOAK_ID = PMD_DRAKLOAK_ID_ARR;
+    inline static constexpr size_t PMD_DRAKLOAK_ID_LEN = sizeof(PMD_DRAKLOAK_ID)-1;
+    inline static constexpr char PMD_DRAKLOAK_NAME_ARR[] = "Drakloak";
+    inline static constexpr const char* PMD_DRAKLOAK_NAME = PMD_DRAKLOAK_NAME_ARR;
+    inline static constexpr size_t PMD_DRAKLOAK_NAME_LEN = sizeof(PMD_DRAKLOAK_NAME_ARR)-1;
+    inline static constexpr char PMD_DRAKLOAK_FQNAME_ARR[] = "pmd:Drakloak";
+    inline static constexpr const char* PMD_DRAKLOAK_FQNAME = PMD_DRAKLOAK_FQNAME_ARR;
+    inline static constexpr size_t PMD_DRAKLOAK_FQNAME_LEN = sizeof(PMD_DRAKLOAK_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DRAKLOAK_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DRAKLOAK_ANIM_INDEX = 844;
+    inline static constexpr custom_animation_settings_t PMD_DRAKLOAK_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 8,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 14,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DRAKLOAK_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DRAKLOAK_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Dragapult
+    inline static constexpr char PMD_DRAGAPULT_FQID_ARR[] = "pmd:dragapult";
+    inline static constexpr const char* PMD_DRAGAPULT_FQID = PMD_DRAGAPULT_FQID_ARR;
+    inline static constexpr size_t PMD_DRAGAPULT_FQID_LEN = sizeof(PMD_DRAGAPULT_FQID_ARR)-1;
+    inline static constexpr char PMD_DRAGAPULT_ID_ARR[] = "dragapult";
+    inline static constexpr const char* PMD_DRAGAPULT_ID = PMD_DRAGAPULT_ID_ARR;
+    inline static constexpr size_t PMD_DRAGAPULT_ID_LEN = sizeof(PMD_DRAGAPULT_ID)-1;
+    inline static constexpr char PMD_DRAGAPULT_NAME_ARR[] = "Dragapult";
+    inline static constexpr const char* PMD_DRAGAPULT_NAME = PMD_DRAGAPULT_NAME_ARR;
+    inline static constexpr size_t PMD_DRAGAPULT_NAME_LEN = sizeof(PMD_DRAGAPULT_NAME_ARR)-1;
+    inline static constexpr char PMD_DRAGAPULT_FQNAME_ARR[] = "pmd:Dragapult";
+    inline static constexpr const char* PMD_DRAGAPULT_FQNAME = PMD_DRAGAPULT_FQNAME_ARR;
+    inline static constexpr size_t PMD_DRAGAPULT_FQNAME_LEN = sizeof(PMD_DRAGAPULT_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_DRAGAPULT_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_DRAGAPULT_ANIM_INDEX = 845;
+    inline static constexpr custom_animation_settings_t PMD_DRAGAPULT_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 7,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_DRAGAPULT_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_DRAGAPULT_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Zacian
+    inline static constexpr char PMD_ZACIAN_FQID_ARR[] = "pmd:zacian";
+    inline static constexpr const char* PMD_ZACIAN_FQID = PMD_ZACIAN_FQID_ARR;
+    inline static constexpr size_t PMD_ZACIAN_FQID_LEN = sizeof(PMD_ZACIAN_FQID_ARR)-1;
+    inline static constexpr char PMD_ZACIAN_ID_ARR[] = "zacian";
+    inline static constexpr const char* PMD_ZACIAN_ID = PMD_ZACIAN_ID_ARR;
+    inline static constexpr size_t PMD_ZACIAN_ID_LEN = sizeof(PMD_ZACIAN_ID)-1;
+    inline static constexpr char PMD_ZACIAN_NAME_ARR[] = "Zacian";
+    inline static constexpr const char* PMD_ZACIAN_NAME = PMD_ZACIAN_NAME_ARR;
+    inline static constexpr size_t PMD_ZACIAN_NAME_LEN = sizeof(PMD_ZACIAN_NAME_ARR)-1;
+    inline static constexpr char PMD_ZACIAN_FQNAME_ARR[] = "pmd:Zacian";
+    inline static constexpr const char* PMD_ZACIAN_FQNAME = PMD_ZACIAN_FQNAME_ARR;
+    inline static constexpr size_t PMD_ZACIAN_FQNAME_LEN = sizeof(PMD_ZACIAN_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ZACIAN_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_ZACIAN_ANIM_INDEX = 846;
+    inline static constexpr custom_animation_settings_t PMD_ZACIAN_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 8,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ZACIAN_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ZACIAN_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Eternatus
+    inline static constexpr char PMD_ETERNATUS_FQID_ARR[] = "pmd:eternatus";
+    inline static constexpr const char* PMD_ETERNATUS_FQID = PMD_ETERNATUS_FQID_ARR;
+    inline static constexpr size_t PMD_ETERNATUS_FQID_LEN = sizeof(PMD_ETERNATUS_FQID_ARR)-1;
+    inline static constexpr char PMD_ETERNATUS_ID_ARR[] = "eternatus";
+    inline static constexpr const char* PMD_ETERNATUS_ID = PMD_ETERNATUS_ID_ARR;
+    inline static constexpr size_t PMD_ETERNATUS_ID_LEN = sizeof(PMD_ETERNATUS_ID)-1;
+    inline static constexpr char PMD_ETERNATUS_NAME_ARR[] = "Eternatus";
+    inline static constexpr const char* PMD_ETERNATUS_NAME = PMD_ETERNATUS_NAME_ARR;
+    inline static constexpr size_t PMD_ETERNATUS_NAME_LEN = sizeof(PMD_ETERNATUS_NAME_ARR)-1;
+    inline static constexpr char PMD_ETERNATUS_FQNAME_ARR[] = "pmd:Eternatus";
+    inline static constexpr const char* PMD_ETERNATUS_FQNAME = PMD_ETERNATUS_FQNAME_ARR;
+    inline static constexpr size_t PMD_ETERNATUS_FQNAME_LEN = sizeof(PMD_ETERNATUS_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ETERNATUS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ETERNATUS_ANIM_INDEX = 847;
+    inline static constexpr custom_animation_settings_t PMD_ETERNATUS_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ETERNATUS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ETERNATUS_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Kubfu
+    inline static constexpr char PMD_KUBFU_FQID_ARR[] = "pmd:kubfu";
+    inline static constexpr const char* PMD_KUBFU_FQID = PMD_KUBFU_FQID_ARR;
+    inline static constexpr size_t PMD_KUBFU_FQID_LEN = sizeof(PMD_KUBFU_FQID_ARR)-1;
+    inline static constexpr char PMD_KUBFU_ID_ARR[] = "kubfu";
+    inline static constexpr const char* PMD_KUBFU_ID = PMD_KUBFU_ID_ARR;
+    inline static constexpr size_t PMD_KUBFU_ID_LEN = sizeof(PMD_KUBFU_ID)-1;
+    inline static constexpr char PMD_KUBFU_NAME_ARR[] = "Kubfu";
+    inline static constexpr const char* PMD_KUBFU_NAME = PMD_KUBFU_NAME_ARR;
+    inline static constexpr size_t PMD_KUBFU_NAME_LEN = sizeof(PMD_KUBFU_NAME_ARR)-1;
+    inline static constexpr char PMD_KUBFU_FQNAME_ARR[] = "pmd:Kubfu";
+    inline static constexpr const char* PMD_KUBFU_FQNAME = PMD_KUBFU_FQNAME_ARR;
+    inline static constexpr size_t PMD_KUBFU_FQNAME_LEN = sizeof(PMD_KUBFU_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_KUBFU_SPRITE_SHEET_FRAMES_COUNT = 70;
+    inline static constexpr size_t PMD_KUBFU_ANIM_INDEX = 848;
+    inline static constexpr custom_animation_settings_t PMD_KUBFU_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = 3,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_KUBFU_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_KUBFU_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Urshifu
+    inline static constexpr char PMD_URSHIFU_FQID_ARR[] = "pmd:urshifu";
+    inline static constexpr const char* PMD_URSHIFU_FQID = PMD_URSHIFU_FQID_ARR;
+    inline static constexpr size_t PMD_URSHIFU_FQID_LEN = sizeof(PMD_URSHIFU_FQID_ARR)-1;
+    inline static constexpr char PMD_URSHIFU_ID_ARR[] = "urshifu";
+    inline static constexpr const char* PMD_URSHIFU_ID = PMD_URSHIFU_ID_ARR;
+    inline static constexpr size_t PMD_URSHIFU_ID_LEN = sizeof(PMD_URSHIFU_ID)-1;
+    inline static constexpr char PMD_URSHIFU_NAME_ARR[] = "Urshifu";
+    inline static constexpr const char* PMD_URSHIFU_NAME = PMD_URSHIFU_NAME_ARR;
+    inline static constexpr size_t PMD_URSHIFU_NAME_LEN = sizeof(PMD_URSHIFU_NAME_ARR)-1;
+    inline static constexpr char PMD_URSHIFU_FQNAME_ARR[] = "pmd:Urshifu";
+    inline static constexpr const char* PMD_URSHIFU_FQNAME = PMD_URSHIFU_FQNAME_ARR;
+    inline static constexpr size_t PMD_URSHIFU_FQNAME_LEN = sizeof(PMD_URSHIFU_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_URSHIFU_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_URSHIFU_ANIM_INDEX = 849;
+    inline static constexpr custom_animation_settings_t PMD_URSHIFU_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 13,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_URSHIFU_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_URSHIFU_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Regieleki
+    inline static constexpr char PMD_REGIELEKI_FQID_ARR[] = "pmd:regieleki";
+    inline static constexpr const char* PMD_REGIELEKI_FQID = PMD_REGIELEKI_FQID_ARR;
+    inline static constexpr size_t PMD_REGIELEKI_FQID_LEN = sizeof(PMD_REGIELEKI_FQID_ARR)-1;
+    inline static constexpr char PMD_REGIELEKI_ID_ARR[] = "regieleki";
+    inline static constexpr const char* PMD_REGIELEKI_ID = PMD_REGIELEKI_ID_ARR;
+    inline static constexpr size_t PMD_REGIELEKI_ID_LEN = sizeof(PMD_REGIELEKI_ID)-1;
+    inline static constexpr char PMD_REGIELEKI_NAME_ARR[] = "Regieleki";
+    inline static constexpr const char* PMD_REGIELEKI_NAME = PMD_REGIELEKI_NAME_ARR;
+    inline static constexpr size_t PMD_REGIELEKI_NAME_LEN = sizeof(PMD_REGIELEKI_NAME_ARR)-1;
+    inline static constexpr char PMD_REGIELEKI_FQNAME_ARR[] = "pmd:Regieleki";
+    inline static constexpr const char* PMD_REGIELEKI_FQNAME = PMD_REGIELEKI_FQNAME_ARR;
+    inline static constexpr size_t PMD_REGIELEKI_FQNAME_LEN = sizeof(PMD_REGIELEKI_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_REGIELEKI_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_REGIELEKI_ANIM_INDEX = 850;
+    inline static constexpr custom_animation_settings_t PMD_REGIELEKI_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_REGIELEKI_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_REGIELEKI_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Regidrago
+    inline static constexpr char PMD_REGIDRAGO_FQID_ARR[] = "pmd:regidrago";
+    inline static constexpr const char* PMD_REGIDRAGO_FQID = PMD_REGIDRAGO_FQID_ARR;
+    inline static constexpr size_t PMD_REGIDRAGO_FQID_LEN = sizeof(PMD_REGIDRAGO_FQID_ARR)-1;
+    inline static constexpr char PMD_REGIDRAGO_ID_ARR[] = "regidrago";
+    inline static constexpr const char* PMD_REGIDRAGO_ID = PMD_REGIDRAGO_ID_ARR;
+    inline static constexpr size_t PMD_REGIDRAGO_ID_LEN = sizeof(PMD_REGIDRAGO_ID)-1;
+    inline static constexpr char PMD_REGIDRAGO_NAME_ARR[] = "Regidrago";
+    inline static constexpr const char* PMD_REGIDRAGO_NAME = PMD_REGIDRAGO_NAME_ARR;
+    inline static constexpr size_t PMD_REGIDRAGO_NAME_LEN = sizeof(PMD_REGIDRAGO_NAME_ARR)-1;
+    inline static constexpr char PMD_REGIDRAGO_FQNAME_ARR[] = "pmd:Regidrago";
+    inline static constexpr const char* PMD_REGIDRAGO_FQNAME = PMD_REGIDRAGO_FQNAME_ARR;
+    inline static constexpr size_t PMD_REGIDRAGO_FQNAME_LEN = sizeof(PMD_REGIDRAGO_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_REGIDRAGO_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_REGIDRAGO_ANIM_INDEX = 851;
+    inline static constexpr custom_animation_settings_t PMD_REGIDRAGO_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_REGIDRAGO_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_REGIDRAGO_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Spectrier
+    inline static constexpr char PMD_SPECTRIER_FQID_ARR[] = "pmd:spectrier";
+    inline static constexpr const char* PMD_SPECTRIER_FQID = PMD_SPECTRIER_FQID_ARR;
+    inline static constexpr size_t PMD_SPECTRIER_FQID_LEN = sizeof(PMD_SPECTRIER_FQID_ARR)-1;
+    inline static constexpr char PMD_SPECTRIER_ID_ARR[] = "spectrier";
+    inline static constexpr const char* PMD_SPECTRIER_ID = PMD_SPECTRIER_ID_ARR;
+    inline static constexpr size_t PMD_SPECTRIER_ID_LEN = sizeof(PMD_SPECTRIER_ID)-1;
+    inline static constexpr char PMD_SPECTRIER_NAME_ARR[] = "Spectrier";
+    inline static constexpr const char* PMD_SPECTRIER_NAME = PMD_SPECTRIER_NAME_ARR;
+    inline static constexpr size_t PMD_SPECTRIER_NAME_LEN = sizeof(PMD_SPECTRIER_NAME_ARR)-1;
+    inline static constexpr char PMD_SPECTRIER_FQNAME_ARR[] = "pmd:Spectrier";
+    inline static constexpr const char* PMD_SPECTRIER_FQNAME = PMD_SPECTRIER_FQNAME_ARR;
+    inline static constexpr size_t PMD_SPECTRIER_FQNAME_LEN = sizeof(PMD_SPECTRIER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SPECTRIER_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_SPECTRIER_ANIM_INDEX = 852;
+    inline static constexpr custom_animation_settings_t PMD_SPECTRIER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 10,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SPECTRIER_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SPECTRIER_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Calyrex
+    inline static constexpr char PMD_CALYREX_FQID_ARR[] = "pmd:calyrex";
+    inline static constexpr const char* PMD_CALYREX_FQID = PMD_CALYREX_FQID_ARR;
+    inline static constexpr size_t PMD_CALYREX_FQID_LEN = sizeof(PMD_CALYREX_FQID_ARR)-1;
+    inline static constexpr char PMD_CALYREX_ID_ARR[] = "calyrex";
+    inline static constexpr const char* PMD_CALYREX_ID = PMD_CALYREX_ID_ARR;
+    inline static constexpr size_t PMD_CALYREX_ID_LEN = sizeof(PMD_CALYREX_ID)-1;
+    inline static constexpr char PMD_CALYREX_NAME_ARR[] = "Calyrex";
+    inline static constexpr const char* PMD_CALYREX_NAME = PMD_CALYREX_NAME_ARR;
+    inline static constexpr size_t PMD_CALYREX_NAME_LEN = sizeof(PMD_CALYREX_NAME_ARR)-1;
+    inline static constexpr char PMD_CALYREX_FQNAME_ARR[] = "pmd:Calyrex";
+    inline static constexpr const char* PMD_CALYREX_FQNAME = PMD_CALYREX_FQNAME_ARR;
+    inline static constexpr size_t PMD_CALYREX_FQNAME_LEN = sizeof(PMD_CALYREX_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_CALYREX_SPRITE_SHEET_FRAMES_COUNT = 112;
+    inline static constexpr size_t PMD_CALYREX_ANIM_INDEX = 853;
+    inline static constexpr custom_animation_settings_t PMD_CALYREX_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = 16,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 11,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_CALYREX_SPRITE_SHEET_ROWS = 7;
+    inline static constexpr int PMD_CALYREX_SPRITE_SHEET_MAX_COLS = 16;
+
+    // Name: Wyrdeer
+    inline static constexpr char PMD_WYRDEER_FQID_ARR[] = "pmd:wyrdeer";
+    inline static constexpr const char* PMD_WYRDEER_FQID = PMD_WYRDEER_FQID_ARR;
+    inline static constexpr size_t PMD_WYRDEER_FQID_LEN = sizeof(PMD_WYRDEER_FQID_ARR)-1;
+    inline static constexpr char PMD_WYRDEER_ID_ARR[] = "wyrdeer";
+    inline static constexpr const char* PMD_WYRDEER_ID = PMD_WYRDEER_ID_ARR;
+    inline static constexpr size_t PMD_WYRDEER_ID_LEN = sizeof(PMD_WYRDEER_ID)-1;
+    inline static constexpr char PMD_WYRDEER_NAME_ARR[] = "Wyrdeer";
+    inline static constexpr const char* PMD_WYRDEER_NAME = PMD_WYRDEER_NAME_ARR;
+    inline static constexpr size_t PMD_WYRDEER_NAME_LEN = sizeof(PMD_WYRDEER_NAME_ARR)-1;
+    inline static constexpr char PMD_WYRDEER_FQNAME_ARR[] = "pmd:Wyrdeer";
+    inline static constexpr const char* PMD_WYRDEER_FQNAME = PMD_WYRDEER_FQNAME_ARR;
+    inline static constexpr size_t PMD_WYRDEER_FQNAME_LEN = sizeof(PMD_WYRDEER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_WYRDEER_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_WYRDEER_ANIM_INDEX = 854;
+    inline static constexpr custom_animation_settings_t PMD_WYRDEER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 14,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 8,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 6,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_WYRDEER_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_WYRDEER_SPRITE_SHEET_MAX_COLS = 14;
+
+    // Name: Kleavor
+    inline static constexpr char PMD_KLEAVOR_FQID_ARR[] = "pmd:kleavor";
+    inline static constexpr const char* PMD_KLEAVOR_FQID = PMD_KLEAVOR_FQID_ARR;
+    inline static constexpr size_t PMD_KLEAVOR_FQID_LEN = sizeof(PMD_KLEAVOR_FQID_ARR)-1;
+    inline static constexpr char PMD_KLEAVOR_ID_ARR[] = "kleavor";
+    inline static constexpr const char* PMD_KLEAVOR_ID = PMD_KLEAVOR_ID_ARR;
+    inline static constexpr size_t PMD_KLEAVOR_ID_LEN = sizeof(PMD_KLEAVOR_ID)-1;
+    inline static constexpr char PMD_KLEAVOR_NAME_ARR[] = "Kleavor";
+    inline static constexpr const char* PMD_KLEAVOR_NAME = PMD_KLEAVOR_NAME_ARR;
+    inline static constexpr size_t PMD_KLEAVOR_NAME_LEN = sizeof(PMD_KLEAVOR_NAME_ARR)-1;
+    inline static constexpr char PMD_KLEAVOR_FQNAME_ARR[] = "pmd:Kleavor";
+    inline static constexpr const char* PMD_KLEAVOR_FQNAME = PMD_KLEAVOR_FQNAME_ARR;
+    inline static constexpr size_t PMD_KLEAVOR_FQNAME_LEN = sizeof(PMD_KLEAVOR_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_KLEAVOR_SPRITE_SHEET_FRAMES_COUNT = 78;
+    inline static constexpr size_t PMD_KLEAVOR_ANIM_INDEX = 855;
+    inline static constexpr custom_animation_settings_t PMD_KLEAVOR_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 13,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_KLEAVOR_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_KLEAVOR_SPRITE_SHEET_MAX_COLS = 13;
+
+    // Name: Ursaluna
+    inline static constexpr char PMD_URSALUNA_FQID_ARR[] = "pmd:ursaluna";
+    inline static constexpr const char* PMD_URSALUNA_FQID = PMD_URSALUNA_FQID_ARR;
+    inline static constexpr size_t PMD_URSALUNA_FQID_LEN = sizeof(PMD_URSALUNA_FQID_ARR)-1;
+    inline static constexpr char PMD_URSALUNA_ID_ARR[] = "ursaluna";
+    inline static constexpr const char* PMD_URSALUNA_ID = PMD_URSALUNA_ID_ARR;
+    inline static constexpr size_t PMD_URSALUNA_ID_LEN = sizeof(PMD_URSALUNA_ID)-1;
+    inline static constexpr char PMD_URSALUNA_NAME_ARR[] = "Ursaluna";
+    inline static constexpr const char* PMD_URSALUNA_NAME = PMD_URSALUNA_NAME_ARR;
+    inline static constexpr size_t PMD_URSALUNA_NAME_LEN = sizeof(PMD_URSALUNA_NAME_ARR)-1;
+    inline static constexpr char PMD_URSALUNA_FQNAME_ARR[] = "pmd:Ursaluna";
+    inline static constexpr const char* PMD_URSALUNA_FQNAME = PMD_URSALUNA_FQNAME_ARR;
+    inline static constexpr size_t PMD_URSALUNA_FQNAME_LEN = sizeof(PMD_URSALUNA_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_URSALUNA_SPRITE_SHEET_FRAMES_COUNT = 66;
+    inline static constexpr size_t PMD_URSALUNA_ANIM_INDEX = 856;
+    inline static constexpr custom_animation_settings_t PMD_URSALUNA_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 8,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 11,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 10,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_URSALUNA_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_URSALUNA_SPRITE_SHEET_MAX_COLS = 11;
+
+    // Name: Basculegion
+    inline static constexpr char PMD_BASCULEGION_FQID_ARR[] = "pmd:basculegion";
+    inline static constexpr const char* PMD_BASCULEGION_FQID = PMD_BASCULEGION_FQID_ARR;
+    inline static constexpr size_t PMD_BASCULEGION_FQID_LEN = sizeof(PMD_BASCULEGION_FQID_ARR)-1;
+    inline static constexpr char PMD_BASCULEGION_ID_ARR[] = "basculegion";
+    inline static constexpr const char* PMD_BASCULEGION_ID = PMD_BASCULEGION_ID_ARR;
+    inline static constexpr size_t PMD_BASCULEGION_ID_LEN = sizeof(PMD_BASCULEGION_ID)-1;
+    inline static constexpr char PMD_BASCULEGION_NAME_ARR[] = "Basculegion";
+    inline static constexpr const char* PMD_BASCULEGION_NAME = PMD_BASCULEGION_NAME_ARR;
+    inline static constexpr size_t PMD_BASCULEGION_NAME_LEN = sizeof(PMD_BASCULEGION_NAME_ARR)-1;
+    inline static constexpr char PMD_BASCULEGION_FQNAME_ARR[] = "pmd:Basculegion";
+    inline static constexpr const char* PMD_BASCULEGION_FQNAME = PMD_BASCULEGION_FQNAME_ARR;
+    inline static constexpr size_t PMD_BASCULEGION_FQNAME_LEN = sizeof(PMD_BASCULEGION_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_BASCULEGION_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_BASCULEGION_ANIM_INDEX = 857;
+    inline static constexpr custom_animation_settings_t PMD_BASCULEGION_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 6,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 8,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_BASCULEGION_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_BASCULEGION_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Sneasler
+    inline static constexpr char PMD_SNEASLER_FQID_ARR[] = "pmd:sneasler";
+    inline static constexpr const char* PMD_SNEASLER_FQID = PMD_SNEASLER_FQID_ARR;
+    inline static constexpr size_t PMD_SNEASLER_FQID_LEN = sizeof(PMD_SNEASLER_FQID_ARR)-1;
+    inline static constexpr char PMD_SNEASLER_ID_ARR[] = "sneasler";
+    inline static constexpr const char* PMD_SNEASLER_ID = PMD_SNEASLER_ID_ARR;
+    inline static constexpr size_t PMD_SNEASLER_ID_LEN = sizeof(PMD_SNEASLER_ID)-1;
+    inline static constexpr char PMD_SNEASLER_NAME_ARR[] = "Sneasler";
+    inline static constexpr const char* PMD_SNEASLER_NAME = PMD_SNEASLER_NAME_ARR;
+    inline static constexpr size_t PMD_SNEASLER_NAME_LEN = sizeof(PMD_SNEASLER_NAME_ARR)-1;
+    inline static constexpr char PMD_SNEASLER_FQNAME_ARR[] = "pmd:Sneasler";
+    inline static constexpr const char* PMD_SNEASLER_FQNAME = PMD_SNEASLER_FQNAME_ARR;
+    inline static constexpr size_t PMD_SNEASLER_FQNAME_LEN = sizeof(PMD_SNEASLER_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_SNEASLER_SPRITE_SHEET_FRAMES_COUNT = 60;
+    inline static constexpr size_t PMD_SNEASLER_ANIM_INDEX = 858;
+    inline static constexpr custom_animation_settings_t PMD_SNEASLER_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 6,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 9,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 6,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_SNEASLER_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_SNEASLER_SPRITE_SHEET_MAX_COLS = 10;
+
+    // Name: Overqwil
+    inline static constexpr char PMD_OVERQWIL_FQID_ARR[] = "pmd:overqwil";
+    inline static constexpr const char* PMD_OVERQWIL_FQID = PMD_OVERQWIL_FQID_ARR;
+    inline static constexpr size_t PMD_OVERQWIL_FQID_LEN = sizeof(PMD_OVERQWIL_FQID_ARR)-1;
+    inline static constexpr char PMD_OVERQWIL_ID_ARR[] = "overqwil";
+    inline static constexpr const char* PMD_OVERQWIL_ID = PMD_OVERQWIL_ID_ARR;
+    inline static constexpr size_t PMD_OVERQWIL_ID_LEN = sizeof(PMD_OVERQWIL_ID)-1;
+    inline static constexpr char PMD_OVERQWIL_NAME_ARR[] = "Overqwil";
+    inline static constexpr const char* PMD_OVERQWIL_NAME = PMD_OVERQWIL_NAME_ARR;
+    inline static constexpr size_t PMD_OVERQWIL_NAME_LEN = sizeof(PMD_OVERQWIL_NAME_ARR)-1;
+    inline static constexpr char PMD_OVERQWIL_FQNAME_ARR[] = "pmd:Overqwil";
+    inline static constexpr const char* PMD_OVERQWIL_FQNAME = PMD_OVERQWIL_FQNAME_ARR;
+    inline static constexpr size_t PMD_OVERQWIL_FQNAME_LEN = sizeof(PMD_OVERQWIL_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_OVERQWIL_SPRITE_SHEET_FRAMES_COUNT = 72;
+    inline static constexpr size_t PMD_OVERQWIL_ANIM_INDEX = 859;
+    inline static constexpr custom_animation_settings_t PMD_OVERQWIL_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 4,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 12,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 2,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 4,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_OVERQWIL_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_OVERQWIL_SPRITE_SHEET_MAX_COLS = 12;
+
+    // Name: Enamorus
+    inline static constexpr char PMD_ENAMORUS_FQID_ARR[] = "pmd:enamorus";
+    inline static constexpr const char* PMD_ENAMORUS_FQID = PMD_ENAMORUS_FQID_ARR;
+    inline static constexpr size_t PMD_ENAMORUS_FQID_LEN = sizeof(PMD_ENAMORUS_FQID_ARR)-1;
+    inline static constexpr char PMD_ENAMORUS_ID_ARR[] = "enamorus";
+    inline static constexpr const char* PMD_ENAMORUS_ID = PMD_ENAMORUS_ID_ARR;
+    inline static constexpr size_t PMD_ENAMORUS_ID_LEN = sizeof(PMD_ENAMORUS_ID)-1;
+    inline static constexpr char PMD_ENAMORUS_NAME_ARR[] = "Enamorus";
+    inline static constexpr const char* PMD_ENAMORUS_NAME = PMD_ENAMORUS_NAME_ARR;
+    inline static constexpr size_t PMD_ENAMORUS_NAME_LEN = sizeof(PMD_ENAMORUS_NAME_ARR)-1;
+    inline static constexpr char PMD_ENAMORUS_FQNAME_ARR[] = "pmd:Enamorus";
+    inline static constexpr const char* PMD_ENAMORUS_FQNAME = PMD_ENAMORUS_FQNAME_ARR;
+    inline static constexpr size_t PMD_ENAMORUS_FQNAME_LEN = sizeof(PMD_ENAMORUS_FQNAME_ARR)-1;
+    inline static constexpr size_t PMD_ENAMORUS_SPRITE_SHEET_FRAMES_COUNT = 84;
+    inline static constexpr size_t PMD_ENAMORUS_ANIM_INDEX = 860;
+    inline static constexpr custom_animation_settings_t PMD_ENAMORUS_SPRITE_SHEET_SETTINGS {
+        .idle_frames = 9,
+        .boring_frames = -1,
+        .start_writing_frames = -1,
+        .writing_frames = 14,
+        .end_writing_frames = -1,
+        .happy_frames = 10,
+        .asleep_frames = -1,
+        .sleep_frames = 8,
+        .wake_up_frames = -1,
+        .start_working_frames = -1,
+        .working_frames = 12,
+        .end_working_frames = -1,
+        .start_moving_frames = -1,
+        .moving_frames = 9,
+        .end_moving_frames = -1,
+        .start_running_frames = -1,
+        .running_frames = -1,
+        .end_running_frames = -1,
+    };
+    inline static constexpr int PMD_ENAMORUS_SPRITE_SHEET_ROWS = 6;
+    inline static constexpr int PMD_ENAMORUS_SPRITE_SHEET_MAX_COLS = 14;
+
+    inline static constexpr size_t PMD_ANIM_COUNT = 861;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_CUSTOM_PMD_HPP

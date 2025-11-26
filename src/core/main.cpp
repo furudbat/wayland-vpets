@@ -721,7 +721,7 @@ namespace bongocat {
             printf("  %8s - Pokemon, up to Gen 5\n", "pkmn");
         }
         if constexpr (features::EnablePmdEmbeddedAssets) {
-            printf("  %8s - Pokemon Mystery Dungeon, up to Gen 6 (fan sprites)\n", "pmd");
+            printf("  %8s - Pokemon Mystery Dungeon, up to Gen 8 (fan sprites)\n", "pmd");
         }
         if constexpr (features::EnableMsAgentEmbeddedAssets) {
             printf("  %8s - MS Agent\n", "ms_agent");

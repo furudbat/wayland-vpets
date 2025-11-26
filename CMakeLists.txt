@@ -47,7 +47,7 @@ cmake_dependent_option(FEATURE_DMALL_EMBEDDED_ASSETS "Include custom colored dm 
 option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" OFF)
 cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS agents (Links) embedded assets" OFF FEATURE_MS_AGENT_EMBEDDED_ASSETS OFF)
 option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" OFF)
-option(FEATURE_ENABLE_PMD_EMBEDDED_ASSETS "Enable include pkmn pmd embedded assets" OFF)
+option(FEATURE_ENABLE_PMD_EMBEDDED_ASSETS "Enable include pkmn pmd (replace pkmn) embedded assets" OFF)
 option(FEATURE_MISC_EMBEDDED_ASSETS "Enable include misc embedded assets" OFF)
 # @NOTE(assets): 1. add feature flag for embedded assets
 
@@ -270,7 +270,7 @@ if (FEATURE_MULTI_VERSIONS)
     target_link_libraries(bongocat-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
     target_link_libraries(bongocat-all PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface)
     target_link_libraries(bongocat-all PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
-    # TODO: include pmd in -all when ready (experimental) ?
+    # TODO: include pmd in -all when ready (experimental)
     target_link_libraries(bongocat-all PRIVATE
             # only include pmd for testing
             $<$<CONFIG:Debug>:assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader>

@@ -191,8 +191,9 @@ sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
 sed -i -E 's/^idle_animation=[0-9]+/idle_animation=0/' "$CONFIG"
 sed -i -E 's/^fps=[0-9]+/fps=15/' "$CONFIG"
 sed -i -E 's/^animation_speed=[0-9]+/animation_speed=66/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID"
-sleep 2
+sleep 5
 if [[ -f "/proc/$PID/fd/0" ]]; then
   printf '\e' > /proc/$PID/fd/0
   sleep 1

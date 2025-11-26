@@ -66,7 +66,6 @@ get_pokemon_name() {
     # read from cache
     local cached
     cached=$(jq -r --arg id "$id" '.[$id] // empty' "$CACHE_FILE")
-
     if [[ -n "$cached" && "$cached" != "null" ]]; then
         echo "$cached"
         return 0
@@ -76,7 +75,6 @@ get_pokemon_name() {
     local api_json name
     api_json=$(curl -s "https://pokeapi.co/api/v2/pokemon/${id}")
     name=$(echo "$api_json" | jq -r '.name // empty')
-
     if [[ -z "$name" ]]; then
         echo "ERROR: could not retrieve Pokémon name for ID $id" >&2
         name="unknown"
@@ -122,11 +120,11 @@ pick_row_from_png() {
 ROW_LABELS=( "Idle" "Boring" "Writing" "Happy" "Sleep" "Working" "Moving" )
 ROW_CANDIDATES=(
     "Idle,Hover,Walk"
-    "Pose,DeepBreath,Cringe"
-    "FlapAround,Attack,Charge,Idle"
-    "Nod,Hop"
+    "Pose,DeepBreath,Appeal,Dance,Twirl,TailWhip"
+    "Uppercut,Punch,Slap,Scratch,Slice,Chop,Strike,Ricochet,Jab,Bite,Kick,Lick,Slam,Stomp,Attack,Idle"
+    "Hop,Withdraw,Nod"
     "Sleep,EventSleep,Laying"
-    "Shot,Shoot,RearUp,Strike,Jab,TailWhip,Kick,Shock,SpAttack,Attack"
+    "MultiScratch,MultiStrike,Shock,Emit,Shake,Sing,Sound,Gas,Withdraw,RearUp,Rumble,Swell,SpAttack,Shot,Shoot,Charge,Attack"
     "Walk,Hover"
 )
 
@@ -135,7 +133,7 @@ ROW_CANDIDATES=(
 # -----------------------------
 GLOBAL_W=0
 GLOBAL_H=0
-FIXED_FRAME_SIZE=48
+FIXED_FRAME_SIZE=64
 FRAME_SIZE=0
 PADDING=4
 for folder in "$INPUT_ROOT"/*/; do
@@ -252,9 +250,10 @@ for folder in "$INPUT_ROOT"/*/; do
         for f in "${frames_sorted[@]}"; do
             PADDED="$outdir/padded_$(basename "$f")"
             magick "$f" \
-                -gravity center \
                 -background none \
+                -gravity south \
                 -extent "${FIXED_FRAME_SIZE}x${FIXED_FRAME_SIZE}" \
+                -splice "0x${PAD_BOTTOM}" \
                 "$PADDED" || echo "Warning: Failed to generate $PADDED"
             (( max_fw > new_fw )) && new_fw=$max_fw
             (( (max_fh - MIN_TOP) > new_fh )) && new_fh=(max_fh - MIN_TOP)

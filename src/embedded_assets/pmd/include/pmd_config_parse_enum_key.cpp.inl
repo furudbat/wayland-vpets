@@ -6289,3 +6289,1461 @@ if (strcmp(value, PMD_VOLCANION_NAME) == 0 ||
     config.animation_custom_set = config_animation_custom_set_t::pmd;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
 }
+// check for Rowlet (rowlet)
+if (strcmp(value, PMD_ROWLET_NAME) == 0 ||
+    strcmp(value, PMD_ROWLET_ID) == 0 ||
+    strcmp(value, PMD_ROWLET_FQID) == 0 ||
+    strcmp(value, PMD_ROWLET_FQNAME) == 0) {
+    config.animation_index = PMD_ROWLET_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dartrix (dartrix)
+if (strcmp(value, PMD_DARTRIX_NAME) == 0 ||
+    strcmp(value, PMD_DARTRIX_ID) == 0 ||
+    strcmp(value, PMD_DARTRIX_FQID) == 0 ||
+    strcmp(value, PMD_DARTRIX_FQNAME) == 0) {
+    config.animation_index = PMD_DARTRIX_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Decidueye (decidueye)
+if (strcmp(value, PMD_DECIDUEYE_NAME) == 0 ||
+    strcmp(value, PMD_DECIDUEYE_ID) == 0 ||
+    strcmp(value, PMD_DECIDUEYE_FQID) == 0 ||
+    strcmp(value, PMD_DECIDUEYE_FQNAME) == 0) {
+    config.animation_index = PMD_DECIDUEYE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Litten (litten)
+if (strcmp(value, PMD_LITTEN_NAME) == 0 ||
+    strcmp(value, PMD_LITTEN_ID) == 0 ||
+    strcmp(value, PMD_LITTEN_FQID) == 0 ||
+    strcmp(value, PMD_LITTEN_FQNAME) == 0) {
+    config.animation_index = PMD_LITTEN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Torracat (torracat)
+if (strcmp(value, PMD_TORRACAT_NAME) == 0 ||
+    strcmp(value, PMD_TORRACAT_ID) == 0 ||
+    strcmp(value, PMD_TORRACAT_FQID) == 0 ||
+    strcmp(value, PMD_TORRACAT_FQNAME) == 0) {
+    config.animation_index = PMD_TORRACAT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Incineroar (incineroar)
+if (strcmp(value, PMD_INCINEROAR_NAME) == 0 ||
+    strcmp(value, PMD_INCINEROAR_ID) == 0 ||
+    strcmp(value, PMD_INCINEROAR_FQID) == 0 ||
+    strcmp(value, PMD_INCINEROAR_FQNAME) == 0) {
+    config.animation_index = PMD_INCINEROAR_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Popplio (popplio)
+if (strcmp(value, PMD_POPPLIO_NAME) == 0 ||
+    strcmp(value, PMD_POPPLIO_ID) == 0 ||
+    strcmp(value, PMD_POPPLIO_FQID) == 0 ||
+    strcmp(value, PMD_POPPLIO_FQNAME) == 0) {
+    config.animation_index = PMD_POPPLIO_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Brionne (brionne)
+if (strcmp(value, PMD_BRIONNE_NAME) == 0 ||
+    strcmp(value, PMD_BRIONNE_ID) == 0 ||
+    strcmp(value, PMD_BRIONNE_FQID) == 0 ||
+    strcmp(value, PMD_BRIONNE_FQNAME) == 0) {
+    config.animation_index = PMD_BRIONNE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Primarina (primarina)
+if (strcmp(value, PMD_PRIMARINA_NAME) == 0 ||
+    strcmp(value, PMD_PRIMARINA_ID) == 0 ||
+    strcmp(value, PMD_PRIMARINA_FQID) == 0 ||
+    strcmp(value, PMD_PRIMARINA_FQNAME) == 0) {
+    config.animation_index = PMD_PRIMARINA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Toucannon (toucannon)
+if (strcmp(value, PMD_TOUCANNON_NAME) == 0 ||
+    strcmp(value, PMD_TOUCANNON_ID) == 0 ||
+    strcmp(value, PMD_TOUCANNON_FQID) == 0 ||
+    strcmp(value, PMD_TOUCANNON_FQNAME) == 0) {
+    config.animation_index = PMD_TOUCANNON_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Grubbin (grubbin)
+if (strcmp(value, PMD_GRUBBIN_NAME) == 0 ||
+    strcmp(value, PMD_GRUBBIN_ID) == 0 ||
+    strcmp(value, PMD_GRUBBIN_FQID) == 0 ||
+    strcmp(value, PMD_GRUBBIN_FQNAME) == 0) {
+    config.animation_index = PMD_GRUBBIN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Charjabug (charjabug)
+if (strcmp(value, PMD_CHARJABUG_NAME) == 0 ||
+    strcmp(value, PMD_CHARJABUG_ID) == 0 ||
+    strcmp(value, PMD_CHARJABUG_FQID) == 0 ||
+    strcmp(value, PMD_CHARJABUG_FQNAME) == 0) {
+    config.animation_index = PMD_CHARJABUG_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Vikavolt (vikavolt)
+if (strcmp(value, PMD_VIKAVOLT_NAME) == 0 ||
+    strcmp(value, PMD_VIKAVOLT_ID) == 0 ||
+    strcmp(value, PMD_VIKAVOLT_FQID) == 0 ||
+    strcmp(value, PMD_VIKAVOLT_FQNAME) == 0) {
+    config.animation_index = PMD_VIKAVOLT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Crabrawler (crabrawler)
+if (strcmp(value, PMD_CRABRAWLER_NAME) == 0 ||
+    strcmp(value, PMD_CRABRAWLER_ID) == 0 ||
+    strcmp(value, PMD_CRABRAWLER_FQID) == 0 ||
+    strcmp(value, PMD_CRABRAWLER_FQNAME) == 0) {
+    config.animation_index = PMD_CRABRAWLER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Crabominable (crabominable)
+if (strcmp(value, PMD_CRABOMINABLE_NAME) == 0 ||
+    strcmp(value, PMD_CRABOMINABLE_ID) == 0 ||
+    strcmp(value, PMD_CRABOMINABLE_FQID) == 0 ||
+    strcmp(value, PMD_CRABOMINABLE_FQNAME) == 0) {
+    config.animation_index = PMD_CRABOMINABLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Cutiefly (cutiefly)
+if (strcmp(value, PMD_CUTIEFLY_NAME) == 0 ||
+    strcmp(value, PMD_CUTIEFLY_ID) == 0 ||
+    strcmp(value, PMD_CUTIEFLY_FQID) == 0 ||
+    strcmp(value, PMD_CUTIEFLY_FQNAME) == 0) {
+    config.animation_index = PMD_CUTIEFLY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Ribombee (ribombee)
+if (strcmp(value, PMD_RIBOMBEE_NAME) == 0 ||
+    strcmp(value, PMD_RIBOMBEE_ID) == 0 ||
+    strcmp(value, PMD_RIBOMBEE_FQID) == 0 ||
+    strcmp(value, PMD_RIBOMBEE_FQNAME) == 0) {
+    config.animation_index = PMD_RIBOMBEE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Rockruff (rockruff)
+if (strcmp(value, PMD_ROCKRUFF_NAME) == 0 ||
+    strcmp(value, PMD_ROCKRUFF_ID) == 0 ||
+    strcmp(value, PMD_ROCKRUFF_FQID) == 0 ||
+    strcmp(value, PMD_ROCKRUFF_FQNAME) == 0) {
+    config.animation_index = PMD_ROCKRUFF_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Lycanroc (lycanroc)
+if (strcmp(value, PMD_LYCANROC_NAME) == 0 ||
+    strcmp(value, PMD_LYCANROC_ID) == 0 ||
+    strcmp(value, PMD_LYCANROC_FQID) == 0 ||
+    strcmp(value, PMD_LYCANROC_FQNAME) == 0) {
+    config.animation_index = PMD_LYCANROC_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Wishiwashi (wishiwashi)
+if (strcmp(value, PMD_WISHIWASHI_NAME) == 0 ||
+    strcmp(value, PMD_WISHIWASHI_ID) == 0 ||
+    strcmp(value, PMD_WISHIWASHI_FQID) == 0 ||
+    strcmp(value, PMD_WISHIWASHI_FQNAME) == 0) {
+    config.animation_index = PMD_WISHIWASHI_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Mareanie (mareanie)
+if (strcmp(value, PMD_MAREANIE_NAME) == 0 ||
+    strcmp(value, PMD_MAREANIE_ID) == 0 ||
+    strcmp(value, PMD_MAREANIE_FQID) == 0 ||
+    strcmp(value, PMD_MAREANIE_FQNAME) == 0) {
+    config.animation_index = PMD_MAREANIE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Mudbray (mudbray)
+if (strcmp(value, PMD_MUDBRAY_NAME) == 0 ||
+    strcmp(value, PMD_MUDBRAY_ID) == 0 ||
+    strcmp(value, PMD_MUDBRAY_FQID) == 0 ||
+    strcmp(value, PMD_MUDBRAY_FQNAME) == 0) {
+    config.animation_index = PMD_MUDBRAY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Mudsdale (mudsdale)
+if (strcmp(value, PMD_MUDSDALE_NAME) == 0 ||
+    strcmp(value, PMD_MUDSDALE_ID) == 0 ||
+    strcmp(value, PMD_MUDSDALE_FQID) == 0 ||
+    strcmp(value, PMD_MUDSDALE_FQNAME) == 0) {
+    config.animation_index = PMD_MUDSDALE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dewpider (dewpider)
+if (strcmp(value, PMD_DEWPIDER_NAME) == 0 ||
+    strcmp(value, PMD_DEWPIDER_ID) == 0 ||
+    strcmp(value, PMD_DEWPIDER_FQID) == 0 ||
+    strcmp(value, PMD_DEWPIDER_FQNAME) == 0) {
+    config.animation_index = PMD_DEWPIDER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Araquanid (araquanid)
+if (strcmp(value, PMD_ARAQUANID_NAME) == 0 ||
+    strcmp(value, PMD_ARAQUANID_ID) == 0 ||
+    strcmp(value, PMD_ARAQUANID_FQID) == 0 ||
+    strcmp(value, PMD_ARAQUANID_FQNAME) == 0) {
+    config.animation_index = PMD_ARAQUANID_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Fomantis (fomantis)
+if (strcmp(value, PMD_FOMANTIS_NAME) == 0 ||
+    strcmp(value, PMD_FOMANTIS_ID) == 0 ||
+    strcmp(value, PMD_FOMANTIS_FQID) == 0 ||
+    strcmp(value, PMD_FOMANTIS_FQNAME) == 0) {
+    config.animation_index = PMD_FOMANTIS_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Lurantis (lurantis)
+if (strcmp(value, PMD_LURANTIS_NAME) == 0 ||
+    strcmp(value, PMD_LURANTIS_ID) == 0 ||
+    strcmp(value, PMD_LURANTIS_FQID) == 0 ||
+    strcmp(value, PMD_LURANTIS_FQNAME) == 0) {
+    config.animation_index = PMD_LURANTIS_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Morelull (morelull)
+if (strcmp(value, PMD_MORELULL_NAME) == 0 ||
+    strcmp(value, PMD_MORELULL_ID) == 0 ||
+    strcmp(value, PMD_MORELULL_FQID) == 0 ||
+    strcmp(value, PMD_MORELULL_FQNAME) == 0) {
+    config.animation_index = PMD_MORELULL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Salandit (salandit)
+if (strcmp(value, PMD_SALANDIT_NAME) == 0 ||
+    strcmp(value, PMD_SALANDIT_ID) == 0 ||
+    strcmp(value, PMD_SALANDIT_FQID) == 0 ||
+    strcmp(value, PMD_SALANDIT_FQNAME) == 0) {
+    config.animation_index = PMD_SALANDIT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Salazzle (salazzle)
+if (strcmp(value, PMD_SALAZZLE_NAME) == 0 ||
+    strcmp(value, PMD_SALAZZLE_ID) == 0 ||
+    strcmp(value, PMD_SALAZZLE_FQID) == 0 ||
+    strcmp(value, PMD_SALAZZLE_FQNAME) == 0) {
+    config.animation_index = PMD_SALAZZLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Stufful (stufful)
+if (strcmp(value, PMD_STUFFUL_NAME) == 0 ||
+    strcmp(value, PMD_STUFFUL_ID) == 0 ||
+    strcmp(value, PMD_STUFFUL_FQID) == 0 ||
+    strcmp(value, PMD_STUFFUL_FQNAME) == 0) {
+    config.animation_index = PMD_STUFFUL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Bewear (bewear)
+if (strcmp(value, PMD_BEWEAR_NAME) == 0 ||
+    strcmp(value, PMD_BEWEAR_ID) == 0 ||
+    strcmp(value, PMD_BEWEAR_FQID) == 0 ||
+    strcmp(value, PMD_BEWEAR_FQNAME) == 0) {
+    config.animation_index = PMD_BEWEAR_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Bounsweet (bounsweet)
+if (strcmp(value, PMD_BOUNSWEET_NAME) == 0 ||
+    strcmp(value, PMD_BOUNSWEET_ID) == 0 ||
+    strcmp(value, PMD_BOUNSWEET_FQID) == 0 ||
+    strcmp(value, PMD_BOUNSWEET_FQNAME) == 0) {
+    config.animation_index = PMD_BOUNSWEET_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Steenee (steenee)
+if (strcmp(value, PMD_STEENEE_NAME) == 0 ||
+    strcmp(value, PMD_STEENEE_ID) == 0 ||
+    strcmp(value, PMD_STEENEE_FQID) == 0 ||
+    strcmp(value, PMD_STEENEE_FQNAME) == 0) {
+    config.animation_index = PMD_STEENEE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Tsareena (tsareena)
+if (strcmp(value, PMD_TSAREENA_NAME) == 0 ||
+    strcmp(value, PMD_TSAREENA_ID) == 0 ||
+    strcmp(value, PMD_TSAREENA_FQID) == 0 ||
+    strcmp(value, PMD_TSAREENA_FQNAME) == 0) {
+    config.animation_index = PMD_TSAREENA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Comfey (comfey)
+if (strcmp(value, PMD_COMFEY_NAME) == 0 ||
+    strcmp(value, PMD_COMFEY_ID) == 0 ||
+    strcmp(value, PMD_COMFEY_FQID) == 0 ||
+    strcmp(value, PMD_COMFEY_FQNAME) == 0) {
+    config.animation_index = PMD_COMFEY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Passimian (passimian)
+if (strcmp(value, PMD_PASSIMIAN_NAME) == 0 ||
+    strcmp(value, PMD_PASSIMIAN_ID) == 0 ||
+    strcmp(value, PMD_PASSIMIAN_FQID) == 0 ||
+    strcmp(value, PMD_PASSIMIAN_FQNAME) == 0) {
+    config.animation_index = PMD_PASSIMIAN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Wimpod (wimpod)
+if (strcmp(value, PMD_WIMPOD_NAME) == 0 ||
+    strcmp(value, PMD_WIMPOD_ID) == 0 ||
+    strcmp(value, PMD_WIMPOD_FQID) == 0 ||
+    strcmp(value, PMD_WIMPOD_FQNAME) == 0) {
+    config.animation_index = PMD_WIMPOD_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Golisopod (golisopod)
+if (strcmp(value, PMD_GOLISOPOD_NAME) == 0 ||
+    strcmp(value, PMD_GOLISOPOD_ID) == 0 ||
+    strcmp(value, PMD_GOLISOPOD_FQID) == 0 ||
+    strcmp(value, PMD_GOLISOPOD_FQNAME) == 0) {
+    config.animation_index = PMD_GOLISOPOD_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Sandygast (sandygast)
+if (strcmp(value, PMD_SANDYGAST_NAME) == 0 ||
+    strcmp(value, PMD_SANDYGAST_ID) == 0 ||
+    strcmp(value, PMD_SANDYGAST_FQID) == 0 ||
+    strcmp(value, PMD_SANDYGAST_FQNAME) == 0) {
+    config.animation_index = PMD_SANDYGAST_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Palossand (palossand)
+if (strcmp(value, PMD_PALOSSAND_NAME) == 0 ||
+    strcmp(value, PMD_PALOSSAND_ID) == 0 ||
+    strcmp(value, PMD_PALOSSAND_FQID) == 0 ||
+    strcmp(value, PMD_PALOSSAND_FQNAME) == 0) {
+    config.animation_index = PMD_PALOSSAND_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Pyukumuku (pyukumuku)
+if (strcmp(value, PMD_PYUKUMUKU_NAME) == 0 ||
+    strcmp(value, PMD_PYUKUMUKU_ID) == 0 ||
+    strcmp(value, PMD_PYUKUMUKU_FQID) == 0 ||
+    strcmp(value, PMD_PYUKUMUKU_FQNAME) == 0) {
+    config.animation_index = PMD_PYUKUMUKU_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Type-null (type_null)
+if (strcmp(value, PMD_TYPE_NULL_NAME) == 0 ||
+    strcmp(value, PMD_TYPE_NULL_ID) == 0 ||
+    strcmp(value, PMD_TYPE_NULL_FQID) == 0 ||
+    strcmp(value, PMD_TYPE_NULL_FQNAME) == 0) {
+    config.animation_index = PMD_TYPE_NULL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Silvally (silvally)
+if (strcmp(value, PMD_SILVALLY_NAME) == 0 ||
+    strcmp(value, PMD_SILVALLY_ID) == 0 ||
+    strcmp(value, PMD_SILVALLY_FQID) == 0 ||
+    strcmp(value, PMD_SILVALLY_FQNAME) == 0) {
+    config.animation_index = PMD_SILVALLY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Minior (minior)
+if (strcmp(value, PMD_MINIOR_NAME) == 0 ||
+    strcmp(value, PMD_MINIOR_ID) == 0 ||
+    strcmp(value, PMD_MINIOR_FQID) == 0 ||
+    strcmp(value, PMD_MINIOR_FQNAME) == 0) {
+    config.animation_index = PMD_MINIOR_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Komala (komala)
+if (strcmp(value, PMD_KOMALA_NAME) == 0 ||
+    strcmp(value, PMD_KOMALA_ID) == 0 ||
+    strcmp(value, PMD_KOMALA_FQID) == 0 ||
+    strcmp(value, PMD_KOMALA_FQNAME) == 0) {
+    config.animation_index = PMD_KOMALA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Turtonator (turtonator)
+if (strcmp(value, PMD_TURTONATOR_NAME) == 0 ||
+    strcmp(value, PMD_TURTONATOR_ID) == 0 ||
+    strcmp(value, PMD_TURTONATOR_FQID) == 0 ||
+    strcmp(value, PMD_TURTONATOR_FQNAME) == 0) {
+    config.animation_index = PMD_TURTONATOR_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Togedemaru (togedemaru)
+if (strcmp(value, PMD_TOGEDEMARU_NAME) == 0 ||
+    strcmp(value, PMD_TOGEDEMARU_ID) == 0 ||
+    strcmp(value, PMD_TOGEDEMARU_FQID) == 0 ||
+    strcmp(value, PMD_TOGEDEMARU_FQNAME) == 0) {
+    config.animation_index = PMD_TOGEDEMARU_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Mimikyu (mimikyu)
+if (strcmp(value, PMD_MIMIKYU_NAME) == 0 ||
+    strcmp(value, PMD_MIMIKYU_ID) == 0 ||
+    strcmp(value, PMD_MIMIKYU_FQID) == 0 ||
+    strcmp(value, PMD_MIMIKYU_FQNAME) == 0) {
+    config.animation_index = PMD_MIMIKYU_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Bruxish (bruxish)
+if (strcmp(value, PMD_BRUXISH_NAME) == 0 ||
+    strcmp(value, PMD_BRUXISH_ID) == 0 ||
+    strcmp(value, PMD_BRUXISH_FQID) == 0 ||
+    strcmp(value, PMD_BRUXISH_FQNAME) == 0) {
+    config.animation_index = PMD_BRUXISH_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Drampa (drampa)
+if (strcmp(value, PMD_DRAMPA_NAME) == 0 ||
+    strcmp(value, PMD_DRAMPA_ID) == 0 ||
+    strcmp(value, PMD_DRAMPA_FQID) == 0 ||
+    strcmp(value, PMD_DRAMPA_FQNAME) == 0) {
+    config.animation_index = PMD_DRAMPA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dhelmise (dhelmise)
+if (strcmp(value, PMD_DHELMISE_NAME) == 0 ||
+    strcmp(value, PMD_DHELMISE_ID) == 0 ||
+    strcmp(value, PMD_DHELMISE_FQID) == 0 ||
+    strcmp(value, PMD_DHELMISE_FQNAME) == 0) {
+    config.animation_index = PMD_DHELMISE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Jangmo-o (jangmo_o)
+if (strcmp(value, PMD_JANGMO_O_NAME) == 0 ||
+    strcmp(value, PMD_JANGMO_O_ID) == 0 ||
+    strcmp(value, PMD_JANGMO_O_FQID) == 0 ||
+    strcmp(value, PMD_JANGMO_O_FQNAME) == 0) {
+    config.animation_index = PMD_JANGMO_O_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Hakamo-o (hakamo_o)
+if (strcmp(value, PMD_HAKAMO_O_NAME) == 0 ||
+    strcmp(value, PMD_HAKAMO_O_ID) == 0 ||
+    strcmp(value, PMD_HAKAMO_O_FQID) == 0 ||
+    strcmp(value, PMD_HAKAMO_O_FQNAME) == 0) {
+    config.animation_index = PMD_HAKAMO_O_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Kommo-o (kommo_o)
+if (strcmp(value, PMD_KOMMO_O_NAME) == 0 ||
+    strcmp(value, PMD_KOMMO_O_ID) == 0 ||
+    strcmp(value, PMD_KOMMO_O_FQID) == 0 ||
+    strcmp(value, PMD_KOMMO_O_FQNAME) == 0) {
+    config.animation_index = PMD_KOMMO_O_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Tapu-koko (tapu_koko)
+if (strcmp(value, PMD_TAPU_KOKO_NAME) == 0 ||
+    strcmp(value, PMD_TAPU_KOKO_ID) == 0 ||
+    strcmp(value, PMD_TAPU_KOKO_FQID) == 0 ||
+    strcmp(value, PMD_TAPU_KOKO_FQNAME) == 0) {
+    config.animation_index = PMD_TAPU_KOKO_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Tapu-lele (tapu_lele)
+if (strcmp(value, PMD_TAPU_LELE_NAME) == 0 ||
+    strcmp(value, PMD_TAPU_LELE_ID) == 0 ||
+    strcmp(value, PMD_TAPU_LELE_FQID) == 0 ||
+    strcmp(value, PMD_TAPU_LELE_FQNAME) == 0) {
+    config.animation_index = PMD_TAPU_LELE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Tapu-bulu (tapu_bulu)
+if (strcmp(value, PMD_TAPU_BULU_NAME) == 0 ||
+    strcmp(value, PMD_TAPU_BULU_ID) == 0 ||
+    strcmp(value, PMD_TAPU_BULU_FQID) == 0 ||
+    strcmp(value, PMD_TAPU_BULU_FQNAME) == 0) {
+    config.animation_index = PMD_TAPU_BULU_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Tapu-fini (tapu_fini)
+if (strcmp(value, PMD_TAPU_FINI_NAME) == 0 ||
+    strcmp(value, PMD_TAPU_FINI_ID) == 0 ||
+    strcmp(value, PMD_TAPU_FINI_FQID) == 0 ||
+    strcmp(value, PMD_TAPU_FINI_FQNAME) == 0) {
+    config.animation_index = PMD_TAPU_FINI_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Cosmog (cosmog)
+if (strcmp(value, PMD_COSMOG_NAME) == 0 ||
+    strcmp(value, PMD_COSMOG_ID) == 0 ||
+    strcmp(value, PMD_COSMOG_FQID) == 0 ||
+    strcmp(value, PMD_COSMOG_FQNAME) == 0) {
+    config.animation_index = PMD_COSMOG_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Cosmoem (cosmoem)
+if (strcmp(value, PMD_COSMOEM_NAME) == 0 ||
+    strcmp(value, PMD_COSMOEM_ID) == 0 ||
+    strcmp(value, PMD_COSMOEM_FQID) == 0 ||
+    strcmp(value, PMD_COSMOEM_FQNAME) == 0) {
+    config.animation_index = PMD_COSMOEM_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Solgaleo (solgaleo)
+if (strcmp(value, PMD_SOLGALEO_NAME) == 0 ||
+    strcmp(value, PMD_SOLGALEO_ID) == 0 ||
+    strcmp(value, PMD_SOLGALEO_FQID) == 0 ||
+    strcmp(value, PMD_SOLGALEO_FQNAME) == 0) {
+    config.animation_index = PMD_SOLGALEO_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Lunala (lunala)
+if (strcmp(value, PMD_LUNALA_NAME) == 0 ||
+    strcmp(value, PMD_LUNALA_ID) == 0 ||
+    strcmp(value, PMD_LUNALA_FQID) == 0 ||
+    strcmp(value, PMD_LUNALA_FQNAME) == 0) {
+    config.animation_index = PMD_LUNALA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Nihilego (nihilego)
+if (strcmp(value, PMD_NIHILEGO_NAME) == 0 ||
+    strcmp(value, PMD_NIHILEGO_ID) == 0 ||
+    strcmp(value, PMD_NIHILEGO_FQID) == 0 ||
+    strcmp(value, PMD_NIHILEGO_FQNAME) == 0) {
+    config.animation_index = PMD_NIHILEGO_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Buzzwole (buzzwole)
+if (strcmp(value, PMD_BUZZWOLE_NAME) == 0 ||
+    strcmp(value, PMD_BUZZWOLE_ID) == 0 ||
+    strcmp(value, PMD_BUZZWOLE_FQID) == 0 ||
+    strcmp(value, PMD_BUZZWOLE_FQNAME) == 0) {
+    config.animation_index = PMD_BUZZWOLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Pheromosa (pheromosa)
+if (strcmp(value, PMD_PHEROMOSA_NAME) == 0 ||
+    strcmp(value, PMD_PHEROMOSA_ID) == 0 ||
+    strcmp(value, PMD_PHEROMOSA_FQID) == 0 ||
+    strcmp(value, PMD_PHEROMOSA_FQNAME) == 0) {
+    config.animation_index = PMD_PHEROMOSA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Xurkitree (xurkitree)
+if (strcmp(value, PMD_XURKITREE_NAME) == 0 ||
+    strcmp(value, PMD_XURKITREE_ID) == 0 ||
+    strcmp(value, PMD_XURKITREE_FQID) == 0 ||
+    strcmp(value, PMD_XURKITREE_FQNAME) == 0) {
+    config.animation_index = PMD_XURKITREE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Celesteela (celesteela)
+if (strcmp(value, PMD_CELESTEELA_NAME) == 0 ||
+    strcmp(value, PMD_CELESTEELA_ID) == 0 ||
+    strcmp(value, PMD_CELESTEELA_FQID) == 0 ||
+    strcmp(value, PMD_CELESTEELA_FQNAME) == 0) {
+    config.animation_index = PMD_CELESTEELA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Kartana (kartana)
+if (strcmp(value, PMD_KARTANA_NAME) == 0 ||
+    strcmp(value, PMD_KARTANA_ID) == 0 ||
+    strcmp(value, PMD_KARTANA_FQID) == 0 ||
+    strcmp(value, PMD_KARTANA_FQNAME) == 0) {
+    config.animation_index = PMD_KARTANA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Guzzlord (guzzlord)
+if (strcmp(value, PMD_GUZZLORD_NAME) == 0 ||
+    strcmp(value, PMD_GUZZLORD_ID) == 0 ||
+    strcmp(value, PMD_GUZZLORD_FQID) == 0 ||
+    strcmp(value, PMD_GUZZLORD_FQNAME) == 0) {
+    config.animation_index = PMD_GUZZLORD_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Necrozma (necrozma)
+if (strcmp(value, PMD_NECROZMA_NAME) == 0 ||
+    strcmp(value, PMD_NECROZMA_ID) == 0 ||
+    strcmp(value, PMD_NECROZMA_FQID) == 0 ||
+    strcmp(value, PMD_NECROZMA_FQNAME) == 0) {
+    config.animation_index = PMD_NECROZMA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Magearna (magearna)
+if (strcmp(value, PMD_MAGEARNA_NAME) == 0 ||
+    strcmp(value, PMD_MAGEARNA_ID) == 0 ||
+    strcmp(value, PMD_MAGEARNA_FQID) == 0 ||
+    strcmp(value, PMD_MAGEARNA_FQNAME) == 0) {
+    config.animation_index = PMD_MAGEARNA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Marshadow (marshadow)
+if (strcmp(value, PMD_MARSHADOW_NAME) == 0 ||
+    strcmp(value, PMD_MARSHADOW_ID) == 0 ||
+    strcmp(value, PMD_MARSHADOW_FQID) == 0 ||
+    strcmp(value, PMD_MARSHADOW_FQNAME) == 0) {
+    config.animation_index = PMD_MARSHADOW_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Poipole (poipole)
+if (strcmp(value, PMD_POIPOLE_NAME) == 0 ||
+    strcmp(value, PMD_POIPOLE_ID) == 0 ||
+    strcmp(value, PMD_POIPOLE_FQID) == 0 ||
+    strcmp(value, PMD_POIPOLE_FQNAME) == 0) {
+    config.animation_index = PMD_POIPOLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Naganadel (naganadel)
+if (strcmp(value, PMD_NAGANADEL_NAME) == 0 ||
+    strcmp(value, PMD_NAGANADEL_ID) == 0 ||
+    strcmp(value, PMD_NAGANADEL_FQID) == 0 ||
+    strcmp(value, PMD_NAGANADEL_FQNAME) == 0) {
+    config.animation_index = PMD_NAGANADEL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Stakataka (stakataka)
+if (strcmp(value, PMD_STAKATAKA_NAME) == 0 ||
+    strcmp(value, PMD_STAKATAKA_ID) == 0 ||
+    strcmp(value, PMD_STAKATAKA_FQID) == 0 ||
+    strcmp(value, PMD_STAKATAKA_FQNAME) == 0) {
+    config.animation_index = PMD_STAKATAKA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Blacephalon (blacephalon)
+if (strcmp(value, PMD_BLACEPHALON_NAME) == 0 ||
+    strcmp(value, PMD_BLACEPHALON_ID) == 0 ||
+    strcmp(value, PMD_BLACEPHALON_FQID) == 0 ||
+    strcmp(value, PMD_BLACEPHALON_FQNAME) == 0) {
+    config.animation_index = PMD_BLACEPHALON_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Zeraora (zeraora)
+if (strcmp(value, PMD_ZERAORA_NAME) == 0 ||
+    strcmp(value, PMD_ZERAORA_ID) == 0 ||
+    strcmp(value, PMD_ZERAORA_FQID) == 0 ||
+    strcmp(value, PMD_ZERAORA_FQNAME) == 0) {
+    config.animation_index = PMD_ZERAORA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Meltan (meltan)
+if (strcmp(value, PMD_MELTAN_NAME) == 0 ||
+    strcmp(value, PMD_MELTAN_ID) == 0 ||
+    strcmp(value, PMD_MELTAN_FQID) == 0 ||
+    strcmp(value, PMD_MELTAN_FQNAME) == 0) {
+    config.animation_index = PMD_MELTAN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Melmetal (melmetal)
+if (strcmp(value, PMD_MELMETAL_NAME) == 0 ||
+    strcmp(value, PMD_MELMETAL_ID) == 0 ||
+    strcmp(value, PMD_MELMETAL_FQID) == 0 ||
+    strcmp(value, PMD_MELMETAL_FQNAME) == 0) {
+    config.animation_index = PMD_MELMETAL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Grookey (grookey)
+if (strcmp(value, PMD_GROOKEY_NAME) == 0 ||
+    strcmp(value, PMD_GROOKEY_ID) == 0 ||
+    strcmp(value, PMD_GROOKEY_FQID) == 0 ||
+    strcmp(value, PMD_GROOKEY_FQNAME) == 0) {
+    config.animation_index = PMD_GROOKEY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Thwackey (thwackey)
+if (strcmp(value, PMD_THWACKEY_NAME) == 0 ||
+    strcmp(value, PMD_THWACKEY_ID) == 0 ||
+    strcmp(value, PMD_THWACKEY_FQID) == 0 ||
+    strcmp(value, PMD_THWACKEY_FQNAME) == 0) {
+    config.animation_index = PMD_THWACKEY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Rillaboom (rillaboom)
+if (strcmp(value, PMD_RILLABOOM_NAME) == 0 ||
+    strcmp(value, PMD_RILLABOOM_ID) == 0 ||
+    strcmp(value, PMD_RILLABOOM_FQID) == 0 ||
+    strcmp(value, PMD_RILLABOOM_FQNAME) == 0) {
+    config.animation_index = PMD_RILLABOOM_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Scorbunny (scorbunny)
+if (strcmp(value, PMD_SCORBUNNY_NAME) == 0 ||
+    strcmp(value, PMD_SCORBUNNY_ID) == 0 ||
+    strcmp(value, PMD_SCORBUNNY_FQID) == 0 ||
+    strcmp(value, PMD_SCORBUNNY_FQNAME) == 0) {
+    config.animation_index = PMD_SCORBUNNY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Raboot (raboot)
+if (strcmp(value, PMD_RABOOT_NAME) == 0 ||
+    strcmp(value, PMD_RABOOT_ID) == 0 ||
+    strcmp(value, PMD_RABOOT_FQID) == 0 ||
+    strcmp(value, PMD_RABOOT_FQNAME) == 0) {
+    config.animation_index = PMD_RABOOT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Cinderace (cinderace)
+if (strcmp(value, PMD_CINDERACE_NAME) == 0 ||
+    strcmp(value, PMD_CINDERACE_ID) == 0 ||
+    strcmp(value, PMD_CINDERACE_FQID) == 0 ||
+    strcmp(value, PMD_CINDERACE_FQNAME) == 0) {
+    config.animation_index = PMD_CINDERACE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Sobble (sobble)
+if (strcmp(value, PMD_SOBBLE_NAME) == 0 ||
+    strcmp(value, PMD_SOBBLE_ID) == 0 ||
+    strcmp(value, PMD_SOBBLE_FQID) == 0 ||
+    strcmp(value, PMD_SOBBLE_FQNAME) == 0) {
+    config.animation_index = PMD_SOBBLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Drizzile (drizzile)
+if (strcmp(value, PMD_DRIZZILE_NAME) == 0 ||
+    strcmp(value, PMD_DRIZZILE_ID) == 0 ||
+    strcmp(value, PMD_DRIZZILE_FQID) == 0 ||
+    strcmp(value, PMD_DRIZZILE_FQNAME) == 0) {
+    config.animation_index = PMD_DRIZZILE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Inteleon (inteleon)
+if (strcmp(value, PMD_INTELEON_NAME) == 0 ||
+    strcmp(value, PMD_INTELEON_ID) == 0 ||
+    strcmp(value, PMD_INTELEON_FQID) == 0 ||
+    strcmp(value, PMD_INTELEON_FQNAME) == 0) {
+    config.animation_index = PMD_INTELEON_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Skwovet (skwovet)
+if (strcmp(value, PMD_SKWOVET_NAME) == 0 ||
+    strcmp(value, PMD_SKWOVET_ID) == 0 ||
+    strcmp(value, PMD_SKWOVET_FQID) == 0 ||
+    strcmp(value, PMD_SKWOVET_FQNAME) == 0) {
+    config.animation_index = PMD_SKWOVET_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Rookidee (rookidee)
+if (strcmp(value, PMD_ROOKIDEE_NAME) == 0 ||
+    strcmp(value, PMD_ROOKIDEE_ID) == 0 ||
+    strcmp(value, PMD_ROOKIDEE_FQID) == 0 ||
+    strcmp(value, PMD_ROOKIDEE_FQNAME) == 0) {
+    config.animation_index = PMD_ROOKIDEE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Corvisquire (corvisquire)
+if (strcmp(value, PMD_CORVISQUIRE_NAME) == 0 ||
+    strcmp(value, PMD_CORVISQUIRE_ID) == 0 ||
+    strcmp(value, PMD_CORVISQUIRE_FQID) == 0 ||
+    strcmp(value, PMD_CORVISQUIRE_FQNAME) == 0) {
+    config.animation_index = PMD_CORVISQUIRE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Corviknight (corviknight)
+if (strcmp(value, PMD_CORVIKNIGHT_NAME) == 0 ||
+    strcmp(value, PMD_CORVIKNIGHT_ID) == 0 ||
+    strcmp(value, PMD_CORVIKNIGHT_FQID) == 0 ||
+    strcmp(value, PMD_CORVIKNIGHT_FQNAME) == 0) {
+    config.animation_index = PMD_CORVIKNIGHT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Blipbug (blipbug)
+if (strcmp(value, PMD_BLIPBUG_NAME) == 0 ||
+    strcmp(value, PMD_BLIPBUG_ID) == 0 ||
+    strcmp(value, PMD_BLIPBUG_FQID) == 0 ||
+    strcmp(value, PMD_BLIPBUG_FQNAME) == 0) {
+    config.animation_index = PMD_BLIPBUG_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dottler (dottler)
+if (strcmp(value, PMD_DOTTLER_NAME) == 0 ||
+    strcmp(value, PMD_DOTTLER_ID) == 0 ||
+    strcmp(value, PMD_DOTTLER_FQID) == 0 ||
+    strcmp(value, PMD_DOTTLER_FQNAME) == 0) {
+    config.animation_index = PMD_DOTTLER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Orbeetle (orbeetle)
+if (strcmp(value, PMD_ORBEETLE_NAME) == 0 ||
+    strcmp(value, PMD_ORBEETLE_ID) == 0 ||
+    strcmp(value, PMD_ORBEETLE_FQID) == 0 ||
+    strcmp(value, PMD_ORBEETLE_FQNAME) == 0) {
+    config.animation_index = PMD_ORBEETLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Nickit (nickit)
+if (strcmp(value, PMD_NICKIT_NAME) == 0 ||
+    strcmp(value, PMD_NICKIT_ID) == 0 ||
+    strcmp(value, PMD_NICKIT_FQID) == 0 ||
+    strcmp(value, PMD_NICKIT_FQNAME) == 0) {
+    config.animation_index = PMD_NICKIT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Thievul (thievul)
+if (strcmp(value, PMD_THIEVUL_NAME) == 0 ||
+    strcmp(value, PMD_THIEVUL_ID) == 0 ||
+    strcmp(value, PMD_THIEVUL_FQID) == 0 ||
+    strcmp(value, PMD_THIEVUL_FQNAME) == 0) {
+    config.animation_index = PMD_THIEVUL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Gossifleur (gossifleur)
+if (strcmp(value, PMD_GOSSIFLEUR_NAME) == 0 ||
+    strcmp(value, PMD_GOSSIFLEUR_ID) == 0 ||
+    strcmp(value, PMD_GOSSIFLEUR_FQID) == 0 ||
+    strcmp(value, PMD_GOSSIFLEUR_FQNAME) == 0) {
+    config.animation_index = PMD_GOSSIFLEUR_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Eldegoss (eldegoss)
+if (strcmp(value, PMD_ELDEGOSS_NAME) == 0 ||
+    strcmp(value, PMD_ELDEGOSS_ID) == 0 ||
+    strcmp(value, PMD_ELDEGOSS_FQID) == 0 ||
+    strcmp(value, PMD_ELDEGOSS_FQNAME) == 0) {
+    config.animation_index = PMD_ELDEGOSS_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Wooloo (wooloo)
+if (strcmp(value, PMD_WOOLOO_NAME) == 0 ||
+    strcmp(value, PMD_WOOLOO_ID) == 0 ||
+    strcmp(value, PMD_WOOLOO_FQID) == 0 ||
+    strcmp(value, PMD_WOOLOO_FQNAME) == 0) {
+    config.animation_index = PMD_WOOLOO_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Chewtle (chewtle)
+if (strcmp(value, PMD_CHEWTLE_NAME) == 0 ||
+    strcmp(value, PMD_CHEWTLE_ID) == 0 ||
+    strcmp(value, PMD_CHEWTLE_FQID) == 0 ||
+    strcmp(value, PMD_CHEWTLE_FQNAME) == 0) {
+    config.animation_index = PMD_CHEWTLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Drednaw (drednaw)
+if (strcmp(value, PMD_DREDNAW_NAME) == 0 ||
+    strcmp(value, PMD_DREDNAW_ID) == 0 ||
+    strcmp(value, PMD_DREDNAW_FQID) == 0 ||
+    strcmp(value, PMD_DREDNAW_FQNAME) == 0) {
+    config.animation_index = PMD_DREDNAW_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Yamper (yamper)
+if (strcmp(value, PMD_YAMPER_NAME) == 0 ||
+    strcmp(value, PMD_YAMPER_ID) == 0 ||
+    strcmp(value, PMD_YAMPER_FQID) == 0 ||
+    strcmp(value, PMD_YAMPER_FQNAME) == 0) {
+    config.animation_index = PMD_YAMPER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Applin (applin)
+if (strcmp(value, PMD_APPLIN_NAME) == 0 ||
+    strcmp(value, PMD_APPLIN_ID) == 0 ||
+    strcmp(value, PMD_APPLIN_FQID) == 0 ||
+    strcmp(value, PMD_APPLIN_FQNAME) == 0) {
+    config.animation_index = PMD_APPLIN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Flapple (flapple)
+if (strcmp(value, PMD_FLAPPLE_NAME) == 0 ||
+    strcmp(value, PMD_FLAPPLE_ID) == 0 ||
+    strcmp(value, PMD_FLAPPLE_FQID) == 0 ||
+    strcmp(value, PMD_FLAPPLE_FQNAME) == 0) {
+    config.animation_index = PMD_FLAPPLE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Appletun (appletun)
+if (strcmp(value, PMD_APPLETUN_NAME) == 0 ||
+    strcmp(value, PMD_APPLETUN_ID) == 0 ||
+    strcmp(value, PMD_APPLETUN_FQID) == 0 ||
+    strcmp(value, PMD_APPLETUN_FQNAME) == 0) {
+    config.animation_index = PMD_APPLETUN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Silicobra (silicobra)
+if (strcmp(value, PMD_SILICOBRA_NAME) == 0 ||
+    strcmp(value, PMD_SILICOBRA_ID) == 0 ||
+    strcmp(value, PMD_SILICOBRA_FQID) == 0 ||
+    strcmp(value, PMD_SILICOBRA_FQNAME) == 0) {
+    config.animation_index = PMD_SILICOBRA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Sandaconda (sandaconda)
+if (strcmp(value, PMD_SANDACONDA_NAME) == 0 ||
+    strcmp(value, PMD_SANDACONDA_ID) == 0 ||
+    strcmp(value, PMD_SANDACONDA_FQID) == 0 ||
+    strcmp(value, PMD_SANDACONDA_FQNAME) == 0) {
+    config.animation_index = PMD_SANDACONDA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Cramorant (cramorant)
+if (strcmp(value, PMD_CRAMORANT_NAME) == 0 ||
+    strcmp(value, PMD_CRAMORANT_ID) == 0 ||
+    strcmp(value, PMD_CRAMORANT_FQID) == 0 ||
+    strcmp(value, PMD_CRAMORANT_FQNAME) == 0) {
+    config.animation_index = PMD_CRAMORANT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Arrokuda (arrokuda)
+if (strcmp(value, PMD_ARROKUDA_NAME) == 0 ||
+    strcmp(value, PMD_ARROKUDA_ID) == 0 ||
+    strcmp(value, PMD_ARROKUDA_FQID) == 0 ||
+    strcmp(value, PMD_ARROKUDA_FQNAME) == 0) {
+    config.animation_index = PMD_ARROKUDA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Toxel (toxel)
+if (strcmp(value, PMD_TOXEL_NAME) == 0 ||
+    strcmp(value, PMD_TOXEL_ID) == 0 ||
+    strcmp(value, PMD_TOXEL_FQID) == 0 ||
+    strcmp(value, PMD_TOXEL_FQNAME) == 0) {
+    config.animation_index = PMD_TOXEL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Toxtricity (toxtricity)
+if (strcmp(value, PMD_TOXTRICITY_NAME) == 0 ||
+    strcmp(value, PMD_TOXTRICITY_ID) == 0 ||
+    strcmp(value, PMD_TOXTRICITY_FQID) == 0 ||
+    strcmp(value, PMD_TOXTRICITY_FQNAME) == 0) {
+    config.animation_index = PMD_TOXTRICITY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Sizzlipede (sizzlipede)
+if (strcmp(value, PMD_SIZZLIPEDE_NAME) == 0 ||
+    strcmp(value, PMD_SIZZLIPEDE_ID) == 0 ||
+    strcmp(value, PMD_SIZZLIPEDE_FQID) == 0 ||
+    strcmp(value, PMD_SIZZLIPEDE_FQNAME) == 0) {
+    config.animation_index = PMD_SIZZLIPEDE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Centiskorch (centiskorch)
+if (strcmp(value, PMD_CENTISKORCH_NAME) == 0 ||
+    strcmp(value, PMD_CENTISKORCH_ID) == 0 ||
+    strcmp(value, PMD_CENTISKORCH_FQID) == 0 ||
+    strcmp(value, PMD_CENTISKORCH_FQNAME) == 0) {
+    config.animation_index = PMD_CENTISKORCH_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Clobbopus (clobbopus)
+if (strcmp(value, PMD_CLOBBOPUS_NAME) == 0 ||
+    strcmp(value, PMD_CLOBBOPUS_ID) == 0 ||
+    strcmp(value, PMD_CLOBBOPUS_FQID) == 0 ||
+    strcmp(value, PMD_CLOBBOPUS_FQNAME) == 0) {
+    config.animation_index = PMD_CLOBBOPUS_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Grapploct (grapploct)
+if (strcmp(value, PMD_GRAPPLOCT_NAME) == 0 ||
+    strcmp(value, PMD_GRAPPLOCT_ID) == 0 ||
+    strcmp(value, PMD_GRAPPLOCT_FQID) == 0 ||
+    strcmp(value, PMD_GRAPPLOCT_FQNAME) == 0) {
+    config.animation_index = PMD_GRAPPLOCT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Sinistea (sinistea)
+if (strcmp(value, PMD_SINISTEA_NAME) == 0 ||
+    strcmp(value, PMD_SINISTEA_ID) == 0 ||
+    strcmp(value, PMD_SINISTEA_FQID) == 0 ||
+    strcmp(value, PMD_SINISTEA_FQNAME) == 0) {
+    config.animation_index = PMD_SINISTEA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Polteageist (polteageist)
+if (strcmp(value, PMD_POLTEAGEIST_NAME) == 0 ||
+    strcmp(value, PMD_POLTEAGEIST_ID) == 0 ||
+    strcmp(value, PMD_POLTEAGEIST_FQID) == 0 ||
+    strcmp(value, PMD_POLTEAGEIST_FQNAME) == 0) {
+    config.animation_index = PMD_POLTEAGEIST_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Hatenna (hatenna)
+if (strcmp(value, PMD_HATENNA_NAME) == 0 ||
+    strcmp(value, PMD_HATENNA_ID) == 0 ||
+    strcmp(value, PMD_HATENNA_FQID) == 0 ||
+    strcmp(value, PMD_HATENNA_FQNAME) == 0) {
+    config.animation_index = PMD_HATENNA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Hattrem (hattrem)
+if (strcmp(value, PMD_HATTREM_NAME) == 0 ||
+    strcmp(value, PMD_HATTREM_ID) == 0 ||
+    strcmp(value, PMD_HATTREM_FQID) == 0 ||
+    strcmp(value, PMD_HATTREM_FQNAME) == 0) {
+    config.animation_index = PMD_HATTREM_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Hatterene (hatterene)
+if (strcmp(value, PMD_HATTERENE_NAME) == 0 ||
+    strcmp(value, PMD_HATTERENE_ID) == 0 ||
+    strcmp(value, PMD_HATTERENE_FQID) == 0 ||
+    strcmp(value, PMD_HATTERENE_FQNAME) == 0) {
+    config.animation_index = PMD_HATTERENE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Impidimp (impidimp)
+if (strcmp(value, PMD_IMPIDIMP_NAME) == 0 ||
+    strcmp(value, PMD_IMPIDIMP_ID) == 0 ||
+    strcmp(value, PMD_IMPIDIMP_FQID) == 0 ||
+    strcmp(value, PMD_IMPIDIMP_FQNAME) == 0) {
+    config.animation_index = PMD_IMPIDIMP_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Morgrem (morgrem)
+if (strcmp(value, PMD_MORGREM_NAME) == 0 ||
+    strcmp(value, PMD_MORGREM_ID) == 0 ||
+    strcmp(value, PMD_MORGREM_FQID) == 0 ||
+    strcmp(value, PMD_MORGREM_FQNAME) == 0) {
+    config.animation_index = PMD_MORGREM_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Grimmsnarl (grimmsnarl)
+if (strcmp(value, PMD_GRIMMSNARL_NAME) == 0 ||
+    strcmp(value, PMD_GRIMMSNARL_ID) == 0 ||
+    strcmp(value, PMD_GRIMMSNARL_FQID) == 0 ||
+    strcmp(value, PMD_GRIMMSNARL_FQNAME) == 0) {
+    config.animation_index = PMD_GRIMMSNARL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Obstagoon (obstagoon)
+if (strcmp(value, PMD_OBSTAGOON_NAME) == 0 ||
+    strcmp(value, PMD_OBSTAGOON_ID) == 0 ||
+    strcmp(value, PMD_OBSTAGOON_FQID) == 0 ||
+    strcmp(value, PMD_OBSTAGOON_FQNAME) == 0) {
+    config.animation_index = PMD_OBSTAGOON_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Cursola (cursola)
+if (strcmp(value, PMD_CURSOLA_NAME) == 0 ||
+    strcmp(value, PMD_CURSOLA_ID) == 0 ||
+    strcmp(value, PMD_CURSOLA_FQID) == 0 ||
+    strcmp(value, PMD_CURSOLA_FQNAME) == 0) {
+    config.animation_index = PMD_CURSOLA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Sirfetchd (sirfetchd)
+if (strcmp(value, PMD_SIRFETCHD_NAME) == 0 ||
+    strcmp(value, PMD_SIRFETCHD_ID) == 0 ||
+    strcmp(value, PMD_SIRFETCHD_FQID) == 0 ||
+    strcmp(value, PMD_SIRFETCHD_FQNAME) == 0) {
+    config.animation_index = PMD_SIRFETCHD_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Runerigus (runerigus)
+if (strcmp(value, PMD_RUNERIGUS_NAME) == 0 ||
+    strcmp(value, PMD_RUNERIGUS_ID) == 0 ||
+    strcmp(value, PMD_RUNERIGUS_FQID) == 0 ||
+    strcmp(value, PMD_RUNERIGUS_FQNAME) == 0) {
+    config.animation_index = PMD_RUNERIGUS_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Milcery (milcery)
+if (strcmp(value, PMD_MILCERY_NAME) == 0 ||
+    strcmp(value, PMD_MILCERY_ID) == 0 ||
+    strcmp(value, PMD_MILCERY_FQID) == 0 ||
+    strcmp(value, PMD_MILCERY_FQNAME) == 0) {
+    config.animation_index = PMD_MILCERY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Alcremie (alcremie)
+if (strcmp(value, PMD_ALCREMIE_NAME) == 0 ||
+    strcmp(value, PMD_ALCREMIE_ID) == 0 ||
+    strcmp(value, PMD_ALCREMIE_FQID) == 0 ||
+    strcmp(value, PMD_ALCREMIE_FQNAME) == 0) {
+    config.animation_index = PMD_ALCREMIE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Pincurchin (pincurchin)
+if (strcmp(value, PMD_PINCURCHIN_NAME) == 0 ||
+    strcmp(value, PMD_PINCURCHIN_ID) == 0 ||
+    strcmp(value, PMD_PINCURCHIN_FQID) == 0 ||
+    strcmp(value, PMD_PINCURCHIN_FQNAME) == 0) {
+    config.animation_index = PMD_PINCURCHIN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Snom (snom)
+if (strcmp(value, PMD_SNOM_NAME) == 0 ||
+    strcmp(value, PMD_SNOM_ID) == 0 ||
+    strcmp(value, PMD_SNOM_FQID) == 0 ||
+    strcmp(value, PMD_SNOM_FQNAME) == 0) {
+    config.animation_index = PMD_SNOM_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Frosmoth (frosmoth)
+if (strcmp(value, PMD_FROSMOTH_NAME) == 0 ||
+    strcmp(value, PMD_FROSMOTH_ID) == 0 ||
+    strcmp(value, PMD_FROSMOTH_FQID) == 0 ||
+    strcmp(value, PMD_FROSMOTH_FQNAME) == 0) {
+    config.animation_index = PMD_FROSMOTH_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Stonjourner (stonjourner)
+if (strcmp(value, PMD_STONJOURNER_NAME) == 0 ||
+    strcmp(value, PMD_STONJOURNER_ID) == 0 ||
+    strcmp(value, PMD_STONJOURNER_FQID) == 0 ||
+    strcmp(value, PMD_STONJOURNER_FQNAME) == 0) {
+    config.animation_index = PMD_STONJOURNER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Eiscue (eiscue)
+if (strcmp(value, PMD_EISCUE_NAME) == 0 ||
+    strcmp(value, PMD_EISCUE_ID) == 0 ||
+    strcmp(value, PMD_EISCUE_FQID) == 0 ||
+    strcmp(value, PMD_EISCUE_FQNAME) == 0) {
+    config.animation_index = PMD_EISCUE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Indeedee (indeedee)
+if (strcmp(value, PMD_INDEEDEE_NAME) == 0 ||
+    strcmp(value, PMD_INDEEDEE_ID) == 0 ||
+    strcmp(value, PMD_INDEEDEE_FQID) == 0 ||
+    strcmp(value, PMD_INDEEDEE_FQNAME) == 0) {
+    config.animation_index = PMD_INDEEDEE_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Morpeko (morpeko)
+if (strcmp(value, PMD_MORPEKO_NAME) == 0 ||
+    strcmp(value, PMD_MORPEKO_ID) == 0 ||
+    strcmp(value, PMD_MORPEKO_FQID) == 0 ||
+    strcmp(value, PMD_MORPEKO_FQNAME) == 0) {
+    config.animation_index = PMD_MORPEKO_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Copperajah (copperajah)
+if (strcmp(value, PMD_COPPERAJAH_NAME) == 0 ||
+    strcmp(value, PMD_COPPERAJAH_ID) == 0 ||
+    strcmp(value, PMD_COPPERAJAH_FQID) == 0 ||
+    strcmp(value, PMD_COPPERAJAH_FQNAME) == 0) {
+    config.animation_index = PMD_COPPERAJAH_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dracozolt (dracozolt)
+if (strcmp(value, PMD_DRACOZOLT_NAME) == 0 ||
+    strcmp(value, PMD_DRACOZOLT_ID) == 0 ||
+    strcmp(value, PMD_DRACOZOLT_FQID) == 0 ||
+    strcmp(value, PMD_DRACOZOLT_FQNAME) == 0) {
+    config.animation_index = PMD_DRACOZOLT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Arctozolt (arctozolt)
+if (strcmp(value, PMD_ARCTOZOLT_NAME) == 0 ||
+    strcmp(value, PMD_ARCTOZOLT_ID) == 0 ||
+    strcmp(value, PMD_ARCTOZOLT_FQID) == 0 ||
+    strcmp(value, PMD_ARCTOZOLT_FQNAME) == 0) {
+    config.animation_index = PMD_ARCTOZOLT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dracovish (dracovish)
+if (strcmp(value, PMD_DRACOVISH_NAME) == 0 ||
+    strcmp(value, PMD_DRACOVISH_ID) == 0 ||
+    strcmp(value, PMD_DRACOVISH_FQID) == 0 ||
+    strcmp(value, PMD_DRACOVISH_FQNAME) == 0) {
+    config.animation_index = PMD_DRACOVISH_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Arctovish (arctovish)
+if (strcmp(value, PMD_ARCTOVISH_NAME) == 0 ||
+    strcmp(value, PMD_ARCTOVISH_ID) == 0 ||
+    strcmp(value, PMD_ARCTOVISH_FQID) == 0 ||
+    strcmp(value, PMD_ARCTOVISH_FQNAME) == 0) {
+    config.animation_index = PMD_ARCTOVISH_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Duraludon (duraludon)
+if (strcmp(value, PMD_DURALUDON_NAME) == 0 ||
+    strcmp(value, PMD_DURALUDON_ID) == 0 ||
+    strcmp(value, PMD_DURALUDON_FQID) == 0 ||
+    strcmp(value, PMD_DURALUDON_FQNAME) == 0) {
+    config.animation_index = PMD_DURALUDON_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dreepy (dreepy)
+if (strcmp(value, PMD_DREEPY_NAME) == 0 ||
+    strcmp(value, PMD_DREEPY_ID) == 0 ||
+    strcmp(value, PMD_DREEPY_FQID) == 0 ||
+    strcmp(value, PMD_DREEPY_FQNAME) == 0) {
+    config.animation_index = PMD_DREEPY_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Drakloak (drakloak)
+if (strcmp(value, PMD_DRAKLOAK_NAME) == 0 ||
+    strcmp(value, PMD_DRAKLOAK_ID) == 0 ||
+    strcmp(value, PMD_DRAKLOAK_FQID) == 0 ||
+    strcmp(value, PMD_DRAKLOAK_FQNAME) == 0) {
+    config.animation_index = PMD_DRAKLOAK_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Dragapult (dragapult)
+if (strcmp(value, PMD_DRAGAPULT_NAME) == 0 ||
+    strcmp(value, PMD_DRAGAPULT_ID) == 0 ||
+    strcmp(value, PMD_DRAGAPULT_FQID) == 0 ||
+    strcmp(value, PMD_DRAGAPULT_FQNAME) == 0) {
+    config.animation_index = PMD_DRAGAPULT_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Zacian (zacian)
+if (strcmp(value, PMD_ZACIAN_NAME) == 0 ||
+    strcmp(value, PMD_ZACIAN_ID) == 0 ||
+    strcmp(value, PMD_ZACIAN_FQID) == 0 ||
+    strcmp(value, PMD_ZACIAN_FQNAME) == 0) {
+    config.animation_index = PMD_ZACIAN_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Eternatus (eternatus)
+if (strcmp(value, PMD_ETERNATUS_NAME) == 0 ||
+    strcmp(value, PMD_ETERNATUS_ID) == 0 ||
+    strcmp(value, PMD_ETERNATUS_FQID) == 0 ||
+    strcmp(value, PMD_ETERNATUS_FQNAME) == 0) {
+    config.animation_index = PMD_ETERNATUS_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Kubfu (kubfu)
+if (strcmp(value, PMD_KUBFU_NAME) == 0 ||
+    strcmp(value, PMD_KUBFU_ID) == 0 ||
+    strcmp(value, PMD_KUBFU_FQID) == 0 ||
+    strcmp(value, PMD_KUBFU_FQNAME) == 0) {
+    config.animation_index = PMD_KUBFU_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Urshifu (urshifu)
+if (strcmp(value, PMD_URSHIFU_NAME) == 0 ||
+    strcmp(value, PMD_URSHIFU_ID) == 0 ||
+    strcmp(value, PMD_URSHIFU_FQID) == 0 ||
+    strcmp(value, PMD_URSHIFU_FQNAME) == 0) {
+    config.animation_index = PMD_URSHIFU_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Regieleki (regieleki)
+if (strcmp(value, PMD_REGIELEKI_NAME) == 0 ||
+    strcmp(value, PMD_REGIELEKI_ID) == 0 ||
+    strcmp(value, PMD_REGIELEKI_FQID) == 0 ||
+    strcmp(value, PMD_REGIELEKI_FQNAME) == 0) {
+    config.animation_index = PMD_REGIELEKI_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Regidrago (regidrago)
+if (strcmp(value, PMD_REGIDRAGO_NAME) == 0 ||
+    strcmp(value, PMD_REGIDRAGO_ID) == 0 ||
+    strcmp(value, PMD_REGIDRAGO_FQID) == 0 ||
+    strcmp(value, PMD_REGIDRAGO_FQNAME) == 0) {
+    config.animation_index = PMD_REGIDRAGO_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Spectrier (spectrier)
+if (strcmp(value, PMD_SPECTRIER_NAME) == 0 ||
+    strcmp(value, PMD_SPECTRIER_ID) == 0 ||
+    strcmp(value, PMD_SPECTRIER_FQID) == 0 ||
+    strcmp(value, PMD_SPECTRIER_FQNAME) == 0) {
+    config.animation_index = PMD_SPECTRIER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Calyrex (calyrex)
+if (strcmp(value, PMD_CALYREX_NAME) == 0 ||
+    strcmp(value, PMD_CALYREX_ID) == 0 ||
+    strcmp(value, PMD_CALYREX_FQID) == 0 ||
+    strcmp(value, PMD_CALYREX_FQNAME) == 0) {
+    config.animation_index = PMD_CALYREX_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Wyrdeer (wyrdeer)
+if (strcmp(value, PMD_WYRDEER_NAME) == 0 ||
+    strcmp(value, PMD_WYRDEER_ID) == 0 ||
+    strcmp(value, PMD_WYRDEER_FQID) == 0 ||
+    strcmp(value, PMD_WYRDEER_FQNAME) == 0) {
+    config.animation_index = PMD_WYRDEER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Kleavor (kleavor)
+if (strcmp(value, PMD_KLEAVOR_NAME) == 0 ||
+    strcmp(value, PMD_KLEAVOR_ID) == 0 ||
+    strcmp(value, PMD_KLEAVOR_FQID) == 0 ||
+    strcmp(value, PMD_KLEAVOR_FQNAME) == 0) {
+    config.animation_index = PMD_KLEAVOR_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Ursaluna (ursaluna)
+if (strcmp(value, PMD_URSALUNA_NAME) == 0 ||
+    strcmp(value, PMD_URSALUNA_ID) == 0 ||
+    strcmp(value, PMD_URSALUNA_FQID) == 0 ||
+    strcmp(value, PMD_URSALUNA_FQNAME) == 0) {
+    config.animation_index = PMD_URSALUNA_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Basculegion (basculegion)
+if (strcmp(value, PMD_BASCULEGION_NAME) == 0 ||
+    strcmp(value, PMD_BASCULEGION_ID) == 0 ||
+    strcmp(value, PMD_BASCULEGION_FQID) == 0 ||
+    strcmp(value, PMD_BASCULEGION_FQNAME) == 0) {
+    config.animation_index = PMD_BASCULEGION_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Sneasler (sneasler)
+if (strcmp(value, PMD_SNEASLER_NAME) == 0 ||
+    strcmp(value, PMD_SNEASLER_ID) == 0 ||
+    strcmp(value, PMD_SNEASLER_FQID) == 0 ||
+    strcmp(value, PMD_SNEASLER_FQNAME) == 0) {
+    config.animation_index = PMD_SNEASLER_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Overqwil (overqwil)
+if (strcmp(value, PMD_OVERQWIL_NAME) == 0 ||
+    strcmp(value, PMD_OVERQWIL_ID) == 0 ||
+    strcmp(value, PMD_OVERQWIL_FQID) == 0 ||
+    strcmp(value, PMD_OVERQWIL_FQNAME) == 0) {
+    config.animation_index = PMD_OVERQWIL_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
+// check for Enamorus (enamorus)
+if (strcmp(value, PMD_ENAMORUS_NAME) == 0 ||
+    strcmp(value, PMD_ENAMORUS_ID) == 0 ||
+    strcmp(value, PMD_ENAMORUS_FQID) == 0 ||
+    strcmp(value, PMD_ENAMORUS_FQNAME) == 0) {
+    config.animation_index = PMD_ENAMORUS_ANIM_INDEX;
+    config.animation_custom_set = config_animation_custom_set_t::pmd;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
+}
