@@ -1646,14 +1646,26 @@ namespace bongocat::config {
                                    config.cat_x_offset, config.cat_y_offset);
                 break;
             case config_animation_sprite_sheet_layout_t::Custom:
-                assert(MAX_MISC_ANIM_INDEX <= INT32_MAX);
-                if (config.animation_custom_set == config_animation_custom_set_t::misc) {
-                    BONGOCAT_LOG_DEBUG("  Misc: %03d/%03d at offset (%d,%d)",
-                                       config.animation_index, MAX_MISC_ANIM_INDEX,
-                                       config.cat_x_offset, config.cat_y_offset);
-                } else if (config.animation_custom_set == config_animation_custom_set_t::custom) {
-                    BONGOCAT_LOG_DEBUG("  Custom: %s at offset (%d,%d)", config.custom_sprite_sheet_filename,
-                                       config.cat_x_offset, config.cat_y_offset);
+                switch (config.animation_custom_set) {
+                    case config_animation_custom_set_t::None:
+                        break;
+                    case config_animation_custom_set_t::misc:
+                        assert(MISC_ANIM_COUNT <= INT32_MAX);
+                        BONGOCAT_LOG_DEBUG("  Misc: %03d/%03d at offset (%d,%d)",
+                                           config.animation_index, MISC_ANIM_COUNT,
+                                           config.cat_x_offset, config.cat_y_offset);
+                        break;
+                case config_animation_custom_set_t::pmd:
+                        assert(PMD_ANIM_COUNT <= INT32_MAX);
+                        BONGOCAT_LOG_DEBUG("  pkmn pmd: %03d/%03d at offset (%d,%d)",
+                                           config.animation_index, PMD_ANIM_COUNT,
+                                           config.cat_x_offset, config.cat_y_offset);
+                        break;
+                    case config_animation_custom_set_t::custom:
+                        assert(config._custom);
+                        BONGOCAT_LOG_DEBUG("  Custom: %s at offset (%d,%d)", config.custom_sprite_sheet_filename,
+                                           config.cat_x_offset, config.cat_y_offset);
+                        break;
                 }
                 break;
         }

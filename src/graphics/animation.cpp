@@ -1002,26 +1002,26 @@ namespace bongocat::animation {
                 break;
             case animation_state_row_t::FallASleep:
                 // not fully supported
-                if (current_frames.frames.sleep_1.valid) {
-                    new_animation_result.sprite_sheet_col = current_frames.frames.sleep_1.col;
-                } else if (current_frames.frames.down_1.valid) {
-                    new_animation_result.sprite_sheet_col = current_frames.frames.down_1.col;
+                if (current_frames.frames.sleep.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.sleep.col;
+                } else if (current_frames.frames.down.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.down.col;
                 } else {
                     new_animation_result.sprite_sheet_col = DM_FRAME_IDLE1;
                 }
                 break;
             case animation_state_row_t::Sleep:
-                if (current_frames.frames.sleep_1.valid) {
-                    new_animation_result.sprite_sheet_col = current_frames.frames.sleep_1.col;
-                } else if (current_frames.frames.down_1.valid) {
-                    new_animation_result.sprite_sheet_col = current_frames.frames.down_1.col;
+                if (current_frames.frames.sleep.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.sleep.col;
+                } else if (current_frames.frames.down.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.down.col;
                 } else {
                     new_animation_result.sprite_sheet_col = DM_FRAME_IDLE1;
                 }
                 break;
             case animation_state_row_t::WakeUp:
                 if (current_frames.frames.happy.valid) {
-                    new_animation_result.sprite_sheet_col = current_frames.frames.sleep_1.col;
+                    new_animation_result.sprite_sheet_col = current_frames.frames.sleep.col;
                 } else {
                     new_animation_result.sprite_sheet_col = DM_FRAME_IDLE2;
                 }
@@ -1031,8 +1031,8 @@ namespace bongocat::animation {
                     new_animation_result.sprite_sheet_col = current_frames.frames.sad.col;
                 } else if (current_frames.frames.angry.valid) {
                     new_animation_result.sprite_sheet_col = current_frames.frames.angry.col;
-                } else if (current_frames.frames.down_1.valid) {
-                    new_animation_result.sprite_sheet_col = current_frames.frames.down_1.col;
+                } else if (current_frames.frames.down.valid) {
+                    new_animation_result.sprite_sheet_col = current_frames.frames.down.col;
                 } else {
                     // toggle frame
                     if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE1) {

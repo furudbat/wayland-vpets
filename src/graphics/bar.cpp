@@ -193,8 +193,8 @@ namespace bongocat::animation {
             case DM_FRAME_ANGRY:
                 region = &sheet.frames.angry;
                 break;
-            case DM_FRAME_DOWN1:
-                region = &sheet.frames.down_1;
+            case DM_FRAME_DOWN:
+                region = &sheet.frames.down;
                 break;
             case DM_FRAME_HAPPY:
                 region = &sheet.frames.happy;
@@ -202,8 +202,8 @@ namespace bongocat::animation {
             case DM_FRAME_EAT1:
                 region = &sheet.frames.eat_1;
                 break;
-            case DM_FRAME_SLEEP1:
-                region = &sheet.frames.sleep_1;
+            case DM_FRAME_SLEEP:
+                region = &sheet.frames.sleep;
                 break;
             case DM_FRAME_REFUSE:
                 region = &sheet.frames.refuse;
@@ -211,14 +211,14 @@ namespace bongocat::animation {
             case DM_FRAME_SAD:
                 region = &sheet.frames.sad;
                 break;
-            case DM_FRAME_DOWN2:
-                region = &sheet.frames.down_2;
+            case DM_FRAME_LOSE1:
+                region = &sheet.frames.lose_1;
                 break;
             case DM_FRAME_EAT2:
                 region = &sheet.frames.eat_2;
                 break;
-            case DM_FRAME_SLEEP2:
-                region = &sheet.frames.sleep_2;
+            case DM_FRAME_LOSE2:
+                region = &sheet.frames.lose_2;
                 break;
             case DM_FRAME_ATTACK:
                 region = &sheet.frames.attack_1;
