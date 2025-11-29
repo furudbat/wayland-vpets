@@ -70,6 +70,11 @@ namespace bongocat::animation {
 
     namespace details {
         created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_context_t& ctx, const config::config_t& config) {
+            BONGOCAT_CHECK_NULL(config.custom_sprite_sheet_filename, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+            if (strlen(config.custom_sprite_sheet_filename) <= 0) {
+                return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+            }
+
             assert(ctx.shm.ptr);
             assert(ctx._local_copy_config.ptr);
 

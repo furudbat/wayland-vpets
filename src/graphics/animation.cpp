@@ -1209,7 +1209,6 @@ namespace bongocat::animation {
 
                 if (current_state.row_state == animation_state_row_t::Idle && (current_state.anim_pause_after_movement_ms > 0 || (ctx._rng.range(0, 100) <= CHANCE_FOR_SKIPPING_MOVEMENT_PERCENT))) {
                     // skip movement
-                    anim_shm.anim_direction = 0.0;
                     new_state.anim_velocity = 0.0f;
                     new_state.anim_distance = 0.0f;
                     if (new_state.anim_pause_after_movement_ms > 0) {
@@ -1327,11 +1326,12 @@ namespace bongocat::animation {
                         }
                         new_state.anim_last_direction = anim_shm.anim_direction;
                         new_state.anim_velocity = 0.0f;
+                        anim_shm.anim_direction = 0.0;
                         if (ret.row_state == animation_state_row_t::Idle && new_state.anim_distance <= 0) {
                             assert(current_config.animation_speed_ms >= 0);
                             assert(movement_part >= 0);
-                            const auto min_wait = current_config.animation_speed_ms * movement_part / 2;
-                            const auto max_wait = current_config.animation_speed_ms * movement_part * 2;
+                            const auto min_wait = current_config.animation_speed_ms * (current_config.movement_wait_factor / 2);
+                            const auto max_wait = current_config.animation_speed_ms * current_config.movement_wait_factor;
                             assert(min_wait >= 0);
                             assert(max_wait >= 0);
                             new_state.anim_pause_after_movement_ms = static_cast<int>(ctx._rng.range(static_cast<uint32_t>(min_wait), static_cast<uint32_t>(max_wait)));
@@ -3268,7 +3268,6 @@ namespace bongocat::animation {
 
                 if (current_state.row_state == animation_state_row_t::Idle && (current_state.anim_pause_after_movement_ms > 0 || (ctx._rng.range(0, 100) <= CHANCE_FOR_SKIPPING_MOVEMENT_PERCENT))) {
                     // skip movement
-                    anim_shm.anim_direction = 0.0;
                     new_state.anim_velocity = 0.0f;
                     new_state.anim_distance = 0.0f;
                     if (new_state.anim_pause_after_movement_ms > 0) {
@@ -3284,6 +3283,7 @@ namespace bongocat::animation {
                     assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
                     const int movement_part = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL ? SMALL_MAX_DISTANCE_PER_MOVEMENT_PART : MAX_DISTANCE_PER_MOVEMENT_PART;
                     const float fmovement_part = static_cast<float>(movement_part);
+                    bool end_movement = false;
                     if (current_state.row_state == animation_state_row_t::Idle) {
                         // start movement
                         const auto min_movement = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL ? (fmovement_radius / fmovement_part / 2) + 1 : (fmovement_radius / fmovement_part / fmovement_part) + 1;
@@ -3373,8 +3373,14 @@ namespace bongocat::animation {
                                                         current_state, current_frames, current_config);
                                 ret.status = anim_custom_process_animation_result_status_t::Stop;
                             }
+
+                            end_movement = ret.status == anim_custom_process_animation_result_status_t::Stop;
                         }
                     } else if (current_state.row_state == animation_state_row_t::EndMoving) {
+                        end_movement = true;
+                    }
+
+                    if (end_movement) {
                         if (conditions.process_idle_animation) {
                             ret = anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle,
                                                             new_animation_result, new_state,
@@ -3386,11 +3392,12 @@ namespace bongocat::animation {
                         }
                         new_state.anim_last_direction = anim_shm.anim_direction;
                         new_state.anim_velocity = 0.0f;
+                        anim_shm.anim_direction = 0.0;
                         if (ret.row_state == animation_state_row_t::Idle && new_state.anim_distance <= 0) {
                             assert(current_config.animation_speed_ms >= 0);
                             assert(movement_part >= 0);
-                            const auto min_wait = current_config.animation_speed_ms * movement_part / 2;
-                            const auto max_wait = current_config.animation_speed_ms * movement_part * 2;
+                            const auto min_wait = current_config.animation_speed_ms * (current_config.movement_wait_factor / 2);
+                            const auto max_wait = current_config.animation_speed_ms * current_config.movement_wait_factor;
                             assert(min_wait >= 0);
                             assert(max_wait >= 0);
                             new_state.anim_pause_after_movement_ms = static_cast<int>(ctx._rng.range(static_cast<uint32_t>(min_wait), static_cast<uint32_t>(max_wait)));
@@ -3696,7 +3703,7 @@ namespace bongocat::animation {
                                 const auto animation_result = anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
                                 if ((animation_result.status == anim_custom_process_animation_result_status_t::End || animation_result.status == anim_custom_process_animation_result_status_t::Looped) && !conditions.any_key_pressed) {
                                     // end writing
-                                    anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndWriting, animation_state_row_t::Idle,
+                                    anim_custom_restart_animation(ctx, animation_state_row_t::EndWriting, animation_state_row_t::Idle, animation_state_row_t::Idle,
                                                                         new_animation_result, new_state,
                                                                         current_state, current_frames, current_config);
                                 }
@@ -3917,6 +3924,11 @@ namespace bongocat::animation {
                         animation_result.row_state == animation_state_row_t::Writing && (animation_result.status == anim_custom_process_animation_result_status_t::Started || animation_result.status == anim_custom_process_animation_result_status_t::NextAnimationStarted || animation_result.status == anim_custom_process_animation_result_status_t::Looped) &&
                         current_frames.writing.valid && current_frames.writing.start_col >= 0 && current_frames.writing.end_col >= 0) {
                         new_animation_result.sprite_sheet_col = static_cast<int32_t>(ctx._rng.range(static_cast<uint32_t>(current_frames.writing.start_col), static_cast<uint32_t>(current_frames.writing.end_col)));
+                    }
+                    if (animation_result.row_state == animation_state_row_t::Writing || animation_result.row_state == animation_state_row_t::EndWriting) {
+                        // reset release counter after writing is started (for real)
+                        new_state.hold_frame_after_release = true;
+                        new_state.hold_frame_ms = 0;
                     }
                 }
                 break;
