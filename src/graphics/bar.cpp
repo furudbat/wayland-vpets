@@ -670,7 +670,7 @@ namespace bongocat::animation {
                                 }
                                 break;
                             case config::config_animation_custom_set_t::pmd:
-                                if (features::EnableMiscEmbeddedAssets) {
+                                if (features::EnablePmdEmbeddedAssets) {
                                     if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
                                         assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pmd_anims.count);
                                     }
