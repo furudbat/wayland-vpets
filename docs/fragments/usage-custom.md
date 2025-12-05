@@ -24,6 +24,43 @@ To determine the number of rows, the number of frames needs to be provided per r
 
 Rows can be skipped by not providing the frames/columns, but the order of the rows needs to be the same.
 
+_**animation_name** needs to be "custom"_
+
+- **custom_sprite_sheet_filename**: Path to the custom sprite sheet image (**must be png**)
+- **custom_idle_frames**: Number of frames for idle animation (0 = disabled)
+- **custom_boring_frames**: Number of frames for boring animation (0 = disabled)
+- **custom_start_writing_frames**: Number of frames for start writing animation (0 = disabled)
+- **custom_writing_frames**: Number of frames for writing animation (0 = disabled)
+- **custom_end_writing_frames**: Number of frames for end writing animation (0 = disabled)
+- **custom_happy_frames**: Number of frames for happy animation (0 = disabled)
+- **custom_asleep_frames**: Number of frames for falling asleep animation (0 = disabled)
+- **custom_sleep_frames**: Number of frames for sleeping animation (0 = disabled)
+- **custom_wake_up_frames**: Number of frames for waking up animation (0 = disabled)
+- **custom_start_working_frames**: Number of frames for start working animation (0 = disabled)
+- **custom_working_frames**: Number of frames for working animation (0 = disabled)
+- **custom_end_working_frames**: Number of frames for end working animation (0 = disabled)
+- **custom_start_moving_frames**: Number of frames for start moving animation (0 = disabled)
+- **custom_moving_frames**: Number of frames for moving animation (0 = disabled)
+- **custom_end_moving_frames**: Number of frames for end moving animation (0 = disabled)
+- **custom_toggle_writing_frames**: Toggle writing frames when writing (`custom_writing_frames` must be `2`) (default; -1 = auto)
+- **custom_toggle_writing_frames_random**: Randomize writing frames on start writing (`custom_writing_frames` must be `2`) (default; -1 = auto)
+- **custom_mirror_x_moving**: Mirror frames horizontally when moving (default; -1 = ignore)
+- **custom_idle_row**: Row number for idle animation in sprite sheet (default; -1 = auto)
+- **custom_boring_row**: Row number for boring animation (default; -1 = auto)
+- **custom_start_writing_row**: Row number for start writing animation (default; -1 = auto)
+- **custom_writing_row**: Row number for writing animation (default; -1 = auto)
+- **custom_end_writing_row**: Row number for end writing animation (default; -1 = auto)
+- **custom_happy_row**: Row number for happy animation (default; -1 = auto)
+- **custom_asleep_row**: Row number for asleep animation (default; -1 = auto)
+- **custom_sleep_row**: Row number for sleep animation (default; -1 = auto)
+- **custom_wake_up_row**: Row number for wake-up animation (default; -1 = auto)
+- **custom_start_working_row**: Row number for start working animation (default; -1 = auto)
+- **custom_working_row**: Row number for working animation (default; -1 = auto)
+- **custom_end_working_row**: Row number for end working animation (default; -1 = auto)
+- **custom_start_moving_row**: Row number for start moving animation (default; -1 = auto)
+- **custom_moving_row**: Row number for moving animation (default; -1 = auto)
+- **custom_end_moving_row**: Row number for end moving animation (default; -1 = auto)
+
 
 ### General Example
 

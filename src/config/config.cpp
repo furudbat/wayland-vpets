@@ -65,7 +65,7 @@ namespace bongocat::config {
     static inline constexpr int MIN_KPM = 0;
     static inline constexpr int MAX_KPM = 10000;
     static inline constexpr double MAX_CPU_THRESHOLD = 100.0;
-    static inline constexpr double MAX_CPU_RUNNING_FACTOR = 10.0;
+    static inline constexpr double MAX_CPU_RUNNING_FACTOR = 50.0;
     static inline constexpr int MAX_UPDATE_RATE_MS = 60 * 60 * 1000;
     static inline constexpr int MAX_SLEEP_TIMEOUT_SEC = 30 * 24 * 60 * 60;
     static inline constexpr int MIN_OFFSET = -16000;
