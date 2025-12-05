@@ -35,17 +35,17 @@ namespace bongocat::animation {
         sprite_sheet_animation_frame_t idle_1;      // 0
         sprite_sheet_animation_frame_t idle_2;      // 1
         sprite_sheet_animation_frame_t angry;       // 2
-        sprite_sheet_animation_frame_t down_1;      // 3
+        sprite_sheet_animation_frame_t down;        // 3
         sprite_sheet_animation_frame_t happy;       // 4
         sprite_sheet_animation_frame_t eat_1;       // 5
-        sprite_sheet_animation_frame_t sleep_1;     // 6
+        sprite_sheet_animation_frame_t sleep;       // 6
         sprite_sheet_animation_frame_t refuse;      // 7
         sprite_sheet_animation_frame_t sad;         // 8
 
         // optional
-        sprite_sheet_animation_frame_t down_2;      // 9
+        sprite_sheet_animation_frame_t lose_1;      // 9
         sprite_sheet_animation_frame_t eat_2;       //10
-        sprite_sheet_animation_frame_t sleep_2;     //11
+        sprite_sheet_animation_frame_t lose_2;      //11
         sprite_sheet_animation_frame_t attack_1;    //12
 
         // extra frames

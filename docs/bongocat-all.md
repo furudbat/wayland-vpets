@@ -1,6 +1,6 @@
 % bongocat-all(1)
 % 
-% September 2025
+% November 2025
 
 # NAME
 bongocat - Wayland overlay with animated V-Pet reacting to keyboard input
@@ -19,6 +19,7 @@ fragments/options-all.md
 # USAGE
 ```{.include}
 fragments/examples-basic.md
+fragments/usage-custom.md
 ```
 
 ```{.include}

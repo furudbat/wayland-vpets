@@ -1,6 +1,6 @@
 #!/bin/bash
 # auto_even_spritesheet.sh
-# Usage: ./auto_even_spritesheet.sh INPUT_DIR
+# Usage: ./auto_even_spritesheet.sh INPUT_DIR DIV
 
 INPUT_DIR="$1"
 DIV=$2

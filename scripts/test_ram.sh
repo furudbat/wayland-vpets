@@ -163,13 +163,13 @@ for group in release-preload-assets release-hybrid release-pngle release minsize
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Links/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 3
+        sleep 5
         echo "[INFO] Set Sprite Sheet: Rover"
         sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Rover/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 3
+        sleep 5
         echo "[INFO] Set Sprite Sheet: pkmn:dialga"
         sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:dialga/' "$CONFIG"
@@ -203,6 +203,12 @@ for group in release-preload-assets release-hybrid release-pngle release minsize
         echo "[INFO] Set Sprite Sheet: Metal Greymon"
         sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Metal Greymon/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 2
+        echo "[INFO] Set Sprite Sheet: pmd:volcanion"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pmd:volcanion/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
         sleep 5

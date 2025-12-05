@@ -106,24 +106,26 @@ namespace bongocat::assets {
 namespace bongocat::assets {
     static inline constexpr int DM_FRAME_IDLE1     = 0;
     static inline constexpr int DM_FRAME_IDLE2     = 1;
-    static inline constexpr int DM_FRAME_ANGRY     = 2;  // Angry/Refuse or Hit (Fallback), Eat Frame Fallback
-    static inline constexpr int DM_FRAME_DOWN1     = 3;  // Sleep/Discipline Fallback
+    static inline constexpr int DM_FRAME_ANGRY     = 2;  // Angry/Refuse- or Hurt-Fallback, Eat Frame Fallback
+    static inline constexpr int DM_FRAME_DOWN      = 3;  // Sleep/Discipline Fallback
     static inline constexpr int DM_FRAME_HAPPY     = 4;
     static inline constexpr int DM_FRAME_EAT1      = 5;
-    static inline constexpr int DM_FRAME_SLEEP1    = 6;
+    static inline constexpr int DM_FRAME_SLEEP     = 6;
     static inline constexpr int DM_FRAME_REFUSE    = 7;
     static inline constexpr int DM_FRAME_SAD       = 8;
 
     // Optional frames
-    static inline constexpr int DM_FRAME_DOWN2     = 9;
+    static inline constexpr int DM_FRAME_LOSE1     = 9;
     static inline constexpr int DM_FRAME_EAT2      = 10;
-    static inline constexpr int DM_FRAME_SLEEP2    = 11;
+    static inline constexpr int DM_FRAME_LOSE2     = 11;
     static inline constexpr int DM_FRAME_ATTACK    = 12;
 
     static inline constexpr int DM_FRAME_MOVEMENT1 = 13;
     static inline constexpr int DM_FRAME_MOVEMENT2 = 14;
 
-    inline static constexpr size_t DM_SPRITE_SHEET_MAX_COLS = 15;
+    static inline constexpr int DM_FRAME_ATTACK_2  = 15;
+
+    inline static constexpr size_t DM_SPRITE_SHEET_MAX_COLS = 16;
     inline static constexpr size_t DM_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t DM_SPRITE_SHEET_ROW = 0;
 

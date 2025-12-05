@@ -21,7 +21,8 @@ START_INDEX="$9"
 FRAME_SIZE=""
 COLS=""
 ROWS=""
-SET="Dm"
+LAYOUT="Dm"
+SET=""
 
 # === Parse args ===
 POSITIONAL_ARGS=()
@@ -31,6 +32,7 @@ while [[ $# -gt 0 ]]; do
         --cols) COLS="$2"; shift 2 ;;
         --rows) ROWS="$2"; shift 2 ;;
         --set) SET="$2"; shift 2 ;;
+        --layout) LAYOUT="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -38,7 +40,7 @@ while [[ $# -gt 0 ]]; do
 done
 set -- "${POSITIONAL_ARGS[@]}"
 
-INPUT="${POSITIONAL_ARGS[0]}"
+INPUT_DIR="${POSITIONAL_ARGS[0]}"
 OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
 C_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
 C_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
@@ -54,12 +56,12 @@ if ! command -v magick &>/dev/null; then
     exit 1
 fi
 
-if [[ -z "$INPUT" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" ]]; then
+if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
     exit 1
 fi
 
-#echo $INPUT
+#echo $INPUT_DIR
 #echo $OG_INPUT_DIR
 #echo $C_HEADER_IMAGES_OUT
 #echo $C_SOURCE_IMAGES_OUT
@@ -137,8 +139,8 @@ echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$C
 echo "        switch (index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
 
-SET_LOWER=$(echo "$SET" | tr '[:upper:]' '[:lower:]')
-LOAD_DM_ANIM_FUNC_NAME="load_${SET_LOWER}_anim"
+LAYOUT_LOWER=$(echo "$LAYOUT" | tr '[:upper:]' '[:lower:]')
+LOAD_DM_ANIM_FUNC_NAME="load_${LAYOUT_LOWER}_anim"
 LOAD_SPRITE_SHEET_FUNC_NAME="load_${ASSETS_PREFIX_LOWER}_sprite_sheet"
 echo "#include \"core/bongocat.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"graphics/animation_context.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
@@ -150,7 +152,7 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_s
 echo "#include \"image_loader/${ASSETS_PREFIX_LOWER}/load_images_${ASSETS_PREFIX_LOWER}.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    created_result_t<${SET_LOWER}_animation_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    created_result_t<${LAYOUT_LOWER}_animation_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_context_t& ctx, int index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        switch (index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 

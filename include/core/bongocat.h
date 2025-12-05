@@ -7,7 +7,7 @@
 #include "utils/memory.h"
 
 // Version
-inline static constexpr const char* BONGOCAT_VERSION = "3.4.0";
+inline static constexpr const char* BONGOCAT_VERSION = "3.5.0";
 
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
@@ -109,6 +109,12 @@ namespace bongocat {
         inline static constexpr bool EnablePkmnEmbeddedAssets = true;
 #else
         inline static constexpr bool EnablePkmnEmbeddedAssets = false;
+#endif
+
+#ifdef FEATURE_PMD_EMBEDDED_ASSETS
+        inline static constexpr bool EnablePmdEmbeddedAssets = true;
+#else
+        inline static constexpr bool EnablePmdEmbeddedAssets = false;
 #endif
 
 #ifdef FEATURE_MISC_EMBEDDED_ASSETS

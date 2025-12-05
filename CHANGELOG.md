@@ -2,21 +2,29 @@
 
 All notable changes to this project will be documented in this file.
 
+## [3.5.0] - 2025-12-05
+
+### Added
+- **Add NEW sprite sheets** - pmd (experimental)
+  - up to gen. 8
+
+### Fixed
+- working (CPU) animation stuck
+- fix dm sleep animation
+- fix find-devices crash
+
 ## [3.4.0] - 2025-11-22
 
 ### Added
 - Add running animation
-  - animation speed-up when full CPU
-
-### Fixed
-- working (CPU) animation stuck
+  - animation speed-up when 100% CPU usage
 
 
 ## [3.3.1] - 2025-11-15
 
 ### Fixed
 - randomize at start-up
-- KDE (Kwin) rendering (animation freeze)
+- KDE (KWin) rendering (animation freeze)
 
 ## [3.3.0] - 2025-11-05
 

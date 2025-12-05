@@ -30,16 +30,16 @@ namespace bongocat::animation {
         ret.frames.idle_1 = bongocat::move(result.result.frames[0]);
         ret.frames.idle_2 = bongocat::move(result.result.frames[1]);
         ret.frames.angry = bongocat::move(result.result.frames[2]);
-        ret.frames.down_1 = bongocat::move(result.result.frames[3]);
+        ret.frames.down = bongocat::move(result.result.frames[3]);
         ret.frames.happy = bongocat::move(result.result.frames[4]);
         ret.frames.eat_1 = bongocat::move(result.result.frames[5]);
-        ret.frames.sleep_1 = bongocat::move(result.result.frames[6]);
+        ret.frames.sleep = bongocat::move(result.result.frames[6]);
         ret.frames.refuse = bongocat::move(result.result.frames[7]);
         ret.frames.sad = bongocat::move(result.result.frames[8]);
 
-        ret.frames.down_2 = bongocat::move(result.result.frames[9]);
+        ret.frames.lose_1 = bongocat::move(result.result.frames[9]);
         ret.frames.eat_2 = bongocat::move(result.result.frames[10]);
-        ret.frames.sleep_2 = bongocat::move(result.result.frames[11]);
+        ret.frames.lose_2 = bongocat::move(result.result.frames[11]);
         ret.frames.attack_1 = bongocat::move(result.result.frames[12]);
 
         ret.frames.movement_1 = bongocat::move(result.result.frames[13]);
@@ -48,10 +48,11 @@ namespace bongocat::animation {
         // setup animations
         using namespace assets;
 
+        // minimal frames existing
         assert(ret.frames.idle_1.valid);
         assert(ret.frames.idle_2.valid);
         assert(ret.frames.angry.valid);
-        assert(ret.frames.down_1.valid);
+        assert(ret.frames.down.valid);
 
         assert(MAX_ANIMATION_FRAMES >= 4);
         ret.animations.idle[0] = ret.frames.idle_1.col;
@@ -60,8 +61,8 @@ namespace bongocat::animation {
         ret.animations.idle[3] = ret.frames.idle_2.col;
 
         ret.animations.boring[0] = ret.frames.sad.col ? ret.frames.sad.col : ret.frames.idle_1.col;
-        ret.animations.boring[1] = ret.frames.down_1.col ? ret.frames.down_1.col : ret.frames.idle_2.col;
-        ret.animations.boring[2] = ret.frames.down_2.col ? ret.frames.down_2.col : ret.frames.idle_1.col;
+        ret.animations.boring[1] = ret.frames.lose_1.col ? ret.frames.lose_1.col : ret.frames.idle_2.col;
+        ret.animations.boring[2] = ret.frames.lose_2.col ? ret.frames.lose_2.col : ret.frames.idle_1.col;
         ret.animations.boring[3] = ret.frames.idle_2.col;
 
         ret.animations.writing[0] = ret.frames.idle_2.col;
@@ -70,16 +71,16 @@ namespace bongocat::animation {
         ret.animations.writing[3] = ret.frames.idle_1.col;
 
         // sleep animation
-        if (ret.frames.sleep_1.valid || ret.frames.sleep_2.valid) {
-            ret.animations.sleep[0] = ret.frames.sleep_1.valid ? ret.frames.sleep_1.col : ret.frames.sleep_2.col;
-            ret.animations.sleep[1] = ret.frames.sleep_2.valid ? ret.frames.sleep_2.col : ret.frames.sleep_1.col;
-            ret.animations.sleep[2] = ret.frames.sleep_1.valid ? ret.frames.sleep_1.col : ret.frames.sleep_2.col;
-            ret.animations.sleep[3] = ret.frames.sleep_2.valid ? ret.frames.sleep_2.col : ret.frames.sleep_1.col;
-        } else if (ret.frames.down_1.valid) {
-            ret.animations.sleep[0] = ret.frames.down_1.col;
-            ret.animations.sleep[1] = ret.frames.down_1.col;
-            ret.animations.sleep[2] = ret.frames.down_1.col;
-            ret.animations.sleep[3] = ret.frames.down_1.col;
+        if (ret.frames.sleep.valid) {
+            ret.animations.sleep[0] = ret.frames.sleep.col;
+            ret.animations.sleep[1] = ret.frames.sleep.col;
+            ret.animations.sleep[2] = ret.frames.sleep.col;
+            ret.animations.sleep[3] = ret.frames.sleep.col;
+        } else if (ret.frames.down.valid) {
+            ret.animations.sleep[0] = ret.frames.down.col;
+            ret.animations.sleep[1] = ret.frames.down.col;
+            ret.animations.sleep[2] = ret.frames.down.col;
+            ret.animations.sleep[3] = ret.frames.down.col;
         } else {
             // fallback
             ret.animations.sleep[0] = ret.frames.idle_2.col;

@@ -156,7 +156,7 @@ if (( EXTRA > 0 )); then
     echo "Adding $EXTRA extra blank frames to fill grid"
     for ((i=0;i<EXTRA;i++)); do
         BLANK="$WORKDIR/padded-blank-$i.png"
-        convert -size "${FRAME_WIDTH}x${FRAME_HEIGHT}" xc:none "$BLANK"
+        magick -size "${FRAME_WIDTH}x${FRAME_HEIGHT}" xc:none "$BLANK"
         cp "$BLANK" "$WORKDIR/padded-extra-$i.png"
     done
 fi
@@ -177,7 +177,7 @@ NEW_W=$((FRAME_W * COLS))
 NEW_H=$((FRAME_H * ROWS))
 
 if [[ $NEW_W -ne $SHEET_W || $NEW_H -ne $SHEET_H ]]; then
-    magick convert "$OUTPUT" -gravity northwest -background none -extent "${NEW_W}x${NEW_H}" "$OUTPUT"
+    magick "$OUTPUT" -gravity northwest -background none -extent "${NEW_W}x${NEW_H}" "$OUTPUT"
     echo "Padded sprite sheet from ${SHEET_W}x${SHEET_H} → ${NEW_W}x${NEW_H}"
 fi
 

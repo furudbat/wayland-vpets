@@ -230,7 +230,7 @@ check_input_group() {
 get_device_status() {
     local device="$1"
 
-    if [[ -r "$device" ]]; then
+    if stat "$device" >/dev/null 2>&1; then
         echo -e "${GREEN}${CHECK} Accessible${NC}"
         return 0
     else
@@ -419,15 +419,15 @@ display_devices() {
     # Process and display each device
     while IFS='|' read -r name path type; do
         if [[ "$GENERATE_CONFIG" == "false" ]]; then
-            echo -e "${BLUE}┌─────────────────────────────────────────────────────────────────┐${NC}"
-            echo -e "${BLUE}│${NC} ${WHITE}Device:${NC} $(printf "%-50s" "$name") ${BLUE}     │${NC}"
-            echo -e "${BLUE}│${NC} ${WHITE}Path:${NC}   $(printf "%-50s" "$path") ${BLUE}     │${NC}"
-            echo -e "${BLUE}│${NC} ${WHITE}Type:${NC}   $(printf "%-50s" "$type") ${BLUE}     │${NC}"
+            echo -e "${BLUE}┌───────────────────────────────────────────────────────────────────────────┐${NC}"
+            echo -e "${BLUE}│${NC} ${WHITE}Device:${NC} $(printf "%-60s" "$name") ${BLUE}     │${NC}"
+            echo -e "${BLUE}│${NC} ${WHITE}Path:${NC}   $(printf "%-60s" "$path") ${BLUE}     │${NC}"
+            echo -e "${BLUE}│${NC} ${WHITE}Type:${NC}   $(printf "%-60s" "$type") ${BLUE}     │${NC}"
 
             local status
             status=$(get_device_status "$path")
-            echo -e "${BLUE}│${NC} ${WHITE}Status:${NC} $status $(printf "%*s" $((50 - ${#status} + 10)) "") ${BLUE}     │${NC}"
-            echo -e "${BLUE}└─────────────────────────────────────────────────────────────────┘${NC}"
+            echo -e "${BLUE}│${NC} ${WHITE}Status:${NC} $status $(printf "%*s" $((60 - ${#status} + 10)) "") ${BLUE}     │${NC}"
+            echo -e "${BLUE}└───────────────────────────────────────────────────────────────────────────┘${NC}"
             echo
         fi
 

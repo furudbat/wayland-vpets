@@ -55,6 +55,13 @@ Digimon and all related characters, and associated images are owned by Bandai Co
 
 Pokemon sprite- and images are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
 
+#### pmd (PMDCollab)
+
+All custom graphics in this repository not originating from official PMD games are licensed under Creative Commons Attribution-NonCommercial 4.0 International.
+
+- https://sprites.pmdcollab.org/
+- https://github.com/PMDCollab/SpriteCollab
+
 ### MS Agent (Clippy)
 
 Clippy and other MS Agents are owed by Microsoft.

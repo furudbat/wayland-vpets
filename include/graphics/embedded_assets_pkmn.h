@@ -12,9 +12,18 @@ namespace bongocat::assets {
 }
 #endif
 
+/// pmd (pkmn)
+#ifdef FEATURE_PMD_EMBEDDED_ASSETS
+#include "embedded_assets/pmd/pmd.hpp"
+#else
+namespace bongocat::assets {
+    inline static constexpr size_t PMD_ANIM_COUNT = 0;
+}
+#endif
 
 namespace bongocat::assets {
     inline static constexpr size_t PKMN_ANIMATIONS_COUNT = PKMN_ANIM_COUNT;
+    inline static constexpr size_t PMD_ANIMATIONS_COUNT = PMD_ANIM_COUNT;
 }
 
 namespace bongocat::assets {

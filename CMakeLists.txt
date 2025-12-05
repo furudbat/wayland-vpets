@@ -31,7 +31,7 @@ endif()
 
 
 
-project(bongocat LANGUAGES C CXX VERSION 3.4.0)
+project(bongocat LANGUAGES C CXX VERSION 3.5.0)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -47,6 +47,7 @@ cmake_dependent_option(FEATURE_DMALL_EMBEDDED_ASSETS "Include custom colored dm 
 option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" OFF)
 cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS agents (Links) embedded assets" OFF FEATURE_MS_AGENT_EMBEDDED_ASSETS OFF)
 option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" OFF)
+option(FEATURE_ENABLE_PMD_EMBEDDED_ASSETS "Enable include pkmn pmd (replace pkmn) embedded assets" OFF)
 option(FEATURE_MISC_EMBEDDED_ASSETS "Enable include misc embedded assets" OFF)
 # @NOTE(assets): 1. add feature flag for embedded assets
 
@@ -198,7 +199,10 @@ if (FEATURE_MS_AGENT_EMBEDDED_ASSETS)
     endif()
     message(STATUS "Include MS agent assets")
 endif()
-if (FEATURE_PKMN_EMBEDDED_ASSETS)
+if (FEATURE_PMD_EMBEDDED_ASSETS)
+    target_link_libraries(bongocat PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
+    message(STATUS "Include pkmn pmd assets")
+elseif (FEATURE_PKMN_EMBEDDED_ASSETS)
     target_link_libraries(bongocat PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
     message(STATUS "Include pkmn assets")
 endif()
@@ -252,6 +256,7 @@ if (FEATURE_MULTI_VERSIONS)
     add_executable(bongocat-pkmn)
     target_link_libraries(bongocat-pkmn PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
     target_link_libraries(bongocat-pkmn PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
+    target_link_libraries(bongocat-pkmn PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
     target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
 
     add_executable(bongocat-all)
@@ -265,6 +270,14 @@ if (FEATURE_MULTI_VERSIONS)
     target_link_libraries(bongocat-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
     target_link_libraries(bongocat-all PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface)
     target_link_libraries(bongocat-all PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
+    # TODO: include pmd in -all when ready (experimental)
+    target_link_libraries(bongocat-all PRIVATE
+            # only include pmd for testing
+            $<$<CONFIG:Debug>:assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader>
+            $<$<CONFIG:RelWithDebInfo>:assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader>
+            $<$<BOOL:${FEATURE_PRELOAD_ASSETS}>:assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader>
+    )
+    #target_link_libraries(bongocat-all PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
     target_link_libraries(bongocat-all PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
     target_link_libraries(bongocat-all PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
     target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)
@@ -371,7 +384,7 @@ endif()
 
 # Package
 set(CPACK_PACKAGE_NAME "bongocat")
-set(CPACK_PACKAGE_VERSION "3.4.0")
+set(CPACK_PACKAGE_VERSION "3.5.0")
 set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")

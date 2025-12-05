@@ -67,6 +67,7 @@ add_subdirectory(ms_agent)
 add_subdirectory(pkmn)
 add_subdirectory(custom)
 add_subdirectory(misc)
+add_subdirectory(pmd)
 
 # @NOTE(assets): 3.1. add image_loader in include/image_loader (see other load_images_...h as reference)
 # @NOTE(assets): 3.2. add image_loader in src/image_loader/xxx (see other load_images_...cpp as reference)

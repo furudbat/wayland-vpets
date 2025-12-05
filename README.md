@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.4.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-3.5.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! 
@@ -271,45 +271,45 @@ enable_debug=0                   # Show debug messages
 
 ### Configuration Reference
 
-| Setting                   | Type     | Range / Options                                            | Default       | Description                                                                             |
-|---------------------------|----------|------------------------------------------------------------|---------------|-----------------------------------------------------------------------------------------|
-| `cat_height`              | Integer  | 10–200                                                     | 40            | Height of bongo cat in pixels (width auto-calculated to maintain aspect ratio)          |
-| `cat_x_offset`            | Integer  | -16000 to 16000                                            | 100           | Horizontal offset from center (behavior depends on `cat_align`)                         |
-| `cat_y_offset`            | Integer  | -16000 to 16000                                            | 10            | Vertical offset from center (positive=down, negative=up)                                |
-| `cat_align`               | String   | "center", "left", "right"                                  | "center"      | Horizontal alignment of cat inside overlay bar                                          |
-| `overlay_height`          | Integer  | 20–300                                                     | 50            | Height of the entire overlay bar                                                        |
-| `overlay_position`        | String   | "top" or "bottom"                                          | "top"         | Position of overlay on screen                                                           |
-| `overlay_opacity`         | Integer  | 0–255                                                      | 60            | Background opacity (0=transparent, 255=opaque)                                          |
-| `overlay_layer`           | String   | "overlay", "top", "bottom" or "background"                 | "overlay"     | Surface layer of overlay on screen                                                      |
-| `animation_name`          | String   | "bongocat", `<digimon name>`, "clippy" or `<pokemon name>` | "bongocat"    | Name of the V-Pet sprite (see list below)                                               |
-| `invert_color`            | Boolean  | 0 or 1                                                     | 0             | Invert color (useful for white digimon sprites & dark mode)                             |
-| `padding_x`               | Integer  | 0–9999                                                     | 0             | Horizontal padding per frame (ignored for bongocat)                                     |
-| `padding_y`               | Integer  | 0–9999                                                     | 0             | Vertical padding per frame (ignored for bongocat)                                       |
-| `idle_frame`              | Integer  | 0–2 (varies by sprite type)                                | 0             | Which frame to use when idle (sprite-specific options)                                  |
-| `idle_animation`          | Boolean  | 0 or 1                                                     | 0             | Enable idle animation                                                                   |
-| `animation_speed`         | Integer  | 0–5000                                                     | 0             | Frame duration in ms (0 = use `fps`)                                                    |
-| `keypress_duration`       | Integer  | 50–5000                                                    | 100           | Duration to display keypress animation (ms)                                             |
-| `mirror_x`                | Boolean  | 0 or 1                                                     | 0             | Flip cat horizontally (mirror across Y axis)                                            |
-| `mirror_y`                | Boolean  | 0 or 1                                                     | 0             | Flip cat vertically (mirror across X axis)                                              |
-| `test_animation_duration` | Integer  | 0–5000                                                     | 0             | Duration of test animation (ms) (deprecated, use `animation_speed`)                     |
-| `test_animation_interval` | Integer  | 0–60                                                       | 0             | Interval for test animation in seconds (0 = disabled, deprecated)                       |
-| `fps`                     | Integer  | 1–144                                                      | 60            | Animation frame rate                                                                    |
-| `input_fps`               | Integer  | 0–144                                                      | 0             | Input thread frame rate (0 = use `fps`)                                                 |
-| `enable_scheduled_sleep`  | Boolean  | 0 or 1                                                     | 0             | Enable scheduled sleep mode                                                             |
-| `sleep_begin`             | String   | "00:00" – "23:59"                                          | "00:00"       | Start time of scheduled sleep (24h format)                                              |
-| `sleep_end`               | String   | "00:00" – "23:59"                                          | "00:00"       | End time of scheduled sleep (24h format)                                                |
-| `idle_sleep_timeout`      | Integer  | 0+                                                         | 0             | Time of inactivity before entering sleep (0 = disabled) (in seconds)                    |
-| `happy_kpm`               | Integer  | 0–10000                                                    | 0             | Minimum keystrokes per minute to trigger happy animation (0 = disabled)                 |
-| `keyboard_device`         | String   | Valid `/dev/input/*` path(s)                               | \<No Device\> | Input device path (multiple entries allowed)                                            |
-| `enable_antialiasing`     | Boolean  | 0 or 1                                                     | 1             | Enable bilinear interpolation for smooth scaling (Bongocat and MS Agent only)           |
-| `enable_debug`            | Boolean  | 0 or 1                                                     | 0             | Enable debug logging                                                                    |
-| `monitor`                 | String   | Monitor name                                               | Auto-detect   | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                                 |
-| `random`                  | Boolean  | 0 or 1                                                     | 0             | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set) |
-| `update_rate`             | Integer  | 0–10000                                                    | 0             | Check (CPU) states rate (0 = disabled) (in milliseconds)                                |
-| `cpu_threshold`           | Integer  | 0–100                                                      | 0             | Threshold of CPU usage for triggering work animation (0 = disabled)                     |
-| `movement_radius`         | Integer  | 0-8000                                                     | 0             | Radius of moving area (0 = disabled)                                                    |
-| `movement_speed`          | Integer  | 0–5000                                                     | 0             | Movement speed (0 = disabled)                                                           |
-| `enable_movement_debug`   | Boolean  | 0 or 1                                                     | 0             | Show Movement area                                                                      |
+| Setting                   | Type    | Range / Options                                            | Default       | Description                                                                               |
+|---------------------------|---------|------------------------------------------------------------|---------------|-------------------------------------------------------------------------------------------|
+| `cat_height`              | Integer | 10–200                                                     | 40            | Height of bongo cat in pixels (width auto-calculated to maintain aspect ratio)            |
+| `cat_x_offset`            | Integer | -16000 to 16000                                            | 100           | Horizontal offset from center (behavior depends on `cat_align`)                           |
+| `cat_y_offset`            | Integer | -16000 to 16000                                            | 10            | Vertical offset from center (positive=down, negative=up)                                  |
+| `cat_align`               | String  | "center", "left", "right"                                  | "center"      | Horizontal alignment of cat inside overlay bar                                            |
+| `overlay_height`          | Integer | 20–300                                                     | 50            | Height of the entire overlay bar                                                          |
+| `overlay_position`        | String  | "top" or "bottom"                                          | "top"         | Position of overlay on screen                                                             |
+| `overlay_opacity`         | Integer | 0–255                                                      | 60            | Background opacity (0=transparent, 255=opaque)                                            |
+| `overlay_layer`           | String  | "overlay", "top", "bottom" or "background"                 | "overlay"     | Surface layer of overlay on screen                                                        |
+| `animation_name`          | String  | "bongocat", `<digimon name>`, "clippy" or `<pokemon name>` | "bongocat"    | Name of the V-Pet sprite (see list below)                                                 |
+| `invert_color`            | Boolean | 0 or 1                                                     | 0             | Invert color (useful for white digimon sprites & dark mode)                               |
+| `idle_frame`              | Integer | 0–2 (varies by sprite type)                                | 0             | Which frame to use when idle (sprite-specific options)                                    |
+| `idle_animation`          | Boolean | 0 or 1                                                     | 0             | Enable idle animation                                                                     |
+| `animation_speed`         | Integer | 0–5000                                                     | 0             | Frame duration in ms (0 = use `fps`)                                                      |
+| `keypress_duration`       | Integer | 50–5000                                                    | 100           | Duration to display keypress animation (ms)                                               |
+| `mirror_x`                | Boolean | 0 or 1                                                     | 0             | Flip cat horizontally (mirror across Y axis)                                              |
+| `mirror_y`                | Boolean | 0 or 1                                                     | 0             | Flip cat vertically (mirror across X axis)                                                |
+| `test_animation_duration` | Integer | 0–5000                                                     | 0             | Duration of test animation (ms) (deprecated, use `animation_speed`)                       |
+| `test_animation_interval` | Integer | 0–60                                                       | 0             | Interval for test animation in seconds (0 = disabled, deprecated)                         |
+| `fps`                     | Integer | 1–144                                                      | 60            | Animation frame rate                                                                      |
+| `input_fps`               | Integer | 0–144                                                      | 0             | Input thread frame rate (0 = use `fps`)                                                   |
+| `enable_scheduled_sleep`  | Boolean | 0 or 1                                                     | 0             | Enable scheduled sleep mode                                                               |
+| `sleep_begin`             | String  | "00:00" – "23:59"                                          | "00:00"       | Start time of scheduled sleep (24h format)                                                |
+| `sleep_end`               | String  | "00:00" – "23:59"                                          | "00:00"       | End time of scheduled sleep (24h format)                                                  |
+| `idle_sleep_timeout`      | Integer | 0+                                                         | 0             | Time of inactivity before entering sleep (0 = disabled) (in seconds)                      |
+| `happy_kpm`               | Integer | 0–10000                                                    | 0             | Minimum keystrokes per minute to trigger happy animation (0 = disabled)                   |
+| `keyboard_device`         | String  | Valid `/dev/input/*` path(s)                               | \<No Device\> | Input device path (multiple entries allowed)                                              |
+| `enable_antialiasing`     | Boolean | 0 or 1                                                     | 1             | Enable bilinear interpolation for smooth scaling (Bongocat and MS Agent only)             |
+| `enable_debug`            | Boolean | 0 or 1                                                     | 0             | Enable debug logging                                                                      |
+| `monitor`                 | String  | Monitor name                                               | Auto-detect   | Which monitor to display on (e.g., "eDP-1", "HDMI-A-1")                                   |
+| `random`                  | Boolean | 0 or 1                                                     | 0             | Randomize `animation_index` (`animation_name` needs to be set as base sprite sheet set)   |
+| `random_on_reload`        | Boolean | 0 or 1                                                     | 0             | Randomize `animation_index` when reloading config (`random` needs to be `1`)              |
+| `update_rate`             | Integer | 0–10000                                                    | 0             | Check (CPU) states rate (0 = disabled) (in milliseconds)                                  |
+| `cpu_threshold`           | Double  | 0–100                                                      | 0             | Threshold of CPU usage for triggering work animation (0 = disabled)                       |
+| `movement_radius`         | Integer | 0-8000                                                     | 0             | Radius of moving area (0 = disabled)                                                      |
+| `movement_speed`          | Integer | 0–5000                                                     | 0             | Movement speed (0 = disabled)                                                             |
+| `enable_movement_debug`   | Boolean | 0 or 1                                                     | 0             | Show Movement area                                                                        |
+| `cpu_running_factor`      | Double  | 0.0–50.0                                                   | 0             | Speed up factor for 100% CPU, it's linear so the animation slowly speed up (0 = disabled) |
 
 #### Available Sprites (`animation_name`)
 
@@ -317,7 +317,7 @@ See man pages for more details and full list:
 
  - [Bongocat 😺](docs/fragments/set-bongocat.md)
  - [MS Agent 📎](docs/fragments/set-ms-agent.md) Clippy and friends
- - [Pokemon 🐭](docs/fragments/set-pkmn.md) up to Gen. 7
+ - [Pokemon 🐭](docs/fragments/set-pkmn.md) up to Gen. 5
  - [Misc 🐈‍⬛](docs/fragments/set-misc.md)
 
 ##### Digimon 🦖
@@ -785,5 +785,5 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 ---
 
-**₍^. .^₎ Wayland Bongo Cat Overlay v3.4.0** - Making desktops more delightful, one keystroke at a time!
+**₍^. .^₎ Wayland Bongo Cat Overlay v3.5.0** - Making desktops more delightful, one keystroke at a time!
 Now with Digimon V-Pets, Clippy and Pokémon.

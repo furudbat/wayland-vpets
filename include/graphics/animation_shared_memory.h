@@ -41,6 +41,7 @@ namespace bongocat::animation {
         platform::MMapArray<animation_t> ms_anims;
         platform::MMapArray<animation_t> pkmn_anims;
         platform::MMapArray<animation_t> misc_anims;
+        platform::MMapArray<animation_t> pmd_anims;
 
         // for sprite sheet hot reload (or custom sprite sheet)
         animation_t anim;
@@ -115,6 +116,11 @@ namespace bongocat::animation {
             }
             platform::release_allocated_mmap_array(misc_anims);
 
+            for (size_t i = 0; i < pmd_anims.count; i++) {
+                cleanup_animation(pmd_anims[i]);
+            }
+            platform::release_allocated_mmap_array(pmd_anims);
+
             cleanup_animation(anim);
         }
         animation_shared_memory_t(const animation_shared_memory_t& other)
@@ -132,6 +138,7 @@ namespace bongocat::animation {
             ms_anims = other.ms_anims;
             pkmn_anims = other.pkmn_anims;
             misc_anims = other.misc_anims;
+            pmd_anims = other.pmd_anims;
 
             anim = other.anim;
         }
@@ -154,6 +161,7 @@ namespace bongocat::animation {
                 ms_anims = other.ms_anims;
                 pkmn_anims = other.pkmn_anims;
                 misc_anims = other.misc_anims;
+                pmd_anims = other.pmd_anims;
 
                 anim = other.anim;
             }
@@ -175,6 +183,7 @@ namespace bongocat::animation {
             ms_anims = bongocat::move(other.ms_anims);
             pkmn_anims = bongocat::move(other.pkmn_anims);
             misc_anims = bongocat::move(other.misc_anims);
+            pmd_anims = bongocat::move(other.pmd_anims);
 
             anim = bongocat::move(other.anim);
 
@@ -191,6 +200,7 @@ namespace bongocat::animation {
             platform::release_allocated_mmap_array(other.ms_anims);
             platform::release_allocated_mmap_array(other.pkmn_anims);
             platform::release_allocated_mmap_array(other.misc_anims);
+            platform::release_allocated_mmap_array(other.pmd_anims);
 
             other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
             other.anim_dm_set = config::config_animation_dm_set_t::None;
@@ -218,6 +228,7 @@ namespace bongocat::animation {
                 ms_anims = bongocat::move(other.ms_anims);
                 pkmn_anims = bongocat::move(other.pkmn_anims);
                 misc_anims = bongocat::move(other.misc_anims);
+                pmd_anims = bongocat::move(other.pmd_anims);
 
                 anim = bongocat::move(other.anim);
 
@@ -234,6 +245,7 @@ namespace bongocat::animation {
                 platform::release_allocated_mmap_array(other.ms_anims);
                 platform::release_allocated_mmap_array(other.pkmn_anims);
                 platform::release_allocated_mmap_array(other.misc_anims);
+                platform::release_allocated_mmap_array(other.pmd_anims);
 
                 other.anim_type = config::config_animation_sprite_sheet_layout_t::None;
                 other.anim_dm_set = config::config_animation_dm_set_t::None;

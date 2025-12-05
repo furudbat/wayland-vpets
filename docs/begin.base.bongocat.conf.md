@@ -28,15 +28,6 @@ Changes to some settings require restarting Bongo Cat to take effect.
 - **cat_align**: Horizontal alignment in the bar. Options: `center` (default), `left`, `right`.
 - **cat_height**: Height of the cat in pixels. Width auto-calculated.
 
-# MIRRORING
-
-- **mirror_x**: Flip cat horizontally (0 = off, 1 = on).
-- **mirror_y**: Flip cat vertically (0 = off, 1 = on).
-
-# ANTI-ALIASING
-
-- **enable_antialiasing**: Smooth scaling using bilinear interpolation (0 = off, 1 = on).
-
 # SIZE SETTINGS
 
 - **overlay_height**: Height of overlay bar (pixels).
@@ -76,25 +67,63 @@ Changes to some settings require restarting Bongo Cat to take effect.
 
 - **monitor**: Monitor to display Bongo Cat. Uses first available if unspecified.
 
-# MOVEMENT
+
+# MIRRORING
+
+- **mirror_x**: Flip cat horizontally (0 = off, 1 = on).
+- **mirror_y**: Flip cat vertically (0 = off, 1 = on).
+
+# ANTI-ALIASING
+
+- **enable_antialiasing**: Smooth scaling using bilinear interpolation (0 = off, 1 = on).
+
+# SPRITE
+
+- **animation_name**: Animation set. Examples: `bongocat`, `Clippy`, `Bulbasaur`. _(see below for full list)_
+- **invert_color**: Invert colors for dark mode (0 = off, 1 = on).
+- **idle_frame**: Frame to use when idle (0–3 for Bongo Cat), otherwise 0 or 1 should be the idle frames in the other sets.
+- **idle_animation**: Enable idle animation (0 = off, 1 = on).
+- **animation_speed**: Milliseconds per frame (0 = use FPS speed).
+- ~~**test_animation_duration** / **test_animation_interval**~~: Deprecated, use **animation_speed** and **idle_animation**.
+
+## INPUT REACTION
+
+- **happy_kpm**: Minimum keystrokes per minute to trigger happy animation.
+- **keypress_duration**: Duration (ms) to display keypress animation.
+
+## RANDOMIZE
+
+- **random**: Random animation index (0 = off, 1 = on).
+- **random_on_reload**: Randomize animation index on config reload (0 = off, 1 = on).
+
+## SLEEP
+
+- **enable_scheduled_sleep**: Scheduled sleep mode (0 = off, 1 = on).
+- **sleep_begin** / **sleep_end**: Start/end times for sleep mode (24-hour format).
+- **idle_sleep_timeout**: Seconds of inactivity before sleep (0 = disabled).
+
+## MOVEMENT
 
 - **movement_radius**: Moving area, the radius from center (0 = disabled).
 - **movement_speed**: Traveling distance per movement animation.
 - **enable_movement_debug**: Show Moving area, in _red_. (0 = off, 1 = on).
-
-_Use Movement with `animation_speed`_
-
-# ANIMATION
-
-- **animation_name**: Animation set. Examples: `bongocat`, `Clippy`, `Bulbasaur`. _(see below for full list)_
-- **invert_color**: Invert colors for dark mode (0 = off, 1 = on).
-- **random**: Random animation index (0 = off, 1 = on).
-- **idle_frame**: Frame to use when idle (0–3 for Bongo Cat), otherwise 0 or 1 should be the idle frames in the other sets.
-- **enable_scheduled_sleep**: Scheduled sleep mode (0 = off, 1 = on).
-- **sleep_begin** / **sleep_end**: Start/end times for sleep mode (24-hour format).
-- **idle_sleep_timeout**: Seconds of inactivity before sleep (0 = disabled).
-- **happy_kpm**: Minimum keystrokes per minute to trigger happy animation.
-- **keypress_duration**: Duration (ms) to display keypress animation.
-- **idle_animation**: Enable idle animation (0 = off, 1 = on).
 - **animation_speed**: Milliseconds per frame (0 = use FPS speed).
-- ~~**test_animation_duration** / **test_animation_interval**~~: Deprecated, use **animation_speed** and **idle_animation**.
+
+## CPU
+
+- **update_rate**: Update Rate for CPU watcher (ms) (0 = disabled)
+- **cpu_threshold**: Threshold of avg. CPU usage for triggering working animation (%) (0 = disabled)
+
+## RUNNING
+
+_Only available for custom sprite sheets_
+
+- **update_rate**: Update Rate for CPU watcher (ms) (0 = disabled)
+- **cpu_threshold**: Threshold of avg. CPU usage for triggering running animation (%) (0 = disabled)
+- **cpu_running_factor**: speed-up factor (for `animation_speed`) when CPU reaches 100% usage (0.0 - 1.0) (0 = disabled)
+
+## CUSTOM SPRITE SHEET
+
+_**animation_name** needs to be "custom"_
+
+- **custom_**: For the full list of custom options and examples, See the section "Custom Sprite Sheets" in `bongocat-all(1)`.
