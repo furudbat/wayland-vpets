@@ -102,6 +102,7 @@ namespace bongocat::config {
     static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 0;
     static inline constexpr int32_t DEFAULT_ENABLE_ANTIALIASING = 1;
     static inline constexpr double DEFAULT_MOVEMENT_WAIT_FACTOR = 5.1;
+    static inline constexpr int32_t DEFAULT_ENABLE_HAND_MAPPING = 1;
 
     // Debug-specific defaults
 #ifndef NDEBUG
@@ -156,6 +157,7 @@ namespace bongocat::config {
     static inline constexpr auto SCREEN_WIDTH_KEY                   = "screen_width";
     static inline constexpr auto MONITOR_KEY                        = "monitor";
     static inline constexpr auto OUTPUT_NAME_KEY                    = "output_name";  // monitor alt key
+    static inline constexpr auto ENABLE_HAND_MAPPING_KEY            = "enable_hand_mapping";
 
     static inline constexpr auto CUSTOM_SPRITE_SHEET_FILENAME_KEY   = "custom_sprite_sheet_filename";
     static inline constexpr auto CUSTOM_IDLE_FRAMES_KEY             = "custom_idle_frames";
@@ -794,6 +796,7 @@ namespace bongocat::config {
         config.randomize_on_reload = config.randomize_on_reload ? 1 : 0;
         config.enable_antialiasing = config.enable_antialiasing ? 1 : 0;
         config.enable_movement_debug = config.enable_movement_debug ? 1 : 0;
+        config.enable_hand_mapping = config.enable_hand_mapping ? 1 : 0;
 
         ret |= config_validate_dimensions(config);
         ret |= config_validate_timing(config);
@@ -956,6 +959,8 @@ namespace bongocat::config {
             config.movement_wait_factor = int_value;
         } else if (strcmp(key, SCREEN_WIDTH_KEY) == 0) {
             config.screen_width = int_value;
+        } else if (strcmp(key, ENABLE_HAND_MAPPING_KEY) == 0) {
+          config.enable_hand_mapping = int_value;
         } else if (strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0) {
             config.custom_sprite_sheet_settings.idle_frames = int_value;
         } else if (strcmp(key, CUSTOM_BORING_FRAMES_KEY) == 0) {
@@ -1647,6 +1652,7 @@ namespace bongocat::config {
         cfg.mirror_y = 0;
         cfg.enable_antialiasing = DEFAULT_ENABLE_ANTIALIASING;
         cfg.enable_debug = DEFAULT_ENABLE_DEBUG;
+        cfg.enable_hand_mapping = DEFAULT_ENABLE_HAND_MAPPING;
         cfg.layer = DEFAULT_LAYER;
         cfg.overlay_position = DEFAULT_OVERLAY_POSITION;
         cfg.animation_index = DEFAULT_ANIMATION_INDEX;

@@ -145,6 +145,8 @@ namespace bongocat::config {
         char *custom_sprite_sheet_filename{nullptr};       // must be png file
         assets::custom_animation_settings_t custom_sprite_sheet_settings{};
 
+        int32_t enable_hand_mapping{0};
+
         // for keep old index when reload config
         bool _keep_old_animation_index{false};
         bool _strict{false};
@@ -207,6 +209,7 @@ namespace bongocat::config {
               movement_wait_factor(other.movement_wait_factor),
               screen_width(other.screen_width),
               custom_sprite_sheet_settings(other.custom_sprite_sheet_settings),
+              enable_hand_mapping(other.enable_hand_mapping),
               _keep_old_animation_index(other._keep_old_animation_index),
               _strict(other._strict),
               _custom(other._custom)
@@ -265,6 +268,7 @@ namespace bongocat::config {
                 cpu_running_factor = other.cpu_running_factor;
                 screen_width = other.screen_width;
                 custom_sprite_sheet_settings = other.custom_sprite_sheet_settings;
+                enable_hand_mapping = other.enable_hand_mapping;
                 _keep_old_animation_index = other._keep_old_animation_index;
                 _strict = other._strict;
                 _custom = other._custom;
@@ -325,6 +329,7 @@ namespace bongocat::config {
               screen_width(other.screen_width),
               custom_sprite_sheet_filename(other.custom_sprite_sheet_filename),
               custom_sprite_sheet_settings(other.custom_sprite_sheet_settings),
+              enable_hand_mapping(other.enable_hand_mapping),
               _keep_old_animation_index(other._keep_old_animation_index),
               _strict(other._strict),
               _custom(other._custom),
@@ -392,6 +397,7 @@ namespace bongocat::config {
                 custom_sprite_sheet_filename = other.custom_sprite_sheet_filename;
                 screen_width = other.screen_width;
                 custom_sprite_sheet_settings = other.custom_sprite_sheet_settings;
+                enable_hand_mapping = other.enable_hand_mapping;
                 _keep_old_animation_index = other._keep_old_animation_index;
                 _strict = other._strict;
                 _custom = other._custom;

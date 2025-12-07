@@ -91,6 +91,21 @@ namespace bongocat::animation {
         sprite_sheet_animations_t animations;
     };
 
+    struct bongocat_sprite_sheet_animations_t {
+      int32_t idle[MAX_ANIMATION_FRAMES]{};
+      int32_t boring[MAX_ANIMATION_FRAMES]{};
+      int32_t writing[MAX_ANIMATION_FRAMES]{};
+      int32_t sleep[MAX_ANIMATION_FRAMES]{};
+      int32_t wake_up[MAX_ANIMATION_FRAMES]{};
+      int32_t working[MAX_ANIMATION_FRAMES]{};  // attack
+      int32_t moving[MAX_ANIMATION_FRAMES]{};
+      int32_t happy[MAX_ANIMATION_FRAMES]{};
+      int32_t running[MAX_ANIMATION_FRAMES]{};
+      // extras
+      int32_t left_writing[MAX_ANIMATION_FRAMES]{};
+      int32_t right_writing[MAX_ANIMATION_FRAMES]{};
+    };
+
     struct bongocat_sprite_sheet_t {
         generic_sprite_sheet_image_t image;
 
@@ -103,7 +118,7 @@ namespace bongocat::animation {
         sprite_sheet_animation_frame_t right_down;
         sprite_sheet_animation_frame_t both_down;
 
-        sprite_sheet_animations_t animations;
+        bongocat_sprite_sheet_animations_t animations;
     };
 
     struct ms_agent_sprite_sheet_animation_section_t {
@@ -256,7 +271,7 @@ namespace bongocat::animation {
                     case Type::Dm:        dm           = other.dm;        break;
                     case Type::MsAgent:   ms_agent     = other.ms_agent;  break;
                     case Type::Pkmn:      pkmn         = other.pkmn;      break;
-                    case Type::Custom:   custom        = other.custom;      break;
+                    case Type::Custom:    custom       = other.custom;      break;
                     case Type::Generic:   sprite_sheet = other.sprite_sheet; break;
                 }
             }

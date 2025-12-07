@@ -34,6 +34,43 @@ namespace bongocat::platform::input {
 
     inline static constexpr size_t TEST_STDIN_BUF_LEN = 256;
 
+    // Uses Linux input keycodes from <linux/input-event-codes.h>
+    // Left-hand keys on QWERTY keyboard
+    // clang-format off
+    inline static constexpr int INPUT_LEFT_KEYS[] = {
+      // Number row left half (1-6)
+      2, 3, 4, 5, 6, 7,           // KEY_1 to KEY_6
+      // QWERTY row left half
+      16, 17, 18, 19, 20,         // KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T
+      // Home row left half
+      30, 31, 32, 33, 34,         // KEY_A, KEY_S, KEY_D, KEY_F, KEY_G
+      // Bottom row left half
+      44, 45, 46, 47, 48,         // KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B
+      // Modifiers and special keys (left side)
+      1,                          // KEY_ESC
+      15,                         // KEY_TAB
+      58,                         // KEY_CAPSLOCK
+      42,                         // KEY_LEFTSHIFT
+      29,                         // KEY_LEFTCTRL
+      56,                         // KEY_LEFTALT
+      41,                         // KEY_GRAVE (backtick)
+      125,                        // KEY_LEFTMETA (super)
+    };
+    // clang-format on
+
+    static input_hand_mapping_t get_hand_mapping_form_keycode([[maybe_unused]] const input_context_t& input, int keycode) {
+        // read-only config
+        assert(input._local_copy_config != nullptr);
+        //const config::config_t& current_config = *input._local_copy_config;
+
+        for (size_t i = 0; i < LEN_ARRAY(INPUT_LEFT_KEYS); i++) {
+            if (keycode == INPUT_LEFT_KEYS[i]) {
+                return input_hand_mapping_t::Left;  // Left hand
+            }
+        }
+        return input_hand_mapping_t::Right;  // Right hand (default for all other keys)
+    }
+
     static void cleanup_input_devices_paths(input_context_t& input, size_t device_paths_count) {
         for (size_t i = 0; i < device_paths_count; i++) {
             if (input._device_paths[i]) ::free(input._device_paths[i]);
@@ -78,7 +115,7 @@ namespace bongocat::platform::input {
         struct stat fd_st{};
         return fd >= 0 && fstat(fd, &fd_st) == 0 && (S_ISCHR(fd_st.st_mode) && !S_ISLNK(fd_st.st_mode));
     }
-    inline static void trigger_key_press(animation::animation_session_t& trigger_ctx) {
+    inline static void trigger_key_press(animation::animation_session_t& trigger_ctx, int keycode = 0) {
         assert(trigger_ctx._input);
         //animation_context_t& anim = trigger_ctx.anim;
         input_context_t& input = *trigger_ctx._input;
@@ -116,9 +153,15 @@ namespace bongocat::platform::input {
                 input._latest_kpm_update_ms = now;
             }
         }
+        input.shm->any_key_pressed = keycode != 0 ? 1 : 0;
         input.shm->last_key_pressed_timestamp = now;
         atomic_fetch_add(&input.shm->input_counter, 1);
         atomic_fetch_add(&input._input_kpm_counter, 1);
+        if (current_config.enable_hand_mapping && keycode != 0) {
+          input.shm->hand_mapping = get_hand_mapping_form_keycode(input, keycode);
+        } else {
+          input.shm->hand_mapping = input_hand_mapping_t::None;
+        }
         animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::KeyPress);
     }
 
@@ -821,12 +864,15 @@ namespace bongocat::platform::input {
                             }
 
                             bool key_pressed = false;
+                            // keep captured keycode short-lived
+                            int captured_keycode = 0;
                             assert(rd >= 0);
                             assert(sizeof(input_event) > 0);
                             const auto num_events =  static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
                             for (ssize_t j = 0; j < num_events; j++) {
                                 if (ev[j].type == EV_KEY && ev[j].value == 1) {
                                     key_pressed = true;
+                                    captured_keycode = ev[j].code;  // Store for hand mapping
                                     if (enable_debug) {
                                         BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld",
                                                              pfds[p].fd, ev[j].code,
@@ -841,8 +887,10 @@ namespace bongocat::platform::input {
 
                             const timestamp_ms_t now = get_current_time_ms();
                             if (key_pressed) {
-                                trigger_key_press(trigger_ctx);
+                                trigger_key_press(trigger_ctx, captured_keycode);
                             } else {
+                                input.shm->any_key_pressed = 0;
+                                input.shm->hand_mapping = input_hand_mapping_t::None;
                                 if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
                                     input.shm->kpm = 0;
                                     atomic_store(&input._input_kpm_counter, 0);
@@ -992,6 +1040,7 @@ namespace bongocat::platform::input {
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
         ret->shm->any_key_pressed = 0;
+        ret->shm->hand_mapping = input_hand_mapping_t::None;
         ret->shm->kpm = 0;
         ret->shm->input_counter = 0;
         ret->shm->last_key_pressed_timestamp = 0;
@@ -1035,6 +1084,7 @@ namespace bongocat::platform::input {
             return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
         }
         input.shm->any_key_pressed = 0;
+        input.shm->hand_mapping = input_hand_mapping_t::None;
         input.shm->kpm = 0;
         input.shm->input_counter = 0;
         input.shm->last_key_pressed_timestamp = now;        // for idle check timestamp should be zero

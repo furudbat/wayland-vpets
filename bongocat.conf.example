@@ -127,6 +127,10 @@ happy_kpm=400
 # keypress_duration: How long to show animation after keypress
 keypress_duration=100
 
+# enable_hand_mapping: Left half of keyboard triggers left cat hand, right half triggers right hand
+# 0=random hands, 1=left keys -> left hand, right keys -> right hand
+enable_hand_mapping=1
+
 # idle_animation: Enable idle animation (0 = off, 1 = on)
 idle_animation=0
 # animation_speed: Time for frame until next frame (optional, in milliseconds) (0 = use fps)

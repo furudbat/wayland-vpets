@@ -80,6 +80,16 @@ namespace bongocat::animation {
         ret.animations.running[2] = BONGOCAT_FRAME_BOTH_UP;
         ret.animations.running[3] = BONGOCAT_FRAME_BOTH_DOWN;
 
+        ret.animations.left_writing[0] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.left_writing[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.left_writing[2] = BONGOCAT_FRAME_LEFT_DOWN;
+        ret.animations.left_writing[3] = BONGOCAT_FRAME_BOTH_UP;
+
+        ret.animations.right_writing[0] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.right_writing[1] = BONGOCAT_FRAME_BOTH_UP;
+        ret.animations.right_writing[2] = BONGOCAT_FRAME_RIGHT_DOWN;
+        ret.animations.right_writing[3] = BONGOCAT_FRAME_BOTH_UP;
+
         return ret;
     }
 

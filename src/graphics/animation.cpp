@@ -295,12 +295,17 @@ namespace bongocat::animation {
         animation_state_row_t row_state;
         anim_bongocat_process_animation_result_status_t status{anim_bongocat_process_animation_result_status_t::None};
     };
-    static anim_bongocat_process_animation_result_t anim_bongocat_process_animation(animation_player_result_t& new_animation_result,
+    static anim_bongocat_process_animation_result_t anim_bongocat_process_animation(const platform::input::input_context_t& input,
+                                                                                    animation_player_result_t& new_animation_result,
                                                                                     animation_state_t& new_state,
                                                                                     const animation_state_t& current_state,
                                                                                     const bongocat_sprite_sheet_t& current_frames) {
         assert(MAX_ANIMATION_FRAMES > 0);
         assert(MAX_ANIMATION_FRAMES <= INT_MAX);
+
+        // read-only config
+        assert(input._local_copy_config != nullptr);
+        const config::config_t& current_config = *input._local_copy_config;
 
         anim_bongocat_process_animation_result_t ret {.row_state = new_state.row_state, .status = anim_bongocat_process_animation_result_status_t::Updated};
         // forward animation
@@ -323,7 +328,21 @@ namespace bongocat::animation {
             case animation_state_row_t::StartWriting:
             case animation_state_row_t::Writing:
             case animation_state_row_t::EndWriting:
+              if (current_config.enable_hand_mapping) {
+                switch (input.shm->hand_mapping) {
+                case platform::input::input_hand_mapping_t::None:
+                  new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
+                  break;
+                case platform::input::input_hand_mapping_t::Left:
+                  new_animation_result.sprite_sheet_col = (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index] : current_frames.animations.left_writing[new_state.animations_index];
+                  break;
+                case platform::input::input_hand_mapping_t::Right:
+                  new_animation_result.sprite_sheet_col = (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index] : current_frames.animations.right_writing[new_state.animations_index];
+                  break;
+                }
+              } else {
                 new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
+              }
                 break;
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
@@ -363,15 +382,19 @@ namespace bongocat::animation {
         return ret;
     }
     static anim_bongocat_process_animation_result_t anim_bongocat_restart_animation(animation_context_t& ctx,
+                                                                                    const platform::input::input_context_t& input,
                                                                                     animation_state_row_t new_row_state,
                                                                                     animation_player_result_t& new_animation_result,
                                                                                     animation_state_t& new_state,
                                                                                     [[maybe_unused]] const animation_state_t& current_state,
-                                                                                    const bongocat_sprite_sheet_t& current_frames,
-                                                                                    const config::config_t& current_config) {
+                                                                                    const bongocat_sprite_sheet_t& current_frames) {
         using namespace assets;
         assert(MAX_ANIMATION_FRAMES > 0);
         assert(MAX_ANIMATION_FRAMES <= INT_MAX);
+
+        // read-only config
+        assert(input._local_copy_config != nullptr);
+        const config::config_t& current_config = *input._local_copy_config;
 
         new_state.row_state = new_row_state;
         new_animation_result.sprite_sheet_row = BONGOCAT_SPRITE_SHEET_ROW;
@@ -385,13 +408,39 @@ namespace bongocat::animation {
                     new_animation_result.sprite_sheet_col = current_config.idle_frame;
                 }
                 break;
-            case animation_state_row_t::StartWriting:
+            case animation_state_row_t::StartWriting: {
+              if (current_config.enable_hand_mapping) {
+                switch (input.shm->hand_mapping) {
+                case platform::input::input_hand_mapping_t::None:
+                  new_state.animations_index = static_cast<int>(ctx._rng.range(0, (MAX_ANIMATION_FRAMES-1) / 2));
+                  break;
+                case platform::input::input_hand_mapping_t::Left:
+                case platform::input::input_hand_mapping_t::Right:
+                  new_state.animations_index = 0;
+                  break;
+                }
+              } else {
                 new_state.animations_index = static_cast<int>(ctx._rng.range(0, (MAX_ANIMATION_FRAMES-1) / 2));
-                [[fallthrough]];
-            case animation_state_row_t::Writing:
+              }
+              [[fallthrough]];
+            }case animation_state_row_t::Writing:
             case animation_state_row_t::EndWriting:
+              if (current_config.enable_hand_mapping) {
+                switch (input.shm->hand_mapping) {
+                case platform::input::input_hand_mapping_t::None:
+                  new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
+                  break;
+                case platform::input::input_hand_mapping_t::Left:
+                  new_animation_result.sprite_sheet_col = (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index] : current_frames.animations.left_writing[new_state.animations_index];
+                  break;
+                case platform::input::input_hand_mapping_t::Right:
+                  new_animation_result.sprite_sheet_col = (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index] : current_frames.animations.right_writing[new_state.animations_index];
+                  break;
+                }
+              } else {
                 new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
-                break;
+              }
+              break;
             case animation_state_row_t::Happy:
                 new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
                 break;
@@ -516,24 +565,23 @@ namespace bongocat::animation {
     }
     */
 
-    static anim_bongocat_process_animation_result_t anim_bongocat_start_or_process_animation(animation_context_t& ctx,
+    static anim_bongocat_process_animation_result_t anim_bongocat_start_or_process_animation(animation_context_t& ctx, const platform::input::input_context_t& input,
                                                                                              animation_state_row_t new_row_state,
                                                                                              animation_player_result_t& new_animation_result,
                                                                                              animation_state_t& new_state,
                                                                                              const animation_state_t& current_state,
-                                                                                             const bongocat_sprite_sheet_t& current_frames,
-                                                                                             const config::config_t& current_config) {
+                                                                                             const bongocat_sprite_sheet_t& current_frames) {
         if (current_state.row_state != new_row_state) {
-            auto result = anim_bongocat_process_animation(new_animation_result, new_state, current_state, current_frames);
+            auto result = anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
             if (result.status == anim_bongocat_process_animation_result_status_t::Looped || result.status == anim_bongocat_process_animation_result_status_t::End) {
-                result = anim_bongocat_restart_animation(ctx, new_row_state, new_animation_result, new_state, current_state, current_frames, current_config);
+                result = anim_bongocat_restart_animation(ctx, input, new_row_state, new_animation_result, new_state, current_state, current_frames);
                 result.status = anim_bongocat_process_animation_result_status_t::NextAnimationStarted;
             }
             return result;
         }
 
-        return anim_bongocat_restart_animation(ctx, new_row_state, new_animation_result, new_state,
-                                               current_state, current_frames, current_config);
+        return anim_bongocat_restart_animation(ctx, input, new_row_state, new_animation_result, new_state,
+                                               current_state, current_frames);
     }
 
     static anim_next_frame_result_t anim_bongocat_idle_next_frame(animation_context_t& ctx,
@@ -567,40 +615,40 @@ namespace bongocat::animation {
         const bool stop_test_animation = conditions.trigger_test_animation && current_state.row_state == animation_state_row_t::Test && conditions.release_test_frame;
         if (stop_writing || stop_test_animation) {
             // back to idle
-            anim_bongocat_restart_animation(ctx, animation_state_row_t::Idle,
+            anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle,
                                             new_animation_result, new_state,
-                                            current_state, current_frames, current_config);
+                                            current_state, current_frames);
         }
 
         if constexpr (features::BongocatIdleAnimation) {
             if (!stop_writing && !stop_test_animation && conditions.process_idle_animation) {
                 if (current_state.row_state == animation_state_row_t::Idle) {
                     // loop idle animation
-                    anim_bongocat_process_animation(new_animation_result, new_state, current_state, current_frames);
+                    anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
                 } else if (current_state.row_state == animation_state_row_t::WakeUp) {
                     // process wake up animation
-                    anim_bongocat_start_or_process_animation(ctx, animation_state_row_t::Idle,  // back to idle, when animation ended
+                    anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Idle,  // back to idle, when animation ended
                                                     new_animation_result, new_state,
-                                                    current_state, current_frames, current_config);
+                                                    current_state, current_frames);
                 }
             }
         } else {
             if (current_state.row_state == animation_state_row_t::WakeUp && conditions.release_frame_for_non_idle) {
                 // back to idle
-                anim_bongocat_restart_animation(ctx, animation_state_row_t::Idle,
+                anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle,
                                                 new_animation_result, new_state,
-                                                current_state, current_frames, current_config);
+                                                current_state, current_frames);
             }
         }
 
         // Start Test animation
         if (!conditions.any_key_pressed && conditions.trigger_test_animation && current_state.row_state == animation_state_row_t::Idle) {
-            anim_bongocat_restart_animation(ctx, animation_state_row_t::Test,
+            anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Test,
                                             new_animation_result, new_state,
-                                            current_state, current_frames, current_config);
+                                            current_state, current_frames);
         } else if (!conditions.any_key_pressed && conditions.trigger_test_animation && current_state.row_state == animation_state_row_t::Test) {
             // loop test animation
-            anim_bongocat_process_animation(new_animation_result, new_state, current_state, current_frames);
+            anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
         }
 
         const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
@@ -618,17 +666,17 @@ namespace bongocat::animation {
                     if (current_state.row_state == animation_state_row_t::Idle) {
                         // start boring animation
                         if (start_boring && !current_state.show_boring_animation_once) {
-                            anim_bongocat_restart_animation(ctx, animation_state_row_t::Boring,
+                            anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Boring,
                                                             new_animation_result, new_state,
-                                                            current_state, current_frames, current_config);
+                                                            current_state, current_frames);
                             new_state.show_boring_animation_once = true;
                         }
                     } else if (current_state.row_state == animation_state_row_t::Boring) {
                         if constexpr (features::BongocatIdleAnimation) {
                             if (conditions.process_idle_animation) {
-                                const auto animation_result = anim_bongocat_start_or_process_animation(ctx, animation_state_row_t::Idle, // back to idle, when animation ended
+                                const auto animation_result = anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Idle, // back to idle, when animation ended
                                                                 new_animation_result, new_state,
-                                                                current_state, current_frames, current_config);
+                                                                current_state, current_frames);
                                 if (!start_boring && animation_result.row_state == animation_state_row_t::Idle) {
                                     new_state.show_boring_animation_once = false;
                                 }
@@ -637,9 +685,9 @@ namespace bongocat::animation {
                             if (!start_boring || (start_boring && current_state.show_boring_animation_once)) {
                                 if (conditions.release_frame_for_non_idle) {
                                     // back to idle
-                                    anim_bongocat_restart_animation(ctx, animation_state_row_t::Idle,
+                                    anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle,
                                                                     new_animation_result, new_state,
-                                                                    current_state, current_frames, current_config);
+                                                                    current_state, current_frames);
                                     if (!start_boring) {
                                         new_state.show_boring_animation_once = false;
                                     }
@@ -652,9 +700,9 @@ namespace bongocat::animation {
                 // idle sleep
                 if (sleep_timeout >= idle_sleep_timeout_ms) {
                     if (current_state.row_state == animation_state_row_t::Idle) {
-                        anim_bongocat_restart_animation(ctx, animation_state_row_t::Sleep,
+                        anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Sleep,
                                                         new_animation_result, new_state,
-                                                        current_state, current_frames, current_config);
+                                                        current_state, current_frames);
                         new_state.is_idle_sleep = true;
                         new_state.show_boring_animation_once = false;
                     } else if (current_state.is_idle_sleep) {
@@ -662,7 +710,7 @@ namespace bongocat::animation {
                             if (current_state.row_state == animation_state_row_t::Sleep) {
                                 if (conditions.process_idle_animation) {
                                     // loop sleep animation
-                                    anim_bongocat_process_animation(new_animation_result, new_state, current_state, current_frames);
+                                    anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
                                 }
                             }
                         }
@@ -670,9 +718,9 @@ namespace bongocat::animation {
                 } else if (current_state.row_state == animation_state_row_t::Sleep && current_state.is_idle_sleep) {
                     if constexpr (features::BongocatIdleAnimation) {
                         if (conditions.process_idle_animation) {
-                            const auto animation_result = anim_bongocat_start_or_process_animation(ctx, animation_state_row_t::Idle, // back to idle, when animation ended
+                            const auto animation_result = anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Idle, // back to idle, when animation ended
                                                                 new_animation_result, new_state,
-                                                                current_state, current_frames, current_config);
+                                                                current_state, current_frames);
                             if (animation_result.row_state == animation_state_row_t::Idle) {
                                 new_state.is_idle_sleep = false;
                             }
@@ -680,9 +728,9 @@ namespace bongocat::animation {
                     } else {
                         if (conditions.release_frame_for_non_idle) {
                             // back to idle
-                            anim_bongocat_restart_animation(ctx, animation_state_row_t::Idle,
+                            anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle,
                                                             new_animation_result, new_state,
-                                                            current_state, current_frames, current_config);
+                                                            current_state, current_frames);
                             new_state.is_idle_sleep = false;
                         }
                     }
@@ -694,15 +742,15 @@ namespace bongocat::animation {
         if (current_config.enable_scheduled_sleep) {
             if (is_sleeping_time) {
                 if (current_state.row_state == animation_state_row_t::Idle) {
-                    anim_bongocat_restart_animation(ctx, animation_state_row_t::Sleep,
+                    anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Sleep,
                                                     new_animation_result, new_state,
-                                                    current_state, current_frames, current_config);
+                                                    current_state, current_frames);
                     new_state.is_idle_sleep = false;
                 } else {
                     if constexpr (features::BongocatIdleAnimation) {
                         if (current_state.row_state == animation_state_row_t::Sleep && conditions.process_idle_animation) {
                             // loop sleep animation
-                            anim_bongocat_process_animation(new_animation_result, new_state, current_state, current_frames);
+                            anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
                         }
                     }
                 }
@@ -710,9 +758,9 @@ namespace bongocat::animation {
                 if (current_state.row_state == animation_state_row_t::Sleep && !current_state.is_idle_sleep) {
                     if (conditions.release_frame_for_non_idle) {
                         // back to idle
-                        anim_bongocat_restart_animation(ctx, animation_state_row_t::Idle,
+                        anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle,
                                                         new_animation_result, new_state,
-                                                        current_state, current_frames, current_config);
+                                                        current_state, current_frames);
                     }
                 }
             }
@@ -720,9 +768,9 @@ namespace bongocat::animation {
             if (current_state.row_state == animation_state_row_t::Sleep && !current_state.is_idle_sleep) {
                 if (conditions.release_frame_for_non_idle) {
                     // back to idle
-                    anim_bongocat_restart_animation(ctx, animation_state_row_t::Idle,
+                    anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle,
                                                     new_animation_result, new_state,
-                                                    current_state, current_frames, current_config);
+                                                    current_state, current_frames);
                 }
             }
         }
@@ -765,44 +813,44 @@ namespace bongocat::animation {
         if (!conditions.is_writing) {
             if (state.row_state == animation_state_row_t::Sleep && current_state.is_idle_sleep) {
                 // wake up
-                anim_bongocat_restart_animation(ctx, animation_state_row_t::WakeUp,
+                anim_bongocat_restart_animation(ctx, input, animation_state_row_t::WakeUp,
                                                 new_animation_result, new_state,
-                                                current_state, current_frames, current_config);
+                                                current_state, current_frames);
             } else if (state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
                 // start writing
-                anim_bongocat_restart_animation(ctx, animation_state_row_t::StartWriting,
+                anim_bongocat_restart_animation(ctx, input, animation_state_row_t::StartWriting,
                                                 new_animation_result, new_state,
-                                                current_state, current_frames, current_config);
+                                                current_state, current_frames);
             }
         } else if (state.row_state == animation_state_row_t::StartWriting) {
-            anim_bongocat_start_or_process_animation(ctx, animation_state_row_t::Writing,
+            anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Writing,
                                             new_animation_result, new_state,
-                                            current_state, current_frames, current_config);
+                                            current_state, current_frames);
         }
 
         if constexpr (features::BongocatIdleAnimation) {
             if (conditions.is_writing && conditions.process_idle_animation) {
                 if (conditions.release_frame_after_press && current_state.row_state == animation_state_row_t::Writing) {
-                    anim_bongocat_start_or_process_animation(ctx, animation_state_row_t::EndWriting,
+                    anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::EndWriting,
                                                     new_animation_result, new_state,
-                                                    current_state, current_frames, current_config);
+                                                    current_state, current_frames);
                 } else if (conditions.release_frame_after_press && (current_state.row_state == animation_state_row_t::EndWriting || current_state.row_state == animation_state_row_t::WakeUp)) {
-                    anim_bongocat_start_or_process_animation(ctx, animation_state_row_t::Idle,      // back to idle
+                    anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Idle,      // back to idle
                                                     new_animation_result, new_state,
-                                                    current_state, current_frames, current_config);
+                                                    current_state, current_frames);
                 }
             }
         } else {
             if (conditions.is_writing) {
                 if (conditions.continue_writing) {
                     // keep writing
-                    anim_bongocat_process_animation(new_animation_result, new_state, current_state, current_frames);
+                    anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
                 }
             } else if (((!conditions.is_writing && state.row_state == animation_state_row_t::Idle) || state.row_state == animation_state_row_t::WakeUp) && conditions.release_frame_after_press) {
                 // back to idle
-                anim_bongocat_restart_animation(ctx, animation_state_row_t::Idle,
+                anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle,
                                                 new_animation_result, new_state,
-                                                current_state, current_frames, current_config);
+                                                current_state, current_frames);
             }
         }
 
