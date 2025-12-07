@@ -16,7 +16,7 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Base flags
-BASE_CFLAGS = -std=c23 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CFLAGS = -std=c2x -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
 BASE_CFLAGS += -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
 BASE_CFLAGS += -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
 BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
@@ -207,4 +207,44 @@ profile: release
 	perf record -g ./$(TARGET)
 	perf report
 
-.PHONY: debug release install uninstall analyze memcheck profile
+.PHONY: debug release install uninstall analyze memcheck profile format format-check lint
+
+
+# =============================================================================
+# CODE QUALITY TARGETS
+# =============================================================================
+
+# Find all project source files (exclude lib/ and protocols/)
+PROJECT_SOURCES = $(CXX_SRC) $(C_SRC)
+PROJECT_HEADERS = $(shell find $(INCDIR) -name '*.h' ! -path '*/embedded_assets/**/*.h' ! -path '*/image_loader/**/*.h')
+ALL_PROJECT_FILES = $(PROJECT_SOURCES) $(PROJECT_HEADERS)
+
+# Format all project source files
+format:
+	@echo "Formatting source files..."
+	@clang-format -i $(ALL_PROJECT_FILES)
+	@echo "Done! Formatted $(words $(ALL_PROJECT_FILES)) files."
+
+# Check if formatting is correct (for CI)
+format-check:
+	@echo "Checking code formatting..."
+	@clang-format --dry-run --Werror $(ALL_PROJECT_FILES)
+	@echo "All files are properly formatted."
+
+# Static analysis with clang-tidy (uses .clang-tidy config)
+lint: protocols
+	@echo "Running static analysis..."
+	@clang-tidy $(PROJECT_SOURCES) -- $(CFLAGS) 2>/dev/null || true
+	@echo "Static analysis complete."
+
+# Alias for lint
+analyze: lint
+
+# Generate compile_commands.json for IDE support (requires bear)
+# Run: make compiledb
+compiledb: clean
+	@echo "Generating compile_commands.json..."
+	@bear -- $(MAKE) all 2>/dev/null || (echo "Note: 'bear' not installed. Install with: sudo pacman -S bear" && false)
+	@echo "compile_commands.json generated!"
+
+.PHONY: compiledb

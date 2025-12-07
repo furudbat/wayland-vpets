@@ -10,7 +10,7 @@ namespace bongocat::animation {
     // IMAGE LOADING MODULE
     // =============================================================================
 
-    [[nodiscard]] static created_result_t<generic_sprite_sheet_t> load_sprite_sheet_from_memory(const uint8_t* sprite_data, size_t sprite_data_size,
+    BONGOCAT_NODISCARD static created_result_t<generic_sprite_sheet_t> load_sprite_sheet_from_memory(const uint8_t* sprite_data, size_t sprite_data_size,
                                                                                                           int frame_columns, int frame_rows,
                                                                                                           int padding_x, int padding_y) {
         generic_sprite_sheet_t ret;

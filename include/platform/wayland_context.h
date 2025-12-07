@@ -15,6 +15,7 @@ namespace bongocat::platform::wayland {
     inline static constexpr int MAX_ATTEMPTS = 4096;
 
     struct wayland_context_t;
+    // Cleanup Wayland resources
     void cleanup_wayland_context(wayland_context_t& ctx);
 
     enum class bar_visibility_t : bool { Hide = false, Show = true };

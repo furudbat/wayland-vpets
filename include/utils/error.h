@@ -5,7 +5,45 @@
 #include <cstdint>
 #include <cstring>
 
+// =============================================================================
+// C23 MODERN FEATURES
+// =============================================================================
+
+// Nodiscard attribute for functions that return values that must be used
+#ifdef  __cplusplus
+#  define BONGOCAT_NODISCARD [[nodiscard]]
+#else
+#if __STDC_VERSION__ >= 202311L
+#  define BONGOCAT_NODISCARD [[nodiscard]]
+#else
+#  define BONGOCAT_NODISCARD __attribute__((warn_unused_result))
+#endif
+#endif
+
+#ifdef  __cplusplus
+#  define BONGOCAT_NULLPTR nullptr
+#else
+// Null pointer (C23 nullptr or fallback)
+#if __STDC_VERSION__ >= 202311L
+#  define BONGOCAT_NULLPTR nullptr
+#else
+#  define BONGOCAT_NULLPTR NULL
+#endif
+#endif
+
+// Unreachable code hint for optimizer
+#if __STDC_VERSION__ >= 202311L
+#  define BONGOCAT_UNREACHABLE() unreachable()
+#else
+#  define BONGOCAT_UNREACHABLE() __builtin_unreachable()
+#endif
+
 namespace bongocat {
+
+// =============================================================================
+// ERROR CODES
+// =============================================================================
+
     // Error codes
     enum class bongocat_error_t : uint8_t {
         BONGOCAT_SUCCESS = 0,
@@ -20,22 +58,40 @@ namespace bongocat {
         BONGOCAT_ERROR_IMAGE,
     };
 
-    // Error handling macros
-#define BONGOCAT_CHECK_NULL(ptr, error_code) \
-    { \
-        if ((ptr) == nullptr) { \
-            BONGOCAT_LOG_ERROR("NULL pointer: %s at %s:%d", #ptr, __FILE__, __LINE__); \
-            return (error_code); \
-        } \
-    }
+// =============================================================================
+// GUARD CLAUSE MACROS
+// =============================================================================
 
-#define BONGOCAT_CHECK_ERROR(condition, error_code, message) \
-    { \
-        if (condition) { \
-            BONGOCAT_LOG_ERROR("%s at %s:%d", message, __FILE__, __LINE__); \
-            return (error_code); \
-        } \
-    }
+// Guard clause for null pointer - returns early with error
+#define BONGOCAT_CHECK_NULL(ptr, error_code)                                \
+  do {                                                                      \
+    if ((ptr) == BONGOCAT_NULLPTR) {                                        \
+      BONGOCAT_LOG_ERROR("NULL pointer: %s at %s:%d", #ptr, __FILE__,       \
+                         __LINE__);                                         \
+      return (error_code);                                                  \
+    }                                                                       \
+  } while (0)
+
+// Guard clause for error conditions - returns early with error
+#define BONGOCAT_CHECK_ERROR(condition, error_code, message)          \
+  do {                                                                \
+    if (condition) {                                                  \
+      BONGOCAT_LOG_ERROR("%s at %s:%d", message, __FILE__, __LINE__); \
+      return (error_code);                                            \
+    }                                                                 \
+  } while (0)
+
+// Guard clause for boolean conditions - returns early with value
+#define BONGOCAT_GUARD(condition, return_value) \
+  do {                                          \
+    if (condition) {                            \
+      return (return_value);                    \
+    }                                           \
+  } while (0)
+
+// =============================================================================
+// LOGGING FUNCTIONS
+// =============================================================================
 
 #if !defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)
     namespace details {
@@ -48,9 +104,13 @@ namespace bongocat {
     }
 #endif
 
+// =============================================================================
+// ERROR HANDLING
+// =============================================================================
+
     // Error handling initialization
     void error_init(bool enable_debug);
-    [[nodiscard]] const char* error_string(bongocat_error_t error);
+    BONGOCAT_NODISCARD const char* error_string(bongocat_error_t error);
 
     // 1 = Error
     // 2 = Warning

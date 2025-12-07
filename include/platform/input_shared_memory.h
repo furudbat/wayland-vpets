@@ -5,12 +5,16 @@
 #include <stdatomic.h>
 
 namespace bongocat::platform::input {
+
+// =============================================================================
+// INPUT STATE (shared memory)
+// =============================================================================
+
     struct input_shared_memory_t {
         int32_t any_key_pressed{0};
         int32_t kpm{0};                                     // keystrokes per minute
         atomic_int input_counter{0};
         timestamp_ms_t last_key_pressed_timestamp{0};
-
 
 
         input_shared_memory_t() = default;

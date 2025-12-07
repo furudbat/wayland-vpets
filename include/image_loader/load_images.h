@@ -88,8 +88,8 @@ namespace bongocat::animation {
     using get_sprite_callback_t = assets::embedded_image_t (*)(size_t);
 
     struct animation_context_t;
-    [[nodiscard]] created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(get_sprite_callback_t get_sprite, size_t embedded_images_count);
-    [[nodiscard]] created_result_t<generic_sprite_sheet_t> load_sprite_sheet_anim(const config::config_t& config, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
+    BONGOCAT_NODISCARD created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(get_sprite_callback_t get_sprite, size_t embedded_images_count);
+    BONGOCAT_NODISCARD created_result_t<generic_sprite_sheet_t> load_sprite_sheet_anim(const config::config_t& config, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
 }
 
 #endif

@@ -4,7 +4,7 @@
 #include <stddef.h>
 
 // Embedded asset data
-extern const  unsigned char bongo_cat_both_up_png[];
+extern const unsigned char bongo_cat_both_up_png[];
 extern const size_t bongo_cat_both_up_png_size;
 
 extern const unsigned char bongo_cat_left_down_png[];

@@ -67,7 +67,12 @@ namespace bongocat::platform::input {
 
     struct input_context_t;
     void stop(input_context_t& ctx);
+    // Cleanup input monitoring resources
     void cleanup(input_context_t& ctx);
+
+// =============================================================================
+// INPUT STATE
+// =============================================================================
 
     struct input_context_t {
         // local copy from other thread, update after reload (shared memory)

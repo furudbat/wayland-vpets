@@ -18,11 +18,17 @@ namespace bongocat::animation {
         BGRA
     };
 
+// =============================================================================
+// RENDERING UTILITIES
+// =============================================================================
+
     void drawing_copy_pixel(uint8_t *dest, int dest_channels, int dest_idx,
                                    const unsigned char *src, int src_channels, int src_idx,
                                    blit_image_color_option_flags_t option,
                                    blit_image_color_order_t dest_order,
                                    blit_image_color_order_t src_order);
+
+    // Blit scaled image to destination buffer
     void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, int dest_channels,
                            const unsigned char *src, size_t src_size, int src_w, int src_h, int src_channels,
                            int src_x, int src_y,

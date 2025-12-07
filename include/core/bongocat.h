@@ -6,8 +6,16 @@
 #include "utils/error.h"
 #include "utils/memory.h"
 
+// =============================================================================
+// VERSION
+// =============================================================================
+
 // Version
 inline static constexpr const char* BONGOCAT_VERSION = "3.5.0";
+
+// =============================================================================
+// COMPILE-TIME CONSTANTS
+// =============================================================================
 
 // Common constants
 inline static constexpr int32_t DEFAULT_SCREEN_WIDTH = 1920;
@@ -27,11 +35,11 @@ namespace bongocat {
         explicit(false) created_result_t(T&& res) : result(bongocat::move(res)), error(bongocat_error_t::BONGOCAT_SUCCESS) {}
     };
 
+    // feature flags
     namespace features {
         // experimental
         inline static constexpr bool BongocatIdleAnimation = false;
         inline static constexpr bool BongocatBoringAnimation = false;
-
 
 #ifndef NDEBUG
         inline static constexpr bool Debug = true;
@@ -187,51 +195,51 @@ namespace bongocat {
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
+    BONGOCAT_NODISCARD inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<std::underlying_type_t<Enum>>(lhs) | static_cast<std::underlying_type_t<Enum>>(rhs));
     }
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
+    BONGOCAT_NODISCARD inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<std::underlying_type_t<Enum>>(lhs) & static_cast<std::underlying_type_t<Enum>>(rhs));
     }
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
+    BONGOCAT_NODISCARD inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<std::underlying_type_t<Enum>>(lhs) ^ static_cast<std::underlying_type_t<Enum>>(rhs));
     }
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr Enum flag_not(Enum rhs) noexcept {
+    BONGOCAT_NODISCARD inline constexpr Enum flag_not(Enum rhs) noexcept {
         return static_cast<Enum>(~static_cast<std::underlying_type_t<Enum>>(rhs));
     }
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr Enum flag_add(Enum lhs, Enum rhs) noexcept {
+    BONGOCAT_NODISCARD inline constexpr Enum flag_add(Enum lhs, Enum rhs) noexcept {
         lhs = flag_or(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr Enum flag_remove(Enum lhs, Enum rhs) noexcept {
+    BONGOCAT_NODISCARD inline constexpr Enum flag_remove(Enum lhs, Enum rhs) noexcept {
         return static_cast<Enum>(static_cast<uint32_t>(lhs) & ~static_cast<uint32_t>(rhs));
     }
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr Enum flag_assign(Enum lhs, Enum rhs) noexcept {
+    BONGOCAT_NODISCARD inline constexpr Enum flag_assign(Enum lhs, Enum rhs) noexcept {
         lhs = flag_and(lhs, rhs);
         return lhs;
     }
     template <typename Enum>
     requires std::is_enum_v<Enum> &&
              (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> || std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-    [[nodiscard]] inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
+    BONGOCAT_NODISCARD inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
         return (static_cast<uint32_t>(value) & static_cast<uint32_t>(flag)) != 0;
     }
 }

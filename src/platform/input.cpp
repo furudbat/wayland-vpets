@@ -154,7 +154,7 @@ namespace bongocat::platform::input {
         size_t failed{0};
         size_t ignore{0};
     };
-    [[nodiscard]] static created_result_t<sync_devices_options_result_t> sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
+    BONGOCAT_NODISCARD static created_result_t<sync_devices_options_result_t> sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
         assert(input.shm != nullptr);
 
         size_t valid_devices = 0;

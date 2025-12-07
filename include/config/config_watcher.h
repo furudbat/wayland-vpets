@@ -9,12 +9,19 @@
 
 
 namespace bongocat::config {
-    // Config watcher constants
+    // Inotify buffer sizing
     inline static constexpr size_t INOTIFY_EVENT_SIZE = sizeof(struct inotify_event);
     inline static constexpr size_t INOTIFY_BUF_LEN = 1024 * (INOTIFY_EVENT_SIZE + 16);
 
+// =============================================================================
+// TYPE DEFINITIONS
+// =============================================================================
+
     struct config_watcher_t;
+    // Stop watching for config changes
     void stop_watcher(config_watcher_t& watcher);
+
+    // Cleanup config watcher resources
     void cleanup_watcher(config_watcher_t& watcher);
 
     // Config watcher structure
@@ -62,8 +69,14 @@ namespace bongocat::config {
         }
     }
 
-    // Config watcher function declarations
-    [[nodiscard]] created_result_t<AllocatedMemory<config_watcher_t>> create_watcher(const char *config_path);
+// =============================================================================
+// CONFIG WATCHER FUNCTIONS
+// =============================================================================
+
+    // Initialize config watcher
+    BONGOCAT_NODISCARD created_result_t<AllocatedMemory<config_watcher_t>> create_watcher(const char *config_path);
+
+    // Start watching for config changes
     void start_watcher(config_watcher_t& watcher);
 }
 

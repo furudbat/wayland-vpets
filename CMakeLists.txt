@@ -300,7 +300,7 @@ if (FEATURE_MULTI_VERSIONS)
 else()
     install(TARGETS bongocat RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
-install(FILES bongocat.conf DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat RENAME bongocat.conf.example)
+install(FILES bongocat.conf.example DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat RENAME bongocat.conf.example)
 install(PROGRAMS scripts/find_input_devices.sh DESTINATION ${CMAKE_INSTALL_BINDIR} RENAME bongocat-find-devices)
 if (FEATURE_MULTI_VERSIONS)
     # more configs

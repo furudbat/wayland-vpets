@@ -18,6 +18,10 @@ namespace bongocat::animation {
         animation_player_custom_overwrite_mirror_x overwrite_mirror_x{animation_player_custom_overwrite_mirror_x::None};
     };
 
+// =============================================================================
+// ANIMATION STATE (shared memory between threads)
+// =============================================================================
+
     struct animation_shared_memory_t {
         // animation state
         animation_player_result_t animation_player_result{};

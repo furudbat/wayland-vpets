@@ -9,8 +9,13 @@
 
 namespace bongocat::animation {
 
+// =============================================================================
+// ANIMATION STATE
+// =============================================================================
+
     struct animation_context_t;
     void stop(animation_context_t& ctx);
+    // Cleanup animation resources
     void cleanup(animation_context_t& ctx);
 
     struct animation_context_t {

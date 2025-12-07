@@ -48,8 +48,8 @@ namespace bongocat::assets {
 
 namespace bongocat::animation {
     struct animation_context_t;
-    [[nodiscard]] created_result_t<assets::custom_image_t> load_custom_sprite_sheet_file(const char* filename);
+    BONGOCAT_NODISCARD created_result_t<assets::custom_image_t> load_custom_sprite_sheet_file(const char* filename);
 
-    [[nodiscard]] created_result_t<custom_sprite_sheet_t> load_custom_anim(const animation_context_t& ctx, const assets::custom_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings);
-    [[nodiscard]] created_result_t<custom_sprite_sheet_t> load_custom_anim(const animation_context_t& ctx, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings);
+    BONGOCAT_NODISCARD created_result_t<custom_sprite_sheet_t> load_custom_anim(const animation_context_t& ctx, const assets::custom_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings);
+    BONGOCAT_NODISCARD created_result_t<custom_sprite_sheet_t> load_custom_anim(const animation_context_t& ctx, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings);
 }

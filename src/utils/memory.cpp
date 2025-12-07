@@ -144,6 +144,13 @@ namespace bongocat {
             return nullptr;
         }
 
+        // Validate alignment is a power of 2
+        if ((alignment & (alignment - 1)) != 0) {
+          BONGOCAT_LOG_ERROR("Memory pool alignment must be a power of 2, got %zu",
+                             alignment);
+          return NULL;
+        }
+
         auto *pool = static_cast<memory_pool_t *>(bongocat::malloc(sizeof(memory_pool_t)));
         if (!pool) return nullptr;
 

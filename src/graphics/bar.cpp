@@ -113,7 +113,10 @@ namespace bongocat::animation {
                         break;
                 }
 
-                const bool bar_visible = !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
+                // Skip fullscreen hiding when layer is LAYER_OVERLAY (always visible)
+                const bool is_overlay_layer = current_config.layer == config::layer_type_t::LAYER_OVERLAY;
+                const bool is_fullscreen = !is_overlay_layer && wayland_ctx._fullscreen_detected;
+                const bool bar_visible = !is_fullscreen && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
                 const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
                 const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR & (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u)); // RGBA, little-endian
                 auto *p = reinterpret_cast<uint32_t *>(pixels);

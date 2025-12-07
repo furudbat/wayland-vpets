@@ -7,6 +7,8 @@
 #include <cstdlib>
 #include <cassert>
 #include <cstring>
+// POSIX feature test macro - must be before includes
+#define _POSIX_C_SOURCE 200809L
 
 namespace bongocat::config {
     enum class overlay_position_t : uint8_t {
@@ -42,16 +44,23 @@ namespace bongocat::config {
     inline static constexpr const char* ALIGN_LEFT_STR = "left";
     inline static constexpr const char* ALIGN_RIGHT_STR = "right";
 
-    struct config_time_t {
-        int hour{0};
-        int min{0};
-    };
+// =============================================================================
+// CONFIGURATION FUNCTIONS
+// =============================================================================
 
     struct config_t;
     void config_free_keyboard_devices(config_t& config);
     void config_copy_keyboard_devices_from(config_t& config, const config_t& other);
     void cleanup(config_t& config);
 
+// =============================================================================
+// CONFIGURATION TYPES
+// =============================================================================
+
+    struct config_time_t {
+      int hour{0};
+      int min{0};
+    };
     enum class config_animation_sprite_sheet_layout_t : uint8_t {
         None,
         Bongocat,
@@ -427,9 +436,13 @@ namespace bongocat::config {
         config.num_keyboard_devices = other.num_keyboard_devices;
         assert(config.num_keyboard_devices >= 0);
         for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < input::MAX_INPUT_DEVICES; i++) {
-            config.keyboard_devices[i] = other.keyboard_devices[i] ? strdup(other.keyboard_devices[i]) : nullptr;
+            config.keyboard_devices[i] = other.keyboard_devices[i] != nullptr ? strdup(other.keyboard_devices[i]) : nullptr;
         }
     }
+
+// =============================================================================
+// CONFIGURATION FUNCTIONS
+// =============================================================================
 
     struct load_config_overwrite_parameters_t {
         const char* output_name{nullptr};
@@ -437,7 +450,7 @@ namespace bongocat::config {
         int32_t strict{-1};
         const char* animation_name{nullptr};
     };
-    [[nodiscard]] created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
+    BONGOCAT_NODISCARD created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
     void reset(config_t& config);
 
     void set_defaults(config_t& config);

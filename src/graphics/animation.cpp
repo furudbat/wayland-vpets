@@ -4820,7 +4820,7 @@ namespace bongocat::animation {
         }
     }
 
-    [[nodiscard]] static int rand_animation_index(animation_context_t& ctx, const config::config_t& config) {
+    BONGOCAT_NODISCARD static int rand_animation_index(animation_context_t& ctx, const config::config_t& config) {
         using namespace assets;
         assert(ctx._local_copy_config != nullptr);
         assert(ctx.shm != nullptr);

@@ -11,6 +11,11 @@
 #endif
 
 namespace bongocat {
+
+// =============================================================================
+// MEMORY POOL
+// =============================================================================
+
     // Memory pool for efficient allocation
     struct memory_pool_t {
         void *data{nullptr};
@@ -19,17 +24,29 @@ namespace bongocat {
         size_t alignment{0};
     };
 
+// =============================================================================
+// MEMORY ALLOCATION FUNCTIONS
+// =============================================================================
+
     // Safe memory allocation functions
-    void* malloc(size_t size);
-    void* calloc(size_t count, size_t size);
-    void* realloc(void *ptr, size_t size);
+    BONGOCAT_NODISCARD void* malloc(size_t size);
+    BONGOCAT_NODISCARD void* calloc(size_t count, size_t size);
+    BONGOCAT_NODISCARD void* realloc(void *ptr, size_t size);
     void free(void *ptr);
 
+// =============================================================================
+// MEMORY POOL FUNCTIONS
+// =============================================================================
+
     // Memory pool functions
-    [[nodiscard]] memory_pool_t* memory_pool_create(size_t size, size_t alignment);
-    void* memory_pool_alloc(memory_pool_t& pool, size_t size);
+    BONGOCAT_NODISCARD memory_pool_t* memory_pool_create(size_t size, size_t alignment);
+    BONGOCAT_NODISCARD void* memory_pool_alloc(memory_pool_t& pool, size_t size);
     void memory_pool_reset(memory_pool_t& pool);
     void memory_pool_destroy(memory_pool_t& pool);
+
+// =============================================================================
+// MEMORY STATISTICS
+// =============================================================================
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
     // Memory statistics
@@ -45,6 +62,10 @@ namespace bongocat {
 #endif
     void memory_print_stats();
 
+// =============================================================================
+// DEBUG BUILD FEATURES
+// =============================================================================
+
     // Memory leak detection (debug builds)
 #ifndef NDEBUG
 #define BONGOCAT_MALLOC(size) ::bongocat::malloc_debug(size, __FILE__, __LINE__)
@@ -57,19 +78,49 @@ namespace bongocat {
 #define BONGOCAT_FREE(ptr) ::bongocat::free(ptr)
 #endif
 
-#define BONGOCAT_SAFE_FREE(ptr) \
-    { \
-        if (ptr) { \
-            BONGOCAT_FREE(ptr); \
-            (ptr) = NULL; \
-        } \
+// =============================================================================
+// RAII CLEANUP MACROS
+// =============================================================================
+
+  // Cleanup function for auto-freeing malloc'd memory
+  /*
+  inline void auto_free_impl(void *ptr) {
+    void **p = static_cast<void **>(ptr);
+    if (*p) {
+      free(*p);
+      *p = BONGOCAT_NULLPTR;
     }
+  }
+  */
+
+// Auto-free heap allocations when variable goes out of scope
+//#define BONGOCAT_AUTO_FREE __attribute__((cleanup(bongocat::auto_free_impl)))
+
+#define BONGOCAT_SAFE_FREE(ptr) \
+    do {                                            \
+        if (ptr) {                                  \
+            free(reinterpret_cast<void *>(ptr));    \
+            (ptr) = BONGOCAT_NULLPTR;               \
+        }                                           \
+    } while (0)
 
     template <typename T, std::size_t N>
     constexpr std::size_t LEN_ARRAY(const T (&)[N]) noexcept {
         return N;
     }
 
+    // Cleanup implementation for auto pool (must be after memory_pool_t definition)
+    /*
+    inline void bongocat_auto_pool_impl(struct memory_pool **pool) {
+      if (*pool) {
+        memory_pool_destroy(*pool);
+        *pool = BONGOCAT_NULLPTR;
+      }
+    }
+    */
+
+    // Auto-destroy memory pool when variable goes out of scope
+    //#define BONGOCAT_AUTO_POOL __attribute__((cleanup(bongocat::auto_pool_impl)))
 
     template <typename T>
     struct is_trivially_copyable {
@@ -100,6 +151,10 @@ namespace bongocat {
         inline static constexpr bool value = false;
 #endif
     };
+
+// =============================================================================
+// RAII CLEANUP
+// =============================================================================
 
     template<typename T>
     struct AllocatedMemory;
@@ -230,11 +285,11 @@ namespace bongocat {
         }
     }
     template <typename T>
-    [[nodiscard]] inline static AllocatedMemory<T> make_null_memory() noexcept {
+    BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_null_memory() noexcept {
         return AllocatedMemory<T>();
     }
     template <typename T>
-    [[nodiscard]] inline static AllocatedMemory<T> make_allocated_memory() {
+    BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_allocated_memory() {
         AllocatedMemory<T> ret;
         ret._size_bytes = sizeof(T);
         if (ret._size_bytes > 0) {
@@ -397,15 +452,15 @@ namespace bongocat {
     }
 
     template <typename T>
-    [[nodiscard]] inline static AllocatedArray<T> make_unallocated_array() noexcept {
+    BONGOCAT_NODISCARD inline static AllocatedArray<T> make_unallocated_array() noexcept {
         return AllocatedArray<T>();
     }
     template <typename T>
-    [[nodiscard]] inline static AllocatedArray<T> make_allocated_array_uninitialized(size_t count) {
+    BONGOCAT_NODISCARD inline static AllocatedArray<T> make_allocated_array_uninitialized(size_t count) {
         return count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
     }
     template <typename T>
-    [[nodiscard]] inline static AllocatedArray<T> make_allocated_array(size_t count) {
+    BONGOCAT_NODISCARD inline static AllocatedArray<T> make_allocated_array(size_t count) {
         auto ret= count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
         for (size_t i = 0;i < ret.count;i++) {
             new (&ret.data[i]) T();
@@ -413,7 +468,7 @@ namespace bongocat {
         return ret;
     }
     template <typename T>
-    [[nodiscard]] inline static AllocatedArray<T> make_allocated_array_with_value(size_t count, const T& value) {
+    BONGOCAT_NODISCARD inline static AllocatedArray<T> make_allocated_array_with_value(size_t count, const T& value) {
         auto ret= count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
         for (size_t i = 0;i < ret.count;i++) {
             ret.data[i] = value;

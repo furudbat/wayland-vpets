@@ -136,7 +136,30 @@ Follow the project’s coding guidelines:
   * when adding new program arguments update [`cli_show_help` in main](src/core/main.cpp)
     * update [man pages](docs/fragments/options.md)
 
+### Commit Messages
+
+Use conventional commits:
+
+```
+feat: add new feature
+fix: resolve bug
+docs: update documentation
+refactor: improve code structure
+```
+
+## Code Structure
+
+```
+src/
+├── core/       # Main application logic
+├── config/     # Configuration parsing
+├── graphics/   # Animation and rendering
+├── platform/   # Wayland integration
+└── utils/      # Error handling, memory
+```
+
 ---
+When reporting bugs, please include:
 
 ## License
 
