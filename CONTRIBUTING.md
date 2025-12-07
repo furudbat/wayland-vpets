@@ -5,18 +5,6 @@ This guide will help you get started, whether you want to report issues, suggest
 
 ---
 
-## Table of Contents
-
-1. [Reporting Issues](#reporting-issues)
-2. [Feature Requests](#feature-requests)
-3. [Development Setup](#development-setup)
-4. [Code Standards](#code-standards)
-5. [Submitting Pull Requests](#submitting-pull-requests)
-6. [Style Guidelines](#style-guidelines)
-7. [License](#license)
-
----
-
 ## Reporting Issues
 
 If you encounter a bug or unexpected behavior:
@@ -29,8 +17,6 @@ If you encounter a bug or unexpected behavior:
    - **Logs**: Any relevant debug output
 
 > Please avoid sending private screenshots of proprietary content; only include relevant logs and minimal reproduction steps.
-
----
 
 ## Feature Requests
 
@@ -45,13 +31,16 @@ Feature requests are welcome! To submit a request:
 
 ---
 
-## Development Setup
+## Getting Started
 
 ### Prerequisites
 
-See [Building from Source](README.md#-building-from-source) for detailed instructions.
+- Wayland compositor with layer shell support
+- GCC or Clang (C++23/C23 support)
+- wayland-client, wayland-protocols
+- Make and CMake
 
-Quick start:
+### Building
 
 ```bash
 git clone https://github.com/furudbat/wayland-vpets.git
@@ -62,9 +51,15 @@ cmake --build build
 
 > Legacy `make debug` is supported for old Bongo Cat workflows, or you can just use CMake.
 
----
+### Running
 
-## Code Standards
+```bash
+./build/bongocat -c bongocat.conf -w
+```
+
+## Development Workflow
+
+### Code Standards
 
 Follow the project’s coding guidelines:
 
@@ -75,6 +70,8 @@ Follow the project’s coding guidelines:
 * **Try to avoid STL & Minimal Templates, you can use C functions and Linux build-in functions**
 * **Assets**: Embed large assets in separate TUs
 * **Global State**: Avoid globals, pass context structs
+
+_Run `make format` before committing_
 
 ### Key practices
 
@@ -105,23 +102,20 @@ Follow the project’s coding guidelines:
     * Prefer `create` functions with RVO instead of `init` with out-parameters
     * Stop all threads before releasing memory
 
----
-
-## Submitting Pull Requests
+### Making Changes
 
 1. Fork the repository and create a branch for your feature or fix:
-
    ```bash
    git checkout -b feature/my-new-feature
    ```
 2. Make your changes following the code standards.
-3. Test your changes thoroughly, including multi-monitor and keyboard input scenarios.
+3. Test your changes thoroughly, including multi-monitor and keyboard input scenarios (if you can).
 4. Commit your changes with clear messages:
 
    ```bash
    git commit -m "feat: Add support for X feature"
    ```
-5. Push your branch and open a Pull Request against `main`.
+5. Push your branch and open a Pull Request against `develop`.
 6. Include a description of what your PR changes and any relevant screenshots or logs.
 
 ---
@@ -130,9 +124,9 @@ Follow the project’s coding guidelines:
 
 * **Branch Naming**: `feature/xxx`, `bugfix/xxx`, `docs/xxx`
 * **Commit Messages**: Use present tense, concise, and descriptive
-* **Formatting**: try to Follow existing formatting and indentation, -- @TODO: add `.clang-format` and `.clang-tidy`
+* **Formatting**: try to Follow existing formatting and indentation
 * **Documentation**: Update relevant README sections if needed
-  * when adding new configuration, pls update [`bongocat.conf`](bongocat.conf)
+  * when adding new configuration, pls update [`bongocat.conf.example`](bongocat.conf.example)
   * when adding new program arguments update [`cli_show_help` in main](src/core/main.cpp)
     * update [man pages](docs/fragments/options.md)
 
@@ -158,8 +152,31 @@ src/
 └── utils/      # Error handling, memory
 ```
 
----
+
+## Testing
+
+```bash
+# Run with debug logging
+./build/bongocat -c bongocat.conf -w
+# Build with Sanitizers (UBSAN,ASAN) enabled for checking for memory leaks
+```
+
+### Test Scripts
+
+```bash
+./scripts/test_bongocat.sh
+```
+
+There are also some test scripts, they are just for running, reloading and changing config for integration tests, meaning it's just for triggering the `asserts`.
+Also test on your own and trust your eyes when testing four your rice :)
+
+## Reporting Issues
+
 When reporting bugs, please include:
+
+- Your compositor (Sway, Hyprland, etc.)
+- Config file contents
+- Debug output (`enable_debug=1`)
 
 ## License
 
