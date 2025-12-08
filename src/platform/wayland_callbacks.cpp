@@ -22,6 +22,7 @@
 #include "wayland_hyprland.h"
 #include "wayland_sway.h"
 #include "../graphics/bar.h"
+#include "platform/wayland_setups.h"
 
 namespace bongocat::platform::wayland::details {
 
@@ -38,17 +39,78 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
     void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_output,
                                 const char *name) {
-        if (!data) {
+        if (!data || !name) {
             BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
             return;
         }
         auto *oref = static_cast<output_ref_t *>(data);
 
-        snprintf(oref->name_str, sizeof(oref->name_str), "%s", name);
-        oref->received = static_cast<output_ref_received_flags_t>(static_cast<uint32_t>(oref->received) | static_cast<uint32_t>(
-                                                                      output_ref_received_flags_t::Name));
+        /// name received
+        {
+            snprintf(oref->name_str, sizeof(oref->name_str), "%s", name);
+            oref->received = flag_add<output_ref_received_flags_t>(oref->received, output_ref_received_flags_t::Name);
+            BONGOCAT_LOG_DEBUG("xdg_output.name: xdg-output name received: %s", name);
+        }
 
-        BONGOCAT_LOG_DEBUG("xdg_output.name: xdg-output name received: %s", name);
+        /// Reconnection handling
+        if (oref->wayland) {
+            wayland_context_t& wayland_ctx = oref->wayland->wayland_context;
+            //animation_context_t& anim = *ctx.animation_context;
+            //animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
+
+            // read-only config
+            //assert(wayland_ctx._local_copy_config != nullptr);
+            //const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+            // Check if this is the output we're waiting for (reconnection case)
+            if (!atomic_load(&oref->wayland->output_lost)) {
+                return;
+            }
+
+            bool should_reconnect = false;
+            // Case 1: User specified an output name - match exactly
+            if (wayland_ctx.using_named_output && wayland_ctx._output_name_str) {
+                should_reconnect = (strcmp(name, wayland_ctx._output_name_str) == 0);
+            }
+            // Case 2: Using fallback (first output) - reconnect to any output
+            else if (!wayland_ctx.using_named_output) {
+                should_reconnect = true;
+                BONGOCAT_LOG_DEBUG("Using fallback output, accepting '%s'", name);
+            }
+
+            if (should_reconnect) {
+                BONGOCAT_LOG_INFO("Target output '%s' reconnected!", name);
+
+                // Clean up old surface if it exists
+                cleanup_wayland_context_surface(wayland_ctx);
+
+                // Set new output
+                wayland_ctx.output = oref->wl_output;
+                wayland_ctx.bound_output_name = oref->name;
+                atomic_store(&oref->wayland->output_lost, false);
+
+                // Recreate surface on new output
+                // Note: wayland_setup_surface already commits, triggering a configure
+                // event. The layer_surface_configure callback will ack and call draw_bar()
+                // to render.
+                if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
+                    assert(wayland_ctx.ctx_shm.ptr && wayland_ctx.ctx_shm.ptr != MAP_FAILED);
+                    if (wayland_ctx.ctx_shm.ptr && wayland_ctx.ctx_shm.ptr != MAP_FAILED) {
+                        atomic_store(&wayland_ctx.ctx_shm->configured, true);
+                    }
+                    if constexpr (WAYLAND_NUM_BUFFERS != 1) {
+                        // Wait for configure event to be processed
+                        wl_display_roundtrip(wayland_ctx.display);
+                    }
+                    if (oref->wayland->animation_trigger_context) {
+                        request_render(*oref->wayland->animation_trigger_context);
+                    }
+                    BONGOCAT_LOG_INFO("Surface recreated, configure event processed");
+                } else {
+                    BONGOCAT_LOG_ERROR("Failed to recreate surface on reconnected output");
+                }
+            }
+        }
     }
 
     void handle_xdg_output_logical_position(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_output, int32_t x, int32_t y) {
@@ -60,8 +122,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
         oref->x = x;
         oref->y = y;
-        oref->received = static_cast<output_ref_received_flags_t>(static_cast<uint32_t>(oref->received) | static_cast<uint32_t>(
-                                                                      output_ref_received_flags_t::LogicalPosition));
+        oref->received = flag_add<output_ref_received_flags_t>(oref->received, output_ref_received_flags_t::LogicalPosition);
 
         BONGOCAT_LOG_VERBOSE("xdg_output.logical_position: %d,%d received", x, y);
     }
@@ -75,8 +136,7 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
 
         oref->width = width;
         oref->height = height;
-        oref->received = static_cast<output_ref_received_flags_t>(static_cast<uint32_t>(oref->received) | static_cast<uint32_t>(
-                                                                      output_ref_received_flags_t::LogicalSize));
+        oref->received = flag_add<output_ref_received_flags_t>(oref->received, output_ref_received_flags_t::LogicalSize);
 
         BONGOCAT_LOG_VERBOSE("xdg_output.logical_size: %dx%d received", width, height);
     }
@@ -741,6 +801,21 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
                 ctx.outputs[ctx.output_count].wl_output = static_cast<wl_output *>(wl_registry_bind(reg, name, &wl_output_interface, 2));
                 wl_output_add_listener(ctx.outputs[ctx.output_count].wl_output, &output_listener, &ctx);
                 BONGOCAT_LOG_VERBOSE("wl_registry.global: wl_output registry bind: %i", ctx.output_count);
+
+                // If we lost our output, get xdg_output to check if this is the one
+                // reconnecting
+                if (atomic_load(&ctx.output_lost) && ctx.xdg_output_manager) {
+                    ctx.outputs[ctx.output_count].xdg_output =
+                        zxdg_output_manager_v1_get_xdg_output(
+                          ctx.xdg_output_manager, ctx.outputs[ctx.output_count].wl_output);
+                    ctx.outputs[ctx.output_count].received = flag_remove<output_ref_received_flags_t>(ctx.outputs[ctx.output_count].received, output_ref_received_flags_t::Name);
+                    ctx.outputs[ctx.output_count].wayland = &ctx;
+                    zxdg_output_v1_add_listener(ctx.outputs[ctx.output_count].xdg_output,
+                                                &xdg_output_listener,
+                                                &ctx.outputs[ctx.output_count]);
+                    BONGOCAT_LOG_VERBOSE("wl_registry.global: New output appeared while output_lost, checking name...");
+                }
+
                 ctx.output_count++;
             }
         } else if (strcmp(iface, zwlr_foreign_toplevel_manager_v1_interface.name) == 0) {
@@ -755,14 +830,100 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
     }
 
     void registry_remove(void *data,
-                        [[maybe_unused]] wl_registry *registry,
-                        [[maybe_unused]] uint32_t name) {
-        if (!data) {
+                         [[maybe_unused]] wl_registry *registry,
+                         [[maybe_unused]] uint32_t name) {
+        if (!data || !registry) {
             BONGOCAT_LOG_WARNING("Handler called with null data (ignored)");
             return;
         }
-        //wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+        wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+        platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+        //animation_context_t& anim = ctx.animation_trigger_context->anim;
+        //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+
+        if (!wayland_ctx.ctx_shm.ptr) {
+            BONGOCAT_LOG_WARNING("Handler called with null wayland_ctx.ctx_shm (ignored)");
+            return;
+        }
+        assert(wayland_ctx.ctx_shm.ptr);
+        platform::wayland::wayland_shared_memory_t& wayland_ctx_shm = *wayland_ctx.ctx_shm.ptr;
 
         BONGOCAT_LOG_VERBOSE("wl_registry.global_remove: registry received");
+
+        // Check if the removed global is our bound output
+        if (name == ctx.wayland_context.bound_output_name && ctx.wayland_context.bound_output_name != 0) {
+            BONGOCAT_LOG_VERBOSE("Bound output disconnected (registry name %u)", name);
+            atomic_store(&ctx.output_lost, true);
+            atomic_store(&wayland_ctx_shm.configured, false);
+
+            // Clean up the old output reference
+            wayland_ctx.output = nullptr;
+
+            // Remove from outputs array
+            for (size_t i = 0; i < ctx.output_count; ++i) {
+                if (ctx.outputs[i].name == name) {
+                    if (ctx.outputs[i].xdg_output) {
+                        zxdg_output_v1_destroy(ctx.outputs[i].xdg_output);
+                        ctx.outputs[i].xdg_output = nullptr;
+                    }
+                    if (ctx.outputs[i].wl_output) {
+                        wl_output_destroy(ctx.outputs[i].wl_output);
+                        ctx.outputs[i].wl_output = nullptr;
+                    }
+                    // Shift remaining outputs
+                    for (size_t j = i; j < ctx.output_count - 1; ++j) {
+                        ctx.outputs[j] = ctx.outputs[j + 1];
+                    }
+                    // Zero out the now-unused slot
+                    ctx.outputs[ctx.output_count - 1] = {};
+                    ctx.output_count--;
+                    break;
+                }
+            }
+        }
+    }
+
+    // Helper to handle output reconnection
+    void wayland_handle_output_reconnect(output_ref_t *oref,
+                                         struct wl_output *new_output,
+                                         uint32_t registry_name,
+                                         const char *output_name) {
+        assert(oref->wayland);
+
+        wayland_context_t& wayland_ctx = oref->wayland->wayland_context;
+        //animation_context_t& anim = *ctx.animation_context;
+        //animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
+
+        // read-only config
+        //assert(wayland_ctx._local_copy_config != nullptr);
+        //const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+        BONGOCAT_LOG_INFO("Output '%s' reconnected (registry name %u)", output_name,
+                          registry_name);
+
+        // Clean up old surface if it exists
+        cleanup_wayland_context_surface(wayland_ctx);
+
+        // Set new output
+        wayland_ctx.output = new_output;
+        wayland_ctx.bound_output_name = registry_name;
+        atomic_store(&oref->wayland->output_lost, false);
+
+        // Recreate surface on new output
+        if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
+            assert(wayland_ctx.ctx_shm.ptr && wayland_ctx.ctx_shm.ptr != MAP_FAILED);
+            if (wayland_ctx.ctx_shm.ptr && wayland_ctx.ctx_shm.ptr != MAP_FAILED) {
+                atomic_store(&wayland_ctx.ctx_shm->configured, true);
+            }
+            BONGOCAT_LOG_INFO("Surface recreated on reconnected output");
+            if constexpr (WAYLAND_NUM_BUFFERS != 1) {
+                wl_display_roundtrip(wayland_ctx.display);
+            }
+            if (oref->wayland->animation_trigger_context) {
+                request_render(*oref->wayland->animation_trigger_context);
+            }
+        } else {
+            BONGOCAT_LOG_ERROR("Failed to recreate surface on reconnected output");
+        }
     }
 }

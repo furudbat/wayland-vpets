@@ -160,6 +160,8 @@ namespace bongocat::platform::wayland::details {
     inline static constexpr wl_callback_listener frame_listener = {
         .done = frame_done
     };
+
+    void wayland_handle_output_reconnect(struct wl_output *new_output, uint32_t registry_name, const char *output_name);
 }
 
 #endif

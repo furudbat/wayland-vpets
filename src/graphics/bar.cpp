@@ -556,6 +556,7 @@ namespace bongocat::animation {
         assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
 
+        assert(shm_buffer.pixels.data);
         uint8_t *pixels = shm_buffer.pixels.data;
         const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
@@ -730,14 +731,14 @@ namespace bongocat::animation {
         platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
         //animation_context_t& anim = ctx.animation_trigger_context->anim;
         //animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
-        platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
+        platform::wayland::wayland_shared_memory_t& wayland_ctx_shm = *wayland_ctx.ctx_shm.ptr;
 
         // read-only
         assert(wayland_ctx._local_copy_config != nullptr);
         //assert(anim.shm != nullptr);
         const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
 
-        if (!atomic_load(&wayland_ctx_shm->configured)) {
+        if (!atomic_load(&wayland_ctx_shm.configured)) {
             BONGOCAT_LOG_VERBOSE("Surface not configured yet, skipping draw");
             return draw_bar_result_t::Skip;
         }
@@ -745,12 +746,12 @@ namespace bongocat::animation {
         //assert(wayland_ctx_shm->current_buffer_index >= 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS > 0);
         assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
-        [[maybe_unused]] const size_t current_buffer_index = wayland_ctx_shm->current_buffer_index;
-        [[maybe_unused]] size_t next_buffer_index = (wayland_ctx_shm->current_buffer_index + 1) % platform::wayland::WAYLAND_NUM_BUFFERS;
+        [[maybe_unused]] const size_t current_buffer_index = wayland_ctx_shm.current_buffer_index;
+        [[maybe_unused]] size_t next_buffer_index = (wayland_ctx_shm.current_buffer_index + 1) % platform::wayland::WAYLAND_NUM_BUFFERS;
 
         platform::wayland::wayland_shm_buffer_t *shm_buffer = nullptr;
         if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS == 1) {
-            shm_buffer = &wayland_ctx_shm->buffers[0];
+            shm_buffer = &wayland_ctx_shm.buffers[0];
             if (atomic_load(&shm_buffer->busy)) {
                 BONGOCAT_LOG_VERBOSE("Wayland: single buffer still busy, skip draw");
                 atomic_store(&wayland_ctx._redraw_after_frame, true);
@@ -759,7 +760,7 @@ namespace bongocat::animation {
         } else {
             for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
                 //assert(next_buffer_index >= 0);
-                auto *buf = &wayland_ctx_shm->buffers[next_buffer_index];
+                auto *buf = &wayland_ctx_shm.buffers[next_buffer_index];
                 if (!atomic_load(&buf->busy)) {
                     shm_buffer = buf;
                     next_buffer_index = i;
@@ -775,12 +776,18 @@ namespace bongocat::animation {
             }
         }
 
+        assert(shm_buffer);
+        if (!shm_buffer->pixels.data) {
+            BONGOCAT_LOG_VERBOSE("draw_bar: Config or pixels not ready, skipping draw");
+            return draw_bar_result_t::Skip;
+        }
+
         BONGOCAT_LOG_VERBOSE("draw_bar: using buffer %zu", next_buffer_index);
         if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS > 1) {
-            wayland_ctx_shm->current_buffer_index = next_buffer_index;
+            wayland_ctx_shm.current_buffer_index = next_buffer_index;
             BONGOCAT_LOG_VERBOSE("draw_bar: new current_buffer_index: %i", next_buffer_index);
         }
-        assert(wayland_ctx_shm->current_buffer_index < platform::wayland::WAYLAND_NUM_BUFFERS);
+        assert(wayland_ctx_shm.current_buffer_index < platform::wayland::WAYLAND_NUM_BUFFERS);
 
         assert(shm_buffer);
         draw_bar_on_buffer(ctx, *shm_buffer);

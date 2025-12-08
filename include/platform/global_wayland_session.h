@@ -48,6 +48,8 @@ namespace bongocat::platform::wayland {
         screen_info_received_flags_t received{screen_info_received_flags_t::None};
     };
 
+    struct wayland_session_t;
+
     enum class output_ref_received_flags_t : uint32_t {
         None            = (1u << 0),
         Name            = (1u << 1),
@@ -67,9 +69,10 @@ namespace bongocat::platform::wayland {
         output_ref_received_flags_t received{output_ref_received_flags_t::None};
         // monitor ID in Hyprland
         int64_t hypr_id{-1};
+        // back reference
+        wayland_session_t *wayland{nullptr};
     };
 
-    struct wayland_session_t;
     void cleanup_wayland(wayland_session_t& ctx);
 
     struct wayland_session_t {
@@ -88,6 +91,8 @@ namespace bongocat::platform::wayland {
         screen_info_t screen_infos[MAX_OUTPUTS];
         atomic_bool ready{false};
 
+        // Output reconnection handling
+        atomic_bool output_lost{false};     // Set when our output disconnects
 
 
         wayland_session_t() {
@@ -133,6 +138,7 @@ namespace bongocat::platform::wayland {
             }
             ctx.outputs[i] = {};
             ctx.outputs[i].wl_output = nullptr;
+            ctx.outputs[i].wayland = nullptr;
         }
         ctx.output_count = 0;
 

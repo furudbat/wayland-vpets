@@ -32,6 +32,11 @@ namespace bongocat::platform::wayland {
         wl_surface *surface{nullptr};
         zwlr_layer_surface_v1 *layer_surface{nullptr};
 
+        // Output reconnection handling
+        struct wl_registry *registry{nullptr};
+        uint32_t bound_output_name{0};        // Registry name of our bound output
+        bool using_named_output{false};       // True if user specified an output name
+
         // local copy from other thread, update after reload (shared memory)
         MMapMemory<config::config_t> _local_copy_config;
         MMapMemory<wayland_shared_memory_t> ctx_shm;
@@ -63,6 +68,47 @@ namespace bongocat::platform::wayland {
         wayland_context_t& operator=(wayland_context_t&& other) noexcept = delete;
     };
 
+    inline void cleanup_wayland_context_protocols(wayland_context_t& ctx) {
+        if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+            atomic_store(&ctx.ctx_shm->configured, false);
+        }
+
+        if (ctx.registry) {
+            wl_registry_destroy(ctx.registry);
+            ctx.registry = nullptr;
+        }
+    }
+    inline void cleanup_wayland_context_surface(wayland_context_t& ctx) {
+        if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+            atomic_store(&ctx.ctx_shm->configured, false);
+        }
+
+        if (ctx.layer_surface) {
+            zwlr_layer_surface_v1_destroy(ctx.layer_surface);
+            ctx.layer_surface = nullptr;
+        }
+        if (ctx.surface) {
+            wl_surface_destroy(ctx.surface);
+            ctx.surface = nullptr;
+        }
+    }
+    inline void cleanup_wayland_context_buffer(wayland_context_t& ctx) {
+        if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+            atomic_store(&ctx.ctx_shm->configured, false);
+        }
+
+        if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+            for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
+                cleanup_shm_buffer(ctx.ctx_shm->buffers[i]);
+            }
+
+            ctx.ctx_shm->current_buffer_index = 0;
+        }
+
+        ctx._screen_width = 0;
+        ctx._bar_height = 0;
+
+    }
     inline void cleanup_wayland_context(wayland_context_t& ctx) {
         if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
             atomic_store(&ctx.ctx_shm->configured, false);
@@ -81,6 +127,8 @@ namespace bongocat::platform::wayland {
             }
         }
 
+        cleanup_wayland_context_protocols(ctx);
+
         // release frame.done handler
         atomic_store(&ctx._frame_pending, false);
         atomic_store(&ctx._redraw_after_frame, false);
@@ -90,14 +138,7 @@ namespace bongocat::platform::wayland {
         ctx._last_frame_timestamp_ms = 0;
 
         // surfaces
-        if (ctx.layer_surface) {
-            zwlr_layer_surface_v1_destroy(ctx.layer_surface);
-            ctx.layer_surface = nullptr;
-        }
-        if (ctx.surface) {
-            wl_surface_destroy(ctx.surface);
-            ctx.surface = nullptr;
-        }
+        cleanup_wayland_context_surface(ctx);
 
         if (ctx.layer_shell) {
             zwlr_layer_shell_v1_destroy(ctx.layer_shell);
@@ -117,11 +158,7 @@ namespace bongocat::platform::wayland {
         }
 
         // release shm
-        if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
-            for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
-                cleanup_shm_buffer(ctx.ctx_shm->buffers[i]);
-            }
-        }
+        cleanup_wayland_context_buffer(ctx);
         release_allocated_mmap_memory(ctx.ctx_shm);
         release_allocated_mmap_memory(ctx._local_copy_config);
 
@@ -134,6 +171,8 @@ namespace bongocat::platform::wayland {
         // Note: output is just a reference to one of the outputs[] entries
         // It will be destroyed when we destroy the outputs[] array above
         ctx.output = nullptr;
+        ctx.bound_output_name = 0;
+        ctx.using_named_output = false;
 
         // Reset state
         ctx.display = nullptr;

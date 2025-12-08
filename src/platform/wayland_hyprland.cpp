@@ -55,7 +55,7 @@ void update_outputs_with_monitor_ids(wayland_session_t& ctx) {
         if (result == 2) {
             for (size_t i = 0; i < ctx.output_count; i++) {
                 // match by xdg-output name
-                if ((static_cast<uint32_t>(ctx.outputs[i].received) & static_cast<uint32_t>(output_ref_received_flags_t::Name)) && strcmp(ctx.outputs[i].name_str, name) == 0) {
+                if (has_flag(ctx.outputs[i].received, output_ref_received_flags_t::Name) && strcmp(ctx.outputs[i].name_str, name) == 0) {
                     ctx.outputs[i].hypr_id = id;
                     BONGOCAT_LOG_DEBUG("Mapped xdg-output '%s' to Hyprland ID %d", name, id);
                     break;

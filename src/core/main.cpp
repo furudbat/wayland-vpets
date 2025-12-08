@@ -384,7 +384,11 @@ namespace bongocat {
 
             // Increment generation atomically
             // Update the running systems with new config
-            update_config(get_main_context().wayland->wayland_context, get_main_context().config, *get_main_context().animation);
+            assert(get_main_context().wayland);
+            assert(get_main_context().animation);
+            assert(get_main_context().input);
+            assert(get_main_context().update);
+            update_config(*get_main_context().wayland, get_main_context().config, *get_main_context().animation);
             atomic_fetch_add(&get_main_context().config_generation, 1);
             uint64_t new_gen{ atomic_load(&get_main_context().config_generation)};
             platform::input::trigger_update_config(*get_main_context().input, get_main_context().config, new_gen);
@@ -538,6 +542,8 @@ namespace bongocat {
         sigaddset(&mask, SIGCHLD);
         sigaddset(&mask, SIGUSR1);
         sigaddset(&mask, SIGUSR2);
+        sigaddset(&mask, SIGQUIT);
+        sigaddset(&mask, SIGHUP);
 
         // Block signals globally so they are only delivered via signalfd
         if (sigprocmask(SIG_BLOCK, &mask, nullptr) == -1) [[unlikely]] {

@@ -13,9 +13,13 @@ indent_style = space
 indent_size = 2
 
 # C/C++ source and headers
-[*.{c,cpp,h}]
-indent_size = 4
-max_line_length = 120
+[*.{c,h}]
+indent_size = 2
+max_line_length = 80
+
+[*.{cpp,hpp}]
+indent_size = 2
+max_line_length = 80
 
 # Makefile (requires tabs)
 [Makefile]

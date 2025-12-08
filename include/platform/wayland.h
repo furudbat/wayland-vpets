@@ -24,11 +24,7 @@ namespace bongocat::platform::wayland {
     BONGOCAT_NODISCARD bongocat_error_t run(wayland_session_t& ctx, volatile sig_atomic_t& running, int signal_fd, input::input_context_t& input, const config::config_t& config, const config::config_watcher_t* config_watcher, config_reload_callback_t config_reload_callback);
 
     // Update configuration
-    void update_config(wayland_context_t& ctx, const config::config_t& config, animation::animation_session_t& trigger_ctx);
-
-    /// @TODO: use created_result_t for shm
-    // Create shared memory buffer - returns fd or -1 on error
-    BONGOCAT_NODISCARD FileDescriptor create_shm(off_t size);
+    void update_config(wayland_session_t& ctx, const config::config_t& config, animation::animation_session_t& trigger_ctx);
 
     // Get detected screen width
     BONGOCAT_NODISCARD int get_screen_width(const wayland_session_t& ctx);

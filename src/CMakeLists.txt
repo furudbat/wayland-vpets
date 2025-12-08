@@ -102,6 +102,7 @@ set(SOURCES
         platform/wayland.cpp
         platform/wayland_callbacks.cpp
         platform/wayland_hyprland.cpp
+        platform/wayland_setups.cpp
         platform/wayland_sway.cpp
 )
 add_library(bongocat_base INTERFACE)
