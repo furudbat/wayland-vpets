@@ -1,9 +1,10 @@
 # Clang-Format Configuration for wayland-bongocat
 # Best practices for C23-compatible code
-
+---
 # Base style
 BasedOnStyle: LLVM
-
+IndentWidth: 2
+---
 # Language
 Language: Cpp
 Standard: Latest
@@ -17,7 +18,7 @@ IndentPPDirectives: AfterHash
 IndentExternBlock: NoIndent
 
 # Column limit
-ColumnLimit: 80
+ColumnLimit: 120
 
 # Alignment
 AlignAfterOpenBracket: Align
@@ -32,7 +33,7 @@ AlignTrailingComments: true
 
 # Pointer and reference alignment
 PointerAlignment: Right
-ReferenceAlignment: Pointer
+ReferenceAlignment: Left
 DerivePointerAlignment: false
 
 # Braces
@@ -66,6 +67,7 @@ BreakBeforeBinaryOperators: None
 BreakBeforeTernaryOperators: true
 BreakStringLiterals: true
 NamespaceIndentation: Inner
+FixNamespaceComments: true
 
 # Spaces
 SpaceAfterCStyleCast: false
@@ -112,3 +114,7 @@ ReflowComments: true
 SeparateDefinitionBlocks: Leave
 InsertBraces: false
 RemoveBracesLLVM: false
+---
+Language: JavaScript
+IndentWidth: 2
+ColumnLimit: 120
