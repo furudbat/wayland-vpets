@@ -1,6 +1,6 @@
 % BONGOCAT.CONF(5)
 % 
-% September 2025
+% December 2025
 
 # NAME
 
@@ -33,6 +33,9 @@ Changes to some settings require restarting Bongo Cat to take effect.
 - **overlay_height**: Height of overlay bar (pixels).
 - **overlay_position**: Screen position of overlay. Options: `top`, `bottom`.
 - **overlay_layer**: Layer of overlay. Options: `overlay`, `top`, `bottom` or `background`.
+
+_Some overlay settings require a restart of the application_  
+_**overlay_height** should work on config reload, it may take a second to reappear_
 
 # FRAME RATE
 

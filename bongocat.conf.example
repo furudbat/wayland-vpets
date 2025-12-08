@@ -2,7 +2,7 @@
 # Edit these values to customize your bongo cat overlay
 
 # Save this file to: ~/.config/bongocat/bongocat.conf
-# Run with: bongocat --watch-config
+# Run with: wpets-all --watch-config
 
 
 # NOTE: OVERLAY SETTINGS DOESN'T WORK WITH HOT RELOAD, NEEDS BONGOCAT RESTART
@@ -102,7 +102,7 @@ idle_frame=0
 # Requires both sleep_begin and sleep_end to be defined
 enable_scheduled_sleep=0
 # Start time for scheduled sleep mode (24-hour format: hh:mm)
-sleep_begin=21:00
+sleep_begin=22:00
 # End time for scheduled sleep mode (24-hour format: hh:mm)
 sleep_end=06:00
 

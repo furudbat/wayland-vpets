@@ -49,7 +49,11 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
 ````
 
-> Legacy `make debug` is supported for old Bongo Cat workflows, or you can just use CMake.
+> Legacy `make debug` is supported for old Bongo Cat dev workflows.
+
+`make debug` provides a quick debug build.
+You can inspect the old workflow in the old [`Makefile`](Makefile.old).  
+_**Note:** The binary name in AUR is `wpets`, but during development and `make install` it is still `bongocat`._
 
 ### Running
 
@@ -72,6 +76,11 @@ Follow the project’s coding guidelines:
 * **Global State**: Avoid globals, pass context structs
 
 _Run `make format` before committing_
+
+#### Moving to C++
+
+This project is migrated to C++ while retaining a C-style foundation for performance, Wayland compatibility and mosty compatible with [upstream](https://github.com/saatvik333/wayland-bongocat).  
+The codebase remains largely C under the hood, using Linux + Wayland libraries, while gradually adopting modern C++ practices for safety and maintainability.
 
 ### Key practices
 
@@ -143,13 +152,31 @@ refactor: improve code structure
 
 ## Code Structure
 
+
+- `assets/` - Sprite sheets and media
+- `src/` - Core application logic and platform-specific code
+- `include/` - Headers
+- `scripts/` - Utilities and codegen
+- `lib/` - External libraries
+
 ```
-src/
-├── core/       # Main application logic
-├── config/     # Configuration parsing
-├── graphics/   # Animation and rendering
-├── platform/   # Wayland integration
-└── utils/      # Error handling, memory
+wayland-vpets/
+├── assets/             # sprite sheets and media resources
+├── Dockerfiles/        # Container build definitions
+├── examples/           # Example configurations
+├── include/            # Header files (same structure as src/)
+├── lib/                # External libraries (image loader)
+├── nix/                # NixOS integration
+├── protocols/          # Generated Wayland protocols
+├── scripts/            # Codegen and utility scripts
+└── src/                # Source code
+├──── config/           # Configuration system implementation
+├──── core/             # Core application logic (main)
+├──── embedded_assets/  # Embedded assets
+├──── graphics/         # Rendering and graphics implementation
+├──── image_loader/     # Assets loading implementations
+├──── platform/         # Platform-specific code (input and wayland)
+└──── utils/            # General utilities
 ```
 
 
@@ -181,6 +208,16 @@ When reporting bugs, please include:
 ## License
 
 All contributions must comply with the project’s MIT License. By submitting code, you agree to license your contributions under MIT.
+
+<details>
+<summary>Copyright</summary>
+
+This project is **free**, **non-commercial** and not associated with these entities.
+Pokémon are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
+Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.
+Clippy and other MS Agents are owed by Microsoft.
+See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
+</details>
 
 ---
 

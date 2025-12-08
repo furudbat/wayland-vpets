@@ -129,7 +129,7 @@ namespace bongocat {
         if (context.pid_filename) ::free(context.pid_filename);
         context.pid_filename = nullptr;
 
-        if (context.default_config_filename) ::free(context.pid_filename);
+        if (context.default_config_filename) ::free(context.default_config_filename);
         context.default_config_filename = nullptr;
     }
 
@@ -836,12 +836,17 @@ int main(int argc, char *argv[]) {
         .strict = args.strict,
     };
     if (args.config_file == nullptr) {
+        /// @TODO: RAII default_config_filename string
         get_main_context().default_config_filename = default_config_file_path();
     }
     const char* config_file = args.config_file == nullptr ? get_main_context().default_config_filename : args.config_file;
     if (args.strict) {
         if (strcmp(config_file, "-") != 0 && access(config_file, F_OK) != 0) {
             BONGOCAT_LOG_ERROR("Configuration file required: %s", config_file);
+            if (args.config_file == nullptr && get_main_context().default_config_filename) {
+              ::free(get_main_context().default_config_filename);
+              get_main_context().default_config_filename = nullptr;
+            }
             return EXIT_FAILURE;
         }
     }
@@ -849,6 +854,10 @@ int main(int argc, char *argv[]) {
     auto [config, config_error] = config::load(config_file, ctx.overwrite_config_parameters);
     if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_error));
+        if (args.config_file == nullptr && get_main_context().default_config_filename) {
+          ::free(get_main_context().default_config_filename);
+          get_main_context().default_config_filename = nullptr;
+        }
         return EXIT_FAILURE;
     }
     ctx.config = bongocat::move(config);
@@ -857,10 +866,18 @@ int main(int argc, char *argv[]) {
     // validate args
     if (config._strict) {
         if (args.nr_set && args.nr < 0) {
+            if (args.config_file == nullptr && get_main_context().default_config_filename) {
+              ::free(get_main_context().default_config_filename);
+              get_main_context().default_config_filename = nullptr;
+            }
             BONGOCAT_LOG_ERROR("--nr needs to be a positive number");
             return EXIT_FAILURE;
         }
         if (args.output_name_set && (!args.output_name || strlen(args.output_name) <= 0)) {
+            if (args.config_file == nullptr && get_main_context().default_config_filename) {
+              ::free(get_main_context().default_config_filename);
+              get_main_context().default_config_filename = nullptr;
+            }
             BONGOCAT_LOG_ERROR("--output_name value is missing");
             return EXIT_FAILURE;
         }
@@ -893,9 +910,13 @@ int main(int argc, char *argv[]) {
         }
 
         if (ctx.pid_filename == nullptr) {
-            BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
-            return EXIT_FAILURE;
-        }
+              if (args.config_file == nullptr && get_main_context().default_config_filename) {
+                  ::free(get_main_context().default_config_filename);
+                  get_main_context().default_config_filename = nullptr;
+              }
+              BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
+              return EXIT_FAILURE;
+          }
     } else {
         ctx.pid_filename = strdup(DEFAULT_PID_FILE);
     }
@@ -912,11 +933,19 @@ int main(int argc, char *argv[]) {
     // Create PID file to track this instance
     const platform::FileDescriptor pid_fd = process_create_pid_file(ctx.pid_filename);
     if (pid_fd._fd < 0) {
+        if (args.config_file == nullptr && get_main_context().default_config_filename) {
+          ::free(get_main_context().default_config_filename);
+          get_main_context().default_config_filename = nullptr;
+        }
         BONGOCAT_LOG_ERROR("Failed to create PID file");
         return EXIT_FAILURE;
     }
     if (!args.ignore_running) {
         if (pid_fd._fd == -2) {
+            if (args.config_file == nullptr && get_main_context().default_config_filename) {
+              ::free(get_main_context().default_config_filename);
+              get_main_context().default_config_filename = nullptr;
+            }
             BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
             return EXIT_FAILURE;
         }
@@ -928,6 +957,10 @@ int main(int argc, char *argv[]) {
     ctx.signal_watch_path = config_file;
     bongocat_error_t signal_result = signal_setup_handlers(ctx);
     if (signal_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (args.config_file == nullptr && get_main_context().default_config_filename) {
+          ::free(get_main_context().default_config_filename);
+          get_main_context().default_config_filename = nullptr;
+        }
         BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat::error_string(signal_result));
         return EXIT_FAILURE;
     }

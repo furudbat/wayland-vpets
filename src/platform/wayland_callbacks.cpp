@@ -52,6 +52,9 @@ for (type *pos = reinterpret_cast<type*>((array)->data); \
             BONGOCAT_LOG_DEBUG("xdg_output.name: xdg-output name received: %s", name);
         }
 
+        // @NOTE: this should always be set ?
+        //assert(oref->wayland);
+
         /// Reconnection handling
         if (oref->wayland) {
             wayland_context_t& wayland_ctx = oref->wayland->wayland_context;

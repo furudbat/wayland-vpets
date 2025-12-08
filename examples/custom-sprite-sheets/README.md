@@ -3,6 +3,8 @@
 Custom sprite sheets has a full animation per row.
 To determine the number of rows, the number of frames needs to be provided per row.
 
+_NOTE: Bigger sprite sheet means more RAM usage_
+
 - `Idle` -- Idle Pose
 - `Boring` -- Boring animation for inactivity
 - `StartWriting` -- First keystroke
@@ -23,7 +25,6 @@ To determine the number of rows, the number of frames needs to be provided per r
 - `EndRunning` -- Stop running
 
 Rows can be skipped by not providing the frames/columns, but the order of the rows needs to be the same.
-
 
 ## General Example
 
@@ -178,7 +179,7 @@ custom_rows=1
 
 ## Know issues
 
-### extra sprite when sprite is flipping (moving)
+### part of other frame is shown when sprite is flipped (while moving)
 
 Please add some left and right empty padding in your frames.
 Doing to some rounding error, when flipping the frame, some pixels can be visible from the nearer frames.
