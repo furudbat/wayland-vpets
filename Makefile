@@ -51,9 +51,10 @@ pack: release doc
 doc: release
 	cmake --build build --target manpages
 
+SOURCES = $(shell find $(SRCDIR) -name '*.cpp' ! -path '*/embedded_assets/**/*.c??' ! -path '*/image_loader/*.c' ! -path '*/image_loader/**/*.cpp')
 # Static analysis
 analyze:
-	clang-tidy $(SOURCES) -- $(CFLAGS)
+	clang-tidy -p build $(SOURCES)
 
 # Memory check (requires valgrind)
 memcheck: debug
@@ -84,7 +85,7 @@ format-check:
 # Static analysis with clang-tidy (uses .clang-tidy config)
 lint: protocols
 	@echo "Running static analysis..."
-	@clang-tidy $(PROJECT_SOURCES) -- $(CFLAGS) $(CXXFLAGS) 2>/dev/null || true
+	@clang-tidy -p build $(PROJECT_SOURCES) 2>/dev/null || true
 	@echo "Static analysis complete."
 
 # Alias for lint

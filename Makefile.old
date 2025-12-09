@@ -207,6 +207,7 @@ uninstall:
 	rm -f $(DESTDIR)/usr/local/bin/bongocat-find-devices
 	rm -rf $(DESTDIR)/usr/local/share/bongocat
 
+SOURCES = $(CXX_SRC) $(C_SRC)
 # Static analysis
 analyze:
 	clang-tidy $(SOURCES) -- $(CFLAGS) $(CXXFLAGS)
