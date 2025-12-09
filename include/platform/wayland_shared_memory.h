@@ -17,15 +17,15 @@ void cleanup_shm_buffer(wayland_shm_buffer_t& buffer);
 struct wayland_context_t;
 
 struct wayland_shm_buffer_t {
-  wl_buffer *buffer{nullptr};
+  wl_buffer *buffer{BONGOCAT_NULLPTR};
   MMapFileBuffer<uint8_t> pixels;
   atomic_bool busy{false};     // 0: free / 1: busy
   atomic_bool pending{false};  // 0/1: a render was requested while busy
   size_t index{0};             // index track from wayland_shared_memory_t.buffers
 
   // extra context for listeners
-  animation::animation_session_t *_animation_trigger_context{nullptr};
-  wayland_context_t *_wayland_context{nullptr};  // parent ref. for buffer_release
+  animation::animation_session_t *_animation_trigger_context{BONGOCAT_NULLPTR};
+  wayland_context_t *_wayland_context{BONGOCAT_NULLPTR};  // parent ref. for buffer_release
 
   wayland_shm_buffer_t() = default;
   ~wayland_shm_buffer_t() {
@@ -44,9 +44,9 @@ struct wayland_shm_buffer_t {
     atomic_store(&busy, atomic_load(&other.busy));
     atomic_store(&pending, atomic_load(&other.pending));
 
-    other.buffer = nullptr;
+    other.buffer = BONGOCAT_NULLPTR;
     other.index = 0;
-    other._animation_trigger_context = nullptr;
+    other._animation_trigger_context = BONGOCAT_NULLPTR;
     atomic_store(&other.busy, false);
     atomic_store(&other.pending, false);
   }
@@ -60,10 +60,10 @@ struct wayland_shm_buffer_t {
       _animation_trigger_context = other._animation_trigger_context;
       _wayland_context = other._wayland_context;
 
-      other.buffer = nullptr;
+      other.buffer = BONGOCAT_NULLPTR;
       other.index = 0;
-      other._animation_trigger_context = nullptr;
-      other._wayland_context = nullptr;
+      other._animation_trigger_context = BONGOCAT_NULLPTR;
+      other._wayland_context = BONGOCAT_NULLPTR;
       atomic_store(&other.busy, false);
       atomic_store(&other.pending, false);
     }
@@ -120,14 +120,15 @@ struct wayland_shared_memory_t {
 inline void cleanup_shm_buffer(wayland_shm_buffer_t& buffer) {
   atomic_store(&buffer.pending, false);
   atomic_store(&buffer.busy, true);
-  if (buffer.buffer)
+  if (buffer.buffer != BONGOCAT_NULLPTR) {
     wl_buffer_destroy(buffer.buffer);
-  buffer.buffer = nullptr;
+    buffer.buffer = BONGOCAT_NULLPTR;
+  }
   release_allocated_mmap_file_buffer(buffer.pixels);
   atomic_store(&buffer.busy, false);
   buffer.index = 0;
-  buffer._animation_trigger_context = nullptr;
-  buffer._wayland_context = nullptr;
+  buffer._animation_trigger_context = BONGOCAT_NULLPTR;
+  buffer._wayland_context = BONGOCAT_NULLPTR;
 }
 }  // namespace bongocat::platform::wayland
 

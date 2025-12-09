@@ -16,7 +16,7 @@ namespace bongocat::platform::wayland::sway {
 
 int fs_check_compositor_fallback() {
   FILE *fp = popen("swaymsg -t get_tree 2>/dev/null", "r");
-  if (fp) {
+  if (fp != BONGOCAT_NULLPTR) {
     bool is_fullscreen = false;
 
     char sway_buffer[SWAY_BUF] = {0};

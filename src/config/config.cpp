@@ -296,15 +296,15 @@ static uint64_t config_validate_custom(config_t& config) {
   if (config._custom) {
     if (config.custom_sprite_sheet_settings.feature_toggle_writing_frames >= 0) {
       config.custom_sprite_sheet_settings.feature_toggle_writing_frames =
-          config.custom_sprite_sheet_settings.feature_toggle_writing_frames ? 1 : 0;
+          config.custom_sprite_sheet_settings.feature_toggle_writing_frames >= 1 ? 1 : 0;
     }
     if (config.custom_sprite_sheet_settings.feature_toggle_writing_frames_random >= 0) {
       config.custom_sprite_sheet_settings.feature_toggle_writing_frames_random =
-          config.custom_sprite_sheet_settings.feature_toggle_writing_frames_random ? 1 : 0;
+          config.custom_sprite_sheet_settings.feature_toggle_writing_frames_random >= 1 ? 1 : 0;
     }
     if (config.custom_sprite_sheet_settings.feature_mirror_x_moving >= 0) {
       config.custom_sprite_sheet_settings.feature_mirror_x_moving =
-          config.custom_sprite_sheet_settings.feature_mirror_x_moving ? 1 : 0;
+          config.custom_sprite_sheet_settings.feature_mirror_x_moving >= 1 ? 1 : 0;
     }
 
     // clamp cols
@@ -562,7 +562,7 @@ static uint64_t config_validate_custom(config_t& config) {
     }
 
     // validate sprite sheet file
-    if (config.custom_sprite_sheet_filename != nullptr && strlen(config.custom_sprite_sheet_filename) != 0) {
+    if (config.custom_sprite_sheet_filename != BONGOCAT_NULLPTR && strlen(config.custom_sprite_sheet_filename) != 0) {
       constexpr size_t PNG_SIGNATURE_SIZE = 8;
       constexpr unsigned char PNG_SIGNATURE[PNG_SIGNATURE_SIZE] = {0x89, 'P', 'N', 'G', '\r', '\n', 0x1A, '\n'};
 
@@ -843,9 +843,9 @@ static uint64_t config_validate_enums(config_t& config) {
 
 static uint64_t config_validate_time(config_t& config) {
   uint64_t ret{0};
-  if (config.enable_scheduled_sleep) {
-    const int begin_minutes = config.sleep_begin.hour * 60 + config.sleep_begin.min;
-    const int end_minutes = config.sleep_end.hour * 60 + config.sleep_end.min;
+  if (config.enable_scheduled_sleep >= 1) {
+    const int begin_minutes = (config.sleep_begin.hour * 60) + config.sleep_begin.min;
+    const int end_minutes = (config.sleep_end.hour * 60) + config.sleep_end.min;
 
     if (begin_minutes == end_minutes) {
       BONGOCAT_LOG_WARNING("Sleep mode is enabled, but time is equal: %02d:%02d, disable sleep mode",
@@ -865,17 +865,17 @@ static uint64_t config_validate_time(config_t& config) {
 static bongocat_error_t config_validate(config_t& config) {
   uint64_t ret{0};
   // Normalize boolean values
-  config.enable_debug = config.enable_debug ? 1 : 0;
-  config.invert_color = config.invert_color ? 1 : 0;
-  config.idle_animation = config.idle_animation ? 1 : 0;
-  config.enable_scheduled_sleep = config.enable_scheduled_sleep ? 1 : 0;
-  config.mirror_x = config.mirror_x ? 1 : 0;
-  config.mirror_y = config.mirror_y ? 1 : 0;
-  config.randomize_index = config.randomize_index ? 1 : 0;
-  config.randomize_on_reload = config.randomize_on_reload ? 1 : 0;
-  config.enable_antialiasing = config.enable_antialiasing ? 1 : 0;
-  config.enable_movement_debug = config.enable_movement_debug ? 1 : 0;
-  config.enable_hand_mapping = config.enable_hand_mapping ? 1 : 0;
+  config.enable_debug = config.enable_debug >= 1 ? 1 : 0;
+  config.invert_color = config.invert_color >= 1 ? 1 : 0;
+  config.idle_animation = config.idle_animation >= 1 ? 1 : 0;
+  config.enable_scheduled_sleep = config.enable_scheduled_sleep >= 1 ? 1 : 0;
+  config.mirror_x = config.mirror_x >= 1 ? 1 : 0;
+  config.mirror_y = config.mirror_y >= 1 ? 1 : 0;
+  config.randomize_index = config.randomize_index >= 1 ? 1 : 0;
+  config.randomize_on_reload = config.randomize_on_reload >= 1 ? 1 : 0;
+  config.enable_antialiasing = config.enable_antialiasing >= 1 ? 1 : 0;
+  config.enable_movement_debug = config.enable_movement_debug >= 1 ? 1 : 0;
+  config.enable_hand_mapping = config.enable_hand_mapping >= 1 ? 1 : 0;
 
   ret |= config_validate_dimensions(config);
   ret |= config_validate_timing(config);
@@ -917,12 +917,13 @@ static bongocat_error_t config_add_keyboard_device(config_t& config, const char 
 
   // Add new device path
   config.keyboard_devices[old_num_keyboard_devices] = strdup(device_path);
-  if (!config.keyboard_devices[old_num_keyboard_devices]) {
+  if (config.keyboard_devices[old_num_keyboard_devices] == BONGOCAT_NULLPTR) [[unlikely]] {
     // free new copied strings
     for (int i = 0; i < old_num_keyboard_devices; i++) {
-      if (config.keyboard_devices[i])
+      if (config.keyboard_devices[i] != BONGOCAT_NULLPTR) {
         ::free(config.keyboard_devices[i]);
-      config.keyboard_devices[i] = nullptr;
+        config.keyboard_devices[i] = BONGOCAT_NULLPTR;
+      }
     }
     config.num_keyboard_devices = old_num_keyboard_devices;
     BONGOCAT_LOG_ERROR("Failed to copy new keyboard device path");
@@ -939,10 +940,11 @@ static void config_cleanup_devices(config_t& config) {
   assert(config.num_keyboard_devices >= 0);
   for (size_t i = 0; i < input::MAX_INPUT_DEVICES; i++) {
     if (i < static_cast<size_t>(config.num_keyboard_devices)) {
-      if (config.keyboard_devices[i])
+      if (config.keyboard_devices[i] != BONGOCAT_NULLPTR) {
         ::free(config.keyboard_devices[i]);
+        config.keyboard_devices[i] = BONGOCAT_NULLPTR;
+      }
     }
-    config.keyboard_devices[i] = nullptr;
   }
   config.num_keyboard_devices = 0;
 }
@@ -953,8 +955,9 @@ static void config_cleanup_devices(config_t& config) {
 
 static char *config_trim_str(char *key) {
   char *key_start = key;
-  while (*key_start == ' ' || *key_start == '\t')
+  while (*key_start == ' ' || *key_start == '\t') {
     key_start++;
+  }
 
   char *key_end = key_start + strlen(key_start) - 1;
   while (key_end > key_start && (*key_end == ' ' || *key_end == '\t')) {
@@ -967,7 +970,7 @@ static char *config_trim_str(char *key) {
 
 static bongocat_error_t config_parse_integer_key(config_t& config, const char *key, const char *value) {
   errno = 0;
-  char *endptr_int = nullptr;
+  char *endptr_int = BONGOCAT_NULLPTR;
   const int int_value = static_cast<int>(strtol(value, &endptr_int, 10));
   if (errno != 0 || endptr_int == value || *endptr_int != '\0') {
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
@@ -1132,7 +1135,7 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
 
 static bongocat_error_t config_parse_double_key(config_t& config, const char *key, const char *value) {
   errno = 0;
-  char *endptr_double = nullptr;
+  char *endptr_double = BONGOCAT_NULLPTR;
   const double double_value = strtod(value, &endptr_double);
   if (errno != 0 || endptr_double == value || *endptr_double != '\0') {
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
@@ -1193,7 +1196,7 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
 }
 
 bongocat_error_t config_parse_time(const char *value, int& hour, int& min) {
-  char *endptr = nullptr;
+  char *endptr = BONGOCAT_NULLPTR;
   errno = 0;
 
   // Parse hour
@@ -1218,35 +1221,35 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
                                             const load_config_overwrite_parameters_t& overwrite_parameters) {
   using namespace assets;
   if (strcmp(key, MONITOR_KEY) == 0 || strcmp(key, OUTPUT_NAME_KEY) == 0) {
-    if (config.output_name) {
+    if (config.output_name != BONGOCAT_NULLPTR) {
       ::free(config.output_name);
-      config.output_name = nullptr;
+      config.output_name = BONGOCAT_NULLPTR;
     }
-    if (value && value[0] != '\0') {
+    if (value != BONGOCAT_NULLPTR && value[0] != '\0') {
       config.output_name = strdup(value);
-      if (!config.output_name) {
+      if (config.output_name == BONGOCAT_NULLPTR) {
         BONGOCAT_LOG_ERROR("Failed to allocate memory for interface output");
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
       }
     } else {
-      config.output_name = nullptr;
+      config.output_name = BONGOCAT_NULLPTR;
     }
   } else if (strcmp(key, CUSTOM_SPRITE_SHEET_FILENAME_KEY) == 0) {
-    if (config.custom_sprite_sheet_filename) {
+    if (config.custom_sprite_sheet_filename != BONGOCAT_NULLPTR) {
       ::free(config.custom_sprite_sheet_filename);
-      config.custom_sprite_sheet_filename = nullptr;
+      config.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
     }
-    if (value && value[0] != '\0') {
+    if (value != BONGOCAT_NULLPTR && value[0] != '\0') {
       config.custom_sprite_sheet_filename = strdup(value);
-      if (!config.custom_sprite_sheet_filename) {
+      if (config.custom_sprite_sheet_filename == BONGOCAT_NULLPTR) {
         BONGOCAT_LOG_ERROR("Failed to allocate memory for custom sprite sheet filename");
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
       }
     } else {
-      config.custom_sprite_sheet_filename = nullptr;
+      config.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
     }
   } else if (strcmp(key, SLEEP_BEGIN_KEY) == 0) {
-    if (value && value[0] != '\0') {
+    if (value != BONGOCAT_NULLPTR && value[0] != '\0') {
       int hour{0};
       int min{0};
       if (config_parse_time(value, hour, min) != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -1263,7 +1266,7 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
       config.sleep_begin.min = 0;
     }
   } else if (strcmp(key, SLEEP_END_KEY) == 0) {
-    if (value && value[0] != '\0') {
+    if (value != BONGOCAT_NULLPTR && value[0] != '\0') {
       int hour{0};
       int min{0};
       if (config_parse_time(value, hour, min) != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -1281,19 +1284,21 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
     }
   } else if (strcmp(key, ANIMATION_NAME_KEY) == 0) {
     using namespace assets;
-    if (overwrite_parameters.animation_name) {
+    if (overwrite_parameters.animation_name != BONGOCAT_NULLPTR) {
       value = overwrite_parameters.animation_name;
     }
 
     // set config._animation_name
-    if (config._animation_name)
+    if (config._animation_name != BONGOCAT_NULLPTR) {
       ::free(config._animation_name);
-    config._animation_name = nullptr;
-    config._animation_name = value ? strdup(value) : nullptr;
+      config._animation_name = BONGOCAT_NULLPTR;
+    }
+    config._animation_name = value != BONGOCAT_NULLPTR ? strdup(value) : BONGOCAT_NULLPTR;
 
-    if (config._loaded_animation_fqname)
+    if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
       ::free(config._loaded_animation_fqname);
-    config._loaded_animation_fqname = nullptr;
+      config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+    }
 
     // reset state
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::None;
@@ -1302,7 +1307,7 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
     config.animation_index = -1;
 
     // is fully name like dm:..., dm20:..., dmc:...
-    [[maybe_unused]] const bool is_fqn = strchr(value, ':') != nullptr;
+    [[maybe_unused]] const bool is_fqn = strchr(value, ':') != BONGOCAT_NULLPTR;
     bool animation_found = false;
 
     if constexpr (features::EnableBongocatEmbeddedAssets) {
@@ -1344,9 +1349,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_dm(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_dm(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1360,9 +1366,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_dm20(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_dm20(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1376,9 +1383,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_dmx(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_dmx(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1392,9 +1400,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_dmc(config, value);
         if (found_index >= 0) {
           assert(config.animation_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_dmc(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1408,9 +1417,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_pen(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_pen(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1424,9 +1434,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_pen20(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_pen20(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1440,9 +1451,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_dmall(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_dmall(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1459,9 +1471,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
           strcmp(value, CLIPPY_FQNAME) == 0) {
         config.animation_index = CLIPPY_ANIM_INDEX;
         config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
-        if (config._loaded_animation_fqname)
+        if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
           ::free(config._loaded_animation_fqname);
-        config._loaded_animation_fqname = nullptr;
+          config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+        }
         config._loaded_animation_fqname = strdup(CLIPPY_FQNAME);
       }
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
@@ -1471,9 +1484,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
           strcmp(value, LINKS_FQNAME) == 0) {
         config.animation_index = LINKS_ANIM_INDEX;
         config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
-        if (config._loaded_animation_fqname)
+        if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
           ::free(config._loaded_animation_fqname);
-        config._loaded_animation_fqname = nullptr;
+          config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+        }
         config._loaded_animation_fqname = strdup(LINKS_FQNAME);
       }
       // Rover
@@ -1481,9 +1495,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
           strcmp(value, ROVER_FQNAME) == 0) {
         config.animation_index = ROVER_ANIM_INDEX;
         config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
-        if (config._loaded_animation_fqname)
+        if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
           ::free(config._loaded_animation_fqname);
-        config._loaded_animation_fqname = nullptr;
+          config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+        }
         config._loaded_animation_fqname = strdup(ROVER_FQNAME);
       }
       // Merlin
@@ -1491,9 +1506,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
           strcmp(value, MERLIN_FQNAME) == 0) {
         config.animation_index = MERLIN_ANIM_INDEX;
         config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::MsAgent;
-        if (config._loaded_animation_fqname)
+        if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
           ::free(config._loaded_animation_fqname);
-        config._loaded_animation_fqname = nullptr;
+          config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+        }
         config._loaded_animation_fqname = strdup(MERLIN_FQNAME);
       }
 #endif
@@ -1509,9 +1525,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_pkmn(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_pkmn(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1528,9 +1545,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         const int found_index = config_parse_animation_name_pmd(config, value);
         if (found_index >= 0) {
           assert(found_index >= 0);
-          if (config._loaded_animation_fqname)
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
             ::free(config._loaded_animation_fqname);
-          config._loaded_animation_fqname = nullptr;
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
           config._loaded_animation_fqname =
               strdup(get_config_animation_name_pmd(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s: %s", value, config._loaded_animation_fqname);
@@ -1548,9 +1566,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         config.animation_index = MISC_NEKO_ANIM_INDEX;
         config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
         config.animation_custom_set = config_animation_custom_set_t::misc;
-        if (config._loaded_animation_fqname)
+        if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
           ::free(config._loaded_animation_fqname);
-        config._loaded_animation_fqname = nullptr;
+          config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+        }
         config._loaded_animation_fqname = strdup(MISC_NEKO_FQNAME);
         animation_found = config.animation_index >= 0;
       }
@@ -1564,15 +1583,18 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         config.animation_index = CUSTOM_ANIM_INDEX;
         config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Custom;
         config.animation_custom_set = config_animation_custom_set_t::custom;
-        if (config._loaded_animation_fqname)
+        if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
           ::free(config._loaded_animation_fqname);
-        config._loaded_animation_fqname = nullptr;
-        config._loaded_animation_fqname =
-            config.custom_sprite_sheet_filename ? strdup(config.custom_sprite_sheet_filename) : nullptr;
+          config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+        }
+        config._loaded_animation_fqname = config.custom_sprite_sheet_filename != BONGOCAT_NULLPTR
+                                              ? strdup(config.custom_sprite_sheet_filename)
+                                              : BONGOCAT_NULLPTR;
         animation_found = config.animation_index >= 0;
         config._custom = config.animation_index == CUSTOM_ANIM_INDEX;
 
-        if (config.custom_sprite_sheet_filename == nullptr || strlen(config.custom_sprite_sheet_filename) <= 0) {
+        if (config.custom_sprite_sheet_filename == BONGOCAT_NULLPTR ||
+            strlen(config.custom_sprite_sheet_filename) <= 0) {
           BONGOCAT_LOG_WARNING("custom_sprite_sheet_filename required for custom sprite sheet");
           animation_found = false;
         }
@@ -1597,9 +1619,10 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
       config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
       config.animation_dm_set = config_animation_dm_set_t::None;
       config.animation_custom_set = config_animation_custom_set_t::None;
-      if (config._loaded_animation_fqname)
+      if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
         ::free(config._loaded_animation_fqname);
-      config._loaded_animation_fqname = nullptr;
+        config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+      }
       config._loaded_animation_fqname = strdup(BONGOCAT_FQNAME);
     }
   } else {
@@ -1672,14 +1695,15 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
     if (sscanf(line, " %255[^=]=%4351[^\n]", key, value) == 2) {
       // Cut off trailing comment in value
       char *comment = strchr(value, '#');
-      if (comment) {
+      if (comment != BONGOCAT_NULLPTR) {
         *comment = '\0';  // terminate string before '#'
       }
 
-      char *trimmed_key = config_trim_str(key);
-      char *trimmed_value = config_trim_str(value);
+      const char *trimmed_key = config_trim_str(key);
+      const char *trimmed_value = config_trim_str(value);
 
-      bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
+      const bongocat_error_t parse_result =
+          config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
       if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
         BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
       } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -1696,10 +1720,10 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
 
 static bongocat_error_t config_parse_file(config_t& config, const char *config_file_path,
                                           load_config_overwrite_parameters_t overwrite_parameters) {
-  const char *file_path = config_file_path ? config_file_path : DEFAULT_CONFIG_FILE_PATH;
+  const char *file_path = config_file_path != BONGOCAT_NULLPTR ? config_file_path : DEFAULT_CONFIG_FILE_PATH;
 
   FILE *file = fopen(file_path, "r");
-  if (!file) {
+  if (file == BONGOCAT_NULLPTR) {
     if (overwrite_parameters.strict >= 0) {
       BONGOCAT_LOG_INFO("Config file '%s' not found", file_path);
       return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
@@ -1708,9 +1732,9 @@ static bongocat_error_t config_parse_file(config_t& config, const char *config_f
     return bongocat_error_t::BONGOCAT_SUCCESS;
   }
 
-  bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
-
+  const bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
   fclose(file);
+  file = BONGOCAT_NULLPTR;
 
   if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
     BONGOCAT_LOG_INFO("Loaded configuration from %s", file_path);
@@ -1723,7 +1747,7 @@ static bongocat_error_t config_parse_stdin(config_t& config,
                                            const load_config_overwrite_parameters_t& overwrite_parameters) {
   FILE *file = stdin;
 
-  bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
+  const bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
   if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
     BONGOCAT_LOG_INFO("Loaded configuration from stdin");
   }
@@ -1738,10 +1762,10 @@ static bongocat_error_t config_parse_stdin(config_t& config,
 void set_defaults(config_t& config) {
   config_t cfg{};
 
-  cfg.output_name = nullptr;
+  cfg.output_name = BONGOCAT_NULLPTR;
   assert(input::MAX_INPUT_DEVICES <= INT_MAX);
   for (int i = 0; i < static_cast<int>(input::MAX_INPUT_DEVICES); i++) {
-    cfg.keyboard_devices[i] = nullptr;
+    cfg.keyboard_devices[i] = BONGOCAT_NULLPTR;
   }
   cfg.num_keyboard_devices = 0;
   cfg.cat_x_offset = DEFAULT_CAT_X_OFFSET;
@@ -1780,13 +1804,13 @@ void set_defaults(config_t& config) {
   cfg.randomize_on_reload = 0;
   cfg.movement_wait_factor = DEFAULT_MOVEMENT_WAIT_FACTOR;
   cfg.screen_width = 0;
-  cfg.custom_sprite_sheet_filename = nullptr;
+  cfg.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
   cfg.custom_sprite_sheet_settings = {};
   cfg._keep_old_animation_index = false;
   cfg._strict = false;
   cfg._custom = false;
-  cfg._animation_name = nullptr;
-  cfg._loaded_animation_fqname = nullptr;
+  cfg._animation_name = BONGOCAT_NULLPTR;
+  cfg._loaded_animation_fqname = BONGOCAT_NULLPTR;
 
   config = bongocat::move(cfg);
 }
@@ -1807,10 +1831,12 @@ static void config_log_summary(const config_t& config) {
   case config_animation_sprite_sheet_layout_t::None:
     break;
   case config_animation_sprite_sheet_layout_t::Bongocat:
-    assert(config._loaded_animation_fqname);
-    BONGOCAT_LOG_DEBUG("  Cat: '%s' %dx%d at offset (%d,%d)", config._loaded_animation_fqname, config.cat_height,
-                       (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT, config.cat_x_offset,
-                       config.cat_y_offset);
+    // when loaded by default, _loaded_animation_fqname is not set
+    // assert(config._loaded_animation_fqname);
+    BONGOCAT_LOG_DEBUG("  Cat: '%s' %dx%d at offset (%d,%d)",
+                       config._loaded_animation_fqname != nullptr ? config._loaded_animation_fqname : BONGOCAT_FQNAME,
+                       config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
+                       config.cat_x_offset, config.cat_y_offset);
     break;
   case config_animation_sprite_sheet_layout_t::Dm:
     assert(config._loaded_animation_fqname);
@@ -1887,13 +1913,15 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
     return result;
   }
 
-  if (overwrite_parameters.output_name) {
-    if (ret.output_name)
+  if (overwrite_parameters.output_name != BONGOCAT_NULLPTR) {
+    if (ret.output_name != BONGOCAT_NULLPTR) {
       ::free(ret.output_name);
+      ret.output_name = BONGOCAT_NULLPTR;
+    }
     ret.output_name = strdup(overwrite_parameters.output_name);
   }
   if (overwrite_parameters.randomize_index >= 0) {
-    ret.randomize_index = overwrite_parameters.randomize_index ? 1 : 0;
+    ret.randomize_index = overwrite_parameters.randomize_index >= 1 ? 1 : 0;
   }
   if (overwrite_parameters.strict >= 0) {
     ret._strict = overwrite_parameters.strict >= 1;

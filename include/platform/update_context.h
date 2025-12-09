@@ -35,9 +35,9 @@ struct update_context_t {
   platform::CondVariable config_updated;
 
   // globals (references)
-  const config::config_t *_config{nullptr};
-  platform::CondVariable *_configs_reloaded_cond{nullptr};
-  atomic_uint64_t *_config_generation{nullptr};
+  const config::config_t *_config{BONGOCAT_NULLPTR};
+  platform::CondVariable *_configs_reloaded_cond{BONGOCAT_NULLPTR};
+  atomic_uint64_t *_config_generation{BONGOCAT_NULLPTR};
   atomic_bool ready;
   platform::CondVariable init_cond;
 
@@ -68,9 +68,9 @@ inline void cleanup(update_context_t& ctx) {
   release_allocated_mmap_memory(ctx._local_copy_config);
   release_allocated_mmap_memory(ctx.shm);
 
-  ctx._config = nullptr;
-  ctx._configs_reloaded_cond = nullptr;
-  ctx._config_generation = nullptr;
+  ctx._config = BONGOCAT_NULLPTR;
+  ctx._configs_reloaded_cond = BONGOCAT_NULLPTR;
+  ctx._config_generation = BONGOCAT_NULLPTR;
   atomic_store(&ctx.ready, false);
   ctx.init_cond.notify_all();
 }

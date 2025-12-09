@@ -21,9 +21,10 @@ created_result_t<assets::custom_image_t> load_custom_sprite_sheet_file(const cha
 }
 void free_custom_sprite_sheet_file(assets::custom_image_t& image) noexcept {
   platform::release_allocated_mmap_file_content(image.data);
-  if (image.name)
+  if (image.name != BONGOCAT_NULLPTR) {
     ::free(image.name);
-  image.name = nullptr;
+    image.name = BONGOCAT_NULLPTR;
+  }
 }
 
 created_result_t<custom_sprite_sheet_t>
@@ -33,7 +34,7 @@ load_custom_anim(const animation_context_t& ctx, const assets::custom_image_t& s
   return load_custom_anim(ctx,
                           assets::embedded_image_t{.data = sprite_sheet_image.data.data,
                                                    .size = static_cast<size_t>(sprite_sheet_image.data._size_bytes),
-                                                   .name = sprite_sheet_image.name ? sprite_sheet_image.name : ""},
+                                                   .name = sprite_sheet_image.name != BONGOCAT_NULLPTR ? sprite_sheet_image.name : ""},
                           sprite_sheet_settings);
 }
 created_result_t<custom_sprite_sheet_t>

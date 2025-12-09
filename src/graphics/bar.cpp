@@ -15,8 +15,8 @@
 #include <wayland-client.h>
 
 namespace bongocat::animation {
-inline static uint32_t DEFAULT_FILL_COLOR = 0x00000000;        // ARGB
-inline static uint32_t DEBUG_MOVEMENT_BAR_COLOR = 0xFFFF0000;  // ARGB
+inline static constexpr uint32_t DEFAULT_FILL_COLOR = 0x00000000;        // ARGB
+inline static constexpr uint32_t DEBUG_MOVEMENT_BAR_COLOR = 0xFFFF0000;  // ARGB
 
 // =============================================================================
 // DRAWING MANAGEMENT
@@ -52,7 +52,7 @@ cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx,
     BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", config.cat_align);
     break;
   }
-  const int cat_y = (wayland_ctx._bar_height - cat_height) / 2 + config.cat_y_offset;
+  const int cat_y = ((wayland_ctx._bar_height - cat_height) / 2) + config.cat_y_offset;
 
   return {.x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height};
 }
@@ -66,20 +66,20 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
   animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
-  assert(wayland_ctx._local_copy_config != nullptr);
-  assert(anim.shm != nullptr);
+  assert(wayland_ctx._local_copy_config);
+  assert(anim.shm);
   const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
   const animation_shared_memory_t& anim_shm = *anim.shm;
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
-  const sprite_sheet_animation_frame_t *region = nullptr;
+  const sprite_sheet_animation_frame_t *region = BONGOCAT_NULLPTR;
   switch (anim_shm.animation_player_result.sprite_sheet_col) {
   case BONGOCAT_FRAME_BOTH_UP:
     region = &sheet.both_up;
@@ -102,13 +102,13 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
-  if (region) {
+  if (region != BONGOCAT_NULLPTR) {
     // draw debug rectangle
-    if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+    if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
       cat_rect_t movement_debug_bar{};
       switch (current_config.cat_align) {
       case config::align_type_t::ALIGN_CENTER:
-        movement_debug_bar = {.x = cat_x + cat_width / 2 - current_config.movement_radius,
+        movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                               .y = 0,
                               .width = current_config.movement_radius * 2,
                               .height = wayland_ctx._bar_height};
@@ -118,7 +118,7 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
             .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
-        movement_debug_bar = {.x = cat_x + cat_width - current_config.movement_radius * 2,
+        movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                               .y = 0,
                               .width = current_config.movement_radius * 2,
                               .height = wayland_ctx._bar_height};
@@ -142,8 +142,8 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
         for (int32_t x = movement_debug_bar.x;
              x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
           if (x >= 0 && y >= 0) {
-            size_t pi =
-                static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+            const size_t pi =
+                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -152,22 +152,22 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     }
 
     blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
-    if (current_config.invert_color) {
+    if (current_config.invert_color >= 1) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
     }
     if (anim_shm.anim_direction >= 1.0f) {
-      if (!current_config.mirror_x) {
+      if (current_config.mirror_x <= 0) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     } else {
-      if (current_config.mirror_x) {
+      if (current_config.mirror_x >= 1) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     }
-    if (current_config.mirror_y) {
+    if (current_config.mirror_y >= 1) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
     }
-    if (current_config.enable_antialiasing) {
+    if (current_config.enable_antialiasing >= 1) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
     }
     if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
@@ -191,20 +191,20 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
   animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
-  assert(wayland_ctx._local_copy_config != nullptr);
-  assert(anim.shm != nullptr);
+  assert(wayland_ctx._local_copy_config);
+  assert(anim.shm);
   const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
   const animation_shared_memory_t& anim_shm = *anim.shm;
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
-  const sprite_sheet_animation_frame_t *region = nullptr;
+  const sprite_sheet_animation_frame_t *region = BONGOCAT_NULLPTR;
   switch (anim_shm.animation_player_result.sprite_sheet_col) {
   case DM_FRAME_IDLE1:
     region = &sheet.frames.idle_1;
@@ -260,13 +260,13 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
-  if (region) {
+  if (region != BONGOCAT_NULLPTR) {
     // draw debug rectangle
-    if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+    if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
       cat_rect_t movement_debug_bar{};
       switch (current_config.cat_align) {
       case config::align_type_t::ALIGN_CENTER:
-        movement_debug_bar = {.x = cat_x + cat_width / 2 - current_config.movement_radius,
+        movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                               .y = 0,
                               .width = current_config.movement_radius * 2,
                               .height = wayland_ctx._bar_height};
@@ -276,7 +276,7 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
             .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
-        movement_debug_bar = {.x = cat_x + cat_width - current_config.movement_radius * 2,
+        movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                               .y = 0,
                               .width = current_config.movement_radius * 2,
                               .height = wayland_ctx._bar_height};
@@ -297,8 +297,8 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
         for (int32_t x = movement_debug_bar.x;
              x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
           if (x >= 0 && y >= 0) {
-            size_t pi =
-                static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+            const size_t pi =
+                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -307,19 +307,19 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     }
 
     blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
-    if (current_config.invert_color) {
+    if (current_config.invert_color >= 1) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
     }
     if (anim_shm.anim_direction >= 1.0f) {
-      if (!current_config.mirror_x) {
+      if (current_config.mirror_x <= 0) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     } else {
-      if (current_config.mirror_x) {
+      if (current_config.mirror_x >= 1) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     }
-    if (current_config.mirror_y) {
+    if (current_config.mirror_y >= 1) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
     }
     if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
@@ -343,20 +343,20 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
   animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
-  assert(wayland_ctx._local_copy_config != nullptr);
-  assert(anim.shm != nullptr);
+  assert(wayland_ctx._local_copy_config);
+  assert(anim.shm);
   const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
   const animation_shared_memory_t& anim_shm = *anim.shm;
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
-  const sprite_sheet_animation_frame_t *region = nullptr;
+  const sprite_sheet_animation_frame_t *region = BONGOCAT_NULLPTR;
   switch (anim_shm.animation_player_result.sprite_sheet_col) {
   case PKMN_FRAME_IDLE1:
     region = &sheet.idle_1;
@@ -373,13 +373,13 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
-  if (region) {
+  if (region != BONGOCAT_NULLPTR) {
     // draw debug rectangle
-    if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+    if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
       cat_rect_t movement_debug_bar{};
       switch (current_config.cat_align) {
       case config::align_type_t::ALIGN_CENTER:
-        movement_debug_bar = {.x = cat_x + cat_width / 2 - current_config.movement_radius,
+        movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                               .y = 0,
                               .width = current_config.movement_radius * 2,
                               .height = wayland_ctx._bar_height};
@@ -389,7 +389,7 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
             .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
-        movement_debug_bar = {.x = cat_x + cat_width - current_config.movement_radius * 2,
+        movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                               .y = 0,
                               .width = current_config.movement_radius * 2,
                               .height = wayland_ctx._bar_height};
@@ -410,8 +410,8 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
         for (int32_t x = movement_debug_bar.x;
              x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
           if (x >= 0 && y >= 0) {
-            size_t pi =
-                static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+            const size_t pi =
+                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -420,19 +420,19 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     }
 
     blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
-    if (current_config.invert_color) {
+    if (current_config.invert_color >= 1) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
     }
     if (anim_shm.anim_direction >= 1.0f) {
-      if (!current_config.mirror_x) {
+      if (current_config.mirror_x <= 0) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     } else {
-      if (current_config.mirror_x) {
+      if (current_config.mirror_x >= 1) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     }
-    if (current_config.mirror_y) {
+    if (current_config.mirror_y >= 1) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
     }
     if (extra_drawing_option != blit_image_color_option_flags_t::Normal) {
@@ -454,13 +454,13 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
   // animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
-  assert(wayland_ctx._local_copy_config != nullptr);
-  // assert(anim.shm != nullptr);
+  assert(wayland_ctx._local_copy_config);
+  // assert(anim.shm);
   const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
   // const animation_shared_memory_t& anim_shm = *anim.shm;
 
@@ -470,16 +470,16 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
 
   blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
-  if (current_config.invert_color) {
+  if (current_config.invert_color >= 1) {
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
   }
-  if (current_config.mirror_x) {
+  if (current_config.mirror_x >= 1) {
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
   }
-  if (current_config.mirror_y) {
+  if (current_config.mirror_y >= 1) {
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
   }
-  if (current_config.enable_antialiasing) {
+  if (current_config.enable_antialiasing >= 1) {
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
   }
 
@@ -502,13 +502,13 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
   animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
-  assert(wayland_ctx._local_copy_config != nullptr);
-  assert(anim.shm != nullptr);
+  assert(wayland_ctx._local_copy_config);
+  assert(anim.shm);
   const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
   const animation_shared_memory_t& anim_shm = *anim.shm;
 
@@ -519,11 +519,11 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   // draw debug rectangle
-  if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
+  if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
     cat_rect_t movement_debug_bar{};
     switch (current_config.cat_align) {
     case config::align_type_t::ALIGN_CENTER:
-      movement_debug_bar = {.x = cat_x + cat_width / 2 - current_config.movement_radius,
+      movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                             .y = 0,
                             .width = current_config.movement_radius * 2,
                             .height = wayland_ctx._bar_height};
@@ -533,7 +533,7 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
           .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
       break;
     case config::align_type_t::ALIGN_RIGHT:
-      movement_debug_bar = {.x = cat_x + cat_width - current_config.movement_radius * 2,
+      movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                             .y = 0,
                             .width = current_config.movement_radius * 2,
                             .height = wayland_ctx._bar_height};
@@ -554,7 +554,8 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
       for (int32_t x = movement_debug_bar.x;
            x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
         if (x >= 0 && y >= 0) {
-          size_t pi = static_cast<size_t>(x) + static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width);
+          const size_t pi =
+              static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
           assert(pi < total_pixels);
           p[pi] = fill;
         }
@@ -563,23 +564,23 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   }
 
   blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
-  if (current_config.invert_color) {
+  if (current_config.invert_color >= 1) {
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::Invert);
   }
-  if (current_config.mirror_y) {
+  if (current_config.mirror_y >= 1) {
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorY);
   }
-  if (current_config.enable_antialiasing) {
+  if (current_config.enable_antialiasing >= 1) {
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
   }
   switch (overwrite_option) {
   case draw_sprite_overwrite_option_t::None:
     if (anim_shm.anim_direction >= 1.0f) {
-      if (!current_config.mirror_x) {
+      if (current_config.mirror_x <= 0) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     } else {
-      if (current_config.mirror_x) {
+      if (current_config.mirror_x >= 1) {
         drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
       }
     }
@@ -606,14 +607,14 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
 
 static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
                                platform::wayland::wayland_shm_buffer_t& shm_buffer) {
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
   animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
   // read-only
-  assert(wayland_ctx._local_copy_config != nullptr);
-  assert(anim.shm != nullptr);
+  assert(wayland_ctx._local_copy_config);
+  assert(anim.shm);
   const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
 
   assert(shm_buffer.pixels.data);
@@ -633,7 +634,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
   auto *p = reinterpret_cast<uint32_t *>(pixels);
   const size_t total_pixels =
       static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
-  if (current_config.enable_debug) {
+  if (current_config.enable_debug >= 1) {
     if (const size_t expected_bytes = total_pixels * sizeof(uint32_t); expected_bytes > pixels_size) {
       BONGOCAT_LOG_VERBOSE("draw_bar: pixel write would overflow buffer (expected %zu bytes, have %zu). Aborting draw.",
                            expected_bytes, pixels_size);
@@ -657,11 +658,11 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
           assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.bongocat_anims.count);
         }
         const animation_t& cat_anim = get_current_animation(anim);
-        assert(cat_anim.type == animation_t::Type::Bongocat);
+        assert(cat_anim.type == animation_t::type_t::Bongocat);
         const bongocat_sprite_sheet_t& sheet = cat_anim.bongocat;
         draw_sprite(ctx, shm_buffer, sheet,
-                    current_config.enable_antialiasing ? blit_image_color_option_flags_t::BilinearInterpolation
-                                                       : blit_image_color_option_flags_t::Normal);
+                    current_config.enable_antialiasing >= 1 ? blit_image_color_option_flags_t::BilinearInterpolation
+                                                            : blit_image_color_option_flags_t::Normal);
       } break;
       case config::config_animation_sprite_sheet_layout_t::Dm: {
         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
@@ -695,7 +696,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
           }
         }
         const animation_t& dm_anim = get_current_animation(anim);
-        assert(dm_anim.type == animation_t::Type::Dm);
+        assert(dm_anim.type == animation_t::type_t::Dm);
         const dm_sprite_sheet_t& sheet = dm_anim.dm;
         draw_sprite(ctx, shm_buffer, sheet);
       } break;
@@ -704,7 +705,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
           assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pkmn_anims.count);
         }
         const animation_t& pkmn_anim = get_current_animation(anim);
-        assert(pkmn_anim.type == animation_t::Type::Pkmn);
+        assert(pkmn_anim.type == animation_t::type_t::Pkmn);
         const auto& sheet = pkmn_anim.pkmn;
         draw_sprite(ctx, shm_buffer, sheet);
       } break;
@@ -713,7 +714,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
           assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.ms_anims.count);
         }
         const animation_t& ms_anim = get_current_animation(anim);
-        assert(ms_anim.type == animation_t::Type::MsAgent);
+        assert(ms_anim.type == animation_t::type_t::MsAgent);
         const ms_agent_sprite_sheet_t& sheet = ms_anim.ms_agent;
         const int col = anim_shm.animation_player_result.sprite_sheet_col;
         const int row = anim_shm.animation_player_result.sprite_sheet_row;
@@ -732,7 +733,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
               assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.misc_anims.count);
             }
             const animation_t& custom_anim = get_current_animation(anim);
-            assert(custom_anim.type == animation_t::Type::Custom);
+            assert(custom_anim.type == animation_t::type_t::Custom);
             const custom_sprite_sheet_t& sheet = custom_anim.custom;
             draw_sprite(ctx, shm_buffer, sheet, col, row);
           }
@@ -743,7 +744,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
               assert(anim_shm.anim_index >= 0 && static_cast<size_t>(anim_shm.anim_index) < anim_shm.pmd_anims.count);
             }
             const animation_t& custom_anim = get_current_animation(anim);
-            assert(custom_anim.type == animation_t::Type::Custom);
+            assert(custom_anim.type == animation_t::type_t::Custom);
             const custom_sprite_sheet_t& sheet = custom_anim.custom;
             draw_sprite_overwrite_option_t overwrite_mirror_x{draw_sprite_overwrite_option_t::None};
             /*
@@ -765,7 +766,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
           if (features::EnableCustomSpriteSheetsAssets && anim_shm.anim_index >= 0 &&
               static_cast<size_t>(anim_shm.anim_index) == assets::CUSTOM_ANIM_INDEX) {
             const animation_t& custom_anim = get_current_animation(anim);
-            assert(custom_anim.type == animation_t::Type::Custom);
+            assert(custom_anim.type == animation_t::type_t::Custom);
             const custom_sprite_sheet_t& sheet = custom_anim.custom;
             draw_sprite_overwrite_option_t overwrite_mirror_x{draw_sprite_overwrite_option_t::None};
             switch (anim_shm.animation_player_result.overwrite_mirror_x) {
@@ -800,8 +801,8 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx) {
   platform::wayland::wayland_shared_memory_t& wayland_ctx_shm = *wayland_ctx.ctx_shm.ptr;
 
   // read-only
-  assert(wayland_ctx._local_copy_config != nullptr);
-  // assert(anim.shm != nullptr);
+  assert(wayland_ctx._local_copy_config);
+  // assert(anim.shm);
   const config::config_t& current_config = *wayland_ctx._local_copy_config.ptr;
 
   if (!atomic_load(&wayland_ctx_shm.configured)) {
@@ -816,7 +817,7 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx) {
   [[maybe_unused]] size_t next_buffer_index =
       (wayland_ctx_shm.current_buffer_index + 1) % platform::wayland::WAYLAND_NUM_BUFFERS;
 
-  platform::wayland::wayland_shm_buffer_t *shm_buffer = nullptr;
+  platform::wayland::wayland_shm_buffer_t *shm_buffer = BONGOCAT_NULLPTR;
   if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS == 1) {
     shm_buffer = &wayland_ctx_shm.buffers[0];
     if (atomic_load(&shm_buffer->busy)) {
@@ -836,7 +837,7 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx) {
       next_buffer_index = (next_buffer_index + 1) % platform::wayland::WAYLAND_NUM_BUFFERS;
     }
 
-    if (!shm_buffer) {
+    if (shm_buffer == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_VERBOSE("draw_bar: All buffers busy, skip drawing");
       atomic_store(&wayland_ctx._redraw_after_frame, true);
       return draw_bar_result_t::Busy;
@@ -844,7 +845,7 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx) {
   }
 
   assert(shm_buffer);
-  if (!shm_buffer->pixels.data) {
+  if (!shm_buffer->pixels) {
     BONGOCAT_LOG_VERBOSE("draw_bar: Config or pixels not ready, skipping draw");
     return draw_bar_result_t::Skip;
   }
@@ -865,7 +866,7 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx) {
 
   {
     platform::LockGuard guard(wayland_ctx._frame_cb_lock);
-    if (!atomic_load(&wayland_ctx._frame_pending) && !wayland_ctx._frame_cb) {
+    if (!atomic_load(&wayland_ctx._frame_pending) && wayland_ctx._frame_cb == BONGOCAT_NULLPTR) {
       wayland_ctx._frame_cb = wl_surface_frame(wayland_ctx.surface);
       wl_callback_add_listener(wayland_ctx._frame_cb, &platform::wayland::details::frame_listener, &ctx);
       atomic_store(&wayland_ctx._frame_pending, true);

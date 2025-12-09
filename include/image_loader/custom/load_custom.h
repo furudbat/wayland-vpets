@@ -16,12 +16,12 @@ void free_custom_sprite_sheet_file(assets::custom_image_t& image) noexcept;
 namespace bongocat::assets {
 struct custom_image_t {
   platform::MMapFileContent data;
-  char *name{nullptr};
+  char *name{BONGOCAT_NULLPTR};
 
   custom_image_t() = default;
   custom_image_t(const custom_image_t& other) = delete;
   custom_image_t(custom_image_t&& other) noexcept : data(bongocat::move(other.data)), name(other.name) {
-    other.name = nullptr;
+    other.name = BONGOCAT_NULLPTR;
   }
   ~custom_image_t() {
     animation::free_custom_sprite_sheet_file(*this);
@@ -34,12 +34,13 @@ struct custom_image_t {
 
       data = bongocat::move(other.data);
 
-      if (name)
+      if (name != BONGOCAT_NULLPTR) {
         ::free(name);
-      name = nullptr;
+        name = BONGOCAT_NULLPTR;
+      }
       name = other.name;
 
-      other.name = nullptr;
+      other.name = BONGOCAT_NULLPTR;
     }
     return *this;
   }

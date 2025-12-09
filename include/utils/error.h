@@ -156,7 +156,7 @@ namespace features {
 #endif
 
 inline int check_errno([[maybe_unused]] const char *fd_name) {
-  int err = errno;
+  const int err = errno;
   // supress compiler warning
 #if EAGAIN == EWOULDBLOCK
   if (err != EAGAIN && err != -1) {

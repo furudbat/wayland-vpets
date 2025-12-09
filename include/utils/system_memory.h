@@ -19,7 +19,8 @@ namespace bongocat::platform {
 int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms);
 int stop_thread_graceful_or_cancel(pthread_t& thread, atomic_bool& running_flag);
 
-struct Mutex {
+class Mutex {
+public:
   pthread_mutex_t pt_mutex{};
 
   Mutex() {
@@ -69,7 +70,9 @@ struct Mutex {
   }
   */
 };
-struct LockGuard {
+
+class LockGuard {
+public:
   explicit LockGuard(Mutex& m) : pt_mutex(&m.pt_mutex) {
     if (const int rc = pthread_mutex_lock(pt_mutex); rc != 0) {
       BONGOCAT_LOG_ERROR("LockGuard: pthread_mutex_lock failed");
@@ -92,19 +95,20 @@ struct LockGuard {
   LockGuard(const LockGuard&&) = delete;
   LockGuard&& operator=(const LockGuard&&) = delete;
 
-  pthread_mutex_t *pt_mutex{nullptr};
+  pthread_mutex_t *pt_mutex{BONGOCAT_NULLPTR};
 };
 
-struct SingleCondVariable;
+class SingleCondVariable;
 void cond_destroy(SingleCondVariable& cond);
-struct SingleCondVariable {
+class SingleCondVariable {
+public:
   Mutex mutex;
   pthread_cond_t cond;
   atomic_bool _predicate{false};
   bool _inited{false};
 
   SingleCondVariable() {
-    pthread_cond_init(&cond, nullptr);
+    pthread_cond_init(&cond, BONGOCAT_NULLPTR);
     _inited = true;
   }
 
@@ -127,10 +131,11 @@ inline void cond_destroy(SingleCondVariable& cond) {
   cond._inited = false;
 }
 
-struct CondVariable {
+class CondVariable {
+public:
   CondVariable() {
-    pthread_mutex_init(&_mutex, nullptr);
-    pthread_cond_init(&_cond, nullptr);
+    pthread_mutex_init(&_mutex, BONGOCAT_NULLPTR);
+    pthread_cond_init(&_cond, BONGOCAT_NULLPTR);
   }
 
   // No copying, no move
@@ -145,7 +150,8 @@ struct CondVariable {
     pthread_mutex_destroy(&_mutex);
   }
 
-  template <typename Predicate> [[deprecated("better use timedwait")]] int wait(Predicate&& pred) {
+  template <typename Predicate>
+  [[deprecated("better use timedwait")]] int wait(Predicate&& pred) {
     int ret = 0;
     pthread_mutex_lock(&_mutex);
     while (!pred()) {
@@ -155,7 +161,8 @@ struct CondVariable {
     return ret;
   }
 
-  template <typename Predicate> int timedwait(Predicate&& pred, time_ms_t timeout_ms) {
+  template <typename Predicate>
+  int timedwait(Predicate&& pred, time_ms_t timeout_ms) {
     struct timespec ts;
     clock_gettime(CLOCK_REALTIME, &ts);
     ts.tv_sec += timeout_ms / 1000;
@@ -189,7 +196,8 @@ struct CondVariable {
   pthread_cond_t _cond;
 };
 
-struct CondVarGuard {
+class CondVarGuard {
+public:
   explicit CondVarGuard(pthread_mutex_t& m, pthread_cond_t& c, atomic_bool& pred)
       : _mutex(m)
       , _cond(c)
@@ -251,11 +259,15 @@ struct CondVarGuard {
   atomic_bool& _predicate;
 };
 
-template <typename T> struct MMapMemory;
-template <typename T> void release_allocated_mmap_memory(MMapMemory<T>& memory) noexcept;
+template <typename T>
+class MMapMemory;
+template <typename T>
+void release_allocated_mmap_memory(MMapMemory<T>& memory) noexcept;
 
-template <typename T> struct MMapMemory {
-  T *ptr{nullptr};
+template <typename T>
+class MMapMemory {
+public:
+  T *ptr{BONGOCAT_NULLPTR};
   size_t _size_bytes{0};
 
   constexpr MMapMemory() = default;
@@ -263,15 +275,16 @@ template <typename T> struct MMapMemory {
     release_allocated_mmap_memory(*this);
   }
 
-  explicit MMapMemory(decltype(nullptr)) noexcept {}
-  MMapMemory& operator=(decltype(nullptr)) noexcept {
+  explicit MMapMemory(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  MMapMemory& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     release_allocated_mmap_memory(*this);
     return *this;
   }
 
   MMapMemory(const MMapMemory& other) : _size_bytes(other._size_bytes) {
     if (other.ptr && _size_bytes > 0) {
-      ptr = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+      ptr = static_cast<T *>(
+          mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
       if (ptr != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
           memcpy(ptr, other.ptr, _size_bytes);
@@ -285,14 +298,15 @@ template <typename T> struct MMapMemory {
       }
     }
     _size_bytes = 0;
-    ptr = nullptr;
+    ptr = BONGOCAT_NULLPTR;
   }
   MMapMemory& operator=(const MMapMemory& other) {
     if (this != &other) {
       release_allocated_mmap_memory(*this);
       _size_bytes = other._size_bytes;
       if (_size_bytes > 0) {
-        ptr = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+        ptr = static_cast<T *>(
+            mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
         if (ptr != MAP_FAILED) {
           if constexpr (is_trivially_copyable<T>::value) {
             memcpy(ptr, other.ptr, _size_bytes);
@@ -306,13 +320,13 @@ template <typename T> struct MMapMemory {
         }
       }
       _size_bytes = 0;
-      ptr = nullptr;
+      ptr = BONGOCAT_NULLPTR;
     }
     return *this;
   }
 
   MMapMemory(MMapMemory&& other) noexcept : ptr(other.ptr), _size_bytes(other._size_bytes) {
-    other.ptr = nullptr;
+    other.ptr = BONGOCAT_NULLPTR;
     other._size_bytes = 0;
   }
   MMapMemory& operator=(MMapMemory&& other) noexcept {
@@ -320,7 +334,7 @@ template <typename T> struct MMapMemory {
       release_allocated_mmap_memory(*this);
       ptr = other.ptr;
       _size_bytes = other._size_bytes;
-      other.ptr = nullptr;
+      other.ptr = BONGOCAT_NULLPTR;
       other._size_bytes = 0;
     }
     return *this;
@@ -350,36 +364,39 @@ template <typename T> struct MMapMemory {
   }
 
   constexpr explicit operator bool() const noexcept {
-    return ptr != nullptr && ptr != MAP_FAILED;
+    return ptr != BONGOCAT_NULLPTR && ptr != MAP_FAILED;
   }
 
-  constexpr bool operator==(decltype(nullptr)) const noexcept {
-    return ptr == nullptr;
+  constexpr bool operator==(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return ptr == BONGOCAT_NULLPTR;
   }
-  constexpr bool operator!=(decltype(nullptr)) const noexcept {
-    return ptr != nullptr;
+  constexpr bool operator!=(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return ptr != BONGOCAT_NULLPTR;
   }
 };
-template <typename T> void release_allocated_mmap_memory(MMapMemory<T>& memory) noexcept {
-  if (memory.ptr != nullptr) {
+template <typename T>
+void release_allocated_mmap_memory(MMapMemory<T>& memory) noexcept {
+  if (memory.ptr != BONGOCAT_NULLPTR) {
     if constexpr (!is_trivially_destructible<T>::value) {
       memory.ptr->~T();
     }
     munmap(memory.ptr, memory._size_bytes);
-    memory.ptr = nullptr;
+    memory.ptr = BONGOCAT_NULLPTR;
     memory._size_bytes = 0;
   }
 }
-template <typename T> BONGOCAT_NODISCARD inline static MMapMemory<T> make_unallocated_mmap() noexcept {
+template <typename T>
+BONGOCAT_NODISCARD inline static MMapMemory<T> make_unallocated_mmap() noexcept {
   return MMapMemory<T>();
 }
 // Allocate shared memory using mmap
-template <typename T> BONGOCAT_NODISCARD inline static MMapMemory<T> make_allocated_mmap() {
+template <typename T>
+BONGOCAT_NODISCARD inline static MMapMemory<T> make_allocated_mmap() {
   MMapMemory<T> ret;
   ret._size_bytes = sizeof(T);
   if (ret._size_bytes > 0) {
-    ret.ptr =
-        static_cast<T *>(mmap(nullptr, ret._size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+    ret.ptr = static_cast<T *>(
+        mmap(BONGOCAT_NULLPTR, ret._size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
     if (ret.ptr && ret.ptr != MAP_FAILED) {
       // default ctor
       new (ret.ptr) T();
@@ -388,23 +405,28 @@ template <typename T> BONGOCAT_NODISCARD inline static MMapMemory<T> make_alloca
       BONGOCAT_LOG_ERROR("mmap failed");
     }
   }
-  ret.ptr = nullptr;
+  ret.ptr = BONGOCAT_NULLPTR;
   ret._size_bytes = 0;
   return ret;
 }
-template <typename T> BONGOCAT_NODISCARD inline static MMapMemory<T> make_unallocated_mmap_value(const T& value) {
+template <typename T>
+BONGOCAT_NODISCARD inline static MMapMemory<T> make_unallocated_mmap_value(const T& value) {
   auto ret = make_allocated_mmap<T>();
-  if (ret.ptr != nullptr) {
+  if (ret.ptr != BONGOCAT_NULLPTR) {
     *ret.ptr = value;
   }
   return ret;
 }
 
-template <typename T> struct MMapArray;
-template <typename T> void release_allocated_mmap_array(MMapArray<T>& memory) noexcept;
+template <typename T>
+class MMapArray;
+template <typename T>
+void release_allocated_mmap_array(MMapArray<T>& memory) noexcept;
 
-template <typename T> struct MMapArray {
-  T *data{nullptr};
+template <typename T>
+class MMapArray {
+public:
+  T *data{BONGOCAT_NULLPTR};
   size_t count{0};
   size_t _size_bytes{0};
 
@@ -413,8 +435,8 @@ template <typename T> struct MMapArray {
     release_allocated_mmap_array(*this);
   }
 
-  explicit MMapArray(decltype(nullptr)) noexcept {}
-  MMapArray& operator=(decltype(nullptr)) noexcept {
+  explicit MMapArray(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  MMapArray& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     release_allocated_mmap_array(*this);
     return *this;
   }
@@ -422,21 +444,23 @@ template <typename T> struct MMapArray {
   // Allocate shared memory using mmap and count
   explicit MMapArray(size_t p_count) : count(p_count), _size_bytes(sizeof(T) * count) {
     if (_size_bytes > 0) {
-      data = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+      data = static_cast<T *>(
+          mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
       if (data != MAP_FAILED) {
         return;
       } else {
         BONGOCAT_LOG_ERROR("mmap buffer failed");
       }
     }
-    data = nullptr;
+    data = BONGOCAT_NULLPTR;
     count = 0;
     _size_bytes = 0;
   }
 
   MMapArray(const MMapArray& other) : count(other.count), _size_bytes(other._size_bytes) {
     if (other.data && _size_bytes > 0) {
-      data = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+      data = static_cast<T *>(
+          mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
       if (data != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
           memcpy(data, other.data, _size_bytes);
@@ -450,7 +474,7 @@ template <typename T> struct MMapArray {
         BONGOCAT_LOG_ERROR("file mmap failed in copy constructor");
       }
     }
-    data = nullptr;
+    data = BONGOCAT_NULLPTR;
     count = 0;
     _size_bytes = 0;
   }
@@ -460,7 +484,8 @@ template <typename T> struct MMapArray {
       count = other.count;
       _size_bytes = other._size_bytes;
       if (other.data && _size_bytes > 0) {
-        data = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+        data = static_cast<T *>(
+            mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
         if (data != MAP_FAILED) {
           if constexpr (is_trivially_copyable<T>::value) {
             memcpy(data, other.data, _size_bytes);
@@ -474,7 +499,7 @@ template <typename T> struct MMapArray {
           BONGOCAT_LOG_ERROR("mmap buffer failed in copy assignment");
         }
       }
-      data = nullptr;
+      data = BONGOCAT_NULLPTR;
       count = 0;
       _size_bytes = 0;
     }
@@ -482,7 +507,7 @@ template <typename T> struct MMapArray {
   }
 
   MMapArray(MMapArray&& other) noexcept : data(other.data), count(other.count), _size_bytes(other._size_bytes) {
-    other.data = nullptr;
+    other.data = BONGOCAT_NULLPTR;
     other.count = 0;
     other._size_bytes = 0;
   }
@@ -492,7 +517,7 @@ template <typename T> struct MMapArray {
       data = other.data;
       count = other.count;
       _size_bytes = other._size_bytes;
-      other.data = nullptr;
+      other.data = BONGOCAT_NULLPTR;
       other.count = 0;
       other._size_bytes = 0;
     }
@@ -509,17 +534,18 @@ template <typename T> struct MMapArray {
   }
 
   constexpr explicit operator bool() const noexcept {
-    return data != nullptr && data != MAP_FAILED;
+    return data != BONGOCAT_NULLPTR && data != MAP_FAILED;
   }
 
-  constexpr bool operator==(decltype(nullptr)) const noexcept {
-    return data == nullptr;
+  constexpr bool operator==(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data == BONGOCAT_NULLPTR;
   }
-  constexpr bool operator!=(decltype(nullptr)) const noexcept {
-    return data != nullptr;
+  constexpr bool operator!=(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data != BONGOCAT_NULLPTR;
   }
 };
-template <typename T> void release_allocated_mmap_array(MMapArray<T>& memory) noexcept {
+template <typename T>
+void release_allocated_mmap_array(MMapArray<T>& memory) noexcept {
   if (memory.data) {
     if constexpr (!is_trivially_destructible<T>::value) {
       for (size_t i = 0; i < memory.count; i++) {
@@ -527,19 +553,21 @@ template <typename T> void release_allocated_mmap_array(MMapArray<T>& memory) no
       }
     }
     munmap(memory.data, memory._size_bytes);
-    memory.data = nullptr;
+    memory.data = BONGOCAT_NULLPTR;
     memory.count = 0;
     memory._size_bytes = 0;
   }
 }
-template <typename T> BONGOCAT_NODISCARD inline static MMapArray<T> make_unallocated_mmap_array() noexcept {
+template <typename T>
+BONGOCAT_NODISCARD inline static MMapArray<T> make_unallocated_mmap_array() noexcept {
   return MMapArray<T>();
 }
 template <typename T>
 BONGOCAT_NODISCARD inline static MMapArray<T> make_allocated_mmap_array_uninitialized(size_t count) {
   return count > 0 ? MMapArray<T>(count) : MMapArray<T>();
 }
-template <typename T> BONGOCAT_NODISCARD inline static MMapArray<T> make_allocated_mmap_array(size_t count) {
+template <typename T>
+BONGOCAT_NODISCARD inline static MMapArray<T> make_allocated_mmap_array(size_t count) {
   auto ret = count > 0 ? MMapArray<T>(count) : MMapArray<T>();
   for (size_t i = 0; i < ret.count; i++) {
     new (&ret.data[i]) T();
@@ -547,11 +575,15 @@ template <typename T> BONGOCAT_NODISCARD inline static MMapArray<T> make_allocat
   return ret;
 }
 
-template <typename T> struct MMapFile;
-template <typename T> void release_allocated_mmap_file(MMapFile<T>& memory) noexcept;
+template <typename T>
+class MMapFile;
+template <typename T>
+void release_allocated_mmap_file(MMapFile<T>& memory) noexcept;
 
-template <typename T> struct MMapFile {
-  T *ptr{nullptr};
+template <typename T>
+class MMapFile {
+public:
+  T *ptr{BONGOCAT_NULLPTR};
   size_t _size_bytes{0};
   int _fd{-1};
   off_t _offset{0};
@@ -561,28 +593,28 @@ template <typename T> struct MMapFile {
     release_allocated_mmap_file(*this);
   }
 
-  explicit MMapFile(decltype(nullptr)) noexcept {}
-  MMapFile& operator=(decltype(nullptr)) noexcept {
+  explicit MMapFile(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  MMapFile& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     release_allocated_mmap_file(*this);
     return *this;
   }
 
   explicit MMapFile(int fd, off_t offset = 0) : _size_bytes(sizeof(T)), _fd(fd), _offset(offset) {
     if (_size_bytes > 0) {
-      ptr = mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
+      ptr = mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
       if (ptr != MAP_FAILED) {
         return;
       } else {
         BONGOCAT_LOG_ERROR("mmap failed to map file");
       }
     }
-    ptr = nullptr;
+    ptr = BONGOCAT_NULLPTR;
     _size_bytes = 0;
   }
 
   MMapFile(const MMapFile& other) : _size_bytes(other._size_bytes), _fd(other._fd), _offset(other._offset) {
     if (other.ptr && _size_bytes > 0) {
-      ptr = mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
+      ptr = mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
       if (ptr != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
           memcpy(ptr, other.ptr, _size_bytes);
@@ -594,7 +626,7 @@ template <typename T> struct MMapFile {
         BONGOCAT_LOG_ERROR("file mmap failed in copy constructor");
       }
     }
-    ptr = nullptr;
+    ptr = BONGOCAT_NULLPTR;
     _size_bytes = 0;
   }
   MMapFile& operator=(const MMapFile& other) {
@@ -604,7 +636,7 @@ template <typename T> struct MMapFile {
       _fd = other._fd;
       _offset = other._offset;
       if (other.ptr && _size_bytes > 0) {
-        ptr = mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
+        ptr = mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
         if (ptr) {
           if constexpr (is_trivially_copyable<T>::value) {
             memcpy(ptr, other.ptr, _size_bytes);
@@ -616,7 +648,7 @@ template <typename T> struct MMapFile {
           BONGOCAT_LOG_ERROR("file mmap failed in copy assignment");
         }
       }
-      ptr = nullptr;
+      ptr = BONGOCAT_NULLPTR;
       _size_bytes = 0;
     }
     return *this;
@@ -627,7 +659,7 @@ template <typename T> struct MMapFile {
       , _size_bytes(other._size_bytes)
       , _fd(other._fd)
       , _offset(other._offset) {
-    other.ptr = nullptr;
+    other.ptr = BONGOCAT_NULLPTR;
     other._size_bytes = 0;
     other._fd = -1;
     other._offset = 0;
@@ -639,7 +671,7 @@ template <typename T> struct MMapFile {
       _size_bytes = other._size_bytes;
       _fd = other._fd;
       _offset = other._offset;
-      other.ptr = nullptr;
+      other.ptr = BONGOCAT_NULLPTR;
       other._size_bytes = 0;
       other._fd = -1;
       other._offset = 0;
@@ -657,29 +689,31 @@ template <typename T> struct MMapFile {
   }
 
   constexpr explicit operator bool() const noexcept {
-    return ptr != nullptr && ptr != MAP_FAILED;
+    return ptr != BONGOCAT_NULLPTR && ptr != MAP_FAILED;
   }
 
-  constexpr bool operator==(decltype(nullptr)) const noexcept {
-    return ptr == nullptr;
+  constexpr bool operator==(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return ptr == BONGOCAT_NULLPTR;
   }
-  constexpr bool operator!=(decltype(nullptr)) const noexcept {
-    return ptr != nullptr;
+  constexpr bool operator!=(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return ptr != BONGOCAT_NULLPTR;
   }
 };
-template <typename T> void release_allocated_mmap_file(MMapFile<T>& memory) noexcept {
+template <typename T>
+void release_allocated_mmap_file(MMapFile<T>& memory) noexcept {
   if (memory.ptr) {
     if constexpr (!is_trivially_destructible<T>::value) {
       memory.ptr->~T();
     }
     munmap(memory.ptr, memory._size_bytes);
-    memory.ptr = nullptr;
+    memory.ptr = BONGOCAT_NULLPTR;
     memory._size_bytes = 0;
     memory._fd = -1;
     memory._offset = 0;
   }
 }
-template <typename T> BONGOCAT_NODISCARD inline static MMapFile<T> make_unallocated_mmap_file() noexcept {
+template <typename T>
+BONGOCAT_NODISCARD inline static MMapFile<T> make_unallocated_mmap_file() noexcept {
   return MMapFile<T>();
 }
 template <typename T>
@@ -703,11 +737,15 @@ BONGOCAT_NODISCARD inline static MMapFile<T> make_allocated_mmap_file_value(cons
   return ret;
 }
 
-template <typename T> struct MMapFileBuffer;
-template <typename T> void release_allocated_mmap_file_buffer(MMapFileBuffer<T>& memory) noexcept;
+template <typename T>
+class MMapFileBuffer;
+template <typename T>
+void release_allocated_mmap_file_buffer(MMapFileBuffer<T>& memory) noexcept;
 
-template <typename T> struct MMapFileBuffer {
-  T *data{nullptr};
+template <typename T>
+class MMapFileBuffer {
+public:
+  T *data{BONGOCAT_NULLPTR};
   size_t count{0};
   size_t _size_bytes{0};
   int _fd{-1};
@@ -718,8 +756,8 @@ template <typename T> struct MMapFileBuffer {
     release_allocated_mmap_file_buffer(*this);
   }
 
-  explicit MMapFileBuffer(decltype(nullptr)) noexcept {}
-  MMapFileBuffer& operator=(decltype(nullptr)) noexcept {
+  explicit MMapFileBuffer(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  MMapFileBuffer& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     release_allocated_mmap_file_buffer(*this);
     return *this;
   }
@@ -731,14 +769,14 @@ template <typename T> struct MMapFileBuffer {
       , _fd(fd)
       , _offset(offset) {
     if (_size_bytes > 0) {
-      data = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
+      data = static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
       if (data != MAP_FAILED) {
         return;
       } else {
         BONGOCAT_LOG_ERROR("mmap buffer failed to map file");
       }
     }
-    data = nullptr;
+    data = BONGOCAT_NULLPTR;
     count = 0;
     _size_bytes = 0;
   }
@@ -749,7 +787,7 @@ template <typename T> struct MMapFileBuffer {
       , _fd(other._fd)
       , _offset(other._offset) {
     if (other.data && _size_bytes > 0) {
-      data = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
+      data = static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
       if (data != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
           memcpy(data, other.data, _size_bytes);
@@ -763,7 +801,7 @@ template <typename T> struct MMapFileBuffer {
         BONGOCAT_LOG_ERROR("file mmap failed in copy constructor");
       }
     }
-    data = nullptr;
+    data = BONGOCAT_NULLPTR;
     count = 0;
     _size_bytes = 0;
   }
@@ -775,7 +813,7 @@ template <typename T> struct MMapFileBuffer {
       _fd = other._fd;
       _offset = other._offset;
       if (_size_bytes > 0) {
-        data = static_cast<T *>(mmap(nullptr, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
+        data = static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
         if (data != MAP_FAILED) {
           if constexpr (is_trivially_copyable<T>::value) {
             memcpy(data, other.data, _size_bytes);
@@ -789,7 +827,7 @@ template <typename T> struct MMapFileBuffer {
           BONGOCAT_LOG_ERROR("file mmap buffer failed in copy assignment");
         }
       }
-      data = nullptr;
+      data = BONGOCAT_NULLPTR;
       count = 0;
       _size_bytes = 0;
     }
@@ -802,7 +840,7 @@ template <typename T> struct MMapFileBuffer {
       , _size_bytes(other._size_bytes)
       , _fd(other._fd)
       , _offset(other._offset) {
-    other.data = nullptr;
+    other.data = BONGOCAT_NULLPTR;
     other.count = 0;
     other._size_bytes = 0;
     other._fd = -1;
@@ -816,7 +854,7 @@ template <typename T> struct MMapFileBuffer {
       _size_bytes = other._size_bytes;
       _fd = other._fd;
       _offset = other._offset;
-      other.data = nullptr;
+      other.data = BONGOCAT_NULLPTR;
       other.count = 0;
       other._size_bytes = 0;
       other._fd = -1;
@@ -835,17 +873,18 @@ template <typename T> struct MMapFileBuffer {
   }
 
   constexpr explicit operator bool() const noexcept {
-    return data != nullptr && data != MAP_FAILED;
+    return data != BONGOCAT_NULLPTR && data != MAP_FAILED;
   }
 
-  constexpr bool operator==(decltype(nullptr)) const noexcept {
-    return data == nullptr;
+  constexpr bool operator==(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data == BONGOCAT_NULLPTR;
   }
-  constexpr bool operator!=(decltype(nullptr)) const noexcept {
-    return data != nullptr;
+  constexpr bool operator!=(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data != BONGOCAT_NULLPTR;
   }
 };
-template <typename T> void release_allocated_mmap_file_buffer(MMapFileBuffer<T>& memory) noexcept {
+template <typename T>
+void release_allocated_mmap_file_buffer(MMapFileBuffer<T>& memory) noexcept {
   if (memory.data) {
     if constexpr (!is_trivially_destructible<T>::value) {
       for (size_t i = 0; i < memory.count; i++) {
@@ -853,14 +892,15 @@ template <typename T> void release_allocated_mmap_file_buffer(MMapFileBuffer<T>&
       }
     }
     munmap(memory.data, memory._size_bytes);
-    memory.data = nullptr;
+    memory.data = BONGOCAT_NULLPTR;
     memory.count = 0;
     memory._size_bytes = 0;
     memory._fd = -1;
     memory._offset = 0;
   }
 }
-template <typename T> BONGOCAT_NODISCARD inline static MMapFileBuffer<T> make_unallocated_mmap_file_buffer() {
+template <typename T>
+BONGOCAT_NODISCARD inline static MMapFileBuffer<T> make_unallocated_mmap_file_buffer() {
   return MMapFileBuffer<T>();
 }
 template <typename T>
@@ -887,10 +927,11 @@ BONGOCAT_NODISCARD inline static MMapFileBuffer<T> make_allocated_mmap_file_buff
   return ret;
 }
 
-struct FileDescriptor;
+class FileDescriptor;
 void close_fd(FileDescriptor& fd) noexcept;
 
-struct FileDescriptor {
+class FileDescriptor {
+public:
   int _fd{-1};
 
   constexpr FileDescriptor() = default;
@@ -899,8 +940,8 @@ struct FileDescriptor {
     close_fd(*this);
   }
 
-  explicit FileDescriptor(decltype(nullptr)) noexcept {}
-  FileDescriptor& operator=(decltype(nullptr)) noexcept {
+  explicit FileDescriptor(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  FileDescriptor& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     close_fd(*this);
     return *this;
   }
@@ -937,16 +978,17 @@ struct FileDescriptor {
 inline void close_fd(FileDescriptor& fd) noexcept {
   if (fd._fd >= 0) {
     ::close(fd._fd);
-    fd._fd = -1;
   }
+  fd._fd = -1;
 }
 
-struct MMapFileContent;
+class MMapFileContent;
 void release_allocated_mmap_file_content(MMapFileContent& memory) noexcept;
 
-struct MMapFileContent {
+class MMapFileContent {
+public:
   /// @NOTE: memory is private (not sharable within threads)
-  unsigned char *data{nullptr};
+  unsigned char *data{BONGOCAT_NULLPTR};
   off_t _size_bytes{0};
   FileDescriptor _fd{-1};
   off_t _offset{0};
@@ -956,8 +998,8 @@ struct MMapFileContent {
     release_allocated_mmap_file_content(*this);
   }
 
-  explicit MMapFileContent(decltype(nullptr)) noexcept {}
-  MMapFileContent& operator=(decltype(nullptr)) noexcept {
+  explicit MMapFileContent(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  MMapFileContent& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     release_allocated_mmap_file_content(*this);
     return *this;
   }
@@ -980,15 +1022,15 @@ struct MMapFileContent {
     }
     _size_bytes = st.st_size - _offset;
 
-    long page_size = sysconf(_SC_PAGE_SIZE);
+    const long page_size = sysconf(_SC_PAGE_SIZE);
     assert(page_size > 0);
-    off_t aligned_offset = (_offset / page_size) * page_size;
-    off_t delta = _offset - aligned_offset;
+    const off_t aligned_offset = (_offset / page_size) * page_size;
+    const off_t delta = _offset - aligned_offset;
     _size_bytes = st.st_size - _offset;
-    size_t map_length = static_cast<size_t>(_size_bytes + delta);
+    const size_t map_length = static_cast<size_t>(_size_bytes + delta);
 
     if (_size_bytes > 0) {
-      void *mapped = mmap(nullptr, map_length, PROT_READ, MAP_PRIVATE, _fd._fd, aligned_offset);
+      void *mapped = mmap(BONGOCAT_NULLPTR, map_length, PROT_READ, MAP_PRIVATE, _fd._fd, aligned_offset);
       if (mapped != MAP_FAILED) {
         data = static_cast<unsigned char *>(mapped) + delta;
         return;
@@ -997,7 +1039,7 @@ struct MMapFileContent {
       }
     }
 
-    data = nullptr;
+    data = BONGOCAT_NULLPTR;
     _size_bytes = 0;
     close_fd(fd);
   }
@@ -1007,7 +1049,7 @@ struct MMapFileContent {
       , _size_bytes(other._size_bytes)
       , _fd(bongocat::move(other._fd))
       , _offset(other._offset) {
-    other.data = nullptr;
+    other.data = BONGOCAT_NULLPTR;
     other._size_bytes = 0;
     other._fd._fd = -1;
     other._offset = 0;
@@ -1019,7 +1061,7 @@ struct MMapFileContent {
       _size_bytes = other._size_bytes;
       _fd = bongocat::move(other._fd);
       _offset = other._offset;
-      other.data = nullptr;
+      other.data = BONGOCAT_NULLPTR;
       other._size_bytes = 0;
       other._fd._fd = -1;
       other._offset = 0;
@@ -1034,22 +1076,22 @@ struct MMapFileContent {
   }
 
   constexpr explicit operator bool() const noexcept {
-    return data != nullptr && data != MAP_FAILED && _fd._fd >= 0;
+    return data != BONGOCAT_NULLPTR && data != MAP_FAILED && _fd._fd >= 0;
   }
 
-  constexpr bool operator==(decltype(nullptr)) const noexcept {
-    return data == nullptr;
+  constexpr bool operator==(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data == BONGOCAT_NULLPTR;
   }
-  constexpr bool operator!=(decltype(nullptr)) const noexcept {
-    return data != nullptr;
+  constexpr bool operator!=(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data != BONGOCAT_NULLPTR;
   }
 };
 inline void release_allocated_mmap_file_content(MMapFileContent& memory) noexcept {
-  if (memory.data) {
+  if (memory.data != BONGOCAT_NULLPTR) {
     assert(memory._size_bytes >= 0);
     munmap(memory.data, static_cast<size_t>(memory._size_bytes));
     close_fd(memory._fd);
-    memory.data = nullptr;
+    memory.data = BONGOCAT_NULLPTR;
     memory._size_bytes = 0;
     memory._offset = 0;
   }
@@ -1106,7 +1148,7 @@ struct drain_event_result_t {
   int err{0};
 };
 inline drain_event_result_t drain_event(pollfd& pfd, int max_attempts,
-                                        [[maybe_unused]] const char *fd_name = nullptr) noexcept {
+                                        [[maybe_unused]] const char *fd_name = BONGOCAT_NULLPTR) noexcept {
   drain_event_result_t ret;
   if (pfd.revents & POLLIN) {
     ssize_t rc{0};

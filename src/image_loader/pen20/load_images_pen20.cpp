@@ -21,7 +21,7 @@ bongocat_error_t init_pen20_anim(animation_context_t& ctx, int anim_index, const
 
     assert(anim_index >= 0);
     ctx.shm->pen20_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-    assert(ctx.shm->pen20_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Dm);
+    assert(ctx.shm->pen20_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::Dm);
 
     return bongocat_error_t::BONGOCAT_SUCCESS;
 }

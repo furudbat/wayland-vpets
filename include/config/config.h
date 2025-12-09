@@ -8,8 +8,6 @@
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
-// POSIX feature test macro - must be before includes
-#define _POSIX_C_SOURCE 200809L
 
 namespace bongocat::config {
 enum class overlay_position_t : uint8_t {
@@ -89,7 +87,7 @@ enum class config_animation_custom_set_t : uint8_t {
 };
 
 struct config_t {
-  char *output_name{nullptr};
+  char *output_name{BONGOCAT_NULLPTR};
   char *keyboard_devices[input::MAX_INPUT_DEVICES]{};
   int32_t num_keyboard_devices{0};
   int32_t cat_x_offset{0};
@@ -143,7 +141,7 @@ struct config_t {
 
   int32_t screen_width{0};
 
-  char *custom_sprite_sheet_filename{nullptr};  // must be png file
+  char *custom_sprite_sheet_filename{BONGOCAT_NULLPTR};  // must be png file
   assets::custom_animation_settings_t custom_sprite_sheet_settings{};
 
   int32_t enable_hand_mapping{0};
@@ -151,14 +149,14 @@ struct config_t {
   // for keep old index when reload config
   bool _keep_old_animation_index{false};
   bool _strict{false};
-  bool _custom{false};             // is custom sprite sheet
-  char *_animation_name{nullptr};  // original animation_anim from parsing config
-  char *_loaded_animation_fqname{nullptr};
+  bool _custom{false};                      // is custom sprite sheet
+  char *_animation_name{BONGOCAT_NULLPTR};  // original animation_anim from parsing config
+  char *_loaded_animation_fqname{BONGOCAT_NULLPTR};
 
   // Make Config movable and copyable
   config_t() {
     for (size_t i = 0; i < input::MAX_INPUT_DEVICES; ++i) {
-      keyboard_devices[i] = nullptr;
+      keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
   }
   ~config_t() {
@@ -213,12 +211,14 @@ struct config_t {
       , _keep_old_animation_index(other._keep_old_animation_index)
       , _strict(other._strict)
       , _custom(other._custom) {
-    output_name = other.output_name != nullptr ? strdup(other.output_name) : nullptr;
+    output_name = other.output_name != BONGOCAT_NULLPTR ? strdup(other.output_name) : BONGOCAT_NULLPTR;
     config_copy_keyboard_devices_from(*this, other);
-    custom_sprite_sheet_filename =
-        other.custom_sprite_sheet_filename != nullptr ? strdup(other.custom_sprite_sheet_filename) : nullptr;
-    _animation_name = other._animation_name != nullptr? strdup(other._animation_name) : nullptr;
-    _loaded_animation_fqname = other._loaded_animation_fqname != nullptr ? strdup(other._loaded_animation_fqname) : nullptr;
+    custom_sprite_sheet_filename = other.custom_sprite_sheet_filename != BONGOCAT_NULLPTR
+                                       ? strdup(other.custom_sprite_sheet_filename)
+                                       : BONGOCAT_NULLPTR;
+    _animation_name = other._animation_name != BONGOCAT_NULLPTR ? strdup(other._animation_name) : BONGOCAT_NULLPTR;
+    _loaded_animation_fqname =
+        other._loaded_animation_fqname != BONGOCAT_NULLPTR ? strdup(other._loaded_animation_fqname) : BONGOCAT_NULLPTR;
   }
 
   config_t& operator=(const config_t& other) {
@@ -273,12 +273,15 @@ struct config_t {
       _strict = other._strict;
       _custom = other._custom;
 
-      output_name = other.output_name != nullptr ? strdup(other.output_name) : nullptr;
+      output_name = other.output_name != BONGOCAT_NULLPTR ? strdup(other.output_name) : BONGOCAT_NULLPTR;
       config_copy_keyboard_devices_from(*this, other);
-      custom_sprite_sheet_filename =
-          other.custom_sprite_sheet_filename != nullptr ? strdup(other.custom_sprite_sheet_filename) : nullptr;
-      _animation_name = other._animation_name != nullptr ? strdup(other._animation_name) : nullptr;
-      _loaded_animation_fqname = other._loaded_animation_fqname != nullptr ? strdup(other._loaded_animation_fqname) : nullptr;
+      custom_sprite_sheet_filename = other.custom_sprite_sheet_filename != BONGOCAT_NULLPTR
+                                         ? strdup(other.custom_sprite_sheet_filename)
+                                         : BONGOCAT_NULLPTR;
+      _animation_name = other._animation_name != BONGOCAT_NULLPTR ? strdup(other._animation_name) : BONGOCAT_NULLPTR;
+      _loaded_animation_fqname = other._loaded_animation_fqname != BONGOCAT_NULLPTR
+                                     ? strdup(other._loaded_animation_fqname)
+                                     : BONGOCAT_NULLPTR;
     }
     return *this;
   }
@@ -338,13 +341,13 @@ struct config_t {
       , _loaded_animation_fqname(other._loaded_animation_fqname) {
     for (int i = 0; i < num_keyboard_devices; ++i) {
       keyboard_devices[i] = other.keyboard_devices[i];
-      other.keyboard_devices[i] = nullptr;
+      other.keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
     other.num_keyboard_devices = 0;
-    other.output_name = nullptr;
-    other.custom_sprite_sheet_filename = nullptr;
-    other._animation_name = nullptr;
-    other._loaded_animation_fqname = nullptr;
+    other.output_name = BONGOCAT_NULLPTR;
+    other.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
+    other._animation_name = BONGOCAT_NULLPTR;
+    other._loaded_animation_fqname = BONGOCAT_NULLPTR;
   }
 
   config_t& operator=(config_t&& other) noexcept {
@@ -406,44 +409,44 @@ struct config_t {
 
       for (int i = 0; i < num_keyboard_devices; ++i) {
         keyboard_devices[i] = other.keyboard_devices[i];
-        other.keyboard_devices[i] = nullptr;
+        other.keyboard_devices[i] = BONGOCAT_NULLPTR;
       }
       other.num_keyboard_devices = 0;
-      other.output_name = nullptr;
-      other.custom_sprite_sheet_filename = nullptr;
-      other._animation_name = nullptr;
-      other._loaded_animation_fqname = nullptr;
+      other.output_name = BONGOCAT_NULLPTR;
+      other.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
+      other._animation_name = BONGOCAT_NULLPTR;
+      other._loaded_animation_fqname = BONGOCAT_NULLPTR;
     }
     return *this;
   }
 };
 inline void cleanup(config_t& config) {
-  if (config.output_name != nullptr) {
+  if (config.output_name != BONGOCAT_NULLPTR) {
     ::free(config.output_name);
+    config.output_name = BONGOCAT_NULLPTR;
   }
-  config.output_name = nullptr;
   config_free_keyboard_devices(config);
-  if (config.custom_sprite_sheet_filename != nullptr) {
+  if (config.custom_sprite_sheet_filename != BONGOCAT_NULLPTR) {
     ::free(config.custom_sprite_sheet_filename);
+    config.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
   }
-  config.custom_sprite_sheet_filename = nullptr;
-  if (config._animation_name != nullptr) {
+  if (config._animation_name != BONGOCAT_NULLPTR) {
     ::free(config._animation_name);
+    config._animation_name = BONGOCAT_NULLPTR;
   }
-  config._animation_name = nullptr;
-  if (config._loaded_animation_fqname != nullptr) {
+  if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
     ::free(config._loaded_animation_fqname);
+    config._loaded_animation_fqname = BONGOCAT_NULLPTR;
   }
-  config._loaded_animation_fqname = nullptr;
 }
 
 inline void config_free_keyboard_devices(config_t& config) {
   assert(config.num_keyboard_devices >= 0);
   for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < input::MAX_INPUT_DEVICES; i++) {
-    if (config.keyboard_devices[i] != nullptr) {
+    if (config.keyboard_devices[i] != BONGOCAT_NULLPTR) {
       ::free(config.keyboard_devices[i]);
+      config.keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
-    config.keyboard_devices[i] = nullptr;
   }
   config.num_keyboard_devices = 0;
 }
@@ -452,7 +455,8 @@ inline void config_copy_keyboard_devices_from(config_t& config, const config_t& 
   config.num_keyboard_devices = other.num_keyboard_devices;
   assert(config.num_keyboard_devices >= 0);
   for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < input::MAX_INPUT_DEVICES; i++) {
-    config.keyboard_devices[i] = other.keyboard_devices[i] != nullptr ? strdup(other.keyboard_devices[i]) : nullptr;
+    config.keyboard_devices[i] =
+        other.keyboard_devices[i] != BONGOCAT_NULLPTR ? strdup(other.keyboard_devices[i]) : BONGOCAT_NULLPTR;
   }
 }
 
@@ -461,10 +465,10 @@ inline void config_copy_keyboard_devices_from(config_t& config, const config_t& 
 // =============================================================================
 
 struct load_config_overwrite_parameters_t {
-  const char *output_name{nullptr};
+  const char *output_name{BONGOCAT_NULLPTR};
   int32_t randomize_index{-1};
   int32_t strict{-1};
-  const char *animation_name{nullptr};
+  const char *animation_name{BONGOCAT_NULLPTR};
 };
 BONGOCAT_NODISCARD created_result_t<config_t> load(const char *config_file_path,
                                                    load_config_overwrite_parameters_t overwrite_parameters);

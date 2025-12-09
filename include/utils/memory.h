@@ -19,7 +19,7 @@ namespace bongocat {
 
 // Memory pool for efficient allocation
 struct memory_pool_t {
-  void *data{nullptr};
+  void *data{BONGOCAT_NULLPTR};
   size_t size{0};
   size_t used{0};
   size_t alignment{0};
@@ -105,7 +105,8 @@ inline void auto_free_impl(void *ptr) {
     }                                      \
   } while (0)
 
-template <typename T, std::size_t N> constexpr std::size_t LEN_ARRAY(const T (&)[N]) noexcept {
+template <typename T, std::size_t N>
+constexpr std::size_t LEN_ARRAY(const T (&)[N]) noexcept {
   return N;
 }
 
@@ -122,7 +123,8 @@ inline void bongocat_auto_pool_impl(struct memory_pool **pool) {
 // Auto-destroy memory pool when variable goes out of scope
 // #define BONGOCAT_AUTO_POOL __attribute__((cleanup(bongocat::auto_pool_impl)))
 
-template <typename T> struct is_trivially_copyable {
+template <typename T>
+struct is_trivially_copyable {
 #if defined(__clang__)
   inline static constexpr bool value = __is_trivially_copyable(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
@@ -134,7 +136,8 @@ template <typename T> struct is_trivially_copyable {
 #endif
 };
 
-template <typename T> struct is_trivially_destructible {
+template <typename T>
+struct is_trivially_destructible {
 #if defined(__clang__)
   inline static constexpr bool value = __is_trivially_destructible(T);
 #elif defined(__GNUC__) || defined(__GNUG__)
@@ -154,11 +157,15 @@ template <typename T> struct is_trivially_destructible {
 // RAII CLEANUP
 // =============================================================================
 
-template <typename T> struct AllocatedMemory;
-template <typename T> void release_allocated_memory(AllocatedMemory<T>& memory) noexcept;
+template <typename T>
+class AllocatedMemory;
+template <typename T>
+void release_allocated_memory(AllocatedMemory<T>& memory) noexcept;
 
-template <typename T> struct AllocatedMemory {
-  T *ptr{nullptr};
+template <typename T>
+class AllocatedMemory {
+public:
+  T *ptr{BONGOCAT_NULLPTR};
   size_t _size_bytes{0};
 
   constexpr AllocatedMemory() = default;
@@ -166,17 +173,17 @@ template <typename T> struct AllocatedMemory {
     release_allocated_memory(*this);
   }
 
-  explicit AllocatedMemory(decltype(nullptr)) noexcept {}
-  AllocatedMemory& operator=(decltype(nullptr)) noexcept {
+  explicit AllocatedMemory(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  AllocatedMemory& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     release_allocated_memory(*this);
     return *this;
   }
 
   AllocatedMemory(const AllocatedMemory& other) : _size_bytes(other._size_bytes) {
     _size_bytes = sizeof(T);
-    if (other.ptr != nullptr && _size_bytes > 0) {
+    if (other.ptr != BONGOCAT_NULLPTR && _size_bytes > 0) {
       ptr = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
-      if (ptr != nullptr) {
+      if (ptr != BONGOCAT_NULLPTR) {
         if constexpr (is_trivially_copyable<T>::value) {
           memcpy(ptr, other.ptr, _size_bytes);
         } else {
@@ -184,7 +191,7 @@ template <typename T> struct AllocatedMemory {
         }
       } else {
         _size_bytes = 0;
-        ptr = nullptr;
+        ptr = BONGOCAT_NULLPTR;
         BONGOCAT_LOG_ERROR("memory allocation failed");
       }
     } else {
@@ -195,7 +202,7 @@ template <typename T> struct AllocatedMemory {
     if (this != &other) {
       release_allocated_memory(*this);
       _size_bytes = sizeof(T);
-      if (other.ptr != nullptr && _size_bytes > 0) {
+      if (other.ptr != BONGOCAT_NULLPTR && _size_bytes > 0) {
         ptr = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
         if (ptr) {
           if constexpr (is_trivially_copyable<T>::value) {
@@ -205,7 +212,7 @@ template <typename T> struct AllocatedMemory {
           }
         } else {
           _size_bytes = 0;
-          ptr = nullptr;
+          ptr = BONGOCAT_NULLPTR;
           BONGOCAT_LOG_ERROR("memory allocation failed");
         }
       } else {
@@ -216,7 +223,7 @@ template <typename T> struct AllocatedMemory {
   }
 
   AllocatedMemory(AllocatedMemory&& other) noexcept : ptr(other.ptr), _size_bytes(other._size_bytes) {
-    other.ptr = nullptr;
+    other.ptr = BONGOCAT_NULLPTR;
     other._size_bytes = 0;
   }
   AllocatedMemory& operator=(AllocatedMemory&& other) noexcept {
@@ -224,14 +231,14 @@ template <typename T> struct AllocatedMemory {
       release_allocated_memory(*this);
       ptr = other.ptr;
       _size_bytes = other._size_bytes;
-      other.ptr = nullptr;
+      other.ptr = BONGOCAT_NULLPTR;
       other._size_bytes = 0;
     }
     return *this;
   }
 
   constexpr operator bool() const noexcept {
-    return ptr != nullptr;
+    return ptr != BONGOCAT_NULLPTR;
   }
 
   T& operator*() {
@@ -257,32 +264,35 @@ template <typename T> struct AllocatedMemory {
     return ptr;
   }
 
-  constexpr bool operator==(decltype(nullptr)) const noexcept {
-    return ptr == nullptr;
+  constexpr bool operator==(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return ptr == BONGOCAT_NULLPTR;
   }
-  constexpr bool operator!=(decltype(nullptr)) const noexcept {
-    return ptr != nullptr;
+  constexpr bool operator!=(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return ptr != BONGOCAT_NULLPTR;
   }
 };
-template <typename T> void release_allocated_memory(AllocatedMemory<T>& memory) noexcept {
-  if (memory.ptr != nullptr) {
+template <typename T>
+void release_allocated_memory(AllocatedMemory<T>& memory) noexcept {
+  if (memory.ptr != BONGOCAT_NULLPTR) {
     if constexpr (!is_trivially_destructible<T>::value) {
       memory.ptr->~T();
     }
     BONGOCAT_SAFE_FREE(memory.ptr);
-    memory.ptr = nullptr;
+    memory.ptr = BONGOCAT_NULLPTR;
     memory._size_bytes = 0;
   }
 }
-template <typename T> BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_null_memory() noexcept {
+template <typename T>
+BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_null_memory() noexcept {
   return AllocatedMemory<T>();
 }
-template <typename T> BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_allocated_memory() {
+template <typename T>
+BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_allocated_memory() {
   AllocatedMemory<T> ret;
   ret._size_bytes = sizeof(T);
   if (ret._size_bytes > 0) {
     ret.ptr = static_cast<T *>(BONGOCAT_MALLOC(ret._size_bytes));
-    if (ret.ptr != nullptr) {
+    if (ret.ptr != BONGOCAT_NULLPTR) {
       // default ctor
       new (ret.ptr) T();
       return ret;
@@ -291,15 +301,19 @@ template <typename T> BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_a
     }
   }
   ret._size_bytes = 0;
-  ret.ptr = nullptr;
+  ret.ptr = BONGOCAT_NULLPTR;
   return ret;
 }
 
-template <typename T> struct AllocatedArray;
-template <typename T> void release_allocated_array(AllocatedArray<T>& memory) noexcept;
+template <typename T>
+class AllocatedArray;
+template <typename T>
+void release_allocated_array(AllocatedArray<T>& memory) noexcept;
 
-template <typename T> struct AllocatedArray {
-  T *data{nullptr};
+template <typename T>
+class AllocatedArray {
+public:
+  T *data{BONGOCAT_NULLPTR};
   size_t count{0};
   size_t _size_bytes{0};
 
@@ -308,8 +322,8 @@ template <typename T> struct AllocatedArray {
     release_allocated_array(*this);
   }
 
-  explicit AllocatedArray(decltype(nullptr)) noexcept {}
-  AllocatedArray& operator=(decltype(nullptr)) noexcept {
+  explicit AllocatedArray(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  AllocatedArray& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
     release_allocated_array(*this);
     return *this;
   }
@@ -346,7 +360,7 @@ template <typename T> struct AllocatedArray {
 
     count = 0;
     _size_bytes = 0;
-    data = nullptr;
+    data = BONGOCAT_NULLPTR;
   }
   AllocatedArray& operator=(const AllocatedArray& other) {
     if (this != &other) {
@@ -371,7 +385,7 @@ template <typename T> struct AllocatedArray {
 
       count = 0;
       _size_bytes = 0;
-      data = nullptr;
+      data = BONGOCAT_NULLPTR;
     }
     return *this;
   }
@@ -380,7 +394,7 @@ template <typename T> struct AllocatedArray {
       : data(other.data)
       , count(other.count)
       , _size_bytes(other._size_bytes) {
-    other.data = nullptr;
+    other.data = BONGOCAT_NULLPTR;
     other.count = 0;
     other._size_bytes = 0;
   }
@@ -390,7 +404,7 @@ template <typename T> struct AllocatedArray {
       data = other.data;
       count = other.count;
       _size_bytes = other._size_bytes;
-      other.data = nullptr;
+      other.data = BONGOCAT_NULLPTR;
       other.count = 0;
       other._size_bytes = 0;
     }
@@ -407,38 +421,41 @@ template <typename T> struct AllocatedArray {
   }
 
   constexpr explicit operator bool() const noexcept {
-    return data != nullptr;
+    return data != BONGOCAT_NULLPTR;
   }
 
-  constexpr bool operator==(decltype(nullptr)) const noexcept {
-    return data == nullptr;
+  constexpr bool operator==(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data == BONGOCAT_NULLPTR;
   }
-  constexpr bool operator!=(decltype(nullptr)) const noexcept {
-    return data != nullptr;
+  constexpr bool operator!=(decltype(BONGOCAT_NULLPTR)) const noexcept {
+    return data != BONGOCAT_NULLPTR;
   }
 };
-template <typename T> void release_allocated_array(AllocatedArray<T>& memory) noexcept {
-  if (memory.data != nullptr) {
+template <typename T>
+void release_allocated_array(AllocatedArray<T>& memory) noexcept {
+  if (memory.data != BONGOCAT_NULLPTR) {
     if constexpr (!is_trivially_destructible<T>::value) {
       for (size_t i = 0; i < memory.count; i++) {
         memory.data[i].~T();
       }
     }
     BONGOCAT_SAFE_FREE(memory.data);
-    memory.data = nullptr;
+    memory.data = BONGOCAT_NULLPTR;
     memory.count = 0;
     memory._size_bytes = 0;
   }
 }
 
-template <typename T> BONGOCAT_NODISCARD inline static AllocatedArray<T> make_unallocated_array() noexcept {
+template <typename T>
+BONGOCAT_NODISCARD inline static AllocatedArray<T> make_unallocated_array() noexcept {
   return AllocatedArray<T>();
 }
 template <typename T>
 BONGOCAT_NODISCARD inline static AllocatedArray<T> make_allocated_array_uninitialized(size_t count) {
   return count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
 }
-template <typename T> BONGOCAT_NODISCARD inline static AllocatedArray<T> make_allocated_array(size_t count) {
+template <typename T>
+BONGOCAT_NODISCARD inline static AllocatedArray<T> make_allocated_array(size_t count) {
   auto ret = count > 0 ? AllocatedArray<T>(count) : AllocatedArray<T>();
   for (size_t i = 0; i < ret.count; i++) {
     new (&ret.data[i]) T();
@@ -455,18 +472,22 @@ BONGOCAT_NODISCARD inline static AllocatedArray<T> make_allocated_array_with_val
 }
 
 // remove_reference implementation (no STL)
-template <typename T> struct remove_reference {
+template <typename T>
+struct remove_reference {
   typedef T type;
 };
-template <typename T> struct remove_reference<T&> {
+template <typename T>
+struct remove_reference<T&> {
   typedef T type;
 };
-template <typename T> struct remove_reference<T&&> {
+template <typename T>
+struct remove_reference<T&&> {
   typedef T type;
 };
 
 // move implementation (no STL)
-template <typename T> inline typename remove_reference<T>::type&& move(T&& t) {
+template <typename T>
+inline typename remove_reference<T>::type&& move(T&& t) {
   typedef typename remove_reference<T>::type U;
   return static_cast<U&&>(t);
 }

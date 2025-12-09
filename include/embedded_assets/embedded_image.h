@@ -7,7 +7,7 @@
 
 namespace bongocat::assets {
 struct embedded_image_t {
-  const unsigned char *data{nullptr};
+  const unsigned char *data{BONGOCAT_NULLPTR};
   size_t size{0};
   const char *name{""};
 };

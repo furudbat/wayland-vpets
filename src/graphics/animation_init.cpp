@@ -112,9 +112,9 @@ namespace details {
 
 created_result_t<animation_t *> hot_load_animation(animation_context_t& ctx) {
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const int anim_index = anim_shm.anim_index;
 
@@ -273,9 +273,9 @@ animation_t& get_current_animation(animation_context_t& ctx) {
   static animation_t none_sprite_sheet{};
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   // const config::config_t& current_config = *ctx._local_copy_config;
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const int anim_index = anim_shm.anim_index;
 
@@ -284,7 +284,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
     return none_sprite_sheet;
   case config::config_animation_sprite_sheet_layout_t::Bongocat: {
     if (features::EnableLazyLoadAssets) {
-      assert(anim_shm.anim.type == animation_t::Type::Bongocat);
+      assert(anim_shm.anim.type == animation_t::type_t::Bongocat);
       return anim_shm.anim;
     }
     assert(anim_index >= 0);
@@ -298,7 +298,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
       return none_sprite_sheet;
     case config::config_animation_dm_set_t::min_dm:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -307,7 +307,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                  : none_sprite_sheet;
     case config::config_animation_dm_set_t::dm:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       return static_cast<size_t>(anim_index) < anim_shm.dm_anims.count
@@ -315,7 +315,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                  : none_sprite_sheet;
     case config::config_animation_dm_set_t::dm20:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -324,7 +324,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                  : none_sprite_sheet;
     case config::config_animation_dm_set_t::dmx:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -333,7 +333,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                  : none_sprite_sheet;
     case config::config_animation_dm_set_t::pen:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       return static_cast<size_t>(anim_index) < anim_shm.pen_anims.count
@@ -341,7 +341,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                  : none_sprite_sheet;
     case config::config_animation_dm_set_t::pen20:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -350,7 +350,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                  : none_sprite_sheet;
     case config::config_animation_dm_set_t::dmc:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -359,7 +359,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                  : none_sprite_sheet;
     case config::config_animation_dm_set_t::dmall:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Dm);
+        assert(anim_shm.anim.type == animation_t::type_t::Dm);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -370,7 +370,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
   } break;
   case config::config_animation_sprite_sheet_layout_t::Pkmn:
     if (features::EnableLazyLoadAssets) {
-      assert(anim_shm.anim.type == animation_t::Type::Pkmn);
+      assert(anim_shm.anim.type == animation_t::type_t::Pkmn);
       return anim_shm.anim;
     }
     assert(anim_index >= 0);
@@ -379,7 +379,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
                : none_sprite_sheet;
   case config::config_animation_sprite_sheet_layout_t::MsAgent:
     if (features::EnableLazyLoadAssets) {
-      assert(anim_shm.anim.type == animation_t::Type::MsAgent);
+      assert(anim_shm.anim.type == animation_t::type_t::MsAgent);
       return anim_shm.anim;
     }
     assert(anim_index >= 0);
@@ -392,7 +392,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
       break;
     case config::config_animation_custom_set_t::misc:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Custom);
+        assert(anim_shm.anim.type == animation_t::type_t::Custom);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -402,7 +402,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
       break;
     case config::config_animation_custom_set_t::pmd:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Custom);
+        assert(anim_shm.anim.type == animation_t::type_t::Custom);
         return anim_shm.anim;
       }
       assert(anim_index >= 0);
@@ -412,7 +412,7 @@ animation_t& get_current_animation(animation_context_t& ctx) {
       break;
     case config::config_animation_custom_set_t::custom:
       if (features::EnableLazyLoadAssets) {
-        assert(anim_shm.anim.type == animation_t::Type::Custom);
+        assert(anim_shm.anim.type == animation_t::type_t::Custom);
         return anim_shm.anim;
       }
       if (static_cast<size_t>(anim_index) == CUSTOM_ANIM_INDEX) {
@@ -433,8 +433,8 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
   using namespace assets;
   BONGOCAT_LOG_INFO("Initializing animation system");
   AllocatedMemory<animation_session_t> ret = make_allocated_memory<animation_session_t>();
-  assert(ret != nullptr);
-  if (ret == nullptr) {
+  assert(ret);
+  if (!ret) [[unlikely]] {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
@@ -446,7 +446,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
     BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(ret->anim.shm != nullptr);
+  assert(ret->anim.shm);
 
   // Initialize shared memory for local config
   ret->anim._local_copy_config = platform::make_allocated_mmap<config::config_t>();
@@ -454,7 +454,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
     BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(ret->anim._local_copy_config != nullptr);
+  assert(ret->anim._local_copy_config);
   // config_set_defaults(*ctx._local_copy_config);
   *ret->anim._local_copy_config = config;
   ret->anim.shm->animation_player_result.sprite_sheet_col = config.idle_frame;  // initial frame
@@ -492,7 +492,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
       // Load Bongocat
       if (should_load_bongocat(*ret->anim._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load bongocat sprite sheet frames: %d", BONGOCAT_EMBEDDED_IMAGES_COUNT);
-        assert(ret->anim.shm != nullptr);
+        assert(ret->anim.shm);
         animation_context_t& ctx = ret->anim;  // alias for inits in includes
 
         ctx.shm->bongocat_anims = platform::make_allocated_mmap_array<animation_t>(BONGOCAT_ANIM_COUNT);
@@ -505,7 +505,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
       // Load dm
       if (should_load_dm(*ret->anim._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load dm sprite sheets: %d", DM_ANIMATIONS_COUNT);
-        assert(ret->anim.shm != nullptr);
+        assert(ret->anim.shm);
         animation_context_t& ctx = ret->anim;  // alias for inits in includes
 
         if constexpr (features::EnableMinDmEmbeddedAssets) {
@@ -581,7 +581,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
       // Load Ms Pets (Clippy)
       if (should_load_ms_agent(*ret->anim._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load MS agent sprite sheets: %d", MS_AGENTS_ANIM_COUNT);
-        assert(ret->anim.shm != nullptr);
+        assert(ret->anim.shm);
         animation_context_t& ctx = ret->anim;  // alias for inits in includes
 
         ctx.shm->ms_anims = platform::make_allocated_mmap_array<animation_t>(MS_AGENTS_ANIM_COUNT);
@@ -607,7 +607,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
       // Load pkmn
       if (should_load_pkmn(*ret->anim._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %d", PKMN_ANIM_COUNT);
-        assert(ret->anim.shm != nullptr);
+        assert(ret->anim.shm);
         animation_context_t& ctx = ret->anim;  // alias for inits in includes
 
         ctx.shm->pkmn_anims = platform::make_allocated_mmap_array<animation_t>(PKMN_ANIM_COUNT);
@@ -621,7 +621,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
       // Load pmd (pkmn)
       if (should_load_pkmn(*ret->anim._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load pmd sprite sheets: %d", PKMN_ANIM_COUNT);
-        assert(ret->anim.shm != nullptr);
+        assert(ret->anim.shm);
         animation_context_t& ctx = ret->anim;  // alias for inits in includes
 
         ctx.shm->pmd_anims = platform::make_allocated_mmap_array<animation_t>(PMD_ANIM_COUNT);
@@ -636,7 +636,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
       // Load Misc Pets (neko)
       if (should_load_misc(*ret->anim._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load Misc sprite sheets: %d", MISC_ANIM_COUNT);
-        assert(ret->anim.shm != nullptr);
+        assert(ret->anim.shm);
         animation_context_t& ctx = ret->anim;  // alias for inits in includes
 
         ctx.shm->misc_anims = platform::make_allocated_mmap_array<animation_t>(MISC_ANIM_COUNT);
@@ -651,7 +651,7 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
       assert(ret->anim._local_copy_config.ptr);
       // Load custom sprite sheet
       if (should_load_custom(*ret->anim._local_copy_config)) {
-        assert(ret->anim.shm != nullptr);
+        assert(ret->anim.shm);
         animation_context_t& ctx = ret->anim;  // alias for inits in includes
         assert(ctx.shm.ptr);
         assert(ctx._local_copy_config.ptr);

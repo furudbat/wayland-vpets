@@ -19,13 +19,13 @@ inline static constexpr size_t OUTPUT_NAME_SIZE = 128;
 // =============================================================================
 
 struct fullscreen_detector_t {
-  struct zwlr_foreign_toplevel_manager_v1 *manager{nullptr};
+  struct zwlr_foreign_toplevel_manager_v1 *manager{BONGOCAT_NULLPTR};
   bool has_fullscreen_toplevel{false};
   timeval last_check{};
 };
 struct tracked_toplevel_t {
-  struct zwlr_foreign_toplevel_handle_v1 *handle{nullptr};
-  wl_output *output{nullptr};
+  struct zwlr_foreign_toplevel_handle_v1 *handle{BONGOCAT_NULLPTR};
+  wl_output *output{BONGOCAT_NULLPTR};
   bool is_fullscreen{false};
 };
 
@@ -34,12 +34,12 @@ struct tracked_toplevel_t {
 // =============================================================================
 
 enum class screen_info_received_flags_t : uint32_t {
-  None = (1u << 0),
-  Mode = (1u << 1),
-  Geometry = (1u << 2),
+  None = (1U << 0),
+  Mode = (1U << 1),
+  Geometry = (1U << 2),
 };
 struct screen_info_t {
-  struct wl_output *wl_output{nullptr};  // ref of output
+  struct wl_output *wl_output{BONGOCAT_NULLPTR};  // ref of output
   int screen_width{0};
   int screen_height{0};
   int transform{0};
@@ -58,8 +58,8 @@ enum class output_ref_received_flags_t : uint32_t {
 };
 // Output monitor reference structure
 struct output_ref_t {
-  struct wl_output *wl_output{nullptr};
-  zxdg_output_v1 *xdg_output{nullptr};
+  struct wl_output *wl_output{BONGOCAT_NULLPTR};
+  zxdg_output_v1 *xdg_output{BONGOCAT_NULLPTR};
   uint32_t name{0};                   // Registry name
   char name_str[OUTPUT_NAME_SIZE]{};  // From xdg-output
   int32_t x{0};
@@ -70,21 +70,21 @@ struct output_ref_t {
   // monitor ID in Hyprland
   int64_t hypr_id{-1};
   // back reference
-  wayland_session_t *wayland{nullptr};
+  wayland_session_t *wayland{BONGOCAT_NULLPTR};
 };
 
 void cleanup_wayland(wayland_session_t& ctx);
 
 struct wayland_session_t {
   wayland_context_t wayland_context;
-  animation::animation_session_t *animation_trigger_context{nullptr};
+  animation::animation_session_t *animation_trigger_context{BONGOCAT_NULLPTR};
 
   tracked_toplevel_t tracked_toplevels[MAX_TOP_LEVELS];
   size_t num_toplevels{0};
 
   output_ref_t outputs[MAX_OUTPUTS];
   size_t output_count{0};
-  zxdg_output_manager_v1 *xdg_output_manager{nullptr};
+  zxdg_output_manager_v1 *xdg_output_manager{BONGOCAT_NULLPTR};
 
   fullscreen_detector_t fs_detector;
 
@@ -117,38 +117,40 @@ inline void cleanup_wayland(wayland_session_t& ctx) {
 
   // First destroy xdg_output objects
   for (size_t i = 0; i < ctx.output_count; ++i) {
-    if (ctx.outputs[i].xdg_output) {
+    if (ctx.outputs[i].xdg_output != BONGOCAT_NULLPTR) {
       zxdg_output_v1_destroy(ctx.outputs[i].xdg_output);
-      ctx.outputs[i].xdg_output = nullptr;
+      ctx.outputs[i].xdg_output = BONGOCAT_NULLPTR;
     }
   }
 
   // Then destroy the manager
-  if (ctx.xdg_output_manager) {
+  if (ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
     zxdg_output_manager_v1_destroy(ctx.xdg_output_manager);
-    ctx.xdg_output_manager = nullptr;
+    ctx.xdg_output_manager = BONGOCAT_NULLPTR;
   }
 
   // Finally destroy wl_output objects
   for (size_t i = 0; i < ctx.output_count; ++i) {
-    if (ctx.outputs[i].wl_output) {
+    if (ctx.outputs[i].wl_output != BONGOCAT_NULLPTR) {
       wl_output_destroy(ctx.outputs[i].wl_output);
-      ctx.outputs[i].wl_output = nullptr;
+      ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
     }
     ctx.outputs[i] = {};
-    ctx.outputs[i].wl_output = nullptr;
-    ctx.outputs[i].wayland = nullptr;
+    ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
+    ctx.outputs[i].wayland = BONGOCAT_NULLPTR;
   }
   ctx.output_count = 0;
 
-  if (ctx.fs_detector.manager) {
+  if (ctx.fs_detector.manager != BONGOCAT_NULLPTR) {
     zwlr_foreign_toplevel_manager_v1_destroy(ctx.fs_detector.manager);
-    ctx.fs_detector.manager = nullptr;
+    ctx.fs_detector.manager = BONGOCAT_NULLPTR;
   }
 
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
-    if (ctx.tracked_toplevels[i].handle)
+    if (ctx.tracked_toplevels[i].handle != BONGOCAT_NULLPTR) {
       zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);
+      ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
+    }
     ctx.tracked_toplevels[i] = {};
   }
   ctx.num_toplevels = 0;
@@ -161,7 +163,7 @@ inline void cleanup_wayland(wayland_session_t& ctx) {
   // clean up wayland context
   cleanup_wayland_context(ctx.wayland_context);
 
-  ctx.animation_trigger_context = nullptr;
+  ctx.animation_trigger_context = BONGOCAT_NULLPTR;
 }
 }  // namespace bongocat::platform::wayland
 

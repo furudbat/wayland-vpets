@@ -23,7 +23,7 @@ bongocat_error_t init_misc_anim(animation_context_t& ctx, int anim_index,
 
   assert(anim_index >= 0);
   ctx.shm->misc_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-  assert(ctx.shm->misc_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Custom);
+  assert(ctx.shm->misc_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::Custom);
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }

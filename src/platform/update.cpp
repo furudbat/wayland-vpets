@@ -35,7 +35,7 @@ inline static constexpr const char *FILENAME_PROC_STAT = "/proc/stat";
 
 static void cleanup_update_thread(void *arg) {
   assert(arg);
-  animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
+  const animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
   assert(trigger_ctx._update);
   update_context_t& input = *trigger_ctx._update;
 
@@ -47,9 +47,10 @@ static void cleanup_update_thread(void *arg) {
 }
 
 static int set_nonblocking(int fd) {
-  int flags = fcntl(fd, F_GETFL, 0);
-  if (flags == -1)
+  const int flags = fcntl(fd, F_GETFL, 0);
+  if (flags == -1) {
     return -1;
+  }
   return fcntl(fd, F_SETFL, flags | O_NONBLOCK);
 }
 
@@ -71,10 +72,10 @@ static size_t get_cpu_present_last(int fd) {
 */
 
 static const cpu_snapshot_t& get_latest_snapshot_unlocked(update_context_t& ctx) {
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm);
   auto& update_shm = *ctx.shm;
   ctx.update_cond.timedwait([&]() { return update_shm.cpu_snapshots.stored > 0; }, COND_STORED_TIMEOUT_MS);
-  assert(CpuSnapshotRingBufferMaxHistory > 0);
+  static_assert(CpuSnapshotRingBufferMaxHistory > 0);
   const size_t latest =
       (update_shm.cpu_snapshots.head + CpuSnapshotRingBufferMaxHistory - 1) % CpuSnapshotRingBufferMaxHistory;
   assert(latest < CpuSnapshotRingBufferMaxHistory);
@@ -90,23 +91,25 @@ static size_t parse_cpuinfo_fd(int fd, size_t cpu_present_last, cpu_stat_t *out,
   lseek(fd, 0, SEEK_SET);
   char buf[CPU_INFO_BUF] = {0};
   const ssize_t len = read(fd, buf, sizeof(buf) - 1);
-  if (len <= 0)
+  if (len <= 0) {
     return 0;
+  }
   assert(len >= 0 && static_cast<size_t>(len) < CPU_INFO_BUF);
   buf[len] = '\0';
 
   ssize_t current_cpu_number = -1;
   size_t used = 0;
 
-  char *saveptr = nullptr;
+  char *saveptr = BONGOCAT_NULLPTR;
   char *line = strtok_r(buf, "\n", &saveptr);
   while (line) {
-    if (strncmp(line, "cpu", 3) != 0)
+    if (strncmp(line, "cpu", 3) != 0) {
       break;
+    }
 
     size_t line_cpu_number = 0;
     if (current_cpu_number >= 0) {
-      line_cpu_number = strtoul(line + 3, nullptr, 10);
+      line_cpu_number = strtoul(line + 3, BONGOCAT_NULLPTR, 10);
       assert(current_cpu_number >= 0);
       // assert(current_cpu_number <= SIZE_MAX);
       while (line_cpu_number > static_cast<size_t>(current_cpu_number) && used < out_size) {
@@ -117,18 +120,20 @@ static size_t parse_cpuinfo_fd(int fd, size_t cpu_present_last, cpu_stat_t *out,
     }
 
     char *p = line;
-    while (*p && !isspace(static_cast<unsigned char>(*p)))
+    while (*p && !isspace(static_cast<unsigned char>(*p))) {
       p++;
-    while (*p && isspace(static_cast<unsigned char>(*p)))
+    }
+    while (*p && isspace(static_cast<unsigned char>(*p))) {
       p++;
+    }
 
     constexpr size_t times_size = 16;
     size_t times[times_size] = {0};
     size_t times_count = 0;
     char *tok = strtok(p, " \t");
     while (tok && times_count < times_size) {
-      times[times_count++] = strtoull(tok, nullptr, 10);
-      tok = strtok(nullptr, " \t");
+      times[times_count++] = strtoull(tok, BONGOCAT_NULLPTR, 10);
+      tok = strtok(BONGOCAT_NULLPTR, " \t");
     }
 
     size_t idle_time = 0;
@@ -136,8 +141,9 @@ static size_t parse_cpuinfo_fd(int fd, size_t cpu_present_last, cpu_stat_t *out,
     assert(times_size >= 5);
     if (times_count >= 5) {
       idle_time = times[3] + times[4];
-      for (size_t i = 0; i < times_count; i++)
+      for (size_t i = 0; i < times_count; i++) {
         total_time += times[i];
+      }
     }
 
     if (used < MaxCpus) {
@@ -146,7 +152,7 @@ static size_t parse_cpuinfo_fd(int fd, size_t cpu_present_last, cpu_stat_t *out,
     }
     current_cpu_number++;
 
-    line = strtok_r(nullptr, "\n", &saveptr);
+    line = strtok_r(BONGOCAT_NULLPTR, "\n", &saveptr);
   }
 
   if (current_cpu_number >= 0) {
@@ -178,8 +184,9 @@ static double compute_avg_cpu_usage(const cpu_snapshot_t& prev, const cpu_snapsh
     idle_delta += d_idle;
   }
 
-  if (total_delta == 0)
+  if (total_delta == 0) {
     return 0.0;
+  }
   return 100.0 * static_cast<double>(total_delta - idle_delta) / static_cast<double>(total_delta);
 }
 
@@ -216,15 +223,15 @@ static void *update_thread(void *arg) {
   // wait for input context (in animation start)
   trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
                                   COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
-  assert(trigger_ctx._input != nullptr);
+  assert(trigger_ctx._input != BONGOCAT_NULLPTR);
   update_context_t& upd = *trigger_ctx._update;
 
   // sanity checks
-  assert(upd._config != nullptr);
-  assert(upd._configs_reloaded_cond != nullptr);
+  assert(upd._config != BONGOCAT_NULLPTR);
+  assert(upd._configs_reloaded_cond != BONGOCAT_NULLPTR);
   assert(!upd._running);
-  assert(upd.shm != nullptr);
-  assert(upd._local_copy_config != nullptr);
+  assert(upd.shm);
+  assert(upd._local_copy_config);
   assert(upd.update_config_efd._fd >= 0);
   assert(upd.fd_present._fd >= 0);
   assert(upd.fd_stat._fd >= 0);
@@ -255,7 +262,7 @@ static void *update_thread(void *arg) {
     // bool enable_debug = false;
     {
       // read-only config
-      assert(upd._local_copy_config != nullptr);
+      assert(upd._local_copy_config);
       const config::config_t& current_config = *upd._local_copy_config;
 
       // enable_debug = current_config.enable_debug;
@@ -284,8 +291,9 @@ static void *update_thread(void *arg) {
     // poll events
     const int poll_result = poll(pfds, nfds, static_cast<int>(timeout));
     if (poll_result < 0) {
-      if (errno == EINTR)
+      if (errno == EINTR) {
         continue;  // Interrupted by signal
+      }
       BONGOCAT_LOG_ERROR("update: Poll error: %s", strerror(errno));
       break;
     }
@@ -302,7 +310,7 @@ static void *update_thread(void *arg) {
     }
 
     // Handle config update
-    assert(upd._config_generation != nullptr);
+    assert(upd._config_generation != BONGOCAT_NULLPTR);
     bool reload_config = false;
     uint64_t new_gen{atomic_load(upd._config_generation)};
     if (pfds[fds_update_config_index].revents & POLLIN) {
@@ -318,7 +326,7 @@ static void *update_thread(void *arg) {
 
       if (update_rate_ms > 0) {
         platform::LockGuard guard(upd.update_lock);
-        assert(upd.shm != nullptr);
+        assert(upd.shm);
         auto& update_shm = *upd.shm;
 
         const size_t count = parse_cpuinfo_fd(
@@ -328,8 +336,9 @@ static void *update_thread(void *arg) {
         {
           LockGuard guard_cond(upd.update_cond._mutex);
           update_shm.cpu_snapshots.head = (update_shm.cpu_snapshots.head + 1) % CpuSnapshotRingBufferMaxHistory;
-          if (update_shm.cpu_snapshots.stored < CpuSnapshotRingBufferMaxHistory)
+          if (update_shm.cpu_snapshots.stored < CpuSnapshotRingBufferMaxHistory) {
             update_shm.cpu_snapshots.stored++;
+          }
           pthread_cond_broadcast(&upd.update_cond._cond);
         }
       }
@@ -349,11 +358,11 @@ static void *update_thread(void *arg) {
     bool animation_triggered = false;
     if (update_rate_ms > 0) {
       LockGuard guard(upd.update_lock);
-      assert(upd.shm != nullptr);
+      assert(upd.shm);
       auto& update_shm = *upd.shm;
 
       // read-only config
-      assert(upd._local_copy_config != nullptr);
+      assert(upd._local_copy_config);
       const config::config_t& current_config = *upd._local_copy_config;
 
       update_shm.latest_snapshot = &get_latest_snapshot_unlocked(upd);
@@ -406,9 +415,9 @@ static void *update_thread(void *arg) {
 
     // handle update config
     if (reload_config) {
-      assert(upd._config_generation != nullptr);
-      assert(upd._configs_reloaded_cond != nullptr);
-      assert(upd._config != nullptr);
+      assert(upd._config_generation != BONGOCAT_NULLPTR);
+      assert(upd._configs_reloaded_cond != BONGOCAT_NULLPTR);
+      assert(upd._config != BONGOCAT_NULLPTR);
 
       update_config(upd, *upd._config, new_gen);
 
@@ -429,7 +438,7 @@ static void *update_thread(void *arg) {
       BONGOCAT_LOG_INFO("update: Update config reloaded (gen=%u)", new_gen);
     }
 
-    if (update_rate_ms) {
+    if (update_rate_ms > 0) {
       // sleep
       timespec ts;
       ts.tv_sec = 0;
@@ -439,7 +448,7 @@ static void *update_thread(void *arg) {
         // animation
         ts.tv_nsec = animation_speed_ms * 1000 * 1000;
       } else if (animation_triggered) {
-        ts.tv_nsec = (1000 / fps) * 1000 * 1000;
+        ts.tv_nsec = (1000L / fps) * 1000 * 1000;
       } else {
         ts.tv_nsec = timeout * 1000 * 1000;
       }
@@ -447,10 +456,10 @@ static void *update_thread(void *arg) {
         ts.tv_nsec -= 1000000000LL;
         ts.tv_sec += 1;
       }
-      nanosleep(&ts, nullptr);
+      nanosleep(&ts, BONGOCAT_NULLPTR);
       {
         LockGuard guard(upd.update_lock);
-        assert(upd.shm != nullptr);
+        assert(upd.shm);
         auto& update_shm = *upd.shm;
         update_shm.cpu_active = false;
       }
@@ -469,13 +478,13 @@ static void *update_thread(void *arg) {
 
   BONGOCAT_LOG_INFO("Update monitoring stopped");
 
-  return nullptr;
+  return BONGOCAT_NULLPTR;
 }
 
 created_result_t<AllocatedMemory<update_context_t>> create(const config::config_t& config) {
   AllocatedMemory<update_context_t> ret = make_allocated_memory<update_context_t>();
-  assert(ret != nullptr);
-  if (ret == nullptr) {
+  // assert(ret != nullptr);
+  if (!ret) [[unlikely]] {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
@@ -485,22 +494,22 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
 
   // Initialize shared memory
   ret->shm = make_allocated_mmap<update_shared_memory_t>();
-  if (!ret->shm.ptr) {
+  if (!ret->shm) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for update monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
   // Initialize shared memory for local config
   ret->_local_copy_config = make_allocated_mmap<config::config_t>();
-  if (!ret->_local_copy_config) {
+  if (!ret->_local_copy_config) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for update monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(ret->_local_copy_config != nullptr);
+  assert(ret->_local_copy_config);
   *ret->_local_copy_config = config;
 
   ret->update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
-  if (ret->update_config_efd._fd < 0) {
+  if (ret->update_config_efd._fd < 0) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create notify pipe for update update config: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
@@ -531,23 +540,23 @@ bongocat_error_t start(update_context_t& upd, animation::animation_session_t& tr
 
   // Initialize shared memory for key press flag
   upd.shm = make_allocated_mmap<update_shared_memory_t>();
-  if (!upd.shm.ptr) {
+  if (!upd.shm) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
   // Initialize shared memory for local config
   upd._local_copy_config = make_allocated_mmap<config::config_t>();
-  if (!upd._local_copy_config) {
+  if (!upd._local_copy_config) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(upd._local_copy_config != nullptr);
+  assert(upd._local_copy_config);
   update_config(upd, config, atomic_load(&config_generation));
 
   // wait for animation trigger to be ready (input should be the same)
-  int cond_ret = trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
-                                                 COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
+  const int cond_ret = trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
+                                                       COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   if (cond_ret == ETIMEDOUT) {
     BONGOCAT_LOG_ERROR("Failed to initialize input monitoring: waiting for animation thread to start in time");
   } else {
@@ -569,7 +578,7 @@ bongocat_error_t start(update_context_t& upd, animation::animation_session_t& tr
   upd._configs_reloaded_cond->notify_all();
 
   // start update thread
-  const int result = pthread_create(&upd._update_thread, nullptr, update_thread, &trigger_ctx);
+  const int result = pthread_create(&upd._update_thread, BONGOCAT_NULLPTR, update_thread, &trigger_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start update thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -598,7 +607,7 @@ bongocat_error_t restart(update_context_t& upd, animation::animation_session_t& 
   {
     LockGuard guard(upd.update_lock);
     // Start new monitoring (reuse shared memory if it exists)
-    if (upd.shm == nullptr) {
+    if (!upd.shm) {
       upd.shm = make_allocated_mmap<update_shared_memory_t>();
       if (upd.shm.ptr == MAP_FAILED) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for update thread: %s", strerror(errno));
@@ -614,7 +623,7 @@ bongocat_error_t restart(update_context_t& upd, animation::animation_session_t& 
       return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
   }
-  assert(upd._local_copy_config != nullptr);
+  assert(upd._local_copy_config);
   update_config(upd, config, atomic_load(&config_generation));
 
   if (upd.update_config_efd._fd < 0) {
@@ -663,7 +672,7 @@ bongocat_error_t restart(update_context_t& upd, animation::animation_session_t& 
   upd._configs_reloaded_cond->notify_all();
 
   // start update monitoring
-  const int result = pthread_create(&upd._update_thread, nullptr, update_thread, &trigger_ctx);
+  const int result = pthread_create(&upd._update_thread, BONGOCAT_NULLPTR, update_thread, &trigger_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start update thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -685,9 +694,9 @@ void stop(update_context_t& ctx) {
   }
   ctx._update_thread = 0;
 
-  ctx._config = nullptr;
-  ctx._configs_reloaded_cond = nullptr;
-  ctx._config_generation = nullptr;
+  ctx._config = BONGOCAT_NULLPTR;
+  ctx._configs_reloaded_cond = BONGOCAT_NULLPTR;
+  ctx._config_generation = BONGOCAT_NULLPTR;
 
   ctx.config_updated.notify_all();
   atomic_store(&ctx.ready, false);
@@ -704,7 +713,7 @@ void trigger_update_config(update_context_t& upd, const config::config_t& config
 }
 
 void update_config(update_context_t& upd, const config::config_t& config, uint64_t new_gen) {
-  assert(upd._local_copy_config != nullptr);
+  assert(upd._local_copy_config);
 
   *upd._local_copy_config = config;
 

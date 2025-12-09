@@ -39,8 +39,8 @@ load_ms_agent_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite
   }
   */
 
-  const auto dest_frame_width = frame_width + padding_x * 2;
-  const auto dest_frame_height = frame_height + padding_y * 2;
+  const auto dest_frame_width = frame_width + (padding_x * 2);
+  const auto dest_frame_height = frame_height + (padding_y * 2);
   const auto dest_pixels_width = dest_frame_width * frame_columns;
   const auto dest_pixels_height = dest_frame_height * frame_rows;
   assert(dest_pixels_width >= 0);
@@ -69,8 +69,8 @@ load_ms_agent_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite
     for (int col = 0; col < frame_columns; ++col) {
       const auto src_x = col * src_frame_width;
       const auto src_y = row * src_frame_height;
-      const auto dst_x = col * dest_frame_width + padding_x;
-      const auto dst_y = row * dest_frame_height + padding_y;
+      const auto dst_x = (col * dest_frame_width) + padding_x;
+      const auto dst_y = (row * dest_frame_height) + padding_y;
       [[maybe_unused]] const auto src_idx = (src_y * src_pixels_width + src_x) * sprite_sheet.channels;
       [[maybe_unused]] const auto dst_idx = (dst_y * dest_pixels_width + dst_x) * sprite_sheet.channels;
       assert(src_idx >= 0);
@@ -103,7 +103,7 @@ load_ms_agent_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite
   ret.image.channels = sprite_sheet.channels;
   // move pixels ownership into out_frames
   ret.image.pixels = move(dest_pixels);
-  dest_pixels = nullptr;
+  dest_pixels = BONGOCAT_NULLPTR;
   ret.frame_width = dest_frame_width;
   ret.frame_height = dest_frame_height;
 
@@ -262,7 +262,7 @@ init_ms_agent_anim(animation_context_t& ctx, int anim_index, const assets::embed
 
   assert(anim_index >= 0);
   ctx.shm->ms_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-  assert(ctx.shm->ms_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::MsAgent);
+  assert(ctx.shm->ms_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::MsAgent);
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }

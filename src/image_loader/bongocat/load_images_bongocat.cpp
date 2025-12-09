@@ -119,7 +119,7 @@ bongocat_error_t init_bongocat_anim(animation_context_t& ctx, int anim_index, ge
 
   assert(anim_index >= 0);
   ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-  assert(ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Bongocat);
+  assert(ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::Bongocat);
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }

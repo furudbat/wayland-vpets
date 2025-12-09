@@ -14,13 +14,14 @@ namespace bongocat::animation {
 // IMAGE LOADING MODULE
 // =============================================================================
 
-struct Image;
+class Image;
 created_result_t<Image> load_image(const unsigned char *data, size_t size, int desired_channels = RGBA_CHANNELS);
 void cleanup_image(Image& image);
 void init_image_loader();
 
-struct Image {
-  unsigned char *pixels{nullptr};
+class Image {
+public:
+  unsigned char *pixels{BONGOCAT_NULLPTR};
   int width{0};
   int height{0};
   int channels{0};
@@ -39,8 +40,9 @@ struct Image {
     ::memcpy(pixels, other.pixels, data_size);
   }
   Image& operator=(const Image& other) {
-    if (this == &other)
+    if (this == &other) {
       return *this;
+    }
 
     cleanup_image(*this);
 
@@ -60,14 +62,15 @@ struct Image {
 
   Image(Image&& other) noexcept
       : pixels(other.pixels), width(other.width), height(other.height), channels(other.channels) {
-    other.pixels = nullptr;
+    other.pixels = BONGOCAT_NULLPTR;
     other.width = 0;
     other.height = 0;
     other.channels = 0;
   }
   Image& operator=(Image&& other) noexcept {
-    if (this == &other)
+    if (this == &other) {
       return *this;
+    }
 
     cleanup_image(*this);
 
@@ -76,7 +79,7 @@ struct Image {
     height = other.height;
     channels = other.channels;
 
-    other.pixels = nullptr;
+    other.pixels = BONGOCAT_NULLPTR;
     other.width = 0;
     other.height = 0;
     other.channels = 0;

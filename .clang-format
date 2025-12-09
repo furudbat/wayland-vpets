@@ -72,6 +72,7 @@ BreakConstructorInitializers: BeforeComma
 ConstructorInitializerAllOnOneLineOrOnePerLine: true
 AllowAllConstructorInitializersOnNextLine: false
 IndentWrappedFunctionNames: false
+AlwaysBreakTemplateDeclarations: Yes
 
 # Spaces
 SpaceAfterCStyleCast: false

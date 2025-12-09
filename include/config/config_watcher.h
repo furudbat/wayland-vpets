@@ -29,7 +29,7 @@ struct config_watcher_t {
   platform::FileDescriptor inotify_fd;
   platform::FileDescriptor wd_file;
   platform::FileDescriptor wd_dir;
-  char *config_path{nullptr};
+  char *config_path{BONGOCAT_NULLPTR};
 
   platform::FileDescriptor reload_efd;
 
@@ -62,9 +62,9 @@ inline void cleanup_watcher(config_watcher_t& watcher) {
   close_fd(watcher.inotify_fd);
   close_fd(watcher.reload_efd);
 
-  if (watcher.config_path) {
+  if (watcher.config_path != BONGOCAT_NULLPTR) {
     ::free(watcher.config_path);
-    watcher.config_path = nullptr;
+    watcher.config_path = BONGOCAT_NULLPTR;
   }
 }
 

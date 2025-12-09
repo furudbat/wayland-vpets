@@ -25,17 +25,17 @@ enum class bar_visibility_t : bool {
 struct screen_info_t;
 
 struct wayland_context_t {
-  wl_display *display{nullptr};
-  wl_compositor *compositor{nullptr};
-  wl_shm *shm{nullptr};
-  zwlr_layer_shell_v1 *layer_shell{nullptr};
-  struct xdg_wm_base *xdg_wm_base{nullptr};
-  wl_output *output{nullptr};
-  wl_surface *surface{nullptr};
-  zwlr_layer_surface_v1 *layer_surface{nullptr};
+  wl_display *display{BONGOCAT_NULLPTR};
+  wl_compositor *compositor{BONGOCAT_NULLPTR};
+  wl_shm *shm{BONGOCAT_NULLPTR};
+  zwlr_layer_shell_v1 *layer_shell{BONGOCAT_NULLPTR};
+  struct xdg_wm_base *xdg_wm_base{BONGOCAT_NULLPTR};
+  wl_output *output{BONGOCAT_NULLPTR};
+  wl_surface *surface{BONGOCAT_NULLPTR};
+  zwlr_layer_surface_v1 *layer_surface{BONGOCAT_NULLPTR};
 
   // Output reconnection handling
-  struct wl_registry *registry{nullptr};
+  struct wl_registry *registry{BONGOCAT_NULLPTR};
   uint32_t bound_output_name{0};   // Registry name of our bound output
   bool using_named_output{false};  // True if user specified an output name
 
@@ -46,12 +46,13 @@ struct wayland_context_t {
 
   int32_t _bar_height{0};
   int32_t _screen_width{0};
-  char *_output_name_str{nullptr};  // ref to existing name in output, Will default to automatic one if kept null
+  char *_output_name_str{
+      BONGOCAT_NULLPTR};  // ref to existing name in output, Will default to automatic one if kept null
   bool _fullscreen_detected{false};
-  screen_info_t *_screen_info{nullptr};
+  screen_info_t *_screen_info{BONGOCAT_NULLPTR};
 
   // frame done callback data
-  wl_callback *_frame_cb{nullptr};
+  wl_callback *_frame_cb{BONGOCAT_NULLPTR};
   Mutex _frame_cb_lock;
   atomic_bool _frame_pending{false};
   atomic_bool _redraw_after_frame{false};
@@ -69,35 +70,35 @@ struct wayland_context_t {
 };
 
 inline void cleanup_wayland_context_protocols(wayland_context_t& ctx) {
-  if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+  if (ctx.ctx_shm) {
     atomic_store(&ctx.ctx_shm->configured, false);
   }
 
-  if (ctx.registry) {
+  if (ctx.registry != BONGOCAT_NULLPTR) {
     wl_registry_destroy(ctx.registry);
-    ctx.registry = nullptr;
+    ctx.registry = BONGOCAT_NULLPTR;
   }
 }
 inline void cleanup_wayland_context_surface(wayland_context_t& ctx) {
-  if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+  if (ctx.ctx_shm) {
     atomic_store(&ctx.ctx_shm->configured, false);
   }
 
-  if (ctx.layer_surface) {
+  if (ctx.layer_surface != BONGOCAT_NULLPTR) {
     zwlr_layer_surface_v1_destroy(ctx.layer_surface);
-    ctx.layer_surface = nullptr;
+    ctx.layer_surface = BONGOCAT_NULLPTR;
   }
-  if (ctx.surface) {
+  if (ctx.surface != BONGOCAT_NULLPTR) {
     wl_surface_destroy(ctx.surface);
-    ctx.surface = nullptr;
+    ctx.surface = BONGOCAT_NULLPTR;
   }
 }
 inline void cleanup_wayland_context_buffer(wayland_context_t& ctx) {
-  if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+  if (ctx.ctx_shm) {
     atomic_store(&ctx.ctx_shm->configured, false);
   }
 
-  if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+  if (ctx.ctx_shm) {
     for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
       cleanup_shm_buffer(ctx.ctx_shm->buffers[i]);
     }
@@ -109,12 +110,12 @@ inline void cleanup_wayland_context_buffer(wayland_context_t& ctx) {
   ctx._bar_height = 0;
 }
 inline void cleanup_wayland_context(wayland_context_t& ctx) {
-  if (ctx.ctx_shm.ptr && ctx.ctx_shm.ptr != MAP_FAILED) {
+  if (ctx.ctx_shm) {
     atomic_store(&ctx.ctx_shm->configured, false);
   }
 
   // drain pending events
-  if (ctx.display) {
+  if (ctx.display != BONGOCAT_NULLPTR) {
     wl_display_flush(ctx.display);
     wl_display_roundtrip(ctx.display);
     int attempts = 0;
@@ -132,29 +133,30 @@ inline void cleanup_wayland_context(wayland_context_t& ctx) {
   atomic_store(&ctx._frame_pending, false);
   atomic_store(&ctx._redraw_after_frame, false);
   // ctx._frame_cb_lock should be unlocked
-  if (ctx._frame_cb)
+  if (ctx._frame_cb != BONGOCAT_NULLPTR) {
     wl_callback_destroy(ctx._frame_cb);
-  ctx._frame_cb = nullptr;
+    ctx._frame_cb = BONGOCAT_NULLPTR;
+  }
   ctx._last_frame_timestamp_ms = 0;
 
   // surfaces
   cleanup_wayland_context_surface(ctx);
 
-  if (ctx.layer_shell) {
+  if (ctx.layer_shell != BONGOCAT_NULLPTR) {
     zwlr_layer_shell_v1_destroy(ctx.layer_shell);
-    ctx.layer_shell = nullptr;
+    ctx.layer_shell = BONGOCAT_NULLPTR;
   }
-  if (ctx.xdg_wm_base) {
+  if (ctx.xdg_wm_base != BONGOCAT_NULLPTR) {
     xdg_wm_base_destroy(ctx.xdg_wm_base);
-    ctx.xdg_wm_base = nullptr;
+    ctx.xdg_wm_base = BONGOCAT_NULLPTR;
   }
-  if (ctx.shm) {
+  if (ctx.shm != BONGOCAT_NULLPTR) {
     wl_shm_destroy(ctx.shm);
-    ctx.shm = nullptr;
+    ctx.shm = BONGOCAT_NULLPTR;
   }
-  if (ctx.compositor) {
+  if (ctx.compositor != BONGOCAT_NULLPTR) {
     wl_compositor_destroy(ctx.compositor);
-    ctx.compositor = nullptr;
+    ctx.compositor = BONGOCAT_NULLPTR;
   }
 
   // release shm
@@ -162,33 +164,33 @@ inline void cleanup_wayland_context(wayland_context_t& ctx) {
   release_allocated_mmap_memory(ctx.ctx_shm);
   release_allocated_mmap_memory(ctx._local_copy_config);
 
-  if (ctx.display) {
+  if (ctx.display != BONGOCAT_NULLPTR) {
     wl_display_disconnect(ctx.display);
-    ctx.display = nullptr;
+    ctx.display = BONGOCAT_NULLPTR;
   }
 
   // Note: output is just a reference to one of the outputs[] entries
   // It will be destroyed when we destroy the outputs[] array above
-  ctx.output = nullptr;
+  ctx.output = BONGOCAT_NULLPTR;
   ctx.bound_output_name = 0;
   ctx.using_named_output = false;
 
   // Reset state
-  ctx.display = nullptr;
-  ctx.compositor = nullptr;
-  ctx.shm = nullptr;
-  ctx.layer_shell = nullptr;
-  ctx.xdg_wm_base = nullptr;
-  ctx.output = nullptr;
-  ctx.surface = nullptr;
-  ctx.layer_surface = nullptr;
-  ctx._output_name_str = nullptr;
+  ctx.display = BONGOCAT_NULLPTR;
+  ctx.compositor = BONGOCAT_NULLPTR;
+  ctx.shm = BONGOCAT_NULLPTR;
+  ctx.layer_shell = BONGOCAT_NULLPTR;
+  ctx.xdg_wm_base = BONGOCAT_NULLPTR;
+  ctx.output = BONGOCAT_NULLPTR;
+  ctx.surface = BONGOCAT_NULLPTR;
+  ctx.layer_surface = BONGOCAT_NULLPTR;
+  ctx._output_name_str = BONGOCAT_NULLPTR;
   ctx._frame_pending = false;
   ctx._redraw_after_frame = false;
   ctx._bar_height = 0;
   ctx._screen_width = 0;
   ctx._fullscreen_detected = false;
-  ctx._screen_info = nullptr;
+  ctx._screen_info = BONGOCAT_NULLPTR;
 }
 }  // namespace bongocat::platform::wayland
 

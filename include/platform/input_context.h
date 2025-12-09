@@ -19,8 +19,8 @@ enum class input_unique_file_type_t : uint8_t {
 struct input_unique_file_t;
 void cleanup(input_unique_file_t& file);
 struct input_unique_file_t {
-  const char *_device_path{nullptr};  // original string from config (ref to input_context_t._device_paths[i])
-  char *canonical_path{nullptr};      // resolved real path (malloc'd)
+  const char *_device_path{BONGOCAT_NULLPTR};  // original string from config (ref to input_context_t._device_paths[i])
+  char *canonical_path{BONGOCAT_NULLPTR};      // resolved real path (malloc'd)
   FileDescriptor fd;
   input_unique_file_type_t type{input_unique_file_type_t::NONE};
 
@@ -37,8 +37,8 @@ struct input_unique_file_t {
       , canonical_path(other.canonical_path)
       , fd(bongocat::move(other.fd))
       , type(other.type) {
-    other._device_path = nullptr;
-    other.canonical_path = nullptr;
+    other._device_path = BONGOCAT_NULLPTR;
+    other.canonical_path = BONGOCAT_NULLPTR;
     other.type = input_unique_file_type_t::NONE;
   }
   input_unique_file_t& operator=(input_unique_file_t&& other) noexcept {
@@ -50,8 +50,8 @@ struct input_unique_file_t {
       fd = bongocat::move(other.fd);
       type = other.type;
 
-      other._device_path = nullptr;
-      other.canonical_path = nullptr;
+      other._device_path = BONGOCAT_NULLPTR;
+      other.canonical_path = BONGOCAT_NULLPTR;
       other.type = input_unique_file_type_t::NONE;
     }
     return *this;
@@ -59,10 +59,11 @@ struct input_unique_file_t {
 };
 inline void cleanup(input_unique_file_t& file) {
   close_fd(file.fd);
-  file._device_path = nullptr;
-  if (file.canonical_path)
+  file._device_path = BONGOCAT_NULLPTR;
+  if (file.canonical_path != BONGOCAT_NULLPTR) {
     ::free(file.canonical_path);
-  file.canonical_path = nullptr;
+    file.canonical_path = BONGOCAT_NULLPTR;
+  }
   file.type = input_unique_file_type_t::NONE;
 }
 
@@ -94,8 +95,8 @@ struct input_context_t {
                                              // _unique_paths_indices.count to used unique_paths_indices
   AllocatedArray<input_unique_file_t> _unique_devices;
   /// udev monitoring
-  udev *_udev{nullptr};
-  udev_monitor *_udev_mon{nullptr};
+  udev *_udev{BONGOCAT_NULLPTR};
+  udev_monitor *_udev_mon{BONGOCAT_NULLPTR};
   int _udev_fd{-1};
 
   // config reload threading
@@ -104,9 +105,9 @@ struct input_context_t {
   platform::CondVariable config_updated;
 
   // globals (references)
-  const config::config_t *_config{nullptr};
-  platform::CondVariable *_configs_reloaded_cond{nullptr};
-  atomic_uint64_t *_config_generation{nullptr};
+  const config::config_t *_config{BONGOCAT_NULLPTR};
+  platform::CondVariable *_configs_reloaded_cond{BONGOCAT_NULLPTR};
+  atomic_uint64_t *_config_generation{BONGOCAT_NULLPTR};
   atomic_bool ready;
   platform::CondVariable init_cond;
 
@@ -132,18 +133,21 @@ inline void cleanup(input_context_t& ctx) {
   ctx._unique_paths_indices_capacity = 0;
   release_allocated_array(ctx._unique_paths_indices);
   for (size_t i = 0; i < ctx._device_paths.count; i++) {
-    if (ctx._device_paths[i])
+    if (ctx._device_paths[i] != BONGOCAT_NULLPTR) {
       ::free(ctx._device_paths[i]);
-    ctx._device_paths[i] = nullptr;
+      ctx._device_paths[i] = BONGOCAT_NULLPTR;
+    }
   }
   release_allocated_array(ctx._device_paths);
 
-  if (ctx._udev_mon)
+  if (ctx._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(ctx._udev_mon);
-  if (ctx._udev)
+    ctx._udev_mon = BONGOCAT_NULLPTR;
+  }
+  if (ctx._udev != BONGOCAT_NULLPTR) {
     udev_unref(ctx._udev);
-  ctx._udev_mon = nullptr;
-  ctx._udev = nullptr;
+    ctx._udev = BONGOCAT_NULLPTR;
+  }
   ctx._udev_fd = -1;
 
   close_fd(ctx.update_config_efd);
@@ -152,9 +156,9 @@ inline void cleanup(input_context_t& ctx) {
   release_allocated_mmap_memory(ctx._local_copy_config);
   release_allocated_mmap_memory(ctx.shm);
 
-  ctx._config = nullptr;
-  ctx._configs_reloaded_cond = nullptr;
-  ctx._config_generation = nullptr;
+  ctx._config = BONGOCAT_NULLPTR;
+  ctx._configs_reloaded_cond = BONGOCAT_NULLPTR;
+  ctx._config_generation = BONGOCAT_NULLPTR;
   atomic_store(&ctx.ready, false);
   ctx.init_cond.notify_all();
 }

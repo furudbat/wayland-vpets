@@ -84,13 +84,13 @@ bongocat_error_t wayland_update_screen_width(wayland_session_t& ctx) {
   wayland_context_t& wayland_ctx = ctx.wayland_context;
 
   // read-only config
-  assert(wayland_ctx._local_copy_config != nullptr);
+  assert(wayland_ctx._local_copy_config);
   const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
-  wayland_ctx.output = nullptr;
+  wayland_ctx.output = BONGOCAT_NULLPTR;
   wayland_ctx.bound_output_name = 0;
   wayland_ctx.using_named_output = false;
-  if (current_config.output_name) {
+  if (current_config.output_name != BONGOCAT_NULLPTR) {
     for (size_t i = 0; i < ctx.output_count; ++i) {
       if (has_flag(ctx.outputs[i].received, output_ref_received_flags_t::Name) &&
           strcmp(ctx.outputs[i].name_str, current_config.output_name) == 0) {
@@ -104,7 +104,7 @@ bongocat_error_t wayland_update_screen_width(wayland_session_t& ctx) {
       }
     }
 
-    if (!wayland_ctx.output) {
+    if (wayland_ctx.output == BONGOCAT_NULLPTR) {
       if (current_config._strict) {
         BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name);
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
@@ -115,7 +115,7 @@ bongocat_error_t wayland_update_screen_width(wayland_session_t& ctx) {
   }
 
   // Fallback
-  if (!wayland_ctx.output && ctx.output_count > 0) {
+  if (wayland_ctx.output == BONGOCAT_NULLPTR && ctx.output_count > 0) {
     wayland_ctx.output = ctx.outputs[0].wl_output;
     wayland_ctx._output_name_str = ctx.outputs[0].name_str;
     wayland_ctx._screen_info = &ctx.screen_infos[0];
@@ -124,7 +124,8 @@ bongocat_error_t wayland_update_screen_width(wayland_session_t& ctx) {
     BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
   }
 
-  if (!wayland_ctx.compositor || !wayland_ctx.shm || !wayland_ctx.layer_shell) {
+  if (wayland_ctx.compositor == BONGOCAT_NULLPTR || wayland_ctx.shm == BONGOCAT_NULLPTR ||
+      wayland_ctx.layer_shell == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Missing required Wayland protocols");
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
@@ -136,9 +137,9 @@ bongocat_error_t wayland_update_screen_width(wayland_session_t& ctx) {
     screen_width = current_config.screen_width;
   } else {
     // auto-detect screen width
-    if (wayland_ctx.output) {
+    if (wayland_ctx.output != BONGOCAT_NULLPTR) {
       wl_display_roundtrip(wayland_ctx.display);
-      if (wayland_ctx._screen_info && wayland_ctx._screen_info->screen_width > 0) {
+      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->screen_width > 0) {
         BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->screen_width);
         screen_width = wayland_ctx._screen_info->screen_width;
       } else {
@@ -168,7 +169,7 @@ bongocat_error_t wayland_setup_protocols(wayland_session_t& ctx) {
 
   /// @TODO: add RAII wrapper for wl_registry
   wl_registry *registry = wl_display_get_registry(wayland_ctx.display);
-  if (!registry) {
+  if (registry == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Failed to get Wayland registry");
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
@@ -176,7 +177,7 @@ bongocat_error_t wayland_setup_protocols(wayland_session_t& ctx) {
   wl_registry_add_listener(registry, &details::reg_listener, &ctx);
   wl_display_roundtrip(wayland_ctx.display);
 
-  if (ctx.xdg_output_manager) {
+  if (ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
     for (size_t i = 0; i < ctx.output_count && i < MAX_OUTPUTS; i++) {
       ctx.outputs[i].wayland = &ctx;
       ctx.outputs[i].xdg_output =
@@ -196,7 +197,8 @@ bongocat_error_t wayland_setup_protocols(wayland_session_t& ctx) {
     hyprland::update_outputs_with_monitor_ids(ctx);
   }
 
-  if (!wayland_ctx.compositor || !wayland_ctx.shm || !wayland_ctx.layer_shell) {
+  if (wayland_ctx.compositor == BONGOCAT_NULLPTR || wayland_ctx.shm == BONGOCAT_NULLPTR ||
+      wayland_ctx.layer_shell == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Missing required Wayland protocols");
     wl_registry_destroy(registry);
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
@@ -209,10 +211,11 @@ bongocat_error_t wayland_setup_protocols(wayland_session_t& ctx) {
   }
 
   // move new registry
-  if (wayland_ctx.registry)
+  if (wayland_ctx.registry != BONGOCAT_NULLPTR) {
     wl_registry_destroy(wayland_ctx.registry);
+  }
   wayland_ctx.registry = registry;
-  registry = nullptr;
+  registry = BONGOCAT_NULLPTR;
 
   for (size_t i = 0; i < ctx.output_count && i < MAX_OUTPUTS; i++) {
     ctx.outputs[i].wayland = &ctx;
@@ -227,11 +230,11 @@ bongocat_error_t wayland_setup_surface(wayland_session_t& ctx) {
   // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
   // read-only config
-  assert(wayland_ctx._local_copy_config != nullptr);
+  assert(wayland_ctx._local_copy_config);
   const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
   wayland_ctx.surface = wl_compositor_create_surface(wayland_ctx.compositor);
-  if (!wayland_ctx.surface) {
+  if (wayland_ctx.surface == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Failed to create surface");
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
@@ -253,7 +256,7 @@ bongocat_error_t wayland_setup_surface(wayland_session_t& ctx) {
   }
   wayland_ctx.layer_surface = zwlr_layer_shell_v1_get_layer_surface(wayland_ctx.layer_shell, wayland_ctx.surface,
                                                                     wayland_ctx.output, layer, WAYLAND_LAYER_NAMESPACE);
-  if (!wayland_ctx.layer_surface) {
+  if (wayland_ctx.layer_surface == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Failed to create layer surface");
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
@@ -289,9 +292,10 @@ bongocat_error_t wayland_setup_surface(wayland_session_t& ctx) {
 
   // Make surface click-through
   wl_region *input_region = wl_compositor_create_region(wayland_ctx.compositor);
-  if (input_region) {
+  if (input_region != BONGOCAT_NULLPTR) {
     wl_surface_set_input_region(wayland_ctx.surface, input_region);
     wl_region_destroy(input_region);
+    input_region = BONGOCAT_NULLPTR;
   }
 
   wl_surface_commit(wayland_ctx.surface);
@@ -303,7 +307,7 @@ bongocat_error_t wayland_setup_surface(wayland_session_t& ctx) {
 
 bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animation::animation_session_t& anim) {
   // read-only config
-  assert(wayland_context._local_copy_config != nullptr);
+  assert(wayland_context._local_copy_config);
   // const config::config_t& current_config = *wayland_context._local_copy_config;
 
   wayland_shared_memory_t& wayland_ctx_shm = *wayland_context.ctx_shm;
@@ -336,7 +340,7 @@ bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animat
   }
 
   wl_shm_pool *pool = wl_shm_create_pool(wayland_context.shm, fd._fd, static_cast<int32_t>(total_size));
-  if (!pool) {
+  if (pool == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Failed to create shared memory pool");
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
@@ -353,7 +357,7 @@ bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animat
 
     assert(static_cast<size_t>(buffer_size) <= SIZE_MAX);
     wayland_ctx_shm.buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, buffer_size, fd._fd, offset);
-    if (wayland_ctx_shm.buffers[i].pixels == nullptr) {
+    if (!wayland_ctx_shm.buffers[i].pixels) {
       BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
       for (size_t j = 0; j < i; j++) {
         cleanup_shm_buffer(wayland_ctx_shm.buffers[j]);
@@ -369,7 +373,7 @@ bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animat
     wayland_ctx_shm.buffers[i].buffer = wl_shm_pool_create_buffer(
         pool, static_cast<int32_t>(offset), wayland_context._screen_width, wayland_context._bar_height,
         wayland_context._screen_width * RGBA_CHANNELS, WL_SHM_FORMAT_ARGB8888);
-    if (wayland_ctx_shm.buffers[i].buffer == nullptr) {
+    if (wayland_ctx_shm.buffers[i].buffer == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_ERROR("Failed to create buffer");
       for (size_t j = 0; j < i; j++) {
         cleanup_shm_buffer(wayland_ctx_shm.buffers[j]);

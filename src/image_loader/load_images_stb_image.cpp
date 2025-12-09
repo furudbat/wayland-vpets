@@ -27,8 +27,8 @@ namespace bongocat::animation {
         assert(size <= INT_MAX);
         int channels_in_file;
         ret.pixels = stbi_load_from_memory(data, static_cast<int>(size), &ret.width, &ret.height, &channels_in_file, desired_channels);
-        if (ret.pixels == nullptr) [[unlikely]] {
-            ret.pixels = nullptr;
+        if (ret.pixels == BONGOCAT_NULLPTR) [[unlikely]] {
+            ret.pixels = BONGOCAT_NULLPTR;
             return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
         }
         assert(ret.width > 0);
@@ -39,8 +39,10 @@ namespace bongocat::animation {
     }
 
     void cleanup_image(Image& image) {
-        if (image.pixels) stbi_image_free(image.pixels);
-        image.pixels = nullptr;
+        if (image.pixels) {
+          stbi_image_free(image.pixels);
+        }
+        image.pixels = BONGOCAT_NULLPTR;
     }
 
     void init_image_loader() {

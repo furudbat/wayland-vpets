@@ -24,15 +24,15 @@ namespace details {
 
 #ifndef NDEBUG
   struct allocation_record_t {
-    void *ptr{nullptr};
+    void *ptr{BONGOCAT_NULLPTR};
     size_t size{0};
     const char *file{};
     int line{0};
-    allocation_record_t *next{nullptr};
+    allocation_record_t *next{BONGOCAT_NULLPTR};
   };
 
   inline allocation_record_t *& get_allocations() {
-    static allocation_record_t *g_instance = nullptr;
+    static allocation_record_t *g_instance = BONGOCAT_NULLPTR;
     return g_instance;
   }
 #endif
@@ -41,13 +41,13 @@ namespace details {
 void *malloc(size_t size) {
   if (size == 0) {
     BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   void *ptr = ::malloc(size);
-  if (!ptr) {
+  if (ptr == BONGOCAT_NULLPTR) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", size);
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
@@ -69,20 +69,20 @@ void *malloc(size_t size) {
 void *calloc(size_t count, size_t size) {
   if (count == 0 || size == 0) {
     BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   // Check for overflow
   assert(size > 0);
   if (count > SIZE_MAX / size) {
     BONGOCAT_LOG_ERROR("Integer overflow in calloc");
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   void *ptr = ::calloc(count, size);
-  if (!ptr) {
+  if (ptr == BONGOCAT_NULLPTR) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to allocate %zu bytes", count * size);
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
@@ -105,13 +105,13 @@ void *calloc(size_t count, size_t size) {
 void *bongocat_realloc(void *ptr, size_t size) {
   if (size == 0) {
     bongocat::free(ptr);
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   void *new_ptr = ::realloc(ptr, size);
-  if (!new_ptr) {
+  if (new_ptr == BONGOCAT_NULLPTR) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to reallocate to %zu bytes", size);
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   // Note: We can't track size changes accurately without storing original sizes
@@ -121,8 +121,9 @@ void *bongocat_realloc(void *ptr, size_t size) {
 }
 
 void free(void *ptr) {
-  if (!ptr)
+  if (ptr == BONGOCAT_NULLPTR) {
     return;
+  }
 
   ::free(ptr);
 
@@ -144,7 +145,7 @@ void free(void *ptr) {
 memory_pool_t *memory_pool_create(size_t size, size_t alignment) {
   if (size == 0 || alignment == 0) {
     BONGOCAT_LOG_ERROR("Invalid memory pool parameters");
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   // Validate alignment is a power of 2
@@ -154,13 +155,14 @@ memory_pool_t *memory_pool_create(size_t size, size_t alignment) {
   }
 
   auto *pool = static_cast<memory_pool_t *>(bongocat::malloc(sizeof(memory_pool_t)));
-  if (!pool)
-    return nullptr;
+  if (pool == BONGOCAT_NULLPTR) [[unlikely]] {
+    return BONGOCAT_NULLPTR;
+  }
 
   pool->data = bongocat::malloc(size);
-  if (!pool->data) {
+  if (pool->data == BONGOCAT_NULLPTR) [[unlikely]] {
     bongocat::free(pool);
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   pool->size = size;
@@ -171,15 +173,16 @@ memory_pool_t *memory_pool_create(size_t size, size_t alignment) {
 }
 
 void *memory_pool_alloc(memory_pool_t& pool, size_t size) {
-  if (size == 0)
-    return nullptr;
+  if (size == 0) {
+    return BONGOCAT_NULLPTR;
+  }
 
   // Align the size
   const size_t aligned_size = (size + pool.alignment - 1) & ~(pool.alignment - 1);
 
   if (pool.used + aligned_size > pool.size) {
     BONGOCAT_LOG_ERROR("Memory pool exhausted");
-    return nullptr;
+    return BONGOCAT_NULLPTR;
   }
 
   void *ptr = static_cast<char *>(pool.data) + pool.used;
@@ -189,13 +192,13 @@ void *memory_pool_alloc(memory_pool_t& pool, size_t size) {
 }
 
 void memory_pool_reset(memory_pool_t *pool) {
-  if (pool) {
+  if (pool != BONGOCAT_NULLPTR) {
     pool->used = 0;
   }
 }
 
 void memory_pool_destroy(memory_pool_t *pool) {
-  if (pool) {
+  if (pool != BONGOCAT_NULLPTR) {
     bongocat::free(pool->data);
     bongocat::free(pool);
   }
@@ -203,8 +206,9 @@ void memory_pool_destroy(memory_pool_t *pool) {
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
 void memory_get_stats(memory_stats_t *stats) {
-  if (!stats)
+  if (stats == BONGOCAT_NULLPTR) {
     return;
+  }
 
   {
     using namespace details;
@@ -253,8 +257,9 @@ void memory_print_stats() {}
 #ifndef NDEBUG
 void *malloc_debug(size_t size, const char *file, int line) {
   void *ptr = bongocat::malloc(size);
-  if (!ptr)
-    return nullptr;
+  if (ptr == BONGOCAT_NULLPTR) {
+    return BONGOCAT_NULLPTR;
+  }
 
   {
     using namespace details;

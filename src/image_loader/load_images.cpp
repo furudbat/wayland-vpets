@@ -37,8 +37,8 @@ load_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_siz
   const auto frame_height = sprite_sheet.height / frame_rows;
   const auto total_frames = frame_columns * frame_rows;
 
-  const auto dest_frame_width = frame_width + padding_x * 2;
-  const auto dest_frame_height = frame_height + padding_y * 2;
+  const auto dest_frame_width = frame_width + (padding_x * 2);
+  const auto dest_frame_height = frame_height + (padding_y * 2);
   const auto dest_pixels_width = dest_frame_width * frame_columns;
   const auto dest_pixels_height = dest_frame_height * frame_rows;
   assert(dest_pixels_width >= 0);
@@ -67,8 +67,8 @@ load_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_siz
     for (int col = 0; col < frame_columns; ++col) {
       const auto src_x = col * src_frame_width;
       const auto src_y = row * src_frame_height;
-      const auto dst_x = col * dest_frame_width + padding_x;
-      const auto dst_y = row * dest_frame_height + padding_y;
+      const auto dst_x = (col * dest_frame_width) + padding_x;
+      const auto dst_y = (row * dest_frame_height) + padding_y;
       [[maybe_unused]] const auto src_idx = (src_y * src_pixels_width + src_x) * sprite_sheet.channels;
       [[maybe_unused]] const auto dst_idx = (dst_y * dest_pixels_width + dst_x) * sprite_sheet.channels;
       assert(src_idx >= 0);
@@ -112,7 +112,7 @@ load_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_siz
   ret.image.channels = sprite_sheet.channels;
   // move pixels ownership into out_frames
   ret.image.pixels = bongocat::move(dest_pixels);
-  dest_pixels = nullptr;
+  dest_pixels = BONGOCAT_NULLPTR;
   ret.frame_width = dest_frame_width;
   ret.frame_height = dest_frame_height;
   ret.total_frames = total_frames;
@@ -174,9 +174,10 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
     ret.image.channels = 0;
 
     for (size_t i = 0; i < loaded_images.count; i++) {
-      if (loaded_images[i].pixels)
+      if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
         ::free(loaded_images[i].pixels);
-      loaded_images[i].pixels = nullptr;
+        loaded_images[i].pixels = BONGOCAT_NULLPTR;
+      }
     }
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
@@ -194,11 +195,11 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
     assert(src.channels >= 0);
     assert(src.width >= 0);
     assert(src.height >= 0);
-    if (src.pixels && src.height > 0) {
+    if (src.pixels != BONGOCAT_NULLPTR && src.height > 0) {
       // copy pixel data of sub-region
       assert(src.height >= 0);
       for (size_t y = 0; y < static_cast<size_t>(src.height); y++) {
-        unsigned char *dest_row = ret.image.pixels.data + ((y) * static_cast<size_t>(ret.image.sprite_sheet_width) +
+        unsigned char *dest_row = ret.image.pixels.data + ((y * static_cast<size_t>(ret.image.sprite_sheet_width)) +
                                                            (frame * static_cast<size_t>(max_frame_width))) *
                                                               static_cast<size_t>(max_channels);
         const unsigned char *src_row =
@@ -218,9 +219,10 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
   }
 
   for (size_t i = 0; i < loaded_images.count; i++) {
-    if (loaded_images[i].pixels)
+    if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
       ::free(loaded_images[i].pixels);
-    loaded_images[i].pixels = nullptr;
+      loaded_images[i].pixels = BONGOCAT_NULLPTR;
+    }
   }
   return ret;
 }

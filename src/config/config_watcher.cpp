@@ -68,8 +68,9 @@ static void *config_watcher_thread(void *arg) {
   while (atomic_load(&watcher._running)) {
     int ret = poll(fds, fds_count, timeout_ms);
     if (ret < 0) {
-      if (errno == EINTR)
+      if (errno == EINTR) {
         continue;
+      }
       BONGOCAT_LOG_ERROR("config_watcher: Config watcher poll failed: %s", strerror(errno));
       break;
     }
@@ -205,14 +206,14 @@ static void *config_watcher_thread(void *arg) {
   atomic_store(&watcher._running, false);
 
   BONGOCAT_LOG_INFO("config_watcher: Config watcher stopped");
-  return nullptr;
+  return BONGOCAT_NULLPTR;
 }
 
 created_result_t<AllocatedMemory<config_watcher_t>> create_watcher(const char *config_path) {
   BONGOCAT_CHECK_NULL(config_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
   AllocatedMemory<config_watcher_t> ret = make_allocated_memory<config_watcher_t>();
-  assert(ret != nullptr);
-  if (ret == nullptr) [[unlikely]] {
+  assert(ret != BONGOCAT_NULLPTR);
+  if (ret == BONGOCAT_NULLPTR) [[unlikely]] {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
@@ -261,7 +262,7 @@ created_result_t<AllocatedMemory<config_watcher_t>> create_watcher(const char *c
 }
 
 void start_watcher(config_watcher_t& watcher) {
-  if (pthread_create(&watcher._watcher_thread, nullptr, config_watcher_thread, &watcher) != 0) {
+  if (pthread_create(&watcher._watcher_thread, BONGOCAT_NULLPTR, config_watcher_thread, &watcher) != 0) {
     atomic_store(&watcher._running, false);
     BONGOCAT_LOG_ERROR("Failed to create config watcher thread: %s", strerror(errno));
     return;

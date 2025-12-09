@@ -34,7 +34,7 @@ namespace details {
     tm tm_info{};
     char timestamp[64] = {0};
 
-    gettimeofday(&tv, nullptr);
+    gettimeofday(&tv, BONGOCAT_NULLPTR);
     localtime_r(&tv.tv_sec, &tm_info);  // Thread-safe version
 
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", &tm_info);
@@ -77,8 +77,9 @@ namespace details {
   }
 
   void log_debug(const char *fmt, ...) {
-    if (!atomic_load(&get_debug_enabled()))
+    if (!atomic_load(&get_debug_enabled())) {
       return;
+    }
     va_list args;
     va_start(args, fmt);
     log_vprintf("DEBUG", fmt, args);
@@ -86,8 +87,9 @@ namespace details {
   }
 
   void log_verbose(const char *fmt, ...) {
-    if (!atomic_load(&get_debug_enabled()))
+    if (!atomic_load(&get_debug_enabled())) {
       return;
+    }
     va_list args;
     va_start(args, fmt);
     log_vprintf("VERBOSE", fmt, args);

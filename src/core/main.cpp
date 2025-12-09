@@ -55,13 +55,13 @@ struct main_context_t {
   AllocatedMemory<animation::animation_session_t> animation;
   AllocatedMemory<platform::wayland::wayland_session_t> wayland;
 
-  const char *signal_watch_path{nullptr};
+  const char *signal_watch_path{BONGOCAT_NULLPTR};
   atomic_uint64_t config_generation{0};
-  platform::CondVariable configs_reloaded_cond{};
+  platform::CondVariable configs_reloaded_cond;
   platform::Mutex sync_configs;
 
-  char *pid_filename{nullptr};
-  char *default_config_filename{nullptr};
+  char *pid_filename{BONGOCAT_NULLPTR};
+  char *default_config_filename{BONGOCAT_NULLPTR};
 
   main_context_t() = default;
   ~main_context_t() {
@@ -75,35 +75,47 @@ struct main_context_t {
 inline void stop_threads(main_context_t& context) {
   context.running = 0;
   // stop threads
-  if (context.animation != nullptr)
+  if (context.animation != BONGOCAT_NULLPTR) {
     atomic_store(&context.animation->anim._animation_running, false);
-  if (context.input != nullptr)
+  }
+  if (context.input != BONGOCAT_NULLPTR) {
     atomic_store(&context.input->_capture_input_running, false);
-  if (context.update != nullptr)
+  }
+  if (context.update != BONGOCAT_NULLPTR) {
     atomic_store(&context.update->_running, false);
-  if (context.config_watcher != nullptr)
+  }
+  if (context.config_watcher != BONGOCAT_NULLPTR) {
     atomic_store(&context.config_watcher->_running, false);
+  }
 
   // wait for threads
-  if (context.animation != nullptr)
+  if (context.animation != BONGOCAT_NULLPTR) {
     platform::join_thread_with_timeout(context.animation->anim._anim_thread, WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS);
-  if (context.input != nullptr)
+  }
+  if (context.input != BONGOCAT_NULLPTR) {
     platform::join_thread_with_timeout(context.input->_input_thread, WAIT_FOR_SHUTDOWN_INPUT_THREAD_MS);
-  if (context.update != nullptr)
+  }
+  if (context.update != BONGOCAT_NULLPTR) {
     platform::join_thread_with_timeout(context.update->_update_thread, WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS);
-  if (context.config_watcher != nullptr)
+  }
+  if (context.config_watcher != BONGOCAT_NULLPTR) {
     platform::join_thread_with_timeout(context.config_watcher->_watcher_thread,
                                        WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS);
+  }
 
   // stop threads
-  if (context.animation != nullptr)
+  if (context.animation != BONGOCAT_NULLPTR) {
     animation::stop(*context.animation);
-  if (context.input != nullptr)
+  }
+  if (context.input != BONGOCAT_NULLPTR) {
     platform::input::stop(*context.input);
-  if (context.update != nullptr)
+  }
+  if (context.update != BONGOCAT_NULLPTR) {
     platform::update::stop(*context.update);
-  if (context.config_watcher != nullptr)
+  }
+  if (context.config_watcher != BONGOCAT_NULLPTR) {
     config::stop_watcher(*context.config_watcher);
+  }
 
   context.config_generation = 0;
 }
@@ -111,27 +123,35 @@ void cleanup(main_context_t& context) {
   stop_threads(context);
 
   // Cleanup Wayland
-  if (context.wayland != nullptr)
+  if (context.wayland != BONGOCAT_NULLPTR) {
     cleanup_wayland(*context.wayland);
+  }
 
   // remove references (avoid dangling pointers)
-  if (context.wayland != nullptr)
-    context.wayland->animation_trigger_context = nullptr;
-  if (context.animation != nullptr)
-    context.animation->_input = nullptr;
+  if (context.wayland != BONGOCAT_NULLPTR) {
+    context.wayland->animation_trigger_context = BONGOCAT_NULLPTR;
+  }
+  if (context.animation != BONGOCAT_NULLPTR) {
+    context.animation->_input = BONGOCAT_NULLPTR;
+  }
 
   // Cleanup systems
-  if (context.animation != nullptr)
+  if (context.animation != BONGOCAT_NULLPTR) {
     cleanup(*context.animation);
-  if (context.input != nullptr)
+  }
+  if (context.input != BONGOCAT_NULLPTR) {
     cleanup(*context.input);
-  if (context.update != nullptr)
+  }
+  if (context.update != BONGOCAT_NULLPTR) {
     cleanup(*context.update);
-  if (context.signal_fd._fd >= 0)
+  }
+  if (context.signal_fd._fd >= 0) {
     close_fd(context.signal_fd);
-  if (context.config_watcher != nullptr)
+  }
+  if (context.config_watcher != BONGOCAT_NULLPTR) {
     cleanup_watcher(*context.config_watcher);
-  context.signal_watch_path = nullptr;
+  }
+  context.signal_watch_path = BONGOCAT_NULLPTR;
 
   release_allocated_memory(context.config_watcher);
   release_allocated_memory(context.input);
@@ -141,18 +161,20 @@ void cleanup(main_context_t& context) {
 
   // Cleanup configuration
   cleanup(context.config);
-  context.overwrite_config_parameters.output_name = nullptr;
+  context.overwrite_config_parameters.output_name = BONGOCAT_NULLPTR;
 
   // cleanup signals handler
   platform::close_fd(context.signal_fd);
 
-  if (context.pid_filename)
+  if (context.pid_filename != BONGOCAT_NULLPTR) {
     ::free(context.pid_filename);
-  context.pid_filename = nullptr;
+    context.pid_filename = BONGOCAT_NULLPTR;
+  }
 
-  if (context.default_config_filename)
+  if (context.default_config_filename != BONGOCAT_NULLPTR) {
     ::free(context.default_config_filename);
-  context.default_config_filename = nullptr;
+    context.default_config_filename = BONGOCAT_NULLPTR;
+  }
 }
 
 inline main_context_t& get_main_context() {
@@ -165,12 +187,12 @@ inline main_context_t& get_main_context() {
 // =============================================================================
 
 struct cli_args_t {
-  const char *config_file{nullptr};
+  const char *config_file{BONGOCAT_NULLPTR};
   bool watch_config{false};
   bool toggle_mode{false};
   bool show_help{false};
   bool show_version{false};
-  const char *output_name{nullptr};
+  const char *output_name{BONGOCAT_NULLPTR};
   int32_t randomize_index{-1};
   int32_t strict{-1};
   bool ignore_running{false};
@@ -239,8 +261,9 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
       // File is locked by another process, so it's running
       // We need to read the PID anyway, so let's try without lock
       fd = platform::FileDescriptor(::open(pid_filename, O_RDONLY));
-      if (fd._fd < 0)
+      if (fd._fd < 0) {
         return -1;
+      }
     } else {
       return -1;
     }
@@ -261,7 +284,7 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
     }
   }
 
-  char *endptr = nullptr;
+  char *endptr = BONGOCAT_NULLPTR;
   errno = 0;  // Reset errno before call
   const auto pid = static_cast<pid_t>(strtol(pid_str, &endptr, 10));
   if (endptr == pid_str) {
@@ -275,15 +298,15 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
   char exe_path[PATH_MAX] = {0};
   snprintf(exe_path, sizeof(exe_path), "/proc/%d/exe", pid);
   char buf[PATH_MAX] = {0};
-  ssize_t len = readlink(exe_path, buf, sizeof(buf) - 1);
+  const ssize_t len = readlink(exe_path, buf, sizeof(buf) - 1);
   if (len > 0) {
     buf[len] = '\0';
 
     const char *exe_basename = strrchr(buf, '/');
-    exe_basename = exe_basename ? exe_basename + 1 : buf;
+    exe_basename = exe_basename != BONGOCAT_NULLPTR ? exe_basename + 1 : buf;
 
     const char *prog_basename = strrchr(program_name, '/');
-    prog_basename = prog_basename ? prog_basename + 1 : program_name;
+    prog_basename = prog_basename != BONGOCAT_NULLPTR ? prog_basename + 1 : program_name;
 
     if (strcmp(exe_basename, prog_basename) != 0) {
       return -1;
@@ -361,12 +384,12 @@ static bool config_devices_changed(const config::config_t& old_config, const con
 }
 
 static void config_reload_callback() {
-  assert(get_main_context().input != nullptr);
-  assert(get_main_context().animation != nullptr);
-  assert(get_main_context().signal_watch_path != nullptr);
+  assert(get_main_context().input != BONGOCAT_NULLPTR);
+  assert(get_main_context().animation != BONGOCAT_NULLPTR);
+  assert(get_main_context().signal_watch_path != BONGOCAT_NULLPTR);
   BONGOCAT_LOG_INFO("Reloading configuration from: %s (config_watcher=%s)", get_main_context().signal_watch_path,
                     (get_main_context().config_watcher) ? get_main_context().config_watcher->config_path : "OFF");
-  assert(get_main_context().config_watcher == nullptr ||
+  assert(get_main_context().config_watcher == BONGOCAT_NULLPTR ||
          strcmp(get_main_context().config_watcher->config_path, get_main_context().signal_watch_path) == 0);
 
   if (strcmp(get_main_context().signal_watch_path, "-") == 0) {
@@ -391,10 +414,10 @@ static void config_reload_callback() {
     platform::LockGuard guard(get_main_context().sync_configs);
     config::config_t old_config = get_main_context().config;
     // keep old animation, don't randomize
-    if (old_config.randomize_index && new_config.randomize_index &&
+    if (old_config.randomize_index >= 1 && new_config.randomize_index >= 1 &&
         old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
         old_config.animation_dm_set == new_config.animation_dm_set) {
-      new_config._keep_old_animation_index = !new_config.randomize_on_reload;
+      new_config._keep_old_animation_index = new_config.randomize_on_reload <= 0;
     }
     // If successful, check if input devices changed before updating config
     devices_changed = config_devices_changed(old_config, new_config);
@@ -473,7 +496,7 @@ static void config_reload_callback() {
   BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", get_main_context().wayland->wayland_context._screen_width,
                     get_main_context().wayland->wayland_context._bar_height);
 
-  assert(get_main_context().animation != nullptr);
+  assert(get_main_context().animation != BONGOCAT_NULLPTR);
   animation::trigger(*get_main_context().animation, animation::trigger_animation_cause_mask_t::UpdateConfig);
 
   // Check if input devices changed and restart monitoring if needed
@@ -552,11 +575,12 @@ static char *default_config_file_path() {
   const char *xdg_config_home = getenv("XDG_CONFIG_HOME");
   const char *home = getenv("HOME");
 
-  if (xdg_config_home != nullptr) {
-    size_t len = strlen(xdg_config_home) + 1 + strlen(DEFAULT_CONF_FILENAME) + 1;
+  if (xdg_config_home != BONGOCAT_NULLPTR) {
+    const size_t len = strlen(xdg_config_home) + 1 + strlen(DEFAULT_CONF_FILENAME) + 1;
     char *path = static_cast<char *>(::malloc(len));
-    if (!path)
-      return nullptr;
+    if (path == BONGOCAT_NULLPTR) [[unlikely]] {
+      return BONGOCAT_NULLPTR;
+    }
     snprintf(path, len, "%s/%s", xdg_config_home, DEFAULT_CONF_FILENAME);
 
     if (access(path, F_OK) == 0) {
@@ -564,14 +588,15 @@ static char *default_config_file_path() {
     }
 
     free(path);
-    path = nullptr;
+    path = BONGOCAT_NULLPTR;
   }
 
-  if (home != nullptr) {
-    size_t len = strlen(home) + strlen("/.config/") + strlen(DEFAULT_CONF_FILENAME) + 1;
+  if (home != BONGOCAT_NULLPTR) {
+    const size_t len = strlen(home) + strlen("/.config/") + strlen(DEFAULT_CONF_FILENAME) + 1;
     char *path = static_cast<char *>(::malloc(len));
-    if (!path)
-      return nullptr;
+    if (path == BONGOCAT_NULLPTR) [[unlikely]] {
+      return BONGOCAT_NULLPTR;
+    }
     snprintf(path, len, "%s/.config/%s", home, DEFAULT_CONF_FILENAME);
 
     if (access(path, F_OK) == 0) {
@@ -579,7 +604,7 @@ static char *default_config_file_path() {
     }
 
     free(path);
-    path = nullptr;
+    path = BONGOCAT_NULLPTR;
   }
 
   // If neither env var is set, fallback to just filename in current dir
@@ -602,7 +627,7 @@ static bongocat_error_t signal_setup_handlers(main_context_t& ctx) {
   sigaddset(&mask, SIGHUP);
 
   // Block signals globally so they are only delivered via signalfd
-  if (sigprocmask(SIG_BLOCK, &mask, nullptr) == -1) [[unlikely]] {
+  if (sigprocmask(SIG_BLOCK, &mask, BONGOCAT_NULLPTR) == -1) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to block signals: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
   }
@@ -654,7 +679,7 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
 
   // Initialize Wayland
   {
-    assert(ctx.animation != nullptr);
+    assert(ctx.animation != BONGOCAT_NULLPTR);
     /// @NOTE: animation needed only for reference
     auto [wayland, wayland_error] = platform::wayland::create(*ctx.animation, ctx.config);
     if (wayland_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -666,8 +691,8 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
 
   // Setup wayland
   {
-    assert(ctx.wayland != nullptr);
-    assert(ctx.animation != nullptr);
+    assert(ctx.wayland != BONGOCAT_NULLPTR);
+    assert(ctx.animation != BONGOCAT_NULLPTR);
     bongocat_error_t setup_wayland_result = setup(*ctx.wayland, *ctx.animation);
     if (setup_wayland_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to setup wayland: %s", bongocat::error_string(setup_wayland_result));
@@ -677,9 +702,9 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
 
   // Start animation thread
   {
-    assert(ctx.animation != nullptr);
-    assert(ctx.input != nullptr);
-    assert(ctx.update != nullptr);
+    assert(ctx.animation != BONGOCAT_NULLPTR);
+    assert(ctx.input != BONGOCAT_NULLPTR);
+    assert(ctx.update != BONGOCAT_NULLPTR);
     bongocat_error_t start_animation_result =
         animation::start(*ctx.animation, *ctx.input, *ctx.update, ctx.config, get_main_context().configs_reloaded_cond,
                          get_main_context().config_generation);
@@ -691,8 +716,8 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
 
   // Start input monitoring
   {
-    assert(ctx.animation != nullptr);
-    assert(ctx.input != nullptr);
+    assert(ctx.animation != BONGOCAT_NULLPTR);
+    assert(ctx.input != BONGOCAT_NULLPTR);
     bongocat_error_t start_input_result =
         platform::input::start(*ctx.input, *ctx.animation, ctx.config, get_main_context().configs_reloaded_cond,
                                get_main_context().config_generation);
@@ -704,8 +729,8 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
 
   // Start update monitoring
   {
-    assert(ctx.animation != nullptr);
-    assert(ctx.update != nullptr);
+    assert(ctx.animation != BONGOCAT_NULLPTR);
+    assert(ctx.update != BONGOCAT_NULLPTR);
     bongocat_error_t start_update_result =
         platform::update::start(*ctx.update, *ctx.animation, ctx.config, get_main_context().configs_reloaded_cond,
                                 get_main_context().config_generation);
@@ -739,7 +764,7 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
 
 static void cli_show_help(const char *program_name) {
   char *base_program_name = strdup(program_name);
-  if (!base_program_name) {
+  if (base_program_name == BONGOCAT_NULLPTR) [[unlikely]] {
     perror("strdup");
     return;
   }
@@ -834,7 +859,7 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
     } else if (strcmp(argv[i], "--nr") == 0) {
       args.nr_set = true;
       if (i + 1 < argc) {
-        char *endptr{nullptr};
+        char *endptr{BONGOCAT_NULLPTR};
         args.nr = strtoll(argv[i + 1], &endptr, 10);
         if (*endptr != '\0' || errno == ERANGE) {
           BONGOCAT_LOG_ERROR("--nr option requires a valid number");
@@ -898,17 +923,18 @@ int main(int argc, char *argv[]) {
       .randomize_index = args.randomize_index,
       .strict = args.strict,
   };
-  if (args.config_file == nullptr) {
+  if (args.config_file == BONGOCAT_NULLPTR) {
     /// @TODO: RAII default_config_filename string
     get_main_context().default_config_filename = default_config_file_path();
   }
-  const char *config_file = args.config_file == nullptr ? get_main_context().default_config_filename : args.config_file;
-  if (args.strict) {
+  const char *config_file =
+      args.config_file == BONGOCAT_NULLPTR ? get_main_context().default_config_filename : args.config_file;
+  if (args.strict >= 1) {
     if (strcmp(config_file, "-") != 0 && access(config_file, F_OK) != 0) {
       BONGOCAT_LOG_ERROR("Configuration file required: %s", config_file);
-      if (args.config_file == nullptr && get_main_context().default_config_filename) {
+      if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
         ::free(get_main_context().default_config_filename);
-        get_main_context().default_config_filename = nullptr;
+        get_main_context().default_config_filename = BONGOCAT_NULLPTR;
       }
       return EXIT_FAILURE;
     }
@@ -917,29 +943,29 @@ int main(int argc, char *argv[]) {
   auto [config, config_error] = config::load(config_file, ctx.overwrite_config_parameters);
   if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
     BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_error));
-    if (args.config_file == nullptr && get_main_context().default_config_filename) {
+    if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
       ::free(get_main_context().default_config_filename);
-      get_main_context().default_config_filename = nullptr;
+      get_main_context().default_config_filename = BONGOCAT_NULLPTR;
     }
     return EXIT_FAILURE;
   }
   ctx.config = bongocat::move(config);
-  bongocat::error_init(ctx.config.enable_debug);
+  bongocat::error_init(ctx.config.enable_debug >= 1);
 
   // validate args
   if (config._strict) {
     if (args.nr_set && args.nr < 0) {
-      if (args.config_file == nullptr && get_main_context().default_config_filename) {
+      if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
         ::free(get_main_context().default_config_filename);
-        get_main_context().default_config_filename = nullptr;
+        get_main_context().default_config_filename = BONGOCAT_NULLPTR;
       }
       BONGOCAT_LOG_ERROR("--nr needs to be a positive number");
       return EXIT_FAILURE;
     }
-    if (args.output_name_set && (!args.output_name || strlen(args.output_name) <= 0)) {
-      if (args.config_file == nullptr && get_main_context().default_config_filename) {
+    if (args.output_name_set && (args.output_name == BONGOCAT_NULLPTR || strlen(args.output_name) <= 0)) {
+      if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
         ::free(get_main_context().default_config_filename);
-        get_main_context().default_config_filename = nullptr;
+        get_main_context().default_config_filename = BONGOCAT_NULLPTR;
       }
       BONGOCAT_LOG_ERROR("--output_name value is missing");
       return EXIT_FAILURE;
@@ -948,37 +974,38 @@ int main(int argc, char *argv[]) {
 
   if (args.nr >= 0) {
     // set pid file, based on nr
-    const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_NR_TEMPLATE, args.nr) + 1;
+    const int needed_size = snprintf(BONGOCAT_NULLPTR, 0, PID_FILE_WITH_SUFFIX_NR_TEMPLATE, args.nr) + 1;
     assert(needed_size >= 0);
     ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
-    if (ctx.pid_filename != nullptr) {
+    if (ctx.pid_filename != BONGOCAT_NULLPTR) {
       snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_NR_TEMPLATE, args.nr);
     }
-  } else if (ctx.config.output_name && ctx.config.output_name[0] != '\0') {
+  } else if (ctx.config.output_name != BONGOCAT_NULLPTR && ctx.config.output_name[0] != '\0') {
     // set pid file, based on output_name
     if (!args.ignore_running) {
-      const int needed_size = snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name) + 1;
+      const int needed_size = snprintf(BONGOCAT_NULLPTR, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name) + 1;
       assert(needed_size >= 0);
       ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
-      if (ctx.pid_filename != nullptr) {
+      if (ctx.pid_filename != BONGOCAT_NULLPTR) {
         snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_TEMPLATE,
                  ctx.config.output_name);
       }
     } else {
-      const int needed_size =
-          snprintf(nullptr, 0, PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name, platform::slow_rand()) + 1;
+      const int needed_size = snprintf(BONGOCAT_NULLPTR, 0, PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name,
+                                       platform::slow_rand()) +
+                              1;
       assert(needed_size >= 0);
       ctx.pid_filename = static_cast<char *>(::malloc(static_cast<size_t>(needed_size)));
-      if (ctx.pid_filename != nullptr) {
+      if (ctx.pid_filename != BONGOCAT_NULLPTR) {
         snprintf(ctx.pid_filename, static_cast<size_t>(needed_size), PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE,
                  ctx.config.output_name, platform::slow_rand());
       }
     }
 
-    if (ctx.pid_filename == nullptr) {
-      if (args.config_file == nullptr && get_main_context().default_config_filename) {
+    if (ctx.pid_filename == BONGOCAT_NULLPTR) {
+      if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
         ::free(get_main_context().default_config_filename);
-        get_main_context().default_config_filename = nullptr;
+        get_main_context().default_config_filename = BONGOCAT_NULLPTR;
       }
       BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
       return EXIT_FAILURE;
@@ -999,18 +1026,18 @@ int main(int argc, char *argv[]) {
   // Create PID file to track this instance
   const platform::FileDescriptor pid_fd = process_create_pid_file(ctx.pid_filename);
   if (pid_fd._fd < 0) {
-    if (args.config_file == nullptr && get_main_context().default_config_filename) {
+    if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
       ::free(get_main_context().default_config_filename);
-      get_main_context().default_config_filename = nullptr;
+      get_main_context().default_config_filename = BONGOCAT_NULLPTR;
     }
     BONGOCAT_LOG_ERROR("Failed to create PID file");
     return EXIT_FAILURE;
   }
   if (!args.ignore_running) {
     if (pid_fd._fd == -2) {
-      if (args.config_file == nullptr && get_main_context().default_config_filename) {
+      if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
         ::free(get_main_context().default_config_filename);
-        get_main_context().default_config_filename = nullptr;
+        get_main_context().default_config_filename = BONGOCAT_NULLPTR;
       }
       BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
       return EXIT_FAILURE;
@@ -1021,11 +1048,11 @@ int main(int argc, char *argv[]) {
 
   // Setup signal handlers
   ctx.signal_watch_path = config_file;
-  bongocat_error_t signal_result = signal_setup_handlers(ctx);
+  const bongocat_error_t signal_result = signal_setup_handlers(ctx);
   if (signal_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-    if (args.config_file == nullptr && get_main_context().default_config_filename) {
+    if (args.config_file == BONGOCAT_NULLPTR && get_main_context().default_config_filename != BONGOCAT_NULLPTR) {
       ::free(get_main_context().default_config_filename);
-      get_main_context().default_config_filename = nullptr;
+      get_main_context().default_config_filename = BONGOCAT_NULLPTR;
     }
     BONGOCAT_LOG_ERROR("Failed to setup signal handlers: %s", bongocat::error_string(signal_result));
     return EXIT_FAILURE;
@@ -1049,9 +1076,9 @@ int main(int argc, char *argv[]) {
     system_cleanup_and_exit(ctx, EXIT_FAILURE);
   }
 
-  assert(ctx.input != nullptr);
-  assert(ctx.animation != nullptr);
-  assert(ctx.wayland != nullptr);
+  assert(ctx.input != BONGOCAT_NULLPTR);
+  assert(ctx.animation != BONGOCAT_NULLPTR);
+  assert(ctx.wayland != BONGOCAT_NULLPTR);
 
   if (abs(ctx.config.cat_x_offset) > ctx.wayland->wayland_context._screen_width) {
     BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)", ctx.config.cat_x_offset,
@@ -1065,8 +1092,8 @@ int main(int argc, char *argv[]) {
   // trigger initial rendering
   platform::wayland::request_render(*ctx.animation);
   // Main Wayland event loop with graceful shutdown
-  assert(ctx.wayland != nullptr);
-  assert(ctx.input != nullptr);
+  assert(ctx.wayland != BONGOCAT_NULLPTR);
+  assert(ctx.input != BONGOCAT_NULLPTR);
   /// @NOTE: config_watcher os optional
   result = run(*ctx.wayland, ctx.running, ctx.signal_fd._fd, *ctx.input, ctx.config, ctx.config_watcher.ptr,
                config_reload_callback);
@@ -1078,6 +1105,7 @@ int main(int argc, char *argv[]) {
   BONGOCAT_LOG_INFO("Main loop exited, shutting down");
   system_cleanup_and_exit(ctx, EXIT_SUCCESS);
 
+  BONGOCAT_UNREACHABLE();
   // Never reached
   // return EXIT_SUCCESS;
 }

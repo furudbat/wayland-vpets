@@ -62,7 +62,7 @@ inline static constexpr size_t TEST_STDIN_BUF_LEN = 256;
 
 static input_hand_mapping_t get_hand_mapping_form_keycode([[maybe_unused]] const input_context_t& input, int keycode) {
   // read-only config
-  assert(input._local_copy_config != nullptr);
+  assert(input._local_copy_config);
   // const config::config_t& current_config = *input._local_copy_config;
 
   for (size_t i = 0; i < LEN_ARRAY(INPUT_LEFT_KEYS); i++) {
@@ -75,9 +75,10 @@ static input_hand_mapping_t get_hand_mapping_form_keycode([[maybe_unused]] const
 
 static void cleanup_input_devices_paths(input_context_t& input, size_t device_paths_count) {
   for (size_t i = 0; i < device_paths_count; i++) {
-    if (input._device_paths[i])
+    if (input._device_paths[i] != BONGOCAT_NULLPTR) {
       ::free(input._device_paths[i]);
-    input._device_paths[i] = nullptr;
+      input._device_paths[i] = BONGOCAT_NULLPTR;
+    }
   }
   release_allocated_array(input._device_paths);
 }
@@ -88,18 +89,20 @@ static void cleanup_input_thread_context(input_context_t& input) {
   release_allocated_array(input._unique_paths_indices);
   input._unique_paths_indices_capacity = 0;
   release_allocated_array(input._unique_devices);
-  if (input._udev_mon)
+  if (input._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(input._udev_mon);
-  if (input._udev)
+    input._udev_mon = BONGOCAT_NULLPTR;
+  }
+  if (input._udev != BONGOCAT_NULLPTR) {
     udev_unref(input._udev);
-  input._udev_mon = nullptr;
-  input._udev = nullptr;
+    input._udev = BONGOCAT_NULLPTR;
+  }
   input._udev_fd = -1;
 }
 
 static void cleanup_input_thread(void *arg) {
   assert(arg);
-  animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
+  const animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
   assert(trigger_ctx._input);
   input_context_t& input = *trigger_ctx._input;
 
@@ -126,7 +129,7 @@ inline static void trigger_key_press(animation::animation_session_t& trigger_ctx
   input_context_t& input = *trigger_ctx._input;
 
   // read-only config
-  assert(input._local_copy_config != nullptr);
+  assert(input._local_copy_config);
   const config::config_t& current_config = *input._local_copy_config;
 
   int timeout = INPUT_POOL_TIMEOUT_MS;
@@ -138,7 +141,7 @@ inline static void trigger_key_press(animation::animation_session_t& trigger_ctx
 
   const timestamp_ms_t now = get_current_time_ms();
   const time_ms_t duration_ms = now - input._latest_kpm_update_ms;
-  time_ms_t min_key_press_check_time_ms = timeout * 2;
+  time_ms_t min_key_press_check_time_ms = timeout * 2L;
   if (current_config.input_fps > 0) {
     min_key_press_check_time_ms = 2000 / current_config.input_fps;
   } else if (current_config.fps > 0) {
@@ -162,7 +165,7 @@ inline static void trigger_key_press(animation::animation_session_t& trigger_ctx
   input.shm->last_key_pressed_timestamp = now;
   atomic_fetch_add(&input.shm->input_counter, 1);
   atomic_fetch_add(&input._input_kpm_counter, 1);
-  if (current_config.enable_hand_mapping && keycode != 0) {
+  if (current_config.enable_hand_mapping >= 1 && keycode != 0) {
     input.shm->hand_mapping = get_hand_mapping_form_keycode(input, keycode);
   } else {
     input.shm->hand_mapping = input_hand_mapping_t::None;
@@ -177,7 +180,7 @@ static FileDescriptor open_tty_nonblocking() {
     BONGOCAT_LOG_ERROR("dup stdin");
     return FileDescriptor(fd);
   }
-  int flags = fcntl(fd, F_GETFL, 0);
+  const int flags = fcntl(fd, F_GETFL, 0);
   if (flags < 0) {
     BONGOCAT_LOG_ERROR("fcntl getfl");
     close(fd);
@@ -204,7 +207,7 @@ struct sync_devices_options_result_t {
 };
 BONGOCAT_NODISCARD static created_result_t<sync_devices_options_result_t>
 sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
-  assert(input.shm != nullptr);
+  assert(input.shm);
 
   size_t valid_devices = 0;
   // Ensure buffer size
@@ -238,13 +241,13 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
 
     // Resolve to canonical path
     char resolved[PATH_MAX];
-    const char *candidate = nullptr;
+    const char *candidate = BONGOCAT_NULLPTR;
     input_unique_file_type_t new_type = input_unique_file_type_t::File;
 
     struct stat lst{};
     if (lstat(device_path, &lst) == 0 && S_ISLNK(lst.st_mode)) {
       new_type = input_unique_file_type_t::Symlink;
-      if (realpath(device_path, resolved)) {
+      if (realpath(device_path, resolved) != BONGOCAT_NULLPTR) {
         candidate = resolved;
       } else {
         BONGOCAT_LOG_WARNING("Broken symlink: %s", device_path);
@@ -266,13 +269,14 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
     bool duplicate = false;
     for (size_t j = 0; j < num_unique_devices; j++) {
       const input_unique_file_t& prev = input._unique_devices[j];
-      if (prev.canonical_path && strcmp(prev.canonical_path, candidate) == 0) {
+      if (prev.canonical_path != BONGOCAT_NULLPTR && strcmp(prev.canonical_path, candidate) == 0) {
         duplicate = true;
         break;
       }
     }
-    if (duplicate)
+    if (duplicate) {
       continue;
+    }
 
     input_unique_file_t& cur = input._unique_devices[num_unique_devices];
     input._unique_paths_indices[num_unique_devices] = i;
@@ -280,11 +284,11 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
     // Decide if we need to replace real_device_path
     bool need_reopen = false;
     bool need_replace = false;
-    if (cur.canonical_path) {
+    if (cur.canonical_path != BONGOCAT_NULLPTR) {
       need_replace = strcmp(cur.canonical_path, candidate) != 0;
     }
     if (static_cast<bool>(cur.canonical_path) != static_cast<bool>(candidate)) {
-      need_reopen = !cur.canonical_path && candidate;
+      need_reopen = cur.canonical_path == BONGOCAT_NULLPTR && candidate != BONGOCAT_NULLPTR;
       need_replace = true;
     }
     if (!need_reopen && cur.type != new_type) {
@@ -313,8 +317,10 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
         if (cur.fd._fd >= 0 && is_open_device_valid(cur.fd._fd)) {
           // Replace canonical path if changed
           if (need_replace) {
-            if (cur.canonical_path)
+            if (cur.canonical_path != BONGOCAT_NULLPTR) {
               ::free(cur.canonical_path);
+              cur.canonical_path = BONGOCAT_NULLPTR;
+            }
             cur.canonical_path = ::strdup(candidate);
           }
           cur.type = new_type;
@@ -348,30 +354,32 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
 }
 
 static bongocat_error_t setup_udev_monitor(input_context_t& input) {
-  if (input._udev_mon)
+  if (input._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(input._udev_mon);
-  if (input._udev)
+    input._udev_mon = BONGOCAT_NULLPTR;
+  }
+  if (input._udev != BONGOCAT_NULLPTR) {
     udev_unref(input._udev);
-  input._udev_mon = nullptr;
-  input._udev = nullptr;
+    input._udev = BONGOCAT_NULLPTR;
+  }
   input._udev_fd = -1;
 
   input._udev = udev_new();
-  if (!input._udev) {
+  if (input._udev == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Failed to init udev\n");
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
   input._udev_mon = udev_monitor_new_from_netlink(input._udev, "udev");
-  if (!input._udev_mon) {
+  if (input._udev_mon == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Failed to create udev monitor\n");
     udev_unref(input._udev);
-    input._udev = nullptr;
+    input._udev = BONGOCAT_NULLPTR;
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
   // only care about input subsystem
-  udev_monitor_filter_add_match_subsystem_devtype(input._udev_mon, "input", nullptr);
+  udev_monitor_filter_add_match_subsystem_devtype(input._udev_mon, "input", BONGOCAT_NULLPTR);
   udev_monitor_enable_receiving(input._udev_mon);
 
   input._udev_fd = udev_monitor_get_fd(input._udev_mon);
@@ -387,36 +395,36 @@ static void *input_thread(void *arg) {
   // wait for input context (in animation start)
   trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
                                   COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
-  assert(trigger_ctx._input != nullptr);
+  assert(trigger_ctx._input != BONGOCAT_NULLPTR);
   input_context_t& input = *trigger_ctx._input;
 
   // sanity checks
-  assert(input._config != nullptr);
-  assert(input._configs_reloaded_cond != nullptr);
+  assert(input._config != BONGOCAT_NULLPTR);
+  assert(input._configs_reloaded_cond != BONGOCAT_NULLPTR);
   assert(!input._capture_input_running);
-  assert(input.shm != nullptr);
-  assert(input._local_copy_config != nullptr);
+  assert(input.shm);
+  assert(input._local_copy_config);
   assert(input.update_config_efd._fd >= 0);
 
   // keep local copies of device_paths
   {
     // read-only config
-    assert(input._local_copy_config != nullptr);
+    assert(input._local_copy_config);
     const config::config_t& current_config = *input._local_copy_config;
 
     assert(current_config.num_keyboard_devices >= 0);
-    int device_paths_count = current_config.num_keyboard_devices;
+    const int device_paths_count = current_config.num_keyboard_devices;
     const char *const *device_paths = current_config.keyboard_devices;
     assert(device_paths_count >= 0);
     input._device_paths = make_allocated_array<char *>(static_cast<size_t>(device_paths_count));
     for (size_t i = 0; i < input._device_paths.count; i++) {
       input._device_paths[i] = strdup(device_paths[i]);
-      if (!input._device_paths[i]) {
+      if (input._device_paths[i] == BONGOCAT_NULLPTR) {
         atomic_store(&input._capture_input_running, false);
         cleanup_input_devices_paths(input, i);
         cleanup_input_thread_context(input);
         BONGOCAT_LOG_ERROR("input: Failed to allocate memory for device_paths");
-        return nullptr;
+        return BONGOCAT_NULLPTR;
       }
     }
   }
@@ -432,7 +440,7 @@ static void *input_thread(void *arg) {
       atomic_store(&input._capture_input_running, false);
       cleanup_input_thread_context(input);
       BONGOCAT_LOG_ERROR("input: Failed to init devices and file descriptors");
-      return nullptr;
+      return BONGOCAT_NULLPTR;
     }
     [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
@@ -485,10 +493,10 @@ static void *input_thread(void *arg) {
     bool enable_debug = false;
     {
       // read-only config
-      assert(input._local_copy_config != nullptr);
+      assert(input._local_copy_config);
       const config::config_t& current_config = *input._local_copy_config;
 
-      enable_debug = current_config.enable_debug;
+      enable_debug = current_config.enable_debug >= 1;
 
       if (current_config.input_fps > 0) {
         timeout = 1000 / current_config.input_fps;
@@ -505,7 +513,7 @@ static void *input_thread(void *arg) {
     pfds[fds_udev_monitor_index] = {.fd = input._udev_fd, .events = POLLIN, .revents = 0};
 
     assert(fds_device_potential_start_index < SSIZE_MAX);
-    ssize_t fds_device_start_index =
+    const ssize_t fds_device_start_index =
         input._unique_devices.count > 0 ? static_cast<ssize_t>(fds_device_potential_start_index) : -1;
     ssize_t fds_device_end_index = input._unique_devices.count > 0 ? fds_device_start_index : -1;
     nfds_t nfds = fds_device_potential_start_index;
@@ -549,7 +557,7 @@ static void *input_thread(void *arg) {
     }
     {
       // read-only config
-      assert(input._local_copy_config != nullptr);
+      assert(input._local_copy_config);
       const config::config_t& current_config = *input._local_copy_config;
       if (device_nfds > MAX_DEVICE_FDS) {
         if (current_config._strict) {
@@ -674,8 +682,9 @@ static void *input_thread(void *arg) {
     // poll events
     const int poll_result = poll(pfds, nfds, timeout);
     if (poll_result < 0) {
-      if (errno == EINTR)
+      if (errno == EINTR) {
         continue;  // Interrupted by signal
+      }
       BONGOCAT_LOG_ERROR("input: Poll error: %s", strerror(errno));
       break;
     }
@@ -688,8 +697,9 @@ static void *input_thread(void *arg) {
         for (size_t i = 0; i < input._unique_devices.count; i++) {
           const char *device_path = input._unique_devices[i].canonical_path;
           bool need_reopen = false;
-          if (device_path == nullptr)
+          if (device_path == BONGOCAT_NULLPTR) {
             continue;
+          }
           // If an fd is already open, check if it is still valid
           if (input._unique_devices[i].fd._fd >= 0) {
             if (!is_open_device_valid(input._unique_devices[i].fd._fd)) {
@@ -803,12 +813,12 @@ static void *input_thread(void *arg) {
     if (pfds[fds_udev_monitor_index].revents & POLLIN) {
       BONGOCAT_LOG_DEBUG("input: Receive udev event");
       size_t attempts = 0;
-      udev_device *dev = nullptr;
-      while ((dev = udev_monitor_receive_device(input._udev_mon)) != nullptr && attempts < MAX_ATTEMPTS) {
+      udev_device *dev = BONGOCAT_NULLPTR;
+      while ((dev = udev_monitor_receive_device(input._udev_mon)) != BONGOCAT_NULLPTR && attempts < MAX_ATTEMPTS) {
         const char *action = udev_device_get_action(dev);
         const char *node = udev_device_get_devnode(dev);
 
-        if (action && node) {
+        if (action != BONGOCAT_NULLPTR && node != BONGOCAT_NULLPTR) {
           BONGOCAT_LOG_VERBOSE("input: udev %s: %s", action, node);
           if (strcmp(action, "add") == 0 || strcmp(action, "remove") == 0) {
             sync_devices_needed = true;
@@ -823,7 +833,7 @@ static void *input_thread(void *arg) {
     }
 
     // Handle config update
-    assert(input._config_generation != nullptr);
+    assert(input._config_generation != BONGOCAT_NULLPTR);
     bool reload_config = false;
     uint64_t new_gen{atomic_load(input._config_generation)};
     if (pfds[fds_update_config_index].revents & POLLIN) {
@@ -836,7 +846,7 @@ static void *input_thread(void *arg) {
     // Handle device events
     {
       platform::LockGuard guard(input.input_lock);
-      assert(input.shm != nullptr);
+      assert(input.shm);
       // auto& input_shm = *input.shm;
 
       if (fds_device_start_index >= 0) {
@@ -849,10 +859,12 @@ static void *input_thread(void *arg) {
             // handle evdev input
             const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
             if (rd < 0) {
-              if (errno == ENODEV)
+              if (errno == ENODEV) {
                 sync_devices_needed = true;
-              if (errno == EAGAIN)
+              }
+              if (errno == EAGAIN) {
                 continue;
+              }
               BONGOCAT_LOG_WARNING("input: Read error on fd=%d: %s", pfds[p].fd, strerror(errno));
               close(pfds[p].fd);
               // pfds[p].fd is only a reference, reset also the owner (unique_fd)
@@ -962,9 +974,9 @@ static void *input_thread(void *arg) {
           if (got_key) {
             trigger_key_press(trigger_ctx);
             if (enable_debug) {
-              size_t len = (rd > 0) ? (static_cast<size_t>(rd) < TEST_STDIN_BUF_LEN ? static_cast<size_t>(rd)
-                                                                                    : TEST_STDIN_BUF_LEN - 1)
-                                    : 0;
+              const size_t len = (rd > 0) ? (static_cast<size_t>(rd) < TEST_STDIN_BUF_LEN ? static_cast<size_t>(rd)
+                                                                                          : TEST_STDIN_BUF_LEN - 1)
+                                          : 0;
               buf[len] = '\0';
               BONGOCAT_LOG_VERBOSE("input: stdin input: %s", buf);
             }
@@ -991,9 +1003,9 @@ static void *input_thread(void *arg) {
 
     // handle update config
     if (reload_config) {
-      assert(input._config_generation != nullptr);
-      assert(input._configs_reloaded_cond != nullptr);
-      assert(input._config != nullptr);
+      assert(input._config_generation != BONGOCAT_NULLPTR);
+      assert(input._configs_reloaded_cond != BONGOCAT_NULLPTR);
+      assert(input._config != BONGOCAT_NULLPTR);
 
       update_config(input, *input._config, new_gen);
 
@@ -1028,20 +1040,20 @@ static void *input_thread(void *arg) {
   // done when callback cleanup_input_thread
   // cleanup_input_thread_context(arg);
   // sanity check for clean up
-  assert(input._device_paths == nullptr);
-  assert(input._unique_devices == nullptr);
-  assert(input._unique_paths_indices == nullptr);
+  assert(input._device_paths == BONGOCAT_NULLPTR);
+  assert(input._unique_devices == BONGOCAT_NULLPTR);
+  assert(input._unique_paths_indices == BONGOCAT_NULLPTR);
   assert(input._unique_paths_indices_capacity == 0);
 
   BONGOCAT_LOG_INFO("Input monitoring stopped");
 
-  return nullptr;
+  return BONGOCAT_NULLPTR;
 }
 
 created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t& config) {
   AllocatedMemory<input_context_t> ret = make_allocated_memory<input_context_t>();
-  assert(ret != nullptr);
-  if (ret == nullptr) {
+  assert(ret);
+  if (ret == BONGOCAT_NULLPTR) [[unlikely]] {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
   if (config.num_keyboard_devices <= 0) {
@@ -1073,7 +1085,7 @@ created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(ret->_local_copy_config != nullptr);
+  assert(ret->_local_copy_config);
   *ret->_local_copy_config = config;
 
   ret->update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
@@ -1119,7 +1131,7 @@ bongocat_error_t start(input_context_t& input, animation::animation_session_t& t
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(input._local_copy_config != nullptr);
+  assert(input._local_copy_config);
   update_config(input, config, atomic_load(&config_generation));
 
   // wait for animation trigger to be ready (input should be the same)
@@ -1146,7 +1158,7 @@ bongocat_error_t start(input_context_t& input, animation::animation_session_t& t
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring thread
-  const int result = pthread_create(&input._input_thread, nullptr, input_thread, &trigger_ctx);
+  const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &trigger_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -1186,7 +1198,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_session_t&
   // Start new monitoring (reuse shared memory if it exists)
   {
     LockGuard guard(input.input_lock);
-    if (input.shm == nullptr) {
+    if (!input.shm) {
       input.shm = make_allocated_mmap<input_shared_memory_t>();
       if (input.shm.ptr == MAP_FAILED) {
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
@@ -1202,7 +1214,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_session_t&
       return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
     }
   }
-  assert(input._local_copy_config != nullptr);
+  assert(input._local_copy_config);
   update_config(input, config, atomic_load(&config_generation));
 
   if (input.update_config_efd._fd < 0) {
@@ -1231,7 +1243,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_session_t&
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring
-  const int result = pthread_create(&input._input_thread, nullptr, input_thread, &trigger_ctx);
+  const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &trigger_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -1253,9 +1265,9 @@ void stop(input_context_t& ctx) {
   }
   ctx._input_thread = 0;
 
-  ctx._config = nullptr;
-  ctx._configs_reloaded_cond = nullptr;
-  ctx._config_generation = nullptr;
+  ctx._config = BONGOCAT_NULLPTR;
+  ctx._configs_reloaded_cond = BONGOCAT_NULLPTR;
+  ctx._config_generation = BONGOCAT_NULLPTR;
 
   ctx.config_updated.notify_all();
   atomic_store(&ctx.ready, false);
@@ -1275,7 +1287,7 @@ void trigger_update_config(input_context_t& input, const config::config_t& confi
 }
 
 void update_config(input_context_t& input, const config::config_t& config, uint64_t new_gen) {
-  assert(input._local_copy_config != nullptr);
+  assert(input._local_copy_config);
 
   *input._local_copy_config = config;
 

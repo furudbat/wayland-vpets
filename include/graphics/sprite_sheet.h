@@ -232,17 +232,17 @@ struct animation_t {
     custom_sprite_sheet_t custom;
     generic_sprite_sheet_t sprite_sheet;
   };
-  enum class Type : uint8_t {
+  enum class type_t : uint8_t {
     Generic,
     Bongocat,
     Dm,
     MsAgent,
     Pkmn,
     Custom
-  } type{Type::Generic};
+  } type{type_t::Generic};
 
   animation_t() {
-    sprite_sheet.image.pixels.data = nullptr;
+    sprite_sheet.image.pixels.data = BONGOCAT_NULLPTR;
     sprite_sheet.image.pixels.count = 0;
     sprite_sheet.image.channels = 0;
     sprite_sheet.image.sprite_sheet_width = 0;
@@ -253,7 +253,7 @@ struct animation_t {
     for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
       sprite_sheet.frames[i] = {};
     }
-    type = Type::Generic;
+    type = type_t::Generic;
   }
   ~animation_t() {
     cleanup_animation(*this);
@@ -262,22 +262,22 @@ struct animation_t {
   animation_t(const animation_t& other) {
     type = other.type;
     switch (other.type) {
-    case Type::Bongocat:
+    case type_t::Bongocat:
       bongocat = other.bongocat;
       break;
-    case Type::Dm:
+    case type_t::Dm:
       dm = other.dm;
       break;
-    case Type::MsAgent:
+    case type_t::MsAgent:
       ms_agent = other.ms_agent;
       break;
-    case Type::Pkmn:
+    case type_t::Pkmn:
       pkmn = other.pkmn;
       break;
-    case Type::Custom:
+    case type_t::Custom:
       custom = other.custom;
       break;
-    case Type::Generic:
+    case type_t::Generic:
       sprite_sheet = other.sprite_sheet;
       break;
     }
@@ -287,22 +287,22 @@ struct animation_t {
       cleanup_animation(*this);
       type = other.type;
       switch (other.type) {
-      case Type::Bongocat:
+      case type_t::Bongocat:
         bongocat = other.bongocat;
         break;
-      case Type::Dm:
+      case type_t::Dm:
         dm = other.dm;
         break;
-      case Type::MsAgent:
+      case type_t::MsAgent:
         ms_agent = other.ms_agent;
         break;
-      case Type::Pkmn:
+      case type_t::Pkmn:
         pkmn = other.pkmn;
         break;
-      case Type::Custom:
+      case type_t::Custom:
         custom = other.custom;
         break;
-      case Type::Generic:
+      case type_t::Generic:
         sprite_sheet = other.sprite_sheet;
         break;
       }
@@ -313,26 +313,26 @@ struct animation_t {
   animation_t(animation_t&& other) noexcept {
     type = other.type;
     switch (other.type) {
-    case Type::Bongocat:
+    case type_t::Bongocat:
       new (&bongocat) bongocat_sprite_sheet_t(bongocat::move(other.bongocat));
       break;
-    case Type::Dm:
+    case type_t::Dm:
       new (&dm) dm_sprite_sheet_t(bongocat::move(other.dm));
       break;
-    case Type::MsAgent:
+    case type_t::MsAgent:
       new (&ms_agent) ms_agent_sprite_sheet_t(bongocat::move(other.ms_agent));
       break;
-    case Type::Pkmn:
+    case type_t::Pkmn:
       new (&pkmn) pkmn_sprite_sheet_t(bongocat::move(other.pkmn));
       break;
-    case Type::Custom:
+    case type_t::Custom:
       new (&custom) custom_sprite_sheet_t(bongocat::move(other.custom));
       break;
-    case Type::Generic:
+    case type_t::Generic:
       new (&sprite_sheet) generic_sprite_sheet_t(bongocat::move(other.sprite_sheet));
       break;
     }
-    other.type = Type::Generic;
+    other.type = type_t::Generic;
     new (&other.sprite_sheet) generic_sprite_sheet_t();
   }
   animation_t& operator=(animation_t&& other) noexcept {
@@ -340,26 +340,26 @@ struct animation_t {
       cleanup_animation(*this);
       type = other.type;
       switch (other.type) {
-      case Type::Bongocat:
+      case type_t::Bongocat:
         new (&bongocat) bongocat_sprite_sheet_t(bongocat::move(other.bongocat));
         break;
-      case Type::Dm:
+      case type_t::Dm:
         new (&dm) dm_sprite_sheet_t(bongocat::move(other.dm));
         break;
-      case Type::MsAgent:
+      case type_t::MsAgent:
         new (&ms_agent) ms_agent_sprite_sheet_t(bongocat::move(other.ms_agent));
         break;
-      case Type::Pkmn:
+      case type_t::Pkmn:
         new (&pkmn) pkmn_sprite_sheet_t(bongocat::move(other.pkmn));
         break;
-      case Type::Custom:
+      case type_t::Custom:
         new (&custom) custom_sprite_sheet_t(bongocat::move(other.custom));
         break;
-      case Type::Generic:
+      case type_t::Generic:
         new (&sprite_sheet) generic_sprite_sheet_t(bongocat::move(other.sprite_sheet));
         break;
       }
-      other.type = Type::Generic;
+      other.type = type_t::Generic;
       new (&other.sprite_sheet) generic_sprite_sheet_t();
     }
     return *this;
@@ -367,56 +367,56 @@ struct animation_t {
 
   explicit animation_t(bongocat_sprite_sheet_t&& sheet) noexcept
       : bongocat(bongocat::move(sheet))
-      , type(Type::Bongocat) {}
+      , type(type_t::Bongocat) {}
 
-  explicit animation_t(dm_sprite_sheet_t&& sheet) noexcept : dm(bongocat::move(sheet)), type(Type::Dm) {}
+  explicit animation_t(dm_sprite_sheet_t&& sheet) noexcept : dm(bongocat::move(sheet)), type(type_t::Dm) {}
 
   explicit animation_t(ms_agent_sprite_sheet_t&& sheet) noexcept
       : ms_agent(bongocat::move(sheet))
-      , type(Type::MsAgent) {}
+      , type(type_t::MsAgent) {}
 
-  explicit animation_t(pkmn_sprite_sheet_t&& sheet) noexcept : pkmn(bongocat::move(sheet)), type(Type::Pkmn) {}
+  explicit animation_t(pkmn_sprite_sheet_t&& sheet) noexcept : pkmn(bongocat::move(sheet)), type(type_t::Pkmn) {}
 
-  explicit animation_t(custom_sprite_sheet_t&& sheet) noexcept : custom(bongocat::move(sheet)), type(Type::Custom) {}
+  explicit animation_t(custom_sprite_sheet_t&& sheet) noexcept : custom(bongocat::move(sheet)), type(type_t::Custom) {}
 
   explicit animation_t(generic_sprite_sheet_t&& sheet) noexcept
       : sprite_sheet(bongocat::move(sheet))
-      , type(Type::Generic) {}
+      , type(type_t::Generic) {}
 
   animation_t& operator=(bongocat_sprite_sheet_t&& sheet) noexcept {
     cleanup_animation(*this);
     new (&bongocat) bongocat_sprite_sheet_t(bongocat::move(sheet));
-    type = Type::Bongocat;
+    type = type_t::Bongocat;
     return *this;
   }
   animation_t& operator=(dm_sprite_sheet_t&& sheet) noexcept {
     cleanup_animation(*this);
     new (&dm) dm_sprite_sheet_t(bongocat::move(sheet));
-    type = Type::Dm;
+    type = type_t::Dm;
     return *this;
   }
   animation_t& operator=(ms_agent_sprite_sheet_t&& sheet) noexcept {
     cleanup_animation(*this);
     new (&ms_agent) ms_agent_sprite_sheet_t(bongocat::move(sheet));
-    type = Type::MsAgent;
+    type = type_t::MsAgent;
     return *this;
   }
   animation_t& operator=(pkmn_sprite_sheet_t&& sheet) noexcept {
     cleanup_animation(*this);
     new (&pkmn) pkmn_sprite_sheet_t(bongocat::move(sheet));
-    type = Type::Pkmn;
+    type = type_t::Pkmn;
     return *this;
   }
   animation_t& operator=(custom_sprite_sheet_t&& sheet) noexcept {
     cleanup_animation(*this);
     new (&custom) custom_sprite_sheet_t(bongocat::move(sheet));
-    type = Type::Custom;
+    type = type_t::Custom;
     return *this;
   }
   animation_t& operator=(generic_sprite_sheet_t&& sheet) noexcept {
     cleanup_animation(*this);
     new (&sprite_sheet) generic_sprite_sheet_t(bongocat::move(sheet));
-    type = Type::Generic;
+    type = type_t::Generic;
     return *this;
   }
 };
@@ -520,7 +520,7 @@ inline void cleanup_animation(custom_sprite_sheet_t& sprite_sheet) {
 }
 inline void cleanup_animation(animation_t& anim) {
   switch (anim.type) {
-  case animation_t::Type::Bongocat:
+  case animation_t::type_t::Bongocat:
     release_allocated_array(anim.bongocat.image.pixels);
     anim.bongocat.image.sprite_sheet_width = 0;
     anim.bongocat.image.sprite_sheet_height = 0;
@@ -528,7 +528,7 @@ inline void cleanup_animation(animation_t& anim) {
     anim.bongocat.frame_width = 0;
     anim.bongocat.frame_height = 0;
     break;
-  case animation_t::Type::Dm:
+  case animation_t::type_t::Dm:
     release_allocated_array(anim.dm.image.pixels);
     anim.dm.image.sprite_sheet_width = 0;
     anim.dm.image.sprite_sheet_height = 0;
@@ -538,7 +538,7 @@ inline void cleanup_animation(animation_t& anim) {
 
     anim.dm.total_frames = 0;
     break;
-  case animation_t::Type::MsAgent:
+  case animation_t::type_t::MsAgent:
     release_allocated_array(anim.ms_agent.image.pixels);
     anim.ms_agent.image.sprite_sheet_width = 0;
     anim.ms_agent.image.sprite_sheet_height = 0;
@@ -546,7 +546,7 @@ inline void cleanup_animation(animation_t& anim) {
     anim.ms_agent.frame_width = 0;
     anim.ms_agent.frame_height = 0;
     break;
-  case animation_t::Type::Pkmn:
+  case animation_t::type_t::Pkmn:
     release_allocated_array(anim.pkmn.image.pixels);
     anim.pkmn.image.sprite_sheet_width = 0;
     anim.pkmn.image.sprite_sheet_height = 0;
@@ -554,7 +554,7 @@ inline void cleanup_animation(animation_t& anim) {
     anim.pkmn.frame_width = 0;
     anim.pkmn.frame_height = 0;
     break;
-  case animation_t::Type::Custom:
+  case animation_t::type_t::Custom:
     release_allocated_array(anim.custom.image.pixels);
     anim.custom.image.sprite_sheet_width = 0;
     anim.custom.image.sprite_sheet_height = 0;
@@ -562,7 +562,7 @@ inline void cleanup_animation(animation_t& anim) {
     anim.custom.frame_width = 0;
     anim.custom.frame_height = 0;
     break;
-  case animation_t::Type::Generic:
+  case animation_t::type_t::Generic:
     release_allocated_array(anim.sprite_sheet.image.pixels);
     anim.sprite_sheet.image.sprite_sheet_width = 0;
     anim.sprite_sheet.image.sprite_sheet_height = 0;

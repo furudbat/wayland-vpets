@@ -27,13 +27,13 @@
 
 namespace bongocat::animation {
 struct decode_state_t {
-  Image *image{nullptr};
+  Image *image{BONGOCAT_NULLPTR};
   int desired_channels{RGBA_CHANNELS};
 };
 created_result_t<Image> load_image(const unsigned char *data, size_t size, int desired_channels) {
   Image ret;
   pngle_t *pngle = pngle_new();
-  if (!pngle) {
+  if (pngle == BONGOCAT_NULLPTR) {
     return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
   }
 
@@ -51,10 +51,11 @@ created_result_t<Image> load_image(const unsigned char *data, size_t size, int d
       img->width = static_cast<int>(pngle_get_width(p_pngle));
       img->height = static_cast<int>(pngle_get_height(p_pngle));
       img->channels = channels;  // pngle always gives RGBA
-      size_t buf_size = pngle_get_width(p_pngle) * pngle_get_height(p_pngle) * channels;
+      const size_t buf_size = pngle_get_width(p_pngle) * pngle_get_height(p_pngle) * channels;
       img->pixels = static_cast<unsigned char *>(::malloc(buf_size));
-      if (!img->pixels)
+      if (img->pixels == BONGOCAT_NULLPTR) {
         return;
+      }
     }
 
     unsigned char *dst = &img->pixels[(y * pngle_get_width(p_pngle) + x) * channels];
@@ -70,15 +71,18 @@ created_result_t<Image> load_image(const unsigned char *data, size_t size, int d
   const int fed = pngle_feed(pngle, data, size);
   if (fed < 0) {
     pngle_destroy(pngle);
-    if (ret.pixels)
+    pngle = BONGOCAT_NULLPTR;
+    if (ret.pixels != BONGOCAT_NULLPTR) {
       ::free(ret.pixels);
-    ret.pixels = nullptr;
+      ret.pixels = BONGOCAT_NULLPTR;
+    }
     return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
   }
 
   pngle_destroy(pngle);
+  pngle = BONGOCAT_NULLPTR;
 
-  if (!ret.pixels) {
+  if (ret.pixels == BONGOCAT_NULLPTR) {
     return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
   }
 
@@ -95,9 +99,10 @@ created_result_t<Image> load_image(const unsigned char *data, size_t size, int d
 }
 
 void cleanup_image(Image& image) {
-  if (image.pixels)
+  if (image.pixels != BONGOCAT_NULLPTR) {
     ::free(image.pixels);
-  image.pixels = nullptr;
+    image.pixels = BONGOCAT_NULLPTR;
+  }
 }
 
 void init_image_loader() {}

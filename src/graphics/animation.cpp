@@ -68,9 +68,9 @@ static bool is_sleep_time(const config::config_t& config) {
   time(&raw_time);
   localtime_r(&raw_time, &time_info);
 
-  const int now_minutes = time_info.tm_hour * 60 + time_info.tm_min;
-  const int begin = config.sleep_begin.hour * 60 + config.sleep_begin.min;
-  const int end = config.sleep_end.hour * 60 + config.sleep_end.min;
+  const int now_minutes = (time_info.tm_hour * 60) + time_info.tm_min;
+  const int begin = (config.sleep_begin.hour * 60) + config.sleep_begin.min;
+  const int end = (config.sleep_end.hour * 60) + config.sleep_end.min;
 
   // Normal range (e.g., 10:00–22:00): begin < end && (now_minutes >= begin && now_minutes < end)
   // Overnight range (e.g., 22:00–06:00): begin > end && (now_minutes >= begin || now_minutes < end)
@@ -183,7 +183,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_co
                                              [[maybe_unused]] const platform::update::update_context_t& upd,
                                              const animation_state_t& current_state, const animation_trigger_t& trigger,
                                              const config::config_t& current_config) {
-  assert(input.shm != nullptr);
+  assert(input.shm);
   const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
   const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
@@ -193,17 +193,19 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_co
       has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger.any_key_press_counter > 0;
 
   const bool process_idle_animation_by_animation_speed =
-      current_config.idle_animation && current_config.animation_speed_ms > 0 &&
+      current_config.idle_animation >= 1 && current_config.animation_speed_ms > 0 &&
       current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
-  const bool process_idle_animation_by_fps = current_config.idle_animation && current_config.animation_speed_ms <= 0 &&
+  const bool process_idle_animation_by_fps = current_config.idle_animation >= 1 &&
+                                             current_config.animation_speed_ms <= 0 &&
                                              current_state.frame_delta_ms_counter > fps_ms;
   const bool process_idle_animation = process_idle_animation_by_animation_speed || process_idle_animation_by_fps;
 
-  const bool release_frame_by_animation_speed = !current_config.idle_animation &&
+  const bool release_frame_by_animation_speed = current_config.idle_animation <= 0 &&
                                                 current_config.animation_speed_ms > 0 &&
                                                 current_state.hold_frame_ms > current_config.animation_speed_ms;
-  const bool release_frame_animation_by_fps =
-      !current_config.idle_animation && current_config.animation_speed_ms <= 0 && current_state.hold_frame_ms > fps_ms;
+  const bool release_frame_animation_by_fps = current_config.idle_animation <= 0 &&
+                                              current_config.animation_speed_ms <= 0 &&
+                                              current_state.hold_frame_ms > fps_ms;
   const bool release_frame_for_non_idle = release_frame_by_animation_speed || release_frame_animation_by_fps;
   const bool go_next_frame = (current_config.animation_speed_ms > 0 &&
                               current_state.frame_delta_ms_counter > current_config.animation_speed_ms) ||
@@ -277,11 +279,11 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_co
       .any_key_pressed = any_key_pressed,
       .trigger_test_animation =
           current_config.test_animation_interval_sec > 0 &&
-          current_state.frame_delta_ms_counter > current_config.test_animation_interval_sec * 1000,
+          current_state.frame_delta_ms_counter > current_config.test_animation_interval_sec * 1000L,
       .check_for_idle_sleep =
           current_config.idle_sleep_timeout_sec > 0 &&
           ((SLEEP_BORING_PART > 0 &&
-            current_state.frame_delta_ms_counter > current_config.idle_sleep_timeout_sec * 1000 / SLEEP_BORING_PART &&
+            current_state.frame_delta_ms_counter > current_config.idle_sleep_timeout_sec * 1000L / SLEEP_BORING_PART &&
             last_key_pressed_timestamp > 0) ||
            process_idle_animation || process_movement),
       .process_movement = process_movement,
@@ -327,7 +329,7 @@ anim_update_animation_state(animation_shared_memory_t& anim_shm, animation_state
   state = new_state;
   if (new_state.animations_index != current_state.animations_index || rerender || moved) {
     anim_shm.animation_player_result = new_animation_result;
-    if (current_config.enable_debug) {
+    if (current_config.enable_debug >= 1) {
       BONGOCAT_LOG_VERBOSE("Animation frame change: %d", new_animation_result.sprite_sheet_col);
     }
     if (frame_changed) {
@@ -366,7 +368,7 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   assert(MAX_ANIMATION_FRAMES <= INT_MAX);
 
   // read-only config
-  assert(input._local_copy_config != nullptr);
+  assert(input._local_copy_config);
   const config::config_t& current_config = *input._local_copy_config;
 
   anim_bongocat_process_animation_result_t ret{.row_state = new_state.row_state,
@@ -391,20 +393,20 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   case animation_state_row_t::StartWriting:
   case animation_state_row_t::Writing:
   case animation_state_row_t::EndWriting:
-    if (current_config.enable_hand_mapping) {
+    if (current_config.enable_hand_mapping >= 1) {
       switch (input.shm->hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Left:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index]
-                                      : current_frames.animations.left_writing[new_state.animations_index];
+            (current_config.mirror_x >= 1) ? current_frames.animations.right_writing[new_state.animations_index]
+                                           : current_frames.animations.left_writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Right:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
-                                      : current_frames.animations.right_writing[new_state.animations_index];
+            (current_config.mirror_x >= 1) ? current_frames.animations.left_writing[new_state.animations_index]
+                                           : current_frames.animations.right_writing[new_state.animations_index];
         break;
       }
     } else {
@@ -458,7 +460,7 @@ anim_bongocat_restart_animation(animation_context_t& ctx, const platform::input:
   assert(MAX_ANIMATION_FRAMES <= INT_MAX);
 
   // read-only config
-  assert(input._local_copy_config != nullptr);
+  assert(input._local_copy_config);
   const config::config_t& current_config = *input._local_copy_config;
 
   new_state.row_state = new_row_state;
@@ -470,12 +472,12 @@ anim_bongocat_restart_animation(animation_context_t& ctx, const platform::input:
   switch (new_state.row_state) {
   case animation_state_row_t::Idle:
     new_animation_result.sprite_sheet_col = current_frames.animations.idle[new_state.animations_index];
-    if (current_config.idle_frame) {
+    if (current_config.idle_frame >= 1) {
       new_animation_result.sprite_sheet_col = current_config.idle_frame;
     }
     break;
   case animation_state_row_t::StartWriting: {
-    if (current_config.enable_hand_mapping) {
+    if (current_config.enable_hand_mapping >= 1) {
       switch (input.shm->hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_state.animations_index = static_cast<int>(ctx._rng.range(0, (MAX_ANIMATION_FRAMES - 1) / 2));
@@ -492,20 +494,20 @@ anim_bongocat_restart_animation(animation_context_t& ctx, const platform::input:
   }
   case animation_state_row_t::Writing:
   case animation_state_row_t::EndWriting:
-    if (current_config.enable_hand_mapping) {
+    if (current_config.enable_hand_mapping >= 1) {
       switch (input.shm->hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Left:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index]
-                                      : current_frames.animations.left_writing[new_state.animations_index];
+            (current_config.mirror_x >= 1) ? current_frames.animations.right_writing[new_state.animations_index]
+                                           : current_frames.animations.left_writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Right:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
-                                      : current_frames.animations.right_writing[new_state.animations_index];
+            (current_config.mirror_x >= 1) ? current_frames.animations.left_writing[new_state.animations_index]
+                                           : current_frames.animations.right_writing[new_state.animations_index];
         break;
       }
     } else {
@@ -667,11 +669,11 @@ anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::i
                               const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   const auto current_state = state;
@@ -679,7 +681,7 @@ anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::i
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
   assert(anim_shm.anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat);
-  assert(get_current_animation(ctx).type == animation_t::Type::Bongocat);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Bongocat);
   const auto& current_frames = get_current_animation(ctx).bongocat;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -729,13 +731,13 @@ anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::i
     anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
   }
 
-  const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
+  const bool is_sleeping_time = current_config.enable_scheduled_sleep >= 1 && is_sleep_time(current_config);
 
   // Idle Sleep
   if (conditions.check_for_idle_sleep) {
     if (!is_sleeping_time) {
       const platform::timestamp_ms_t now = platform::get_current_time_ms();
-      const platform::time_ms_t idle_sleep_timeout_ms = current_config.idle_sleep_timeout_sec * 1000;
+      const platform::time_ms_t idle_sleep_timeout_ms = current_config.idle_sleep_timeout_sec * 1000L;
       assert(now >= last_key_pressed_timestamp);
       const auto sleep_timeout = now - last_key_pressed_timestamp;
 
@@ -813,7 +815,7 @@ anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::i
   }
 
   // Sleep Mode
-  if (current_config.enable_scheduled_sleep) {
+  if (current_config.enable_scheduled_sleep >= 1) {
     if (is_sleeping_time) {
       if (current_state.row_state == animation_state_row_t::Idle) {
         anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Sleep, new_animation_result, new_state,
@@ -856,18 +858,18 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::Bongocat);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Bongocat);
   const auto& current_frames = get_current_animation(ctx).bongocat;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -1284,7 +1286,7 @@ anim_dm_handle_movement(animation_context_t& ctx, const platform::input::input_c
                         const dm_sprite_sheet_t& current_frames, const config::config_t& current_config) {
   using namespace assets;
 
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
   const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
@@ -1492,12 +1494,12 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& ctx
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
-  assert(upd.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
+  assert(upd.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
@@ -1505,7 +1507,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& ctx
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::Dm);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
   const auto& current_frames = get_current_animation(ctx).dm;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -1783,17 +1785,17 @@ anim_dm_key_pressed_next_frame(animation_context_t& ctx, const platform::input::
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  assert(get_current_animation(ctx).type == animation_t::Type::Dm);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
   const auto& current_frames = get_current_animation(ctx).dm;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -1899,12 +1901,12 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_context_t& 
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm);
   // assert(input.shm != nullptr);
-  assert(upd.shm != nullptr);
+  assert(upd.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
@@ -1912,7 +1914,7 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_context_t& 
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::Dm);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
   const auto& current_frames = get_current_animation(ctx).dm;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -2281,17 +2283,17 @@ anim_pkmn_idle_next_frame(animation_context_t& ctx, [[maybe_unused]] const platf
                           const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  assert(get_current_animation(ctx).type == animation_t::Type::Pkmn);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Pkmn);
   const auto& current_frames = get_current_animation(ctx).pkmn;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -2356,18 +2358,18 @@ anim_pkmn_key_pressed_next_frame(animation_context_t& ctx,
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::Pkmn);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Pkmn);
   const auto& current_frames = get_current_animation(ctx).pkmn;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -2430,65 +2432,65 @@ anim_ms_agent_process_animation(animation_player_result_t& new_animation_result,
   assert(MAX_ANIMATION_FRAMES > 0);
   assert(MAX_ANIMATION_FRAMES <= INT_MAX);
 
-  const ms_agent_sprite_sheet_animation_section_t *section = nullptr;
+  const ms_agent_sprite_sheet_animation_section_t *section = BONGOCAT_NULLPTR;
   switch (new_state.row_state) {
   case animation_state_row_t::Idle:
-    section = current_frames.idle.valid ? &current_frames.idle : nullptr;
+    section = current_frames.idle.valid ? &current_frames.idle : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWriting:
-    section = current_frames.start_writing.valid ? &current_frames.start_writing : nullptr;
+    section = current_frames.start_writing.valid ? &current_frames.start_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Writing:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWriting:
-    section = current_frames.end_writing.valid ? &current_frames.end_writing : nullptr;
+    section = current_frames.end_writing.valid ? &current_frames.end_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Happy:
-    section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+    section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::FallASleep:
     // use sleep animation for ms agent
-    section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Sleep:
-    section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::WakeUp:
-    section = current_frames.wake_up.valid ? &current_frames.wake_up : nullptr;
+    section = current_frames.wake_up.valid ? &current_frames.wake_up : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Boring:
-    section = current_frames.boring.valid ? &current_frames.boring : nullptr;
+    section = current_frames.boring.valid ? &current_frames.boring : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Test:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWorking:
-    section = current_frames.start_working.valid ? &current_frames.start_working : nullptr;
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Working:
-    section = current_frames.working.valid ? &current_frames.working : nullptr;
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWorking:
-    section = current_frames.end_working.valid ? &current_frames.end_working : nullptr;
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartMoving:
-    section = current_frames.start_moving.valid ? &current_frames.start_moving : nullptr;
+    section = current_frames.start_moving.valid ? &current_frames.start_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Moving:
-    section = current_frames.moving.valid ? &current_frames.moving : nullptr;
+    section = current_frames.moving.valid ? &current_frames.moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndMoving:
-    section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
+    section = current_frames.end_moving.valid ? &current_frames.end_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartRunning:
-    section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+    section = current_frames.start_running.valid ? &current_frames.start_running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Running:
-    section = current_frames.running.valid ? &current_frames.running : nullptr;
+    section = current_frames.running.valid ? &current_frames.running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndRunning:
-    section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+    section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
     break;
   }
 
@@ -2533,64 +2535,64 @@ anim_ms_agent_restart_animation([[maybe_unused]] animation_context_t& ctx, anima
   assert(MAX_ANIMATION_FRAMES > 0);
   assert(MAX_ANIMATION_FRAMES <= INT_MAX);
 
-  const ms_agent_sprite_sheet_animation_section_t *section = nullptr;
+  const ms_agent_sprite_sheet_animation_section_t *section = BONGOCAT_NULLPTR;
   switch (new_row_state) {
   case animation_state_row_t::Idle:
-    section = current_frames.idle.valid ? &current_frames.idle : nullptr;
+    section = current_frames.idle.valid ? &current_frames.idle : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWriting:
-    section = current_frames.start_writing.valid ? &current_frames.start_writing : nullptr;
+    section = current_frames.start_writing.valid ? &current_frames.start_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Writing:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWriting:
-    section = current_frames.end_writing.valid ? &current_frames.end_writing : nullptr;
+    section = current_frames.end_writing.valid ? &current_frames.end_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Happy:
-    section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+    section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::FallASleep:
-    section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Sleep:
-    section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::WakeUp:
-    section = current_frames.wake_up.valid ? &current_frames.wake_up : nullptr;
+    section = current_frames.wake_up.valid ? &current_frames.wake_up : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Boring:
-    section = current_frames.boring.valid ? &current_frames.boring : nullptr;
+    section = current_frames.boring.valid ? &current_frames.boring : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Test:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWorking:
-    section = current_frames.start_working.valid ? &current_frames.start_working : nullptr;
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Working:
-    section = current_frames.working.valid ? &current_frames.working : nullptr;
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWorking:
-    section = current_frames.end_working.valid ? &current_frames.end_working : nullptr;
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartMoving:
-    section = current_frames.start_moving.valid ? &current_frames.start_moving : nullptr;
+    section = current_frames.start_moving.valid ? &current_frames.start_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Moving:
-    section = current_frames.moving.valid ? &current_frames.moving : nullptr;
+    section = current_frames.moving.valid ? &current_frames.moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndMoving:
-    section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
+    section = current_frames.end_moving.valid ? &current_frames.end_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartRunning:
-    section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+    section = current_frames.start_running.valid ? &current_frames.start_running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Running:
-    section = current_frames.running.valid ? &current_frames.running : nullptr;
+    section = current_frames.running.valid ? &current_frames.running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndRunning:
-    section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+    section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
     break;
   }
 
@@ -2638,12 +2640,12 @@ anim_ms_agent_idle_next_frame(animation_context_t& ctx, const platform::input::i
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
-  // assert(upd.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
+  // assert(upd.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   // const auto& update_shm = *upd.shm;
@@ -2651,7 +2653,7 @@ anim_ms_agent_idle_next_frame(animation_context_t& ctx, const platform::input::i
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::MsAgent);
+  assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
   const auto& current_frames = get_current_animation(ctx).ms_agent;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -2858,17 +2860,17 @@ anim_ms_agent_key_pressed_next_frame(animation_context_t& ctx, animation_state_t
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
+  assert(ctx.shm);
+  assert(input.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  assert(get_current_animation(ctx).type == animation_t::Type::MsAgent);
+  assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
   const auto& current_frames = get_current_animation(ctx).ms_agent;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -2947,7 +2949,7 @@ platform::update::update_context_t& upd, animation_state_t& state) { using names
     const auto& current_animation_result = anim_shm.animation_player_result;
     [[maybe_unused]] const int anim_index = anim_shm.anim_index;
     //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-    assert(get_current_animation(ctx).type == animation_t::Type::MsAgent);
+    assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
     const auto& current_frames = get_current_animation(ctx).ms_agent;
 
     auto new_animation_result = anim_shm.animation_player_result;
@@ -2987,70 +2989,70 @@ anim_custom_process_animation(animation_player_result_t& new_animation_result, a
                               const custom_sprite_sheet_t& current_frames) {
   using namespace assets;
 
-  const custom_sprite_sheet_animation_section_t *section = nullptr;
+  const custom_sprite_sheet_animation_section_t *section = BONGOCAT_NULLPTR;
   switch (new_state.row_state) {
   case animation_state_row_t::Idle:
-    section = current_frames.idle.valid ? &current_frames.idle : nullptr;
+    section = current_frames.idle.valid ? &current_frames.idle : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWriting:
-    section = current_frames.start_writing.valid ? &current_frames.start_writing : nullptr;
+    section = current_frames.start_writing.valid ? &current_frames.start_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Writing:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWriting:
-    section = current_frames.end_writing.valid ? &current_frames.end_writing : nullptr;
+    section = current_frames.end_writing.valid ? &current_frames.end_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Happy:
-    section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+    section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::FallASleep:
-    section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : nullptr;
+    section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Sleep:
-    section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::WakeUp:
-    section = current_frames.wake_up.valid ? &current_frames.wake_up : nullptr;
+    section = current_frames.wake_up.valid ? &current_frames.wake_up : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Boring:
-    section = current_frames.boring.valid ? &current_frames.boring : nullptr;
+    section = current_frames.boring.valid ? &current_frames.boring : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Test:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWorking:
-    section = current_frames.start_working.valid ? &current_frames.start_working : nullptr;
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Working:
-    section = current_frames.working.valid ? &current_frames.working : nullptr;
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWorking:
-    section = current_frames.end_working.valid ? &current_frames.end_working : nullptr;
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartMoving:
-    section = current_frames.start_moving.valid ? &current_frames.start_moving : nullptr;
+    section = current_frames.start_moving.valid ? &current_frames.start_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Moving:
-    section = current_frames.moving.valid ? &current_frames.moving : nullptr;
+    section = current_frames.moving.valid ? &current_frames.moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndMoving:
-    section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
+    section = current_frames.end_moving.valid ? &current_frames.end_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartRunning:
-    section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+    section = current_frames.start_running.valid ? &current_frames.start_running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Running:
-    section = current_frames.running.valid ? &current_frames.running : nullptr;
+    section = current_frames.running.valid ? &current_frames.running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndRunning:
-    section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+    section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
     break;
   }
 
   anim_custom_process_animation_result_t ret{.row_state = new_state.row_state,
                                              .status = anim_custom_process_animation_result_status_t::None};
-  if (section && section->valid) {
+  if (section != BONGOCAT_NULLPTR && section->valid) {
     new_animation_result.sprite_sheet_row = section->row;
     new_animation_result.sprite_sheet_col = new_animation_result.sprite_sheet_col + 1;
     ret.status = anim_custom_process_animation_result_status_t::Updated;
@@ -3080,77 +3082,77 @@ anim_custom_restart_animation([[maybe_unused]] animation_context_t& ctx, animati
                               [[maybe_unused]] const config::config_t& current_config) {
   using namespace assets;
 
-  const custom_sprite_sheet_animation_section_t *section = nullptr;
+  const custom_sprite_sheet_animation_section_t *section = BONGOCAT_NULLPTR;
   switch (new_row_state) {
   case animation_state_row_t::Idle:
-    section = current_frames.idle.valid ? &current_frames.idle : nullptr;
+    section = current_frames.idle.valid ? &current_frames.idle : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWriting:
-    section = current_frames.start_writing.valid ? &current_frames.start_writing : nullptr;
+    section = current_frames.start_writing.valid ? &current_frames.start_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Writing:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWriting:
-    section = current_frames.end_writing.valid ? &current_frames.end_writing : nullptr;
+    section = current_frames.end_writing.valid ? &current_frames.end_writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Happy:
-    section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+    section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::FallASleep:
-    section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : nullptr;
+    section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Sleep:
-    section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::WakeUp:
-    section = current_frames.wake_up.valid ? &current_frames.wake_up : nullptr;
+    section = current_frames.wake_up.valid ? &current_frames.wake_up : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Boring:
-    section = current_frames.boring.valid ? &current_frames.boring : nullptr;
+    section = current_frames.boring.valid ? &current_frames.boring : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Test:
-    section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+    section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartWorking:
-    section = current_frames.start_working.valid ? &current_frames.start_working : nullptr;
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Working:
-    section = current_frames.working.valid ? &current_frames.working : nullptr;
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndWorking:
-    section = current_frames.end_working.valid ? &current_frames.end_working : nullptr;
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartMoving:
-    section = current_frames.start_moving.valid ? &current_frames.start_moving : nullptr;
+    section = current_frames.start_moving.valid ? &current_frames.start_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Moving:
-    section = current_frames.moving.valid ? &current_frames.moving : nullptr;
+    section = current_frames.moving.valid ? &current_frames.moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndMoving:
-    section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
+    section = current_frames.end_moving.valid ? &current_frames.end_moving : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::StartRunning:
-    section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+    section = current_frames.start_running.valid ? &current_frames.start_running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Running:
-    section = current_frames.running.valid ? &current_frames.running : nullptr;
+    section = current_frames.running.valid ? &current_frames.running : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::EndRunning:
-    section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+    section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
     break;
   }
 
   anim_custom_process_animation_result_t ret{.row_state = new_state.row_state,
                                              .status = anim_custom_process_animation_result_status_t::None};
-  if (section && section->valid) {
+  if (section != BONGOCAT_NULLPTR && section->valid) {
     new_state.row_state = new_row_state;
     new_animation_result.sprite_sheet_row = section->row;
     new_animation_result.sprite_sheet_col = section->start_col;
     new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::None;
     if (new_state.row_state == animation_state_row_t::Idle) {
       assert(current_frames.idle.end_col >= 0);
-      if (current_config.idle_frame) {
+      if (current_config.idle_frame >= 1) {
         new_animation_result.sprite_sheet_col = current_config.idle_frame % (current_frames.idle.end_col + 1);
       }
     } else if (new_state.row_state == animation_state_row_t::StartMoving ||
@@ -3184,80 +3186,80 @@ static anim_custom_process_animation_result_t anim_custom_restart_animation(
   const animation_state_row_t new_row_states[new_row_states_count] = {new_row_state, fallback_row_state,
                                                                       end_fallback_row_state};
 
-  const custom_sprite_sheet_animation_section_t *section = nullptr;
-  for (size_t i = 0; i < new_row_states_count && section == nullptr; i++) {
+  const custom_sprite_sheet_animation_section_t *section = BONGOCAT_NULLPTR;
+  for (size_t i = 0; i < new_row_states_count && section == BONGOCAT_NULLPTR; i++) {
     new_row_state = new_row_states[i];
     switch (new_row_state) {
     case animation_state_row_t::Idle:
-      section = current_frames.idle.valid ? &current_frames.idle : nullptr;
+      section = current_frames.idle.valid ? &current_frames.idle : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::StartWriting:
-      section = current_frames.start_writing.valid ? &current_frames.start_writing : nullptr;
+      section = current_frames.start_writing.valid ? &current_frames.start_writing : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Writing:
-      section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+      section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::EndWriting:
-      section = current_frames.end_writing.valid ? &current_frames.end_writing : nullptr;
+      section = current_frames.end_writing.valid ? &current_frames.end_writing : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Happy:
-      section = current_frames.happy.valid ? &current_frames.happy : nullptr;
+      section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::FallASleep:
-      section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : nullptr;
+      section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Sleep:
-      section = current_frames.sleep.valid ? &current_frames.sleep : nullptr;
+      section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::WakeUp:
-      section = current_frames.wake_up.valid ? &current_frames.wake_up : nullptr;
+      section = current_frames.wake_up.valid ? &current_frames.wake_up : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Boring:
-      section = current_frames.boring.valid ? &current_frames.boring : nullptr;
+      section = current_frames.boring.valid ? &current_frames.boring : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Test:
-      section = current_frames.writing.valid ? &current_frames.writing : nullptr;
+      section = current_frames.writing.valid ? &current_frames.writing : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::StartWorking:
-      section = current_frames.start_working.valid ? &current_frames.start_working : nullptr;
+      section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Working:
-      section = current_frames.working.valid ? &current_frames.working : nullptr;
+      section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::EndWorking:
-      section = current_frames.end_working.valid ? &current_frames.end_working : nullptr;
+      section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::StartMoving:
-      section = current_frames.start_moving.valid ? &current_frames.start_moving : nullptr;
+      section = current_frames.start_moving.valid ? &current_frames.start_moving : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Moving:
-      section = current_frames.moving.valid ? &current_frames.moving : nullptr;
+      section = current_frames.moving.valid ? &current_frames.moving : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::EndMoving:
-      section = current_frames.end_moving.valid ? &current_frames.end_moving : nullptr;
+      section = current_frames.end_moving.valid ? &current_frames.end_moving : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::StartRunning:
-      section = current_frames.start_running.valid ? &current_frames.start_running : nullptr;
+      section = current_frames.start_running.valid ? &current_frames.start_running : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Running:
-      section = current_frames.running.valid ? &current_frames.running : nullptr;
+      section = current_frames.running.valid ? &current_frames.running : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::EndRunning:
-      section = current_frames.end_running.valid ? &current_frames.end_running : nullptr;
+      section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
       break;
     }
   }
 
   anim_custom_process_animation_result_t ret{.row_state = new_state.row_state,
                                              .status = anim_custom_process_animation_result_status_t::None};
-  if (section && section->valid) {
+  if (section != BONGOCAT_NULLPTR && section->valid) {
     new_state.row_state = new_row_state;
     new_animation_result.sprite_sheet_row = section->row;
     new_animation_result.sprite_sheet_col = section->start_col;
     new_animation_result.overwrite_mirror_x = animation_player_custom_overwrite_mirror_x::None;
     if (new_state.row_state == animation_state_row_t::Idle) {
       assert(current_frames.idle.end_col >= 0);
-      if (current_config.idle_frame) {
+      if (current_config.idle_frame >= 1) {
         new_animation_result.sprite_sheet_col = current_config.idle_frame % (current_frames.idle.end_col + 1);
       }
     } else if (new_state.row_state == animation_state_row_t::StartMoving ||
@@ -3336,7 +3338,7 @@ anim_custom_handle_movement(animation_context_t& ctx, const platform::input::inp
                             const config::config_t& current_config) {
   using namespace assets;
 
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
   const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
@@ -3555,12 +3557,12 @@ anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::inp
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
-  assert(upd.shm != nullptr);
+  assert(ctx.shm != BONGOCAT_NULLPTR);
+  assert(input.shm != BONGOCAT_NULLPTR);
+  assert(upd.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
@@ -3568,7 +3570,7 @@ anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::inp
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::Custom);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
   const auto& current_frames = get_current_animation(ctx).custom;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -3579,7 +3581,7 @@ anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::inp
   /// @TODO: make animation fsm
 
   const platform::timestamp_ms_t now = platform::get_current_time_ms();
-  const platform::time_ms_t idle_sleep_timeout_ms = current_config.idle_sleep_timeout_sec * 1000;
+  const platform::time_ms_t idle_sleep_timeout_ms = current_config.idle_sleep_timeout_sec * 1000L;
   assert(now >= last_key_pressed_timestamp);
   const auto sleep_timeout = now - last_key_pressed_timestamp;
 
@@ -3674,13 +3676,13 @@ anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::inp
                                       current_frames, current_config);
       }
     } else {
-      if (current_config.idle_animation && conditions.go_next_frame) {
+      if (current_config.idle_animation >= 1 && conditions.go_next_frame) {
         anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
       }
     }
     break;
   case animation_state_row_t::Idle: {
-    if (current_config.idle_animation && conditions.go_next_frame) {
+    if (current_config.idle_animation >= 1 && conditions.go_next_frame) {
       anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
     }
 
@@ -3692,7 +3694,7 @@ anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::inp
 
     if (current_frames.feature_sleep || current_frames.feature_boring) {
       // handle sleep
-      const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
+      const bool is_sleeping_time = current_config.enable_scheduled_sleep >= 1 && is_sleep_time(current_config);
 
       // Idle Sleep
       if (conditions.check_for_idle_sleep) {
@@ -3768,7 +3770,7 @@ anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::inp
 
       // Sleep Mode
       if (current_frames.feature_sleep) {
-        if (current_config.enable_scheduled_sleep) {
+        if (current_config.enable_scheduled_sleep >= 1) {
           if (is_sleeping_time) {
             if (new_state.row_state == animation_state_row_t::Idle) {
               anim_custom_restart_animation(ctx, animation_state_row_t::FallASleep, animation_state_row_t::Sleep,
@@ -3991,17 +3993,17 @@ anim_custom_key_pressed_next_frame(animation_context_t& ctx, animation_state_t& 
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
-  assert(input.shm != nullptr);
+  assert(ctx.shm != BONGOCAT_NULLPTR);
+  assert(input.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  assert(get_current_animation(ctx).type == animation_t::Type::Custom);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
   const auto& current_frames = get_current_animation(ctx).custom;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -4134,12 +4136,12 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_context
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm != BONGOCAT_NULLPTR);
   // assert(input.shm != nullptr);
-  assert(upd.shm != nullptr);
+  assert(upd.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
@@ -4147,7 +4149,7 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_context
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::Custom);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
   const auto& current_frames = get_current_animation(ctx).custom;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -4236,12 +4238,12 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_context
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm != nullptr);
+  assert(ctx.shm != BONGOCAT_NULLPTR);
   // assert(input.shm != nullptr);
-  assert(upd.shm != nullptr);
+  assert(upd.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
@@ -4249,7 +4251,7 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_context
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
-  assert(get_current_animation(ctx).type == animation_t::Type::Custom);
+  assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
   const auto& current_frames = get_current_animation(ctx).custom;
 
   auto new_animation_result = anim_shm.animation_player_result;
@@ -4338,12 +4340,12 @@ anim_handle_idle_animation(animation_context_t& ctx, [[maybe_unused]] const plat
   using namespace assets;
 
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   // const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(input.shm != nullptr);
-  assert(ctx.shm != nullptr);
-  animation_shared_memory_t& anim_shm = *ctx.shm;
+  assert(input.shm != BONGOCAT_NULLPTR);
+  assert(ctx.shm != BONGOCAT_NULLPTR);
+  const animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   // auto& animation_player_data = anim_shm.animation_player_data;
   // const int current_frame = animation_player_data.frame_index;
@@ -4388,10 +4390,10 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_se
                                                                     const animation_trigger_t& trigger) {
   using namespace assets;
 
-  assert(animation_trigger_ctx._input != nullptr);
-  assert(animation_trigger_ctx._input->shm != nullptr);
-  assert(animation_trigger_ctx._update != nullptr);
-  assert(animation_trigger_ctx._update->shm != nullptr);
+  assert(animation_trigger_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_trigger_ctx._input->shm != BONGOCAT_NULLPTR);
+  assert(animation_trigger_ctx._update != BONGOCAT_NULLPTR);
+  assert(animation_trigger_ctx._update->shm != BONGOCAT_NULLPTR);
   animation_context_t& ctx = animation_trigger_ctx.anim;
   [[maybe_unused]] const platform::input::input_context_t& input = *animation_trigger_ctx._input;
   [[maybe_unused]] const platform::update::update_context_t& upd = *animation_trigger_ctx._update;
@@ -4402,10 +4404,10 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_se
   // assert(animation_trigger_ctx._config != nullptr);
   // const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(input.shm != nullptr);
-  assert(upd.shm != nullptr);
-  assert(ctx.shm != nullptr);
-  animation_shared_memory_t& anim_shm = *ctx.shm;
+  assert(input.shm != BONGOCAT_NULLPTR);
+  assert(upd.shm != BONGOCAT_NULLPTR);
+  assert(ctx.shm != BONGOCAT_NULLPTR);
+  const animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   // const auto current_state = state;
   // const auto& current_animation_result = anim_shm.animation_player_result;
@@ -4506,7 +4508,7 @@ static bool anim_update_state(animation_session_t& animation_trigger_ctx, animat
   platform::update::update_context_t& upd = *animation_trigger_ctx._update;
   animation_context_t& ctx = animation_trigger_ctx.anim;
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
   bool ret = false;
@@ -4563,7 +4565,7 @@ static bool anim_update_state(animation_session_t& animation_trigger_ctx, animat
 
 static void anim_init_state(animation_context_t& ctx, animation_state_t& state) {
   // read-only config
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
   assert(current_config.fps > 0);
 
@@ -4594,11 +4596,11 @@ static void *anim_thread(void *arg) {
   auto& trigger_ctx = *static_cast<animation_session_t *>(arg);
 
   // sanity checks
-  assert(trigger_ctx._config != nullptr);
-  assert(trigger_ctx._input != nullptr);
-  assert(trigger_ctx._update != nullptr);
-  assert(trigger_ctx._configs_reloaded_cond != nullptr);
-  assert(trigger_ctx.anim.shm != nullptr);
+  assert(trigger_ctx._config != BONGOCAT_NULLPTR);
+  assert(trigger_ctx._input != BONGOCAT_NULLPTR);
+  assert(trigger_ctx._update != BONGOCAT_NULLPTR);
+  assert(trigger_ctx._configs_reloaded_cond != BONGOCAT_NULLPTR);
+  assert(trigger_ctx.anim.shm);
   assert(trigger_ctx.trigger_efd._fd >= 0);
   assert(trigger_ctx.render_efd._fd >= 0);
   assert(trigger_ctx.anim.update_config_efd._fd >= 0);
@@ -4609,8 +4611,8 @@ static void *anim_thread(void *arg) {
     platform::LockGuard guard(trigger_ctx.anim.anim_lock);
     animation_context_t& ctx = trigger_ctx.anim;
 
-    assert(ctx.shm != nullptr);
-    // assert(input.shm != nullptr);
+    assert(ctx.shm);
+    // assert(input.shm);
     animation_shared_memory_t& anim_shm = *ctx.shm;
     // const auto& input_shm = *input.shm;
     // auto& current_state = state;
@@ -4618,7 +4620,7 @@ static void *anim_thread(void *arg) {
     [[maybe_unused]] const int anim_index = anim_shm.anim_index;
 
     // read-only config
-    assert(ctx._local_copy_config != nullptr);
+    assert(ctx._local_copy_config);
     const config::config_t& current_config = *ctx._local_copy_config;
 
     anim_init_state(ctx, state);
@@ -4715,7 +4717,7 @@ static void *anim_thread(void *arg) {
     platform::time_ms_t timeout_ms;
     int32_t fps = 1;
     {
-      assert(ctx._local_copy_config != nullptr);
+      assert(ctx._local_copy_config);
       const config::config_t& current_config = *ctx._local_copy_config;
 
       fps = current_config.fps;
@@ -4742,8 +4744,9 @@ static void *anim_thread(void *arg) {
     assert(timeout_ms <= INT_MAX);
     const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
     if (poll_result < 0) {
-      if (errno == EINTR)
+      if (errno == EINTR) {
         continue;  // Interrupted by signal
+      }
       BONGOCAT_LOG_ERROR("animation: Poll error: %s", strerror(errno));
       break;
     }
@@ -4813,7 +4816,7 @@ static void *anim_thread(void *arg) {
     // Update Animations
     {
       platform::LockGuard guard(trigger_ctx.anim.anim_lock);
-      assert(ctx.shm != nullptr);
+      assert(ctx.shm);
       const bool frame_changed = anim_update_state(trigger_ctx, state,
                                                    {
                                                        .anim_cause = triggered_anim_cause,
@@ -4858,9 +4861,9 @@ static void *anim_thread(void *arg) {
         const auto sec_diff = next_frame_time.tv_sec - now.tv_sec;
         const auto nsec_diff = next_frame_time.tv_nsec - now.tv_nsec;
         state.time_until_next_frame_ms =
-            static_cast<platform::time_ms_t>(sec_diff * 1000L + (nsec_diff + 999999LL) / 1000000LL);
+            static_cast<platform::time_ms_t>((sec_diff * 1000L) + (nsec_diff + 999999LL) / 1000000LL);
 
-        if (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_frame_time, nullptr) != 0) {
+        if (clock_nanosleep(CLOCK_MONOTONIC, TIMER_ABSTIME, &next_frame_time, BONGOCAT_NULLPTR) != 0) {
           // Interrupted, just continue
         }
       }
@@ -4872,9 +4875,9 @@ static void *anim_thread(void *arg) {
 
     // handle update config
     if (reload_config) {
-      assert(trigger_ctx._config_generation != nullptr);
-      assert(trigger_ctx._configs_reloaded_cond != nullptr);
-      assert(trigger_ctx._config != nullptr);
+      assert(trigger_ctx._config_generation != BONGOCAT_NULLPTR);
+      assert(trigger_ctx._configs_reloaded_cond != BONGOCAT_NULLPTR);
+      assert(trigger_ctx._config != BONGOCAT_NULLPTR);
 
       update_config(ctx, *trigger_ctx._config, new_gen);
 
@@ -4905,7 +4908,7 @@ static void *anim_thread(void *arg) {
 
   BONGOCAT_LOG_INFO("Animation thread main loop exited");
 
-  return nullptr;
+  return BONGOCAT_NULLPTR;
 }
 
 // =============================================================================
@@ -4919,11 +4922,11 @@ bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_
 
   // Initialize shared memory for local config
   trigger_ctx.anim._local_copy_config = platform::make_allocated_mmap<config::config_t>();
-  if (!trigger_ctx.anim._local_copy_config.ptr) {
+  if (!trigger_ctx.anim._local_copy_config) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(trigger_ctx.anim._local_copy_config != nullptr);
+  assert(trigger_ctx.anim._local_copy_config);
   update_config(trigger_ctx.anim, config, atomic_load(&config_generation));
 
   // set extern/global references
@@ -4938,7 +4941,7 @@ bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_
   trigger_ctx._configs_reloaded_cond->notify_all();
 
   // start animation thread
-  const int result = pthread_create(&trigger_ctx.anim._anim_thread, nullptr, anim_thread, &trigger_ctx);
+  const int result = pthread_create(&trigger_ctx.anim._anim_thread, BONGOCAT_NULLPTR, anim_thread, &trigger_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -4972,11 +4975,11 @@ void trigger_update_config(animation_session_t& trigger_ctx, const config::confi
 
 BONGOCAT_NODISCARD static int rand_animation_index(animation_context_t& ctx, const config::config_t& config) {
   using namespace assets;
-  assert(ctx._local_copy_config != nullptr);
-  assert(ctx.shm != nullptr);
+  assert(ctx._local_copy_config);
+  assert(ctx.shm);
   platform::random_xoshiro128& rng = ctx._rng;
 
-  if (config.randomize_index) {
+  if (config.randomize_index >= 1) {
     if constexpr (features::EnableLazyLoadAssets) {
       switch (config.animation_sprite_sheet_layout) {
       case config::config_animation_sprite_sheet_layout_t::None:
@@ -5145,7 +5148,7 @@ BONGOCAT_NODISCARD static int rand_animation_index(animation_context_t& ctx, con
 
 static void update_config_reload_sprite_sheet(animation_context_t& ctx) {
   using namespace assets;
-  assert(ctx._local_copy_config != nullptr);
+  assert(ctx._local_copy_config);
 
   platform::LockGuard guard(ctx.anim_lock);
   const auto old_anim_type = ctx.shm->anim_type;
@@ -5203,8 +5206,8 @@ static void update_config_reload_sprite_sheet(animation_context_t& ctx) {
                      static_cast<double>(t1 - t0) / 1000000.0);
 }
 void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
-  assert(ctx._local_copy_config != nullptr);
-  assert(ctx.shm != nullptr);
+  assert(ctx._local_copy_config);
+  assert(ctx.shm);
 
   *ctx._local_copy_config = config;
 

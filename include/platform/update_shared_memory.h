@@ -31,7 +31,7 @@ struct cpu_snapshot_ring_buffer_t {
 
 struct update_shared_memory_t {
   cpu_snapshot_ring_buffer_t cpu_snapshots;
-  const cpu_snapshot_t *latest_snapshot{nullptr};
+  const cpu_snapshot_t *latest_snapshot{BONGOCAT_NULLPTR};
   double avg_cpu_usage{0};
   double max_cpu_usage{0};
   double last_avg_cpu_usage{0};

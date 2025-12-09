@@ -1,6 +1,9 @@
 #ifndef BONGOCAT_BONGOCAT_H
 #define BONGOCAT_BONGOCAT_H
 
+// POSIX feature test macro - must be before includes
+#define _POSIX_C_SOURCE 200809L
+
 #include "utils/error.h"
 #include "utils/memory.h"
 
@@ -26,13 +29,14 @@ inline static constexpr int32_t RGBA_CHANNELS = 4;
 inline static constexpr int32_t BGRA_CHANNELS = 4;
 
 namespace bongocat {
-template <typename T> struct created_result_t {
+template <typename T>
+struct created_result_t {
   T result{};
   bongocat_error_t error{bongocat_error_t::BONGOCAT_SUCCESS};
 
   created_result_t() = default;
   explicit(false) created_result_t(bongocat_error_t err) : error(err) {}
-  explicit(false) created_result_t(T&& res) : result(bongocat::move(res)), error(bongocat_error_t::BONGOCAT_SUCCESS) {}
+  explicit(false) created_result_t(T&& res) : result(bongocat::move(res)) {}
 };
 
 // feature flags
@@ -196,54 +200,54 @@ namespace platform {
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
+BONGOCAT_NODISCARD constexpr Enum flag_or(Enum lhs, Enum rhs) noexcept {
   return static_cast<Enum>(static_cast<std::underlying_type_t<Enum>>(lhs) |
                            static_cast<std::underlying_type_t<Enum>>(rhs));
 }
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
+BONGOCAT_NODISCARD constexpr Enum flag_and(Enum lhs, Enum rhs) noexcept {
   return static_cast<Enum>(static_cast<std::underlying_type_t<Enum>>(lhs) &
                            static_cast<std::underlying_type_t<Enum>>(rhs));
 }
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
+BONGOCAT_NODISCARD constexpr Enum flag_xor(Enum lhs, Enum rhs) noexcept {
   return static_cast<Enum>(static_cast<std::underlying_type_t<Enum>>(lhs) ^
                            static_cast<std::underlying_type_t<Enum>>(rhs));
 }
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr Enum flag_not(Enum rhs) noexcept {
+BONGOCAT_NODISCARD constexpr Enum flag_not(Enum rhs) noexcept {
   return static_cast<Enum>(~static_cast<std::underlying_type_t<Enum>>(rhs));
 }
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr Enum flag_add(Enum lhs, Enum rhs) noexcept {
+BONGOCAT_NODISCARD constexpr Enum flag_add(Enum lhs, Enum rhs) noexcept {
   lhs = flag_or(lhs, rhs);
   return lhs;
 }
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr Enum flag_remove(Enum lhs, Enum rhs) noexcept {
+BONGOCAT_NODISCARD constexpr Enum flag_remove(Enum lhs, Enum rhs) noexcept {
   return static_cast<Enum>(static_cast<uint32_t>(lhs) & ~static_cast<uint32_t>(rhs));
 }
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr Enum flag_assign(Enum lhs, Enum rhs) noexcept {
+BONGOCAT_NODISCARD constexpr Enum flag_assign(Enum lhs, Enum rhs) noexcept {
   lhs = flag_and(lhs, rhs);
   return lhs;
 }
 template <typename Enum>
   requires std::is_enum_v<Enum> && (std::is_same_v<std::underlying_type_t<Enum>, uint32_t> ||
                                     std::is_same_v<std::underlying_type_t<Enum>, uint64_t>)
-BONGOCAT_NODISCARD inline constexpr bool has_flag(Enum value, Enum flag) noexcept {
+BONGOCAT_NODISCARD constexpr bool has_flag(Enum value, Enum flag) noexcept {
   return (static_cast<uint32_t>(value) & static_cast<uint32_t>(flag)) != 0;
 }
 }  // namespace bongocat
