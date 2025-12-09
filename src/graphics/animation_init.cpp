@@ -1,5 +1,5 @@
 #include "graphics/animation.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "platform/wayland.h"
 #include "utils/memory.h"
 
@@ -82,7 +82,7 @@ namespace bongocat::animation {
 }
 
 namespace details {
-  created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_context_t& ctx,
+  created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_thread_context_t& ctx,
                                                                      const config::config_t& config) {
     BONGOCAT_CHECK_NULL(config.custom_sprite_sheet_filename, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
     if (strlen(config.custom_sprite_sheet_filename) <= 0) {
@@ -110,7 +110,7 @@ namespace details {
   }
 }  // namespace details
 
-created_result_t<animation_t *> hot_load_animation(animation_context_t& ctx) {
+created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& ctx) {
   // read-only config
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
@@ -267,7 +267,7 @@ created_result_t<animation_t *> hot_load_animation(animation_context_t& ctx) {
   return ret;
 }
 
-animation_t& get_current_animation(animation_context_t& ctx) {
+animation_t& get_current_animation(animation_thread_context_t& ctx) {
   using namespace assets;
   // fallback sprite
   static animation_t none_sprite_sheet{};
@@ -429,10 +429,10 @@ animation_t& get_current_animation(animation_context_t& ctx) {
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-created_result_t<AllocatedMemory<animation_session_t>> create(const config::config_t& config) {
+created_result_t<AllocatedMemory<animation_context_t>> create(const config::config_t& config) {
   using namespace assets;
   BONGOCAT_LOG_INFO("Initializing animation system");
-  AllocatedMemory<animation_session_t> ret = make_allocated_memory<animation_session_t>();
+  AllocatedMemory<animation_context_t> ret = make_allocated_memory<animation_context_t>();
   assert(ret);
   if (!ret) [[unlikely]] {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
@@ -441,23 +441,23 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
   ret->_config = &config;
 
   // Initialize shared memory
-  ret->anim.shm = platform::make_allocated_mmap<animation_shared_memory_t>();
-  if (!ret->anim.shm) {
+  ret->thread_context.shm = platform::make_allocated_mmap<animation_shared_memory_t>();
+  if (!ret->thread_context.shm) {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(ret->anim.shm);
+  assert(ret->thread_context.shm);
 
   // Initialize shared memory for local config
-  ret->anim._local_copy_config = platform::make_allocated_mmap<config::config_t>();
-  if (!ret->anim._local_copy_config) {
+  ret->thread_context._local_copy_config = platform::make_allocated_mmap<config::config_t>();
+  if (!ret->thread_context._local_copy_config) {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(ret->anim._local_copy_config);
+  assert(ret->thread_context._local_copy_config);
   // config_set_defaults(*ctx._local_copy_config);
-  *ret->anim._local_copy_config = config;
-  ret->anim.shm->animation_player_result.sprite_sheet_col = config.idle_frame;  // initial frame
+  *ret->thread_context._local_copy_config = config;
+  ret->thread_context.shm->animation_player_result.sprite_sheet_col = config.idle_frame;  // initial frame
 
   ret->trigger_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
   if (ret->trigger_efd._fd < 0) {
@@ -471,8 +471,8 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
-  ret->anim.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
-  if (ret->anim.update_config_efd._fd < 0) {
+  ret->thread_context.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+  if (ret->thread_context.update_config_efd._fd < 0) {
     BONGOCAT_LOG_ERROR("Failed to create notify pipe for input update config: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
@@ -480,20 +480,20 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
   // Load embedded images/animations
   if constexpr (features::EnableLazyLoadAssets) {
-    hot_load_animation(ret->anim);
+    hot_load_animation(ret->thread_context);
   }
 
   /// @TODO: async assets load
   // Initialize embedded images/animations
   if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
-    assert(ret->anim._local_copy_config.ptr);
+    assert(ret->thread_context._local_copy_config.ptr);
     // preload assets
     if constexpr (features::EnableBongocatEmbeddedAssets) {
       // Load Bongocat
-      if (should_load_bongocat(*ret->anim._local_copy_config)) {
+      if (should_load_bongocat(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load bongocat sprite sheet frames: %d", BONGOCAT_EMBEDDED_IMAGES_COUNT);
-        assert(ret->anim.shm);
-        animation_context_t& ctx = ret->anim;  // alias for inits in includes
+        assert(ret->thread_context.shm);
+        animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         ctx.shm->bongocat_anims = platform::make_allocated_mmap_array<animation_t>(BONGOCAT_ANIM_COUNT);
 
@@ -503,10 +503,10 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
 
     if constexpr (features::EnableDmEmbeddedAssets) {
       // Load dm
-      if (should_load_dm(*ret->anim._local_copy_config)) {
+      if (should_load_dm(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load dm sprite sheets: %d", DM_ANIMATIONS_COUNT);
-        assert(ret->anim.shm);
-        animation_context_t& ctx = ret->anim;  // alias for inits in includes
+        assert(ret->thread_context.shm);
+        animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         if constexpr (features::EnableMinDmEmbeddedAssets) {
           BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %d", MIN_DM_ANIM_COUNT);
@@ -579,10 +579,10 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
 
     if constexpr (features::EnableMsAgentEmbeddedAssets) {
       // Load Ms Pets (Clippy)
-      if (should_load_ms_agent(*ret->anim._local_copy_config)) {
+      if (should_load_ms_agent(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load MS agent sprite sheets: %d", MS_AGENTS_ANIM_COUNT);
-        assert(ret->anim.shm);
-        animation_context_t& ctx = ret->anim;  // alias for inits in includes
+        assert(ret->thread_context.shm);
+        animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         ctx.shm->ms_anims = platform::make_allocated_mmap_array<animation_t>(MS_AGENTS_ANIM_COUNT);
 
@@ -605,10 +605,10 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
 
     if constexpr (features::EnablePkmnEmbeddedAssets) {
       // Load pkmn
-      if (should_load_pkmn(*ret->anim._local_copy_config)) {
+      if (should_load_pkmn(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %d", PKMN_ANIM_COUNT);
-        assert(ret->anim.shm);
-        animation_context_t& ctx = ret->anim;  // alias for inits in includes
+        assert(ret->thread_context.shm);
+        animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         ctx.shm->pkmn_anims = platform::make_allocated_mmap_array<animation_t>(PKMN_ANIM_COUNT);
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
@@ -619,10 +619,10 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
     }
     if constexpr (features::EnablePmdEmbeddedAssets) {
       // Load pmd (pkmn)
-      if (should_load_pkmn(*ret->anim._local_copy_config)) {
+      if (should_load_pkmn(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load pmd sprite sheets: %d", PKMN_ANIM_COUNT);
-        assert(ret->anim.shm);
-        animation_context_t& ctx = ret->anim;  // alias for inits in includes
+        assert(ret->thread_context.shm);
+        animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         ctx.shm->pmd_anims = platform::make_allocated_mmap_array<animation_t>(PMD_ANIM_COUNT);
 #ifdef FEATURE_PMD_EMBEDDED_ASSETS
@@ -634,10 +634,10 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
 
     if constexpr (features::EnableMiscEmbeddedAssets) {
       // Load Misc Pets (neko)
-      if (should_load_misc(*ret->anim._local_copy_config)) {
+      if (should_load_misc(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load Misc sprite sheets: %d", MISC_ANIM_COUNT);
-        assert(ret->anim.shm);
-        animation_context_t& ctx = ret->anim;  // alias for inits in includes
+        assert(ret->thread_context.shm);
+        animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         ctx.shm->misc_anims = platform::make_allocated_mmap_array<animation_t>(MISC_ANIM_COUNT);
 
@@ -648,11 +648,11 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
     }
 
     if constexpr (features::EnableCustomSpriteSheetsAssets) {
-      assert(ret->anim._local_copy_config.ptr);
+      assert(ret->thread_context._local_copy_config.ptr);
       // Load custom sprite sheet
-      if (should_load_custom(*ret->anim._local_copy_config)) {
-        assert(ret->anim.shm);
-        animation_context_t& ctx = ret->anim;  // alias for inits in includes
+      if (should_load_custom(*ret->thread_context._local_copy_config)) {
+        assert(ret->thread_context.shm);
+        animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
         assert(ctx.shm.ptr);
         assert(ctx._local_copy_config.ptr);
 
@@ -674,14 +674,14 @@ created_result_t<AllocatedMemory<animation_session_t>> create(const config::conf
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
   // init anim
-  ret->anim._rng = platform::random_xoshiro128(platform::slow_rand());
+  ret->thread_context._rng = platform::random_xoshiro128(platform::slow_rand());
 
   BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.6fsec)",
                     static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
   return ret;
 }
 
-void stop(animation_context_t& ctx) {
+void stop(animation_thread_context_t& ctx) {
   atomic_store(&ctx._animation_running, false);
   if (ctx._anim_thread) {
     BONGOCAT_LOG_DEBUG("Stopping animation thread");

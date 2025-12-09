@@ -2,9 +2,9 @@
 
 #include "../graphics/bar.h"
 #include "graphics/animation.h"
-#include "platform/global_wayland_session.h"
 #include "platform/wayland-protocols.hpp"
 #include "platform/wayland.h"
+#include "platform/wayland_context.h"
 #include "platform/wayland_setups.h"
 #include "platform/wayland_shared_memory.h"
 #include "utils/memory.h"
@@ -55,7 +55,7 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
 
   /// Reconnection handling
   if (oref->wayland != BONGOCAT_NULLPTR) {
-    wayland_context_t& wayland_ctx = oref->wayland->wayland_context;
+    wayland_thread_context& wayland_ctx = oref->wayland->thread_context;
     // animation_context_t& anim = *ctx.animation_context;
     // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
@@ -64,7 +64,7 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
     // const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
     // Check if this is the output we're waiting for (reconnection case)
-    if (!atomic_load(&oref->wayland->output_lost)) {
+    if (!atomic_load(&oref->wayland->_output_lost)) {
       return;
     }
 
@@ -88,7 +88,7 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
       // Set new output
       wayland_ctx.output = oref->wl_output;
       wayland_ctx.bound_output_name = oref->name;
-      atomic_store(&oref->wayland->output_lost, false);
+      atomic_store(&oref->wayland->_output_lost, false);
 
       // Recreate surface on new output
       // Note: wayland_setup_surface already commits, triggering a configure
@@ -103,8 +103,8 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
           // Wait for configure event to be processed
           wl_display_roundtrip(wayland_ctx.display);
         }
-        if (oref->wayland->animation_trigger_context != BONGOCAT_NULLPTR) {
-          request_render(*oref->wayland->animation_trigger_context);
+        if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
+          request_render(*oref->wayland->animation_context);
         }
         BONGOCAT_LOG_INFO("Surface recreated, configure event processed");
       } else {
@@ -166,12 +166,12 @@ void handle_xdg_output_description(void *data, [[maybe_unused]] zxdg_output_v1 *
 // FULLSCREEN DETECTION IMPLEMENTATION
 // =============================================================================
 
-static bool fs_update_state(wayland_session_t& ctx, bool new_state) {
+static bool fs_update_state(wayland_context_t& ctx, bool new_state) {
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping update");
     return false;
   }
-  if (ctx.animation_trigger_context == BONGOCAT_NULLPTR) {
+  if (ctx.animation_context == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_VERBOSE("Wayland not configured yet");
     return false;
   }
@@ -180,13 +180,12 @@ static bool fs_update_state(wayland_session_t& ctx, bool new_state) {
 
   if (new_state != ctx.fs_detector.has_fullscreen_toplevel) {
     ctx.fs_detector.has_fullscreen_toplevel = new_state;
-    ctx.wayland_context._fullscreen_detected = new_state;
+    ctx.thread_context._fullscreen_detected = new_state;
 
-    BONGOCAT_LOG_INFO("Fullscreen state changed: %s",
-                      ctx.wayland_context._fullscreen_detected ? "detected" : "cleared");
+    BONGOCAT_LOG_INFO("Fullscreen state changed: %s", ctx.thread_context._fullscreen_detected ? "detected" : "cleared");
 
-    if (ctx.wayland_context.ctx_shm && atomic_load(&ctx.wayland_context.ctx_shm->configured)) {
-      request_render(*ctx.animation_trigger_context);
+    if (ctx.thread_context.ctx_shm && atomic_load(&ctx.thread_context.ctx_shm->configured)) {
+      request_render(*ctx.animation_context);
     } else {
       BONGOCAT_LOG_VERBOSE("Wayland not configured yet, skipping request rendering");
     }
@@ -198,12 +197,12 @@ static bool fs_update_state(wayland_session_t& ctx, bool new_state) {
 }
 
 namespace hyprland {
-  static int fs_update_state(wayland_session_t& ctx) {
+  static int fs_update_state(wayland_context_t& ctx) {
     if (wayland::hyprland::window_info_t win; wayland::hyprland::get_active_window(win)) {
       bool fullscreen_on_same_output = false;
       for (size_t i = 0; i < ctx.output_count; i++) {
         if (ctx.outputs[i].hypr_id == win.monitor_id) {
-          if (ctx.wayland_context.output == ctx.outputs[i].wl_output) {
+          if (ctx.thread_context.output == ctx.outputs[i].wl_output) {
             fullscreen_on_same_output = true;
             break;
           }
@@ -239,7 +238,7 @@ static bool fs_check_compositor_fallback() {
   return false;
 }
 
-static bool fs_check_status(wayland_session_t& ctx) {
+static bool fs_check_status(wayland_context_t& ctx) {
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return false;
@@ -252,7 +251,7 @@ static bool fs_check_status(wayland_session_t& ctx) {
   return fs_check_compositor_fallback();
 }
 
-void fs_update_state_fallback(wayland_session_t& ctx) {
+void fs_update_state_fallback(wayland_context_t& ctx) {
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     const tracked_toplevel_t& tracked = ctx.tracked_toplevels[i];
     // Skip handles that are not mapped or destroyed
@@ -261,7 +260,7 @@ void fs_update_state_fallback(wayland_session_t& ctx) {
     }
     if (tracked.is_fullscreen) {
       // Only update overlay if on our output
-      if (tracked.output == ctx.wayland_context.output) {
+      if (tracked.output == ctx.thread_context.output) {
         fs_update_state(ctx, true);
         return;
       }
@@ -269,7 +268,7 @@ void fs_update_state_fallback(wayland_session_t& ctx) {
   }
 
   const bool new_state = fs_check_status(ctx);
-  if (new_state != ctx.wayland_context._fullscreen_detected) {
+  if (new_state != ctx.thread_context._fullscreen_detected) {
     fs_update_state(ctx, new_state);
   }
 }
@@ -279,13 +278,13 @@ struct update_fullscreen_state_toplevel_result_t {
   bool changed{false};
 };
 static update_fullscreen_state_toplevel_result_t
-update_fullscreen_state_toplevel(wayland_session_t& ctx, tracked_toplevel_t& tracked, bool is_fullscreen) {
+update_fullscreen_state_toplevel(wayland_context_t& ctx, tracked_toplevel_t& tracked, bool is_fullscreen) {
   bool state_changed = tracked.is_fullscreen != is_fullscreen;
   tracked.is_fullscreen = is_fullscreen;
 
   /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggert
   // Only trigger overlay update if this fullscreen window is on our output
-  if (tracked.output == ctx.wayland_context.output && state_changed) {
+  if (tracked.output == ctx.thread_context.output && state_changed) {
     state_changed = fs_update_state(ctx, is_fullscreen);
     BONGOCAT_LOG_VERBOSE("Fullscreen state updated for window %p: %d", static_cast<void *>(tracked.handle),
                          is_fullscreen);
@@ -301,7 +300,7 @@ void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return;
@@ -348,21 +347,19 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return;
   }
 
-  if (handle != BONGOCAT_NULLPTR) {
-    zwlr_foreign_toplevel_handle_v1_destroy(handle);
-    handle = BONGOCAT_NULLPTR;
-  }
-
   // remove from tracked_toplevels if present
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     if (ctx.tracked_toplevels[i].handle == handle) {
-      ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
+      if (ctx.tracked_toplevels[i].handle != BONGOCAT_NULLPTR) {
+        zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);
+        ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
+      }
       // compact array to keep contiguous
       for (size_t j = i; j + 1 < ctx.num_toplevels; ++j) {
         ctx.tracked_toplevels[j] = ctx.tracked_toplevels[j + 1];
@@ -405,7 +402,7 @@ void fs_handle_output_enter(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   for (size_t i = 0; i < ctx.num_toplevels; i++) {
     auto& tracked = ctx.tracked_toplevels[i];
@@ -413,7 +410,7 @@ void fs_handle_output_enter(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
       BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_enter: update tracked_toplevels[%i] output", i);
       tracked.output = output;
       if (tracked.is_fullscreen) {
-        if (tracked.output == ctx.wayland_context.output) {
+        if (tracked.output == ctx.thread_context.output) {
           fs_update_state(ctx, true);
         }
       }
@@ -430,13 +427,13 @@ void fs_handle_output_leave(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   for (size_t i = 0; i < ctx.num_toplevels; i++) {
     auto& tracked = ctx.tracked_toplevels[i];
     if (tracked.handle == handle && tracked.output == output) {
       BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_leave: update tracked_toplevels[%i] output", i);
-      if (tracked.is_fullscreen && tracked.output == ctx.wayland_context.output) {
+      if (tracked.is_fullscreen && tracked.output == ctx.thread_context.output) {
         fs_update_state(ctx, false);
       }
       tracked.output = BONGOCAT_NULLPTR;
@@ -474,7 +471,7 @@ void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplev
     BONGOCAT_LOG_WARNING("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   BONGOCAT_LOG_VERBOSE("fs_toplevel_manager_listener.toplevel: toplevel received");
 
@@ -505,7 +502,7 @@ void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *ma
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return;
@@ -560,17 +557,17 @@ void layer_surface_configure(void *data, zwlr_layer_surface_v1 *ls, uint32_t ser
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
-  assert(ctx.animation_trigger_context != BONGOCAT_NULLPTR);
-  assert(ctx.wayland_context.ctx_shm);
-  wayland_shared_memory_t& wayland_ctx_shm = *ctx.wayland_context.ctx_shm;
+  assert(ctx.animation_context != BONGOCAT_NULLPTR);
+  assert(ctx.thread_context.ctx_shm);
+  wayland_shared_memory_t& wayland_ctx_shm = *ctx.thread_context.ctx_shm;
 
   zwlr_layer_surface_v1_ack_configure(ls, serial);
   atomic_store(&wayland_ctx_shm.configured, true);
   if (atomic_load(&ctx.ready)) {
     // trigger initial rendering
-    request_render(*ctx.animation_trigger_context);
+    request_render(*ctx.animation_context);
   }
 
   BONGOCAT_LOG_DEBUG("layer_surface.configure: Layer surface configured: %dx%d", w, h);
@@ -580,7 +577,7 @@ void layer_surface_closed(void *data, [[maybe_unused]] zwlr_layer_surface_v1 *ls
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  const wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  const wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return;
@@ -591,7 +588,7 @@ void layer_surface_closed(void *data, [[maybe_unused]] zwlr_layer_surface_v1 *ls
 
 void xdg_wm_base_ping(void *data, xdg_wm_base *wm_base, uint32_t serial) {
   assert(data);
-  [[maybe_unused]] const wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  [[maybe_unused]] const wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   BONGOCAT_LOG_VERBOSE("xdg_wm_base.ping: base pong %x", serial);
   xdg_wm_base_pong(wm_base, serial);
@@ -605,7 +602,7 @@ void output_geometry(void *data, [[maybe_unused]] wl_output *wl_output, [[maybe_
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   for (size_t i = 0; i < MAX_OUTPUTS; i++) {
     if (ctx.screen_infos[i].wl_output == wl_output) {
@@ -625,7 +622,7 @@ void output_mode(void *data, [[maybe_unused]] wl_output *wl_output, uint32_t fla
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   BONGOCAT_LOG_VERBOSE("wl_output.mode: mode received: %u", flags);
 
@@ -649,7 +646,7 @@ void output_done(void *data, [[maybe_unused]] wl_output *wl_output) {
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   for (size_t i = 0; i < MAX_OUTPUTS; i++) {
     if (ctx.screen_infos[i].wl_output == wl_output) {
@@ -716,18 +713,18 @@ void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t time) {
     BONGOCAT_LOG_WARNING("Handler called with null data (ignored)");
     return;
   }
-  auto& ctx = *static_cast<platform::wayland::wayland_session_t *>(data);
+  auto& ctx = *static_cast<platform::wayland::wayland_context_t *>(data);
 
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_WARNING("Wayland configured yet, skipping handling");
     return;
   }
-  if (!ctx.animation_trigger_context) {
+  if (!ctx.animation_context) {
     BONGOCAT_LOG_WARNING("Wayland configured yet, skipping handling");
     return;
   }
 
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = *ctx->animation_context;
   // animation::animation_session_t& trigger_ctx = *ctx.animation_trigger_context;
   // wayland_shared_memory_t& wayland_ctx_shm = wayland_ctx->ctx_shm;
@@ -777,27 +774,26 @@ void registry_global(void *data, wl_registry *reg, uint32_t name, const char *if
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
   BONGOCAT_LOG_VERBOSE("wl_registry.global: registry received: %s", iface);
 
   if (strcmp(iface, wl_compositor_interface.name) == 0) {
-    ctx.wayland_context.compositor =
+    ctx.thread_context.compositor =
         static_cast<wl_compositor *>(wl_registry_bind(reg, name, &wl_compositor_interface, 4));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: compositor registry bind");
   } else if (strcmp(iface, wl_shm_interface.name) == 0) {
-    ctx.wayland_context.shm = static_cast<wl_shm *>(wl_registry_bind(reg, name, &wl_shm_interface, 1));
+    ctx.thread_context.shm = static_cast<wl_shm *>(wl_registry_bind(reg, name, &wl_shm_interface, 1));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: shm registry bind");
   } else if (strcmp(iface, zwlr_layer_shell_v1_interface.name) == 0) {
-    ctx.wayland_context.layer_shell =
+    ctx.thread_context.layer_shell =
         static_cast<zwlr_layer_shell_v1 *>(wl_registry_bind(reg, name, &zwlr_layer_shell_v1_interface, 1));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: layer_shell registry bind");
   } else if (strcmp(iface, xdg_wm_base_interface.name) == 0) {
-    ctx.wayland_context.xdg_wm_base =
-        static_cast<xdg_wm_base *>(wl_registry_bind(reg, name, &xdg_wm_base_interface, 1));
+    ctx.thread_context.xdg_wm_base = static_cast<xdg_wm_base *>(wl_registry_bind(reg, name, &xdg_wm_base_interface, 1));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: xdg_wm_base registry bind");
-    if (ctx.wayland_context.xdg_wm_base != BONGOCAT_NULLPTR) {
-      xdg_wm_base_add_listener(ctx.wayland_context.xdg_wm_base, &xdg_wm_base_listener, &ctx);
+    if (ctx.thread_context.xdg_wm_base != BONGOCAT_NULLPTR) {
+      xdg_wm_base_add_listener(ctx.thread_context.xdg_wm_base, &xdg_wm_base_listener, &ctx);
     }
   } else if (strcmp(iface, zxdg_output_manager_v1_interface.name) == 0) {
     ctx.xdg_output_manager =
@@ -813,7 +809,7 @@ void registry_global(void *data, wl_registry *reg, uint32_t name, const char *if
 
       // If we lost our output, get xdg_output to check if this is the one
       // reconnecting
-      if (atomic_load(&ctx.output_lost) && ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
+      if (atomic_load(&ctx._output_lost) && ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
         ctx.outputs[ctx.output_count].xdg_output =
             zxdg_output_manager_v1_get_xdg_output(ctx.xdg_output_manager, ctx.outputs[ctx.output_count].wl_output);
         ctx.outputs[ctx.output_count].received = flag_remove<output_ref_received_flags_t>(
@@ -843,8 +839,8 @@ void registry_remove(void *data, [[maybe_unused]] wl_registry *registry, [[maybe
     BONGOCAT_LOG_WARNING("Handler called with null data (ignored)");
     return;
   }
-  wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+  platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
 
@@ -858,9 +854,9 @@ void registry_remove(void *data, [[maybe_unused]] wl_registry *registry, [[maybe
   BONGOCAT_LOG_VERBOSE("wl_registry.global_remove: registry received");
 
   // Check if the removed global is our bound output
-  if (name == ctx.wayland_context.bound_output_name && ctx.wayland_context.bound_output_name != 0) {
+  if (name == ctx.thread_context.bound_output_name && ctx.thread_context.bound_output_name != 0) {
     BONGOCAT_LOG_VERBOSE("Bound output disconnected (registry name %u)", name);
-    atomic_store(&ctx.output_lost, true);
+    atomic_store(&ctx._output_lost, true);
     atomic_store(&wayland_ctx_shm.configured, false);
 
     // Clean up the old output reference
@@ -895,7 +891,7 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
                                      [[maybe_unused]] const char *output_name) {
   assert(oref->wayland);
 
-  wayland_context_t& wayland_ctx = oref->wayland->wayland_context;
+  wayland_thread_context& wayland_ctx = oref->wayland->thread_context;
   // animation_context_t& anim = *ctx.animation_context;
   // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
@@ -911,7 +907,7 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
   // Set new output
   wayland_ctx.output = new_output;
   wayland_ctx.bound_output_name = registry_name;
-  atomic_store(&oref->wayland->output_lost, false);
+  atomic_store(&oref->wayland->_output_lost, false);
 
   // Recreate surface on new output
   if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -923,8 +919,8 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
     if constexpr (WAYLAND_NUM_BUFFERS != 1) {
       wl_display_roundtrip(wayland_ctx.display);
     }
-    if (oref->wayland->animation_trigger_context != BONGOCAT_NULLPTR) {
-      request_render(*oref->wayland->animation_trigger_context);
+    if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
+      request_render(*oref->wayland->animation_context);
     }
   } else {
     BONGOCAT_LOG_ERROR("Failed to recreate surface on reconnected output");

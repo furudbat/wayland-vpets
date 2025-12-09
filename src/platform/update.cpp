@@ -35,9 +35,9 @@ inline static constexpr const char *FILENAME_PROC_STAT = "/proc/stat";
 
 static void cleanup_update_thread(void *arg) {
   assert(arg);
-  const animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
-  assert(trigger_ctx._update);
-  update_context_t& input = *trigger_ctx._update;
+  const animation::animation_context_t& animation_context = *static_cast<animation::animation_context_t *>(arg);
+  assert(animation_context._update);
+  update_context_t& input = *animation_context._update;
 
   atomic_store(&input._running, false);
 
@@ -216,15 +216,15 @@ static double compute_max_cpu_usage(const cpu_snapshot_t& prev, const cpu_snapsh
 
 static void *update_thread(void *arg) {
   assert(arg);
-  animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
+  animation::animation_context_t& animation_ctx = *static_cast<animation::animation_context_t *>(arg);
 
   // from thread context
   // animation_context_t& anim = trigger_ctx.anim;
   // wait for input context (in animation start)
-  trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
-                                  COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
-  assert(trigger_ctx._input != BONGOCAT_NULLPTR);
-  update_context_t& upd = *trigger_ctx._update;
+  animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
+                                    COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  update_context_t& upd = *animation_ctx._update;
 
   // sanity checks
   assert(upd._config != BONGOCAT_NULLPTR);
@@ -237,7 +237,7 @@ static void *update_thread(void *arg) {
   assert(upd.fd_stat._fd >= 0);
 
   // trigger initial render
-  wayland::request_render(trigger_ctx);
+  wayland::request_render(animation_ctx);
 
   pthread_cleanup_push(cleanup_update_thread, arg);
 
@@ -393,9 +393,9 @@ static void *update_thread(void *arg) {
           if (!update_shm.cpu_active || crossed_delta) {
             BONGOCAT_LOG_VERBOSE("update: avg. CPU: %.2f (max: %.2f)", update_shm.avg_cpu_usage,
                                  update_shm.max_cpu_usage);
-            animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
+            animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
             if (lower_threshold) {
-              animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::IdleUpdate);
+              animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::IdleUpdate);
             }
             animation_triggered = true;
           }
@@ -403,8 +403,8 @@ static void *update_thread(void *arg) {
         } else {
           if (update_shm.cpu_active) {
             update_shm.cpu_active = false;
-            animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
-            animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::IdleUpdate);
+            animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::CpuUpdate);
+            animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::IdleUpdate);
           }
         }
       }
@@ -533,7 +533,7 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
   return ret;
 }
 
-bongocat_error_t start(update_context_t& upd, animation::animation_session_t& trigger_ctx,
+bongocat_error_t start(update_context_t& upd, animation::animation_context_t& animation_ctx,
                        const config::config_t& config, CondVariable& configs_reloaded_cond,
                        atomic_uint64_t& config_generation) {
   BONGOCAT_LOG_INFO("Initializing update monitoring");
@@ -555,20 +555,20 @@ bongocat_error_t start(update_context_t& upd, animation::animation_session_t& tr
   update_config(upd, config, atomic_load(&config_generation));
 
   // wait for animation trigger to be ready (input should be the same)
-  const int cond_ret = trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
-                                                       COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
+  const int cond_ret = animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
+                                                         COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   if (cond_ret == ETIMEDOUT) {
     BONGOCAT_LOG_ERROR("Failed to initialize input monitoring: waiting for animation thread to start in time");
   } else {
-    assert(trigger_ctx._update == &upd);
+    assert(animation_ctx._update == &upd);
   }
   // set extern/global references
   {
     // guard for anim_update_state
-    LockGuard guard(trigger_ctx.anim.anim_lock);
-    trigger_ctx._update = &upd;
+    LockGuard guard(animation_ctx.thread_context.anim_lock);
+    animation_ctx._update = &upd;
   }
-  trigger_ctx.init_cond.notify_all();
+  animation_ctx.init_cond.notify_all();
   upd._config = &config;
   upd._configs_reloaded_cond = &configs_reloaded_cond;
   upd._config_generation = &config_generation;
@@ -578,7 +578,7 @@ bongocat_error_t start(update_context_t& upd, animation::animation_session_t& tr
   upd._configs_reloaded_cond->notify_all();
 
   // start update thread
-  const int result = pthread_create(&upd._update_thread, BONGOCAT_NULLPTR, update_thread, &trigger_ctx);
+  const int result = pthread_create(&upd._update_thread, BONGOCAT_NULLPTR, update_thread, &animation_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start update thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -588,7 +588,7 @@ bongocat_error_t start(update_context_t& upd, animation::animation_session_t& tr
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-bongocat_error_t restart(update_context_t& upd, animation::animation_session_t& trigger_ctx,
+bongocat_error_t restart(update_context_t& upd, animation::animation_context_t& animation_ctx,
                          const config::config_t& config, CondVariable& configs_reloaded_cond,
                          atomic_uint64_t& config_generation) {
   BONGOCAT_LOG_INFO("Restarting update system");
@@ -661,8 +661,8 @@ bongocat_error_t restart(update_context_t& upd, animation::animation_session_t& 
   // set extern/global references
   {
     // guard for anim_update_state
-    LockGuard guard(trigger_ctx.anim.anim_lock);
-    trigger_ctx._update = &upd;
+    LockGuard guard(animation_ctx.thread_context.anim_lock);
+    animation_ctx._update = &upd;
   }
   upd._config = &config;
   upd._configs_reloaded_cond = &configs_reloaded_cond;
@@ -672,7 +672,7 @@ bongocat_error_t restart(update_context_t& upd, animation::animation_session_t& 
   upd._configs_reloaded_cond->notify_all();
 
   // start update monitoring
-  const int result = pthread_create(&upd._update_thread, BONGOCAT_NULLPTR, update_thread, &trigger_ctx);
+  const int result = pthread_create(&upd._update_thread, BONGOCAT_NULLPTR, update_thread, &animation_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start update thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;

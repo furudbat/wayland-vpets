@@ -52,8 +52,8 @@ struct main_context_t {
   AllocatedMemory<config::config_watcher_t> config_watcher;
   AllocatedMemory<platform::input::input_context_t> input;
   AllocatedMemory<platform::update::update_context_t> update;
-  AllocatedMemory<animation::animation_session_t> animation;
-  AllocatedMemory<platform::wayland::wayland_session_t> wayland;
+  AllocatedMemory<animation::animation_context_t> animation;
+  AllocatedMemory<platform::wayland::wayland_context_t> wayland;
 
   const char *signal_watch_path{BONGOCAT_NULLPTR};
   atomic_uint64_t config_generation{0};
@@ -76,7 +76,7 @@ inline void stop_threads(main_context_t& context) {
   context.running = 0;
   // stop threads
   if (context.animation != BONGOCAT_NULLPTR) {
-    atomic_store(&context.animation->anim._animation_running, false);
+    atomic_store(&context.animation->thread_context._animation_running, false);
   }
   if (context.input != BONGOCAT_NULLPTR) {
     atomic_store(&context.input->_capture_input_running, false);
@@ -90,7 +90,8 @@ inline void stop_threads(main_context_t& context) {
 
   // wait for threads
   if (context.animation != BONGOCAT_NULLPTR) {
-    platform::join_thread_with_timeout(context.animation->anim._anim_thread, WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS);
+    platform::join_thread_with_timeout(context.animation->thread_context._anim_thread,
+                                       WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS);
   }
   if (context.input != BONGOCAT_NULLPTR) {
     platform::join_thread_with_timeout(context.input->_input_thread, WAIT_FOR_SHUTDOWN_INPUT_THREAD_MS);
@@ -129,7 +130,7 @@ void cleanup(main_context_t& context) {
 
   // remove references (avoid dangling pointers)
   if (context.wayland != BONGOCAT_NULLPTR) {
-    context.wayland->animation_trigger_context = BONGOCAT_NULLPTR;
+    context.wayland->animation_context = BONGOCAT_NULLPTR;
   }
   if (context.animation != BONGOCAT_NULLPTR) {
     context.animation->_input = BONGOCAT_NULLPTR;
@@ -459,10 +460,10 @@ static void config_reload_callback() {
                  atomic_load(&get_main_context().update->config_seen_generation) >= new_gen;
         },
         COND_RELOAD_CONFIG_TIMEOUT_MS);
-    timedwait_result |= get_main_context().animation->anim.config_updated.timedwait(
+    timedwait_result |= get_main_context().animation->thread_context.config_updated.timedwait(
         [&] {
-          return !atomic_load(&get_main_context().animation->anim._animation_running) ||
-                 atomic_load(&get_main_context().animation->anim.config_seen_generation) >= new_gen;
+          return !atomic_load(&get_main_context().animation->thread_context._animation_running) ||
+                 atomic_load(&get_main_context().animation->thread_context.config_seen_generation) >= new_gen;
         },
         COND_RELOAD_CONFIG_TIMEOUT_MS);
 
@@ -476,8 +477,8 @@ static void config_reload_callback() {
       if (atomic_load(&get_main_context().update->_running)) {
         atomic_store(&get_main_context().update->config_seen_generation, new_gen);
       }
-      if (atomic_load(&get_main_context().animation->anim._animation_running)) {
-        atomic_store(&get_main_context().animation->anim.config_seen_generation, new_gen);
+      if (atomic_load(&get_main_context().animation->thread_context._animation_running)) {
+        atomic_store(&get_main_context().animation->thread_context.config_seen_generation, new_gen);
       }
       BONGOCAT_LOG_VERBOSE("timedwait timeouted, sync all config gen: %d", timedwait_result);
     }
@@ -486,15 +487,15 @@ static void config_reload_callback() {
     BONGOCAT_LOG_VERBOSE("Input: config gen: %d", atomic_load(&get_main_context().input->config_seen_generation));
     BONGOCAT_LOG_VERBOSE("Update: config gen: %d", atomic_load(&get_main_context().update->config_seen_generation));
     BONGOCAT_LOG_VERBOSE("Animation: config gen: %d",
-                         atomic_load(&get_main_context().animation->anim.config_seen_generation));
+                         atomic_load(&get_main_context().animation->thread_context.config_seen_generation));
     BONGOCAT_LOG_VERBOSE("Main: config gen: %d", atomic_load(&get_main_context().config_generation));
   }
   // Tell workers they can continue
   get_main_context().configs_reloaded_cond.notify_all();
 
   BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
-  BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", get_main_context().wayland->wayland_context._screen_width,
-                    get_main_context().wayland->wayland_context._bar_height);
+  BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", get_main_context().wayland->thread_context._screen_width,
+                    get_main_context().wayland->thread_context._bar_height);
 
   assert(get_main_context().animation != BONGOCAT_NULLPTR);
   animation::trigger(*get_main_context().animation, animation::trigger_animation_cause_mask_t::UpdateConfig);
@@ -527,7 +528,7 @@ static void config_reload_callback() {
 
   // Wait for (new) threads to be ready
   // wait for context
-  if (atomic_load(&get_main_context().animation->anim._animation_running)) {
+  if (atomic_load(&get_main_context().animation->thread_context._animation_running)) {
     get_main_context().animation->init_cond.timedwait(
         [&]() {
           return !atomic_load(&get_main_context().input->_capture_input_running) ||
@@ -551,7 +552,7 @@ static void config_reload_callback() {
         COND_INIT_TIMEOUT_MS);
   }
   BONGOCAT_LOG_VERBOSE("Animation: running %d (ready=%d)",
-                       atomic_load(&get_main_context().animation->anim._animation_running),
+                       atomic_load(&get_main_context().animation->thread_context._animation_running),
                        atomic_load(&get_main_context().animation->ready));
   BONGOCAT_LOG_VERBOSE("Input: running %d (ready=%d)", atomic_load(&get_main_context().input->_capture_input_running),
                        atomic_load(&get_main_context().input->ready));
@@ -1080,12 +1081,12 @@ int main(int argc, char *argv[]) {
   assert(ctx.animation != BONGOCAT_NULLPTR);
   assert(ctx.wayland != BONGOCAT_NULLPTR);
 
-  if (abs(ctx.config.cat_x_offset) > ctx.wayland->wayland_context._screen_width) {
+  if (abs(ctx.config.cat_x_offset) > ctx.wayland->thread_context._screen_width) {
     BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)", ctx.config.cat_x_offset,
-                         ctx.wayland->wayland_context._screen_width);
+                         ctx.wayland->thread_context._screen_width);
   }
 
-  BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland->wayland_context._screen_width, ctx.config.overlay_height);
+  BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland->thread_context._screen_width, ctx.config.overlay_height);
 
   BONGOCAT_LOG_INFO("Bongo Cat Overlay configured successfully");
 

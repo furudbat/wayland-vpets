@@ -1,7 +1,7 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "graphics/animation.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "image_loader/load_images.h"
 #include "utils/memory.h"
@@ -94,7 +94,7 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
   return ret;
 }
 
-bongocat_error_t init_bongocat_anim(animation_context_t& ctx, int anim_index, get_sprite_callback_t get_sprite,
+bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_index, get_sprite_callback_t get_sprite,
                                     size_t embedded_images_count) {
   using namespace assets;
   BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
@@ -124,7 +124,7 @@ bongocat_error_t init_bongocat_anim(animation_context_t& ctx, int anim_index, ge
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-created_result_t<bongocat_sprite_sheet_t> load_bongocat_sprite_sheet(const animation_context_t& /*ctx*/, int index) {
+created_result_t<bongocat_sprite_sheet_t> load_bongocat_sprite_sheet(const animation_thread_context_t& /*ctx*/, int index) {
   using namespace assets;
   using namespace animation;
   switch (index) {

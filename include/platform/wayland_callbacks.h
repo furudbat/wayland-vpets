@@ -1,8 +1,8 @@
 #ifndef BONGOCAT_WAYLAND_CALLBACKS_H
 #define BONGOCAT_WAYLAND_CALLBACKS_H
 
-#include "global_wayland_session.h"
 #include "wayland-protocols.hpp"
+#include "wayland_context.h"
 
 #include <sys/signalfd.h>
 #include <sys/types.h>
@@ -59,7 +59,7 @@ inline static constexpr zwlr_foreign_toplevel_handle_v1_listener fs_toplevel_lis
     .parent = fs_handle_parent,
 };
 
-extern void fs_update_state_fallback(wayland_session_t& ctx);
+extern void fs_update_state_fallback(wayland_context_t& ctx);
 
 extern void fs_handle_manager_toplevel(void *data, zwlr_foreign_toplevel_manager_v1 *manager,
                                        zwlr_foreign_toplevel_handle_v1 *toplevel);

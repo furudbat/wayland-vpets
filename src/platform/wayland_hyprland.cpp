@@ -42,7 +42,7 @@ int fs_check_compositor_fallback() {
   return -1;
 }
 
-void update_outputs_with_monitor_ids(wayland_session_t& ctx) {
+void update_outputs_with_monitor_ids(wayland_context_t& ctx) {
   FILE *fp = popen("hyprctl monitors 2>/dev/null", "r");
   if (fp == BONGOCAT_NULLPTR) {
     return;

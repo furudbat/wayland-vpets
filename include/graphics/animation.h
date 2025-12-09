@@ -2,8 +2,8 @@
 #define BONGOCAT_ANIMATION_H
 
 #include "animation_context.h"
+#include "animation_thread_context.h"
 #include "config/config.h"
-#include "global_animation_session.h"
 #include "platform/input_context.h"
 #include "platform/update_context.h"
 #include "utils/error.h"
@@ -24,24 +24,24 @@ enum class trigger_animation_cause_mask_t : uint64_t {
 // =============================================================================
 
 // Initialize animation system - must be checked
-BONGOCAT_NODISCARD created_result_t<AllocatedMemory<animation_session_t>> create(const config::config_t& config);
+BONGOCAT_NODISCARD created_result_t<AllocatedMemory<animation_context_t>> create(const config::config_t& config);
 
 // Start animation thread - must be checked
-BONGOCAT_NODISCARD bongocat_error_t start(animation_session_t& ctx, platform::input::input_context_t& input,
+BONGOCAT_NODISCARD bongocat_error_t start(animation_context_t& ctx, platform::input::input_context_t& input,
                                           platform::update::update_context_t& upd, const config::config_t& config,
                                           platform::CondVariable& configs_reloaded_cond,
                                           atomic_uint64_t& config_generation);
 
 // Trigger key press animation
-void trigger(animation_session_t& ctx, trigger_animation_cause_mask_t cause);
-void trigger_update_config(animation_session_t& ctx, const config::config_t& config, uint64_t config_generation);
+void trigger(animation_context_t& ctx, trigger_animation_cause_mask_t cause);
+void trigger_update_config(animation_context_t& ctx, const config::config_t& config, uint64_t config_generation);
 
-void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen);
-created_result_t<animation_t *> hot_load_animation(animation_context_t& ctx);
-BONGOCAT_NODISCARD animation_t& get_current_animation(animation_context_t& ctx);
+void update_config(animation_thread_context_t& ctx, const config::config_t& config, uint64_t new_gen);
+created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& ctx);
+BONGOCAT_NODISCARD animation_t& get_current_animation(animation_thread_context_t& ctx);
 
 namespace details {
-  created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_context_t& ctx,
+  created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_thread_context_t& ctx,
                                                                      const config::config_t& config);
 }
 }  // namespace bongocat::animation

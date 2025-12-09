@@ -1,7 +1,7 @@
 #ifndef BONGOCAT_WAYLAND_SHARED_MEMORY_H
 #define BONGOCAT_WAYLAND_SHARED_MEMORY_H
 
-#include "graphics/global_animation_session.h"
+#include "graphics/animation_context.h"
 
 #include <stdatomic.h>
 #include <wayland-client.h>
@@ -14,7 +14,7 @@ inline static constexpr size_t WAYLAND_NUM_BUFFERS = 1;
 struct wayland_shm_buffer_t;
 void cleanup_shm_buffer(wayland_shm_buffer_t& buffer);
 
-struct wayland_context_t;
+struct wayland_thread_context;
 
 struct wayland_shm_buffer_t {
   wl_buffer *buffer{BONGOCAT_NULLPTR};
@@ -24,8 +24,8 @@ struct wayland_shm_buffer_t {
   size_t index{0};             // index track from wayland_shared_memory_t.buffers
 
   // extra context for listeners
-  animation::animation_session_t *_animation_trigger_context{BONGOCAT_NULLPTR};
-  wayland_context_t *_wayland_context{BONGOCAT_NULLPTR};  // parent ref. for buffer_release
+  animation::animation_context_t *_animation_context{BONGOCAT_NULLPTR};
+  wayland_thread_context *_wayland_thread_context{BONGOCAT_NULLPTR};  // parent ref. for buffer_release
 
   wayland_shm_buffer_t() = default;
   ~wayland_shm_buffer_t() {
@@ -39,14 +39,14 @@ struct wayland_shm_buffer_t {
       : buffer(other.buffer)
       , pixels(bongocat::move(other.pixels))
       , index(other.index)
-      , _animation_trigger_context(other._animation_trigger_context)
-      , _wayland_context(other._wayland_context) {
+      , _animation_context(other._animation_context)
+      , _wayland_thread_context(other._wayland_thread_context) {
     atomic_store(&busy, atomic_load(&other.busy));
     atomic_store(&pending, atomic_load(&other.pending));
 
     other.buffer = BONGOCAT_NULLPTR;
     other.index = 0;
-    other._animation_trigger_context = BONGOCAT_NULLPTR;
+    other._animation_context = BONGOCAT_NULLPTR;
     atomic_store(&other.busy, false);
     atomic_store(&other.pending, false);
   }
@@ -57,13 +57,13 @@ struct wayland_shm_buffer_t {
       atomic_store(&busy, atomic_load(&other.busy));
       atomic_store(&pending, atomic_load(&other.pending));
       index = other.index;
-      _animation_trigger_context = other._animation_trigger_context;
-      _wayland_context = other._wayland_context;
+      _animation_context = other._animation_context;
+      _wayland_thread_context = other._wayland_thread_context;
 
       other.buffer = BONGOCAT_NULLPTR;
       other.index = 0;
-      other._animation_trigger_context = BONGOCAT_NULLPTR;
-      other._wayland_context = BONGOCAT_NULLPTR;
+      other._animation_context = BONGOCAT_NULLPTR;
+      other._wayland_thread_context = BONGOCAT_NULLPTR;
       atomic_store(&other.busy, false);
       atomic_store(&other.pending, false);
     }
@@ -127,8 +127,8 @@ inline void cleanup_shm_buffer(wayland_shm_buffer_t& buffer) {
   release_allocated_mmap_file_buffer(buffer.pixels);
   atomic_store(&buffer.busy, false);
   buffer.index = 0;
-  buffer._animation_trigger_context = BONGOCAT_NULLPTR;
-  buffer._wayland_context = BONGOCAT_NULLPTR;
+  buffer._animation_context = BONGOCAT_NULLPTR;
+  buffer._wayland_thread_context = BONGOCAT_NULLPTR;
 }
 }  // namespace bongocat::platform::wayland
 

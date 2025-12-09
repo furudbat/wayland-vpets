@@ -90,7 +90,7 @@ public:
 
 using get_sprite_callback_t = assets::embedded_image_t (*)(size_t);
 
-struct animation_context_t;
+struct animation_thread_context_t;
 BONGOCAT_NODISCARD created_result_t<generic_sprite_sheet_t>
 anim_sprite_sheet_from_embedded_images(get_sprite_callback_t get_sprite, size_t embedded_images_count);
 

@@ -2,12 +2,12 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/custom/load_custom.h"
 
 namespace bongocat::animation {
-created_result_t<custom_sprite_sheet_t> load_misc_sprite_sheet(const animation_context_t& ctx, int index) {
+created_result_t<custom_sprite_sheet_t> load_misc_sprite_sheet(const animation_thread_context_t& ctx, int index) {
   using namespace animation;
   using namespace assets;
   switch (index) {

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "platform/global_wayland_session.h"
+#include "platform/wayland_context.h"
 
 namespace bongocat::platform::wayland::hyprland {
 
@@ -17,7 +17,7 @@ struct window_info_t {
 
 extern int fs_check_compositor_fallback();
 
-extern void update_outputs_with_monitor_ids(wayland_session_t& ctx);
+extern void update_outputs_with_monitor_ids(wayland_context_t& ctx);
 
 extern bool get_active_window(window_info_t& win);
 }  // namespace bongocat::platform::wayland::hyprland

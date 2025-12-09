@@ -9,7 +9,7 @@
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
@@ -178,7 +178,7 @@ struct anim_conditions_t {
   bool is_running{false};
   bool continue_writing{false};
 };
-static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_context_t& ctx,
+static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_thread_context_t& ctx,
                                              const platform::input::input_context_t& input,
                                              [[maybe_unused]] const platform::update::update_context_t& upd,
                                              const animation_state_t& current_state, const animation_trigger_t& trigger,
@@ -451,7 +451,7 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   return ret;
 }
 static anim_bongocat_process_animation_result_t
-anim_bongocat_restart_animation(animation_context_t& ctx, const platform::input::input_context_t& input,
+anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
                                 animation_state_row_t new_row_state, animation_player_result_t& new_animation_result,
                                 animation_state_t& new_state, [[maybe_unused]] const animation_state_t& current_state,
                                 const bongocat_sprite_sheet_t& current_frames) {
@@ -644,7 +644,7 @@ BONGOCAT_FRAME_BOTH_DOWN;
 */
 
 static anim_bongocat_process_animation_result_t anim_bongocat_start_or_process_animation(
-    animation_context_t& ctx, const platform::input::input_context_t& input, animation_state_row_t new_row_state,
+    animation_thread_context_t& ctx, const platform::input::input_context_t& input, animation_state_row_t new_row_state,
     animation_player_result_t& new_animation_result, animation_state_t& new_state,
     const animation_state_t& current_state, const bongocat_sprite_sheet_t& current_frames) {
   if (current_state.row_state != new_row_state) {
@@ -664,7 +664,7 @@ static anim_bongocat_process_animation_result_t anim_bongocat_start_or_process_a
 }
 
 static anim_next_frame_result_t
-anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
+anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
                               [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
                               const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
@@ -853,7 +853,7 @@ anim_bongocat_idle_next_frame(animation_context_t& ctx, const platform::input::i
 }
 
 static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
-    animation_context_t& ctx, animation_state_t& state, const platform::input::input_context_t& input,
+    animation_thread_context_t& ctx, animation_state_t& state, const platform::input::input_context_t& input,
     [[maybe_unused]] const platform::update::update_context_t& upd, const animation_trigger_t& trigger) {
   using namespace assets;
 
@@ -1012,7 +1012,7 @@ static anim_dm_process_animation_result_t anim_dm_process_animation(animation_pl
   return ret;
 }
 static anim_dm_process_animation_result_t
-anim_dm_restart_animation([[maybe_unused]] animation_context_t& ctx, animation_state_row_t new_row_state,
+anim_dm_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, animation_state_row_t new_row_state,
                           animation_player_result_t& new_animation_result, animation_state_t& new_state,
                           [[maybe_unused]] const animation_state_t& current_state,
                           const dm_sprite_sheet_t& current_frames, const config::config_t& current_config) {
@@ -1076,7 +1076,7 @@ anim_dm_restart_animation([[maybe_unused]] animation_context_t& ctx, animation_s
   return ret;
 }
 static anim_dm_process_animation_result_t
-anim_dm_show_single_frame([[maybe_unused]] animation_context_t& ctx, animation_state_row_t new_row_state,
+anim_dm_show_single_frame([[maybe_unused]] animation_thread_context_t& ctx, animation_state_row_t new_row_state,
                           animation_player_result_t& new_animation_result, animation_state_t& new_state,
                           [[maybe_unused]] const animation_state_t& current_state,
                           [[maybe_unused]] const dm_sprite_sheet_t& current_frames,
@@ -1259,7 +1259,7 @@ anim_dm_show_single_frame([[maybe_unused]] animation_context_t& ctx, animation_s
 }
 
 static anim_dm_process_animation_result_t
-anim_dm_start_or_process_animation(animation_context_t& ctx, animation_state_row_t new_row_state,
+anim_dm_start_or_process_animation(animation_thread_context_t& ctx, animation_state_row_t new_row_state,
                                    animation_player_result_t& new_animation_result, animation_state_t& new_state,
                                    const animation_state_t& current_state, const dm_sprite_sheet_t& current_frames,
                                    const config::config_t& current_config) {
@@ -1279,7 +1279,7 @@ anim_dm_start_or_process_animation(animation_context_t& ctx, animation_state_row
 }
 
 static anim_dm_process_animation_result_t
-anim_dm_handle_movement(animation_context_t& ctx, const platform::input::input_context_t& input,
+anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
                         [[maybe_unused]] const platform::update::update_context_t& upd,
                         animation_player_result_t& new_animation_result, animation_state_t& new_state,
                         const anim_handle_key_press_result_t& trigger_result, const animation_state_t& current_state,
@@ -1486,7 +1486,7 @@ anim_dm_handle_movement(animation_context_t& ctx, const platform::input::input_c
   return ret;
 }
 
-static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& ctx,
+static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context_t& ctx,
                                                         const platform::input::input_context_t& input,
                                                         [[maybe_unused]] const platform::update::update_context_t& upd,
                                                         animation_state_t& state,
@@ -1779,7 +1779,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& ctx
 }
 
 static anim_next_frame_result_t
-anim_dm_key_pressed_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
+anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
                                [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
                                const animation_trigger_t& trigger) {
   using namespace assets;
@@ -1893,7 +1893,7 @@ anim_dm_key_pressed_next_frame(animation_context_t& ctx, const platform::input::
                                      current_state, current_config);
 }
 
-static anim_next_frame_result_t anim_dm_working_next_frame(animation_context_t& ctx,
+static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_context_t& ctx,
                                                            const platform::input::input_context_t& input,
                                                            const platform::update::update_context_t& upd,
                                                            animation_state_t& state,
@@ -2096,7 +2096,7 @@ static anim_pkmn_process_animation_result_t anim_pkmn_process_animation(animatio
   return ret;
 }
 static anim_pkmn_process_animation_result_t
-anim_pkmn_restart_animation([[maybe_unused]] animation_context_t& ctx, animation_state_row_t new_row_state,
+anim_pkmn_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, animation_state_row_t new_row_state,
                             animation_player_result_t& new_animation_result, animation_state_t& new_state,
                             [[maybe_unused]] const animation_state_t& current_state,
                             const pkmn_sprite_sheet_t& current_frames, const config::config_t& current_config) {
@@ -2258,7 +2258,7 @@ PKMN_FRAME_IDLE2;
 */
 
 static anim_pkmn_process_animation_result_t
-anim_pkmn_start_or_process_animation(animation_context_t& ctx, animation_state_row_t new_row_state,
+anim_pkmn_start_or_process_animation(animation_thread_context_t& ctx, animation_state_row_t new_row_state,
                                      animation_player_result_t& new_animation_result, animation_state_t& new_state,
                                      const animation_state_t& current_state, const pkmn_sprite_sheet_t& current_frames,
                                      const config::config_t& current_config) {
@@ -2278,7 +2278,8 @@ anim_pkmn_start_or_process_animation(animation_context_t& ctx, animation_state_r
 }
 
 static anim_next_frame_result_t
-anim_pkmn_idle_next_frame(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
+                          [[maybe_unused]] const platform::input::input_context_t& input,
                           [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
                           const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
@@ -2351,7 +2352,7 @@ anim_pkmn_idle_next_frame(animation_context_t& ctx, [[maybe_unused]] const platf
 }
 
 static anim_next_frame_result_t
-anim_pkmn_key_pressed_next_frame(animation_context_t& ctx,
+anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
                                  [[maybe_unused]] const platform::input::input_context_t& input,
                                  [[maybe_unused]] const platform::update::update_context_t& upd,
                                  animation_state_t& state, const animation_trigger_t& trigger) {
@@ -2526,7 +2527,7 @@ anim_ms_agent_process_animation(animation_player_result_t& new_animation_result,
   return ret;
 }
 static anim_ms_agent_process_animation_result_t
-anim_ms_agent_restart_animation([[maybe_unused]] animation_context_t& ctx, animation_state_row_t new_row_state,
+anim_ms_agent_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, animation_state_row_t new_row_state,
                                 animation_player_result_t& new_animation_result, animation_state_t& new_state,
                                 [[maybe_unused]] const animation_state_t& current_state,
                                 const ms_agent_sprite_sheet_t& current_frames,
@@ -2614,10 +2615,12 @@ anim_ms_agent_restart_animation([[maybe_unused]] animation_context_t& ctx, anima
   return ret;
 }
 
-static anim_ms_agent_process_animation_result_t anim_ms_agent_start_or_process_animation(
-    animation_context_t& ctx, animation_state_row_t new_row_state, animation_player_result_t& new_animation_result,
-    animation_state_t& new_state, const animation_state_t& current_state, const ms_agent_sprite_sheet_t& current_frames,
-    const config::config_t& current_config) {
+static anim_ms_agent_process_animation_result_t
+anim_ms_agent_start_or_process_animation(animation_thread_context_t& ctx, animation_state_row_t new_row_state,
+                                         animation_player_result_t& new_animation_result, animation_state_t& new_state,
+                                         const animation_state_t& current_state,
+                                         const ms_agent_sprite_sheet_t& current_frames,
+                                         const config::config_t& current_config) {
   if (current_state.row_state != new_row_state) {
     auto result = anim_ms_agent_process_animation(new_animation_result, new_state, current_state, current_frames);
     if (result.status == anim_ms_agent_process_animation_result_status_t::Looped ||
@@ -2634,7 +2637,7 @@ static anim_ms_agent_process_animation_result_t anim_ms_agent_start_or_process_a
 }
 
 static anim_next_frame_result_t
-anim_ms_agent_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
+anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
                               [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
                               const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
@@ -2853,7 +2856,7 @@ anim_ms_agent_idle_next_frame(animation_context_t& ctx, const platform::input::i
 }
 
 static anim_next_frame_result_t
-anim_ms_agent_key_pressed_next_frame(animation_context_t& ctx, animation_state_t& state,
+anim_ms_agent_key_pressed_next_frame(animation_thread_context_t& ctx, animation_state_t& state,
                                      [[maybe_unused]] const platform::input::input_context_t& input,
                                      [[maybe_unused]] const platform::update::update_context_t& upd,
                                      [[maybe_unused]] const animation_trigger_t& trigger) {
@@ -3075,7 +3078,7 @@ anim_custom_process_animation(animation_player_result_t& new_animation_result, a
   return ret;
 }
 static anim_custom_process_animation_result_t
-anim_custom_restart_animation([[maybe_unused]] animation_context_t& ctx, animation_state_row_t new_row_state,
+anim_custom_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, animation_state_row_t new_row_state,
                               animation_player_result_t& new_animation_result, animation_state_t& new_state,
                               [[maybe_unused]] const animation_state_t& current_state,
                               const custom_sprite_sheet_t& current_frames,
@@ -3175,7 +3178,7 @@ anim_custom_restart_animation([[maybe_unused]] animation_context_t& ctx, animati
   return ret;
 }
 static anim_custom_process_animation_result_t anim_custom_restart_animation(
-    [[maybe_unused]] animation_context_t& ctx, animation_state_row_t new_row_state,
+    [[maybe_unused]] animation_thread_context_t& ctx, animation_state_row_t new_row_state,
     const animation_state_row_t fallback_row_state, const animation_state_row_t end_fallback_row_state,
     animation_player_result_t& new_animation_result, animation_state_t& new_state,
     [[maybe_unused]] const animation_state_t& current_state, const custom_sprite_sheet_t& current_frames,
@@ -3281,10 +3284,12 @@ static anim_custom_process_animation_result_t anim_custom_restart_animation(
   return ret;
 }
 
-static anim_custom_process_animation_result_t anim_custom_start_or_process_animation(
-    animation_context_t& ctx, animation_state_row_t new_row_state, animation_player_result_t& new_animation_result,
-    animation_state_t& new_state, const animation_state_t& current_state, const custom_sprite_sheet_t& current_frames,
-    const config::config_t& current_config) {
+static anim_custom_process_animation_result_t
+anim_custom_start_or_process_animation(animation_thread_context_t& ctx, animation_state_row_t new_row_state,
+                                       animation_player_result_t& new_animation_result, animation_state_t& new_state,
+                                       const animation_state_t& current_state,
+                                       const custom_sprite_sheet_t& current_frames,
+                                       const config::config_t& current_config) {
   if (current_state.row_state != new_row_state) {
     auto result = anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
     if (result.status == anim_custom_process_animation_result_status_t::Looped ||
@@ -3302,7 +3307,7 @@ static anim_custom_process_animation_result_t anim_custom_start_or_process_anima
                                        current_frames, current_config);
 }
 static anim_custom_process_animation_result_t anim_custom_start_or_process_animation(
-    animation_context_t& ctx, animation_state_row_t new_row_state, animation_state_row_t fallback_row_state,
+    animation_thread_context_t& ctx, animation_state_row_t new_row_state, animation_state_row_t fallback_row_state,
     animation_player_result_t& new_animation_result, animation_state_t& new_state,
     const animation_state_t& current_state, const custom_sprite_sheet_t& current_frames,
     const config::config_t& current_config) {
@@ -3330,7 +3335,7 @@ static anim_custom_process_animation_result_t anim_custom_start_or_process_anima
 }
 
 static anim_custom_process_animation_result_t
-anim_custom_handle_movement(animation_context_t& ctx, const platform::input::input_context_t& input,
+anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
                             [[maybe_unused]] const platform::update::update_context_t& upd,
                             animation_player_result_t& new_animation_result, animation_state_t& new_state,
                             const anim_handle_key_press_result_t& trigger_result,
@@ -3551,7 +3556,7 @@ anim_custom_handle_movement(animation_context_t& ctx, const platform::input::inp
   return ret;
 }
 static anim_next_frame_result_t
-anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::input_context_t& input,
+anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
                             [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
                             const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
@@ -3986,7 +3991,7 @@ anim_custom_idle_next_frame(animation_context_t& ctx, const platform::input::inp
                                      current_state, current_config);
 }
 static anim_next_frame_result_t
-anim_custom_key_pressed_next_frame(animation_context_t& ctx, animation_state_t& state,
+anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_state_t& state,
                                    [[maybe_unused]] const platform::input::input_context_t& input,
                                    [[maybe_unused]] const platform::update::update_context_t& upd,
                                    [[maybe_unused]] const animation_trigger_t& trigger) {
@@ -4128,7 +4133,7 @@ anim_custom_key_pressed_next_frame(animation_context_t& ctx, animation_state_t& 
                                      current_state, current_config);
 }
 
-static anim_next_frame_result_t anim_custom_working_next_frame(animation_context_t& ctx,
+static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_context_t& ctx,
                                                                const platform::input::input_context_t& input,
                                                                const platform::update::update_context_t& upd,
                                                                animation_state_t& state,
@@ -4230,7 +4235,7 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_context
                                      current_state, current_config);
 }
 
-static anim_next_frame_result_t anim_custom_running_next_frame(animation_context_t& ctx,
+static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_context_t& ctx,
                                                                const platform::input::input_context_t& input,
                                                                const platform::update::update_context_t& upd,
                                                                animation_state_t& state,
@@ -4334,7 +4339,8 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_context
 #endif
 
 static anim_next_frame_result_t
-anim_handle_idle_animation(animation_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+anim_handle_idle_animation(animation_thread_context_t& ctx,
+                           [[maybe_unused]] const platform::input::input_context_t& input,
                            [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
                            const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
@@ -4385,18 +4391,18 @@ anim_handle_idle_animation(animation_context_t& ctx, [[maybe_unused]] const plat
   return {};
 }
 
-static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_session_t& animation_trigger_ctx,
+static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_context_t& animation_ctx,
                                                                     animation_state_t& state,
                                                                     const animation_trigger_t& trigger) {
   using namespace assets;
 
-  assert(animation_trigger_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_trigger_ctx._input->shm != BONGOCAT_NULLPTR);
-  assert(animation_trigger_ctx._update != BONGOCAT_NULLPTR);
-  assert(animation_trigger_ctx._update->shm != BONGOCAT_NULLPTR);
-  animation_context_t& ctx = animation_trigger_ctx.anim;
-  [[maybe_unused]] const platform::input::input_context_t& input = *animation_trigger_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_trigger_ctx._update;
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
 
   // read-only config
   // assert(ctx._local_copy_config != nullptr);
@@ -4501,12 +4507,12 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_se
   return {.trigger = trigger, .update_frame_result = update_frame_result};
 }
 
-static bool anim_update_state(animation_session_t& animation_trigger_ctx, animation_state_t& state,
+static bool anim_update_state(animation_context_t& animation_ctx, animation_state_t& state,
                               const animation_trigger_t& trigger) {
-  assert(animation_trigger_ctx._input);
-  platform::input::input_context_t& input = *animation_trigger_ctx._input;
-  platform::update::update_context_t& upd = *animation_trigger_ctx._update;
-  animation_context_t& ctx = animation_trigger_ctx.anim;
+  assert(animation_ctx._input);
+  platform::input::input_context_t& input = *animation_ctx._input;
+  platform::update::update_context_t& upd = *animation_ctx._update;
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
   // read-only config
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
@@ -4523,7 +4529,7 @@ static bool anim_update_state(animation_session_t& animation_trigger_ctx, animat
     {
       platform::LockGuard input_guard(input.input_lock);
       platform::LockGuard update_guard(upd.update_lock);
-      trigger_result = anim_handle_animation_trigger(animation_trigger_ctx, state, trigger);
+      trigger_result = anim_handle_animation_trigger(animation_ctx, state, trigger);
       idle_update_result = anim_handle_idle_animation(ctx, input, upd, state, trigger_result);
       key_pressed = has_flag(trigger_result.trigger.anim_cause, trigger_animation_cause_mask_t::KeyPress) &&
                     trigger_result.trigger.any_key_press_counter > 0;
@@ -4563,7 +4569,7 @@ static bool anim_update_state(animation_session_t& animation_trigger_ctx, animat
 // ANIMATION THREAD MANAGEMENT MODULE
 // =============================================================================
 
-static void anim_init_state(animation_context_t& ctx, animation_state_t& state) {
+static void anim_init_state(animation_thread_context_t& ctx, animation_state_t& state) {
   // read-only config
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
@@ -4580,11 +4586,11 @@ static void anim_init_state(animation_context_t& ctx, animation_state_t& state) 
 
 static void cleanup_anim_thread(void *arg) {
   assert(arg);
-  animation_session_t& trigger_ctx = *static_cast<animation_session_t *>(arg);
+  animation_context_t& animation_context = *static_cast<animation_context_t *>(arg);
 
-  atomic_store(&trigger_ctx.anim._animation_running, false);
+  atomic_store(&animation_context.thread_context._animation_running, false);
 
-  trigger_ctx.anim.config_updated.notify_all();
+  animation_context.thread_context.config_updated.notify_all();
 
   BONGOCAT_LOG_INFO("Animation thread cleanup completed (via pthread_cancel)");
 }
@@ -4593,23 +4599,23 @@ static void *anim_thread(void *arg) {
   using namespace assets;
 
   assert(arg);
-  auto& trigger_ctx = *static_cast<animation_session_t *>(arg);
+  auto& trigger_ctx = *static_cast<animation_context_t *>(arg);
 
   // sanity checks
   assert(trigger_ctx._config != BONGOCAT_NULLPTR);
   assert(trigger_ctx._input != BONGOCAT_NULLPTR);
   assert(trigger_ctx._update != BONGOCAT_NULLPTR);
   assert(trigger_ctx._configs_reloaded_cond != BONGOCAT_NULLPTR);
-  assert(trigger_ctx.anim.shm);
+  assert(trigger_ctx.thread_context.shm);
   assert(trigger_ctx.trigger_efd._fd >= 0);
   assert(trigger_ctx.render_efd._fd >= 0);
-  assert(trigger_ctx.anim.update_config_efd._fd >= 0);
+  assert(trigger_ctx.thread_context.update_config_efd._fd >= 0);
 
   // init animation state
   animation_state_t state;
   {
-    platform::LockGuard guard(trigger_ctx.anim.anim_lock);
-    animation_context_t& ctx = trigger_ctx.anim;
+    platform::LockGuard guard(trigger_ctx.thread_context.anim_lock);
+    animation_thread_context_t& ctx = trigger_ctx.thread_context;
 
     assert(ctx.shm);
     // assert(input.shm);
@@ -4707,11 +4713,11 @@ static void *anim_thread(void *arg) {
   timespec next_frame_time{};
   clock_gettime(CLOCK_MONOTONIC, &next_frame_time);
 
-  atomic_store(&trigger_ctx.anim._animation_running, true);
-  while (atomic_load(&trigger_ctx.anim._animation_running)) {
+  atomic_store(&trigger_ctx.thread_context._animation_running, true);
+  while (atomic_load(&trigger_ctx.thread_context._animation_running)) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
-    animation_context_t& ctx = trigger_ctx.anim;
+    animation_thread_context_t& ctx = trigger_ctx.thread_context;
 
     // read from config
     platform::time_ms_t timeout_ms;
@@ -4737,8 +4743,8 @@ static void *anim_thread(void *arg) {
     constexpr size_t fds_animation_trigger_index = 1;
     constexpr nfds_t fds_count = 2;
     pollfd fds[fds_count] = {
-        {.fd = trigger_ctx.anim.update_config_efd._fd, .events = POLLIN, .revents = 0},
-        {.fd = trigger_ctx.trigger_efd._fd,            .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.thread_context.update_config_efd._fd, .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.trigger_efd._fd,                      .events = POLLIN, .revents = 0},
     };
 
     assert(timeout_ms <= INT_MAX);
@@ -4815,7 +4821,7 @@ static void *anim_thread(void *arg) {
 
     // Update Animations
     {
-      platform::LockGuard guard(trigger_ctx.anim.anim_lock);
+      platform::LockGuard guard(trigger_ctx.thread_context.anim_lock);
       assert(ctx.shm);
       const bool frame_changed = anim_update_state(trigger_ctx, state,
                                                    {
@@ -4888,14 +4894,16 @@ static void *anim_thread(void *arg) {
         BONGOCAT_LOG_WARNING("animation: Timed out waiting for reload eventfd: %s", strerror(errno));
       }
       if constexpr (features::Debug) {
-        if (atomic_load(&trigger_ctx.anim.config_seen_generation) < atomic_load(trigger_ctx._config_generation)) {
+        if (atomic_load(&trigger_ctx.thread_context.config_seen_generation) <
+            atomic_load(trigger_ctx._config_generation)) {
           BONGOCAT_LOG_VERBOSE(
               "animation: trigger_ctx.anim.config_seen_generation < trigger_ctx._config_generation; %d < %d",
-              atomic_load(&trigger_ctx.anim.config_seen_generation), atomic_load(trigger_ctx._config_generation));
+              atomic_load(&trigger_ctx.thread_context.config_seen_generation),
+              atomic_load(trigger_ctx._config_generation));
         }
       }
       // assert(atomic_load(&trigger_ctx.anim.config_seen_generation) >= atomic_load(trigger_ctx._config_generation));
-      atomic_store(&trigger_ctx.anim.config_seen_generation, atomic_load(trigger_ctx._config_generation));
+      atomic_store(&trigger_ctx.thread_context.config_seen_generation, atomic_load(trigger_ctx._config_generation));
       BONGOCAT_LOG_INFO("animation: Animation config reloaded (gen=%u)", new_gen);
     }
   }
@@ -4915,33 +4923,34 @@ static void *anim_thread(void *arg) {
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_context_t& input,
+bongocat_error_t start(animation_context_t& animation_ctx, platform::input::input_context_t& input,
                        platform::update::update_context_t& upd, const config::config_t& config,
                        platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
   BONGOCAT_LOG_INFO("Starting animation thread");
 
   // Initialize shared memory for local config
-  trigger_ctx.anim._local_copy_config = platform::make_allocated_mmap<config::config_t>();
-  if (!trigger_ctx.anim._local_copy_config) [[unlikely]] {
+  animation_ctx.thread_context._local_copy_config = platform::make_allocated_mmap<config::config_t>();
+  if (!animation_ctx.thread_context._local_copy_config) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  assert(trigger_ctx.anim._local_copy_config);
-  update_config(trigger_ctx.anim, config, atomic_load(&config_generation));
+  assert(animation_ctx.thread_context._local_copy_config);
+  update_config(animation_ctx.thread_context, config, atomic_load(&config_generation));
 
   // set extern/global references
-  trigger_ctx._input = &input;
-  trigger_ctx._update = &upd;
-  trigger_ctx._config = &config;
-  trigger_ctx._configs_reloaded_cond = &configs_reloaded_cond;
-  trigger_ctx._config_generation = &config_generation;
-  atomic_store(&trigger_ctx.ready, true);
-  trigger_ctx.init_cond.notify_all();
+  animation_ctx._input = &input;
+  animation_ctx._update = &upd;
+  animation_ctx._config = &config;
+  animation_ctx._configs_reloaded_cond = &configs_reloaded_cond;
+  animation_ctx._config_generation = &config_generation;
+  atomic_store(&animation_ctx.ready, true);
+  animation_ctx.init_cond.notify_all();
 
-  trigger_ctx._configs_reloaded_cond->notify_all();
+  animation_ctx._configs_reloaded_cond->notify_all();
 
   // start animation thread
-  const int result = pthread_create(&trigger_ctx.anim._anim_thread, BONGOCAT_NULLPTR, anim_thread, &trigger_ctx);
+  const int result =
+      pthread_create(&animation_ctx.thread_context._anim_thread, BONGOCAT_NULLPTR, anim_thread, &animation_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to create animation thread: %s", strerror(result));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -4951,29 +4960,29 @@ bongocat_error_t start(animation_session_t& trigger_ctx, platform::input::input_
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-void trigger(animation_session_t& trigger_ctx, trigger_animation_cause_mask_t cause) {
+void trigger(animation_context_t& animation_ctx, trigger_animation_cause_mask_t cause) {
   const auto u = static_cast<uint64_t>(cause);
-  if (write(trigger_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+  if (write(animation_ctx.trigger_efd._fd, &u, sizeof(uint64_t)) >= 0) {
     BONGOCAT_LOG_VERBOSE("Write animation trigger event: %zu", cause);
   } else {
     BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
   }
 }
 
-void trigger_update_config(animation_session_t& trigger_ctx, const config::config_t& config,
+void trigger_update_config(animation_context_t& animation_ctx, const config::config_t& config,
                            uint64_t config_generation) {
   // assert(trigger_ctx.anim._local_copy_config != nullptr);
   // assert(trigger_ctx.anim.shm != nullptr);
 
-  trigger_ctx._config = &config;
-  if (write(trigger_ctx.anim.update_config_efd._fd, &config_generation, sizeof(uint64_t)) >= 0) {
+  animation_ctx._config = &config;
+  if (write(animation_ctx.thread_context.update_config_efd._fd, &config_generation, sizeof(uint64_t)) >= 0) {
     BONGOCAT_LOG_VERBOSE("Write animation trigger update config");
   } else {
     BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
   }
 }
 
-BONGOCAT_NODISCARD static int rand_animation_index(animation_context_t& ctx, const config::config_t& config) {
+BONGOCAT_NODISCARD static int rand_animation_index(animation_thread_context_t& ctx, const config::config_t& config) {
   using namespace assets;
   assert(ctx._local_copy_config);
   assert(ctx.shm);
@@ -5146,7 +5155,7 @@ BONGOCAT_NODISCARD static int rand_animation_index(animation_context_t& ctx, con
   return config.animation_index;
 }
 
-static void update_config_reload_sprite_sheet(animation_context_t& ctx) {
+static void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
   using namespace assets;
   assert(ctx._local_copy_config);
 
@@ -5205,7 +5214,7 @@ static void update_config_reload_sprite_sheet(animation_context_t& ctx) {
   BONGOCAT_LOG_DEBUG("Update sprite sheet; load assets in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
                      static_cast<double>(t1 - t0) / 1000000.0);
 }
-void update_config(animation_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
+void update_config(animation_thread_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
   assert(ctx._local_copy_config);
   assert(ctx.shm);
 

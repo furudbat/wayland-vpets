@@ -102,15 +102,15 @@ static void cleanup_input_thread_context(input_context_t& input) {
 
 static void cleanup_input_thread(void *arg) {
   assert(arg);
-  const animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
-  assert(trigger_ctx._input);
-  input_context_t& input = *trigger_ctx._input;
+  const animation::animation_context_t& animation_context = *static_cast<animation::animation_context_t *>(arg);
+  assert(animation_context._input);
+  input_context_t& input = *animation_context._input;
 
   atomic_store(&input._capture_input_running, false);
 
   input.config_updated.notify_all();
 
-  cleanup_input_thread_context(*trigger_ctx._input);
+  cleanup_input_thread_context(*animation_context._input);
 
   BONGOCAT_LOG_INFO("Input thread cleanup completed (via pthread_cancel)");
 }
@@ -123,10 +123,10 @@ inline static bool is_open_device_valid(int fd) {
   struct stat fd_st{};
   return fd >= 0 && fstat(fd, &fd_st) == 0 && (S_ISCHR(fd_st.st_mode) && !S_ISLNK(fd_st.st_mode));
 }
-inline static void trigger_key_press(animation::animation_session_t& trigger_ctx, int keycode = 0) {
-  assert(trigger_ctx._input);
+inline static void trigger_key_press(animation::animation_context_t& animation_ctx, int keycode = 0) {
+  assert(animation_ctx._input);
   // animation_context_t& anim = trigger_ctx.anim;
-  input_context_t& input = *trigger_ctx._input;
+  input_context_t& input = *animation_ctx._input;
 
   // read-only config
   assert(input._local_copy_config);
@@ -170,7 +170,7 @@ inline static void trigger_key_press(animation::animation_session_t& trigger_ctx
   } else {
     input.shm->hand_mapping = input_hand_mapping_t::None;
   }
-  animation::trigger(trigger_ctx, animation::trigger_animation_cause_mask_t::KeyPress);
+  animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::KeyPress);
 }
 
 // for testing
@@ -388,15 +388,15 @@ static bongocat_error_t setup_udev_monitor(input_context_t& input) {
 
 static void *input_thread(void *arg) {
   assert(arg);
-  animation::animation_session_t& trigger_ctx = *static_cast<animation::animation_session_t *>(arg);
+  animation::animation_context_t& animation_ctx = *static_cast<animation::animation_context_t *>(arg);
 
   // from thread context
   // animation_context_t& anim = trigger_ctx.anim;
   // wait for input context (in animation start)
-  trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
-                                  COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
-  assert(trigger_ctx._input != BONGOCAT_NULLPTR);
-  input_context_t& input = *trigger_ctx._input;
+  animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
+                                    COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  input_context_t& input = *animation_ctx._input;
 
   // sanity checks
   assert(input._config != BONGOCAT_NULLPTR);
@@ -461,7 +461,7 @@ static void *input_thread(void *arg) {
   }
 
   // trigger initial render
-  wayland::request_render(trigger_ctx);
+  wayland::request_render(animation_ctx);
 
   pthread_cleanup_push(cleanup_input_thread, arg);
 
@@ -918,7 +918,7 @@ static void *input_thread(void *arg) {
 
             const timestamp_ms_t now = get_current_time_ms();
             if (key_pressed) {
-              trigger_key_press(trigger_ctx, captured_keycode);
+              trigger_key_press(animation_ctx, captured_keycode);
             } else {
               input.shm->any_key_pressed = 0;
               input.shm->hand_mapping = input_hand_mapping_t::None;
@@ -972,7 +972,7 @@ static void *input_thread(void *arg) {
           }
 
           if (got_key) {
-            trigger_key_press(trigger_ctx);
+            trigger_key_press(animation_ctx);
             if (enable_debug) {
               const size_t len = (rd > 0) ? (static_cast<size_t>(rd) < TEST_STDIN_BUF_LEN ? static_cast<size_t>(rd)
                                                                                           : TEST_STDIN_BUF_LEN - 1)
@@ -1098,7 +1098,7 @@ created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t
   return ret;
 }
 
-bongocat_error_t start(input_context_t& input, animation::animation_session_t& trigger_ctx,
+bongocat_error_t start(input_context_t& input, animation::animation_context_t& animation_ctx,
                        const config::config_t& config, CondVariable& configs_reloaded_cond,
                        atomic_uint64_t& config_generation) {
   if (config.num_keyboard_devices < 0) {
@@ -1135,20 +1135,20 @@ bongocat_error_t start(input_context_t& input, animation::animation_session_t& t
   update_config(input, config, atomic_load(&config_generation));
 
   // wait for animation trigger to be ready (input should be the same)
-  int cond_ret = trigger_ctx.init_cond.timedwait([&]() { return atomic_load(&trigger_ctx.ready); },
-                                                 COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
+  int cond_ret = animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
+                                                   COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   if (cond_ret == ETIMEDOUT) {
     BONGOCAT_LOG_ERROR("Failed to initialize input monitoring: waiting for animation thread to start in time");
   } else {
-    assert(trigger_ctx._input == &input);
+    assert(animation_ctx._input == &input);
   }
   // set extern/global references
   {
     // guard for anim_update_state
-    LockGuard guard(trigger_ctx.anim.anim_lock);
-    trigger_ctx._input = &input;
+    LockGuard guard(animation_ctx.thread_context.anim_lock);
+    animation_ctx._input = &input;
   }
-  trigger_ctx.init_cond.notify_all();
+  animation_ctx.init_cond.notify_all();
   input._config = &config;
   input._configs_reloaded_cond = &configs_reloaded_cond;
   input._config_generation = &config_generation;
@@ -1158,7 +1158,7 @@ bongocat_error_t start(input_context_t& input, animation::animation_session_t& t
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring thread
-  const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &trigger_ctx);
+  const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &animation_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;
@@ -1168,7 +1168,7 @@ bongocat_error_t start(input_context_t& input, animation::animation_session_t& t
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-bongocat_error_t restart(input_context_t& input, animation::animation_session_t& trigger_ctx,
+bongocat_error_t restart(input_context_t& input, animation::animation_context_t& animation_ctx,
                          const config::config_t& config, CondVariable& configs_reloaded_cond,
                          atomic_uint64_t& config_generation) {
   BONGOCAT_LOG_INFO("Restarting input monitoring system");
@@ -1232,8 +1232,8 @@ bongocat_error_t restart(input_context_t& input, animation::animation_session_t&
   // set extern/global references
   {
     // guard for anim_update_state
-    LockGuard guard(trigger_ctx.anim.anim_lock);
-    trigger_ctx._input = &input;
+    LockGuard guard(animation_ctx.thread_context.anim_lock);
+    animation_ctx._input = &input;
   }
   input._config = &config;
   input._configs_reloaded_cond = &configs_reloaded_cond;
@@ -1243,7 +1243,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_session_t&
   input._configs_reloaded_cond->notify_all();
 
   // start input monitoring
-  const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &trigger_ctx);
+  const int result = pthread_create(&input._input_thread, BONGOCAT_NULLPTR, input_thread, &animation_ctx);
   if (result != 0) {
     BONGOCAT_LOG_ERROR("Failed to start input monitoring thread: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_THREAD;

@@ -9,7 +9,7 @@
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 #include "embedded_assets/pmd/pmd_sprite.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "utils/error.h"

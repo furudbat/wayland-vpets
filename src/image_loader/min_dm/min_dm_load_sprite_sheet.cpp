@@ -2,13 +2,13 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/min_dm/min_dm.hpp"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "image_loader/min_dm/load_images_min_dm.h"
 
 namespace bongocat::animation {
-created_result_t<dm_sprite_sheet_t> load_min_dm_sprite_sheet(const animation_context_t& ctx, int index) {
+created_result_t<dm_sprite_sheet_t> load_min_dm_sprite_sheet(const animation_thread_context_t& ctx, int index) {
   using namespace animation;
   using namespace assets;
   switch (index) {

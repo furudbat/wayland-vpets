@@ -3,7 +3,7 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "graphics/animation.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
@@ -31,7 +31,7 @@ struct cat_rect_t {
 
 template <class SpriteSheet>
 /// @TODO: required SpriteSheet must be _sprite_sheet_t
-cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx, const SpriteSheet& sheet,
+cat_rect_t get_position(const platform::wayland::wayland_thread_context& wayland_ctx, const SpriteSheet& sheet,
                         const config::config_t& config) {
   const int cat_height = config.cat_height;
   const int cat_width = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) /
@@ -58,7 +58,7 @@ cat_rect_t get_position(const platform::wayland::wayland_context_t& wayland_ctx,
 }
 
 /// @TODO: make draw_sprite more generic (template?)
-void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
+void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const bongocat_sprite_sheet_t& sheet,
                  blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
   using namespace assets;
@@ -66,8 +66,8 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
-  animation_context_t& anim = ctx.animation_trigger_context->anim;
+  const platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
+  animation_thread_context_t& anim = ctx.animation_context->thread_context;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
@@ -183,7 +183,7 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   }
 }
 
-void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
+void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const dm_sprite_sheet_t& sheet,
                  blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
   using namespace assets;
@@ -191,8 +191,8 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
-  animation_context_t& anim = ctx.animation_trigger_context->anim;
+  const platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
+  animation_thread_context_t& anim = ctx.animation_context->thread_context;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
@@ -335,7 +335,7 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   }
 }
 
-void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
+void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const pkmn_sprite_sheet_t& sheet,
                  blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
   using namespace assets;
@@ -343,8 +343,8 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
     return;
   }
 
-  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
-  animation_context_t& anim = ctx.animation_trigger_context->anim;
+  const platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
+  animation_thread_context_t& anim = ctx.animation_context->thread_context;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
@@ -448,13 +448,13 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
   }
 }
 
-void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
+void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const ms_agent_sprite_sheet_t& sheet, int col, int row) {
   if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
     return;
   }
 
-  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+  const platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
@@ -495,15 +495,15 @@ enum class draw_sprite_overwrite_option_t : uint32_t {
   MovementNoMirror = (1 << 0),
   MovementMirror = (1 << 1),
 };
-void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
+void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const custom_sprite_sheet_t& sheet, int col, int row,
                  draw_sprite_overwrite_option_t overwrite_option = draw_sprite_overwrite_option_t::None) {
   if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
     return;
   }
 
-  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
-  animation_context_t& anim = ctx.animation_trigger_context->anim;
+  const platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
+  animation_thread_context_t& anim = ctx.animation_context->thread_context;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
@@ -605,10 +605,10 @@ void draw_sprite(platform::wayland::wayland_session_t& ctx, platform::wayland::w
                     drawing_option);
 }
 
-static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
+static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
                                platform::wayland::wayland_shm_buffer_t& shm_buffer) {
-  const platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
-  animation_context_t& anim = ctx.animation_trigger_context->anim;
+  const platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
+  animation_thread_context_t& anim = ctx.animation_context->thread_context;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   // platform::wayland::wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm.ptr;
 
@@ -794,8 +794,8 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_session_t& ctx,
   return true;
 }
 
-draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx) {
-  platform::wayland::wayland_context_t& wayland_ctx = ctx.wayland_context;
+draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
+  platform::wayland::wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = ctx.animation_trigger_context->anim;
   // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
   platform::wayland::wayland_shared_memory_t& wayland_ctx_shm = *wayland_ctx.ctx_shm.ptr;

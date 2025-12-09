@@ -1,6 +1,6 @@
 #include "config/config_watcher.h"
 
-#include "platform/wayland_context.h"
+#include "platform/wayland_thread_context.h"
 #include "utils/error.h"
 #include "utils/system_memory.h"
 #include "utils/time.h"

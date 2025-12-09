@@ -1,11 +1,11 @@
 #include "image_loader/base_dm/load_dm.h"
 
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "image_loader/load_images.h"
 
 namespace bongocat::animation {
 
-created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_context_t& ctx, [[maybe_unused]] int anim_index,
+created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_thread_context_t& ctx, [[maybe_unused]] int anim_index,
                                                  const assets::embedded_image_t& sprite_sheet_image,
                                                  int sprite_sheet_cols, int sprite_sheet_rows) {
   using namespace assets;

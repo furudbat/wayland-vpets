@@ -1,4 +1,4 @@
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 
 #include <cassert>

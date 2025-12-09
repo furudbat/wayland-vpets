@@ -1,66 +1,109 @@
-#ifndef BONGOCAT_WAYLAND_CONTEXT_H
-#define BONGOCAT_WAYLAND_CONTEXT_H
+#ifndef BONGOCAT_GLOBAL_WAYLAND_CONTEXT_CONTEXT_H
+#define BONGOCAT_GLOBAL_WAYLAND_CONTEXT_CONTEXT_H
 
-struct zwlr_layer_shell_v1;
-struct zwlr_layer_surface_v1;
-#include "config/config.h"
+#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "platform/wayland-protocols.hpp"
-#include "wayland_shared_memory.h"
+#include "wayland_thread_context.h"
 
-#include <stdatomic.h>
-#include <wayland-client.h>
+#include <sys/time.h>
 
 namespace bongocat::platform::wayland {
-inline static constexpr int MAX_ATTEMPTS = 4096;
+// max. windows to track for fullscreen detection
+inline static constexpr size_t MAX_TOP_LEVELS = 128;
+inline static constexpr size_t MAX_OUTPUTS = 8;  // Maximum monitor outputs to store
+inline static constexpr size_t OUTPUT_NAME_SIZE = 128;
 
-struct wayland_context_t;
-// Cleanup Wayland resources
-void cleanup_wayland_context(wayland_context_t& ctx);
+// =============================================================================
+// FULLSCREEN DETECTION MODULE
+// =============================================================================
 
-enum class bar_visibility_t : bool {
-  Hide = false,
-  Show = true
+struct fullscreen_detector_t {
+  struct zwlr_foreign_toplevel_manager_v1 *manager{BONGOCAT_NULLPTR};
+  bool has_fullscreen_toplevel{false};
+  timeval last_check{};
+};
+struct tracked_toplevel_t {
+  struct zwlr_foreign_toplevel_handle_v1 *handle{BONGOCAT_NULLPTR};
+  wl_output *output{BONGOCAT_NULLPTR};
+  bool is_fullscreen{false};
 };
 
-struct screen_info_t;
+// =============================================================================
+// SCREEN DIMENSION MANAGEMENT
+// =============================================================================
+
+enum class screen_info_received_flags_t : uint32_t {
+  None = (1U << 0),
+  Mode = (1U << 1),
+  Geometry = (1U << 2),
+};
+struct screen_info_t {
+  struct wl_output *wl_output{BONGOCAT_NULLPTR};  // ref of output
+  int screen_width{0};
+  int screen_height{0};
+  int transform{0};
+  int raw_width{0};
+  int raw_height{0};
+  screen_info_received_flags_t received{screen_info_received_flags_t::None};
+};
+
+struct wayland_context_t;
+
+enum class output_ref_received_flags_t : uint32_t {
+  None = (1u << 0),
+  Name = (1u << 1),
+  LogicalPosition = (1u << 2),
+  LogicalSize = (1u << 3),
+};
+// Output monitor reference structure
+struct output_ref_t {
+  struct wl_output *wl_output{BONGOCAT_NULLPTR};
+  zxdg_output_v1 *xdg_output{BONGOCAT_NULLPTR};
+  uint32_t name{0};                   // Registry name
+  char name_str[OUTPUT_NAME_SIZE]{};  // From xdg-output
+  int32_t x{0};
+  int32_t y{0};
+  int32_t width{0};
+  int32_t height{0};
+  output_ref_received_flags_t received{output_ref_received_flags_t::None};
+  // monitor ID in Hyprland
+  int64_t hypr_id{-1};
+  // back reference
+  wayland_context_t *wayland{BONGOCAT_NULLPTR};
+};
+
+void cleanup_wayland(wayland_context_t& ctx);
 
 struct wayland_context_t {
-  wl_display *display{BONGOCAT_NULLPTR};
-  wl_compositor *compositor{BONGOCAT_NULLPTR};
-  wl_shm *shm{BONGOCAT_NULLPTR};
-  zwlr_layer_shell_v1 *layer_shell{BONGOCAT_NULLPTR};
-  struct xdg_wm_base *xdg_wm_base{BONGOCAT_NULLPTR};
-  wl_output *output{BONGOCAT_NULLPTR};
-  wl_surface *surface{BONGOCAT_NULLPTR};
-  zwlr_layer_surface_v1 *layer_surface{BONGOCAT_NULLPTR};
+  wayland_thread_context thread_context;
+  animation::animation_context_t *animation_context{BONGOCAT_NULLPTR};
+
+  tracked_toplevel_t tracked_toplevels[MAX_TOP_LEVELS];
+  size_t num_toplevels{0};
+
+  output_ref_t outputs[MAX_OUTPUTS];
+  size_t output_count{0};
+  zxdg_output_manager_v1 *xdg_output_manager{BONGOCAT_NULLPTR};
+
+  fullscreen_detector_t fs_detector;
+
+  screen_info_t screen_infos[MAX_OUTPUTS];
+  atomic_bool ready{false};
 
   // Output reconnection handling
-  struct wl_registry *registry{BONGOCAT_NULLPTR};
-  uint32_t bound_output_name{0};   // Registry name of our bound output
-  bool using_named_output{false};  // True if user specified an output name
+  atomic_bool _output_lost{false};  // Set when our output disconnects
 
-  // local copy from other thread, update after reload (shared memory)
-  MMapMemory<config::config_t> _local_copy_config;
-  MMapMemory<wayland_shared_memory_t> ctx_shm;
-  bar_visibility_t bar_visibility{bar_visibility_t::Show};
-
-  int32_t _bar_height{0};
-  int32_t _screen_width{0};
-  char *_output_name_str{
-      BONGOCAT_NULLPTR};  // ref to existing name in output, Will default to automatic one if kept null
-  bool _fullscreen_detected{false};
-  screen_info_t *_screen_info{BONGOCAT_NULLPTR};
-
-  // frame done callback data
-  wl_callback *_frame_cb{BONGOCAT_NULLPTR};
-  Mutex _frame_cb_lock;
-  atomic_bool _frame_pending{false};
-  atomic_bool _redraw_after_frame{false};
-  timestamp_ms_t _last_frame_timestamp_ms{0};
-
-  wayland_context_t() = default;
+  wayland_context_t() {
+    for (size_t i = 0; i < MAX_TOP_LEVELS; i++) {
+      tracked_toplevels[i] = {};
+    }
+    for (size_t i = 0; i < MAX_OUTPUTS; i++) {
+      outputs[i] = {};
+    }
+  }
   ~wayland_context_t() {
-    cleanup_wayland_context(*this);
+    cleanup_wayland(*this);
   }
 
   wayland_context_t(const wayland_context_t&) = delete;
@@ -69,129 +112,59 @@ struct wayland_context_t {
   wayland_context_t& operator=(wayland_context_t&& other) noexcept = delete;
 };
 
-inline void cleanup_wayland_context_protocols(wayland_context_t& ctx) {
-  if (ctx.ctx_shm) {
-    atomic_store(&ctx.ctx_shm->configured, false);
-  }
+inline void cleanup_wayland(wayland_context_t& ctx) {
+  atomic_store(&ctx.ready, false);
 
-  if (ctx.registry != BONGOCAT_NULLPTR) {
-    wl_registry_destroy(ctx.registry);
-    ctx.registry = BONGOCAT_NULLPTR;
-  }
-}
-inline void cleanup_wayland_context_surface(wayland_context_t& ctx) {
-  if (ctx.ctx_shm) {
-    atomic_store(&ctx.ctx_shm->configured, false);
-  }
-
-  if (ctx.layer_surface != BONGOCAT_NULLPTR) {
-    zwlr_layer_surface_v1_destroy(ctx.layer_surface);
-    ctx.layer_surface = BONGOCAT_NULLPTR;
-  }
-  if (ctx.surface != BONGOCAT_NULLPTR) {
-    wl_surface_destroy(ctx.surface);
-    ctx.surface = BONGOCAT_NULLPTR;
-  }
-}
-inline void cleanup_wayland_context_buffer(wayland_context_t& ctx) {
-  if (ctx.ctx_shm) {
-    atomic_store(&ctx.ctx_shm->configured, false);
-  }
-
-  if (ctx.ctx_shm) {
-    for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
-      cleanup_shm_buffer(ctx.ctx_shm->buffers[i]);
-    }
-
-    ctx.ctx_shm->current_buffer_index = 0;
-  }
-
-  ctx._screen_width = 0;
-  ctx._bar_height = 0;
-}
-inline void cleanup_wayland_context(wayland_context_t& ctx) {
-  if (ctx.ctx_shm) {
-    atomic_store(&ctx.ctx_shm->configured, false);
-  }
-
-  // drain pending events
-  if (ctx.display != BONGOCAT_NULLPTR) {
-    wl_display_flush(ctx.display);
-    wl_display_roundtrip(ctx.display);
-    int attempts = 0;
-    while (wl_display_dispatch_pending(ctx.display) > 0 && attempts <= MAX_ATTEMPTS) {
-      attempts++;
-    }
-    if (attempts >= MAX_ATTEMPTS && wl_display_dispatch_pending(ctx.display) > 0) {
-      BONGOCAT_LOG_ERROR("Cant fully drain wayland display, max attempts: %i", attempts);
+  // First destroy xdg_output objects
+  for (size_t i = 0; i < ctx.output_count; ++i) {
+    if (ctx.outputs[i].xdg_output != BONGOCAT_NULLPTR) {
+      zxdg_output_v1_destroy(ctx.outputs[i].xdg_output);
+      ctx.outputs[i].xdg_output = BONGOCAT_NULLPTR;
     }
   }
 
-  cleanup_wayland_context_protocols(ctx);
-
-  // release frame.done handler
-  atomic_store(&ctx._frame_pending, false);
-  atomic_store(&ctx._redraw_after_frame, false);
-  // ctx._frame_cb_lock should be unlocked
-  if (ctx._frame_cb != BONGOCAT_NULLPTR) {
-    wl_callback_destroy(ctx._frame_cb);
-    ctx._frame_cb = BONGOCAT_NULLPTR;
-  }
-  ctx._last_frame_timestamp_ms = 0;
-
-  // surfaces
-  cleanup_wayland_context_surface(ctx);
-
-  if (ctx.layer_shell != BONGOCAT_NULLPTR) {
-    zwlr_layer_shell_v1_destroy(ctx.layer_shell);
-    ctx.layer_shell = BONGOCAT_NULLPTR;
-  }
-  if (ctx.xdg_wm_base != BONGOCAT_NULLPTR) {
-    xdg_wm_base_destroy(ctx.xdg_wm_base);
-    ctx.xdg_wm_base = BONGOCAT_NULLPTR;
-  }
-  if (ctx.shm != BONGOCAT_NULLPTR) {
-    wl_shm_destroy(ctx.shm);
-    ctx.shm = BONGOCAT_NULLPTR;
-  }
-  if (ctx.compositor != BONGOCAT_NULLPTR) {
-    wl_compositor_destroy(ctx.compositor);
-    ctx.compositor = BONGOCAT_NULLPTR;
+  // Then destroy the manager
+  if (ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
+    zxdg_output_manager_v1_destroy(ctx.xdg_output_manager);
+    ctx.xdg_output_manager = BONGOCAT_NULLPTR;
   }
 
-  // release shm
-  cleanup_wayland_context_buffer(ctx);
-  release_allocated_mmap_memory(ctx.ctx_shm);
-  release_allocated_mmap_memory(ctx._local_copy_config);
+  // Finally destroy wl_output objects
+  for (size_t i = 0; i < ctx.output_count; ++i) {
+    if (ctx.outputs[i].wl_output != BONGOCAT_NULLPTR) {
+      wl_output_destroy(ctx.outputs[i].wl_output);
+      ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
+    }
+    ctx.outputs[i] = {};
+    ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
+    ctx.outputs[i].wayland = BONGOCAT_NULLPTR;
+  }
+  ctx.output_count = 0;
 
-  if (ctx.display != BONGOCAT_NULLPTR) {
-    wl_display_disconnect(ctx.display);
-    ctx.display = BONGOCAT_NULLPTR;
+  if (ctx.fs_detector.manager != BONGOCAT_NULLPTR) {
+    zwlr_foreign_toplevel_manager_v1_destroy(ctx.fs_detector.manager);
+    ctx.fs_detector.manager = BONGOCAT_NULLPTR;
   }
 
-  // Note: output is just a reference to one of the outputs[] entries
-  // It will be destroyed when we destroy the outputs[] array above
-  ctx.output = BONGOCAT_NULLPTR;
-  ctx.bound_output_name = 0;
-  ctx.using_named_output = false;
+  for (size_t i = 0; i < ctx.num_toplevels; ++i) {
+    if (ctx.tracked_toplevels[i].handle != BONGOCAT_NULLPTR) {
+      zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);
+      ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
+    }
+    ctx.tracked_toplevels[i] = {};
+  }
+  ctx.num_toplevels = 0;
 
-  // Reset state
-  ctx.display = BONGOCAT_NULLPTR;
-  ctx.compositor = BONGOCAT_NULLPTR;
-  ctx.shm = BONGOCAT_NULLPTR;
-  ctx.layer_shell = BONGOCAT_NULLPTR;
-  ctx.xdg_wm_base = BONGOCAT_NULLPTR;
-  ctx.output = BONGOCAT_NULLPTR;
-  ctx.surface = BONGOCAT_NULLPTR;
-  ctx.layer_surface = BONGOCAT_NULLPTR;
-  ctx._output_name_str = BONGOCAT_NULLPTR;
-  ctx._frame_pending = false;
-  ctx._redraw_after_frame = false;
-  ctx._bar_height = 0;
-  ctx._screen_width = 0;
-  ctx._fullscreen_detected = false;
-  ctx._screen_info = BONGOCAT_NULLPTR;
+  ctx.fs_detector = {};
+  for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
+    ctx.screen_infos[i] = {};
+  }
+
+  // clean up wayland context
+  cleanup_wayland_context(ctx.thread_context);
+
+  ctx.animation_context = BONGOCAT_NULLPTR;
 }
 }  // namespace bongocat::platform::wayland
 
-#endif  // BONGOCAT_WAYLAND_CONTEXT_H
+#endif

@@ -1,66 +1,66 @@
-#ifndef BONGOCAT_ANIMATION_CONTEXT_H
-#define BONGOCAT_ANIMATION_CONTEXT_H
+#ifndef BONGOCAT_ANIMATION_EVENT_CONTEXT_H
+#define BONGOCAT_ANIMATION_EVENT_CONTEXT_H
 
-#include "animation_shared_memory.h"
-#include "config/config.h"
-#include "utils/random.h"
-#include "utils/system_memory.h"
-
-#include <stdatomic.h>
+#include "graphics/animation_thread_context.h"
+#include "platform/input_context.h"
+#include "platform/update_context.h"
 
 namespace bongocat::animation {
 
-// =============================================================================
-// ANIMATION STATE
-// =============================================================================
-
 struct animation_context_t;
-void stop(animation_context_t& ctx);
-// Cleanup animation resources
-void cleanup(animation_context_t& ctx);
+void stop(animation_context_t& anim_ctx);
+void cleanup(animation_context_t& anim_ctx);
 
 struct animation_context_t {
-  // local copy from other thread, update after reload (shared memory)
-  platform::MMapMemory<config::config_t> _local_copy_config;
-  platform::MMapMemory<animation_shared_memory_t> shm;
+  animation_thread_context_t thread_context;
 
-  // Animation system state
-  atomic_bool _animation_running{false};
-  pthread_t _anim_thread{0};
-  platform::random_xoshiro128 _rng;
-  // lock for shm
-  platform::Mutex anim_lock;
+  // event file descriptor
+  platform::FileDescriptor trigger_efd;
+  platform::FileDescriptor render_efd;
 
-  // config reload threading
-  platform::FileDescriptor update_config_efd;  // get new_gen from here
-  atomic_uint64_t config_seen_generation{0};
-  platform::CondVariable config_updated;
+  // globals (references)
+  const config::config_t *_config{BONGOCAT_NULLPTR};
+  platform::CondVariable *_configs_reloaded_cond{BONGOCAT_NULLPTR};
+  platform::input::input_context_t *_input{BONGOCAT_NULLPTR};
+  platform::update::update_context_t *_update{BONGOCAT_NULLPTR};
+  atomic_uint64_t *_config_generation{BONGOCAT_NULLPTR};
+  atomic_bool ready{false};
+  platform::CondVariable init_cond;
 
   animation_context_t() = default;
   ~animation_context_t() {
     cleanup(*this);
   }
 
-  animation_context_t(const animation_context_t&) = delete;
-  animation_context_t& operator=(const animation_context_t&) = delete;
-  animation_context_t(animation_context_t&& other) = delete;
-  animation_context_t& operator=(animation_context_t&& other) = delete;
+  animation_context_t(const animation_context_t& other) = delete;
+  animation_context_t& operator=(const animation_context_t& other) = delete;
+  animation_context_t(animation_context_t&& other) noexcept = delete;
+  animation_context_t& operator=(animation_context_t&& other) noexcept = delete;
 };
-inline void cleanup(animation_context_t& ctx) {
-  if (atomic_load(&ctx._animation_running)) {
-    stop(ctx);
-    // ctx.anim_lock should be unlocked
-  }
-  atomic_store(&ctx._animation_running, false);
-  ctx._anim_thread = 0;
+inline void stop(animation_context_t& anim_ctx) {
+  stop(anim_ctx.thread_context);
 
-  close_fd(ctx.update_config_efd);
-  atomic_store(&ctx.config_seen_generation, 0);
+  anim_ctx._config = BONGOCAT_NULLPTR;
+  anim_ctx._configs_reloaded_cond = BONGOCAT_NULLPTR;
+  anim_ctx._config_generation = BONGOCAT_NULLPTR;
 
-  platform::release_allocated_mmap_memory(ctx.shm);
-  platform::release_allocated_mmap_memory(ctx._local_copy_config);
-  ctx._rng = platform::random_xoshiro128(0);
+  anim_ctx.thread_context.config_updated.notify_all();
+  atomic_store(&anim_ctx.ready, false);
+  anim_ctx.init_cond.notify_all();
+}
+inline void cleanup(animation_context_t& anim_ctx) {
+  cleanup(anim_ctx.thread_context);
+
+  platform::close_fd(anim_ctx.trigger_efd);
+  platform::close_fd(anim_ctx.render_efd);
+
+  anim_ctx._config = BONGOCAT_NULLPTR;
+  anim_ctx._input = BONGOCAT_NULLPTR;
+  anim_ctx._update = BONGOCAT_NULLPTR;
+  anim_ctx._configs_reloaded_cond = BONGOCAT_NULLPTR;
+  atomic_store(&anim_ctx.ready, false);
+  anim_ctx.init_cond.notify_all();
 }
 }  // namespace bongocat::animation
 
-#endif  // BONGOCAT_ANIMATION_CONTEXT_H
+#endif

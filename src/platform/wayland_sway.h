@@ -1,6 +1,6 @@
 #pragma once
 
-#include "platform/global_wayland_session.h"
+#include "platform/wayland_context.h"
 
 namespace bongocat::platform::wayland::sway {
 

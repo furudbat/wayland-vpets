@@ -1,5 +1,5 @@
 #include "core/bongocat.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dm20/dm20.hpp"
@@ -8,7 +8,7 @@
 #include "image_loader/dm20/load_images_dm20.h"
 
 namespace bongocat::animation {
-    created_result_t<dm_sprite_sheet_t> load_dm20_sprite_sheet(const animation_context_t& ctx, int index) {
+    created_result_t<dm_sprite_sheet_t> load_dm20_sprite_sheet(const animation_thread_context_t& ctx, int index) {
         using namespace assets;
         switch (index) {
             case DM20_AEGISDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_AEGISDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_AEGISDRAMON_ANIM_INDEX), DM20_AEGISDRAMON_SPRITE_SHEET_COLS, DM20_AEGISDRAMON_SPRITE_SHEET_ROWS);

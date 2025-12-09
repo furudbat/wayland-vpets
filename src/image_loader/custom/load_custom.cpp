@@ -1,6 +1,6 @@
 #include "image_loader/custom/load_custom.h"
 
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "image_loader/load_images.h"
 
 namespace bongocat::animation {
@@ -28,7 +28,7 @@ void free_custom_sprite_sheet_file(assets::custom_image_t& image) noexcept {
 }
 
 created_result_t<custom_sprite_sheet_t>
-load_custom_anim(const animation_context_t& ctx, const assets::custom_image_t& sprite_sheet_image,
+load_custom_anim(const animation_thread_context_t& ctx, const assets::custom_image_t& sprite_sheet_image,
                  const assets::custom_animation_settings_t& sprite_sheet_settings) {
   assert(sprite_sheet_image.data._size_bytes >= 0);
   return load_custom_anim(ctx,
@@ -38,7 +38,7 @@ load_custom_anim(const animation_context_t& ctx, const assets::custom_image_t& s
                           sprite_sheet_settings);
 }
 created_result_t<custom_sprite_sheet_t>
-load_custom_anim(const animation_context_t& ctx, const assets::embedded_image_t& sprite_sheet_image,
+load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_image_t& sprite_sheet_image,
                  const assets::custom_animation_settings_t& sprite_sheet_settings) {
   using namespace assets;
   BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);

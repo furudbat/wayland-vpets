@@ -1,5 +1,5 @@
 #include "core/bongocat.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "embedded_assets/pkmn/pkmn.hpp"
 #include "embedded_assets/embedded_image.h"
@@ -7,7 +7,7 @@
 #include "image_loader/pkmn/load_images_pkmn.h"
 
 namespace bongocat::animation {
-    created_result_t<pkmn_sprite_sheet_t> load_pkmn_sprite_sheet(const animation_context_t& ctx, int index) {
+    created_result_t<pkmn_sprite_sheet_t> load_pkmn_sprite_sheet(const animation_thread_context_t& ctx, int index) {
         using namespace assets;
         switch (index) {
             case PKMN_BULBASAUR_ANIM_INDEX: return load_pkmn_anim(ctx, PKMN_BULBASAUR_ANIM_INDEX, get_pkmn_sprite_sheet(PKMN_BULBASAUR_ANIM_INDEX), PKMN_BULBASAUR_SPRITE_SHEET_COLS, PKMN_BULBASAUR_SPRITE_SHEET_ROWS);

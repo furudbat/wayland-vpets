@@ -2,9 +2,9 @@
 
 #include "../graphics/bar.h"
 #include "graphics/animation.h"
-#include "platform/global_wayland_session.h"
 #include "platform/wayland-protocols.hpp"
 #include "platform/wayland.h"
+#include "platform/wayland_context.h"
 #include "platform/wayland_shared_memory.h"
 #include "utils/memory.h"
 #include "wayland_hyprland.h"
@@ -80,8 +80,8 @@ FileDescriptor create_shm(off_t size) {
 // MAIN WAYLAND INTERFACE IMPLEMENTATION
 // =============================================================================
 
-bongocat_error_t wayland_update_screen_width(wayland_session_t& ctx) {
-  wayland_context_t& wayland_ctx = ctx.wayland_context;
+bongocat_error_t wayland_update_screen_width(wayland_context_t& ctx) {
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
 
   // read-only config
   assert(wayland_ctx._local_copy_config);
@@ -158,8 +158,8 @@ bongocat_error_t wayland_update_screen_width(wayland_session_t& ctx) {
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
-bongocat_error_t wayland_setup_protocols(wayland_session_t& ctx) {
-  wayland_context_t& wayland_ctx = ctx.wayland_context;
+bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = *ctx.animation_context;
   // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
@@ -224,8 +224,8 @@ bongocat_error_t wayland_setup_protocols(wayland_session_t& ctx) {
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-bongocat_error_t wayland_setup_surface(wayland_session_t& ctx) {
-  wayland_context_t& wayland_ctx = ctx.wayland_context;
+bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = *ctx.animation_context;
   // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
@@ -305,7 +305,8 @@ bongocat_error_t wayland_setup_surface(wayland_session_t& ctx) {
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animation::animation_session_t& anim) {
+bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
+                                      animation::animation_context_t& animation_ctx) {
   // read-only config
   assert(wayland_context._local_copy_config);
   // const config::config_t& current_config = *wayland_context._local_copy_config;
@@ -387,8 +388,8 @@ bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animat
     wayland_ctx_shm.buffers[i].index = i;
     atomic_store(&wayland_ctx_shm.buffers[i].busy, false);
     atomic_store(&wayland_ctx_shm.buffers[i].pending, false);
-    wayland_ctx_shm.buffers[i]._animation_trigger_context = &anim;
-    wayland_ctx_shm.buffers[i]._wayland_context = &wayland_context;
+    wayland_ctx_shm.buffers[i]._animation_context = &animation_ctx;
+    wayland_ctx_shm.buffers[i]._wayland_thread_context = &wayland_context;
     wl_buffer_add_listener(wayland_ctx_shm.buffers[i].buffer, &details::buffer_listener, &wayland_ctx_shm.buffers[i]);
   }
 
