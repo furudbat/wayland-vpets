@@ -68,6 +68,10 @@ BreakBeforeTernaryOperators: true
 BreakStringLiterals: true
 NamespaceIndentation: Inner
 FixNamespaceComments: true
+BreakConstructorInitializers: BeforeComma
+ConstructorInitializerAllOnOneLineOrOnePerLine: true
+AllowAllConstructorInitializersOnNextLine: false
+IndentWrappedFunctionNames: false
 
 # Spaces
 SpaceAfterCStyleCast: false

@@ -1,9 +1,9 @@
 #ifndef BONGOCAT_RANDOM_H_
 #define BONGOCAT_RANDOM_H_
 
-#include <cstdint>
-#include <cstddef>
 #include <climits>
+#include <cstddef>
+#include <cstdint>
 
 namespace bongocat::platform {
 
@@ -64,7 +64,9 @@ public:
   /// Constructor with seed value.
   ///\param seed The new seed value.
   //***************************************************************************
-  constexpr explicit random_xoshiro128(uint32_t seed) { initialise(seed); }
+  constexpr explicit random_xoshiro128(uint32_t seed) {
+    initialise(seed);
+  }
 
   //***************************************************************************
   /// Initialises the sequence with a new seed value.
@@ -81,7 +83,9 @@ public:
   //***************************************************************************
   /// Get the next random_xoshiro128 number.
   //***************************************************************************
-  [[nodiscard]] constexpr uint32_t operator()() { return next(); }
+  [[nodiscard]] constexpr uint32_t operator()() {
+    return next();
+  }
 
   //***************************************************************************
   /// Get the next random_xoshiro128 number in a specified inclusive range.
@@ -95,7 +99,9 @@ public:
     return range(0, UINT32_MAX);
   }
 
-  [[nodiscard]] constexpr inline uint32_t range_min(uint32_t min) { return range(min, UINT32_MAX); }
+  [[nodiscard]] constexpr inline uint32_t range_min(uint32_t min) {
+    return range(min, UINT32_MAX);
+  }
 
 private:
   uint32_t state[4]{};
@@ -113,7 +119,9 @@ private:
 
      The state must be seeded so that it is not everywhere zero. */
 
-  static inline constexpr uint32_t rotl(const uint32_t x, int k) { return (x << k) | (x >> (32 - k)); }
+  static inline constexpr uint32_t rotl(const uint32_t x, int k) {
+    return (x << k) | (x >> (32 - k));
+  }
 
   constexpr uint32_t next() {
     const uint32_t result = rotl(state[1] * 5, 7) * 9;
@@ -131,7 +139,6 @@ private:
 
     return result;
   }
-
 
   /* This is the jump function for the generator. It is equivalent
     to 2^64 calls to next(); it can be used to generate 2^64
@@ -162,7 +169,6 @@ private:
     state[3] = s3;
   }
   */
-
 
   /* This is the long-jump function for the generator. It is equivalent to
     2^96 calls to next(); it can be used to generate 2^32 starting points,
@@ -199,6 +205,6 @@ private:
 // for seeding
 extern uint32_t slow_rand();
 
-}
+}  // namespace bongocat::platform
 
 #endif

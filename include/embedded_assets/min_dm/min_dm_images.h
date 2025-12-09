@@ -59,4 +59,4 @@ extern const size_t dm_mamemon_png_size;
 extern const unsigned char dm_monzaemon_png[];
 extern const size_t dm_monzaemon_png_size;
 
-#endif // DM_EMBEDDED_ASSETS_IMAGES_H
+#endif  // DM_EMBEDDED_ASSETS_IMAGES_H

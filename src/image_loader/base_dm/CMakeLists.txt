@@ -1,5 +1,11 @@
 add_library(assets_base_dm_loader STATIC)
 target_sources(assets_base_dm_loader PRIVATE load_dm.cpp)
 target_compile_options(assets_base_dm_loader PRIVATE -ffunction-sections -fdata-sections)
-target_include_directories(assets_base_dm_loader PRIVATE ${INCLUDE_DIR}/image_loader/base_dm PUBLIC ${INCLUDE_DIR})
-target_link_libraries(assets_base_dm_loader PUBLIC assets_image_loader PRIVATE bongocat_options)
+target_include_directories(
+  assets_base_dm_loader
+  PRIVATE ${INCLUDE_DIR}/image_loader/base_dm
+  PUBLIC ${INCLUDE_DIR})
+target_link_libraries(
+  assets_base_dm_loader
+  PUBLIC assets_image_loader
+  PRIVATE bongocat_options)
