@@ -90,14 +90,16 @@ ifeq ($(ONLY_BONGOCAT),1)
 	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c
 	CXX_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp $(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp
 else
-	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c $(SRCDIR)/embedded_assets/min_dm/min_dm_images.c $(SRCDIR)/embedded_assets/ms_agent/ms_agent_images.c
+	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c $(SRCDIR)/embedded_assets/min_dm/min_dm_images.c $(SRCDIR)/embedded_assets/ms_agent/ms_agent_images.c $(SRCDIR)/embedded_assets/pkmn/pkmn_images.c
 	CXX_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp \
 		$(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp \
 		$(SRCDIR)/image_loader/min_dm/load_images_min_dm.cpp \
 		$(SRCDIR)/image_loader/min_dm/min_dm_load_sprite_sheet.cpp \
 		$(SRCDIR)/image_loader/base_dm/load_dm.cpp \
-		$(SRCDIR)/embedded_assets/min_dm/min_dm_get_sprite_sheet.cpp \
+		$(SRCDIR)/image_loader/pkmn/load_images_pkmn.cpp \
 		$(SRCDIR)/image_loader/ms_agent/load_images_ms_agent.cpp \
+		$(SRCDIR)/embedded_assets/pkmn/pkmn_get_sprite_sheet.cpp \
+		$(SRCDIR)/embedded_assets/min_dm/min_dm_get_sprite_sheet.cpp \
     	$(SRCDIR)/embedded_assets/ms_agent/embedded_assets_ms_agent.cpp
 endif
 

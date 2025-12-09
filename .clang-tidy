@@ -21,6 +21,8 @@ Checks: >
   -readability-else-after-return,
   -readability-uppercase-literal-suffix,
   -misc-use-anonymous-namespace,
+  -readability-non-const-parameter,
+  -performance-enum-size,
 
 # Only analyze project headers, not system/lib headers
 HeaderFilterRegex: '.*/(include|src)/.*\.(h|hpp)$'
@@ -51,6 +53,10 @@ CheckOptions:
     value: lower_case
 #  - key: readability-identifier-naming.EnumConstantCase
 #    value: UPPER_CASE
+  - key: readability-identifier-naming.MemberIgnoredRegexp
+    value: '^_?[a-z]+(_[a-z0-9]+)*$'
+  - key: readability-identifier-naming.PublicMemberIgnoredRegexp
+    value: '^_?[a-z]+(_[a-z0-9]+)*$'
   # Naming conventions (C++ style)
   - key: readability-identifier-naming.NamespaceCase
     value: lower_case
