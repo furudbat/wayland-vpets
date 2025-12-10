@@ -32,7 +32,7 @@ _Pokemon_
 - 🖥️ Multi-monitor support
 - 😴 Idle/scheduled sleep mode
 - 😄 Happy animation when reach KPM (Keystroke per minute)
-- 🎲 Randomize sprite frame at start up
+- 🎲 Randomize sprite at start up
 - 🔲 React to CPU usage
 - ↔️ Movement on screen
 - ⚡ Lightweight (~10MB RAM)
@@ -296,6 +296,8 @@ exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen2.bongoca
 exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen3.bongocat.conf
 exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen4.bongocat.conf --random
 ```
+
+_It can happen that waybar is rendered over the wpet, because they are on the same layer and waybar is started "over" the waybar, just delay the `wpets` start: `exec-once = sleep 5 && wpets-all ...`._
 
 ## Troubleshooting
 
