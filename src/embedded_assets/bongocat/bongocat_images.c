@@ -1,5 +1,6 @@
-#include <stddef.h>
 #include "embedded_assets/bongocat/bongocat_images.h"
+
+#include <stddef.h>
 
 // Embedded asset data
 const unsigned char bongo_cat_both_up_png[] = {

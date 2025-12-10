@@ -1,16 +1,18 @@
 #ifndef BONGOCAT_ANIMATION_BAR_H
 #define BONGOCAT_ANIMATION_BAR_H
 
-#include "platform/global_wayland_session.h"
+#include "platform/wayland_context.h"
 
 namespace bongocat::animation {
-    enum class draw_bar_result_t {
-        Skip,
-        Busy,
-        FlushNeeded,
-        NoFlushNeeded,
-    };
-    draw_bar_result_t draw_bar(platform::wayland::wayland_session_t& ctx);
-}
+enum class draw_bar_result_t : uint8_t {
+  Skip,
+  Busy,
+  FlushNeeded,
+  NoFlushNeeded,
+};
 
-#endif // BONGOCAT_ANIMATION_BAR_H
+// Draw the overlay bar
+draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx);
+}  // namespace bongocat::animation
+
+#endif  // BONGOCAT_ANIMATION_BAR_H

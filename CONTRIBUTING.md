@@ -5,18 +5,6 @@ This guide will help you get started, whether you want to report issues, suggest
 
 ---
 
-## Table of Contents
-
-1. [Reporting Issues](#reporting-issues)
-2. [Feature Requests](#feature-requests)
-3. [Development Setup](#development-setup)
-4. [Code Standards](#code-standards)
-5. [Submitting Pull Requests](#submitting-pull-requests)
-6. [Style Guidelines](#style-guidelines)
-7. [License](#license)
-
----
-
 ## Reporting Issues
 
 If you encounter a bug or unexpected behavior:
@@ -29,8 +17,6 @@ If you encounter a bug or unexpected behavior:
    - **Logs**: Any relevant debug output
 
 > Please avoid sending private screenshots of proprietary content; only include relevant logs and minimal reproduction steps.
-
----
 
 ## Feature Requests
 
@@ -45,13 +31,16 @@ Feature requests are welcome! To submit a request:
 
 ---
 
-## Development Setup
+## Getting Started
 
 ### Prerequisites
 
-See [Building from Source](README.md#-building-from-source) for detailed instructions.
+- Wayland compositor with layer shell support
+- GCC or Clang (C++23/C23 support)
+- wayland-client, wayland-protocols
+- Make and CMake
 
-Quick start:
+### Building
 
 ```bash
 git clone https://github.com/furudbat/wayland-vpets.git
@@ -60,11 +49,21 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
 ````
 
-> Legacy `make debug` is supported for old Bongo Cat workflows, or you can just use CMake.
+> Legacy `make debug` is supported for old Bongo Cat dev workflows.
 
----
+`make debug` provides a quick debug build.
+You can inspect the old workflow in the old [`Makefile`](Makefile.old).  
+_**Note:** The binary name in AUR is `wpets`, but during development and `make install` it is still `bongocat`._
 
-## Code Standards
+### Running
+
+```bash
+./build/bongocat -c bongocat.conf -w
+```
+
+## Development Workflow
+
+### Code Standards
 
 Follow the project’s coding guidelines:
 
@@ -75,6 +74,13 @@ Follow the project’s coding guidelines:
 * **Try to avoid STL & Minimal Templates, you can use C functions and Linux build-in functions**
 * **Assets**: Embed large assets in separate TUs
 * **Global State**: Avoid globals, pass context structs
+
+_Run `make format` before committing_
+
+#### Moving to C++
+
+This project is migrated to C++ while retaining a C-style foundation for performance, Wayland compatibility and mosty compatible with [upstream](https://github.com/saatvik333/wayland-bongocat).  
+The codebase remains largely C under the hood, using Linux + Wayland libraries, while gradually adopting modern C++ practices for safety and maintainability.
 
 ### Key practices
 
@@ -105,23 +111,20 @@ Follow the project’s coding guidelines:
     * Prefer `create` functions with RVO instead of `init` with out-parameters
     * Stop all threads before releasing memory
 
----
-
-## Submitting Pull Requests
+### Making Changes
 
 1. Fork the repository and create a branch for your feature or fix:
-
    ```bash
    git checkout -b feature/my-new-feature
    ```
 2. Make your changes following the code standards.
-3. Test your changes thoroughly, including multi-monitor and keyboard input scenarios.
+3. Test your changes thoroughly, including multi-monitor and keyboard input scenarios (if you can).
 4. Commit your changes with clear messages:
 
    ```bash
    git commit -m "feat: Add support for X feature"
    ```
-5. Push your branch and open a Pull Request against `main`.
+5. Push your branch and open a Pull Request against `develop`.
 6. Include a description of what your PR changes and any relevant screenshots or logs.
 
 ---
@@ -130,17 +133,91 @@ Follow the project’s coding guidelines:
 
 * **Branch Naming**: `feature/xxx`, `bugfix/xxx`, `docs/xxx`
 * **Commit Messages**: Use present tense, concise, and descriptive
-* **Formatting**: try to Follow existing formatting and indentation, -- @TODO: add `.clang-format` and `.clang-tidy`
+* **Formatting**: try to Follow existing formatting and indentation
 * **Documentation**: Update relevant README sections if needed
-  * when adding new configuration, pls update [`bongocat.conf`](bongocat.conf)
+  * when adding new configuration, pls update [`bongocat.conf.example`](bongocat.conf.example)
   * when adding new program arguments update [`cli_show_help` in main](src/core/main.cpp)
     * update [man pages](docs/fragments/options.md)
 
----
+### Commit Messages
+
+Use conventional commits:
+
+```
+feat: add new feature
+fix: resolve bug
+docs: update documentation
+refactor: improve code structure
+```
+
+## Code Structure
+
+
+- `assets/` - Sprite sheets and media
+- `src/` - Core application logic and platform-specific code
+- `include/` - Headers
+- `scripts/` - Utilities and codegen
+- `lib/` - External libraries
+
+```
+wayland-vpets/
+├── assets/             # sprite sheets and media resources
+├── Dockerfiles/        # Container build definitions
+├── examples/           # Example configurations
+├── include/            # Header files (same structure as src/)
+├── lib/                # External libraries (image loader)
+├── nix/                # NixOS integration
+├── protocols/          # Generated Wayland protocols
+├── scripts/            # Codegen and utility scripts
+└── src/                # Source code
+├──── config/           # Configuration system implementation
+├──── core/             # Core application logic (main)
+├──── embedded_assets/  # Embedded assets
+├──── graphics/         # Rendering and graphics implementation
+├──── image_loader/     # Assets loading implementations
+├──── platform/         # Platform-specific code (input and wayland)
+└──── utils/            # General utilities
+```
+
+
+## Testing
+
+```bash
+# Run with debug logging
+./build/bongocat -c bongocat.conf -w
+# Build with Sanitizers (UBSAN,ASAN) enabled for checking for memory leaks
+```
+
+### Test Scripts
+
+```bash
+./scripts/test_bongocat.sh
+```
+
+There are also some test scripts, they are just for running, reloading and changing config for integration tests, meaning it's just for triggering the `asserts`.
+Also test on your own and trust your eyes when testing four your rice :)
+
+## Reporting Issues
+
+When reporting bugs, please include:
+
+- Your compositor (Sway, Hyprland, etc.)
+- Config file contents
+- Debug output (`enable_debug=1`)
 
 ## License
 
 All contributions must comply with the project’s MIT License. By submitting code, you agree to license your contributions under MIT.
+
+<details>
+<summary>Copyright</summary>
+
+This project is **free**, **non-commercial** and not associated with these entities.
+Pokémon are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
+Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.
+Clippy and other MS Agents are owed by Microsoft.
+See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
+</details>
 
 ---
 

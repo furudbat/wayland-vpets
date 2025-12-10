@@ -1,5 +1,5 @@
 #include "core/bongocat.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/pen/pen.hpp"
@@ -8,7 +8,7 @@
 #include "image_loader/pen/load_images_pen.h"
 
 namespace bongocat::animation {
-    created_result_t<dm_sprite_sheet_t> load_pen_sprite_sheet(const animation_context_t& ctx, int index) {
+    created_result_t<dm_sprite_sheet_t> load_pen_sprite_sheet(const animation_thread_context_t& ctx, int index) {
         using namespace assets;
         switch (index) {
             case PEN_AERO_V_DRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_AERO_V_DRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_AERO_V_DRAMON_ANIM_INDEX), PEN_AERO_V_DRAMON_SPRITE_SHEET_COLS, PEN_AERO_V_DRAMON_SPRITE_SHEET_ROWS);

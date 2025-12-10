@@ -1,5 +1,5 @@
 #include "core/bongocat.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/custom/load_custom.h"
 #include "embedded_assets/pmd/pmd.hpp"
@@ -8,7 +8,7 @@
 #include "image_loader/pmd/load_images_pmd.h"
 
 namespace bongocat::animation {
-    created_result_t<custom_sprite_sheet_t> load_pmd_sprite_sheet(const animation_context_t& ctx, int index) {
+    created_result_t<custom_sprite_sheet_t> load_pmd_sprite_sheet(const animation_thread_context_t& ctx, int index) {
         using namespace assets;
         switch (index) {
             case PMD_BULBASAUR_ANIM_INDEX: return load_custom_anim(ctx, get_pmd_sprite_sheet(PMD_BULBASAUR_ANIM_INDEX), get_pmd_sprite_sheet_settings(PMD_BULBASAUR_ANIM_INDEX));

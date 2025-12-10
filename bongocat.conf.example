@@ -1,22 +1,26 @@
 # Bongo Cat Configuration File
 # Edit these values to customize your bongo cat overlay
 
+# Save this file to: ~/.config/bongocat/bongocat.conf
+# Run with: wpets-all --watch-config
+
+
 # NOTE: OVERLAY SETTINGS DOESN'T WORK WITH HOT RELOAD, NEEDS BONGOCAT RESTART
 # DRAWN LAYERS GETS GLITCHY SOMETIMES, BETTER TO RESTART WHEN THESE CHANGE
 # Overlay settings
 # overlay_height: Height of the entire overlay bar
-overlay_height=60
+overlay_height=80
 # overlay_position: Position of the overlay on screen
 # Options: "top" or "bottom"
 overlay_position=top
-# layer: layer for surface of overlay (default: "overlay")
-# Options: "overlay", "top", "bottom", "background"
+# layer: layer for surface of overlay (default: "top")
+# Options: "overlay", "top", "bottom", "background"; top (above windows), overlay (always visible)
 #overlay_layer=top
 
 # Transparency settings
 # overlay_opacity: Opacity of the overlay background (0-255)
 # 0 = fully transparent, 255 = fully opaque
-overlay_opacity=60
+overlay_opacity=0
 
 # Position settings (in pixels)
 # cat_x_offset: Horizontal offset from center position
@@ -47,7 +51,7 @@ enable_antialiasing=1
 # Size settings
 # cat_height: Height of the bongo cat in pixels
 # Width is automatically calculated to maintain aspect ratio
-cat_height=60
+cat_height=80
 
 # animation_name: Sprite name (CASE SENSITIVE)
 # Default Option: "bongocat"
@@ -98,7 +102,7 @@ idle_frame=0
 # Requires both sleep_begin and sleep_end to be defined
 enable_scheduled_sleep=0
 # Start time for scheduled sleep mode (24-hour format: hh:mm)
-sleep_begin=21:00
+sleep_begin=22:00
 # End time for scheduled sleep mode (24-hour format: hh:mm)
 sleep_end=06:00
 
@@ -122,6 +126,10 @@ happy_kpm=400
 # Animation timing (in milliseconds)
 # keypress_duration: How long to show animation after keypress
 keypress_duration=100
+
+# enable_hand_mapping: Left half of keyboard triggers left cat hand, right half triggers right hand
+# 0=random hands, 1=left keys -> left hand, right keys -> right hand
+enable_hand_mapping=1
 
 # idle_animation: Enable idle animation (0 = off, 1 = on)
 idle_animation=0
@@ -170,4 +178,4 @@ enable_debug=0
 # Specify which monitor to display bongocat on (optional)
 # Use wlr-randr or swaymsg -t get_outputs to find monitor names
 # If not specified or monitor not found, uses first available monitor
-#monitor=eDP-1
+#monitor=HDMI-A-1

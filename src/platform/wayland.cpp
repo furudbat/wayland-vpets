@@ -1,762 +1,555 @@
-#include "platform/wayland-protocols.hpp"
-
-#include "graphics/animation.h"
 #include "platform/wayland.h"
-#include "platform/wayland_shared_memory.h"
-#include "platform/global_wayland_session.h"
-#include "utils/memory.h"
+
 #include "../graphics/bar.h"
+#include "graphics/animation.h"
+#include "platform/wayland-protocols.hpp"
+#include "platform/wayland_context.h"
+#include "platform/wayland_shared_memory.h"
+#include "utils/memory.h"
+#include "wayland_hyprland.h"
+
 #include <cassert>
-#include <poll.h>
-#include <unistd.h>
-#include <fcntl.h>
 #include <cerrno>
 #include <climits>
-#include <cstdlib>
+#include <csignal>
 #include <cstdio>
+#include <cstdlib>
+#include <fcntl.h>
+#include <poll.h>
+#include <pthread.h>
 #include <sys/mman.h>
+#include <sys/signalfd.h>
 #include <sys/time.h>
 #include <sys/types.h>
-#include <pthread.h>
-#include <csignal>
-#include <wayland-client.h>
-#include <sys/signalfd.h>
 #include <sys/wait.h>
-
-#include "wayland_hyprland.h"
-//#include "wayland_sway.h"
+#include <unistd.h>
+#include <wayland-client.h>
+// #include "wayland_sway.h"
 #include "platform/wayland_callbacks.h"
+#include "platform/wayland_setups.h"
 
 namespace bongocat::platform::wayland {
-    // =============================================================================
-    // GLOBAL STATE AND CONFIGURATION
-    // =============================================================================
+// =============================================================================
+// GLOBAL STATE AND CONFIGURATION
+// =============================================================================
 
-    static inline constexpr int CREATE_SHM_MAX_ATTEMPTS     = 100;
-    static inline constexpr time_ms_t CHECK_INTERVAL_MS     = 100;
-    static inline constexpr time_ms_t POOL_MIN_TIMEOUT_MS   = 5;
-    static inline constexpr time_ms_t POOL_MAX_TIMEOUT_MS   = 1000;
-    static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
+static inline constexpr time_ms_t CHECK_INTERVAL_MS = 100;
+static inline constexpr time_ms_t POOL_MIN_TIMEOUT_MS = 5;
+static inline constexpr time_ms_t POOL_MAX_TIMEOUT_MS = 1000;
+static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
 
-    inline static constexpr time_ms_t COND_INIT_TIMEOUT_MS = 5000;
+inline static constexpr time_ms_t COND_INIT_TIMEOUT_MS = 5000;
 
-    static inline constexpr auto WAYLAND_LAYER_NAME = "OVERLAY";
-    static inline constexpr auto WAYLAND_LAYER_NAMESPACE = "bongocat-overlay";
+static inline constexpr auto WAYLAND_LAYER_NAME = "OVERLAY";
 
-    static inline constexpr size_t CREATE_SHM_NAME_SUFFIX_LEN = 8;
-    static inline constexpr char CREATE_SHM_NAME_TEMPLATE[] = "/bongocat-bar-shm-XXXXXXXX";
-    static inline constexpr size_t CREATE_SHM_NAME_PREFIX_LEN = LEN_ARRAY(CREATE_SHM_NAME_TEMPLATE)-1 - CREATE_SHM_NAME_SUFFIX_LEN;
-    static_assert((CREATE_SHM_NAME_PREFIX_LEN + CREATE_SHM_NAME_SUFFIX_LEN) == LEN_ARRAY(CREATE_SHM_NAME_TEMPLATE)-1);
+// =============================================================================
+// MAIN WAYLAND INTERFACE IMPLEMENTATION
+// =============================================================================
 
-    // =============================================================================
-    // BUFFER AND DRAWING MANAGEMENT
-    // =============================================================================
+created_result_t<AllocatedMemory<wayland_context_t>> create(animation::animation_context_t& animation_ctx,
+                                                            const config::config_t& config) {
+  AllocatedMemory<wayland_context_t> ret = make_allocated_memory<wayland_context_t>();
+  assert(ret);
+  if (!ret) [[unlikely]] {
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
 
-    FileDescriptor create_shm(off_t size) {
-        char* name = strdup(CREATE_SHM_NAME_TEMPLATE);
-        constexpr char charset_arr[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-        constexpr size_t charset_len = sizeof(charset_arr) - 1;
-        int fd = -1;
+  ret->animation_context = &animation_ctx;
+  ret->thread_context._bar_height = DEFAULT_BAR_HEIGHT;
 
-        random_xoshiro128 rng (slow_rand());
-        for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
-            for (size_t j = 0; j < CREATE_SHM_NAME_SUFFIX_LEN; j++) {
-                assert(sizeof(charset_arr) - 1 > 0);
-                name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rng.range(0, charset_len-1)];
-            }
-            fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
-            if (fd >= 0) {
-                shm_unlink(name);
-                break;
-            }
-        }
-
-        if (fd < 0 || ftruncate(fd, size) < 0) {
-            close(fd);
-            fd = -1;
-            perror("shm");
-        }
-
-        ::free(name);
-        return FileDescriptor(fd);
+  // Initialize shared memory
+  ret->thread_context.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
+  if (!ret->thread_context.ctx_shm) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+  if (ret->thread_context.ctx_shm) [[unlikely]] {
+    static_assert(WAYLAND_NUM_BUFFERS <= INT_MAX);
+    for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
+      ret->thread_context.ctx_shm->buffers[i] = {};
     }
-
-    // =============================================================================
-    // MAIN WAYLAND INTERFACE IMPLEMENTATION
-    // =============================================================================
-
-    static bongocat_error_t wayland_setup_protocols(wayland_session_t& ctx) {
-        wayland_context_t& wayland_ctx = ctx.wayland_context;
-        //animation_context_t& anim = *ctx.animation_context;
-        //animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
-
-        // read-only config
-        assert(wayland_ctx._local_copy_config != nullptr);
-        const config::config_t& current_config = *wayland_ctx._local_copy_config;
-
-        /// @TODO: add RAII wrapper for wl_registry
-        wl_registry *registry = wl_display_get_registry(wayland_ctx.display);
-        if (!registry) {
-            BONGOCAT_LOG_ERROR("Failed to get Wayland registry");
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-
-        wl_registry_add_listener(registry, &details::reg_listener, &ctx);
-        wl_display_roundtrip(wayland_ctx.display);
-
-        if (ctx.xdg_output_manager) {
-            for (size_t i = 0; i < ctx.output_count && i < MAX_OUTPUTS; i++) {
-                ctx.outputs[i].xdg_output = zxdg_output_manager_v1_get_xdg_output(ctx.xdg_output_manager, ctx.outputs[i].wl_output);
-                zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &details::xdg_output_listener, &ctx.outputs[i]);
-                ctx.screen_infos[i] = {};
-                assert(ctx.outputs[i].wl_output);
-                ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
-            }
-
-            // Wait for all xdg_output events
-            wl_display_roundtrip(wayland_ctx.display);  // Process initial events
-            wl_display_roundtrip(wayland_ctx.display);  // Ensure all `done` events arrive
-            BONGOCAT_LOG_DEBUG("Listener bound for xdg_output and foreign toplevel handle");
-
-            // DE specific inits
-            hyprland::update_outputs_with_monitor_ids(ctx);
-        }
-
-        wayland_ctx.output = nullptr;
-        if (current_config.output_name) {
-            for (size_t i = 0; i < ctx.output_count; ++i) {
-                if (static_cast<uint32_t>(ctx.outputs[i].received) & static_cast<uint32_t>(output_ref_received_flags_t::Name) &&
-                    strcmp(ctx.outputs[i].name_str, current_config.output_name) == 0) {
-                    wayland_ctx.output = ctx.outputs[i].wl_output;
-                    wayland_ctx._output_name_str = ctx.outputs[i].name_str;
-                    wayland_ctx._screen_info = &ctx.screen_infos[i];
-                    BONGOCAT_LOG_INFO("Matched output: %s", wayland_ctx._output_name_str);
-                    break;
-                }
-            }
-
-            if (!wayland_ctx.output) {
-                if (current_config._strict) {
-                    BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name);
-                    wl_registry_destroy(registry);
-                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-                } else {
-                    BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output", current_config.output_name);
-                }
-            }
-        }
-
-        // Fallback
-        if (!wayland_ctx.output && ctx.output_count > 0) {
-            wayland_ctx.output = ctx.outputs[0].wl_output;
-            wayland_ctx._output_name_str = ctx.outputs[0].name_str;
-            wayland_ctx._screen_info = &ctx.screen_infos[0];
-            BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
-        }
-
-        if (!wayland_ctx.compositor || !wayland_ctx.shm || !wayland_ctx.layer_shell) {
-            BONGOCAT_LOG_ERROR("Missing required Wayland protocols");
-            wl_registry_destroy(registry);
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-
-        // Configure screen dimensions
-        int screen_width {DEFAULT_SCREEN_WIDTH};
-        if (current_config.screen_width > 0) {
-            BONGOCAT_LOG_WARNING("Use screen width from config: %d", current_config.screen_width);
-            screen_width = current_config.screen_width;
-        } else {
-            // auto-detect screen width
-            if (wayland_ctx.output) {
-                wl_display_roundtrip(wayland_ctx.display);
-                if (wayland_ctx._screen_info && wayland_ctx._screen_info->screen_width > 0) {
-                    BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->screen_width);
-                    screen_width = wayland_ctx._screen_info->screen_width;
-                } else {
-                    BONGOCAT_LOG_WARNING("Using default screen width: %d", DEFAULT_SCREEN_WIDTH);
-                    screen_width = DEFAULT_SCREEN_WIDTH;
-                }
-            } else {
-                BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
-                screen_width = DEFAULT_SCREEN_WIDTH;
-                if (current_config._strict) {
-                    wl_registry_destroy(registry);
-                    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-                }
-            }
-
-        }
-        wayland_ctx._screen_width = screen_width;
-
-        wl_registry_destroy(registry);
-        return bongocat_error_t::BONGOCAT_SUCCESS;
-    }
-
-    static bongocat_error_t wayland_setup_surface(wayland_session_t& ctx) {
-        wayland_context_t& wayland_ctx = ctx.wayland_context;
-        //animation_context_t& anim = *ctx.animation_context;
-        //animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
-
-        // read-only config
-        assert(wayland_ctx._local_copy_config != nullptr);
-        const config::config_t& current_config = *wayland_ctx._local_copy_config;
-
-        wayland_ctx.surface = wl_compositor_create_surface(wayland_ctx.compositor);
-        if (!wayland_ctx.surface) {
-            BONGOCAT_LOG_ERROR("Failed to create surface");
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-
-        zwlr_layer_shell_v1_layer layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
-        switch (current_config.layer) {
-            case config::layer_type_t::LAYER_BACKGROUND:
-                layer = ZWLR_LAYER_SHELL_V1_LAYER_BACKGROUND;
-                break;
-            case config::layer_type_t::LAYER_BOTTOM:
-                layer = ZWLR_LAYER_SHELL_V1_LAYER_BOTTOM;
-                break;
-            case config::layer_type_t::LAYER_TOP:
-                layer = ZWLR_LAYER_SHELL_V1_LAYER_TOP;
-                break;
-            case config::layer_type_t::LAYER_OVERLAY:
-                layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
-                break;
-        }
-        wayland_ctx.layer_surface = zwlr_layer_shell_v1_get_layer_surface(wayland_ctx.layer_shell, wayland_ctx.surface, wayland_ctx.output,
-                                                                          layer, WAYLAND_LAYER_NAMESPACE);
-
-        if (!wayland_ctx.layer_surface) {
-            BONGOCAT_LOG_ERROR("Failed to create layer surface");
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-
-        // Configure layer surface
-        uint32_t anchor = ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT;
-        switch (current_config.overlay_position) {
-            case config::overlay_position_t::POSITION_TOP:
-                anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
-                break;
-            case config::overlay_position_t::POSITION_BOTTOM:
-                anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM;
-                break;
-            default:
-                BONGOCAT_LOG_ERROR("Invalid overlay_position %d for layer surface, set to top (default)");
-                anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
-                break;
-        }
-
-        assert(wayland_ctx._bar_height >= 0);
-        //assert(current_config.bar_height <= UINT32_MAX);
-        zwlr_layer_surface_v1_set_anchor(wayland_ctx.layer_surface, anchor);
-        zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(wayland_ctx._bar_height));
-        zwlr_layer_surface_v1_set_exclusive_zone(wayland_ctx.layer_surface, -1);
-        zwlr_layer_surface_v1_set_keyboard_interactivity(wayland_ctx.layer_surface,
-                                                         ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_NONE);
-        zwlr_layer_surface_v1_add_listener(wayland_ctx.layer_surface, &details::layer_listener, &ctx);
-
-        // Make surface click-through
-        wl_region *input_region = wl_compositor_create_region(wayland_ctx.compositor);
-        if (input_region) {
-            wl_surface_set_input_region(wayland_ctx.surface, input_region);
-            wl_region_destroy(input_region);
-        }
-
-        wl_surface_commit(wayland_ctx.surface);
-        if constexpr (WAYLAND_NUM_BUFFERS == 1) {
-            wl_display_roundtrip(wayland_ctx.display);
-        }
-        return bongocat_error_t::BONGOCAT_SUCCESS;
-    }
-
-    static bongocat_error_t wayland_setup_buffer(wayland_context_t& wayland_context, animation::animation_session_t& anim) {
-        // read-only config
-        assert(wayland_context._local_copy_config != nullptr);
-        //const config::config_t& current_config = *wayland_context._local_copy_config;
-
-        wayland_shared_memory_t& wayland_ctx_shm = *wayland_context.ctx_shm;
-
-        /// @TODO: limit screen_width and bar_height for buffer_size
-        const int32_t buffer_width = wayland_context._screen_width;
-        const int32_t buffer_height = wayland_context._bar_height;
-        assert(buffer_width >= 0);
-        assert(buffer_height >= 0);
-        assert(RGBA_CHANNELS >= 0);
-        const size_t buffer_size = static_cast<size_t>(buffer_width) * static_cast<size_t>(buffer_height) * RGBA_CHANNELS;
-        if (buffer_size <= 0) {
-            BONGOCAT_LOG_ERROR("Invalid buffer size: %d", buffer_size);
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-
-        static_assert(WAYLAND_NUM_BUFFERS > 0);
-        static_assert(WAYLAND_NUM_BUFFERS <= INT32_MAX);
-        if (buffer_size > INT32_MAX / static_cast<int32_t>(WAYLAND_NUM_BUFFERS)) {
-            BONGOCAT_LOG_ERROR("Buffer size too large for SHM pool offset");
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-        assert(buffer_size <= INT32_MAX / static_cast<int32_t>(WAYLAND_NUM_BUFFERS));
-        const size_t total_size = buffer_size * WAYLAND_NUM_BUFFERS;
-
-        assert(total_size <= INT32_MAX);
-        FileDescriptor fd = create_shm(static_cast<off_t>(total_size));
-        if (fd._fd < 0) {
-            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
-        }
-
-        wl_shm_pool *pool = wl_shm_create_pool(wayland_context.shm, fd._fd, static_cast<int32_t>(total_size));
-        if (!pool) {
-            BONGOCAT_LOG_ERROR("Failed to create shared memory pool");
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-
-        static_assert(WAYLAND_NUM_BUFFERS > 0);
-        static_assert(WAYLAND_NUM_BUFFERS <= INT32_MAX);
-        for (size_t i = 0; i < WAYLAND_NUM_BUFFERS; i++) {
-            //assert(buffer_size >= 0);
-            assert(i <= INT32_MAX);
-            assert(buffer_size <= INT32_MAX);
-            assert(buffer_size <= static_cast<size_t>(INT32_MAX));
-            assert(buffer_size <= static_cast<size_t>(INT32_MAX) / WAYLAND_NUM_BUFFERS);
-            const off_t offset = static_cast<off_t>(i) * static_cast<off_t>(buffer_size);
-
-            assert(static_cast<size_t>(buffer_size) <= SIZE_MAX);
-            wayland_ctx_shm.buffers[i].pixels = make_allocated_mmap_file_buffer_value<uint8_t>(0, buffer_size, fd._fd, offset);
-            if (wayland_ctx_shm.buffers[i].pixels == nullptr) {
-                BONGOCAT_LOG_ERROR("Failed to map shared memory: %s", strerror(errno));
-                for (size_t j = 0; j < i; j++) {
-                    cleanup_shm_buffer(wayland_ctx_shm.buffers[j]);
-                }
-                wl_shm_pool_destroy(pool);
-                return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-            }
-
-            //assert(buffer_size >= 0);
-            assert(i <= INT32_MAX);
-            assert(buffer_size <= INT32_MAX);
-            assert(offset <= INT32_MAX);
-            wayland_ctx_shm.buffers[i].buffer = wl_shm_pool_create_buffer(pool, static_cast<int32_t>(offset), wayland_context._screen_width,
-                                              wayland_context._bar_height,
-                                              wayland_context._screen_width * RGBA_CHANNELS,
-                                              WL_SHM_FORMAT_ARGB8888);
-            if (wayland_ctx_shm.buffers[i].buffer == nullptr) {
-                BONGOCAT_LOG_ERROR("Failed to create buffer");
-                for (size_t j = 0; j < i; j++) {
-                    cleanup_shm_buffer(wayland_ctx_shm.buffers[j]);
-                }
-                wl_shm_pool_destroy(pool);
-                return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-            }
-
-            // created buffer successfully, set other properties
-            assert(i <= INT_MAX);
-            wayland_ctx_shm.buffers[i].index = i;
-            atomic_store(&wayland_ctx_shm.buffers[i].busy, false);
-            atomic_store(&wayland_ctx_shm.buffers[i].pending, false);
-            wayland_ctx_shm.buffers[i]._animation_trigger_context = &anim;
-            wayland_ctx_shm.buffers[i]._wayland_context = &wayland_context;
-            wl_buffer_add_listener(wayland_ctx_shm.buffers[i].buffer, &details::buffer_listener, &wayland_ctx_shm.buffers[i]);
-        }
-
-        wl_shm_pool_destroy(pool);
-
-        wayland_ctx_shm.current_buffer_index = 0;
-
-        return bongocat_error_t::BONGOCAT_SUCCESS;
-    }
-
-    created_result_t<AllocatedMemory<wayland_session_t>> create(animation::animation_session_t& anim, const config::config_t& config) {
-        AllocatedMemory<wayland_session_t> ret = make_allocated_memory<wayland_session_t>();
-        assert(ret != nullptr);
-        if (ret == nullptr) {
-            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-        }
-
-        ret->animation_trigger_context = &anim;
-        ret->wayland_context._bar_height = DEFAULT_BAR_HEIGHT;
-
-        // Initialize shared memory
-        ret->wayland_context.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
-        if (ret->wayland_context.ctx_shm == nullptr) {
-            BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-        }
-        if (ret->wayland_context.ctx_shm != nullptr) {
-            static_assert(WAYLAND_NUM_BUFFERS <= INT_MAX);
-            for (size_t i = 0;i < WAYLAND_NUM_BUFFERS;i++) {
-                ret->wayland_context.ctx_shm->buffers[i] = {};
-            }
-            atomic_store(&ret->wayland_context.ctx_shm->configured, false);
-        }
-
-        // Initialize shared memory for local config
-        ret->wayland_context._local_copy_config = make_allocated_mmap<config::config_t>();
-        if (ret->wayland_context._local_copy_config == nullptr) {
-            BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-        }
-        assert(ret->wayland_context._local_copy_config != nullptr);
-        *ret->wayland_context._local_copy_config = config;
-        ret->wayland_context._bar_height = config.overlay_height;
-
-        return ret;
-    }
-
-    bongocat_error_t setup(wayland_session_t& ctx, animation::animation_session_t& anim) {
-        ctx.animation_trigger_context = &anim;
-
-        if (ctx.wayland_context.ctx_shm == nullptr) {
-            BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-        }
-        if (!ctx.wayland_context._local_copy_config) {
-            BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
-            return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-        }
-
-        BONGOCAT_LOG_INFO("Initializing Wayland connection");
-
-        ctx.wayland_context.display = wl_display_connect(nullptr);
-        if (!ctx.wayland_context.display) {
-            BONGOCAT_LOG_ERROR("Failed to connect to Wayland display");
-            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-        }
-
-
-        bongocat_error_t result = wayland_setup_protocols(ctx);
-        if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            return result;
-        }
-        result = wayland_setup_surface(ctx);
-        if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            return result;
-        }
-        result = wayland_setup_buffer(ctx.wayland_context, *ctx.animation_trigger_context);
-        if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-            return result;
-        }
-
-        atomic_store(&ctx.ready, true);
-
-        BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)",
-                          ctx.wayland_context._screen_width,
-                          ctx.wayland_context._bar_height);
-        return bongocat_error_t::BONGOCAT_SUCCESS;
-    }
-
-    bongocat_error_t run(wayland_session_t& ctx, volatile sig_atomic_t& running, int signal_fd, input::input_context_t& input, const config::config_t& config, const config::config_watcher_t* config_watcher, config_reload_callback_t config_reload_callback) {
-        BONGOCAT_CHECK_NULL(config_reload_callback, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
-        BONGOCAT_CHECK_NULL(ctx.animation_trigger_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
-
-        // from thread context
-        wayland_context_t& wayland_ctx = ctx.wayland_context;
-        //animation_context_t& anim = trigger_ctx.anim;
-        // wait for context
-        ctx.animation_trigger_context->init_cond.timedwait([&]() {
-            return atomic_load(&ctx.animation_trigger_context->ready);
-        }, COND_INIT_TIMEOUT_MS);
-        input.init_cond.timedwait([&]() {
-            return atomic_load(&ctx.animation_trigger_context->ready);
-        }, COND_INIT_TIMEOUT_MS);
-        animation::animation_session_t& trigger_ctx = *ctx.animation_trigger_context;
-        assert(trigger_ctx._input != nullptr);
-        assert(trigger_ctx._input == &input);
-        //wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm;
-
-        BONGOCAT_LOG_INFO("Starting Wayland event loop");
-
-        running = 1;
-        while (running && wayland_ctx.display) {
-            const time_ms_t frame_based_timeout = config.fps > 0 ? 1000 / config.fps : 0;
-            // Periodic fullscreen check for fallback fullscreen detection
-            timeval now{};
-            gettimeofday(&now, nullptr);
-            const time_ms_t elapsed_ms = (now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L + (now.tv_usec - ctx.fs_detector.last_check.tv_usec) / 1000L;
-            time_ms_t fullscreen_check_interval = frame_based_timeout;
-            if (fullscreen_check_interval < CHECK_INTERVAL_MS) fullscreen_check_interval = CHECK_INTERVAL_MS;
-            if (elapsed_ms >= fullscreen_check_interval) {
-                details::fs_update_state_fallback(ctx);
-                ctx.fs_detector.last_check = now;
-            }
-
-            // Handle Wayland events
-            constexpr size_t fds_signals_index = 0;
-            constexpr size_t fds_config_reload_index = 1;
-            constexpr size_t fds_animation_render_index = 2;
-            constexpr size_t fds_wayland_index = 3;
-            constexpr nfds_t fds_count = 4;
-            pollfd fds[fds_count] = {
-                { .fd = signal_fd, .events = POLLIN, .revents = 0 },
-                { .fd = config_watcher ? config_watcher->reload_efd._fd : -1, .events = POLLIN, .revents = 0 },
-                { .fd = trigger_ctx.render_efd._fd, .events = POLLIN, .revents = 0 },
-                { .fd = wl_display_get_fd(wayland_ctx.display), .events = POLLIN, .revents = 0 },
-            };
-            static_assert(fds_count == LEN_ARRAY(fds));
-
-            // compute desired timeout
-            time_ms_t timeout_ms = frame_based_timeout;
-            if (timeout_ms < POOL_MIN_TIMEOUT_MS) timeout_ms = POOL_MIN_TIMEOUT_MS;
-            if (timeout_ms > POOL_MAX_TIMEOUT_MS) timeout_ms = POOL_MAX_TIMEOUT_MS;
-
-            // avoid reloading twice, by signal OR watcher
-            bool config_reload_requested = false;
-            bool render_requested = false;
-            bool needs_flush = false;
-            bool toggle_visibility_requested = false;
-
-            bool prepared_read = false;
-            {
-                int attempts = 0;
-                while (wl_display_prepare_read(wayland_ctx.display) != 0 && attempts < MAX_ATTEMPTS) {
-                    wl_display_dispatch_pending(wayland_ctx.display);
-                    attempts++;
-                }
-                prepared_read = attempts < MAX_ATTEMPTS;
-            }
-
-
-            if (prepared_read) {
-                // Try to flush queued requests to the compositor so it can process them and send replies.
-                // If flush would block (EAGAIN), cancel the prepared read and dispatch pending events to make progress.
-                const int flush_ret = wl_display_flush(wayland_ctx.display);
-                if (flush_ret == -1 && errno == EAGAIN) {
-                    // send buffer full; need to make progress by reading pending events first
-                    wl_display_cancel_read(wayland_ctx.display);
-                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                        BONGOCAT_LOG_ERROR("wl_display_dispatch_pending failed after EAGAIN");
-                        running = 0;
-                    }
-                } else if (flush_ret == -1) {
-                    BONGOCAT_LOG_ERROR("wl_display_flush failed: %s", strerror(errno));
-                    wl_display_cancel_read(wayland_ctx.display);
-                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                        running = 0;
-                    }
-                }
-            }
-
-            assert(timeout_ms <= INT_MAX);
-            const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
-            if (poll_result > 0) {
-                // signal events
-                if (fds[fds_signals_index].revents & POLLIN) {
-                    signalfd_siginfo fdsi{};
-                    ssize_t s = read(fds[fds_signals_index].fd, &fdsi, sizeof(fdsi));
-                    if (s != sizeof(fdsi)) {
-                        BONGOCAT_LOG_ERROR("Failed to read signal fd");
-                    } else {
-                        switch (fdsi.ssi_signo) {
-                            case SIGINT:
-                            case SIGTERM:
-                                BONGOCAT_LOG_INFO("Received signal %d, shutting down gracefully", fdsi.ssi_signo);
-                                running = 0;
-                                break;
-                            case SIGCHLD:
-                                while (waitpid(-1, nullptr, WNOHANG) > 0){}
-                                break;
-                            case SIGUSR1:
-                                BONGOCAT_LOG_INFO("Received SIGUSR1, toggle bar visibility");
-                                toggle_visibility_requested = true;
-                                break;
-                            case SIGUSR2:
-                                BONGOCAT_LOG_INFO("Received SIGUSR2, reloading config");
-                                config_reload_requested = true;
-                                break;
-                            default:
-                                BONGOCAT_LOG_WARNING("Received unexpected signal %d", fdsi.ssi_signo);
-                                break;
-                        }
-                    }
-                }
-                if (!running) {
-                    // draining pools
-                    for (size_t i = 0; i < fds_count; i++) {
-                        platform::drain_event(fds[i], MAX_ATTEMPTS);
-                    }
-                    if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
-                    render_requested = false;
-                    toggle_visibility_requested = false;
-                    break;
-                }
-
-                // reload config event
-                if (fds[fds_config_reload_index].revents & POLLIN) {
-                    BONGOCAT_LOG_DEBUG("Receive reload event");
-                    if (config_watcher) {
-                        platform::drain_event(fds[fds_config_reload_index], MAX_ATTEMPTS, "update config eventfd");
-                    }
-                    config_reload_requested = true;
-                }
-
-                // render event
-                if (fds[fds_animation_render_index].revents & POLLIN) {
-                    BONGOCAT_LOG_VERBOSE("Receive render event");
-                    platform::drain_event(fds[fds_animation_render_index], MAX_ATTEMPTS, "render eventfd");
-                    if (atomic_load(&wayland_ctx.ctx_shm->configured)) {
-                        render_requested = true;
-                    }
-                }
-
-                // wayland events
-                if (prepared_read) {
-                    if (fds[fds_wayland_index].revents & POLLIN) {
-                        if (wl_display_read_events(wayland_ctx.display) == -1 ||
-                            wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                            BONGOCAT_LOG_ERROR("Failed to handle Wayland events: %s", strerror(errno));
-                            running = 0;
-                            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-                        }
-                    } else {
-                        wl_display_cancel_read(wayland_ctx.display);
-                    }
-                } else {
-                    if (fds[fds_wayland_index].revents & POLLIN) {
-                        if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                            BONGOCAT_LOG_ERROR("Failed to dispatch pending events: %s", strerror(errno));
-                            running = 0;
-                            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-                        }
-                    } else {
-                        // dispatch any events already read
-                        if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                            BONGOCAT_LOG_ERROR("Failed to dispatch pending Wayland events: %s", strerror(errno));
-                            running = 0;
-                            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-                        }
-                    }
-                }
-
-                if (render_requested) {
-                    if (!atomic_load(&wayland_ctx.ctx_shm->configured)) {
-                        BONGOCAT_LOG_VERBOSE("Surface not configured yet, skip drawing");
-                        render_requested = false;
-                    }
-                }
-
-                BONGOCAT_LOG_VERBOSE("Poll revents: poll_result=%d; signal=%x, reload=%x, render=%x, wayland=%x",
-                    poll_result,
-                    fds[fds_signals_index].revents,
-                    fds[fds_config_reload_index].revents,
-                    fds[fds_animation_render_index].revents,
-                    fds[fds_wayland_index].revents);
-            } else if (poll_result == 0) {
-                if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
-                if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                    BONGOCAT_LOG_ERROR("Failed to dispatch pending events");
-                    running = 0;
-                    return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-                }
-            } else {
-                if (prepared_read) wl_display_cancel_read(wayland_ctx.display);
-                if (errno != EINTR) {
-                    BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
-                    running = 0;
-                    return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
-                }
-            }
-
-            // do reload once
-            if (config_reload_requested && config_reload_callback) {
-                config_reload_callback();
-                render_requested = true;
-            }
-            if (toggle_visibility_requested) {
-                wayland_ctx.bar_visibility = wayland_ctx.bar_visibility == bar_visibility_t::Show ? bar_visibility_t::Hide : bar_visibility_t::Show;
-                render_requested = true;
-            }
-
-            /// @TODO: release buffer fallback after timeout, fallback
-            /*
-            const auto now_ms = platform::get_current_time_ms();
-            if (now_ms - wayland_ctx._last_frame_timestamp_ms > 500 &&
-                all_buffers_busy(wayland_ctx.ctx_shm.ptr))
-            {
-                for (auto& buf : wayland_ctx.ctx_shm->buffers) {
-                    atomic_store(&buf.busy, false);
-                }
-                BONGOCAT_LOG_WARNING("Missed frame_done fallback: forcibly releasing stuck buffers");
-            }
-            */
-
-            if (render_requested) {
-                BONGOCAT_LOG_VERBOSE("Receive render event");
-                BONGOCAT_LOG_VERBOSE("Try to draw_bar in wayland_run");
-
-                if (!atomic_load(&wayland_ctx._frame_pending)) {
-                    wl_display_dispatch_pending(wayland_ctx.display);
-                    const auto draw_bar_result = animation::draw_bar(ctx);
-                    needs_flush = draw_bar_result == animation::draw_bar_result_t::FlushNeeded;
-                } else {
-                    if (!atomic_exchange(&wayland_ctx._redraw_after_frame, true)) {
-                        BONGOCAT_LOG_VERBOSE("Queued redraw after frame");
-                        request_render(trigger_ctx);
-                    } else {
-                        const auto draw_bar_result = animation::draw_bar(ctx);
-                        needs_flush = draw_bar_result == animation::draw_bar_result_t::FlushNeeded;
-                    }
-                } 
-                render_requested = false;
-            }
-            toggle_visibility_requested = false;
-
-            if (needs_flush) {
-                const int flush_ret = wl_display_flush(wayland_ctx.display);
-                if (flush_ret == -1 && errno == EAGAIN) {
-                    // send buffer full; need to make progress by reading pending events first
-                    wl_display_cancel_read(wayland_ctx.display);
-                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                        BONGOCAT_LOG_ERROR("wl_display_dispatch_pending failed after EAGAIN");
-                        running = 0;
-                    }
-                } else if (flush_ret == -1) {
-                    BONGOCAT_LOG_ERROR("wl_display_flush failed: %s", strerror(errno));
-                    wl_display_cancel_read(wayland_ctx.display);
-                    if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
-                        running = 0;
-                    }
-                }
-            }
-        }
-        running = 0;
-
-        BONGOCAT_LOG_INFO("Wayland event loop exited");
-        return bongocat_error_t::BONGOCAT_SUCCESS;
-    }
-
-    // =============================================================================
-    // PUBLIC API IMPLEMENTATION
-    // =============================================================================
-
-    int get_screen_width(const wayland_session_t& ctx) {
-        return (ctx.wayland_context._screen_info) ? ctx.wayland_context._screen_info->screen_width : 0;
-    }
-
-    void update_config(wayland_context_t& ctx, const config::config_t& config, animation::animation_session_t& trigger_ctx) {
-        assert(ctx._local_copy_config != nullptr && ctx._local_copy_config.ptr != MAP_FAILED);
-
-        *ctx._local_copy_config = config;
-
-        /// @NOTE: assume animation has the same local copy as wayland config
-        //animation_update_config(anim, config);
-        if (atomic_load(&ctx.ctx_shm->configured)) {
-            request_render(trigger_ctx);
-        }
-    }
-
-    const char* get_current_layer_name() {
-        return WAYLAND_LAYER_NAME;
-    }
-
-    bongocat_error_t request_render(animation::animation_session_t& trigger_ctx) {
-        if (trigger_ctx.render_efd._fd < 0) {
-            return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-        }
-
-        constexpr uint64_t u = 1;
-        const ssize_t s = write(trigger_ctx.render_efd._fd, &u, sizeof(u));
-        if (s != sizeof(u)) {
-            BONGOCAT_LOG_WARNING("Failed to write render eventfd: %s", strerror(errno));
-            return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
-        }
-
-        return bongocat_error_t::BONGOCAT_SUCCESS;
-    }
+    atomic_store(&ret->thread_context.ctx_shm->configured, false);
+  }
+
+  // Initialize shared memory for local config
+  ret->thread_context._local_copy_config = make_allocated_mmap<config::config_t>();
+  if (!ret->thread_context._local_copy_config) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+  assert(ret->thread_context._local_copy_config);
+  *ret->thread_context._local_copy_config = config;
+  ret->thread_context._bar_height = config.overlay_height;
+
+  return ret;
 }
+
+bongocat_error_t setup(wayland_context_t& ctx, animation::animation_context_t& animation_ctx) {
+  ctx.animation_context = &animation_ctx;
+
+  if (!ctx.thread_context.ctx_shm) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+  if (!ctx.thread_context._local_copy_config) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for animation system: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+
+  BONGOCAT_LOG_INFO("Initializing Wayland connection");
+
+  ctx.thread_context.display = wl_display_connect(BONGOCAT_NULLPTR);
+  if (ctx.thread_context.display == BONGOCAT_NULLPTR) {
+    BONGOCAT_LOG_ERROR("Failed to connect to Wayland display");
+    return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+  }
+
+  bongocat_error_t result = details::wayland_setup_protocols(ctx);
+  if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+    return result;
+  }
+  result = details::wayland_setup_surface(ctx);
+  if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+    return result;
+  }
+  result = details::wayland_setup_buffer(ctx.thread_context, *ctx.animation_context);
+  if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
+    return result;
+  }
+
+  atomic_store(&ctx.ready, true);
+
+  BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)", ctx.thread_context._screen_width,
+                    ctx.thread_context._bar_height);
+  return bongocat_error_t::BONGOCAT_SUCCESS;
+}
+
+bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int signal_fd,
+                     input::input_context_t& input, const config::config_t& config,
+                     const config::config_watcher_t *config_watcher, config_reload_callback_t config_reload_callback) {
+  BONGOCAT_CHECK_NULL(config_reload_callback, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+  BONGOCAT_CHECK_NULL(ctx.animation_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+
+  // from thread context
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
+  // animation_context_t& anim = trigger_ctx.anim;
+  //  wait for context
+  ctx.animation_context->init_cond.timedwait([&]() { return atomic_load(&ctx.animation_context->ready); },
+                                             COND_INIT_TIMEOUT_MS);
+  input.init_cond.timedwait([&]() { return atomic_load(&ctx.animation_context->ready); }, COND_INIT_TIMEOUT_MS);
+  animation::animation_context_t& animation_ctx = *ctx.animation_context;
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_ctx._input == &input);
+  // wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm;
+
+  BONGOCAT_LOG_INFO("Starting Wayland event loop");
+
+  running = 1;
+  while (running >= 1 && wayland_ctx.display != BONGOCAT_NULLPTR) {
+    const time_ms_t frame_based_timeout = config.fps > 0 ? 1000 / config.fps : 0;
+    // Periodic fullscreen check for fallback fullscreen detection
+    timeval now{};
+    gettimeofday(&now, BONGOCAT_NULLPTR);
+    const time_ms_t elapsed_ms = ((now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L) +
+                                 ((now.tv_usec - ctx.fs_detector.last_check.tv_usec) / 1000L);
+    time_ms_t fullscreen_check_interval = frame_based_timeout;
+    if (fullscreen_check_interval < CHECK_INTERVAL_MS) {
+      fullscreen_check_interval = CHECK_INTERVAL_MS;
+    }
+    if (elapsed_ms >= fullscreen_check_interval) {
+      details::fs_update_state_fallback(ctx);
+      ctx.fs_detector.last_check = now;
+    }
+
+    // Handle Wayland events
+    constexpr size_t fds_signals_index = 0;
+    constexpr size_t fds_config_reload_index = 1;
+    constexpr size_t fds_animation_render_index = 2;
+    constexpr size_t fds_wayland_index = 3;
+    constexpr nfds_t fds_count = 4;
+    pollfd fds[fds_count] = {
+        {.fd = signal_fd,                                                                .events = POLLIN, .revents = 0},
+        {.fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1,
+         .events = POLLIN,
+         .revents = 0                                                                                                  },
+        {.fd = animation_ctx.render_efd._fd,                                             .events = POLLIN, .revents = 0},
+        {.fd = wl_display_get_fd(wayland_ctx.display),                                   .events = POLLIN, .revents = 0},
+    };
+    static_assert(fds_count == LEN_ARRAY(fds));
+
+    // compute desired timeout
+    time_ms_t timeout_ms = frame_based_timeout;
+    if (timeout_ms < POOL_MIN_TIMEOUT_MS) {
+      timeout_ms = POOL_MIN_TIMEOUT_MS;
+    }
+    if (timeout_ms > POOL_MAX_TIMEOUT_MS) {
+      timeout_ms = POOL_MAX_TIMEOUT_MS;
+    }
+
+    // avoid reloading twice, by signal OR watcher
+    bool config_reload_requested = false;
+    bool render_requested = false;
+    bool needs_flush = false;
+    bool toggle_visibility_requested = false;
+
+    bool prepared_read = false;
+    {
+      int attempts = 0;
+      while (wl_display_prepare_read(wayland_ctx.display) != 0 && attempts < MAX_ATTEMPTS) {
+        wl_display_dispatch_pending(wayland_ctx.display);
+        attempts++;
+      }
+      prepared_read = attempts < MAX_ATTEMPTS;
+    }
+
+    if (prepared_read) {
+      // Try to flush queued requests to the compositor so it can process them and send replies.
+      // If flush would block (EAGAIN), cancel the prepared read and dispatch pending events to make progress.
+      const int flush_ret = wl_display_flush(wayland_ctx.display);
+      if (flush_ret == -1 && errno == EAGAIN) {
+        // send buffer full; need to make progress by reading pending events first
+        wl_display_cancel_read(wayland_ctx.display);
+        if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+          BONGOCAT_LOG_ERROR("wl_display_dispatch_pending failed after EAGAIN");
+          running = 0;
+        }
+      } else if (flush_ret == -1) {
+        BONGOCAT_LOG_ERROR("wl_display_flush failed: %s", strerror(errno));
+        wl_display_cancel_read(wayland_ctx.display);
+        if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+          running = 0;
+        }
+      }
+    }
+
+    assert(timeout_ms <= INT_MAX);
+    const int poll_result = poll(fds, fds_count, static_cast<int>(timeout_ms));
+    if (poll_result > 0) {
+      // signal events
+      if (fds[fds_signals_index].revents & POLLIN) {
+        signalfd_siginfo fdsi{};
+        const ssize_t s = read(fds[fds_signals_index].fd, &fdsi, sizeof(fdsi));
+        if (s != sizeof(fdsi)) {
+          BONGOCAT_LOG_ERROR("Failed to read signal fd");
+        } else {
+          switch (fdsi.ssi_signo) {
+          case SIGINT:
+          case SIGTERM:
+          case SIGQUIT:  // Handle Ctrl+\ for graceful shutdown
+          case SIGHUP:   // Handle terminal hangup
+            BONGOCAT_LOG_INFO("Received signal %d, shutting down gracefully", fdsi.ssi_signo);
+            running = 0;
+            break;
+          case SIGCHLD:
+            // Handle child process termination - reap zombies
+            while (waitpid(-1, BONGOCAT_NULLPTR, WNOHANG) > 0) {}
+            break;
+          case SIGUSR1:
+            BONGOCAT_LOG_INFO("Received SIGUSR1, toggle bar visibility");
+            toggle_visibility_requested = true;
+            break;
+          case SIGUSR2:
+            BONGOCAT_LOG_INFO("Received SIGUSR2, reloading config");
+            config_reload_requested = true;
+            break;
+          default:
+            BONGOCAT_LOG_WARNING("Received unexpected signal %d", fdsi.ssi_signo);
+            break;
+          }
+        }
+      }
+      if (!running) {
+        // draining pools
+        for (size_t i = 0; i < fds_count; i++) {
+          platform::drain_event(fds[i], MAX_ATTEMPTS);
+        }
+        if (prepared_read) {
+          wl_display_cancel_read(wayland_ctx.display);
+        }
+        render_requested = false;
+        toggle_visibility_requested = false;
+        break;
+      }
+
+      // reload config event
+      if (fds[fds_config_reload_index].revents & POLLIN) {
+        BONGOCAT_LOG_DEBUG("Receive reload event");
+        if (config_watcher != BONGOCAT_NULLPTR) {
+          platform::drain_event(fds[fds_config_reload_index], MAX_ATTEMPTS, "update config eventfd");
+        }
+        config_reload_requested = true;
+      }
+
+      // render event
+      if (fds[fds_animation_render_index].revents & POLLIN) {
+        BONGOCAT_LOG_VERBOSE("Receive render event");
+        platform::drain_event(fds[fds_animation_render_index], MAX_ATTEMPTS, "render eventfd");
+        if (atomic_load(&wayland_ctx.ctx_shm->configured)) {
+          render_requested = true;
+        }
+      }
+
+      // wayland events
+      if (prepared_read) {
+        if (fds[fds_wayland_index].revents & POLLIN) {
+          if (wl_display_read_events(wayland_ctx.display) == -1 ||
+              wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+            BONGOCAT_LOG_ERROR("Failed to handle Wayland events: %s", strerror(errno));
+            running = 0;
+            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+          }
+        } else {
+          wl_display_cancel_read(wayland_ctx.display);
+        }
+      } else {
+        if (fds[fds_wayland_index].revents & POLLIN) {
+          if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+            BONGOCAT_LOG_ERROR("Failed to dispatch pending events: %s", strerror(errno));
+            running = 0;
+            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+          }
+        } else {
+          // dispatch any events already read
+          if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+            BONGOCAT_LOG_ERROR("Failed to dispatch pending Wayland events: %s", strerror(errno));
+            running = 0;
+            return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+          }
+        }
+      }
+
+      if (render_requested) {
+        if (!atomic_load(&wayland_ctx.ctx_shm->configured)) {
+          BONGOCAT_LOG_VERBOSE("Surface not configured yet, skip drawing");
+          render_requested = false;
+        }
+      }
+
+      BONGOCAT_LOG_VERBOSE("Poll revents: poll_result=%d; signal=%x, reload=%x, render=%x, wayland=%x", poll_result,
+                           fds[fds_signals_index].revents, fds[fds_config_reload_index].revents,
+                           fds[fds_animation_render_index].revents, fds[fds_wayland_index].revents);
+    } else if (poll_result == 0) {
+      if (prepared_read) {
+        wl_display_cancel_read(wayland_ctx.display);
+      }
+      if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+        BONGOCAT_LOG_ERROR("Failed to dispatch pending events");
+        running = 0;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+      }
+    } else {
+      if (prepared_read) {
+        wl_display_cancel_read(wayland_ctx.display);
+      }
+      if (errno != EINTR) {
+        BONGOCAT_LOG_ERROR("Poll error: %s", strerror(errno));
+        running = 0;
+        return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+      }
+    }
+
+    // do reload once
+    if (config_reload_requested && config_reload_callback) {
+      config_reload_callback();
+      render_requested = true;
+    }
+    if (toggle_visibility_requested) {
+      wayland_ctx.bar_visibility =
+          wayland_ctx.bar_visibility == bar_visibility_t::Show ? bar_visibility_t::Hide : bar_visibility_t::Show;
+      render_requested = true;
+    }
+
+    /// @TODO: release buffer fallback after timeout, fallback
+    /*
+    const auto now_ms = platform::get_current_time_ms();
+    if (now_ms - wayland_ctx._last_frame_timestamp_ms > 500 &&
+        all_buffers_busy(wayland_ctx.ctx_shm.ptr))
+    {
+        for (auto& buf : wayland_ctx.ctx_shm->buffers) {
+            atomic_store(&buf.busy, false);
+        }
+        BONGOCAT_LOG_WARNING("Missed frame_done fallback: forcibly releasing stuck buffers");
+    }
+    */
+
+    if (render_requested) {
+      BONGOCAT_LOG_VERBOSE("Receive render event");
+      BONGOCAT_LOG_VERBOSE("Try to draw_bar in wayland_run");
+
+      if (!atomic_load(&wayland_ctx._frame_pending)) {
+        wl_display_dispatch_pending(wayland_ctx.display);
+        const auto draw_bar_result = animation::draw_bar(ctx);
+        needs_flush = draw_bar_result == animation::draw_bar_result_t::FlushNeeded;
+      } else {
+        if (!atomic_exchange(&wayland_ctx._redraw_after_frame, true)) {
+          BONGOCAT_LOG_VERBOSE("Queued redraw after frame");
+          request_render(animation_ctx);
+        } else {
+          const auto draw_bar_result = animation::draw_bar(ctx);
+          needs_flush = draw_bar_result == animation::draw_bar_result_t::FlushNeeded;
+        }
+      }
+      render_requested = false;
+    }
+    toggle_visibility_requested = false;
+
+    if (needs_flush) {
+      const int flush_ret = wl_display_flush(wayland_ctx.display);
+      if (flush_ret == -1 && errno == EAGAIN) {
+        // send buffer full; need to make progress by reading pending events first
+        wl_display_cancel_read(wayland_ctx.display);
+        if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+          BONGOCAT_LOG_ERROR("wl_display_dispatch_pending failed after EAGAIN");
+          running = 0;
+        }
+      } else if (flush_ret == -1) {
+        BONGOCAT_LOG_ERROR("wl_display_flush failed: %s", strerror(errno));
+        wl_display_cancel_read(wayland_ctx.display);
+        if (wl_display_dispatch_pending(wayland_ctx.display) == -1) {
+          running = 0;
+        }
+      }
+    }
+  }
+  running = 0;
+
+  BONGOCAT_LOG_INFO("Wayland event loop exited");
+  return bongocat_error_t::BONGOCAT_SUCCESS;
+}
+
+// =============================================================================
+// PUBLIC API IMPLEMENTATION
+// =============================================================================
+
+int get_screen_width(const wayland_context_t& ctx) {
+  return ctx.thread_context._screen_info != BONGOCAT_NULLPTR ? ctx.thread_context._screen_info->screen_width : 0;
+}
+
+void update_config(wayland_context_t& ctx, const config::config_t& config,
+                   animation::animation_context_t& animation_ctx) {
+  assert(ctx.thread_context._local_copy_config);
+
+  // Check if dimensions changed - requires buffer/surface recreation
+  const auto old_height =
+      ctx.thread_context._local_copy_config ? ctx.thread_context._local_copy_config->overlay_height : 0;
+  const auto old_width = ctx.thread_context._screen_width;
+  char *old_screen_name = ctx.thread_context._output_name_str != BONGOCAT_NULLPTR
+                              ? strdup(ctx.thread_context._output_name_str)
+                              : BONGOCAT_NULLPTR;
+
+  // update old config
+  *ctx.thread_context._local_copy_config = config;
+
+  const bool dimensions_changed = (old_height != ctx.thread_context._local_copy_config->overlay_height) ||
+                                  (ctx.thread_context._local_copy_config->screen_width > 0 &&
+                                   old_width != ctx.thread_context._local_copy_config->screen_width);
+  const bool change_screen =
+      ctx.thread_context._local_copy_config->output_name != BONGOCAT_NULLPTR &&
+      (strcmp(old_screen_name, ctx.thread_context._local_copy_config->output_name) != 0 ||
+       strcmp(ctx.thread_context._output_name_str, ctx.thread_context._local_copy_config->output_name) != 0);
+
+  if (((dimensions_changed && old_height > 0 && old_width > 0) || change_screen) && ctx.thread_context.ctx_shm) {
+    // ~~Lock animation mutex to prevent draw_bar() during config update
+    // This is critical - animation thread must not access buffer while we
+    // recreate it~~
+    // not sure if this is needed, animation thread don't touch the bar directly,
+    // it just triggers a rerender event
+    platform::LockGuard anim_guard(animation_ctx.thread_context.anim_lock);
+
+    BONGOCAT_LOG_INFO("Dimensions changed (%dx%d -> %dx%d), recreating buffer...", old_width, old_height,
+                      ctx.thread_context._local_copy_config->screen_width,
+                      ctx.thread_context._local_copy_config->overlay_height);
+
+    // Mark as not configured first
+    assert(ctx.thread_context.ctx_shm);
+    atomic_store(&ctx.thread_context.ctx_shm->configured, false);
+
+    if (details::wayland_update_screen_info(ctx) != bongocat_error_t::BONGOCAT_SUCCESS) {
+      if (old_screen_name != BONGOCAT_NULLPTR) {
+        ::free(old_screen_name);
+        old_screen_name = BONGOCAT_NULLPTR;
+      }
+      BONGOCAT_LOG_ERROR("Failed to update width for bar");
+      return;
+    }
+    ctx.thread_context._bar_height = config.overlay_height;
+
+    if (ctx.thread_context._screen_width > 0 && ctx.thread_context._bar_height > 0) {
+      // Cleanup old buffer
+      cleanup_wayland_context_buffer(ctx.thread_context);
+
+      // Cleanup old surface
+      cleanup_wayland_context_surface(ctx.thread_context);
+
+      if (details::wayland_update_screen_info(ctx) != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (old_screen_name != BONGOCAT_NULLPTR) {
+          ::free(old_screen_name);
+          old_screen_name = BONGOCAT_NULLPTR;
+        }
+        BONGOCAT_LOG_ERROR("Failed to update width for bar");
+        return;
+      }
+      ctx.thread_context._bar_height = config.overlay_height;
+
+      // Recreate surface and buffer with new dimensions
+      if (details::wayland_setup_surface(ctx) != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (old_screen_name != BONGOCAT_NULLPTR) {
+          ::free(old_screen_name);
+          old_screen_name = BONGOCAT_NULLPTR;
+        }
+        BONGOCAT_LOG_ERROR("Failed to recreate surface after config change");
+        return;
+      }
+      if (details::wayland_setup_buffer(ctx.thread_context, animation_ctx) != bongocat_error_t::BONGOCAT_SUCCESS) {
+        if (old_screen_name != BONGOCAT_NULLPTR) {
+          ::free(old_screen_name);
+          old_screen_name = BONGOCAT_NULLPTR;
+        }
+        BONGOCAT_LOG_ERROR("Failed to recreate buffer after config change");
+        return;
+      }
+
+      atomic_store(&ctx.thread_context.ctx_shm->configured, true);
+
+      // Wait for new configure event
+      wl_display_roundtrip(ctx.thread_context.display);
+
+      BONGOCAT_LOG_INFO("Buffer recreated successfully (%dx%d)", ctx.thread_context._local_copy_config->screen_width,
+                        ctx.thread_context._local_copy_config->overlay_height);
+    } else {
+      BONGOCAT_LOG_ERROR("Buffer recreated failed (%dx%d)", ctx.thread_context._local_copy_config->screen_width,
+                         ctx.thread_context._local_copy_config->overlay_height);
+    }
+  }
+
+  if (old_screen_name != nullptr) {
+    ::free(old_screen_name);
+    old_screen_name = nullptr;
+  }
+
+  /// @NOTE: assume animation has the same local copy as wayland config
+  // animation_update_config(anim, config);
+  if (atomic_load(&ctx.thread_context.ctx_shm->configured)) {
+    request_render(animation_ctx);
+  }
+}
+
+const char *get_current_layer_name() {
+  return WAYLAND_LAYER_NAME;
+}
+
+bongocat_error_t request_render(animation::animation_context_t& animation_ctx) {
+  if (animation_ctx.render_efd._fd < 0) {
+    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+  }
+
+  constexpr uint64_t u = 1;
+  const ssize_t s = write(animation_ctx.render_efd._fd, &u, sizeof(u));
+  if (s != sizeof(u)) {
+    BONGOCAT_LOG_WARNING("Failed to write render eventfd: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+  }
+
+  return bongocat_error_t::BONGOCAT_SUCCESS;
+}
+}  // namespace bongocat::platform::wayland

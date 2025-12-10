@@ -1,5 +1,11 @@
 add_library(assets_custom_loader STATIC)
 target_sources(assets_custom_loader PRIVATE load_custom.cpp)
 target_compile_options(assets_custom_loader PRIVATE -ffunction-sections -fdata-sections)
-target_include_directories(assets_custom_loader PRIVATE ${INCLUDE_DIR}/image_loader/custom PUBLIC ${INCLUDE_DIR})
-target_link_libraries(assets_custom_loader PUBLIC assets_image_loader PRIVATE bongocat_options)
+target_include_directories(
+  assets_custom_loader
+  PRIVATE ${INCLUDE_DIR}/image_loader/custom
+  PUBLIC ${INCLUDE_DIR})
+target_link_libraries(
+  assets_custom_loader
+  PUBLIC assets_image_loader
+  PRIVATE bongocat_options)

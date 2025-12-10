@@ -35,7 +35,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-  echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
+echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
@@ -385,7 +385,7 @@ for i in {1..5}; do
     sleep 1
 done
 echo "[TEST] Start with stdin default config..."
-cat bongocat.conf | "$PROGRAM" --ignore-running --config - &
+cat bongocat.conf.example | "$PROGRAM" --ignore-running --config - &
 PID=$!
 sleep 10
 # --- verify running ---

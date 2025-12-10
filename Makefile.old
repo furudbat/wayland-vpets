@@ -16,14 +16,14 @@ PROTOCOLDIR = protocols
 WAYLAND_PROTOCOLS_DIR ?= /usr/share/wayland-protocols
 
 # Base flags
-BASE_CFLAGS = -std=c23 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CFLAGS = -std=c2x -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols
 BASE_CFLAGS += -Wall -Wextra -Wpedantic -Wformat=2 -Wstrict-prototypes
 BASE_CFLAGS += -Wmissing-prototypes -Wold-style-definition -Wredundant-decls
 BASE_CFLAGS += -Wnested-externs -Wmissing-include-dirs -Wlogical-op
 BASE_CFLAGS += -Wjump-misses-init -Wdouble-promotion -Wshadow
-BASE_CFLAGS += -fstack-protector-strong
+BASE_CFLAGS += -fstack-protector-strong -D_FORTIFY_SOURCE=2
 
-BASE_CXXFLAGS = -std=c++23 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols # -fembed-dir=assets/
+BASE_CXXFLAGS = -std=c++23 -I$(INCDIR) -I$(SRCDIR) -isystem lib -isystem protocols
 BASE_CXXFLAGS += -Wall -Wextra -Wpedantic -Wformat=2
 BASE_CXXFLAGS += -Wredundant-decls
 BASE_CXXFLAGS += -Wmissing-include-dirs -Wlogical-op
@@ -34,8 +34,8 @@ ifeq ($(ONLY_BONGOCAT),1)
     BASE_CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS
     BASE_CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS
 else
-    BASE_CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS
-    BASE_CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS
+    BASE_CFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS -DFEATURE_PKMN_EMBEDDED_ASSETS
+    BASE_CXXFLAGS += -DFEATURE_BONGOCAT_EMBEDDED_ASSETS -DFEATURE_ENABLE_DM_EMBEDDED_ASSETS -DFEATURE_MS_AGENT_EMBEDDED_ASSETS -DFEATURE_PKMN_EMBEDDED_ASSETS
 	BASE_CFLAGS += -I$(INCDIR)/embedded_assets/min_dm -I$(INCDIR)/image_loader/min_dm -I$(SRCDIR)/embedded_assets/min_dm/include
 	BASE_CXXFLAGS += -I$(INCDIR)/embedded_assets/min_dm -I$(INCDIR)/image_loader/min_dm -I$(SRCDIR)/embedded_assets/min_dm/include
 endif
@@ -76,6 +76,7 @@ CXX_SRC = $(SRCDIR)/image_loader/load_images.cpp \
     $(SRCDIR)/platform/wayland.cpp \
     $(SRCDIR)/platform/wayland_callbacks.cpp \
     $(SRCDIR)/platform/wayland_hyprland.cpp \
+    $(SRCDIR)/platform/wayland_setups.cpp \
     $(SRCDIR)/platform/wayland_sway.cpp \
     $(SRCDIR)/graphics/bar.cpp \
     $(SRCDIR)/graphics/animation.cpp \
@@ -83,19 +84,22 @@ CXX_SRC = $(SRCDIR)/image_loader/load_images.cpp \
     $(SRCDIR)/graphics/drawing_images.cpp \
     $(SRCDIR)/config/config_watcher.cpp \
     $(SRCDIR)/config/config.cpp
+
 C_SRC = $(SRCDIR)/image_loader/stb_image.c
 ifeq ($(ONLY_BONGOCAT),1)
 	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c
 	CXX_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp $(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp
 else
-	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c $(SRCDIR)/embedded_assets/min_dm/min_dm_images.c $(SRCDIR)/embedded_assets/ms_agent/ms_agent_images.c
+	C_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_images.c $(SRCDIR)/embedded_assets/min_dm/min_dm_images.c $(SRCDIR)/embedded_assets/ms_agent/ms_agent_images.c $(SRCDIR)/embedded_assets/pkmn/pkmn_images.c
 	CXX_SRC += $(SRCDIR)/embedded_assets/bongocat/bongocat_get_sprite_sheet.cpp \
 		$(SRCDIR)/image_loader/bongocat/load_images_bongocat.cpp \
 		$(SRCDIR)/image_loader/min_dm/load_images_min_dm.cpp \
 		$(SRCDIR)/image_loader/min_dm/min_dm_load_sprite_sheet.cpp \
 		$(SRCDIR)/image_loader/base_dm/load_dm.cpp \
-		$(SRCDIR)/embedded_assets/min_dm/min_dm_get_sprite_sheet.cpp \
+		$(SRCDIR)/image_loader/pkmn/load_images_pkmn.cpp \
 		$(SRCDIR)/image_loader/ms_agent/load_images_ms_agent.cpp \
+		$(SRCDIR)/embedded_assets/pkmn/pkmn_get_sprite_sheet.cpp \
+		$(SRCDIR)/embedded_assets/min_dm/min_dm_get_sprite_sheet.cpp \
     	$(SRCDIR)/embedded_assets/ms_agent/embedded_assets_ms_agent.cpp
 endif
 
@@ -110,7 +114,7 @@ PROTOCOL_OBJECTS = $(C_PROTOCOL_SRC:$(PROTOCOLDIR)/%.c=$(OBJDIR)/%.o)
 # Target executable
 TARGET = $(BUILDDIR)/bongocat
 
-.PHONY: all clean protocols
+.PHONY: all clean protocols embed-assets format format-check lint
 
 all: protocols $(TARGET)
 
@@ -128,22 +132,31 @@ $(OBJDIR):
 	mkdir -p $(OBJDIR)/embedded_assets/dm20
 	mkdir -p $(OBJDIR)/embedded_assets/dmc
 	mkdir -p $(OBJDIR)/embedded_assets/dmx
+	mkdir -p $(OBJDIR)/embedded_assets/pen
+	mkdir -p $(OBJDIR)/embedded_assets/pen20
 	mkdir -p $(OBJDIR)/embedded_assets/dmall
 	mkdir -p $(OBJDIR)/embedded_assets/min_dm
 	mkdir -p $(OBJDIR)/embedded_assets/ms_agent
+	mkdir -p $(OBJDIR)/embedded_assets/misc
 	mkdir -p $(OBJDIR)/embedded_assets/pkmn
+	mkdir -p $(OBJDIR)/embedded_assets/pmd
 	mkdir -p $(OBJDIR)/graphics
 	mkdir -p $(OBJDIR)/image_loader
 	mkdir -p $(OBJDIR)/image_loader/base_dm
 	mkdir -p $(OBJDIR)/image_loader/bongocat
+	mkdir -p $(OBJDIR)/image_loader/custom
 	mkdir -p $(OBJDIR)/image_loader/dm
 	mkdir -p $(OBJDIR)/image_loader/dm20
 	mkdir -p $(OBJDIR)/image_loader/dmc
 	mkdir -p $(OBJDIR)/image_loader/dmx
+	mkdir -p $(OBJDIR)/image_loader/pen
+	mkdir -p $(OBJDIR)/image_loader/pen20
 	mkdir -p $(OBJDIR)/image_loader/dmall
 	mkdir -p $(OBJDIR)/image_loader/min_dm
 	mkdir -p $(OBJDIR)/image_loader/ms_agent
+	mkdir -p $(OBJDIR)/image_loader/misc
 	mkdir -p $(OBJDIR)/image_loader/pkmn
+	mkdir -p $(OBJDIR)/image_loader/pmd
 	mkdir -p $(OBJDIR)/platform
 	mkdir -p $(OBJDIR)/utils
 	mkdir -p $(BUILDDIR)
@@ -186,7 +199,7 @@ release:
 
 install: $(TARGET)
 	install -D $(TARGET) $(DESTDIR)/usr/local/bin/bongocat
-	install -D bongocat.conf $(DESTDIR)/usr/local/share/bongocat/bongocat.conf.example
+	install -D bongocat.conf.example $(DESTDIR)/usr/local/share/bongocat/bongocat.conf.example
 	install -D scripts/find_input_devices.sh $(DESTDIR)/usr/local/bin/bongocat-find-devices
 
 uninstall:
@@ -194,9 +207,10 @@ uninstall:
 	rm -f $(DESTDIR)/usr/local/bin/bongocat-find-devices
 	rm -rf $(DESTDIR)/usr/local/share/bongocat
 
+SOURCES = $(CXX_SRC) $(C_SRC)
 # Static analysis
 analyze:
-	clang-tidy $(SOURCES) -- $(CFLAGS)
+	clang-tidy $(SOURCES) -- $(CFLAGS) $(CXXFLAGS)
 
 # Memory check (requires valgrind)
 memcheck: debug
@@ -207,4 +221,44 @@ profile: release
 	perf record -g ./$(TARGET)
 	perf report
 
-.PHONY: debug release install uninstall analyze memcheck profile
+.PHONY: debug release install uninstall analyze memcheck profile format format-check lint
+
+
+# =============================================================================
+# CODE QUALITY TARGETS
+# =============================================================================
+
+# Find all project source files (exclude lib/ and protocols/)
+PROJECT_SOURCES = $(CXX_SRC) $(C_SRC)
+PROJECT_HEADERS = $(shell find $(INCDIR) -name '*.h' ! -path '*/embedded_assets/**/*.h' ! -path '*/image_loader/**/*.h')
+ALL_PROJECT_FILES = $(PROJECT_SOURCES) $(PROJECT_HEADERS)
+
+# Format all project source files
+format:
+	@echo "Formatting source files..."
+	@clang-format -i $(ALL_PROJECT_FILES)
+	@echo "Done! Formatted $(words $(ALL_PROJECT_FILES)) files."
+
+# Check if formatting is correct (for CI)
+format-check:
+	@echo "Checking code formatting..."
+	@clang-format --dry-run --Werror $(ALL_PROJECT_FILES)
+	@echo "All files are properly formatted."
+
+# Static analysis with clang-tidy (uses .clang-tidy config)
+lint: protocols
+	@echo "Running static analysis..."
+	@clang-tidy $(PROJECT_SOURCES) -- $(CFLAGS) 2>/dev/null || true
+	@echo "Static analysis complete."
+
+# Alias for lint
+analyze: lint
+
+# Generate compile_commands.json for IDE support (requires bear)
+# Run: make compiledb
+compiledb: clean
+	@echo "Generating compile_commands.json..."
+	@bear -- $(MAKE) all 2>/dev/null || (echo "Note: 'bear' not installed. Install with: sudo pacman -S bear" && false)
+	@echo "compile_commands.json generated!"
+
+.PHONY: compiledb

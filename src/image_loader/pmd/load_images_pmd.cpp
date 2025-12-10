@@ -1,11 +1,11 @@
 #include "load_images_pmd.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "image_loader/custom/load_custom.h"
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/pmd/pmd.hpp"
 
 namespace bongocat::animation {
-    bongocat_error_t init_pmd_anim(animation_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings) {
+    bongocat_error_t init_pmd_anim(animation_thread_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, const assets::custom_animation_settings_t& sprite_sheet_settings) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
@@ -20,7 +20,7 @@ namespace bongocat::animation {
 
         assert(anim_index >= 0);
         ctx.shm->pmd_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-        assert(ctx.shm->pmd_anims[static_cast<size_t>(anim_index)].type == animation_t::Type::Custom);
+        assert(ctx.shm->pmd_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::Custom);
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
