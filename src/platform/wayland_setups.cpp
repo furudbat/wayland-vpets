@@ -80,7 +80,7 @@ FileDescriptor create_shm(off_t size) {
 // MAIN WAYLAND INTERFACE IMPLEMENTATION
 // =============================================================================
 
-bongocat_error_t wayland_update_screen_width(wayland_context_t& ctx) {
+bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
   wayland_thread_context& wayland_ctx = ctx.thread_context;
 
   // read-only config
@@ -204,7 +204,7 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
 
-  const bongocat_error_t result_update_screen_width = wayland_update_screen_width(ctx);
+  const bongocat_error_t result_update_screen_width = wayland_update_screen_info(ctx);
   if (result_update_screen_width != bongocat_error_t::BONGOCAT_SUCCESS) {
     wl_registry_destroy(registry);
     return result_update_screen_width;

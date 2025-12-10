@@ -11,7 +11,7 @@ namespace bongocat::platform::wayland::details {
 BONGOCAT_NODISCARD FileDescriptor create_shm(off_t size);
 
 BONGOCAT_NODISCARD bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx);
-BONGOCAT_NODISCARD bongocat_error_t wayland_update_screen_width(wayland_context_t& ctx);
+BONGOCAT_NODISCARD bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx);
 BONGOCAT_NODISCARD bongocat_error_t wayland_setup_surface(wayland_context_t& ctx);
 BONGOCAT_NODISCARD bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
                                                          animation::animation_context_t& animation_ctx);
