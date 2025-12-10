@@ -48,6 +48,7 @@ static void drawing_copy_pixel_rgba(uint8_t *dest, int dest_channels, int dest_i
     dest[dest_idx + 3] = a;
   }
 }
+
 void drawing_copy_pixel(uint8_t *dest, int dest_channels, int dest_idx, const unsigned char *src, int src_channels,
                         int src_idx, blit_image_color_option_flags_t options, blit_image_color_order_t dest_order,
                         blit_image_color_order_t src_order) {
@@ -87,16 +88,78 @@ void drawing_copy_pixel(uint8_t *dest, int dest_channels, int dest_idx, const un
   drawing_copy_pixel_rgba(dest, dest_channels, dest_idx, dest_order, r, g, b, a);
 }
 
-struct drawing_get_interpolated_pixel_result_t {
+void drawing_blend_pixel(uint8_t *dest, int dest_channels, int dest_idx, uint8_t src_r, uint8_t src_g, uint8_t src_b,
+                         uint8_t src_a, int src_channels, blit_image_color_option_flags_t options,
+                         blit_image_color_order_t dest_order, blit_image_color_order_t src_order) {
+  if (has_flag(options, blit_image_color_option_flags_t::Invisible)) {
+    return;
+  }
+  const bool invert = has_flag(options, blit_image_color_option_flags_t::Invert);
+
+  // Map source channel indices for RGB
+  const uint8_t sr = (src_order == blit_image_color_order_t::RGBA) ? src_r : src_b;
+  const uint8_t sg = src_g;
+  const uint8_t sb = (src_order == blit_image_color_order_t::RGBA) ? src_b : src_r;
+  const uint8_t sa = src_a;
+
+  // Skip fully transparent pixels
+  if (sa == 0) {
+    return;
+  }
+
+  // Load into RGBA without branches
+  uint8_t r{0};
+  uint8_t g{0};
+  uint8_t b{0};
+  uint8_t a{0};
+  if (src_channels == 1) {
+    // 1-channel grayscale -> fill all channels with 0/255
+    uint8_t v = sr > 0 ? 255 : 0;
+    v = apply_invert(v, invert);
+    r = g = b = a = v;
+  } else if (src_channels == 2) {
+    // 2-channel grayscale + alpha (alpha ignored in original)
+    const uint8_t gray = apply_invert(sr, invert);
+    r = g = b = gray;
+    a = 255;
+  } else {
+    // Fully opaque - direct copy (fast path)
+    if (src_a == 255) {
+      // RGB / RGBA
+      r = apply_invert(sr, invert);
+      g = apply_invert(sg, invert);
+      b = apply_invert(sb, invert);
+      a = 255;  // Alpha not inverted
+    } else {
+      // Alpha blend: out = src * alpha + dest * (1 - alpha)
+      const float alpha = static_cast<float>(sa) / 255.0f;
+      const float inv_alpha = 1.0f - alpha;
+
+      // Map source channel indices for RGB
+      const uint8_t dr = (dest_order == blit_image_color_order_t::RGBA) ? dest[dest_idx + 0] : dest[dest_idx + 2];
+      const uint8_t dg = dest[dest_idx + 1];
+      const uint8_t db = (dest_order == blit_image_color_order_t::RGBA) ? dest[dest_idx + 2] : dest[dest_idx + 0];
+      // const uint8_t da = dest[dest_idx + 3];
+
+      r = static_cast<uint8_t>(lroundf((sr * alpha) + (dr * inv_alpha)));
+      g = static_cast<uint8_t>(lroundf((sg * alpha) + (dg * inv_alpha)));
+      b = static_cast<uint8_t>(lroundf((sb * alpha) + (db * inv_alpha)));
+      a = 255;  // Alpha not inverted
+    }
+  }
+
+  drawing_copy_pixel_rgba(dest, dest_channels, dest_idx, dest_order, r, g, b, a);
+}
+
+struct drawing_get_pixel_result_t {
   unsigned char r{0};
   unsigned char g{0};
   unsigned char b{0};
   unsigned char a{0};
 };
 // Bilinear interpolation for smooth scaling
-static drawing_get_interpolated_pixel_result_t drawing_get_interpolated_pixel(const unsigned char *src, size_t src_size,
-                                                                              int src_w, int src_h, int src_channels,
-                                                                              float fx, float fy) {
+static drawing_get_pixel_result_t drawing_get_interpolated_pixel(const unsigned char *src, size_t src_size, int src_w,
+                                                                 int src_h, int src_channels, float fx, float fy) {
   // Clamp coordinates to image bounds
   if (fx < 0) {
     fx = 0;
@@ -134,7 +197,7 @@ static drawing_get_interpolated_pixel_result_t drawing_get_interpolated_pixel(co
   const int idx_br = (y2 * src_w + x2) * src_channels;  // bottom-right
 
   // Interpolate each channel
-  drawing_get_interpolated_pixel_result_t ret;
+  drawing_get_pixel_result_t ret;
   for (int c = 0; c < src_channels; c++) {
     assert(idx_tl >= 0);
     assert(idx_tr >= 0);
@@ -146,27 +209,123 @@ static drawing_get_interpolated_pixel_result_t drawing_get_interpolated_pixel(co
     const size_t br_idx_c = static_cast<size_t>(idx_br) + static_cast<size_t>(c);
 
     if (tl_idx_c < src_size && tr_idx_c < src_size && bl_idx_c < src_size && br_idx_c < src_size) {
-      const float top = static_cast<float>(src[tl_idx_c]) * (1.0f - dx) + (static_cast<float>(src[tr_idx_c]) * dx);
-      const float bottom = static_cast<float>(src[bl_idx_c]) * (1.0f - dx) + (static_cast<float>(src[br_idx_c]) * dx);
-      const float result = top * (1.0f - dy) + bottom * dy;
+      const float top = (static_cast<float>(src[tl_idx_c]) * (1.0f - dx)) + (static_cast<float>(src[tr_idx_c]) * dx);
+      const float bottom = (static_cast<float>(src[bl_idx_c]) * (1.0f - dx)) + (static_cast<float>(src[br_idx_c]) * dx);
+      const float result = (top * (1.0f - dy)) + (bottom * dy);
 
       switch (c) {
       case 0:
-        ret.r = static_cast<uint8_t>(result + 0.5f);
+        ret.r = static_cast<uint8_t>(lroundf(result));
         break;  // R
       case 1:
-        ret.g = static_cast<uint8_t>(result + 0.5f);
+        ret.g = static_cast<uint8_t>(lroundf(result));
         break;  // G
       case 2:
-        ret.b = static_cast<uint8_t>(result + 0.5f);
+        ret.b = static_cast<uint8_t>(lroundf(result));
         break;  // B
       case 3:
-        ret.a = static_cast<uint8_t>(result + 0.5f);
+        ret.a = static_cast<uint8_t>(lroundf(result));
         break;  // A
       default:
         break;
       }
     }
+  }
+  return ret;
+}
+
+// Box filter for high-quality downscaling - averages all source pixels that
+// map to a destination pixel. Produces much smoother results than bilinear
+// when shrinking images significantly.
+static drawing_get_pixel_result_t drawing_get_box_filtered_pixel(const unsigned char *src, size_t src_size, int src_w,
+                                                                 int src_h, int src_channels, float fx, float fy) {
+  // Clamp coordinates to image bounds
+  if (fx < 0) {
+    fx = 0;
+  }
+  if (fy < 0) {
+    fy = 0;
+  }
+  if (fx >= static_cast<float>(src_w - 1)) {
+    fx = static_cast<float>(src_w - 1);
+  }
+  if (fy >= static_cast<float>(src_h - 1)) {
+    fy = static_cast<float>(src_h - 1);
+  }
+
+  const int x1 = static_cast<int>(fx);
+  const int y1 = static_cast<int>(fy);
+  int x2 = x1 + 1;
+  int y2 = y1 + 1;
+
+  // Clamp to bounds
+  if (x2 >= src_w) {
+    x2 = src_w - 1;
+  }
+  if (y2 >= src_h) {
+    y2 = src_h - 1;
+  }
+
+  // Indices of 2×2 block
+  const int idx_tl = (y1 * src_w + x1) * src_channels;
+  const int idx_tr = (y1 * src_w + x2) * src_channels;
+  const int idx_bl = (y2 * src_w + x1) * src_channels;
+  const int idx_br = (y2 * src_w + x2) * src_channels;
+
+  float sum_r = 0.0f;
+  float sum_g = 0.0f;
+  float sum_b = 0.0f;
+  float sum_a = 0.0f;
+  int count = 0;
+
+  // Accumulate function (manual inline)
+  const int base_indices[4] = {idx_tl, idx_tr, idx_bl, idx_br};
+
+  assert(src_channels >= 0);
+  for (int i = 0; i < src_channels; i++) {
+    const int base = base_indices[i];
+    if (base < 0) {
+      continue;
+    }
+
+    for (int c = 0; c < src_channels; c++) {
+      const size_t idx_c = static_cast<size_t>(base) + static_cast<size_t>(c);
+      if (idx_c >= src_size) {
+        continue;
+      }
+
+      const float v = src[idx_c];
+      switch (c) {
+      case 0:
+        sum_r += v;
+        break;
+      case 1:
+        sum_g += v;
+        break;
+      case 2:
+        sum_b += v;
+        break;
+      case 3:
+        sum_a += v;
+        break;
+      }
+    }
+    count++;
+  }
+
+  if (count == 0) {
+    count = 1;
+  }
+
+  drawing_get_pixel_result_t ret;
+  // Average
+  ret.r = static_cast<uint8_t>(lroundf(sum_r / static_cast<float>(count)));
+  ret.g = static_cast<uint8_t>(lroundf(sum_g / static_cast<float>(count)));
+  ret.b = static_cast<uint8_t>(lroundf(sum_b / static_cast<float>(count)));
+  if (src_channels == 4) {
+    ret.a = static_cast<uint8_t>(lroundf(sum_a / static_cast<float>(count)));
+  } else {
+    ret.a = 255;
   }
   return ret;
 }
@@ -248,12 +407,18 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
   int32_t src_x_start = src_x << FIXED_SHIFT;
   int32_t src_y_start = src_y << FIXED_SHIFT;
 
+  const bool use_bilinear_interpolation = has_flag(options, blit_image_color_option_flags_t::BilinearInterpolation);
+  const bool mirror_x = has_flag(options, blit_image_color_option_flags_t::MirrorX);
+  const bool mirror_y = has_flag(options, blit_image_color_option_flags_t::MirrorY);
+  const bool disable_threshold_alpha =
+      use_bilinear_interpolation || has_flag(options, blit_image_color_option_flags_t::DisableThresholdAlpha);
+
   // MirrorX / MirrorY affect direction and start point
-  if (has_flag(options, blit_image_color_option_flags_t::MirrorX)) {
+  if (mirror_x) {
     src_x_start = (src_x + frame_w - 1) << FIXED_SHIFT;
     inc_x = -inc_x;
   }
-  if (has_flag(options, blit_image_color_option_flags_t::MirrorY)) {
+  if (mirror_y) {
     src_y_start = (src_y + frame_h - 1) << FIXED_SHIFT;
     inc_y = -inc_y;
   }
@@ -261,7 +426,7 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
   const size_t src_row_bytes = static_cast<size_t>(src_w) * static_cast<size_t>(src_channels);
   const size_t dest_row_bytes = static_cast<size_t>(dest_w) * static_cast<size_t>(dest_channels);
 
-  const bool use_bilinear_interpolation = has_flag(options, blit_image_color_option_flags_t::BilinearInterpolation);
+  const bool is_downscaling = (target_w < src_w) || (target_h < src_h);
 
   for (int ty = y0; ty < y1; ++ty) {
     const int dy = offset_y + ty;
@@ -278,9 +443,11 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
     const unsigned char *src_row = src + (static_cast<size_t>(sy) * src_row_bytes);
 
     int32_t sx_fixed = src_x_start + static_cast<int32_t>(static_cast<int64_t>(x0) * inc_x);
-    const uint8_t *dest_ptr = dest_row + static_cast<size_t>(offset_x + x0) * static_cast<size_t>(dest_channels);
+    const uint8_t *dest_ptr = dest_row + (static_cast<size_t>(offset_x + x0) * static_cast<size_t>(dest_channels));
 
     for (int tx = x0; tx < x1; ++tx) {
+      // const int dx = offset_x + tx;
+      // assert(dx < dest_w);
       const int sx = sx_fixed >> FIXED_SHIFT;
 
       if (static_cast<unsigned>(sx) < static_cast<unsigned>(src_w)) {
@@ -293,18 +460,15 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
           const float fx = static_cast<float>(sx_fixed) / static_cast<float>(1 << FIXED_SHIFT);
           const float fy = static_cast<float>(sy_fixed) / static_cast<float>(1 << FIXED_SHIFT);
 
-          auto pixel = drawing_get_interpolated_pixel(src, src_size, src_w, src_h, src_channels, fx, fy);
-          if (src_channels >= 4) {
-            if (src_pixel[3] > THRESHOLD_ALPHA) {
-              drawing_copy_pixel_rgba(dest, dest_channels, dest_idx, dest_order, pixel.r, pixel.g, pixel.b, pixel.a);
-            }
-          } else {
-            drawing_copy_pixel_rgba(dest, dest_channels, dest_idx, dest_order, pixel.r, pixel.g, pixel.b, 255);
-          }
+          const drawing_get_pixel_result_t pixel =
+              (is_downscaling) ? drawing_get_box_filtered_pixel(src, src_size, src_w, src_h, src_channels, fx, fy)
+                               : drawing_get_interpolated_pixel(src, src_size, src_w, src_h, src_channels, fx, fy);
+          drawing_blend_pixel(dest, dest_channels, dest_idx, pixel.r, pixel.g, pixel.b, pixel.a, 4, options, dest_order,
+                              blit_image_color_order_t::RGBA);
         } else {
           // Use nearest-neighbor scaling (original behavior)
           if (src_channels >= 4) {
-            if (src_pixel[3] > THRESHOLD_ALPHA) {
+            if (disable_threshold_alpha || src_pixel[3] > THRESHOLD_ALPHA) {
               drawing_copy_pixel(dest, dest_channels, dest_idx, src, src_channels, src_idx, options, dest_order,
                                  src_order);
             }

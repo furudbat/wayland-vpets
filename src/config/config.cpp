@@ -53,10 +53,10 @@
 // =============================================================================
 
 namespace bongocat::config {
-static inline constexpr int MIN_CAT_HEIGHT = 10;
-static inline constexpr int MAX_CAT_HEIGHT = 200;
-static inline constexpr int MIN_OVERLAY_HEIGHT = 20;
-static inline constexpr int MAX_OVERLAY_HEIGHT = 300;
+static inline constexpr int MIN_CAT_HEIGHT = 8;
+static inline constexpr int MAX_CAT_HEIGHT = 1024;
+static inline constexpr int MIN_OVERLAY_HEIGHT = 16;
+static inline constexpr int MAX_OVERLAY_HEIGHT = 2560;
 static inline constexpr int MIN_FPS = 1;
 static inline constexpr int MAX_FPS = 144;
 static inline constexpr int MIN_DURATION_MS = 10;

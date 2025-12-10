@@ -12,6 +12,7 @@ enum class blit_image_color_option_flags_t : uint32_t {
   MirrorX = (1u << 3),
   MirrorY = (1u << 4),
   BilinearInterpolation = (1u << 5),
+  DisableThresholdAlpha = (1u << 6),
 };
 enum class blit_image_color_order_t : uint8_t {
   RGBA,
@@ -25,6 +26,9 @@ enum class blit_image_color_order_t : uint8_t {
 void drawing_copy_pixel(uint8_t *dest, int dest_channels, int dest_idx, const unsigned char *src, int src_channels,
                         int src_idx, blit_image_color_option_flags_t option, blit_image_color_order_t dest_order,
                         blit_image_color_order_t src_order);
+void drawing_blend_pixel(uint8_t *dest, int dest_channels, int dest_idx, uint8_t src_r, uint8_t src_g, uint8_t src_b,
+                         uint8_t src_a, int src_channels, blit_image_color_option_flags_t options,
+                         blit_image_color_order_t dest_order, blit_image_color_order_t src_order);
 
 // Blit scaled image to destination buffer
 void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, int dest_channels,

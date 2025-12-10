@@ -494,6 +494,7 @@ enum class draw_sprite_overwrite_option_t : uint32_t {
   None = 0,
   MovementNoMirror = (1 << 0),
   MovementMirror = (1 << 1),
+  DisableThresholdAlpha = (1 << 2),
 };
 void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const custom_sprite_sheet_t& sheet, int col, int row,
@@ -594,6 +595,9 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     if (anim_shm.anim_direction < 0.0f) {
       drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::MirrorX);
     }
+    break;
+  case draw_sprite_overwrite_option_t::DisableThresholdAlpha:
+    drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::DisableThresholdAlpha);
     break;
   }
 
@@ -746,20 +750,21 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
             const animation_t& custom_anim = get_current_animation(anim);
             assert(custom_anim.type == animation_t::type_t::Custom);
             const custom_sprite_sheet_t& sheet = custom_anim.custom;
-            draw_sprite_overwrite_option_t overwrite_mirror_x{draw_sprite_overwrite_option_t::None};
+            draw_sprite_overwrite_option_t overwrite_drawing_options{draw_sprite_overwrite_option_t::None};
+            // Mirroring for pmd sprite sheets not needed
             /*
             switch (anim_shm.animation_player_result.overwrite_mirror_x) {
                 case animation_player_custom_overwrite_mirror_x::None:
                     break;
                 case animation_player_custom_overwrite_mirror_x::NoMirror:
-                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementNoMirror;
-                    break;
-                case animation_player_custom_overwrite_mirror_x::Mirror:
-                    overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
-                    break;
+                    overwrite_drawing_options =
+            flag_add(overwrite_drawing_options,draw_sprite_overwrite_option_t::MovementNoMirror); break; case
+            animation_player_custom_overwrite_mirror_x::Mirror: overwrite_drawing_options =
+            flag_add(overwrite_drawing_options,draw_sprite_overwrite_option_t::MovementMirror); break;
             }
             */
-            draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_mirror_x);
+
+            draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_drawing_options);
           }
           break;
         case config::config_animation_custom_set_t::custom:
@@ -768,18 +773,24 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
             const animation_t& custom_anim = get_current_animation(anim);
             assert(custom_anim.type == animation_t::type_t::Custom);
             const custom_sprite_sheet_t& sheet = custom_anim.custom;
-            draw_sprite_overwrite_option_t overwrite_mirror_x{draw_sprite_overwrite_option_t::None};
+
+            draw_sprite_overwrite_option_t overwrite_drawing_options{draw_sprite_overwrite_option_t::None};
             switch (anim_shm.animation_player_result.overwrite_mirror_x) {
             case animation_player_custom_overwrite_mirror_x::None:
               break;
             case animation_player_custom_overwrite_mirror_x::NoMirror:
-              overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementNoMirror;
+              overwrite_drawing_options =
+                  flag_add(overwrite_drawing_options, draw_sprite_overwrite_option_t::MovementNoMirror);
               break;
             case animation_player_custom_overwrite_mirror_x::Mirror:
-              overwrite_mirror_x = draw_sprite_overwrite_option_t::MovementMirror;
+              overwrite_drawing_options =
+                  flag_add(overwrite_drawing_options, draw_sprite_overwrite_option_t::MovementMirror);
               break;
             }
-            draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_mirror_x);
+            overwrite_drawing_options =
+                flag_add(overwrite_drawing_options, draw_sprite_overwrite_option_t::DisableThresholdAlpha);
+
+            draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_drawing_options);
           }
           break;
         }
@@ -850,6 +861,9 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
     return draw_bar_result_t::Skip;
   }
 
+  // for calc render time
+  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
+
   BONGOCAT_LOG_VERBOSE("draw_bar: using buffer %zu", next_buffer_index);
   if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS > 1) {
     wayland_ctx_shm.current_buffer_index = next_buffer_index;
@@ -902,6 +916,10 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
       wayland_ctx._last_frame_timestamp_ms <= 0 || (now - wayland_ctx._last_frame_timestamp_ms) >= frame_interval_ms) {
     wayland_ctx._last_frame_timestamp_ms = now;
   }
+
+  [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+  BONGOCAT_LOG_VERBOSE("draw_bar: time %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
+                       static_cast<double>(t1 - t0) / 1000000.0);
 
   return draw_bar_result_t::NoFlushNeeded;
 }

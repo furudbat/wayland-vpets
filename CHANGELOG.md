@@ -15,6 +15,7 @@ All notable changes to this project will be documented in this file.
 - pull from upstream [1.3.1](https://github.com/saatvik333/wayland-bongocat/releases/tag/v1.3.1)
   - **Keyboard Hand Mapping** - Left half of keyboard triggers left cat hand, right half triggers right hand
   - New config option `enable_hand_mapping=1` (enabled by default)
+  - Box filter + alpha blending
 
 
 ---
