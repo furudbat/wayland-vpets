@@ -31,6 +31,7 @@ struct animation_shared_memory_t {
   config::config_animation_custom_set_t anim_custom_set{config::config_animation_custom_set_t::None};
   float movement_offset_x{0.0};
   float anim_direction{0.0};
+  platform::timestamp_ms_t last_wakeup_timestamp{0};  ///< wake up from latest idle sleep
 
   // Animation frame data for sprite sheet preload
   platform::MMapArray<animation_t> bongocat_anims;
@@ -59,6 +60,7 @@ struct animation_shared_memory_t {
     anim_index = 0;
     movement_offset_x = 0;
     anim_direction = 0;
+    last_wakeup_timestamp = 0;
 
     for (size_t i = 0; i < bongocat_anims.count; i++) {
       cleanup_animation(bongocat_anims[i]);
@@ -131,7 +133,11 @@ struct animation_shared_memory_t {
       : animation_player_result(other.animation_player_result)
       , anim_index(other.anim_index)
       , anim_type(other.anim_type)
-      , anim_dm_set(other.anim_dm_set) {
+      , anim_dm_set(other.anim_dm_set)
+      , anim_custom_set(other.anim_custom_set)
+      , movement_offset_x(other.movement_offset_x)
+      , anim_direction(other.anim_direction)
+      , last_wakeup_timestamp(other.last_wakeup_timestamp) {
     bongocat_anims = other.bongocat_anims;
     dm_anims = other.dm_anims;
     dm20_anims = other.dm20_anims;
@@ -152,8 +158,12 @@ struct animation_shared_memory_t {
     if (this != &other) {
       anim_type = other.anim_type;
       anim_dm_set = other.anim_dm_set;
+      anim_custom_set = other.anim_custom_set;
       anim_index = other.anim_index;
       animation_player_result = other.animation_player_result;
+      movement_offset_x = other.movement_offset_x;
+      anim_direction = other.anim_direction;
+      last_wakeup_timestamp = other.last_wakeup_timestamp;
 
       bongocat_anims = other.bongocat_anims;
       dm_anims = other.dm_anims;
@@ -179,7 +189,10 @@ struct animation_shared_memory_t {
       , anim_index(other.anim_index)
       , anim_type(other.anim_type)
       , anim_dm_set(other.anim_dm_set)
-      , anim_custom_set(other.anim_custom_set) {
+      , anim_custom_set(other.anim_custom_set)
+      , movement_offset_x(other.movement_offset_x)
+      , anim_direction(other.anim_direction)
+      , last_wakeup_timestamp(other.last_wakeup_timestamp) {
     bongocat_anims = bongocat::move(other.bongocat_anims);
     dm_anims = bongocat::move(other.dm_anims);
     dm20_anims = bongocat::move(other.dm20_anims);
@@ -216,6 +229,9 @@ struct animation_shared_memory_t {
     other.anim_custom_set = config::config_animation_custom_set_t::None;
     other.anim_index = 0;
     other.animation_player_result = {};
+    other.movement_offset_x = 0;
+    other.anim_direction = 0;
+    other.last_wakeup_timestamp = 0;
   }
   animation_shared_memory_t& operator=(animation_shared_memory_t&& other) noexcept {
     if (this != &other) {
@@ -224,6 +240,9 @@ struct animation_shared_memory_t {
       anim_type = other.anim_type;
       anim_dm_set = other.anim_dm_set;
       anim_custom_set = other.anim_custom_set;
+      movement_offset_x = other.movement_offset_x;
+      anim_direction = other.anim_direction;
+      last_wakeup_timestamp = other.last_wakeup_timestamp;
 
       bongocat_anims = bongocat::move(other.bongocat_anims);
       dm_anims = bongocat::move(other.dm_anims);
@@ -261,6 +280,9 @@ struct animation_shared_memory_t {
       other.anim_custom_set = config::config_animation_custom_set_t::None;
       other.anim_index = 0;
       other.animation_player_result = {};
+      other.movement_offset_x = 0;
+      other.anim_direction = 0;
+      other.last_wakeup_timestamp = 0;
     }
     return *this;
   }
