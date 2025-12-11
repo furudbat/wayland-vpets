@@ -5,9 +5,31 @@
 
 namespace bongocat::animation {
 
+void patch_dm_anim(dm_sprite_sheet_t& ret, load_dm_anim_options_t options) {
+  if (options.sleep_in_bed) {
+    if (ret.frames.down.valid) {
+      ret.animations.idle_sleep[0] = ret.frames.down.col;
+      ret.animations.idle_sleep[1] = ret.frames.down.col;
+      ret.animations.idle_sleep[2] = ret.frames.down.col;
+      ret.animations.idle_sleep[3] = ret.frames.down.col;
+    } else {
+      // fallback
+      ret.animations.idle_sleep[0] = ret.frames.idle_2.col;
+      ret.animations.idle_sleep[1] = ret.frames.idle_2.col;
+      ret.animations.idle_sleep[2] = ret.frames.idle_2.col;
+      ret.animations.idle_sleep[3] = ret.frames.idle_2.col;
+    }
+  } else {
+    ret.animations.idle_sleep[0] = ret.animations.sleep[0];
+    ret.animations.idle_sleep[1] = ret.animations.sleep[1];
+    ret.animations.idle_sleep[2] = ret.animations.sleep[2];
+    ret.animations.idle_sleep[3] = ret.animations.sleep[3];
+  }
+}
 created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_thread_context_t& ctx, [[maybe_unused]] int anim_index,
                                                  const assets::embedded_image_t& sprite_sheet_image,
-                                                 int sprite_sheet_cols, int sprite_sheet_rows) {
+                                                 int sprite_sheet_cols, int sprite_sheet_rows,
+                                                 load_dm_anim_options_t options) {
   using namespace assets;
   BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -65,9 +87,9 @@ created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_thread_context_
   ret.animations.idle[2] = ret.frames.idle_1.col;
   ret.animations.idle[3] = ret.frames.idle_2.col;
 
-  ret.animations.boring[0] = ret.frames.sad.col ? ret.frames.sad.col : ret.frames.idle_1.col;
-  ret.animations.boring[1] = ret.frames.lose_1.col ? ret.frames.lose_1.col : ret.frames.idle_2.col;
-  ret.animations.boring[2] = ret.frames.lose_2.col ? ret.frames.lose_2.col : ret.frames.idle_1.col;
+  ret.animations.boring[0] = ret.frames.sad.col >= 1 ? ret.frames.sad.col : ret.frames.idle_1.col;
+  ret.animations.boring[1] = ret.frames.lose_1.col >= 1 ? ret.frames.lose_1.col : ret.frames.idle_2.col;
+  ret.animations.boring[2] = ret.frames.lose_2.col >= 1 ? ret.frames.lose_2.col : ret.frames.idle_1.col;
   ret.animations.boring[3] = ret.frames.idle_2.col;
 
   ret.animations.writing[0] = ret.frames.idle_2.col;
@@ -93,6 +115,10 @@ created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_thread_context_
     ret.animations.sleep[2] = ret.frames.idle_2.col;
     ret.animations.sleep[3] = ret.frames.idle_2.col;
   }
+  ret.animations.idle_sleep[0] = ret.animations.sleep[0];
+  ret.animations.idle_sleep[1] = ret.animations.sleep[1];
+  ret.animations.idle_sleep[2] = ret.animations.sleep[2];
+  ret.animations.idle_sleep[3] = ret.animations.sleep[3];
 
   ret.animations.wake_up[0] = ret.frames.idle_1.col;
   ret.animations.wake_up[1] = ret.frames.idle_2.col;
@@ -147,6 +173,8 @@ created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_thread_context_
     ret.animations.happy[2] = ret.frames.idle_1.col;
     ret.animations.happy[3] = ret.frames.idle_2.col;
   }
+
+  patch_dm_anim(ret, options);
 
   return ret;
 }

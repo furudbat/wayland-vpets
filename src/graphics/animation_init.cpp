@@ -30,6 +30,7 @@
 #include "graphics/embedded_assets_pkmn.h"
 
 // image loader
+#include "image_loader/base_dm/load_dm.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
 #include "image_loader/custom/load_custom.h"
 #include "image_loader/dm/load_images_dm.h"
@@ -143,6 +144,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     case config::config_animation_dm_set_t::min_dm: {
       if constexpr (features::EnableMinDmEmbeddedAssets) {
         auto [l_result, l_error] = load_min_dm_sprite_sheet(ctx, anim_index);
+        patch_dm_anim(l_result, {.sleep_in_bed = true});
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }
@@ -150,6 +152,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     case config::config_animation_dm_set_t::dm: {
       if constexpr (features::EnableFullDmEmbeddedAssets) {
         auto [l_result, l_error] = load_dm_sprite_sheet(ctx, anim_index);
+        patch_dm_anim(l_result, {.sleep_in_bed = true});
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }
@@ -157,6 +160,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     case config::config_animation_dm_set_t::dm20: {
       if constexpr (features::EnableDm20EmbeddedAssets) {
         auto [l_result, l_error] = load_dm20_sprite_sheet(ctx, anim_index);
+        patch_dm_anim(l_result, {.sleep_in_bed = true});
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }
@@ -517,6 +521,9 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           // DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
 #  include "min_dm_init_dm_anim.cpp.inl"
 #endif
+          for (size_t i = 0; i < MIN_DM_ANIM_COUNT; ++i) {
+            patch_dm_anim(ctx.shm->min_dm_anims[i].dm, {.sleep_in_bed = true});
+          }
         }
         if constexpr (features::EnableFullDmEmbeddedAssets) {
           BONGOCAT_LOG_INFO("Init dm sprite sheets: %d", DM_ANIM_COUNT);
@@ -525,6 +532,9 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           // dm
 #  include "dm_init_dm_anim.cpp.inl"
 #endif
+          for (size_t i = 0; i < DM_ANIM_COUNT; ++i) {
+            patch_dm_anim(ctx.shm->dm_anims[i].dm, {.sleep_in_bed = true});
+          }
         }
         if constexpr (features::EnableDm20EmbeddedAssets) {
           BONGOCAT_LOG_INFO("Init dm20 sprite sheets: %d", DM20_ANIM_COUNT);
@@ -533,6 +543,9 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           // dm20
 #  include "dm20_init_dm_anim.cpp.inl"
 #endif
+          for (size_t i = 0; i < MIN_DM_ANIM_COUNT; ++i) {
+            patch_dm_anim(ctx.shm->dm20_anims[i].dm, {.sleep_in_bed = true});
+          }
         }
         if constexpr (features::EnableDmxEmbeddedAssets) {
           BONGOCAT_LOG_INFO("Init dmx sprite sheets: %d", DMX_ANIM_COUNT);
