@@ -34,7 +34,7 @@ endif()
 project(
   bongocat
   LANGUAGES C CXX
-  VERSION 3.6.0)
+  VERSION 3.6.1)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -461,7 +461,7 @@ endif()
 # Package
 cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
 set(CPACK_PACKAGE_NAME "bongocat")
-set(CPACK_PACKAGE_VERSION "3.6.0")
+set(CPACK_PACKAGE_VERSION "3.6.1")
 set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
 set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
 set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")

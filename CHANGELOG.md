@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.6.1] - 2025-12-13
+
+### Improved
+
+- pull from upstream main
+- improve animations
+  - wake up on working (idle sleep -> working)
+  - movement steps
+  - fix sleep in bed animation
+
 ## [3.6.0] - 2025-12-10
 
 ### Fixed
