@@ -8,7 +8,7 @@
 namespace bongocat::platform::wayland::details {
 /// @TODO: use created_result_t for shm
 // Create shared memory buffer - returns fd or -1 on error
-BONGOCAT_NODISCARD FileDescriptor create_shm(off_t size);
+BONGOCAT_NODISCARD created_result_t<FileDescriptor> create_shm(off_t size);
 
 BONGOCAT_NODISCARD bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx);
 BONGOCAT_NODISCARD bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx);

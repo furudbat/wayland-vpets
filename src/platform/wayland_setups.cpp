@@ -1,6 +1,5 @@
 #include "platform/wayland_setups.h"
 
-#include "../graphics/bar.h"
 #include "graphics/animation.h"
 #include "platform/wayland-protocols.hpp"
 #include "platform/wayland.h"
@@ -11,12 +10,7 @@
 
 #include <cassert>
 #include <cerrno>
-#include <climits>
-#include <csignal>
-#include <cstdio>
 #include <cstdlib>
-#include <fcntl.h>
-#include <poll.h>
 #include <pthread.h>
 #include <sys/mman.h>
 #include <sys/signalfd.h>
@@ -47,7 +41,7 @@ static_assert((CREATE_SHM_NAME_PREFIX_LEN + CREATE_SHM_NAME_SUFFIX_LEN) == LEN_A
 // BUFFER AND DRAWING MANAGEMENT
 // =============================================================================
 
-FileDescriptor create_shm(off_t size) {
+created_result_t<FileDescriptor> create_shm(off_t size) {
   char *name = strdup(CREATE_SHM_NAME_TEMPLATE);
   constexpr char charset_arr[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   constexpr size_t charset_len = sizeof(charset_arr) - 1;
@@ -56,7 +50,7 @@ FileDescriptor create_shm(off_t size) {
   random_xoshiro128 rng(slow_rand());
   for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
     for (size_t j = 0; j < CREATE_SHM_NAME_SUFFIX_LEN; j++) {
-      assert(sizeof(charset_arr) - 1 > 0);
+      static_assert(sizeof(charset_arr) - 1 > 0);
       name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rng.range(0, charset_len - 1)];
     }
     fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
@@ -67,9 +61,10 @@ FileDescriptor create_shm(off_t size) {
   }
 
   if (fd < 0 || ftruncate(fd, size) < 0) {
+    ::free(name);
     close(fd);
     fd = -1;
-    perror("shm");
+    return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
   ::free(name);
@@ -318,7 +313,7 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
   const int32_t buffer_height = wayland_context._bar_height;
   assert(buffer_width >= 0);
   assert(buffer_height >= 0);
-  assert(RGBA_CHANNELS >= 0);
+  static_assert(RGBA_CHANNELS >= 0);
   const size_t buffer_size = static_cast<size_t>(buffer_width) * static_cast<size_t>(buffer_height) * RGBA_CHANNELS;
   if (buffer_size <= 0) {
     BONGOCAT_LOG_ERROR("Invalid buffer size: %d", buffer_size);
@@ -334,10 +329,14 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
   assert(buffer_size <= INT32_MAX / static_cast<int32_t>(WAYLAND_NUM_BUFFERS));
   const size_t total_size = buffer_size * WAYLAND_NUM_BUFFERS;
 
-  assert(total_size <= INT32_MAX);
-  FileDescriptor fd = create_shm(static_cast<off_t>(total_size));
-  if (fd._fd < 0) {
-    return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+  FileDescriptor fd;
+  {
+    assert(total_size <= INT32_MAX);
+    created_result_t<FileDescriptor> fd_result = create_shm(static_cast<off_t>(total_size));
+    if (fd_result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+      return fd_result.error;
+    }
+    fd = bongocat::move(fd_result.result);
   }
 
   wl_shm_pool *pool = wl_shm_create_pool(wayland_context.shm, fd._fd, static_cast<int32_t>(total_size));

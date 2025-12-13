@@ -124,10 +124,12 @@ public:
 };
 inline void cond_destroy(SingleCondVariable& cond) {
   atomic_store(&cond._predicate, true);
-  if (cond._inited)
+  if (cond._inited) {
     pthread_cond_broadcast(&cond.cond);
-  if (cond._inited)
+  }
+  if (cond._inited) {
     pthread_cond_destroy(&cond.cond);
+  }
   cond._inited = false;
 }
 
@@ -1168,7 +1170,7 @@ inline drain_event_result_t drain_event(pollfd& pfd, int max_attempts,
       // supress compiler warning
 #if EAGAIN == EWOULDBLOCK
       if (ret.err != EAGAIN && ret.err != -1) {
-        if (fd_name) {
+        if (fd_name != nullptr) {
           BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(ret.err));
         }
       }

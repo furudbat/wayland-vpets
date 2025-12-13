@@ -18,7 +18,7 @@ enum class input_hand_mapping_t : int32_t {
 };
 
 struct input_shared_memory_t {
-  /// @DEPRECATED: not really needed anymore, use events
+  /// @DEPRECATED: not really needed anymore, use events and trigger instead
   int32_t any_key_pressed{0};
 
   int32_t kpm{0};  // keystrokes per minute

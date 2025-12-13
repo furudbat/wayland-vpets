@@ -822,8 +822,8 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
   }
 
   // assert(wayland_ctx_shm->current_buffer_index >= 0);
-  assert(platform::wayland::WAYLAND_NUM_BUFFERS > 0);
-  assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
+  static_assert(platform::wayland::WAYLAND_NUM_BUFFERS > 0);
+  static_assert(platform::wayland::WAYLAND_NUM_BUFFERS <= INT_MAX);
   [[maybe_unused]] const size_t current_buffer_index = wayland_ctx_shm.current_buffer_index;
   [[maybe_unused]] size_t next_buffer_index =
       (wayland_ctx_shm.current_buffer_index + 1) % platform::wayland::WAYLAND_NUM_BUFFERS;

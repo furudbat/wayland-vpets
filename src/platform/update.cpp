@@ -138,7 +138,7 @@ static size_t parse_cpuinfo_fd(int fd, size_t cpu_present_last, cpu_stat_t *out,
 
     size_t idle_time = 0;
     size_t total_time = 0;
-    assert(times_size >= 5);
+    static_assert(times_size >= 5);
     if (times_count >= 5) {
       idle_time = times[3] + times[4];
       for (size_t i = 0; i < times_count; i++) {

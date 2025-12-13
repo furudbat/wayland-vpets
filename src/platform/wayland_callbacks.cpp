@@ -14,8 +14,6 @@
 #include <cassert>
 #include <cstdio>
 #include <cstdlib>
-#include <fcntl.h>
-#include <poll.h>
 #include <pthread.h>
 #include <sys/signalfd.h>
 #include <sys/time.h>

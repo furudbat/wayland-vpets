@@ -242,11 +242,11 @@ public:
   }
 
   T& operator*() {
-    assert(ptr);
+    assert(ptr != nullptr);
     return *ptr;
   }
   constexpr const T& operator*() const {
-    assert(ptr);
+    assert(ptr != nullptr);
     return *ptr;
   }
   T *operator->() {

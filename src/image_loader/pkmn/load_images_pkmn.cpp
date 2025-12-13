@@ -61,6 +61,11 @@ namespace bongocat::animation {
         ret.animations.sleep[2] = ret.idle_2.col;
         ret.animations.sleep[3] = ret.idle_2.col;
 
+        ret.animations.idle_sleep[0] = ret.animations.sleep[0];
+        ret.animations.idle_sleep[1] = ret.animations.sleep[1];
+        ret.animations.idle_sleep[2] = ret.animations.sleep[2];
+        ret.animations.idle_sleep[3] = ret.animations.sleep[3];
+
         ret.animations.wake_up[0] = ret.idle_1.col;
         ret.animations.wake_up[1] = ret.idle_2.col;
         ret.animations.wake_up[2] = ret.idle_1.col;

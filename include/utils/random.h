@@ -1,5 +1,5 @@
-#ifndef BONGOCAT_RANDOM_H_
-#define BONGOCAT_RANDOM_H_
+#ifndef BONGOCAT_RANDOM_H
+#define BONGOCAT_RANDOM_H
 
 #include <climits>
 #include <cstddef>

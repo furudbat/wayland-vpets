@@ -6,7 +6,6 @@
 #include "graphics/animation_context.h"
 #include "utils/error.h"
 #include "wayland_context.h"
-#include "wayland_thread_context.h"
 
 #include <csignal>
 
@@ -34,6 +33,9 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
 
 // Get detected screen width
 BONGOCAT_NODISCARD int get_screen_width(const wayland_context_t& ctx);
+
+// Get detected output name
+BONGOCAT_NODISCARD const char *get_output_name(const wayland_context_t& ctx);
 
 // Get current layer name for logging
 BONGOCAT_NODISCARD const char *get_current_layer_name();

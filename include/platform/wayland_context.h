@@ -2,7 +2,6 @@
 #define BONGOCAT_GLOBAL_WAYLAND_CONTEXT_CONTEXT_H
 
 #include "graphics/animation_context.h"
-#include "graphics/animation_thread_context.h"
 #include "platform/wayland-protocols.hpp"
 #include "wayland_thread_context.h"
 

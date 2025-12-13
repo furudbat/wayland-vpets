@@ -4,7 +4,6 @@
 #include "config/config.h"
 #include "update_shared_memory.h"
 #include "utils/system_memory.h"
-#include "utils/time.h"
 
 #include <pthread.h>
 #include <stdatomic.h>
@@ -76,4 +75,4 @@ inline void cleanup(update_context_t& ctx) {
 }
 }  // namespace bongocat::platform::update
 
-#endif  // BONGOCAT_INPUT_CONTEXT_H
+#endif  // BONGOCAT_UPDATE_CONTEXT_H

@@ -667,7 +667,7 @@ static uint64_t config_validate_appearance(config_t& config) {
   case config_animation_sprite_sheet_layout_t::Bongocat:
     if constexpr (features::EnableBongocatEmbeddedAssets) {
       // Validate animation index
-      assert(BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
+      static_assert(BONGOCAT_ANIMATIONS_COUNT <= INT_MAX);
       if (config.animation_index < 0 || config.animation_index >= static_cast<int>(BONGOCAT_ANIMATIONS_COUNT)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              BONGOCAT_ANIMATIONS_COUNT - 1);
@@ -675,7 +675,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         ret |= (1u << 18);
       }
       // Validate idle frame
-      assert(animation::BONGOCAT_NUM_FRAMES <= INT_MAX);
+      static_assert(animation::BONGOCAT_NUM_FRAMES <= INT_MAX);
       if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(BONGOCAT_NUM_FRAMES)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              BONGOCAT_NUM_FRAMES - 1);
@@ -687,7 +687,7 @@ static uint64_t config_validate_appearance(config_t& config) {
   case config_animation_sprite_sheet_layout_t::Dm:
     if constexpr (features::EnableDmEmbeddedAssets) {
       // Validate animation index
-      assert(DM_ANIMATIONS_COUNT <= INT_MAX);
+      static_assert(DM_ANIMATIONS_COUNT <= INT_MAX);
       if (config.animation_index < 0 || config.animation_index >= static_cast<int>(DM_ANIMATIONS_COUNT)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              assets::DM_ANIMATIONS_COUNT - 1);
@@ -695,7 +695,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         ret |= (1u << 20);
       }
       // Validate idle frame
-      assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
+      static_assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
       if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(animation::MAX_DIGIMON_FRAMES)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              animation::MAX_DIGIMON_FRAMES - 1);
@@ -707,7 +707,7 @@ static uint64_t config_validate_appearance(config_t& config) {
   case config_animation_sprite_sheet_layout_t::Pkmn:
     if constexpr (features::EnablePkmnEmbeddedAssets) {
       // Validate animation index
-      assert(DM_ANIMATIONS_COUNT <= INT_MAX);
+      static_assert(DM_ANIMATIONS_COUNT <= INT_MAX);
       if (config.animation_index < 0 || config.animation_index >= static_cast<int>(PKMN_ANIMATIONS_COUNT)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              assets::PKMN_ANIMATIONS_COUNT - 1);
@@ -715,7 +715,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         ret |= (1u << 22);
       }
       // Validate idle frame
-      assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
+      static_assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
       if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MAX_PKMN_FRAMES)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              MAX_PKMN_FRAMES - 1);
@@ -727,7 +727,7 @@ static uint64_t config_validate_appearance(config_t& config) {
   case config_animation_sprite_sheet_layout_t::MsAgent:
     if constexpr (features::EnableMsAgentEmbeddedAssets) {
       // Validate animation index
-      assert(assets::MS_AGENTS_ANIMATIONS_COUNT <= INT_MAX);
+      static_assert(assets::MS_AGENTS_ANIMATIONS_COUNT <= INT_MAX);
       if (config.animation_index < 0 || config.animation_index >= static_cast<int>(MS_AGENTS_ANIMATIONS_COUNT)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              MS_AGENTS_ANIMATIONS_COUNT - 1);
@@ -735,7 +735,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         ret |= (1u << 24);
       }
       // Validate idle frame
-      assert(assets::MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
+      static_assert(assets::MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
       if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES)) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES - 1);
@@ -745,8 +745,8 @@ static uint64_t config_validate_appearance(config_t& config) {
     }
     break;
   case config_animation_sprite_sheet_layout_t::Custom:
-    assert(CUSTOM_ANIM_INDEX <= INT_MAX);
-    assert(MAX_MISC_ANIM_INDEX <= INT_MAX);
+    static_assert(CUSTOM_ANIM_INDEX <= INT_MAX);
+    static_assert(MAX_MISC_ANIM_INDEX <= INT_MAX);
     if constexpr (features::EnableCustomSpriteSheetsAssets) {
       if (config._custom) {
         assert(config.animation_custom_set == config_animation_custom_set_t::custom);
@@ -774,7 +774,7 @@ static uint64_t config_validate_appearance(config_t& config) {
             ret |= (1u << 27);
           }
           // Validate idle frame
-          assert(assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
+          static_assert(assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
           if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(MISC_MAX_SPRITE_SHEET_COL_FRAMES)) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                                  assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES - 1);
@@ -785,7 +785,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         break;
       case config_animation_custom_set_t::pmd:
         if constexpr (features::EnablePmdEmbeddedAssets) {
-          assert(assets::PMD_ANIM_COUNT <= INT_MAX);
+          static_assert(assets::PMD_ANIM_COUNT <= INT_MAX);
           // Validate animation index
           if (config.animation_index < 0 || config.animation_index >= static_cast<int>(PMD_ANIM_COUNT)) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY,
@@ -906,7 +906,7 @@ static bongocat_error_t config_add_keyboard_device(config_t& config, const char 
 
   const int old_num_keyboard_devices = config.num_keyboard_devices;
 
-  assert(input::MAX_INPUT_DEVICES <= INT_MAX);
+  static_assert(input::MAX_INPUT_DEVICES <= INT_MAX);
   if (old_num_keyboard_devices >= static_cast<int>(input::MAX_INPUT_DEVICES)) {
     BONGOCAT_LOG_WARNING("Can not add more devices from config, max. reach: %d", input::MAX_INPUT_DEVICES);
     return config._strict ? bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM : bongocat_error_t::BONGOCAT_SUCCESS;
@@ -1763,7 +1763,7 @@ void set_defaults(config_t& config) {
   config_t cfg{};
 
   cfg.output_name = BONGOCAT_NULLPTR;
-  assert(input::MAX_INPUT_DEVICES <= INT_MAX);
+  static_assert(input::MAX_INPUT_DEVICES <= INT_MAX);
   for (int i = 0; i < static_cast<int>(input::MAX_INPUT_DEVICES); i++) {
     cfg.keyboard_devices[i] = BONGOCAT_NULLPTR;
   }
@@ -1846,13 +1846,13 @@ static void config_log_summary(const config_t& config) {
     break;
   case config_animation_sprite_sheet_layout_t::Pkmn:
     assert(config._loaded_animation_fqname);
-    assert(PKMN_ANIMATIONS_COUNT <= INT32_MAX);
+    static_assert(PKMN_ANIMATIONS_COUNT <= INT32_MAX);
     BONGOCAT_LOG_DEBUG("  pkmn: '%s' %03d/%03d at offset (%d,%d)", config._loaded_animation_fqname,
                        config.animation_index, PKMN_ANIMATIONS_COUNT, config.cat_x_offset, config.cat_y_offset);
     break;
   case config_animation_sprite_sheet_layout_t::MsAgent:
     assert(config._loaded_animation_fqname);
-    assert(MS_AGENTS_ANIMATIONS_COUNT <= INT32_MAX);
+    static_assert(MS_AGENTS_ANIMATIONS_COUNT <= INT32_MAX);
     BONGOCAT_LOG_DEBUG("  MS Agent: '%s' %02d/%02d at offset (%d,%d)", config._loaded_animation_fqname,
                        config.animation_index, MS_AGENTS_ANIMATIONS_COUNT, config.cat_x_offset, config.cat_y_offset);
     break;
@@ -1862,13 +1862,13 @@ static void config_log_summary(const config_t& config) {
       break;
     case config_animation_custom_set_t::misc:
       assert(config._loaded_animation_fqname);
-      assert(MISC_ANIM_COUNT <= INT32_MAX);
+      static_assert(MISC_ANIM_COUNT <= INT32_MAX);
       BONGOCAT_LOG_DEBUG("  Misc: '%s' %03d/%03d at offset (%d,%d)", config._loaded_animation_fqname,
                          config.animation_index, MISC_ANIMATIONS_COUNT, config.cat_x_offset, config.cat_y_offset);
       break;
     case config_animation_custom_set_t::pmd:
       assert(config._loaded_animation_fqname);
-      assert(PMD_ANIM_COUNT <= INT32_MAX);
+      static_assert(PMD_ANIM_COUNT <= INT32_MAX);
       BONGOCAT_LOG_DEBUG("  pkmn pmd: '%s' %04d/%04d at offset (%d,%d)", config._loaded_animation_fqname,
                          config.animation_index, PMD_ANIMATIONS_COUNT, config.cat_x_offset, config.cat_y_offset);
       break;

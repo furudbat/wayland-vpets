@@ -512,7 +512,7 @@ static void *input_thread(void *arg) {
     pfds[fds_update_config_index] = {.fd = input.update_config_efd._fd, .events = POLLIN, .revents = 0};
     pfds[fds_udev_monitor_index] = {.fd = input._udev_fd, .events = POLLIN, .revents = 0};
 
-    assert(fds_device_potential_start_index < SSIZE_MAX);
+    static_assert(fds_device_potential_start_index < SSIZE_MAX);
     const ssize_t fds_device_start_index =
         input._unique_devices.count > 0 ? static_cast<ssize_t>(fds_device_potential_start_index) : -1;
     ssize_t fds_device_end_index = input._unique_devices.count > 0 ? fds_device_start_index : -1;
@@ -900,7 +900,7 @@ static void *input_thread(void *arg) {
             // keep captured keycode short-lived
             int captured_keycode = 0;
             assert(rd >= 0);
-            assert(sizeof(input_event) > 0);
+            static_assert(sizeof(input_event) > 0);
             const auto num_events = static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
             for (ssize_t j = 0; j < num_events; j++) {
               if (ev[j].type == EV_KEY && ev[j].value == 1) {

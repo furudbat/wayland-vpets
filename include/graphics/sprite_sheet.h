@@ -65,6 +65,7 @@ struct sprite_sheet_animations_t {
   int32_t moving[MAX_ANIMATION_FRAMES]{};
   int32_t happy[MAX_ANIMATION_FRAMES]{};
   int32_t running[MAX_ANIMATION_FRAMES]{};
+  int32_t idle_sleep[MAX_ANIMATION_FRAMES]{};
 };
 
 struct dm_sprite_sheet_t {

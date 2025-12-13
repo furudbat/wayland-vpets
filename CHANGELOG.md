@@ -2,7 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
-## [3.6.0] - 2025-12-08
+### [3.6.1] - 2025-12-13
+
+### Improved
+
+- pull from upstream main
+- improve animations
+  - wake up on working (idle sleep -> working)
+  - movement steps
+  - fix sleep in bed animation
+
+## [3.6.0] - 2025-12-10
 
 ### Fixed
 
@@ -16,6 +26,7 @@ All notable changes to this project will be documented in this file.
   - **Keyboard Hand Mapping** - Left half of keyboard triggers left cat hand, right half triggers right hand
   - New config option `enable_hand_mapping=1` (enabled by default)
   - Box filter + alpha blending
+- monitor switching on config reload
 
 
 ---

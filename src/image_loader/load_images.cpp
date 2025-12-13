@@ -199,9 +199,9 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
       // copy pixel data of sub-region
       assert(src.height >= 0);
       for (size_t y = 0; y < static_cast<size_t>(src.height); y++) {
-        unsigned char *dest_row = ret.image.pixels.data + ((y * static_cast<size_t>(ret.image.sprite_sheet_width)) +
+        unsigned char *dest_row = ret.image.pixels.data + (((y * static_cast<size_t>(ret.image.sprite_sheet_width)) +
                                                            (frame * static_cast<size_t>(max_frame_width))) *
-                                                              static_cast<size_t>(max_channels);
+                                                              static_cast<size_t>(max_channels));
         const unsigned char *src_row =
             src.pixels + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
         memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
