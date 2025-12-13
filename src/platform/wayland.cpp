@@ -425,6 +425,10 @@ int get_screen_width(const wayland_context_t& ctx) {
   return ctx.thread_context._screen_info != BONGOCAT_NULLPTR ? ctx.thread_context._screen_info->screen_width : 0;
 }
 
+const char *get_output_name(const wayland_context_t& ctx) {
+  return ctx.thread_context._output_name_str;
+}
+
 void update_config(wayland_context_t& ctx, const config::config_t& config,
                    animation::animation_context_t& animation_ctx) {
   assert(ctx.thread_context._local_copy_config);
