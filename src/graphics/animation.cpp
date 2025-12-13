@@ -41,11 +41,24 @@ static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
 inline static constexpr platform::time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
 inline static constexpr int CHANCE_FOR_SKIPPING_MOVEMENT_PERCENT = 30;  // in percent
-inline static constexpr int SMALL_MAX_DISTANCE_PER_MOVEMENT_PART = 3;   // 1/3 of movement_radius (for small areas)
-inline static constexpr int MAX_DISTANCE_PER_MOVEMENT_PART = 5;         // 1/5 of movement_radius
-static_assert(SMALL_MAX_DISTANCE_PER_MOVEMENT_PART > 0);
-static_assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
-inline static constexpr int MAX_MOVEMENT_RADIUS_SMALL = 100;
+struct max_distance_per_movement_part_t {
+  int max_distance;
+  float part;
+};
+inline static constexpr max_distance_per_movement_part_t SMALL_MAX_DISTANCE_PER_MOVEMENT_PART = {
+    .max_distance = 100,
+    .part = 2,
+};
+inline static constexpr max_distance_per_movement_part_t SMALL_MAX_DISTANCE_PER_MOVEMENT_PARTS[] = {
+    /// @NOTE: keep in order, keep the longest distance at the top
+    {.max_distance = 300, .part = 4  }, // 1/4 of movement_radius
+    {.max_distance = 200, .part = 3  }, // 1/3 of movement_radius (for small areas)
+    {.max_distance = 128, .part = 2.5}, // 1/2 of movement_radius (for very small areas)
+};
+inline static constexpr int DEFAULT_MAX_DISTANCE_PER_MOVEMENT_PART = 5;
+inline static constexpr int MAX_DISTANCE_PER_MOVEMENT_PART = 5;
+static_assert(SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.part > 0);
+static_assert(DEFAULT_MAX_DISTANCE_PER_MOVEMENT_PART > 0);
 inline static constexpr int FLIP_DIRECTION_NEAR_WALL_PERCENT = 70;
 inline static constexpr int SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT = 40;
 
@@ -273,7 +286,6 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   const bool is_idle_sleep = current_state.row_state == animation_state_row_t::IdleSleep;
 
-  static_assert(SMALL_MAX_DISTANCE_PER_MOVEMENT_PART > 0);
   static_assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
 
   // @TODO: reduce duplicated condition for when updating frames vs. movement vs. working animation
@@ -349,6 +361,19 @@ anim_update_animation_state(animation_shared_memory_t& anim_shm, animation_state
           .rerender = rerender,
           .new_col = new_animation_result.sprite_sheet_col,
           .new_row = new_animation_result.sprite_sheet_row};
+}
+
+static constexpr float get_movement_part_from_radius(int radius) {
+  if (radius <= SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.max_distance) {
+    return SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.part;
+  }
+  for (const auto& movement_part : SMALL_MAX_DISTANCE_PER_MOVEMENT_PARTS) {
+    if (movement_part.max_distance <= radius) {
+      return movement_part.part;
+    }
+  }
+
+  return DEFAULT_MAX_DISTANCE_PER_MOVEMENT_PART;
 }
 
 /// @TODO: move anim_..._animation into own cpp files per asset set, make it more modular
@@ -1373,16 +1398,14 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
         // moving animation
         constexpr float DIR_EPSILON = 1e-3f;
         static_assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
-        const int movement_part = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL
-                                      ? SMALL_MAX_DISTANCE_PER_MOVEMENT_PART
-                                      : MAX_DISTANCE_PER_MOVEMENT_PART;
-        const float fmovement_part = static_cast<float>(movement_part);
+        const float movement_part = get_movement_part_from_radius(current_config.movement_radius);
         if (current_state.row_state == animation_state_row_t::Idle) {
           // start movement
-          const auto min_movement = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL
-                                        ? (fmovement_radius / fmovement_part / 2) + 1
-                                        : (fmovement_radius / fmovement_part / fmovement_part) + 1;
-          float max_move_distance = fmovement_radius / fmovement_part;
+          const auto min_movement =
+              current_config.movement_radius <= SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.max_distance
+                  ? (fmovement_radius / movement_part / SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.part) + 1
+                  : (fmovement_radius / movement_part / movement_part) + 1;
+          float max_move_distance = fmovement_radius / movement_part;
           max_move_distance = max_move_distance <= min_movement ? min_movement : max_move_distance;
 
           assert(max_move_distance >= 0);
@@ -1403,9 +1426,10 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
             toward_wall_bias = toward_wall_bias >= 1.0f ? 1.0f : toward_wall_bias;
             toward_wall_bias = toward_wall_bias <= 0.0f ? 0.0f : toward_wall_bias;
 
-            const int flip_direction_chance = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL
-                                                  ? SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT
-                                                  : FLIP_DIRECTION_NEAR_WALL_PERCENT;
+            const int flip_direction_chance =
+                current_config.movement_radius <= SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.max_distance
+                    ? SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT
+                    : FLIP_DIRECTION_NEAR_WALL_PERCENT;
 
             assert(toward_wall_bias >= 0.0f);
             // change direction: chance drops at center, changes falloff steeper near walls
@@ -2138,7 +2162,7 @@ anim_pkmn_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, an
   switch (new_state.row_state) {
   case animation_state_row_t::Idle:
     new_animation_result.sprite_sheet_col = current_frames.animations.idle[new_state.animations_index];
-    if (current_config.idle_frame) {
+    if (current_config.idle_frame >= 1) {
       new_animation_result.sprite_sheet_col = current_config.idle_frame;
     }
     break;
@@ -2343,6 +2367,8 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
         // Idle Animation
         anim_pkmn_process_animation(new_animation_result, new_state, current_state, current_frames);
       }
+    } else if (conditions.is_writing) {
+      anim_pkmn_process_animation(new_animation_result, new_state, current_state, current_frames);
     }
   }
 
@@ -2543,7 +2569,8 @@ anim_ms_agent_process_animation(animation_player_result_t& new_animation_result,
       ret.status = anim_ms_agent_process_animation_result_status_t::Updated;
     } else if (new_animation_result.sprite_sheet_col > section->end_col) {
       // don't loop at sleep, show last frame
-      if (new_state.row_state == animation_state_row_t::Sleep) {
+      if (new_state.row_state == animation_state_row_t::Sleep ||
+          new_state.row_state == animation_state_row_t::IdleSleep) {
         // end animation
         new_animation_result.sprite_sheet_col = section->end_col;
         ret.status = anim_ms_agent_process_animation_result_status_t::End;
@@ -2765,7 +2792,7 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
               new_state.anim_last_direction = 0.0f;
               new_state.show_boring_animation_once = false;
             }
-          } else if (current_state.row_state == animation_state_row_t::Sleep) {
+          } else if (current_state.row_state == animation_state_row_t::IdleSleep) {
             if (conditions.go_next_frame) {
               // process sleep animation
               anim_ms_agent_process_animation(new_animation_result, new_state, current_state, current_frames);
@@ -3461,17 +3488,15 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
         // moving animation
         constexpr float DIR_EPSILON = 1e-3f;
         static_assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
-        const int movement_part = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL
-                                      ? SMALL_MAX_DISTANCE_PER_MOVEMENT_PART
-                                      : MAX_DISTANCE_PER_MOVEMENT_PART;
-        const float fmovement_part = static_cast<float>(movement_part);
+        const float movement_part = get_movement_part_from_radius(current_config.movement_radius);
         bool end_movement = false;
         if (current_state.row_state == animation_state_row_t::Idle) {
           // start movement
-          const auto min_movement = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL
-                                        ? (fmovement_radius / fmovement_part / 2) + 1
-                                        : (fmovement_radius / fmovement_part / fmovement_part) + 1;
-          float max_move_distance = fmovement_radius / fmovement_part;
+          const auto min_movement =
+              current_config.movement_radius <= SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.max_distance
+                  ? (fmovement_radius / movement_part / SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.part) + 1
+                  : (fmovement_radius / movement_part / movement_part) + 1;
+          float max_move_distance = fmovement_radius / movement_part;
           max_move_distance = max_move_distance <= min_movement ? min_movement : max_move_distance;
 
           assert(max_move_distance >= 0);
@@ -3492,9 +3517,10 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
             toward_wall_bias = toward_wall_bias >= 1.0f ? 1.0f : toward_wall_bias;
             toward_wall_bias = toward_wall_bias <= 0.0f ? 0.0f : toward_wall_bias;
 
-            const int flip_direction_chance = current_config.movement_radius <= MAX_MOVEMENT_RADIUS_SMALL
-                                                  ? SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT
-                                                  : FLIP_DIRECTION_NEAR_WALL_PERCENT;
+            const int flip_direction_chance =
+                current_config.movement_radius <= SMALL_MAX_DISTANCE_PER_MOVEMENT_PART.max_distance
+                    ? SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT
+                    : FLIP_DIRECTION_NEAR_WALL_PERCENT;
 
             assert(toward_wall_bias >= 0.0f);
             // change direction: chance drops at center, changes falloff steeper near walls
@@ -3585,10 +3611,11 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
           if (ret.row_state == animation_state_row_t::Idle && new_state.anim_distance <= 0) {
             assert(current_config.animation_speed_ms >= 0);
             assert(movement_part >= 0);
-            const auto min_wait = current_config.animation_speed_ms * (current_config.movement_wait_factor / 2);
+            const auto min_wait = (current_config.animation_speed_ms * current_config.movement_wait_factor) / 2;
             const auto max_wait = current_config.animation_speed_ms * current_config.movement_wait_factor;
             assert(min_wait >= 0);
             assert(max_wait >= 0);
+            assert(max_wait >= min_wait);
             new_state.anim_pause_after_movement_ms =
                 static_cast<int>(ctx._rng.range(static_cast<uint32_t>(min_wait), static_cast<uint32_t>(max_wait)));
             ret.status = anim_custom_process_animation_result_status_t::End;
