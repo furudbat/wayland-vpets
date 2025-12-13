@@ -130,7 +130,7 @@ static void *config_watcher_thread(void *arg) {
           should_reload = true;
         }
 
-        assert(config::INOTIFY_EVENT_SIZE <= SSIZE_MAX);
+        static_assert(config::INOTIFY_EVENT_SIZE <= SSIZE_MAX);
         i += static_cast<ssize_t>(config::INOTIFY_EVENT_SIZE) + event->len;
         attempts++;
       }

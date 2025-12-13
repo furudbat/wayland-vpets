@@ -6,7 +6,6 @@
 #include "graphics/animation_context.h"
 #include "utils/error.h"
 #include "wayland_context.h"
-#include "wayland_thread_context.h"
 
 #include <csignal>
 

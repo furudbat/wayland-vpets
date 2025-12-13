@@ -3,8 +3,6 @@
 
 #include "config/config.h"
 
-#include <cstddef>
-
 namespace bongocat::assets {
 struct embedded_image_t {
   const unsigned char *data{BONGOCAT_NULLPTR};

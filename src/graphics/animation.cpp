@@ -13,13 +13,6 @@
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
-#include "image_loader/dm/load_images_dm.h"
-#include "image_loader/dm20/load_images_dm20.h"
-#include "image_loader/dmc/load_images_dmc.h"
-#include "image_loader/dmx/load_images_dmx.h"
-#include "image_loader/ms_agent/load_images_ms_agent.h"
-#include "image_loader/pen/load_images_pen.h"
-#include "image_loader/pen20/load_images_pen20.h"
 #include "platform/wayland.h"
 #include "utils/time.h"
 

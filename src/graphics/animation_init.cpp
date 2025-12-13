@@ -4,10 +4,7 @@
 #include "utils/memory.h"
 
 #include <cassert>
-#include <ctime>
-#include <pthread.h>
 #include <sys/eventfd.h>
-#include <sys/stat.h>
 
 // assets
 #include "embedded_assets/bongocat/bongocat.h"
@@ -227,7 +224,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   case config::config_animation_sprite_sheet_layout_t::Custom:
     assert(anim_index >= 0);
     if constexpr (features::EnableCustomSpriteSheetsAssets && features::EnableMiscEmbeddedAssets) {
-      assert(assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
+      static_assert(assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
     }
     if constexpr (features::EnableCustomSpriteSheetsAssets) {
       if (current_config._custom && anim_index == assets::CUSTOM_ANIM_INDEX) {

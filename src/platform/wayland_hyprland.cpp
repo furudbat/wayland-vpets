@@ -5,7 +5,6 @@
 #include <cassert>
 #include <cerrno>
 #include <cstdio>
-#include <cstdlib>
 #include <pthread.h>
 #include <sys/signalfd.h>
 #include <sys/time.h>

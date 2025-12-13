@@ -2,12 +2,6 @@
 #define BONGOCAT_UPDATE_SHARED_CONTEXT_H
 
 #include "config/config.h"
-#include "input_shared_memory.h"
-#include "utils/system_memory.h"
-#include "utils/time.h"
-
-#include <pthread.h>
-#include <stdatomic.h>
 
 namespace bongocat::platform::update {
 inline static constexpr size_t MaxCpus = 256;

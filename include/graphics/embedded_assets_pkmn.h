@@ -1,8 +1,6 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_PKMN_INDEX_H
 #define BONGOCAT_EMBEDDED_ASSETS_PKMN_INDEX_H
 
-#include <cstddef>
-
 /// pkmn
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
 #  include "embedded_assets/pkmn/pkmn.hpp"

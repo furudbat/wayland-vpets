@@ -1,7 +1,6 @@
 #ifndef BONGOCAT_ANIMATION_DRAWING_IMAGES_H
 #define BONGOCAT_ANIMATION_DRAWING_IMAGES_H
 
-#include <cstddef>
 #include <cstdint>
 
 namespace bongocat::animation {

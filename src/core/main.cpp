@@ -431,7 +431,7 @@ static void config_reload_callback() {
     /// @NOTE: don't use new_config after move
     new_config = {};
     // Initialize error system with debug setting
-    bongocat::error_init(get_main_context().config.enable_debug);
+    bongocat::error_init(get_main_context().config.enable_debug >= 1);
 
     // Increment generation atomically
     // Update the running systems with new config
