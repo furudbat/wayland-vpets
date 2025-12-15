@@ -1972,6 +1972,8 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
 
   if (conditions.process_working_animation) {
     // toggle frame, show attack animation
+    const bool start_above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
+                                       update_shm.avg_cpu_usage >= current_config.cpu_threshold;
     const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
                                  (update_shm.avg_cpu_usage >= current_config.cpu_threshold ||
                                   update_shm.max_cpu_usage >= current_config.cpu_threshold);
@@ -1979,12 +1981,12 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
                                  (update_shm.avg_cpu_usage < current_config.cpu_threshold &&
                                   update_shm.max_cpu_usage < current_config.cpu_threshold);
 
-    if (above_threshold) {
-      if (conditions.ready_to_work) {
-        anim_dm_restart_animation(ctx, animation_state_row_t::StartWorking, new_animation_result, new_state,
-                                  current_state, current_frames, current_config);
-        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
-      } else if (conditions.is_working) {
+    if (start_above_threshold && conditions.ready_to_work) {
+      anim_dm_restart_animation(ctx, animation_state_row_t::StartWorking, new_animation_result, new_state,
+                                current_state, current_frames, current_config);
+      BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+    } else if (above_threshold) {
+      if (conditions.is_working) {
         // continues animations
         if (conditions.process_idle_animation) {
           if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
