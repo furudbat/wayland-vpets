@@ -460,11 +460,15 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
           const float fx = static_cast<float>(sx_fixed) / static_cast<float>(1 << FIXED_SHIFT);
           const float fy = static_cast<float>(sy_fixed) / static_cast<float>(1 << FIXED_SHIFT);
 
-          const drawing_get_pixel_result_t pixel =
-              (is_downscaling) ? drawing_get_box_filtered_pixel(src, src_size, src_w, src_h, src_channels, fx, fy)
-                               : drawing_get_interpolated_pixel(src, src_size, src_w, src_h, src_channels, fx, fy);
-          drawing_blend_pixel(dest, dest_channels, dest_idx, pixel.r, pixel.g, pixel.b, pixel.a, 4, options, dest_order,
-                              blit_image_color_order_t::RGBA);
+          if (src_channels >= 4) {
+            if (disable_threshold_alpha || src_pixel[3] > THRESHOLD_ALPHA) {
+              const drawing_get_pixel_result_t pixel =
+                  (is_downscaling) ? drawing_get_box_filtered_pixel(src, src_size, src_w, src_h, src_channels, fx, fy)
+                                   : drawing_get_interpolated_pixel(src, src_size, src_w, src_h, src_channels, fx, fy);
+              drawing_blend_pixel(dest, dest_channels, dest_idx, pixel.r, pixel.g, pixel.b, pixel.a, 4, options, dest_order,
+                                  blit_image_color_order_t::RGBA);
+            }
+          }
         } else {
           // Use nearest-neighbor scaling (original behavior)
           if (src_channels >= 4) {

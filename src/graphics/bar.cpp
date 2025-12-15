@@ -787,8 +787,9 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
                   flag_add(overwrite_drawing_options, draw_sprite_overwrite_option_t::MovementMirror);
               break;
             }
+            /// @TODO: add option for disablen/enablen alpha threshold
             overwrite_drawing_options =
-                flag_add(overwrite_drawing_options, draw_sprite_overwrite_option_t::DisableThresholdAlpha);
+                current_config.enable_antialiasing >= 1 ? flag_add(overwrite_drawing_options, draw_sprite_overwrite_option_t::DisableThresholdAlpha) : flag_remove(overwrite_drawing_options, draw_sprite_overwrite_option_t::DisableThresholdAlpha);
 
             draw_sprite(ctx, shm_buffer, sheet, col, row, overwrite_drawing_options);
           }
