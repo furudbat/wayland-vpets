@@ -164,7 +164,11 @@ void handle_xdg_output_description(void *data, [[maybe_unused]] zxdg_output_v1 *
 // FULLSCREEN DETECTION IMPLEMENTATION
 // =============================================================================
 
-static bool fs_update_state(wayland_context_t& ctx, bool new_state) {
+struct update_fullscreen_state_toplevel_state_t {
+  bool is_fullscreen{false};
+  bool is_activated{false};
+};
+static bool fs_update_state(wayland_context_t& ctx, update_fullscreen_state_toplevel_state_t new_state) {
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping update");
     return false;
@@ -176,9 +180,9 @@ static bool fs_update_state(wayland_context_t& ctx, bool new_state) {
 
   // const wayland_shared_memory_t& wayland_ctx_shm = *ctx.wayland_context.ctx_shm;
 
-  if (new_state != ctx.fs_detector.has_fullscreen_toplevel) {
-    ctx.fs_detector.has_fullscreen_toplevel = new_state;
-    ctx.thread_context._fullscreen_detected = new_state;
+  if (new_state.is_fullscreen != ctx.fs_detector.has_fullscreen_toplevel) {
+    ctx.fs_detector.has_fullscreen_toplevel = new_state.is_fullscreen;
+    ctx.thread_context._fullscreen_detected = new_state.is_fullscreen;
 
     BONGOCAT_LOG_INFO("Fullscreen state changed: %s", ctx.thread_context._fullscreen_detected ? "detected" : "cleared");
 
@@ -197,21 +201,21 @@ static bool fs_update_state(wayland_context_t& ctx, bool new_state) {
 namespace hyprland {
   static int fs_update_state(wayland_context_t& ctx) {
     if (wayland::hyprland::window_info_t win; wayland::hyprland::get_active_window(win)) {
-      bool fullscreen_on_same_output = false;
+      bool find_output = false;
       for (size_t i = 0; i < ctx.output_count; i++) {
         if (ctx.outputs[i].hypr_id == win.monitor_id) {
           if (ctx.thread_context.output == ctx.outputs[i].wl_output) {
-            fullscreen_on_same_output = true;
+            find_output = true;
             break;
           }
         }
       }
-      if (fullscreen_on_same_output) {
-        details::fs_update_state(ctx, win.fullscreen);
+      if (find_output) {
+        details::fs_update_state(ctx, { .is_fullscreen = win.fullscreen, .is_activated = true });
         return win.fullscreen ? 1 : 0;
       }
 
-      details::fs_update_state(ctx, false);
+      details::fs_update_state(ctx, { .is_fullscreen = false, .is_activated = true });
       return 0;
     }
 
@@ -259,15 +263,15 @@ void fs_update_state_fallback(wayland_context_t& ctx) {
     if (tracked.is_fullscreen) {
       // Only update overlay if on our output
       if (tracked.output == ctx.thread_context.output) {
-        fs_update_state(ctx, true);
+        fs_update_state(ctx, { .is_fullscreen = true, .is_activated = true });
         return;
       }
     }
   }
 
-  const bool new_state = fs_check_status(ctx);
-  if (new_state != ctx.thread_context._fullscreen_detected) {
-    fs_update_state(ctx, new_state);
+  const bool new_fullscreen = fs_check_status(ctx);
+  if (new_fullscreen != ctx.thread_context._fullscreen_detected) {
+    fs_update_state(ctx, { .is_fullscreen = new_fullscreen, .is_activated = true });
   }
 }
 
@@ -276,16 +280,17 @@ struct update_fullscreen_state_toplevel_result_t {
   bool changed{false};
 };
 static update_fullscreen_state_toplevel_result_t
-update_fullscreen_state_toplevel(wayland_context_t& ctx, tracked_toplevel_t& tracked, bool is_fullscreen) {
-  bool state_changed = tracked.is_fullscreen != is_fullscreen;
-  tracked.is_fullscreen = is_fullscreen;
+update_fullscreen_state_toplevel(wayland_context_t& ctx, tracked_toplevel_t& tracked, update_fullscreen_state_toplevel_state_t state) {
+  bool state_changed = tracked.is_fullscreen != state.is_fullscreen || tracked.is_activated != state.is_activated;
+  tracked.is_fullscreen = state.is_fullscreen;
+  tracked.is_activated = state.is_activated;
 
   /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggert
   // Only trigger overlay update if this fullscreen window is on our output
   if (tracked.output == ctx.thread_context.output && state_changed) {
-    state_changed = fs_update_state(ctx, is_fullscreen);
-    BONGOCAT_LOG_VERBOSE("Fullscreen state updated for window %p: %d", static_cast<void *>(tracked.handle),
-                         is_fullscreen);
+    state_changed = fs_update_state(ctx, state);
+    BONGOCAT_LOG_VERBOSE("Fullscreen state updated for window %p: (fullscreen=%d;activated=%d)", static_cast<void *>(tracked.handle),
+                         state.is_fullscreen, state.is_activated);
     return {.output_found = true, .changed = state_changed};
   }
 
@@ -307,36 +312,39 @@ void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel
 
   // check if fullscreen state event change
   bool is_fullscreen = false;
+  bool is_activated = false;
   wl_array_for_each_typed(state_ptr, state, uint32_t) {
     if (*state_ptr == ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_FULLSCREEN) {
       is_fullscreen = true;
-      break;
+    }
+    if (*state_ptr == ZWLR_FOREIGN_TOPLEVEL_HANDLE_V1_STATE_ACTIVATED) {
+      is_activated = true;
     }
   }
 
   /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggert
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     if (ctx.tracked_toplevels[i].handle == handle) {
-      auto [output_found, changed] = update_fullscreen_state_toplevel(ctx, ctx.tracked_toplevels[i], is_fullscreen);
+      auto [output_found, changed] = update_fullscreen_state_toplevel(ctx, ctx.tracked_toplevels[i], { .is_fullscreen = is_fullscreen, .is_activated = is_activated });
       if (output_found) {
         if (changed) {
-          BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d", is_fullscreen);
+          BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)", is_fullscreen, is_activated);
         }
         return;
       }
     }
   }
 
-  // check for hyprland
+  // fallback: check for hyprland active fullscreen windows
   if (const int result = hyprland::fs_update_state(ctx); result >= 0) {
     BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d (hyprland)", result);
     return;
   }
 
   // Fallback for when no toplevel was found
-  const bool changed = fs_update_state(ctx, is_fullscreen);
+  const bool changed = fs_update_state(ctx, { .is_fullscreen = is_fullscreen, .is_activated = is_activated });
   if (changed) {
-    BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d", is_fullscreen);
+    BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)", is_fullscreen, is_activated);
   }
 }
 
@@ -362,7 +370,7 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
       for (size_t j = i; j + 1 < ctx.num_toplevels; ++j) {
         ctx.tracked_toplevels[j] = ctx.tracked_toplevels[j + 1];
       }
-      ctx.tracked_toplevels[ctx.num_toplevels - 1].handle = {};
+      ctx.tracked_toplevels[ctx.num_toplevels - 1] = {};
       ctx.num_toplevels--;
       break;
     }
@@ -409,7 +417,7 @@ void fs_handle_output_enter(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
       tracked.output = output;
       if (tracked.is_fullscreen) {
         if (tracked.output == ctx.thread_context.output) {
-          fs_update_state(ctx, true);
+          fs_update_state(ctx, { .is_fullscreen = true, .is_activated = true });
         }
       }
       break;
@@ -432,7 +440,7 @@ void fs_handle_output_leave(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     if (tracked.handle == handle && tracked.output == output) {
       BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_leave: update tracked_toplevels[%i] output", i);
       if (tracked.is_fullscreen && tracked.output == ctx.thread_context.output) {
-        fs_update_state(ctx, false);
+        fs_update_state(ctx, { .is_fullscreen = false, .is_activated = false });
       }
       tracked.output = BONGOCAT_NULLPTR;
       break;
