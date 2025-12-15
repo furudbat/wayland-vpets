@@ -93,6 +93,7 @@ enum class animation_state_row_t : uint8_t {
   Happy,
   FallASleep,
   Sleep,
+  FallASleepIdle,
   IdleSleep,
   WakeUp,
   Boring,
@@ -454,6 +455,10 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   case animation_state_row_t::Sleep:
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
+  case animation_state_row_t::FallASleepIdle:
+    // not supported
+    new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+    break;
   case animation_state_row_t::IdleSleep:
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
@@ -552,6 +557,10 @@ anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform:
     new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
     break;
   case animation_state_row_t::FallASleep:
+    // not supported
+    new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+    break;
+  case animation_state_row_t::FallASleepIdle:
     // not supported
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
@@ -1017,6 +1026,10 @@ static anim_dm_process_animation_result_t anim_dm_process_animation(animation_pl
     // not supported
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
+  case animation_state_row_t::FallASleepIdle:
+    // not supported
+    new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+    break;
   case animation_state_row_t::Sleep:
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
@@ -1081,6 +1094,10 @@ anim_dm_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, anim
     new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
     break;
   case animation_state_row_t::FallASleep:
+    // not supported
+    new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+    break;
+  case animation_state_row_t::FallASleepIdle:
     // not supported
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
@@ -1167,6 +1184,7 @@ anim_dm_show_single_frame([[maybe_unused]] animation_thread_context_t& ctx, anim
     }
     break;
   case animation_state_row_t::FallASleep:
+  case animation_state_row_t::FallASleepIdle:
     // not fully supported
     if (current_frames.frames.sleep.valid) {
       new_animation_result.sprite_sheet_col = current_frames.frames.sleep.col;
@@ -1972,6 +1990,8 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
 
   if (conditions.process_working_animation) {
     // toggle frame, show attack animation
+    const bool start_above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
+                                       update_shm.avg_cpu_usage >= current_config.cpu_threshold;
     const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
                                  (update_shm.avg_cpu_usage >= current_config.cpu_threshold ||
                                   update_shm.max_cpu_usage >= current_config.cpu_threshold);
@@ -1979,12 +1999,12 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
                                  (update_shm.avg_cpu_usage < current_config.cpu_threshold &&
                                   update_shm.max_cpu_usage < current_config.cpu_threshold);
 
-    if (above_threshold) {
-      if (conditions.ready_to_work) {
-        anim_dm_restart_animation(ctx, animation_state_row_t::StartWorking, new_animation_result, new_state,
-                                  current_state, current_frames, current_config);
-        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
-      } else if (conditions.is_working) {
+    if (start_above_threshold && conditions.ready_to_work) {
+      anim_dm_restart_animation(ctx, animation_state_row_t::StartWorking, new_animation_result, new_state,
+                                current_state, current_frames, current_config);
+      BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
+    } else if (above_threshold) {
+      if (conditions.is_working) {
         // continues animations
         if (conditions.process_idle_animation) {
           if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
@@ -2111,6 +2131,10 @@ static anim_pkmn_process_animation_result_t anim_pkmn_process_animation(animatio
     // not supported
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
+  case animation_state_row_t::FallASleepIdle:
+    // not supported
+    new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+    break;
   case animation_state_row_t::Sleep:
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
@@ -2175,6 +2199,10 @@ anim_pkmn_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, an
     new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
     break;
   case animation_state_row_t::FallASleep:
+    // not supported
+    new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
+    break;
+  case animation_state_row_t::FallASleepIdle:
     // not supported
     new_animation_result.sprite_sheet_col = current_frames.animations.sleep[new_state.animations_index];
     break;
@@ -2508,6 +2536,10 @@ anim_ms_agent_process_animation(animation_player_result_t& new_animation_result,
     // use sleep animation for ms agent
     section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
+  case animation_state_row_t::FallASleepIdle:
+    // use sleep animation for ms agent
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
+    break;
   case animation_state_row_t::Sleep:
     section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
@@ -2612,6 +2644,9 @@ anim_ms_agent_restart_animation([[maybe_unused]] animation_thread_context_t& ctx
     section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::FallASleep:
+    section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::FallASleepIdle:
     section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Sleep:
@@ -2891,6 +2926,13 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
                                                current_state, current_frames, current_config);
     }
     break;
+  case animation_state_row_t::FallASleepIdle:
+    if (conditions.go_next_frame) {
+      // finish animation
+      anim_ms_agent_start_or_process_animation(ctx, animation_state_row_t::IdleSleep, new_animation_result, new_state,
+                                               current_state, current_frames, current_config);
+    }
+    break;
   case animation_state_row_t::Sleep:
     if (conditions.go_next_frame) {
       anim_ms_agent_process_animation(new_animation_result, new_state, current_state, current_frames);
@@ -2978,6 +3020,9 @@ anim_ms_agent_key_pressed_next_frame(animation_thread_context_t& ctx, animation_
     // start end writing and process animation in anim_ms_agent_idle_next_frame
     break;
   case animation_state_row_t::FallASleep:
+    // process animation in anim_ms_agent_idle_next_frame
+    break;
+  case animation_state_row_t::FallASleepIdle:
     // process animation in anim_ms_agent_idle_next_frame
     break;
   case animation_state_row_t::IdleSleep:
@@ -3084,6 +3129,9 @@ anim_custom_process_animation(animation_player_result_t& new_animation_result, a
   case animation_state_row_t::FallASleep:
     section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
     break;
+  case animation_state_row_t::FallASleepIdle:
+    section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
+    break;
   case animation_state_row_t::Sleep:
     section = current_frames.sleep.valid ? &current_frames.sleep : BONGOCAT_NULLPTR;
     break;
@@ -3178,6 +3226,9 @@ anim_custom_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, 
     section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::FallASleep:
+    section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::FallASleepIdle:
     section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
     break;
   case animation_state_row_t::Sleep:
@@ -3287,6 +3338,9 @@ static anim_custom_process_animation_result_t anim_custom_restart_animation(
       section = current_frames.happy.valid ? &current_frames.happy : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::FallASleep:
+      section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
+      break;
+    case animation_state_row_t::FallASleepIdle:
       section = current_frames.fall_asleep.valid ? &current_frames.fall_asleep : BONGOCAT_NULLPTR;
       break;
     case animation_state_row_t::Sleep:
@@ -3808,16 +3862,16 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
                 if (conditions.is_moving) {
                   if (conditions.go_next_frame) {
                     animation_result = anim_custom_start_or_process_animation(
-                        ctx, animation_state_row_t::FallASleep, animation_state_row_t::IdleSleep, new_animation_result,
+                        ctx, animation_state_row_t::FallASleepIdle, animation_state_row_t::IdleSleep, new_animation_result,
                         new_state, current_state, current_frames, current_config);
                   }
                 } else {
                   animation_result = anim_custom_restart_animation(
-                      ctx, animation_state_row_t::FallASleep, animation_state_row_t::IdleSleep,
+                      ctx, animation_state_row_t::FallASleepIdle, animation_state_row_t::IdleSleep,
                       animation_state_row_t::WakeUp, new_animation_result, new_state, current_state, current_frames,
                       current_config);
                 }
-                if (animation_result.row_state == animation_state_row_t::FallASleep ||
+                if (animation_result.row_state == animation_state_row_t::FallASleepIdle ||
                     animation_result.row_state == animation_state_row_t::IdleSleep ||
                     animation_result.row_state == animation_state_row_t::WakeUp) {
                   new_state.anim_last_direction = 0.0f;
@@ -3998,6 +4052,18 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
     if (current_frames.feature_sleep) {
       if (conditions.go_next_frame) {
         anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+      }
+    } else {
+      anim_custom_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
+                                    current_frames, current_config);
+    }
+    break;
+  case animation_state_row_t::FallASleepIdle:
+    if (current_frames.feature_sleep) {
+      if (conditions.go_next_frame) {
+        anim_custom_start_or_process_animation(ctx, animation_state_row_t::IdleSleep, animation_state_row_t::WakeUp,
+                                               new_animation_result, new_state, current_state, current_frames,
+                                               current_config);
       }
     } else {
       anim_custom_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
@@ -4189,6 +4255,7 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
     // start end writing and process animation in anim_custom_idle_next_frame
     break;
   case animation_state_row_t::FallASleep:
+  case animation_state_row_t::FallASleepIdle:
   case animation_state_row_t::Sleep:
   case animation_state_row_t::IdleSleep:
     if (conditions.is_idle_sleep) {
@@ -4264,40 +4331,41 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
   if (current_frames.feature_working) {
     if (conditions.process_working_animation) {
       // toggle frame, show attack animation
+      const bool start_above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
+                                         update_shm.avg_cpu_usage >= current_config.cpu_threshold;
       const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
                                    (update_shm.avg_cpu_usage >= current_config.cpu_threshold ||
                                     update_shm.max_cpu_usage >= current_config.cpu_threshold);
       const bool lower_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
                                    (update_shm.avg_cpu_usage < current_config.cpu_threshold &&
                                     update_shm.max_cpu_usage < current_config.cpu_threshold);
-
-      if (above_threshold) {
-        if (conditions.is_idle_sleep && conditions.ready_to_work) {
-          // wake up from working
-          anim_custom_process_animation_result_t animation_result{.row_state = current_state.row_state};
-          if (current_frames.feature_sleep_wake_up) {
-            // wake up, end current sleep animation
-            animation_result = anim_custom_restart_animation(
-                ctx, animation_state_row_t::WakeUp, animation_state_row_t::StartWorking, animation_state_row_t::Idle,
-                new_animation_result, new_state, current_state, current_frames, current_config);
-          } else {
-            // no wake up animation
-            animation_result =
-                anim_custom_restart_animation(ctx, animation_state_row_t::StartWorking, new_animation_result, new_state,
-                                              current_state, current_frames, current_config);
-          }
-          if (animation_result.row_state != animation_state_row_t::IdleSleep) {
-            ctx.shm->last_wakeup_timestamp = platform::get_current_time_ms();
-          }
-          BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
-                               update_shm.avg_cpu_usage);
-        } else if (conditions.ready_to_work) {
-          anim_custom_restart_animation(ctx, animation_state_row_t::StartWorking, animation_state_row_t::Working,
-                                        animation_state_row_t::EndWorking, new_animation_result, new_state,
-                                        current_state, current_frames, current_config);
-          BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
-                               update_shm.avg_cpu_usage);
-        } else if (conditions.is_working) {
+      if (start_above_threshold && conditions.is_idle_sleep && conditions.ready_to_work) {
+        // wake up from working
+        anim_custom_process_animation_result_t animation_result{.row_state = current_state.row_state};
+        if (current_frames.feature_sleep_wake_up) {
+          // wake up, end current sleep animation
+          animation_result = anim_custom_restart_animation(
+              ctx, animation_state_row_t::WakeUp, animation_state_row_t::StartWorking, animation_state_row_t::Idle,
+              new_animation_result, new_state, current_state, current_frames, current_config);
+        } else {
+          // no wake up animation
+          animation_result =
+              anim_custom_restart_animation(ctx, animation_state_row_t::StartWorking, new_animation_result, new_state,
+                                            current_state, current_frames, current_config);
+        }
+        if (animation_result.row_state != animation_state_row_t::IdleSleep) {
+          ctx.shm->last_wakeup_timestamp = platform::get_current_time_ms();
+        }
+        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm.avg_cpu_usage);
+      } else if (start_above_threshold && conditions.ready_to_work) {
+        anim_custom_restart_animation(ctx, animation_state_row_t::StartWorking, animation_state_row_t::Working,
+                                      animation_state_row_t::EndWorking, new_animation_result, new_state,
+                                      current_state, current_frames, current_config);
+        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm.avg_cpu_usage);
+      } else if (above_threshold) {
+        if (conditions.is_working) {
           if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
             anim_custom_start_or_process_animation(ctx, animation_state_row_t::Working,
                                                    animation_state_row_t::EndWorking, new_animation_result, new_state,
@@ -4385,6 +4453,8 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
   if (current_frames.feature_running) {
     if (conditions.process_running_animation) {
       // toggle frame, show running animation
+      const bool start_above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
+                                         update_shm.avg_cpu_usage >= current_config.cpu_threshold;
       const bool above_threshold = current_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT &&
                                    (update_shm.avg_cpu_usage >= current_config.cpu_threshold ||
                                     update_shm.max_cpu_usage >= current_config.cpu_threshold);
@@ -4392,29 +4462,27 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
                                    (update_shm.avg_cpu_usage < current_config.cpu_threshold &&
                                     update_shm.max_cpu_usage < current_config.cpu_threshold);
 
-      if (above_threshold) {
-        if (current_state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
-          anim_custom_restart_animation(ctx, animation_state_row_t::StartRunning, animation_state_row_t::Running,
-                                        animation_state_row_t::EndRunning, new_animation_result, new_state,
-                                        current_state, current_frames, current_config);
-          BONGOCAT_LOG_VERBOSE("Start Running: %d %d; %d%%", above_threshold, lower_threshold,
-                               update_shm.avg_cpu_usage);
-        } else if (conditions.is_running) {
-          if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartRunning) {
-            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running,
-                                                   animation_state_row_t::EndRunning, new_animation_result, new_state,
-                                                   current_state, current_frames, current_config);
-          } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartRunning ||
-                                                state.row_state == animation_state_row_t::Running)) {
-            // end running, cool down
-            anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning,
-                                                   animation_state_row_t::Running, new_animation_result, new_state,
-                                                   current_state, current_frames, current_config);
-          } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndRunning) {
-            // back to idle
-            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
-                                                   current_state, current_frames, current_config);
-          }
+      if (start_above_threshold && conditions.ready_to_work) {
+        anim_custom_restart_animation(ctx, animation_state_row_t::StartRunning, animation_state_row_t::Running,
+                                      animation_state_row_t::EndRunning, new_animation_result, new_state,
+                                      current_state, current_frames, current_config);
+        BONGOCAT_LOG_VERBOSE("Start Running: %d %d; %d%%", above_threshold, lower_threshold,
+                             update_shm.avg_cpu_usage);
+      } else if (above_threshold && conditions.is_running) {
+        if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartRunning) {
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running,
+                                                 animation_state_row_t::EndRunning, new_animation_result, new_state,
+                                                 current_state, current_frames, current_config);
+        } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartRunning ||
+                                              state.row_state == animation_state_row_t::Running)) {
+          // end running, cool down
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning,
+                                                 animation_state_row_t::Running, new_animation_result, new_state,
+                                                 current_state, current_frames, current_config);
+        } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndRunning) {
+          // back to idle
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
+                                                 current_state, current_frames, current_config);
         }
       } else if (lower_threshold) {
         // End Running
