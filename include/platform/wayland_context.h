@@ -26,6 +26,7 @@ struct tracked_toplevel_t {
   struct zwlr_foreign_toplevel_handle_v1 *handle{BONGOCAT_NULLPTR};
   wl_output *output{BONGOCAT_NULLPTR};
   bool is_fullscreen{false};
+  bool is_activated{false};
 };
 
 // =============================================================================
