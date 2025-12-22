@@ -9,7 +9,7 @@
 
 namespace bongocat::platform::wayland {
 // max. windows to track for fullscreen detection
-inline static constexpr size_t MAX_TOP_LEVELS = 128;
+inline static constexpr size_t MAX_TOP_LEVELS = 512;
 inline static constexpr size_t MAX_OUTPUTS = 8;  // Maximum monitor outputs to store
 inline static constexpr size_t OUTPUT_NAME_SIZE = 128;
 
