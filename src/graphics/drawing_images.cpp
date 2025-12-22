@@ -465,8 +465,8 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
               const drawing_get_pixel_result_t pixel =
                   (is_downscaling) ? drawing_get_box_filtered_pixel(src, src_size, src_w, src_h, src_channels, fx, fy)
                                    : drawing_get_interpolated_pixel(src, src_size, src_w, src_h, src_channels, fx, fy);
-              drawing_blend_pixel(dest, dest_channels, dest_idx, pixel.r, pixel.g, pixel.b, pixel.a, 4, options, dest_order,
-                                  blit_image_color_order_t::RGBA);
+              drawing_blend_pixel(dest, dest_channels, dest_idx, pixel.r, pixel.g, pixel.b, pixel.a, 4, options,
+                                  dest_order, blit_image_color_order_t::RGBA);
             }
           }
         } else {
