@@ -202,20 +202,21 @@ namespace hyprland {
   static int fs_update_state(wayland_context_t& ctx) {
     if (wayland::hyprland::window_info_t win; wayland::hyprland::get_active_window(win)) {
       bool find_output = false;
+      wl_output *found_wl_output = nullptr;
       for (size_t i = 0; i < ctx.output_count; i++) {
         if (ctx.outputs[i].hypr_id == win.monitor_id) {
           if (ctx.thread_context.output == ctx.outputs[i].wl_output) {
+            found_wl_output = ctx.outputs[i].wl_output;
             find_output = true;
             break;
           }
         }
       }
-      if (find_output) {
+      if (find_output && ctx.thread_context.output == found_wl_output) {
         details::fs_update_state(ctx, {.is_fullscreen = win.fullscreen, .is_activated = true});
-        return win.fullscreen ? 1 : 0;
+        return win.fullscreen ? 2 : 1;
       }
 
-      details::fs_update_state(ctx, {.is_fullscreen = false, .is_activated = true});
       return 0;
     }
 
