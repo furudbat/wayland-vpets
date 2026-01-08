@@ -3862,8 +3862,8 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
                 if (conditions.is_moving) {
                   if (conditions.go_next_frame) {
                     animation_result = anim_custom_start_or_process_animation(
-                        ctx, animation_state_row_t::FallASleepIdle, animation_state_row_t::IdleSleep, new_animation_result,
-                        new_state, current_state, current_frames, current_config);
+                        ctx, animation_state_row_t::FallASleepIdle, animation_state_row_t::IdleSleep,
+                        new_animation_result, new_state, current_state, current_frames, current_config);
                   }
                 } else {
                   animation_result = anim_custom_restart_animation(
@@ -4356,14 +4356,12 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
         if (animation_result.row_state != animation_state_row_t::IdleSleep) {
           ctx.shm->last_wakeup_timestamp = platform::get_current_time_ms();
         }
-        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
-                             update_shm.avg_cpu_usage);
+        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
       } else if (start_above_threshold && conditions.ready_to_work) {
         anim_custom_restart_animation(ctx, animation_state_row_t::StartWorking, animation_state_row_t::Working,
-                                      animation_state_row_t::EndWorking, new_animation_result, new_state,
-                                      current_state, current_frames, current_config);
-        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold,
-                             update_shm.avg_cpu_usage);
+                                      animation_state_row_t::EndWorking, new_animation_result, new_state, current_state,
+                                      current_frames, current_config);
+        BONGOCAT_LOG_VERBOSE("Start Working: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
       } else if (above_threshold) {
         if (conditions.is_working) {
           if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartWorking) {
@@ -4464,21 +4462,20 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
 
       if (start_above_threshold && conditions.ready_to_work) {
         anim_custom_restart_animation(ctx, animation_state_row_t::StartRunning, animation_state_row_t::Running,
-                                      animation_state_row_t::EndRunning, new_animation_result, new_state,
-                                      current_state, current_frames, current_config);
-        BONGOCAT_LOG_VERBOSE("Start Running: %d %d; %d%%", above_threshold, lower_threshold,
-                             update_shm.avg_cpu_usage);
+                                      animation_state_row_t::EndRunning, new_animation_result, new_state, current_state,
+                                      current_frames, current_config);
+        BONGOCAT_LOG_VERBOSE("Start Running: %d %d; %d%%", above_threshold, lower_threshold, update_shm.avg_cpu_usage);
       } else if (above_threshold && conditions.is_running) {
         if (update_shm.cpu_active && current_state.row_state == animation_state_row_t::StartRunning) {
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running,
-                                                 animation_state_row_t::EndRunning, new_animation_result, new_state,
-                                                 current_state, current_frames, current_config);
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Running, animation_state_row_t::EndRunning,
+                                                 new_animation_result, new_state, current_state, current_frames,
+                                                 current_config);
         } else if (!update_shm.cpu_active && (current_state.row_state == animation_state_row_t::StartRunning ||
                                               state.row_state == animation_state_row_t::Running)) {
           // end running, cool down
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning,
-                                                 animation_state_row_t::Running, new_animation_result, new_state,
-                                                 current_state, current_frames, current_config);
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::EndRunning, animation_state_row_t::Running,
+                                                 new_animation_result, new_state, current_state, current_frames,
+                                                 current_config);
         } else if (!update_shm.cpu_active && current_state.row_state == animation_state_row_t::EndRunning) {
           // back to idle
           anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
