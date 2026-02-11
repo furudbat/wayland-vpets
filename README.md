@@ -45,6 +45,8 @@ _Pokemon_
 ```bash
 # Arch Linux
 yay -S wpets
+# Or, if you like paru more, or your distro ships it
+paru -S wpets
 ```
 
 #### Other distros - build from source
@@ -63,14 +65,14 @@ _If you only want to test without replacing bongocat, run the binary directly fr
 ```bash
 sudo cmake --install build
 ```
-⚠️ **this can overwrite the original installation of bongocat** ⚠️
+⚠️ **this will overwrite the original installation of bongocat** ⚠️
 
 
 
 ### Setup Permissions
 
 ```bash
-sudo usermod -a -G input $USER
+sudo usermod -aG input $USER
 # Log out and back in
 ```
 
