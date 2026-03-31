@@ -40,7 +40,8 @@ static_assert(POOL_MAX_TIMEOUT_MS >= POOL_MIN_TIMEOUT_MS);
 
 inline static constexpr time_ms_t COND_INIT_TIMEOUT_MS = 5000;
 
-static inline constexpr auto WAYLAND_LAYER_NAME = "OVERLAY";
+static inline constexpr auto WAYLAND_LAYER_NAME_OVERLAY = "OVERLAY";
+static inline constexpr auto WAYLAND_LAYER_NAME_TOP = "TOP";
 
 // =============================================================================
 // MAIN WAYLAND INTERFACE IMPLEMENTATION
@@ -448,9 +449,9 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
                                   (ctx.thread_context._local_copy_config->screen_width > 0 &&
                                    old_width != ctx.thread_context._local_copy_config->screen_width);
   const bool change_screen =
-      ctx.thread_context._local_copy_config->output_name != BONGOCAT_NULLPTR &&
-      (strcmp(old_screen_name, ctx.thread_context._local_copy_config->output_name) != 0 ||
-       strcmp(ctx.thread_context._output_name_str, ctx.thread_context._local_copy_config->output_name) != 0);
+      ctx.thread_context._local_copy_config->output_name &&
+      (strcmp(old_screen_name, ctx.thread_context._local_copy_config->output_name.c_str()) != 0 ||
+       strcmp(ctx.thread_context._output_name_str, ctx.thread_context._local_copy_config->output_name.c_str()) != 0);
 
   if (((dimensions_changed && old_height > 0 && old_width > 0) || change_screen) && ctx.thread_context.ctx_shm) {
     // ~~Lock animation mutex to prevent draw_bar() during config update
@@ -538,8 +539,11 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
   }
 }
 
-const char *get_current_layer_name() {
-  return WAYLAND_LAYER_NAME;
+const char *get_current_layer_name(wayland_context_t& ctx) {
+  if (ctx.thread_context.ctx_shm && (atomic_load(&ctx.thread_context.ctx_shm->configured) && ctx.thread_context._local_copy_config)) {
+    return ctx.thread_context._local_copy_config->layer == config::layer_type_t::LAYER_OVERLAY ? WAYLAND_LAYER_NAME_OVERLAY : WAYLAND_LAYER_NAME_TOP;
+  }
+  return WAYLAND_LAYER_NAME_TOP;
 }
 
 bongocat_error_t request_render(animation::animation_context_t& animation_ctx) {

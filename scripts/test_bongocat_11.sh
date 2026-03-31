@@ -8,7 +8,7 @@ PROGRAM="./cmake-build-debug/bongocat-all"
 #PROGRAM="./build/bongocat-all"
 
 WORKDIR=$(mktemp -d)
-CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
+CONFIG="$WORKDIR/test2.bongocat.conf"  # config file to modify
 OG_CONFIG=./examples/test.bongocat.conf
 cp $OG_CONFIG $CONFIG
 
@@ -154,7 +154,6 @@ if [[ -f "/proc/$PID/fd/0" ]]; then
 fi
 
 echo "[INFO] Disable sleep"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
 echo "[TEST] Sending SIGUSR2..."
@@ -227,56 +226,49 @@ echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dmx:Hexeblaumon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dm20:Omegamon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: pen20:Megalo Growmon"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=pen20:Megalo Growmon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dmc:Omegamon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: dm:Coronamon"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dm:Coronamon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: Metal Greymon"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=Metal Greymon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
-echo "[INFO] Set Sprite Sheet: neko"
 sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
+echo "[INFO] Set Sprite Sheet: neko"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=neko/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
 echo "[INFO] Set Sprite Sheet: pmd:volcanion"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=pmd:volcanion/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
@@ -286,7 +278,6 @@ sleep 2
 
 echo "[TEST] CPU threshold"
 echo "[INFO] Enable CPU threshold"
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dm20:Agumon/' "$CONFIG"
 sed -i -E 's/^update_rate=[0-9]+/update_rate=1000/' "$CONFIG"
@@ -314,7 +305,6 @@ sleep 5
 
 
 # Test Sleep + reload in middle
-sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dm20:Agumon/' "$CONFIG"
 echo "[TEST] Trigger Sleep"

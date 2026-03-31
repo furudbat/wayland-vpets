@@ -82,25 +82,25 @@ namespace bongocat::animation {
 namespace details {
   created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_thread_context_t& ctx,
                                                                      const config::config_t& config) {
-    BONGOCAT_CHECK_NULL(config.custom_sprite_sheet_filename, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
-    if (strlen(config.custom_sprite_sheet_filename) <= 0) {
+    BONGOCAT_CHECK_NULL(config.custom_sprite_sheet_filename.c_str(), bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+    if (strlen(config.custom_sprite_sheet_filename.c_str()) <= 0) {
       return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 
     assert(ctx.shm.ptr);
     assert(ctx._local_copy_config.ptr);
 
-    BONGOCAT_LOG_VERBOSE("Load custom Animation: %s ...", config.custom_sprite_sheet_filename);
-    auto sprite_sheet_image_result = load_custom_sprite_sheet_file(config.custom_sprite_sheet_filename);
+    BONGOCAT_LOG_VERBOSE("Load custom Animation: %s ...", config.custom_sprite_sheet_filename.c_str());
+    auto sprite_sheet_image_result = load_custom_sprite_sheet_file(config.custom_sprite_sheet_filename.c_str());
     if (sprite_sheet_image_result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-      BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename);
+      BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename.c_str());
       return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
     }
 
     auto result = load_custom_anim(ctx, sprite_sheet_image_result.result, config.custom_sprite_sheet_settings);
     free_custom_sprite_sheet_file(sprite_sheet_image_result.result);
     if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-      BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename);
+      BONGOCAT_LOG_ERROR("Load custom Animation failed: %s", config.custom_sprite_sheet_filename.c_str());
       return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
     }
 

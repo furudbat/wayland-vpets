@@ -85,10 +85,10 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
   wayland_ctx.output = BONGOCAT_NULLPTR;
   wayland_ctx.bound_output_name = 0;
   wayland_ctx.using_named_output = false;
-  if (current_config.output_name != BONGOCAT_NULLPTR) {
+  if (current_config.output_name) {
     for (size_t i = 0; i < ctx.output_count; ++i) {
       if (has_flag(ctx.outputs[i].received, output_ref_received_flags_t::Name) &&
-          strcmp(ctx.outputs[i].name_str, current_config.output_name) == 0) {
+          strcmp(ctx.outputs[i].name_str, current_config.output_name.c_str()) == 0) {
         wayland_ctx.output = ctx.outputs[i].wl_output;
         wayland_ctx._output_name_str = ctx.outputs[i].name_str;
         wayland_ctx._screen_info = &ctx.screen_infos[i];
@@ -101,10 +101,10 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
 
     if (wayland_ctx.output == BONGOCAT_NULLPTR) {
       if (current_config._strict) {
-        BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name);
+        BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name.c_str());
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
       } else {
-        BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output", current_config.output_name);
+        BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output", current_config.output_name.c_str());
       }
     }
   }

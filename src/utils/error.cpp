@@ -47,6 +47,7 @@ namespace details {
     assert(name_len > 0);
 
     platform::LockGuard guard(get_log_mutex());
+    char message[1024];
     log_timestamp(stdout);
     fprintf(stdout, "%.*s: ", name_len, name);
     vfprintf(stdout, format, args);

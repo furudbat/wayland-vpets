@@ -244,11 +244,26 @@ interactive_detect() {
   header "Add to Config"
   echo -e "  ${BOLD}~/.config/bongocat/bongocat.conf:${NC}"
   echo
+  echo -e "  ${DIM}# Option 1: By device path (may change on reboot)${NC}"
   for entry in "${detected_keyboards[@]}"; do
     IFS='|' read -r event name device_path <<< "$entry"
-    echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
+
+    if [[ "$device_path" != /dev/input/by-id/* ]]; then
+      echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
+    fi
+  done
+  echo
+  echo -e "  ${DIM}# Option 2: By device name (persistent, recommended)${NC}"
+  for entry in "${detected_keyboards[@]}"; do
+    IFS='|' read -r event name device_path <<< "$entry"
+
+    if [[ "$device_path" == /dev/input/by-id/* ]]; then
+      echo -e "  ${CYAN}keyboard_name=$device_path${NC}  ${BOLD}# $name${NC}"
+    fi
   done
 
+  echo
+  echo -e "  ${DIM}Not accurate? Use: $SCRIPT_NAME --interactive${NC}"
   echo
 }
 
@@ -305,7 +320,13 @@ generate_config() {
   for entry in "${devices[@]}"; do
     IFS='|' read -r event name device_path <<< "$entry"
     #echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
-    printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
+
+    if [[ "$device_path" == /dev/input/by-id/* ]]; then
+      printf "${CYAN}keyboard_name=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
+    fi
+    if [[ "$device_path" != /dev/input/by-id/* ]]; then
+      printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
+    fi
   done
 }
 

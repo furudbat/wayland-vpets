@@ -251,9 +251,6 @@ lint: protocols
 	@clang-tidy $(PROJECT_SOURCES) -- $(CFLAGS) 2>/dev/null || true
 	@echo "Static analysis complete."
 
-# Alias for lint
-analyze: lint
-
 # Generate compile_commands.json for IDE support (requires bear)
 # Run: make compiledb
 compiledb: clean

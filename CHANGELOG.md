@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
+### [3.6.2] - 2026-03-30
+
+- pull from upstream [1.4.0](https://github.com/saatvik333/wayland-bongocat/releases/tag/v1.4.0)
+  - ~~**Multi-monitor CSV**~~
+    - **NO** comma-separated output names for now; don't have much time to do bigger merges/refactors
+  - adapt `--monitor` argument
+  - Input hotplug robustness
+
 ### [3.6.1] - 2025-12-13
 
 ### Improved

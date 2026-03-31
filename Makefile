@@ -52,9 +52,6 @@ doc: release
 	cmake --build build --target manpages
 
 SOURCES = $(shell find $(SRCDIR) -name '*.cpp' ! -path '*/embedded_assets/**/*.c??' ! -path '*/image_loader/*.c' ! -path '*/image_loader/**/*.cpp')
-# Static analysis
-analyze:
-	clang-tidy -p build $(SOURCES)
 
 # Memory check (requires valgrind)
 memcheck: debug

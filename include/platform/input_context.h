@@ -9,8 +9,13 @@
 #include <libudev.h>
 #include <pthread.h>
 #include <stdatomic.h>
+#include <linux/input.h>
 
 namespace bongocat::platform::input {
+
+inline static constexpr size_t MAX_ACTIVE_DEVICES {32};
+inline static constexpr size_t input_hotplug_events {64};
+
 enum class input_unique_file_type_t : uint8_t {
   NONE,
   File,
@@ -20,7 +25,7 @@ struct input_unique_file_t;
 void cleanup(input_unique_file_t& file);
 struct input_unique_file_t {
   const char *_device_path{BONGOCAT_NULLPTR};  // original string from config (ref to input_context_t._device_paths[i])
-  char *canonical_path{BONGOCAT_NULLPTR};      // resolved real path (malloc'd)
+  AllocatedString canonical_path{BONGOCAT_NULLPTR};      // resolved real path
   FileDescriptor fd;
   input_unique_file_type_t type{input_unique_file_type_t::NONE};
 
@@ -34,7 +39,7 @@ struct input_unique_file_t {
 
   input_unique_file_t(input_unique_file_t&& other) noexcept
       : _device_path(other._device_path)
-      , canonical_path(other.canonical_path)
+      , canonical_path(bongocat::move(other.canonical_path))
       , fd(bongocat::move(other.fd))
       , type(other.type) {
     other._device_path = BONGOCAT_NULLPTR;
@@ -46,7 +51,7 @@ struct input_unique_file_t {
       cleanup(*this);
 
       _device_path = other._device_path;
-      canonical_path = other.canonical_path;
+      canonical_path = bongocat::move(other.canonical_path);
       fd = bongocat::move(other.fd);
       type = other.type;
 
@@ -60,10 +65,7 @@ struct input_unique_file_t {
 inline void cleanup(input_unique_file_t& file) {
   close_fd(file.fd);
   file._device_path = BONGOCAT_NULLPTR;
-  if (file.canonical_path != BONGOCAT_NULLPTR) {
-    ::free(file.canonical_path);
-    file.canonical_path = BONGOCAT_NULLPTR;
-  }
+  release_allocated_string(file.canonical_path);
   file.type = input_unique_file_type_t::NONE;
 }
 
@@ -89,7 +91,7 @@ struct input_context_t {
   Mutex input_lock;
 
   // thread context
-  AllocatedArray<char *> _device_paths;  // local copy of devices (from config)
+  AllocatedArray<AllocatedString> _device_paths;  // local copy of devices (from config)
   AllocatedArray<size_t> _unique_paths_indices;
   size_t _unique_paths_indices_capacity{0};  // keep real _unique_paths_indices count here, shrink
                                              // _unique_paths_indices.count to used unique_paths_indices
@@ -133,10 +135,7 @@ inline void cleanup(input_context_t& ctx) {
   ctx._unique_paths_indices_capacity = 0;
   release_allocated_array(ctx._unique_paths_indices);
   for (size_t i = 0; i < ctx._device_paths.count; i++) {
-    if (ctx._device_paths[i] != BONGOCAT_NULLPTR) {
-      ::free(ctx._device_paths[i]);
-      ctx._device_paths[i] = BONGOCAT_NULLPTR;
-    }
+    release_allocated_string(ctx._device_paths[i]);
   }
   release_allocated_array(ctx._device_paths);
 

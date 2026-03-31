@@ -15,7 +15,10 @@
             Toggle bongocat on/off (start if not running, stop if running)
 
       -o, --output-name NAME      
-            Specify output name (overwrite output_name from config)
+            Specify output name (overwrite monitor from config)
+
+      -m, --monitor NAME      
+            Bind to a specific monitor output (same as --output-name)
 
           --random                
             Enable random animation_index, at start (overwrite random_index from config)

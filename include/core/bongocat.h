@@ -1,8 +1,10 @@
 #ifndef BONGOCAT_BONGOCAT_H
 #define BONGOCAT_BONGOCAT_H
 
+#ifndef _POSIX_C_SOURCE
 // POSIX feature test macro - must be before includes
 #define _POSIX_C_SOURCE 200809L
+#endif
 
 #include "utils/error.h"
 #include "utils/memory.h"

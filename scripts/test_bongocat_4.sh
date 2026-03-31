@@ -205,6 +205,7 @@ sleep 2
 
 echo "[TEST] Load assets"
 echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=dmx:Hexeblaumon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"

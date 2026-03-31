@@ -127,7 +127,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
       // Skip fullscreen hiding when layer is LAYER_OVERLAY (always visible)
       const bool is_overlay_layer = current_config.layer == config::layer_type_t::LAYER_OVERLAY;
-      const bool is_fullscreen = !is_overlay_layer && wayland_ctx._fullscreen_detected;
+      const bool is_fullscreen = !is_overlay_layer && (current_config.disable_fullscreen_hide <= 0 && wayland_ctx._fullscreen_detected);
       const bool bar_visible =
           !is_fullscreen && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
       const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;

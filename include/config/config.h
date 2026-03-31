@@ -50,6 +50,8 @@ inline static constexpr const char *ALIGN_RIGHT_STR = "right";
 struct config_t;
 void config_free_keyboard_devices(config_t& config);
 void config_copy_keyboard_devices_from(config_t& config, const config_t& other);
+void config_free_keyboard_names(config_t& config);
+void config_copy_keyboard_names_from(config_t& config, const config_t& other);
 void cleanup(config_t& config);
 
 // =============================================================================
@@ -87,8 +89,8 @@ enum class config_animation_custom_set_t : uint8_t {
 };
 
 struct config_t {
-  char *output_name{BONGOCAT_NULLPTR};
-  char *keyboard_devices[input::MAX_INPUT_DEVICES]{};
+  AllocatedString output_name{BONGOCAT_NULLPTR};
+  AllocatedString keyboard_devices[input::MAX_INPUT_DEVICES];
   int32_t num_keyboard_devices{0};
   int32_t cat_x_offset{0};
   int32_t cat_y_offset{0};
@@ -141,17 +143,26 @@ struct config_t {
 
   int32_t screen_width{0};
 
-  char *custom_sprite_sheet_filename{BONGOCAT_NULLPTR};  // must be png file
+  AllocatedString custom_sprite_sheet_filename{BONGOCAT_NULLPTR};  // must be png file
   assets::custom_animation_settings_t custom_sprite_sheet_settings{};
 
   int32_t enable_hand_mapping{0};
+
+  int32_t hotplug_scan_interval_ms{0};
+
+  // Fullscreen behavior
+  int32_t disable_fullscreen_hide{0};
+
+  // Device matching by name (for hotplug/auto-detection)
+  AllocatedString _keyboard_names[input::MAX_INPUT_DEVICES];
+  int32_t _num_keyboard_names{0};
 
   // for keep old index when reload config
   bool _keep_old_animation_index{false};
   bool _strict{false};
   bool _custom{false};                      // is custom sprite sheet
-  char *_animation_name{BONGOCAT_NULLPTR};  // original animation_anim from parsing config
-  char *_loaded_animation_fqname{BONGOCAT_NULLPTR};
+  AllocatedString _animation_name{BONGOCAT_NULLPTR};  // original animation_anim from parsing config
+  AllocatedString _loaded_animation_fqname{BONGOCAT_NULLPTR};
 
   // Make Config movable and copyable
   config_t() {
@@ -208,17 +219,17 @@ struct config_t {
       , screen_width(other.screen_width)
       , custom_sprite_sheet_settings(other.custom_sprite_sheet_settings)
       , enable_hand_mapping(other.enable_hand_mapping)
+      , hotplug_scan_interval_ms(other.hotplug_scan_interval_ms)
+      , disable_fullscreen_hide(other.disable_fullscreen_hide)
       , _keep_old_animation_index(other._keep_old_animation_index)
       , _strict(other._strict)
       , _custom(other._custom) {
-    output_name = other.output_name != BONGOCAT_NULLPTR ? strdup(other.output_name) : BONGOCAT_NULLPTR;
+    output_name = duplicate_string(other.output_name);
     config_copy_keyboard_devices_from(*this, other);
-    custom_sprite_sheet_filename = other.custom_sprite_sheet_filename != BONGOCAT_NULLPTR
-                                       ? strdup(other.custom_sprite_sheet_filename)
-                                       : BONGOCAT_NULLPTR;
-    _animation_name = other._animation_name != BONGOCAT_NULLPTR ? strdup(other._animation_name) : BONGOCAT_NULLPTR;
-    _loaded_animation_fqname =
-        other._loaded_animation_fqname != BONGOCAT_NULLPTR ? strdup(other._loaded_animation_fqname) : BONGOCAT_NULLPTR;
+    config_copy_keyboard_names_from(*this, other);
+    custom_sprite_sheet_filename = duplicate_string(other.custom_sprite_sheet_filename);
+    _animation_name = duplicate_string(other._animation_name);
+    _loaded_animation_fqname = duplicate_string(other._loaded_animation_fqname);
   }
 
   config_t& operator=(const config_t& other) {
@@ -269,26 +280,24 @@ struct config_t {
       screen_width = other.screen_width;
       custom_sprite_sheet_settings = other.custom_sprite_sheet_settings;
       enable_hand_mapping = other.enable_hand_mapping;
+      hotplug_scan_interval_ms = other.hotplug_scan_interval_ms;
+      disable_fullscreen_hide = other.disable_fullscreen_hide;
       _keep_old_animation_index = other._keep_old_animation_index;
       _strict = other._strict;
       _custom = other._custom;
 
-      output_name = other.output_name != BONGOCAT_NULLPTR ? strdup(other.output_name) : BONGOCAT_NULLPTR;
+      output_name = duplicate_string(other.output_name);
       config_copy_keyboard_devices_from(*this, other);
-      custom_sprite_sheet_filename = other.custom_sprite_sheet_filename != BONGOCAT_NULLPTR
-                                         ? strdup(other.custom_sprite_sheet_filename)
-                                         : BONGOCAT_NULLPTR;
-      _animation_name = other._animation_name != BONGOCAT_NULLPTR ? strdup(other._animation_name) : BONGOCAT_NULLPTR;
-      _loaded_animation_fqname = other._loaded_animation_fqname != BONGOCAT_NULLPTR
-                                     ? strdup(other._loaded_animation_fqname)
-                                     : BONGOCAT_NULLPTR;
+      config_copy_keyboard_names_from(*this, other);
+      custom_sprite_sheet_filename = duplicate_string(other.custom_sprite_sheet_filename);
+      _animation_name = duplicate_string(other._animation_name);
+      _loaded_animation_fqname = duplicate_string(other._loaded_animation_fqname);
     }
     return *this;
   }
 
   config_t(config_t&& other) noexcept
-      : output_name(other.output_name)
-      , num_keyboard_devices(other.num_keyboard_devices)
+      : output_name(bongocat::move(other.output_name))
       , cat_x_offset(other.cat_x_offset)
       , cat_y_offset(other.cat_y_offset)
       , cat_height(other.cat_height)
@@ -331,19 +340,30 @@ struct config_t {
       , movement_speed(other.movement_speed)
       , movement_wait_factor(other.movement_wait_factor)
       , screen_width(other.screen_width)
-      , custom_sprite_sheet_filename(other.custom_sprite_sheet_filename)
-      , custom_sprite_sheet_settings(other.custom_sprite_sheet_settings)
+      , custom_sprite_sheet_filename(bongocat::move(other.custom_sprite_sheet_filename))
+      , custom_sprite_sheet_settings(bongocat::move(other.custom_sprite_sheet_settings))
       , enable_hand_mapping(other.enable_hand_mapping)
+      , hotplug_scan_interval_ms(other.hotplug_scan_interval_ms)
+      , disable_fullscreen_hide(other.disable_fullscreen_hide)
       , _keep_old_animation_index(other._keep_old_animation_index)
       , _strict(other._strict)
       , _custom(other._custom)
-      , _animation_name(other._animation_name)
-      , _loaded_animation_fqname(other._loaded_animation_fqname) {
-    for (int i = 0; i < num_keyboard_devices; ++i) {
-      keyboard_devices[i] = other.keyboard_devices[i];
+      , _animation_name(bongocat::move(other._animation_name))
+      , _loaded_animation_fqname(bongocat::move(other._loaded_animation_fqname)) {
+    for (int i = 0; i < other.num_keyboard_devices; ++i) {
+      keyboard_devices[i] = bongocat::move(other.keyboard_devices[i]);
       other.keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
+    num_keyboard_devices = other._num_keyboard_names;
+
+    for (int i = 0; i < other._num_keyboard_names; ++i) {
+      _keyboard_names[i] = bongocat::move(other._keyboard_names[i]);
+      other._keyboard_names[i] = BONGOCAT_NULLPTR;
+    }
+    _num_keyboard_names = other._num_keyboard_names;
+
     other.num_keyboard_devices = 0;
+    other._num_keyboard_names = 0;
     other.output_name = BONGOCAT_NULLPTR;
     other.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
     other._animation_name = BONGOCAT_NULLPTR;
@@ -354,8 +374,7 @@ struct config_t {
     if (this != &other) {
       cleanup(*this);
 
-      output_name = other.output_name;
-      num_keyboard_devices = other.num_keyboard_devices;
+      output_name = bongocat::move(other.output_name);
       cat_x_offset = other.cat_x_offset;
       cat_y_offset = other.cat_y_offset;
       cat_height = other.cat_height;
@@ -397,21 +416,34 @@ struct config_t {
       enable_movement_debug = other.enable_movement_debug;
       movement_speed = other.movement_speed;
       movement_wait_factor = other.movement_wait_factor;
-      custom_sprite_sheet_filename = other.custom_sprite_sheet_filename;
+      custom_sprite_sheet_filename = bongocat::move(other.custom_sprite_sheet_filename);
       screen_width = other.screen_width;
-      custom_sprite_sheet_settings = other.custom_sprite_sheet_settings;
+      custom_sprite_sheet_settings = bongocat::move(other.custom_sprite_sheet_settings);
       enable_hand_mapping = other.enable_hand_mapping;
+      hotplug_scan_interval_ms = other.hotplug_scan_interval_ms;
+      disable_fullscreen_hide = other.disable_fullscreen_hide;
       _keep_old_animation_index = other._keep_old_animation_index;
       _strict = other._strict;
       _custom = other._custom;
-      _animation_name = other._animation_name;
-      _loaded_animation_fqname = other._loaded_animation_fqname;
+      _animation_name = bongocat::move(other._animation_name);
+      _loaded_animation_fqname = bongocat::move(other._loaded_animation_fqname);
 
-      for (int i = 0; i < num_keyboard_devices; ++i) {
+      for (int i = 0; i < other.num_keyboard_devices; ++i) {
         keyboard_devices[i] = other.keyboard_devices[i];
-        other.keyboard_devices[i] = BONGOCAT_NULLPTR;
+        release_allocated_string(other.keyboard_devices[i]);
+        //other.keyboard_devices[i] = BONGOCAT_NULLPTR;
       }
+      num_keyboard_devices = other.num_keyboard_devices;
+
+      for (int i = 0; i < other._num_keyboard_names; ++i) {
+        _keyboard_names[i] = other._keyboard_names[i];
+        release_allocated_string(other._keyboard_names[i]);
+        //other._keyboard_names[i] = BONGOCAT_NULLPTR;
+      }
+      _num_keyboard_names = other._num_keyboard_names;
+
       other.num_keyboard_devices = 0;
+      other._num_keyboard_names = 0;
       other.output_name = BONGOCAT_NULLPTR;
       other.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
       other._animation_name = BONGOCAT_NULLPTR;
@@ -421,42 +453,54 @@ struct config_t {
   }
 };
 inline void cleanup(config_t& config) {
-  if (config.output_name != BONGOCAT_NULLPTR) {
-    ::free(config.output_name);
-    config.output_name = BONGOCAT_NULLPTR;
-  }
+  release_allocated_string(config.output_name);
   config_free_keyboard_devices(config);
-  if (config.custom_sprite_sheet_filename != BONGOCAT_NULLPTR) {
-    ::free(config.custom_sprite_sheet_filename);
-    config.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
-  }
-  if (config._animation_name != BONGOCAT_NULLPTR) {
-    ::free(config._animation_name);
-    config._animation_name = BONGOCAT_NULLPTR;
-  }
-  if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
-    ::free(config._loaded_animation_fqname);
-    config._loaded_animation_fqname = BONGOCAT_NULLPTR;
-  }
+  config_free_keyboard_names(config);
+  release_allocated_string(config.custom_sprite_sheet_filename);
+  release_allocated_string(config._animation_name);
+  release_allocated_string(config._loaded_animation_fqname);
 }
 
 inline void config_free_keyboard_devices(config_t& config) {
   assert(config.num_keyboard_devices >= 0);
   for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < input::MAX_INPUT_DEVICES; i++) {
+    /*
     if (config.keyboard_devices[i] != BONGOCAT_NULLPTR) {
       ::free(config.keyboard_devices[i]);
       config.keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
+    */
+    release_allocated_string(config.keyboard_devices[i]);
   }
   config.num_keyboard_devices = 0;
+}
+inline void config_free_keyboard_names(config_t& config) {
+  assert(config._num_keyboard_names >= 0);
+  for (size_t i = 0; i < static_cast<size_t>(config._num_keyboard_names) && i < input::MAX_INPUT_DEVICES; i++) {
+    /*
+    if (config._keyboard_names[i] != BONGOCAT_NULLPTR) {
+      ::free(config._keyboard_names[i]);
+      config._keyboard_names[i] = BONGOCAT_NULLPTR;
+    }
+    */
+    release_allocated_string(config._keyboard_names[i]);
+  }
+  config._num_keyboard_names = 0;
 }
 inline void config_copy_keyboard_devices_from(config_t& config, const config_t& other) {
   config_free_keyboard_devices(config);
   config.num_keyboard_devices = other.num_keyboard_devices;
   assert(config.num_keyboard_devices >= 0);
   for (size_t i = 0; i < static_cast<size_t>(config.num_keyboard_devices) && i < input::MAX_INPUT_DEVICES; i++) {
-    config.keyboard_devices[i] =
-        other.keyboard_devices[i] != BONGOCAT_NULLPTR ? strdup(other.keyboard_devices[i]) : BONGOCAT_NULLPTR;
+    config.keyboard_devices[i] = duplicate_string(other.keyboard_devices[i]);
+  }
+}
+inline void config_copy_keyboard_names_from(config_t& config, const config_t& other) {
+  config_free_keyboard_names(config);
+  config._num_keyboard_names = other._num_keyboard_names;
+  assert(config._num_keyboard_names >= 0);
+  for (size_t i = 0; i < static_cast<size_t>(config._num_keyboard_names) && i < input::MAX_INPUT_DEVICES; i++) {
+    config._keyboard_names[i] = duplicate_string(other._keyboard_names[i]);
   }
 }
 
@@ -475,6 +519,12 @@ BONGOCAT_NODISCARD created_result_t<config_t> load(const char *config_file_path,
 void reset(config_t& config);
 
 void set_defaults(config_t& config);
+
+
+// Resolve config file path with XDG fallback
+// Returns a static/allocated path, or NULL if none found.
+AllocatedString resolve_path(const char *explicit_path);
+
 }  // namespace bongocat::config
 
 #endif  // BONGOCAT_CONFIG_H
