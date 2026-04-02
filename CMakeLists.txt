@@ -34,7 +34,7 @@ endif()
 project(
   bongocat
   LANGUAGES C CXX
-  VERSION 3.6.1)
+  VERSION 3.6.2)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -354,26 +354,31 @@ if(FEATURE_MULTI_VERSIONS)
   # @NOTE(assets): 1.2. add exec for multi versions
 endif()
 
-# Formatting
-include(cmake/CPM.cmake)
-cpmaddpackage(
-  NAME
-  Format.cmake
-  VERSION
-  1.8.3
-  GITHUB_REPOSITORY
-  TheLartians/Format.cmake
-  OPTIONS
-  # set to yes skip cmake formatting
-  "FORMAT_SKIP_CMAKE NO"
-  # set to yes skip clang formatting
-  "FORMAT_SKIP_CLANG NO"
-  # path to exclude (optional, supports regular expressions)
-  "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
-  # extra arguments for cmake_format (optional)
-  "CMAKE_FORMAT_EXTRA_ARGS -c ${PROJECT_SOURCE_DIR}/cmake-format.yaml"
-  # path to exclude (optional, supports regular expressions)
-  "CMAKE_FORMAT_EXCLUDE lib|assets|protocols|docs|examples|nix")
+option(SKIP_CPM "Skip CPM-based downloads" OFF)
+if(DEFINED ENV{NIX_BUILD_TOP} OR SKIP_CPM)
+  message(STATUS "Nix build detected: skipping CPM and formatting setup")
+else()
+  # Formatting
+  include(cmake/CPM.cmake)
+  cpmaddpackage(
+    NAME
+    Format.cmake
+    VERSION
+    1.8.3
+    GITHUB_REPOSITORY
+    TheLartians/Format.cmake
+    OPTIONS
+    # set to yes skip cmake formatting
+    "FORMAT_SKIP_CMAKE NO"
+    # set to yes skip clang formatting
+    "FORMAT_SKIP_CLANG NO"
+    # path to exclude (optional, supports regular expressions)
+    "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
+    # extra arguments for cmake_format (optional)
+    "CMAKE_FORMAT_EXTRA_ARGS -c ${PROJECT_SOURCE_DIR}/cmake-format.yaml"
+    # path to exclude (optional, supports regular expressions)
+    "CMAKE_FORMAT_EXCLUDE lib|assets|protocols|docs|examples|nix")
+endif()
 
 # Install
 include(GNUInstallDirs)
@@ -459,33 +464,35 @@ if(PANDOC)
 endif()
 
 # Package
-cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
-set(CPACK_PACKAGE_NAME "bongocat")
-set(CPACK_PACKAGE_VERSION "3.6.1")
-set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
-set(CPACK_GENERATOR "TGZ;ZIP")
-packageproject(
-  # the name of the target to export
-  NAME
-  ${PROJECT_NAME}
-  # the version of the target to export
-  VERSION
-  ${PROJECT_VERSION}
-  # a temporary directory to create the config files
-  BINARY_DIR
-  ${PROJECT_BINARY_DIR}
-  # should match the target's INSTALL_INTERFACE include directory
-  INCLUDE_DESTINATION
-  include/${PROJECT_NAME}-${PROJECT_VERSION}
-  # (optional) define the project's version compatibility, defaults to `AnyNewerVersion` supported values:
-  # `AnyNewerVersion|SameMajorVersion|SameMinorVersion|ExactVersion`
-  COMPATIBILITY
-  SameMajorVersion
-  # (optional) option to generate CPack variables
-  CPACK
-  YES)
+if(NOT DEFINED ENV{NIX_BUILD_TOP} AND NOT SKIP_CPM)
+  cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
+  set(CPACK_PACKAGE_NAME "bongocat")
+  set(CPACK_PACKAGE_VERSION "3.6.1")
+  set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
+  set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+  set(CPACK_GENERATOR "TGZ;ZIP")
+  packageproject(
+    # the name of the target to export
+    NAME
+    ${PROJECT_NAME}
+    # the version of the target to export
+    VERSION
+    ${PROJECT_VERSION}
+    # a temporary directory to create the config files
+    BINARY_DIR
+    ${PROJECT_BINARY_DIR}
+    # should match the target's INSTALL_INTERFACE include directory
+    INCLUDE_DESTINATION
+    include/${PROJECT_NAME}-${PROJECT_VERSION}
+    # (optional) define the project's version compatibility, defaults to `AnyNewerVersion` supported values:
+    # `AnyNewerVersion|SameMajorVersion|SameMinorVersion|ExactVersion`
+    COMPATIBILITY
+    SameMajorVersion
+    # (optional) option to generate CPack variables
+    CPACK
+    YES)
+endif()
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we
 # can run the target from visual studio if(MSVC) get_all_installable_targets(all_targets) message("all_targets=${all_targets}")

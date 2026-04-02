@@ -337,7 +337,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-**Requirements:** wayland-client, wayland-protocols, gcc/clang, make, cmake
+**Requirements:** wayland-client, wayland-protocols, gcc15 or clang19, make, cmake
 
 > [!CAUTION]
 > **Privacy Notice**: When building in `DEBUG` mode and by enabling `enable_debug=1`, all keystrokes are logged to stdout/stderr. Ensure this is disabled (default: 0) for normal usage.

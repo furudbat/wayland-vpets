@@ -1,17 +1,20 @@
 {
   lib,
-  stdenv,
+  gcc15Stdenv,
   pkg-config,
   wayland,
   wayland-protocols,
   wayland-scanner,
   cmake,
   pandoc,
-  systemd
+  libffi,
+  systemd,
+  libcap,
+  libxkbcommon
 }:
-stdenv.mkDerivation (finalAttrs: {
+gcc15Stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-vpets";
-  version = "3.6.1";
+  version = "3.6.2";
   src = ../.;
 
   # Build toolchain and dependencies
@@ -20,7 +23,10 @@ stdenv.mkDerivation (finalAttrs: {
   buildInputs = [
     wayland
     wayland-protocols
+    libffi
     systemd
+    libxkbcommon
+    libcap
   ];
 
   # Build phases
@@ -29,19 +35,18 @@ stdenv.mkDerivation (finalAttrs: {
     export WAYLAND_PROTOCOLS_DIR="${wayland-protocols}/share/wayland-protocols"
   '';
 
-  makeFlags = ["release"];
-  installPhase = ''
-    runHook preInstall
-
-    # Install binaries
-    install -Dm755 build/bongocat $out/bin/${finalAttrs.meta.mainProgram}
-    install -Dm755 scripts/find_input_devices.sh $out/bin/bongocat-find-devices
-
-    runHook postInstall
+  postPatch = ''
+    grep -rl "/usr/share/wayland-protocols" . | while read f; do
+      substituteInPlace "$f" \
+        --replace "/usr/share/wayland-protocols" "${wayland-protocols}/share/wayland-protocols"
+    done
   '';
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
+    "-DSKIP_CPM=ON"
+    "-DWAYLAND_PROTOCOLS_DIR=${wayland-protocols}/share/wayland-protocols"
+    "-DCMAKE_INSTALL_PREFIX=$out"
   ];
 
   # Package information

@@ -15,6 +15,7 @@ pkgs.mkShellNoCC {
     gdb         # Debugger
     valgrind    # Memory debugger
     clang-tools # Useful tools for C/C++ including a formatter `clang-format`
+    #cmake-format
 
     # Optional tools for input device debugging
     evtest
@@ -23,7 +24,6 @@ pkgs.mkShellNoCC {
   buildInputs = with pkgs; [
     wayland
     wayland-protocols
-    systemd
   ];
   shellHook = ''
     # Ensure that the Makefile can find and access the Wayland protocols
@@ -41,7 +41,7 @@ pkgs.mkShellNoCC {
     echo ""
     echo "Helper scripts:"
     echo "  ./scripts/find_input_devices.sh - Find input devices"
-    echo "  ./scripts/test-nix-build.sh     - Test Nix flake and package"
+    echo "  ./scripts/test_nix_build.sh     - Test Nix flake and package"
     echo "  ./scripts/test_toggle.sh        - Test Bongocat toggle functionality (Install Bongocat first)"
   '';
 }
