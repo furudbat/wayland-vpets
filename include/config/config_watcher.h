@@ -11,7 +11,7 @@
 namespace bongocat::config {
 // Inotify buffer sizing
 inline static constexpr size_t INOTIFY_EVENT_SIZE = sizeof(struct inotify_event);
-inline static constexpr size_t INOTIFY_BUF_LEN = 1024 * (INOTIFY_EVENT_SIZE + 16);
+inline static constexpr size_t INOTIFY_BUF_LEN = 16 * (INOTIFY_EVENT_SIZE + 16);
 
 // =============================================================================
 // TYPE DEFINITIONS

@@ -25,7 +25,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_BUILD_TYPE": "Release",
+        "GENERATE_PROTOCOLS": "OFF"
       }
     },
     {

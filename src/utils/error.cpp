@@ -30,15 +30,15 @@ namespace details {
   }
 
   inline void log_timestamp(FILE *stream) {
-    timeval tv{};
+    timespec ts{};
     tm tm_info{};
     char timestamp[64] = {0};
 
-    gettimeofday(&tv, BONGOCAT_NULLPTR);
-    localtime_r(&tv.tv_sec, &tm_info);  // Thread-safe version
+    clock_gettime(CLOCK_REALTIME, &ts);
+    localtime_r(&ts.tv_sec, &tm_info);  // Thread-safe
 
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", &tm_info);
-    fprintf(stream, "[%s.%03ld] ", timestamp, tv.tv_usec / 1000);
+    fprintf(stream, "[%s.%03ld] ", timestamp, ts.tv_nsec / 1000000);
   }
 
   // Core log function using va_list
@@ -47,7 +47,7 @@ namespace details {
     assert(name_len > 0);
 
     platform::LockGuard guard(get_log_mutex());
-    char message[1024];
+    //char message[1024];
     log_timestamp(stdout);
     fprintf(stdout, "%.*s: ", name_len, name);
     vfprintf(stdout, format, args);

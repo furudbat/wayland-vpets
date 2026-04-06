@@ -20,7 +20,7 @@ inline static constexpr size_t OUTPUT_NAME_SIZE = 128;
 struct fullscreen_detector_t {
   struct zwlr_foreign_toplevel_manager_v1 *manager{BONGOCAT_NULLPTR};
   bool has_fullscreen_toplevel{false};
-  timeval last_check{};
+  timespec last_check{};
 };
 struct tracked_toplevel_t {
   struct zwlr_foreign_toplevel_handle_v1 *handle{BONGOCAT_NULLPTR};

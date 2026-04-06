@@ -287,7 +287,7 @@ update_fullscreen_state_toplevel(wayland_context_t& ctx, tracked_toplevel_t& tra
   tracked.is_fullscreen = state.is_fullscreen;
   tracked.is_activated = state.is_activated;
 
-  /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggert
+  /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggered
   // Only trigger overlay update if this fullscreen window is on our output
   if (tracked.output == ctx.thread_context.output && state_changed) {
     state_changed = fs_update_state(ctx, state);
@@ -324,7 +324,7 @@ void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel
     }
   }
 
-  /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggert
+  /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggered
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     if (ctx.tracked_toplevels[i].handle == handle) {
       auto [output_found, changed] = update_fullscreen_state_toplevel(

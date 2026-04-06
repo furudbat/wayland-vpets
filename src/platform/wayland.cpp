@@ -148,16 +148,19 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
   running = 1;
   while (running >= 1 && wayland_ctx.display != BONGOCAT_NULLPTR) {
     const time_ms_t frame_based_timeout = config.fps > 0 ? 1000 / config.fps : 0;
+
     // Periodic fullscreen check for fallback fullscreen detection
-    timeval now{};
-    gettimeofday(&now, BONGOCAT_NULLPTR);
-    const time_ms_t elapsed_ms = ((now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L) +
-                                 ((now.tv_usec - ctx.fs_detector.last_check.tv_usec) / 1000L);
-    time_ms_t fullscreen_check_interval = frame_based_timeout;
-    if (fullscreen_check_interval < CHECK_INTERVAL_MS) {
-      fullscreen_check_interval = CHECK_INTERVAL_MS;
+    timespec now{};
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    const time_ms_t elapsed_ms =
+        ((now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L) +
+        ((now.tv_nsec - ctx.fs_detector.last_check.tv_nsec) / 1000000L);
+    time_ms_t fullscreen_check_interval_ms = frame_based_timeout;
+
+    if (fullscreen_check_interval_ms < CHECK_INTERVAL_MS) {
+      fullscreen_check_interval_ms = CHECK_INTERVAL_MS;
     }
-    if (elapsed_ms >= fullscreen_check_interval) {
+    if (elapsed_ms >= fullscreen_check_interval_ms) {
       details::fs_update_state_fallback(ctx);
       ctx.fs_detector.last_check = now;
     }
