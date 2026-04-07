@@ -82,6 +82,8 @@ created_result_t<AllocatedMemory<wayland_context_t>> create(animation::animation
   *ret->thread_context._local_copy_config = config;
   ret->thread_context._bar_height = config.overlay_height;
 
+  ret->_environ = ::environ;
+
   return ret;
 }
 

@@ -134,7 +134,9 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
     // auto-detect screen width
     if (wayland_ctx.output != BONGOCAT_NULLPTR) {
       wl_display_roundtrip(wayland_ctx.display);
-      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->screen_width > 0) {
+      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR &&
+          wayland_ctx._screen_info->screen_width > 0 &&
+          wayland_ctx._screen_info->screen_width < INT16_MAX) {
         BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->screen_width);
         screen_width = wayland_ctx._screen_info->screen_width;
       } else {
@@ -398,4 +400,57 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
+
+
+spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, const char *const *argv) {
+  int pipefd[2] = {0};
+  spawn_pipe_t result;
+
+  if (pipe(pipefd) != 0) {
+    return result;
+  }
+
+  posix_spawn_file_actions_t actions;
+  posix_spawn_file_actions_init(&actions);
+
+  // Redirect stdout -> pipe
+  posix_spawn_file_actions_adddup2(&actions, pipefd[1], STDOUT_FILENO);
+
+  // Redirect stderr -> /dev/null
+  int devnull = open("/dev/null", O_WRONLY);
+  if (devnull >= 0) {
+    posix_spawn_file_actions_adddup2(&actions, devnull, STDERR_FILENO);
+  }
+
+  posix_spawn_file_actions_addclose(&actions, pipefd[0]);
+
+  pid_t pid{-1};
+  // @NOTE: safe-const cast for argv
+  if (posix_spawn(&pid, path, &actions, nullptr, const_cast<char *const *>(argv), ctx._environ) != 0) {
+    close(pipefd[0]);
+    close(pipefd[1]);
+    posix_spawn_file_actions_destroy(&actions);
+    return result;
+  }
+
+  posix_spawn_file_actions_destroy(&actions);
+  close(pipefd[1]);
+
+  result.fp = fdopen(pipefd[0], "r");
+  result.pid = pid;
+  return result;
+}
+int safe_pclose_spawn(spawn_pipe_t& sp) {
+  int status = 0;
+  if (sp.fp) {
+    fclose(sp.fp);
+  }
+
+  if (sp.pid > 0) {
+    waitpid(sp.pid, &status, 0);
+  }
+
+  return status;
+}
+
 }  // namespace bongocat::platform::wayland::details

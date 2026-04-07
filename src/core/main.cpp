@@ -201,15 +201,22 @@ struct cli_args_t {
 
 inline static constexpr size_t PID_STR_BUF = 64;
 
+/*
 inline static constexpr auto DEFAULT_PID_FILE = "/tmp/bongocat.pid";
 inline static constexpr auto PID_FILE_WITH_SUFFIX_TEMPLATE = "/tmp/bongocat-%s.pid";
 inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE = "/tmp/bongocat-%s.%" PRIu32 ".pid";
 inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_TEMPLATE = "/tmp/bongocat-%" PRId64 ".pid";
+*/
+
+inline static constexpr auto DEFAULT_PID_FILE_PATH_TEMPLATE = "%s/bongocat.pid";
+inline static constexpr auto PID_FILE_WITH_SUFFIX_PATH_TEMPLATE = "%s/bongocat-%s.pid";
+inline static constexpr auto PID_FILE_WITH_SUFFIX_MULTI_PATH_TEMPLATE = "%s/bongocat-%s.%" PRIu32 ".pid";
+inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_PATH_TEMPLATE = "%s/bongocat-%" PRId64 ".pid";
 
 inline static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
 
 static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
-  platform::FileDescriptor fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC, 0644));
+  platform::FileDescriptor fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC | O_NOFOLLOW, 0600));
   if (fd._fd < 0) {
     BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
     return platform::FileDescriptor(-1);
@@ -278,14 +285,24 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
 
   char *endptr = BONGOCAT_NULLPTR;
   errno = 0;  // Reset errno before call
-  const auto pid = static_cast<pid_t>(strtol(pid_str, &endptr, 10));
+  const auto pid_read = strtol(pid_str, &endptr, 10);
   if (endptr == pid_str) {
     return -1;  // no digits at all
   }
-  if ((errno == ERANGE) || pid < 0) {
+  if ((errno == ERANGE) || pid_read < 0) {
     BONGOCAT_LOG_ERROR("'%s' out of range for pid_t", pid_str);
     return -1;
   }
+  if (errno != 0 || endptr == pid_str ||
+     (*endptr != '\n' && *endptr != '\0' && *endptr != '\r')) {
+    BONGOCAT_LOG_ERROR("Invalid PID in PID file");
+    return -1;
+  }
+  if (pid_read <= 1 || pid_read > INT32_MAX) {
+    BONGOCAT_LOG_ERROR("PID value out of safe range: %ld", pid_read);
+    return -1;
+  }
+  const pid_t pid = static_cast<pid_t>(pid_read);
 
   char exe_path[PATH_MAX] = {0};
   snprintf(exe_path, sizeof(exe_path), "/proc/%d/exe", pid);
@@ -306,11 +323,76 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
   }
 
   // Check if process is actually running
-  if (kill(pid, 0) == 0) {
-    return pid;  // Process is running
+  if (kill(pid, 0) != 0) {
+    // Process is not running, remove stale PID file
+    return -1;
   }
 
-  return -1;
+  // Verify the running process is actually bongocat via /proc/PID/comm
+  char proc_path[64] = {0};
+  snprintf(proc_path, sizeof(proc_path), "/proc/%d/comm", pid);
+  FILE *fp = fopen(proc_path, "r");
+  if (fp != nullptr) {
+    char comm[64] = {0};
+    if (fgets(comm, sizeof(comm), fp) != nullptr) {
+      comm[strcspn(comm, "\n")] = '\0';
+      /// @TODO: better process name validation
+      if (strcmp(comm, "bongocat") != 0 ||
+          strcmp(comm, "wpets") != 0 ||
+          strcmp(comm, "wpets-all") != 0 ||
+          strcmp(comm, "wpets-dm") != 0 ||
+          strcmp(comm, "wpets-dm-classic") != 0 ||
+          strcmp(comm, "wpets-ms-agent") != 0 ||
+          strcmp(comm, "wpets-pkmn") != 0) {
+        fclose(fp);
+        BONGOCAT_LOG_INFO("PID %d is not bongocat (is %s), removing stale file",
+                          pid, comm);
+        return -1;
+      }
+    }
+    fclose(fp);
+  }
+
+  return pid;
+}
+
+static AllocatedString get_pid_file_path(const cli_args_t& args, const config::config_t& config) {
+  constexpr size_t pid_path_size = PATH_MAX;
+  static_assert(pid_path_size > 1, "pid path length must be fot minimal string");
+  AllocatedString pid_path = make_allocated_string(pid_path_size-1);
+
+  constexpr const char* tmp_dir = "/tmp";
+  const char *runtime_dir = getenv("XDG_RUNTIME_DIR");
+  const char* pid_dir = (runtime_dir != nullptr && runtime_dir[0] != '\0') ? runtime_dir : tmp_dir;
+
+  BONGOCAT_LOG_VERBOSE("Use path for PID file: %s", pid_dir);
+
+  if (args.nr >= 0) {
+    // set pid file, based on nr
+    if (pid_path) {
+      snprintf(pid_path.ptr, pid_path.capacity(), PID_FILE_WITH_SUFFIX_NR_PATH_TEMPLATE, pid_dir, args.nr);
+    }
+  } else if (config.output_name.length() > 0) {
+    // set pid file, based on output_name
+    if (!args.ignore_running) {
+      if (pid_path) {
+        snprintf(pid_path.ptr, pid_path.capacity(), PID_FILE_WITH_SUFFIX_PATH_TEMPLATE,
+                 pid_dir, config.output_name.c_str());
+      }
+    } else {
+      if (pid_path) {
+        snprintf(pid_path.ptr, pid_path.capacity(), PID_FILE_WITH_SUFFIX_MULTI_PATH_TEMPLATE,
+                 pid_dir, config.output_name.c_str(), platform::slow_rand());
+      }
+    }
+  } else {
+    if (pid_path) {
+      snprintf(pid_path.ptr, pid_path.capacity(), DEFAULT_PID_FILE_PATH_TEMPLATE,
+               pid_dir);
+    }
+  }
+
+  return pid_path;
 }
 
 static int process_handle_toggle(const char *program_name, const char *pid_filename) {
@@ -906,42 +988,10 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  if (args.nr >= 0) {
-    // set pid file, based on nr
-    const int needed_size = snprintf(BONGOCAT_NULLPTR, 0, PID_FILE_WITH_SUFFIX_NR_TEMPLATE, args.nr) + 1;
-    assert(needed_size >= 0);
-    ctx.pid_filename = make_allocated_string(static_cast<size_t>(needed_size));
-    if (ctx.pid_filename) {
-      snprintf(ctx.pid_filename.ptr, ctx.pid_filename.capacity(), PID_FILE_WITH_SUFFIX_NR_TEMPLATE, args.nr);
-    }
-  } else if (ctx.config.output_name.length() > 0) {
-    // set pid file, based on output_name
-    if (!args.ignore_running) {
-      const int needed_size = snprintf(BONGOCAT_NULLPTR, 0, PID_FILE_WITH_SUFFIX_TEMPLATE, ctx.config.output_name.c_str()) + 1;
-      assert(needed_size >= 0);
-      ctx.pid_filename = make_allocated_string(static_cast<size_t>(needed_size));
-      if (ctx.pid_filename) {
-        snprintf(ctx.pid_filename.ptr, ctx.pid_filename.capacity(), PID_FILE_WITH_SUFFIX_TEMPLATE,
-                 ctx.config.output_name.c_str());
-      }
-    } else {
-      const int needed_size = snprintf(BONGOCAT_NULLPTR, 0, PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE, ctx.config.output_name.c_str(),
-                                       platform::slow_rand()) +
-                              1;
-      assert(needed_size >= 0);
-      ctx.pid_filename = make_allocated_string(static_cast<size_t>(needed_size));
-      if (ctx.pid_filename) {
-        snprintf(ctx.pid_filename.ptr, ctx.pid_filename.capacity(), PID_FILE_WITH_SUFFIX_MULTI_TEMPLATE,
-                 ctx.config.output_name.c_str(), platform::slow_rand());
-      }
-    }
-
-    if (!ctx.pid_filename) [[unlikely]] {
-      BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
-      return EXIT_FAILURE;
-    }
-  } else {
-    ctx.pid_filename = duplicate_string(DEFAULT_PID_FILE);
+  ctx.pid_filename = get_pid_file_path(args, ctx.config);
+  if (!ctx.pid_filename) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to allocate PID filename");
+    return EXIT_FAILURE;
   }
 
   // Handle toggle mode

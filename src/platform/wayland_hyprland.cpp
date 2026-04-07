@@ -1,5 +1,6 @@
 #include "wayland_hyprland.h"
 
+#include "platform/wayland_setups.h"
 #include "utils/error.h"
 
 #include <cassert>
@@ -14,13 +15,15 @@
 
 namespace bongocat::platform::wayland::hyprland {
 
-int fs_check_compositor_fallback() {
-  FILE *fp = popen("hyprctl activewindow 2>/dev/null", "r");
-  if (fp != BONGOCAT_NULLPTR) {
+int fs_check_compositor_fallback(wayland_context_t& ctx) {
+  constexpr const char *argv[] = {HYPRCTL_COMMAND, "activewindow", NULL};
+  details::spawn_pipe_t sp = details::safe_popen_read_spawn(ctx, HYPRCTL_COMMAND, argv);
+
+  if (sp.fp != BONGOCAT_NULLPTR) {
     bool is_fullscreen = false;
 
     char line[LINE_BUF];
-    while (fgets(line, LINE_BUF, fp)) {
+    while (fgets(line, LINE_BUF, sp.fp)) {
       const size_t len = strlen(line);
       if (len > 0 && line[len - 1] == '\n') {
         line[len - 1] = '\0';
@@ -34,7 +37,6 @@ int fs_check_compositor_fallback() {
       }
     }
 
-    pclose(fp);
     return is_fullscreen ? 1 : 0;
   }
 
@@ -42,13 +44,14 @@ int fs_check_compositor_fallback() {
 }
 
 void update_outputs_with_monitor_ids(wayland_context_t& ctx) {
-  FILE *fp = popen("hyprctl monitors 2>/dev/null", "r");
-  if (fp == BONGOCAT_NULLPTR) {
+  constexpr const char *argv[] = {HYPRCTL_COMMAND, "monitors", NULL};
+  details::spawn_pipe_t sp = details::safe_popen_read_spawn(ctx, HYPRCTL_COMMAND, argv);
+  if (sp.fp == BONGOCAT_NULLPTR) {
     return;
   }
 
   char line[LINE_BUF];
-  while (fgets(line, LINE_BUF, fp)) {
+  while (fgets(line, LINE_BUF, sp.fp)) {
     int id = -1;
     char name[256] = {0};
     int result = sscanf(line, "Monitor %d \"%255[^\"]\"", &id, name);
@@ -68,12 +71,12 @@ void update_outputs_with_monitor_ids(wayland_context_t& ctx) {
       }
     }
   }
-
-  pclose(fp);
 }
 
-bool get_active_window(window_info_t& win) {
-  FILE *fp = popen("hyprctl activewindow 2>/dev/null", "r");
+bool get_active_window(wayland_context_t& ctx, window_info_t& win) {
+  constexpr const char *argv[] = {HYPRCTL_COMMAND, "activewindow", NULL};
+  details::spawn_pipe_t sp = details::safe_popen_read_spawn(ctx, HYPRCTL_COMMAND, argv);
+  FILE *fp = sp.fp;
   if (fp == BONGOCAT_NULLPTR) {
     return false;
   }
@@ -81,14 +84,26 @@ bool get_active_window(window_info_t& win) {
   bool has_window = false;
   win.monitor_id = -1;
   win.fullscreen = false;
+  win.x = 0;
+  win.y = 0;
+  win.width = 0;
+  win.height = 0;
 
-  char line[LINE_BUF];
-  while (fgets(line, LINE_BUF, fp)) {
+  char line[4096];
+  while (fgets(line, sizeof(line), fp) != nullptr) {
+    // remove trailing newline
+    size_t len = strlen(line);
+    if (len > 0 && line[len - 1] == '\n') {
+      line[len - 1] = '\0';
+    }
+
     // monitor: 0
     if (strstr(line, "monitor:") != BONGOCAT_NULLPTR) {
-      sscanf(line, "%*[\t ]monitor: %d", &win.monitor_id);
-      has_window = true;
+      if (sscanf(line, "%*[\t ]monitor: %d", &win.monitor_id) == 1) {
+        has_window = true;
+      }
     }
+
     // fullscreen: 0/1/2
     if (strstr(line, "fullscreen:") != BONGOCAT_NULLPTR) {
       int val;
@@ -96,12 +111,14 @@ bool get_active_window(window_info_t& win) {
         win.fullscreen = (val != 0);
       }
     }
+
     // at: X,Y
     if (strstr(line, "at:") != BONGOCAT_NULLPTR) {
       if (sscanf(line, "%*[\t ]at: [%d, %d]", &win.x, &win.y) < 2) {
         sscanf(line, "%*[\t ]at: %d,%d", &win.x, &win.y);
       }
     }
+
     // size: W,H
     if (strstr(line, "size:") != BONGOCAT_NULLPTR) {
       if (sscanf(line, "%*[\t ]size: [%d, %d]", &win.width, &win.height) < 2) {
@@ -110,7 +127,6 @@ bool get_active_window(window_info_t& win) {
     }
   }
 
-  pclose(fp);
   return has_window;
 }
 

@@ -200,7 +200,7 @@ static bool fs_update_state(wayland_context_t& ctx, update_fullscreen_state_topl
 
 namespace hyprland {
   static int fs_update_state(wayland_context_t& ctx) {
-    if (wayland::hyprland::window_info_t win; wayland::hyprland::get_active_window(win)) {
+    if (wayland::hyprland::window_info_t win; wayland::hyprland::get_active_window(ctx, win)) {
       bool find_output = false;
       wl_output *found_wl_output = nullptr;
       for (size_t i = 0; i < ctx.output_count; i++) {
@@ -224,16 +224,16 @@ namespace hyprland {
   }
 }  // namespace hyprland
 
-static bool fs_check_compositor_fallback() {
+static bool fs_check_compositor_fallback(wayland_context_t& ctx) {
   // BONGOCAT_LOG_VERBOSE("Using compositor-specific fullscreen detection");
 
   // Try Hyprland first
-  if (const int result = wayland::hyprland::fs_check_compositor_fallback(); result >= 0) {
+  if (const int result = wayland::hyprland::fs_check_compositor_fallback(ctx); result >= 0) {
     return result == 1;
   }
 
   // Try Sway as fallback
-  if (const int result = wayland::sway::fs_check_compositor_fallback(); result >= 0) {
+  if (const int result = wayland::sway::fs_check_compositor_fallback(ctx); result >= 0) {
     return result == 1;
   }
 
@@ -251,7 +251,7 @@ static bool fs_check_status(wayland_context_t& ctx) {
     return ctx.fs_detector.has_fullscreen_toplevel;
   }
 
-  return fs_check_compositor_fallback();
+  return fs_check_compositor_fallback(ctx);
 }
 
 void fs_update_state_fallback(wayland_context_t& ctx) {

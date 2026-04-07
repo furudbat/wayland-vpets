@@ -94,6 +94,9 @@ struct wayland_context_t {
   // Output reconnection handling
   atomic_bool _output_lost{false};  // Set when our output disconnects
 
+  // for safe_popen_read_spawn (pointer to global environ)
+  char **_environ{nullptr};
+
   wayland_context_t() {
     for (size_t i = 0; i < MAX_TOP_LEVELS; i++) {
       tracked_toplevels[i] = {};
@@ -164,6 +167,8 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
   cleanup_wayland_context(ctx.thread_context);
 
   ctx.animation_context = BONGOCAT_NULLPTR;
+
+  ctx._environ = BONGOCAT_NULLPTR;
 }
 }  // namespace bongocat::platform::wayland
 

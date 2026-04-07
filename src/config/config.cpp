@@ -1100,10 +1100,14 @@ static char *config_trim_str(char *key) {
 static bongocat_error_t config_parse_integer_key(config_t& config, const char *key, const char *value) {
   errno = 0;
   char *endptr_int = BONGOCAT_NULLPTR;
-  const int int_value = static_cast<int>(strtol(value, &endptr_int, 10));
-  if (errno != 0 || endptr_int == value || *endptr_int != '\0') {
+  const auto read_value = strtol(value, &endptr_int, 10);
+  if (errno != 0 || endptr_int == value || (*endptr_int != '\0' && *endptr_int != ' ' && *endptr_int != '\t')) {
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
   }
+  if (read_value < INT_MIN || read_value > INT_MAX) {
+    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+  }
+  const int int_value = static_cast<int>(read_value);
 
   if (strcmp(key, CAT_X_OFFSET_KEY) == 0) {
     config.cat_x_offset = int_value;
@@ -1809,6 +1813,15 @@ static bongocat_error_t config_parse_key_value(config_t& config, const char *key
   }
   // Handle device keys
   if (strcmp(key, KEYBOARD_DEVICE_KEY) == 0 || strcmp(key, KEYBOARD_DEVICES_KEY) == 0) {
+    // Validate path starts with /dev/input/ and has no traversal
+    if (strncmp(value, "/dev/input/", 11) != 0) {
+      BONGOCAT_LOG_WARNING("keyboard_device path must start with /dev/input/: %s", value);
+      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    }
+    if (strstr(value, "..") != nullptr) {
+      BONGOCAT_LOG_WARNING("Path traversal detected in device path: %s", value);
+      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    }
     return config_add_keyboard_device(config, value);
   }
 
