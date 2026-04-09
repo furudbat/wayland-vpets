@@ -42,7 +42,7 @@ static_assert((CREATE_SHM_NAME_PREFIX_LEN + CREATE_SHM_NAME_SUFFIX_LEN) == LEN_A
 // =============================================================================
 
 created_result_t<FileDescriptor> create_shm(off_t size) {
-  char *name = strdup(CREATE_SHM_NAME_TEMPLATE);
+  auto name = duplicate_string(CREATE_SHM_NAME_TEMPLATE);
   constexpr char charset_arr[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   constexpr size_t charset_len = sizeof(charset_arr) - 1;
   int fd = -1;
@@ -51,23 +51,22 @@ created_result_t<FileDescriptor> create_shm(off_t size) {
   for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
     for (size_t j = 0; j < CREATE_SHM_NAME_SUFFIX_LEN; j++) {
       static_assert(sizeof(charset_arr) - 1 > 0);
-      name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rng.range(0, charset_len - 1)];
+      assert(CREATE_SHM_NAME_PREFIX_LEN + j < name.capacity());
+      name.ptr[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rng.range(0, charset_len - 1)];
     }
-    fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
+    fd = shm_open(name.c_str(), O_RDWR | O_CREAT | O_EXCL, 0600);
     if (fd >= 0) {
-      shm_unlink(name);
+      shm_unlink(name.c_str());
       break;
     }
   }
 
   if (fd < 0 || ftruncate(fd, size) < 0) {
-    ::free(name);
     close(fd);
     fd = -1;
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
-  ::free(name);
   return FileDescriptor(fd);
 }
 
@@ -104,7 +103,8 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
         BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name.c_str());
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
       } else {
-        BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output", current_config.output_name.c_str());
+        BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output",
+                           current_config.output_name.c_str());
       }
     }
   }
@@ -134,8 +134,7 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
     // auto-detect screen width
     if (wayland_ctx.output != BONGOCAT_NULLPTR) {
       wl_display_roundtrip(wayland_ctx.display);
-      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR &&
-          wayland_ctx._screen_info->screen_width > 0 &&
+      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->screen_width > 0 &&
           wayland_ctx._screen_info->screen_width < INT16_MAX) {
         BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->screen_width);
         screen_width = wayland_ctx._screen_info->screen_width;
@@ -401,7 +400,6 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-
 spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, const char *const *argv) {
   int pipefd[2] = {0};
   spawn_pipe_t result;
@@ -426,7 +424,7 @@ spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, con
 
   pid_t pid{-1};
   // @NOTE: safe-const cast for argv
-  if (posix_spawn(&pid, path, &actions, nullptr, const_cast<char *const *>(argv), ctx._environ) != 0) {
+  if (posix_spawn(&pid, path, &actions, BONGOCAT_NULLPTR, const_cast<char *const *>(argv), ctx._environ) != 0) {
     close(pipefd[0]);
     close(pipefd[1]);
     posix_spawn_file_actions_destroy(&actions);

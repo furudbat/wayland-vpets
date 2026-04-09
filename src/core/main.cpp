@@ -7,6 +7,7 @@
 #include "platform/wayland.h"
 #include "utils/error.h"
 #include "utils/memory.h"
+#include "utils/system_error.h"
 
 #include <cassert>
 #include <cerrno>
@@ -216,7 +217,8 @@ inline static constexpr auto PID_FILE_WITH_SUFFIX_NR_PATH_TEMPLATE = "%s/bongoca
 inline static constexpr auto DEFAULT_CONF_FILENAME = "bongocat.conf";
 
 static platform::FileDescriptor process_create_pid_file(const char *pid_filename) {
-  platform::FileDescriptor fd = platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC | O_NOFOLLOW, 0600));
+  platform::FileDescriptor fd =
+      platform::FileDescriptor(open(pid_filename, O_CREAT | O_WRONLY | O_TRUNC | O_NOFOLLOW, 0600));
   if (fd._fd < 0) {
     BONGOCAT_LOG_ERROR("Failed to create PID file: %s", strerror(errno));
     return platform::FileDescriptor(-1);
@@ -293,8 +295,7 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
     BONGOCAT_LOG_ERROR("'%s' out of range for pid_t", pid_str);
     return -1;
   }
-  if (errno != 0 || endptr == pid_str ||
-     (*endptr != '\n' && *endptr != '\0' && *endptr != '\r')) {
+  if (errno != 0 || endptr == pid_str || (*endptr != '\n' && *endptr != '\0' && *endptr != '\r')) {
     BONGOCAT_LOG_ERROR("Invalid PID in PID file");
     return -1;
   }
@@ -332,21 +333,16 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
   char proc_path[64] = {0};
   snprintf(proc_path, sizeof(proc_path), "/proc/%d/comm", pid);
   FILE *fp = fopen(proc_path, "r");
-  if (fp != nullptr) {
+  if (fp != BONGOCAT_NULLPTR) {
     char comm[64] = {0};
-    if (fgets(comm, sizeof(comm), fp) != nullptr) {
+    if (fgets(comm, sizeof(comm), fp) != BONGOCAT_NULLPTR) {
       comm[strcspn(comm, "\n")] = '\0';
       /// @TODO: better process name validation
-      if (strcmp(comm, "bongocat") != 0 ||
-          strcmp(comm, "wpets") != 0 ||
-          strcmp(comm, "wpets-all") != 0 ||
-          strcmp(comm, "wpets-dm") != 0 ||
-          strcmp(comm, "wpets-dm-classic") != 0 ||
-          strcmp(comm, "wpets-ms-agent") != 0 ||
-          strcmp(comm, "wpets-pkmn") != 0) {
+      if (strcmp(comm, "bongocat") != 0 || strcmp(comm, "wpets") != 0 || strcmp(comm, "wpets-all") != 0 ||
+          strcmp(comm, "wpets-dm") != 0 || strcmp(comm, "wpets-dm-classic") != 0 ||
+          strcmp(comm, "wpets-ms-agent") != 0 || strcmp(comm, "wpets-pkmn") != 0) {
         fclose(fp);
-        BONGOCAT_LOG_INFO("PID %d is not bongocat (is %s), removing stale file",
-                          pid, comm);
+        BONGOCAT_LOG_INFO("PID %d is not bongocat (is %s), removing stale file", pid, comm);
         return -1;
       }
     }
@@ -359,11 +355,11 @@ static pid_t process_get_running_pid(const char *program_name, const char *pid_f
 static AllocatedString get_pid_file_path(const cli_args_t& args, const config::config_t& config) {
   constexpr size_t pid_path_size = PATH_MAX;
   static_assert(pid_path_size > 1, "pid path length must be fot minimal string");
-  AllocatedString pid_path = make_allocated_string(pid_path_size-1);
+  AllocatedString pid_path = make_allocated_string(pid_path_size - 1);
 
-  constexpr const char* tmp_dir = "/tmp";
+  constexpr const char *tmp_dir = "/tmp";
   const char *runtime_dir = getenv("XDG_RUNTIME_DIR");
-  const char* pid_dir = (runtime_dir != nullptr && runtime_dir[0] != '\0') ? runtime_dir : tmp_dir;
+  const char *pid_dir = (runtime_dir != BONGOCAT_NULLPTR && runtime_dir[0] != '\0') ? runtime_dir : tmp_dir;
 
   BONGOCAT_LOG_VERBOSE("Use path for PID file: %s", pid_dir);
 
@@ -376,19 +372,18 @@ static AllocatedString get_pid_file_path(const cli_args_t& args, const config::c
     // set pid file, based on output_name
     if (!args.ignore_running) {
       if (pid_path) {
-        snprintf(pid_path.ptr, pid_path.capacity(), PID_FILE_WITH_SUFFIX_PATH_TEMPLATE,
-                 pid_dir, config.output_name.c_str());
+        snprintf(pid_path.ptr, pid_path.capacity(), PID_FILE_WITH_SUFFIX_PATH_TEMPLATE, pid_dir,
+                 config.output_name.c_str());
       }
     } else {
       if (pid_path) {
-        snprintf(pid_path.ptr, pid_path.capacity(), PID_FILE_WITH_SUFFIX_MULTI_PATH_TEMPLATE,
-                 pid_dir, config.output_name.c_str(), platform::slow_rand());
+        snprintf(pid_path.ptr, pid_path.capacity(), PID_FILE_WITH_SUFFIX_MULTI_PATH_TEMPLATE, pid_dir,
+                 config.output_name.c_str(), platform::slow_rand());
       }
     }
   } else {
     if (pid_path) {
-      snprintf(pid_path.ptr, pid_path.capacity(), DEFAULT_PID_FILE_PATH_TEMPLATE,
-               pid_dir);
+      snprintf(pid_path.ptr, pid_path.capacity(), DEFAULT_PID_FILE_PATH_TEMPLATE, pid_dir);
     }
   }
 
@@ -461,10 +456,12 @@ static void config_reload_callback() {
   assert(get_main_context().input != BONGOCAT_NULLPTR);
   assert(get_main_context().animation != BONGOCAT_NULLPTR);
   assert(get_main_context().signal_watch_path);
-  BONGOCAT_LOG_INFO("Reloading configuration from: %s (config_watcher=%s)", get_main_context().signal_watch_path.c_str(),
-                    (get_main_context().config_watcher) ? get_main_context().config_watcher->config_path.c_str() : "OFF");
+  BONGOCAT_LOG_INFO(
+      "Reloading configuration from: %s (config_watcher=%s)", get_main_context().signal_watch_path.c_str(),
+      (get_main_context().config_watcher) ? get_main_context().config_watcher->config_path.c_str() : "OFF");
   assert(get_main_context().config_watcher == BONGOCAT_NULLPTR ||
-         strcmp(get_main_context().config_watcher->config_path.c_str(), get_main_context().signal_watch_path.c_str()) == 0);
+         strcmp(get_main_context().config_watcher->config_path.c_str(), get_main_context().signal_watch_path.c_str()) ==
+             0);
 
   if (strcmp(get_main_context().signal_watch_path.c_str(), "-") == 0) {
     BONGOCAT_LOG_WARNING("No reload config for stdin");
@@ -797,14 +794,14 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
 // =============================================================================
 
 static void cli_show_help(const char *program_name) {
-  char *base_program_name = strdup(program_name);
-  if (base_program_name == BONGOCAT_NULLPTR) [[unlikely]] {
+  auto base_program_name = duplicate_string(program_name);
+  if (!base_program_name) [[unlikely]] {
     perror("strdup");
     return;
   }
 
   printf("Bongo Cat Wayland Overlay.\n\n");
-  printf("Usage: %s [OPTIONS]\n\n", basename(base_program_name));
+  printf("Usage: %s [OPTIONS]\n\n", basename(base_program_name.ptr));
   printf("Options:\n");
   printf("  -h, --help                  Show this help message\n");
   printf("  -v, --version               Show version information\n");
@@ -813,7 +810,8 @@ static void cli_show_help(const char *program_name) {
   printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
   printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
   printf("  -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)\n");
-  printf("      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
+  printf(
+      "      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
   printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting ruinning instances\n");
   printf("      --ignore-running        Ignore current running instance\n");
@@ -855,8 +853,6 @@ static void cli_show_help(const char *program_name) {
     printf("  %8s - MS Agent\n", "ms_agent");
   }
   printf("\n");
-
-  ::free(base_program_name);
 }
 
 static void cli_show_version() {
@@ -931,6 +927,11 @@ int main(int argc, char *argv[]) {
   using namespace bongocat;
   // Initialize error system early
   bongocat::error_init(true);  // Enable debug initially
+  {
+    // Lifetime extension of temporary objects
+    assert(get_strerror(1).c_str());
+    BONGOCAT_LOG_VERBOSE("Test: Error string: %s", get_strerror(1).c_str());
+  }
 
   // Parse command line arguments
   const auto [args, args_result] = cli_parse_arguments(argc, argv);
@@ -959,7 +960,7 @@ int main(int argc, char *argv[]) {
       .strict = args.strict,
   };
   AllocatedString existing_config_file = config::resolve_path(args.config_file);
-  const char* config_file = existing_config_file ? existing_config_file.c_str() : "";
+  const char *config_file = existing_config_file ? existing_config_file.c_str() : "";
   if (args.strict >= 1) {
     if (strcmp(config_file, "-") != 0 && access(config_file, F_OK) != 0) {
       BONGOCAT_LOG_ERROR("Configuration file required: %s", config_file);

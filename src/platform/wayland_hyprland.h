@@ -5,7 +5,7 @@
 namespace bongocat::platform::wayland::hyprland {
 
 static inline constexpr size_t LINE_BUF = 512;
-static inline constexpr const char* HYPRCTL_COMMAND = "/usr/bin/hyprctl";
+static inline constexpr const char *HYPRCTL_COMMAND = "/usr/bin/hyprctl";
 
 struct window_info_t {
   int monitor_id{-1};  // monitor number in Hyprland

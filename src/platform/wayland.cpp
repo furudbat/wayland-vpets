@@ -27,6 +27,7 @@
 // #include "wayland_sway.h"
 #include "platform/wayland_callbacks.h"
 #include "platform/wayland_setups.h"
+#include "utils/system_error.h"
 
 namespace bongocat::platform::wayland {
 // =============================================================================
@@ -154,9 +155,8 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
     // Periodic fullscreen check for fallback fullscreen detection
     timespec now{};
     clock_gettime(CLOCK_MONOTONIC, &now);
-    const time_ms_t elapsed_ms =
-        ((now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L) +
-        ((now.tv_nsec - ctx.fs_detector.last_check.tv_nsec) / 1000000L);
+    const time_ms_t elapsed_ms = ((now.tv_sec - ctx.fs_detector.last_check.tv_sec) * 1000L) +
+                                 ((now.tv_nsec - ctx.fs_detector.last_check.tv_nsec) / 1000000L);
     time_ms_t fullscreen_check_interval_ms = frame_based_timeout;
 
     if (fullscreen_check_interval_ms < CHECK_INTERVAL_MS) {
@@ -532,9 +532,9 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
     }
   }
 
-  if (old_screen_name != nullptr) {
+  if (old_screen_name != BONGOCAT_NULLPTR) {
     ::free(old_screen_name);
-    old_screen_name = nullptr;
+    old_screen_name = BONGOCAT_NULLPTR;
   }
 
   /// @NOTE: assume animation has the same local copy as wayland config
@@ -545,8 +545,11 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
 }
 
 const char *get_current_layer_name(wayland_context_t& ctx) {
-  if (ctx.thread_context.ctx_shm && (atomic_load(&ctx.thread_context.ctx_shm->configured) && ctx.thread_context._local_copy_config)) {
-    return ctx.thread_context._local_copy_config->layer == config::layer_type_t::LAYER_OVERLAY ? WAYLAND_LAYER_NAME_OVERLAY : WAYLAND_LAYER_NAME_TOP;
+  if (ctx.thread_context.ctx_shm &&
+      (atomic_load(&ctx.thread_context.ctx_shm->configured) && ctx.thread_context._local_copy_config)) {
+    return ctx.thread_context._local_copy_config->layer == config::layer_type_t::LAYER_OVERLAY
+               ? WAYLAND_LAYER_NAME_OVERLAY
+               : WAYLAND_LAYER_NAME_TOP;
   }
   return WAYLAND_LAYER_NAME_TOP;
 }

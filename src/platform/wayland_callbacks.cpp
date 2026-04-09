@@ -202,7 +202,7 @@ namespace hyprland {
   static int fs_update_state(wayland_context_t& ctx) {
     if (wayland::hyprland::window_info_t win; wayland::hyprland::get_active_window(ctx, win)) {
       bool find_output = false;
-      wl_output *found_wl_output = nullptr;
+      wl_output *found_wl_output = BONGOCAT_NULLPTR;
       for (size_t i = 0; i < ctx.output_count; i++) {
         if (ctx.outputs[i].hypr_id == win.monitor_id) {
           if (ctx.thread_context.output == ctx.outputs[i].wl_output) {

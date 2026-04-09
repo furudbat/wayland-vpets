@@ -370,7 +370,10 @@ public:
     return *this;
   }
 
-  AllocatedString(AllocatedString&& other) noexcept : ptr(other.ptr), _capacity(other._capacity), _length(other._length) {
+  AllocatedString(AllocatedString&& other) noexcept
+      : ptr(other.ptr)
+      , _capacity(other._capacity)
+      , _length(other._length) {
     other.ptr = BONGOCAT_NULLPTR;
     other._capacity = 0;
     other._length = 0;
@@ -427,7 +430,7 @@ public:
     return _capacity;
   }
 
-  constexpr const char * c_str() const noexcept {
+  constexpr const char *c_str() const noexcept {
     return ptr;
   }
 };
@@ -445,10 +448,10 @@ BONGOCAT_NODISCARD inline static AllocatedString make_null_string() noexcept {
 
 BONGOCAT_NODISCARD inline static AllocatedString make_allocated_string(size_t length) {
   AllocatedString ret;
-  //ret._length = 0;
+  // ret._length = 0;
   if (length > 0) {
     ret._capacity = length + 1;
-    ret.ptr = static_cast<char*>(BONGOCAT_MALLOC(ret._capacity));
+    ret.ptr = static_cast<char *>(BONGOCAT_MALLOC(ret._capacity));
     if (ret.ptr != BONGOCAT_NULLPTR) {
       memset(ret.ptr, 0, ret._capacity);
       ret._length = strlen(ret.ptr);
@@ -464,9 +467,9 @@ BONGOCAT_NODISCARD inline static AllocatedString make_allocated_string(size_t le
   return ret;
 }
 
-BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const char* src) noexcept(true) {
+BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const char *src) noexcept(true) {
   AllocatedString ret;
-  //ret._length = 0;
+  // ret._length = 0;
   if (src != nullptr) {
     ret.ptr = strdup(src);
     if (ret.ptr != BONGOCAT_NULLPTR) {
@@ -485,7 +488,7 @@ BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const char* sr
   return ret;
 }
 BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const AllocatedString& other) noexcept(true) {
-  AllocatedString ret (other);
+  AllocatedString ret(other);
   return other;
 }
 

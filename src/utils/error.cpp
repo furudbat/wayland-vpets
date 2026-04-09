@@ -38,7 +38,7 @@ namespace details {
     localtime_r(&ts.tv_sec, &tm_info);  // Thread-safe
 
     strftime(timestamp, sizeof(timestamp), "%Y-%m-%d %H:%M:%S", &tm_info);
-    fprintf(stream, "[%s.%03ld] ", timestamp, ts.tv_nsec / 1000000);
+    fprintf(stream, "[%s.%03ld] ", timestamp, ts.tv_nsec / 1000000L);
   }
 
   // Core log function using va_list
@@ -47,7 +47,7 @@ namespace details {
     assert(name_len > 0);
 
     platform::LockGuard guard(get_log_mutex());
-    //char message[1024];
+    // char message[1024];
     log_timestamp(stdout);
     fprintf(stdout, "%.*s: ", name_len, name);
     vfprintf(stdout, format, args);

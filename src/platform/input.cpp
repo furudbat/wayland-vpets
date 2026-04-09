@@ -306,7 +306,7 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
       struct stat st{};
       if (stat(candidate, &st) == 0 && S_ISCHR(st.st_mode)) {
         if (need_reopen) {
-          FileDescriptor fd (open(candidate, O_RDONLY | O_NONBLOCK | O_CLOEXEC));
+          FileDescriptor fd(open(candidate, O_RDONLY | O_NONBLOCK | O_CLOEXEC));
           if (fd._fd >= 0 && is_open_device_valid(fd._fd)) {
             cur.fd = bongocat::move(fd);
             BONGOCAT_LOG_INFO("Opened input device: %s (fd=%d)", candidate, cur.fd._fd);
@@ -749,13 +749,14 @@ static void *input_thread(void *arg) {
         }
 
         if (!disable_adaptive_check_interval) {
-          if (!found_new_device && adaptive_check_interval_ms < MAX_ADAPTIVE_CHECK_INTERVAL_SEC*1000) {
-            adaptive_check_interval_ms = (adaptive_check_interval_ms < MID_ADAPTIVE_CHECK_INTERVAL_SEC*1000)
-                                              ? MID_ADAPTIVE_CHECK_INTERVAL_SEC*1000
-                                              : MAX_ADAPTIVE_CHECK_INTERVAL_SEC*1000;
-            BONGOCAT_LOG_DEBUG("input: Increased device check interval to %d seconds", adaptive_check_interval_ms/1000);
-          } else if (found_new_device && adaptive_check_interval_ms > START_ADAPTIVE_CHECK_INTERVAL_SEC*1000) {
-            adaptive_check_interval_ms = START_ADAPTIVE_CHECK_INTERVAL_SEC*1000;
+          if (!found_new_device && adaptive_check_interval_ms < MAX_ADAPTIVE_CHECK_INTERVAL_SEC * 1000) {
+            adaptive_check_interval_ms = (adaptive_check_interval_ms < MID_ADAPTIVE_CHECK_INTERVAL_SEC * 1000)
+                                             ? MID_ADAPTIVE_CHECK_INTERVAL_SEC * 1000
+                                             : MAX_ADAPTIVE_CHECK_INTERVAL_SEC * 1000;
+            BONGOCAT_LOG_DEBUG("input: Increased device check interval to %d seconds",
+                               adaptive_check_interval_ms / 1000);
+          } else if (found_new_device && adaptive_check_interval_ms > START_ADAPTIVE_CHECK_INTERVAL_SEC * 1000) {
+            adaptive_check_interval_ms = START_ADAPTIVE_CHECK_INTERVAL_SEC * 1000;
             BONGOCAT_LOG_DEBUG("input: Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
           }
         }
@@ -815,7 +816,7 @@ static void *input_thread(void *arg) {
     bool sync_devices_needed = false;
     bool reload_devices_needed = false;
     if (pfds[fds_udev_monitor_index].revents & POLLIN) {
-      //BONGOCAT_LOG_VERBOSE("input: Receive udev event");
+      // BONGOCAT_LOG_VERBOSE("input: Receive udev event");
       size_t attempts = 0;
       udev_device *dev = BONGOCAT_NULLPTR;
       while ((dev = udev_monitor_receive_device(input._udev_mon)) != BONGOCAT_NULLPTR && attempts < MAX_ATTEMPTS) {

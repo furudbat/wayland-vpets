@@ -172,4 +172,9 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
 }
 }  // namespace bongocat::platform::wayland
 
+namespace bongocat::animation {
+void cache_frames(platform::wayland::wayland_context_t& ctx, int target_w, int target_h, int mirror_x, int mirror_y,
+                  int enable_aa);
+}  // namespace bongocat::animation
+
 #endif

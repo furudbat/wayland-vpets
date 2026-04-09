@@ -3,7 +3,7 @@
 
 #ifndef _POSIX_C_SOURCE
 // POSIX feature test macro - must be before includes
-#define _POSIX_C_SOURCE 200809L
+#  define _POSIX_C_SOURCE 200809L
 #endif
 
 #include "utils/error.h"

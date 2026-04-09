@@ -7,14 +7,14 @@
 #include "utils/time.h"
 
 #include <libudev.h>
+#include <linux/input.h>
 #include <pthread.h>
 #include <stdatomic.h>
-#include <linux/input.h>
 
 namespace bongocat::platform::input {
 
-inline static constexpr size_t MAX_ACTIVE_DEVICES {32};
-inline static constexpr size_t input_hotplug_events {64};
+inline static constexpr size_t MAX_ACTIVE_DEVICES{32};
+inline static constexpr size_t input_hotplug_events{64};
 
 enum class input_unique_file_type_t : uint8_t {
   NONE,
@@ -25,7 +25,7 @@ struct input_unique_file_t;
 void cleanup(input_unique_file_t& file);
 struct input_unique_file_t {
   const char *_device_path{BONGOCAT_NULLPTR};  // original string from config (ref to input_context_t._device_paths[i])
-  AllocatedString canonical_path{BONGOCAT_NULLPTR};      // resolved real path
+  AllocatedString canonical_path{BONGOCAT_NULLPTR};  // resolved real path
   FileDescriptor fd;
   input_unique_file_type_t type{input_unique_file_type_t::NONE};
 

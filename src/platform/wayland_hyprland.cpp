@@ -16,7 +16,7 @@
 namespace bongocat::platform::wayland::hyprland {
 
 int fs_check_compositor_fallback(wayland_context_t& ctx) {
-  constexpr const char *argv[] = {HYPRCTL_COMMAND, "activewindow", NULL};
+  constexpr const char *argv[] = {HYPRCTL_COMMAND, "activewindow", BONGOCAT_NULLPTR};
   details::spawn_pipe_t sp = details::safe_popen_read_spawn(ctx, HYPRCTL_COMMAND, argv);
 
   if (sp.fp != BONGOCAT_NULLPTR) {
@@ -44,7 +44,7 @@ int fs_check_compositor_fallback(wayland_context_t& ctx) {
 }
 
 void update_outputs_with_monitor_ids(wayland_context_t& ctx) {
-  constexpr const char *argv[] = {HYPRCTL_COMMAND, "monitors", NULL};
+  constexpr const char *argv[] = {HYPRCTL_COMMAND, "monitors", BONGOCAT_NULLPTR};
   details::spawn_pipe_t sp = details::safe_popen_read_spawn(ctx, HYPRCTL_COMMAND, argv);
   if (sp.fp == BONGOCAT_NULLPTR) {
     return;
@@ -74,7 +74,7 @@ void update_outputs_with_monitor_ids(wayland_context_t& ctx) {
 }
 
 bool get_active_window(wayland_context_t& ctx, window_info_t& win) {
-  constexpr const char *argv[] = {HYPRCTL_COMMAND, "activewindow", NULL};
+  constexpr const char *argv[] = {HYPRCTL_COMMAND, "activewindow", BONGOCAT_NULLPTR};
   details::spawn_pipe_t sp = details::safe_popen_read_spawn(ctx, HYPRCTL_COMMAND, argv);
   FILE *fp = sp.fp;
   if (fp == BONGOCAT_NULLPTR) {
@@ -90,7 +90,7 @@ bool get_active_window(wayland_context_t& ctx, window_info_t& win) {
   win.height = 0;
 
   char line[4096];
-  while (fgets(line, sizeof(line), fp) != nullptr) {
+  while (fgets(line, sizeof(line), fp) != BONGOCAT_NULLPTR) {
     // remove trailing newline
     size_t len = strlen(line);
     if (len > 0 && line[len - 1] == '\n') {

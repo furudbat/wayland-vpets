@@ -160,7 +160,7 @@ struct config_t {
   // for keep old index when reload config
   bool _keep_old_animation_index{false};
   bool _strict{false};
-  bool _custom{false};                      // is custom sprite sheet
+  bool _custom{false};                                // is custom sprite sheet
   AllocatedString _animation_name{BONGOCAT_NULLPTR};  // original animation_anim from parsing config
   AllocatedString _loaded_animation_fqname{BONGOCAT_NULLPTR};
 
@@ -431,14 +431,14 @@ struct config_t {
       for (int i = 0; i < other.num_keyboard_devices; ++i) {
         keyboard_devices[i] = other.keyboard_devices[i];
         release_allocated_string(other.keyboard_devices[i]);
-        //other.keyboard_devices[i] = BONGOCAT_NULLPTR;
+        // other.keyboard_devices[i] = BONGOCAT_NULLPTR;
       }
       num_keyboard_devices = other.num_keyboard_devices;
 
       for (int i = 0; i < other._num_keyboard_names; ++i) {
         _keyboard_names[i] = other._keyboard_names[i];
         release_allocated_string(other._keyboard_names[i]);
-        //other._keyboard_names[i] = BONGOCAT_NULLPTR;
+        // other._keyboard_names[i] = BONGOCAT_NULLPTR;
       }
       _num_keyboard_names = other._num_keyboard_names;
 
@@ -519,7 +519,6 @@ BONGOCAT_NODISCARD created_result_t<config_t> load(const char *config_file_path,
 void reset(config_t& config);
 
 void set_defaults(config_t& config);
-
 
 // Resolve config file path with XDG fallback
 // Returns a static/allocated path, or NULL if none found.

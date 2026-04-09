@@ -16,6 +16,22 @@ void cleanup_shm_buffer(wayland_shm_buffer_t& buffer);
 
 struct wayland_thread_context;
 
+// Pre-scaled frame cache (avoids repeated scaling of constant source images)
+struct cached_frame_t {
+  MMapArray<uint8_t> data;
+  int width;
+  int height;
+};
+
+struct wayland_context_t;
+}  // namespace bongocat::platform::wayland
+
+namespace bongocat::animation {
+void invalidate_cache_frames(platform::wayland::wayland_context_t& ctx);
+}  // namespace bongocat::animation
+
+namespace bongocat::platform::wayland {
+
 struct wayland_shm_buffer_t {
   wl_buffer *buffer{BONGOCAT_NULLPTR};
   MMapFileBuffer<uint8_t> pixels;
@@ -26,6 +42,9 @@ struct wayland_shm_buffer_t {
   // extra context for listeners
   animation::animation_context_t *_animation_context{BONGOCAT_NULLPTR};
   wayland_thread_context *_wayland_thread_context{BONGOCAT_NULLPTR};  // parent ref. for buffer_release
+
+  /// @TODO: add caching for frame buffer
+  // cached_frame_t _cached_frames[animation::MAX_NUM_FRAMES];
 
   wayland_shm_buffer_t() = default;
   ~wayland_shm_buffer_t() {

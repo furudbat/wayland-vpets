@@ -23,7 +23,8 @@ static inline constexpr platform::time_ms_t RELOAD_DELAY_MS = 100;
 static inline constexpr platform::time_ms_t RECREATE_SLEEP_ATTEMPT_MS = 100;
 static inline constexpr platform::time_ms_t TIMEOUT_MS = 100;
 
-static constexpr uint32_t FILE_MASK = IN_CLOSE_WRITE | IN_MODIFY | IN_MOVED_TO | IN_ATTRIB | IN_MOVE_SELF | IN_DELETE_SELF;
+static constexpr uint32_t FILE_MASK =
+    IN_CLOSE_WRITE | IN_MODIFY | IN_MOVED_TO | IN_ATTRIB | IN_MOVE_SELF | IN_DELETE_SELF;
 static constexpr uint32_t DIR_MASK = IN_CREATE | IN_MOVED_TO | IN_DELETE | IN_MOVED_FROM;
 
 static bongocat_error_t config_watcher_add_watch(config_watcher_t& watcher) {
@@ -41,7 +42,8 @@ static bongocat_error_t config_watcher_add_watch(config_watcher_t& watcher) {
 
   watcher.wd_dir =
       platform::FileDescriptor(inotify_add_watch(watcher.inotify_fd._fd, dirname(watcher.config_path.ptr), DIR_MASK));
-  watcher.wd_file = platform::FileDescriptor(inotify_add_watch(watcher.inotify_fd._fd, watcher.config_path.c_str(), FILE_MASK));
+  watcher.wd_file =
+      platform::FileDescriptor(inotify_add_watch(watcher.inotify_fd._fd, watcher.config_path.c_str(), FILE_MASK));
 
   if ((watcher.wd_dir._fd < 0 || watcher.wd_file._fd < 0) && features::Debug) {
     BONGOCAT_LOG_WARNING("config_watcher: partial reinit of inotify watches");
@@ -186,7 +188,6 @@ static void *config_watcher_thread(void *arg) {
           should_reload = false;
         }
       }
-
 
       // ensure file exists (from IN_CLOSE_WRITE/IN_MODIFY)
       if (should_reload) {

@@ -42,6 +42,7 @@
 #include "image_loader/pen20/load_images_pen20.h"
 #include "image_loader/pkmn/load_images_pkmn.h"
 #include "image_loader/pmd/load_images_pmd.h"
+#include "utils/system_error.h"
 
 namespace bongocat::animation {
 [[maybe_unused]] static constexpr bool should_load_bongocat([[maybe_unused]] const config::config_t& config) {

@@ -14,6 +14,7 @@
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
 #include "platform/wayland.h"
+#include "utils/system_error.h"
 #include "utils/time.h"
 
 #include <cassert>
@@ -2586,7 +2587,7 @@ anim_ms_agent_process_animation(animation_player_result_t& new_animation_result,
 
   anim_ms_agent_process_animation_result_t ret{.row_state = new_state.row_state,
                                                .status = anim_ms_agent_process_animation_result_status_t::None};
-  if (section != nullptr && section->valid) {
+  if (section != BONGOCAT_NULLPTR && section->valid) {
     new_animation_result.sprite_sheet_row = section->row;
     new_animation_result.sprite_sheet_col = new_animation_result.sprite_sheet_col + 1;
     ret.status = anim_ms_agent_process_animation_result_status_t::Updated;
@@ -2695,7 +2696,7 @@ anim_ms_agent_restart_animation([[maybe_unused]] animation_thread_context_t& ctx
 
   anim_ms_agent_process_animation_result_t ret{.row_state = new_state.row_state,
                                                .status = anim_ms_agent_process_animation_result_status_t::None};
-  if (section != nullptr && section->valid) {
+  if (section != BONGOCAT_NULLPTR && section->valid) {
     new_state.row_state = new_row_state;
     new_animation_result.sprite_sheet_row = section->row;
     new_animation_result.sprite_sheet_col = section->start_col;

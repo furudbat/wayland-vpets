@@ -127,7 +127,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
       // Skip fullscreen hiding when layer is LAYER_OVERLAY (always visible)
       const bool is_overlay_layer = current_config.layer == config::layer_type_t::LAYER_OVERLAY;
-      const bool is_fullscreen = !is_overlay_layer && (current_config.disable_fullscreen_hide <= 0 && wayland_ctx._fullscreen_detected);
+      const bool is_fullscreen =
+          !is_overlay_layer && (current_config.disable_fullscreen_hide <= 0 && wayland_ctx._fullscreen_detected);
       const bool bar_visible =
           !is_fullscreen && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
       const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
@@ -283,6 +284,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
         break;
       }
 
+      // draw debug bar
       const bool bar_visible =
           !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
       const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
@@ -926,4 +928,30 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
 
   return draw_bar_result_t::NoFlushNeeded;
 }
+
+void invalidate_cache_frames(platform::wayland::wayland_context_t& /*ctx*/) {
+  for (size_t i = 0; i < animation::MAX_NUM_FRAMES; i++) {
+    /*
+    platform::release_allocated_mmap_array(ctx._cached_frames[i].data);
+    ctx._cached_frames[i].data = BONGOCAT_NULLPTR;
+    ctx._cached_frames[i].width = 0;
+    ctx._cached_frames[i].height = 0;
+    */
+  }
+}
+void cache_frames(platform::wayland::wayland_context_t& ctx, int target_w, int target_h, int /*mirror_x*/,
+                  int /*mirror_y*/, int /*enable_aa*/) {
+  if (ctx.thread_context.ctx_shm) {
+    invalidate_cache_frames(ctx);
+
+    for (size_t i = 0; i < animation::MAX_NUM_FRAMES; i++) {
+      if (target_w <= 0 || target_h <= 0) {
+        continue;
+      }
+
+      /// @TODO: fill cache
+    }
+  }
+}
+
 }  // namespace bongocat::animation

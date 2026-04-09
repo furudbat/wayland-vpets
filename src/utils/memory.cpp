@@ -151,7 +151,7 @@ memory_pool_t *memory_pool_create(size_t size, size_t alignment) {
   // Validate alignment is a power of 2
   if ((alignment & (alignment - 1)) != 0) {
     BONGOCAT_LOG_ERROR("Memory pool alignment must be a power of 2, got %zu", alignment);
-    return NULL;
+    return BONGOCAT_NULLPTR;
   }
 
   auto *pool = static_cast<memory_pool_t *>(bongocat::malloc(sizeof(memory_pool_t)));
