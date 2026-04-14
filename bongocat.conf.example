@@ -45,7 +45,8 @@ mirror_y=0
 
 # Anti-aliasing settings
 # enable_antialiasing: Use bilinear interpolation for smooth scaling (0 = off, 1 = on)
-# When enabled, provides smoother edges when scaling the cat image
+# When enabled, provides smoother edges when scaling sprites
+# Recommended for pixel sprites to be off.
 enable_antialiasing=1
 
 # Size settings

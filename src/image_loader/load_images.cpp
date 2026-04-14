@@ -1,10 +1,12 @@
 #include "image_loader/load_images.h"
+#ifdef FEATURE_USE_BONGOCAT_SVG
+#include "image_loader/load_svgs.h"
+#endif
 
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "utils/memory.h"
-
 #include <cassert>
 
 namespace bongocat::animation {
@@ -251,5 +253,38 @@ created_result_t<generic_sprite_sheet_t> load_sprite_sheet_anim(const config::co
                      result.result.image.sprite_sheet_height, result.result.total_frames);
 
   return result;
+}
+
+BONGOCAT_NODISCARD created_result_t<Image> make_image(int width, int height, int desired_channels) {
+  BONGOCAT_CHECK_ERROR(width < 0, bongocat_error_t::BONGOCAT_ERROR_IMAGE, "image width can not be negative");
+  BONGOCAT_CHECK_ERROR(height < 0, bongocat_error_t::BONGOCAT_ERROR_IMAGE, "image height can not be negative");
+  BONGOCAT_CHECK_ERROR(desired_channels < 0, bongocat_error_t::BONGOCAT_ERROR_IMAGE, "image channels can not be negative");
+
+  Image ret;
+  if (width == 0 || height == 0 || desired_channels == 0) {
+    return ret;
+  }
+
+  assert(width > 0);
+  assert(height > 0);
+  assert(desired_channels > 0);
+  const size_t data_size = static_cast<size_t>(width) *
+                     static_cast<size_t>(height) *
+                     static_cast<size_t>(desired_channels);
+  assert(data_size > 0);
+
+
+  unsigned char* new_pixels = static_cast<unsigned char*>(::malloc(data_size));
+  if (new_pixels == BONGOCAT_NULLPTR) {
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+
+  ret.width = width;
+  ret.height = height;
+  ret.channels = desired_channels;
+  ret.pixels = new_pixels;
+  new_pixels = BONGOCAT_NULLPTR;
+
+  return ret;
 }
 }  // namespace bongocat::animation

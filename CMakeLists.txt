@@ -39,6 +39,7 @@ project(
 # Feature Flags
 include(CMakeDependentOption)
 option(FEATURE_BONGOCAT_EMBEDDED_ASSETS "Include bongocat assets (default)" ON)
+cmake_dependent_option(FEATURE_USE_BONGOCAT_SVG "Use bongocat SVG embedded assets" ON FEATURE_BONGOCAT_EMBEDDED_ASSETS OFF)
 option(FEATURE_ENABLE_DM_EMBEDDED_ASSETS "Enable include dm embedded assets" OFF)
 cmake_dependent_option(FEATURE_DM_EMBEDDED_ASSETS "Include dm embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DM20_EMBEDDED_ASSETS "Include dm20 embedded assets (replaces original dm)" OFF
@@ -317,8 +318,7 @@ if(FEATURE_MULTI_VERSIONS)
   target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   add_executable(bongocat-all)
-  target_link_libraries(bongocat-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
-  )# include bongocat as fallback
+  target_link_libraries(bongocat-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
   target_link_libraries(bongocat-all PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
   target_link_libraries(bongocat-all PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
   target_link_libraries(bongocat-all PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)

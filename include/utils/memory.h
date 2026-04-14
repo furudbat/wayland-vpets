@@ -487,6 +487,30 @@ BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const char *sr
   ret.ptr = BONGOCAT_NULLPTR;
   return ret;
 }
+BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const char *src, size_t length) noexcept(true) {
+  AllocatedString ret;
+  // ret._length = 0;
+  if (src != nullptr && length > 0) {
+    ret.ptr = static_cast<char *>(::malloc(length + 1));
+    if (ret.ptr != BONGOCAT_NULLPTR) {
+      const size_t len = strnlen(src, length);
+      ::memcpy(ret.ptr, src, len);
+      ret.ptr[len] = '\0';
+
+      ret._length = strlen(ret.ptr);
+      ret._capacity = length + 1;
+      return ret;
+    } else {
+      ret._capacity = 0;
+      ret._length = 0;
+      BONGOCAT_LOG_ERROR("memory allocation failed");
+    }
+  }
+  ret._capacity = 0;
+  ret._length = 0;
+  ret.ptr = BONGOCAT_NULLPTR;
+  return ret;
+}
 BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const AllocatedString& other) noexcept(true) {
   AllocatedString ret(other);
   return other;

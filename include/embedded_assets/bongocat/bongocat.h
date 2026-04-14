@@ -17,8 +17,9 @@ inline static constexpr int BONGOCAT_FRAME_BOTH_UP = 0;
 inline static constexpr int BONGOCAT_FRAME_LEFT_DOWN = 1;
 inline static constexpr int BONGOCAT_FRAME_RIGHT_DOWN = 2;
 inline static constexpr int BONGOCAT_FRAME_BOTH_DOWN = 3;
+inline static constexpr int BONGOCAT_FRAME_SLEEPING = 4;
 
-inline static constexpr size_t BONGOCAT_SPRITE_SHEET_COLS = 4;
+inline static constexpr size_t BONGOCAT_SPRITE_SHEET_COLS = 5;
 inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROWS = 1;
 inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROW = 0;
 
@@ -26,12 +27,19 @@ inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROW = 0;
 inline static constexpr int BONGOCAT_FRAME_WIDTH = 864;
 inline static constexpr int BONGOCAT_FRAME_HEIGHT = 360;
 
+inline static constexpr int BONGOCAT_SVG_FRAME_WIDTH = 500;
+inline static constexpr int BONGOCAT_SVG_FRAME_HEIGHT = 277;
+
 inline static constexpr size_t BONGOCAT_EMBEDDED_IMAGES_COUNT = animation::BONGOCAT_NUM_FRAMES;
 inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;
 
 BONGOCAT_NODISCARD extern embedded_image_t get_bongocat_sprite(size_t i);
 BONGOCAT_NODISCARD extern created_result_t<animation::generic_sprite_sheet_t>
 get_bongocat_sprite_sheet(const animation::animation_thread_context_t& ctx, int index);
+
+#ifdef FEATURE_USE_BONGOCAT_SVG
+BONGOCAT_NODISCARD extern embedded_image_t get_bongocat_sprite_svg(size_t i);
+#endif
 }  // namespace bongocat::assets
 
 #endif  // BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H

@@ -55,8 +55,14 @@ namespace features {
 
 #ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
   inline static constexpr bool EnableBongocatEmbeddedAssets = true;
+#  ifdef FEATURE_USE_BONGOCAT_SVG
+  inline static constexpr bool EnableBongocatSvg = true;
+#  else
+  inline static constexpr bool EnableBongocatSvg = false;
+#  endif
 #else
   inline static constexpr bool EnableBongocatEmbeddedAssets = false;
+  inline static constexpr bool EnableBongocatSvg = false;
 #endif
 
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS

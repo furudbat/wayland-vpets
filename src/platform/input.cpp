@@ -40,25 +40,25 @@ inline static constexpr size_t TEST_STDIN_BUF_LEN = 256;
 // Uses Linux input keycodes from <linux/input-event-codes.h>
 // Left-hand keys on QWERTY keyboard
 // clang-format off
-    inline static constexpr int INPUT_LEFT_KEYS[] = {
-      // Number row left half (1-6)
-      2, 3, 4, 5, 6, 7,           // KEY_1 to KEY_6
-      // QWERTY row left half
-      16, 17, 18, 19, 20,         // KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T
-      // Home row left half
-      30, 31, 32, 33, 34,         // KEY_A, KEY_S, KEY_D, KEY_F, KEY_G
-      // Bottom row left half
-      44, 45, 46, 47, 48,         // KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B
-      // Modifiers and special keys (left side)
-      1,                          // KEY_ESC
-      15,                         // KEY_TAB
-      58,                         // KEY_CAPSLOCK
-      42,                         // KEY_LEFTSHIFT
-      29,                         // KEY_LEFTCTRL
-      56,                         // KEY_LEFTALT
-      41,                         // KEY_GRAVE (backtick)
-      125,                        // KEY_LEFTMETA (super)
-    };
+inline static constexpr int INPUT_LEFT_KEYS[] = {
+  // Number row left half (1-6)
+  2, 3, 4, 5, 6, 7,           // KEY_1 to KEY_6
+  // QWERTY row left half
+  16, 17, 18, 19, 20,         // KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T
+  // Home row left half
+  30, 31, 32, 33, 34,         // KEY_A, KEY_S, KEY_D, KEY_F, KEY_G
+  // Bottom row left half
+  44, 45, 46, 47, 48,         // KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B
+  // Modifiers and special keys (left side)
+  1,                          // KEY_ESC
+  15,                         // KEY_TAB
+  58,                         // KEY_CAPSLOCK
+  42,                         // KEY_LEFTSHIFT
+  29,                         // KEY_LEFTCTRL
+  56,                         // KEY_LEFTALT
+  41,                         // KEY_GRAVE (backtick)
+  125,                        // KEY_LEFTMETA (super)
+};
 // clang-format on
 
 static input_hand_mapping_t get_hand_mapping_form_keycode([[maybe_unused]] const input_context_t& input, int keycode) {

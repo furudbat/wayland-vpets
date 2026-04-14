@@ -2,9 +2,10 @@ add_library(assets_bongocat_interface INTERFACE)
 
 add_library(assets_bongocat_feature INTERFACE)
 target_compile_definitions(assets_bongocat_feature INTERFACE FEATURE_BONGOCAT_EMBEDDED_ASSETS)
+target_compile_definitions(assets_bongocat_feature INTERFACE $<$<BOOL:${FEATURE_USE_BONGOCAT_SVG}>:FEATURE_USE_BONGOCAT_SVG>)
 
 add_library(assets_bongocat STATIC)
-target_sources(assets_bongocat PRIVATE bongocat_get_sprite_sheet.cpp bongocat_images.c)
+target_sources(assets_bongocat PRIVATE bongocat_get_sprite_sheet.cpp bongocat_images.c $<$<BOOL:${FEATURE_USE_BONGOCAT_SVG}>:bongocat_get_sprite_sheet_svg.cpp>)
 target_compile_options(assets_bongocat PRIVATE -ffunction-sections -fdata-sections)
 target_include_directories(assets_bongocat
         PUBLIC ${INCLUDE_DIR}
