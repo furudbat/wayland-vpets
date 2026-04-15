@@ -118,8 +118,14 @@ struct anim_sprite_sheet_from_embedded_svgs_t {
   float ty{0.0f};
   uint32_t alpha_mask{0};
 };
+struct anim_sprite_sheet_from_embedded_svgs_cropping_t {
+  int left{0};
+  int right{0};
+  int top{0};
+  int bottom{0};
+};
 BONGOCAT_NODISCARD created_result_t<generic_sprite_sheet_t>
-anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite, size_t embedded_images_count, anim_sprite_sheet_from_embedded_svgs_t svg_params);
+anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite, size_t embedded_images_count, anim_sprite_sheet_from_embedded_svgs_t svg_params, anim_sprite_sheet_from_embedded_svgs_cropping_t cropping = {});
 
 }  // namespace bongocat::animation
 #endif

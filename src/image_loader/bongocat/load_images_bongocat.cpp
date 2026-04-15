@@ -12,20 +12,23 @@
 namespace bongocat::animation {
 
 created_result_t<bongocat_sprite_sheet_t>
-load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count, load_bongocat_anim_type_t type, anim_sprite_sheet_from_embedded_svgs_t svg_params) {
+load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count,
+                    load_bongocat_anim_type_t type,
+                    anim_sprite_sheet_from_embedded_svgs_t svg_params, anim_sprite_sheet_from_embedded_svgs_cropping_t cropping) {
   BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
 
   auto [sprite_sheet, sprite_sheet_error] = [&]() {
     switch (type) {
-      case load_bongocat_anim_type_t::SVG:
+      case load_bongocat_anim_type_t::SVG:{
         assert(svg_params.target_w >= 0);
         assert(svg_params.target_h >= 0);
 #ifdef FEATURE_USE_BONGOCAT_SVG
-        return anim_sprite_sheet_from_embedded_svgs(get_sprite, embedded_images_count, svg_params);
+        return anim_sprite_sheet_from_embedded_svgs(get_sprite, embedded_images_count, svg_params, cropping);
 #else
-      BONGOCAT_LOG_WARNING("load_bongocat_anim: SVG not supported");
-      break;
+        BONGOCAT_LOG_WARNING("load_bongocat_anim: SVG not supported");
+        break;
 #endif
+      }
       case load_bongocat_anim_type_t::PNG:
         return anim_sprite_sheet_from_embedded_images(get_sprite, embedded_images_count);
     }
@@ -118,7 +121,8 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
 
 bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_index, get_sprite_callback_t get_sprite,
                                     size_t embedded_images_count, load_bongocat_anim_type_t type,
-                                    anim_sprite_sheet_from_embedded_svgs_t svg_params) {
+                                    anim_sprite_sheet_from_embedded_svgs_t svg_params,
+                                    anim_sprite_sheet_from_embedded_svgs_cropping_t cropping) {
   using namespace assets;
   BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
   BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
@@ -127,7 +131,7 @@ bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_in
   BONGOCAT_LOG_VERBOSE("Load bongocat Animation (%d/%d): %s ...", anim_index, BONGOCAT_ANIM_COUNT,
                        get_sprite(embedded_images_count).name);
 
-  auto [sprite_sheet, sprite_sheet_error] = load_bongocat_anim(anim_index, get_sprite, embedded_images_count, type, svg_params);
+  auto [sprite_sheet, sprite_sheet_error] = load_bongocat_anim(anim_index, get_sprite, embedded_images_count, type, svg_params, cropping);
   if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Load bongocat Animation failed: index: %d", anim_index);
     return sprite_sheet_error;
@@ -158,9 +162,11 @@ created_result_t<bongocat_sprite_sheet_t> load_bongocat_sprite_sheet(const anima
   switch (index) {
   case BONGOCAT_ANIM_INDEX:
     if constexpr (features::EnableBongocatSvg) {
-      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite_svg, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::SVG, anim_bongocat_get_svg_params(ctx._local_copy_config->cat_height));
+      const auto svg_params = anim_bongocat_get_svg_params(ctx._local_copy_config->cat_height);
+      const auto svg_cropping = anim_bongocat_get_svg_cropping(ctx._local_copy_config->cat_height);
+      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite_svg, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::SVG, svg_params, svg_cropping);
     } else {
-      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::PNG, {0, 0, 0, 0});
+      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::PNG, {0, 0, 0, 0}, {0, 0, 0, 0});
     }
   default:
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;

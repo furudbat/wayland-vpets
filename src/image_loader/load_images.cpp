@@ -6,6 +6,7 @@
 #include "utils/memory.h"
 #include <cassert>
 #include <cstring>
+#include <cstdint>
 
 namespace bongocat::animation {
 // =============================================================================
@@ -51,7 +52,7 @@ load_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_siz
     BONGOCAT_LOG_ERROR("Failed to allocate memory for dest_pixels (%zu bytes)\n", dest_pixels_size);
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  // memset(dest_pixels.data, 0, dest_pixels_size);
+  ::memset(dest_pixels.data, 0, dest_pixels_size);
 
   const auto src_frame_width = frame_width;
   const auto src_frame_height = frame_height;
@@ -173,19 +174,15 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
     ret.image.sprite_sheet_height = 0;
     ret.image.channels = 0;
 
-    for (size_t i = 0; i < loaded_images.count; i++) {
-      if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
-        ::free(loaded_images[i].pixels);
-        loaded_images[i].pixels = BONGOCAT_NULLPTR;
-      }
-    }
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
+
   // reset frames
-  // memset(anim->pixels.data, 0, anim->pixels.count * sizeof(uint8_t));
+  ::memset(ret.image.pixels.data, 0, ret.image.pixels._size_bytes);
   for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
     ret.frames[i] = {};
   }
+
   // append images into one sprite sheet
   assert(max_frame_width >= 0);
   assert(max_channels >= 0);
@@ -218,12 +215,6 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
     }
   }
 
-  for (size_t i = 0; i < loaded_images.count; i++) {
-    if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
-      ::free(loaded_images[i].pixels);
-      loaded_images[i].pixels = BONGOCAT_NULLPTR;
-    }
-  }
   return ret;
 }
 

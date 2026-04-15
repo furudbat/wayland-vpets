@@ -62,6 +62,15 @@ toggle_config() {
     echo "[TEST] Setting idle_sleep_timeout=$new"
 }
 
+sed -i -E 's/^overlay_position=[a-zA-Z]+/overlay_position=top/' "$CONFIG"
+sed -i -E 's/^overlay_opacity=[0-9]+/overlay_opacity=128/' "$CONFIG"
+sed -i -E 's/^cat_x_offset=[0-9]+/cat_x_offset=0/' "$CONFIG"
+sed -i -E 's/^cat_y_offset=[0-9]+/cat_y_offset=0/' "$CONFIG"
+sed -i -E 's/^cat_align=[a-zA-Z]+/cat_align=center/' "$CONFIG"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=1/' "$CONFIG"
+sed -i -E 's/^cat_height=[0-9]+/cat_align=60/' "$CONFIG"
+sed -i -E 's/^overlay_height=[0-9]+/overlay_height=80/' "$CONFIG"
+
 # Test Sleep
 sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=0/' "$CONFIG"
 sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
@@ -182,6 +191,29 @@ sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
+
+echo "[TEST] Scale Height"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=bongocat/' "$CONFIG"
+echo "[INFO] Normal height..."
+sed -i -E "s/^cat_height=[0-9]+/cat_height=500/" "$CONFIG"
+sed -i -E "s/^overlay_height=[0-9]+/overlay_height=500/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+echo "[INFO] Big height..."
+sed -i -E "s/^cat_height=[0-9]+/cat_height=1080/" "$CONFIG"
+sed -i -E "s/^overlay_height=[0-9]+/overlay_height=1080/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 10
+echo "[INFO] Small height..."
+sed -i -E "s/^cat_height=[0-9]+/cat_height=32/" "$CONFIG"
+sed -i -E "s/^overlay_height=[0-9]+/overlay_height=32/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+
 
 
 # --- verify running ---

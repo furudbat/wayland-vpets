@@ -4,7 +4,9 @@
 #include "graphics/drawing.h"
 #include "utils/memory.h"
 #include <cassert>
+#include <cstddef>
 #include <cstring>
+#include <cstdint>
 
 #include <nanosvg.h>
 #include <nanosvgrast.h>
@@ -80,7 +82,8 @@ created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params)
 
 created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite,
                                                                               size_t embedded_images_count,
-                                                                              anim_sprite_sheet_from_embedded_svgs_t svg_params) {
+                                                                              anim_sprite_sheet_from_embedded_svgs_t svg_params,
+                                                                              anim_sprite_sheet_from_embedded_svgs_cropping_t cropping) {
   generic_sprite_sheet_t ret;
 
   int total_frames = 0;
@@ -137,6 +140,15 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
     total_frames++;
   }
 
+  // prepare sprite sheet size
+  int cropped_w = max_frame_width - cropping.left - cropping.right;
+  int cropped_h = max_frame_height - cropping.top - cropping.bottom;
+  if (cropped_w < 0) cropped_w = 0;
+  if (cropped_h < 0) cropped_h = 0;
+  max_frame_width  = cropped_w;
+  max_frame_height = cropped_h;
+  assert(max_frame_width >= 0);
+  assert(max_frame_height >= 0);
   ret.frame_width = max_frame_width;
   ret.frame_height = max_frame_height;
   ret.total_frames = total_frames;
@@ -147,6 +159,17 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
   assert(ret.image.sprite_sheet_width >= 0);
   assert(ret.image.sprite_sheet_height >= 0);
   assert(ret.image.channels >= 0);
+  if (ret.image.sprite_sheet_width == 0 || ret.image.sprite_sheet_height == 0 || ret.image.channels == 0) {
+    ret.frame_width = 0;
+    ret.frame_height = 0;
+    ret.total_frames = 0;
+    ret.image.sprite_sheet_width = 0;
+    ret.image.sprite_sheet_height = 0;
+    ret.image.channels = 0;
+
+    return bongocat_error_t::BONGOCAT_ERROR_SVG;
+  }
+
   ret.image.pixels = make_allocated_array<uint8_t>(static_cast<size_t>(ret.image.sprite_sheet_width) *
                                                    static_cast<size_t>(ret.image.sprite_sheet_height) *
                                                    static_cast<size_t>(ret.image.channels));
@@ -158,57 +181,82 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
     ret.image.sprite_sheet_height = 0;
     ret.image.channels = 0;
 
-    for (size_t i = 0; i < loaded_images.count; i++) {
-      if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
-        ::free(loaded_images[i].pixels);
-        loaded_images[i].pixels = BONGOCAT_NULLPTR;
-      }
-    }
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
+
   // reset frames
-  //::memset(ret.image.pixels.data, 0, ret.image.pixels.count * sizeof(uint8_t));
+  ::memset(ret.image.pixels.data, 0, ret.image.pixels._size_bytes);
   for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
     ret.frames[i] = {};
   }
+
   // append images into one sprite sheet
   assert(max_frame_width >= 0);
   assert(max_channels >= 0);
   assert(ret.image.sprite_sheet_width >= 0);
   for (size_t frame = 0; frame < loaded_images.count; frame++) {
     const auto& src = loaded_images[frame];
-    assert(src.channels >= 0);
-    assert(src.width >= 0);
-    assert(src.height >= 0);
+
     if (src.pixels != BONGOCAT_NULLPTR && src.height > 0) {
-      // copy pixel data of sub-region
-      assert(src.height >= 0);
-      for (size_t y = 0; y < static_cast<size_t>(src.height); y++) {
-        unsigned char *dest_row = ret.image.pixels.data + (((y * static_cast<size_t>(ret.image.sprite_sheet_width)) +
-                                                           (frame * static_cast<size_t>(max_frame_width))) *
-                                                              static_cast<size_t>(max_channels));
-        const unsigned char *src_row =
-            src.pixels + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
-        ::memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
+      const int s_cropped_w = src.width  - cropping.left - cropping.right;
+      const int s_cropped_h = src.height - cropping.top  - cropping.bottom;
+      if (s_cropped_w <= 0 || s_cropped_h <= 0) {
+        continue;
       }
 
-      // update sub-region
+      int dy = 0;
+      int end_y = cropping.top + s_cropped_h;
+      if (end_y > src.height) end_y = src.height;
+      for (int y = cropping.top; y < end_y; y++) {
+        assert(dy >= 0);
+        unsigned char* dest_row =
+            ret.image.pixels.data +
+            (((static_cast<size_t>(dy) * static_cast<size_t>(ret.image.sprite_sheet_width)) +
+              (frame * static_cast<size_t>(max_frame_width))) *
+             static_cast<size_t>(max_channels));
+
+        if (y < src.height) {
+          const unsigned char* src_row =
+              src.pixels +
+              static_cast<ptrdiff_t>(((y * src.width) + cropping.left) * src.channels);
+
+          assert(ret.image.sprite_sheet_height >= 0);
+          if (dy < ret.image.sprite_sheet_height) {
+            assert(s_cropped_w >= 0);
+            int line_w = s_cropped_w;
+            if (line_w >= max_frame_width) line_w = max_frame_width;
+            if (line_w >= src.width) line_w = src.width;
+            if (line_w >= ret.image.sprite_sheet_width) line_w = ret.image.sprite_sheet_width;
+
+            assert(max_channels == src.channels);
+            assert(max_channels == ret.image.channels);
+            ::memcpy(dest_row,
+                     src_row,
+                     static_cast<size_t>(line_w) * static_cast<size_t>(max_channels));
+          }
+        }
+
+        dy++;
+      }
+
       if (frame < MAX_NUM_FRAMES) {
-        ret.frames[frame] = {.valid = true, .col = static_cast<int>(frame), .row = 0};
+        ret.frames[frame] = {
+          .valid = true,
+          .col = static_cast<int>(frame),
+          .row = 0
+        };
       }
     } else {
       if (frame < MAX_NUM_FRAMES) {
-        ret.frames[frame] = {.valid = false, .col = static_cast<int>(frame), .row = 0};
+        ret.frames[frame] = {
+          .valid = false,
+          .col = static_cast<int>(frame),
+          .row = 0
+        };
       }
     }
   }
 
-  for (size_t i = 0; i < loaded_images.count; i++) {
-    if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
-      ::free(loaded_images[i].pixels);
-      loaded_images[i].pixels = BONGOCAT_NULLPTR;
-    }
-  }
   return ret;
 }
 

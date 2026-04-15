@@ -480,7 +480,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
   // Load embedded images/animations
-  if constexpr (features::EnableLazyLoadAssets) {
+  if constexpr (features::EnableLazyLoadAssets || features::EnableBongocatSvg) {
     hot_load_animation(ret->thread_context);
   }
 
