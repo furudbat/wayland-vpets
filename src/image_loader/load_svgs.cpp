@@ -2,14 +2,14 @@
 #ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 #include "image_loader/load_images.h"
 #endif
-#include <nanosvg.h>
-#include <nanosvgrast.h>
-
 #include "graphics/animation.h"
-#include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "utils/memory.h"
 #include <cassert>
+#include <cstring>
+
+#include <nanosvg.h>
+#include <nanosvgrast.h>
 
 namespace bongocat::animation {
 // =============================================================================
@@ -57,7 +57,6 @@ BONGOCAT_NODISCARD created_result_t<SvgRasterImage> create_svg_rasterizer() {
 created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params) {
   BONGOCAT_CHECK_ERROR(params.w < 0, bongocat_error_t::BONGOCAT_ERROR_SVG, "svg image width can not be zero nor negative");
   BONGOCAT_CHECK_ERROR(params.h < 0, bongocat_error_t::BONGOCAT_ERROR_SVG, "svg image height can not be zero nor negative");
-  BONGOCAT_CHECK_ERROR(params.stride < 0, bongocat_error_t::BONGOCAT_ERROR_SVG, "svg image stride can not be zero nor negative");
 
   auto [image, image_error] = make_image(params.w, params.h, RGBA_CHANNELS);
   if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -69,14 +68,18 @@ created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params)
     return svg_raster_error;
   }
   assert(svg_raster.image != BONGOCAT_NULLPTR);
-  ::nsvgRasterize(svg_raster.image, svg.image, params.tx, params.ty, params.scale, image.pixels, params.w, params.h, params.stride);
+  //assert(image.width >= 0);
+  //assert(image.height >= 0);
+  //assert(image.channels >= 0);
+  //::memset(image.pixels, 0, static_cast<size_t>(image.width) * static_cast<size_t>(image.height) * static_cast<size_t>(image.channels));
+  ::nsvgRasterizeA(svg_raster.image, svg.image, params.tx, params.ty, params.scale, image.pixels, params.w, params.h, image.width * image.channels, params.alpha_threshold);
 
   return bongocat::move(image);
 }
 
 created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite,
                                                                               size_t embedded_images_count,
-                                                                              int target_w, int target_h) {
+                                                                              anim_sprite_sheet_from_embedded_svgs_t svg_params) {
   generic_sprite_sheet_t ret;
 
   int total_frames = 0;
@@ -97,8 +100,8 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
     bongocat::release_allocated_string(svg_data);
     svg_data = BONGOCAT_NULLPTR;
     assert(loaded_svg.image != nullptr);
-    float svg_w = loaded_svg.image->width;
-    float svg_h = loaded_svg.image->height;
+    const float svg_w = loaded_svg.image->width;
+    const float svg_h = loaded_svg.image->height;
     if (svg_w <= 0.0f || svg_h <= 0.0f) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to load embedded svg: width/height can not be zero (%fx%f)", static_cast<double>(svg_w), static_cast<double>(svg_h));
       continue;
@@ -106,14 +109,14 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
 
     assert(svg_w > 0);
     assert(svg_h > 0);
-    const float scale = static_cast<float>(target_w) / svg_w;
+    const float scale = static_cast<float>(svg_params.target_w) / svg_w;
     auto [loaded_image, image_error] = load_svg_image(loaded_svg, {
-      .tx = 0,
-      .ty = 0,
+      .tx = svg_params.tx,
+      .ty = svg_params.ty,
       .scale = scale,
-      .w = target_w,
-      .h = target_h,
-      .stride = target_w * 4,
+      .w = svg_params.target_w,
+      .h = svg_params.target_h,
+      .alpha_threshold = svg_params.alpha_threshold,
     });
     if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to load embedded svg: %s (%d)", img.name, image_error);
@@ -163,7 +166,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
   // reset frames
-  // memset(anim->pixels.data, 0, anim->pixels.count * sizeof(uint8_t));
+  //::memset(ret.image.pixels.data, 0, ret.image.pixels.count * sizeof(uint8_t));
   for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
     ret.frames[i] = {};
   }
@@ -185,7 +188,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
                                                               static_cast<size_t>(max_channels));
         const unsigned char *src_row =
             src.pixels + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
-        memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
+        ::memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
       }
 
       // update sub-region

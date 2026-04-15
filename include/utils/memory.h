@@ -186,7 +186,7 @@ public:
       ptr = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
       if (ptr != BONGOCAT_NULLPTR) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(ptr, other.ptr, _size_bytes);
+          ::memcpy(ptr, other.ptr, _size_bytes);
         } else {
           new (ptr) T(*other.ptr);
         }
@@ -207,7 +207,7 @@ public:
         ptr = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
         if (ptr) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(ptr, other.ptr, _size_bytes);
+            ::memcpy(ptr, other.ptr, _size_bytes);
           } else {
             new (ptr) T(*other.ptr);
           }
@@ -557,7 +557,7 @@ public:
       data = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
       if (data) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(data, other.data, _size_bytes);
+          ::memcpy(data, other.data, _size_bytes);
         } else {
           for (size_t i = 0; i < other.count; i++) {
             *data[i] = *other.data[i];
@@ -582,7 +582,7 @@ public:
         data = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
         if (data) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(data, other.data, _size_bytes);
+            ::memcpy(data, other.data, _size_bytes);
           } else {
             for (size_t i = 0; i < other.count; i++) {
               *data[i] = *other.data[i];

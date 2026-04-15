@@ -28,7 +28,10 @@ inline static constexpr int BONGOCAT_FRAME_WIDTH = 864;
 inline static constexpr int BONGOCAT_FRAME_HEIGHT = 360;
 
 inline static constexpr int BONGOCAT_SVG_FRAME_WIDTH = 500;
-inline static constexpr int BONGOCAT_SVG_FRAME_HEIGHT = 277;
+inline static constexpr int BONGOCAT_SVG_FRAME_HEIGHT = 500;
+inline static constexpr int BONGOCAT_SVG_FRAME_TX = 0;
+inline static constexpr int BONGOCAT_SVG_FRAME_TY = -101;
+inline static constexpr int BONGOCAT_SVG_ALPHA_THRESHOLD = 127;
 
 inline static constexpr size_t BONGOCAT_EMBEDDED_IMAGES_COUNT = animation::BONGOCAT_NUM_FRAMES;
 inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;

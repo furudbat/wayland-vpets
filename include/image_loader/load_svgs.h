@@ -38,7 +38,7 @@ struct LoadSvgImageParams {
   float scale;
   int w;
   int h;
-  int stride;
+  int alpha_threshold;
 };
 BONGOCAT_NODISCARD created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params);
 #endif
@@ -118,8 +118,15 @@ public:
   }
 };
 
+struct anim_sprite_sheet_from_embedded_svgs_t {
+  int target_w;
+  int target_h;
+  float tx{0.0f};
+  float ty{0.0f};
+  int alpha_threshold{0};
+};
 BONGOCAT_NODISCARD created_result_t<generic_sprite_sheet_t>
-anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite, size_t embedded_images_count, int target_w, int target_h);
+anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite, size_t embedded_images_count, anim_sprite_sheet_from_embedded_svgs_t svg_params);
 
 #endif
 

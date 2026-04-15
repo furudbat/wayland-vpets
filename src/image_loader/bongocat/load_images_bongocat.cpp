@@ -13,15 +13,15 @@
 namespace bongocat::animation {
 
 created_result_t<bongocat_sprite_sheet_t>
-load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count, load_bongocat_anim_type_t type, int target_frame_width, int target_frame_height) {
+load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count, load_bongocat_anim_type_t type, anim_sprite_sheet_from_embedded_svgs_t svg_params) {
   BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
 
   auto [sprite_sheet, sprite_sheet_error] = [&]() {
     switch (type) {
       case load_bongocat_anim_type_t::SVG:
-        assert(target_frame_width >= 0);
-        assert(target_frame_height >= 0);
-        return anim_sprite_sheet_from_embedded_svgs(get_sprite, embedded_images_count, target_frame_width, target_frame_height);
+        assert(svg_params.target_w >= 0);
+        assert(svg_params.target_h >= 0);
+        return anim_sprite_sheet_from_embedded_svgs(get_sprite, embedded_images_count, svg_params);
       case load_bongocat_anim_type_t::PNG:
         return anim_sprite_sheet_from_embedded_images(get_sprite, embedded_images_count);
     }
@@ -111,7 +111,8 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
 }
 
 bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_index, get_sprite_callback_t get_sprite,
-                                    size_t embedded_images_count, load_bongocat_anim_type_t type, int target_frame_width, int target_frame_height) {
+                                    size_t embedded_images_count, load_bongocat_anim_type_t type,
+                                    anim_sprite_sheet_from_embedded_svgs_t svg_params) {
   using namespace assets;
   BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
   BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
@@ -120,7 +121,7 @@ bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_in
   BONGOCAT_LOG_VERBOSE("Load bongocat Animation (%d/%d): %s ...", anim_index, BONGOCAT_ANIM_COUNT,
                        get_sprite(embedded_images_count).name);
 
-  auto [sprite_sheet, sprite_sheet_error] = load_bongocat_anim(anim_index, get_sprite, embedded_images_count, type, target_frame_width, target_frame_height);
+  auto [sprite_sheet, sprite_sheet_error] = load_bongocat_anim(anim_index, get_sprite, embedded_images_count, type, svg_params);
   if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Load bongocat Animation failed: index: %d", anim_index);
     return sprite_sheet_error;
@@ -151,13 +152,9 @@ created_result_t<bongocat_sprite_sheet_t> load_bongocat_sprite_sheet(const anima
   switch (index) {
   case BONGOCAT_ANIM_INDEX:
     if constexpr (features::EnableBongocatSvg) {
-      static_assert(BONGOCAT_SVG_FRAME_HEIGHT > 0);
-      static_assert(BONGOCAT_FRAME_HEIGHT > 0);
-      const int cat_h = ctx._local_copy_config->cat_height;
-      const int cat_w = (cat_h * BONGOCAT_SVG_FRAME_WIDTH) / BONGOCAT_SVG_FRAME_HEIGHT;
-      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite_svg, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::SVG, cat_w, cat_h);
+      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite_svg, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::SVG, anim_bongocat_get_svg_params(ctx._local_copy_config->cat_height));
     } else {
-      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::PNG, 0, 0);
+      return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::PNG, {0, 0, 0, 0});
     }
   default:
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;

@@ -2,12 +2,12 @@
 #ifdef FEATURE_USE_BONGOCAT_SVG
 #include "image_loader/load_svgs.h"
 #endif
-
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "utils/memory.h"
 #include <cassert>
+#include <cstring>
 
 namespace bongocat::animation {
 // =============================================================================
@@ -206,7 +206,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
                                                               static_cast<size_t>(max_channels));
         const unsigned char *src_row =
             src.pixels + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
-        memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
+        ::memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
       }
 
       // update sub-region
@@ -273,11 +273,11 @@ BONGOCAT_NODISCARD created_result_t<Image> make_image(int width, int height, int
                      static_cast<size_t>(desired_channels);
   assert(data_size > 0);
 
-
   unsigned char* new_pixels = static_cast<unsigned char*>(::malloc(data_size));
   if (new_pixels == BONGOCAT_NULLPTR) {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
+  ::memset(new_pixels, 0, data_size);
 
   ret.width = width;
   ret.height = height;

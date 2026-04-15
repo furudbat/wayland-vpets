@@ -488,7 +488,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
   /// @TODO: async assets load
   // Initialize embedded images/animations
   if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
-    assert(ret->thread_context._local_copy_config.ptr);
+    assert(ret->thread_context._local_copy_config);
     // preload assets
     if constexpr (features::EnableBongocatEmbeddedAssets) {
       // Load Bongocat
@@ -500,15 +500,11 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         ctx.shm->bongocat_anims = platform::make_allocated_mmap_array<animation_t>(BONGOCAT_ANIM_COUNT);
 
         if constexpr (features::EnableBongocatSvg) {
-          static_assert(BONGOCAT_SVG_FRAME_HEIGHT > 0);
-          static_assert(BONGOCAT_FRAME_HEIGHT > 0);
-          const int cat_h = ret->thread_context._local_copy_config->cat_height;
-          const int cat_w = (cat_h * BONGOCAT_SVG_FRAME_WIDTH) / BONGOCAT_SVG_FRAME_HEIGHT;
           init_bongocat_anim(ctx, BONGOCAT_ANIM_INDEX, get_bongocat_sprite_svg, BONGOCAT_EMBEDDED_IMAGES_COUNT,
-                             load_bongocat_anim_type_t::SVG, cat_w, cat_h);
+                             load_bongocat_anim_type_t::SVG, anim_bongocat_get_svg_params(ret->thread_context._local_copy_config->cat_height));
         } else {
           init_bongocat_anim(ctx, BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT,
-                             load_bongocat_anim_type_t::PNG, 0, 0);
+                             load_bongocat_anim_type_t::PNG, {0,0,0,0});
         }
       }
     }

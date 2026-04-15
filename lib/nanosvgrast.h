@@ -64,6 +64,10 @@ void nsvgRasterize(NSVGrasterizer* r,
 				   NSVGimage* image, float tx, float ty, float scale,
 				   unsigned char* dst, int w, int h, int stride);
 
+void nsvgRasterizeA(NSVGrasterizer* r,
+           NSVGimage* image, float tx, float ty, float scale,
+           unsigned char* dst, int w, int h, int stride, int alpha_threshold);
+
 // Deletes rasterizer context.
 void nsvgDeleteRasterizer(NSVGrasterizer*);
 
@@ -1209,7 +1213,7 @@ static void nsvg__rasterizeSortedEdges(NSVGrasterizer *r, float tx, float ty, fl
 
 }
 
-static void nsvg__unpremultiplyAlpha(unsigned char* image, int w, int h, int stride)
+static void nsvg__unpremultiplyAlpha(unsigned char* image, int w, int h, int stride, int alpha_threshold)
 {
 	int x,y;
 
@@ -1218,7 +1222,7 @@ static void nsvg__unpremultiplyAlpha(unsigned char* image, int w, int h, int str
 		unsigned char *row = &image[y*stride];
 		for (x = 0; x < w; x++) {
 			int r = row[0], g = row[1], b = row[2], a = row[3];
-			if (a != 0) {
+			if (a > alpha_threshold) {
 				row[0] = (unsigned char)(r*255/a);
 				row[1] = (unsigned char)(g*255/a);
 				row[2] = (unsigned char)(b*255/a);
@@ -1372,9 +1376,9 @@ static void dumpEdges(NSVGrasterizer* r, const char* name)
 }
 */
 
-void nsvgRasterize(NSVGrasterizer* r,
+void nsvgRasterizeA(NSVGrasterizer* r,
 				   NSVGimage* image, float tx, float ty, float scale,
-				   unsigned char* dst, int w, int h, int stride)
+				   unsigned char* dst, int w, int h, int stride, int alpha_threshold)
 {
 	NSVGshape *shape = NULL;
 	NSVGedge *e = NULL;
@@ -1459,12 +1463,18 @@ void nsvgRasterize(NSVGrasterizer* r,
         }
 	}
 
-	nsvg__unpremultiplyAlpha(dst, w, h, stride);
+	nsvg__unpremultiplyAlpha(dst, w, h, stride, alpha_threshold);
 
 	r->bitmap = NULL;
 	r->width = 0;
 	r->height = 0;
 	r->stride = 0;
+}
+
+void nsvgRasterize(NSVGrasterizer* r,
+           NSVGimage* image, float tx, float ty, float scale,
+           unsigned char* dst, int w, int h, int stride) {
+  return nsvgRasterizeA(r, image, tx, ty, scale, dst, w, h, stride, 0);
 }
 
 #endif // NANOSVGRAST_IMPLEMENTATION

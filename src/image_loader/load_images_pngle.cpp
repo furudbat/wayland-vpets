@@ -1,5 +1,4 @@
 #include "image_loader/load_images.h"
-
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
