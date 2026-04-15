@@ -72,7 +72,7 @@ created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params)
   //assert(image.height >= 0);
   //assert(image.channels >= 0);
   //::memset(image.pixels, 0, static_cast<size_t>(image.width) * static_cast<size_t>(image.height) * static_cast<size_t>(image.channels));
-  ::nsvgRasterizeA(svg_raster.image, svg.image, params.tx, params.ty, params.scale, image.pixels, params.w, params.h, image.width * image.channels, params.alpha_threshold);
+  ::nsvgRasterizeA(svg_raster.image, svg.image, params.tx, params.ty, params.scale, image.pixels, params.w, params.h, image.width * image.channels, params.alpha_mask);
 
   return bongocat::move(image);
 }
@@ -116,7 +116,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
       .scale = scale,
       .w = svg_params.target_w,
       .h = svg_params.target_h,
-      .alpha_threshold = svg_params.alpha_threshold,
+      .alpha_mask = svg_params.alpha_mask,
     });
     if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to load embedded svg: %s (%d)", img.name, image_error);

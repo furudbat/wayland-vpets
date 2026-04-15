@@ -13,6 +13,7 @@
 #endif
 #include <nanosvg.h>
 #include <cstdlib>
+#include <cstdint>
 
 namespace bongocat::animation {
 // =============================================================================
@@ -38,7 +39,7 @@ struct LoadSvgImageParams {
   float scale;
   int w;
   int h;
-  int alpha_threshold;
+  uint32_t alpha_mask{0};
 };
 BONGOCAT_NODISCARD created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params);
 #endif
@@ -123,7 +124,7 @@ struct anim_sprite_sheet_from_embedded_svgs_t {
   int target_h;
   float tx{0.0f};
   float ty{0.0f};
-  int alpha_threshold{0};
+  uint32_t alpha_mask{0};
 };
 BONGOCAT_NODISCARD created_result_t<generic_sprite_sheet_t>
 anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite, size_t embedded_images_count, anim_sprite_sheet_from_embedded_svgs_t svg_params);

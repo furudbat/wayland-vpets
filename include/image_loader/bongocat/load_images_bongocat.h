@@ -32,7 +32,7 @@ inline anim_sprite_sheet_from_embedded_svgs_t anim_bongocat_get_svg_params(int c
     .target_h = cat_h,
     .tx = static_cast<float>(BONGOCAT_SVG_FRAME_TX) * scale,
     .ty = static_cast<float>(BONGOCAT_SVG_FRAME_TY) * scale,
-    .alpha_threshold = BONGOCAT_SVG_ALPHA_THRESHOLD,
+    .alpha_mask = BONGOCAT_SVG_ALPHA_MASK,
   };
 }
 

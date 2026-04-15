@@ -4,8 +4,8 @@
 #include "core/bongocat.h"
 #include "embedded_assets/embedded_image.h"
 #include "graphics/sprite_sheet.h"
-
 #include <cstddef>
+#include <cstdint>
 
 namespace bongocat::animation {
 struct animation_thread_context_t;
@@ -31,7 +31,7 @@ inline static constexpr int BONGOCAT_SVG_FRAME_WIDTH = 500;
 inline static constexpr int BONGOCAT_SVG_FRAME_HEIGHT = 500;
 inline static constexpr int BONGOCAT_SVG_FRAME_TX = 0;
 inline static constexpr int BONGOCAT_SVG_FRAME_TY = -101;
-inline static constexpr int BONGOCAT_SVG_ALPHA_THRESHOLD = 127;
+inline static constexpr uint32_t BONGOCAT_SVG_ALPHA_MASK = 0x808080FF; // rgba(128,128,128,255)
 
 inline static constexpr size_t BONGOCAT_EMBEDDED_IMAGES_COUNT = animation::BONGOCAT_NUM_FRAMES;
 inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;

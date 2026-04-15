@@ -26,6 +26,7 @@
 #define NANOSVGRAST_H
 
 #include "nanosvg.h"
+#include <stdint.h>
 
 #ifndef NANOSVGRAST_CPLUSPLUS
 #ifdef __cplusplus
@@ -66,7 +67,7 @@ void nsvgRasterize(NSVGrasterizer* r,
 
 void nsvgRasterizeA(NSVGrasterizer* r,
            NSVGimage* image, float tx, float ty, float scale,
-           unsigned char* dst, int w, int h, int stride, int alpha_threshold);
+           unsigned char* dst, int w, int h, int stride, uint32_t alpha_threshold);
 
 // Deletes rasterizer context.
 void nsvgDeleteRasterizer(NSVGrasterizer*);
@@ -1213,7 +1214,29 @@ static void nsvg__rasterizeSortedEdges(NSVGrasterizer *r, float tx, float ty, fl
 
 }
 
-static void nsvg__unpremultiplyAlpha(unsigned char* image, int w, int h, int stride, int alpha_threshold)
+static void nsvg__applyAlphaMask(unsigned char* image, int w, int h, int stride, uint32_t mask_color)
+{
+  // Extract mask RGBA
+  unsigned char mr = (mask_color >> 24) & 0xFF;
+  unsigned char mg = (mask_color >> 16) & 0xFF;
+  unsigned char mb = (mask_color >> 8)  & 0xFF;
+  unsigned char ma = (mask_color)       & 0xFF;
+
+  for (int y = 0; y < h; y++) {
+    unsigned char* row = &image[y * stride];
+    for (int x = 0; x < w; x++) {
+      if (row[0] == mr && row[1] == mg &&
+          row[2] == mb && row[3] == ma)
+      {
+        row[3] = 0;
+      }
+
+      row += 4;
+    }
+  }
+}
+
+static void nsvg__unpremultiplyAlpha(unsigned char* image, int w, int h, int stride)
 {
 	int x,y;
 
@@ -1222,7 +1245,7 @@ static void nsvg__unpremultiplyAlpha(unsigned char* image, int w, int h, int str
 		unsigned char *row = &image[y*stride];
 		for (x = 0; x < w; x++) {
 			int r = row[0], g = row[1], b = row[2], a = row[3];
-			if (a > alpha_threshold) {
+			if (a != 0) {
 				row[0] = (unsigned char)(r*255/a);
 				row[1] = (unsigned char)(g*255/a);
 				row[2] = (unsigned char)(b*255/a);
@@ -1378,7 +1401,7 @@ static void dumpEdges(NSVGrasterizer* r, const char* name)
 
 void nsvgRasterizeA(NSVGrasterizer* r,
 				   NSVGimage* image, float tx, float ty, float scale,
-				   unsigned char* dst, int w, int h, int stride, int alpha_threshold)
+				   unsigned char* dst, int w, int h, int stride, uint32_t alpha_mask_color)
 {
 	NSVGshape *shape = NULL;
 	NSVGedge *e = NULL;
@@ -1463,7 +1486,9 @@ void nsvgRasterizeA(NSVGrasterizer* r,
         }
 	}
 
-	nsvg__unpremultiplyAlpha(dst, w, h, stride, alpha_threshold);
+  nsvg__applyAlphaMask(dst, w, h, stride, alpha_mask_color);
+
+	nsvg__unpremultiplyAlpha(dst, w, h, stride);
 
 	r->bitmap = NULL;
 	r->width = 0;
