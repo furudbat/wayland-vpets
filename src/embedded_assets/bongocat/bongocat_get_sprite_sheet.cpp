@@ -15,7 +15,7 @@ embedded_image_t get_bongocat_sprite(size_t i) {
   case BONGOCAT_FRAME_BOTH_DOWN:
     return {bongo_cat_both_down_png, bongo_cat_both_down_png_size, "bongo-cat-both-down"};
   case BONGOCAT_FRAME_SLEEPING:
-    return {bongo_cat_both_down_png, bongo_cat_both_down_png_size, "bongo-cat-both-down"};
+    return {bongo_cat_sleeping_png, bongo_cat_sleeping_png_size, "bongo-cat-sleeping"};
   default:
     return {};
   }

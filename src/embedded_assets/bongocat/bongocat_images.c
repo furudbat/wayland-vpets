@@ -23,8 +23,12 @@ const unsigned char bongo_cat_both_down_png[] = {
 };
 const size_t bongo_cat_both_down_png_size = sizeof(bongo_cat_both_down_png);
 
+const unsigned char bongo_cat_sleeping_png[] = {
+#embed "../../../assets/bongo-cat-sleeping.png"
+};
+const size_t bongo_cat_sleeping_png_size = sizeof(bongo_cat_sleeping_png);
 
-#ifdef FEATURE_USE_BONGOCAT_SVG
+
 // Embedded asset data (svg)
 const unsigned char bongo_cat_both_up_svg[] = {
 #embed "../../../assets/new/bongo-both-up.svg"
@@ -50,4 +54,3 @@ const unsigned char bongo_cat_sleeping_svg[] = {
 #embed "../../../assets/new/bongo-sleeping.svg"
 };
 const size_t bongo_cat_sleeping_svg_size = sizeof(bongo_cat_sleeping_svg);
-#endif

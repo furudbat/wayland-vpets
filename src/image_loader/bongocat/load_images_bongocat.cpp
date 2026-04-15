@@ -7,7 +7,6 @@
 #include "image_loader/load_images.h"
 #include "image_loader/load_svgs.h"
 #include "utils/memory.h"
-
 #include <cassert>
 
 namespace bongocat::animation {
@@ -21,7 +20,12 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
       case load_bongocat_anim_type_t::SVG:
         assert(svg_params.target_w >= 0);
         assert(svg_params.target_h >= 0);
+#ifdef FEATURE_USE_BONGOCAT_SVG
         return anim_sprite_sheet_from_embedded_svgs(get_sprite, embedded_images_count, svg_params);
+#else
+      BONGOCAT_LOG_WARNING("load_bongocat_anim: SVG not supported");
+      break;
+#endif
       case load_bongocat_anim_type_t::PNG:
         return anim_sprite_sheet_from_embedded_images(get_sprite, embedded_images_count);
     }
@@ -41,6 +45,7 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
   ret.left_down = bongocat::move(sprite_sheet.frames[1]);
   ret.right_down = bongocat::move(sprite_sheet.frames[2]);
   ret.both_down = bongocat::move(sprite_sheet.frames[3]);
+  ret.sleeping = bongocat::move(sprite_sheet.frames[4]);
   sprite_sheet = {}; // generic sprite has been moved
 
   // setup animations (cache)
@@ -50,8 +55,9 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
   assert(ret.left_down.valid);
   assert(ret.right_down.valid);
   assert(ret.both_down.valid);
+  assert(ret.sleeping.valid);
 
-  assert(MAX_ANIMATION_FRAMES >= 4);
+  static_assert(MAX_ANIMATION_FRAMES >= 4);
   ret.animations.idle[0] = BONGOCAT_FRAME_BOTH_UP;
   ret.animations.idle[1] = BONGOCAT_FRAME_BOTH_UP;
   ret.animations.idle[2] = BONGOCAT_FRAME_BOTH_UP;

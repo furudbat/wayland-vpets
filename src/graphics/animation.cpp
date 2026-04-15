@@ -769,7 +769,8 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
 
   // Start Test animation
   if (!conditions.any_key_pressed && conditions.trigger_test_animation &&
-      current_state.row_state == animation_state_row_t::Idle) {
+      (current_state.row_state == animation_state_row_t::Idle ||
+       current_state.row_state == animation_state_row_t::IdleSleep)) {
     anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Test, new_animation_result, new_state,
                                     current_state, current_frames);
   } else if (!conditions.any_key_pressed && conditions.trigger_test_animation &&

@@ -40,9 +40,7 @@ BONGOCAT_NODISCARD extern embedded_image_t get_bongocat_sprite(size_t i);
 BONGOCAT_NODISCARD extern created_result_t<animation::generic_sprite_sheet_t>
 get_bongocat_sprite_sheet(const animation::animation_thread_context_t& ctx, int index);
 
-#ifdef FEATURE_USE_BONGOCAT_SVG
 BONGOCAT_NODISCARD extern embedded_image_t get_bongocat_sprite_svg(size_t i);
-#endif
 }  // namespace bongocat::assets
 
 #endif  // BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H

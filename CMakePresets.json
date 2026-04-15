@@ -94,7 +94,7 @@
       "displayName": "Release (preload assets + svg)",
       "description": "Release with assets preloaded at the start",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-preload-assets",
+      "binaryDir": "${sourceDir}/cmake-build-release-preload-assets-svg",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
@@ -280,7 +280,7 @@
       "displayName": "Debug (All Assets + colored sprites + svg, assets lazy load)",
       "description": "Debug build with ALL assets (full dm versions + colored sprites), lazy load assets on demand",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-lazy-load",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-lazy-load-svg",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
@@ -308,7 +308,7 @@
       "displayName": "Debug Build",
       "description": "Debug build with sanitizers",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug",
+      "binaryDir": "${sourceDir}/cmake-build-debug-svg",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
@@ -321,7 +321,7 @@
       "displayName": "Debug Build",
       "description": "Debug build with sanitizers",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-debug",
+      "binaryDir": "${sourceDir}/cmake-build-debug-no-svg",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",

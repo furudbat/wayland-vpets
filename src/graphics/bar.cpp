@@ -93,6 +93,9 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   case BONGOCAT_FRAME_BOTH_DOWN:
     region = &sheet.both_down;
     break;
+  case BONGOCAT_FRAME_SLEEPING:
+    region = &sheet.sleeping;
+    break;
   default:
     assert(anim_shm.animation_player_result.sprite_sheet_col >= 0 &&
            static_cast<size_t>(anim_shm.animation_player_result.sprite_sheet_col) < BONGOCAT_SPRITE_SHEET_COLS);

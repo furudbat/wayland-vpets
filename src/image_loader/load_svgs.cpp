@@ -1,7 +1,5 @@
 #include "image_loader/load_svgs.h"
-#ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 #include "image_loader/load_images.h"
-#endif
 #include "graphics/animation.h"
 #include "graphics/drawing.h"
 #include "utils/memory.h"
@@ -15,6 +13,9 @@ namespace bongocat::animation {
 // =============================================================================
 // SVG LOADING MODULE
 // =============================================================================
+
+constexpr static inline const char* SVG_UNITS = "px";
+constexpr static inline float SVG_DPI = 96.0;
 
 void init_svg_loader() {}
 
@@ -44,7 +45,6 @@ void cleanup_svg_raster(SvgRasterImage& image) {
   image.image = BONGOCAT_NULLPTR;
 }
 
-
 BONGOCAT_NODISCARD created_result_t<SvgRasterImage> create_svg_rasterizer() {
   SvgRasterImage ret;
   if (ret.image == BONGOCAT_NULLPTR) [[unlikely]] {
@@ -53,6 +53,7 @@ BONGOCAT_NODISCARD created_result_t<SvgRasterImage> create_svg_rasterizer() {
 
   return ret;
 }
+
 
 created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params) {
   BONGOCAT_CHECK_ERROR(params.w < 0, bongocat_error_t::BONGOCAT_ERROR_SVG, "svg image width can not be zero nor negative");

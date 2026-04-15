@@ -1,7 +1,5 @@
 #include "image_loader/load_images.h"
-#ifdef FEATURE_USE_BONGOCAT_SVG
 #include "image_loader/load_svgs.h"
-#endif
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"

@@ -4,7 +4,7 @@ target_include_directories(
   assets_image_loader
   PRIVATE ${INCLUDE_DIR}/image_loader
   PUBLIC ${INCLUDE_DIR})
-target_include_directories(assets_image_loader SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
+target_include_directories(assets_image_loader SYSTEM PUBLIC ${PROJECT_SOURCE_DIR}/lib)
 target_link_libraries(assets_image_loader PRIVATE bongocat_options)
 
 if(FEATURE_USE_HYBRID_IMAGE_BACKEND)
@@ -57,7 +57,6 @@ if (FEATURE_USE_BONGOCAT_SVG)
   target_sources(nanosvg PRIVATE nanosvg.c)
 
   target_sources(assets_image_loader PRIVATE load_svgs.cpp)
-  target_include_directories(assets_image_loader SYSTEM PUBLIC ${PROJECT_SOURCE_DIR}/lib)
   target_link_libraries(assets_image_loader PRIVATE nanosvg)
   target_compile_definitions(assets_image_loader PUBLIC FEATURE_USE_NANOSVG)
   message(STATUS "Use nanosvg backend")

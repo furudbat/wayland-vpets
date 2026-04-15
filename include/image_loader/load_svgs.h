@@ -7,10 +7,8 @@
 #include "embedded_assets/embedded_image.h"
 #include "graphics/sprite_sheet.h"
 #include "utils/memory.h"
-#ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 #include "load_images.h"
 #include <nanosvgrast.h>
-#endif
 #include <nanosvg.h>
 #include <cstdlib>
 #include <cstdint>
@@ -20,15 +18,11 @@ namespace bongocat::animation {
 // SVG LOADING MODULE
 // =============================================================================
 
-constexpr static inline const char* SVG_UNITS = "px";
-constexpr static inline float SVG_DPI = 96.0;
-
 class SvgImage;
 BONGOCAT_NODISCARD created_result_t<SvgImage> load_svg(char *data, const char* units, float dpi);
 void cleanup_svg(SvgImage& image);
 void init_svg_loader();
 
-#ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 class SvgRasterImage;
 void cleanup_svg_raster(SvgRasterImage& image);
 BONGOCAT_NODISCARD created_result_t<SvgRasterImage> create_svg_rasterizer();
@@ -42,7 +36,6 @@ struct LoadSvgImageParams {
   uint32_t alpha_mask{0};
 };
 BONGOCAT_NODISCARD created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params);
-#endif
 
 class SvgImage {
 public:
@@ -84,7 +77,6 @@ public:
   }
 };
 
-#ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 class SvgRasterImage {
 public:
   NSVGrasterizer *image{BONGOCAT_NULLPTR};
@@ -129,8 +121,5 @@ struct anim_sprite_sheet_from_embedded_svgs_t {
 BONGOCAT_NODISCARD created_result_t<generic_sprite_sheet_t>
 anim_sprite_sheet_from_embedded_svgs(get_sprite_callback_t get_sprite, size_t embedded_images_count, anim_sprite_sheet_from_embedded_svgs_t svg_params);
 
-#endif
-
 }  // namespace bongocat::animation
-
 #endif
