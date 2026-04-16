@@ -1,4 +1,5 @@
 add_library(assets_misc_interface INTERFACE)
+target_include_directories(assets_misc_interface INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_library(assets_misc_feature INTERFACE)
 target_compile_definitions(assets_misc_feature INTERFACE FEATURE_MISC_EMBEDDED_ASSETS)

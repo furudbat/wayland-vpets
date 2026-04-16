@@ -334,21 +334,20 @@ if(FEATURE_MULTI_VERSIONS)
     bongocat-all
     PRIVATE # only include pmd for testing
             $<$<CONFIG:Debug>:assets_pmd_loader
-            assets_pmd
-            assets_pmd_feature
-            assets_pmd_interface
-            assets_custom_loader>
+              assets_pmd
+              assets_pmd_feature
+              assets_pmd_interface
+              assets_custom_loader>
             $<$<CONFIG:RelWithDebInfo>:assets_pmd_loader
-            assets_pmd
-            assets_pmd_feature
-            assets_pmd_interface
-            assets_custom_loader>
+              assets_pmd
+              assets_pmd_feature
+              assets_pmd_interface
+              assets_custom_loader>
             $<$<BOOL:${FEATURE_PRELOAD_ASSETS}>:assets_pmd_loader
-            assets_pmd
-            assets_pmd_feature
-            assets_pmd_interface
-            assets_custom_loader>)
-  # target_link_libraries(bongocat-all PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
+              assets_pmd
+              assets_pmd_feature
+              assets_pmd_interface
+              assets_custom_loader>)
   target_link_libraries(bongocat-all PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
   target_link_libraries(bongocat-all PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
   target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)

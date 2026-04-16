@@ -3,25 +3,38 @@
 #include "platform/wayland.h"
 #include "utils/memory.h"
 #include "utils/system_error.h"
+
 #include <cassert>
 #include <sys/eventfd.h>
 
 // assets
+#include "embedded_assets/bongocat/assets_bongocat_features.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
+#include "embedded_assets/dm/assets_dm_features.h"
 #include "embedded_assets/dm/dm_sprite.h"
+#include "embedded_assets/dm20/assets_dm20_features.h"
 #include "embedded_assets/dm20/dm20_sprite.h"
+#include "embedded_assets/dmall/assets_dmall_features.h"
 #include "embedded_assets/dmall/dmall_sprite.h"
+#include "embedded_assets/dmc/assets_dmc_features.h"
 #include "embedded_assets/dmc/dmc_sprite.h"
+#include "embedded_assets/dmx/assets_dmx_features.h"
 #include "embedded_assets/dmx/dmx_sprite.h"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
+#include "embedded_assets/misc/assets_misc_features.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
+#include "embedded_assets/ms_agent/assets_ms_agent_features.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
+#include "embedded_assets/pen/assets_pen_features.h"
 #include "embedded_assets/pen/pen_sprite.h"
+#include "embedded_assets/pen20/assets_pen20_features.h"
 #include "embedded_assets/pen20/pen20_sprite.h"
+#include "embedded_assets/pkmn/assets_pkmn_features.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
+#include "embedded_assets/pmd/assets_pmd_features.h"
 #include "embedded_assets/pmd/pmd_sprite.h"
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
@@ -30,6 +43,7 @@
 #include "image_loader/base_dm/load_dm.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
 #include "image_loader/custom/load_custom.h"
+#include "image_loader/custom/load_custom_features.h"
 #include "image_loader/dm/load_images_dm.h"
 #include "image_loader/dm20/load_images_dm20.h"
 #include "image_loader/dmall/load_images_dmall.h"
@@ -480,7 +494,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
   // Load embedded images/animations
-  if constexpr (features::EnableLazyLoadAssets || features::EnableBongocatSvg) {
+  if constexpr (features::EnableLazyLoadAssets) {
     hot_load_animation(ret->thread_context);
   }
 
@@ -499,12 +513,13 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         ctx.shm->bongocat_anims = platform::make_allocated_mmap_array<animation_t>(BONGOCAT_ANIM_COUNT);
 
         if constexpr (features::EnableBongocatSvg) {
+          const int cat_height = ret->thread_context._local_copy_config->cat_height;
           init_bongocat_anim(ctx, BONGOCAT_ANIM_INDEX, get_bongocat_sprite_svg, BONGOCAT_EMBEDDED_IMAGES_COUNT,
-                             load_bongocat_anim_type_t::SVG,
-                             anim_bongocat_get_svg_params(ret->thread_context._local_copy_config->cat_height));
+                             load_bongocat_anim_type_t::SVG, anim_bongocat_get_svg_params(cat_height),
+                             anim_bongocat_get_svg_cropping(cat_height));
         } else {
           init_bongocat_anim(ctx, BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT,
-                             load_bongocat_anim_type_t::PNG, {0, 0, 0, 0});
+                             load_bongocat_anim_type_t::PNG, {0, 0, 0, 0}, {0, 0, 0, 0});
         }
       }
     }

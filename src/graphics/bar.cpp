@@ -1,12 +1,16 @@
 #include "bar.h"
 
+#include "embedded_assets/bongocat/assets_bongocat_features.h"
 #include "embedded_assets/bongocat/bongocat.h"
+#include "embedded_assets/misc/assets_misc_features.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
+#include "image_loader/custom/load_custom.h"
+#include "image_loader/custom/load_custom_features.h"
 #include "platform/wayland-protocols.hpp"
 #include "platform/wayland.h"
 #include "platform/wayland_callbacks.h"
@@ -37,8 +41,7 @@ enum class blit_image_sprite_option_flags_t : uint32_t {
 template <class SpriteSheet>
 /// @TODO: required SpriteSheet must be _sprite_sheet_t
 cat_rect_t get_position(const platform::wayland::wayland_thread_context& wayland_ctx, const SpriteSheet& sheet,
-                        const config::config_t& config,
-                        blit_image_sprite_option_flags_t options) {
+                        const config::config_t& config, blit_image_sprite_option_flags_t options) {
   const int cat_height = [&]() {
     if (has_flag(options, blit_image_sprite_option_flags_t::IgnoreCatHeight)) {
       return sheet.frame_height;
@@ -51,8 +54,8 @@ cat_rect_t get_position(const platform::wayland::wayland_thread_context& wayland
       return sheet.frame_width;
     }
 
-    return static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) /
-                                                                           static_cast<float>(sheet.frame_height)));
+    return static_cast<int>(static_cast<float>(cat_height) *
+                            (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
   }();
 
   int cat_x = 0;
@@ -280,7 +283,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     break;
   }
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
+  auto [cat_x, cat_y, cat_width, cat_height] =
+      get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   if (region != BONGOCAT_NULLPTR) {
@@ -394,7 +398,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     break;
   }
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
+  auto [cat_x, cat_y, cat_width, cat_height] =
+      get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   if (region != BONGOCAT_NULLPTR) {
@@ -491,7 +496,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
+  auto [cat_x, cat_y, cat_width, cat_height] =
+      get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
 
   blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
   if (current_config.invert_color >= 1) {
@@ -692,7 +698,8 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
         draw_sprite(ctx, shm_buffer, sheet,
                     current_config.enable_antialiasing >= 1 ? blit_image_color_option_flags_t::BilinearInterpolation
                                                             : blit_image_color_option_flags_t::Normal,
-                    features::EnableBongocatSvg ? blit_image_sprite_option_flags_t::IgnoreCatHeight : blit_image_sprite_option_flags_t::None);
+                    features::EnableBongocatSvg ? blit_image_sprite_option_flags_t::IgnoreCatHeight
+                                                : blit_image_sprite_option_flags_t::None);
       } break;
       case config::config_animation_sprite_sheet_layout_t::Dm: {
         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {

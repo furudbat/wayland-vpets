@@ -1,4 +1,5 @@
 add_library(assets_bongocat_interface INTERFACE)
+target_include_directories(assets_bongocat_interface INTERFACE ${CMAKE_CURRENT_SOURCE_DIR}/include)
 
 add_library(assets_bongocat_feature INTERFACE)
 target_compile_definitions(assets_bongocat_feature INTERFACE FEATURE_BONGOCAT_EMBEDDED_ASSETS)

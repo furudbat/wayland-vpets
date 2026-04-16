@@ -1,4 +1,5 @@
 #include "load_images_bongocat.h"
+#include "embedded_assets/bongocat/assets_bongocat_features.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "graphics/animation.h"
@@ -162,8 +163,9 @@ created_result_t<bongocat_sprite_sheet_t> load_bongocat_sprite_sheet(const anima
   switch (index) {
   case BONGOCAT_ANIM_INDEX:
     if constexpr (features::EnableBongocatSvg) {
-      const auto svg_params = anim_bongocat_get_svg_params(ctx._local_copy_config->cat_height);
-      const auto svg_cropping = anim_bongocat_get_svg_cropping(ctx._local_copy_config->cat_height);
+      const int cat_height = ctx._local_copy_config->cat_height;
+      const auto svg_params = anim_bongocat_get_svg_params(cat_height);
+      const auto svg_cropping = anim_bongocat_get_svg_cropping(cat_height);
       return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite_svg, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::SVG, svg_params, svg_cropping);
     } else {
       return load_bongocat_anim(BONGOCAT_ANIM_INDEX, get_bongocat_sprite, BONGOCAT_EMBEDDED_IMAGES_COUNT, load_bongocat_anim_type_t::PNG, {0, 0, 0, 0}, {0, 0, 0, 0});
@@ -171,6 +173,7 @@ created_result_t<bongocat_sprite_sheet_t> load_bongocat_sprite_sheet(const anima
   default:
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
   }
+
   return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
 }
 }  // namespace bongocat::animation

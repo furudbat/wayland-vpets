@@ -19,7 +19,8 @@ load_bongocat_anim(int anim_index, get_sprite_callback_t get_sprite, size_t embe
                    anim_sprite_sheet_from_embedded_svgs_cropping_t cropping);
 
 bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_index, get_sprite_callback_t get_sprite,
-                                    size_t embedded_images_count, load_bongocat_anim_type_t type, anim_sprite_sheet_from_embedded_svgs_t svg_params);
+                                    size_t embedded_images_count, load_bongocat_anim_type_t type, anim_sprite_sheet_from_embedded_svgs_t svg_params,
+                                    anim_sprite_sheet_from_embedded_svgs_cropping_t cropping);
 
 inline anim_sprite_sheet_from_embedded_svgs_t anim_bongocat_get_svg_params(int cat_height) {
   using namespace assets;

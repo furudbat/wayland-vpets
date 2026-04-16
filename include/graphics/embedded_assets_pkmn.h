@@ -1,6 +1,9 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_PKMN_INDEX_H
 #define BONGOCAT_EMBEDDED_ASSETS_PKMN_INDEX_H
 
+#include "../embedded_assets/pkmn/assets_pkmn_features.h"
+#include "../embedded_assets/pmd/assets_pmd_features.h"
+
 /// pkmn
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
 #  include "embedded_assets/pkmn/pkmn.hpp"

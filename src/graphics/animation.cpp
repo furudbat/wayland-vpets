@@ -1,5 +1,6 @@
 #include "graphics/animation.h"
 
+#include "embedded_assets/bongocat/assets_bongocat_features.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/custom/custom_sprite.h"
@@ -13,6 +14,8 @@
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
+#include "image_loader/custom/load_custom.h"
+#include "image_loader/custom/load_custom_features.h"
 #include "platform/wayland.h"
 #include "utils/system_error.h"
 #include "utils/time.h"
@@ -5358,7 +5361,7 @@ static void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
                             : old_anim_index;
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-  if constexpr (features::EnableLazyLoadAssets) {
+  if constexpr (features::EnableLazyLoadAssets || (features::EnableBongocatSvg && ctx.shm->anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat)) {
     auto [result, error] = hot_load_animation(ctx);
     if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
       // rollback

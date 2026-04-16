@@ -28,24 +28,24 @@ target_compile_options(
             $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:Clang>>:-Wno-c23-extensions>
             $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:-Wno-c23-extensions>)
 # no exceptions
-target_compile_options(bongocat_options INTERFACE $<$<COMPILE_LANGUAGE:CXX>: -fno-exceptions -fno-unwind-tables -fno-rtti -nostdlib++ >)
+target_compile_options(bongocat_options INTERFACE $<$<COMPILE_LANGUAGE:CXX>:-fno-exceptions -fno-unwind-tables -fno-rtti -nostdlib++>)
 # optimization
 target_compile_options(
   bongocat_options
   INTERFACE $<$<CONFIG:Release>:
-            -march=native
-            -fomit-frame-pointer
-            -funroll-loops
-            -finline-functions
+              -march=native
+              -fomit-frame-pointer
+              -funroll-loops
+              -finline-functions
             >
             $<$<CONFIG:MinSizeRel>:
-            -fno-inline-functions
-            -fomit-frame-pointer
-            -fno-asynchronous-unwind-tables
-            -fno-unroll-loops
-            -fmerge-all-constants
-            -fno-math-errno
-            -fno-stack-protector
+              -fno-inline-functions
+              -fomit-frame-pointer
+              -fno-asynchronous-unwind-tables
+              -fno-unroll-loops
+              -fmerge-all-constants
+              -fno-math-errno
+              -fno-stack-protector
             >)
 target_compile_definitions(
   bongocat_options
