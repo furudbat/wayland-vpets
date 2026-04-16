@@ -24,25 +24,22 @@ bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_in
 inline anim_sprite_sheet_from_embedded_svgs_t anim_bongocat_get_svg_params(int cat_height) {
   using namespace assets;
   static_assert(BONGOCAT_SVG_FRAME_HEIGHT > 0);
-  static_assert(BONGOCAT_FRAME_HEIGHT > 0);
+  static_assert(BONGOCAT_SVG_FRAME_REAL_CAT_HEIGHT > 0);
 
-  //constexpr auto pad_x =
-  //   (BONGOCAT_SVG_FRAME_WIDTH - BONGOCAT_SVG_FRAME_REAL_CAT_WIDTH) / 2;
-  constexpr auto pad_y =
-     (BONGOCAT_SVG_FRAME_HEIGHT - BONGOCAT_SVG_FRAME_REAL_CAT_HEIGHT) / 2;
-  constexpr auto top = (pad_y + BONGOCAT_SVG_FRAME_TY);
-  constexpr auto bottom = (pad_y - BONGOCAT_SVG_FRAME_TY);
+  // scale so that the _visible cat_ becomes cat_height
+  const float scale =
+      static_cast<float>(cat_height) /
+      static_cast<float>(BONGOCAT_SVG_FRAME_REAL_CAT_HEIGHT);
 
-  // target_width must have bottom so the end sprite will end up in the exact height of cat_height
-  // frame_height must be the same as cat_height, so the scaling didn't get messed up
-  const int cat_h = cat_height + bottom + top;
-  const int cat_w = (cat_h * BONGOCAT_SVG_FRAME_WIDTH) / BONGOCAT_SVG_FRAME_HEIGHT;
-  assert(cat_h > 0);
-  const float scale = static_cast<float>(cat_h) / static_cast<float>(BONGOCAT_SVG_FRAME_HEIGHT);
+  const int target_w = static_cast<int>(
+      BONGOCAT_SVG_FRAME_WIDTH * scale);
+
+  const int target_h = static_cast<int>(
+      BONGOCAT_SVG_FRAME_HEIGHT * scale);
 
   return {
-    .target_w = cat_w,
-    .target_h = cat_h,
+    .target_w = target_w,
+    .target_h = target_h,
     .tx = static_cast<float>(BONGOCAT_SVG_FRAME_TX) * scale,
     .ty = static_cast<float>(BONGOCAT_SVG_FRAME_TY) * scale,
     .alpha_mask = BONGOCAT_SVG_ALPHA_MASK,
@@ -51,25 +48,23 @@ inline anim_sprite_sheet_from_embedded_svgs_t anim_bongocat_get_svg_params(int c
 inline anim_sprite_sheet_from_embedded_svgs_cropping_t anim_bongocat_get_svg_cropping(int cat_height) {
   using namespace assets;
   static_assert(BONGOCAT_SVG_FRAME_HEIGHT > 0);
-  static_assert(BONGOCAT_FRAME_HEIGHT > 0);
+  static_assert(BONGOCAT_SVG_FRAME_REAL_CAT_HEIGHT > 0);
 
-   constexpr auto pad_x =
-      (BONGOCAT_SVG_FRAME_WIDTH - BONGOCAT_SVG_FRAME_REAL_CAT_WIDTH) / 2;
-   constexpr auto pad_y =
-      (BONGOCAT_SVG_FRAME_HEIGHT - BONGOCAT_SVG_FRAME_REAL_CAT_HEIGHT) / 2;
-   constexpr auto top = (pad_y + BONGOCAT_SVG_FRAME_TY);
-   constexpr auto bottom = (pad_y - BONGOCAT_SVG_FRAME_TY);
+  // cropping must scale with _visible cat_
+  const float scale =
+      static_cast<float>(cat_height) /
+      static_cast<float>(BONGOCAT_SVG_FRAME_REAL_CAT_HEIGHT);
 
-  const int cat_h = cat_height + bottom + top;
-  //const int cat_w = (cat_h * BONGOCAT_SVG_FRAME_WIDTH) / BONGOCAT_SVG_FRAME_HEIGHT;
-  assert(cat_h > 0);
-  const float scale = static_cast<float>(cat_h) / static_cast<float>(BONGOCAT_SVG_FRAME_HEIGHT);
+  const float pad_x =
+      (BONGOCAT_SVG_FRAME_WIDTH - BONGOCAT_SVG_FRAME_REAL_CAT_WIDTH) / 2.0f;
+  const float pad_y =
+      (BONGOCAT_SVG_FRAME_HEIGHT - BONGOCAT_SVG_FRAME_REAL_CAT_HEIGHT) / 2.0f;
 
   return {
-    .left = static_cast<int>((pad_x - BONGOCAT_SVG_FRAME_TX) * scale),
-    .right = static_cast<int>((pad_x + BONGOCAT_SVG_FRAME_TX) * scale),
-    .top = static_cast<int>(top * scale),
-    .bottom = static_cast<int>(bottom * scale),
+    .left   = static_cast<int>(pad_x * scale),
+    .right  = static_cast<int>(pad_x * scale),
+    .top    = static_cast<int>(pad_y * scale),
+    .bottom = static_cast<int>(pad_y * scale),
   };
 }
 

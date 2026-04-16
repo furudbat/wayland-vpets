@@ -53,18 +53,6 @@ namespace features {
   inline static constexpr bool Debug = false;
 #endif
 
-#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-  inline static constexpr bool EnableBongocatEmbeddedAssets = true;
-#  ifdef FEATURE_USE_BONGOCAT_SVG
-  inline static constexpr bool EnableBongocatSvg = true;
-#  else
-  inline static constexpr bool EnableBongocatSvg = false;
-#  endif
-#else
-  inline static constexpr bool EnableBongocatEmbeddedAssets = false;
-  inline static constexpr bool EnableBongocatSvg = false;
-#endif
-
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
   inline static constexpr bool EnableDmEmbeddedAssets = true;
 #  ifdef FEATURE_DM_EMBEDDED_ASSETS
@@ -121,12 +109,6 @@ namespace features {
   inline static constexpr bool EnableDmAllEmbeddedAssets = false;
 #endif
 
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-  inline static constexpr bool EnableMsAgentEmbeddedAssets = true;
-#else
-  inline static constexpr bool EnableMsAgentEmbeddedAssets = false;
-#endif
-
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
   inline static constexpr bool EnablePkmnEmbeddedAssets = true;
 #else
@@ -137,12 +119,6 @@ namespace features {
   inline static constexpr bool EnablePmdEmbeddedAssets = true;
 #else
   inline static constexpr bool EnablePmdEmbeddedAssets = false;
-#endif
-
-#ifdef FEATURE_MISC_EMBEDDED_ASSETS
-  inline static constexpr bool EnableMiscEmbeddedAssets = true;
-#else
-  inline static constexpr bool EnableMiscEmbeddedAssets = false;
 #endif
 
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
