@@ -94,6 +94,10 @@ struct wayland_context_t {
   // Output reconnection handling
   atomic_bool _output_lost{false};  // Set when our output disconnects
 
+  // Fullscreen
+  atomic_bool _compositor_sends_output_events{false};
+  atomic_bool _active_toplevel_fullscreen{false};
+
   // for safe_popen_read_spawn (pointer to global environ)
   char **_environ{nullptr};
 
@@ -169,6 +173,10 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
   ctx.animation_context = BONGOCAT_NULLPTR;
 
   ctx._environ = BONGOCAT_NULLPTR;
+
+  atomic_store(&ctx._output_lost, false);
+  atomic_store(&ctx._compositor_sends_output_events, false);
+  atomic_store(&ctx._active_toplevel_fullscreen, false);
 }
 }  // namespace bongocat::platform::wayland
 

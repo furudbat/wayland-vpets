@@ -9,10 +9,10 @@
 # DRAWN LAYERS GETS GLITCHY SOMETIMES, BETTER TO RESTART WHEN THESE CHANGE
 # Overlay settings
 # overlay_height: Height of the entire overlay bar
-overlay_height=80
+overlay_height=120
 # overlay_position: Position of the overlay on screen
 # Options: "top" or "bottom"
-overlay_position=top
+overlay_position=bottom
 # layer: layer for surface of overlay (default: "top")
 # Options: "overlay", "top", "bottom", "background"; top (above windows), overlay (always visible)
 #overlay_layer=top
@@ -52,7 +52,7 @@ enable_antialiasing=1
 # Size settings
 # cat_height: Height of the bongo cat in pixels
 # Width is automatically calculated to maintain aspect ratio
-cat_height=80
+cat_height=110
 
 # animation_name: Sprite name (CASE SENSITIVE)
 # Default Option: "bongocat"
@@ -180,3 +180,6 @@ enable_debug=0
 # Use wlr-randr or swaymsg -t get_outputs to find monitor names
 # If not specified or monitor not found, uses first available monitor
 #monitor=HDMI-A-1
+
+# How often to rescan for new input devices, in seconds (0=scan once at startup)
+# hotplug_scan_interval=30

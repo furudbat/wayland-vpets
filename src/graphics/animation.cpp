@@ -5361,7 +5361,8 @@ static void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
                             : old_anim_index;
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-  if constexpr (features::EnableLazyLoadAssets || (features::EnableBongocatSvg && ctx.shm->anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat)) {
+  if (features::EnableLazyLoadAssets ||
+      (features::EnableBongocatSvg && ctx.shm->anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat)) {
     auto [result, error] = hot_load_animation(ctx);
     if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
       // rollback

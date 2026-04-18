@@ -47,8 +47,8 @@ BONGOCAT_NODISCARD spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, co
 created_result_t<int> wayland_update_current_output_info(wayland_context_t& ctx);
 bongocat_error_t wayland_update_output(wayland_context_t& ctx);
 BONGOCAT_NODISCARD bool fs_detector_available(wayland_context_t& ctx);
-zwlr_layer_shell_v1_layer wayland_apply_layer_properties(wayland_context_t& ctx);
-uint32_t wayland_apply_anchor_properties(wayland_context_t& ctx);
+zwlr_layer_shell_v1_layer wayland_apply_layer_properties_v1(wayland_context_t& ctx);
+uint32_t wayland_apply_anchor_properties_v1(wayland_context_t& ctx);
 
 }  // namespace bongocat::platform::wayland::details
 

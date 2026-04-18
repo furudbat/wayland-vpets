@@ -122,7 +122,7 @@ static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC
 static inline constexpr int32_t DEFAULT_ENABLE_ANTIALIASING = 1;
 static inline constexpr double DEFAULT_MOVEMENT_WAIT_FACTOR = 5.1;
 static inline constexpr int32_t DEFAULT_ENABLE_HAND_MAPPING = 1;
-// static inline constexpr int32_t DEFAULT_HOTPLUG_SCAN_INTERVAL_MS = 300;
+static inline constexpr int32_t DEFAULT_HOTPLUG_SCAN_INTERVAL_MS = 30 * 1000;
 
 // Debug-specific defaults
 #ifndef NDEBUG
@@ -1187,7 +1187,7 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
   } else if (strcmp(key, ENABLE_HAND_MAPPING_KEY) == 0) {
     config.enable_hand_mapping = int_value;
   } else if (strcmp(key, HOTPLUG_SCAN_INTERVAL_KEY) == 0) {
-    config.hotplug_scan_interval_ms = int_value;
+    config.hotplug_scan_interval_ms = int_value * 1000;
   } else if (strcmp(key, DISABLE_FULLSCREEN_HIDE_KEY) == 0) {
     config.disable_fullscreen_hide = int_value;
   } else if (strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0) {
@@ -1980,7 +1980,7 @@ void set_defaults(config_t& config) {
   cfg.screen_width = 0;
   cfg.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
   cfg.custom_sprite_sheet_settings = {};
-  // cfg.hotplug_scan_interval_ms = DEFAULT_HOTPLUG_SCAN_INTERVAL_MS;
+  cfg.hotplug_scan_interval_ms = DEFAULT_HOTPLUG_SCAN_INTERVAL_MS;
 
   for (int i = 0; i < static_cast<int>(input::MAX_INPUT_DEVICES); i++) {
     cfg._keyboard_names[i] = BONGOCAT_NULLPTR;

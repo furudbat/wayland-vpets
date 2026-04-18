@@ -84,6 +84,8 @@ bongocat_error_t wayland_update_output(wayland_context_t& ctx) {
   wayland_ctx.output = BONGOCAT_NULLPTR;
   wayland_ctx.bound_output_name = 0;
   wayland_ctx.using_named_output = false;
+  wayland_ctx._output_name_str = BONGOCAT_NULLPTR;
+
   if (current_config.output_name) {
     for (size_t i = 0; i < ctx.output_count; ++i) {
       if (has_flag(ctx.outputs[i].received, output_ref_received_flags_t::Name) &&
@@ -93,7 +95,9 @@ bongocat_error_t wayland_update_output(wayland_context_t& ctx) {
         wayland_ctx._screen_info = &ctx.screen_infos[i];
         wayland_ctx.bound_output_name = ctx.outputs[i].name;  // Store registry name for tracking
         wayland_ctx.using_named_output = true;                // User specified this output
-        BONGOCAT_LOG_INFO("Matched output: %s", wayland_ctx._output_name_str);
+
+        BONGOCAT_LOG_INFO("Matched output: %s (registry name %u, %s)", ctx.outputs[i].name_str,
+                          wayland_ctx.bound_output_name, wayland_ctx._output_name_str);
         break;
       }
     }
@@ -116,7 +120,9 @@ bongocat_error_t wayland_update_output(wayland_context_t& ctx) {
     wayland_ctx._screen_info = &ctx.screen_infos[0];
     wayland_ctx.bound_output_name = ctx.outputs[0].name;
     wayland_ctx.using_named_output = false;  // Using fallback, not a named output
-    BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
+
+    BONGOCAT_LOG_WARNING("Falling back to first output (registry name %u, %s)", wayland_ctx.bound_output_name,
+                         wayland_ctx._output_name_str);
   }
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
@@ -143,8 +149,7 @@ created_result_t<int> wayland_update_current_output_info(wayland_context_t& ctx)
         bound_screen_name = ctx.outputs[i].name_str;
 
         if (ctx.screen_infos[i].screen_width > 0 && ctx.screen_infos[i].screen_width <= INT16_MAX) {
-          BONGOCAT_LOG_INFO("Detected screen width: %d",
-                            ctx.screen_infos[i].screen_width);
+          BONGOCAT_LOG_INFO("Detected screen width: %d", ctx.screen_infos[i].screen_width);
           screen_info = &ctx.screen_infos[i];
           screen_width = ctx.screen_infos[i].screen_width;
           output_found = true;
@@ -160,12 +165,12 @@ created_result_t<int> wayland_update_current_output_info(wayland_context_t& ctx)
   }
 
   if (output_found) {
+    // assert(screen_width > 0);
     ctx.thread_context._output_name_str = bound_screen_name;
     ctx.thread_context._screen_info = screen_info;
     ctx.thread_context._screen_width = screen_width;
   } else {
-    BONGOCAT_LOG_WARNING("No output found, using default screen width: %d",
-                         DEFAULT_SCREEN_WIDTH);
+    BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
   }
 
   return screen_width;
@@ -238,8 +243,10 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
       ctx.outputs[i].wayland = &ctx;
       ctx.outputs[i].xdg_output =
           zxdg_output_manager_v1_get_xdg_output(ctx.xdg_output_manager, ctx.outputs[i].wl_output);
-      zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &details::xdg_output_listener, &ctx.outputs[i]);
       ctx.screen_infos[i] = {};
+      ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
+      zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &details::xdg_output_listener, &ctx.outputs[i]);
+
       assert(ctx.outputs[i].wl_output);
       ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
     }
@@ -283,7 +290,8 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
 
   // Configure screen dimensions
   wayland_update_current_output_info(ctx);
-  auto [result_update_screen_width, result_update_screen_width_error]  = wayland_update_current_output_info(ctx); // wayland_update_screen_info(ctx);
+  auto [result_update_screen_width, result_update_screen_width_error] =
+      wayland_update_current_output_info(ctx);  // wayland_update_screen_info(ctx);
   if (result_update_screen_width_error != bongocat_error_t::BONGOCAT_SUCCESS) {
     wl_registry_destroy(registry);
     return result_update_screen_width_error;
@@ -305,7 +313,7 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-zwlr_layer_shell_v1_layer wayland_apply_layer_properties(wayland_context_t& ctx) {
+zwlr_layer_shell_v1_layer wayland_apply_layer_properties_v1(wayland_context_t& ctx) {
   wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = *ctx.animation_context;
   // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
@@ -331,13 +339,14 @@ zwlr_layer_shell_v1_layer wayland_apply_layer_properties(wayland_context_t& ctx)
   }
 
   if (wayland_ctx.layer_surface != BONGOCAT_NULLPTR) {
+    assert(wayland_ctx.layer_shell_version >= 2);
     zwlr_layer_surface_v1_set_layer(wayland_ctx.layer_surface, layer);
-    BONGOCAT_LOG_INFO("Layer changed to %x", layer);
+    BONGOCAT_LOG_INFO("Layer changed to %i", layer);
   }
 
   return layer;
 }
-uint32_t wayland_apply_anchor_properties(wayland_context_t& ctx) {
+uint32_t wayland_apply_anchor_properties_v1(wayland_context_t& ctx) {
   wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = *ctx.animation_context;
   // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
@@ -355,14 +364,15 @@ uint32_t wayland_apply_anchor_properties(wayland_context_t& ctx) {
     anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM;
     break;
   default:
-    BONGOCAT_LOG_ERROR("Invalid overlay_position %d for layer surface, set to top (default)");
+    BONGOCAT_LOG_ERROR("Invalid overlay_position %d for layer surface, set to top (default)",
+                       static_cast<int>(current_config.overlay_position));
     anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
     break;
   }
 
   if (wayland_ctx.layer_surface != BONGOCAT_NULLPTR) {
     zwlr_layer_surface_v1_set_anchor(wayland_ctx.layer_surface, anchor);
-    BONGOCAT_LOG_INFO("Overlay position changed to %x", anchor);
+    BONGOCAT_LOG_INFO("Overlay position changed to %u", anchor);
   }
 
   return anchor;
@@ -413,7 +423,7 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
     zwlr_layer_surface_v1_destroy(wayland_ctx.layer_surface);
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
-  wayland_apply_anchor_properties(ctx);
+  wayland_apply_anchor_properties_v1(ctx);
   zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(wayland_ctx._bar_height));
   zwlr_layer_surface_v1_set_exclusive_zone(wayland_ctx.layer_surface, -1);
   zwlr_layer_surface_v1_set_keyboard_interactivity(wayland_ctx.layer_surface,
@@ -451,7 +461,7 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
   static_assert(RGBA_CHANNELS >= 0);
   const size_t buffer_size = static_cast<size_t>(buffer_width) * static_cast<size_t>(buffer_height) * RGBA_CHANNELS;
   if (buffer_size <= 0) {
-    BONGOCAT_LOG_ERROR("Invalid buffer size: %d", buffer_size);
+    BONGOCAT_LOG_ERROR("Invalid buffer size: %zu", buffer_size);
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
 
@@ -561,15 +571,15 @@ spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, con
   if (posix_spawn(&pid, path, &actions, BONGOCAT_NULLPTR, const_cast<char *const *>(argv), ctx._environ) != 0) {
     close(pipefd[0]);
     close(pipefd[1]);
-    //pipefd[0] = -1;
-    //pipefd[1] = -1;
+    // pipefd[0] = -1;
+    // pipefd[1] = -1;
     posix_spawn_file_actions_destroy(&actions);
     return result;
   }
 
   posix_spawn_file_actions_destroy(&actions);
   close(pipefd[1]);
-  //pipefd[1] = -1;
+  // pipefd[1] = -1;
 
   result.fp = fdopen(pipefd[0], "r");
   result.pid = pid;

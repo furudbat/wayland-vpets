@@ -34,6 +34,7 @@ struct wayland_thread_context {
   wl_surface *surface{BONGOCAT_NULLPTR};
   zwlr_layer_surface_v1 *layer_surface{BONGOCAT_NULLPTR};
   struct wl_registry *registry{BONGOCAT_NULLPTR};
+  uint32_t layer_shell_version{0};
 
   // Output reconnection handling
   uint32_t bound_output_name{0};   // Registry name of our bound output
@@ -44,15 +45,15 @@ struct wayland_thread_context {
   MMapMemory<wayland_shared_memory_t> ctx_shm;
   bar_visibility_t bar_visibility{bar_visibility_t::Show};
 
-  int32_t _bar_height{0};     // applied_height
-  int32_t _screen_width{0};   // applied_width
+  int32_t _bar_height{0};    // applied_height
+  int32_t _screen_width{0};  // applied_width
   // ref to existing name in output, Will default to automatic one if kept null
-  char *_output_name_str{BONGOCAT_NULLPTR};   // bound_screen_name
+  char *_output_name_str{BONGOCAT_NULLPTR};  // bound_screen_name
   bool _fullscreen_detected{false};
   screen_info_t *_screen_info{BONGOCAT_NULLPTR};
   config::layer_type_t _layer{config::layer_type_t::LAYER_TOP};
   config::overlay_position_t _overlay_position{config::overlay_position_t::POSITION_BOTTOM};
-  AllocatedString _target_output_name;    // applied_output_name
+  AllocatedString _target_output_name;  // applied_output_name
 
   // frame done callback data
   wl_callback *_frame_cb{BONGOCAT_NULLPTR};
@@ -148,6 +149,7 @@ inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   if (ctx.layer_shell != BONGOCAT_NULLPTR) {
     zwlr_layer_shell_v1_destroy(ctx.layer_shell);
     ctx.layer_shell = BONGOCAT_NULLPTR;
+    ctx.layer_shell_version = 0;
   }
   if (ctx.xdg_wm_base != BONGOCAT_NULLPTR) {
     xdg_wm_base_destroy(ctx.xdg_wm_base);

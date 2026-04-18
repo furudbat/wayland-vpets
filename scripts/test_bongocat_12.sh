@@ -68,7 +68,7 @@ sed -i -E 's/^cat_x_offset=[0-9]+/cat_x_offset=0/' "$CONFIG"
 sed -i -E 's/^cat_y_offset=[0-9]+/cat_y_offset=0/' "$CONFIG"
 sed -i -E 's/^cat_align=[a-zA-Z]+/cat_align=center/' "$CONFIG"
 sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=1/' "$CONFIG"
-sed -i -E 's/^cat_height=[0-9]+/cat_align=60/' "$CONFIG"
+sed -i -E 's/^cat_height=[0-9]+/cat_height=60/' "$CONFIG"
 sed -i -E 's/^overlay_height=[0-9]+/overlay_height=80/' "$CONFIG"
 
 # Test Sleep
@@ -215,6 +215,56 @@ kill -USR2 "$PID" # Reload config
 sleep 5
 
 
+echo "[TEST] Set Position"
+echo "[INFO] Top Position..."
+sed -i -E "s/^overlay_position=[a-zA-Z]+/overlay_position=top/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 10
+echo "[INFO] Bottom Position..."
+sed -i -E "s/^overlay_position=[a-zA-Z]+/overlay_position=bottom/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+echo "[INFO] Top Position..."
+sed -i -E "s/^overlay_position=[a-zA-Z]+/overlay_position=top/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 10
+
+echo "[TEST] Set Layer"
+echo "[INFO] Top Layer..."
+sed -i -E "s/^overlay_position=[a-zA-Z]+/overlay_position=bottom/" "$CONFIG"
+sed -i -E "s/^overlay_layer=[a-zA-Z]+/overlay_layer=top/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 10
+echo "[INFO] Bottom Layer..."
+sed -i -E "s/^overlay_layer=[a-zA-Z]+/overlay_layer=bottom/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+echo "[INFO] Overlay Layer..."
+sed -i -E "s/^overlay_layer=[a-zA-Z]+/overlay_layer=overlay/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+echo "[INFO] Overlay Layer..."
+sed -i -E "s/^overlay_position=[a-zA-Z]+/overlay_position=top/" "$CONFIG"
+sed -i -E "s/^overlay_layer=[a-zA-Z]+/overlay_layer=overlay/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 10
+echo "[INFO] Background Layer..."
+sed -i -E "s/^overlay_position=[a-zA-Z]+/overlay_position=bottom/" "$CONFIG"
+sed -i -E "s/^overlay_layer=[a-zA-Z]+/overlay_layer=background/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
+echo "[INFO] Top Layer..."
+sed -i -E "s/^overlay_layer=[a-zA-Z]+/overlay_layer=top/" "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 5
 
 # --- verify running ---
 if kill -0 "$PID" 2>/dev/null; then

@@ -59,8 +59,8 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
     // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
     // read-only config
-    // assert(wayland_ctx._local_copy_config != nullptr);
-    // const config::config_t& current_config = *wayland_ctx._local_copy_config;
+    assert(wayland_ctx.thread_context._local_copy_config != nullptr);
+    const config::config_t& current_config = *wayland_ctx.thread_context._local_copy_config;
 
     // Check if this is the output we're waiting for (reconnection case)
     if (!atomic_load(&wayland_ctx._output_lost)) {
@@ -69,25 +69,27 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
 
     bool should_reconnect = false;
     // Case 1: User specified an output name - match exactly
-    if (wayland_thread_ctx.using_named_output && wayland_thread_ctx._output_name_str != BONGOCAT_NULLPTR) {
-      should_reconnect = (strcmp(name, wayland_thread_ctx._output_name_str) == 0);
+    if (wayland_thread_ctx.using_named_output && current_config.output_name) {
+      should_reconnect = (strcmp(name, current_config.output_name.c_str()) == 0);
     }
     // Case 2: Using fallback (first output) - reconnect to any output
     else if (!wayland_thread_ctx.using_named_output) {
       should_reconnect = true;
-      BONGOCAT_LOG_DEBUG("Using fallback output, accepting '%s'", name);
+      BONGOCAT_LOG_DEBUG("xdg_output.name: Using fallback output, accepting '%s'", name);
     }
 
     if (should_reconnect) {
-      BONGOCAT_LOG_INFO("Target output '%s' reconnected!", name);
-
-      // Clean up old surface if it exists
-      cleanup_wayland_context_surface(wayland_thread_ctx);
+      BONGOCAT_LOG_INFO("xdg_output.name: Target output '%s' reconnected!", name);
 
       // Set new output
       wayland_thread_ctx.output = oref->wl_output;
       wayland_thread_ctx.bound_output_name = oref->name;
       atomic_store(&oref->wayland->_output_lost, false);
+      wl_display_roundtrip(wayland_thread_ctx.display);
+      wayland_update_output(wayland_ctx);
+
+      // Clean up old surface if it exists
+      cleanup_wayland_context_surface(wayland_thread_ctx);
 
       // Recreate surface on new output
       // Note: wayland_setup_surface already commits, triggering a configure
@@ -96,19 +98,20 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
       if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
         assert(wayland_thread_ctx.ctx_shm);
         if (wayland_thread_ctx.ctx_shm) {
-          atomic_store(&wayland_thread_ctx.ctx_shm->configured, true);
+          /// @TODO: premature configured ?
+          // atomic_store(&wayland_thread_ctx.ctx_shm->configured, true);
+          if (!atomic_load(&wayland_thread_ctx.ctx_shm->configured)) {
+            BONGOCAT_LOG_WARNING("xdg_output.name: assuming configured, yet");
+          }
         }
-        if constexpr (WAYLAND_NUM_BUFFERS != 1) {
-          // Wait for configure event to be processed
-          wl_display_roundtrip(wayland_thread_ctx.display);
-          wayland_update_current_output_info(wayland_ctx);
-        }
+        // Wait for configure event to be processed
+        wl_display_roundtrip(wayland_thread_ctx.display);
         if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
           request_render(*oref->wayland->animation_context);
         }
-        BONGOCAT_LOG_INFO("Surface recreated, configure event processed");
+        BONGOCAT_LOG_INFO("xdg_output.name: Surface recreated, configure event processed");
       } else {
-        BONGOCAT_LOG_ERROR("Failed to recreate surface on reconnected output");
+        BONGOCAT_LOG_ERROR("xdg_output.name: Failed to recreate surface on reconnected output");
       }
     }
   }
@@ -327,31 +330,71 @@ void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel
   }
 
   /// @NOTE: tracked.output can always be NULL when no output.enter/output.leave event were triggered
+  bool output_found = false;
+  bool handle_tracked = false;
+  bool handle_has_output = false;
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     if (ctx.tracked_toplevels[i].handle == handle) {
-      auto [output_found, changed] = update_fullscreen_state_toplevel(
+      handle_tracked = true;
+      handle_has_output |= ctx.tracked_toplevels[i].output == BONGOCAT_NULLPTR;
+      auto [output_found_result, changed] = update_fullscreen_state_toplevel(
           ctx, ctx.tracked_toplevels[i], {.is_fullscreen = is_fullscreen, .is_activated = is_activated});
-      if (output_found) {
+      output_found |= output_found_result;
+
+      if (output_found_result) {
         if (changed) {
           BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)",
                                is_fullscreen, is_activated);
         }
-        return;
       }
     }
   }
 
-  // fallback: check for hyprland active fullscreen windows
-  if (const int result = hyprland::fs_update_state(ctx); result >= 0) {
-    BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d (hyprland)", result);
+  // This toplevel is known to belong to a different output. Do not use
+  // compositor-global fallbacks, otherwise fullscreen on monitor A can hide
+  // overlay on monitor B.
+  if (handle_tracked && handle_has_output && !output_found) {
     return;
   }
 
-  // Fallback for when no toplevel was found
-  const bool changed = fs_update_state(ctx, {.is_fullscreen = is_fullscreen, .is_activated = is_activated});
-  if (changed) {
-    BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)",
-                         is_fullscreen, is_activated);
+  // fallback: check for hyprland active fullscreen windows
+  if (!output_found) {
+    if (const int result = hyprland::fs_update_state(ctx); result >= 0) {
+      output_found = true;
+      BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d (hyprland)", result);
+    }
+  }
+
+  // fallback: global fullscreen
+  // Safe when single-output, or when the compositor never sends output_enter
+  // events (e.g. KDE/KWin). In the latter case, per-output tracking is
+  // impossible, so we use the global activated+fullscreen state as a best
+  // effort. On multi-monitor setups without output events, fullscreen on
+  // any monitor will hide the overlay on all monitors - acceptable trade-off
+  // vs never hiding at all.
+  if (!output_found && (ctx.output_count <= 1 || !atomic_load(&ctx._compositor_sends_output_events))) {
+    // Case 1: Window becomes active - update state based on its fullscreen
+    // status
+    if (is_activated) {
+      atomic_store(&ctx._active_toplevel_fullscreen, is_fullscreen);
+
+      const bool changed = fs_update_state(ctx, {.is_fullscreen = is_fullscreen, .is_activated = is_activated});
+      if (changed) {
+        BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)",
+                             is_fullscreen, is_activated);
+      }
+    }
+    // Case 2: Previously active fullscreen window loses activation
+    // (e.g., switching to empty workspace) - show bongocat
+    else if (!is_activated) {
+      atomic_store(&ctx._active_toplevel_fullscreen, false);
+
+      const bool changed = fs_update_state(ctx, {.is_fullscreen = false, .is_activated = is_activated});
+      if (changed) {
+        BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)",
+                             is_fullscreen, is_activated);
+      }
+    }
   }
 }
 
@@ -364,6 +407,21 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return;
+  }
+
+  bool closed_on_current_output = false;
+  bool closed_was_fullscreen = false;
+  for (size_t i = 0; i < ctx.num_toplevels; ++i) {
+    if (ctx.tracked_toplevels[i].handle == handle) {
+      closed_on_current_output = ctx.tracked_toplevels[i].output == ctx.thread_context.output;
+      closed_was_fullscreen = ctx.tracked_toplevels[i].is_fullscreen;
+      break;
+    }
+  }
+
+  if (closed_on_current_output && closed_was_fullscreen) {
+    ctx._active_toplevel_fullscreen = false;
+    fs_update_state(ctx, {.is_fullscreen = false, .is_activated = true});
   }
 
   // remove from tracked_toplevels if present
@@ -416,6 +474,8 @@ void fs_handle_output_enter(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     return;
   }
   wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+
+  atomic_store(&ctx._compositor_sends_output_events, true);
 
   for (size_t i = 0; i < ctx.num_toplevels; i++) {
     auto& tracked = ctx.tracked_toplevels[i];
@@ -537,15 +597,14 @@ static void screen_calculate_dimensions(screen_info_t& screen_info) {
   if (screen_info.received == screen_info_received_flags_t::None ||
       (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Geometry)) ==
           0 ||
-      (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Mode)) == 0 ||
-      screen_info.screen_width > 0) {
+      (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Mode)) == 0) {
     return;
   }
 
-  const bool is_rotated =
-      (screen_info.transform == WL_OUTPUT_TRANSFORM_90 || screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
-       screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
-       screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270);
+  const bool is_rotated = screen_info.transform == WL_OUTPUT_TRANSFORM_90 ||
+                          screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
+                          screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
+                          screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270;
 
   if (is_rotated) {
     screen_info.screen_width = screen_info.raw_height;
@@ -763,11 +822,15 @@ void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t time) {
   // Fallback for missed buffer.release
   platform::wayland::wayland_shared_memory_t *shm_ctx = wayland_ctx.ctx_shm.ptr;
   assert(shm_ctx);
-  for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
-    auto& buf = shm_ctx->buffers[i];
-    if (atomic_load(&buf.busy)) {
-      atomic_store(&buf.busy, false);
-      BONGOCAT_LOG_WARNING("wl_callback.done: fallback released stuck buffer %zu (missed wl_buffer.release)", i);
+  /// @TODO: a second buffer may have been submitted after the one whose frame callback just fired. That buffer may
+  /// still be actively read by the compositor. track the submitted buffer pointer explicitly and only clear that one.
+  if constexpr (platform::wayland::WAYLAND_NUM_BUFFERS == 1) {
+    for (size_t i = 0; i < platform::wayland::WAYLAND_NUM_BUFFERS; i++) {
+      auto& buf = shm_ctx->buffers[i];
+      if (atomic_load(&buf.busy)) {
+        atomic_store(&buf.busy, false);
+        BONGOCAT_LOG_WARNING("wl_callback.done: fallback released stuck buffer %zu (missed wl_buffer.release)", i);
+      }
     }
   }
 
@@ -782,41 +845,58 @@ void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t time) {
 // WAYLAND PROTOCOL REGISTRY
 // =============================================================================
 
-void registry_global(void *data, wl_registry *reg, uint32_t name, const char *iface, [[maybe_unused]] uint32_t ver) {
+inline uint32_t bind_min_ver(uint32_t v, uint32_t desired) {
+  return v < desired ? v : desired;
+}
+void registry_global(void *data, wl_registry *reg, uint32_t name, const char *iface, uint32_t ver) {
   if (data == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
   wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
-  BONGOCAT_LOG_VERBOSE("wl_registry.global: registry received: %s", iface);
+  BONGOCAT_LOG_VERBOSE("wl_registry.global: registry received: %s; version: %u", iface, ver);
+
+  constexpr uint32_t wl_compositor_interface_version = 4;
+  constexpr uint32_t wl_shm_interface_version = 1;
+  constexpr uint32_t zwlr_layer_shell_v1_interface_version = 4;
+  constexpr uint32_t xdg_wm_base_interface_version = 1;
+  constexpr uint32_t zxdg_output_manager_v1_interface_version = 3;
+  constexpr uint32_t wl_output_interface_version = 2;
+  constexpr uint32_t zwlr_foreign_toplevel_manager_v1_interface_version = 3;
 
   if (strcmp(iface, wl_compositor_interface.name) == 0) {
-    ctx.thread_context.compositor =
-        static_cast<wl_compositor *>(wl_registry_bind(reg, name, &wl_compositor_interface, 4));
+    ctx.thread_context.compositor = static_cast<wl_compositor *>(
+        wl_registry_bind(reg, name, &wl_compositor_interface, bind_min_ver(ver, wl_compositor_interface_version)));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: compositor registry bind");
   } else if (strcmp(iface, wl_shm_interface.name) == 0) {
-    ctx.thread_context.shm = static_cast<wl_shm *>(wl_registry_bind(reg, name, &wl_shm_interface, 1));
+    ctx.thread_context.shm = static_cast<wl_shm *>(
+        wl_registry_bind(reg, name, &wl_shm_interface, bind_min_ver(ver, wl_shm_interface_version)));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: shm registry bind");
   } else if (strcmp(iface, zwlr_layer_shell_v1_interface.name) == 0) {
+    const uint32_t bind_version = bind_min_ver(ver, zwlr_layer_shell_v1_interface_version);
     ctx.thread_context.layer_shell =
-        static_cast<zwlr_layer_shell_v1 *>(wl_registry_bind(reg, name, &zwlr_layer_shell_v1_interface, 1));
+        static_cast<zwlr_layer_shell_v1 *>(wl_registry_bind(reg, name, &zwlr_layer_shell_v1_interface, bind_version));
+    ctx.thread_context.layer_shell_version = bind_version;
     BONGOCAT_LOG_VERBOSE("wl_registry.global: layer_shell registry bind");
+    BONGOCAT_LOG_VERBOSE("wl_registry.global: layer_shell version (compositor): %u, bound: %u",
+                         ctx.thread_context.layer_shell_version, bind_version);
   } else if (strcmp(iface, xdg_wm_base_interface.name) == 0) {
-    ctx.thread_context.xdg_wm_base = static_cast<xdg_wm_base *>(wl_registry_bind(reg, name, &xdg_wm_base_interface, 1));
+    ctx.thread_context.xdg_wm_base = static_cast<xdg_wm_base *>(
+        wl_registry_bind(reg, name, &xdg_wm_base_interface, bind_min_ver(ver, xdg_wm_base_interface_version)));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: xdg_wm_base registry bind");
     if (ctx.thread_context.xdg_wm_base != BONGOCAT_NULLPTR) {
       xdg_wm_base_add_listener(ctx.thread_context.xdg_wm_base, &xdg_wm_base_listener, &ctx);
     }
   } else if (strcmp(iface, zxdg_output_manager_v1_interface.name) == 0) {
-    ctx.xdg_output_manager =
-        static_cast<zxdg_output_manager_v1 *>(wl_registry_bind(reg, name, &zxdg_output_manager_v1_interface, 3));
+    ctx.xdg_output_manager = static_cast<zxdg_output_manager_v1 *>(wl_registry_bind(
+        reg, name, &zxdg_output_manager_v1_interface, bind_min_ver(ver, zxdg_output_manager_v1_interface_version)));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: xdg_output_manager registry bind");
   } else if (strcmp(iface, wl_output_interface.name) == 0) {
     if (ctx.output_count < MAX_OUTPUTS) {
       ctx.outputs[ctx.output_count].name = name;
-      ctx.outputs[ctx.output_count].wl_output =
-          static_cast<wl_output *>(wl_registry_bind(reg, name, &wl_output_interface, 2));
+      ctx.outputs[ctx.output_count].wl_output = static_cast<wl_output *>(
+          wl_registry_bind(reg, name, &wl_output_interface, bind_min_ver(ver, wl_output_interface_version)));
       wl_output_add_listener(ctx.outputs[ctx.output_count].wl_output, &output_listener, &ctx);
       BONGOCAT_LOG_VERBOSE("wl_registry.global: wl_output registry bind: %i", ctx.output_count);
 
@@ -837,7 +917,8 @@ void registry_global(void *data, wl_registry *reg, uint32_t name, const char *if
     }
   } else if (strcmp(iface, zwlr_foreign_toplevel_manager_v1_interface.name) == 0) {
     ctx.fs_detector.manager = static_cast<zwlr_foreign_toplevel_manager_v1 *>(
-        wl_registry_bind(reg, name, &zwlr_foreign_toplevel_manager_v1_interface, 3));
+        wl_registry_bind(reg, name, &zwlr_foreign_toplevel_manager_v1_interface,
+                         bind_min_ver(ver, zwlr_foreign_toplevel_manager_v1_interface_version)));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: foreign_toplevel_manager (fs_detector.manager) registry bind");
     if (ctx.fs_detector.manager != BONGOCAT_NULLPTR) {
       zwlr_foreign_toplevel_manager_v1_add_listener(ctx.fs_detector.manager, &fs_manager_listener, &ctx);
@@ -866,34 +947,57 @@ void registry_remove(void *data, [[maybe_unused]] wl_registry *registry, [[maybe
 
   BONGOCAT_LOG_VERBOSE("wl_registry.global_remove: registry received");
 
+  size_t removed_index = ctx.output_count;
+  for (size_t i = 0; i < ctx.output_count; ++i) {
+    if (ctx.outputs[i].name == name) {
+      removed_index = i;
+      break;
+    }
+  }
+  if (removed_index >= ctx.output_count) {
+    return;
+  }
+
   // Check if the removed global is our bound output
-  if (name == ctx.thread_context.bound_output_name && ctx.thread_context.bound_output_name != 0) {
-    BONGOCAT_LOG_VERBOSE("Bound output disconnected (registry name %u)", name);
+  const bool removed_bound = name == ctx.thread_context.bound_output_name && ctx.thread_context.bound_output_name != 0;
+  if (removed_bound) {
+    BONGOCAT_LOG_VERBOSE("wl_registry.global_remove: Bound output disconnected (registry name %u)", name);
     atomic_store(&ctx._output_lost, true);
     atomic_store(&wayland_ctx_shm.configured, false);
 
     // Clean up the old output reference
     wayland_ctx.output = BONGOCAT_NULLPTR;
+    wayland_ctx.bound_output_name = 0;
+    wayland_ctx._output_name_str = BONGOCAT_NULLPTR;
+  }
 
-    // Remove from outputs array
+  // Remove from outputs array
+  for (size_t i = 0; i < ctx.output_count; ++i) {
+    if (ctx.outputs[i].name == name) {
+      if (ctx.outputs[i].xdg_output != BONGOCAT_NULLPTR) {
+        zxdg_output_v1_destroy(ctx.outputs[i].xdg_output);
+        ctx.outputs[i].xdg_output = BONGOCAT_NULLPTR;
+      }
+      if (ctx.outputs[i].wl_output != BONGOCAT_NULLPTR) {
+        wl_output_destroy(ctx.outputs[i].wl_output);
+        ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
+      }
+      // Shift remaining outputs
+      for (size_t j = i; j < ctx.output_count - 1; ++j) {
+        ctx.outputs[j] = ctx.outputs[j + 1];
+      }
+      // Zero out the now-unused slot
+      ctx.outputs[ctx.output_count - 1] = {};
+      ctx.output_count--;
+      break;
+    }
+  }
+
+  if (!removed_bound && wayland_ctx.output != BONGOCAT_NULLPTR) {
+    wayland_ctx._output_name_str = BONGOCAT_NULLPTR;
     for (size_t i = 0; i < ctx.output_count; ++i) {
-      if (ctx.outputs[i].name == name) {
-        if (ctx.outputs[i].xdg_output != BONGOCAT_NULLPTR) {
-          zxdg_output_v1_destroy(ctx.outputs[i].xdg_output);
-          ctx.outputs[i].xdg_output = BONGOCAT_NULLPTR;
-        }
-        if (ctx.outputs[i].wl_output != BONGOCAT_NULLPTR) {
-          wl_output_destroy(ctx.outputs[i].wl_output);
-          ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
-        }
-        // Shift remaining outputs
-        for (size_t j = i; j < ctx.output_count - 1; ++j) {
-          ctx.outputs[j] = ctx.outputs[j + 1];
-        }
-        // Zero out the now-unused slot
-        ctx.outputs[ctx.output_count - 1] = {};
-        ctx.output_count--;
-        break;
+      if (ctx.outputs[i].wl_output == wayland_ctx.output) {
+        wayland_ctx._output_name_str = ctx.outputs[i].name_str;
       }
     }
   }
@@ -912,7 +1016,8 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
   // assert(wayland_ctx._local_copy_config != nullptr);
   // const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
-  BONGOCAT_LOG_INFO("Output '%s' reconnected (registry name %u)", output_name, registry_name);
+  BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Output '%s' reconnected (registry name %u)", output_name,
+                    registry_name);
 
   // Clean up old surface if it exists
   cleanup_wayland_context_surface(wayland_ctx);
@@ -926,17 +1031,19 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
   if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
     assert(wayland_ctx.ctx_shm.ptr && wayland_ctx.ctx_shm.ptr != MAP_FAILED);
     if (wayland_ctx.ctx_shm) {
-      atomic_store(&wayland_ctx.ctx_shm->configured, true);
+      /// @TODO: pre-matured configured ?
+      // atomic_store(&wayland_ctx.ctx_shm->configured, true);
+      if (!atomic_load(&wayland_ctx.ctx_shm->configured)) {
+        BONGOCAT_LOG_WARNING("wayland_handle_output_reconnect: assuming configured, yet");
+      }
     }
-    BONGOCAT_LOG_INFO("Surface recreated on reconnected output");
-    if constexpr (WAYLAND_NUM_BUFFERS != 1) {
-      wl_display_roundtrip(wayland_ctx.display);
-    }
+    BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Surface recreated on reconnected output");
+    wl_display_roundtrip(wayland_ctx.display);
     if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
       request_render(*oref->wayland->animation_context);
     }
   } else {
-    BONGOCAT_LOG_ERROR("Failed to recreate surface on reconnected output");
+    BONGOCAT_LOG_ERROR("wayland_handle_output_reconnect: Failed to recreate surface on reconnected output");
   }
 }
 }  // namespace bongocat::platform::wayland::details
