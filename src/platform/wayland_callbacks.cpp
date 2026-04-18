@@ -53,7 +53,8 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
 
   /// Reconnection handling
   if (oref->wayland != BONGOCAT_NULLPTR) {
-    wayland_thread_context& wayland_ctx = oref->wayland->thread_context;
+    wayland_context_t& wayland_ctx = *oref->wayland;
+    wayland_thread_context& wayland_thread_ctx = oref->wayland->thread_context;
     // animation_context_t& anim = *ctx.animation_context;
     // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
 
@@ -62,17 +63,17 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
     // const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
     // Check if this is the output we're waiting for (reconnection case)
-    if (!atomic_load(&oref->wayland->_output_lost)) {
+    if (!atomic_load(&wayland_ctx._output_lost)) {
       return;
     }
 
     bool should_reconnect = false;
     // Case 1: User specified an output name - match exactly
-    if (wayland_ctx.using_named_output && wayland_ctx._output_name_str != BONGOCAT_NULLPTR) {
-      should_reconnect = (strcmp(name, wayland_ctx._output_name_str) == 0);
+    if (wayland_thread_ctx.using_named_output && wayland_thread_ctx._output_name_str != BONGOCAT_NULLPTR) {
+      should_reconnect = (strcmp(name, wayland_thread_ctx._output_name_str) == 0);
     }
     // Case 2: Using fallback (first output) - reconnect to any output
-    else if (!wayland_ctx.using_named_output) {
+    else if (!wayland_thread_ctx.using_named_output) {
       should_reconnect = true;
       BONGOCAT_LOG_DEBUG("Using fallback output, accepting '%s'", name);
     }
@@ -81,11 +82,11 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
       BONGOCAT_LOG_INFO("Target output '%s' reconnected!", name);
 
       // Clean up old surface if it exists
-      cleanup_wayland_context_surface(wayland_ctx);
+      cleanup_wayland_context_surface(wayland_thread_ctx);
 
       // Set new output
-      wayland_ctx.output = oref->wl_output;
-      wayland_ctx.bound_output_name = oref->name;
+      wayland_thread_ctx.output = oref->wl_output;
+      wayland_thread_ctx.bound_output_name = oref->name;
       atomic_store(&oref->wayland->_output_lost, false);
 
       // Recreate surface on new output
@@ -93,13 +94,14 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
       // event. The layer_surface_configure callback will ack and call draw_bar()
       // to render.
       if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
-        assert(wayland_ctx.ctx_shm);
-        if (wayland_ctx.ctx_shm) {
-          atomic_store(&wayland_ctx.ctx_shm->configured, true);
+        assert(wayland_thread_ctx.ctx_shm);
+        if (wayland_thread_ctx.ctx_shm) {
+          atomic_store(&wayland_thread_ctx.ctx_shm->configured, true);
         }
         if constexpr (WAYLAND_NUM_BUFFERS != 1) {
           // Wait for configure event to be processed
-          wl_display_roundtrip(wayland_ctx.display);
+          wl_display_roundtrip(wayland_thread_ctx.display);
+          wayland_update_current_output_info(wayland_ctx);
         }
         if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
           request_render(*oref->wayland->animation_context);
