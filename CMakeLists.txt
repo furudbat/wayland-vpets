@@ -5,7 +5,7 @@ set(CMAKE_C_STANDARD 23)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_C_STANDARD_REQUIRED ON)
 include(FetchContent)
-if(CMAKE_VERSION VERSION_GREATER_EQUAL "3.24.0")
+if(CMAKE_VERSION VERSION_GREATER_EQUAL "4.0.0")
   cmake_policy(SET CMP0135 NEW)
 endif()
 
@@ -34,11 +34,12 @@ endif()
 project(
   bongocat
   LANGUAGES C CXX
-  VERSION 3.6.1)
+  VERSION 3.6.2)
 
 # Feature Flags
 include(CMakeDependentOption)
 option(FEATURE_BONGOCAT_EMBEDDED_ASSETS "Include bongocat assets (default)" ON)
+cmake_dependent_option(FEATURE_USE_BONGOCAT_SVG "Use bongocat SVG embedded assets" ON FEATURE_BONGOCAT_EMBEDDED_ASSETS OFF)
 option(FEATURE_ENABLE_DM_EMBEDDED_ASSETS "Enable include dm embedded assets" OFF)
 cmake_dependent_option(FEATURE_DM_EMBEDDED_ASSETS "Include dm embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
 cmake_dependent_option(FEATURE_DM20_EMBEDDED_ASSETS "Include dm20 embedded assets (replaces original dm)" OFF
@@ -70,6 +71,13 @@ option(FEATURE_CUSTOM_SPRITE_SHEETS "Enable custom sprite sheet at runtime" ON)
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
 option(ENABLE_TSAN "Enable Thread Sanitizer" OFF)
+
+find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner)
+if (WAYLAND_SCANNER_EXECUTABLE)
+  option(GENERATE_PROTOCOLS "Generate Wayland protocol files" ON)
+else()
+  option(GENERATE_PROTOCOLS "Generate Wayland protocol files" OFF)
+endif()
 
 # project_options More Warnings
 set(CLANG_WARNINGS
@@ -310,8 +318,7 @@ if(FEATURE_MULTI_VERSIONS)
   target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   add_executable(bongocat-all)
-  target_link_libraries(bongocat-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
-  )# include bongocat as fallback
+  target_link_libraries(bongocat-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
   target_link_libraries(bongocat-all PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
   target_link_libraries(bongocat-all PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
   target_link_libraries(bongocat-all PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
@@ -327,21 +334,20 @@ if(FEATURE_MULTI_VERSIONS)
     bongocat-all
     PRIVATE # only include pmd for testing
             $<$<CONFIG:Debug>:assets_pmd_loader
-            assets_pmd
-            assets_pmd_feature
-            assets_pmd_interface
-            assets_custom_loader>
+              assets_pmd
+              assets_pmd_feature
+              assets_pmd_interface
+              assets_custom_loader>
             $<$<CONFIG:RelWithDebInfo>:assets_pmd_loader
-            assets_pmd
-            assets_pmd_feature
-            assets_pmd_interface
-            assets_custom_loader>
+              assets_pmd
+              assets_pmd_feature
+              assets_pmd_interface
+              assets_custom_loader>
             $<$<BOOL:${FEATURE_PRELOAD_ASSETS}>:assets_pmd_loader
-            assets_pmd
-            assets_pmd_feature
-            assets_pmd_interface
-            assets_custom_loader>)
-  # target_link_libraries(bongocat-all PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
+              assets_pmd
+              assets_pmd_feature
+              assets_pmd_interface
+              assets_custom_loader>)
   target_link_libraries(bongocat-all PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
   target_link_libraries(bongocat-all PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
   target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)
@@ -354,26 +360,31 @@ if(FEATURE_MULTI_VERSIONS)
   # @NOTE(assets): 1.2. add exec for multi versions
 endif()
 
-# Formatting
-include(cmake/CPM.cmake)
-cpmaddpackage(
-  NAME
-  Format.cmake
-  VERSION
-  1.8.3
-  GITHUB_REPOSITORY
-  TheLartians/Format.cmake
-  OPTIONS
-  # set to yes skip cmake formatting
-  "FORMAT_SKIP_CMAKE NO"
-  # set to yes skip clang formatting
-  "FORMAT_SKIP_CLANG NO"
-  # path to exclude (optional, supports regular expressions)
-  "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
-  # extra arguments for cmake_format (optional)
-  "CMAKE_FORMAT_EXTRA_ARGS -c ${PROJECT_SOURCE_DIR}/cmake-format.yaml"
-  # path to exclude (optional, supports regular expressions)
-  "CMAKE_FORMAT_EXCLUDE lib|assets|protocols|docs|examples|nix")
+option(SKIP_CPM "Skip CPM-based downloads" OFF)
+if(DEFINED ENV{NIX_BUILD_TOP} OR SKIP_CPM)
+  message(STATUS "Nix build detected: skipping CPM and formatting setup")
+else()
+  # Formatting
+  include(cmake/CPM.cmake)
+  cpmaddpackage(
+    NAME
+    Format.cmake
+    VERSION
+    1.8.3
+    GITHUB_REPOSITORY
+    TheLartians/Format.cmake
+    OPTIONS
+    # set to yes skip cmake formatting
+    "FORMAT_SKIP_CMAKE NO"
+    # set to yes skip clang formatting
+    "FORMAT_SKIP_CLANG NO"
+    # path to exclude (optional, supports regular expressions)
+    "CMAKE_FORMAT_EXCLUDE cmake/CPM.cmake"
+    # extra arguments for cmake_format (optional)
+    "CMAKE_FORMAT_EXTRA_ARGS -c ${PROJECT_SOURCE_DIR}/cmake-format.yaml"
+    # path to exclude (optional, supports regular expressions)
+    "CMAKE_FORMAT_EXCLUDE lib|assets|protocols|docs|examples|nix")
+endif()
 
 # Install
 include(GNUInstallDirs)
@@ -459,33 +470,35 @@ if(PANDOC)
 endif()
 
 # Package
-cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
-set(CPACK_PACKAGE_NAME "bongocat")
-set(CPACK_PACKAGE_VERSION "3.6.1")
-set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
-set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
-set(CPACK_GENERATOR "TGZ;ZIP")
-packageproject(
-  # the name of the target to export
-  NAME
-  ${PROJECT_NAME}
-  # the version of the target to export
-  VERSION
-  ${PROJECT_VERSION}
-  # a temporary directory to create the config files
-  BINARY_DIR
-  ${PROJECT_BINARY_DIR}
-  # should match the target's INSTALL_INTERFACE include directory
-  INCLUDE_DESTINATION
-  include/${PROJECT_NAME}-${PROJECT_VERSION}
-  # (optional) define the project's version compatibility, defaults to `AnyNewerVersion` supported values:
-  # `AnyNewerVersion|SameMajorVersion|SameMinorVersion|ExactVersion`
-  COMPATIBILITY
-  SameMajorVersion
-  # (optional) option to generate CPack variables
-  CPACK
-  YES)
+if(NOT DEFINED ENV{NIX_BUILD_TOP} AND NOT SKIP_CPM)
+  cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
+  set(CPACK_PACKAGE_NAME "bongocat")
+  set(CPACK_PACKAGE_VERSION "4.0.0")
+  set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
+  set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
+  set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
+  set(CPACK_GENERATOR "TGZ;ZIP")
+  packageproject(
+    # the name of the target to export
+    NAME
+    ${PROJECT_NAME}
+    # the version of the target to export
+    VERSION
+    ${PROJECT_VERSION}
+    # a temporary directory to create the config files
+    BINARY_DIR
+    ${PROJECT_BINARY_DIR}
+    # should match the target's INSTALL_INTERFACE include directory
+    INCLUDE_DESTINATION
+    include/${PROJECT_NAME}-${PROJECT_VERSION}
+    # (optional) define the project's version compatibility, defaults to `AnyNewerVersion` supported values:
+    # `AnyNewerVersion|SameMajorVersion|SameMinorVersion|ExactVersion`
+    COMPATIBILITY
+    SameMajorVersion
+    # (optional) option to generate CPack variables
+    CPACK
+    YES)
+endif()
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we
 # can run the target from visual studio if(MSVC) get_all_installable_targets(all_targets) message("all_targets=${all_targets}")

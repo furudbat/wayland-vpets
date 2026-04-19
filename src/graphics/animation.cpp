@@ -1,5 +1,6 @@
 #include "graphics/animation.h"
 
+#include "embedded_assets/bongocat/assets_bongocat_features.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/custom/custom_sprite.h"
@@ -13,7 +14,10 @@
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
+#include "image_loader/custom/load_custom.h"
+#include "image_loader/custom/load_custom_features.h"
 #include "platform/wayland.h"
+#include "utils/system_error.h"
 #include "utils/time.h"
 
 #include <cassert>
@@ -768,7 +772,8 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
 
   // Start Test animation
   if (!conditions.any_key_pressed && conditions.trigger_test_animation &&
-      current_state.row_state == animation_state_row_t::Idle) {
+      (current_state.row_state == animation_state_row_t::Idle ||
+       current_state.row_state == animation_state_row_t::IdleSleep)) {
     anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Test, new_animation_result, new_state,
                                     current_state, current_frames);
   } else if (!conditions.any_key_pressed && conditions.trigger_test_animation &&
@@ -2586,7 +2591,7 @@ anim_ms_agent_process_animation(animation_player_result_t& new_animation_result,
 
   anim_ms_agent_process_animation_result_t ret{.row_state = new_state.row_state,
                                                .status = anim_ms_agent_process_animation_result_status_t::None};
-  if (section != nullptr && section->valid) {
+  if (section != BONGOCAT_NULLPTR && section->valid) {
     new_animation_result.sprite_sheet_row = section->row;
     new_animation_result.sprite_sheet_col = new_animation_result.sprite_sheet_col + 1;
     ret.status = anim_ms_agent_process_animation_result_status_t::Updated;
@@ -2695,7 +2700,7 @@ anim_ms_agent_restart_animation([[maybe_unused]] animation_thread_context_t& ctx
 
   anim_ms_agent_process_animation_result_t ret{.row_state = new_state.row_state,
                                                .status = anim_ms_agent_process_animation_result_status_t::None};
-  if (section != nullptr && section->valid) {
+  if (section != BONGOCAT_NULLPTR && section->valid) {
     new_state.row_state = new_row_state;
     new_animation_result.sprite_sheet_row = section->row;
     new_animation_result.sprite_sheet_col = section->start_col;
@@ -5356,7 +5361,8 @@ static void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
                             : old_anim_index;
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-  if constexpr (features::EnableLazyLoadAssets) {
+  if (features::EnableLazyLoadAssets ||
+      (features::EnableBongocatSvg && ctx.shm->anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat)) {
     auto [result, error] = hot_load_animation(ctx);
     if (error != bongocat_error_t::BONGOCAT_SUCCESS) {
       // rollback

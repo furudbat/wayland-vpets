@@ -56,6 +56,7 @@ enum class bongocat_error_t : uint8_t {
   BONGOCAT_ERROR_THREAD,
   BONGOCAT_ERROR_INVALID_PARAM,
   BONGOCAT_ERROR_IMAGE,
+  BONGOCAT_ERROR_SVG,
 };
 
 // =============================================================================
@@ -155,20 +156,6 @@ namespace features {
 #  define BONGOCAT_LOG_VERBOSE(format, ...)
 #endif
 
-inline int check_errno([[maybe_unused]] const char *fd_name) {
-  const int err = errno;
-  // supress compiler warning
-#if EAGAIN == EWOULDBLOCK
-  if (err != EAGAIN && err != -1) {
-    BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(err));
-  }
-#else
-  if (err != EAGAIN && err != EWOULDBLOCK && err != -1) {
-    BONGOCAT_LOG_ERROR("Error reading %s: %s", fd_name, strerror(err));
-  }
-#endif
-  return err;
-}
 }  // namespace bongocat
 
 #endif  // ERROR_H

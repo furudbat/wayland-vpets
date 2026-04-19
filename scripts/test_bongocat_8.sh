@@ -58,6 +58,8 @@ sleep 7
 
 echo "[TEST] Change overlay settings"
 echo "[INFO] Set overlay_height"
+sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
 sed -i -E 's/^overlay_height=[0-9]+/overlay_height=100/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
@@ -90,6 +92,41 @@ kill -USR2 "$PID" # Reload config
 sleep 10
 
 echo "[INFO] Set max size"
+sed -i -E 's/^overlay_position=.*/overlay_position=top/' "$CONFIG"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
+sed -i -E 's/^cat_height=[0-9]+/cat_height=1024/' "$CONFIG"
+sed -i -E 's/^overlay_height=[0-9]+/overlay_height=2560/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 15
+echo "[INFO] Set min size"
+sed -i -E 's/^cat_height=[0-9]+/cat_height=16/' "$CONFIG"
+sed -i -E 's/^overlay_height=[0-9]+/overlay_height=32/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 15
+
+echo "[INFO] Set max size (antialiasing)"
+sed -i -E 's/^overlay_position=.*/overlay_position=top/' "$CONFIG"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=1/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
+sed -i -E 's/^cat_height=[0-9]+/cat_height=1024/' "$CONFIG"
+sed -i -E 's/^overlay_height=[0-9]+/overlay_height=2560/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 15
+echo "[INFO] Set min size"
+sed -i -E 's/^cat_height=[0-9]+/cat_height=16/' "$CONFIG"
+sed -i -E 's/^overlay_height=[0-9]+/overlay_height=32/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 15
+
+echo "[INFO] Set max size (no antialiasing)"
+sed -i -E 's/^overlay_position=.*/overlay_position=top/' "$CONFIG"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
 sed -i -E 's/^cat_height=[0-9]+/cat_height=1024/' "$CONFIG"
 sed -i -E 's/^overlay_height=[0-9]+/overlay_height=2560/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"

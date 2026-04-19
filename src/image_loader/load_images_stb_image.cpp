@@ -1,5 +1,4 @@
 #include "image_loader/load_images.h"
-
 // include stb_image
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic push

@@ -211,7 +211,7 @@
 
     <enum name="error">
       <entry name="invalid_rectangle" value="0"
-        summary="the provided rectangle is invalid"/>
+             summary="the provided rectangle is invalid"/>
     </enum>
 
     <event name="closed">

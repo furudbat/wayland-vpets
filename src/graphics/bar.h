@@ -13,6 +13,7 @@ enum class draw_bar_result_t : uint8_t {
 
 // Draw the overlay bar
 draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx);
+
 }  // namespace bongocat::animation
 
 #endif  // BONGOCAT_ANIMATION_BAR_H

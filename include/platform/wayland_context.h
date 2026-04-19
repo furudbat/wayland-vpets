@@ -20,7 +20,7 @@ inline static constexpr size_t OUTPUT_NAME_SIZE = 128;
 struct fullscreen_detector_t {
   struct zwlr_foreign_toplevel_manager_v1 *manager{BONGOCAT_NULLPTR};
   bool has_fullscreen_toplevel{false};
-  timeval last_check{};
+  timespec last_check{};
 };
 struct tracked_toplevel_t {
   struct zwlr_foreign_toplevel_handle_v1 *handle{BONGOCAT_NULLPTR};
@@ -94,6 +94,13 @@ struct wayland_context_t {
   // Output reconnection handling
   atomic_bool _output_lost{false};  // Set when our output disconnects
 
+  // Fullscreen
+  atomic_bool _compositor_sends_output_events{false};
+  atomic_bool _active_toplevel_fullscreen{false};
+
+  // for safe_popen_read_spawn (pointer to global environ)
+  char **_environ{nullptr};
+
   wayland_context_t() {
     for (size_t i = 0; i < MAX_TOP_LEVELS; i++) {
       tracked_toplevels[i] = {};
@@ -164,7 +171,18 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
   cleanup_wayland_context(ctx.thread_context);
 
   ctx.animation_context = BONGOCAT_NULLPTR;
+
+  ctx._environ = BONGOCAT_NULLPTR;
+
+  atomic_store(&ctx._output_lost, false);
+  atomic_store(&ctx._compositor_sends_output_events, false);
+  atomic_store(&ctx._active_toplevel_fullscreen, false);
 }
 }  // namespace bongocat::platform::wayland
+
+namespace bongocat::animation {
+void cache_frames(platform::wayland::wayland_context_t& ctx, int target_w, int target_h, int mirror_x, int mirror_y,
+                  int enable_aa);
+}  // namespace bongocat::animation
 
 #endif

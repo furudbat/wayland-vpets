@@ -5,9 +5,9 @@
 
 namespace bongocat::platform {
 timestamp_us_t get_current_time_us() {
-  timeval now{};
-  gettimeofday(&now, nullptr);
-  return (now.tv_sec * 1000000LL) + now.tv_usec;
+  struct timespec now;
+  clock_gettime(CLOCK_MONOTONIC, &now);
+  return (now.tv_sec * 1000000L) + (now.tv_nsec / 1000L);
 }
 timestamp_ms_t get_current_time_ms() {
   return get_current_time_us() / 1000L;

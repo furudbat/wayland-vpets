@@ -1,11 +1,12 @@
 #include "image_loader/load_images.h"
-
+#include "image_loader/load_svgs.h"
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "utils/memory.h"
-
 #include <cassert>
+#include <cstring>
+#include <cstdint>
 
 namespace bongocat::animation {
 // =============================================================================
@@ -51,7 +52,7 @@ load_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_siz
     BONGOCAT_LOG_ERROR("Failed to allocate memory for dest_pixels (%zu bytes)\n", dest_pixels_size);
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  // memset(dest_pixels.data, 0, dest_pixels_size);
+  ::memset(dest_pixels.data, 0, dest_pixels_size);
 
   const auto src_frame_width = frame_width;
   const auto src_frame_height = frame_height;
@@ -173,19 +174,15 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
     ret.image.sprite_sheet_height = 0;
     ret.image.channels = 0;
 
-    for (size_t i = 0; i < loaded_images.count; i++) {
-      if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
-        ::free(loaded_images[i].pixels);
-        loaded_images[i].pixels = BONGOCAT_NULLPTR;
-      }
-    }
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
+
   // reset frames
-  // memset(anim->pixels.data, 0, anim->pixels.count * sizeof(uint8_t));
+  ::memset(ret.image.pixels.data, 0, ret.image.pixels._size_bytes);
   for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
     ret.frames[i] = {};
   }
+
   // append images into one sprite sheet
   assert(max_frame_width >= 0);
   assert(max_channels >= 0);
@@ -204,7 +201,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
                                                               static_cast<size_t>(max_channels));
         const unsigned char *src_row =
             src.pixels + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
-        memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
+        ::memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
       }
 
       // update sub-region
@@ -218,12 +215,6 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
     }
   }
 
-  for (size_t i = 0; i < loaded_images.count; i++) {
-    if (loaded_images[i].pixels != BONGOCAT_NULLPTR) {
-      ::free(loaded_images[i].pixels);
-      loaded_images[i].pixels = BONGOCAT_NULLPTR;
-    }
-  }
   return ret;
 }
 
@@ -251,5 +242,38 @@ created_result_t<generic_sprite_sheet_t> load_sprite_sheet_anim(const config::co
                      result.result.image.sprite_sheet_height, result.result.total_frames);
 
   return result;
+}
+
+BONGOCAT_NODISCARD created_result_t<Image> make_image(int width, int height, int desired_channels) {
+  BONGOCAT_CHECK_ERROR(width < 0, bongocat_error_t::BONGOCAT_ERROR_IMAGE, "image width can not be negative");
+  BONGOCAT_CHECK_ERROR(height < 0, bongocat_error_t::BONGOCAT_ERROR_IMAGE, "image height can not be negative");
+  BONGOCAT_CHECK_ERROR(desired_channels < 0, bongocat_error_t::BONGOCAT_ERROR_IMAGE, "image channels can not be negative");
+
+  Image ret;
+  if (width == 0 || height == 0 || desired_channels == 0) {
+    return ret;
+  }
+
+  assert(width > 0);
+  assert(height > 0);
+  assert(desired_channels > 0);
+  const size_t data_size = static_cast<size_t>(width) *
+                     static_cast<size_t>(height) *
+                     static_cast<size_t>(desired_channels);
+  assert(data_size > 0);
+
+  unsigned char* new_pixels = static_cast<unsigned char*>(::malloc(data_size));
+  if (new_pixels == BONGOCAT_NULLPTR) {
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+  ::memset(new_pixels, 0, data_size);
+
+  ret.width = width;
+  ret.height = height;
+  ret.channels = desired_channels;
+  ret.pixels = new_pixels;
+  new_pixels = BONGOCAT_NULLPTR;
+
+  return ret;
 }
 }  // namespace bongocat::animation

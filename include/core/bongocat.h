@@ -1,9 +1,6 @@
 #ifndef BONGOCAT_BONGOCAT_H
 #define BONGOCAT_BONGOCAT_H
 
-// POSIX feature test macro - must be before includes
-#define _POSIX_C_SOURCE 200809L
-
 #include "utils/error.h"
 #include "utils/memory.h"
 
@@ -15,7 +12,7 @@
 // =============================================================================
 
 // Version
-inline static constexpr const char *BONGOCAT_VERSION = "3.6.1";
+inline static constexpr const char *BONGOCAT_VERSION = "4.0.0";
 
 // =============================================================================
 // COMPILE-TIME CONSTANTS
@@ -51,92 +48,6 @@ namespace features {
   inline static constexpr bool Debug = false;
 #endif
 
-#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-  inline static constexpr bool EnableBongocatEmbeddedAssets = true;
-#else
-  inline static constexpr bool EnableBongocatEmbeddedAssets = false;
-#endif
-
-#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-  inline static constexpr bool EnableDmEmbeddedAssets = true;
-#  ifdef FEATURE_DM_EMBEDDED_ASSETS
-  inline static constexpr bool EnableFullDmEmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnableFullDmEmbeddedAssets = false;
-#  endif
-#  ifdef FEATURE_DM20_EMBEDDED_ASSETS
-  inline static constexpr bool EnableDm20EmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnableDm20EmbeddedAssets = false;
-#  endif
-#  ifdef FEATURE_DMC_EMBEDDED_ASSETS
-  inline static constexpr bool EnableDmcEmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnableDmcEmbeddedAssets = false;
-#  endif
-#  ifdef FEATURE_DMX_EMBEDDED_ASSETS
-  inline static constexpr bool EnableDmxEmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnableDmxEmbeddedAssets = false;
-#  endif
-#  ifdef FEATURE_PEN_EMBEDDED_ASSETS
-  inline static constexpr bool EnablePenEmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnablePenEmbeddedAssets = false;
-#  endif
-#  ifdef FEATURE_PEN20_EMBEDDED_ASSETS
-  inline static constexpr bool EnablePen20EmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnablePen20EmbeddedAssets = false;
-#  endif
-#  ifdef FEATURE_DMALL_EMBEDDED_ASSETS
-  inline static constexpr bool EnableDmAllEmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnableDmAllEmbeddedAssets = false;
-#  endif
-#  if !defined(FEATURE_DM_EMBEDDED_ASSETS) && !defined(FEATURE_DM20_EMBEDDED_ASSETS) && \
-      !defined(FEATURE_DMC_EMBEDDED_ASSETS) && !defined(FEATURE_DMX_EMBEDDED_ASSETS) && \
-      !defined(FEATURE_PEN20_EMBEDDED_ASSETS) && !defined(FEATURE_DMALL_EMBEDDED_ASSETS)
-  inline static constexpr bool EnableMinDmEmbeddedAssets = true;
-#  else
-  inline static constexpr bool EnableMinDmEmbeddedAssets = false;
-#  endif
-#else
-  inline static constexpr bool EnableDmEmbeddedAssets = false;
-  inline static constexpr bool EnableFullDmEmbeddedAssets = false;
-  inline static constexpr bool EnableDm20EmbeddedAssets = false;
-  inline static constexpr bool EnableDmcEmbeddedAssets = false;
-  inline static constexpr bool EnableDmxEmbeddedAssets = false;
-  inline static constexpr bool EnablePenEmbeddedAssets = false;
-  inline static constexpr bool EnablePen20EmbeddedAssets = false;
-  inline static constexpr bool EnableMinDmEmbeddedAssets = false;
-  inline static constexpr bool EnableDmAllEmbeddedAssets = false;
-#endif
-
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-  inline static constexpr bool EnableMsAgentEmbeddedAssets = true;
-#else
-  inline static constexpr bool EnableMsAgentEmbeddedAssets = false;
-#endif
-
-#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-  inline static constexpr bool EnablePkmnEmbeddedAssets = true;
-#else
-  inline static constexpr bool EnablePkmnEmbeddedAssets = false;
-#endif
-
-#ifdef FEATURE_PMD_EMBEDDED_ASSETS
-  inline static constexpr bool EnablePmdEmbeddedAssets = true;
-#else
-  inline static constexpr bool EnablePmdEmbeddedAssets = false;
-#endif
-
-#ifdef FEATURE_MISC_EMBEDDED_ASSETS
-  inline static constexpr bool EnableMiscEmbeddedAssets = true;
-#else
-  inline static constexpr bool EnableMiscEmbeddedAssets = false;
-#endif
-
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
   inline static constexpr bool EnableMemoryStatistics = true;
 #else
@@ -159,30 +70,6 @@ namespace features {
   inline static constexpr bool EnableLazyLoadAssets = true;
 #else
   inline static constexpr bool EnableLazyLoadAssets = false;
-#endif
-
-#ifdef FEATURE_USE_HYBRID_IMAGE_BACKEND
-  inline static constexpr bool UseHybridImageBackend = true;
-#else
-  inline static constexpr bool UseHybridImageBackend = false;
-
-#  ifdef FEATURE_USE_PNGLE
-  inline static constexpr bool UsePngleImageBackend = true;
-#  else
-  inline static constexpr bool UsePngleImageBackend = false;
-#  endif
-
-#  ifdef FEATURE_USE_STB_IMAGE
-  inline static constexpr bool UseStbImageBackend = true;
-#  else
-  inline static constexpr bool UseStbImageBackend = false;
-#  endif
-#endif
-
-#ifdef FEATURE_CUSTOM_SPRITE_SHEETS
-  inline static constexpr bool EnableCustomSpriteSheetsAssets = true;
-#else
-  inline static constexpr bool EnableCustomSpriteSheetsAssets = false;
 #endif
 
 }  // namespace features

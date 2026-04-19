@@ -25,7 +25,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "Release"
+        "CMAKE_BUILD_TYPE": "Release",
+        "GENERATE_PROTOCOLS": "OFF"
       }
     },
     {
@@ -89,6 +90,24 @@
       }
     },
     {
+      "name": "release_preload_assets_svg",
+      "displayName": "Release (preload assets + svg)",
+      "description": "Release with assets preloaded at the start",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-release-preload-assets-svg",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Release",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PRELOAD_ASSETS": "ON",
+        "FEATURE_LAZY_LOAD_ASSETS": "OFF",
+        "FEATURE_USE_BONGOCAT_SVG": "ON"
+      }
+    },
+    {
       "name": "release_only_bongocat",
       "displayName": "Release (Only Bongocat)",
       "description": "Release build with optimizations",
@@ -100,7 +119,8 @@
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
         "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "OFF",
         "FEATURE_PKMN_EMBEDDED_ASSETS": "OFF",
-        "FEATURE_MISC_EMBEDDED_ASSETS": "OFF"
+        "FEATURE_MISC_EMBEDDED_ASSETS": "OFF",
+        "FEATURE_USE_BONGOCAT_SVG": "ON"
       }
     },
     {
@@ -253,6 +273,60 @@
         "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "OFF",
         "FEATURE_LAZY_LOAD_ASSETS": "ON"
+      }
+    },
+    {
+      "name": "debug_all_assets_lazy_load_svg",
+      "displayName": "Debug (All Assets + colored sprites + svg, assets lazy load)",
+      "description": "Debug build with ALL assets (full dm versions + colored sprites), lazy load assets on demand",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-all-assets-lazy-load-svg",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PRELOAD_ASSETS": "OFF",
+        "FEATURE_LAZY_LOAD_ASSETS": "ON",
+        "FEATURE_USE_BONGOCAT_SVG": "ON"
+      }
+    },
+    {
+      "name": "debug_svg",
+      "displayName": "Debug Build",
+      "description": "Debug build with sanitizers",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-svg",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "FEATURE_USE_BONGOCAT_SVG": "ON"
+      }
+    },
+    {
+      "name": "debug_no_svg",
+      "displayName": "Debug Build",
+      "description": "Debug build with sanitizers",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-no-svg",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "FEATURE_USE_BONGOCAT_SVG": "OFF"
       }
     }
   ],

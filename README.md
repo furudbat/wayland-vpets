@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.6.1-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A cute Wayland overlay that shows an animated pets reacting to your keyboard input.
@@ -84,6 +84,8 @@ wpets-find-devices  # or ./scripts/find_input_devices.sh
 
 ```bash
 wpets-all --watch-config
+# Optional: force one monitor from CLI
+wpets-all --watch-config --monitor DP-1
 ```
 
 ## Configuration
@@ -231,7 +233,6 @@ _If you build with ALL assets included you can void naming conflicts by using th
 | `custom_end_moving_row`                     | 1-15               | -1 (auto)        | Row nr for end moving animation                                                      |
 
 See [examples](examples/custom-sprite-sheets) for more details.
-
 </details>
 
 
@@ -246,7 +247,7 @@ Options:
   -c, --config              Specify config file (default: ~/.config/bongocat.conf)
   -w, --watch-config        Watch config file for changes and reload automatically
   -t, --toggle              Toggle bongocat on/off (start if not running, stop if running)
-  -o, --output-name NAME    Specify output name (overwrite output_name from config)
+  -m, --monitor NAME        Force specific monitor output
       --random              Randomize animation_name at start up
       --strict              Only start up with a valid config and valid parameter
       --nr NR               Specify Nr. for PID file to avoid conflicting ruinning instances
@@ -291,8 +292,8 @@ For [hyprland](https://hypr.land/) users, you can autostart `wpets` in your `hyp
 
 ```ini
 # Auto start
-exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen1.bongocat.conf -o HDMI-A-1
-exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen2.bongocat.conf -o DP-1
+exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen1.bongocat.conf -m HDMI-A-1
+exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen2.bongocat.conf -m DP-1
 exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen3.bongocat.conf
 exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen4.bongocat.conf --random
 ```
@@ -336,7 +337,10 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-**Requirements:** wayland-client, wayland-protocols, gcc/clang, make, cmake
+**Requirements:** wayland-client, gcc15 or clang19, make, cmake
+
+> [!CAUTION]
+> **Privacy Notice**: When building in `DEBUG` mode and by enabling `enable_debug=1`, all keystrokes are logged to stdout/stderr. Ensure this is disabled (default: 0) for normal usage.
 
 ## License
 

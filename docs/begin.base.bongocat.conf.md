@@ -79,6 +79,8 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 # ANTI-ALIASING
 
 - **enable_antialiasing**: Smooth scaling using bilinear interpolation (0 = off, 1 = on).
+    - Recommended for pixel sprites to be off (Digimon, Pokemon)
+    - Recommended for MS Agent to be on 
 
 # SPRITE
 

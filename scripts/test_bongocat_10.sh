@@ -249,6 +249,7 @@ for group in relwithdebinfo-tsan debug-all-assets-preload debug relwithdebinfo; 
     sleep 10
     echo "[TEST] Load biggest assets"
     echo "[INFO] Set Sprite Sheet: Links"
+    sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=1/' "$CONFIG"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
     sleep 2
@@ -256,6 +257,7 @@ for group in relwithdebinfo-tsan debug-all-assets-preload debug relwithdebinfo; 
     kill -USR2 "$PID" # Reload config
     sleep 5
     echo "[INFO] Set Sprite Sheet: pkmn:dialga"
+    sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
     sleep 2

@@ -37,6 +37,7 @@ trap cleanup EXIT
 
 echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=agumon/' "$CONFIG"
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"

@@ -49,12 +49,6 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug
 cmake --build build
 ````
 
-> Legacy `make debug` is supported for old Bongo Cat dev workflows.
-
-`make debug` provides a quick debug build.
-You can inspect the old workflow in the old [`Makefile`](Makefile.old).  
-_**Note:** The binary name in AUR is `wpets`, but during development and `make install` it is still `bongocat`._
-
 ### Running
 
 ```bash
@@ -74,6 +68,10 @@ Follow the project’s coding guidelines:
 * **Try to avoid STL & Minimal Templates, you can use C functions and Linux build-in functions**
 * **Assets**: Embed large assets in separate TUs
 * **Global State**: Avoid globals, pass context structs
+* **Style**: Use clang-format and `cmake --build build --target fix-format`
+  * `lower_case` functions/variables, `UPPER_CASE` macros/constants, `_t` suffix on typedefs
+* **Commit messages**: conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`)
+* **No `popen`**: use `spawn_pipe` for subprocess execution _(security requirement)_
 
 _Run `make format` before committing_
 
@@ -223,3 +221,9 @@ See [COPYRIGHT](assets/COPYRIGHT.md) for more details.
 
 Thank you for helping make **Wayland Bongo Cat + V-Pets** a better, more delightful overlay! 💖
 
+## LLM Disclaimer
+
+I personally don't use much LLMs, only some Web based LLms like ChatGPT, for troubleshooting and helping me generate some Boilerplate-Code for some wayland functions, bash scripts, or rule-of-five C++ constructors.
+Upstream uses [Claude Code](https://github.com/saatvik333/wayland-bongocat/blob/main/CLAUDE.md), I merge most code by hand and adapt fixes, improvments, step-by-step.
+
+This is a Project for fun and hand-writen code is fun for me.

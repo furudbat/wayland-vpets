@@ -36,7 +36,7 @@ cat ~/.config/base.bongocat.conf ~/.config/devices.bongocat.conf | bongocat --co
 ## More
 
 ### Overwrite output
-Custom config with hot-reload and custom `output_name`
+Custom config with hot-reload and custom `monitor`
 
 ```bash
 bongocat --watch-config --output-name DP-2 --config ~/.config/bongocat.conf

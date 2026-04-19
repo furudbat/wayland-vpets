@@ -1,52 +1,45 @@
 {
   lib,
-  stdenv,
+  gcc15Stdenv,
   pkg-config,
   wayland,
   wayland-protocols,
-  wayland-scanner,
   cmake,
   pandoc,
-  systemd
+  libffi,
+  systemd,
+  libcap,
+  libxkbcommon,
 }:
-stdenv.mkDerivation (finalAttrs: {
+gcc15Stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-vpets";
-  version = "3.6.1";
+  version = "4.0.0";
   src = ../.;
 
   # Build toolchain and dependencies
+  # Protocol bindings are pre-generated and committed to git, so
+  # wayland-scanner and wayland-protocols are only needed for `make protocols`.
   strictDeps = true;
-  nativeBuildInputs = [pkg-config cmake wayland-scanner pandoc];
+  nativeBuildInputs = [pkg-config cmake pandoc];
   buildInputs = [
     wayland
     wayland-protocols
+    libffi
     systemd
+    libxkbcommon
+    libcap
   ];
-
-  # Build phases
-  # Ensure that the Makefile has the correct directory with the Wayland protocols
-  preBuild = ''
-    export WAYLAND_PROTOCOLS_DIR="${wayland-protocols}/share/wayland-protocols"
-  '';
-
-  makeFlags = ["release"];
-  installPhase = ''
-    runHook preInstall
-
-    # Install binaries
-    install -Dm755 build/bongocat $out/bin/${finalAttrs.meta.mainProgram}
-    install -Dm755 scripts/find_input_devices.sh $out/bin/bongocat-find-devices
-
-    runHook postInstall
-  '';
 
   cmakeFlags = [
     "-DCMAKE_BUILD_TYPE=Release"
+    "-DSKIP_CPM=ON"
+    "-DWAYLAND_PROTOCOLS_DIR=${wayland-protocols}/share/wayland-protocols"
+    "-DCMAKE_INSTALL_PREFIX=$out"
   ];
 
   # Package information
   meta = {
-    description = "Delightful Wayland overlay that displays an animated v-pet reacting to your keyboard input!";
+    description = "Delightful Wayland overlay that displays an animated bongo cat and more vpets reacting to your keyboard input!";
     homepage = "https://github.com/furudbat/wayland-vpets";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [voxi0 furudbat];

@@ -11,7 +11,7 @@
 namespace bongocat::config {
 // Inotify buffer sizing
 inline static constexpr size_t INOTIFY_EVENT_SIZE = sizeof(struct inotify_event);
-inline static constexpr size_t INOTIFY_BUF_LEN = 1024 * (INOTIFY_EVENT_SIZE + 16);
+inline static constexpr size_t INOTIFY_BUF_LEN = 16 * (INOTIFY_EVENT_SIZE + 16);
 
 // =============================================================================
 // TYPE DEFINITIONS
@@ -29,7 +29,7 @@ struct config_watcher_t {
   platform::FileDescriptor inotify_fd;
   platform::FileDescriptor wd_file;
   platform::FileDescriptor wd_dir;
-  char *config_path{BONGOCAT_NULLPTR};
+  AllocatedString config_path{BONGOCAT_NULLPTR};
 
   platform::FileDescriptor reload_efd;
 
@@ -62,10 +62,7 @@ inline void cleanup_watcher(config_watcher_t& watcher) {
   close_fd(watcher.inotify_fd);
   close_fd(watcher.reload_efd);
 
-  if (watcher.config_path != BONGOCAT_NULLPTR) {
-    ::free(watcher.config_path);
-    watcher.config_path = BONGOCAT_NULLPTR;
-  }
+  release_allocated_string(watcher.config_path);
 }
 
 // =============================================================================

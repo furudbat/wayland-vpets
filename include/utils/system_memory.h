@@ -289,7 +289,7 @@ public:
           mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
       if (ptr != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(ptr, other.ptr, _size_bytes);
+          ::memcpy(ptr, other.ptr, _size_bytes);
         } else {
           // assign/copy
           new (ptr) T(*other.ptr);
@@ -311,7 +311,7 @@ public:
             mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
         if (ptr != MAP_FAILED) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(ptr, other.ptr, _size_bytes);
+            ::memcpy(ptr, other.ptr, _size_bytes);
           } else {
             // assign/copy
             new (ptr) T(*other.ptr);
@@ -465,7 +465,7 @@ public:
           mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
       if (data != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(data, other.data, _size_bytes);
+          ::memcpy(data, other.data, _size_bytes);
         } else {
           for (size_t i = 0; i < other.count; i++) {
             *data[i] = *other.data[i];
@@ -490,7 +490,7 @@ public:
             mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
         if (data != MAP_FAILED) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(data, other.data, _size_bytes);
+            ::memcpy(data, other.data, _size_bytes);
           } else {
             for (size_t i = 0; i < other.count; i++) {
               data[i] = other.data[i];
@@ -619,7 +619,7 @@ public:
       ptr = mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
       if (ptr != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(ptr, other.ptr, _size_bytes);
+          ::memcpy(ptr, other.ptr, _size_bytes);
         } else {
           new (ptr) T(*other.ptr);
         }
@@ -641,7 +641,7 @@ public:
         ptr = mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset);
         if (ptr) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(ptr, other.ptr, _size_bytes);
+            ::memcpy(ptr, other.ptr, _size_bytes);
           } else {
             new (ptr) T(*other.ptr);
           }
@@ -792,7 +792,7 @@ public:
       data = static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
       if (data != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(data, other.data, _size_bytes);
+          ::memcpy(data, other.data, _size_bytes);
         } else {
           for (size_t i = 0; i < other.count; i++) {
             *data[i] = *other.data[i];
@@ -818,7 +818,7 @@ public:
         data = static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED, _fd, _offset));
         if (data != MAP_FAILED) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(data, other.data, _size_bytes);
+            ::memcpy(data, other.data, _size_bytes);
           } else {
             for (size_t i = 0; i < other.count; i++) {
               *data[i] = *other.data[i];

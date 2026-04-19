@@ -42,7 +42,7 @@ static_assert((CREATE_SHM_NAME_PREFIX_LEN + CREATE_SHM_NAME_SUFFIX_LEN) == LEN_A
 // =============================================================================
 
 created_result_t<FileDescriptor> create_shm(off_t size) {
-  char *name = strdup(CREATE_SHM_NAME_TEMPLATE);
+  auto name = duplicate_string(CREATE_SHM_NAME_TEMPLATE);
   constexpr char charset_arr[] = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
   constexpr size_t charset_len = sizeof(charset_arr) - 1;
   int fd = -1;
@@ -51,23 +51,22 @@ created_result_t<FileDescriptor> create_shm(off_t size) {
   for (int i = 0; i < CREATE_SHM_MAX_ATTEMPTS; i++) {
     for (size_t j = 0; j < CREATE_SHM_NAME_SUFFIX_LEN; j++) {
       static_assert(sizeof(charset_arr) - 1 > 0);
-      name[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rng.range(0, charset_len - 1)];
+      assert(CREATE_SHM_NAME_PREFIX_LEN + j < name.capacity());
+      name.ptr[CREATE_SHM_NAME_PREFIX_LEN + j] = charset_arr[rng.range(0, charset_len - 1)];
     }
-    fd = shm_open(name, O_RDWR | O_CREAT | O_EXCL, 0600);
+    fd = shm_open(name.c_str(), O_RDWR | O_CREAT | O_EXCL, 0600);
     if (fd >= 0) {
-      shm_unlink(name);
+      shm_unlink(name.c_str());
       break;
     }
   }
 
   if (fd < 0 || ftruncate(fd, size) < 0) {
-    ::free(name);
     close(fd);
     fd = -1;
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
-  ::free(name);
   return FileDescriptor(fd);
 }
 
@@ -75,7 +74,7 @@ created_result_t<FileDescriptor> create_shm(off_t size) {
 // MAIN WAYLAND INTERFACE IMPLEMENTATION
 // =============================================================================
 
-bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
+bongocat_error_t wayland_update_output(wayland_context_t& ctx) {
   wayland_thread_context& wayland_ctx = ctx.thread_context;
 
   // read-only config
@@ -85,26 +84,31 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
   wayland_ctx.output = BONGOCAT_NULLPTR;
   wayland_ctx.bound_output_name = 0;
   wayland_ctx.using_named_output = false;
-  if (current_config.output_name != BONGOCAT_NULLPTR) {
+  wayland_ctx._output_name_str = BONGOCAT_NULLPTR;
+
+  if (current_config.output_name) {
     for (size_t i = 0; i < ctx.output_count; ++i) {
       if (has_flag(ctx.outputs[i].received, output_ref_received_flags_t::Name) &&
-          strcmp(ctx.outputs[i].name_str, current_config.output_name) == 0) {
+          strcmp(ctx.outputs[i].name_str, current_config.output_name.c_str()) == 0) {
         wayland_ctx.output = ctx.outputs[i].wl_output;
         wayland_ctx._output_name_str = ctx.outputs[i].name_str;
         wayland_ctx._screen_info = &ctx.screen_infos[i];
         wayland_ctx.bound_output_name = ctx.outputs[i].name;  // Store registry name for tracking
         wayland_ctx.using_named_output = true;                // User specified this output
-        BONGOCAT_LOG_INFO("Matched output: %s", wayland_ctx._output_name_str);
+
+        BONGOCAT_LOG_INFO("Matched output: %s (registry name %u, %s)", ctx.outputs[i].name_str,
+                          wayland_ctx.bound_output_name, wayland_ctx._output_name_str);
         break;
       }
     }
 
     if (wayland_ctx.output == BONGOCAT_NULLPTR) {
       if (current_config._strict) {
-        BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name);
+        BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name.c_str());
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
       } else {
-        BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output", current_config.output_name);
+        BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output",
+                           current_config.output_name.c_str());
       }
     }
   }
@@ -116,8 +120,69 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
     wayland_ctx._screen_info = &ctx.screen_infos[0];
     wayland_ctx.bound_output_name = ctx.outputs[0].name;
     wayland_ctx.using_named_output = false;  // Using fallback, not a named output
-    BONGOCAT_LOG_WARNING("Falling back to first output: %s", wayland_ctx._output_name_str);
+
+    BONGOCAT_LOG_WARNING("Falling back to first output (registry name %u, %s)", wayland_ctx.bound_output_name,
+                         wayland_ctx._output_name_str);
   }
+
+  return bongocat_error_t::BONGOCAT_SUCCESS;
+}
+created_result_t<int> wayland_update_current_output_info(wayland_context_t& ctx) {
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
+
+  // read-only config
+  assert(wayland_ctx._local_copy_config);
+  const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+  // auto-detect screen width
+  bool output_found = false;
+  int screen_width{DEFAULT_SCREEN_WIDTH};
+  char *bound_screen_name{BONGOCAT_NULLPTR};
+  screen_info_t *screen_info{BONGOCAT_NULLPTR};
+  if (wayland_ctx.output != BONGOCAT_NULLPTR) {
+    wl_display_roundtrip(wayland_ctx.display);
+    // update screen_infos
+
+    for (size_t i = 0; i < ctx.output_count && i < MAX_OUTPUTS; i++) {
+      if (ctx.screen_infos[i].wl_output == ctx.thread_context.output) {
+        BONGOCAT_LOG_INFO("Detected screen name: %s", ctx.outputs[i].name_str);
+        bound_screen_name = ctx.outputs[i].name_str;
+
+        if (ctx.screen_infos[i].screen_width > 0 && ctx.screen_infos[i].screen_width <= INT16_MAX) {
+          BONGOCAT_LOG_INFO("Detected screen width: %d", ctx.screen_infos[i].screen_width);
+          screen_info = &ctx.screen_infos[i];
+          screen_width = ctx.screen_infos[i].screen_width;
+          output_found = true;
+        }
+      }
+    }
+  } else {
+    screen_width = DEFAULT_SCREEN_WIDTH;
+    if (current_config._strict) {
+      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    }
+    output_found = false;
+  }
+
+  if (output_found) {
+    // assert(screen_width > 0);
+    ctx.thread_context._output_name_str = bound_screen_name;
+    ctx.thread_context._screen_info = screen_info;
+    ctx.thread_context._screen_width = screen_width;
+  } else {
+    BONGOCAT_LOG_WARNING("No output found, using default screen width: %d", DEFAULT_SCREEN_WIDTH);
+  }
+
+  return screen_width;
+}
+bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
+
+  // read-only config
+  assert(wayland_ctx._local_copy_config);
+  const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+  wayland_update_output(ctx);
 
   if (wayland_ctx.compositor == BONGOCAT_NULLPTR || wayland_ctx.shm == BONGOCAT_NULLPTR ||
       wayland_ctx.layer_shell == BONGOCAT_NULLPTR) {
@@ -134,7 +199,8 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
     // auto-detect screen width
     if (wayland_ctx.output != BONGOCAT_NULLPTR) {
       wl_display_roundtrip(wayland_ctx.display);
-      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->screen_width > 0) {
+      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->screen_width > 0 &&
+          wayland_ctx._screen_info->screen_width < INT16_MAX) {
         BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->screen_width);
         screen_width = wayland_ctx._screen_info->screen_width;
       } else {
@@ -177,8 +243,10 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
       ctx.outputs[i].wayland = &ctx;
       ctx.outputs[i].xdg_output =
           zxdg_output_manager_v1_get_xdg_output(ctx.xdg_output_manager, ctx.outputs[i].wl_output);
-      zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &details::xdg_output_listener, &ctx.outputs[i]);
       ctx.screen_infos[i] = {};
+      ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
+      zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &details::xdg_output_listener, &ctx.outputs[i]);
+
       assert(ctx.outputs[i].wl_output);
       ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
     }
@@ -192,21 +260,47 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
     hyprland::update_outputs_with_monitor_ids(ctx);
   }
 
+  wayland_update_output(ctx);
+
   if (wayland_ctx.compositor == BONGOCAT_NULLPTR || wayland_ctx.shm == BONGOCAT_NULLPTR ||
       wayland_ctx.layer_shell == BONGOCAT_NULLPTR) {
+    if (wayland_ctx.compositor == BONGOCAT_NULLPTR) {
+      BONGOCAT_LOG_ERROR("Missing protocol: wl_compositor");
+    }
+    if (wayland_ctx.shm == BONGOCAT_NULLPTR) {
+      BONGOCAT_LOG_ERROR("Missing protocol: wl_shm");
+    }
+    if (wayland_ctx.layer_shell == BONGOCAT_NULLPTR) {
+      BONGOCAT_LOG_ERROR("Missing protocol: wlr-layer-shell (required for "
+                         "overlay rendering). Your compositor may not support "
+                         "this protocol.");
+    }
     BONGOCAT_LOG_ERROR("Missing required Wayland protocols");
+
     wl_registry_destroy(registry);
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
 
-  const bongocat_error_t result_update_screen_width = wayland_update_screen_info(ctx);
-  if (result_update_screen_width != bongocat_error_t::BONGOCAT_SUCCESS) {
-    wl_registry_destroy(registry);
-    return result_update_screen_width;
+  // Warn about optional protocols
+  if (!fs_detector_available(ctx)) {
+    BONGOCAT_LOG_WARNING("Foreign toplevel protocol not available - fullscreen "
+                         "detection disabled. Overlay will not auto-hide when "
+                         "apps go fullscreen.");
   }
 
+  // Configure screen dimensions
+  wayland_update_current_output_info(ctx);
+  auto [result_update_screen_width, result_update_screen_width_error] =
+      wayland_update_current_output_info(ctx);  // wayland_update_screen_info(ctx);
+  if (result_update_screen_width_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+    wl_registry_destroy(registry);
+    return result_update_screen_width_error;
+  }
+
+  // Keep registry alive for output reconnection handling
   // move new registry
   if (wayland_ctx.registry != BONGOCAT_NULLPTR) {
+    // destroy old registry
     wl_registry_destroy(wayland_ctx.registry);
   }
   wayland_ctx.registry = registry;
@@ -217,6 +311,71 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
   }
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
+}
+
+zwlr_layer_shell_v1_layer wayland_apply_layer_properties_v1(wayland_context_t& ctx) {
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
+  // animation_context_t& anim = *ctx.animation_context;
+  // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
+
+  // read-only config
+  assert(wayland_ctx._local_copy_config);
+  const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+  zwlr_layer_shell_v1_layer layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
+  switch (current_config.layer) {
+  case config::layer_type_t::LAYER_BACKGROUND:
+    layer = ZWLR_LAYER_SHELL_V1_LAYER_BACKGROUND;
+    break;
+  case config::layer_type_t::LAYER_BOTTOM:
+    layer = ZWLR_LAYER_SHELL_V1_LAYER_BOTTOM;
+    break;
+  case config::layer_type_t::LAYER_TOP:
+    layer = ZWLR_LAYER_SHELL_V1_LAYER_TOP;
+    break;
+  case config::layer_type_t::LAYER_OVERLAY:
+    layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
+    break;
+  }
+
+  if (wayland_ctx.layer_surface != BONGOCAT_NULLPTR) {
+    assert(wayland_ctx.layer_shell_version >= 2);
+    zwlr_layer_surface_v1_set_layer(wayland_ctx.layer_surface, layer);
+    BONGOCAT_LOG_INFO("Layer changed to %i", layer);
+  }
+
+  return layer;
+}
+uint32_t wayland_apply_anchor_properties_v1(wayland_context_t& ctx) {
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
+  // animation_context_t& anim = *ctx.animation_context;
+  // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
+
+  // read-only config
+  assert(wayland_ctx._local_copy_config);
+  const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+  uint32_t anchor = ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT;
+  switch (current_config.overlay_position) {
+  case config::overlay_position_t::POSITION_TOP:
+    anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
+    break;
+  case config::overlay_position_t::POSITION_BOTTOM:
+    anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM;
+    break;
+  default:
+    BONGOCAT_LOG_ERROR("Invalid overlay_position %d for layer surface, set to top (default)",
+                       static_cast<int>(current_config.overlay_position));
+    anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
+    break;
+  }
+
+  if (wayland_ctx.layer_surface != BONGOCAT_NULLPTR) {
+    zwlr_layer_surface_v1_set_anchor(wayland_ctx.layer_surface, anchor);
+    BONGOCAT_LOG_INFO("Overlay position changed to %u", anchor);
+  }
+
+  return anchor;
 }
 
 bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
@@ -257,20 +416,6 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   }
 
   // Configure layer surface
-  uint32_t anchor = ZWLR_LAYER_SURFACE_V1_ANCHOR_LEFT | ZWLR_LAYER_SURFACE_V1_ANCHOR_RIGHT;
-  switch (current_config.overlay_position) {
-  case config::overlay_position_t::POSITION_TOP:
-    anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
-    break;
-  case config::overlay_position_t::POSITION_BOTTOM:
-    anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_BOTTOM;
-    break;
-  default:
-    BONGOCAT_LOG_ERROR("Invalid overlay_position %d for layer surface, set to top (default)");
-    anchor |= ZWLR_LAYER_SURFACE_V1_ANCHOR_TOP;
-    break;
-  }
-
   assert(wayland_ctx._bar_height >= 0);
   // assert(current_config.bar_height <= UINT32_MAX);
   if (wayland_ctx._bar_height == 0) {
@@ -278,7 +423,7 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
     zwlr_layer_surface_v1_destroy(wayland_ctx.layer_surface);
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
-  zwlr_layer_surface_v1_set_anchor(wayland_ctx.layer_surface, anchor);
+  wayland_apply_anchor_properties_v1(ctx);
   zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(wayland_ctx._bar_height));
   zwlr_layer_surface_v1_set_exclusive_zone(wayland_ctx.layer_surface, -1);
   zwlr_layer_surface_v1_set_keyboard_interactivity(wayland_ctx.layer_surface,
@@ -316,7 +461,7 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
   static_assert(RGBA_CHANNELS >= 0);
   const size_t buffer_size = static_cast<size_t>(buffer_width) * static_cast<size_t>(buffer_height) * RGBA_CHANNELS;
   if (buffer_size <= 0) {
-    BONGOCAT_LOG_ERROR("Invalid buffer size: %d", buffer_size);
+    BONGOCAT_LOG_ERROR("Invalid buffer size: %zu", buffer_size);
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
 
@@ -332,11 +477,11 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
   FileDescriptor fd;
   {
     assert(total_size <= INT32_MAX);
-    created_result_t<FileDescriptor> fd_result = create_shm(static_cast<off_t>(total_size));
-    if (fd_result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
-      return fd_result.error;
+    auto [fd_shm, fd_shm_error] = create_shm(static_cast<off_t>(total_size));
+    if (fd_shm_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+      return fd_shm_error;
     }
-    fd = bongocat::move(fd_result.result);
+    fd = bongocat::move(fd_shm);
   }
 
   wl_shm_pool *pool = wl_shm_create_pool(wayland_context.shm, fd._fd, static_cast<int32_t>(total_size));
@@ -398,4 +543,64 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
+
+spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, const char *const *argv) {
+  int pipefd[2] = {-1, -1};
+  spawn_pipe_t result;
+
+  if (pipe(pipefd) != 0) {
+    return result;
+  }
+
+  posix_spawn_file_actions_t actions;
+  posix_spawn_file_actions_init(&actions);
+
+  // Redirect stdout -> pipe
+  posix_spawn_file_actions_adddup2(&actions, pipefd[1], STDOUT_FILENO);
+
+  // Redirect stderr -> /dev/null
+  int devnull_fd = open("/dev/null", O_WRONLY);
+  if (devnull_fd >= 0) {
+    posix_spawn_file_actions_adddup2(&actions, devnull_fd, STDERR_FILENO);
+  }
+
+  posix_spawn_file_actions_addclose(&actions, pipefd[0]);
+
+  pid_t pid{-1};
+  // @NOTE: safe-const cast for argv
+  if (posix_spawn(&pid, path, &actions, BONGOCAT_NULLPTR, const_cast<char *const *>(argv), ctx._environ) != 0) {
+    close(pipefd[0]);
+    close(pipefd[1]);
+    // pipefd[0] = -1;
+    // pipefd[1] = -1;
+    posix_spawn_file_actions_destroy(&actions);
+    return result;
+  }
+
+  posix_spawn_file_actions_destroy(&actions);
+  close(pipefd[1]);
+  // pipefd[1] = -1;
+
+  result.fp = fdopen(pipefd[0], "r");
+  result.pid = pid;
+  return result;
+}
+int safe_pclose_spawn(spawn_pipe_t& sp) {
+  int status = 0;
+  if (sp.fp) {
+    fclose(sp.fp);
+    sp.fp = BONGOCAT_NULLPTR;
+  }
+
+  if (sp.pid > 0) {
+    waitpid(sp.pid, &status, 0);
+  }
+
+  return status;
+}
+
+bool fs_detector_available(wayland_context_t& ctx) {
+  return ctx.fs_detector.manager != BONGOCAT_NULLPTR;
+}
+
 }  // namespace bongocat::platform::wayland::details

@@ -8,11 +8,6 @@ result
 *.idb
 *.pdb
 
-# Generated protocol files
-*-protocol.c
-*-protocol.h
-*-client-protocol.h
-
 # IDE files
 .vscode/
 *.swp

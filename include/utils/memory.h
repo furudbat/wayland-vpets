@@ -5,6 +5,7 @@
 #include "utils/error.h"
 
 #include <cassert>
+#include <cstdlib>
 #include <cstring>
 #include <stdatomic.h>
 #if defined(__GNUC__) || defined(__GNUG__)
@@ -185,7 +186,7 @@ public:
       ptr = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
       if (ptr != BONGOCAT_NULLPTR) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(ptr, other.ptr, _size_bytes);
+          ::memcpy(ptr, other.ptr, _size_bytes);
         } else {
           new (ptr) T(*other.ptr);
         }
@@ -206,7 +207,7 @@ public:
         ptr = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
         if (ptr) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(ptr, other.ptr, _size_bytes);
+            ::memcpy(ptr, other.ptr, _size_bytes);
           } else {
             new (ptr) T(*other.ptr);
           }
@@ -305,6 +306,216 @@ BONGOCAT_NODISCARD inline static AllocatedMemory<T> make_allocated_memory() {
   return ret;
 }
 
+class AllocatedString;
+void release_allocated_string(AllocatedString& memory) noexcept;
+
+class AllocatedString {
+public:
+  char *ptr{BONGOCAT_NULLPTR};
+  size_t _capacity{0};
+  size_t _length{0};
+
+  constexpr AllocatedString() = default;
+  ~AllocatedString() noexcept {
+    release_allocated_string(*this);
+  }
+
+  explicit AllocatedString(decltype(BONGOCAT_NULLPTR)) noexcept {}
+  AllocatedString& operator=(decltype(BONGOCAT_NULLPTR)) noexcept {
+    release_allocated_string(*this);
+    return *this;
+  }
+
+  AllocatedString(const AllocatedString& other) {
+    //_length = 0;
+    //_capacity = 0;
+    if (other.ptr != BONGOCAT_NULLPTR && other._length > 0) {
+      /// @TODO: reuse string with _capacity
+      ptr = strdup(other.ptr);
+      if (ptr != BONGOCAT_NULLPTR) {
+        _length = strlen(ptr);
+        _capacity = _length + 1;
+      } else {
+        _length = 0;
+        _capacity = 0;
+        ptr = BONGOCAT_NULLPTR;
+        BONGOCAT_LOG_ERROR("memory allocation failed");
+      }
+    } else {
+      _length = 0;
+      _capacity = 0;
+    }
+  }
+  AllocatedString& operator=(const AllocatedString& other) {
+    if (this != &other) {
+      /// @TODO: reuse string with _capacity
+      release_allocated_string(*this);
+      _length = 0;
+      _capacity = 0;
+      if (other.ptr != BONGOCAT_NULLPTR && other._length > 0) {
+        ptr = strdup(other.ptr);
+        if (ptr != BONGOCAT_NULLPTR) {
+          _length = strlen(ptr);
+          _capacity = _length + 1;
+        } else {
+          _length = 0;
+          _capacity = 0;
+          ptr = BONGOCAT_NULLPTR;
+          BONGOCAT_LOG_ERROR("memory allocation failed");
+        }
+      } else {
+        _length = 0;
+      }
+    }
+    return *this;
+  }
+
+  AllocatedString(AllocatedString&& other) noexcept
+      : ptr(other.ptr)
+      , _capacity(other._capacity)
+      , _length(other._length) {
+    other.ptr = BONGOCAT_NULLPTR;
+    other._capacity = 0;
+    other._length = 0;
+  }
+  AllocatedString& operator=(AllocatedString&& other) noexcept {
+    if (this != &other) {
+      release_allocated_string(*this);
+      ptr = other.ptr;
+      _capacity = other._capacity;
+      _length = other._length;
+      other.ptr = BONGOCAT_NULLPTR;
+      other._capacity = 0;
+      other._length = 0;
+    }
+    return *this;
+  }
+
+  constexpr operator bool() const noexcept {
+    return ptr != BONGOCAT_NULLPTR;
+  }
+
+  char& operator*() {
+    assert(ptr != nullptr);
+    return *ptr;
+  }
+  constexpr const char& operator*() const {
+    assert(ptr != nullptr);
+    return *ptr;
+  }
+  char *operator->() {
+    assert(ptr);
+    return ptr;
+  }
+  constexpr const char *operator->() const {
+    assert(ptr);
+    return ptr;
+  }
+  /*
+  explicit operator char *() noexcept {
+    return ptr;
+  }
+  */
+  constexpr explicit operator const char *() const noexcept {
+    return ptr;
+  }
+
+  constexpr size_t length() const noexcept {
+    assert(!ptr || _length == strlen(ptr));
+    return _length;
+  }
+
+  constexpr size_t capacity() const noexcept {
+    assert(_capacity >= _length);
+    return _capacity;
+  }
+
+  constexpr const char *c_str() const noexcept {
+    return ptr;
+  }
+};
+inline void release_allocated_string(AllocatedString& memory) noexcept {
+  if (memory.ptr != BONGOCAT_NULLPTR) {
+    ::free(memory.ptr);
+    memory.ptr = BONGOCAT_NULLPTR;
+    memory._capacity = 0;
+    memory._length = 0;
+  }
+}
+BONGOCAT_NODISCARD inline static AllocatedString make_null_string() noexcept {
+  return AllocatedString();
+}
+
+BONGOCAT_NODISCARD inline static AllocatedString make_allocated_string(size_t length) {
+  AllocatedString ret;
+  // ret._length = 0;
+  if (length > 0) {
+    ret._capacity = length + 1;
+    ret.ptr = static_cast<char *>(BONGOCAT_MALLOC(ret._capacity));
+    if (ret.ptr != BONGOCAT_NULLPTR) {
+      memset(ret.ptr, 0, ret._capacity);
+      ret._length = strlen(ret.ptr);
+      return ret;
+    } else {
+      ret._capacity = 0;
+      BONGOCAT_LOG_ERROR("memory allocation failed");
+    }
+  }
+  ret._capacity = 0;
+  ret._length = 0;
+  ret.ptr = BONGOCAT_NULLPTR;
+  return ret;
+}
+
+BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const char *src) noexcept(true) {
+  AllocatedString ret;
+  // ret._length = 0;
+  if (src != nullptr) {
+    ret.ptr = strdup(src);
+    if (ret.ptr != BONGOCAT_NULLPTR) {
+      ret._length = strlen(ret.ptr);
+      ret._capacity = ret._length + 1;
+      return ret;
+    } else {
+      ret._capacity = 0;
+      ret._length = 0;
+      BONGOCAT_LOG_ERROR("memory allocation failed");
+    }
+  }
+  ret._capacity = 0;
+  ret._length = 0;
+  ret.ptr = BONGOCAT_NULLPTR;
+  return ret;
+}
+BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const char *src, size_t length) noexcept(true) {
+  AllocatedString ret;
+  // ret._length = 0;
+  if (src != nullptr && length > 0) {
+    ret.ptr = static_cast<char *>(::malloc(length + 1));
+    if (ret.ptr != BONGOCAT_NULLPTR) {
+      const size_t len = strnlen(src, length);
+      ::memcpy(ret.ptr, src, len);
+      ret.ptr[len] = '\0';
+
+      ret._length = strlen(ret.ptr);
+      ret._capacity = length + 1;
+      return ret;
+    } else {
+      ret._capacity = 0;
+      ret._length = 0;
+      BONGOCAT_LOG_ERROR("memory allocation failed");
+    }
+  }
+  ret._capacity = 0;
+  ret._length = 0;
+  ret.ptr = BONGOCAT_NULLPTR;
+  return ret;
+}
+BONGOCAT_NODISCARD inline static AllocatedString duplicate_string(const AllocatedString& other) noexcept(true) {
+  AllocatedString ret(other);
+  return other;
+}
+
 template <typename T>
 class AllocatedArray;
 template <typename T>
@@ -346,7 +557,7 @@ public:
       data = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
       if (data) {
         if constexpr (is_trivially_copyable<T>::value) {
-          memcpy(data, other.data, _size_bytes);
+          ::memcpy(data, other.data, _size_bytes);
         } else {
           for (size_t i = 0; i < other.count; i++) {
             *data[i] = *other.data[i];
@@ -371,7 +582,7 @@ public:
         data = static_cast<T *>(BONGOCAT_MALLOC(_size_bytes));
         if (data) {
           if constexpr (is_trivially_copyable<T>::value) {
-            memcpy(data, other.data, _size_bytes);
+            ::memcpy(data, other.data, _size_bytes);
           } else {
             for (size_t i = 0; i < other.count; i++) {
               *data[i] = *other.data[i];

@@ -1,12 +1,16 @@
 #include "bar.h"
 
+#include "embedded_assets/bongocat/assets_bongocat_features.h"
 #include "embedded_assets/bongocat/bongocat.h"
+#include "embedded_assets/misc/assets_misc_features.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
+#include "image_loader/custom/load_custom.h"
+#include "image_loader/custom/load_custom_features.h"
 #include "platform/wayland-protocols.hpp"
 #include "platform/wayland.h"
 #include "platform/wayland_callbacks.h"
@@ -29,13 +33,30 @@ struct cat_rect_t {
   int height;
 };
 
+enum class blit_image_sprite_option_flags_t : uint32_t {
+  None = (1u << 0),
+  IgnoreCatHeight = (1u << 1),  // use frame_height
+};
+
 template <class SpriteSheet>
 /// @TODO: required SpriteSheet must be _sprite_sheet_t
 cat_rect_t get_position(const platform::wayland::wayland_thread_context& wayland_ctx, const SpriteSheet& sheet,
-                        const config::config_t& config) {
-  const int cat_height = config.cat_height;
-  const int cat_width = static_cast<int>(static_cast<float>(cat_height) * (static_cast<float>(sheet.frame_width) /
-                                                                           static_cast<float>(sheet.frame_height)));
+                        const config::config_t& config, blit_image_sprite_option_flags_t options) {
+  const int cat_height = [&]() {
+    if (has_flag(options, blit_image_sprite_option_flags_t::IgnoreCatHeight)) {
+      return sheet.frame_height;
+    }
+
+    return config.cat_height;
+  }();
+  const int cat_width = [&]() {
+    if (has_flag(options, blit_image_sprite_option_flags_t::IgnoreCatHeight)) {
+      return sheet.frame_width;
+    }
+
+    return static_cast<int>(static_cast<float>(cat_height) *
+                            (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
+  }();
 
   int cat_x = 0;
   switch (config.cat_align) {
@@ -60,7 +81,8 @@ cat_rect_t get_position(const platform::wayland::wayland_thread_context& wayland
 /// @TODO: make draw_sprite more generic (template?)
 void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const bongocat_sprite_sheet_t& sheet,
-                 blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal) {
+                 blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal,
+                 blit_image_sprite_option_flags_t sprite_options = blit_image_sprite_option_flags_t::None) {
   using namespace assets;
   if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
     return;
@@ -93,13 +115,16 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   case BONGOCAT_FRAME_BOTH_DOWN:
     region = &sheet.both_down;
     break;
+  case BONGOCAT_FRAME_SLEEPING:
+    region = &sheet.sleeping;
+    break;
   default:
     assert(anim_shm.animation_player_result.sprite_sheet_col >= 0 &&
            static_cast<size_t>(anim_shm.animation_player_result.sprite_sheet_col) < BONGOCAT_SPRITE_SHEET_COLS);
     break;
   }
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, sprite_options);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   if (region != BONGOCAT_NULLPTR) {
@@ -127,7 +152,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
       // Skip fullscreen hiding when layer is LAYER_OVERLAY (always visible)
       const bool is_overlay_layer = current_config.layer == config::layer_type_t::LAYER_OVERLAY;
-      const bool is_fullscreen = !is_overlay_layer && wayland_ctx._fullscreen_detected;
+      const bool is_fullscreen =
+          !is_overlay_layer && (current_config.disable_fullscreen_hide <= 0 && wayland_ctx._fullscreen_detected);
       const bool bar_visible =
           !is_fullscreen && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
       const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
@@ -257,7 +283,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     break;
   }
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+  auto [cat_x, cat_y, cat_width, cat_height] =
+      get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   if (region != BONGOCAT_NULLPTR) {
@@ -283,6 +310,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
         break;
       }
 
+      // draw debug bar
       const bool bar_visible =
           !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
       const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
@@ -370,7 +398,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     break;
   }
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+  auto [cat_x, cat_y, cat_width, cat_height] =
+      get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   if (region != BONGOCAT_NULLPTR) {
@@ -467,7 +496,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+  auto [cat_x, cat_y, cat_width, cat_height] =
+      get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
 
   blit_image_color_option_flags_t drawing_option = blit_image_color_option_flags_t::Normal;
   if (current_config.invert_color >= 1) {
@@ -498,7 +528,8 @@ enum class draw_sprite_overwrite_option_t : uint32_t {
 };
 void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
                  const custom_sprite_sheet_t& sheet, int col, int row,
-                 draw_sprite_overwrite_option_t overwrite_option = draw_sprite_overwrite_option_t::None) {
+                 draw_sprite_overwrite_option_t overwrite_option = draw_sprite_overwrite_option_t::None,
+                 blit_image_sprite_option_flags_t sprite_options = blit_image_sprite_option_flags_t::None) {
   if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
     return;
   }
@@ -516,7 +547,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
 
-  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config);
+  auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, sprite_options);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   // draw debug rectangle
@@ -666,7 +697,9 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
         const bongocat_sprite_sheet_t& sheet = cat_anim.bongocat;
         draw_sprite(ctx, shm_buffer, sheet,
                     current_config.enable_antialiasing >= 1 ? blit_image_color_option_flags_t::BilinearInterpolation
-                                                            : blit_image_color_option_flags_t::Normal);
+                                                            : blit_image_color_option_flags_t::Normal,
+                    features::EnableBongocatSvg ? blit_image_sprite_option_flags_t::IgnoreCatHeight
+                                                : blit_image_sprite_option_flags_t::None);
       } break;
       case config::config_animation_sprite_sheet_layout_t::Dm: {
         if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
@@ -926,4 +959,30 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
 
   return draw_bar_result_t::NoFlushNeeded;
 }
+
+void invalidate_cache_frames(platform::wayland::wayland_context_t& /*ctx*/) {
+  for (size_t i = 0; i < animation::MAX_NUM_FRAMES; i++) {
+    /*
+    platform::release_allocated_mmap_array(ctx._cached_frames[i].data);
+    ctx._cached_frames[i].data = BONGOCAT_NULLPTR;
+    ctx._cached_frames[i].width = 0;
+    ctx._cached_frames[i].height = 0;
+    */
+  }
+}
+void cache_frames(platform::wayland::wayland_context_t& ctx, int target_w, int target_h, int /*mirror_x*/,
+                  int /*mirror_y*/, int /*enable_aa*/) {
+  if (ctx.thread_context.ctx_shm) {
+    invalidate_cache_frames(ctx);
+
+    for (size_t i = 0; i < animation::MAX_NUM_FRAMES; i++) {
+      if (target_w <= 0 || target_h <= 0) {
+        continue;
+      }
+
+      /// @TODO: fill cache
+    }
+  }
+}
+
 }  // namespace bongocat::animation

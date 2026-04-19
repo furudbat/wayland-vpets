@@ -21,6 +21,7 @@
 namespace bongocat::platform::input {
 static inline constexpr size_t INPUT_EVENT_BUF = 128;
 static inline constexpr size_t MAX_DEVICE_FDS = 256;
+static inline constexpr size_t MAX_ACTIVE_DEVICE_FDS = 32;
 inline static constexpr int MAX_ATTEMPTS = 2048;
 
 static inline constexpr auto INPUT_POOL_TIMEOUT_MS = 10;
@@ -39,25 +40,25 @@ inline static constexpr size_t TEST_STDIN_BUF_LEN = 256;
 // Uses Linux input keycodes from <linux/input-event-codes.h>
 // Left-hand keys on QWERTY keyboard
 // clang-format off
-    inline static constexpr int INPUT_LEFT_KEYS[] = {
-      // Number row left half (1-6)
-      2, 3, 4, 5, 6, 7,           // KEY_1 to KEY_6
-      // QWERTY row left half
-      16, 17, 18, 19, 20,         // KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T
-      // Home row left half
-      30, 31, 32, 33, 34,         // KEY_A, KEY_S, KEY_D, KEY_F, KEY_G
-      // Bottom row left half
-      44, 45, 46, 47, 48,         // KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B
-      // Modifiers and special keys (left side)
-      1,                          // KEY_ESC
-      15,                         // KEY_TAB
-      58,                         // KEY_CAPSLOCK
-      42,                         // KEY_LEFTSHIFT
-      29,                         // KEY_LEFTCTRL
-      56,                         // KEY_LEFTALT
-      41,                         // KEY_GRAVE (backtick)
-      125,                        // KEY_LEFTMETA (super)
-    };
+inline static constexpr int INPUT_LEFT_KEYS[] = {
+  // Number row left half (1-6)
+  2, 3, 4, 5, 6, 7,           // KEY_1 to KEY_6
+  // QWERTY row left half
+  16, 17, 18, 19, 20,         // KEY_Q, KEY_W, KEY_E, KEY_R, KEY_T
+  // Home row left half
+  30, 31, 32, 33, 34,         // KEY_A, KEY_S, KEY_D, KEY_F, KEY_G
+  // Bottom row left half
+  44, 45, 46, 47, 48,         // KEY_Z, KEY_X, KEY_C, KEY_V, KEY_B
+  // Modifiers and special keys (left side)
+  1,                          // KEY_ESC
+  15,                         // KEY_TAB
+  58,                         // KEY_CAPSLOCK
+  42,                         // KEY_LEFTSHIFT
+  29,                         // KEY_LEFTCTRL
+  56,                         // KEY_LEFTALT
+  41,                         // KEY_GRAVE (backtick)
+  125,                        // KEY_LEFTMETA (super)
+};
 // clang-format on
 
 static input_hand_mapping_t get_hand_mapping_form_keycode([[maybe_unused]] const input_context_t& input, int keycode) {
@@ -75,10 +76,7 @@ static input_hand_mapping_t get_hand_mapping_form_keycode([[maybe_unused]] const
 
 static void cleanup_input_devices_paths(input_context_t& input, size_t device_paths_count) {
   for (size_t i = 0; i < device_paths_count; i++) {
-    if (input._device_paths[i] != BONGOCAT_NULLPTR) {
-      ::free(input._device_paths[i]);
-      input._device_paths[i] = BONGOCAT_NULLPTR;
-    }
+    release_allocated_string(input._device_paths[i]);
   }
   release_allocated_array(input._device_paths);
 }
@@ -237,7 +235,7 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
   input._unique_paths_indices.count = input._unique_paths_indices_capacity;
   size_t num_unique_devices = 0;
   for (size_t i = 0; i < input._device_paths.count; i++) {
-    const char *device_path = input._device_paths[i];
+    const auto& device_path = input._device_paths[i];
 
     // Resolve to canonical path
     char resolved[PATH_MAX];
@@ -245,17 +243,17 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
     input_unique_file_type_t new_type = input_unique_file_type_t::File;
 
     struct stat lst{};
-    if (lstat(device_path, &lst) == 0 && S_ISLNK(lst.st_mode)) {
+    if (lstat(device_path.c_str(), &lst) == 0 && S_ISLNK(lst.st_mode)) {
       new_type = input_unique_file_type_t::Symlink;
-      if (realpath(device_path, resolved) != BONGOCAT_NULLPTR) {
+      if (realpath(device_path.c_str(), resolved) != BONGOCAT_NULLPTR) {
         candidate = resolved;
       } else {
-        BONGOCAT_LOG_WARNING("Broken symlink: %s", device_path);
+        BONGOCAT_LOG_WARNING("Broken symlink: %s", device_path.c_str());
         broken_symlink++;
         continue;
       }
     } else {
-      candidate = device_path;
+      candidate = device_path.c_str();
     }
 
     // Skip if non-existent
@@ -269,7 +267,7 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
     bool duplicate = false;
     for (size_t j = 0; j < num_unique_devices; j++) {
       const input_unique_file_t& prev = input._unique_devices[j];
-      if (prev.canonical_path != BONGOCAT_NULLPTR && strcmp(prev.canonical_path, candidate) == 0) {
+      if (prev.canonical_path && strcmp(prev.canonical_path.c_str(), candidate) == 0) {
         duplicate = true;
         break;
       }
@@ -284,11 +282,11 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
     // Decide if we need to replace real_device_path
     bool need_reopen = false;
     bool need_replace = false;
-    if (cur.canonical_path != BONGOCAT_NULLPTR) {
-      need_replace = strcmp(cur.canonical_path, candidate) != 0;
+    if (cur.canonical_path) {
+      need_replace = strcmp(cur.canonical_path.c_str(), candidate) != 0;
     }
     if (static_cast<bool>(cur.canonical_path) != static_cast<bool>(candidate)) {
-      need_reopen = cur.canonical_path == BONGOCAT_NULLPTR && candidate != BONGOCAT_NULLPTR;
+      need_reopen = !cur.canonical_path && candidate != BONGOCAT_NULLPTR;
       need_replace = true;
     }
     if (!need_reopen && cur.type != new_type) {
@@ -308,23 +306,19 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
       struct stat st{};
       if (stat(candidate, &st) == 0 && S_ISCHR(st.st_mode)) {
         if (need_reopen) {
-          int fd = open(candidate, O_RDONLY | O_NONBLOCK | O_CLOEXEC);
-          if (fd >= 0 && is_open_device_valid(fd)) {
-            cur.fd = FileDescriptor(fd);
+          FileDescriptor fd(open(candidate, O_RDONLY | O_NONBLOCK | O_CLOEXEC));
+          if (fd._fd >= 0 && is_open_device_valid(fd._fd)) {
+            cur.fd = bongocat::move(fd);
             BONGOCAT_LOG_INFO("Opened input device: %s (fd=%d)", candidate, cur.fd._fd);
           }
         }
         if (cur.fd._fd >= 0 && is_open_device_valid(cur.fd._fd)) {
           // Replace canonical path if changed
           if (need_replace) {
-            if (cur.canonical_path != BONGOCAT_NULLPTR) {
-              ::free(cur.canonical_path);
-              cur.canonical_path = BONGOCAT_NULLPTR;
-            }
-            cur.canonical_path = ::strdup(candidate);
+            cur.canonical_path = duplicate_string(candidate);
           }
           cur.type = new_type;
-          cur._device_path = device_path;
+          cur._device_path = device_path.c_str();
           valid_devices++;
         } else {
           cleanup(cur);
@@ -406,6 +400,9 @@ static void *input_thread(void *arg) {
   assert(input._local_copy_config);
   assert(input.update_config_efd._fd >= 0);
 
+  bool disable_adaptive_check_interval = false;
+  time_ms_t adaptive_check_interval_ms = START_ADAPTIVE_CHECK_INTERVAL_SEC * 1000;
+
   // keep local copies of device_paths
   {
     // read-only config
@@ -414,18 +411,23 @@ static void *input_thread(void *arg) {
 
     assert(current_config.num_keyboard_devices >= 0);
     const int device_paths_count = current_config.num_keyboard_devices;
-    const char *const *device_paths = current_config.keyboard_devices;
+    const auto *device_paths = current_config.keyboard_devices;
     assert(device_paths_count >= 0);
-    input._device_paths = make_allocated_array<char *>(static_cast<size_t>(device_paths_count));
+    input._device_paths = make_allocated_array<AllocatedString>(static_cast<size_t>(device_paths_count));
     for (size_t i = 0; i < input._device_paths.count; i++) {
-      input._device_paths[i] = strdup(device_paths[i]);
-      if (input._device_paths[i] == BONGOCAT_NULLPTR) {
+      input._device_paths[i] = duplicate_string(device_paths[i]);
+      if (!input._device_paths[i]) [[unlikely]] {
         atomic_store(&input._capture_input_running, false);
         cleanup_input_devices_paths(input, i);
         cleanup_input_thread_context(input);
         BONGOCAT_LOG_ERROR("input: Failed to allocate memory for device_paths");
         return BONGOCAT_NULLPTR;
       }
+    }
+
+    if (current_config.hotplug_scan_interval_ms > 0) {
+      adaptive_check_interval_ms = current_config.hotplug_scan_interval_ms;
+      disable_adaptive_check_interval = true;
     }
   }
 
@@ -467,13 +469,13 @@ static void *input_thread(void *arg) {
 
   // local thread context
   int check_counter = 0;  // check is done periodically
-  time_sec_t adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
   /// event poll
   // 0:       reload config event
   // 1:       udev monitor fd
-  // 2 - n:   device events
+  // 2 - m:   device events
+  // m+1 - n: device events (keyboard_names)
   // last:    stdin (optional)
-  constexpr size_t MAX_PFDS = 2 + MAX_DEVICE_FDS + ((features::Debug) ? 1 : 0);
+  constexpr size_t MAX_PFDS = 2 + MAX_DEVICE_FDS + MAX_ACTIVE_DEVICE_FDS + ((features::Debug) ? 1 : 0);
   pollfd pfds[MAX_PFDS];
   input_event ev[INPUT_EVENT_BUF];
 
@@ -689,15 +691,15 @@ static void *input_thread(void *arg) {
       break;
     }
     if (poll_result == 0) {
-      // Timeout — adaptive device checking
+      // @TODO: device checking with scan_interval
       check_counter++;
-      if (check_counter >= (adaptive_check_interval_sec * (1000 / 100))) {
+      if (check_counter >= (adaptive_check_interval_ms / timeout)) {
         check_counter = 0;
         bool found_new_device = false;
         for (size_t i = 0; i < input._unique_devices.count; i++) {
-          const char *device_path = input._unique_devices[i].canonical_path;
+          const auto& device_path = input._unique_devices[i].canonical_path;
           bool need_reopen = false;
-          if (device_path == BONGOCAT_NULLPTR) {
+          if (!device_path) {
             continue;
           }
           // If an fd is already open, check if it is still valid
@@ -710,7 +712,7 @@ static void *input_thread(void *arg) {
               struct stat old_st{};
               if (input._unique_devices[i].fd._fd >= 0 && fstat(input._unique_devices[i].fd._fd, &old_st) == 0) {
                 struct stat new_st{};
-                if (stat(device_path, &new_st) == 0) {
+                if (stat(device_path.c_str(), &new_st) == 0) {
                   if (old_st.st_rdev != new_st.st_rdev) {
                     need_reopen = true;
                   }
@@ -728,32 +730,35 @@ static void *input_thread(void *arg) {
               close_fd(input._unique_devices[i].fd);
             }
 
-            if (int new_fd = open(device_path, O_RDONLY | O_NONBLOCK | O_CLOEXEC); new_fd >= 0) {
+            if (int new_fd = open(device_path.c_str(), O_RDONLY | O_NONBLOCK | O_CLOEXEC); new_fd >= 0) {
               if (is_open_device_valid(new_fd)) {
                 input._unique_devices[i].fd = FileDescriptor(new_fd);
                 new_fd = -1;
                 found_new_device = true;
-                BONGOCAT_LOG_INFO("input: New input device detected and opened: %s (fd=%d)", device_path,
+                BONGOCAT_LOG_INFO("input: New input device detected and opened: %s (fd=%d)", device_path.c_str(),
                                   input._unique_devices[i].fd._fd);
               } else {
-                // Not a valid char device — close immediately
+                // Not a valid char device - close immediately
                 close(new_fd);
-                BONGOCAT_LOG_VERBOSE("input: vFile opened but not a char device: %s", device_path);
+                BONGOCAT_LOG_VERBOSE("input: vFile opened but not a char device: %s", device_path.c_str());
               }
             } else {
-              BONGOCAT_LOG_VERBOSE("input: Failed to open input device: %s (%s)", device_path, strerror(errno));
+              BONGOCAT_LOG_VERBOSE("input: Failed to open input device: %s (%s)", device_path.c_str(), strerror(errno));
             }
           }
         }
 
-        if (!found_new_device && adaptive_check_interval_sec < MAX_ADAPTIVE_CHECK_INTERVAL_SEC) {
-          adaptive_check_interval_sec = (adaptive_check_interval_sec < MID_ADAPTIVE_CHECK_INTERVAL_SEC)
-                                            ? MID_ADAPTIVE_CHECK_INTERVAL_SEC
-                                            : MAX_ADAPTIVE_CHECK_INTERVAL_SEC;
-          BONGOCAT_LOG_DEBUG("input: Increased device check interval to %d seconds", adaptive_check_interval_sec);
-        } else if (found_new_device && adaptive_check_interval_sec > START_ADAPTIVE_CHECK_INTERVAL_SEC) {
-          adaptive_check_interval_sec = START_ADAPTIVE_CHECK_INTERVAL_SEC;
-          BONGOCAT_LOG_DEBUG("input: Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
+        if (!disable_adaptive_check_interval) {
+          if (!found_new_device && adaptive_check_interval_ms < MAX_ADAPTIVE_CHECK_INTERVAL_SEC * 1000) {
+            adaptive_check_interval_ms = (adaptive_check_interval_ms < MID_ADAPTIVE_CHECK_INTERVAL_SEC * 1000)
+                                             ? MID_ADAPTIVE_CHECK_INTERVAL_SEC * 1000
+                                             : MAX_ADAPTIVE_CHECK_INTERVAL_SEC * 1000;
+            BONGOCAT_LOG_DEBUG("input: Increased device check interval to %d seconds",
+                               adaptive_check_interval_ms / 1000);
+          } else if (found_new_device && adaptive_check_interval_ms > START_ADAPTIVE_CHECK_INTERVAL_SEC * 1000) {
+            adaptive_check_interval_ms = START_ADAPTIVE_CHECK_INTERVAL_SEC * 1000;
+            BONGOCAT_LOG_DEBUG("input: Reset device check interval to %d seconds", START_ADAPTIVE_CHECK_INTERVAL_SEC);
+          }
         }
       }
       continue;
@@ -811,7 +816,7 @@ static void *input_thread(void *arg) {
     bool sync_devices_needed = false;
     bool reload_devices_needed = false;
     if (pfds[fds_udev_monitor_index].revents & POLLIN) {
-      BONGOCAT_LOG_DEBUG("input: Receive udev event");
+      // BONGOCAT_LOG_VERBOSE("input: Receive udev event");
       size_t attempts = 0;
       udev_device *dev = BONGOCAT_NULLPTR;
       while ((dev = udev_monitor_receive_device(input._udev_mon)) != BONGOCAT_NULLPTR && attempts < MAX_ATTEMPTS) {
@@ -824,6 +829,7 @@ static void *input_thread(void *arg) {
             sync_devices_needed = true;
             reload_devices_needed = true;
           }
+          BONGOCAT_LOG_VERBOSE("input: Receive udev event (action=%s)", action);
         }
 
         udev_device_unref(dev);

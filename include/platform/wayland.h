@@ -38,7 +38,7 @@ BONGOCAT_NODISCARD int get_screen_width(const wayland_context_t& ctx);
 BONGOCAT_NODISCARD const char *get_output_name(const wayland_context_t& ctx);
 
 // Get current layer name for logging
-BONGOCAT_NODISCARD const char *get_current_layer_name();
+BONGOCAT_NODISCARD const char *get_current_layer_name(wayland_context_t& ctx);
 
 bongocat_error_t request_render(animation::animation_context_t& animation_ctx);
 }  // namespace bongocat::platform::wayland

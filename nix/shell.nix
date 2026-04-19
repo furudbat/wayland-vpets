@@ -15,6 +15,7 @@ pkgs.mkShellNoCC {
     gdb         # Debugger
     valgrind    # Memory debugger
     clang-tools # Useful tools for C/C++ including a formatter `clang-format`
+    #cmake-format
 
     # Optional tools for input device debugging
     evtest
@@ -23,25 +24,28 @@ pkgs.mkShellNoCC {
   buildInputs = with pkgs; [
     wayland
     wayland-protocols
-    systemd
   ];
   shellHook = ''
-    # Ensure that the Makefile can find and access the Wayland protocols
-    export WAYLAND_PROTOCOLS_DIR="${pkgs.wayland-protocols}/share/wayland-protocols"
+    export CC=clang
+    export CXX=clang++
+    export CMAKE_GENERATOR=Ninja
 
-    # Simple TUI
-    echo "🐱 Bongo Cat Development Environment"
-    echo "Build output is stored in 'build' if you don't use 'nix build'"
-    echo "Commands:"
-    echo "  nix build         - Build the Nix package (Build output is stored in 'result')"
-    echo "  make              - Build the project"
-    echo "  make debug        - Build with debug symbols"
-    echo "  make release      - Build in release mode with optimizations and such (Longer compile time)"
-    echo "  make clean        - Clean build artifacts"
+    echo "🐱 Bongo Cat Dev Shell"
+    echo
+    echo "Toolchain:"
+    echo "  CC=$CC"
+    echo "  CXX=$CXX"
+    echo "  CMake=$(cmake --version | head -n1)"
+    echo
+    echo "Quick commands:"
+    echo "  nix build           -> build via flake"
+    echo "  cmake -B build      -> configure"
+    echo "  cmake --build build"
+    echo
     echo ""
     echo "Helper scripts:"
     echo "  ./scripts/find_input_devices.sh - Find input devices"
-    echo "  ./scripts/test-nix-build.sh     - Test Nix flake and package"
+    echo "  ./scripts/test_nix_build.sh     - Test Nix flake and package"
     echo "  ./scripts/test_toggle.sh        - Test Bongocat toggle functionality (Install Bongocat first)"
   '';
 }

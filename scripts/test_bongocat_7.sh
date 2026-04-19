@@ -53,12 +53,14 @@ sleep 7
 
 echo "[TEST] Load biggest assets"
 echo "[INFO] Set Sprite Sheet: Links"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=1/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
 echo "[INFO] Set Sprite Sheet: pkmn:dialga"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
@@ -101,6 +103,7 @@ echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
 echo "[INFO] Set Sprite Sheet: neko"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
 sed -i -E 's/^animation_name=.*/animation_name=neko/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"

@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.0] - 2026-04-18
+
+- pull from upstream [2.0.0](https://github.com/saatvik333/wayland-bongocat/releases/tag/v2.0.0)
+  - replace png bongocat with svg bongocat
+    -  5 animation frames including a dedicated sleeping frame
+  - fix KWin input and fullscreen handling
+  - Generated Wayland protocol files are now committed to git. Building from source no longer requires `wayland-scanner` or `wayland-protocols`.
+  - Uses wlr-layer-shell double-buffered properties instead of destroying/recreating surfaces.
+
+BREAKING CHANGE: New bongocat replacement has different height and position needs to be reconfigured!
+
+### [3.6.2] - 2026-03-30
+
+- pull from upstream [1.4.0](https://github.com/saatvik333/wayland-bongocat/releases/tag/v1.4.0)
+  - ~~**Multi-monitor CSV**~~
+    - **NO** comma-separated output names for now; don't have much time to do bigger merges/refactors
+  - adapt `--monitor` argument
+  - Input hotplug robustness
+
 ### [3.6.1] - 2025-12-13
 
 ### Improved
