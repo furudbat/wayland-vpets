@@ -1,7 +1,7 @@
 # Bongo Cat + V-Pets Wayland Overlay
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/licenses/MIT)
-[![Version](https://img.shields.io/badge/version-3.6.1-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
+[![Version](https://img.shields.io/badge/version-4.0.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
 A cute Wayland overlay that shows an animated pets reacting to your keyboard input.
@@ -337,7 +337,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-**Requirements:** wayland-client, wayland-protocols, gcc15 or clang19, make, cmake
+**Requirements:** wayland-client, gcc15 or clang19, make, cmake
 
 > [!CAUTION]
 > **Privacy Notice**: When building in `DEBUG` mode and by enabling `enable_debug=1`, all keystrokes are logged to stdout/stderr. Ensure this is disabled (default: 0) for normal usage.

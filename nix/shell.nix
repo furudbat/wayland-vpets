@@ -26,15 +26,22 @@ pkgs.mkShellNoCC {
     wayland-protocols
   ];
   shellHook = ''
-    # Simple TUI
-    echo "🐱 Bongo Cat Development Environment"
-    echo "Build output is stored in 'build' if you don't use 'nix build'"
-    echo "Commands:"
-    echo "  nix build         - Build the Nix package (Build output is stored in 'result')"
-    echo "  make              - Build the project"
-    echo "  make debug        - Build with debug symbols"
-    echo "  make release      - Build in release mode with optimizations and such (Longer compile time)"
-    echo "  make clean        - Clean build artifacts"
+    export CC=clang
+    export CXX=clang++
+    export CMAKE_GENERATOR=Ninja
+
+    echo "🐱 Bongo Cat Dev Shell"
+    echo
+    echo "Toolchain:"
+    echo "  CC=$CC"
+    echo "  CXX=$CXX"
+    echo "  CMake=$(cmake --version | head -n1)"
+    echo
+    echo "Quick commands:"
+    echo "  nix build           -> build via flake"
+    echo "  cmake -B build      -> configure"
+    echo "  cmake --build build"
+    echo
     echo ""
     echo "Helper scripts:"
     echo "  ./scripts/find_input_devices.sh - Find input devices"
