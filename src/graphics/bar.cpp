@@ -907,6 +907,8 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
   }
   assert(wayland_ctx_shm.current_buffer_index < platform::wayland::WAYLAND_NUM_BUFFERS);
 
+  atomic_store(&shm_buffer->busy, true);
+
   assert(shm_buffer);
   draw_bar_on_buffer(ctx, *shm_buffer);
 
@@ -929,8 +931,6 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
   }
 
   wl_surface_commit(wayland_ctx.surface);
-
-  atomic_store(&shm_buffer->busy, true);
 
   /// @TODO: flush here or on main ???
   const int flush_ret = wl_display_flush(wayland_ctx.display);

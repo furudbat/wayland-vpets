@@ -15,7 +15,7 @@ namespace bongocat::animation {
 created_result_t<bongocat_sprite_sheet_t>
 load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count,
                     load_bongocat_anim_type_t type,
-                    anim_sprite_sheet_from_embedded_svgs_t svg_params, anim_sprite_sheet_from_embedded_svgs_cropping_t cropping) {
+                    [[maybe_unused]] anim_sprite_sheet_from_embedded_svgs_t svg_params, [[maybe_unused]] anim_sprite_sheet_from_embedded_svgs_cropping_t cropping) {
   BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
 
   auto [sprite_sheet, sprite_sheet_error] = [&]() {

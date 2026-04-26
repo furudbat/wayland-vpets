@@ -5,6 +5,7 @@
 # ═══════════════════════════════════════════════════════════════════════════════
 
 set -euo pipefail
+trap 'exit 0' PIPE
 
 VERSION="4.0.0"
 SCRIPT_NAME="wpets-find-devices"
@@ -228,7 +229,7 @@ interactive_detect() {
   for entry in "${detected_keyboards[@]}"; do
     IFS='|' read -r event name device_path <<< "$entry"
     echo -e "    ${GREEN}✓${NC} ${BOLD}$name${NC}"
-    echo -e "      ${CYAN}$device_path${NC}"
+    echo -e "      ${CYAN}/dev/input/$event${NC}"
   done
 
   if [[ ${#other_devices[@]} -gt 0 ]]; then
@@ -246,9 +247,9 @@ interactive_detect() {
   echo
   echo -e "  ${DIM}# Option 1: By device path (may change on reboot)${NC}"
   for entry in "${detected_keyboards[@]}"; do
-    IFS='|' read -r event name device_path <<< "$entry"
+    IFS='|' read -r event name id device_path <<< "$entry"
 
-    if [[ "$device_path" != /dev/input/by-id/* ]]; then
+    if [[ $device_path != /dev/input/by-id/* ]]; then
       echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
     fi
   done
@@ -257,8 +258,15 @@ interactive_detect() {
   for entry in "${detected_keyboards[@]}"; do
     IFS='|' read -r event name device_path <<< "$entry"
 
-    if [[ "$device_path" == /dev/input/by-id/* ]]; then
-      echo -e "  ${CYAN}keyboard_name=$device_path${NC}  ${BOLD}# $name${NC}"
+    echo -e "  ${CYAN}keyboard_name=$name${NC}"
+  done
+  echo
+  echo -e "  ${DIM}# Option 3: By device id (persistent, recommended)${NC}"
+  for entry in "${detected_keyboards[@]}"; do
+    IFS='|' read -r event name id device_path <<< "$entry"
+
+    if [[ $device_path == /dev/input/by-id/* ]]; then
+      echo -e "  ${CYAN}keyboard_device=$device_path${NC}"
     fi
   done
 
@@ -313,6 +321,7 @@ generate_config() {
   local maxlen=0
   for entry in "${devices[@]}"; do
       IFS='|' read -r event name device_path <<< "$entry"
+      [[ ${#name} -gt $maxlen ]] && maxlen=${#name}
       [[ ${#device_path} -gt $maxlen ]] && maxlen=${#device_path}
   done
 
@@ -321,10 +330,10 @@ generate_config() {
     IFS='|' read -r event name device_path <<< "$entry"
     #echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
 
-    if [[ "$device_path" == /dev/input/by-id/* ]]; then
-      printf "${CYAN}keyboard_name=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
-    fi
-    if [[ "$device_path" != /dev/input/by-id/* ]]; then
+    if [[ $device_path == /dev/input/by-id/* ]]; then
+      printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
+    elif [[ "$device_path" != /dev/input/by-id/* ]]; then
+      printf "${CYAN}#keyboard_name=%-${maxlen}s${NC}   ${BOLD}${NC}\n" "$name"
       printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
     fi
   done
@@ -459,6 +468,7 @@ quick_config() {
   devices=$(get_kbd_devices "${prefer_byid}" "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
 
   if [[ -z "$devices" ]]; then
+    error "No input devices found"
     return 1
   fi
 
@@ -494,6 +504,7 @@ quick_config() {
   done <<< "$devices"
 
   if [[ ${#keyboards[@]} -eq 0 ]]; then
+    error "No readable keyboard devices found"
     return 1
   fi
 
@@ -536,7 +547,7 @@ main() {
   local mode="quick"
   local timeout=5
   local show_all=false
-  local prefer_byid=false
+  local prefer_byid=true
   local include_mouse_devices=false
   local ignore_devices=()
 
