@@ -1059,7 +1059,7 @@ static bongocat_error_t config_resolve_devices(config_t& config) {
     }
 
     bool matched = false;
-    memset(name, 0, sizeof(name));
+    ::memset(name, 0, sizeof(name));
     if (ioctl(fd._fd, EVIOCGNAME(sizeof(name) - 1), name) >= 0) {
       name[sizeof(name) - 1] = '\0';
       assert(config._num_keyboard_names >= 0);

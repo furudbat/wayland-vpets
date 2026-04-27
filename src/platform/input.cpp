@@ -332,6 +332,8 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
       }
     }
 
+    BONGOCAT_LOG_WARNING("Input Device: %s -> %s", device_path.c_str(), candidate);
+
     num_unique_devices++;
   }
 
@@ -551,7 +553,7 @@ static void *input_thread(void *arg) {
       fds_stdin_index = -1;
     }
     if (nfds > MAX_PFDS) {
-      nfds = MAX_PFDS - ((include_stdin) ? 2 : 1);
+      nfds = MAX_PFDS - (include_stdin ? 2 : 1);
     }
     if (fds_stdin_index >= 0) {
       pfds[fds_stdin_index] = {.fd = tty_fd._fd, .events = POLLIN, .revents = 0};
@@ -1210,6 +1212,7 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
       }
+
     }
   }
 

@@ -354,7 +354,7 @@ struct config_t {
       keyboard_devices[i] = bongocat::move(other.keyboard_devices[i]);
       other.keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
-    num_keyboard_devices = other._num_keyboard_names;
+    num_keyboard_devices = other.num_keyboard_devices;
 
     for (int i = 0; i < other._num_keyboard_names; ++i) {
       _keyboard_names[i] = bongocat::move(other._keyboard_names[i]);
