@@ -45,7 +45,7 @@ bongocat-find-devices
 ## Comprehensive device analysis
 
 ```bash
-bongocat-find-devices --all --verbose
+bongocat-find-devices --all
 ```
 
 ## Generate config file
@@ -57,7 +57,7 @@ bongocat-find-devices --generate-config > bongocat.conf
 ## Generate config file for devices only
 
 ```bash
-bongocat-find-devices --generate-config --by-id --devices-only > devices.bongocat.conf
+bongocat-find-devices --generate-config --by-id --include-mouse > devices.bongocat.conf
 ```
 
 _`/dev/input/eventX` can be mapped to a different device at boot, use `--by-id` for more coherent paths and consistency_
@@ -65,8 +65,16 @@ _`/dev/input/eventX` can be mapped to a different device at boot, use `--by-id` 
 ## Ignore devices
 
 ```bash
-bongocat-find-devices --generate-config -a --by-id --devices-only -e "Power Button" -e "Mic Consumer" > devices.bongocat.conf
+bongocat-find-devices --generate-config --all --by-id -e "Power Button" -e "Mic Consumer" > devices.bongocat.conf
 ```
+
+## More Examples
+
+```bash
+bongocat-find-devices --include-mouse --by-id --ignore-device "FootSwitch" --ignore-device "OpenTabletDriver" --generate
+bongocat-find-devices --all --ignore-device "Power Button" --ignore-device "FootSwitch" --ignore-device "OpenTabletDriver" --ignore-device "Sound" --ignore-device "Video"  --ignore-device "Speaker" --ignore-device "Mic Consumer"  --generate
+```
+
 
 ```{.include}
 fragments/files.md

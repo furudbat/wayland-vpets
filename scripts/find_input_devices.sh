@@ -51,8 +51,6 @@ device_is_ignored() {
 
 # Get all event devices with kbd handler (potential keyboards)
 get_kbd_devices() {
-  local prefer_byid="$1"   # "true" = prefer /dev/input/by-id symlinks
-  shift 1
   local ignore_devices=("$@")   # now receives array properly
 
   local devices=()
@@ -89,12 +87,11 @@ get_kbd_devices() {
           local real_path="/dev/input/$event"
           if [[ -n "$event" ]] && [[ -e "$real_path" ]]; then
             local device_path="$real_path"
-            if [[ "$prefer_byid" == "true" ]]; then
-                local symlink
-                symlink=$(find -L /dev/input/by-id/ -samefile "$real_path" -print -quit 2>/dev/null)
-                [[ -n "$symlink" ]] && device_path="$symlink"
-            fi
-            devices+=("$event|$name|$handlers|$capabilities|$device_path")
+            local link_device_path="$real_path"
+            local symlink
+            symlink=$(find -L /dev/input/by-id/ -samefile "$real_path" -print -quit 2>/dev/null)
+            [[ -n "$symlink" ]] && link_device_path="$symlink"
+            devices+=("$event|$name|$handlers|$capabilities|$device_path|$link_device_path")
           fi
         fi
         name="" handlers="" capabilities=""
@@ -133,7 +130,7 @@ interactive_detect() {
   local timeout="${1:-5}"
   local prefer_byid="$2"   # "true" = prefer /dev/input/by-id symlinks
   local devices
-  devices=$(get_kbd_devices "${prefer_byid}") || { error "Cannot read device list"; return 1; }
+  devices=$(get_kbd_devices) || { error "Cannot read device list"; return 1; }
 
   if [[ -z "$devices" ]]; then
     error "No input devices with kbd handler found"
@@ -143,7 +140,7 @@ interactive_detect() {
 
   # Check permissions
   local has_permission=false
-  while IFS='|' read -r event name handlers device_path; do
+  while IFS='|' read -r event name handlers device_path link_device_path; do
     if check_device "/dev/input/$event"; then
       has_permission=true
       break
@@ -175,13 +172,13 @@ interactive_detect() {
   local pids=()
   local device_list=()
 
-  while IFS='|' read -r event name handlers device_path; do
+  while IFS='|' read -r event name handlers device_path link_device_path; do
     if check_device "/dev/input/$event"; then
       local outfile="$tmpdir/$event"
       local pid
       pid=$(listen_device "$event" "$outfile" "$timeout")
       pids+=("$pid")
-      device_list+=("$event|$name|$outfile|$device_path")
+      device_list+=("$event|$name|$outfile|$device_path|$link_device_path")
     fi
   done <<< "$devices"
 
@@ -204,13 +201,13 @@ interactive_detect() {
   local other_devices=()
 
   for entry in "${device_list[@]}"; do
-    IFS='|' read -r event name outfile device_path <<< "$entry"
+    IFS='|' read -r event name outfile device_path link_device_path <<< "$entry"
 
     if [[ -s "$outfile" ]]; then
       # Device received input - it's a keyboard!
-      detected_keyboards+=("$event|$name|$device_path")
+      detected_keyboards+=("$event|$name|$device_path|$link_device_path")
     else
-      other_devices+=("$event|$name|$device_path")
+      other_devices+=("$event|$name|$device_path|$link_device_path")
     fi
   done
 
@@ -227,16 +224,21 @@ interactive_detect() {
 
   echo -e "  ${GREEN}Detected keyboards:${NC}"
   for entry in "${detected_keyboards[@]}"; do
-    IFS='|' read -r event name device_path <<< "$entry"
+    IFS='|' read -r event name device_path link_device_path <<< "$entry"
     echo -e "    ${GREEN}✓${NC} ${BOLD}$name${NC}"
-    echo -e "      ${CYAN}/dev/input/$event${NC}"
+
+    if [[ $device_path == $link_device_path ]]; then
+      echo -e "      ${CYAN}$device_path${NC}"
+    else
+      echo -e "      ${CYAN}$device_path -> $link_device_path${NC}"
+    fi
   done
 
   if [[ ${#other_devices[@]} -gt 0 ]]; then
     echo
     echo -e "  ${DIM}Other devices (no input detected):${NC}"
     for entry in "${other_devices[@]}"; do
-      IFS='|' read -r event name device_path <<< "$entry"
+      IFS='|' read -r event name device_path link_device_path <<< "$entry"
       echo -e "    ${DIM}○ $name (/dev/input/$event)${NC}"
     done
   fi
@@ -247,26 +249,24 @@ interactive_detect() {
   echo
   echo -e "  ${DIM}# Option 1: By device path (may change on reboot)${NC}"
   for entry in "${detected_keyboards[@]}"; do
-    IFS='|' read -r event name id device_path <<< "$entry"
+    IFS='|' read -r event name id device_path link_device_path <<< "$entry"
 
-    if [[ $device_path != /dev/input/by-id/* ]]; then
-      echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
-    fi
+    echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
   done
   echo
   echo -e "  ${DIM}# Option 2: By device name (persistent, recommended)${NC}"
   for entry in "${detected_keyboards[@]}"; do
-    IFS='|' read -r event name device_path <<< "$entry"
+    IFS='|' read -r event name device_path link_device_path <<< "$entry"
 
-    echo -e "  ${CYAN}keyboard_name=$name${NC}"
+    echo -e "  ${CYAN}keyboard_name=$name${NC}  ${BOLD}# $link_device_path${NC}"
   done
   echo
   echo -e "  ${DIM}# Option 3: By device id (persistent, recommended)${NC}"
   for entry in "${detected_keyboards[@]}"; do
-    IFS='|' read -r event name id device_path <<< "$entry"
+    IFS='|' read -r event name id device_path link_device_path <<< "$entry"
 
-    if [[ $device_path == /dev/input/by-id/* ]]; then
-      echo -e "  ${CYAN}keyboard_device=$device_path${NC}"
+    if [[ $link_device_path == /dev/input/by-id/* ]]; then
+      echo -e "  ${CYAN}keyboard_device=$link_device_path${NC}"
     fi
   done
 
@@ -320,21 +320,29 @@ generate_config() {
   # Calculate max path length for alignment
   local maxlen=0
   for entry in "${devices[@]}"; do
-      IFS='|' read -r event name device_path <<< "$entry"
+      IFS='|' read -r event name device_path link_device_path <<< "$entry"
       [[ ${#name} -gt $maxlen ]] && maxlen=${#name}
       [[ ${#device_path} -gt $maxlen ]] && maxlen=${#device_path}
+      [[ ${#link_device_path} -gt $maxlen ]] && maxlen=${#link_device_path}
   done
 
   # Config suggestion
   for entry in "${devices[@]}"; do
-    IFS='|' read -r event name device_path <<< "$entry"
+    IFS='|' read -r event name device_path link_device_path <<< "$entry"
     #echo -e "  ${CYAN}keyboard_device=$device_path${NC}  ${BOLD}# $name${NC}"
 
-    if [[ $device_path == /dev/input/by-id/* ]]; then
-      printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
-    elif [[ "$device_path" != /dev/input/by-id/* ]]; then
-      printf "${CYAN}#keyboard_name=%-${maxlen}s${NC}   ${BOLD}${NC}\n" "$name"
-      printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
+    if [[ "$prefer_byid" == "true" ]]; then
+      if [[ $link_device_path == /dev/input/by-id/* ]]; then
+        printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$link_device_path" "$name"
+      else
+        printf "${CYAN}keyboard_name=%-${maxlen}s${NC}     ${BOLD}# %s ${NC}\n" "$name" "$device_path"
+      fi
+    else
+      if [[ $link_device_path == /dev/input/by-id/* ]]; then
+        printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
+      elif [[ "$link_device_path" != /dev/input/by-id/* ]]; then
+        printf "${CYAN}keyboard_device=%-${maxlen}s${NC}   ${BOLD}# %s ${NC}\n" "$device_path" "$name"
+      fi
     fi
   done
 }
@@ -391,7 +399,7 @@ quick_detect() {
   local ignore_devices=("$@")   # now receives array properly
 
   local devices
-  devices=$(get_kbd_devices "${prefer_byid}" "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
+  devices=$(get_kbd_devices "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
 
   if [[ -z "$devices" ]]; then
     warn "No input devices found"
@@ -409,7 +417,7 @@ quick_detect() {
   local config_devices=()
   local type=""
 
-  while IFS='|' read -r event name handlers capabilities device_path; do
+  while IFS='|' read -r event name handlers capabilities device_path link_device_path; do
     local status="ok"
     check_device "/dev/input/$event" || status="denied"
     type=$(get_device_type "${name}" "${handlers}" "${capabilities}")
@@ -417,26 +425,31 @@ quick_detect() {
     if is_likely_mouse "$name"; then
       if [[ "$include_mouse_devices" == "true" ]]; then
         echo -e "  ${GREEN}✓${NC} ${GREEN}[$type]${NC} ${BOLD}$name${NC}"
-        config_devices+=("$event|$name|$device_path")
+        config_devices+=("$event|$name|$device_path|$link_device_path")
       else
         echo -e "  ${DIM}○ [$type]    $name${NC}"
         if [[ "$show_all" == "true" ]]; then
-          config_devices+=("$event|$name|$device_path")
+          config_devices+=("$event|$name|$device_path|$link_device_path")
         fi
       fi
       mouses+=("$event|$name")
     elif is_likely_keyboard "$name"; then
       echo -e "  ${GREEN}✓${NC} ${GREEN}[$type]${NC} ${BOLD}$name${NC}"
-      keyboards+=("$event|$name|$device_path")
-      config_devices+=("$event|$name|$device_path")
+      keyboards+=("$event|$name|$device_path|$link_device_path")
+      config_devices+=("$event|$name|$device_path|$link_device_path")
     else
       echo -e "  ${DIM}○ [$type]    $name${NC}"
       others+=("$event|$name")
       if [[ "$show_all" == "true" ]]; then
-        config_devices+=("$event|$name|$device_path")
+        config_devices+=("$event|$name|$device_path|$link_device_path")
       fi
     fi
-    echo -e "    ${CYAN}/dev/input/$event${NC}"
+
+    if [[ $device_path == $link_device_path ]]; then
+      echo -e "    ${CYAN}$device_path${NC}"
+    else
+      echo -e "    ${CYAN}$link_device_path -> $device_path${NC}"
+    fi
   done <<< "$devices"
 
   if [[ ${#keyboards[@]} -eq 0 ]]; then
@@ -465,7 +478,7 @@ quick_config() {
   local ignore_devices=("$@")   # now receives array properly
 
   local devices
-  devices=$(get_kbd_devices "${prefer_byid}" "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
+  devices=$(get_kbd_devices "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
 
   if [[ -z "$devices" ]]; then
     error "No input devices found"
@@ -477,7 +490,7 @@ quick_config() {
   local others=()
   local config_devices=()
 
-  while IFS='|' read -r event name handlers capabilities device_path; do
+  while IFS='|' read -r event name handlers capabilities device_path link_device_path; do
     local status="ok"
     check_device "/dev/input/$event" || status="denied"
     local type
@@ -485,20 +498,20 @@ quick_config() {
 
     if is_likely_mouse "$name"; then
       if [[ "$include_mouse_devices" == "true" ]]; then
-        config_devices+=("$event|$name|$device_path")
+        config_devices+=("$event|$name|$device_path|$link_device_path")
       else
         if [[ "$show_all" == "true" ]]; then
-          config_devices+=("$event|$name|$device_path")
+          config_devices+=("$event|$name|$device_path|$link_device_path")
         fi
       fi
-      mouses+=("$event|$name|$device_path")
+      mouses+=("$event|$name|$device_path|$link_device_path")
     elif is_likely_keyboard "$name"; then
-      keyboards+=("$event|$name|$device_path")
-      config_devices+=("$event|$name|$device_path")
+      keyboards+=("$event|$name|$device_path|$link_device_path")
+      config_devices+=("$event|$name|$device_path|$link_device_path")
     else
-      others+=("$event|$name|$device_path")
+      others+=("$event|$name|$device_path|$link_device_path")
       if [[ "$show_all" == "true" ]]; then
-        config_devices+=("$event|$name|$device_path")
+        config_devices+=("$event|$name|$device_path|$link_device_path")
       fi
     fi
   done <<< "$devices"
@@ -555,8 +568,9 @@ main() {
     case "$1" in
       --all) show_all=true; shift ;;
       --by-id) prefer_byid=true; shift ;;
+      --by-event) prefer_byid=false; shift ;;
       --include-mouse) include_mouse_devices=true; shift ;;
-      --ignore-device)
+      -e|--exclude-device|--ignore-device)
         if [[ -n "$2" ]]; then
           ignore_devices+=("$2")
           shift 2
