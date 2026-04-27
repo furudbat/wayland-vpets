@@ -2,6 +2,18 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.2] - 2026-04-27
+
+### Improve
+
+- find_input_devices script keyboard_device vs. keyboard_name
+
+### [4.0.1] - 2026-04-27
+
+### Fixed
+
+- read keyboard_names/keyboard_device in config
+
 ### [4.0.0] - 2026-04-18
 
 - pull from upstream [2.0.0](https://github.com/saatvik333/wayland-bongocat/releases/tag/v2.0.0)
