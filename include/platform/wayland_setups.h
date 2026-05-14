@@ -25,7 +25,6 @@ struct wayland_setup_buffer_result_t {
   int32_t logical_h{0};
   int32_t phys_w{0};
   int32_t phys_h{0};
-  uint32_t scale_120{0};
 };
 BONGOCAT_NODISCARD created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thread_context& wayland_context,
                                                          animation::animation_context_t& animation_ctx);

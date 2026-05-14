@@ -41,7 +41,24 @@ int phys_dim(const wayland_thread_context& ctx, int logical) {
   if (logical <= 0) {
     return 0;
   }
-  return static_cast<int>(((static_cast<int64_t>(logical) * static_cast<int64_t>(ctx._current_scale_120)) + 119) / 120);
+
+  const screen_info_t* current_screen_info = ctx._screen_info;
+  if (current_screen_info == BONGOCAT_NULLPTR) [[unlikely]] {
+    if (ctx._preferred_scale <= 0) {
+      return logical;
+    }
+
+    return static_cast<int>(((static_cast<int64_t>(logical) * static_cast<int64_t>(ctx._preferred_scale)) + 119) / 120);
+  }
+
+  const int scale120 =
+      (has_flag(current_screen_info->received, screen_info_received_flags_t::Scale))
+          ? current_screen_info->scale * 120
+          : 120;
+
+  return static_cast<int>(
+      ((static_cast<int64_t>(logical) * scale120) + 119) / 120
+  );
 }
 
 
@@ -435,8 +452,8 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   // If fractional protocol is unavailable, seed scale from wl_output integer
   // scale so the first buffer is sized correctly.
   if (wayland_ctx._fractional_scale_obj == BONGOCAT_NULLPTR) {
-    wayland_ctx._current_scale_120 = scale_120_from_output(ctx);
-    BONGOCAT_LOG_VERBOSE("wayland_setup_surface: fractional protocol is unavailable, fallback: %d", wayland_ctx._current_scale_120);
+    wayland_ctx._preferred_scale = scale_120_from_output(ctx);
+    BONGOCAT_LOG_VERBOSE("wayland_setup_surface: fractional protocol is unavailable, fallback: %d", wayland_ctx._preferred_scale);
   }
 
   zwlr_layer_shell_v1_layer layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
@@ -604,7 +621,7 @@ created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thr
     wp_viewport_set_destination(wayland_context._viewport, logical_w, logical_h);
     wl_surface_set_buffer_scale(wayland_context.surface, 1);
   } else {
-    int integer_scale = static_cast<int>(wayland_context._current_scale_120 / 120u);
+    int integer_scale = static_cast<int>(wayland_context._preferred_scale / 120u);
     if (integer_scale < 1) {
       integer_scale = 1;
     }
@@ -613,14 +630,13 @@ created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thr
 
   BONGOCAT_LOG_VERBOSE(
       "Buffer allocated: logical %dx%d, physical %dx%d, scale %u/120",
-      logical_w, logical_h, phys_w, phys_h, wayland_context._current_scale_120);
+      logical_w, logical_h, phys_w, phys_h, wayland_context._preferred_scale);
 
   return wayland_setup_buffer_result_t{
     .logical_w = logical_w,
     .logical_h = logical_h,
     .phys_w = phys_w,
     .phys_h = phys_h,
-    .scale_120 = wayland_context._current_scale_120,
   };
 }
 

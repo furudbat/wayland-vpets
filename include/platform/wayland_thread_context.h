@@ -71,7 +71,7 @@ struct wayland_thread_context {
   // Effective render scale, encoded as numerator over 120 (so 120 = 1.0×, 240 =
   // 2.0×, 180 = 1.5×). Updated via wp_fractional_scale_v1::preferred_scale or
   // wl_output::scale fallback.
-  uint32_t _current_scale_120{DEFAULT_PREFER_SCALE};
+  uint32_t _preferred_scale{DEFAULT_PREFER_SCALE};
 
   wayland_thread_context() = default;
   ~wayland_thread_context() {
@@ -228,7 +228,7 @@ inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   ctx.fractional_scale_mgr = BONGOCAT_NULLPTR;
   ctx._viewport = BONGOCAT_NULLPTR;
   ctx._fractional_scale_obj = BONGOCAT_NULLPTR;
-  ctx._current_scale_120 = DEFAULT_PREFER_SCALE;
+  ctx._preferred_scale = DEFAULT_PREFER_SCALE;
 }
 }  // namespace bongocat::platform::wayland
 

@@ -953,12 +953,12 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
   BONGOCAT_LOG_INFO("fractional_scale_preferred_scale: Compositor requested fractional scale %u/120 (%.3f)",
                     scale, static_cast<double>(scale) / 120.0);
 
-  if (scale == 0 || scale == wayland_ctx._current_scale_120) {
+  if (scale == 0 || scale == wayland_ctx._preferred_scale) {
     return;
   }
 
-  wayland_ctx._current_scale_120 = scale;
-  BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: update _current_scale_120: %d", wayland_ctx._current_scale_120);
+  wayland_ctx._preferred_scale = scale;
+  BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: update _current_scale_120: %d", wayland_ctx._preferred_scale);
   if (wayland_ctx.surface != BONGOCAT_NULLPTR && wayland_ctx.ctx_shm != BONGOCAT_NULLPTR && atomic_load(&wayland_ctx.ctx_shm->configured)) {
     BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: recreate buffer...");
     auto [setup_result, setup_error] = details::wayland_recreate_buffer(ctx);
