@@ -12,6 +12,7 @@ struct zwlr_layer_surface_v1;
 
 namespace bongocat::platform::wayland {
 inline static constexpr int MAX_ATTEMPTS = 4096;
+inline static constexpr int DEFAULT_PREFER_SCALE = 120;
 
 struct wayland_thread_context;
 // Cleanup Wayland resources
@@ -45,8 +46,8 @@ struct wayland_thread_context {
   MMapMemory<wayland_shared_memory_t> ctx_shm;
   bar_visibility_t bar_visibility{bar_visibility_t::Show};
 
-  int32_t _bar_height{0};    // applied_height
-  int32_t _screen_width{0};  // applied_width
+  int32_t _overlay_height{0};     // applied_height
+  int32_t _screen_width{0};       // applied_width
   // ref to existing name in output, Will default to automatic one if kept null
   char *_output_name_str{BONGOCAT_NULLPTR};  // bound_screen_name
   bool _fullscreen_detected{false};
@@ -61,6 +62,16 @@ struct wayland_thread_context {
   atomic_bool _frame_pending{false};
   atomic_bool _redraw_after_frame{false};
   timestamp_ms_t _last_frame_timestamp_ms{0};
+
+  // HiDPI: fractional-scale + viewporter
+  struct wp_viewporter *viewporter{BONGOCAT_NULLPTR};
+  struct wp_fractional_scale_manager_v1 *fractional_scale_mgr{BONGOCAT_NULLPTR};
+  struct wp_viewport *_viewport{BONGOCAT_NULLPTR};
+  struct wp_fractional_scale_v1 *_fractional_scale_obj{BONGOCAT_NULLPTR};
+  // Effective render scale, encoded as numerator over 120 (so 120 = 1.0×, 240 =
+  // 2.0×, 180 = 1.5×). Updated via wp_fractional_scale_v1::preferred_scale or
+  // wl_output::scale fallback.
+  uint32_t _current_scale_120{DEFAULT_PREFER_SCALE};
 
   wayland_thread_context() = default;
   ~wayland_thread_context() {
@@ -92,6 +103,20 @@ inline void cleanup_wayland_context_surface(wayland_thread_context& ctx) {
     zwlr_layer_surface_v1_destroy(ctx.layer_surface);
     ctx.layer_surface = BONGOCAT_NULLPTR;
   }
+
+  // Per-surface HiDPI receivers must die with the surface; setup_surface
+  // will recreate them attached to the new wl_surface.
+  if (ctx._fractional_scale_obj) {
+    wp_fractional_scale_v1_destroy(ctx._fractional_scale_obj);
+    ctx._fractional_scale_obj = BONGOCAT_NULLPTR;
+  }
+  if (ctx._viewport) {
+    wp_viewport_destroy(ctx._viewport);
+    ctx._viewport = BONGOCAT_NULLPTR;
+  }
+  // Destroy fractional-scale and viewport receivers before the surface they
+  // reference.
+
   if (ctx.surface != BONGOCAT_NULLPTR) {
     wl_surface_destroy(ctx.surface);
     ctx.surface = BONGOCAT_NULLPTR;
@@ -111,7 +136,7 @@ inline void cleanup_wayland_context_buffer(wayland_thread_context& ctx) {
   }
 
   ctx._screen_width = 0;
-  ctx._bar_height = 0;
+  ctx._overlay_height = 0;
 }
 inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   if (ctx.ctx_shm) {
@@ -192,12 +217,18 @@ inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   ctx._output_name_str = BONGOCAT_NULLPTR;
   ctx._frame_pending = false;
   ctx._redraw_after_frame = false;
-  ctx._bar_height = 0;
+  ctx._overlay_height = 0;
   ctx._screen_width = 0;
   ctx._fullscreen_detected = false;
   ctx._screen_info = BONGOCAT_NULLPTR;
   ctx._layer = config::layer_type_t::LAYER_TOP;
   ctx._overlay_position = config::overlay_position_t::POSITION_BOTTOM;
+
+  ctx.viewporter = BONGOCAT_NULLPTR;
+  ctx.fractional_scale_mgr = BONGOCAT_NULLPTR;
+  ctx._viewport = BONGOCAT_NULLPTR;
+  ctx._fractional_scale_obj = BONGOCAT_NULLPTR;
+  ctx._current_scale_120 = DEFAULT_PREFER_SCALE;
 }
 }  // namespace bongocat::platform::wayland
 

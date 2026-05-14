@@ -37,6 +37,14 @@ static inline constexpr size_t CREATE_SHM_NAME_PREFIX_LEN =
     LEN_ARRAY(CREATE_SHM_NAME_TEMPLATE) - 1 - CREATE_SHM_NAME_SUFFIX_LEN;
 static_assert((CREATE_SHM_NAME_PREFIX_LEN + CREATE_SHM_NAME_SUFFIX_LEN) == LEN_ARRAY(CREATE_SHM_NAME_TEMPLATE) - 1);
 
+int phys_dim(const wayland_thread_context& ctx, int logical) {
+  if (logical <= 0) {
+    return 0;
+  }
+  return static_cast<int>(((static_cast<int64_t>(logical) * static_cast<int64_t>(ctx._current_scale_120)) + 119) / 120);
+}
+
+
 // =============================================================================
 // BUFFER AND DRAWING MANAGEMENT
 // =============================================================================
@@ -148,10 +156,10 @@ created_result_t<int> wayland_update_current_output_info(wayland_context_t& ctx)
         BONGOCAT_LOG_INFO("Detected screen name: %s", ctx.outputs[i].name_str);
         bound_screen_name = ctx.outputs[i].name_str;
 
-        if (ctx.screen_infos[i].screen_width > 0 && ctx.screen_infos[i].screen_width <= INT16_MAX) {
-          BONGOCAT_LOG_INFO("Detected screen width: %d", ctx.screen_infos[i].screen_width);
+        if (ctx.screen_infos[i].logical_width > 0 && ctx.screen_infos[i].logical_width <= INT16_MAX) {
+          BONGOCAT_LOG_INFO("Detected screen width: %d", ctx.screen_infos[i].logical_width);
           screen_info = &ctx.screen_infos[i];
-          screen_width = ctx.screen_infos[i].screen_width;
+          screen_width = ctx.screen_infos[i].logical_width;
           output_found = true;
         }
       }
@@ -199,10 +207,10 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
     // auto-detect screen width
     if (wayland_ctx.output != BONGOCAT_NULLPTR) {
       wl_display_roundtrip(wayland_ctx.display);
-      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->screen_width > 0 &&
-          wayland_ctx._screen_info->screen_width < INT16_MAX) {
-        BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->screen_width);
-        screen_width = wayland_ctx._screen_info->screen_width;
+      if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->logical_width > 0 &&
+          wayland_ctx._screen_info->logical_width < INT16_MAX) {
+        BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->logical_width);
+        screen_width = wayland_ctx._screen_info->logical_width;
       } else {
         BONGOCAT_LOG_WARNING("Using default screen width: %d", DEFAULT_SCREEN_WIDTH);
         screen_width = DEFAULT_SCREEN_WIDTH;
@@ -378,6 +386,21 @@ uint32_t wayland_apply_anchor_properties_v1(wayland_context_t& ctx) {
   return anchor;
 }
 
+
+// Pick effective scale_120 from output's wl_output::scale when fractional
+// protocol is unavailable.
+static uint32_t scale_120_from_output(const wayland_context_t& ctx) {
+  for (size_t i = 0; i < ctx.output_count && i < MAX_OUTPUTS; i++) {
+    if (ctx.screen_infos[i].wl_output == ctx.thread_context.output) {
+      if (ctx.screen_infos[i].scale > 0) {
+        return static_cast<uint32_t>(ctx.screen_infos[i].scale) * 120u;
+      }
+    }
+  }
+
+  return 120;
+}
+
 bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = *ctx.animation_context;
@@ -391,6 +414,29 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   if (wayland_ctx.surface == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_ERROR("Failed to create surface");
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
+  }
+
+  // HiDPI plumbing: pair surface with a viewport (so we can render at
+  // physical-pixel resolution and let compositor downscale to the logical
+  // size) and a fractional-scale receiver (so we learn the preferred scale).
+  if (wayland_ctx.viewporter != BONGOCAT_NULLPTR && wayland_ctx._viewport == BONGOCAT_NULLPTR) {
+    wayland_ctx._viewport = wp_viewporter_get_viewport(wayland_ctx.viewporter, wayland_ctx.surface);
+  }
+  if (wayland_ctx.fractional_scale_mgr != BONGOCAT_NULLPTR && wayland_ctx._fractional_scale_obj == BONGOCAT_NULLPTR) {
+    wayland_ctx._fractional_scale_obj = wp_fractional_scale_manager_v1_get_fractional_scale(
+        wayland_ctx.fractional_scale_mgr, wayland_ctx.surface);
+    if (wayland_ctx._fractional_scale_obj != BONGOCAT_NULLPTR) {
+      wp_fractional_scale_v1_add_listener(wayland_ctx._fractional_scale_obj,
+                                          &fractional_scale_listener, &ctx);
+      BONGOCAT_LOG_VERBOSE("wayland_setup_surface: get fractional scale by fractional_scale_listener");
+    }
+  }
+
+  // If fractional protocol is unavailable, seed scale from wl_output integer
+  // scale so the first buffer is sized correctly.
+  if (wayland_ctx._fractional_scale_obj == BONGOCAT_NULLPTR) {
+    wayland_ctx._current_scale_120 = scale_120_from_output(ctx);
+    BONGOCAT_LOG_VERBOSE("wayland_setup_surface: fractional protocol is unavailable, fallback: %d", wayland_ctx._current_scale_120);
   }
 
   zwlr_layer_shell_v1_layer layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
@@ -416,15 +462,15 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   }
 
   // Configure layer surface
-  assert(wayland_ctx._bar_height >= 0);
+  assert(wayland_ctx._overlay_height >= 0);
   // assert(current_config.bar_height <= UINT32_MAX);
-  if (wayland_ctx._bar_height == 0) {
+  if (wayland_ctx._overlay_height == 0) {
     BONGOCAT_LOG_ERROR("Can not set anchor with bar_height=0");
     zwlr_layer_surface_v1_destroy(wayland_ctx.layer_surface);
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
   wayland_apply_anchor_properties_v1(ctx);
-  zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(wayland_ctx._bar_height));
+  zwlr_layer_surface_v1_set_size(wayland_ctx.layer_surface, 0, static_cast<uint32_t>(wayland_ctx._overlay_height));
   zwlr_layer_surface_v1_set_exclusive_zone(wayland_ctx.layer_surface, -1);
   zwlr_layer_surface_v1_set_keyboard_interactivity(wayland_ctx.layer_surface,
                                                    ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_NONE);
@@ -442,20 +488,27 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   if constexpr (WAYLAND_NUM_BUFFERS == 1) {
     wl_display_roundtrip(wayland_ctx.display);
   }
+
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
-                                      animation::animation_context_t& animation_ctx) {
+created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thread_context& wayland_context,
+                                                                     animation::animation_context_t& animation_ctx) {
   // read-only config
   assert(wayland_context._local_copy_config);
   // const config::config_t& current_config = *wayland_context._local_copy_config;
 
   wayland_shared_memory_t& wayland_ctx_shm = *wayland_context.ctx_shm;
 
+  const int logical_w = wayland_context._screen_width;
+  const int logical_h = wayland_context._overlay_height;
+  const int phys_w = details::phys_dim(wayland_context, logical_w);
+  const int phys_h = details::phys_dim(wayland_context, logical_h);
+  assert(phys_w <= INT32_MAX);
+  assert(phys_h <= INT32_MAX);
   /// @TODO: limit screen_width and bar_height for buffer_size
-  const int32_t buffer_width = wayland_context._screen_width;
-  const int32_t buffer_height = wayland_context._bar_height;
+  const int32_t buffer_width = phys_w;
+  const int32_t buffer_height = phys_h;
   assert(buffer_width >= 0);
   assert(buffer_height >= 0);
   static_assert(RGBA_CHANNELS >= 0);
@@ -516,8 +569,8 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
     assert(buffer_size <= INT32_MAX);
     assert(offset <= INT32_MAX);
     wayland_ctx_shm.buffers[i].buffer = wl_shm_pool_create_buffer(
-        pool, static_cast<int32_t>(offset), wayland_context._screen_width, wayland_context._bar_height,
-        wayland_context._screen_width * RGBA_CHANNELS, WL_SHM_FORMAT_ARGB8888);
+        pool, static_cast<int32_t>(offset), phys_w, phys_h,
+        phys_w * RGBA_CHANNELS, WL_SHM_FORMAT_ARGB8888);
     if (wayland_ctx_shm.buffers[i].buffer == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_ERROR("Failed to create buffer");
       for (size_t j = 0; j < i; j++) {
@@ -534,6 +587,8 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
     atomic_store(&wayland_ctx_shm.buffers[i].pending, false);
     wayland_ctx_shm.buffers[i]._animation_context = &animation_ctx;
     wayland_ctx_shm.buffers[i]._wayland_thread_context = &wayland_context;
+    wayland_ctx_shm.buffers[i]._physical_buffer_width = phys_w;
+    wayland_ctx_shm.buffers[i]._physical_buffer_height = phys_h;
     wl_buffer_add_listener(wayland_ctx_shm.buffers[i].buffer, &details::buffer_listener, &wayland_ctx_shm.buffers[i]);
   }
 
@@ -541,7 +596,32 @@ bongocat_error_t wayland_setup_buffer(wayland_thread_context& wayland_context,
 
   wayland_ctx_shm.current_buffer_index = 0;
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  // Tell the compositor how to map our physical buffer to the logical
+  // surface. With viewporter we keep buffer_scale=1 and let the destination
+  // size carry the logical dimensions (works for any fractional ratio).
+  // Without viewporter, fall back to integer set_buffer_scale.
+  if (wayland_context._viewport != BONGOCAT_NULLPTR) {
+    wp_viewport_set_destination(wayland_context._viewport, logical_w, logical_h);
+    wl_surface_set_buffer_scale(wayland_context.surface, 1);
+  } else {
+    int integer_scale = static_cast<int>(wayland_context._current_scale_120 / 120u);
+    if (integer_scale < 1) {
+      integer_scale = 1;
+    }
+    wl_surface_set_buffer_scale(wayland_context.surface, integer_scale);
+  }
+
+  BONGOCAT_LOG_VERBOSE(
+      "Buffer allocated: logical %dx%d, physical %dx%d, scale %u/120",
+      logical_w, logical_h, phys_w, phys_h, wayland_context._current_scale_120);
+
+  return wayland_setup_buffer_result_t{
+    .logical_w = logical_w,
+    .logical_h = logical_h,
+    .phys_w = phys_w,
+    .phys_h = phys_h,
+    .scale_120 = wayland_context._current_scale_120,
+  };
 }
 
 spawn_pipe_t safe_popen_read_spawn(wayland_context_t& ctx, const char *path, const char *const *argv) {

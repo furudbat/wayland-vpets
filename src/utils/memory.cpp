@@ -8,6 +8,7 @@
 #include <cstdint>
 #include <cstdlib>
 #include <pthread.h>
+#include <climits>
 
 namespace bongocat {
 namespace details {

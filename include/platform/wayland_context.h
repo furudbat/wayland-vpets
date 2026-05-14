@@ -37,14 +37,22 @@ enum class screen_info_received_flags_t : uint32_t {
   None = (1U << 0),
   Mode = (1U << 1),
   Geometry = (1U << 2),
+  Scale = (1U << 3),
 };
 struct screen_info_t {
   struct wl_output *wl_output{BONGOCAT_NULLPTR};  // ref of output
-  int screen_width{0};
-  int screen_height{0};
+
+  // compositor logical coordinate space
+  int logical_width{0};
+  int logical_height{0};
+
+  // physical monitor mode
+  int physical_width{0};
+  int physical_height{0};
+
   int transform{0};
-  int raw_width{0};
-  int raw_height{0};
+  int scale{1};
+
   screen_info_received_flags_t received{screen_info_received_flags_t::None};
 };
 
@@ -71,6 +79,7 @@ struct output_ref_t {
   int64_t hypr_id{-1};
   // back reference
   wayland_context_t *wayland{BONGOCAT_NULLPTR};
+  int32_t wl_scale{1};
 };
 
 void cleanup_wayland(wayland_context_t& ctx);

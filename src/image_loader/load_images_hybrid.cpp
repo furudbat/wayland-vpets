@@ -2,6 +2,8 @@
 #include <cassert>
 #include <cstdlib>
 #include <cstring>
+#include <cstdint>
+#include <climits>
 
 // include pngle
 #if defined(__GNUC__) || defined(__clang__)

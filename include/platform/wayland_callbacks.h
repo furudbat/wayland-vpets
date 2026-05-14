@@ -140,6 +140,19 @@ extern void frame_done(void *data, wl_callback *cb, uint32_t time);
 inline static constexpr wl_callback_listener frame_listener = {.done = frame_done};
 
 void wayland_handle_output_reconnect(struct wl_output *new_output, uint32_t registry_name, const char *output_name);
+
+// =============================================================================
+// HIDPI: FRACTIONAL SCALE HANDLING
+// =============================================================================
+
+extern void fractional_scale_preferred_scale(void *data, struct wp_fractional_scale_v1 *fs, uint32_t scale);
+
+/// @NOTE: preferred_scale MUST pass data as wayland_listeners_context_t, see wl_callback_add_listener
+inline static constexpr wp_fractional_scale_v1_listener fractional_scale_listener =
+{
+  .preferred_scale = fractional_scale_preferred_scale,
+};
+
 }  // namespace bongocat::platform::wayland::details
 
 #endif

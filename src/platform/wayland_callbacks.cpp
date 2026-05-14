@@ -142,6 +142,20 @@ void handle_xdg_output_logical_size(void *data, [[maybe_unused]] zxdg_output_v1 
   oref->height = height;
   oref->received = flag_add<output_ref_received_flags_t>(oref->received, output_ref_received_flags_t::LogicalSize);
 
+  // propagate into screen_info_t
+  if (oref->wayland != BONGOCAT_NULLPTR) {
+    wayland_context_t& wayland_ctx = *oref->wayland;
+    //wayland_thread_context& wayland_thread_ctx = oref->wayland->thread_context;
+
+    for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
+      if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
+        wayland_ctx.screen_infos[i].logical_width = width;
+        wayland_ctx.screen_infos[i].logical_height = height;
+        break;
+      }
+    }
+  }
+
   BONGOCAT_LOG_VERBOSE("xdg_output.logical_size: %dx%d received", width, height);
 }
 void handle_xdg_output_done(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_output) {
@@ -149,8 +163,21 @@ void handle_xdg_output_done(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  // auto *oref = static_cast<output_ref_t *>(data);
+  auto *oref = static_cast<output_ref_t *>(data);
 
+  // propagate into screen_info_t
+  if (oref->wayland != BONGOCAT_NULLPTR) {
+    wayland_context_t& wayland_ctx = *oref->wayland;
+    //wayland_thread_context& wayland_thread_ctx = oref->wayland->thread_context;
+
+    for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
+      if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
+        wayland_ctx.screen_infos[i].logical_width = oref->width;
+        wayland_ctx.screen_infos[i].logical_height = oref->height;
+        break;
+      }
+    }
+  }
   BONGOCAT_LOG_VERBOSE("xdg_output.done: done received");
 }
 
@@ -593,6 +620,7 @@ void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *ma
 // SCREEN DIMENSION MANAGEMENT
 // =============================================================================
 
+/*
 static void screen_calculate_dimensions(screen_info_t& screen_info) {
   if (screen_info.received == screen_info_received_flags_t::None ||
       (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Geometry)) ==
@@ -618,6 +646,7 @@ static void screen_calculate_dimensions(screen_info_t& screen_info) {
                       screen_info.transform);
   }
 }
+*/
 
 // =============================================================================
 // WAYLAND EVENT HANDLERS
@@ -679,10 +708,11 @@ void output_geometry(void *data, [[maybe_unused]] wl_output *wl_output, [[maybe_
   for (size_t i = 0; i < MAX_OUTPUTS; i++) {
     if (ctx.screen_infos[i].wl_output == wl_output) {
       ctx.screen_infos[i].transform = transform;
+
       ctx.screen_infos[i].received =
           static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_infos[i].received) |
                                                     static_cast<uint32_t>(screen_info_received_flags_t::Geometry));
-      screen_calculate_dimensions(ctx.screen_infos[i]);
+      //screen_calculate_dimensions(ctx.screen_infos[i]);
     }
   }
   BONGOCAT_LOG_DEBUG("wl_output.geometry: Output transform: %d", transform);
@@ -701,13 +731,14 @@ void output_mode(void *data, [[maybe_unused]] wl_output *wl_output, uint32_t fla
   if (flags & WL_OUTPUT_MODE_CURRENT) {
     for (size_t i = 0; i < MAX_OUTPUTS; i++) {
       if (ctx.screen_infos[i].wl_output == wl_output) {
-        ctx.screen_infos[i].raw_width = width;
-        ctx.screen_infos[i].raw_height = height;
+        ctx.screen_infos[i].physical_width = width;
+        ctx.screen_infos[i].physical_height = height;
+
         ctx.screen_infos[i].received =
             static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_infos[i].received) |
                                                       static_cast<uint32_t>(screen_info_received_flags_t::Mode));
         BONGOCAT_LOG_DEBUG("wl_output.mode: Received raw screen mode: %dx%d", width, height);
-        screen_calculate_dimensions(ctx.screen_infos[i]);
+        //screen_calculate_dimensions(ctx.screen_infos[i]);
       }
     }
   }
@@ -722,7 +753,7 @@ void output_done(void *data, [[maybe_unused]] wl_output *wl_output) {
 
   for (size_t i = 0; i < MAX_OUTPUTS; i++) {
     if (ctx.screen_infos[i].wl_output == wl_output) {
-      screen_calculate_dimensions(ctx.screen_infos[i]);
+      //screen_calculate_dimensions(ctx.screen_infos[i]);
     }
   }
   BONGOCAT_LOG_DEBUG("wl_output.done: Output configuration complete");
@@ -733,10 +764,30 @@ void output_scale(void *data, [[maybe_unused]] wl_output *wl_output, [[maybe_unu
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  // wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
-  // Scale not needed for our use case
-  BONGOCAT_LOG_VERBOSE("wl_output.scale: factor received");
+  if (factor < 1) {
+    factor = 1;
+  }
+
+  for (size_t i = 0; i < ctx.output_count; ++i) {
+    if (ctx.outputs[i].wl_output == wl_output) {
+      ctx.outputs[i].wl_scale = factor;
+      break;
+    }
+  }
+
+  for (size_t i = 0; i < MAX_OUTPUTS; i++) {
+    if (ctx.screen_infos[i].wl_output == wl_output) {
+      ctx.screen_infos[i].scale = factor;
+
+      ctx.screen_infos[i].received =
+          static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_infos[i].received) |
+                                                    static_cast<uint32_t>(screen_info_received_flags_t::Scale));
+    }
+  }
+
+  BONGOCAT_LOG_VERBOSE("wl_output.scale: factor received (%d)", factor);
 }
 
 void output_name(void *data, [[maybe_unused]] wl_output *wl_output, [[maybe_unused]] const char *name) {
@@ -841,6 +892,84 @@ void frame_done(void *data, wl_callback *cb, [[maybe_unused]] uint32_t time) {
   }
 }
 
+// Helper to handle output reconnection
+void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_output, uint32_t registry_name,
+                                     [[maybe_unused]] const char *output_name) {
+  assert(oref->wayland);
+
+  wayland_thread_context& wayland_ctx = oref->wayland->thread_context;
+  // animation_context_t& anim = *ctx.animation_context;
+  // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
+
+  // read-only config
+  // assert(wayland_ctx._local_copy_config != nullptr);
+  // const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+  BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Output '%s' reconnected (registry name %u)", output_name,
+                    registry_name);
+
+  // Clean up old surface if it exists
+  cleanup_wayland_context_surface(wayland_ctx);
+
+  // Set new output
+  wayland_ctx.output = new_output;
+  wayland_ctx.bound_output_name = registry_name;
+  atomic_store(&oref->wayland->_output_lost, false);
+
+  // Recreate surface on new output
+  if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
+    assert(wayland_ctx.ctx_shm.ptr && wayland_ctx.ctx_shm.ptr != MAP_FAILED);
+    if (wayland_ctx.ctx_shm) {
+      /// @TODO: pre-matured configured ?
+      // atomic_store(&wayland_ctx.ctx_shm->configured, true);
+      if (!atomic_load(&wayland_ctx.ctx_shm->configured)) {
+        BONGOCAT_LOG_WARNING("wayland_handle_output_reconnect: assuming configured, yet");
+      }
+    }
+    BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Surface recreated on reconnected output");
+    wl_display_roundtrip(wayland_ctx.display);
+    if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
+      request_render(*oref->wayland->animation_context);
+    }
+  } else {
+    BONGOCAT_LOG_ERROR("wayland_handle_output_reconnect: Failed to recreate surface on reconnected output");
+  }
+}
+
+// =============================================================================
+// HIDPI: FRACTIONAL SCALE HANDLING
+// =============================================================================
+
+void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unused]] struct wp_fractional_scale_v1 *fs, uint32_t scale) {
+  if (data == BONGOCAT_NULLPTR) {
+    BONGOCAT_LOG_WARNING("Handler called with null data (ignored)");
+    return;
+  }
+
+  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+  wayland_thread_context& wayland_ctx = ctx.thread_context;
+  // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
+
+  BONGOCAT_LOG_INFO("fractional_scale_preferred_scale: Compositor requested fractional scale %u/120 (%.3f)",
+                    scale, static_cast<double>(scale) / 120.0);
+
+  if (scale == 0 || scale == wayland_ctx._current_scale_120) {
+    return;
+  }
+
+  wayland_ctx._current_scale_120 = scale;
+  BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: update _current_scale_120: %d", wayland_ctx._current_scale_120);
+  if (wayland_ctx.surface != BONGOCAT_NULLPTR && wayland_ctx.ctx_shm != BONGOCAT_NULLPTR && atomic_load(&wayland_ctx.ctx_shm->configured)) {
+    BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: recreate buffer...");
+    auto [setup_result, setup_error] = details::wayland_recreate_buffer(ctx);
+    if (setup_error == bongocat_error_t::BONGOCAT_SUCCESS) {
+      if (ctx.animation_context != BONGOCAT_NULLPTR) {
+        request_render(*ctx.animation_context);
+      }
+    }
+  }
+}
+
 // =============================================================================
 // WAYLAND PROTOCOL REGISTRY
 // =============================================================================
@@ -864,6 +993,8 @@ void registry_global(void *data, wl_registry *reg, uint32_t name, const char *if
   constexpr uint32_t zxdg_output_manager_v1_interface_version = 3;
   constexpr uint32_t wl_output_interface_version = 2;
   constexpr uint32_t zwlr_foreign_toplevel_manager_v1_interface_version = 3;
+  constexpr uint32_t wp_viewporter_interface_version = 1;
+  constexpr uint32_t wp_fractional_scale_manager_v1_interface_version = 1;
 
   if (strcmp(iface, wl_compositor_interface.name) == 0) {
     ctx.thread_context.compositor = static_cast<wl_compositor *>(
@@ -925,7 +1056,19 @@ void registry_global(void *data, wl_registry *reg, uint32_t name, const char *if
       BONGOCAT_LOG_INFO(
           "wl_registry.global: Foreign toplevel manager bound - using Wayland protocol for fullscreen detection");
     }
+  } else if (strcmp(iface, wp_viewporter_interface.name) == 0) {
+    ctx.thread_context.viewporter = static_cast<wp_viewporter *>(wl_registry_bind(
+        reg, name, &wp_viewporter_interface, bind_min_ver(ver, wp_viewporter_interface_version)));
+    BONGOCAT_LOG_VERBOSE("wl_registry.global: viewporter registry bind");
+  } else if (strcmp(iface, wp_fractional_scale_manager_v1_interface.name) == 0) {
+    ctx.thread_context.fractional_scale_mgr =
+        static_cast<wp_fractional_scale_manager_v1 *>(wl_registry_bind(
+            reg, name, &wp_fractional_scale_manager_v1_interface,
+            bind_min_ver(ver, wp_fractional_scale_manager_v1_interface_version)));
+    BONGOCAT_LOG_VERBOSE("wl_registry.global: fractional_scale_mgr registry bind");
   }
+
+
 }
 
 void registry_remove(void *data, [[maybe_unused]] wl_registry *registry, [[maybe_unused]] uint32_t name) {
@@ -1003,47 +1146,4 @@ void registry_remove(void *data, [[maybe_unused]] wl_registry *registry, [[maybe
   }
 }
 
-// Helper to handle output reconnection
-void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_output, uint32_t registry_name,
-                                     [[maybe_unused]] const char *output_name) {
-  assert(oref->wayland);
-
-  wayland_thread_context& wayland_ctx = oref->wayland->thread_context;
-  // animation_context_t& anim = *ctx.animation_context;
-  // animation_trigger_context_t& trigger_ctx = *ctx.animation_trigger_context;
-
-  // read-only config
-  // assert(wayland_ctx._local_copy_config != nullptr);
-  // const config::config_t& current_config = *wayland_ctx._local_copy_config;
-
-  BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Output '%s' reconnected (registry name %u)", output_name,
-                    registry_name);
-
-  // Clean up old surface if it exists
-  cleanup_wayland_context_surface(wayland_ctx);
-
-  // Set new output
-  wayland_ctx.output = new_output;
-  wayland_ctx.bound_output_name = registry_name;
-  atomic_store(&oref->wayland->_output_lost, false);
-
-  // Recreate surface on new output
-  if (wayland_setup_surface(*oref->wayland) == bongocat_error_t::BONGOCAT_SUCCESS) {
-    assert(wayland_ctx.ctx_shm.ptr && wayland_ctx.ctx_shm.ptr != MAP_FAILED);
-    if (wayland_ctx.ctx_shm) {
-      /// @TODO: pre-matured configured ?
-      // atomic_store(&wayland_ctx.ctx_shm->configured, true);
-      if (!atomic_load(&wayland_ctx.ctx_shm->configured)) {
-        BONGOCAT_LOG_WARNING("wayland_handle_output_reconnect: assuming configured, yet");
-      }
-    }
-    BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Surface recreated on reconnected output");
-    wl_display_roundtrip(wayland_ctx.display);
-    if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
-      request_render(*oref->wayland->animation_context);
-    }
-  } else {
-    BONGOCAT_LOG_ERROR("wayland_handle_output_reconnect: Failed to recreate surface on reconnected output");
-  }
-}
 }  // namespace bongocat::platform::wayland::details

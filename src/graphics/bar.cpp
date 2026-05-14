@@ -14,8 +14,10 @@
 #include "platform/wayland-protocols.hpp"
 #include "platform/wayland.h"
 #include "platform/wayland_callbacks.h"
+#include "platform/wayland_setups.h"
 
 #include <cassert>
+#include <cstdint>
 #include <wayland-client.h>
 
 namespace bongocat::animation {
@@ -40,49 +42,54 @@ enum class blit_image_sprite_option_flags_t : uint32_t {
 
 template <class SpriteSheet>
 /// @TODO: required SpriteSheet must be _sprite_sheet_t
-cat_rect_t get_position(const platform::wayland::wayland_thread_context& wayland_ctx, const SpriteSheet& sheet,
-                        const config::config_t& config, blit_image_sprite_option_flags_t options) {
-  const int cat_height = [&]() {
+static cat_rect_t get_position(const platform::wayland::wayland_thread_context& wayland_ctx, const SpriteSheet& sheet,
+                               const config::config_t& config, blit_image_sprite_option_flags_t options) {
+  const int phys_w = platform::wayland::details::phys_dim(wayland_ctx, wayland_ctx._screen_width);
+  const int phys_h = platform::wayland::details::phys_dim(wayland_ctx, wayland_ctx._overlay_height);
+  /// @TODO: assert phys_w/h with pixels/buffer size
+  const int cat_height_phys = [&]() {
     if (has_flag(options, blit_image_sprite_option_flags_t::IgnoreCatHeight)) {
-      return sheet.frame_height;
+      return platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_height);
     }
 
-    return config.cat_height;
+    return platform::wayland::details::phys_dim(wayland_ctx, config.cat_height);
   }();
-  const int cat_width = [&]() {
+  const int cat_width_phys = [&]() {
     if (has_flag(options, blit_image_sprite_option_flags_t::IgnoreCatHeight)) {
-      return sheet.frame_width;
+      return platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_width);
     }
 
-    return static_cast<int>(static_cast<float>(cat_height) *
-                            (static_cast<float>(sheet.frame_width) / static_cast<float>(sheet.frame_height)));
+    return static_cast<int>(static_cast<float>(cat_height_phys) *
+                            static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_width)) / static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_height)));
   }();
 
-  int cat_x = 0;
+  // Cat dimensions and offsets are in logical pixels in the config; convert
+  // to physical for the buffer-space blit.
+  int cat_x_phys = 0;
   switch (config.cat_align) {
   case config::align_type_t::ALIGN_CENTER:
-    cat_x = (wayland_ctx._screen_width - cat_width) / 2 + config.cat_x_offset;
+    cat_x_phys = ((phys_w - cat_width_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
     break;
   case config::align_type_t::ALIGN_LEFT:
-    cat_x = config.cat_x_offset;
+    cat_x_phys = platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
     break;
   case config::align_type_t::ALIGN_RIGHT:
-    cat_x = wayland_ctx._screen_width - cat_width - config.cat_x_offset;
+    cat_x_phys = phys_w - cat_width_phys - platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
     break;
   default:
     BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", config.cat_align);
     break;
   }
-  const int cat_y = ((wayland_ctx._bar_height - cat_height) / 2) + config.cat_y_offset;
+  const int cat_y_phys = ((phys_h - cat_height_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_y_offset);
 
-  return {.x = cat_x, .y = cat_y, .width = cat_width, .height = cat_height};
+  return {.x = cat_x_phys, .y = cat_y_phys, .width = cat_width_phys, .height = cat_height_phys};
 }
 
 /// @TODO: make draw_sprite more generic (template?)
-void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
-                 const bongocat_sprite_sheet_t& sheet,
-                 blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal,
-                 blit_image_sprite_option_flags_t sprite_options = blit_image_sprite_option_flags_t::None) {
+static void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::wayland_shm_buffer_t& shm_buffer,
+                        const bongocat_sprite_sheet_t& sheet,
+                        blit_image_color_option_flags_t extra_drawing_option = blit_image_color_option_flags_t::Normal,
+                        blit_image_sprite_option_flags_t sprite_options = blit_image_sprite_option_flags_t::None) {
   using namespace assets;
   if (sheet.frame_width <= 0 || sheet.frame_height <= 0) {
     return;
@@ -100,6 +107,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
+  const int pixels_width = shm_buffer._physical_buffer_width;
+  const int pixels_height = shm_buffer._physical_buffer_height;
 
   const sprite_sheet_animation_frame_t *region = BONGOCAT_NULLPTR;
   switch (anim_shm.animation_player_result.sprite_sheet_col) {
@@ -136,17 +145,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
         movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                               .y = 0,
                               .width = current_config.movement_radius * 2,
-                              .height = wayland_ctx._bar_height};
+                              .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_LEFT:
         movement_debug_bar = {
-            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
+            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
         movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                               .y = 0,
                               .width = current_config.movement_radius * 2,
-                              .height = wayland_ctx._bar_height};
+                              .height = pixels_height};
         break;
       }
 
@@ -160,16 +169,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR &
                             (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u));  // RGBA, little-endian
       auto *p = reinterpret_cast<uint32_t *>(pixels);
-      assert(wayland_ctx._screen_width >= 0);
+      assert(pixels_width >= 0);
+      assert(pixels_height >= 0);
       [[maybe_unused]] const size_t total_pixels =
-          static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+          static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
       for (int32_t y = movement_debug_bar.y;
-           y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+           y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
         for (int32_t x = movement_debug_bar.x;
-             x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+             x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
           if (x >= 0 && y >= 0) {
             const size_t pi =
-                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
+                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -200,7 +210,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       drawing_option = flag_add(drawing_option, extra_drawing_option);
     }
 
-    blit_image_scaled(pixels, pixels_size, wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
                       sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
                       sheet.image.sprite_sheet_height, sheet.image.channels, region->col * sheet.frame_width,
                       region->row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
@@ -229,6 +239,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
+  const int pixels_width = shm_buffer._physical_buffer_width;
+  const int pixels_height = shm_buffer._physical_buffer_height;
 
   const sprite_sheet_animation_frame_t *region = BONGOCAT_NULLPTR;
   switch (anim_shm.animation_player_result.sprite_sheet_col) {
@@ -296,17 +308,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
         movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                               .y = 0,
                               .width = current_config.movement_radius * 2,
-                              .height = wayland_ctx._bar_height};
+                              .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_LEFT:
         movement_debug_bar = {
-            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
+            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
         movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                               .y = 0,
                               .width = current_config.movement_radius * 2,
-                              .height = wayland_ctx._bar_height};
+                              .height = pixels_height};
         break;
       }
 
@@ -317,16 +329,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR &
                             (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u));  // RGBA, little-endian
       auto *p = reinterpret_cast<uint32_t *>(pixels);
-      assert(wayland_ctx._screen_width >= 0);
+      assert(pixels_width >= 0);
+      assert(pixels_height >= 0);
       [[maybe_unused]] const size_t total_pixels =
-          static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+          static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
       for (int32_t y = movement_debug_bar.y;
-           y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+           y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
         for (int32_t x = movement_debug_bar.x;
-             x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+             x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
           if (x >= 0 && y >= 0) {
             const size_t pi =
-                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
+                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -354,7 +367,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       drawing_option = flag_add(drawing_option, extra_drawing_option);
     }
 
-    blit_image_scaled(pixels, pixels_size, wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
                       sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
                       sheet.image.sprite_sheet_height, sheet.image.channels, region->col * sheet.frame_width,
                       region->row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
@@ -383,6 +396,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
+  const int pixels_width = shm_buffer._physical_buffer_width;
+  const int pixels_height = shm_buffer._physical_buffer_height;
 
   const sprite_sheet_animation_frame_t *region = BONGOCAT_NULLPTR;
   switch (anim_shm.animation_player_result.sprite_sheet_col) {
@@ -411,17 +426,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
         movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                               .y = 0,
                               .width = current_config.movement_radius * 2,
-                              .height = wayland_ctx._bar_height};
+                              .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_LEFT:
         movement_debug_bar = {
-            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
+            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
         movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                               .y = 0,
                               .width = current_config.movement_radius * 2,
-                              .height = wayland_ctx._bar_height};
+                              .height = pixels_height};
         break;
       }
 
@@ -431,16 +446,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR &
                             (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u));  // RGBA, little-endian
       auto *p = reinterpret_cast<uint32_t *>(pixels);
-      assert(wayland_ctx._screen_width >= 0);
+      assert(pixels_width >= 0);
+      assert(pixels_height >= 0);
       [[maybe_unused]] const size_t total_pixels =
-          static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+          static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
       for (int32_t y = movement_debug_bar.y;
-           y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+           y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
         for (int32_t x = movement_debug_bar.x;
-             x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+             x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
           if (x >= 0 && y >= 0) {
             const size_t pi =
-                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
+                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -468,7 +484,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       drawing_option = flag_add(drawing_option, extra_drawing_option);
     }
 
-    blit_image_scaled(pixels, pixels_size, wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
                       sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
                       sheet.image.sprite_sheet_height, sheet.image.channels, region->col * sheet.frame_width,
                       region->row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
@@ -495,6 +511,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
+  const int pixels_width = shm_buffer._physical_buffer_width;
+  const int pixels_height = shm_buffer._physical_buffer_height;
 
   auto [cat_x, cat_y, cat_width, cat_height] =
       get_position(wayland_ctx, sheet, current_config, blit_image_sprite_option_flags_t::None);
@@ -513,7 +531,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
   }
 
-  blit_image_scaled(pixels, pixels_size, wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+  blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
                     sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
                     sheet.image.sprite_sheet_height, sheet.image.channels, col * sheet.frame_width,
                     row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x, cat_y, cat_width,
@@ -546,6 +564,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
+  const int pixels_width = shm_buffer._physical_buffer_width;
+  const int pixels_height = shm_buffer._physical_buffer_height;
 
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, sprite_options);
   auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
@@ -558,17 +578,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
                             .y = 0,
                             .width = current_config.movement_radius * 2,
-                            .height = wayland_ctx._bar_height};
+                            .height = pixels_height};
       break;
     case config::align_type_t::ALIGN_LEFT:
       movement_debug_bar = {
-          .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = wayland_ctx._bar_height};
+          .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
       break;
     case config::align_type_t::ALIGN_RIGHT:
       movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
                             .y = 0,
                             .width = current_config.movement_radius * 2,
-                            .height = wayland_ctx._bar_height};
+                            .height = pixels_height};
       break;
     }
 
@@ -578,16 +598,17 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     const uint32_t fill = DEBUG_MOVEMENT_BAR_COLOR &
                           (0x00FFFFFF | (static_cast<uint32_t>(effective_opacity) << 24u));  // RGBA, little-endian
     auto *p = reinterpret_cast<uint32_t *>(pixels);
-    assert(wayland_ctx._screen_width >= 0);
+    assert(pixels_width >= 0);
+    assert(pixels_height >= 0);
     [[maybe_unused]] const size_t total_pixels =
-        static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+        static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
     for (int32_t y = movement_debug_bar.y;
-         y < movement_debug_bar.y + movement_debug_bar.height && y < wayland_ctx._bar_height; y++) {
+         y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
       for (int32_t x = movement_debug_bar.x;
-           x < movement_debug_bar.x + movement_debug_bar.width && x < wayland_ctx._screen_width; x++) {
+           x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
         if (x >= 0 && y >= 0) {
           const size_t pi =
-              static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(wayland_ctx._screen_width));
+              static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
           assert(pi < total_pixels);
           p[pi] = fill;
         }
@@ -632,7 +653,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     break;
   }
 
-  blit_image_scaled(pixels, pixels_size, wayland_ctx._screen_width, wayland_ctx._bar_height, BGRA_CHANNELS,
+  blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
                     sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
                     sheet.image.sprite_sheet_height, sheet.image.channels, col * sheet.frame_width,
                     row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
@@ -655,20 +676,22 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
   assert(shm_buffer.pixels.data);
   uint8_t *pixels = shm_buffer.pixels.data;
   const size_t pixels_size = shm_buffer.pixels._size_bytes;
+  const int pixels_width = shm_buffer._physical_buffer_width;
+  const int pixels_height = shm_buffer._physical_buffer_height;
 
   const bool bar_visible =
       !wayland_ctx._fullscreen_detected && wayland_ctx.bar_visibility == platform::wayland::bar_visibility_t::Show;
   const int effective_opacity = bar_visible ? current_config.overlay_opacity : 0;
 
-  assert(wayland_ctx._screen_width >= 0);
-  assert(wayland_ctx._bar_height >= 0);
+  assert(pixels_width >= 0);
+  assert(pixels_height >= 0);
   assert(effective_opacity >= 0);
 
   // Fast clear with 32-bit fill
   const uint32_t fill = DEFAULT_FILL_COLOR | (static_cast<uint32_t>(effective_opacity) << 24u);  // RGBA, little-endian
   auto *p = reinterpret_cast<uint32_t *>(pixels);
   const size_t total_pixels =
-      static_cast<size_t>(wayland_ctx._screen_width) * static_cast<size_t>(wayland_ctx._bar_height);
+      static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
   if (current_config.enable_debug >= 1) {
     if (const size_t expected_bytes = total_pixels * sizeof(uint32_t); expected_bytes > pixels_size) {
       BONGOCAT_LOG_VERBOSE("draw_bar: pixel write would overflow buffer (expected %zu bytes, have %zu). Aborting draw.",
@@ -914,7 +937,7 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
 
   assert(shm_buffer->buffer);
   wl_surface_attach(wayland_ctx.surface, shm_buffer->buffer, 0, 0);
-  wl_surface_damage_buffer(wayland_ctx.surface, 0, 0, wayland_ctx._screen_width, wayland_ctx._bar_height);
+  wl_surface_damage_buffer(wayland_ctx.surface, 0, 0, shm_buffer->_physical_buffer_width, shm_buffer->_physical_buffer_height);
 
   {
     platform::LockGuard guard(wayland_ctx._frame_cb_lock);

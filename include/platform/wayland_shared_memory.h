@@ -43,6 +43,10 @@ struct wayland_shm_buffer_t {
   animation::animation_context_t *_animation_context{BONGOCAT_NULLPTR};
   wayland_thread_context *_wayland_thread_context{BONGOCAT_NULLPTR};  // parent ref. for buffer_release
 
+  // Physical (buffer-coordinate) dimensions of the active buffer.
+  int32_t _physical_buffer_width{0};
+  int32_t _physical_buffer_height{0};
+
   /// @TODO: add caching for frame buffer
   // cached_frame_t _cached_frames[animation::MAX_NUM_FRAMES];
 
@@ -59,7 +63,9 @@ struct wayland_shm_buffer_t {
       , pixels(bongocat::move(other.pixels))
       , index(other.index)
       , _animation_context(other._animation_context)
-      , _wayland_thread_context(other._wayland_thread_context) {
+      , _wayland_thread_context(other._wayland_thread_context)
+      , _physical_buffer_width(other._physical_buffer_width)
+      , _physical_buffer_height(other._physical_buffer_height) {
     atomic_store(&busy, atomic_load(&other.busy));
     atomic_store(&pending, atomic_load(&other.pending));
 
@@ -68,6 +74,8 @@ struct wayland_shm_buffer_t {
     other._animation_context = BONGOCAT_NULLPTR;
     atomic_store(&other.busy, false);
     atomic_store(&other.pending, false);
+    other._physical_buffer_width = 0;
+    other._physical_buffer_height = 0;
   }
   wayland_shm_buffer_t& operator=(wayland_shm_buffer_t&& other) noexcept {
     if (this != &other) {
@@ -78,6 +86,8 @@ struct wayland_shm_buffer_t {
       index = other.index;
       _animation_context = other._animation_context;
       _wayland_thread_context = other._wayland_thread_context;
+      _physical_buffer_width = other._physical_buffer_width;
+      _physical_buffer_height = other._physical_buffer_height;
 
       other.buffer = BONGOCAT_NULLPTR;
       other.index = 0;
@@ -85,6 +95,8 @@ struct wayland_shm_buffer_t {
       other._wayland_thread_context = BONGOCAT_NULLPTR;
       atomic_store(&other.busy, false);
       atomic_store(&other.pending, false);
+      other._physical_buffer_width = 0;
+      other._physical_buffer_height = 0;
     }
     return *this;
   }
