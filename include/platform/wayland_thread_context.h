@@ -89,6 +89,7 @@ inline void cleanup_wayland_context_protocols(wayland_thread_context& ctx) {
     atomic_store(&ctx.ctx_shm->configured, false);
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland_context_protocols: destroy registry");
   if (ctx.registry != BONGOCAT_NULLPTR) {
     wl_registry_destroy(ctx.registry);
     ctx.registry = BONGOCAT_NULLPTR;
@@ -99,24 +100,36 @@ inline void cleanup_wayland_context_surface(wayland_thread_context& ctx) {
     atomic_store(&ctx.ctx_shm->configured, false);
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland_context_surface: destroy layer_surface");
   if (ctx.layer_surface != BONGOCAT_NULLPTR) {
     zwlr_layer_surface_v1_destroy(ctx.layer_surface);
     ctx.layer_surface = BONGOCAT_NULLPTR;
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland_context_surface: destroy fractional_scale");
   // Per-surface HiDPI receivers must die with the surface; setup_surface
   // will recreate them attached to the new wl_surface.
-  if (ctx._fractional_scale_obj) {
+  if (ctx.viewporter != BONGOCAT_NULLPTR) {
+    wp_viewporter_destroy(ctx.viewporter);
+    ctx.viewporter = BONGOCAT_NULLPTR;
+  }
+  if (ctx._fractional_scale_obj != BONGOCAT_NULLPTR) {
     wp_fractional_scale_v1_destroy(ctx._fractional_scale_obj);
     ctx._fractional_scale_obj = BONGOCAT_NULLPTR;
   }
-  if (ctx._viewport) {
+  if (ctx.fractional_scale_mgr != BONGOCAT_NULLPTR) {
+    wp_fractional_scale_manager_v1_destroy(ctx.fractional_scale_mgr);
+    ctx.fractional_scale_mgr = BONGOCAT_NULLPTR;
+  }
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland_context_surface: destroy viewport");
+  if (ctx._viewport != BONGOCAT_NULLPTR) {
     wp_viewport_destroy(ctx._viewport);
     ctx._viewport = BONGOCAT_NULLPTR;
   }
   // Destroy fractional-scale and viewport receivers before the surface they
   // reference.
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland_context_surface: surface");
   if (ctx.surface != BONGOCAT_NULLPTR) {
     wl_surface_destroy(ctx.surface);
     ctx.surface = BONGOCAT_NULLPTR;
@@ -134,15 +147,13 @@ inline void cleanup_wayland_context_buffer(wayland_thread_context& ctx) {
 
     ctx.ctx_shm->current_buffer_index = 0;
   }
-
-  ctx._screen_width = 0;
-  ctx._overlay_height = 0;
 }
 inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   if (ctx.ctx_shm) {
     atomic_store(&ctx.ctx_shm->configured, false);
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland_context: drain pending events");
   // drain pending events
   if (ctx.display != BONGOCAT_NULLPTR) {
     wl_display_flush(ctx.display);
@@ -195,6 +206,9 @@ inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   release_allocated_mmap_memory(ctx._local_copy_config);
 
   if (ctx.display != BONGOCAT_NULLPTR) {
+    // final sync so destroys are processed
+    wl_display_flush(ctx.display);
+    wl_display_roundtrip(ctx.display);
     wl_display_disconnect(ctx.display);
     ctx.display = BONGOCAT_NULLPTR;
   }
@@ -204,6 +218,20 @@ inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   ctx.output = BONGOCAT_NULLPTR;
   ctx.bound_output_name = 0;
   ctx.using_named_output = false;
+
+  assert(ctx.display == BONGOCAT_NULLPTR);
+  assert(ctx.compositor == BONGOCAT_NULLPTR);
+  assert(ctx.shm == BONGOCAT_NULLPTR);
+  assert(ctx.layer_shell == BONGOCAT_NULLPTR);
+  assert(ctx.xdg_wm_base == BONGOCAT_NULLPTR);
+  assert(ctx.output == BONGOCAT_NULLPTR);
+  assert(ctx.surface == BONGOCAT_NULLPTR);
+  assert(ctx.layer_surface == BONGOCAT_NULLPTR);
+  assert(ctx.registry == BONGOCAT_NULLPTR);
+  assert(ctx.viewporter == BONGOCAT_NULLPTR);
+  assert(ctx.fractional_scale_mgr == BONGOCAT_NULLPTR);
+  assert(ctx._viewport == BONGOCAT_NULLPTR);
+  assert(ctx._fractional_scale_obj == BONGOCAT_NULLPTR);
 
   // Reset state
   ctx.display = BONGOCAT_NULLPTR;
@@ -223,7 +251,7 @@ inline void cleanup_wayland_context(wayland_thread_context& ctx) {
   ctx._screen_info = BONGOCAT_NULLPTR;
   ctx._layer = config::layer_type_t::LAYER_TOP;
   ctx._overlay_position = config::overlay_position_t::POSITION_BOTTOM;
-
+  ctx._last_frame_timestamp_ms = 0;
   ctx.viewporter = BONGOCAT_NULLPTR;
   ctx.fractional_scale_mgr = BONGOCAT_NULLPTR;
   ctx._viewport = BONGOCAT_NULLPTR;

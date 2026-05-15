@@ -151,6 +151,7 @@ struct wayland_shared_memory_t {
 inline void cleanup_shm_buffer(wayland_shm_buffer_t& buffer) {
   atomic_store(&buffer.pending, false);
   atomic_store(&buffer.busy, true);
+  BONGOCAT_LOG_VERBOSE("cleanup_shm_buffer: destroy buffer");
   if (buffer.buffer != BONGOCAT_NULLPTR) {
     wl_buffer_destroy(buffer.buffer);
     buffer.buffer = BONGOCAT_NULLPTR;

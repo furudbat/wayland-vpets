@@ -960,6 +960,11 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
   wayland_ctx._preferred_scale = scale;
   BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: update _current_scale_120: %d", wayland_ctx._preferred_scale);
   if (wayland_ctx.surface != BONGOCAT_NULLPTR && wayland_ctx.ctx_shm != BONGOCAT_NULLPTR && atomic_load(&wayland_ctx.ctx_shm->configured)) {
+    if (details::wayland_update_screen_info(ctx, {
+      .skip_display_events = true,
+    }) != bongocat_error_t::BONGOCAT_SUCCESS) {
+      BONGOCAT_LOG_ERROR("Failed to update width for recreate buffer");
+    }
     BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: recreate buffer...");
     auto [setup_result, setup_error] = details::wayland_recreate_buffer(ctx);
     if (setup_error == bongocat_error_t::BONGOCAT_SUCCESS) {

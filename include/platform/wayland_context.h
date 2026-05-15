@@ -131,6 +131,7 @@ struct wayland_context_t {
 inline void cleanup_wayland(wayland_context_t& ctx) {
   atomic_store(&ctx.ready, false);
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: clean up outputs.xdg_output");
   // First destroy xdg_output objects
   for (size_t i = 0; i < ctx.output_count; ++i) {
     if (ctx.outputs[i].xdg_output != BONGOCAT_NULLPTR) {
@@ -139,12 +140,14 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
     }
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy xdg_output_manager");
   // Then destroy the manager
   if (ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
     zxdg_output_manager_v1_destroy(ctx.xdg_output_manager);
     ctx.xdg_output_manager = BONGOCAT_NULLPTR;
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy outputs.wl_output");
   // Finally destroy wl_output objects
   for (size_t i = 0; i < ctx.output_count; ++i) {
     if (ctx.outputs[i].wl_output != BONGOCAT_NULLPTR) {
@@ -157,11 +160,13 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
   }
   ctx.output_count = 0;
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy fs_detector.manager");
   if (ctx.fs_detector.manager != BONGOCAT_NULLPTR) {
     zwlr_foreign_toplevel_manager_v1_destroy(ctx.fs_detector.manager);
     ctx.fs_detector.manager = BONGOCAT_NULLPTR;
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy tracked_toplevels");
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     if (ctx.tracked_toplevels[i].handle != BONGOCAT_NULLPTR) {
       zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);

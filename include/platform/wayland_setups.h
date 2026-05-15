@@ -17,8 +17,12 @@ namespace bongocat::platform::wayland::details {
 BONGOCAT_NODISCARD created_result_t<FileDescriptor> create_shm(off_t size);
 
 BONGOCAT_NODISCARD bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx);
-BONGOCAT_NODISCARD bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx);
 BONGOCAT_NODISCARD bongocat_error_t wayland_setup_surface(wayland_context_t& ctx);
+
+struct wayland_update_screen_info_options_t {
+  bool skip_display_events{false}; // needed for screen auto-detection (wl_display_roundtrip)
+};
+BONGOCAT_NODISCARD bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx, wayland_update_screen_info_options_t options = {});
 
 struct wayland_setup_buffer_result_t {
   int32_t logical_w{0};

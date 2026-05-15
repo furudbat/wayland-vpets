@@ -200,7 +200,7 @@ created_result_t<int> wayland_update_current_output_info(wayland_context_t& ctx)
 
   return screen_width;
 }
-bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
+bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx, wayland_update_screen_info_options_t options) {
   wayland_thread_context& wayland_ctx = ctx.thread_context;
 
   // read-only config
@@ -223,7 +223,9 @@ bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx) {
   } else {
     // auto-detect screen width
     if (wayland_ctx.output != BONGOCAT_NULLPTR) {
-      wl_display_roundtrip(wayland_ctx.display);
+      if (!options.skip_display_events) {
+        wl_display_roundtrip(wayland_ctx.display);
+      }
       if (wayland_ctx._screen_info != BONGOCAT_NULLPTR && wayland_ctx._screen_info->logical_width > 0 &&
           wayland_ctx._screen_info->logical_width < INT16_MAX) {
         BONGOCAT_LOG_INFO("Detected screen width: %d", wayland_ctx._screen_info->logical_width);
