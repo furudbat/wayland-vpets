@@ -1122,23 +1122,11 @@ bongocat_error_t start(input_context_t& input, animation::animation_context_t& a
   BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", config.num_keyboard_devices);
 
   // Initialize shared memory for key press flag
-  input.shm = make_allocated_mmap<input_shared_memory_t>();
-  if (!input.shm.ptr) {
-    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
-  input.shm->any_key_pressed = 0;
-  input.shm->hand_mapping = input_hand_mapping_t::None;
-  input.shm->kpm = 0;
-  input.shm->input_counter = 0;
+  assert(input.shm);
+  *input.shm = {};
   input.shm->last_key_pressed_timestamp = now;  // for idle check timestamp should be zero
 
   // Initialize shared memory for local config
-  input._local_copy_config = make_allocated_mmap<config::config_t>();
-  if (!input._local_copy_config) {
-    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
   assert(input._local_copy_config);
   update_config(input, config, atomic_load(&config_generation));
 

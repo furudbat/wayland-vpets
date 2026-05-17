@@ -529,6 +529,20 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
   }
   set_nonblocking(ret->fd_stat._fd);
 
+  // Initialize shared memory for key press flag
+  ret->shm = make_allocated_mmap<update_shared_memory_t>();
+  if (!ret->shm) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+
+  // Initialize shared memory for local config
+  ret->_local_copy_config = make_allocated_mmap<config::config_t>();
+  if (!ret->_local_copy_config) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+
   BONGOCAT_LOG_INFO("Input monitoring started");
   return ret;
 }
@@ -537,20 +551,7 @@ bongocat_error_t start(update_context_t& upd, animation::animation_context_t& an
                        const config::config_t& config, CondVariable& configs_reloaded_cond,
                        atomic_uint64_t& config_generation) {
   BONGOCAT_LOG_INFO("Initializing update monitoring");
-
-  // Initialize shared memory for key press flag
-  upd.shm = make_allocated_mmap<update_shared_memory_t>();
-  if (!upd.shm) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
-
-  // Initialize shared memory for local config
-  upd._local_copy_config = make_allocated_mmap<config::config_t>();
-  if (!upd._local_copy_config) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
+  assert(upd.shm);
   assert(upd._local_copy_config);
   update_config(upd, config, atomic_load(&config_generation));
 

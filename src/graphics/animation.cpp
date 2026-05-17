@@ -5171,12 +5171,6 @@ bongocat_error_t start(animation_context_t& animation_ctx, platform::input::inpu
                        platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
   BONGOCAT_LOG_INFO("Starting animation thread");
 
-  // Initialize shared memory for local config
-  animation_ctx.thread_context._local_copy_config = platform::make_allocated_mmap<config::config_t>();
-  if (!animation_ctx.thread_context._local_copy_config) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
   assert(animation_ctx.thread_context._local_copy_config);
   update_config(animation_ctx.thread_context, config, atomic_load(&config_generation));
 

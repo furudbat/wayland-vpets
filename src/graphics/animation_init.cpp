@@ -714,6 +714,13 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
   // init anim
   ret->thread_context._rng = platform::random_xoshiro128(platform::slow_rand());
 
+  // Initialize shared memory for local config
+  ret->thread_context._local_copy_config = platform::make_allocated_mmap<config::config_t>();
+  if (!ret->thread_context._local_copy_config) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
+
   BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.6fsec)",
                     static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
   return ret;
