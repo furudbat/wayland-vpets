@@ -48,11 +48,10 @@ int phys_dim(const wayland_thread_context& ctx, int logical) {
 
   assert(ctx._preferred_scale <= INT_MAX);
   return animation::details::phys_dim({
-    .logical = logical,
-    .scale120 = static_cast<int>(ctx._preferred_scale),
+      .logical = logical,
+      .scale120 = static_cast<int>(ctx._preferred_scale),
   });
 }
-
 
 // =============================================================================
 // BUFFER AND DRAWING MANAGEMENT
@@ -397,7 +396,6 @@ uint32_t wayland_apply_anchor_properties_v1(wayland_context_t& ctx) {
   return anchor;
 }
 
-
 // Pick effective scale_120 from output's wl_output::scale when fractional
 // protocol is unavailable.
 static uint32_t scale_120_from_output(const wayland_context_t& ctx) {
@@ -434,11 +432,10 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
     wayland_ctx._viewport = wp_viewporter_get_viewport(wayland_ctx.viewporter, wayland_ctx.surface);
   }
   if (wayland_ctx.fractional_scale_mgr != BONGOCAT_NULLPTR && wayland_ctx._fractional_scale_obj == BONGOCAT_NULLPTR) {
-    wayland_ctx._fractional_scale_obj = wp_fractional_scale_manager_v1_get_fractional_scale(
-        wayland_ctx.fractional_scale_mgr, wayland_ctx.surface);
+    wayland_ctx._fractional_scale_obj =
+        wp_fractional_scale_manager_v1_get_fractional_scale(wayland_ctx.fractional_scale_mgr, wayland_ctx.surface);
     if (wayland_ctx._fractional_scale_obj != BONGOCAT_NULLPTR) {
-      wp_fractional_scale_v1_add_listener(wayland_ctx._fractional_scale_obj,
-                                          &fractional_scale_listener, &ctx);
+      wp_fractional_scale_v1_add_listener(wayland_ctx._fractional_scale_obj, &fractional_scale_listener, &ctx);
       BONGOCAT_LOG_VERBOSE("wayland_setup_surface: get fractional scale by fractional_scale_listener");
     }
   }
@@ -447,7 +444,8 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   // scale so the first buffer is sized correctly.
   if (wayland_ctx._fractional_scale_obj == BONGOCAT_NULLPTR) {
     wayland_ctx._preferred_scale = scale_120_from_output(ctx);
-    BONGOCAT_LOG_VERBOSE("wayland_setup_surface: fractional protocol is unavailable, fallback: %d", wayland_ctx._preferred_scale);
+    BONGOCAT_LOG_VERBOSE("wayland_setup_surface: fractional protocol is unavailable, fallback: %d",
+                         wayland_ctx._preferred_scale);
   }
 
   zwlr_layer_shell_v1_layer layer = ZWLR_LAYER_SHELL_V1_LAYER_OVERLAY;
@@ -579,9 +577,8 @@ created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thr
     assert(i <= INT32_MAX);
     assert(buffer_size <= INT32_MAX);
     assert(offset <= INT32_MAX);
-    wayland_ctx_shm.buffers[i].buffer = wl_shm_pool_create_buffer(
-        pool, static_cast<int32_t>(offset), phys_w, phys_h,
-        phys_w * RGBA_CHANNELS, WL_SHM_FORMAT_ARGB8888);
+    wayland_ctx_shm.buffers[i].buffer = wl_shm_pool_create_buffer(pool, static_cast<int32_t>(offset), phys_w, phys_h,
+                                                                  phys_w * RGBA_CHANNELS, WL_SHM_FORMAT_ARGB8888);
     if (wayland_ctx_shm.buffers[i].buffer == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_ERROR("Failed to create buffer");
       for (size_t j = 0; j < i; j++) {
@@ -618,15 +615,14 @@ created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thr
     wp_viewport_set_destination(wayland_context._viewport, logical_w, logical_h);
   }
 
-  BONGOCAT_LOG_VERBOSE(
-      "Buffer allocated: logical %dx%d, physical %dx%d, scale %u/120",
-      logical_w, logical_h, phys_w, phys_h, wayland_context._preferred_scale);
+  BONGOCAT_LOG_VERBOSE("Buffer allocated: logical %dx%d, physical %dx%d, scale %u/120", logical_w, logical_h, phys_w,
+                       phys_h, wayland_context._preferred_scale);
 
   return wayland_setup_buffer_result_t{
-    .logical_w = logical_w,
-    .logical_h = logical_h,
-    .phys_w = phys_w,
-    .phys_h = phys_h,
+      .logical_w = logical_w,
+      .logical_h = logical_h,
+      .phys_w = phys_w,
+      .phys_h = phys_h,
   };
 }
 

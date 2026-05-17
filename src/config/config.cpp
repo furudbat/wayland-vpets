@@ -1845,7 +1845,7 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
   char line[LINE_BUF] = {0};
   char key[KEY_BUF] = {0};
   char value[VALUE_BUF] = {0};
-  int line_number = 0;
+  [[maybe_unused]] int line_number = 0;  // for logging
   bongocat_error_t result = bongocat_error_t::BONGOCAT_SUCCESS;
 
   while (fgets(line, sizeof(line), file)) {

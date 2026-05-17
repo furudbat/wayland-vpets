@@ -50,7 +50,7 @@ bongocat_error_t request_render(animation::animation_context_t& animation_ctx);
 namespace details {
   struct wayland_setup_buffer_result_t;
   created_result_t<wayland_setup_buffer_result_t> wayland_recreate_buffer(wayland_context_t& ctx);
-}
+}  // namespace details
 
 }  // namespace bongocat::platform::wayland
 

@@ -5,10 +5,10 @@
 #include "utils/system_memory.h"
 
 #include <cassert>
+#include <climits>
 #include <cstdint>
 #include <cstdlib>
 #include <pthread.h>
-#include <climits>
 
 namespace bongocat {
 namespace details {

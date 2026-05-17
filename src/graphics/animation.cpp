@@ -4894,7 +4894,6 @@ static void *anim_thread(void *arg) {
 
   BONGOCAT_LOG_DEBUG("Animation thread main loop started");
 
-
   /// @TODO: animation may loaded twice; resuce load when having fractional scaling
   // update physical cat height
   {
@@ -4915,11 +4914,13 @@ static void *anim_thread(void *arg) {
 
     if (trigger_ctx.thread_context.shm->scale120 != animation_shared_memory_t::DEFAULT_PREFER_SCALE120) {
       trigger_ctx.thread_context.shm->cat_height_phys = details::phys_dim({
-        .logical = current_config.cat_height,
-        .scale120 = trigger_ctx.thread_context.shm->scale120,
+          .logical = current_config.cat_height,
+          .scale120 = trigger_ctx.thread_context.shm->scale120,
       });
       trigger_reload_animation(trigger_ctx);
-      BONGOCAT_LOG_DEBUG("Load Animation with scaling: scale %d/120; cat_height=%d => cat_height_phys=%d", trigger_ctx.thread_context.shm->scale120, current_config.cat_height, trigger_ctx.thread_context.shm->cat_height_phys);
+      BONGOCAT_LOG_DEBUG("Load Animation with scaling: scale %d/120; cat_height=%d => cat_height_phys=%d",
+                         trigger_ctx.thread_context.shm->scale120, current_config.cat_height,
+                         trigger_ctx.thread_context.shm->cat_height_phys);
     }
   }
   // trigger initial render
@@ -4963,9 +4964,9 @@ static void *anim_thread(void *arg) {
     constexpr size_t fds_reload_animation_index = 2;
     constexpr nfds_t fds_count = 3;
     pollfd fds[fds_count] = {
-        {.fd = trigger_ctx.thread_context.update_config_efd._fd,    .events = POLLIN, .revents = 0},
-        {.fd = trigger_ctx.trigger_efd._fd,                         .events = POLLIN, .revents = 0},
-        {.fd = trigger_ctx.reload_animation_efd._fd,                .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.thread_context.update_config_efd._fd, .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.trigger_efd._fd,                      .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.reload_animation_efd._fd,             .events = POLLIN, .revents = 0},
     };
 
     assert(timeout_ms <= INT_MAX);
@@ -5000,7 +5001,6 @@ static void *anim_thread(void *arg) {
         platform::drain_event(fds[fds_reload_animation_index], MAX_ATTEMPTS, "reload animation eventfd");
         reload_animation = true;
       }
-
 
       // animation trigger event
       if (fds[fds_animation_trigger_index].revents & POLLIN) {
@@ -5115,7 +5115,7 @@ static void *anim_thread(void *arg) {
       assert(trigger_ctx._config != BONGOCAT_NULLPTR);
 
       update_config(ctx, *trigger_ctx._config, new_gen);
-      reload_animation = false; // animation reload already done in update_config
+      reload_animation = false;  // animation reload already done in update_config
 
       // wait for reload config to be done (all configs)
       const int rc = trigger_ctx._configs_reloaded_cond->timedwait(
@@ -5478,19 +5478,16 @@ void update_config(animation_thread_context_t& ctx, const config::config_t& conf
   ctx.config_updated.notify_all();
 }
 
-
 namespace details {
   int phys_dim(phys_dim_params params) {
-    return static_cast<int>(
-        ((static_cast<int64_t>(params.logical) * params.scale120) + 119) / 120
-    );
+    return static_cast<int>(((static_cast<int64_t>(params.logical) * params.scale120) + 119) / 120);
   }
   void update_cat_height_physical(animation_thread_context_t& ctx) {
     ctx.shm->cat_height_phys = details::phys_dim({
-      .logical = ctx._local_copy_config->cat_height,
-      .scale120 = ctx.shm->scale120,
+        .logical = ctx._local_copy_config->cat_height,
+        .scale120 = ctx.shm->scale120,
     });
   }
-}
+}  // namespace details
 
 }  // namespace bongocat::animation

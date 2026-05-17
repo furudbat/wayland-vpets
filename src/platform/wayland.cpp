@@ -12,10 +12,10 @@
 #include <cerrno>
 #include <climits>
 #include <csignal>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
-#include <cstdint>
 #include <fcntl.h>
 #include <poll.h>
 #include <pthread.h>
@@ -181,7 +181,9 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
     constexpr nfds_t fds_count = 4;
     pollfd fds[fds_count] = {
         {.fd = signal_fd,                                                                .events = POLLIN, .revents = 0},
-        {.fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1, .events = POLLIN, .revents = 0},
+        {.fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1,
+         .events = POLLIN,
+         .revents = 0                                                                                                  },
         {.fd = animation_ctx.render_efd._fd,                                             .events = POLLIN, .revents = 0},
         {.fd = wl_display_get_fd(wayland_ctx.display),                                   .events = POLLIN, .revents = 0},
     };
@@ -449,8 +451,8 @@ namespace details {
     animation::animation_context_t& animation_ctx = *ctx.animation_context;
 
     // read-only config
-    //assert(wayland_ctx._local_copy_config);
-    //const config::config_t& current_config = *wayland_ctx._local_copy_config;
+    // assert(wayland_ctx._local_copy_config);
+    // const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
     created_result_t<details::wayland_setup_buffer_result_t> ret;
     platform::LockGuard anim_guard(animation_ctx.thread_context.anim_lock);
@@ -486,7 +488,7 @@ namespace details {
 
     return ret;
   }
-}
+}  // namespace details
 
 void update_config(wayland_context_t& ctx, const config::config_t& config,
                    animation::animation_context_t& animation_ctx) {
@@ -620,10 +622,12 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
                              current_config.overlay_height);
         }
 
-        animation_ctx.thread_context.shm->scale120 = (has_flag(ctx.thread_context._screen_info->received, screen_info_received_flags_t::Scale))
-          ? ctx.thread_context._screen_info->scale * 120
-          : 120;
-        animation_ctx.thread_context.shm->cat_height_phys = phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
+        animation_ctx.thread_context.shm->scale120 =
+            (has_flag(ctx.thread_context._screen_info->received, screen_info_received_flags_t::Scale))
+                ? ctx.thread_context._screen_info->scale * 120
+                : 120;
+        animation_ctx.thread_context.shm->cat_height_phys =
+            phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
       }
 
       // Wait for new configure event
@@ -720,7 +724,7 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
     ctx.thread_context._target_output_name = duplicate_string(config.output_name);
 
     animation::trigger_reload_animation(animation_ctx);
-    //request_render(animation_ctx);
+    // request_render(animation_ctx);
   }
 }
 

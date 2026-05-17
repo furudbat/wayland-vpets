@@ -20,9 +20,10 @@ BONGOCAT_NODISCARD bongocat_error_t wayland_setup_protocols(wayland_context_t& c
 BONGOCAT_NODISCARD bongocat_error_t wayland_setup_surface(wayland_context_t& ctx);
 
 struct wayland_update_screen_info_options_t {
-  bool skip_display_events{false}; // needed for screen auto-detection (wl_display_roundtrip)
+  bool skip_display_events{false};  // needed for screen auto-detection (wl_display_roundtrip)
 };
-BONGOCAT_NODISCARD bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx, wayland_update_screen_info_options_t options = {});
+BONGOCAT_NODISCARD bongocat_error_t wayland_update_screen_info(wayland_context_t& ctx,
+                                                               wayland_update_screen_info_options_t options = {});
 
 struct wayland_setup_buffer_result_t {
   int32_t logical_w{0};
@@ -30,8 +31,8 @@ struct wayland_setup_buffer_result_t {
   int32_t phys_w{0};
   int32_t phys_h{0};
 };
-BONGOCAT_NODISCARD created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thread_context& wayland_context,
-                                                         animation::animation_context_t& animation_ctx);
+BONGOCAT_NODISCARD created_result_t<wayland_setup_buffer_result_t>
+wayland_setup_buffer(wayland_thread_context& wayland_context, animation::animation_context_t& animation_ctx);
 
 struct spawn_pipe_t;
 int safe_pclose_spawn(spawn_pipe_t& sp);
@@ -60,7 +61,6 @@ bongocat_error_t wayland_update_output(wayland_context_t& ctx);
 BONGOCAT_NODISCARD bool fs_detector_available(wayland_context_t& ctx);
 zwlr_layer_shell_v1_layer wayland_apply_layer_properties_v1(wayland_context_t& ctx);
 uint32_t wayland_apply_anchor_properties_v1(wayland_context_t& ctx);
-
 
 // Ceil-divide logical pixels by 120 / scale_120 to get physical pixels.
 int phys_dim(const wayland_thread_context& ctx, int logical);

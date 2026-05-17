@@ -34,8 +34,8 @@ struct animation_shared_memory_t {
   float movement_offset_x{0.0};
   float anim_direction{0.0};
   platform::timestamp_ms_t last_wakeup_timestamp{0};  ///< wake up from latest idle sleep
-  int scale120{DEFAULT_PREFER_SCALE120};  ///< up/down-scale graphic for fractional scaling
-  int cat_height_phys{0};    ///< cat_height from config.cat_height * scale
+  int scale120{DEFAULT_PREFER_SCALE120};              ///< up/down-scale graphic for fractional scaling
+  int cat_height_phys{0};                             ///< cat_height from config.cat_height * scale
 
   // Animation frame data for sprite sheet preload
   platform::MMapArray<animation_t> bongocat_anims;

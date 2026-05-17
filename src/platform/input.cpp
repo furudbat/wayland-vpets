@@ -1200,7 +1200,6 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
         BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
         return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
       }
-
     }
   }
 

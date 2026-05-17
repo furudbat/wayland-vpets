@@ -60,7 +60,8 @@ static cat_rect_t get_position(const platform::wayland::wayland_thread_context& 
     }
 
     return static_cast<int>(static_cast<float>(cat_height_phys) *
-                            static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_width)) / static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_height)));
+                            static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_width)) /
+                            static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_height)));
   }();
 
   // Cat dimensions and offsets are in logical pixels in the config; convert
@@ -68,7 +69,8 @@ static cat_rect_t get_position(const platform::wayland::wayland_thread_context& 
   int cat_x_phys = 0;
   switch (config.cat_align) {
   case config::align_type_t::ALIGN_CENTER:
-    cat_x_phys = ((phys_w - cat_width_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
+    cat_x_phys =
+        ((phys_w - cat_width_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
     break;
   case config::align_type_t::ALIGN_LEFT:
     cat_x_phys = platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
@@ -80,7 +82,8 @@ static cat_rect_t get_position(const platform::wayland::wayland_thread_context& 
     BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", config.cat_align);
     break;
   }
-  const int cat_y_phys = ((phys_h - cat_height_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_y_offset);
+  const int cat_y_phys =
+      ((phys_h - cat_height_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_y_offset);
 
   return {.x = cat_x_phys, .y = cat_y_phys, .width = cat_width_phys, .height = cat_height_phys};
 }
@@ -148,8 +151,7 @@ static void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::way
                               .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_LEFT:
-        movement_debug_bar = {
-            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
+        movement_debug_bar = {.x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
         movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
@@ -173,13 +175,12 @@ static void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::way
       assert(pixels_height >= 0);
       [[maybe_unused]] const size_t total_pixels =
           static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
-      for (int32_t y = movement_debug_bar.y;
-           y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
-        for (int32_t x = movement_debug_bar.x;
-             x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
+      for (int32_t y = movement_debug_bar.y; y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height;
+           y++) {
+        for (int32_t x = movement_debug_bar.x; x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width;
+             x++) {
           if (x >= 0 && y >= 0) {
-            const size_t pi =
-                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
+            const size_t pi = static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -210,12 +211,11 @@ static void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::way
       drawing_option = flag_add(drawing_option, extra_drawing_option);
     }
 
-    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
-                      sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
-                      sheet.image.sprite_sheet_height, sheet.image.channels, region->col * sheet.frame_width,
-                      region->row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
-                      cat_width, cat_height, blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA,
-                      drawing_option);
+    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS, sheet.image.pixels.data,
+                      sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height,
+                      sheet.image.channels, region->col * sheet.frame_width, region->row * sheet.frame_height,
+                      sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y, cat_width, cat_height,
+                      blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
   }
 }
 
@@ -311,8 +311,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
                               .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_LEFT:
-        movement_debug_bar = {
-            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
+        movement_debug_bar = {.x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
         movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
@@ -333,13 +332,12 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       assert(pixels_height >= 0);
       [[maybe_unused]] const size_t total_pixels =
           static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
-      for (int32_t y = movement_debug_bar.y;
-           y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
-        for (int32_t x = movement_debug_bar.x;
-             x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
+      for (int32_t y = movement_debug_bar.y; y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height;
+           y++) {
+        for (int32_t x = movement_debug_bar.x; x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width;
+             x++) {
           if (x >= 0 && y >= 0) {
-            const size_t pi =
-                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
+            const size_t pi = static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -367,12 +365,11 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       drawing_option = flag_add(drawing_option, extra_drawing_option);
     }
 
-    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
-                      sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
-                      sheet.image.sprite_sheet_height, sheet.image.channels, region->col * sheet.frame_width,
-                      region->row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
-                      cat_width, cat_height, blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA,
-                      drawing_option);
+    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS, sheet.image.pixels.data,
+                      sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height,
+                      sheet.image.channels, region->col * sheet.frame_width, region->row * sheet.frame_height,
+                      sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y, cat_width, cat_height,
+                      blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
   }
 }
 
@@ -429,8 +426,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
                               .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_LEFT:
-        movement_debug_bar = {
-            .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
+        movement_debug_bar = {.x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
         break;
       case config::align_type_t::ALIGN_RIGHT:
         movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
@@ -450,13 +446,12 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       assert(pixels_height >= 0);
       [[maybe_unused]] const size_t total_pixels =
           static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
-      for (int32_t y = movement_debug_bar.y;
-           y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
-        for (int32_t x = movement_debug_bar.x;
-             x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
+      for (int32_t y = movement_debug_bar.y; y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height;
+           y++) {
+        for (int32_t x = movement_debug_bar.x; x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width;
+             x++) {
           if (x >= 0 && y >= 0) {
-            const size_t pi =
-                static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
+            const size_t pi = static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
             assert(pi < total_pixels);
             p[pi] = fill;
           }
@@ -484,12 +479,11 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
       drawing_option = flag_add(drawing_option, extra_drawing_option);
     }
 
-    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
-                      sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
-                      sheet.image.sprite_sheet_height, sheet.image.channels, region->col * sheet.frame_width,
-                      region->row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
-                      cat_width, cat_height, blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA,
-                      drawing_option);
+    blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS, sheet.image.pixels.data,
+                      sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height,
+                      sheet.image.channels, region->col * sheet.frame_width, region->row * sheet.frame_height,
+                      sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y, cat_width, cat_height,
+                      blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
   }
 }
 
@@ -531,11 +525,11 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     drawing_option = flag_add(drawing_option, blit_image_color_option_flags_t::BilinearInterpolation);
   }
 
-  blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
-                    sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
-                    sheet.image.sprite_sheet_height, sheet.image.channels, col * sheet.frame_width,
-                    row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x, cat_y, cat_width,
-                    cat_height, blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA, drawing_option);
+  blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS, sheet.image.pixels.data,
+                    sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height,
+                    sheet.image.channels, col * sheet.frame_width, row * sheet.frame_height, sheet.frame_width,
+                    sheet.frame_height, cat_x, cat_y, cat_width, cat_height, blit_image_color_order_t::BGRA,
+                    blit_image_color_order_t::RGBA, drawing_option);
 }
 
 enum class draw_sprite_overwrite_option_t : uint32_t {
@@ -568,7 +562,8 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   const int pixels_height = shm_buffer._physical_buffer_height;
 
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, sprite_options);
-  auto cat_x_with_offset = cat_x + platform::wayland::details::phys_dim(wayland_ctx, static_cast<int32_t>(anim_shm.movement_offset_x));
+  auto cat_x_with_offset =
+      cat_x + platform::wayland::details::phys_dim(wayland_ctx, static_cast<int32_t>(anim_shm.movement_offset_x));
   auto movement_radius_phys = platform::wayland::details::phys_dim(wayland_ctx, current_config.movement_radius);
 
   // draw debug rectangle
@@ -582,8 +577,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
                             .height = pixels_height};
       break;
     case config::align_type_t::ALIGN_LEFT:
-      movement_debug_bar = {
-          .x = cat_x, .y = 0, .width = movement_radius_phys * 2, .height = pixels_height};
+      movement_debug_bar = {.x = cat_x, .y = 0, .width = movement_radius_phys * 2, .height = pixels_height};
       break;
     case config::align_type_t::ALIGN_RIGHT:
       movement_debug_bar = {.x = cat_x + cat_width - (movement_radius_phys * 2),
@@ -601,15 +595,13 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     auto *p = reinterpret_cast<uint32_t *>(pixels);
     assert(pixels_width >= 0);
     assert(pixels_height >= 0);
-    [[maybe_unused]] const size_t total_pixels =
-        static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
-    for (int32_t y = movement_debug_bar.y;
-         y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height; y++) {
-      for (int32_t x = movement_debug_bar.x;
-           x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width; x++) {
+    [[maybe_unused]] const size_t total_pixels = static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
+    for (int32_t y = movement_debug_bar.y; y < movement_debug_bar.y + movement_debug_bar.height && y < pixels_height;
+         y++) {
+      for (int32_t x = movement_debug_bar.x; x < movement_debug_bar.x + movement_debug_bar.width && x < pixels_width;
+           x++) {
         if (x >= 0 && y >= 0) {
-          const size_t pi =
-              static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
+          const size_t pi = static_cast<size_t>(x) + (static_cast<size_t>(y) * static_cast<size_t>(pixels_width));
           assert(pi < total_pixels);
           p[pi] = fill;
         }
@@ -654,12 +646,11 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
     break;
   }
 
-  blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS,
-                    sheet.image.pixels.data, sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width,
-                    sheet.image.sprite_sheet_height, sheet.image.channels, col * sheet.frame_width,
-                    row * sheet.frame_height, sheet.frame_width, sheet.frame_height, cat_x_with_offset, cat_y,
-                    cat_width, cat_height, blit_image_color_order_t::BGRA, blit_image_color_order_t::RGBA,
-                    drawing_option);
+  blit_image_scaled(pixels, pixels_size, pixels_width, pixels_height, BGRA_CHANNELS, sheet.image.pixels.data,
+                    sheet.image.pixels._size_bytes, sheet.image.sprite_sheet_width, sheet.image.sprite_sheet_height,
+                    sheet.image.channels, col * sheet.frame_width, row * sheet.frame_height, sheet.frame_width,
+                    sheet.frame_height, cat_x_with_offset, cat_y, cat_width, cat_height, blit_image_color_order_t::BGRA,
+                    blit_image_color_order_t::RGBA, drawing_option);
 }
 
 static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
@@ -691,8 +682,7 @@ static bool draw_bar_on_buffer(platform::wayland::wayland_context_t& ctx,
   // Fast clear with 32-bit fill
   const uint32_t fill = DEFAULT_FILL_COLOR | (static_cast<uint32_t>(effective_opacity) << 24u);  // RGBA, little-endian
   auto *p = reinterpret_cast<uint32_t *>(pixels);
-  const size_t total_pixels =
-      static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
+  const size_t total_pixels = static_cast<size_t>(pixels_width) * static_cast<size_t>(pixels_height);
   if (current_config.enable_debug >= 1) {
     if (const size_t expected_bytes = total_pixels * sizeof(uint32_t); expected_bytes > pixels_size) {
       BONGOCAT_LOG_VERBOSE("draw_bar: pixel write would overflow buffer (expected %zu bytes, have %zu). Aborting draw.",
@@ -938,7 +928,8 @@ draw_bar_result_t draw_bar(platform::wayland::wayland_context_t& ctx) {
 
   assert(shm_buffer->buffer);
   wl_surface_attach(wayland_ctx.surface, shm_buffer->buffer, 0, 0);
-  wl_surface_damage_buffer(wayland_ctx.surface, 0, 0, shm_buffer->_physical_buffer_width, shm_buffer->_physical_buffer_height);
+  wl_surface_damage_buffer(wayland_ctx.surface, 0, 0, shm_buffer->_physical_buffer_width,
+                           shm_buffer->_physical_buffer_height);
 
   {
     platform::LockGuard guard(wayland_ctx._frame_cb_lock);

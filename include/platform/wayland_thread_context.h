@@ -46,8 +46,8 @@ struct wayland_thread_context {
   MMapMemory<wayland_shared_memory_t> ctx_shm;
   bar_visibility_t bar_visibility{bar_visibility_t::Show};
 
-  int32_t _overlay_height{0};     // applied_height
-  int32_t _screen_width{0};       // applied_width
+  int32_t _overlay_height{0};  // applied_height
+  int32_t _screen_width{0};    // applied_width
   // ref to existing name in output, Will default to automatic one if kept null
   char *_output_name_str{BONGOCAT_NULLPTR};  // bound_screen_name
   bool _fullscreen_detected{false};

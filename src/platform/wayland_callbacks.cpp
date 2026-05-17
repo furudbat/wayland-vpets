@@ -145,7 +145,7 @@ void handle_xdg_output_logical_size(void *data, [[maybe_unused]] zxdg_output_v1 
   // propagate into screen_info_t
   if (oref->wayland != BONGOCAT_NULLPTR) {
     wayland_context_t& wayland_ctx = *oref->wayland;
-    //wayland_thread_context& wayland_thread_ctx = oref->wayland->thread_context;
+    // wayland_thread_context& wayland_thread_ctx = oref->wayland->thread_context;
 
     for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
       if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
@@ -168,7 +168,7 @@ void handle_xdg_output_done(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
   // propagate into screen_info_t
   if (oref->wayland != BONGOCAT_NULLPTR) {
     wayland_context_t& wayland_ctx = *oref->wayland;
-    //wayland_thread_context& wayland_thread_ctx = oref->wayland->thread_context;
+    // wayland_thread_context& wayland_thread_ctx = oref->wayland->thread_context;
 
     for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
       if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
@@ -712,7 +712,7 @@ void output_geometry(void *data, [[maybe_unused]] wl_output *wl_output, [[maybe_
       ctx.screen_infos[i].received =
           static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_infos[i].received) |
                                                     static_cast<uint32_t>(screen_info_received_flags_t::Geometry));
-      //screen_calculate_dimensions(ctx.screen_infos[i]);
+      // screen_calculate_dimensions(ctx.screen_infos[i]);
     }
   }
   BONGOCAT_LOG_DEBUG("wl_output.geometry: Output transform: %d", transform);
@@ -738,7 +738,7 @@ void output_mode(void *data, [[maybe_unused]] wl_output *wl_output, uint32_t fla
             static_cast<screen_info_received_flags_t>(static_cast<uint32_t>(ctx.screen_infos[i].received) |
                                                       static_cast<uint32_t>(screen_info_received_flags_t::Mode));
         BONGOCAT_LOG_DEBUG("wl_output.mode: Received raw screen mode: %dx%d", width, height);
-        //screen_calculate_dimensions(ctx.screen_infos[i]);
+        // screen_calculate_dimensions(ctx.screen_infos[i]);
       }
     }
   }
@@ -935,7 +935,8 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
 // HIDPI: FRACTIONAL SCALE HANDLING
 // =============================================================================
 
-void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unused]] struct wp_fractional_scale_v1 *fs, uint32_t scale) {
+void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unused]] struct wp_fractional_scale_v1 *fs,
+                                      uint32_t scale) {
   if (data == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_WARNING("Handler called with null data (ignored)");
     return;
@@ -944,8 +945,8 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
   wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
   wayland_thread_context& wayland_ctx = ctx.thread_context;
 
-  BONGOCAT_LOG_INFO("fractional_scale_preferred_scale: Compositor requested fractional scale %u/120 (%.3f)",
-                    scale, static_cast<double>(scale) / 120.0);
+  BONGOCAT_LOG_INFO("fractional_scale_preferred_scale: Compositor requested fractional scale %u/120 (%.3f)", scale,
+                    static_cast<double>(scale) / 120.0);
 
   if (scale == 0 || scale == wayland_ctx._preferred_scale) {
     return;
@@ -953,10 +954,11 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
 
   wayland_ctx._preferred_scale = scale;
   BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: update _current_scale_120: %d", wayland_ctx._preferred_scale);
-  if (wayland_ctx.surface != BONGOCAT_NULLPTR && wayland_ctx.ctx_shm != BONGOCAT_NULLPTR && atomic_load(&wayland_ctx.ctx_shm->configured)) {
+  if (wayland_ctx.surface != BONGOCAT_NULLPTR && wayland_ctx.ctx_shm != BONGOCAT_NULLPTR &&
+      atomic_load(&wayland_ctx.ctx_shm->configured)) {
     if (details::wayland_update_screen_info(ctx, {
-      .skip_display_events = true,
-    }) != bongocat_error_t::BONGOCAT_SUCCESS) {
+                                                     .skip_display_events = true,
+                                                 }) != bongocat_error_t::BONGOCAT_SUCCESS) {
       BONGOCAT_LOG_ERROR("fractional_scale_preferred_scale: Failed to update width for recreate buffer");
     }
     BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: recreate buffer...");
@@ -966,9 +968,10 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
     platform::LockGuard anim_guard(ctx.animation_context->thread_context.anim_lock);
     assert(scale <= INT_MAX);
     ctx.animation_context->thread_context.shm->scale120 = static_cast<int>(scale);
-    ctx.animation_context->thread_context.shm->cat_height_phys = phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
+    ctx.animation_context->thread_context.shm->cat_height_phys =
+        phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
     trigger_reload_animation(*ctx.animation_context);
-    //request_render(*ctx.animation_context);
+    // request_render(*ctx.animation_context);
   } else {
     BONGOCAT_LOG_WARNING("fractional_scale_preferred_scale: animation_context is not setup, yet");
   }
@@ -1061,18 +1064,15 @@ void registry_global(void *data, wl_registry *reg, uint32_t name, const char *if
           "wl_registry.global: Foreign toplevel manager bound - using Wayland protocol for fullscreen detection");
     }
   } else if (strcmp(iface, wp_viewporter_interface.name) == 0) {
-    ctx.thread_context.viewporter = static_cast<wp_viewporter *>(wl_registry_bind(
-        reg, name, &wp_viewporter_interface, bind_min_ver(ver, wp_viewporter_interface_version)));
+    ctx.thread_context.viewporter = static_cast<wp_viewporter *>(
+        wl_registry_bind(reg, name, &wp_viewporter_interface, bind_min_ver(ver, wp_viewporter_interface_version)));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: viewporter registry bind");
   } else if (strcmp(iface, wp_fractional_scale_manager_v1_interface.name) == 0) {
-    ctx.thread_context.fractional_scale_mgr =
-        static_cast<wp_fractional_scale_manager_v1 *>(wl_registry_bind(
-            reg, name, &wp_fractional_scale_manager_v1_interface,
-            bind_min_ver(ver, wp_fractional_scale_manager_v1_interface_version)));
+    ctx.thread_context.fractional_scale_mgr = static_cast<wp_fractional_scale_manager_v1 *>(
+        wl_registry_bind(reg, name, &wp_fractional_scale_manager_v1_interface,
+                         bind_min_ver(ver, wp_fractional_scale_manager_v1_interface_version)));
     BONGOCAT_LOG_VERBOSE("wl_registry.global: fractional_scale_mgr registry bind");
   }
-
-
 }
 
 void registry_remove(void *data, [[maybe_unused]] wl_registry *registry, [[maybe_unused]] uint32_t name) {
