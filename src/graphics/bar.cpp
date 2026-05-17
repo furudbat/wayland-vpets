@@ -49,14 +49,14 @@ static cat_rect_t get_position(const platform::wayland::wayland_thread_context& 
   /// @TODO: assert phys_w/h with pixels/buffer size
   const int cat_height_phys = [&]() {
     if (has_flag(options, blit_image_sprite_option_flags_t::IgnoreCatHeight)) {
-      return platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_height);
+      return sheet.frame_height;
     }
 
     return platform::wayland::details::phys_dim(wayland_ctx, config.cat_height);
   }();
   const int cat_width_phys = [&]() {
     if (has_flag(options, blit_image_sprite_option_flags_t::IgnoreCatHeight)) {
-      return platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_width);
+      return sheet.frame_width;
     }
 
     return static_cast<int>(static_cast<float>(cat_height_phys) *
@@ -568,26 +568,27 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   const int pixels_height = shm_buffer._physical_buffer_height;
 
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, sprite_options);
-  auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
+  auto cat_x_with_offset = cat_x + platform::wayland::details::phys_dim(wayland_ctx, static_cast<int32_t>(anim_shm.movement_offset_x));
+  auto movement_radius_phys = platform::wayland::details::phys_dim(wayland_ctx, current_config.movement_radius);
 
   // draw debug rectangle
   if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
     cat_rect_t movement_debug_bar{};
     switch (current_config.cat_align) {
     case config::align_type_t::ALIGN_CENTER:
-      movement_debug_bar = {.x = cat_x + (cat_width / 2) - current_config.movement_radius,
+      movement_debug_bar = {.x = cat_x + (cat_width / 2) - movement_radius_phys,
                             .y = 0,
-                            .width = current_config.movement_radius * 2,
+                            .width = movement_radius_phys * 2,
                             .height = pixels_height};
       break;
     case config::align_type_t::ALIGN_LEFT:
       movement_debug_bar = {
-          .x = cat_x, .y = 0, .width = current_config.movement_radius * 2, .height = pixels_height};
+          .x = cat_x, .y = 0, .width = movement_radius_phys * 2, .height = pixels_height};
       break;
     case config::align_type_t::ALIGN_RIGHT:
-      movement_debug_bar = {.x = cat_x + cat_width - (current_config.movement_radius * 2),
+      movement_debug_bar = {.x = cat_x + cat_width - (movement_radius_phys * 2),
                             .y = 0,
-                            .width = current_config.movement_radius * 2,
+                            .width = movement_radius_phys * 2,
                             .height = pixels_height};
       break;
     }

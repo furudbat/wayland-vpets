@@ -7,6 +7,7 @@
 #include "platform/input_context.h"
 #include "platform/update_context.h"
 #include "utils/error.h"
+#include <cstdint>
 
 namespace bongocat::animation {
 enum class trigger_animation_cause_mask_t : uint64_t {
@@ -35,6 +36,7 @@ BONGOCAT_NODISCARD bongocat_error_t start(animation_context_t& ctx, platform::in
 // Trigger key press animation
 void trigger(animation_context_t& ctx, trigger_animation_cause_mask_t cause);
 void trigger_update_config(animation_context_t& ctx, const config::config_t& config, uint64_t config_generation);
+void trigger_reload_animation(animation_context_t& animation_ctx);
 
 void update_config(animation_thread_context_t& ctx, const config::config_t& config, uint64_t new_gen);
 created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& ctx);
@@ -43,6 +45,13 @@ BONGOCAT_NODISCARD animation_t& get_current_animation(animation_thread_context_t
 namespace details {
   created_result_t<custom_sprite_sheet_t> anim_load_custom_animation(animation_thread_context_t& ctx,
                                                                      const config::config_t& config);
+
+  struct phys_dim_params {
+    int logical{0};
+    int scale120{120};
+  };
+  int phys_dim(phys_dim_params params);
+  void update_cat_height_physical(animation_thread_context_t& ctx);
 }
 }  // namespace bongocat::animation
 

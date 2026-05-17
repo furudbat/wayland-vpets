@@ -749,13 +749,8 @@ void output_done(void *data, [[maybe_unused]] wl_output *wl_output) {
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+  // wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
 
-  for (size_t i = 0; i < MAX_OUTPUTS; i++) {
-    if (ctx.screen_infos[i].wl_output == wl_output) {
-      //screen_calculate_dimensions(ctx.screen_infos[i]);
-    }
-  }
   BONGOCAT_LOG_DEBUG("wl_output.done: Output configuration complete");
 }
 
@@ -948,7 +943,6 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
 
   wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
   wayland_thread_context& wayland_ctx = ctx.thread_context;
-  // animation_trigger_context_t *trigger_ctx = ctx.animation_trigger_context;
 
   BONGOCAT_LOG_INFO("fractional_scale_preferred_scale: Compositor requested fractional scale %u/120 (%.3f)",
                     scale, static_cast<double>(scale) / 120.0);
@@ -963,15 +957,20 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
     if (details::wayland_update_screen_info(ctx, {
       .skip_display_events = true,
     }) != bongocat_error_t::BONGOCAT_SUCCESS) {
-      BONGOCAT_LOG_ERROR("Failed to update width for recreate buffer");
+      BONGOCAT_LOG_ERROR("fractional_scale_preferred_scale: Failed to update width for recreate buffer");
     }
     BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: recreate buffer...");
-    auto [setup_result, setup_error] = details::wayland_recreate_buffer(ctx);
-    if (setup_error == bongocat_error_t::BONGOCAT_SUCCESS) {
-      if (ctx.animation_context != BONGOCAT_NULLPTR) {
-        request_render(*ctx.animation_context);
-      }
-    }
+    details::wayland_recreate_buffer(ctx);
+  }
+  if (ctx.animation_context != BONGOCAT_NULLPTR && ctx.animation_context->thread_context.shm != BONGOCAT_NULLPTR) {
+    platform::LockGuard anim_guard(ctx.animation_context->thread_context.anim_lock);
+    assert(scale <= INT_MAX);
+    ctx.animation_context->thread_context.shm->scale120 = static_cast<int>(scale);
+    ctx.animation_context->thread_context.shm->cat_height_phys = phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
+    trigger_reload_animation(*ctx.animation_context);
+    //request_render(*ctx.animation_context);
+  } else {
+    BONGOCAT_LOG_WARNING("fractional_scale_preferred_scale: animation_context is not setup, yet");
   }
 }
 

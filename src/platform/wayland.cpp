@@ -181,9 +181,7 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
     constexpr nfds_t fds_count = 4;
     pollfd fds[fds_count] = {
         {.fd = signal_fd,                                                                .events = POLLIN, .revents = 0},
-        {.fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1,
-         .events = POLLIN,
-         .revents = 0                                                                                                  },
+        {.fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1, .events = POLLIN, .revents = 0},
         {.fd = animation_ctx.render_efd._fd,                                             .events = POLLIN, .revents = 0},
         {.fd = wl_display_get_fd(wayland_ctx.display),                                   .events = POLLIN, .revents = 0},
     };
@@ -621,6 +619,11 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
           BONGOCAT_LOG_ERROR("Buffer recreated failed (%dx%d)", current_config.screen_width,
                              current_config.overlay_height);
         }
+
+        animation_ctx.thread_context.shm->scale120 = (has_flag(ctx.thread_context._screen_info->received, screen_info_received_flags_t::Scale))
+          ? ctx.thread_context._screen_info->scale * 120
+          : 120;
+        animation_ctx.thread_context.shm->cat_height_phys = phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
       }
 
       // Wait for new configure event
@@ -716,7 +719,8 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
     ctx.thread_context._overlay_position = current_config.overlay_position;
     ctx.thread_context._target_output_name = duplicate_string(config.output_name);
 
-    request_render(animation_ctx);
+    animation::trigger_reload_animation(animation_ctx);
+    //request_render(animation_ctx);
   }
 }
 

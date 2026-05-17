@@ -4755,6 +4755,8 @@ static bool anim_update_state(animation_context_t& animation_ctx, animation_stat
 // ANIMATION THREAD MANAGEMENT MODULE
 // =============================================================================
 
+void update_config_reload_sprite_sheet(animation_thread_context_t& ctx);
+
 static void anim_init_state(animation_thread_context_t& ctx, animation_state_t& state) {
   // read-only config
   assert(ctx._local_copy_config);
@@ -4795,6 +4797,7 @@ static void *anim_thread(void *arg) {
   assert(trigger_ctx.thread_context.shm);
   assert(trigger_ctx.trigger_efd._fd >= 0);
   assert(trigger_ctx.render_efd._fd >= 0);
+  assert(trigger_ctx.reload_animation_efd._fd >= 0);
   assert(trigger_ctx.thread_context.update_config_efd._fd >= 0);
 
   // init animation state
@@ -4891,6 +4894,34 @@ static void *anim_thread(void *arg) {
 
   BONGOCAT_LOG_DEBUG("Animation thread main loop started");
 
+
+  /// @TODO: animation may loaded twice; resuce load when having fractional scaling
+  // update physical cat height
+  {
+    platform::LockGuard guard(trigger_ctx.thread_context.anim_lock);
+    animation_thread_context_t& ctx = trigger_ctx.thread_context;
+
+    assert(ctx.shm);
+    // assert(input.shm);
+    animation_shared_memory_t& anim_shm = *ctx.shm;
+    // const auto& input_shm = *input.shm;
+    // auto& current_state = state;
+    // auto& current_animation_result = anim_shm.animation_player_result;
+    [[maybe_unused]] const int anim_index = anim_shm.anim_index;
+
+    // read-only config
+    assert(ctx._local_copy_config);
+    const config::config_t& current_config = *ctx._local_copy_config;
+
+    if (trigger_ctx.thread_context.shm->scale120 != animation_shared_memory_t::DEFAULT_PREFER_SCALE120) {
+      trigger_ctx.thread_context.shm->cat_height_phys = details::phys_dim({
+        .logical = current_config.cat_height,
+        .scale120 = trigger_ctx.thread_context.shm->scale120,
+      });
+      trigger_reload_animation(trigger_ctx);
+      BONGOCAT_LOG_DEBUG("Load Animation with scaling: scale %d/120; cat_height=%d => cat_height_phys=%d", trigger_ctx.thread_context.shm->scale120, current_config.cat_height, trigger_ctx.thread_context.shm->cat_height_phys);
+    }
+  }
   // trigger initial render
   platform::wayland::request_render(trigger_ctx);
 
@@ -4924,14 +4955,17 @@ static void *anim_thread(void *arg) {
 
     bool reload_config = false;
     uint64_t new_gen{atomic_load(trigger_ctx._config_generation)};
+    bool reload_animation = false;
 
     /// event poll
     constexpr size_t fds_update_config_index = 0;
     constexpr size_t fds_animation_trigger_index = 1;
-    constexpr nfds_t fds_count = 2;
+    constexpr size_t fds_reload_animation_index = 2;
+    constexpr nfds_t fds_count = 3;
     pollfd fds[fds_count] = {
-        {.fd = trigger_ctx.thread_context.update_config_efd._fd, .events = POLLIN, .revents = 0},
-        {.fd = trigger_ctx.trigger_efd._fd,                      .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.thread_context.update_config_efd._fd,    .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.trigger_efd._fd,                         .events = POLLIN, .revents = 0},
+        {.fd = trigger_ctx.reload_animation_efd._fd,                .events = POLLIN, .revents = 0},
     };
 
     assert(timeout_ms <= INT_MAX);
@@ -4959,6 +4993,14 @@ static void *anim_thread(void *arg) {
         platform::drain_event(fds[fds_update_config_index], MAX_ATTEMPTS, "update config eventfd");
         reload_config = new_gen > 0;
       }
+
+      // Handle reload animation
+      if (fds[fds_reload_animation_index].revents & POLLIN) {
+        BONGOCAT_LOG_DEBUG("animation: Receive reload animation event");
+        platform::drain_event(fds[fds_reload_animation_index], MAX_ATTEMPTS, "reload animation eventfd");
+        reload_animation = true;
+      }
+
 
       // animation trigger event
       if (fds[fds_animation_trigger_index].revents & POLLIN) {
@@ -5016,7 +5058,7 @@ static void *anim_thread(void *arg) {
                                                        .any_key_press_counter = any_key_press_counter,
                                                    });
       if (frame_changed) {
-        uint64_t u = 1;
+        constexpr uint64_t u = 1;
         if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
           BONGOCAT_LOG_VERBOSE("animation: Write animation render event");
         } else {
@@ -5073,6 +5115,7 @@ static void *anim_thread(void *arg) {
       assert(trigger_ctx._config != BONGOCAT_NULLPTR);
 
       update_config(ctx, *trigger_ctx._config, new_gen);
+      reload_animation = false; // animation reload already done in update_config
 
       // wait for reload config to be done (all configs)
       const int rc = trigger_ctx._configs_reloaded_cond->timedwait(
@@ -5092,6 +5135,19 @@ static void *anim_thread(void *arg) {
       // assert(atomic_load(&trigger_ctx.anim.config_seen_generation) >= atomic_load(trigger_ctx._config_generation));
       atomic_store(&trigger_ctx.thread_context.config_seen_generation, atomic_load(trigger_ctx._config_generation));
       BONGOCAT_LOG_INFO("animation: Animation config reloaded (gen=%u)", new_gen);
+      reload_config = false;
+    }
+    // handle animation reload
+    if (reload_animation) {
+      details::update_cat_height_physical(ctx);
+      update_config_reload_sprite_sheet(ctx);
+      constexpr uint64_t u = 1;
+      if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+        BONGOCAT_LOG_VERBOSE("animation: Write animation render event");
+      } else {
+        BONGOCAT_LOG_ERROR("animation: Failed to write to notify pipe in animation: %s", strerror(errno));
+      }
+      reload_animation = false;
     }
   }
 
@@ -5164,6 +5220,18 @@ void trigger_update_config(animation_context_t& animation_ctx, const config::con
   animation_ctx._config = &config;
   if (write(animation_ctx.thread_context.update_config_efd._fd, &config_generation, sizeof(uint64_t)) >= 0) {
     BONGOCAT_LOG_VERBOSE("Write animation trigger update config");
+  } else {
+    BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
+  }
+}
+
+void trigger_reload_animation(animation_context_t& animation_ctx) {
+  // assert(trigger_ctx.anim._local_copy_config != nullptr);
+  // assert(trigger_ctx.anim.shm != nullptr);
+
+  constexpr uint64_t u = 1;
+  if (write(animation_ctx.reload_animation_efd._fd, &u, sizeof(uint64_t)) >= 0) {
+    BONGOCAT_LOG_VERBOSE("Write animation trigger reload animation");
   } else {
     BONGOCAT_LOG_ERROR("Failed to write to notify pipe in animation: %s", strerror(errno));
   }
@@ -5342,7 +5410,7 @@ BONGOCAT_NODISCARD static int rand_animation_index(animation_thread_context_t& c
   return config.animation_index;
 }
 
-static void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
+void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
   using namespace assets;
   assert(ctx._local_copy_config);
 
@@ -5408,11 +5476,27 @@ void update_config(animation_thread_context_t& ctx, const config::config_t& conf
   assert(ctx.shm);
 
   *ctx._local_copy_config = config;
-
+  details::update_cat_height_physical(ctx);
   update_config_reload_sprite_sheet(ctx);
 
   atomic_store(&ctx.config_seen_generation, new_gen);
   // Signal main that reload is done
   ctx.config_updated.notify_all();
 }
+
+
+namespace details {
+  int phys_dim(phys_dim_params params) {
+    return static_cast<int>(
+        ((static_cast<int64_t>(params.logical) * params.scale120) + 119) / 120
+    );
+  }
+  void update_cat_height_physical(animation_thread_context_t& ctx) {
+    ctx.shm->cat_height_phys = details::phys_dim({
+      .logical = ctx._local_copy_config->cat_height,
+      .scale120 = ctx.shm->scale120,
+    });
+  }
+}
+
 }  // namespace bongocat::animation

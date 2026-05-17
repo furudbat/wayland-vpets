@@ -42,23 +42,15 @@ int phys_dim(const wayland_thread_context& ctx, int logical) {
     return 0;
   }
 
-  const screen_info_t* current_screen_info = ctx._screen_info;
-  if (current_screen_info == BONGOCAT_NULLPTR) [[unlikely]] {
-    if (ctx._preferred_scale <= 0) {
-      return logical;
-    }
-
-    return static_cast<int>(((static_cast<int64_t>(logical) * static_cast<int64_t>(ctx._preferred_scale)) + 119) / 120);
+  if (ctx._preferred_scale <= 0) {
+    return logical;
   }
 
-  const int scale120 =
-      (has_flag(current_screen_info->received, screen_info_received_flags_t::Scale))
-          ? current_screen_info->scale * 120
-          : 120;
-
-  return static_cast<int>(
-      ((static_cast<int64_t>(logical) * scale120) + 119) / 120
-  );
+  assert(ctx._preferred_scale <= INT_MAX);
+  return animation::details::phys_dim({
+    .logical = logical,
+    .scale120 = static_cast<int>(ctx._preferred_scale),
+  });
 }
 
 
@@ -615,19 +607,15 @@ created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thr
 
   wayland_ctx_shm.current_buffer_index = 0;
 
-  // Tell the compositor how to map our physical buffer to the logical
-  // surface. With viewporter we keep buffer_scale=1 and let the destination
-  // size carry the logical dimensions (works for any fractional ratio).
-  // Without viewporter, fall back to integer set_buffer_scale.
-  if (wayland_context._viewport != BONGOCAT_NULLPTR) {
-    wp_viewport_set_destination(wayland_context._viewport, logical_w, logical_h);
-    wl_surface_set_buffer_scale(wayland_context.surface, 1);
-  } else {
-    int integer_scale = static_cast<int>(wayland_context._preferred_scale / 120u);
+  if (wayland_context.surface != BONGOCAT_NULLPTR) {
+    int integer_scale = static_cast<int>((wayland_context._preferred_scale + 119u) / 120u);
     if (integer_scale < 1) {
       integer_scale = 1;
     }
     wl_surface_set_buffer_scale(wayland_context.surface, integer_scale);
+  }
+  if (wayland_context._viewport != BONGOCAT_NULLPTR) {
+    wp_viewport_set_destination(wayland_context._viewport, logical_w, logical_h);
   }
 
   BONGOCAT_LOG_VERBOSE(
