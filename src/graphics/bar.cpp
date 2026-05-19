@@ -137,7 +137,7 @@ static void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::way
   }
 
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, sprite_options);
-  auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
+  const auto cat_x_with_offset = cat_x + static_cast<int32_t>(anim_shm.movement_offset_x);
 
   if (region != BONGOCAT_NULLPTR) {
     // draw debug rectangle
@@ -564,7 +564,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   auto [cat_x, cat_y, cat_width, cat_height] = get_position(wayland_ctx, sheet, current_config, sprite_options);
   auto cat_x_with_offset =
       cat_x + platform::wayland::details::phys_dim(wayland_ctx, static_cast<int32_t>(anim_shm.movement_offset_x));
-  auto movement_radius_phys = platform::wayland::details::phys_dim(wayland_ctx, current_config.movement_radius);
+  const auto movement_radius_phys = platform::wayland::details::phys_dim(wayland_ctx, current_config.movement_radius);
 
   // draw debug rectangle
   if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {

@@ -154,9 +154,11 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
       wl_output_destroy(ctx.outputs[i].wl_output);
       ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
     }
-    ctx.outputs[i] = {};
     ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
     ctx.outputs[i].wayland = BONGOCAT_NULLPTR;
+  }
+  for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
+    ctx.outputs[i] = {};
   }
   ctx.output_count = 0;
 
@@ -172,6 +174,8 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
       zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);
       ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
     }
+  }
+  for (size_t i = 0; i < MAX_TOP_LEVELS; ++i) {
     ctx.tracked_toplevels[i] = {};
   }
   ctx.num_toplevels = 0;

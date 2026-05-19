@@ -112,7 +112,7 @@ _no writing animation, but with movement and more_
 
 - Idle animation (6 frames)
 - Fall asleep animation (12 frames)
-- Sleep animation (1 frames)
+- Sleep animation (1 frame)
 - Wake up animation (12 frames)
 - Working animation (5 frames)
 - Moving animation (8 frames)

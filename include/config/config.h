@@ -169,6 +169,11 @@ struct config_t {
     for (size_t i = 0; i < input::MAX_INPUT_DEVICES; ++i) {
       keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
+    /*
+    for (size_t i = 0; i < input::MAX_INPUT_DEVICES; ++i) {
+      _keyboard_names[i] = BONGOCAT_NULLPTR;
+    }
+    */
   }
   ~config_t() {
     cleanup(*this);
@@ -431,7 +436,7 @@ struct config_t {
       for (int i = 0; i < other.num_keyboard_devices; ++i) {
         keyboard_devices[i] = bongocat::move(other.keyboard_devices[i]);
         // release_allocated_string(other.keyboard_devices[i]);
-        //  other.keyboard_devices[i] = BONGOCAT_NULLPTR;
+        other.keyboard_devices[i] = BONGOCAT_NULLPTR;
       }
       num_keyboard_devices = other.num_keyboard_devices;
 
