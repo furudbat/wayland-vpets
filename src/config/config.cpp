@@ -1843,8 +1843,6 @@ static bool config_is_comment_or_empty(const char *line) {
 static bongocat_error_t config_parse_file(FILE *file, config_t& config,
                                           const load_config_overwrite_parameters_t& overwrite_parameters) {
   char line[LINE_BUF] = {0};
-  char key[KEY_BUF] = {0};
-  char value[VALUE_BUF] = {0};
   [[maybe_unused]] int line_number = 0;  // for logging
   bongocat_error_t result = bongocat_error_t::BONGOCAT_SUCCESS;
 
@@ -1852,9 +1850,8 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
     line_number++;
 
     // Remove trailing newline
-    size_t len = strlen(line);
-    if (len > 0 && line[len - 1] == '\n') {
-      line[len - 1] = '\0';
+    if (char *nl = strchr(line, '\n'); nl) {
+      *nl = '\0';
     }
 
     // Skip comments and empty lines
@@ -1862,30 +1859,29 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
       continue;
     }
 
-    // Parse key=value pairs
-    static_assert(VALUE_BUF >= PATH_MAX);
-    static_assert(255 < KEY_BUF);
-    static_assert(4351 < VALUE_BUF);
-    if (sscanf(line, " %255[^=]=%4351[^\n]", key, value) == 2) {
-      // Cut off trailing comment in value
-      char *comment = strchr(value, '#');
-      if (comment != BONGOCAT_NULLPTR) {
-        *comment = '\0';  // terminate string before '#'
-      }
-
-      const char *trimmed_key = config_trim_str(key);
-      const char *trimmed_value = config_trim_str(value);
-
-      const bongocat_error_t parse_result =
-          config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
-      if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
-        BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
-      } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        result = parse_result;
-        break;
-      }
-    } else if (strlen(line) > 0) {
+    char *eq = strchr(line, '=');
+    if (!eq) {
       BONGOCAT_LOG_WARNING("Invalid configuration line %d: %s", line_number, line);
+      continue;
+    }
+    *eq = '\0';
+    char *key = line;
+    char *value = eq + 1;
+
+    // get rid of trailing comment
+    char *comment = strchr(value, '#');
+    if (comment) *comment = '\0';
+
+    const char *trimmed_key   = config_trim_str(key);
+    const char *trimmed_value = config_trim_str(value);
+
+    const bongocat_error_t parse_result =
+        config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
+    if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
+      BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
+    } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+      result = parse_result;
+      break;
     }
   }
 
@@ -2016,7 +2012,7 @@ static void config_log_summary(const config_t& config) {
     // assert(config._loaded_animation_fqname);
     BONGOCAT_LOG_DEBUG("  Cat: '%s' %dx%d at offset (%d,%d)",
                        config._loaded_animation_fqname ? config._loaded_animation_fqname.c_str() : BONGOCAT_FQNAME,
-                       config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
+                       (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT, config.cat_height,
                        config.cat_x_offset, config.cat_y_offset);
     break;
   case config_animation_sprite_sheet_layout_t::Dm:

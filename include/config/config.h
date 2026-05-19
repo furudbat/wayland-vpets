@@ -429,15 +429,15 @@ struct config_t {
       _loaded_animation_fqname = bongocat::move(other._loaded_animation_fqname);
 
       for (int i = 0; i < other.num_keyboard_devices; ++i) {
-        keyboard_devices[i] = other.keyboard_devices[i];
-        release_allocated_string(other.keyboard_devices[i]);
+        keyboard_devices[i] = bongocat::move(other.keyboard_devices[i]);
+        //release_allocated_string(other.keyboard_devices[i]);
         // other.keyboard_devices[i] = BONGOCAT_NULLPTR;
       }
       num_keyboard_devices = other.num_keyboard_devices;
 
       for (int i = 0; i < other._num_keyboard_names; ++i) {
-        _keyboard_names[i] = other._keyboard_names[i];
-        release_allocated_string(other._keyboard_names[i]);
+        _keyboard_names[i] = bongocat::move(other._keyboard_names[i]);
+        //release_allocated_string(other._keyboard_names[i]);
         // other._keyboard_names[i] = BONGOCAT_NULLPTR;
       }
       _num_keyboard_names = other._num_keyboard_names;
