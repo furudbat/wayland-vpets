@@ -151,8 +151,8 @@ keyboard_device=/dev/input/event4
 | `mirror_y`                | 0 or 1                                                             | 0             | Flip cat vertically (mirror across X axis)                                                |
 | `test_animation_duration` | 0–5000                                                             | 0             | Duration of test animation (ms) (deprecated, use `animation_speed`)                       |
 | `test_animation_interval` | 0–60                                                               | 0             | Interval for test animation in seconds (0 = disabled, deprecated)                         |
-| `fps`                     | 1–144                                                              | 60            | Animation frame rate                                                                      |
-| `input_fps`               | 0–144                                                              | 0             | Input thread frame rate (0 = use `fps`)                                                   |
+| `fps`                     | 1–540                                                              | 60            | Animation frame rate                                                                      |
+| `input_fps`               | 0–540                                                              | 0             | Input thread frame rate (0 = use `fps`)                                                   |
 | `enable_scheduled_sleep`  | 0 or 1                                                             | 0             | Enable scheduled sleep mode                                                               |
 | `sleep_begin`             | "00:00" – "23:59"                                                  | "00:00"       | Start time of scheduled sleep (24h format)                                                |
 | `sleep_end`               | "00:00" – "23:59"                                                  | "00:00"       | End time of scheduled sleep (24h format)                                                  |
