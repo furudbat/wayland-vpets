@@ -13,7 +13,7 @@
 }:
 gcc15Stdenv.mkDerivation (finalAttrs: {
   pname = "wayland-vpets";
-  version = "4.0.0";
+  version = "4.0.3";
   src = ../.;
 
   # Build toolchain and dependencies
