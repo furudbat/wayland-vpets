@@ -1842,11 +1842,8 @@ static bool config_is_comment_or_empty(const char *line) {
   return (line[0] == '#' || line[0] == '\0' || strspn(line, " \t") == strlen(line));
 }
 
-static bongocat_error_t config_parse_file(
-    FILE *file,
-    config_t& config,
-    const load_config_overwrite_parameters_t& overwrite_parameters) {
-
+static bongocat_error_t config_parse_file(FILE *file, config_t& config,
+                                          const load_config_overwrite_parameters_t& overwrite_parameters) {
   char line[LINE_BUF] = {0};
 
   [[maybe_unused]] int line_number = 0;
@@ -1859,10 +1856,10 @@ static bongocat_error_t config_parse_file(
 
     // validate newline
     if (line_len == LINE_BUF - 1 && line[line_len - 1] != '\n') {
-      BONGOCAT_LOG_WARNING( "Configuration line %d too long", line_number);
+      BONGOCAT_LOG_WARNING("Configuration line %d too long", line_number);
       // Flush remainder of the line
       int ch;
-      while ((ch = fgetc(file)) != '\n' && ch != EOF) { }
+      while ((ch = fgetc(file)) != '\n' && ch != EOF) {}
       continue;
     }
 
@@ -1878,7 +1875,7 @@ static bongocat_error_t config_parse_file(
 
     char *eq = strchr(line, '=');
     if (eq == BONGOCAT_NULLPTR) {
-      BONGOCAT_LOG_WARNING( "Invalid configuration line %d: %s", line_number, line);
+      BONGOCAT_LOG_WARNING("Invalid configuration line %d: %s", line_number, line);
       continue;
     }
     *eq = '\0';
@@ -1887,9 +1884,7 @@ static bongocat_error_t config_parse_file(
     // Ensure '=' is inside bounds
     ptrdiff_t eq_offset = eq - line;
     if (eq_offset < 0 || static_cast<size_t>(eq_offset) >= sizeof(line)) {
-      BONGOCAT_LOG_WARNING(
-          "Invalid configuration line %d: malformed separator",
-          line_number);
+      BONGOCAT_LOG_WARNING("Invalid configuration line %d: malformed separator", line_number);
       continue;
     }
 
@@ -1902,7 +1897,7 @@ static bongocat_error_t config_parse_file(
     const char *trimmed_key = config_trim_str(key);
     const char *trimmed_value = config_trim_str(value);
     if (trimmed_key == BONGOCAT_NULLPTR || trimmed_value == BONGOCAT_NULLPTR) {
-      BONGOCAT_LOG_WARNING( "Invalid configuration line %d: trim failure", line_number);
+      BONGOCAT_LOG_WARNING("Invalid configuration line %d: trim failure", line_number);
       continue;
     }
 
@@ -1921,7 +1916,8 @@ static bongocat_error_t config_parse_file(
       continue;
     }
 
-    const bongocat_error_t parse_result = config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
+    const bongocat_error_t parse_result =
+        config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
     if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
       BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
     } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
