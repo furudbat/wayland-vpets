@@ -59,7 +59,7 @@ inline void cleanup(animation_thread_context_t& ctx) {
 
   platform::release_allocated_mmap_memory(ctx.shm);
   platform::release_allocated_mmap_memory(ctx._local_copy_config);
-  ctx._rng = platform::random_xoshiro128(0);
+  ctx._rng = {};
 }
 }  // namespace bongocat::animation
 

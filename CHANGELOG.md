@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+### [4.0.3] - 2026-05-21
+
+### Fixed 
+
+- adapt from upstream
+  - fractional scaling support
+
+### Improved
+
+- config reading
+
 ### [4.0.2] - 2026-04-27
 
 ### Improve

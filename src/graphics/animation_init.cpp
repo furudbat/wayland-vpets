@@ -486,6 +486,12 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
+  ret->reload_animation_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
+  if (ret->reload_animation_efd._fd < 0) {
+    BONGOCAT_LOG_ERROR("Failed to create notify pipe for animation reload: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+  }
+
   ret->thread_context.update_config_efd = platform::FileDescriptor(eventfd(0, EFD_NONBLOCK | EFD_CLOEXEC));
   if (ret->thread_context.update_config_efd._fd < 0) {
     BONGOCAT_LOG_ERROR("Failed to create notify pipe for input update config: %s", strerror(errno));
@@ -707,6 +713,13 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 
   // init anim
   ret->thread_context._rng = platform::random_xoshiro128(platform::slow_rand());
+
+  // Initialize shared memory for local config
+  ret->thread_context._local_copy_config = platform::make_allocated_mmap<config::config_t>();
+  if (!ret->thread_context._local_copy_config) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+  }
 
   BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.6fsec)",
                     static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);

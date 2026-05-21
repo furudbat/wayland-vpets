@@ -17,6 +17,7 @@ struct animation_context_t {
   // event file descriptor
   platform::FileDescriptor trigger_efd;
   platform::FileDescriptor render_efd;
+  platform::FileDescriptor reload_animation_efd;
 
   // globals (references)
   const config::config_t *_config{BONGOCAT_NULLPTR};
@@ -53,6 +54,7 @@ inline void cleanup(animation_context_t& anim_ctx) {
 
   platform::close_fd(anim_ctx.trigger_efd);
   platform::close_fd(anim_ctx.render_efd);
+  platform::close_fd(anim_ctx.reload_animation_efd);
 
   anim_ctx._config = BONGOCAT_NULLPTR;
   anim_ctx._input = BONGOCAT_NULLPTR;

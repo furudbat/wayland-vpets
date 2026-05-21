@@ -15,7 +15,8 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
-        "ENABLE_UBSAN": "ON"
+        "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF"
       }
     },
     {
@@ -36,7 +37,8 @@
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo",
       "cacheVariables": {
-        "CMAKE_BUILD_TYPE": "RelWithDebInfo"
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SKIP_CPM": "OFF"
       }
     },
     {
@@ -48,7 +50,8 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "ENABLE_TSAN": "ON",
-        "ENABLE_UBSAN": "ON"
+        "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF"
       }
     },
     {
@@ -143,6 +146,7 @@
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-pngle",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SKIP_CPM": "OFF",
         "FEATURE_USE_HYBRID_IMAGE_BACKEND": "OFF",
         "FEATURE_USE_PNGLE": "ON"
       }
@@ -167,6 +171,7 @@
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-hybrid",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SKIP_CPM": "OFF",
         "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON",
         "FEATURE_USE_PNGLE": "OFF"
       }
@@ -181,6 +186,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "OFF",
@@ -206,6 +212,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -231,6 +238,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -258,6 +266,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -285,6 +294,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
@@ -313,6 +323,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
         "FEATURE_USE_BONGOCAT_SVG": "ON"
       }
     },
@@ -326,6 +337,7 @@
         "CMAKE_BUILD_TYPE": "Debug",
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
         "FEATURE_USE_BONGOCAT_SVG": "OFF"
       }
     }

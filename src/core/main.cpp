@@ -576,7 +576,7 @@ static void config_reload_callback() {
 
   BONGOCAT_LOG_INFO("Configuration reloaded successfully!");
   BONGOCAT_LOG_INFO("New screen dimensions: %dx%d", get_main_context().wayland->thread_context._screen_width,
-                    get_main_context().wayland->thread_context._bar_height);
+                    get_main_context().wayland->thread_context._overlay_height);
 
   assert(get_main_context().animation != BONGOCAT_NULLPTR);
   animation::trigger(*get_main_context().animation, animation::trigger_animation_cause_mask_t::UpdateConfig);

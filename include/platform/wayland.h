@@ -40,7 +40,18 @@ BONGOCAT_NODISCARD const char *get_output_name(const wayland_context_t& ctx);
 // Get current layer name for logging
 BONGOCAT_NODISCARD const char *get_current_layer_name(wayland_context_t& ctx);
 
+// HiDPI: convert a logical-pixel dimension to physical (buffer-coordinate)
+// pixels using the active render scale. Defaults to identity (scale 1.0×) if
+// the compositor has not announced a scale yet.
+BONGOCAT_NODISCARD int phys_dim(const wayland_context_t& ctx, int logical);
+
 bongocat_error_t request_render(animation::animation_context_t& animation_ctx);
+
+namespace details {
+  struct wayland_setup_buffer_result_t;
+  created_result_t<wayland_setup_buffer_result_t> wayland_recreate_buffer(wayland_context_t& ctx);
+}  // namespace details
+
 }  // namespace bongocat::platform::wayland
 
 #endif  // BONGOCAT_WAYLAND_H

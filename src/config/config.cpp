@@ -74,7 +74,7 @@ static inline constexpr int MAX_CAT_HEIGHT = 1024;
 static inline constexpr int MIN_OVERLAY_HEIGHT = 16;
 static inline constexpr int MAX_OVERLAY_HEIGHT = 2560;
 static inline constexpr int MIN_FPS = 1;
-static inline constexpr int MAX_FPS = 144;
+static inline constexpr int MAX_FPS = 540;
 static inline constexpr int MIN_DURATION_MS = 10;
 static inline constexpr int MAX_DURATION_MS = 5000;
 static inline constexpr int MAX_INTERVAL_SEC = 3600;
@@ -1066,8 +1066,8 @@ static bongocat_error_t config_resolve_devices(config_t& config) {
       for (size_t i = 0; i < static_cast<size_t>(config._num_keyboard_names); i++) {
         assert(config._keyboard_names[i]);
         if (strstr(name, config._keyboard_names[i].c_str()) != BONGOCAT_NULLPTR) {
-          BONGOCAT_LOG_INFO("Found device matching name '%s' (Device: '%s'): %s", config._keyboard_names[i].c_str(),
-                            name, path);
+          BONGOCAT_LOG_VERBOSE("Found device matching name '%s' (Device: '%s'): %s", config._keyboard_names[i].c_str(),
+                               name, path);
           matched = true;
           break;
         }
@@ -1795,6 +1795,8 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
 
 static bongocat_error_t config_parse_key_value(config_t& config, const char *key, const char *value,
                                                const load_config_overwrite_parameters_t& overwrite_parameters) {
+  /// @TODO: sanitize config input (key and value)
+
   // Try integer keys first
   if (config_parse_integer_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
     return bongocat_error_t::BONGOCAT_SUCCESS;
@@ -1843,18 +1845,27 @@ static bool config_is_comment_or_empty(const char *line) {
 static bongocat_error_t config_parse_file(FILE *file, config_t& config,
                                           const load_config_overwrite_parameters_t& overwrite_parameters) {
   char line[LINE_BUF] = {0};
-  char key[KEY_BUF] = {0};
-  char value[VALUE_BUF] = {0};
-  int line_number = 0;
+
+  [[maybe_unused]] int line_number = 0;
   bongocat_error_t result = bongocat_error_t::BONGOCAT_SUCCESS;
 
-  while (fgets(line, sizeof(line), file)) {
+  while (fgets(line, LINE_BUF, file) != BONGOCAT_NULLPTR) {
     line_number++;
 
+    const size_t line_len = strnlen(line, LINE_BUF);
+
+    // validate newline
+    if (line_len == LINE_BUF - 1 && line[line_len - 1] != '\n') {
+      BONGOCAT_LOG_WARNING("Configuration line %d too long", line_number);
+      // Flush remainder of the line
+      int ch;
+      while ((ch = fgetc(file)) != '\n' && ch != EOF) {}
+      continue;
+    }
+
     // Remove trailing newline
-    size_t len = strlen(line);
-    if (len > 0 && line[len - 1] == '\n') {
-      line[len - 1] = '\0';
+    if (line_len > 0 && line[line_len - 1] == '\n') {
+      line[line_len - 1] = '\0';
     }
 
     // Skip comments and empty lines
@@ -1862,30 +1873,56 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
       continue;
     }
 
-    // Parse key=value pairs
-    static_assert(VALUE_BUF >= PATH_MAX);
-    static_assert(255 < KEY_BUF);
-    static_assert(4351 < VALUE_BUF);
-    if (sscanf(line, " %255[^=]=%4351[^\n]", key, value) == 2) {
-      // Cut off trailing comment in value
-      char *comment = strchr(value, '#');
-      if (comment != BONGOCAT_NULLPTR) {
-        *comment = '\0';  // terminate string before '#'
-      }
-
-      const char *trimmed_key = config_trim_str(key);
-      const char *trimmed_value = config_trim_str(value);
-
-      const bongocat_error_t parse_result =
-          config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
-      if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
-        BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
-      } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        result = parse_result;
-        break;
-      }
-    } else if (strlen(line) > 0) {
+    char *eq = strchr(line, '=');
+    if (eq == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_WARNING("Invalid configuration line %d: %s", line_number, line);
+      continue;
+    }
+    *eq = '\0';
+    char *key = line;
+    char *value = eq + 1;
+    // Ensure '=' is inside bounds
+    ptrdiff_t eq_offset = eq - line;
+    if (eq_offset < 0 || static_cast<size_t>(eq_offset) >= sizeof(line)) {
+      BONGOCAT_LOG_WARNING("Invalid configuration line %d: malformed separator", line_number);
+      continue;
+    }
+
+    // Remove trailing comments
+    char *comment = strchr(value, '#');
+    if (comment != BONGOCAT_NULLPTR) {
+      *comment = '\0';
+    }
+
+    const char *trimmed_key = config_trim_str(key);
+    const char *trimmed_value = config_trim_str(value);
+    if (trimmed_key == BONGOCAT_NULLPTR || trimmed_value == BONGOCAT_NULLPTR) {
+      BONGOCAT_LOG_WARNING("Invalid configuration line %d: trim failure", line_number);
+      continue;
+    }
+
+    const size_t key_len = strnlen(trimmed_key, KEY_BUF);
+    const size_t value_len = strnlen(trimmed_value, VALUE_BUF);
+    if (key_len == 0) {
+      BONGOCAT_LOG_WARNING("Invalid configuration line %d: empty key", line_number);
+      continue;
+    }
+    if (key_len >= KEY_BUF) {
+      BONGOCAT_LOG_WARNING("Configuration key too long at line %d", line_number);
+      continue;
+    }
+    if (value_len >= VALUE_BUF) {
+      BONGOCAT_LOG_WARNING("Configuration value too long at line %d", line_number);
+      continue;
+    }
+
+    const bongocat_error_t parse_result =
+        config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
+    if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
+      BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
+    } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
+      result = parse_result;
+      break;
     }
   }
 
@@ -2016,7 +2053,7 @@ static void config_log_summary(const config_t& config) {
     // assert(config._loaded_animation_fqname);
     BONGOCAT_LOG_DEBUG("  Cat: '%s' %dx%d at offset (%d,%d)",
                        config._loaded_animation_fqname ? config._loaded_animation_fqname.c_str() : BONGOCAT_FQNAME,
-                       config.cat_height, (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT,
+                       (config.cat_height * BONGOCAT_FRAME_WIDTH) / BONGOCAT_FRAME_HEIGHT, config.cat_height,
                        config.cat_x_offset, config.cat_y_offset);
     break;
   case config_animation_sprite_sheet_layout_t::Dm:
@@ -2064,11 +2101,10 @@ static void config_log_summary(const config_t& config) {
   }
   BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.randomize_index);
   BONGOCAT_LOG_DEBUG("  Mirror: X=%d, Y=%d", config.mirror_x, config.mirror_y);
-  BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing ? "enabled" : "disabled");
-  BONGOCAT_LOG_DEBUG("  Position: %s", config.overlay_position == overlay_position_t::POSITION_TOP ? "top" : "bottom");
-  BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align,
-                     config.cat_align == align_type_t::ALIGN_CENTER ? "(center)" : "");
-  BONGOCAT_LOG_DEBUG("  Layer: %s", config.layer == layer_type_t::LAYER_TOP ? "top" : "overlay");
+  BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing >= 0 ? "enabled" : "disabled");
+  BONGOCAT_LOG_DEBUG("  Position: %s", to_string(config.overlay_position));
+  BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align, to_string(config.cat_align));
+  BONGOCAT_LOG_DEBUG("  Layer: %s", to_string(config.layer));
   BONGOCAT_LOG_DEBUG("  Output Screen: %s", config.output_name.c_str());
 }
 
@@ -2082,6 +2118,7 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
   config_t ret;
   set_defaults(ret);
 
+  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
   // Parse config file and override defaults
   bongocat_error_t result = bongocat_error_t::BONGOCAT_ERROR_CONFIG;
   if (strcmp(config_file_path, "-") == 0) {
@@ -2093,6 +2130,9 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
     BONGOCAT_LOG_ERROR("Failed to parse configuration file: %s", bongocat::error_string(result));
     return result;
   }
+  [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+  BONGOCAT_LOG_INFO("Config loaded in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
+                    static_cast<double>(t1 - t0) / 1000000.0);
 
   if (overwrite_parameters.output_name != BONGOCAT_NULLPTR) {
     // release_allocated_string(ret.output_name);

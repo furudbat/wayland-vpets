@@ -6,6 +6,7 @@
 #include "utils/error.h"
 
 #include <cassert>
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 
@@ -22,6 +23,16 @@ enum class overlay_position_t : uint8_t {
 };
 inline static constexpr const char *POSITION_TOP_STR = "top";
 inline static constexpr const char *POSITION_BOTTOM_STR = "bottom";
+[[nodiscard]] constexpr const char *to_string(overlay_position_t position) noexcept {
+  switch (position) {
+  case overlay_position_t::POSITION_TOP:
+    return POSITION_TOP_STR;
+  case overlay_position_t::POSITION_BOTTOM:
+    return POSITION_BOTTOM_STR;
+  default:
+    return "unknown";
+  }
+}
 
 enum class layer_type_t : int8_t {
   LAYER_BACKGROUND = 0,
@@ -33,6 +44,20 @@ inline static constexpr const char *LAYER_BACKGROUND_STR = "background";
 inline static constexpr const char *LAYER_BOTTOM_STR = "bottom";
 inline static constexpr const char *LAYER_TOP_STR = "top";
 inline static constexpr const char *LAYER_OVERLAY_STR = "overlay";
+[[nodiscard]] constexpr const char *to_string(layer_type_t layer) noexcept {
+  switch (layer) {
+  case layer_type_t::LAYER_BACKGROUND:
+    return LAYER_BACKGROUND_STR;
+  case layer_type_t::LAYER_BOTTOM:
+    return LAYER_BOTTOM_STR;
+  case layer_type_t::LAYER_TOP:
+    return LAYER_TOP_STR;
+  case layer_type_t::LAYER_OVERLAY:
+    return LAYER_OVERLAY_STR;
+  default:
+    return "unknown";
+  }
+}
 
 enum class align_type_t : int8_t {
   ALIGN_CENTER = 0,
@@ -42,6 +67,18 @@ enum class align_type_t : int8_t {
 inline static constexpr const char *ALIGN_CENTER_STR = "center";
 inline static constexpr const char *ALIGN_LEFT_STR = "left";
 inline static constexpr const char *ALIGN_RIGHT_STR = "right";
+[[nodiscard]] constexpr const char *to_string(align_type_t align) noexcept {
+  switch (align) {
+  case align_type_t::ALIGN_CENTER:
+    return ALIGN_CENTER_STR;
+  case align_type_t::ALIGN_LEFT:
+    return ALIGN_LEFT_STR;
+  case align_type_t::ALIGN_RIGHT:
+    return ALIGN_RIGHT_STR;
+  default:
+    return "unknown";
+  }
+}
 
 // =============================================================================
 // CONFIGURATION FUNCTIONS
@@ -169,6 +206,11 @@ struct config_t {
     for (size_t i = 0; i < input::MAX_INPUT_DEVICES; ++i) {
       keyboard_devices[i] = BONGOCAT_NULLPTR;
     }
+    /*
+    for (size_t i = 0; i < input::MAX_INPUT_DEVICES; ++i) {
+      _keyboard_names[i] = BONGOCAT_NULLPTR;
+    }
+    */
   }
   ~config_t() {
     cleanup(*this);
@@ -429,16 +471,16 @@ struct config_t {
       _loaded_animation_fqname = bongocat::move(other._loaded_animation_fqname);
 
       for (int i = 0; i < other.num_keyboard_devices; ++i) {
-        keyboard_devices[i] = other.keyboard_devices[i];
-        release_allocated_string(other.keyboard_devices[i]);
-        // other.keyboard_devices[i] = BONGOCAT_NULLPTR;
+        keyboard_devices[i] = bongocat::move(other.keyboard_devices[i]);
+        // release_allocated_string(other.keyboard_devices[i]);
+        other.keyboard_devices[i] = BONGOCAT_NULLPTR;
       }
       num_keyboard_devices = other.num_keyboard_devices;
 
       for (int i = 0; i < other._num_keyboard_names; ++i) {
-        _keyboard_names[i] = other._keyboard_names[i];
-        release_allocated_string(other._keyboard_names[i]);
-        // other._keyboard_names[i] = BONGOCAT_NULLPTR;
+        _keyboard_names[i] = bongocat::move(other._keyboard_names[i]);
+        // release_allocated_string(other._keyboard_names[i]);
+        //  other._keyboard_names[i] = BONGOCAT_NULLPTR;
       }
       _num_keyboard_names = other._num_keyboard_names;
 

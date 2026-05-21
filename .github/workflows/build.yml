@@ -47,7 +47,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Debug
+          cmake .. -DCMAKE_BUILD_TYPE=Debug -DSKIP_CPM=ON
 
       - name: Build
         run: |

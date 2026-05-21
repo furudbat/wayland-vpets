@@ -10,6 +10,8 @@
 // #pragma GCC diagnostic ignored "-Wsign-conversion"
 #  endif
 extern "C" {
+#  include "../protocols/fractional-scale-v1-client-protocol.h"
+#  include "../protocols/viewporter-client-protocol.h"
 #  include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
 #  include "../protocols/xdg-output-unstable-v1-client-protocol.h"
 #  include "../protocols/xdg-shell-client-protocol.h"
@@ -20,6 +22,8 @@ extern "C" {
 #  endif
 // #undef namespace
 #else
+#  include "../protocols/fractional-scale-v1-client-protocol.h"
+#  include "../protocols/viewporter-client-protocol.h"
 #  include "../protocols/wlr-foreign-toplevel-management-v1-client-protocol.h"
 #  include "../protocols/xdg-output-unstable-v1-client-protocol.h"
 #  include "../protocols/xdg-shell-client-protocol.h"

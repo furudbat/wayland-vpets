@@ -34,6 +34,6 @@
 
 Included sets:
   bongocat - Classic Bongo cat
-      pkmn - Pokemon, up to Gen 5
-       pmd - Pokemon Mystery Dungeon, up to Gen 6
+      pkmn - Pokémon, up to Gen 5
+       pmd - Pokémon Mystery Dungeon, up to Gen 6
 

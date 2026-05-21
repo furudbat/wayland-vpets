@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # ═══════════════════════════════════════════════════════════════════════════════
-# Bongo Cat - Input Device Discovery Tool v4.0.0
+# Bongo Cat - Input Device Discovery Tool v4.0.2
 # Interactive keyboard detection by listening for actual key events
 # ═══════════════════════════════════════════════════════════════════════════════
 
 set -euo pipefail
 trap 'exit 0' PIPE
 
-VERSION="4.0.0"
+VERSION="4.0.3"
 SCRIPT_NAME="wpets-find-devices"
 
 # Colors
@@ -51,6 +51,7 @@ device_is_ignored() {
 
 # Get all event devices with kbd handler (potential keyboards)
 get_kbd_devices() {
+  local include_mouse="$1"
   local ignore_devices=("$@")   # now receives array properly
 
   local devices=()
@@ -93,6 +94,18 @@ get_kbd_devices() {
             [[ -n "$symlink" ]] && link_device_path="$symlink"
             devices+=("$event|$name|$handlers|$capabilities|$device_path|$link_device_path")
           fi
+        elif [[ "$include_mouse" == "true" ]] && [[ "$handlers" =~ mouse ]] && [[ "$handlers" =~ event ]]; then
+          local event
+          event=$(echo "$handlers" | grep -o 'event[0-9]*' | head -1)
+          local real_path="/dev/input/$event"
+          if [[ -n "$event" ]] && [[ -e "$real_path" ]]; then
+            local device_path="$real_path"
+            local link_device_path="$real_path"
+            local symlink
+            symlink=$(find -L /dev/input/by-id/ -samefile "$real_path" -print -quit 2>/dev/null)
+            [[ -n "$symlink" ]] && link_device_path="$symlink"
+            devices+=("$event|$name|$handlers|$capabilities|$device_path|$link_device_path")
+          fi
         fi
         name="" handlers="" capabilities=""
         ;;
@@ -117,6 +130,7 @@ listen_device() {
   local device="$1"
   local output_file="$2"
   local timeout="$3"
+  local include_mouse_devices="$4"
 
   # Use timeout + cat to read raw events
   # Key events are detected by the presence of specific byte patterns
@@ -129,8 +143,9 @@ listen_device() {
 interactive_detect() {
   local timeout="${1:-5}"
   local prefer_byid="$2"   # "true" = prefer /dev/input/by-id symlinks
+  local include_mouse_devices="$3"
   local devices
-  devices=$(get_kbd_devices) || { error "Cannot read device list"; return 1; }
+  devices=$(get_kbd_devices "$include_mouse_devices") || { error "Cannot read device list"; return 1; }
 
   if [[ -z "$devices" ]]; then
     error "No input devices with kbd handler found"
@@ -176,7 +191,7 @@ interactive_detect() {
     if check_device "/dev/input/$event"; then
       local outfile="$tmpdir/$event"
       local pid
-      pid=$(listen_device "$event" "$outfile" "$timeout")
+      pid=$(listen_device "$event" "$outfile" "$timeout" "$include_mouse_devices")
       pids+=("$pid")
       device_list+=("$event|$name|$outfile|$device_path|$link_device_path")
     fi
@@ -203,9 +218,14 @@ interactive_detect() {
   for entry in "${device_list[@]}"; do
     IFS='|' read -r event name outfile device_path link_device_path <<< "$entry"
 
-    if [[ -s "$outfile" ]]; then
-      # Device received input - it's a keyboard!
+    if grep -q '^KEY' "$outfile"; then
       detected_keyboards+=("$event|$name|$device_path|$link_device_path")
+    elif grep -q '^BTN' "$outfile"; then
+      if [[ "$include_mouse_devices" == "true" ]]; then
+        detected_keyboards+=("$event|$name|$device_path|$link_device_path")
+      else
+        other_devices+=("$event|$name|$device_path|$link_device_path")
+      fi
     else
       other_devices+=("$event|$name|$device_path|$link_device_path")
     fi
@@ -224,7 +244,7 @@ interactive_detect() {
 
   echo -e "  ${GREEN}Detected keyboards:${NC}"
   for entry in "${detected_keyboards[@]}"; do
-    IFS='|' read -r event name device_path link_device_path <<< "$entry"
+    IFS='|' read -r event name id device_path link_device_path <<< "$entry"
     echo -e "    ${GREEN}✓${NC} ${BOLD}$name${NC}"
 
     if [[ $device_path == $link_device_path ]]; then
@@ -266,7 +286,7 @@ interactive_detect() {
     IFS='|' read -r event name id device_path link_device_path <<< "$entry"
 
     if [[ $link_device_path == /dev/input/by-id/* ]]; then
-      echo -e "  ${CYAN}keyboard_device=$link_device_path${NC}"
+      echo -e "  ${CYAN}keyboard_device=$link_device_path${NC}  ${BOLD}# $name${NC}"
     fi
   done
 
@@ -399,7 +419,7 @@ quick_detect() {
   local ignore_devices=("$@")   # now receives array properly
 
   local devices
-  devices=$(get_kbd_devices "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
+  devices=$(get_kbd_devices "$include_mouse_devices" "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
 
   if [[ -z "$devices" ]]; then
     warn "No input devices found"
@@ -478,7 +498,7 @@ quick_config() {
   local ignore_devices=("$@")   # now receives array properly
 
   local devices
-  devices=$(get_kbd_devices "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
+  devices=$(get_kbd_devices "$include_mouse_devices" "${ignore_devices[@]}") || { error "Cannot read devices"; return 1; }
 
   if [[ -z "$devices" ]]; then
     error "No input devices found"
@@ -589,7 +609,7 @@ main() {
   done
 
   case "$mode" in
-    interactive) interactive_detect "$timeout" "$prefer_byid" ;;
+    interactive) interactive_detect "$timeout" "$prefer_byid" "$include_mouse_devices" ;;
     quick) quick_detect "$show_all" "$prefer_byid" "$include_mouse_devices" "${ignore_devices[@]}" ;;
     generate) quick_config "$show_all" "$prefer_byid" "$include_mouse_devices" "${ignore_devices[@]}" ;;
   esac

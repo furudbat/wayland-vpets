@@ -1,9 +1,6 @@
 # stb_image lib
 add_library(assets_image_loader STATIC)
-target_include_directories(
-  assets_image_loader
-  PRIVATE ${INCLUDE_DIR}/image_loader
-  PUBLIC ${INCLUDE_DIR})
+target_include_directories(assets_image_loader PRIVATE ${INCLUDE_DIR}/image_loader PUBLIC ${INCLUDE_DIR})
 target_include_directories(assets_image_loader SYSTEM PUBLIC ${PROJECT_SOURCE_DIR}/lib)
 target_link_libraries(assets_image_loader PRIVATE bongocat_options)
 
@@ -51,7 +48,7 @@ else()
   endif()
 endif()
 
-if (FEATURE_USE_BONGOCAT_SVG)
+if(FEATURE_USE_BONGOCAT_SVG)
   add_library(nanosvg STATIC)
   target_include_directories(nanosvg SYSTEM PRIVATE ${PROJECT_SOURCE_DIR}/lib)
   target_sources(nanosvg PRIVATE nanosvg.c)

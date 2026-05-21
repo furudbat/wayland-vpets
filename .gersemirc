@@ -1,0 +1,8 @@
+# Core formatting settings
+line_length: 140
+indent: 2
+
+# Optional: controls how lines break when they exceed line_length
+# 'favour-inlining' keeps sublists together if they fit
+# 'favour-expansion' explodes them entirely once a break is needed
+list_expansion: favour-inlining

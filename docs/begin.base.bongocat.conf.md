@@ -93,7 +93,7 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 ## INPUT REACTION
 
-- **happy_kpm**: Minimum keystrokes per minute to trigger happy animation.
+- **happy_kpm**: Minimum keystrokes per minute to trigger a happy animation.
 - **keypress_duration**: Duration (ms) to display keypress animation.
 
 ## RANDOMIZE

@@ -23,6 +23,8 @@ struct animation_player_result_t {
 // =============================================================================
 
 struct animation_shared_memory_t {
+  inline static constexpr int DEFAULT_PREFER_SCALE120 = 120;
+
   // animation state
   animation_player_result_t animation_player_result{};
   int32_t anim_index{0};
@@ -32,6 +34,8 @@ struct animation_shared_memory_t {
   float movement_offset_x{0.0};
   float anim_direction{0.0};
   platform::timestamp_ms_t last_wakeup_timestamp{0};  ///< wake up from latest idle sleep
+  int scale120{DEFAULT_PREFER_SCALE120};              ///< up/down-scale graphic for fractional scaling
+  int cat_height_phys{0};                             ///< cat_height from config.cat_height * scale
 
   // Animation frame data for sprite sheet preload
   platform::MMapArray<animation_t> bongocat_anims;
@@ -61,6 +65,8 @@ struct animation_shared_memory_t {
     movement_offset_x = 0;
     anim_direction = 0;
     last_wakeup_timestamp = 0;
+    scale120 = DEFAULT_PREFER_SCALE120;
+    cat_height_phys = 0;
 
     for (size_t i = 0; i < bongocat_anims.count; i++) {
       cleanup_animation(bongocat_anims[i]);
@@ -137,7 +143,9 @@ struct animation_shared_memory_t {
       , anim_custom_set(other.anim_custom_set)
       , movement_offset_x(other.movement_offset_x)
       , anim_direction(other.anim_direction)
-      , last_wakeup_timestamp(other.last_wakeup_timestamp) {
+      , last_wakeup_timestamp(other.last_wakeup_timestamp)
+      , scale120(other.scale120)
+      , cat_height_phys(other.cat_height_phys) {
     bongocat_anims = other.bongocat_anims;
     dm_anims = other.dm_anims;
     dm20_anims = other.dm20_anims;
@@ -164,6 +172,8 @@ struct animation_shared_memory_t {
       movement_offset_x = other.movement_offset_x;
       anim_direction = other.anim_direction;
       last_wakeup_timestamp = other.last_wakeup_timestamp;
+      scale120 = other.scale120;
+      cat_height_phys = other.cat_height_phys;
 
       bongocat_anims = other.bongocat_anims;
       dm_anims = other.dm_anims;
@@ -192,7 +202,9 @@ struct animation_shared_memory_t {
       , anim_custom_set(other.anim_custom_set)
       , movement_offset_x(other.movement_offset_x)
       , anim_direction(other.anim_direction)
-      , last_wakeup_timestamp(other.last_wakeup_timestamp) {
+      , last_wakeup_timestamp(other.last_wakeup_timestamp)
+      , scale120(other.scale120)
+      , cat_height_phys(other.cat_height_phys) {
     bongocat_anims = bongocat::move(other.bongocat_anims);
     dm_anims = bongocat::move(other.dm_anims);
     dm20_anims = bongocat::move(other.dm20_anims);
@@ -232,6 +244,8 @@ struct animation_shared_memory_t {
     other.movement_offset_x = 0;
     other.anim_direction = 0;
     other.last_wakeup_timestamp = 0;
+    other.scale120 = DEFAULT_PREFER_SCALE120;
+    other.cat_height_phys = 0;
   }
   animation_shared_memory_t& operator=(animation_shared_memory_t&& other) noexcept {
     if (this != &other) {
@@ -243,6 +257,8 @@ struct animation_shared_memory_t {
       movement_offset_x = other.movement_offset_x;
       anim_direction = other.anim_direction;
       last_wakeup_timestamp = other.last_wakeup_timestamp;
+      scale120 = other.scale120;
+      cat_height_phys = other.cat_height_phys;
 
       bongocat_anims = bongocat::move(other.bongocat_anims);
       dm_anims = bongocat::move(other.dm_anims);
@@ -283,6 +299,8 @@ struct animation_shared_memory_t {
       other.movement_offset_x = 0;
       other.anim_direction = 0;
       other.last_wakeup_timestamp = 0;
+      other.scale120 = DEFAULT_PREFER_SCALE120;
+      other.cat_height_phys = 0;
     }
     return *this;
   }

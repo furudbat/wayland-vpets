@@ -37,14 +37,22 @@ enum class screen_info_received_flags_t : uint32_t {
   None = (1U << 0),
   Mode = (1U << 1),
   Geometry = (1U << 2),
+  Scale = (1U << 3),
 };
 struct screen_info_t {
   struct wl_output *wl_output{BONGOCAT_NULLPTR};  // ref of output
-  int screen_width{0};
-  int screen_height{0};
+
+  // compositor logical coordinate space
+  int logical_width{0};
+  int logical_height{0};
+
+  // physical monitor mode
+  int physical_width{0};
+  int physical_height{0};
+
   int transform{0};
-  int raw_width{0};
-  int raw_height{0};
+  int scale{1};
+
   screen_info_received_flags_t received{screen_info_received_flags_t::None};
 };
 
@@ -71,6 +79,7 @@ struct output_ref_t {
   int64_t hypr_id{-1};
   // back reference
   wayland_context_t *wayland{BONGOCAT_NULLPTR};
+  int32_t wl_scale{1};
 };
 
 void cleanup_wayland(wayland_context_t& ctx);
@@ -122,6 +131,7 @@ struct wayland_context_t {
 inline void cleanup_wayland(wayland_context_t& ctx) {
   atomic_store(&ctx.ready, false);
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: clean up outputs.xdg_output");
   // First destroy xdg_output objects
   for (size_t i = 0; i < ctx.output_count; ++i) {
     if (ctx.outputs[i].xdg_output != BONGOCAT_NULLPTR) {
@@ -130,34 +140,42 @@ inline void cleanup_wayland(wayland_context_t& ctx) {
     }
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy xdg_output_manager");
   // Then destroy the manager
   if (ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
     zxdg_output_manager_v1_destroy(ctx.xdg_output_manager);
     ctx.xdg_output_manager = BONGOCAT_NULLPTR;
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy outputs.wl_output");
   // Finally destroy wl_output objects
   for (size_t i = 0; i < ctx.output_count; ++i) {
     if (ctx.outputs[i].wl_output != BONGOCAT_NULLPTR) {
       wl_output_destroy(ctx.outputs[i].wl_output);
       ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
     }
-    ctx.outputs[i] = {};
     ctx.outputs[i].wl_output = BONGOCAT_NULLPTR;
     ctx.outputs[i].wayland = BONGOCAT_NULLPTR;
   }
+  for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
+    ctx.outputs[i] = {};
+  }
   ctx.output_count = 0;
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy fs_detector.manager");
   if (ctx.fs_detector.manager != BONGOCAT_NULLPTR) {
     zwlr_foreign_toplevel_manager_v1_destroy(ctx.fs_detector.manager);
     ctx.fs_detector.manager = BONGOCAT_NULLPTR;
   }
 
+  BONGOCAT_LOG_VERBOSE("cleanup_wayland: destroy tracked_toplevels");
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     if (ctx.tracked_toplevels[i].handle != BONGOCAT_NULLPTR) {
       zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);
       ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
     }
+  }
+  for (size_t i = 0; i < MAX_TOP_LEVELS; ++i) {
     ctx.tracked_toplevels[i] = {};
   }
   ctx.num_toplevels = 0;

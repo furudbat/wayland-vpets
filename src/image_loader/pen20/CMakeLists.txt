@@ -4,8 +4,10 @@ target_compile_options(assets_pen20_loader PRIVATE -ffunction-sections -fdata-se
 target_include_directories(
   assets_pen20_loader
   PRIVATE ${INCLUDE_DIR}/embedded_assets/pen20 ${INCLUDE_DIR}/image_loader/pen20
-  PUBLIC ${INCLUDE_DIR})
+  PUBLIC ${INCLUDE_DIR}
+)
 target_link_libraries(
   assets_pen20_loader
   PUBLIC assets_image_loader assets_base_dm_loader assets_pen20
-  PRIVATE assets_pen20_interface assets_pen20_feature bongocat_options)
+  PRIVATE assets_pen20_interface assets_pen20_feature bongocat_options
+)

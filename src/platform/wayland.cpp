@@ -12,6 +12,7 @@
 #include <cerrno>
 #include <climits>
 #include <csignal>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -58,7 +59,7 @@ created_result_t<AllocatedMemory<wayland_context_t>> create(animation::animation
   }
 
   ret->animation_context = &animation_ctx;
-  ret->thread_context._bar_height = DEFAULT_BAR_HEIGHT;
+  ret->thread_context._overlay_height = DEFAULT_BAR_HEIGHT;
 
   // Initialize shared memory
   ret->thread_context.ctx_shm = make_allocated_mmap<wayland_shared_memory_t>();
@@ -81,7 +82,7 @@ created_result_t<AllocatedMemory<wayland_context_t>> create(animation::animation
   }
   assert(ret->thread_context._local_copy_config);
   *ret->thread_context._local_copy_config = config;
-  ret->thread_context._bar_height = config.overlay_height;
+  ret->thread_context._overlay_height = config.overlay_height;
 
   ret->_environ = ::environ;
 
@@ -116,15 +117,20 @@ bongocat_error_t setup(wayland_context_t& ctx, animation::animation_context_t& a
   if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
     return result;
   }
-  result = details::wayland_setup_buffer(ctx.thread_context, *ctx.animation_context);
+  auto [setup_result, setup_error] = details::wayland_setup_buffer(ctx.thread_context, *ctx.animation_context);
+  result = setup_error;
   if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
     return result;
   }
 
   atomic_store(&ctx.ready, true);
 
-  BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)", ctx.thread_context._screen_width,
-                    ctx.thread_context._bar_height);
+  // Drain the pending fractional-scale handshake so the buffer is sized at
+  // the compositor's preferred scale before main.c rasterizes the SVGs.
+  // Without this, scale 2.0 displays would render the first frame at 1×.
+  wl_display_roundtrip(ctx.thread_context.display);
+
+  BONGOCAT_LOG_INFO("Wayland initialization complete (%dx%d buffer)", setup_result.phys_w, setup_result.phys_h);
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
@@ -428,12 +434,61 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
 // =============================================================================
 
 int get_screen_width(const wayland_context_t& ctx) {
-  return ctx.thread_context._screen_info != BONGOCAT_NULLPTR ? ctx.thread_context._screen_info->screen_width : 0;
+  return ctx.thread_context._screen_info != BONGOCAT_NULLPTR ? ctx.thread_context._screen_info->logical_width : 0;
+}
+
+int phys_dim(const wayland_context_t& ctx, int logical) {
+  return details::phys_dim(ctx.thread_context, logical);
 }
 
 const char *get_output_name(const wayland_context_t& ctx) {
   return ctx.thread_context._output_name_str;
 }
+
+namespace details {
+  created_result_t<wayland_setup_buffer_result_t> wayland_recreate_buffer(wayland_context_t& ctx) {
+    wayland_thread_context& wayland_ctx = ctx.thread_context;
+    animation::animation_context_t& animation_ctx = *ctx.animation_context;
+
+    // read-only config
+    // assert(wayland_ctx._local_copy_config);
+    // const config::config_t& current_config = *wayland_ctx._local_copy_config;
+
+    created_result_t<details::wayland_setup_buffer_result_t> ret;
+    platform::LockGuard anim_guard(animation_ctx.thread_context.anim_lock);
+    {
+      assert(ctx.thread_context.ctx_shm);
+      atomic_store(&ctx.thread_context.ctx_shm->configured, false);
+
+      // Cleanup old buffer
+      cleanup_wayland_context_buffer(ctx.thread_context);
+
+      ret = details::wayland_setup_buffer(ctx.thread_context, animation_ctx);
+      if (ret.error != bongocat_error_t::BONGOCAT_SUCCESS) {
+        BONGOCAT_LOG_ERROR("Failed to recreate buffer after config change");
+        return ret;
+      }
+    }
+
+    // Surface needs a commit so the compositor picks up the new buffer_scale /
+    // viewport destination before the next draw.
+    wl_surface_commit(wayland_ctx.surface);
+    wl_display_roundtrip(wayland_ctx.display);
+
+    if (!atomic_load(&ctx.thread_context.ctx_shm->configured)) {
+      // Compositor did not send a configure event (permitted if logical size
+      // did not change from its perspective). Mark as configured so rendering
+      // is not permanently suppressed.
+      BONGOCAT_LOG_WARNING("No configure event after buffer resize - assuming configured");
+      atomic_store(&ctx.thread_context.ctx_shm->configured, true);
+    }
+    assert(atomic_load(&ctx.thread_context.ctx_shm->configured));
+
+    BONGOCAT_LOG_INFO("Buffer resized successfully (%dx%d)", ret.result.phys_w, ret.result.phys_h);
+
+    return ret;
+  }
+}  // namespace details
 
 void update_config(wayland_context_t& ctx, const config::config_t& config,
                    animation::animation_context_t& animation_ctx) {
@@ -481,7 +536,7 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
   const bool needs_full_recreate = screen_changed || (ctx.thread_context.layer_shell_version <= 1 && layer_changed);
   const bool needs_buffer_recreate =
       (dimensions_changed && old_height > 0 && old_width > 0) ||
-      (ctx.thread_context._screen_width <= 0 || ctx.thread_context._bar_height <= 0) ||
+      (ctx.thread_context._screen_width <= 0 || ctx.thread_context._overlay_height <= 0) ||
       (ctx.thread_context.layer_surface == BONGOCAT_NULLPTR || ctx.thread_context.surface == BONGOCAT_NULLPTR);
   const bool needs_property_update = layer_changed || position_changed;
 
@@ -490,6 +545,7 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
       // PATH 3: Output changed - full surface recreation required
       BONGOCAT_LOG_INFO("Output changed, recreating surface");
 
+      /// @TODO: replace with wayland_recreate_buffer
       {
         // ~~Lock animation mutex to prevent draw_bar() during config update
         // This is critical - animation thread must not access buffer while we
@@ -510,9 +566,9 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
           return;
         }
         // _screen_width updated in wayland_update_screen_info
-        ctx.thread_context._bar_height = current_config.overlay_height;
+        ctx.thread_context._overlay_height = current_config.overlay_height;
 
-        if (ctx.thread_context._screen_width > 0 && ctx.thread_context._bar_height > 0) {
+        if (ctx.thread_context._screen_width > 0 && ctx.thread_context._overlay_height > 0) {
           // Cleanup old buffer
           cleanup_wayland_context_buffer(ctx.thread_context);
 
@@ -533,7 +589,7 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
             // keep old screen_width
             ctx.thread_context._screen_width = old_width;
           }
-          ctx.thread_context._bar_height = current_config.overlay_height;
+          ctx.thread_context._overlay_height = current_config.overlay_height;
 
           // Recreate surface and buffer with new dimensions
           if (details::wayland_setup_surface(ctx) != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -549,9 +605,10 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
             // keep old screen_width
             ctx.thread_context._screen_width = old_width;
           }
-          ctx.thread_context._bar_height = current_config.overlay_height;
+          ctx.thread_context._overlay_height = current_config.overlay_height;
 
-          if (details::wayland_setup_buffer(ctx.thread_context, animation_ctx) != bongocat_error_t::BONGOCAT_SUCCESS) {
+          auto [setup_result, setup_error] = details::wayland_setup_buffer(ctx.thread_context, animation_ctx);
+          if (setup_error != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Failed to recreate buffer after config change");
             return;
           }
@@ -559,12 +616,18 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
           ctx.thread_context._overlay_position = current_config.overlay_position;
           ctx.thread_context._target_output_name = duplicate_string(config.output_name);
 
-          BONGOCAT_LOG_INFO("Buffer recreated successfully (%dx%d)", ctx.thread_context._screen_width,
-                            ctx.thread_context._bar_height);
+          BONGOCAT_LOG_INFO("Buffer recreated successfully (%dx%d)", setup_result.phys_w, setup_result.phys_h);
         } else {
           BONGOCAT_LOG_ERROR("Buffer recreated failed (%dx%d)", current_config.screen_width,
                              current_config.overlay_height);
         }
+
+        animation_ctx.thread_context.shm->scale120 =
+            (has_flag(ctx.thread_context._screen_info->received, screen_info_received_flags_t::Scale))
+                ? ctx.thread_context._screen_info->scale * 120
+                : 120;
+        animation_ctx.thread_context.shm->cat_height_phys =
+            phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
       }
 
       // Wait for new configure event
@@ -581,7 +644,7 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
       assert(atomic_load(&ctx.thread_context.ctx_shm->configured));
 
       BONGOCAT_LOG_INFO("Surface recreated successfully (%dx%d)", ctx.thread_context._screen_width,
-                        ctx.thread_context._bar_height);
+                        ctx.thread_context._overlay_height);
     } else if (needs_buffer_recreate) {
       // PATH 2: Dimensions changed - update size property, recreate buffer only
       BONGOCAT_LOG_INFO("Overlay dimensions changed (%dx%d -> %dx%d)", old_width, old_height,
@@ -601,6 +664,7 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
       }
       wl_surface_commit(ctx.thread_context.surface);
 
+      details::wayland_setup_buffer_result_t setup_result;
       platform::LockGuard anim_guard(animation_ctx.thread_context.anim_lock);
       {
         assert(ctx.thread_context.ctx_shm);
@@ -612,9 +676,11 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
           // keep old screen_width
           ctx.thread_context._screen_width = old_width;
         }
-        ctx.thread_context._bar_height = current_config.overlay_height;
+        ctx.thread_context._overlay_height = current_config.overlay_height;
 
-        if (details::wayland_setup_buffer(ctx.thread_context, animation_ctx) != bongocat_error_t::BONGOCAT_SUCCESS) {
+        auto [_setup_result, setup_error] = details::wayland_setup_buffer(ctx.thread_context, animation_ctx);
+        setup_result = _setup_result;
+        if (setup_error != bongocat_error_t::BONGOCAT_SUCCESS) {
           BONGOCAT_LOG_ERROR("Failed to recreate buffer after config change");
           return;
         }
@@ -632,8 +698,7 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
       }
       assert(atomic_load(&ctx.thread_context.ctx_shm->configured));
 
-      BONGOCAT_LOG_INFO("Buffer resized successfully (%dx%d)", current_config.screen_width,
-                        current_config.overlay_height);
+      BONGOCAT_LOG_INFO("Buffer resized successfully (%dx%d)", setup_result.phys_w, setup_result.phys_h);
     } else if (needs_property_update) {
       // PATH 1: Position/layer only - no buffer changes needed
       if (position_changed) {
@@ -653,12 +718,13 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
   // animation_update_config(anim, config);
   if (atomic_load(&ctx.thread_context.ctx_shm->configured)) {
     assert(ctx.thread_context._screen_width > 0);
-    ctx.thread_context._bar_height = current_config.overlay_height;
+    ctx.thread_context._overlay_height = current_config.overlay_height;
     ctx.thread_context._layer = current_config.layer;
     ctx.thread_context._overlay_position = current_config.overlay_position;
     ctx.thread_context._target_output_name = duplicate_string(config.output_name);
 
-    request_render(animation_ctx);
+    animation::trigger_reload_animation(animation_ctx);
+    // request_render(animation_ctx);
   }
 }
 
