@@ -218,10 +218,10 @@ sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
-echo "[INFO] Set Sprite Sheet: pkmn:dialga"
+echo "[INFO] Set Sprite Sheet: pkmn:ho_oh"
 sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=pkmn:ho_oh/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2

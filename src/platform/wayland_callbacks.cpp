@@ -79,7 +79,7 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
     }
 
     if (should_reconnect) {
-      BONGOCAT_LOG_INFO("xdg_output.name: Target output '%s' reconnected!", name);
+      BONGOCAT_LOG_DEBUG("xdg_output.name: Target output '%s' reconnected!", name);
 
       // Set new output
       wayland_thread_ctx.output = oref->wl_output;
@@ -109,7 +109,7 @@ void handle_xdg_output_name(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
         if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
           request_render(*oref->wayland->animation_context);
         }
-        BONGOCAT_LOG_INFO("xdg_output.name: Surface recreated, configure event processed");
+        BONGOCAT_LOG_DEBUG("xdg_output.name: Surface recreated, configure event processed");
       } else {
         BONGOCAT_LOG_ERROR("xdg_output.name: Failed to recreate surface on reconnected output");
       }
@@ -216,7 +216,8 @@ static bool fs_update_state(wayland_context_t& ctx, update_fullscreen_state_topl
     ctx.fs_detector.has_fullscreen_toplevel = new_state.is_fullscreen;
     ctx.thread_context._fullscreen_detected = new_state.is_fullscreen;
 
-    BONGOCAT_LOG_INFO("Fullscreen state changed: %s", ctx.thread_context._fullscreen_detected ? "detected" : "cleared");
+    BONGOCAT_LOG_DEBUG("Fullscreen state changed: %s",
+                       ctx.thread_context._fullscreen_detected ? "detected" : "cleared");
 
     if (ctx.thread_context.ctx_shm && atomic_load(&ctx.thread_context.ctx_shm->configured)) {
       request_render(*ctx.animation_context);
@@ -608,7 +609,7 @@ void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *ma
     return;
   }
 
-  BONGOCAT_LOG_INFO("fs_toplevel_manager_listener.finished: Foreign toplevel manager finished");
+  BONGOCAT_LOG_DEBUG("fs_toplevel_manager_listener.finished: Foreign toplevel manager finished");
   if (manager != BONGOCAT_NULLPTR) {
     zwlr_foreign_toplevel_manager_v1_destroy(manager);
     manager = BONGOCAT_NULLPTR;
@@ -637,13 +638,13 @@ static void screen_calculate_dimensions(screen_info_t& screen_info) {
   if (is_rotated) {
     screen_info.screen_width = screen_info.raw_height;
     screen_info.screen_height = screen_info.raw_width;
-    BONGOCAT_LOG_INFO("Detected rotated screen: %dx%d (transform: %d)", screen_info.raw_height, screen_info.raw_width,
-                      screen_info.transform);
+    BONGOCAT_LOG_DEBUG("Detected rotated screen: %dx%d (transform: %d)", screen_info.raw_height, screen_info.raw_width,
+                       screen_info.transform);
   } else {
     screen_info.screen_width = screen_info.raw_width;
     screen_info.screen_height = screen_info.raw_height;
-    BONGOCAT_LOG_INFO("Detected screen: %dx%d (transform: %d)", screen_info.raw_width, screen_info.raw_height,
-                      screen_info.transform);
+    BONGOCAT_LOG_DEBUG("Detected screen: %dx%d (transform: %d)", screen_info.raw_width, screen_info.raw_height,
+                       screen_info.transform);
   }
 }
 */
@@ -900,8 +901,8 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
   // assert(wayland_ctx._local_copy_config != nullptr);
   // const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
-  BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Output '%s' reconnected (registry name %u)", output_name,
-                    registry_name);
+  BONGOCAT_LOG_DEBUG("wayland_handle_output_reconnect: Output '%s' reconnected (registry name %u)", output_name,
+                     registry_name);
 
   // Clean up old surface if it exists
   cleanup_wayland_context_surface(wayland_ctx);
@@ -921,7 +922,7 @@ void wayland_handle_output_reconnect(output_ref_t *oref, struct wl_output *new_o
         BONGOCAT_LOG_WARNING("wayland_handle_output_reconnect: assuming configured, yet");
       }
     }
-    BONGOCAT_LOG_INFO("wayland_handle_output_reconnect: Surface recreated on reconnected output");
+    BONGOCAT_LOG_DEBUG("wayland_handle_output_reconnect: Surface recreated on reconnected output");
     wl_display_roundtrip(wayland_ctx.display);
     if (oref->wayland->animation_context != BONGOCAT_NULLPTR) {
       request_render(*oref->wayland->animation_context);
@@ -945,10 +946,11 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
   wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
   wayland_thread_context& wayland_ctx = ctx.thread_context;
 
-  BONGOCAT_LOG_INFO("fractional_scale_preferred_scale: Compositor requested fractional scale %u/120 (%.3f)", scale,
-                    static_cast<double>(scale) / 120.0);
+  BONGOCAT_LOG_DEBUG("fractional_scale_preferred_scale: Compositor requested fractional scale %u/120 (%.3f)", scale,
+                     static_cast<double>(scale) / 120.0);
 
   if (scale == 0 || scale == wayland_ctx._preferred_scale) {
+    BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: No change in scale");
     return;
   }
 
@@ -1060,7 +1062,7 @@ void registry_global(void *data, wl_registry *reg, uint32_t name, const char *if
     BONGOCAT_LOG_VERBOSE("wl_registry.global: foreign_toplevel_manager (fs_detector.manager) registry bind");
     if (ctx.fs_detector.manager != BONGOCAT_NULLPTR) {
       zwlr_foreign_toplevel_manager_v1_add_listener(ctx.fs_detector.manager, &fs_manager_listener, &ctx);
-      BONGOCAT_LOG_INFO(
+      BONGOCAT_LOG_DEBUG(
           "wl_registry.global: Foreign toplevel manager bound - using Wayland protocol for fullscreen detection");
     }
   } else if (strcmp(iface, wp_viewporter_interface.name) == 0) {

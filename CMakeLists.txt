@@ -31,10 +31,7 @@ if(NOT CMAKE_BUILD_TYPE)
       CACHE STRING "Choose the build type." FORCE)
 endif()
 
-project(
-  bongocat
-  LANGUAGES C CXX
-  VERSION 3.6.2)
+project(bongocat LANGUAGES C CXX VERSION 4.0.3)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -64,8 +61,8 @@ option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, faster 
 option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" ON)
 option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (Less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
 option(FEATURE_USE_HYBRID_IMAGE_BACKEND
-       "Use pngle or stb_image as assets (png) loader (Less RAM usage, more loading time, balanced) (Recommended)" ON)
-option(FEATURE_USE_PNGLE "Use pngle as assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
+       "Use pngle or stb_image for assets (png) loader (Less RAM usage, more loading time, balanced) (Recommended)" ON)
+option(FEATURE_USE_PNGLE "Use pngle for assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
 option(FEATURE_CUSTOM_SPRITE_SHEETS "Enable custom sprite sheet at runtime" ON)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
@@ -77,6 +74,10 @@ if (WAYLAND_SCANNER_EXECUTABLE)
   option(GENERATE_PROTOCOLS "Generate Wayland protocol files" ON)
 else()
   option(GENERATE_PROTOCOLS "Generate Wayland protocol files" OFF)
+endif()
+
+if (FEATURE_PRELOAD_ASSETS)
+  message(WARNING "Preload assets is more for Testing. Use lazy-load assets.")
 endif()
 
 # project_options More Warnings
@@ -364,6 +365,7 @@ option(SKIP_CPM "Skip CPM-based downloads" OFF)
 if(DEFINED ENV{NIX_BUILD_TOP} OR SKIP_CPM)
   message(STATUS "Nix build detected: skipping CPM and formatting setup")
 else()
+  # TODO: replace cmake-format with gersemi
   # Formatting
   include(cmake/CPM.cmake)
   cpmaddpackage(
@@ -473,7 +475,7 @@ endif()
 if(NOT DEFINED ENV{NIX_BUILD_TOP} AND NOT SKIP_CPM)
   cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
   set(CPACK_PACKAGE_NAME "bongocat")
-  set(CPACK_PACKAGE_VERSION "4.0.3")
+  set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
   set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
   set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")

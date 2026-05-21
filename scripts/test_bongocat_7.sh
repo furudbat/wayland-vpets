@@ -35,7 +35,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-  echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
+echo "[INFO] Test Program: ${PROGRAM} --config $CONFIG (pid=${PID})"
 
 echo "[TEST] Sending SIGUSR2..."
 echo "[INFO] Send SIGUSR2"
@@ -52,6 +52,8 @@ kill -USR2 "$PID"
 sleep 7
 
 echo "[TEST] Load biggest assets"
+sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
+sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
 echo "[INFO] Set Sprite Sheet: Links"
 sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=1/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
@@ -59,10 +61,10 @@ sed -i -E 's/^animation_name=.*/animation_name=Links/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 5
-echo "[INFO] Set Sprite Sheet: pkmn:dialga"
+echo "[INFO] Set Sprite Sheet: pkmn:ho_oh"
 sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-sed -i -E 's/^animation_name=.*/animation_name=pkmn:dialga/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=pkmn:ho_oh/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2

@@ -1066,8 +1066,8 @@ static bongocat_error_t config_resolve_devices(config_t& config) {
       for (size_t i = 0; i < static_cast<size_t>(config._num_keyboard_names); i++) {
         assert(config._keyboard_names[i]);
         if (strstr(name, config._keyboard_names[i].c_str()) != BONGOCAT_NULLPTR) {
-          BONGOCAT_LOG_INFO("Found device matching name '%s' (Device: '%s'): %s", config._keyboard_names[i].c_str(),
-                            name, path);
+          BONGOCAT_LOG_VERBOSE("Found device matching name '%s' (Device: '%s'): %s", config._keyboard_names[i].c_str(),
+                               name, path);
           matched = true;
           break;
         }
@@ -2101,11 +2101,10 @@ static void config_log_summary(const config_t& config) {
   }
   BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.randomize_index);
   BONGOCAT_LOG_DEBUG("  Mirror: X=%d, Y=%d", config.mirror_x, config.mirror_y);
-  BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing ? "enabled" : "disabled");
-  BONGOCAT_LOG_DEBUG("  Position: %s", config.overlay_position == overlay_position_t::POSITION_TOP ? "top" : "bottom");
-  BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align,
-                     config.cat_align == align_type_t::ALIGN_CENTER ? "(center)" : "");
-  BONGOCAT_LOG_DEBUG("  Layer: %s", config.layer == layer_type_t::LAYER_TOP ? "top" : "overlay");
+  BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing >= 0 ? "enabled" : "disabled");
+  BONGOCAT_LOG_DEBUG("  Position: %s", to_string(config.overlay_position));
+  BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align, to_string(config.cat_align));
+  BONGOCAT_LOG_DEBUG("  Layer: %s", to_string(config.layer));
   BONGOCAT_LOG_DEBUG("  Output Screen: %s", config.output_name.c_str());
 }
 
@@ -2119,6 +2118,7 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
   config_t ret;
   set_defaults(ret);
 
+  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
   // Parse config file and override defaults
   bongocat_error_t result = bongocat_error_t::BONGOCAT_ERROR_CONFIG;
   if (strcmp(config_file_path, "-") == 0) {
@@ -2130,6 +2130,9 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
     BONGOCAT_LOG_ERROR("Failed to parse configuration file: %s", bongocat::error_string(result));
     return result;
   }
+  [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+  BONGOCAT_LOG_INFO("Config loaded in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
+                    static_cast<double>(t1 - t0) / 1000000.0);
 
   if (overwrite_parameters.output_name != BONGOCAT_NULLPTR) {
     // release_allocated_string(ret.output_name);

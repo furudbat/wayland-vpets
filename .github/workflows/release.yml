@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DFEATURE_LAZY_LOAD_ASSETS=ON -DFEATURE_MULTI_VERSIONS=ON
+          cmake .. -DCMAKE_BUILD_TYPE=Release -DSKIP_CPM=ON
 
       - name: Build
         run: |

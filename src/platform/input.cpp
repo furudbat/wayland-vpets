@@ -332,7 +332,7 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
       }
     }
 
-    BONGOCAT_LOG_WARNING("Input Device: %s -> %s", device_path.c_str(), candidate);
+    BONGOCAT_LOG_VERBOSE("Input Device: %s -> %s", device_path.c_str(), candidate);
 
     num_unique_devices++;
   }
