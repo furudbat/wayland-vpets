@@ -15,20 +15,14 @@ if(BUILDING_MULTI_CONFIG)
     # Make sure that all supported configuration types have their associated conan packages available. You can reduce this list to only the
     # configuration types you use, but only if one is not forced-set on the command line for VS
     message(TRACE "Setting up multi-config build types")
-    set(CMAKE_CONFIGURATION_TYPES
-        Debug Release RelWithDebInfo MinSizeRel
-        CACHE STRING "Enabled build types" FORCE)
+    set(CMAKE_CONFIGURATION_TYPES Debug Release RelWithDebInfo MinSizeRel CACHE STRING "Enabled build types" FORCE)
   else()
     message(TRACE "User chose a specific build type, so we are using that")
-    set(CMAKE_CONFIGURATION_TYPES
-        ${CMAKE_BUILD_TYPE}
-        CACHE STRING "Enabled build types" FORCE)
+    set(CMAKE_CONFIGURATION_TYPES ${CMAKE_BUILD_TYPE} CACHE STRING "Enabled build types" FORCE)
   endif()
 endif()
 if(NOT CMAKE_BUILD_TYPE)
-  set(CMAKE_BUILD_TYPE
-      Release
-      CACHE STRING "Choose the build type." FORCE)
+  set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
 endif()
 
 project(bongocat LANGUAGES C CXX VERSION 4.0.3)
@@ -36,21 +30,71 @@ project(bongocat LANGUAGES C CXX VERSION 4.0.3)
 # Feature Flags
 include(CMakeDependentOption)
 option(FEATURE_BONGOCAT_EMBEDDED_ASSETS "Include bongocat assets (default)" ON)
-cmake_dependent_option(FEATURE_USE_BONGOCAT_SVG "Use bongocat SVG embedded assets" ON FEATURE_BONGOCAT_EMBEDDED_ASSETS OFF)
+cmake_dependent_option(
+  FEATURE_USE_BONGOCAT_SVG
+  "Use bongocat SVG embedded assets"
+  ON
+  FEATURE_BONGOCAT_EMBEDDED_ASSETS
+  OFF
+)
 option(FEATURE_ENABLE_DM_EMBEDDED_ASSETS "Enable include dm embedded assets" OFF)
-cmake_dependent_option(FEATURE_DM_EMBEDDED_ASSETS "Include dm embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-cmake_dependent_option(FEATURE_DM20_EMBEDDED_ASSETS "Include dm20 embedded assets (replaces original dm)" OFF
-                       FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-cmake_dependent_option(FEATURE_DMC_EMBEDDED_ASSETS "Include dmc embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-cmake_dependent_option(FEATURE_DMX_EMBEDDED_ASSETS "Include dmx embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-cmake_dependent_option(FEATURE_PEN_EMBEDDED_ASSETS "Include pen embedded assets" OFF FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-cmake_dependent_option(FEATURE_PEN20_EMBEDDED_ASSETS "Include pen20 embedded assets (replaces original pen)" OFF
-                       FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
-cmake_dependent_option(FEATURE_DMALL_EMBEDDED_ASSETS "Include custom colored dm (replace dmc) embedded assets" OFF
-                       FEATURE_ENABLE_DM_EMBEDDED_ASSETS OFF)
+cmake_dependent_option(
+  FEATURE_DM_EMBEDDED_ASSETS
+  "Include dm embedded assets"
+  OFF
+  FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+  OFF
+)
+cmake_dependent_option(
+  FEATURE_DM20_EMBEDDED_ASSETS
+  "Include dm20 embedded assets (replaces original dm)"
+  OFF
+  FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+  OFF
+)
+cmake_dependent_option(
+  FEATURE_DMC_EMBEDDED_ASSETS
+  "Include dmc embedded assets"
+  OFF
+  FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+  OFF
+)
+cmake_dependent_option(
+  FEATURE_DMX_EMBEDDED_ASSETS
+  "Include dmx embedded assets"
+  OFF
+  FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+  OFF
+)
+cmake_dependent_option(
+  FEATURE_PEN_EMBEDDED_ASSETS
+  "Include pen embedded assets"
+  OFF
+  FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+  OFF
+)
+cmake_dependent_option(
+  FEATURE_PEN20_EMBEDDED_ASSETS
+  "Include pen20 embedded assets (replaces original pen)"
+  OFF
+  FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+  OFF
+)
+cmake_dependent_option(
+  FEATURE_DMALL_EMBEDDED_ASSETS
+  "Include custom colored dm (replace dmc) embedded assets"
+  OFF
+  FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+  OFF
+)
 option(FEATURE_MS_AGENT_EMBEDDED_ASSETS "Include MS agent (Clippy) embedded assets" OFF)
-cmake_dependent_option(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS "Include more MS agents (Links) embedded assets" OFF
-                       FEATURE_MS_AGENT_EMBEDDED_ASSETS OFF)
+cmake_dependent_option(
+  FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+  "Include more MS agents (Links) embedded assets"
+  OFF
+  FEATURE_MS_AGENT_EMBEDDED_ASSETS
+  OFF
+)
 option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" OFF)
 option(FEATURE_ENABLE_PMD_EMBEDDED_ASSETS "Enable include pkmn pmd (replace pkmn) embedded assets" OFF)
 option(FEATURE_MISC_EMBEDDED_ASSETS "Enable include misc embedded assets" OFF)
@@ -60,8 +104,11 @@ option(FEATURE_DISABLE_LOGGER "Disable Logger (makes enable_debug option obsolet
 option(FEATURE_PRELOAD_ASSETS "Preload available assets (More RAM usage, faster sprite switching on hot-reload)" OFF)
 option(FEATURE_MULTI_VERSIONS "Build multiple versions with different assets for installation" ON)
 option(FEATURE_LAZY_LOAD_ASSETS "No Preload assets (Less RAM usage, more CPU usage, sprite lazy-load on config reload) (Recommended)" ON)
-option(FEATURE_USE_HYBRID_IMAGE_BACKEND
-       "Use pngle or stb_image for assets (png) loader (Less RAM usage, more loading time, balanced) (Recommended)" ON)
+option(
+  FEATURE_USE_HYBRID_IMAGE_BACKEND
+  "Use pngle or stb_image for assets (png) loader (Less RAM usage, more loading time, balanced) (Recommended)"
+  ON
+)
 option(FEATURE_USE_PNGLE "Use pngle for assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
 option(FEATURE_CUSTOM_SPRITE_SHEETS "Enable custom sprite sheet at runtime" ON)
 
@@ -70,109 +117,119 @@ option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
 option(ENABLE_TSAN "Enable Thread Sanitizer" OFF)
 
 find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner)
-if (WAYLAND_SCANNER_EXECUTABLE)
+if(WAYLAND_SCANNER_EXECUTABLE)
   option(GENERATE_PROTOCOLS "Generate Wayland protocol files" ON)
 else()
   option(GENERATE_PROTOCOLS "Generate Wayland protocol files" OFF)
 endif()
 
-if (FEATURE_PRELOAD_ASSETS)
+if(FEATURE_PRELOAD_ASSETS)
   message(WARNING "Preload assets is more for Testing. Use lazy-load assets.")
 endif()
 
 # project_options More Warnings
-set(CLANG_WARNINGS
-    -Wall
-    -Wextra # reasonable and standard
-    -Wextra-semi # Warn about semicolon after in-class function definition.
-    -Wshadow # warn the user if a variable declaration shadows one from a parent context
-    -Wnon-virtual-dtor # warn the user if a class with virtual functions has a non-virtual destructor. This helps
-    # catch hard to track down memory errors
-    -Wold-style-cast # warn for c-style casts
-    -Wcast-align # warn for potential performance problem casts
-    -Wunused # warn on anything being unused
-    -Woverloaded-virtual # warn if you overload (not override) a virtual function
-    -Wpedantic # warn if non-standard C++ is used
-    -Wconversion # warn on type conversions that may lose data
-    -Wsign-conversion # warn on sign conversions
-    -Wnull-dereference # warn if a null dereference is detected
-    -Wdouble-promotion # warn if float is implicit promoted to double
-    -Wformat=2 # warn on security issues around functions that format output (ie printf)
-    -Wimplicit-fallthrough # warn on statements that fallthrough without an explicit annotation
+set(
+  CLANG_WARNINGS
+  -Wall
+  -Wextra # reasonable and standard
+  -Wextra-semi # Warn about semicolon after in-class function definition.
+  -Wshadow # warn the user if a variable declaration shadows one from a parent context
+  -Wnon-virtual-dtor # warn the user if a class with virtual functions has a non-virtual destructor. This helps
+  # catch hard to track down memory errors
+  -Wold-style-cast # warn for c-style casts
+  -Wcast-align # warn for potential performance problem casts
+  -Wunused # warn on anything being unused
+  -Woverloaded-virtual # warn if you overload (not override) a virtual function
+  -Wpedantic # warn if non-standard C++ is used
+  -Wconversion # warn on type conversions that may lose data
+  -Wsign-conversion # warn on sign conversions
+  -Wnull-dereference # warn if a null dereference is detected
+  -Wdouble-promotion # warn if float is implicit promoted to double
+  -Wformat=2 # warn on security issues around functions that format output (ie printf)
+  -Wimplicit-fallthrough # warn on statements that fallthrough without an explicit annotation
 )
-set(GCC_WARNINGS
-    ${CLANG_WARNINGS}
-    -Wmisleading-indentation # warn if indentation implies blocks where blocks do not exist
-    -Wduplicated-cond # warn if if / else chain has duplicated conditions
-    -Wduplicated-branches # warn if if / else branches have duplicated code
-    -Wlogical-op # warn about logical operations being used where bitwise were probably wanted
-    -Wuseless-cast # warn if you perform a cast to the same type
+set(
+  GCC_WARNINGS
+  ${CLANG_WARNINGS}
+  -Wmisleading-indentation # warn if indentation implies blocks where blocks do not exist
+  -Wduplicated-cond # warn if if / else chain has duplicated conditions
+  -Wduplicated-branches # warn if if / else branches have duplicated code
+  -Wlogical-op # warn about logical operations being used where bitwise were probably wanted
+  -Wuseless-cast # warn if you perform a cast to the same type
 )
-set(C_WARNING_FLAGS
-    -Wall
-    -Wextra
-    -Wpedantic
-    -Wformat=2
-    -Wstrict-prototypes
-    -Wmissing-prototypes
-    -Wold-style-definition
-    -Wredundant-decls
-    -Wnested-externs
-    -Wmissing-include-dirs
-    -Wlogical-op
-    -Wjump-misses-init
-    -Wdouble-promotion
-    -Wshadow)
-set(GCC_C_WARNING_FLAGS
-    -Wall
-    -Wextra
-    -Wpedantic
-    -Wshadow
-    -Wcast-align
-    -Wunused
-    -Wconversion
-    -Wsign-conversion
-    -Wformat=2
-    -Wimplicit-fallthrough
-    -Wnull-dereference
-    -Wdouble-promotion
-    -Wmissing-prototypes
-    -Wstrict-prototypes
-    -Wpointer-arith
-    -Wundef
-    -Wmissing-field-initializers
-    -Wvla)
-set(CLANG_C_WARNING_FLAGS
-    -Wall
-    -Wextra
-    -Wpedantic
-    -Wshadow
-    -Wcast-align
-    -Wunused
-    -Wconversion
-    -Wsign-conversion
-    -Wformat=2
-    -Wimplicit-fallthrough
-    -Wnull-dereference
-    -Wdouble-promotion
-    -Wmissing-prototypes
-    -Wstrict-prototypes
-    -Wpointer-arith
-    -Wundef
-    -Wmissing-field-initializers
-    -Wvla
-    -Wmisleading-indentation
-    -Wduplicated-cond
-    -Wduplicated-branches
-    -Wlogical-op)
+set(
+  C_WARNING_FLAGS
+  -Wall
+  -Wextra
+  -Wpedantic
+  -Wformat=2
+  -Wstrict-prototypes
+  -Wmissing-prototypes
+  -Wold-style-definition
+  -Wredundant-decls
+  -Wnested-externs
+  -Wmissing-include-dirs
+  -Wlogical-op
+  -Wjump-misses-init
+  -Wdouble-promotion
+  -Wshadow
+)
+set(
+  GCC_C_WARNING_FLAGS
+  -Wall
+  -Wextra
+  -Wpedantic
+  -Wshadow
+  -Wcast-align
+  -Wunused
+  -Wconversion
+  -Wsign-conversion
+  -Wformat=2
+  -Wimplicit-fallthrough
+  -Wnull-dereference
+  -Wdouble-promotion
+  -Wmissing-prototypes
+  -Wstrict-prototypes
+  -Wpointer-arith
+  -Wundef
+  -Wmissing-field-initializers
+  -Wvla
+)
+set(
+  CLANG_C_WARNING_FLAGS
+  -Wall
+  -Wextra
+  -Wpedantic
+  -Wshadow
+  -Wcast-align
+  -Wunused
+  -Wconversion
+  -Wsign-conversion
+  -Wformat=2
+  -Wimplicit-fallthrough
+  -Wnull-dereference
+  -Wdouble-promotion
+  -Wmissing-prototypes
+  -Wstrict-prototypes
+  -Wpointer-arith
+  -Wundef
+  -Wmissing-field-initializers
+  -Wvla
+  -Wmisleading-indentation
+  -Wduplicated-cond
+  -Wduplicated-branches
+  -Wlogical-op
+)
 add_library(project_warnings INTERFACE)
 target_compile_options(project_warnings INTERFACE $<$<COMPILE_LANGUAGE:C>:${C_WARNING_FLAGS}>)
 target_compile_options(
   project_warnings
-  INTERFACE $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:Clang>>:${CLANG_C_WARNINGS}>
-            $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:GNU>>:${GCC_C_WARNINGS}>
-            $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:${CLANG_WARNINGS}>
-            $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU>>:${GCC_WARNINGS}>)
+  INTERFACE
+    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:Clang>>:${CLANG_C_WARNINGS}>
+    $<$<AND:$<COMPILE_LANGUAGE:C>,$<C_COMPILER_ID:GNU>>:${GCC_C_WARNINGS}>
+    $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:Clang>>:${CLANG_WARNINGS}>
+    $<$<AND:$<COMPILE_LANGUAGE:CXX>,$<CXX_COMPILER_ID:GNU>>:${GCC_WARNINGS}>
+)
 add_library(project_options INTERFACE)
 # target_compile_options(project_options INTERFACE $<$<C_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>)
 # target_compile_options(project_options INTERFACE $<$<CXX_COMPILER_ID:MSVC>:/external:anglebrackets /external:W0>)
@@ -211,10 +268,12 @@ if(FEATURE_BONGOCAT_EMBEDDED_ASSETS)
   message(STATUS "Include bongocat assets")
 endif()
 if(FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
-  if(NOT FEATURE_DM20_EMBEDDED_ASSETS
-     AND NOT FEATURE_DM_EMBEDDED_ASSETS
-     AND NOT FEATURE_DMX_EMBEDDED_ASSETS
-     AND NOT FEATURE_DMC_EMBEDDED_ASSETS)
+  if(
+    NOT FEATURE_DM20_EMBEDDED_ASSETS
+    AND NOT FEATURE_DM_EMBEDDED_ASSETS
+    AND NOT FEATURE_DMX_EMBEDDED_ASSETS
+    AND NOT FEATURE_DMC_EMBEDDED_ASSETS
+  )
     target_link_libraries(bongocat PRIVATE assets_min_dm_loader assets_min_dm assets_min_dm_feature assets_min_dm_interface)
     message(STATUS "Include min_dm assets")
   else()
@@ -247,22 +306,30 @@ if(FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
 endif()
 if(FEATURE_MS_AGENT_EMBEDDED_ASSETS)
   if(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS)
-    target_link_libraries(bongocat PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature
-                                           assets_more_ms_agent_interface)
+    target_link_libraries(
+      bongocat
+      PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface
+    )
   else()
     target_link_libraries(bongocat PRIVATE assets_ms_agent_loader assets_ms_agent assets_ms_agent_feature assets_ms_agent_interface)
   endif()
   message(STATUS "Include MS agent assets")
 endif()
 if(FEATURE_PMD_EMBEDDED_ASSETS)
-  target_link_libraries(bongocat PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
+  target_link_libraries(
+    bongocat
+    PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader
+  )
   message(STATUS "Include pkmn pmd assets")
 elseif(FEATURE_PKMN_EMBEDDED_ASSETS)
   target_link_libraries(bongocat PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
   message(STATUS "Include pkmn assets")
 endif()
 if(FEATURE_MISC_EMBEDDED_ASSETS)
-  target_link_libraries(bongocat PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
+  target_link_libraries(
+    bongocat
+    PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader
+  )
   message(STATUS "Include misc assets")
 endif()
 if(FEATURE_CUSTOM_SPRITE_SHEETS)
@@ -274,8 +341,10 @@ target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_l
 
 if(FEATURE_MULTI_VERSIONS)
   add_executable(bongocat-dm-classic)
-  target_link_libraries(bongocat-dm-classic PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature
-                                                    assets_bongocat_interface) # include bongocat as fallback
+  target_link_libraries(
+    bongocat-dm-classic
+    PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
+  ) # include bongocat as fallback
   target_link_libraries(bongocat-dm-classic PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
   target_link_libraries(bongocat-dm-classic PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
   target_link_libraries(bongocat-dm-classic PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
@@ -284,8 +353,10 @@ if(FEATURE_MULTI_VERSIONS)
   target_link_libraries(bongocat-dm-classic PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   add_executable(bongocat-dm-colored)
-  target_link_libraries(bongocat-dm-colored PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature
-                                                    assets_bongocat_interface)
+  target_link_libraries(
+    bongocat-dm-colored
+    PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
+  )
   target_link_libraries(bongocat-dm-colored PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
   target_link_libraries(bongocat-dm-colored PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
   target_link_libraries(bongocat-dm-colored PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
@@ -293,8 +364,10 @@ if(FEATURE_MULTI_VERSIONS)
   target_link_libraries(bongocat-dm-colored PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   add_executable(bongocat-dm-colored-all)
-  target_link_libraries(bongocat-dm-colored-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature
-                                                        assets_bongocat_interface)
+  target_link_libraries(
+    bongocat-dm-colored-all
+    PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
+  )
   target_link_libraries(bongocat-dm-colored-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
   target_link_libraries(bongocat-dm-colored-all PRIVATE bongocat_base bongocat_options bongocat_libs)
 
@@ -308,14 +381,19 @@ if(FEATURE_MULTI_VERSIONS)
 
   add_executable(bongocat-ms-agent)
   target_link_libraries(bongocat-ms-agent PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-  target_link_libraries(bongocat-ms-agent PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_ms_agent_feature
-                                                  assets_more_ms_agent_interface)
+  target_link_libraries(
+    bongocat-ms-agent
+    PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_ms_agent_feature assets_more_ms_agent_interface
+  )
   target_link_libraries(bongocat-ms-agent PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   add_executable(bongocat-pkmn)
   target_link_libraries(bongocat-pkmn PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
   target_link_libraries(bongocat-pkmn PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
-  target_link_libraries(bongocat-pkmn PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader)
+  target_link_libraries(
+    bongocat-pkmn
+    PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader
+  )
   target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   add_executable(bongocat-all)
@@ -327,35 +405,44 @@ if(FEATURE_MULTI_VERSIONS)
   target_link_libraries(bongocat-all PRIVATE assets_pen_loader assets_pen assets_pen_feature assets_pen_interface)
   target_link_libraries(bongocat-all PRIVATE assets_pen20_loader assets_pen20 assets_pen20_feature assets_pen20_interface)
   target_link_libraries(bongocat-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature
-                                             assets_more_ms_agent_interface)
+  target_link_libraries(
+    bongocat-all
+    PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface
+  )
   target_link_libraries(bongocat-all PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
   # TODO: include pmd in -all when ready (experimental)
   target_link_libraries(
     bongocat-all
     PRIVATE # only include pmd for testing
-            $<$<CONFIG:Debug>:assets_pmd_loader
-              assets_pmd
-              assets_pmd_feature
-              assets_pmd_interface
-              assets_custom_loader>
-            $<$<CONFIG:RelWithDebInfo>:assets_pmd_loader
-              assets_pmd
-              assets_pmd_feature
-              assets_pmd_interface
-              assets_custom_loader>
-            $<$<BOOL:${FEATURE_PRELOAD_ASSETS}>:assets_pmd_loader
-              assets_pmd
-              assets_pmd_feature
-              assets_pmd_interface
-              assets_custom_loader>)
-  target_link_libraries(bongocat-all PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
+      $<$<CONFIG:Debug>:assets_pmd_loader
+      assets_pmd
+      assets_pmd_feature
+      assets_pmd_interface
+      assets_custom_loader>
+      $<$<CONFIG:RelWithDebInfo>:assets_pmd_loader
+      assets_pmd
+      assets_pmd_feature
+      assets_pmd_interface
+      assets_custom_loader>
+      $<$<BOOL:${FEATURE_PRELOAD_ASSETS}>:assets_pmd_loader
+      assets_pmd
+      assets_pmd_feature
+      assets_pmd_interface
+      assets_custom_loader>
+  )
+  target_link_libraries(
+    bongocat-all
+    PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader
+  )
   target_link_libraries(bongocat-all PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
   target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   add_executable(bongocat-neko)
   target_link_libraries(bongocat-neko PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-  target_link_libraries(bongocat-neko PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader)
+  target_link_libraries(
+    bongocat-neko
+    PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader
+  )
   target_link_libraries(bongocat-neko PRIVATE bongocat_base bongocat_options bongocat_libs)
 
   # @NOTE(assets): 1.2. add exec for multi versions
@@ -385,7 +472,8 @@ else()
     # extra arguments for cmake_format (optional)
     "CMAKE_FORMAT_EXTRA_ARGS -c ${PROJECT_SOURCE_DIR}/cmake-format.yaml"
     # path to exclude (optional, supports regular expressions)
-    "CMAKE_FORMAT_EXCLUDE lib|assets|protocols|docs|examples|nix")
+    "CMAKE_FORMAT_EXCLUDE lib|assets|protocols|docs|examples|nix"
+  )
 endif()
 
 # Install
@@ -395,29 +483,34 @@ if(FEATURE_MULTI_VERSIONS)
   install(
     TARGETS bongocat bongocat-dm-classic bongocat-dm bongocat-ms-agent bongocat-pkmn bongocat-all
     COMPONENT bongocat-targets
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
+    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+  )
 else()
   install(TARGETS bongocat RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
-install(
-  FILES bongocat.conf.example
-  DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat
-  RENAME bongocat.conf.example)
-install(
-  PROGRAMS scripts/find_input_devices.sh
-  DESTINATION ${CMAKE_INSTALL_BINDIR}
-  RENAME bongocat-find-devices)
+install(FILES bongocat.conf.example DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat RENAME bongocat.conf.example)
+install(PROGRAMS scripts/find_input_devices.sh DESTINATION ${CMAKE_INSTALL_BINDIR} RENAME bongocat-find-devices)
 if(FEATURE_MULTI_VERSIONS)
   # more configs
-  install(FILES examples/clippy.bongocat.conf examples/digimon.bongocat.conf examples/pokemon.bongocat.conf
-          DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat)
+  install(
+    FILES examples/clippy.bongocat.conf examples/digimon.bongocat.conf examples/pokemon.bongocat.conf
+    DESTINATION ${CMAKE_INSTALL_DATADIR}/bongocat
+  )
 endif()
 
 # man pages
 find_program(PANDOC pandoc)
 if(PANDOC)
   # List all binaries
-  set(BINARY_TARGETS bongocat bongocat-dm-classic bongocat-dm bongocat-ms-agent bongocat-pkmn bongocat-all)
+  set(
+    BINARY_TARGETS
+    bongocat
+    bongocat-dm-classic
+    bongocat-dm
+    bongocat-ms-agent
+    bongocat-pkmn
+    bongocat-all
+  )
 
   set(ALL_MAN_OUTPUTS)
   foreach(BIN ${BINARY_TARGETS})
@@ -430,7 +523,8 @@ if(PANDOC)
       COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_1} ${MD_FILE_1}
       DEPENDS ${MD_FILE_1}
       COMMENT "Generating man page for ${BIN} using Pandoc"
-      VERBATIM)
+      VERBATIM
+    )
 
     set(MD_FILE_5 ${PROJECT_SOURCE_DIR}/docs/${BIN}.conf.md)
     set(MAN_OUTPUT_5 ${CMAKE_CURRENT_BINARY_DIR}/${BIN}.5)
@@ -438,12 +532,17 @@ if(PANDOC)
     add_custom_command(
       OUTPUT ${MAN_OUTPUT_5}
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
-      COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_5}
-              ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
-      DEPENDS ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md ${MD_FILE_5}
-              ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
+      COMMAND
+        ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_5}
+        ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
+      DEPENDS
+        ${MD_FILE_5}
+        ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md
+        ${MD_FILE_5}
+        ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
       COMMENT "Generating man page for ${BIN}.conf using Pandoc"
-      VERBATIM)
+      VERBATIM
+    )
 
     # Target to build manpages
     add_custom_target(manpages-${BIN} ALL DEPENDS ${MAN_OUTPUT_1} ${MAN_OUTPUT_5})
@@ -463,7 +562,8 @@ if(PANDOC)
     COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${FD_MAN_OUTPUT_1} ${FD_MD_FILE_1}
     DEPENDS ${FD_MD_FILE_1}
     COMMENT "Generating man page for bongocat-find-devices using Pandoc"
-    VERBATIM)
+    VERBATIM
+  )
   add_custom_target(manpages-bongocat-find-devices ALL DEPENDS ${FD_MAN_OUTPUT_1})
   list(APPEND ALL_MAN_OUTPUTS ${FD_MAN_OUTPUT_1})
   install(FILES ${FD_MAN_OUTPUT_1} DESTINATION ${CMAKE_INSTALL_MANDIR}/man1)
@@ -499,7 +599,8 @@ if(NOT DEFINED ENV{NIX_BUILD_TOP} AND NOT SKIP_CPM)
     SameMajorVersion
     # (optional) option to generate CPack variables
     CPACK
-    YES)
+    YES
+  )
 endif()
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we

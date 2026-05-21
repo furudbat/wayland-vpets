@@ -4,8 +4,10 @@ target_compile_options(assets_dmc_loader PRIVATE -ffunction-sections -fdata-sect
 target_include_directories(
   assets_dmc_loader
   PRIVATE ${INCLUDE_DIR}/embedded_assets/dmc ${INCLUDE_DIR}/image_loader/dmc
-  PUBLIC ${INCLUDE_DIR})
+  PUBLIC ${INCLUDE_DIR}
+)
 target_link_libraries(
   assets_dmc_loader
   PUBLIC assets_image_loader assets_base_dm_loader assets_dmc
-  PRIVATE assets_dmc_interface assets_dmc_feature bongocat_options)
+  PRIVATE assets_dmc_interface assets_dmc_feature bongocat_options
+)
