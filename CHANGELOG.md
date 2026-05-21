@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-### [4.0.3] - 2026-05-19
+### [4.0.3] - 2026-05-21
 
 ### Fixed 
 

@@ -169,7 +169,6 @@ set(
   -Wredundant-decls
   -Wnested-externs
   -Wmissing-include-dirs
-  -Wlogical-op
   -Wjump-misses-init
   -Wdouble-promotion
   -Wshadow
@@ -194,6 +193,7 @@ set(
   -Wundef
   -Wmissing-field-initializers
   -Wvla
+  -Wlogical-op
 )
 set(
   CLANG_C_WARNING_FLAGS
@@ -218,7 +218,6 @@ set(
   -Wmisleading-indentation
   -Wduplicated-cond
   -Wduplicated-branches
-  -Wlogical-op
 )
 add_library(project_warnings INTERFACE)
 target_compile_options(project_warnings INTERFACE $<$<COMPILE_LANGUAGE:C>:${C_WARNING_FLAGS}>)
