@@ -36,10 +36,15 @@ set(
 )
 set(GENERATED_PROTOCOLS ${GENERATED_PROTOCOLS_SOURCES} ${GENERATED_PROTOCOLS_HEADERS})
 
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+  set(_generated_protocols_default ON)
+else()
+  set(_generated_protocols_default OFF)
+endif()
 cmake_dependent_option(
   GENERATED_PROTOCOLS_ENABLED
   "Generate protocols files for wayland"
-  OFF
+  ${_generated_protocols_default}
   WAYLAND_SCANNER_EXECUTABLE
   OFF
 )
