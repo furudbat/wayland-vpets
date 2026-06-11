@@ -3,6 +3,9 @@
 
 #include "config/config.h"
 
+#include <cstdint>
+#include <cstddef>
+
 namespace bongocat::platform::update {
 inline static constexpr size_t MaxCpus = 256;
 inline static constexpr size_t CpuSnapshotRingBufferMaxHistory = 8;
@@ -31,6 +34,8 @@ struct update_shared_memory_t {
   double last_avg_cpu_usage{0};
   double last_max_cpu_usage{0};
   bool cpu_active{false};
+
+  time_sec_t boot_seconds{0};
 };
 }  // namespace bongocat::platform::update
 

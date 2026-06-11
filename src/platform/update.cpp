@@ -18,20 +18,31 @@
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
+#include <sys/timerfd.h>
 
 namespace bongocat::platform::update {
 inline static constexpr int MAX_ATTEMPTS = 2048;
 inline static constexpr size_t GET_CPU_PRESENT_LAST_BUF = 256;
 inline static constexpr size_t CPU_INFO_BUF = 8192;
 
-static inline constexpr auto UPDATE_POOL_TIMEOUT_MS = 1000;
-static inline constexpr auto COND_STORED_TIMEOUT_MS = 1000;
+static inline constexpr time_ms_t UPDATE_POOL_TIMEOUT_MS = 1000;
+static inline constexpr time_ms_t COND_STORED_TIMEOUT_MS = 1000;
+static inline constexpr time_sec_t EVOLUTION_TIMEOUT_SEC = 1;
 
 inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
 inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
 inline static constexpr const char *FILENAME_CPU_PRESET = "/sys/devices/system/cpu/present";
 inline static constexpr const char *FILENAME_PROC_STAT = "/proc/stat";
+
+static time_sec_t get_boottime() {
+  struct timespec uptime, current_time;
+  if (clock_gettime(CLOCK_BOOTTIME, &uptime) == 0 && clock_gettime(CLOCK_REALTIME, &current_time) == 0) {
+    return current_time.tv_sec - uptime.tv_sec;
+  }
+
+  return 0;
+}
 
 static void cleanup_update_thread(void *arg) {
   assert(arg);
@@ -246,15 +257,32 @@ static void *update_thread(void *arg) {
   // 0:       reload config event
   // 1:       fd_stat
   // 2:       fd_present
-  constexpr size_t nfds = 3;
+  // 3:       fd_timer
+  constexpr size_t nfds = 4;
   pollfd pfds[nfds];
+
+
+  bool feature_evolution = false;
+  {
+    LockGuard guard(upd.update_lock);
+    assert(upd.shm);
+    auto& update_shm = *upd.shm;
+
+    // read-only config
+    assert(upd._local_copy_config);
+    const config::config_t& current_config = *upd._local_copy_config;
+
+    update_shm.boot_seconds = get_boottime();
+
+    feature_evolution = current_config.enable_feature_evolution;
+  }
 
   atomic_store(&upd._running, true);
   while (atomic_load(&upd._running)) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
     // read from config
-    time_ms_t timeout = UPDATE_POOL_TIMEOUT_MS;
+    time_ms_t timeout_ms = UPDATE_POOL_TIMEOUT_MS;
     time_ms_t update_rate_ms = 0;
     time_ms_t animation_speed_ms = 0;
     double cpu_threshold = 0;
@@ -272,11 +300,13 @@ static void *update_thread(void *arg) {
       animation_speed_ms = current_config.animation_speed_ms;
       fps = current_config.fps;
       if (update_rate_ms > 0) {
-        timeout = update_rate_ms;
+        timeout_ms = update_rate_ms;
       } else if (animation_speed_ms > 0) {
-        timeout = animation_speed_ms;
+        timeout_ms = animation_speed_ms;
       } else if (current_config.fps > 0) {
-        timeout = 1000 / current_config.fps / 2;
+        timeout_ms = 1000 / current_config.fps / 2;
+      } else if (current_config.enable_feature_evolution) {
+        timeout_ms = EVOLUTION_TIMEOUT_SEC * 1000;
       }
     }
 
@@ -284,12 +314,14 @@ static void *update_thread(void *arg) {
     constexpr size_t fds_update_config_index = 0;
     constexpr size_t fds_stat_index = 1;
     constexpr size_t fds_preset_index = 2;
+    constexpr size_t fds_timer_index = 3;
     pfds[fds_update_config_index] = {.fd = upd.update_config_efd._fd, .events = POLLIN, .revents = 0};
     pfds[fds_stat_index] = {.fd = upd.fd_stat._fd, .events = POLLIN, .revents = 0};
     pfds[fds_preset_index] = {.fd = upd.fd_present._fd, .events = POLLIN, .revents = 0};
+    pfds[fds_timer_index] = {.fd = upd.fd_timer._fd, .events = POLLIN, .revents = 0};
 
     // poll events
-    const int poll_result = poll(pfds, nfds, static_cast<int>(timeout));
+    const int poll_result = poll(pfds, nfds, static_cast<int>(timeout_ms));
     if (poll_result < 0) {
       if (errno == EINTR) {
         continue;  // Interrupted by signal
@@ -352,6 +384,42 @@ static void *update_thread(void *arg) {
       if (update_rate_ms > 0) {
         BONGOCAT_LOG_VERBOSE("update: cpu_present file changed (hotplug)");
       }
+    }
+
+    // time changed
+    bool recalculate_boottime = false;
+    // Check if the event was a system clock change (EPOLLERR)
+    // Triggered because we passed TFD_TIMER_CANCEL_ON_SET earlier
+    if (pfds[fds_timer_index].revents & (POLLERR | POLLHUP)) {
+      BONGOCAT_LOG_VERBOSE("update: System clock was changed/discontinuity detected!");
+
+      constexpr struct itimerspec its = {
+        .it_interval = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 },
+        .it_value    = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 }
+      };
+      // Realtime clock changed, so we must reset the timer state to clear the error
+      timerfd_settime(upd.fd_timer._fd, TFD_TIMER_CANCEL_ON_SET, &its, BONGOCAT_NULLPTR);
+
+      recalculate_boottime = true;
+    }
+    // Check if the event was a standard timeout (EPOLLIN)
+    if (pfds[fds_timer_index].revents & POLLIN) {
+      BONGOCAT_LOG_VERBOSE("update: Clock Timer event");
+      drain_event(pfds[fds_timer_index], MAX_ATTEMPTS, "clock timer");
+      recalculate_boottime = true;
+    }
+
+    // trigger update boottime
+    if (recalculate_boottime) {
+      LockGuard guard(upd.update_lock);
+      assert(upd.shm);
+      auto& update_shm = *upd.shm;
+
+      // read-only config
+      //assert(upd._local_copy_config);
+      //const config::config_t& current_config = *upd._local_copy_config;
+
+      update_shm.boot_seconds = get_boottime();
     }
 
     // trigger animation
@@ -421,6 +489,8 @@ static void *update_thread(void *arg) {
 
       update_config(upd, *upd._config, new_gen);
 
+      feature_evolution = upd._config->enable_feature_evolution;
+
       // wait for reload config to be done (all configs)
       const int rc = upd._configs_reloaded_cond->timedwait(
           [&] { return atomic_load(upd._config_generation) >= new_gen; }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
@@ -450,7 +520,7 @@ static void *update_thread(void *arg) {
       } else if (animation_triggered) {
         ts.tv_nsec = (1000L / fps) * 1000 * 1000;
       } else {
-        ts.tv_nsec = timeout * 1000 * 1000;
+        ts.tv_nsec = timeout_ms * 1000 * 1000;
       }
       while (ts.tv_nsec >= 1000000000LL) {
         ts.tv_nsec -= 1000000000LL;
@@ -464,7 +534,7 @@ static void *update_thread(void *arg) {
         update_shm.cpu_active = false;
       }
     } else {
-      if (update_rate_ms == 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT) {
+      if (!feature_evolution && (update_rate_ms == 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT)) {
         atomic_store(&upd._running, false);
         BONGOCAT_LOG_WARNING("update: Stop update thread, not needed");
       }
@@ -529,12 +599,30 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
   }
   set_nonblocking(ret->fd_stat._fd);
 
+  ret->fd_timer = FileDescriptor(timerfd_create(CLOCK_REALTIME, TFD_CLOEXEC));
+  if (ret->fd_timer._fd < 0) {
+    BONGOCAT_LOG_ERROR("Failed to open proc stat");
+    return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+  }
+  // Configure the timer: fires every TIMEOUT_SECONDS,
+  // AND cancels/triggers an event if the system clock jumps (NTP/Manual adjustment)
+  constexpr struct itimerspec its = {
+    .it_interval = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 },
+    .it_value    = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 }
+  };
+  if (timerfd_settime(ret->fd_timer._fd, TFD_TIMER_CANCEL_ON_SET, &its, BONGOCAT_NULLPTR) == -1) {
+    BONGOCAT_LOG_ERROR("timerfd_settime failed");
+    return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+  }
+  set_nonblocking(ret->fd_timer._fd);
+
   // Initialize shared memory for key press flag
   ret->shm = make_allocated_mmap<update_shared_memory_t>();
   if (!ret->shm) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
+  ret->shm->boot_seconds = get_boottime();
 
   // Initialize shared memory for local config
   ret->_local_copy_config = make_allocated_mmap<config::config_t>();
@@ -653,6 +741,24 @@ bongocat_error_t restart(update_context_t& upd, animation::animation_context_t& 
       return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
     }
     set_nonblocking(upd.fd_stat._fd);
+  }
+  if (upd.fd_timer._fd < 0) {
+    upd.fd_timer = FileDescriptor(timerfd_create(CLOCK_REALTIME, TFD_CLOEXEC));
+    if (upd.fd_timer._fd < 0) {
+      BONGOCAT_LOG_ERROR("Failed to open proc stat");
+      return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+    }
+    // Configure the timer: fires every TIMEOUT_SECONDS,
+    // AND cancels/triggers an event if the system clock jumps (NTP/Manual adjustment)
+    constexpr struct itimerspec its = {
+      .it_interval = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 },
+      .it_value    = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 }
+    };
+    if (timerfd_settime(upd.fd_timer._fd, TFD_TIMER_CANCEL_ON_SET, &its, BONGOCAT_NULLPTR) == -1) {
+      BONGOCAT_LOG_ERROR("timerfd_settime failed");
+      return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+    }
+    set_nonblocking(upd.fd_timer._fd);
   }
 
   // if (trigger_ctx._update != ctx._update) {

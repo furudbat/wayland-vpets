@@ -72,6 +72,11 @@ namespace features {
   inline static constexpr bool EnableLazyLoadAssets = false;
 #endif
 
+#ifdef FEATURE_EVOLUTION
+  inline static constexpr bool EnableEvolution = true;
+#else
+  inline static constexpr bool EnableEvolution = false;
+#endif
 }  // namespace features
 
 // Global constants

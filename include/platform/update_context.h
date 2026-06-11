@@ -27,6 +27,7 @@ struct update_context_t {
   // thread context
   FileDescriptor fd_stat;
   FileDescriptor fd_present;
+  FileDescriptor fd_timer;
 
   // config reload threading
   FileDescriptor update_config_efd;  // get new_gen from here
@@ -60,6 +61,7 @@ inline void cleanup(update_context_t& ctx) {
 
   close_fd(ctx.fd_present);
   close_fd(ctx.fd_stat);
+  close_fd(ctx.fd_timer);
 
   close_fd(ctx.update_config_efd);
   atomic_store(&ctx.config_seen_generation, 0);

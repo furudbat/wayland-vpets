@@ -17,6 +17,9 @@ if(FEATURE_CUSTOM_SPRITE_SHEETS)
   target_compile_definitions(bongocat_options INTERFACE FEATURE_CUSTOM_SPRITE_SHEETS)
   target_link_libraries(bongocat_options INTERFACE assets_custom_sprite_sheet_feature assets_custom_loader)
 endif()
+if(FEATURE_EVOLUTION)
+  target_compile_definitions(bongocat_options INTERFACE FEATURE_EVOLUTION)
+endif()
 target_link_libraries(bongocat_options INTERFACE project_warnings project_options project_sanitizers)
 target_compile_options(
   bongocat_options

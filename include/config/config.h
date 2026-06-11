@@ -140,19 +140,19 @@ struct config_t {
   int32_t animation_speed_ms{0};
   int32_t fps{0};
   int32_t overlay_opacity{0};
-  int32_t mirror_x{0};             // reflect across Y axis (horizontal flip)
-  int32_t mirror_y{0};             // reflect across X axis (vertical flip)
-  int32_t enable_antialiasing{0};  // enable bilinear interpolation for smooth scaling
-  int32_t enable_debug{0};
+  bool mirror_x{false};             // reflect across Y axis (horizontal flip)
+  bool mirror_y{false};             // reflect across X axis (vertical flip)
+  bool enable_antialiasing{false};  // enable bilinear interpolation for smooth scaling
+  bool enable_debug{false};
   layer_type_t layer{layer_type_t::LAYER_TOP};
   overlay_position_t overlay_position{overlay_position_t::POSITION_TOP};
 
   int32_t animation_index{0};
-  int32_t invert_color{0};
+  bool invert_color{false};
   int32_t padding_x{0};
   int32_t padding_y{0};
 
-  int32_t enable_scheduled_sleep{0};
+  bool enable_scheduled_sleep{false};
   config_time_t sleep_begin;
   config_time_t sleep_end;
   int32_t idle_sleep_timeout_sec{0};
@@ -164,10 +164,10 @@ struct config_t {
   config_animation_sprite_sheet_layout_t animation_sprite_sheet_layout{config_animation_sprite_sheet_layout_t::None};
   config_animation_dm_set_t animation_dm_set{config_animation_dm_set_t::None};
   config_animation_custom_set_t animation_custom_set{config_animation_custom_set_t::None};
-  int32_t idle_animation{0};
+  bool idle_animation{false};
   int32_t input_fps{0};
-  int32_t randomize_index{0};
-  int32_t randomize_on_reload{0};
+  bool randomize_index{false};
+  bool randomize_on_reload{false};
 
   int32_t update_rate_ms{0};
   double cpu_threshold{0};
@@ -183,12 +183,14 @@ struct config_t {
   AllocatedString custom_sprite_sheet_filename{BONGOCAT_NULLPTR};  // must be png file
   assets::custom_animation_settings_t custom_sprite_sheet_settings{};
 
-  int32_t enable_hand_mapping{0};
+  bool enable_hand_mapping{false};
 
   int32_t hotplug_scan_interval_ms{0};
 
   // Fullscreen behavior
-  int32_t disable_fullscreen_hide{0};
+  bool disable_fullscreen_hide{false};
+
+  bool enable_feature_evolution{false};
 
   // Device matching by name (for hotplug/auto-detection)
   AllocatedString _keyboard_names[input::MAX_INPUT_DEVICES];
@@ -263,6 +265,7 @@ struct config_t {
       , enable_hand_mapping(other.enable_hand_mapping)
       , hotplug_scan_interval_ms(other.hotplug_scan_interval_ms)
       , disable_fullscreen_hide(other.disable_fullscreen_hide)
+      , enable_feature_evolution(other.enable_feature_evolution)
       , _keep_old_animation_index(other._keep_old_animation_index)
       , _strict(other._strict)
       , _custom(other._custom) {
@@ -324,6 +327,7 @@ struct config_t {
       enable_hand_mapping = other.enable_hand_mapping;
       hotplug_scan_interval_ms = other.hotplug_scan_interval_ms;
       disable_fullscreen_hide = other.disable_fullscreen_hide;
+      enable_feature_evolution = other.enable_feature_evolution;
       _keep_old_animation_index = other._keep_old_animation_index;
       _strict = other._strict;
       _custom = other._custom;
@@ -387,6 +391,7 @@ struct config_t {
       , enable_hand_mapping(other.enable_hand_mapping)
       , hotplug_scan_interval_ms(other.hotplug_scan_interval_ms)
       , disable_fullscreen_hide(other.disable_fullscreen_hide)
+      , enable_feature_evolution(other.enable_feature_evolution)
       , _keep_old_animation_index(other._keep_old_animation_index)
       , _strict(other._strict)
       , _custom(other._custom)
@@ -464,6 +469,7 @@ struct config_t {
       enable_hand_mapping = other.enable_hand_mapping;
       hotplug_scan_interval_ms = other.hotplug_scan_interval_ms;
       disable_fullscreen_hide = other.disable_fullscreen_hide;
+      enable_feature_evolution = other.enable_feature_evolution;
       _keep_old_animation_index = other._keep_old_animation_index;
       _strict = other._strict;
       _custom = other._custom;

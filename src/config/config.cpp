@@ -180,6 +180,7 @@ static inline constexpr auto ENABLE_HAND_MAPPING_KEY = "enable_hand_mapping";
 static inline constexpr auto HOTPLUG_SCAN_INTERVAL_KEY = "hotplug_scan_interval";
 static inline constexpr auto DISABLE_FULLSCREEN_HIDE_KEY = "disable_fullscreen_hide";
 static inline constexpr auto KEYBOARD_NAME_KEY = "keyboard_name";
+static inline constexpr auto ENABLE_FEATURE_EVOLUTION_KEY = "enable_feature_evolution";
 
 static inline constexpr auto CUSTOM_SPRITE_SHEET_FILENAME_KEY = "custom_sprite_sheet_filename";
 static inline constexpr auto CUSTOM_IDLE_FRAMES_KEY = "custom_idle_frames";
@@ -663,8 +664,7 @@ static uint64_t config_validate_custom(config_t& config) {
       // ret |= (1u << 14);
     }
 
-    if (config.enable_scheduled_sleep >= 0 && (config.custom_sprite_sheet_settings.asleep_frames <= 0 &&
-                                               config.custom_sprite_sheet_settings.sleep_frames <= 0)) {
+    if (config.enable_scheduled_sleep && (config.custom_sprite_sheet_settings.asleep_frames <= 0 && config.custom_sprite_sheet_settings.sleep_frames <= 0)) {
       BONGOCAT_LOG_WARNING("enable_scheduled_sleep is enabled, but custom sprite sheet has no sleep animation");
       // ret |= (1u << 15);
     }
@@ -891,6 +891,7 @@ static uint64_t config_validate_time(config_t& config) {
 static bongocat_error_t config_validate(config_t& config) {
   uint64_t ret{0};
   // Normalize boolean values
+  /*
   config.enable_debug = config.enable_debug >= 1 ? 1 : 0;
   config.invert_color = config.invert_color >= 1 ? 1 : 0;
   config.idle_animation = config.idle_animation >= 1 ? 1 : 0;
@@ -903,6 +904,8 @@ static bongocat_error_t config_validate(config_t& config) {
   config.enable_movement_debug = config.enable_movement_debug >= 1 ? 1 : 0;
   config.enable_hand_mapping = config.enable_hand_mapping >= 1 ? 1 : 0;
   config.disable_fullscreen_hide = config.disable_fullscreen_hide >= 1 ? 1 : 0;
+  config.enable_feature_evolution = config.enable_feature_evolution >= 1 ? 1 : 0;
+  */
 
   ret |= config_validate_dimensions(config);
   ret |= config_validate_timing(config);
@@ -1104,6 +1107,59 @@ static char *config_trim_str(char *key) {
   return key_start;
 }
 
+static bongocat_error_t config_parse_boolean_key(config_t& config, const char *key, const char *value) {
+  const auto [bool_value, read_error] = [&]() -> created_result_t<bool> {
+    if (strcasecmp(value, "true") == 0 || strcasecmp(value, "yes") == 0 || strcasecmp(value, "on") == 0) {
+      return true;
+    }
+    if (strcasecmp(value, "false") == 0 || strcasecmp(value, "no") == 0 || strcasecmp(value, "off") == 0) {
+      return false;
+    }
+
+    errno = 0;
+    char *endptr_int = BONGOCAT_NULLPTR;
+    const auto read_value = strtol(value, &endptr_int, 10);
+    if (errno != 0 || endptr_int == value || (*endptr_int != '\0' && *endptr_int != ' ' && *endptr_int != '\t')) {
+      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    }
+    if (read_value < INT_MIN || read_value > INT_MAX) {
+      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    }
+
+    return static_cast<int>(read_value) > 0;
+  }();
+
+  if (strcmp(key, MIRROR_X_KEY) == 0) {
+    config.mirror_x = bool_value;
+  } else if (strcmp(key, MIRROR_Y_KEY) == 0) {
+    config.mirror_y = bool_value;
+  } else if (strcmp(key, ENABLE_ANTIALIASING_KEY) == 0) {
+    config.enable_antialiasing = bool_value;
+  } else if (strcmp(key, ENABLE_DEBUG_KEY) == 0) {
+    config.enable_debug = bool_value;
+  } else if (strcmp(key, INVERT_COLOR_KEY) == 0) {
+    config.invert_color = bool_value;
+  } else if (strcmp(key, ENABLE_SCHEDULED_SLEEP_KEY) == 0) {
+    config.enable_scheduled_sleep = bool_value;
+  } else if (strcmp(key, IDLE_ANIMATION_KEY) == 0) {
+    config.idle_animation = bool_value;
+  } else if (strcmp(key, RANDOM_KEY) == 0) {
+    config.randomize_index = bool_value;
+  } else if (strcmp(key, RANDOM_ON_RELOAD_KEY) == 0) {
+    config.randomize_on_reload = bool_value;
+  } else if (strcmp(key, ENABLE_HAND_MAPPING_KEY) == 0) {
+    config.enable_hand_mapping = bool_value;
+  } else if (strcmp(key, DISABLE_FULLSCREEN_HIDE_KEY) == 0) {
+    config.disable_fullscreen_hide = bool_value;
+  } else if (features::EnableEvolution && strcmp(key, ENABLE_FEATURE_EVOLUTION_KEY) == 0) {
+    config.enable_feature_evolution = bool_value;
+  } else {
+    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
+  }
+
+  return bongocat_error_t::BONGOCAT_SUCCESS;
+}
+
 static bongocat_error_t config_parse_integer_key(config_t& config, const char *key, const char *value) {
   errno = 0;
   char *endptr_int = BONGOCAT_NULLPTR;
@@ -1116,6 +1172,7 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
   }
   const int int_value = static_cast<int>(read_value);
 
+  /// @TODO: remove old int -> bool reads
   if (strcmp(key, CAT_X_OFFSET_KEY) == 0) {
     config.cat_x_offset = int_value;
   } else if (strcmp(key, CAT_Y_OFFSET_KEY) == 0) {
@@ -1143,11 +1200,11 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
   } else if (strcmp(key, ENABLE_ANTIALIASING_KEY) == 0) {
     config.enable_antialiasing = int_value;
   } else if (strcmp(key, ENABLE_DEBUG_KEY) == 0) {
-    config.enable_debug = int_value;
+    config.enable_debug = int_value > 0;
   } else if (strcmp(key, ANIMATION_INDEX_KEY) == 0) {
     config.animation_index = int_value;
   } else if (strcmp(key, INVERT_COLOR_KEY) == 0) {
-    config.invert_color = int_value;
+    config.invert_color = int_value > 0;
   } else if (strcmp(key, PADDING_X_KEY) == 0) {
     config.padding_x = int_value;
   } else if (strcmp(key, PADDING_Y_KEY) == 0) {
@@ -1190,85 +1247,87 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
     config.hotplug_scan_interval_ms = int_value * 1000;
   } else if (strcmp(key, DISABLE_FULLSCREEN_HIDE_KEY) == 0) {
     config.disable_fullscreen_hide = int_value;
-  } else if (strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0) {
+  } else if (features::EnableEvolution && strcmp(key, ENABLE_FEATURE_EVOLUTION_KEY) == 0) {
+    config.enable_feature_evolution = int_value;
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.idle_frames = int_value;
-  } else if (strcmp(key, CUSTOM_BORING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_BORING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.boring_frames = int_value;
-  } else if (strcmp(key, CUSTOM_START_WRITING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_WRITING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_writing_frames = int_value;
-  } else if (strcmp(key, CUSTOM_WRITING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_WRITING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.writing_frames = int_value;
-  } else if (strcmp(key, CUSTOM_END_WRITING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_WRITING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_writing_frames = int_value;
-  } else if (strcmp(key, CUSTOM_HAPPY_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_HAPPY_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.happy_frames = int_value;
-  } else if (strcmp(key, CUSTOM_ASLEEP_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_ASLEEP_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.asleep_frames = int_value;
-  } else if (strcmp(key, CUSTOM_SLEEP_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_SLEEP_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.sleep_frames = int_value;
-  } else if (strcmp(key, CUSTOM_WAKE_UP_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_WAKE_UP_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.wake_up_frames = int_value;
-  } else if (strcmp(key, CUSTOM_START_WORKING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_WORKING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_working_frames = int_value;
-  } else if (strcmp(key, CUSTOM_WORKING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_WORKING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.working_frames = int_value;
-  } else if (strcmp(key, CUSTOM_END_WORKING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_WORKING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_working_frames = int_value;
-  } else if (strcmp(key, CUSTOM_START_MOVING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_MOVING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_moving_frames = int_value;
-  } else if (strcmp(key, CUSTOM_MOVING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_MOVING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.moving_frames = int_value;
-  } else if (strcmp(key, CUSTOM_END_MOVING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_MOVING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_moving_frames = int_value;
-  } else if (strcmp(key, CUSTOM_START_RUNNING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_RUNNING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_running_frames = int_value;
-  } else if (strcmp(key, CUSTOM_RUNNING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_RUNNING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.running_frames = int_value;
-  } else if (strcmp(key, CUSTOM_END_RUNNING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_RUNNING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_running_frames = int_value;
-  } else if (strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.feature_toggle_writing_frames = int_value;
-  } else if (strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_RANDOM_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_RANDOM_KEY) == 0) {
     config.custom_sprite_sheet_settings.feature_toggle_writing_frames_random = int_value;
-  } else if (strcmp(key, CUSTOM_MIRROR_X_MOVING_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_MIRROR_X_MOVING_KEY) == 0) {
     config.custom_sprite_sheet_settings.feature_mirror_x_moving = int_value;
-  } else if (strcmp(key, CUSTOM_IDLE_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_IDLE_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.idle_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_BORING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_BORING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.boring_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_START_WRITING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_WRITING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_writing_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_WRITING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_WRITING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.writing_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_END_WRITING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_WRITING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_writing_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_HAPPY_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_HAPPY_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.happy_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_ASLEEP_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_ASLEEP_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.asleep_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_SLEEP_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_SLEEP_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.sleep_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_WAKE_UP_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_WAKE_UP_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.wake_up_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_START_WORKING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_WORKING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_working_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_WORKING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_WORKING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.working_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_END_WORKING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_WORKING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_working_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_START_MOVING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_MOVING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_moving_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_MOVING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_MOVING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.moving_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_END_MOVING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_MOVING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_moving_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_START_RUNNING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_START_RUNNING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.start_running_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_RUNNING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_RUNNING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.running_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_END_RUNNING_ROW_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_RUNNING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_running_row_index = int_value - 1;
-  } else if (strcmp(key, CUSTOM_ROWS_KEY) == 0) {
+  } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_ROWS_KEY) == 0) {
     config.custom_sprite_sheet_settings.rows = int_value;
   } else {
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
@@ -1797,6 +1856,10 @@ static bongocat_error_t config_parse_key_value(config_t& config, const char *key
                                                const load_config_overwrite_parameters_t& overwrite_parameters) {
   /// @TODO: sanitize config input (key and value)
 
+  // Try booleans keys first
+  if (config_parse_boolean_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
+    return bongocat_error_t::BONGOCAT_SUCCESS;
+  }
   // Try integer keys first
   if (config_parse_integer_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
     return bongocat_error_t::BONGOCAT_SUCCESS;
@@ -2101,7 +2164,7 @@ static void config_log_summary(const config_t& config) {
   }
   BONGOCAT_LOG_DEBUG("  FPS: %d, Opacity: %d, Random: %d", config.fps, config.overlay_opacity, config.randomize_index);
   BONGOCAT_LOG_DEBUG("  Mirror: X=%d, Y=%d", config.mirror_x, config.mirror_y);
-  BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing >= 0 ? "enabled" : "disabled");
+  BONGOCAT_LOG_DEBUG("  Anti-aliasing: %s", config.enable_antialiasing ? "enabled" : "disabled");
   BONGOCAT_LOG_DEBUG("  Position: %s", to_string(config.overlay_position));
   BONGOCAT_LOG_DEBUG("  Alignment: %d", config.cat_align, to_string(config.cat_align));
   BONGOCAT_LOG_DEBUG("  Layer: %s", to_string(config.layer));
