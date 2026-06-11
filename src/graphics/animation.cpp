@@ -4751,6 +4751,66 @@ static bool anim_update_state(animation_context_t& animation_ctx, animation_stat
   return ret;
 }
 
+static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_evolution_t& state, [[maybe_unused]] const animation_trigger_t& trigger) {
+  //assert(animation_ctx._input);
+  //platform::input::input_context_t& input = *animation_ctx._input;
+  platform::update::update_context_t& upd = *animation_ctx._update;
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  {
+    platform::LockGuard update_guard(upd.update_lock);
+    assert(upd.shm);
+
+    state.uptime_sec = upd.shm->uptime_sec;
+    state.time_since_start_sec = upd.shm->time_since_start_sec;
+
+    state.current_stage_life_time_sec = [&]() -> platform::time_sec_t {
+      switch (current_config.evolution) {
+      case config::evolution_time_mode_t::NONE:
+        return 0;
+      case config::evolution_time_mode_t::NORMAL: {
+        const platform::timestamp_ms_t now = platform::get_current_time_ms();
+        return (now - state.last_evolution_timestamp) / 1000;
+      }break;
+      case config::evolution_time_mode_t::PROGRAM_START:
+        return state.time_since_start_sec;
+      case config::evolution_time_mode_t::UPTIME:
+        return state.uptime_sec;
+      }
+
+      return 0;
+    }();
+
+    state._lvl = upd.shm->time_since_start_sec > 0 ? static_cast<int32_t>((static_cast<double>(state.current_stage_life_time_sec)*current_config.evolution_speed_factor) / static_cast<double>(upd.shm->time_since_start_sec)) : 0;
+  }
+
+  if (!state._evolution_pending) {
+    const auto& evol_data = state.data;
+    // check for evolution
+    if ((evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL || state.data.conditions.next_evolution_time_sec > 0) && evol_data.num_animation_indices > 0) {
+      const bool can_evol = (evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL && state._lvl >= evol_data.conditions.min_lvl) ||
+        (evol_data.conditions.next_evolution_time_sec > 0 && (static_cast<double>(state.current_stage_life_time_sec) * current_config.evolution_speed_factor) >= static_cast<double>(evol_data.conditions.next_evolution_time_sec));
+
+      if (can_evol) {
+        assert(evol_data.num_animation_indices > 0);
+        //assert(evol_data.num_animation_indices <= UINT32_MAX);
+        // randomize evolution
+        const size_t next_animation_index = ctx._rng.range(0, static_cast<uint32_t>(evol_data.num_animation_indices)-1);
+        //assert(evol_data.num_animation_indices <= SIZE_MAX);
+        // prep evol
+        state._evolution_pending_animation_index = evol_data.animation_indices[next_animation_index % static_cast<size_t>(evol_data.num_animation_indices)];
+        state._evolution_pending = true;
+      }
+    }
+  }
+
+  return state._evolution_pending;
+}
+
 // =============================================================================
 // ANIMATION THREAD MANAGEMENT MODULE
 // =============================================================================
@@ -4770,6 +4830,42 @@ static void anim_init_state(animation_thread_context_t& ctx, animation_state_t& 
   state.frame_time_ms = state.frame_time_ns / 1000000LL;
   state.last_frame_update_ms = platform::get_current_time_ms();
   state.row_state = animation_state_row_t::Idle;
+}
+
+static void anim_init_evol(animation_context_t& animation_ctx, animation_evolution_t& state) {
+  //assert(animation_ctx._input);
+  //platform::input::input_context_t& input = *animation_ctx._input;
+  platform::update::update_context_t& upd = *animation_ctx._update;
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  {
+    platform::LockGuard update_guard(upd.update_lock);
+    assert(upd.shm);
+
+    state.uptime_sec = upd.shm->uptime_sec;
+    state.time_since_start_sec = upd.shm->time_since_start_sec;
+
+    state.current_stage_life_time_sec = [&]() -> platform::time_sec_t {
+      switch (current_config.evolution) {
+      case config::evolution_time_mode_t::NONE:
+        return 0;
+      case config::evolution_time_mode_t::NORMAL:
+        return platform::get_current_time_ms();
+      case config::evolution_time_mode_t::PROGRAM_START:
+        return state.time_since_start_sec;
+      case config::evolution_time_mode_t::UPTIME:
+        return state.uptime_sec;
+      }
+
+      return 0;
+    }();
+
+    state._lvl = MIN_ANIMATION_EVOLUTION_LEVEL;
+  }
 }
 
 static void cleanup_anim_thread(void *arg) {
@@ -4923,6 +5019,19 @@ static void *anim_thread(void *arg) {
                          trigger_ctx.thread_context.shm->cat_height_phys);
     }
   }
+
+  // update evol
+  if constexpr (features::EnableEvolution)  {
+    platform::LockGuard guard(trigger_ctx.thread_context.anim_lock);
+    animation_thread_context_t& ctx = trigger_ctx.thread_context;
+
+    assert(ctx.shm);
+    // assert(input.shm);
+    animation_shared_memory_t& anim_shm = *ctx.shm;
+
+    anim_init_evol(trigger_ctx, anim_shm.evolution);
+  }
+
   // trigger initial render
   platform::wayland::request_render(trigger_ctx);
 
@@ -5035,6 +5144,12 @@ static void *anim_thread(void *arg) {
           case trigger_animation_cause_mask_t::Timeout:
             triggered_anim_cause = flag_add(triggered_anim_cause, cause);
             break;
+          case trigger_animation_cause_mask_t::EvolutionUpdate:
+            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+            break;
+          case trigger_animation_cause_mask_t::StartEvolution:
+            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+            break;
           }
         }
         if (rc < 0) {
@@ -5045,6 +5160,22 @@ static void *anim_thread(void *arg) {
       } else {
         triggered_anim_cause = flag_add(triggered_anim_cause, trigger_animation_cause_mask_t::Timeout);
         triggered_anim_cause = flag_add(triggered_anim_cause, trigger_animation_cause_mask_t::CpuUpdate);
+      }
+    }
+
+    // Update Evol
+    if constexpr (features::EnableEvolution) {
+      if (has_flag(triggered_anim_cause, trigger_animation_cause_mask_t::EvolutionUpdate)) {
+        platform::LockGuard guard(trigger_ctx.thread_context.anim_lock);
+        assert(ctx.shm);
+        const bool evolved = anim_evolution_stat(trigger_ctx, ctx.shm->evolution,
+                                                     {
+                                                         .anim_cause = triggered_anim_cause,
+                                                         .any_key_press_counter = any_key_press_counter,
+                                                     });
+        if (evolved) {
+          triggered_anim_cause = flag_add(triggered_anim_cause, trigger_animation_cause_mask_t::StartEvolution);
+        }
       }
     }
 

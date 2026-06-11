@@ -18,6 +18,40 @@ struct animation_player_result_t {
   animation_player_custom_overwrite_mirror_x overwrite_mirror_x{animation_player_custom_overwrite_mirror_x::None};
 };
 
+struct animation_evolution_conditions_t {
+  platform::time_sec_t next_evolution_time_sec{-1};
+  int32_t min_lvl{-1};
+};
+
+
+inline static constexpr int32_t MIN_ANIMATION_EVOLUTION_LEVEL = 1;
+inline static constexpr int32_t MAX_ANIMATION_EVOLUTION_LEVEL = 100;
+
+inline static constexpr size_t MAX_ANIMATION_EVOLUTION_INDICIES = 15;
+static_assert(MAX_ANIMATION_EVOLUTION_INDICIES <= INT32_MAX);
+struct animation_evolution_data_t {
+  animation_evolution_conditions_t conditions;
+
+  int32_t animation_indices[MAX_ANIMATION_EVOLUTION_INDICIES]{};
+  int32_t num_animation_indices{0};
+};
+struct animation_evolution_t {
+  animation_evolution_data_t data;
+
+  platform::time_sec_t uptime_sec{0};
+  platform::time_sec_t time_since_start_sec{0};
+  platform::timestamp_ms_t last_evolution_timestamp{0};  ///< since last evolution happens
+
+  platform::time_sec_t current_stage_life_time_sec{0};
+  platform::time_sec_t lvl_per_time_sec{0};             ///< for pkmn (time pass -> Levels)
+  int32_t _lvl{MIN_ANIMATION_EVOLUTION_LEVEL};
+
+  //bool _night_time{false};
+
+  bool _evolution_pending{false};   ///< evolution got triggerred but state is not idle
+  int32_t _evolution_pending_animation_index{-1};
+};
+
 // =============================================================================
 // ANIMATION STATE (shared memory between threads)
 // =============================================================================
@@ -55,6 +89,8 @@ struct animation_shared_memory_t {
   // for sprite sheet hot reload (or custom sprite sheet)
   animation_t anim;
 
+  animation_evolution_t evolution;
+
   animation_shared_memory_t() = default;
   ~animation_shared_memory_t() {
     anim_type = config::config_animation_sprite_sheet_layout_t::None;
@@ -67,6 +103,7 @@ struct animation_shared_memory_t {
     last_wakeup_timestamp = 0;
     scale120 = DEFAULT_PREFER_SCALE120;
     cat_height_phys = 0;
+    evolution = {};
 
     for (size_t i = 0; i < bongocat_anims.count; i++) {
       cleanup_animation(bongocat_anims[i]);
@@ -135,6 +172,7 @@ struct animation_shared_memory_t {
 
     cleanup_animation(anim);
   }
+
   animation_shared_memory_t(const animation_shared_memory_t& other)
       : animation_player_result(other.animation_player_result)
       , anim_index(other.anim_index)
@@ -161,6 +199,8 @@ struct animation_shared_memory_t {
     pmd_anims = other.pmd_anims;
 
     anim = other.anim;
+
+    evolution = other.evolution;
   }
   animation_shared_memory_t& operator=(const animation_shared_memory_t& other) {
     if (this != &other) {
@@ -190,6 +230,8 @@ struct animation_shared_memory_t {
       pmd_anims = other.pmd_anims;
 
       anim = other.anim;
+
+      evolution = other.evolution;
     }
     return *this;
   }
@@ -220,6 +262,8 @@ struct animation_shared_memory_t {
     pmd_anims = bongocat::move(other.pmd_anims);
 
     anim = bongocat::move(other.anim);
+
+    evolution = bongocat::move(other.evolution);
 
     cleanup_animation(other.anim);
     platform::release_allocated_mmap_array(other.bongocat_anims);
@@ -275,6 +319,8 @@ struct animation_shared_memory_t {
       pmd_anims = bongocat::move(other.pmd_anims);
 
       anim = bongocat::move(other.anim);
+
+      evolution = bongocat::move(other.evolution);
 
       cleanup_animation(other.anim);
       platform::release_allocated_mmap_array(other.bongocat_anims);

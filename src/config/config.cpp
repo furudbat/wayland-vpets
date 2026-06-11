@@ -21,6 +21,8 @@
 #include "image_loader/custom/load_custom_features.h"
 #include "utils/error.h"
 
+#include <cstdint>
+#include <cstddef>
 #include <cassert>
 #include <cctype>
 #include <climits>
@@ -88,6 +90,7 @@ static inline constexpr int MIN_OFFSET = -16000;
 static inline constexpr int MAX_OFFSET = 16000;
 static inline constexpr int MIN_MOVEMENT_RADIUS = 0;
 static inline constexpr int MAX_MOVEMENT_RADIUS = MAX_OFFSET / 2;
+static inline constexpr double MAX_EVOLUTION_SPEED_FACTOR = 5000.0;
 
 static inline constexpr int MIN_HOTPLUG_SCAN_INTERVAL_MS = 0;
 static inline constexpr int MAX_HOTPLUG_SCAN_INTERVAL_MS = 3600 * 1000;
@@ -119,16 +122,16 @@ static inline constexpr platform::time_sec_t DEFAULT_IDLE_SLEEP_TIMEOUT_SEC = 0;
 static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
 static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
 static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 0;
-static inline constexpr int32_t DEFAULT_ENABLE_ANTIALIASING = 1;
+static inline constexpr bool DEFAULT_ENABLE_ANTIALIASING = true;
 static inline constexpr double DEFAULT_MOVEMENT_WAIT_FACTOR = 5.1;
-static inline constexpr int32_t DEFAULT_ENABLE_HAND_MAPPING = 1;
+static inline constexpr bool DEFAULT_ENABLE_HAND_MAPPING = true;
 static inline constexpr int32_t DEFAULT_HOTPLUG_SCAN_INTERVAL_MS = 30 * 1000;
 
 // Debug-specific defaults
 #ifndef NDEBUG
-static inline constexpr int32_t DEFAULT_ENABLE_DEBUG = 1;
+static inline constexpr bool DEFAULT_ENABLE_DEBUG = true;
 #else
-static inline constexpr int32_t DEFAULT_ENABLE_DEBUG = 0;
+static inline constexpr bool DEFAULT_ENABLE_DEBUG = false;
 #endif
 
 static inline constexpr auto CAT_X_OFFSET_KEY = "cat_x_offset";
@@ -180,7 +183,8 @@ static inline constexpr auto ENABLE_HAND_MAPPING_KEY = "enable_hand_mapping";
 static inline constexpr auto HOTPLUG_SCAN_INTERVAL_KEY = "hotplug_scan_interval";
 static inline constexpr auto DISABLE_FULLSCREEN_HIDE_KEY = "disable_fullscreen_hide";
 static inline constexpr auto KEYBOARD_NAME_KEY = "keyboard_name";
-static inline constexpr auto ENABLE_FEATURE_EVOLUTION_KEY = "enable_feature_evolution";
+static inline constexpr auto EVOLUTION_KEY = "evolution";
+static inline constexpr auto EVOLUTION_SPEED_FACTOR_KEY = "evolution_speed_factor";
 
 static inline constexpr auto CUSTOM_SPRITE_SHEET_FILENAME_KEY = "custom_sprite_sheet_filename";
 static inline constexpr auto CUSTOM_IDLE_FRAMES_KEY = "custom_idle_frames";
@@ -225,6 +229,8 @@ static inline constexpr auto CUSTOM_START_RUNNING_ROW_KEY = "custom_start_runnin
 static inline constexpr auto CUSTOM_RUNNING_ROW_KEY = "custom_running_row";
 static inline constexpr auto CUSTOM_END_RUNNING_ROW_KEY = "custom_end_running_row";
 static inline constexpr auto CUSTOM_ROWS_KEY = "custom_rows";
+
+inline static constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR = "program_start";
 
 static inline constexpr size_t KEY_BUF = 256;
 static inline constexpr size_t VALUE_BUF = PATH_MAX + 256;                      // max value + comment
@@ -312,6 +318,7 @@ static uint64_t config_validate_update(config_t& config) {
   ret |= config_clamp_int(config.update_rate_ms, 0, MAX_UPDATE_RATE_MS, UPDATE_RATE_KEY);
   ret |= config_clamp_double(config.cpu_threshold, 0, MAX_CPU_THRESHOLD, CPU_THRESHOLD_KEY);
   ret |= config_clamp_double(config.cpu_running_factor, 0, MAX_CPU_RUNNING_FACTOR, CPU_RUNNING_FACTOR_KEY);
+  ret |= config_clamp_double(config.evolution_speed_factor, 0, MAX_EVOLUTION_SPEED_FACTOR, EVOLUTION_SPEED_FACTOR_KEY);
 
   return ret;
 }
@@ -864,6 +871,18 @@ static uint64_t config_validate_enums(config_t& config) {
     ret |= (1uz << 33);
   }
 
+  // Validate evolution
+  if (config.evolution != evolution_time_mode_t::NONE && config.evolution != evolution_time_mode_t::NORMAL && config.evolution != evolution_time_mode_t::PROGRAM_START && config.evolution != evolution_time_mode_t::UPTIME) {
+    BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to none", EVOLUTION_KEY, config.evolution);
+    config.evolution = evolution_time_mode_t::NONE;
+    ret |= (1uz << 34);
+  }
+  if (config.evolution != evolution_time_mode_t::NONE && config.evolution_speed_factor <= 0.0) {
+    BONGOCAT_LOG_WARNING("Invalid %s is zero or below (%f), resetting to 1.0", EVOLUTION_SPEED_FACTOR_KEY, config.evolution_speed_factor);
+    config.evolution_speed_factor = 1.0;
+    ret |= (1uz << 35);
+  }
+
   return ret;
 }
 
@@ -904,7 +923,6 @@ static bongocat_error_t config_validate(config_t& config) {
   config.enable_movement_debug = config.enable_movement_debug >= 1 ? 1 : 0;
   config.enable_hand_mapping = config.enable_hand_mapping >= 1 ? 1 : 0;
   config.disable_fullscreen_hide = config.disable_fullscreen_hide >= 1 ? 1 : 0;
-  config.enable_feature_evolution = config.enable_feature_evolution >= 1 ? 1 : 0;
   */
 
   ret |= config_validate_dimensions(config);
@@ -1122,12 +1140,15 @@ static bongocat_error_t config_parse_boolean_key(config_t& config, const char *k
     if (errno != 0 || endptr_int == value || (*endptr_int != '\0' && *endptr_int != ' ' && *endptr_int != '\t')) {
       return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
-    if (read_value < INT_MIN || read_value > INT_MAX) {
+    if (read_value < INT32_MIN || read_value > INT32_MAX) {
       return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
     }
 
     return static_cast<int>(read_value) > 0;
   }();
+  if (read_error != bongocat_error_t::BONGOCAT_SUCCESS) {
+    return read_error;
+  }
 
   if (strcmp(key, MIRROR_X_KEY) == 0) {
     config.mirror_x = bool_value;
@@ -1151,8 +1172,8 @@ static bongocat_error_t config_parse_boolean_key(config_t& config, const char *k
     config.enable_hand_mapping = bool_value;
   } else if (strcmp(key, DISABLE_FULLSCREEN_HIDE_KEY) == 0) {
     config.disable_fullscreen_hide = bool_value;
-  } else if (features::EnableEvolution && strcmp(key, ENABLE_FEATURE_EVOLUTION_KEY) == 0) {
-    config.enable_feature_evolution = bool_value;
+  } else if (features::EnableEvolution && strcmp(key, EVOLUTION_KEY) == 0) {
+    config.evolution = bool_value ? evolution_time_mode_t::NORMAL : evolution_time_mode_t::NONE;
   } else {
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
   }
@@ -1247,8 +1268,12 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
     config.hotplug_scan_interval_ms = int_value * 1000;
   } else if (strcmp(key, DISABLE_FULLSCREEN_HIDE_KEY) == 0) {
     config.disable_fullscreen_hide = int_value;
-  } else if (features::EnableEvolution && strcmp(key, ENABLE_FEATURE_EVOLUTION_KEY) == 0) {
-    config.enable_feature_evolution = int_value;
+  } else if (features::EnableEvolution && strcmp(key, EVOLUTION_SPEED_FACTOR_KEY) == 0) {
+    config.evolution_speed_factor = int_value;
+  } else if (features::EnableEvolution && strcmp(key, EVOLUTION_KEY) == 0) {
+    if (int_value > 0) {
+      config.evolution = evolution_time_mode_t::NORMAL;
+    }
   } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0) {
     config.custom_sprite_sheet_settings.idle_frames = int_value;
   } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_BORING_FRAMES_KEY) == 0) {
@@ -1350,6 +1375,8 @@ static bongocat_error_t config_parse_double_key(config_t& config, const char *ke
     config.cpu_running_factor = double_value;
   } else if (strcmp(key, MOVEMENT_WAIT_FACTOR_KEY) == 0) {
     config.movement_wait_factor = double_value;
+  } else if (features::EnableEvolution && strcmp(key, EVOLUTION_SPEED_FACTOR_KEY) == 0) {
+    config.evolution_speed_factor = double_value;
   } else {
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
   }
@@ -1390,6 +1417,17 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
     } else {
       BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'center'", CAT_ALIGN_KEY, value);
       config.cat_align = align_type_t::ALIGN_CENTER;
+    }
+  } else if (features::EnableEvolution && strcmp(key, EVOLUTION_KEY) == 0) {
+    if (strcmp(value, EVOLUTION_TIME_MODE_NONE_STR) == 0) {
+      config.evolution = evolution_time_mode_t::NONE;
+    } else if (strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_STR) == 0 || strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR) == 0) {
+      config.evolution = evolution_time_mode_t::PROGRAM_START;
+    } else if (strcmp(value, EVOLUTION_TIME_MODE_UPTIME_STR) == 0) {
+      config.evolution = evolution_time_mode_t::UPTIME;
+    } else {
+      BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'none'", EVOLUTION_KEY, value);
+      config.evolution = evolution_time_mode_t::NONE;
     }
   } else {
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
@@ -1856,15 +1894,15 @@ static bongocat_error_t config_parse_key_value(config_t& config, const char *key
                                                const load_config_overwrite_parameters_t& overwrite_parameters) {
   /// @TODO: sanitize config input (key and value)
 
-  // Try booleans keys first
-  if (config_parse_boolean_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
-    return bongocat_error_t::BONGOCAT_SUCCESS;
-  }
   // Try integer keys first
   if (config_parse_integer_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
     return bongocat_error_t::BONGOCAT_SUCCESS;
   }
-  // Try double keys first
+  // Try booleans keys
+  if (config_parse_boolean_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
+    return bongocat_error_t::BONGOCAT_SUCCESS;
+  }
+  // Try double keys
   if (config_parse_double_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
     return bongocat_error_t::BONGOCAT_SUCCESS;
   }
@@ -2052,18 +2090,18 @@ void set_defaults(config_t& config) {
   cfg.test_animation_interval_sec = DEFAULT_TEST_ANIMATION_INTERVAL_SEC;
   cfg.fps = DEFAULT_FPS;
   cfg.overlay_opacity = DEFAULT_OVERLAY_OPACITY;
-  cfg.mirror_x = 0;
-  cfg.mirror_y = 0;
+  cfg.mirror_x = false;
+  cfg.mirror_y = false;
   cfg.enable_antialiasing = DEFAULT_ENABLE_ANTIALIASING;
   cfg.enable_debug = DEFAULT_ENABLE_DEBUG;
   cfg.enable_hand_mapping = DEFAULT_ENABLE_HAND_MAPPING;
   cfg.layer = DEFAULT_LAYER;
   cfg.overlay_position = DEFAULT_OVERLAY_POSITION;
   cfg.animation_index = DEFAULT_ANIMATION_INDEX;
-  cfg.invert_color = 0;
+  cfg.invert_color = false;
   cfg.padding_x = 0;
   cfg.padding_y = 0;
-  cfg.enable_scheduled_sleep = 0;
+  cfg.enable_scheduled_sleep = false;
   cfg.sleep_begin = {};
   cfg.sleep_end = {};
   cfg.idle_sleep_timeout_sec = DEFAULT_IDLE_SLEEP_TIMEOUT_SEC;
@@ -2072,15 +2110,16 @@ void set_defaults(config_t& config) {
   cfg.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Bongocat;
   cfg.animation_dm_set = config_animation_dm_set_t::None;
   cfg.animation_custom_set = config_animation_custom_set_t::None;
-  cfg.idle_animation = 0;
+  cfg.idle_animation = false;
   cfg.input_fps = 0;  // when 0 fallback to fps
-  cfg.randomize_index = 0;
-  cfg.randomize_on_reload = 0;
+  cfg.randomize_index = false;
+  cfg.randomize_on_reload = false;
   cfg.movement_wait_factor = DEFAULT_MOVEMENT_WAIT_FACTOR;
   cfg.screen_width = 0;
   cfg.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
   cfg.custom_sprite_sheet_settings = {};
   cfg.hotplug_scan_interval_ms = DEFAULT_HOTPLUG_SCAN_INTERVAL_MS;
+  cfg.evolution_speed_factor = 1.0;
 
   for (int i = 0; i < static_cast<int>(input::MAX_INPUT_DEVICES); i++) {
     cfg._keyboard_names[i] = BONGOCAT_NULLPTR;

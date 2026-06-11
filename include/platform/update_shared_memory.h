@@ -35,7 +35,9 @@ struct update_shared_memory_t {
   double last_max_cpu_usage{0};
   bool cpu_active{false};
 
-  time_sec_t boot_seconds{0};
+  struct timespec program_start_time{};
+  time_sec_t uptime_sec{0};
+  time_sec_t time_since_start_sec{0};
 };
 }  // namespace bongocat::platform::update
 

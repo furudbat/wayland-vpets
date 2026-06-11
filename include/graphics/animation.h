@@ -19,6 +19,8 @@ enum class trigger_animation_cause_mask_t : uint64_t {
   CpuUpdate = (1U << 3),
   UpdateConfig = (1U << 4),
   Timeout = (1U << 5),
+  EvolutionUpdate = (1U << 6),
+  StartEvolution = (1U << 7),
 };
 
 // =============================================================================

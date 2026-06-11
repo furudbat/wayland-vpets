@@ -28,6 +28,7 @@ inline static constexpr size_t CPU_INFO_BUF = 8192;
 static inline constexpr time_ms_t UPDATE_POOL_TIMEOUT_MS = 1000;
 static inline constexpr time_ms_t COND_STORED_TIMEOUT_MS = 1000;
 static inline constexpr time_sec_t EVOLUTION_TIMEOUT_SEC = 1;
+static inline constexpr time_ms_t THREAD_SLEEP_MS = 1000;
 
 inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
 inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
@@ -42,6 +43,25 @@ static time_sec_t get_boottime() {
   }
 
   return 0;
+}
+static time_sec_t get_time_since_start_ms(const struct timespec& program_start_time) {
+  struct timespec now;
+  clock_gettime(CLOCK_MONOTONIC, &now);
+
+  // Calculate difference in seconds and nanoseconds
+  auto seconds = now.tv_sec >= program_start_time.tv_sec ? now.tv_sec - program_start_time.tv_sec : 0;
+  auto nanoseconds = now.tv_nsec - program_start_time.tv_nsec;
+  // Handle nanosecond underflow
+  if (nanoseconds < 0) {
+    seconds--;
+    nanoseconds += 1000000000L;
+  }
+
+  // Convert total duration to milliseconds
+  return (seconds * 1000) + (nanoseconds / 1000000L);
+}
+inline time_sec_t get_time_since_start_sec(const struct timespec& program_start_time) {
+  return get_time_since_start_ms(program_start_time) / 1000;
 }
 
 static void cleanup_update_thread(void *arg) {
@@ -272,9 +292,10 @@ static void *update_thread(void *arg) {
     assert(upd._local_copy_config);
     const config::config_t& current_config = *upd._local_copy_config;
 
-    update_shm.boot_seconds = get_boottime();
+    update_shm.uptime_sec = get_boottime();
+    update_shm.time_since_start_sec = get_time_since_start_sec(update_shm.program_start_time);
 
-    feature_evolution = current_config.enable_feature_evolution;
+    feature_evolution = current_config.evolution != config::evolution_time_mode_t::NONE && current_config.evolution_speed_factor > 0.0;
   }
 
   atomic_store(&upd._running, true);
@@ -283,11 +304,13 @@ static void *update_thread(void *arg) {
 
     // read from config
     time_ms_t timeout_ms = UPDATE_POOL_TIMEOUT_MS;
-    time_ms_t update_rate_ms = 0;
+    time_ms_t cpu_update_rate_ms = 0;
     time_ms_t animation_speed_ms = 0;
     double cpu_threshold = 0;
     int fps = 0;
     // bool enable_debug = false;
+
+    /// update properties depending on config
     {
       // read-only config
       assert(upd._local_copy_config);
@@ -295,17 +318,20 @@ static void *update_thread(void *arg) {
 
       // enable_debug = current_config.enable_debug;
 
+      feature_evolution = current_config.evolution != config::evolution_time_mode_t::NONE && current_config.evolution_speed_factor > 0.0;
+
+      // update CPU properties
       cpu_threshold = current_config.cpu_threshold;
-      update_rate_ms = current_config.update_rate_ms;
+      cpu_update_rate_ms = current_config.update_rate_ms;
       animation_speed_ms = current_config.animation_speed_ms;
       fps = current_config.fps;
-      if (update_rate_ms > 0) {
-        timeout_ms = update_rate_ms;
+      if (cpu_update_rate_ms > 0) {
+        timeout_ms = cpu_update_rate_ms;
       } else if (animation_speed_ms > 0) {
         timeout_ms = animation_speed_ms;
       } else if (current_config.fps > 0) {
         timeout_ms = 1000 / current_config.fps / 2;
-      } else if (current_config.enable_feature_evolution) {
+      } else if (feature_evolution) {
         timeout_ms = EVOLUTION_TIMEOUT_SEC * 1000;
       }
     }
@@ -356,7 +382,7 @@ static void *update_thread(void *arg) {
       BONGOCAT_LOG_VERBOSE("update: Receive update CPU stats event");
       drain_event(pfds[fds_stat_index], MAX_ATTEMPTS, FILENAME_PROC_STAT);
 
-      if (update_rate_ms > 0) {
+      if (cpu_update_rate_ms > 0) {
         platform::LockGuard guard(upd.update_lock);
         assert(upd.shm);
         auto& update_shm = *upd.shm;
@@ -381,7 +407,7 @@ static void *update_thread(void *arg) {
       BONGOCAT_LOG_VERBOSE("update: Receive update CPU present event");
       drain_event(pfds[fds_preset_index], MAX_ATTEMPTS, FILENAME_CPU_PRESET);
 
-      if (update_rate_ms > 0) {
+      if (cpu_update_rate_ms > 0) {
         BONGOCAT_LOG_VERBOSE("update: cpu_present file changed (hotplug)");
       }
     }
@@ -419,12 +445,14 @@ static void *update_thread(void *arg) {
       //assert(upd._local_copy_config);
       //const config::config_t& current_config = *upd._local_copy_config;
 
-      update_shm.boot_seconds = get_boottime();
+      update_shm.uptime_sec = get_boottime();
+      update_shm.time_since_start_sec = get_time_since_start_sec(update_shm.program_start_time);
+      animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::EvolutionUpdate);
     }
 
     // trigger animation
     bool animation_triggered = false;
-    if (update_rate_ms > 0) {
+    if (cpu_update_rate_ms > 0) {
       LockGuard guard(upd.update_lock);
       assert(upd.shm);
       auto& update_shm = *upd.shm;
@@ -489,8 +517,6 @@ static void *update_thread(void *arg) {
 
       update_config(upd, *upd._config, new_gen);
 
-      feature_evolution = upd._config->enable_feature_evolution;
-
       // wait for reload config to be done (all configs)
       const int rc = upd._configs_reloaded_cond->timedwait(
           [&] { return atomic_load(upd._config_generation) >= new_gen; }, COND_RELOAD_CONFIGS_TIMEOUT_MS);
@@ -508,7 +534,7 @@ static void *update_thread(void *arg) {
       BONGOCAT_LOG_INFO("update: Update config reloaded (gen=%u)", new_gen);
     }
 
-    if (update_rate_ms > 0) {
+    if (cpu_update_rate_ms > 0) {
       // sleep
       timespec ts;
       ts.tv_sec = 0;
@@ -534,10 +560,25 @@ static void *update_thread(void *arg) {
         update_shm.cpu_active = false;
       }
     } else {
-      if (!feature_evolution && (update_rate_ms == 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT)) {
+      if (!feature_evolution && (cpu_update_rate_ms == 0 || cpu_threshold < ENABLED_MIN_CPU_PERCENT)) {
         atomic_store(&upd._running, false);
         BONGOCAT_LOG_WARNING("update: Stop update thread, not needed");
       }
+
+      // fallback sleep
+      timespec ts;
+      ts.tv_sec = 0;
+      assert(fps > 0);
+      if (cpu_update_rate_ms > 0) {
+        ts.tv_nsec = cpu_update_rate_ms * 1000 * 1000;
+      } else {
+        ts.tv_nsec = THREAD_SLEEP_MS * 1000 * 1000;
+      }
+      while (ts.tv_nsec >= 1000000000LL) {
+        ts.tv_nsec -= 1000000000LL;
+        ts.tv_sec += 1;
+      }
+      nanosleep(&ts, BONGOCAT_NULLPTR);
     }
   }
 
@@ -622,7 +663,9 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
     BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  ret->shm->boot_seconds = get_boottime();
+  ret->shm->uptime_sec = get_boottime();
+  clock_gettime(CLOCK_MONOTONIC, &ret->shm->program_start_time);
+  ret->shm->time_since_start_sec = get_time_since_start_sec(ret->shm->program_start_time);
 
   // Initialize shared memory for local config
   ret->_local_copy_config = make_allocated_mmap<config::config_t>();

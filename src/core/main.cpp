@@ -74,6 +74,8 @@ struct main_context_t {
 
   AllocatedString pid_filename{BONGOCAT_NULLPTR};
 
+  struct timespec program_start_time;
+
   main_context_t() = default;
   ~main_context_t() {
     cleanup(*this);
@@ -603,6 +605,14 @@ static void config_reload_callback() {
     if (update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to restart update thread: %s", bongocat::error_string(update_result));
     } else {
+      {
+        assert(get_main_context().update);
+        platform::LockGuard guard(get_main_context().update->update_lock);
+        assert(get_main_context().update->shm);
+        auto& update_shm = *get_main_context().update->shm;
+        update_shm.program_start_time = get_main_context().program_start_time;
+      }
+
       BONGOCAT_LOG_INFO("Update thread restarted successfully");
     }
   }
@@ -687,6 +697,10 @@ static bongocat_error_t signal_setup_handlers(main_context_t& ctx) {
 // SYSTEM INITIALIZATION AND CLEANUP MODULE
 // =============================================================================
 
+static void init_program_timer(main_context_t& ctx) {
+  clock_gettime(CLOCK_MONOTONIC, &ctx.program_start_time);
+}
+
 static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   // Initialize input system
   {
@@ -729,6 +743,16 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
       return wayland_error;
     }
     ctx.wayland = bongocat::move(wayland);
+  }
+
+  {
+    init_program_timer(ctx);
+
+    assert(ctx.update);
+    platform::LockGuard guard(ctx.update->update_lock);
+    assert(ctx.update->shm);
+    auto& update_shm = *ctx.update->shm;
+    update_shm.program_start_time = ctx.program_start_time;
   }
 
   // Setup wayland
@@ -1055,6 +1079,7 @@ int main(int argc, char *argv[]) {
   if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
     system_cleanup_and_exit(ctx, EXIT_FAILURE);
   }
+  init_program_timer(ctx);
 
   assert(ctx.input != BONGOCAT_NULLPTR);
   assert(ctx.animation != BONGOCAT_NULLPTR);
