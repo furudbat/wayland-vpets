@@ -111,6 +111,9 @@ enum class animation_state_row_t : uint8_t {
   StartRunning,
   Running,
   EndRunning,
+  StartEvolution,
+  Evolution,
+  AfterEvolution,
 };
 
 struct animation_state_t {
@@ -167,6 +170,7 @@ struct anim_conditions_t {
   bool trigger_test_animation{false};
   bool check_for_idle_sleep{false};
   bool process_movement{false};
+  bool start_evolving{false};
 
   // trigger (back to idle)
   bool release_test_frame{false};
@@ -191,11 +195,13 @@ struct anim_conditions_t {
   bool is_idle_sleep{false};
   bool is_full_sleep{false};
   bool ready_to_work{false};
+  bool is_evolving{false};
 };
 static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_thread_context_t& ctx,
                                              const platform::input::input_context_t& input,
                                              [[maybe_unused]] const platform::update::update_context_t& upd,
-                                             const animation_state_t& current_state, const animation_trigger_t& trigger,
+                                             const animation_state_t& current_state, const animation_evolution_t& evol,
+                                             const animation_trigger_t& trigger,
                                              const config::config_t& current_config) {
   assert(input.shm);
   const auto& input_shm = *input.shm;
@@ -207,17 +213,17 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
       has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger.any_key_press_counter > 0;
 
   const bool process_idle_animation_by_animation_speed =
-      current_config.idle_animation >= 1 && current_config.animation_speed_ms > 0 &&
+      current_config.idle_animation && current_config.animation_speed_ms > 0 &&
       current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
-  const bool process_idle_animation_by_fps = current_config.idle_animation >= 1 &&
+  const bool process_idle_animation_by_fps = current_config.idle_animation &&
                                              current_config.animation_speed_ms <= 0 &&
                                              current_state.frame_delta_ms_counter > fps_ms;
   const bool process_idle_animation = process_idle_animation_by_animation_speed || process_idle_animation_by_fps;
 
-  const bool release_frame_by_animation_speed = current_config.idle_animation <= 0 &&
+  const bool release_frame_by_animation_speed = !current_config.idle_animation &&
                                                 current_config.animation_speed_ms > 0 &&
                                                 current_state.hold_frame_ms > current_config.animation_speed_ms;
-  const bool release_frame_animation_by_fps = current_config.idle_animation <= 0 &&
+  const bool release_frame_animation_by_fps = !current_config.idle_animation &&
                                               current_config.animation_speed_ms <= 0 &&
                                               current_state.hold_frame_ms > fps_ms;
   const bool release_frame_for_non_idle = release_frame_by_animation_speed || release_frame_animation_by_fps;
@@ -291,6 +297,9 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   const bool is_idle_sleep = current_state.row_state == animation_state_row_t::IdleSleep;
 
+  const bool is_evolving = current_state.row_state == animation_state_row_t::StartEvolution || current_state.row_state == animation_state_row_t::Evolution || current_state.row_state == animation_state_row_t::AfterEvolution;
+  const bool can_evol = !is_evolving && evol._evolution_pending && (is_idle_sleep || (!is_working && !is_moving));
+
   static_assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
 
   // @TODO: reduce duplicated condition for when updating frames vs. movement vs. working animation
@@ -309,6 +318,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
             last_key_pressed_timestamp > 0) ||
            process_idle_animation || process_movement),
       .process_movement = process_movement,
+      .start_evolving = current_state.row_state != animation_state_row_t::StartEvolution && evol._evolution_pending && can_evol,
 
       .release_test_frame = current_config.test_animation_duration_ms > 0 &&
                             current_state.frame_delta_ms_counter > current_config.test_animation_duration_ms,
@@ -337,6 +347,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
       .is_full_sleep = current_state.row_state == animation_state_row_t::Sleep && !is_idle_sleep,
       .ready_to_work =
           !is_working && (current_state.row_state == animation_state_row_t::Idle || is_moving || is_idle_sleep),
+      .is_evolving = is_evolving,
   };
 }
 
@@ -352,7 +363,7 @@ anim_update_animation_state(animation_shared_memory_t& anim_shm, animation_state
   state = new_state;
   if (new_state.animations_index != current_state.animations_index || rerender || moved) {
     anim_shm.animation_player_result = new_animation_result;
-    if (current_config.enable_debug >= 1) {
+    if (current_config.enable_debug) {
       BONGOCAT_LOG_VERBOSE("Animation frame change: %d", new_animation_result.sprite_sheet_col);
     }
     if (frame_changed) {
@@ -429,19 +440,19 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   case animation_state_row_t::StartWriting:
   case animation_state_row_t::Writing:
   case animation_state_row_t::EndWriting:
-    if (current_config.enable_hand_mapping >= 1) {
+    if (current_config.enable_hand_mapping) {
       switch (input.shm->hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Left:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x >= 1) ? current_frames.animations.right_writing[new_state.animations_index]
+            (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index]
                                            : current_frames.animations.left_writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Right:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x >= 1) ? current_frames.animations.left_writing[new_state.animations_index]
+            (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
                                            : current_frames.animations.right_writing[new_state.animations_index];
         break;
       }
@@ -489,6 +500,13 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   case animation_state_row_t::Running:
   case animation_state_row_t::EndRunning:
     new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
+    break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.working[new_state.animations_index];
+    break;
+  case animation_state_row_t::AfterEvolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
     break;
   }
   return ret;
@@ -520,7 +538,7 @@ anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform:
     }
     break;
   case animation_state_row_t::StartWriting: {
-    if (current_config.enable_hand_mapping >= 1) {
+    if (current_config.enable_hand_mapping) {
       switch (input.shm->hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_state.animations_index = static_cast<int>(ctx._rng.range(0, (MAX_ANIMATION_FRAMES - 1) / 2));
@@ -537,19 +555,19 @@ anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform:
   }
   case animation_state_row_t::Writing:
   case animation_state_row_t::EndWriting:
-    if (current_config.enable_hand_mapping >= 1) {
+    if (current_config.enable_hand_mapping) {
       switch (input.shm->hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Left:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x >= 1) ? current_frames.animations.right_writing[new_state.animations_index]
+            (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index]
                                            : current_frames.animations.left_writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Right:
         new_animation_result.sprite_sheet_col =
-            (current_config.mirror_x >= 1) ? current_frames.animations.left_writing[new_state.animations_index]
+            (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
                                            : current_frames.animations.right_writing[new_state.animations_index];
         break;
       }
@@ -597,6 +615,13 @@ anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform:
   case animation_state_row_t::Running:
   case animation_state_row_t::EndRunning:
     new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
+    break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.working[new_state.animations_index];
+    break;
+  case animation_state_row_t::AfterEvolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
     break;
   }
   return ret;
@@ -737,7 +762,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   // Idle Animation
   const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
@@ -782,7 +807,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
     anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
   }
 
-  const bool is_sleeping_time = current_config.enable_scheduled_sleep >= 1 && is_sleep_time(current_config);
+  const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
 
   // Idle Sleep
   if (conditions.check_for_idle_sleep) {
@@ -865,7 +890,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   }
 
   // Sleep Mode
-  if (current_config.enable_scheduled_sleep >= 1) {
+  if (current_config.enable_scheduled_sleep) {
     if (is_sleeping_time) {
       if (current_state.row_state == animation_state_row_t::Idle) {
         anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Sleep, new_animation_result, new_state,
@@ -924,7 +949,7 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -1065,6 +1090,13 @@ static anim_dm_process_animation_result_t anim_dm_process_animation(animation_pl
   case animation_state_row_t::EndRunning:
     new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.working[new_state.animations_index];
+    break;
+  case animation_state_row_t::AfterEvolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
+    break;
   }
   return ret;
 }
@@ -1135,6 +1167,13 @@ anim_dm_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, anim
   case animation_state_row_t::Running:
   case animation_state_row_t::EndRunning:
     new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
+    break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.working[new_state.animations_index];
+    break;
+  case animation_state_row_t::AfterEvolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
     break;
   }
   return ret;
@@ -1326,6 +1365,37 @@ anim_dm_show_single_frame([[maybe_unused]] animation_thread_context_t& ctx, anim
       }
     }
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    if (current_frames.frames.attack_1.valid) {
+      new_animation_result.sprite_sheet_col = current_frames.frames.attack_1.col;
+    } else if (current_frames.frames.angry.valid) {
+      new_animation_result.sprite_sheet_col = current_frames.frames.angry.col;
+    } else {
+      // toggle frame
+      if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE1) {
+        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE2;
+      } else if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE2) {
+        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE1;
+      } else {
+        new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? DM_FRAME_IDLE1 : DM_FRAME_IDLE2;
+      }
+    }
+    break;
+  case animation_state_row_t::AfterEvolution:
+    if (current_frames.frames.happy.valid) {
+      new_animation_result.sprite_sheet_col = current_frames.frames.happy.col;
+    } else {
+      // toggle frame
+      if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE1) {
+        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE2;
+      } else if (new_animation_result.sprite_sheet_col == DM_FRAME_IDLE2) {
+        new_animation_result.sprite_sheet_col = DM_FRAME_IDLE1;
+      } else {
+        new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? DM_FRAME_IDLE1 : DM_FRAME_IDLE2;
+      }
+    }
+    break;
   }
   return ret;
 }
@@ -1361,7 +1431,7 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
   assert(ctx.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   anim_dm_process_animation_result_t ret{.row_state = new_state.row_state,
                                          .status = anim_dm_process_animation_result_status_t::None};
@@ -1557,21 +1627,25 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
   return ret;
 }
 
-static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context_t& ctx,
-                                                        const platform::input::input_context_t& input,
-                                                        [[maybe_unused]] const platform::update::update_context_t& upd,
+static anim_next_frame_result_t anim_dm_idle_next_frame(animation_context_t& animation_ctx,
                                                         animation_state_t& state,
                                                         const anim_handle_key_press_result_t& trigger_result) {
+
   using namespace assets;
+
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  animation_shared_memory_t& anim_shm = *ctx.shm;
 
   // read-only config
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  assert(ctx.shm);
-  assert(input.shm);
-  assert(upd.shm);
-  animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
   const auto current_state = state;
@@ -1580,11 +1654,12 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
   const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
   assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
   const auto& current_frames = get_current_animation(ctx).dm;
+  auto& evol = anim_shm.evolution;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   /// @TODO: make animation state machine ?
 
@@ -1786,7 +1861,7 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
   }
 
   // Sleep Mode
-  if (current_config.enable_scheduled_sleep >= 1) {
+  if (current_config.enable_scheduled_sleep) {
     if (is_sleeping_time) {
       if (new_state.row_state == animation_state_row_t::Idle) {
         anim_dm_restart_animation(ctx, animation_state_row_t::Sleep, new_animation_result, new_state, current_state,
@@ -1842,6 +1917,31 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
     }
   }
 
+  if (current_state.row_state == animation_state_row_t::StartEvolution) {
+    // evolving
+    if (conditions.process_idle_animation) {
+      // end current sleep animation
+      const auto animation_result =
+          anim_dm_start_or_process_animation(ctx, animation_state_row_t::Evolution, new_animation_result, new_state,
+                                             current_state, current_frames, current_config);
+      if (animation_result.row_state == animation_state_row_t::Evolution) {
+        if (evol._evolution_pending_animation_index >= 0) {
+          evol._swap_animation = true;
+          trigger_reload_animation(animation_ctx);
+        }
+      }
+    } else {
+      if (conditions.release_frame_for_non_idle) {
+        anim_dm_show_single_frame(ctx, animation_state_row_t::Evolution, new_animation_result, new_state,
+        current_state, current_frames, current_config);
+        if (evol._evolution_pending_animation_index >= 0) {
+          evol._swap_animation = true;
+          trigger_reload_animation(animation_ctx);
+        }
+      }
+    }
+  }
+
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
                                      current_state, current_config);
 }
@@ -1869,7 +1969,7 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
 
   bool show_happy = false;
   if (input_shm.kpm > 0) {
@@ -1989,7 +2089,7 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -2083,6 +2183,53 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
                                      current_state, current_config);
 }
+
+static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_thread_context_t& ctx,
+                                                           const platform::input::input_context_t& input,
+                                                           const platform::update::update_context_t& upd,
+                                                           animation_state_t& state,
+                                                           const animation_trigger_t& trigger) {
+  using namespace assets;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  assert(ctx.shm);
+  // assert(input.shm != nullptr);
+  assert(upd.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+  // const auto& input_shm = *input.shm;
+  //const auto& update_shm = *upd.shm;
+  const auto current_state = state;
+  const auto& current_animation_result = anim_shm.animation_player_result;
+  [[maybe_unused]] const int anim_index = anim_shm.anim_index;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
+  const auto& current_frames = get_current_animation(ctx).dm;
+  const auto& evol = anim_shm.evolution;
+
+  auto new_animation_result = anim_shm.animation_player_result;
+  auto new_state = state;
+
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, evol, trigger, current_config);
+
+  /// @TODO: use state machine for animation (states)
+
+  if (conditions.start_evolving) {
+    anim_dm_restart_animation(ctx, animation_state_row_t::StartEvolution, new_animation_result, new_state,
+                              current_state, current_frames, current_config);
+    BONGOCAT_LOG_VERBOSE("Start Evolving");
+  }
+  if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AfterEvolution)) {
+    anim_dm_restart_animation(ctx, animation_state_row_t::AfterEvolution, new_animation_result, new_state,
+                              current_state, current_frames, current_config);
+    BONGOCAT_LOG_VERBOSE("After Evolving");
+  }
+
+  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                     current_state, current_config);
+}
 #endif
 
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
@@ -2170,6 +2317,13 @@ static anim_pkmn_process_animation_result_t anim_pkmn_process_animation(animatio
   case animation_state_row_t::EndRunning:
     new_animation_result.sprite_sheet_col = current_frames.animations.moving[new_state.animations_index];
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.working[new_state.animations_index];
+    break;
+  case animation_state_row_t::AfterEvolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
+    break;
   }
   return ret;
 }
@@ -2241,106 +2395,175 @@ anim_pkmn_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, an
   case animation_state_row_t::EndRunning:
     new_animation_result.sprite_sheet_col = current_frames.animations.running[new_state.animations_index];
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.working[new_state.animations_index];
+    break;
+  case animation_state_row_t::AfterEvolution:
+    new_animation_result.sprite_sheet_col = current_frames.animations.happy[new_state.animations_index];
+    break;
   }
   return ret;
 }
-/*
-static anim_pkmn_process_animation_result_t anim_pkmn_show_single_frame(animation_context_t& ctx,
-                                                                                animation_state_row_t new_row_state,
-                                                                                animation_player_result_t&
-new_animation_result, animation_state_t& new_state,
-                                                                                [[maybe_unused]] const
-animation_state_t& current_state,
-                                                                                [[maybe_unused]] const
-pkmn_sprite_sheet_t& current_frames, const config::config_t& current_config) { using namespace assets;
-    assert(MAX_ANIMATION_FRAMES > 0);
-    assert(MAX_ANIMATION_FRAMES <= INT_MAX);
 
-    new_state.row_state = new_row_state;
-    new_animation_result.sprite_sheet_row = PKMN_SPRITE_SHEET_ROW;
-    new_state.animations_index = 0;
 
-    anim_pkmn_process_animation_result_t ret {.row_state = new_state.row_state, .status =
-anim_pkmn_process_animation_result_status_t::Started}; switch (new_state.row_state) { case animation_state_row_t::Idle:
-            new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
-            if (current_config.idle_frame) {
-                new_animation_result.sprite_sheet_col = current_config.idle_frame;
-            }
-            break;
-        case animation_state_row_t::StartWriting:
-        case animation_state_row_t::Writing:
-        case animation_state_row_t::EndWriting:
-            // toggle frame
-            if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
-            } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
-            } else {
-                new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 :
-PKMN_FRAME_IDLE2;
-            }
-            break;
-        case animation_state_row_t::Happy:
-            // toggle frame
-            if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
-            } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
-            } else {
-                new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 :
-PKMN_FRAME_IDLE2;
-            }
-            break;
-        case animation_state_row_t::Sleep:
-            new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
-            break;
-        case animation_state_row_t::WakeUp:
-            new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
-            break;
-        case animation_state_row_t::Boring:
-            new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
-            break;
-        case animation_state_row_t::Test:
-            // toggle frame (same as writing?)
-            if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
-            } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
-            } else {
-                new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 :
-PKMN_FRAME_IDLE2;
-            }
-            break;
-        case animation_state_row_t::StartWorking:
-        case animation_state_row_t::Working:
-        case animation_state_row_t::EndWorking:
-            // toggle frame (unused)
-            if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
-            } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
-            } else {
-                new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 :
-PKMN_FRAME_IDLE2;
-            }
-            break;
-        case animation_state_row_t::StartMoving:
-        case animation_state_row_t::Moving:
-        case animation_state_row_t::EndMoving:
-            // toggle frame (unused)
-            if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
-            } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
-                new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
-            } else {
-                new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 :
-PKMN_FRAME_IDLE2;
-            }
-            break;
+static anim_dm_process_animation_result_t
+anim_pkmn_show_single_frame([[maybe_unused]] animation_thread_context_t& ctx, animation_state_row_t new_row_state,
+                          animation_player_result_t& new_animation_result, animation_state_t& new_state,
+                          [[maybe_unused]] const animation_state_t& current_state,
+                          [[maybe_unused]] const pkmn_sprite_sheet_t& current_frames,
+                          const config::config_t& current_config) {
+  using namespace assets;
+  static_assert(MAX_ANIMATION_FRAMES > 0);
+  static_assert(MAX_ANIMATION_FRAMES <= INT_MAX);
+
+  new_state.row_state = new_row_state;
+  new_animation_result.sprite_sheet_row = PKMN_SPRITE_SHEET_ROW;
+  new_state.animations_index = 0;
+
+  anim_dm_process_animation_result_t ret{.row_state = new_state.row_state,
+                                         .status = anim_dm_process_animation_result_status_t::Started};
+  switch (new_state.row_state) {
+  case animation_state_row_t::Idle:
+    new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    if (current_config.idle_frame >= 1) {
+      new_animation_result.sprite_sheet_col = current_config.idle_frame;
     }
-    return ret;
+    break;
+  case animation_state_row_t::StartWriting:
+  case animation_state_row_t::Writing:
+  case animation_state_row_t::EndWriting:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::Happy:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::FallASleep:
+  case animation_state_row_t::FallASleepIdle:
+    // not fully supported
+    new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    break;
+  case animation_state_row_t::Sleep:
+    new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    break;
+  case animation_state_row_t::IdleSleep:
+    new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    break;
+  case animation_state_row_t::WakeUp:
+    new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    break;
+  case animation_state_row_t::Boring:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::Test:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::StartWorking:
+  case animation_state_row_t::Working:
+  case animation_state_row_t::EndWorking:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::StartMoving:
+  case animation_state_row_t::Moving:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::EndMoving:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::StartRunning:
+  case animation_state_row_t::Running:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::EndRunning:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  case animation_state_row_t::AfterEvolution:
+    // toggle frame
+    if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE1) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE2;
+    } else if (new_animation_result.sprite_sheet_col == PKMN_FRAME_IDLE2) {
+      new_animation_result.sprite_sheet_col = PKMN_FRAME_IDLE1;
+    } else {
+      new_animation_result.sprite_sheet_col = ctx._rng.range(0, 100) <= 50 ? PKMN_FRAME_IDLE1 : PKMN_FRAME_IDLE2;
+    }
+    break;
+  }
+  return ret;
 }
-*/
 
 static anim_pkmn_process_animation_result_t
 anim_pkmn_start_or_process_animation(animation_thread_context_t& ctx, animation_state_row_t new_row_state,
@@ -2363,29 +2586,39 @@ anim_pkmn_start_or_process_animation(animation_thread_context_t& ctx, animation_
 }
 
 static anim_next_frame_result_t
-anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
-                          [[maybe_unused]] const platform::input::input_context_t& input,
-                          [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
+anim_pkmn_idle_next_frame(animation_context_t& animation_ctx,
+                          animation_state_t& state,
                           const anim_handle_key_press_result_t& trigger_result) {
+
   using namespace assets;
+
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+
   // read-only config
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
   assert(ctx.shm);
   assert(input.shm);
-  animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
   assert(get_current_animation(ctx).type == animation_t::type_t::Pkmn);
   const auto& current_frames = get_current_animation(ctx).pkmn;
+  auto& evol = anim_shm.evolution;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
 
   // Idle Animation
   const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
@@ -2408,7 +2641,7 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
   const bool is_sleeping_time = current_config.enable_scheduled_sleep >= 1 && is_sleep_time(current_config);
 
   // Sleep Mode
-  if (current_config.enable_scheduled_sleep >= 1) {
+  if (current_config.enable_scheduled_sleep) {
     if (is_sleeping_time) {
       if (current_state.row_state == animation_state_row_t::Idle) {
         anim_pkmn_restart_animation(ctx, animation_state_row_t::Sleep, new_animation_result, new_state, current_state,
@@ -2429,6 +2662,32 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
         // back to idle
         anim_pkmn_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                     current_frames, current_config);
+      }
+    }
+  }
+
+
+  if (current_state.row_state == animation_state_row_t::StartEvolution) {
+    // evolving
+    if (conditions.process_idle_animation) {
+      // end current sleep animation
+      const auto animation_result =
+          anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::Evolution, new_animation_result, new_state,
+                                             current_state, current_frames, current_config);
+      if (animation_result.row_state == animation_state_row_t::Evolution) {
+        if (evol._evolution_pending_animation_index >= 0) {
+          evol._swap_animation = true;
+          trigger_reload_animation(animation_ctx);
+        }
+      }
+    } else {
+      if (conditions.release_frame_for_non_idle) {
+        anim_pkmn_show_single_frame(ctx, animation_state_row_t::Evolution, new_animation_result, new_state,
+        current_state, current_frames, current_config);
+        if (evol._evolution_pending_animation_index >= 0) {
+          evol._swap_animation = true;
+          trigger_reload_animation(animation_ctx);
+        }
       }
     }
   }
@@ -2462,7 +2721,7 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
 
   // in Writing mode/start writing
   if (!conditions.is_writing) {
@@ -2492,6 +2751,54 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
     // back to idle
     anim_pkmn_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                 current_frames, current_config);
+  }
+
+  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                     current_state, current_config);
+}
+
+static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_thread_context_t& ctx,
+                                                           const platform::input::input_context_t& input,
+                                                           const platform::update::update_context_t& upd,
+                                                           animation_state_t& state,
+                                                           const animation_trigger_t& trigger) {
+  using namespace assets;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  assert(ctx.shm);
+  // assert(input.shm != nullptr);
+  assert(upd.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+  // const auto& input_shm = *input.shm;
+  //const auto& update_shm = *upd.shm;
+  const auto current_state = state;
+  const auto& current_animation_result = anim_shm.animation_player_result;
+  [[maybe_unused]] const int anim_index = anim_shm.anim_index;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  assert(get_current_animation(ctx).type == animation_t::type_t::Pkmn);
+  const auto& current_frames = get_current_animation(ctx).pkmn;
+  const auto& evol = anim_shm.evolution;
+
+  auto new_animation_result = anim_shm.animation_player_result;
+  auto new_state = state;
+
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, evol, trigger, current_config);
+
+  /// @TODO: use state machine for animation (states)
+
+  if (conditions.start_evolving) {
+    anim_pkmn_restart_animation(ctx, animation_state_row_t::StartEvolution, new_animation_result, new_state,
+                              current_state, current_frames, current_config);
+    BONGOCAT_LOG_VERBOSE("Start Evolving");
+  }
+
+  if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AfterEvolution)) {
+    anim_pkmn_restart_animation(ctx, animation_state_row_t::AfterEvolution, new_animation_result, new_state,
+                              current_state, current_frames, current_config);
+    BONGOCAT_LOG_VERBOSE("After Evolving");
   }
 
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
@@ -2586,6 +2893,15 @@ anim_ms_agent_process_animation(animation_player_result_t& new_animation_result,
     break;
   case animation_state_row_t::EndRunning:
     section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::StartEvolution:
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::Evolution:
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::AfterEvolution:
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
     break;
   }
 
@@ -2696,6 +3012,15 @@ anim_ms_agent_restart_animation([[maybe_unused]] animation_thread_context_t& ctx
   case animation_state_row_t::EndRunning:
     section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
     break;
+  case animation_state_row_t::StartEvolution:
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::Evolution:
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::AfterEvolution:
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
+    break;
   }
 
   anim_ms_agent_process_animation_result_t ret{.row_state = new_state.row_state,
@@ -2763,7 +3088,7 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
 
   /// @TODO: make animation fsm
 
@@ -2793,13 +3118,18 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   case animation_state_row_t::EndWorking:
     // @TODO: add working (CPU state) animation
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+  case animation_state_row_t::AfterEvolution:
+    // @TODO: evolution/transformation not supported
+    break;
   case animation_state_row_t::Idle: {
-    if (current_config.idle_animation >= 1 && conditions.go_next_frame) {
+    if (current_config.idle_animation && conditions.go_next_frame) {
       anim_ms_agent_process_animation(new_animation_result, new_state, current_state, current_frames);
     }
 
     // handle sleep
-    const bool is_sleeping_time = current_config.enable_scheduled_sleep >= 1 && is_sleep_time(current_config);
+    const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
 
     // Idle Sleep
     if (conditions.check_for_idle_sleep) {
@@ -2856,7 +3186,7 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
     }
 
     // Sleep Mode
-    if (current_config.enable_scheduled_sleep >= 1) {
+    if (current_config.enable_scheduled_sleep) {
       if (is_sleeping_time) {
         if (new_state.row_state == animation_state_row_t::Idle) {
           anim_ms_agent_restart_animation(ctx, animation_state_row_t::Sleep, new_animation_result, new_state,
@@ -3050,6 +3380,11 @@ anim_ms_agent_key_pressed_next_frame(animation_thread_context_t& ctx, animation_
   case animation_state_row_t::EndWorking:
     // start end writing and process animation in anim_ms_agent_idle_next_frame
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+  case animation_state_row_t::AfterEvolution:
+    // start end writing and process animation in anim_ms_agent_idle_next_frame
+    break;
   }
 
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
@@ -3179,6 +3514,15 @@ anim_custom_process_animation(animation_player_result_t& new_animation_result, a
   case animation_state_row_t::EndRunning:
     section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
     break;
+  case animation_state_row_t::StartEvolution:
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::Evolution:
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::AfterEvolution:
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
+    break;
   }
 
   anim_custom_process_animation_result_t ret{.row_state = new_state.row_state,
@@ -3277,6 +3621,16 @@ anim_custom_restart_animation([[maybe_unused]] animation_thread_context_t& ctx, 
     break;
   case animation_state_row_t::EndRunning:
     section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
+    break;
+  /// @TODO: Evolution for custom sprite animation
+  case animation_state_row_t::StartEvolution:
+    section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::Evolution:
+    section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
+    break;
+  case animation_state_row_t::AfterEvolution:
+    section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
     break;
   }
 
@@ -3390,6 +3744,15 @@ static anim_custom_process_animation_result_t anim_custom_restart_animation(
     case animation_state_row_t::EndRunning:
       section = current_frames.end_running.valid ? &current_frames.end_running : BONGOCAT_NULLPTR;
       break;
+    case animation_state_row_t::StartEvolution:
+      section = current_frames.start_working.valid ? &current_frames.start_working : BONGOCAT_NULLPTR;
+      break;
+    case animation_state_row_t::Evolution:
+      section = current_frames.working.valid ? &current_frames.working : BONGOCAT_NULLPTR;
+      break;
+    case animation_state_row_t::AfterEvolution:
+      section = current_frames.end_working.valid ? &current_frames.end_working : BONGOCAT_NULLPTR;
+      break;
     }
   }
 
@@ -3486,7 +3849,7 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
   assert(ctx.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
 
   anim_custom_process_animation_result_t ret{.row_state = new_state.row_state,
                                              .status = anim_custom_process_animation_result_status_t::None};
@@ -3721,7 +4084,7 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger_result.trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
 
   /// @TODO: make animation fsm
 
@@ -3823,13 +4186,13 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
                                       current_frames, current_config);
       }
     } else {
-      if (current_config.idle_animation >= 1 && conditions.go_next_frame) {
+      if (current_config.idle_animation && conditions.go_next_frame) {
         anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
       }
     }
     break;
   case animation_state_row_t::Idle: {
-    if (current_config.idle_animation >= 1 && conditions.go_next_frame) {
+    if (current_config.idle_animation && conditions.go_next_frame) {
       anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
     }
 
@@ -3841,7 +4204,7 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
 
     if (current_frames.feature_sleep || current_frames.feature_boring) {
       // handle sleep
-      const bool is_sleeping_time = current_config.enable_scheduled_sleep >= 1 && is_sleep_time(current_config);
+      const bool is_sleeping_time = current_config.enable_scheduled_sleep && is_sleep_time(current_config);
 
       // Idle Sleep
       if (conditions.check_for_idle_sleep) {
@@ -3917,7 +4280,7 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
 
       // Sleep Mode
       if (current_frames.feature_sleep) {
-        if (current_config.enable_scheduled_sleep >= 1) {
+        if (current_config.enable_scheduled_sleep) {
           if (is_sleeping_time) {
             if (new_state.row_state == animation_state_row_t::Idle) {
               anim_custom_restart_animation(ctx, animation_state_row_t::FallASleep, animation_state_row_t::Sleep,
@@ -4151,6 +4514,11 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
                                     current_frames, current_config);
     }
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+  case animation_state_row_t::AfterEvolution:
+    /// @TODO: evolution support
+    break;
   }
 
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
@@ -4180,7 +4548,7 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state,  anim_shm.evolution, trigger, current_config);
 
   bool show_happy = false;
   if (current_frames.feature_writing_happy) {
@@ -4296,6 +4664,11 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
   case animation_state_row_t::EndRunning:
     // start end running and process animation in anim_custom_idle_next_frame
     break;
+  case animation_state_row_t::StartEvolution:
+  case animation_state_row_t::Evolution:
+  case animation_state_row_t::AfterEvolution:
+    // start end working and process animation in anim_custom_evolving_next_frame
+    break;
   }
 
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
@@ -4329,7 +4702,7 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -4449,7 +4822,7 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, trigger, current_config);
+  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -4524,19 +4897,20 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
 }
 #endif
 
+
 static anim_next_frame_result_t
-anim_handle_idle_animation(animation_thread_context_t& ctx,
-                           [[maybe_unused]] const platform::input::input_context_t& input,
-                           [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
+anim_handle_idle_animation(animation_context_t& animation_ctx,
+                           animation_state_t& state,
                            const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
-  // read-only config
-  assert(ctx._local_copy_config);
-  // const config::config_t& current_config = *ctx._local_copy_config;
-
-  assert(input.shm != BONGOCAT_NULLPTR);
-  assert(ctx.shm != BONGOCAT_NULLPTR);
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
   const animation_shared_memory_t& anim_shm = *ctx.shm;
   // const auto& input_shm = *input.shm;
   // auto& animation_player_data = anim_shm.animation_player_data;
@@ -4555,12 +4929,12 @@ anim_handle_idle_animation(animation_thread_context_t& ctx,
   } break;
   case config::config_animation_sprite_sheet_layout_t::Dm: {
 #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-    return anim_dm_idle_next_frame(ctx, input, upd, state, trigger_result);
+    return anim_dm_idle_next_frame(animation_ctx, state, trigger_result);
 #endif
   } break;
   case config::config_animation_sprite_sheet_layout_t::Pkmn: {
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-    return anim_pkmn_idle_next_frame(ctx, input, upd, state, trigger_result);
+    return anim_pkmn_idle_next_frame(animation_ctx, state, trigger_result);
 #endif
   } break;
   case config::config_animation_sprite_sheet_layout_t::MsAgent: {
@@ -4690,6 +5064,58 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
                          trigger.anim_cause);
   }
 
+  if constexpr (features::EnableEvolution) {
+    if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::StartEvolution)) {
+      // handle evolution animation
+      switch (anim_shm.anim_type) {
+      case config::config_animation_sprite_sheet_layout_t::None:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Bongocat:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+        update_frame_result = anim_dm_evolving_next_frame(ctx, input, upd, state, trigger);
+#endif
+      } break;
+      case config::config_animation_sprite_sheet_layout_t::Pkmn:
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+        update_frame_result = anim_pkmn_evolving_next_frame(ctx, input, upd, state, trigger);
+#endif
+        break;
+      case config::config_animation_sprite_sheet_layout_t::MsAgent:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Custom:
+        break;
+      }
+      BONGOCAT_LOG_VERBOSE("Start Evolution - switching to frame %d (%zu)", update_frame_result.new_col,
+                           trigger.anim_cause);
+    }
+    if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AfterEvolution)) {
+      // handle evolution animation
+      switch (anim_shm.anim_type) {
+      case config::config_animation_sprite_sheet_layout_t::None:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Bongocat:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+        update_frame_result = anim_dm_evolving_next_frame(ctx, input, upd, state, trigger);
+#endif
+      } break;
+      case config::config_animation_sprite_sheet_layout_t::Pkmn:
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+        update_frame_result = anim_pkmn_evolving_next_frame(ctx, input, upd, state, trigger);
+#endif
+        break;
+      case config::config_animation_sprite_sheet_layout_t::MsAgent:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Custom:
+        break;
+      }
+      BONGOCAT_LOG_VERBOSE("After Evolution (%zu)", trigger.anim_cause);
+    }
+  }
+
   return {.trigger = trigger, .update_frame_result = update_frame_result};
 }
 
@@ -4716,7 +5142,7 @@ static bool anim_update_state(animation_context_t& animation_ctx, animation_stat
       platform::LockGuard input_guard(input.input_lock);
       platform::LockGuard update_guard(upd.update_lock);
       trigger_result = anim_handle_animation_trigger(animation_ctx, state, trigger);
-      idle_update_result = anim_handle_idle_animation(ctx, input, upd, state, trigger_result);
+      idle_update_result = anim_handle_idle_animation(animation_ctx, state, trigger_result);
       key_pressed = has_flag(trigger_result.trigger.anim_cause, trigger_animation_cause_mask_t::KeyPress) &&
                     trigger_result.trigger.any_key_press_counter > 0;
       hold_frame = key_pressed || idle_update_result.frame_changed || idle_update_result.rerender;
@@ -4815,7 +5241,12 @@ static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_ev
 // ANIMATION THREAD MANAGEMENT MODULE
 // =============================================================================
 
-void update_config_reload_sprite_sheet(animation_thread_context_t& ctx);
+struct update_config_reload_sprite_sheet_result {
+  int32_t old_anim_index{0};
+  int32_t new_anim_index{0};
+  bool evolution{false};
+};
+update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(animation_thread_context_t& ctx);
 
 static void anim_init_state(animation_thread_context_t& ctx, animation_state_t& state) {
   // read-only config
@@ -4848,6 +5279,7 @@ static void anim_init_evol(animation_context_t& animation_ctx, animation_evoluti
 
     state.uptime_sec = upd.shm->uptime_sec;
     state.time_since_start_sec = upd.shm->time_since_start_sec;
+    state.last_evolution_timestamp = platform::get_current_time_ms();
 
     state.current_stage_life_time_sec = [&]() -> platform::time_sec_t {
       switch (current_config.evolution) {
@@ -5150,6 +5582,9 @@ static void *anim_thread(void *arg) {
           case trigger_animation_cause_mask_t::StartEvolution:
             triggered_anim_cause = flag_add(triggered_anim_cause, cause);
             break;
+          case trigger_animation_cause_mask_t::AfterEvolution:
+            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+            break;
           }
         }
         if (rc < 0) {
@@ -5271,12 +5706,19 @@ static void *anim_thread(void *arg) {
     // handle animation reload
     if (reload_animation) {
       details::update_cat_height_physical(ctx);
-      update_config_reload_sprite_sheet(ctx);
+      const auto reload_result = update_config_reload_sprite_sheet(ctx);
+
       constexpr uint64_t u = 1;
       if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
         BONGOCAT_LOG_VERBOSE("animation: Write animation render event");
       } else {
         BONGOCAT_LOG_ERROR("animation: Failed to write to notify pipe in animation: %s", strerror(errno));
+      }
+
+      if (reload_result.evolution) {
+        ctx.shm->evolution.last_evolution_timestamp = platform::get_current_time_ms();
+        trigger(trigger_ctx, trigger_animation_cause_mask_t::AfterEvolution);
+        BONGOCAT_LOG_VERBOSE("animation: Animation reloaded after evolution: %d -> %d", reload_result.old_anim_index, reload_result.new_anim_index);
       }
       reload_animation = false;
     }
@@ -5535,7 +5977,7 @@ BONGOCAT_NODISCARD static int rand_animation_index(animation_thread_context_t& c
   return config.animation_index;
 }
 
-void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
+update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
   using namespace assets;
   assert(ctx._local_copy_config);
 
@@ -5545,13 +5987,29 @@ void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
   const auto old_anim_custom_set = ctx.shm->anim_custom_set;
   const auto old_anim_index = ctx.shm->anim_index;
 
+  update_config_reload_sprite_sheet_result ret;
+  ret.old_anim_index = old_anim_index;
+
   ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
   ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
   ctx.shm->anim_custom_set = ctx._local_copy_config->animation_custom_set;
   /// @NOTE: set dm_set, etc. first so rand_animation_index works
+
+  // change anim_index from config
   ctx.shm->anim_index = !ctx._local_copy_config->_keep_old_animation_index
                             ? rand_animation_index(ctx, *ctx._local_copy_config)
                             : old_anim_index;
+
+  // change anim_index from evolution
+  if (ctx.shm->evolution._evolution_pending && ctx.shm->evolution._swap_animation) {
+    if (ctx.shm->evolution._evolution_pending_animation_index >= 0) {
+      ctx.shm->anim_index = ctx.shm->evolution._evolution_pending_animation_index;
+      ret.evolution = true;
+    }
+  }
+  ctx.shm->evolution._evolution_pending = false;
+  ctx.shm->evolution._swap_animation = false;
+  ctx.shm->evolution._evolution_pending_animation_index = -1;
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
   if (features::EnableLazyLoadAssets ||
@@ -5593,8 +6051,12 @@ void update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
 
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
+  ret.new_anim_index = ctx.shm->anim_index;
+
   BONGOCAT_LOG_DEBUG("Update sprite sheet; load assets in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
                      static_cast<double>(t1 - t0) / 1000000.0);
+
+  return ret;
 }
 void update_config(animation_thread_context_t& ctx, const config::config_t& config, uint64_t new_gen) {
   assert(ctx._local_copy_config);

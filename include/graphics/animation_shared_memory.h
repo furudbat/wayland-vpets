@@ -19,7 +19,7 @@ struct animation_player_result_t {
 };
 
 struct animation_evolution_conditions_t {
-  platform::time_sec_t next_evolution_time_sec{-1};
+  platform::time_sec_t next_evolution_time_sec{10};
   int32_t min_lvl{-1};
 };
 
@@ -32,8 +32,10 @@ static_assert(MAX_ANIMATION_EVOLUTION_INDICIES <= INT32_MAX);
 struct animation_evolution_data_t {
   animation_evolution_conditions_t conditions;
 
-  int32_t animation_indices[MAX_ANIMATION_EVOLUTION_INDICIES]{};
-  int32_t num_animation_indices{0};
+  int32_t animation_indices[MAX_ANIMATION_EVOLUTION_INDICIES] = {
+    1,
+  };
+  int32_t num_animation_indices{1};
 };
 struct animation_evolution_t {
   animation_evolution_data_t data;
@@ -50,6 +52,7 @@ struct animation_evolution_t {
 
   bool _evolution_pending{false};   ///< evolution got triggerred but state is not idle
   int32_t _evolution_pending_animation_index{-1};
+  bool _swap_animation{false};
 };
 
 // =============================================================================
