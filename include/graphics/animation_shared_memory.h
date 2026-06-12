@@ -23,7 +23,6 @@ struct animation_evolution_conditions_t {
   int32_t min_lvl{-1};
 };
 
-
 inline static constexpr int32_t MIN_ANIMATION_EVOLUTION_LEVEL = 1;
 inline static constexpr int32_t MAX_ANIMATION_EVOLUTION_LEVEL = 100;
 
@@ -32,8 +31,8 @@ static_assert(MAX_ANIMATION_EVOLUTION_INDICIES <= INT32_MAX);
 struct animation_evolution_data_t {
   animation_evolution_conditions_t conditions;
 
-  int32_t animation_indices[MAX_ANIMATION_EVOLUTION_INDICIES];
   int32_t num_animation_indices{0};
+  int32_t animation_indices[MAX_ANIMATION_EVOLUTION_INDICIES];
 };
 struct animation_evolution_t {
   animation_evolution_data_t data;

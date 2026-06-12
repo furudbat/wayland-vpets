@@ -1,5 +1,5 @@
-#ifndef DM_EMBEDDED_ASSETS_HPP
-#define DM_EMBEDDED_ASSETS_HPP
+#ifndef MIN_DM_EMBEDDED_ASSETS_HPP
+#define MIN_DM_EMBEDDED_ASSETS_HPP
 
 #include <cstddef>
 
@@ -91,4 +91,4 @@ inline static constexpr std::size_t DM_MONZAEMON_ANIM_INDEX = 13;
 inline static constexpr std::size_t MIN_DM_ANIM_COUNT = 14;
 }  // namespace bongocat::assets
 
-#endif  // DM_EMBEDDED_ASSETS_HPP
+#endif  // MIN_DM_EMBEDDED_ASSETS_HPP

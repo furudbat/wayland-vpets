@@ -4,6 +4,7 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/custom/custom_sprite.h"
+#include "embedded_assets/min_dm/min_dm_evol.hpp"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
@@ -6064,6 +6065,12 @@ update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(anima
     }
   }
 
+  // init evolution data
+  if constexpr (features::EnableEvolution) {
+    assert(ctx.shm);
+    details::update_evolution_data(*ctx.shm);
+  }
+
   // initial frame
   ctx.shm->animation_player_result.sprite_sheet_col =
       ctx._local_copy_config->idle_frame >= 1 ? ctx._local_copy_config->idle_frame : 0;
@@ -6105,6 +6112,62 @@ namespace details {
         .logical = ctx._local_copy_config->cat_height,
         .scale120 = ctx.shm->scale120,
     });
+  }
+
+
+  void update_evolution_data(animation_shared_memory_t& shm) {
+#ifdef FEATURE_EVOLUTION
+    assert(shm.anim_index >= 0);
+    if (shm.anim_index >= 0) {
+      switch (shm.anim_type) {
+      case config::config_animation_sprite_sheet_layout_t::None:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Bongocat:
+        break;
+        /// @TODO: add missing update_evolution_conditions for all dms
+      case config::config_animation_sprite_sheet_layout_t::Dm:
+        switch (shm.anim_dm_set) {
+      case config::config_animation_dm_set_t::None:
+          break;
+      case config::config_animation_dm_set_t::min_dm:
+#ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_min_dm_evolution_data(static_cast<size_t>(shm.anim_index));
+#endif
+          break;
+      case config::config_animation_dm_set_t::dm:
+#ifdef FEATURE_DM_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_dm_evolution_data(static_cast<size_t>(shm.anim_index));
+#endif
+          break;
+      case config::config_animation_dm_set_t::dm20:
+#ifdef FEATURE_DM20_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_dm20_evolution_data(static_cast<size_t>(shm.anim_index));
+#endif
+          break;
+      case config::config_animation_dm_set_t::dmx:
+          break;
+      case config::config_animation_dm_set_t::pen:
+          break;
+      case config::config_animation_dm_set_t::pen20:
+          break;
+      case config::config_animation_dm_set_t::dmc:
+          break;
+      case config::config_animation_dm_set_t::dmall:
+#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_dmall_evolution_data(static_cast<size_t>(shm.anim_index));
+#endif
+          break;
+        }
+        break;
+      case config::config_animation_sprite_sheet_layout_t::MsAgent:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Pkmn:
+        break;
+      case config::config_animation_sprite_sheet_layout_t::Custom:
+        break;
+      }
+    }
+#endif
   }
 }  // namespace details
 

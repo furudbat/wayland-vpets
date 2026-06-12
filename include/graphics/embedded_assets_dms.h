@@ -35,6 +35,9 @@ inline static constexpr bool EnableMinDmEmbeddedAssets = false;
 #      define FEATURE_MIN_DM_EMBEDDED_ASSETS
 #    endif
 #    include "embedded_assets/min_dm/min_dm.hpp"
+#    ifdef FEATURE_EVOLUTION
+#      include "embedded_assets/min_dm/min_dm_evol.hpp"
+#    endif
 namespace bongocat::assets {
 inline static constexpr size_t DM_ANIM_COUNT = MIN_DM_ANIM_COUNT;
 }
@@ -62,6 +65,9 @@ inline static constexpr size_t MIN_DM_ANIM_COUNT = 0;
 /// dm
 #  ifdef FEATURE_DM_EMBEDDED_ASSETS
 #    include "embedded_assets/dm/dm.hpp"
+#     ifdef FEATURE_EVOLUTION
+#       include "embedded_assets/dm/dm_evol.hpp"
+#     endif
 #  else
 namespace bongocat::assets {
 inline static constexpr size_t DM_ANIM_COUNT = 0;
@@ -71,6 +77,9 @@ inline static constexpr size_t DM_ANIM_COUNT = 0;
 /// dm20
 #  ifdef FEATURE_DM20_EMBEDDED_ASSETS
 #    include "embedded_assets/dm20/dm20.hpp"
+#    ifdef FEATURE_EVOLUTION
+#      include "embedded_assets/dm20/dm20_evol.hpp"
+#    endif
 #  else
 namespace bongocat::assets {
 inline static constexpr size_t DM20_ANIM_COUNT = 0;
@@ -116,6 +125,9 @@ inline static constexpr size_t DMC_ANIM_COUNT = 0;
 /// dmall
 #  ifdef FEATURE_DMALL_EMBEDDED_ASSETS
 #    include "embedded_assets/dmall/dmall.hpp"
+#    ifdef FEATURE_EVOLUTION
+#      include "embedded_assets/dmall/dmall_evol.hpp"
+#    endif
 #  else
 namespace bongocat::assets {
 inline static constexpr size_t DMALL_ANIM_COUNT = 0;

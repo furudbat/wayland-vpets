@@ -276,6 +276,13 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     /// @NOTE(assets): 6. add hot reload asset
   }
 
+  // init evolution data
+  if constexpr (features::EnableEvolution) {
+    details::update_evolution_data(anim_shm);
+
+    BONGOCAT_LOG_VERBOSE("Update Evolution (anim_index=%d) with %d possible evolution(s), next evolution in %dsec", anim_shm.anim_index, anim_shm.evolution.data.num_animation_indices, anim_shm.evolution.data.conditions.next_evolution_time_sec);
+  }
+
   created_result_t<animation_t *> ret;
   ret.result = &get_current_animation(ctx);
   ret.error = bongocat_error_t::BONGOCAT_SUCCESS;
@@ -708,7 +715,19 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     }
 
     /// @NOTE(assets): 7. add pre-load asset
+
+    // init evolution data
+    if constexpr (features::EnableEvolution) {
+      assert(ret->thread_context.shm);
+      animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
+      assert(ctx.shm.ptr);
+
+      details::update_evolution_data(*ctx.shm);
+
+      BONGOCAT_LOG_INFO("Init Evolution (anim_index=%d) with %d possible evolution(s)", ctx.shm->anim_index, ctx.shm->evolution.data.num_animation_indices);
+    }
   }
+
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
   // init anim

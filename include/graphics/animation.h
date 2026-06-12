@@ -4,6 +4,7 @@
 #include "animation_context.h"
 #include "animation_thread_context.h"
 #include "config/config.h"
+#include "graphics/animation_shared_memory.h"
 #include "platform/input_context.h"
 #include "platform/update_context.h"
 #include "utils/error.h"
@@ -56,6 +57,8 @@ namespace details {
   };
   int phys_dim(phys_dim_params params);
   void update_cat_height_physical(animation_thread_context_t& ctx);
+
+  void update_evolution_data(animation_shared_memory_t& shm);
 }  // namespace details
 }  // namespace bongocat::animation
 
