@@ -505,11 +505,12 @@ static void config_reload_callback() {
     }
     // If successful, check if input devices changed before updating config
     devices_changed = config_devices_changed(old_config, new_config);
-    // update features had been enabled
+    // update features had been re-enabled
     update_needed = (new_config.cpu_threshold > old_config.cpu_threshold &&
                      old_config.cpu_threshold < platform::ENABLED_MIN_CPU_PERCENT &&
                      new_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT) ||
-                    (new_config.update_rate_ms > 0 && old_config.update_rate_ms <= 0);
+                    (new_config.update_rate_ms > 0 && old_config.update_rate_ms <= 0) ||
+                    (new_config.evolution != config::evolution_time_mode_t::NONE);
     get_main_context().config = bongocat::move(new_config);
     /// @NOTE: don't use new_config after move
     new_config = {};

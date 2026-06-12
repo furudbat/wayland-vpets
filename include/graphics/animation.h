@@ -12,6 +12,7 @@
 #include <cstdint>
 
 namespace bongocat::animation {
+struct animation_state_t;
 enum class trigger_animation_cause_mask_t : uint64_t {
   NONE = 0,
   Init = (1U << 0),
@@ -22,7 +23,6 @@ enum class trigger_animation_cause_mask_t : uint64_t {
   Timeout = (1U << 5),
   EvolutionUpdate = (1U << 6),
   StartEvolution = (1U << 7),
-  AfterEvolutionSwitchAnimation = (1U << 8),
 };
 
 // =============================================================================
