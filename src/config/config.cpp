@@ -21,11 +21,11 @@
 #include "image_loader/custom/load_custom_features.h"
 #include "utils/error.h"
 
-#include <cstdint>
-#include <cstddef>
 #include <cassert>
 #include <cctype>
 #include <climits>
+#include <cstddef>
+#include <cstdint>
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
@@ -671,7 +671,8 @@ static uint64_t config_validate_custom(config_t& config) {
       // ret |= (1u << 14);
     }
 
-    if (config.enable_scheduled_sleep && (config.custom_sprite_sheet_settings.asleep_frames <= 0 && config.custom_sprite_sheet_settings.sleep_frames <= 0)) {
+    if (config.enable_scheduled_sleep && (config.custom_sprite_sheet_settings.asleep_frames <= 0 &&
+                                          config.custom_sprite_sheet_settings.sleep_frames <= 0)) {
       BONGOCAT_LOG_WARNING("enable_scheduled_sleep is enabled, but custom sprite sheet has no sleep animation");
       // ret |= (1u << 15);
     }
@@ -872,13 +873,15 @@ static uint64_t config_validate_enums(config_t& config) {
   }
 
   // Validate evolution
-  if (config.evolution != evolution_time_mode_t::NONE && config.evolution != evolution_time_mode_t::NORMAL && config.evolution != evolution_time_mode_t::PROGRAM_START && config.evolution != evolution_time_mode_t::UPTIME) {
+  if (config.evolution != evolution_time_mode_t::NONE && config.evolution != evolution_time_mode_t::NORMAL &&
+      config.evolution != evolution_time_mode_t::PROGRAM_START && config.evolution != evolution_time_mode_t::UPTIME) {
     BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to none", EVOLUTION_KEY, config.evolution);
     config.evolution = evolution_time_mode_t::NONE;
     ret |= (1uz << 34);
   }
   if (config.evolution != evolution_time_mode_t::NONE && config.evolution_speed_factor <= 0.0) {
-    BONGOCAT_LOG_WARNING("Invalid %s is zero or below (%f), resetting to 1.0", EVOLUTION_SPEED_FACTOR_KEY, config.evolution_speed_factor);
+    BONGOCAT_LOG_WARNING("Invalid %s is zero or below (%f), resetting to 1.0", EVOLUTION_SPEED_FACTOR_KEY,
+                         config.evolution_speed_factor);
     config.evolution_speed_factor = 1.0;
     ret |= (1uz << 35);
   }
@@ -1421,7 +1424,8 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
   } else if (features::EnableEvolution && strcmp(key, EVOLUTION_KEY) == 0) {
     if (strcmp(value, EVOLUTION_TIME_MODE_NONE_STR) == 0) {
       config.evolution = evolution_time_mode_t::NONE;
-    } else if (strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_STR) == 0 || strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR) == 0) {
+    } else if (strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_STR) == 0 ||
+               strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR) == 0) {
       config.evolution = evolution_time_mode_t::PROGRAM_START;
     } else if (strcmp(value, EVOLUTION_TIME_MODE_UPTIME_STR) == 0) {
       config.evolution = evolution_time_mode_t::UPTIME;

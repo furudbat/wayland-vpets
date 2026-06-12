@@ -217,17 +217,15 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
   const bool process_idle_animation_by_animation_speed =
       current_config.idle_animation && current_config.animation_speed_ms > 0 &&
       current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
-  const bool process_idle_animation_by_fps = current_config.idle_animation &&
-                                             current_config.animation_speed_ms <= 0 &&
+  const bool process_idle_animation_by_fps = current_config.idle_animation && current_config.animation_speed_ms <= 0 &&
                                              current_state.frame_delta_ms_counter > fps_ms;
   const bool process_idle_animation = process_idle_animation_by_animation_speed || process_idle_animation_by_fps;
 
   const bool release_frame_by_animation_speed = !current_config.idle_animation &&
                                                 current_config.animation_speed_ms > 0 &&
                                                 current_state.hold_frame_ms > current_config.animation_speed_ms;
-  const bool release_frame_animation_by_fps = !current_config.idle_animation &&
-                                              current_config.animation_speed_ms <= 0 &&
-                                              current_state.hold_frame_ms > fps_ms;
+  const bool release_frame_animation_by_fps =
+      !current_config.idle_animation && current_config.animation_speed_ms <= 0 && current_state.hold_frame_ms > fps_ms;
   const bool release_frame_for_non_idle = release_frame_by_animation_speed || release_frame_animation_by_fps;
   const bool go_next_frame = (current_config.animation_speed_ms > 0 &&
                               current_state.frame_delta_ms_counter > current_config.animation_speed_ms) ||
@@ -299,13 +297,16 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   const bool is_idle_sleep = current_state.row_state == animation_state_row_t::IdleSleep;
 
-  const bool is_evolving = current_state.row_state == animation_state_row_t::StartEvolution || current_state.row_state == animation_state_row_t::Evolution || current_state.row_state == animation_state_row_t::AfterEvolution;
+  const bool is_evolving = current_state.row_state == animation_state_row_t::StartEvolution ||
+                           current_state.row_state == animation_state_row_t::Evolution ||
+                           current_state.row_state == animation_state_row_t::AfterEvolution;
   const bool can_evol = !is_evolving && evol._evolution_pending && (is_idle_sleep || (!is_working && !is_moving));
 
-  const bool process_evolving_animation_by_animation_speed = is_evolving && current_config.animation_speed_ms > 0 &&
+  const bool process_evolving_animation_by_animation_speed =
+      is_evolving && current_config.animation_speed_ms > 0 &&
       current_state.frame_delta_ms_counter > current_config.animation_speed_ms;
-  const bool process_evolving_animation_by_fps = is_evolving && current_config.animation_speed_ms <= 0 &&
-                                                current_state.frame_delta_ms_counter > fps_ms;
+  const bool process_evolving_animation_by_fps =
+      is_evolving && current_config.animation_speed_ms <= 0 && current_state.frame_delta_ms_counter > fps_ms;
   const bool process_evolving_animation =
       process_evolving_animation_by_animation_speed || process_evolving_animation_by_fps;
 
@@ -327,7 +328,8 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
             last_key_pressed_timestamp > 0) ||
            process_idle_animation || process_movement),
       .process_movement = process_movement,
-      .start_evolving = current_state.row_state != animation_state_row_t::StartEvolution && evol._evolution_pending && can_evol,
+      .start_evolving =
+          current_state.row_state != animation_state_row_t::StartEvolution && evol._evolution_pending && can_evol,
 
       .release_test_frame = current_config.test_animation_duration_ms > 0 &&
                             current_state.frame_delta_ms_counter > current_config.test_animation_duration_ms,
@@ -458,12 +460,12 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
       case platform::input::input_hand_mapping_t::Left:
         new_animation_result.sprite_sheet_col =
             (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index]
-                                           : current_frames.animations.left_writing[new_state.animations_index];
+                                      : current_frames.animations.left_writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Right:
         new_animation_result.sprite_sheet_col =
             (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
-                                           : current_frames.animations.right_writing[new_state.animations_index];
+                                      : current_frames.animations.right_writing[new_state.animations_index];
         break;
       }
     } else {
@@ -575,12 +577,12 @@ anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform:
       case platform::input::input_hand_mapping_t::Left:
         new_animation_result.sprite_sheet_col =
             (current_config.mirror_x) ? current_frames.animations.right_writing[new_state.animations_index]
-                                           : current_frames.animations.left_writing[new_state.animations_index];
+                                      : current_frames.animations.left_writing[new_state.animations_index];
         break;
       case platform::input::input_hand_mapping_t::Right:
         new_animation_result.sprite_sheet_col =
             (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
-                                           : current_frames.animations.right_writing[new_state.animations_index];
+                                      : current_frames.animations.right_writing[new_state.animations_index];
         break;
       }
     } else {
@@ -776,7 +778,8 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   // Idle Animation
   const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
@@ -963,7 +966,8 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -1454,7 +1458,8 @@ anim_dm_handle_movement(animation_thread_context_t& ctx, const platform::input::
   assert(ctx.shm);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   anim_dm_process_animation_result_t ret{.row_state = new_state.row_state,
                                          .status = anim_dm_process_animation_result_status_t::None};
@@ -1674,7 +1679,8 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   /// @TODO: make animation state machine ?
 
@@ -1958,7 +1964,8 @@ anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx, const platform::
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   bool show_happy = false;
   if (input_shm.kpm > 0) {
@@ -2078,7 +2085,8 @@ static anim_next_frame_result_t anim_dm_working_next_frame(animation_thread_cont
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -2195,7 +2203,7 @@ static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_context_t&
   // assert(input.shm != nullptr);
   assert(upd.shm);
   // const auto& input_shm = *input.shm;
-  //const auto& update_shm = *upd.shm;
+  // const auto& update_shm = *upd.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -2217,8 +2225,8 @@ static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_context_t&
                               current_state, current_frames, current_config);
     BONGOCAT_LOG_VERBOSE("Start Evolving");
   } else if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AfterEvolutionSwitchAnimation)) {
-    anim_dm_restart_animation(ctx, animation_state_row_t::Evolution, new_animation_result, new_state,
-                              current_state, current_frames, current_config);
+    anim_dm_restart_animation(ctx, animation_state_row_t::Evolution, new_animation_result, new_state, current_state,
+                              current_frames, current_config);
     BONGOCAT_LOG_VERBOSE("After Evolving");
   } else if (conditions.is_evolving) {
     // continues animations
@@ -2617,32 +2625,32 @@ anim_pkmn_start_or_process_animation(animation_thread_context_t& ctx, animation_
                                      current_config);
 }
 
-static anim_next_frame_result_t
-anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
-                          const platform::input::input_context_t& input,
-                          const platform::update::update_context_t& upd,
-                          animation_state_t& state,
-                          const anim_handle_key_press_result_t& trigger_result) {
+static anim_next_frame_result_t anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
+                                                          const platform::input::input_context_t& input,
+                                                          const platform::update::update_context_t& upd,
+                                                          animation_state_t& state,
+                                                          const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
   // read-only config
   assert(ctx._local_copy_config);
   const config::config_t& current_config = *ctx._local_copy_config;
 
-  //const auto& input_shm = *input.shm;
-  //const auto& update_shm = *upd.shm;
+  // const auto& input_shm = *input.shm;
+  // const auto& update_shm = *upd.shm;
   auto& anim_shm = *ctx.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
-  //const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
+  // const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
   assert(get_current_animation(ctx).type == animation_t::type_t::Pkmn);
   const auto& current_frames = get_current_animation(ctx).pkmn;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   // Idle Animation
   const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
@@ -2719,7 +2727,8 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   // in Writing mode/start writing
   if (!conditions.is_writing) {
@@ -2756,8 +2765,8 @@ anim_pkmn_key_pressed_next_frame(animation_thread_context_t& ctx,
 }
 
 static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_t& animation_ctx,
-                                                            animation_state_t& state,
-                                                            const animation_trigger_t& trigger) {
+                                                              animation_state_t& state,
+                                                              const animation_trigger_t& trigger) {
   using namespace assets;
 
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
@@ -2777,7 +2786,7 @@ static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_
   // assert(input.shm != nullptr);
   assert(upd.shm);
   // const auto& input_shm = *input.shm;
-  //const auto& update_shm = *upd.shm;
+  // const auto& update_shm = *upd.shm;
   const auto current_state = state;
   const auto& current_animation_result = anim_shm.animation_player_result;
   [[maybe_unused]] const int anim_index = anim_shm.anim_index;
@@ -2796,11 +2805,11 @@ static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_
   // evolving
   if (!conditions.is_evolving && conditions.start_evolving) {
     anim_pkmn_restart_animation(ctx, animation_state_row_t::StartEvolution, new_animation_result, new_state,
-                              current_state, current_frames, current_config);
+                                current_state, current_frames, current_config);
     BONGOCAT_LOG_VERBOSE("Start Evolving");
   } else if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AfterEvolutionSwitchAnimation)) {
-    anim_pkmn_restart_animation(ctx, animation_state_row_t::Evolution, new_animation_result, new_state,
-                              current_state, current_frames, current_config);
+    anim_pkmn_restart_animation(ctx, animation_state_row_t::Evolution, new_animation_result, new_state, current_state,
+                                current_frames, current_config);
     BONGOCAT_LOG_VERBOSE("After Evolving");
   } else if (conditions.is_evolving) {
     // continues animations
@@ -2808,7 +2817,7 @@ static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_
       if (current_state.row_state == animation_state_row_t::StartEvolution) {
         const auto animation_result =
             anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::Evolution, new_animation_result, new_state,
-                                               current_state, current_frames, current_config);
+                                                 current_state, current_frames, current_config);
         if (animation_result.row_state == animation_state_row_t::Evolution) {
           if (evol._evolution_pending_animation_index >= 0) {
             evol._swap_animation = true;
@@ -2817,12 +2826,12 @@ static anim_next_frame_result_t anim_pkmn_evolving_next_frame(animation_context_
         }
       } else if (state.row_state == animation_state_row_t::Evolution) {
         // end evol, cool down
-        anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution, new_animation_result, new_state,
-                                           current_state, current_frames, current_config);
+        anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution, new_animation_result,
+                                             new_state, current_state, current_frames, current_config);
       } else if (current_state.row_state == animation_state_row_t::AfterEvolution) {
         // back to idle
         anim_pkmn_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
-                                           current_state, current_frames, current_config);
+                                             current_state, current_frames, current_config);
       }
     }
   }
@@ -3114,7 +3123,8 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   /// @TODO: make animation fsm
 
@@ -3875,7 +3885,8 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
   assert(ctx.shm != BONGOCAT_NULLPTR);
   animation_shared_memory_t& anim_shm = *ctx.shm;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   anim_custom_process_animation_result_t ret{.row_state = new_state.row_state,
                                              .status = anim_custom_process_animation_result_status_t::None};
@@ -4110,7 +4121,8 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger_result.trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   /// @TODO: make animation fsm
 
@@ -4574,7 +4586,8 @@ anim_custom_key_pressed_next_frame(animation_thread_context_t& ctx, animation_st
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state,  anim_shm.evolution, trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   bool show_happy = false;
   if (current_frames.feature_writing_happy) {
@@ -4728,7 +4741,8 @@ static anim_next_frame_result_t anim_custom_working_next_frame(animation_thread_
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -4848,7 +4862,8 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
 
-  const auto conditions = get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution,  trigger, current_config);
+  const auto conditions =
+      get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
@@ -4923,11 +4938,8 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
 }
 #endif
 
-
-static anim_next_frame_result_t
-anim_handle_idle_animation(animation_context_t& animation_ctx,
-                           animation_state_t& state,
-                           const anim_handle_key_press_result_t& trigger_result) {
+static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& animation_ctx, animation_state_t& state,
+                                                           const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
@@ -5203,9 +5215,10 @@ static bool anim_update_state(animation_context_t& animation_ctx, animation_stat
   return ret;
 }
 
-static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_evolution_t& state, [[maybe_unused]] const animation_trigger_t& trigger) {
-  //assert(animation_ctx._input);
-  //platform::input::input_context_t& input = *animation_ctx._input;
+static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_evolution_t& state,
+                                [[maybe_unused]] const animation_trigger_t& trigger) {
+  // assert(animation_ctx._input);
+  // platform::input::input_context_t& input = *animation_ctx._input;
   platform::update::update_context_t& upd = *animation_ctx._update;
   animation_thread_context_t& ctx = animation_ctx.thread_context;
 
@@ -5227,7 +5240,7 @@ static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_ev
       case config::evolution_time_mode_t::NORMAL: {
         const platform::timestamp_ms_t now = platform::get_current_time_ms();
         return (now - state.last_evolution_timestamp) / 1000;
-      }break;
+      } break;
       case config::evolution_time_mode_t::PROGRAM_START:
         return state.time_since_start_sec;
       case config::evolution_time_mode_t::UPTIME:
@@ -5237,24 +5250,36 @@ static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_ev
       return 0;
     }();
 
-    state._lvl = upd.shm->time_since_start_sec > 0 ? static_cast<int32_t>((static_cast<double>(state.current_stage_life_time_sec)*current_config.evolution_speed_factor) / static_cast<double>(upd.shm->time_since_start_sec)) : 0;
+    state._lvl = upd.shm->time_since_start_sec > 0
+                     ? static_cast<int32_t>((static_cast<double>(state.current_stage_life_time_sec) *
+                                             current_config.evolution_speed_factor) /
+                                            static_cast<double>(upd.shm->time_since_start_sec))
+                     : 0;
   }
 
   if (!state._evolution_pending) {
     const auto& evol_data = state.data;
     // check for evolution
-    if ((evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL || state.data.conditions.next_evolution_time_sec > 0) && evol_data.num_animation_indices > 0) {
-      const bool can_evol = (evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL && state._lvl >= evol_data.conditions.min_lvl) ||
-        (evol_data.conditions.next_evolution_time_sec > 0 && (static_cast<double>(state.current_stage_life_time_sec) * current_config.evolution_speed_factor) >= static_cast<double>(evol_data.conditions.next_evolution_time_sec));
+    if ((evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL ||
+         state.data.conditions.next_evolution_time_sec > 0) &&
+        evol_data.num_animation_indices > 0) {
+      const bool can_evol =
+          (evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL &&
+           state._lvl >= evol_data.conditions.min_lvl) ||
+          (evol_data.conditions.next_evolution_time_sec > 0 &&
+           (static_cast<double>(state.current_stage_life_time_sec) * current_config.evolution_speed_factor) >=
+               static_cast<double>(evol_data.conditions.next_evolution_time_sec));
 
       if (can_evol) {
         assert(evol_data.num_animation_indices > 0);
-        //assert(evol_data.num_animation_indices <= UINT32_MAX);
-        // randomize evolution
-        const size_t next_animation_index = ctx._rng.range(0, static_cast<uint32_t>(evol_data.num_animation_indices)-1);
-        //assert(evol_data.num_animation_indices <= SIZE_MAX);
-        // prep evol
-        state._evolution_pending_animation_index = evol_data.animation_indices[next_animation_index % static_cast<size_t>(evol_data.num_animation_indices)];
+        // assert(evol_data.num_animation_indices <= UINT32_MAX);
+        //  randomize evolution
+        const size_t next_animation_index =
+            ctx._rng.range(0, static_cast<uint32_t>(evol_data.num_animation_indices) - 1);
+        // assert(evol_data.num_animation_indices <= SIZE_MAX);
+        //  prep evol
+        state._evolution_pending_animation_index =
+            evol_data.animation_indices[next_animation_index % static_cast<size_t>(evol_data.num_animation_indices)];
         state._evolution_pending = true;
       }
     }
@@ -5290,8 +5315,8 @@ static void anim_init_state(animation_thread_context_t& ctx, animation_state_t& 
 }
 
 static void anim_init_evol(animation_context_t& animation_ctx, animation_evolution_t& state) {
-  //assert(animation_ctx._input);
-  //platform::input::input_context_t& input = *animation_ctx._input;
+  // assert(animation_ctx._input);
+  // platform::input::input_context_t& input = *animation_ctx._input;
   platform::update::update_context_t& upd = *animation_ctx._update;
   animation_thread_context_t& ctx = animation_ctx.thread_context;
 
@@ -5479,7 +5504,7 @@ static void *anim_thread(void *arg) {
   }
 
   // update evol
-  if constexpr (features::EnableEvolution)  {
+  if constexpr (features::EnableEvolution) {
     platform::LockGuard guard(trigger_ctx.thread_context.anim_lock);
     animation_thread_context_t& ctx = trigger_ctx.thread_context;
 
@@ -5630,10 +5655,10 @@ static void *anim_thread(void *arg) {
         platform::LockGuard guard(trigger_ctx.thread_context.anim_lock);
         assert(ctx.shm);
         const bool evolved = anim_evolution_stat(trigger_ctx, ctx.shm->evolution,
-                                                     {
-                                                         .anim_cause = triggered_anim_cause,
-                                                         .any_key_press_counter = any_key_press_counter,
-                                                     });
+                                                 {
+                                                     .anim_cause = triggered_anim_cause,
+                                                     .any_key_press_counter = any_key_press_counter,
+                                                 });
         if (evolved) {
           triggered_anim_cause = flag_add(triggered_anim_cause, trigger_animation_cause_mask_t::StartEvolution);
         }
@@ -5744,7 +5769,8 @@ static void *anim_thread(void *arg) {
       if (reload_result.evolution) {
         ctx.shm->evolution.last_evolution_timestamp = platform::get_current_time_ms();
         trigger(trigger_ctx, trigger_animation_cause_mask_t::AfterEvolutionSwitchAnimation);
-        BONGOCAT_LOG_VERBOSE("animation: Animation reloaded after evolution: %d -> %d", reload_result.old_anim_index, reload_result.new_anim_index);
+        BONGOCAT_LOG_VERBOSE("animation: Animation reloaded after evolution: %d -> %d", reload_result.old_anim_index,
+                             reload_result.new_anim_index);
       }
       reload_animation = false;
     }
@@ -6114,7 +6140,6 @@ namespace details {
     });
   }
 
-
   void update_evolution_data(animation_shared_memory_t& shm) {
 #ifdef FEATURE_EVOLUTION
     assert(shm.anim_index >= 0);
@@ -6127,35 +6152,35 @@ namespace details {
         /// @TODO: add missing update_evolution_conditions for all dms
       case config::config_animation_sprite_sheet_layout_t::Dm:
         switch (shm.anim_dm_set) {
-      case config::config_animation_dm_set_t::None:
+        case config::config_animation_dm_set_t::None:
           break;
-      case config::config_animation_dm_set_t::min_dm:
-#ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
+        case config::config_animation_dm_set_t::min_dm:
+#  ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
           shm.evolution.data = assets::get_min_dm_evolution_data(static_cast<size_t>(shm.anim_index));
-#endif
+#  endif
           break;
-      case config::config_animation_dm_set_t::dm:
-#ifdef FEATURE_DM_EMBEDDED_ASSETS
+        case config::config_animation_dm_set_t::dm:
+#  ifdef FEATURE_DM_EMBEDDED_ASSETS
           shm.evolution.data = assets::get_dm_evolution_data(static_cast<size_t>(shm.anim_index));
-#endif
+#  endif
           break;
-      case config::config_animation_dm_set_t::dm20:
-#ifdef FEATURE_DM20_EMBEDDED_ASSETS
+        case config::config_animation_dm_set_t::dm20:
+#  ifdef FEATURE_DM20_EMBEDDED_ASSETS
           shm.evolution.data = assets::get_dm20_evolution_data(static_cast<size_t>(shm.anim_index));
-#endif
+#  endif
           break;
-      case config::config_animation_dm_set_t::dmx:
+        case config::config_animation_dm_set_t::dmx:
           break;
-      case config::config_animation_dm_set_t::pen:
+        case config::config_animation_dm_set_t::pen:
           break;
-      case config::config_animation_dm_set_t::pen20:
+        case config::config_animation_dm_set_t::pen20:
           break;
-      case config::config_animation_dm_set_t::dmc:
+        case config::config_animation_dm_set_t::dmc:
           break;
-      case config::config_animation_dm_set_t::dmall:
-#ifdef FEATURE_DMALL_EMBEDDED_ASSETS
+        case config::config_animation_dm_set_t::dmall:
+#  ifdef FEATURE_DMALL_EMBEDDED_ASSETS
           shm.evolution.data = assets::get_dmall_evolution_data(static_cast<size_t>(shm.anim_index));
-#endif
+#  endif
           break;
         }
         break;

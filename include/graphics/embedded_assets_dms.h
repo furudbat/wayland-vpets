@@ -65,9 +65,9 @@ inline static constexpr size_t MIN_DM_ANIM_COUNT = 0;
 /// dm
 #  ifdef FEATURE_DM_EMBEDDED_ASSETS
 #    include "embedded_assets/dm/dm.hpp"
-#     ifdef FEATURE_EVOLUTION
-#       include "embedded_assets/dm/dm_evol.hpp"
-#     endif
+#    ifdef FEATURE_EVOLUTION
+#      include "embedded_assets/dm/dm_evol.hpp"
+#    endif
 #  else
 namespace bongocat::assets {
 inline static constexpr size_t DM_ANIM_COUNT = 0;

@@ -3,8 +3,8 @@
 
 #include "config/config.h"
 
-#include <cstdint>
 #include <cstddef>
+#include <cstdint>
 
 namespace bongocat::platform::update {
 inline static constexpr size_t MaxCpus = 256;

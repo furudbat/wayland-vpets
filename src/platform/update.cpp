@@ -15,10 +15,10 @@
 #include <sys/eventfd.h>
 #include <sys/mman.h>
 #include <sys/stat.h>
+#include <sys/timerfd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
 #include <unistd.h>
-#include <sys/timerfd.h>
 
 namespace bongocat::platform::update {
 inline static constexpr int MAX_ATTEMPTS = 2048;
@@ -281,7 +281,6 @@ static void *update_thread(void *arg) {
   constexpr size_t nfds = 4;
   pollfd pfds[nfds];
 
-
   bool feature_evolution = false;
   {
     LockGuard guard(upd.update_lock);
@@ -295,7 +294,8 @@ static void *update_thread(void *arg) {
     update_shm.uptime_sec = get_boottime();
     update_shm.time_since_start_sec = get_time_since_start_sec(update_shm.program_start_time);
 
-    feature_evolution = current_config.evolution != config::evolution_time_mode_t::NONE && current_config.evolution_speed_factor > 0.0;
+    feature_evolution =
+        current_config.evolution != config::evolution_time_mode_t::NONE && current_config.evolution_speed_factor > 0.0;
   }
 
   atomic_store(&upd._running, true);
@@ -318,7 +318,8 @@ static void *update_thread(void *arg) {
 
       // enable_debug = current_config.enable_debug;
 
-      feature_evolution = current_config.evolution != config::evolution_time_mode_t::NONE && current_config.evolution_speed_factor > 0.0;
+      feature_evolution = current_config.evolution != config::evolution_time_mode_t::NONE &&
+                          current_config.evolution_speed_factor > 0.0;
 
       // update CPU properties
       cpu_threshold = current_config.cpu_threshold;
@@ -420,8 +421,8 @@ static void *update_thread(void *arg) {
       BONGOCAT_LOG_VERBOSE("update: System clock was changed/discontinuity detected!");
 
       constexpr struct itimerspec its = {
-        .it_interval = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 },
-        .it_value    = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 }
+          .it_interval = {.tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0},
+          .it_value = {.tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0}
       };
       // Realtime clock changed, so we must reset the timer state to clear the error
       timerfd_settime(upd.fd_timer._fd, TFD_TIMER_CANCEL_ON_SET, &its, BONGOCAT_NULLPTR);
@@ -442,8 +443,8 @@ static void *update_thread(void *arg) {
       auto& update_shm = *upd.shm;
 
       // read-only config
-      //assert(upd._local_copy_config);
-      //const config::config_t& current_config = *upd._local_copy_config;
+      // assert(upd._local_copy_config);
+      // const config::config_t& current_config = *upd._local_copy_config;
 
       update_shm.uptime_sec = get_boottime();
       update_shm.time_since_start_sec = get_time_since_start_sec(update_shm.program_start_time);
@@ -648,8 +649,8 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
   // Configure the timer: fires every TIMEOUT_SECONDS,
   // AND cancels/triggers an event if the system clock jumps (NTP/Manual adjustment)
   constexpr struct itimerspec its = {
-    .it_interval = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 },
-    .it_value    = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 }
+      .it_interval = {.tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0},
+      .it_value = {.tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0}
   };
   if (timerfd_settime(ret->fd_timer._fd, TFD_TIMER_CANCEL_ON_SET, &its, BONGOCAT_NULLPTR) == -1) {
     BONGOCAT_LOG_ERROR("timerfd_settime failed");
@@ -794,8 +795,8 @@ bongocat_error_t restart(update_context_t& upd, animation::animation_context_t& 
     // Configure the timer: fires every TIMEOUT_SECONDS,
     // AND cancels/triggers an event if the system clock jumps (NTP/Manual adjustment)
     constexpr struct itimerspec its = {
-      .it_interval = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 },
-      .it_value    = { .tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0 }
+        .it_interval = {.tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0},
+        .it_value = {.tv_sec = EVOLUTION_TIMEOUT_SEC, .tv_nsec = 0}
     };
     if (timerfd_settime(upd.fd_timer._fd, TFD_TIMER_CANCEL_ON_SET, &its, BONGOCAT_NULLPTR) == -1) {
       BONGOCAT_LOG_ERROR("timerfd_settime failed");

@@ -280,7 +280,9 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   if constexpr (features::EnableEvolution) {
     details::update_evolution_data(anim_shm);
 
-    BONGOCAT_LOG_VERBOSE("Update Evolution (anim_index=%d) with %d possible evolution(s), next evolution in %dsec", anim_shm.anim_index, anim_shm.evolution.data.num_animation_indices, anim_shm.evolution.data.conditions.next_evolution_time_sec);
+    BONGOCAT_LOG_VERBOSE("Update Evolution (anim_index=%d) with %d possible evolution(s), next evolution in %dsec",
+                         anim_shm.anim_index, anim_shm.evolution.data.num_animation_indices,
+                         anim_shm.evolution.data.conditions.next_evolution_time_sec);
   }
 
   created_result_t<animation_t *> ret;
@@ -724,7 +726,8 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 
       details::update_evolution_data(*ctx.shm);
 
-      BONGOCAT_LOG_INFO("Init Evolution (anim_index=%d) with %d possible evolution(s)", ctx.shm->anim_index, ctx.shm->evolution.data.num_animation_indices);
+      BONGOCAT_LOG_INFO("Init Evolution (anim_index=%d) with %d possible evolution(s)", ctx.shm->anim_index,
+                        ctx.shm->evolution.data.num_animation_indices);
     }
   }
 

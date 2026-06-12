@@ -42,12 +42,12 @@ struct animation_evolution_t {
   platform::timestamp_ms_t last_evolution_timestamp{0};  ///< since last evolution happens
 
   platform::time_sec_t current_stage_life_time_sec{0};
-  platform::time_sec_t lvl_per_time_sec{0};             ///< for pkmn (time pass -> Levels)
+  platform::time_sec_t lvl_per_time_sec{0};  ///< for pkmn (time pass -> Levels)
   int32_t _lvl{MIN_ANIMATION_EVOLUTION_LEVEL};
 
-  //bool _night_time{false};
+  // bool _night_time{false};
 
-  bool _evolution_pending{false};   ///< evolution got triggerred but state is not idle
+  bool _evolution_pending{false};  ///< evolution got triggerred but state is not idle
   int32_t _evolution_pending_animation_index{-1};
   bool _swap_animation{false};
 };
