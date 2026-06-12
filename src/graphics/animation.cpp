@@ -5136,8 +5136,10 @@ static bool anim_update_state(animation_context_t& animation_ctx, animation_stat
       platform::LockGuard update_guard(upd.update_lock);
       trigger_result = anim_handle_animation_trigger(animation_ctx, state, trigger);
       idle_update_result = anim_handle_idle_animation(animation_ctx, state, trigger_result);
-      key_pressed = has_flag(trigger_result.trigger.anim_cause, trigger_animation_cause_mask_t::KeyPress) && trigger_result.trigger.any_key_press_counter > 0;
-      hold_frame = key_pressed || idle_update_result.frame_changed || idle_update_result.rerender || state.swap_animation_done;
+      key_pressed = has_flag(trigger_result.trigger.anim_cause, trigger_animation_cause_mask_t::KeyPress) &&
+                    trigger_result.trigger.any_key_press_counter > 0;
+      hold_frame =
+          key_pressed || idle_update_result.frame_changed || idle_update_result.rerender || state.swap_animation_done;
     }
     ret = idle_update_result.rerender || trigger_result.update_frame_result.rerender;
     if (key_pressed) {
@@ -5418,8 +5420,8 @@ static void *anim_thread(void *arg) {
                                                         : static_cast<int32_t>(CUSTOM_SPRITE_SHEET_ROW_IDLE);
         ctx._state.start_col_index = 0;
         ctx._state.end_col_index = current_config.custom_sprite_sheet_settings.idle_frames > 0
-                                  ? current_config.custom_sprite_sheet_settings.idle_frames - 1
-                                  : 0;
+                                       ? current_config.custom_sprite_sheet_settings.idle_frames - 1
+                                       : 0;
         ctx._state.row_state = animation_state_row_t::Idle;
       }
 #endif
@@ -6164,26 +6166,26 @@ namespace details {
         break;
       case config::config_animation_sprite_sheet_layout_t::Dm:
         switch (shm.anim_dm_set) {
-      case config::config_animation_dm_set_t::None:
+        case config::config_animation_dm_set_t::None:
           break;
-      case config::config_animation_dm_set_t::min_dm:
+        case config::config_animation_dm_set_t::min_dm:
           shm.evolution.data.conditions.next_evolution_time_sec = 15;
           break;
-      case config::config_animation_dm_set_t::dm:
+        case config::config_animation_dm_set_t::dm:
           shm.evolution.data.conditions.next_evolution_time_sec = 20;
           break;
-      case config::config_animation_dm_set_t::dm20:
+        case config::config_animation_dm_set_t::dm20:
           shm.evolution.data.conditions.next_evolution_time_sec = 30;
           break;
-      case config::config_animation_dm_set_t::dmx:
+        case config::config_animation_dm_set_t::dmx:
           break;
-      case config::config_animation_dm_set_t::pen:
+        case config::config_animation_dm_set_t::pen:
           break;
-      case config::config_animation_dm_set_t::pen20:
+        case config::config_animation_dm_set_t::pen20:
           break;
-      case config::config_animation_dm_set_t::dmc:
+        case config::config_animation_dm_set_t::dmc:
           break;
-      case config::config_animation_dm_set_t::dmall:
+        case config::config_animation_dm_set_t::dmall:
           shm.evolution.data.conditions.next_evolution_time_sec = 30;
           break;
         }
@@ -6191,7 +6193,7 @@ namespace details {
       case config::config_animation_sprite_sheet_layout_t::MsAgent:
         break;
       case config::config_animation_sprite_sheet_layout_t::Pkmn:
-          shm.evolution.data.conditions.next_evolution_time_sec = 10;
+        shm.evolution.data.conditions.next_evolution_time_sec = 10;
         break;
       case config::config_animation_sprite_sheet_layout_t::Custom:
         break;

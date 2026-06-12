@@ -325,7 +325,8 @@ static void *update_thread(void *arg) {
         // keep update thread alive if evolution feature is needed
         feature_evolution = (current_config.evolution != config::evolution_time_mode_t::NONE &&
                              current_config.evolution_speed_factor > 0.0) &&
-                            (animation_ctx.thread_context.shm && animation_ctx.thread_context.shm->evolution.data.num_animation_indices > 0);
+                            (animation_ctx.thread_context.shm &&
+                             animation_ctx.thread_context.shm->evolution.data.num_animation_indices > 0);
       }
 
       // update CPU properties
