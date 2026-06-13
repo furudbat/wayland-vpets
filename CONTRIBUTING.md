@@ -73,8 +73,6 @@ Follow the project’s coding guidelines:
 * **Commit messages**: conventional commits (`feat:`, `fix:`, `docs:`, `refactor:`)
 * **No `popen`**: use `spawn_pipe` for subprocess execution _(security requirement)_
 
-_Run `make format` before committing_
-
 #### Moving to C++
 
 This project is migrated to C++ while retaining a C-style foundation for performance, Wayland compatibility and mosty compatible with [upstream](https://github.com/saatvik333/wayland-bongocat).  
@@ -124,6 +122,12 @@ The codebase remains largely C under the hood, using Linux + Wayland libraries, 
    ```
 5. Push your branch and open a Pull Request against `develop`.
 6. Include a description of what your PR changes and any relevant screenshots or logs.
+
+#### Formatting
+
+Run `cmake --build build --target fix-format` before committing.
+
+> For CMake formatting use [gersemi](https://github.com/BlankSpruce/gersemi): `git ls-files -z -- "CMakeLists.txt" "include/**/CMakeLists.txt" "src/**/CMakeLists.txt" "protocols/**/CMakeLists.txt" "cmake/**/*.cmake" | xargs -0 gersemi -i`
 
 ---
 

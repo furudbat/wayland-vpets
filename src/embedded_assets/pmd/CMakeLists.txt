@@ -7,8 +7,12 @@ target_compile_definitions(assets_pmd_feature INTERFACE FEATURE_PMD_EMBEDDED_ASS
 add_library(assets_pmd STATIC)
 target_sources(
   assets_pmd
-  PRIVATE pmd_get_sprite_sheet.cpp pmd_get_sprite_sheet_settings.cpp pmd_config_parse_animation_name.cpp pmd_images.c
-        $<$<BOOL:${FEATURE_EVOLUTION}>:pmd_get_evolution_data.cpp>
+  PRIVATE
+    pmd_get_sprite_sheet.cpp
+    pmd_get_sprite_sheet_settings.cpp
+    pmd_config_parse_animation_name.cpp
+    pmd_images.c
+    $<$<BOOL:${FEATURE_EVOLUTION}>:pmd_get_evolution_data.cpp>
 )
 target_compile_options(assets_pmd PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)
 target_include_directories(assets_pmd PRIVATE ${INCLUDE_DIR}/embedded_assets/pmd PUBLIC ${INCLUDE_DIR})
