@@ -1,6 +1,6 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dm20/dm20.hpp"
-#include "embedded_assets/dm20/dm20_evol.hpp"
+#include "embedded_assets/dm20/dm20_evol.h"
 #include "graphics/animation_shared_memory.h"
 
 namespace bongocat::assets {

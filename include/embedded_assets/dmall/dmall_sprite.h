@@ -4,7 +4,7 @@
 #include "embedded_assets/embedded_image.h"
 
 namespace bongocat::assets {
-    [[nodiscard]] extern embedded_image_t get_dmall_sprite_sheet(size_t i);
+BONGOCAT_NODISCARD extern embedded_image_t get_dmall_sprite_sheet(size_t i);
 }
 
 #endif

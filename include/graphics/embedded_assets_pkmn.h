@@ -7,6 +7,9 @@
 /// pkmn
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
 #  include "embedded_assets/pkmn/pkmn.hpp"
+#  ifdef FEATURE_EVOLUTION
+#    include "embedded_assets/pkmn/pkmn_evol.h"
+#  endif
 #else
 namespace bongocat::assets {
 inline static constexpr size_t PKMN_ANIM_COUNT = 0;
@@ -16,6 +19,9 @@ inline static constexpr size_t PKMN_ANIM_COUNT = 0;
 /// pmd (pkmn)
 #ifdef FEATURE_PMD_EMBEDDED_ASSETS
 #  include "embedded_assets/pmd/pmd.hpp"
+#  ifdef FEATURE_EVOLUTION
+#    include "embedded_assets/pmd/pmd_evol.h"
+#  endif
 #else
 namespace bongocat::assets {
 inline static constexpr size_t PMD_ANIM_COUNT = 0;

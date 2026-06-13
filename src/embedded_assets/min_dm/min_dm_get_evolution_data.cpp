@@ -1,6 +1,6 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/min_dm/min_dm.hpp"
-#include "embedded_assets/min_dm/min_dm_evol.hpp"
+#include "embedded_assets/min_dm/min_dm_evol.h"
 #include "graphics/animation_shared_memory.h"
 
 namespace bongocat::assets {

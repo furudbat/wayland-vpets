@@ -4,12 +4,13 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/custom/custom_sprite.h"
-#include "embedded_assets/min_dm/min_dm_evol.hpp"
+#include "embedded_assets/min_dm/min_dm_evol.h"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
 #include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
+#include "embedded_assets/pkmn/pkmn_evol.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/embedded_assets_dms.h"
@@ -6112,7 +6113,6 @@ namespace details {
         break;
       case config::config_animation_sprite_sheet_layout_t::Bongocat:
         break;
-        /// @TODO: add missing update_evolution_conditions for all dms
       case config::config_animation_sprite_sheet_layout_t::Dm:
         switch (shm.anim_dm_set) {
         case config::config_animation_dm_set_t::None:
@@ -6133,12 +6133,24 @@ namespace details {
 #  endif
           break;
         case config::config_animation_dm_set_t::dmx:
+#  ifdef FEATURE_DMX_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_dmx_evolution_data(static_cast<size_t>(shm.anim_index));
+#  endif
           break;
         case config::config_animation_dm_set_t::pen:
+#  ifdef FEATURE_PEN_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_pen_evolution_data(static_cast<size_t>(shm.anim_index));
+#  endif
           break;
         case config::config_animation_dm_set_t::pen20:
+#  ifdef FEATURE_PEN20_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_pen20_evolution_data(static_cast<size_t>(shm.anim_index));
+#  endif
           break;
         case config::config_animation_dm_set_t::dmc:
+#  ifdef FEATURE_DMC_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_dmc_evolution_data(static_cast<size_t>(shm.anim_index));
+#  endif
           break;
         case config::config_animation_dm_set_t::dmall:
 #  ifdef FEATURE_DMALL_EMBEDDED_ASSETS
@@ -6150,8 +6162,24 @@ namespace details {
       case config::config_animation_sprite_sheet_layout_t::MsAgent:
         break;
       case config::config_animation_sprite_sheet_layout_t::Pkmn:
+#  ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+        shm.evolution.data = assets::get_pkmn_evolution_data(static_cast<size_t>(shm.anim_index));
+#  endif
         break;
       case config::config_animation_sprite_sheet_layout_t::Custom:
+        switch (shm.anim_custom_set) {
+        case config::config_animation_custom_set_t::None:
+          break;
+        case config::config_animation_custom_set_t::misc:
+          break;
+        case config::config_animation_custom_set_t::pmd:
+#  ifdef FEATURE_PMD_EMBEDDED_ASSETS
+          shm.evolution.data = assets::get_pmd_evolution_data(static_cast<size_t>(shm.anim_index));
+#  endif
+          break;
+        case config::config_animation_custom_set_t::custom:
+          break;
+        }
         break;
       }
     }
