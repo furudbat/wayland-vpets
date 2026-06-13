@@ -15,3 +15,6 @@
 ./scripts/generate_embedded_custom_assets.sh assets/pmd assets/input/pmd include/embedded_assets/pmd/pmd_images.h src/embedded_assets/pmd/pmd_images.c include/embedded_assets/pmd/pmd.hpp include/embedded_assets/pmd/pmd_sprite.h src/embedded_assets/pmd/pmd_get_sprite_sheet.cpp src/image_loader/pmd/pmd_load_sprite_sheet.cpp src/embedded_assets/pmd/pmd_get_sprite_sheet_settings.cpp assets/input/pmd-sprite-meta.json --layout Custom --set pmd
 
 # @NOTE(assets): 2.1. generate embedded_assets code
+
+
+./scripts/generate_embedded_assets_dm_evol.sh assets/dm assets/input/dm src/embedded_assets/dm/dm_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm
