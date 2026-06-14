@@ -2928,7 +2928,7 @@ namespace bongocat::assets {
               };
             case DMALL_JESMON_X_ANIM_INDEX:
               return {
-                // Stage: null
+                // Stage: Ultimate
                 .conditions = { .next_evolution_time_sec = -1 },
                 
                 .num_animation_indices = 0,

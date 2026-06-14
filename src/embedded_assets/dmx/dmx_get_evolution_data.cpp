@@ -698,8 +698,8 @@ namespace bongocat::assets {
               };
             case DMX_JESMON_X_ANIM_INDEX:
               return {
-                // Stage: 
-                .conditions = { .next_evolution_time_sec = -1 },
+                // Stage: Ultimate
+                .conditions = { .next_evolution_time_sec = 172800 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {

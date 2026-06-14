@@ -99,7 +99,7 @@ namespace bongocat::assets {
             case DMC_BLITZ_GREYMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -159,7 +159,7 @@ namespace bongocat::assets {
             case DMC_CRES_GARURUMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -509,7 +509,7 @@ namespace bongocat::assets {
             case DMC_MUGENDRAMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 0,
                 .animation_indices = {
