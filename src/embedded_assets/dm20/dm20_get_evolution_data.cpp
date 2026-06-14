@@ -9,7 +9,7 @@ namespace bongocat::assets {
             case DM20_AEGISDRAMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -69,7 +69,7 @@ namespace bongocat::assets {
             case DM20_APOLLOMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -139,7 +139,7 @@ namespace bongocat::assets {
             case DM20_BLITZ_GREYMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -159,7 +159,7 @@ namespace bongocat::assets {
             case DM20_BREAKDRAMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -239,7 +239,7 @@ namespace bongocat::assets {
             case DM20_CRES_GARURUMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -299,7 +299,7 @@ namespace bongocat::assets {
             case DM20_DIANAMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -829,7 +829,7 @@ namespace bongocat::assets {
             case DM20_MUGENDRAMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -1149,7 +1149,7 @@ namespace bongocat::assets {
             case DM20_SLAYERDRAMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -1199,7 +1199,7 @@ namespace bongocat::assets {
             case DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -1379,7 +1379,7 @@ namespace bongocat::assets {
             case DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 230400 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {

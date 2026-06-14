@@ -1203,7 +1203,7 @@ namespace bongocat::assets {
                 
                 .num_animation_indices = 4,
                 .animation_indices = {
-                  PEN_DEATH_MERAMON_ANIM_INDEX ,PEN_PUMPMON_ANIM_INDEX ,PEN_WERE_GARURUMON_ANIM_INDEX ,PEN_PUMPMON_ANIM_INDEX
+                  PEN_DEATH_MERAMON_ANIM_INDEX ,PEN_PUMPMON_ANIM_INDEX ,PEN_WERE_GARURUMON_ANIM_INDEX ,PEN_FANTOMON_ANIM_INDEX
                 },
               };
             case PEN_WOODMON_ANIM_INDEX:

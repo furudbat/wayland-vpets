@@ -798,7 +798,7 @@ namespace bongocat::assets {
               };
             case PEN20_JESMON_X_ANIM_INDEX:
               return {
-                // Stage: 
+                // Stage: Ultimate
                 .conditions = { .next_evolution_time_sec = -1 },
                 
                 .num_animation_indices = 0,
@@ -1119,7 +1119,7 @@ namespace bongocat::assets {
             case PEN20_METAL_GARURUMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 259200 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -1269,7 +1269,7 @@ namespace bongocat::assets {
             case PEN20_OMEGAMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 273600 },
                 
                 .num_animation_indices = 0,
                 .animation_indices = {
@@ -1369,7 +1369,7 @@ namespace bongocat::assets {
             case PEN20_PIEMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 259200 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -1549,7 +1549,7 @@ namespace bongocat::assets {
             case PEN20_ROSEMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 259200 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
@@ -1889,7 +1889,7 @@ namespace bongocat::assets {
             case PEN20_WAR_GREYMON_ANIM_INDEX:
               return {
                 // Stage: Ultimate
-                .conditions = { .next_evolution_time_sec = -1 },
+                .conditions = { .next_evolution_time_sec = 259200 },
                 
                 .num_animation_indices = 1,
                 .animation_indices = {
