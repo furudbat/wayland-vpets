@@ -160,9 +160,15 @@ for FILE in "$INPUT_DIR"/*.png; do
 
     DIGIMON_NAME=$NAME_NO_EXT
     STAGE=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$NAME_CLEAN" '
-      first(
-         .digimons[] |
-         select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
+      (
+        first(
+          .digimons[] |
+          select(
+            .id == $id or
+            .name == $name or
+            ((.altNames // []) | index($name))
+          )
+        ) // {}
       ) | .level
     ' assets/digimon.db.json)
 
@@ -180,51 +186,26 @@ for FILE in "$INPUT_DIR"/*.png; do
         fi
     fi
 
-    JOGRESS=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "$ASSETS_PREFIX_CLEAN" '
-        first(
-           .[$prefix][] |
-           select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
-        ) | .jogress?
-      ' assets/digimon-vpets.db.json)
-    if [ "$JOGRESS" == "true" ]; then
-        OLD_EVO_TIME=$EVO_TIME
-        EVO_TIME=$(jq -r --arg prefix "$ASSETS_PREFIX_CLEAN" --arg stage "Jogress" '
-          ._next_evolution_time_secs[$prefix][$stage]
-        ' assets/digimon-vpets.db.json)
-
-        if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
-            echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'Jogress'" >&2
-            EVO_TIME=OLD_EVO_TIME
-        fi
-    fi
-
-    MAX_STAGE=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "$ASSETS_PREFIX_CLEAN" '
-        first(
-           .[$prefix][] |
-           select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
-        ) | .max?
-      ' assets/digimon-vpets.db.json)
-    if [ "$MAX_STAGE" == "true" ]; then
-        OLD_EVO_TIME=$EVO_TIME
-        EVO_TIME=$(jq -r --arg prefix "$ASSETS_PREFIX_CLEAN" --arg stage "max" '
-          ._next_evolution_time_secs[$prefix][$stage]
-        ' assets/digimon-vpets.db.json)
-
-        if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
-            echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'max'" >&2
-            EVO_TIME=OLD_EVO_TIME
-        fi
-    fi
-
     num_animation_indices=0
     animation_indices=()
     MAX_ANIMATION_INDICES=15  # Enforce the fixed-array max capacity
-    NEXT_NAMES=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "$ASSETS_PREFIX_CLEAN" '
-        first(
-           .[$prefix][] |
-           select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
-        ) | .next[]?
-      ' assets/digimon-vpets.db.json)
+    NEXT_NAMES=$(
+      jq -r --arg name "$DIGIMON_NAME" --arg id "$NAME_CLEAN" '
+        (
+          first(
+            .digimons[]
+            | select(
+                .id == $id or
+                .name == $name or
+                ((.altNames // []) | index($name))
+              )
+          ) // {}
+        )
+        | (.evolvesTo // [])
+        | .[]
+        | .name
+      ' assets/digimon.db.json
+    )
     if [ -n "$NEXT_NAMES" ] && [ "$NEXT_NAMES" != "null" ]; then
       while IFS= read -r NEXT_NAME; do
           # Ensure the name is not empty
@@ -232,7 +213,7 @@ for FILE in "$INPUT_DIR"/*.png; do
 
           # Check if we have already reached the maximum allowed elements
           if [ "$num_animation_indices" -ge "$MAX_ANIMATION_INDICES" ]; then
-              echo "⚠️  WARNING: Digimon '$DIGIMON_NAME' has more than $MAX_ANIMATION_INDICES evolutions! Truncating excess target: '$NEXT_NAME'" >&2
+              #echo "⚠️  WARNING: Digimon '$DIGIMON_NAME' has more than $MAX_ANIMATION_INDICES evolutions! Truncating excess target: '$NEXT_NAME'" >&2
               continue # Skip adding further items but continue loop if you want to log all truncated targets
           fi
 
@@ -242,8 +223,6 @@ for FILE in "$INPUT_DIR"/*.png; do
           if [ -n "$TARGET_INDEX" ]; then
               animation_indices+=("$TARGET_INDEX")
               ((num_animation_indices++))
-          else
-              echo "⚠️  WARNING: Next evolution target '\''$NEXT_NAME'\'' for $DIGIMON_NAME has no mapped image index!" >&2
           fi
       done <<< "$NEXT_NAMES"
     fi
