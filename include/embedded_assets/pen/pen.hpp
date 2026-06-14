@@ -24,6 +24,24 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN_AERO_V_DRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t PEN_AERO_V_DRAMON_ANIM_INDEX = 0;
 
+    // Name: Andromon
+    inline static constexpr char PEN_ANDROMON_FQID_ARR[] = "pen:andromon";
+    inline static constexpr const char* PEN_ANDROMON_FQID = PEN_ANDROMON_FQID_ARR;
+    inline static constexpr size_t PEN_ANDROMON_FQID_LEN = sizeof(PEN_ANDROMON_FQID_ARR)-1;
+    inline static constexpr char PEN_ANDROMON_ID_ARR[] = "andromon";
+    inline static constexpr const char* PEN_ANDROMON_ID = PEN_ANDROMON_ID_ARR;
+    inline static constexpr size_t PEN_ANDROMON_ID_LEN = sizeof(PEN_ANDROMON_ID)-1;
+    inline static constexpr char PEN_ANDROMON_NAME_ARR[] = "Andromon";
+    inline static constexpr const char* PEN_ANDROMON_NAME = PEN_ANDROMON_NAME_ARR;
+    inline static constexpr size_t PEN_ANDROMON_NAME_LEN = sizeof(PEN_ANDROMON_NAME_ARR)-1;
+    inline static constexpr char PEN_ANDROMON_FQNAME_ARR[] = "pen:Andromon";
+    inline static constexpr const char* PEN_ANDROMON_FQNAME = PEN_ANDROMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_ANDROMON_FQNAME_LEN = sizeof(PEN_ANDROMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_ANDROMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_ANDROMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_ANDROMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_ANDROMON_ANIM_INDEX = 1;
+
     // Name: Angewomon
     inline static constexpr char PEN_ANGEWOMON_FQID_ARR[] = "pen:angewomon";
     inline static constexpr const char* PEN_ANGEWOMON_FQID = PEN_ANGEWOMON_FQID_ARR;
@@ -40,7 +58,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_ANGEWOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_ANGEWOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_ANGEWOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_ANGEWOMON_ANIM_INDEX = 1;
+    inline static constexpr size_t PEN_ANGEWOMON_ANIM_INDEX = 2;
 
     // Name: Anomalocarimon
     inline static constexpr char PEN_ANOMALOCARIMON_FQID_ARR[] = "pen:anomalocarimon";
@@ -58,7 +76,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_ANOMALOCARIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_ANOMALOCARIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_ANOMALOCARIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_ANOMALOCARIMON_ANIM_INDEX = 2;
+    inline static constexpr size_t PEN_ANOMALOCARIMON_ANIM_INDEX = 3;
 
     // Name: Asuramon
     inline static constexpr char PEN_ASURAMON_FQID_ARR[] = "pen:asuramon";
@@ -76,7 +94,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_ASURAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_ASURAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_ASURAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_ASURAMON_ANIM_INDEX = 3;
+    inline static constexpr size_t PEN_ASURAMON_ANIM_INDEX = 4;
 
     // Name: Atlur Kabuterimon
     inline static constexpr char PEN_ATLUR_KABUTERIMON_FQID_ARR[] = "pen:atlur_kabuterimon";
@@ -94,7 +112,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_ATLUR_KABUTERIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_ATLUR_KABUTERIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_ATLUR_KABUTERIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_ATLUR_KABUTERIMON_ANIM_INDEX = 4;
+    inline static constexpr size_t PEN_ATLUR_KABUTERIMON_ANIM_INDEX = 5;
+
+    // Name: Bakemon
+    inline static constexpr char PEN_BAKEMON_FQID_ARR[] = "pen:bakemon";
+    inline static constexpr const char* PEN_BAKEMON_FQID = PEN_BAKEMON_FQID_ARR;
+    inline static constexpr size_t PEN_BAKEMON_FQID_LEN = sizeof(PEN_BAKEMON_FQID_ARR)-1;
+    inline static constexpr char PEN_BAKEMON_ID_ARR[] = "bakemon";
+    inline static constexpr const char* PEN_BAKEMON_ID = PEN_BAKEMON_ID_ARR;
+    inline static constexpr size_t PEN_BAKEMON_ID_LEN = sizeof(PEN_BAKEMON_ID)-1;
+    inline static constexpr char PEN_BAKEMON_NAME_ARR[] = "Bakemon";
+    inline static constexpr const char* PEN_BAKEMON_NAME = PEN_BAKEMON_NAME_ARR;
+    inline static constexpr size_t PEN_BAKEMON_NAME_LEN = sizeof(PEN_BAKEMON_NAME_ARR)-1;
+    inline static constexpr char PEN_BAKEMON_FQNAME_ARR[] = "pen:Bakemon";
+    inline static constexpr const char* PEN_BAKEMON_FQNAME = PEN_BAKEMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_BAKEMON_FQNAME_LEN = sizeof(PEN_BAKEMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_BAKEMON_SPRITE_SHEET_COLS = 8;
+    inline static constexpr int PEN_BAKEMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_BAKEMON_SPRITE_SHEET_FRAMES_COUNT = 8;
+    inline static constexpr size_t PEN_BAKEMON_ANIM_INDEX = 6;
 
     // Name: Bakumon
     inline static constexpr char PEN_BAKUMON_FQID_ARR[] = "pen:bakumon";
@@ -112,7 +148,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_BAKUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_BAKUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_BAKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_BAKUMON_ANIM_INDEX = 5;
+    inline static constexpr size_t PEN_BAKUMON_ANIM_INDEX = 7;
 
     // Name: Big Mamemon
     inline static constexpr char PEN_BIG_MAMEMON_FQID_ARR[] = "pen:big_mamemon";
@@ -130,7 +166,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_BIG_MAMEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_BIG_MAMEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_BIG_MAMEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_BIG_MAMEMON_ANIM_INDEX = 6;
+    inline static constexpr size_t PEN_BIG_MAMEMON_ANIM_INDEX = 8;
+
+    // Name: Birdramon
+    inline static constexpr char PEN_BIRDRAMON_FQID_ARR[] = "pen:birdramon";
+    inline static constexpr const char* PEN_BIRDRAMON_FQID = PEN_BIRDRAMON_FQID_ARR;
+    inline static constexpr size_t PEN_BIRDRAMON_FQID_LEN = sizeof(PEN_BIRDRAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_BIRDRAMON_ID_ARR[] = "birdramon";
+    inline static constexpr const char* PEN_BIRDRAMON_ID = PEN_BIRDRAMON_ID_ARR;
+    inline static constexpr size_t PEN_BIRDRAMON_ID_LEN = sizeof(PEN_BIRDRAMON_ID)-1;
+    inline static constexpr char PEN_BIRDRAMON_NAME_ARR[] = "Birdramon";
+    inline static constexpr const char* PEN_BIRDRAMON_NAME = PEN_BIRDRAMON_NAME_ARR;
+    inline static constexpr size_t PEN_BIRDRAMON_NAME_LEN = sizeof(PEN_BIRDRAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_BIRDRAMON_FQNAME_ARR[] = "pen:Birdramon";
+    inline static constexpr const char* PEN_BIRDRAMON_FQNAME = PEN_BIRDRAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_BIRDRAMON_FQNAME_LEN = sizeof(PEN_BIRDRAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_BIRDRAMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_BIRDRAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_BIRDRAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_BIRDRAMON_ANIM_INDEX = 9;
 
     // Name: Blossomon
     inline static constexpr char PEN_BLOSSOMON_FQID_ARR[] = "pen:blossomon";
@@ -148,7 +202,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_BLOSSOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_BLOSSOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_BLOSSOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_BLOSSOMON_ANIM_INDEX = 7;
+    inline static constexpr size_t PEN_BLOSSOMON_ANIM_INDEX = 10;
 
     // Name: Boltmon
     inline static constexpr char PEN_BOLTMON_FQID_ARR[] = "pen:boltmon";
@@ -166,7 +220,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_BOLTMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_BOLTMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_BOLTMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_BOLTMON_ANIM_INDEX = 8;
+    inline static constexpr size_t PEN_BOLTMON_ANIM_INDEX = 11;
 
     // Name: Bubbmon
     inline static constexpr char PEN_BUBBMON_FQID_ARR[] = "pen:bubbmon";
@@ -184,7 +238,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_BUBBMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_BUBBMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_BUBBMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_BUBBMON_ANIM_INDEX = 9;
+    inline static constexpr size_t PEN_BUBBMON_ANIM_INDEX = 12;
 
     // Name: Candmon
     inline static constexpr char PEN_CANDMON_FQID_ARR[] = "pen:candmon";
@@ -202,7 +256,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_CANDMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_CANDMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_CANDMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_CANDMON_ANIM_INDEX = 10;
+    inline static constexpr size_t PEN_CANDMON_ANIM_INDEX = 13;
 
     // Name: Caprimon
     inline static constexpr char PEN_CAPRIMON_FQID_ARR[] = "pen:caprimon";
@@ -220,7 +274,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_CAPRIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_CAPRIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_CAPRIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_CAPRIMON_ANIM_INDEX = 11;
+    inline static constexpr size_t PEN_CAPRIMON_ANIM_INDEX = 14;
 
     // Name: Choromon
     inline static constexpr char PEN_CHOROMON_FQID_ARR[] = "pen:choromon";
@@ -238,7 +292,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_CHOROMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_CHOROMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_CHOROMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_CHOROMON_ANIM_INDEX = 12;
+    inline static constexpr size_t PEN_CHOROMON_ANIM_INDEX = 15;
 
     // Name: Clockmon
     inline static constexpr char PEN_CLOCKMON_FQID_ARR[] = "pen:clockmon";
@@ -256,7 +310,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_CLOCKMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_CLOCKMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_CLOCKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_CLOCKMON_ANIM_INDEX = 13;
+    inline static constexpr size_t PEN_CLOCKMON_ANIM_INDEX = 16;
+
+    // Name: Coelamon
+    inline static constexpr char PEN_COELAMON_FQID_ARR[] = "pen:coelamon";
+    inline static constexpr const char* PEN_COELAMON_FQID = PEN_COELAMON_FQID_ARR;
+    inline static constexpr size_t PEN_COELAMON_FQID_LEN = sizeof(PEN_COELAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_COELAMON_ID_ARR[] = "coelamon";
+    inline static constexpr const char* PEN_COELAMON_ID = PEN_COELAMON_ID_ARR;
+    inline static constexpr size_t PEN_COELAMON_ID_LEN = sizeof(PEN_COELAMON_ID)-1;
+    inline static constexpr char PEN_COELAMON_NAME_ARR[] = "Coelamon";
+    inline static constexpr const char* PEN_COELAMON_NAME = PEN_COELAMON_NAME_ARR;
+    inline static constexpr size_t PEN_COELAMON_NAME_LEN = sizeof(PEN_COELAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_COELAMON_FQNAME_ARR[] = "pen:Coelamon";
+    inline static constexpr const char* PEN_COELAMON_FQNAME = PEN_COELAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_COELAMON_FQNAME_LEN = sizeof(PEN_COELAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_COELAMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_COELAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_COELAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_COELAMON_ANIM_INDEX = 17;
 
     // Name: Cyberdramon
     inline static constexpr char PEN_CYBERDRAMON_FQID_ARR[] = "pen:cyberdramon";
@@ -274,7 +346,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_CYBERDRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_CYBERDRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_CYBERDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_CYBERDRAMON_ANIM_INDEX = 14;
+    inline static constexpr size_t PEN_CYBERDRAMON_ANIM_INDEX = 18;
 
     // Name: Dagomon
     inline static constexpr char PEN_DAGOMON_FQID_ARR[] = "pen:dagomon";
@@ -292,7 +364,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_DAGOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_DAGOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_DAGOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_DAGOMON_ANIM_INDEX = 15;
+    inline static constexpr size_t PEN_DAGOMON_ANIM_INDEX = 19;
 
     // Name: Death Meramon
     inline static constexpr char PEN_DEATH_MERAMON_FQID_ARR[] = "pen:death_meramon";
@@ -310,7 +382,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_DEATH_MERAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_DEATH_MERAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_DEATH_MERAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_DEATH_MERAMON_ANIM_INDEX = 16;
+    inline static constexpr size_t PEN_DEATH_MERAMON_ANIM_INDEX = 20;
 
     // Name: Delumon
     inline static constexpr char PEN_DELUMON_FQID_ARR[] = "pen:delumon";
@@ -328,7 +400,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_DELUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_DELUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_DELUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_DELUMON_ANIM_INDEX = 17;
+    inline static constexpr size_t PEN_DELUMON_ANIM_INDEX = 21;
+
+    // Name: Devimon
+    inline static constexpr char PEN_DEVIMON_FQID_ARR[] = "pen:devimon";
+    inline static constexpr const char* PEN_DEVIMON_FQID = PEN_DEVIMON_FQID_ARR;
+    inline static constexpr size_t PEN_DEVIMON_FQID_LEN = sizeof(PEN_DEVIMON_FQID_ARR)-1;
+    inline static constexpr char PEN_DEVIMON_ID_ARR[] = "devimon";
+    inline static constexpr const char* PEN_DEVIMON_ID = PEN_DEVIMON_ID_ARR;
+    inline static constexpr size_t PEN_DEVIMON_ID_LEN = sizeof(PEN_DEVIMON_ID)-1;
+    inline static constexpr char PEN_DEVIMON_NAME_ARR[] = "Devimon";
+    inline static constexpr const char* PEN_DEVIMON_NAME = PEN_DEVIMON_NAME_ARR;
+    inline static constexpr size_t PEN_DEVIMON_NAME_LEN = sizeof(PEN_DEVIMON_NAME_ARR)-1;
+    inline static constexpr char PEN_DEVIMON_FQNAME_ARR[] = "pen:Devimon";
+    inline static constexpr const char* PEN_DEVIMON_FQNAME = PEN_DEVIMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_DEVIMON_FQNAME_LEN = sizeof(PEN_DEVIMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_DEVIMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_DEVIMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_DEVIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_DEVIMON_ANIM_INDEX = 22;
 
     // Name: Dokugumon
     inline static constexpr char PEN_DOKUGUMON_FQID_ARR[] = "pen:dokugumon";
@@ -346,7 +436,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_DOKUGUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_DOKUGUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_DOKUGUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_DOKUGUMON_ANIM_INDEX = 18;
+    inline static constexpr size_t PEN_DOKUGUMON_ANIM_INDEX = 23;
 
     // Name: Ebidramon
     inline static constexpr char PEN_EBIDRAMON_FQID_ARR[] = "pen:ebidramon";
@@ -364,7 +454,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_EBIDRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_EBIDRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_EBIDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_EBIDRAMON_ANIM_INDEX = 19;
+    inline static constexpr size_t PEN_EBIDRAMON_ANIM_INDEX = 24;
 
     // Name: Fantomon
     inline static constexpr char PEN_FANTOMON_FQID_ARR[] = "pen:fantomon";
@@ -382,7 +472,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_FANTOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_FANTOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_FANTOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_FANTOMON_ANIM_INDEX = 20;
+    inline static constexpr size_t PEN_FANTOMON_ANIM_INDEX = 25;
 
     // Name: Floramon
     inline static constexpr char PEN_FLORAMON_FQID_ARR[] = "pen:floramon";
@@ -400,7 +490,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_FLORAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_FLORAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_FLORAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_FLORAMON_ANIM_INDEX = 21;
+    inline static constexpr size_t PEN_FLORAMON_ANIM_INDEX = 26;
 
     // Name: Ganimon
     inline static constexpr char PEN_GANIMON_FQID_ARR[] = "pen:ganimon";
@@ -418,7 +508,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GANIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GANIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GANIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GANIMON_ANIM_INDEX = 22;
+    inline static constexpr size_t PEN_GANIMON_ANIM_INDEX = 27;
 
     // Name: Garudamon
     inline static constexpr char PEN_GARUDAMON_FQID_ARR[] = "pen:garudamon";
@@ -436,7 +526,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GARUDAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GARUDAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GARUDAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GARUDAMON_ANIM_INDEX = 23;
+    inline static constexpr size_t PEN_GARUDAMON_ANIM_INDEX = 28;
+
+    // Name: Garurumon
+    inline static constexpr char PEN_GARURUMON_FQID_ARR[] = "pen:garurumon";
+    inline static constexpr const char* PEN_GARURUMON_FQID = PEN_GARURUMON_FQID_ARR;
+    inline static constexpr size_t PEN_GARURUMON_FQID_LEN = sizeof(PEN_GARURUMON_FQID_ARR)-1;
+    inline static constexpr char PEN_GARURUMON_ID_ARR[] = "garurumon";
+    inline static constexpr const char* PEN_GARURUMON_ID = PEN_GARURUMON_ID_ARR;
+    inline static constexpr size_t PEN_GARURUMON_ID_LEN = sizeof(PEN_GARURUMON_ID)-1;
+    inline static constexpr char PEN_GARURUMON_NAME_ARR[] = "Garurumon";
+    inline static constexpr const char* PEN_GARURUMON_NAME = PEN_GARURUMON_NAME_ARR;
+    inline static constexpr size_t PEN_GARURUMON_NAME_LEN = sizeof(PEN_GARURUMON_NAME_ARR)-1;
+    inline static constexpr char PEN_GARURUMON_FQNAME_ARR[] = "pen:Garurumon";
+    inline static constexpr const char* PEN_GARURUMON_FQNAME = PEN_GARURUMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_GARURUMON_FQNAME_LEN = sizeof(PEN_GARURUMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_GARURUMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_GARURUMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_GARURUMON_ANIM_INDEX = 29;
 
     // Name: Gekomon
     inline static constexpr char PEN_GEKOMON_FQID_ARR[] = "pen:gekomon";
@@ -454,7 +562,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GEKOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GEKOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GEKOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GEKOMON_ANIM_INDEX = 24;
+    inline static constexpr size_t PEN_GEKOMON_ANIM_INDEX = 30;
 
     // Name: Gerbemon
     inline static constexpr char PEN_GERBEMON_FQID_ARR[] = "pen:gerbemon";
@@ -472,7 +580,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GERBEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GERBEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GERBEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GERBEMON_ANIM_INDEX = 25;
+    inline static constexpr size_t PEN_GERBEMON_ANIM_INDEX = 31;
 
     // Name: Gesomon
     inline static constexpr char PEN_GESOMON_FQID_ARR[] = "pen:gesomon";
@@ -490,7 +598,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GESOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GESOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GESOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GESOMON_ANIM_INDEX = 26;
+    inline static constexpr size_t PEN_GESOMON_ANIM_INDEX = 32;
 
     // Name: Gomamon
     inline static constexpr char PEN_GOMAMON_FQID_ARR[] = "pen:gomamon";
@@ -508,7 +616,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GOMAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GOMAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GOMAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GOMAMON_ANIM_INDEX = 27;
+    inline static constexpr size_t PEN_GOMAMON_ANIM_INDEX = 33;
 
     // Name: Gottsumon
     inline static constexpr char PEN_GOTTSUMON_FQID_ARR[] = "pen:gottsumon";
@@ -526,7 +634,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GOTTSUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GOTTSUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GOTTSUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GOTTSUMON_ANIM_INDEX = 28;
+    inline static constexpr size_t PEN_GOTTSUMON_ANIM_INDEX = 34;
+
+    // Name: Greymon
+    inline static constexpr char PEN_GREYMON_FQID_ARR[] = "pen:greymon";
+    inline static constexpr const char* PEN_GREYMON_FQID = PEN_GREYMON_FQID_ARR;
+    inline static constexpr size_t PEN_GREYMON_FQID_LEN = sizeof(PEN_GREYMON_FQID_ARR)-1;
+    inline static constexpr char PEN_GREYMON_ID_ARR[] = "greymon";
+    inline static constexpr const char* PEN_GREYMON_ID = PEN_GREYMON_ID_ARR;
+    inline static constexpr size_t PEN_GREYMON_ID_LEN = sizeof(PEN_GREYMON_ID)-1;
+    inline static constexpr char PEN_GREYMON_NAME_ARR[] = "Greymon";
+    inline static constexpr const char* PEN_GREYMON_NAME = PEN_GREYMON_NAME_ARR;
+    inline static constexpr size_t PEN_GREYMON_NAME_LEN = sizeof(PEN_GREYMON_NAME_ARR)-1;
+    inline static constexpr char PEN_GREYMON_FQNAME_ARR[] = "pen:Greymon";
+    inline static constexpr const char* PEN_GREYMON_FQNAME = PEN_GREYMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_GREYMON_FQNAME_LEN = sizeof(PEN_GREYMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_GREYMON_SPRITE_SHEET_COLS = 10;
+    inline static constexpr int PEN_GREYMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 10;
+    inline static constexpr size_t PEN_GREYMON_ANIM_INDEX = 35;
 
     // Name: Griffomon
     inline static constexpr char PEN_GRIFFOMON_FQID_ARR[] = "pen:griffomon";
@@ -544,7 +670,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GRIFFOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GRIFFOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GRIFFOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GRIFFOMON_ANIM_INDEX = 29;
+    inline static constexpr size_t PEN_GRIFFOMON_ANIM_INDEX = 36;
 
     // Name: Guardromon
     inline static constexpr char PEN_GUARDROMON_FQID_ARR[] = "pen:guardromon";
@@ -562,7 +688,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_GUARDROMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_GUARDROMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_GUARDROMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_GUARDROMON_ANIM_INDEX = 30;
+    inline static constexpr size_t PEN_GUARDROMON_ANIM_INDEX = 37;
 
     // Name: Hagurumon
     inline static constexpr char PEN_HAGURUMON_FQID_ARR[] = "pen:hagurumon";
@@ -580,7 +706,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_HAGURUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_HAGURUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_HAGURUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_HAGURUMON_ANIM_INDEX = 31;
+    inline static constexpr size_t PEN_HAGURUMON_ANIM_INDEX = 38;
 
     // Name: Hangymon
     inline static constexpr char PEN_HANGYMON_FQID_ARR[] = "pen:hangymon";
@@ -598,7 +724,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_HANGYMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_HANGYMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_HANGYMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_HANGYMON_ANIM_INDEX = 32;
+    inline static constexpr size_t PEN_HANGYMON_ANIM_INDEX = 39;
+
+    // Name: Hangyomon
+    inline static constexpr char PEN_HANGYOMON_FQID_ARR[] = "pen:hangyomon";
+    inline static constexpr const char* PEN_HANGYOMON_FQID = PEN_HANGYOMON_FQID_ARR;
+    inline static constexpr size_t PEN_HANGYOMON_FQID_LEN = sizeof(PEN_HANGYOMON_FQID_ARR)-1;
+    inline static constexpr char PEN_HANGYOMON_ID_ARR[] = "hangyomon";
+    inline static constexpr const char* PEN_HANGYOMON_ID = PEN_HANGYOMON_ID_ARR;
+    inline static constexpr size_t PEN_HANGYOMON_ID_LEN = sizeof(PEN_HANGYOMON_ID)-1;
+    inline static constexpr char PEN_HANGYOMON_NAME_ARR[] = "Hangyomon";
+    inline static constexpr const char* PEN_HANGYOMON_NAME = PEN_HANGYOMON_NAME_ARR;
+    inline static constexpr size_t PEN_HANGYOMON_NAME_LEN = sizeof(PEN_HANGYOMON_NAME_ARR)-1;
+    inline static constexpr char PEN_HANGYOMON_FQNAME_ARR[] = "pen:Hangyomon";
+    inline static constexpr const char* PEN_HANGYOMON_FQNAME = PEN_HANGYOMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_HANGYOMON_FQNAME_LEN = sizeof(PEN_HANGYOMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_HANGYOMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_HANGYOMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_HANGYOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_HANGYOMON_ANIM_INDEX = 40;
 
     // Name: Hanumon
     inline static constexpr char PEN_HANUMON_FQID_ARR[] = "pen:hanumon";
@@ -616,7 +760,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_HANUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_HANUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_HANUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_HANUMON_ANIM_INDEX = 33;
+    inline static constexpr size_t PEN_HANUMON_ANIM_INDEX = 41;
+
+    // Name: Herakle Kabuterimon
+    inline static constexpr char PEN_HERAKLE_KABUTERIMON_FQID_ARR[] = "pen:herakle_kabuterimon";
+    inline static constexpr const char* PEN_HERAKLE_KABUTERIMON_FQID = PEN_HERAKLE_KABUTERIMON_FQID_ARR;
+    inline static constexpr size_t PEN_HERAKLE_KABUTERIMON_FQID_LEN = sizeof(PEN_HERAKLE_KABUTERIMON_FQID_ARR)-1;
+    inline static constexpr char PEN_HERAKLE_KABUTERIMON_ID_ARR[] = "herakle_kabuterimon";
+    inline static constexpr const char* PEN_HERAKLE_KABUTERIMON_ID = PEN_HERAKLE_KABUTERIMON_ID_ARR;
+    inline static constexpr size_t PEN_HERAKLE_KABUTERIMON_ID_LEN = sizeof(PEN_HERAKLE_KABUTERIMON_ID)-1;
+    inline static constexpr char PEN_HERAKLE_KABUTERIMON_NAME_ARR[] = "Herakle Kabuterimon";
+    inline static constexpr const char* PEN_HERAKLE_KABUTERIMON_NAME = PEN_HERAKLE_KABUTERIMON_NAME_ARR;
+    inline static constexpr size_t PEN_HERAKLE_KABUTERIMON_NAME_LEN = sizeof(PEN_HERAKLE_KABUTERIMON_NAME_ARR)-1;
+    inline static constexpr char PEN_HERAKLE_KABUTERIMON_FQNAME_ARR[] = "pen:Herakle Kabuterimon";
+    inline static constexpr const char* PEN_HERAKLE_KABUTERIMON_FQNAME = PEN_HERAKLE_KABUTERIMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_HERAKLE_KABUTERIMON_FQNAME_LEN = sizeof(PEN_HERAKLE_KABUTERIMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_HERAKLE_KABUTERIMON_ANIM_INDEX = 42;
 
     // Name: Herkule Kabuterimon
     inline static constexpr char PEN_HERKULE_KABUTERIMON_FQID_ARR[] = "pen:herkule_kabuterimon";
@@ -634,7 +796,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_HERKULE_KABUTERIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_HERKULE_KABUTERIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_HERKULE_KABUTERIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_HERKULE_KABUTERIMON_ANIM_INDEX = 34;
+    inline static constexpr size_t PEN_HERKULE_KABUTERIMON_ANIM_INDEX = 43;
 
     // Name: Holy Angemon
     inline static constexpr char PEN_HOLY_ANGEMON_FQID_ARR[] = "pen:holy_angemon";
@@ -652,7 +814,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_HOLY_ANGEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_HOLY_ANGEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_HOLY_ANGEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_HOLY_ANGEMON_ANIM_INDEX = 35;
+    inline static constexpr size_t PEN_HOLY_ANGEMON_ANIM_INDEX = 44;
 
     // Name: Holydramon
     inline static constexpr char PEN_HOLYDRAMON_FQID_ARR[] = "pen:holydramon";
@@ -670,7 +832,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_HOLYDRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_HOLYDRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_HOLYDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_HOLYDRAMON_ANIM_INDEX = 36;
+    inline static constexpr size_t PEN_HOLYDRAMON_ANIM_INDEX = 45;
 
     // Name: Hououmon
     inline static constexpr char PEN_HOUOUMON_FQID_ARR[] = "pen:hououmon";
@@ -688,7 +850,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_HOUOUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_HOUOUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_HOUOUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_HOUOUMON_ANIM_INDEX = 37;
+    inline static constexpr size_t PEN_HOUOUMON_ANIM_INDEX = 46;
 
     // Name: Ignamon
     inline static constexpr char PEN_IGNAMON_FQID_ARR[] = "pen:ignamon";
@@ -706,7 +868,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_IGNAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_IGNAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_IGNAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_IGNAMON_ANIM_INDEX = 38;
+    inline static constexpr size_t PEN_IGNAMON_ANIM_INDEX = 47;
 
     // Name: Ikkakumon
     inline static constexpr char PEN_IKKAKUMON_FQID_ARR[] = "pen:ikkakumon";
@@ -724,7 +886,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_IKKAKUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_IKKAKUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_IKKAKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_IKKAKUMON_ANIM_INDEX = 39;
+    inline static constexpr size_t PEN_IKKAKUMON_ANIM_INDEX = 48;
 
     // Name: Jyagamon
     inline static constexpr char PEN_JYAGAMON_FQID_ARR[] = "pen:jyagamon";
@@ -742,7 +904,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_JYAGAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_JYAGAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_JYAGAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_JYAGAMON_ANIM_INDEX = 40;
+    inline static constexpr size_t PEN_JYAGAMON_ANIM_INDEX = 49;
 
     // Name: Jyureimon
     inline static constexpr char PEN_JYUREIMON_FQID_ARR[] = "pen:jyureimon";
@@ -760,7 +922,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_JYUREIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_JYUREIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_JYUREIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_JYUREIMON_ANIM_INDEX = 41;
+    inline static constexpr size_t PEN_JYUREIMON_ANIM_INDEX = 50;
+
+    // Name: Kabuterimon
+    inline static constexpr char PEN_KABUTERIMON_FQID_ARR[] = "pen:kabuterimon";
+    inline static constexpr const char* PEN_KABUTERIMON_FQID = PEN_KABUTERIMON_FQID_ARR;
+    inline static constexpr size_t PEN_KABUTERIMON_FQID_LEN = sizeof(PEN_KABUTERIMON_FQID_ARR)-1;
+    inline static constexpr char PEN_KABUTERIMON_ID_ARR[] = "kabuterimon";
+    inline static constexpr const char* PEN_KABUTERIMON_ID = PEN_KABUTERIMON_ID_ARR;
+    inline static constexpr size_t PEN_KABUTERIMON_ID_LEN = sizeof(PEN_KABUTERIMON_ID)-1;
+    inline static constexpr char PEN_KABUTERIMON_NAME_ARR[] = "Kabuterimon";
+    inline static constexpr const char* PEN_KABUTERIMON_NAME = PEN_KABUTERIMON_NAME_ARR;
+    inline static constexpr size_t PEN_KABUTERIMON_NAME_LEN = sizeof(PEN_KABUTERIMON_NAME_ARR)-1;
+    inline static constexpr char PEN_KABUTERIMON_FQNAME_ARR[] = "pen:Kabuterimon";
+    inline static constexpr const char* PEN_KABUTERIMON_FQNAME = PEN_KABUTERIMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_KABUTERIMON_FQNAME_LEN = sizeof(PEN_KABUTERIMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_KABUTERIMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_KABUTERIMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_KABUTERIMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_KABUTERIMON_ANIM_INDEX = 51;
 
     // Name: Kiwimon
     inline static constexpr char PEN_KIWIMON_FQID_ARR[] = "pen:kiwimon";
@@ -778,7 +958,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_KIWIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_KIWIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_KIWIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_KIWIMON_ANIM_INDEX = 42;
+    inline static constexpr size_t PEN_KIWIMON_ANIM_INDEX = 52;
 
     // Name: Knightmon
     inline static constexpr char PEN_KNIGHTMON_FQID_ARR[] = "pen:knightmon";
@@ -796,7 +976,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_KNIGHTMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_KNIGHTMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_KNIGHTMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_KNIGHTMON_ANIM_INDEX = 43;
+    inline static constexpr size_t PEN_KNIGHTMON_ANIM_INDEX = 53;
 
     // Name: Kokuwamon
     inline static constexpr char PEN_KOKUWAMON_FQID_ARR[] = "pen:kokuwamon";
@@ -814,7 +994,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_KOKUWAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_KOKUWAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_KOKUWAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_KOKUWAMON_ANIM_INDEX = 44;
+    inline static constexpr size_t PEN_KOKUWAMON_ANIM_INDEX = 54;
+
+    // Name: Kuwagamon
+    inline static constexpr char PEN_KUWAGAMON_FQID_ARR[] = "pen:kuwagamon";
+    inline static constexpr const char* PEN_KUWAGAMON_FQID = PEN_KUWAGAMON_FQID_ARR;
+    inline static constexpr size_t PEN_KUWAGAMON_FQID_LEN = sizeof(PEN_KUWAGAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_KUWAGAMON_ID_ARR[] = "kuwagamon";
+    inline static constexpr const char* PEN_KUWAGAMON_ID = PEN_KUWAGAMON_ID_ARR;
+    inline static constexpr size_t PEN_KUWAGAMON_ID_LEN = sizeof(PEN_KUWAGAMON_ID)-1;
+    inline static constexpr char PEN_KUWAGAMON_NAME_ARR[] = "Kuwagamon";
+    inline static constexpr const char* PEN_KUWAGAMON_NAME = PEN_KUWAGAMON_NAME_ARR;
+    inline static constexpr size_t PEN_KUWAGAMON_NAME_LEN = sizeof(PEN_KUWAGAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_KUWAGAMON_FQNAME_ARR[] = "pen:Kuwagamon";
+    inline static constexpr const char* PEN_KUWAGAMON_FQNAME = PEN_KUWAGAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_KUWAGAMON_FQNAME_LEN = sizeof(PEN_KUWAGAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_KUWAGAMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_KUWAGAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_KUWAGAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_KUWAGAMON_ANIM_INDEX = 55;
 
     // Name: Lady Devimon
     inline static constexpr char PEN_LADY_DEVIMON_FQID_ARR[] = "pen:lady_devimon";
@@ -832,7 +1030,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_LADY_DEVIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_LADY_DEVIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_LADY_DEVIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_LADY_DEVIMON_ANIM_INDEX = 45;
+    inline static constexpr size_t PEN_LADY_DEVIMON_ANIM_INDEX = 56;
 
     // Name: Lilimon
     inline static constexpr char PEN_LILIMON_FQID_ARR[] = "pen:lilimon";
@@ -850,7 +1048,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_LILIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_LILIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_LILIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_LILIMON_ANIM_INDEX = 46;
+    inline static constexpr size_t PEN_LILIMON_ANIM_INDEX = 57;
 
     // Name: Mammon
     inline static constexpr char PEN_MAMMON_FQID_ARR[] = "pen:mammon";
@@ -868,7 +1066,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MAMMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MAMMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MAMMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MAMMON_ANIM_INDEX = 47;
+    inline static constexpr size_t PEN_MAMMON_ANIM_INDEX = 58;
 
     // Name: Marin Angemon
     inline static constexpr char PEN_MARIN_ANGEMON_FQID_ARR[] = "pen:marin_angemon";
@@ -886,7 +1084,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MARIN_ANGEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MARIN_ANGEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MARIN_ANGEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MARIN_ANGEMON_ANIM_INDEX = 48;
+    inline static constexpr size_t PEN_MARIN_ANGEMON_ANIM_INDEX = 59;
 
     // Name: Marin Devimon
     inline static constexpr char PEN_MARIN_DEVIMON_FQID_ARR[] = "pen:marin_devimon";
@@ -904,7 +1102,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MARIN_DEVIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MARIN_DEVIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MARIN_DEVIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MARIN_DEVIMON_ANIM_INDEX = 49;
+    inline static constexpr size_t PEN_MARIN_DEVIMON_ANIM_INDEX = 60;
 
     // Name: Mechanorimon
     inline static constexpr char PEN_MECHANORIMON_FQID_ARR[] = "pen:mechanorimon";
@@ -922,7 +1120,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MECHANORIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MECHANORIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MECHANORIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MECHANORIMON_ANIM_INDEX = 50;
+    inline static constexpr size_t PEN_MECHANORIMON_ANIM_INDEX = 61;
+
+    // Name: Megadramon
+    inline static constexpr char PEN_MEGADRAMON_FQID_ARR[] = "pen:megadramon";
+    inline static constexpr const char* PEN_MEGADRAMON_FQID = PEN_MEGADRAMON_FQID_ARR;
+    inline static constexpr size_t PEN_MEGADRAMON_FQID_LEN = sizeof(PEN_MEGADRAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_MEGADRAMON_ID_ARR[] = "megadramon";
+    inline static constexpr const char* PEN_MEGADRAMON_ID = PEN_MEGADRAMON_ID_ARR;
+    inline static constexpr size_t PEN_MEGADRAMON_ID_LEN = sizeof(PEN_MEGADRAMON_ID)-1;
+    inline static constexpr char PEN_MEGADRAMON_NAME_ARR[] = "Megadramon";
+    inline static constexpr const char* PEN_MEGADRAMON_NAME = PEN_MEGADRAMON_NAME_ARR;
+    inline static constexpr size_t PEN_MEGADRAMON_NAME_LEN = sizeof(PEN_MEGADRAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_MEGADRAMON_FQNAME_ARR[] = "pen:Megadramon";
+    inline static constexpr const char* PEN_MEGADRAMON_FQNAME = PEN_MEGADRAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_MEGADRAMON_FQNAME_LEN = sizeof(PEN_MEGADRAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_MEGADRAMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_MEGADRAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_MEGADRAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_MEGADRAMON_ANIM_INDEX = 62;
 
     // Name: Mega Seadramon
     inline static constexpr char PEN_MEGA_SEADRAMON_FQID_ARR[] = "pen:mega_seadramon";
@@ -940,7 +1156,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MEGA_SEADRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MEGA_SEADRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MEGA_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MEGA_SEADRAMON_ANIM_INDEX = 51;
+    inline static constexpr size_t PEN_MEGA_SEADRAMON_ANIM_INDEX = 63;
+
+    // Name: Meramon
+    inline static constexpr char PEN_MERAMON_FQID_ARR[] = "pen:meramon";
+    inline static constexpr const char* PEN_MERAMON_FQID = PEN_MERAMON_FQID_ARR;
+    inline static constexpr size_t PEN_MERAMON_FQID_LEN = sizeof(PEN_MERAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_MERAMON_ID_ARR[] = "meramon";
+    inline static constexpr const char* PEN_MERAMON_ID = PEN_MERAMON_ID_ARR;
+    inline static constexpr size_t PEN_MERAMON_ID_LEN = sizeof(PEN_MERAMON_ID)-1;
+    inline static constexpr char PEN_MERAMON_NAME_ARR[] = "Meramon";
+    inline static constexpr const char* PEN_MERAMON_NAME = PEN_MERAMON_NAME_ARR;
+    inline static constexpr size_t PEN_MERAMON_NAME_LEN = sizeof(PEN_MERAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_MERAMON_FQNAME_ARR[] = "pen:Meramon";
+    inline static constexpr const char* PEN_MERAMON_FQNAME = PEN_MERAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_MERAMON_FQNAME_LEN = sizeof(PEN_MERAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_MERAMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_MERAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_MERAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_MERAMON_ANIM_INDEX = 64;
 
     // Name: Metal Etemon
     inline static constexpr char PEN_METAL_ETEMON_FQID_ARR[] = "pen:metal_etemon";
@@ -958,7 +1192,61 @@ namespace bongocat::assets {
     inline static constexpr int PEN_METAL_ETEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_METAL_ETEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_METAL_ETEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_METAL_ETEMON_ANIM_INDEX = 52;
+    inline static constexpr size_t PEN_METAL_ETEMON_ANIM_INDEX = 65;
+
+    // Name: Metal Garurumon
+    inline static constexpr char PEN_METAL_GARURUMON_FQID_ARR[] = "pen:metal_garurumon";
+    inline static constexpr const char* PEN_METAL_GARURUMON_FQID = PEN_METAL_GARURUMON_FQID_ARR;
+    inline static constexpr size_t PEN_METAL_GARURUMON_FQID_LEN = sizeof(PEN_METAL_GARURUMON_FQID_ARR)-1;
+    inline static constexpr char PEN_METAL_GARURUMON_ID_ARR[] = "metal_garurumon";
+    inline static constexpr const char* PEN_METAL_GARURUMON_ID = PEN_METAL_GARURUMON_ID_ARR;
+    inline static constexpr size_t PEN_METAL_GARURUMON_ID_LEN = sizeof(PEN_METAL_GARURUMON_ID)-1;
+    inline static constexpr char PEN_METAL_GARURUMON_NAME_ARR[] = "Metal Garurumon";
+    inline static constexpr const char* PEN_METAL_GARURUMON_NAME = PEN_METAL_GARURUMON_NAME_ARR;
+    inline static constexpr size_t PEN_METAL_GARURUMON_NAME_LEN = sizeof(PEN_METAL_GARURUMON_NAME_ARR)-1;
+    inline static constexpr char PEN_METAL_GARURUMON_FQNAME_ARR[] = "pen:Metal Garurumon";
+    inline static constexpr const char* PEN_METAL_GARURUMON_FQNAME = PEN_METAL_GARURUMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_METAL_GARURUMON_FQNAME_LEN = sizeof(PEN_METAL_GARURUMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_METAL_GARURUMON_SPRITE_SHEET_COLS = 12;
+    inline static constexpr int PEN_METAL_GARURUMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_METAL_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
+    inline static constexpr size_t PEN_METAL_GARURUMON_ANIM_INDEX = 66;
+
+    // Name: Metal Greymon
+    inline static constexpr char PEN_METAL_GREYMON_FQID_ARR[] = "pen:metal_greymon";
+    inline static constexpr const char* PEN_METAL_GREYMON_FQID = PEN_METAL_GREYMON_FQID_ARR;
+    inline static constexpr size_t PEN_METAL_GREYMON_FQID_LEN = sizeof(PEN_METAL_GREYMON_FQID_ARR)-1;
+    inline static constexpr char PEN_METAL_GREYMON_ID_ARR[] = "metal_greymon";
+    inline static constexpr const char* PEN_METAL_GREYMON_ID = PEN_METAL_GREYMON_ID_ARR;
+    inline static constexpr size_t PEN_METAL_GREYMON_ID_LEN = sizeof(PEN_METAL_GREYMON_ID)-1;
+    inline static constexpr char PEN_METAL_GREYMON_NAME_ARR[] = "Metal Greymon";
+    inline static constexpr const char* PEN_METAL_GREYMON_NAME = PEN_METAL_GREYMON_NAME_ARR;
+    inline static constexpr size_t PEN_METAL_GREYMON_NAME_LEN = sizeof(PEN_METAL_GREYMON_NAME_ARR)-1;
+    inline static constexpr char PEN_METAL_GREYMON_FQNAME_ARR[] = "pen:Metal Greymon";
+    inline static constexpr const char* PEN_METAL_GREYMON_FQNAME = PEN_METAL_GREYMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_METAL_GREYMON_FQNAME_LEN = sizeof(PEN_METAL_GREYMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_METAL_GREYMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_METAL_GREYMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_METAL_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_METAL_GREYMON_ANIM_INDEX = 67;
+
+    // Name: Metal Mamemon
+    inline static constexpr char PEN_METAL_MAMEMON_FQID_ARR[] = "pen:metal_mamemon";
+    inline static constexpr const char* PEN_METAL_MAMEMON_FQID = PEN_METAL_MAMEMON_FQID_ARR;
+    inline static constexpr size_t PEN_METAL_MAMEMON_FQID_LEN = sizeof(PEN_METAL_MAMEMON_FQID_ARR)-1;
+    inline static constexpr char PEN_METAL_MAMEMON_ID_ARR[] = "metal_mamemon";
+    inline static constexpr const char* PEN_METAL_MAMEMON_ID = PEN_METAL_MAMEMON_ID_ARR;
+    inline static constexpr size_t PEN_METAL_MAMEMON_ID_LEN = sizeof(PEN_METAL_MAMEMON_ID)-1;
+    inline static constexpr char PEN_METAL_MAMEMON_NAME_ARR[] = "Metal Mamemon";
+    inline static constexpr const char* PEN_METAL_MAMEMON_NAME = PEN_METAL_MAMEMON_NAME_ARR;
+    inline static constexpr size_t PEN_METAL_MAMEMON_NAME_LEN = sizeof(PEN_METAL_MAMEMON_NAME_ARR)-1;
+    inline static constexpr char PEN_METAL_MAMEMON_FQNAME_ARR[] = "pen:Metal Mamemon";
+    inline static constexpr const char* PEN_METAL_MAMEMON_FQNAME = PEN_METAL_MAMEMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_METAL_MAMEMON_FQNAME_LEN = sizeof(PEN_METAL_MAMEMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_METAL_MAMEMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_METAL_MAMEMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_METAL_MAMEMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_METAL_MAMEMON_ANIM_INDEX = 68;
 
     // Name: Metal Seadramon
     inline static constexpr char PEN_METAL_SEADRAMON_FQID_ARR[] = "pen:metal_seadramon";
@@ -976,7 +1264,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_METAL_SEADRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_METAL_SEADRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_METAL_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_METAL_SEADRAMON_ANIM_INDEX = 53;
+    inline static constexpr size_t PEN_METAL_SEADRAMON_ANIM_INDEX = 69;
 
     // Name: Mochimon
     inline static constexpr char PEN_MOCHIMON_FQID_ARR[] = "pen:mochimon";
@@ -994,7 +1282,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MOCHIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MOCHIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MOCHIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MOCHIMON_ANIM_INDEX = 54;
+    inline static constexpr size_t PEN_MOCHIMON_ANIM_INDEX = 70;
 
     // Name: Mokumon
     inline static constexpr char PEN_MOKUMON_FQID_ARR[] = "pen:mokumon";
@@ -1012,7 +1300,43 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MOKUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MOKUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MOKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MOKUMON_ANIM_INDEX = 55;
+    inline static constexpr size_t PEN_MOKUMON_ANIM_INDEX = 71;
+
+    // Name: Monochromon
+    inline static constexpr char PEN_MONOCHROMON_FQID_ARR[] = "pen:monochromon";
+    inline static constexpr const char* PEN_MONOCHROMON_FQID = PEN_MONOCHROMON_FQID_ARR;
+    inline static constexpr size_t PEN_MONOCHROMON_FQID_LEN = sizeof(PEN_MONOCHROMON_FQID_ARR)-1;
+    inline static constexpr char PEN_MONOCHROMON_ID_ARR[] = "monochromon";
+    inline static constexpr const char* PEN_MONOCHROMON_ID = PEN_MONOCHROMON_ID_ARR;
+    inline static constexpr size_t PEN_MONOCHROMON_ID_LEN = sizeof(PEN_MONOCHROMON_ID)-1;
+    inline static constexpr char PEN_MONOCHROMON_NAME_ARR[] = "Monochromon";
+    inline static constexpr const char* PEN_MONOCHROMON_NAME = PEN_MONOCHROMON_NAME_ARR;
+    inline static constexpr size_t PEN_MONOCHROMON_NAME_LEN = sizeof(PEN_MONOCHROMON_NAME_ARR)-1;
+    inline static constexpr char PEN_MONOCHROMON_FQNAME_ARR[] = "pen:Monochromon";
+    inline static constexpr const char* PEN_MONOCHROMON_FQNAME = PEN_MONOCHROMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_MONOCHROMON_FQNAME_LEN = sizeof(PEN_MONOCHROMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_MONOCHROMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_MONOCHROMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_MONOCHROMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_MONOCHROMON_ANIM_INDEX = 72;
+
+    // Name: Mugendramon
+    inline static constexpr char PEN_MUGENDRAMON_FQID_ARR[] = "pen:mugendramon";
+    inline static constexpr const char* PEN_MUGENDRAMON_FQID = PEN_MUGENDRAMON_FQID_ARR;
+    inline static constexpr size_t PEN_MUGENDRAMON_FQID_LEN = sizeof(PEN_MUGENDRAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_MUGENDRAMON_ID_ARR[] = "mugendramon";
+    inline static constexpr const char* PEN_MUGENDRAMON_ID = PEN_MUGENDRAMON_ID_ARR;
+    inline static constexpr size_t PEN_MUGENDRAMON_ID_LEN = sizeof(PEN_MUGENDRAMON_ID)-1;
+    inline static constexpr char PEN_MUGENDRAMON_NAME_ARR[] = "Mugendramon";
+    inline static constexpr const char* PEN_MUGENDRAMON_NAME = PEN_MUGENDRAMON_NAME_ARR;
+    inline static constexpr size_t PEN_MUGENDRAMON_NAME_LEN = sizeof(PEN_MUGENDRAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_MUGENDRAMON_FQNAME_ARR[] = "pen:Mugendramon";
+    inline static constexpr const char* PEN_MUGENDRAMON_FQNAME = PEN_MUGENDRAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_MUGENDRAMON_FQNAME_LEN = sizeof(PEN_MUGENDRAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_MUGENDRAMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_MUGENDRAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_MUGENDRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_MUGENDRAMON_ANIM_INDEX = 73;
 
     // Name: Mushmon
     inline static constexpr char PEN_MUSHMON_FQID_ARR[] = "pen:mushmon";
@@ -1030,7 +1354,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_MUSHMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_MUSHMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_MUSHMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_MUSHMON_ANIM_INDEX = 56;
+    inline static constexpr size_t PEN_MUSHMON_ANIM_INDEX = 74;
 
     // Name: Nyokimon
     inline static constexpr char PEN_NYOKIMON_FQID_ARR[] = "pen:nyokimon";
@@ -1048,7 +1372,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_NYOKIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_NYOKIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_NYOKIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_NYOKIMON_ANIM_INDEX = 57;
+    inline static constexpr size_t PEN_NYOKIMON_ANIM_INDEX = 75;
 
     // Name: Octmon
     inline static constexpr char PEN_OCTMON_FQID_ARR[] = "pen:octmon";
@@ -1066,7 +1390,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_OCTMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_OCTMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_OCTMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_OCTMON_ANIM_INDEX = 58;
+    inline static constexpr size_t PEN_OCTMON_ANIM_INDEX = 76;
 
     // Name: Okuwamon
     inline static constexpr char PEN_OKUWAMON_FQID_ARR[] = "pen:okuwamon";
@@ -1084,7 +1408,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_OKUWAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_OKUWAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_OKUWAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_OKUWAMON_ANIM_INDEX = 59;
+    inline static constexpr size_t PEN_OKUWAMON_ANIM_INDEX = 77;
+
+    // Name: Omegamon
+    inline static constexpr char PEN_OMEGAMON_FQID_ARR[] = "pen:omegamon";
+    inline static constexpr const char* PEN_OMEGAMON_FQID = PEN_OMEGAMON_FQID_ARR;
+    inline static constexpr size_t PEN_OMEGAMON_FQID_LEN = sizeof(PEN_OMEGAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_OMEGAMON_ID_ARR[] = "omegamon";
+    inline static constexpr const char* PEN_OMEGAMON_ID = PEN_OMEGAMON_ID_ARR;
+    inline static constexpr size_t PEN_OMEGAMON_ID_LEN = sizeof(PEN_OMEGAMON_ID)-1;
+    inline static constexpr char PEN_OMEGAMON_NAME_ARR[] = "Omegamon";
+    inline static constexpr const char* PEN_OMEGAMON_NAME = PEN_OMEGAMON_NAME_ARR;
+    inline static constexpr size_t PEN_OMEGAMON_NAME_LEN = sizeof(PEN_OMEGAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_OMEGAMON_FQNAME_ARR[] = "pen:Omegamon";
+    inline static constexpr const char* PEN_OMEGAMON_FQNAME = PEN_OMEGAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_OMEGAMON_FQNAME_LEN = sizeof(PEN_OMEGAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_OMEGAMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_OMEGAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_OMEGAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_OMEGAMON_ANIM_INDEX = 78;
 
     // Name: Otamamon
     inline static constexpr char PEN_OTAMAMON_FQID_ARR[] = "pen:otamamon";
@@ -1102,7 +1444,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_OTAMAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_OTAMAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_OTAMAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_OTAMAMON_ANIM_INDEX = 60;
+    inline static constexpr size_t PEN_OTAMAMON_ANIM_INDEX = 79;
+
+    // Name: Palmon
+    inline static constexpr char PEN_PALMON_FQID_ARR[] = "pen:palmon";
+    inline static constexpr const char* PEN_PALMON_FQID = PEN_PALMON_FQID_ARR;
+    inline static constexpr size_t PEN_PALMON_FQID_LEN = sizeof(PEN_PALMON_FQID_ARR)-1;
+    inline static constexpr char PEN_PALMON_ID_ARR[] = "palmon";
+    inline static constexpr const char* PEN_PALMON_ID = PEN_PALMON_ID_ARR;
+    inline static constexpr size_t PEN_PALMON_ID_LEN = sizeof(PEN_PALMON_ID)-1;
+    inline static constexpr char PEN_PALMON_NAME_ARR[] = "Palmon";
+    inline static constexpr const char* PEN_PALMON_NAME = PEN_PALMON_NAME_ARR;
+    inline static constexpr size_t PEN_PALMON_NAME_LEN = sizeof(PEN_PALMON_NAME_ARR)-1;
+    inline static constexpr char PEN_PALMON_FQNAME_ARR[] = "pen:Palmon";
+    inline static constexpr const char* PEN_PALMON_FQNAME = PEN_PALMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_PALMON_FQNAME_LEN = sizeof(PEN_PALMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_PALMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_PALMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_PALMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_PALMON_ANIM_INDEX = 80;
 
     // Name: Peti Meramon
     inline static constexpr char PEN_PETI_MERAMON_FQID_ARR[] = "pen:peti_meramon";
@@ -1120,7 +1480,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_PETI_MERAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_PETI_MERAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_PETI_MERAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_PETI_MERAMON_ANIM_INDEX = 61;
+    inline static constexpr size_t PEN_PETI_MERAMON_ANIM_INDEX = 81;
+
+    // Name: Piccolomon
+    inline static constexpr char PEN_PICCOLOMON_FQID_ARR[] = "pen:piccolomon";
+    inline static constexpr const char* PEN_PICCOLOMON_FQID = PEN_PICCOLOMON_FQID_ARR;
+    inline static constexpr size_t PEN_PICCOLOMON_FQID_LEN = sizeof(PEN_PICCOLOMON_FQID_ARR)-1;
+    inline static constexpr char PEN_PICCOLOMON_ID_ARR[] = "piccolomon";
+    inline static constexpr const char* PEN_PICCOLOMON_ID = PEN_PICCOLOMON_ID_ARR;
+    inline static constexpr size_t PEN_PICCOLOMON_ID_LEN = sizeof(PEN_PICCOLOMON_ID)-1;
+    inline static constexpr char PEN_PICCOLOMON_NAME_ARR[] = "Piccolomon";
+    inline static constexpr const char* PEN_PICCOLOMON_NAME = PEN_PICCOLOMON_NAME_ARR;
+    inline static constexpr size_t PEN_PICCOLOMON_NAME_LEN = sizeof(PEN_PICCOLOMON_NAME_ARR)-1;
+    inline static constexpr char PEN_PICCOLOMON_FQNAME_ARR[] = "pen:Piccolomon";
+    inline static constexpr const char* PEN_PICCOLOMON_FQNAME = PEN_PICCOLOMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_PICCOLOMON_FQNAME_LEN = sizeof(PEN_PICCOLOMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_PICCOLOMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_PICCOLOMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_PICCOLOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_PICCOLOMON_ANIM_INDEX = 82;
 
     // Name: Pico Devimon
     inline static constexpr char PEN_PICO_DEVIMON_FQID_ARR[] = "pen:pico_devimon";
@@ -1138,7 +1516,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_PICO_DEVIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_PICO_DEVIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_PICO_DEVIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_PICO_DEVIMON_ANIM_INDEX = 62;
+    inline static constexpr size_t PEN_PICO_DEVIMON_ANIM_INDEX = 83;
 
     // Name: Piemon
     inline static constexpr char PEN_PIEMON_FQID_ARR[] = "pen:piemon";
@@ -1156,7 +1534,43 @@ namespace bongocat::assets {
     inline static constexpr int PEN_PIEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_PIEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_PIEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_PIEMON_ANIM_INDEX = 63;
+    inline static constexpr size_t PEN_PIEMON_ANIM_INDEX = 84;
+
+    // Name: Pinochimon
+    inline static constexpr char PEN_PINOCHIMON_FQID_ARR[] = "pen:pinochimon";
+    inline static constexpr const char* PEN_PINOCHIMON_FQID = PEN_PINOCHIMON_FQID_ARR;
+    inline static constexpr size_t PEN_PINOCHIMON_FQID_LEN = sizeof(PEN_PINOCHIMON_FQID_ARR)-1;
+    inline static constexpr char PEN_PINOCHIMON_ID_ARR[] = "pinochimon";
+    inline static constexpr const char* PEN_PINOCHIMON_ID = PEN_PINOCHIMON_ID_ARR;
+    inline static constexpr size_t PEN_PINOCHIMON_ID_LEN = sizeof(PEN_PINOCHIMON_ID)-1;
+    inline static constexpr char PEN_PINOCHIMON_NAME_ARR[] = "Pinochimon";
+    inline static constexpr const char* PEN_PINOCHIMON_NAME = PEN_PINOCHIMON_NAME_ARR;
+    inline static constexpr size_t PEN_PINOCHIMON_NAME_LEN = sizeof(PEN_PINOCHIMON_NAME_ARR)-1;
+    inline static constexpr char PEN_PINOCHIMON_FQNAME_ARR[] = "pen:Pinochimon";
+    inline static constexpr const char* PEN_PINOCHIMON_FQNAME = PEN_PINOCHIMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_PINOCHIMON_FQNAME_LEN = sizeof(PEN_PINOCHIMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_PINOCHIMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_PINOCHIMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_PINOCHIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_PINOCHIMON_ANIM_INDEX = 85;
+
+    // Name: Piyomon
+    inline static constexpr char PEN_PIYOMON_FQID_ARR[] = "pen:piyomon";
+    inline static constexpr const char* PEN_PIYOMON_FQID = PEN_PIYOMON_FQID_ARR;
+    inline static constexpr size_t PEN_PIYOMON_FQID_LEN = sizeof(PEN_PIYOMON_FQID_ARR)-1;
+    inline static constexpr char PEN_PIYOMON_ID_ARR[] = "piyomon";
+    inline static constexpr const char* PEN_PIYOMON_ID = PEN_PIYOMON_ID_ARR;
+    inline static constexpr size_t PEN_PIYOMON_ID_LEN = sizeof(PEN_PIYOMON_ID)-1;
+    inline static constexpr char PEN_PIYOMON_NAME_ARR[] = "Piyomon";
+    inline static constexpr const char* PEN_PIYOMON_NAME = PEN_PIYOMON_NAME_ARR;
+    inline static constexpr size_t PEN_PIYOMON_NAME_LEN = sizeof(PEN_PIYOMON_NAME_ARR)-1;
+    inline static constexpr char PEN_PIYOMON_FQNAME_ARR[] = "pen:Piyomon";
+    inline static constexpr const char* PEN_PIYOMON_FQNAME = PEN_PIYOMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_PIYOMON_FQNAME_LEN = sizeof(PEN_PIYOMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_PIYOMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_PIYOMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_PIYOMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_PIYOMON_ANIM_INDEX = 86;
 
     // Name: Plesiomon
     inline static constexpr char PEN_PLESIOMON_FQID_ARR[] = "pen:plesiomon";
@@ -1174,7 +1588,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_PLESIOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_PLESIOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_PLESIOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_PLESIOMON_ANIM_INDEX = 64;
+    inline static constexpr size_t PEN_PLESIOMON_ANIM_INDEX = 87;
 
     // Name: Pukumon
     inline static constexpr char PEN_PUKUMON_FQID_ARR[] = "pen:pukumon";
@@ -1192,7 +1606,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_PUKUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_PUKUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_PUKUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_PUKUMON_ANIM_INDEX = 65;
+    inline static constexpr size_t PEN_PUKUMON_ANIM_INDEX = 88;
 
     // Name: Pumpmon
     inline static constexpr char PEN_PUMPMON_FQID_ARR[] = "pen:pumpmon";
@@ -1210,7 +1624,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_PUMPMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_PUMPMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_PUMPMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_PUMPMON_ANIM_INDEX = 66;
+    inline static constexpr size_t PEN_PUMPMON_ANIM_INDEX = 89;
 
     // Name: Pyocomon
     inline static constexpr char PEN_PYOCOMON_FQID_ARR[] = "pen:pyocomon";
@@ -1228,7 +1642,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_PYOCOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_PYOCOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_PYOCOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_PYOCOMON_ANIM_INDEX = 67;
+    inline static constexpr size_t PEN_PYOCOMON_ANIM_INDEX = 90;
 
     // Name: Rakamon
     inline static constexpr char PEN_RAKAMON_FQID_ARR[] = "pen:rakamon";
@@ -1246,7 +1660,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_RAKAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_RAKAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_RAKAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_RAKAMON_ANIM_INDEX = 68;
+    inline static constexpr size_t PEN_RAKAMON_ANIM_INDEX = 91;
 
     // Name: Red Vegimon
     inline static constexpr char PEN_RED_VEGIMON_FQID_ARR[] = "pen:red_vegimon";
@@ -1264,7 +1678,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_RED_VEGIMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_RED_VEGIMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_RED_VEGIMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_RED_VEGIMON_ANIM_INDEX = 69;
+    inline static constexpr size_t PEN_RED_VEGIMON_ANIM_INDEX = 92;
 
     // Name: Revolmon
     inline static constexpr char PEN_REVOLMON_FQID_ARR[] = "pen:revolmon";
@@ -1282,7 +1696,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_REVOLMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_REVOLMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_REVOLMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_REVOLMON_ANIM_INDEX = 70;
+    inline static constexpr size_t PEN_REVOLMON_ANIM_INDEX = 93;
 
     // Name: Rosemon
     inline static constexpr char PEN_ROSEMON_FQID_ARR[] = "pen:rosemon";
@@ -1300,7 +1714,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_ROSEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_ROSEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_ROSEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_ROSEMON_ANIM_INDEX = 71;
+    inline static constexpr size_t PEN_ROSEMON_ANIM_INDEX = 94;
+
+    // Name: Rukamon
+    inline static constexpr char PEN_RUKAMON_FQID_ARR[] = "pen:rukamon";
+    inline static constexpr const char* PEN_RUKAMON_FQID = PEN_RUKAMON_FQID_ARR;
+    inline static constexpr size_t PEN_RUKAMON_FQID_LEN = sizeof(PEN_RUKAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_RUKAMON_ID_ARR[] = "rukamon";
+    inline static constexpr const char* PEN_RUKAMON_ID = PEN_RUKAMON_ID_ARR;
+    inline static constexpr size_t PEN_RUKAMON_ID_LEN = sizeof(PEN_RUKAMON_ID)-1;
+    inline static constexpr char PEN_RUKAMON_NAME_ARR[] = "Rukamon";
+    inline static constexpr const char* PEN_RUKAMON_NAME = PEN_RUKAMON_NAME_ARR;
+    inline static constexpr size_t PEN_RUKAMON_NAME_LEN = sizeof(PEN_RUKAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_RUKAMON_FQNAME_ARR[] = "pen:Rukamon";
+    inline static constexpr const char* PEN_RUKAMON_FQNAME = PEN_RUKAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_RUKAMON_FQNAME_LEN = sizeof(PEN_RUKAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_RUKAMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_RUKAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_RUKAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_RUKAMON_ANIM_INDEX = 95;
 
     // Name: Saber Leomon
     inline static constexpr char PEN_SABER_LEOMON_FQID_ARR[] = "pen:saber_leomon";
@@ -1318,7 +1750,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_SABER_LEOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_SABER_LEOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_SABER_LEOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_SABER_LEOMON_ANIM_INDEX = 72;
+    inline static constexpr size_t PEN_SABER_LEOMON_ANIM_INDEX = 96;
+
+    // Name: Seadramon
+    inline static constexpr char PEN_SEADRAMON_FQID_ARR[] = "pen:seadramon";
+    inline static constexpr const char* PEN_SEADRAMON_FQID = PEN_SEADRAMON_FQID_ARR;
+    inline static constexpr size_t PEN_SEADRAMON_FQID_LEN = sizeof(PEN_SEADRAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_SEADRAMON_ID_ARR[] = "seadramon";
+    inline static constexpr const char* PEN_SEADRAMON_ID = PEN_SEADRAMON_ID_ARR;
+    inline static constexpr size_t PEN_SEADRAMON_ID_LEN = sizeof(PEN_SEADRAMON_ID)-1;
+    inline static constexpr char PEN_SEADRAMON_NAME_ARR[] = "Seadramon";
+    inline static constexpr const char* PEN_SEADRAMON_NAME = PEN_SEADRAMON_NAME_ARR;
+    inline static constexpr size_t PEN_SEADRAMON_NAME_LEN = sizeof(PEN_SEADRAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_SEADRAMON_FQNAME_ARR[] = "pen:Seadramon";
+    inline static constexpr const char* PEN_SEADRAMON_FQNAME = PEN_SEADRAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_SEADRAMON_FQNAME_LEN = sizeof(PEN_SEADRAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_SEADRAMON_SPRITE_SHEET_COLS = 8;
+    inline static constexpr int PEN_SEADRAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT = 8;
+    inline static constexpr size_t PEN_SEADRAMON_ANIM_INDEX = 97;
 
     // Name: Shakomon
     inline static constexpr char PEN_SHAKOMON_FQID_ARR[] = "pen:shakomon";
@@ -1336,7 +1786,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_SHAKOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_SHAKOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_SHAKOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_SHAKOMON_ANIM_INDEX = 73;
+    inline static constexpr size_t PEN_SHAKOMON_ANIM_INDEX = 98;
+
+    // Name: Skull Mammon
+    inline static constexpr char PEN_SKULL_MAMMON_FQID_ARR[] = "pen:skull_mammon";
+    inline static constexpr const char* PEN_SKULL_MAMMON_FQID = PEN_SKULL_MAMMON_FQID_ARR;
+    inline static constexpr size_t PEN_SKULL_MAMMON_FQID_LEN = sizeof(PEN_SKULL_MAMMON_FQID_ARR)-1;
+    inline static constexpr char PEN_SKULL_MAMMON_ID_ARR[] = "skull_mammon";
+    inline static constexpr const char* PEN_SKULL_MAMMON_ID = PEN_SKULL_MAMMON_ID_ARR;
+    inline static constexpr size_t PEN_SKULL_MAMMON_ID_LEN = sizeof(PEN_SKULL_MAMMON_ID)-1;
+    inline static constexpr char PEN_SKULL_MAMMON_NAME_ARR[] = "Skull Mammon";
+    inline static constexpr const char* PEN_SKULL_MAMMON_NAME = PEN_SKULL_MAMMON_NAME_ARR;
+    inline static constexpr size_t PEN_SKULL_MAMMON_NAME_LEN = sizeof(PEN_SKULL_MAMMON_NAME_ARR)-1;
+    inline static constexpr char PEN_SKULL_MAMMON_FQNAME_ARR[] = "pen:Skull Mammon";
+    inline static constexpr const char* PEN_SKULL_MAMMON_FQNAME = PEN_SKULL_MAMMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_SKULL_MAMMON_FQNAME_LEN = sizeof(PEN_SKULL_MAMMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_SKULL_MAMMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_SKULL_MAMMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_SKULL_MAMMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_SKULL_MAMMON_ANIM_INDEX = 99;
 
     // Name: Starmon
     inline static constexpr char PEN_STARMON_FQID_ARR[] = "pen:starmon";
@@ -1354,7 +1822,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_STARMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_STARMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_STARMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_STARMON_ANIM_INDEX = 74;
+    inline static constexpr size_t PEN_STARMON_ANIM_INDEX = 100;
 
     // Name: Tailmon
     inline static constexpr char PEN_TAILMON_FQID_ARR[] = "pen:tailmon";
@@ -1372,7 +1840,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TAILMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TAILMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TAILMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TAILMON_ANIM_INDEX = 75;
+    inline static constexpr size_t PEN_TAILMON_ANIM_INDEX = 101;
 
     // Name: Tankmon
     inline static constexpr char PEN_TANKMON_FQID_ARR[] = "pen:tankmon";
@@ -1390,7 +1858,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TANKMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TANKMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TANKMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TANKMON_ANIM_INDEX = 76;
+    inline static constexpr size_t PEN_TANKMON_ANIM_INDEX = 102;
 
     // Name: Tentomon
     inline static constexpr char PEN_TENTOMON_FQID_ARR[] = "pen:tentomon";
@@ -1408,7 +1876,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TENTOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TENTOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TENTOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TENTOMON_ANIM_INDEX = 77;
+    inline static constexpr size_t PEN_TENTOMON_ANIM_INDEX = 103;
 
     // Name: Thunderballmon
     inline static constexpr char PEN_THUNDERBALLMON_FQID_ARR[] = "pen:thunderballmon";
@@ -1426,7 +1894,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_THUNDERBALLMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_THUNDERBALLMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_THUNDERBALLMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_THUNDERBALLMON_ANIM_INDEX = 78;
+    inline static constexpr size_t PEN_THUNDERBALLMON_ANIM_INDEX = 104;
 
     // Name: Togemon
     inline static constexpr char PEN_TOGEMON_FQID_ARR[] = "pen:togemon";
@@ -1444,7 +1912,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TOGEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TOGEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TOGEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TOGEMON_ANIM_INDEX = 79;
+    inline static constexpr size_t PEN_TOGEMON_ANIM_INDEX = 105;
 
     // Name: Tonosama Gekomon
     inline static constexpr char PEN_TONOSAMA_GEKOMON_FQID_ARR[] = "pen:tonosama_gekomon";
@@ -1462,7 +1930,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TONOSAMA_GEKOMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TONOSAMA_GEKOMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TONOSAMA_GEKOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TONOSAMA_GEKOMON_ANIM_INDEX = 80;
+    inline static constexpr size_t PEN_TONOSAMA_GEKOMON_ANIM_INDEX = 106;
 
     // Name: Tortamon
     inline static constexpr char PEN_TORTAMON_FQID_ARR[] = "pen:tortamon";
@@ -1480,7 +1948,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TORTAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TORTAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TORTAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TORTAMON_ANIM_INDEX = 81;
+    inline static constexpr size_t PEN_TORTAMON_ANIM_INDEX = 107;
 
     // Name: Toy Agumon
     inline static constexpr char PEN_TOY_AGUMON_FQID_ARR[] = "pen:toy_agumon";
@@ -1498,7 +1966,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TOY_AGUMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TOY_AGUMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TOY_AGUMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TOY_AGUMON_ANIM_INDEX = 82;
+    inline static constexpr size_t PEN_TOY_AGUMON_ANIM_INDEX = 108;
 
     // Name: Triceramon
     inline static constexpr char PEN_TRICERAMON_FQID_ARR[] = "pen:triceramon";
@@ -1516,7 +1984,25 @@ namespace bongocat::assets {
     inline static constexpr int PEN_TRICERAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_TRICERAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_TRICERAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_TRICERAMON_ANIM_INDEX = 83;
+    inline static constexpr size_t PEN_TRICERAMON_ANIM_INDEX = 109;
+
+    // Name: Vamdemon
+    inline static constexpr char PEN_VAMDEMON_FQID_ARR[] = "pen:vamdemon";
+    inline static constexpr const char* PEN_VAMDEMON_FQID = PEN_VAMDEMON_FQID_ARR;
+    inline static constexpr size_t PEN_VAMDEMON_FQID_LEN = sizeof(PEN_VAMDEMON_FQID_ARR)-1;
+    inline static constexpr char PEN_VAMDEMON_ID_ARR[] = "vamdemon";
+    inline static constexpr const char* PEN_VAMDEMON_ID = PEN_VAMDEMON_ID_ARR;
+    inline static constexpr size_t PEN_VAMDEMON_ID_LEN = sizeof(PEN_VAMDEMON_ID)-1;
+    inline static constexpr char PEN_VAMDEMON_NAME_ARR[] = "Vamdemon";
+    inline static constexpr const char* PEN_VAMDEMON_NAME = PEN_VAMDEMON_NAME_ARR;
+    inline static constexpr size_t PEN_VAMDEMON_NAME_LEN = sizeof(PEN_VAMDEMON_NAME_ARR)-1;
+    inline static constexpr char PEN_VAMDEMON_FQNAME_ARR[] = "pen:Vamdemon";
+    inline static constexpr const char* PEN_VAMDEMON_FQNAME = PEN_VAMDEMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_VAMDEMON_FQNAME_LEN = sizeof(PEN_VAMDEMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_VAMDEMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_VAMDEMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_VAMDEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_VAMDEMON_ANIM_INDEX = 110;
 
     // Name: V-dramon
     inline static constexpr char PEN_V_DRAMON_FQID_ARR[] = "pen:v_dramon";
@@ -1534,7 +2020,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_V_DRAMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_V_DRAMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_V_DRAMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_V_DRAMON_ANIM_INDEX = 84;
+    inline static constexpr size_t PEN_V_DRAMON_ANIM_INDEX = 111;
 
     // Name: Vemdemon
     inline static constexpr char PEN_VEMDEMON_FQID_ARR[] = "pen:vemdemon";
@@ -1552,7 +2038,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_VEMDEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_VEMDEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_VEMDEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_VEMDEMON_ANIM_INDEX = 85;
+    inline static constexpr size_t PEN_VEMDEMON_ANIM_INDEX = 112;
 
     // Name: Venom Vamdemon
     inline static constexpr char PEN_VENOM_VAMDEMON_FQID_ARR[] = "pen:venom_vamdemon";
@@ -1570,7 +2056,43 @@ namespace bongocat::assets {
     inline static constexpr int PEN_VENOM_VAMDEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_VENOM_VAMDEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_VENOM_VAMDEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_VENOM_VAMDEMON_ANIM_INDEX = 86;
+    inline static constexpr size_t PEN_VENOM_VAMDEMON_ANIM_INDEX = 113;
+
+    // Name: War Greymon
+    inline static constexpr char PEN_WAR_GREYMON_FQID_ARR[] = "pen:war_greymon";
+    inline static constexpr const char* PEN_WAR_GREYMON_FQID = PEN_WAR_GREYMON_FQID_ARR;
+    inline static constexpr size_t PEN_WAR_GREYMON_FQID_LEN = sizeof(PEN_WAR_GREYMON_FQID_ARR)-1;
+    inline static constexpr char PEN_WAR_GREYMON_ID_ARR[] = "war_greymon";
+    inline static constexpr const char* PEN_WAR_GREYMON_ID = PEN_WAR_GREYMON_ID_ARR;
+    inline static constexpr size_t PEN_WAR_GREYMON_ID_LEN = sizeof(PEN_WAR_GREYMON_ID)-1;
+    inline static constexpr char PEN_WAR_GREYMON_NAME_ARR[] = "War Greymon";
+    inline static constexpr const char* PEN_WAR_GREYMON_NAME = PEN_WAR_GREYMON_NAME_ARR;
+    inline static constexpr size_t PEN_WAR_GREYMON_NAME_LEN = sizeof(PEN_WAR_GREYMON_NAME_ARR)-1;
+    inline static constexpr char PEN_WAR_GREYMON_FQNAME_ARR[] = "pen:War Greymon";
+    inline static constexpr const char* PEN_WAR_GREYMON_FQNAME = PEN_WAR_GREYMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_WAR_GREYMON_FQNAME_LEN = sizeof(PEN_WAR_GREYMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_WAR_GREYMON_SPRITE_SHEET_COLS = 12;
+    inline static constexpr int PEN_WAR_GREYMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_WAR_GREYMON_SPRITE_SHEET_FRAMES_COUNT = 12;
+    inline static constexpr size_t PEN_WAR_GREYMON_ANIM_INDEX = 114;
+
+    // Name: Waru Monzaemon
+    inline static constexpr char PEN_WARU_MONZAEMON_FQID_ARR[] = "pen:waru_monzaemon";
+    inline static constexpr const char* PEN_WARU_MONZAEMON_FQID = PEN_WARU_MONZAEMON_FQID_ARR;
+    inline static constexpr size_t PEN_WARU_MONZAEMON_FQID_LEN = sizeof(PEN_WARU_MONZAEMON_FQID_ARR)-1;
+    inline static constexpr char PEN_WARU_MONZAEMON_ID_ARR[] = "waru_monzaemon";
+    inline static constexpr const char* PEN_WARU_MONZAEMON_ID = PEN_WARU_MONZAEMON_ID_ARR;
+    inline static constexpr size_t PEN_WARU_MONZAEMON_ID_LEN = sizeof(PEN_WARU_MONZAEMON_ID)-1;
+    inline static constexpr char PEN_WARU_MONZAEMON_NAME_ARR[] = "Waru Monzaemon";
+    inline static constexpr const char* PEN_WARU_MONZAEMON_NAME = PEN_WARU_MONZAEMON_NAME_ARR;
+    inline static constexpr size_t PEN_WARU_MONZAEMON_NAME_LEN = sizeof(PEN_WARU_MONZAEMON_NAME_ARR)-1;
+    inline static constexpr char PEN_WARU_MONZAEMON_FQNAME_ARR[] = "pen:Waru Monzaemon";
+    inline static constexpr const char* PEN_WARU_MONZAEMON_FQNAME = PEN_WARU_MONZAEMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_WARU_MONZAEMON_FQNAME_LEN = sizeof(PEN_WARU_MONZAEMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_WARU_MONZAEMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_WARU_MONZAEMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_WARU_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_WARU_MONZAEMON_ANIM_INDEX = 115;
 
     // Name: Waru Mozaemon
     inline static constexpr char PEN_WARU_MOZAEMON_FQID_ARR[] = "pen:waru_mozaemon";
@@ -1588,7 +2110,43 @@ namespace bongocat::assets {
     inline static constexpr int PEN_WARU_MOZAEMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_WARU_MOZAEMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_WARU_MOZAEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_WARU_MOZAEMON_ANIM_INDEX = 87;
+    inline static constexpr size_t PEN_WARU_MOZAEMON_ANIM_INDEX = 116;
+
+    // Name: Were Garurumon
+    inline static constexpr char PEN_WERE_GARURUMON_FQID_ARR[] = "pen:were_garurumon";
+    inline static constexpr const char* PEN_WERE_GARURUMON_FQID = PEN_WERE_GARURUMON_FQID_ARR;
+    inline static constexpr size_t PEN_WERE_GARURUMON_FQID_LEN = sizeof(PEN_WERE_GARURUMON_FQID_ARR)-1;
+    inline static constexpr char PEN_WERE_GARURUMON_ID_ARR[] = "were_garurumon";
+    inline static constexpr const char* PEN_WERE_GARURUMON_ID = PEN_WERE_GARURUMON_ID_ARR;
+    inline static constexpr size_t PEN_WERE_GARURUMON_ID_LEN = sizeof(PEN_WERE_GARURUMON_ID)-1;
+    inline static constexpr char PEN_WERE_GARURUMON_NAME_ARR[] = "Were Garurumon";
+    inline static constexpr const char* PEN_WERE_GARURUMON_NAME = PEN_WERE_GARURUMON_NAME_ARR;
+    inline static constexpr size_t PEN_WERE_GARURUMON_NAME_LEN = sizeof(PEN_WERE_GARURUMON_NAME_ARR)-1;
+    inline static constexpr char PEN_WERE_GARURUMON_FQNAME_ARR[] = "pen:Were Garurumon";
+    inline static constexpr const char* PEN_WERE_GARURUMON_FQNAME = PEN_WERE_GARURUMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_WERE_GARURUMON_FQNAME_LEN = sizeof(PEN_WERE_GARURUMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_WERE_GARURUMON_SPRITE_SHEET_COLS = 12;
+    inline static constexpr int PEN_WERE_GARURUMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_WERE_GARURUMON_SPRITE_SHEET_FRAMES_COUNT = 12;
+    inline static constexpr size_t PEN_WERE_GARURUMON_ANIM_INDEX = 117;
+
+    // Name: Whamon
+    inline static constexpr char PEN_WHAMON_FQID_ARR[] = "pen:whamon";
+    inline static constexpr const char* PEN_WHAMON_FQID = PEN_WHAMON_FQID_ARR;
+    inline static constexpr size_t PEN_WHAMON_FQID_LEN = sizeof(PEN_WHAMON_FQID_ARR)-1;
+    inline static constexpr char PEN_WHAMON_ID_ARR[] = "whamon";
+    inline static constexpr const char* PEN_WHAMON_ID = PEN_WHAMON_ID_ARR;
+    inline static constexpr size_t PEN_WHAMON_ID_LEN = sizeof(PEN_WHAMON_ID)-1;
+    inline static constexpr char PEN_WHAMON_NAME_ARR[] = "Whamon";
+    inline static constexpr const char* PEN_WHAMON_NAME = PEN_WHAMON_NAME_ARR;
+    inline static constexpr size_t PEN_WHAMON_NAME_LEN = sizeof(PEN_WHAMON_NAME_ARR)-1;
+    inline static constexpr char PEN_WHAMON_FQNAME_ARR[] = "pen:Whamon";
+    inline static constexpr const char* PEN_WHAMON_FQNAME = PEN_WHAMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_WHAMON_FQNAME_LEN = sizeof(PEN_WHAMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_WHAMON_SPRITE_SHEET_COLS = 9;
+    inline static constexpr int PEN_WHAMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_WHAMON_SPRITE_SHEET_FRAMES_COUNT = 9;
+    inline static constexpr size_t PEN_WHAMON_ANIM_INDEX = 118;
 
     // Name: Wizarmon
     inline static constexpr char PEN_WIZARMON_FQID_ARR[] = "pen:wizarmon";
@@ -1606,7 +2164,7 @@ namespace bongocat::assets {
     inline static constexpr int PEN_WIZARMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_WIZARMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_WIZARMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_WIZARMON_ANIM_INDEX = 88;
+    inline static constexpr size_t PEN_WIZARMON_ANIM_INDEX = 119;
 
     // Name: Woodmon
     inline static constexpr char PEN_WOODMON_FQID_ARR[] = "pen:woodmon";
@@ -1624,27 +2182,27 @@ namespace bongocat::assets {
     inline static constexpr int PEN_WOODMON_SPRITE_SHEET_COLS = 13;
     inline static constexpr int PEN_WOODMON_SPRITE_SHEET_ROWS = 1;
     inline static constexpr size_t PEN_WOODMON_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_WOODMON_ANIM_INDEX = 89;
+    inline static constexpr size_t PEN_WOODMON_ANIM_INDEX = 120;
 
-    // Name: Zudomom
-    inline static constexpr char PEN_ZUDOMOM_FQID_ARR[] = "pen:zudomom";
-    inline static constexpr const char* PEN_ZUDOMOM_FQID = PEN_ZUDOMOM_FQID_ARR;
-    inline static constexpr size_t PEN_ZUDOMOM_FQID_LEN = sizeof(PEN_ZUDOMOM_FQID_ARR)-1;
-    inline static constexpr char PEN_ZUDOMOM_ID_ARR[] = "zudomom";
-    inline static constexpr const char* PEN_ZUDOMOM_ID = PEN_ZUDOMOM_ID_ARR;
-    inline static constexpr size_t PEN_ZUDOMOM_ID_LEN = sizeof(PEN_ZUDOMOM_ID)-1;
-    inline static constexpr char PEN_ZUDOMOM_NAME_ARR[] = "Zudomom";
-    inline static constexpr const char* PEN_ZUDOMOM_NAME = PEN_ZUDOMOM_NAME_ARR;
-    inline static constexpr size_t PEN_ZUDOMOM_NAME_LEN = sizeof(PEN_ZUDOMOM_NAME_ARR)-1;
-    inline static constexpr char PEN_ZUDOMOM_FQNAME_ARR[] = "pen:Zudomom";
-    inline static constexpr const char* PEN_ZUDOMOM_FQNAME = PEN_ZUDOMOM_FQNAME_ARR;
-    inline static constexpr size_t PEN_ZUDOMOM_FQNAME_LEN = sizeof(PEN_ZUDOMOM_FQNAME_ARR)-1;
-    inline static constexpr int PEN_ZUDOMOM_SPRITE_SHEET_COLS = 13;
-    inline static constexpr int PEN_ZUDOMOM_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr size_t PEN_ZUDOMOM_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t PEN_ZUDOMOM_ANIM_INDEX = 90;
+    // Name: Zudomon
+    inline static constexpr char PEN_ZUDOMON_FQID_ARR[] = "pen:zudomon";
+    inline static constexpr const char* PEN_ZUDOMON_FQID = PEN_ZUDOMON_FQID_ARR;
+    inline static constexpr size_t PEN_ZUDOMON_FQID_LEN = sizeof(PEN_ZUDOMON_FQID_ARR)-1;
+    inline static constexpr char PEN_ZUDOMON_ID_ARR[] = "zudomon";
+    inline static constexpr const char* PEN_ZUDOMON_ID = PEN_ZUDOMON_ID_ARR;
+    inline static constexpr size_t PEN_ZUDOMON_ID_LEN = sizeof(PEN_ZUDOMON_ID)-1;
+    inline static constexpr char PEN_ZUDOMON_NAME_ARR[] = "Zudomon";
+    inline static constexpr const char* PEN_ZUDOMON_NAME = PEN_ZUDOMON_NAME_ARR;
+    inline static constexpr size_t PEN_ZUDOMON_NAME_LEN = sizeof(PEN_ZUDOMON_NAME_ARR)-1;
+    inline static constexpr char PEN_ZUDOMON_FQNAME_ARR[] = "pen:Zudomon";
+    inline static constexpr const char* PEN_ZUDOMON_FQNAME = PEN_ZUDOMON_FQNAME_ARR;
+    inline static constexpr size_t PEN_ZUDOMON_FQNAME_LEN = sizeof(PEN_ZUDOMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN_ZUDOMON_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int PEN_ZUDOMON_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t PEN_ZUDOMON_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t PEN_ZUDOMON_ANIM_INDEX = 121;
 
-    inline static constexpr size_t PEN_ANIM_COUNT = 91;
+    inline static constexpr size_t PEN_ANIM_COUNT = 122;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_PEN_HPP

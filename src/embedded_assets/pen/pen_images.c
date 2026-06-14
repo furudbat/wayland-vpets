@@ -10,6 +10,13 @@ const unsigned char pen_aero_v_dramon_png[] = {
 const size_t pen_aero_v_dramon_png_size = sizeof(pen_aero_v_dramon_png);
 
 
+// Name: Andromon
+const unsigned char pen_andromon_png[] = {
+#embed "../../../assets/pen/Andromon.png"
+};
+const size_t pen_andromon_png_size = sizeof(pen_andromon_png);
+
+
 // Name: Angewomon
 const unsigned char pen_angewomon_png[] = {
 #embed "../../../assets/pen/Angewomon.png"
@@ -38,6 +45,13 @@ const unsigned char pen_atlur_kabuterimon_png[] = {
 const size_t pen_atlur_kabuterimon_png_size = sizeof(pen_atlur_kabuterimon_png);
 
 
+// Name: Bakemon
+const unsigned char pen_bakemon_png[] = {
+#embed "../../../assets/pen/Bakemon.png"
+};
+const size_t pen_bakemon_png_size = sizeof(pen_bakemon_png);
+
+
 // Name: Bakumon
 const unsigned char pen_bakumon_png[] = {
 #embed "../../../assets/pen/Bakumon.png"
@@ -50,6 +64,13 @@ const unsigned char pen_big_mamemon_png[] = {
 #embed "../../../assets/pen/Big Mamemon.png"
 };
 const size_t pen_big_mamemon_png_size = sizeof(pen_big_mamemon_png);
+
+
+// Name: Birdramon
+const unsigned char pen_birdramon_png[] = {
+#embed "../../../assets/pen/Birdramon.png"
+};
+const size_t pen_birdramon_png_size = sizeof(pen_birdramon_png);
 
 
 // Name: Blossomon
@@ -101,6 +122,13 @@ const unsigned char pen_clockmon_png[] = {
 const size_t pen_clockmon_png_size = sizeof(pen_clockmon_png);
 
 
+// Name: Coelamon
+const unsigned char pen_coelamon_png[] = {
+#embed "../../../assets/pen/Coelamon.png"
+};
+const size_t pen_coelamon_png_size = sizeof(pen_coelamon_png);
+
+
 // Name: Cyberdramon
 const unsigned char pen_cyberdramon_png[] = {
 #embed "../../../assets/pen/Cyberdramon.png"
@@ -127,6 +155,13 @@ const unsigned char pen_delumon_png[] = {
 #embed "../../../assets/pen/Delumon.png"
 };
 const size_t pen_delumon_png_size = sizeof(pen_delumon_png);
+
+
+// Name: Devimon
+const unsigned char pen_devimon_png[] = {
+#embed "../../../assets/pen/Devimon.png"
+};
+const size_t pen_devimon_png_size = sizeof(pen_devimon_png);
 
 
 // Name: Dokugumon
@@ -171,6 +206,13 @@ const unsigned char pen_garudamon_png[] = {
 const size_t pen_garudamon_png_size = sizeof(pen_garudamon_png);
 
 
+// Name: Garurumon
+const unsigned char pen_garurumon_png[] = {
+#embed "../../../assets/pen/Garurumon.png"
+};
+const size_t pen_garurumon_png_size = sizeof(pen_garurumon_png);
+
+
 // Name: Gekomon
 const unsigned char pen_gekomon_png[] = {
 #embed "../../../assets/pen/Gekomon.png"
@@ -206,6 +248,13 @@ const unsigned char pen_gottsumon_png[] = {
 const size_t pen_gottsumon_png_size = sizeof(pen_gottsumon_png);
 
 
+// Name: Greymon
+const unsigned char pen_greymon_png[] = {
+#embed "../../../assets/pen/Greymon.png"
+};
+const size_t pen_greymon_png_size = sizeof(pen_greymon_png);
+
+
 // Name: Griffomon
 const unsigned char pen_griffomon_png[] = {
 #embed "../../../assets/pen/Griffomon.png"
@@ -234,11 +283,25 @@ const unsigned char pen_hangymon_png[] = {
 const size_t pen_hangymon_png_size = sizeof(pen_hangymon_png);
 
 
+// Name: Hangyomon
+const unsigned char pen_hangyomon_png[] = {
+#embed "../../../assets/pen/Hangyomon.png"
+};
+const size_t pen_hangyomon_png_size = sizeof(pen_hangyomon_png);
+
+
 // Name: Hanumon
 const unsigned char pen_hanumon_png[] = {
 #embed "../../../assets/pen/Hanumon.png"
 };
 const size_t pen_hanumon_png_size = sizeof(pen_hanumon_png);
+
+
+// Name: Herakle Kabuterimon
+const unsigned char pen_herakle_kabuterimon_png[] = {
+#embed "../../../assets/pen/Herakle Kabuterimon.png"
+};
+const size_t pen_herakle_kabuterimon_png_size = sizeof(pen_herakle_kabuterimon_png);
 
 
 // Name: Herkule Kabuterimon
@@ -297,6 +360,13 @@ const unsigned char pen_jyureimon_png[] = {
 const size_t pen_jyureimon_png_size = sizeof(pen_jyureimon_png);
 
 
+// Name: Kabuterimon
+const unsigned char pen_kabuterimon_png[] = {
+#embed "../../../assets/pen/Kabuterimon.png"
+};
+const size_t pen_kabuterimon_png_size = sizeof(pen_kabuterimon_png);
+
+
 // Name: Kiwimon
 const unsigned char pen_kiwimon_png[] = {
 #embed "../../../assets/pen/Kiwimon.png"
@@ -316,6 +386,13 @@ const unsigned char pen_kokuwamon_png[] = {
 #embed "../../../assets/pen/Kokuwamon.png"
 };
 const size_t pen_kokuwamon_png_size = sizeof(pen_kokuwamon_png);
+
+
+// Name: Kuwagamon
+const unsigned char pen_kuwagamon_png[] = {
+#embed "../../../assets/pen/Kuwagamon.png"
+};
+const size_t pen_kuwagamon_png_size = sizeof(pen_kuwagamon_png);
 
 
 // Name: Lady Devimon
@@ -360,6 +437,13 @@ const unsigned char pen_mechanorimon_png[] = {
 const size_t pen_mechanorimon_png_size = sizeof(pen_mechanorimon_png);
 
 
+// Name: Megadramon
+const unsigned char pen_megadramon_png[] = {
+#embed "../../../assets/pen/Megadramon.png"
+};
+const size_t pen_megadramon_png_size = sizeof(pen_megadramon_png);
+
+
 // Name: Mega Seadramon
 const unsigned char pen_mega_seadramon_png[] = {
 #embed "../../../assets/pen/Mega Seadramon.png"
@@ -367,11 +451,39 @@ const unsigned char pen_mega_seadramon_png[] = {
 const size_t pen_mega_seadramon_png_size = sizeof(pen_mega_seadramon_png);
 
 
+// Name: Meramon
+const unsigned char pen_meramon_png[] = {
+#embed "../../../assets/pen/Meramon.png"
+};
+const size_t pen_meramon_png_size = sizeof(pen_meramon_png);
+
+
 // Name: Metal Etemon
 const unsigned char pen_metal_etemon_png[] = {
 #embed "../../../assets/pen/Metal Etemon.png"
 };
 const size_t pen_metal_etemon_png_size = sizeof(pen_metal_etemon_png);
+
+
+// Name: Metal Garurumon
+const unsigned char pen_metal_garurumon_png[] = {
+#embed "../../../assets/pen/Metal Garurumon.png"
+};
+const size_t pen_metal_garurumon_png_size = sizeof(pen_metal_garurumon_png);
+
+
+// Name: Metal Greymon
+const unsigned char pen_metal_greymon_png[] = {
+#embed "../../../assets/pen/Metal Greymon.png"
+};
+const size_t pen_metal_greymon_png_size = sizeof(pen_metal_greymon_png);
+
+
+// Name: Metal Mamemon
+const unsigned char pen_metal_mamemon_png[] = {
+#embed "../../../assets/pen/Metal Mamemon.png"
+};
+const size_t pen_metal_mamemon_png_size = sizeof(pen_metal_mamemon_png);
 
 
 // Name: Metal Seadramon
@@ -393,6 +505,20 @@ const unsigned char pen_mokumon_png[] = {
 #embed "../../../assets/pen/Mokumon.png"
 };
 const size_t pen_mokumon_png_size = sizeof(pen_mokumon_png);
+
+
+// Name: Monochromon
+const unsigned char pen_monochromon_png[] = {
+#embed "../../../assets/pen/Monochromon.png"
+};
+const size_t pen_monochromon_png_size = sizeof(pen_monochromon_png);
+
+
+// Name: Mugendramon
+const unsigned char pen_mugendramon_png[] = {
+#embed "../../../assets/pen/Mugendramon.png"
+};
+const size_t pen_mugendramon_png_size = sizeof(pen_mugendramon_png);
 
 
 // Name: Mushmon
@@ -423,6 +549,13 @@ const unsigned char pen_okuwamon_png[] = {
 const size_t pen_okuwamon_png_size = sizeof(pen_okuwamon_png);
 
 
+// Name: Omegamon
+const unsigned char pen_omegamon_png[] = {
+#embed "../../../assets/pen/Omegamon.png"
+};
+const size_t pen_omegamon_png_size = sizeof(pen_omegamon_png);
+
+
 // Name: Otamamon
 const unsigned char pen_otamamon_png[] = {
 #embed "../../../assets/pen/Otamamon.png"
@@ -430,11 +563,25 @@ const unsigned char pen_otamamon_png[] = {
 const size_t pen_otamamon_png_size = sizeof(pen_otamamon_png);
 
 
+// Name: Palmon
+const unsigned char pen_palmon_png[] = {
+#embed "../../../assets/pen/Palmon.png"
+};
+const size_t pen_palmon_png_size = sizeof(pen_palmon_png);
+
+
 // Name: Peti Meramon
 const unsigned char pen_peti_meramon_png[] = {
 #embed "../../../assets/pen/Peti Meramon.png"
 };
 const size_t pen_peti_meramon_png_size = sizeof(pen_peti_meramon_png);
+
+
+// Name: Piccolomon
+const unsigned char pen_piccolomon_png[] = {
+#embed "../../../assets/pen/Piccolomon.png"
+};
+const size_t pen_piccolomon_png_size = sizeof(pen_piccolomon_png);
 
 
 // Name: Pico Devimon
@@ -449,6 +596,20 @@ const unsigned char pen_piemon_png[] = {
 #embed "../../../assets/pen/Piemon.png"
 };
 const size_t pen_piemon_png_size = sizeof(pen_piemon_png);
+
+
+// Name: Pinochimon
+const unsigned char pen_pinochimon_png[] = {
+#embed "../../../assets/pen/Pinochimon.png"
+};
+const size_t pen_pinochimon_png_size = sizeof(pen_pinochimon_png);
+
+
+// Name: Piyomon
+const unsigned char pen_piyomon_png[] = {
+#embed "../../../assets/pen/Piyomon.png"
+};
+const size_t pen_piyomon_png_size = sizeof(pen_piyomon_png);
 
 
 // Name: Plesiomon
@@ -507,6 +668,13 @@ const unsigned char pen_rosemon_png[] = {
 const size_t pen_rosemon_png_size = sizeof(pen_rosemon_png);
 
 
+// Name: Rukamon
+const unsigned char pen_rukamon_png[] = {
+#embed "../../../assets/pen/Rukamon.png"
+};
+const size_t pen_rukamon_png_size = sizeof(pen_rukamon_png);
+
+
 // Name: Saber Leomon
 const unsigned char pen_saber_leomon_png[] = {
 #embed "../../../assets/pen/Saber Leomon.png"
@@ -514,11 +682,25 @@ const unsigned char pen_saber_leomon_png[] = {
 const size_t pen_saber_leomon_png_size = sizeof(pen_saber_leomon_png);
 
 
+// Name: Seadramon
+const unsigned char pen_seadramon_png[] = {
+#embed "../../../assets/pen/Seadramon.png"
+};
+const size_t pen_seadramon_png_size = sizeof(pen_seadramon_png);
+
+
 // Name: Shakomon
 const unsigned char pen_shakomon_png[] = {
 #embed "../../../assets/pen/Shakomon.png"
 };
 const size_t pen_shakomon_png_size = sizeof(pen_shakomon_png);
+
+
+// Name: Skull Mammon
+const unsigned char pen_skull_mammon_png[] = {
+#embed "../../../assets/pen/Skull Mammon.png"
+};
+const size_t pen_skull_mammon_png_size = sizeof(pen_skull_mammon_png);
 
 
 // Name: Starmon
@@ -591,6 +773,13 @@ const unsigned char pen_triceramon_png[] = {
 const size_t pen_triceramon_png_size = sizeof(pen_triceramon_png);
 
 
+// Name: Vamdemon
+const unsigned char pen_vamdemon_png[] = {
+#embed "../../../assets/pen/Vamdemon.png"
+};
+const size_t pen_vamdemon_png_size = sizeof(pen_vamdemon_png);
+
+
 // Name: V-dramon
 const unsigned char pen_v_dramon_png[] = {
 #embed "../../../assets/pen/V-dramon.png"
@@ -612,11 +801,39 @@ const unsigned char pen_venom_vamdemon_png[] = {
 const size_t pen_venom_vamdemon_png_size = sizeof(pen_venom_vamdemon_png);
 
 
+// Name: War Greymon
+const unsigned char pen_war_greymon_png[] = {
+#embed "../../../assets/pen/War Greymon.png"
+};
+const size_t pen_war_greymon_png_size = sizeof(pen_war_greymon_png);
+
+
+// Name: Waru Monzaemon
+const unsigned char pen_waru_monzaemon_png[] = {
+#embed "../../../assets/pen/Waru Monzaemon.png"
+};
+const size_t pen_waru_monzaemon_png_size = sizeof(pen_waru_monzaemon_png);
+
+
 // Name: Waru Mozaemon
 const unsigned char pen_waru_mozaemon_png[] = {
 #embed "../../../assets/pen/Waru Mozaemon.png"
 };
 const size_t pen_waru_mozaemon_png_size = sizeof(pen_waru_mozaemon_png);
+
+
+// Name: Were Garurumon
+const unsigned char pen_were_garurumon_png[] = {
+#embed "../../../assets/pen/Were Garurumon.png"
+};
+const size_t pen_were_garurumon_png_size = sizeof(pen_were_garurumon_png);
+
+
+// Name: Whamon
+const unsigned char pen_whamon_png[] = {
+#embed "../../../assets/pen/Whamon.png"
+};
+const size_t pen_whamon_png_size = sizeof(pen_whamon_png);
 
 
 // Name: Wizarmon
@@ -633,10 +850,10 @@ const unsigned char pen_woodmon_png[] = {
 const size_t pen_woodmon_png_size = sizeof(pen_woodmon_png);
 
 
-// Name: Zudomom
-const unsigned char pen_zudomom_png[] = {
-#embed "../../../assets/pen/Zudomom.png"
+// Name: Zudomon
+const unsigned char pen_zudomon_png[] = {
+#embed "../../../assets/pen/Zudomon.png"
 };
-const size_t pen_zudomom_png_size = sizeof(pen_zudomom_png);
+const size_t pen_zudomon_png_size = sizeof(pen_zudomon_png);
 
 
