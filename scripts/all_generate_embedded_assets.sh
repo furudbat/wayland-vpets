@@ -18,3 +18,4 @@
 
 
 ./scripts/generate_embedded_assets_dm_evol.sh assets/dm assets/input/dm src/embedded_assets/dm/dm_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm
+./scripts/generate_embedded_assets_dm_evol.sh assets/dm20 assets/input/dm20 src/embedded_assets/dm20/dm20_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm20

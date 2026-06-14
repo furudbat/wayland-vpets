@@ -180,6 +180,24 @@ for FILE in "$INPUT_DIR"/*.png; do
         fi
     fi
 
+    JOGRESS=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$NAME_CLEAN" '
+      first(
+         .digimons[] |
+         select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
+      ) | .jogress
+    ' assets/digimon.db.json)
+    if [ "$JOGRESS" == "true" ]; then
+        OLD_EVO_TIME=$EVO_TIME
+        EVO_TIME=$(jq -r --arg prefix "$ASSETS_PREFIX_CLEAN" --arg stage "Jogress" '
+          ._next_evolution_time_secs[$prefix][$stage]
+        ' assets/digimon-vpets.db.json)
+
+        if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
+            echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'Jogress'" >&2
+            EVO_TIME=OLD_EVO_TIME
+        fi
+    fi
+
     num_animation_indices=0
     animation_indices=()
     MAX_ANIMATION_INDICES=15  # Enforce the fixed-array max capacity
