@@ -49,6 +49,7 @@ namespace bongocat::assets {
             case DM_MOJYAMON_ANIM_INDEX: return {dm_mojyamon_png, dm_mojyamon_png_size, "mojyamon"};
             case DM_MONOCHROMON_ANIM_INDEX: return {dm_monochromon_png, dm_monochromon_png_size, "monochromon"};
             case DM_MONZAEMON_ANIM_INDEX: return {dm_monzaemon_png, dm_monzaemon_png_size, "monzaemon"};
+            case DM_MUGENDRAMON_ANIM_INDEX: return {dm_mugendramon_png, dm_mugendramon_png_size, "mugendramon"};
             case DM_NANIMON_ANIM_INDEX: return {dm_nanimon_png, dm_nanimon_png_size, "nanimon"};
             case DM_NANOMON_ANIM_INDEX: return {dm_nanomon_png, dm_nanomon_png_size, "nanomon"};
             case DM_NUMEMON_ANIM_INDEX: return {dm_numemon_png, dm_numemon_png_size, "numemon"};

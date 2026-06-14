@@ -177,6 +177,10 @@ extern const size_t dm_monochromon_png_size;
 extern const unsigned char dm_monzaemon_png[];
 extern const size_t dm_monzaemon_png_size;
 
+// Name: Mugendramon
+extern const unsigned char dm_mugendramon_png[];
+extern const size_t dm_mugendramon_png_size;
+
 // Name: Nanimon
 extern const unsigned char dm_nanimon_png[];
 extern const size_t dm_nanimon_png_size;

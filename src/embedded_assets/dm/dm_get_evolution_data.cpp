@@ -401,9 +401,9 @@ namespace bongocat::assets {
                 // Stage: Perfect
                 .conditions = { .next_evolution_time_sec = 172800 },
                 
-                .num_animation_indices = 0,
+                .num_animation_indices = 1,
                 .animation_indices = {
-                  
+                  DM_MUGENDRAMON_ANIM_INDEX
                 },
               };
             case DM_MOJYAMON_ANIM_INDEX:
@@ -430,6 +430,16 @@ namespace bongocat::assets {
               return {
                 // Stage: Perfect
                 .conditions = { .next_evolution_time_sec = 172800 },
+                
+                .num_animation_indices = 0,
+                .animation_indices = {
+                  
+                },
+              };
+            case DM_MUGENDRAMON_ANIM_INDEX:
+              return {
+                // Stage: Ultimate
+                .conditions = { .next_evolution_time_sec = -1 },
                 
                 .num_animation_indices = 0,
                 .animation_indices = {

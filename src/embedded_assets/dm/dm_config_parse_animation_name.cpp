@@ -47,6 +47,7 @@ namespace bongocat::assets {
         { DM_MOJYAMON_NAME, DM_MOJYAMON_ID, DM_MOJYAMON_FQID, DM_MOJYAMON_FQNAME, DM_MOJYAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_MONOCHROMON_NAME, DM_MONOCHROMON_ID, DM_MONOCHROMON_FQID, DM_MONOCHROMON_FQNAME, DM_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_MONZAEMON_NAME, DM_MONZAEMON_ID, DM_MONZAEMON_FQID, DM_MONZAEMON_FQNAME, DM_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DM_MUGENDRAMON_NAME, DM_MUGENDRAMON_ID, DM_MUGENDRAMON_FQID, DM_MUGENDRAMON_FQNAME, DM_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_NANIMON_NAME, DM_NANIMON_ID, DM_NANIMON_FQID, DM_NANIMON_FQNAME, DM_NANIMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_NANOMON_NAME, DM_NANOMON_ID, DM_NANOMON_FQID, DM_NANOMON_FQNAME, DM_NANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_NUMEMON_NAME, DM_NUMEMON_ID, DM_NUMEMON_FQID, DM_NUMEMON_FQNAME, DM_NUMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },

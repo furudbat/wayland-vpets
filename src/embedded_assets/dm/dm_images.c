@@ -304,6 +304,13 @@ const unsigned char dm_monzaemon_png[] = {
 const size_t dm_monzaemon_png_size = sizeof(dm_monzaemon_png);
 
 
+// Name: Mugendramon
+const unsigned char dm_mugendramon_png[] = {
+#embed "../../../assets/dm/Mugendramon.png"
+};
+const size_t dm_mugendramon_png_size = sizeof(dm_mugendramon_png);
+
+
 // Name: Nanimon
 const unsigned char dm_nanimon_png[] = {
 #embed "../../../assets/dm/Nanimon.png"

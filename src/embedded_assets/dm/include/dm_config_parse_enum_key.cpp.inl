@@ -385,6 +385,15 @@ if (strcmp(value, DM_MONZAEMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dm;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Mugendramon (mugendramon)
+if (strcmp(value, DM_MUGENDRAMON_NAME) == 0 ||
+    strcmp(value, DM_MUGENDRAMON_ID) == 0 ||
+    strcmp(value, DM_MUGENDRAMON_FQID) == 0 ||
+    strcmp(value, DM_MUGENDRAMON_FQNAME) == 0) {
+    config.animation_index = DM_MUGENDRAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dm;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Nanimon (nanimon)
 if (strcmp(value, DM_NANIMON_NAME) == 0 ||
     strcmp(value, DM_NANIMON_ID) == 0 ||
