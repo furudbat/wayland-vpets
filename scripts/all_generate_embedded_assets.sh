@@ -20,6 +20,7 @@
 ./scripts/generate_embedded_assets_dm_evol.sh assets/dm assets/input/dm src/embedded_assets/dm/dm_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm
 ./scripts/generate_embedded_assets_dm_evol.sh assets/dm20 assets/input/dm20 src/embedded_assets/dm20/dm20_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm20
 ./scripts/generate_embedded_assets_dm_evol.sh assets/dmc assets/input/dmc-fixed src/embedded_assets/dmc/dmc_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmc
+./scripts/generate_embedded_assets_dm_evol.sh assets/dmx assets/input/dmx src/embedded_assets/dmx/dmx_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmx
 
 ./scripts/generate_embedded_assets_dm_evol.sh assets/pen assets/input/pen src/embedded_assets/pen/pen_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen
 ./scripts/generate_embedded_assets_dm_evol.sh assets/pen20 assets/input/pen20 src/embedded_assets/pen20/pen20_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen20
