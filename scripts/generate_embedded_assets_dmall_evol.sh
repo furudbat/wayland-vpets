@@ -221,6 +221,34 @@ for FILE in "$INPUT_DIR"/*.png; do
           TARGET_INDEX="${NEXT_INDEX_MAP["$NEXT_NAME"]}"
 
           if [ -n "$TARGET_INDEX" ]; then
+              NEXT_STAGE=$(jq -r --arg name "$NEXT_NAME" '
+                first(
+                   .digimons[] |
+                   select(.name == $name or (.altNames? and any(.altNames[]; . == $name)))
+                ) | .level
+              ' assets/digimon.db.json)
+
+              if [ -z "$NEXT_STAGE" ] || [ "$NEXT_STAGE" == "null" ]; then
+                  echo "⚠️  WARNING: Digimon '$NEXT_NAME' was not found in the database!" >&2
+              else
+                  if [[ "$JOGRESS" != "true" &&
+                        "$MAX_STAGE" != "true" &&
+                        "$STAGE" == "$NEXT_STAGE" &&
+                        "$STAGE" == "Ultimate" &&
+                        "$NEXT_STAGE" == "Ultimate" ]]; then
+                    NEXT_EVO_TIME=$(jq -r --arg prefix "$ASSETS_PREFIX_CLEAN" --arg stage "Jogress" '
+                      ._next_evolution_time_secs[$prefix][$stage]
+                    ' assets/digimon-vpets.db.json)
+
+                    if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
+                        #echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'Jogress'" >&2
+                        NEXT_EVO_TIME=-1
+                    else
+                      EVO_TIME=$NEXT_EVO_TIME
+                    fi
+                  fi
+              fi
+
               animation_indices+=("$TARGET_INDEX")
               ((num_animation_indices++))
           fi
