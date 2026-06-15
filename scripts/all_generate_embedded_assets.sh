@@ -26,3 +26,6 @@
 ./scripts/generate_embedded_assets_dm_evol.sh assets/pen20 assets/input/pen20 src/embedded_assets/pen20/pen20_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen20
 
 ./scripts/generate_embedded_assets_dmall_evol.sh assets/dmall assets/input/all-colored src/embedded_assets/dmall/dmall_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmall
+
+
+./scripts/generate_embedded_assets_pkmn_evol.sh assets/pkmn assets/input/pkmn src/embedded_assets/pkmn/pkmn_get_evolution_data.cpp --cols 2 --rows 1 --layout Pkmn
