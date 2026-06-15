@@ -146,6 +146,17 @@ animation_speed=200
 #test_animation_interval=0
 #DEPRECATED: use idle_animation and animation_speed (for non-bongocat)
 
+# Frame rate settings
+# fps: Animation frame rate (frames per second)
+fps=60
+# input_fps: Input thread frame rate (optional, 0 = use fps)
+# This is just a timeout for the input waiting
+#input_fps=60
+
+# Debug settings
+# enable_debug: Show debug messages (0 = off, 1 = on)
+enable_debug=0
+
 # Movement Settings (experimental)
 # movement_radius: Moving area (radius from center) (in px) (0 = disabled)
 movement_radius=960
@@ -157,16 +168,17 @@ enable_movement_debug=0
 # movement_wait_factor: After movement, make a pause and wait: `movement_speed * movement_wait_factor` (default: 5.1)
 #movement_wait_factor=5.1
 
-# Frame rate settings
-# fps: Animation frame rate (frames per second)
-fps=60
-# input_fps: Input thread frame rate (optional, 0 = use fps)
-# This is just a timeout for the input waiting
-#input_fps=60
+# Evolution Settings (experimental)
+# evolution: Trigger evolution after a specified amount of time has passed (0 = disabled)
+#            Evolution happens at fixed presets and intervals
+# Options: normal, program, uptime
+#   normal: Evolution occurs, based on when the previous evolution occurred.
+#   program: Evolution occurs based on the program start time.
+#   uptime: Evolution occurs based on system uptime (time since boot).
+evolution=0
+# evolution_speed_factor: Evolution speed multiplier
+#evolution_speed_factor=1.0
 
-# Debug settings
-# enable_debug: Show debug messages (0 = off, 1 = on)
-enable_debug=0
 
 # Input devices (you can specify multiple devices)
 # Use keyboard_device for each device you want to monitor

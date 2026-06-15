@@ -1424,6 +1424,8 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
   } else if (features::EnableEvolution && strcmp(key, EVOLUTION_KEY) == 0) {
     if (strcmp(value, EVOLUTION_TIME_MODE_NONE_STR) == 0) {
       config.evolution = evolution_time_mode_t::NONE;
+    } else if (strcmp(value, EVOLUTION_TIME_MODE_NORMAL_STR) == 0) {
+      config.evolution = evolution_time_mode_t::NORMAL;
     } else if (strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_STR) == 0 ||
                strcmp(value, EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR) == 0) {
       config.evolution = evolution_time_mode_t::PROGRAM_START;

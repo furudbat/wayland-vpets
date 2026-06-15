@@ -1,5 +1,19 @@
 #!/bin/bash
 
+get_stage_rank() {
+    case "$1" in
+        "Digitama") echo 0 ;;
+        "Baby I") echo 1 ;;
+        "Baby II") echo 2 ;;
+        "Child") echo 3 ;;
+        "Adult") echo 4 ;;
+        "Perfect") echo 5 ;;
+        "Ultimate") echo 6 ;;
+        "Super Ultimate") echo 7 ;;
+        *) echo -1 ;;
+    esac
+}
+
 # === Usage Check ===
 if [[ $# -lt 3 ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-source>"
@@ -190,6 +204,18 @@ for FILE in "$INPUT_DIR"/*.png; do
     animation_indices=()
     MAX_ANIMATION_INDICES=15  # Enforce the fixed-array max capacity
 
+    canon_name=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$NAME_CLEAN" '
+      (
+        first(
+          .digimons[] |
+          select(
+            .id == $id or
+            .name == $name or
+            ((.altNames // []) | index($name))
+          )
+        ) // {}
+      ) | .name
+    ' assets/digimon.db.json)
 
     CANON_NEXT_NAMES=$(
       jq -r --arg name "$DIGIMON_NAME" --arg id "$NAME_CLEAN" '
@@ -252,8 +278,14 @@ for FILE in "$INPUT_DIR"/*.png; do
                   fi
               fi
 
-              animation_indices+=("$TARGET_INDEX")
-              ((num_animation_indices++))
+              current_rank=$(get_stage_rank "$STAGE")
+              next_rank=$(get_stage_rank "$NEXT_STAGE")
+
+              if [[ "$JOGRESS" == "true" || "$MAX_STAGE" == "true" ]] ||
+                 (( next_rank == current_rank + 1 )); then
+                  animation_indices+=("$TARGET_INDEX")
+                  ((num_animation_indices++))
+              fi
           fi
       done <<< "$CANON_NEXT_NAMES"
     else
@@ -261,7 +293,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     fi
 
     # Fallback from device
-    if (( ${#arr[@]} == 0 )); then
+    if (( ${#animation_indices[@]} == 0 )); then
       # dmc
       DMC_NEXT_NAMES=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "dmc" '
           first(
@@ -319,8 +351,12 @@ for FILE in "$INPUT_DIR"/*.png; do
       fi
     fi
 
+    is_x_anti_body=false
+    if [[ "$canon_name" == *"(X-Antibody)"* ]]; then
+        is_x_anti_body=true
+    fi
     # Fallback from device
-    if (( ${#arr[@]} == 0 )); then
+    if (( ${#animation_indices[@]} == 0 || "$is_x_anti_body" == "true" )); then
       # dmx
       DMX_NEXT_NAMES=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "dmx" '
           first(
@@ -379,7 +415,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     fi
 
     # Fallback
-    if (( ${#arr[@]} == 0 )); then
+    if (( ${#animation_indices[@]} == 0 )); then
       NEXT_NAMES=$(
         jq -r --arg name "$DIGIMON_NAME" --arg id "$NAME_CLEAN" '
           (
@@ -440,8 +476,14 @@ for FILE in "$INPUT_DIR"/*.png; do
                     fi
                 fi
 
-                animation_indices+=("$TARGET_INDEX")
-                ((num_animation_indices++))
+                current_rank=$(get_stage_rank "$STAGE")
+                next_rank=$(get_stage_rank "$NEXT_STAGE")
+
+                if [[ "$JOGRESS" == "true" || "$MAX_STAGE" == "true" ]] ||
+                   (( next_rank == current_rank + 1 )); then
+                    animation_indices+=("$TARGET_INDEX")
+                    ((num_animation_indices++))
+                fi
             fi
         done <<< "$NEXT_NAMES"
       fi
