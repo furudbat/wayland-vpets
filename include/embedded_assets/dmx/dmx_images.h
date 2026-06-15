@@ -93,10 +93,6 @@ extern const size_t dmx_cherubimon_vice_x_png_size;
 extern const unsigned char dmx_cherubimon_virtue_x_png[];
 extern const size_t dmx_cherubimon_virtue_x_png_size;
 
-// Name: Chocomon
-extern const unsigned char dmx_chocomon_png[];
-extern const size_t dmx_chocomon_png_size;
-
 // Name: Cho-Hakkaimon
 extern const unsigned char dmx_cho_hakkaimon_png[];
 extern const size_t dmx_cho_hakkaimon_png_size;

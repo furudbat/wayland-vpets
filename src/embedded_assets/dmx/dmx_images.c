@@ -157,13 +157,6 @@ const unsigned char dmx_cherubimon_virtue_x_png[] = {
 const size_t dmx_cherubimon_virtue_x_png_size = sizeof(dmx_cherubimon_virtue_x_png);
 
 
-// Name: Chocomon
-const unsigned char dmx_chocomon_png[] = {
-#embed "../../../assets/dmx/Chocomon.png"
-};
-const size_t dmx_chocomon_png_size = sizeof(dmx_chocomon_png);
-
-
 // Name: Cho-Hakkaimon
 const unsigned char dmx_cho_hakkaimon_png[] = {
 #embed "../../../assets/dmx/Cho-Hakkaimon.png"

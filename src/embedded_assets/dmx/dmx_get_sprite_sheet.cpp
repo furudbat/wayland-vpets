@@ -28,7 +28,6 @@ namespace bongocat::assets {
             case DMX_CHAOSDRAMON_X_ANIM_INDEX: return {dmx_chaosdramon_x_png, dmx_chaosdramon_x_png_size, "chaosdramon_x"};
             case DMX_CHERUBIMON_VICE_X_ANIM_INDEX: return {dmx_cherubimon_vice_x_png, dmx_cherubimon_vice_x_png_size, "cherubimon_vice_x"};
             case DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX: return {dmx_cherubimon_virtue_x_png, dmx_cherubimon_virtue_x_png_size, "cherubimon_virtue_x"};
-            case DMX_CHOCOMON_ANIM_INDEX: return {dmx_chocomon_png, dmx_chocomon_png_size, "chocomon"};
             case DMX_CHO_HAKKAIMON_ANIM_INDEX: return {dmx_cho_hakkaimon_png, dmx_cho_hakkaimon_png_size, "cho_hakkaimon"};
             case DMX_COCOMON_ANIM_INDEX: return {dmx_cocomon_png, dmx_cocomon_png_size, "cocomon"};
             case DMX_CRANIUMMON_X_ANIM_INDEX: return {dmx_craniummon_x_png, dmx_craniummon_x_png_size, "craniummon_x"};

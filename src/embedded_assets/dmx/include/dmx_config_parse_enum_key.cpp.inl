@@ -196,15 +196,6 @@ if (strcmp(value, DMX_CHERUBIMON_VIRTUE_X_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmx;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
-// check for Chocomon (chocomon)
-if (strcmp(value, DMX_CHOCOMON_NAME) == 0 ||
-    strcmp(value, DMX_CHOCOMON_ID) == 0 ||
-    strcmp(value, DMX_CHOCOMON_FQID) == 0 ||
-    strcmp(value, DMX_CHOCOMON_FQNAME) == 0) {
-    config.animation_index = DMX_CHOCOMON_ANIM_INDEX;
-    config.animation_dm_set = config_animation_dm_set_t::dmx;
-    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
-}
 // check for Cho-Hakkaimon (cho_hakkaimon)
 if (strcmp(value, DMX_CHO_HAKKAIMON_NAME) == 0 ||
     strcmp(value, DMX_CHO_HAKKAIMON_ID) == 0 ||

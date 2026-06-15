@@ -226,16 +226,6 @@ namespace bongocat::assets {
                   DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX ,DMX_EXAMON_X_ANIM_INDEX ,DMX_DUFTMON_X_ANIM_INDEX ,DMX_SLEIPMON_X_ANIM_INDEX ,DMX_JESMON_X_ANIM_INDEX ,DMX_OMEGAMON_X_ANIM_INDEX ,DMX_ALPHAMON_OURYUKEN_ANIM_INDEX ,DMX_JESMON_GX_ANIM_INDEX
                 },
               };
-            case DMX_CHOCOMON_ANIM_INDEX:
-              return {
-                // Stage: Baby II
-                .conditions = { .next_evolution_time_sec = 43200 },
-                
-                .num_animation_indices = 4,
-                .animation_indices = {
-                  DMX_LOPMON_X_ANIM_INDEX ,DMX_SHAKOMON_X_ANIM_INDEX ,DMX_RYUDAMON_ANIM_INDEX ,DMX_JAZAMON_ANIM_INDEX
-                },
-              };
             case DMX_CHO_HAKKAIMON_ANIM_INDEX:
               return {
                 // Stage: Perfect
@@ -251,9 +241,9 @@ namespace bongocat::assets {
                 // Stage: Baby I
                 .conditions = { .next_evolution_time_sec = 600 },
                 
-                .num_animation_indices = 1,
+                .num_animation_indices = 0,
                 .animation_indices = {
-                  DMX_CHOCOMON_ANIM_INDEX
+                  
                 },
               };
             case DMX_CRANIUMMON_X_ANIM_INDEX:
