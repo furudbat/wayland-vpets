@@ -4534,27 +4534,27 @@ if (strcmp(value, DMALL_MEGIDRAMON_X_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmall;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
-// check for MeicooBaby (meicoobaby)
-if (strcmp(value, DMALL_MEICOOBABY_NAME) == 0 ||
-    strcmp(value, DMALL_MEICOOBABY_ID) == 0 ||
-    strcmp(value, DMALL_MEICOOBABY_FQID) == 0 ||
-    strcmp(value, DMALL_MEICOOBABY_FQNAME) == 0 ||
+// check for Meicoomon (Baby) (meicoomon_baby)
+if (strcmp(value, DMALL_MEICOOMON_BABY_NAME) == 0 ||
+    strcmp(value, DMALL_MEICOOMON_BABY_ID) == 0 ||
+    strcmp(value, DMALL_MEICOOMON_BABY_FQID) == 0 ||
+    strcmp(value, DMALL_MEICOOMON_BABY_FQNAME) == 0 ||
     // alt
-    strcmp(value, "dmc:meicoobaby") == 0 ||
-    strcmp(value, "dmc:MeicooBaby") == 0) {
-    config.animation_index = DMALL_MEICOOBABY_ANIM_INDEX;
+    strcmp(value, "dmc:meicoomon_baby") == 0 ||
+    strcmp(value, "dmc:Meicoomon (Baby)") == 0) {
+    config.animation_index = DMALL_MEICOOMON_BABY_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmall;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
-// check for Meicoo (Child) (meicoo_child)
-if (strcmp(value, DMALL_MEICOO_CHILD_NAME) == 0 ||
-    strcmp(value, DMALL_MEICOO_CHILD_ID) == 0 ||
-    strcmp(value, DMALL_MEICOO_CHILD_FQID) == 0 ||
-    strcmp(value, DMALL_MEICOO_CHILD_FQNAME) == 0 ||
+// check for Meicoomon (Child) (meicoomon_child)
+if (strcmp(value, DMALL_MEICOOMON_CHILD_NAME) == 0 ||
+    strcmp(value, DMALL_MEICOOMON_CHILD_ID) == 0 ||
+    strcmp(value, DMALL_MEICOOMON_CHILD_FQID) == 0 ||
+    strcmp(value, DMALL_MEICOOMON_CHILD_FQNAME) == 0 ||
     // alt
-    strcmp(value, "dmc:meicoo_child") == 0 ||
-    strcmp(value, "dmc:Meicoo (Child)") == 0) {
-    config.animation_index = DMALL_MEICOO_CHILD_ANIM_INDEX;
+    strcmp(value, "dmc:meicoomon_child") == 0 ||
+    strcmp(value, "dmc:Meicoomon (Child)") == 0) {
+    config.animation_index = DMALL_MEICOOMON_CHILD_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmall;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -7546,14 +7546,14 @@ if (strcmp(value, DMALL_VAMDEMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmall;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
-// check for Vamdemon_X (vamdemon_x)
+// check for Vamdemon X (vamdemon_x)
 if (strcmp(value, DMALL_VAMDEMON_X_NAME) == 0 ||
     strcmp(value, DMALL_VAMDEMON_X_ID) == 0 ||
     strcmp(value, DMALL_VAMDEMON_X_FQID) == 0 ||
     strcmp(value, DMALL_VAMDEMON_X_FQNAME) == 0 ||
     // alt
     strcmp(value, "dmc:vamdemon_x") == 0 ||
-    strcmp(value, "dmc:Vamdemon_X") == 0) {
+    strcmp(value, "dmc:Vamdemon X") == 0) {
     config.animation_index = DMALL_VAMDEMON_X_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmall;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;

@@ -384,8 +384,8 @@ namespace bongocat::assets {
             case DMALL_MEGA_SEADRAMON_X_ANIM_INDEX: return {dmall_mega_seadramon_x_png, dmall_mega_seadramon_x_png_size, "mega_seadramon_x"};
             case DMALL_MEGIDRAMON_ANIM_INDEX: return {dmall_megidramon_png, dmall_megidramon_png_size, "megidramon"};
             case DMALL_MEGIDRAMON_X_ANIM_INDEX: return {dmall_megidramon_x_png, dmall_megidramon_x_png_size, "megidramon_x"};
-            case DMALL_MEICOOBABY_ANIM_INDEX: return {dmall_meicoobaby_png, dmall_meicoobaby_png_size, "meicoobaby"};
-            case DMALL_MEICOO_CHILD_ANIM_INDEX: return {dmall_meicoo_child_png, dmall_meicoo_child_png_size, "meicoo_child"};
+            case DMALL_MEICOOMON_BABY_ANIM_INDEX: return {dmall_meicoomon_baby_png, dmall_meicoomon_baby_png_size, "meicoomon_baby"};
+            case DMALL_MEICOOMON_CHILD_ANIM_INDEX: return {dmall_meicoomon_child_png, dmall_meicoomon_child_png_size, "meicoomon_child"};
             case DMALL_MEICOOMON_ANIM_INDEX: return {dmall_meicoomon_png, dmall_meicoomon_png_size, "meicoomon"};
             case DMALL_MEICRACKMON_ANIM_INDEX: return {dmall_meicrackmon_png, dmall_meicrackmon_png_size, "meicrackmon"};
             case DMALL_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX: return {dmall_meicrackmon_vicious_mode_png, dmall_meicrackmon_vicious_mode_png_size, "meicrackmon_vicious_mode"};

@@ -760,10 +760,10 @@ namespace bongocat::assets {
         { DMALL_MEGIDRAMON_NAME, DMALL_MEGIDRAMON_ID, "dmc:megidramon", "dmc:Megidramon", DMALL_MEGIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Megidramon
         { DMALL_MEGIDRAMON_X_NAME, DMALL_MEGIDRAMON_X_ID, DMALL_MEGIDRAMON_X_FQID, DMALL_MEGIDRAMON_X_FQNAME, DMALL_MEGIDRAMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_MEGIDRAMON_X_NAME, DMALL_MEGIDRAMON_X_ID, "dmc:megidramon_x", "dmc:Megidramon X", DMALL_MEGIDRAMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Megidramon X
-        { DMALL_MEICOOBABY_NAME, DMALL_MEICOOBABY_ID, DMALL_MEICOOBABY_FQID, DMALL_MEICOOBABY_FQNAME, DMALL_MEICOOBABY_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_MEICOOBABY_NAME, DMALL_MEICOOBABY_ID, "dmc:meicoobaby", "dmc:MeicooBaby", DMALL_MEICOOBABY_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for MeicooBaby
-        { DMALL_MEICOO_CHILD_NAME, DMALL_MEICOO_CHILD_ID, DMALL_MEICOO_CHILD_FQID, DMALL_MEICOO_CHILD_FQNAME, DMALL_MEICOO_CHILD_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_MEICOO_CHILD_NAME, DMALL_MEICOO_CHILD_ID, "dmc:meicoo_child", "dmc:Meicoo (Child)", DMALL_MEICOO_CHILD_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicoo (Child)
+        { DMALL_MEICOOMON_BABY_NAME, DMALL_MEICOOMON_BABY_ID, DMALL_MEICOOMON_BABY_FQID, DMALL_MEICOOMON_BABY_FQNAME, DMALL_MEICOOMON_BABY_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_MEICOOMON_BABY_NAME, DMALL_MEICOOMON_BABY_ID, "dmc:meicoomon_baby", "dmc:Meicoomon (Baby)", DMALL_MEICOOMON_BABY_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicoomon (Baby)
+        { DMALL_MEICOOMON_CHILD_NAME, DMALL_MEICOOMON_CHILD_ID, DMALL_MEICOOMON_CHILD_FQID, DMALL_MEICOOMON_CHILD_FQNAME, DMALL_MEICOOMON_CHILD_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_MEICOOMON_CHILD_NAME, DMALL_MEICOOMON_CHILD_ID, "dmc:meicoomon_child", "dmc:Meicoomon (Child)", DMALL_MEICOOMON_CHILD_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicoomon (Child)
         { DMALL_MEICOOMON_NAME, DMALL_MEICOOMON_ID, DMALL_MEICOOMON_FQID, DMALL_MEICOOMON_FQNAME, DMALL_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_MEICOOMON_NAME, DMALL_MEICOOMON_ID, "dmc:meicoomon", "dmc:Meicoomon", DMALL_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicoomon
         { DMALL_MEICRACKMON_NAME, DMALL_MEICRACKMON_ID, DMALL_MEICRACKMON_FQID, DMALL_MEICRACKMON_FQNAME, DMALL_MEICRACKMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -1263,7 +1263,7 @@ namespace bongocat::assets {
         { DMALL_VAMDEMON_NAME, DMALL_VAMDEMON_ID, DMALL_VAMDEMON_FQID, DMALL_VAMDEMON_FQNAME, DMALL_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_VAMDEMON_NAME, DMALL_VAMDEMON_ID, "dmc:vamdemon", "dmc:Vamdemon", DMALL_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Vamdemon
         { DMALL_VAMDEMON_X_NAME, DMALL_VAMDEMON_X_ID, DMALL_VAMDEMON_X_FQID, DMALL_VAMDEMON_X_FQNAME, DMALL_VAMDEMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_VAMDEMON_X_NAME, DMALL_VAMDEMON_X_ID, "dmc:vamdemon_x", "dmc:Vamdemon_X", DMALL_VAMDEMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Vamdemon_X
+        { DMALL_VAMDEMON_X_NAME, DMALL_VAMDEMON_X_ID, "dmc:vamdemon_x", "dmc:Vamdemon X", DMALL_VAMDEMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Vamdemon X
         { DMALL_V_DRAMON_BLACK_NAME, DMALL_V_DRAMON_BLACK_ID, DMALL_V_DRAMON_BLACK_FQID, DMALL_V_DRAMON_BLACK_FQNAME, DMALL_V_DRAMON_BLACK_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_V_DRAMON_BLACK_NAME, DMALL_V_DRAMON_BLACK_ID, "dmc:v_dramon_black", "dmc:V-dramon (Black)", DMALL_V_DRAMON_BLACK_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for V-dramon (Black)
         { DMALL_V_DRAMON_NAME, DMALL_V_DRAMON_ID, DMALL_V_DRAMON_FQID, DMALL_V_DRAMON_FQNAME, DMALL_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -1349,7 +1349,6 @@ namespace bongocat::assets {
     };
 
     config_animation_entry_t get_config_animation_name_dmall(size_t index) {
-        // keep aliases in mind
         for (const auto& entry : dmall_animation_table) {
             assert(entry.anim_index >= 0);
             if (static_cast<size_t>(entry.anim_index) == index) return entry;

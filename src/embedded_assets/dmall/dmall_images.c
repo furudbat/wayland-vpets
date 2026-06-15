@@ -2649,18 +2649,18 @@ const unsigned char dmall_megidramon_x_png[] = {
 const size_t dmall_megidramon_x_png_size = sizeof(dmall_megidramon_x_png);
 
 
-// Name: MeicooBaby
-const unsigned char dmall_meicoobaby_png[] = {
-#embed "../../../assets/dmall/MeicooBaby.png"
+// Name: Meicoomon (Baby)
+const unsigned char dmall_meicoomon_baby_png[] = {
+#embed "../../../assets/dmall/Meicoomon (Baby).png"
 };
-const size_t dmall_meicoobaby_png_size = sizeof(dmall_meicoobaby_png);
+const size_t dmall_meicoomon_baby_png_size = sizeof(dmall_meicoomon_baby_png);
 
 
-// Name: Meicoo (Child)
-const unsigned char dmall_meicoo_child_png[] = {
-#embed "../../../assets/dmall/Meicoo (Child).png"
+// Name: Meicoomon (Child)
+const unsigned char dmall_meicoomon_child_png[] = {
+#embed "../../../assets/dmall/Meicoomon (Child).png"
 };
-const size_t dmall_meicoo_child_png_size = sizeof(dmall_meicoo_child_png);
+const size_t dmall_meicoomon_child_png_size = sizeof(dmall_meicoomon_child_png);
 
 
 // Name: Meicoomon
@@ -4406,9 +4406,9 @@ const unsigned char dmall_vamdemon_png[] = {
 const size_t dmall_vamdemon_png_size = sizeof(dmall_vamdemon_png);
 
 
-// Name: Vamdemon_X
+// Name: Vamdemon X
 const unsigned char dmall_vamdemon_x_png[] = {
-#embed "../../../assets/dmall/Vamdemon_X.png"
+#embed "../../../assets/dmall/Vamdemon X.png"
 };
 const size_t dmall_vamdemon_x_png_size = sizeof(dmall_vamdemon_x_png);
 

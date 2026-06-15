@@ -6810,41 +6810,41 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGIDRAMON_X_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t DMALL_MEGIDRAMON_X_ANIM_INDEX = 377;
 
-    // Name: MeicooBaby
-    inline static constexpr char DMALL_MEICOOBABY_FQID_ARR[] = "dmall:meicoobaby";
-    inline static constexpr const char* DMALL_MEICOOBABY_FQID = DMALL_MEICOOBABY_FQID_ARR;
-    inline static constexpr size_t DMALL_MEICOOBABY_FQID_LEN = sizeof(DMALL_MEICOOBABY_FQID_ARR)-1;
-    inline static constexpr char DMALL_MEICOOBABY_ID_ARR[] = "meicoobaby";
-    inline static constexpr const char* DMALL_MEICOOBABY_ID = DMALL_MEICOOBABY_ID_ARR;
-    inline static constexpr size_t DMALL_MEICOOBABY_ID_LEN = sizeof(DMALL_MEICOOBABY_ID)-1;
-    inline static constexpr char DMALL_MEICOOBABY_NAME_ARR[] = "MeicooBaby";
-    inline static constexpr const char* DMALL_MEICOOBABY_NAME = DMALL_MEICOOBABY_NAME_ARR;
-    inline static constexpr size_t DMALL_MEICOOBABY_NAME_LEN = sizeof(DMALL_MEICOOBABY_NAME_ARR)-1;
-    inline static constexpr char DMALL_MEICOOBABY_FQNAME_ARR[] = "dmall:MeicooBaby";
-    inline static constexpr const char* DMALL_MEICOOBABY_FQNAME = DMALL_MEICOOBABY_FQNAME_ARR;
-    inline static constexpr size_t DMALL_MEICOOBABY_FQNAME_LEN = sizeof(DMALL_MEICOOBABY_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_MEICOOBABY_SPRITE_SHEET_COLS = 13;
-    inline static constexpr int DMALL_MEICOOBABY_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr size_t DMALL_MEICOOBABY_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DMALL_MEICOOBABY_ANIM_INDEX = 378;
+    // Name: Meicoomon (Baby)
+    inline static constexpr char DMALL_MEICOOMON_BABY_FQID_ARR[] = "dmall:meicoomon_baby";
+    inline static constexpr const char* DMALL_MEICOOMON_BABY_FQID = DMALL_MEICOOMON_BABY_FQID_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_BABY_FQID_LEN = sizeof(DMALL_MEICOOMON_BABY_FQID_ARR)-1;
+    inline static constexpr char DMALL_MEICOOMON_BABY_ID_ARR[] = "meicoomon_baby";
+    inline static constexpr const char* DMALL_MEICOOMON_BABY_ID = DMALL_MEICOOMON_BABY_ID_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_BABY_ID_LEN = sizeof(DMALL_MEICOOMON_BABY_ID)-1;
+    inline static constexpr char DMALL_MEICOOMON_BABY_NAME_ARR[] = "Meicoomon (Baby)";
+    inline static constexpr const char* DMALL_MEICOOMON_BABY_NAME = DMALL_MEICOOMON_BABY_NAME_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_BABY_NAME_LEN = sizeof(DMALL_MEICOOMON_BABY_NAME_ARR)-1;
+    inline static constexpr char DMALL_MEICOOMON_BABY_FQNAME_ARR[] = "dmall:Meicoomon (Baby)";
+    inline static constexpr const char* DMALL_MEICOOMON_BABY_FQNAME = DMALL_MEICOOMON_BABY_FQNAME_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_BABY_FQNAME_LEN = sizeof(DMALL_MEICOOMON_BABY_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_MEICOOMON_BABY_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int DMALL_MEICOOMON_BABY_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t DMALL_MEICOOMON_BABY_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t DMALL_MEICOOMON_BABY_ANIM_INDEX = 378;
 
-    // Name: Meicoo (Child)
-    inline static constexpr char DMALL_MEICOO_CHILD_FQID_ARR[] = "dmall:meicoo_child";
-    inline static constexpr const char* DMALL_MEICOO_CHILD_FQID = DMALL_MEICOO_CHILD_FQID_ARR;
-    inline static constexpr size_t DMALL_MEICOO_CHILD_FQID_LEN = sizeof(DMALL_MEICOO_CHILD_FQID_ARR)-1;
-    inline static constexpr char DMALL_MEICOO_CHILD_ID_ARR[] = "meicoo_child";
-    inline static constexpr const char* DMALL_MEICOO_CHILD_ID = DMALL_MEICOO_CHILD_ID_ARR;
-    inline static constexpr size_t DMALL_MEICOO_CHILD_ID_LEN = sizeof(DMALL_MEICOO_CHILD_ID)-1;
-    inline static constexpr char DMALL_MEICOO_CHILD_NAME_ARR[] = "Meicoo (Child)";
-    inline static constexpr const char* DMALL_MEICOO_CHILD_NAME = DMALL_MEICOO_CHILD_NAME_ARR;
-    inline static constexpr size_t DMALL_MEICOO_CHILD_NAME_LEN = sizeof(DMALL_MEICOO_CHILD_NAME_ARR)-1;
-    inline static constexpr char DMALL_MEICOO_CHILD_FQNAME_ARR[] = "dmall:Meicoo (Child)";
-    inline static constexpr const char* DMALL_MEICOO_CHILD_FQNAME = DMALL_MEICOO_CHILD_FQNAME_ARR;
-    inline static constexpr size_t DMALL_MEICOO_CHILD_FQNAME_LEN = sizeof(DMALL_MEICOO_CHILD_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_MEICOO_CHILD_SPRITE_SHEET_COLS = 13;
-    inline static constexpr int DMALL_MEICOO_CHILD_SPRITE_SHEET_ROWS = 1;
-    inline static constexpr size_t DMALL_MEICOO_CHILD_SPRITE_SHEET_FRAMES_COUNT = 13;
-    inline static constexpr size_t DMALL_MEICOO_CHILD_ANIM_INDEX = 379;
+    // Name: Meicoomon (Child)
+    inline static constexpr char DMALL_MEICOOMON_CHILD_FQID_ARR[] = "dmall:meicoomon_child";
+    inline static constexpr const char* DMALL_MEICOOMON_CHILD_FQID = DMALL_MEICOOMON_CHILD_FQID_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_CHILD_FQID_LEN = sizeof(DMALL_MEICOOMON_CHILD_FQID_ARR)-1;
+    inline static constexpr char DMALL_MEICOOMON_CHILD_ID_ARR[] = "meicoomon_child";
+    inline static constexpr const char* DMALL_MEICOOMON_CHILD_ID = DMALL_MEICOOMON_CHILD_ID_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_CHILD_ID_LEN = sizeof(DMALL_MEICOOMON_CHILD_ID)-1;
+    inline static constexpr char DMALL_MEICOOMON_CHILD_NAME_ARR[] = "Meicoomon (Child)";
+    inline static constexpr const char* DMALL_MEICOOMON_CHILD_NAME = DMALL_MEICOOMON_CHILD_NAME_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_CHILD_NAME_LEN = sizeof(DMALL_MEICOOMON_CHILD_NAME_ARR)-1;
+    inline static constexpr char DMALL_MEICOOMON_CHILD_FQNAME_ARR[] = "dmall:Meicoomon (Child)";
+    inline static constexpr const char* DMALL_MEICOOMON_CHILD_FQNAME = DMALL_MEICOOMON_CHILD_FQNAME_ARR;
+    inline static constexpr size_t DMALL_MEICOOMON_CHILD_FQNAME_LEN = sizeof(DMALL_MEICOOMON_CHILD_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_MEICOOMON_CHILD_SPRITE_SHEET_COLS = 13;
+    inline static constexpr int DMALL_MEICOOMON_CHILD_SPRITE_SHEET_ROWS = 1;
+    inline static constexpr size_t DMALL_MEICOOMON_CHILD_SPRITE_SHEET_FRAMES_COUNT = 13;
+    inline static constexpr size_t DMALL_MEICOOMON_CHILD_ANIM_INDEX = 379;
 
     // Name: Meicoomon
     inline static constexpr char DMALL_MEICOOMON_FQID_ARR[] = "dmall:meicoomon";
@@ -11328,17 +11328,17 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VAMDEMON_SPRITE_SHEET_FRAMES_COUNT = 13;
     inline static constexpr size_t DMALL_VAMDEMON_ANIM_INDEX = 628;
 
-    // Name: Vamdemon_X
+    // Name: Vamdemon X
     inline static constexpr char DMALL_VAMDEMON_X_FQID_ARR[] = "dmall:vamdemon_x";
     inline static constexpr const char* DMALL_VAMDEMON_X_FQID = DMALL_VAMDEMON_X_FQID_ARR;
     inline static constexpr size_t DMALL_VAMDEMON_X_FQID_LEN = sizeof(DMALL_VAMDEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_VAMDEMON_X_ID_ARR[] = "vamdemon_x";
     inline static constexpr const char* DMALL_VAMDEMON_X_ID = DMALL_VAMDEMON_X_ID_ARR;
     inline static constexpr size_t DMALL_VAMDEMON_X_ID_LEN = sizeof(DMALL_VAMDEMON_X_ID)-1;
-    inline static constexpr char DMALL_VAMDEMON_X_NAME_ARR[] = "Vamdemon_X";
+    inline static constexpr char DMALL_VAMDEMON_X_NAME_ARR[] = "Vamdemon X";
     inline static constexpr const char* DMALL_VAMDEMON_X_NAME = DMALL_VAMDEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_VAMDEMON_X_NAME_LEN = sizeof(DMALL_VAMDEMON_X_NAME_ARR)-1;
-    inline static constexpr char DMALL_VAMDEMON_X_FQNAME_ARR[] = "dmall:Vamdemon_X";
+    inline static constexpr char DMALL_VAMDEMON_X_FQNAME_ARR[] = "dmall:Vamdemon X";
     inline static constexpr const char* DMALL_VAMDEMON_X_FQNAME = DMALL_VAMDEMON_X_FQNAME_ARR;
     inline static constexpr size_t DMALL_VAMDEMON_X_FQNAME_LEN = sizeof(DMALL_VAMDEMON_X_FQNAME_ARR)-1;
     inline static constexpr int DMALL_VAMDEMON_X_SPRITE_SHEET_COLS = 13;

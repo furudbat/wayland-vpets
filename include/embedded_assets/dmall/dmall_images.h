@@ -1517,13 +1517,13 @@ extern const size_t dmall_megidramon_png_size;
 extern const unsigned char dmall_megidramon_x_png[];
 extern const size_t dmall_megidramon_x_png_size;
 
-// Name: MeicooBaby
-extern const unsigned char dmall_meicoobaby_png[];
-extern const size_t dmall_meicoobaby_png_size;
+// Name: Meicoomon (Baby)
+extern const unsigned char dmall_meicoomon_baby_png[];
+extern const size_t dmall_meicoomon_baby_png_size;
 
-// Name: Meicoo (Child)
-extern const unsigned char dmall_meicoo_child_png[];
-extern const size_t dmall_meicoo_child_png_size;
+// Name: Meicoomon (Child)
+extern const unsigned char dmall_meicoomon_child_png[];
+extern const size_t dmall_meicoomon_child_png_size;
 
 // Name: Meicoomon
 extern const unsigned char dmall_meicoomon_png[];
@@ -2521,7 +2521,7 @@ extern const size_t dmall_valdurmon_png_size;
 extern const unsigned char dmall_vamdemon_png[];
 extern const size_t dmall_vamdemon_png_size;
 
-// Name: Vamdemon_X
+// Name: Vamdemon X
 extern const unsigned char dmall_vamdemon_x_png[];
 extern const size_t dmall_vamdemon_x_png_size;
 
