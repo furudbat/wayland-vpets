@@ -1,6 +1,6 @@
 % BONGOCAT.CONF(5)
 % 
-% December 2025
+% June 2026
 
 # NAME
 
@@ -21,14 +21,14 @@ Changes to some settings require restarting Bongo Cat to take effect.
 
 
 
-# POSITION SETTINGS
+## POSITION SETTINGS
 
 - **cat_x_offset**: Horizontal offset from center (pixels). Positive moves right, negative moves left. Behavior changes based on **cat_align** (`center`, `left`, `right`).
 - **cat_y_offset**: Vertical offset (pixels). Positive moves down, negative moves up.
 - **cat_align**: Horizontal alignment in the bar. Options: `center` (default), `left`, `right`.
 - **cat_height**: Height of the cat in pixels. Width auto-calculated.
 
-# SIZE SETTINGS
+## SIZE SETTINGS
 
 - **overlay_height**: Height of overlay bar (pixels).
 - **overlay_position**: Screen position of overlay. Options: `top`, `bottom`.
@@ -37,52 +37,52 @@ Changes to some settings require restarting Bongo Cat to take effect.
 _Some overlay settings require a restart of the application_  
 _**overlay_height** should work on config reload, it may take a second to reappear_
 
-# FRAME RATE
+## FRAME RATE
 
 - **fps**: Animation frames per second.
 - **input_fps**: Input thread frame rate (optional, 0 = use fps).
 
-# TRANSPARENCY
+## TRANSPARENCY
 
 - **overlay_opacity**: Background opacity (0–255).
 
-# DEBUG
+## DEBUG
 
 - **enable_debug**: Show debug messages (0 = off, 1 = on).
 
-# INPUT DEVICES
+## INPUT DEVICES
 
 - **keyboard_device**: Input device path (can specify multiple).  
 
-## Example
+### Example
 
       keyboard_device=/dev/input/event4     # Keyboard
       keyboard_device=/dev/input/event20    # External/Bluetooth keyboard
 
-## Example with devices by-id
+### Example with devices by-id
 
       keyboard_device=/dev/input/by-id/usb-MY_KEYBOARD-event-kbd                                                          # MY_KEYBOARD  (/dev/input/event9)
       keyboard_device=/dev/input/by-id/usb-MY_KEYBOARD-event-if01                                                         # MY_KEYBOARD  Consumer Control (/dev/input/event10)
       keyboard_device=/dev/input/event11                                                                                  # MY_KEYBOARD  System Control
       keyboard_device=/dev/input/by-id/usb-MY_KEYBOARD-if01-event-kbd                                                     # MY_KEYBOARD  Keyboard (/dev/input/event12)
 
-# MULTI-MONITOR
+## MULTI-MONITOR
 
 - **monitor**: Monitor to display Bongo Cat. Uses first available if unspecified.
 
 
-# MIRRORING
+## MIRRORING
 
 - **mirror_x**: Flip cat horizontally (0 = off, 1 = on).
 - **mirror_y**: Flip cat vertically (0 = off, 1 = on).
 
-# ANTI-ALIASING
+## ANTI-ALIASING
 
 - **enable_antialiasing**: Smooth scaling using bilinear interpolation (0 = off, 1 = on).
     - Recommended for pixel sprites to be off (Digimon, Pokemon)
     - Recommended for MS Agent to be on 
 
-# SPRITE
+## SPRITE
 
 - **animation_name**: Animation set. Examples: `bongocat`, `Clippy`, `Bulbasaur`. _(see below for full list)_
 - **invert_color**: Invert colors for dark mode (0 = off, 1 = on).
@@ -129,6 +129,6 @@ _Only available for custom sprite sheets_
 
 ## CUSTOM SPRITE SHEET
 
-_**animation_name** needs to be "custom"_
+_**animation_name**: needs to be "custom"_
 
 - **custom_**: For the full list of custom options and examples, See the section "Custom Sprite Sheets" in `bongocat-all(1)`.

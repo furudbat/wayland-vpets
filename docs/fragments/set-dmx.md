@@ -1,4 +1,4 @@
-## dmx
+#### dmx
 Digital Monster X
 
 - Agumon (Black) X

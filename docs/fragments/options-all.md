@@ -43,4 +43,3 @@ Included sets:
       pkmn - Pokemon, up to Gen 5
   ms_agent - MS Agent
     custom - Custom Sprite Sheets (at runtime)
-

@@ -1,4 +1,4 @@
-## dm
+#### dm
 Fallback Minimal Sprites set (from Digital Monster Original: Version 1) when no other dms are included
 
 - Botamon
