@@ -32,7 +32,8 @@ Thumbs.db
 # Log files
 *.log
 
-ram_report.md
+ram_report.old.md
+ram_report.*.bak
 
 debug.bongocat.conf
 debug.bongocat.conf.bak

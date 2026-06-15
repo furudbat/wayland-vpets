@@ -35,7 +35,7 @@ _Pokemon_
 - 🎲 Randomize sprite at start up
 - 🔲 React to CPU usage
 - ↔️ Movement on screen
-- ⚡ Lightweight (~10MB RAM)
+- ⚡ Lightweight (~6-11MB RAM)
 
 
 ## Quick Start
@@ -177,17 +177,18 @@ See man pages for more details and full list:
 
  - [Bongocat 😺](docs/fragments/set-bongocat.md)
  - [MS Agent 📎](docs/fragments/set-ms-agent.md) Clippy and friends
- - [Pokemon 🐭](docs/fragments/set-pkmn.md) up to Gen. 5
- - [Misc 🐈‍⬛](docs/fragments/set-misc.md)
+ - [Pokémon 🐭](docs/fragments/set-pkmn.md) up to Gen. 5
+   + [Pokémon Mystery Dungeon](docs/fragments/set-pmd.md) alternative sprites
+ - [Misc 🐈‍](docs/fragments/set-misc.md)
 
 ##### Digimon 🦖
 
- - [Original](docs/fragments/set-dm.md) [`dm`](https://humulos.com/digimon/dm/)
- - [Pendulum Original](docs/fragments/set-pen.md) [`pen`](https://humulos.com/digimon/pen/)
- - [20th Anniversary](docs/fragments/set-dm20.md) [`dm20`](https://humulos.com/digimon/dm20/)
- - [Pendulum Ver.20th](docs/fragments/set-pen20.md) [`pen20`](https://humulos.com/digimon/pen20/)
- - [X](docs/fragments/set-dmx.md) [`dmx`](https://humulos.com/digimon/dmx/)
- - [Colored](docs/fragments/set-dmc.md) [`dmc`](https://humulos.com/digimon/dmc/)
+ - [Original](docs/fragments/set-dm.md)
+ - [Pendulum Original](docs/fragments/set-pen.md)
+ - [20th Anniversary](docs/fragments/set-dm20.md)
+ - [Pendulum Ver.20th](docs/fragments/set-pen20.md)
+ - [X](docs/fragments/set-dmx.md)
+ - [Colored](docs/fragments/set-dmc.md)
 
 _If you build with ALL assets included you can void naming conflicts by using the full name: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`_
 
@@ -298,7 +299,7 @@ exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen3.bongoca
 exec-once = wpets-all --watch-config --config ~/.config/bongocat/screen4.bongocat.conf --random
 ```
 
-_It can happen that waybar is rendered over the wpet, because they are on the same layer and waybar is started "over" the waybar, just delay the `wpets` start: `exec-once = sleep 5 && wpets-all ...`._
+_It can happen that waybar is rendered over the wpet, because they are on the same layer and waybar is started "over" the wpet, just delay the wpets start: `exec-once = sleep 5 && wpets-all ...`._
 
 ## Troubleshooting
 
