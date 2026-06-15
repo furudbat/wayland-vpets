@@ -45,6 +45,13 @@ const unsigned char dmc_bakemon_png[] = {
 const size_t dmc_bakemon_png_size = sizeof(dmc_bakemon_png);
 
 
+// Name: Bancho Leomon
+const unsigned char dmc_bancho_leomon_png[] = {
+#embed "../../../assets/dmc/Bancho Leomon.png"
+};
+const size_t dmc_bancho_leomon_png_size = sizeof(dmc_bancho_leomon_png);
+
+
 // Name: Bancho Mamemon
 const unsigned char dmc_bancho_mamemon_png[] = {
 #embed "../../../assets/dmc/Bancho Mamemon.png"
@@ -73,6 +80,13 @@ const unsigned char dmc_blitz_greymon_png[] = {
 const size_t dmc_blitz_greymon_png_size = sizeof(dmc_blitz_greymon_png);
 
 
+// Name: Bloom Lordmon
+const unsigned char dmc_bloom_lordmon_png[] = {
+#embed "../../../assets/dmc/Bloom Lordmon.png"
+};
+const size_t dmc_bloom_lordmon_png_size = sizeof(dmc_bloom_lordmon_png);
+
+
 // Name: Botamon
 const unsigned char dmc_botamon_png[] = {
 #embed "../../../assets/dmc/Botamon.png"
@@ -85,6 +99,27 @@ const unsigned char dmc_centalmon_png[] = {
 #embed "../../../assets/dmc/Centalmon.png"
 };
 const size_t dmc_centalmon_png_size = sizeof(dmc_centalmon_png);
+
+
+// Name: Chaosdramon
+const unsigned char dmc_chaosdramon_png[] = {
+#embed "../../../assets/dmc/Chaosdramon.png"
+};
+const size_t dmc_chaosdramon_png_size = sizeof(dmc_chaosdramon_png);
+
+
+// Name: Chaosmon
+const unsigned char dmc_chaosmon_png[] = {
+#embed "../../../assets/dmc/Chaosmon.png"
+};
+const size_t dmc_chaosmon_png_size = sizeof(dmc_chaosmon_png);
+
+
+// Name: Chimairamon
+const unsigned char dmc_chimairamon_png[] = {
+#embed "../../../assets/dmc/Chimairamon.png"
+};
+const size_t dmc_chimairamon_png_size = sizeof(dmc_chimairamon_png);
 
 
 // Name: Cockatrimon
@@ -120,6 +155,13 @@ const unsigned char dmc_cyclomon_png[] = {
 #embed "../../../assets/dmc/Cyclomon.png"
 };
 const size_t dmc_cyclomon_png_size = sizeof(dmc_cyclomon_png);
+
+
+// Name: Darkdramon
+const unsigned char dmc_darkdramon_png[] = {
+#embed "../../../assets/dmc/Darkdramon.png"
+};
+const size_t dmc_darkdramon_png_size = sizeof(dmc_darkdramon_png);
 
 
 // Name: Dark Tyranomon
@@ -164,6 +206,13 @@ const unsigned char dmc_drimogemon_png[] = {
 const size_t dmc_drimogemon_png_size = sizeof(dmc_drimogemon_png);
 
 
+// Name: Ebemon
+const unsigned char dmc_ebemon_png[] = {
+#embed "../../../assets/dmc/Ebemon.png"
+};
+const size_t dmc_ebemon_png_size = sizeof(dmc_ebemon_png);
+
+
 // Name: Elecmon
 const unsigned char dmc_elecmon_png[] = {
 #embed "../../../assets/dmc/Elecmon.png"
@@ -199,6 +248,20 @@ const unsigned char dmc_gabumon_png[] = {
 const size_t dmc_gabumon_png_size = sizeof(dmc_gabumon_png);
 
 
+// Name: Gaioumon
+const unsigned char dmc_gaioumon_png[] = {
+#embed "../../../assets/dmc/Gaioumon.png"
+};
+const size_t dmc_gaioumon_png_size = sizeof(dmc_gaioumon_png);
+
+
+// Name: Gankoomon
+const unsigned char dmc_gankoomon_png[] = {
+#embed "../../../assets/dmc/Gankoomon.png"
+};
+const size_t dmc_gankoomon_png_size = sizeof(dmc_gankoomon_png);
+
+
 // Name: Garurumon
 const unsigned char dmc_garurumon_png[] = {
 #embed "../../../assets/dmc/Garurumon.png"
@@ -225,6 +288,13 @@ const unsigned char dmc_gizamon_png[] = {
 #embed "../../../assets/dmc/Gizamon.png"
 };
 const size_t dmc_gizamon_png_size = sizeof(dmc_gizamon_png);
+
+
+// Name: Gokumon
+const unsigned char dmc_gokumon_png[] = {
+#embed "../../../assets/dmc/Gokumon.png"
+};
+const size_t dmc_gokumon_png_size = sizeof(dmc_gokumon_png);
 
 
 // Name: Greymon
@@ -332,6 +402,20 @@ const unsigned char dmc_metal_tyranomon_png[] = {
 const size_t dmc_metal_tyranomon_png_size = sizeof(dmc_metal_tyranomon_png);
 
 
+// Name: Millenniumon
+const unsigned char dmc_millenniumon_png[] = {
+#embed "../../../assets/dmc/Millenniumon.png"
+};
+const size_t dmc_millenniumon_png_size = sizeof(dmc_millenniumon_png);
+
+
+// Name: Mojyamon
+const unsigned char dmc_mojyamon_png[] = {
+#embed "../../../assets/dmc/Mojyamon.png"
+};
+const size_t dmc_mojyamon_png_size = sizeof(dmc_mojyamon_png);
+
+
 // Name: Mojymon
 const unsigned char dmc_mojymon_png[] = {
 #embed "../../../assets/dmc/Mojymon.png"
@@ -344,6 +428,13 @@ const unsigned char dmc_monochromon_png[] = {
 #embed "../../../assets/dmc/Monochromon.png"
 };
 const size_t dmc_monochromon_png_size = sizeof(dmc_monochromon_png);
+
+
+// Name: Monzaemon
+const unsigned char dmc_monzaemon_png[] = {
+#embed "../../../assets/dmc/Monzaemon.png"
+};
+const size_t dmc_monzaemon_png_size = sizeof(dmc_monzaemon_png);
 
 
 // Name: Mozaemon
@@ -379,6 +470,13 @@ const unsigned char dmc_numemon_png[] = {
 #embed "../../../assets/dmc/Numemon.png"
 };
 const size_t dmc_numemon_png_size = sizeof(dmc_numemon_png);
+
+
+// Name: Ogremon
+const unsigned char dmc_ogremon_png[] = {
+#embed "../../../assets/dmc/Ogremon.png"
+};
+const size_t dmc_ogremon_png_size = sizeof(dmc_ogremon_png);
 
 
 // Name: Omegamon Alter S
@@ -547,6 +645,13 @@ const unsigned char dmc_tsunomon_png[] = {
 #embed "../../../assets/dmc/Tsunomon.png"
 };
 const size_t dmc_tsunomon_png_size = sizeof(dmc_tsunomon_png);
+
+
+// Name: Tunomon
+const unsigned char dmc_tunomon_png[] = {
+#embed "../../../assets/dmc/Tunomon.png"
+};
+const size_t dmc_tunomon_png_size = sizeof(dmc_tunomon_png);
 
 
 // Name: Tuskmon

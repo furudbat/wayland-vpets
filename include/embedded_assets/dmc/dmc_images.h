@@ -29,6 +29,10 @@ extern const size_t dmc_babydmon_png_size;
 extern const unsigned char dmc_bakemon_png[];
 extern const size_t dmc_bakemon_png_size;
 
+// Name: Bancho Leomon
+extern const unsigned char dmc_bancho_leomon_png[];
+extern const size_t dmc_bancho_leomon_png_size;
+
 // Name: Bancho Mamemon
 extern const unsigned char dmc_bancho_mamemon_png[];
 extern const size_t dmc_bancho_mamemon_png_size;
@@ -45,6 +49,10 @@ extern const size_t dmc_birdramon_png_size;
 extern const unsigned char dmc_blitz_greymon_png[];
 extern const size_t dmc_blitz_greymon_png_size;
 
+// Name: Bloom Lordmon
+extern const unsigned char dmc_bloom_lordmon_png[];
+extern const size_t dmc_bloom_lordmon_png_size;
+
 // Name: Botamon
 extern const unsigned char dmc_botamon_png[];
 extern const size_t dmc_botamon_png_size;
@@ -52,6 +60,18 @@ extern const size_t dmc_botamon_png_size;
 // Name: Centalmon
 extern const unsigned char dmc_centalmon_png[];
 extern const size_t dmc_centalmon_png_size;
+
+// Name: Chaosdramon
+extern const unsigned char dmc_chaosdramon_png[];
+extern const size_t dmc_chaosdramon_png_size;
+
+// Name: Chaosmon
+extern const unsigned char dmc_chaosmon_png[];
+extern const size_t dmc_chaosmon_png_size;
+
+// Name: Chimairamon
+extern const unsigned char dmc_chimairamon_png[];
+extern const size_t dmc_chimairamon_png_size;
 
 // Name: Cockatrimon
 extern const unsigned char dmc_cockatrimon_png[];
@@ -72,6 +92,10 @@ extern const size_t dmc_cres_garurumon_png_size;
 // Name: Cyclomon
 extern const unsigned char dmc_cyclomon_png[];
 extern const size_t dmc_cyclomon_png_size;
+
+// Name: Darkdramon
+extern const unsigned char dmc_darkdramon_png[];
+extern const size_t dmc_darkdramon_png_size;
 
 // Name: Dark Tyranomon
 extern const unsigned char dmc_dark_tyranomon_png[];
@@ -97,6 +121,10 @@ extern const size_t dmc_digitamamon_png_size;
 extern const unsigned char dmc_drimogemon_png[];
 extern const size_t dmc_drimogemon_png_size;
 
+// Name: Ebemon
+extern const unsigned char dmc_ebemon_png[];
+extern const size_t dmc_ebemon_png_size;
+
 // Name: Elecmon
 extern const unsigned char dmc_elecmon_png[];
 extern const size_t dmc_elecmon_png_size;
@@ -117,6 +145,14 @@ extern const size_t dmc_flymon_png_size;
 extern const unsigned char dmc_gabumon_png[];
 extern const size_t dmc_gabumon_png_size;
 
+// Name: Gaioumon
+extern const unsigned char dmc_gaioumon_png[];
+extern const size_t dmc_gaioumon_png_size;
+
+// Name: Gankoomon
+extern const unsigned char dmc_gankoomon_png[];
+extern const size_t dmc_gankoomon_png_size;
+
 // Name: Garurumon
 extern const unsigned char dmc_garurumon_png[];
 extern const size_t dmc_garurumon_png_size;
@@ -132,6 +168,10 @@ extern const size_t dmc_giromon_png_size;
 // Name: Gizamon
 extern const unsigned char dmc_gizamon_png[];
 extern const size_t dmc_gizamon_png_size;
+
+// Name: Gokumon
+extern const unsigned char dmc_gokumon_png[];
+extern const size_t dmc_gokumon_png_size;
 
 // Name: Greymon
 extern const unsigned char dmc_greymon_png[];
@@ -193,6 +233,14 @@ extern const size_t dmc_metal_mamemon_png_size;
 extern const unsigned char dmc_metal_tyranomon_png[];
 extern const size_t dmc_metal_tyranomon_png_size;
 
+// Name: Millenniumon
+extern const unsigned char dmc_millenniumon_png[];
+extern const size_t dmc_millenniumon_png_size;
+
+// Name: Mojyamon
+extern const unsigned char dmc_mojyamon_png[];
+extern const size_t dmc_mojyamon_png_size;
+
 // Name: Mojymon
 extern const unsigned char dmc_mojymon_png[];
 extern const size_t dmc_mojymon_png_size;
@@ -200,6 +248,10 @@ extern const size_t dmc_mojymon_png_size;
 // Name: Monochromon
 extern const unsigned char dmc_monochromon_png[];
 extern const size_t dmc_monochromon_png_size;
+
+// Name: Monzaemon
+extern const unsigned char dmc_monzaemon_png[];
+extern const size_t dmc_monzaemon_png_size;
 
 // Name: Mozaemon
 extern const unsigned char dmc_mozaemon_png[];
@@ -220,6 +272,10 @@ extern const size_t dmc_nanomon_png_size;
 // Name: Numemon
 extern const unsigned char dmc_numemon_png[];
 extern const size_t dmc_numemon_png_size;
+
+// Name: Ogremon
+extern const unsigned char dmc_ogremon_png[];
+extern const size_t dmc_ogremon_png_size;
 
 // Name: Omegamon Alter S
 extern const unsigned char dmc_omegamon_alter_s_png[];
@@ -316,6 +372,10 @@ extern const size_t dmc_tokomon_png_size;
 // Name: Tsunomon
 extern const unsigned char dmc_tsunomon_png[];
 extern const size_t dmc_tsunomon_png_size;
+
+// Name: Tunomon
+extern const unsigned char dmc_tunomon_png[];
+extern const size_t dmc_tunomon_png_size;
 
 // Name: Tuskmon
 extern const unsigned char dmc_tuskmon_png[];

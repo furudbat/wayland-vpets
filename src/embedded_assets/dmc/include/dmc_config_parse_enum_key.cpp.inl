@@ -52,6 +52,15 @@ if (strcmp(value, DMC_BAKEMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Bancho Leomon (bancho_leomon)
+if (strcmp(value, DMC_BANCHO_LEOMON_NAME) == 0 ||
+    strcmp(value, DMC_BANCHO_LEOMON_ID) == 0 ||
+    strcmp(value, DMC_BANCHO_LEOMON_FQID) == 0 ||
+    strcmp(value, DMC_BANCHO_LEOMON_FQNAME) == 0) {
+    config.animation_index = DMC_BANCHO_LEOMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Bancho Mamemon (bancho_mamemon)
 if (strcmp(value, DMC_BANCHO_MAMEMON_NAME) == 0 ||
     strcmp(value, DMC_BANCHO_MAMEMON_ID) == 0 ||
@@ -88,6 +97,15 @@ if (strcmp(value, DMC_BLITZ_GREYMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Bloom Lordmon (bloom_lordmon)
+if (strcmp(value, DMC_BLOOM_LORDMON_NAME) == 0 ||
+    strcmp(value, DMC_BLOOM_LORDMON_ID) == 0 ||
+    strcmp(value, DMC_BLOOM_LORDMON_FQID) == 0 ||
+    strcmp(value, DMC_BLOOM_LORDMON_FQNAME) == 0) {
+    config.animation_index = DMC_BLOOM_LORDMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Botamon (botamon)
 if (strcmp(value, DMC_BOTAMON_NAME) == 0 ||
     strcmp(value, DMC_BOTAMON_ID) == 0 ||
@@ -103,6 +121,33 @@ if (strcmp(value, DMC_CENTALMON_NAME) == 0 ||
     strcmp(value, DMC_CENTALMON_FQID) == 0 ||
     strcmp(value, DMC_CENTALMON_FQNAME) == 0) {
     config.animation_index = DMC_CENTALMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Chaosdramon (chaosdramon)
+if (strcmp(value, DMC_CHAOSDRAMON_NAME) == 0 ||
+    strcmp(value, DMC_CHAOSDRAMON_ID) == 0 ||
+    strcmp(value, DMC_CHAOSDRAMON_FQID) == 0 ||
+    strcmp(value, DMC_CHAOSDRAMON_FQNAME) == 0) {
+    config.animation_index = DMC_CHAOSDRAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Chaosmon (chaosmon)
+if (strcmp(value, DMC_CHAOSMON_NAME) == 0 ||
+    strcmp(value, DMC_CHAOSMON_ID) == 0 ||
+    strcmp(value, DMC_CHAOSMON_FQID) == 0 ||
+    strcmp(value, DMC_CHAOSMON_FQNAME) == 0) {
+    config.animation_index = DMC_CHAOSMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Chimairamon (chimairamon)
+if (strcmp(value, DMC_CHIMAIRAMON_NAME) == 0 ||
+    strcmp(value, DMC_CHIMAIRAMON_ID) == 0 ||
+    strcmp(value, DMC_CHIMAIRAMON_FQID) == 0 ||
+    strcmp(value, DMC_CHIMAIRAMON_FQNAME) == 0) {
+    config.animation_index = DMC_CHIMAIRAMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -148,6 +193,15 @@ if (strcmp(value, DMC_CYCLOMON_NAME) == 0 ||
     strcmp(value, DMC_CYCLOMON_FQID) == 0 ||
     strcmp(value, DMC_CYCLOMON_FQNAME) == 0) {
     config.animation_index = DMC_CYCLOMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Darkdramon (darkdramon)
+if (strcmp(value, DMC_DARKDRAMON_NAME) == 0 ||
+    strcmp(value, DMC_DARKDRAMON_ID) == 0 ||
+    strcmp(value, DMC_DARKDRAMON_FQID) == 0 ||
+    strcmp(value, DMC_DARKDRAMON_FQNAME) == 0) {
+    config.animation_index = DMC_DARKDRAMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -205,6 +259,15 @@ if (strcmp(value, DMC_DRIMOGEMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Ebemon (ebemon)
+if (strcmp(value, DMC_EBEMON_NAME) == 0 ||
+    strcmp(value, DMC_EBEMON_ID) == 0 ||
+    strcmp(value, DMC_EBEMON_FQID) == 0 ||
+    strcmp(value, DMC_EBEMON_FQNAME) == 0) {
+    config.animation_index = DMC_EBEMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Elecmon (elecmon)
 if (strcmp(value, DMC_ELECMON_NAME) == 0 ||
     strcmp(value, DMC_ELECMON_ID) == 0 ||
@@ -250,6 +313,24 @@ if (strcmp(value, DMC_GABUMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Gaioumon (gaioumon)
+if (strcmp(value, DMC_GAIOUMON_NAME) == 0 ||
+    strcmp(value, DMC_GAIOUMON_ID) == 0 ||
+    strcmp(value, DMC_GAIOUMON_FQID) == 0 ||
+    strcmp(value, DMC_GAIOUMON_FQNAME) == 0) {
+    config.animation_index = DMC_GAIOUMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Gankoomon (gankoomon)
+if (strcmp(value, DMC_GANKOOMON_NAME) == 0 ||
+    strcmp(value, DMC_GANKOOMON_ID) == 0 ||
+    strcmp(value, DMC_GANKOOMON_FQID) == 0 ||
+    strcmp(value, DMC_GANKOOMON_FQNAME) == 0) {
+    config.animation_index = DMC_GANKOOMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Garurumon (garurumon)
 if (strcmp(value, DMC_GARURUMON_NAME) == 0 ||
     strcmp(value, DMC_GARURUMON_ID) == 0 ||
@@ -283,6 +364,15 @@ if (strcmp(value, DMC_GIZAMON_NAME) == 0 ||
     strcmp(value, DMC_GIZAMON_FQID) == 0 ||
     strcmp(value, DMC_GIZAMON_FQNAME) == 0) {
     config.animation_index = DMC_GIZAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Gokumon (gokumon)
+if (strcmp(value, DMC_GOKUMON_NAME) == 0 ||
+    strcmp(value, DMC_GOKUMON_ID) == 0 ||
+    strcmp(value, DMC_GOKUMON_FQID) == 0 ||
+    strcmp(value, DMC_GOKUMON_FQNAME) == 0) {
+    config.animation_index = DMC_GOKUMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -421,6 +511,24 @@ if (strcmp(value, DMC_METAL_TYRANOMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Millenniumon (millenniumon)
+if (strcmp(value, DMC_MILLENNIUMON_NAME) == 0 ||
+    strcmp(value, DMC_MILLENNIUMON_ID) == 0 ||
+    strcmp(value, DMC_MILLENNIUMON_FQID) == 0 ||
+    strcmp(value, DMC_MILLENNIUMON_FQNAME) == 0) {
+    config.animation_index = DMC_MILLENNIUMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Mojyamon (mojyamon)
+if (strcmp(value, DMC_MOJYAMON_NAME) == 0 ||
+    strcmp(value, DMC_MOJYAMON_ID) == 0 ||
+    strcmp(value, DMC_MOJYAMON_FQID) == 0 ||
+    strcmp(value, DMC_MOJYAMON_FQNAME) == 0) {
+    config.animation_index = DMC_MOJYAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Mojymon (mojymon)
 if (strcmp(value, DMC_MOJYMON_NAME) == 0 ||
     strcmp(value, DMC_MOJYMON_ID) == 0 ||
@@ -436,6 +544,15 @@ if (strcmp(value, DMC_MONOCHROMON_NAME) == 0 ||
     strcmp(value, DMC_MONOCHROMON_FQID) == 0 ||
     strcmp(value, DMC_MONOCHROMON_FQNAME) == 0) {
     config.animation_index = DMC_MONOCHROMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Monzaemon (monzaemon)
+if (strcmp(value, DMC_MONZAEMON_NAME) == 0 ||
+    strcmp(value, DMC_MONZAEMON_ID) == 0 ||
+    strcmp(value, DMC_MONZAEMON_FQID) == 0 ||
+    strcmp(value, DMC_MONZAEMON_FQNAME) == 0) {
+    config.animation_index = DMC_MONZAEMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -481,6 +598,15 @@ if (strcmp(value, DMC_NUMEMON_NAME) == 0 ||
     strcmp(value, DMC_NUMEMON_FQID) == 0 ||
     strcmp(value, DMC_NUMEMON_FQNAME) == 0) {
     config.animation_index = DMC_NUMEMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Ogremon (ogremon)
+if (strcmp(value, DMC_OGREMON_NAME) == 0 ||
+    strcmp(value, DMC_OGREMON_ID) == 0 ||
+    strcmp(value, DMC_OGREMON_FQID) == 0 ||
+    strcmp(value, DMC_OGREMON_FQNAME) == 0) {
+    config.animation_index = DMC_OGREMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -697,6 +823,15 @@ if (strcmp(value, DMC_TSUNOMON_NAME) == 0 ||
     strcmp(value, DMC_TSUNOMON_FQID) == 0 ||
     strcmp(value, DMC_TSUNOMON_FQNAME) == 0) {
     config.animation_index = DMC_TSUNOMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::dmc;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Tunomon (tunomon)
+if (strcmp(value, DMC_TUNOMON_NAME) == 0 ||
+    strcmp(value, DMC_TUNOMON_ID) == 0 ||
+    strcmp(value, DMC_TUNOMON_FQID) == 0 ||
+    strcmp(value, DMC_TUNOMON_FQNAME) == 0) {
+    config.animation_index = DMC_TUNOMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::dmc;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
