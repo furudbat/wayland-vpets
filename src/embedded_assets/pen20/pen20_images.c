@@ -59,6 +59,13 @@ const unsigned char pen20_arresterdramon_png[] = {
 const size_t pen20_arresterdramon_png_size = sizeof(pen20_arresterdramon_png);
 
 
+// Name: Astamon
+const unsigned char pen20_astamon_png[] = {
+#embed "../../../assets/pen20/Astamon.png"
+};
+const size_t pen20_astamon_png_size = sizeof(pen20_astamon_png);
+
+
 // Name: Astramon
 const unsigned char pen20_astramon_png[] = {
 #embed "../../../assets/pen20/Astramon.png"
@@ -115,6 +122,13 @@ const unsigned char pen20_beelzebumon_blast_mode_png[] = {
 const size_t pen20_beelzebumon_blast_mode_png_size = sizeof(pen20_beelzebumon_blast_mode_png);
 
 
+// Name: Beowolfmon
+const unsigned char pen20_beowolfmon_png[] = {
+#embed "../../../assets/pen20/Beowolfmon.png"
+};
+const size_t pen20_beowolfmon_png_size = sizeof(pen20_beowolfmon_png);
+
+
 // Name: Beowulfmon
 const unsigned char pen20_beowulfmon_png[] = {
 #embed "../../../assets/pen20/Beowulfmon.png"
@@ -148,6 +162,13 @@ const unsigned char pen20_boltmon_png[] = {
 #embed "../../../assets/pen20/Boltmon.png"
 };
 const size_t pen20_boltmon_png_size = sizeof(pen20_boltmon_png);
+
+
+// Name: Breakdramon
+const unsigned char pen20_breakdramon_png[] = {
+#embed "../../../assets/pen20/Breakdramon.png"
+};
+const size_t pen20_breakdramon_png_size = sizeof(pen20_breakdramon_png);
 
 
 // Name: Bryweludramon
@@ -248,6 +269,20 @@ const unsigned char pen20_coelamon_png[] = {
 const size_t pen20_coelamon_png_size = sizeof(pen20_coelamon_png);
 
 
+// Name: Coredramon (Blue)
+const unsigned char pen20_coredramon_blue_png[] = {
+#embed "../../../assets/pen20/Coredramon (Blue).png"
+};
+const size_t pen20_coredramon_blue_png_size = sizeof(pen20_coredramon_blue_png);
+
+
+// Name: Coredramon (Green)
+const unsigned char pen20_coredramon_green_png[] = {
+#embed "../../../assets/pen20/Coredramon (Green).png"
+};
+const size_t pen20_coredramon_green_png_size = sizeof(pen20_coredramon_green_png);
+
+
 // Name: Cotsucomon
 const unsigned char pen20_cotsucomon_png[] = {
 #embed "../../../assets/pen20/Cotsucomon.png"
@@ -297,6 +332,13 @@ const unsigned char pen20_delumon_png[] = {
 const size_t pen20_delumon_png_size = sizeof(pen20_delumon_png);
 
 
+// Name: Devidramon
+const unsigned char pen20_devidramon_png[] = {
+#embed "../../../assets/pen20/Devidramon.png"
+};
+const size_t pen20_devidramon_png_size = sizeof(pen20_devidramon_png);
+
+
 // Name: Devimon
 const unsigned char pen20_devimon_png[] = {
 #embed "../../../assets/pen20/Devimon.png"
@@ -318,11 +360,39 @@ const unsigned char pen20_dorugoramon_png[] = {
 const size_t pen20_dorugoramon_png_size = sizeof(pen20_dorugoramon_png);
 
 
+// Name: Duramon
+const unsigned char pen20_duramon_png[] = {
+#embed "../../../assets/pen20/Duramon.png"
+};
+const size_t pen20_duramon_png_size = sizeof(pen20_duramon_png);
+
+
+// Name: Durandamon
+const unsigned char pen20_durandamon_png[] = {
+#embed "../../../assets/pen20/Durandamon.png"
+};
+const size_t pen20_durandamon_png_size = sizeof(pen20_durandamon_png);
+
+
 // Name: Ebidramon
 const unsigned char pen20_ebidramon_png[] = {
 #embed "../../../assets/pen20/Ebidramon.png"
 };
 const size_t pen20_ebidramon_png_size = sizeof(pen20_ebidramon_png);
+
+
+// Name: Etemon
+const unsigned char pen20_etemon_png[] = {
+#embed "../../../assets/pen20/Etemon.png"
+};
+const size_t pen20_etemon_png_size = sizeof(pen20_etemon_png);
+
+
+// Name: Examon
+const unsigned char pen20_examon_png[] = {
+#embed "../../../assets/pen20/Examon.png"
+};
+const size_t pen20_examon_png_size = sizeof(pen20_examon_png);
 
 
 // Name: Fantomon
@@ -428,6 +498,13 @@ const unsigned char pen20_griffomon_png[] = {
 #embed "../../../assets/pen20/Griffomon.png"
 };
 const size_t pen20_griffomon_png_size = sizeof(pen20_griffomon_png);
+
+
+// Name: Groundramon
+const unsigned char pen20_groundramon_png[] = {
+#embed "../../../assets/pen20/Groundramon.png"
+};
+const size_t pen20_groundramon_png_size = sizeof(pen20_groundramon_png);
 
 
 // Name: Growmon
@@ -554,6 +631,13 @@ const unsigned char pen20_impmon_png[] = {
 #embed "../../../assets/pen20/Impmon.png"
 };
 const size_t pen20_impmon_png_size = sizeof(pen20_impmon_png);
+
+
+// Name: Jesmon
+const unsigned char pen20_jesmon_png[] = {
+#embed "../../../assets/pen20/Jesmon.png"
+};
+const size_t pen20_jesmon_png_size = sizeof(pen20_jesmon_png);
 
 
 // Name: Jesmon X
@@ -708,6 +792,13 @@ const unsigned char pen20_mammon_png[] = {
 #embed "../../../assets/pen20/Mammon.png"
 };
 const size_t pen20_mammon_png_size = sizeof(pen20_mammon_png);
+
+
+// Name: Manbomon
+const unsigned char pen20_manbomon_png[] = {
+#embed "../../../assets/pen20/Manbomon.png"
+};
+const size_t pen20_manbomon_png_size = sizeof(pen20_manbomon_png);
 
 
 // Name: Marin Angemon
@@ -983,6 +1074,13 @@ const unsigned char pen20_plesiomon_png[] = {
 const size_t pen20_plesiomon_png_size = sizeof(pen20_plesiomon_png);
 
 
+// Name: Porcupamon
+const unsigned char pen20_porcupamon_png[] = {
+#embed "../../../assets/pen20/Porcupamon.png"
+};
+const size_t pen20_porcupamon_png_size = sizeof(pen20_porcupamon_png);
+
+
 // Name: Porcupmon
 const unsigned char pen20_porcupmon_png[] = {
 #embed "../../../assets/pen20/Porcupmon.png"
@@ -1116,6 +1214,13 @@ const unsigned char pen20_saint_galgomon_png[] = {
 const size_t pen20_saint_galgomon_png_size = sizeof(pen20_saint_galgomon_png);
 
 
+// Name: Savior Hackmon
+const unsigned char pen20_savior_hackmon_png[] = {
+#embed "../../../assets/pen20/Savior Hackmon.png"
+};
+const size_t pen20_savior_hackmon_png_size = sizeof(pen20_savior_hackmon_png);
+
+
 // Name: Seadramon
 const unsigned char pen20_seadramon_png[] = {
 #embed "../../../assets/pen20/Seadramon.png"
@@ -1149,6 +1254,13 @@ const unsigned char pen20_skull_mammon_png[] = {
 #embed "../../../assets/pen20/Skull Mammon.png"
 };
 const size_t pen20_skull_mammon_png_size = sizeof(pen20_skull_mammon_png);
+
+
+// Name: Slayerdramon
+const unsigned char pen20_slayerdramon_png[] = {
+#embed "../../../assets/pen20/Slayerdramon.png"
+};
+const size_t pen20_slayerdramon_png_size = sizeof(pen20_slayerdramon_png);
 
 
 // Name: Starmon
@@ -1345,6 +1457,13 @@ const unsigned char pen20_whamon_png[] = {
 #embed "../../../assets/pen20/Whamon.png"
 };
 const size_t pen20_whamon_png_size = sizeof(pen20_whamon_png);
+
+
+// Name: Wingdramon
+const unsigned char pen20_wingdramon_png[] = {
+#embed "../../../assets/pen20/Wingdramon.png"
+};
+const size_t pen20_wingdramon_png_size = sizeof(pen20_wingdramon_png);
 
 
 // Name: Wizarmon

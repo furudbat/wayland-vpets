@@ -94,6 +94,18 @@ if (strcmp(value, PEN20_ARRESTERDRAMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Astamon (astamon)
+if (strcmp(value, PEN20_ASTAMON_NAME) == 0 ||
+    strcmp(value, PEN20_ASTAMON_ID) == 0 ||
+    strcmp(value, PEN20_ASTAMON_FQID) == 0 ||
+    strcmp(value, PEN20_ASTAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:astamon") == 0 ||
+    strcmp(value, "pen:Astamon") == 0) {
+    config.animation_index = PEN20_ASTAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Astramon (astramon)
 if (strcmp(value, PEN20_ASTRAMON_NAME) == 0 ||
     strcmp(value, PEN20_ASTRAMON_ID) == 0 ||
@@ -190,6 +202,18 @@ if (strcmp(value, PEN20_BEELZEBUMON_BLAST_MODE_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Beowolfmon (beowolfmon)
+if (strcmp(value, PEN20_BEOWOLFMON_NAME) == 0 ||
+    strcmp(value, PEN20_BEOWOLFMON_ID) == 0 ||
+    strcmp(value, PEN20_BEOWOLFMON_FQID) == 0 ||
+    strcmp(value, PEN20_BEOWOLFMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:beowolfmon") == 0 ||
+    strcmp(value, "pen:Beowolfmon") == 0) {
+    config.animation_index = PEN20_BEOWOLFMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Beowulfmon (beowulfmon)
 if (strcmp(value, PEN20_BEOWULFMON_NAME) == 0 ||
     strcmp(value, PEN20_BEOWULFMON_ID) == 0 ||
@@ -247,6 +271,18 @@ if (strcmp(value, PEN20_BOLTMON_NAME) == 0 ||
     strcmp(value, "pen:boltmon") == 0 ||
     strcmp(value, "pen:Boltmon") == 0) {
     config.animation_index = PEN20_BOLTMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Breakdramon (breakdramon)
+if (strcmp(value, PEN20_BREAKDRAMON_NAME) == 0 ||
+    strcmp(value, PEN20_BREAKDRAMON_ID) == 0 ||
+    strcmp(value, PEN20_BREAKDRAMON_FQID) == 0 ||
+    strcmp(value, PEN20_BREAKDRAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:breakdramon") == 0 ||
+    strcmp(value, "pen:Breakdramon") == 0) {
+    config.animation_index = PEN20_BREAKDRAMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -418,6 +454,30 @@ if (strcmp(value, PEN20_COELAMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Coredramon (Blue) (coredramon_blue)
+if (strcmp(value, PEN20_COREDRAMON_BLUE_NAME) == 0 ||
+    strcmp(value, PEN20_COREDRAMON_BLUE_ID) == 0 ||
+    strcmp(value, PEN20_COREDRAMON_BLUE_FQID) == 0 ||
+    strcmp(value, PEN20_COREDRAMON_BLUE_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:coredramon_blue") == 0 ||
+    strcmp(value, "pen:Coredramon (Blue)") == 0) {
+    config.animation_index = PEN20_COREDRAMON_BLUE_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Coredramon (Green) (coredramon_green)
+if (strcmp(value, PEN20_COREDRAMON_GREEN_NAME) == 0 ||
+    strcmp(value, PEN20_COREDRAMON_GREEN_ID) == 0 ||
+    strcmp(value, PEN20_COREDRAMON_GREEN_FQID) == 0 ||
+    strcmp(value, PEN20_COREDRAMON_GREEN_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:coredramon_green") == 0 ||
+    strcmp(value, "pen:Coredramon (Green)") == 0) {
+    config.animation_index = PEN20_COREDRAMON_GREEN_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Cotsucomon (cotsucomon)
 if (strcmp(value, PEN20_COTSUCOMON_NAME) == 0 ||
     strcmp(value, PEN20_COTSUCOMON_ID) == 0 ||
@@ -502,6 +562,18 @@ if (strcmp(value, PEN20_DELUMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Devidramon (devidramon)
+if (strcmp(value, PEN20_DEVIDRAMON_NAME) == 0 ||
+    strcmp(value, PEN20_DEVIDRAMON_ID) == 0 ||
+    strcmp(value, PEN20_DEVIDRAMON_FQID) == 0 ||
+    strcmp(value, PEN20_DEVIDRAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:devidramon") == 0 ||
+    strcmp(value, "pen:Devidramon") == 0) {
+    config.animation_index = PEN20_DEVIDRAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Devimon (devimon)
 if (strcmp(value, PEN20_DEVIMON_NAME) == 0 ||
     strcmp(value, PEN20_DEVIMON_ID) == 0 ||
@@ -538,6 +610,30 @@ if (strcmp(value, PEN20_DORUGORAMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Duramon (duramon)
+if (strcmp(value, PEN20_DURAMON_NAME) == 0 ||
+    strcmp(value, PEN20_DURAMON_ID) == 0 ||
+    strcmp(value, PEN20_DURAMON_FQID) == 0 ||
+    strcmp(value, PEN20_DURAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:duramon") == 0 ||
+    strcmp(value, "pen:Duramon") == 0) {
+    config.animation_index = PEN20_DURAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Durandamon (durandamon)
+if (strcmp(value, PEN20_DURANDAMON_NAME) == 0 ||
+    strcmp(value, PEN20_DURANDAMON_ID) == 0 ||
+    strcmp(value, PEN20_DURANDAMON_FQID) == 0 ||
+    strcmp(value, PEN20_DURANDAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:durandamon") == 0 ||
+    strcmp(value, "pen:Durandamon") == 0) {
+    config.animation_index = PEN20_DURANDAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Ebidramon (ebidramon)
 if (strcmp(value, PEN20_EBIDRAMON_NAME) == 0 ||
     strcmp(value, PEN20_EBIDRAMON_ID) == 0 ||
@@ -547,6 +643,30 @@ if (strcmp(value, PEN20_EBIDRAMON_NAME) == 0 ||
     strcmp(value, "pen:ebidramon") == 0 ||
     strcmp(value, "pen:Ebidramon") == 0) {
     config.animation_index = PEN20_EBIDRAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Etemon (etemon)
+if (strcmp(value, PEN20_ETEMON_NAME) == 0 ||
+    strcmp(value, PEN20_ETEMON_ID) == 0 ||
+    strcmp(value, PEN20_ETEMON_FQID) == 0 ||
+    strcmp(value, PEN20_ETEMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:etemon") == 0 ||
+    strcmp(value, "pen:Etemon") == 0) {
+    config.animation_index = PEN20_ETEMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Examon (examon)
+if (strcmp(value, PEN20_EXAMON_NAME) == 0 ||
+    strcmp(value, PEN20_EXAMON_ID) == 0 ||
+    strcmp(value, PEN20_EXAMON_FQID) == 0 ||
+    strcmp(value, PEN20_EXAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:examon") == 0 ||
+    strcmp(value, "pen:Examon") == 0) {
+    config.animation_index = PEN20_EXAMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -727,6 +847,18 @@ if (strcmp(value, PEN20_GRIFFOMON_NAME) == 0 ||
     strcmp(value, "pen:griffomon") == 0 ||
     strcmp(value, "pen:Griffomon") == 0) {
     config.animation_index = PEN20_GRIFFOMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Groundramon (groundramon)
+if (strcmp(value, PEN20_GROUNDRAMON_NAME) == 0 ||
+    strcmp(value, PEN20_GROUNDRAMON_ID) == 0 ||
+    strcmp(value, PEN20_GROUNDRAMON_FQID) == 0 ||
+    strcmp(value, PEN20_GROUNDRAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:groundramon") == 0 ||
+    strcmp(value, "pen:Groundramon") == 0) {
+    config.animation_index = PEN20_GROUNDRAMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -943,6 +1075,18 @@ if (strcmp(value, PEN20_IMPMON_NAME) == 0 ||
     strcmp(value, "pen:impmon") == 0 ||
     strcmp(value, "pen:Impmon") == 0) {
     config.animation_index = PEN20_IMPMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Jesmon (jesmon)
+if (strcmp(value, PEN20_JESMON_NAME) == 0 ||
+    strcmp(value, PEN20_JESMON_ID) == 0 ||
+    strcmp(value, PEN20_JESMON_FQID) == 0 ||
+    strcmp(value, PEN20_JESMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:jesmon") == 0 ||
+    strcmp(value, "pen:Jesmon") == 0) {
+    config.animation_index = PEN20_JESMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -1207,6 +1351,18 @@ if (strcmp(value, PEN20_MAMMON_NAME) == 0 ||
     strcmp(value, "pen:mammon") == 0 ||
     strcmp(value, "pen:Mammon") == 0) {
     config.animation_index = PEN20_MAMMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Manbomon (manbomon)
+if (strcmp(value, PEN20_MANBOMON_NAME) == 0 ||
+    strcmp(value, PEN20_MANBOMON_ID) == 0 ||
+    strcmp(value, PEN20_MANBOMON_FQID) == 0 ||
+    strcmp(value, PEN20_MANBOMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:manbomon") == 0 ||
+    strcmp(value, "pen:Manbomon") == 0) {
+    config.animation_index = PEN20_MANBOMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -1678,6 +1834,18 @@ if (strcmp(value, PEN20_PLESIOMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Porcupamon (porcupamon)
+if (strcmp(value, PEN20_PORCUPAMON_NAME) == 0 ||
+    strcmp(value, PEN20_PORCUPAMON_ID) == 0 ||
+    strcmp(value, PEN20_PORCUPAMON_FQID) == 0 ||
+    strcmp(value, PEN20_PORCUPAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:porcupamon") == 0 ||
+    strcmp(value, "pen:Porcupamon") == 0) {
+    config.animation_index = PEN20_PORCUPAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Porcupmon (porcupmon)
 if (strcmp(value, PEN20_PORCUPMON_NAME) == 0 ||
     strcmp(value, PEN20_PORCUPMON_ID) == 0 ||
@@ -1906,6 +2074,18 @@ if (strcmp(value, PEN20_SAINT_GALGOMON_NAME) == 0 ||
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
+// check for Savior Hackmon (savior_hackmon)
+if (strcmp(value, PEN20_SAVIOR_HACKMON_NAME) == 0 ||
+    strcmp(value, PEN20_SAVIOR_HACKMON_ID) == 0 ||
+    strcmp(value, PEN20_SAVIOR_HACKMON_FQID) == 0 ||
+    strcmp(value, PEN20_SAVIOR_HACKMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:savior_hackmon") == 0 ||
+    strcmp(value, "pen:Savior Hackmon") == 0) {
+    config.animation_index = PEN20_SAVIOR_HACKMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
 // check for Seadramon (seadramon)
 if (strcmp(value, PEN20_SEADRAMON_NAME) == 0 ||
     strcmp(value, PEN20_SEADRAMON_ID) == 0 ||
@@ -1963,6 +2143,18 @@ if (strcmp(value, PEN20_SKULL_MAMMON_NAME) == 0 ||
     strcmp(value, "pen:skull_mammon") == 0 ||
     strcmp(value, "pen:Skull Mammon") == 0) {
     config.animation_index = PEN20_SKULL_MAMMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Slayerdramon (slayerdramon)
+if (strcmp(value, PEN20_SLAYERDRAMON_NAME) == 0 ||
+    strcmp(value, PEN20_SLAYERDRAMON_ID) == 0 ||
+    strcmp(value, PEN20_SLAYERDRAMON_FQID) == 0 ||
+    strcmp(value, PEN20_SLAYERDRAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:slayerdramon") == 0 ||
+    strcmp(value, "pen:Slayerdramon") == 0) {
+    config.animation_index = PEN20_SLAYERDRAMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }
@@ -2299,6 +2491,18 @@ if (strcmp(value, PEN20_WHAMON_NAME) == 0 ||
     strcmp(value, "pen:whamon") == 0 ||
     strcmp(value, "pen:Whamon") == 0) {
     config.animation_index = PEN20_WHAMON_ANIM_INDEX;
+    config.animation_dm_set = config_animation_dm_set_t::pen20;
+    config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
+}
+// check for Wingdramon (wingdramon)
+if (strcmp(value, PEN20_WINGDRAMON_NAME) == 0 ||
+    strcmp(value, PEN20_WINGDRAMON_ID) == 0 ||
+    strcmp(value, PEN20_WINGDRAMON_FQID) == 0 ||
+    strcmp(value, PEN20_WINGDRAMON_FQNAME) == 0 ||
+    // alt
+    strcmp(value, "pen:wingdramon") == 0 ||
+    strcmp(value, "pen:Wingdramon") == 0) {
+    config.animation_index = PEN20_WINGDRAMON_ANIM_INDEX;
     config.animation_dm_set = config_animation_dm_set_t::pen20;
     config.animation_sprite_sheet_layout = config_animation_sprite_sheet_layout_t::Dm;
 }

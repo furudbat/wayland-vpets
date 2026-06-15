@@ -14,6 +14,7 @@ namespace bongocat::assets {
             case PEN20_ANGEWOMON_ANIM_INDEX: return {pen20_angewomon_png, pen20_angewomon_png_size, "angewomon"};
             case PEN20_ANOMALOCARIMON_ANIM_INDEX: return {pen20_anomalocarimon_png, pen20_anomalocarimon_png_size, "anomalocarimon"};
             case PEN20_ARRESTERDRAMON_ANIM_INDEX: return {pen20_arresterdramon_png, pen20_arresterdramon_png_size, "arresterdramon"};
+            case PEN20_ASTAMON_ANIM_INDEX: return {pen20_astamon_png, pen20_astamon_png_size, "astamon"};
             case PEN20_ASTRAMON_ANIM_INDEX: return {pen20_astramon_png, pen20_astramon_png_size, "astramon"};
             case PEN20_ASURAMON_ANIM_INDEX: return {pen20_asuramon_png, pen20_asuramon_png_size, "asuramon"};
             case PEN20_ATLUR_KABUTERIMON_ANIM_INDEX: return {pen20_atlur_kabuterimon_png, pen20_atlur_kabuterimon_png_size, "atlur_kabuterimon"};
@@ -22,11 +23,13 @@ namespace bongocat::assets {
             case PEN20_BAKUMON_ANIM_INDEX: return {pen20_bakumon_png, pen20_bakumon_png_size, "bakumon"};
             case PEN20_BANCHO_LEOMON_ANIM_INDEX: return {pen20_bancho_leomon_png, pen20_bancho_leomon_png_size, "bancho_leomon"};
             case PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX: return {pen20_beelzebumon_blast_mode_png, pen20_beelzebumon_blast_mode_png_size, "beelzebumon_blast_mode"};
+            case PEN20_BEOWOLFMON_ANIM_INDEX: return {pen20_beowolfmon_png, pen20_beowolfmon_png_size, "beowolfmon"};
             case PEN20_BEOWULFMON_ANIM_INDEX: return {pen20_beowulfmon_png, pen20_beowulfmon_png_size, "beowulfmon"};
             case PEN20_BIG_MAMEMON_ANIM_INDEX: return {pen20_big_mamemon_png, pen20_big_mamemon_png_size, "big_mamemon"};
             case PEN20_BIRDRAMON_ANIM_INDEX: return {pen20_birdramon_png, pen20_birdramon_png_size, "birdramon"};
             case PEN20_BLOSSOMON_ANIM_INDEX: return {pen20_blossomon_png, pen20_blossomon_png_size, "blossomon"};
             case PEN20_BOLTMON_ANIM_INDEX: return {pen20_boltmon_png, pen20_boltmon_png_size, "boltmon"};
+            case PEN20_BREAKDRAMON_ANIM_INDEX: return {pen20_breakdramon_png, pen20_breakdramon_png_size, "breakdramon"};
             case PEN20_BRYWELUDRAMON_ANIM_INDEX: return {pen20_bryweludramon_png, pen20_bryweludramon_png_size, "bryweludramon"};
             case PEN20_BUBBMON_ANIM_INDEX: return {pen20_bubbmon_png, pen20_bubbmon_png_size, "bubbmon"};
             case PEN20_BUDMON_ANIM_INDEX: return {pen20_budmon_png, pen20_budmon_png_size, "budmon"};
@@ -41,6 +44,8 @@ namespace bongocat::assets {
             case PEN20_CLOCKMON_ANIM_INDEX: return {pen20_clockmon_png, pen20_clockmon_png_size, "clockmon"};
             case PEN20_COCOMON_ANIM_INDEX: return {pen20_cocomon_png, pen20_cocomon_png_size, "cocomon"};
             case PEN20_COELAMON_ANIM_INDEX: return {pen20_coelamon_png, pen20_coelamon_png_size, "coelamon"};
+            case PEN20_COREDRAMON_BLUE_ANIM_INDEX: return {pen20_coredramon_blue_png, pen20_coredramon_blue_png_size, "coredramon_blue"};
+            case PEN20_COREDRAMON_GREEN_ANIM_INDEX: return {pen20_coredramon_green_png, pen20_coredramon_green_png_size, "coredramon_green"};
             case PEN20_COTSUCOMON_ANIM_INDEX: return {pen20_cotsucomon_png, pen20_cotsucomon_png_size, "cotsucomon"};
             case PEN20_CYBERDRAMON_ANIM_INDEX: return {pen20_cyberdramon_png, pen20_cyberdramon_png_size, "cyberdramon"};
             case PEN20_DAGOMON_ANIM_INDEX: return {pen20_dagomon_png, pen20_dagomon_png_size, "dagomon"};
@@ -48,10 +53,15 @@ namespace bongocat::assets {
             case PEN20_DARK_KNIGHTMON_ANIM_INDEX: return {pen20_dark_knightmon_png, pen20_dark_knightmon_png_size, "dark_knightmon"};
             case PEN20_DEATH_MERAMON_ANIM_INDEX: return {pen20_death_meramon_png, pen20_death_meramon_png_size, "death_meramon"};
             case PEN20_DELUMON_ANIM_INDEX: return {pen20_delumon_png, pen20_delumon_png_size, "delumon"};
+            case PEN20_DEVIDRAMON_ANIM_INDEX: return {pen20_devidramon_png, pen20_devidramon_png_size, "devidramon"};
             case PEN20_DEVIMON_ANIM_INDEX: return {pen20_devimon_png, pen20_devimon_png_size, "devimon"};
             case PEN20_DOKUGUMON_ANIM_INDEX: return {pen20_dokugumon_png, pen20_dokugumon_png_size, "dokugumon"};
             case PEN20_DORUGORAMON_ANIM_INDEX: return {pen20_dorugoramon_png, pen20_dorugoramon_png_size, "dorugoramon"};
+            case PEN20_DURAMON_ANIM_INDEX: return {pen20_duramon_png, pen20_duramon_png_size, "duramon"};
+            case PEN20_DURANDAMON_ANIM_INDEX: return {pen20_durandamon_png, pen20_durandamon_png_size, "durandamon"};
             case PEN20_EBIDRAMON_ANIM_INDEX: return {pen20_ebidramon_png, pen20_ebidramon_png_size, "ebidramon"};
+            case PEN20_ETEMON_ANIM_INDEX: return {pen20_etemon_png, pen20_etemon_png_size, "etemon"};
+            case PEN20_EXAMON_ANIM_INDEX: return {pen20_examon_png, pen20_examon_png_size, "examon"};
             case PEN20_FANTOMON_ANIM_INDEX: return {pen20_fantomon_png, pen20_fantomon_png_size, "fantomon"};
             case PEN20_FLORAMON_ANIM_INDEX: return {pen20_floramon_png, pen20_floramon_png_size, "floramon"};
             case PEN20_FUFUMON_ANIM_INDEX: return {pen20_fufumon_png, pen20_fufumon_png_size, "fufumon"};
@@ -67,6 +77,7 @@ namespace bongocat::assets {
             case PEN20_GOTTSUMON_ANIM_INDEX: return {pen20_gottsumon_png, pen20_gottsumon_png_size, "gottsumon"};
             case PEN20_GREYMON_ANIM_INDEX: return {pen20_greymon_png, pen20_greymon_png_size, "greymon"};
             case PEN20_GRIFFOMON_ANIM_INDEX: return {pen20_griffomon_png, pen20_griffomon_png_size, "griffomon"};
+            case PEN20_GROUNDRAMON_ANIM_INDEX: return {pen20_groundramon_png, pen20_groundramon_png_size, "groundramon"};
             case PEN20_GROWMON_ANIM_INDEX: return {pen20_growmon_png, pen20_growmon_png_size, "growmon"};
             case PEN20_GUARDROMON_ANIM_INDEX: return {pen20_guardromon_png, pen20_guardromon_png_size, "guardromon"};
             case PEN20_GUIMON_ANIM_INDEX: return {pen20_guimon_png, pen20_guimon_png_size, "guimon"};
@@ -85,6 +96,7 @@ namespace bongocat::assets {
             case PEN20_IKKAKUMON_ANIM_INDEX: return {pen20_ikkakumon_png, pen20_ikkakumon_png_size, "ikkakumon"};
             case PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX: return {pen20_imperialdramon_fighter_mode_png, pen20_imperialdramon_fighter_mode_png_size, "imperialdramon_fighter_mode"};
             case PEN20_IMPMON_ANIM_INDEX: return {pen20_impmon_png, pen20_impmon_png_size, "impmon"};
+            case PEN20_JESMON_ANIM_INDEX: return {pen20_jesmon_png, pen20_jesmon_png_size, "jesmon"};
             case PEN20_JESMON_X_ANIM_INDEX: return {pen20_jesmon_x_png, pen20_jesmon_x_png_size, "jesmon_x"};
             case PEN20_JYAGAMON_ANIM_INDEX: return {pen20_jyagamon_png, pen20_jyagamon_png_size, "jyagamon"};
             case PEN20_JYUREIMON_ANIM_INDEX: return {pen20_jyureimon_png, pen20_jyureimon_png_size, "jyureimon"};
@@ -107,6 +119,7 @@ namespace bongocat::assets {
             case PEN20_MAD_LEOMON_ANIM_INDEX: return {pen20_mad_leomon_png, pen20_mad_leomon_png_size, "mad_leomon"};
             case PEN20_MAMBOMON_ANIM_INDEX: return {pen20_mambomon_png, pen20_mambomon_png_size, "mambomon"};
             case PEN20_MAMMON_ANIM_INDEX: return {pen20_mammon_png, pen20_mammon_png_size, "mammon"};
+            case PEN20_MANBOMON_ANIM_INDEX: return {pen20_manbomon_png, pen20_manbomon_png_size, "manbomon"};
             case PEN20_MARIN_ANGEMON_ANIM_INDEX: return {pen20_marin_angemon_png, pen20_marin_angemon_png_size, "marin_angemon"};
             case PEN20_MARIN_DEVIMON_ANIM_INDEX: return {pen20_marin_devimon_png, pen20_marin_devimon_png_size, "marin_devimon"};
             case PEN20_MASTEMON_ANIM_INDEX: return {pen20_mastemon_png, pen20_mastemon_png_size, "mastemon"};
@@ -146,6 +159,7 @@ namespace bongocat::assets {
             case PEN20_PINOCHIMON_ANIM_INDEX: return {pen20_pinochimon_png, pen20_pinochimon_png_size, "pinochimon"};
             case PEN20_PIYOMON_ANIM_INDEX: return {pen20_piyomon_png, pen20_piyomon_png_size, "piyomon"};
             case PEN20_PLESIOMON_ANIM_INDEX: return {pen20_plesiomon_png, pen20_plesiomon_png_size, "plesiomon"};
+            case PEN20_PORCUPAMON_ANIM_INDEX: return {pen20_porcupamon_png, pen20_porcupamon_png_size, "porcupamon"};
             case PEN20_PORCUPMON_ANIM_INDEX: return {pen20_porcupmon_png, pen20_porcupmon_png_size, "porcupmon"};
             case PEN20_PUKUMON_ANIM_INDEX: return {pen20_pukumon_png, pen20_pukumon_png_size, "pukumon"};
             case PEN20_PUMPMON_ANIM_INDEX: return {pen20_pumpmon_png, pen20_pumpmon_png_size, "pumpmon"};
@@ -165,11 +179,13 @@ namespace bongocat::assets {
             case PEN20_RYUDAMON_ANIM_INDEX: return {pen20_ryudamon_png, pen20_ryudamon_png_size, "ryudamon"};
             case PEN20_SABER_LEOMON_ANIM_INDEX: return {pen20_saber_leomon_png, pen20_saber_leomon_png_size, "saber_leomon"};
             case PEN20_SAINT_GALGOMON_ANIM_INDEX: return {pen20_saint_galgomon_png, pen20_saint_galgomon_png_size, "saint_galgomon"};
+            case PEN20_SAVIOR_HACKMON_ANIM_INDEX: return {pen20_savior_hackmon_png, pen20_savior_hackmon_png_size, "savior_hackmon"};
             case PEN20_SEADRAMON_ANIM_INDEX: return {pen20_seadramon_png, pen20_seadramon_png_size, "seadramon"};
             case PEN20_SERAPHIMON_ANIM_INDEX: return {pen20_seraphimon_png, pen20_seraphimon_png_size, "seraphimon"};
             case PEN20_SHADRAMON_ANIM_INDEX: return {pen20_shadramon_png, pen20_shadramon_png_size, "shadramon"};
             case PEN20_SHAKOMON_ANIM_INDEX: return {pen20_shakomon_png, pen20_shakomon_png_size, "shakomon"};
             case PEN20_SKULL_MAMMON_ANIM_INDEX: return {pen20_skull_mammon_png, pen20_skull_mammon_png_size, "skull_mammon"};
+            case PEN20_SLAYERDRAMON_ANIM_INDEX: return {pen20_slayerdramon_png, pen20_slayerdramon_png_size, "slayerdramon"};
             case PEN20_STARMON_ANIM_INDEX: return {pen20_starmon_png, pen20_starmon_png_size, "starmon"};
             case PEN20_SUNFLOWMON_ANIM_INDEX: return {pen20_sunflowmon_png, pen20_sunflowmon_png_size, "sunflowmon"};
             case PEN20_TAILMON_ANIM_INDEX: return {pen20_tailmon_png, pen20_tailmon_png_size, "tailmon"};
@@ -198,6 +214,7 @@ namespace bongocat::assets {
             case PEN20_WARU_MOZAEMON_ANIM_INDEX: return {pen20_waru_mozaemon_png, pen20_waru_mozaemon_png_size, "waru_mozaemon"};
             case PEN20_WERE_GARURUMON_ANIM_INDEX: return {pen20_were_garurumon_png, pen20_were_garurumon_png_size, "were_garurumon"};
             case PEN20_WHAMON_ANIM_INDEX: return {pen20_whamon_png, pen20_whamon_png_size, "whamon"};
+            case PEN20_WINGDRAMON_ANIM_INDEX: return {pen20_wingdramon_png, pen20_wingdramon_png_size, "wingdramon"};
             case PEN20_WIZARMON_ANIM_INDEX: return {pen20_wizarmon_png, pen20_wizarmon_png_size, "wizarmon"};
             case PEN20_WOODMON_ANIM_INDEX: return {pen20_woodmon_png, pen20_woodmon_png_size, "woodmon"};
             case PEN20_XV_MON_ANIM_INDEX: return {pen20_xv_mon_png, pen20_xv_mon_png_size, "xv_mon"};
