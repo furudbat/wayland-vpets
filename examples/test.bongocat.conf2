@@ -112,6 +112,11 @@ movement_radius=960
 enable_movement_debug=0
 movement_speed=0
 
+
+# Evolution Settings (experimental)
+evolution=0
+evolution_speed_factor=1.0
+
 # test_animation_duration: How long to show test animation (in milliseconds)
 #test_animation_duration=200
 #DEPRECATED: use animation_speed (for non-bongocat)
@@ -136,6 +141,8 @@ overlay_opacity=0
 # Debug settings
 # enable_debug: Show debug messages (0 = off, 1 = on)
 enable_debug=1
+
+
 
 # Input devices (you can specify multiple devices)
 # Use keyboard_device for each device you want to monitor
@@ -166,6 +173,12 @@ keyboard_device=/dev/input/event16
 keyboard_device=/dev/input/event17
 keyboard_device=/dev/input/event18
 keyboard_device=/dev/input/event21
+
+keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-kbd
+keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-if01
+keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-if01-event-kbd
+
+hotplug_scan_interval=30
 
 # Multi-monitor support
 # Specify which monitor to display bongocat on (optional)

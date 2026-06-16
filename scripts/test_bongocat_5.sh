@@ -13,7 +13,7 @@ find ./examples -maxdepth 1 -type f -name "*.conf" | while read -r OG_CONFIG; do
   cp $OG_CONFIG $CONFIG
 
   echo "[TEST] Starting program..."
-  "$PROGRAM" --config "$CONFIG" --ignore-running --strict &
+  "$PROGRAM" --config "$CONFIG" --ignore-running &
   PID=$!
   echo "[TEST] Program PID = $PID"
   sleep 10

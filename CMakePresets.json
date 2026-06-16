@@ -27,7 +27,8 @@
       "binaryDir": "${sourceDir}/cmake-build-release",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
-        "GENERATE_PROTOCOLS": "OFF"
+        "GENERATE_PROTOCOLS": "OFF",
+        "SKIP_CPM": "ON"
       }
     },
     {
@@ -381,6 +382,37 @@
       "binaryDir": "${sourceDir}/cmake-build-release-beta",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
+        "GENERATE_PROTOCOLS": "OFF",
+        "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS": "ON",
+        "FEATURE_ENABLE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DM20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMX_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PEN20_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_DMALL_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PKMN_EMBEDDED_ASSETS": "ON",
+        "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
+        "FEATURE_PRELOAD_ASSETS": "OFF",
+        "FEATURE_LAZY_LOAD_ASSETS": "ON",
+        "FEATURE_USE_HYBRID_IMAGE_BACKEND": "ON",
+        "FEATURE_USE_BONGOCAT_SVG": "ON",
+        "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
+        "FEATURE_EVOLUTION": "ON"
+      }
+    },
+    {
+      "name": "relwithdebinfo-beta",
+      "displayName": "RelWithDebInfo Build",
+      "description": "Release build with debug info and experimental features",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-beta",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "RelWithDebInfo",
+        "SKIP_CPM": "OFF",
         "GENERATE_PROTOCOLS": "OFF",
         "FEATURE_BONGOCAT_EMBEDDED_ASSETS": "ON",
         "FEATURE_MS_AGENT_EMBEDDED_ASSETS": "ON",

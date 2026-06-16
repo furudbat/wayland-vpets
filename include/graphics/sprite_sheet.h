@@ -198,6 +198,10 @@ struct custom_sprite_sheet_t {
   custom_sprite_sheet_animation_section_t running;
   custom_sprite_sheet_animation_section_t end_running;
 
+  custom_sprite_sheet_animation_section_t start_evolving;
+  custom_sprite_sheet_animation_section_t evolving;
+  custom_sprite_sheet_animation_section_t after_evolving;
+
   // features
   bool feature_idle{false};
   bool feature_boring{false};
@@ -208,6 +212,7 @@ struct custom_sprite_sheet_t {
   bool feature_working{false};
   bool feature_moving{false};
   bool feature_running{false};
+  bool feature_evolving{false};
   bool feature_writing_toggle_frames{false};
   bool feature_writing_toggle_frames_random{false};
 };

@@ -228,6 +228,9 @@ static inline constexpr auto CUSTOM_END_MOVING_ROW_KEY = "custom_end_moving_row"
 static inline constexpr auto CUSTOM_START_RUNNING_ROW_KEY = "custom_start_running_row";
 static inline constexpr auto CUSTOM_RUNNING_ROW_KEY = "custom_running_row";
 static inline constexpr auto CUSTOM_END_RUNNING_ROW_KEY = "custom_end_running_row";
+static inline constexpr auto CUSTOM_START_EVOLVING_ROW_KEY = "custom_start_evolving_row";
+static inline constexpr auto CUSTOM_EVOLVING_ROW_KEY = "custom_evolving_row";
+static inline constexpr auto CUSTOM_AFTER_EVOLVING_ROW_KEY = "custom_after_evolving_row";
 static inline constexpr auto CUSTOM_ROWS_KEY = "custom_rows";
 
 inline static constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR = "program_start";
@@ -457,6 +460,27 @@ static uint64_t config_validate_custom(config_t& config) {
     if (config.custom_sprite_sheet_settings.end_running_row_index >= 0) {
       ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_running_row_index, MIN_CUSTOM_ROWS,
                               MAX_CUSTOM_ROWS, CUSTOM_END_RUNNING_ROW_KEY);
+    }
+    if (config.custom_sprite_sheet_settings.start_evolving_row_index >= 0) {
+      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_EVOLVING_ROW_KEY);
+    } else if (config.custom_sprite_sheet_settings.start_working_row_index >= 0) {
+      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_WORKING_ROW_KEY);
+    }
+    if (config.custom_sprite_sheet_settings.evolving_row_index >= 0) {
+      ret |= config_clamp_int(config.custom_sprite_sheet_settings.evolving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_EVOLVING_ROW_KEY);
+    } else if (config.custom_sprite_sheet_settings.working_row_index >= 0) {
+      ret |= config_clamp_int(config.custom_sprite_sheet_settings.evolving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_WORKING_ROW_KEY);
+    }
+    if (config.custom_sprite_sheet_settings.after_evolving_row_index >= 0) {
+      ret |= config_clamp_int(config.custom_sprite_sheet_settings.after_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_AFTER_EVOLVING_ROW_KEY);
+    } else if (config.custom_sprite_sheet_settings.end_working_row_index >= 0) {
+      ret |= config_clamp_int(config.custom_sprite_sheet_settings.after_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_END_WORKING_ROW_KEY);
     }
     if (config.custom_sprite_sheet_settings.rows >= 0) {
       ret |= config_clamp_int(config.custom_sprite_sheet_settings.rows, 1, MAX_CUSTOM_ROWS, CUSTOM_ROWS_KEY);
@@ -1355,6 +1379,12 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
     config.custom_sprite_sheet_settings.running_row_index = int_value - 1;
   } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_END_RUNNING_ROW_KEY) == 0) {
     config.custom_sprite_sheet_settings.end_running_row_index = int_value - 1;
+  } else if (features::EnableCustomSpriteSheetsAssets && features::EnableEvolution && strcmp(key, CUSTOM_START_EVOLVING_ROW_KEY) == 0) {
+    config.custom_sprite_sheet_settings.start_evolving_row_index = int_value - 1;
+  } else if (features::EnableCustomSpriteSheetsAssets && features::EnableEvolution && strcmp(key, CUSTOM_EVOLVING_ROW_KEY) == 0) {
+    config.custom_sprite_sheet_settings.evolving_row_index = int_value - 1;
+  } else if (features::EnableCustomSpriteSheetsAssets && features::EnableEvolution && strcmp(key, CUSTOM_AFTER_EVOLVING_ROW_KEY) == 0) {
+    config.custom_sprite_sheet_settings.after_evolving_row_index = int_value - 1;
   } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_ROWS_KEY) == 0) {
     config.custom_sprite_sheet_settings.rows = int_value;
   } else {

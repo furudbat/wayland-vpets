@@ -666,8 +666,8 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     }
     if constexpr (features::EnablePmdEmbeddedAssets) {
       // Load pmd (pkmn)
-      if (should_load_pkmn(*ret->thread_context._local_copy_config)) {
-        BONGOCAT_LOG_INFO("Load pmd sprite sheets: %d", PKMN_ANIM_COUNT);
+      if (should_load_pmd(*ret->thread_context._local_copy_config)) {
+        BONGOCAT_LOG_INFO("Load pmd sprite sheets: %d", PMD_ANIM_COUNT);
         assert(ret->thread_context.shm);
         animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
@@ -736,12 +736,16 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
   // init anim
   ret->thread_context._rng = platform::random_xoshiro128(platform::slow_rand());
 
+  /// @TODO: not needed anymore ?, config got already initialized above
   // Initialize shared memory for local config
-  ret->thread_context._local_copy_config = platform::make_allocated_mmap<config::config_t>();
   if (!ret->thread_context._local_copy_config) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+    ret->thread_context._local_copy_config = platform::make_allocated_mmap<config::config_t>();
+    if (!ret->thread_context._local_copy_config) [[unlikely]] {
+      BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
+      return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+    }
   }
+  assert(ret->thread_context._local_copy_config);
 
   BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.6fsec)",
                     static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);

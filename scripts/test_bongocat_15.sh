@@ -10,7 +10,7 @@ PROGRAM="./cmake-build-debug-all-features/bongocat-all"
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
-OG_CONFIG=./examples/test.bongocat.conf
+OG_CONFIG=./examples/test.bongocat.conf2
 cp $OG_CONFIG $CONFIG
 
 if [[ $# -ge 1 ]]; then
@@ -51,7 +51,10 @@ kill -USR2 "$PID" # Reload config
 sleep 60
 sleep 60
 sleep 60
-sleep 40
+sleep 45
+
+sed -i -E 's/^cat_height=[0-9]+/cat_height=72/' "$CONFIG"
+sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
 
 echo "[TEST] Change animation sprite"
 echo "[INFO] Set animation_name..."
@@ -60,9 +63,9 @@ sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
 sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
-sleep 40
+sleep 35
 
-sed -i -E 's/^cat_height=[0-9]+/cat_height=72/' "$CONFIG"
+sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
 sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
 
 echo "[TEST] Change animation sprite"
@@ -73,7 +76,6 @@ sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 60
-sleep 10
 
 
 # --- verify running ---

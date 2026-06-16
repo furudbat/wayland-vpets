@@ -117,6 +117,7 @@ load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_i
       row++;
     }
 
+    const int fallback_happy_row = row;
     if (sprite_sheet_settings.happy_frames > 0) {
       ret.happy = {.valid = true,
                    .start_col = 0,
@@ -157,6 +158,7 @@ load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_i
       row++;
     }
 
+    const int fallback_start_working_row = row;
     if (sprite_sheet_settings.start_working_frames > 0) {
       ret.start_working = {.valid = true,
                            .start_col = 0,
@@ -168,6 +170,7 @@ load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_i
       ret.start_working.row = ret.start_working.row < sprite_sheet_rows ? ret.start_working.row : sprite_sheet_rows - 1;
       row++;
     }
+    const int fallback_working_row = row;
     if (sprite_sheet_settings.working_frames > 0) {
       ret.working = {.valid = true,
                      .start_col = 0,
@@ -178,6 +181,7 @@ load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_i
       ret.working.row = ret.working.row < sprite_sheet_rows ? ret.working.row : sprite_sheet_rows - 1;
       row++;
     }
+    const int fallback_end_working_row = row;
     if (sprite_sheet_settings.end_working_frames > 0) {
       ret.end_working = {
           .valid = true,
@@ -284,6 +288,71 @@ load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_i
                                     ? sprite_sheet_settings.end_running_row_index
                                     : ret.end_moving.row};
     }
+
+    if (sprite_sheet_settings.start_evolving_frames > 0) {
+      ret.start_evolving = {.valid = true,
+                           .start_col = 0,
+                           .end_col = sprite_sheet_settings.start_evolving_frames - 1,
+                           .row = sprite_sheet_settings.start_evolving_row_index >= 0
+                                      ? sprite_sheet_settings.start_evolving_row_index
+                                      : row};
+      ret.start_evolving.row = ret.start_evolving.row >= 0 ? ret.start_evolving.row : 0;
+      ret.start_evolving.row = ret.start_evolving.row < sprite_sheet_rows ? ret.start_evolving.row : sprite_sheet_rows - 1;
+      row++;
+    } else if (sprite_sheet_settings.start_working_frames > 0) {
+      ret.start_evolving = {.valid = true,
+                           .start_col = 0,
+                           .end_col = sprite_sheet_settings.start_working_frames - 1,
+                           .row = sprite_sheet_settings.start_working_row_index >= 0
+                                      ? sprite_sheet_settings.start_working_row_index
+                                      : fallback_start_working_row};
+      ret.start_evolving.row = ret.start_evolving.row >= 0 ? ret.start_evolving.row : 0;
+      ret.start_evolving.row = ret.start_evolving.row < sprite_sheet_rows ? ret.start_evolving.row : sprite_sheet_rows - 1;
+    }
+    if (sprite_sheet_settings.evolving_frames > 0) {
+      ret.evolving = {.valid = true,
+                     .start_col = 0,
+                     .end_col = sprite_sheet_settings.evolving_frames - 1,
+                     .row =
+                         sprite_sheet_settings.evolving_row_index >= 0 ? sprite_sheet_settings.evolving_row_index : row};
+      ret.evolving.row = ret.evolving.row >= 0 ? ret.evolving.row : 0;
+      ret.evolving.row = ret.evolving.row < sprite_sheet_rows ? ret.evolving.row : sprite_sheet_rows - 1;
+      row++;
+    } else if (sprite_sheet_settings.working_frames > 0) {
+      ret.evolving = {.valid = true,
+                     .start_col = 0,
+                     .end_col = sprite_sheet_settings.working_frames - 1,
+                     .row =
+                         sprite_sheet_settings.working_row_index >= 0 ? sprite_sheet_settings.working_row_index : fallback_working_row};
+      ret.evolving.row = ret.evolving.row >= 0 ? ret.evolving.row : 0;
+      ret.evolving.row = ret.evolving.row < sprite_sheet_rows ? ret.evolving.row : sprite_sheet_rows - 1;
+    }
+    if (sprite_sheet_settings.after_evolving_frames > 0) {
+      ret.after_evolving = {
+        .valid = true,
+        .start_col = 0,
+        .end_col = sprite_sheet_settings.after_evolving_frames - 1,
+        .row = sprite_sheet_settings.after_evolving_row_index >= 0 ? sprite_sheet_settings.after_evolving_row_index : row};
+      ret.after_evolving.row = ret.after_evolving.row >= 0 ? ret.after_evolving.row : 0;
+      ret.after_evolving.row = ret.after_evolving.row < sprite_sheet_rows ? ret.after_evolving.row : sprite_sheet_rows - 1;
+      row++;
+    } else if (sprite_sheet_settings.end_working_frames > 0) {
+      ret.after_evolving = {
+        .valid = true,
+        .start_col = 0,
+        .end_col = sprite_sheet_settings.end_working_frames - 1,
+        .row = sprite_sheet_settings.end_working_row_index >= 0 ? sprite_sheet_settings.end_working_row_index : fallback_end_working_row};
+      ret.after_evolving.row = ret.after_evolving.row >= 0 ? ret.after_evolving.row : 0;
+      ret.after_evolving.row = ret.after_evolving.row < sprite_sheet_rows ? ret.after_evolving.row : sprite_sheet_rows - 1;
+    } else if (sprite_sheet_settings.happy_frames > 0) {
+      ret.after_evolving = {
+        .valid = true,
+        .start_col = 0,
+        .end_col = sprite_sheet_settings.happy_frames - 1,
+        .row = sprite_sheet_settings.happy_row_index >= 0 ? sprite_sheet_settings.happy_row_index : fallback_happy_row};
+      ret.after_evolving.row = ret.after_evolving.row >= 0 ? ret.after_evolving.row : 0;
+      ret.after_evolving.row = ret.after_evolving.row < sprite_sheet_rows ? ret.after_evolving.row : sprite_sheet_rows - 1;
+    }
   }
 
   // features
@@ -296,6 +365,8 @@ load_custom_anim(const animation_thread_context_t& ctx, const assets::embedded_i
   ret.feature_working = ret.working.valid || ret.start_working.valid || ret.end_working.valid;
   ret.feature_moving = ret.moving.valid || ret.start_moving.valid || ret.end_moving.valid;
   ret.feature_running = ret.running.valid || ret.start_running.valid || ret.end_running.valid;
+  ret.feature_evolving = ret.start_evolving.valid || ret.evolving.valid || ret.after_evolving.valid;
+
   // is feature_toggle_writing_frames enabled or writing has only 2 frames (default)
   ret.feature_writing_toggle_frames =
       ret.working.valid && (sprite_sheet_settings.feature_toggle_writing_frames >= 1 ||

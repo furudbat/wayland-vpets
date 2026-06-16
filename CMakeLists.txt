@@ -112,7 +112,7 @@ option(
 option(FEATURE_USE_PNGLE "Use pngle for assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
 option(FEATURE_CUSTOM_SPRITE_SHEETS "Enable custom sprite sheet at runtime" ON)
 
-option(FEATURE_EVOLUTION "Add Evolution for V-Pets (dm and pkmn) (Experimental)" ON)
+option(FEATURE_EVOLUTION "Add Evolution for V-Pets (dm and pkmn) (Experimental)" OFF)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)

@@ -81,6 +81,10 @@ struct custom_animation_settings_t {
   int32_t running_frames{0};
   int32_t end_running_frames{0};
 
+  int32_t start_evolving_frames{0};
+  int32_t evolving_frames{0};
+  int32_t after_evolving_frames{0};
+
   int32_t feature_toggle_writing_frames{-1};
   int32_t feature_toggle_writing_frames_random{-1};
   int32_t feature_mirror_x_moving{-1};
@@ -110,6 +114,10 @@ struct custom_animation_settings_t {
   int32_t start_running_row_index{-1};
   int32_t running_row_index{-1};
   int32_t end_running_row_index{-1};
+
+  int32_t start_evolving_row_index{-1};
+  int32_t evolving_row_index{-1};
+  int32_t after_evolving_row_index{-1};
 
   int32_t rows{-1};
 };

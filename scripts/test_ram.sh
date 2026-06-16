@@ -30,6 +30,23 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
+
+echo '`bloaty ./cmake-build-relwithdebinfo-beta/bongocat-all -d compileunits,symbols`' >> "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-beta/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
+
+echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all`' >> "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo-beta/bongocat-all -- ./cmake-build-relwithdebinfo/bongocat-all | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
+
 echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
 echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
@@ -37,15 +54,12 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
-
-
 echo '`du -h ./cmake-build-*/bongocat* --exclude=*.1 --exclude=*.5`' >>  "$REPORT"
 echo '```bash' >> "$REPORT"
 echo "$(du -h ./cmake-build-*/bongocat* --exclude='*.1' --exclude='*.5')" >>  "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
-
 
 echo "## RAM Usage" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -240,6 +254,63 @@ for group in release release-preload-assets release-hybrid release-pngle minsize
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
         sleep 5
+
+        # --- verify running ---
+        if kill -0 "$PID" 2>/dev/null; then
+            echo "[INFO] Process $PID still running!"
+        else
+            echo "[FAIL] Process terminated"
+            exit 1
+        fi
+
+        #sed -i -E 's/^cat_height=[0-9]+/cat_height=64/' "$CONFIG"
+        #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
+
+        echo "[TEST] Change animation sprite"
+        echo "[INFO] Set animation_name..."
+        sed -i -E 's/^animation_name=.*/animation_name=dm20:Koromon/' "$CONFIG"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 40
+
+        echo "[TEST] Change animation sprite"
+        echo "[INFO] Set animation_name..."
+        sed -i -E 's/^animation_name=.*/animation_name=Koromon/' "$CONFIG"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 40
+
+        #sed -i -E 's/^cat_height=[0-9]+/cat_height=72/' "$CONFIG"
+        #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
+
+        echo "[TEST] Change animation sprite"
+        echo "[INFO] Set animation_name..."
+        sed -i -E 's/^animation_name=.*/animation_name=pkmn:bulbasaur/' "$CONFIG"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 30
+
+        #sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
+        #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
+
+        echo "[TEST] Change animation sprite"
+        echo "[INFO] Set animation_name..."
+        sed -i -E 's/^animation_name=.*/animation_name=pmd:charmander/' "$CONFIG"
+        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+        echo "[INFO] Send SIGUSR2"
+        kill -USR2 "$PID" # Reload config
+        sleep 30
 
         # --- verify running ---
         if kill -0 "$PID" 2>/dev/null; then

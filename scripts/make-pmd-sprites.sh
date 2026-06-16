@@ -1,6 +1,9 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+#POKEAPI_URL=https://pokeapi.co/api/v2
+POKEAPI_URL=http://localhost:8081/api/v2
+
 # -----------------------------
 # build-pmd-sheets.sh
 # -----------------------------
@@ -73,12 +76,13 @@ get_pokemon_name() {
 
     # fetch from API
     local api_json name
-    api_json=$(curl -s "https://pokeapi.co/api/v2/pokemon/${id}")
+    api_json=$(curl -s "$POKEAPI_URL/pokemon/${id}")
     name=$(echo "$api_json" | jq -r '.name // empty')
     if [[ -z "$name" ]]; then
         echo "ERROR: could not retrieve Pokémon name for ID $id" >&2
         name="unknown"
     fi
+    #sleep $((30 + RANDOM % 15))
 
     # update cache
     tmp=$(mktemp)
@@ -117,7 +121,7 @@ pick_row_from_png() {
 # -----------------------------
 # Row definitions
 # -----------------------------
-ROW_LABELS=( "Idle" "Boring" "Writing" "Happy" "Sleep" "Working" "Moving" )
+ROW_LABELS=( "Idle" "Boring" "Writing" "Happy" "Sleep" "Working" "Moving" "StartEvolving" "AfterEvolving")
 ROW_CANDIDATES=(
     "Idle,Hover,Walk"
     "Pose,DeepBreath,Appeal,Dance,Twirl,TailWhip"
@@ -126,6 +130,8 @@ ROW_CANDIDATES=(
     "Sleep,EventSleep,Laying"
     "MultiScratch,MultiStrike,Shock,Emit,Shake,Sing,Sound,Gas,Withdraw,RearUp,Rumble,Swell,SpAttack,Shot,Shoot,Charge,Attack"
     "Walk,Hover"
+    "DeepBreath,Shock,Emit,RearUp,Charge,Shot,Shoot,Attack"
+    "Hop,Withdraw,Nod"
 )
 
 # -----------------------------
