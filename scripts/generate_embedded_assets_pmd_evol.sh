@@ -4,8 +4,8 @@ POKEAPI_URL=http://localhost:8081/api/v2
 
 # === Usage Check ===
 if [[ $# -lt 3 ]]; then
-    echo "Usage: $0 <input-dir> <og-input-dir> <output-source>"
-    echo "Example: $0 assets/pkmn assets/input/pkmn src/embedded_assets/pkmn/pkmn_get_evolution_data.cpp"
+    echo "Usage: $0 <input-dir> <og-input-dir> <output-source> <meta-json>"
+    echo "Example: $0 assets/pmd assets/input/pmd src/embedded_assets/pmd_evol_data.c"
     exit 1
 fi
 
@@ -13,23 +13,19 @@ fi
 INPUT_DIR="$1"
 OG_INPUT_DIR="$2"
 CPP_SOURCE_GET_EVOL_OUT="$3"
-START_INDEX="$4"
+JSON_META="${4}"
+START_INDEX="${5:-0}"
 
-FRAME_SIZE=""
-COLS=""
-ROWS=""
-LAYOUT="Dm"
+LAYOUT="Custom"
 SET=""
 
 # === Parse args ===
 POSITIONAL_ARGS=()
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --frame-size) FRAME_SIZE="$2"; shift 2 ;;
-        --cols) COLS="$2"; shift 2 ;;
-        --rows) ROWS="$2"; shift 2 ;;
         --set) SET="$2"; shift 2 ;;
         --layout) LAYOUT="$2"; shift 2 ;;
+        --json) JSON_META="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -40,7 +36,8 @@ set -- "${POSITIONAL_ARGS[@]}"
 INPUT_DIR="${POSITIONAL_ARGS[0]}"
 OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
 CPP_SOURCE_GET_EVOL_OUT="${POSITIONAL_ARGS[2]}"
-START_INDEX="${POSITIONAL_ARGS[3]:-0}"
+JSON_META="${POSITIONAL_ARGS[3]}"
+START_INDEX="${POSITIONAL_ARGS[4]:-0}"
 
 # === Dependency check ===
 if ! command -v magick &>/dev/null; then
@@ -50,10 +47,13 @@ fi
 
 #echo $INPUT_DIR
 #echo $OG_INPUT_DIR
-#echo $CPP_SOURCE_GET_EVOL_OUT
+#echo CPP_SOURCE_GET_EVOL_OUT
+#echo $JSON_META
+#echo $SET
+#echo $LAYOUT
 #exit 1
 
-if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$CPP_SOURCE_GET_EVOL_OUT" ]]; then
+if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$CPP_SOURCE_GET_EVOL_OUT" || -z "$LAYOUT" ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
     exit 1
 fi
@@ -116,47 +116,51 @@ done
 # === Start animation index counter ===
 INDEX=$START_INDEX
 
+MAX_COLS=0
 # === Process all PNGs ===
 for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
 
-    # Handle optional frame size or COLS/ROWS
-    if [[ -n "$FRAME_SIZE" ]]; then
-        OG_FILE="$OG_INPUT_DIR/$BASENAME"
-        if [ -f "$OG_FILE" ]; then
-          SHEET_WIDTH=$(magick identify -format "%w" "$OG_FILE")
-          SHEET_HEIGHT=$(magick identify -format "%h" "$OG_FILE")
-
-          # Compute cols/rows based on fixed frame size
-          if [[ -n "$FRAME_SIZE" ]]; then
-              COLS=$(( SHEET_WIDTH / FRAME_SIZE ))
-              ROWS=$(( SHEET_HEIGHT / FRAME_SIZE ))
-          else
-              # fallback if frame size not specified
-              COLS=1
-              ROWS=$(( SHEET_HEIGHT / SHEET_WIDTH ))
-          fi
-
-          # Frames count is always original width*height / (frame_size^2)
-          FRAMES_COUNT=$(( (SHEET_WIDTH / FRAME_SIZE) * (SHEET_HEIGHT / FRAME_SIZE) ))
-        else
-            COLS=0
-            ROWS=0
-            echo "$OG_FILE not found"
-            continue
-        fi
-    else
-      FRAMES_COUNT=$((COLS * ROWS))
-    fi
-
     NAME_NO_EXT="${BASENAME%.png}"
     NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
     NAME_NO_EXT="${NAME_NO_EXT^}"
+
     NAME_CLEAN=$(echo "$NAME_NO_EXT" | sed "s/['().:]//g")
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/[^a-zA-Z0-9]/_/g')
     NAME_CLEAN=$(echo "$NAME_CLEAN" | sed 's/_\+/_/g')
     IDENTIFIER=$(echo "$NAME_CLEAN" | tr '[:upper:]' '[:lower:]')
     MACRO_PREFIX=$(echo "${ASSETS_PREFIX_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
+
+    KEY="${BASENAME%.png}"
+
+    COLS=$(jq -r --arg k "$KEY" '.[$k].cols // 0' "$JSON_META")
+    ROWS=$(jq -r --arg k "$KEY" '.[$k].rows // 0' "$JSON_META")
+
+    idle_frames=$(jq -r --arg k "$KEY" '.[$k].frames_idle // -1' "$JSON_META")
+    boring_frames=$(jq -r --arg k "$KEY" '.[$k].frames_boring // -1' "$JSON_META")
+    start_writing_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_writing // -1' "$JSON_META")
+    writing_frames=$(jq -r --arg k "$KEY" '.[$k].frames_writing // -1' "$JSON_META")
+    end_writing_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_writing // -1' "$JSON_META")
+
+    happy_frames=$(jq -r --arg k "$KEY" '.[$k].frames_happy // -1' "$JSON_META")
+    asleep_frames=$(jq -r --arg k "$KEY" '.[$k].frames_asleep // -1' "$JSON_META")
+    sleep_frames=$(jq -r --arg k "$KEY" '.[$k].frames_sleep // -1' "$JSON_META")
+    wake_up_frames=$(jq -r --arg k "$KEY" '.[$k].frames_wake_up // -1' "$JSON_META")
+
+    start_working_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_working // -1' "$JSON_META")
+    working_frames=$(jq -r --arg k "$KEY" '.[$k].frames_working // -1' "$JSON_META")
+    end_working_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_working // -1' "$JSON_META")
+
+    start_moving_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_moving // -1' "$JSON_META")
+    moving_frames=$(jq -r --arg k "$KEY" '.[$k].frames_moving // -1' "$JSON_META")
+    end_moving_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_moving // -1' "$JSON_META")
+
+    start_running_frames=$(jq -r --arg k "$KEY" '.[$k].frames_start_running // -1' "$JSON_META")
+    running_frames=$(jq -r --arg k "$KEY" '.[$k].frames_running // -1' "$JSON_META")
+    end_running_frames=$(jq -r --arg k "$KEY" '.[$k].frames_end_running // -1' "$JSON_META")
+
+    FRAMES_COUNT=$((COLS * ROWS))
+    (( COLS > MAX_COLS )) && MAX_COLS=$COLS
 
     RELATIVE_PATH="../../../$INPUT_DIR/$BASENAME"
 

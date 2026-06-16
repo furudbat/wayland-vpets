@@ -29,3 +29,5 @@
 
 
 ./scripts/generate_embedded_assets_pkmn_evol.sh assets/pkmn assets/input/pkmn src/embedded_assets/pkmn/pkmn_get_evolution_data.cpp --cols 2 --rows 1 --layout Pkmn
+
+./scripts/generate_embedded_assets_pmd_evol.sh assets/pmd assets/input/pmd src/embedded_assets/pmd/pmd_get_evolution_data.cpp assets/input/pmd-sprite-meta.json --layout Custom --set pmd
