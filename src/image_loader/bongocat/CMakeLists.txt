@@ -8,6 +8,6 @@ target_include_directories(
 )
 target_link_libraries(
   assets_bongocat_loader
-  PUBLIC assets_image_loader assets_bongocat
-  PRIVATE assets_bongocat_interface assets_bongocat_feature bongocat_options
+  PUBLIC assets_image_loader
+  PRIVATE assets_bongocat assets_bongocat_interface assets_bongocat_feature bongocat_options
 )

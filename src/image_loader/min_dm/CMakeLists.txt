@@ -8,6 +8,6 @@ target_include_directories(
 )
 target_link_libraries(
   assets_min_dm_loader
-  PUBLIC assets_image_loader assets_base_dm_loader assets_min_dm
-  PRIVATE assets_min_dm_interface assets_min_dm_feature bongocat_options
+  PUBLIC assets_image_loader assets_base_dm_loader
+  PRIVATE assets_min_dm assets_min_dm_interface assets_min_dm_feature bongocat_options
 )

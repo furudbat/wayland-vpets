@@ -154,7 +154,8 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
       break;
     case config::config_animation_dm_set_t::min_dm: {
       if constexpr (features::EnableMinDmEmbeddedAssets) {
-        auto [l_result, l_error] = load_min_dm_sprite_sheet(ctx, anim_index);
+        assert(anim_index >= 0);
+        auto [l_result, l_error] = load_min_dm_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         patch_dm_anim(l_result, {.sleep_in_bed = true});
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
@@ -171,7 +172,8 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dm20: {
       if constexpr (features::EnableDm20EmbeddedAssets) {
-        auto [l_result, l_error] = load_dm20_sprite_sheet(ctx, anim_index);
+        assert(anim_index >= 0);
+        auto [l_result, l_error] = load_dm20_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         patch_dm_anim(l_result, {.sleep_in_bed = true});
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
@@ -179,21 +181,24 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dmx: {
       if constexpr (features::EnableDmxEmbeddedAssets) {
-        auto [l_result, l_error] = load_dmx_sprite_sheet(ctx, anim_index);
+        assert(anim_index >= 0);
+        auto [l_result, l_error] = load_dmx_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }
     } break;
     case config::config_animation_dm_set_t::pen: {
       if constexpr (features::EnablePenEmbeddedAssets) {
-        auto [l_result, l_error] = load_pen_sprite_sheet(ctx, anim_index);
+        assert(anim_index >= 0);
+        auto [l_result, l_error] = load_pen_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }
     } break;
     case config::config_animation_dm_set_t::pen20: {
       if constexpr (features::EnablePen20EmbeddedAssets) {
-        auto [l_result, l_error] = load_pen20_sprite_sheet(ctx, anim_index);
+        assert(anim_index >= 0);
+        auto [l_result, l_error] = load_pen20_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }
@@ -229,7 +234,8 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     break;
   case config::config_animation_sprite_sheet_layout_t::MsAgent:
     if constexpr (features::EnableMsAgentEmbeddedAssets) {
-      auto [result, error] = load_ms_agent_sprite_sheet(ctx, anim_index);
+      assert(anim_index >= 0);
+      auto [result, error] = load_ms_agent_sprite_sheet(ctx, static_cast<size_t>(anim_index));
       if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
         return error;
       }
@@ -254,7 +260,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
       assert(anim_index >= 0);
       if (current_config.animation_custom_set == config::config_animation_custom_set_t::misc &&
           static_cast<size_t>(anim_index) < assets::MISC_ANIM_COUNT) {
-        auto [result, error] = load_misc_sprite_sheet(ctx, anim_index);
+        auto [result, error] = load_misc_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
           return error;
         }

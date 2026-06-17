@@ -1,164 +1,623 @@
 #include "core/bongocat.h"
-#include "graphics/animation_thread_context.h"
+#include "utils/memory.h"
+#include "graphics/animation_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dm20/dm20.hpp"
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dm20/dm20_sprite.h"
 #include "image_loader/dm20/load_images_dm20.h"
+#include "embedded_assets/dm20/dm20_images.h"
+#include <climits>
+#include <cstddef>
+#include <cstdint>
+
+/// @NOTE: Generated embedded assets dm20
+
 
 namespace bongocat::animation {
-    created_result_t<dm_sprite_sheet_t> load_dm20_sprite_sheet(const animation_thread_context_t& ctx, int index) {
+    static constexpr assets::embedded_sprite_sheet_dims_t dm20_dims_table[] = {
+        {assets::DM20_AEGISDRAMON_SPRITE_SHEET_COLS, assets::DM20_AEGISDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_AGUMON_SPRITE_SHEET_COLS, assets::DM20_AGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_AIRDRAMON_SPRITE_SHEET_COLS, assets::DM20_AIRDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ALPHAMON_SPRITE_SHEET_COLS, assets::DM20_ALPHAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ANDROMON_SPRITE_SHEET_COLS, assets::DM20_ANDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ANGEMON_SPRITE_SHEET_COLS, assets::DM20_ANGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_APOLLOMON_SPRITE_SHEET_COLS, assets::DM20_APOLLOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BABYDMON_SPRITE_SHEET_COLS, assets::DM20_BABYDMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BAKEMON_SPRITE_SHEET_COLS, assets::DM20_BAKEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BANCHO_MAMEMON_SPRITE_SHEET_COLS, assets::DM20_BANCHO_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BAO_HACKMON_SPRITE_SHEET_COLS, assets::DM20_BAO_HACKMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BETAMON_SPRITE_SHEET_COLS, assets::DM20_BETAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BIRDRAMON_SPRITE_SHEET_COLS, assets::DM20_BIRDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BLITZ_GREYMON_SPRITE_SHEET_COLS, assets::DM20_BLITZ_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BOTAMON_SPRITE_SHEET_COLS, assets::DM20_BOTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_BREAKDRAMON_SPRITE_SHEET_COLS, assets::DM20_BREAKDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_CENTALMON_SPRITE_SHEET_COLS, assets::DM20_CENTALMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_COCKATRIMON_SPRITE_SHEET_COLS, assets::DM20_COCKATRIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_COELAMON_SPRITE_SHEET_COLS, assets::DM20_COELAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_COREDRAMON_BLUE_SPRITE_SHEET_COLS, assets::DM20_COREDRAMON_BLUE_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_COREDRAMON_GREEN_SPRITE_SHEET_COLS, assets::DM20_COREDRAMON_GREEN_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_CORONAMON_SPRITE_SHEET_COLS, assets::DM20_CORONAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_CRESCEMON_SPRITE_SHEET_COLS, assets::DM20_CRESCEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_CRES_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_CRES_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_CYCLOMON_SPRITE_SHEET_COLS, assets::DM20_CYCLOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DARK_TYRANOMON_SPRITE_SHEET_COLS, assets::DM20_DARK_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DELTAMON_SPRITE_SHEET_COLS, assets::DM20_DELTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DEVIDRAMON_SPRITE_SHEET_COLS, assets::DM20_DEVIDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DEVIMON_SPRITE_SHEET_COLS, assets::DM20_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DIANAMON_SPRITE_SHEET_COLS, assets::DM20_DIANAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DIGITAMAMON_SPRITE_SHEET_COLS, assets::DM20_DIGITAMAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DODOMON_SPRITE_SHEET_COLS, assets::DM20_DODOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DORIMON_SPRITE_SHEET_COLS, assets::DM20_DORIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DORUGAMON_SPRITE_SHEET_COLS, assets::DM20_DORUGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DORUGUREMON_SPRITE_SHEET_COLS, assets::DM20_DORUGUREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DORUMON_SPRITE_SHEET_COLS, assets::DM20_DORUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DRACOMON_SPRITE_SHEET_COLS, assets::DM20_DRACOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DRIMOGEMON_SPRITE_SHEET_COLS, assets::DM20_DRIMOGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DURAMON_SPRITE_SHEET_COLS, assets::DM20_DURAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DURANDAMON_SPRITE_SHEET_COLS, assets::DM20_DURANDAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_DURANDRAMON_SPRITE_SHEET_COLS, assets::DM20_DURANDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ELECMON_SPRITE_SHEET_COLS, assets::DM20_ELECMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ETEMON_SPRITE_SHEET_COLS, assets::DM20_ETEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_EXAMON_SPRITE_SHEET_COLS, assets::DM20_EXAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_EX_TYRANOMON_SPRITE_SHEET_COLS, assets::DM20_EX_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_FIRAMON_SPRITE_SHEET_COLS, assets::DM20_FIRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_FLAREMON_SPRITE_SHEET_COLS, assets::DM20_FLAREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_FLYMON_SPRITE_SHEET_COLS, assets::DM20_FLYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GABUMON_SPRITE_SHEET_COLS, assets::DM20_GABUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GAZIMON_SPRITE_SHEET_COLS, assets::DM20_GAZIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GIROMON_SPRITE_SHEET_COLS, assets::DM20_GIROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GIZAMON_SPRITE_SHEET_COLS, assets::DM20_GIZAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GRACE_NOVAMON_SPRITE_SHEET_COLS, assets::DM20_GRACE_NOVAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GREYMON_SPRITE_SHEET_COLS, assets::DM20_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_GROUNDRAMON_SPRITE_SHEET_COLS, assets::DM20_GROUNDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_HACKMON_SPRITE_SHEET_COLS, assets::DM20_HACKMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_HI_ANDROMON_SPRITE_SHEET_COLS, assets::DM20_HI_ANDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_JESMON_SPRITE_SHEET_COLS, assets::DM20_JESMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_JIJIMON_SPRITE_SHEET_COLS, assets::DM20_JIJIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_KABUTERIMON_SPRITE_SHEET_COLS, assets::DM20_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_KING_ETEMON_SPRITE_SHEET_COLS, assets::DM20_KING_ETEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_KOROMON_SPRITE_SHEET_COLS, assets::DM20_KOROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_KUNEMON_SPRITE_SHEET_COLS, assets::DM20_KUNEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_KUWAGAMON_SPRITE_SHEET_COLS, assets::DM20_KUWAGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_LEKISMON_SPRITE_SHEET_COLS, assets::DM20_LEKISMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_LEOMON_SPRITE_SHEET_COLS, assets::DM20_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_LUNAMON_SPRITE_SHEET_COLS, assets::DM20_LUNAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MAMEMON_SPRITE_SHEET_COLS, assets::DM20_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MEGADRAMON_SPRITE_SHEET_COLS, assets::DM20_MEGADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MEICOOMON_SPRITE_SHEET_COLS, assets::DM20_MEICOOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MEICRACKMON_SPRITE_SHEET_COLS, assets::DM20_MEICRACKMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MERAMON_SPRITE_SHEET_COLS, assets::DM20_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_METAL_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_METAL_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_METAL_GREYMON_SPRITE_SHEET_COLS, assets::DM20_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_METAL_MAMEMON_SPRITE_SHEET_COLS, assets::DM20_METAL_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_METAL_TYRANOMON_SPRITE_SHEET_COLS, assets::DM20_METAL_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MOJYAMON_SPRITE_SHEET_COLS, assets::DM20_MOJYAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MONCHROMON_SPRITE_SHEET_COLS, assets::DM20_MONCHROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MONOCHROMON_SPRITE_SHEET_COLS, assets::DM20_MONOCHROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MONZAEMON_SPRITE_SHEET_COLS, assets::DM20_MONZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MOZAEMON_SPRITE_SHEET_COLS, assets::DM20_MOZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_MUGENDRAMON_SPRITE_SHEET_COLS, assets::DM20_MUGENDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_NANIMON_SPRITE_SHEET_COLS, assets::DM20_NANIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_NANOMON_SPRITE_SHEET_COLS, assets::DM20_NANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_NUMEMON_SPRITE_SHEET_COLS, assets::DM20_NUMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_NYAROMON_SPRITE_SHEET_COLS, assets::DM20_NYAROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_OGREMON_SPRITE_SHEET_COLS, assets::DM20_OGREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_OMEGAMON_ALTER_S_SPRITE_SHEET_COLS, assets::DM20_OMEGAMON_ALTER_S_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_OMEGAMON_SPRITE_SHEET_COLS, assets::DM20_OMEGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PAGUMON_SPRITE_SHEET_COLS, assets::DM20_PAGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PAKUMON_SPRITE_SHEET_COLS, assets::DM20_PAKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PALMON_SPRITE_SHEET_COLS, assets::DM20_PALMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PATAMON_SPRITE_SHEET_COLS, assets::DM20_PATAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PETITMON_SPRITE_SHEET_COLS, assets::DM20_PETITMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PICCOLOMON_SPRITE_SHEET_COLS, assets::DM20_PICCOLOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PINOCHIMON_SPRITE_SHEET_COLS, assets::DM20_PINOCHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PITCHMON_SPRITE_SHEET_COLS, assets::DM20_PITCHMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PIYOMON_SPRITE_SHEET_COLS, assets::DM20_PIYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PLOTMON_SPRITE_SHEET_COLS, assets::DM20_PLOTMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_POYOMON_SPRITE_SHEET_COLS, assets::DM20_POYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PUKAMON_SPRITE_SHEET_COLS, assets::DM20_PUKAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_PUNIMON_SPRITE_SHEET_COLS, assets::DM20_PUNIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_RAREMON_SPRITE_SHEET_COLS, assets::DM20_RAREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_RASIELMON_SPRITE_SHEET_COLS, assets::DM20_RASIELMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_RUST_TYRANOMON_SPRITE_SHEET_COLS, assets::DM20_RUST_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SAKUMON_SPRITE_SHEET_COLS, assets::DM20_SAKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SAKUTTOMON_SPRITE_SHEET_COLS, assets::DM20_SAKUTTOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SAVIOR_HACKMON_SPRITE_SHEET_COLS, assets::DM20_SAVIOR_HACKMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SCUMON_SPRITE_SHEET_COLS, assets::DM20_SCUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SEADRAMON_SPRITE_SHEET_COLS, assets::DM20_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SHELLMON_SPRITE_SHEET_COLS, assets::DM20_SHELLMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SKULL_GREYMON_SPRITE_SHEET_COLS, assets::DM20_SKULL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SKULL_MAMMON_SPRITE_SHEET_COLS, assets::DM20_SKULL_MAMMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_SLAYERDRAMON_SPRITE_SHEET_COLS, assets::DM20_SLAYERDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TAICHI_METAL_GREYMON_SPRITE_SHEET_COLS, assets::DM20_TAICHI_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TAICHIS_AGUMON_SPRITE_SHEET_COLS, assets::DM20_TAICHIS_AGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TAICHIS_GREYMON_SPRITE_SHEET_COLS, assets::DM20_TAICHIS_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TAICHIS_METAL_GREYMON_SPRITE_SHEET_COLS, assets::DM20_TAICHIS_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TAICHIS_WAR_GREYMON_SPRITE_SHEET_COLS, assets::DM20_TAICHIS_WAR_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TANEMON_SPRITE_SHEET_COLS, assets::DM20_TANEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TITAMON_SPRITE_SHEET_COLS, assets::DM20_TITAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TOKOMON_SPRITE_SHEET_COLS, assets::DM20_TOKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TSUNOMON_SPRITE_SHEET_COLS, assets::DM20_TSUNOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TUNOMON_SPRITE_SHEET_COLS, assets::DM20_TUNOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TUSKMON_SPRITE_SHEET_COLS, assets::DM20_TUSKMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_TYRANOMON_SPRITE_SHEET_COLS, assets::DM20_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_UNIMON_SPRITE_SHEET_COLS, assets::DM20_UNIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_VADEMON_SPRITE_SHEET_COLS, assets::DM20_VADEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_VEGIMON_SPRITE_SHEET_COLS, assets::DM20_VEGIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_WAR_GREYMON_SPRITE_SHEET_COLS, assets::DM20_WAR_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_WERE_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_WERE_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_WHAMON_SPRITE_SHEET_COLS, assets::DM20_WHAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_WINGDRAMON_SPRITE_SHEET_COLS, assets::DM20_WINGDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YAMATO_GABUMON_SPRITE_SHEET_COLS, assets::DM20_YAMATO_GABUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YAMATOS_GABUMON_SPRITE_SHEET_COLS, assets::DM20_YAMATOS_GABUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YAMATOS_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_YAMATOS_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YAMATOS_METAL_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_YAMATOS_METAL_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YAMATOS_WERE_GARURUMON_SPRITE_SHEET_COLS, assets::DM20_YAMATOS_WERE_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YUKIDARUMON_SPRITE_SHEET_COLS, assets::DM20_YUKIDARUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YUKIMI_BOTAMON_SPRITE_SHEET_COLS, assets::DM20_YUKIMI_BOTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_YURAMON_SPRITE_SHEET_COLS, assets::DM20_YURAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ZUBAEAGERMON_SPRITE_SHEET_COLS, assets::DM20_ZUBAEAGERMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ZUBAMON_SPRITE_SHEET_COLS, assets::DM20_ZUBAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM20_ZURUMON_SPRITE_SHEET_COLS, assets::DM20_ZURUMON_SPRITE_SHEET_ROWS}, 
+        
+    };
+    static const unsigned char* dm20_pngs_table[] = {
+        dm20_aegisdramon_png, 
+        dm20_agumon_png, 
+        dm20_airdramon_png, 
+        dm20_alphamon_png, 
+        dm20_andromon_png, 
+        dm20_angemon_png, 
+        dm20_apollomon_png, 
+        dm20_babydmon_png, 
+        dm20_bakemon_png, 
+        dm20_bancho_mamemon_png, 
+        dm20_bao_hackmon_png, 
+        dm20_betamon_png, 
+        dm20_birdramon_png, 
+        dm20_blitz_greymon_png, 
+        dm20_botamon_png, 
+        dm20_breakdramon_png, 
+        dm20_centalmon_png, 
+        dm20_cockatrimon_png, 
+        dm20_coelamon_png, 
+        dm20_coredramon_blue_png, 
+        dm20_coredramon_green_png, 
+        dm20_coronamon_png, 
+        dm20_crescemon_png, 
+        dm20_cres_garurumon_png, 
+        dm20_cyclomon_png, 
+        dm20_dark_tyranomon_png, 
+        dm20_deltamon_png, 
+        dm20_devidramon_png, 
+        dm20_devimon_png, 
+        dm20_dianamon_png, 
+        dm20_digitamamon_png, 
+        dm20_dodomon_png, 
+        dm20_dorimon_png, 
+        dm20_dorugamon_png, 
+        dm20_doruguremon_png, 
+        dm20_dorumon_png, 
+        dm20_dracomon_png, 
+        dm20_drimogemon_png, 
+        dm20_duramon_png, 
+        dm20_durandamon_png, 
+        dm20_durandramon_png, 
+        dm20_elecmon_png, 
+        dm20_etemon_png, 
+        dm20_examon_png, 
+        dm20_ex_tyranomon_png, 
+        dm20_firamon_png, 
+        dm20_flaremon_png, 
+        dm20_flymon_png, 
+        dm20_gabumon_png, 
+        dm20_garurumon_png, 
+        dm20_gazimon_png, 
+        dm20_giromon_png, 
+        dm20_gizamon_png, 
+        dm20_grace_novamon_png, 
+        dm20_greymon_png, 
+        dm20_groundramon_png, 
+        dm20_hackmon_png, 
+        dm20_hi_andromon_png, 
+        dm20_jesmon_png, 
+        dm20_jijimon_png, 
+        dm20_kabuterimon_png, 
+        dm20_king_etemon_png, 
+        dm20_koromon_png, 
+        dm20_kunemon_png, 
+        dm20_kuwagamon_png, 
+        dm20_lekismon_png, 
+        dm20_leomon_png, 
+        dm20_lunamon_png, 
+        dm20_mamemon_png, 
+        dm20_megadramon_png, 
+        dm20_meicoomon_png, 
+        dm20_meicrackmon_png, 
+        dm20_meramon_png, 
+        dm20_metal_garurumon_png, 
+        dm20_metal_greymon_png, 
+        dm20_metal_mamemon_png, 
+        dm20_metal_tyranomon_png, 
+        dm20_mojyamon_png, 
+        dm20_monchromon_png, 
+        dm20_monochromon_png, 
+        dm20_monzaemon_png, 
+        dm20_mozaemon_png, 
+        dm20_mugendramon_png, 
+        dm20_nanimon_png, 
+        dm20_nanomon_png, 
+        dm20_numemon_png, 
+        dm20_nyaromon_png, 
+        dm20_ogremon_png, 
+        dm20_omegamon_alter_s_png, 
+        dm20_omegamon_png, 
+        dm20_pagumon_png, 
+        dm20_pakumon_png, 
+        dm20_palmon_png, 
+        dm20_patamon_png, 
+        dm20_petitmon_png, 
+        dm20_piccolomon_png, 
+        dm20_pinochimon_png, 
+        dm20_pitchmon_png, 
+        dm20_piyomon_png, 
+        dm20_plotmon_png, 
+        dm20_poyomon_png, 
+        dm20_pukamon_png, 
+        dm20_punimon_png, 
+        dm20_raremon_png, 
+        dm20_rasielmon_png, 
+        dm20_rust_tyranomon_png, 
+        dm20_sakumon_png, 
+        dm20_sakuttomon_png, 
+        dm20_savior_hackmon_png, 
+        dm20_scumon_png, 
+        dm20_seadramon_png, 
+        dm20_shellmon_png, 
+        dm20_skull_greymon_png, 
+        dm20_skull_mammon_png, 
+        dm20_slayerdramon_png, 
+        dm20_taichi_metal_greymon_png, 
+        dm20_taichis_agumon_png, 
+        dm20_taichis_greymon_png, 
+        dm20_taichis_metal_greymon_png, 
+        dm20_taichis_war_greymon_png, 
+        dm20_tanemon_png, 
+        dm20_titamon_png, 
+        dm20_tokomon_png, 
+        dm20_tsunomon_png, 
+        dm20_tunomon_png, 
+        dm20_tuskmon_png, 
+        dm20_tyranomon_png, 
+        dm20_unimon_png, 
+        dm20_vademon_png, 
+        dm20_vegimon_png, 
+        dm20_war_greymon_png, 
+        dm20_were_garurumon_png, 
+        dm20_whamon_png, 
+        dm20_wingdramon_png, 
+        dm20_yamato_gabumon_png, 
+        dm20_yamatos_gabumon_png, 
+        dm20_yamatos_garurumon_png, 
+        dm20_yamatos_metal_garurumon_png, 
+        dm20_yamatos_were_garurumon_png, 
+        dm20_yukidarumon_png, 
+        dm20_yukimi_botamon_png, 
+        dm20_yuramon_png, 
+        dm20_zubaeagermon_png, 
+        dm20_zubamon_png, 
+        dm20_zurumon_png, 
+        
+    };
+    static const size_t dm20_png_sizes_table[] = {
+        dm20_aegisdramon_png_size, 
+        dm20_agumon_png_size, 
+        dm20_airdramon_png_size, 
+        dm20_alphamon_png_size, 
+        dm20_andromon_png_size, 
+        dm20_angemon_png_size, 
+        dm20_apollomon_png_size, 
+        dm20_babydmon_png_size, 
+        dm20_bakemon_png_size, 
+        dm20_bancho_mamemon_png_size, 
+        dm20_bao_hackmon_png_size, 
+        dm20_betamon_png_size, 
+        dm20_birdramon_png_size, 
+        dm20_blitz_greymon_png_size, 
+        dm20_botamon_png_size, 
+        dm20_breakdramon_png_size, 
+        dm20_centalmon_png_size, 
+        dm20_cockatrimon_png_size, 
+        dm20_coelamon_png_size, 
+        dm20_coredramon_blue_png_size, 
+        dm20_coredramon_green_png_size, 
+        dm20_coronamon_png_size, 
+        dm20_crescemon_png_size, 
+        dm20_cres_garurumon_png_size, 
+        dm20_cyclomon_png_size, 
+        dm20_dark_tyranomon_png_size, 
+        dm20_deltamon_png_size, 
+        dm20_devidramon_png_size, 
+        dm20_devimon_png_size, 
+        dm20_dianamon_png_size, 
+        dm20_digitamamon_png_size, 
+        dm20_dodomon_png_size, 
+        dm20_dorimon_png_size, 
+        dm20_dorugamon_png_size, 
+        dm20_doruguremon_png_size, 
+        dm20_dorumon_png_size, 
+        dm20_dracomon_png_size, 
+        dm20_drimogemon_png_size, 
+        dm20_duramon_png_size, 
+        dm20_durandamon_png_size, 
+        dm20_durandramon_png_size, 
+        dm20_elecmon_png_size, 
+        dm20_etemon_png_size, 
+        dm20_examon_png_size, 
+        dm20_ex_tyranomon_png_size, 
+        dm20_firamon_png_size, 
+        dm20_flaremon_png_size, 
+        dm20_flymon_png_size, 
+        dm20_gabumon_png_size, 
+        dm20_garurumon_png_size, 
+        dm20_gazimon_png_size, 
+        dm20_giromon_png_size, 
+        dm20_gizamon_png_size, 
+        dm20_grace_novamon_png_size, 
+        dm20_greymon_png_size, 
+        dm20_groundramon_png_size, 
+        dm20_hackmon_png_size, 
+        dm20_hi_andromon_png_size, 
+        dm20_jesmon_png_size, 
+        dm20_jijimon_png_size, 
+        dm20_kabuterimon_png_size, 
+        dm20_king_etemon_png_size, 
+        dm20_koromon_png_size, 
+        dm20_kunemon_png_size, 
+        dm20_kuwagamon_png_size, 
+        dm20_lekismon_png_size, 
+        dm20_leomon_png_size, 
+        dm20_lunamon_png_size, 
+        dm20_mamemon_png_size, 
+        dm20_megadramon_png_size, 
+        dm20_meicoomon_png_size, 
+        dm20_meicrackmon_png_size, 
+        dm20_meramon_png_size, 
+        dm20_metal_garurumon_png_size, 
+        dm20_metal_greymon_png_size, 
+        dm20_metal_mamemon_png_size, 
+        dm20_metal_tyranomon_png_size, 
+        dm20_mojyamon_png_size, 
+        dm20_monchromon_png_size, 
+        dm20_monochromon_png_size, 
+        dm20_monzaemon_png_size, 
+        dm20_mozaemon_png_size, 
+        dm20_mugendramon_png_size, 
+        dm20_nanimon_png_size, 
+        dm20_nanomon_png_size, 
+        dm20_numemon_png_size, 
+        dm20_nyaromon_png_size, 
+        dm20_ogremon_png_size, 
+        dm20_omegamon_alter_s_png_size, 
+        dm20_omegamon_png_size, 
+        dm20_pagumon_png_size, 
+        dm20_pakumon_png_size, 
+        dm20_palmon_png_size, 
+        dm20_patamon_png_size, 
+        dm20_petitmon_png_size, 
+        dm20_piccolomon_png_size, 
+        dm20_pinochimon_png_size, 
+        dm20_pitchmon_png_size, 
+        dm20_piyomon_png_size, 
+        dm20_plotmon_png_size, 
+        dm20_poyomon_png_size, 
+        dm20_pukamon_png_size, 
+        dm20_punimon_png_size, 
+        dm20_raremon_png_size, 
+        dm20_rasielmon_png_size, 
+        dm20_rust_tyranomon_png_size, 
+        dm20_sakumon_png_size, 
+        dm20_sakuttomon_png_size, 
+        dm20_savior_hackmon_png_size, 
+        dm20_scumon_png_size, 
+        dm20_seadramon_png_size, 
+        dm20_shellmon_png_size, 
+        dm20_skull_greymon_png_size, 
+        dm20_skull_mammon_png_size, 
+        dm20_slayerdramon_png_size, 
+        dm20_taichi_metal_greymon_png_size, 
+        dm20_taichis_agumon_png_size, 
+        dm20_taichis_greymon_png_size, 
+        dm20_taichis_metal_greymon_png_size, 
+        dm20_taichis_war_greymon_png_size, 
+        dm20_tanemon_png_size, 
+        dm20_titamon_png_size, 
+        dm20_tokomon_png_size, 
+        dm20_tsunomon_png_size, 
+        dm20_tunomon_png_size, 
+        dm20_tuskmon_png_size, 
+        dm20_tyranomon_png_size, 
+        dm20_unimon_png_size, 
+        dm20_vademon_png_size, 
+        dm20_vegimon_png_size, 
+        dm20_war_greymon_png_size, 
+        dm20_were_garurumon_png_size, 
+        dm20_whamon_png_size, 
+        dm20_wingdramon_png_size, 
+        dm20_yamato_gabumon_png_size, 
+        dm20_yamatos_gabumon_png_size, 
+        dm20_yamatos_garurumon_png_size, 
+        dm20_yamatos_metal_garurumon_png_size, 
+        dm20_yamatos_were_garurumon_png_size, 
+        dm20_yukidarumon_png_size, 
+        dm20_yukimi_botamon_png_size, 
+        dm20_yuramon_png_size, 
+        dm20_zubaeagermon_png_size, 
+        dm20_zubamon_png_size, 
+        dm20_zurumon_png_size, 
+        
+    };
+    static const char* dm20_names_table[] = {
+        "aegisdramon", 
+        "agumon", 
+        "airdramon", 
+        "alphamon", 
+        "andromon", 
+        "angemon", 
+        "apollomon", 
+        "babydmon", 
+        "bakemon", 
+        "bancho_mamemon", 
+        "bao_hackmon", 
+        "betamon", 
+        "birdramon", 
+        "blitz_greymon", 
+        "botamon", 
+        "breakdramon", 
+        "centalmon", 
+        "cockatrimon", 
+        "coelamon", 
+        "coredramon_blue", 
+        "coredramon_green", 
+        "coronamon", 
+        "crescemon", 
+        "cres_garurumon", 
+        "cyclomon", 
+        "dark_tyranomon", 
+        "deltamon", 
+        "devidramon", 
+        "devimon", 
+        "dianamon", 
+        "digitamamon", 
+        "dodomon", 
+        "dorimon", 
+        "dorugamon", 
+        "doruguremon", 
+        "dorumon", 
+        "dracomon", 
+        "drimogemon", 
+        "duramon", 
+        "durandamon", 
+        "durandramon", 
+        "elecmon", 
+        "etemon", 
+        "examon", 
+        "ex_tyranomon", 
+        "firamon", 
+        "flaremon", 
+        "flymon", 
+        "gabumon", 
+        "garurumon", 
+        "gazimon", 
+        "giromon", 
+        "gizamon", 
+        "grace_novamon", 
+        "greymon", 
+        "groundramon", 
+        "hackmon", 
+        "hi_andromon", 
+        "jesmon", 
+        "jijimon", 
+        "kabuterimon", 
+        "king_etemon", 
+        "koromon", 
+        "kunemon", 
+        "kuwagamon", 
+        "lekismon", 
+        "leomon", 
+        "lunamon", 
+        "mamemon", 
+        "megadramon", 
+        "meicoomon", 
+        "meicrackmon", 
+        "meramon", 
+        "metal_garurumon", 
+        "metal_greymon", 
+        "metal_mamemon", 
+        "metal_tyranomon", 
+        "mojyamon", 
+        "monchromon", 
+        "monochromon", 
+        "monzaemon", 
+        "mozaemon", 
+        "mugendramon", 
+        "nanimon", 
+        "nanomon", 
+        "numemon", 
+        "nyaromon", 
+        "ogremon", 
+        "omegamon_alter_s", 
+        "omegamon", 
+        "pagumon", 
+        "pakumon", 
+        "palmon", 
+        "patamon", 
+        "petitmon", 
+        "piccolomon", 
+        "pinochimon", 
+        "pitchmon", 
+        "piyomon", 
+        "plotmon", 
+        "poyomon", 
+        "pukamon", 
+        "punimon", 
+        "raremon", 
+        "rasielmon", 
+        "rust_tyranomon", 
+        "sakumon", 
+        "sakuttomon", 
+        "savior_hackmon", 
+        "scumon", 
+        "seadramon", 
+        "shellmon", 
+        "skull_greymon", 
+        "skull_mammon", 
+        "slayerdramon", 
+        "taichi_metal_greymon", 
+        "taichis_agumon", 
+        "taichis_greymon", 
+        "taichis_metal_greymon", 
+        "taichis_war_greymon", 
+        "tanemon", 
+        "titamon", 
+        "tokomon", 
+        "tsunomon", 
+        "tunomon", 
+        "tuskmon", 
+        "tyranomon", 
+        "unimon", 
+        "vademon", 
+        "vegimon", 
+        "war_greymon", 
+        "were_garurumon", 
+        "whamon", 
+        "wingdramon", 
+        "yamato_gabumon", 
+        "yamatos_gabumon", 
+        "yamatos_garurumon", 
+        "yamatos_metal_garurumon", 
+        "yamatos_were_garurumon", 
+        "yukidarumon", 
+        "yukimi_botamon", 
+        "yuramon", 
+        "zubaeagermon", 
+        "zubamon", 
+        "zurumon", 
+        
+    };
+    created_result_t<dm_sprite_sheet_t> load_dm20_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
         using namespace assets;
-        switch (index) {
-            case DM20_AEGISDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_AEGISDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_AEGISDRAMON_ANIM_INDEX), DM20_AEGISDRAMON_SPRITE_SHEET_COLS, DM20_AEGISDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_AGUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_AGUMON_ANIM_INDEX), DM20_AGUMON_SPRITE_SHEET_COLS, DM20_AGUMON_SPRITE_SHEET_ROWS);
-            case DM20_AIRDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_AIRDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_AIRDRAMON_ANIM_INDEX), DM20_AIRDRAMON_SPRITE_SHEET_COLS, DM20_AIRDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_ALPHAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ALPHAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ALPHAMON_ANIM_INDEX), DM20_ALPHAMON_SPRITE_SHEET_COLS, DM20_ALPHAMON_SPRITE_SHEET_ROWS);
-            case DM20_ANDROMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ANDROMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ANDROMON_ANIM_INDEX), DM20_ANDROMON_SPRITE_SHEET_COLS, DM20_ANDROMON_SPRITE_SHEET_ROWS);
-            case DM20_ANGEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ANGEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ANGEMON_ANIM_INDEX), DM20_ANGEMON_SPRITE_SHEET_COLS, DM20_ANGEMON_SPRITE_SHEET_ROWS);
-            case DM20_APOLLOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_APOLLOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_APOLLOMON_ANIM_INDEX), DM20_APOLLOMON_SPRITE_SHEET_COLS, DM20_APOLLOMON_SPRITE_SHEET_ROWS);
-            case DM20_BABYDMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BABYDMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BABYDMON_ANIM_INDEX), DM20_BABYDMON_SPRITE_SHEET_COLS, DM20_BABYDMON_SPRITE_SHEET_ROWS);
-            case DM20_BAKEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BAKEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BAKEMON_ANIM_INDEX), DM20_BAKEMON_SPRITE_SHEET_COLS, DM20_BAKEMON_SPRITE_SHEET_ROWS);
-            case DM20_BANCHO_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BANCHO_MAMEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BANCHO_MAMEMON_ANIM_INDEX), DM20_BANCHO_MAMEMON_SPRITE_SHEET_COLS, DM20_BANCHO_MAMEMON_SPRITE_SHEET_ROWS);
-            case DM20_BAO_HACKMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BAO_HACKMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BAO_HACKMON_ANIM_INDEX), DM20_BAO_HACKMON_SPRITE_SHEET_COLS, DM20_BAO_HACKMON_SPRITE_SHEET_ROWS);
-            case DM20_BETAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BETAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BETAMON_ANIM_INDEX), DM20_BETAMON_SPRITE_SHEET_COLS, DM20_BETAMON_SPRITE_SHEET_ROWS);
-            case DM20_BIRDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BIRDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BIRDRAMON_ANIM_INDEX), DM20_BIRDRAMON_SPRITE_SHEET_COLS, DM20_BIRDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_BLITZ_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BLITZ_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BLITZ_GREYMON_ANIM_INDEX), DM20_BLITZ_GREYMON_SPRITE_SHEET_COLS, DM20_BLITZ_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_BOTAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BOTAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BOTAMON_ANIM_INDEX), DM20_BOTAMON_SPRITE_SHEET_COLS, DM20_BOTAMON_SPRITE_SHEET_ROWS);
-            case DM20_BREAKDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_BREAKDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_BREAKDRAMON_ANIM_INDEX), DM20_BREAKDRAMON_SPRITE_SHEET_COLS, DM20_BREAKDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_CENTALMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_CENTALMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_CENTALMON_ANIM_INDEX), DM20_CENTALMON_SPRITE_SHEET_COLS, DM20_CENTALMON_SPRITE_SHEET_ROWS);
-            case DM20_COCKATRIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_COCKATRIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_COCKATRIMON_ANIM_INDEX), DM20_COCKATRIMON_SPRITE_SHEET_COLS, DM20_COCKATRIMON_SPRITE_SHEET_ROWS);
-            case DM20_COELAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_COELAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_COELAMON_ANIM_INDEX), DM20_COELAMON_SPRITE_SHEET_COLS, DM20_COELAMON_SPRITE_SHEET_ROWS);
-            case DM20_COREDRAMON_BLUE_ANIM_INDEX: return load_dm_anim(ctx, DM20_COREDRAMON_BLUE_ANIM_INDEX, get_dm20_sprite_sheet(DM20_COREDRAMON_BLUE_ANIM_INDEX), DM20_COREDRAMON_BLUE_SPRITE_SHEET_COLS, DM20_COREDRAMON_BLUE_SPRITE_SHEET_ROWS);
-            case DM20_COREDRAMON_GREEN_ANIM_INDEX: return load_dm_anim(ctx, DM20_COREDRAMON_GREEN_ANIM_INDEX, get_dm20_sprite_sheet(DM20_COREDRAMON_GREEN_ANIM_INDEX), DM20_COREDRAMON_GREEN_SPRITE_SHEET_COLS, DM20_COREDRAMON_GREEN_SPRITE_SHEET_ROWS);
-            case DM20_CORONAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_CORONAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_CORONAMON_ANIM_INDEX), DM20_CORONAMON_SPRITE_SHEET_COLS, DM20_CORONAMON_SPRITE_SHEET_ROWS);
-            case DM20_CRESCEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_CRESCEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_CRESCEMON_ANIM_INDEX), DM20_CRESCEMON_SPRITE_SHEET_COLS, DM20_CRESCEMON_SPRITE_SHEET_ROWS);
-            case DM20_CRES_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_CRES_GARURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_CRES_GARURUMON_ANIM_INDEX), DM20_CRES_GARURUMON_SPRITE_SHEET_COLS, DM20_CRES_GARURUMON_SPRITE_SHEET_ROWS);
-            case DM20_CYCLOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_CYCLOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_CYCLOMON_ANIM_INDEX), DM20_CYCLOMON_SPRITE_SHEET_COLS, DM20_CYCLOMON_SPRITE_SHEET_ROWS);
-            case DM20_DARK_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DARK_TYRANOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DARK_TYRANOMON_ANIM_INDEX), DM20_DARK_TYRANOMON_SPRITE_SHEET_COLS, DM20_DARK_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DM20_DELTAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DELTAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DELTAMON_ANIM_INDEX), DM20_DELTAMON_SPRITE_SHEET_COLS, DM20_DELTAMON_SPRITE_SHEET_ROWS);
-            case DM20_DEVIDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DEVIDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DEVIDRAMON_ANIM_INDEX), DM20_DEVIDRAMON_SPRITE_SHEET_COLS, DM20_DEVIDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DEVIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DEVIMON_ANIM_INDEX), DM20_DEVIMON_SPRITE_SHEET_COLS, DM20_DEVIMON_SPRITE_SHEET_ROWS);
-            case DM20_DIANAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DIANAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DIANAMON_ANIM_INDEX), DM20_DIANAMON_SPRITE_SHEET_COLS, DM20_DIANAMON_SPRITE_SHEET_ROWS);
-            case DM20_DIGITAMAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DIGITAMAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DIGITAMAMON_ANIM_INDEX), DM20_DIGITAMAMON_SPRITE_SHEET_COLS, DM20_DIGITAMAMON_SPRITE_SHEET_ROWS);
-            case DM20_DODOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DODOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DODOMON_ANIM_INDEX), DM20_DODOMON_SPRITE_SHEET_COLS, DM20_DODOMON_SPRITE_SHEET_ROWS);
-            case DM20_DORIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DORIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DORIMON_ANIM_INDEX), DM20_DORIMON_SPRITE_SHEET_COLS, DM20_DORIMON_SPRITE_SHEET_ROWS);
-            case DM20_DORUGAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DORUGAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DORUGAMON_ANIM_INDEX), DM20_DORUGAMON_SPRITE_SHEET_COLS, DM20_DORUGAMON_SPRITE_SHEET_ROWS);
-            case DM20_DORUGUREMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DORUGUREMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DORUGUREMON_ANIM_INDEX), DM20_DORUGUREMON_SPRITE_SHEET_COLS, DM20_DORUGUREMON_SPRITE_SHEET_ROWS);
-            case DM20_DORUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DORUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DORUMON_ANIM_INDEX), DM20_DORUMON_SPRITE_SHEET_COLS, DM20_DORUMON_SPRITE_SHEET_ROWS);
-            case DM20_DRACOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DRACOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DRACOMON_ANIM_INDEX), DM20_DRACOMON_SPRITE_SHEET_COLS, DM20_DRACOMON_SPRITE_SHEET_ROWS);
-            case DM20_DRIMOGEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DRIMOGEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DRIMOGEMON_ANIM_INDEX), DM20_DRIMOGEMON_SPRITE_SHEET_COLS, DM20_DRIMOGEMON_SPRITE_SHEET_ROWS);
-            case DM20_DURAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DURAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DURAMON_ANIM_INDEX), DM20_DURAMON_SPRITE_SHEET_COLS, DM20_DURAMON_SPRITE_SHEET_ROWS);
-            case DM20_DURANDAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DURANDAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DURANDAMON_ANIM_INDEX), DM20_DURANDAMON_SPRITE_SHEET_COLS, DM20_DURANDAMON_SPRITE_SHEET_ROWS);
-            case DM20_DURANDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_DURANDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_DURANDRAMON_ANIM_INDEX), DM20_DURANDRAMON_SPRITE_SHEET_COLS, DM20_DURANDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_ELECMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ELECMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ELECMON_ANIM_INDEX), DM20_ELECMON_SPRITE_SHEET_COLS, DM20_ELECMON_SPRITE_SHEET_ROWS);
-            case DM20_ETEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ETEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ETEMON_ANIM_INDEX), DM20_ETEMON_SPRITE_SHEET_COLS, DM20_ETEMON_SPRITE_SHEET_ROWS);
-            case DM20_EXAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_EXAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_EXAMON_ANIM_INDEX), DM20_EXAMON_SPRITE_SHEET_COLS, DM20_EXAMON_SPRITE_SHEET_ROWS);
-            case DM20_EX_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_EX_TYRANOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_EX_TYRANOMON_ANIM_INDEX), DM20_EX_TYRANOMON_SPRITE_SHEET_COLS, DM20_EX_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DM20_FIRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_FIRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_FIRAMON_ANIM_INDEX), DM20_FIRAMON_SPRITE_SHEET_COLS, DM20_FIRAMON_SPRITE_SHEET_ROWS);
-            case DM20_FLAREMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_FLAREMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_FLAREMON_ANIM_INDEX), DM20_FLAREMON_SPRITE_SHEET_COLS, DM20_FLAREMON_SPRITE_SHEET_ROWS);
-            case DM20_FLYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_FLYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_FLYMON_ANIM_INDEX), DM20_FLYMON_SPRITE_SHEET_COLS, DM20_FLYMON_SPRITE_SHEET_ROWS);
-            case DM20_GABUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GABUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GABUMON_ANIM_INDEX), DM20_GABUMON_SPRITE_SHEET_COLS, DM20_GABUMON_SPRITE_SHEET_ROWS);
-            case DM20_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GARURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GARURUMON_ANIM_INDEX), DM20_GARURUMON_SPRITE_SHEET_COLS, DM20_GARURUMON_SPRITE_SHEET_ROWS);
-            case DM20_GAZIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GAZIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GAZIMON_ANIM_INDEX), DM20_GAZIMON_SPRITE_SHEET_COLS, DM20_GAZIMON_SPRITE_SHEET_ROWS);
-            case DM20_GIROMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GIROMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GIROMON_ANIM_INDEX), DM20_GIROMON_SPRITE_SHEET_COLS, DM20_GIROMON_SPRITE_SHEET_ROWS);
-            case DM20_GIZAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GIZAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GIZAMON_ANIM_INDEX), DM20_GIZAMON_SPRITE_SHEET_COLS, DM20_GIZAMON_SPRITE_SHEET_ROWS);
-            case DM20_GRACE_NOVAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GRACE_NOVAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GRACE_NOVAMON_ANIM_INDEX), DM20_GRACE_NOVAMON_SPRITE_SHEET_COLS, DM20_GRACE_NOVAMON_SPRITE_SHEET_ROWS);
-            case DM20_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GREYMON_ANIM_INDEX), DM20_GREYMON_SPRITE_SHEET_COLS, DM20_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_GROUNDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_GROUNDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_GROUNDRAMON_ANIM_INDEX), DM20_GROUNDRAMON_SPRITE_SHEET_COLS, DM20_GROUNDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_HACKMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_HACKMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_HACKMON_ANIM_INDEX), DM20_HACKMON_SPRITE_SHEET_COLS, DM20_HACKMON_SPRITE_SHEET_ROWS);
-            case DM20_HI_ANDROMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_HI_ANDROMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_HI_ANDROMON_ANIM_INDEX), DM20_HI_ANDROMON_SPRITE_SHEET_COLS, DM20_HI_ANDROMON_SPRITE_SHEET_ROWS);
-            case DM20_JESMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_JESMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_JESMON_ANIM_INDEX), DM20_JESMON_SPRITE_SHEET_COLS, DM20_JESMON_SPRITE_SHEET_ROWS);
-            case DM20_JIJIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_JIJIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_JIJIMON_ANIM_INDEX), DM20_JIJIMON_SPRITE_SHEET_COLS, DM20_JIJIMON_SPRITE_SHEET_ROWS);
-            case DM20_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_KABUTERIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_KABUTERIMON_ANIM_INDEX), DM20_KABUTERIMON_SPRITE_SHEET_COLS, DM20_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case DM20_KING_ETEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_KING_ETEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_KING_ETEMON_ANIM_INDEX), DM20_KING_ETEMON_SPRITE_SHEET_COLS, DM20_KING_ETEMON_SPRITE_SHEET_ROWS);
-            case DM20_KOROMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_KOROMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_KOROMON_ANIM_INDEX), DM20_KOROMON_SPRITE_SHEET_COLS, DM20_KOROMON_SPRITE_SHEET_ROWS);
-            case DM20_KUNEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_KUNEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_KUNEMON_ANIM_INDEX), DM20_KUNEMON_SPRITE_SHEET_COLS, DM20_KUNEMON_SPRITE_SHEET_ROWS);
-            case DM20_KUWAGAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_KUWAGAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_KUWAGAMON_ANIM_INDEX), DM20_KUWAGAMON_SPRITE_SHEET_COLS, DM20_KUWAGAMON_SPRITE_SHEET_ROWS);
-            case DM20_LEKISMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_LEKISMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_LEKISMON_ANIM_INDEX), DM20_LEKISMON_SPRITE_SHEET_COLS, DM20_LEKISMON_SPRITE_SHEET_ROWS);
-            case DM20_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_LEOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_LEOMON_ANIM_INDEX), DM20_LEOMON_SPRITE_SHEET_COLS, DM20_LEOMON_SPRITE_SHEET_ROWS);
-            case DM20_LUNAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_LUNAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_LUNAMON_ANIM_INDEX), DM20_LUNAMON_SPRITE_SHEET_COLS, DM20_LUNAMON_SPRITE_SHEET_ROWS);
-            case DM20_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MAMEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MAMEMON_ANIM_INDEX), DM20_MAMEMON_SPRITE_SHEET_COLS, DM20_MAMEMON_SPRITE_SHEET_ROWS);
-            case DM20_MEGADRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MEGADRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MEGADRAMON_ANIM_INDEX), DM20_MEGADRAMON_SPRITE_SHEET_COLS, DM20_MEGADRAMON_SPRITE_SHEET_ROWS);
-            case DM20_MEICOOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MEICOOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MEICOOMON_ANIM_INDEX), DM20_MEICOOMON_SPRITE_SHEET_COLS, DM20_MEICOOMON_SPRITE_SHEET_ROWS);
-            case DM20_MEICRACKMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MEICRACKMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MEICRACKMON_ANIM_INDEX), DM20_MEICRACKMON_SPRITE_SHEET_COLS, DM20_MEICRACKMON_SPRITE_SHEET_ROWS);
-            case DM20_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MERAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MERAMON_ANIM_INDEX), DM20_MERAMON_SPRITE_SHEET_COLS, DM20_MERAMON_SPRITE_SHEET_ROWS);
-            case DM20_METAL_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_METAL_GARURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_METAL_GARURUMON_ANIM_INDEX), DM20_METAL_GARURUMON_SPRITE_SHEET_COLS, DM20_METAL_GARURUMON_SPRITE_SHEET_ROWS);
-            case DM20_METAL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_METAL_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_METAL_GREYMON_ANIM_INDEX), DM20_METAL_GREYMON_SPRITE_SHEET_COLS, DM20_METAL_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_METAL_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_METAL_MAMEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_METAL_MAMEMON_ANIM_INDEX), DM20_METAL_MAMEMON_SPRITE_SHEET_COLS, DM20_METAL_MAMEMON_SPRITE_SHEET_ROWS);
-            case DM20_METAL_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_METAL_TYRANOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_METAL_TYRANOMON_ANIM_INDEX), DM20_METAL_TYRANOMON_SPRITE_SHEET_COLS, DM20_METAL_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DM20_MOJYAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MOJYAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MOJYAMON_ANIM_INDEX), DM20_MOJYAMON_SPRITE_SHEET_COLS, DM20_MOJYAMON_SPRITE_SHEET_ROWS);
-            case DM20_MONCHROMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MONCHROMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MONCHROMON_ANIM_INDEX), DM20_MONCHROMON_SPRITE_SHEET_COLS, DM20_MONCHROMON_SPRITE_SHEET_ROWS);
-            case DM20_MONOCHROMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MONOCHROMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MONOCHROMON_ANIM_INDEX), DM20_MONOCHROMON_SPRITE_SHEET_COLS, DM20_MONOCHROMON_SPRITE_SHEET_ROWS);
-            case DM20_MONZAEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MONZAEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MONZAEMON_ANIM_INDEX), DM20_MONZAEMON_SPRITE_SHEET_COLS, DM20_MONZAEMON_SPRITE_SHEET_ROWS);
-            case DM20_MOZAEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MOZAEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MOZAEMON_ANIM_INDEX), DM20_MOZAEMON_SPRITE_SHEET_COLS, DM20_MOZAEMON_SPRITE_SHEET_ROWS);
-            case DM20_MUGENDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_MUGENDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_MUGENDRAMON_ANIM_INDEX), DM20_MUGENDRAMON_SPRITE_SHEET_COLS, DM20_MUGENDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_NANIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_NANIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_NANIMON_ANIM_INDEX), DM20_NANIMON_SPRITE_SHEET_COLS, DM20_NANIMON_SPRITE_SHEET_ROWS);
-            case DM20_NANOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_NANOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_NANOMON_ANIM_INDEX), DM20_NANOMON_SPRITE_SHEET_COLS, DM20_NANOMON_SPRITE_SHEET_ROWS);
-            case DM20_NUMEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_NUMEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_NUMEMON_ANIM_INDEX), DM20_NUMEMON_SPRITE_SHEET_COLS, DM20_NUMEMON_SPRITE_SHEET_ROWS);
-            case DM20_NYAROMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_NYAROMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_NYAROMON_ANIM_INDEX), DM20_NYAROMON_SPRITE_SHEET_COLS, DM20_NYAROMON_SPRITE_SHEET_ROWS);
-            case DM20_OGREMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_OGREMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_OGREMON_ANIM_INDEX), DM20_OGREMON_SPRITE_SHEET_COLS, DM20_OGREMON_SPRITE_SHEET_ROWS);
-            case DM20_OMEGAMON_ALTER_S_ANIM_INDEX: return load_dm_anim(ctx, DM20_OMEGAMON_ALTER_S_ANIM_INDEX, get_dm20_sprite_sheet(DM20_OMEGAMON_ALTER_S_ANIM_INDEX), DM20_OMEGAMON_ALTER_S_SPRITE_SHEET_COLS, DM20_OMEGAMON_ALTER_S_SPRITE_SHEET_ROWS);
-            case DM20_OMEGAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_OMEGAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_OMEGAMON_ANIM_INDEX), DM20_OMEGAMON_SPRITE_SHEET_COLS, DM20_OMEGAMON_SPRITE_SHEET_ROWS);
-            case DM20_PAGUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PAGUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PAGUMON_ANIM_INDEX), DM20_PAGUMON_SPRITE_SHEET_COLS, DM20_PAGUMON_SPRITE_SHEET_ROWS);
-            case DM20_PAKUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PAKUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PAKUMON_ANIM_INDEX), DM20_PAKUMON_SPRITE_SHEET_COLS, DM20_PAKUMON_SPRITE_SHEET_ROWS);
-            case DM20_PALMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PALMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PALMON_ANIM_INDEX), DM20_PALMON_SPRITE_SHEET_COLS, DM20_PALMON_SPRITE_SHEET_ROWS);
-            case DM20_PATAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PATAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PATAMON_ANIM_INDEX), DM20_PATAMON_SPRITE_SHEET_COLS, DM20_PATAMON_SPRITE_SHEET_ROWS);
-            case DM20_PETITMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PETITMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PETITMON_ANIM_INDEX), DM20_PETITMON_SPRITE_SHEET_COLS, DM20_PETITMON_SPRITE_SHEET_ROWS);
-            case DM20_PICCOLOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PICCOLOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PICCOLOMON_ANIM_INDEX), DM20_PICCOLOMON_SPRITE_SHEET_COLS, DM20_PICCOLOMON_SPRITE_SHEET_ROWS);
-            case DM20_PINOCHIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PINOCHIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PINOCHIMON_ANIM_INDEX), DM20_PINOCHIMON_SPRITE_SHEET_COLS, DM20_PINOCHIMON_SPRITE_SHEET_ROWS);
-            case DM20_PITCHMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PITCHMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PITCHMON_ANIM_INDEX), DM20_PITCHMON_SPRITE_SHEET_COLS, DM20_PITCHMON_SPRITE_SHEET_ROWS);
-            case DM20_PIYOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PIYOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PIYOMON_ANIM_INDEX), DM20_PIYOMON_SPRITE_SHEET_COLS, DM20_PIYOMON_SPRITE_SHEET_ROWS);
-            case DM20_PLOTMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PLOTMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PLOTMON_ANIM_INDEX), DM20_PLOTMON_SPRITE_SHEET_COLS, DM20_PLOTMON_SPRITE_SHEET_ROWS);
-            case DM20_POYOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_POYOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_POYOMON_ANIM_INDEX), DM20_POYOMON_SPRITE_SHEET_COLS, DM20_POYOMON_SPRITE_SHEET_ROWS);
-            case DM20_PUKAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PUKAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PUKAMON_ANIM_INDEX), DM20_PUKAMON_SPRITE_SHEET_COLS, DM20_PUKAMON_SPRITE_SHEET_ROWS);
-            case DM20_PUNIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_PUNIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_PUNIMON_ANIM_INDEX), DM20_PUNIMON_SPRITE_SHEET_COLS, DM20_PUNIMON_SPRITE_SHEET_ROWS);
-            case DM20_RAREMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_RAREMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_RAREMON_ANIM_INDEX), DM20_RAREMON_SPRITE_SHEET_COLS, DM20_RAREMON_SPRITE_SHEET_ROWS);
-            case DM20_RASIELMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_RASIELMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_RASIELMON_ANIM_INDEX), DM20_RASIELMON_SPRITE_SHEET_COLS, DM20_RASIELMON_SPRITE_SHEET_ROWS);
-            case DM20_RUST_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_RUST_TYRANOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_RUST_TYRANOMON_ANIM_INDEX), DM20_RUST_TYRANOMON_SPRITE_SHEET_COLS, DM20_RUST_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DM20_SAKUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SAKUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SAKUMON_ANIM_INDEX), DM20_SAKUMON_SPRITE_SHEET_COLS, DM20_SAKUMON_SPRITE_SHEET_ROWS);
-            case DM20_SAKUTTOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SAKUTTOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SAKUTTOMON_ANIM_INDEX), DM20_SAKUTTOMON_SPRITE_SHEET_COLS, DM20_SAKUTTOMON_SPRITE_SHEET_ROWS);
-            case DM20_SAVIOR_HACKMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SAVIOR_HACKMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SAVIOR_HACKMON_ANIM_INDEX), DM20_SAVIOR_HACKMON_SPRITE_SHEET_COLS, DM20_SAVIOR_HACKMON_SPRITE_SHEET_ROWS);
-            case DM20_SCUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SCUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SCUMON_ANIM_INDEX), DM20_SCUMON_SPRITE_SHEET_COLS, DM20_SCUMON_SPRITE_SHEET_ROWS);
-            case DM20_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SEADRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SEADRAMON_ANIM_INDEX), DM20_SEADRAMON_SPRITE_SHEET_COLS, DM20_SEADRAMON_SPRITE_SHEET_ROWS);
-            case DM20_SHELLMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SHELLMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SHELLMON_ANIM_INDEX), DM20_SHELLMON_SPRITE_SHEET_COLS, DM20_SHELLMON_SPRITE_SHEET_ROWS);
-            case DM20_SKULL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SKULL_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SKULL_GREYMON_ANIM_INDEX), DM20_SKULL_GREYMON_SPRITE_SHEET_COLS, DM20_SKULL_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_SKULL_MAMMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SKULL_MAMMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SKULL_MAMMON_ANIM_INDEX), DM20_SKULL_MAMMON_SPRITE_SHEET_COLS, DM20_SKULL_MAMMON_SPRITE_SHEET_ROWS);
-            case DM20_SLAYERDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_SLAYERDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_SLAYERDRAMON_ANIM_INDEX), DM20_SLAYERDRAMON_SPRITE_SHEET_COLS, DM20_SLAYERDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_TAICHI_METAL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TAICHI_METAL_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TAICHI_METAL_GREYMON_ANIM_INDEX), DM20_TAICHI_METAL_GREYMON_SPRITE_SHEET_COLS, DM20_TAICHI_METAL_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_TAICHIS_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TAICHIS_AGUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TAICHIS_AGUMON_ANIM_INDEX), DM20_TAICHIS_AGUMON_SPRITE_SHEET_COLS, DM20_TAICHIS_AGUMON_SPRITE_SHEET_ROWS);
-            case DM20_TAICHIS_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TAICHIS_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TAICHIS_GREYMON_ANIM_INDEX), DM20_TAICHIS_GREYMON_SPRITE_SHEET_COLS, DM20_TAICHIS_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_TAICHIS_METAL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TAICHIS_METAL_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TAICHIS_METAL_GREYMON_ANIM_INDEX), DM20_TAICHIS_METAL_GREYMON_SPRITE_SHEET_COLS, DM20_TAICHIS_METAL_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX), DM20_TAICHIS_WAR_GREYMON_SPRITE_SHEET_COLS, DM20_TAICHIS_WAR_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_TANEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TANEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TANEMON_ANIM_INDEX), DM20_TANEMON_SPRITE_SHEET_COLS, DM20_TANEMON_SPRITE_SHEET_ROWS);
-            case DM20_TITAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TITAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TITAMON_ANIM_INDEX), DM20_TITAMON_SPRITE_SHEET_COLS, DM20_TITAMON_SPRITE_SHEET_ROWS);
-            case DM20_TOKOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TOKOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TOKOMON_ANIM_INDEX), DM20_TOKOMON_SPRITE_SHEET_COLS, DM20_TOKOMON_SPRITE_SHEET_ROWS);
-            case DM20_TSUNOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TSUNOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TSUNOMON_ANIM_INDEX), DM20_TSUNOMON_SPRITE_SHEET_COLS, DM20_TSUNOMON_SPRITE_SHEET_ROWS);
-            case DM20_TUNOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TUNOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TUNOMON_ANIM_INDEX), DM20_TUNOMON_SPRITE_SHEET_COLS, DM20_TUNOMON_SPRITE_SHEET_ROWS);
-            case DM20_TUSKMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TUSKMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TUSKMON_ANIM_INDEX), DM20_TUSKMON_SPRITE_SHEET_COLS, DM20_TUSKMON_SPRITE_SHEET_ROWS);
-            case DM20_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_TYRANOMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_TYRANOMON_ANIM_INDEX), DM20_TYRANOMON_SPRITE_SHEET_COLS, DM20_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DM20_UNIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_UNIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_UNIMON_ANIM_INDEX), DM20_UNIMON_SPRITE_SHEET_COLS, DM20_UNIMON_SPRITE_SHEET_ROWS);
-            case DM20_VADEMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_VADEMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_VADEMON_ANIM_INDEX), DM20_VADEMON_SPRITE_SHEET_COLS, DM20_VADEMON_SPRITE_SHEET_ROWS);
-            case DM20_VEGIMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_VEGIMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_VEGIMON_ANIM_INDEX), DM20_VEGIMON_SPRITE_SHEET_COLS, DM20_VEGIMON_SPRITE_SHEET_ROWS);
-            case DM20_WAR_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_WAR_GREYMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_WAR_GREYMON_ANIM_INDEX), DM20_WAR_GREYMON_SPRITE_SHEET_COLS, DM20_WAR_GREYMON_SPRITE_SHEET_ROWS);
-            case DM20_WERE_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_WERE_GARURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_WERE_GARURUMON_ANIM_INDEX), DM20_WERE_GARURUMON_SPRITE_SHEET_COLS, DM20_WERE_GARURUMON_SPRITE_SHEET_ROWS);
-            case DM20_WHAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_WHAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_WHAMON_ANIM_INDEX), DM20_WHAMON_SPRITE_SHEET_COLS, DM20_WHAMON_SPRITE_SHEET_ROWS);
-            case DM20_WINGDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_WINGDRAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_WINGDRAMON_ANIM_INDEX), DM20_WINGDRAMON_SPRITE_SHEET_COLS, DM20_WINGDRAMON_SPRITE_SHEET_ROWS);
-            case DM20_YAMATO_GABUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YAMATO_GABUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YAMATO_GABUMON_ANIM_INDEX), DM20_YAMATO_GABUMON_SPRITE_SHEET_COLS, DM20_YAMATO_GABUMON_SPRITE_SHEET_ROWS);
-            case DM20_YAMATOS_GABUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YAMATOS_GABUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YAMATOS_GABUMON_ANIM_INDEX), DM20_YAMATOS_GABUMON_SPRITE_SHEET_COLS, DM20_YAMATOS_GABUMON_SPRITE_SHEET_ROWS);
-            case DM20_YAMATOS_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YAMATOS_GARURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YAMATOS_GARURUMON_ANIM_INDEX), DM20_YAMATOS_GARURUMON_SPRITE_SHEET_COLS, DM20_YAMATOS_GARURUMON_SPRITE_SHEET_ROWS);
-            case DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YAMATOS_METAL_GARURUMON_ANIM_INDEX), DM20_YAMATOS_METAL_GARURUMON_SPRITE_SHEET_COLS, DM20_YAMATOS_METAL_GARURUMON_SPRITE_SHEET_ROWS);
-            case DM20_YAMATOS_WERE_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YAMATOS_WERE_GARURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YAMATOS_WERE_GARURUMON_ANIM_INDEX), DM20_YAMATOS_WERE_GARURUMON_SPRITE_SHEET_COLS, DM20_YAMATOS_WERE_GARURUMON_SPRITE_SHEET_ROWS);
-            case DM20_YUKIDARUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YUKIDARUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YUKIDARUMON_ANIM_INDEX), DM20_YUKIDARUMON_SPRITE_SHEET_COLS, DM20_YUKIDARUMON_SPRITE_SHEET_ROWS);
-            case DM20_YUKIMI_BOTAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YUKIMI_BOTAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YUKIMI_BOTAMON_ANIM_INDEX), DM20_YUKIMI_BOTAMON_SPRITE_SHEET_COLS, DM20_YUKIMI_BOTAMON_SPRITE_SHEET_ROWS);
-            case DM20_YURAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_YURAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_YURAMON_ANIM_INDEX), DM20_YURAMON_SPRITE_SHEET_COLS, DM20_YURAMON_SPRITE_SHEET_ROWS);
-            case DM20_ZUBAEAGERMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ZUBAEAGERMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ZUBAEAGERMON_ANIM_INDEX), DM20_ZUBAEAGERMON_SPRITE_SHEET_COLS, DM20_ZUBAEAGERMON_SPRITE_SHEET_ROWS);
-            case DM20_ZUBAMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ZUBAMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ZUBAMON_ANIM_INDEX), DM20_ZUBAMON_SPRITE_SHEET_COLS, DM20_ZUBAMON_SPRITE_SHEET_ROWS);
-            case DM20_ZURUMON_ANIM_INDEX: return load_dm_anim(ctx, DM20_ZURUMON_ANIM_INDEX, get_dm20_sprite_sheet(DM20_ZURUMON_ANIM_INDEX), DM20_ZURUMON_SPRITE_SHEET_COLS, DM20_ZURUMON_SPRITE_SHEET_ROWS);
-            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-        }
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        assert(LEN_ARRAY(dm20_dims_table) == DM20_ANIM_COUNT);
+        assert(LEN_ARRAY(dm20_pngs_table) == DM20_ANIM_COUNT);
+        assert(LEN_ARRAY(dm20_png_sizes_table) == DM20_ANIM_COUNT);
+        assert(LEN_ARRAY(dm20_names_table) == DM20_ANIM_COUNT);
+        assert(index < DM20_ANIM_COUNT);
+        assert(LEN_ARRAY(dm20_pngs_table) <= INT32_MAX);
+        assert(index < INT32_MAX);
+        return load_dm_anim(ctx, static_cast<int32_t>(index), {dm20_pngs_table[index], dm20_png_sizes_table[index], dm20_names_table[index]}, dm20_dims_table[index].cols, dm20_dims_table[index].rows);
     }
 }
 

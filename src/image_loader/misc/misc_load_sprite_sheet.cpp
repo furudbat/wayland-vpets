@@ -7,7 +7,7 @@
 #include "image_loader/custom/load_custom.h"
 
 namespace bongocat::animation {
-created_result_t<custom_sprite_sheet_t> load_misc_sprite_sheet(const animation_thread_context_t& ctx, int index) {
+created_result_t<custom_sprite_sheet_t> load_misc_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
   using namespace animation;
   using namespace assets;
   switch (index) {

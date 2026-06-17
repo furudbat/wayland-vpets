@@ -6,7 +6,7 @@
 #include "image_loader/custom/load_custom.h"
 
 namespace bongocat::animation {
-bongocat_error_t init_misc_anim(animation_thread_context_t& ctx, int anim_index,
+bongocat_error_t init_misc_anim(animation_thread_context_t& ctx, size_t anim_index,
                                 const assets::embedded_image_t& sprite_sheet_image,
                                 const assets::custom_animation_settings_t& sprite_sheet_settings) {
   using namespace assets;

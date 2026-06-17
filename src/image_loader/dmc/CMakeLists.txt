@@ -8,6 +8,6 @@ target_include_directories(
 )
 target_link_libraries(
   assets_dmc_loader
-  PUBLIC assets_image_loader assets_base_dm_loader assets_dmc
-  PRIVATE assets_dmc_interface assets_dmc_feature bongocat_options
+  PUBLIC assets_image_loader assets_base_dm_loader
+  PRIVATE assets_dmc assets_dmc_interface assets_dmc_feature bongocat_options
 )

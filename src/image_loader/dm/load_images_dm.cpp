@@ -5,7 +5,7 @@
 #include "image_loader/base_dm/load_dm.h"
 
 namespace bongocat::animation {
-bongocat_error_t init_dm_anim(animation_thread_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+bongocat_error_t init_dm_anim(animation_thread_context_t& ctx, size_t anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
     using namespace assets;
     BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
     BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);

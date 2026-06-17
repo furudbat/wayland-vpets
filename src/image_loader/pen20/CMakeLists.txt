@@ -8,6 +8,6 @@ target_include_directories(
 )
 target_link_libraries(
   assets_pen20_loader
-  PUBLIC assets_image_loader assets_base_dm_loader assets_pen20
-  PRIVATE assets_pen20_interface assets_pen20_feature bongocat_options
+  PUBLIC assets_image_loader assets_base_dm_loader
+  PRIVATE assets_pen20 assets_pen20_interface assets_pen20_feature bongocat_options
 )

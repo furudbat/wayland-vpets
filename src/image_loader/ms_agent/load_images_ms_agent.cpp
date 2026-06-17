@@ -134,7 +134,7 @@ created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const confi
 }
 
 created_result_t<ms_agent_sprite_sheet_t>
-load_ms_agent_anim(const animation_thread_context_t& ctx, [[maybe_unused]] int anim_index,
+load_ms_agent_anim(const animation_thread_context_t& ctx, [[maybe_unused]] size_t anim_index,
                    const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows,
                    const assets::ms_agent_animation_indices_t& animation_data) {
   using namespace assets;
@@ -241,7 +241,7 @@ load_ms_agent_anim(const animation_thread_context_t& ctx, [[maybe_unused]] int a
 }
 
 created_result_t<ms_agent_sprite_sheet_t>
-init_ms_agent_anim(animation_thread_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image,
+init_ms_agent_anim(animation_thread_context_t& ctx, size_t anim_index, const assets::embedded_image_t& sprite_sheet_image,
                    int sprite_sheet_cols, int sprite_sheet_rows,
                    const assets::ms_agent_animation_indices_t& animation_data) {
   using namespace assets;
@@ -267,7 +267,7 @@ init_ms_agent_anim(animation_thread_context_t& ctx, int anim_index, const assets
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
-created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const animation_thread_context_t& ctx, int index) {
+created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
   using namespace assets;
   using namespace animation;
   switch (index) {
