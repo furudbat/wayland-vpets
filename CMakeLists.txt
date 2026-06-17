@@ -263,9 +263,9 @@ set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(src)
 
-add_executable(bongocat)
+add_library(bongocat_loaders INTERFACE)
 if(FEATURE_BONGOCAT_EMBEDDED_ASSETS)
-  target_link_libraries(bongocat PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
+  target_link_libraries(bongocat_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface)
   message(STATUS "Include bongocat assets")
 endif()
 if(FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
@@ -275,32 +275,32 @@ if(FEATURE_ENABLE_DM_EMBEDDED_ASSETS)
     AND NOT FEATURE_DMX_EMBEDDED_ASSETS
     AND NOT FEATURE_DMC_EMBEDDED_ASSETS
   )
-    target_link_libraries(bongocat PRIVATE assets_min_dm_loader assets_min_dm assets_min_dm_feature assets_min_dm_interface)
+    target_link_libraries(bongocat_loaders INTERFACE assets_min_dm_loader assets_min_dm_feature assets_min_dm_interface)
     message(STATUS "Include min_dm assets")
   else()
     if(FEATURE_DM20_EMBEDDED_ASSETS)
-      target_link_libraries(bongocat PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
+      target_link_libraries(bongocat_loaders INTERFACE assets_dm20_loader assets_dm20_feature assets_dm20_interface)
       message(STATUS "Include dm20 assets")
     elseif(FEATURE_DM_EMBEDDED_ASSETS)
-      target_link_libraries(bongocat PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
+      target_link_libraries(bongocat_loaders INTERFACE assets_dm_loader assets_dm_feature assets_dm_interface)
       message(STATUS "Include dm assets")
     endif()
     if(FEATURE_DMX_EMBEDDED_ASSETS)
-      target_link_libraries(bongocat PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
+      target_link_libraries(bongocat_loaders INTERFACE assets_dmx_loader assets_dmx_feature assets_dmx_interface)
       message(STATUS "Include dmx assets")
     endif()
     if(FEATURE_PEN20_EMBEDDED_ASSETS)
-      target_link_libraries(bongocat PRIVATE assets_pen20_loader assets_pen20 assets_pen20_feature assets_pen20_interface)
+      target_link_libraries(bongocat_loaders INTERFACE assets_pen20_loader assets_pen20_feature assets_pen20_interface)
       message(STATUS "Include pen20 assets")
     elseif(FEATURE_PEN_EMBEDDED_ASSETS)
-      target_link_libraries(bongocat PRIVATE assets_pen_loader assets_pen assets_pen_feature assets_pen_interface)
+      target_link_libraries(bongocat_loaders INTERFACE assets_pen_loader assets_pen_feature assets_pen_interface)
       message(STATUS "Include pen assets")
     endif()
     if(FEATURE_DMALL_EMBEDDED_ASSETS)
-      target_link_libraries(bongocat PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
+      target_link_libraries(bongocat_loaders INTERFACE assets_dmall_loader assets_dmall_feature assets_dmall_interface)
       message(STATUS "Include dmall assets")
     elseif(FEATURE_DMC_EMBEDDED_ASSETS)
-      target_link_libraries(bongocat PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
+      target_link_libraries(bongocat_loaders INTERFACE assets_dmc_loader assets_dmc_feature assets_dmc_interface)
       message(STATUS "Include dmc assets")
     endif()
   endif()
@@ -308,143 +308,113 @@ endif()
 if(FEATURE_MS_AGENT_EMBEDDED_ASSETS)
   if(FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS)
     target_link_libraries(
-      bongocat
-      PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface
+      bongocat_loaders INTERFACE assets_more_ms_agent_loader assets_more_ms_agent_feature assets_more_ms_agent_interface
     )
   else()
-    target_link_libraries(bongocat PRIVATE assets_ms_agent_loader assets_ms_agent assets_ms_agent_feature assets_ms_agent_interface)
+    target_link_libraries(bongocat_loaders INTERFACE assets_ms_agent_loader assets_ms_agent_feature assets_ms_agent_interface)
   endif()
   message(STATUS "Include MS agent assets")
 endif()
 if(FEATURE_PMD_EMBEDDED_ASSETS)
   target_link_libraries(
-    bongocat
-    PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader
+      bongocat_loaders INTERFACE assets_pmd_loader assets_pmd_feature assets_pmd_interface assets_custom_loader
   )
   message(STATUS "Include pkmn pmd assets")
 elseif(FEATURE_PKMN_EMBEDDED_ASSETS)
-  target_link_libraries(bongocat PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
+  target_link_libraries(bongocat_loaders INTERFACE assets_pkmn_loader assets_pkmn_feature assets_pkmn_interface)
   message(STATUS "Include pkmn assets")
 endif()
 if(FEATURE_MISC_EMBEDDED_ASSETS)
   target_link_libraries(
-    bongocat
-    PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader
+          bongocat_loaders INTERFACE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader
   )
   message(STATUS "Include misc assets")
 endif()
 if(FEATURE_CUSTOM_SPRITE_SHEETS)
-  target_compile_definitions(bongocat PRIVATE FEATURE_CUSTOM_SPRITE_SHEETS)
-  target_link_libraries(bongocat PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
+  target_compile_definitions(bongocat_loaders INTERFACE FEATURE_CUSTOM_SPRITE_SHEETS)
+  target_link_libraries(bongocat_loaders INTERFACE assets_custom_sprite_sheet_feature assets_custom_loader)
 endif()
+add_executable(bongocat)
 # @NOTE(assets): 1.1. link embedded assets
+target_link_libraries(bongocat PRIVATE bongocat_loaders)
 target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_libs)
 
 if(FEATURE_MULTI_VERSIONS)
+  add_library(bongocat_dm_classic_loaders INTERFACE)
+  target_link_libraries(
+          bongocat_dm_classic_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+  assets_dm_loader assets_dm_feature assets_dm_interface
+          assets_dm20_loader assets_dm20_feature assets_dm20_interface
+          assets_dmx_loader assets_dmx_feature assets_dmx_interface
+          assets_pen_loader assets_pen_feature assets_pen_interface
+          assets_pen20_loader assets_pen20_feature assets_pen20_interface)
   add_executable(bongocat-dm-classic)
-  target_link_libraries(
-    bongocat-dm-classic
-    PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
-  ) # include bongocat as fallback
-  target_link_libraries(bongocat-dm-classic PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
-  target_link_libraries(bongocat-dm-classic PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
-  target_link_libraries(bongocat-dm-classic PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
-  target_link_libraries(bongocat-dm-classic PRIVATE assets_pen_loader assets_pen assets_pen_feature assets_pen_interface)
-  target_link_libraries(bongocat-dm-classic PRIVATE assets_pen20_loader assets_pen20 assets_pen20_feature assets_pen20_interface)
-  target_link_libraries(bongocat-dm-classic PRIVATE bongocat_base bongocat_options bongocat_libs)
+  target_link_libraries(bongocat-dm-classic PRIVATE bongocat_base bongocat_dm_classic_loaders bongocat_options bongocat_libs)
 
+  add_library(bongocat_dm_colored_loaders INTERFACE)
+  target_link_libraries(
+          bongocat_dm_colored_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+          assets_dm20_loader assets_dm20_feature assets_dm20_interface
+          assets_dmx_loader assets_dmx_feature assets_dmx_interface
+          assets_dmc_loader assets_dmc_feature assets_dmc_interface
+          assets_pen20_loader assets_pen20_feature assets_pen20_interface)
   add_executable(bongocat-dm-colored)
-  target_link_libraries(
-    bongocat-dm-colored
-    PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
-  )
-  target_link_libraries(bongocat-dm-colored PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
-  target_link_libraries(bongocat-dm-colored PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
-  target_link_libraries(bongocat-dm-colored PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
-  target_link_libraries(bongocat-dm-colored PRIVATE assets_pen20_loader assets_pen20 assets_pen20_feature assets_pen20_interface)
-  target_link_libraries(bongocat-dm-colored PRIVATE bongocat_base bongocat_options bongocat_libs)
+  target_link_libraries(bongocat-dm-colored PRIVATE bongocat_base bongocat_dm_colored_loaders bongocat_options bongocat_libs)
 
+  add_library(bongocat_dm_colored_all_loaders INTERFACE)
+  target_link_libraries(
+          bongocat_dm_colored_all_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+          assets_dmall_loader assets_dmall_feature assets_dmall_interface)
   add_executable(bongocat-dm-colored-all)
-  target_link_libraries(
-    bongocat-dm-colored-all
-    PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface
-  )
-  target_link_libraries(bongocat-dm-colored-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
-  target_link_libraries(bongocat-dm-colored-all PRIVATE bongocat_base bongocat_options bongocat_libs)
+  target_link_libraries(bongocat-dm-colored-all PRIVATE bongocat_base bongocat_dm_colored_all_loaders bongocat_options bongocat_libs)
 
+  add_library(bongocat_dm_loaders INTERFACE)
+  target_link_libraries(bongocat_dm_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+          assets_dm20_loader assets_dm20_feature assets_dm20_interface
+          assets_dmx_loader assets_dmx_feature assets_dmx_interface
+          assets_pen20_loader assets_pen20_feature assets_pen20_interface
+          assets_dmall_loader assets_dmall_feature assets_dmall_interface)
   add_executable(bongocat-dm)
-  target_link_libraries(bongocat-dm PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-  target_link_libraries(bongocat-dm PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
-  target_link_libraries(bongocat-dm PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
-  target_link_libraries(bongocat-dm PRIVATE assets_pen20_loader assets_pen20 assets_pen20_feature assets_pen20_interface)
-  target_link_libraries(bongocat-dm PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
-  target_link_libraries(bongocat-dm PRIVATE bongocat_base bongocat_options bongocat_libs)
+  target_link_libraries(bongocat-dm PRIVATE bongocat_base bongocat_dm_loaders bongocat_options bongocat_libs)
 
+  add_library(bongocat_ms_agent_loaders INTERFACE)
+  target_link_libraries(bongocat_ms_agent_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+          assets_more_ms_agent_loader assets_more_ms_agent assets_ms_agent_feature assets_more_ms_agent_interface
+  )
   add_executable(bongocat-ms-agent)
-  target_link_libraries(bongocat-ms-agent PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-  target_link_libraries(
-    bongocat-ms-agent
-    PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_ms_agent_feature assets_more_ms_agent_interface
-  )
-  target_link_libraries(bongocat-ms-agent PRIVATE bongocat_base bongocat_options bongocat_libs)
+  target_link_libraries(bongocat-ms-agent PRIVATE bongocat_base bongocat_ms_agent_loaders bongocat_options bongocat_libs)
 
+  add_library(bongocat_pkmn_loaders INTERFACE)
+  target_link_libraries(bongocat_pkmn_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+          assets_pkmn_loader assets_pkmn_feature assets_pkmn_interface
+          assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader
+  )
   add_executable(bongocat-pkmn)
-  target_link_libraries(bongocat-pkmn PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-  target_link_libraries(bongocat-pkmn PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
-  target_link_libraries(
-    bongocat-pkmn
-    PRIVATE assets_pmd_loader assets_pmd assets_pmd_feature assets_pmd_interface assets_custom_loader
-  )
-  target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_options bongocat_libs)
+  target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_pkmn_loaders bongocat_options bongocat_libs)
 
+  add_library(bongocat_all_loaders INTERFACE)
+  target_link_libraries(bongocat_all_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+          assets_dm_loader assets_dm_feature assets_dm_interface
+          assets_dm20_loader assets_dm20_feature assets_dm20_interface
+          assets_dmx_loader assets_dmx_feature assets_dmx_interface
+          assets_dmc_loader assets_dmc_feature assets_dmc_interface
+          assets_pen_loader assets_pen_feature assets_pen_interface
+          assets_pen20_loader assets_pen20_feature assets_pen20_interface
+          assets_dmall_loader assets_dmall_feature assets_dmall_interface
+          assets_more_ms_agent_loader assets_more_ms_agent_feature assets_more_ms_agent_interface
+          assets_pkmn_loader assets_pkmn_feature assets_pkmn_interface
+          assets_pmd_loader assets_pmd_feature assets_pmd_interface assets_custom_loader
+          assets_misc_loader assets_misc_feature assets_misc_interface assets_custom_loader
+  )
   add_executable(bongocat-all)
-  target_link_libraries(bongocat-all PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_dm_loader assets_dm assets_dm_feature assets_dm_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_dm20_loader assets_dm20 assets_dm20_feature assets_dm20_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_dmx_loader assets_dmx assets_dmx_feature assets_dmx_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_dmc_loader assets_dmc assets_dmc_feature assets_dmc_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_pen_loader assets_pen assets_pen_feature assets_pen_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_pen20_loader assets_pen20 assets_pen20_feature assets_pen20_interface)
-  target_link_libraries(bongocat-all PRIVATE assets_dmall_loader assets_dmall assets_dmall_feature assets_dmall_interface)
-  target_link_libraries(
-    bongocat-all
-    PRIVATE assets_more_ms_agent_loader assets_more_ms_agent assets_more_ms_agent_feature assets_more_ms_agent_interface
-  )
-  target_link_libraries(bongocat-all PRIVATE assets_pkmn_loader assets_pkmn assets_pkmn_feature assets_pkmn_interface)
-  # TODO: include pmd in -all when ready (experimental)
-  target_link_libraries(
-    bongocat-all
-    PRIVATE # only include pmd for testing
-      $<$<CONFIG:Debug>:assets_pmd_loader
-      assets_pmd
-      assets_pmd_feature
-      assets_pmd_interface
-      assets_custom_loader>
-      $<$<CONFIG:RelWithDebInfo>:assets_pmd_loader
-      assets_pmd
-      assets_pmd_feature
-      assets_pmd_interface
-      assets_custom_loader>
-      $<$<BOOL:${FEATURE_PRELOAD_ASSETS}>:assets_pmd_loader
-      assets_pmd
-      assets_pmd_feature
-      assets_pmd_interface
-      assets_custom_loader>
-  )
-  target_link_libraries(
-    bongocat-all
-    PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader
-  )
-  target_link_libraries(bongocat-all PRIVATE assets_custom_sprite_sheet_feature assets_custom_loader)
-  target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_options bongocat_libs)
+  target_link_libraries(bongocat-all PRIVATE bongocat_base bongocat_all_loaders assets_custom_sprite_sheet_feature assets_custom_loader bongocat_options bongocat_libs)
 
-  add_executable(bongocat-neko)
-  target_link_libraries(bongocat-neko PRIVATE assets_bongocat_loader assets_bongocat assets_bongocat_feature assets_bongocat_interface)
-  target_link_libraries(
-    bongocat-neko
-    PRIVATE assets_misc_loader assets_misc assets_misc_feature assets_misc_interface assets_custom_loader
+  add_library(bongocat_neko_loaders INTERFACE)
+  target_link_libraries(bongocat_neko_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+          assets_misc_loader assets_misc_feature assets_misc_interface assets_custom_loader
   )
-  target_link_libraries(bongocat-neko PRIVATE bongocat_base bongocat_options bongocat_libs)
+  add_executable(bongocat-neko)
+  target_link_libraries(bongocat-neko PRIVATE bongocat_base bongocat_neko_loaders bongocat_options bongocat_libs)
 
   # @NOTE(assets): 1.2. add exec for multi versions
 endif()

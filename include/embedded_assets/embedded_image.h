@@ -4,9 +4,21 @@
 #include "config/config.h"
 
 namespace bongocat::assets {
+
+struct embedded_sprite_sheet_dims_t {
+  uint8_t cols{0};
+  uint8_t rows{0};
+};
 struct embedded_image_t {
   const unsigned char *data{BONGOCAT_NULLPTR};
   size_t size{0};
+  const char *name{""};
+};
+struct embedded_sprite_sheet_t {
+  const unsigned char *data{BONGOCAT_NULLPTR};
+  size_t size{0};
+  uint8_t cols{0};
+  uint8_t rows{0};
   const char *name{""};
 };
 

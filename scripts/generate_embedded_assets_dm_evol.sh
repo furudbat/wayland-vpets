@@ -70,16 +70,6 @@ ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
 GET_EVOL_DATA_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_evolution_data"
 
-echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_evol.h\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "#include \"graphics/animation_shared_memory.h\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "    animation::animation_evolution_data_t ${GET_EVOL_DATA_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "        switch (index) {" >> "$CPP_SOURCE_GET_EVOL_OUT"
-
-
 # === Start animation index counter ===
 INDEX=$START_INDEX
 
@@ -110,6 +100,8 @@ done
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
+
+CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT=""
 
 # === Process all PNGs ===
 for FILE in "$INPUT_DIR"/*.png; do
@@ -278,23 +270,40 @@ for FILE in "$INPUT_DIR"/*.png; do
     ANIMATION_INDICES_STR=$(IFS=,; echo "${animation_indices[*]}")
     ANIMATION_INDICES_STR="${ANIMATION_INDICES_STR//,/ ,}"
 
-    echo "            case ${MACRO_PREFIX}_ANIM_INDEX:" >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "              return {" >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "                // Stage: ${STAGE}" >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "                .conditions = { .next_evolution_time_sec = ${EVO_TIME} }," >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "                " >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "                .num_animation_indices = $num_animation_indices," >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "                .animation_indices = {" >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "                  ${ANIMATION_INDICES_STR}" >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "                }," >> "$CPP_SOURCE_GET_EVOL_OUT"
-    echo "              };" >> "$CPP_SOURCE_GET_EVOL_OUT"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}        // Name: $NAME_NO_EXT\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}        {\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}            // Stage: ${STAGE}\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}            .conditions = { .next_evolution_time_sec = ${EVO_TIME} },\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}            \n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}            .num_animation_indices = ${num_animation_indices},\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}            .animation_indices = {\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}                ${ANIMATION_INDICES_STR}\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}            },\n"
+    CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT="${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}        },\n"
+
+    echo "Add $IDENTIFIER with $num_animation_indices evols"
 
     ((INDEX++))
 done
 
-echo '            default: return {};' >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo '        }' >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo '        return {};' >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "$INDEX done"
+
+echo "#include \"embedded_assets/embedded_image.h\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.hpp\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_evol.h\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "#include \"graphics/animation_shared_memory.h\"" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "/// @NOTE: Generated evolution data $ASSETS_PREFIX" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "    static constexpr animation::animation_evolution_data_t ${ASSETS_PREFIX_LOWER}_evol_data_table[] = {" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo -e "${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "    };" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "    animation::animation_evolution_data_t ${GET_EVOL_DATA_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        using namespace assets;" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_evol_data_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        return ${ASSETS_PREFIX_LOWER}_evol_data_table[index];" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo '    }' >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo '}' >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo >> "$CPP_SOURCE_GET_EVOL_OUT"
