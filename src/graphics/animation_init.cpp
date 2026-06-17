@@ -574,7 +574,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           ctx.shm->dm_anims = platform::make_allocated_mmap_array<animation_t>(DM_ANIM_COUNT);
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
           // dm
-#  include "dm_init_dm_anim.cpp.inl"
+          init_all_dm_anim(ctx);
 #endif
           for (size_t i = 0; i < DM_ANIM_COUNT; ++i) {
             patch_dm_anim(ctx.shm->dm_anims[i].dm, {.sleep_in_bed = true});

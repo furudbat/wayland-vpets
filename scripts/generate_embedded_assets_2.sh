@@ -161,6 +161,9 @@ echo "/// @NOTE: Generated embedded assets $ASSETS_PREFIX" >> "$CPP_SOURCE_LOAD_
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
+INIT_ANIM_FUNC_NAME="init_${LAYOUT_LOWER}_anim"
+INIT_ALL_ANIM_FUNC_NAME="init_all_${LAYOUT_LOWER}_anim"
+
 # === Start animation index counter ===
 INDEX=$START_INDEX
 
@@ -261,7 +264,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     #echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {$EMBED_SYMBOL, $SIZE_SYMBOL, \"${IDENTIFIER}\"};" >> "$CPP_SOURCE_GET_SPRITE_OUT"
     CPP_SOURCE_GET_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_GET_SPRITE_OUT_IMAGES_TABLE}{${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"}, \n        "
 
-    #echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+    #echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_ANIM_FUNC_NAME}(ctx, ${MACRO_PREFIX}_ANIM_INDEX, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${MACRO_PREFIX}_SPRITE_SHEET_COLS, ${MACRO_PREFIX}_SPRITE_SHEET_ROWS);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
     CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}\n// Name: $NAME_NO_EXT\n"
     CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}const unsigned char $EMBED_SYMBOL[] = {\n"
@@ -327,7 +330,20 @@ echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_names_table) == ${ASSETS_P
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) <= INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        return load_${LAYOUT_LOWER}_anim(ctx, static_cast<int32_t>(index), {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_dims_table[index].cols, ${ASSETS_PREFIX_LOWER}_dims_table[index].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, static_cast<int32_t>(index), {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_dims_table[index].cols, ${ASSETS_PREFIX_LOWER}_dims_table[index].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    void ${INIT_ALL_ANIM_FUNC_NAME}(animation_thread_context_t& ctx) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        for (size_t i = 0;i < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT;++i) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_dims_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_png_sizes_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_names_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) <= INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "            ${INIT_ANIM_FUNC_NAME}(ctx, i, {${ASSETS_PREFIX_LOWER}_pngs_table[i], ${ASSETS_PREFIX_LOWER}_png_sizes_table[i], ${ASSETS_PREFIX_LOWER}_names_table[i]}, ${ASSETS_PREFIX_LOWER}_dims_table[i].cols, ${ASSETS_PREFIX_LOWER}_dims_table[i].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '        }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '}' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

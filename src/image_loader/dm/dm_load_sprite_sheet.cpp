@@ -1,6 +1,6 @@
 #include "core/bongocat.h"
 #include "utils/memory.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dm/dm.hpp"
@@ -321,6 +321,12 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dm_pngs_table) <= INT32_MAX);
         assert(index < INT32_MAX);
         return load_dm_anim(ctx, static_cast<int32_t>(index), {dm_pngs_table[index], dm_png_sizes_table[index], dm_names_table[index]}, dm_dims_table[index].cols, dm_dims_table[index].rows);
+    }
+    void init_all_dm_anim(animation_thread_context_t& ctx) {
+        using namespace assets;
+        for (size_t i = 0;i < DM_ANIM_COUNT;++i) {
+            init_dm_anim(ctx, i, {dm_pngs_table[i], dm_png_sizes_table[i], dm_names_table[i]}, dm_dims_table[i].cols, dm_dims_table[i].rows);
+        }
     }
 }
 

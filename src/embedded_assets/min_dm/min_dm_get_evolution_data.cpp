@@ -27,20 +27,16 @@ inline static constexpr animation::animation_evolution_conditions_t STAGE_VIp_CO
   .next_evolution_time_sec = -1,  // N/A
 };
 
-animation::animation_evolution_data_t get_min_dm_evolution_data(size_t i) {
-  using namespace assets;
-  switch (i) {
-  case DM_BOTAMON_ANIM_INDEX:
-    return {
+static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] = {
+    {
       .conditions = STAGE_I_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_KOROMON_ANIM_INDEX,
       },
-    };
-  case DM_KOROMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_II_CONDITIONS,
 
       .num_animation_indices = 2,
@@ -48,9 +44,8 @@ animation::animation_evolution_data_t get_min_dm_evolution_data(size_t i) {
         DM_AGUMON_ANIM_INDEX,
         DM_BETAMON_ANIM_INDEX,
       },
-    };
-  case DM_AGUMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_III_CONDITIONS,
 
       .num_animation_indices = 5,
@@ -61,9 +56,8 @@ animation::animation_evolution_data_t get_min_dm_evolution_data(size_t i) {
         DM_MERAMON_ANIM_INDEX,
         DM_NUMEMON_ANIM_INDEX,
       },
-    };
-  case DM_BETAMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_III_CONDITIONS,
 
       .num_animation_indices = 5,
@@ -74,76 +68,89 @@ animation::animation_evolution_data_t get_min_dm_evolution_data(size_t i) {
         DM_SEADRAMON_ANIM_INDEX,
         DM_NUMEMON_ANIM_INDEX,
       },
-    };
-  case DM_GREYMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_IV_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_METAL_GREYMON_ANIM_INDEX,
       },
-    };
-  case DM_TYRANOMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_IV_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_MAMEMON_ANIM_INDEX,
       },
-    };
-  case DM_DEVIMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_IV_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_METAL_GREYMON_ANIM_INDEX,
       },
-    };
-  case DM_MERAMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_IV_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_MAMEMON_ANIM_INDEX,
       },
-    };
-  case DM_AIRDRAMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_IV_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_METAL_GREYMON_ANIM_INDEX,
       },
-    };
-  case DM_SEADRAMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_IV_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_METAL_GREYMON_ANIM_INDEX,
       },
-    };
-  case DM_NUMEMON_ANIM_INDEX:
-    return {
+    },
+    {
       .conditions = STAGE_IV_CONDITIONS,
 
       .num_animation_indices = 1,
       .animation_indices ={
         DM_MONZAEMON_ANIM_INDEX,
       },
-    };
-  case DM_METAL_GREYMON_ANIM_INDEX:
-  case DM_MAMEMON_ANIM_INDEX:
-  case DM_MONZAEMON_ANIM_INDEX:
-  default:
-    return {};
-  }
-  return {};
+    },
+    {
+      .conditions = {},
+
+      .num_animation_indices = 0,
+      .animation_indices ={
+      },
+    },
+    {
+      .conditions = {},
+
+      .num_animation_indices = 0,
+      .animation_indices ={
+      },
+    },
+    {
+      .conditions = {},
+
+      .num_animation_indices = 0,
+      .animation_indices ={
+      },
+    },
+};
+animation::animation_evolution_data_t get_min_dm_evolution_data(size_t index) {
+  using namespace assets;
+  assert(LEN_ARRAY(min_dm_evol_data_table) == MIN_DM_ANIM_COUNT);
+  assert(index < MIN_DM_ANIM_COUNT);
+  return min_dm_evol_data_table[index];
 }
 }  // namespace bongocat::assets
