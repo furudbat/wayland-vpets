@@ -1,233 +1,899 @@
 #include "core/bongocat.h"
-#include "graphics/animation_thread_context.h"
+#include "utils/memory.h"
+#include "graphics/animation_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/pen20/pen20.hpp"
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/pen20/pen20_sprite.h"
 #include "image_loader/pen20/load_images_pen20.h"
+#include "embedded_assets/pen20/pen20_images.h"
+#include <climits>
+#include <cstddef>
+#include <cstdint>
+
+/// @NOTE: Generated embedded assets pen20
+
 
 namespace bongocat::animation {
+    static constexpr assets::embedded_sprite_sheet_dims_t pen20_dims_table[] = {
+        {assets::PEN20_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN20_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_AGUMON_HAKASE_SPRITE_SHEET_COLS, assets::PEN20_AGUMON_HAKASE_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ALPHAMON_OURYUKEN_SPRITE_SHEET_COLS, assets::PEN20_ALPHAMON_OURYUKEN_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ANDIRAMON_SPRITE_SHEET_COLS, assets::PEN20_ANDIRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ANDROMON_SPRITE_SHEET_COLS, assets::PEN20_ANDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ANGEWOMON_SPRITE_SHEET_COLS, assets::PEN20_ANGEWOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ANOMALOCARIMON_SPRITE_SHEET_COLS, assets::PEN20_ANOMALOCARIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ARRESTERDRAMON_SPRITE_SHEET_COLS, assets::PEN20_ARRESTERDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ASTAMON_SPRITE_SHEET_COLS, assets::PEN20_ASTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ASTRAMON_SPRITE_SHEET_COLS, assets::PEN20_ASTRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ASURAMON_SPRITE_SHEET_COLS, assets::PEN20_ASURAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ATLUR_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN20_ATLUR_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BAALMON_SPRITE_SHEET_COLS, assets::PEN20_BAALMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BAKEMON_SPRITE_SHEET_COLS, assets::PEN20_BAKEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BAKUMON_SPRITE_SHEET_COLS, assets::PEN20_BAKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BANCHO_LEOMON_SPRITE_SHEET_COLS, assets::PEN20_BANCHO_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BEELZEBUMON_BLAST_MODE_SPRITE_SHEET_COLS, assets::PEN20_BEELZEBUMON_BLAST_MODE_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BEOWOLFMON_SPRITE_SHEET_COLS, assets::PEN20_BEOWOLFMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BEOWULFMON_SPRITE_SHEET_COLS, assets::PEN20_BEOWULFMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BIG_MAMEMON_SPRITE_SHEET_COLS, assets::PEN20_BIG_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BIRDRAMON_SPRITE_SHEET_COLS, assets::PEN20_BIRDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BLOSSOMON_SPRITE_SHEET_COLS, assets::PEN20_BLOSSOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BOLTMON_SPRITE_SHEET_COLS, assets::PEN20_BOLTMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BREAKDRAMON_SPRITE_SHEET_COLS, assets::PEN20_BREAKDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BRYWELUDRAMON_SPRITE_SHEET_COLS, assets::PEN20_BRYWELUDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BUBBMON_SPRITE_SHEET_COLS, assets::PEN20_BUBBMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BUDMON_SPRITE_SHEET_COLS, assets::PEN20_BUDMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_BUSHI_AGUMON_SPRITE_SHEET_COLS, assets::PEN20_BUSHI_AGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CANDMON_SPRITE_SHEET_COLS, assets::PEN20_CANDMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CAPRIMON_SPRITE_SHEET_COLS, assets::PEN20_CAPRIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CHAOSMON_SPRITE_SHEET_COLS, assets::PEN20_CHAOSMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CHERUBIMON_SPRITE_SHEET_COLS, assets::PEN20_CHERUBIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CHIBIMON_SPRITE_SHEET_COLS, assets::PEN20_CHIBIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CHICOMON_SPRITE_SHEET_COLS, assets::PEN20_CHICOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CHOROMON_SPRITE_SHEET_COLS, assets::PEN20_CHOROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CLOCKMON_SPRITE_SHEET_COLS, assets::PEN20_CLOCKMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_COCOMON_SPRITE_SHEET_COLS, assets::PEN20_COCOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_COELAMON_SPRITE_SHEET_COLS, assets::PEN20_COELAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_COREDRAMON_BLUE_SPRITE_SHEET_COLS, assets::PEN20_COREDRAMON_BLUE_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_COREDRAMON_GREEN_SPRITE_SHEET_COLS, assets::PEN20_COREDRAMON_GREEN_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_COTSUCOMON_SPRITE_SHEET_COLS, assets::PEN20_COTSUCOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_CYBERDRAMON_SPRITE_SHEET_COLS, assets::PEN20_CYBERDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DAGOMON_SPRITE_SHEET_COLS, assets::PEN20_DAGOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DARKDRAMON_SPRITE_SHEET_COLS, assets::PEN20_DARKDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DARK_KNIGHTMON_SPRITE_SHEET_COLS, assets::PEN20_DARK_KNIGHTMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DEATH_MERAMON_SPRITE_SHEET_COLS, assets::PEN20_DEATH_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DELUMON_SPRITE_SHEET_COLS, assets::PEN20_DELUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DEVIDRAMON_SPRITE_SHEET_COLS, assets::PEN20_DEVIDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DEVIMON_SPRITE_SHEET_COLS, assets::PEN20_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DOKUGUMON_SPRITE_SHEET_COLS, assets::PEN20_DOKUGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DORUGORAMON_SPRITE_SHEET_COLS, assets::PEN20_DORUGORAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DURAMON_SPRITE_SHEET_COLS, assets::PEN20_DURAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_DURANDAMON_SPRITE_SHEET_COLS, assets::PEN20_DURANDAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_EBIDRAMON_SPRITE_SHEET_COLS, assets::PEN20_EBIDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ETEMON_SPRITE_SHEET_COLS, assets::PEN20_ETEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_EXAMON_SPRITE_SHEET_COLS, assets::PEN20_EXAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_FANTOMON_SPRITE_SHEET_COLS, assets::PEN20_FANTOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_FLORAMON_SPRITE_SHEET_COLS, assets::PEN20_FLORAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_FUFUMON_SPRITE_SHEET_COLS, assets::PEN20_FUFUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GALGOMON_SPRITE_SHEET_COLS, assets::PEN20_GALGOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GANIMON_SPRITE_SHEET_COLS, assets::PEN20_GANIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GARUDAMON_SPRITE_SHEET_COLS, assets::PEN20_GARUDAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GARURUMON_SPRITE_SHEET_COLS, assets::PEN20_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GEKOMON_SPRITE_SHEET_COLS, assets::PEN20_GEKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GERBEMON_SPRITE_SHEET_COLS, assets::PEN20_GERBEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GESOMON_SPRITE_SHEET_COLS, assets::PEN20_GESOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GINRYUMON_SPRITE_SHEET_COLS, assets::PEN20_GINRYUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GOMAMON_SPRITE_SHEET_COLS, assets::PEN20_GOMAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GOTTSUMON_SPRITE_SHEET_COLS, assets::PEN20_GOTTSUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GREYMON_SPRITE_SHEET_COLS, assets::PEN20_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GRIFFOMON_SPRITE_SHEET_COLS, assets::PEN20_GRIFFOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GROUNDRAMON_SPRITE_SHEET_COLS, assets::PEN20_GROUNDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GROWMON_SPRITE_SHEET_COLS, assets::PEN20_GROWMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GUARDROMON_SPRITE_SHEET_COLS, assets::PEN20_GUARDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GUIMON_SPRITE_SHEET_COLS, assets::PEN20_GUIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_GUMMYMON_SPRITE_SHEET_COLS, assets::PEN20_GUMMYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HAGURUMON_SPRITE_SHEET_COLS, assets::PEN20_HAGURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HANGYMON_SPRITE_SHEET_COLS, assets::PEN20_HANGYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HANGYOMON_SPRITE_SHEET_COLS, assets::PEN20_HANGYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HANUMON_SPRITE_SHEET_COLS, assets::PEN20_HANUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HERAKLE_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN20_HERAKLE_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HERKULE_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN20_HERKULE_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HISYARYUMON_SPRITE_SHEET_COLS, assets::PEN20_HISYARYUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HOLY_ANGEMON_SPRITE_SHEET_COLS, assets::PEN20_HOLY_ANGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HOLYDRAMON_SPRITE_SHEET_COLS, assets::PEN20_HOLYDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_HOUOUMON_SPRITE_SHEET_COLS, assets::PEN20_HOUOUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_IGNAMON_SPRITE_SHEET_COLS, assets::PEN20_IGNAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_IKKAKUMON_SPRITE_SHEET_COLS, assets::PEN20_IKKAKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_IMPERIALDRAMON_FIGHTER_MODE_SPRITE_SHEET_COLS, assets::PEN20_IMPERIALDRAMON_FIGHTER_MODE_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_IMPMON_SPRITE_SHEET_COLS, assets::PEN20_IMPMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_JESMON_SPRITE_SHEET_COLS, assets::PEN20_JESMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_JESMON_X_SPRITE_SHEET_COLS, assets::PEN20_JESMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_JYAGAMON_SPRITE_SHEET_COLS, assets::PEN20_JYAGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_JYUREIMON_SPRITE_SHEET_COLS, assets::PEN20_JYUREIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN20_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_KAKKINMON_SPRITE_SHEET_COLS, assets::PEN20_KAKKINMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_KIWIMON_SPRITE_SHEET_COLS, assets::PEN20_KIWIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_KNIGHTMON_SPRITE_SHEET_COLS, assets::PEN20_KNIGHTMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_KOKUWAMON_SPRITE_SHEET_COLS, assets::PEN20_KOKUWAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_KUWAGAMON_SPRITE_SHEET_COLS, assets::PEN20_KUWAGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_KYOKYOMON_SPRITE_SHEET_COLS, assets::PEN20_KYOKYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LADY_DEVIMON_SPRITE_SHEET_COLS, assets::PEN20_LADY_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LALAMON_SPRITE_SHEET_COLS, assets::PEN20_LALAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LAVOGARITAMON_SPRITE_SHEET_COLS, assets::PEN20_LAVOGARITAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LAVORVOMON_SPRITE_SHEET_COLS, assets::PEN20_LAVORVOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LILAMON_SPRITE_SHEET_COLS, assets::PEN20_LILAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LILIMON_SPRITE_SHEET_COLS, assets::PEN20_LILIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LOPMON_SPRITE_SHEET_COLS, assets::PEN20_LOPMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LOTUSMON_SPRITE_SHEET_COLS, assets::PEN20_LOTUSMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_LUDOMON_SPRITE_SHEET_COLS, assets::PEN20_LUDOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MAD_LEOMON_SPRITE_SHEET_COLS, assets::PEN20_MAD_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MAMBOMON_SPRITE_SHEET_COLS, assets::PEN20_MAMBOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MAMMON_SPRITE_SHEET_COLS, assets::PEN20_MAMMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MANBOMON_SPRITE_SHEET_COLS, assets::PEN20_MANBOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MARIN_ANGEMON_SPRITE_SHEET_COLS, assets::PEN20_MARIN_ANGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MARIN_DEVIMON_SPRITE_SHEET_COLS, assets::PEN20_MARIN_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MASTEMON_SPRITE_SHEET_COLS, assets::PEN20_MASTEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MECHANORIMON_SPRITE_SHEET_COLS, assets::PEN20_MECHANORIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MEGADRAMON_SPRITE_SHEET_COLS, assets::PEN20_MEGADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MEGALO_GROWMON_SPRITE_SHEET_COLS, assets::PEN20_MEGALO_GROWMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MEGA_SEADRAMON_SPRITE_SHEET_COLS, assets::PEN20_MEGA_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MEICRACKMON_VICIOUS_MODE_SPRITE_SHEET_COLS, assets::PEN20_MEICRACKMON_VICIOUS_MODE_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MERAMON_SPRITE_SHEET_COLS, assets::PEN20_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_METAL_ETEMON_SPRITE_SHEET_COLS, assets::PEN20_METAL_ETEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_METAL_GARURUMON_SPRITE_SHEET_COLS, assets::PEN20_METAL_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_METAL_GREYMON_SPRITE_SHEET_COLS, assets::PEN20_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_METAL_MAMEMON_SPRITE_SHEET_COLS, assets::PEN20_METAL_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_METAL_SEADRAMON_SPRITE_SHEET_COLS, assets::PEN20_METAL_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MOCHIMON_SPRITE_SHEET_COLS, assets::PEN20_MOCHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MOKUMON_SPRITE_SHEET_COLS, assets::PEN20_MOKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MONCHROMON_SPRITE_SHEET_COLS, assets::PEN20_MONCHROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MONOCHROMON_SPRITE_SHEET_COLS, assets::PEN20_MONOCHROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MUGENDRAMON_SPRITE_SHEET_COLS, assets::PEN20_MUGENDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_MUSHMON_SPRITE_SHEET_COLS, assets::PEN20_MUSHMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_NYOKIMON_SPRITE_SHEET_COLS, assets::PEN20_NYOKIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_OCTMON_SPRITE_SHEET_COLS, assets::PEN20_OCTMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_OFANIMON_SPRITE_SHEET_COLS, assets::PEN20_OFANIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_OGUDOMON_SPRITE_SHEET_COLS, assets::PEN20_OGUDOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_OKUWAMON_SPRITE_SHEET_COLS, assets::PEN20_OKUWAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_OMEGAMON_SPRITE_SHEET_COLS, assets::PEN20_OMEGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ORDINEMON_SPRITE_SHEET_COLS, assets::PEN20_ORDINEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_OTAMAMON_SPRITE_SHEET_COLS, assets::PEN20_OTAMAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_OURYUMON_SPRITE_SHEET_COLS, assets::PEN20_OURYUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PAILDRAMON_SPRITE_SHEET_COLS, assets::PEN20_PAILDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PALMON_SPRITE_SHEET_COLS, assets::PEN20_PALMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PETI_MERAMON_SPRITE_SHEET_COLS, assets::PEN20_PETI_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PHASCOMON_SPRITE_SHEET_COLS, assets::PEN20_PHASCOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PICCOLOMON_SPRITE_SHEET_COLS, assets::PEN20_PICCOLOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PICO_DEVIMON_SPRITE_SHEET_COLS, assets::PEN20_PICO_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PIEMON_SPRITE_SHEET_COLS, assets::PEN20_PIEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PINOCHIMON_SPRITE_SHEET_COLS, assets::PEN20_PINOCHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PIYOMON_SPRITE_SHEET_COLS, assets::PEN20_PIYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PLESIOMON_SPRITE_SHEET_COLS, assets::PEN20_PLESIOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PORCUPAMON_SPRITE_SHEET_COLS, assets::PEN20_PORCUPAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PORCUPMON_SPRITE_SHEET_COLS, assets::PEN20_PORCUPMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PUKUMON_SPRITE_SHEET_COLS, assets::PEN20_PUKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PUMPMON_SPRITE_SHEET_COLS, assets::PEN20_PUMPMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_PYOCOMON_SPRITE_SHEET_COLS, assets::PEN20_PYOCOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RAFFLESIMON_SPRITE_SHEET_COLS, assets::PEN20_RAFFLESIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RAGNA_LORDMON_SPRITE_SHEET_COLS, assets::PEN20_RAGNA_LORDMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RAGUELMON_SPRITE_SHEET_COLS, assets::PEN20_RAGUELMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RAIJI_LUDOMON_SPRITE_SHEET_COLS, assets::PEN20_RAIJI_LUDOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RAKAMON_SPRITE_SHEET_COLS, assets::PEN20_RAKAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RAPIDMON_SPRITE_SHEET_COLS, assets::PEN20_RAPIDMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RED_VEGIMON_SPRITE_SHEET_COLS, assets::PEN20_RED_VEGIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_REPPAMON_SPRITE_SHEET_COLS, assets::PEN20_REPPAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_REVOLMON_SPRITE_SHEET_COLS, assets::PEN20_REVOLMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RIZE_GREYMON_SPRITE_SHEET_COLS, assets::PEN20_RIZE_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ROSEMON_SPRITE_SHEET_COLS, assets::PEN20_ROSEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RUKAMON_SPRITE_SHEET_COLS, assets::PEN20_RUKAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_RYUDAMON_SPRITE_SHEET_COLS, assets::PEN20_RYUDAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SABER_LEOMON_SPRITE_SHEET_COLS, assets::PEN20_SABER_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SAINT_GALGOMON_SPRITE_SHEET_COLS, assets::PEN20_SAINT_GALGOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SAVIOR_HACKMON_SPRITE_SHEET_COLS, assets::PEN20_SAVIOR_HACKMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SEADRAMON_SPRITE_SHEET_COLS, assets::PEN20_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SERAPHIMON_SPRITE_SHEET_COLS, assets::PEN20_SERAPHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SHADRAMON_SPRITE_SHEET_COLS, assets::PEN20_SHADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SHAKOMON_SPRITE_SHEET_COLS, assets::PEN20_SHAKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SKULL_MAMMON_SPRITE_SHEET_COLS, assets::PEN20_SKULL_MAMMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SLAYERDRAMON_SPRITE_SHEET_COLS, assets::PEN20_SLAYERDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_STARMON_SPRITE_SHEET_COLS, assets::PEN20_STARMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_SUNFLOWMON_SPRITE_SHEET_COLS, assets::PEN20_SUNFLOWMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TAILMON_SPRITE_SHEET_COLS, assets::PEN20_TAILMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TANKMON_SPRITE_SHEET_COLS, assets::PEN20_TANKMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TARGETMON_SPRITE_SHEET_COLS, assets::PEN20_TARGETMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TENTOMON_SPRITE_SHEET_COLS, assets::PEN20_TENTOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TERRIERMON_SPRITE_SHEET_COLS, assets::PEN20_TERRIERMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_THUNDERBALLMON_SPRITE_SHEET_COLS, assets::PEN20_THUNDERBALLMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TIA_LUDOMON_SPRITE_SHEET_COLS, assets::PEN20_TIA_LUDOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TOGEMON_SPRITE_SHEET_COLS, assets::PEN20_TOGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TONOSAMA_GEKOMON_SPRITE_SHEET_COLS, assets::PEN20_TONOSAMA_GEKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TORTAMON_SPRITE_SHEET_COLS, assets::PEN20_TORTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TOY_AGUMON_SPRITE_SHEET_COLS, assets::PEN20_TOY_AGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TRICERAMON_SPRITE_SHEET_COLS, assets::PEN20_TRICERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TROOPMON_SPRITE_SHEET_COLS, assets::PEN20_TROOPMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_TURUIEMON_SPRITE_SHEET_COLS, assets::PEN20_TURUIEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_VAMDEMON_SPRITE_SHEET_COLS, assets::PEN20_VAMDEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN20_V_DRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_VEMDEMON_SPRITE_SHEET_COLS, assets::PEN20_VEMDEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_VENOM_VAMDEMON_SPRITE_SHEET_COLS, assets::PEN20_VENOM_VAMDEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_V_MON_SPRITE_SHEET_COLS, assets::PEN20_V_MON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_VOLCANICDRAMON_SPRITE_SHEET_COLS, assets::PEN20_VOLCANICDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_VOLTOBAUTAMON_SPRITE_SHEET_COLS, assets::PEN20_VOLTOBAUTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_VORVOMON_SPRITE_SHEET_COLS, assets::PEN20_VORVOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_WAR_GREYMON_SPRITE_SHEET_COLS, assets::PEN20_WAR_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_WARU_MOZAEMON_SPRITE_SHEET_COLS, assets::PEN20_WARU_MOZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_WERE_GARURUMON_SPRITE_SHEET_COLS, assets::PEN20_WERE_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_WHAMON_SPRITE_SHEET_COLS, assets::PEN20_WHAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_WINGDRAMON_SPRITE_SHEET_COLS, assets::PEN20_WINGDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_WIZARMON_SPRITE_SHEET_COLS, assets::PEN20_WIZARMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_WOODMON_SPRITE_SHEET_COLS, assets::PEN20_WOODMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_XV_MON_SPRITE_SHEET_COLS, assets::PEN20_XV_MON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ZERIMON_SPRITE_SHEET_COLS, assets::PEN20_ZERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN20_ZUDOMON_SPRITE_SHEET_COLS, assets::PEN20_ZUDOMON_SPRITE_SHEET_ROWS}, 
+        
+    };
+    static const unsigned char* pen20_pngs_table[] = {
+        pen20_aero_v_dramon_png, 
+        pen20_agumon_hakase_png, 
+        pen20_alphamon_ouryuken_png, 
+        pen20_andiramon_png, 
+        pen20_andromon_png, 
+        pen20_angewomon_png, 
+        pen20_anomalocarimon_png, 
+        pen20_arresterdramon_png, 
+        pen20_astamon_png, 
+        pen20_astramon_png, 
+        pen20_asuramon_png, 
+        pen20_atlur_kabuterimon_png, 
+        pen20_baalmon_png, 
+        pen20_bakemon_png, 
+        pen20_bakumon_png, 
+        pen20_bancho_leomon_png, 
+        pen20_beelzebumon_blast_mode_png, 
+        pen20_beowolfmon_png, 
+        pen20_beowulfmon_png, 
+        pen20_big_mamemon_png, 
+        pen20_birdramon_png, 
+        pen20_blossomon_png, 
+        pen20_boltmon_png, 
+        pen20_breakdramon_png, 
+        pen20_bryweludramon_png, 
+        pen20_bubbmon_png, 
+        pen20_budmon_png, 
+        pen20_bushi_agumon_png, 
+        pen20_candmon_png, 
+        pen20_caprimon_png, 
+        pen20_chaosmon_png, 
+        pen20_cherubimon_png, 
+        pen20_chibimon_png, 
+        pen20_chicomon_png, 
+        pen20_choromon_png, 
+        pen20_clockmon_png, 
+        pen20_cocomon_png, 
+        pen20_coelamon_png, 
+        pen20_coredramon_blue_png, 
+        pen20_coredramon_green_png, 
+        pen20_cotsucomon_png, 
+        pen20_cyberdramon_png, 
+        pen20_dagomon_png, 
+        pen20_darkdramon_png, 
+        pen20_dark_knightmon_png, 
+        pen20_death_meramon_png, 
+        pen20_delumon_png, 
+        pen20_devidramon_png, 
+        pen20_devimon_png, 
+        pen20_dokugumon_png, 
+        pen20_dorugoramon_png, 
+        pen20_duramon_png, 
+        pen20_durandamon_png, 
+        pen20_ebidramon_png, 
+        pen20_etemon_png, 
+        pen20_examon_png, 
+        pen20_fantomon_png, 
+        pen20_floramon_png, 
+        pen20_fufumon_png, 
+        pen20_galgomon_png, 
+        pen20_ganimon_png, 
+        pen20_garudamon_png, 
+        pen20_garurumon_png, 
+        pen20_gekomon_png, 
+        pen20_gerbemon_png, 
+        pen20_gesomon_png, 
+        pen20_ginryumon_png, 
+        pen20_gomamon_png, 
+        pen20_gottsumon_png, 
+        pen20_greymon_png, 
+        pen20_griffomon_png, 
+        pen20_groundramon_png, 
+        pen20_growmon_png, 
+        pen20_guardromon_png, 
+        pen20_guimon_png, 
+        pen20_gummymon_png, 
+        pen20_hagurumon_png, 
+        pen20_hangymon_png, 
+        pen20_hangyomon_png, 
+        pen20_hanumon_png, 
+        pen20_herakle_kabuterimon_png, 
+        pen20_herkule_kabuterimon_png, 
+        pen20_hisyaryumon_png, 
+        pen20_holy_angemon_png, 
+        pen20_holydramon_png, 
+        pen20_hououmon_png, 
+        pen20_ignamon_png, 
+        pen20_ikkakumon_png, 
+        pen20_imperialdramon_fighter_mode_png, 
+        pen20_impmon_png, 
+        pen20_jesmon_png, 
+        pen20_jesmon_x_png, 
+        pen20_jyagamon_png, 
+        pen20_jyureimon_png, 
+        pen20_kabuterimon_png, 
+        pen20_kakkinmon_png, 
+        pen20_kiwimon_png, 
+        pen20_knightmon_png, 
+        pen20_kokuwamon_png, 
+        pen20_kuwagamon_png, 
+        pen20_kyokyomon_png, 
+        pen20_lady_devimon_png, 
+        pen20_lalamon_png, 
+        pen20_lavogaritamon_png, 
+        pen20_lavorvomon_png, 
+        pen20_lilamon_png, 
+        pen20_lilimon_png, 
+        pen20_lopmon_png, 
+        pen20_lotusmon_png, 
+        pen20_ludomon_png, 
+        pen20_mad_leomon_png, 
+        pen20_mambomon_png, 
+        pen20_mammon_png, 
+        pen20_manbomon_png, 
+        pen20_marin_angemon_png, 
+        pen20_marin_devimon_png, 
+        pen20_mastemon_png, 
+        pen20_mechanorimon_png, 
+        pen20_megadramon_png, 
+        pen20_megalo_growmon_png, 
+        pen20_mega_seadramon_png, 
+        pen20_meicrackmon_vicious_mode_png, 
+        pen20_meramon_png, 
+        pen20_metal_etemon_png, 
+        pen20_metal_garurumon_png, 
+        pen20_metal_greymon_png, 
+        pen20_metal_mamemon_png, 
+        pen20_metal_seadramon_png, 
+        pen20_mochimon_png, 
+        pen20_mokumon_png, 
+        pen20_monchromon_png, 
+        pen20_monochromon_png, 
+        pen20_mugendramon_png, 
+        pen20_mushmon_png, 
+        pen20_nyokimon_png, 
+        pen20_octmon_png, 
+        pen20_ofanimon_png, 
+        pen20_ogudomon_png, 
+        pen20_okuwamon_png, 
+        pen20_omegamon_png, 
+        pen20_ordinemon_png, 
+        pen20_otamamon_png, 
+        pen20_ouryumon_png, 
+        pen20_paildramon_png, 
+        pen20_palmon_png, 
+        pen20_peti_meramon_png, 
+        pen20_phascomon_png, 
+        pen20_piccolomon_png, 
+        pen20_pico_devimon_png, 
+        pen20_piemon_png, 
+        pen20_pinochimon_png, 
+        pen20_piyomon_png, 
+        pen20_plesiomon_png, 
+        pen20_porcupamon_png, 
+        pen20_porcupmon_png, 
+        pen20_pukumon_png, 
+        pen20_pumpmon_png, 
+        pen20_pyocomon_png, 
+        pen20_rafflesimon_png, 
+        pen20_ragna_lordmon_png, 
+        pen20_raguelmon_png, 
+        pen20_raiji_ludomon_png, 
+        pen20_rakamon_png, 
+        pen20_rapidmon_png, 
+        pen20_red_vegimon_png, 
+        pen20_reppamon_png, 
+        pen20_revolmon_png, 
+        pen20_rize_greymon_png, 
+        pen20_rosemon_png, 
+        pen20_rukamon_png, 
+        pen20_ryudamon_png, 
+        pen20_saber_leomon_png, 
+        pen20_saint_galgomon_png, 
+        pen20_savior_hackmon_png, 
+        pen20_seadramon_png, 
+        pen20_seraphimon_png, 
+        pen20_shadramon_png, 
+        pen20_shakomon_png, 
+        pen20_skull_mammon_png, 
+        pen20_slayerdramon_png, 
+        pen20_starmon_png, 
+        pen20_sunflowmon_png, 
+        pen20_tailmon_png, 
+        pen20_tankmon_png, 
+        pen20_targetmon_png, 
+        pen20_tentomon_png, 
+        pen20_terriermon_png, 
+        pen20_thunderballmon_png, 
+        pen20_tia_ludomon_png, 
+        pen20_togemon_png, 
+        pen20_tonosama_gekomon_png, 
+        pen20_tortamon_png, 
+        pen20_toy_agumon_png, 
+        pen20_triceramon_png, 
+        pen20_troopmon_png, 
+        pen20_turuiemon_png, 
+        pen20_vamdemon_png, 
+        pen20_v_dramon_png, 
+        pen20_vemdemon_png, 
+        pen20_venom_vamdemon_png, 
+        pen20_v_mon_png, 
+        pen20_volcanicdramon_png, 
+        pen20_voltobautamon_png, 
+        pen20_vorvomon_png, 
+        pen20_war_greymon_png, 
+        pen20_waru_mozaemon_png, 
+        pen20_were_garurumon_png, 
+        pen20_whamon_png, 
+        pen20_wingdramon_png, 
+        pen20_wizarmon_png, 
+        pen20_woodmon_png, 
+        pen20_xv_mon_png, 
+        pen20_zerimon_png, 
+        pen20_zudomon_png, 
+        
+    };
+    static const size_t pen20_png_sizes_table[] = {
+        pen20_aero_v_dramon_png_size, 
+        pen20_agumon_hakase_png_size, 
+        pen20_alphamon_ouryuken_png_size, 
+        pen20_andiramon_png_size, 
+        pen20_andromon_png_size, 
+        pen20_angewomon_png_size, 
+        pen20_anomalocarimon_png_size, 
+        pen20_arresterdramon_png_size, 
+        pen20_astamon_png_size, 
+        pen20_astramon_png_size, 
+        pen20_asuramon_png_size, 
+        pen20_atlur_kabuterimon_png_size, 
+        pen20_baalmon_png_size, 
+        pen20_bakemon_png_size, 
+        pen20_bakumon_png_size, 
+        pen20_bancho_leomon_png_size, 
+        pen20_beelzebumon_blast_mode_png_size, 
+        pen20_beowolfmon_png_size, 
+        pen20_beowulfmon_png_size, 
+        pen20_big_mamemon_png_size, 
+        pen20_birdramon_png_size, 
+        pen20_blossomon_png_size, 
+        pen20_boltmon_png_size, 
+        pen20_breakdramon_png_size, 
+        pen20_bryweludramon_png_size, 
+        pen20_bubbmon_png_size, 
+        pen20_budmon_png_size, 
+        pen20_bushi_agumon_png_size, 
+        pen20_candmon_png_size, 
+        pen20_caprimon_png_size, 
+        pen20_chaosmon_png_size, 
+        pen20_cherubimon_png_size, 
+        pen20_chibimon_png_size, 
+        pen20_chicomon_png_size, 
+        pen20_choromon_png_size, 
+        pen20_clockmon_png_size, 
+        pen20_cocomon_png_size, 
+        pen20_coelamon_png_size, 
+        pen20_coredramon_blue_png_size, 
+        pen20_coredramon_green_png_size, 
+        pen20_cotsucomon_png_size, 
+        pen20_cyberdramon_png_size, 
+        pen20_dagomon_png_size, 
+        pen20_darkdramon_png_size, 
+        pen20_dark_knightmon_png_size, 
+        pen20_death_meramon_png_size, 
+        pen20_delumon_png_size, 
+        pen20_devidramon_png_size, 
+        pen20_devimon_png_size, 
+        pen20_dokugumon_png_size, 
+        pen20_dorugoramon_png_size, 
+        pen20_duramon_png_size, 
+        pen20_durandamon_png_size, 
+        pen20_ebidramon_png_size, 
+        pen20_etemon_png_size, 
+        pen20_examon_png_size, 
+        pen20_fantomon_png_size, 
+        pen20_floramon_png_size, 
+        pen20_fufumon_png_size, 
+        pen20_galgomon_png_size, 
+        pen20_ganimon_png_size, 
+        pen20_garudamon_png_size, 
+        pen20_garurumon_png_size, 
+        pen20_gekomon_png_size, 
+        pen20_gerbemon_png_size, 
+        pen20_gesomon_png_size, 
+        pen20_ginryumon_png_size, 
+        pen20_gomamon_png_size, 
+        pen20_gottsumon_png_size, 
+        pen20_greymon_png_size, 
+        pen20_griffomon_png_size, 
+        pen20_groundramon_png_size, 
+        pen20_growmon_png_size, 
+        pen20_guardromon_png_size, 
+        pen20_guimon_png_size, 
+        pen20_gummymon_png_size, 
+        pen20_hagurumon_png_size, 
+        pen20_hangymon_png_size, 
+        pen20_hangyomon_png_size, 
+        pen20_hanumon_png_size, 
+        pen20_herakle_kabuterimon_png_size, 
+        pen20_herkule_kabuterimon_png_size, 
+        pen20_hisyaryumon_png_size, 
+        pen20_holy_angemon_png_size, 
+        pen20_holydramon_png_size, 
+        pen20_hououmon_png_size, 
+        pen20_ignamon_png_size, 
+        pen20_ikkakumon_png_size, 
+        pen20_imperialdramon_fighter_mode_png_size, 
+        pen20_impmon_png_size, 
+        pen20_jesmon_png_size, 
+        pen20_jesmon_x_png_size, 
+        pen20_jyagamon_png_size, 
+        pen20_jyureimon_png_size, 
+        pen20_kabuterimon_png_size, 
+        pen20_kakkinmon_png_size, 
+        pen20_kiwimon_png_size, 
+        pen20_knightmon_png_size, 
+        pen20_kokuwamon_png_size, 
+        pen20_kuwagamon_png_size, 
+        pen20_kyokyomon_png_size, 
+        pen20_lady_devimon_png_size, 
+        pen20_lalamon_png_size, 
+        pen20_lavogaritamon_png_size, 
+        pen20_lavorvomon_png_size, 
+        pen20_lilamon_png_size, 
+        pen20_lilimon_png_size, 
+        pen20_lopmon_png_size, 
+        pen20_lotusmon_png_size, 
+        pen20_ludomon_png_size, 
+        pen20_mad_leomon_png_size, 
+        pen20_mambomon_png_size, 
+        pen20_mammon_png_size, 
+        pen20_manbomon_png_size, 
+        pen20_marin_angemon_png_size, 
+        pen20_marin_devimon_png_size, 
+        pen20_mastemon_png_size, 
+        pen20_mechanorimon_png_size, 
+        pen20_megadramon_png_size, 
+        pen20_megalo_growmon_png_size, 
+        pen20_mega_seadramon_png_size, 
+        pen20_meicrackmon_vicious_mode_png_size, 
+        pen20_meramon_png_size, 
+        pen20_metal_etemon_png_size, 
+        pen20_metal_garurumon_png_size, 
+        pen20_metal_greymon_png_size, 
+        pen20_metal_mamemon_png_size, 
+        pen20_metal_seadramon_png_size, 
+        pen20_mochimon_png_size, 
+        pen20_mokumon_png_size, 
+        pen20_monchromon_png_size, 
+        pen20_monochromon_png_size, 
+        pen20_mugendramon_png_size, 
+        pen20_mushmon_png_size, 
+        pen20_nyokimon_png_size, 
+        pen20_octmon_png_size, 
+        pen20_ofanimon_png_size, 
+        pen20_ogudomon_png_size, 
+        pen20_okuwamon_png_size, 
+        pen20_omegamon_png_size, 
+        pen20_ordinemon_png_size, 
+        pen20_otamamon_png_size, 
+        pen20_ouryumon_png_size, 
+        pen20_paildramon_png_size, 
+        pen20_palmon_png_size, 
+        pen20_peti_meramon_png_size, 
+        pen20_phascomon_png_size, 
+        pen20_piccolomon_png_size, 
+        pen20_pico_devimon_png_size, 
+        pen20_piemon_png_size, 
+        pen20_pinochimon_png_size, 
+        pen20_piyomon_png_size, 
+        pen20_plesiomon_png_size, 
+        pen20_porcupamon_png_size, 
+        pen20_porcupmon_png_size, 
+        pen20_pukumon_png_size, 
+        pen20_pumpmon_png_size, 
+        pen20_pyocomon_png_size, 
+        pen20_rafflesimon_png_size, 
+        pen20_ragna_lordmon_png_size, 
+        pen20_raguelmon_png_size, 
+        pen20_raiji_ludomon_png_size, 
+        pen20_rakamon_png_size, 
+        pen20_rapidmon_png_size, 
+        pen20_red_vegimon_png_size, 
+        pen20_reppamon_png_size, 
+        pen20_revolmon_png_size, 
+        pen20_rize_greymon_png_size, 
+        pen20_rosemon_png_size, 
+        pen20_rukamon_png_size, 
+        pen20_ryudamon_png_size, 
+        pen20_saber_leomon_png_size, 
+        pen20_saint_galgomon_png_size, 
+        pen20_savior_hackmon_png_size, 
+        pen20_seadramon_png_size, 
+        pen20_seraphimon_png_size, 
+        pen20_shadramon_png_size, 
+        pen20_shakomon_png_size, 
+        pen20_skull_mammon_png_size, 
+        pen20_slayerdramon_png_size, 
+        pen20_starmon_png_size, 
+        pen20_sunflowmon_png_size, 
+        pen20_tailmon_png_size, 
+        pen20_tankmon_png_size, 
+        pen20_targetmon_png_size, 
+        pen20_tentomon_png_size, 
+        pen20_terriermon_png_size, 
+        pen20_thunderballmon_png_size, 
+        pen20_tia_ludomon_png_size, 
+        pen20_togemon_png_size, 
+        pen20_tonosama_gekomon_png_size, 
+        pen20_tortamon_png_size, 
+        pen20_toy_agumon_png_size, 
+        pen20_triceramon_png_size, 
+        pen20_troopmon_png_size, 
+        pen20_turuiemon_png_size, 
+        pen20_vamdemon_png_size, 
+        pen20_v_dramon_png_size, 
+        pen20_vemdemon_png_size, 
+        pen20_venom_vamdemon_png_size, 
+        pen20_v_mon_png_size, 
+        pen20_volcanicdramon_png_size, 
+        pen20_voltobautamon_png_size, 
+        pen20_vorvomon_png_size, 
+        pen20_war_greymon_png_size, 
+        pen20_waru_mozaemon_png_size, 
+        pen20_were_garurumon_png_size, 
+        pen20_whamon_png_size, 
+        pen20_wingdramon_png_size, 
+        pen20_wizarmon_png_size, 
+        pen20_woodmon_png_size, 
+        pen20_xv_mon_png_size, 
+        pen20_zerimon_png_size, 
+        pen20_zudomon_png_size, 
+        
+    };
+    static const char* pen20_names_table[] = {
+        "aero_v_dramon", 
+        "agumon_hakase", 
+        "alphamon_ouryuken", 
+        "andiramon", 
+        "andromon", 
+        "angewomon", 
+        "anomalocarimon", 
+        "arresterdramon", 
+        "astamon", 
+        "astramon", 
+        "asuramon", 
+        "atlur_kabuterimon", 
+        "baalmon", 
+        "bakemon", 
+        "bakumon", 
+        "bancho_leomon", 
+        "beelzebumon_blast_mode", 
+        "beowolfmon", 
+        "beowulfmon", 
+        "big_mamemon", 
+        "birdramon", 
+        "blossomon", 
+        "boltmon", 
+        "breakdramon", 
+        "bryweludramon", 
+        "bubbmon", 
+        "budmon", 
+        "bushi_agumon", 
+        "candmon", 
+        "caprimon", 
+        "chaosmon", 
+        "cherubimon", 
+        "chibimon", 
+        "chicomon", 
+        "choromon", 
+        "clockmon", 
+        "cocomon", 
+        "coelamon", 
+        "coredramon_blue", 
+        "coredramon_green", 
+        "cotsucomon", 
+        "cyberdramon", 
+        "dagomon", 
+        "darkdramon", 
+        "dark_knightmon", 
+        "death_meramon", 
+        "delumon", 
+        "devidramon", 
+        "devimon", 
+        "dokugumon", 
+        "dorugoramon", 
+        "duramon", 
+        "durandamon", 
+        "ebidramon", 
+        "etemon", 
+        "examon", 
+        "fantomon", 
+        "floramon", 
+        "fufumon", 
+        "galgomon", 
+        "ganimon", 
+        "garudamon", 
+        "garurumon", 
+        "gekomon", 
+        "gerbemon", 
+        "gesomon", 
+        "ginryumon", 
+        "gomamon", 
+        "gottsumon", 
+        "greymon", 
+        "griffomon", 
+        "groundramon", 
+        "growmon", 
+        "guardromon", 
+        "guimon", 
+        "gummymon", 
+        "hagurumon", 
+        "hangymon", 
+        "hangyomon", 
+        "hanumon", 
+        "herakle_kabuterimon", 
+        "herkule_kabuterimon", 
+        "hisyaryumon", 
+        "holy_angemon", 
+        "holydramon", 
+        "hououmon", 
+        "ignamon", 
+        "ikkakumon", 
+        "imperialdramon_fighter_mode", 
+        "impmon", 
+        "jesmon", 
+        "jesmon_x", 
+        "jyagamon", 
+        "jyureimon", 
+        "kabuterimon", 
+        "kakkinmon", 
+        "kiwimon", 
+        "knightmon", 
+        "kokuwamon", 
+        "kuwagamon", 
+        "kyokyomon", 
+        "lady_devimon", 
+        "lalamon", 
+        "lavogaritamon", 
+        "lavorvomon", 
+        "lilamon", 
+        "lilimon", 
+        "lopmon", 
+        "lotusmon", 
+        "ludomon", 
+        "mad_leomon", 
+        "mambomon", 
+        "mammon", 
+        "manbomon", 
+        "marin_angemon", 
+        "marin_devimon", 
+        "mastemon", 
+        "mechanorimon", 
+        "megadramon", 
+        "megalo_growmon", 
+        "mega_seadramon", 
+        "meicrackmon_vicious_mode", 
+        "meramon", 
+        "metal_etemon", 
+        "metal_garurumon", 
+        "metal_greymon", 
+        "metal_mamemon", 
+        "metal_seadramon", 
+        "mochimon", 
+        "mokumon", 
+        "monchromon", 
+        "monochromon", 
+        "mugendramon", 
+        "mushmon", 
+        "nyokimon", 
+        "octmon", 
+        "ofanimon", 
+        "ogudomon", 
+        "okuwamon", 
+        "omegamon", 
+        "ordinemon", 
+        "otamamon", 
+        "ouryumon", 
+        "paildramon", 
+        "palmon", 
+        "peti_meramon", 
+        "phascomon", 
+        "piccolomon", 
+        "pico_devimon", 
+        "piemon", 
+        "pinochimon", 
+        "piyomon", 
+        "plesiomon", 
+        "porcupamon", 
+        "porcupmon", 
+        "pukumon", 
+        "pumpmon", 
+        "pyocomon", 
+        "rafflesimon", 
+        "ragna_lordmon", 
+        "raguelmon", 
+        "raiji_ludomon", 
+        "rakamon", 
+        "rapidmon", 
+        "red_vegimon", 
+        "reppamon", 
+        "revolmon", 
+        "rize_greymon", 
+        "rosemon", 
+        "rukamon", 
+        "ryudamon", 
+        "saber_leomon", 
+        "saint_galgomon", 
+        "savior_hackmon", 
+        "seadramon", 
+        "seraphimon", 
+        "shadramon", 
+        "shakomon", 
+        "skull_mammon", 
+        "slayerdramon", 
+        "starmon", 
+        "sunflowmon", 
+        "tailmon", 
+        "tankmon", 
+        "targetmon", 
+        "tentomon", 
+        "terriermon", 
+        "thunderballmon", 
+        "tia_ludomon", 
+        "togemon", 
+        "tonosama_gekomon", 
+        "tortamon", 
+        "toy_agumon", 
+        "triceramon", 
+        "troopmon", 
+        "turuiemon", 
+        "vamdemon", 
+        "v_dramon", 
+        "vemdemon", 
+        "venom_vamdemon", 
+        "v_mon", 
+        "volcanicdramon", 
+        "voltobautamon", 
+        "vorvomon", 
+        "war_greymon", 
+        "waru_mozaemon", 
+        "were_garurumon", 
+        "whamon", 
+        "wingdramon", 
+        "wizarmon", 
+        "woodmon", 
+        "xv_mon", 
+        "zerimon", 
+        "zudomon", 
+        
+    };
     created_result_t<dm_sprite_sheet_t> load_pen20_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
         using namespace assets;
-        switch (index) {
-            case PEN20_AERO_V_DRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_AERO_V_DRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_AERO_V_DRAMON_ANIM_INDEX), PEN20_AERO_V_DRAMON_SPRITE_SHEET_COLS, PEN20_AERO_V_DRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_AGUMON_HAKASE_ANIM_INDEX: return load_dm_anim(ctx, PEN20_AGUMON_HAKASE_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_AGUMON_HAKASE_ANIM_INDEX), PEN20_AGUMON_HAKASE_SPRITE_SHEET_COLS, PEN20_AGUMON_HAKASE_SPRITE_SHEET_ROWS);
-            case PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX), PEN20_ALPHAMON_OURYUKEN_SPRITE_SHEET_COLS, PEN20_ALPHAMON_OURYUKEN_SPRITE_SHEET_ROWS);
-            case PEN20_ANDIRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ANDIRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ANDIRAMON_ANIM_INDEX), PEN20_ANDIRAMON_SPRITE_SHEET_COLS, PEN20_ANDIRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_ANDROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ANDROMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ANDROMON_ANIM_INDEX), PEN20_ANDROMON_SPRITE_SHEET_COLS, PEN20_ANDROMON_SPRITE_SHEET_ROWS);
-            case PEN20_ANGEWOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ANGEWOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ANGEWOMON_ANIM_INDEX), PEN20_ANGEWOMON_SPRITE_SHEET_COLS, PEN20_ANGEWOMON_SPRITE_SHEET_ROWS);
-            case PEN20_ANOMALOCARIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ANOMALOCARIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ANOMALOCARIMON_ANIM_INDEX), PEN20_ANOMALOCARIMON_SPRITE_SHEET_COLS, PEN20_ANOMALOCARIMON_SPRITE_SHEET_ROWS);
-            case PEN20_ARRESTERDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ARRESTERDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ARRESTERDRAMON_ANIM_INDEX), PEN20_ARRESTERDRAMON_SPRITE_SHEET_COLS, PEN20_ARRESTERDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_ASTAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ASTAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ASTAMON_ANIM_INDEX), PEN20_ASTAMON_SPRITE_SHEET_COLS, PEN20_ASTAMON_SPRITE_SHEET_ROWS);
-            case PEN20_ASTRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ASTRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ASTRAMON_ANIM_INDEX), PEN20_ASTRAMON_SPRITE_SHEET_COLS, PEN20_ASTRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_ASURAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ASURAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ASURAMON_ANIM_INDEX), PEN20_ASURAMON_SPRITE_SHEET_COLS, PEN20_ASURAMON_SPRITE_SHEET_ROWS);
-            case PEN20_ATLUR_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ATLUR_KABUTERIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ATLUR_KABUTERIMON_ANIM_INDEX), PEN20_ATLUR_KABUTERIMON_SPRITE_SHEET_COLS, PEN20_ATLUR_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN20_BAALMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BAALMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BAALMON_ANIM_INDEX), PEN20_BAALMON_SPRITE_SHEET_COLS, PEN20_BAALMON_SPRITE_SHEET_ROWS);
-            case PEN20_BAKEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BAKEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BAKEMON_ANIM_INDEX), PEN20_BAKEMON_SPRITE_SHEET_COLS, PEN20_BAKEMON_SPRITE_SHEET_ROWS);
-            case PEN20_BAKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BAKUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BAKUMON_ANIM_INDEX), PEN20_BAKUMON_SPRITE_SHEET_COLS, PEN20_BAKUMON_SPRITE_SHEET_ROWS);
-            case PEN20_BANCHO_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BANCHO_LEOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BANCHO_LEOMON_ANIM_INDEX), PEN20_BANCHO_LEOMON_SPRITE_SHEET_COLS, PEN20_BANCHO_LEOMON_SPRITE_SHEET_ROWS);
-            case PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX), PEN20_BEELZEBUMON_BLAST_MODE_SPRITE_SHEET_COLS, PEN20_BEELZEBUMON_BLAST_MODE_SPRITE_SHEET_ROWS);
-            case PEN20_BEOWOLFMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BEOWOLFMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BEOWOLFMON_ANIM_INDEX), PEN20_BEOWOLFMON_SPRITE_SHEET_COLS, PEN20_BEOWOLFMON_SPRITE_SHEET_ROWS);
-            case PEN20_BEOWULFMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BEOWULFMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BEOWULFMON_ANIM_INDEX), PEN20_BEOWULFMON_SPRITE_SHEET_COLS, PEN20_BEOWULFMON_SPRITE_SHEET_ROWS);
-            case PEN20_BIG_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BIG_MAMEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BIG_MAMEMON_ANIM_INDEX), PEN20_BIG_MAMEMON_SPRITE_SHEET_COLS, PEN20_BIG_MAMEMON_SPRITE_SHEET_ROWS);
-            case PEN20_BIRDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BIRDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BIRDRAMON_ANIM_INDEX), PEN20_BIRDRAMON_SPRITE_SHEET_COLS, PEN20_BIRDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_BLOSSOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BLOSSOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BLOSSOMON_ANIM_INDEX), PEN20_BLOSSOMON_SPRITE_SHEET_COLS, PEN20_BLOSSOMON_SPRITE_SHEET_ROWS);
-            case PEN20_BOLTMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BOLTMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BOLTMON_ANIM_INDEX), PEN20_BOLTMON_SPRITE_SHEET_COLS, PEN20_BOLTMON_SPRITE_SHEET_ROWS);
-            case PEN20_BREAKDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BREAKDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BREAKDRAMON_ANIM_INDEX), PEN20_BREAKDRAMON_SPRITE_SHEET_COLS, PEN20_BREAKDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_BRYWELUDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BRYWELUDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BRYWELUDRAMON_ANIM_INDEX), PEN20_BRYWELUDRAMON_SPRITE_SHEET_COLS, PEN20_BRYWELUDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_BUBBMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BUBBMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BUBBMON_ANIM_INDEX), PEN20_BUBBMON_SPRITE_SHEET_COLS, PEN20_BUBBMON_SPRITE_SHEET_ROWS);
-            case PEN20_BUDMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BUDMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BUDMON_ANIM_INDEX), PEN20_BUDMON_SPRITE_SHEET_COLS, PEN20_BUDMON_SPRITE_SHEET_ROWS);
-            case PEN20_BUSHI_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_BUSHI_AGUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_BUSHI_AGUMON_ANIM_INDEX), PEN20_BUSHI_AGUMON_SPRITE_SHEET_COLS, PEN20_BUSHI_AGUMON_SPRITE_SHEET_ROWS);
-            case PEN20_CANDMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CANDMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CANDMON_ANIM_INDEX), PEN20_CANDMON_SPRITE_SHEET_COLS, PEN20_CANDMON_SPRITE_SHEET_ROWS);
-            case PEN20_CAPRIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CAPRIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CAPRIMON_ANIM_INDEX), PEN20_CAPRIMON_SPRITE_SHEET_COLS, PEN20_CAPRIMON_SPRITE_SHEET_ROWS);
-            case PEN20_CHAOSMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CHAOSMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CHAOSMON_ANIM_INDEX), PEN20_CHAOSMON_SPRITE_SHEET_COLS, PEN20_CHAOSMON_SPRITE_SHEET_ROWS);
-            case PEN20_CHERUBIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CHERUBIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CHERUBIMON_ANIM_INDEX), PEN20_CHERUBIMON_SPRITE_SHEET_COLS, PEN20_CHERUBIMON_SPRITE_SHEET_ROWS);
-            case PEN20_CHIBIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CHIBIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CHIBIMON_ANIM_INDEX), PEN20_CHIBIMON_SPRITE_SHEET_COLS, PEN20_CHIBIMON_SPRITE_SHEET_ROWS);
-            case PEN20_CHICOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CHICOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CHICOMON_ANIM_INDEX), PEN20_CHICOMON_SPRITE_SHEET_COLS, PEN20_CHICOMON_SPRITE_SHEET_ROWS);
-            case PEN20_CHOROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CHOROMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CHOROMON_ANIM_INDEX), PEN20_CHOROMON_SPRITE_SHEET_COLS, PEN20_CHOROMON_SPRITE_SHEET_ROWS);
-            case PEN20_CLOCKMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CLOCKMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CLOCKMON_ANIM_INDEX), PEN20_CLOCKMON_SPRITE_SHEET_COLS, PEN20_CLOCKMON_SPRITE_SHEET_ROWS);
-            case PEN20_COCOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_COCOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_COCOMON_ANIM_INDEX), PEN20_COCOMON_SPRITE_SHEET_COLS, PEN20_COCOMON_SPRITE_SHEET_ROWS);
-            case PEN20_COELAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_COELAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_COELAMON_ANIM_INDEX), PEN20_COELAMON_SPRITE_SHEET_COLS, PEN20_COELAMON_SPRITE_SHEET_ROWS);
-            case PEN20_COREDRAMON_BLUE_ANIM_INDEX: return load_dm_anim(ctx, PEN20_COREDRAMON_BLUE_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_COREDRAMON_BLUE_ANIM_INDEX), PEN20_COREDRAMON_BLUE_SPRITE_SHEET_COLS, PEN20_COREDRAMON_BLUE_SPRITE_SHEET_ROWS);
-            case PEN20_COREDRAMON_GREEN_ANIM_INDEX: return load_dm_anim(ctx, PEN20_COREDRAMON_GREEN_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_COREDRAMON_GREEN_ANIM_INDEX), PEN20_COREDRAMON_GREEN_SPRITE_SHEET_COLS, PEN20_COREDRAMON_GREEN_SPRITE_SHEET_ROWS);
-            case PEN20_COTSUCOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_COTSUCOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_COTSUCOMON_ANIM_INDEX), PEN20_COTSUCOMON_SPRITE_SHEET_COLS, PEN20_COTSUCOMON_SPRITE_SHEET_ROWS);
-            case PEN20_CYBERDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_CYBERDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_CYBERDRAMON_ANIM_INDEX), PEN20_CYBERDRAMON_SPRITE_SHEET_COLS, PEN20_CYBERDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_DAGOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DAGOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DAGOMON_ANIM_INDEX), PEN20_DAGOMON_SPRITE_SHEET_COLS, PEN20_DAGOMON_SPRITE_SHEET_ROWS);
-            case PEN20_DARKDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DARKDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DARKDRAMON_ANIM_INDEX), PEN20_DARKDRAMON_SPRITE_SHEET_COLS, PEN20_DARKDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_DARK_KNIGHTMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DARK_KNIGHTMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DARK_KNIGHTMON_ANIM_INDEX), PEN20_DARK_KNIGHTMON_SPRITE_SHEET_COLS, PEN20_DARK_KNIGHTMON_SPRITE_SHEET_ROWS);
-            case PEN20_DEATH_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DEATH_MERAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DEATH_MERAMON_ANIM_INDEX), PEN20_DEATH_MERAMON_SPRITE_SHEET_COLS, PEN20_DEATH_MERAMON_SPRITE_SHEET_ROWS);
-            case PEN20_DELUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DELUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DELUMON_ANIM_INDEX), PEN20_DELUMON_SPRITE_SHEET_COLS, PEN20_DELUMON_SPRITE_SHEET_ROWS);
-            case PEN20_DEVIDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DEVIDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DEVIDRAMON_ANIM_INDEX), PEN20_DEVIDRAMON_SPRITE_SHEET_COLS, PEN20_DEVIDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DEVIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DEVIMON_ANIM_INDEX), PEN20_DEVIMON_SPRITE_SHEET_COLS, PEN20_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN20_DOKUGUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DOKUGUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DOKUGUMON_ANIM_INDEX), PEN20_DOKUGUMON_SPRITE_SHEET_COLS, PEN20_DOKUGUMON_SPRITE_SHEET_ROWS);
-            case PEN20_DORUGORAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DORUGORAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DORUGORAMON_ANIM_INDEX), PEN20_DORUGORAMON_SPRITE_SHEET_COLS, PEN20_DORUGORAMON_SPRITE_SHEET_ROWS);
-            case PEN20_DURAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DURAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DURAMON_ANIM_INDEX), PEN20_DURAMON_SPRITE_SHEET_COLS, PEN20_DURAMON_SPRITE_SHEET_ROWS);
-            case PEN20_DURANDAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_DURANDAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_DURANDAMON_ANIM_INDEX), PEN20_DURANDAMON_SPRITE_SHEET_COLS, PEN20_DURANDAMON_SPRITE_SHEET_ROWS);
-            case PEN20_EBIDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_EBIDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_EBIDRAMON_ANIM_INDEX), PEN20_EBIDRAMON_SPRITE_SHEET_COLS, PEN20_EBIDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_ETEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ETEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ETEMON_ANIM_INDEX), PEN20_ETEMON_SPRITE_SHEET_COLS, PEN20_ETEMON_SPRITE_SHEET_ROWS);
-            case PEN20_EXAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_EXAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_EXAMON_ANIM_INDEX), PEN20_EXAMON_SPRITE_SHEET_COLS, PEN20_EXAMON_SPRITE_SHEET_ROWS);
-            case PEN20_FANTOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_FANTOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_FANTOMON_ANIM_INDEX), PEN20_FANTOMON_SPRITE_SHEET_COLS, PEN20_FANTOMON_SPRITE_SHEET_ROWS);
-            case PEN20_FLORAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_FLORAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_FLORAMON_ANIM_INDEX), PEN20_FLORAMON_SPRITE_SHEET_COLS, PEN20_FLORAMON_SPRITE_SHEET_ROWS);
-            case PEN20_FUFUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_FUFUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_FUFUMON_ANIM_INDEX), PEN20_FUFUMON_SPRITE_SHEET_COLS, PEN20_FUFUMON_SPRITE_SHEET_ROWS);
-            case PEN20_GALGOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GALGOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GALGOMON_ANIM_INDEX), PEN20_GALGOMON_SPRITE_SHEET_COLS, PEN20_GALGOMON_SPRITE_SHEET_ROWS);
-            case PEN20_GANIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GANIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GANIMON_ANIM_INDEX), PEN20_GANIMON_SPRITE_SHEET_COLS, PEN20_GANIMON_SPRITE_SHEET_ROWS);
-            case PEN20_GARUDAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GARUDAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GARUDAMON_ANIM_INDEX), PEN20_GARUDAMON_SPRITE_SHEET_COLS, PEN20_GARUDAMON_SPRITE_SHEET_ROWS);
-            case PEN20_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GARURUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GARURUMON_ANIM_INDEX), PEN20_GARURUMON_SPRITE_SHEET_COLS, PEN20_GARURUMON_SPRITE_SHEET_ROWS);
-            case PEN20_GEKOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GEKOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GEKOMON_ANIM_INDEX), PEN20_GEKOMON_SPRITE_SHEET_COLS, PEN20_GEKOMON_SPRITE_SHEET_ROWS);
-            case PEN20_GERBEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GERBEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GERBEMON_ANIM_INDEX), PEN20_GERBEMON_SPRITE_SHEET_COLS, PEN20_GERBEMON_SPRITE_SHEET_ROWS);
-            case PEN20_GESOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GESOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GESOMON_ANIM_INDEX), PEN20_GESOMON_SPRITE_SHEET_COLS, PEN20_GESOMON_SPRITE_SHEET_ROWS);
-            case PEN20_GINRYUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GINRYUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GINRYUMON_ANIM_INDEX), PEN20_GINRYUMON_SPRITE_SHEET_COLS, PEN20_GINRYUMON_SPRITE_SHEET_ROWS);
-            case PEN20_GOMAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GOMAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GOMAMON_ANIM_INDEX), PEN20_GOMAMON_SPRITE_SHEET_COLS, PEN20_GOMAMON_SPRITE_SHEET_ROWS);
-            case PEN20_GOTTSUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GOTTSUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GOTTSUMON_ANIM_INDEX), PEN20_GOTTSUMON_SPRITE_SHEET_COLS, PEN20_GOTTSUMON_SPRITE_SHEET_ROWS);
-            case PEN20_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GREYMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GREYMON_ANIM_INDEX), PEN20_GREYMON_SPRITE_SHEET_COLS, PEN20_GREYMON_SPRITE_SHEET_ROWS);
-            case PEN20_GRIFFOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GRIFFOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GRIFFOMON_ANIM_INDEX), PEN20_GRIFFOMON_SPRITE_SHEET_COLS, PEN20_GRIFFOMON_SPRITE_SHEET_ROWS);
-            case PEN20_GROUNDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GROUNDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GROUNDRAMON_ANIM_INDEX), PEN20_GROUNDRAMON_SPRITE_SHEET_COLS, PEN20_GROUNDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_GROWMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GROWMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GROWMON_ANIM_INDEX), PEN20_GROWMON_SPRITE_SHEET_COLS, PEN20_GROWMON_SPRITE_SHEET_ROWS);
-            case PEN20_GUARDROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GUARDROMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GUARDROMON_ANIM_INDEX), PEN20_GUARDROMON_SPRITE_SHEET_COLS, PEN20_GUARDROMON_SPRITE_SHEET_ROWS);
-            case PEN20_GUIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GUIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GUIMON_ANIM_INDEX), PEN20_GUIMON_SPRITE_SHEET_COLS, PEN20_GUIMON_SPRITE_SHEET_ROWS);
-            case PEN20_GUMMYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_GUMMYMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_GUMMYMON_ANIM_INDEX), PEN20_GUMMYMON_SPRITE_SHEET_COLS, PEN20_GUMMYMON_SPRITE_SHEET_ROWS);
-            case PEN20_HAGURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HAGURUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HAGURUMON_ANIM_INDEX), PEN20_HAGURUMON_SPRITE_SHEET_COLS, PEN20_HAGURUMON_SPRITE_SHEET_ROWS);
-            case PEN20_HANGYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HANGYMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HANGYMON_ANIM_INDEX), PEN20_HANGYMON_SPRITE_SHEET_COLS, PEN20_HANGYMON_SPRITE_SHEET_ROWS);
-            case PEN20_HANGYOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HANGYOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HANGYOMON_ANIM_INDEX), PEN20_HANGYOMON_SPRITE_SHEET_COLS, PEN20_HANGYOMON_SPRITE_SHEET_ROWS);
-            case PEN20_HANUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HANUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HANUMON_ANIM_INDEX), PEN20_HANUMON_SPRITE_SHEET_COLS, PEN20_HANUMON_SPRITE_SHEET_ROWS);
-            case PEN20_HERAKLE_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HERAKLE_KABUTERIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HERAKLE_KABUTERIMON_ANIM_INDEX), PEN20_HERAKLE_KABUTERIMON_SPRITE_SHEET_COLS, PEN20_HERAKLE_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN20_HERKULE_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HERKULE_KABUTERIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HERKULE_KABUTERIMON_ANIM_INDEX), PEN20_HERKULE_KABUTERIMON_SPRITE_SHEET_COLS, PEN20_HERKULE_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN20_HISYARYUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HISYARYUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HISYARYUMON_ANIM_INDEX), PEN20_HISYARYUMON_SPRITE_SHEET_COLS, PEN20_HISYARYUMON_SPRITE_SHEET_ROWS);
-            case PEN20_HOLY_ANGEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HOLY_ANGEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HOLY_ANGEMON_ANIM_INDEX), PEN20_HOLY_ANGEMON_SPRITE_SHEET_COLS, PEN20_HOLY_ANGEMON_SPRITE_SHEET_ROWS);
-            case PEN20_HOLYDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HOLYDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HOLYDRAMON_ANIM_INDEX), PEN20_HOLYDRAMON_SPRITE_SHEET_COLS, PEN20_HOLYDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_HOUOUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_HOUOUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_HOUOUMON_ANIM_INDEX), PEN20_HOUOUMON_SPRITE_SHEET_COLS, PEN20_HOUOUMON_SPRITE_SHEET_ROWS);
-            case PEN20_IGNAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_IGNAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_IGNAMON_ANIM_INDEX), PEN20_IGNAMON_SPRITE_SHEET_COLS, PEN20_IGNAMON_SPRITE_SHEET_ROWS);
-            case PEN20_IKKAKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_IKKAKUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_IKKAKUMON_ANIM_INDEX), PEN20_IKKAKUMON_SPRITE_SHEET_COLS, PEN20_IKKAKUMON_SPRITE_SHEET_ROWS);
-            case PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX: return load_dm_anim(ctx, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX), PEN20_IMPERIALDRAMON_FIGHTER_MODE_SPRITE_SHEET_COLS, PEN20_IMPERIALDRAMON_FIGHTER_MODE_SPRITE_SHEET_ROWS);
-            case PEN20_IMPMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_IMPMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_IMPMON_ANIM_INDEX), PEN20_IMPMON_SPRITE_SHEET_COLS, PEN20_IMPMON_SPRITE_SHEET_ROWS);
-            case PEN20_JESMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_JESMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_JESMON_ANIM_INDEX), PEN20_JESMON_SPRITE_SHEET_COLS, PEN20_JESMON_SPRITE_SHEET_ROWS);
-            case PEN20_JESMON_X_ANIM_INDEX: return load_dm_anim(ctx, PEN20_JESMON_X_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_JESMON_X_ANIM_INDEX), PEN20_JESMON_X_SPRITE_SHEET_COLS, PEN20_JESMON_X_SPRITE_SHEET_ROWS);
-            case PEN20_JYAGAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_JYAGAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_JYAGAMON_ANIM_INDEX), PEN20_JYAGAMON_SPRITE_SHEET_COLS, PEN20_JYAGAMON_SPRITE_SHEET_ROWS);
-            case PEN20_JYUREIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_JYUREIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_JYUREIMON_ANIM_INDEX), PEN20_JYUREIMON_SPRITE_SHEET_COLS, PEN20_JYUREIMON_SPRITE_SHEET_ROWS);
-            case PEN20_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_KABUTERIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_KABUTERIMON_ANIM_INDEX), PEN20_KABUTERIMON_SPRITE_SHEET_COLS, PEN20_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN20_KAKKINMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_KAKKINMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_KAKKINMON_ANIM_INDEX), PEN20_KAKKINMON_SPRITE_SHEET_COLS, PEN20_KAKKINMON_SPRITE_SHEET_ROWS);
-            case PEN20_KIWIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_KIWIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_KIWIMON_ANIM_INDEX), PEN20_KIWIMON_SPRITE_SHEET_COLS, PEN20_KIWIMON_SPRITE_SHEET_ROWS);
-            case PEN20_KNIGHTMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_KNIGHTMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_KNIGHTMON_ANIM_INDEX), PEN20_KNIGHTMON_SPRITE_SHEET_COLS, PEN20_KNIGHTMON_SPRITE_SHEET_ROWS);
-            case PEN20_KOKUWAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_KOKUWAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_KOKUWAMON_ANIM_INDEX), PEN20_KOKUWAMON_SPRITE_SHEET_COLS, PEN20_KOKUWAMON_SPRITE_SHEET_ROWS);
-            case PEN20_KUWAGAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_KUWAGAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_KUWAGAMON_ANIM_INDEX), PEN20_KUWAGAMON_SPRITE_SHEET_COLS, PEN20_KUWAGAMON_SPRITE_SHEET_ROWS);
-            case PEN20_KYOKYOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_KYOKYOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_KYOKYOMON_ANIM_INDEX), PEN20_KYOKYOMON_SPRITE_SHEET_COLS, PEN20_KYOKYOMON_SPRITE_SHEET_ROWS);
-            case PEN20_LADY_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LADY_DEVIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LADY_DEVIMON_ANIM_INDEX), PEN20_LADY_DEVIMON_SPRITE_SHEET_COLS, PEN20_LADY_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN20_LALAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LALAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LALAMON_ANIM_INDEX), PEN20_LALAMON_SPRITE_SHEET_COLS, PEN20_LALAMON_SPRITE_SHEET_ROWS);
-            case PEN20_LAVOGARITAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LAVOGARITAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LAVOGARITAMON_ANIM_INDEX), PEN20_LAVOGARITAMON_SPRITE_SHEET_COLS, PEN20_LAVOGARITAMON_SPRITE_SHEET_ROWS);
-            case PEN20_LAVORVOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LAVORVOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LAVORVOMON_ANIM_INDEX), PEN20_LAVORVOMON_SPRITE_SHEET_COLS, PEN20_LAVORVOMON_SPRITE_SHEET_ROWS);
-            case PEN20_LILAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LILAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LILAMON_ANIM_INDEX), PEN20_LILAMON_SPRITE_SHEET_COLS, PEN20_LILAMON_SPRITE_SHEET_ROWS);
-            case PEN20_LILIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LILIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LILIMON_ANIM_INDEX), PEN20_LILIMON_SPRITE_SHEET_COLS, PEN20_LILIMON_SPRITE_SHEET_ROWS);
-            case PEN20_LOPMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LOPMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LOPMON_ANIM_INDEX), PEN20_LOPMON_SPRITE_SHEET_COLS, PEN20_LOPMON_SPRITE_SHEET_ROWS);
-            case PEN20_LOTUSMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LOTUSMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LOTUSMON_ANIM_INDEX), PEN20_LOTUSMON_SPRITE_SHEET_COLS, PEN20_LOTUSMON_SPRITE_SHEET_ROWS);
-            case PEN20_LUDOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_LUDOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_LUDOMON_ANIM_INDEX), PEN20_LUDOMON_SPRITE_SHEET_COLS, PEN20_LUDOMON_SPRITE_SHEET_ROWS);
-            case PEN20_MAD_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MAD_LEOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MAD_LEOMON_ANIM_INDEX), PEN20_MAD_LEOMON_SPRITE_SHEET_COLS, PEN20_MAD_LEOMON_SPRITE_SHEET_ROWS);
-            case PEN20_MAMBOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MAMBOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MAMBOMON_ANIM_INDEX), PEN20_MAMBOMON_SPRITE_SHEET_COLS, PEN20_MAMBOMON_SPRITE_SHEET_ROWS);
-            case PEN20_MAMMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MAMMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MAMMON_ANIM_INDEX), PEN20_MAMMON_SPRITE_SHEET_COLS, PEN20_MAMMON_SPRITE_SHEET_ROWS);
-            case PEN20_MANBOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MANBOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MANBOMON_ANIM_INDEX), PEN20_MANBOMON_SPRITE_SHEET_COLS, PEN20_MANBOMON_SPRITE_SHEET_ROWS);
-            case PEN20_MARIN_ANGEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MARIN_ANGEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MARIN_ANGEMON_ANIM_INDEX), PEN20_MARIN_ANGEMON_SPRITE_SHEET_COLS, PEN20_MARIN_ANGEMON_SPRITE_SHEET_ROWS);
-            case PEN20_MARIN_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MARIN_DEVIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MARIN_DEVIMON_ANIM_INDEX), PEN20_MARIN_DEVIMON_SPRITE_SHEET_COLS, PEN20_MARIN_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN20_MASTEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MASTEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MASTEMON_ANIM_INDEX), PEN20_MASTEMON_SPRITE_SHEET_COLS, PEN20_MASTEMON_SPRITE_SHEET_ROWS);
-            case PEN20_MECHANORIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MECHANORIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MECHANORIMON_ANIM_INDEX), PEN20_MECHANORIMON_SPRITE_SHEET_COLS, PEN20_MECHANORIMON_SPRITE_SHEET_ROWS);
-            case PEN20_MEGADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MEGADRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MEGADRAMON_ANIM_INDEX), PEN20_MEGADRAMON_SPRITE_SHEET_COLS, PEN20_MEGADRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_MEGALO_GROWMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MEGALO_GROWMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MEGALO_GROWMON_ANIM_INDEX), PEN20_MEGALO_GROWMON_SPRITE_SHEET_COLS, PEN20_MEGALO_GROWMON_SPRITE_SHEET_ROWS);
-            case PEN20_MEGA_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MEGA_SEADRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MEGA_SEADRAMON_ANIM_INDEX), PEN20_MEGA_SEADRAMON_SPRITE_SHEET_COLS, PEN20_MEGA_SEADRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX), PEN20_MEICRACKMON_VICIOUS_MODE_SPRITE_SHEET_COLS, PEN20_MEICRACKMON_VICIOUS_MODE_SPRITE_SHEET_ROWS);
-            case PEN20_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MERAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MERAMON_ANIM_INDEX), PEN20_MERAMON_SPRITE_SHEET_COLS, PEN20_MERAMON_SPRITE_SHEET_ROWS);
-            case PEN20_METAL_ETEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_METAL_ETEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_METAL_ETEMON_ANIM_INDEX), PEN20_METAL_ETEMON_SPRITE_SHEET_COLS, PEN20_METAL_ETEMON_SPRITE_SHEET_ROWS);
-            case PEN20_METAL_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_METAL_GARURUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_METAL_GARURUMON_ANIM_INDEX), PEN20_METAL_GARURUMON_SPRITE_SHEET_COLS, PEN20_METAL_GARURUMON_SPRITE_SHEET_ROWS);
-            case PEN20_METAL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_METAL_GREYMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_METAL_GREYMON_ANIM_INDEX), PEN20_METAL_GREYMON_SPRITE_SHEET_COLS, PEN20_METAL_GREYMON_SPRITE_SHEET_ROWS);
-            case PEN20_METAL_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_METAL_MAMEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_METAL_MAMEMON_ANIM_INDEX), PEN20_METAL_MAMEMON_SPRITE_SHEET_COLS, PEN20_METAL_MAMEMON_SPRITE_SHEET_ROWS);
-            case PEN20_METAL_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_METAL_SEADRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_METAL_SEADRAMON_ANIM_INDEX), PEN20_METAL_SEADRAMON_SPRITE_SHEET_COLS, PEN20_METAL_SEADRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_MOCHIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MOCHIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MOCHIMON_ANIM_INDEX), PEN20_MOCHIMON_SPRITE_SHEET_COLS, PEN20_MOCHIMON_SPRITE_SHEET_ROWS);
-            case PEN20_MOKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MOKUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MOKUMON_ANIM_INDEX), PEN20_MOKUMON_SPRITE_SHEET_COLS, PEN20_MOKUMON_SPRITE_SHEET_ROWS);
-            case PEN20_MONCHROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MONCHROMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MONCHROMON_ANIM_INDEX), PEN20_MONCHROMON_SPRITE_SHEET_COLS, PEN20_MONCHROMON_SPRITE_SHEET_ROWS);
-            case PEN20_MONOCHROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MONOCHROMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MONOCHROMON_ANIM_INDEX), PEN20_MONOCHROMON_SPRITE_SHEET_COLS, PEN20_MONOCHROMON_SPRITE_SHEET_ROWS);
-            case PEN20_MUGENDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MUGENDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MUGENDRAMON_ANIM_INDEX), PEN20_MUGENDRAMON_SPRITE_SHEET_COLS, PEN20_MUGENDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_MUSHMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_MUSHMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_MUSHMON_ANIM_INDEX), PEN20_MUSHMON_SPRITE_SHEET_COLS, PEN20_MUSHMON_SPRITE_SHEET_ROWS);
-            case PEN20_NYOKIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_NYOKIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_NYOKIMON_ANIM_INDEX), PEN20_NYOKIMON_SPRITE_SHEET_COLS, PEN20_NYOKIMON_SPRITE_SHEET_ROWS);
-            case PEN20_OCTMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_OCTMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_OCTMON_ANIM_INDEX), PEN20_OCTMON_SPRITE_SHEET_COLS, PEN20_OCTMON_SPRITE_SHEET_ROWS);
-            case PEN20_OFANIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_OFANIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_OFANIMON_ANIM_INDEX), PEN20_OFANIMON_SPRITE_SHEET_COLS, PEN20_OFANIMON_SPRITE_SHEET_ROWS);
-            case PEN20_OGUDOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_OGUDOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_OGUDOMON_ANIM_INDEX), PEN20_OGUDOMON_SPRITE_SHEET_COLS, PEN20_OGUDOMON_SPRITE_SHEET_ROWS);
-            case PEN20_OKUWAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_OKUWAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_OKUWAMON_ANIM_INDEX), PEN20_OKUWAMON_SPRITE_SHEET_COLS, PEN20_OKUWAMON_SPRITE_SHEET_ROWS);
-            case PEN20_OMEGAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_OMEGAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_OMEGAMON_ANIM_INDEX), PEN20_OMEGAMON_SPRITE_SHEET_COLS, PEN20_OMEGAMON_SPRITE_SHEET_ROWS);
-            case PEN20_ORDINEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ORDINEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ORDINEMON_ANIM_INDEX), PEN20_ORDINEMON_SPRITE_SHEET_COLS, PEN20_ORDINEMON_SPRITE_SHEET_ROWS);
-            case PEN20_OTAMAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_OTAMAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_OTAMAMON_ANIM_INDEX), PEN20_OTAMAMON_SPRITE_SHEET_COLS, PEN20_OTAMAMON_SPRITE_SHEET_ROWS);
-            case PEN20_OURYUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_OURYUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_OURYUMON_ANIM_INDEX), PEN20_OURYUMON_SPRITE_SHEET_COLS, PEN20_OURYUMON_SPRITE_SHEET_ROWS);
-            case PEN20_PAILDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PAILDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PAILDRAMON_ANIM_INDEX), PEN20_PAILDRAMON_SPRITE_SHEET_COLS, PEN20_PAILDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_PALMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PALMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PALMON_ANIM_INDEX), PEN20_PALMON_SPRITE_SHEET_COLS, PEN20_PALMON_SPRITE_SHEET_ROWS);
-            case PEN20_PETI_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PETI_MERAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PETI_MERAMON_ANIM_INDEX), PEN20_PETI_MERAMON_SPRITE_SHEET_COLS, PEN20_PETI_MERAMON_SPRITE_SHEET_ROWS);
-            case PEN20_PHASCOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PHASCOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PHASCOMON_ANIM_INDEX), PEN20_PHASCOMON_SPRITE_SHEET_COLS, PEN20_PHASCOMON_SPRITE_SHEET_ROWS);
-            case PEN20_PICCOLOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PICCOLOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PICCOLOMON_ANIM_INDEX), PEN20_PICCOLOMON_SPRITE_SHEET_COLS, PEN20_PICCOLOMON_SPRITE_SHEET_ROWS);
-            case PEN20_PICO_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PICO_DEVIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PICO_DEVIMON_ANIM_INDEX), PEN20_PICO_DEVIMON_SPRITE_SHEET_COLS, PEN20_PICO_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN20_PIEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PIEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PIEMON_ANIM_INDEX), PEN20_PIEMON_SPRITE_SHEET_COLS, PEN20_PIEMON_SPRITE_SHEET_ROWS);
-            case PEN20_PINOCHIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PINOCHIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PINOCHIMON_ANIM_INDEX), PEN20_PINOCHIMON_SPRITE_SHEET_COLS, PEN20_PINOCHIMON_SPRITE_SHEET_ROWS);
-            case PEN20_PIYOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PIYOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PIYOMON_ANIM_INDEX), PEN20_PIYOMON_SPRITE_SHEET_COLS, PEN20_PIYOMON_SPRITE_SHEET_ROWS);
-            case PEN20_PLESIOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PLESIOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PLESIOMON_ANIM_INDEX), PEN20_PLESIOMON_SPRITE_SHEET_COLS, PEN20_PLESIOMON_SPRITE_SHEET_ROWS);
-            case PEN20_PORCUPAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PORCUPAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PORCUPAMON_ANIM_INDEX), PEN20_PORCUPAMON_SPRITE_SHEET_COLS, PEN20_PORCUPAMON_SPRITE_SHEET_ROWS);
-            case PEN20_PORCUPMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PORCUPMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PORCUPMON_ANIM_INDEX), PEN20_PORCUPMON_SPRITE_SHEET_COLS, PEN20_PORCUPMON_SPRITE_SHEET_ROWS);
-            case PEN20_PUKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PUKUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PUKUMON_ANIM_INDEX), PEN20_PUKUMON_SPRITE_SHEET_COLS, PEN20_PUKUMON_SPRITE_SHEET_ROWS);
-            case PEN20_PUMPMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PUMPMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PUMPMON_ANIM_INDEX), PEN20_PUMPMON_SPRITE_SHEET_COLS, PEN20_PUMPMON_SPRITE_SHEET_ROWS);
-            case PEN20_PYOCOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_PYOCOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_PYOCOMON_ANIM_INDEX), PEN20_PYOCOMON_SPRITE_SHEET_COLS, PEN20_PYOCOMON_SPRITE_SHEET_ROWS);
-            case PEN20_RAFFLESIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RAFFLESIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RAFFLESIMON_ANIM_INDEX), PEN20_RAFFLESIMON_SPRITE_SHEET_COLS, PEN20_RAFFLESIMON_SPRITE_SHEET_ROWS);
-            case PEN20_RAGNA_LORDMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RAGNA_LORDMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RAGNA_LORDMON_ANIM_INDEX), PEN20_RAGNA_LORDMON_SPRITE_SHEET_COLS, PEN20_RAGNA_LORDMON_SPRITE_SHEET_ROWS);
-            case PEN20_RAGUELMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RAGUELMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RAGUELMON_ANIM_INDEX), PEN20_RAGUELMON_SPRITE_SHEET_COLS, PEN20_RAGUELMON_SPRITE_SHEET_ROWS);
-            case PEN20_RAIJI_LUDOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RAIJI_LUDOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RAIJI_LUDOMON_ANIM_INDEX), PEN20_RAIJI_LUDOMON_SPRITE_SHEET_COLS, PEN20_RAIJI_LUDOMON_SPRITE_SHEET_ROWS);
-            case PEN20_RAKAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RAKAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RAKAMON_ANIM_INDEX), PEN20_RAKAMON_SPRITE_SHEET_COLS, PEN20_RAKAMON_SPRITE_SHEET_ROWS);
-            case PEN20_RAPIDMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RAPIDMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RAPIDMON_ANIM_INDEX), PEN20_RAPIDMON_SPRITE_SHEET_COLS, PEN20_RAPIDMON_SPRITE_SHEET_ROWS);
-            case PEN20_RED_VEGIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RED_VEGIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RED_VEGIMON_ANIM_INDEX), PEN20_RED_VEGIMON_SPRITE_SHEET_COLS, PEN20_RED_VEGIMON_SPRITE_SHEET_ROWS);
-            case PEN20_REPPAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_REPPAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_REPPAMON_ANIM_INDEX), PEN20_REPPAMON_SPRITE_SHEET_COLS, PEN20_REPPAMON_SPRITE_SHEET_ROWS);
-            case PEN20_REVOLMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_REVOLMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_REVOLMON_ANIM_INDEX), PEN20_REVOLMON_SPRITE_SHEET_COLS, PEN20_REVOLMON_SPRITE_SHEET_ROWS);
-            case PEN20_RIZE_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RIZE_GREYMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RIZE_GREYMON_ANIM_INDEX), PEN20_RIZE_GREYMON_SPRITE_SHEET_COLS, PEN20_RIZE_GREYMON_SPRITE_SHEET_ROWS);
-            case PEN20_ROSEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ROSEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ROSEMON_ANIM_INDEX), PEN20_ROSEMON_SPRITE_SHEET_COLS, PEN20_ROSEMON_SPRITE_SHEET_ROWS);
-            case PEN20_RUKAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RUKAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RUKAMON_ANIM_INDEX), PEN20_RUKAMON_SPRITE_SHEET_COLS, PEN20_RUKAMON_SPRITE_SHEET_ROWS);
-            case PEN20_RYUDAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_RYUDAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_RYUDAMON_ANIM_INDEX), PEN20_RYUDAMON_SPRITE_SHEET_COLS, PEN20_RYUDAMON_SPRITE_SHEET_ROWS);
-            case PEN20_SABER_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SABER_LEOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SABER_LEOMON_ANIM_INDEX), PEN20_SABER_LEOMON_SPRITE_SHEET_COLS, PEN20_SABER_LEOMON_SPRITE_SHEET_ROWS);
-            case PEN20_SAINT_GALGOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SAINT_GALGOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SAINT_GALGOMON_ANIM_INDEX), PEN20_SAINT_GALGOMON_SPRITE_SHEET_COLS, PEN20_SAINT_GALGOMON_SPRITE_SHEET_ROWS);
-            case PEN20_SAVIOR_HACKMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SAVIOR_HACKMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SAVIOR_HACKMON_ANIM_INDEX), PEN20_SAVIOR_HACKMON_SPRITE_SHEET_COLS, PEN20_SAVIOR_HACKMON_SPRITE_SHEET_ROWS);
-            case PEN20_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SEADRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SEADRAMON_ANIM_INDEX), PEN20_SEADRAMON_SPRITE_SHEET_COLS, PEN20_SEADRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_SERAPHIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SERAPHIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SERAPHIMON_ANIM_INDEX), PEN20_SERAPHIMON_SPRITE_SHEET_COLS, PEN20_SERAPHIMON_SPRITE_SHEET_ROWS);
-            case PEN20_SHADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SHADRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SHADRAMON_ANIM_INDEX), PEN20_SHADRAMON_SPRITE_SHEET_COLS, PEN20_SHADRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_SHAKOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SHAKOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SHAKOMON_ANIM_INDEX), PEN20_SHAKOMON_SPRITE_SHEET_COLS, PEN20_SHAKOMON_SPRITE_SHEET_ROWS);
-            case PEN20_SKULL_MAMMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SKULL_MAMMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SKULL_MAMMON_ANIM_INDEX), PEN20_SKULL_MAMMON_SPRITE_SHEET_COLS, PEN20_SKULL_MAMMON_SPRITE_SHEET_ROWS);
-            case PEN20_SLAYERDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SLAYERDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SLAYERDRAMON_ANIM_INDEX), PEN20_SLAYERDRAMON_SPRITE_SHEET_COLS, PEN20_SLAYERDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_STARMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_STARMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_STARMON_ANIM_INDEX), PEN20_STARMON_SPRITE_SHEET_COLS, PEN20_STARMON_SPRITE_SHEET_ROWS);
-            case PEN20_SUNFLOWMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_SUNFLOWMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_SUNFLOWMON_ANIM_INDEX), PEN20_SUNFLOWMON_SPRITE_SHEET_COLS, PEN20_SUNFLOWMON_SPRITE_SHEET_ROWS);
-            case PEN20_TAILMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TAILMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TAILMON_ANIM_INDEX), PEN20_TAILMON_SPRITE_SHEET_COLS, PEN20_TAILMON_SPRITE_SHEET_ROWS);
-            case PEN20_TANKMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TANKMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TANKMON_ANIM_INDEX), PEN20_TANKMON_SPRITE_SHEET_COLS, PEN20_TANKMON_SPRITE_SHEET_ROWS);
-            case PEN20_TARGETMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TARGETMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TARGETMON_ANIM_INDEX), PEN20_TARGETMON_SPRITE_SHEET_COLS, PEN20_TARGETMON_SPRITE_SHEET_ROWS);
-            case PEN20_TENTOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TENTOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TENTOMON_ANIM_INDEX), PEN20_TENTOMON_SPRITE_SHEET_COLS, PEN20_TENTOMON_SPRITE_SHEET_ROWS);
-            case PEN20_TERRIERMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TERRIERMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TERRIERMON_ANIM_INDEX), PEN20_TERRIERMON_SPRITE_SHEET_COLS, PEN20_TERRIERMON_SPRITE_SHEET_ROWS);
-            case PEN20_THUNDERBALLMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_THUNDERBALLMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_THUNDERBALLMON_ANIM_INDEX), PEN20_THUNDERBALLMON_SPRITE_SHEET_COLS, PEN20_THUNDERBALLMON_SPRITE_SHEET_ROWS);
-            case PEN20_TIA_LUDOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TIA_LUDOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TIA_LUDOMON_ANIM_INDEX), PEN20_TIA_LUDOMON_SPRITE_SHEET_COLS, PEN20_TIA_LUDOMON_SPRITE_SHEET_ROWS);
-            case PEN20_TOGEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TOGEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TOGEMON_ANIM_INDEX), PEN20_TOGEMON_SPRITE_SHEET_COLS, PEN20_TOGEMON_SPRITE_SHEET_ROWS);
-            case PEN20_TONOSAMA_GEKOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TONOSAMA_GEKOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TONOSAMA_GEKOMON_ANIM_INDEX), PEN20_TONOSAMA_GEKOMON_SPRITE_SHEET_COLS, PEN20_TONOSAMA_GEKOMON_SPRITE_SHEET_ROWS);
-            case PEN20_TORTAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TORTAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TORTAMON_ANIM_INDEX), PEN20_TORTAMON_SPRITE_SHEET_COLS, PEN20_TORTAMON_SPRITE_SHEET_ROWS);
-            case PEN20_TOY_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TOY_AGUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TOY_AGUMON_ANIM_INDEX), PEN20_TOY_AGUMON_SPRITE_SHEET_COLS, PEN20_TOY_AGUMON_SPRITE_SHEET_ROWS);
-            case PEN20_TRICERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TRICERAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TRICERAMON_ANIM_INDEX), PEN20_TRICERAMON_SPRITE_SHEET_COLS, PEN20_TRICERAMON_SPRITE_SHEET_ROWS);
-            case PEN20_TROOPMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TROOPMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TROOPMON_ANIM_INDEX), PEN20_TROOPMON_SPRITE_SHEET_COLS, PEN20_TROOPMON_SPRITE_SHEET_ROWS);
-            case PEN20_TURUIEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_TURUIEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_TURUIEMON_ANIM_INDEX), PEN20_TURUIEMON_SPRITE_SHEET_COLS, PEN20_TURUIEMON_SPRITE_SHEET_ROWS);
-            case PEN20_VAMDEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_VAMDEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_VAMDEMON_ANIM_INDEX), PEN20_VAMDEMON_SPRITE_SHEET_COLS, PEN20_VAMDEMON_SPRITE_SHEET_ROWS);
-            case PEN20_V_DRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_V_DRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_V_DRAMON_ANIM_INDEX), PEN20_V_DRAMON_SPRITE_SHEET_COLS, PEN20_V_DRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_VEMDEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_VEMDEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_VEMDEMON_ANIM_INDEX), PEN20_VEMDEMON_SPRITE_SHEET_COLS, PEN20_VEMDEMON_SPRITE_SHEET_ROWS);
-            case PEN20_VENOM_VAMDEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_VENOM_VAMDEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_VENOM_VAMDEMON_ANIM_INDEX), PEN20_VENOM_VAMDEMON_SPRITE_SHEET_COLS, PEN20_VENOM_VAMDEMON_SPRITE_SHEET_ROWS);
-            case PEN20_V_MON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_V_MON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_V_MON_ANIM_INDEX), PEN20_V_MON_SPRITE_SHEET_COLS, PEN20_V_MON_SPRITE_SHEET_ROWS);
-            case PEN20_VOLCANICDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_VOLCANICDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_VOLCANICDRAMON_ANIM_INDEX), PEN20_VOLCANICDRAMON_SPRITE_SHEET_COLS, PEN20_VOLCANICDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_VOLTOBAUTAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_VOLTOBAUTAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_VOLTOBAUTAMON_ANIM_INDEX), PEN20_VOLTOBAUTAMON_SPRITE_SHEET_COLS, PEN20_VOLTOBAUTAMON_SPRITE_SHEET_ROWS);
-            case PEN20_VORVOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_VORVOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_VORVOMON_ANIM_INDEX), PEN20_VORVOMON_SPRITE_SHEET_COLS, PEN20_VORVOMON_SPRITE_SHEET_ROWS);
-            case PEN20_WAR_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_WAR_GREYMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_WAR_GREYMON_ANIM_INDEX), PEN20_WAR_GREYMON_SPRITE_SHEET_COLS, PEN20_WAR_GREYMON_SPRITE_SHEET_ROWS);
-            case PEN20_WARU_MOZAEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_WARU_MOZAEMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_WARU_MOZAEMON_ANIM_INDEX), PEN20_WARU_MOZAEMON_SPRITE_SHEET_COLS, PEN20_WARU_MOZAEMON_SPRITE_SHEET_ROWS);
-            case PEN20_WERE_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_WERE_GARURUMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_WERE_GARURUMON_ANIM_INDEX), PEN20_WERE_GARURUMON_SPRITE_SHEET_COLS, PEN20_WERE_GARURUMON_SPRITE_SHEET_ROWS);
-            case PEN20_WHAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_WHAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_WHAMON_ANIM_INDEX), PEN20_WHAMON_SPRITE_SHEET_COLS, PEN20_WHAMON_SPRITE_SHEET_ROWS);
-            case PEN20_WINGDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_WINGDRAMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_WINGDRAMON_ANIM_INDEX), PEN20_WINGDRAMON_SPRITE_SHEET_COLS, PEN20_WINGDRAMON_SPRITE_SHEET_ROWS);
-            case PEN20_WIZARMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_WIZARMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_WIZARMON_ANIM_INDEX), PEN20_WIZARMON_SPRITE_SHEET_COLS, PEN20_WIZARMON_SPRITE_SHEET_ROWS);
-            case PEN20_WOODMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_WOODMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_WOODMON_ANIM_INDEX), PEN20_WOODMON_SPRITE_SHEET_COLS, PEN20_WOODMON_SPRITE_SHEET_ROWS);
-            case PEN20_XV_MON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_XV_MON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_XV_MON_ANIM_INDEX), PEN20_XV_MON_SPRITE_SHEET_COLS, PEN20_XV_MON_SPRITE_SHEET_ROWS);
-            case PEN20_ZERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ZERIMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ZERIMON_ANIM_INDEX), PEN20_ZERIMON_SPRITE_SHEET_COLS, PEN20_ZERIMON_SPRITE_SHEET_ROWS);
-            case PEN20_ZUDOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN20_ZUDOMON_ANIM_INDEX, get_pen20_sprite_sheet(PEN20_ZUDOMON_ANIM_INDEX), PEN20_ZUDOMON_SPRITE_SHEET_COLS, PEN20_ZUDOMON_SPRITE_SHEET_ROWS);
-            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-        }
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        assert(LEN_ARRAY(pen20_dims_table) == PEN20_ANIM_COUNT);
+        assert(LEN_ARRAY(pen20_pngs_table) == PEN20_ANIM_COUNT);
+        assert(LEN_ARRAY(pen20_png_sizes_table) == PEN20_ANIM_COUNT);
+        assert(LEN_ARRAY(pen20_names_table) == PEN20_ANIM_COUNT);
+        assert(index < PEN20_ANIM_COUNT);
+        assert(LEN_ARRAY(pen20_pngs_table) <= INT32_MAX);
+        assert(index < INT32_MAX);
+        return load_dm_anim(ctx, static_cast<int32_t>(index), {pen20_pngs_table[index], pen20_png_sizes_table[index], pen20_names_table[index]}, pen20_dims_table[index].cols, pen20_dims_table[index].rows);
     }
 }
 

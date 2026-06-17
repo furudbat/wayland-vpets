@@ -1,123 +1,459 @@
 #include "core/bongocat.h"
-#include "graphics/animation_thread_context.h"
+#include "utils/memory.h"
+#include "graphics/animation_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dmc/dmc.hpp"
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dmc/dmc_sprite.h"
 #include "image_loader/dmc/load_images_dmc.h"
+#include "embedded_assets/dmc/dmc_images.h"
+#include <climits>
+#include <cstddef>
+#include <cstdint>
+
+/// @NOTE: Generated embedded assets dmc
+
 
 namespace bongocat::animation {
-    created_result_t<dm_sprite_sheet_t> load_dmc_sprite_sheet(const animation_thread_context_t& ctx, int index) {
+    static constexpr assets::embedded_sprite_sheet_dims_t dmc_dims_table[] = {
+        {assets::DMC_AGUMON_SPRITE_SHEET_COLS, assets::DMC_AGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_AIRDRAMON_SPRITE_SHEET_COLS, assets::DMC_AIRDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_ANDROMON_SPRITE_SHEET_COLS, assets::DMC_ANDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_ANGEMON_SPRITE_SHEET_COLS, assets::DMC_ANGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BABYDMON_SPRITE_SHEET_COLS, assets::DMC_BABYDMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BAKEMON_SPRITE_SHEET_COLS, assets::DMC_BAKEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BANCHO_LEOMON_SPRITE_SHEET_COLS, assets::DMC_BANCHO_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BANCHO_MAMEMON_SPRITE_SHEET_COLS, assets::DMC_BANCHO_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BETAMON_SPRITE_SHEET_COLS, assets::DMC_BETAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BIRDRAMON_SPRITE_SHEET_COLS, assets::DMC_BIRDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BLITZ_GREYMON_SPRITE_SHEET_COLS, assets::DMC_BLITZ_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BLOOM_LORDMON_SPRITE_SHEET_COLS, assets::DMC_BLOOM_LORDMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_BOTAMON_SPRITE_SHEET_COLS, assets::DMC_BOTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_CENTALMON_SPRITE_SHEET_COLS, assets::DMC_CENTALMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_CHAOSDRAMON_SPRITE_SHEET_COLS, assets::DMC_CHAOSDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_CHAOSMON_SPRITE_SHEET_COLS, assets::DMC_CHAOSMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_CHIMAIRAMON_SPRITE_SHEET_COLS, assets::DMC_CHIMAIRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_COCKATRIMON_SPRITE_SHEET_COLS, assets::DMC_COCKATRIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_COELAMON_SPRITE_SHEET_COLS, assets::DMC_COELAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_CORONAMON_SPRITE_SHEET_COLS, assets::DMC_CORONAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_CRES_GARURUMON_SPRITE_SHEET_COLS, assets::DMC_CRES_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_CYCLOMON_SPRITE_SHEET_COLS, assets::DMC_CYCLOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_DARKDRAMON_SPRITE_SHEET_COLS, assets::DMC_DARKDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_DARK_TYRANOMON_SPRITE_SHEET_COLS, assets::DMC_DARK_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_DELTAMON_SPRITE_SHEET_COLS, assets::DMC_DELTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_DEVIDRAMON_SPRITE_SHEET_COLS, assets::DMC_DEVIDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_DEVIMON_SPRITE_SHEET_COLS, assets::DMC_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_DIGITAMAMON_SPRITE_SHEET_COLS, assets::DMC_DIGITAMAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_DRIMOGEMON_SPRITE_SHEET_COLS, assets::DMC_DRIMOGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_EBEMON_SPRITE_SHEET_COLS, assets::DMC_EBEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_ELECMON_SPRITE_SHEET_COLS, assets::DMC_ELECMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_ETEMON_SPRITE_SHEET_COLS, assets::DMC_ETEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_EX_TYRANOMON_SPRITE_SHEET_COLS, assets::DMC_EX_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_FLYMON_SPRITE_SHEET_COLS, assets::DMC_FLYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GABUMON_SPRITE_SHEET_COLS, assets::DMC_GABUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GAIOUMON_SPRITE_SHEET_COLS, assets::DMC_GAIOUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GANKOOMON_SPRITE_SHEET_COLS, assets::DMC_GANKOOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GARURUMON_SPRITE_SHEET_COLS, assets::DMC_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GAZIMON_SPRITE_SHEET_COLS, assets::DMC_GAZIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GIROMON_SPRITE_SHEET_COLS, assets::DMC_GIROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GIZAMON_SPRITE_SHEET_COLS, assets::DMC_GIZAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GOKUMON_SPRITE_SHEET_COLS, assets::DMC_GOKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_GREYMON_SPRITE_SHEET_COLS, assets::DMC_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_HI_ANDROMON_SPRITE_SHEET_COLS, assets::DMC_HI_ANDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_KABUTERIMON_SPRITE_SHEET_COLS, assets::DMC_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_KOROMON_SPRITE_SHEET_COLS, assets::DMC_KOROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_KUNEMON_SPRITE_SHEET_COLS, assets::DMC_KUNEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_KUWAGAMON_SPRITE_SHEET_COLS, assets::DMC_KUWAGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_LEOMON_SPRITE_SHEET_COLS, assets::DMC_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MAMEMON_SPRITE_SHEET_COLS, assets::DMC_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MEGADRAMON_SPRITE_SHEET_COLS, assets::DMC_MEGADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MERAMON_SPRITE_SHEET_COLS, assets::DMC_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_METAL_GARURUMON_SPRITE_SHEET_COLS, assets::DMC_METAL_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_METAL_GREYMON_SPRITE_SHEET_COLS, assets::DMC_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_METAL_GREYMON_VIRUS_SPRITE_SHEET_COLS, assets::DMC_METAL_GREYMON_VIRUS_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_METAL_MAMEMON_SPRITE_SHEET_COLS, assets::DMC_METAL_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_METAL_TYRANOMON_SPRITE_SHEET_COLS, assets::DMC_METAL_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MILLENNIUMON_SPRITE_SHEET_COLS, assets::DMC_MILLENNIUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MOJYAMON_SPRITE_SHEET_COLS, assets::DMC_MOJYAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MOJYMON_SPRITE_SHEET_COLS, assets::DMC_MOJYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MONOCHROMON_SPRITE_SHEET_COLS, assets::DMC_MONOCHROMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MONZAEMON_SPRITE_SHEET_COLS, assets::DMC_MONZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MOZAEMON_SPRITE_SHEET_COLS, assets::DMC_MOZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_MUGENDRAMON_SPRITE_SHEET_COLS, assets::DMC_MUGENDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_NANIMON_SPRITE_SHEET_COLS, assets::DMC_NANIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_NANOMON_SPRITE_SHEET_COLS, assets::DMC_NANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_NUMEMON_SPRITE_SHEET_COLS, assets::DMC_NUMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_OGREMON_SPRITE_SHEET_COLS, assets::DMC_OGREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_OMEGAMON_ALTER_S_SPRITE_SHEET_COLS, assets::DMC_OMEGAMON_ALTER_S_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_OMEGAMON_SPRITE_SHEET_COLS, assets::DMC_OMEGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_ORGEMON_SPRITE_SHEET_COLS, assets::DMC_ORGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_PAGUMON_SPRITE_SHEET_COLS, assets::DMC_PAGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_PALMON_SPRITE_SHEET_COLS, assets::DMC_PALMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_PATAMON_SPRITE_SHEET_COLS, assets::DMC_PATAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_PETITMON_SPRITE_SHEET_COLS, assets::DMC_PETITMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_PICCOLOMON_SPRITE_SHEET_COLS, assets::DMC_PICCOLOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_PIYOMON_SPRITE_SHEET_COLS, assets::DMC_PIYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_POYOMON_SPRITE_SHEET_COLS, assets::DMC_POYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_PUNIMON_SPRITE_SHEET_COLS, assets::DMC_PUNIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_RAIDENMON_SPRITE_SHEET_COLS, assets::DMC_RAIDENMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_RAREMON_SPRITE_SHEET_COLS, assets::DMC_RAREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_RUST_TYRANOMON_SPRITE_SHEET_COLS, assets::DMC_RUST_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_SCUMON_SPRITE_SHEET_COLS, assets::DMC_SCUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_SEADRAMON_SPRITE_SHEET_COLS, assets::DMC_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_SHELLMON_SPRITE_SHEET_COLS, assets::DMC_SHELLMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_SHIN_MONZAEMON_SPRITE_SHEET_COLS, assets::DMC_SHIN_MONZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_SKULL_GREYMON_SPRITE_SHEET_COLS, assets::DMC_SKULL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_SKULL_MAMMON_SPRITE_SHEET_COLS, assets::DMC_SKULL_MAMMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_TANEMON_SPRITE_SHEET_COLS, assets::DMC_TANEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_TITAMON_SPRITE_SHEET_COLS, assets::DMC_TITAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_TOKOMON_SPRITE_SHEET_COLS, assets::DMC_TOKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_TSUNOMON_SPRITE_SHEET_COLS, assets::DMC_TSUNOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_TUNOMON_SPRITE_SHEET_COLS, assets::DMC_TUNOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_TUSKMON_SPRITE_SHEET_COLS, assets::DMC_TUSKMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_TYRANOMON_SPRITE_SHEET_COLS, assets::DMC_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_UNIMON_SPRITE_SHEET_COLS, assets::DMC_UNIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_VADEMON_SPRITE_SHEET_COLS, assets::DMC_VADEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_VEGIMON_SPRITE_SHEET_COLS, assets::DMC_VEGIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_WAR_GREYMON_SPRITE_SHEET_COLS, assets::DMC_WAR_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_WERE_GARURUMON_SPRITE_SHEET_COLS, assets::DMC_WERE_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_WHAMON_SPRITE_SHEET_COLS, assets::DMC_WHAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_YUKIDARUMON_SPRITE_SHEET_COLS, assets::DMC_YUKIDARUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_YURAMON_SPRITE_SHEET_COLS, assets::DMC_YURAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMC_ZURUMON_SPRITE_SHEET_COLS, assets::DMC_ZURUMON_SPRITE_SHEET_ROWS}, 
+        
+    };
+    static const unsigned char* dmc_pngs_table[] = {
+        dmc_agumon_png, 
+        dmc_airdramon_png, 
+        dmc_andromon_png, 
+        dmc_angemon_png, 
+        dmc_babydmon_png, 
+        dmc_bakemon_png, 
+        dmc_bancho_leomon_png, 
+        dmc_bancho_mamemon_png, 
+        dmc_betamon_png, 
+        dmc_birdramon_png, 
+        dmc_blitz_greymon_png, 
+        dmc_bloom_lordmon_png, 
+        dmc_botamon_png, 
+        dmc_centalmon_png, 
+        dmc_chaosdramon_png, 
+        dmc_chaosmon_png, 
+        dmc_chimairamon_png, 
+        dmc_cockatrimon_png, 
+        dmc_coelamon_png, 
+        dmc_coronamon_png, 
+        dmc_cres_garurumon_png, 
+        dmc_cyclomon_png, 
+        dmc_darkdramon_png, 
+        dmc_dark_tyranomon_png, 
+        dmc_deltamon_png, 
+        dmc_devidramon_png, 
+        dmc_devimon_png, 
+        dmc_digitamamon_png, 
+        dmc_drimogemon_png, 
+        dmc_ebemon_png, 
+        dmc_elecmon_png, 
+        dmc_etemon_png, 
+        dmc_ex_tyranomon_png, 
+        dmc_flymon_png, 
+        dmc_gabumon_png, 
+        dmc_gaioumon_png, 
+        dmc_gankoomon_png, 
+        dmc_garurumon_png, 
+        dmc_gazimon_png, 
+        dmc_giromon_png, 
+        dmc_gizamon_png, 
+        dmc_gokumon_png, 
+        dmc_greymon_png, 
+        dmc_hi_andromon_png, 
+        dmc_kabuterimon_png, 
+        dmc_koromon_png, 
+        dmc_kunemon_png, 
+        dmc_kuwagamon_png, 
+        dmc_leomon_png, 
+        dmc_mamemon_png, 
+        dmc_megadramon_png, 
+        dmc_meramon_png, 
+        dmc_metal_garurumon_png, 
+        dmc_metal_greymon_png, 
+        dmc_metal_greymon_virus_png, 
+        dmc_metal_mamemon_png, 
+        dmc_metal_tyranomon_png, 
+        dmc_millenniumon_png, 
+        dmc_mojyamon_png, 
+        dmc_mojymon_png, 
+        dmc_monochromon_png, 
+        dmc_monzaemon_png, 
+        dmc_mozaemon_png, 
+        dmc_mugendramon_png, 
+        dmc_nanimon_png, 
+        dmc_nanomon_png, 
+        dmc_numemon_png, 
+        dmc_ogremon_png, 
+        dmc_omegamon_alter_s_png, 
+        dmc_omegamon_png, 
+        dmc_orgemon_png, 
+        dmc_pagumon_png, 
+        dmc_palmon_png, 
+        dmc_patamon_png, 
+        dmc_petitmon_png, 
+        dmc_piccolomon_png, 
+        dmc_piyomon_png, 
+        dmc_poyomon_png, 
+        dmc_punimon_png, 
+        dmc_raidenmon_png, 
+        dmc_raremon_png, 
+        dmc_rust_tyranomon_png, 
+        dmc_scumon_png, 
+        dmc_seadramon_png, 
+        dmc_shellmon_png, 
+        dmc_shin_monzaemon_png, 
+        dmc_skull_greymon_png, 
+        dmc_skull_mammon_png, 
+        dmc_tanemon_png, 
+        dmc_titamon_png, 
+        dmc_tokomon_png, 
+        dmc_tsunomon_png, 
+        dmc_tunomon_png, 
+        dmc_tuskmon_png, 
+        dmc_tyranomon_png, 
+        dmc_unimon_png, 
+        dmc_vademon_png, 
+        dmc_vegimon_png, 
+        dmc_war_greymon_png, 
+        dmc_were_garurumon_png, 
+        dmc_whamon_png, 
+        dmc_yukidarumon_png, 
+        dmc_yuramon_png, 
+        dmc_zurumon_png, 
+        
+    };
+    static const size_t dmc_png_sizes_table[] = {
+        dmc_agumon_png_size, 
+        dmc_airdramon_png_size, 
+        dmc_andromon_png_size, 
+        dmc_angemon_png_size, 
+        dmc_babydmon_png_size, 
+        dmc_bakemon_png_size, 
+        dmc_bancho_leomon_png_size, 
+        dmc_bancho_mamemon_png_size, 
+        dmc_betamon_png_size, 
+        dmc_birdramon_png_size, 
+        dmc_blitz_greymon_png_size, 
+        dmc_bloom_lordmon_png_size, 
+        dmc_botamon_png_size, 
+        dmc_centalmon_png_size, 
+        dmc_chaosdramon_png_size, 
+        dmc_chaosmon_png_size, 
+        dmc_chimairamon_png_size, 
+        dmc_cockatrimon_png_size, 
+        dmc_coelamon_png_size, 
+        dmc_coronamon_png_size, 
+        dmc_cres_garurumon_png_size, 
+        dmc_cyclomon_png_size, 
+        dmc_darkdramon_png_size, 
+        dmc_dark_tyranomon_png_size, 
+        dmc_deltamon_png_size, 
+        dmc_devidramon_png_size, 
+        dmc_devimon_png_size, 
+        dmc_digitamamon_png_size, 
+        dmc_drimogemon_png_size, 
+        dmc_ebemon_png_size, 
+        dmc_elecmon_png_size, 
+        dmc_etemon_png_size, 
+        dmc_ex_tyranomon_png_size, 
+        dmc_flymon_png_size, 
+        dmc_gabumon_png_size, 
+        dmc_gaioumon_png_size, 
+        dmc_gankoomon_png_size, 
+        dmc_garurumon_png_size, 
+        dmc_gazimon_png_size, 
+        dmc_giromon_png_size, 
+        dmc_gizamon_png_size, 
+        dmc_gokumon_png_size, 
+        dmc_greymon_png_size, 
+        dmc_hi_andromon_png_size, 
+        dmc_kabuterimon_png_size, 
+        dmc_koromon_png_size, 
+        dmc_kunemon_png_size, 
+        dmc_kuwagamon_png_size, 
+        dmc_leomon_png_size, 
+        dmc_mamemon_png_size, 
+        dmc_megadramon_png_size, 
+        dmc_meramon_png_size, 
+        dmc_metal_garurumon_png_size, 
+        dmc_metal_greymon_png_size, 
+        dmc_metal_greymon_virus_png_size, 
+        dmc_metal_mamemon_png_size, 
+        dmc_metal_tyranomon_png_size, 
+        dmc_millenniumon_png_size, 
+        dmc_mojyamon_png_size, 
+        dmc_mojymon_png_size, 
+        dmc_monochromon_png_size, 
+        dmc_monzaemon_png_size, 
+        dmc_mozaemon_png_size, 
+        dmc_mugendramon_png_size, 
+        dmc_nanimon_png_size, 
+        dmc_nanomon_png_size, 
+        dmc_numemon_png_size, 
+        dmc_ogremon_png_size, 
+        dmc_omegamon_alter_s_png_size, 
+        dmc_omegamon_png_size, 
+        dmc_orgemon_png_size, 
+        dmc_pagumon_png_size, 
+        dmc_palmon_png_size, 
+        dmc_patamon_png_size, 
+        dmc_petitmon_png_size, 
+        dmc_piccolomon_png_size, 
+        dmc_piyomon_png_size, 
+        dmc_poyomon_png_size, 
+        dmc_punimon_png_size, 
+        dmc_raidenmon_png_size, 
+        dmc_raremon_png_size, 
+        dmc_rust_tyranomon_png_size, 
+        dmc_scumon_png_size, 
+        dmc_seadramon_png_size, 
+        dmc_shellmon_png_size, 
+        dmc_shin_monzaemon_png_size, 
+        dmc_skull_greymon_png_size, 
+        dmc_skull_mammon_png_size, 
+        dmc_tanemon_png_size, 
+        dmc_titamon_png_size, 
+        dmc_tokomon_png_size, 
+        dmc_tsunomon_png_size, 
+        dmc_tunomon_png_size, 
+        dmc_tuskmon_png_size, 
+        dmc_tyranomon_png_size, 
+        dmc_unimon_png_size, 
+        dmc_vademon_png_size, 
+        dmc_vegimon_png_size, 
+        dmc_war_greymon_png_size, 
+        dmc_were_garurumon_png_size, 
+        dmc_whamon_png_size, 
+        dmc_yukidarumon_png_size, 
+        dmc_yuramon_png_size, 
+        dmc_zurumon_png_size, 
+        
+    };
+    static const char* dmc_names_table[] = {
+        "agumon", 
+        "airdramon", 
+        "andromon", 
+        "angemon", 
+        "babydmon", 
+        "bakemon", 
+        "bancho_leomon", 
+        "bancho_mamemon", 
+        "betamon", 
+        "birdramon", 
+        "blitz_greymon", 
+        "bloom_lordmon", 
+        "botamon", 
+        "centalmon", 
+        "chaosdramon", 
+        "chaosmon", 
+        "chimairamon", 
+        "cockatrimon", 
+        "coelamon", 
+        "coronamon", 
+        "cres_garurumon", 
+        "cyclomon", 
+        "darkdramon", 
+        "dark_tyranomon", 
+        "deltamon", 
+        "devidramon", 
+        "devimon", 
+        "digitamamon", 
+        "drimogemon", 
+        "ebemon", 
+        "elecmon", 
+        "etemon", 
+        "ex_tyranomon", 
+        "flymon", 
+        "gabumon", 
+        "gaioumon", 
+        "gankoomon", 
+        "garurumon", 
+        "gazimon", 
+        "giromon", 
+        "gizamon", 
+        "gokumon", 
+        "greymon", 
+        "hi_andromon", 
+        "kabuterimon", 
+        "koromon", 
+        "kunemon", 
+        "kuwagamon", 
+        "leomon", 
+        "mamemon", 
+        "megadramon", 
+        "meramon", 
+        "metal_garurumon", 
+        "metal_greymon", 
+        "metal_greymon_virus", 
+        "metal_mamemon", 
+        "metal_tyranomon", 
+        "millenniumon", 
+        "mojyamon", 
+        "mojymon", 
+        "monochromon", 
+        "monzaemon", 
+        "mozaemon", 
+        "mugendramon", 
+        "nanimon", 
+        "nanomon", 
+        "numemon", 
+        "ogremon", 
+        "omegamon_alter_s", 
+        "omegamon", 
+        "orgemon", 
+        "pagumon", 
+        "palmon", 
+        "patamon", 
+        "petitmon", 
+        "piccolomon", 
+        "piyomon", 
+        "poyomon", 
+        "punimon", 
+        "raidenmon", 
+        "raremon", 
+        "rust_tyranomon", 
+        "scumon", 
+        "seadramon", 
+        "shellmon", 
+        "shin_monzaemon", 
+        "skull_greymon", 
+        "skull_mammon", 
+        "tanemon", 
+        "titamon", 
+        "tokomon", 
+        "tsunomon", 
+        "tunomon", 
+        "tuskmon", 
+        "tyranomon", 
+        "unimon", 
+        "vademon", 
+        "vegimon", 
+        "war_greymon", 
+        "were_garurumon", 
+        "whamon", 
+        "yukidarumon", 
+        "yuramon", 
+        "zurumon", 
+        
+    };
+    created_result_t<dm_sprite_sheet_t> load_dmc_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
         using namespace assets;
-        switch (index) {
-            case DMC_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_AGUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_AGUMON_ANIM_INDEX), DMC_AGUMON_SPRITE_SHEET_COLS, DMC_AGUMON_SPRITE_SHEET_ROWS);
-            case DMC_AIRDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_AIRDRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_AIRDRAMON_ANIM_INDEX), DMC_AIRDRAMON_SPRITE_SHEET_COLS, DMC_AIRDRAMON_SPRITE_SHEET_ROWS);
-            case DMC_ANDROMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_ANDROMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_ANDROMON_ANIM_INDEX), DMC_ANDROMON_SPRITE_SHEET_COLS, DMC_ANDROMON_SPRITE_SHEET_ROWS);
-            case DMC_ANGEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_ANGEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_ANGEMON_ANIM_INDEX), DMC_ANGEMON_SPRITE_SHEET_COLS, DMC_ANGEMON_SPRITE_SHEET_ROWS);
-            case DMC_BABYDMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BABYDMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BABYDMON_ANIM_INDEX), DMC_BABYDMON_SPRITE_SHEET_COLS, DMC_BABYDMON_SPRITE_SHEET_ROWS);
-            case DMC_BAKEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BAKEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BAKEMON_ANIM_INDEX), DMC_BAKEMON_SPRITE_SHEET_COLS, DMC_BAKEMON_SPRITE_SHEET_ROWS);
-            case DMC_BANCHO_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BANCHO_LEOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BANCHO_LEOMON_ANIM_INDEX), DMC_BANCHO_LEOMON_SPRITE_SHEET_COLS, DMC_BANCHO_LEOMON_SPRITE_SHEET_ROWS);
-            case DMC_BANCHO_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BANCHO_MAMEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BANCHO_MAMEMON_ANIM_INDEX), DMC_BANCHO_MAMEMON_SPRITE_SHEET_COLS, DMC_BANCHO_MAMEMON_SPRITE_SHEET_ROWS);
-            case DMC_BETAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BETAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BETAMON_ANIM_INDEX), DMC_BETAMON_SPRITE_SHEET_COLS, DMC_BETAMON_SPRITE_SHEET_ROWS);
-            case DMC_BIRDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BIRDRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BIRDRAMON_ANIM_INDEX), DMC_BIRDRAMON_SPRITE_SHEET_COLS, DMC_BIRDRAMON_SPRITE_SHEET_ROWS);
-            case DMC_BLITZ_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BLITZ_GREYMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BLITZ_GREYMON_ANIM_INDEX), DMC_BLITZ_GREYMON_SPRITE_SHEET_COLS, DMC_BLITZ_GREYMON_SPRITE_SHEET_ROWS);
-            case DMC_BLOOM_LORDMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BLOOM_LORDMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BLOOM_LORDMON_ANIM_INDEX), DMC_BLOOM_LORDMON_SPRITE_SHEET_COLS, DMC_BLOOM_LORDMON_SPRITE_SHEET_ROWS);
-            case DMC_BOTAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_BOTAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_BOTAMON_ANIM_INDEX), DMC_BOTAMON_SPRITE_SHEET_COLS, DMC_BOTAMON_SPRITE_SHEET_ROWS);
-            case DMC_CENTALMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_CENTALMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_CENTALMON_ANIM_INDEX), DMC_CENTALMON_SPRITE_SHEET_COLS, DMC_CENTALMON_SPRITE_SHEET_ROWS);
-            case DMC_CHAOSDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_CHAOSDRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_CHAOSDRAMON_ANIM_INDEX), DMC_CHAOSDRAMON_SPRITE_SHEET_COLS, DMC_CHAOSDRAMON_SPRITE_SHEET_ROWS);
-            case DMC_CHAOSMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_CHAOSMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_CHAOSMON_ANIM_INDEX), DMC_CHAOSMON_SPRITE_SHEET_COLS, DMC_CHAOSMON_SPRITE_SHEET_ROWS);
-            case DMC_CHIMAIRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_CHIMAIRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_CHIMAIRAMON_ANIM_INDEX), DMC_CHIMAIRAMON_SPRITE_SHEET_COLS, DMC_CHIMAIRAMON_SPRITE_SHEET_ROWS);
-            case DMC_COCKATRIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_COCKATRIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_COCKATRIMON_ANIM_INDEX), DMC_COCKATRIMON_SPRITE_SHEET_COLS, DMC_COCKATRIMON_SPRITE_SHEET_ROWS);
-            case DMC_COELAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_COELAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_COELAMON_ANIM_INDEX), DMC_COELAMON_SPRITE_SHEET_COLS, DMC_COELAMON_SPRITE_SHEET_ROWS);
-            case DMC_CORONAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_CORONAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_CORONAMON_ANIM_INDEX), DMC_CORONAMON_SPRITE_SHEET_COLS, DMC_CORONAMON_SPRITE_SHEET_ROWS);
-            case DMC_CRES_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_CRES_GARURUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_CRES_GARURUMON_ANIM_INDEX), DMC_CRES_GARURUMON_SPRITE_SHEET_COLS, DMC_CRES_GARURUMON_SPRITE_SHEET_ROWS);
-            case DMC_CYCLOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_CYCLOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_CYCLOMON_ANIM_INDEX), DMC_CYCLOMON_SPRITE_SHEET_COLS, DMC_CYCLOMON_SPRITE_SHEET_ROWS);
-            case DMC_DARKDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_DARKDRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_DARKDRAMON_ANIM_INDEX), DMC_DARKDRAMON_SPRITE_SHEET_COLS, DMC_DARKDRAMON_SPRITE_SHEET_ROWS);
-            case DMC_DARK_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_DARK_TYRANOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_DARK_TYRANOMON_ANIM_INDEX), DMC_DARK_TYRANOMON_SPRITE_SHEET_COLS, DMC_DARK_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DMC_DELTAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_DELTAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_DELTAMON_ANIM_INDEX), DMC_DELTAMON_SPRITE_SHEET_COLS, DMC_DELTAMON_SPRITE_SHEET_ROWS);
-            case DMC_DEVIDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_DEVIDRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_DEVIDRAMON_ANIM_INDEX), DMC_DEVIDRAMON_SPRITE_SHEET_COLS, DMC_DEVIDRAMON_SPRITE_SHEET_ROWS);
-            case DMC_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_DEVIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_DEVIMON_ANIM_INDEX), DMC_DEVIMON_SPRITE_SHEET_COLS, DMC_DEVIMON_SPRITE_SHEET_ROWS);
-            case DMC_DIGITAMAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_DIGITAMAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_DIGITAMAMON_ANIM_INDEX), DMC_DIGITAMAMON_SPRITE_SHEET_COLS, DMC_DIGITAMAMON_SPRITE_SHEET_ROWS);
-            case DMC_DRIMOGEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_DRIMOGEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_DRIMOGEMON_ANIM_INDEX), DMC_DRIMOGEMON_SPRITE_SHEET_COLS, DMC_DRIMOGEMON_SPRITE_SHEET_ROWS);
-            case DMC_EBEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_EBEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_EBEMON_ANIM_INDEX), DMC_EBEMON_SPRITE_SHEET_COLS, DMC_EBEMON_SPRITE_SHEET_ROWS);
-            case DMC_ELECMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_ELECMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_ELECMON_ANIM_INDEX), DMC_ELECMON_SPRITE_SHEET_COLS, DMC_ELECMON_SPRITE_SHEET_ROWS);
-            case DMC_ETEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_ETEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_ETEMON_ANIM_INDEX), DMC_ETEMON_SPRITE_SHEET_COLS, DMC_ETEMON_SPRITE_SHEET_ROWS);
-            case DMC_EX_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_EX_TYRANOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_EX_TYRANOMON_ANIM_INDEX), DMC_EX_TYRANOMON_SPRITE_SHEET_COLS, DMC_EX_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DMC_FLYMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_FLYMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_FLYMON_ANIM_INDEX), DMC_FLYMON_SPRITE_SHEET_COLS, DMC_FLYMON_SPRITE_SHEET_ROWS);
-            case DMC_GABUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GABUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GABUMON_ANIM_INDEX), DMC_GABUMON_SPRITE_SHEET_COLS, DMC_GABUMON_SPRITE_SHEET_ROWS);
-            case DMC_GAIOUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GAIOUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GAIOUMON_ANIM_INDEX), DMC_GAIOUMON_SPRITE_SHEET_COLS, DMC_GAIOUMON_SPRITE_SHEET_ROWS);
-            case DMC_GANKOOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GANKOOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GANKOOMON_ANIM_INDEX), DMC_GANKOOMON_SPRITE_SHEET_COLS, DMC_GANKOOMON_SPRITE_SHEET_ROWS);
-            case DMC_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GARURUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GARURUMON_ANIM_INDEX), DMC_GARURUMON_SPRITE_SHEET_COLS, DMC_GARURUMON_SPRITE_SHEET_ROWS);
-            case DMC_GAZIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GAZIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GAZIMON_ANIM_INDEX), DMC_GAZIMON_SPRITE_SHEET_COLS, DMC_GAZIMON_SPRITE_SHEET_ROWS);
-            case DMC_GIROMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GIROMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GIROMON_ANIM_INDEX), DMC_GIROMON_SPRITE_SHEET_COLS, DMC_GIROMON_SPRITE_SHEET_ROWS);
-            case DMC_GIZAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GIZAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GIZAMON_ANIM_INDEX), DMC_GIZAMON_SPRITE_SHEET_COLS, DMC_GIZAMON_SPRITE_SHEET_ROWS);
-            case DMC_GOKUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GOKUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GOKUMON_ANIM_INDEX), DMC_GOKUMON_SPRITE_SHEET_COLS, DMC_GOKUMON_SPRITE_SHEET_ROWS);
-            case DMC_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_GREYMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_GREYMON_ANIM_INDEX), DMC_GREYMON_SPRITE_SHEET_COLS, DMC_GREYMON_SPRITE_SHEET_ROWS);
-            case DMC_HI_ANDROMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_HI_ANDROMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_HI_ANDROMON_ANIM_INDEX), DMC_HI_ANDROMON_SPRITE_SHEET_COLS, DMC_HI_ANDROMON_SPRITE_SHEET_ROWS);
-            case DMC_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_KABUTERIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_KABUTERIMON_ANIM_INDEX), DMC_KABUTERIMON_SPRITE_SHEET_COLS, DMC_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case DMC_KOROMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_KOROMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_KOROMON_ANIM_INDEX), DMC_KOROMON_SPRITE_SHEET_COLS, DMC_KOROMON_SPRITE_SHEET_ROWS);
-            case DMC_KUNEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_KUNEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_KUNEMON_ANIM_INDEX), DMC_KUNEMON_SPRITE_SHEET_COLS, DMC_KUNEMON_SPRITE_SHEET_ROWS);
-            case DMC_KUWAGAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_KUWAGAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_KUWAGAMON_ANIM_INDEX), DMC_KUWAGAMON_SPRITE_SHEET_COLS, DMC_KUWAGAMON_SPRITE_SHEET_ROWS);
-            case DMC_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_LEOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_LEOMON_ANIM_INDEX), DMC_LEOMON_SPRITE_SHEET_COLS, DMC_LEOMON_SPRITE_SHEET_ROWS);
-            case DMC_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MAMEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MAMEMON_ANIM_INDEX), DMC_MAMEMON_SPRITE_SHEET_COLS, DMC_MAMEMON_SPRITE_SHEET_ROWS);
-            case DMC_MEGADRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MEGADRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MEGADRAMON_ANIM_INDEX), DMC_MEGADRAMON_SPRITE_SHEET_COLS, DMC_MEGADRAMON_SPRITE_SHEET_ROWS);
-            case DMC_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MERAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MERAMON_ANIM_INDEX), DMC_MERAMON_SPRITE_SHEET_COLS, DMC_MERAMON_SPRITE_SHEET_ROWS);
-            case DMC_METAL_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_METAL_GARURUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_METAL_GARURUMON_ANIM_INDEX), DMC_METAL_GARURUMON_SPRITE_SHEET_COLS, DMC_METAL_GARURUMON_SPRITE_SHEET_ROWS);
-            case DMC_METAL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_METAL_GREYMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_METAL_GREYMON_ANIM_INDEX), DMC_METAL_GREYMON_SPRITE_SHEET_COLS, DMC_METAL_GREYMON_SPRITE_SHEET_ROWS);
-            case DMC_METAL_GREYMON_VIRUS_ANIM_INDEX: return load_dm_anim(ctx, DMC_METAL_GREYMON_VIRUS_ANIM_INDEX, get_dmc_sprite_sheet(DMC_METAL_GREYMON_VIRUS_ANIM_INDEX), DMC_METAL_GREYMON_VIRUS_SPRITE_SHEET_COLS, DMC_METAL_GREYMON_VIRUS_SPRITE_SHEET_ROWS);
-            case DMC_METAL_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_METAL_MAMEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_METAL_MAMEMON_ANIM_INDEX), DMC_METAL_MAMEMON_SPRITE_SHEET_COLS, DMC_METAL_MAMEMON_SPRITE_SHEET_ROWS);
-            case DMC_METAL_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_METAL_TYRANOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_METAL_TYRANOMON_ANIM_INDEX), DMC_METAL_TYRANOMON_SPRITE_SHEET_COLS, DMC_METAL_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DMC_MILLENNIUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MILLENNIUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MILLENNIUMON_ANIM_INDEX), DMC_MILLENNIUMON_SPRITE_SHEET_COLS, DMC_MILLENNIUMON_SPRITE_SHEET_ROWS);
-            case DMC_MOJYAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MOJYAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MOJYAMON_ANIM_INDEX), DMC_MOJYAMON_SPRITE_SHEET_COLS, DMC_MOJYAMON_SPRITE_SHEET_ROWS);
-            case DMC_MOJYMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MOJYMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MOJYMON_ANIM_INDEX), DMC_MOJYMON_SPRITE_SHEET_COLS, DMC_MOJYMON_SPRITE_SHEET_ROWS);
-            case DMC_MONOCHROMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MONOCHROMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MONOCHROMON_ANIM_INDEX), DMC_MONOCHROMON_SPRITE_SHEET_COLS, DMC_MONOCHROMON_SPRITE_SHEET_ROWS);
-            case DMC_MONZAEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MONZAEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MONZAEMON_ANIM_INDEX), DMC_MONZAEMON_SPRITE_SHEET_COLS, DMC_MONZAEMON_SPRITE_SHEET_ROWS);
-            case DMC_MOZAEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MOZAEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MOZAEMON_ANIM_INDEX), DMC_MOZAEMON_SPRITE_SHEET_COLS, DMC_MOZAEMON_SPRITE_SHEET_ROWS);
-            case DMC_MUGENDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_MUGENDRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_MUGENDRAMON_ANIM_INDEX), DMC_MUGENDRAMON_SPRITE_SHEET_COLS, DMC_MUGENDRAMON_SPRITE_SHEET_ROWS);
-            case DMC_NANIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_NANIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_NANIMON_ANIM_INDEX), DMC_NANIMON_SPRITE_SHEET_COLS, DMC_NANIMON_SPRITE_SHEET_ROWS);
-            case DMC_NANOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_NANOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_NANOMON_ANIM_INDEX), DMC_NANOMON_SPRITE_SHEET_COLS, DMC_NANOMON_SPRITE_SHEET_ROWS);
-            case DMC_NUMEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_NUMEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_NUMEMON_ANIM_INDEX), DMC_NUMEMON_SPRITE_SHEET_COLS, DMC_NUMEMON_SPRITE_SHEET_ROWS);
-            case DMC_OGREMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_OGREMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_OGREMON_ANIM_INDEX), DMC_OGREMON_SPRITE_SHEET_COLS, DMC_OGREMON_SPRITE_SHEET_ROWS);
-            case DMC_OMEGAMON_ALTER_S_ANIM_INDEX: return load_dm_anim(ctx, DMC_OMEGAMON_ALTER_S_ANIM_INDEX, get_dmc_sprite_sheet(DMC_OMEGAMON_ALTER_S_ANIM_INDEX), DMC_OMEGAMON_ALTER_S_SPRITE_SHEET_COLS, DMC_OMEGAMON_ALTER_S_SPRITE_SHEET_ROWS);
-            case DMC_OMEGAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_OMEGAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_OMEGAMON_ANIM_INDEX), DMC_OMEGAMON_SPRITE_SHEET_COLS, DMC_OMEGAMON_SPRITE_SHEET_ROWS);
-            case DMC_ORGEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_ORGEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_ORGEMON_ANIM_INDEX), DMC_ORGEMON_SPRITE_SHEET_COLS, DMC_ORGEMON_SPRITE_SHEET_ROWS);
-            case DMC_PAGUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_PAGUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_PAGUMON_ANIM_INDEX), DMC_PAGUMON_SPRITE_SHEET_COLS, DMC_PAGUMON_SPRITE_SHEET_ROWS);
-            case DMC_PALMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_PALMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_PALMON_ANIM_INDEX), DMC_PALMON_SPRITE_SHEET_COLS, DMC_PALMON_SPRITE_SHEET_ROWS);
-            case DMC_PATAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_PATAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_PATAMON_ANIM_INDEX), DMC_PATAMON_SPRITE_SHEET_COLS, DMC_PATAMON_SPRITE_SHEET_ROWS);
-            case DMC_PETITMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_PETITMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_PETITMON_ANIM_INDEX), DMC_PETITMON_SPRITE_SHEET_COLS, DMC_PETITMON_SPRITE_SHEET_ROWS);
-            case DMC_PICCOLOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_PICCOLOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_PICCOLOMON_ANIM_INDEX), DMC_PICCOLOMON_SPRITE_SHEET_COLS, DMC_PICCOLOMON_SPRITE_SHEET_ROWS);
-            case DMC_PIYOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_PIYOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_PIYOMON_ANIM_INDEX), DMC_PIYOMON_SPRITE_SHEET_COLS, DMC_PIYOMON_SPRITE_SHEET_ROWS);
-            case DMC_POYOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_POYOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_POYOMON_ANIM_INDEX), DMC_POYOMON_SPRITE_SHEET_COLS, DMC_POYOMON_SPRITE_SHEET_ROWS);
-            case DMC_PUNIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_PUNIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_PUNIMON_ANIM_INDEX), DMC_PUNIMON_SPRITE_SHEET_COLS, DMC_PUNIMON_SPRITE_SHEET_ROWS);
-            case DMC_RAIDENMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_RAIDENMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_RAIDENMON_ANIM_INDEX), DMC_RAIDENMON_SPRITE_SHEET_COLS, DMC_RAIDENMON_SPRITE_SHEET_ROWS);
-            case DMC_RAREMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_RAREMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_RAREMON_ANIM_INDEX), DMC_RAREMON_SPRITE_SHEET_COLS, DMC_RAREMON_SPRITE_SHEET_ROWS);
-            case DMC_RUST_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_RUST_TYRANOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_RUST_TYRANOMON_ANIM_INDEX), DMC_RUST_TYRANOMON_SPRITE_SHEET_COLS, DMC_RUST_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DMC_SCUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_SCUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_SCUMON_ANIM_INDEX), DMC_SCUMON_SPRITE_SHEET_COLS, DMC_SCUMON_SPRITE_SHEET_ROWS);
-            case DMC_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_SEADRAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_SEADRAMON_ANIM_INDEX), DMC_SEADRAMON_SPRITE_SHEET_COLS, DMC_SEADRAMON_SPRITE_SHEET_ROWS);
-            case DMC_SHELLMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_SHELLMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_SHELLMON_ANIM_INDEX), DMC_SHELLMON_SPRITE_SHEET_COLS, DMC_SHELLMON_SPRITE_SHEET_ROWS);
-            case DMC_SHIN_MONZAEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_SHIN_MONZAEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_SHIN_MONZAEMON_ANIM_INDEX), DMC_SHIN_MONZAEMON_SPRITE_SHEET_COLS, DMC_SHIN_MONZAEMON_SPRITE_SHEET_ROWS);
-            case DMC_SKULL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_SKULL_GREYMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_SKULL_GREYMON_ANIM_INDEX), DMC_SKULL_GREYMON_SPRITE_SHEET_COLS, DMC_SKULL_GREYMON_SPRITE_SHEET_ROWS);
-            case DMC_SKULL_MAMMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_SKULL_MAMMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_SKULL_MAMMON_ANIM_INDEX), DMC_SKULL_MAMMON_SPRITE_SHEET_COLS, DMC_SKULL_MAMMON_SPRITE_SHEET_ROWS);
-            case DMC_TANEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_TANEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_TANEMON_ANIM_INDEX), DMC_TANEMON_SPRITE_SHEET_COLS, DMC_TANEMON_SPRITE_SHEET_ROWS);
-            case DMC_TITAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_TITAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_TITAMON_ANIM_INDEX), DMC_TITAMON_SPRITE_SHEET_COLS, DMC_TITAMON_SPRITE_SHEET_ROWS);
-            case DMC_TOKOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_TOKOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_TOKOMON_ANIM_INDEX), DMC_TOKOMON_SPRITE_SHEET_COLS, DMC_TOKOMON_SPRITE_SHEET_ROWS);
-            case DMC_TSUNOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_TSUNOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_TSUNOMON_ANIM_INDEX), DMC_TSUNOMON_SPRITE_SHEET_COLS, DMC_TSUNOMON_SPRITE_SHEET_ROWS);
-            case DMC_TUNOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_TUNOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_TUNOMON_ANIM_INDEX), DMC_TUNOMON_SPRITE_SHEET_COLS, DMC_TUNOMON_SPRITE_SHEET_ROWS);
-            case DMC_TUSKMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_TUSKMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_TUSKMON_ANIM_INDEX), DMC_TUSKMON_SPRITE_SHEET_COLS, DMC_TUSKMON_SPRITE_SHEET_ROWS);
-            case DMC_TYRANOMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_TYRANOMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_TYRANOMON_ANIM_INDEX), DMC_TYRANOMON_SPRITE_SHEET_COLS, DMC_TYRANOMON_SPRITE_SHEET_ROWS);
-            case DMC_UNIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_UNIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_UNIMON_ANIM_INDEX), DMC_UNIMON_SPRITE_SHEET_COLS, DMC_UNIMON_SPRITE_SHEET_ROWS);
-            case DMC_VADEMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_VADEMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_VADEMON_ANIM_INDEX), DMC_VADEMON_SPRITE_SHEET_COLS, DMC_VADEMON_SPRITE_SHEET_ROWS);
-            case DMC_VEGIMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_VEGIMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_VEGIMON_ANIM_INDEX), DMC_VEGIMON_SPRITE_SHEET_COLS, DMC_VEGIMON_SPRITE_SHEET_ROWS);
-            case DMC_WAR_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_WAR_GREYMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_WAR_GREYMON_ANIM_INDEX), DMC_WAR_GREYMON_SPRITE_SHEET_COLS, DMC_WAR_GREYMON_SPRITE_SHEET_ROWS);
-            case DMC_WERE_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_WERE_GARURUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_WERE_GARURUMON_ANIM_INDEX), DMC_WERE_GARURUMON_SPRITE_SHEET_COLS, DMC_WERE_GARURUMON_SPRITE_SHEET_ROWS);
-            case DMC_WHAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_WHAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_WHAMON_ANIM_INDEX), DMC_WHAMON_SPRITE_SHEET_COLS, DMC_WHAMON_SPRITE_SHEET_ROWS);
-            case DMC_YUKIDARUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_YUKIDARUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_YUKIDARUMON_ANIM_INDEX), DMC_YUKIDARUMON_SPRITE_SHEET_COLS, DMC_YUKIDARUMON_SPRITE_SHEET_ROWS);
-            case DMC_YURAMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_YURAMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_YURAMON_ANIM_INDEX), DMC_YURAMON_SPRITE_SHEET_COLS, DMC_YURAMON_SPRITE_SHEET_ROWS);
-            case DMC_ZURUMON_ANIM_INDEX: return load_dm_anim(ctx, DMC_ZURUMON_ANIM_INDEX, get_dmc_sprite_sheet(DMC_ZURUMON_ANIM_INDEX), DMC_ZURUMON_SPRITE_SHEET_COLS, DMC_ZURUMON_SPRITE_SHEET_ROWS);
-            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-        }
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        assert(LEN_ARRAY(dmc_dims_table) == DMC_ANIM_COUNT);
+        assert(LEN_ARRAY(dmc_pngs_table) == DMC_ANIM_COUNT);
+        assert(LEN_ARRAY(dmc_png_sizes_table) == DMC_ANIM_COUNT);
+        assert(LEN_ARRAY(dmc_names_table) == DMC_ANIM_COUNT);
+        assert(index < DMC_ANIM_COUNT);
+        assert(LEN_ARRAY(dmc_pngs_table) <= INT32_MAX);
+        assert(index < INT32_MAX);
+        return load_dm_anim(ctx, static_cast<int32_t>(index), {dmc_pngs_table[index], dmc_png_sizes_table[index], dmc_names_table[index]}, dmc_dims_table[index].cols, dmc_dims_table[index].rows);
     }
 }
 

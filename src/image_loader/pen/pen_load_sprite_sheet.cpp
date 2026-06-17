@@ -1,141 +1,531 @@
 #include "core/bongocat.h"
-#include "graphics/animation_thread_context.h"
+#include "utils/memory.h"
+#include "graphics/animation_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/pen/pen.hpp"
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/pen/pen_sprite.h"
 #include "image_loader/pen/load_images_pen.h"
+#include "embedded_assets/pen/pen_images.h"
+#include <climits>
+#include <cstddef>
+#include <cstdint>
+
+/// @NOTE: Generated embedded assets pen
+
 
 namespace bongocat::animation {
+    static constexpr assets::embedded_sprite_sheet_dims_t pen_dims_table[] = {
+        {assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_ANDROMON_SPRITE_SHEET_COLS, assets::PEN_ANDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_ANGEWOMON_SPRITE_SHEET_COLS, assets::PEN_ANGEWOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_ANOMALOCARIMON_SPRITE_SHEET_COLS, assets::PEN_ANOMALOCARIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_ASURAMON_SPRITE_SHEET_COLS, assets::PEN_ASURAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_ATLUR_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN_ATLUR_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_BAKEMON_SPRITE_SHEET_COLS, assets::PEN_BAKEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_BAKUMON_SPRITE_SHEET_COLS, assets::PEN_BAKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_BIG_MAMEMON_SPRITE_SHEET_COLS, assets::PEN_BIG_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_BIRDRAMON_SPRITE_SHEET_COLS, assets::PEN_BIRDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_BLOSSOMON_SPRITE_SHEET_COLS, assets::PEN_BLOSSOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_BOLTMON_SPRITE_SHEET_COLS, assets::PEN_BOLTMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_BUBBMON_SPRITE_SHEET_COLS, assets::PEN_BUBBMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_CANDMON_SPRITE_SHEET_COLS, assets::PEN_CANDMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_CAPRIMON_SPRITE_SHEET_COLS, assets::PEN_CAPRIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_CHOROMON_SPRITE_SHEET_COLS, assets::PEN_CHOROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_CLOCKMON_SPRITE_SHEET_COLS, assets::PEN_CLOCKMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_COELAMON_SPRITE_SHEET_COLS, assets::PEN_COELAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_CYBERDRAMON_SPRITE_SHEET_COLS, assets::PEN_CYBERDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_DAGOMON_SPRITE_SHEET_COLS, assets::PEN_DAGOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_DEATH_MERAMON_SPRITE_SHEET_COLS, assets::PEN_DEATH_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_DELUMON_SPRITE_SHEET_COLS, assets::PEN_DELUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_DEVIMON_SPRITE_SHEET_COLS, assets::PEN_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_DOKUGUMON_SPRITE_SHEET_COLS, assets::PEN_DOKUGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_EBIDRAMON_SPRITE_SHEET_COLS, assets::PEN_EBIDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_FANTOMON_SPRITE_SHEET_COLS, assets::PEN_FANTOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_FLORAMON_SPRITE_SHEET_COLS, assets::PEN_FLORAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GANIMON_SPRITE_SHEET_COLS, assets::PEN_GANIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GARUDAMON_SPRITE_SHEET_COLS, assets::PEN_GARUDAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GARURUMON_SPRITE_SHEET_COLS, assets::PEN_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GEKOMON_SPRITE_SHEET_COLS, assets::PEN_GEKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GERBEMON_SPRITE_SHEET_COLS, assets::PEN_GERBEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GESOMON_SPRITE_SHEET_COLS, assets::PEN_GESOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GOMAMON_SPRITE_SHEET_COLS, assets::PEN_GOMAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GOTTSUMON_SPRITE_SHEET_COLS, assets::PEN_GOTTSUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GREYMON_SPRITE_SHEET_COLS, assets::PEN_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GRIFFOMON_SPRITE_SHEET_COLS, assets::PEN_GRIFFOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_GUARDROMON_SPRITE_SHEET_COLS, assets::PEN_GUARDROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HAGURUMON_SPRITE_SHEET_COLS, assets::PEN_HAGURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HANGYMON_SPRITE_SHEET_COLS, assets::PEN_HANGYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HANGYOMON_SPRITE_SHEET_COLS, assets::PEN_HANGYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HANUMON_SPRITE_SHEET_COLS, assets::PEN_HANUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HERKULE_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN_HERKULE_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HOLY_ANGEMON_SPRITE_SHEET_COLS, assets::PEN_HOLY_ANGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HOLYDRAMON_SPRITE_SHEET_COLS, assets::PEN_HOLYDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_HOUOUMON_SPRITE_SHEET_COLS, assets::PEN_HOUOUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_IGNAMON_SPRITE_SHEET_COLS, assets::PEN_IGNAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_IKKAKUMON_SPRITE_SHEET_COLS, assets::PEN_IKKAKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_JYAGAMON_SPRITE_SHEET_COLS, assets::PEN_JYAGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_JYUREIMON_SPRITE_SHEET_COLS, assets::PEN_JYUREIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_KABUTERIMON_SPRITE_SHEET_COLS, assets::PEN_KABUTERIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_KIWIMON_SPRITE_SHEET_COLS, assets::PEN_KIWIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_KNIGHTMON_SPRITE_SHEET_COLS, assets::PEN_KNIGHTMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_KOKUWAMON_SPRITE_SHEET_COLS, assets::PEN_KOKUWAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_KUWAGAMON_SPRITE_SHEET_COLS, assets::PEN_KUWAGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_LADY_DEVIMON_SPRITE_SHEET_COLS, assets::PEN_LADY_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_LILIMON_SPRITE_SHEET_COLS, assets::PEN_LILIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MAMMON_SPRITE_SHEET_COLS, assets::PEN_MAMMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MARIN_ANGEMON_SPRITE_SHEET_COLS, assets::PEN_MARIN_ANGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MARIN_DEVIMON_SPRITE_SHEET_COLS, assets::PEN_MARIN_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MECHANORIMON_SPRITE_SHEET_COLS, assets::PEN_MECHANORIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MEGADRAMON_SPRITE_SHEET_COLS, assets::PEN_MEGADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MEGA_SEADRAMON_SPRITE_SHEET_COLS, assets::PEN_MEGA_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MERAMON_SPRITE_SHEET_COLS, assets::PEN_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_METAL_ETEMON_SPRITE_SHEET_COLS, assets::PEN_METAL_ETEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_METAL_GARURUMON_SPRITE_SHEET_COLS, assets::PEN_METAL_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_METAL_GREYMON_SPRITE_SHEET_COLS, assets::PEN_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_METAL_MAMEMON_SPRITE_SHEET_COLS, assets::PEN_METAL_MAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_METAL_SEADRAMON_SPRITE_SHEET_COLS, assets::PEN_METAL_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MOCHIMON_SPRITE_SHEET_COLS, assets::PEN_MOCHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MOKUMON_SPRITE_SHEET_COLS, assets::PEN_MOKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MONOCHROMON_SPRITE_SHEET_COLS, assets::PEN_MONOCHROMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MUGENDRAMON_SPRITE_SHEET_COLS, assets::PEN_MUGENDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_MUSHMON_SPRITE_SHEET_COLS, assets::PEN_MUSHMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_NYOKIMON_SPRITE_SHEET_COLS, assets::PEN_NYOKIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_OCTMON_SPRITE_SHEET_COLS, assets::PEN_OCTMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_OKUWAMON_SPRITE_SHEET_COLS, assets::PEN_OKUWAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_OMEGAMON_SPRITE_SHEET_COLS, assets::PEN_OMEGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_OTAMAMON_SPRITE_SHEET_COLS, assets::PEN_OTAMAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PALMON_SPRITE_SHEET_COLS, assets::PEN_PALMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PETI_MERAMON_SPRITE_SHEET_COLS, assets::PEN_PETI_MERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PICCOLOMON_SPRITE_SHEET_COLS, assets::PEN_PICCOLOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PICO_DEVIMON_SPRITE_SHEET_COLS, assets::PEN_PICO_DEVIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PIEMON_SPRITE_SHEET_COLS, assets::PEN_PIEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PINOCHIMON_SPRITE_SHEET_COLS, assets::PEN_PINOCHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PIYOMON_SPRITE_SHEET_COLS, assets::PEN_PIYOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PLESIOMON_SPRITE_SHEET_COLS, assets::PEN_PLESIOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PUKUMON_SPRITE_SHEET_COLS, assets::PEN_PUKUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PUMPMON_SPRITE_SHEET_COLS, assets::PEN_PUMPMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_PYOCOMON_SPRITE_SHEET_COLS, assets::PEN_PYOCOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_RAKAMON_SPRITE_SHEET_COLS, assets::PEN_RAKAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_RED_VEGIMON_SPRITE_SHEET_COLS, assets::PEN_RED_VEGIMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_REVOLMON_SPRITE_SHEET_COLS, assets::PEN_REVOLMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_ROSEMON_SPRITE_SHEET_COLS, assets::PEN_ROSEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_RUKAMON_SPRITE_SHEET_COLS, assets::PEN_RUKAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_SABER_LEOMON_SPRITE_SHEET_COLS, assets::PEN_SABER_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_SEADRAMON_SPRITE_SHEET_COLS, assets::PEN_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_SHAKOMON_SPRITE_SHEET_COLS, assets::PEN_SHAKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_SKULL_MAMMON_SPRITE_SHEET_COLS, assets::PEN_SKULL_MAMMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_STARMON_SPRITE_SHEET_COLS, assets::PEN_STARMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TAILMON_SPRITE_SHEET_COLS, assets::PEN_TAILMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TANKMON_SPRITE_SHEET_COLS, assets::PEN_TANKMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TENTOMON_SPRITE_SHEET_COLS, assets::PEN_TENTOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_THUNDERBALLMON_SPRITE_SHEET_COLS, assets::PEN_THUNDERBALLMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TOGEMON_SPRITE_SHEET_COLS, assets::PEN_TOGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TONOSAMA_GEKOMON_SPRITE_SHEET_COLS, assets::PEN_TONOSAMA_GEKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TORTAMON_SPRITE_SHEET_COLS, assets::PEN_TORTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TOY_AGUMON_SPRITE_SHEET_COLS, assets::PEN_TOY_AGUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_TRICERAMON_SPRITE_SHEET_COLS, assets::PEN_TRICERAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_VAMDEMON_SPRITE_SHEET_COLS, assets::PEN_VAMDEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN_V_DRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_VEMDEMON_SPRITE_SHEET_COLS, assets::PEN_VEMDEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_VENOM_VAMDEMON_SPRITE_SHEET_COLS, assets::PEN_VENOM_VAMDEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_WAR_GREYMON_SPRITE_SHEET_COLS, assets::PEN_WAR_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_WARU_MONZAEMON_SPRITE_SHEET_COLS, assets::PEN_WARU_MONZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_WARU_MOZAEMON_SPRITE_SHEET_COLS, assets::PEN_WARU_MOZAEMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_WERE_GARURUMON_SPRITE_SHEET_COLS, assets::PEN_WERE_GARURUMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_WHAMON_SPRITE_SHEET_COLS, assets::PEN_WHAMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_WIZARMON_SPRITE_SHEET_COLS, assets::PEN_WIZARMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_WOODMON_SPRITE_SHEET_COLS, assets::PEN_WOODMON_SPRITE_SHEET_ROWS}, 
+        {assets::PEN_ZUDOMON_SPRITE_SHEET_COLS, assets::PEN_ZUDOMON_SPRITE_SHEET_ROWS}, 
+        
+    };
+    static const unsigned char* pen_pngs_table[] = {
+        pen_aero_v_dramon_png, 
+        pen_andromon_png, 
+        pen_angewomon_png, 
+        pen_anomalocarimon_png, 
+        pen_asuramon_png, 
+        pen_atlur_kabuterimon_png, 
+        pen_bakemon_png, 
+        pen_bakumon_png, 
+        pen_big_mamemon_png, 
+        pen_birdramon_png, 
+        pen_blossomon_png, 
+        pen_boltmon_png, 
+        pen_bubbmon_png, 
+        pen_candmon_png, 
+        pen_caprimon_png, 
+        pen_choromon_png, 
+        pen_clockmon_png, 
+        pen_coelamon_png, 
+        pen_cyberdramon_png, 
+        pen_dagomon_png, 
+        pen_death_meramon_png, 
+        pen_delumon_png, 
+        pen_devimon_png, 
+        pen_dokugumon_png, 
+        pen_ebidramon_png, 
+        pen_fantomon_png, 
+        pen_floramon_png, 
+        pen_ganimon_png, 
+        pen_garudamon_png, 
+        pen_garurumon_png, 
+        pen_gekomon_png, 
+        pen_gerbemon_png, 
+        pen_gesomon_png, 
+        pen_gomamon_png, 
+        pen_gottsumon_png, 
+        pen_greymon_png, 
+        pen_griffomon_png, 
+        pen_guardromon_png, 
+        pen_hagurumon_png, 
+        pen_hangymon_png, 
+        pen_hangyomon_png, 
+        pen_hanumon_png, 
+        pen_herakle_kabuterimon_png, 
+        pen_herkule_kabuterimon_png, 
+        pen_holy_angemon_png, 
+        pen_holydramon_png, 
+        pen_hououmon_png, 
+        pen_ignamon_png, 
+        pen_ikkakumon_png, 
+        pen_jyagamon_png, 
+        pen_jyureimon_png, 
+        pen_kabuterimon_png, 
+        pen_kiwimon_png, 
+        pen_knightmon_png, 
+        pen_kokuwamon_png, 
+        pen_kuwagamon_png, 
+        pen_lady_devimon_png, 
+        pen_lilimon_png, 
+        pen_mammon_png, 
+        pen_marin_angemon_png, 
+        pen_marin_devimon_png, 
+        pen_mechanorimon_png, 
+        pen_megadramon_png, 
+        pen_mega_seadramon_png, 
+        pen_meramon_png, 
+        pen_metal_etemon_png, 
+        pen_metal_garurumon_png, 
+        pen_metal_greymon_png, 
+        pen_metal_mamemon_png, 
+        pen_metal_seadramon_png, 
+        pen_mochimon_png, 
+        pen_mokumon_png, 
+        pen_monochromon_png, 
+        pen_mugendramon_png, 
+        pen_mushmon_png, 
+        pen_nyokimon_png, 
+        pen_octmon_png, 
+        pen_okuwamon_png, 
+        pen_omegamon_png, 
+        pen_otamamon_png, 
+        pen_palmon_png, 
+        pen_peti_meramon_png, 
+        pen_piccolomon_png, 
+        pen_pico_devimon_png, 
+        pen_piemon_png, 
+        pen_pinochimon_png, 
+        pen_piyomon_png, 
+        pen_plesiomon_png, 
+        pen_pukumon_png, 
+        pen_pumpmon_png, 
+        pen_pyocomon_png, 
+        pen_rakamon_png, 
+        pen_red_vegimon_png, 
+        pen_revolmon_png, 
+        pen_rosemon_png, 
+        pen_rukamon_png, 
+        pen_saber_leomon_png, 
+        pen_seadramon_png, 
+        pen_shakomon_png, 
+        pen_skull_mammon_png, 
+        pen_starmon_png, 
+        pen_tailmon_png, 
+        pen_tankmon_png, 
+        pen_tentomon_png, 
+        pen_thunderballmon_png, 
+        pen_togemon_png, 
+        pen_tonosama_gekomon_png, 
+        pen_tortamon_png, 
+        pen_toy_agumon_png, 
+        pen_triceramon_png, 
+        pen_vamdemon_png, 
+        pen_v_dramon_png, 
+        pen_vemdemon_png, 
+        pen_venom_vamdemon_png, 
+        pen_war_greymon_png, 
+        pen_waru_monzaemon_png, 
+        pen_waru_mozaemon_png, 
+        pen_were_garurumon_png, 
+        pen_whamon_png, 
+        pen_wizarmon_png, 
+        pen_woodmon_png, 
+        pen_zudomon_png, 
+        
+    };
+    static const size_t pen_png_sizes_table[] = {
+        pen_aero_v_dramon_png_size, 
+        pen_andromon_png_size, 
+        pen_angewomon_png_size, 
+        pen_anomalocarimon_png_size, 
+        pen_asuramon_png_size, 
+        pen_atlur_kabuterimon_png_size, 
+        pen_bakemon_png_size, 
+        pen_bakumon_png_size, 
+        pen_big_mamemon_png_size, 
+        pen_birdramon_png_size, 
+        pen_blossomon_png_size, 
+        pen_boltmon_png_size, 
+        pen_bubbmon_png_size, 
+        pen_candmon_png_size, 
+        pen_caprimon_png_size, 
+        pen_choromon_png_size, 
+        pen_clockmon_png_size, 
+        pen_coelamon_png_size, 
+        pen_cyberdramon_png_size, 
+        pen_dagomon_png_size, 
+        pen_death_meramon_png_size, 
+        pen_delumon_png_size, 
+        pen_devimon_png_size, 
+        pen_dokugumon_png_size, 
+        pen_ebidramon_png_size, 
+        pen_fantomon_png_size, 
+        pen_floramon_png_size, 
+        pen_ganimon_png_size, 
+        pen_garudamon_png_size, 
+        pen_garurumon_png_size, 
+        pen_gekomon_png_size, 
+        pen_gerbemon_png_size, 
+        pen_gesomon_png_size, 
+        pen_gomamon_png_size, 
+        pen_gottsumon_png_size, 
+        pen_greymon_png_size, 
+        pen_griffomon_png_size, 
+        pen_guardromon_png_size, 
+        pen_hagurumon_png_size, 
+        pen_hangymon_png_size, 
+        pen_hangyomon_png_size, 
+        pen_hanumon_png_size, 
+        pen_herakle_kabuterimon_png_size, 
+        pen_herkule_kabuterimon_png_size, 
+        pen_holy_angemon_png_size, 
+        pen_holydramon_png_size, 
+        pen_hououmon_png_size, 
+        pen_ignamon_png_size, 
+        pen_ikkakumon_png_size, 
+        pen_jyagamon_png_size, 
+        pen_jyureimon_png_size, 
+        pen_kabuterimon_png_size, 
+        pen_kiwimon_png_size, 
+        pen_knightmon_png_size, 
+        pen_kokuwamon_png_size, 
+        pen_kuwagamon_png_size, 
+        pen_lady_devimon_png_size, 
+        pen_lilimon_png_size, 
+        pen_mammon_png_size, 
+        pen_marin_angemon_png_size, 
+        pen_marin_devimon_png_size, 
+        pen_mechanorimon_png_size, 
+        pen_megadramon_png_size, 
+        pen_mega_seadramon_png_size, 
+        pen_meramon_png_size, 
+        pen_metal_etemon_png_size, 
+        pen_metal_garurumon_png_size, 
+        pen_metal_greymon_png_size, 
+        pen_metal_mamemon_png_size, 
+        pen_metal_seadramon_png_size, 
+        pen_mochimon_png_size, 
+        pen_mokumon_png_size, 
+        pen_monochromon_png_size, 
+        pen_mugendramon_png_size, 
+        pen_mushmon_png_size, 
+        pen_nyokimon_png_size, 
+        pen_octmon_png_size, 
+        pen_okuwamon_png_size, 
+        pen_omegamon_png_size, 
+        pen_otamamon_png_size, 
+        pen_palmon_png_size, 
+        pen_peti_meramon_png_size, 
+        pen_piccolomon_png_size, 
+        pen_pico_devimon_png_size, 
+        pen_piemon_png_size, 
+        pen_pinochimon_png_size, 
+        pen_piyomon_png_size, 
+        pen_plesiomon_png_size, 
+        pen_pukumon_png_size, 
+        pen_pumpmon_png_size, 
+        pen_pyocomon_png_size, 
+        pen_rakamon_png_size, 
+        pen_red_vegimon_png_size, 
+        pen_revolmon_png_size, 
+        pen_rosemon_png_size, 
+        pen_rukamon_png_size, 
+        pen_saber_leomon_png_size, 
+        pen_seadramon_png_size, 
+        pen_shakomon_png_size, 
+        pen_skull_mammon_png_size, 
+        pen_starmon_png_size, 
+        pen_tailmon_png_size, 
+        pen_tankmon_png_size, 
+        pen_tentomon_png_size, 
+        pen_thunderballmon_png_size, 
+        pen_togemon_png_size, 
+        pen_tonosama_gekomon_png_size, 
+        pen_tortamon_png_size, 
+        pen_toy_agumon_png_size, 
+        pen_triceramon_png_size, 
+        pen_vamdemon_png_size, 
+        pen_v_dramon_png_size, 
+        pen_vemdemon_png_size, 
+        pen_venom_vamdemon_png_size, 
+        pen_war_greymon_png_size, 
+        pen_waru_monzaemon_png_size, 
+        pen_waru_mozaemon_png_size, 
+        pen_were_garurumon_png_size, 
+        pen_whamon_png_size, 
+        pen_wizarmon_png_size, 
+        pen_woodmon_png_size, 
+        pen_zudomon_png_size, 
+        
+    };
+    static const char* pen_names_table[] = {
+        "aero_v_dramon", 
+        "andromon", 
+        "angewomon", 
+        "anomalocarimon", 
+        "asuramon", 
+        "atlur_kabuterimon", 
+        "bakemon", 
+        "bakumon", 
+        "big_mamemon", 
+        "birdramon", 
+        "blossomon", 
+        "boltmon", 
+        "bubbmon", 
+        "candmon", 
+        "caprimon", 
+        "choromon", 
+        "clockmon", 
+        "coelamon", 
+        "cyberdramon", 
+        "dagomon", 
+        "death_meramon", 
+        "delumon", 
+        "devimon", 
+        "dokugumon", 
+        "ebidramon", 
+        "fantomon", 
+        "floramon", 
+        "ganimon", 
+        "garudamon", 
+        "garurumon", 
+        "gekomon", 
+        "gerbemon", 
+        "gesomon", 
+        "gomamon", 
+        "gottsumon", 
+        "greymon", 
+        "griffomon", 
+        "guardromon", 
+        "hagurumon", 
+        "hangymon", 
+        "hangyomon", 
+        "hanumon", 
+        "herakle_kabuterimon", 
+        "herkule_kabuterimon", 
+        "holy_angemon", 
+        "holydramon", 
+        "hououmon", 
+        "ignamon", 
+        "ikkakumon", 
+        "jyagamon", 
+        "jyureimon", 
+        "kabuterimon", 
+        "kiwimon", 
+        "knightmon", 
+        "kokuwamon", 
+        "kuwagamon", 
+        "lady_devimon", 
+        "lilimon", 
+        "mammon", 
+        "marin_angemon", 
+        "marin_devimon", 
+        "mechanorimon", 
+        "megadramon", 
+        "mega_seadramon", 
+        "meramon", 
+        "metal_etemon", 
+        "metal_garurumon", 
+        "metal_greymon", 
+        "metal_mamemon", 
+        "metal_seadramon", 
+        "mochimon", 
+        "mokumon", 
+        "monochromon", 
+        "mugendramon", 
+        "mushmon", 
+        "nyokimon", 
+        "octmon", 
+        "okuwamon", 
+        "omegamon", 
+        "otamamon", 
+        "palmon", 
+        "peti_meramon", 
+        "piccolomon", 
+        "pico_devimon", 
+        "piemon", 
+        "pinochimon", 
+        "piyomon", 
+        "plesiomon", 
+        "pukumon", 
+        "pumpmon", 
+        "pyocomon", 
+        "rakamon", 
+        "red_vegimon", 
+        "revolmon", 
+        "rosemon", 
+        "rukamon", 
+        "saber_leomon", 
+        "seadramon", 
+        "shakomon", 
+        "skull_mammon", 
+        "starmon", 
+        "tailmon", 
+        "tankmon", 
+        "tentomon", 
+        "thunderballmon", 
+        "togemon", 
+        "tonosama_gekomon", 
+        "tortamon", 
+        "toy_agumon", 
+        "triceramon", 
+        "vamdemon", 
+        "v_dramon", 
+        "vemdemon", 
+        "venom_vamdemon", 
+        "war_greymon", 
+        "waru_monzaemon", 
+        "waru_mozaemon", 
+        "were_garurumon", 
+        "whamon", 
+        "wizarmon", 
+        "woodmon", 
+        "zudomon", 
+        
+    };
     created_result_t<dm_sprite_sheet_t> load_pen_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
         using namespace assets;
-        switch (index) {
-            case PEN_AERO_V_DRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_AERO_V_DRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_AERO_V_DRAMON_ANIM_INDEX), PEN_AERO_V_DRAMON_SPRITE_SHEET_COLS, PEN_AERO_V_DRAMON_SPRITE_SHEET_ROWS);
-            case PEN_ANDROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_ANDROMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_ANDROMON_ANIM_INDEX), PEN_ANDROMON_SPRITE_SHEET_COLS, PEN_ANDROMON_SPRITE_SHEET_ROWS);
-            case PEN_ANGEWOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_ANGEWOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_ANGEWOMON_ANIM_INDEX), PEN_ANGEWOMON_SPRITE_SHEET_COLS, PEN_ANGEWOMON_SPRITE_SHEET_ROWS);
-            case PEN_ANOMALOCARIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_ANOMALOCARIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_ANOMALOCARIMON_ANIM_INDEX), PEN_ANOMALOCARIMON_SPRITE_SHEET_COLS, PEN_ANOMALOCARIMON_SPRITE_SHEET_ROWS);
-            case PEN_ASURAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_ASURAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_ASURAMON_ANIM_INDEX), PEN_ASURAMON_SPRITE_SHEET_COLS, PEN_ASURAMON_SPRITE_SHEET_ROWS);
-            case PEN_ATLUR_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_ATLUR_KABUTERIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_ATLUR_KABUTERIMON_ANIM_INDEX), PEN_ATLUR_KABUTERIMON_SPRITE_SHEET_COLS, PEN_ATLUR_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN_BAKEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_BAKEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_BAKEMON_ANIM_INDEX), PEN_BAKEMON_SPRITE_SHEET_COLS, PEN_BAKEMON_SPRITE_SHEET_ROWS);
-            case PEN_BAKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_BAKUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_BAKUMON_ANIM_INDEX), PEN_BAKUMON_SPRITE_SHEET_COLS, PEN_BAKUMON_SPRITE_SHEET_ROWS);
-            case PEN_BIG_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_BIG_MAMEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_BIG_MAMEMON_ANIM_INDEX), PEN_BIG_MAMEMON_SPRITE_SHEET_COLS, PEN_BIG_MAMEMON_SPRITE_SHEET_ROWS);
-            case PEN_BIRDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_BIRDRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_BIRDRAMON_ANIM_INDEX), PEN_BIRDRAMON_SPRITE_SHEET_COLS, PEN_BIRDRAMON_SPRITE_SHEET_ROWS);
-            case PEN_BLOSSOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_BLOSSOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_BLOSSOMON_ANIM_INDEX), PEN_BLOSSOMON_SPRITE_SHEET_COLS, PEN_BLOSSOMON_SPRITE_SHEET_ROWS);
-            case PEN_BOLTMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_BOLTMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_BOLTMON_ANIM_INDEX), PEN_BOLTMON_SPRITE_SHEET_COLS, PEN_BOLTMON_SPRITE_SHEET_ROWS);
-            case PEN_BUBBMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_BUBBMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_BUBBMON_ANIM_INDEX), PEN_BUBBMON_SPRITE_SHEET_COLS, PEN_BUBBMON_SPRITE_SHEET_ROWS);
-            case PEN_CANDMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_CANDMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_CANDMON_ANIM_INDEX), PEN_CANDMON_SPRITE_SHEET_COLS, PEN_CANDMON_SPRITE_SHEET_ROWS);
-            case PEN_CAPRIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_CAPRIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_CAPRIMON_ANIM_INDEX), PEN_CAPRIMON_SPRITE_SHEET_COLS, PEN_CAPRIMON_SPRITE_SHEET_ROWS);
-            case PEN_CHOROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_CHOROMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_CHOROMON_ANIM_INDEX), PEN_CHOROMON_SPRITE_SHEET_COLS, PEN_CHOROMON_SPRITE_SHEET_ROWS);
-            case PEN_CLOCKMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_CLOCKMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_CLOCKMON_ANIM_INDEX), PEN_CLOCKMON_SPRITE_SHEET_COLS, PEN_CLOCKMON_SPRITE_SHEET_ROWS);
-            case PEN_COELAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_COELAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_COELAMON_ANIM_INDEX), PEN_COELAMON_SPRITE_SHEET_COLS, PEN_COELAMON_SPRITE_SHEET_ROWS);
-            case PEN_CYBERDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_CYBERDRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_CYBERDRAMON_ANIM_INDEX), PEN_CYBERDRAMON_SPRITE_SHEET_COLS, PEN_CYBERDRAMON_SPRITE_SHEET_ROWS);
-            case PEN_DAGOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_DAGOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_DAGOMON_ANIM_INDEX), PEN_DAGOMON_SPRITE_SHEET_COLS, PEN_DAGOMON_SPRITE_SHEET_ROWS);
-            case PEN_DEATH_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_DEATH_MERAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_DEATH_MERAMON_ANIM_INDEX), PEN_DEATH_MERAMON_SPRITE_SHEET_COLS, PEN_DEATH_MERAMON_SPRITE_SHEET_ROWS);
-            case PEN_DELUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_DELUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_DELUMON_ANIM_INDEX), PEN_DELUMON_SPRITE_SHEET_COLS, PEN_DELUMON_SPRITE_SHEET_ROWS);
-            case PEN_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_DEVIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_DEVIMON_ANIM_INDEX), PEN_DEVIMON_SPRITE_SHEET_COLS, PEN_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN_DOKUGUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_DOKUGUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_DOKUGUMON_ANIM_INDEX), PEN_DOKUGUMON_SPRITE_SHEET_COLS, PEN_DOKUGUMON_SPRITE_SHEET_ROWS);
-            case PEN_EBIDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_EBIDRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_EBIDRAMON_ANIM_INDEX), PEN_EBIDRAMON_SPRITE_SHEET_COLS, PEN_EBIDRAMON_SPRITE_SHEET_ROWS);
-            case PEN_FANTOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_FANTOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_FANTOMON_ANIM_INDEX), PEN_FANTOMON_SPRITE_SHEET_COLS, PEN_FANTOMON_SPRITE_SHEET_ROWS);
-            case PEN_FLORAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_FLORAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_FLORAMON_ANIM_INDEX), PEN_FLORAMON_SPRITE_SHEET_COLS, PEN_FLORAMON_SPRITE_SHEET_ROWS);
-            case PEN_GANIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GANIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GANIMON_ANIM_INDEX), PEN_GANIMON_SPRITE_SHEET_COLS, PEN_GANIMON_SPRITE_SHEET_ROWS);
-            case PEN_GARUDAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GARUDAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GARUDAMON_ANIM_INDEX), PEN_GARUDAMON_SPRITE_SHEET_COLS, PEN_GARUDAMON_SPRITE_SHEET_ROWS);
-            case PEN_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GARURUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GARURUMON_ANIM_INDEX), PEN_GARURUMON_SPRITE_SHEET_COLS, PEN_GARURUMON_SPRITE_SHEET_ROWS);
-            case PEN_GEKOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GEKOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GEKOMON_ANIM_INDEX), PEN_GEKOMON_SPRITE_SHEET_COLS, PEN_GEKOMON_SPRITE_SHEET_ROWS);
-            case PEN_GERBEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GERBEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GERBEMON_ANIM_INDEX), PEN_GERBEMON_SPRITE_SHEET_COLS, PEN_GERBEMON_SPRITE_SHEET_ROWS);
-            case PEN_GESOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GESOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GESOMON_ANIM_INDEX), PEN_GESOMON_SPRITE_SHEET_COLS, PEN_GESOMON_SPRITE_SHEET_ROWS);
-            case PEN_GOMAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GOMAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GOMAMON_ANIM_INDEX), PEN_GOMAMON_SPRITE_SHEET_COLS, PEN_GOMAMON_SPRITE_SHEET_ROWS);
-            case PEN_GOTTSUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GOTTSUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GOTTSUMON_ANIM_INDEX), PEN_GOTTSUMON_SPRITE_SHEET_COLS, PEN_GOTTSUMON_SPRITE_SHEET_ROWS);
-            case PEN_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GREYMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GREYMON_ANIM_INDEX), PEN_GREYMON_SPRITE_SHEET_COLS, PEN_GREYMON_SPRITE_SHEET_ROWS);
-            case PEN_GRIFFOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GRIFFOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GRIFFOMON_ANIM_INDEX), PEN_GRIFFOMON_SPRITE_SHEET_COLS, PEN_GRIFFOMON_SPRITE_SHEET_ROWS);
-            case PEN_GUARDROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_GUARDROMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_GUARDROMON_ANIM_INDEX), PEN_GUARDROMON_SPRITE_SHEET_COLS, PEN_GUARDROMON_SPRITE_SHEET_ROWS);
-            case PEN_HAGURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HAGURUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HAGURUMON_ANIM_INDEX), PEN_HAGURUMON_SPRITE_SHEET_COLS, PEN_HAGURUMON_SPRITE_SHEET_ROWS);
-            case PEN_HANGYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HANGYMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HANGYMON_ANIM_INDEX), PEN_HANGYMON_SPRITE_SHEET_COLS, PEN_HANGYMON_SPRITE_SHEET_ROWS);
-            case PEN_HANGYOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HANGYOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HANGYOMON_ANIM_INDEX), PEN_HANGYOMON_SPRITE_SHEET_COLS, PEN_HANGYOMON_SPRITE_SHEET_ROWS);
-            case PEN_HANUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HANUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HANUMON_ANIM_INDEX), PEN_HANUMON_SPRITE_SHEET_COLS, PEN_HANUMON_SPRITE_SHEET_ROWS);
-            case PEN_HERAKLE_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HERAKLE_KABUTERIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HERAKLE_KABUTERIMON_ANIM_INDEX), PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_COLS, PEN_HERAKLE_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN_HERKULE_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HERKULE_KABUTERIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HERKULE_KABUTERIMON_ANIM_INDEX), PEN_HERKULE_KABUTERIMON_SPRITE_SHEET_COLS, PEN_HERKULE_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN_HOLY_ANGEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HOLY_ANGEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HOLY_ANGEMON_ANIM_INDEX), PEN_HOLY_ANGEMON_SPRITE_SHEET_COLS, PEN_HOLY_ANGEMON_SPRITE_SHEET_ROWS);
-            case PEN_HOLYDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HOLYDRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HOLYDRAMON_ANIM_INDEX), PEN_HOLYDRAMON_SPRITE_SHEET_COLS, PEN_HOLYDRAMON_SPRITE_SHEET_ROWS);
-            case PEN_HOUOUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_HOUOUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_HOUOUMON_ANIM_INDEX), PEN_HOUOUMON_SPRITE_SHEET_COLS, PEN_HOUOUMON_SPRITE_SHEET_ROWS);
-            case PEN_IGNAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_IGNAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_IGNAMON_ANIM_INDEX), PEN_IGNAMON_SPRITE_SHEET_COLS, PEN_IGNAMON_SPRITE_SHEET_ROWS);
-            case PEN_IKKAKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_IKKAKUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_IKKAKUMON_ANIM_INDEX), PEN_IKKAKUMON_SPRITE_SHEET_COLS, PEN_IKKAKUMON_SPRITE_SHEET_ROWS);
-            case PEN_JYAGAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_JYAGAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_JYAGAMON_ANIM_INDEX), PEN_JYAGAMON_SPRITE_SHEET_COLS, PEN_JYAGAMON_SPRITE_SHEET_ROWS);
-            case PEN_JYUREIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_JYUREIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_JYUREIMON_ANIM_INDEX), PEN_JYUREIMON_SPRITE_SHEET_COLS, PEN_JYUREIMON_SPRITE_SHEET_ROWS);
-            case PEN_KABUTERIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_KABUTERIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_KABUTERIMON_ANIM_INDEX), PEN_KABUTERIMON_SPRITE_SHEET_COLS, PEN_KABUTERIMON_SPRITE_SHEET_ROWS);
-            case PEN_KIWIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_KIWIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_KIWIMON_ANIM_INDEX), PEN_KIWIMON_SPRITE_SHEET_COLS, PEN_KIWIMON_SPRITE_SHEET_ROWS);
-            case PEN_KNIGHTMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_KNIGHTMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_KNIGHTMON_ANIM_INDEX), PEN_KNIGHTMON_SPRITE_SHEET_COLS, PEN_KNIGHTMON_SPRITE_SHEET_ROWS);
-            case PEN_KOKUWAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_KOKUWAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_KOKUWAMON_ANIM_INDEX), PEN_KOKUWAMON_SPRITE_SHEET_COLS, PEN_KOKUWAMON_SPRITE_SHEET_ROWS);
-            case PEN_KUWAGAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_KUWAGAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_KUWAGAMON_ANIM_INDEX), PEN_KUWAGAMON_SPRITE_SHEET_COLS, PEN_KUWAGAMON_SPRITE_SHEET_ROWS);
-            case PEN_LADY_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_LADY_DEVIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_LADY_DEVIMON_ANIM_INDEX), PEN_LADY_DEVIMON_SPRITE_SHEET_COLS, PEN_LADY_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN_LILIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_LILIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_LILIMON_ANIM_INDEX), PEN_LILIMON_SPRITE_SHEET_COLS, PEN_LILIMON_SPRITE_SHEET_ROWS);
-            case PEN_MAMMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MAMMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MAMMON_ANIM_INDEX), PEN_MAMMON_SPRITE_SHEET_COLS, PEN_MAMMON_SPRITE_SHEET_ROWS);
-            case PEN_MARIN_ANGEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MARIN_ANGEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MARIN_ANGEMON_ANIM_INDEX), PEN_MARIN_ANGEMON_SPRITE_SHEET_COLS, PEN_MARIN_ANGEMON_SPRITE_SHEET_ROWS);
-            case PEN_MARIN_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MARIN_DEVIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MARIN_DEVIMON_ANIM_INDEX), PEN_MARIN_DEVIMON_SPRITE_SHEET_COLS, PEN_MARIN_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN_MECHANORIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MECHANORIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MECHANORIMON_ANIM_INDEX), PEN_MECHANORIMON_SPRITE_SHEET_COLS, PEN_MECHANORIMON_SPRITE_SHEET_ROWS);
-            case PEN_MEGADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MEGADRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MEGADRAMON_ANIM_INDEX), PEN_MEGADRAMON_SPRITE_SHEET_COLS, PEN_MEGADRAMON_SPRITE_SHEET_ROWS);
-            case PEN_MEGA_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MEGA_SEADRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MEGA_SEADRAMON_ANIM_INDEX), PEN_MEGA_SEADRAMON_SPRITE_SHEET_COLS, PEN_MEGA_SEADRAMON_SPRITE_SHEET_ROWS);
-            case PEN_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MERAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MERAMON_ANIM_INDEX), PEN_MERAMON_SPRITE_SHEET_COLS, PEN_MERAMON_SPRITE_SHEET_ROWS);
-            case PEN_METAL_ETEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_METAL_ETEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_METAL_ETEMON_ANIM_INDEX), PEN_METAL_ETEMON_SPRITE_SHEET_COLS, PEN_METAL_ETEMON_SPRITE_SHEET_ROWS);
-            case PEN_METAL_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_METAL_GARURUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_METAL_GARURUMON_ANIM_INDEX), PEN_METAL_GARURUMON_SPRITE_SHEET_COLS, PEN_METAL_GARURUMON_SPRITE_SHEET_ROWS);
-            case PEN_METAL_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_METAL_GREYMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_METAL_GREYMON_ANIM_INDEX), PEN_METAL_GREYMON_SPRITE_SHEET_COLS, PEN_METAL_GREYMON_SPRITE_SHEET_ROWS);
-            case PEN_METAL_MAMEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_METAL_MAMEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_METAL_MAMEMON_ANIM_INDEX), PEN_METAL_MAMEMON_SPRITE_SHEET_COLS, PEN_METAL_MAMEMON_SPRITE_SHEET_ROWS);
-            case PEN_METAL_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_METAL_SEADRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_METAL_SEADRAMON_ANIM_INDEX), PEN_METAL_SEADRAMON_SPRITE_SHEET_COLS, PEN_METAL_SEADRAMON_SPRITE_SHEET_ROWS);
-            case PEN_MOCHIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MOCHIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MOCHIMON_ANIM_INDEX), PEN_MOCHIMON_SPRITE_SHEET_COLS, PEN_MOCHIMON_SPRITE_SHEET_ROWS);
-            case PEN_MOKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MOKUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MOKUMON_ANIM_INDEX), PEN_MOKUMON_SPRITE_SHEET_COLS, PEN_MOKUMON_SPRITE_SHEET_ROWS);
-            case PEN_MONOCHROMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MONOCHROMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MONOCHROMON_ANIM_INDEX), PEN_MONOCHROMON_SPRITE_SHEET_COLS, PEN_MONOCHROMON_SPRITE_SHEET_ROWS);
-            case PEN_MUGENDRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MUGENDRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MUGENDRAMON_ANIM_INDEX), PEN_MUGENDRAMON_SPRITE_SHEET_COLS, PEN_MUGENDRAMON_SPRITE_SHEET_ROWS);
-            case PEN_MUSHMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_MUSHMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_MUSHMON_ANIM_INDEX), PEN_MUSHMON_SPRITE_SHEET_COLS, PEN_MUSHMON_SPRITE_SHEET_ROWS);
-            case PEN_NYOKIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_NYOKIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_NYOKIMON_ANIM_INDEX), PEN_NYOKIMON_SPRITE_SHEET_COLS, PEN_NYOKIMON_SPRITE_SHEET_ROWS);
-            case PEN_OCTMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_OCTMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_OCTMON_ANIM_INDEX), PEN_OCTMON_SPRITE_SHEET_COLS, PEN_OCTMON_SPRITE_SHEET_ROWS);
-            case PEN_OKUWAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_OKUWAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_OKUWAMON_ANIM_INDEX), PEN_OKUWAMON_SPRITE_SHEET_COLS, PEN_OKUWAMON_SPRITE_SHEET_ROWS);
-            case PEN_OMEGAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_OMEGAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_OMEGAMON_ANIM_INDEX), PEN_OMEGAMON_SPRITE_SHEET_COLS, PEN_OMEGAMON_SPRITE_SHEET_ROWS);
-            case PEN_OTAMAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_OTAMAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_OTAMAMON_ANIM_INDEX), PEN_OTAMAMON_SPRITE_SHEET_COLS, PEN_OTAMAMON_SPRITE_SHEET_ROWS);
-            case PEN_PALMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PALMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PALMON_ANIM_INDEX), PEN_PALMON_SPRITE_SHEET_COLS, PEN_PALMON_SPRITE_SHEET_ROWS);
-            case PEN_PETI_MERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PETI_MERAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PETI_MERAMON_ANIM_INDEX), PEN_PETI_MERAMON_SPRITE_SHEET_COLS, PEN_PETI_MERAMON_SPRITE_SHEET_ROWS);
-            case PEN_PICCOLOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PICCOLOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PICCOLOMON_ANIM_INDEX), PEN_PICCOLOMON_SPRITE_SHEET_COLS, PEN_PICCOLOMON_SPRITE_SHEET_ROWS);
-            case PEN_PICO_DEVIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PICO_DEVIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PICO_DEVIMON_ANIM_INDEX), PEN_PICO_DEVIMON_SPRITE_SHEET_COLS, PEN_PICO_DEVIMON_SPRITE_SHEET_ROWS);
-            case PEN_PIEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PIEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PIEMON_ANIM_INDEX), PEN_PIEMON_SPRITE_SHEET_COLS, PEN_PIEMON_SPRITE_SHEET_ROWS);
-            case PEN_PINOCHIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PINOCHIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PINOCHIMON_ANIM_INDEX), PEN_PINOCHIMON_SPRITE_SHEET_COLS, PEN_PINOCHIMON_SPRITE_SHEET_ROWS);
-            case PEN_PIYOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PIYOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PIYOMON_ANIM_INDEX), PEN_PIYOMON_SPRITE_SHEET_COLS, PEN_PIYOMON_SPRITE_SHEET_ROWS);
-            case PEN_PLESIOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PLESIOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PLESIOMON_ANIM_INDEX), PEN_PLESIOMON_SPRITE_SHEET_COLS, PEN_PLESIOMON_SPRITE_SHEET_ROWS);
-            case PEN_PUKUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PUKUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PUKUMON_ANIM_INDEX), PEN_PUKUMON_SPRITE_SHEET_COLS, PEN_PUKUMON_SPRITE_SHEET_ROWS);
-            case PEN_PUMPMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PUMPMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PUMPMON_ANIM_INDEX), PEN_PUMPMON_SPRITE_SHEET_COLS, PEN_PUMPMON_SPRITE_SHEET_ROWS);
-            case PEN_PYOCOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_PYOCOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_PYOCOMON_ANIM_INDEX), PEN_PYOCOMON_SPRITE_SHEET_COLS, PEN_PYOCOMON_SPRITE_SHEET_ROWS);
-            case PEN_RAKAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_RAKAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_RAKAMON_ANIM_INDEX), PEN_RAKAMON_SPRITE_SHEET_COLS, PEN_RAKAMON_SPRITE_SHEET_ROWS);
-            case PEN_RED_VEGIMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_RED_VEGIMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_RED_VEGIMON_ANIM_INDEX), PEN_RED_VEGIMON_SPRITE_SHEET_COLS, PEN_RED_VEGIMON_SPRITE_SHEET_ROWS);
-            case PEN_REVOLMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_REVOLMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_REVOLMON_ANIM_INDEX), PEN_REVOLMON_SPRITE_SHEET_COLS, PEN_REVOLMON_SPRITE_SHEET_ROWS);
-            case PEN_ROSEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_ROSEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_ROSEMON_ANIM_INDEX), PEN_ROSEMON_SPRITE_SHEET_COLS, PEN_ROSEMON_SPRITE_SHEET_ROWS);
-            case PEN_RUKAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_RUKAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_RUKAMON_ANIM_INDEX), PEN_RUKAMON_SPRITE_SHEET_COLS, PEN_RUKAMON_SPRITE_SHEET_ROWS);
-            case PEN_SABER_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_SABER_LEOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_SABER_LEOMON_ANIM_INDEX), PEN_SABER_LEOMON_SPRITE_SHEET_COLS, PEN_SABER_LEOMON_SPRITE_SHEET_ROWS);
-            case PEN_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_SEADRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_SEADRAMON_ANIM_INDEX), PEN_SEADRAMON_SPRITE_SHEET_COLS, PEN_SEADRAMON_SPRITE_SHEET_ROWS);
-            case PEN_SHAKOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_SHAKOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_SHAKOMON_ANIM_INDEX), PEN_SHAKOMON_SPRITE_SHEET_COLS, PEN_SHAKOMON_SPRITE_SHEET_ROWS);
-            case PEN_SKULL_MAMMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_SKULL_MAMMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_SKULL_MAMMON_ANIM_INDEX), PEN_SKULL_MAMMON_SPRITE_SHEET_COLS, PEN_SKULL_MAMMON_SPRITE_SHEET_ROWS);
-            case PEN_STARMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_STARMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_STARMON_ANIM_INDEX), PEN_STARMON_SPRITE_SHEET_COLS, PEN_STARMON_SPRITE_SHEET_ROWS);
-            case PEN_TAILMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TAILMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TAILMON_ANIM_INDEX), PEN_TAILMON_SPRITE_SHEET_COLS, PEN_TAILMON_SPRITE_SHEET_ROWS);
-            case PEN_TANKMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TANKMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TANKMON_ANIM_INDEX), PEN_TANKMON_SPRITE_SHEET_COLS, PEN_TANKMON_SPRITE_SHEET_ROWS);
-            case PEN_TENTOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TENTOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TENTOMON_ANIM_INDEX), PEN_TENTOMON_SPRITE_SHEET_COLS, PEN_TENTOMON_SPRITE_SHEET_ROWS);
-            case PEN_THUNDERBALLMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_THUNDERBALLMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_THUNDERBALLMON_ANIM_INDEX), PEN_THUNDERBALLMON_SPRITE_SHEET_COLS, PEN_THUNDERBALLMON_SPRITE_SHEET_ROWS);
-            case PEN_TOGEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TOGEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TOGEMON_ANIM_INDEX), PEN_TOGEMON_SPRITE_SHEET_COLS, PEN_TOGEMON_SPRITE_SHEET_ROWS);
-            case PEN_TONOSAMA_GEKOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TONOSAMA_GEKOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TONOSAMA_GEKOMON_ANIM_INDEX), PEN_TONOSAMA_GEKOMON_SPRITE_SHEET_COLS, PEN_TONOSAMA_GEKOMON_SPRITE_SHEET_ROWS);
-            case PEN_TORTAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TORTAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TORTAMON_ANIM_INDEX), PEN_TORTAMON_SPRITE_SHEET_COLS, PEN_TORTAMON_SPRITE_SHEET_ROWS);
-            case PEN_TOY_AGUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TOY_AGUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TOY_AGUMON_ANIM_INDEX), PEN_TOY_AGUMON_SPRITE_SHEET_COLS, PEN_TOY_AGUMON_SPRITE_SHEET_ROWS);
-            case PEN_TRICERAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_TRICERAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_TRICERAMON_ANIM_INDEX), PEN_TRICERAMON_SPRITE_SHEET_COLS, PEN_TRICERAMON_SPRITE_SHEET_ROWS);
-            case PEN_VAMDEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_VAMDEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_VAMDEMON_ANIM_INDEX), PEN_VAMDEMON_SPRITE_SHEET_COLS, PEN_VAMDEMON_SPRITE_SHEET_ROWS);
-            case PEN_V_DRAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_V_DRAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_V_DRAMON_ANIM_INDEX), PEN_V_DRAMON_SPRITE_SHEET_COLS, PEN_V_DRAMON_SPRITE_SHEET_ROWS);
-            case PEN_VEMDEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_VEMDEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_VEMDEMON_ANIM_INDEX), PEN_VEMDEMON_SPRITE_SHEET_COLS, PEN_VEMDEMON_SPRITE_SHEET_ROWS);
-            case PEN_VENOM_VAMDEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_VENOM_VAMDEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_VENOM_VAMDEMON_ANIM_INDEX), PEN_VENOM_VAMDEMON_SPRITE_SHEET_COLS, PEN_VENOM_VAMDEMON_SPRITE_SHEET_ROWS);
-            case PEN_WAR_GREYMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_WAR_GREYMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_WAR_GREYMON_ANIM_INDEX), PEN_WAR_GREYMON_SPRITE_SHEET_COLS, PEN_WAR_GREYMON_SPRITE_SHEET_ROWS);
-            case PEN_WARU_MONZAEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_WARU_MONZAEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_WARU_MONZAEMON_ANIM_INDEX), PEN_WARU_MONZAEMON_SPRITE_SHEET_COLS, PEN_WARU_MONZAEMON_SPRITE_SHEET_ROWS);
-            case PEN_WARU_MOZAEMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_WARU_MOZAEMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_WARU_MOZAEMON_ANIM_INDEX), PEN_WARU_MOZAEMON_SPRITE_SHEET_COLS, PEN_WARU_MOZAEMON_SPRITE_SHEET_ROWS);
-            case PEN_WERE_GARURUMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_WERE_GARURUMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_WERE_GARURUMON_ANIM_INDEX), PEN_WERE_GARURUMON_SPRITE_SHEET_COLS, PEN_WERE_GARURUMON_SPRITE_SHEET_ROWS);
-            case PEN_WHAMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_WHAMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_WHAMON_ANIM_INDEX), PEN_WHAMON_SPRITE_SHEET_COLS, PEN_WHAMON_SPRITE_SHEET_ROWS);
-            case PEN_WIZARMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_WIZARMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_WIZARMON_ANIM_INDEX), PEN_WIZARMON_SPRITE_SHEET_COLS, PEN_WIZARMON_SPRITE_SHEET_ROWS);
-            case PEN_WOODMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_WOODMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_WOODMON_ANIM_INDEX), PEN_WOODMON_SPRITE_SHEET_COLS, PEN_WOODMON_SPRITE_SHEET_ROWS);
-            case PEN_ZUDOMON_ANIM_INDEX: return load_dm_anim(ctx, PEN_ZUDOMON_ANIM_INDEX, get_pen_sprite_sheet(PEN_ZUDOMON_ANIM_INDEX), PEN_ZUDOMON_SPRITE_SHEET_COLS, PEN_ZUDOMON_SPRITE_SHEET_ROWS);
-            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-        }
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        assert(LEN_ARRAY(pen_dims_table) == PEN_ANIM_COUNT);
+        assert(LEN_ARRAY(pen_pngs_table) == PEN_ANIM_COUNT);
+        assert(LEN_ARRAY(pen_png_sizes_table) == PEN_ANIM_COUNT);
+        assert(LEN_ARRAY(pen_names_table) == PEN_ANIM_COUNT);
+        assert(index < PEN_ANIM_COUNT);
+        assert(LEN_ARRAY(pen_pngs_table) <= INT32_MAX);
+        assert(index < INT32_MAX);
+        return load_dm_anim(ctx, static_cast<int32_t>(index), {pen_pngs_table[index], pen_png_sizes_table[index], pen_names_table[index]}, pen_dims_table[index].cols, pen_dims_table[index].rows);
     }
 }
 

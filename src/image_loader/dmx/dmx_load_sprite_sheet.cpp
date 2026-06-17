@@ -1,203 +1,779 @@
 #include "core/bongocat.h"
-#include "graphics/animation_thread_context.h"
+#include "utils/memory.h"
+#include "graphics/animation_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dmx/dmx.hpp"
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dmx/dmx_sprite.h"
 #include "image_loader/dmx/load_images_dmx.h"
+#include "embedded_assets/dmx/dmx_images.h"
+#include <climits>
+#include <cstddef>
+#include <cstdint>
+
+/// @NOTE: Generated embedded assets dmx
+
 
 namespace bongocat::animation {
+    static constexpr assets::embedded_sprite_sheet_dims_t dmx_dims_table[] = {
+        {assets::DMX_AGUMON_BLACK_X_SPRITE_SHEET_COLS, assets::DMX_AGUMON_BLACK_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_AGUMON_X_SPRITE_SHEET_COLS, assets::DMX_AGUMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ALLOMON_X_SPRITE_SHEET_COLS, assets::DMX_ALLOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ALPHAMON_OURYUKEN_SPRITE_SHEET_COLS, assets::DMX_ALPHAMON_OURYUKEN_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ALPHAMON_SPRITE_SHEET_COLS, assets::DMX_ALPHAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ANCIENT_SPHINXMON_SPRITE_SHEET_COLS, assets::DMX_ANCIENT_SPHINXMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ANGEWOMON_X_SPRITE_SHEET_COLS, assets::DMX_ANGEWOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ANOMALOCARIMON_X_SPRITE_SHEET_COLS, assets::DMX_ANOMALOCARIMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BAGRAMON_SPRITE_SHEET_COLS, assets::DMX_BAGRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BARBAMON_X_SPRITE_SHEET_COLS, assets::DMX_BARBAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BEEL_STARMON_X_SPRITE_SHEET_COLS, assets::DMX_BEEL_STARMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BEELZEBUMON_X_SPRITE_SHEET_COLS, assets::DMX_BEELZEBUMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BELIAL_VAMDEMON_SPRITE_SHEET_COLS, assets::DMX_BELIAL_VAMDEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BELPHEMON_X_SPRITE_SHEET_COLS, assets::DMX_BELPHEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BLACK_WARGREYMON_X_SPRITE_SHEET_COLS, assets::DMX_BLACK_WARGREYMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_BLACK_WAR_GREYMON_X_SPRITE_SHEET_COLS, assets::DMX_BLACK_WAR_GREYMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CANNONBEEMON_SPRITE_SHEET_COLS, assets::DMX_CANNONBEEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CANNON_BEEMON_SPRITE_SHEET_COLS, assets::DMX_CANNON_BEEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CERBERUMON_X_SPRITE_SHEET_COLS, assets::DMX_CERBERUMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CHAOSDRAMON_X_SPRITE_SHEET_COLS, assets::DMX_CHAOSDRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CHERUBIMON_VICE_X_SPRITE_SHEET_COLS, assets::DMX_CHERUBIMON_VICE_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CHERUBIMON_VIRTUE_X_SPRITE_SHEET_COLS, assets::DMX_CHERUBIMON_VIRTUE_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CHO_HAKKAIMON_SPRITE_SHEET_COLS, assets::DMX_CHO_HAKKAIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_COCOMON_SPRITE_SHEET_COLS, assets::DMX_COCOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CRANIUMMON_X_SPRITE_SHEET_COLS, assets::DMX_CRANIUMMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CRYS_PALEDRAMON_SPRITE_SHEET_COLS, assets::DMX_CRYS_PALEDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_CYBERDRAMON_X_SPRITE_SHEET_COLS, assets::DMX_CYBERDRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DAMEMON_SPRITE_SHEET_COLS, assets::DMX_DAMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DARK_KNIGHTMON_X_SPRITE_SHEET_COLS, assets::DMX_DARK_KNIGHTMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DARKNESS_BAGRAMON_SPRITE_SHEET_COLS, assets::DMX_DARKNESS_BAGRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DARK_TYRANOMON_X_SPRITE_SHEET_COLS, assets::DMX_DARK_TYRANOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DEMON_X_SPRITE_SHEET_COLS, assets::DMX_DEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DIABLOMON_X_SPRITE_SHEET_COLS, assets::DMX_DIABLOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DINOREXMON_SPRITE_SHEET_COLS, assets::DMX_DINOREXMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DINOTIGERMON_SPRITE_SHEET_COLS, assets::DMX_DINOTIGERMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DORUGAMON_SPRITE_SHEET_COLS, assets::DMX_DORUGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DORUGUREMON_SPRITE_SHEET_COLS, assets::DMX_DORUGUREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DORUMON_SPRITE_SHEET_COLS, assets::DMX_DORUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DRACOMON_X_SPRITE_SHEET_COLS, assets::DMX_DRACOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DUFTMON_X_SPRITE_SHEET_COLS, assets::DMX_DUFTMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DUKEMON_X_SPRITE_SHEET_COLS, assets::DMX_DUKEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DUSKMON_SPRITE_SHEET_COLS, assets::DMX_DUSKMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_DYNASMON_X_SPRITE_SHEET_COLS, assets::DMX_DYNASMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_EBEMON_X_SPRITE_SHEET_COLS, assets::DMX_EBEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_EXAMON_SPRITE_SHEET_COLS, assets::DMX_EXAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_EXAMON_X_SPRITE_SHEET_COLS, assets::DMX_EXAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_FILMON_SPRITE_SHEET_COLS, assets::DMX_FILMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GABUMON_X_SPRITE_SHEET_COLS, assets::DMX_GABUMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GAIOUMON_SPRITE_SHEET_COLS, assets::DMX_GAIOUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GANKOOMON_X_SPRITE_SHEET_COLS, assets::DMX_GANKOOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GARUDAMON_X_SPRITE_SHEET_COLS, assets::DMX_GARUDAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GIGA_SEADRAMON_SPRITE_SHEET_COLS, assets::DMX_GIGA_SEADRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GINRYUMON_SPRITE_SHEET_COLS, assets::DMX_GINRYUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GODDRAMON_X_SPRITE_SHEET_COLS, assets::DMX_GODDRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GOMAMON_X_SPRITE_SHEET_COLS, assets::DMX_GOMAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GRADEMON_SPRITE_SHEET_COLS, assets::DMX_GRADEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GRAND_DARCUMON_SPRITE_SHEET_COLS, assets::DMX_GRAND_DARCUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GRAND_DRACUMON_SPRITE_SHEET_COLS, assets::DMX_GRAND_DRACUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GRANDIS_KUWAGAMON_SPRITE_SHEET_COLS, assets::DMX_GRANDIS_KUWAGAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GROWMON_X_SPRITE_SHEET_COLS, assets::DMX_GROWMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_GUMMYMON_SPRITE_SHEET_COLS, assets::DMX_GUMMYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_HERISSMON_SPRITE_SHEET_COLS, assets::DMX_HERISSMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_HEXEBLAUMON_SPRITE_SHEET_COLS, assets::DMX_HEXEBLAUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_HISYARYUMON_SPRITE_SHEET_COLS, assets::DMX_HISYARYUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_HOLYDRAMON_X_SPRITE_SHEET_COLS, assets::DMX_HOLYDRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_HOUOUMON_X_SPRITE_SHEET_COLS, assets::DMX_HOUOUMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_IMPMON_X_SPRITE_SHEET_COLS, assets::DMX_IMPMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_JARARCHIMON_SPRITE_SHEET_COLS, assets::DMX_JARARCHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_JAZAMON_SPRITE_SHEET_COLS, assets::DMX_JAZAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_JAZARDMON_SPRITE_SHEET_COLS, assets::DMX_JAZARDMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_JAZARICHMON_SPRITE_SHEET_COLS, assets::DMX_JAZARICHMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_JESMON_GX_SPRITE_SHEET_COLS, assets::DMX_JESMON_GX_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_JESMON_X_SPRITE_SHEET_COLS, assets::DMX_JESMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_JUSTIMON_X_SPRITE_SHEET_COLS, assets::DMX_JUSTIMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_KAISER_LEOMON_SPRITE_SHEET_COLS, assets::DMX_KAISER_LEOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_KEEMON_SPRITE_SHEET_COLS, assets::DMX_KEEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_KERAMON_X_SPRITE_SHEET_COLS, assets::DMX_KERAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_KIIMON_SPRITE_SHEET_COLS, assets::DMX_KIIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_KOKUWAMON_X_SPRITE_SHEET_COLS, assets::DMX_KOKUWAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_KUWAGAMON_X_SPRITE_SHEET_COLS, assets::DMX_KUWAGAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LADY_DEVIMON_X_SPRITE_SHEET_COLS, assets::DMX_LADY_DEVIMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LEOMON_X_SPRITE_SHEET_COLS, assets::DMX_LEOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LEVIAMON_X_SPRITE_SHEET_COLS, assets::DMX_LEVIAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LILIMON_X_SPRITE_SHEET_COLS, assets::DMX_LILIMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LILITHMON_X_SPRITE_SHEET_COLS, assets::DMX_LILITHMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LOPMON_X_SPRITE_SHEET_COLS, assets::DMX_LOPMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LORD_KIGHTMON_X_SPRITE_SHEET_COLS, assets::DMX_LORD_KIGHTMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LORD_KNIGHTMON_X_SPRITE_SHEET_COLS, assets::DMX_LORD_KNIGHTMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_LUCEMON_X_SPRITE_SHEET_COLS, assets::DMX_LUCEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MAGIDRAMON_X_SPRITE_SHEET_COLS, assets::DMX_MAGIDRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MAGNAMON_X_SPRITE_SHEET_COLS, assets::DMX_MAGNAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MAMEMON_X_SPRITE_SHEET_COLS, assets::DMX_MAMEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MAMETYRAMON_SPRITE_SHEET_COLS, assets::DMX_MAMETYRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MAME_TYRAMON_SPRITE_SHEET_COLS, assets::DMX_MAME_TYRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MAMMON_X_SPRITE_SHEET_COLS, assets::DMX_MAMMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MANTARAYMON_X_SPRITE_SHEET_COLS, assets::DMX_MANTARAYMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MEGALO_GROWMON_X_SPRITE_SHEET_COLS, assets::DMX_MEGALO_GROWMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MEGA_SEADRAMON_X_SPRITE_SHEET_COLS, assets::DMX_MEGA_SEADRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MEGIDRAMON_X_SPRITE_SHEET_COLS, assets::DMX_MEGIDRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MEPHISMON_X_SPRITE_SHEET_COLS, assets::DMX_MEPHISMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MERAMON_X_SPRITE_SHEET_COLS, assets::DMX_MERAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_METAL_FANTOMON_SPRITE_SHEET_COLS, assets::DMX_METAL_FANTOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_METAL_GARURUMON_X_SPRITE_SHEET_COLS, assets::DMX_METAL_GARURUMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_METAL_GREYMON_VIRUS_X_SPRITE_SHEET_COLS, assets::DMX_METAL_GREYMON_VIRUS_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_METAL_GREYMON_X_SPRITE_SHEET_COLS, assets::DMX_METAL_GREYMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_METALLICDRAMON_SPRITE_SHEET_COLS, assets::DMX_METALLICDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_METAL_PIRANIMON_SPRITE_SHEET_COLS, assets::DMX_METAL_PIRANIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_METAL_TYRANOMON_X_SPRITE_SHEET_COLS, assets::DMX_METAL_TYRANOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MINERVAMON_X_SPRITE_SHEET_COLS, assets::DMX_MINERVAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_MONZAEMON_X_SPRITE_SHEET_COLS, assets::DMX_MONZAEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_NEFERTIMON_X_SPRITE_SHEET_COLS, assets::DMX_NEFERTIMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_NOBLE_PUMPMON_SPRITE_SHEET_COLS, assets::DMX_NOBLE_PUMPMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_NUMEMON_X_SPRITE_SHEET_COLS, assets::DMX_NUMEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OFANIMON_FALLDOWN_MODE_SPRITE_SHEET_COLS, assets::DMX_OFANIMON_FALLDOWN_MODE_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OFANIMON_FALLDOWN_MODE_X_SPRITE_SHEET_COLS, assets::DMX_OFANIMON_FALLDOWN_MODE_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OFANIMON_X_SPRITE_SHEET_COLS, assets::DMX_OFANIMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OGREMON_X_SPRITE_SHEET_COLS, assets::DMX_OGREMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OGUDOMON_X_SPRITE_SHEET_COLS, assets::DMX_OGUDOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OKUWAMON_X_SPRITE_SHEET_COLS, assets::DMX_OKUWAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OMEGAMON_X_SPRITE_SHEET_COLS, assets::DMX_OMEGAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OMEGA_SHOUTMON_X_SPRITE_SHEET_COLS, assets::DMX_OMEGA_SHOUTMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OMEKAMON_SPRITE_SHEET_COLS, assets::DMX_OMEKAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OPHANIMON_FALLDOWN_MODE_SPRITE_SHEET_COLS, assets::DMX_OPHANIMON_FALLDOWN_MODE_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OPHANIMON_X_SPRITE_SHEET_COLS, assets::DMX_OPHANIMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OTAMAMON_X_SPRITE_SHEET_COLS, assets::DMX_OTAMAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_OURYUMON_SPRITE_SHEET_COLS, assets::DMX_OURYUMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PALEDRAMON_SPRITE_SHEET_COLS, assets::DMX_PALEDRAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PALMON_X_SPRITE_SHEET_COLS, assets::DMX_PALMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PEGASMON_X_SPRITE_SHEET_COLS, assets::DMX_PEGASMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PLATINUM_NUMEMON_SPRITE_SHEET_COLS, assets::DMX_PLATINUM_NUMEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PLESIOMON_X_SPRITE_SHEET_COLS, assets::DMX_PLESIOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PLOTMON_X_SPRITE_SHEET_COLS, assets::DMX_PLOTMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PRINCE_MAMEMON_X_SPRITE_SHEET_COLS, assets::DMX_PRINCE_MAMEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PTERANMON_X_SPRITE_SHEET_COLS, assets::DMX_PTERANMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PTERANOMON_X_SPRITE_SHEET_COLS, assets::DMX_PTERANOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PUMPMON_SPRITE_SHEET_COLS, assets::DMX_PUMPMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_PUTTIMON_SPRITE_SHEET_COLS, assets::DMX_PUTTIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RAFFLESIMON_SPRITE_SHEET_COLS, assets::DMX_RAFFLESIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RAIHIMON_SPRITE_SHEET_COLS, assets::DMX_RAIHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RAPIDMON_X_SPRITE_SHEET_COLS, assets::DMX_RAPIDMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RASENMON_FURY_MODE_SPRITE_SHEET_COLS, assets::DMX_RASENMON_FURY_MODE_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RASENMON_SPRITE_SHEET_COLS, assets::DMX_RASENMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_REKAMON_X_SPRITE_SHEET_COLS, assets::DMX_REKAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RENAMON_X_SPRITE_SHEET_COLS, assets::DMX_RENAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RHINOMON_X_SPRITE_SHEET_COLS, assets::DMX_RHINOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RIZE_GREYMON_X_SPRITE_SHEET_COLS, assets::DMX_RIZE_GREYMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ROSEMON_X_SPRITE_SHEET_COLS, assets::DMX_ROSEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_RYUDAMON_SPRITE_SHEET_COLS, assets::DMX_RYUDAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SAKUYAMON_X_SPRITE_SHEET_COLS, assets::DMX_SAKUYAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SANGLOUPMON_SPRITE_SHEET_COLS, assets::DMX_SANGLOUPMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SANGOUPMON_SPRITE_SHEET_COLS, assets::DMX_SANGOUPMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SEADRAMON_X_SPRITE_SHEET_COLS, assets::DMX_SEADRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SHAKOMON_X_SPRITE_SHEET_COLS, assets::DMX_SHAKOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SIESAMON_X_SPRITE_SHEET_COLS, assets::DMX_SIESAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SISTERMON_BLANC_SPRITE_SHEET_COLS, assets::DMX_SISTERMON_BLANC_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SKULL_BALUCHIMON_SPRITE_SHEET_COLS, assets::DMX_SKULL_BALUCHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SKULL_MAMMON_X_SPRITE_SHEET_COLS, assets::DMX_SKULL_MAMMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_SLEIPMON_X_SPRITE_SHEET_COLS, assets::DMX_SLEIPMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_STIFFILMON_SPRITE_SHEET_COLS, assets::DMX_STIFFILMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_STIFFIMON_SPRITE_SHEET_COLS, assets::DMX_STIFFIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TAILMON_X_SPRITE_SHEET_COLS, assets::DMX_TAILMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TERRIERMON_X_SPRITE_SHEET_COLS, assets::DMX_TERRIERMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TIERRIERMON_X_SPRITE_SHEET_COLS, assets::DMX_TIERRIERMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TIGER_VESPAMON_SPRITE_SHEET_COLS, assets::DMX_TIGER_VESPAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TOBCATMON_SPRITE_SHEET_COLS, assets::DMX_TOBCATMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TOBUCATMON_SPRITE_SHEET_COLS, assets::DMX_TOBUCATMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TOGEMON_X_SPRITE_SHEET_COLS, assets::DMX_TOGEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TOKOMON_X_SPRITE_SHEET_COLS, assets::DMX_TOKOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TRICERAMON_X_SPRITE_SHEET_COLS, assets::DMX_TRICERAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TYLOMON_X_SPRITE_SHEET_COLS, assets::DMX_TYLOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_TYRANOMON_X_SPRITE_SHEET_COLS, assets::DMX_TYRANOMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ULFORCE_V_DRAMON_X_SPRITE_SHEET_COLS, assets::DMX_ULFORCE_V_DRAMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ULTIMATE_BRACHIMON_SPRITE_SHEET_COLS, assets::DMX_ULTIMATE_BRACHIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ULTIMATE_BRACHIOMON_SPRITE_SHEET_COLS, assets::DMX_ULTIMATE_BRACHIOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_VALDURMON_SPRITE_SHEET_COLS, assets::DMX_VALDURMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_VAMDEMON_X_SPRITE_SHEET_COLS, assets::DMX_VAMDEMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_VELGRMON_SPRITE_SHEET_COLS, assets::DMX_VELGRMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_VOLTOBAUTAMON_SPRITE_SHEET_COLS, assets::DMX_VOLTOBAUTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_WAR_GREYMON_X_SPRITE_SHEET_COLS, assets::DMX_WAR_GREYMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_WERE_GARURUMON_X_SPRITE_SHEET_COLS, assets::DMX_WERE_GARURUMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_WIZARMON_X_SPRITE_SHEET_COLS, assets::DMX_WIZARMON_X_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_YAAMON_SPRITE_SHEET_COLS, assets::DMX_YAAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_YATAGARAMON_SPRITE_SHEET_COLS, assets::DMX_YATAGARAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DMX_ZERIMON_SPRITE_SHEET_COLS, assets::DMX_ZERIMON_SPRITE_SHEET_ROWS}, 
+        
+    };
+    static const unsigned char* dmx_pngs_table[] = {
+        dmx_agumon_black_x_png, 
+        dmx_agumon_x_png, 
+        dmx_allomon_x_png, 
+        dmx_alphamon_ouryuken_png, 
+        dmx_alphamon_png, 
+        dmx_ancient_sphinxmon_png, 
+        dmx_angewomon_x_png, 
+        dmx_anomalocarimon_x_png, 
+        dmx_bagramon_png, 
+        dmx_barbamon_x_png, 
+        dmx_beel_starmon_x_png, 
+        dmx_beelzebumon_x_png, 
+        dmx_belial_vamdemon_png, 
+        dmx_belphemon_x_png, 
+        dmx_black_wargreymon_x_png, 
+        dmx_black_war_greymon_x_png, 
+        dmx_cannonbeemon_png, 
+        dmx_cannon_beemon_png, 
+        dmx_cerberumon_x_png, 
+        dmx_chaosdramon_x_png, 
+        dmx_cherubimon_vice_x_png, 
+        dmx_cherubimon_virtue_x_png, 
+        dmx_cho_hakkaimon_png, 
+        dmx_cocomon_png, 
+        dmx_craniummon_x_png, 
+        dmx_crys_paledramon_png, 
+        dmx_cyberdramon_x_png, 
+        dmx_damemon_png, 
+        dmx_dark_knightmon_x_png, 
+        dmx_darkness_bagramon_png, 
+        dmx_dark_tyranomon_x_png, 
+        dmx_demon_x_png, 
+        dmx_diablomon_x_png, 
+        dmx_dinorexmon_png, 
+        dmx_dinotigermon_png, 
+        dmx_dorugamon_png, 
+        dmx_doruguremon_png, 
+        dmx_dorumon_png, 
+        dmx_dracomon_x_png, 
+        dmx_duftmon_x_png, 
+        dmx_dukemon_x_png, 
+        dmx_duskmon_png, 
+        dmx_dynasmon_x_png, 
+        dmx_ebemon_x_png, 
+        dmx_examon_png, 
+        dmx_examon_x_png, 
+        dmx_filmon_png, 
+        dmx_gabumon_x_png, 
+        dmx_gaioumon_png, 
+        dmx_gankoomon_x_png, 
+        dmx_garudamon_x_png, 
+        dmx_giga_seadramon_png, 
+        dmx_ginryumon_png, 
+        dmx_goddramon_x_png, 
+        dmx_gomamon_x_png, 
+        dmx_grademon_png, 
+        dmx_grand_darcumon_png, 
+        dmx_grand_dracumon_png, 
+        dmx_grandis_kuwagamon_png, 
+        dmx_growmon_x_png, 
+        dmx_gummymon_png, 
+        dmx_herissmon_png, 
+        dmx_hexeblaumon_png, 
+        dmx_hisyaryumon_png, 
+        dmx_holydramon_x_png, 
+        dmx_hououmon_x_png, 
+        dmx_impmon_x_png, 
+        dmx_jararchimon_png, 
+        dmx_jazamon_png, 
+        dmx_jazardmon_png, 
+        dmx_jazarichmon_png, 
+        dmx_jesmon_gx_png, 
+        dmx_jesmon_x_png, 
+        dmx_justimon_x_png, 
+        dmx_kaiser_leomon_png, 
+        dmx_keemon_png, 
+        dmx_keramon_x_png, 
+        dmx_kiimon_png, 
+        dmx_kokuwamon_x_png, 
+        dmx_kuwagamon_x_png, 
+        dmx_lady_devimon_x_png, 
+        dmx_leomon_x_png, 
+        dmx_leviamon_x_png, 
+        dmx_lilimon_x_png, 
+        dmx_lilithmon_x_png, 
+        dmx_lopmon_x_png, 
+        dmx_lord_kightmon_x_png, 
+        dmx_lord_knightmon_x_png, 
+        dmx_lucemon_x_png, 
+        dmx_magidramon_x_png, 
+        dmx_magnamon_x_png, 
+        dmx_mamemon_x_png, 
+        dmx_mametyramon_png, 
+        dmx_mame_tyramon_png, 
+        dmx_mammon_x_png, 
+        dmx_mantaraymon_x_png, 
+        dmx_megalo_growmon_x_png, 
+        dmx_mega_seadramon_x_png, 
+        dmx_megidramon_x_png, 
+        dmx_mephismon_x_png, 
+        dmx_meramon_x_png, 
+        dmx_metal_fantomon_png, 
+        dmx_metal_garurumon_x_png, 
+        dmx_metal_greymon_virus_x_png, 
+        dmx_metal_greymon_x_png, 
+        dmx_metallicdramon_png, 
+        dmx_metal_piranimon_png, 
+        dmx_metal_tyranomon_x_png, 
+        dmx_minervamon_x_png, 
+        dmx_monzaemon_x_png, 
+        dmx_nefertimon_x_png, 
+        dmx_noble_pumpmon_png, 
+        dmx_numemon_x_png, 
+        dmx_ofanimon_falldown_mode_png, 
+        dmx_ofanimon_falldown_mode_x_png, 
+        dmx_ofanimon_x_png, 
+        dmx_ogremon_x_png, 
+        dmx_ogudomon_x_png, 
+        dmx_okuwamon_x_png, 
+        dmx_omegamon_x_png, 
+        dmx_omega_shoutmon_x_png, 
+        dmx_omekamon_png, 
+        dmx_ophanimon_falldown_mode_png, 
+        dmx_ophanimon_x_png, 
+        dmx_otamamon_x_png, 
+        dmx_ouryumon_png, 
+        dmx_paledramon_png, 
+        dmx_palmon_x_png, 
+        dmx_pegasmon_x_png, 
+        dmx_platinum_numemon_png, 
+        dmx_plesiomon_x_png, 
+        dmx_plotmon_x_png, 
+        dmx_prince_mamemon_x_png, 
+        dmx_pteranmon_x_png, 
+        dmx_pteranomon_x_png, 
+        dmx_pumpmon_png, 
+        dmx_puttimon_png, 
+        dmx_rafflesimon_png, 
+        dmx_raihimon_png, 
+        dmx_rapidmon_x_png, 
+        dmx_rasenmon_fury_mode_png, 
+        dmx_rasenmon_png, 
+        dmx_rekamon_x_png, 
+        dmx_renamon_x_png, 
+        dmx_rhinomon_x_png, 
+        dmx_rize_greymon_x_png, 
+        dmx_rosemon_x_png, 
+        dmx_ryudamon_png, 
+        dmx_sakuyamon_x_png, 
+        dmx_sangloupmon_png, 
+        dmx_sangoupmon_png, 
+        dmx_seadramon_x_png, 
+        dmx_shakomon_x_png, 
+        dmx_siesamon_x_png, 
+        dmx_sistermon_blanc_png, 
+        dmx_skull_baluchimon_png, 
+        dmx_skull_mammon_x_png, 
+        dmx_sleipmon_x_png, 
+        dmx_stiffilmon_png, 
+        dmx_stiffimon_png, 
+        dmx_tailmon_x_png, 
+        dmx_terriermon_x_png, 
+        dmx_tierriermon_x_png, 
+        dmx_tiger_vespamon_png, 
+        dmx_tobcatmon_png, 
+        dmx_tobucatmon_png, 
+        dmx_togemon_x_png, 
+        dmx_tokomon_x_png, 
+        dmx_triceramon_x_png, 
+        dmx_tylomon_x_png, 
+        dmx_tyranomon_x_png, 
+        dmx_ulforce_v_dramon_x_png, 
+        dmx_ultimate_brachimon_png, 
+        dmx_ultimate_brachiomon_png, 
+        dmx_valdurmon_png, 
+        dmx_vamdemon_x_png, 
+        dmx_velgrmon_png, 
+        dmx_voltobautamon_png, 
+        dmx_war_greymon_x_png, 
+        dmx_were_garurumon_x_png, 
+        dmx_wizarmon_x_png, 
+        dmx_yaamon_png, 
+        dmx_yatagaramon_png, 
+        dmx_zerimon_png, 
+        
+    };
+    static const size_t dmx_png_sizes_table[] = {
+        dmx_agumon_black_x_png_size, 
+        dmx_agumon_x_png_size, 
+        dmx_allomon_x_png_size, 
+        dmx_alphamon_ouryuken_png_size, 
+        dmx_alphamon_png_size, 
+        dmx_ancient_sphinxmon_png_size, 
+        dmx_angewomon_x_png_size, 
+        dmx_anomalocarimon_x_png_size, 
+        dmx_bagramon_png_size, 
+        dmx_barbamon_x_png_size, 
+        dmx_beel_starmon_x_png_size, 
+        dmx_beelzebumon_x_png_size, 
+        dmx_belial_vamdemon_png_size, 
+        dmx_belphemon_x_png_size, 
+        dmx_black_wargreymon_x_png_size, 
+        dmx_black_war_greymon_x_png_size, 
+        dmx_cannonbeemon_png_size, 
+        dmx_cannon_beemon_png_size, 
+        dmx_cerberumon_x_png_size, 
+        dmx_chaosdramon_x_png_size, 
+        dmx_cherubimon_vice_x_png_size, 
+        dmx_cherubimon_virtue_x_png_size, 
+        dmx_cho_hakkaimon_png_size, 
+        dmx_cocomon_png_size, 
+        dmx_craniummon_x_png_size, 
+        dmx_crys_paledramon_png_size, 
+        dmx_cyberdramon_x_png_size, 
+        dmx_damemon_png_size, 
+        dmx_dark_knightmon_x_png_size, 
+        dmx_darkness_bagramon_png_size, 
+        dmx_dark_tyranomon_x_png_size, 
+        dmx_demon_x_png_size, 
+        dmx_diablomon_x_png_size, 
+        dmx_dinorexmon_png_size, 
+        dmx_dinotigermon_png_size, 
+        dmx_dorugamon_png_size, 
+        dmx_doruguremon_png_size, 
+        dmx_dorumon_png_size, 
+        dmx_dracomon_x_png_size, 
+        dmx_duftmon_x_png_size, 
+        dmx_dukemon_x_png_size, 
+        dmx_duskmon_png_size, 
+        dmx_dynasmon_x_png_size, 
+        dmx_ebemon_x_png_size, 
+        dmx_examon_png_size, 
+        dmx_examon_x_png_size, 
+        dmx_filmon_png_size, 
+        dmx_gabumon_x_png_size, 
+        dmx_gaioumon_png_size, 
+        dmx_gankoomon_x_png_size, 
+        dmx_garudamon_x_png_size, 
+        dmx_giga_seadramon_png_size, 
+        dmx_ginryumon_png_size, 
+        dmx_goddramon_x_png_size, 
+        dmx_gomamon_x_png_size, 
+        dmx_grademon_png_size, 
+        dmx_grand_darcumon_png_size, 
+        dmx_grand_dracumon_png_size, 
+        dmx_grandis_kuwagamon_png_size, 
+        dmx_growmon_x_png_size, 
+        dmx_gummymon_png_size, 
+        dmx_herissmon_png_size, 
+        dmx_hexeblaumon_png_size, 
+        dmx_hisyaryumon_png_size, 
+        dmx_holydramon_x_png_size, 
+        dmx_hououmon_x_png_size, 
+        dmx_impmon_x_png_size, 
+        dmx_jararchimon_png_size, 
+        dmx_jazamon_png_size, 
+        dmx_jazardmon_png_size, 
+        dmx_jazarichmon_png_size, 
+        dmx_jesmon_gx_png_size, 
+        dmx_jesmon_x_png_size, 
+        dmx_justimon_x_png_size, 
+        dmx_kaiser_leomon_png_size, 
+        dmx_keemon_png_size, 
+        dmx_keramon_x_png_size, 
+        dmx_kiimon_png_size, 
+        dmx_kokuwamon_x_png_size, 
+        dmx_kuwagamon_x_png_size, 
+        dmx_lady_devimon_x_png_size, 
+        dmx_leomon_x_png_size, 
+        dmx_leviamon_x_png_size, 
+        dmx_lilimon_x_png_size, 
+        dmx_lilithmon_x_png_size, 
+        dmx_lopmon_x_png_size, 
+        dmx_lord_kightmon_x_png_size, 
+        dmx_lord_knightmon_x_png_size, 
+        dmx_lucemon_x_png_size, 
+        dmx_magidramon_x_png_size, 
+        dmx_magnamon_x_png_size, 
+        dmx_mamemon_x_png_size, 
+        dmx_mametyramon_png_size, 
+        dmx_mame_tyramon_png_size, 
+        dmx_mammon_x_png_size, 
+        dmx_mantaraymon_x_png_size, 
+        dmx_megalo_growmon_x_png_size, 
+        dmx_mega_seadramon_x_png_size, 
+        dmx_megidramon_x_png_size, 
+        dmx_mephismon_x_png_size, 
+        dmx_meramon_x_png_size, 
+        dmx_metal_fantomon_png_size, 
+        dmx_metal_garurumon_x_png_size, 
+        dmx_metal_greymon_virus_x_png_size, 
+        dmx_metal_greymon_x_png_size, 
+        dmx_metallicdramon_png_size, 
+        dmx_metal_piranimon_png_size, 
+        dmx_metal_tyranomon_x_png_size, 
+        dmx_minervamon_x_png_size, 
+        dmx_monzaemon_x_png_size, 
+        dmx_nefertimon_x_png_size, 
+        dmx_noble_pumpmon_png_size, 
+        dmx_numemon_x_png_size, 
+        dmx_ofanimon_falldown_mode_png_size, 
+        dmx_ofanimon_falldown_mode_x_png_size, 
+        dmx_ofanimon_x_png_size, 
+        dmx_ogremon_x_png_size, 
+        dmx_ogudomon_x_png_size, 
+        dmx_okuwamon_x_png_size, 
+        dmx_omegamon_x_png_size, 
+        dmx_omega_shoutmon_x_png_size, 
+        dmx_omekamon_png_size, 
+        dmx_ophanimon_falldown_mode_png_size, 
+        dmx_ophanimon_x_png_size, 
+        dmx_otamamon_x_png_size, 
+        dmx_ouryumon_png_size, 
+        dmx_paledramon_png_size, 
+        dmx_palmon_x_png_size, 
+        dmx_pegasmon_x_png_size, 
+        dmx_platinum_numemon_png_size, 
+        dmx_plesiomon_x_png_size, 
+        dmx_plotmon_x_png_size, 
+        dmx_prince_mamemon_x_png_size, 
+        dmx_pteranmon_x_png_size, 
+        dmx_pteranomon_x_png_size, 
+        dmx_pumpmon_png_size, 
+        dmx_puttimon_png_size, 
+        dmx_rafflesimon_png_size, 
+        dmx_raihimon_png_size, 
+        dmx_rapidmon_x_png_size, 
+        dmx_rasenmon_fury_mode_png_size, 
+        dmx_rasenmon_png_size, 
+        dmx_rekamon_x_png_size, 
+        dmx_renamon_x_png_size, 
+        dmx_rhinomon_x_png_size, 
+        dmx_rize_greymon_x_png_size, 
+        dmx_rosemon_x_png_size, 
+        dmx_ryudamon_png_size, 
+        dmx_sakuyamon_x_png_size, 
+        dmx_sangloupmon_png_size, 
+        dmx_sangoupmon_png_size, 
+        dmx_seadramon_x_png_size, 
+        dmx_shakomon_x_png_size, 
+        dmx_siesamon_x_png_size, 
+        dmx_sistermon_blanc_png_size, 
+        dmx_skull_baluchimon_png_size, 
+        dmx_skull_mammon_x_png_size, 
+        dmx_sleipmon_x_png_size, 
+        dmx_stiffilmon_png_size, 
+        dmx_stiffimon_png_size, 
+        dmx_tailmon_x_png_size, 
+        dmx_terriermon_x_png_size, 
+        dmx_tierriermon_x_png_size, 
+        dmx_tiger_vespamon_png_size, 
+        dmx_tobcatmon_png_size, 
+        dmx_tobucatmon_png_size, 
+        dmx_togemon_x_png_size, 
+        dmx_tokomon_x_png_size, 
+        dmx_triceramon_x_png_size, 
+        dmx_tylomon_x_png_size, 
+        dmx_tyranomon_x_png_size, 
+        dmx_ulforce_v_dramon_x_png_size, 
+        dmx_ultimate_brachimon_png_size, 
+        dmx_ultimate_brachiomon_png_size, 
+        dmx_valdurmon_png_size, 
+        dmx_vamdemon_x_png_size, 
+        dmx_velgrmon_png_size, 
+        dmx_voltobautamon_png_size, 
+        dmx_war_greymon_x_png_size, 
+        dmx_were_garurumon_x_png_size, 
+        dmx_wizarmon_x_png_size, 
+        dmx_yaamon_png_size, 
+        dmx_yatagaramon_png_size, 
+        dmx_zerimon_png_size, 
+        
+    };
+    static const char* dmx_names_table[] = {
+        "agumon_black_x", 
+        "agumon_x", 
+        "allomon_x", 
+        "alphamon_ouryuken", 
+        "alphamon", 
+        "ancient_sphinxmon", 
+        "angewomon_x", 
+        "anomalocarimon_x", 
+        "bagramon", 
+        "barbamon_x", 
+        "beel_starmon_x", 
+        "beelzebumon_x", 
+        "belial_vamdemon", 
+        "belphemon_x", 
+        "black_wargreymon_x", 
+        "black_war_greymon_x", 
+        "cannonbeemon", 
+        "cannon_beemon", 
+        "cerberumon_x", 
+        "chaosdramon_x", 
+        "cherubimon_vice_x", 
+        "cherubimon_virtue_x", 
+        "cho_hakkaimon", 
+        "cocomon", 
+        "craniummon_x", 
+        "crys_paledramon", 
+        "cyberdramon_x", 
+        "damemon", 
+        "dark_knightmon_x", 
+        "darkness_bagramon", 
+        "dark_tyranomon_x", 
+        "demon_x", 
+        "diablomon_x", 
+        "dinorexmon", 
+        "dinotigermon", 
+        "dorugamon", 
+        "doruguremon", 
+        "dorumon", 
+        "dracomon_x", 
+        "duftmon_x", 
+        "dukemon_x", 
+        "duskmon", 
+        "dynasmon_x", 
+        "ebemon_x", 
+        "examon", 
+        "examon_x", 
+        "filmon", 
+        "gabumon_x", 
+        "gaioumon", 
+        "gankoomon_x", 
+        "garudamon_x", 
+        "giga_seadramon", 
+        "ginryumon", 
+        "goddramon_x", 
+        "gomamon_x", 
+        "grademon", 
+        "grand_darcumon", 
+        "grand_dracumon", 
+        "grandis_kuwagamon", 
+        "growmon_x", 
+        "gummymon", 
+        "herissmon", 
+        "hexeblaumon", 
+        "hisyaryumon", 
+        "holydramon_x", 
+        "hououmon_x", 
+        "impmon_x", 
+        "jararchimon", 
+        "jazamon", 
+        "jazardmon", 
+        "jazarichmon", 
+        "jesmon_gx", 
+        "jesmon_x", 
+        "justimon_x", 
+        "kaiser_leomon", 
+        "keemon", 
+        "keramon_x", 
+        "kiimon", 
+        "kokuwamon_x", 
+        "kuwagamon_x", 
+        "lady_devimon_x", 
+        "leomon_x", 
+        "leviamon_x", 
+        "lilimon_x", 
+        "lilithmon_x", 
+        "lopmon_x", 
+        "lord_kightmon_x", 
+        "lord_knightmon_x", 
+        "lucemon_x", 
+        "magidramon_x", 
+        "magnamon_x", 
+        "mamemon_x", 
+        "mametyramon", 
+        "mame_tyramon", 
+        "mammon_x", 
+        "mantaraymon_x", 
+        "megalo_growmon_x", 
+        "mega_seadramon_x", 
+        "megidramon_x", 
+        "mephismon_x", 
+        "meramon_x", 
+        "metal_fantomon", 
+        "metal_garurumon_x", 
+        "metal_greymon_virus_x", 
+        "metal_greymon_x", 
+        "metallicdramon", 
+        "metal_piranimon", 
+        "metal_tyranomon_x", 
+        "minervamon_x", 
+        "monzaemon_x", 
+        "nefertimon_x", 
+        "noble_pumpmon", 
+        "numemon_x", 
+        "ofanimon_falldown_mode", 
+        "ofanimon_falldown_mode_x", 
+        "ofanimon_x", 
+        "ogremon_x", 
+        "ogudomon_x", 
+        "okuwamon_x", 
+        "omegamon_x", 
+        "omega_shoutmon_x", 
+        "omekamon", 
+        "ophanimon_falldown_mode", 
+        "ophanimon_x", 
+        "otamamon_x", 
+        "ouryumon", 
+        "paledramon", 
+        "palmon_x", 
+        "pegasmon_x", 
+        "platinum_numemon", 
+        "plesiomon_x", 
+        "plotmon_x", 
+        "prince_mamemon_x", 
+        "pteranmon_x", 
+        "pteranomon_x", 
+        "pumpmon", 
+        "puttimon", 
+        "rafflesimon", 
+        "raihimon", 
+        "rapidmon_x", 
+        "rasenmon_fury_mode", 
+        "rasenmon", 
+        "rekamon_x", 
+        "renamon_x", 
+        "rhinomon_x", 
+        "rize_greymon_x", 
+        "rosemon_x", 
+        "ryudamon", 
+        "sakuyamon_x", 
+        "sangloupmon", 
+        "sangoupmon", 
+        "seadramon_x", 
+        "shakomon_x", 
+        "siesamon_x", 
+        "sistermon_blanc", 
+        "skull_baluchimon", 
+        "skull_mammon_x", 
+        "sleipmon_x", 
+        "stiffilmon", 
+        "stiffimon", 
+        "tailmon_x", 
+        "terriermon_x", 
+        "tierriermon_x", 
+        "tiger_vespamon", 
+        "tobcatmon", 
+        "tobucatmon", 
+        "togemon_x", 
+        "tokomon_x", 
+        "triceramon_x", 
+        "tylomon_x", 
+        "tyranomon_x", 
+        "ulforce_v_dramon_x", 
+        "ultimate_brachimon", 
+        "ultimate_brachiomon", 
+        "valdurmon", 
+        "vamdemon_x", 
+        "velgrmon", 
+        "voltobautamon", 
+        "war_greymon_x", 
+        "were_garurumon_x", 
+        "wizarmon_x", 
+        "yaamon", 
+        "yatagaramon", 
+        "zerimon", 
+        
+    };
     created_result_t<dm_sprite_sheet_t> load_dmx_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
         using namespace assets;
-        switch (index) {
-            case DMX_AGUMON_BLACK_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_AGUMON_BLACK_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_AGUMON_BLACK_X_ANIM_INDEX), DMX_AGUMON_BLACK_X_SPRITE_SHEET_COLS, DMX_AGUMON_BLACK_X_SPRITE_SHEET_ROWS);
-            case DMX_AGUMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_AGUMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_AGUMON_X_ANIM_INDEX), DMX_AGUMON_X_SPRITE_SHEET_COLS, DMX_AGUMON_X_SPRITE_SHEET_ROWS);
-            case DMX_ALLOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_ALLOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ALLOMON_X_ANIM_INDEX), DMX_ALLOMON_X_SPRITE_SHEET_COLS, DMX_ALLOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_ALPHAMON_OURYUKEN_ANIM_INDEX: return load_dm_anim(ctx, DMX_ALPHAMON_OURYUKEN_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ALPHAMON_OURYUKEN_ANIM_INDEX), DMX_ALPHAMON_OURYUKEN_SPRITE_SHEET_COLS, DMX_ALPHAMON_OURYUKEN_SPRITE_SHEET_ROWS);
-            case DMX_ALPHAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_ALPHAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ALPHAMON_ANIM_INDEX), DMX_ALPHAMON_SPRITE_SHEET_COLS, DMX_ALPHAMON_SPRITE_SHEET_ROWS);
-            case DMX_ANCIENT_SPHINXMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_ANCIENT_SPHINXMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ANCIENT_SPHINXMON_ANIM_INDEX), DMX_ANCIENT_SPHINXMON_SPRITE_SHEET_COLS, DMX_ANCIENT_SPHINXMON_SPRITE_SHEET_ROWS);
-            case DMX_ANGEWOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_ANGEWOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ANGEWOMON_X_ANIM_INDEX), DMX_ANGEWOMON_X_SPRITE_SHEET_COLS, DMX_ANGEWOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_ANOMALOCARIMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_ANOMALOCARIMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ANOMALOCARIMON_X_ANIM_INDEX), DMX_ANOMALOCARIMON_X_SPRITE_SHEET_COLS, DMX_ANOMALOCARIMON_X_SPRITE_SHEET_ROWS);
-            case DMX_BAGRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_BAGRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BAGRAMON_ANIM_INDEX), DMX_BAGRAMON_SPRITE_SHEET_COLS, DMX_BAGRAMON_SPRITE_SHEET_ROWS);
-            case DMX_BARBAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_BARBAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BARBAMON_X_ANIM_INDEX), DMX_BARBAMON_X_SPRITE_SHEET_COLS, DMX_BARBAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_BEEL_STARMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_BEEL_STARMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BEEL_STARMON_X_ANIM_INDEX), DMX_BEEL_STARMON_X_SPRITE_SHEET_COLS, DMX_BEEL_STARMON_X_SPRITE_SHEET_ROWS);
-            case DMX_BEELZEBUMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_BEELZEBUMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BEELZEBUMON_X_ANIM_INDEX), DMX_BEELZEBUMON_X_SPRITE_SHEET_COLS, DMX_BEELZEBUMON_X_SPRITE_SHEET_ROWS);
-            case DMX_BELIAL_VAMDEMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_BELIAL_VAMDEMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BELIAL_VAMDEMON_ANIM_INDEX), DMX_BELIAL_VAMDEMON_SPRITE_SHEET_COLS, DMX_BELIAL_VAMDEMON_SPRITE_SHEET_ROWS);
-            case DMX_BELPHEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_BELPHEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BELPHEMON_X_ANIM_INDEX), DMX_BELPHEMON_X_SPRITE_SHEET_COLS, DMX_BELPHEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_BLACK_WARGREYMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_BLACK_WARGREYMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BLACK_WARGREYMON_X_ANIM_INDEX), DMX_BLACK_WARGREYMON_X_SPRITE_SHEET_COLS, DMX_BLACK_WARGREYMON_X_SPRITE_SHEET_ROWS);
-            case DMX_BLACK_WAR_GREYMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_BLACK_WAR_GREYMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_BLACK_WAR_GREYMON_X_ANIM_INDEX), DMX_BLACK_WAR_GREYMON_X_SPRITE_SHEET_COLS, DMX_BLACK_WAR_GREYMON_X_SPRITE_SHEET_ROWS);
-            case DMX_CANNONBEEMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_CANNONBEEMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CANNONBEEMON_ANIM_INDEX), DMX_CANNONBEEMON_SPRITE_SHEET_COLS, DMX_CANNONBEEMON_SPRITE_SHEET_ROWS);
-            case DMX_CANNON_BEEMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_CANNON_BEEMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CANNON_BEEMON_ANIM_INDEX), DMX_CANNON_BEEMON_SPRITE_SHEET_COLS, DMX_CANNON_BEEMON_SPRITE_SHEET_ROWS);
-            case DMX_CERBERUMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_CERBERUMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CERBERUMON_X_ANIM_INDEX), DMX_CERBERUMON_X_SPRITE_SHEET_COLS, DMX_CERBERUMON_X_SPRITE_SHEET_ROWS);
-            case DMX_CHAOSDRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_CHAOSDRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CHAOSDRAMON_X_ANIM_INDEX), DMX_CHAOSDRAMON_X_SPRITE_SHEET_COLS, DMX_CHAOSDRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_CHERUBIMON_VICE_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_CHERUBIMON_VICE_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CHERUBIMON_VICE_X_ANIM_INDEX), DMX_CHERUBIMON_VICE_X_SPRITE_SHEET_COLS, DMX_CHERUBIMON_VICE_X_SPRITE_SHEET_ROWS);
-            case DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CHERUBIMON_VIRTUE_X_ANIM_INDEX), DMX_CHERUBIMON_VIRTUE_X_SPRITE_SHEET_COLS, DMX_CHERUBIMON_VIRTUE_X_SPRITE_SHEET_ROWS);
-            case DMX_CHO_HAKKAIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_CHO_HAKKAIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CHO_HAKKAIMON_ANIM_INDEX), DMX_CHO_HAKKAIMON_SPRITE_SHEET_COLS, DMX_CHO_HAKKAIMON_SPRITE_SHEET_ROWS);
-            case DMX_COCOMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_COCOMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_COCOMON_ANIM_INDEX), DMX_COCOMON_SPRITE_SHEET_COLS, DMX_COCOMON_SPRITE_SHEET_ROWS);
-            case DMX_CRANIUMMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_CRANIUMMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CRANIUMMON_X_ANIM_INDEX), DMX_CRANIUMMON_X_SPRITE_SHEET_COLS, DMX_CRANIUMMON_X_SPRITE_SHEET_ROWS);
-            case DMX_CRYS_PALEDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_CRYS_PALEDRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CRYS_PALEDRAMON_ANIM_INDEX), DMX_CRYS_PALEDRAMON_SPRITE_SHEET_COLS, DMX_CRYS_PALEDRAMON_SPRITE_SHEET_ROWS);
-            case DMX_CYBERDRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_CYBERDRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_CYBERDRAMON_X_ANIM_INDEX), DMX_CYBERDRAMON_X_SPRITE_SHEET_COLS, DMX_CYBERDRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DAMEMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DAMEMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DAMEMON_ANIM_INDEX), DMX_DAMEMON_SPRITE_SHEET_COLS, DMX_DAMEMON_SPRITE_SHEET_ROWS);
-            case DMX_DARK_KNIGHTMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DARK_KNIGHTMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DARK_KNIGHTMON_X_ANIM_INDEX), DMX_DARK_KNIGHTMON_X_SPRITE_SHEET_COLS, DMX_DARK_KNIGHTMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DARKNESS_BAGRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DARKNESS_BAGRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DARKNESS_BAGRAMON_ANIM_INDEX), DMX_DARKNESS_BAGRAMON_SPRITE_SHEET_COLS, DMX_DARKNESS_BAGRAMON_SPRITE_SHEET_ROWS);
-            case DMX_DARK_TYRANOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DARK_TYRANOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DARK_TYRANOMON_X_ANIM_INDEX), DMX_DARK_TYRANOMON_X_SPRITE_SHEET_COLS, DMX_DARK_TYRANOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DEMON_X_ANIM_INDEX), DMX_DEMON_X_SPRITE_SHEET_COLS, DMX_DEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DIABLOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DIABLOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DIABLOMON_X_ANIM_INDEX), DMX_DIABLOMON_X_SPRITE_SHEET_COLS, DMX_DIABLOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DINOREXMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DINOREXMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DINOREXMON_ANIM_INDEX), DMX_DINOREXMON_SPRITE_SHEET_COLS, DMX_DINOREXMON_SPRITE_SHEET_ROWS);
-            case DMX_DINOTIGERMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DINOTIGERMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DINOTIGERMON_ANIM_INDEX), DMX_DINOTIGERMON_SPRITE_SHEET_COLS, DMX_DINOTIGERMON_SPRITE_SHEET_ROWS);
-            case DMX_DORUGAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DORUGAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DORUGAMON_ANIM_INDEX), DMX_DORUGAMON_SPRITE_SHEET_COLS, DMX_DORUGAMON_SPRITE_SHEET_ROWS);
-            case DMX_DORUGUREMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DORUGUREMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DORUGUREMON_ANIM_INDEX), DMX_DORUGUREMON_SPRITE_SHEET_COLS, DMX_DORUGUREMON_SPRITE_SHEET_ROWS);
-            case DMX_DORUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DORUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DORUMON_ANIM_INDEX), DMX_DORUMON_SPRITE_SHEET_COLS, DMX_DORUMON_SPRITE_SHEET_ROWS);
-            case DMX_DRACOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DRACOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DRACOMON_X_ANIM_INDEX), DMX_DRACOMON_X_SPRITE_SHEET_COLS, DMX_DRACOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DUFTMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DUFTMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DUFTMON_X_ANIM_INDEX), DMX_DUFTMON_X_SPRITE_SHEET_COLS, DMX_DUFTMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DUKEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DUKEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DUKEMON_X_ANIM_INDEX), DMX_DUKEMON_X_SPRITE_SHEET_COLS, DMX_DUKEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_DUSKMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_DUSKMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DUSKMON_ANIM_INDEX), DMX_DUSKMON_SPRITE_SHEET_COLS, DMX_DUSKMON_SPRITE_SHEET_ROWS);
-            case DMX_DYNASMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_DYNASMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_DYNASMON_X_ANIM_INDEX), DMX_DYNASMON_X_SPRITE_SHEET_COLS, DMX_DYNASMON_X_SPRITE_SHEET_ROWS);
-            case DMX_EBEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_EBEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_EBEMON_X_ANIM_INDEX), DMX_EBEMON_X_SPRITE_SHEET_COLS, DMX_EBEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_EXAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_EXAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_EXAMON_ANIM_INDEX), DMX_EXAMON_SPRITE_SHEET_COLS, DMX_EXAMON_SPRITE_SHEET_ROWS);
-            case DMX_EXAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_EXAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_EXAMON_X_ANIM_INDEX), DMX_EXAMON_X_SPRITE_SHEET_COLS, DMX_EXAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_FILMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_FILMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_FILMON_ANIM_INDEX), DMX_FILMON_SPRITE_SHEET_COLS, DMX_FILMON_SPRITE_SHEET_ROWS);
-            case DMX_GABUMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_GABUMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GABUMON_X_ANIM_INDEX), DMX_GABUMON_X_SPRITE_SHEET_COLS, DMX_GABUMON_X_SPRITE_SHEET_ROWS);
-            case DMX_GAIOUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GAIOUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GAIOUMON_ANIM_INDEX), DMX_GAIOUMON_SPRITE_SHEET_COLS, DMX_GAIOUMON_SPRITE_SHEET_ROWS);
-            case DMX_GANKOOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_GANKOOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GANKOOMON_X_ANIM_INDEX), DMX_GANKOOMON_X_SPRITE_SHEET_COLS, DMX_GANKOOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_GARUDAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_GARUDAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GARUDAMON_X_ANIM_INDEX), DMX_GARUDAMON_X_SPRITE_SHEET_COLS, DMX_GARUDAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_GIGA_SEADRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GIGA_SEADRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GIGA_SEADRAMON_ANIM_INDEX), DMX_GIGA_SEADRAMON_SPRITE_SHEET_COLS, DMX_GIGA_SEADRAMON_SPRITE_SHEET_ROWS);
-            case DMX_GINRYUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GINRYUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GINRYUMON_ANIM_INDEX), DMX_GINRYUMON_SPRITE_SHEET_COLS, DMX_GINRYUMON_SPRITE_SHEET_ROWS);
-            case DMX_GODDRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_GODDRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GODDRAMON_X_ANIM_INDEX), DMX_GODDRAMON_X_SPRITE_SHEET_COLS, DMX_GODDRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_GOMAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_GOMAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GOMAMON_X_ANIM_INDEX), DMX_GOMAMON_X_SPRITE_SHEET_COLS, DMX_GOMAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_GRADEMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GRADEMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GRADEMON_ANIM_INDEX), DMX_GRADEMON_SPRITE_SHEET_COLS, DMX_GRADEMON_SPRITE_SHEET_ROWS);
-            case DMX_GRAND_DARCUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GRAND_DARCUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GRAND_DARCUMON_ANIM_INDEX), DMX_GRAND_DARCUMON_SPRITE_SHEET_COLS, DMX_GRAND_DARCUMON_SPRITE_SHEET_ROWS);
-            case DMX_GRAND_DRACUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GRAND_DRACUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GRAND_DRACUMON_ANIM_INDEX), DMX_GRAND_DRACUMON_SPRITE_SHEET_COLS, DMX_GRAND_DRACUMON_SPRITE_SHEET_ROWS);
-            case DMX_GRANDIS_KUWAGAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GRANDIS_KUWAGAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GRANDIS_KUWAGAMON_ANIM_INDEX), DMX_GRANDIS_KUWAGAMON_SPRITE_SHEET_COLS, DMX_GRANDIS_KUWAGAMON_SPRITE_SHEET_ROWS);
-            case DMX_GROWMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_GROWMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GROWMON_X_ANIM_INDEX), DMX_GROWMON_X_SPRITE_SHEET_COLS, DMX_GROWMON_X_SPRITE_SHEET_ROWS);
-            case DMX_GUMMYMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_GUMMYMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_GUMMYMON_ANIM_INDEX), DMX_GUMMYMON_SPRITE_SHEET_COLS, DMX_GUMMYMON_SPRITE_SHEET_ROWS);
-            case DMX_HERISSMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_HERISSMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_HERISSMON_ANIM_INDEX), DMX_HERISSMON_SPRITE_SHEET_COLS, DMX_HERISSMON_SPRITE_SHEET_ROWS);
-            case DMX_HEXEBLAUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_HEXEBLAUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_HEXEBLAUMON_ANIM_INDEX), DMX_HEXEBLAUMON_SPRITE_SHEET_COLS, DMX_HEXEBLAUMON_SPRITE_SHEET_ROWS);
-            case DMX_HISYARYUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_HISYARYUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_HISYARYUMON_ANIM_INDEX), DMX_HISYARYUMON_SPRITE_SHEET_COLS, DMX_HISYARYUMON_SPRITE_SHEET_ROWS);
-            case DMX_HOLYDRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_HOLYDRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_HOLYDRAMON_X_ANIM_INDEX), DMX_HOLYDRAMON_X_SPRITE_SHEET_COLS, DMX_HOLYDRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_HOUOUMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_HOUOUMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_HOUOUMON_X_ANIM_INDEX), DMX_HOUOUMON_X_SPRITE_SHEET_COLS, DMX_HOUOUMON_X_SPRITE_SHEET_ROWS);
-            case DMX_IMPMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_IMPMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_IMPMON_X_ANIM_INDEX), DMX_IMPMON_X_SPRITE_SHEET_COLS, DMX_IMPMON_X_SPRITE_SHEET_ROWS);
-            case DMX_JARARCHIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_JARARCHIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_JARARCHIMON_ANIM_INDEX), DMX_JARARCHIMON_SPRITE_SHEET_COLS, DMX_JARARCHIMON_SPRITE_SHEET_ROWS);
-            case DMX_JAZAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_JAZAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_JAZAMON_ANIM_INDEX), DMX_JAZAMON_SPRITE_SHEET_COLS, DMX_JAZAMON_SPRITE_SHEET_ROWS);
-            case DMX_JAZARDMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_JAZARDMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_JAZARDMON_ANIM_INDEX), DMX_JAZARDMON_SPRITE_SHEET_COLS, DMX_JAZARDMON_SPRITE_SHEET_ROWS);
-            case DMX_JAZARICHMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_JAZARICHMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_JAZARICHMON_ANIM_INDEX), DMX_JAZARICHMON_SPRITE_SHEET_COLS, DMX_JAZARICHMON_SPRITE_SHEET_ROWS);
-            case DMX_JESMON_GX_ANIM_INDEX: return load_dm_anim(ctx, DMX_JESMON_GX_ANIM_INDEX, get_dmx_sprite_sheet(DMX_JESMON_GX_ANIM_INDEX), DMX_JESMON_GX_SPRITE_SHEET_COLS, DMX_JESMON_GX_SPRITE_SHEET_ROWS);
-            case DMX_JESMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_JESMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_JESMON_X_ANIM_INDEX), DMX_JESMON_X_SPRITE_SHEET_COLS, DMX_JESMON_X_SPRITE_SHEET_ROWS);
-            case DMX_JUSTIMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_JUSTIMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_JUSTIMON_X_ANIM_INDEX), DMX_JUSTIMON_X_SPRITE_SHEET_COLS, DMX_JUSTIMON_X_SPRITE_SHEET_ROWS);
-            case DMX_KAISER_LEOMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_KAISER_LEOMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_KAISER_LEOMON_ANIM_INDEX), DMX_KAISER_LEOMON_SPRITE_SHEET_COLS, DMX_KAISER_LEOMON_SPRITE_SHEET_ROWS);
-            case DMX_KEEMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_KEEMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_KEEMON_ANIM_INDEX), DMX_KEEMON_SPRITE_SHEET_COLS, DMX_KEEMON_SPRITE_SHEET_ROWS);
-            case DMX_KERAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_KERAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_KERAMON_X_ANIM_INDEX), DMX_KERAMON_X_SPRITE_SHEET_COLS, DMX_KERAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_KIIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_KIIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_KIIMON_ANIM_INDEX), DMX_KIIMON_SPRITE_SHEET_COLS, DMX_KIIMON_SPRITE_SHEET_ROWS);
-            case DMX_KOKUWAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_KOKUWAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_KOKUWAMON_X_ANIM_INDEX), DMX_KOKUWAMON_X_SPRITE_SHEET_COLS, DMX_KOKUWAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_KUWAGAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_KUWAGAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_KUWAGAMON_X_ANIM_INDEX), DMX_KUWAGAMON_X_SPRITE_SHEET_COLS, DMX_KUWAGAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LADY_DEVIMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LADY_DEVIMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LADY_DEVIMON_X_ANIM_INDEX), DMX_LADY_DEVIMON_X_SPRITE_SHEET_COLS, DMX_LADY_DEVIMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LEOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LEOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LEOMON_X_ANIM_INDEX), DMX_LEOMON_X_SPRITE_SHEET_COLS, DMX_LEOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LEVIAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LEVIAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LEVIAMON_X_ANIM_INDEX), DMX_LEVIAMON_X_SPRITE_SHEET_COLS, DMX_LEVIAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LILIMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LILIMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LILIMON_X_ANIM_INDEX), DMX_LILIMON_X_SPRITE_SHEET_COLS, DMX_LILIMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LILITHMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LILITHMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LILITHMON_X_ANIM_INDEX), DMX_LILITHMON_X_SPRITE_SHEET_COLS, DMX_LILITHMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LOPMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LOPMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LOPMON_X_ANIM_INDEX), DMX_LOPMON_X_SPRITE_SHEET_COLS, DMX_LOPMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LORD_KIGHTMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LORD_KIGHTMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LORD_KIGHTMON_X_ANIM_INDEX), DMX_LORD_KIGHTMON_X_SPRITE_SHEET_COLS, DMX_LORD_KIGHTMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LORD_KNIGHTMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LORD_KNIGHTMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LORD_KNIGHTMON_X_ANIM_INDEX), DMX_LORD_KNIGHTMON_X_SPRITE_SHEET_COLS, DMX_LORD_KNIGHTMON_X_SPRITE_SHEET_ROWS);
-            case DMX_LUCEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_LUCEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_LUCEMON_X_ANIM_INDEX), DMX_LUCEMON_X_SPRITE_SHEET_COLS, DMX_LUCEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MAGIDRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MAGIDRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MAGIDRAMON_X_ANIM_INDEX), DMX_MAGIDRAMON_X_SPRITE_SHEET_COLS, DMX_MAGIDRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MAGNAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MAGNAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MAGNAMON_X_ANIM_INDEX), DMX_MAGNAMON_X_SPRITE_SHEET_COLS, DMX_MAGNAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MAMEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MAMEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MAMEMON_X_ANIM_INDEX), DMX_MAMEMON_X_SPRITE_SHEET_COLS, DMX_MAMEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MAMETYRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_MAMETYRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MAMETYRAMON_ANIM_INDEX), DMX_MAMETYRAMON_SPRITE_SHEET_COLS, DMX_MAMETYRAMON_SPRITE_SHEET_ROWS);
-            case DMX_MAME_TYRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_MAME_TYRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MAME_TYRAMON_ANIM_INDEX), DMX_MAME_TYRAMON_SPRITE_SHEET_COLS, DMX_MAME_TYRAMON_SPRITE_SHEET_ROWS);
-            case DMX_MAMMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MAMMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MAMMON_X_ANIM_INDEX), DMX_MAMMON_X_SPRITE_SHEET_COLS, DMX_MAMMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MANTARAYMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MANTARAYMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MANTARAYMON_X_ANIM_INDEX), DMX_MANTARAYMON_X_SPRITE_SHEET_COLS, DMX_MANTARAYMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MEGALO_GROWMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MEGALO_GROWMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MEGALO_GROWMON_X_ANIM_INDEX), DMX_MEGALO_GROWMON_X_SPRITE_SHEET_COLS, DMX_MEGALO_GROWMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MEGA_SEADRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MEGA_SEADRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MEGA_SEADRAMON_X_ANIM_INDEX), DMX_MEGA_SEADRAMON_X_SPRITE_SHEET_COLS, DMX_MEGA_SEADRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MEGIDRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MEGIDRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MEGIDRAMON_X_ANIM_INDEX), DMX_MEGIDRAMON_X_SPRITE_SHEET_COLS, DMX_MEGIDRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MEPHISMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MEPHISMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MEPHISMON_X_ANIM_INDEX), DMX_MEPHISMON_X_SPRITE_SHEET_COLS, DMX_MEPHISMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MERAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MERAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MERAMON_X_ANIM_INDEX), DMX_MERAMON_X_SPRITE_SHEET_COLS, DMX_MERAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_METAL_FANTOMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_METAL_FANTOMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_METAL_FANTOMON_ANIM_INDEX), DMX_METAL_FANTOMON_SPRITE_SHEET_COLS, DMX_METAL_FANTOMON_SPRITE_SHEET_ROWS);
-            case DMX_METAL_GARURUMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_METAL_GARURUMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_METAL_GARURUMON_X_ANIM_INDEX), DMX_METAL_GARURUMON_X_SPRITE_SHEET_COLS, DMX_METAL_GARURUMON_X_SPRITE_SHEET_ROWS);
-            case DMX_METAL_GREYMON_VIRUS_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_METAL_GREYMON_VIRUS_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_METAL_GREYMON_VIRUS_X_ANIM_INDEX), DMX_METAL_GREYMON_VIRUS_X_SPRITE_SHEET_COLS, DMX_METAL_GREYMON_VIRUS_X_SPRITE_SHEET_ROWS);
-            case DMX_METAL_GREYMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_METAL_GREYMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_METAL_GREYMON_X_ANIM_INDEX), DMX_METAL_GREYMON_X_SPRITE_SHEET_COLS, DMX_METAL_GREYMON_X_SPRITE_SHEET_ROWS);
-            case DMX_METALLICDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_METALLICDRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_METALLICDRAMON_ANIM_INDEX), DMX_METALLICDRAMON_SPRITE_SHEET_COLS, DMX_METALLICDRAMON_SPRITE_SHEET_ROWS);
-            case DMX_METAL_PIRANIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_METAL_PIRANIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_METAL_PIRANIMON_ANIM_INDEX), DMX_METAL_PIRANIMON_SPRITE_SHEET_COLS, DMX_METAL_PIRANIMON_SPRITE_SHEET_ROWS);
-            case DMX_METAL_TYRANOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_METAL_TYRANOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_METAL_TYRANOMON_X_ANIM_INDEX), DMX_METAL_TYRANOMON_X_SPRITE_SHEET_COLS, DMX_METAL_TYRANOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MINERVAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MINERVAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MINERVAMON_X_ANIM_INDEX), DMX_MINERVAMON_X_SPRITE_SHEET_COLS, DMX_MINERVAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_MONZAEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_MONZAEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_MONZAEMON_X_ANIM_INDEX), DMX_MONZAEMON_X_SPRITE_SHEET_COLS, DMX_MONZAEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_NEFERTIMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_NEFERTIMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_NEFERTIMON_X_ANIM_INDEX), DMX_NEFERTIMON_X_SPRITE_SHEET_COLS, DMX_NEFERTIMON_X_SPRITE_SHEET_ROWS);
-            case DMX_NOBLE_PUMPMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_NOBLE_PUMPMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_NOBLE_PUMPMON_ANIM_INDEX), DMX_NOBLE_PUMPMON_SPRITE_SHEET_COLS, DMX_NOBLE_PUMPMON_SPRITE_SHEET_ROWS);
-            case DMX_NUMEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_NUMEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_NUMEMON_X_ANIM_INDEX), DMX_NUMEMON_X_SPRITE_SHEET_COLS, DMX_NUMEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OFANIMON_FALLDOWN_MODE_ANIM_INDEX: return load_dm_anim(ctx, DMX_OFANIMON_FALLDOWN_MODE_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OFANIMON_FALLDOWN_MODE_ANIM_INDEX), DMX_OFANIMON_FALLDOWN_MODE_SPRITE_SHEET_COLS, DMX_OFANIMON_FALLDOWN_MODE_SPRITE_SHEET_ROWS);
-            case DMX_OFANIMON_FALLDOWN_MODE_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OFANIMON_FALLDOWN_MODE_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OFANIMON_FALLDOWN_MODE_X_ANIM_INDEX), DMX_OFANIMON_FALLDOWN_MODE_X_SPRITE_SHEET_COLS, DMX_OFANIMON_FALLDOWN_MODE_X_SPRITE_SHEET_ROWS);
-            case DMX_OFANIMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OFANIMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OFANIMON_X_ANIM_INDEX), DMX_OFANIMON_X_SPRITE_SHEET_COLS, DMX_OFANIMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OGREMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OGREMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OGREMON_X_ANIM_INDEX), DMX_OGREMON_X_SPRITE_SHEET_COLS, DMX_OGREMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OGUDOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OGUDOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OGUDOMON_X_ANIM_INDEX), DMX_OGUDOMON_X_SPRITE_SHEET_COLS, DMX_OGUDOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OKUWAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OKUWAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OKUWAMON_X_ANIM_INDEX), DMX_OKUWAMON_X_SPRITE_SHEET_COLS, DMX_OKUWAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OMEGAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OMEGAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OMEGAMON_X_ANIM_INDEX), DMX_OMEGAMON_X_SPRITE_SHEET_COLS, DMX_OMEGAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OMEGA_SHOUTMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OMEGA_SHOUTMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OMEGA_SHOUTMON_X_ANIM_INDEX), DMX_OMEGA_SHOUTMON_X_SPRITE_SHEET_COLS, DMX_OMEGA_SHOUTMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OMEKAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_OMEKAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OMEKAMON_ANIM_INDEX), DMX_OMEKAMON_SPRITE_SHEET_COLS, DMX_OMEKAMON_SPRITE_SHEET_ROWS);
-            case DMX_OPHANIMON_FALLDOWN_MODE_ANIM_INDEX: return load_dm_anim(ctx, DMX_OPHANIMON_FALLDOWN_MODE_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OPHANIMON_FALLDOWN_MODE_ANIM_INDEX), DMX_OPHANIMON_FALLDOWN_MODE_SPRITE_SHEET_COLS, DMX_OPHANIMON_FALLDOWN_MODE_SPRITE_SHEET_ROWS);
-            case DMX_OPHANIMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OPHANIMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OPHANIMON_X_ANIM_INDEX), DMX_OPHANIMON_X_SPRITE_SHEET_COLS, DMX_OPHANIMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OTAMAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_OTAMAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OTAMAMON_X_ANIM_INDEX), DMX_OTAMAMON_X_SPRITE_SHEET_COLS, DMX_OTAMAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_OURYUMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_OURYUMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_OURYUMON_ANIM_INDEX), DMX_OURYUMON_SPRITE_SHEET_COLS, DMX_OURYUMON_SPRITE_SHEET_ROWS);
-            case DMX_PALEDRAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_PALEDRAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PALEDRAMON_ANIM_INDEX), DMX_PALEDRAMON_SPRITE_SHEET_COLS, DMX_PALEDRAMON_SPRITE_SHEET_ROWS);
-            case DMX_PALMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_PALMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PALMON_X_ANIM_INDEX), DMX_PALMON_X_SPRITE_SHEET_COLS, DMX_PALMON_X_SPRITE_SHEET_ROWS);
-            case DMX_PEGASMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_PEGASMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PEGASMON_X_ANIM_INDEX), DMX_PEGASMON_X_SPRITE_SHEET_COLS, DMX_PEGASMON_X_SPRITE_SHEET_ROWS);
-            case DMX_PLATINUM_NUMEMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_PLATINUM_NUMEMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PLATINUM_NUMEMON_ANIM_INDEX), DMX_PLATINUM_NUMEMON_SPRITE_SHEET_COLS, DMX_PLATINUM_NUMEMON_SPRITE_SHEET_ROWS);
-            case DMX_PLESIOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_PLESIOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PLESIOMON_X_ANIM_INDEX), DMX_PLESIOMON_X_SPRITE_SHEET_COLS, DMX_PLESIOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_PLOTMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_PLOTMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PLOTMON_X_ANIM_INDEX), DMX_PLOTMON_X_SPRITE_SHEET_COLS, DMX_PLOTMON_X_SPRITE_SHEET_ROWS);
-            case DMX_PRINCE_MAMEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_PRINCE_MAMEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PRINCE_MAMEMON_X_ANIM_INDEX), DMX_PRINCE_MAMEMON_X_SPRITE_SHEET_COLS, DMX_PRINCE_MAMEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_PTERANMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_PTERANMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PTERANMON_X_ANIM_INDEX), DMX_PTERANMON_X_SPRITE_SHEET_COLS, DMX_PTERANMON_X_SPRITE_SHEET_ROWS);
-            case DMX_PTERANOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_PTERANOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PTERANOMON_X_ANIM_INDEX), DMX_PTERANOMON_X_SPRITE_SHEET_COLS, DMX_PTERANOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_PUMPMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_PUMPMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PUMPMON_ANIM_INDEX), DMX_PUMPMON_SPRITE_SHEET_COLS, DMX_PUMPMON_SPRITE_SHEET_ROWS);
-            case DMX_PUTTIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_PUTTIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_PUTTIMON_ANIM_INDEX), DMX_PUTTIMON_SPRITE_SHEET_COLS, DMX_PUTTIMON_SPRITE_SHEET_ROWS);
-            case DMX_RAFFLESIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_RAFFLESIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RAFFLESIMON_ANIM_INDEX), DMX_RAFFLESIMON_SPRITE_SHEET_COLS, DMX_RAFFLESIMON_SPRITE_SHEET_ROWS);
-            case DMX_RAIHIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_RAIHIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RAIHIMON_ANIM_INDEX), DMX_RAIHIMON_SPRITE_SHEET_COLS, DMX_RAIHIMON_SPRITE_SHEET_ROWS);
-            case DMX_RAPIDMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_RAPIDMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RAPIDMON_X_ANIM_INDEX), DMX_RAPIDMON_X_SPRITE_SHEET_COLS, DMX_RAPIDMON_X_SPRITE_SHEET_ROWS);
-            case DMX_RASENMON_FURY_MODE_ANIM_INDEX: return load_dm_anim(ctx, DMX_RASENMON_FURY_MODE_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RASENMON_FURY_MODE_ANIM_INDEX), DMX_RASENMON_FURY_MODE_SPRITE_SHEET_COLS, DMX_RASENMON_FURY_MODE_SPRITE_SHEET_ROWS);
-            case DMX_RASENMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_RASENMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RASENMON_ANIM_INDEX), DMX_RASENMON_SPRITE_SHEET_COLS, DMX_RASENMON_SPRITE_SHEET_ROWS);
-            case DMX_REKAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_REKAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_REKAMON_X_ANIM_INDEX), DMX_REKAMON_X_SPRITE_SHEET_COLS, DMX_REKAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_RENAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_RENAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RENAMON_X_ANIM_INDEX), DMX_RENAMON_X_SPRITE_SHEET_COLS, DMX_RENAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_RHINOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_RHINOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RHINOMON_X_ANIM_INDEX), DMX_RHINOMON_X_SPRITE_SHEET_COLS, DMX_RHINOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_RIZE_GREYMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_RIZE_GREYMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RIZE_GREYMON_X_ANIM_INDEX), DMX_RIZE_GREYMON_X_SPRITE_SHEET_COLS, DMX_RIZE_GREYMON_X_SPRITE_SHEET_ROWS);
-            case DMX_ROSEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_ROSEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ROSEMON_X_ANIM_INDEX), DMX_ROSEMON_X_SPRITE_SHEET_COLS, DMX_ROSEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_RYUDAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_RYUDAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_RYUDAMON_ANIM_INDEX), DMX_RYUDAMON_SPRITE_SHEET_COLS, DMX_RYUDAMON_SPRITE_SHEET_ROWS);
-            case DMX_SAKUYAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_SAKUYAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SAKUYAMON_X_ANIM_INDEX), DMX_SAKUYAMON_X_SPRITE_SHEET_COLS, DMX_SAKUYAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_SANGLOUPMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_SANGLOUPMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SANGLOUPMON_ANIM_INDEX), DMX_SANGLOUPMON_SPRITE_SHEET_COLS, DMX_SANGLOUPMON_SPRITE_SHEET_ROWS);
-            case DMX_SANGOUPMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_SANGOUPMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SANGOUPMON_ANIM_INDEX), DMX_SANGOUPMON_SPRITE_SHEET_COLS, DMX_SANGOUPMON_SPRITE_SHEET_ROWS);
-            case DMX_SEADRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_SEADRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SEADRAMON_X_ANIM_INDEX), DMX_SEADRAMON_X_SPRITE_SHEET_COLS, DMX_SEADRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_SHAKOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_SHAKOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SHAKOMON_X_ANIM_INDEX), DMX_SHAKOMON_X_SPRITE_SHEET_COLS, DMX_SHAKOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_SIESAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_SIESAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SIESAMON_X_ANIM_INDEX), DMX_SIESAMON_X_SPRITE_SHEET_COLS, DMX_SIESAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_SISTERMON_BLANC_ANIM_INDEX: return load_dm_anim(ctx, DMX_SISTERMON_BLANC_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SISTERMON_BLANC_ANIM_INDEX), DMX_SISTERMON_BLANC_SPRITE_SHEET_COLS, DMX_SISTERMON_BLANC_SPRITE_SHEET_ROWS);
-            case DMX_SKULL_BALUCHIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_SKULL_BALUCHIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SKULL_BALUCHIMON_ANIM_INDEX), DMX_SKULL_BALUCHIMON_SPRITE_SHEET_COLS, DMX_SKULL_BALUCHIMON_SPRITE_SHEET_ROWS);
-            case DMX_SKULL_MAMMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_SKULL_MAMMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SKULL_MAMMON_X_ANIM_INDEX), DMX_SKULL_MAMMON_X_SPRITE_SHEET_COLS, DMX_SKULL_MAMMON_X_SPRITE_SHEET_ROWS);
-            case DMX_SLEIPMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_SLEIPMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_SLEIPMON_X_ANIM_INDEX), DMX_SLEIPMON_X_SPRITE_SHEET_COLS, DMX_SLEIPMON_X_SPRITE_SHEET_ROWS);
-            case DMX_STIFFILMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_STIFFILMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_STIFFILMON_ANIM_INDEX), DMX_STIFFILMON_SPRITE_SHEET_COLS, DMX_STIFFILMON_SPRITE_SHEET_ROWS);
-            case DMX_STIFFIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_STIFFIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_STIFFIMON_ANIM_INDEX), DMX_STIFFIMON_SPRITE_SHEET_COLS, DMX_STIFFIMON_SPRITE_SHEET_ROWS);
-            case DMX_TAILMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TAILMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TAILMON_X_ANIM_INDEX), DMX_TAILMON_X_SPRITE_SHEET_COLS, DMX_TAILMON_X_SPRITE_SHEET_ROWS);
-            case DMX_TERRIERMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TERRIERMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TERRIERMON_X_ANIM_INDEX), DMX_TERRIERMON_X_SPRITE_SHEET_COLS, DMX_TERRIERMON_X_SPRITE_SHEET_ROWS);
-            case DMX_TIERRIERMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TIERRIERMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TIERRIERMON_X_ANIM_INDEX), DMX_TIERRIERMON_X_SPRITE_SHEET_COLS, DMX_TIERRIERMON_X_SPRITE_SHEET_ROWS);
-            case DMX_TIGER_VESPAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_TIGER_VESPAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TIGER_VESPAMON_ANIM_INDEX), DMX_TIGER_VESPAMON_SPRITE_SHEET_COLS, DMX_TIGER_VESPAMON_SPRITE_SHEET_ROWS);
-            case DMX_TOBCATMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_TOBCATMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TOBCATMON_ANIM_INDEX), DMX_TOBCATMON_SPRITE_SHEET_COLS, DMX_TOBCATMON_SPRITE_SHEET_ROWS);
-            case DMX_TOBUCATMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_TOBUCATMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TOBUCATMON_ANIM_INDEX), DMX_TOBUCATMON_SPRITE_SHEET_COLS, DMX_TOBUCATMON_SPRITE_SHEET_ROWS);
-            case DMX_TOGEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TOGEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TOGEMON_X_ANIM_INDEX), DMX_TOGEMON_X_SPRITE_SHEET_COLS, DMX_TOGEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_TOKOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TOKOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TOKOMON_X_ANIM_INDEX), DMX_TOKOMON_X_SPRITE_SHEET_COLS, DMX_TOKOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_TRICERAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TRICERAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TRICERAMON_X_ANIM_INDEX), DMX_TRICERAMON_X_SPRITE_SHEET_COLS, DMX_TRICERAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_TYLOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TYLOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TYLOMON_X_ANIM_INDEX), DMX_TYLOMON_X_SPRITE_SHEET_COLS, DMX_TYLOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_TYRANOMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_TYRANOMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_TYRANOMON_X_ANIM_INDEX), DMX_TYRANOMON_X_SPRITE_SHEET_COLS, DMX_TYRANOMON_X_SPRITE_SHEET_ROWS);
-            case DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ULFORCE_V_DRAMON_X_ANIM_INDEX), DMX_ULFORCE_V_DRAMON_X_SPRITE_SHEET_COLS, DMX_ULFORCE_V_DRAMON_X_SPRITE_SHEET_ROWS);
-            case DMX_ULTIMATE_BRACHIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_ULTIMATE_BRACHIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ULTIMATE_BRACHIMON_ANIM_INDEX), DMX_ULTIMATE_BRACHIMON_SPRITE_SHEET_COLS, DMX_ULTIMATE_BRACHIMON_SPRITE_SHEET_ROWS);
-            case DMX_ULTIMATE_BRACHIOMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_ULTIMATE_BRACHIOMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ULTIMATE_BRACHIOMON_ANIM_INDEX), DMX_ULTIMATE_BRACHIOMON_SPRITE_SHEET_COLS, DMX_ULTIMATE_BRACHIOMON_SPRITE_SHEET_ROWS);
-            case DMX_VALDURMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_VALDURMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_VALDURMON_ANIM_INDEX), DMX_VALDURMON_SPRITE_SHEET_COLS, DMX_VALDURMON_SPRITE_SHEET_ROWS);
-            case DMX_VAMDEMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_VAMDEMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_VAMDEMON_X_ANIM_INDEX), DMX_VAMDEMON_X_SPRITE_SHEET_COLS, DMX_VAMDEMON_X_SPRITE_SHEET_ROWS);
-            case DMX_VELGRMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_VELGRMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_VELGRMON_ANIM_INDEX), DMX_VELGRMON_SPRITE_SHEET_COLS, DMX_VELGRMON_SPRITE_SHEET_ROWS);
-            case DMX_VOLTOBAUTAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_VOLTOBAUTAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_VOLTOBAUTAMON_ANIM_INDEX), DMX_VOLTOBAUTAMON_SPRITE_SHEET_COLS, DMX_VOLTOBAUTAMON_SPRITE_SHEET_ROWS);
-            case DMX_WAR_GREYMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_WAR_GREYMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_WAR_GREYMON_X_ANIM_INDEX), DMX_WAR_GREYMON_X_SPRITE_SHEET_COLS, DMX_WAR_GREYMON_X_SPRITE_SHEET_ROWS);
-            case DMX_WERE_GARURUMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_WERE_GARURUMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_WERE_GARURUMON_X_ANIM_INDEX), DMX_WERE_GARURUMON_X_SPRITE_SHEET_COLS, DMX_WERE_GARURUMON_X_SPRITE_SHEET_ROWS);
-            case DMX_WIZARMON_X_ANIM_INDEX: return load_dm_anim(ctx, DMX_WIZARMON_X_ANIM_INDEX, get_dmx_sprite_sheet(DMX_WIZARMON_X_ANIM_INDEX), DMX_WIZARMON_X_SPRITE_SHEET_COLS, DMX_WIZARMON_X_SPRITE_SHEET_ROWS);
-            case DMX_YAAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_YAAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_YAAMON_ANIM_INDEX), DMX_YAAMON_SPRITE_SHEET_COLS, DMX_YAAMON_SPRITE_SHEET_ROWS);
-            case DMX_YATAGARAMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_YATAGARAMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_YATAGARAMON_ANIM_INDEX), DMX_YATAGARAMON_SPRITE_SHEET_COLS, DMX_YATAGARAMON_SPRITE_SHEET_ROWS);
-            case DMX_ZERIMON_ANIM_INDEX: return load_dm_anim(ctx, DMX_ZERIMON_ANIM_INDEX, get_dmx_sprite_sheet(DMX_ZERIMON_ANIM_INDEX), DMX_ZERIMON_SPRITE_SHEET_COLS, DMX_ZERIMON_SPRITE_SHEET_ROWS);
-            default: return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-        }
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        assert(LEN_ARRAY(dmx_dims_table) == DMX_ANIM_COUNT);
+        assert(LEN_ARRAY(dmx_pngs_table) == DMX_ANIM_COUNT);
+        assert(LEN_ARRAY(dmx_png_sizes_table) == DMX_ANIM_COUNT);
+        assert(LEN_ARRAY(dmx_names_table) == DMX_ANIM_COUNT);
+        assert(index < DMX_ANIM_COUNT);
+        assert(LEN_ARRAY(dmx_pngs_table) <= INT32_MAX);
+        assert(index < INT32_MAX);
+        return load_dm_anim(ctx, static_cast<int32_t>(index), {dmx_pngs_table[index], dmx_png_sizes_table[index], dmx_names_table[index]}, dmx_dims_table[index].cols, dmx_dims_table[index].rows);
     }
 }
 

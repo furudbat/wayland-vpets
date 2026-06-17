@@ -248,7 +248,7 @@ init_ms_agent_anim(animation_thread_context_t& ctx, size_t anim_index, const ass
   BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
   BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-  assert(anim_index >= 0 && static_cast<size_t>(anim_index) < MS_AGENTS_ANIM_COUNT);
+  assert(anim_index < MS_AGENTS_ANIM_COUNT);
   BONGOCAT_LOG_VERBOSE("Load MS agent Animation (%d/%d): %s ...", anim_index, MS_AGENTS_ANIM_COUNT,
                        sprite_sheet_image.name);
   auto result =
@@ -260,9 +260,8 @@ init_ms_agent_anim(animation_thread_context_t& ctx, size_t anim_index, const ass
   assert(result.error ==
          bongocat_error_t::BONGOCAT_SUCCESS);  ///< this SHOULD always work if it's an valid EMBEDDED image
 
-  assert(anim_index >= 0);
-  ctx.shm->ms_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-  assert(ctx.shm->ms_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::MsAgent);
+  ctx.shm->ms_anims[anim_index] = bongocat::move(result.result);
+  assert(ctx.shm->ms_anims[anim_index].type == animation_t::type_t::MsAgent);
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }

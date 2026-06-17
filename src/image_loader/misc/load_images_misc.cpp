@@ -13,7 +13,7 @@ bongocat_error_t init_misc_anim(animation_thread_context_t& ctx, size_t anim_ind
   BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
   BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-  assert(anim_index >= 0 && static_cast<size_t>(anim_index) < MISC_ANIM_COUNT);
+  assert(anim_index < MISC_ANIM_COUNT);
   BONGOCAT_LOG_VERBOSE("Load misc Animation (%d/%d): %s ...", anim_index, MISC_ANIM_COUNT, sprite_sheet_image.name);
   auto result = load_custom_anim(ctx, sprite_sheet_image, sprite_sheet_settings);
   if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -21,9 +21,8 @@ bongocat_error_t init_misc_anim(animation_thread_context_t& ctx, size_t anim_ind
     return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;
   }
 
-  assert(anim_index >= 0);
-  ctx.shm->misc_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-  assert(ctx.shm->misc_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::Custom);
+  ctx.shm->misc_anims[anim_index] = bongocat::move(result.result);
+  assert(ctx.shm->misc_anims[anim_index].type == animation_t::type_t::Custom);
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
