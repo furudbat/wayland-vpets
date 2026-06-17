@@ -1,5 +1,20 @@
 #!/bin/bash
 
+./scripts/generate_embedded_assets_dm_evol.sh assets/dm assets/input/dm src/embedded_assets/dm/dm_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm
+./scripts/generate_embedded_assets_dm_evol.sh assets/dm20 assets/input/dm20 src/embedded_assets/dm20/dm20_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm20
+./scripts/generate_embedded_assets_dm_evol.sh assets/dmc assets/input/dmc-fixed src/embedded_assets/dmc/dmc_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmc
+./scripts/generate_embedded_assets_dm_evol.sh assets/dmx assets/input/dmx src/embedded_assets/dmx/dmx_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmx
+
+./scripts/generate_embedded_assets_dm_evol.sh assets/pen assets/input/pen src/embedded_assets/pen/pen_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen
+./scripts/generate_embedded_assets_dm_evol.sh assets/pen20 assets/input/pen20 src/embedded_assets/pen20/pen20_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen20
+
+./scripts/generate_embedded_assets_dmall_evol.sh assets/dmall assets/input/all-colored src/embedded_assets/dmall/dmall_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmall
+
+./scripts/generate_embedded_assets_pkmn_evol.sh assets/pkmn assets/input/pkmn src/embedded_assets/pkmn/pkmn_get_evolution_data.cpp --cols 2 --rows 1 --layout Pkmn
+
+./scripts/generate_embedded_assets_pmd_evol.sh assets/pmd assets/input/pmd src/embedded_assets/pmd/pmd_get_evolution_data.cpp assets/input/pmd-sprite-meta.json --layout Custom --set pmd
+
+
 ./scripts/generate_embedded_assets_2.sh assets/dm assets/input/dm include/embedded_assets/dm/dm_images.h src/embedded_assets/dm/dm_images.c include/embedded_assets/dm/dm.hpp include/embedded_assets/dm/dm_sprite.h src/embedded_assets/dm/dm_get_sprite_sheet.cpp src/image_loader/dm/dm_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dm
 ./scripts/generate_embedded_assets_2.sh assets/dm20 assets/input/dm20 include/embedded_assets/dm20/dm20_images.h src/embedded_assets/dm20/dm20_images.c include/embedded_assets/dm20/dm20.hpp include/embedded_assets/dm20/dm20_sprite.h src/embedded_assets/dm20/dm20_get_sprite_sheet.cpp src/image_loader/dm20/dm20_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dm20
 ./scripts/generate_embedded_assets_2.sh assets/dmc assets/input/dmc-fixed include/embedded_assets/dmc/dmc_images.h src/embedded_assets/dmc/dmc_images.c include/embedded_assets/dmc/dmc.hpp include/embedded_assets/dmc/dmc_sprite.h src/embedded_assets/dmc/dmc_get_sprite_sheet.cpp src/image_loader/dmc/dmc_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmc
@@ -15,18 +30,3 @@
 ./scripts/generate_embedded_custom_assets.sh assets/pmd assets/input/pmd include/embedded_assets/pmd/pmd_images.h src/embedded_assets/pmd/pmd_images.c include/embedded_assets/pmd/pmd.hpp include/embedded_assets/pmd/pmd_sprite.h src/embedded_assets/pmd/pmd_get_sprite_sheet.cpp src/image_loader/pmd/pmd_load_sprite_sheet.cpp src/embedded_assets/pmd/pmd_get_sprite_sheet_settings.cpp assets/input/pmd-sprite-meta.json --layout Custom --set pmd
 
 # @NOTE(assets): 2.1. generate embedded_assets code
-
-
-./scripts/generate_embedded_assets_dm_evol.sh assets/dm assets/input/dm src/embedded_assets/dm/dm_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm
-./scripts/generate_embedded_assets_dm_evol.sh assets/dm20 assets/input/dm20 src/embedded_assets/dm20/dm20_get_evolution_data.cpp --frame-size 128 --layout Dm --set dm20
-./scripts/generate_embedded_assets_dm_evol.sh assets/dmc assets/input/dmc-fixed src/embedded_assets/dmc/dmc_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmc
-./scripts/generate_embedded_assets_dm_evol.sh assets/dmx assets/input/dmx src/embedded_assets/dmx/dmx_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmx
-
-./scripts/generate_embedded_assets_dm_evol.sh assets/pen assets/input/pen src/embedded_assets/pen/pen_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen
-./scripts/generate_embedded_assets_dm_evol.sh assets/pen20 assets/input/pen20 src/embedded_assets/pen20/pen20_get_evolution_data.cpp --frame-size 128 --layout Dm --set pen20
-
-./scripts/generate_embedded_assets_dmall_evol.sh assets/dmall assets/input/all-colored src/embedded_assets/dmall/dmall_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmall
-
-./scripts/generate_embedded_assets_pkmn_evol.sh assets/pkmn assets/input/pkmn src/embedded_assets/pkmn/pkmn_get_evolution_data.cpp --cols 2 --rows 1 --layout Pkmn
-
-./scripts/generate_embedded_assets_pmd_evol.sh assets/pmd assets/input/pmd src/embedded_assets/pmd/pmd_get_evolution_data.cpp assets/input/pmd-sprite-meta.json --layout Custom --set pmd

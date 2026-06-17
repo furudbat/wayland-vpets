@@ -8,6 +8,6 @@ target_include_directories(
 )
 target_link_libraries(
   assets_pkmn_loader
-  PUBLIC assets_image_loader assets_pkmn
-  PRIVATE assets_pkmn_interface assets_pkmn_feature bongocat_options
+  PUBLIC assets_image_loader
+  PRIVATE assets_pkmn assets_pkmn_interface assets_pkmn_feature bongocat_options
 )

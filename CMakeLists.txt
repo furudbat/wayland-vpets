@@ -393,7 +393,8 @@ if(FEATURE_MULTI_VERSIONS)
   target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_pkmn_loaders bongocat_options bongocat_libs)
 
   add_library(bongocat_all_loaders INTERFACE)
-  target_link_libraries(bongocat_all_loaders INTERFACE assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
+  target_link_libraries(bongocat_all_loaders INTERFACE
+          assets_bongocat_loader assets_bongocat_feature assets_bongocat_interface
           assets_dm_loader assets_dm_feature assets_dm_interface
           assets_dm20_loader assets_dm20_feature assets_dm20_interface
           assets_dmx_loader assets_dmx_feature assets_dmx_interface

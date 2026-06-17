@@ -213,7 +213,8 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dmall: {
       if constexpr (features::EnableDmAllEmbeddedAssets) {
-        auto [l_result, l_error] = load_dmall_sprite_sheet(ctx, anim_index);
+        assert(anim_index >= 0);
+        auto [l_result, l_error] = load_dmall_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }

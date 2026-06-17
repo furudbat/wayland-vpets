@@ -14,7 +14,6 @@
 
 /// @NOTE: Generated embedded assets pen20
 
-
 namespace bongocat::animation {
     static constexpr assets::embedded_sprite_sheet_dims_t pen20_dims_table[] = {
         {assets::PEN20_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN20_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 

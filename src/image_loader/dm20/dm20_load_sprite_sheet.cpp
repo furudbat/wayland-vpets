@@ -14,7 +14,6 @@
 
 /// @NOTE: Generated embedded assets dm20
 
-
 namespace bongocat::animation {
     static constexpr assets::embedded_sprite_sheet_dims_t dm20_dims_table[] = {
         {assets::DM20_AEGISDRAMON_SPRITE_SHEET_COLS, assets::DM20_AEGISDRAMON_SPRITE_SHEET_ROWS}, 

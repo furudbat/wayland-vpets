@@ -1,6 +1,7 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/pkmn/pkmn.hpp"
 #include "pkmn_config_parse_animation_name.h"
+#include "utils/memory.h"
 
 namespace bongocat::assets {
     static const config_animation_entry_t pkmn_animation_table[] = {
@@ -656,16 +657,15 @@ namespace bongocat::assets {
     };
 
     config_animation_entry_t get_config_animation_name_pkmn(size_t index) {
-        // keep aliases in mind
-        for (const auto& entry : pkmn_animation_table) {
-            assert(entry.anim_index >= 0);
-            if (static_cast<size_t>(entry.anim_index) == index) return entry;
-        }
+        assert(LEN_ARRAY(pkmn_animation_table) == PKMN_ANIM_COUNT);
+        assert(index < PKMN_ANIM_COUNT);
         return pkmn_animation_table[index];
     }
 
     int config_parse_animation_name_pkmn(config::config_t& config, const char *value) {
-        for (const auto& entry : pkmn_animation_table) {
+        assert(LEN_ARRAY(pkmn_animation_table) == PKMN_ANIM_COUNT);
+        for (size_t i = 0;i < PKMN_ANIM_COUNT;++i) {
+            const auto& entry = pkmn_animation_table[i];
             if (strcmp(value, entry.name) == 0 ||
                 strcmp(value, entry.id) == 0 ||
                 strcmp(value, entry.fqid) == 0 ||

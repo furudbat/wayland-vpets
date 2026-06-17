@@ -7,7 +7,7 @@
 #include "utils/error.h"
 
 namespace bongocat::animation {
-    created_result_t<pkmn_sprite_sheet_t> load_pkmn_anim(const animation_thread_context_t& ctx, [[maybe_unused]] int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    created_result_t<pkmn_sprite_sheet_t> load_pkmn_anim(const animation_thread_context_t& ctx, [[maybe_unused]] size_t anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
@@ -94,12 +94,12 @@ namespace bongocat::animation {
         return ret;
     }
 
-    bongocat_error_t init_pkmn_anim(animation_thread_context_t& ctx, int anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
+    bongocat_error_t init_pkmn_anim(animation_thread_context_t& ctx, size_t anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows) {
         using namespace assets;
         BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
         BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-        assert(anim_index >= 0 && static_cast<size_t>(anim_index) < PKMN_ANIM_COUNT);
+        assert(anim_index < PKMN_ANIM_COUNT);
         BONGOCAT_LOG_VERBOSE("Load pkmn Animation (%d/%d): %s ...", anim_index, PKMN_ANIM_COUNT, sprite_sheet_image.name);
         auto result = load_pkmn_anim(ctx, anim_index, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
@@ -108,9 +108,8 @@ namespace bongocat::animation {
         }
         assert(result.result.total_frames > 0); ///< this SHOULD always work if it's an valid EMBEDDED image
 
-        assert(anim_index >= 0);
-        ctx.shm->pkmn_anims[static_cast<size_t>(anim_index)] = bongocat::move(result.result);
-        assert(ctx.shm->pkmn_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::Pkmn);
+        ctx.shm->pkmn_anims[anim_index] = bongocat::move(result.result);
+        assert(ctx.shm->pkmn_anims[anim_index].type == animation_t::type_t::Pkmn);
 
         return bongocat_error_t::BONGOCAT_SUCCESS;
     }
