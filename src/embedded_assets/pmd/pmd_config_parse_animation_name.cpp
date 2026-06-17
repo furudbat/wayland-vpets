@@ -868,10 +868,7 @@ namespace bongocat::assets {
     };
 
     config_custom_animation_entry_t get_config_animation_name_pmd(size_t index) {
-        for (const auto& entry : pmd_animation_table) {
-            assert(entry.anim_index >= 0);
-            if (static_cast<size_t>(entry.anim_index) == index) return entry;
-        }
+        assert(index < PMD_ANIM_COUNT);
         return pmd_animation_table[index];
     }
 

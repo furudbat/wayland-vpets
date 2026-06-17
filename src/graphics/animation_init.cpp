@@ -227,7 +227,8 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   } break;
   case config::config_animation_sprite_sheet_layout_t::Pkmn:
     if constexpr (features::EnablePkmnEmbeddedAssets) {
-      auto [result, error] = load_pkmn_sprite_sheet(ctx, anim_index);
+      assert(anim_index >= 0);
+      auto [result, error] = load_pkmn_sprite_sheet(ctx, static_cast<size_t>(anim_index));
       if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
         return error;
       }
@@ -273,7 +274,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
       assert(anim_index >= 0);
       if (current_config.animation_custom_set == config::config_animation_custom_set_t::pmd &&
           static_cast<size_t>(anim_index) < assets::PMD_ANIM_COUNT) {
-        auto [result, error] = load_pmd_sprite_sheet(ctx, anim_index);
+        auto [result, error] = load_pmd_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
           return error;
         }

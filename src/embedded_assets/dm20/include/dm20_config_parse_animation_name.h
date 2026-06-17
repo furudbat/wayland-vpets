@@ -5,7 +5,7 @@
 #include "embedded_assets/embedded_image.h"
 
 namespace bongocat::assets {
-    [[nodiscard]] extern config_animation_entry_t get_config_animation_name_dm20(size_t i);
+    BONGOCAT_NODISCARD extern config_animation_entry_t get_config_animation_name_dm20(size_t i);
     extern int config_parse_animation_name_dm20(config::config_t& config, const char *value);
 }
 

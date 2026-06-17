@@ -23,7 +23,7 @@ enum class overlay_position_t : uint8_t {
 };
 inline static constexpr const char *POSITION_TOP_STR = "top";
 inline static constexpr const char *POSITION_BOTTOM_STR = "bottom";
-[[nodiscard]] constexpr const char *to_string(overlay_position_t position) noexcept {
+BONGOCAT_NODISCARD constexpr const char *to_string(overlay_position_t position) noexcept {
   switch (position) {
   case overlay_position_t::POSITION_TOP:
     return POSITION_TOP_STR;
@@ -44,7 +44,7 @@ inline static constexpr const char *LAYER_BACKGROUND_STR = "background";
 inline static constexpr const char *LAYER_BOTTOM_STR = "bottom";
 inline static constexpr const char *LAYER_TOP_STR = "top";
 inline static constexpr const char *LAYER_OVERLAY_STR = "overlay";
-[[nodiscard]] constexpr const char *to_string(layer_type_t layer) noexcept {
+BONGOCAT_NODISCARD constexpr const char *to_string(layer_type_t layer) noexcept {
   switch (layer) {
   case layer_type_t::LAYER_BACKGROUND:
     return LAYER_BACKGROUND_STR;
@@ -67,7 +67,7 @@ enum class align_type_t : int8_t {
 inline static constexpr const char *ALIGN_CENTER_STR = "center";
 inline static constexpr const char *ALIGN_LEFT_STR = "left";
 inline static constexpr const char *ALIGN_RIGHT_STR = "right";
-[[nodiscard]] constexpr const char *to_string(align_type_t align) noexcept {
+BONGOCAT_NODISCARD constexpr const char *to_string(align_type_t align) noexcept {
   switch (align) {
   case align_type_t::ALIGN_CENTER:
     return ALIGN_CENTER_STR;
@@ -90,7 +90,7 @@ inline static constexpr const char *EVOLUTION_TIME_MODE_NONE_STR = "none";
 inline static constexpr const char *EVOLUTION_TIME_MODE_NORMAL_STR = "normal";
 inline static constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_STR = "program";
 inline static constexpr const char *EVOLUTION_TIME_MODE_UPTIME_STR = "uptime";
-[[nodiscard]] constexpr const char *to_string(evolution_time_mode_t position) noexcept {
+BONGOCAT_NODISCARD constexpr const char *to_string(evolution_time_mode_t position) noexcept {
   switch (position) {
   case evolution_time_mode_t::NONE:
     return EVOLUTION_TIME_MODE_NONE_STR;
