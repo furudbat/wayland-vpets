@@ -1,6 +1,6 @@
 #include "core/bongocat.h"
 #include "utils/memory.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/pen/pen.hpp"
@@ -8,6 +8,8 @@
 #include "embedded_assets/pen/pen_sprite.h"
 #include "image_loader/pen/load_images_pen.h"
 #include "embedded_assets/pen/pen_images.h"
+#include "image_loader/dm/load_images_dm.h"
+
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -524,7 +526,13 @@ namespace bongocat::animation {
         assert(index < PEN_ANIM_COUNT);
         assert(LEN_ARRAY(pen_pngs_table) <= INT32_MAX);
         assert(index < INT32_MAX);
-        return load_dm_anim(ctx, static_cast<int32_t>(index), {pen_pngs_table[index], pen_png_sizes_table[index], pen_names_table[index]}, pen_dims_table[index].cols, pen_dims_table[index].rows);
+        return load_base_dm_anim(ctx, index, {pen_pngs_table[index], pen_png_sizes_table[index], pen_names_table[index]}, pen_dims_table[index].cols, pen_dims_table[index].rows);
+    }
+    void init_all_pen_anim(animation_thread_context_t& ctx) {
+        using namespace assets;
+        for (size_t i = 0;i < PEN_ANIM_COUNT;++i) {
+            init_pen_anim(ctx, i, {pen_pngs_table[i], pen_png_sizes_table[i], pen_names_table[i]}, pen_dims_table[i].cols, pen_dims_table[i].rows);
+        }
     }
 }
 

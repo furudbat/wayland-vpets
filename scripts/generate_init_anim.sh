@@ -113,10 +113,13 @@ for FILE in "$INPUT_DIR"/*.png; do
     if [[ -n $ALT ]]; then
       ALT_LOWER=$(echo "$ALT" | tr '[:upper:]' '[:lower:]')
       ALT_UPPER=$(echo "$ALT" | tr '[:lower:]' '[:upper:]')
+      ALT_FQID="${ALT_LOWER}:${IDENTIFIER}"
+      ALT_FQNAME="${ALT_LOWER}:${NAME_NO_EXT}"
 
-      ALT_MACRO_PREFIX=$(echo "${ASSETS_PREFIX_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
+      ALT_MACRO_PREFIX=$(echo "${ALT_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
 
-      OUTPUT_FILE_5_ALT_ANIMATION_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}\n        "
+      #OUTPUT_FILE_5_ALT_ANIMATION_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${ALT_MACRO_PREFIX}_FQID, ${ALT_MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}\n        "
+      OUTPUT_FILE_5_ALT_ANIMATION_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, \"${ALT_FQID}\", \"${ALT_FQNAME}\", ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}\n        "
     fi
 
     echo "Add $IDENTIFIER"
@@ -151,12 +154,14 @@ echo "#include \"utils/memory.h\"" >> "$OUTPUT_FILE_5"
 echo "" >> "$OUTPUT_FILE_5"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_5"
 echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
-echo -e "        ${OUTPUT_FILE_5_ANIMATION_TABLE}" >> "$OUTPUT_FILE_3"
+echo -e "        ${OUTPUT_FILE_5_ANIMATION_TABLE}" >> "$OUTPUT_FILE_5"
 echo '    };' >> "$OUTPUT_FILE_5"
-echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_alt_animation_table[] = {" >> "$OUTPUT_FILE_5"
-echo -e "        ${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}" >> "$OUTPUT_FILE_3"
-echo '    };' >> "$OUTPUT_FILE_5"
-echo "    static const size_t ${ASSETS_PREFIX_LOWER}_alt_animation_table_size = LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table);" >> "$OUTPUT_FILE_5"
+if [[ -n $ALT ]]; then
+  echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_alt_animation_table[] = {" >> "$OUTPUT_FILE_5"
+  echo -e "        ${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}" >> "$OUTPUT_FILE_5"
+  echo '    };' >> "$OUTPUT_FILE_5"
+  echo "    static const size_t ${ASSETS_PREFIX_LOWER}_alt_animation_table_size = LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table);" >> "$OUTPUT_FILE_5"
+fi
 echo >> "$OUTPUT_FILE_5"
 echo "    config_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t index) {" >> "$OUTPUT_FILE_5"
 #echo "        for (const auto& entry : ${ASSETS_PREFIX_LOWER}_animation_table) {" >> "$OUTPUT_FILE_5"
@@ -182,18 +187,20 @@ echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "
 echo '                return entry.anim_index;' >> "$OUTPUT_FILE_5"
 echo '            }' >> "$OUTPUT_FILE_5"
 echo '        }' >> "$OUTPUT_FILE_5"
-echo "        for (size_t i = 0;i < ${ASSETS_PREFIX_LOWER}_alt_animation_table_size;++i) {" >> "$OUTPUT_FILE_5"
-echo "            const auto& entry = ${ASSETS_PREFIX_LOWER}_alt_animation_table[i];" >> "$OUTPUT_FILE_5"
-echo "            if (strcmp(value, entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
-echo "                strcmp(value, entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
-echo "                strcmp(value, entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
-echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
-echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
-echo "                config.animation_dm_set = entry.set;" >> "$OUTPUT_FILE_5"
-echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "$OUTPUT_FILE_5"
-echo '                return entry.anim_index;' >> "$OUTPUT_FILE_5"
-echo '            }' >> "$OUTPUT_FILE_5"
-echo '        }' >> "$OUTPUT_FILE_5"
+if [[ -n $ALT ]]; then
+  echo "        for (size_t i = 0;i < ${ASSETS_PREFIX_LOWER}_alt_animation_table_size;++i) {" >> "$OUTPUT_FILE_5"
+  echo "            const auto& entry = ${ASSETS_PREFIX_LOWER}_alt_animation_table[i];" >> "$OUTPUT_FILE_5"
+  echo "            if (strcmp(value, entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
+  echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
+  echo "                config.animation_dm_set = entry.set;" >> "$OUTPUT_FILE_5"
+  echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "$OUTPUT_FILE_5"
+  echo '                return entry.anim_index;' >> "$OUTPUT_FILE_5"
+  echo '            }' >> "$OUTPUT_FILE_5"
+  echo '        }' >> "$OUTPUT_FILE_5"
+fi
 echo '        return -1;' >> "$OUTPUT_FILE_5"
 echo '    }' >> "$OUTPUT_FILE_5"
 echo '}' >> "$OUTPUT_FILE_5"

@@ -21,4 +21,6 @@ init_ms_agent_anim(animation_thread_context_t& ctx, size_t anim_index, const ass
 
 BONGOCAT_NODISCARD created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const animation_thread_context_t& ctx,
                                                                                         size_t index);
+
+void init_all_ms_agent_anim(animation_thread_context_t& ctx);
 }  // namespace bongocat::animation

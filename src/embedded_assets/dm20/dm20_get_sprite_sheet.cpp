@@ -3,8 +3,6 @@
 #include "embedded_assets/dm20/dm20_images.h"
 #include "embedded_assets/dm20/dm20_sprite.h"
 
-/// @NOTE: Generated embedded assets dm20
-
 namespace bongocat::assets {
     static const embedded_image_t dm20_images_table[] = {
         {dm20_aegisdramon_png, dm20_aegisdramon_png_size, "aegisdramon"}, 

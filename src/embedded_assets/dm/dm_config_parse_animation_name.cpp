@@ -1,6 +1,7 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dm/dm.hpp"
 #include "dm_config_parse_animation_name.h"
+#include "utils/memory.h"
 
 namespace bongocat::assets {
     static const config_animation_entry_t dm_animation_table[] = {
@@ -75,15 +76,19 @@ namespace bongocat::assets {
         { DM_WHAMON_NAME, DM_WHAMON_ID, DM_WHAMON_FQID, DM_WHAMON_FQNAME, DM_WHAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_YUKIDARUMON_NAME, DM_YUKIDARUMON_ID, DM_YUKIDARUMON_FQID, DM_YUKIDARUMON_FQNAME, DM_YUKIDARUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_YURAMON_NAME, DM_YURAMON_ID, DM_YURAMON_FQID, DM_YURAMON_FQNAME, DM_YURAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+        
     };
 
     config_animation_entry_t get_config_animation_name_dm(size_t index) {
+        assert(LEN_ARRAY(dm_animation_table) == DM_ANIM_COUNT);
         assert(index < DM_ANIM_COUNT);
         return dm_animation_table[index];
     }
 
     int config_parse_animation_name_dm(config::config_t& config, const char *value) {
-        for (const auto& entry : dm_animation_table) {
+        assert(LEN_ARRAY(dm_animation_table) == DM_ANIM_COUNT);
+        for (size_t i = 0;i < DM_ANIM_COUNT;++i) {
+            const auto& entry = dm_animation_table[i];
             if (strcmp(value, entry.name) == 0 ||
                 strcmp(value, entry.id) == 0 ||
                 strcmp(value, entry.fqid) == 0 ||

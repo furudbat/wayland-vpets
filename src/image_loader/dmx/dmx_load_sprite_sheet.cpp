@@ -1,6 +1,6 @@
 #include "core/bongocat.h"
 #include "utils/memory.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dmx/dmx.hpp"
@@ -8,6 +8,8 @@
 #include "embedded_assets/dmx/dmx_sprite.h"
 #include "image_loader/dmx/load_images_dmx.h"
 #include "embedded_assets/dmx/dmx_images.h"
+#include "image_loader/dm/load_images_dm.h"
+
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -772,7 +774,13 @@ namespace bongocat::animation {
         assert(index < DMX_ANIM_COUNT);
         assert(LEN_ARRAY(dmx_pngs_table) <= INT32_MAX);
         assert(index < INT32_MAX);
-        return load_dm_anim(ctx, static_cast<int32_t>(index), {dmx_pngs_table[index], dmx_png_sizes_table[index], dmx_names_table[index]}, dmx_dims_table[index].cols, dmx_dims_table[index].rows);
+        return load_base_dm_anim(ctx, index, {dmx_pngs_table[index], dmx_png_sizes_table[index], dmx_names_table[index]}, dmx_dims_table[index].cols, dmx_dims_table[index].rows);
+    }
+    void init_all_dmx_anim(animation_thread_context_t& ctx) {
+        using namespace assets;
+        for (size_t i = 0;i < DMX_ANIM_COUNT;++i) {
+            init_dmx_anim(ctx, i, {dmx_pngs_table[i], dmx_png_sizes_table[i], dmx_names_table[i]}, dmx_dims_table[i].cols, dmx_dims_table[i].rows);
+        }
     }
 }
 

@@ -11,4 +11,6 @@ bongocat_error_t init_min_dm_anim(animation_thread_context_t& ctx, size_t anim_i
                                   int sprite_sheet_rows);
 
 BONGOCAT_NODISCARD created_result_t<dm_sprite_sheet_t> load_min_dm_sprite_sheet(const animation_thread_context_t& ctx, size_t index);
+
+void init_all_min_dm_anim(animation_thread_context_t& ctx);
 }  // namespace bongocat::animation

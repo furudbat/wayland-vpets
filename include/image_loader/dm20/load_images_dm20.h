@@ -9,4 +9,6 @@ namespace bongocat::animation {
     bongocat_error_t init_dm20_anim(animation_thread_context_t& ctx, size_t anim_index, const assets::embedded_image_t& sprite_sheet_image, int sprite_sheet_cols, int sprite_sheet_rows);
 
     BONGOCAT_NODISCARD created_result_t<dm_sprite_sheet_t> load_dm20_sprite_sheet(const animation_thread_context_t& ctx, size_t index);
+
+    void init_all_dm20_anim(animation_thread_context_t& ctx);
 }

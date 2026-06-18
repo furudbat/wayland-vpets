@@ -1,6 +1,6 @@
 #include "core/bongocat.h"
 #include "utils/memory.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/pen20/pen20.hpp"
@@ -8,6 +8,8 @@
 #include "embedded_assets/pen20/pen20_sprite.h"
 #include "image_loader/pen20/load_images_pen20.h"
 #include "embedded_assets/pen20/pen20_images.h"
+#include "image_loader/dm/load_images_dm.h"
+
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -892,7 +894,13 @@ namespace bongocat::animation {
         assert(index < PEN20_ANIM_COUNT);
         assert(LEN_ARRAY(pen20_pngs_table) <= INT32_MAX);
         assert(index < INT32_MAX);
-        return load_dm_anim(ctx, static_cast<int32_t>(index), {pen20_pngs_table[index], pen20_png_sizes_table[index], pen20_names_table[index]}, pen20_dims_table[index].cols, pen20_dims_table[index].rows);
+        return load_base_dm_anim(ctx, index, {pen20_pngs_table[index], pen20_png_sizes_table[index], pen20_names_table[index]}, pen20_dims_table[index].cols, pen20_dims_table[index].rows);
+    }
+    void init_all_pen20_anim(animation_thread_context_t& ctx) {
+        using namespace assets;
+        for (size_t i = 0;i < PEN20_ANIM_COUNT;++i) {
+            init_pen20_anim(ctx, i, {pen20_pngs_table[i], pen20_png_sizes_table[i], pen20_names_table[i]}, pen20_dims_table[i].cols, pen20_dims_table[i].rows);
+        }
     }
 }
 

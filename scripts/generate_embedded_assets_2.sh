@@ -162,7 +162,7 @@ echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 
 INIT_ANIM_FUNC_NAME="init_${LAYOUT_LOWER}_anim"
-INIT_ALL_ANIM_FUNC_NAME="init_all_${LAYOUT_LOWER}_anim"
+INIT_ALL_ANIM_FUNC_NAME="init_all_${ASSETS_PREFIX_LOWER}_anim"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -328,9 +328,9 @@ echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) == ${ASSETS_PR
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_png_sizes_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_names_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) <= INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, static_cast<int32_t>(index), {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_dims_table[index].cols, ${ASSETS_PREFIX_LOWER}_dims_table[index].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) <= INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "        assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, index, {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_dims_table[index].cols, ${ASSETS_PREFIX_LOWER}_dims_table[index].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    void ${INIT_ALL_ANIM_FUNC_NAME}(animation_thread_context_t& ctx) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

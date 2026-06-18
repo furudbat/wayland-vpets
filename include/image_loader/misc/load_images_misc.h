@@ -12,4 +12,6 @@ bongocat_error_t init_misc_anim(animation_thread_context_t& ctx, size_t anim_ind
                                 const assets::custom_animation_settings_t& sprite_sheet_settings);
 
 BONGOCAT_NODISCARD created_result_t<custom_sprite_sheet_t> load_misc_sprite_sheet(const animation_thread_context_t& ctx, size_t index);
+
+void init_all_misc_anim(animation_thread_context_t& ctx);
 }  // namespace bongocat::animation

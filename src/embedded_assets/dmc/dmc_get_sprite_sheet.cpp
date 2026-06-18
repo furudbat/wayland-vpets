@@ -3,8 +3,6 @@
 #include "embedded_assets/dmc/dmc_images.h"
 #include "embedded_assets/dmc/dmc_sprite.h"
 
-/// @NOTE: Generated embedded assets dmc
-
 namespace bongocat::assets {
     static const embedded_image_t dmc_images_table[] = {
         {dmc_agumon_png, dmc_agumon_png_size, "agumon"}, 

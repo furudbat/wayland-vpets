@@ -12,6 +12,6 @@
 
 ./scripts/generate_init_anim.sh assets/pkmn src/embedded_assets/pkmn ./include/embedded_assets/pkmn/pkmn.h pkmn --layout Pkmn --set None
 
-./scripts/generate_custom_init_anim.sh assets/pmd src/embedded_assets/pmd ./include/embedded_assets/pmd/pmd.h pmd --layout Custom --set pmd
+./scripts/generate_custom_init_anim_inl_2.sh assets/pmd src/embedded_assets/pmd ./include/embedded_assets/pmd/pmd.h pmd --layout Custom --set pmd
 
 # @NOTE(assets): 2.2. generate embedded_assets code

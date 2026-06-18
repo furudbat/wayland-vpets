@@ -560,10 +560,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %d", MIN_DM_ANIM_COUNT);
           ctx.shm->min_dm_anims = platform::make_allocated_mmap_array<animation_t>(MIN_DM_ANIM_COUNT);
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
-          // init minimal dm
-          // init_dm_anim(ctx, DM_AGUMON_ANIM_INDEX, get_dm_sprite_sheet(DM_AGUMON_ANIM_INDEX),
-          // DM_AGUMON_SPRITE_SHEET_COLS, DM_AGUMON_SPRITE_SHEET_ROWS);
-#  include "min_dm_init_dm_anim.cpp.inl"
+          init_all_min_dm_anim(ctx);
 #endif
           for (size_t i = 0; i < MIN_DM_ANIM_COUNT; ++i) {
             patch_dm_anim(ctx.shm->min_dm_anims[i].dm, {.sleep_in_bed = true});
@@ -585,7 +582,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           ctx.shm->dm20_anims = platform::make_allocated_mmap_array<animation_t>(DM20_ANIM_COUNT);
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
           // dm20
-#  include "dm20_init_dm_anim.cpp.inl"
+          init_all_dm20_anim(ctx);
 #endif
           for (size_t i = 0; i < MIN_DM_ANIM_COUNT; ++i) {
             patch_dm_anim(ctx.shm->dm20_anims[i].dm, {.sleep_in_bed = true});
@@ -596,7 +593,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           ctx.shm->dmx_anims = platform::make_allocated_mmap_array<animation_t>(DMX_ANIM_COUNT);
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
           // dmx
-#  include "dmx_init_dm_anim.cpp.inl"
+          init_all_dmx_anim(ctx);
 #endif
         }
         if constexpr (features::EnablePenEmbeddedAssets) {
@@ -604,7 +601,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           ctx.shm->pen_anims = platform::make_allocated_mmap_array<animation_t>(PEN_ANIM_COUNT);
 #ifdef FEATURE_PEN_EMBEDDED_ASSETS
           // pen
-#  include "pen_init_dm_anim.cpp.inl"
+          init_all_pen_anim(ctx);
 #endif
         }
         if constexpr (features::EnablePen20EmbeddedAssets) {
@@ -612,7 +609,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
           // pen20
-#  include "pen20_init_dm_anim.cpp.inl"
+          init_all_pen20_anim(ctx);
 #endif
         }
         if constexpr (features::EnableDmcEmbeddedAssets) {
@@ -620,7 +617,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           ctx.shm->dmc_anims = platform::make_allocated_mmap_array<animation_t>(DMC_ANIM_COUNT);
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
           // dmc
-#  include "dmc_init_dm_anim.cpp.inl"
+          init_all_dmc_anim(ctx);
 #endif
         }
         if constexpr (features::EnableDmAllEmbeddedAssets) {

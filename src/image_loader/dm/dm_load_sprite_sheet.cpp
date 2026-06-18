@@ -320,7 +320,7 @@ namespace bongocat::animation {
         assert(index < DM_ANIM_COUNT);
         assert(LEN_ARRAY(dm_pngs_table) <= INT32_MAX);
         assert(index < INT32_MAX);
-        return load_dm_anim(ctx, static_cast<int32_t>(index), {dm_pngs_table[index], dm_png_sizes_table[index], dm_names_table[index]}, dm_dims_table[index].cols, dm_dims_table[index].rows);
+        return load_base_dm_anim(ctx, index, {dm_pngs_table[index], dm_png_sizes_table[index], dm_names_table[index]}, dm_dims_table[index].cols, dm_dims_table[index].rows);
     }
     void init_all_dm_anim(animation_thread_context_t& ctx) {
         using namespace assets;

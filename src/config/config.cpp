@@ -37,6 +37,9 @@
 #include <sys/ioctl.h>
 #include <unistd.h>
 
+#ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
+#  include "min_dm_config_parse_animation_name.h"
+#endif
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
 #  include "dm_config_parse_animation_name.h"
 #endif
@@ -1593,12 +1596,17 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
       if ((!is_fqn && animation_found) || (is_fqn && !animation_found) ||
           (!is_fqn && !animation_found)) {  // overwrite animation when needed, priorities the fq names
-#  include "min_dm_config_parse_enum_key.cpp.inl"
-        if (config.animation_index >= 0) {
+        const int found_index = config_parse_animation_name_min_dm(config, value);
+        if (found_index >= 0) {
           assert(found_index >= 0);
-          /// @TODO: get fqname of min_dm
-          // config._loaded_animation_fqname =
-          // strdup(get_config_animation_name_min_dm(static_cast<size_t>(found_index)).fqname);
+          /*
+          if (config._loaded_animation_fqname != BONGOCAT_NULLPTR) {
+            ::free(config._loaded_animation_fqname);
+            config._loaded_animation_fqname = BONGOCAT_NULLPTR;
+          }
+          */
+          config._loaded_animation_fqname =
+              duplicate_string(get_config_animation_name_min_dm(static_cast<size_t>(found_index)).fqname);
           BONGOCAT_LOG_DEBUG("Animation found for %s", value);
         }
       }

@@ -12,7 +12,7 @@ namespace bongocat::animation {
 
         assert(anim_index < DMALL_ANIM_COUNT);
         BONGOCAT_LOG_VERBOSE("Load dmall Animation (%d/%d): %s ...", anim_index, DMALL_ANIM_COUNT, sprite_sheet_image.name);
-        auto result = load_dm_anim(ctx, static_cast<int>(anim_index), sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
+        auto result = load_base_dm_anim(ctx, anim_index, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
         if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {
             BONGOCAT_LOG_ERROR("Load dmall Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
             return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;

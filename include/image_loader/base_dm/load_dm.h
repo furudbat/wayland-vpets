@@ -12,7 +12,7 @@ struct load_dm_anim_options_t {
 void patch_dm_anim(dm_sprite_sheet_t& ret, load_dm_anim_options_t options);
 
 struct animation_thread_context_t;
-BONGOCAT_NODISCARD created_result_t<dm_sprite_sheet_t> load_dm_anim(const animation_thread_context_t& ctx, int anim_index,
+BONGOCAT_NODISCARD created_result_t<dm_sprite_sheet_t> load_base_dm_anim(const animation_thread_context_t& ctx, size_t anim_index,
                                                                     const assets::embedded_image_t& sprite_sheet_image,
                                                                     int sprite_sheet_cols, int sprite_sheet_rows,
                                                                     load_dm_anim_options_t options = {});

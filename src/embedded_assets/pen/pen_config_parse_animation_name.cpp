@@ -1,6 +1,7 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/pen/pen.hpp"
 #include "pen_config_parse_animation_name.h"
+#include "utils/memory.h"
 
 namespace bongocat::assets {
     static const config_animation_entry_t pen_animation_table[] = {
@@ -126,15 +127,19 @@ namespace bongocat::assets {
         { PEN_WIZARMON_NAME, PEN_WIZARMON_ID, PEN_WIZARMON_FQID, PEN_WIZARMON_FQNAME, PEN_WIZARMON_ANIM_INDEX, config::config_animation_dm_set_t::pen, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN_WOODMON_NAME, PEN_WOODMON_ID, PEN_WOODMON_FQID, PEN_WOODMON_FQNAME, PEN_WOODMON_ANIM_INDEX, config::config_animation_dm_set_t::pen, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN_ZUDOMON_NAME, PEN_ZUDOMON_ID, PEN_ZUDOMON_FQID, PEN_ZUDOMON_FQNAME, PEN_ZUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen, config::config_animation_sprite_sheet_layout_t::Dm },
+        
     };
 
     config_animation_entry_t get_config_animation_name_pen(size_t index) {
+        assert(LEN_ARRAY(pen_animation_table) == PEN_ANIM_COUNT);
         assert(index < PEN_ANIM_COUNT);
         return pen_animation_table[index];
     }
 
     int config_parse_animation_name_pen(config::config_t& config, const char *value) {
-        for (const auto& entry : pen_animation_table) {
+        assert(LEN_ARRAY(pen_animation_table) == PEN_ANIM_COUNT);
+        for (size_t i = 0;i < PEN_ANIM_COUNT;++i) {
+            const auto& entry = pen_animation_table[i];
             if (strcmp(value, entry.name) == 0 ||
                 strcmp(value, entry.id) == 0 ||
                 strcmp(value, entry.fqid) == 0 ||

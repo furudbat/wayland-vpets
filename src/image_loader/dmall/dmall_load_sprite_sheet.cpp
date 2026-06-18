@@ -2720,7 +2720,7 @@ namespace bongocat::animation {
         assert(index < DMALL_ANIM_COUNT);
         assert(LEN_ARRAY(dmall_pngs_table) <= INT32_MAX);
         assert(index < INT32_MAX);
-        return load_dm_anim(ctx, static_cast<int32_t>(index), {dmall_pngs_table[index], dmall_png_sizes_table[index], dmall_names_table[index]}, dmall_dims_table[index].cols, dmall_dims_table[index].rows);
+        return load_base_dm_anim(ctx, index, {dmall_pngs_table[index], dmall_png_sizes_table[index], dmall_names_table[index]}, dmall_dims_table[index].cols, dmall_dims_table[index].rows);
     }
 }
 

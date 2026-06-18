@@ -13,7 +13,7 @@ bongocat_error_t init_pen20_anim(animation_thread_context_t& ctx, size_t anim_in
     assert(anim_index < PEN20_ANIM_COUNT);
     BONGOCAT_LOG_VERBOSE("Load pen20 Animation (%d/%d): %s ...", anim_index, PEN20_ANIM_COUNT, sprite_sheet_image.name);
     assert(anim_index < INT_MAX);
-    auto result = load_dm_anim(ctx, static_cast<int>(anim_index), sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
+    auto result = load_base_dm_anim(ctx, anim_index, sprite_sheet_image, sprite_sheet_cols, sprite_sheet_rows);
     if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
         BONGOCAT_LOG_ERROR("Load pen Animation failed: %s, index: %d", sprite_sheet_image.name, anim_index);
         return bongocat_error_t::BONGOCAT_ERROR_ANIMATION;

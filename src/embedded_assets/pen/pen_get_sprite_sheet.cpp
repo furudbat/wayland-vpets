@@ -3,8 +3,6 @@
 #include "embedded_assets/pen/pen_images.h"
 #include "embedded_assets/pen/pen_sprite.h"
 
-/// @NOTE: Generated embedded assets pen
-
 namespace bongocat::assets {
     static const embedded_image_t pen_images_table[] = {
         {pen_aero_v_dramon_png, pen_aero_v_dramon_png_size, "aero_v_dramon"}, 

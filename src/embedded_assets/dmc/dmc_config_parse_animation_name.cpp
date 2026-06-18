@@ -1,6 +1,7 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/dmc/dmc.hpp"
 #include "dmc_config_parse_animation_name.h"
+#include "utils/memory.h"
 
 namespace bongocat::assets {
     static const config_animation_entry_t dmc_animation_table[] = {
@@ -108,15 +109,19 @@ namespace bongocat::assets {
         { DMC_YUKIDARUMON_NAME, DMC_YUKIDARUMON_ID, DMC_YUKIDARUMON_FQID, DMC_YUKIDARUMON_FQNAME, DMC_YUKIDARUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_YURAMON_NAME, DMC_YURAMON_ID, DMC_YURAMON_FQID, DMC_YURAMON_FQNAME, DMC_YURAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_ZURUMON_NAME, DMC_ZURUMON_ID, DMC_ZURUMON_FQID, DMC_ZURUMON_FQNAME, DMC_ZURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
+        
     };
 
     config_animation_entry_t get_config_animation_name_dmc(size_t index) {
+        assert(LEN_ARRAY(dmc_animation_table) == DMC_ANIM_COUNT);
         assert(index < DMC_ANIM_COUNT);
         return dmc_animation_table[index];
     }
 
     int config_parse_animation_name_dmc(config::config_t& config, const char *value) {
-        for (const auto& entry : dmc_animation_table) {
+        assert(LEN_ARRAY(dmc_animation_table) == DMC_ANIM_COUNT);
+        for (size_t i = 0;i < DMC_ANIM_COUNT;++i) {
+            const auto& entry = dmc_animation_table[i];
             if (strcmp(value, entry.name) == 0 ||
                 strcmp(value, entry.id) == 0 ||
                 strcmp(value, entry.fqid) == 0 ||
