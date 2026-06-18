@@ -108,14 +108,14 @@ static const ms_agent_animation_indices_t ms_agent_animation_indices_table[] = {
 };
 
 embedded_image_t get_ms_agent_sprite_sheet(size_t index) {
-  assert(LEN_ARRAY(ms_agent_images_table) == MISC_ANIM_COUNT);
-  assert(index < MISC_ANIM_COUNT);
+  assert(LEN_ARRAY(ms_agent_images_table) == MS_AGENTS_ANIM_COUNT);
+  assert(index < MS_AGENTS_ANIM_COUNT);
   return ms_agent_images_table[index];
 }
 
 ms_agent_animation_indices_t get_ms_agent_animation_indices(size_t index) {
-  assert(LEN_ARRAY(ms_agent_animation_indices_table) == MISC_ANIM_COUNT);
-  assert(index < MISC_ANIM_COUNT);
+  assert(LEN_ARRAY(ms_agent_animation_indices_table) == MS_AGENTS_ANIM_COUNT);
+  assert(index < MS_AGENTS_ANIM_COUNT);
   return ms_agent_animation_indices_table[index];
 }
 }  // namespace bongocat::assets

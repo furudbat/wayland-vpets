@@ -14,13 +14,13 @@ static const embedded_image_t misc_images_table[] = {
 
 embedded_image_t get_misc_sprite_sheet([[maybe_unused]] size_t índex) {
   assert(LEN_ARRAY(misc_images_table) == MISC_ANIM_COUNT);
-  assert(index < MISC_ANIM_COUNT);
+  //assert(index < MISC_ANIM_COUNT);
   //return misc_images_table[index];
   return *misc_images_table;
 }
 custom_animation_settings_t get_misc_sprite_sheet_columns([[maybe_unused]] size_t índex) {
   assert(LEN_ARRAY(misc_settings_table) == MISC_ANIM_COUNT);
-  assert(index < MISC_ANIM_COUNT);
+  //assert(index < MISC_ANIM_COUNT);
   //return misc_settings_table[index];
   return *misc_settings_table;
 }
