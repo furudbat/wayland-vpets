@@ -1,6 +1,7 @@
 #include "embedded_assets/embedded_image.h"
 #include "embedded_assets/pmd/pmd.hpp"
 #include "pmd_config_parse_animation_name.h"
+#include "utils/memory.h"
 
 namespace bongocat::assets {
     static const config_custom_animation_entry_t pmd_animation_table[] = {
@@ -865,15 +866,19 @@ namespace bongocat::assets {
         { PMD_SNEASLER_NAME, PMD_SNEASLER_ID, PMD_SNEASLER_FQID, PMD_SNEASLER_FQNAME, PMD_SNEASLER_ANIM_INDEX, config::config_animation_custom_set_t::pmd, config::config_animation_sprite_sheet_layout_t::Custom },
         { PMD_OVERQWIL_NAME, PMD_OVERQWIL_ID, PMD_OVERQWIL_FQID, PMD_OVERQWIL_FQNAME, PMD_OVERQWIL_ANIM_INDEX, config::config_animation_custom_set_t::pmd, config::config_animation_sprite_sheet_layout_t::Custom },
         { PMD_ENAMORUS_NAME, PMD_ENAMORUS_ID, PMD_ENAMORUS_FQID, PMD_ENAMORUS_FQNAME, PMD_ENAMORUS_ANIM_INDEX, config::config_animation_custom_set_t::pmd, config::config_animation_sprite_sheet_layout_t::Custom },
+        
     };
 
     config_custom_animation_entry_t get_config_animation_name_pmd(size_t index) {
+        assert(LEN_ARRAY(pmd_animation_table) == PMD_ANIM_COUNT);
         assert(index < PMD_ANIM_COUNT);
         return pmd_animation_table[index];
     }
 
     int config_parse_animation_name_pmd(config::config_t& config, const char *value) {
-        for (const auto& entry : pmd_animation_table) {
+        assert(LEN_ARRAY(pmd_animation_table) == PMD_ANIM_COUNT);
+        for (size_t i = 0;i < PMD_ANIM_COUNT;++i) {
+            const auto& entry = pmd_animation_table[i];
             if (strcmp(value, entry.name) == 0 ||
                 strcmp(value, entry.id) == 0 ||
                 strcmp(value, entry.fqid) == 0 ||

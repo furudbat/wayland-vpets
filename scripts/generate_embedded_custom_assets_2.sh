@@ -22,6 +22,7 @@ START_INDEX="${11:-0}"
 
 LAYOUT="Custom"
 SET=""
+LOAD_FUNC=""
 
 # === Parse args ===
 POSITIONAL_ARGS=()
@@ -30,6 +31,7 @@ while [[ $# -gt 0 ]]; do
         --set) SET="$2"; shift 2 ;;
         --layout) LAYOUT="$2"; shift 2 ;;
         --json) JSON_META="$2"; shift 2 ;;
+        --load-function) LOAD_FUNC="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -139,8 +141,15 @@ echo "#endif" >> "$CPP_HEADER_GET_SPRITE_OUT"
 echo >> "$CPP_HEADER_GET_SPRITE_OUT"
 
 LAYOUT_LOWER=$(echo "$LAYOUT" | tr '[:upper:]' '[:lower:]')
-LOAD_CUSTOM_ANIM_FUNC_NAME="load_${LAYOUT_LOWER}_anim"
 LOAD_SPRITE_SHEET_FUNC_NAME="load_${ASSETS_PREFIX_LOWER}_sprite_sheet"
+
+LOAD_CUSTOM_ANIM_FUNC_NAME="load_${LAYOUT_LOWER}_anim"
+if [[ -n "$LOAD_FUNC" ]]; then
+  LOAD_CUSTOM_ANIM_FUNC_NAME=$LOAD_FUNC
+fi
+
+INIT_ANIM_FUNC_NAME="init_${LAYOUT_LOWER}_anim"
+INIT_ALL_ANIM_FUNC_NAME="init_all_${ASSETS_PREFIX_LOWER}_anim"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -371,6 +380,19 @@ echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) == ${ASSETS_PR
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_png_sizes_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_names_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        return ${LOAD_CUSTOM_ANIM_FUNC_NAME}(ctx, {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_settings_table[index]);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    void ${INIT_ALL_ANIM_FUNC_NAME}(animation_thread_context_t& ctx) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        for (size_t i = 0;i < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT;++i) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_dims_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_png_sizes_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_names_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) <= INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "            assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "            ${INIT_ANIM_FUNC_NAME}(ctx, i, {${ASSETS_PREFIX_LOWER}_pngs_table[i], ${ASSETS_PREFIX_LOWER}_png_sizes_table[i], ${ASSETS_PREFIX_LOWER}_names_table[i]}, ${ASSETS_PREFIX_LOWER}_settings_table[i]);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo '        }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '}' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

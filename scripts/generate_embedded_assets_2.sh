@@ -23,6 +23,7 @@ COLS=""
 ROWS=""
 LAYOUT="Dm"
 SET=""
+LOAD_FUNC=""
 
 # === Parse args ===
 POSITIONAL_ARGS=()
@@ -33,6 +34,7 @@ while [[ $# -gt 0 ]]; do
         --rows) ROWS="$2"; shift 2 ;;
         --set) SET="$2"; shift 2 ;;
         --layout) LAYOUT="$2"; shift 2 ;;
+        --load-function) LOAD_FUNC="$2"; shift 2 ;;
         -*|--*)
             echo "Unknown option $1"; exit 1 ;;
         *) POSITIONAL_ARGS+=("$1"); shift ;;
@@ -141,7 +143,6 @@ echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
 
 
 LAYOUT_LOWER=$(echo "$LAYOUT" | tr '[:upper:]' '[:lower:]')
-LOAD_DM_ANIM_FUNC_NAME="load_${LAYOUT_LOWER}_anim"
 LOAD_SPRITE_SHEET_FUNC_NAME="load_${ASSETS_PREFIX_LOWER}_sprite_sheet"
 echo "#include \"core/bongocat.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "#include \"utils/memory.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
@@ -160,6 +161,11 @@ echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "/// @NOTE: Generated embedded assets $ASSETS_PREFIX" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+
+LOAD_DM_ANIM_FUNC_NAME="load_${LAYOUT_LOWER}_anim"
+if [[ -n "$LOAD_FUNC" ]]; then
+  LOAD_DM_ANIM_FUNC_NAME=$LOAD_FUNC
+fi
 
 INIT_ANIM_FUNC_NAME="init_${LAYOUT_LOWER}_anim"
 INIT_ALL_ANIM_FUNC_NAME="init_all_${ASSETS_PREFIX_LOWER}_anim"

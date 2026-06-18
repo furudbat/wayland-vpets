@@ -3,6 +3,8 @@
 #include "embedded_assets/pkmn/pkmn_images.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 
+/// @NOTE: Generated embedded assets pkmn
+
 namespace bongocat::assets {
     static const embedded_image_t pkmn_images_table[] = {
         {pkmn_bulbasaur_png, pkmn_bulbasaur_png_size, "bulbasaur"}, 

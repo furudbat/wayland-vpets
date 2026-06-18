@@ -654,6 +654,7 @@ namespace bongocat::assets {
         { PKMN_KELDEO_NAME, PKMN_KELDEO_ID, PKMN_KELDEO_FQID, PKMN_KELDEO_FQNAME, PKMN_KELDEO_ANIM_INDEX, config::config_animation_dm_set_t::None, config::config_animation_sprite_sheet_layout_t::Pkmn },
         { PKMN_MELOETTA_NAME, PKMN_MELOETTA_ID, PKMN_MELOETTA_FQID, PKMN_MELOETTA_FQNAME, PKMN_MELOETTA_ANIM_INDEX, config::config_animation_dm_set_t::None, config::config_animation_sprite_sheet_layout_t::Pkmn },
         { PKMN_GENESECT_NAME, PKMN_GENESECT_ID, PKMN_GENESECT_FQID, PKMN_GENESECT_FQNAME, PKMN_GENESECT_ANIM_INDEX, config::config_animation_dm_set_t::None, config::config_animation_sprite_sheet_layout_t::Pkmn },
+        
     };
 
     config_animation_entry_t get_config_animation_name_pkmn(size_t index) {

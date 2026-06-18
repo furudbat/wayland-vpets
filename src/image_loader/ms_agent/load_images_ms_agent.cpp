@@ -266,31 +266,25 @@ init_ms_agent_anim(animation_thread_context_t& ctx, size_t anim_index, const ass
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
 
+
+
+
 created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
   using namespace assets;
   using namespace animation;
-  switch (index) {
-  case CLIPPY_ANIM_INDEX:
-    return load_ms_agent_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX),
-                              CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS,
-                              get_ms_agent_animation_indices(CLIPPY_ANIM_INDEX));
-#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-  case LINKS_ANIM_INDEX:
-    return load_ms_agent_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX),
-                              LINKS_SPRITE_SHEET_COLS, LINKS_SPRITE_SHEET_ROWS,
-                              get_ms_agent_animation_indices(LINKS_ANIM_INDEX));
-  case ROVER_ANIM_INDEX:
-    return load_ms_agent_anim(ctx, ROVER_ANIM_INDEX, get_ms_agent_sprite_sheet(ROVER_ANIM_INDEX),
-                              ROVER_SPRITE_SHEET_COLS, ROVER_SPRITE_SHEET_ROWS,
-                              get_ms_agent_animation_indices(ROVER_ANIM_INDEX));
-  case MERLIN_ANIM_INDEX:
-    return load_ms_agent_anim(ctx, MERLIN_ANIM_INDEX, get_ms_agent_sprite_sheet(MERLIN_ANIM_INDEX),
-                              MERLIN_SPRITE_SHEET_COLS, MERLIN_SPRITE_SHEET_ROWS,
-                              get_ms_agent_animation_indices(MERLIN_ANIM_INDEX));
-#endif
-  default:
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+  assert(index < MS_AGENTS_ANIM_COUNT);
+  const auto dims = get_ms_agent_sprite_sheet_dims(index);
+  return load_ms_agent_anim(ctx, index, get_ms_agent_sprite_sheet(index),
+                            dims.cols, dims.rows,
+                            get_ms_agent_animation_indices(index));
+}
+
+void init_all_ms_agent_anim(animation_thread_context_t& ctx) {
+  using namespace assets;
+  for (size_t i = 0;i < MS_AGENTS_ANIM_COUNT;++i) {
+    const auto dims = get_ms_agent_sprite_sheet_dims(i);
+    init_ms_agent_anim(ctx, i, get_ms_agent_sprite_sheet(i), dims.cols, dims.rows,
+                            get_ms_agent_animation_indices(i));
   }
-  return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
 }
 }  // namespace bongocat::animation

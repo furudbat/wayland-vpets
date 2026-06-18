@@ -1,6 +1,6 @@
 #include "core/bongocat.h"
 #include "utils/memory.h"
-#include "graphics/animation_context.h"
+#include "graphics/animation_thread_context.h"
 #include "graphics/sprite_sheet.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "embedded_assets/dmall/dmall.hpp"
@@ -8,6 +8,8 @@
 #include "embedded_assets/dmall/dmall_sprite.h"
 #include "image_loader/dmall/load_images_dmall.h"
 #include "embedded_assets/dmall/dmall_images.h"
+#include "image_loader/dm/load_images_dm.h"
+
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -2718,9 +2720,13 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dmall_png_sizes_table) == DMALL_ANIM_COUNT);
         assert(LEN_ARRAY(dmall_names_table) == DMALL_ANIM_COUNT);
         assert(index < DMALL_ANIM_COUNT);
-        assert(LEN_ARRAY(dmall_pngs_table) <= INT32_MAX);
-        assert(index < INT32_MAX);
         return load_base_dm_anim(ctx, index, {dmall_pngs_table[index], dmall_png_sizes_table[index], dmall_names_table[index]}, dmall_dims_table[index].cols, dmall_dims_table[index].rows);
+    }
+    void init_all_dmall_anim(animation_thread_context_t& ctx) {
+        using namespace assets;
+        for (size_t i = 0;i < DMALL_ANIM_COUNT;++i) {
+            init_dmall_anim(ctx, i, {dmall_pngs_table[i], dmall_png_sizes_table[i], dmall_names_table[i]}, dmall_dims_table[i].cols, dmall_dims_table[i].rows);
+        }
     }
 }
 

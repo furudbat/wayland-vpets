@@ -85,6 +85,7 @@ inline static constexpr size_t MS_AGENTS_SPRITE_SHEET_EMBEDDED_IMAGES_COUNT = 1;
 inline static constexpr size_t MS_AGENTS_ANIMATIONS_COUNT = 1;
 #endif
 
+BONGOCAT_NODISCARD embedded_sprite_sheet_dims_t get_ms_agent_sprite_sheet_dims(size_t index);
 BONGOCAT_NODISCARD embedded_image_t get_ms_agent_sprite_sheet(size_t i);
 BONGOCAT_NODISCARD ms_agent_animation_indices_t get_ms_agent_animation_indices(size_t i);
 }  // namespace bongocat::assets

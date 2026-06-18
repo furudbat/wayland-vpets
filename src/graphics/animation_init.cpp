@@ -625,7 +625,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           ctx.shm->dmall_anims = platform::make_allocated_mmap_array<animation_t>(DMALL_ANIM_COUNT);
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
           // dmall
-#  include "dmall_init_dm_anim.cpp.inl"
+          init_all_dmall_anim(ctx);
 #endif
         }
       }
@@ -640,19 +640,8 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 
         ctx.shm->ms_anims = platform::make_allocated_mmap_array<animation_t>(MS_AGENTS_ANIM_COUNT);
 
-        // clippy
-        init_ms_agent_anim(ctx, CLIPPY_ANIM_INDEX, get_ms_agent_sprite_sheet(CLIPPY_ANIM_INDEX),
-                           CLIPPY_SPRITE_SHEET_COLS, CLIPPY_SPRITE_SHEET_ROWS,
-                           get_ms_agent_animation_indices(CLIPPY_ANIM_INDEX));
-#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-        /// @NOTE(config): add more MS Pets here
-        init_ms_agent_anim(ctx, LINKS_ANIM_INDEX, get_ms_agent_sprite_sheet(LINKS_ANIM_INDEX), LINKS_SPRITE_SHEET_COLS,
-                           LINKS_SPRITE_SHEET_ROWS, get_ms_agent_animation_indices(LINKS_ANIM_INDEX));
-        init_ms_agent_anim(ctx, ROVER_ANIM_INDEX, get_ms_agent_sprite_sheet(ROVER_ANIM_INDEX), ROVER_SPRITE_SHEET_COLS,
-                           ROVER_SPRITE_SHEET_ROWS, get_ms_agent_animation_indices(ROVER_ANIM_INDEX));
-        init_ms_agent_anim(ctx, MERLIN_ANIM_INDEX, get_ms_agent_sprite_sheet(MERLIN_ANIM_INDEX),
-                           MERLIN_SPRITE_SHEET_COLS, MERLIN_SPRITE_SHEET_ROWS,
-                           get_ms_agent_animation_indices(MERLIN_ANIM_INDEX));
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+        init_all_ms_agent_anim(ctx);
 #endif
       }
     }
@@ -667,7 +656,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         ctx.shm->pkmn_anims = platform::make_allocated_mmap_array<animation_t>(PKMN_ANIM_COUNT);
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
         // pkmn
-#  include "pkmn_init_pkmn_anim.cpp.inl"
+        init_all_pkmn_anim(ctx);
 #endif
       }
     }
@@ -681,7 +670,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         ctx.shm->pmd_anims = platform::make_allocated_mmap_array<animation_t>(PMD_ANIM_COUNT);
 #ifdef FEATURE_PMD_EMBEDDED_ASSETS
         // pmd (pkmn)
-#  include "pmd_init_custom_anim.cpp.inl"
+        init_all_pmd_anim(ctx);
 #endif
       }
     }
@@ -694,10 +683,9 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         ctx.shm->misc_anims = platform::make_allocated_mmap_array<animation_t>(MISC_ANIM_COUNT);
-
-        // neko
-        init_misc_anim(ctx, MISC_NEKO_ANIM_INDEX, get_misc_sprite_sheet(MISC_NEKO_ANIM_INDEX),
-                       get_misc_sprite_sheet_columns(MISC_NEKO_ANIM_INDEX));
+#ifdef FEATURE_MISC_EMBEDDED_ASSETS
+        init_all_misc_anim(ctx);
+#endif
       }
     }
 
@@ -711,7 +699,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         assert(ctx._local_copy_config.ptr);
 
         if (ctx._local_copy_config->_custom) {
-          BONGOCAT_LOG_INFO("Load custom sprite sheets: %s", ctx._local_copy_config->custom_sprite_sheet_filename);
+          BONGOCAT_LOG_INFO("Load custom sprite sheets: %s", ctx._local_copy_config->custom_sprite_sheet_filename.c_str());
 
           auto result = details::anim_load_custom_animation(ctx, *ctx._local_copy_config);
           if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {

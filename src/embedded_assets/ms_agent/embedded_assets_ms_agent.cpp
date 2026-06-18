@@ -5,6 +5,15 @@
 
 namespace bongocat::assets {
 
+static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] = {
+  {assets::CLIPPY_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
+#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+  {assets::LINKS_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
+  {assets::ROVER_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
+  {assets::MERLIN_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
+#endif
+};
+
 static const embedded_image_t ms_agent_images_table[] = {
   {clippy_png, clippy_png_size, "clippy"},
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
@@ -106,6 +115,12 @@ static const ms_agent_animation_indices_t ms_agent_animation_indices_table[] = {
     },
 #endif
 };
+
+embedded_sprite_sheet_dims_t get_ms_agent_sprite_sheet_dims(size_t index) {
+  assert(LEN_ARRAY(ms_agent_images_table) == MS_AGENTS_ANIM_COUNT);
+  assert(index < MS_AGENTS_ANIM_COUNT);
+  return ms_agent_dims_table[index];
+}
 
 embedded_image_t get_ms_agent_sprite_sheet(size_t index) {
   assert(LEN_ARRAY(ms_agent_images_table) == MS_AGENTS_ANIM_COUNT);
