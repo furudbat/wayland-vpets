@@ -54,6 +54,13 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
+echo '`nm -S --size-sort ./cmake-build-relwithdebinfo-beta/bongocat-all | tail -50`' >>  "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(nm -S --size-sort ./cmake-build-relwithdebinfo-beta/bongocat-all | tail -50)" >>  "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
 echo '`du -h ./cmake-build-*/bongocat* --exclude=*.1 --exclude=*.5`' >>  "$REPORT"
 echo '```bash' >> "$REPORT"
 echo "$(du -h ./cmake-build-*/bongocat* --exclude='*.1' --exclude='*.5')" >>  "$REPORT"
@@ -119,6 +126,11 @@ if [ "$USE_HEAPTRACK" = true ] && [ -z "$HEAPTRACK_BIN" ]; then
     echo "Warning: heaptrack not found, running binary without it"
     USE_HEAPTRACK=false
 fi
+
+
+PMAP_TABLE="# pmaps
+
+"
 
 # Group by build type
 for group in release release-preload-assets release-hybrid release-pngle minsizerel relwithdebinfo debug; do
@@ -320,7 +332,10 @@ for group in release release-preload-assets release-hybrid release-pngle minsize
             exit 1
         fi
 
+        sleep 10
+        pmap_output=$(pmap -x $PID || echo "")
         ram_kib=$(measure_ram "$PID" || echo 0)
+        sleep 5
 
         # --- send SIGTERM ---
         echo "[INFO] Sending SIGTERM..."
@@ -356,6 +371,8 @@ for group in release release-preload-assets release-hybrid release-pngle minsize
 
         echo "| \`$variant\` | $size | $ram |" >> "$REPORT"
 
+        PMAP_TABLE="${PMAP_TABLE} **\`$variant\`**\n\`\`\`bash\n$pmap_output\n\`\`\`\n\n"
+
         if [ "$USE_HEAPTRACK" = true ]; then
             if ps -p $HEAPTRACK_PID > /dev/null; then
                 kill -TERM "$HEAPTRACK_PID"
@@ -365,6 +382,8 @@ for group in release release-preload-assets release-hybrid release-pngle minsize
     done
     echo "" >> "$REPORT"
 done
+
+echo -e "$PMAP_TABLE" >> "$REPORT"
 
 echo ""
 echo "Report generated: $REPORT"
