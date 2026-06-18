@@ -5,6 +5,7 @@
 
 /// @NOTE: Generated embedded assets from assets/dmx
 
+
 // Name: Agumon (Black) X
 extern const unsigned char dmx_agumon_black_x_png[];
 extern const size_t dmx_agumon_black_x_png_size;

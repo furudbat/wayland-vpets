@@ -5,6 +5,7 @@
 
 /// @NOTE: Generated embedded assets from assets/pen20
 
+
 // Name: Aero V-dramon
 extern const unsigned char pen20_aero_v_dramon_png[];
 extern const size_t pen20_aero_v_dramon_png_size;

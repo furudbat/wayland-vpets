@@ -5,6 +5,7 @@
 
 /// @NOTE: Generated embedded assets from assets/pkmn
 
+
 // Name: Bulbasaur
 extern const unsigned char pkmn_bulbasaur_png[];
 extern const size_t pkmn_bulbasaur_png_size;

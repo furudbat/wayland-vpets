@@ -5,6 +5,7 @@
 
 /// @NOTE: Generated embedded assets from assets/dm20
 
+
 // Name: Aegisdramon
 extern const unsigned char dm20_aegisdramon_png[];
 extern const size_t dm20_aegisdramon_png_size;

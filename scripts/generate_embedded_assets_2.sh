@@ -125,6 +125,7 @@ echo "#else" >> "$C_SOURCE_IMAGES_OUT"
 echo "  #define ASSETS_SECTION" >> "$C_SOURCE_IMAGES_OUT"
 echo "#endif" >> "$C_SOURCE_IMAGES_OUT"
 echo "#endif" >> "$C_SOURCE_IMAGES_OUT"
+echo >> "$C_HEADER_IMAGES_OUT"
 
 
 

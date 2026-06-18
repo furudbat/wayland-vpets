@@ -103,6 +103,17 @@ echo "#include <stddef.h>" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
 echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
+echo "#ifndef ASSETS_SECTION" >> "$C_SOURCE_IMAGES_OUT"
+echo "#if defined(__GNUC__) || defined(__clang__)" >> "$C_SOURCE_IMAGES_OUT"
+echo "  #define ASSETS_SECTION __attribute__((section(\".assets\")))" >> "$C_SOURCE_IMAGES_OUT"
+echo "#elif defined(_MSC_VER)" >> "$C_SOURCE_IMAGES_OUT"
+echo "  #define ASSETS_SECTION __declspec(allocate(\".assets\"))" >> "$C_SOURCE_IMAGES_OUT"
+echo "  #pragma section(\".assets\", read)" >> "$C_SOURCE_IMAGES_OUT"
+echo "#else" >> "$C_SOURCE_IMAGES_OUT"
+echo "  #define ASSETS_SECTION" >> "$C_SOURCE_IMAGES_OUT"
+echo "#endif" >> "$C_SOURCE_IMAGES_OUT"
+echo "#endif" >> "$C_SOURCE_IMAGES_OUT"
+echo >> "$C_HEADER_IMAGES_OUT"
 
 CPP_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CUSTOM_${ASSETS_PREFIX_UPPER}_HPP"
 echo "#ifndef $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
@@ -148,7 +159,7 @@ if [[ -n "$LOAD_FUNC" ]]; then
   LOAD_CUSTOM_ANIM_FUNC_NAME=$LOAD_FUNC
 fi
 
-INIT_ANIM_FUNC_NAME="init_${LAYOUT_LOWER}_anim"
+INIT_ANIM_FUNC_NAME="init_${ASSETS_PREFIX_LOWER}_anim"
 INIT_ALL_ANIM_FUNC_NAME="init_all_${ASSETS_PREFIX_LOWER}_anim"
 
 # === Start animation index counter ===
@@ -269,10 +280,10 @@ for FILE in "$INPUT_DIR"/*.png; do
 
     # === Source content ===
     echo "// Name: $NAME_NO_EXT" >> "$C_SOURCE_IMAGES_OUT"
-    echo "const unsigned char $EMBED_SYMBOL[] = {" >> "$C_SOURCE_IMAGES_OUT"
+    echo "const unsigned char $EMBED_SYMBOL[] ASSETS_SECTION = {" >> "$C_SOURCE_IMAGES_OUT"
     echo "#embed \"$RELATIVE_PATH\"" >> "$C_SOURCE_IMAGES_OUT"
     echo "};" >> "$C_SOURCE_IMAGES_OUT"
-    echo "const size_t $SIZE_SYMBOL = sizeof($EMBED_SYMBOL);" >> "$C_SOURCE_IMAGES_OUT"
+    echo "const size_t $SIZE_SYMBOL ASSETS_SECTION = sizeof($EMBED_SYMBOL);" >> "$C_SOURCE_IMAGES_OUT"
     echo >> "$C_SOURCE_IMAGES_OUT"
     echo >> "$C_SOURCE_IMAGES_OUT" # extra EOL
 
