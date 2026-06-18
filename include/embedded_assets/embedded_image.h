@@ -40,6 +40,17 @@ struct config_custom_animation_entry_t {
   config::config_animation_custom_set_t set{config::config_animation_custom_set_t::None};
   config::config_animation_sprite_sheet_layout_t layout{config::config_animation_sprite_sheet_layout_t::None};
 };
+
+struct config_animation_names_entry_t {
+  const char* name{""};
+  size_t name_len{0};
+  const char* id{""};
+  size_t id_len{0};
+  const char* fqid{""};
+  size_t fqid_len{0};
+  const char* fqname{""};
+  size_t fqname_len{0};
+};
 }  // namespace bongocat::assets
 
 #endif  // BONGOCAT_EMBEDDED_ASSETS_IMAGE_H

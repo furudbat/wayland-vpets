@@ -1204,6 +1204,16 @@ namespace details {
       asset_unload(ptrs[i], sizes[i]);
     }
   }
+  inline void asset_unload_cstr(const char* str) noexcept {
+    if (str != BONGOCAT_NULLPTR) {
+      asset_unload(str, strlen(str) + 1);
+    }
+  }
+  inline constexpr void asset_unload_cstr(const char* str, size_t len) noexcept {
+    if (str != BONGOCAT_NULLPTR) {
+      asset_unload(str, len + 1);
+    }
+  }
 }
 
 }  // namespace bongocat::platform
