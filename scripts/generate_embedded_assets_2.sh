@@ -302,6 +302,7 @@ done
 
 echo "$INDEX done"
 
+
 echo >> "$C_HEADER_IMAGES_OUT"
 echo "#endif // $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
 echo >> "$C_HEADER_IMAGES_OUT"
@@ -348,7 +349,9 @@ echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_names_table) == ${ASSETS_P
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) <= INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "        assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        return ${LOAD_DM_ANIM_FUNC_NAME}(ctx, index, {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_dims_table[index].cols, ${ASSETS_PREFIX_LOWER}_dims_table[index].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        auto result = ${LOAD_DM_ANIM_FUNC_NAME}(ctx, index, {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_dims_table[index].cols, ${ASSETS_PREFIX_LOWER}_dims_table[index].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        platform::details::asset_unload(${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index]);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        return result;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    void ${INIT_ALL_ANIM_FUNC_NAME}(animation_thread_context_t& ctx) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        using namespace assets;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
@@ -362,6 +365,7 @@ echo "        for (size_t i = 0;i < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT;++i) {" >>
 #echo "            assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "            ${INIT_ANIM_FUNC_NAME}(ctx, i, {${ASSETS_PREFIX_LOWER}_pngs_table[i], ${ASSETS_PREFIX_LOWER}_png_sizes_table[i], ${ASSETS_PREFIX_LOWER}_names_table[i]}, ${ASSETS_PREFIX_LOWER}_dims_table[i].cols, ${ASSETS_PREFIX_LOWER}_dims_table[i].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '        }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        platform::details::asset_unload_all(${ASSETS_PREFIX_LOWER}_pngs_table, ${ASSETS_PREFIX_LOWER}_png_sizes_table, ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '}' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

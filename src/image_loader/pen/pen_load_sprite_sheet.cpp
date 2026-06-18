@@ -522,13 +522,16 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(pen_png_sizes_table) == PEN_ANIM_COUNT);
         assert(LEN_ARRAY(pen_names_table) == PEN_ANIM_COUNT);
         assert(index < PEN_ANIM_COUNT);
-        return load_base_dm_anim(ctx, index, {pen_pngs_table[index], pen_png_sizes_table[index], pen_names_table[index]}, pen_dims_table[index].cols, pen_dims_table[index].rows);
+        auto result = load_base_dm_anim(ctx, index, {pen_pngs_table[index], pen_png_sizes_table[index], pen_names_table[index]}, pen_dims_table[index].cols, pen_dims_table[index].rows);
+        platform::details::asset_unload(pen_pngs_table[index], pen_png_sizes_table[index]);
+        return result;
     }
     void init_all_pen_anim(animation_thread_context_t& ctx) {
         using namespace assets;
         for (size_t i = 0;i < PEN_ANIM_COUNT;++i) {
             init_pen_anim(ctx, i, {pen_pngs_table[i], pen_png_sizes_table[i], pen_names_table[i]}, pen_dims_table[i].cols, pen_dims_table[i].rows);
         }
+        platform::details::asset_unload_all(pen_pngs_table, pen_png_sizes_table, PEN_ANIM_COUNT);
     }
 }
 

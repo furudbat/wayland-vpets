@@ -450,13 +450,16 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dmc_png_sizes_table) == DMC_ANIM_COUNT);
         assert(LEN_ARRAY(dmc_names_table) == DMC_ANIM_COUNT);
         assert(index < DMC_ANIM_COUNT);
-        return load_base_dm_anim(ctx, index, {dmc_pngs_table[index], dmc_png_sizes_table[index], dmc_names_table[index]}, dmc_dims_table[index].cols, dmc_dims_table[index].rows);
+        auto result = load_base_dm_anim(ctx, index, {dmc_pngs_table[index], dmc_png_sizes_table[index], dmc_names_table[index]}, dmc_dims_table[index].cols, dmc_dims_table[index].rows);
+        platform::details::asset_unload(dmc_pngs_table[index], dmc_png_sizes_table[index]);
+        return result;
     }
     void init_all_dmc_anim(animation_thread_context_t& ctx) {
         using namespace assets;
         for (size_t i = 0;i < DMC_ANIM_COUNT;++i) {
             init_dmc_anim(ctx, i, {dmc_pngs_table[i], dmc_png_sizes_table[i], dmc_names_table[i]}, dmc_dims_table[i].cols, dmc_dims_table[i].rows);
         }
+        platform::details::asset_unload_all(dmc_pngs_table, dmc_png_sizes_table, DMC_ANIM_COUNT);
     }
 }
 

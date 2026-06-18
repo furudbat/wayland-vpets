@@ -3471,13 +3471,16 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(pmd_pngs_table) == PMD_ANIM_COUNT);
         assert(LEN_ARRAY(pmd_png_sizes_table) == PMD_ANIM_COUNT);
         assert(LEN_ARRAY(pmd_names_table) == PMD_ANIM_COUNT);
-        return load_custom_anim(ctx, {pmd_pngs_table[index], pmd_png_sizes_table[index], pmd_names_table[index]}, pmd_settings_table[index]);
+        auto result = load_custom_anim(ctx, {pmd_pngs_table[index], pmd_png_sizes_table[index], pmd_names_table[index]}, pmd_settings_table[index]);
+        platform::details::asset_unload(pmd_pngs_table[index], pmd_png_sizes_table[index]);
+        return result;
     }
     void init_all_pmd_anim(animation_thread_context_t& ctx) {
         using namespace assets;
         for (size_t i = 0;i < PMD_ANIM_COUNT;++i) {
             init_pmd_anim(ctx, i, {pmd_pngs_table[i], pmd_png_sizes_table[i], pmd_names_table[i]}, pmd_settings_table[i]);
         }
+        platform::details::asset_unload_all(pmd_pngs_table, pmd_png_sizes_table, PMD_ANIM_COUNT);
     }
 }
 

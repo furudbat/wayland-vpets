@@ -2718,13 +2718,16 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dmall_png_sizes_table) == DMALL_ANIM_COUNT);
         assert(LEN_ARRAY(dmall_names_table) == DMALL_ANIM_COUNT);
         assert(index < DMALL_ANIM_COUNT);
-        return load_base_dm_anim(ctx, index, {dmall_pngs_table[index], dmall_png_sizes_table[index], dmall_names_table[index]}, dmall_dims_table[index].cols, dmall_dims_table[index].rows);
+        auto result = load_base_dm_anim(ctx, index, {dmall_pngs_table[index], dmall_png_sizes_table[index], dmall_names_table[index]}, dmall_dims_table[index].cols, dmall_dims_table[index].rows);
+        platform::details::asset_unload(dmall_pngs_table[index], dmall_png_sizes_table[index]);
+        return result;
     }
     void init_all_dmall_anim(animation_thread_context_t& ctx) {
         using namespace assets;
         for (size_t i = 0;i < DMALL_ANIM_COUNT;++i) {
             init_dmall_anim(ctx, i, {dmall_pngs_table[i], dmall_png_sizes_table[i], dmall_names_table[i]}, dmall_dims_table[i].cols, dmall_dims_table[i].rows);
         }
+        platform::details::asset_unload_all(dmall_pngs_table, dmall_png_sizes_table, DMALL_ANIM_COUNT);
     }
 }
 
