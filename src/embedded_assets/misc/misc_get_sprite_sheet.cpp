@@ -4,25 +4,24 @@
 #include "embedded_assets/misc/misc_sprite.h"
 
 namespace bongocat::assets {
-embedded_image_t get_misc_sprite_sheet(size_t i) {
-  using namespace assets;
-  switch (i) {
-  case MISC_NEKO_ANIM_INDEX:
-    return {misc_neko_png, misc_neko_png_size, "neko"};
-  default:
-    return {nullptr, 0, ""};
-  }
-  return {nullptr, 0, ""};
-}
 
-custom_animation_settings_t get_misc_sprite_sheet_columns(size_t i) {
-  using namespace assets;
-  switch (i) {
-  case MISC_NEKO_ANIM_INDEX:
-    return MISC_NEKO_SPRITE_SHEET_SETTINGS;
-  default:
-    return {};
-  }
-  return {};
+static const custom_animation_settings_t misc_settings_table[] = {
+        MISC_NEKO_SPRITE_SHEET_SETTINGS,
+};
+static const embedded_image_t misc_images_table[] = {
+  {misc_neko_png, misc_neko_png_size, "neko"},
+};
+
+embedded_image_t get_misc_sprite_sheet([[maybe_unused]] size_t índex) {
+  assert(LEN_ARRAY(misc_images_table) == MISC_ANIM_COUNT);
+  assert(index < MISC_ANIM_COUNT);
+  //return misc_images_table[index];
+  return *misc_images_table;
+}
+custom_animation_settings_t get_misc_sprite_sheet_columns([[maybe_unused]] size_t índex) {
+  assert(LEN_ARRAY(misc_settings_table) == MISC_ANIM_COUNT);
+  assert(index < MISC_ANIM_COUNT);
+  //return misc_settings_table[index];
+  return *misc_settings_table;
 }
 }  // namespace bongocat::assets

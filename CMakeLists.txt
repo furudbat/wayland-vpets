@@ -95,8 +95,8 @@ cmake_dependent_option(
   FEATURE_MS_AGENT_EMBEDDED_ASSETS
   OFF
 )
-option(FEATURE_ENABLE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" OFF)
-option(FEATURE_ENABLE_PMD_EMBEDDED_ASSETS "Enable include pkmn pmd (replace pkmn) embedded assets" OFF)
+option(FEATURE_PKMN_EMBEDDED_ASSETS "Enable include pkmn embedded assets" OFF)
+option(FEATURE_PMD_EMBEDDED_ASSETS "Enable include pkmn pmd (replace pkmn) embedded assets" OFF)
 option(FEATURE_MISC_EMBEDDED_ASSETS "Enable include misc embedded assets" OFF)
 # @NOTE(assets): 1. add feature flag for embedded assets
 
