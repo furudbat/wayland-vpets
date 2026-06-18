@@ -8,8 +8,6 @@
 #include "embedded_assets/dmall/dmall_sprite.h"
 #include "image_loader/dmall/load_images_dmall.h"
 #include "embedded_assets/dmall/dmall_images.h"
-#include "image_loader/dm/load_images_dm.h"
-
 #include <climits>
 #include <cstddef>
 #include <cstdint>

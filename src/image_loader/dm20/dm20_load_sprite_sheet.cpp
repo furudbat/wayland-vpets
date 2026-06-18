@@ -8,8 +8,6 @@
 #include "embedded_assets/dm20/dm20_sprite.h"
 #include "image_loader/dm20/load_images_dm20.h"
 #include "embedded_assets/dm20/dm20_images.h"
-#include "image_loader/dm/load_images_dm.h"
-
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -616,8 +614,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dm20_png_sizes_table) == DM20_ANIM_COUNT);
         assert(LEN_ARRAY(dm20_names_table) == DM20_ANIM_COUNT);
         assert(index < DM20_ANIM_COUNT);
-        assert(LEN_ARRAY(dm20_pngs_table) <= INT32_MAX);
-        assert(index < INT32_MAX);
         return load_base_dm_anim(ctx, index, {dm20_pngs_table[index], dm20_png_sizes_table[index], dm20_names_table[index]}, dm20_dims_table[index].cols, dm20_dims_table[index].rows);
     }
     void init_all_dm20_anim(animation_thread_context_t& ctx) {

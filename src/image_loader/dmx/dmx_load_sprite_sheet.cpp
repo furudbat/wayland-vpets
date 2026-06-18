@@ -8,8 +8,6 @@
 #include "embedded_assets/dmx/dmx_sprite.h"
 #include "image_loader/dmx/load_images_dmx.h"
 #include "embedded_assets/dmx/dmx_images.h"
-#include "image_loader/dm/load_images_dm.h"
-
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -772,8 +770,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dmx_png_sizes_table) == DMX_ANIM_COUNT);
         assert(LEN_ARRAY(dmx_names_table) == DMX_ANIM_COUNT);
         assert(index < DMX_ANIM_COUNT);
-        assert(LEN_ARRAY(dmx_pngs_table) <= INT32_MAX);
-        assert(index < INT32_MAX);
         return load_base_dm_anim(ctx, index, {dmx_pngs_table[index], dmx_png_sizes_table[index], dmx_names_table[index]}, dmx_dims_table[index].cols, dmx_dims_table[index].rows);
     }
     void init_all_dmx_anim(animation_thread_context_t& ctx) {

@@ -3,6 +3,8 @@
 #include "embedded_assets/dmx/dmx_images.h"
 #include "embedded_assets/dmx/dmx_sprite.h"
 
+/// @NOTE: Generated embedded assets dmx
+
 namespace bongocat::assets {
     static const embedded_image_t dmx_images_table[] = {
         {dmx_agumon_black_x_png, dmx_agumon_black_x_png_size, "agumon_black_x"}, 

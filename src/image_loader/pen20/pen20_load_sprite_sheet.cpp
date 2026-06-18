@@ -8,8 +8,6 @@
 #include "embedded_assets/pen20/pen20_sprite.h"
 #include "image_loader/pen20/load_images_pen20.h"
 #include "embedded_assets/pen20/pen20_images.h"
-#include "image_loader/dm/load_images_dm.h"
-
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -892,8 +890,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(pen20_png_sizes_table) == PEN20_ANIM_COUNT);
         assert(LEN_ARRAY(pen20_names_table) == PEN20_ANIM_COUNT);
         assert(index < PEN20_ANIM_COUNT);
-        assert(LEN_ARRAY(pen20_pngs_table) <= INT32_MAX);
-        assert(index < INT32_MAX);
         return load_base_dm_anim(ctx, index, {pen20_pngs_table[index], pen20_png_sizes_table[index], pen20_names_table[index]}, pen20_dims_table[index].cols, pen20_dims_table[index].rows);
     }
     void init_all_pen20_anim(animation_thread_context_t& ctx) {

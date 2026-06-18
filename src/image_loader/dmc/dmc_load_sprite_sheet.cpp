@@ -8,8 +8,6 @@
 #include "embedded_assets/dmc/dmc_sprite.h"
 #include "image_loader/dmc/load_images_dmc.h"
 #include "embedded_assets/dmc/dmc_images.h"
-#include "image_loader/dm/load_images_dm.h"
-
 #include <climits>
 #include <cstddef>
 #include <cstdint>
@@ -452,8 +450,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dmc_png_sizes_table) == DMC_ANIM_COUNT);
         assert(LEN_ARRAY(dmc_names_table) == DMC_ANIM_COUNT);
         assert(index < DMC_ANIM_COUNT);
-        assert(LEN_ARRAY(dmc_pngs_table) <= INT32_MAX);
-        assert(index < INT32_MAX);
         return load_base_dm_anim(ctx, index, {dmc_pngs_table[index], dmc_png_sizes_table[index], dmc_names_table[index]}, dmc_dims_table[index].cols, dmc_dims_table[index].rows);
     }
     void init_all_dmc_anim(animation_thread_context_t& ctx) {
