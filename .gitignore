@@ -32,7 +32,7 @@ Thumbs.db
 # Log files
 *.log
 
-ram_report.md
+ram_report.5.md
 ram_report.*.md
 ram_report.*.bak
 heaptrack.*.zst

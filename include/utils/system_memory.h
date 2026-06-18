@@ -14,6 +14,8 @@
 #include <sys/poll.h>
 #include <sys/stat.h>
 #include <unistd.h>
+#include <sys/mman.h>
+#include <cstdint>
 
 namespace bongocat::platform {
 int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms);
@@ -1185,6 +1187,25 @@ inline drain_event_result_t drain_event(pollfd& pfd, int max_attempts,
   }
   return ret;
 }
+
+
+namespace details {
+  template <typename T>
+  inline int asset_unload(const T* ptr, size_t size) noexcept {
+    return madvise(
+        reinterpret_cast<void*>(const_cast<T*>(ptr)),
+        size,
+        MADV_DONTNEED
+    );
+  }
+  template <typename T>
+  inline void asset_unload_all(const T* const* ptrs, const size_t* sizes, size_t count) noexcept {
+    for (size_t i = 0; i < count; ++i) {
+      asset_unload(ptrs[i], sizes[i]);
+    }
+  }
+}
+
 }  // namespace bongocat::platform
 
 #endif  // BONGOCAT_SYSTEM_MEMORY_H

@@ -7,6 +7,7 @@
 #include "graphics/sprite_sheet.h"
 #include "utils/memory.h"
 #include <cstdlib>
+#include <cstdint>
 
 // feature flags
 namespace features {

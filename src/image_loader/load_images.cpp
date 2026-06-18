@@ -135,6 +135,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
 
     BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img.name);
     auto [loaded_image, image_error] = load_image(img.data, img.size, RGBA_CHANNELS);
+    platform::details::asset_unload(img.data, img.size);
     if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to load embedded image: %s (%d)", img.name, image_error);
       continue;

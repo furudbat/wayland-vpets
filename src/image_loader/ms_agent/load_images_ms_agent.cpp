@@ -274,17 +274,22 @@ created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const anima
   using namespace animation;
   assert(index < MS_AGENTS_ANIM_COUNT);
   const auto dims = get_ms_agent_sprite_sheet_dims(index);
-  return load_ms_agent_anim(ctx, index, get_ms_agent_sprite_sheet(index),
+  const auto image = get_ms_agent_sprite_sheet(index);
+  auto result = load_ms_agent_anim(ctx, index, image,
                             dims.cols, dims.rows,
                             get_ms_agent_animation_indices(index));
+  platform::details::asset_unload(image.data, image.size);
+  return result;
 }
 
 void init_all_ms_agent_anim(animation_thread_context_t& ctx) {
   using namespace assets;
   for (size_t i = 0;i < MS_AGENTS_ANIM_COUNT;++i) {
     const auto dims = get_ms_agent_sprite_sheet_dims(i);
+    const auto image = get_ms_agent_sprite_sheet(i);
     init_ms_agent_anim(ctx, i, get_ms_agent_sprite_sheet(i), dims.cols, dims.rows,
                             get_ms_agent_animation_indices(i));
+    platform::details::asset_unload(image.data, image.size);
   }
 }
 }  // namespace bongocat::animation

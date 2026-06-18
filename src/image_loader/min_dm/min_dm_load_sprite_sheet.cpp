@@ -89,12 +89,15 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(min_dm_png_sizes_table) == MIN_DM_ANIM_COUNT);
         assert(LEN_ARRAY(min_dm_names_table) == MIN_DM_ANIM_COUNT);
         assert(index < MIN_DM_ANIM_COUNT);
-        return load_base_dm_anim(ctx, index, {min_dm_pngs_table[index], min_dm_png_sizes_table[index], min_dm_names_table[index]}, min_dm_dims_table[index].cols, min_dm_dims_table[index].rows);
+        auto result = load_base_dm_anim(ctx, index, {min_dm_pngs_table[index], min_dm_png_sizes_table[index], min_dm_names_table[index]}, min_dm_dims_table[index].cols, min_dm_dims_table[index].rows);
+        platform::details::asset_unload(min_dm_pngs_table[index], min_dm_png_sizes_table[index]);
+        return result;
     }
     void init_all_min_dm_anim(animation_thread_context_t& ctx) {
         using namespace assets;
         for (size_t i = 0;i < MIN_DM_ANIM_COUNT;++i) {
             init_min_dm_anim(ctx, i, {min_dm_pngs_table[i], min_dm_png_sizes_table[i], min_dm_names_table[i]}, min_dm_dims_table[i].cols, min_dm_dims_table[i].rows);
         }
+        platform::details::asset_unload_all(min_dm_pngs_table, min_dm_png_sizes_table, MIN_DM_ANIM_COUNT);
     }
 }  // namespace bongocat::animation

@@ -1,24 +1,27 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat_images.h"
 #include "embedded_assets/embedded_image.h"
+#include "utils/system_memory.h"
 
 namespace bongocat::assets {
-embedded_image_t get_bongocat_sprite(size_t i) {
-  using namespace assets;
-  switch (i) {
-  case BONGOCAT_FRAME_BOTH_UP:
-    return {bongo_cat_both_up_png, bongo_cat_both_up_png_size, "bongo-cat-both-up"};
-  case BONGOCAT_FRAME_LEFT_DOWN:
-    return {bongo_cat_left_down_png, bongo_cat_left_down_png_size, "bongo-cat-left-down"};
-  case BONGOCAT_FRAME_RIGHT_DOWN:
-    return {bongo_cat_right_down_png, bongo_cat_right_down_png_size, "bongo-cat-right-down"};
-  case BONGOCAT_FRAME_BOTH_DOWN:
-    return {bongo_cat_both_down_png, bongo_cat_both_down_png_size, "bongo-cat-both-down"};
-  case BONGOCAT_FRAME_SLEEPING:
-    return {bongo_cat_sleeping_png, bongo_cat_sleeping_png_size, "bongo-cat-sleeping"};
-  default:
-    return {};
-  }
-  return {};
+    static const embedded_image_t bongocat_images_table[] = {
+    {bongo_cat_both_up_png, bongo_cat_both_up_png_size, "bongo-cat-both-up"},
+    {bongo_cat_left_down_png, bongo_cat_left_down_png_size, "bongo-cat-left-down"},
+    {bongo_cat_right_down_png, bongo_cat_right_down_png_size, "bongo-cat-right-down"},
+    {bongo_cat_both_down_png, bongo_cat_both_down_png_size, "bongo-cat-both-down"},
+    {bongo_cat_sleeping_png, bongo_cat_sleeping_png_size, "bongo-cat-sleeping"},
+    };
+embedded_image_t get_bongocat_sprite(size_t index) {
+  assert(LEN_ARRAY(bongocat_images_table) == BONGOCAT_EMBEDDED_IMAGES_COUNT);
+  assert(index < BONGOCAT_EMBEDDED_IMAGES_COUNT);
+  return bongocat_images_table[index];
+}
+
+void asset_unload_bongocat() {
+  platform::details::asset_unload(bongo_cat_both_up_png, bongo_cat_both_up_png_size);
+  platform::details::asset_unload(bongo_cat_left_down_png, bongo_cat_left_down_png_size);
+  platform::details::asset_unload(bongo_cat_right_down_png, bongo_cat_right_down_png_size);
+  platform::details::asset_unload(bongo_cat_both_down_png, bongo_cat_both_down_png_size);
+  platform::details::asset_unload(bongo_cat_sleeping_png, bongo_cat_sleeping_png_size);
 }
 }  // namespace bongocat::assets

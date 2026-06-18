@@ -35,7 +35,7 @@ _Pokemon_
 - 🎲 Randomize sprite at start up
 - 🔲 React to CPU usage
 - ↔️ Movement on screen
-- ⚡ Lightweight (~6-11MB RAM)
+- ⚡ Lightweight (~8-11MB RAM)
 
 
 ## Quick Start
