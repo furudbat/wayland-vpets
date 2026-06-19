@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t dmc_animation_table[] = {
+    static const config_animation_entry_t dmc_animation_table[] CONFIG_TABLE_SECTION = {
         { DMC_AGUMON_NAME, DMC_AGUMON_ID, DMC_AGUMON_FQID, DMC_AGUMON_FQNAME, DMC_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_AIRDRAMON_NAME, DMC_AIRDRAMON_ID, DMC_AIRDRAMON_FQID, DMC_AIRDRAMON_FQNAME, DMC_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_ANDROMON_NAME, DMC_ANDROMON_ID, DMC_ANDROMON_FQID, DMC_ANDROMON_FQNAME, DMC_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -112,7 +112,7 @@ namespace bongocat::assets {
         { DMC_ZURUMON_NAME, DMC_ZURUMON_ID, DMC_ZURUMON_FQID, DMC_ZURUMON_FQNAME, DMC_ZURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         
     };
-    static const config_animation_names_entry_t dmc_animation_names_table[] = {
+    static const config_animation_names_entry_t dmc_animation_names_table[] CONFIG_TABLE_SECTION = {
         { DMC_AGUMON_NAME, DMC_AGUMON_NAME_LEN, DMC_AGUMON_ID, DMC_AGUMON_ID_LEN, DMC_AGUMON_FQID, DMC_AGUMON_FQID_LEN, DMC_AGUMON_FQNAME, DMC_AGUMON_FQNAME_LEN },
         { DMC_AIRDRAMON_NAME, DMC_AIRDRAMON_NAME_LEN, DMC_AIRDRAMON_ID, DMC_AIRDRAMON_ID_LEN, DMC_AIRDRAMON_FQID, DMC_AIRDRAMON_FQID_LEN, DMC_AIRDRAMON_FQNAME, DMC_AIRDRAMON_FQNAME_LEN },
         { DMC_ANDROMON_NAME, DMC_ANDROMON_NAME_LEN, DMC_ANDROMON_ID, DMC_ANDROMON_ID_LEN, DMC_ANDROMON_FQID, DMC_ANDROMON_FQID_LEN, DMC_ANDROMON_FQNAME, DMC_ANDROMON_FQNAME_LEN },

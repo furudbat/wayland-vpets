@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_custom_animation_entry_t pmd_animation_table[] = {
+    static const config_custom_animation_entry_t pmd_animation_table[] CONFIG_TABLE_SECTION = {
         { PMD_BULBASAUR_NAME, PMD_BULBASAUR_ID, PMD_BULBASAUR_FQID, PMD_BULBASAUR_FQNAME, PMD_BULBASAUR_ANIM_INDEX, config::config_animation_custom_set_t::pmd, config::config_animation_sprite_sheet_layout_t::Custom },
         { PMD_IVYSAUR_NAME, PMD_IVYSAUR_ID, PMD_IVYSAUR_FQID, PMD_IVYSAUR_FQNAME, PMD_IVYSAUR_ANIM_INDEX, config::config_animation_custom_set_t::pmd, config::config_animation_sprite_sheet_layout_t::Custom },
         { PMD_VENUSAUR_NAME, PMD_VENUSAUR_ID, PMD_VENUSAUR_FQID, PMD_VENUSAUR_FQNAME, PMD_VENUSAUR_ANIM_INDEX, config::config_animation_custom_set_t::pmd, config::config_animation_sprite_sheet_layout_t::Custom },
@@ -869,7 +869,7 @@ namespace bongocat::assets {
         { PMD_ENAMORUS_NAME, PMD_ENAMORUS_ID, PMD_ENAMORUS_FQID, PMD_ENAMORUS_FQNAME, PMD_ENAMORUS_ANIM_INDEX, config::config_animation_custom_set_t::pmd, config::config_animation_sprite_sheet_layout_t::Custom },
         
     };
-    static const config_animation_names_entry_t pmd_animation_names_table[] = {
+    static const config_animation_names_entry_t pmd_animation_names_table[] CONFIG_TABLE_SECTION = {
         { PMD_BULBASAUR_NAME, PMD_BULBASAUR_NAME_LEN, PMD_BULBASAUR_ID, PMD_BULBASAUR_ID_LEN, PMD_BULBASAUR_FQID, PMD_BULBASAUR_FQID_LEN, PMD_BULBASAUR_FQNAME, PMD_BULBASAUR_FQNAME_LEN },
         { PMD_IVYSAUR_NAME, PMD_IVYSAUR_NAME_LEN, PMD_IVYSAUR_ID, PMD_IVYSAUR_ID_LEN, PMD_IVYSAUR_FQID, PMD_IVYSAUR_FQID_LEN, PMD_IVYSAUR_FQNAME, PMD_IVYSAUR_FQNAME_LEN },
         { PMD_VENUSAUR_NAME, PMD_VENUSAUR_NAME_LEN, PMD_VENUSAUR_ID, PMD_VENUSAUR_ID_LEN, PMD_VENUSAUR_FQID, PMD_VENUSAUR_FQID_LEN, PMD_VENUSAUR_FQNAME, PMD_VENUSAUR_FQNAME_LEN },

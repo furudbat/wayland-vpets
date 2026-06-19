@@ -39,7 +39,7 @@ struct animation_evolution_t {
 
   platform::time_sec_t uptime_sec{0};
   platform::time_sec_t time_since_start_sec{0};
-  platform::timestamp_ms_t last_evolution_timestamp{0};  ///< since last evolution happens
+  platform::timestamp_ms_t last_evolution_timestamp{0};              ///< since last evolution happens
   platform::timestamp_ms_t last_animation_name_change_timestamp{0};  ///< since last animation name change ("hatching")
 
   platform::time_sec_t current_stage_life_time_sec{0};

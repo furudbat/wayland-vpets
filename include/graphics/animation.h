@@ -62,4 +62,9 @@ namespace details {
 }  // namespace details
 }  // namespace bongocat::animation
 
+extern "C" {
+extern const char __start_assets_images[];
+extern const char __stop_assets_images[];
+}
+
 #endif  // BONGOCAT_ANIMATION_H

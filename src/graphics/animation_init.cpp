@@ -5,7 +5,10 @@
 #include "utils/system_error.h"
 
 #include <cassert>
+#include <cstdint>
 #include <sys/eventfd.h>
+#include <sys/mman.h>
+#include <unistd.h>
 
 // assets
 #include "embedded_assets/bongocat/assets_bongocat_features.h"
@@ -298,6 +301,22 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   created_result_t<animation_t *> ret;
   ret.result = &get_current_animation(ctx);
   ret.error = bongocat_error_t::BONGOCAT_SUCCESS;
+
+  // try to unload static images from page
+  const uintptr_t start_addr = reinterpret_cast<uintptr_t>(__start_assets_images);
+  const uintptr_t stop_addr = reinterpret_cast<uintptr_t>(__stop_assets_images);
+  const auto images_size = stop_addr - start_addr;
+  if (images_size > 0) {
+    // Double-check that our linker alignment rules actually worked at runtime
+    assert((start_addr % 4096) == 0);   // Assets start address must be page-aligned!
+    assert((images_size % 4096) == 0);  // Assets total size must be a multiple of page size!
+
+    const int result = madvise(reinterpret_cast<void *>(start_addr), images_size, MADV_WILLNEED);
+    if (result != 0) {
+      BONGOCAT_LOG_VERBOSE("madvise failed to drop asset pages: %s", strerror(errno));
+    }
+  }
+
   return ret;
 }
 
@@ -699,7 +718,8 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         assert(ctx._local_copy_config.ptr);
 
         if (ctx._local_copy_config->_custom) {
-          BONGOCAT_LOG_INFO("Load custom sprite sheets: %s", ctx._local_copy_config->custom_sprite_sheet_filename.c_str());
+          BONGOCAT_LOG_INFO("Load custom sprite sheets: %s",
+                            ctx._local_copy_config->custom_sprite_sheet_filename.c_str());
 
           auto result = details::anim_load_custom_animation(ctx, *ctx._local_copy_config);
           if (result.error != bongocat_error_t::BONGOCAT_SUCCESS) {

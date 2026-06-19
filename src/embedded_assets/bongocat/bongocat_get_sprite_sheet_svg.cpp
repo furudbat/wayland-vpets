@@ -4,7 +4,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const embedded_image_t bongocat_images_table[] = {
+    static const embedded_image_t bongocat_images_table[] ASSETS_TABLE_SECTION = {
     {bongo_cat_both_up_svg, bongo_cat_both_up_svg_size, "bongo-cat-both-up"},
     {bongo_cat_left_down_svg, bongo_cat_left_down_svg_size, "bongo-cat-left-down"},
     {bongo_cat_right_down_svg, bongo_cat_right_down_svg_size, "bongo-cat-right-down"},

@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data dmx
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dmx_evol_data_table[] = {
+    static constexpr animation::animation_evolution_data_t dmx_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
         // Name: Agumon (Black) X
         {
             // Stage: Child
@@ -1853,7 +1853,9 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(dmx_evol_data_table) == DMX_ANIM_COUNT);
         assert(index < DMX_ANIM_COUNT);
-        return dmx_evol_data_table[index];
+        auto result = dmx_evol_data_table[index];
+        platform::details::asset_unload(dmx_evol_data_table, sizeof(animation::animation_evolution_data_t)*DMX_ANIM_COUNT);
+        return result;
     }
 }
 

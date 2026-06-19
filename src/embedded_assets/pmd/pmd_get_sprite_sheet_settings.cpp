@@ -3,8 +3,11 @@
 #include "embedded_assets/pmd/pmd_images.h"
 #include "embedded_assets/pmd/pmd_sprite.h"
 
+
+/// @NOTE: Generated embedded assets images data from assets/pmd
+
 namespace bongocat::assets {
-    static const custom_animation_settings_t pmd_settings_table[] = {
+    static const custom_animation_settings_t pmd_settings_table[] ASSETS_TABLE2_SECTION = {
         assets::PMD_BULBASAUR_SPRITE_SHEET_SETTINGS, 
         assets::PMD_IVYSAUR_SPRITE_SHEET_SETTINGS, 
         assets::PMD_VENUSAUR_SPRITE_SHEET_SETTINGS, 

@@ -71,6 +71,7 @@ ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 > "$CPP_SOURCE_GET_EVOL_OUT"
 
 GET_EVOL_DATA_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_evolution_data"
+UNLOAD_GET_EVOL_DATA_FUNC_NAME="unload_evolution_data_${ASSETS_PREFIX_LOWER}"
 
 # === Start animation index counter ===
 INDEX=$START_INDEX
@@ -276,14 +277,16 @@ echo >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "/// @NOTE: Generated evolution data $ASSETS_PREFIX" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "    static constexpr animation::animation_evolution_data_t ${ASSETS_PREFIX_LOWER}_evol_data_table[] = {" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "    static constexpr animation::animation_evolution_data_t ${ASSETS_PREFIX_LOWER}_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo -e "${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "    };" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "    animation::animation_evolution_data_t ${GET_EVOL_DATA_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        using namespace assets;" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_evol_data_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "        return ${ASSETS_PREFIX_LOWER}_evol_data_table[index];" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        auto result = ${ASSETS_PREFIX_LOWER}_evol_data_table[index];" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        platform::details::asset_unload(${ASSETS_PREFIX_LOWER}_evol_data_table, sizeof(animation::animation_evolution_data_t)*${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        return result;" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo '    }' >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo '}' >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo >> "$CPP_SOURCE_GET_EVOL_OUT"

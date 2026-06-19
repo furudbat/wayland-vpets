@@ -4,8 +4,8 @@
 #include "embedded_assets/min_dm/min_dm_sprite.h"
 
 namespace bongocat::assets {
-    static const embedded_image_t min_dm_images_table[] = {
-    {dm_botamon_png, dm_botamon_png_size, "botamon"},
+    static const embedded_image_t min_dm_images_table[] ASSETS_TABLE_SECTION = {
+    {dm_botamon_png, dm_botamon_png_size, DM_BOTAMON_NAME},
     {dm_koromon_png, dm_koromon_png_size, "koromon"},
     {dm_agumon_png, dm_agumon_png_size, "agumon"},
     {dm_betamon_png, dm_betamon_png_size, "betamon"},

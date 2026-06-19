@@ -27,7 +27,7 @@ inline static constexpr animation::animation_evolution_conditions_t STAGE_VIp_CO
   .next_evolution_time_sec = -1,  // N/A
 };
 
-static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] = {
+static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
     {
       .conditions = STAGE_I_CONDITIONS,
 

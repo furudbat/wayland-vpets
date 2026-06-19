@@ -14,8 +14,9 @@
 
 /// @NOTE: Generated embedded assets pen
 
+
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t pen_dims_table[] = {
+    static constexpr assets::embedded_sprite_sheet_dims_t pen_dims_table[] ASSETS_TABLE2_SECTION = {
         {assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_ANDROMON_SPRITE_SHEET_COLS, assets::PEN_ANDROMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_ANGEWOMON_SPRITE_SHEET_COLS, assets::PEN_ANGEWOMON_SPRITE_SHEET_ROWS}, 
@@ -140,7 +141,7 @@ namespace bongocat::animation {
         {assets::PEN_ZUDOMON_SPRITE_SHEET_COLS, assets::PEN_ZUDOMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* pen_pngs_table[] = {
+    static const unsigned char* pen_pngs_table[] ASSETS_TABLE_SECTION = {
         pen_aero_v_dramon_png, 
         pen_andromon_png, 
         pen_angewomon_png, 
@@ -265,7 +266,7 @@ namespace bongocat::animation {
         pen_zudomon_png, 
         
     };
-    static const size_t pen_png_sizes_table[] = {
+    static const size_t pen_png_sizes_table[] ASSETS_TABLE_SECTION = {
         pen_aero_v_dramon_png_size, 
         pen_andromon_png_size, 
         pen_angewomon_png_size, 
@@ -390,7 +391,7 @@ namespace bongocat::animation {
         pen_zudomon_png_size, 
         
     };
-    static const char* pen_names_table[] = {
+    static const char* pen_names_table[] ASSETS_TABLE_SECTION = {
         "aero_v_dramon", 
         "andromon", 
         "angewomon", 

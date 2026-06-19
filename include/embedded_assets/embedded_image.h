@@ -2,6 +2,7 @@
 #define BONGOCAT_EMBEDDED_ASSETS_IMAGE_H
 
 #include "config/config.h"
+#include "assets.h"
 
 namespace bongocat::assets {
 
@@ -51,6 +52,7 @@ struct config_animation_names_entry_t {
   const char* fqname{""};
   size_t fqname_len{0};
 };
+
 }  // namespace bongocat::assets
 
 #endif  // BONGOCAT_EMBEDDED_ASSETS_IMAGE_H

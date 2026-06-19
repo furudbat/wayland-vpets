@@ -5,7 +5,7 @@
 
 namespace bongocat::assets {
 
-static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] = {
+static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] ASSETS_TABLE2_SECTION = {
   {assets::CLIPPY_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
   {assets::LINKS_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
@@ -14,7 +14,7 @@ static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] = {
 #endif
 };
 
-static const embedded_image_t ms_agent_images_table[] = {
+static const embedded_image_t ms_agent_images_table[] ASSETS_TABLE_SECTION = {
   {clippy_png, clippy_png_size, "clippy"},
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
   {links_png, links_png_size, "links"},
@@ -23,7 +23,7 @@ static const embedded_image_t ms_agent_images_table[] = {
 #endif
 };
 
-static const ms_agent_animation_indices_t ms_agent_animation_indices_table[] = {
+static const ms_agent_animation_indices_t ms_agent_animation_indices_table[] ASSETS_TABLE2_SECTION = {
     {
         .start_index_frame_idle = 0,
         .end_index_frame_idle = CLIPPY_FRAMES_IDLE - 1,

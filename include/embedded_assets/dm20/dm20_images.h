@@ -5,7 +5,7 @@
 
 /// @NOTE: Generated embedded assets from assets/dm20
 
-
+#include "embedded_assets/assets.h"
 // Name: Aegisdramon
 extern const unsigned char dm20_aegisdramon_png[];
 extern const size_t dm20_aegisdramon_png_size;

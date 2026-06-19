@@ -70,7 +70,7 @@ inline static constexpr int SMALL_FLIP_DIRECTION_NEAR_WALL_PERCENT = 40;
 
 inline static constexpr int SLEEP_BORING_PART = 2;  // 1/2 of sleep time for triggering boring animation
 
-inline static constexpr double EVOLUTION_LEVEL_PER_SEC = (60 * 60) / 2.0; // 2 levels per hour
+inline static constexpr double EVOLUTION_LEVEL_PER_SEC = (60 * 60) / 2.0;  // 2 levels per hour
 
 // =============================================================================
 // ANIMATION STATE MANAGEMENT MODULE
@@ -4511,9 +4511,9 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
   case animation_state_row_t::StartEvolution:
     if (current_frames.feature_evolving) {
       if (conditions.go_next_frame) {
-        anim_custom_start_or_process_animation(ctx, animation_state_row_t::Evolution, animation_state_row_t::AfterEvolution,
-                                               new_animation_result, new_state, current_state, current_frames,
-                                               current_config);
+        anim_custom_start_or_process_animation(ctx, animation_state_row_t::Evolution,
+                                               animation_state_row_t::AfterEvolution, new_animation_result, new_state,
+                                               current_state, current_frames, current_config);
       }
     } else {
       anim_custom_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
@@ -4526,9 +4526,9 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
         if (conditions.is_evolving) {
           anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
         } else {
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution, animation_state_row_t::Idle,
-                                                 new_animation_result, new_state, current_state, current_frames,
-                                                 current_config);
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution,
+                                                 animation_state_row_t::Idle, new_animation_result, new_state,
+                                                 current_state, current_frames, current_config);
         }
       }
     } else {
@@ -4930,7 +4930,6 @@ static anim_next_frame_result_t anim_custom_running_next_frame(animation_thread_
 static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_context_t& animation_ctx,
                                                                 animation_state_t& state,
                                                                 const animation_trigger_t& trigger) {
-
   using namespace assets;
 
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
@@ -4970,19 +4969,23 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
   /// @TODO: add animation process for custom evolution sprite
   if (current_frames.feature_evolving) {
     if (!conditions.is_evolving && conditions.start_evolving) {
-      anim_custom_restart_animation(ctx, animation_state_row_t::StartEvolution, animation_state_row_t::Evolution, animation_state_row_t::AfterEvolution, new_animation_result, new_state,
-                                          current_state, current_frames, current_config);
+      anim_custom_restart_animation(ctx, animation_state_row_t::StartEvolution, animation_state_row_t::Evolution,
+                                    animation_state_row_t::AfterEvolution, new_animation_result, new_state,
+                                    current_state, current_frames, current_config);
       BONGOCAT_LOG_VERBOSE("Start Evolving");
     } else if (conditions.process_evolving_animation) {
       // evolving
       if (current_state.swap_animation_done) {
-        if (current_state.row_state == animation_state_row_t::StartEvolution || current_state.row_state == animation_state_row_t::Evolution) {
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
-                                      current_frames, current_config);
+        if (current_state.row_state == animation_state_row_t::StartEvolution ||
+            current_state.row_state == animation_state_row_t::Evolution) {
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution,
+                                                 animation_state_row_t::Idle, new_animation_result, new_state,
+                                                 current_state, current_frames, current_config);
         } else if (current_state.row_state == animation_state_row_t::AfterEvolution) {
           // back to idle
-          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
-                                      current_frames, current_config);
+          anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, animation_state_row_t::Idle,
+                                                 new_animation_result, new_state, current_state, current_frames,
+                                                 current_config);
         }
         new_state.swap_animation_done = false;
         BONGOCAT_LOG_VERBOSE("After Evolving");
@@ -4990,9 +4993,11 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
         // continues animations
         if (conditions.process_evolving_animation && !evol._swap_animation) {
           if (current_state.row_state == animation_state_row_t::StartEvolution) {
-            const auto animation_result = anim_custom_start_or_process_animation(ctx, animation_state_row_t::Evolution, animation_state_row_t::AfterEvolution, new_animation_result, new_state, current_state,
-                                        current_frames, current_config);
-            if (animation_result.row_state == animation_state_row_t::Evolution || current_state.row_state == animation_state_row_t::AfterEvolution) {
+            const auto animation_result = anim_custom_start_or_process_animation(
+                ctx, animation_state_row_t::Evolution, animation_state_row_t::AfterEvolution, new_animation_result,
+                new_state, current_state, current_frames, current_config);
+            if (animation_result.row_state == animation_state_row_t::Evolution ||
+                current_state.row_state == animation_state_row_t::AfterEvolution) {
               if (evol._evolution_pending_animation_index >= 0) {
                 evol._swap_animation = true;
                 trigger_reload_animation(animation_ctx);
@@ -5000,8 +5005,9 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
             }
           } else if (state.row_state == animation_state_row_t::Evolution) {
             // end evol, cool down
-            const auto animation_result = anim_custom_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
-                                        current_frames, current_config);
+            const auto animation_result = anim_custom_start_or_process_animation(
+                ctx, animation_state_row_t::AfterEvolution, animation_state_row_t::Idle, new_animation_result,
+                new_state, current_state, current_frames, current_config);
             if (animation_result.row_state == animation_state_row_t::AfterEvolution) {
               // has still pending evolution ? (no "StartEvolution" animation)
               if (evol._evolution_pending_animation_index >= 0) {
@@ -5011,8 +5017,8 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
             }
           } else if (current_state.row_state == animation_state_row_t::AfterEvolution) {
             // back to idle
-            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
-                                        current_frames, current_config);
+            anim_custom_start_or_process_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state,
+                                                   current_state, current_frames, current_config);
           } else if (conditions.process_evolving_animation && evol._swap_animation) {
             // cancel evol ? -- no animation for evol
             evol._swap_animation = false;
@@ -5022,8 +5028,9 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
     } else if (current_state.swap_animation_done) {
       // animation change is done, but no after animation, yet ?
       new_state.swap_animation_done = false;
-      anim_custom_restart_animation(ctx, animation_state_row_t::AfterEvolution, animation_state_row_t::Idle, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
-                                      current_frames, current_config);
+      anim_custom_restart_animation(ctx, animation_state_row_t::AfterEvolution, animation_state_row_t::Idle,
+                                    animation_state_row_t::Idle, new_animation_result, new_state, current_state,
+                                    current_frames, current_config);
     }
   } else {
     // Cancel Working
@@ -5126,46 +5133,46 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
   if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) {
     // handle working animation
     switch (anim_shm.anim_type) {
-      case config::config_animation_sprite_sheet_layout_t::None:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::Bongocat:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::Dm: {
-  #ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-        update_frame_result = anim_dm_working_next_frame(ctx, input, upd, state, trigger);
-  #endif
-      } break;
-      case config::config_animation_sprite_sheet_layout_t::Pkmn:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::MsAgent: {
-  #ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-        /// @TODO: add working animation for MS agents
-        // update_frame_result = anim_ms_agent_working_next_frame(ctx, input, upd, state, trigger);
-  #endif
-      } break;
-      case config::config_animation_sprite_sheet_layout_t::Custom: {
-  #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-        update_frame_result = anim_custom_working_next_frame(ctx, input, upd, state, trigger);
-  #endif
-      } break;
+    case config::config_animation_sprite_sheet_layout_t::None:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+      update_frame_result = anim_dm_working_next_frame(ctx, input, upd, state, trigger);
+#endif
+    } break;
+    case config::config_animation_sprite_sheet_layout_t::Pkmn:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::MsAgent: {
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+      /// @TODO: add working animation for MS agents
+      // update_frame_result = anim_ms_agent_working_next_frame(ctx, input, upd, state, trigger);
+#endif
+    } break;
+    case config::config_animation_sprite_sheet_layout_t::Custom: {
+#ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
+      update_frame_result = anim_custom_working_next_frame(ctx, input, upd, state, trigger);
+#endif
+    } break;
     }
     // handle running animation
     switch (anim_shm.anim_type) {
-      case config::config_animation_sprite_sheet_layout_t::None:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::Bongocat:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::Dm:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::Pkmn:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::MsAgent:
-        break;
-      case config::config_animation_sprite_sheet_layout_t::Custom: {
-  #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-        update_frame_result = anim_custom_running_next_frame(ctx, input, upd, state, trigger);
-  #endif
-      } break;
+    case config::config_animation_sprite_sheet_layout_t::None:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::Dm:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::Pkmn:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+      break;
+    case config::config_animation_sprite_sheet_layout_t::Custom: {
+#ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
+      update_frame_result = anim_custom_running_next_frame(ctx, input, upd, state, trigger);
+#endif
+    } break;
     }
     BONGOCAT_LOG_VERBOSE("CPU update detected - switching to frame %d (%zu)", update_frame_result.new_col,
                          trigger.anim_cause);
@@ -5226,7 +5233,7 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
         break;
       case config::config_animation_sprite_sheet_layout_t::MsAgent:
         break;
-      case config::config_animation_sprite_sheet_layout_t::Custom:{
+      case config::config_animation_sprite_sheet_layout_t::Custom: {
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
         update_frame_result = anim_custom_evolving_next_frame(animation_ctx, state, trigger);
 #endif
@@ -5253,7 +5260,7 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
         break;
       case config::config_animation_sprite_sheet_layout_t::MsAgent:
         break;
-      case config::config_animation_sprite_sheet_layout_t::Custom:{
+      case config::config_animation_sprite_sheet_layout_t::Custom: {
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
         update_frame_result = anim_custom_evolving_next_frame(animation_ctx, state, trigger);
 #endif
@@ -5373,7 +5380,8 @@ static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_ev
       return 0;
     }();
     assert(EVOLUTION_LEVEL_PER_SEC > 0);
-    state._lvl = static_cast<int32_t>((static_cast<double>(level_life_time_sec) * current_config.evolution_speed_factor) / EVOLUTION_LEVEL_PER_SEC);
+    state._lvl = static_cast<int32_t>(
+        (static_cast<double>(level_life_time_sec) * current_config.evolution_speed_factor) / EVOLUTION_LEVEL_PER_SEC);
   }
 
   if (!state._evolution_pending) {

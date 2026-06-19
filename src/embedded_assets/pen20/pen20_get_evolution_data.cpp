@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data pen20
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t pen20_evol_data_table[] = {
+    static constexpr animation::animation_evolution_data_t pen20_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
         // Name: Aero V-dramon
         {
             // Stage: Perfect
@@ -2153,7 +2153,9 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(pen20_evol_data_table) == PEN20_ANIM_COUNT);
         assert(index < PEN20_ANIM_COUNT);
-        return pen20_evol_data_table[index];
+        auto result = pen20_evol_data_table[index];
+        platform::details::asset_unload(pen20_evol_data_table, sizeof(animation::animation_evolution_data_t)*PEN20_ANIM_COUNT);
+        return result;
     }
 }
 

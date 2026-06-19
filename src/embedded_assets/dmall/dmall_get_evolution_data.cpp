@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data dmall
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dmall_evol_data_table[] = {
+    static constexpr animation::animation_evolution_data_t dmall_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
         // Name: Aegisdramon
         {
             // Stage: Ultimate
@@ -6723,7 +6723,9 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(dmall_evol_data_table) == DMALL_ANIM_COUNT);
         assert(index < DMALL_ANIM_COUNT);
-        return dmall_evol_data_table[index];
+        auto result = dmall_evol_data_table[index];
+        platform::details::asset_unload(dmall_evol_data_table, sizeof(animation::animation_evolution_data_t)*DMALL_ANIM_COUNT);
+        return result;
     }
 }
 

@@ -5,7 +5,7 @@
 
 /// @NOTE: Generated embedded assets from assets/dm
 
-
+#include "embedded_assets/assets.h"
 // Name: Agumon
 extern const unsigned char dm_agumon_png[];
 extern const size_t dm_agumon_png_size;

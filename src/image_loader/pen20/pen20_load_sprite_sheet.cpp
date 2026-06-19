@@ -14,8 +14,9 @@
 
 /// @NOTE: Generated embedded assets pen20
 
+
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t pen20_dims_table[] = {
+    static constexpr assets::embedded_sprite_sheet_dims_t pen20_dims_table[] ASSETS_TABLE2_SECTION = {
         {assets::PEN20_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN20_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN20_AGUMON_HAKASE_SPRITE_SHEET_COLS, assets::PEN20_AGUMON_HAKASE_SPRITE_SHEET_ROWS}, 
         {assets::PEN20_ALPHAMON_OURYUKEN_SPRITE_SHEET_COLS, assets::PEN20_ALPHAMON_OURYUKEN_SPRITE_SHEET_ROWS}, 
@@ -232,7 +233,7 @@ namespace bongocat::animation {
         {assets::PEN20_ZUDOMON_SPRITE_SHEET_COLS, assets::PEN20_ZUDOMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* pen20_pngs_table[] = {
+    static const unsigned char* pen20_pngs_table[] ASSETS_TABLE_SECTION = {
         pen20_aero_v_dramon_png, 
         pen20_agumon_hakase_png, 
         pen20_alphamon_ouryuken_png, 
@@ -449,7 +450,7 @@ namespace bongocat::animation {
         pen20_zudomon_png, 
         
     };
-    static const size_t pen20_png_sizes_table[] = {
+    static const size_t pen20_png_sizes_table[] ASSETS_TABLE_SECTION = {
         pen20_aero_v_dramon_png_size, 
         pen20_agumon_hakase_png_size, 
         pen20_alphamon_ouryuken_png_size, 
@@ -666,7 +667,7 @@ namespace bongocat::animation {
         pen20_zudomon_png_size, 
         
     };
-    static const char* pen20_names_table[] = {
+    static const char* pen20_names_table[] ASSETS_TABLE_SECTION = {
         "aero_v_dramon", 
         "agumon_hakase", 
         "alphamon_ouryuken", 

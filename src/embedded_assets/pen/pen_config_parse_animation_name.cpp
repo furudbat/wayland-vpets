@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t pen_animation_table[] = {
+    static const config_animation_entry_t pen_animation_table[] CONFIG_TABLE_SECTION = {
         { PEN_AERO_V_DRAMON_NAME, PEN_AERO_V_DRAMON_ID, PEN_AERO_V_DRAMON_FQID, PEN_AERO_V_DRAMON_FQNAME, PEN_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN_ANDROMON_NAME, PEN_ANDROMON_ID, PEN_ANDROMON_FQID, PEN_ANDROMON_FQNAME, PEN_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN_ANGEWOMON_NAME, PEN_ANGEWOMON_ID, PEN_ANGEWOMON_FQID, PEN_ANGEWOMON_FQNAME, PEN_ANGEWOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -130,7 +130,7 @@ namespace bongocat::assets {
         { PEN_ZUDOMON_NAME, PEN_ZUDOMON_ID, PEN_ZUDOMON_FQID, PEN_ZUDOMON_FQNAME, PEN_ZUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen, config::config_animation_sprite_sheet_layout_t::Dm },
         
     };
-    static const config_animation_names_entry_t pen_animation_names_table[] = {
+    static const config_animation_names_entry_t pen_animation_names_table[] CONFIG_TABLE_SECTION = {
         { PEN_AERO_V_DRAMON_NAME, PEN_AERO_V_DRAMON_NAME_LEN, PEN_AERO_V_DRAMON_ID, PEN_AERO_V_DRAMON_ID_LEN, PEN_AERO_V_DRAMON_FQID, PEN_AERO_V_DRAMON_FQID_LEN, PEN_AERO_V_DRAMON_FQNAME, PEN_AERO_V_DRAMON_FQNAME_LEN },
         { PEN_ANDROMON_NAME, PEN_ANDROMON_NAME_LEN, PEN_ANDROMON_ID, PEN_ANDROMON_ID_LEN, PEN_ANDROMON_FQID, PEN_ANDROMON_FQID_LEN, PEN_ANDROMON_FQNAME, PEN_ANDROMON_FQNAME_LEN },
         { PEN_ANGEWOMON_NAME, PEN_ANGEWOMON_NAME_LEN, PEN_ANGEWOMON_ID, PEN_ANGEWOMON_ID_LEN, PEN_ANGEWOMON_FQID, PEN_ANGEWOMON_FQID_LEN, PEN_ANGEWOMON_FQNAME, PEN_ANGEWOMON_FQNAME_LEN },

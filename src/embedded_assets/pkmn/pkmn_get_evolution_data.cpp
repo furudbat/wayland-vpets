@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data pkmn
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t pkmn_evol_data_table[] = {
+    static constexpr animation::animation_evolution_data_t pkmn_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
         // Name: Bulbasaur
         {
             // Stage: 
@@ -6503,7 +6503,9 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(pkmn_evol_data_table) == PKMN_ANIM_COUNT);
         assert(index < PKMN_ANIM_COUNT);
-        return pkmn_evol_data_table[index];
+        auto result = pkmn_evol_data_table[index];
+        platform::details::asset_unload(pkmn_evol_data_table, sizeof(animation::animation_evolution_data_t)*PKMN_ANIM_COUNT);
+        return result;
     }
 }
 

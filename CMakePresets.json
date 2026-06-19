@@ -384,11 +384,11 @@
       }
     },
     {
-      "name": "release-beta",
+      "name": "release_all_features",
       "displayName": "Release Build",
-      "description": "Release build with experimental features",
+      "description": "Release build all sorts of features (for testing; experimental)",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-release-beta",
+      "binaryDir": "${sourceDir}/cmake-build-release-all-features",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "Release",
         "GENERATE_PROTOCOLS": "OFF",
@@ -415,11 +415,11 @@
       }
     },
     {
-      "name": "relwithdebinfo-beta",
+      "name": "relwithdebinfo_all_features",
       "displayName": "RelWithDebInfo Build",
-      "description": "Release build with debug info and experimental features",
+      "description": "Release build with Debug Info + all sorts of features (for testing; experimental)",
       "generator": "Ninja",
-      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-beta",
+      "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-features",
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "SKIP_CPM": "OFF",

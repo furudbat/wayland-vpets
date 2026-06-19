@@ -122,17 +122,17 @@ for FILE in "$INPUT_DIR"/*.png; do
 
       ALT_MACRO_PREFIX=$(echo "${ALT_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
 
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQID_ARR[] = \"${FQID}\";\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr const char* ALT_${MACRO_PREFIX}_FQID = ALT_${MACRO_PREFIX}_FQID_ARR;\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr size_t ALT_${MACRO_PREFIX}_FQID_LEN = sizeof(ALT_${MACRO_PREFIX}_FQID_ARR)-1;\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQNAME_ARR[] = \"${FQNAME}\";\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr const char* ALT_${MACRO_PREFIX}_FQNAME = ALT_${MACRO_PREFIX}_FQNAME_ARR;\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr size_t ALT_${MACRO_PREFIX}_FQNAME_LEN = sizeof(ALT_${MACRO_PREFIX}_FQNAME_ARR)-1;\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQID_ARR[] CONFIG_STRING_SECTION = \"${FQID}\";\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr const char* ALT_${MACRO_PREFIX}_FQID CONFIG_STRING_SECTION = ALT_${MACRO_PREFIX}_FQID_ARR;\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr size_t ALT_${MACRO_PREFIX}_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_${MACRO_PREFIX}_FQID_ARR)-1;\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQNAME_ARR[] CONFIG_STRING_SECTION = \"${FQNAME}\";\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr const char* ALT_${MACRO_PREFIX}_FQNAME CONFIG_STRING_SECTION = ALT_${MACRO_PREFIX}_FQNAME_ARR;\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr size_t ALT_${MACRO_PREFIX}_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_${MACRO_PREFIX}_FQNAME_ARR)-1;\n"
 
       #OUTPUT_FILE_5_ALT_ANIMATION_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${ALT_MACRO_PREFIX}_FQID, ${ALT_MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}\n        "
       OUTPUT_FILE_5_ALT_ANIMATION_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ALT_${MACRO_PREFIX}_FQID, ALT_${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}\n        "
 
-      OUTPUT_FILE_5_ANIMATION_NAMES_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_NAMES_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_NAME_LEN, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_ID_LEN, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQID_LEN, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_FQNAME_LEN },\n        "
+      OUTPUT_FILE_5_ANIMATION_NAMES_TABLE="${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_NAME_LEN, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_ID_LEN, ALT_${MACRO_PREFIX}_FQID, ALT_${MACRO_PREFIX}_FQID_LEN, ALT_${MACRO_PREFIX}_FQNAME, ALT_${MACRO_PREFIX}_FQNAME_LEN },\n        "
     fi
 
     echo "Add $IDENTIFIER"
@@ -148,19 +148,19 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}.h
 echo "#include \"${ASSETS_PREFIX_LOWER}_config_parse_animation_name.h\"" >> "$OUTPUT_FILE_5"
 echo "#include \"utils/memory.h\"" >> "$OUTPUT_FILE_5"
 echo "#include \"utils/system_memory.h\"" >> "$OUTPUT_FILE_5"
-echo "" >> "$OUTPUT_FILE_5"
+echo >> "$OUTPUT_FILE_5"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_5"
-echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
+echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_animation_table[] CONFIG_TABLE_SECTION = {" >> "$OUTPUT_FILE_5"
 echo -e "        ${OUTPUT_FILE_5_ANIMATION_TABLE}" >> "$OUTPUT_FILE_5"
 echo '    };' >> "$OUTPUT_FILE_5"
 if [[ -n $ALT ]]; then
-  echo -e "        ${OUTPUT_FILE_5_ALT_ANIMATIONS}\n" >> "$OUTPUT_FILE_5"
-  echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_alt_animation_table[] = {" >> "$OUTPUT_FILE_5"
+  echo -e "${OUTPUT_FILE_5_ALT_ANIMATIONS}\n" >> "$OUTPUT_FILE_5"
+  echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_alt_animation_table[] CONFIG_TABLE_SECTION = {" >> "$OUTPUT_FILE_5"
   echo -e "        ${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}" >> "$OUTPUT_FILE_5"
   echo '    };' >> "$OUTPUT_FILE_5"
-  echo "    static const size_t ${ASSETS_PREFIX_LOWER}_alt_animation_table_size = LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table);" >> "$OUTPUT_FILE_5"
+  echo "    static const size_t ${ASSETS_PREFIX_LOWER}_alt_animation_table_size CONFIG_TABLE_SECTION = LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table);" >> "$OUTPUT_FILE_5"
 fi
-echo "    static const config_animation_names_entry_t ${ASSETS_PREFIX_LOWER}_animation_names_table[] = {" >> "$OUTPUT_FILE_5"
+echo "    static const config_animation_names_entry_t ${ASSETS_PREFIX_LOWER}_animation_names_table[] CONFIG_TABLE_SECTION = {" >> "$OUTPUT_FILE_5"
 echo -e "        ${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}" >> "$OUTPUT_FILE_5"
 echo '    };' >> "$OUTPUT_FILE_5"
 echo >> "$OUTPUT_FILE_5"

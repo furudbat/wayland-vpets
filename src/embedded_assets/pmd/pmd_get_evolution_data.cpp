@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data pmd
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t pmd_evol_data_table[] = {
+    static constexpr animation::animation_evolution_data_t pmd_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
         // Name: Bulbasaur
         {
             // Stage: 
@@ -8623,7 +8623,9 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(pmd_evol_data_table) == PMD_ANIM_COUNT);
         assert(index < PMD_ANIM_COUNT);
-        return pmd_evol_data_table[index];
+        auto result = pmd_evol_data_table[index];
+        platform::details::asset_unload(pmd_evol_data_table, sizeof(animation::animation_evolution_data_t)*PMD_ANIM_COUNT);
+        return result;
     }
 }
 

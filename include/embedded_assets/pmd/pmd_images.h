@@ -5,7 +5,7 @@
 
 /// @NOTE: Generated embedded assets from assets/pmd
 
-
+#include "embedded_assets/assets.h"
 // Name: Bulbasaur
 extern const unsigned char pmd_bulbasaur_png[];
 extern const size_t pmd_bulbasaur_png_size;

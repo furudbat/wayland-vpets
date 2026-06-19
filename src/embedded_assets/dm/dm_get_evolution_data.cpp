@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data dm
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dm_evol_data_table[] = {
+    static constexpr animation::animation_evolution_data_t dm_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
         // Name: Agumon
         {
             // Stage: Child
@@ -723,7 +723,9 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(dm_evol_data_table) == DM_ANIM_COUNT);
         assert(index < DM_ANIM_COUNT);
-        return dm_evol_data_table[index];
+        auto result = dm_evol_data_table[index];
+        platform::details::asset_unload(dm_evol_data_table, sizeof(animation::animation_evolution_data_t)*DM_ANIM_COUNT);
+        return result;
     }
 }
 

@@ -14,10 +14,9 @@ echo "" >> "$REPORT"
 
 P="$(pwd)"
 
-
 echo '`bloaty ./cmake-build-relwithdebinfo/bongocat-all -d compileunits`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo/bongocat-all -d compileunits --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -31,9 +30,9 @@ echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
 
-echo '`bloaty ./cmake-build-relwithdebinfo-beta/bongocat-all -d compileunits,symbols`' >> "$REPORT"
+echo '`bloaty ./cmake-build-relwithdebinfo-all-features/bongocat-all -d compileunits,symbols`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty ./cmake-build-relwithdebinfo-beta/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-all-features/bongocat-all -d compileunits,symbols --source-filter=src | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -41,7 +40,7 @@ echo "" >> "$REPORT"
 
 echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo-beta/bongocat-all -- ./cmake-build-relwithdebinfo/bongocat-all | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
+echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo-all-features/bongocat-all -- ./cmake-build-relwithdebinfo/bongocat-all | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -54,9 +53,31 @@ echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
-echo '`nm -S --size-sort ./cmake-build-relwithdebinfo-beta/bongocat-all | tail -100`' >>  "$REPORT"
+echo '`bloaty ./cmake-build-relwithdebinfo-all-features/bongocat-all -d sections`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
-echo "$(nm -S --size-sort ./cmake-build-relwithdebinfo-beta/bongocat-all | tail -100)" >>  "$REPORT"
+echo "$(bloaty ./cmake-build-relwithdebinfo-all-features/bongocat-all -d sections)" >> "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
+echo '`readelf -S ./cmake-build-relwithdebinfo-all-features/bongocat-all`' >>  "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(readelf -S ./cmake-build-relwithdebinfo-all-features/bongocat-all)" >>  "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
+echo '`readelf -l ./cmake-build-relwithdebinfo-all-features/bongocat-all`' >>  "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(readelf -l ./cmake-build-relwithdebinfo-all-features/bongocat-all)" >>  "$REPORT"
+echo '```' >> "$REPORT"
+echo "" >> "$REPORT"
+echo "" >> "$REPORT"
+
+
+echo '`nm -S --size-sort ./cmake-build-relwithdebinfo-all-features/bongocat-all | tail -100`' >>  "$REPORT"
+echo '```bash' >> "$REPORT"
+echo "$(nm -S --size-sort ./cmake-build-relwithdebinfo-all-features/bongocat-all | tail -100)" >>  "$REPORT"
 echo '```' >> "$REPORT"
 echo "" >> "$REPORT"
 echo "" >> "$REPORT"
@@ -133,7 +154,7 @@ PMAP_TABLE="# pmaps
 "
 
 # Group by build type
-for group in release release-preload-assets release-hybrid release-pngle minsizerel relwithdebinfo debug; do
+for group in release release-all-features release-preload-assets release-hybrid release-pngle minsizerel relwithdebinfo debug; do
     echo "## $(tr '[:lower:]' '[:upper:]' <<< ${group:0:1})${group:1}" >> "$REPORT"
     echo "" >> "$REPORT"
     echo "| Variant | Binary Size | Peak RAM |" >> "$REPORT"

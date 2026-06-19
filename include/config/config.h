@@ -2,6 +2,7 @@
 #define BONGOCAT_CONFIG_H
 
 #include "core/bongocat.h"
+#include "embedded_assets/assets.h"
 #include "embedded_assets/custom/custom_sprite.h"
 #include "utils/error.h"
 
