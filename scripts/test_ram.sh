@@ -154,7 +154,7 @@ PMAP_TABLE="# pmaps
 "
 
 # Group by build type
-for group in release minsizerel relwithdebinfo debug; do
+for group in release minsizerel relwithdebinfo; do
     echo "## $(tr '[:lower:]' '[:upper:]' <<< ${group:0:1})${group:1}" >> "$REPORT"
     echo "" >> "$REPORT"
     echo "| Variant | Binary Size | Peak RAM | Avg. RAM | Median RAM |" >> "$REPORT"
@@ -455,6 +455,8 @@ for group in release minsizerel relwithdebinfo debug; do
             fi
             echo "Heaptrack recording finished for PID $PID"
         fi
+
+        rm "$RAM_LOG"
     done
     echo "" >> "$REPORT"
 done

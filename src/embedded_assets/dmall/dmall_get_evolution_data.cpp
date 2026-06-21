@@ -107,6 +107,26 @@ namespace bongocat::assets {
                 DMALL_ANDROMON_ANIM_INDEX ,DMALL_ANOMALOCARIMON_ANIM_INDEX ,DMALL_BIG_MAMEMON_ANIM_INDEX ,DMALL_CHIMAIRAMON_ANIM_INDEX ,DMALL_MAMEMON_ANIM_INDEX ,DMALL_METAL_GREYMON_ANIM_INDEX ,DMALL_METAL_TYRANOMON_ANIM_INDEX ,DMALL_WARU_SEADRAMON_ANIM_INDEX ,DMALL_WERE_GARURUMON_ANIM_INDEX
             },
         },
+        // Name: Algomon (Baby II)
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_ALGOMON_CHILD_ANIM_INDEX
+            },
+        },
+        // Name: Algomon (Baby I)
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_ALGOMON_BABY_II_ANIM_INDEX
+            },
+        },
         // Name: Algomon (Child)
         {
             // Stage: Child
@@ -945,6 +965,16 @@ namespace bongocat::assets {
             .num_animation_indices = 8,
             .animation_indices = {
                 DMALL_ARMADIMON_ANIM_INDEX ,DMALL_COMMANDRAMON_ANIM_INDEX ,DMALL_HAGURUMON_ANIM_INDEX ,DMALL_IMPMON_ANIM_INDEX ,DMALL_KOKABUTERIMON_ANIM_INDEX ,DMALL_KOKUWAMON_ANIM_INDEX ,DMALL_PHASCOMON_ANIM_INDEX ,DMALL_SOLARMON_ANIM_INDEX
+            },
+        },
+        // Name: Catch Mamemon
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 172800 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                DMALL_PINOCHIMON_ANIM_INDEX ,DMALL_PLATINUM_NUMEMON_ANIM_INDEX ,DMALL_PRINCE_MAMEMON_ANIM_INDEX
             },
         },
         // Name: Caturamon
@@ -3927,6 +3957,16 @@ namespace bongocat::assets {
                 DMALL_BLACK_WAR_GREYMON_X_ANIM_INDEX ,DMALL_SKULL_MAMMON_X_ANIM_INDEX ,DMALL_PRINCE_MAMEMON_X_ANIM_INDEX ,DMALL_METAL_PIRANIMON_ANIM_INDEX ,DMALL_CHAOSDRAMON_X_ANIM_INDEX
             },
         },
+        // Name: Metal Greymon X
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 172800 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                DMALL_WAR_GREYMON_X_ANIM_INDEX ,DMALL_JESMON_X_ANIM_INDEX ,DMALL_VALDURMON_ANIM_INDEX ,DMALL_PLATINUM_NUMEMON_ANIM_INDEX
+            },
+        },
         // Name: Metallicdramon
         {
             // Stage: Ultimate
@@ -4627,6 +4667,26 @@ namespace bongocat::assets {
                 DMALL_RUKAMON_ANIM_INDEX ,DMALL_YUKIDARUMON_ANIM_INDEX
             },
         },
+        // Name: Peti Meramon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                DMALL_CANDMON_ANIM_INDEX ,DMALL_GHOSTMON_ANIM_INDEX ,DMALL_VORVOMON_ANIM_INDEX
+            },
+        },
+        // Name: Petit Mamon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                DMALL_DEVIMON_ANIM_INDEX ,DMALL_IGAMON_ANIM_INDEX
+            },
+        },
         // Name: Petitmon
         {
             // Stage: Baby I
@@ -5255,6 +5315,16 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 DMALL_GAIOUMON_ANIM_INDEX
+            },
+        },
+        // Name: Rize Greymon X
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 172800 },
+            
+            .num_animation_indices = 6,
+            .animation_indices = {
+                DMALL_GODDRAMON_X_ANIM_INDEX ,DMALL_OURYUMON_ANIM_INDEX ,DMALL_HOLYDRAMON_X_ANIM_INDEX ,DMALL_PLESIOMON_X_ANIM_INDEX ,DMALL_GAIOUMON_ANIM_INDEX ,DMALL_EBEMON_X_ANIM_INDEX
             },
         },
         // Name: Rosemon Burst Mode
@@ -6365,6 +6435,16 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 DMALL_CANNONBEEMON_ANIM_INDEX
+            },
+        },
+        // Name: Were Garurumon (Black)
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 172800 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_METAL_GARURUMON_BLACK_ANIM_INDEX
             },
         },
         // Name: Were Garurumon
