@@ -8624,7 +8624,6 @@ namespace bongocat::assets {
         assert(LEN_ARRAY(pmd_evol_data_table) == PMD_ANIM_COUNT);
         assert(index < PMD_ANIM_COUNT);
         auto result = pmd_evol_data_table[index];
-        platform::details::asset_unload(pmd_evol_data_table, sizeof(animation::animation_evolution_data_t)*PMD_ANIM_COUNT);
         return result;
     }
 }

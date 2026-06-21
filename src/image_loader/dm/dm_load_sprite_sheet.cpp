@@ -21,14 +21,15 @@ namespace bongocat::animation {
         {assets::DM_AIRDRAMON_SPRITE_SHEET_COLS, assets::DM_AIRDRAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_ANDROMON_SPRITE_SHEET_COLS, assets::DM_ANDROMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_ANGEMON_SPRITE_SHEET_COLS, assets::DM_ANGEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_ATLUR_KABUTERIMON_SPRITE_SHEET_COLS, assets::DM_ATLUR_KABUTERIMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_BAKEMON_SPRITE_SHEET_COLS, assets::DM_BAKEMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_BETAMON_SPRITE_SHEET_COLS, assets::DM_BETAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_BIRDRAMON_SPRITE_SHEET_COLS, assets::DM_BIRDRAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_BOTAMON_SPRITE_SHEET_COLS, assets::DM_BOTAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_BUBBMON_SPRITE_SHEET_COLS, assets::DM_BUBBMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_CENTALMON_SPRITE_SHEET_COLS, assets::DM_CENTALMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_COCKATRIMON_SPRITE_SHEET_COLS, assets::DM_COCKATRIMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_COELAMON_SPRITE_SHEET_COLS, assets::DM_COELAMON_SPRITE_SHEET_ROWS}, 
-        {assets::DM_CORONAMON_SPRITE_SHEET_COLS, assets::DM_CORONAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_CYCLOMON_SPRITE_SHEET_COLS, assets::DM_CYCLOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_DARK_TYRANOMON_SPRITE_SHEET_COLS, assets::DM_DARK_TYRANOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_DELTAMON_SPRITE_SHEET_COLS, assets::DM_DELTAMON_SPRITE_SHEET_ROWS}, 
@@ -43,6 +44,7 @@ namespace bongocat::animation {
         {assets::DM_GABUMON_SPRITE_SHEET_COLS, assets::DM_GABUMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_GARURUMON_SPRITE_SHEET_COLS, assets::DM_GARURUMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_GAZIMON_SPRITE_SHEET_COLS, assets::DM_GAZIMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_GEKOMON_SPRITE_SHEET_COLS, assets::DM_GEKOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_GIROMON_SPRITE_SHEET_COLS, assets::DM_GIROMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_GIZAMON_SPRITE_SHEET_COLS, assets::DM_GIZAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_GREYMON_SPRITE_SHEET_COLS, assets::DM_GREYMON_SPRITE_SHEET_ROWS}, 
@@ -57,6 +59,7 @@ namespace bongocat::animation {
         {assets::DM_METAL_GREYMON_SPRITE_SHEET_COLS, assets::DM_METAL_GREYMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_METAL_MAMEMON_SPRITE_SHEET_COLS, assets::DM_METAL_MAMEMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_METAL_TYRANOMON_SPRITE_SHEET_COLS, assets::DM_METAL_TYRANOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_MOCHIMON_SPRITE_SHEET_COLS, assets::DM_MOCHIMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_MOJYAMON_SPRITE_SHEET_COLS, assets::DM_MOJYAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_MONOCHROMON_SPRITE_SHEET_COLS, assets::DM_MONOCHROMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_MONZAEMON_SPRITE_SHEET_COLS, assets::DM_MONZAEMON_SPRITE_SHEET_ROWS}, 
@@ -65,6 +68,7 @@ namespace bongocat::animation {
         {assets::DM_NANOMON_SPRITE_SHEET_COLS, assets::DM_NANOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_NUMEMON_SPRITE_SHEET_COLS, assets::DM_NUMEMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_OGREMON_SPRITE_SHEET_COLS, assets::DM_OGREMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_OTAMAMON_SPRITE_SHEET_COLS, assets::DM_OTAMAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_PAGUMON_SPRITE_SHEET_COLS, assets::DM_PAGUMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_PALMON_SPRITE_SHEET_COLS, assets::DM_PALMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_PATAMON_SPRITE_SHEET_COLS, assets::DM_PATAMON_SPRITE_SHEET_ROWS}, 
@@ -77,8 +81,12 @@ namespace bongocat::animation {
         {assets::DM_SEADRAMON_SPRITE_SHEET_COLS, assets::DM_SEADRAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_SHELLMON_SPRITE_SHEET_COLS, assets::DM_SHELLMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_SKULL_GREYMON_SPRITE_SHEET_COLS, assets::DM_SKULL_GREYMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_STARMON_SPRITE_SHEET_COLS, assets::DM_STARMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_TANEMON_SPRITE_SHEET_COLS, assets::DM_TANEMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_TENTOMON_SPRITE_SHEET_COLS, assets::DM_TENTOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_TOKOMON_SPRITE_SHEET_COLS, assets::DM_TOKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_TONOSAMA_GEKOMON_SPRITE_SHEET_COLS, assets::DM_TONOSAMA_GEKOMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_TORTAMON_SPRITE_SHEET_COLS, assets::DM_TORTAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_TUNOMON_SPRITE_SHEET_COLS, assets::DM_TUNOMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_TUSKMON_SPRITE_SHEET_COLS, assets::DM_TUSKMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_TYRANOMON_SPRITE_SHEET_COLS, assets::DM_TYRANOMON_SPRITE_SHEET_ROWS}, 
@@ -88,6 +96,7 @@ namespace bongocat::animation {
         {assets::DM_WHAMON_SPRITE_SHEET_COLS, assets::DM_WHAMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_YUKIDARUMON_SPRITE_SHEET_COLS, assets::DM_YUKIDARUMON_SPRITE_SHEET_ROWS}, 
         {assets::DM_YURAMON_SPRITE_SHEET_COLS, assets::DM_YURAMON_SPRITE_SHEET_ROWS}, 
+        {assets::DM_ZURUMON_SPRITE_SHEET_COLS, assets::DM_ZURUMON_SPRITE_SHEET_ROWS}, 
         
     };
     static const unsigned char* dm_pngs_table[] ASSETS_TABLE_SECTION = {
@@ -95,14 +104,15 @@ namespace bongocat::animation {
         dm_airdramon_png, 
         dm_andromon_png, 
         dm_angemon_png, 
+        dm_atlur_kabuterimon_png, 
         dm_bakemon_png, 
         dm_betamon_png, 
         dm_birdramon_png, 
         dm_botamon_png, 
+        dm_bubbmon_png, 
         dm_centalmon_png, 
         dm_cockatrimon_png, 
         dm_coelamon_png, 
-        dm_coronamon_png, 
         dm_cyclomon_png, 
         dm_dark_tyranomon_png, 
         dm_deltamon_png, 
@@ -117,6 +127,7 @@ namespace bongocat::animation {
         dm_gabumon_png, 
         dm_garurumon_png, 
         dm_gazimon_png, 
+        dm_gekomon_png, 
         dm_giromon_png, 
         dm_gizamon_png, 
         dm_greymon_png, 
@@ -131,6 +142,7 @@ namespace bongocat::animation {
         dm_metal_greymon_png, 
         dm_metal_mamemon_png, 
         dm_metal_tyranomon_png, 
+        dm_mochimon_png, 
         dm_mojyamon_png, 
         dm_monochromon_png, 
         dm_monzaemon_png, 
@@ -139,6 +151,7 @@ namespace bongocat::animation {
         dm_nanomon_png, 
         dm_numemon_png, 
         dm_ogremon_png, 
+        dm_otamamon_png, 
         dm_pagumon_png, 
         dm_palmon_png, 
         dm_patamon_png, 
@@ -151,8 +164,12 @@ namespace bongocat::animation {
         dm_seadramon_png, 
         dm_shellmon_png, 
         dm_skull_greymon_png, 
+        dm_starmon_png, 
         dm_tanemon_png, 
+        dm_tentomon_png, 
         dm_tokomon_png, 
+        dm_tonosama_gekomon_png, 
+        dm_tortamon_png, 
         dm_tunomon_png, 
         dm_tuskmon_png, 
         dm_tyranomon_png, 
@@ -162,6 +179,7 @@ namespace bongocat::animation {
         dm_whamon_png, 
         dm_yukidarumon_png, 
         dm_yuramon_png, 
+        dm_zurumon_png, 
         
     };
     static const size_t dm_png_sizes_table[] ASSETS_TABLE_SECTION = {
@@ -169,14 +187,15 @@ namespace bongocat::animation {
         dm_airdramon_png_size, 
         dm_andromon_png_size, 
         dm_angemon_png_size, 
+        dm_atlur_kabuterimon_png_size, 
         dm_bakemon_png_size, 
         dm_betamon_png_size, 
         dm_birdramon_png_size, 
         dm_botamon_png_size, 
+        dm_bubbmon_png_size, 
         dm_centalmon_png_size, 
         dm_cockatrimon_png_size, 
         dm_coelamon_png_size, 
-        dm_coronamon_png_size, 
         dm_cyclomon_png_size, 
         dm_dark_tyranomon_png_size, 
         dm_deltamon_png_size, 
@@ -191,6 +210,7 @@ namespace bongocat::animation {
         dm_gabumon_png_size, 
         dm_garurumon_png_size, 
         dm_gazimon_png_size, 
+        dm_gekomon_png_size, 
         dm_giromon_png_size, 
         dm_gizamon_png_size, 
         dm_greymon_png_size, 
@@ -205,6 +225,7 @@ namespace bongocat::animation {
         dm_metal_greymon_png_size, 
         dm_metal_mamemon_png_size, 
         dm_metal_tyranomon_png_size, 
+        dm_mochimon_png_size, 
         dm_mojyamon_png_size, 
         dm_monochromon_png_size, 
         dm_monzaemon_png_size, 
@@ -213,6 +234,7 @@ namespace bongocat::animation {
         dm_nanomon_png_size, 
         dm_numemon_png_size, 
         dm_ogremon_png_size, 
+        dm_otamamon_png_size, 
         dm_pagumon_png_size, 
         dm_palmon_png_size, 
         dm_patamon_png_size, 
@@ -225,8 +247,12 @@ namespace bongocat::animation {
         dm_seadramon_png_size, 
         dm_shellmon_png_size, 
         dm_skull_greymon_png_size, 
+        dm_starmon_png_size, 
         dm_tanemon_png_size, 
+        dm_tentomon_png_size, 
         dm_tokomon_png_size, 
+        dm_tonosama_gekomon_png_size, 
+        dm_tortamon_png_size, 
         dm_tunomon_png_size, 
         dm_tuskmon_png_size, 
         dm_tyranomon_png_size, 
@@ -236,6 +262,7 @@ namespace bongocat::animation {
         dm_whamon_png_size, 
         dm_yukidarumon_png_size, 
         dm_yuramon_png_size, 
+        dm_zurumon_png_size, 
         
     };
     static const char* dm_names_table[] ASSETS_TABLE_SECTION = {
@@ -243,14 +270,15 @@ namespace bongocat::animation {
         "airdramon", 
         "andromon", 
         "angemon", 
+        "atlur_kabuterimon", 
         "bakemon", 
         "betamon", 
         "birdramon", 
         "botamon", 
+        "bubbmon", 
         "centalmon", 
         "cockatrimon", 
         "coelamon", 
-        "coronamon", 
         "cyclomon", 
         "dark_tyranomon", 
         "deltamon", 
@@ -265,6 +293,7 @@ namespace bongocat::animation {
         "gabumon", 
         "garurumon", 
         "gazimon", 
+        "gekomon", 
         "giromon", 
         "gizamon", 
         "greymon", 
@@ -279,6 +308,7 @@ namespace bongocat::animation {
         "metal_greymon", 
         "metal_mamemon", 
         "metal_tyranomon", 
+        "mochimon", 
         "mojyamon", 
         "monochromon", 
         "monzaemon", 
@@ -287,6 +317,7 @@ namespace bongocat::animation {
         "nanomon", 
         "numemon", 
         "ogremon", 
+        "otamamon", 
         "pagumon", 
         "palmon", 
         "patamon", 
@@ -299,8 +330,12 @@ namespace bongocat::animation {
         "seadramon", 
         "shellmon", 
         "skull_greymon", 
+        "starmon", 
         "tanemon", 
+        "tentomon", 
         "tokomon", 
+        "tonosama_gekomon", 
+        "tortamon", 
         "tunomon", 
         "tuskmon", 
         "tyranomon", 
@@ -310,6 +345,7 @@ namespace bongocat::animation {
         "whamon", 
         "yukidarumon", 
         "yuramon", 
+        "zurumon", 
         
     };
     created_result_t<dm_sprite_sheet_t> load_dm_sprite_sheet(const animation_thread_context_t& ctx, size_t index) {
@@ -320,7 +356,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dm_names_table) == DM_ANIM_COUNT);
         assert(index < DM_ANIM_COUNT);
         auto result = load_base_dm_anim(ctx, index, {dm_pngs_table[index], dm_png_sizes_table[index], dm_names_table[index]}, dm_dims_table[index].cols, dm_dims_table[index].rows);
-        platform::details::asset_unload(dm_pngs_table[index], dm_png_sizes_table[index]);
         return result;
     }
     void init_all_dm_anim(animation_thread_context_t& ctx) {
@@ -328,7 +363,6 @@ namespace bongocat::animation {
         for (size_t i = 0;i < DM_ANIM_COUNT;++i) {
             init_dm_anim(ctx, i, {dm_pngs_table[i], dm_png_sizes_table[i], dm_names_table[i]}, dm_dims_table[i].cols, dm_dims_table[i].rows);
         }
-        platform::details::asset_unload_all(dm_pngs_table, dm_png_sizes_table, DM_ANIM_COUNT);
     }
 }
 

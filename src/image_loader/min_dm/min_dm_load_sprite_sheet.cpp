@@ -10,7 +10,7 @@
 #include "image_loader/min_dm/load_images_min_dm.h"
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t min_dm_dims_table[] = {
+    static constexpr assets::embedded_sprite_sheet_dims_t min_dm_dims_table[] ASSETS_TABLE2_SECTION = {
       {assets::DM_BOTAMON_SPRITE_SHEET_COLS,       assets::DM_BOTAMON_SPRITE_SHEET_ROWS},
       {assets::DM_KOROMON_SPRITE_SHEET_COLS,       assets::DM_KOROMON_SPRITE_SHEET_ROWS},
       {assets::DM_AGUMON_SPRITE_SHEET_COLS,        assets::DM_AGUMON_SPRITE_SHEET_ROWS},
@@ -28,7 +28,7 @@ namespace bongocat::animation {
       {assets::DM_MAMEMON_SPRITE_SHEET_COLS,       assets::DM_MAMEMON_SPRITE_SHEET_ROWS},
       {assets::DM_MONZAEMON_SPRITE_SHEET_COLS,     assets::DM_MONZAEMON_SPRITE_SHEET_ROWS},
     };
-    static const unsigned char* min_dm_pngs_table[] = {
+    static const unsigned char* min_dm_pngs_table[] ASSETS_TABLE_SECTION = {
         dm_botamon_png,
         dm_koromon_png,
         dm_agumon_png,
@@ -46,7 +46,7 @@ namespace bongocat::animation {
         dm_mamemon_png,
         dm_monzaemon_png,
     };
-    static const size_t min_dm_png_sizes_table[] = {
+    static const size_t min_dm_png_sizes_table[] ASSETS_TABLE_SECTION = {
       dm_botamon_png_size,
       dm_koromon_png_size,
       dm_agumon_png_size,
@@ -64,7 +64,7 @@ namespace bongocat::animation {
       dm_mamemon_png_size,
       dm_monzaemon_png_size,
     };
-    static const char* min_dm_names_table[] = {
+    static const char* min_dm_names_table[] ASSETS_TABLE_SECTION = {
         "botamon",
         "koromon",
         "agumon",
@@ -90,7 +90,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(min_dm_names_table) == MIN_DM_ANIM_COUNT);
         assert(index < MIN_DM_ANIM_COUNT);
         auto result = load_base_dm_anim(ctx, index, {min_dm_pngs_table[index], min_dm_png_sizes_table[index], min_dm_names_table[index]}, min_dm_dims_table[index].cols, min_dm_dims_table[index].rows);
-        platform::details::asset_unload(min_dm_pngs_table[index], min_dm_png_sizes_table[index]);
         return result;
     }
     void init_all_min_dm_anim(animation_thread_context_t& ctx) {
@@ -98,6 +97,5 @@ namespace bongocat::animation {
         for (size_t i = 0;i < MIN_DM_ANIM_COUNT;++i) {
             init_min_dm_anim(ctx, i, {min_dm_pngs_table[i], min_dm_png_sizes_table[i], min_dm_names_table[i]}, min_dm_dims_table[i].cols, min_dm_dims_table[i].rows);
         }
-        platform::details::asset_unload_all(min_dm_pngs_table, min_dm_png_sizes_table, MIN_DM_ANIM_COUNT);
     }
 }  // namespace bongocat::animation

@@ -407,16 +407,6 @@ namespace bongocat::assets {
                 
             },
         },
-        // Name: Durandramon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Elecmon
         {
             // Stage: Child
@@ -588,16 +578,6 @@ namespace bongocat::assets {
             },
         },
         // Name: Jesmon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
-        // Name: Jijimon
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
@@ -787,16 +767,6 @@ namespace bongocat::assets {
                 DM20_PICCOLOMON_ANIM_INDEX
             },
         },
-        // Name: Monchromon
-        {
-            // Stage: Adult
-            .conditions = { .next_evolution_time_sec = 129600 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Monochromon
         {
             // Stage: Adult
@@ -808,16 +778,6 @@ namespace bongocat::assets {
             },
         },
         // Name: Monzaemon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
-        // Name: Mozaemon
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
@@ -915,16 +875,6 @@ namespace bongocat::assets {
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_GAZIMON_ANIM_INDEX ,DM20_GIZAMON_ANIM_INDEX
-            },
-        },
-        // Name: Pakumon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Palmon
@@ -1157,16 +1107,6 @@ namespace bongocat::assets {
                 DM20_EXAMON_ANIM_INDEX
             },
         },
-        // Name: Taichi Metal Greymon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Taichis Agumon
         {
             // Stage: Child
@@ -1307,26 +1247,6 @@ namespace bongocat::assets {
                 DM20_VADEMON_ANIM_INDEX
             },
         },
-        // Name: War Greymon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
-        // Name: Were Garurumon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Whamon
         {
             // Stage: Adult
@@ -1345,16 +1265,6 @@ namespace bongocat::assets {
             .num_animation_indices = 2,
             .animation_indices = {
                 DM20_SLAYERDRAMON_ANIM_INDEX ,DM20_TAICHIS_WAR_GREYMON_ANIM_INDEX
-            },
-        },
-        // Name: Yamato Gabumon
-        {
-            // Stage: Child
-            .conditions = { .next_evolution_time_sec = 86400 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Yamatos Gabumon
@@ -1407,14 +1317,14 @@ namespace bongocat::assets {
                 DM20_METAL_MAMEMON_ANIM_INDEX
             },
         },
-        // Name: Yukimi Botamon
+        // Name: Yukimibotamon
         {
             // Stage: Baby I
             .conditions = { .next_evolution_time_sec = 600 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                DM20_NYAROMON_ANIM_INDEX
             },
         },
         // Name: Yuramon
@@ -1464,7 +1374,6 @@ namespace bongocat::assets {
         assert(LEN_ARRAY(dm20_evol_data_table) == DM20_ANIM_COUNT);
         assert(index < DM20_ANIM_COUNT);
         auto result = dm20_evol_data_table[index];
-        platform::details::asset_unload(dm20_evol_data_table, sizeof(animation::animation_evolution_data_t)*DM20_ANIM_COUNT);
         return result;
     }
 }

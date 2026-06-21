@@ -41,10 +41,8 @@ inline static constexpr size_t BONGOCAT_ANIMATIONS_COUNT = 1;
 BONGOCAT_NODISCARD extern embedded_image_t get_bongocat_sprite(size_t i);
 BONGOCAT_NODISCARD extern created_result_t<animation::generic_sprite_sheet_t>
 get_bongocat_sprite_sheet(const animation::animation_thread_context_t& ctx, size_t index);
-void asset_unload_bongocat();
 
 BONGOCAT_NODISCARD extern embedded_image_t get_bongocat_sprite_svg(size_t i);
-void asset_unload_bongocat_svg();
 }  // namespace bongocat::assets
 
 #endif  // BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_H

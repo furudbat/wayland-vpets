@@ -186,41 +186,41 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALGOMON_ADULT_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
     inline static constexpr size_t DMALL_ALGOMON_ADULT_ANIM_INDEX ASSETS_DATA3_SECTION = 9;
 
-    // Name: Algomon (BabyII)
-    inline static constexpr char DMALL_ALGOMON_BABYII_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_babyii";
-    inline static constexpr const char* DMALL_ALGOMON_BABYII_FQID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYII_FQID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYII_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYII_FQID_ARR)-1;
-    inline static constexpr char DMALL_ALGOMON_BABYII_ID_ARR[] CONFIG_STRING_SECTION = "algomon_babyii";
-    inline static constexpr const char* DMALL_ALGOMON_BABYII_ID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYII_ID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYII_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYII_ID)-1;
-    inline static constexpr char DMALL_ALGOMON_BABYII_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (BabyII)";
-    inline static constexpr const char* DMALL_ALGOMON_BABYII_NAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYII_NAME_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYII_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYII_NAME_ARR)-1;
-    inline static constexpr char DMALL_ALGOMON_BABYII_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (BabyII)";
-    inline static constexpr const char* DMALL_ALGOMON_BABYII_FQNAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYII_FQNAME_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYII_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYII_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_ALGOMON_BABYII_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_ALGOMON_BABYII_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_ALGOMON_BABYII_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ALGOMON_BABYII_ANIM_INDEX ASSETS_DATA3_SECTION = 10;
+    // Name: Algomon (Baby II)
+    inline static constexpr char DMALL_ALGOMON_BABY_II_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_baby_ii";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_II_FQID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_II_FQID_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_II_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_II_FQID_ARR)-1;
+    inline static constexpr char DMALL_ALGOMON_BABY_II_ID_ARR[] CONFIG_STRING_SECTION = "algomon_baby_ii";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_II_ID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_II_ID_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_II_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_II_ID)-1;
+    inline static constexpr char DMALL_ALGOMON_BABY_II_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (Baby II)";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_II_NAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_II_NAME_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_II_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_II_NAME_ARR)-1;
+    inline static constexpr char DMALL_ALGOMON_BABY_II_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (Baby II)";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_II_FQNAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_II_FQNAME_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_II_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_II_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_ALGOMON_BABY_II_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_ALGOMON_BABY_II_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_II_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_II_ANIM_INDEX ASSETS_DATA3_SECTION = 10;
 
-    // Name: Algomon (BabyI)
-    inline static constexpr char DMALL_ALGOMON_BABYI_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_babyi";
-    inline static constexpr const char* DMALL_ALGOMON_BABYI_FQID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYI_FQID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYI_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYI_FQID_ARR)-1;
-    inline static constexpr char DMALL_ALGOMON_BABYI_ID_ARR[] CONFIG_STRING_SECTION = "algomon_babyi";
-    inline static constexpr const char* DMALL_ALGOMON_BABYI_ID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYI_ID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYI_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYI_ID)-1;
-    inline static constexpr char DMALL_ALGOMON_BABYI_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (BabyI)";
-    inline static constexpr const char* DMALL_ALGOMON_BABYI_NAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYI_NAME_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYI_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYI_NAME_ARR)-1;
-    inline static constexpr char DMALL_ALGOMON_BABYI_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (BabyI)";
-    inline static constexpr const char* DMALL_ALGOMON_BABYI_FQNAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABYI_FQNAME_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABYI_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABYI_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_ALGOMON_BABYI_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_ALGOMON_BABYI_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_ALGOMON_BABYI_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ALGOMON_BABYI_ANIM_INDEX ASSETS_DATA3_SECTION = 11;
+    // Name: Algomon (Baby I)
+    inline static constexpr char DMALL_ALGOMON_BABY_I_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_baby_i";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_I_FQID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_I_FQID_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_I_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_I_FQID_ARR)-1;
+    inline static constexpr char DMALL_ALGOMON_BABY_I_ID_ARR[] CONFIG_STRING_SECTION = "algomon_baby_i";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_I_ID CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_I_ID_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_I_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_I_ID)-1;
+    inline static constexpr char DMALL_ALGOMON_BABY_I_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (Baby I)";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_I_NAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_I_NAME_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_I_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_I_NAME_ARR)-1;
+    inline static constexpr char DMALL_ALGOMON_BABY_I_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (Baby I)";
+    inline static constexpr const char* DMALL_ALGOMON_BABY_I_FQNAME CONFIG_STRING2_SECTION = DMALL_ALGOMON_BABY_I_FQNAME_ARR;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_I_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_ALGOMON_BABY_I_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_ALGOMON_BABY_I_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_ALGOMON_BABY_I_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_I_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_I_ANIM_INDEX ASSETS_DATA3_SECTION = 11;
 
     // Name: Algomon (Child)
     inline static constexpr char DMALL_ALGOMON_CHILD_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_child";
@@ -1734,23 +1734,23 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CAPRIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
     inline static constexpr size_t DMALL_CAPRIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 95;
 
-    // Name: CatchMamemon
-    inline static constexpr char DMALL_CATCHMAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:catchmamemon";
-    inline static constexpr const char* DMALL_CATCHMAMEMON_FQID CONFIG_STRING2_SECTION = DMALL_CATCHMAMEMON_FQID_ARR;
-    inline static constexpr size_t DMALL_CATCHMAMEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCHMAMEMON_FQID_ARR)-1;
-    inline static constexpr char DMALL_CATCHMAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "catchmamemon";
-    inline static constexpr const char* DMALL_CATCHMAMEMON_ID CONFIG_STRING2_SECTION = DMALL_CATCHMAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_CATCHMAMEMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCHMAMEMON_ID)-1;
-    inline static constexpr char DMALL_CATCHMAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "CatchMamemon";
-    inline static constexpr const char* DMALL_CATCHMAMEMON_NAME CONFIG_STRING2_SECTION = DMALL_CATCHMAMEMON_NAME_ARR;
-    inline static constexpr size_t DMALL_CATCHMAMEMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCHMAMEMON_NAME_ARR)-1;
-    inline static constexpr char DMALL_CATCHMAMEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:CatchMamemon";
-    inline static constexpr const char* DMALL_CATCHMAMEMON_FQNAME CONFIG_STRING2_SECTION = DMALL_CATCHMAMEMON_FQNAME_ARR;
-    inline static constexpr size_t DMALL_CATCHMAMEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCHMAMEMON_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_CATCHMAMEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_CATCHMAMEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_CATCHMAMEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_CATCHMAMEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 96;
+    // Name: Catch Mamemon
+    inline static constexpr char DMALL_CATCH_MAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:catch_mamemon";
+    inline static constexpr const char* DMALL_CATCH_MAMEMON_FQID CONFIG_STRING2_SECTION = DMALL_CATCH_MAMEMON_FQID_ARR;
+    inline static constexpr size_t DMALL_CATCH_MAMEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCH_MAMEMON_FQID_ARR)-1;
+    inline static constexpr char DMALL_CATCH_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "catch_mamemon";
+    inline static constexpr const char* DMALL_CATCH_MAMEMON_ID CONFIG_STRING2_SECTION = DMALL_CATCH_MAMEMON_ID_ARR;
+    inline static constexpr size_t DMALL_CATCH_MAMEMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCH_MAMEMON_ID)-1;
+    inline static constexpr char DMALL_CATCH_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Catch Mamemon";
+    inline static constexpr const char* DMALL_CATCH_MAMEMON_NAME CONFIG_STRING2_SECTION = DMALL_CATCH_MAMEMON_NAME_ARR;
+    inline static constexpr size_t DMALL_CATCH_MAMEMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCH_MAMEMON_NAME_ARR)-1;
+    inline static constexpr char DMALL_CATCH_MAMEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Catch Mamemon";
+    inline static constexpr const char* DMALL_CATCH_MAMEMON_FQNAME CONFIG_STRING2_SECTION = DMALL_CATCH_MAMEMON_FQNAME_ARR;
+    inline static constexpr size_t DMALL_CATCH_MAMEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_CATCH_MAMEMON_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_CATCH_MAMEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_CATCH_MAMEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_CATCH_MAMEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_CATCH_MAMEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 96;
 
     // Name: Caturamon
     inline static constexpr char DMALL_CATURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:caturamon";
@@ -7116,23 +7116,23 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
     inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_X_ANIM_INDEX ASSETS_DATA3_SECTION = 394;
 
-    // Name: MetalGreymon X
-    inline static constexpr char DMALL_METALGREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:metalgreymon_x";
-    inline static constexpr const char* DMALL_METALGREYMON_X_FQID CONFIG_STRING2_SECTION = DMALL_METALGREYMON_X_FQID_ARR;
-    inline static constexpr size_t DMALL_METALGREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METALGREYMON_X_FQID_ARR)-1;
-    inline static constexpr char DMALL_METALGREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metalgreymon_x";
-    inline static constexpr const char* DMALL_METALGREYMON_X_ID CONFIG_STRING2_SECTION = DMALL_METALGREYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_METALGREYMON_X_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METALGREYMON_X_ID)-1;
-    inline static constexpr char DMALL_METALGREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "MetalGreymon X";
-    inline static constexpr const char* DMALL_METALGREYMON_X_NAME CONFIG_STRING2_SECTION = DMALL_METALGREYMON_X_NAME_ARR;
-    inline static constexpr size_t DMALL_METALGREYMON_X_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METALGREYMON_X_NAME_ARR)-1;
-    inline static constexpr char DMALL_METALGREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:MetalGreymon X";
-    inline static constexpr const char* DMALL_METALGREYMON_X_FQNAME CONFIG_STRING2_SECTION = DMALL_METALGREYMON_X_FQNAME_ARR;
-    inline static constexpr size_t DMALL_METALGREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METALGREYMON_X_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_METALGREYMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_METALGREYMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_METALGREYMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_METALGREYMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 395;
+    // Name: Metal Greymon X
+    inline static constexpr char DMALL_METAL_GREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:metal_greymon_x";
+    inline static constexpr const char* DMALL_METAL_GREYMON_X_FQID CONFIG_STRING2_SECTION = DMALL_METAL_GREYMON_X_FQID_ARR;
+    inline static constexpr size_t DMALL_METAL_GREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METAL_GREYMON_X_FQID_ARR)-1;
+    inline static constexpr char DMALL_METAL_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon_x";
+    inline static constexpr const char* DMALL_METAL_GREYMON_X_ID CONFIG_STRING2_SECTION = DMALL_METAL_GREYMON_X_ID_ARR;
+    inline static constexpr size_t DMALL_METAL_GREYMON_X_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METAL_GREYMON_X_ID)-1;
+    inline static constexpr char DMALL_METAL_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon X";
+    inline static constexpr const char* DMALL_METAL_GREYMON_X_NAME CONFIG_STRING2_SECTION = DMALL_METAL_GREYMON_X_NAME_ARR;
+    inline static constexpr size_t DMALL_METAL_GREYMON_X_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METAL_GREYMON_X_NAME_ARR)-1;
+    inline static constexpr char DMALL_METAL_GREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Metal Greymon X";
+    inline static constexpr const char* DMALL_METAL_GREYMON_X_FQNAME CONFIG_STRING2_SECTION = DMALL_METAL_GREYMON_X_FQNAME_ARR;
+    inline static constexpr size_t DMALL_METAL_GREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_METAL_GREYMON_X_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_METAL_GREYMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_METAL_GREYMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_METAL_GREYMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_METAL_GREYMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 395;
 
     // Name: Metallicdramon
     inline static constexpr char DMALL_METALLICDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:metallicdramon";
@@ -8394,41 +8394,41 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PENMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
     inline static constexpr size_t DMALL_PENMON_ANIM_INDEX ASSETS_DATA3_SECTION = 465;
 
-    // Name: PetiMeramon
-    inline static constexpr char DMALL_PETIMERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petimeramon";
-    inline static constexpr const char* DMALL_PETIMERAMON_FQID CONFIG_STRING2_SECTION = DMALL_PETIMERAMON_FQID_ARR;
-    inline static constexpr size_t DMALL_PETIMERAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIMERAMON_FQID_ARR)-1;
-    inline static constexpr char DMALL_PETIMERAMON_ID_ARR[] CONFIG_STRING_SECTION = "petimeramon";
-    inline static constexpr const char* DMALL_PETIMERAMON_ID CONFIG_STRING2_SECTION = DMALL_PETIMERAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PETIMERAMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIMERAMON_ID)-1;
-    inline static constexpr char DMALL_PETIMERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "PetiMeramon";
-    inline static constexpr const char* DMALL_PETIMERAMON_NAME CONFIG_STRING2_SECTION = DMALL_PETIMERAMON_NAME_ARR;
-    inline static constexpr size_t DMALL_PETIMERAMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIMERAMON_NAME_ARR)-1;
-    inline static constexpr char DMALL_PETIMERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:PetiMeramon";
-    inline static constexpr const char* DMALL_PETIMERAMON_FQNAME CONFIG_STRING2_SECTION = DMALL_PETIMERAMON_FQNAME_ARR;
-    inline static constexpr size_t DMALL_PETIMERAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIMERAMON_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_PETIMERAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_PETIMERAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_PETIMERAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_PETIMERAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 466;
+    // Name: Peti Meramon
+    inline static constexpr char DMALL_PETI_MERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:peti_meramon";
+    inline static constexpr const char* DMALL_PETI_MERAMON_FQID CONFIG_STRING2_SECTION = DMALL_PETI_MERAMON_FQID_ARR;
+    inline static constexpr size_t DMALL_PETI_MERAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETI_MERAMON_FQID_ARR)-1;
+    inline static constexpr char DMALL_PETI_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "peti_meramon";
+    inline static constexpr const char* DMALL_PETI_MERAMON_ID CONFIG_STRING2_SECTION = DMALL_PETI_MERAMON_ID_ARR;
+    inline static constexpr size_t DMALL_PETI_MERAMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETI_MERAMON_ID)-1;
+    inline static constexpr char DMALL_PETI_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Peti Meramon";
+    inline static constexpr const char* DMALL_PETI_MERAMON_NAME CONFIG_STRING2_SECTION = DMALL_PETI_MERAMON_NAME_ARR;
+    inline static constexpr size_t DMALL_PETI_MERAMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETI_MERAMON_NAME_ARR)-1;
+    inline static constexpr char DMALL_PETI_MERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Peti Meramon";
+    inline static constexpr const char* DMALL_PETI_MERAMON_FQNAME CONFIG_STRING2_SECTION = DMALL_PETI_MERAMON_FQNAME_ARR;
+    inline static constexpr size_t DMALL_PETI_MERAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETI_MERAMON_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_PETI_MERAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_PETI_MERAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_PETI_MERAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_PETI_MERAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 466;
 
-    // Name: PetitMamon
-    inline static constexpr char DMALL_PETITMAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petitmamon";
-    inline static constexpr const char* DMALL_PETITMAMON_FQID CONFIG_STRING2_SECTION = DMALL_PETITMAMON_FQID_ARR;
-    inline static constexpr size_t DMALL_PETITMAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETITMAMON_FQID_ARR)-1;
-    inline static constexpr char DMALL_PETITMAMON_ID_ARR[] CONFIG_STRING_SECTION = "petitmamon";
-    inline static constexpr const char* DMALL_PETITMAMON_ID CONFIG_STRING2_SECTION = DMALL_PETITMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PETITMAMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETITMAMON_ID)-1;
-    inline static constexpr char DMALL_PETITMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "PetitMamon";
-    inline static constexpr const char* DMALL_PETITMAMON_NAME CONFIG_STRING2_SECTION = DMALL_PETITMAMON_NAME_ARR;
-    inline static constexpr size_t DMALL_PETITMAMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETITMAMON_NAME_ARR)-1;
-    inline static constexpr char DMALL_PETITMAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:PetitMamon";
-    inline static constexpr const char* DMALL_PETITMAMON_FQNAME CONFIG_STRING2_SECTION = DMALL_PETITMAMON_FQNAME_ARR;
-    inline static constexpr size_t DMALL_PETITMAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETITMAMON_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_PETITMAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_PETITMAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_PETITMAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_PETITMAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 467;
+    // Name: Petit Mamon
+    inline static constexpr char DMALL_PETIT_MAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petit_mamon";
+    inline static constexpr const char* DMALL_PETIT_MAMON_FQID CONFIG_STRING2_SECTION = DMALL_PETIT_MAMON_FQID_ARR;
+    inline static constexpr size_t DMALL_PETIT_MAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIT_MAMON_FQID_ARR)-1;
+    inline static constexpr char DMALL_PETIT_MAMON_ID_ARR[] CONFIG_STRING_SECTION = "petit_mamon";
+    inline static constexpr const char* DMALL_PETIT_MAMON_ID CONFIG_STRING2_SECTION = DMALL_PETIT_MAMON_ID_ARR;
+    inline static constexpr size_t DMALL_PETIT_MAMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIT_MAMON_ID)-1;
+    inline static constexpr char DMALL_PETIT_MAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Petit Mamon";
+    inline static constexpr const char* DMALL_PETIT_MAMON_NAME CONFIG_STRING2_SECTION = DMALL_PETIT_MAMON_NAME_ARR;
+    inline static constexpr size_t DMALL_PETIT_MAMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIT_MAMON_NAME_ARR)-1;
+    inline static constexpr char DMALL_PETIT_MAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Petit Mamon";
+    inline static constexpr const char* DMALL_PETIT_MAMON_FQNAME CONFIG_STRING2_SECTION = DMALL_PETIT_MAMON_FQNAME_ARR;
+    inline static constexpr size_t DMALL_PETIT_MAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_PETIT_MAMON_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_PETIT_MAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_PETIT_MAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_PETIT_MAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_PETIT_MAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 467;
 
     // Name: Petitmon
     inline static constexpr char DMALL_PETITMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petitmon";
@@ -9564,23 +9564,23 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RIZE_GREYMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
     inline static constexpr size_t DMALL_RIZE_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 530;
 
-    // Name: RizeGreymon X
-    inline static constexpr char DMALL_RIZEGREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:rizegreymon_x";
-    inline static constexpr const char* DMALL_RIZEGREYMON_X_FQID CONFIG_STRING2_SECTION = DMALL_RIZEGREYMON_X_FQID_ARR;
-    inline static constexpr size_t DMALL_RIZEGREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZEGREYMON_X_FQID_ARR)-1;
-    inline static constexpr char DMALL_RIZEGREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rizegreymon_x";
-    inline static constexpr const char* DMALL_RIZEGREYMON_X_ID CONFIG_STRING2_SECTION = DMALL_RIZEGREYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_RIZEGREYMON_X_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZEGREYMON_X_ID)-1;
-    inline static constexpr char DMALL_RIZEGREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "RizeGreymon X";
-    inline static constexpr const char* DMALL_RIZEGREYMON_X_NAME CONFIG_STRING2_SECTION = DMALL_RIZEGREYMON_X_NAME_ARR;
-    inline static constexpr size_t DMALL_RIZEGREYMON_X_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZEGREYMON_X_NAME_ARR)-1;
-    inline static constexpr char DMALL_RIZEGREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:RizeGreymon X";
-    inline static constexpr const char* DMALL_RIZEGREYMON_X_FQNAME CONFIG_STRING2_SECTION = DMALL_RIZEGREYMON_X_FQNAME_ARR;
-    inline static constexpr size_t DMALL_RIZEGREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZEGREYMON_X_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_RIZEGREYMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_RIZEGREYMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_RIZEGREYMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_RIZEGREYMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 531;
+    // Name: Rize Greymon X
+    inline static constexpr char DMALL_RIZE_GREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:rize_greymon_x";
+    inline static constexpr const char* DMALL_RIZE_GREYMON_X_FQID CONFIG_STRING2_SECTION = DMALL_RIZE_GREYMON_X_FQID_ARR;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZE_GREYMON_X_FQID_ARR)-1;
+    inline static constexpr char DMALL_RIZE_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rize_greymon_x";
+    inline static constexpr const char* DMALL_RIZE_GREYMON_X_ID CONFIG_STRING2_SECTION = DMALL_RIZE_GREYMON_X_ID_ARR;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_X_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZE_GREYMON_X_ID)-1;
+    inline static constexpr char DMALL_RIZE_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rize Greymon X";
+    inline static constexpr const char* DMALL_RIZE_GREYMON_X_NAME CONFIG_STRING2_SECTION = DMALL_RIZE_GREYMON_X_NAME_ARR;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_X_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZE_GREYMON_X_NAME_ARR)-1;
+    inline static constexpr char DMALL_RIZE_GREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Rize Greymon X";
+    inline static constexpr const char* DMALL_RIZE_GREYMON_X_FQNAME CONFIG_STRING2_SECTION = DMALL_RIZE_GREYMON_X_FQNAME_ARR;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_RIZE_GREYMON_X_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_RIZE_GREYMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_RIZE_GREYMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 531;
 
     // Name: Rosemon Burst Mode
     inline static constexpr char DMALL_ROSEMON_BURST_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:rosemon_burst_mode";
@@ -11076,24 +11076,6 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TSUNOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
     inline static constexpr size_t DMALL_TSUNOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 614;
 
-    // Name: Tunomon
-    inline static constexpr char DMALL_TUNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tunomon";
-    inline static constexpr const char* DMALL_TUNOMON_FQID CONFIG_STRING2_SECTION = DMALL_TUNOMON_FQID_ARR;
-    inline static constexpr size_t DMALL_TUNOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TUNOMON_FQID_ARR)-1;
-    inline static constexpr char DMALL_TUNOMON_ID_ARR[] CONFIG_STRING_SECTION = "tunomon";
-    inline static constexpr const char* DMALL_TUNOMON_ID CONFIG_STRING2_SECTION = DMALL_TUNOMON_ID_ARR;
-    inline static constexpr size_t DMALL_TUNOMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TUNOMON_ID)-1;
-    inline static constexpr char DMALL_TUNOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tunomon";
-    inline static constexpr const char* DMALL_TUNOMON_NAME CONFIG_STRING2_SECTION = DMALL_TUNOMON_NAME_ARR;
-    inline static constexpr size_t DMALL_TUNOMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TUNOMON_NAME_ARR)-1;
-    inline static constexpr char DMALL_TUNOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tunomon";
-    inline static constexpr const char* DMALL_TUNOMON_FQNAME CONFIG_STRING2_SECTION = DMALL_TUNOMON_FQNAME_ARR;
-    inline static constexpr size_t DMALL_TUNOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TUNOMON_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_TUNOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_TUNOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_TUNOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_TUNOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 615;
-
     // Name: Turuiemon
     inline static constexpr char DMALL_TURUIEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:turuiemon";
     inline static constexpr const char* DMALL_TURUIEMON_FQID CONFIG_STRING2_SECTION = DMALL_TURUIEMON_FQID_ARR;
@@ -11110,7 +11092,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_TURUIEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_TURUIEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_TURUIEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_TURUIEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 616;
+    inline static constexpr size_t DMALL_TURUIEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 615;
 
     // Name: Tylomon X
     inline static constexpr char DMALL_TYLOMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tylomon_x";
@@ -11128,43 +11110,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_TYLOMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_TYLOMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_TYLOMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_TYLOMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 617;
-
-    // Name: Tyrannomon
-    inline static constexpr char DMALL_TYRANNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tyrannomon";
-    inline static constexpr const char* DMALL_TYRANNOMON_FQID CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_FQID_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_FQID_ARR)-1;
-    inline static constexpr char DMALL_TYRANNOMON_ID_ARR[] CONFIG_STRING_SECTION = "tyrannomon";
-    inline static constexpr const char* DMALL_TYRANNOMON_ID CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_ID_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_ID)-1;
-    inline static constexpr char DMALL_TYRANNOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tyrannomon";
-    inline static constexpr const char* DMALL_TYRANNOMON_NAME CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_NAME_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_NAME_ARR)-1;
-    inline static constexpr char DMALL_TYRANNOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tyrannomon";
-    inline static constexpr const char* DMALL_TYRANNOMON_FQNAME CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_FQNAME_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_TYRANNOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_TYRANNOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_TYRANNOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_TYRANNOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 618;
-
-    // Name: Tyrannomon X
-    inline static constexpr char DMALL_TYRANNOMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tyrannomon_x";
-    inline static constexpr const char* DMALL_TYRANNOMON_X_FQID CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_X_FQID_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_X_FQID_ARR)-1;
-    inline static constexpr char DMALL_TYRANNOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tyrannomon_x";
-    inline static constexpr const char* DMALL_TYRANNOMON_X_ID CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_X_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_X_ID)-1;
-    inline static constexpr char DMALL_TYRANNOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tyrannomon X";
-    inline static constexpr const char* DMALL_TYRANNOMON_X_NAME CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_X_NAME_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_X_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_X_NAME_ARR)-1;
-    inline static constexpr char DMALL_TYRANNOMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tyrannomon X";
-    inline static constexpr const char* DMALL_TYRANNOMON_X_FQNAME CONFIG_STRING2_SECTION = DMALL_TYRANNOMON_X_FQNAME_ARR;
-    inline static constexpr size_t DMALL_TYRANNOMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_TYRANNOMON_X_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_TYRANNOMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_TYRANNOMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_TYRANNOMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_TYRANNOMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 619;
+    inline static constexpr size_t DMALL_TYLOMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 616;
 
     // Name: Tyranomon
     inline static constexpr char DMALL_TYRANOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tyranomon";
@@ -11182,7 +11128,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_TYRANOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_TYRANOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_TYRANOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_TYRANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 620;
+    inline static constexpr size_t DMALL_TYRANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 617;
 
     // Name: Tyranomon X
     inline static constexpr char DMALL_TYRANOMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tyranomon_x";
@@ -11200,7 +11146,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_TYRANOMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_TYRANOMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_TYRANOMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_TYRANOMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 621;
+    inline static constexpr size_t DMALL_TYRANOMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 618;
 
     // Name: Ulforce V-dramon
     inline static constexpr char DMALL_ULFORCE_V_DRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:ulforce_v_dramon";
@@ -11218,7 +11164,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ULFORCE_V_DRAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ULFORCE_V_DRAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 622;
+    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 619;
 
     // Name: Ulforce V-dramon X
     inline static constexpr char DMALL_ULFORCE_V_DRAMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:ulforce_v_dramon_x";
@@ -11236,7 +11182,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ULFORCE_V_DRAMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ULFORCE_V_DRAMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 623;
+    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 620;
 
     // Name: Ultimate Brachimon
     inline static constexpr char DMALL_ULTIMATE_BRACHIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:ultimate_brachimon";
@@ -11254,7 +11200,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ULTIMATE_BRACHIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ULTIMATE_BRACHIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ULTIMATE_BRACHIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ULTIMATE_BRACHIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 624;
+    inline static constexpr size_t DMALL_ULTIMATE_BRACHIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 621;
 
     // Name: Upamon
     inline static constexpr char DMALL_UPAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:upamon";
@@ -11272,7 +11218,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_UPAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_UPAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_UPAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_UPAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 625;
+    inline static constexpr size_t DMALL_UPAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 622;
 
     // Name: Vademon
     inline static constexpr char DMALL_VADEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:vademon";
@@ -11290,7 +11236,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VADEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VADEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VADEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VADEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 626;
+    inline static constexpr size_t DMALL_VADEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 623;
 
     // Name: Valdurmon
     inline static constexpr char DMALL_VALDURMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:valdurmon";
@@ -11308,7 +11254,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VALDURMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VALDURMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VALDURMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VALDURMON_ANIM_INDEX ASSETS_DATA3_SECTION = 627;
+    inline static constexpr size_t DMALL_VALDURMON_ANIM_INDEX ASSETS_DATA3_SECTION = 624;
 
     // Name: Vamdemon
     inline static constexpr char DMALL_VAMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:vamdemon";
@@ -11326,7 +11272,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VAMDEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VAMDEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VAMDEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VAMDEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 628;
+    inline static constexpr size_t DMALL_VAMDEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 625;
 
     // Name: Vamdemon X
     inline static constexpr char DMALL_VAMDEMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:vamdemon_x";
@@ -11344,7 +11290,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VAMDEMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VAMDEMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VAMDEMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VAMDEMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 629;
+    inline static constexpr size_t DMALL_VAMDEMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 626;
 
     // Name: V-dramon (Black)
     inline static constexpr char DMALL_V_DRAMON_BLACK_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:v_dramon_black";
@@ -11362,7 +11308,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_V_DRAMON_BLACK_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_V_DRAMON_BLACK_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_V_DRAMON_BLACK_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_V_DRAMON_BLACK_ANIM_INDEX ASSETS_DATA3_SECTION = 630;
+    inline static constexpr size_t DMALL_V_DRAMON_BLACK_ANIM_INDEX ASSETS_DATA3_SECTION = 627;
 
     // Name: V-dramon
     inline static constexpr char DMALL_V_DRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:v_dramon";
@@ -11380,7 +11326,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_V_DRAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_V_DRAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_V_DRAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_V_DRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 631;
+    inline static constexpr size_t DMALL_V_DRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 628;
 
     // Name: Vegimon
     inline static constexpr char DMALL_VEGIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:vegimon";
@@ -11398,7 +11344,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VEGIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VEGIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VEGIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VEGIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 632;
+    inline static constexpr size_t DMALL_VEGIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 629;
 
     // Name: Velgrmon
     inline static constexpr char DMALL_VELGRMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:velgrmon";
@@ -11416,7 +11362,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VELGRMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VELGRMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VELGRMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VELGRMON_ANIM_INDEX ASSETS_DATA3_SECTION = 633;
+    inline static constexpr size_t DMALL_VELGRMON_ANIM_INDEX ASSETS_DATA3_SECTION = 630;
 
     // Name: Venom Vamdemon
     inline static constexpr char DMALL_VENOM_VAMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:venom_vamdemon";
@@ -11434,7 +11380,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VENOM_VAMDEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VENOM_VAMDEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VENOM_VAMDEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VENOM_VAMDEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 634;
+    inline static constexpr size_t DMALL_VENOM_VAMDEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 631;
 
     // Name: Vermillimon
     inline static constexpr char DMALL_VERMILLIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:vermillimon";
@@ -11452,7 +11398,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VERMILLIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VERMILLIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VERMILLIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VERMILLIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 635;
+    inline static constexpr size_t DMALL_VERMILLIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 632;
 
     // Name: V-mon
     inline static constexpr char DMALL_V_MON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:v_mon";
@@ -11470,7 +11416,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_V_MON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_V_MON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_V_MON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_V_MON_ANIM_INDEX ASSETS_DATA3_SECTION = 636;
+    inline static constexpr size_t DMALL_V_MON_ANIM_INDEX ASSETS_DATA3_SECTION = 633;
 
     // Name: Volcanicdramon
     inline static constexpr char DMALL_VOLCANICDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:volcanicdramon";
@@ -11488,7 +11434,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VOLCANICDRAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VOLCANICDRAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VOLCANICDRAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VOLCANICDRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 637;
+    inline static constexpr size_t DMALL_VOLCANICDRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 634;
 
     // Name: Volto Bautamon
     inline static constexpr char DMALL_VOLTO_BAUTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:volto_bautamon";
@@ -11506,7 +11452,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VOLTO_BAUTAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VOLTO_BAUTAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VOLTO_BAUTAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VOLTO_BAUTAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 638;
+    inline static constexpr size_t DMALL_VOLTO_BAUTAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 635;
 
     // Name: Vorvomon
     inline static constexpr char DMALL_VORVOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:vorvomon";
@@ -11524,7 +11470,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_VORVOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_VORVOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_VORVOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_VORVOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 639;
+    inline static constexpr size_t DMALL_VORVOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 636;
 
     // Name: Wanyamon
     inline static constexpr char DMALL_WANYAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:wanyamon";
@@ -11542,7 +11488,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WANYAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WANYAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WANYAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WANYAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 640;
+    inline static constexpr size_t DMALL_WANYAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 637;
 
     // Name: War Greymon
     inline static constexpr char DMALL_WAR_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:war_greymon";
@@ -11560,7 +11506,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WAR_GREYMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WAR_GREYMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WAR_GREYMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WAR_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 641;
+    inline static constexpr size_t DMALL_WAR_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 638;
 
     // Name: War Greymon X
     inline static constexpr char DMALL_WAR_GREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:war_greymon_x";
@@ -11578,7 +11524,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WAR_GREYMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WAR_GREYMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WAR_GREYMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WAR_GREYMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 642;
+    inline static constexpr size_t DMALL_WAR_GREYMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 639;
 
     // Name: Waru Monzaemon
     inline static constexpr char DMALL_WARU_MONZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:waru_monzaemon";
@@ -11596,7 +11542,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WARU_MONZAEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WARU_MONZAEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WARU_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WARU_MONZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 643;
+    inline static constexpr size_t DMALL_WARU_MONZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 640;
 
     // Name: Waru Seadramon
     inline static constexpr char DMALL_WARU_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:waru_seadramon";
@@ -11614,7 +11560,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WARU_SEADRAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WARU_SEADRAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WARU_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WARU_SEADRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 644;
+    inline static constexpr size_t DMALL_WARU_SEADRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 641;
 
     // Name: Waspmon
     inline static constexpr char DMALL_WASPMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:waspmon";
@@ -11632,25 +11578,25 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WASPMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WASPMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WASPMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WASPMON_ANIM_INDEX ASSETS_DATA3_SECTION = 645;
+    inline static constexpr size_t DMALL_WASPMON_ANIM_INDEX ASSETS_DATA3_SECTION = 642;
 
-    // Name: WereGarurumon (Black)
-    inline static constexpr char DMALL_WEREGARURUMON_BLACK_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:weregarurumon_black";
-    inline static constexpr const char* DMALL_WEREGARURUMON_BLACK_FQID CONFIG_STRING2_SECTION = DMALL_WEREGARURUMON_BLACK_FQID_ARR;
-    inline static constexpr size_t DMALL_WEREGARURUMON_BLACK_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WEREGARURUMON_BLACK_FQID_ARR)-1;
-    inline static constexpr char DMALL_WEREGARURUMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "weregarurumon_black";
-    inline static constexpr const char* DMALL_WEREGARURUMON_BLACK_ID CONFIG_STRING2_SECTION = DMALL_WEREGARURUMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_WEREGARURUMON_BLACK_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WEREGARURUMON_BLACK_ID)-1;
-    inline static constexpr char DMALL_WEREGARURUMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "WereGarurumon (Black)";
-    inline static constexpr const char* DMALL_WEREGARURUMON_BLACK_NAME CONFIG_STRING2_SECTION = DMALL_WEREGARURUMON_BLACK_NAME_ARR;
-    inline static constexpr size_t DMALL_WEREGARURUMON_BLACK_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WEREGARURUMON_BLACK_NAME_ARR)-1;
-    inline static constexpr char DMALL_WEREGARURUMON_BLACK_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:WereGarurumon (Black)";
-    inline static constexpr const char* DMALL_WEREGARURUMON_BLACK_FQNAME CONFIG_STRING2_SECTION = DMALL_WEREGARURUMON_BLACK_FQNAME_ARR;
-    inline static constexpr size_t DMALL_WEREGARURUMON_BLACK_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WEREGARURUMON_BLACK_FQNAME_ARR)-1;
-    inline static constexpr int DMALL_WEREGARURUMON_BLACK_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMALL_WEREGARURUMON_BLACK_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMALL_WEREGARURUMON_BLACK_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WEREGARURUMON_BLACK_ANIM_INDEX ASSETS_DATA3_SECTION = 646;
+    // Name: Were Garurumon (Black)
+    inline static constexpr char DMALL_WERE_GARURUMON_BLACK_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:were_garurumon_black";
+    inline static constexpr const char* DMALL_WERE_GARURUMON_BLACK_FQID CONFIG_STRING2_SECTION = DMALL_WERE_GARURUMON_BLACK_FQID_ARR;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WERE_GARURUMON_BLACK_FQID_ARR)-1;
+    inline static constexpr char DMALL_WERE_GARURUMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "were_garurumon_black";
+    inline static constexpr const char* DMALL_WERE_GARURUMON_BLACK_ID CONFIG_STRING2_SECTION = DMALL_WERE_GARURUMON_BLACK_ID_ARR;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_ID_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WERE_GARURUMON_BLACK_ID)-1;
+    inline static constexpr char DMALL_WERE_GARURUMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "Were Garurumon (Black)";
+    inline static constexpr const char* DMALL_WERE_GARURUMON_BLACK_NAME CONFIG_STRING2_SECTION = DMALL_WERE_GARURUMON_BLACK_NAME_ARR;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WERE_GARURUMON_BLACK_NAME_ARR)-1;
+    inline static constexpr char DMALL_WERE_GARURUMON_BLACK_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Were Garurumon (Black)";
+    inline static constexpr const char* DMALL_WERE_GARURUMON_BLACK_FQNAME CONFIG_STRING2_SECTION = DMALL_WERE_GARURUMON_BLACK_FQNAME_ARR;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMALL_WERE_GARURUMON_BLACK_FQNAME_ARR)-1;
+    inline static constexpr int DMALL_WERE_GARURUMON_BLACK_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int DMALL_WERE_GARURUMON_BLACK_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_ANIM_INDEX ASSETS_DATA3_SECTION = 643;
 
     // Name: Were Garurumon
     inline static constexpr char DMALL_WERE_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:were_garurumon";
@@ -11668,7 +11614,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WERE_GARURUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WERE_GARURUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WERE_GARURUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WERE_GARURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 647;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 644;
 
     // Name: Were Garurumon X
     inline static constexpr char DMALL_WERE_GARURUMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:were_garurumon_x";
@@ -11686,7 +11632,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WERE_GARURUMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WERE_GARURUMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WERE_GARURUMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WERE_GARURUMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 648;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 645;
 
     // Name: Whamon
     inline static constexpr char DMALL_WHAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:whamon";
@@ -11704,7 +11650,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WHAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WHAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WHAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WHAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 649;
+    inline static constexpr size_t DMALL_WHAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 646;
 
     // Name: Wizarmon
     inline static constexpr char DMALL_WIZARMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:wizarmon";
@@ -11722,7 +11668,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WIZARMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WIZARMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WIZARMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WIZARMON_ANIM_INDEX ASSETS_DATA3_SECTION = 650;
+    inline static constexpr size_t DMALL_WIZARMON_ANIM_INDEX ASSETS_DATA3_SECTION = 647;
 
     // Name: Wizarmon X
     inline static constexpr char DMALL_WIZARMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:wizarmon_x";
@@ -11740,7 +11686,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WIZARMON_X_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WIZARMON_X_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WIZARMON_X_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WIZARMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 651;
+    inline static constexpr size_t DMALL_WIZARMON_X_ANIM_INDEX ASSETS_DATA3_SECTION = 648;
 
     // Name: Woodmon
     inline static constexpr char DMALL_WOODMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:woodmon";
@@ -11758,7 +11704,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WOODMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WOODMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WOODMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WOODMON_ANIM_INDEX ASSETS_DATA3_SECTION = 652;
+    inline static constexpr size_t DMALL_WOODMON_ANIM_INDEX ASSETS_DATA3_SECTION = 649;
 
     // Name: Wormmon
     inline static constexpr char DMALL_WORMMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:wormmon";
@@ -11776,7 +11722,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_WORMMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_WORMMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_WORMMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_WORMMON_ANIM_INDEX ASSETS_DATA3_SECTION = 653;
+    inline static constexpr size_t DMALL_WORMMON_ANIM_INDEX ASSETS_DATA3_SECTION = 650;
 
     // Name: Xiaomon
     inline static constexpr char DMALL_XIAOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:xiaomon";
@@ -11794,7 +11740,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_XIAOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_XIAOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_XIAOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_XIAOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 654;
+    inline static constexpr size_t DMALL_XIAOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 651;
 
     // Name: XV-mon (Black)
     inline static constexpr char DMALL_XV_MON_BLACK_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:xv_mon_black";
@@ -11812,7 +11758,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_XV_MON_BLACK_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_XV_MON_BLACK_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_XV_MON_BLACK_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_XV_MON_BLACK_ANIM_INDEX ASSETS_DATA3_SECTION = 655;
+    inline static constexpr size_t DMALL_XV_MON_BLACK_ANIM_INDEX ASSETS_DATA3_SECTION = 652;
 
     // Name: XV-mon
     inline static constexpr char DMALL_XV_MON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:xv_mon";
@@ -11830,7 +11776,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_XV_MON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_XV_MON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_XV_MON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_XV_MON_ANIM_INDEX ASSETS_DATA3_SECTION = 656;
+    inline static constexpr size_t DMALL_XV_MON_ANIM_INDEX ASSETS_DATA3_SECTION = 653;
 
     // Name: Yaamon
     inline static constexpr char DMALL_YAAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yaamon";
@@ -11848,7 +11794,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YAAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YAAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YAAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YAAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 657;
+    inline static constexpr size_t DMALL_YAAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 654;
 
     // Name: Yanmamon
     inline static constexpr char DMALL_YANMAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yanmamon";
@@ -11866,7 +11812,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YANMAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YANMAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YANMAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YANMAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 658;
+    inline static constexpr size_t DMALL_YANMAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 655;
 
     // Name: Yatagaramon (2006)
     inline static constexpr char DMALL_YATAGARAMON_2006_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yatagaramon_2006";
@@ -11884,7 +11830,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YATAGARAMON_2006_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YATAGARAMON_2006_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YATAGARAMON_2006_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YATAGARAMON_2006_ANIM_INDEX ASSETS_DATA3_SECTION = 659;
+    inline static constexpr size_t DMALL_YATAGARAMON_2006_ANIM_INDEX ASSETS_DATA3_SECTION = 656;
 
     // Name: Yatagaramon
     inline static constexpr char DMALL_YATAGARAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yatagaramon";
@@ -11902,7 +11848,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YATAGARAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YATAGARAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YATAGARAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YATAGARAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 660;
+    inline static constexpr size_t DMALL_YATAGARAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 657;
 
     // Name: Youkomon
     inline static constexpr char DMALL_YOUKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:youkomon";
@@ -11920,7 +11866,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YOUKOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YOUKOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YOUKOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YOUKOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 661;
+    inline static constexpr size_t DMALL_YOUKOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 658;
 
     // Name: Yuki Agumon
     inline static constexpr char DMALL_YUKI_AGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yuki_agumon";
@@ -11938,7 +11884,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YUKI_AGUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YUKI_AGUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YUKI_AGUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YUKI_AGUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 662;
+    inline static constexpr size_t DMALL_YUKI_AGUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 659;
 
     // Name: Yukidarumon
     inline static constexpr char DMALL_YUKIDARUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yukidarumon";
@@ -11956,7 +11902,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YUKIDARUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YUKIDARUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YUKIDARUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YUKIDARUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 663;
+    inline static constexpr size_t DMALL_YUKIDARUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 660;
 
     // Name: Yukimi Botamon
     inline static constexpr char DMALL_YUKIMI_BOTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yukimi_botamon";
@@ -11974,7 +11920,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YUKIMI_BOTAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YUKIMI_BOTAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YUKIMI_BOTAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YUKIMI_BOTAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 664;
+    inline static constexpr size_t DMALL_YUKIMI_BOTAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 661;
 
     // Name: Yuramon
     inline static constexpr char DMALL_YURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:yuramon";
@@ -11992,7 +11938,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_YURAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_YURAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_YURAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_YURAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 665;
+    inline static constexpr size_t DMALL_YURAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 662;
 
     // Name: Zassoumon
     inline static constexpr char DMALL_ZASSOUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:zassoumon";
@@ -12010,7 +11956,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ZASSOUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ZASSOUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ZASSOUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ZASSOUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 666;
+    inline static constexpr size_t DMALL_ZASSOUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 663;
 
     // Name: Zenimon
     inline static constexpr char DMALL_ZENIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:zenimon";
@@ -12028,7 +11974,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ZENIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ZENIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ZENIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ZENIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 667;
+    inline static constexpr size_t DMALL_ZENIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 664;
 
     // Name: Zerimon
     inline static constexpr char DMALL_ZERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:zerimon";
@@ -12046,7 +11992,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ZERIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ZERIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ZERIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ZERIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 668;
+    inline static constexpr size_t DMALL_ZERIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 665;
 
     // Name: Zudomon
     inline static constexpr char DMALL_ZUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:zudomon";
@@ -12064,7 +12010,7 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ZUDOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ZUDOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ZUDOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ZUDOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 669;
+    inline static constexpr size_t DMALL_ZUDOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 666;
 
     // Name: Zurumon
     inline static constexpr char DMALL_ZURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:zurumon";
@@ -12082,9 +12028,9 @@ namespace bongocat::assets {
     inline static constexpr int DMALL_ZURUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMALL_ZURUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMALL_ZURUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMALL_ZURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 670;
+    inline static constexpr size_t DMALL_ZURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 667;
 
-    inline static constexpr size_t DMALL_ANIM_COUNT = 671;
+    inline static constexpr size_t DMALL_ANIM_COUNT = 668;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_DMALL_HPP

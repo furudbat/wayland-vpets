@@ -1,3 +1,4 @@
+#include "ms_agent_images.h"
 #include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "graphics/animation.h"
@@ -9,6 +10,33 @@
 #include <cassert>
 
 namespace bongocat::animation {
+
+static const unsigned char* ms_agent_pngs_table[] ASSETS_TABLE_SECTION = {
+  clippy_png,
+#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+  links_png,
+  rover_png,
+  merlin_png,
+#endif
+};
+static const size_t ms_agent_png_sizes_table[] ASSETS_TABLE_SECTION = {
+  clippy_png_size,
+#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+  links_png_size,
+  rover_png_size,
+  merlin_png_size,
+#endif
+};
+static const char* ms_agent_names_table[] ASSETS_TABLE_SECTION = {
+  assets::CLIPPY_NAME,
+#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+  assets::LINKS_NAME,
+  assets::ROVER_NAME,
+  assets::MERLIN_NAME,
+#endif
+};
+
+
 BONGOCAT_NODISCARD static created_result_t<ms_agent_sprite_sheet_t>
 load_ms_agent_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_size, int frame_columns,
                                        int frame_rows, int padding_x, int padding_y) {
@@ -278,7 +306,6 @@ created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const anima
   auto result = load_ms_agent_anim(ctx, index, image,
                             dims.cols, dims.rows,
                             get_ms_agent_animation_indices(index));
-  platform::details::asset_unload(image.data, image.size);
   return result;
 }
 
@@ -286,10 +313,8 @@ void init_all_ms_agent_anim(animation_thread_context_t& ctx) {
   using namespace assets;
   for (size_t i = 0;i < MS_AGENTS_ANIM_COUNT;++i) {
     const auto dims = get_ms_agent_sprite_sheet_dims(i);
-    const auto image = get_ms_agent_sprite_sheet(i);
-    init_ms_agent_anim(ctx, i, get_ms_agent_sprite_sheet(i), dims.cols, dims.rows,
+    init_ms_agent_anim(ctx, i, {ms_agent_pngs_table[i], ms_agent_png_sizes_table[i], ms_agent_names_table[i]}, dims.cols, dims.rows,
                             get_ms_agent_animation_indices(i));
-    platform::details::asset_unload(image.data, image.size);
   }
 }
 }  // namespace bongocat::animation

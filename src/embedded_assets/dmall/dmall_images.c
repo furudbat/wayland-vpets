@@ -73,18 +73,18 @@ const unsigned char dmall_algomon_adult_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_algomon_adult_png_size ASSETS_SIZES_SECTION = sizeof(dmall_algomon_adult_png);
 
 
-// Name: Algomon (BabyII)
-const unsigned char dmall_algomon_babyii_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/Algomon (BabyII).png"
+// Name: Algomon (Baby II)
+const unsigned char dmall_algomon_baby_ii_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Algomon (Baby II).png"
 };
-const size_t dmall_algomon_babyii_png_size ASSETS_SIZES_SECTION = sizeof(dmall_algomon_babyii_png);
+const size_t dmall_algomon_baby_ii_png_size ASSETS_SIZES_SECTION = sizeof(dmall_algomon_baby_ii_png);
 
 
-// Name: Algomon (BabyI)
-const unsigned char dmall_algomon_babyi_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/Algomon (BabyI).png"
+// Name: Algomon (Baby I)
+const unsigned char dmall_algomon_baby_i_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Algomon (Baby I).png"
 };
-const size_t dmall_algomon_babyi_png_size ASSETS_SIZES_SECTION = sizeof(dmall_algomon_babyi_png);
+const size_t dmall_algomon_baby_i_png_size ASSETS_SIZES_SECTION = sizeof(dmall_algomon_baby_i_png);
 
 
 // Name: Algomon (Child)
@@ -675,11 +675,11 @@ const unsigned char dmall_caprimon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_caprimon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_caprimon_png);
 
 
-// Name: CatchMamemon
-const unsigned char dmall_catchmamemon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/CatchMamemon.png"
+// Name: Catch Mamemon
+const unsigned char dmall_catch_mamemon_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Catch Mamemon.png"
 };
-const size_t dmall_catchmamemon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_catchmamemon_png);
+const size_t dmall_catch_mamemon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_catch_mamemon_png);
 
 
 // Name: Caturamon
@@ -2768,11 +2768,11 @@ const unsigned char dmall_metal_greymon_virus_x_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_metal_greymon_virus_x_png_size ASSETS_SIZES_SECTION = sizeof(dmall_metal_greymon_virus_x_png);
 
 
-// Name: MetalGreymon X
-const unsigned char dmall_metalgreymon_x_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/MetalGreymon X.png"
+// Name: Metal Greymon X
+const unsigned char dmall_metal_greymon_x_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Metal Greymon X.png"
 };
-const size_t dmall_metalgreymon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmall_metalgreymon_x_png);
+const size_t dmall_metal_greymon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmall_metal_greymon_x_png);
 
 
 // Name: Metallicdramon
@@ -3265,18 +3265,18 @@ const unsigned char dmall_penmon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_penmon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_penmon_png);
 
 
-// Name: PetiMeramon
-const unsigned char dmall_petimeramon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/PetiMeramon.png"
+// Name: Peti Meramon
+const unsigned char dmall_peti_meramon_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Peti Meramon.png"
 };
-const size_t dmall_petimeramon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_petimeramon_png);
+const size_t dmall_peti_meramon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_peti_meramon_png);
 
 
-// Name: PetitMamon
-const unsigned char dmall_petitmamon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/PetitMamon.png"
+// Name: Petit Mamon
+const unsigned char dmall_petit_mamon_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Petit Mamon.png"
 };
-const size_t dmall_petitmamon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_petitmamon_png);
+const size_t dmall_petit_mamon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_petit_mamon_png);
 
 
 // Name: Petitmon
@@ -3720,11 +3720,11 @@ const unsigned char dmall_rize_greymon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_rize_greymon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_rize_greymon_png);
 
 
-// Name: RizeGreymon X
-const unsigned char dmall_rizegreymon_x_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/RizeGreymon X.png"
+// Name: Rize Greymon X
+const unsigned char dmall_rize_greymon_x_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Rize Greymon X.png"
 };
-const size_t dmall_rizegreymon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmall_rizegreymon_x_png);
+const size_t dmall_rize_greymon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmall_rize_greymon_x_png);
 
 
 // Name: Rosemon Burst Mode
@@ -4308,13 +4308,6 @@ const unsigned char dmall_tsunomon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_tsunomon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_tsunomon_png);
 
 
-// Name: Tunomon
-const unsigned char dmall_tunomon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/Tunomon.png"
-};
-const size_t dmall_tunomon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_tunomon_png);
-
-
 // Name: Turuiemon
 const unsigned char dmall_turuiemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Turuiemon.png"
@@ -4327,20 +4320,6 @@ const unsigned char dmall_tylomon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Tylomon X.png"
 };
 const size_t dmall_tylomon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmall_tylomon_x_png);
-
-
-// Name: Tyrannomon
-const unsigned char dmall_tyrannomon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/Tyrannomon.png"
-};
-const size_t dmall_tyrannomon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_tyrannomon_png);
-
-
-// Name: Tyrannomon X
-const unsigned char dmall_tyrannomon_x_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/Tyrannomon X.png"
-};
-const size_t dmall_tyrannomon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmall_tyrannomon_x_png);
 
 
 // Name: Tyranomon
@@ -4525,11 +4504,11 @@ const unsigned char dmall_waspmon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_waspmon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_waspmon_png);
 
 
-// Name: WereGarurumon (Black)
-const unsigned char dmall_weregarurumon_black_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmall/WereGarurumon (Black).png"
+// Name: Were Garurumon (Black)
+const unsigned char dmall_were_garurumon_black_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Were Garurumon (Black).png"
 };
-const size_t dmall_weregarurumon_black_png_size ASSETS_SIZES_SECTION = sizeof(dmall_weregarurumon_black_png);
+const size_t dmall_were_garurumon_black_png_size ASSETS_SIZES_SECTION = sizeof(dmall_were_garurumon_black_png);
 
 
 // Name: Were Garurumon

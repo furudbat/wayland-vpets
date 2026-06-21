@@ -502,9 +502,9 @@ namespace bongocat::assets {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                DMC_BANCHO_MAMEMON_ANIM_INDEX
             },
         },
         // Name: Megadramon
@@ -597,16 +597,6 @@ namespace bongocat::assets {
                 DMC_PICCOLOMON_ANIM_INDEX
             },
         },
-        // Name: Mojymon
-        {
-            // Stage: Adult
-            .conditions = { .next_evolution_time_sec = 129600 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Monochromon
         {
             // Stage: Adult
@@ -622,19 +612,9 @@ namespace bongocat::assets {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 1,
             .animation_indices = {
-                
-            },
-        },
-        // Name: Mozaemon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
+                DMC_SHIN_MONZAEMON_ANIM_INDEX
             },
         },
         // Name: Mugendramon
@@ -794,7 +774,7 @@ namespace bongocat::assets {
             
             .num_animation_indices = 1,
             .animation_indices = {
-                DMC_TUNOMON_ANIM_INDEX
+                DMC_TSUNOMON_ANIM_INDEX
             },
         },
         // Name: Raidenmon
@@ -922,16 +902,6 @@ namespace bongocat::assets {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
             
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
-        // Name: Tunomon
-        {
-            // Stage: Baby II
-            .conditions = { .next_evolution_time_sec = 43200 },
-            
             .num_animation_indices = 2,
             .animation_indices = {
                 DMC_GABUMON_ANIM_INDEX ,DMC_ELECMON_ANIM_INDEX
@@ -1054,7 +1024,6 @@ namespace bongocat::assets {
         assert(LEN_ARRAY(dmc_evol_data_table) == DMC_ANIM_COUNT);
         assert(index < DMC_ANIM_COUNT);
         auto result = dmc_evol_data_table[index];
-        platform::details::asset_unload(dmc_evol_data_table, sizeof(animation::animation_evolution_data_t)*DMC_ANIM_COUNT);
         return result;
     }
 }

@@ -17,6 +17,16 @@ namespace bongocat::assets {
                 PEN_HOUOUMON_ANIM_INDEX
             },
         },
+        // Name: Agumon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 72000 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                PEN_GREYMON_ANIM_INDEX ,PEN_LEOMON_ANIM_INDEX ,PEN_GARURUMON_ANIM_INDEX ,PEN_ANGEMON_ANIM_INDEX
+            },
+        },
         // Name: Andromon
         {
             // Stage: Perfect
@@ -25,6 +35,16 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Angemon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 216000 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                PEN_WERE_GARURUMON_ANIM_INDEX ,PEN_METAL_MAMEMON_ANIM_INDEX ,PEN_ASURAMON_ANIM_INDEX ,PEN_ANGEWOMON_ANIM_INDEX
             },
         },
         // Name: Angewomon
@@ -277,6 +297,16 @@ namespace bongocat::assets {
                 PEN_TOGEMON_ANIM_INDEX ,PEN_KIWIMON_ANIM_INDEX ,PEN_WOODMON_ANIM_INDEX ,PEN_RED_VEGIMON_ANIM_INDEX
             },
         },
+        // Name: Gabumon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 72000 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                PEN_LEOMON_ANIM_INDEX ,PEN_GARURUMON_ANIM_INDEX ,PEN_IGAMON_ANIM_INDEX ,PEN_TAILMON_ANIM_INDEX
+            },
+        },
         // Name: Ganimon
         {
             // Stage: Child
@@ -437,16 +467,6 @@ namespace bongocat::assets {
                 
             },
         },
-        // Name: Herkule Kabuterimon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Holy Angemon
         {
             // Stage: Perfect
@@ -477,14 +497,14 @@ namespace bongocat::assets {
                 
             },
         },
-        // Name: Ignamon
+        // Name: Igamon
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 216000 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 4,
             .animation_indices = {
-                
+                PEN_METAL_GREYMON_ANIM_INDEX ,PEN_ASURAMON_ANIM_INDEX ,PEN_WERE_GARURUMON_ANIM_INDEX ,PEN_METAL_MAMEMON_ANIM_INDEX
             },
         },
         // Name: Ikkakumon
@@ -575,6 +595,16 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Leomon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 216000 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN_METAL_GREYMON_ANIM_INDEX ,PEN_ASURAMON_ANIM_INDEX ,PEN_METAL_MAMEMON_ANIM_INDEX
             },
         },
         // Name: Lilimon
@@ -757,6 +787,16 @@ namespace bongocat::assets {
                 PEN_V_DRAMON_ANIM_INDEX ,PEN_BIRDRAMON_ANIM_INDEX ,PEN_WOODMON_ANIM_INDEX ,PEN_RED_VEGIMON_ANIM_INDEX
             },
         },
+        // Name: Nyaromon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 57600 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN_AGUMON_ANIM_INDEX ,PEN_GABUMON_ANIM_INDEX ,PEN_PLOTMON_ANIM_INDEX
+            },
+        },
         // Name: Nyokimon
         {
             // Stage: Baby I
@@ -867,14 +907,24 @@ namespace bongocat::assets {
                 
             },
         },
+        // Name: Pitchmon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 3600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN_PUKAMON_ANIM_INDEX
+            },
+        },
         // Name: Piyomon
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 72000 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 4,
             .animation_indices = {
-                
+                PEN_V_DRAMON_ANIM_INDEX ,PEN_BIRDRAMON_ANIM_INDEX ,PEN_TOGEMON_ANIM_INDEX ,PEN_WOODMON_ANIM_INDEX
             },
         },
         // Name: Plesiomon
@@ -885,6 +935,26 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Plotmon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 72000 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                PEN_GREYMON_ANIM_INDEX ,PEN_IGAMON_ANIM_INDEX ,PEN_ANGEMON_ANIM_INDEX ,PEN_TAILMON_ANIM_INDEX
+            },
+        },
+        // Name: Pukamon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 57600 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN_GOMAMON_ANIM_INDEX ,PEN_GANIMON_ANIM_INDEX ,PEN_SHAKOMON_ANIM_INDEX
             },
         },
         // Name: Pukumon
@@ -915,16 +985,6 @@ namespace bongocat::assets {
             .num_animation_indices = 4,
             .animation_indices = {
                 PEN_PIYOMON_ANIM_INDEX ,PEN_FLORAMON_ANIM_INDEX ,PEN_PALMON_ANIM_INDEX ,PEN_MUSHMON_ANIM_INDEX
-            },
-        },
-        // Name: Rakamon
-        {
-            // Stage: Adult
-            .conditions = { .next_evolution_time_sec = 216000 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Red Vegimon
@@ -1127,16 +1187,6 @@ namespace bongocat::assets {
                 PEN_AERO_V_DRAMON_ANIM_INDEX ,PEN_GARUDAMON_ANIM_INDEX ,PEN_DELUMON_ANIM_INDEX
             },
         },
-        // Name: Vemdemon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 244800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Venom Vamdemon
         {
             // Stage: Ultimate
@@ -1165,16 +1215,6 @@ namespace bongocat::assets {
             .num_animation_indices = 2,
             .animation_indices = {
                 PEN_MUGENDRAMON_ANIM_INDEX ,PEN_VENOM_VAMDEMON_ANIM_INDEX
-            },
-        },
-        // Name: Waru Mozaemon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 244800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Were Garurumon
@@ -1217,6 +1257,16 @@ namespace bongocat::assets {
                 PEN_JYUREIMON_ANIM_INDEX ,PEN_GERBEMON_ANIM_INDEX ,PEN_DELUMON_ANIM_INDEX
             },
         },
+        // Name: Yukimi Botamon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 3600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN_NYAROMON_ANIM_INDEX
+            },
+        },
         // Name: Zudomon
         {
             // Stage: Perfect
@@ -1234,7 +1284,6 @@ namespace bongocat::assets {
         assert(LEN_ARRAY(pen_evol_data_table) == PEN_ANIM_COUNT);
         assert(index < PEN_ANIM_COUNT);
         auto result = pen_evol_data_table[index];
-        platform::details::asset_unload(pen_evol_data_table, sizeof(animation::animation_evolution_data_t)*PEN_ANIM_COUNT);
         return result;
     }
 }

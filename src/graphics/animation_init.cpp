@@ -311,9 +311,11 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     assert((start_addr % 4096) == 0);   // Assets start address must be page-aligned!
     assert((images_size % 4096) == 0);  // Assets total size must be a multiple of page size!
 
-    const int result = madvise(reinterpret_cast<void *>(start_addr), images_size, MADV_WILLNEED);
+    [[maybe_unused]] const int result = madvise(reinterpret_cast<void *>(start_addr), images_size, MADV_DONTNEED);
     if (result != 0) {
-      BONGOCAT_LOG_VERBOSE("madvise failed to drop asset pages: %s", strerror(errno));
+      BONGOCAT_LOG_WARNING("madvise: failed to drop asset pages: %s", strerror(errno));
+    } else {
+      BONGOCAT_LOG_VERBOSE("madvise: sucsessfull drop asset pages: %dkb", result / 1024);
     }
   }
 

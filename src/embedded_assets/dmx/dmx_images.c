@@ -101,13 +101,6 @@ const unsigned char dmx_belphemon_x_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmx_belphemon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmx_belphemon_x_png);
 
 
-// Name: Black Wargreymon X
-const unsigned char dmx_black_wargreymon_x_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Black Wargreymon X.png"
-};
-const size_t dmx_black_wargreymon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmx_black_wargreymon_x_png);
-
-
 // Name: Black War Greymon X
 const unsigned char dmx_black_war_greymon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Black War Greymon X.png"
@@ -120,13 +113,6 @@ const unsigned char dmx_cannonbeemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Cannonbeemon.png"
 };
 const size_t dmx_cannonbeemon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_cannonbeemon_png);
-
-
-// Name: Cannon Beemon
-const unsigned char dmx_cannon_beemon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Cannon Beemon.png"
-};
-const size_t dmx_cannon_beemon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_cannon_beemon_png);
 
 
 // Name: Cerberumon X
@@ -395,13 +381,6 @@ const unsigned char dmx_grademon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmx_grademon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_grademon_png);
 
 
-// Name: Grand Darcumon
-const unsigned char dmx_grand_darcumon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Grand Darcumon.png"
-};
-const size_t dmx_grand_darcumon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_grand_darcumon_png);
-
-
 // Name: Grand Dracumon
 const unsigned char dmx_grand_dracumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Grand Dracumon.png"
@@ -654,13 +633,6 @@ const unsigned char dmx_mametyramon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmx_mametyramon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_mametyramon_png);
 
 
-// Name: Mame Tyramon
-const unsigned char dmx_mame_tyramon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Mame Tyramon.png"
-};
-const size_t dmx_mame_tyramon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_mame_tyramon_png);
-
-
 // Name: Mammon X
 const unsigned char dmx_mammon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Mammon X.png"
@@ -857,20 +829,6 @@ const unsigned char dmx_omekamon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmx_omekamon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_omekamon_png);
 
 
-// Name: Ophanimon Falldown Mode
-const unsigned char dmx_ophanimon_falldown_mode_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Ophanimon Falldown Mode.png"
-};
-const size_t dmx_ophanimon_falldown_mode_png_size ASSETS_SIZES_SECTION = sizeof(dmx_ophanimon_falldown_mode_png);
-
-
-// Name: Ophanimon X
-const unsigned char dmx_ophanimon_x_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Ophanimon X.png"
-};
-const size_t dmx_ophanimon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmx_ophanimon_x_png);
-
-
 // Name: Otamamon X
 const unsigned char dmx_otamamon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Otamamon X.png"
@@ -997,13 +955,6 @@ const unsigned char dmx_rasenmon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmx_rasenmon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_rasenmon_png);
 
 
-// Name: Rekamon X
-const unsigned char dmx_rekamon_x_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Rekamon X.png"
-};
-const size_t dmx_rekamon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmx_rekamon_x_png);
-
-
 // Name: Renamon X
 const unsigned char dmx_renamon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Renamon X.png"
@@ -1051,13 +1002,6 @@ const unsigned char dmx_sangloupmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Sangloupmon.png"
 };
 const size_t dmx_sangloupmon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_sangloupmon_png);
-
-
-// Name: Sangoupmon
-const unsigned char dmx_sangoupmon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Sangoupmon.png"
-};
-const size_t dmx_sangoupmon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_sangoupmon_png);
 
 
 // Name: Seadramon X
@@ -1116,13 +1060,6 @@ const unsigned char dmx_stiffilmon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmx_stiffilmon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_stiffilmon_png);
 
 
-// Name: Stiffimon
-const unsigned char dmx_stiffimon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Stiffimon.png"
-};
-const size_t dmx_stiffimon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_stiffimon_png);
-
-
 // Name: Tailmon X
 const unsigned char dmx_tailmon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Tailmon X.png"
@@ -1137,25 +1074,11 @@ const unsigned char dmx_terriermon_x_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmx_terriermon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmx_terriermon_x_png);
 
 
-// Name: Tierriermon X
-const unsigned char dmx_tierriermon_x_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Tierriermon X.png"
-};
-const size_t dmx_tierriermon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmx_tierriermon_x_png);
-
-
 // Name: Tiger Vespamon
 const unsigned char dmx_tiger_vespamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Tiger Vespamon.png"
 };
 const size_t dmx_tiger_vespamon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_tiger_vespamon_png);
-
-
-// Name: Tobcatmon
-const unsigned char dmx_tobcatmon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Tobcatmon.png"
-};
-const size_t dmx_tobcatmon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_tobcatmon_png);
 
 
 // Name: Tobucatmon
@@ -1205,13 +1128,6 @@ const unsigned char dmx_ulforce_v_dramon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Ulforce V-dramon X.png"
 };
 const size_t dmx_ulforce_v_dramon_x_png_size ASSETS_SIZES_SECTION = sizeof(dmx_ulforce_v_dramon_x_png);
-
-
-// Name: Ultimate Brachimon
-const unsigned char dmx_ultimate_brachimon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Ultimate Brachimon.png"
-};
-const size_t dmx_ultimate_brachimon_png_size ASSETS_SIZES_SECTION = sizeof(dmx_ultimate_brachimon_png);
 
 
 // Name: Ultimate Brachiomon

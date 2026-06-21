@@ -283,13 +283,6 @@ const unsigned char dm20_durandamon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dm20_durandamon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_durandamon_png);
 
 
-// Name: Durandramon
-const unsigned char dm20_durandramon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Durandramon.png"
-};
-const size_t dm20_durandramon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_durandramon_png);
-
-
 // Name: Elecmon
 const unsigned char dm20_elecmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Elecmon.png"
@@ -414,13 +407,6 @@ const unsigned char dm20_jesmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Jesmon.png"
 };
 const size_t dm20_jesmon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_jesmon_png);
-
-
-// Name: Jijimon
-const unsigned char dm20_jijimon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Jijimon.png"
-};
-const size_t dm20_jijimon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_jijimon_png);
 
 
 // Name: Kabuterimon
@@ -549,13 +535,6 @@ const unsigned char dm20_mojyamon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dm20_mojyamon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_mojyamon_png);
 
 
-// Name: Monchromon
-const unsigned char dm20_monchromon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Monchromon.png"
-};
-const size_t dm20_monchromon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_monchromon_png);
-
-
 // Name: Monochromon
 const unsigned char dm20_monochromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Monochromon.png"
@@ -568,13 +547,6 @@ const unsigned char dm20_monzaemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Monzaemon.png"
 };
 const size_t dm20_monzaemon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_monzaemon_png);
-
-
-// Name: Mozaemon
-const unsigned char dm20_mozaemon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Mozaemon.png"
-};
-const size_t dm20_mozaemon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_mozaemon_png);
 
 
 // Name: Mugendramon
@@ -638,13 +610,6 @@ const unsigned char dm20_pagumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Pagumon.png"
 };
 const size_t dm20_pagumon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_pagumon_png);
-
-
-// Name: Pakumon
-const unsigned char dm20_pakumon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Pakumon.png"
-};
-const size_t dm20_pakumon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_pakumon_png);
 
 
 // Name: Palmon
@@ -808,13 +773,6 @@ const unsigned char dm20_slayerdramon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dm20_slayerdramon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_slayerdramon_png);
 
 
-// Name: Taichi Metal Greymon
-const unsigned char dm20_taichi_metal_greymon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Taichi Metal Greymon.png"
-};
-const size_t dm20_taichi_metal_greymon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_taichi_metal_greymon_png);
-
-
 // Name: Taichis Agumon
 const unsigned char dm20_taichis_agumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Taichis Agumon.png"
@@ -913,20 +871,6 @@ const unsigned char dm20_vegimon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dm20_vegimon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_vegimon_png);
 
 
-// Name: War Greymon
-const unsigned char dm20_war_greymon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/War Greymon.png"
-};
-const size_t dm20_war_greymon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_war_greymon_png);
-
-
-// Name: Were Garurumon
-const unsigned char dm20_were_garurumon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Were Garurumon.png"
-};
-const size_t dm20_were_garurumon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_were_garurumon_png);
-
-
 // Name: Whamon
 const unsigned char dm20_whamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Whamon.png"
@@ -939,13 +883,6 @@ const unsigned char dm20_wingdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Wingdramon.png"
 };
 const size_t dm20_wingdramon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_wingdramon_png);
-
-
-// Name: Yamato Gabumon
-const unsigned char dm20_yamato_gabumon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Yamato Gabumon.png"
-};
-const size_t dm20_yamato_gabumon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_yamato_gabumon_png);
 
 
 // Name: Yamatos Gabumon
@@ -983,11 +920,11 @@ const unsigned char dm20_yukidarumon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dm20_yukidarumon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_yukidarumon_png);
 
 
-// Name: Yukimi Botamon
-const unsigned char dm20_yukimi_botamon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Yukimi Botamon.png"
+// Name: Yukimibotamon
+const unsigned char dm20_yukimibotamon_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dm20/Yukimibotamon.png"
 };
-const size_t dm20_yukimi_botamon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_yukimi_botamon_png);
+const size_t dm20_yukimibotamon_png_size ASSETS_SIZES_SECTION = sizeof(dm20_yukimibotamon_png);
 
 
 // Name: Yuramon

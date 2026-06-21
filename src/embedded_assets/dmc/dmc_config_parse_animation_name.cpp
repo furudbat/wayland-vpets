@@ -65,10 +65,8 @@ namespace bongocat::assets {
         { DMC_METAL_TYRANOMON_NAME, DMC_METAL_TYRANOMON_ID, DMC_METAL_TYRANOMON_FQID, DMC_METAL_TYRANOMON_FQNAME, DMC_METAL_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_MILLENNIUMON_NAME, DMC_MILLENNIUMON_ID, DMC_MILLENNIUMON_FQID, DMC_MILLENNIUMON_FQNAME, DMC_MILLENNIUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_MOJYAMON_NAME, DMC_MOJYAMON_ID, DMC_MOJYAMON_FQID, DMC_MOJYAMON_FQNAME, DMC_MOJYAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MOJYMON_NAME, DMC_MOJYMON_ID, DMC_MOJYMON_FQID, DMC_MOJYMON_FQNAME, DMC_MOJYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_MONOCHROMON_NAME, DMC_MONOCHROMON_ID, DMC_MONOCHROMON_FQID, DMC_MONOCHROMON_FQNAME, DMC_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_MONZAEMON_NAME, DMC_MONZAEMON_ID, DMC_MONZAEMON_FQID, DMC_MONZAEMON_FQNAME, DMC_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_MOZAEMON_NAME, DMC_MOZAEMON_ID, DMC_MOZAEMON_FQID, DMC_MOZAEMON_FQNAME, DMC_MOZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_MUGENDRAMON_NAME, DMC_MUGENDRAMON_ID, DMC_MUGENDRAMON_FQID, DMC_MUGENDRAMON_FQNAME, DMC_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_NANIMON_NAME, DMC_NANIMON_ID, DMC_NANIMON_FQID, DMC_NANIMON_FQNAME, DMC_NANIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_NANOMON_NAME, DMC_NANOMON_ID, DMC_NANOMON_FQID, DMC_NANOMON_FQNAME, DMC_NANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -98,7 +96,6 @@ namespace bongocat::assets {
         { DMC_TITAMON_NAME, DMC_TITAMON_ID, DMC_TITAMON_FQID, DMC_TITAMON_FQNAME, DMC_TITAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_TOKOMON_NAME, DMC_TOKOMON_ID, DMC_TOKOMON_FQID, DMC_TOKOMON_FQNAME, DMC_TOKOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_TSUNOMON_NAME, DMC_TSUNOMON_ID, DMC_TSUNOMON_FQID, DMC_TSUNOMON_FQNAME, DMC_TSUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMC_TUNOMON_NAME, DMC_TUNOMON_ID, DMC_TUNOMON_FQID, DMC_TUNOMON_FQNAME, DMC_TUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_TUSKMON_NAME, DMC_TUSKMON_ID, DMC_TUSKMON_FQID, DMC_TUSKMON_FQNAME, DMC_TUSKMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_TYRANOMON_NAME, DMC_TYRANOMON_ID, DMC_TYRANOMON_FQID, DMC_TYRANOMON_FQNAME, DMC_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMC_UNIMON_NAME, DMC_UNIMON_ID, DMC_UNIMON_FQID, DMC_UNIMON_FQNAME, DMC_UNIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmc, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -172,10 +169,8 @@ namespace bongocat::assets {
         { DMC_METAL_TYRANOMON_NAME, DMC_METAL_TYRANOMON_NAME_LEN, DMC_METAL_TYRANOMON_ID, DMC_METAL_TYRANOMON_ID_LEN, DMC_METAL_TYRANOMON_FQID, DMC_METAL_TYRANOMON_FQID_LEN, DMC_METAL_TYRANOMON_FQNAME, DMC_METAL_TYRANOMON_FQNAME_LEN },
         { DMC_MILLENNIUMON_NAME, DMC_MILLENNIUMON_NAME_LEN, DMC_MILLENNIUMON_ID, DMC_MILLENNIUMON_ID_LEN, DMC_MILLENNIUMON_FQID, DMC_MILLENNIUMON_FQID_LEN, DMC_MILLENNIUMON_FQNAME, DMC_MILLENNIUMON_FQNAME_LEN },
         { DMC_MOJYAMON_NAME, DMC_MOJYAMON_NAME_LEN, DMC_MOJYAMON_ID, DMC_MOJYAMON_ID_LEN, DMC_MOJYAMON_FQID, DMC_MOJYAMON_FQID_LEN, DMC_MOJYAMON_FQNAME, DMC_MOJYAMON_FQNAME_LEN },
-        { DMC_MOJYMON_NAME, DMC_MOJYMON_NAME_LEN, DMC_MOJYMON_ID, DMC_MOJYMON_ID_LEN, DMC_MOJYMON_FQID, DMC_MOJYMON_FQID_LEN, DMC_MOJYMON_FQNAME, DMC_MOJYMON_FQNAME_LEN },
         { DMC_MONOCHROMON_NAME, DMC_MONOCHROMON_NAME_LEN, DMC_MONOCHROMON_ID, DMC_MONOCHROMON_ID_LEN, DMC_MONOCHROMON_FQID, DMC_MONOCHROMON_FQID_LEN, DMC_MONOCHROMON_FQNAME, DMC_MONOCHROMON_FQNAME_LEN },
         { DMC_MONZAEMON_NAME, DMC_MONZAEMON_NAME_LEN, DMC_MONZAEMON_ID, DMC_MONZAEMON_ID_LEN, DMC_MONZAEMON_FQID, DMC_MONZAEMON_FQID_LEN, DMC_MONZAEMON_FQNAME, DMC_MONZAEMON_FQNAME_LEN },
-        { DMC_MOZAEMON_NAME, DMC_MOZAEMON_NAME_LEN, DMC_MOZAEMON_ID, DMC_MOZAEMON_ID_LEN, DMC_MOZAEMON_FQID, DMC_MOZAEMON_FQID_LEN, DMC_MOZAEMON_FQNAME, DMC_MOZAEMON_FQNAME_LEN },
         { DMC_MUGENDRAMON_NAME, DMC_MUGENDRAMON_NAME_LEN, DMC_MUGENDRAMON_ID, DMC_MUGENDRAMON_ID_LEN, DMC_MUGENDRAMON_FQID, DMC_MUGENDRAMON_FQID_LEN, DMC_MUGENDRAMON_FQNAME, DMC_MUGENDRAMON_FQNAME_LEN },
         { DMC_NANIMON_NAME, DMC_NANIMON_NAME_LEN, DMC_NANIMON_ID, DMC_NANIMON_ID_LEN, DMC_NANIMON_FQID, DMC_NANIMON_FQID_LEN, DMC_NANIMON_FQNAME, DMC_NANIMON_FQNAME_LEN },
         { DMC_NANOMON_NAME, DMC_NANOMON_NAME_LEN, DMC_NANOMON_ID, DMC_NANOMON_ID_LEN, DMC_NANOMON_FQID, DMC_NANOMON_FQID_LEN, DMC_NANOMON_FQNAME, DMC_NANOMON_FQNAME_LEN },
@@ -205,7 +200,6 @@ namespace bongocat::assets {
         { DMC_TITAMON_NAME, DMC_TITAMON_NAME_LEN, DMC_TITAMON_ID, DMC_TITAMON_ID_LEN, DMC_TITAMON_FQID, DMC_TITAMON_FQID_LEN, DMC_TITAMON_FQNAME, DMC_TITAMON_FQNAME_LEN },
         { DMC_TOKOMON_NAME, DMC_TOKOMON_NAME_LEN, DMC_TOKOMON_ID, DMC_TOKOMON_ID_LEN, DMC_TOKOMON_FQID, DMC_TOKOMON_FQID_LEN, DMC_TOKOMON_FQNAME, DMC_TOKOMON_FQNAME_LEN },
         { DMC_TSUNOMON_NAME, DMC_TSUNOMON_NAME_LEN, DMC_TSUNOMON_ID, DMC_TSUNOMON_ID_LEN, DMC_TSUNOMON_FQID, DMC_TSUNOMON_FQID_LEN, DMC_TSUNOMON_FQNAME, DMC_TSUNOMON_FQNAME_LEN },
-        { DMC_TUNOMON_NAME, DMC_TUNOMON_NAME_LEN, DMC_TUNOMON_ID, DMC_TUNOMON_ID_LEN, DMC_TUNOMON_FQID, DMC_TUNOMON_FQID_LEN, DMC_TUNOMON_FQNAME, DMC_TUNOMON_FQNAME_LEN },
         { DMC_TUSKMON_NAME, DMC_TUSKMON_NAME_LEN, DMC_TUSKMON_ID, DMC_TUSKMON_ID_LEN, DMC_TUSKMON_FQID, DMC_TUSKMON_FQID_LEN, DMC_TUSKMON_FQNAME, DMC_TUSKMON_FQNAME_LEN },
         { DMC_TYRANOMON_NAME, DMC_TYRANOMON_NAME_LEN, DMC_TYRANOMON_ID, DMC_TYRANOMON_ID_LEN, DMC_TYRANOMON_FQID, DMC_TYRANOMON_FQID_LEN, DMC_TYRANOMON_FQNAME, DMC_TYRANOMON_FQNAME_LEN },
         { DMC_UNIMON_NAME, DMC_UNIMON_NAME_LEN, DMC_UNIMON_ID, DMC_UNIMON_ID_LEN, DMC_UNIMON_FQID, DMC_UNIMON_FQID_LEN, DMC_UNIMON_FQNAME, DMC_UNIMON_FQNAME_LEN },
@@ -226,14 +220,6 @@ namespace bongocat::assets {
         return dmc_animation_table[index];
     }
 
-    static void unload_config_parse_animation_names_dmc() {
-        for (const auto& entry : dmc_animation_names_table) {
-            platform::details::asset_unload_cstr(entry.name,   entry.name_len);
-            platform::details::asset_unload_cstr(entry.id,     entry.id_len);
-            platform::details::asset_unload_cstr(entry.fqid,   entry.fqid_len);
-            platform::details::asset_unload_cstr(entry.fqname, entry.fqname_len);
-        }
-    }
     int config_parse_animation_name_dmc(config::config_t& config, const char *value) {
         assert(LEN_ARRAY(dmc_animation_table) == DMC_ANIM_COUNT);
         int ret = -1;
@@ -250,7 +236,6 @@ namespace bongocat::assets {
                 break;
             }
         }
-        unload_config_parse_animation_names_dmc();
         return ret;
     }
 }

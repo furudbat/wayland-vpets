@@ -16,8 +16,8 @@ namespace bongocat::assets {
         { DMALL_AGUMON_YUKI_NO_KIZUNA_NAME, DMALL_AGUMON_YUKI_NO_KIZUNA_ID, DMALL_AGUMON_YUKI_NO_KIZUNA_FQID, DMALL_AGUMON_YUKI_NO_KIZUNA_FQNAME, DMALL_AGUMON_YUKI_NO_KIZUNA_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_AIRDRAMON_NAME, DMALL_AIRDRAMON_ID, DMALL_AIRDRAMON_FQID, DMALL_AIRDRAMON_FQNAME, DMALL_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ALGOMON_ADULT_NAME, DMALL_ALGOMON_ADULT_ID, DMALL_ALGOMON_ADULT_FQID, DMALL_ALGOMON_ADULT_FQNAME, DMALL_ALGOMON_ADULT_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_ALGOMON_BABYII_NAME, DMALL_ALGOMON_BABYII_ID, DMALL_ALGOMON_BABYII_FQID, DMALL_ALGOMON_BABYII_FQNAME, DMALL_ALGOMON_BABYII_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_ALGOMON_BABYI_NAME, DMALL_ALGOMON_BABYI_ID, DMALL_ALGOMON_BABYI_FQID, DMALL_ALGOMON_BABYI_FQNAME, DMALL_ALGOMON_BABYI_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_ALGOMON_BABY_II_NAME, DMALL_ALGOMON_BABY_II_ID, DMALL_ALGOMON_BABY_II_FQID, DMALL_ALGOMON_BABY_II_FQNAME, DMALL_ALGOMON_BABY_II_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_ALGOMON_BABY_I_NAME, DMALL_ALGOMON_BABY_I_ID, DMALL_ALGOMON_BABY_I_FQID, DMALL_ALGOMON_BABY_I_FQNAME, DMALL_ALGOMON_BABY_I_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ALGOMON_CHILD_NAME, DMALL_ALGOMON_CHILD_ID, DMALL_ALGOMON_CHILD_FQID, DMALL_ALGOMON_CHILD_FQNAME, DMALL_ALGOMON_CHILD_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ALGOMON_ULTIMATE_NAME, DMALL_ALGOMON_ULTIMATE_ID, DMALL_ALGOMON_ULTIMATE_FQID, DMALL_ALGOMON_ULTIMATE_FQNAME, DMALL_ALGOMON_ULTIMATE_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ALLOMON_X_NAME, DMALL_ALLOMON_X_ID, DMALL_ALLOMON_X_FQID, DMALL_ALLOMON_X_FQNAME, DMALL_ALLOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -102,7 +102,7 @@ namespace bongocat::assets {
         { DMALL_CANDMON_NAME, DMALL_CANDMON_ID, DMALL_CANDMON_FQID, DMALL_CANDMON_FQNAME, DMALL_CANDMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_CANNONBEEMON_NAME, DMALL_CANNONBEEMON_ID, DMALL_CANNONBEEMON_FQID, DMALL_CANNONBEEMON_FQNAME, DMALL_CANNONBEEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_CAPRIMON_NAME, DMALL_CAPRIMON_ID, DMALL_CAPRIMON_FQID, DMALL_CAPRIMON_FQNAME, DMALL_CAPRIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_CATCHMAMEMON_NAME, DMALL_CATCHMAMEMON_ID, DMALL_CATCHMAMEMON_FQID, DMALL_CATCHMAMEMON_FQNAME, DMALL_CATCHMAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_CATCH_MAMEMON_NAME, DMALL_CATCH_MAMEMON_ID, DMALL_CATCH_MAMEMON_FQID, DMALL_CATCH_MAMEMON_FQNAME, DMALL_CATCH_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_CATURAMON_NAME, DMALL_CATURAMON_ID, DMALL_CATURAMON_FQID, DMALL_CATURAMON_FQNAME, DMALL_CATURAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_CENTALMON_NAME, DMALL_CENTALMON_ID, DMALL_CENTALMON_FQID, DMALL_CENTALMON_FQNAME, DMALL_CENTALMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_CERBERUMON_X_NAME, DMALL_CERBERUMON_X_ID, DMALL_CERBERUMON_X_FQID, DMALL_CERBERUMON_X_FQNAME, DMALL_CERBERUMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -401,7 +401,7 @@ namespace bongocat::assets {
         { DMALL_METAL_GREYMON_NAME, DMALL_METAL_GREYMON_ID, DMALL_METAL_GREYMON_FQID, DMALL_METAL_GREYMON_FQNAME, DMALL_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_METAL_GREYMON_VIRUS_NAME, DMALL_METAL_GREYMON_VIRUS_ID, DMALL_METAL_GREYMON_VIRUS_FQID, DMALL_METAL_GREYMON_VIRUS_FQNAME, DMALL_METAL_GREYMON_VIRUS_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_METAL_GREYMON_VIRUS_X_NAME, DMALL_METAL_GREYMON_VIRUS_X_ID, DMALL_METAL_GREYMON_VIRUS_X_FQID, DMALL_METAL_GREYMON_VIRUS_X_FQNAME, DMALL_METAL_GREYMON_VIRUS_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_METALGREYMON_X_NAME, DMALL_METALGREYMON_X_ID, DMALL_METALGREYMON_X_FQID, DMALL_METALGREYMON_X_FQNAME, DMALL_METALGREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_METAL_GREYMON_X_NAME, DMALL_METAL_GREYMON_X_ID, DMALL_METAL_GREYMON_X_FQID, DMALL_METAL_GREYMON_X_FQNAME, DMALL_METAL_GREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_METALLICDRAMON_NAME, DMALL_METALLICDRAMON_ID, DMALL_METALLICDRAMON_FQID, DMALL_METALLICDRAMON_FQNAME, DMALL_METALLICDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_METAL_MAMEMON_NAME, DMALL_METAL_MAMEMON_ID, DMALL_METAL_MAMEMON_FQID, DMALL_METAL_MAMEMON_FQNAME, DMALL_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_METAL_MAMEMON_X_NAME, DMALL_METAL_MAMEMON_X_ID, DMALL_METAL_MAMEMON_X_FQID, DMALL_METAL_MAMEMON_X_FQNAME, DMALL_METAL_MAMEMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -472,8 +472,8 @@ namespace bongocat::assets {
         { DMALL_PARASAURMON_NAME, DMALL_PARASAURMON_ID, DMALL_PARASAURMON_FQID, DMALL_PARASAURMON_FQNAME, DMALL_PARASAURMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_PEGASMON_X_NAME, DMALL_PEGASMON_X_ID, DMALL_PEGASMON_X_FQID, DMALL_PEGASMON_X_FQNAME, DMALL_PEGASMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_PENMON_NAME, DMALL_PENMON_ID, DMALL_PENMON_FQID, DMALL_PENMON_FQNAME, DMALL_PENMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_PETIMERAMON_NAME, DMALL_PETIMERAMON_ID, DMALL_PETIMERAMON_FQID, DMALL_PETIMERAMON_FQNAME, DMALL_PETIMERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_PETITMAMON_NAME, DMALL_PETITMAMON_ID, DMALL_PETITMAMON_FQID, DMALL_PETITMAMON_FQNAME, DMALL_PETITMAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_PETI_MERAMON_NAME, DMALL_PETI_MERAMON_ID, DMALL_PETI_MERAMON_FQID, DMALL_PETI_MERAMON_FQNAME, DMALL_PETI_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_PETIT_MAMON_NAME, DMALL_PETIT_MAMON_ID, DMALL_PETIT_MAMON_FQID, DMALL_PETIT_MAMON_FQNAME, DMALL_PETIT_MAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_PETITMON_NAME, DMALL_PETITMON_ID, DMALL_PETITMON_FQID, DMALL_PETITMON_FQNAME, DMALL_PETITMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_PHANTOMON_NAME, DMALL_PHANTOMON_ID, DMALL_PHANTOMON_FQID, DMALL_PHANTOMON_FQNAME, DMALL_PHANTOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_PHASCOMON_NAME, DMALL_PHASCOMON_ID, DMALL_PHASCOMON_FQID, DMALL_PHASCOMON_FQNAME, DMALL_PHASCOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -537,7 +537,7 @@ namespace bongocat::assets {
         { DMALL_RHINOMON_NAME, DMALL_RHINOMON_ID, DMALL_RHINOMON_FQID, DMALL_RHINOMON_FQNAME, DMALL_RHINOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_RHINOMON_X_NAME, DMALL_RHINOMON_X_ID, DMALL_RHINOMON_X_FQID, DMALL_RHINOMON_X_FQNAME, DMALL_RHINOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_RIZE_GREYMON_NAME, DMALL_RIZE_GREYMON_ID, DMALL_RIZE_GREYMON_FQID, DMALL_RIZE_GREYMON_FQNAME, DMALL_RIZE_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_RIZEGREYMON_X_NAME, DMALL_RIZEGREYMON_X_ID, DMALL_RIZEGREYMON_X_FQID, DMALL_RIZEGREYMON_X_FQNAME, DMALL_RIZEGREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_RIZE_GREYMON_X_NAME, DMALL_RIZE_GREYMON_X_ID, DMALL_RIZE_GREYMON_X_FQID, DMALL_RIZE_GREYMON_X_FQNAME, DMALL_RIZE_GREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ROSEMON_BURST_MODE_NAME, DMALL_ROSEMON_BURST_MODE_ID, DMALL_ROSEMON_BURST_MODE_FQID, DMALL_ROSEMON_BURST_MODE_FQNAME, DMALL_ROSEMON_BURST_MODE_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ROSEMON_NAME, DMALL_ROSEMON_ID, DMALL_ROSEMON_FQID, DMALL_ROSEMON_FQNAME, DMALL_ROSEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ROSEMON_X_NAME, DMALL_ROSEMON_X_ID, DMALL_ROSEMON_X_FQID, DMALL_ROSEMON_X_FQNAME, DMALL_ROSEMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -621,11 +621,8 @@ namespace bongocat::assets {
         { DMALL_TSUCHIDARUMON_NAME, DMALL_TSUCHIDARUMON_ID, DMALL_TSUCHIDARUMON_FQID, DMALL_TSUCHIDARUMON_FQNAME, DMALL_TSUCHIDARUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_TSUMEMON_NAME, DMALL_TSUMEMON_ID, DMALL_TSUMEMON_FQID, DMALL_TSUMEMON_FQNAME, DMALL_TSUMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_TSUNOMON_NAME, DMALL_TSUNOMON_ID, DMALL_TSUNOMON_FQID, DMALL_TSUNOMON_FQNAME, DMALL_TSUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_TUNOMON_NAME, DMALL_TUNOMON_ID, DMALL_TUNOMON_FQID, DMALL_TUNOMON_FQNAME, DMALL_TUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_TURUIEMON_NAME, DMALL_TURUIEMON_ID, DMALL_TURUIEMON_FQID, DMALL_TURUIEMON_FQNAME, DMALL_TURUIEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_TYLOMON_X_NAME, DMALL_TYLOMON_X_ID, DMALL_TYLOMON_X_FQID, DMALL_TYLOMON_X_FQNAME, DMALL_TYLOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_TYRANNOMON_NAME, DMALL_TYRANNOMON_ID, DMALL_TYRANNOMON_FQID, DMALL_TYRANNOMON_FQNAME, DMALL_TYRANNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_TYRANNOMON_X_NAME, DMALL_TYRANNOMON_X_ID, DMALL_TYRANNOMON_X_FQID, DMALL_TYRANNOMON_X_FQNAME, DMALL_TYRANNOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_TYRANOMON_NAME, DMALL_TYRANOMON_ID, DMALL_TYRANOMON_FQID, DMALL_TYRANOMON_FQNAME, DMALL_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_TYRANOMON_X_NAME, DMALL_TYRANOMON_X_ID, DMALL_TYRANOMON_X_FQID, DMALL_TYRANOMON_X_FQNAME, DMALL_TYRANOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_ULFORCE_V_DRAMON_NAME, DMALL_ULFORCE_V_DRAMON_ID, DMALL_ULFORCE_V_DRAMON_FQID, DMALL_ULFORCE_V_DRAMON_FQNAME, DMALL_ULFORCE_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -652,7 +649,7 @@ namespace bongocat::assets {
         { DMALL_WARU_MONZAEMON_NAME, DMALL_WARU_MONZAEMON_ID, DMALL_WARU_MONZAEMON_FQID, DMALL_WARU_MONZAEMON_FQNAME, DMALL_WARU_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_WARU_SEADRAMON_NAME, DMALL_WARU_SEADRAMON_ID, DMALL_WARU_SEADRAMON_FQID, DMALL_WARU_SEADRAMON_FQNAME, DMALL_WARU_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_WASPMON_NAME, DMALL_WASPMON_ID, DMALL_WASPMON_FQID, DMALL_WASPMON_FQNAME, DMALL_WASPMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DMALL_WEREGARURUMON_BLACK_NAME, DMALL_WEREGARURUMON_BLACK_ID, DMALL_WEREGARURUMON_BLACK_FQID, DMALL_WEREGARURUMON_BLACK_FQNAME, DMALL_WEREGARURUMON_BLACK_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_WERE_GARURUMON_BLACK_NAME, DMALL_WERE_GARURUMON_BLACK_ID, DMALL_WERE_GARURUMON_BLACK_FQID, DMALL_WERE_GARURUMON_BLACK_FQNAME, DMALL_WERE_GARURUMON_BLACK_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_WERE_GARURUMON_NAME, DMALL_WERE_GARURUMON_ID, DMALL_WERE_GARURUMON_FQID, DMALL_WERE_GARURUMON_FQNAME, DMALL_WERE_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_WERE_GARURUMON_X_NAME, DMALL_WERE_GARURUMON_X_ID, DMALL_WERE_GARURUMON_X_FQID, DMALL_WERE_GARURUMON_X_FQNAME, DMALL_WERE_GARURUMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_WHAMON_NAME, DMALL_WHAMON_ID, DMALL_WHAMON_FQID, DMALL_WHAMON_FQNAME, DMALL_WHAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -739,18 +736,18 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_ALGOMON_ADULT_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (Adult)";
     inline static constexpr const char* ALT_DMALL_ALGOMON_ADULT_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_ADULT_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_ALGOMON_ADULT_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_ADULT_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_ALGOMON_BABYII_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_babyii";
-    inline static constexpr const char* ALT_DMALL_ALGOMON_BABYII_FQID CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABYII_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_ALGOMON_BABYII_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABYII_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_ALGOMON_BABYII_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (BabyII)";
-    inline static constexpr const char* ALT_DMALL_ALGOMON_BABYII_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABYII_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_ALGOMON_BABYII_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABYII_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_ALGOMON_BABYI_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_babyi";
-    inline static constexpr const char* ALT_DMALL_ALGOMON_BABYI_FQID CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABYI_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_ALGOMON_BABYI_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABYI_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_ALGOMON_BABYI_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (BabyI)";
-    inline static constexpr const char* ALT_DMALL_ALGOMON_BABYI_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABYI_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_ALGOMON_BABYI_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABYI_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_ALGOMON_BABY_II_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_baby_ii";
+    inline static constexpr const char* ALT_DMALL_ALGOMON_BABY_II_FQID CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABY_II_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_ALGOMON_BABY_II_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABY_II_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_ALGOMON_BABY_II_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (Baby II)";
+    inline static constexpr const char* ALT_DMALL_ALGOMON_BABY_II_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABY_II_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_ALGOMON_BABY_II_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABY_II_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_ALGOMON_BABY_I_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_baby_i";
+    inline static constexpr const char* ALT_DMALL_ALGOMON_BABY_I_FQID CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABY_I_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_ALGOMON_BABY_I_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABY_I_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_ALGOMON_BABY_I_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Algomon (Baby I)";
+    inline static constexpr const char* ALT_DMALL_ALGOMON_BABY_I_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_BABY_I_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_ALGOMON_BABY_I_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_BABY_I_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_ALGOMON_CHILD_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:algomon_child";
     inline static constexpr const char* ALT_DMALL_ALGOMON_CHILD_FQID CONFIG_STRING_SECTION = ALT_DMALL_ALGOMON_CHILD_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_ALGOMON_CHILD_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ALGOMON_CHILD_FQID_ARR)-1;
@@ -1255,12 +1252,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_CAPRIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Caprimon";
     inline static constexpr const char* ALT_DMALL_CAPRIMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_CAPRIMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_CAPRIMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_CAPRIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_CATCHMAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:catchmamemon";
-    inline static constexpr const char* ALT_DMALL_CATCHMAMEMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_CATCHMAMEMON_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_CATCHMAMEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_CATCHMAMEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_CATCHMAMEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:CatchMamemon";
-    inline static constexpr const char* ALT_DMALL_CATCHMAMEMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_CATCHMAMEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_CATCHMAMEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_CATCHMAMEMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_CATCH_MAMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:catch_mamemon";
+    inline static constexpr const char* ALT_DMALL_CATCH_MAMEMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_CATCH_MAMEMON_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_CATCH_MAMEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_CATCH_MAMEMON_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_CATCH_MAMEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Catch Mamemon";
+    inline static constexpr const char* ALT_DMALL_CATCH_MAMEMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_CATCH_MAMEMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_CATCH_MAMEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_CATCH_MAMEMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_CATURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:caturamon";
     inline static constexpr const char* ALT_DMALL_CATURAMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_CATURAMON_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_CATURAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_CATURAMON_FQID_ARR)-1;
@@ -3049,12 +3046,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Metal Greymon (Virus) X";
     inline static constexpr const char* ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_METALGREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:metalgreymon_x";
-    inline static constexpr const char* ALT_DMALL_METALGREYMON_X_FQID CONFIG_STRING_SECTION = ALT_DMALL_METALGREYMON_X_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_METALGREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_METALGREYMON_X_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_METALGREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:MetalGreymon X";
-    inline static constexpr const char* ALT_DMALL_METALGREYMON_X_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_METALGREYMON_X_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_METALGREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_METALGREYMON_X_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_METAL_GREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:metal_greymon_x";
+    inline static constexpr const char* ALT_DMALL_METAL_GREYMON_X_FQID CONFIG_STRING_SECTION = ALT_DMALL_METAL_GREYMON_X_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_METAL_GREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_METAL_GREYMON_X_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_METAL_GREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Metal Greymon X";
+    inline static constexpr const char* ALT_DMALL_METAL_GREYMON_X_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_METAL_GREYMON_X_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_METAL_GREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_METAL_GREYMON_X_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_METALLICDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:metallicdramon";
     inline static constexpr const char* ALT_DMALL_METALLICDRAMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_METALLICDRAMON_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_METALLICDRAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_METALLICDRAMON_FQID_ARR)-1;
@@ -3475,18 +3472,18 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_PENMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Penmon";
     inline static constexpr const char* ALT_DMALL_PENMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_PENMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_PENMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PENMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_PETIMERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petimeramon";
-    inline static constexpr const char* ALT_DMALL_PETIMERAMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_PETIMERAMON_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_PETIMERAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETIMERAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_PETIMERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:PetiMeramon";
-    inline static constexpr const char* ALT_DMALL_PETIMERAMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_PETIMERAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_PETIMERAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETIMERAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_PETITMAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petitmamon";
-    inline static constexpr const char* ALT_DMALL_PETITMAMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_PETITMAMON_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_PETITMAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETITMAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_PETITMAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:PetitMamon";
-    inline static constexpr const char* ALT_DMALL_PETITMAMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_PETITMAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_PETITMAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETITMAMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_PETI_MERAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:peti_meramon";
+    inline static constexpr const char* ALT_DMALL_PETI_MERAMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_PETI_MERAMON_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_PETI_MERAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETI_MERAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_PETI_MERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Peti Meramon";
+    inline static constexpr const char* ALT_DMALL_PETI_MERAMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_PETI_MERAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_PETI_MERAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETI_MERAMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_PETIT_MAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petit_mamon";
+    inline static constexpr const char* ALT_DMALL_PETIT_MAMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_PETIT_MAMON_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_PETIT_MAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETIT_MAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_PETIT_MAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Petit Mamon";
+    inline static constexpr const char* ALT_DMALL_PETIT_MAMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_PETIT_MAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_PETIT_MAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETIT_MAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_PETITMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:petitmon";
     inline static constexpr const char* ALT_DMALL_PETITMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_PETITMON_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_PETITMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_PETITMON_FQID_ARR)-1;
@@ -3865,12 +3862,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_RIZE_GREYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Rize Greymon";
     inline static constexpr const char* ALT_DMALL_RIZE_GREYMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_RIZE_GREYMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_RIZE_GREYMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_RIZE_GREYMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_RIZEGREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:rizegreymon_x";
-    inline static constexpr const char* ALT_DMALL_RIZEGREYMON_X_FQID CONFIG_STRING_SECTION = ALT_DMALL_RIZEGREYMON_X_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_RIZEGREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_RIZEGREYMON_X_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_RIZEGREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:RizeGreymon X";
-    inline static constexpr const char* ALT_DMALL_RIZEGREYMON_X_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_RIZEGREYMON_X_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_RIZEGREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_RIZEGREYMON_X_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_RIZE_GREYMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:rize_greymon_x";
+    inline static constexpr const char* ALT_DMALL_RIZE_GREYMON_X_FQID CONFIG_STRING_SECTION = ALT_DMALL_RIZE_GREYMON_X_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_RIZE_GREYMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_RIZE_GREYMON_X_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_RIZE_GREYMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Rize Greymon X";
+    inline static constexpr const char* ALT_DMALL_RIZE_GREYMON_X_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_RIZE_GREYMON_X_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_RIZE_GREYMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_RIZE_GREYMON_X_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_ROSEMON_BURST_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:rosemon_burst_mode";
     inline static constexpr const char* ALT_DMALL_ROSEMON_BURST_MODE_FQID CONFIG_STRING_SECTION = ALT_DMALL_ROSEMON_BURST_MODE_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_ROSEMON_BURST_MODE_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ROSEMON_BURST_MODE_FQID_ARR)-1;
@@ -4369,12 +4366,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_TSUNOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tsunomon";
     inline static constexpr const char* ALT_DMALL_TSUNOMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_TSUNOMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_TSUNOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TSUNOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_TUNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tunomon";
-    inline static constexpr const char* ALT_DMALL_TUNOMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_TUNOMON_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_TUNOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TUNOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_TUNOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tunomon";
-    inline static constexpr const char* ALT_DMALL_TUNOMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_TUNOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_TUNOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TUNOMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_TURUIEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:turuiemon";
     inline static constexpr const char* ALT_DMALL_TURUIEMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_TURUIEMON_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_TURUIEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TURUIEMON_FQID_ARR)-1;
@@ -4387,18 +4378,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_TYLOMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tylomon X";
     inline static constexpr const char* ALT_DMALL_TYLOMON_X_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_TYLOMON_X_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_TYLOMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TYLOMON_X_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_TYRANNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tyrannomon";
-    inline static constexpr const char* ALT_DMALL_TYRANNOMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_TYRANNOMON_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_TYRANNOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TYRANNOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_TYRANNOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tyrannomon";
-    inline static constexpr const char* ALT_DMALL_TYRANNOMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_TYRANNOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_TYRANNOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TYRANNOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_TYRANNOMON_X_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tyrannomon_x";
-    inline static constexpr const char* ALT_DMALL_TYRANNOMON_X_FQID CONFIG_STRING_SECTION = ALT_DMALL_TYRANNOMON_X_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_TYRANNOMON_X_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TYRANNOMON_X_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_TYRANNOMON_X_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Tyrannomon X";
-    inline static constexpr const char* ALT_DMALL_TYRANNOMON_X_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_TYRANNOMON_X_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_TYRANNOMON_X_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TYRANNOMON_X_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_TYRANOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:tyranomon";
     inline static constexpr const char* ALT_DMALL_TYRANOMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_TYRANOMON_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_TYRANOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_TYRANOMON_FQID_ARR)-1;
@@ -4555,12 +4534,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_WASPMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Waspmon";
     inline static constexpr const char* ALT_DMALL_WASPMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_WASPMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_WASPMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_WASPMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DMALL_WEREGARURUMON_BLACK_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:weregarurumon_black";
-    inline static constexpr const char* ALT_DMALL_WEREGARURUMON_BLACK_FQID CONFIG_STRING_SECTION = ALT_DMALL_WEREGARURUMON_BLACK_FQID_ARR;
-    inline static constexpr size_t ALT_DMALL_WEREGARURUMON_BLACK_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_WEREGARURUMON_BLACK_FQID_ARR)-1;
-    inline static constexpr char ALT_DMALL_WEREGARURUMON_BLACK_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:WereGarurumon (Black)";
-    inline static constexpr const char* ALT_DMALL_WEREGARURUMON_BLACK_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_WEREGARURUMON_BLACK_FQNAME_ARR;
-    inline static constexpr size_t ALT_DMALL_WEREGARURUMON_BLACK_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_WEREGARURUMON_BLACK_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_WERE_GARURUMON_BLACK_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:were_garurumon_black";
+    inline static constexpr const char* ALT_DMALL_WERE_GARURUMON_BLACK_FQID CONFIG_STRING_SECTION = ALT_DMALL_WERE_GARURUMON_BLACK_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_WERE_GARURUMON_BLACK_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_WERE_GARURUMON_BLACK_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Were Garurumon (Black)";
+    inline static constexpr const char* ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_WERE_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:were_garurumon";
     inline static constexpr const char* ALT_DMALL_WERE_GARURUMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_WERE_GARURUMON_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_WERE_GARURUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_WERE_GARURUMON_FQID_ARR)-1;
@@ -4718,8 +4697,8 @@ namespace bongocat::assets {
         { DMALL_AGUMON_YUKI_NO_KIZUNA_NAME, DMALL_AGUMON_YUKI_NO_KIZUNA_ID, ALT_DMALL_AGUMON_YUKI_NO_KIZUNA_FQID, ALT_DMALL_AGUMON_YUKI_NO_KIZUNA_FQNAME, DMALL_AGUMON_YUKI_NO_KIZUNA_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Agumon - Yuki no Kizuna
         { DMALL_AIRDRAMON_NAME, DMALL_AIRDRAMON_ID, ALT_DMALL_AIRDRAMON_FQID, ALT_DMALL_AIRDRAMON_FQNAME, DMALL_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Airdramon
         { DMALL_ALGOMON_ADULT_NAME, DMALL_ALGOMON_ADULT_ID, ALT_DMALL_ALGOMON_ADULT_FQID, ALT_DMALL_ALGOMON_ADULT_FQNAME, DMALL_ALGOMON_ADULT_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Algomon (Adult)
-        { DMALL_ALGOMON_BABYII_NAME, DMALL_ALGOMON_BABYII_ID, ALT_DMALL_ALGOMON_BABYII_FQID, ALT_DMALL_ALGOMON_BABYII_FQNAME, DMALL_ALGOMON_BABYII_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Algomon (BabyII)
-        { DMALL_ALGOMON_BABYI_NAME, DMALL_ALGOMON_BABYI_ID, ALT_DMALL_ALGOMON_BABYI_FQID, ALT_DMALL_ALGOMON_BABYI_FQNAME, DMALL_ALGOMON_BABYI_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Algomon (BabyI)
+        { DMALL_ALGOMON_BABY_II_NAME, DMALL_ALGOMON_BABY_II_ID, ALT_DMALL_ALGOMON_BABY_II_FQID, ALT_DMALL_ALGOMON_BABY_II_FQNAME, DMALL_ALGOMON_BABY_II_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Algomon (Baby II)
+        { DMALL_ALGOMON_BABY_I_NAME, DMALL_ALGOMON_BABY_I_ID, ALT_DMALL_ALGOMON_BABY_I_FQID, ALT_DMALL_ALGOMON_BABY_I_FQNAME, DMALL_ALGOMON_BABY_I_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Algomon (Baby I)
         { DMALL_ALGOMON_CHILD_NAME, DMALL_ALGOMON_CHILD_ID, ALT_DMALL_ALGOMON_CHILD_FQID, ALT_DMALL_ALGOMON_CHILD_FQNAME, DMALL_ALGOMON_CHILD_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Algomon (Child)
         { DMALL_ALGOMON_ULTIMATE_NAME, DMALL_ALGOMON_ULTIMATE_ID, ALT_DMALL_ALGOMON_ULTIMATE_FQID, ALT_DMALL_ALGOMON_ULTIMATE_FQNAME, DMALL_ALGOMON_ULTIMATE_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Algomon (Ultimate)
         { DMALL_ALLOMON_X_NAME, DMALL_ALLOMON_X_ID, ALT_DMALL_ALLOMON_X_FQID, ALT_DMALL_ALLOMON_X_FQNAME, DMALL_ALLOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Allomon X
@@ -4804,7 +4783,7 @@ namespace bongocat::assets {
         { DMALL_CANDMON_NAME, DMALL_CANDMON_ID, ALT_DMALL_CANDMON_FQID, ALT_DMALL_CANDMON_FQNAME, DMALL_CANDMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Candmon
         { DMALL_CANNONBEEMON_NAME, DMALL_CANNONBEEMON_ID, ALT_DMALL_CANNONBEEMON_FQID, ALT_DMALL_CANNONBEEMON_FQNAME, DMALL_CANNONBEEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Cannonbeemon
         { DMALL_CAPRIMON_NAME, DMALL_CAPRIMON_ID, ALT_DMALL_CAPRIMON_FQID, ALT_DMALL_CAPRIMON_FQNAME, DMALL_CAPRIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Caprimon
-        { DMALL_CATCHMAMEMON_NAME, DMALL_CATCHMAMEMON_ID, ALT_DMALL_CATCHMAMEMON_FQID, ALT_DMALL_CATCHMAMEMON_FQNAME, DMALL_CATCHMAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for CatchMamemon
+        { DMALL_CATCH_MAMEMON_NAME, DMALL_CATCH_MAMEMON_ID, ALT_DMALL_CATCH_MAMEMON_FQID, ALT_DMALL_CATCH_MAMEMON_FQNAME, DMALL_CATCH_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Catch Mamemon
         { DMALL_CATURAMON_NAME, DMALL_CATURAMON_ID, ALT_DMALL_CATURAMON_FQID, ALT_DMALL_CATURAMON_FQNAME, DMALL_CATURAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Caturamon
         { DMALL_CENTALMON_NAME, DMALL_CENTALMON_ID, ALT_DMALL_CENTALMON_FQID, ALT_DMALL_CENTALMON_FQNAME, DMALL_CENTALMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Centalmon
         { DMALL_CERBERUMON_X_NAME, DMALL_CERBERUMON_X_ID, ALT_DMALL_CERBERUMON_X_FQID, ALT_DMALL_CERBERUMON_X_FQNAME, DMALL_CERBERUMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Cerberumon X
@@ -5103,7 +5082,7 @@ namespace bongocat::assets {
         { DMALL_METAL_GREYMON_NAME, DMALL_METAL_GREYMON_ID, ALT_DMALL_METAL_GREYMON_FQID, ALT_DMALL_METAL_GREYMON_FQNAME, DMALL_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Greymon
         { DMALL_METAL_GREYMON_VIRUS_NAME, DMALL_METAL_GREYMON_VIRUS_ID, ALT_DMALL_METAL_GREYMON_VIRUS_FQID, ALT_DMALL_METAL_GREYMON_VIRUS_FQNAME, DMALL_METAL_GREYMON_VIRUS_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Greymon (Virus)
         { DMALL_METAL_GREYMON_VIRUS_X_NAME, DMALL_METAL_GREYMON_VIRUS_X_ID, ALT_DMALL_METAL_GREYMON_VIRUS_X_FQID, ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME, DMALL_METAL_GREYMON_VIRUS_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Greymon (Virus) X
-        { DMALL_METALGREYMON_X_NAME, DMALL_METALGREYMON_X_ID, ALT_DMALL_METALGREYMON_X_FQID, ALT_DMALL_METALGREYMON_X_FQNAME, DMALL_METALGREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for MetalGreymon X
+        { DMALL_METAL_GREYMON_X_NAME, DMALL_METAL_GREYMON_X_ID, ALT_DMALL_METAL_GREYMON_X_FQID, ALT_DMALL_METAL_GREYMON_X_FQNAME, DMALL_METAL_GREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Greymon X
         { DMALL_METALLICDRAMON_NAME, DMALL_METALLICDRAMON_ID, ALT_DMALL_METALLICDRAMON_FQID, ALT_DMALL_METALLICDRAMON_FQNAME, DMALL_METALLICDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metallicdramon
         { DMALL_METAL_MAMEMON_NAME, DMALL_METAL_MAMEMON_ID, ALT_DMALL_METAL_MAMEMON_FQID, ALT_DMALL_METAL_MAMEMON_FQNAME, DMALL_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Mamemon
         { DMALL_METAL_MAMEMON_X_NAME, DMALL_METAL_MAMEMON_X_ID, ALT_DMALL_METAL_MAMEMON_X_FQID, ALT_DMALL_METAL_MAMEMON_X_FQNAME, DMALL_METAL_MAMEMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Mamemon X
@@ -5174,8 +5153,8 @@ namespace bongocat::assets {
         { DMALL_PARASAURMON_NAME, DMALL_PARASAURMON_ID, ALT_DMALL_PARASAURMON_FQID, ALT_DMALL_PARASAURMON_FQNAME, DMALL_PARASAURMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Parasaurmon
         { DMALL_PEGASMON_X_NAME, DMALL_PEGASMON_X_ID, ALT_DMALL_PEGASMON_X_FQID, ALT_DMALL_PEGASMON_X_FQNAME, DMALL_PEGASMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pegasmon X
         { DMALL_PENMON_NAME, DMALL_PENMON_ID, ALT_DMALL_PENMON_FQID, ALT_DMALL_PENMON_FQNAME, DMALL_PENMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Penmon
-        { DMALL_PETIMERAMON_NAME, DMALL_PETIMERAMON_ID, ALT_DMALL_PETIMERAMON_FQID, ALT_DMALL_PETIMERAMON_FQNAME, DMALL_PETIMERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for PetiMeramon
-        { DMALL_PETITMAMON_NAME, DMALL_PETITMAMON_ID, ALT_DMALL_PETITMAMON_FQID, ALT_DMALL_PETITMAMON_FQNAME, DMALL_PETITMAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for PetitMamon
+        { DMALL_PETI_MERAMON_NAME, DMALL_PETI_MERAMON_ID, ALT_DMALL_PETI_MERAMON_FQID, ALT_DMALL_PETI_MERAMON_FQNAME, DMALL_PETI_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Peti Meramon
+        { DMALL_PETIT_MAMON_NAME, DMALL_PETIT_MAMON_ID, ALT_DMALL_PETIT_MAMON_FQID, ALT_DMALL_PETIT_MAMON_FQNAME, DMALL_PETIT_MAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Petit Mamon
         { DMALL_PETITMON_NAME, DMALL_PETITMON_ID, ALT_DMALL_PETITMON_FQID, ALT_DMALL_PETITMON_FQNAME, DMALL_PETITMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Petitmon
         { DMALL_PHANTOMON_NAME, DMALL_PHANTOMON_ID, ALT_DMALL_PHANTOMON_FQID, ALT_DMALL_PHANTOMON_FQNAME, DMALL_PHANTOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Phantomon
         { DMALL_PHASCOMON_NAME, DMALL_PHASCOMON_ID, ALT_DMALL_PHASCOMON_FQID, ALT_DMALL_PHASCOMON_FQNAME, DMALL_PHASCOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Phascomon
@@ -5239,7 +5218,7 @@ namespace bongocat::assets {
         { DMALL_RHINOMON_NAME, DMALL_RHINOMON_ID, ALT_DMALL_RHINOMON_FQID, ALT_DMALL_RHINOMON_FQNAME, DMALL_RHINOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rhinomon
         { DMALL_RHINOMON_X_NAME, DMALL_RHINOMON_X_ID, ALT_DMALL_RHINOMON_X_FQID, ALT_DMALL_RHINOMON_X_FQNAME, DMALL_RHINOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rhinomon X
         { DMALL_RIZE_GREYMON_NAME, DMALL_RIZE_GREYMON_ID, ALT_DMALL_RIZE_GREYMON_FQID, ALT_DMALL_RIZE_GREYMON_FQNAME, DMALL_RIZE_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rize Greymon
-        { DMALL_RIZEGREYMON_X_NAME, DMALL_RIZEGREYMON_X_ID, ALT_DMALL_RIZEGREYMON_X_FQID, ALT_DMALL_RIZEGREYMON_X_FQNAME, DMALL_RIZEGREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for RizeGreymon X
+        { DMALL_RIZE_GREYMON_X_NAME, DMALL_RIZE_GREYMON_X_ID, ALT_DMALL_RIZE_GREYMON_X_FQID, ALT_DMALL_RIZE_GREYMON_X_FQNAME, DMALL_RIZE_GREYMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rize Greymon X
         { DMALL_ROSEMON_BURST_MODE_NAME, DMALL_ROSEMON_BURST_MODE_ID, ALT_DMALL_ROSEMON_BURST_MODE_FQID, ALT_DMALL_ROSEMON_BURST_MODE_FQNAME, DMALL_ROSEMON_BURST_MODE_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rosemon Burst Mode
         { DMALL_ROSEMON_NAME, DMALL_ROSEMON_ID, ALT_DMALL_ROSEMON_FQID, ALT_DMALL_ROSEMON_FQNAME, DMALL_ROSEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rosemon
         { DMALL_ROSEMON_X_NAME, DMALL_ROSEMON_X_ID, ALT_DMALL_ROSEMON_X_FQID, ALT_DMALL_ROSEMON_X_FQNAME, DMALL_ROSEMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rosemon X
@@ -5323,11 +5302,8 @@ namespace bongocat::assets {
         { DMALL_TSUCHIDARUMON_NAME, DMALL_TSUCHIDARUMON_ID, ALT_DMALL_TSUCHIDARUMON_FQID, ALT_DMALL_TSUCHIDARUMON_FQNAME, DMALL_TSUCHIDARUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tsuchidarumon
         { DMALL_TSUMEMON_NAME, DMALL_TSUMEMON_ID, ALT_DMALL_TSUMEMON_FQID, ALT_DMALL_TSUMEMON_FQNAME, DMALL_TSUMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tsumemon
         { DMALL_TSUNOMON_NAME, DMALL_TSUNOMON_ID, ALT_DMALL_TSUNOMON_FQID, ALT_DMALL_TSUNOMON_FQNAME, DMALL_TSUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tsunomon
-        { DMALL_TUNOMON_NAME, DMALL_TUNOMON_ID, ALT_DMALL_TUNOMON_FQID, ALT_DMALL_TUNOMON_FQNAME, DMALL_TUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tunomon
         { DMALL_TURUIEMON_NAME, DMALL_TURUIEMON_ID, ALT_DMALL_TURUIEMON_FQID, ALT_DMALL_TURUIEMON_FQNAME, DMALL_TURUIEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Turuiemon
         { DMALL_TYLOMON_X_NAME, DMALL_TYLOMON_X_ID, ALT_DMALL_TYLOMON_X_FQID, ALT_DMALL_TYLOMON_X_FQNAME, DMALL_TYLOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tylomon X
-        { DMALL_TYRANNOMON_NAME, DMALL_TYRANNOMON_ID, ALT_DMALL_TYRANNOMON_FQID, ALT_DMALL_TYRANNOMON_FQNAME, DMALL_TYRANNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tyrannomon
-        { DMALL_TYRANNOMON_X_NAME, DMALL_TYRANNOMON_X_ID, ALT_DMALL_TYRANNOMON_X_FQID, ALT_DMALL_TYRANNOMON_X_FQNAME, DMALL_TYRANNOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tyrannomon X
         { DMALL_TYRANOMON_NAME, DMALL_TYRANOMON_ID, ALT_DMALL_TYRANOMON_FQID, ALT_DMALL_TYRANOMON_FQNAME, DMALL_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tyranomon
         { DMALL_TYRANOMON_X_NAME, DMALL_TYRANOMON_X_ID, ALT_DMALL_TYRANOMON_X_FQID, ALT_DMALL_TYRANOMON_X_FQNAME, DMALL_TYRANOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tyranomon X
         { DMALL_ULFORCE_V_DRAMON_NAME, DMALL_ULFORCE_V_DRAMON_ID, ALT_DMALL_ULFORCE_V_DRAMON_FQID, ALT_DMALL_ULFORCE_V_DRAMON_FQNAME, DMALL_ULFORCE_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ulforce V-dramon
@@ -5354,7 +5330,7 @@ namespace bongocat::assets {
         { DMALL_WARU_MONZAEMON_NAME, DMALL_WARU_MONZAEMON_ID, ALT_DMALL_WARU_MONZAEMON_FQID, ALT_DMALL_WARU_MONZAEMON_FQNAME, DMALL_WARU_MONZAEMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Waru Monzaemon
         { DMALL_WARU_SEADRAMON_NAME, DMALL_WARU_SEADRAMON_ID, ALT_DMALL_WARU_SEADRAMON_FQID, ALT_DMALL_WARU_SEADRAMON_FQNAME, DMALL_WARU_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Waru Seadramon
         { DMALL_WASPMON_NAME, DMALL_WASPMON_ID, ALT_DMALL_WASPMON_FQID, ALT_DMALL_WASPMON_FQNAME, DMALL_WASPMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Waspmon
-        { DMALL_WEREGARURUMON_BLACK_NAME, DMALL_WEREGARURUMON_BLACK_ID, ALT_DMALL_WEREGARURUMON_BLACK_FQID, ALT_DMALL_WEREGARURUMON_BLACK_FQNAME, DMALL_WEREGARURUMON_BLACK_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for WereGarurumon (Black)
+        { DMALL_WERE_GARURUMON_BLACK_NAME, DMALL_WERE_GARURUMON_BLACK_ID, ALT_DMALL_WERE_GARURUMON_BLACK_FQID, ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME, DMALL_WERE_GARURUMON_BLACK_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Were Garurumon (Black)
         { DMALL_WERE_GARURUMON_NAME, DMALL_WERE_GARURUMON_ID, ALT_DMALL_WERE_GARURUMON_FQID, ALT_DMALL_WERE_GARURUMON_FQNAME, DMALL_WERE_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Were Garurumon
         { DMALL_WERE_GARURUMON_X_NAME, DMALL_WERE_GARURUMON_X_ID, ALT_DMALL_WERE_GARURUMON_X_FQID, ALT_DMALL_WERE_GARURUMON_X_FQNAME, DMALL_WERE_GARURUMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Were Garurumon X
         { DMALL_WHAMON_NAME, DMALL_WHAMON_ID, ALT_DMALL_WHAMON_FQID, ALT_DMALL_WHAMON_FQNAME, DMALL_WHAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Whamon
@@ -5403,10 +5379,10 @@ namespace bongocat::assets {
         { DMALL_AIRDRAMON_NAME, DMALL_AIRDRAMON_NAME_LEN, DMALL_AIRDRAMON_ID, DMALL_AIRDRAMON_ID_LEN, ALT_DMALL_AIRDRAMON_FQID, ALT_DMALL_AIRDRAMON_FQID_LEN, ALT_DMALL_AIRDRAMON_FQNAME, ALT_DMALL_AIRDRAMON_FQNAME_LEN },
         { DMALL_ALGOMON_ADULT_NAME, DMALL_ALGOMON_ADULT_NAME_LEN, DMALL_ALGOMON_ADULT_ID, DMALL_ALGOMON_ADULT_ID_LEN, DMALL_ALGOMON_ADULT_FQID, DMALL_ALGOMON_ADULT_FQID_LEN, DMALL_ALGOMON_ADULT_FQNAME, DMALL_ALGOMON_ADULT_FQNAME_LEN },
         { DMALL_ALGOMON_ADULT_NAME, DMALL_ALGOMON_ADULT_NAME_LEN, DMALL_ALGOMON_ADULT_ID, DMALL_ALGOMON_ADULT_ID_LEN, ALT_DMALL_ALGOMON_ADULT_FQID, ALT_DMALL_ALGOMON_ADULT_FQID_LEN, ALT_DMALL_ALGOMON_ADULT_FQNAME, ALT_DMALL_ALGOMON_ADULT_FQNAME_LEN },
-        { DMALL_ALGOMON_BABYII_NAME, DMALL_ALGOMON_BABYII_NAME_LEN, DMALL_ALGOMON_BABYII_ID, DMALL_ALGOMON_BABYII_ID_LEN, DMALL_ALGOMON_BABYII_FQID, DMALL_ALGOMON_BABYII_FQID_LEN, DMALL_ALGOMON_BABYII_FQNAME, DMALL_ALGOMON_BABYII_FQNAME_LEN },
-        { DMALL_ALGOMON_BABYII_NAME, DMALL_ALGOMON_BABYII_NAME_LEN, DMALL_ALGOMON_BABYII_ID, DMALL_ALGOMON_BABYII_ID_LEN, ALT_DMALL_ALGOMON_BABYII_FQID, ALT_DMALL_ALGOMON_BABYII_FQID_LEN, ALT_DMALL_ALGOMON_BABYII_FQNAME, ALT_DMALL_ALGOMON_BABYII_FQNAME_LEN },
-        { DMALL_ALGOMON_BABYI_NAME, DMALL_ALGOMON_BABYI_NAME_LEN, DMALL_ALGOMON_BABYI_ID, DMALL_ALGOMON_BABYI_ID_LEN, DMALL_ALGOMON_BABYI_FQID, DMALL_ALGOMON_BABYI_FQID_LEN, DMALL_ALGOMON_BABYI_FQNAME, DMALL_ALGOMON_BABYI_FQNAME_LEN },
-        { DMALL_ALGOMON_BABYI_NAME, DMALL_ALGOMON_BABYI_NAME_LEN, DMALL_ALGOMON_BABYI_ID, DMALL_ALGOMON_BABYI_ID_LEN, ALT_DMALL_ALGOMON_BABYI_FQID, ALT_DMALL_ALGOMON_BABYI_FQID_LEN, ALT_DMALL_ALGOMON_BABYI_FQNAME, ALT_DMALL_ALGOMON_BABYI_FQNAME_LEN },
+        { DMALL_ALGOMON_BABY_II_NAME, DMALL_ALGOMON_BABY_II_NAME_LEN, DMALL_ALGOMON_BABY_II_ID, DMALL_ALGOMON_BABY_II_ID_LEN, DMALL_ALGOMON_BABY_II_FQID, DMALL_ALGOMON_BABY_II_FQID_LEN, DMALL_ALGOMON_BABY_II_FQNAME, DMALL_ALGOMON_BABY_II_FQNAME_LEN },
+        { DMALL_ALGOMON_BABY_II_NAME, DMALL_ALGOMON_BABY_II_NAME_LEN, DMALL_ALGOMON_BABY_II_ID, DMALL_ALGOMON_BABY_II_ID_LEN, ALT_DMALL_ALGOMON_BABY_II_FQID, ALT_DMALL_ALGOMON_BABY_II_FQID_LEN, ALT_DMALL_ALGOMON_BABY_II_FQNAME, ALT_DMALL_ALGOMON_BABY_II_FQNAME_LEN },
+        { DMALL_ALGOMON_BABY_I_NAME, DMALL_ALGOMON_BABY_I_NAME_LEN, DMALL_ALGOMON_BABY_I_ID, DMALL_ALGOMON_BABY_I_ID_LEN, DMALL_ALGOMON_BABY_I_FQID, DMALL_ALGOMON_BABY_I_FQID_LEN, DMALL_ALGOMON_BABY_I_FQNAME, DMALL_ALGOMON_BABY_I_FQNAME_LEN },
+        { DMALL_ALGOMON_BABY_I_NAME, DMALL_ALGOMON_BABY_I_NAME_LEN, DMALL_ALGOMON_BABY_I_ID, DMALL_ALGOMON_BABY_I_ID_LEN, ALT_DMALL_ALGOMON_BABY_I_FQID, ALT_DMALL_ALGOMON_BABY_I_FQID_LEN, ALT_DMALL_ALGOMON_BABY_I_FQNAME, ALT_DMALL_ALGOMON_BABY_I_FQNAME_LEN },
         { DMALL_ALGOMON_CHILD_NAME, DMALL_ALGOMON_CHILD_NAME_LEN, DMALL_ALGOMON_CHILD_ID, DMALL_ALGOMON_CHILD_ID_LEN, DMALL_ALGOMON_CHILD_FQID, DMALL_ALGOMON_CHILD_FQID_LEN, DMALL_ALGOMON_CHILD_FQNAME, DMALL_ALGOMON_CHILD_FQNAME_LEN },
         { DMALL_ALGOMON_CHILD_NAME, DMALL_ALGOMON_CHILD_NAME_LEN, DMALL_ALGOMON_CHILD_ID, DMALL_ALGOMON_CHILD_ID_LEN, ALT_DMALL_ALGOMON_CHILD_FQID, ALT_DMALL_ALGOMON_CHILD_FQID_LEN, ALT_DMALL_ALGOMON_CHILD_FQNAME, ALT_DMALL_ALGOMON_CHILD_FQNAME_LEN },
         { DMALL_ALGOMON_ULTIMATE_NAME, DMALL_ALGOMON_ULTIMATE_NAME_LEN, DMALL_ALGOMON_ULTIMATE_ID, DMALL_ALGOMON_ULTIMATE_ID_LEN, DMALL_ALGOMON_ULTIMATE_FQID, DMALL_ALGOMON_ULTIMATE_FQID_LEN, DMALL_ALGOMON_ULTIMATE_FQNAME, DMALL_ALGOMON_ULTIMATE_FQNAME_LEN },
@@ -5575,8 +5551,8 @@ namespace bongocat::assets {
         { DMALL_CANNONBEEMON_NAME, DMALL_CANNONBEEMON_NAME_LEN, DMALL_CANNONBEEMON_ID, DMALL_CANNONBEEMON_ID_LEN, ALT_DMALL_CANNONBEEMON_FQID, ALT_DMALL_CANNONBEEMON_FQID_LEN, ALT_DMALL_CANNONBEEMON_FQNAME, ALT_DMALL_CANNONBEEMON_FQNAME_LEN },
         { DMALL_CAPRIMON_NAME, DMALL_CAPRIMON_NAME_LEN, DMALL_CAPRIMON_ID, DMALL_CAPRIMON_ID_LEN, DMALL_CAPRIMON_FQID, DMALL_CAPRIMON_FQID_LEN, DMALL_CAPRIMON_FQNAME, DMALL_CAPRIMON_FQNAME_LEN },
         { DMALL_CAPRIMON_NAME, DMALL_CAPRIMON_NAME_LEN, DMALL_CAPRIMON_ID, DMALL_CAPRIMON_ID_LEN, ALT_DMALL_CAPRIMON_FQID, ALT_DMALL_CAPRIMON_FQID_LEN, ALT_DMALL_CAPRIMON_FQNAME, ALT_DMALL_CAPRIMON_FQNAME_LEN },
-        { DMALL_CATCHMAMEMON_NAME, DMALL_CATCHMAMEMON_NAME_LEN, DMALL_CATCHMAMEMON_ID, DMALL_CATCHMAMEMON_ID_LEN, DMALL_CATCHMAMEMON_FQID, DMALL_CATCHMAMEMON_FQID_LEN, DMALL_CATCHMAMEMON_FQNAME, DMALL_CATCHMAMEMON_FQNAME_LEN },
-        { DMALL_CATCHMAMEMON_NAME, DMALL_CATCHMAMEMON_NAME_LEN, DMALL_CATCHMAMEMON_ID, DMALL_CATCHMAMEMON_ID_LEN, ALT_DMALL_CATCHMAMEMON_FQID, ALT_DMALL_CATCHMAMEMON_FQID_LEN, ALT_DMALL_CATCHMAMEMON_FQNAME, ALT_DMALL_CATCHMAMEMON_FQNAME_LEN },
+        { DMALL_CATCH_MAMEMON_NAME, DMALL_CATCH_MAMEMON_NAME_LEN, DMALL_CATCH_MAMEMON_ID, DMALL_CATCH_MAMEMON_ID_LEN, DMALL_CATCH_MAMEMON_FQID, DMALL_CATCH_MAMEMON_FQID_LEN, DMALL_CATCH_MAMEMON_FQNAME, DMALL_CATCH_MAMEMON_FQNAME_LEN },
+        { DMALL_CATCH_MAMEMON_NAME, DMALL_CATCH_MAMEMON_NAME_LEN, DMALL_CATCH_MAMEMON_ID, DMALL_CATCH_MAMEMON_ID_LEN, ALT_DMALL_CATCH_MAMEMON_FQID, ALT_DMALL_CATCH_MAMEMON_FQID_LEN, ALT_DMALL_CATCH_MAMEMON_FQNAME, ALT_DMALL_CATCH_MAMEMON_FQNAME_LEN },
         { DMALL_CATURAMON_NAME, DMALL_CATURAMON_NAME_LEN, DMALL_CATURAMON_ID, DMALL_CATURAMON_ID_LEN, DMALL_CATURAMON_FQID, DMALL_CATURAMON_FQID_LEN, DMALL_CATURAMON_FQNAME, DMALL_CATURAMON_FQNAME_LEN },
         { DMALL_CATURAMON_NAME, DMALL_CATURAMON_NAME_LEN, DMALL_CATURAMON_ID, DMALL_CATURAMON_ID_LEN, ALT_DMALL_CATURAMON_FQID, ALT_DMALL_CATURAMON_FQID_LEN, ALT_DMALL_CATURAMON_FQNAME, ALT_DMALL_CATURAMON_FQNAME_LEN },
         { DMALL_CENTALMON_NAME, DMALL_CENTALMON_NAME_LEN, DMALL_CENTALMON_ID, DMALL_CENTALMON_ID_LEN, DMALL_CENTALMON_FQID, DMALL_CENTALMON_FQID_LEN, DMALL_CENTALMON_FQNAME, DMALL_CENTALMON_FQNAME_LEN },
@@ -6173,8 +6149,8 @@ namespace bongocat::assets {
         { DMALL_METAL_GREYMON_VIRUS_NAME, DMALL_METAL_GREYMON_VIRUS_NAME_LEN, DMALL_METAL_GREYMON_VIRUS_ID, DMALL_METAL_GREYMON_VIRUS_ID_LEN, ALT_DMALL_METAL_GREYMON_VIRUS_FQID, ALT_DMALL_METAL_GREYMON_VIRUS_FQID_LEN, ALT_DMALL_METAL_GREYMON_VIRUS_FQNAME, ALT_DMALL_METAL_GREYMON_VIRUS_FQNAME_LEN },
         { DMALL_METAL_GREYMON_VIRUS_X_NAME, DMALL_METAL_GREYMON_VIRUS_X_NAME_LEN, DMALL_METAL_GREYMON_VIRUS_X_ID, DMALL_METAL_GREYMON_VIRUS_X_ID_LEN, DMALL_METAL_GREYMON_VIRUS_X_FQID, DMALL_METAL_GREYMON_VIRUS_X_FQID_LEN, DMALL_METAL_GREYMON_VIRUS_X_FQNAME, DMALL_METAL_GREYMON_VIRUS_X_FQNAME_LEN },
         { DMALL_METAL_GREYMON_VIRUS_X_NAME, DMALL_METAL_GREYMON_VIRUS_X_NAME_LEN, DMALL_METAL_GREYMON_VIRUS_X_ID, DMALL_METAL_GREYMON_VIRUS_X_ID_LEN, ALT_DMALL_METAL_GREYMON_VIRUS_X_FQID, ALT_DMALL_METAL_GREYMON_VIRUS_X_FQID_LEN, ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME, ALT_DMALL_METAL_GREYMON_VIRUS_X_FQNAME_LEN },
-        { DMALL_METALGREYMON_X_NAME, DMALL_METALGREYMON_X_NAME_LEN, DMALL_METALGREYMON_X_ID, DMALL_METALGREYMON_X_ID_LEN, DMALL_METALGREYMON_X_FQID, DMALL_METALGREYMON_X_FQID_LEN, DMALL_METALGREYMON_X_FQNAME, DMALL_METALGREYMON_X_FQNAME_LEN },
-        { DMALL_METALGREYMON_X_NAME, DMALL_METALGREYMON_X_NAME_LEN, DMALL_METALGREYMON_X_ID, DMALL_METALGREYMON_X_ID_LEN, ALT_DMALL_METALGREYMON_X_FQID, ALT_DMALL_METALGREYMON_X_FQID_LEN, ALT_DMALL_METALGREYMON_X_FQNAME, ALT_DMALL_METALGREYMON_X_FQNAME_LEN },
+        { DMALL_METAL_GREYMON_X_NAME, DMALL_METAL_GREYMON_X_NAME_LEN, DMALL_METAL_GREYMON_X_ID, DMALL_METAL_GREYMON_X_ID_LEN, DMALL_METAL_GREYMON_X_FQID, DMALL_METAL_GREYMON_X_FQID_LEN, DMALL_METAL_GREYMON_X_FQNAME, DMALL_METAL_GREYMON_X_FQNAME_LEN },
+        { DMALL_METAL_GREYMON_X_NAME, DMALL_METAL_GREYMON_X_NAME_LEN, DMALL_METAL_GREYMON_X_ID, DMALL_METAL_GREYMON_X_ID_LEN, ALT_DMALL_METAL_GREYMON_X_FQID, ALT_DMALL_METAL_GREYMON_X_FQID_LEN, ALT_DMALL_METAL_GREYMON_X_FQNAME, ALT_DMALL_METAL_GREYMON_X_FQNAME_LEN },
         { DMALL_METALLICDRAMON_NAME, DMALL_METALLICDRAMON_NAME_LEN, DMALL_METALLICDRAMON_ID, DMALL_METALLICDRAMON_ID_LEN, DMALL_METALLICDRAMON_FQID, DMALL_METALLICDRAMON_FQID_LEN, DMALL_METALLICDRAMON_FQNAME, DMALL_METALLICDRAMON_FQNAME_LEN },
         { DMALL_METALLICDRAMON_NAME, DMALL_METALLICDRAMON_NAME_LEN, DMALL_METALLICDRAMON_ID, DMALL_METALLICDRAMON_ID_LEN, ALT_DMALL_METALLICDRAMON_FQID, ALT_DMALL_METALLICDRAMON_FQID_LEN, ALT_DMALL_METALLICDRAMON_FQNAME, ALT_DMALL_METALLICDRAMON_FQNAME_LEN },
         { DMALL_METAL_MAMEMON_NAME, DMALL_METAL_MAMEMON_NAME_LEN, DMALL_METAL_MAMEMON_ID, DMALL_METAL_MAMEMON_ID_LEN, DMALL_METAL_MAMEMON_FQID, DMALL_METAL_MAMEMON_FQID_LEN, DMALL_METAL_MAMEMON_FQNAME, DMALL_METAL_MAMEMON_FQNAME_LEN },
@@ -6315,10 +6291,10 @@ namespace bongocat::assets {
         { DMALL_PEGASMON_X_NAME, DMALL_PEGASMON_X_NAME_LEN, DMALL_PEGASMON_X_ID, DMALL_PEGASMON_X_ID_LEN, ALT_DMALL_PEGASMON_X_FQID, ALT_DMALL_PEGASMON_X_FQID_LEN, ALT_DMALL_PEGASMON_X_FQNAME, ALT_DMALL_PEGASMON_X_FQNAME_LEN },
         { DMALL_PENMON_NAME, DMALL_PENMON_NAME_LEN, DMALL_PENMON_ID, DMALL_PENMON_ID_LEN, DMALL_PENMON_FQID, DMALL_PENMON_FQID_LEN, DMALL_PENMON_FQNAME, DMALL_PENMON_FQNAME_LEN },
         { DMALL_PENMON_NAME, DMALL_PENMON_NAME_LEN, DMALL_PENMON_ID, DMALL_PENMON_ID_LEN, ALT_DMALL_PENMON_FQID, ALT_DMALL_PENMON_FQID_LEN, ALT_DMALL_PENMON_FQNAME, ALT_DMALL_PENMON_FQNAME_LEN },
-        { DMALL_PETIMERAMON_NAME, DMALL_PETIMERAMON_NAME_LEN, DMALL_PETIMERAMON_ID, DMALL_PETIMERAMON_ID_LEN, DMALL_PETIMERAMON_FQID, DMALL_PETIMERAMON_FQID_LEN, DMALL_PETIMERAMON_FQNAME, DMALL_PETIMERAMON_FQNAME_LEN },
-        { DMALL_PETIMERAMON_NAME, DMALL_PETIMERAMON_NAME_LEN, DMALL_PETIMERAMON_ID, DMALL_PETIMERAMON_ID_LEN, ALT_DMALL_PETIMERAMON_FQID, ALT_DMALL_PETIMERAMON_FQID_LEN, ALT_DMALL_PETIMERAMON_FQNAME, ALT_DMALL_PETIMERAMON_FQNAME_LEN },
-        { DMALL_PETITMAMON_NAME, DMALL_PETITMAMON_NAME_LEN, DMALL_PETITMAMON_ID, DMALL_PETITMAMON_ID_LEN, DMALL_PETITMAMON_FQID, DMALL_PETITMAMON_FQID_LEN, DMALL_PETITMAMON_FQNAME, DMALL_PETITMAMON_FQNAME_LEN },
-        { DMALL_PETITMAMON_NAME, DMALL_PETITMAMON_NAME_LEN, DMALL_PETITMAMON_ID, DMALL_PETITMAMON_ID_LEN, ALT_DMALL_PETITMAMON_FQID, ALT_DMALL_PETITMAMON_FQID_LEN, ALT_DMALL_PETITMAMON_FQNAME, ALT_DMALL_PETITMAMON_FQNAME_LEN },
+        { DMALL_PETI_MERAMON_NAME, DMALL_PETI_MERAMON_NAME_LEN, DMALL_PETI_MERAMON_ID, DMALL_PETI_MERAMON_ID_LEN, DMALL_PETI_MERAMON_FQID, DMALL_PETI_MERAMON_FQID_LEN, DMALL_PETI_MERAMON_FQNAME, DMALL_PETI_MERAMON_FQNAME_LEN },
+        { DMALL_PETI_MERAMON_NAME, DMALL_PETI_MERAMON_NAME_LEN, DMALL_PETI_MERAMON_ID, DMALL_PETI_MERAMON_ID_LEN, ALT_DMALL_PETI_MERAMON_FQID, ALT_DMALL_PETI_MERAMON_FQID_LEN, ALT_DMALL_PETI_MERAMON_FQNAME, ALT_DMALL_PETI_MERAMON_FQNAME_LEN },
+        { DMALL_PETIT_MAMON_NAME, DMALL_PETIT_MAMON_NAME_LEN, DMALL_PETIT_MAMON_ID, DMALL_PETIT_MAMON_ID_LEN, DMALL_PETIT_MAMON_FQID, DMALL_PETIT_MAMON_FQID_LEN, DMALL_PETIT_MAMON_FQNAME, DMALL_PETIT_MAMON_FQNAME_LEN },
+        { DMALL_PETIT_MAMON_NAME, DMALL_PETIT_MAMON_NAME_LEN, DMALL_PETIT_MAMON_ID, DMALL_PETIT_MAMON_ID_LEN, ALT_DMALL_PETIT_MAMON_FQID, ALT_DMALL_PETIT_MAMON_FQID_LEN, ALT_DMALL_PETIT_MAMON_FQNAME, ALT_DMALL_PETIT_MAMON_FQNAME_LEN },
         { DMALL_PETITMON_NAME, DMALL_PETITMON_NAME_LEN, DMALL_PETITMON_ID, DMALL_PETITMON_ID_LEN, DMALL_PETITMON_FQID, DMALL_PETITMON_FQID_LEN, DMALL_PETITMON_FQNAME, DMALL_PETITMON_FQNAME_LEN },
         { DMALL_PETITMON_NAME, DMALL_PETITMON_NAME_LEN, DMALL_PETITMON_ID, DMALL_PETITMON_ID_LEN, ALT_DMALL_PETITMON_FQID, ALT_DMALL_PETITMON_FQID_LEN, ALT_DMALL_PETITMON_FQNAME, ALT_DMALL_PETITMON_FQNAME_LEN },
         { DMALL_PHANTOMON_NAME, DMALL_PHANTOMON_NAME_LEN, DMALL_PHANTOMON_ID, DMALL_PHANTOMON_ID_LEN, DMALL_PHANTOMON_FQID, DMALL_PHANTOMON_FQID_LEN, DMALL_PHANTOMON_FQNAME, DMALL_PHANTOMON_FQNAME_LEN },
@@ -6445,8 +6421,8 @@ namespace bongocat::assets {
         { DMALL_RHINOMON_X_NAME, DMALL_RHINOMON_X_NAME_LEN, DMALL_RHINOMON_X_ID, DMALL_RHINOMON_X_ID_LEN, ALT_DMALL_RHINOMON_X_FQID, ALT_DMALL_RHINOMON_X_FQID_LEN, ALT_DMALL_RHINOMON_X_FQNAME, ALT_DMALL_RHINOMON_X_FQNAME_LEN },
         { DMALL_RIZE_GREYMON_NAME, DMALL_RIZE_GREYMON_NAME_LEN, DMALL_RIZE_GREYMON_ID, DMALL_RIZE_GREYMON_ID_LEN, DMALL_RIZE_GREYMON_FQID, DMALL_RIZE_GREYMON_FQID_LEN, DMALL_RIZE_GREYMON_FQNAME, DMALL_RIZE_GREYMON_FQNAME_LEN },
         { DMALL_RIZE_GREYMON_NAME, DMALL_RIZE_GREYMON_NAME_LEN, DMALL_RIZE_GREYMON_ID, DMALL_RIZE_GREYMON_ID_LEN, ALT_DMALL_RIZE_GREYMON_FQID, ALT_DMALL_RIZE_GREYMON_FQID_LEN, ALT_DMALL_RIZE_GREYMON_FQNAME, ALT_DMALL_RIZE_GREYMON_FQNAME_LEN },
-        { DMALL_RIZEGREYMON_X_NAME, DMALL_RIZEGREYMON_X_NAME_LEN, DMALL_RIZEGREYMON_X_ID, DMALL_RIZEGREYMON_X_ID_LEN, DMALL_RIZEGREYMON_X_FQID, DMALL_RIZEGREYMON_X_FQID_LEN, DMALL_RIZEGREYMON_X_FQNAME, DMALL_RIZEGREYMON_X_FQNAME_LEN },
-        { DMALL_RIZEGREYMON_X_NAME, DMALL_RIZEGREYMON_X_NAME_LEN, DMALL_RIZEGREYMON_X_ID, DMALL_RIZEGREYMON_X_ID_LEN, ALT_DMALL_RIZEGREYMON_X_FQID, ALT_DMALL_RIZEGREYMON_X_FQID_LEN, ALT_DMALL_RIZEGREYMON_X_FQNAME, ALT_DMALL_RIZEGREYMON_X_FQNAME_LEN },
+        { DMALL_RIZE_GREYMON_X_NAME, DMALL_RIZE_GREYMON_X_NAME_LEN, DMALL_RIZE_GREYMON_X_ID, DMALL_RIZE_GREYMON_X_ID_LEN, DMALL_RIZE_GREYMON_X_FQID, DMALL_RIZE_GREYMON_X_FQID_LEN, DMALL_RIZE_GREYMON_X_FQNAME, DMALL_RIZE_GREYMON_X_FQNAME_LEN },
+        { DMALL_RIZE_GREYMON_X_NAME, DMALL_RIZE_GREYMON_X_NAME_LEN, DMALL_RIZE_GREYMON_X_ID, DMALL_RIZE_GREYMON_X_ID_LEN, ALT_DMALL_RIZE_GREYMON_X_FQID, ALT_DMALL_RIZE_GREYMON_X_FQID_LEN, ALT_DMALL_RIZE_GREYMON_X_FQNAME, ALT_DMALL_RIZE_GREYMON_X_FQNAME_LEN },
         { DMALL_ROSEMON_BURST_MODE_NAME, DMALL_ROSEMON_BURST_MODE_NAME_LEN, DMALL_ROSEMON_BURST_MODE_ID, DMALL_ROSEMON_BURST_MODE_ID_LEN, DMALL_ROSEMON_BURST_MODE_FQID, DMALL_ROSEMON_BURST_MODE_FQID_LEN, DMALL_ROSEMON_BURST_MODE_FQNAME, DMALL_ROSEMON_BURST_MODE_FQNAME_LEN },
         { DMALL_ROSEMON_BURST_MODE_NAME, DMALL_ROSEMON_BURST_MODE_NAME_LEN, DMALL_ROSEMON_BURST_MODE_ID, DMALL_ROSEMON_BURST_MODE_ID_LEN, ALT_DMALL_ROSEMON_BURST_MODE_FQID, ALT_DMALL_ROSEMON_BURST_MODE_FQID_LEN, ALT_DMALL_ROSEMON_BURST_MODE_FQNAME, ALT_DMALL_ROSEMON_BURST_MODE_FQNAME_LEN },
         { DMALL_ROSEMON_NAME, DMALL_ROSEMON_NAME_LEN, DMALL_ROSEMON_ID, DMALL_ROSEMON_ID_LEN, DMALL_ROSEMON_FQID, DMALL_ROSEMON_FQID_LEN, DMALL_ROSEMON_FQNAME, DMALL_ROSEMON_FQNAME_LEN },
@@ -6613,16 +6589,10 @@ namespace bongocat::assets {
         { DMALL_TSUMEMON_NAME, DMALL_TSUMEMON_NAME_LEN, DMALL_TSUMEMON_ID, DMALL_TSUMEMON_ID_LEN, ALT_DMALL_TSUMEMON_FQID, ALT_DMALL_TSUMEMON_FQID_LEN, ALT_DMALL_TSUMEMON_FQNAME, ALT_DMALL_TSUMEMON_FQNAME_LEN },
         { DMALL_TSUNOMON_NAME, DMALL_TSUNOMON_NAME_LEN, DMALL_TSUNOMON_ID, DMALL_TSUNOMON_ID_LEN, DMALL_TSUNOMON_FQID, DMALL_TSUNOMON_FQID_LEN, DMALL_TSUNOMON_FQNAME, DMALL_TSUNOMON_FQNAME_LEN },
         { DMALL_TSUNOMON_NAME, DMALL_TSUNOMON_NAME_LEN, DMALL_TSUNOMON_ID, DMALL_TSUNOMON_ID_LEN, ALT_DMALL_TSUNOMON_FQID, ALT_DMALL_TSUNOMON_FQID_LEN, ALT_DMALL_TSUNOMON_FQNAME, ALT_DMALL_TSUNOMON_FQNAME_LEN },
-        { DMALL_TUNOMON_NAME, DMALL_TUNOMON_NAME_LEN, DMALL_TUNOMON_ID, DMALL_TUNOMON_ID_LEN, DMALL_TUNOMON_FQID, DMALL_TUNOMON_FQID_LEN, DMALL_TUNOMON_FQNAME, DMALL_TUNOMON_FQNAME_LEN },
-        { DMALL_TUNOMON_NAME, DMALL_TUNOMON_NAME_LEN, DMALL_TUNOMON_ID, DMALL_TUNOMON_ID_LEN, ALT_DMALL_TUNOMON_FQID, ALT_DMALL_TUNOMON_FQID_LEN, ALT_DMALL_TUNOMON_FQNAME, ALT_DMALL_TUNOMON_FQNAME_LEN },
         { DMALL_TURUIEMON_NAME, DMALL_TURUIEMON_NAME_LEN, DMALL_TURUIEMON_ID, DMALL_TURUIEMON_ID_LEN, DMALL_TURUIEMON_FQID, DMALL_TURUIEMON_FQID_LEN, DMALL_TURUIEMON_FQNAME, DMALL_TURUIEMON_FQNAME_LEN },
         { DMALL_TURUIEMON_NAME, DMALL_TURUIEMON_NAME_LEN, DMALL_TURUIEMON_ID, DMALL_TURUIEMON_ID_LEN, ALT_DMALL_TURUIEMON_FQID, ALT_DMALL_TURUIEMON_FQID_LEN, ALT_DMALL_TURUIEMON_FQNAME, ALT_DMALL_TURUIEMON_FQNAME_LEN },
         { DMALL_TYLOMON_X_NAME, DMALL_TYLOMON_X_NAME_LEN, DMALL_TYLOMON_X_ID, DMALL_TYLOMON_X_ID_LEN, DMALL_TYLOMON_X_FQID, DMALL_TYLOMON_X_FQID_LEN, DMALL_TYLOMON_X_FQNAME, DMALL_TYLOMON_X_FQNAME_LEN },
         { DMALL_TYLOMON_X_NAME, DMALL_TYLOMON_X_NAME_LEN, DMALL_TYLOMON_X_ID, DMALL_TYLOMON_X_ID_LEN, ALT_DMALL_TYLOMON_X_FQID, ALT_DMALL_TYLOMON_X_FQID_LEN, ALT_DMALL_TYLOMON_X_FQNAME, ALT_DMALL_TYLOMON_X_FQNAME_LEN },
-        { DMALL_TYRANNOMON_NAME, DMALL_TYRANNOMON_NAME_LEN, DMALL_TYRANNOMON_ID, DMALL_TYRANNOMON_ID_LEN, DMALL_TYRANNOMON_FQID, DMALL_TYRANNOMON_FQID_LEN, DMALL_TYRANNOMON_FQNAME, DMALL_TYRANNOMON_FQNAME_LEN },
-        { DMALL_TYRANNOMON_NAME, DMALL_TYRANNOMON_NAME_LEN, DMALL_TYRANNOMON_ID, DMALL_TYRANNOMON_ID_LEN, ALT_DMALL_TYRANNOMON_FQID, ALT_DMALL_TYRANNOMON_FQID_LEN, ALT_DMALL_TYRANNOMON_FQNAME, ALT_DMALL_TYRANNOMON_FQNAME_LEN },
-        { DMALL_TYRANNOMON_X_NAME, DMALL_TYRANNOMON_X_NAME_LEN, DMALL_TYRANNOMON_X_ID, DMALL_TYRANNOMON_X_ID_LEN, DMALL_TYRANNOMON_X_FQID, DMALL_TYRANNOMON_X_FQID_LEN, DMALL_TYRANNOMON_X_FQNAME, DMALL_TYRANNOMON_X_FQNAME_LEN },
-        { DMALL_TYRANNOMON_X_NAME, DMALL_TYRANNOMON_X_NAME_LEN, DMALL_TYRANNOMON_X_ID, DMALL_TYRANNOMON_X_ID_LEN, ALT_DMALL_TYRANNOMON_X_FQID, ALT_DMALL_TYRANNOMON_X_FQID_LEN, ALT_DMALL_TYRANNOMON_X_FQNAME, ALT_DMALL_TYRANNOMON_X_FQNAME_LEN },
         { DMALL_TYRANOMON_NAME, DMALL_TYRANOMON_NAME_LEN, DMALL_TYRANOMON_ID, DMALL_TYRANOMON_ID_LEN, DMALL_TYRANOMON_FQID, DMALL_TYRANOMON_FQID_LEN, DMALL_TYRANOMON_FQNAME, DMALL_TYRANOMON_FQNAME_LEN },
         { DMALL_TYRANOMON_NAME, DMALL_TYRANOMON_NAME_LEN, DMALL_TYRANOMON_ID, DMALL_TYRANOMON_ID_LEN, ALT_DMALL_TYRANOMON_FQID, ALT_DMALL_TYRANOMON_FQID_LEN, ALT_DMALL_TYRANOMON_FQNAME, ALT_DMALL_TYRANOMON_FQNAME_LEN },
         { DMALL_TYRANOMON_X_NAME, DMALL_TYRANOMON_X_NAME_LEN, DMALL_TYRANOMON_X_ID, DMALL_TYRANOMON_X_ID_LEN, DMALL_TYRANOMON_X_FQID, DMALL_TYRANOMON_X_FQID_LEN, DMALL_TYRANOMON_X_FQNAME, DMALL_TYRANOMON_X_FQNAME_LEN },
@@ -6675,8 +6645,8 @@ namespace bongocat::assets {
         { DMALL_WARU_SEADRAMON_NAME, DMALL_WARU_SEADRAMON_NAME_LEN, DMALL_WARU_SEADRAMON_ID, DMALL_WARU_SEADRAMON_ID_LEN, ALT_DMALL_WARU_SEADRAMON_FQID, ALT_DMALL_WARU_SEADRAMON_FQID_LEN, ALT_DMALL_WARU_SEADRAMON_FQNAME, ALT_DMALL_WARU_SEADRAMON_FQNAME_LEN },
         { DMALL_WASPMON_NAME, DMALL_WASPMON_NAME_LEN, DMALL_WASPMON_ID, DMALL_WASPMON_ID_LEN, DMALL_WASPMON_FQID, DMALL_WASPMON_FQID_LEN, DMALL_WASPMON_FQNAME, DMALL_WASPMON_FQNAME_LEN },
         { DMALL_WASPMON_NAME, DMALL_WASPMON_NAME_LEN, DMALL_WASPMON_ID, DMALL_WASPMON_ID_LEN, ALT_DMALL_WASPMON_FQID, ALT_DMALL_WASPMON_FQID_LEN, ALT_DMALL_WASPMON_FQNAME, ALT_DMALL_WASPMON_FQNAME_LEN },
-        { DMALL_WEREGARURUMON_BLACK_NAME, DMALL_WEREGARURUMON_BLACK_NAME_LEN, DMALL_WEREGARURUMON_BLACK_ID, DMALL_WEREGARURUMON_BLACK_ID_LEN, DMALL_WEREGARURUMON_BLACK_FQID, DMALL_WEREGARURUMON_BLACK_FQID_LEN, DMALL_WEREGARURUMON_BLACK_FQNAME, DMALL_WEREGARURUMON_BLACK_FQNAME_LEN },
-        { DMALL_WEREGARURUMON_BLACK_NAME, DMALL_WEREGARURUMON_BLACK_NAME_LEN, DMALL_WEREGARURUMON_BLACK_ID, DMALL_WEREGARURUMON_BLACK_ID_LEN, ALT_DMALL_WEREGARURUMON_BLACK_FQID, ALT_DMALL_WEREGARURUMON_BLACK_FQID_LEN, ALT_DMALL_WEREGARURUMON_BLACK_FQNAME, ALT_DMALL_WEREGARURUMON_BLACK_FQNAME_LEN },
+        { DMALL_WERE_GARURUMON_BLACK_NAME, DMALL_WERE_GARURUMON_BLACK_NAME_LEN, DMALL_WERE_GARURUMON_BLACK_ID, DMALL_WERE_GARURUMON_BLACK_ID_LEN, DMALL_WERE_GARURUMON_BLACK_FQID, DMALL_WERE_GARURUMON_BLACK_FQID_LEN, DMALL_WERE_GARURUMON_BLACK_FQNAME, DMALL_WERE_GARURUMON_BLACK_FQNAME_LEN },
+        { DMALL_WERE_GARURUMON_BLACK_NAME, DMALL_WERE_GARURUMON_BLACK_NAME_LEN, DMALL_WERE_GARURUMON_BLACK_ID, DMALL_WERE_GARURUMON_BLACK_ID_LEN, ALT_DMALL_WERE_GARURUMON_BLACK_FQID, ALT_DMALL_WERE_GARURUMON_BLACK_FQID_LEN, ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME, ALT_DMALL_WERE_GARURUMON_BLACK_FQNAME_LEN },
         { DMALL_WERE_GARURUMON_NAME, DMALL_WERE_GARURUMON_NAME_LEN, DMALL_WERE_GARURUMON_ID, DMALL_WERE_GARURUMON_ID_LEN, DMALL_WERE_GARURUMON_FQID, DMALL_WERE_GARURUMON_FQID_LEN, DMALL_WERE_GARURUMON_FQNAME, DMALL_WERE_GARURUMON_FQNAME_LEN },
         { DMALL_WERE_GARURUMON_NAME, DMALL_WERE_GARURUMON_NAME_LEN, DMALL_WERE_GARURUMON_ID, DMALL_WERE_GARURUMON_ID_LEN, ALT_DMALL_WERE_GARURUMON_FQID, ALT_DMALL_WERE_GARURUMON_FQID_LEN, ALT_DMALL_WERE_GARURUMON_FQNAME, ALT_DMALL_WERE_GARURUMON_FQNAME_LEN },
         { DMALL_WERE_GARURUMON_X_NAME, DMALL_WERE_GARURUMON_X_NAME_LEN, DMALL_WERE_GARURUMON_X_ID, DMALL_WERE_GARURUMON_X_ID_LEN, DMALL_WERE_GARURUMON_X_FQID, DMALL_WERE_GARURUMON_X_FQID_LEN, DMALL_WERE_GARURUMON_X_FQNAME, DMALL_WERE_GARURUMON_X_FQNAME_LEN },
@@ -6734,14 +6704,6 @@ namespace bongocat::assets {
         return dmall_animation_table[index];
     }
 
-    static void unload_config_parse_animation_names_dmall() {
-        for (const auto& entry : dmall_animation_names_table) {
-            platform::details::asset_unload_cstr(entry.name,   entry.name_len);
-            platform::details::asset_unload_cstr(entry.id,     entry.id_len);
-            platform::details::asset_unload_cstr(entry.fqid,   entry.fqid_len);
-            platform::details::asset_unload_cstr(entry.fqname, entry.fqname_len);
-        }
-    }
     int config_parse_animation_name_dmall(config::config_t& config, const char *value) {
         assert(LEN_ARRAY(dmall_animation_table) == DMALL_ANIM_COUNT);
         int ret = -1;
@@ -6771,7 +6733,6 @@ namespace bongocat::assets {
                 break;
             }
         }
-        unload_config_parse_animation_names_dmall();
         return ret;
     }
 }

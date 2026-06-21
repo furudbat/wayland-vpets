@@ -15,11 +15,11 @@ static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] ASSE
 };
 
 static const embedded_image_t ms_agent_images_table[] ASSETS_TABLE_SECTION = {
-  {clippy_png, clippy_png_size, "clippy"},
+  {clippy_png, clippy_png_size, assets::CLIPPY_NAME},
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-  {links_png, links_png_size, "links"},
-  {rover_png, rover_png_size, "rover"},
-  {merlin_png, merlin_png_size, "merlin"},
+  {links_png, links_png_size, assets::LINKS_NAME},
+  {rover_png, rover_png_size, assets::ROVER_NAME},
+  {merlin_png, merlin_png_size, assets::MERLIN_NAME},
 #endif
 };
 

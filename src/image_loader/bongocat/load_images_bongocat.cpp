@@ -25,7 +25,6 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
         assert(svg_params.target_h >= 0);
 #ifdef FEATURE_USE_BONGOCAT_SVG
         auto result = anim_sprite_sheet_from_embedded_svgs(get_sprite, embedded_images_count, svg_params, cropping);
-        assets::asset_unload_bongocat_svg();
         return result;
 #else
         BONGOCAT_LOG_WARNING("load_bongocat_anim: SVG not supported");
@@ -34,7 +33,6 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
       }
       case load_bongocat_anim_type_t::PNG: {
         auto result = anim_sprite_sheet_from_embedded_images(get_sprite, embedded_images_count);
-        assets::asset_unload_bongocat();
         return result;
       }
     }

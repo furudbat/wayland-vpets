@@ -62,10 +62,6 @@ extern const size_t dmx_belial_vamdemon_png_size;
 extern const unsigned char dmx_belphemon_x_png[];
 extern const size_t dmx_belphemon_x_png_size;
 
-// Name: Black Wargreymon X
-extern const unsigned char dmx_black_wargreymon_x_png[];
-extern const size_t dmx_black_wargreymon_x_png_size;
-
 // Name: Black War Greymon X
 extern const unsigned char dmx_black_war_greymon_x_png[];
 extern const size_t dmx_black_war_greymon_x_png_size;
@@ -73,10 +69,6 @@ extern const size_t dmx_black_war_greymon_x_png_size;
 // Name: Cannonbeemon
 extern const unsigned char dmx_cannonbeemon_png[];
 extern const size_t dmx_cannonbeemon_png_size;
-
-// Name: Cannon Beemon
-extern const unsigned char dmx_cannon_beemon_png[];
-extern const size_t dmx_cannon_beemon_png_size;
 
 // Name: Cerberumon X
 extern const unsigned char dmx_cerberumon_x_png[];
@@ -230,10 +222,6 @@ extern const size_t dmx_gomamon_x_png_size;
 extern const unsigned char dmx_grademon_png[];
 extern const size_t dmx_grademon_png_size;
 
-// Name: Grand Darcumon
-extern const unsigned char dmx_grand_darcumon_png[];
-extern const size_t dmx_grand_darcumon_png_size;
-
 // Name: Grand Dracumon
 extern const unsigned char dmx_grand_dracumon_png[];
 extern const size_t dmx_grand_dracumon_png_size;
@@ -378,10 +366,6 @@ extern const size_t dmx_mamemon_x_png_size;
 extern const unsigned char dmx_mametyramon_png[];
 extern const size_t dmx_mametyramon_png_size;
 
-// Name: Mame Tyramon
-extern const unsigned char dmx_mame_tyramon_png[];
-extern const size_t dmx_mame_tyramon_png_size;
-
 // Name: Mammon X
 extern const unsigned char dmx_mammon_x_png[];
 extern const size_t dmx_mammon_x_png_size;
@@ -494,14 +478,6 @@ extern const size_t dmx_omega_shoutmon_x_png_size;
 extern const unsigned char dmx_omekamon_png[];
 extern const size_t dmx_omekamon_png_size;
 
-// Name: Ophanimon Falldown Mode
-extern const unsigned char dmx_ophanimon_falldown_mode_png[];
-extern const size_t dmx_ophanimon_falldown_mode_png_size;
-
-// Name: Ophanimon X
-extern const unsigned char dmx_ophanimon_x_png[];
-extern const size_t dmx_ophanimon_x_png_size;
-
 // Name: Otamamon X
 extern const unsigned char dmx_otamamon_x_png[];
 extern const size_t dmx_otamamon_x_png_size;
@@ -574,10 +550,6 @@ extern const size_t dmx_rasenmon_fury_mode_png_size;
 extern const unsigned char dmx_rasenmon_png[];
 extern const size_t dmx_rasenmon_png_size;
 
-// Name: Rekamon X
-extern const unsigned char dmx_rekamon_x_png[];
-extern const size_t dmx_rekamon_x_png_size;
-
 // Name: Renamon X
 extern const unsigned char dmx_renamon_x_png[];
 extern const size_t dmx_renamon_x_png_size;
@@ -605,10 +577,6 @@ extern const size_t dmx_sakuyamon_x_png_size;
 // Name: Sangloupmon
 extern const unsigned char dmx_sangloupmon_png[];
 extern const size_t dmx_sangloupmon_png_size;
-
-// Name: Sangoupmon
-extern const unsigned char dmx_sangoupmon_png[];
-extern const size_t dmx_sangoupmon_png_size;
 
 // Name: Seadramon X
 extern const unsigned char dmx_seadramon_x_png[];
@@ -642,10 +610,6 @@ extern const size_t dmx_sleipmon_x_png_size;
 extern const unsigned char dmx_stiffilmon_png[];
 extern const size_t dmx_stiffilmon_png_size;
 
-// Name: Stiffimon
-extern const unsigned char dmx_stiffimon_png[];
-extern const size_t dmx_stiffimon_png_size;
-
 // Name: Tailmon X
 extern const unsigned char dmx_tailmon_x_png[];
 extern const size_t dmx_tailmon_x_png_size;
@@ -654,17 +618,9 @@ extern const size_t dmx_tailmon_x_png_size;
 extern const unsigned char dmx_terriermon_x_png[];
 extern const size_t dmx_terriermon_x_png_size;
 
-// Name: Tierriermon X
-extern const unsigned char dmx_tierriermon_x_png[];
-extern const size_t dmx_tierriermon_x_png_size;
-
 // Name: Tiger Vespamon
 extern const unsigned char dmx_tiger_vespamon_png[];
 extern const size_t dmx_tiger_vespamon_png_size;
-
-// Name: Tobcatmon
-extern const unsigned char dmx_tobcatmon_png[];
-extern const size_t dmx_tobcatmon_png_size;
 
 // Name: Tobucatmon
 extern const unsigned char dmx_tobucatmon_png[];
@@ -693,10 +649,6 @@ extern const size_t dmx_tyranomon_x_png_size;
 // Name: Ulforce V-dramon X
 extern const unsigned char dmx_ulforce_v_dramon_x_png[];
 extern const size_t dmx_ulforce_v_dramon_x_png_size;
-
-// Name: Ultimate Brachimon
-extern const unsigned char dmx_ultimate_brachimon_png[];
-extern const size_t dmx_ultimate_brachimon_png_size;
 
 // Name: Ultimate Brachiomon
 extern const unsigned char dmx_ultimate_brachiomon_png[];

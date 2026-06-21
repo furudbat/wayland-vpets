@@ -2632,7 +2632,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(pkmn_names_table) == PKMN_ANIM_COUNT);
         assert(index < PKMN_ANIM_COUNT);
         auto result = load_pkmn_anim(ctx, index, {pkmn_pngs_table[index], pkmn_png_sizes_table[index], pkmn_names_table[index]}, pkmn_dims_table[index].cols, pkmn_dims_table[index].rows);
-        platform::details::asset_unload(pkmn_pngs_table[index], pkmn_png_sizes_table[index]);
         return result;
     }
     void init_all_pkmn_anim(animation_thread_context_t& ctx) {
@@ -2640,7 +2639,6 @@ namespace bongocat::animation {
         for (size_t i = 0;i < PKMN_ANIM_COUNT;++i) {
             init_pkmn_anim(ctx, i, {pkmn_pngs_table[i], pkmn_png_sizes_table[i], pkmn_names_table[i]}, pkmn_dims_table[i].cols, pkmn_dims_table[i].rows);
         }
-        platform::details::asset_unload_all(pkmn_pngs_table, pkmn_png_sizes_table, PKMN_ANIM_COUNT);
     }
 }
 

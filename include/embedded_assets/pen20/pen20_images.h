@@ -14,9 +14,17 @@ extern const size_t pen20_aero_v_dramon_png_size;
 extern const unsigned char pen20_agumon_hakase_png[];
 extern const size_t pen20_agumon_hakase_png_size;
 
+// Name: Agumon
+extern const unsigned char pen20_agumon_png[];
+extern const size_t pen20_agumon_png_size;
+
 // Name: Alphamon Ouryuken
 extern const unsigned char pen20_alphamon_ouryuken_png[];
 extern const size_t pen20_alphamon_ouryuken_png_size;
+
+// Name: Alphamon
+extern const unsigned char pen20_alphamon_png[];
+extern const size_t pen20_alphamon_png_size;
 
 // Name: Andiramon
 extern const unsigned char pen20_andiramon_png[];
@@ -25,6 +33,10 @@ extern const size_t pen20_andiramon_png_size;
 // Name: Andromon
 extern const unsigned char pen20_andromon_png[];
 extern const size_t pen20_andromon_png_size;
+
+// Name: Angemon
+extern const unsigned char pen20_angemon_png[];
+extern const size_t pen20_angemon_png_size;
 
 // Name: Angewomon
 extern const unsigned char pen20_angewomon_png[];
@@ -41,10 +53,6 @@ extern const size_t pen20_arresterdramon_png_size;
 // Name: Astamon
 extern const unsigned char pen20_astamon_png[];
 extern const size_t pen20_astamon_png_size;
-
-// Name: Astramon
-extern const unsigned char pen20_astramon_png[];
-extern const size_t pen20_astramon_png_size;
 
 // Name: Asuramon
 extern const unsigned char pen20_asuramon_png[];
@@ -69,6 +77,10 @@ extern const size_t pen20_bakumon_png_size;
 // Name: Bancho Leomon
 extern const unsigned char pen20_bancho_leomon_png[];
 extern const size_t pen20_bancho_leomon_png_size;
+
+// Name: Bao Hackmon
+extern const unsigned char pen20_bao_hackmon_png[];
+extern const size_t pen20_bao_hackmon_png_size;
 
 // Name: Beelzebumon Blast Mode
 extern const unsigned char pen20_beelzebumon_blast_mode_png[];
@@ -97,6 +109,10 @@ extern const size_t pen20_blossomon_png_size;
 // Name: Boltmon
 extern const unsigned char pen20_boltmon_png[];
 extern const size_t pen20_boltmon_png_size;
+
+// Name: Botamon
+extern const unsigned char pen20_botamon_png[];
+extern const size_t pen20_botamon_png_size;
 
 // Name: Breakdramon
 extern const unsigned char pen20_breakdramon_png[];
@@ -206,9 +222,29 @@ extern const size_t pen20_devimon_png_size;
 extern const unsigned char pen20_dokugumon_png[];
 extern const size_t pen20_dokugumon_png_size;
 
+// Name: Dorimon
+extern const unsigned char pen20_dorimon_png[];
+extern const size_t pen20_dorimon_png_size;
+
+// Name: DORUgamon
+extern const unsigned char pen20_dorugamon_png[];
+extern const size_t pen20_dorugamon_png_size;
+
 // Name: DORUgoramon
 extern const unsigned char pen20_dorugoramon_png[];
 extern const size_t pen20_dorugoramon_png_size;
+
+// Name: DORUguremon
+extern const unsigned char pen20_doruguremon_png[];
+extern const size_t pen20_doruguremon_png_size;
+
+// Name: DORUmon
+extern const unsigned char pen20_dorumon_png[];
+extern const size_t pen20_dorumon_png_size;
+
+// Name: Dracomon
+extern const unsigned char pen20_dracomon_png[];
+extern const size_t pen20_dracomon_png_size;
 
 // Name: Duramon
 extern const unsigned char pen20_duramon_png[];
@@ -241,6 +277,10 @@ extern const size_t pen20_floramon_png_size;
 // Name: Fufumon
 extern const unsigned char pen20_fufumon_png[];
 extern const size_t pen20_fufumon_png_size;
+
+// Name: Gabumon
+extern const unsigned char pen20_gabumon_png[];
+extern const size_t pen20_gabumon_png_size;
 
 // Name: Galgomon
 extern const unsigned char pen20_galgomon_png[];
@@ -310,6 +350,10 @@ extern const size_t pen20_guimon_png_size;
 extern const unsigned char pen20_gummymon_png[];
 extern const size_t pen20_gummymon_png_size;
 
+// Name: Hackmon
+extern const unsigned char pen20_hackmon_png[];
+extern const size_t pen20_hackmon_png_size;
+
 // Name: Hagurumon
 extern const unsigned char pen20_hagurumon_png[];
 extern const size_t pen20_hagurumon_png_size;
@@ -330,10 +374,6 @@ extern const size_t pen20_hanumon_png_size;
 extern const unsigned char pen20_herakle_kabuterimon_png[];
 extern const size_t pen20_herakle_kabuterimon_png_size;
 
-// Name: Herkule Kabuterimon
-extern const unsigned char pen20_herkule_kabuterimon_png[];
-extern const size_t pen20_herkule_kabuterimon_png_size;
-
 // Name: Hisyaryumon
 extern const unsigned char pen20_hisyaryumon_png[];
 extern const size_t pen20_hisyaryumon_png_size;
@@ -350,9 +390,9 @@ extern const size_t pen20_holydramon_png_size;
 extern const unsigned char pen20_hououmon_png[];
 extern const size_t pen20_hououmon_png_size;
 
-// Name: Ignamon
-extern const unsigned char pen20_ignamon_png[];
-extern const size_t pen20_ignamon_png_size;
+// Name: Igamon
+extern const unsigned char pen20_igamon_png[];
+extern const size_t pen20_igamon_png_size;
 
 // Name: Ikkakumon
 extern const unsigned char pen20_ikkakumon_png[];
@@ -402,6 +442,10 @@ extern const size_t pen20_knightmon_png_size;
 extern const unsigned char pen20_kokuwamon_png[];
 extern const size_t pen20_kokuwamon_png_size;
 
+// Name: Koromon
+extern const unsigned char pen20_koromon_png[];
+extern const size_t pen20_koromon_png_size;
+
 // Name: Kuwagamon
 extern const unsigned char pen20_kuwagamon_png[];
 extern const size_t pen20_kuwagamon_png_size;
@@ -425,6 +469,10 @@ extern const size_t pen20_lavogaritamon_png_size;
 // Name: Lavorvomon
 extern const unsigned char pen20_lavorvomon_png[];
 extern const size_t pen20_lavorvomon_png_size;
+
+// Name: Leomon
+extern const unsigned char pen20_leomon_png[];
+extern const size_t pen20_leomon_png_size;
 
 // Name: Lilamon
 extern const unsigned char pen20_lilamon_png[];
@@ -490,6 +538,10 @@ extern const size_t pen20_megalo_growmon_png_size;
 extern const unsigned char pen20_mega_seadramon_png[];
 extern const size_t pen20_mega_seadramon_png_size;
 
+// Name: Meicoomon
+extern const unsigned char pen20_meicoomon_png[];
+extern const size_t pen20_meicoomon_png_size;
+
 // Name: Meicrackmon Vicious Mode
 extern const unsigned char pen20_meicrackmon_vicious_mode_png[];
 extern const size_t pen20_meicrackmon_vicious_mode_png_size;
@@ -542,6 +594,10 @@ extern const size_t pen20_mugendramon_png_size;
 extern const unsigned char pen20_mushmon_png[];
 extern const size_t pen20_mushmon_png_size;
 
+// Name: Nyaromon
+extern const unsigned char pen20_nyaromon_png[];
+extern const size_t pen20_nyaromon_png_size;
+
 // Name: Nyokimon
 extern const unsigned char pen20_nyokimon_png[];
 extern const size_t pen20_nyokimon_png_size;
@@ -590,6 +646,10 @@ extern const size_t pen20_palmon_png_size;
 extern const unsigned char pen20_peti_meramon_png[];
 extern const size_t pen20_peti_meramon_png_size;
 
+// Name: Petitmon
+extern const unsigned char pen20_petitmon_png[];
+extern const size_t pen20_petitmon_png_size;
+
 // Name: Phascomon
 extern const unsigned char pen20_phascomon_png[];
 extern const size_t pen20_phascomon_png_size;
@@ -610,6 +670,10 @@ extern const size_t pen20_piemon_png_size;
 extern const unsigned char pen20_pinochimon_png[];
 extern const size_t pen20_pinochimon_png_size;
 
+// Name: Pitchmon
+extern const unsigned char pen20_pitchmon_png[];
+extern const size_t pen20_pitchmon_png_size;
+
 // Name: Piyomon
 extern const unsigned char pen20_piyomon_png[];
 extern const size_t pen20_piyomon_png_size;
@@ -618,6 +682,10 @@ extern const size_t pen20_piyomon_png_size;
 extern const unsigned char pen20_plesiomon_png[];
 extern const size_t pen20_plesiomon_png_size;
 
+// Name: Plotmon
+extern const unsigned char pen20_plotmon_png[];
+extern const size_t pen20_plotmon_png_size;
+
 // Name: Porcupamon
 extern const unsigned char pen20_porcupamon_png[];
 extern const size_t pen20_porcupamon_png_size;
@@ -625,6 +693,10 @@ extern const size_t pen20_porcupamon_png_size;
 // Name: Porcupmon
 extern const unsigned char pen20_porcupmon_png[];
 extern const size_t pen20_porcupmon_png_size;
+
+// Name: Pukamon
+extern const unsigned char pen20_pukamon_png[];
+extern const size_t pen20_pukamon_png_size;
 
 // Name: Pukumon
 extern const unsigned char pen20_pukumon_png[];
@@ -653,10 +725,6 @@ extern const size_t pen20_raguelmon_png_size;
 // Name: Raiji Ludomon
 extern const unsigned char pen20_raiji_ludomon_png[];
 extern const size_t pen20_raiji_ludomon_png_size;
-
-// Name: Rakamon
-extern const unsigned char pen20_rakamon_png[];
-extern const size_t pen20_rakamon_png_size;
 
 // Name: Rapidmon
 extern const unsigned char pen20_rapidmon_png[];
@@ -697,6 +765,14 @@ extern const size_t pen20_saber_leomon_png_size;
 // Name: Saint Galgomon
 extern const unsigned char pen20_saint_galgomon_png[];
 extern const size_t pen20_saint_galgomon_png_size;
+
+// Name: Sakumon
+extern const unsigned char pen20_sakumon_png[];
+extern const size_t pen20_sakumon_png_size;
+
+// Name: Sakuttomon
+extern const unsigned char pen20_sakuttomon_png[];
+extern const size_t pen20_sakuttomon_png_size;
 
 // Name: Savior Hackmon
 extern const unsigned char pen20_savior_hackmon_png[];
@@ -798,10 +874,6 @@ extern const size_t pen20_vamdemon_png_size;
 extern const unsigned char pen20_v_dramon_png[];
 extern const size_t pen20_v_dramon_png_size;
 
-// Name: Vemdemon
-extern const unsigned char pen20_vemdemon_png[];
-extern const size_t pen20_vemdemon_png_size;
-
 // Name: Venom Vamdemon
 extern const unsigned char pen20_venom_vamdemon_png[];
 extern const size_t pen20_venom_vamdemon_png_size;
@@ -854,9 +926,21 @@ extern const size_t pen20_woodmon_png_size;
 extern const unsigned char pen20_xv_mon_png[];
 extern const size_t pen20_xv_mon_png_size;
 
+// Name: Yukimi Botamon
+extern const unsigned char pen20_yukimi_botamon_png[];
+extern const size_t pen20_yukimi_botamon_png_size;
+
 // Name: Zerimon
 extern const unsigned char pen20_zerimon_png[];
 extern const size_t pen20_zerimon_png_size;
+
+// Name: Zubaeagermon
+extern const unsigned char pen20_zubaeagermon_png[];
+extern const size_t pen20_zubaeagermon_png_size;
+
+// Name: Zubamon
+extern const unsigned char pen20_zubamon_png[];
+extern const size_t pen20_zubamon_png_size;
 
 // Name: Zudomon
 extern const unsigned char pen20_zudomon_png[];

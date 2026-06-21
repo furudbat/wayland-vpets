@@ -587,10 +587,10 @@ if(FEATURE_MULTI_VERSIONS)
       -Wl,--no-whole-archive
       assets_more_ms_agent_loader
       assets_more_ms_agent
-      assets_ms_agent_feature
+      assets_more_ms_agent_feature
       assets_more_ms_agent_interface
       -Wl,--whole-archive
-      assets_ms_agent
+      assets_more_ms_agent
       -Wl,--no-whole-archive
   )
   add_executable(bongocat-ms-agent)
@@ -675,11 +675,11 @@ if(FEATURE_MULTI_VERSIONS)
       -Wl,--whole-archive
       assets_dmall
       -Wl,--no-whole-archive
-      assets_more_ms_agent_loader
-      assets_more_ms_agent_feature
-      assets_more_ms_agent_interface
+      assets_ms_agent_loader
+      assets_ms_agent_feature
+      assets_ms_agent_interface
       -Wl,--whole-archive
-      assets_more_ms_agent
+      assets_ms_agent
       -Wl,--no-whole-archive
       assets_misc_loader
       assets_misc_feature

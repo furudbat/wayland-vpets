@@ -76,10 +76,8 @@ namespace bongocat::animation {
         {assets::DMC_METAL_TYRANOMON_SPRITE_SHEET_COLS, assets::DMC_METAL_TYRANOMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_MILLENNIUMON_SPRITE_SHEET_COLS, assets::DMC_MILLENNIUMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_MOJYAMON_SPRITE_SHEET_COLS, assets::DMC_MOJYAMON_SPRITE_SHEET_ROWS}, 
-        {assets::DMC_MOJYMON_SPRITE_SHEET_COLS, assets::DMC_MOJYMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_MONOCHROMON_SPRITE_SHEET_COLS, assets::DMC_MONOCHROMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_MONZAEMON_SPRITE_SHEET_COLS, assets::DMC_MONZAEMON_SPRITE_SHEET_ROWS}, 
-        {assets::DMC_MOZAEMON_SPRITE_SHEET_COLS, assets::DMC_MOZAEMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_MUGENDRAMON_SPRITE_SHEET_COLS, assets::DMC_MUGENDRAMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_NANIMON_SPRITE_SHEET_COLS, assets::DMC_NANIMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_NANOMON_SPRITE_SHEET_COLS, assets::DMC_NANOMON_SPRITE_SHEET_ROWS}, 
@@ -109,7 +107,6 @@ namespace bongocat::animation {
         {assets::DMC_TITAMON_SPRITE_SHEET_COLS, assets::DMC_TITAMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_TOKOMON_SPRITE_SHEET_COLS, assets::DMC_TOKOMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_TSUNOMON_SPRITE_SHEET_COLS, assets::DMC_TSUNOMON_SPRITE_SHEET_ROWS}, 
-        {assets::DMC_TUNOMON_SPRITE_SHEET_COLS, assets::DMC_TUNOMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_TUSKMON_SPRITE_SHEET_COLS, assets::DMC_TUSKMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_TYRANOMON_SPRITE_SHEET_COLS, assets::DMC_TYRANOMON_SPRITE_SHEET_ROWS}, 
         {assets::DMC_UNIMON_SPRITE_SHEET_COLS, assets::DMC_UNIMON_SPRITE_SHEET_ROWS}, 
@@ -183,10 +180,8 @@ namespace bongocat::animation {
         dmc_metal_tyranomon_png, 
         dmc_millenniumon_png, 
         dmc_mojyamon_png, 
-        dmc_mojymon_png, 
         dmc_monochromon_png, 
         dmc_monzaemon_png, 
-        dmc_mozaemon_png, 
         dmc_mugendramon_png, 
         dmc_nanimon_png, 
         dmc_nanomon_png, 
@@ -216,7 +211,6 @@ namespace bongocat::animation {
         dmc_titamon_png, 
         dmc_tokomon_png, 
         dmc_tsunomon_png, 
-        dmc_tunomon_png, 
         dmc_tuskmon_png, 
         dmc_tyranomon_png, 
         dmc_unimon_png, 
@@ -290,10 +284,8 @@ namespace bongocat::animation {
         dmc_metal_tyranomon_png_size, 
         dmc_millenniumon_png_size, 
         dmc_mojyamon_png_size, 
-        dmc_mojymon_png_size, 
         dmc_monochromon_png_size, 
         dmc_monzaemon_png_size, 
-        dmc_mozaemon_png_size, 
         dmc_mugendramon_png_size, 
         dmc_nanimon_png_size, 
         dmc_nanomon_png_size, 
@@ -323,7 +315,6 @@ namespace bongocat::animation {
         dmc_titamon_png_size, 
         dmc_tokomon_png_size, 
         dmc_tsunomon_png_size, 
-        dmc_tunomon_png_size, 
         dmc_tuskmon_png_size, 
         dmc_tyranomon_png_size, 
         dmc_unimon_png_size, 
@@ -397,10 +388,8 @@ namespace bongocat::animation {
         "metal_tyranomon", 
         "millenniumon", 
         "mojyamon", 
-        "mojymon", 
         "monochromon", 
         "monzaemon", 
-        "mozaemon", 
         "mugendramon", 
         "nanimon", 
         "nanomon", 
@@ -430,7 +419,6 @@ namespace bongocat::animation {
         "titamon", 
         "tokomon", 
         "tsunomon", 
-        "tunomon", 
         "tuskmon", 
         "tyranomon", 
         "unimon", 
@@ -452,7 +440,6 @@ namespace bongocat::animation {
         assert(LEN_ARRAY(dmc_names_table) == DMC_ANIM_COUNT);
         assert(index < DMC_ANIM_COUNT);
         auto result = load_base_dm_anim(ctx, index, {dmc_pngs_table[index], dmc_png_sizes_table[index], dmc_names_table[index]}, dmc_dims_table[index].cols, dmc_dims_table[index].rows);
-        platform::details::asset_unload(dmc_pngs_table[index], dmc_png_sizes_table[index]);
         return result;
     }
     void init_all_dmc_anim(animation_thread_context_t& ctx) {
@@ -460,7 +447,6 @@ namespace bongocat::animation {
         for (size_t i = 0;i < DMC_ANIM_COUNT;++i) {
             init_dmc_anim(ctx, i, {dmc_pngs_table[i], dmc_png_sizes_table[i], dmc_names_table[i]}, dmc_dims_table[i].cols, dmc_dims_table[i].rows);
         }
-        platform::details::asset_unload_all(dmc_pngs_table, dmc_png_sizes_table, DMC_ANIM_COUNT);
     }
 }
 

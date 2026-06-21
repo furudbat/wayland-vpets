@@ -166,10 +166,6 @@ extern const size_t dm20_duramon_png_size;
 extern const unsigned char dm20_durandamon_png[];
 extern const size_t dm20_durandamon_png_size;
 
-// Name: Durandramon
-extern const unsigned char dm20_durandramon_png[];
-extern const size_t dm20_durandramon_png_size;
-
 // Name: Elecmon
 extern const unsigned char dm20_elecmon_png[];
 extern const size_t dm20_elecmon_png_size;
@@ -241,10 +237,6 @@ extern const size_t dm20_hi_andromon_png_size;
 // Name: Jesmon
 extern const unsigned char dm20_jesmon_png[];
 extern const size_t dm20_jesmon_png_size;
-
-// Name: Jijimon
-extern const unsigned char dm20_jijimon_png[];
-extern const size_t dm20_jijimon_png_size;
 
 // Name: Kabuterimon
 extern const unsigned char dm20_kabuterimon_png[];
@@ -318,10 +310,6 @@ extern const size_t dm20_metal_tyranomon_png_size;
 extern const unsigned char dm20_mojyamon_png[];
 extern const size_t dm20_mojyamon_png_size;
 
-// Name: Monchromon
-extern const unsigned char dm20_monchromon_png[];
-extern const size_t dm20_monchromon_png_size;
-
 // Name: Monochromon
 extern const unsigned char dm20_monochromon_png[];
 extern const size_t dm20_monochromon_png_size;
@@ -329,10 +317,6 @@ extern const size_t dm20_monochromon_png_size;
 // Name: Monzaemon
 extern const unsigned char dm20_monzaemon_png[];
 extern const size_t dm20_monzaemon_png_size;
-
-// Name: Mozaemon
-extern const unsigned char dm20_mozaemon_png[];
-extern const size_t dm20_mozaemon_png_size;
 
 // Name: Mugendramon
 extern const unsigned char dm20_mugendramon_png[];
@@ -369,10 +353,6 @@ extern const size_t dm20_omegamon_png_size;
 // Name: Pagumon
 extern const unsigned char dm20_pagumon_png[];
 extern const size_t dm20_pagumon_png_size;
-
-// Name: Pakumon
-extern const unsigned char dm20_pakumon_png[];
-extern const size_t dm20_pakumon_png_size;
 
 // Name: Palmon
 extern const unsigned char dm20_palmon_png[];
@@ -466,10 +446,6 @@ extern const size_t dm20_skull_mammon_png_size;
 extern const unsigned char dm20_slayerdramon_png[];
 extern const size_t dm20_slayerdramon_png_size;
 
-// Name: Taichi Metal Greymon
-extern const unsigned char dm20_taichi_metal_greymon_png[];
-extern const size_t dm20_taichi_metal_greymon_png_size;
-
 // Name: Taichis Agumon
 extern const unsigned char dm20_taichis_agumon_png[];
 extern const size_t dm20_taichis_agumon_png_size;
@@ -526,14 +502,6 @@ extern const size_t dm20_vademon_png_size;
 extern const unsigned char dm20_vegimon_png[];
 extern const size_t dm20_vegimon_png_size;
 
-// Name: War Greymon
-extern const unsigned char dm20_war_greymon_png[];
-extern const size_t dm20_war_greymon_png_size;
-
-// Name: Were Garurumon
-extern const unsigned char dm20_were_garurumon_png[];
-extern const size_t dm20_were_garurumon_png_size;
-
 // Name: Whamon
 extern const unsigned char dm20_whamon_png[];
 extern const size_t dm20_whamon_png_size;
@@ -541,10 +509,6 @@ extern const size_t dm20_whamon_png_size;
 // Name: Wingdramon
 extern const unsigned char dm20_wingdramon_png[];
 extern const size_t dm20_wingdramon_png_size;
-
-// Name: Yamato Gabumon
-extern const unsigned char dm20_yamato_gabumon_png[];
-extern const size_t dm20_yamato_gabumon_png_size;
 
 // Name: Yamatos Gabumon
 extern const unsigned char dm20_yamatos_gabumon_png[];
@@ -566,9 +530,9 @@ extern const size_t dm20_yamatos_were_garurumon_png_size;
 extern const unsigned char dm20_yukidarumon_png[];
 extern const size_t dm20_yukidarumon_png_size;
 
-// Name: Yukimi Botamon
-extern const unsigned char dm20_yukimi_botamon_png[];
-extern const size_t dm20_yukimi_botamon_png_size;
+// Name: Yukimibotamon
+extern const unsigned char dm20_yukimibotamon_png[];
+extern const size_t dm20_yukimibotamon_png_size;
 
 // Name: Yuramon
 extern const unsigned char dm20_yuramon_png[];

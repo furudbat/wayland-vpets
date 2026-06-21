@@ -32,7 +32,6 @@ created_result_t<custom_sprite_sheet_t> load_misc_sprite_sheet(const animation_t
   assert(LEN_ARRAY(misc_names_table) == MISC_ANIM_COUNT);
   assert(index < MISC_ANIM_COUNT);
   auto result = load_custom_anim(ctx, {misc_pngs_table[index], misc_png_sizes_table[index], misc_names_table[index]}, misc_settings_table[index]);
-  platform::details::asset_unload(misc_pngs_table[index], misc_png_sizes_table[index]);
   return result;
 }
 void init_all_misc_anim(animation_thread_context_t& ctx) {
@@ -40,6 +39,5 @@ void init_all_misc_anim(animation_thread_context_t& ctx) {
   for (size_t i = 0;i < MISC_ANIM_COUNT;++i) {
     init_misc_anim(ctx, i, {misc_pngs_table[i], misc_png_sizes_table[i], misc_names_table[i]}, misc_settings_table[i]);
   }
-  platform::details::asset_unload_all(misc_pngs_table, misc_png_sizes_table, MISC_ANIM_COUNT);
 }
 }  // namespace bongocat::animation

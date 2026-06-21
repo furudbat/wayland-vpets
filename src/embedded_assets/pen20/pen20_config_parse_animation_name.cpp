@@ -8,20 +8,23 @@ namespace bongocat::assets {
     static const config_animation_entry_t pen20_animation_table[] CONFIG_TABLE_SECTION = {
         { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_FQID, PEN20_AERO_V_DRAMON_FQNAME, PEN20_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_FQID, PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_AGUMON_NAME, PEN20_AGUMON_ID, PEN20_AGUMON_FQID, PEN20_AGUMON_FQNAME, PEN20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ALPHAMON_OURYUKEN_NAME, PEN20_ALPHAMON_OURYUKEN_ID, PEN20_ALPHAMON_OURYUKEN_FQID, PEN20_ALPHAMON_OURYUKEN_FQNAME, PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_ALPHAMON_NAME, PEN20_ALPHAMON_ID, PEN20_ALPHAMON_FQID, PEN20_ALPHAMON_FQNAME, PEN20_ALPHAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ANDIRAMON_NAME, PEN20_ANDIRAMON_ID, PEN20_ANDIRAMON_FQID, PEN20_ANDIRAMON_FQNAME, PEN20_ANDIRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ANDROMON_NAME, PEN20_ANDROMON_ID, PEN20_ANDROMON_FQID, PEN20_ANDROMON_FQNAME, PEN20_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_ANGEMON_NAME, PEN20_ANGEMON_ID, PEN20_ANGEMON_FQID, PEN20_ANGEMON_FQNAME, PEN20_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ANGEWOMON_NAME, PEN20_ANGEWOMON_ID, PEN20_ANGEWOMON_FQID, PEN20_ANGEWOMON_FQNAME, PEN20_ANGEWOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ANOMALOCARIMON_NAME, PEN20_ANOMALOCARIMON_ID, PEN20_ANOMALOCARIMON_FQID, PEN20_ANOMALOCARIMON_FQNAME, PEN20_ANOMALOCARIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ARRESTERDRAMON_NAME, PEN20_ARRESTERDRAMON_ID, PEN20_ARRESTERDRAMON_FQID, PEN20_ARRESTERDRAMON_FQNAME, PEN20_ARRESTERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ASTAMON_NAME, PEN20_ASTAMON_ID, PEN20_ASTAMON_FQID, PEN20_ASTAMON_FQNAME, PEN20_ASTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
-        { PEN20_ASTRAMON_NAME, PEN20_ASTRAMON_ID, PEN20_ASTRAMON_FQID, PEN20_ASTRAMON_FQNAME, PEN20_ASTRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ASURAMON_NAME, PEN20_ASURAMON_ID, PEN20_ASURAMON_FQID, PEN20_ASURAMON_FQNAME, PEN20_ASURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ATLUR_KABUTERIMON_NAME, PEN20_ATLUR_KABUTERIMON_ID, PEN20_ATLUR_KABUTERIMON_FQID, PEN20_ATLUR_KABUTERIMON_FQNAME, PEN20_ATLUR_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BAALMON_NAME, PEN20_BAALMON_ID, PEN20_BAALMON_FQID, PEN20_BAALMON_FQNAME, PEN20_BAALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BAKEMON_NAME, PEN20_BAKEMON_ID, PEN20_BAKEMON_FQID, PEN20_BAKEMON_FQNAME, PEN20_BAKEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BAKUMON_NAME, PEN20_BAKUMON_ID, PEN20_BAKUMON_FQID, PEN20_BAKUMON_FQNAME, PEN20_BAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BANCHO_LEOMON_NAME, PEN20_BANCHO_LEOMON_ID, PEN20_BANCHO_LEOMON_FQID, PEN20_BANCHO_LEOMON_FQNAME, PEN20_BANCHO_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_BAO_HACKMON_NAME, PEN20_BAO_HACKMON_ID, PEN20_BAO_HACKMON_FQID, PEN20_BAO_HACKMON_FQNAME, PEN20_BAO_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BEELZEBUMON_BLAST_MODE_NAME, PEN20_BEELZEBUMON_BLAST_MODE_ID, PEN20_BEELZEBUMON_BLAST_MODE_FQID, PEN20_BEELZEBUMON_BLAST_MODE_FQNAME, PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BEOWOLFMON_NAME, PEN20_BEOWOLFMON_ID, PEN20_BEOWOLFMON_FQID, PEN20_BEOWOLFMON_FQNAME, PEN20_BEOWOLFMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BEOWULFMON_NAME, PEN20_BEOWULFMON_ID, PEN20_BEOWULFMON_FQID, PEN20_BEOWULFMON_FQNAME, PEN20_BEOWULFMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -29,6 +32,7 @@ namespace bongocat::assets {
         { PEN20_BIRDRAMON_NAME, PEN20_BIRDRAMON_ID, PEN20_BIRDRAMON_FQID, PEN20_BIRDRAMON_FQNAME, PEN20_BIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BLOSSOMON_NAME, PEN20_BLOSSOMON_ID, PEN20_BLOSSOMON_FQID, PEN20_BLOSSOMON_FQNAME, PEN20_BLOSSOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BOLTMON_NAME, PEN20_BOLTMON_ID, PEN20_BOLTMON_FQID, PEN20_BOLTMON_FQNAME, PEN20_BOLTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_BOTAMON_NAME, PEN20_BOTAMON_ID, PEN20_BOTAMON_FQID, PEN20_BOTAMON_FQNAME, PEN20_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BREAKDRAMON_NAME, PEN20_BREAKDRAMON_ID, PEN20_BREAKDRAMON_FQID, PEN20_BREAKDRAMON_FQNAME, PEN20_BREAKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BRYWELUDRAMON_NAME, PEN20_BRYWELUDRAMON_ID, PEN20_BRYWELUDRAMON_FQID, PEN20_BRYWELUDRAMON_FQNAME, PEN20_BRYWELUDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_BUBBMON_NAME, PEN20_BUBBMON_ID, PEN20_BUBBMON_FQID, PEN20_BUBBMON_FQNAME, PEN20_BUBBMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -56,7 +60,12 @@ namespace bongocat::assets {
         { PEN20_DEVIDRAMON_NAME, PEN20_DEVIDRAMON_ID, PEN20_DEVIDRAMON_FQID, PEN20_DEVIDRAMON_FQNAME, PEN20_DEVIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_DEVIMON_NAME, PEN20_DEVIMON_ID, PEN20_DEVIMON_FQID, PEN20_DEVIMON_FQNAME, PEN20_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_DOKUGUMON_NAME, PEN20_DOKUGUMON_ID, PEN20_DOKUGUMON_FQID, PEN20_DOKUGUMON_FQNAME, PEN20_DOKUGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_DORIMON_NAME, PEN20_DORIMON_ID, PEN20_DORIMON_FQID, PEN20_DORIMON_FQNAME, PEN20_DORIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_DORUGAMON_NAME, PEN20_DORUGAMON_ID, PEN20_DORUGAMON_FQID, PEN20_DORUGAMON_FQNAME, PEN20_DORUGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_DORUGORAMON_NAME, PEN20_DORUGORAMON_ID, PEN20_DORUGORAMON_FQID, PEN20_DORUGORAMON_FQNAME, PEN20_DORUGORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_DORUGUREMON_NAME, PEN20_DORUGUREMON_ID, PEN20_DORUGUREMON_FQID, PEN20_DORUGUREMON_FQNAME, PEN20_DORUGUREMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_DORUMON_NAME, PEN20_DORUMON_ID, PEN20_DORUMON_FQID, PEN20_DORUMON_FQNAME, PEN20_DORUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_DRACOMON_NAME, PEN20_DRACOMON_ID, PEN20_DRACOMON_FQID, PEN20_DRACOMON_FQNAME, PEN20_DRACOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_DURAMON_NAME, PEN20_DURAMON_ID, PEN20_DURAMON_FQID, PEN20_DURAMON_FQNAME, PEN20_DURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_DURANDAMON_NAME, PEN20_DURANDAMON_ID, PEN20_DURANDAMON_FQID, PEN20_DURANDAMON_FQNAME, PEN20_DURANDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_EBIDRAMON_NAME, PEN20_EBIDRAMON_ID, PEN20_EBIDRAMON_FQID, PEN20_EBIDRAMON_FQNAME, PEN20_EBIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -65,6 +74,7 @@ namespace bongocat::assets {
         { PEN20_FANTOMON_NAME, PEN20_FANTOMON_ID, PEN20_FANTOMON_FQID, PEN20_FANTOMON_FQNAME, PEN20_FANTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_FLORAMON_NAME, PEN20_FLORAMON_ID, PEN20_FLORAMON_FQID, PEN20_FLORAMON_FQNAME, PEN20_FLORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_FUFUMON_NAME, PEN20_FUFUMON_ID, PEN20_FUFUMON_FQID, PEN20_FUFUMON_FQNAME, PEN20_FUFUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_GABUMON_NAME, PEN20_GABUMON_ID, PEN20_GABUMON_FQID, PEN20_GABUMON_FQNAME, PEN20_GABUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_GALGOMON_NAME, PEN20_GALGOMON_ID, PEN20_GALGOMON_FQID, PEN20_GALGOMON_FQNAME, PEN20_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_GANIMON_NAME, PEN20_GANIMON_ID, PEN20_GANIMON_FQID, PEN20_GANIMON_FQNAME, PEN20_GANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_GARUDAMON_NAME, PEN20_GARUDAMON_ID, PEN20_GARUDAMON_FQID, PEN20_GARUDAMON_FQNAME, PEN20_GARUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -82,17 +92,17 @@ namespace bongocat::assets {
         { PEN20_GUARDROMON_NAME, PEN20_GUARDROMON_ID, PEN20_GUARDROMON_FQID, PEN20_GUARDROMON_FQNAME, PEN20_GUARDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_GUIMON_NAME, PEN20_GUIMON_ID, PEN20_GUIMON_FQID, PEN20_GUIMON_FQNAME, PEN20_GUIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_GUMMYMON_NAME, PEN20_GUMMYMON_ID, PEN20_GUMMYMON_FQID, PEN20_GUMMYMON_FQNAME, PEN20_GUMMYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_HACKMON_NAME, PEN20_HACKMON_ID, PEN20_HACKMON_FQID, PEN20_HACKMON_FQNAME, PEN20_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HAGURUMON_NAME, PEN20_HAGURUMON_ID, PEN20_HAGURUMON_FQID, PEN20_HAGURUMON_FQNAME, PEN20_HAGURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HANGYMON_NAME, PEN20_HANGYMON_ID, PEN20_HANGYMON_FQID, PEN20_HANGYMON_FQNAME, PEN20_HANGYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HANGYOMON_NAME, PEN20_HANGYOMON_ID, PEN20_HANGYOMON_FQID, PEN20_HANGYOMON_FQNAME, PEN20_HANGYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HANUMON_NAME, PEN20_HANUMON_ID, PEN20_HANUMON_FQID, PEN20_HANUMON_FQNAME, PEN20_HANUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HERAKLE_KABUTERIMON_NAME, PEN20_HERAKLE_KABUTERIMON_ID, PEN20_HERAKLE_KABUTERIMON_FQID, PEN20_HERAKLE_KABUTERIMON_FQNAME, PEN20_HERAKLE_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
-        { PEN20_HERKULE_KABUTERIMON_NAME, PEN20_HERKULE_KABUTERIMON_ID, PEN20_HERKULE_KABUTERIMON_FQID, PEN20_HERKULE_KABUTERIMON_FQNAME, PEN20_HERKULE_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HISYARYUMON_NAME, PEN20_HISYARYUMON_ID, PEN20_HISYARYUMON_FQID, PEN20_HISYARYUMON_FQNAME, PEN20_HISYARYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HOLY_ANGEMON_NAME, PEN20_HOLY_ANGEMON_ID, PEN20_HOLY_ANGEMON_FQID, PEN20_HOLY_ANGEMON_FQNAME, PEN20_HOLY_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HOLYDRAMON_NAME, PEN20_HOLYDRAMON_ID, PEN20_HOLYDRAMON_FQID, PEN20_HOLYDRAMON_FQNAME, PEN20_HOLYDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_HOUOUMON_NAME, PEN20_HOUOUMON_ID, PEN20_HOUOUMON_FQID, PEN20_HOUOUMON_FQNAME, PEN20_HOUOUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
-        { PEN20_IGNAMON_NAME, PEN20_IGNAMON_ID, PEN20_IGNAMON_FQID, PEN20_IGNAMON_FQNAME, PEN20_IGNAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_IGAMON_NAME, PEN20_IGAMON_ID, PEN20_IGAMON_FQID, PEN20_IGAMON_FQNAME, PEN20_IGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_IKKAKUMON_NAME, PEN20_IKKAKUMON_ID, PEN20_IKKAKUMON_FQID, PEN20_IKKAKUMON_FQNAME, PEN20_IKKAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_IMPMON_NAME, PEN20_IMPMON_ID, PEN20_IMPMON_FQID, PEN20_IMPMON_FQNAME, PEN20_IMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -105,12 +115,14 @@ namespace bongocat::assets {
         { PEN20_KIWIMON_NAME, PEN20_KIWIMON_ID, PEN20_KIWIMON_FQID, PEN20_KIWIMON_FQNAME, PEN20_KIWIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_KNIGHTMON_NAME, PEN20_KNIGHTMON_ID, PEN20_KNIGHTMON_FQID, PEN20_KNIGHTMON_FQNAME, PEN20_KNIGHTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_KOKUWAMON_NAME, PEN20_KOKUWAMON_ID, PEN20_KOKUWAMON_FQID, PEN20_KOKUWAMON_FQNAME, PEN20_KOKUWAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_KOROMON_NAME, PEN20_KOROMON_ID, PEN20_KOROMON_FQID, PEN20_KOROMON_FQNAME, PEN20_KOROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_KUWAGAMON_NAME, PEN20_KUWAGAMON_ID, PEN20_KUWAGAMON_FQID, PEN20_KUWAGAMON_FQNAME, PEN20_KUWAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_KYOKYOMON_NAME, PEN20_KYOKYOMON_ID, PEN20_KYOKYOMON_FQID, PEN20_KYOKYOMON_FQNAME, PEN20_KYOKYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_LADY_DEVIMON_NAME, PEN20_LADY_DEVIMON_ID, PEN20_LADY_DEVIMON_FQID, PEN20_LADY_DEVIMON_FQNAME, PEN20_LADY_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_LALAMON_NAME, PEN20_LALAMON_ID, PEN20_LALAMON_FQID, PEN20_LALAMON_FQNAME, PEN20_LALAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_LAVOGARITAMON_NAME, PEN20_LAVOGARITAMON_ID, PEN20_LAVOGARITAMON_FQID, PEN20_LAVOGARITAMON_FQNAME, PEN20_LAVOGARITAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_LAVORVOMON_NAME, PEN20_LAVORVOMON_ID, PEN20_LAVORVOMON_FQID, PEN20_LAVORVOMON_FQNAME, PEN20_LAVORVOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_LEOMON_NAME, PEN20_LEOMON_ID, PEN20_LEOMON_FQID, PEN20_LEOMON_FQNAME, PEN20_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_LILAMON_NAME, PEN20_LILAMON_ID, PEN20_LILAMON_FQID, PEN20_LILAMON_FQNAME, PEN20_LILAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_LILIMON_NAME, PEN20_LILIMON_ID, PEN20_LILIMON_FQID, PEN20_LILIMON_FQNAME, PEN20_LILIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_LOPMON_NAME, PEN20_LOPMON_ID, PEN20_LOPMON_FQID, PEN20_LOPMON_FQNAME, PEN20_LOPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -127,6 +139,7 @@ namespace bongocat::assets {
         { PEN20_MEGADRAMON_NAME, PEN20_MEGADRAMON_ID, PEN20_MEGADRAMON_FQID, PEN20_MEGADRAMON_FQNAME, PEN20_MEGADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_MEGALO_GROWMON_NAME, PEN20_MEGALO_GROWMON_ID, PEN20_MEGALO_GROWMON_FQID, PEN20_MEGALO_GROWMON_FQNAME, PEN20_MEGALO_GROWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_MEGA_SEADRAMON_NAME, PEN20_MEGA_SEADRAMON_ID, PEN20_MEGA_SEADRAMON_FQID, PEN20_MEGA_SEADRAMON_FQNAME, PEN20_MEGA_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_MEICOOMON_NAME, PEN20_MEICOOMON_ID, PEN20_MEICOOMON_FQID, PEN20_MEICOOMON_FQNAME, PEN20_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_MEICRACKMON_VICIOUS_MODE_NAME, PEN20_MEICRACKMON_VICIOUS_MODE_ID, PEN20_MEICRACKMON_VICIOUS_MODE_FQID, PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME, PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_MERAMON_NAME, PEN20_MERAMON_ID, PEN20_MERAMON_FQID, PEN20_MERAMON_FQNAME, PEN20_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_METAL_ETEMON_NAME, PEN20_METAL_ETEMON_ID, PEN20_METAL_ETEMON_FQID, PEN20_METAL_ETEMON_FQNAME, PEN20_METAL_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -140,6 +153,7 @@ namespace bongocat::assets {
         { PEN20_MONOCHROMON_NAME, PEN20_MONOCHROMON_ID, PEN20_MONOCHROMON_FQID, PEN20_MONOCHROMON_FQNAME, PEN20_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_MUGENDRAMON_NAME, PEN20_MUGENDRAMON_ID, PEN20_MUGENDRAMON_FQID, PEN20_MUGENDRAMON_FQNAME, PEN20_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_MUSHMON_NAME, PEN20_MUSHMON_ID, PEN20_MUSHMON_FQID, PEN20_MUSHMON_FQNAME, PEN20_MUSHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_NYAROMON_NAME, PEN20_NYAROMON_ID, PEN20_NYAROMON_FQID, PEN20_NYAROMON_FQNAME, PEN20_NYAROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_NYOKIMON_NAME, PEN20_NYOKIMON_ID, PEN20_NYOKIMON_FQID, PEN20_NYOKIMON_FQNAME, PEN20_NYOKIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_OCTMON_NAME, PEN20_OCTMON_ID, PEN20_OCTMON_FQID, PEN20_OCTMON_FQNAME, PEN20_OCTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_OFANIMON_NAME, PEN20_OFANIMON_ID, PEN20_OFANIMON_FQID, PEN20_OFANIMON_FQNAME, PEN20_OFANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -152,15 +166,19 @@ namespace bongocat::assets {
         { PEN20_PAILDRAMON_NAME, PEN20_PAILDRAMON_ID, PEN20_PAILDRAMON_FQID, PEN20_PAILDRAMON_FQNAME, PEN20_PAILDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PALMON_NAME, PEN20_PALMON_ID, PEN20_PALMON_FQID, PEN20_PALMON_FQNAME, PEN20_PALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PETI_MERAMON_NAME, PEN20_PETI_MERAMON_ID, PEN20_PETI_MERAMON_FQID, PEN20_PETI_MERAMON_FQNAME, PEN20_PETI_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_PETITMON_NAME, PEN20_PETITMON_ID, PEN20_PETITMON_FQID, PEN20_PETITMON_FQNAME, PEN20_PETITMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PHASCOMON_NAME, PEN20_PHASCOMON_ID, PEN20_PHASCOMON_FQID, PEN20_PHASCOMON_FQNAME, PEN20_PHASCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PICCOLOMON_NAME, PEN20_PICCOLOMON_ID, PEN20_PICCOLOMON_FQID, PEN20_PICCOLOMON_FQNAME, PEN20_PICCOLOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PICO_DEVIMON_NAME, PEN20_PICO_DEVIMON_ID, PEN20_PICO_DEVIMON_FQID, PEN20_PICO_DEVIMON_FQNAME, PEN20_PICO_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PIEMON_NAME, PEN20_PIEMON_ID, PEN20_PIEMON_FQID, PEN20_PIEMON_FQNAME, PEN20_PIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PINOCHIMON_NAME, PEN20_PINOCHIMON_ID, PEN20_PINOCHIMON_FQID, PEN20_PINOCHIMON_FQNAME, PEN20_PINOCHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_PITCHMON_NAME, PEN20_PITCHMON_ID, PEN20_PITCHMON_FQID, PEN20_PITCHMON_FQNAME, PEN20_PITCHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PIYOMON_NAME, PEN20_PIYOMON_ID, PEN20_PIYOMON_FQID, PEN20_PIYOMON_FQNAME, PEN20_PIYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PLESIOMON_NAME, PEN20_PLESIOMON_ID, PEN20_PLESIOMON_FQID, PEN20_PLESIOMON_FQNAME, PEN20_PLESIOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_PLOTMON_NAME, PEN20_PLOTMON_ID, PEN20_PLOTMON_FQID, PEN20_PLOTMON_FQNAME, PEN20_PLOTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PORCUPAMON_NAME, PEN20_PORCUPAMON_ID, PEN20_PORCUPAMON_FQID, PEN20_PORCUPAMON_FQNAME, PEN20_PORCUPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PORCUPMON_NAME, PEN20_PORCUPMON_ID, PEN20_PORCUPMON_FQID, PEN20_PORCUPMON_FQNAME, PEN20_PORCUPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_PUKAMON_NAME, PEN20_PUKAMON_ID, PEN20_PUKAMON_FQID, PEN20_PUKAMON_FQNAME, PEN20_PUKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PUKUMON_NAME, PEN20_PUKUMON_ID, PEN20_PUKUMON_FQID, PEN20_PUKUMON_FQNAME, PEN20_PUKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PUMPMON_NAME, PEN20_PUMPMON_ID, PEN20_PUMPMON_FQID, PEN20_PUMPMON_FQNAME, PEN20_PUMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_PYOCOMON_NAME, PEN20_PYOCOMON_ID, PEN20_PYOCOMON_FQID, PEN20_PYOCOMON_FQNAME, PEN20_PYOCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -168,7 +186,6 @@ namespace bongocat::assets {
         { PEN20_RAGNA_LORDMON_NAME, PEN20_RAGNA_LORDMON_ID, PEN20_RAGNA_LORDMON_FQID, PEN20_RAGNA_LORDMON_FQNAME, PEN20_RAGNA_LORDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_RAGUELMON_NAME, PEN20_RAGUELMON_ID, PEN20_RAGUELMON_FQID, PEN20_RAGUELMON_FQNAME, PEN20_RAGUELMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_RAIJI_LUDOMON_NAME, PEN20_RAIJI_LUDOMON_ID, PEN20_RAIJI_LUDOMON_FQID, PEN20_RAIJI_LUDOMON_FQNAME, PEN20_RAIJI_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
-        { PEN20_RAKAMON_NAME, PEN20_RAKAMON_ID, PEN20_RAKAMON_FQID, PEN20_RAKAMON_FQNAME, PEN20_RAKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_RAPIDMON_NAME, PEN20_RAPIDMON_ID, PEN20_RAPIDMON_FQID, PEN20_RAPIDMON_FQNAME, PEN20_RAPIDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_RED_VEGIMON_NAME, PEN20_RED_VEGIMON_ID, PEN20_RED_VEGIMON_FQID, PEN20_RED_VEGIMON_FQNAME, PEN20_RED_VEGIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_REPPAMON_NAME, PEN20_REPPAMON_ID, PEN20_REPPAMON_FQID, PEN20_REPPAMON_FQNAME, PEN20_REPPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -179,6 +196,8 @@ namespace bongocat::assets {
         { PEN20_RYUDAMON_NAME, PEN20_RYUDAMON_ID, PEN20_RYUDAMON_FQID, PEN20_RYUDAMON_FQNAME, PEN20_RYUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_SABER_LEOMON_NAME, PEN20_SABER_LEOMON_ID, PEN20_SABER_LEOMON_FQID, PEN20_SABER_LEOMON_FQNAME, PEN20_SABER_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_SAINT_GALGOMON_NAME, PEN20_SAINT_GALGOMON_ID, PEN20_SAINT_GALGOMON_FQID, PEN20_SAINT_GALGOMON_FQNAME, PEN20_SAINT_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_SAKUMON_NAME, PEN20_SAKUMON_ID, PEN20_SAKUMON_FQID, PEN20_SAKUMON_FQNAME, PEN20_SAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_SAKUTTOMON_NAME, PEN20_SAKUTTOMON_ID, PEN20_SAKUTTOMON_FQID, PEN20_SAKUTTOMON_FQNAME, PEN20_SAKUTTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_SAVIOR_HACKMON_NAME, PEN20_SAVIOR_HACKMON_ID, PEN20_SAVIOR_HACKMON_FQID, PEN20_SAVIOR_HACKMON_FQNAME, PEN20_SAVIOR_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_SEADRAMON_NAME, PEN20_SEADRAMON_ID, PEN20_SEADRAMON_FQID, PEN20_SEADRAMON_FQNAME, PEN20_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_SERAPHIMON_NAME, PEN20_SERAPHIMON_ID, PEN20_SERAPHIMON_FQID, PEN20_SERAPHIMON_FQNAME, PEN20_SERAPHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -204,7 +223,6 @@ namespace bongocat::assets {
         { PEN20_TURUIEMON_NAME, PEN20_TURUIEMON_ID, PEN20_TURUIEMON_FQID, PEN20_TURUIEMON_FQNAME, PEN20_TURUIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_VAMDEMON_NAME, PEN20_VAMDEMON_ID, PEN20_VAMDEMON_FQID, PEN20_VAMDEMON_FQNAME, PEN20_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_V_DRAMON_NAME, PEN20_V_DRAMON_ID, PEN20_V_DRAMON_FQID, PEN20_V_DRAMON_FQNAME, PEN20_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
-        { PEN20_VEMDEMON_NAME, PEN20_VEMDEMON_ID, PEN20_VEMDEMON_FQID, PEN20_VEMDEMON_FQNAME, PEN20_VEMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_VENOM_VAMDEMON_NAME, PEN20_VENOM_VAMDEMON_ID, PEN20_VENOM_VAMDEMON_FQID, PEN20_VENOM_VAMDEMON_FQNAME, PEN20_VENOM_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_V_MON_NAME, PEN20_V_MON_ID, PEN20_V_MON_FQID, PEN20_V_MON_FQNAME, PEN20_V_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_VOLCANICDRAMON_NAME, PEN20_VOLCANICDRAMON_ID, PEN20_VOLCANICDRAMON_FQID, PEN20_VOLCANICDRAMON_FQNAME, PEN20_VOLCANICDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -218,7 +236,10 @@ namespace bongocat::assets {
         { PEN20_WIZARMON_NAME, PEN20_WIZARMON_ID, PEN20_WIZARMON_FQID, PEN20_WIZARMON_FQNAME, PEN20_WIZARMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_WOODMON_NAME, PEN20_WOODMON_ID, PEN20_WOODMON_FQID, PEN20_WOODMON_FQNAME, PEN20_WOODMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_XV_MON_NAME, PEN20_XV_MON_ID, PEN20_XV_MON_FQID, PEN20_XV_MON_FQNAME, PEN20_XV_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_YUKIMI_BOTAMON_NAME, PEN20_YUKIMI_BOTAMON_ID, PEN20_YUKIMI_BOTAMON_FQID, PEN20_YUKIMI_BOTAMON_FQNAME, PEN20_YUKIMI_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ZERIMON_NAME, PEN20_ZERIMON_ID, PEN20_ZERIMON_FQID, PEN20_ZERIMON_FQNAME, PEN20_ZERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_ZUBAEAGERMON_NAME, PEN20_ZUBAEAGERMON_ID, PEN20_ZUBAEAGERMON_FQID, PEN20_ZUBAEAGERMON_FQNAME, PEN20_ZUBAEAGERMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
+        { PEN20_ZUBAMON_NAME, PEN20_ZUBAMON_ID, PEN20_ZUBAMON_FQID, PEN20_ZUBAMON_FQNAME, PEN20_ZUBAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_ID, PEN20_ZUDOMON_FQID, PEN20_ZUDOMON_FQNAME, PEN20_ZUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         
     };
@@ -234,12 +255,24 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_AGUMON_HAKASE_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Agumon Hakase";
     inline static constexpr const char* ALT_PEN20_AGUMON_HAKASE_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_AGUMON_HAKASE_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_AGUMON_HAKASE_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_AGUMON_HAKASE_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_AGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:agumon";
+    inline static constexpr const char* ALT_PEN20_AGUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_AGUMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_AGUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_AGUMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_AGUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Agumon";
+    inline static constexpr const char* ALT_PEN20_AGUMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_AGUMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_AGUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_AGUMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_ALPHAMON_OURYUKEN_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:alphamon_ouryuken";
     inline static constexpr const char* ALT_PEN20_ALPHAMON_OURYUKEN_FQID CONFIG_STRING_SECTION = ALT_PEN20_ALPHAMON_OURYUKEN_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_ALPHAMON_OURYUKEN_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ALPHAMON_OURYUKEN_FQID_ARR)-1;
     inline static constexpr char ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Alphamon Ouryuken";
     inline static constexpr const char* ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_ALPHAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:alphamon";
+    inline static constexpr const char* ALT_PEN20_ALPHAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ALPHAMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_ALPHAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ALPHAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_ALPHAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Alphamon";
+    inline static constexpr const char* ALT_PEN20_ALPHAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ALPHAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_ALPHAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ALPHAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_ANDIRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:andiramon";
     inline static constexpr const char* ALT_PEN20_ANDIRAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ANDIRAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_ANDIRAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ANDIRAMON_FQID_ARR)-1;
@@ -252,6 +285,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_ANDROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Andromon";
     inline static constexpr const char* ALT_PEN20_ANDROMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ANDROMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_ANDROMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ANDROMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_ANGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:angemon";
+    inline static constexpr const char* ALT_PEN20_ANGEMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ANGEMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_ANGEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ANGEMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_ANGEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Angemon";
+    inline static constexpr const char* ALT_PEN20_ANGEMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ANGEMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_ANGEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ANGEMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_ANGEWOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:angewomon";
     inline static constexpr const char* ALT_PEN20_ANGEWOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ANGEWOMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_ANGEWOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ANGEWOMON_FQID_ARR)-1;
@@ -276,12 +315,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_ASTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Astamon";
     inline static constexpr const char* ALT_PEN20_ASTAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ASTAMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_ASTAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ASTAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_ASTRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:astramon";
-    inline static constexpr const char* ALT_PEN20_ASTRAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ASTRAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_ASTRAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ASTRAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_ASTRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Astramon";
-    inline static constexpr const char* ALT_PEN20_ASTRAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ASTRAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_ASTRAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ASTRAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_ASURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:asuramon";
     inline static constexpr const char* ALT_PEN20_ASURAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ASURAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_ASURAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ASURAMON_FQID_ARR)-1;
@@ -318,6 +351,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_BANCHO_LEOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Bancho Leomon";
     inline static constexpr const char* ALT_PEN20_BANCHO_LEOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_BANCHO_LEOMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_BANCHO_LEOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BANCHO_LEOMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_BAO_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:bao_hackmon";
+    inline static constexpr const char* ALT_PEN20_BAO_HACKMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_BAO_HACKMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_BAO_HACKMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BAO_HACKMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_BAO_HACKMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Bao Hackmon";
+    inline static constexpr const char* ALT_PEN20_BAO_HACKMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_BAO_HACKMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_BAO_HACKMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BAO_HACKMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:beelzebumon_blast_mode";
     inline static constexpr const char* ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID CONFIG_STRING_SECTION = ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR)-1;
@@ -360,6 +399,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_BOLTMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Boltmon";
     inline static constexpr const char* ALT_PEN20_BOLTMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_BOLTMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_BOLTMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BOLTMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_BOTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:botamon";
+    inline static constexpr const char* ALT_PEN20_BOTAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_BOTAMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_BOTAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BOTAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_BOTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Botamon";
+    inline static constexpr const char* ALT_PEN20_BOTAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_BOTAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_BOTAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BOTAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_BREAKDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:breakdramon";
     inline static constexpr const char* ALT_PEN20_BREAKDRAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_BREAKDRAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_BREAKDRAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_BREAKDRAMON_FQID_ARR)-1;
@@ -522,12 +567,42 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_DOKUGUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Dokugumon";
     inline static constexpr const char* ALT_PEN20_DOKUGUMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_DOKUGUMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_DOKUGUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DOKUGUMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorimon";
+    inline static constexpr const char* ALT_PEN20_DORIMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_DORIMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_DORIMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORIMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Dorimon";
+    inline static constexpr const char* ALT_PEN20_DORIMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_DORIMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_DORIMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORIMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORUGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorugamon";
+    inline static constexpr const char* ALT_PEN20_DORUGAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_DORUGAMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_DORUGAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUGAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORUGAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:DORUgamon";
+    inline static constexpr const char* ALT_PEN20_DORUGAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_DORUGAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_DORUGAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUGAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_DORUGORAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorugoramon";
     inline static constexpr const char* ALT_PEN20_DORUGORAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_DORUGORAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_DORUGORAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUGORAMON_FQID_ARR)-1;
     inline static constexpr char ALT_PEN20_DORUGORAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:DORUgoramon";
     inline static constexpr const char* ALT_PEN20_DORUGORAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_DORUGORAMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_DORUGORAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUGORAMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORUGUREMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:doruguremon";
+    inline static constexpr const char* ALT_PEN20_DORUGUREMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_DORUGUREMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_DORUGUREMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUGUREMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORUGUREMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:DORUguremon";
+    inline static constexpr const char* ALT_PEN20_DORUGUREMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_DORUGUREMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_DORUGUREMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUGUREMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dorumon";
+    inline static constexpr const char* ALT_PEN20_DORUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_DORUMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_DORUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_DORUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:DORUmon";
+    inline static constexpr const char* ALT_PEN20_DORUMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_DORUMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_DORUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DORUMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_DRACOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:dracomon";
+    inline static constexpr const char* ALT_PEN20_DRACOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_DRACOMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_DRACOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DRACOMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_DRACOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Dracomon";
+    inline static constexpr const char* ALT_PEN20_DRACOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_DRACOMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_DRACOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DRACOMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_DURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:duramon";
     inline static constexpr const char* ALT_PEN20_DURAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_DURAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_DURAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_DURAMON_FQID_ARR)-1;
@@ -576,6 +651,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_FUFUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Fufumon";
     inline static constexpr const char* ALT_PEN20_FUFUMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_FUFUMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_FUFUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_FUFUMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_GABUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:gabumon";
+    inline static constexpr const char* ALT_PEN20_GABUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_GABUMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_GABUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_GABUMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_GABUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Gabumon";
+    inline static constexpr const char* ALT_PEN20_GABUMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_GABUMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_GABUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_GABUMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_GALGOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:galgomon";
     inline static constexpr const char* ALT_PEN20_GALGOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_GALGOMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_GALGOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_GALGOMON_FQID_ARR)-1;
@@ -678,6 +759,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_GUMMYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Gummymon";
     inline static constexpr const char* ALT_PEN20_GUMMYMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_GUMMYMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_GUMMYMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_GUMMYMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:hackmon";
+    inline static constexpr const char* ALT_PEN20_HACKMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_HACKMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_HACKMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HACKMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_HACKMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Hackmon";
+    inline static constexpr const char* ALT_PEN20_HACKMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_HACKMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_HACKMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HACKMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_HAGURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:hagurumon";
     inline static constexpr const char* ALT_PEN20_HAGURUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_HAGURUMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_HAGURUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HAGURUMON_FQID_ARR)-1;
@@ -708,12 +795,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Herakle Kabuterimon";
     inline static constexpr const char* ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_HERKULE_KABUTERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:herkule_kabuterimon";
-    inline static constexpr const char* ALT_PEN20_HERKULE_KABUTERIMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_HERKULE_KABUTERIMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_HERKULE_KABUTERIMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HERKULE_KABUTERIMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_HERKULE_KABUTERIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Herkule Kabuterimon";
-    inline static constexpr const char* ALT_PEN20_HERKULE_KABUTERIMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_HERKULE_KABUTERIMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_HERKULE_KABUTERIMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HERKULE_KABUTERIMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_HISYARYUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:hisyaryumon";
     inline static constexpr const char* ALT_PEN20_HISYARYUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_HISYARYUMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_HISYARYUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HISYARYUMON_FQID_ARR)-1;
@@ -738,12 +819,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_HOUOUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Hououmon";
     inline static constexpr const char* ALT_PEN20_HOUOUMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_HOUOUMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_HOUOUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_HOUOUMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_IGNAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ignamon";
-    inline static constexpr const char* ALT_PEN20_IGNAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_IGNAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_IGNAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_IGNAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_IGNAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Ignamon";
-    inline static constexpr const char* ALT_PEN20_IGNAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_IGNAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_IGNAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_IGNAMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_IGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:igamon";
+    inline static constexpr const char* ALT_PEN20_IGAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_IGAMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_IGAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_IGAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_IGAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Igamon";
+    inline static constexpr const char* ALT_PEN20_IGAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_IGAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_IGAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_IGAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_IKKAKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:ikkakumon";
     inline static constexpr const char* ALT_PEN20_IKKAKUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_IKKAKUMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_IKKAKUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_IKKAKUMON_FQID_ARR)-1;
@@ -816,6 +897,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_KOKUWAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Kokuwamon";
     inline static constexpr const char* ALT_PEN20_KOKUWAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_KOKUWAMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_KOKUWAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_KOKUWAMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_KOROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:koromon";
+    inline static constexpr const char* ALT_PEN20_KOROMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_KOROMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_KOROMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_KOROMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_KOROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Koromon";
+    inline static constexpr const char* ALT_PEN20_KOROMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_KOROMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_KOROMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_KOROMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_KUWAGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:kuwagamon";
     inline static constexpr const char* ALT_PEN20_KUWAGAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_KUWAGAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_KUWAGAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_KUWAGAMON_FQID_ARR)-1;
@@ -852,6 +939,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_LAVORVOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Lavorvomon";
     inline static constexpr const char* ALT_PEN20_LAVORVOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_LAVORVOMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_LAVORVOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_LAVORVOMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_LEOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:leomon";
+    inline static constexpr const char* ALT_PEN20_LEOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_LEOMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_LEOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_LEOMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_LEOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Leomon";
+    inline static constexpr const char* ALT_PEN20_LEOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_LEOMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_LEOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_LEOMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_LILAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:lilamon";
     inline static constexpr const char* ALT_PEN20_LILAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_LILAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_LILAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_LILAMON_FQID_ARR)-1;
@@ -948,6 +1041,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_MEGA_SEADRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Mega Seadramon";
     inline static constexpr const char* ALT_PEN20_MEGA_SEADRAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_MEGA_SEADRAMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_MEGA_SEADRAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_MEGA_SEADRAMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_MEICOOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:meicoomon";
+    inline static constexpr const char* ALT_PEN20_MEICOOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_MEICOOMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_MEICOOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_MEICOOMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_MEICOOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Meicoomon";
+    inline static constexpr const char* ALT_PEN20_MEICOOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_MEICOOMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_MEICOOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_MEICOOMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:meicrackmon_vicious_mode";
     inline static constexpr const char* ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID CONFIG_STRING_SECTION = ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR)-1;
@@ -1026,6 +1125,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_MUSHMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Mushmon";
     inline static constexpr const char* ALT_PEN20_MUSHMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_MUSHMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_MUSHMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_MUSHMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_NYAROMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:nyaromon";
+    inline static constexpr const char* ALT_PEN20_NYAROMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_NYAROMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_NYAROMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_NYAROMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_NYAROMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Nyaromon";
+    inline static constexpr const char* ALT_PEN20_NYAROMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_NYAROMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_NYAROMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_NYAROMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_NYOKIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:nyokimon";
     inline static constexpr const char* ALT_PEN20_NYOKIMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_NYOKIMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_NYOKIMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_NYOKIMON_FQID_ARR)-1;
@@ -1098,6 +1203,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_PETI_MERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Peti Meramon";
     inline static constexpr const char* ALT_PEN20_PETI_MERAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PETI_MERAMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_PETI_MERAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PETI_MERAMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_PETITMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:petitmon";
+    inline static constexpr const char* ALT_PEN20_PETITMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PETITMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_PETITMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PETITMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_PETITMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Petitmon";
+    inline static constexpr const char* ALT_PEN20_PETITMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PETITMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_PETITMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PETITMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_PHASCOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:phascomon";
     inline static constexpr const char* ALT_PEN20_PHASCOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PHASCOMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_PHASCOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PHASCOMON_FQID_ARR)-1;
@@ -1128,6 +1239,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_PINOCHIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Pinochimon";
     inline static constexpr const char* ALT_PEN20_PINOCHIMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PINOCHIMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_PINOCHIMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PINOCHIMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_PITCHMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pitchmon";
+    inline static constexpr const char* ALT_PEN20_PITCHMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PITCHMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_PITCHMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PITCHMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_PITCHMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Pitchmon";
+    inline static constexpr const char* ALT_PEN20_PITCHMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PITCHMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_PITCHMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PITCHMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_PIYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:piyomon";
     inline static constexpr const char* ALT_PEN20_PIYOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PIYOMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_PIYOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PIYOMON_FQID_ARR)-1;
@@ -1140,6 +1257,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_PLESIOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Plesiomon";
     inline static constexpr const char* ALT_PEN20_PLESIOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PLESIOMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_PLESIOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PLESIOMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_PLOTMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:plotmon";
+    inline static constexpr const char* ALT_PEN20_PLOTMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PLOTMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_PLOTMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PLOTMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_PLOTMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Plotmon";
+    inline static constexpr const char* ALT_PEN20_PLOTMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PLOTMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_PLOTMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PLOTMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_PORCUPAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:porcupamon";
     inline static constexpr const char* ALT_PEN20_PORCUPAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PORCUPAMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_PORCUPAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PORCUPAMON_FQID_ARR)-1;
@@ -1152,6 +1275,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_PORCUPMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Porcupmon";
     inline static constexpr const char* ALT_PEN20_PORCUPMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PORCUPMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_PORCUPMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PORCUPMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_PUKAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pukamon";
+    inline static constexpr const char* ALT_PEN20_PUKAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PUKAMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_PUKAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PUKAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_PUKAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Pukamon";
+    inline static constexpr const char* ALT_PEN20_PUKAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_PUKAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_PUKAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PUKAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_PUKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:pukumon";
     inline static constexpr const char* ALT_PEN20_PUKUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_PUKUMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_PUKUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_PUKUMON_FQID_ARR)-1;
@@ -1194,12 +1323,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_RAIJI_LUDOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Raiji Ludomon";
     inline static constexpr const char* ALT_PEN20_RAIJI_LUDOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_RAIJI_LUDOMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_RAIJI_LUDOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_RAIJI_LUDOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAKAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:rakamon";
-    inline static constexpr const char* ALT_PEN20_RAKAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_RAKAMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_RAKAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_RAKAMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_RAKAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Rakamon";
-    inline static constexpr const char* ALT_PEN20_RAKAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_RAKAMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_RAKAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_RAKAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_RAPIDMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:rapidmon";
     inline static constexpr const char* ALT_PEN20_RAPIDMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_RAPIDMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_RAPIDMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_RAPIDMON_FQID_ARR)-1;
@@ -1260,6 +1383,18 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_SAINT_GALGOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Saint Galgomon";
     inline static constexpr const char* ALT_PEN20_SAINT_GALGOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_SAINT_GALGOMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_SAINT_GALGOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_SAINT_GALGOMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_SAKUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:sakumon";
+    inline static constexpr const char* ALT_PEN20_SAKUMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_SAKUMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_SAKUMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_SAKUMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_SAKUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Sakumon";
+    inline static constexpr const char* ALT_PEN20_SAKUMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_SAKUMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_SAKUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_SAKUMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_SAKUTTOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:sakuttomon";
+    inline static constexpr const char* ALT_PEN20_SAKUTTOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_SAKUTTOMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_SAKUTTOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_SAKUTTOMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_SAKUTTOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Sakuttomon";
+    inline static constexpr const char* ALT_PEN20_SAKUTTOMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_SAKUTTOMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_SAKUTTOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_SAKUTTOMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_SAVIOR_HACKMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:savior_hackmon";
     inline static constexpr const char* ALT_PEN20_SAVIOR_HACKMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_SAVIOR_HACKMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_SAVIOR_HACKMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_SAVIOR_HACKMON_FQID_ARR)-1;
@@ -1410,12 +1545,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_V_DRAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:V-dramon";
     inline static constexpr const char* ALT_PEN20_V_DRAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_V_DRAMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_V_DRAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_V_DRAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_PEN20_VEMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:vemdemon";
-    inline static constexpr const char* ALT_PEN20_VEMDEMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_VEMDEMON_FQID_ARR;
-    inline static constexpr size_t ALT_PEN20_VEMDEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_VEMDEMON_FQID_ARR)-1;
-    inline static constexpr char ALT_PEN20_VEMDEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Vemdemon";
-    inline static constexpr const char* ALT_PEN20_VEMDEMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_VEMDEMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_PEN20_VEMDEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_VEMDEMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_VENOM_VAMDEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:venom_vamdemon";
     inline static constexpr const char* ALT_PEN20_VENOM_VAMDEMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_VENOM_VAMDEMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_VENOM_VAMDEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_VENOM_VAMDEMON_FQID_ARR)-1;
@@ -1494,12 +1623,30 @@ namespace bongocat::assets {
     inline static constexpr char ALT_PEN20_XV_MON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:XV-mon";
     inline static constexpr const char* ALT_PEN20_XV_MON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_XV_MON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_XV_MON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_XV_MON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_YUKIMI_BOTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:yukimi_botamon";
+    inline static constexpr const char* ALT_PEN20_YUKIMI_BOTAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_YUKIMI_BOTAMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_YUKIMI_BOTAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_YUKIMI_BOTAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_YUKIMI_BOTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Yukimi Botamon";
+    inline static constexpr const char* ALT_PEN20_YUKIMI_BOTAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_YUKIMI_BOTAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_YUKIMI_BOTAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_YUKIMI_BOTAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_ZERIMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zerimon";
     inline static constexpr const char* ALT_PEN20_ZERIMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ZERIMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_ZERIMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZERIMON_FQID_ARR)-1;
     inline static constexpr char ALT_PEN20_ZERIMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Zerimon";
     inline static constexpr const char* ALT_PEN20_ZERIMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ZERIMON_FQNAME_ARR;
     inline static constexpr size_t ALT_PEN20_ZERIMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZERIMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_ZUBAEAGERMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zubaeagermon";
+    inline static constexpr const char* ALT_PEN20_ZUBAEAGERMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ZUBAEAGERMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_ZUBAEAGERMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZUBAEAGERMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_ZUBAEAGERMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Zubaeagermon";
+    inline static constexpr const char* ALT_PEN20_ZUBAEAGERMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ZUBAEAGERMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_ZUBAEAGERMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZUBAEAGERMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_PEN20_ZUBAMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zubamon";
+    inline static constexpr const char* ALT_PEN20_ZUBAMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ZUBAMON_FQID_ARR;
+    inline static constexpr size_t ALT_PEN20_ZUBAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZUBAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_PEN20_ZUBAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Zubamon";
+    inline static constexpr const char* ALT_PEN20_ZUBAMON_FQNAME CONFIG_STRING_SECTION = ALT_PEN20_ZUBAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_PEN20_ZUBAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZUBAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_PEN20_ZUDOMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:zudomon";
     inline static constexpr const char* ALT_PEN20_ZUDOMON_FQID CONFIG_STRING_SECTION = ALT_PEN20_ZUDOMON_FQID_ARR;
     inline static constexpr size_t ALT_PEN20_ZUDOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZUDOMON_FQID_ARR)-1;
@@ -1511,20 +1658,23 @@ namespace bongocat::assets {
     static const config_animation_entry_t pen20_alt_animation_table[] CONFIG_TABLE_SECTION = {
         { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_ID, ALT_PEN20_AERO_V_DRAMON_FQID, ALT_PEN20_AERO_V_DRAMON_FQNAME, PEN20_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Aero V-dramon
         { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_ID, ALT_PEN20_AGUMON_HAKASE_FQID, ALT_PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Agumon Hakase
+        { PEN20_AGUMON_NAME, PEN20_AGUMON_ID, ALT_PEN20_AGUMON_FQID, ALT_PEN20_AGUMON_FQNAME, PEN20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Agumon
         { PEN20_ALPHAMON_OURYUKEN_NAME, PEN20_ALPHAMON_OURYUKEN_ID, ALT_PEN20_ALPHAMON_OURYUKEN_FQID, ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME, PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Alphamon Ouryuken
+        { PEN20_ALPHAMON_NAME, PEN20_ALPHAMON_ID, ALT_PEN20_ALPHAMON_FQID, ALT_PEN20_ALPHAMON_FQNAME, PEN20_ALPHAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Alphamon
         { PEN20_ANDIRAMON_NAME, PEN20_ANDIRAMON_ID, ALT_PEN20_ANDIRAMON_FQID, ALT_PEN20_ANDIRAMON_FQNAME, PEN20_ANDIRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Andiramon
         { PEN20_ANDROMON_NAME, PEN20_ANDROMON_ID, ALT_PEN20_ANDROMON_FQID, ALT_PEN20_ANDROMON_FQNAME, PEN20_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Andromon
+        { PEN20_ANGEMON_NAME, PEN20_ANGEMON_ID, ALT_PEN20_ANGEMON_FQID, ALT_PEN20_ANGEMON_FQNAME, PEN20_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Angemon
         { PEN20_ANGEWOMON_NAME, PEN20_ANGEWOMON_ID, ALT_PEN20_ANGEWOMON_FQID, ALT_PEN20_ANGEWOMON_FQNAME, PEN20_ANGEWOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Angewomon
         { PEN20_ANOMALOCARIMON_NAME, PEN20_ANOMALOCARIMON_ID, ALT_PEN20_ANOMALOCARIMON_FQID, ALT_PEN20_ANOMALOCARIMON_FQNAME, PEN20_ANOMALOCARIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Anomalocarimon
         { PEN20_ARRESTERDRAMON_NAME, PEN20_ARRESTERDRAMON_ID, ALT_PEN20_ARRESTERDRAMON_FQID, ALT_PEN20_ARRESTERDRAMON_FQNAME, PEN20_ARRESTERDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Arresterdramon
         { PEN20_ASTAMON_NAME, PEN20_ASTAMON_ID, ALT_PEN20_ASTAMON_FQID, ALT_PEN20_ASTAMON_FQNAME, PEN20_ASTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Astamon
-        { PEN20_ASTRAMON_NAME, PEN20_ASTRAMON_ID, ALT_PEN20_ASTRAMON_FQID, ALT_PEN20_ASTRAMON_FQNAME, PEN20_ASTRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Astramon
         { PEN20_ASURAMON_NAME, PEN20_ASURAMON_ID, ALT_PEN20_ASURAMON_FQID, ALT_PEN20_ASURAMON_FQNAME, PEN20_ASURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Asuramon
         { PEN20_ATLUR_KABUTERIMON_NAME, PEN20_ATLUR_KABUTERIMON_ID, ALT_PEN20_ATLUR_KABUTERIMON_FQID, ALT_PEN20_ATLUR_KABUTERIMON_FQNAME, PEN20_ATLUR_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Atlur Kabuterimon
         { PEN20_BAALMON_NAME, PEN20_BAALMON_ID, ALT_PEN20_BAALMON_FQID, ALT_PEN20_BAALMON_FQNAME, PEN20_BAALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Baalmon
         { PEN20_BAKEMON_NAME, PEN20_BAKEMON_ID, ALT_PEN20_BAKEMON_FQID, ALT_PEN20_BAKEMON_FQNAME, PEN20_BAKEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bakemon
         { PEN20_BAKUMON_NAME, PEN20_BAKUMON_ID, ALT_PEN20_BAKUMON_FQID, ALT_PEN20_BAKUMON_FQNAME, PEN20_BAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bakumon
         { PEN20_BANCHO_LEOMON_NAME, PEN20_BANCHO_LEOMON_ID, ALT_PEN20_BANCHO_LEOMON_FQID, ALT_PEN20_BANCHO_LEOMON_FQNAME, PEN20_BANCHO_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bancho Leomon
+        { PEN20_BAO_HACKMON_NAME, PEN20_BAO_HACKMON_ID, ALT_PEN20_BAO_HACKMON_FQID, ALT_PEN20_BAO_HACKMON_FQNAME, PEN20_BAO_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bao Hackmon
         { PEN20_BEELZEBUMON_BLAST_MODE_NAME, PEN20_BEELZEBUMON_BLAST_MODE_ID, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME, PEN20_BEELZEBUMON_BLAST_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Beelzebumon Blast Mode
         { PEN20_BEOWOLFMON_NAME, PEN20_BEOWOLFMON_ID, ALT_PEN20_BEOWOLFMON_FQID, ALT_PEN20_BEOWOLFMON_FQNAME, PEN20_BEOWOLFMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Beowolfmon
         { PEN20_BEOWULFMON_NAME, PEN20_BEOWULFMON_ID, ALT_PEN20_BEOWULFMON_FQID, ALT_PEN20_BEOWULFMON_FQNAME, PEN20_BEOWULFMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Beowulfmon
@@ -1532,6 +1682,7 @@ namespace bongocat::assets {
         { PEN20_BIRDRAMON_NAME, PEN20_BIRDRAMON_ID, ALT_PEN20_BIRDRAMON_FQID, ALT_PEN20_BIRDRAMON_FQNAME, PEN20_BIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Birdramon
         { PEN20_BLOSSOMON_NAME, PEN20_BLOSSOMON_ID, ALT_PEN20_BLOSSOMON_FQID, ALT_PEN20_BLOSSOMON_FQNAME, PEN20_BLOSSOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Blossomon
         { PEN20_BOLTMON_NAME, PEN20_BOLTMON_ID, ALT_PEN20_BOLTMON_FQID, ALT_PEN20_BOLTMON_FQNAME, PEN20_BOLTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Boltmon
+        { PEN20_BOTAMON_NAME, PEN20_BOTAMON_ID, ALT_PEN20_BOTAMON_FQID, ALT_PEN20_BOTAMON_FQNAME, PEN20_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Botamon
         { PEN20_BREAKDRAMON_NAME, PEN20_BREAKDRAMON_ID, ALT_PEN20_BREAKDRAMON_FQID, ALT_PEN20_BREAKDRAMON_FQNAME, PEN20_BREAKDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Breakdramon
         { PEN20_BRYWELUDRAMON_NAME, PEN20_BRYWELUDRAMON_ID, ALT_PEN20_BRYWELUDRAMON_FQID, ALT_PEN20_BRYWELUDRAMON_FQNAME, PEN20_BRYWELUDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bryweludramon
         { PEN20_BUBBMON_NAME, PEN20_BUBBMON_ID, ALT_PEN20_BUBBMON_FQID, ALT_PEN20_BUBBMON_FQNAME, PEN20_BUBBMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bubbmon
@@ -1559,7 +1710,12 @@ namespace bongocat::assets {
         { PEN20_DEVIDRAMON_NAME, PEN20_DEVIDRAMON_ID, ALT_PEN20_DEVIDRAMON_FQID, ALT_PEN20_DEVIDRAMON_FQNAME, PEN20_DEVIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Devidramon
         { PEN20_DEVIMON_NAME, PEN20_DEVIMON_ID, ALT_PEN20_DEVIMON_FQID, ALT_PEN20_DEVIMON_FQNAME, PEN20_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Devimon
         { PEN20_DOKUGUMON_NAME, PEN20_DOKUGUMON_ID, ALT_PEN20_DOKUGUMON_FQID, ALT_PEN20_DOKUGUMON_FQNAME, PEN20_DOKUGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Dokugumon
+        { PEN20_DORIMON_NAME, PEN20_DORIMON_ID, ALT_PEN20_DORIMON_FQID, ALT_PEN20_DORIMON_FQNAME, PEN20_DORIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Dorimon
+        { PEN20_DORUGAMON_NAME, PEN20_DORUGAMON_ID, ALT_PEN20_DORUGAMON_FQID, ALT_PEN20_DORUGAMON_FQNAME, PEN20_DORUGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for DORUgamon
         { PEN20_DORUGORAMON_NAME, PEN20_DORUGORAMON_ID, ALT_PEN20_DORUGORAMON_FQID, ALT_PEN20_DORUGORAMON_FQNAME, PEN20_DORUGORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for DORUgoramon
+        { PEN20_DORUGUREMON_NAME, PEN20_DORUGUREMON_ID, ALT_PEN20_DORUGUREMON_FQID, ALT_PEN20_DORUGUREMON_FQNAME, PEN20_DORUGUREMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for DORUguremon
+        { PEN20_DORUMON_NAME, PEN20_DORUMON_ID, ALT_PEN20_DORUMON_FQID, ALT_PEN20_DORUMON_FQNAME, PEN20_DORUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for DORUmon
+        { PEN20_DRACOMON_NAME, PEN20_DRACOMON_ID, ALT_PEN20_DRACOMON_FQID, ALT_PEN20_DRACOMON_FQNAME, PEN20_DRACOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Dracomon
         { PEN20_DURAMON_NAME, PEN20_DURAMON_ID, ALT_PEN20_DURAMON_FQID, ALT_PEN20_DURAMON_FQNAME, PEN20_DURAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Duramon
         { PEN20_DURANDAMON_NAME, PEN20_DURANDAMON_ID, ALT_PEN20_DURANDAMON_FQID, ALT_PEN20_DURANDAMON_FQNAME, PEN20_DURANDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Durandamon
         { PEN20_EBIDRAMON_NAME, PEN20_EBIDRAMON_ID, ALT_PEN20_EBIDRAMON_FQID, ALT_PEN20_EBIDRAMON_FQNAME, PEN20_EBIDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ebidramon
@@ -1568,6 +1724,7 @@ namespace bongocat::assets {
         { PEN20_FANTOMON_NAME, PEN20_FANTOMON_ID, ALT_PEN20_FANTOMON_FQID, ALT_PEN20_FANTOMON_FQNAME, PEN20_FANTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Fantomon
         { PEN20_FLORAMON_NAME, PEN20_FLORAMON_ID, ALT_PEN20_FLORAMON_FQID, ALT_PEN20_FLORAMON_FQNAME, PEN20_FLORAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Floramon
         { PEN20_FUFUMON_NAME, PEN20_FUFUMON_ID, ALT_PEN20_FUFUMON_FQID, ALT_PEN20_FUFUMON_FQNAME, PEN20_FUFUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Fufumon
+        { PEN20_GABUMON_NAME, PEN20_GABUMON_ID, ALT_PEN20_GABUMON_FQID, ALT_PEN20_GABUMON_FQNAME, PEN20_GABUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Gabumon
         { PEN20_GALGOMON_NAME, PEN20_GALGOMON_ID, ALT_PEN20_GALGOMON_FQID, ALT_PEN20_GALGOMON_FQNAME, PEN20_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Galgomon
         { PEN20_GANIMON_NAME, PEN20_GANIMON_ID, ALT_PEN20_GANIMON_FQID, ALT_PEN20_GANIMON_FQNAME, PEN20_GANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ganimon
         { PEN20_GARUDAMON_NAME, PEN20_GARUDAMON_ID, ALT_PEN20_GARUDAMON_FQID, ALT_PEN20_GARUDAMON_FQNAME, PEN20_GARUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Garudamon
@@ -1585,17 +1742,17 @@ namespace bongocat::assets {
         { PEN20_GUARDROMON_NAME, PEN20_GUARDROMON_ID, ALT_PEN20_GUARDROMON_FQID, ALT_PEN20_GUARDROMON_FQNAME, PEN20_GUARDROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Guardromon
         { PEN20_GUIMON_NAME, PEN20_GUIMON_ID, ALT_PEN20_GUIMON_FQID, ALT_PEN20_GUIMON_FQNAME, PEN20_GUIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Guimon
         { PEN20_GUMMYMON_NAME, PEN20_GUMMYMON_ID, ALT_PEN20_GUMMYMON_FQID, ALT_PEN20_GUMMYMON_FQNAME, PEN20_GUMMYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Gummymon
+        { PEN20_HACKMON_NAME, PEN20_HACKMON_ID, ALT_PEN20_HACKMON_FQID, ALT_PEN20_HACKMON_FQNAME, PEN20_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Hackmon
         { PEN20_HAGURUMON_NAME, PEN20_HAGURUMON_ID, ALT_PEN20_HAGURUMON_FQID, ALT_PEN20_HAGURUMON_FQNAME, PEN20_HAGURUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Hagurumon
         { PEN20_HANGYMON_NAME, PEN20_HANGYMON_ID, ALT_PEN20_HANGYMON_FQID, ALT_PEN20_HANGYMON_FQNAME, PEN20_HANGYMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Hangymon
         { PEN20_HANGYOMON_NAME, PEN20_HANGYOMON_ID, ALT_PEN20_HANGYOMON_FQID, ALT_PEN20_HANGYOMON_FQNAME, PEN20_HANGYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Hangyomon
         { PEN20_HANUMON_NAME, PEN20_HANUMON_ID, ALT_PEN20_HANUMON_FQID, ALT_PEN20_HANUMON_FQNAME, PEN20_HANUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Hanumon
         { PEN20_HERAKLE_KABUTERIMON_NAME, PEN20_HERAKLE_KABUTERIMON_ID, ALT_PEN20_HERAKLE_KABUTERIMON_FQID, ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME, PEN20_HERAKLE_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Herakle Kabuterimon
-        { PEN20_HERKULE_KABUTERIMON_NAME, PEN20_HERKULE_KABUTERIMON_ID, ALT_PEN20_HERKULE_KABUTERIMON_FQID, ALT_PEN20_HERKULE_KABUTERIMON_FQNAME, PEN20_HERKULE_KABUTERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Herkule Kabuterimon
         { PEN20_HISYARYUMON_NAME, PEN20_HISYARYUMON_ID, ALT_PEN20_HISYARYUMON_FQID, ALT_PEN20_HISYARYUMON_FQNAME, PEN20_HISYARYUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Hisyaryumon
         { PEN20_HOLY_ANGEMON_NAME, PEN20_HOLY_ANGEMON_ID, ALT_PEN20_HOLY_ANGEMON_FQID, ALT_PEN20_HOLY_ANGEMON_FQNAME, PEN20_HOLY_ANGEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Holy Angemon
         { PEN20_HOLYDRAMON_NAME, PEN20_HOLYDRAMON_ID, ALT_PEN20_HOLYDRAMON_FQID, ALT_PEN20_HOLYDRAMON_FQNAME, PEN20_HOLYDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Holydramon
         { PEN20_HOUOUMON_NAME, PEN20_HOUOUMON_ID, ALT_PEN20_HOUOUMON_FQID, ALT_PEN20_HOUOUMON_FQNAME, PEN20_HOUOUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Hououmon
-        { PEN20_IGNAMON_NAME, PEN20_IGNAMON_ID, ALT_PEN20_IGNAMON_FQID, ALT_PEN20_IGNAMON_FQNAME, PEN20_IGNAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ignamon
+        { PEN20_IGAMON_NAME, PEN20_IGAMON_ID, ALT_PEN20_IGAMON_FQID, ALT_PEN20_IGAMON_FQNAME, PEN20_IGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Igamon
         { PEN20_IKKAKUMON_NAME, PEN20_IKKAKUMON_ID, ALT_PEN20_IKKAKUMON_FQID, ALT_PEN20_IKKAKUMON_FQNAME, PEN20_IKKAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ikkakumon
         { PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID, ALT_PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Imperialdramon Fighter Mode
         { PEN20_IMPMON_NAME, PEN20_IMPMON_ID, ALT_PEN20_IMPMON_FQID, ALT_PEN20_IMPMON_FQNAME, PEN20_IMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Impmon
@@ -1608,12 +1765,14 @@ namespace bongocat::assets {
         { PEN20_KIWIMON_NAME, PEN20_KIWIMON_ID, ALT_PEN20_KIWIMON_FQID, ALT_PEN20_KIWIMON_FQNAME, PEN20_KIWIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Kiwimon
         { PEN20_KNIGHTMON_NAME, PEN20_KNIGHTMON_ID, ALT_PEN20_KNIGHTMON_FQID, ALT_PEN20_KNIGHTMON_FQNAME, PEN20_KNIGHTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Knightmon
         { PEN20_KOKUWAMON_NAME, PEN20_KOKUWAMON_ID, ALT_PEN20_KOKUWAMON_FQID, ALT_PEN20_KOKUWAMON_FQNAME, PEN20_KOKUWAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Kokuwamon
+        { PEN20_KOROMON_NAME, PEN20_KOROMON_ID, ALT_PEN20_KOROMON_FQID, ALT_PEN20_KOROMON_FQNAME, PEN20_KOROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Koromon
         { PEN20_KUWAGAMON_NAME, PEN20_KUWAGAMON_ID, ALT_PEN20_KUWAGAMON_FQID, ALT_PEN20_KUWAGAMON_FQNAME, PEN20_KUWAGAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Kuwagamon
         { PEN20_KYOKYOMON_NAME, PEN20_KYOKYOMON_ID, ALT_PEN20_KYOKYOMON_FQID, ALT_PEN20_KYOKYOMON_FQNAME, PEN20_KYOKYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Kyokyomon
         { PEN20_LADY_DEVIMON_NAME, PEN20_LADY_DEVIMON_ID, ALT_PEN20_LADY_DEVIMON_FQID, ALT_PEN20_LADY_DEVIMON_FQNAME, PEN20_LADY_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Lady Devimon
         { PEN20_LALAMON_NAME, PEN20_LALAMON_ID, ALT_PEN20_LALAMON_FQID, ALT_PEN20_LALAMON_FQNAME, PEN20_LALAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Lalamon
         { PEN20_LAVOGARITAMON_NAME, PEN20_LAVOGARITAMON_ID, ALT_PEN20_LAVOGARITAMON_FQID, ALT_PEN20_LAVOGARITAMON_FQNAME, PEN20_LAVOGARITAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Lavogaritamon
         { PEN20_LAVORVOMON_NAME, PEN20_LAVORVOMON_ID, ALT_PEN20_LAVORVOMON_FQID, ALT_PEN20_LAVORVOMON_FQNAME, PEN20_LAVORVOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Lavorvomon
+        { PEN20_LEOMON_NAME, PEN20_LEOMON_ID, ALT_PEN20_LEOMON_FQID, ALT_PEN20_LEOMON_FQNAME, PEN20_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Leomon
         { PEN20_LILAMON_NAME, PEN20_LILAMON_ID, ALT_PEN20_LILAMON_FQID, ALT_PEN20_LILAMON_FQNAME, PEN20_LILAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Lilamon
         { PEN20_LILIMON_NAME, PEN20_LILIMON_ID, ALT_PEN20_LILIMON_FQID, ALT_PEN20_LILIMON_FQNAME, PEN20_LILIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Lilimon
         { PEN20_LOPMON_NAME, PEN20_LOPMON_ID, ALT_PEN20_LOPMON_FQID, ALT_PEN20_LOPMON_FQNAME, PEN20_LOPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Lopmon
@@ -1630,6 +1789,7 @@ namespace bongocat::assets {
         { PEN20_MEGADRAMON_NAME, PEN20_MEGADRAMON_ID, ALT_PEN20_MEGADRAMON_FQID, ALT_PEN20_MEGADRAMON_FQNAME, PEN20_MEGADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Megadramon
         { PEN20_MEGALO_GROWMON_NAME, PEN20_MEGALO_GROWMON_ID, ALT_PEN20_MEGALO_GROWMON_FQID, ALT_PEN20_MEGALO_GROWMON_FQNAME, PEN20_MEGALO_GROWMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Megalo Growmon
         { PEN20_MEGA_SEADRAMON_NAME, PEN20_MEGA_SEADRAMON_ID, ALT_PEN20_MEGA_SEADRAMON_FQID, ALT_PEN20_MEGA_SEADRAMON_FQNAME, PEN20_MEGA_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Mega Seadramon
+        { PEN20_MEICOOMON_NAME, PEN20_MEICOOMON_ID, ALT_PEN20_MEICOOMON_FQID, ALT_PEN20_MEICOOMON_FQNAME, PEN20_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicoomon
         { PEN20_MEICRACKMON_VICIOUS_MODE_NAME, PEN20_MEICRACKMON_VICIOUS_MODE_ID, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME, PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicrackmon Vicious Mode
         { PEN20_MERAMON_NAME, PEN20_MERAMON_ID, ALT_PEN20_MERAMON_FQID, ALT_PEN20_MERAMON_FQNAME, PEN20_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meramon
         { PEN20_METAL_ETEMON_NAME, PEN20_METAL_ETEMON_ID, ALT_PEN20_METAL_ETEMON_FQID, ALT_PEN20_METAL_ETEMON_FQNAME, PEN20_METAL_ETEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Etemon
@@ -1643,6 +1803,7 @@ namespace bongocat::assets {
         { PEN20_MONOCHROMON_NAME, PEN20_MONOCHROMON_ID, ALT_PEN20_MONOCHROMON_FQID, ALT_PEN20_MONOCHROMON_FQNAME, PEN20_MONOCHROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Monochromon
         { PEN20_MUGENDRAMON_NAME, PEN20_MUGENDRAMON_ID, ALT_PEN20_MUGENDRAMON_FQID, ALT_PEN20_MUGENDRAMON_FQNAME, PEN20_MUGENDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Mugendramon
         { PEN20_MUSHMON_NAME, PEN20_MUSHMON_ID, ALT_PEN20_MUSHMON_FQID, ALT_PEN20_MUSHMON_FQNAME, PEN20_MUSHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Mushmon
+        { PEN20_NYAROMON_NAME, PEN20_NYAROMON_ID, ALT_PEN20_NYAROMON_FQID, ALT_PEN20_NYAROMON_FQNAME, PEN20_NYAROMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Nyaromon
         { PEN20_NYOKIMON_NAME, PEN20_NYOKIMON_ID, ALT_PEN20_NYOKIMON_FQID, ALT_PEN20_NYOKIMON_FQNAME, PEN20_NYOKIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Nyokimon
         { PEN20_OCTMON_NAME, PEN20_OCTMON_ID, ALT_PEN20_OCTMON_FQID, ALT_PEN20_OCTMON_FQNAME, PEN20_OCTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Octmon
         { PEN20_OFANIMON_NAME, PEN20_OFANIMON_ID, ALT_PEN20_OFANIMON_FQID, ALT_PEN20_OFANIMON_FQNAME, PEN20_OFANIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ofanimon
@@ -1655,15 +1816,19 @@ namespace bongocat::assets {
         { PEN20_PAILDRAMON_NAME, PEN20_PAILDRAMON_ID, ALT_PEN20_PAILDRAMON_FQID, ALT_PEN20_PAILDRAMON_FQNAME, PEN20_PAILDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Paildramon
         { PEN20_PALMON_NAME, PEN20_PALMON_ID, ALT_PEN20_PALMON_FQID, ALT_PEN20_PALMON_FQNAME, PEN20_PALMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Palmon
         { PEN20_PETI_MERAMON_NAME, PEN20_PETI_MERAMON_ID, ALT_PEN20_PETI_MERAMON_FQID, ALT_PEN20_PETI_MERAMON_FQNAME, PEN20_PETI_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Peti Meramon
+        { PEN20_PETITMON_NAME, PEN20_PETITMON_ID, ALT_PEN20_PETITMON_FQID, ALT_PEN20_PETITMON_FQNAME, PEN20_PETITMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Petitmon
         { PEN20_PHASCOMON_NAME, PEN20_PHASCOMON_ID, ALT_PEN20_PHASCOMON_FQID, ALT_PEN20_PHASCOMON_FQNAME, PEN20_PHASCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Phascomon
         { PEN20_PICCOLOMON_NAME, PEN20_PICCOLOMON_ID, ALT_PEN20_PICCOLOMON_FQID, ALT_PEN20_PICCOLOMON_FQNAME, PEN20_PICCOLOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Piccolomon
         { PEN20_PICO_DEVIMON_NAME, PEN20_PICO_DEVIMON_ID, ALT_PEN20_PICO_DEVIMON_FQID, ALT_PEN20_PICO_DEVIMON_FQNAME, PEN20_PICO_DEVIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pico Devimon
         { PEN20_PIEMON_NAME, PEN20_PIEMON_ID, ALT_PEN20_PIEMON_FQID, ALT_PEN20_PIEMON_FQNAME, PEN20_PIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Piemon
         { PEN20_PINOCHIMON_NAME, PEN20_PINOCHIMON_ID, ALT_PEN20_PINOCHIMON_FQID, ALT_PEN20_PINOCHIMON_FQNAME, PEN20_PINOCHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pinochimon
+        { PEN20_PITCHMON_NAME, PEN20_PITCHMON_ID, ALT_PEN20_PITCHMON_FQID, ALT_PEN20_PITCHMON_FQNAME, PEN20_PITCHMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pitchmon
         { PEN20_PIYOMON_NAME, PEN20_PIYOMON_ID, ALT_PEN20_PIYOMON_FQID, ALT_PEN20_PIYOMON_FQNAME, PEN20_PIYOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Piyomon
         { PEN20_PLESIOMON_NAME, PEN20_PLESIOMON_ID, ALT_PEN20_PLESIOMON_FQID, ALT_PEN20_PLESIOMON_FQNAME, PEN20_PLESIOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Plesiomon
+        { PEN20_PLOTMON_NAME, PEN20_PLOTMON_ID, ALT_PEN20_PLOTMON_FQID, ALT_PEN20_PLOTMON_FQNAME, PEN20_PLOTMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Plotmon
         { PEN20_PORCUPAMON_NAME, PEN20_PORCUPAMON_ID, ALT_PEN20_PORCUPAMON_FQID, ALT_PEN20_PORCUPAMON_FQNAME, PEN20_PORCUPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Porcupamon
         { PEN20_PORCUPMON_NAME, PEN20_PORCUPMON_ID, ALT_PEN20_PORCUPMON_FQID, ALT_PEN20_PORCUPMON_FQNAME, PEN20_PORCUPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Porcupmon
+        { PEN20_PUKAMON_NAME, PEN20_PUKAMON_ID, ALT_PEN20_PUKAMON_FQID, ALT_PEN20_PUKAMON_FQNAME, PEN20_PUKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pukamon
         { PEN20_PUKUMON_NAME, PEN20_PUKUMON_ID, ALT_PEN20_PUKUMON_FQID, ALT_PEN20_PUKUMON_FQNAME, PEN20_PUKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pukumon
         { PEN20_PUMPMON_NAME, PEN20_PUMPMON_ID, ALT_PEN20_PUMPMON_FQID, ALT_PEN20_PUMPMON_FQNAME, PEN20_PUMPMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pumpmon
         { PEN20_PYOCOMON_NAME, PEN20_PYOCOMON_ID, ALT_PEN20_PYOCOMON_FQID, ALT_PEN20_PYOCOMON_FQNAME, PEN20_PYOCOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Pyocomon
@@ -1671,7 +1836,6 @@ namespace bongocat::assets {
         { PEN20_RAGNA_LORDMON_NAME, PEN20_RAGNA_LORDMON_ID, ALT_PEN20_RAGNA_LORDMON_FQID, ALT_PEN20_RAGNA_LORDMON_FQNAME, PEN20_RAGNA_LORDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ragna Lordmon
         { PEN20_RAGUELMON_NAME, PEN20_RAGUELMON_ID, ALT_PEN20_RAGUELMON_FQID, ALT_PEN20_RAGUELMON_FQNAME, PEN20_RAGUELMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Raguelmon
         { PEN20_RAIJI_LUDOMON_NAME, PEN20_RAIJI_LUDOMON_ID, ALT_PEN20_RAIJI_LUDOMON_FQID, ALT_PEN20_RAIJI_LUDOMON_FQNAME, PEN20_RAIJI_LUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Raiji Ludomon
-        { PEN20_RAKAMON_NAME, PEN20_RAKAMON_ID, ALT_PEN20_RAKAMON_FQID, ALT_PEN20_RAKAMON_FQNAME, PEN20_RAKAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rakamon
         { PEN20_RAPIDMON_NAME, PEN20_RAPIDMON_ID, ALT_PEN20_RAPIDMON_FQID, ALT_PEN20_RAPIDMON_FQNAME, PEN20_RAPIDMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Rapidmon
         { PEN20_RED_VEGIMON_NAME, PEN20_RED_VEGIMON_ID, ALT_PEN20_RED_VEGIMON_FQID, ALT_PEN20_RED_VEGIMON_FQNAME, PEN20_RED_VEGIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Red Vegimon
         { PEN20_REPPAMON_NAME, PEN20_REPPAMON_ID, ALT_PEN20_REPPAMON_FQID, ALT_PEN20_REPPAMON_FQNAME, PEN20_REPPAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Reppamon
@@ -1682,6 +1846,8 @@ namespace bongocat::assets {
         { PEN20_RYUDAMON_NAME, PEN20_RYUDAMON_ID, ALT_PEN20_RYUDAMON_FQID, ALT_PEN20_RYUDAMON_FQNAME, PEN20_RYUDAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Ryudamon
         { PEN20_SABER_LEOMON_NAME, PEN20_SABER_LEOMON_ID, ALT_PEN20_SABER_LEOMON_FQID, ALT_PEN20_SABER_LEOMON_FQNAME, PEN20_SABER_LEOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Saber Leomon
         { PEN20_SAINT_GALGOMON_NAME, PEN20_SAINT_GALGOMON_ID, ALT_PEN20_SAINT_GALGOMON_FQID, ALT_PEN20_SAINT_GALGOMON_FQNAME, PEN20_SAINT_GALGOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Saint Galgomon
+        { PEN20_SAKUMON_NAME, PEN20_SAKUMON_ID, ALT_PEN20_SAKUMON_FQID, ALT_PEN20_SAKUMON_FQNAME, PEN20_SAKUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Sakumon
+        { PEN20_SAKUTTOMON_NAME, PEN20_SAKUTTOMON_ID, ALT_PEN20_SAKUTTOMON_FQID, ALT_PEN20_SAKUTTOMON_FQNAME, PEN20_SAKUTTOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Sakuttomon
         { PEN20_SAVIOR_HACKMON_NAME, PEN20_SAVIOR_HACKMON_ID, ALT_PEN20_SAVIOR_HACKMON_FQID, ALT_PEN20_SAVIOR_HACKMON_FQNAME, PEN20_SAVIOR_HACKMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Savior Hackmon
         { PEN20_SEADRAMON_NAME, PEN20_SEADRAMON_ID, ALT_PEN20_SEADRAMON_FQID, ALT_PEN20_SEADRAMON_FQNAME, PEN20_SEADRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Seadramon
         { PEN20_SERAPHIMON_NAME, PEN20_SERAPHIMON_ID, ALT_PEN20_SERAPHIMON_FQID, ALT_PEN20_SERAPHIMON_FQNAME, PEN20_SERAPHIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Seraphimon
@@ -1707,7 +1873,6 @@ namespace bongocat::assets {
         { PEN20_TURUIEMON_NAME, PEN20_TURUIEMON_ID, ALT_PEN20_TURUIEMON_FQID, ALT_PEN20_TURUIEMON_FQNAME, PEN20_TURUIEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Turuiemon
         { PEN20_VAMDEMON_NAME, PEN20_VAMDEMON_ID, ALT_PEN20_VAMDEMON_FQID, ALT_PEN20_VAMDEMON_FQNAME, PEN20_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Vamdemon
         { PEN20_V_DRAMON_NAME, PEN20_V_DRAMON_ID, ALT_PEN20_V_DRAMON_FQID, ALT_PEN20_V_DRAMON_FQNAME, PEN20_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for V-dramon
-        { PEN20_VEMDEMON_NAME, PEN20_VEMDEMON_ID, ALT_PEN20_VEMDEMON_FQID, ALT_PEN20_VEMDEMON_FQNAME, PEN20_VEMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Vemdemon
         { PEN20_VENOM_VAMDEMON_NAME, PEN20_VENOM_VAMDEMON_ID, ALT_PEN20_VENOM_VAMDEMON_FQID, ALT_PEN20_VENOM_VAMDEMON_FQNAME, PEN20_VENOM_VAMDEMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Venom Vamdemon
         { PEN20_V_MON_NAME, PEN20_V_MON_ID, ALT_PEN20_V_MON_FQID, ALT_PEN20_V_MON_FQNAME, PEN20_V_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for V-mon
         { PEN20_VOLCANICDRAMON_NAME, PEN20_VOLCANICDRAMON_ID, ALT_PEN20_VOLCANICDRAMON_FQID, ALT_PEN20_VOLCANICDRAMON_FQNAME, PEN20_VOLCANICDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Volcanicdramon
@@ -1721,7 +1886,10 @@ namespace bongocat::assets {
         { PEN20_WIZARMON_NAME, PEN20_WIZARMON_ID, ALT_PEN20_WIZARMON_FQID, ALT_PEN20_WIZARMON_FQNAME, PEN20_WIZARMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Wizarmon
         { PEN20_WOODMON_NAME, PEN20_WOODMON_ID, ALT_PEN20_WOODMON_FQID, ALT_PEN20_WOODMON_FQNAME, PEN20_WOODMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Woodmon
         { PEN20_XV_MON_NAME, PEN20_XV_MON_ID, ALT_PEN20_XV_MON_FQID, ALT_PEN20_XV_MON_FQNAME, PEN20_XV_MON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for XV-mon
+        { PEN20_YUKIMI_BOTAMON_NAME, PEN20_YUKIMI_BOTAMON_ID, ALT_PEN20_YUKIMI_BOTAMON_FQID, ALT_PEN20_YUKIMI_BOTAMON_FQNAME, PEN20_YUKIMI_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Yukimi Botamon
         { PEN20_ZERIMON_NAME, PEN20_ZERIMON_ID, ALT_PEN20_ZERIMON_FQID, ALT_PEN20_ZERIMON_FQNAME, PEN20_ZERIMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Zerimon
+        { PEN20_ZUBAEAGERMON_NAME, PEN20_ZUBAEAGERMON_ID, ALT_PEN20_ZUBAEAGERMON_FQID, ALT_PEN20_ZUBAEAGERMON_FQNAME, PEN20_ZUBAEAGERMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Zubaeagermon
+        { PEN20_ZUBAMON_NAME, PEN20_ZUBAMON_ID, ALT_PEN20_ZUBAMON_FQID, ALT_PEN20_ZUBAMON_FQNAME, PEN20_ZUBAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Zubamon
         { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_ID, ALT_PEN20_ZUDOMON_FQID, ALT_PEN20_ZUDOMON_FQNAME, PEN20_ZUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Zudomon
         
     };
@@ -1731,12 +1899,18 @@ namespace bongocat::assets {
         { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_NAME_LEN, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_ID_LEN, ALT_PEN20_AERO_V_DRAMON_FQID, ALT_PEN20_AERO_V_DRAMON_FQID_LEN, ALT_PEN20_AERO_V_DRAMON_FQNAME, ALT_PEN20_AERO_V_DRAMON_FQNAME_LEN },
         { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_NAME_LEN, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_ID_LEN, PEN20_AGUMON_HAKASE_FQID, PEN20_AGUMON_HAKASE_FQID_LEN, PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_FQNAME_LEN },
         { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_NAME_LEN, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_ID_LEN, ALT_PEN20_AGUMON_HAKASE_FQID, ALT_PEN20_AGUMON_HAKASE_FQID_LEN, ALT_PEN20_AGUMON_HAKASE_FQNAME, ALT_PEN20_AGUMON_HAKASE_FQNAME_LEN },
+        { PEN20_AGUMON_NAME, PEN20_AGUMON_NAME_LEN, PEN20_AGUMON_ID, PEN20_AGUMON_ID_LEN, PEN20_AGUMON_FQID, PEN20_AGUMON_FQID_LEN, PEN20_AGUMON_FQNAME, PEN20_AGUMON_FQNAME_LEN },
+        { PEN20_AGUMON_NAME, PEN20_AGUMON_NAME_LEN, PEN20_AGUMON_ID, PEN20_AGUMON_ID_LEN, ALT_PEN20_AGUMON_FQID, ALT_PEN20_AGUMON_FQID_LEN, ALT_PEN20_AGUMON_FQNAME, ALT_PEN20_AGUMON_FQNAME_LEN },
         { PEN20_ALPHAMON_OURYUKEN_NAME, PEN20_ALPHAMON_OURYUKEN_NAME_LEN, PEN20_ALPHAMON_OURYUKEN_ID, PEN20_ALPHAMON_OURYUKEN_ID_LEN, PEN20_ALPHAMON_OURYUKEN_FQID, PEN20_ALPHAMON_OURYUKEN_FQID_LEN, PEN20_ALPHAMON_OURYUKEN_FQNAME, PEN20_ALPHAMON_OURYUKEN_FQNAME_LEN },
         { PEN20_ALPHAMON_OURYUKEN_NAME, PEN20_ALPHAMON_OURYUKEN_NAME_LEN, PEN20_ALPHAMON_OURYUKEN_ID, PEN20_ALPHAMON_OURYUKEN_ID_LEN, ALT_PEN20_ALPHAMON_OURYUKEN_FQID, ALT_PEN20_ALPHAMON_OURYUKEN_FQID_LEN, ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME, ALT_PEN20_ALPHAMON_OURYUKEN_FQNAME_LEN },
+        { PEN20_ALPHAMON_NAME, PEN20_ALPHAMON_NAME_LEN, PEN20_ALPHAMON_ID, PEN20_ALPHAMON_ID_LEN, PEN20_ALPHAMON_FQID, PEN20_ALPHAMON_FQID_LEN, PEN20_ALPHAMON_FQNAME, PEN20_ALPHAMON_FQNAME_LEN },
+        { PEN20_ALPHAMON_NAME, PEN20_ALPHAMON_NAME_LEN, PEN20_ALPHAMON_ID, PEN20_ALPHAMON_ID_LEN, ALT_PEN20_ALPHAMON_FQID, ALT_PEN20_ALPHAMON_FQID_LEN, ALT_PEN20_ALPHAMON_FQNAME, ALT_PEN20_ALPHAMON_FQNAME_LEN },
         { PEN20_ANDIRAMON_NAME, PEN20_ANDIRAMON_NAME_LEN, PEN20_ANDIRAMON_ID, PEN20_ANDIRAMON_ID_LEN, PEN20_ANDIRAMON_FQID, PEN20_ANDIRAMON_FQID_LEN, PEN20_ANDIRAMON_FQNAME, PEN20_ANDIRAMON_FQNAME_LEN },
         { PEN20_ANDIRAMON_NAME, PEN20_ANDIRAMON_NAME_LEN, PEN20_ANDIRAMON_ID, PEN20_ANDIRAMON_ID_LEN, ALT_PEN20_ANDIRAMON_FQID, ALT_PEN20_ANDIRAMON_FQID_LEN, ALT_PEN20_ANDIRAMON_FQNAME, ALT_PEN20_ANDIRAMON_FQNAME_LEN },
         { PEN20_ANDROMON_NAME, PEN20_ANDROMON_NAME_LEN, PEN20_ANDROMON_ID, PEN20_ANDROMON_ID_LEN, PEN20_ANDROMON_FQID, PEN20_ANDROMON_FQID_LEN, PEN20_ANDROMON_FQNAME, PEN20_ANDROMON_FQNAME_LEN },
         { PEN20_ANDROMON_NAME, PEN20_ANDROMON_NAME_LEN, PEN20_ANDROMON_ID, PEN20_ANDROMON_ID_LEN, ALT_PEN20_ANDROMON_FQID, ALT_PEN20_ANDROMON_FQID_LEN, ALT_PEN20_ANDROMON_FQNAME, ALT_PEN20_ANDROMON_FQNAME_LEN },
+        { PEN20_ANGEMON_NAME, PEN20_ANGEMON_NAME_LEN, PEN20_ANGEMON_ID, PEN20_ANGEMON_ID_LEN, PEN20_ANGEMON_FQID, PEN20_ANGEMON_FQID_LEN, PEN20_ANGEMON_FQNAME, PEN20_ANGEMON_FQNAME_LEN },
+        { PEN20_ANGEMON_NAME, PEN20_ANGEMON_NAME_LEN, PEN20_ANGEMON_ID, PEN20_ANGEMON_ID_LEN, ALT_PEN20_ANGEMON_FQID, ALT_PEN20_ANGEMON_FQID_LEN, ALT_PEN20_ANGEMON_FQNAME, ALT_PEN20_ANGEMON_FQNAME_LEN },
         { PEN20_ANGEWOMON_NAME, PEN20_ANGEWOMON_NAME_LEN, PEN20_ANGEWOMON_ID, PEN20_ANGEWOMON_ID_LEN, PEN20_ANGEWOMON_FQID, PEN20_ANGEWOMON_FQID_LEN, PEN20_ANGEWOMON_FQNAME, PEN20_ANGEWOMON_FQNAME_LEN },
         { PEN20_ANGEWOMON_NAME, PEN20_ANGEWOMON_NAME_LEN, PEN20_ANGEWOMON_ID, PEN20_ANGEWOMON_ID_LEN, ALT_PEN20_ANGEWOMON_FQID, ALT_PEN20_ANGEWOMON_FQID_LEN, ALT_PEN20_ANGEWOMON_FQNAME, ALT_PEN20_ANGEWOMON_FQNAME_LEN },
         { PEN20_ANOMALOCARIMON_NAME, PEN20_ANOMALOCARIMON_NAME_LEN, PEN20_ANOMALOCARIMON_ID, PEN20_ANOMALOCARIMON_ID_LEN, PEN20_ANOMALOCARIMON_FQID, PEN20_ANOMALOCARIMON_FQID_LEN, PEN20_ANOMALOCARIMON_FQNAME, PEN20_ANOMALOCARIMON_FQNAME_LEN },
@@ -1745,8 +1919,6 @@ namespace bongocat::assets {
         { PEN20_ARRESTERDRAMON_NAME, PEN20_ARRESTERDRAMON_NAME_LEN, PEN20_ARRESTERDRAMON_ID, PEN20_ARRESTERDRAMON_ID_LEN, ALT_PEN20_ARRESTERDRAMON_FQID, ALT_PEN20_ARRESTERDRAMON_FQID_LEN, ALT_PEN20_ARRESTERDRAMON_FQNAME, ALT_PEN20_ARRESTERDRAMON_FQNAME_LEN },
         { PEN20_ASTAMON_NAME, PEN20_ASTAMON_NAME_LEN, PEN20_ASTAMON_ID, PEN20_ASTAMON_ID_LEN, PEN20_ASTAMON_FQID, PEN20_ASTAMON_FQID_LEN, PEN20_ASTAMON_FQNAME, PEN20_ASTAMON_FQNAME_LEN },
         { PEN20_ASTAMON_NAME, PEN20_ASTAMON_NAME_LEN, PEN20_ASTAMON_ID, PEN20_ASTAMON_ID_LEN, ALT_PEN20_ASTAMON_FQID, ALT_PEN20_ASTAMON_FQID_LEN, ALT_PEN20_ASTAMON_FQNAME, ALT_PEN20_ASTAMON_FQNAME_LEN },
-        { PEN20_ASTRAMON_NAME, PEN20_ASTRAMON_NAME_LEN, PEN20_ASTRAMON_ID, PEN20_ASTRAMON_ID_LEN, PEN20_ASTRAMON_FQID, PEN20_ASTRAMON_FQID_LEN, PEN20_ASTRAMON_FQNAME, PEN20_ASTRAMON_FQNAME_LEN },
-        { PEN20_ASTRAMON_NAME, PEN20_ASTRAMON_NAME_LEN, PEN20_ASTRAMON_ID, PEN20_ASTRAMON_ID_LEN, ALT_PEN20_ASTRAMON_FQID, ALT_PEN20_ASTRAMON_FQID_LEN, ALT_PEN20_ASTRAMON_FQNAME, ALT_PEN20_ASTRAMON_FQNAME_LEN },
         { PEN20_ASURAMON_NAME, PEN20_ASURAMON_NAME_LEN, PEN20_ASURAMON_ID, PEN20_ASURAMON_ID_LEN, PEN20_ASURAMON_FQID, PEN20_ASURAMON_FQID_LEN, PEN20_ASURAMON_FQNAME, PEN20_ASURAMON_FQNAME_LEN },
         { PEN20_ASURAMON_NAME, PEN20_ASURAMON_NAME_LEN, PEN20_ASURAMON_ID, PEN20_ASURAMON_ID_LEN, ALT_PEN20_ASURAMON_FQID, ALT_PEN20_ASURAMON_FQID_LEN, ALT_PEN20_ASURAMON_FQNAME, ALT_PEN20_ASURAMON_FQNAME_LEN },
         { PEN20_ATLUR_KABUTERIMON_NAME, PEN20_ATLUR_KABUTERIMON_NAME_LEN, PEN20_ATLUR_KABUTERIMON_ID, PEN20_ATLUR_KABUTERIMON_ID_LEN, PEN20_ATLUR_KABUTERIMON_FQID, PEN20_ATLUR_KABUTERIMON_FQID_LEN, PEN20_ATLUR_KABUTERIMON_FQNAME, PEN20_ATLUR_KABUTERIMON_FQNAME_LEN },
@@ -1759,6 +1931,8 @@ namespace bongocat::assets {
         { PEN20_BAKUMON_NAME, PEN20_BAKUMON_NAME_LEN, PEN20_BAKUMON_ID, PEN20_BAKUMON_ID_LEN, ALT_PEN20_BAKUMON_FQID, ALT_PEN20_BAKUMON_FQID_LEN, ALT_PEN20_BAKUMON_FQNAME, ALT_PEN20_BAKUMON_FQNAME_LEN },
         { PEN20_BANCHO_LEOMON_NAME, PEN20_BANCHO_LEOMON_NAME_LEN, PEN20_BANCHO_LEOMON_ID, PEN20_BANCHO_LEOMON_ID_LEN, PEN20_BANCHO_LEOMON_FQID, PEN20_BANCHO_LEOMON_FQID_LEN, PEN20_BANCHO_LEOMON_FQNAME, PEN20_BANCHO_LEOMON_FQNAME_LEN },
         { PEN20_BANCHO_LEOMON_NAME, PEN20_BANCHO_LEOMON_NAME_LEN, PEN20_BANCHO_LEOMON_ID, PEN20_BANCHO_LEOMON_ID_LEN, ALT_PEN20_BANCHO_LEOMON_FQID, ALT_PEN20_BANCHO_LEOMON_FQID_LEN, ALT_PEN20_BANCHO_LEOMON_FQNAME, ALT_PEN20_BANCHO_LEOMON_FQNAME_LEN },
+        { PEN20_BAO_HACKMON_NAME, PEN20_BAO_HACKMON_NAME_LEN, PEN20_BAO_HACKMON_ID, PEN20_BAO_HACKMON_ID_LEN, PEN20_BAO_HACKMON_FQID, PEN20_BAO_HACKMON_FQID_LEN, PEN20_BAO_HACKMON_FQNAME, PEN20_BAO_HACKMON_FQNAME_LEN },
+        { PEN20_BAO_HACKMON_NAME, PEN20_BAO_HACKMON_NAME_LEN, PEN20_BAO_HACKMON_ID, PEN20_BAO_HACKMON_ID_LEN, ALT_PEN20_BAO_HACKMON_FQID, ALT_PEN20_BAO_HACKMON_FQID_LEN, ALT_PEN20_BAO_HACKMON_FQNAME, ALT_PEN20_BAO_HACKMON_FQNAME_LEN },
         { PEN20_BEELZEBUMON_BLAST_MODE_NAME, PEN20_BEELZEBUMON_BLAST_MODE_NAME_LEN, PEN20_BEELZEBUMON_BLAST_MODE_ID, PEN20_BEELZEBUMON_BLAST_MODE_ID_LEN, PEN20_BEELZEBUMON_BLAST_MODE_FQID, PEN20_BEELZEBUMON_BLAST_MODE_FQID_LEN, PEN20_BEELZEBUMON_BLAST_MODE_FQNAME, PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_LEN },
         { PEN20_BEELZEBUMON_BLAST_MODE_NAME, PEN20_BEELZEBUMON_BLAST_MODE_NAME_LEN, PEN20_BEELZEBUMON_BLAST_MODE_ID, PEN20_BEELZEBUMON_BLAST_MODE_ID_LEN, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQID_LEN, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME, ALT_PEN20_BEELZEBUMON_BLAST_MODE_FQNAME_LEN },
         { PEN20_BEOWOLFMON_NAME, PEN20_BEOWOLFMON_NAME_LEN, PEN20_BEOWOLFMON_ID, PEN20_BEOWOLFMON_ID_LEN, PEN20_BEOWOLFMON_FQID, PEN20_BEOWOLFMON_FQID_LEN, PEN20_BEOWOLFMON_FQNAME, PEN20_BEOWOLFMON_FQNAME_LEN },
@@ -1773,6 +1947,8 @@ namespace bongocat::assets {
         { PEN20_BLOSSOMON_NAME, PEN20_BLOSSOMON_NAME_LEN, PEN20_BLOSSOMON_ID, PEN20_BLOSSOMON_ID_LEN, ALT_PEN20_BLOSSOMON_FQID, ALT_PEN20_BLOSSOMON_FQID_LEN, ALT_PEN20_BLOSSOMON_FQNAME, ALT_PEN20_BLOSSOMON_FQNAME_LEN },
         { PEN20_BOLTMON_NAME, PEN20_BOLTMON_NAME_LEN, PEN20_BOLTMON_ID, PEN20_BOLTMON_ID_LEN, PEN20_BOLTMON_FQID, PEN20_BOLTMON_FQID_LEN, PEN20_BOLTMON_FQNAME, PEN20_BOLTMON_FQNAME_LEN },
         { PEN20_BOLTMON_NAME, PEN20_BOLTMON_NAME_LEN, PEN20_BOLTMON_ID, PEN20_BOLTMON_ID_LEN, ALT_PEN20_BOLTMON_FQID, ALT_PEN20_BOLTMON_FQID_LEN, ALT_PEN20_BOLTMON_FQNAME, ALT_PEN20_BOLTMON_FQNAME_LEN },
+        { PEN20_BOTAMON_NAME, PEN20_BOTAMON_NAME_LEN, PEN20_BOTAMON_ID, PEN20_BOTAMON_ID_LEN, PEN20_BOTAMON_FQID, PEN20_BOTAMON_FQID_LEN, PEN20_BOTAMON_FQNAME, PEN20_BOTAMON_FQNAME_LEN },
+        { PEN20_BOTAMON_NAME, PEN20_BOTAMON_NAME_LEN, PEN20_BOTAMON_ID, PEN20_BOTAMON_ID_LEN, ALT_PEN20_BOTAMON_FQID, ALT_PEN20_BOTAMON_FQID_LEN, ALT_PEN20_BOTAMON_FQNAME, ALT_PEN20_BOTAMON_FQNAME_LEN },
         { PEN20_BREAKDRAMON_NAME, PEN20_BREAKDRAMON_NAME_LEN, PEN20_BREAKDRAMON_ID, PEN20_BREAKDRAMON_ID_LEN, PEN20_BREAKDRAMON_FQID, PEN20_BREAKDRAMON_FQID_LEN, PEN20_BREAKDRAMON_FQNAME, PEN20_BREAKDRAMON_FQNAME_LEN },
         { PEN20_BREAKDRAMON_NAME, PEN20_BREAKDRAMON_NAME_LEN, PEN20_BREAKDRAMON_ID, PEN20_BREAKDRAMON_ID_LEN, ALT_PEN20_BREAKDRAMON_FQID, ALT_PEN20_BREAKDRAMON_FQID_LEN, ALT_PEN20_BREAKDRAMON_FQNAME, ALT_PEN20_BREAKDRAMON_FQNAME_LEN },
         { PEN20_BRYWELUDRAMON_NAME, PEN20_BRYWELUDRAMON_NAME_LEN, PEN20_BRYWELUDRAMON_ID, PEN20_BRYWELUDRAMON_ID_LEN, PEN20_BRYWELUDRAMON_FQID, PEN20_BRYWELUDRAMON_FQID_LEN, PEN20_BRYWELUDRAMON_FQNAME, PEN20_BRYWELUDRAMON_FQNAME_LEN },
@@ -1827,8 +2003,18 @@ namespace bongocat::assets {
         { PEN20_DEVIMON_NAME, PEN20_DEVIMON_NAME_LEN, PEN20_DEVIMON_ID, PEN20_DEVIMON_ID_LEN, ALT_PEN20_DEVIMON_FQID, ALT_PEN20_DEVIMON_FQID_LEN, ALT_PEN20_DEVIMON_FQNAME, ALT_PEN20_DEVIMON_FQNAME_LEN },
         { PEN20_DOKUGUMON_NAME, PEN20_DOKUGUMON_NAME_LEN, PEN20_DOKUGUMON_ID, PEN20_DOKUGUMON_ID_LEN, PEN20_DOKUGUMON_FQID, PEN20_DOKUGUMON_FQID_LEN, PEN20_DOKUGUMON_FQNAME, PEN20_DOKUGUMON_FQNAME_LEN },
         { PEN20_DOKUGUMON_NAME, PEN20_DOKUGUMON_NAME_LEN, PEN20_DOKUGUMON_ID, PEN20_DOKUGUMON_ID_LEN, ALT_PEN20_DOKUGUMON_FQID, ALT_PEN20_DOKUGUMON_FQID_LEN, ALT_PEN20_DOKUGUMON_FQNAME, ALT_PEN20_DOKUGUMON_FQNAME_LEN },
+        { PEN20_DORIMON_NAME, PEN20_DORIMON_NAME_LEN, PEN20_DORIMON_ID, PEN20_DORIMON_ID_LEN, PEN20_DORIMON_FQID, PEN20_DORIMON_FQID_LEN, PEN20_DORIMON_FQNAME, PEN20_DORIMON_FQNAME_LEN },
+        { PEN20_DORIMON_NAME, PEN20_DORIMON_NAME_LEN, PEN20_DORIMON_ID, PEN20_DORIMON_ID_LEN, ALT_PEN20_DORIMON_FQID, ALT_PEN20_DORIMON_FQID_LEN, ALT_PEN20_DORIMON_FQNAME, ALT_PEN20_DORIMON_FQNAME_LEN },
+        { PEN20_DORUGAMON_NAME, PEN20_DORUGAMON_NAME_LEN, PEN20_DORUGAMON_ID, PEN20_DORUGAMON_ID_LEN, PEN20_DORUGAMON_FQID, PEN20_DORUGAMON_FQID_LEN, PEN20_DORUGAMON_FQNAME, PEN20_DORUGAMON_FQNAME_LEN },
+        { PEN20_DORUGAMON_NAME, PEN20_DORUGAMON_NAME_LEN, PEN20_DORUGAMON_ID, PEN20_DORUGAMON_ID_LEN, ALT_PEN20_DORUGAMON_FQID, ALT_PEN20_DORUGAMON_FQID_LEN, ALT_PEN20_DORUGAMON_FQNAME, ALT_PEN20_DORUGAMON_FQNAME_LEN },
         { PEN20_DORUGORAMON_NAME, PEN20_DORUGORAMON_NAME_LEN, PEN20_DORUGORAMON_ID, PEN20_DORUGORAMON_ID_LEN, PEN20_DORUGORAMON_FQID, PEN20_DORUGORAMON_FQID_LEN, PEN20_DORUGORAMON_FQNAME, PEN20_DORUGORAMON_FQNAME_LEN },
         { PEN20_DORUGORAMON_NAME, PEN20_DORUGORAMON_NAME_LEN, PEN20_DORUGORAMON_ID, PEN20_DORUGORAMON_ID_LEN, ALT_PEN20_DORUGORAMON_FQID, ALT_PEN20_DORUGORAMON_FQID_LEN, ALT_PEN20_DORUGORAMON_FQNAME, ALT_PEN20_DORUGORAMON_FQNAME_LEN },
+        { PEN20_DORUGUREMON_NAME, PEN20_DORUGUREMON_NAME_LEN, PEN20_DORUGUREMON_ID, PEN20_DORUGUREMON_ID_LEN, PEN20_DORUGUREMON_FQID, PEN20_DORUGUREMON_FQID_LEN, PEN20_DORUGUREMON_FQNAME, PEN20_DORUGUREMON_FQNAME_LEN },
+        { PEN20_DORUGUREMON_NAME, PEN20_DORUGUREMON_NAME_LEN, PEN20_DORUGUREMON_ID, PEN20_DORUGUREMON_ID_LEN, ALT_PEN20_DORUGUREMON_FQID, ALT_PEN20_DORUGUREMON_FQID_LEN, ALT_PEN20_DORUGUREMON_FQNAME, ALT_PEN20_DORUGUREMON_FQNAME_LEN },
+        { PEN20_DORUMON_NAME, PEN20_DORUMON_NAME_LEN, PEN20_DORUMON_ID, PEN20_DORUMON_ID_LEN, PEN20_DORUMON_FQID, PEN20_DORUMON_FQID_LEN, PEN20_DORUMON_FQNAME, PEN20_DORUMON_FQNAME_LEN },
+        { PEN20_DORUMON_NAME, PEN20_DORUMON_NAME_LEN, PEN20_DORUMON_ID, PEN20_DORUMON_ID_LEN, ALT_PEN20_DORUMON_FQID, ALT_PEN20_DORUMON_FQID_LEN, ALT_PEN20_DORUMON_FQNAME, ALT_PEN20_DORUMON_FQNAME_LEN },
+        { PEN20_DRACOMON_NAME, PEN20_DRACOMON_NAME_LEN, PEN20_DRACOMON_ID, PEN20_DRACOMON_ID_LEN, PEN20_DRACOMON_FQID, PEN20_DRACOMON_FQID_LEN, PEN20_DRACOMON_FQNAME, PEN20_DRACOMON_FQNAME_LEN },
+        { PEN20_DRACOMON_NAME, PEN20_DRACOMON_NAME_LEN, PEN20_DRACOMON_ID, PEN20_DRACOMON_ID_LEN, ALT_PEN20_DRACOMON_FQID, ALT_PEN20_DRACOMON_FQID_LEN, ALT_PEN20_DRACOMON_FQNAME, ALT_PEN20_DRACOMON_FQNAME_LEN },
         { PEN20_DURAMON_NAME, PEN20_DURAMON_NAME_LEN, PEN20_DURAMON_ID, PEN20_DURAMON_ID_LEN, PEN20_DURAMON_FQID, PEN20_DURAMON_FQID_LEN, PEN20_DURAMON_FQNAME, PEN20_DURAMON_FQNAME_LEN },
         { PEN20_DURAMON_NAME, PEN20_DURAMON_NAME_LEN, PEN20_DURAMON_ID, PEN20_DURAMON_ID_LEN, ALT_PEN20_DURAMON_FQID, ALT_PEN20_DURAMON_FQID_LEN, ALT_PEN20_DURAMON_FQNAME, ALT_PEN20_DURAMON_FQNAME_LEN },
         { PEN20_DURANDAMON_NAME, PEN20_DURANDAMON_NAME_LEN, PEN20_DURANDAMON_ID, PEN20_DURANDAMON_ID_LEN, PEN20_DURANDAMON_FQID, PEN20_DURANDAMON_FQID_LEN, PEN20_DURANDAMON_FQNAME, PEN20_DURANDAMON_FQNAME_LEN },
@@ -1845,6 +2031,8 @@ namespace bongocat::assets {
         { PEN20_FLORAMON_NAME, PEN20_FLORAMON_NAME_LEN, PEN20_FLORAMON_ID, PEN20_FLORAMON_ID_LEN, ALT_PEN20_FLORAMON_FQID, ALT_PEN20_FLORAMON_FQID_LEN, ALT_PEN20_FLORAMON_FQNAME, ALT_PEN20_FLORAMON_FQNAME_LEN },
         { PEN20_FUFUMON_NAME, PEN20_FUFUMON_NAME_LEN, PEN20_FUFUMON_ID, PEN20_FUFUMON_ID_LEN, PEN20_FUFUMON_FQID, PEN20_FUFUMON_FQID_LEN, PEN20_FUFUMON_FQNAME, PEN20_FUFUMON_FQNAME_LEN },
         { PEN20_FUFUMON_NAME, PEN20_FUFUMON_NAME_LEN, PEN20_FUFUMON_ID, PEN20_FUFUMON_ID_LEN, ALT_PEN20_FUFUMON_FQID, ALT_PEN20_FUFUMON_FQID_LEN, ALT_PEN20_FUFUMON_FQNAME, ALT_PEN20_FUFUMON_FQNAME_LEN },
+        { PEN20_GABUMON_NAME, PEN20_GABUMON_NAME_LEN, PEN20_GABUMON_ID, PEN20_GABUMON_ID_LEN, PEN20_GABUMON_FQID, PEN20_GABUMON_FQID_LEN, PEN20_GABUMON_FQNAME, PEN20_GABUMON_FQNAME_LEN },
+        { PEN20_GABUMON_NAME, PEN20_GABUMON_NAME_LEN, PEN20_GABUMON_ID, PEN20_GABUMON_ID_LEN, ALT_PEN20_GABUMON_FQID, ALT_PEN20_GABUMON_FQID_LEN, ALT_PEN20_GABUMON_FQNAME, ALT_PEN20_GABUMON_FQNAME_LEN },
         { PEN20_GALGOMON_NAME, PEN20_GALGOMON_NAME_LEN, PEN20_GALGOMON_ID, PEN20_GALGOMON_ID_LEN, PEN20_GALGOMON_FQID, PEN20_GALGOMON_FQID_LEN, PEN20_GALGOMON_FQNAME, PEN20_GALGOMON_FQNAME_LEN },
         { PEN20_GALGOMON_NAME, PEN20_GALGOMON_NAME_LEN, PEN20_GALGOMON_ID, PEN20_GALGOMON_ID_LEN, ALT_PEN20_GALGOMON_FQID, ALT_PEN20_GALGOMON_FQID_LEN, ALT_PEN20_GALGOMON_FQNAME, ALT_PEN20_GALGOMON_FQNAME_LEN },
         { PEN20_GANIMON_NAME, PEN20_GANIMON_NAME_LEN, PEN20_GANIMON_ID, PEN20_GANIMON_ID_LEN, PEN20_GANIMON_FQID, PEN20_GANIMON_FQID_LEN, PEN20_GANIMON_FQNAME, PEN20_GANIMON_FQNAME_LEN },
@@ -1879,6 +2067,8 @@ namespace bongocat::assets {
         { PEN20_GUIMON_NAME, PEN20_GUIMON_NAME_LEN, PEN20_GUIMON_ID, PEN20_GUIMON_ID_LEN, ALT_PEN20_GUIMON_FQID, ALT_PEN20_GUIMON_FQID_LEN, ALT_PEN20_GUIMON_FQNAME, ALT_PEN20_GUIMON_FQNAME_LEN },
         { PEN20_GUMMYMON_NAME, PEN20_GUMMYMON_NAME_LEN, PEN20_GUMMYMON_ID, PEN20_GUMMYMON_ID_LEN, PEN20_GUMMYMON_FQID, PEN20_GUMMYMON_FQID_LEN, PEN20_GUMMYMON_FQNAME, PEN20_GUMMYMON_FQNAME_LEN },
         { PEN20_GUMMYMON_NAME, PEN20_GUMMYMON_NAME_LEN, PEN20_GUMMYMON_ID, PEN20_GUMMYMON_ID_LEN, ALT_PEN20_GUMMYMON_FQID, ALT_PEN20_GUMMYMON_FQID_LEN, ALT_PEN20_GUMMYMON_FQNAME, ALT_PEN20_GUMMYMON_FQNAME_LEN },
+        { PEN20_HACKMON_NAME, PEN20_HACKMON_NAME_LEN, PEN20_HACKMON_ID, PEN20_HACKMON_ID_LEN, PEN20_HACKMON_FQID, PEN20_HACKMON_FQID_LEN, PEN20_HACKMON_FQNAME, PEN20_HACKMON_FQNAME_LEN },
+        { PEN20_HACKMON_NAME, PEN20_HACKMON_NAME_LEN, PEN20_HACKMON_ID, PEN20_HACKMON_ID_LEN, ALT_PEN20_HACKMON_FQID, ALT_PEN20_HACKMON_FQID_LEN, ALT_PEN20_HACKMON_FQNAME, ALT_PEN20_HACKMON_FQNAME_LEN },
         { PEN20_HAGURUMON_NAME, PEN20_HAGURUMON_NAME_LEN, PEN20_HAGURUMON_ID, PEN20_HAGURUMON_ID_LEN, PEN20_HAGURUMON_FQID, PEN20_HAGURUMON_FQID_LEN, PEN20_HAGURUMON_FQNAME, PEN20_HAGURUMON_FQNAME_LEN },
         { PEN20_HAGURUMON_NAME, PEN20_HAGURUMON_NAME_LEN, PEN20_HAGURUMON_ID, PEN20_HAGURUMON_ID_LEN, ALT_PEN20_HAGURUMON_FQID, ALT_PEN20_HAGURUMON_FQID_LEN, ALT_PEN20_HAGURUMON_FQNAME, ALT_PEN20_HAGURUMON_FQNAME_LEN },
         { PEN20_HANGYMON_NAME, PEN20_HANGYMON_NAME_LEN, PEN20_HANGYMON_ID, PEN20_HANGYMON_ID_LEN, PEN20_HANGYMON_FQID, PEN20_HANGYMON_FQID_LEN, PEN20_HANGYMON_FQNAME, PEN20_HANGYMON_FQNAME_LEN },
@@ -1889,8 +2079,6 @@ namespace bongocat::assets {
         { PEN20_HANUMON_NAME, PEN20_HANUMON_NAME_LEN, PEN20_HANUMON_ID, PEN20_HANUMON_ID_LEN, ALT_PEN20_HANUMON_FQID, ALT_PEN20_HANUMON_FQID_LEN, ALT_PEN20_HANUMON_FQNAME, ALT_PEN20_HANUMON_FQNAME_LEN },
         { PEN20_HERAKLE_KABUTERIMON_NAME, PEN20_HERAKLE_KABUTERIMON_NAME_LEN, PEN20_HERAKLE_KABUTERIMON_ID, PEN20_HERAKLE_KABUTERIMON_ID_LEN, PEN20_HERAKLE_KABUTERIMON_FQID, PEN20_HERAKLE_KABUTERIMON_FQID_LEN, PEN20_HERAKLE_KABUTERIMON_FQNAME, PEN20_HERAKLE_KABUTERIMON_FQNAME_LEN },
         { PEN20_HERAKLE_KABUTERIMON_NAME, PEN20_HERAKLE_KABUTERIMON_NAME_LEN, PEN20_HERAKLE_KABUTERIMON_ID, PEN20_HERAKLE_KABUTERIMON_ID_LEN, ALT_PEN20_HERAKLE_KABUTERIMON_FQID, ALT_PEN20_HERAKLE_KABUTERIMON_FQID_LEN, ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME, ALT_PEN20_HERAKLE_KABUTERIMON_FQNAME_LEN },
-        { PEN20_HERKULE_KABUTERIMON_NAME, PEN20_HERKULE_KABUTERIMON_NAME_LEN, PEN20_HERKULE_KABUTERIMON_ID, PEN20_HERKULE_KABUTERIMON_ID_LEN, PEN20_HERKULE_KABUTERIMON_FQID, PEN20_HERKULE_KABUTERIMON_FQID_LEN, PEN20_HERKULE_KABUTERIMON_FQNAME, PEN20_HERKULE_KABUTERIMON_FQNAME_LEN },
-        { PEN20_HERKULE_KABUTERIMON_NAME, PEN20_HERKULE_KABUTERIMON_NAME_LEN, PEN20_HERKULE_KABUTERIMON_ID, PEN20_HERKULE_KABUTERIMON_ID_LEN, ALT_PEN20_HERKULE_KABUTERIMON_FQID, ALT_PEN20_HERKULE_KABUTERIMON_FQID_LEN, ALT_PEN20_HERKULE_KABUTERIMON_FQNAME, ALT_PEN20_HERKULE_KABUTERIMON_FQNAME_LEN },
         { PEN20_HISYARYUMON_NAME, PEN20_HISYARYUMON_NAME_LEN, PEN20_HISYARYUMON_ID, PEN20_HISYARYUMON_ID_LEN, PEN20_HISYARYUMON_FQID, PEN20_HISYARYUMON_FQID_LEN, PEN20_HISYARYUMON_FQNAME, PEN20_HISYARYUMON_FQNAME_LEN },
         { PEN20_HISYARYUMON_NAME, PEN20_HISYARYUMON_NAME_LEN, PEN20_HISYARYUMON_ID, PEN20_HISYARYUMON_ID_LEN, ALT_PEN20_HISYARYUMON_FQID, ALT_PEN20_HISYARYUMON_FQID_LEN, ALT_PEN20_HISYARYUMON_FQNAME, ALT_PEN20_HISYARYUMON_FQNAME_LEN },
         { PEN20_HOLY_ANGEMON_NAME, PEN20_HOLY_ANGEMON_NAME_LEN, PEN20_HOLY_ANGEMON_ID, PEN20_HOLY_ANGEMON_ID_LEN, PEN20_HOLY_ANGEMON_FQID, PEN20_HOLY_ANGEMON_FQID_LEN, PEN20_HOLY_ANGEMON_FQNAME, PEN20_HOLY_ANGEMON_FQNAME_LEN },
@@ -1899,8 +2087,8 @@ namespace bongocat::assets {
         { PEN20_HOLYDRAMON_NAME, PEN20_HOLYDRAMON_NAME_LEN, PEN20_HOLYDRAMON_ID, PEN20_HOLYDRAMON_ID_LEN, ALT_PEN20_HOLYDRAMON_FQID, ALT_PEN20_HOLYDRAMON_FQID_LEN, ALT_PEN20_HOLYDRAMON_FQNAME, ALT_PEN20_HOLYDRAMON_FQNAME_LEN },
         { PEN20_HOUOUMON_NAME, PEN20_HOUOUMON_NAME_LEN, PEN20_HOUOUMON_ID, PEN20_HOUOUMON_ID_LEN, PEN20_HOUOUMON_FQID, PEN20_HOUOUMON_FQID_LEN, PEN20_HOUOUMON_FQNAME, PEN20_HOUOUMON_FQNAME_LEN },
         { PEN20_HOUOUMON_NAME, PEN20_HOUOUMON_NAME_LEN, PEN20_HOUOUMON_ID, PEN20_HOUOUMON_ID_LEN, ALT_PEN20_HOUOUMON_FQID, ALT_PEN20_HOUOUMON_FQID_LEN, ALT_PEN20_HOUOUMON_FQNAME, ALT_PEN20_HOUOUMON_FQNAME_LEN },
-        { PEN20_IGNAMON_NAME, PEN20_IGNAMON_NAME_LEN, PEN20_IGNAMON_ID, PEN20_IGNAMON_ID_LEN, PEN20_IGNAMON_FQID, PEN20_IGNAMON_FQID_LEN, PEN20_IGNAMON_FQNAME, PEN20_IGNAMON_FQNAME_LEN },
-        { PEN20_IGNAMON_NAME, PEN20_IGNAMON_NAME_LEN, PEN20_IGNAMON_ID, PEN20_IGNAMON_ID_LEN, ALT_PEN20_IGNAMON_FQID, ALT_PEN20_IGNAMON_FQID_LEN, ALT_PEN20_IGNAMON_FQNAME, ALT_PEN20_IGNAMON_FQNAME_LEN },
+        { PEN20_IGAMON_NAME, PEN20_IGAMON_NAME_LEN, PEN20_IGAMON_ID, PEN20_IGAMON_ID_LEN, PEN20_IGAMON_FQID, PEN20_IGAMON_FQID_LEN, PEN20_IGAMON_FQNAME, PEN20_IGAMON_FQNAME_LEN },
+        { PEN20_IGAMON_NAME, PEN20_IGAMON_NAME_LEN, PEN20_IGAMON_ID, PEN20_IGAMON_ID_LEN, ALT_PEN20_IGAMON_FQID, ALT_PEN20_IGAMON_FQID_LEN, ALT_PEN20_IGAMON_FQNAME, ALT_PEN20_IGAMON_FQNAME_LEN },
         { PEN20_IKKAKUMON_NAME, PEN20_IKKAKUMON_NAME_LEN, PEN20_IKKAKUMON_ID, PEN20_IKKAKUMON_ID_LEN, PEN20_IKKAKUMON_FQID, PEN20_IKKAKUMON_FQID_LEN, PEN20_IKKAKUMON_FQNAME, PEN20_IKKAKUMON_FQNAME_LEN },
         { PEN20_IKKAKUMON_NAME, PEN20_IKKAKUMON_NAME_LEN, PEN20_IKKAKUMON_ID, PEN20_IKKAKUMON_ID_LEN, ALT_PEN20_IKKAKUMON_FQID, ALT_PEN20_IKKAKUMON_FQID_LEN, ALT_PEN20_IKKAKUMON_FQNAME, ALT_PEN20_IKKAKUMON_FQNAME_LEN },
         { PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_LEN, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_LEN, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_LEN, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME, PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQNAME_LEN },
@@ -1925,6 +2113,8 @@ namespace bongocat::assets {
         { PEN20_KNIGHTMON_NAME, PEN20_KNIGHTMON_NAME_LEN, PEN20_KNIGHTMON_ID, PEN20_KNIGHTMON_ID_LEN, ALT_PEN20_KNIGHTMON_FQID, ALT_PEN20_KNIGHTMON_FQID_LEN, ALT_PEN20_KNIGHTMON_FQNAME, ALT_PEN20_KNIGHTMON_FQNAME_LEN },
         { PEN20_KOKUWAMON_NAME, PEN20_KOKUWAMON_NAME_LEN, PEN20_KOKUWAMON_ID, PEN20_KOKUWAMON_ID_LEN, PEN20_KOKUWAMON_FQID, PEN20_KOKUWAMON_FQID_LEN, PEN20_KOKUWAMON_FQNAME, PEN20_KOKUWAMON_FQNAME_LEN },
         { PEN20_KOKUWAMON_NAME, PEN20_KOKUWAMON_NAME_LEN, PEN20_KOKUWAMON_ID, PEN20_KOKUWAMON_ID_LEN, ALT_PEN20_KOKUWAMON_FQID, ALT_PEN20_KOKUWAMON_FQID_LEN, ALT_PEN20_KOKUWAMON_FQNAME, ALT_PEN20_KOKUWAMON_FQNAME_LEN },
+        { PEN20_KOROMON_NAME, PEN20_KOROMON_NAME_LEN, PEN20_KOROMON_ID, PEN20_KOROMON_ID_LEN, PEN20_KOROMON_FQID, PEN20_KOROMON_FQID_LEN, PEN20_KOROMON_FQNAME, PEN20_KOROMON_FQNAME_LEN },
+        { PEN20_KOROMON_NAME, PEN20_KOROMON_NAME_LEN, PEN20_KOROMON_ID, PEN20_KOROMON_ID_LEN, ALT_PEN20_KOROMON_FQID, ALT_PEN20_KOROMON_FQID_LEN, ALT_PEN20_KOROMON_FQNAME, ALT_PEN20_KOROMON_FQNAME_LEN },
         { PEN20_KUWAGAMON_NAME, PEN20_KUWAGAMON_NAME_LEN, PEN20_KUWAGAMON_ID, PEN20_KUWAGAMON_ID_LEN, PEN20_KUWAGAMON_FQID, PEN20_KUWAGAMON_FQID_LEN, PEN20_KUWAGAMON_FQNAME, PEN20_KUWAGAMON_FQNAME_LEN },
         { PEN20_KUWAGAMON_NAME, PEN20_KUWAGAMON_NAME_LEN, PEN20_KUWAGAMON_ID, PEN20_KUWAGAMON_ID_LEN, ALT_PEN20_KUWAGAMON_FQID, ALT_PEN20_KUWAGAMON_FQID_LEN, ALT_PEN20_KUWAGAMON_FQNAME, ALT_PEN20_KUWAGAMON_FQNAME_LEN },
         { PEN20_KYOKYOMON_NAME, PEN20_KYOKYOMON_NAME_LEN, PEN20_KYOKYOMON_ID, PEN20_KYOKYOMON_ID_LEN, PEN20_KYOKYOMON_FQID, PEN20_KYOKYOMON_FQID_LEN, PEN20_KYOKYOMON_FQNAME, PEN20_KYOKYOMON_FQNAME_LEN },
@@ -1937,6 +2127,8 @@ namespace bongocat::assets {
         { PEN20_LAVOGARITAMON_NAME, PEN20_LAVOGARITAMON_NAME_LEN, PEN20_LAVOGARITAMON_ID, PEN20_LAVOGARITAMON_ID_LEN, ALT_PEN20_LAVOGARITAMON_FQID, ALT_PEN20_LAVOGARITAMON_FQID_LEN, ALT_PEN20_LAVOGARITAMON_FQNAME, ALT_PEN20_LAVOGARITAMON_FQNAME_LEN },
         { PEN20_LAVORVOMON_NAME, PEN20_LAVORVOMON_NAME_LEN, PEN20_LAVORVOMON_ID, PEN20_LAVORVOMON_ID_LEN, PEN20_LAVORVOMON_FQID, PEN20_LAVORVOMON_FQID_LEN, PEN20_LAVORVOMON_FQNAME, PEN20_LAVORVOMON_FQNAME_LEN },
         { PEN20_LAVORVOMON_NAME, PEN20_LAVORVOMON_NAME_LEN, PEN20_LAVORVOMON_ID, PEN20_LAVORVOMON_ID_LEN, ALT_PEN20_LAVORVOMON_FQID, ALT_PEN20_LAVORVOMON_FQID_LEN, ALT_PEN20_LAVORVOMON_FQNAME, ALT_PEN20_LAVORVOMON_FQNAME_LEN },
+        { PEN20_LEOMON_NAME, PEN20_LEOMON_NAME_LEN, PEN20_LEOMON_ID, PEN20_LEOMON_ID_LEN, PEN20_LEOMON_FQID, PEN20_LEOMON_FQID_LEN, PEN20_LEOMON_FQNAME, PEN20_LEOMON_FQNAME_LEN },
+        { PEN20_LEOMON_NAME, PEN20_LEOMON_NAME_LEN, PEN20_LEOMON_ID, PEN20_LEOMON_ID_LEN, ALT_PEN20_LEOMON_FQID, ALT_PEN20_LEOMON_FQID_LEN, ALT_PEN20_LEOMON_FQNAME, ALT_PEN20_LEOMON_FQNAME_LEN },
         { PEN20_LILAMON_NAME, PEN20_LILAMON_NAME_LEN, PEN20_LILAMON_ID, PEN20_LILAMON_ID_LEN, PEN20_LILAMON_FQID, PEN20_LILAMON_FQID_LEN, PEN20_LILAMON_FQNAME, PEN20_LILAMON_FQNAME_LEN },
         { PEN20_LILAMON_NAME, PEN20_LILAMON_NAME_LEN, PEN20_LILAMON_ID, PEN20_LILAMON_ID_LEN, ALT_PEN20_LILAMON_FQID, ALT_PEN20_LILAMON_FQID_LEN, ALT_PEN20_LILAMON_FQNAME, ALT_PEN20_LILAMON_FQNAME_LEN },
         { PEN20_LILIMON_NAME, PEN20_LILIMON_NAME_LEN, PEN20_LILIMON_ID, PEN20_LILIMON_ID_LEN, PEN20_LILIMON_FQID, PEN20_LILIMON_FQID_LEN, PEN20_LILIMON_FQNAME, PEN20_LILIMON_FQNAME_LEN },
@@ -1969,6 +2161,8 @@ namespace bongocat::assets {
         { PEN20_MEGALO_GROWMON_NAME, PEN20_MEGALO_GROWMON_NAME_LEN, PEN20_MEGALO_GROWMON_ID, PEN20_MEGALO_GROWMON_ID_LEN, ALT_PEN20_MEGALO_GROWMON_FQID, ALT_PEN20_MEGALO_GROWMON_FQID_LEN, ALT_PEN20_MEGALO_GROWMON_FQNAME, ALT_PEN20_MEGALO_GROWMON_FQNAME_LEN },
         { PEN20_MEGA_SEADRAMON_NAME, PEN20_MEGA_SEADRAMON_NAME_LEN, PEN20_MEGA_SEADRAMON_ID, PEN20_MEGA_SEADRAMON_ID_LEN, PEN20_MEGA_SEADRAMON_FQID, PEN20_MEGA_SEADRAMON_FQID_LEN, PEN20_MEGA_SEADRAMON_FQNAME, PEN20_MEGA_SEADRAMON_FQNAME_LEN },
         { PEN20_MEGA_SEADRAMON_NAME, PEN20_MEGA_SEADRAMON_NAME_LEN, PEN20_MEGA_SEADRAMON_ID, PEN20_MEGA_SEADRAMON_ID_LEN, ALT_PEN20_MEGA_SEADRAMON_FQID, ALT_PEN20_MEGA_SEADRAMON_FQID_LEN, ALT_PEN20_MEGA_SEADRAMON_FQNAME, ALT_PEN20_MEGA_SEADRAMON_FQNAME_LEN },
+        { PEN20_MEICOOMON_NAME, PEN20_MEICOOMON_NAME_LEN, PEN20_MEICOOMON_ID, PEN20_MEICOOMON_ID_LEN, PEN20_MEICOOMON_FQID, PEN20_MEICOOMON_FQID_LEN, PEN20_MEICOOMON_FQNAME, PEN20_MEICOOMON_FQNAME_LEN },
+        { PEN20_MEICOOMON_NAME, PEN20_MEICOOMON_NAME_LEN, PEN20_MEICOOMON_ID, PEN20_MEICOOMON_ID_LEN, ALT_PEN20_MEICOOMON_FQID, ALT_PEN20_MEICOOMON_FQID_LEN, ALT_PEN20_MEICOOMON_FQNAME, ALT_PEN20_MEICOOMON_FQNAME_LEN },
         { PEN20_MEICRACKMON_VICIOUS_MODE_NAME, PEN20_MEICRACKMON_VICIOUS_MODE_NAME_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_ID, PEN20_MEICRACKMON_VICIOUS_MODE_ID_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_FQID, PEN20_MEICRACKMON_VICIOUS_MODE_FQID_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME, PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_LEN },
         { PEN20_MEICRACKMON_VICIOUS_MODE_NAME, PEN20_MEICRACKMON_VICIOUS_MODE_NAME_LEN, PEN20_MEICRACKMON_VICIOUS_MODE_ID, PEN20_MEICRACKMON_VICIOUS_MODE_ID_LEN, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQID_LEN, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME, ALT_PEN20_MEICRACKMON_VICIOUS_MODE_FQNAME_LEN },
         { PEN20_MERAMON_NAME, PEN20_MERAMON_NAME_LEN, PEN20_MERAMON_ID, PEN20_MERAMON_ID_LEN, PEN20_MERAMON_FQID, PEN20_MERAMON_FQID_LEN, PEN20_MERAMON_FQNAME, PEN20_MERAMON_FQNAME_LEN },
@@ -1995,6 +2189,8 @@ namespace bongocat::assets {
         { PEN20_MUGENDRAMON_NAME, PEN20_MUGENDRAMON_NAME_LEN, PEN20_MUGENDRAMON_ID, PEN20_MUGENDRAMON_ID_LEN, ALT_PEN20_MUGENDRAMON_FQID, ALT_PEN20_MUGENDRAMON_FQID_LEN, ALT_PEN20_MUGENDRAMON_FQNAME, ALT_PEN20_MUGENDRAMON_FQNAME_LEN },
         { PEN20_MUSHMON_NAME, PEN20_MUSHMON_NAME_LEN, PEN20_MUSHMON_ID, PEN20_MUSHMON_ID_LEN, PEN20_MUSHMON_FQID, PEN20_MUSHMON_FQID_LEN, PEN20_MUSHMON_FQNAME, PEN20_MUSHMON_FQNAME_LEN },
         { PEN20_MUSHMON_NAME, PEN20_MUSHMON_NAME_LEN, PEN20_MUSHMON_ID, PEN20_MUSHMON_ID_LEN, ALT_PEN20_MUSHMON_FQID, ALT_PEN20_MUSHMON_FQID_LEN, ALT_PEN20_MUSHMON_FQNAME, ALT_PEN20_MUSHMON_FQNAME_LEN },
+        { PEN20_NYAROMON_NAME, PEN20_NYAROMON_NAME_LEN, PEN20_NYAROMON_ID, PEN20_NYAROMON_ID_LEN, PEN20_NYAROMON_FQID, PEN20_NYAROMON_FQID_LEN, PEN20_NYAROMON_FQNAME, PEN20_NYAROMON_FQNAME_LEN },
+        { PEN20_NYAROMON_NAME, PEN20_NYAROMON_NAME_LEN, PEN20_NYAROMON_ID, PEN20_NYAROMON_ID_LEN, ALT_PEN20_NYAROMON_FQID, ALT_PEN20_NYAROMON_FQID_LEN, ALT_PEN20_NYAROMON_FQNAME, ALT_PEN20_NYAROMON_FQNAME_LEN },
         { PEN20_NYOKIMON_NAME, PEN20_NYOKIMON_NAME_LEN, PEN20_NYOKIMON_ID, PEN20_NYOKIMON_ID_LEN, PEN20_NYOKIMON_FQID, PEN20_NYOKIMON_FQID_LEN, PEN20_NYOKIMON_FQNAME, PEN20_NYOKIMON_FQNAME_LEN },
         { PEN20_NYOKIMON_NAME, PEN20_NYOKIMON_NAME_LEN, PEN20_NYOKIMON_ID, PEN20_NYOKIMON_ID_LEN, ALT_PEN20_NYOKIMON_FQID, ALT_PEN20_NYOKIMON_FQID_LEN, ALT_PEN20_NYOKIMON_FQNAME, ALT_PEN20_NYOKIMON_FQNAME_LEN },
         { PEN20_OCTMON_NAME, PEN20_OCTMON_NAME_LEN, PEN20_OCTMON_ID, PEN20_OCTMON_ID_LEN, PEN20_OCTMON_FQID, PEN20_OCTMON_FQID_LEN, PEN20_OCTMON_FQNAME, PEN20_OCTMON_FQNAME_LEN },
@@ -2019,6 +2215,8 @@ namespace bongocat::assets {
         { PEN20_PALMON_NAME, PEN20_PALMON_NAME_LEN, PEN20_PALMON_ID, PEN20_PALMON_ID_LEN, ALT_PEN20_PALMON_FQID, ALT_PEN20_PALMON_FQID_LEN, ALT_PEN20_PALMON_FQNAME, ALT_PEN20_PALMON_FQNAME_LEN },
         { PEN20_PETI_MERAMON_NAME, PEN20_PETI_MERAMON_NAME_LEN, PEN20_PETI_MERAMON_ID, PEN20_PETI_MERAMON_ID_LEN, PEN20_PETI_MERAMON_FQID, PEN20_PETI_MERAMON_FQID_LEN, PEN20_PETI_MERAMON_FQNAME, PEN20_PETI_MERAMON_FQNAME_LEN },
         { PEN20_PETI_MERAMON_NAME, PEN20_PETI_MERAMON_NAME_LEN, PEN20_PETI_MERAMON_ID, PEN20_PETI_MERAMON_ID_LEN, ALT_PEN20_PETI_MERAMON_FQID, ALT_PEN20_PETI_MERAMON_FQID_LEN, ALT_PEN20_PETI_MERAMON_FQNAME, ALT_PEN20_PETI_MERAMON_FQNAME_LEN },
+        { PEN20_PETITMON_NAME, PEN20_PETITMON_NAME_LEN, PEN20_PETITMON_ID, PEN20_PETITMON_ID_LEN, PEN20_PETITMON_FQID, PEN20_PETITMON_FQID_LEN, PEN20_PETITMON_FQNAME, PEN20_PETITMON_FQNAME_LEN },
+        { PEN20_PETITMON_NAME, PEN20_PETITMON_NAME_LEN, PEN20_PETITMON_ID, PEN20_PETITMON_ID_LEN, ALT_PEN20_PETITMON_FQID, ALT_PEN20_PETITMON_FQID_LEN, ALT_PEN20_PETITMON_FQNAME, ALT_PEN20_PETITMON_FQNAME_LEN },
         { PEN20_PHASCOMON_NAME, PEN20_PHASCOMON_NAME_LEN, PEN20_PHASCOMON_ID, PEN20_PHASCOMON_ID_LEN, PEN20_PHASCOMON_FQID, PEN20_PHASCOMON_FQID_LEN, PEN20_PHASCOMON_FQNAME, PEN20_PHASCOMON_FQNAME_LEN },
         { PEN20_PHASCOMON_NAME, PEN20_PHASCOMON_NAME_LEN, PEN20_PHASCOMON_ID, PEN20_PHASCOMON_ID_LEN, ALT_PEN20_PHASCOMON_FQID, ALT_PEN20_PHASCOMON_FQID_LEN, ALT_PEN20_PHASCOMON_FQNAME, ALT_PEN20_PHASCOMON_FQNAME_LEN },
         { PEN20_PICCOLOMON_NAME, PEN20_PICCOLOMON_NAME_LEN, PEN20_PICCOLOMON_ID, PEN20_PICCOLOMON_ID_LEN, PEN20_PICCOLOMON_FQID, PEN20_PICCOLOMON_FQID_LEN, PEN20_PICCOLOMON_FQNAME, PEN20_PICCOLOMON_FQNAME_LEN },
@@ -2029,14 +2227,20 @@ namespace bongocat::assets {
         { PEN20_PIEMON_NAME, PEN20_PIEMON_NAME_LEN, PEN20_PIEMON_ID, PEN20_PIEMON_ID_LEN, ALT_PEN20_PIEMON_FQID, ALT_PEN20_PIEMON_FQID_LEN, ALT_PEN20_PIEMON_FQNAME, ALT_PEN20_PIEMON_FQNAME_LEN },
         { PEN20_PINOCHIMON_NAME, PEN20_PINOCHIMON_NAME_LEN, PEN20_PINOCHIMON_ID, PEN20_PINOCHIMON_ID_LEN, PEN20_PINOCHIMON_FQID, PEN20_PINOCHIMON_FQID_LEN, PEN20_PINOCHIMON_FQNAME, PEN20_PINOCHIMON_FQNAME_LEN },
         { PEN20_PINOCHIMON_NAME, PEN20_PINOCHIMON_NAME_LEN, PEN20_PINOCHIMON_ID, PEN20_PINOCHIMON_ID_LEN, ALT_PEN20_PINOCHIMON_FQID, ALT_PEN20_PINOCHIMON_FQID_LEN, ALT_PEN20_PINOCHIMON_FQNAME, ALT_PEN20_PINOCHIMON_FQNAME_LEN },
+        { PEN20_PITCHMON_NAME, PEN20_PITCHMON_NAME_LEN, PEN20_PITCHMON_ID, PEN20_PITCHMON_ID_LEN, PEN20_PITCHMON_FQID, PEN20_PITCHMON_FQID_LEN, PEN20_PITCHMON_FQNAME, PEN20_PITCHMON_FQNAME_LEN },
+        { PEN20_PITCHMON_NAME, PEN20_PITCHMON_NAME_LEN, PEN20_PITCHMON_ID, PEN20_PITCHMON_ID_LEN, ALT_PEN20_PITCHMON_FQID, ALT_PEN20_PITCHMON_FQID_LEN, ALT_PEN20_PITCHMON_FQNAME, ALT_PEN20_PITCHMON_FQNAME_LEN },
         { PEN20_PIYOMON_NAME, PEN20_PIYOMON_NAME_LEN, PEN20_PIYOMON_ID, PEN20_PIYOMON_ID_LEN, PEN20_PIYOMON_FQID, PEN20_PIYOMON_FQID_LEN, PEN20_PIYOMON_FQNAME, PEN20_PIYOMON_FQNAME_LEN },
         { PEN20_PIYOMON_NAME, PEN20_PIYOMON_NAME_LEN, PEN20_PIYOMON_ID, PEN20_PIYOMON_ID_LEN, ALT_PEN20_PIYOMON_FQID, ALT_PEN20_PIYOMON_FQID_LEN, ALT_PEN20_PIYOMON_FQNAME, ALT_PEN20_PIYOMON_FQNAME_LEN },
         { PEN20_PLESIOMON_NAME, PEN20_PLESIOMON_NAME_LEN, PEN20_PLESIOMON_ID, PEN20_PLESIOMON_ID_LEN, PEN20_PLESIOMON_FQID, PEN20_PLESIOMON_FQID_LEN, PEN20_PLESIOMON_FQNAME, PEN20_PLESIOMON_FQNAME_LEN },
         { PEN20_PLESIOMON_NAME, PEN20_PLESIOMON_NAME_LEN, PEN20_PLESIOMON_ID, PEN20_PLESIOMON_ID_LEN, ALT_PEN20_PLESIOMON_FQID, ALT_PEN20_PLESIOMON_FQID_LEN, ALT_PEN20_PLESIOMON_FQNAME, ALT_PEN20_PLESIOMON_FQNAME_LEN },
+        { PEN20_PLOTMON_NAME, PEN20_PLOTMON_NAME_LEN, PEN20_PLOTMON_ID, PEN20_PLOTMON_ID_LEN, PEN20_PLOTMON_FQID, PEN20_PLOTMON_FQID_LEN, PEN20_PLOTMON_FQNAME, PEN20_PLOTMON_FQNAME_LEN },
+        { PEN20_PLOTMON_NAME, PEN20_PLOTMON_NAME_LEN, PEN20_PLOTMON_ID, PEN20_PLOTMON_ID_LEN, ALT_PEN20_PLOTMON_FQID, ALT_PEN20_PLOTMON_FQID_LEN, ALT_PEN20_PLOTMON_FQNAME, ALT_PEN20_PLOTMON_FQNAME_LEN },
         { PEN20_PORCUPAMON_NAME, PEN20_PORCUPAMON_NAME_LEN, PEN20_PORCUPAMON_ID, PEN20_PORCUPAMON_ID_LEN, PEN20_PORCUPAMON_FQID, PEN20_PORCUPAMON_FQID_LEN, PEN20_PORCUPAMON_FQNAME, PEN20_PORCUPAMON_FQNAME_LEN },
         { PEN20_PORCUPAMON_NAME, PEN20_PORCUPAMON_NAME_LEN, PEN20_PORCUPAMON_ID, PEN20_PORCUPAMON_ID_LEN, ALT_PEN20_PORCUPAMON_FQID, ALT_PEN20_PORCUPAMON_FQID_LEN, ALT_PEN20_PORCUPAMON_FQNAME, ALT_PEN20_PORCUPAMON_FQNAME_LEN },
         { PEN20_PORCUPMON_NAME, PEN20_PORCUPMON_NAME_LEN, PEN20_PORCUPMON_ID, PEN20_PORCUPMON_ID_LEN, PEN20_PORCUPMON_FQID, PEN20_PORCUPMON_FQID_LEN, PEN20_PORCUPMON_FQNAME, PEN20_PORCUPMON_FQNAME_LEN },
         { PEN20_PORCUPMON_NAME, PEN20_PORCUPMON_NAME_LEN, PEN20_PORCUPMON_ID, PEN20_PORCUPMON_ID_LEN, ALT_PEN20_PORCUPMON_FQID, ALT_PEN20_PORCUPMON_FQID_LEN, ALT_PEN20_PORCUPMON_FQNAME, ALT_PEN20_PORCUPMON_FQNAME_LEN },
+        { PEN20_PUKAMON_NAME, PEN20_PUKAMON_NAME_LEN, PEN20_PUKAMON_ID, PEN20_PUKAMON_ID_LEN, PEN20_PUKAMON_FQID, PEN20_PUKAMON_FQID_LEN, PEN20_PUKAMON_FQNAME, PEN20_PUKAMON_FQNAME_LEN },
+        { PEN20_PUKAMON_NAME, PEN20_PUKAMON_NAME_LEN, PEN20_PUKAMON_ID, PEN20_PUKAMON_ID_LEN, ALT_PEN20_PUKAMON_FQID, ALT_PEN20_PUKAMON_FQID_LEN, ALT_PEN20_PUKAMON_FQNAME, ALT_PEN20_PUKAMON_FQNAME_LEN },
         { PEN20_PUKUMON_NAME, PEN20_PUKUMON_NAME_LEN, PEN20_PUKUMON_ID, PEN20_PUKUMON_ID_LEN, PEN20_PUKUMON_FQID, PEN20_PUKUMON_FQID_LEN, PEN20_PUKUMON_FQNAME, PEN20_PUKUMON_FQNAME_LEN },
         { PEN20_PUKUMON_NAME, PEN20_PUKUMON_NAME_LEN, PEN20_PUKUMON_ID, PEN20_PUKUMON_ID_LEN, ALT_PEN20_PUKUMON_FQID, ALT_PEN20_PUKUMON_FQID_LEN, ALT_PEN20_PUKUMON_FQNAME, ALT_PEN20_PUKUMON_FQNAME_LEN },
         { PEN20_PUMPMON_NAME, PEN20_PUMPMON_NAME_LEN, PEN20_PUMPMON_ID, PEN20_PUMPMON_ID_LEN, PEN20_PUMPMON_FQID, PEN20_PUMPMON_FQID_LEN, PEN20_PUMPMON_FQNAME, PEN20_PUMPMON_FQNAME_LEN },
@@ -2051,8 +2255,6 @@ namespace bongocat::assets {
         { PEN20_RAGUELMON_NAME, PEN20_RAGUELMON_NAME_LEN, PEN20_RAGUELMON_ID, PEN20_RAGUELMON_ID_LEN, ALT_PEN20_RAGUELMON_FQID, ALT_PEN20_RAGUELMON_FQID_LEN, ALT_PEN20_RAGUELMON_FQNAME, ALT_PEN20_RAGUELMON_FQNAME_LEN },
         { PEN20_RAIJI_LUDOMON_NAME, PEN20_RAIJI_LUDOMON_NAME_LEN, PEN20_RAIJI_LUDOMON_ID, PEN20_RAIJI_LUDOMON_ID_LEN, PEN20_RAIJI_LUDOMON_FQID, PEN20_RAIJI_LUDOMON_FQID_LEN, PEN20_RAIJI_LUDOMON_FQNAME, PEN20_RAIJI_LUDOMON_FQNAME_LEN },
         { PEN20_RAIJI_LUDOMON_NAME, PEN20_RAIJI_LUDOMON_NAME_LEN, PEN20_RAIJI_LUDOMON_ID, PEN20_RAIJI_LUDOMON_ID_LEN, ALT_PEN20_RAIJI_LUDOMON_FQID, ALT_PEN20_RAIJI_LUDOMON_FQID_LEN, ALT_PEN20_RAIJI_LUDOMON_FQNAME, ALT_PEN20_RAIJI_LUDOMON_FQNAME_LEN },
-        { PEN20_RAKAMON_NAME, PEN20_RAKAMON_NAME_LEN, PEN20_RAKAMON_ID, PEN20_RAKAMON_ID_LEN, PEN20_RAKAMON_FQID, PEN20_RAKAMON_FQID_LEN, PEN20_RAKAMON_FQNAME, PEN20_RAKAMON_FQNAME_LEN },
-        { PEN20_RAKAMON_NAME, PEN20_RAKAMON_NAME_LEN, PEN20_RAKAMON_ID, PEN20_RAKAMON_ID_LEN, ALT_PEN20_RAKAMON_FQID, ALT_PEN20_RAKAMON_FQID_LEN, ALT_PEN20_RAKAMON_FQNAME, ALT_PEN20_RAKAMON_FQNAME_LEN },
         { PEN20_RAPIDMON_NAME, PEN20_RAPIDMON_NAME_LEN, PEN20_RAPIDMON_ID, PEN20_RAPIDMON_ID_LEN, PEN20_RAPIDMON_FQID, PEN20_RAPIDMON_FQID_LEN, PEN20_RAPIDMON_FQNAME, PEN20_RAPIDMON_FQNAME_LEN },
         { PEN20_RAPIDMON_NAME, PEN20_RAPIDMON_NAME_LEN, PEN20_RAPIDMON_ID, PEN20_RAPIDMON_ID_LEN, ALT_PEN20_RAPIDMON_FQID, ALT_PEN20_RAPIDMON_FQID_LEN, ALT_PEN20_RAPIDMON_FQNAME, ALT_PEN20_RAPIDMON_FQNAME_LEN },
         { PEN20_RED_VEGIMON_NAME, PEN20_RED_VEGIMON_NAME_LEN, PEN20_RED_VEGIMON_ID, PEN20_RED_VEGIMON_ID_LEN, PEN20_RED_VEGIMON_FQID, PEN20_RED_VEGIMON_FQID_LEN, PEN20_RED_VEGIMON_FQNAME, PEN20_RED_VEGIMON_FQNAME_LEN },
@@ -2073,6 +2275,10 @@ namespace bongocat::assets {
         { PEN20_SABER_LEOMON_NAME, PEN20_SABER_LEOMON_NAME_LEN, PEN20_SABER_LEOMON_ID, PEN20_SABER_LEOMON_ID_LEN, ALT_PEN20_SABER_LEOMON_FQID, ALT_PEN20_SABER_LEOMON_FQID_LEN, ALT_PEN20_SABER_LEOMON_FQNAME, ALT_PEN20_SABER_LEOMON_FQNAME_LEN },
         { PEN20_SAINT_GALGOMON_NAME, PEN20_SAINT_GALGOMON_NAME_LEN, PEN20_SAINT_GALGOMON_ID, PEN20_SAINT_GALGOMON_ID_LEN, PEN20_SAINT_GALGOMON_FQID, PEN20_SAINT_GALGOMON_FQID_LEN, PEN20_SAINT_GALGOMON_FQNAME, PEN20_SAINT_GALGOMON_FQNAME_LEN },
         { PEN20_SAINT_GALGOMON_NAME, PEN20_SAINT_GALGOMON_NAME_LEN, PEN20_SAINT_GALGOMON_ID, PEN20_SAINT_GALGOMON_ID_LEN, ALT_PEN20_SAINT_GALGOMON_FQID, ALT_PEN20_SAINT_GALGOMON_FQID_LEN, ALT_PEN20_SAINT_GALGOMON_FQNAME, ALT_PEN20_SAINT_GALGOMON_FQNAME_LEN },
+        { PEN20_SAKUMON_NAME, PEN20_SAKUMON_NAME_LEN, PEN20_SAKUMON_ID, PEN20_SAKUMON_ID_LEN, PEN20_SAKUMON_FQID, PEN20_SAKUMON_FQID_LEN, PEN20_SAKUMON_FQNAME, PEN20_SAKUMON_FQNAME_LEN },
+        { PEN20_SAKUMON_NAME, PEN20_SAKUMON_NAME_LEN, PEN20_SAKUMON_ID, PEN20_SAKUMON_ID_LEN, ALT_PEN20_SAKUMON_FQID, ALT_PEN20_SAKUMON_FQID_LEN, ALT_PEN20_SAKUMON_FQNAME, ALT_PEN20_SAKUMON_FQNAME_LEN },
+        { PEN20_SAKUTTOMON_NAME, PEN20_SAKUTTOMON_NAME_LEN, PEN20_SAKUTTOMON_ID, PEN20_SAKUTTOMON_ID_LEN, PEN20_SAKUTTOMON_FQID, PEN20_SAKUTTOMON_FQID_LEN, PEN20_SAKUTTOMON_FQNAME, PEN20_SAKUTTOMON_FQNAME_LEN },
+        { PEN20_SAKUTTOMON_NAME, PEN20_SAKUTTOMON_NAME_LEN, PEN20_SAKUTTOMON_ID, PEN20_SAKUTTOMON_ID_LEN, ALT_PEN20_SAKUTTOMON_FQID, ALT_PEN20_SAKUTTOMON_FQID_LEN, ALT_PEN20_SAKUTTOMON_FQNAME, ALT_PEN20_SAKUTTOMON_FQNAME_LEN },
         { PEN20_SAVIOR_HACKMON_NAME, PEN20_SAVIOR_HACKMON_NAME_LEN, PEN20_SAVIOR_HACKMON_ID, PEN20_SAVIOR_HACKMON_ID_LEN, PEN20_SAVIOR_HACKMON_FQID, PEN20_SAVIOR_HACKMON_FQID_LEN, PEN20_SAVIOR_HACKMON_FQNAME, PEN20_SAVIOR_HACKMON_FQNAME_LEN },
         { PEN20_SAVIOR_HACKMON_NAME, PEN20_SAVIOR_HACKMON_NAME_LEN, PEN20_SAVIOR_HACKMON_ID, PEN20_SAVIOR_HACKMON_ID_LEN, ALT_PEN20_SAVIOR_HACKMON_FQID, ALT_PEN20_SAVIOR_HACKMON_FQID_LEN, ALT_PEN20_SAVIOR_HACKMON_FQNAME, ALT_PEN20_SAVIOR_HACKMON_FQNAME_LEN },
         { PEN20_SEADRAMON_NAME, PEN20_SEADRAMON_NAME_LEN, PEN20_SEADRAMON_ID, PEN20_SEADRAMON_ID_LEN, PEN20_SEADRAMON_FQID, PEN20_SEADRAMON_FQID_LEN, PEN20_SEADRAMON_FQNAME, PEN20_SEADRAMON_FQNAME_LEN },
@@ -2123,8 +2329,6 @@ namespace bongocat::assets {
         { PEN20_VAMDEMON_NAME, PEN20_VAMDEMON_NAME_LEN, PEN20_VAMDEMON_ID, PEN20_VAMDEMON_ID_LEN, ALT_PEN20_VAMDEMON_FQID, ALT_PEN20_VAMDEMON_FQID_LEN, ALT_PEN20_VAMDEMON_FQNAME, ALT_PEN20_VAMDEMON_FQNAME_LEN },
         { PEN20_V_DRAMON_NAME, PEN20_V_DRAMON_NAME_LEN, PEN20_V_DRAMON_ID, PEN20_V_DRAMON_ID_LEN, PEN20_V_DRAMON_FQID, PEN20_V_DRAMON_FQID_LEN, PEN20_V_DRAMON_FQNAME, PEN20_V_DRAMON_FQNAME_LEN },
         { PEN20_V_DRAMON_NAME, PEN20_V_DRAMON_NAME_LEN, PEN20_V_DRAMON_ID, PEN20_V_DRAMON_ID_LEN, ALT_PEN20_V_DRAMON_FQID, ALT_PEN20_V_DRAMON_FQID_LEN, ALT_PEN20_V_DRAMON_FQNAME, ALT_PEN20_V_DRAMON_FQNAME_LEN },
-        { PEN20_VEMDEMON_NAME, PEN20_VEMDEMON_NAME_LEN, PEN20_VEMDEMON_ID, PEN20_VEMDEMON_ID_LEN, PEN20_VEMDEMON_FQID, PEN20_VEMDEMON_FQID_LEN, PEN20_VEMDEMON_FQNAME, PEN20_VEMDEMON_FQNAME_LEN },
-        { PEN20_VEMDEMON_NAME, PEN20_VEMDEMON_NAME_LEN, PEN20_VEMDEMON_ID, PEN20_VEMDEMON_ID_LEN, ALT_PEN20_VEMDEMON_FQID, ALT_PEN20_VEMDEMON_FQID_LEN, ALT_PEN20_VEMDEMON_FQNAME, ALT_PEN20_VEMDEMON_FQNAME_LEN },
         { PEN20_VENOM_VAMDEMON_NAME, PEN20_VENOM_VAMDEMON_NAME_LEN, PEN20_VENOM_VAMDEMON_ID, PEN20_VENOM_VAMDEMON_ID_LEN, PEN20_VENOM_VAMDEMON_FQID, PEN20_VENOM_VAMDEMON_FQID_LEN, PEN20_VENOM_VAMDEMON_FQNAME, PEN20_VENOM_VAMDEMON_FQNAME_LEN },
         { PEN20_VENOM_VAMDEMON_NAME, PEN20_VENOM_VAMDEMON_NAME_LEN, PEN20_VENOM_VAMDEMON_ID, PEN20_VENOM_VAMDEMON_ID_LEN, ALT_PEN20_VENOM_VAMDEMON_FQID, ALT_PEN20_VENOM_VAMDEMON_FQID_LEN, ALT_PEN20_VENOM_VAMDEMON_FQNAME, ALT_PEN20_VENOM_VAMDEMON_FQNAME_LEN },
         { PEN20_V_MON_NAME, PEN20_V_MON_NAME_LEN, PEN20_V_MON_ID, PEN20_V_MON_ID_LEN, PEN20_V_MON_FQID, PEN20_V_MON_FQID_LEN, PEN20_V_MON_FQNAME, PEN20_V_MON_FQNAME_LEN },
@@ -2151,8 +2355,14 @@ namespace bongocat::assets {
         { PEN20_WOODMON_NAME, PEN20_WOODMON_NAME_LEN, PEN20_WOODMON_ID, PEN20_WOODMON_ID_LEN, ALT_PEN20_WOODMON_FQID, ALT_PEN20_WOODMON_FQID_LEN, ALT_PEN20_WOODMON_FQNAME, ALT_PEN20_WOODMON_FQNAME_LEN },
         { PEN20_XV_MON_NAME, PEN20_XV_MON_NAME_LEN, PEN20_XV_MON_ID, PEN20_XV_MON_ID_LEN, PEN20_XV_MON_FQID, PEN20_XV_MON_FQID_LEN, PEN20_XV_MON_FQNAME, PEN20_XV_MON_FQNAME_LEN },
         { PEN20_XV_MON_NAME, PEN20_XV_MON_NAME_LEN, PEN20_XV_MON_ID, PEN20_XV_MON_ID_LEN, ALT_PEN20_XV_MON_FQID, ALT_PEN20_XV_MON_FQID_LEN, ALT_PEN20_XV_MON_FQNAME, ALT_PEN20_XV_MON_FQNAME_LEN },
+        { PEN20_YUKIMI_BOTAMON_NAME, PEN20_YUKIMI_BOTAMON_NAME_LEN, PEN20_YUKIMI_BOTAMON_ID, PEN20_YUKIMI_BOTAMON_ID_LEN, PEN20_YUKIMI_BOTAMON_FQID, PEN20_YUKIMI_BOTAMON_FQID_LEN, PEN20_YUKIMI_BOTAMON_FQNAME, PEN20_YUKIMI_BOTAMON_FQNAME_LEN },
+        { PEN20_YUKIMI_BOTAMON_NAME, PEN20_YUKIMI_BOTAMON_NAME_LEN, PEN20_YUKIMI_BOTAMON_ID, PEN20_YUKIMI_BOTAMON_ID_LEN, ALT_PEN20_YUKIMI_BOTAMON_FQID, ALT_PEN20_YUKIMI_BOTAMON_FQID_LEN, ALT_PEN20_YUKIMI_BOTAMON_FQNAME, ALT_PEN20_YUKIMI_BOTAMON_FQNAME_LEN },
         { PEN20_ZERIMON_NAME, PEN20_ZERIMON_NAME_LEN, PEN20_ZERIMON_ID, PEN20_ZERIMON_ID_LEN, PEN20_ZERIMON_FQID, PEN20_ZERIMON_FQID_LEN, PEN20_ZERIMON_FQNAME, PEN20_ZERIMON_FQNAME_LEN },
         { PEN20_ZERIMON_NAME, PEN20_ZERIMON_NAME_LEN, PEN20_ZERIMON_ID, PEN20_ZERIMON_ID_LEN, ALT_PEN20_ZERIMON_FQID, ALT_PEN20_ZERIMON_FQID_LEN, ALT_PEN20_ZERIMON_FQNAME, ALT_PEN20_ZERIMON_FQNAME_LEN },
+        { PEN20_ZUBAEAGERMON_NAME, PEN20_ZUBAEAGERMON_NAME_LEN, PEN20_ZUBAEAGERMON_ID, PEN20_ZUBAEAGERMON_ID_LEN, PEN20_ZUBAEAGERMON_FQID, PEN20_ZUBAEAGERMON_FQID_LEN, PEN20_ZUBAEAGERMON_FQNAME, PEN20_ZUBAEAGERMON_FQNAME_LEN },
+        { PEN20_ZUBAEAGERMON_NAME, PEN20_ZUBAEAGERMON_NAME_LEN, PEN20_ZUBAEAGERMON_ID, PEN20_ZUBAEAGERMON_ID_LEN, ALT_PEN20_ZUBAEAGERMON_FQID, ALT_PEN20_ZUBAEAGERMON_FQID_LEN, ALT_PEN20_ZUBAEAGERMON_FQNAME, ALT_PEN20_ZUBAEAGERMON_FQNAME_LEN },
+        { PEN20_ZUBAMON_NAME, PEN20_ZUBAMON_NAME_LEN, PEN20_ZUBAMON_ID, PEN20_ZUBAMON_ID_LEN, PEN20_ZUBAMON_FQID, PEN20_ZUBAMON_FQID_LEN, PEN20_ZUBAMON_FQNAME, PEN20_ZUBAMON_FQNAME_LEN },
+        { PEN20_ZUBAMON_NAME, PEN20_ZUBAMON_NAME_LEN, PEN20_ZUBAMON_ID, PEN20_ZUBAMON_ID_LEN, ALT_PEN20_ZUBAMON_FQID, ALT_PEN20_ZUBAMON_FQID_LEN, ALT_PEN20_ZUBAMON_FQNAME, ALT_PEN20_ZUBAMON_FQNAME_LEN },
         { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_NAME_LEN, PEN20_ZUDOMON_ID, PEN20_ZUDOMON_ID_LEN, PEN20_ZUDOMON_FQID, PEN20_ZUDOMON_FQID_LEN, PEN20_ZUDOMON_FQNAME, PEN20_ZUDOMON_FQNAME_LEN },
         { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_NAME_LEN, PEN20_ZUDOMON_ID, PEN20_ZUDOMON_ID_LEN, ALT_PEN20_ZUDOMON_FQID, ALT_PEN20_ZUDOMON_FQID_LEN, ALT_PEN20_ZUDOMON_FQNAME, ALT_PEN20_ZUDOMON_FQNAME_LEN },
         
@@ -2164,14 +2374,6 @@ namespace bongocat::assets {
         return pen20_animation_table[index];
     }
 
-    static void unload_config_parse_animation_names_pen20() {
-        for (const auto& entry : pen20_animation_names_table) {
-            platform::details::asset_unload_cstr(entry.name,   entry.name_len);
-            platform::details::asset_unload_cstr(entry.id,     entry.id_len);
-            platform::details::asset_unload_cstr(entry.fqid,   entry.fqid_len);
-            platform::details::asset_unload_cstr(entry.fqname, entry.fqname_len);
-        }
-    }
     int config_parse_animation_name_pen20(config::config_t& config, const char *value) {
         assert(LEN_ARRAY(pen20_animation_table) == PEN20_ANIM_COUNT);
         int ret = -1;
@@ -2201,7 +2403,6 @@ namespace bongocat::assets {
                 break;
             }
         }
-        unload_config_parse_animation_names_pen20();
         return ret;
     }
 }

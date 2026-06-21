@@ -416,13 +416,6 @@ const unsigned char dmc_mojyamon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmc_mojyamon_png_size ASSETS_SIZES_SECTION = sizeof(dmc_mojyamon_png);
 
 
-// Name: Mojymon
-const unsigned char dmc_mojymon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmc/Mojymon.png"
-};
-const size_t dmc_mojymon_png_size ASSETS_SIZES_SECTION = sizeof(dmc_mojymon_png);
-
-
 // Name: Monochromon
 const unsigned char dmc_monochromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmc/Monochromon.png"
@@ -435,13 +428,6 @@ const unsigned char dmc_monzaemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmc/Monzaemon.png"
 };
 const size_t dmc_monzaemon_png_size ASSETS_SIZES_SECTION = sizeof(dmc_monzaemon_png);
-
-
-// Name: Mozaemon
-const unsigned char dmc_mozaemon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmc/Mozaemon.png"
-};
-const size_t dmc_mozaemon_png_size ASSETS_SIZES_SECTION = sizeof(dmc_mozaemon_png);
 
 
 // Name: Mugendramon
@@ -645,13 +631,6 @@ const unsigned char dmc_tsunomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmc/Tsunomon.png"
 };
 const size_t dmc_tsunomon_png_size ASSETS_SIZES_SECTION = sizeof(dmc_tsunomon_png);
-
-
-// Name: Tunomon
-const unsigned char dmc_tunomon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/dmc/Tunomon.png"
-};
-const size_t dmc_tunomon_png_size ASSETS_SIZES_SECTION = sizeof(dmc_tunomon_png);
 
 
 // Name: Tuskmon

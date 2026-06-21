@@ -6504,7 +6504,6 @@ namespace bongocat::assets {
         assert(LEN_ARRAY(pkmn_evol_data_table) == PKMN_ANIM_COUNT);
         assert(index < PKMN_ANIM_COUNT);
         auto result = pkmn_evol_data_table[index];
-        platform::details::asset_unload(pkmn_evol_data_table, sizeof(animation::animation_evolution_data_t)*PKMN_ANIM_COUNT);
         return result;
     }
 }

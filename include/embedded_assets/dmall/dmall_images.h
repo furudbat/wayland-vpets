@@ -46,13 +46,13 @@ extern const size_t dmall_airdramon_png_size;
 extern const unsigned char dmall_algomon_adult_png[];
 extern const size_t dmall_algomon_adult_png_size;
 
-// Name: Algomon (BabyII)
-extern const unsigned char dmall_algomon_babyii_png[];
-extern const size_t dmall_algomon_babyii_png_size;
+// Name: Algomon (Baby II)
+extern const unsigned char dmall_algomon_baby_ii_png[];
+extern const size_t dmall_algomon_baby_ii_png_size;
 
-// Name: Algomon (BabyI)
-extern const unsigned char dmall_algomon_babyi_png[];
-extern const size_t dmall_algomon_babyi_png_size;
+// Name: Algomon (Baby I)
+extern const unsigned char dmall_algomon_baby_i_png[];
+extern const size_t dmall_algomon_baby_i_png_size;
 
 // Name: Algomon (Child)
 extern const unsigned char dmall_algomon_child_png[];
@@ -390,9 +390,9 @@ extern const size_t dmall_cannonbeemon_png_size;
 extern const unsigned char dmall_caprimon_png[];
 extern const size_t dmall_caprimon_png_size;
 
-// Name: CatchMamemon
-extern const unsigned char dmall_catchmamemon_png[];
-extern const size_t dmall_catchmamemon_png_size;
+// Name: Catch Mamemon
+extern const unsigned char dmall_catch_mamemon_png[];
+extern const size_t dmall_catch_mamemon_png_size;
 
 // Name: Caturamon
 extern const unsigned char dmall_caturamon_png[];
@@ -1586,9 +1586,9 @@ extern const size_t dmall_metal_greymon_virus_png_size;
 extern const unsigned char dmall_metal_greymon_virus_x_png[];
 extern const size_t dmall_metal_greymon_virus_x_png_size;
 
-// Name: MetalGreymon X
-extern const unsigned char dmall_metalgreymon_x_png[];
-extern const size_t dmall_metalgreymon_x_png_size;
+// Name: Metal Greymon X
+extern const unsigned char dmall_metal_greymon_x_png[];
+extern const size_t dmall_metal_greymon_x_png_size;
 
 // Name: Metallicdramon
 extern const unsigned char dmall_metallicdramon_png[];
@@ -1870,13 +1870,13 @@ extern const size_t dmall_pegasmon_x_png_size;
 extern const unsigned char dmall_penmon_png[];
 extern const size_t dmall_penmon_png_size;
 
-// Name: PetiMeramon
-extern const unsigned char dmall_petimeramon_png[];
-extern const size_t dmall_petimeramon_png_size;
+// Name: Peti Meramon
+extern const unsigned char dmall_peti_meramon_png[];
+extern const size_t dmall_peti_meramon_png_size;
 
-// Name: PetitMamon
-extern const unsigned char dmall_petitmamon_png[];
-extern const size_t dmall_petitmamon_png_size;
+// Name: Petit Mamon
+extern const unsigned char dmall_petit_mamon_png[];
+extern const size_t dmall_petit_mamon_png_size;
 
 // Name: Petitmon
 extern const unsigned char dmall_petitmon_png[];
@@ -2130,9 +2130,9 @@ extern const size_t dmall_rhinomon_x_png_size;
 extern const unsigned char dmall_rize_greymon_png[];
 extern const size_t dmall_rize_greymon_png_size;
 
-// Name: RizeGreymon X
-extern const unsigned char dmall_rizegreymon_x_png[];
-extern const size_t dmall_rizegreymon_x_png_size;
+// Name: Rize Greymon X
+extern const unsigned char dmall_rize_greymon_x_png[];
+extern const size_t dmall_rize_greymon_x_png_size;
 
 // Name: Rosemon Burst Mode
 extern const unsigned char dmall_rosemon_burst_mode_png[];
@@ -2466,10 +2466,6 @@ extern const size_t dmall_tsumemon_png_size;
 extern const unsigned char dmall_tsunomon_png[];
 extern const size_t dmall_tsunomon_png_size;
 
-// Name: Tunomon
-extern const unsigned char dmall_tunomon_png[];
-extern const size_t dmall_tunomon_png_size;
-
 // Name: Turuiemon
 extern const unsigned char dmall_turuiemon_png[];
 extern const size_t dmall_turuiemon_png_size;
@@ -2477,14 +2473,6 @@ extern const size_t dmall_turuiemon_png_size;
 // Name: Tylomon X
 extern const unsigned char dmall_tylomon_x_png[];
 extern const size_t dmall_tylomon_x_png_size;
-
-// Name: Tyrannomon
-extern const unsigned char dmall_tyrannomon_png[];
-extern const size_t dmall_tyrannomon_png_size;
-
-// Name: Tyrannomon X
-extern const unsigned char dmall_tyrannomon_x_png[];
-extern const size_t dmall_tyrannomon_x_png_size;
 
 // Name: Tyranomon
 extern const unsigned char dmall_tyranomon_png[];
@@ -2590,9 +2578,9 @@ extern const size_t dmall_waru_seadramon_png_size;
 extern const unsigned char dmall_waspmon_png[];
 extern const size_t dmall_waspmon_png_size;
 
-// Name: WereGarurumon (Black)
-extern const unsigned char dmall_weregarurumon_black_png[];
-extern const size_t dmall_weregarurumon_black_png_size;
+// Name: Were Garurumon (Black)
+extern const unsigned char dmall_were_garurumon_black_png[];
+extern const size_t dmall_were_garurumon_black_png_size;
 
 // Name: Were Garurumon
 extern const unsigned char dmall_were_garurumon_png[];

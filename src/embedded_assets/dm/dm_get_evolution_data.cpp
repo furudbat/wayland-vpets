@@ -47,6 +47,16 @@ namespace bongocat::assets {
                 DM_SKULL_GREYMON_ANIM_INDEX
             },
         },
+        // Name: Atlur Kabuterimon
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 172800 },
+            
+            .num_animation_indices = 0,
+            .animation_indices = {
+                
+            },
+        },
         // Name: Bakemon
         {
             // Stage: Adult
@@ -87,6 +97,16 @@ namespace bongocat::assets {
                 DM_KOROMON_ANIM_INDEX
             },
         },
+        // Name: Bubbmon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DM_MOCHIMON_ANIM_INDEX
+            },
+        },
         // Name: Centalmon
         {
             // Stage: Adult
@@ -115,16 +135,6 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 DM_MEGADRAMON_ANIM_INDEX
-            },
-        },
-        // Name: Coronamon
-        {
-            // Stage: Child
-            .conditions = { .next_evolution_time_sec = 86400 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Cyclomon
@@ -267,6 +277,16 @@ namespace bongocat::assets {
                 DM_DARK_TYRANOMON_ANIM_INDEX ,DM_CYCLOMON_ANIM_INDEX ,DM_DEVIDRAMON_ANIM_INDEX ,DM_TUSKMON_ANIM_INDEX ,DM_RAREMON_ANIM_INDEX
             },
         },
+        // Name: Gekomon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DM_TONOSAMA_GEKOMON_ANIM_INDEX
+            },
+        },
         // Name: Giromon
         {
             // Stage: Perfect
@@ -407,6 +427,16 @@ namespace bongocat::assets {
                 DM_MUGENDRAMON_ANIM_INDEX
             },
         },
+        // Name: Mochimon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 21600 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                DM_TENTOMON_ANIM_INDEX ,DM_OTAMAMON_ANIM_INDEX
+            },
+        },
         // Name: Mojyamon
         {
             // Stage: Adult
@@ -485,6 +515,16 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 DM_ANDROMON_ANIM_INDEX
+            },
+        },
+        // Name: Otamamon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                DM_TORTAMON_ANIM_INDEX ,DM_KUWAGAMON_ANIM_INDEX ,DM_MONOCHROMON_ANIM_INDEX ,DM_GEKOMON_ANIM_INDEX
             },
         },
         // Name: Pagumon
@@ -607,6 +647,16 @@ namespace bongocat::assets {
                 
             },
         },
+        // Name: Starmon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            
+            .num_animation_indices = 0,
+            .animation_indices = {
+                
+            },
+        },
         // Name: Tanemon
         {
             // Stage: Baby II
@@ -617,6 +667,16 @@ namespace bongocat::assets {
                 DM_PIYOMON_ANIM_INDEX ,DM_PALMON_ANIM_INDEX
             },
         },
+        // Name: Tentomon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 5,
+            .animation_indices = {
+                DM_KABUTERIMON_ANIM_INDEX ,DM_STARMON_ANIM_INDEX ,DM_TORTAMON_ANIM_INDEX ,DM_KUWAGAMON_ANIM_INDEX ,DM_GEKOMON_ANIM_INDEX
+            },
+        },
         // Name: Tokomon
         {
             // Stage: Baby II
@@ -625,6 +685,26 @@ namespace bongocat::assets {
             .num_animation_indices = 2,
             .animation_indices = {
                 DM_PATAMON_ANIM_INDEX ,DM_KUNEMON_ANIM_INDEX
+            },
+        },
+        // Name: Tonosama Gekomon
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 172800 },
+            
+            .num_animation_indices = 0,
+            .animation_indices = {
+                
+            },
+        },
+        // Name: Tortamon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DM_ATLUR_KABUTERIMON_ANIM_INDEX
             },
         },
         // Name: Tunomon
@@ -717,6 +797,16 @@ namespace bongocat::assets {
                 DM_TANEMON_ANIM_INDEX
             },
         },
+        // Name: Zurumon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DM_PAGUMON_ANIM_INDEX
+            },
+        },
 
     };
     animation::animation_evolution_data_t get_dm_evolution_data(size_t index) {
@@ -724,7 +814,6 @@ namespace bongocat::assets {
         assert(LEN_ARRAY(dm_evol_data_table) == DM_ANIM_COUNT);
         assert(index < DM_ANIM_COUNT);
         auto result = dm_evol_data_table[index];
-        platform::details::asset_unload(dm_evol_data_table, sizeof(animation::animation_evolution_data_t)*DM_ANIM_COUNT);
         return result;
     }
 }

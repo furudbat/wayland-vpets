@@ -27,6 +27,16 @@ namespace bongocat::assets {
                 PEN20_DEVIDRAMON_ANIM_INDEX ,PEN20_COREDRAMON_GREEN_ANIM_INDEX
             },
         },
+        // Name: Agumon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                PEN20_GREYMON_ANIM_INDEX ,PEN20_LEOMON_ANIM_INDEX ,PEN20_GARURUMON_ANIM_INDEX ,PEN20_ANGEMON_ANIM_INDEX
+            },
+        },
         // Name: Alphamon Ouryuken
         {
             // Stage: Ultimate
@@ -35,6 +45,16 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Alphamon
+        {
+            // Stage: Ultimate
+            .conditions = { .next_evolution_time_sec = 259200 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_ALPHAMON_OURYUKEN_ANIM_INDEX
             },
         },
         // Name: Andiramon
@@ -55,6 +75,16 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 PEN20_MUGENDRAMON_ANIM_INDEX
+            },
+        },
+        // Name: Angemon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 144000 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                PEN20_WERE_GARURUMON_ANIM_INDEX ,PEN20_METAL_MAMEMON_ANIM_INDEX ,PEN20_ASURAMON_ANIM_INDEX ,PEN20_ANGEWOMON_ANIM_INDEX
             },
         },
         // Name: Angewomon
@@ -88,16 +118,6 @@ namespace bongocat::assets {
             },
         },
         // Name: Astamon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
-        // Name: Astramon
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
@@ -165,6 +185,16 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 PEN20_CHAOSMON_ANIM_INDEX
+            },
+        },
+        // Name: Bao Hackmon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 144000 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN20_SAVIOR_HACKMON_ANIM_INDEX ,PEN20_ETEMON_ANIM_INDEX ,PEN20_DURANDAMON_ANIM_INDEX
             },
         },
         // Name: Beelzebumon Blast Mode
@@ -235,6 +265,16 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Botamon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_KOROMON_ANIM_INDEX
             },
         },
         // Name: Breakdramon
@@ -507,6 +547,26 @@ namespace bongocat::assets {
                 PEN20_LADY_DEVIMON_ANIM_INDEX ,PEN20_VAMDEMON_ANIM_INDEX ,PEN20_PUMPMON_ANIM_INDEX
             },
         },
+        // Name: Dorimon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_DORUMON_ANIM_INDEX
+            },
+        },
+        // Name: DORUgamon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 144000 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_DORUGUREMON_ANIM_INDEX
+            },
+        },
         // Name: DORUgoramon
         {
             // Stage: Ultimate
@@ -515,6 +575,36 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: DORUguremon
+        {
+            // Stage: Perfect
+            .conditions = { .next_evolution_time_sec = 172800 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                PEN20_DORUGORAMON_ANIM_INDEX ,PEN20_ALPHAMON_ANIM_INDEX
+            },
+        },
+        // Name: DORUmon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_DORUGAMON_ANIM_INDEX
+            },
+        },
+        // Name: Dracomon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                PEN20_COREDRAMON_BLUE_ANIM_INDEX ,PEN20_COREDRAMON_GREEN_ANIM_INDEX
             },
         },
         // Name: Duramon
@@ -595,6 +685,16 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 PEN20_KYOKYOMON_ANIM_INDEX
+            },
+        },
+        // Name: Gabumon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 4,
+            .animation_indices = {
+                PEN20_GARURUMON_ANIM_INDEX ,PEN20_IGAMON_ANIM_INDEX ,PEN20_LEOMON_ANIM_INDEX ,PEN20_TAILMON_ANIM_INDEX
             },
         },
         // Name: Galgomon
@@ -767,6 +867,16 @@ namespace bongocat::assets {
                 PEN20_TERRIERMON_ANIM_INDEX
             },
         },
+        // Name: Hackmon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                PEN20_BAO_HACKMON_ANIM_INDEX ,PEN20_TARGETMON_ANIM_INDEX
+            },
+        },
         // Name: Hagurumon
         {
             // Stage: Child
@@ -817,16 +927,6 @@ namespace bongocat::assets {
                 
             },
         },
-        // Name: Herkule Kabuterimon
-        {
-            // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Hisyaryumon
         {
             // Stage: Perfect
@@ -867,14 +967,14 @@ namespace bongocat::assets {
                 
             },
         },
-        // Name: Ignamon
+        // Name: Igamon
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 144000 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 3,
             .animation_indices = {
-                
+                PEN20_WERE_GARURUMON_ANIM_INDEX ,PEN20_METAL_MAMEMON_ANIM_INDEX ,PEN20_ASURAMON_ANIM_INDEX
             },
         },
         // Name: Ikkakumon
@@ -997,6 +1097,16 @@ namespace bongocat::assets {
                 PEN20_CLOCKMON_ANIM_INDEX ,PEN20_THUNDERBALLMON_ANIM_INDEX ,PEN20_REVOLMON_ANIM_INDEX ,PEN20_GUARDROMON_ANIM_INDEX
             },
         },
+        // Name: Koromon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_BUSHI_AGUMON_ANIM_INDEX
+            },
+        },
         // Name: Kuwagamon
         {
             // Stage: Adult
@@ -1055,6 +1165,16 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 PEN20_LAVOGARITAMON_ANIM_INDEX
+            },
+        },
+        // Name: Leomon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 144000 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN20_METAL_GREYMON_ANIM_INDEX ,PEN20_ASURAMON_ANIM_INDEX ,PEN20_METAL_MAMEMON_ANIM_INDEX
             },
         },
         // Name: Lilamon
@@ -1217,6 +1337,16 @@ namespace bongocat::assets {
                 PEN20_MARIN_ANGEMON_ANIM_INDEX ,PEN20_METAL_SEADRAMON_ANIM_INDEX
             },
         },
+        // Name: Meicoomon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 144000 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_MEICRACKMON_VICIOUS_MODE_ANIM_INDEX
+            },
+        },
         // Name: Meicrackmon Vicious Mode
         {
             // Stage: Perfect
@@ -1347,6 +1477,16 @@ namespace bongocat::assets {
                 PEN20_WOODMON_ANIM_INDEX ,PEN20_RED_VEGIMON_ANIM_INDEX ,PEN20_V_DRAMON_ANIM_INDEX ,PEN20_BIRDRAMON_ANIM_INDEX
             },
         },
+        // Name: Nyaromon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN20_AGUMON_ANIM_INDEX ,PEN20_GABUMON_ANIM_INDEX ,PEN20_PLOTMON_ANIM_INDEX
+            },
+        },
         // Name: Nyokimon
         {
             // Stage: Baby I
@@ -1467,6 +1607,16 @@ namespace bongocat::assets {
                 PEN20_BAKUMON_ANIM_INDEX ,PEN20_CANDMON_ANIM_INDEX ,PEN20_PICO_DEVIMON_ANIM_INDEX
             },
         },
+        // Name: Petitmon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 0,
+            .animation_indices = {
+                
+            },
+        },
         // Name: Phascomon
         {
             // Stage: Child
@@ -1517,14 +1667,24 @@ namespace bongocat::assets {
                 
             },
         },
+        // Name: Pitchmon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_PUKAMON_ANIM_INDEX
+            },
+        },
         // Name: Piyomon
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 4,
             .animation_indices = {
-                
+                PEN20_BIRDRAMON_ANIM_INDEX ,PEN20_V_DRAMON_ANIM_INDEX ,PEN20_TOGEMON_ANIM_INDEX ,PEN20_WOODMON_ANIM_INDEX
             },
         },
         // Name: Plesiomon
@@ -1535,6 +1695,16 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Plotmon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 5,
+            .animation_indices = {
+                PEN20_TAILMON_ANIM_INDEX ,PEN20_ANGEMON_ANIM_INDEX ,PEN20_GREYMON_ANIM_INDEX ,PEN20_IGAMON_ANIM_INDEX ,PEN20_MEICOOMON_ANIM_INDEX
             },
         },
         // Name: Porcupamon
@@ -1555,6 +1725,16 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Pukamon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN20_GOMAMON_ANIM_INDEX ,PEN20_GANIMON_ANIM_INDEX ,PEN20_SHAKOMON_ANIM_INDEX
             },
         },
         // Name: Pukumon
@@ -1625,16 +1805,6 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 PEN20_BRYWELUDRAMON_ANIM_INDEX
-            },
-        },
-        // Name: Rakamon
-        {
-            // Stage: Adult
-            .conditions = { .next_evolution_time_sec = 144000 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
             },
         },
         // Name: Rapidmon
@@ -1735,6 +1905,26 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Sakumon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_SAKUTTOMON_ANIM_INDEX
+            },
+        },
+        // Name: Sakuttomon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                PEN20_ZUBAMON_ANIM_INDEX ,PEN20_HACKMON_ANIM_INDEX
             },
         },
         // Name: Savior Hackmon
@@ -1987,16 +2177,6 @@ namespace bongocat::assets {
                 PEN20_AERO_V_DRAMON_ANIM_INDEX ,PEN20_GARUDAMON_ANIM_INDEX ,PEN20_DELUMON_ANIM_INDEX
             },
         },
-        // Name: Vemdemon
-        {
-            // Stage: Perfect
-            .conditions = { .next_evolution_time_sec = 172800 },
-            
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
         // Name: Venom Vamdemon
         {
             // Stage: Ultimate
@@ -2127,6 +2307,16 @@ namespace bongocat::assets {
                 PEN20_PAILDRAMON_ANIM_INDEX
             },
         },
+        // Name: Yukimi Botamon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 1,
+            .animation_indices = {
+                PEN20_NYAROMON_ANIM_INDEX
+            },
+        },
         // Name: Zerimon
         {
             // Stage: Baby I
@@ -2135,6 +2325,26 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 PEN20_GUMMYMON_ANIM_INDEX
+            },
+        },
+        // Name: Zubaeagermon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 144000 },
+            
+            .num_animation_indices = 3,
+            .animation_indices = {
+                PEN20_DURAMON_ANIM_INDEX ,PEN20_ETEMON_ANIM_INDEX ,PEN20_SAVIOR_HACKMON_ANIM_INDEX
+            },
+        },
+        // Name: Zubamon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                PEN20_ZUBAEAGERMON_ANIM_INDEX ,PEN20_TARGETMON_ANIM_INDEX
             },
         },
         // Name: Zudomon
@@ -2154,7 +2364,6 @@ namespace bongocat::assets {
         assert(LEN_ARRAY(pen20_evol_data_table) == PEN20_ANIM_COUNT);
         assert(index < PEN20_ANIM_COUNT);
         auto result = pen20_evol_data_table[index];
-        platform::details::asset_unload(pen20_evol_data_table, sizeof(animation::animation_evolution_data_t)*PEN20_ANIM_COUNT);
         return result;
     }
 }

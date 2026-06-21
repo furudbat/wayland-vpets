@@ -1740,14 +1740,6 @@ namespace bongocat::assets {
         return pmd_animation_table[index];
     }
 
-    static void unload_config_parse_animation_names_pmd() {
-        for (const auto& entry : pmd_animation_names_table) {
-            platform::details::asset_unload_cstr(entry.name,   entry.name_len);
-            platform::details::asset_unload_cstr(entry.id,     entry.id_len);
-            platform::details::asset_unload_cstr(entry.fqid,   entry.fqid_len);
-            platform::details::asset_unload_cstr(entry.fqname, entry.fqname_len);
-        }
-    }
     int config_parse_animation_name_pmd(config::config_t& config, const char *value) {
         assert(LEN_ARRAY(pmd_animation_table) == PMD_ANIM_COUNT);
         int ret = -1;
@@ -1764,7 +1756,6 @@ namespace bongocat::assets {
                 break;
             }
         }
-        unload_config_parse_animation_names_pmd();
         return ret;
     }
 }

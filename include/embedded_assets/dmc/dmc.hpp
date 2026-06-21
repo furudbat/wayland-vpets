@@ -1068,24 +1068,6 @@ namespace bongocat::assets {
     inline static constexpr size_t DMC_MOJYAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
     inline static constexpr size_t DMC_MOJYAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 58;
 
-    // Name: Mojymon
-    inline static constexpr char DMC_MOJYMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:mojymon";
-    inline static constexpr const char* DMC_MOJYMON_FQID CONFIG_STRING2_SECTION = DMC_MOJYMON_FQID_ARR;
-    inline static constexpr size_t DMC_MOJYMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOJYMON_FQID_ARR)-1;
-    inline static constexpr char DMC_MOJYMON_ID_ARR[] CONFIG_STRING_SECTION = "mojymon";
-    inline static constexpr const char* DMC_MOJYMON_ID CONFIG_STRING2_SECTION = DMC_MOJYMON_ID_ARR;
-    inline static constexpr size_t DMC_MOJYMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOJYMON_ID)-1;
-    inline static constexpr char DMC_MOJYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mojymon";
-    inline static constexpr const char* DMC_MOJYMON_NAME CONFIG_STRING2_SECTION = DMC_MOJYMON_NAME_ARR;
-    inline static constexpr size_t DMC_MOJYMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOJYMON_NAME_ARR)-1;
-    inline static constexpr char DMC_MOJYMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmc:Mojymon";
-    inline static constexpr const char* DMC_MOJYMON_FQNAME CONFIG_STRING2_SECTION = DMC_MOJYMON_FQNAME_ARR;
-    inline static constexpr size_t DMC_MOJYMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOJYMON_FQNAME_ARR)-1;
-    inline static constexpr int DMC_MOJYMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
-    inline static constexpr int DMC_MOJYMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMC_MOJYMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_MOJYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 59;
-
     // Name: Monochromon
     inline static constexpr char DMC_MONOCHROMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:monochromon";
     inline static constexpr const char* DMC_MONOCHROMON_FQID CONFIG_STRING2_SECTION = DMC_MONOCHROMON_FQID_ARR;
@@ -1102,7 +1084,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_MONOCHROMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_MONOCHROMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_MONOCHROMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_MONOCHROMON_ANIM_INDEX ASSETS_DATA3_SECTION = 60;
+    inline static constexpr size_t DMC_MONOCHROMON_ANIM_INDEX ASSETS_DATA3_SECTION = 59;
 
     // Name: Monzaemon
     inline static constexpr char DMC_MONZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:monzaemon";
@@ -1120,25 +1102,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_MONZAEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_MONZAEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_MONZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 61;
-
-    // Name: Mozaemon
-    inline static constexpr char DMC_MOZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:mozaemon";
-    inline static constexpr const char* DMC_MOZAEMON_FQID CONFIG_STRING2_SECTION = DMC_MOZAEMON_FQID_ARR;
-    inline static constexpr size_t DMC_MOZAEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOZAEMON_FQID_ARR)-1;
-    inline static constexpr char DMC_MOZAEMON_ID_ARR[] CONFIG_STRING_SECTION = "mozaemon";
-    inline static constexpr const char* DMC_MOZAEMON_ID CONFIG_STRING2_SECTION = DMC_MOZAEMON_ID_ARR;
-    inline static constexpr size_t DMC_MOZAEMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOZAEMON_ID)-1;
-    inline static constexpr char DMC_MOZAEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mozaemon";
-    inline static constexpr const char* DMC_MOZAEMON_NAME CONFIG_STRING2_SECTION = DMC_MOZAEMON_NAME_ARR;
-    inline static constexpr size_t DMC_MOZAEMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOZAEMON_NAME_ARR)-1;
-    inline static constexpr char DMC_MOZAEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmc:Mozaemon";
-    inline static constexpr const char* DMC_MOZAEMON_FQNAME CONFIG_STRING2_SECTION = DMC_MOZAEMON_FQNAME_ARR;
-    inline static constexpr size_t DMC_MOZAEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMC_MOZAEMON_FQNAME_ARR)-1;
-    inline static constexpr int DMC_MOZAEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
-    inline static constexpr int DMC_MOZAEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMC_MOZAEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_MOZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 62;
+    inline static constexpr size_t DMC_MONZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 60;
 
     // Name: Mugendramon
     inline static constexpr char DMC_MUGENDRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:mugendramon";
@@ -1156,7 +1120,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_MUGENDRAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_MUGENDRAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_MUGENDRAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_MUGENDRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 63;
+    inline static constexpr size_t DMC_MUGENDRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 61;
 
     // Name: Nanimon
     inline static constexpr char DMC_NANIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:nanimon";
@@ -1174,7 +1138,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_NANIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_NANIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_NANIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_NANIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 64;
+    inline static constexpr size_t DMC_NANIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 62;
 
     // Name: Nanomon
     inline static constexpr char DMC_NANOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:nanomon";
@@ -1192,7 +1156,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_NANOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_NANOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_NANOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_NANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 65;
+    inline static constexpr size_t DMC_NANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 63;
 
     // Name: Numemon
     inline static constexpr char DMC_NUMEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:numemon";
@@ -1210,7 +1174,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_NUMEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_NUMEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_NUMEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_NUMEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 66;
+    inline static constexpr size_t DMC_NUMEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 64;
 
     // Name: Ogremon
     inline static constexpr char DMC_OGREMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:ogremon";
@@ -1228,7 +1192,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_OGREMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_OGREMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_OGREMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_OGREMON_ANIM_INDEX ASSETS_DATA3_SECTION = 67;
+    inline static constexpr size_t DMC_OGREMON_ANIM_INDEX ASSETS_DATA3_SECTION = 65;
 
     // Name: Omegamon Alter S
     inline static constexpr char DMC_OMEGAMON_ALTER_S_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:omegamon_alter_s";
@@ -1246,7 +1210,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_OMEGAMON_ALTER_S_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_OMEGAMON_ALTER_S_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_OMEGAMON_ALTER_S_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_OMEGAMON_ALTER_S_ANIM_INDEX ASSETS_DATA3_SECTION = 68;
+    inline static constexpr size_t DMC_OMEGAMON_ALTER_S_ANIM_INDEX ASSETS_DATA3_SECTION = 66;
 
     // Name: Omegamon
     inline static constexpr char DMC_OMEGAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:omegamon";
@@ -1264,7 +1228,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_OMEGAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_OMEGAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_OMEGAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_OMEGAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 69;
+    inline static constexpr size_t DMC_OMEGAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 67;
 
     // Name: Orgemon
     inline static constexpr char DMC_ORGEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:orgemon";
@@ -1282,7 +1246,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_ORGEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_ORGEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_ORGEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_ORGEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 70;
+    inline static constexpr size_t DMC_ORGEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 68;
 
     // Name: Pagumon
     inline static constexpr char DMC_PAGUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:pagumon";
@@ -1300,7 +1264,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_PAGUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_PAGUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_PAGUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_PAGUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 71;
+    inline static constexpr size_t DMC_PAGUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 69;
 
     // Name: Palmon
     inline static constexpr char DMC_PALMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:palmon";
@@ -1318,7 +1282,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_PALMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_PALMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_PALMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_PALMON_ANIM_INDEX ASSETS_DATA3_SECTION = 72;
+    inline static constexpr size_t DMC_PALMON_ANIM_INDEX ASSETS_DATA3_SECTION = 70;
 
     // Name: Patamon
     inline static constexpr char DMC_PATAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:patamon";
@@ -1336,7 +1300,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_PATAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_PATAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_PATAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_PATAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 73;
+    inline static constexpr size_t DMC_PATAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 71;
 
     // Name: Petitmon
     inline static constexpr char DMC_PETITMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:petitmon";
@@ -1354,7 +1318,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_PETITMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_PETITMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_PETITMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_PETITMON_ANIM_INDEX ASSETS_DATA3_SECTION = 74;
+    inline static constexpr size_t DMC_PETITMON_ANIM_INDEX ASSETS_DATA3_SECTION = 72;
 
     // Name: Piccolomon
     inline static constexpr char DMC_PICCOLOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:piccolomon";
@@ -1372,7 +1336,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_PICCOLOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_PICCOLOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_PICCOLOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_PICCOLOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 75;
+    inline static constexpr size_t DMC_PICCOLOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 73;
 
     // Name: Piyomon
     inline static constexpr char DMC_PIYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:piyomon";
@@ -1390,7 +1354,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_PIYOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_PIYOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_PIYOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_PIYOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 76;
+    inline static constexpr size_t DMC_PIYOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 74;
 
     // Name: Poyomon
     inline static constexpr char DMC_POYOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:poyomon";
@@ -1408,7 +1372,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_POYOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_POYOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_POYOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_POYOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 77;
+    inline static constexpr size_t DMC_POYOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 75;
 
     // Name: Punimon
     inline static constexpr char DMC_PUNIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:punimon";
@@ -1426,7 +1390,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_PUNIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_PUNIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_PUNIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_PUNIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 78;
+    inline static constexpr size_t DMC_PUNIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 76;
 
     // Name: Raidenmon
     inline static constexpr char DMC_RAIDENMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:raidenmon";
@@ -1444,7 +1408,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_RAIDENMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_RAIDENMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_RAIDENMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_RAIDENMON_ANIM_INDEX ASSETS_DATA3_SECTION = 79;
+    inline static constexpr size_t DMC_RAIDENMON_ANIM_INDEX ASSETS_DATA3_SECTION = 77;
 
     // Name: Raremon
     inline static constexpr char DMC_RAREMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:raremon";
@@ -1462,7 +1426,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_RAREMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_RAREMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_RAREMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_RAREMON_ANIM_INDEX ASSETS_DATA3_SECTION = 80;
+    inline static constexpr size_t DMC_RAREMON_ANIM_INDEX ASSETS_DATA3_SECTION = 78;
 
     // Name: Rust Tyranomon
     inline static constexpr char DMC_RUST_TYRANOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:rust_tyranomon";
@@ -1480,7 +1444,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_RUST_TYRANOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_RUST_TYRANOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_RUST_TYRANOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_RUST_TYRANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 81;
+    inline static constexpr size_t DMC_RUST_TYRANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 79;
 
     // Name: Scumon
     inline static constexpr char DMC_SCUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:scumon";
@@ -1498,7 +1462,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_SCUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_SCUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_SCUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_SCUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 82;
+    inline static constexpr size_t DMC_SCUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 80;
 
     // Name: Seadramon
     inline static constexpr char DMC_SEADRAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:seadramon";
@@ -1516,7 +1480,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_SEADRAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_SEADRAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_SEADRAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_SEADRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 83;
+    inline static constexpr size_t DMC_SEADRAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 81;
 
     // Name: Shellmon
     inline static constexpr char DMC_SHELLMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:shellmon";
@@ -1534,7 +1498,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_SHELLMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_SHELLMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_SHELLMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_SHELLMON_ANIM_INDEX ASSETS_DATA3_SECTION = 84;
+    inline static constexpr size_t DMC_SHELLMON_ANIM_INDEX ASSETS_DATA3_SECTION = 82;
 
     // Name: Shin Monzaemon
     inline static constexpr char DMC_SHIN_MONZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:shin_monzaemon";
@@ -1552,7 +1516,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_SHIN_MONZAEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_SHIN_MONZAEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_SHIN_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_SHIN_MONZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 85;
+    inline static constexpr size_t DMC_SHIN_MONZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 83;
 
     // Name: Skull Greymon
     inline static constexpr char DMC_SKULL_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:skull_greymon";
@@ -1570,7 +1534,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_SKULL_GREYMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_SKULL_GREYMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_SKULL_GREYMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_SKULL_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 86;
+    inline static constexpr size_t DMC_SKULL_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 84;
 
     // Name: Skull Mammon
     inline static constexpr char DMC_SKULL_MAMMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:skull_mammon";
@@ -1588,7 +1552,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_SKULL_MAMMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_SKULL_MAMMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_SKULL_MAMMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_SKULL_MAMMON_ANIM_INDEX ASSETS_DATA3_SECTION = 87;
+    inline static constexpr size_t DMC_SKULL_MAMMON_ANIM_INDEX ASSETS_DATA3_SECTION = 85;
 
     // Name: Tanemon
     inline static constexpr char DMC_TANEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:tanemon";
@@ -1606,7 +1570,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_TANEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_TANEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_TANEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_TANEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 88;
+    inline static constexpr size_t DMC_TANEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 86;
 
     // Name: Titamon
     inline static constexpr char DMC_TITAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:titamon";
@@ -1624,7 +1588,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_TITAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_TITAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_TITAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_TITAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 89;
+    inline static constexpr size_t DMC_TITAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 87;
 
     // Name: Tokomon
     inline static constexpr char DMC_TOKOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:tokomon";
@@ -1642,7 +1606,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_TOKOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_TOKOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_TOKOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_TOKOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 90;
+    inline static constexpr size_t DMC_TOKOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 88;
 
     // Name: Tsunomon
     inline static constexpr char DMC_TSUNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:tsunomon";
@@ -1660,25 +1624,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_TSUNOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_TSUNOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_TSUNOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_TSUNOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 91;
-
-    // Name: Tunomon
-    inline static constexpr char DMC_TUNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:tunomon";
-    inline static constexpr const char* DMC_TUNOMON_FQID CONFIG_STRING2_SECTION = DMC_TUNOMON_FQID_ARR;
-    inline static constexpr size_t DMC_TUNOMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(DMC_TUNOMON_FQID_ARR)-1;
-    inline static constexpr char DMC_TUNOMON_ID_ARR[] CONFIG_STRING_SECTION = "tunomon";
-    inline static constexpr const char* DMC_TUNOMON_ID CONFIG_STRING2_SECTION = DMC_TUNOMON_ID_ARR;
-    inline static constexpr size_t DMC_TUNOMON_ID_LEN CONFIG_STRING_SECTION = sizeof(DMC_TUNOMON_ID)-1;
-    inline static constexpr char DMC_TUNOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tunomon";
-    inline static constexpr const char* DMC_TUNOMON_NAME CONFIG_STRING2_SECTION = DMC_TUNOMON_NAME_ARR;
-    inline static constexpr size_t DMC_TUNOMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(DMC_TUNOMON_NAME_ARR)-1;
-    inline static constexpr char DMC_TUNOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmc:Tunomon";
-    inline static constexpr const char* DMC_TUNOMON_FQNAME CONFIG_STRING2_SECTION = DMC_TUNOMON_FQNAME_ARR;
-    inline static constexpr size_t DMC_TUNOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(DMC_TUNOMON_FQNAME_ARR)-1;
-    inline static constexpr int DMC_TUNOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int DMC_TUNOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t DMC_TUNOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_TUNOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 92;
+    inline static constexpr size_t DMC_TSUNOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 89;
 
     // Name: Tuskmon
     inline static constexpr char DMC_TUSKMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:tuskmon";
@@ -1696,7 +1642,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_TUSKMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_TUSKMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_TUSKMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_TUSKMON_ANIM_INDEX ASSETS_DATA3_SECTION = 93;
+    inline static constexpr size_t DMC_TUSKMON_ANIM_INDEX ASSETS_DATA3_SECTION = 90;
 
     // Name: Tyranomon
     inline static constexpr char DMC_TYRANOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:tyranomon";
@@ -1714,7 +1660,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_TYRANOMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_TYRANOMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_TYRANOMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_TYRANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 94;
+    inline static constexpr size_t DMC_TYRANOMON_ANIM_INDEX ASSETS_DATA3_SECTION = 91;
 
     // Name: Unimon
     inline static constexpr char DMC_UNIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:unimon";
@@ -1732,7 +1678,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_UNIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 9;
     inline static constexpr int DMC_UNIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_UNIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 9;
-    inline static constexpr size_t DMC_UNIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 95;
+    inline static constexpr size_t DMC_UNIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 92;
 
     // Name: Vademon
     inline static constexpr char DMC_VADEMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:vademon";
@@ -1750,7 +1696,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_VADEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_VADEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_VADEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_VADEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 96;
+    inline static constexpr size_t DMC_VADEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 93;
 
     // Name: Vegimon
     inline static constexpr char DMC_VEGIMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:vegimon";
@@ -1768,7 +1714,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_VEGIMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_VEGIMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_VEGIMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_VEGIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 97;
+    inline static constexpr size_t DMC_VEGIMON_ANIM_INDEX ASSETS_DATA3_SECTION = 94;
 
     // Name: War Greymon
     inline static constexpr char DMC_WAR_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:war_greymon";
@@ -1786,7 +1732,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_WAR_GREYMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_WAR_GREYMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_WAR_GREYMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_WAR_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 98;
+    inline static constexpr size_t DMC_WAR_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 95;
 
     // Name: Were Garurumon
     inline static constexpr char DMC_WERE_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:were_garurumon";
@@ -1804,7 +1750,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_WERE_GARURUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_WERE_GARURUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_WERE_GARURUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_WERE_GARURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 99;
+    inline static constexpr size_t DMC_WERE_GARURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 96;
 
     // Name: Whamon
     inline static constexpr char DMC_WHAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:whamon";
@@ -1822,7 +1768,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_WHAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_WHAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_WHAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_WHAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 100;
+    inline static constexpr size_t DMC_WHAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 97;
 
     // Name: Yukidarumon
     inline static constexpr char DMC_YUKIDARUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:yukidarumon";
@@ -1840,7 +1786,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_YUKIDARUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_YUKIDARUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_YUKIDARUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_YUKIDARUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 101;
+    inline static constexpr size_t DMC_YUKIDARUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 98;
 
     // Name: Yuramon
     inline static constexpr char DMC_YURAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:yuramon";
@@ -1858,7 +1804,7 @@ namespace bongocat::assets {
     inline static constexpr int DMC_YURAMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_YURAMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_YURAMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_YURAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 102;
+    inline static constexpr size_t DMC_YURAMON_ANIM_INDEX ASSETS_DATA3_SECTION = 99;
 
     // Name: Zurumon
     inline static constexpr char DMC_ZURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmc:zurumon";
@@ -1876,9 +1822,9 @@ namespace bongocat::assets {
     inline static constexpr int DMC_ZURUMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
     inline static constexpr int DMC_ZURUMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
     inline static constexpr size_t DMC_ZURUMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t DMC_ZURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 103;
+    inline static constexpr size_t DMC_ZURUMON_ANIM_INDEX ASSETS_DATA3_SECTION = 100;
 
-    inline static constexpr size_t DMC_ANIM_COUNT = 104;
+    inline static constexpr size_t DMC_ANIM_COUNT = 101;
 }
 
 #endif // BONGOCAT_EMBEDDED_ASSETS_DMC_HPP

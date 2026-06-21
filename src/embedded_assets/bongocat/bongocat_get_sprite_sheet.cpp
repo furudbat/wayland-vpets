@@ -16,12 +16,4 @@ embedded_image_t get_bongocat_sprite(size_t index) {
   assert(index < BONGOCAT_EMBEDDED_IMAGES_COUNT);
   return bongocat_images_table[index];
 }
-
-void asset_unload_bongocat() {
-  platform::details::asset_unload(bongo_cat_both_up_png, bongo_cat_both_up_png_size);
-  platform::details::asset_unload(bongo_cat_left_down_png, bongo_cat_left_down_png_size);
-  platform::details::asset_unload(bongo_cat_right_down_png, bongo_cat_right_down_png_size);
-  platform::details::asset_unload(bongo_cat_both_down_png, bongo_cat_both_down_png_size);
-  platform::details::asset_unload(bongo_cat_sleeping_png, bongo_cat_sleeping_png_size);
-}
 }  // namespace bongocat::assets
