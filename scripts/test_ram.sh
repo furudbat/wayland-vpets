@@ -154,11 +154,11 @@ PMAP_TABLE="# pmaps
 "
 
 # Group by build type
-for group in release release-all-features release-preload-assets release-hybrid release-pngle minsizerel relwithdebinfo debug; do
+for group in release minsizerel relwithdebinfo debug; do
     echo "## $(tr '[:lower:]' '[:upper:]' <<< ${group:0:1})${group:1}" >> "$REPORT"
     echo "" >> "$REPORT"
-    echo "| Variant | Binary Size | Peak RAM |" >> "$REPORT"
-    echo "|---------|-------------|----------|" >> "$REPORT"
+    echo "| Variant | Binary Size | Peak RAM | Avg. RAM | Median RAM |" >> "$REPORT"
+    echo "|---------|-------------|----------|----------|------------|" >> "$REPORT"
 
     find ./cmake-build-* -type f -executable -name "bongocat*" | grep -i "$group" | while read -r binary; do
         size=$(convert_file_size "$binary")
@@ -168,6 +168,16 @@ for group in release release-all-features release-preload-assets release-hybrid 
         "$binary" --config "$CONFIG" --ignore-running &
         PID=$!
         echo "Binary PID: $PID"
+
+        RAM_LOG=$(mktemp)
+        # Monitor RAM in background
+        (
+            while kill -0 "$PID" 2>/dev/null; do
+                awk '/VmRSS:/ {print $2}' /proc/$PID/status 2>/dev/null
+                sleep 0.25
+            done
+        ) > "$RAM_LOG" &
+        MONITOR_PID=$!
 
         if [ "$USE_HEAPTRACK" = true ]; then
             BINARY_NAME=$(basename "$binary")
@@ -385,12 +395,57 @@ for group in release release-all-features release-preload-assets release-hybrid 
             echo "Heaptrack file generated: $HEAPTRACK_FILE"
         fi
 
+        # Stop monitor
+        #kill "$MONITOR_PID" 2>/dev/null
+        #wait "$MONITOR_PID" 2>/dev/null
+
+        avg_ram_kib=$(awk '
+        {
+            sum += $1
+            n++
+        }
+        END {
+            if (n > 0)
+                printf "%.0f", sum / n
+            else
+                print 0
+        }' "$RAM_LOG")
+
+        median_ram_kib=$(awk '
+        {
+            samples[n++] = $1
+        }
+        END {
+            if (n == 0) {
+                print 0
+                exit
+            }
+
+            # sort samples numerically
+            for (i = 0; i < n; i++) {
+                for (j = i + 1; j < n; j++) {
+                    if (samples[i] > samples[j]) {
+                        tmp = samples[i]
+                        samples[i] = samples[j]
+                        samples[j] = tmp
+                    }
+                }
+            }
+
+            if (n % 2 == 1)
+                printf "%.0f", samples[int(n/2)]
+            else
+                printf "%.0f", (samples[n/2-1] + samples[n/2]) / 2
+        }' "$RAM_LOG")
+
         ram=$(convert_size "$ram_kib")
+        avg_ram=$(convert_size "$avg_ram_kib")
+        median_ram=$(convert_size "$median_ram_kib")
 
         # Variant name = path relative to build dir
         variant=$(basename "$(dirname "$binary")")/$(basename "$binary")
 
-        echo "| \`$variant\` | $size | $ram |" >> "$REPORT"
+        echo "| \`$variant\` | $size | $ram | $avg_ram | $median_ram |" >> "$REPORT"
 
         PMAP_TABLE="${PMAP_TABLE} **\`$variant\`**\n\`\`\`bash\n$pmap_output\n\`\`\`\n\n"
 

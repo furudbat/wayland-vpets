@@ -35,7 +35,7 @@ _Pokemon_
 - 🎲 Randomize sprite at start up
 - 🔲 React to CPU usage
 - ↔️ Movement on screen
-- ⚡ Lightweight (~9MB RAM)
+- ⚡ Lightweight
 - 💗 Evolution
 
 

@@ -285,7 +285,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     CPP_SOURCE_LOAD_SPRITE_OUT_DIMS_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_DIMS_TABLE}{assets::${MACRO_PREFIX}_SPRITE_SHEET_COLS, assets::${MACRO_PREFIX}_SPRITE_SHEET_ROWS}, \n        "
     CPP_SOURCE_LOAD_SPRITE_OUT_PNGS_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_PNGS_TABLE}${EMBED_SYMBOL}, \n        "
     CPP_SOURCE_LOAD_SPRITE_OUT_PNG_SIZES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_PNG_SIZES_TABLE}${SIZE_SYMBOL}, \n        "
-    CPP_SOURCE_LOAD_SPRITE_OUT_NAMES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_NAMES_TABLE}\"${IDENTIFIER}\", \n        "
+    CPP_SOURCE_LOAD_SPRITE_OUT_NAMES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_NAMES_TABLE}assets::${MACRO_PREFIX}_ID, \n        "
 
     echo "Add $IDENTIFIER"
 
@@ -357,7 +357,9 @@ echo "        for (size_t i = 0;i < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT;++i) {" >>
 #echo "            assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "            ${INIT_ANIM_FUNC_NAME}(ctx, i, {${ASSETS_PREFIX_LOWER}_pngs_table[i], ${ASSETS_PREFIX_LOWER}_png_sizes_table[i], ${ASSETS_PREFIX_LOWER}_names_table[i]}, ${ASSETS_PREFIX_LOWER}_dims_table[i].cols, ${ASSETS_PREFIX_LOWER}_dims_table[i].rows);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '        }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        platform::details::asset_unload_all(${ASSETS_PREFIX_LOWER}_pngs_table, ${ASSETS_PREFIX_LOWER}_png_sizes_table, ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "        platform::details::asset_unload_all(${ASSETS_PREFIX_LOWER}_pngs_table, ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "        platform::details::asset_unload_all(${ASSETS_PREFIX_LOWER}_png_sizes_table, ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "        platform::details::asset_unload_all(${ASSETS_PREFIX_LOWER}_names_table, ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '}' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

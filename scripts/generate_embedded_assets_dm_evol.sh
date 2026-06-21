@@ -74,6 +74,20 @@ UNLOAD_GET_EVOL_DATA_FUNC_NAME="unload_evolution_data_${ASSETS_PREFIX_LOWER}"
 # === Start animation index counter ===
 INDEX=$START_INDEX
 
+jq -r ".${ASSETS_PREFIX_LOWER}[] | .name, .next[]" "assets/digimon-vpets.db.json" | sort -u | while IFS= read -r name; do
+    # Skip empty lines just in case
+    [ -z "$name" ] && continue
+
+    # Define the expected filename
+    filename="${name}.png"
+    filepath="${INPUT_DIR}/${filename}"
+
+    # Check if the file exists
+    if [ ! -f "$filepath" ]; then
+        echo "⚠️  WARNING: Missing asset for '$name' -> Expecting: $filepath"
+    fi
+done
+
 # Build Evol Map
 declare -A NEXT_INDEX_MAP
 for FILE in "$INPUT_DIR"/*.png; do
@@ -305,7 +319,7 @@ echo "        using namespace assets;" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_evol_data_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        auto result = ${ASSETS_PREFIX_LOWER}_evol_data_table[index];" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "        platform::details::asset_unload(${ASSETS_PREFIX_LOWER}_evol_data_table, sizeof(animation::animation_evolution_data_t)*${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
+#echo "        platform::details::asset_unload(${ASSETS_PREFIX_LOWER}_evol_data_table, sizeof(animation::animation_evolution_data_t)*${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        return result;" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo '    }' >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo '}' >> "$CPP_SOURCE_GET_EVOL_OUT"
