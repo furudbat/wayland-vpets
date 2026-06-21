@@ -13,7 +13,7 @@
 namespace bongocat::animation {
 
 created_result_t<bongocat_sprite_sheet_t>
-load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count,
+load_bongocat_anim([[maybe_unused]] size_t anim_index, get_sprite_callback_t get_sprite, size_t embedded_images_count,
                     load_bongocat_anim_type_t type,
                     [[maybe_unused]] anim_sprite_sheet_from_embedded_svgs_t svg_params, [[maybe_unused]] anim_sprite_sheet_from_embedded_svgs_cropping_t cropping) {
   BONGOCAT_LOG_VERBOSE("Load bongocat Animation(index=%d) ...", anim_index);
@@ -123,7 +123,7 @@ load_bongocat_anim([[maybe_unused]] int anim_index, get_sprite_callback_t get_sp
   return ret;
 }
 
-bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_index, get_sprite_callback_t get_sprite,
+bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, size_t anim_index, get_sprite_callback_t get_sprite,
                                     size_t embedded_images_count, load_bongocat_anim_type_t type,
                                     anim_sprite_sheet_from_embedded_svgs_t svg_params,
                                     anim_sprite_sheet_from_embedded_svgs_cropping_t cropping) {
@@ -131,9 +131,9 @@ bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_in
   BONGOCAT_CHECK_NULL(ctx.shm.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
   BONGOCAT_CHECK_NULL(ctx._local_copy_config.ptr, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
 
-  assert(anim_index >= 0 && static_cast<size_t>(anim_index) < BONGOCAT_ANIM_COUNT);
+  assert(anim_index < BONGOCAT_ANIM_COUNT);
   BONGOCAT_LOG_VERBOSE("Load bongocat Animation (%d/%d): %s ...", anim_index, BONGOCAT_ANIM_COUNT,
-                       get_sprite(embedded_images_count).name);
+                       get_sprite(anim_index).name);
 
   auto [sprite_sheet, sprite_sheet_error] = load_bongocat_anim(anim_index, get_sprite, embedded_images_count, type, svg_params, cropping);
   if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -149,9 +149,8 @@ bongocat_error_t init_bongocat_anim(animation_thread_context_t& ctx, int anim_in
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
   }
 
-  assert(anim_index >= 0);
-  ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)] = bongocat::move(sprite_sheet);
-  assert(ctx.shm->bongocat_anims[static_cast<size_t>(anim_index)].type == animation_t::type_t::Bongocat);
+  ctx.shm->bongocat_anims[anim_index] = bongocat::move(sprite_sheet);
+  assert(ctx.shm->bongocat_anims[anim_index].type == animation_t::type_t::Bongocat);
   sprite_sheet = {}; ///< sprite sheet has been moved
 
   return bongocat_error_t::BONGOCAT_SUCCESS;

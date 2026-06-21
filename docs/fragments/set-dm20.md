@@ -41,7 +41,6 @@ Digital Monster Ver.20th.
 - Drimogemon
 - Duramon
 - Durandamon
-- Durandramon
 - Elecmon
 - Etemon
 - Examon
@@ -60,7 +59,6 @@ Digital Monster Ver.20th.
 - Hackmon
 - Hi Andromon
 - Jesmon
-- Jijimon
 - Kabuterimon
 - King Etemon
 - Koromon
@@ -79,10 +77,8 @@ Digital Monster Ver.20th.
 - Metal Mamemon
 - Metal Tyranomon
 - Mojyamon
-- Monchromon
 - Monochromon
 - Monzaemon
-- Mozaemon
 - Mugendramon
 - Nanimon
 - Nanomon
@@ -92,7 +88,6 @@ Digital Monster Ver.20th.
 - Omegamon Alter S
 - Omegamon
 - Pagumon
-- Pakumon
 - Palmon
 - Patamon
 - Petitmon
@@ -116,7 +111,6 @@ Digital Monster Ver.20th.
 - Skull Greymon
 - Skull Mammon
 - Slayerdramon
-- Taichi Metal Greymon
 - Taichis Agumon
 - Taichis Greymon
 - Taichis Metal Greymon
@@ -131,17 +125,14 @@ Digital Monster Ver.20th.
 - Unimon
 - Vademon
 - Vegimon
-- War Greymon
-- Were Garurumon
 - Whamon
 - Wingdramon
-- Yamato Gabumon
 - Yamatos Gabumon
 - Yamatos Garurumon
 - Yamatos Metal Garurumon
 - Yamatos Were Garurumon
 - Yukidarumon
-- Yukimi Botamon
+- Yukimibotamon
 - Yuramon
 - Zubaeagermon
 - Zubamon

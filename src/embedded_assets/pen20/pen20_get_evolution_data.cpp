@@ -402,9 +402,9 @@ namespace bongocat::assets {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 144000 },
             
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                PEN20_KNIGHTMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX ,PEN20_ANDROMON_ANIM_INDEX
+                PEN20_KNIGHTMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX ,PEN20_ANDROMON_ANIM_INDEX ,PEN20_WARU_MONZAEMON_ANIM_INDEX
             },
         },
         // Name: Cocomon
@@ -842,9 +842,9 @@ namespace bongocat::assets {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 144000 },
             
-            .num_animation_indices = 2,
+            .num_animation_indices = 3,
             .animation_indices = {
-                PEN20_MEGADRAMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX
+                PEN20_MEGADRAMON_ANIM_INDEX ,PEN20_WARU_MONZAEMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX
             },
         },
         // Name: Guimon
@@ -1302,9 +1302,9 @@ namespace bongocat::assets {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 144000 },
             
-            .num_animation_indices = 2,
+            .num_animation_indices = 3,
             .animation_indices = {
-                PEN20_MEGADRAMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX
+                PEN20_MEGADRAMON_ANIM_INDEX ,PEN20_WARU_MONZAEMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX
             },
         },
         // Name: Megadramon
@@ -2032,9 +2032,9 @@ namespace bongocat::assets {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 144000 },
             
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                PEN20_KNIGHTMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX ,PEN20_ANDROMON_ANIM_INDEX
+                PEN20_KNIGHTMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX ,PEN20_ANDROMON_ANIM_INDEX ,PEN20_WARU_MONZAEMON_ANIM_INDEX
             },
         },
         // Name: Targetmon
@@ -2072,9 +2072,9 @@ namespace bongocat::assets {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 144000 },
             
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                PEN20_KNIGHTMON_ANIM_INDEX ,PEN20_CYBERDRAMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX
+                PEN20_KNIGHTMON_ANIM_INDEX ,PEN20_CYBERDRAMON_ANIM_INDEX ,PEN20_BIG_MAMEMON_ANIM_INDEX ,PEN20_WARU_MONZAEMON_ANIM_INDEX
             },
         },
         // Name: Tia Ludomon
@@ -2237,14 +2237,14 @@ namespace bongocat::assets {
                 PEN20_OMEGAMON_ANIM_INDEX
             },
         },
-        // Name: Waru Mozaemon
+        // Name: Waru Monzaemon
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
             
-            .num_animation_indices = 0,
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                PEN20_VENOM_VAMDEMON_ANIM_INDEX
             },
         },
         // Name: Were Garurumon

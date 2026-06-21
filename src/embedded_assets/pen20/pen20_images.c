@@ -1564,11 +1564,11 @@ const unsigned char pen20_war_greymon_png[] ASSETS_IMAGES_SECTION = {
 const size_t pen20_war_greymon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_war_greymon_png);
 
 
-// Name: Waru Mozaemon
-const unsigned char pen20_waru_mozaemon_png[] ASSETS_IMAGES_SECTION = {
-#embed "../../../assets/pen20/Waru Mozaemon.png"
+// Name: Waru Monzaemon
+const unsigned char pen20_waru_monzaemon_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/pen20/Waru Monzaemon.png"
 };
-const size_t pen20_waru_mozaemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_waru_mozaemon_png);
+const size_t pen20_waru_monzaemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_waru_monzaemon_png);
 
 
 // Name: Were Garurumon

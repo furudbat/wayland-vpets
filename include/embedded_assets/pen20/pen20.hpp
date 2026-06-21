@@ -4020,23 +4020,23 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WAR_GREYMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 12;
     inline static constexpr size_t PEN20_WAR_GREYMON_ANIM_INDEX ASSETS_DATA3_SECTION = 222;
 
-    // Name: Waru Mozaemon
-    inline static constexpr char PEN20_WARU_MOZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:waru_mozaemon";
-    inline static constexpr const char* PEN20_WARU_MOZAEMON_FQID CONFIG_STRING2_SECTION = PEN20_WARU_MOZAEMON_FQID_ARR;
-    inline static constexpr size_t PEN20_WARU_MOZAEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MOZAEMON_FQID_ARR)-1;
-    inline static constexpr char PEN20_WARU_MOZAEMON_ID_ARR[] CONFIG_STRING_SECTION = "waru_mozaemon";
-    inline static constexpr const char* PEN20_WARU_MOZAEMON_ID CONFIG_STRING2_SECTION = PEN20_WARU_MOZAEMON_ID_ARR;
-    inline static constexpr size_t PEN20_WARU_MOZAEMON_ID_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MOZAEMON_ID)-1;
-    inline static constexpr char PEN20_WARU_MOZAEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Waru Mozaemon";
-    inline static constexpr const char* PEN20_WARU_MOZAEMON_NAME CONFIG_STRING2_SECTION = PEN20_WARU_MOZAEMON_NAME_ARR;
-    inline static constexpr size_t PEN20_WARU_MOZAEMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MOZAEMON_NAME_ARR)-1;
-    inline static constexpr char PEN20_WARU_MOZAEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Waru Mozaemon";
-    inline static constexpr const char* PEN20_WARU_MOZAEMON_FQNAME CONFIG_STRING2_SECTION = PEN20_WARU_MOZAEMON_FQNAME_ARR;
-    inline static constexpr size_t PEN20_WARU_MOZAEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MOZAEMON_FQNAME_ARR)-1;
-    inline static constexpr int PEN20_WARU_MOZAEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
-    inline static constexpr int PEN20_WARU_MOZAEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
-    inline static constexpr size_t PEN20_WARU_MOZAEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
-    inline static constexpr size_t PEN20_WARU_MOZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 223;
+    // Name: Waru Monzaemon
+    inline static constexpr char PEN20_WARU_MONZAEMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:waru_monzaemon";
+    inline static constexpr const char* PEN20_WARU_MONZAEMON_FQID CONFIG_STRING2_SECTION = PEN20_WARU_MONZAEMON_FQID_ARR;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MONZAEMON_FQID_ARR)-1;
+    inline static constexpr char PEN20_WARU_MONZAEMON_ID_ARR[] CONFIG_STRING_SECTION = "waru_monzaemon";
+    inline static constexpr const char* PEN20_WARU_MONZAEMON_ID CONFIG_STRING2_SECTION = PEN20_WARU_MONZAEMON_ID_ARR;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_ID_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MONZAEMON_ID)-1;
+    inline static constexpr char PEN20_WARU_MONZAEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Waru Monzaemon";
+    inline static constexpr const char* PEN20_WARU_MONZAEMON_NAME CONFIG_STRING2_SECTION = PEN20_WARU_MONZAEMON_NAME_ARR;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_NAME_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MONZAEMON_NAME_ARR)-1;
+    inline static constexpr char PEN20_WARU_MONZAEMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "pen20:Waru Monzaemon";
+    inline static constexpr const char* PEN20_WARU_MONZAEMON_FQNAME CONFIG_STRING2_SECTION = PEN20_WARU_MONZAEMON_FQNAME_ARR;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(PEN20_WARU_MONZAEMON_FQNAME_ARR)-1;
+    inline static constexpr int PEN20_WARU_MONZAEMON_SPRITE_SHEET_COLS ASSETS_DATA_SECTION = 13;
+    inline static constexpr int PEN20_WARU_MONZAEMON_SPRITE_SHEET_ROWS ASSETS_DATA_SECTION = 1;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_SPRITE_SHEET_FRAMES_COUNT ASSETS_DATA_SECTION = 13;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_ANIM_INDEX ASSETS_DATA3_SECTION = 223;
 
     // Name: Were Garurumon
     inline static constexpr char PEN20_WERE_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "pen20:were_garurumon";

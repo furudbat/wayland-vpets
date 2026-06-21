@@ -1,5 +1,6 @@
 #### dmall
-custom colored Digital Monster sprites
+Custom colored Digital Monster sprites
+Made by Fans <3
 
 - Aegisdramon
 - Aero V-dramon
@@ -11,8 +12,8 @@ custom colored Digital Monster sprites
 - Agumon - Yuki no Kizuna
 - Airdramon
 - Algomon (Adult)
-- Algomon (BabyII)
-- Algomon (BabyI)
+- Algomon (Baby II)
+- Algomon (Baby I)
 - Algomon (Child)
 - Algomon (Ultimate)
 - Allomon X
@@ -97,7 +98,7 @@ custom colored Digital Monster sprites
 - Candmon
 - Cannonbeemon
 - Caprimon
-- CatchMamemon
+- Catch Mamemon
 - Caturamon
 - Centalmon
 - Cerberumon X
@@ -379,8 +380,8 @@ custom colored Digital Monster sprites
 - Mega Seadramon X
 - Megidramon
 - Megidramon X
-- MeicooBaby
-- Meicoo (Child)
+- Meicoomon (Baby)
+- Meicoomon (Child)
 - Meicoomon
 - Meicrackmon
 - Meicrackmon Vicious Mode
@@ -396,7 +397,7 @@ custom colored Digital Monster sprites
 - Metal Greymon
 - Metal Greymon (Virus)
 - Metal Greymon (Virus) X
-- MetalGreymon X
+- Metal Greymon X
 - Metallicdramon
 - Metal Mamemon
 - Metal Mamemon X
@@ -467,8 +468,8 @@ custom colored Digital Monster sprites
 - Parasaurmon
 - Pegasmon X
 - Penmon
-- PetiMeramon
-- PetitMamon
+- Peti Meramon
+- Petit Mamon
 - Petitmon
 - Phantomon
 - Phascomon
@@ -532,7 +533,7 @@ custom colored Digital Monster sprites
 - Rhinomon
 - Rhinomon X
 - Rize Greymon
-- RizeGreymon X
+- Rize Greymon X
 - Rosemon Burst Mode
 - Rosemon
 - Rosemon X
@@ -616,11 +617,8 @@ custom colored Digital Monster sprites
 - Tsuchidarumon
 - Tsumemon
 - Tsunomon
-- Tunomon
 - Turuiemon
 - Tylomon X
-- Tyrannomon
-- Tyrannomon X
 - Tyranomon
 - Tyranomon X
 - Ulforce V-dramon
@@ -630,7 +628,7 @@ custom colored Digital Monster sprites
 - Vademon
 - Valdurmon
 - Vamdemon
-- Vamdemon_X
+- Vamdemon X
 - V-dramon (Black)
 - V-dramon
 - Vegimon
@@ -647,7 +645,7 @@ custom colored Digital Monster sprites
 - Waru Monzaemon
 - Waru Seadramon
 - Waspmon
-- WereGarurumon (Black)
+- Were Garurumon (Black)
 - Were Garurumon
 - Were Garurumon X
 - Whamon

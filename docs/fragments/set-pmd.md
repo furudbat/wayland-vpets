@@ -1,6 +1,6 @@
 #### pmd
-Pokemon Mystery Dungeon - up to Gen. 8  
-_more sprites and features available then `pkmn`_
+Pokemon Mystery Dungeon - up to Gen. 8
+Made by Fans <3
 
 - Bulbasaur
 - Ivysaur

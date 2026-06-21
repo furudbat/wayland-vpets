@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file.
 
+### [5.0.0] - 2026-06-21
+
+**BREAKING CHANGE:** renaming- and cleanup sprites. **Check your `animation_name` in config.**
+
+### Added
+
+- **Evolution** - Change sprite over time
+
+### Improve
+
+- RAM usage - unload assets from pages, when not needed
+
+### Fixed
+
+- **`animation_name` - clean up sprites and renaming**
+
 ### [4.0.3] - 2026-05-21
 
 ### Fixed 

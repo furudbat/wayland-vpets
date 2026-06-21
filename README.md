@@ -4,7 +4,7 @@
 [![Version](https://img.shields.io/badge/version-4.0.3-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
-A cute Wayland overlay that shows an animated pets reacting to your keyboard input.
+A passive Desktop Pet for Wayland, that shows animated pets reacting to your keyboard input.
 
 ![Bongocat - Demo](assets/demo.gif)  
 _Classic Bongocat_
@@ -25,13 +25,13 @@ _Pokemon_
   - Digimon V-Pets 🦖
   - Clippy 📎
   - Pokemon 🐭
-  - Misc & custom sprite sheets 🐈‍⬛
+  - Misc & custom sprite sheets 🐈‍
 - 🎯 Real-time keyboard animation
 - 🔥 Hot-reload configuration
 - 🎮 Auto-hides in fullscreen apps
 - 🖥️ Multi-monitor support
 - 😴 Idle/scheduled sleep mode
-- 😄 Happy animation when reach KPM (Keystroke per minute)
+- 😄 Happy animation when reaching keystroke-per-minute (KPM)
 - 🎲 Randomize sprite at start up
 - 🔲 React to CPU usage
 - ↔️ Movement on screen
@@ -64,7 +64,7 @@ _If you only want to test without replacing bongocat, run the binary directly fr
 ```bash
 sudo cmake --install build
 ```
-⚠️ **this can overwrite the original installation of bongocat** ⚠️
+⚠️ **This installs the binary system-wide. If you already have another [bongocat](https://github.com/saatvik333/wayland-bongocat) installation, the files may conflict.** ⚠️
 
 
 
@@ -179,9 +179,8 @@ keyboard_device=/dev/input/event4
 See man pages for more details and full list:
 
  - [Bongocat 😺](docs/fragments/set-bongocat.md)
- - [MS Agent 📎](docs/fragments/set-ms-agent.md) Clippy and friends
- - [Pokémon 🐭](docs/fragments/set-pkmn.md) up to Gen. 5
-   + [Pokémon Mystery Dungeon](docs/fragments/set-pmd.md) alternative sprites, up to Gen. 8
+ - [MS Agent 📎](docs/fragments/set-ms-agent.md)
+ - [Pokémon 🐭](docs/fragments/set-pkmn.md)
  - [Misc 🐈‍](docs/fragments/set-misc.md)
 
 ##### Digimon 🦖
@@ -193,18 +192,22 @@ See man pages for more details and full list:
  - [X](docs/fragments/set-dmx.md)
  - [Colored](docs/fragments/set-dmc.md)
 
-_If you build with ALL assets included you can void naming conflicts by using the full name: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`_
+_If you build with ALL assets, you can avoid `animation_name` conflicts by using the full name: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`_
 
 ##### Pokémon 🐭
 
-[Pokémon Mystery Dungeon](docs/fragments/set-pmd.md) sprite are not included in the `wpets-all`.
-Use `wpets-pkmn` and `pmd:Pikachu` (`animation_name`).
+`wpets-all` and `wpets-pkmn` includes up to Gen. 5.
+[Pokémon Mystery Dungeon](docs/fragments/set-pmd.md) sprites are bundled in `wpets-pkmn`, not in `wpets-all`: `pmd:Pikachu`
+
+##### MS Agent 📎
+
+While only Clippy is bundled in `wpets-all`, the other MS Agent friends are bundled in `wpets-ms-agent`: `Links`
+
 
 #### Evolution (`evolution`)
 
-Sprite changes over time, for more details see [evolition section](docs/fragments/evol-all.md).
-
-_Feature only available for Digimon and Pokémon only._
+Sprites changes over time and evolves into a new form, for more details see [evolution section](docs/fragments/evol-all.md).
+_This Feature only available for Digimon and Pokémon._
 
 #### Custom Sprite Sheet (`custom_...`)
 
@@ -295,8 +298,8 @@ wpets-all --watch-config --config ~/.config/bongocat/clippy.bongocat.conf
 wpets-all --watch-config --config ~/.config/bongocat/neko.bongocat.conf
 ```
 
-_`wpets` is the default **minimal** binary. **`wpets-all`** and `wpets-pkmn` are variants with specific sprite sets._  
-_Just use `wpets-all` with all sprites included, try out all the pets._
+_`wpets` is the default **minimal** binary. `wpets-ms-agent` and `wpets-pkmn` are variants with specific sprite sets and includes the bigger sprite sheets._  
+_Just use `wpets-all` with most sprites bundled, try out all the pets._
 
 See [examples/](examples) for more configs.
 

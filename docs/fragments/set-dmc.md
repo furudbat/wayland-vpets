@@ -1,4 +1,4 @@
-#### dmx
+#### dmc
 Digital Monster Color
 
 - Agumon
@@ -7,32 +7,42 @@ Digital Monster Color
 - Angemon
 - Babydmon
 - Bakemon
+- Bancho Leomon
 - Bancho Mamemon
 - Betamon
 - Birdramon
 - Blitz Greymon
+- Bloom Lordmon
 - Botamon
 - Centalmon
+- Chaosdramon
+- Chaosmon
+- Chimairamon
 - Cockatrimon
 - Coelamon
 - Coronamon
 - Cres Garurumon
 - Cyclomon
+- Darkdramon
 - Dark Tyranomon
 - Deltamon
 - Devidramon
 - Devimon
 - Digitamamon
 - Drimogemon
+- Ebemon
 - Elecmon
 - Etemon
 - Ex-Tyranomon
 - Flymon
 - Gabumon
+- Gaioumon
+- Gankoomon
 - Garurumon
 - Gazimon
 - Giromon
 - Gizamon
+- Gokumon
 - Greymon
 - Hi Andromon
 - Kabuterimon
@@ -48,13 +58,15 @@ Digital Monster Color
 - Metal Greymon (Virus)
 - Metal Mamemon
 - Metal Tyranomon
-- Mojymon
+- Millenniumon
+- Mojyamon
 - Monochromon
-- Mozaemon
+- Monzaemon
 - Mugendramon
 - Nanimon
 - Nanomon
 - Numemon
+- Ogremon
 - Omegamon Alter S
 - Omegamon
 - Orgemon

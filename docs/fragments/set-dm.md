@@ -5,14 +5,15 @@ Digital Monster Original
 - Airdramon
 - Andromon
 - Angemon
+- Atlur Kabuterimon
 - Bakemon
 - Betamon
 - Birdramon
 - Botamon
+- Bubbmon
 - Centalmon
 - Cockatrimon
 - Coelamon
-- Coronamon
 - Cyclomon
 - Dark Tyranomon
 - Deltamon
@@ -27,6 +28,7 @@ Digital Monster Original
 - Gabumon
 - Garurumon
 - Gazimon
+- Gekomon
 - Giromon
 - Gizamon
 - Greymon
@@ -41,13 +43,16 @@ Digital Monster Original
 - Metal Greymon
 - Metal Mamemon
 - Metal Tyranomon
+- Mochimon
 - Mojyamon
 - Monochromon
 - Monzaemon
+- Mugendramon
 - Nanimon
 - Nanomon
 - Numemon
 - Ogremon
+- Otamamon
 - Pagumon
 - Palmon
 - Patamon
@@ -60,8 +65,12 @@ Digital Monster Original
 - Seadramon
 - Shellmon
 - Skull Greymon
+- Starmon
 - Tanemon
+- Tentomon
 - Tokomon
+- Tonosama Gekomon
+- Tortamon
 - Tunomon
 - Tuskmon
 - Tyranomon
@@ -71,3 +80,4 @@ Digital Monster Original
 - Whamon
 - Yukidarumon
 - Yuramon
+- Zurumon

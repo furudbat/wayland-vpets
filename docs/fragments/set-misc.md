@@ -1,4 +1,4 @@
 #### misc
-miscellaneous and generic pets
+Miscellaneous and generic pets
 
 - neko

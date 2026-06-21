@@ -15,14 +15,13 @@ Digital Monster X
 - Beelzebumon X
 - Belial Vamdemon
 - Belphemon X
-- Black Wargreymon X
-- Cannon Beemon
+- Black War Greymon X
+- Cannonbeemon
 - Cerberumon X
 - Chaosdramon X
 - Cherubimon (Vice) X
 - Cherubimon (Virtue) X
-- Chocomon
-- Cho Hakkaimon
+- Cho-Hakkaimon
 - Cocomon
 - Craniummon X
 - Crys Paledramon
@@ -56,7 +55,7 @@ Digital Monster X
 - Goddramon X
 - Gomamon X
 - Grademon
-- Grand Darcumon
+- Grand Dracumon
 - Grandis Kuwagamon
 - Growmon X
 - Gummymon
@@ -69,6 +68,7 @@ Digital Monster X
 - Jararchimon
 - Jazamon
 - Jazardmon
+- Jazarichmon
 - Jesmon GX
 - Jesmon X
 - Justimon X
@@ -85,15 +85,17 @@ Digital Monster X
 - Lilithmon X
 - Lopmon X
 - Lord Kightmon X
+- Lord Knightmon X
 - Lucemon X
 - Magidramon X
 - Magnamon X
 - Mamemon X
-- Mame Tyramon
+- Mametyramon
 - Mammon X
 - Mantaraymon X
 - Megalo Growmon X
 - Mega Seadramon X
+- Megidramon X
 - Mephismon X
 - Meramon X
 - Metal Fantomon
@@ -108,14 +110,15 @@ Digital Monster X
 - Nefertimon X
 - Noble Pumpmon
 - Numemon X
+- Ofanimon Falldown Mode
+- Ofanimon Falldown Mode X
+- Ofanimon X
 - Ogremon X
 - Ogudomon X
 - Okuwamon X
 - Omegamon X
 - Omega Shoutmon X
 - Omekamon
-- Ophanimon Falldown Mode
-- Ophanimon X
 - Otamamon X
 - Ouryumon
 - Paledramon
@@ -126,6 +129,7 @@ Digital Monster X
 - Plotmon X
 - Prince Mamemon X
 - Pteranmon X
+- Pteranomon X
 - Pumpmon
 - Puttimon
 - Rafflesimon
@@ -133,13 +137,13 @@ Digital Monster X
 - Rapidmon X
 - Rasenmon Fury Mode
 - Rasenmon
-- Rekamon X
+- Renamon X
 - Rhinomon X
 - Rize Greymon X
 - Rosemon X
 - Ryudamon
 - Sakuyamon X
-- Sangoupmon
+- Sangloupmon
 - Seadramon X
 - Shakomon X
 - Siesamon X
@@ -147,21 +151,21 @@ Digital Monster X
 - Skull Baluchimon
 - Skull Mammon X
 - Sleipmon X
-- Stiffimon
+- Stiffilmon
 - Tailmon X
-- Tierriermon X
+- Terriermon X
 - Tiger Vespamon
-- Tobcatmon
+- Tobucatmon
 - Togemon X
 - Tokomon X
 - Triceramon X
 - Tylomon X
 - Tyranomon X
 - Ulforce V-dramon X
-- Ultimate Brachimon
+- Ultimate Brachiomon
 - Valdurmon
 - Vamdemon X
-- Velgrman
+- Velgrmon
 - Voltobautamon
 - War Greymon X
 - Were Garurumon X

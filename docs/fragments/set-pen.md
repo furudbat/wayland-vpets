@@ -2,12 +2,17 @@
 Digimon Pendulum
 
 - Aero V-dramon
+- Agumon
+- Andromon
+- Angemon
 - Angewomon
 - Anomalocarimon
 - Asuramon
 - Atlur Kabuterimon
+- Bakemon
 - Bakumon
 - Big Mamemon
+- Birdramon
 - Blossomon
 - Boltmon
 - Bubbmon
@@ -15,66 +20,93 @@ Digimon Pendulum
 - Caprimon
 - Choromon
 - Clockmon
+- Coelamon
 - Cyberdramon
 - Dagomon
 - Death Meramon
 - Delumon
+- Devimon
 - Dokugumon
 - Ebidramon
 - Fantomon
 - Floramon
+- Gabumon
 - Ganimon
 - Garudamon
+- Garurumon
 - Gekomon
 - Gerbemon
 - Gesomon
 - Gomamon
 - Gottsumon
+- Greymon
 - Griffomon
 - Guardromon
 - Hagurumon
 - Hangymon
+- Hangyomon
 - Hanumon
-- Herkule Kabuterimon
+- Herakle Kabuterimon
 - Holy Angemon
 - Holydramon
 - Hououmon
-- Ignamon
+- Igamon
 - Ikkakumon
 - Jyagamon
 - Jyureimon
+- Kabuterimon
 - Kiwimon
 - Knightmon
 - Kokuwamon
+- Kuwagamon
 - Lady Devimon
+- Leomon
 - Lilimon
 - Mammon
 - Marin Angemon
 - Marin Devimon
 - Mechanorimon
+- Megadramon
 - Mega Seadramon
+- Meramon
 - Metal Etemon
+- Metal Garurumon
+- Metal Greymon
+- Metal Mamemon
 - Metal Seadramon
 - Mochimon
 - Mokumon
+- Monochromon
+- Mugendramon
 - Mushmon
+- Nyaromon
 - Nyokimon
 - Octmon
 - Okuwamon
+- Omegamon
 - Otamamon
+- Palmon
 - Peti Meramon
+- Piccolomon
 - Pico Devimon
 - Piemon
+- Pinochimon
+- Pitchmon
+- Piyomon
 - Plesiomon
+- Plotmon
+- Pukamon
 - Pukumon
 - Pumpmon
 - Pyocomon
-- Rakamon
 - Red Vegimon
 - Revolmon
 - Rosemon
+- Rukamon
 - Saber Leomon
+- Seadramon
 - Shakomon
+- Skull Mammon
 - Starmon
 - Tailmon
 - Tankmon
@@ -85,10 +117,14 @@ Digimon Pendulum
 - Tortamon
 - Toy Agumon
 - Triceramon
+- Vamdemon
 - V-dramon
-- Vemdemon
 - Venom Vamdemon
-- Waru Mozaemon
+- War Greymon
+- Waru Monzaemon
+- Were Garurumon
+- Whamon
 - Wizarmon
 - Woodmon
-- Zudomom
+- Yukimi Botamon
+- Zudomon

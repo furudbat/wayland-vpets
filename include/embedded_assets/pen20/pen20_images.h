@@ -898,9 +898,9 @@ extern const size_t pen20_vorvomon_png_size;
 extern const unsigned char pen20_war_greymon_png[];
 extern const size_t pen20_war_greymon_png_size;
 
-// Name: Waru Mozaemon
-extern const unsigned char pen20_waru_mozaemon_png[];
-extern const size_t pen20_waru_mozaemon_png_size;
+// Name: Waru Monzaemon
+extern const unsigned char pen20_waru_monzaemon_png[];
+extern const size_t pen20_waru_monzaemon_png_size;
 
 // Name: Were Garurumon
 extern const unsigned char pen20_were_garurumon_png[];

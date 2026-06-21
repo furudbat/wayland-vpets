@@ -231,7 +231,7 @@ namespace bongocat::assets {
         {pen20_voltobautamon_png, pen20_voltobautamon_png_size, PEN20_VOLTOBAUTAMON_ID}, 
         {pen20_vorvomon_png, pen20_vorvomon_png_size, PEN20_VORVOMON_ID}, 
         {pen20_war_greymon_png, pen20_war_greymon_png_size, PEN20_WAR_GREYMON_ID}, 
-        {pen20_waru_mozaemon_png, pen20_waru_mozaemon_png_size, PEN20_WARU_MOZAEMON_ID}, 
+        {pen20_waru_monzaemon_png, pen20_waru_monzaemon_png_size, PEN20_WARU_MONZAEMON_ID}, 
         {pen20_were_garurumon_png, pen20_were_garurumon_png_size, PEN20_WERE_GARURUMON_ID}, 
         {pen20_whamon_png, pen20_whamon_png_size, PEN20_WHAMON_ID}, 
         {pen20_wingdramon_png, pen20_wingdramon_png_size, PEN20_WINGDRAMON_ID}, 
