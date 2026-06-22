@@ -57,6 +57,14 @@ struct animation_evolution_t {
 // ANIMATION STATE (shared memory between threads)
 // =============================================================================
 
+enum class anim_index_changed_t : uint32_t {
+  None = 0,
+  NoChange = (1u << 0),
+  FromConfig = (1u << 1),
+  Randomize = (1u << 2),
+  Evolution = (1u << 3),
+};
+
 struct animation_shared_memory_t {
   inline static constexpr int DEFAULT_PREFER_SCALE120 = 120;
 
@@ -92,6 +100,9 @@ struct animation_shared_memory_t {
 
   animation_evolution_t evolution;
 
+  int32_t _old_anim_index_from_config{0};
+  anim_index_changed_t _anim_index_changed{anim_index_changed_t::None};
+
   animation_shared_memory_t() = default;
   ~animation_shared_memory_t() {
     anim_type = config::config_animation_sprite_sheet_layout_t::None;
@@ -105,6 +116,8 @@ struct animation_shared_memory_t {
     scale120 = DEFAULT_PREFER_SCALE120;
     cat_height_phys = 0;
     evolution = {};
+    _old_anim_index_from_config = 0;
+    _anim_index_changed = anim_index_changed_t::None;
 
     for (size_t i = 0; i < bongocat_anims.count; i++) {
       cleanup_animation(bongocat_anims[i]);
@@ -174,68 +187,8 @@ struct animation_shared_memory_t {
     cleanup_animation(anim);
   }
 
-  animation_shared_memory_t(const animation_shared_memory_t& other)
-      : animation_player_result(other.animation_player_result)
-      , anim_index(other.anim_index)
-      , anim_type(other.anim_type)
-      , anim_dm_set(other.anim_dm_set)
-      , anim_custom_set(other.anim_custom_set)
-      , movement_offset_x(other.movement_offset_x)
-      , anim_direction(other.anim_direction)
-      , last_wakeup_timestamp(other.last_wakeup_timestamp)
-      , scale120(other.scale120)
-      , cat_height_phys(other.cat_height_phys) {
-    bongocat_anims = other.bongocat_anims;
-    dm_anims = other.dm_anims;
-    dm20_anims = other.dm20_anims;
-    dmc_anims = other.dmc_anims;
-    dmx_anims = other.dmx_anims;
-    pen_anims = other.pen_anims;
-    pen20_anims = other.pen20_anims;
-    dmall_anims = other.dmall_anims;
-    min_dm_anims = other.min_dm_anims;
-    ms_anims = other.ms_anims;
-    pkmn_anims = other.pkmn_anims;
-    misc_anims = other.misc_anims;
-    pmd_anims = other.pmd_anims;
-
-    anim = other.anim;
-
-    evolution = other.evolution;
-  }
-  animation_shared_memory_t& operator=(const animation_shared_memory_t& other) {
-    if (this != &other) {
-      anim_type = other.anim_type;
-      anim_dm_set = other.anim_dm_set;
-      anim_custom_set = other.anim_custom_set;
-      anim_index = other.anim_index;
-      animation_player_result = other.animation_player_result;
-      movement_offset_x = other.movement_offset_x;
-      anim_direction = other.anim_direction;
-      last_wakeup_timestamp = other.last_wakeup_timestamp;
-      scale120 = other.scale120;
-      cat_height_phys = other.cat_height_phys;
-
-      bongocat_anims = other.bongocat_anims;
-      dm_anims = other.dm_anims;
-      dm20_anims = other.dm20_anims;
-      dmc_anims = other.dmc_anims;
-      dmx_anims = other.dmx_anims;
-      pen_anims = other.pen_anims;
-      pen20_anims = other.pen20_anims;
-      dmall_anims = other.dmall_anims;
-      min_dm_anims = other.min_dm_anims;
-      ms_anims = other.ms_anims;
-      pkmn_anims = other.pkmn_anims;
-      misc_anims = other.misc_anims;
-      pmd_anims = other.pmd_anims;
-
-      anim = other.anim;
-
-      evolution = other.evolution;
-    }
-    return *this;
-  }
+  animation_shared_memory_t(const animation_shared_memory_t& other) = default;
+  animation_shared_memory_t& operator=(const animation_shared_memory_t& other) = default;
 
   animation_shared_memory_t(animation_shared_memory_t&& other) noexcept
       : animation_player_result(other.animation_player_result)
@@ -247,7 +200,9 @@ struct animation_shared_memory_t {
       , anim_direction(other.anim_direction)
       , last_wakeup_timestamp(other.last_wakeup_timestamp)
       , scale120(other.scale120)
-      , cat_height_phys(other.cat_height_phys) {
+      , cat_height_phys(other.cat_height_phys)
+      , _old_anim_index_from_config(other._old_anim_index_from_config)
+      , _anim_index_changed(other._anim_index_changed) {
     bongocat_anims = bongocat::move(other.bongocat_anims);
     dm_anims = bongocat::move(other.dm_anims);
     dm20_anims = bongocat::move(other.dm20_anims);
@@ -291,6 +246,8 @@ struct animation_shared_memory_t {
     other.last_wakeup_timestamp = 0;
     other.scale120 = DEFAULT_PREFER_SCALE120;
     other.cat_height_phys = 0;
+    other._old_anim_index_from_config = 0;
+    other._anim_index_changed = anim_index_changed_t::None;
   }
   animation_shared_memory_t& operator=(animation_shared_memory_t&& other) noexcept {
     if (this != &other) {
@@ -304,6 +261,8 @@ struct animation_shared_memory_t {
       last_wakeup_timestamp = other.last_wakeup_timestamp;
       scale120 = other.scale120;
       cat_height_phys = other.cat_height_phys;
+      _old_anim_index_from_config = other._old_anim_index_from_config;
+      _anim_index_changed = other._anim_index_changed;
 
       bongocat_anims = bongocat::move(other.bongocat_anims);
       dm_anims = bongocat::move(other.dm_anims);
@@ -348,6 +307,8 @@ struct animation_shared_memory_t {
       other.last_wakeup_timestamp = 0;
       other.scale120 = DEFAULT_PREFER_SCALE120;
       other.cat_height_phys = 0;
+      other._old_anim_index_from_config = 0;
+      other._anim_index_changed = anim_index_changed_t::None;
     }
     return *this;
   }

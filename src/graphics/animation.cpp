@@ -6167,38 +6167,95 @@ BONGOCAT_NODISCARD static int rand_animation_index(animation_thread_context_t& c
 
 update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(animation_thread_context_t& ctx) {
   using namespace assets;
+
+  // read-only config
   assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
 
   platform::LockGuard guard(ctx.anim_lock);
-  const auto old_anim_type = ctx.shm->anim_type;
-  const auto old_anim_dm_set = ctx.shm->anim_dm_set;
-  const auto old_anim_custom_set = ctx.shm->anim_custom_set;
-  const auto old_anim_index = ctx.shm->anim_index;
-  const auto old_last_evolution_timestamp = ctx.shm->evolution.last_evolution_timestamp;
+  assert(ctx.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+
+  const auto old_anim_type = anim_shm.anim_type;
+  const auto old_anim_dm_set = anim_shm.anim_dm_set;
+  const auto old_anim_custom_set = anim_shm.anim_custom_set;
+  const auto old_anim_index = anim_shm.anim_index;
+  const auto old_last_evolution_timestamp = anim_shm.evolution.last_evolution_timestamp;
+  const auto old_anim_index_from_config = anim_shm._old_anim_index_from_config;
+  const auto old_anim_index_changed = anim_shm._anim_index_changed;
+  const auto rollback_animation = [&]() {
+    anim_shm.anim_type = old_anim_type;
+    anim_shm.anim_dm_set = old_anim_dm_set;
+    anim_shm.anim_custom_set = old_anim_custom_set;
+    anim_shm.anim_index = old_anim_index;
+    anim_shm._old_anim_index_from_config = old_anim_index_from_config;
+    anim_shm._anim_index_changed = old_anim_index_changed;
+  };
 
   update_config_reload_sprite_sheet_result ret;
   ret.old_anim_index = old_anim_index;
 
-  ctx.shm->anim_type = ctx._local_copy_config->animation_sprite_sheet_layout;
-  ctx.shm->anim_dm_set = ctx._local_copy_config->animation_dm_set;
-  ctx.shm->anim_custom_set = ctx._local_copy_config->animation_custom_set;
+  anim_shm.anim_type = current_config.animation_sprite_sheet_layout;
+  anim_shm.anim_dm_set = current_config.animation_dm_set;
+  anim_shm.anim_custom_set = current_config.animation_custom_set;
   /// @NOTE: set dm_set, etc. first so rand_animation_index works
 
   // change anim_index from config
-  ctx.shm->anim_index = !ctx._local_copy_config->_keep_old_animation_index
-                            ? rand_animation_index(ctx, *ctx._local_copy_config)
-                            : old_anim_index;
-
-  // change anim_index from evolution
-  if (ctx.shm->evolution._evolution_pending && ctx.shm->evolution._swap_animation) {
-    if (ctx.shm->evolution._evolution_pending_animation_index >= 0) {
-      ctx.shm->anim_index = ctx.shm->evolution._evolution_pending_animation_index;
-      ret.evolution = true;
+  anim_shm._anim_index_changed = [&](){
+    if constexpr (features::EnableEvolution) {
+      // don't reset animation when initial anim_index (from config didn't change, but evolution is enabled)
+      if (anim_shm._old_anim_index_from_config == current_config.animation_index && old_anim_index != anim_shm._old_anim_index_from_config &&
+          !current_config.randomize_on_reload &&
+          has_flag(old_anim_index_changed, anim_index_changed_t::Evolution)) {
+        // assume evolution has changed the anim_index
+        // keep current animation, if base don't have changed
+        return anim_index_changed_t::NoChange;
+      }
     }
+
+    if (current_config._keep_old_animation_index) {
+      return anim_index_changed_t::NoChange;
+    }
+    if (current_config.randomize_index && current_config.randomize_on_reload) {
+      return anim_index_changed_t::Randomize;
+    }
+    if (anim_shm._old_anim_index_from_config != current_config.animation_index) {
+      return anim_index_changed_t::FromConfig;
+    }
+
+    return anim_index_changed_t::None;
+  }();
+  anim_shm.anim_index = [&](){
+    switch (anim_shm._anim_index_changed) {
+    case anim_index_changed_t::None:
+      return anim_shm.anim_index;
+    case anim_index_changed_t::NoChange:
+      return old_anim_index;
+    case anim_index_changed_t::FromConfig:
+      return current_config.animation_index;
+    case anim_index_changed_t::Randomize:
+      return rand_animation_index(ctx, current_config);
+    case anim_index_changed_t::Evolution:
+      break;
+    }
+
+    return anim_shm.anim_index;
+  }();
+  anim_shm._old_anim_index_from_config = current_config.animation_index;
+
+  if constexpr (features::EnableEvolution) {
+    // change anim_index from evolution
+    if (anim_shm.evolution._evolution_pending && anim_shm.evolution._swap_animation) {
+      if (anim_shm.evolution._evolution_pending_animation_index >= 0) {
+        anim_shm.anim_index = anim_shm.evolution._evolution_pending_animation_index;
+        anim_shm._anim_index_changed = flag_add(anim_shm._anim_index_changed, anim_index_changed_t::Evolution);
+        ret.evolution = true;
+      }
+    }
+    anim_shm.evolution._evolution_pending = false;
+    anim_shm.evolution._swap_animation = false;
+    anim_shm.evolution._evolution_pending_animation_index = -1;
   }
-  ctx.shm->evolution._evolution_pending = false;
-  ctx.shm->evolution._swap_animation = false;
-  ctx.shm->evolution._evolution_pending_animation_index = -1;
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
   if (features::EnableLazyLoadAssets ||
@@ -6207,11 +6264,7 @@ update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(anima
     if (error == bongocat_error_t::BONGOCAT_SUCCESS) {
       ret.animation_name_change = old_anim_index != ctx.shm->anim_index;
     } else {
-      // rollback
-      ctx.shm->anim_type = old_anim_type;
-      ctx.shm->anim_dm_set = old_anim_dm_set;
-      ctx.shm->anim_custom_set = old_anim_custom_set;
-      ctx.shm->anim_index = old_anim_index;
+      rollback_animation();
     }
   } else {
     if constexpr (features::EnableCustomSpriteSheetsAssets) {
@@ -6221,11 +6274,7 @@ update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(anima
           ctx.shm->anim = bongocat::move(result);
           ret.animation_name_change = old_anim_index != ctx.shm->anim_index;
         } else {
-          // rollback
-          ctx.shm->anim_type = old_anim_type;
-          ctx.shm->anim_dm_set = old_anim_dm_set;
-          ctx.shm->anim_custom_set = old_anim_custom_set;
-          ctx.shm->anim_index = old_anim_index;
+          rollback_animation();
         }
       }
     }
@@ -6242,18 +6291,20 @@ update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(anima
 
   const auto now = platform::get_current_time_ms();
   // initial animation state
-  ctx.shm->animation_player_result.sprite_sheet_col =
+  anim_shm.animation_player_result.sprite_sheet_col =
       ctx._local_copy_config->idle_frame >= 1 ? ctx._local_copy_config->idle_frame : 0;
-  ctx.shm->animation_player_result.sprite_sheet_row =
+  anim_shm.animation_player_result.sprite_sheet_row =
       features::EnableCustomSpriteSheetsAssets && ctx._local_copy_config->_custom &&
               ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index > 0
           ? ctx._local_copy_config->custom_sprite_sheet_settings.idle_row_index
           : 0;
-  ctx.shm->last_wakeup_timestamp = now;
-  if (ret.animation_name_change) {
-    ctx.shm->evolution.last_evolution_timestamp = now;
-  } else {
-    ctx.shm->evolution.last_evolution_timestamp = old_last_evolution_timestamp;
+  anim_shm.last_wakeup_timestamp = now;
+  if constexpr (features::EnableEvolution) {
+    if (ret.animation_name_change) {
+      anim_shm.evolution.last_evolution_timestamp = now;
+    } else {
+      anim_shm.evolution.last_evolution_timestamp = old_last_evolution_timestamp;
+    }
   }
 
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();

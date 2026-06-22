@@ -498,10 +498,22 @@ static void config_reload_callback() {
     platform::LockGuard guard(get_main_context().sync_configs);
     config::config_t old_config = get_main_context().config;
     // keep old animation, don't randomize
-    if (old_config.randomize_index >= 1 && new_config.randomize_index >= 1 &&
+    if (old_config.randomize_index && new_config.randomize_index &&
         old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
-        old_config.animation_dm_set == new_config.animation_dm_set) {
-      new_config._keep_old_animation_index = new_config.randomize_on_reload <= 0;
+        old_config.animation_dm_set == new_config.animation_dm_set &&
+        old_config.animation_custom_set == new_config.animation_custom_set) {
+      new_config._keep_old_animation_index = !new_config.randomize_on_reload;
+    } else if (features::EnableEvolution && !new_config.randomize_on_reload &&
+        old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
+        old_config.animation_dm_set == new_config.animation_dm_set &&
+        old_config.animation_custom_set == new_config.animation_custom_set) {
+      // assume anim_index has changed, evolution
+      new_config._keep_old_animation_index = old_config.evolution != config::evolution_time_mode_t::NONE;
+    } else if (((old_config.randomize_index != new_config.randomize_index && new_config.randomize_index) || (new_config.randomize_index && old_config.randomize_on_reload != new_config.randomize_on_reload && new_config.randomize_on_reload)) &&
+        old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
+        old_config.animation_dm_set == new_config.animation_dm_set &&
+        old_config.animation_custom_set == new_config.animation_custom_set) {
+      new_config._keep_old_animation_index = false;
     }
     // If successful, check if input devices changed before updating config
     devices_changed = config_devices_changed(old_config, new_config);

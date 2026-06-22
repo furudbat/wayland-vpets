@@ -136,6 +136,8 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   animation_shared_memory_t& anim_shm = *ctx.shm;
   const int anim_index = anim_shm.anim_index;
 
+  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
+
   switch (anim_shm.anim_type) {
   case config::config_animation_sprite_sheet_layout_t::None:
     // unload other sprite sheets
@@ -311,6 +313,11 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
 #ifdef __GLIBC__
   malloc_trim(0);
 #endif
+
+  [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+
+  BONGOCAT_LOG_VERBOSE("hot_load_animation; reload assets in %.3fms (%.6fsec)",
+                       static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
 
   return ret;
 }
