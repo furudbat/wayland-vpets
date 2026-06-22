@@ -1,6 +1,6 @@
 % bongocat-all(1)
-% 
-% November 2025
+%
+% June 2026
 
 # NAME
 bongocat - Wayland overlay with animated V-Pet reacting to keyboard input

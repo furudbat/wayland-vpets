@@ -1,6 +1,6 @@
 # AUTHORS
 
-- Saatvik <saatvik333sharma@gmail.com> - original author
+- Saatvik <saatvik333sharma@gmail.com> - original author of bongocat
 - u/akonzu - inspiration
 - Shreyabardia - custom-drawn Bongo Cat artwork
 - furudbat <hircreacc@gmail.com> - wayland-vpets fork
@@ -49,11 +49,13 @@ This project is **free**, **non-commercial** and is not associated with the enti
 
 ### Digimon
 
-Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.
+Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.  
+The Humulos evolution guides are used as the primary reference for Digimon evolution requirements and progression data: https://humulos.com/digimon/
 
 ### Pokemon
 
-Pokemon sprite- and images are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.
+Pokémon sprite- and images are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.  
+[https://github.com/pokeapi/pokeapi](pokeapi) was used for getting the Pokémon evolution requirements.
 
 #### pmd (PMDCollab)
 

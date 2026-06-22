@@ -21,3 +21,7 @@ Evolution occurs automatically after the required amount of time has elapsed:
 **Pokémon**
 
 For Pokémon, each hour of age corresponds to 2 Levels. Evolution occurs when the Pokémon reaches its evolution level.
+
+#### Notes
+
+- [https://github.com/pokeapi/pokeapi](pokeapi) was used for getting the Pokémon evolution requirements

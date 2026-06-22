@@ -2,21 +2,23 @@
 
 All notable changes to this project will be documented in this file.
 
-### [5.0.0] - 2026-06-21
+### [5.0.0] - 2026-06-22
 
 **BREAKING CHANGE:** renaming- and cleanup sprites. **Check your `animation_name` in config.**
 
 ### Added
 
 - **Evolution** - Change sprite over time
+  - Add support for `dm`s and `pkmn`s
+  - Update Config & Doc
 
 ### Improve
 
-- RAM usage - unload assets from pages, when not needed
+- **reduce RAM usage** - unload assets from pages and return memory to OS (assets loading)
 
 ### Fixed
 
-- **`animation_name` - clean up sprites and renaming**
+- **update `animation_name`s! - clean up sprites and renaming assets**
 
 ### [4.0.3] - 2026-05-21
 
