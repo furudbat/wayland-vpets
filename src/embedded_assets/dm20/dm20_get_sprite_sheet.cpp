@@ -7,7 +7,7 @@
 
 
 namespace bongocat::assets {
-    static const embedded_image_t dm20_images_table[] ASSETS_TABLE_SECTION = {
+    static const embedded_image_t dm20_images_table[] ASSETS_IMAGES_TABLE_SECTION = {
         {dm20_aegisdramon_png, dm20_aegisdramon_png_size, DM20_AEGISDRAMON_ID}, 
         {dm20_agumon_png, dm20_agumon_png_size, DM20_AGUMON_ID}, 
         {dm20_airdramon_png, dm20_airdramon_png_size, DM20_AIRDRAMON_ID}, 

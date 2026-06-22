@@ -7,7 +7,7 @@
 
 
 namespace bongocat::assets {
-    static const embedded_image_t pkmn_images_table[] ASSETS_TABLE_SECTION = {
+    static const embedded_image_t pkmn_images_table[] ASSETS_IMAGES_TABLE_SECTION = {
         {pkmn_bulbasaur_png, pkmn_bulbasaur_png_size, PKMN_BULBASAUR_ID}, 
         {pkmn_ivysaur_png, pkmn_ivysaur_png_size, PKMN_IVYSAUR_ID}, 
         {pkmn_venusaur_png, pkmn_venusaur_png_size, PKMN_VENUSAUR_ID}, 

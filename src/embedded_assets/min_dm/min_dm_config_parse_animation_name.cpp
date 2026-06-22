@@ -3,7 +3,7 @@
 #include "min_dm_config_parse_animation_name.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t min_dm_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t min_dm_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
       { DM_BOTAMON_NAME,       DM_BOTAMON_ID,       DM_BOTAMON_FQID,       DM_BOTAMON_FQNAME,       DM_BOTAMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
       { DM_KOROMON_NAME,       DM_KOROMON_ID,       DM_KOROMON_FQID,       DM_KOROMON_FQNAME,       DM_KOROMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
       { DM_AGUMON_NAME,        DM_AGUMON_ID,        DM_AGUMON_FQID,        DM_AGUMON_FQNAME,        DM_AGUMON_ANIM_INDEX,        config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },

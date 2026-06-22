@@ -38,58 +38,47 @@
 #endif
 
 
-#ifndef ASSETS_TABLE_SECTION
+#ifndef ASSETS_IMAGES_TABLE_SECTION
 #if defined(__GNUC__) || defined(__clang__)
-#define ASSETS_TABLE_SECTION __attribute__((section(".assets.table")))
+#define ASSETS_IMAGES_TABLE_SECTION __attribute__((section(".assets.images_table")))
 //#elif defined(_MSC_VER)
-//#define ASSETS_TABLE_SECTION __declspec(allocate(".assets.table"))
-//#pragma section(".assets.table", read)
+//#define ASSETS_IMAGES_TABLE_SECTION __declspec(allocate(".assets.images_table"))
+//#pragma section(".assets.images_table", read)
 #else
-#define ASSETS_TABLE_SECTION
+#define ASSETS_IMAGES_TABLE_SECTION
 #endif
 #endif
 
-#ifndef ASSETS_TABLE2_SECTION
+#ifndef ASSETS_DIMS_TABLE_SECTION
 #if defined(__GNUC__) || defined(__clang__)
-#define ASSETS_TABLE2_SECTION __attribute__((section(".assets.table2")))
+#define ASSETS_DIMS_TABLE_SECTION __attribute__((section(".assets.dims_table")))
 //#elif defined(_MSC_VER)
-//#define ASSETS_TABLE2_SECTION __declspec(allocate(".assets.table2"))
-//#pragma section(".assets.table", read)
+//#define ASSETS_DIMS_TABLE_SECTION __declspec(allocate(".assets.dims_table"))
+//#pragma section(".assets.dims_table", read)
 #else
-#define ASSETS_TABLE2_SECTION
+#define ASSETS_DIMS_TABLE_SECTION
 #endif
 #endif
 
-#ifndef ASSETS_DATA_SECTION
+#ifndef ASSETS_SPRITE_SETTINGS_SECTION
 #if defined(__GNUC__) || defined(__clang__)
-#define ASSETS_DATA_SECTION __attribute__((section(".assets.data")))
+#define ASSETS_SPRITE_SETTINGS_SECTION __attribute__((section(".assets.sprite_settings")))
 //#elif defined(_MSC_VER)
-//#define ASSETS_DATA_SECTION __declspec(allocate(".assets.data"))
-//#pragma section(".assets.data", read)
+//#define ASSETS_SPRITE_SETTINGS_SECTION __declspec(allocate(".assets.sprite_settings"))
+//#pragma section(".assets.sprite_settings", read)
 #else
-#define ASSETS_DATA_SECTION
+#define ASSETS_SPRITE_SETTINGS_SECTION
 #endif
 #endif
 
-#ifndef ASSETS_DATA2_SECTION
+#ifndef ASSETS_INDICES_SECTION
 #if defined(__GNUC__) || defined(__clang__)
-#define ASSETS_DATA2_SECTION __attribute__((section(".assets.data2")))
+#define ASSETS_INDICES_SECTION __attribute__((section(".assets.indices")))
 //#elif defined(_MSC_VER)
-//#define ASSETS_DATA2_SECTION __declspec(allocate(".assets.data2"))
-//#pragma section(".assets.data2", read)
+//#define ASSETS_INDICES_SECTION __declspec(allocate(".assets.indices"))
+//#pragma section(".assets.indices", read)
 #else
-#define ASSETS_DATA2_SECTION
-#endif
-#endif
-
-#ifndef ASSETS_DATA3_SECTION
-#if defined(__GNUC__) || defined(__clang__)
-#define ASSETS_DATA3_SECTION __attribute__((section(".assets.data3")))
-//#elif defined(_MSC_VER)
-//#define ASSETS_DATA3_SECTION __declspec(allocate(".assets.data3"))
-//#pragma section(".assets.data3", read)
-#else
-#define ASSETS_DATA3_SECTION
+#define ASSETS_INDICES_SECTION
 #endif
 #endif
 
@@ -115,36 +104,47 @@
 #endif
 #endif
 
-#ifndef CONFIG_STRING2_SECTION
+#ifndef CONFIG_STRING_REF_SECTION
 #if defined(__GNUC__) || defined(__clang__)
-#define CONFIG_STRING2_SECTION __attribute__((section(".config.str2")))
+#define CONFIG_STRING_REF_SECTION __attribute__((section(".config.str_ref")))
 //#elif defined(_MSC_VER)
-//#define CONFIG_STRING2_SECTION __declspec(allocate(".config.str2"))
-//#pragma section(".config.str2", read)
+//#define CONFIG_STRING_REF_SECTION __declspec(allocate(".config.str_ref"))
+//#pragma section(".config.str_ref", read)
 #else
-#define CONFIG_STRING2_SECTION
+#define CONFIG_STRING_REF_SECTION
 #endif
 #endif
 
-#ifndef CONFIG_TABLE_SECTION
+#ifndef CONFIG_STRINGS_TABLE_SECTION
 #if defined(__GNUC__) || defined(__clang__)
-#define CONFIG_TABLE_SECTION __attribute__((section(".config.table")))
+#define CONFIG_STRINGS_TABLE_SECTION __attribute__((section(".config.str_table")))
 //#elif defined(_MSC_VER)
-//#define CONFIG_TABLE_SECTION __declspec(allocate(".config.table"))
-//#pragma section(".config.table", read)
+//#define CONFIG_STRINGS_TABLE_SECTION __declspec(allocate(".config.str_table"))
+//#pragma section(".config.str_table", read)
 #else
-#define CONFIG_TABLE_SECTION
+#define CONFIG_STRINGS_TABLE_SECTION
 #endif
 #endif
 
-#ifndef CONFIG_DATA_SECTION
+#ifndef CONFIG_ENTRIES_TABLE_SECTION
 #if defined(__GNUC__) || defined(__clang__)
-#define CONFIG_DATA_SECTION __attribute__((section(".config.data")))
+#define CONFIG_ENTRIES_TABLE_SECTION __attribute__((section(".config.anim_entries_table")))
 //#elif defined(_MSC_VER)
-//#define CONFIG_DATA_SECTION __declspec(allocate(".config.data"))
-//#pragma section(".config.data", read)
+//#define CONFIG_ENTRIES_TABLE_SECTION __declspec(allocate(".config.anim_entries_table"))
+//#pragma section(".config.anim_entries_table", read)
 #else
-#define CONFIG_DATA_SECTION
+#define CONFIG_ENTRIES_TABLE_SECTION
+#endif
+#endif
+
+#ifndef CONFIG_CUSTOM_ENTRIES_TABLE_SECTION
+#if defined(__GNUC__) || defined(__clang__)
+#define CONFIG_CUSTOM_ENTRIES_TABLE_SECTION __attribute__((section(".config.custom_anim_entries_table")))
+//#elif defined(_MSC_VER)
+//#define CONFIG_CUSTOM_ENTRIES_TABLE_SECTION __declspec(allocate(".config.custom_anim_entries_table"))
+//#pragma section(".config.custom_anim_entries_table", read)
+#else
+#define CONFIG_CUSTOM_ENTRIES_TABLE_SECTION
 #endif
 #endif
 

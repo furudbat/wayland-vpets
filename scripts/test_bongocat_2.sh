@@ -9,7 +9,7 @@ PROGRAM="./cmake-build-debug/bongocat-all"
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
-OG_CONFIG=./examples/test.bongocat.conf
+OG_CONFIG=./examples/test/test.bongocat.conf
 cp $OG_CONFIG $CONFIG
 
 if [[ $# -ge 1 ]]; then

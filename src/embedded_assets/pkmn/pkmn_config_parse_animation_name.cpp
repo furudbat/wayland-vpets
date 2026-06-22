@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t pkmn_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t pkmn_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { PKMN_BULBASAUR_NAME, PKMN_BULBASAUR_ID, PKMN_BULBASAUR_FQID, PKMN_BULBASAUR_FQNAME, PKMN_BULBASAUR_ANIM_INDEX, config::config_animation_dm_set_t::None, config::config_animation_sprite_sheet_layout_t::Pkmn },
         { PKMN_IVYSAUR_NAME, PKMN_IVYSAUR_ID, PKMN_IVYSAUR_FQID, PKMN_IVYSAUR_FQNAME, PKMN_IVYSAUR_ANIM_INDEX, config::config_animation_dm_set_t::None, config::config_animation_sprite_sheet_layout_t::Pkmn },
         { PKMN_VENUSAUR_NAME, PKMN_VENUSAUR_ID, PKMN_VENUSAUR_FQID, PKMN_VENUSAUR_FQNAME, PKMN_VENUSAUR_ANIM_INDEX, config::config_animation_dm_set_t::None, config::config_animation_sprite_sheet_layout_t::Pkmn },
@@ -657,7 +657,7 @@ namespace bongocat::assets {
         { PKMN_GENESECT_NAME, PKMN_GENESECT_ID, PKMN_GENESECT_FQID, PKMN_GENESECT_FQNAME, PKMN_GENESECT_ANIM_INDEX, config::config_animation_dm_set_t::None, config::config_animation_sprite_sheet_layout_t::Pkmn },
         
     };
-    static const config_animation_names_entry_t pkmn_animation_names_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_names_entry_t pkmn_animation_names_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { PKMN_BULBASAUR_NAME, PKMN_BULBASAUR_NAME_LEN, PKMN_BULBASAUR_ID, PKMN_BULBASAUR_ID_LEN, PKMN_BULBASAUR_FQID, PKMN_BULBASAUR_FQID_LEN, PKMN_BULBASAUR_FQNAME, PKMN_BULBASAUR_FQNAME_LEN },
         { PKMN_IVYSAUR_NAME, PKMN_IVYSAUR_NAME_LEN, PKMN_IVYSAUR_ID, PKMN_IVYSAUR_ID_LEN, PKMN_IVYSAUR_FQID, PKMN_IVYSAUR_FQID_LEN, PKMN_IVYSAUR_FQNAME, PKMN_IVYSAUR_FQNAME_LEN },
         { PKMN_VENUSAUR_NAME, PKMN_VENUSAUR_NAME_LEN, PKMN_VENUSAUR_ID, PKMN_VENUSAUR_ID_LEN, PKMN_VENUSAUR_FQID, PKMN_VENUSAUR_FQID_LEN, PKMN_VENUSAUR_FQNAME, PKMN_VENUSAUR_FQNAME_LEN },

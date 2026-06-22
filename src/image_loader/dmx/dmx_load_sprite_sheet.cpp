@@ -16,7 +16,7 @@
 
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t dmx_dims_table[] ASSETS_TABLE2_SECTION = {
+    static constexpr assets::embedded_sprite_sheet_dims_t dmx_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
         {assets::DMX_AGUMON_BLACK_X_SPRITE_SHEET_COLS, assets::DMX_AGUMON_BLACK_X_SPRITE_SHEET_ROWS}, 
         {assets::DMX_AGUMON_X_SPRITE_SHEET_COLS, assets::DMX_AGUMON_X_SPRITE_SHEET_ROWS}, 
         {assets::DMX_ALLOMON_X_SPRITE_SHEET_COLS, assets::DMX_ALLOMON_X_SPRITE_SHEET_ROWS}, 
@@ -191,7 +191,7 @@ namespace bongocat::animation {
         {assets::DMX_ZERIMON_SPRITE_SHEET_COLS, assets::DMX_ZERIMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* dmx_pngs_table[] ASSETS_TABLE_SECTION = {
+    static const unsigned char* dmx_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {
         dmx_agumon_black_x_png, 
         dmx_agumon_x_png, 
         dmx_allomon_x_png, 
@@ -366,7 +366,7 @@ namespace bongocat::animation {
         dmx_zerimon_png, 
         
     };
-    static const size_t dmx_png_sizes_table[] ASSETS_TABLE_SECTION = {
+    static const size_t dmx_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {
         dmx_agumon_black_x_png_size, 
         dmx_agumon_x_png_size, 
         dmx_allomon_x_png_size, 
@@ -541,7 +541,7 @@ namespace bongocat::animation {
         dmx_zerimon_png_size, 
         
     };
-    static const char* dmx_names_table[] ASSETS_TABLE_SECTION = {
+    static const char* dmx_names_table[] ASSETS_IMAGES_TABLE_SECTION = {
         assets::DMX_AGUMON_BLACK_X_ID, 
         assets::DMX_AGUMON_X_ID, 
         assets::DMX_ALLOMON_X_ID, 

@@ -10,7 +10,7 @@
 
 
 namespace bongocat::animation {
-    static const assets::custom_animation_settings_t pmd_settings_table[] ASSETS_TABLE2_SECTION = {
+    static const assets::custom_animation_settings_t pmd_settings_table[] ASSETS_SPRITE_SETTINGS_SECTION = {
         assets::PMD_BULBASAUR_SPRITE_SHEET_SETTINGS, 
         assets::PMD_IVYSAUR_SPRITE_SHEET_SETTINGS, 
         assets::PMD_VENUSAUR_SPRITE_SHEET_SETTINGS, 
@@ -874,7 +874,7 @@ namespace bongocat::animation {
         assets::PMD_ENAMORUS_SPRITE_SHEET_SETTINGS, 
         
     };
-    static const unsigned char* pmd_pngs_table[] ASSETS_TABLE_SECTION = {
+    static const unsigned char* pmd_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {
         pmd_bulbasaur_png, 
         pmd_ivysaur_png, 
         pmd_venusaur_png, 
@@ -1738,7 +1738,7 @@ namespace bongocat::animation {
         pmd_enamorus_png, 
         
     };
-    static const size_t pmd_png_sizes_table[] ASSETS_TABLE_SECTION = {
+    static const size_t pmd_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {
         pmd_bulbasaur_png_size, 
         pmd_ivysaur_png_size, 
         pmd_venusaur_png_size, 
@@ -2602,7 +2602,7 @@ namespace bongocat::animation {
         pmd_enamorus_png_size, 
         
     };
-    static const char* pmd_names_table[] ASSETS_TABLE_SECTION = {
+    static const char* pmd_names_table[] ASSETS_IMAGES_TABLE_SECTION = {
         assets::PMD_BULBASAUR_ID, 
         assets::PMD_IVYSAUR_ID, 
         assets::PMD_VENUSAUR_ID, 

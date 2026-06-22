@@ -7,7 +7,7 @@
 /// @NOTE: Generated embedded assets images data from assets/pmd
 
 namespace bongocat::assets {
-    static const embedded_image_t pmd_images_table[] ASSETS_TABLE_SECTION = {
+    static const embedded_image_t pmd_images_table[] ASSETS_IMAGES_TABLE_SECTION = {
         {pmd_bulbasaur_png, pmd_bulbasaur_png_size, PMD_BULBASAUR_ID}, 
         {pmd_ivysaur_png, pmd_ivysaur_png_size, PMD_IVYSAUR_ID}, 
         {pmd_venusaur_png, pmd_venusaur_png_size, PMD_VENUSAUR_ID}, 

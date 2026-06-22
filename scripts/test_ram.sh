@@ -130,7 +130,7 @@ convert_file_size() {
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
-OG_CONFIG=./examples/test.bongocat.conf
+OG_CONFIG=./examples/test/test.bongocat.conf
 cp $OG_CONFIG $CONFIG
 # --- trap cleanup ---
 cleanup() {

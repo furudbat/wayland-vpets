@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t pen20_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t pen20_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_FQID, PEN20_AERO_V_DRAMON_FQNAME, PEN20_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_FQID, PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
         { PEN20_AGUMON_NAME, PEN20_AGUMON_ID, PEN20_AGUMON_FQID, PEN20_AGUMON_FQNAME, PEN20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -1655,7 +1655,7 @@ namespace bongocat::assets {
     inline static constexpr size_t ALT_PEN20_ZUDOMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_PEN20_ZUDOMON_FQNAME_ARR)-1;
 
 
-    static const config_animation_entry_t pen20_alt_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t pen20_alt_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_ID, ALT_PEN20_AERO_V_DRAMON_FQID, ALT_PEN20_AERO_V_DRAMON_FQNAME, PEN20_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Aero V-dramon
         { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_ID, ALT_PEN20_AGUMON_HAKASE_FQID, ALT_PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Agumon Hakase
         { PEN20_AGUMON_NAME, PEN20_AGUMON_ID, ALT_PEN20_AGUMON_FQID, ALT_PEN20_AGUMON_FQNAME, PEN20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Agumon
@@ -1893,8 +1893,8 @@ namespace bongocat::assets {
         { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_ID, ALT_PEN20_ZUDOMON_FQID, ALT_PEN20_ZUDOMON_FQNAME, PEN20_ZUDOMON_ANIM_INDEX, config::config_animation_dm_set_t::pen20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Zudomon
         
     };
-    static const size_t pen20_alt_animation_table_size CONFIG_TABLE_SECTION = LEN_ARRAY(pen20_animation_table);
-    static const config_animation_names_entry_t pen20_animation_names_table[] CONFIG_TABLE_SECTION = {
+    static const size_t pen20_alt_animation_table_size CONFIG_ENTRIES_TABLE_SECTION = LEN_ARRAY(pen20_animation_table);
+    static const config_animation_names_entry_t pen20_animation_names_table[] CONFIG_STRINGS_TABLE_SECTION = {
         { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_NAME_LEN, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_ID_LEN, PEN20_AERO_V_DRAMON_FQID, PEN20_AERO_V_DRAMON_FQID_LEN, PEN20_AERO_V_DRAMON_FQNAME, PEN20_AERO_V_DRAMON_FQNAME_LEN },
         { PEN20_AERO_V_DRAMON_NAME, PEN20_AERO_V_DRAMON_NAME_LEN, PEN20_AERO_V_DRAMON_ID, PEN20_AERO_V_DRAMON_ID_LEN, ALT_PEN20_AERO_V_DRAMON_FQID, ALT_PEN20_AERO_V_DRAMON_FQID_LEN, ALT_PEN20_AERO_V_DRAMON_FQNAME, ALT_PEN20_AERO_V_DRAMON_FQNAME_LEN },
         { PEN20_AGUMON_HAKASE_NAME, PEN20_AGUMON_HAKASE_NAME_LEN, PEN20_AGUMON_HAKASE_ID, PEN20_AGUMON_HAKASE_ID_LEN, PEN20_AGUMON_HAKASE_FQID, PEN20_AGUMON_HAKASE_FQID_LEN, PEN20_AGUMON_HAKASE_FQNAME, PEN20_AGUMON_HAKASE_FQNAME_LEN },
@@ -2367,6 +2367,7 @@ namespace bongocat::assets {
         { PEN20_ZUDOMON_NAME, PEN20_ZUDOMON_NAME_LEN, PEN20_ZUDOMON_ID, PEN20_ZUDOMON_ID_LEN, ALT_PEN20_ZUDOMON_FQID, ALT_PEN20_ZUDOMON_FQID_LEN, ALT_PEN20_ZUDOMON_FQNAME, ALT_PEN20_ZUDOMON_FQNAME_LEN },
         
     };
+    static const size_t pen20_animation_names_table_size CONFIG_STRINGS_TABLE_SECTION = LEN_ARRAY(pen20_animation_names_table);
 
     config_animation_entry_t get_config_animation_name_pen20(size_t index) {
         assert(LEN_ARRAY(pen20_animation_table) == PEN20_ANIM_COUNT);

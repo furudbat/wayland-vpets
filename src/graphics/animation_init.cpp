@@ -3,12 +3,14 @@
 #include "platform/wayland.h"
 #include "utils/memory.h"
 #include "utils/system_error.h"
-
 #include <cassert>
 #include <cstdint>
 #include <sys/eventfd.h>
 #include <sys/mman.h>
 #include <unistd.h>
+#ifdef __GLIBC__
+#include <malloc.h>
+#endif
 
 // assets
 #include "embedded_assets/bongocat/assets_bongocat_features.h"
@@ -125,6 +127,7 @@ namespace details {
   }
 }  // namespace details
 
+static void unload_readonly_sections();
 created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& ctx) {
   // read-only config
   assert(ctx._local_copy_config);
@@ -302,24 +305,47 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   ret.result = &get_current_animation(ctx);
   ret.error = bongocat_error_t::BONGOCAT_SUCCESS;
 
-  // try to unload static images from page
-  const uintptr_t start_addr = reinterpret_cast<uintptr_t>(__start_assets_images);
-  const uintptr_t stop_addr = reinterpret_cast<uintptr_t>(__stop_assets_images);
-  const auto images_size = stop_addr - start_addr;
-  if (images_size > 0) {
-    // Double-check that our linker alignment rules actually worked at runtime
-    assert((start_addr % 4096) == 0);   // Assets start address must be page-aligned!
-    assert((images_size % 4096) == 0);  // Assets total size must be a multiple of page size!
-
-    [[maybe_unused]] const int result = madvise(reinterpret_cast<void *>(start_addr), images_size, MADV_DONTNEED);
-    if (result != 0) {
-      BONGOCAT_LOG_WARNING("madvise: failed to drop asset pages: %s", strerror(errno));
-    } else {
-      BONGOCAT_LOG_VERBOSE("madvise: sucsessfull drop asset pages: %dkb", result / 1024);
-    }
-  }
+  // after heavy sprite loading, try to free some memory
+  unload_readonly_sections();
+  // return unused heap memory back to the OS
+#ifdef __GLIBC__
+  malloc_trim(0);
+#endif
 
   return ret;
+}
+
+struct madvise_region {
+  const char *start{};
+  const char *stop{};
+  const char *name{};
+};
+void unload_readonly_sections() {
+  static constexpr madvise_region evictable_regions[] = {
+      {__start_assets_images,          __stop_assets_images,          ".assets.images"         },
+      {__start_assets_data_evol,       __stop_assets_data_evol,       ".assets.data_evol"      },
+      {__start_assets_sprite_settings, __stop_assets_sprite_settings, ".assets.sprite_settings"},
+      //{ __start_config_str,            __stop_config_str,            ".config.str"             },
+  };
+
+  for (const auto& region : evictable_regions) {
+    const uintptr_t start = reinterpret_cast<uintptr_t>(region.start);
+    const uintptr_t stop = reinterpret_cast<uintptr_t>(region.stop);
+    assert(stop >= start);
+    const size_t size = stop - start;
+    if (size == 0) {
+      continue;
+    }
+
+    assert((start % 4096) == 0);
+    assert((size % 4096) == 0);
+
+    if (madvise(reinterpret_cast<void *>(start), size, MADV_DONTNEED) != 0) {
+      BONGOCAT_LOG_WARNING("madvise: failed to evict %s: %s", region.name, strerror(errno));
+    } else {
+      BONGOCAT_LOG_VERBOSE("madvise: evicted %s: %zu kb", region.name, size / 1024);
+    }
+  }
 }
 
 animation_t& get_current_animation(animation_thread_context_t& ctx) {

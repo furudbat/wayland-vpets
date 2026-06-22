@@ -65,6 +65,12 @@ namespace details {
 extern "C" {
 extern const char __start_assets_images[];
 extern const char __stop_assets_images[];
+extern const char __start_assets_data_evol[];
+extern const char __stop_assets_data_evol[];
+extern const char __start_assets_sprite_settings[];
+extern const char __stop_assets_sprite_settings[];
+// extern const char __start_config_str[];
+// extern const char __stop_config_str[];
 }
 
 #endif  // BONGOCAT_ANIMATION_H

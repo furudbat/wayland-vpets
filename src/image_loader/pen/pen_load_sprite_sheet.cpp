@@ -16,7 +16,7 @@
 
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t pen_dims_table[] ASSETS_TABLE2_SECTION = {
+    static constexpr assets::embedded_sprite_sheet_dims_t pen_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
         {assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_AGUMON_SPRITE_SHEET_COLS, assets::PEN_AGUMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_ANDROMON_SPRITE_SHEET_COLS, assets::PEN_ANDROMON_SPRITE_SHEET_ROWS}, 
@@ -146,7 +146,7 @@ namespace bongocat::animation {
         {assets::PEN_ZUDOMON_SPRITE_SHEET_COLS, assets::PEN_ZUDOMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* pen_pngs_table[] ASSETS_TABLE_SECTION = {
+    static const unsigned char* pen_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {
         pen_aero_v_dramon_png, 
         pen_agumon_png, 
         pen_andromon_png, 
@@ -276,7 +276,7 @@ namespace bongocat::animation {
         pen_zudomon_png, 
         
     };
-    static const size_t pen_png_sizes_table[] ASSETS_TABLE_SECTION = {
+    static const size_t pen_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {
         pen_aero_v_dramon_png_size, 
         pen_agumon_png_size, 
         pen_andromon_png_size, 
@@ -406,7 +406,7 @@ namespace bongocat::animation {
         pen_zudomon_png_size, 
         
     };
-    static const char* pen_names_table[] ASSETS_TABLE_SECTION = {
+    static const char* pen_names_table[] ASSETS_IMAGES_TABLE_SECTION = {
         assets::PEN_AERO_V_DRAMON_ID, 
         assets::PEN_AGUMON_ID, 
         assets::PEN_ANDROMON_ID, 

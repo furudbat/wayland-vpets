@@ -265,24 +265,52 @@ add_subdirectory(src)
 
 # custom linker script for assets alignment and page unload
 file(
-  WRITE ${CMAKE_BINARY_DIR}/assets_segment.ld
-  [=[
+        WRITE ${CMAKE_BINARY_DIR}/assets_segment.ld
+        [=[
+/* Page alignment for safe madvise(MADV_DONTNEED) */
 SECTIONS
 {
-  . = ALIGN(4096);
+  /* ── Read-only assets (safe for MADV_DONTNEED) ── */
+
+  . = ALIGN(CONSTANT(MAXPAGESIZE));
   .assets.images :
   {
     __start_assets_images = .;
     KEEP(*(.assets.images))
-    . = ALIGN(4096);
-    __start_assets_images_end = .;
+    . = ALIGN(CONSTANT(MAXPAGESIZE));
     __stop_assets_images = .;
+  }
+
+  . = ALIGN(CONSTANT(MAXPAGESIZE));
+  .assets.sprite_settings :
+  {
+    __start_assets_sprite_settings = .;
+    KEEP(*(.assets.sprite_settings))
+    . = ALIGN(CONSTANT(MAXPAGESIZE));
+    __stop_assets_sprite_settings = .;
+  }
+
+  . = ALIGN(CONSTANT(MAXPAGESIZE));
+  .assets.data_evol :
+  {
+    __start_assets_data_evol = .;
+    KEEP(*(.assets.data_evol))
+    . = ALIGN(CONSTANT(MAXPAGESIZE));
+    __stop_assets_data_evol = .;
+  }
+
+  . = ALIGN(CONSTANT(MAXPAGESIZE));
+  .config.str :
+  {
+    __start_config_str = .;
+    KEEP(*(.config.str))
+    . = ALIGN(CONSTANT(MAXPAGESIZE));
+    __stop_config_str = .;
   }
 }
 INSERT AFTER .rodata;
 ]=]
 )
-# TODO: use 4096 vs CONSTANT(MAXPAGESIZE) for ALIGN ?
 
 add_library(bongocat_loaders INTERFACE)
 if(FEATURE_BONGOCAT_EMBEDDED_ASSETS)

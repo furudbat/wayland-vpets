@@ -16,7 +16,7 @@
 
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t dmall_dims_table[] ASSETS_TABLE2_SECTION = {
+    static constexpr assets::embedded_sprite_sheet_dims_t dmall_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
         {assets::DMALL_AEGISDRAMON_SPRITE_SHEET_COLS, assets::DMALL_AEGISDRAMON_SPRITE_SHEET_ROWS}, 
         {assets::DMALL_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::DMALL_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 
         {assets::DMALL_AGUMON_2006_SPRITE_SHEET_COLS, assets::DMALL_AGUMON_2006_SPRITE_SHEET_ROWS}, 
@@ -687,7 +687,7 @@ namespace bongocat::animation {
         {assets::DMALL_ZURUMON_SPRITE_SHEET_COLS, assets::DMALL_ZURUMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* dmall_pngs_table[] ASSETS_TABLE_SECTION = {
+    static const unsigned char* dmall_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {
         dmall_aegisdramon_png, 
         dmall_aero_v_dramon_png, 
         dmall_agumon_2006_png, 
@@ -1358,7 +1358,7 @@ namespace bongocat::animation {
         dmall_zurumon_png, 
         
     };
-    static const size_t dmall_png_sizes_table[] ASSETS_TABLE_SECTION = {
+    static const size_t dmall_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {
         dmall_aegisdramon_png_size, 
         dmall_aero_v_dramon_png_size, 
         dmall_agumon_2006_png_size, 
@@ -2029,7 +2029,7 @@ namespace bongocat::animation {
         dmall_zurumon_png_size, 
         
     };
-    static const char* dmall_names_table[] ASSETS_TABLE_SECTION = {
+    static const char* dmall_names_table[] ASSETS_IMAGES_TABLE_SECTION = {
         assets::DMALL_AEGISDRAMON_ID, 
         assets::DMALL_AERO_V_DRAMON_ID, 
         assets::DMALL_AGUMON_2006_ID, 

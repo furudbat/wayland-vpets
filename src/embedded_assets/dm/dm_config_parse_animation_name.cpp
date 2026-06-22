@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t dm_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t dm_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { DM_AGUMON_NAME, DM_AGUMON_ID, DM_AGUMON_FQID, DM_AGUMON_FQNAME, DM_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_AIRDRAMON_NAME, DM_AIRDRAMON_ID, DM_AIRDRAMON_FQID, DM_AIRDRAMON_FQNAME, DM_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM_ANDROMON_NAME, DM_ANDROMON_ID, DM_ANDROMON_FQID, DM_ANDROMON_FQNAME, DM_ANDROMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -88,7 +88,7 @@ namespace bongocat::assets {
         { DM_ZURUMON_NAME, DM_ZURUMON_ID, DM_ZURUMON_FQID, DM_ZURUMON_FQNAME, DM_ZURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
         
     };
-    static const config_animation_names_entry_t dm_animation_names_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_names_entry_t dm_animation_names_table[] CONFIG_STRINGS_TABLE_SECTION = {
         { DM_AGUMON_NAME, DM_AGUMON_NAME_LEN, DM_AGUMON_ID, DM_AGUMON_ID_LEN, DM_AGUMON_FQID, DM_AGUMON_FQID_LEN, DM_AGUMON_FQNAME, DM_AGUMON_FQNAME_LEN },
         { DM_AIRDRAMON_NAME, DM_AIRDRAMON_NAME_LEN, DM_AIRDRAMON_ID, DM_AIRDRAMON_ID_LEN, DM_AIRDRAMON_FQID, DM_AIRDRAMON_FQID_LEN, DM_AIRDRAMON_FQNAME, DM_AIRDRAMON_FQNAME_LEN },
         { DM_ANDROMON_NAME, DM_ANDROMON_NAME_LEN, DM_ANDROMON_ID, DM_ANDROMON_ID_LEN, DM_ANDROMON_FQID, DM_ANDROMON_FQID_LEN, DM_ANDROMON_FQNAME, DM_ANDROMON_FQNAME_LEN },
@@ -171,6 +171,7 @@ namespace bongocat::assets {
         { DM_ZURUMON_NAME, DM_ZURUMON_NAME_LEN, DM_ZURUMON_ID, DM_ZURUMON_ID_LEN, DM_ZURUMON_FQID, DM_ZURUMON_FQID_LEN, DM_ZURUMON_FQNAME, DM_ZURUMON_FQNAME_LEN },
         
     };
+    static const size_t dm_animation_names_table_size CONFIG_STRINGS_TABLE_SECTION = LEN_ARRAY(dm_animation_names_table);
 
     config_animation_entry_t get_config_animation_name_dm(size_t index) {
         assert(LEN_ARRAY(dm_animation_table) == DM_ANIM_COUNT);

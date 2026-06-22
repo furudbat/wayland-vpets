@@ -9,10 +9,10 @@ PROGRAM="./cmake-build-debug/bongocat-all"
 
 WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/invalid.test.bongocat.conf"  # config file to modify
-OG_CONFIG=./examples/invalid.test.bongocat.conf
+OG_CONFIG=./examples/test/invalid.test.bongocat.conf
 cp $OG_CONFIG $CONFIG
 CONFIG2="$WORKDIR/invalid2.test.bongocat.conf"
-OG_CONFIG2=./examples/invalid2.test.bongocat.conf
+OG_CONFIG2=./examples/test/invalid2.test.bongocat.conf
 cp $OG_CONFIG2 $CONFIG2
 
 if [[ $# -ge 1 ]]; then

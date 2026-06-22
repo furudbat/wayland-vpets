@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t dmall_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t dmall_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { DMALL_AEGISDRAMON_NAME, DMALL_AEGISDRAMON_ID, DMALL_AEGISDRAMON_FQID, DMALL_AEGISDRAMON_FQNAME, DMALL_AEGISDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_AERO_V_DRAMON_NAME, DMALL_AERO_V_DRAMON_ID, DMALL_AERO_V_DRAMON_FQID, DMALL_AERO_V_DRAMON_FQNAME, DMALL_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_AGUMON_2006_NAME, DMALL_AGUMON_2006_ID, DMALL_AGUMON_2006_FQID, DMALL_AGUMON_2006_FQNAME, DMALL_AGUMON_2006_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -4686,7 +4686,7 @@ namespace bongocat::assets {
     inline static constexpr size_t ALT_DMALL_ZURUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_ZURUMON_FQNAME_ARR)-1;
 
 
-    static const config_animation_entry_t dmall_alt_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t dmall_alt_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { DMALL_AEGISDRAMON_NAME, DMALL_AEGISDRAMON_ID, ALT_DMALL_AEGISDRAMON_FQID, ALT_DMALL_AEGISDRAMON_FQNAME, DMALL_AEGISDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Aegisdramon
         { DMALL_AERO_V_DRAMON_NAME, DMALL_AERO_V_DRAMON_ID, ALT_DMALL_AERO_V_DRAMON_FQID, ALT_DMALL_AERO_V_DRAMON_FQNAME, DMALL_AERO_V_DRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Aero V-dramon
         { DMALL_AGUMON_2006_NAME, DMALL_AGUMON_2006_ID, ALT_DMALL_AGUMON_2006_FQID, ALT_DMALL_AGUMON_2006_FQNAME, DMALL_AGUMON_2006_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Agumon (2006)
@@ -5357,8 +5357,8 @@ namespace bongocat::assets {
         { DMALL_ZURUMON_NAME, DMALL_ZURUMON_ID, ALT_DMALL_ZURUMON_FQID, ALT_DMALL_ZURUMON_FQNAME, DMALL_ZURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Zurumon
         
     };
-    static const size_t dmall_alt_animation_table_size CONFIG_TABLE_SECTION = LEN_ARRAY(dmall_animation_table);
-    static const config_animation_names_entry_t dmall_animation_names_table[] CONFIG_TABLE_SECTION = {
+    static const size_t dmall_alt_animation_table_size CONFIG_ENTRIES_TABLE_SECTION = LEN_ARRAY(dmall_animation_table);
+    static const config_animation_names_entry_t dmall_animation_names_table[] CONFIG_STRINGS_TABLE_SECTION = {
         { DMALL_AEGISDRAMON_NAME, DMALL_AEGISDRAMON_NAME_LEN, DMALL_AEGISDRAMON_ID, DMALL_AEGISDRAMON_ID_LEN, DMALL_AEGISDRAMON_FQID, DMALL_AEGISDRAMON_FQID_LEN, DMALL_AEGISDRAMON_FQNAME, DMALL_AEGISDRAMON_FQNAME_LEN },
         { DMALL_AEGISDRAMON_NAME, DMALL_AEGISDRAMON_NAME_LEN, DMALL_AEGISDRAMON_ID, DMALL_AEGISDRAMON_ID_LEN, ALT_DMALL_AEGISDRAMON_FQID, ALT_DMALL_AEGISDRAMON_FQID_LEN, ALT_DMALL_AEGISDRAMON_FQNAME, ALT_DMALL_AEGISDRAMON_FQNAME_LEN },
         { DMALL_AERO_V_DRAMON_NAME, DMALL_AERO_V_DRAMON_NAME_LEN, DMALL_AERO_V_DRAMON_ID, DMALL_AERO_V_DRAMON_ID_LEN, DMALL_AERO_V_DRAMON_FQID, DMALL_AERO_V_DRAMON_FQID_LEN, DMALL_AERO_V_DRAMON_FQNAME, DMALL_AERO_V_DRAMON_FQNAME_LEN },
@@ -6697,6 +6697,7 @@ namespace bongocat::assets {
         { DMALL_ZURUMON_NAME, DMALL_ZURUMON_NAME_LEN, DMALL_ZURUMON_ID, DMALL_ZURUMON_ID_LEN, ALT_DMALL_ZURUMON_FQID, ALT_DMALL_ZURUMON_FQID_LEN, ALT_DMALL_ZURUMON_FQNAME, ALT_DMALL_ZURUMON_FQNAME_LEN },
         
     };
+    static const size_t dmall_animation_names_table_size CONFIG_STRINGS_TABLE_SECTION = LEN_ARRAY(dmall_animation_names_table);
 
     config_animation_entry_t get_config_animation_name_dmall(size_t index) {
         assert(LEN_ARRAY(dmall_animation_table) == DMALL_ANIM_COUNT);

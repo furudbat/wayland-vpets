@@ -8,19 +8,19 @@
 namespace bongocat::assets {
 // neko
 inline static constexpr char MISC_NEKO_FQID_ARR[] CONFIG_STRING_SECTION = "misc:neko";
-inline static constexpr const char *MISC_NEKO_FQID CONFIG_STRING2_SECTION = MISC_NEKO_FQID_ARR;
+inline static constexpr const char *MISC_NEKO_FQID CONFIG_STRING_REF_SECTION = MISC_NEKO_FQID_ARR;
 inline static constexpr std::size_t MISC_NEKO_FQID_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_FQID_ARR) - 1;
 inline static constexpr char MISC_NEKO_ID_ARR[] CONFIG_STRING_SECTION = "neko";
-inline static constexpr const char *MISC_NEKO_ID CONFIG_STRING2_SECTION = MISC_NEKO_ID_ARR;
+inline static constexpr const char *MISC_NEKO_ID CONFIG_STRING_REF_SECTION = MISC_NEKO_ID_ARR;
 inline static constexpr std::size_t MISC_NEKO_ID_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_ID_ARR) - 1;
 inline static constexpr char MISC_NEKO_NAME_ARR[] CONFIG_STRING_SECTION = "neko";
-inline static constexpr const char *MISC_NEKO_NAME CONFIG_STRING2_SECTION = MISC_NEKO_NAME_ARR;
+inline static constexpr const char *MISC_NEKO_NAME CONFIG_STRING_REF_SECTION = MISC_NEKO_NAME_ARR;
 inline static constexpr std::size_t MISC_NEKO_NAME_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_NAME_ARR) - 1;
 inline static constexpr char MISC_NEKO_FQNAME_ARR[] CONFIG_STRING_SECTION = "misc:neko";
-inline static constexpr const char *MISC_NEKO_FQNAME CONFIG_STRING2_SECTION = MISC_NEKO_FQNAME_ARR;
+inline static constexpr const char *MISC_NEKO_FQNAME CONFIG_STRING_REF_SECTION = MISC_NEKO_FQNAME_ARR;
 inline static constexpr std::size_t MISC_NEKO_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_FQNAME_ARR) - 1;
-inline static constexpr std::size_t MISC_NEKO_ANIM_INDEX ASSETS_DATA3_SECTION = 0;
-inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTINGS ASSETS_DATA2_SECTION = {
+inline static constexpr std::size_t MISC_NEKO_ANIM_INDEX ASSETS_INDICES_SECTION = 0;
+inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTINGS ASSETS_SPRITE_SETTINGS_SECTION = {
     .idle_frames = 2,
     .boring_frames = 2,
     .writing_frames = 2,

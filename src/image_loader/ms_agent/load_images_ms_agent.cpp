@@ -11,7 +11,7 @@
 
 namespace bongocat::animation {
 
-static const unsigned char* ms_agent_pngs_table[] ASSETS_TABLE_SECTION = {
+static const unsigned char* ms_agent_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {
   clippy_png,
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
   links_png,
@@ -19,7 +19,7 @@ static const unsigned char* ms_agent_pngs_table[] ASSETS_TABLE_SECTION = {
   merlin_png,
 #endif
 };
-static const size_t ms_agent_png_sizes_table[] ASSETS_TABLE_SECTION = {
+static const size_t ms_agent_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {
   clippy_png_size,
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
   links_png_size,
@@ -27,7 +27,7 @@ static const size_t ms_agent_png_sizes_table[] ASSETS_TABLE_SECTION = {
   merlin_png_size,
 #endif
 };
-static const char* ms_agent_names_table[] ASSETS_TABLE_SECTION = {
+static const char* ms_agent_names_table[] ASSETS_IMAGES_TABLE_SECTION = {
   assets::CLIPPY_NAME,
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
   assets::LINKS_NAME,

@@ -9,7 +9,7 @@ cd ./examples/custom-sprite-sheets
 PROGRAM="../../cmake-build-relwithdebinfo-tsan/bongocat-all"
 #PROGRAM="../../build/bongocat-all"
 
-CONFIG1="../../examples/test.bongocat.conf"
+CONFIG1="../../examples/test/test.bongocat.conf"
 
 find . -maxdepth 1 -type f -name "*.conf" | while read -r CONFIG2; do
   echo "[TEST] Starting program..."

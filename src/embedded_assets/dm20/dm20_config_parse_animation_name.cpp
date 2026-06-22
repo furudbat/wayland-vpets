@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t dm20_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t dm20_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { DM20_AEGISDRAMON_NAME, DM20_AEGISDRAMON_ID, DM20_AEGISDRAMON_FQID, DM20_AEGISDRAMON_FQNAME, DM20_AEGISDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_AGUMON_NAME, DM20_AGUMON_ID, DM20_AGUMON_FQID, DM20_AGUMON_FQNAME, DM20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_AIRDRAMON_NAME, DM20_AIRDRAMON_ID, DM20_AIRDRAMON_FQID, DM20_AIRDRAMON_FQNAME, DM20_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -962,7 +962,7 @@ namespace bongocat::assets {
     inline static constexpr size_t ALT_DM20_ZURUMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DM20_ZURUMON_FQNAME_ARR)-1;
 
 
-    static const config_animation_entry_t dm20_alt_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t dm20_alt_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { DM20_AEGISDRAMON_NAME, DM20_AEGISDRAMON_ID, ALT_DM20_AEGISDRAMON_FQID, ALT_DM20_AEGISDRAMON_FQNAME, DM20_AEGISDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Aegisdramon
         { DM20_AGUMON_NAME, DM20_AGUMON_ID, ALT_DM20_AGUMON_FQID, ALT_DM20_AGUMON_FQNAME, DM20_AGUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Agumon
         { DM20_AIRDRAMON_NAME, DM20_AIRDRAMON_ID, ALT_DM20_AIRDRAMON_FQID, ALT_DM20_AIRDRAMON_FQNAME, DM20_AIRDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Airdramon
@@ -1101,8 +1101,8 @@ namespace bongocat::assets {
         { DM20_ZURUMON_NAME, DM20_ZURUMON_ID, ALT_DM20_ZURUMON_FQID, ALT_DM20_ZURUMON_FQNAME, DM20_ZURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Zurumon
         
     };
-    static const size_t dm20_alt_animation_table_size CONFIG_TABLE_SECTION = LEN_ARRAY(dm20_animation_table);
-    static const config_animation_names_entry_t dm20_animation_names_table[] CONFIG_TABLE_SECTION = {
+    static const size_t dm20_alt_animation_table_size CONFIG_ENTRIES_TABLE_SECTION = LEN_ARRAY(dm20_animation_table);
+    static const config_animation_names_entry_t dm20_animation_names_table[] CONFIG_STRINGS_TABLE_SECTION = {
         { DM20_AEGISDRAMON_NAME, DM20_AEGISDRAMON_NAME_LEN, DM20_AEGISDRAMON_ID, DM20_AEGISDRAMON_ID_LEN, DM20_AEGISDRAMON_FQID, DM20_AEGISDRAMON_FQID_LEN, DM20_AEGISDRAMON_FQNAME, DM20_AEGISDRAMON_FQNAME_LEN },
         { DM20_AEGISDRAMON_NAME, DM20_AEGISDRAMON_NAME_LEN, DM20_AEGISDRAMON_ID, DM20_AEGISDRAMON_ID_LEN, ALT_DM20_AEGISDRAMON_FQID, ALT_DM20_AEGISDRAMON_FQID_LEN, ALT_DM20_AEGISDRAMON_FQNAME, ALT_DM20_AEGISDRAMON_FQNAME_LEN },
         { DM20_AGUMON_NAME, DM20_AGUMON_NAME_LEN, DM20_AGUMON_ID, DM20_AGUMON_ID_LEN, DM20_AGUMON_FQID, DM20_AGUMON_FQID_LEN, DM20_AGUMON_FQNAME, DM20_AGUMON_FQNAME_LEN },
@@ -1377,6 +1377,7 @@ namespace bongocat::assets {
         { DM20_ZURUMON_NAME, DM20_ZURUMON_NAME_LEN, DM20_ZURUMON_ID, DM20_ZURUMON_ID_LEN, ALT_DM20_ZURUMON_FQID, ALT_DM20_ZURUMON_FQID_LEN, ALT_DM20_ZURUMON_FQNAME, ALT_DM20_ZURUMON_FQNAME_LEN },
         
     };
+    static const size_t dm20_animation_names_table_size CONFIG_STRINGS_TABLE_SECTION = LEN_ARRAY(dm20_animation_names_table);
 
     config_animation_entry_t get_config_animation_name_dm20(size_t index) {
         assert(LEN_ARRAY(dm20_animation_table) == DM20_ANIM_COUNT);

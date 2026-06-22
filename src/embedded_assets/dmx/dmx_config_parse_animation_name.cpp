@@ -5,7 +5,7 @@
 #include "utils/system_memory.h"
 
 namespace bongocat::assets {
-    static const config_animation_entry_t dmx_animation_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_entry_t dmx_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
         { DMX_AGUMON_BLACK_X_NAME, DMX_AGUMON_BLACK_X_ID, DMX_AGUMON_BLACK_X_FQID, DMX_AGUMON_BLACK_X_FQNAME, DMX_AGUMON_BLACK_X_ANIM_INDEX, config::config_animation_dm_set_t::dmx, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMX_AGUMON_X_NAME, DMX_AGUMON_X_ID, DMX_AGUMON_X_FQID, DMX_AGUMON_X_FQNAME, DMX_AGUMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmx, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMX_ALLOMON_X_NAME, DMX_ALLOMON_X_ID, DMX_ALLOMON_X_FQID, DMX_ALLOMON_X_FQNAME, DMX_ALLOMON_X_ANIM_INDEX, config::config_animation_dm_set_t::dmx, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -180,7 +180,7 @@ namespace bongocat::assets {
         { DMX_ZERIMON_NAME, DMX_ZERIMON_ID, DMX_ZERIMON_FQID, DMX_ZERIMON_FQNAME, DMX_ZERIMON_ANIM_INDEX, config::config_animation_dm_set_t::dmx, config::config_animation_sprite_sheet_layout_t::Dm },
         
     };
-    static const config_animation_names_entry_t dmx_animation_names_table[] CONFIG_TABLE_SECTION = {
+    static const config_animation_names_entry_t dmx_animation_names_table[] CONFIG_STRINGS_TABLE_SECTION = {
         { DMX_AGUMON_BLACK_X_NAME, DMX_AGUMON_BLACK_X_NAME_LEN, DMX_AGUMON_BLACK_X_ID, DMX_AGUMON_BLACK_X_ID_LEN, DMX_AGUMON_BLACK_X_FQID, DMX_AGUMON_BLACK_X_FQID_LEN, DMX_AGUMON_BLACK_X_FQNAME, DMX_AGUMON_BLACK_X_FQNAME_LEN },
         { DMX_AGUMON_X_NAME, DMX_AGUMON_X_NAME_LEN, DMX_AGUMON_X_ID, DMX_AGUMON_X_ID_LEN, DMX_AGUMON_X_FQID, DMX_AGUMON_X_FQID_LEN, DMX_AGUMON_X_FQNAME, DMX_AGUMON_X_FQNAME_LEN },
         { DMX_ALLOMON_X_NAME, DMX_ALLOMON_X_NAME_LEN, DMX_ALLOMON_X_ID, DMX_ALLOMON_X_ID_LEN, DMX_ALLOMON_X_FQID, DMX_ALLOMON_X_FQID_LEN, DMX_ALLOMON_X_FQNAME, DMX_ALLOMON_X_FQNAME_LEN },
@@ -355,6 +355,7 @@ namespace bongocat::assets {
         { DMX_ZERIMON_NAME, DMX_ZERIMON_NAME_LEN, DMX_ZERIMON_ID, DMX_ZERIMON_ID_LEN, DMX_ZERIMON_FQID, DMX_ZERIMON_FQID_LEN, DMX_ZERIMON_FQNAME, DMX_ZERIMON_FQNAME_LEN },
         
     };
+    static const size_t dmx_animation_names_table_size CONFIG_STRINGS_TABLE_SECTION = LEN_ARRAY(dmx_animation_names_table);
 
     config_animation_entry_t get_config_animation_name_dmx(size_t index) {
         assert(LEN_ARRAY(dmx_animation_table) == DMX_ANIM_COUNT);
