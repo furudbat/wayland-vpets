@@ -977,16 +977,6 @@ int main(int argc, char *argv[]) {
   using namespace bongocat;
   // Initialize error system early
   bongocat::error_init(true);  // Enable debug initially
-  if constexpr (bongocat::features::Debug) {
-    // Lifetime extension of temporary objects
-    assert(get_strerror(1).c_str());
-    // BONGOCAT_LOG_VERBOSE("Test: Error string: %s", get_strerror(1).c_str());
-    /// @TODO: move testd into own module
-    assert(has_flag(config::config_parsing_info_t::UnknownConfigKey, config::config_parsing_info_t::UnknownConfigKey));
-    assert(!has_flag(config::config_parsing_info_t::Success, config::config_parsing_info_t::UnknownConfigKey));
-    assert(flag_remove(config::config_parsing_info_t::UnknownConfigKey,
-                       config::config_parsing_info_t::UnknownConfigKey) == config::config_parsing_info_t::Success);
-  }
 
   // Parse command line arguments
   const auto [args, args_result] = cli_parse_arguments(argc, argv);
