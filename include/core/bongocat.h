@@ -48,6 +48,12 @@ namespace features {
   inline static constexpr bool Debug = false;
 #endif
 
+#ifndef TEST_BUILD
+  inline static constexpr bool Testing = true;
+#else
+  inline static constexpr bool Testing = false;
+#endif
+
 #if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
   inline static constexpr bool EnableMemoryStatistics = true;
 #else

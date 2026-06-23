@@ -242,6 +242,9 @@ static inline constexpr size_t KEY_BUF = 256;
 static inline constexpr size_t VALUE_BUF = PATH_MAX + 256;                      // max value + comment
 static inline constexpr size_t LINE_BUF = KEY_BUF - 1 + VALUE_BUF - 1 + 1 + 1;  // key + '=' + value + '\0'
 
+constexpr char COMMENT_CHAR_1 = '#';
+constexpr char COMMENT_CHAR_2 = ';';
+
 /*
 inline static constexpr config_parsing_warning_t ignore_warnings_in_strict_mode[] = {
   config_parsing_warning_t::CustomSpriteSheetRequiredSleepAnimation,
@@ -284,8 +287,10 @@ BONGOCAT_NODISCARD static config_parse_result_t config_add_parse_info(config_par
 }
 BONGOCAT_NODISCARD static config_parse_result_t config_chain_parse_result(config_parse_result_t res,
                                                                           const config_parse_result_t& in) {
-  res.warnings = flag_add(res.warnings, in.warnings);
+  res.fatal = flag_add(res.fatal, in.fatal);
   res.errors = flag_add(res.errors, in.errors);
+  res.warnings = flag_add(res.warnings, in.warnings);
+  res.infos = flag_add(res.infos, in.infos);
   return res;
 }
 BONGOCAT_NODISCARD static bool config_was_key_unknown(const config_parse_result_t& res) {
@@ -2142,17 +2147,21 @@ static config_parse_result_t config_parse_key_value(config_t& config, const char
     res.infos = flag_remove(res.infos, config_parsing_info_t::UnknownConfigKey);
     return res;
   };
-
-  if (auto r = config_parse_double_key(config, key, value); key_was_handled(r))
+  if (auto r = config_parse_boolean_key(config, key, value); key_was_handled(r)) {
     return return_handled_result(r);
-  if (auto r = config_parse_integer_key(config, key, value); key_was_handled(r))
+  }
+  if (auto r = config_parse_double_key(config, key, value); key_was_handled(r)) {
     return return_handled_result(r);
-  if (auto r = config_parse_boolean_key(config, key, value); key_was_handled(r))
+  }
+  if (auto r = config_parse_integer_key(config, key, value); key_was_handled(r)) {
     return return_handled_result(r);
-  if (auto r = config_parse_enum_key(config, key, value); key_was_handled(r))
+  }
+  if (auto r = config_parse_enum_key(config, key, value); key_was_handled(r)) {
     return return_handled_result(r);
-  if (auto r = config_parse_string(config, key, value, overwrite_parameters); key_was_handled(r))
+  }
+  if (auto r = config_parse_string(config, key, value, overwrite_parameters); key_was_handled(r)) {
     return return_handled_result(r);
+  }
 
   // Handle device keys
   if (strcmp(key, KEYBOARD_NAME_KEY) == 0) {
@@ -2209,7 +2218,8 @@ static config_parse_result_t config_parse_key_value(config_t& config, const char
 }
 
 static bool config_is_comment_or_empty(const char *line) {
-  return (line[0] == '#' || line[0] == '\0' || strspn(line, " \t") == strlen(line));
+  return ((line[0] == COMMENT_CHAR_1 || line[0] == COMMENT_CHAR_2) || line[0] == '\0' ||
+          strspn(line, " \t") == strlen(line));
 }
 
 static config_parse_result_t config_parse_file(FILE *file, config_t& config,
@@ -2262,9 +2272,17 @@ static config_parse_result_t config_parse_file(FILE *file, config_t& config,
     }
 
     // Remove trailing comments
-    char *comment = strchr(value, '#');
-    if (comment != BONGOCAT_NULLPTR) {
-      *comment = '\0';
+    {
+      char *comment_1 = strchr(value, COMMENT_CHAR_1);
+      if (comment_1 != BONGOCAT_NULLPTR) {
+        *comment_1 = '\0';
+      }
+    }
+    {
+      char *comment_2 = strchr(value, COMMENT_CHAR_2);
+      if (comment_2 != BONGOCAT_NULLPTR) {
+        *comment_2 = '\0';
+      }
     }
 
     const char *trimmed_key = config_trim_str(key);
@@ -2309,7 +2327,7 @@ static config_parse_result_t config_parse_file(config_t& config, const char *con
 
   FILE *file = fopen(file_path, "r");
   if (file == BONGOCAT_NULLPTR) {
-    if (overwrite_parameters.strict >= 0) {
+    if (overwrite_parameters.strict >= 1) {
       BONGOCAT_LOG_INFO("Config file '%s' not found", file_path);
       return config_parse_result_t(config_parsing_fatal_t::ConfigNotFound);
     }
@@ -2494,39 +2512,23 @@ static void config_log_result([[maybe_unused]] const config_t& config,
   }
 }
 
-// =============================================================================
-// PUBLIC API IMPLEMENTATION
-// =============================================================================
-
-loaded_config_result_t load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
-  BONGOCAT_CHECK_NULL(config_file_path, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
-
-  config_t ret;
-  set_defaults(ret);
-  config_parse_result_t errors{};
-
-  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-
-  if (overwrite_parameters.strict >= 0) {
-    ret._strict = overwrite_parameters.strict >= 1;
-  }
-
-  // Parse config file and override defaults
-  {
-    const auto load_result = [&]() {
-      if (strcmp(config_file_path, "-") == 0) {
-        return config_parse_stdin(ret, overwrite_parameters);
-      }
-      return config_parse_file(ret, config_file_path, overwrite_parameters);
-    }();
-    errors = config_chain_parse_result(errors, load_result);
-  }
-  [[maybe_unused]] const auto t1 = platform::get_current_time_us();
-  BONGOCAT_LOG_INFO("Config loaded in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
-                    static_cast<double>(t1 - t0) / 1000000.0);
-
+static loaded_config_result_t config_after_parsing(config_t& ret, config_parse_result_t& errors,
+                                                   const load_config_overwrite_parameters_t& overwrite_parameters) {
   if (overwrite_parameters.output_name != BONGOCAT_NULLPTR) {
     ret.output_name = duplicate_string(overwrite_parameters.output_name);
+    if (ret.output_name) {
+      if (auto valid_result = is_valid_output_name(ret.output_name.c_str());
+          valid_result.errors != config_parsing_error_t::Success) {
+        BONGOCAT_LOG_WARNING("Invalid output name '%s', ignoring", ret.output_name.c_str());
+        errors = config_chain_parse_result(errors, valid_result);
+      }
+
+    } else {
+      BONGOCAT_LOG_ERROR("Failed to allocate memory for interface output");
+      errors =
+          config_chain_parse_result(errors, config_parse_result_t(flag_add(config_parsing_error_t::InvalidMonitorName,
+                                                                           config_parsing_error_t::StringMemoryError)));
+    }
   }
   if (overwrite_parameters.randomize_index >= 0) {
     ret.randomize_index = overwrite_parameters.randomize_index >= 1 ? 1 : 0;
@@ -2558,6 +2560,44 @@ loaded_config_result_t load(const char *config_file_path, load_config_overwrite_
   config_log_summary(ret, errors);
 
   return loaded_config_result_t(bongocat::move(ret), bongocat::move(errors));
+}
+
+// =============================================================================
+// PUBLIC API IMPLEMENTATION
+// =============================================================================
+
+loaded_config_result_t load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
+  BONGOCAT_CHECK_NULL(config_file_path, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
+
+  config_t ret;
+  set_defaults(ret);
+  config_parse_result_t errors;
+
+  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
+
+  if (overwrite_parameters.strict >= 0) {
+    ret._strict = overwrite_parameters.strict >= 1;
+  }
+
+  // Parse config file and override defaults
+  {
+    const auto load_result = [&]() {
+      if (strcmp(config_file_path, "-") == 0) {
+        return config_parse_stdin(ret, overwrite_parameters);
+      }
+      return config_parse_file(ret, config_file_path, overwrite_parameters);
+    }();
+    errors = config_chain_parse_result(errors, load_result);
+    if (ret._strict && errors.fatal != config_parsing_fatal_t::Success) {
+      return loaded_config_result_t(bongocat::move(errors));
+    }
+  }
+
+  [[maybe_unused]] const auto t1 = platform::get_current_time_us();
+  BONGOCAT_LOG_INFO("Config loaded in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
+                    static_cast<double>(t1 - t0) / 1000000.0);
+
+  return config_after_parsing(ret, errors, overwrite_parameters);
 }
 
 void reset(config_t& config) {
@@ -2598,5 +2638,41 @@ AllocatedString resolve_path(const char *explicit_path) {
   // No config found - will use defaults
   return make_null_string();
 }
+
+#ifdef TEST_BUILD
+static config_parse_result_t config_parse_string(config_t& config, const char *content,
+                                                 load_config_overwrite_parameters_t overwrite_parameters) {
+  BONGOCAT_CHECK_NULL(content, config_parse_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
+
+  FILE *file = fmemopen(const_cast<char *>(content), strlen(content), "r");
+  if (file == BONGOCAT_NULLPTR) {
+    return config_parse_result_t(config_parsing_fatal_t::ConfigNotFound);
+  }
+
+  const auto result = config_parse_file(file, config, overwrite_parameters);
+
+  fclose(file);
+  return result;
+}
+
+loaded_config_result_t load_from_string(const char *content, load_config_overwrite_parameters_t overwrite_parameters) {
+  BONGOCAT_CHECK_NULL(content, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
+
+  config_t ret;
+  set_defaults(ret);
+  config_parse_result_t errors;
+
+  if (overwrite_parameters.strict >= 0) {
+    ret._strict = overwrite_parameters.strict >= 1;
+  }
+
+  errors = config_chain_parse_result(errors, config_parse_string(ret, content, overwrite_parameters));
+  if (ret._strict && errors.fatal != config_parsing_fatal_t::Success) {
+    return loaded_config_result_t(bongocat::move(errors));
+  }
+
+  return config_after_parsing(ret, errors, overwrite_parameters);
+}
+#endif
 
 }  // namespace bongocat::config

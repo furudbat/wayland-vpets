@@ -127,8 +127,11 @@ The codebase remains largely C under the hood, using Linux + Wayland libraries, 
 
 Run `cmake --build build --target fix-format` before committing.
 Or `git ls-files -z --  "src/**/*.c" "src/**/*.cpp" "include/**/*.h" "include/**/*.hpp" "tests/**/*.cpp" | xargs -0 clang-format -i --verbose`
+or `find src include tests \( -name '*.c' -o -name '*.cpp' -o -name '*.h' -o -name '*.hpp' \) -type f -print0 | xargs -0 clang-format -i --verbose`
+for sure.
 
 > For CMake formatting use [gersemi](https://github.com/BlankSpruce/gersemi): `git ls-files -z -- "CMakeLists.txt" "include/**/CMakeLists.txt" "src/**/CMakeLists.txt" "tests/**/CMakeLists.txt" "protocols/**/CMakeLists.txt" "cmake/**/*.cmake" | xargs -0 gersemi -i`
+or `find include src tests protocols cmake \( -name 'CMakeLists.txt' -o -name '*.cmake' \) -type f -print0 | xargs -0 gersemi -i`
 
 ---
 

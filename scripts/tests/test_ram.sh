@@ -160,7 +160,10 @@ for group in release minsizerel relwithdebinfo; do
     echo "| Variant | Binary Size | Peak RAM | Avg. RAM | Median RAM |" >> "$REPORT"
     echo "|---------|-------------|----------|----------|------------|" >> "$REPORT"
 
-    find ./cmake-build-* -type f -executable -name "bongocat*" | grep -i "$group" | while read -r binary; do
+    find ./cmake-build-* -type f -executable -name "bongocat*" |
+      grep -i "$group" |
+      grep -vi "bongocat_tests" |
+      while read -r binary; do
         size=$(convert_file_size "$binary")
         echo "Testing $binary (size $size)..."
 
