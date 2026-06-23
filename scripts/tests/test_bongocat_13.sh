@@ -145,7 +145,7 @@ fi
 
 # Restart - stdin default config
 echo "[TEST] Start config in strict mode..."
-    "$PROGRAM" --config "$CONFIG" --ignore-running --strict &
+"$PROGRAM" --config "$CONFIG" --ignore-running --strict &
 PID=$!
 sleep 10
 # --- verify not running ---
@@ -158,8 +158,8 @@ else
 fi
 
 
-# Restart
-echo "[TEST] Start mal config..."
+# Restart - config2
+echo "[TEST] Start invalid config..."
 "$PROGRAM" --ignore-running --config "$CONFIG2" &
 PID=$!
 sleep 10
@@ -182,6 +182,21 @@ for i in {1..5}; do
     fi
     sleep 1
 done
+# --- verify not running ---
+if kill -0 "$PID" 2>/dev/null; then
+    echo "[FAIL] Process $PID still running!"
+    kill -9 "$PID" 2>/dev/null
+    exit 1
+else
+    echo "[PASS] Process terminated successfully"
+fi
+
+
+# Restart config2 - strict
+echo "[TEST] Start config in strict mode..."
+"$PROGRAM" --ignore-running --config "$CONFIG2" --strict &
+PID=$!
+sleep 10
 # --- verify not running ---
 if kill -0 "$PID" 2>/dev/null; then
     echo "[FAIL] Process $PID still running!"
