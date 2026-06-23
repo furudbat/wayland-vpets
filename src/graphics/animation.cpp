@@ -6201,11 +6201,11 @@ update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(anima
   /// @NOTE: set dm_set, etc. first so rand_animation_index works
 
   // change anim_index from config
-  anim_shm._anim_index_changed = [&](){
+  anim_shm._anim_index_changed = [&]() {
     if constexpr (features::EnableEvolution) {
       // don't reset animation when initial anim_index (from config didn't change, but evolution is enabled)
-      if (anim_shm._old_anim_index_from_config == current_config.animation_index && old_anim_index != anim_shm._old_anim_index_from_config &&
-          !current_config.randomize_on_reload &&
+      if (anim_shm._old_anim_index_from_config == current_config.animation_index &&
+          old_anim_index != anim_shm._old_anim_index_from_config && !current_config.randomize_on_reload &&
           has_flag(old_anim_index_changed, anim_index_changed_t::Evolution)) {
         // assume evolution has changed the anim_index
         // keep current animation, if base don't have changed
@@ -6225,7 +6225,7 @@ update_config_reload_sprite_sheet_result update_config_reload_sprite_sheet(anima
 
     return anim_index_changed_t::None;
   }();
-  anim_shm.anim_index = [&](){
+  anim_shm.anim_index = [&]() {
     switch (anim_shm._anim_index_changed) {
     case anim_index_changed_t::None:
       return anim_shm.anim_index;

@@ -302,111 +302,130 @@ inline void config_copy_keyboard_names_from(config_t& config, const config_t& ot
 // CONFIGURATION FUNCTIONS
 // =============================================================================
 
+// stop immediately, don't validate, don't continue
+enum class config_parsing_fatal_t : uint64_t {
+  Success = 0,
+  ConfigFilenameEmpty = (1uz << 0),
+  ConfigNotFound = (1uz << 1),
+  CanNotOpenConfig = (1uz << 2),
+};
+
+// strict mode aborts on any of these
 enum class config_parsing_error_t : uint64_t {
   Success = 0,
-  //Warnings = (1uz << 0),
-  OutOfRangeInt = (1uz << 1),
-  OutOfRangeDouble = (1uz << 2),
-  InvalidBoolean = (1uz << 3),
-  InvalidInteger = (1uz << 4),
-  InvalidTimeString = (1uz << 5),
-  StringMemoryError = (1uz << 6),
 
-  InvalidTestAnimationIntervalSec = (1uz << 7),
-  InvalidAnimationSpeedMs = (1uz << 8),
-  InvalidAnimationNameStrict  = (1uz << 9),
-  //WarningInvalidAnimationName = (1uz << 10),
-  InvalidMonitorName = (1uz << 11),
-  InvalidInputDeviceName = (1uz << 12),
-  MaxDeviceNamesReachedStrict = (1uz << 13),
-  //WarningMaxDeviceNamesReached = (1uz << 14),
+  // Parse-level
+  OutOfRangeInt = (1uz << 5),
+  OutOfRangeDouble = (1uz << 6),
+  InvalidBoolean = (1uz << 7),
+  InvalidInteger = (1uz << 8),
+  InvalidDouble = (1uz << 9),
+  InvalidTimeString = (1uz << 10),
+  StringMemoryError = (1uz << 11),
 
-  InvalidCustomSpriteSheetSettings = (1uz << 15),
-  InvalidCustomSpriteSheetCols = (1uz << 16),
-  InvalidCustomSpriteSheetRows = (1uz << 17),
-  CustomSpriteSheetFileNotFound = (1uz << 18),
-  CanNotOpenCustomSpriteSheet = (1uz << 19),
-  CustomSpriteSheetFileEmpty = (1uz << 20),
-  CustomSpriteSheetInvalidPNGHeader = (1uz << 21),
-  CustomSpriteSheetInvalidPNGSignature = (1uz << 22),
-  InvalidCustomSpriteSheetFilename = (1uz << 23),
-  CustomSpriteSheetFilenameEmpty = (1uz << 24),
-  CustomSpriteSheetRequiredIdleAnimation = (1uz << 25),
+  // Timing/animation
+  InvalidTestAnimationIntervalSec = (1uz << 12),
+  InvalidAnimationSpeedMs = (1uz << 13),
+  InvalidAnimationSpriteSheetLayout = (1uz << 14),
+  OutOfRangeAnimationIndex = (1uz << 15),
+  OutOfRangeIdleFrameAnimationIndex = (1uz << 16),
 
-  // Warnings: Optional Animations
-  //CustomSpriteSheetRequiredSleepAnimation = (1uz << 26),
-  //CustomSpriteSheetRequiredMovingAnimation = (1uz << 27),
-  //CustomSpriteSheetRequiredWritingAnimation = (1uz << 28),
-  //CustomSpriteSheetRequiredHappyAnimation = (1uz << 29),
+  // Device/monitor
+  InvalidMonitorName = (1uz << 17),
+  InvalidInputDeviceName = (1uz << 18),
+  MaxDeviceNamesReached = (1uz << 19),  // strict only; see warning tier
 
-  InvalidAnimationSpriteSheetLayout = (1uz << 30),
-  OutOfRangeAnimationIndex = (1uz << 31),
-  OutOfRangeIdleFrameAnimationIndex = (1uz << 32),
-  FilenameRequiredForCustomSpriteSheet = (1uz << 33),
+  // Enum values
+  InvalidLayer = (1uz << 20),
+  InvalidOverlayPosition = (1uz << 21),
+  InvalidCatAlign = (1uz << 22),
+  InvalidEvolution = (1uz << 23),
+  InvalidEvolutionSpeed = (1uz << 24),
+  InvalidSleepTime = (1uz << 25),
 
-  InvalidLayer  = (1uz << 34),
-  InvalidOverlayPosition  = (1uz << 35),
-  InvalidCatAlign  = (1uz << 36),
-  InvalidEvolution  = (1uz << 37),
-  InvalidEvolutionSpeed  = (1uz << 38),
-  InvalidSleepTime  = (1uz << 39),
-
-  //WarningConfigLineTooLong = (1uz << 40),
-  //WarningInvalidConfigLine = (1uz << 41),
-  //WarningUnknownConfigKey = (1uz << 42),
-  //WarningNoInputDevices = (1uz << 43),
-
-  // "hard" errors, no need to continue, more for error signal
-  ConfigFilenameEmpty  = (1uz << 44),
-  ConfigNotFound = (1uz << 45),
-  CanNotOpenConfig = (1uz << 46),
-
-  InvalidConfig  = (1uz << 63), // flag for if any error happs, needed ?
+  // Custom sprite sheet
+  InvalidCustomSpriteSheetSettings = (1uz << 26),
+  InvalidCustomSpriteSheetCols = (1uz << 27),
+  InvalidCustomSpriteSheetRows = (1uz << 28),
+  CustomSpriteSheetFileNotFound = (1uz << 29),
+  CanNotOpenCustomSpriteSheet = (1uz << 30),
+  CustomSpriteSheetFileEmpty = (1uz << 31),
+  CustomSpriteSheetInvalidPNGHeader = (1uz << 32),
+  CustomSpriteSheetInvalidPNGSignature = (1uz << 33),
+  InvalidCustomSpriteSheetFilename = (1uz << 34),
+  CustomSpriteSheetFilenameEmpty = (1uz << 35),
+  FilenameRequiredForCustomSpriteSheet = (1uz << 36),
+  CustomSpriteSheetRequiredIdleAnimation = (1uz << 37),  // sheet is useless without idle
 };
+
+// Strict mode WILL abort on these (not ignorable)
 enum class config_parsing_warning_t : uint64_t {
   Success = 0,
-  //Warnings = (1uz << 0),
 
-  WarningInvalidAnimationName = (1uz << 10),    //< has fallback
-  WarningMaxDeviceNamesReached = (1uz << 14),   //< skip device when full
+  UnknownConfigKey = (1uz << 40),
+  InvalidAnimationName = (1uz << 41),   // has fallback
+  MaxDeviceNamesReached = (1uz << 42),  // silently drops a device
+};
+// Strict mode ignores these
+enum class config_parsing_info_t : uint64_t {
+  Success = 0,
 
-  // Warnings: Optional Animations -- more of an info; ignore in strcit mode
-  CustomSpriteSheetRequiredSleepAnimation = (1uz << 26),
-  CustomSpriteSheetRequiredMovingAnimation = (1uz << 27),
-  CustomSpriteSheetRequiredWritingAnimation = (1uz << 28),
-  CustomSpriteSheetRequiredHappyAnimation = (1uz << 29),
+  // optional animations
+  CustomSpriteSheetRequiredSleepAnimation = (1uz << 50),
+  CustomSpriteSheetRequiredMovingAnimation = (1uz << 51),
+  CustomSpriteSheetRequiredWritingAnimation = (1uz << 52),
+  CustomSpriteSheetRequiredHappyAnimation = (1uz << 53),
 
-  WarningConfigLineTooLong = (1uz << 40),   //< ignored line anyway
-  WarningInvalidConfigLine = (1uz << 41),   //< ignored line
-  WarningUnknownConfigKey = (1uz << 42),    //< so it can skip parsing for the "next key"; maybe "clear" the warning AFTER key was found ?
-  WarningNoInputDevices = (1uz << 43),      //< devices are optional
+  // Always ignored, even in strict mode (lines are skipped anyway)
+  ConfigLineTooLong = (1uz << 54),
+  InvalidConfigLine = (1uz << 55),
+  UnknownConfigKey = (1uz << 56),
+  NoInputDevices = (1uz << 57),
+
+  ConfigNotFoundUseDefault = (1uz << 58),
 };
 struct config_parse_result_t {
+  config_parsing_fatal_t fatal{config_parsing_fatal_t::Success};
   config_parsing_error_t errors{config_parsing_error_t::Success};
   config_parsing_warning_t warnings{config_parsing_warning_t::Success};
+  config_parsing_info_t infos{config_parsing_info_t::Success};
 
   config_parse_result_t() = default;
-  config_parse_result_t(config_parsing_error_t errs, config_parsing_warning_t warns) : errors(errs), warnings(warns) {}
-  explicit(true) config_parse_result_t(config_parsing_error_t errs) : errors(errs), warnings(config_parsing_warning_t::Success) {}
-  explicit(true) config_parse_result_t(config_parsing_warning_t warns) : errors(config_parsing_error_t::Success), warnings(warns) {}
+  explicit(true) config_parse_result_t(config_parsing_fatal_t fatl) : fatal(fatl) {}
+  explicit(true) config_parse_result_t(config_parsing_error_t errs) : errors(errs) {}
+  explicit(true) config_parse_result_t(config_parsing_warning_t warns) : warnings(warns) {}
+  explicit(true) config_parse_result_t(config_parsing_info_t inf) : infos(inf) {}
 };
 struct loaded_config_result_t {
   config_t config{};
   config_parse_result_t result;
 
   loaded_config_result_t() = default;
-  loaded_config_result_t(config_t&& res, config_parsing_error_t errs, config_parsing_warning_t warns) : config(bongocat::move(res)), result(errs, warns) {}
-  loaded_config_result_t(config_parsing_error_t errs, config_parsing_warning_t warns) : result(errs, warns) {}
+  explicit(true) loaded_config_result_t(config_parsing_fatal_t errs) : result(errs) {}
   explicit(true) loaded_config_result_t(config_parsing_error_t errs) : result(errs) {}
   explicit(true) loaded_config_result_t(config_parsing_warning_t warns) : result(warns) {}
-  explicit(false) loaded_config_result_t(config_t&& res) : config(bongocat::move(res)) {}
-  explicit(false) loaded_config_result_t(config_parse_result_t res) : result(res) {}
-  explicit(false) loaded_config_result_t(config_parse_result_t&& res) : result(bongocat::move(res)) {}
-  explicit(true) loaded_config_result_t(config_t&& res, config_parse_result_t&& errors) : config(bongocat::move(res)), result(bongocat::move(errors)) {}
+  explicit(true) loaded_config_result_t(config_parsing_info_t inf) : result(inf) {}
+
+  // explicit(true) loaded_config_result_t(config_t&& res) : config(bongocat::move(res)) {}
+  loaded_config_result_t(config_t&& res_config, config_parse_result_t&& res)
+      : config(std::move(res_config))
+      , result(std::move(res)) {}
+  explicit(true) loaded_config_result_t(config_parse_result_t&& res) : result(bongocat::move(res)) {}
 };
 BONGOCAT_NODISCARD inline bool is_valid_config_result(const loaded_config_result_t& res) {
+  if (res.result.fatal != config_parsing_fatal_t::Success) {
+    return false;
+  }
+
   if (res.config._strict) {
-    return res.result.errors == config_parsing_error_t::Success;
+    if (res.result.errors != config_parsing_error_t::Success) {
+      return false;
+    }
+    // warning as errors
+    if (res.result.warnings != config_parsing_warning_t::Success) {
+      return false;
+    }
+    // ignore infos
   }
 
   return true;
@@ -418,7 +437,8 @@ struct load_config_overwrite_parameters_t {
   int32_t strict{-1};
   const char *animation_name{BONGOCAT_NULLPTR};
 };
-BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters);
+BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path,
+                                               load_config_overwrite_parameters_t overwrite_parameters);
 void reset(config_t& config);
 
 void set_defaults(config_t& config);

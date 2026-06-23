@@ -123,8 +123,8 @@ bongocat_error_t wayland_update_output(wayland_context_t& ctx) {
         BONGOCAT_LOG_ERROR("Could not find output named '%s'", current_config.output_name.c_str());
         return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
       } else {
-        BONGOCAT_LOG_ERROR("Could not find output named '%s', defaulting to first output",
-                           current_config.output_name.c_str());
+        BONGOCAT_LOG_WARNING("Could not find output named '%s', defaulting to first output",
+                             current_config.output_name.c_str());
       }
     }
   }

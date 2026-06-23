@@ -504,15 +504,17 @@ static void config_reload_callback() {
         old_config.animation_custom_set == new_config.animation_custom_set) {
       new_config._keep_old_animation_index = !new_config.randomize_on_reload;
     } else if (features::EnableEvolution && !new_config.randomize_on_reload &&
-        old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
-        old_config.animation_dm_set == new_config.animation_dm_set &&
-        old_config.animation_custom_set == new_config.animation_custom_set) {
+               old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
+               old_config.animation_dm_set == new_config.animation_dm_set &&
+               old_config.animation_custom_set == new_config.animation_custom_set) {
       // assume anim_index has changed, evolution
       new_config._keep_old_animation_index = old_config.evolution != config::evolution_time_mode_t::NONE;
-    } else if (((old_config.randomize_index != new_config.randomize_index && new_config.randomize_index) || (new_config.randomize_index && old_config.randomize_on_reload != new_config.randomize_on_reload && new_config.randomize_on_reload)) &&
-        old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
-        old_config.animation_dm_set == new_config.animation_dm_set &&
-        old_config.animation_custom_set == new_config.animation_custom_set) {
+    } else if (((old_config.randomize_index != new_config.randomize_index && new_config.randomize_index) ||
+                (new_config.randomize_index && old_config.randomize_on_reload != new_config.randomize_on_reload &&
+                 new_config.randomize_on_reload)) &&
+               old_config.animation_sprite_sheet_layout == new_config.animation_sprite_sheet_layout &&
+               old_config.animation_dm_set == new_config.animation_dm_set &&
+               old_config.animation_custom_set == new_config.animation_custom_set) {
       new_config._keep_old_animation_index = false;
     }
     // If successful, check if input devices changed before updating config
@@ -975,10 +977,15 @@ int main(int argc, char *argv[]) {
   using namespace bongocat;
   // Initialize error system early
   bongocat::error_init(true);  // Enable debug initially
-  {
+  if constexpr (bongocat::features::Debug) {
     // Lifetime extension of temporary objects
     assert(get_strerror(1).c_str());
-    BONGOCAT_LOG_VERBOSE("Test: Error string: %s", get_strerror(1).c_str());
+    // BONGOCAT_LOG_VERBOSE("Test: Error string: %s", get_strerror(1).c_str());
+    /// @TODO: move testd into own module
+    assert(has_flag(config::config_parsing_info_t::UnknownConfigKey, config::config_parsing_info_t::UnknownConfigKey));
+    assert(!has_flag(config::config_parsing_info_t::Success, config::config_parsing_info_t::UnknownConfigKey));
+    assert(flag_remove(config::config_parsing_info_t::UnknownConfigKey,
+                       config::config_parsing_info_t::UnknownConfigKey) == config::config_parsing_info_t::Success);
   }
 
   // Parse command line arguments

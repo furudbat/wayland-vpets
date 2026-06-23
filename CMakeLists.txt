@@ -265,8 +265,8 @@ add_subdirectory(src)
 
 # custom linker script for assets alignment and page unload
 file(
-        WRITE ${CMAKE_BINARY_DIR}/assets_segment.ld
-        [=[
+  WRITE ${CMAKE_BINARY_DIR}/assets_segment.ld
+  [=[
 /* Page alignment for safe madvise(MADV_DONTNEED) */
 SECTIONS
 {

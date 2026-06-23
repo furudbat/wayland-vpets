@@ -3,13 +3,14 @@
 #include "platform/wayland.h"
 #include "utils/memory.h"
 #include "utils/system_error.h"
+
 #include <cassert>
 #include <cstdint>
 #include <sys/eventfd.h>
 #include <sys/mman.h>
 #include <unistd.h>
 #ifdef __GLIBC__
-#include <malloc.h>
+#  include <malloc.h>
 #endif
 
 // assets
@@ -316,8 +317,8 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
 
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
-  BONGOCAT_LOG_VERBOSE("hot_load_animation; reload assets in %.3fms (%.6fsec)",
-                       static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
+  BONGOCAT_LOG_VERBOSE("hot_load_animation; reload assets in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
+                       static_cast<double>(t1 - t0) / 1000000.0);
 
   return ret;
 }
