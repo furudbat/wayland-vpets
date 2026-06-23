@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file.
 
-### [5.0.0] - 2026-06-22
+### [5.0.0] - 2026-06-23
 
 **BREAKING CHANGE:** renaming- and cleanup sprites. **Check your `animation_name` in config.**
 
@@ -11,10 +11,13 @@ All notable changes to this project will be documented in this file.
 - **Evolution** - Change sprite over time
   - Add support for `dm`s and `pkmn`s
   - Update Config & Doc
+- Unit Tests
+  - add test from [upstream](https://github.com/saatvik333/wayland-bongocat/tree/main/tests) for parietie
 
 ### Improve
 
 - **reduce RAM usage** - unload assets from pages and return memory to OS (assets loading)
+- config parsing
 
 ### Fixed
 

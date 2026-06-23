@@ -13,7 +13,6 @@ TEST_CASE("malloc_free") {
   bongocat::free(p);
 }
 
-
 TEST_CASE("malloc_free zero") {
   using namespace bongocat;
 

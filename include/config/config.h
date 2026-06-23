@@ -362,9 +362,8 @@ enum class config_parsing_error_t : uint64_t {
 enum class config_parsing_warning_t : uint64_t {
   Success = 0,
 
-  UnknownConfigKey = (1uz << 40),
-  InvalidAnimationName = (1uz << 41),   // has fallback
-  MaxDeviceNamesReached = (1uz << 42),  // silently drops a device
+  InvalidAnimationName = (1uz << 40),   // has fallback
+  MaxDeviceNamesReached = (1uz << 41),  // silently drops a device
 };
 // Strict mode ignores these
 enum class config_parsing_info_t : uint64_t {
@@ -446,6 +445,11 @@ void set_defaults(config_t& config);
 // Resolve config file path with XDG fallback
 // Returns a static/allocated path, or NULL if none found.
 AllocatedString resolve_path(const char *explicit_path);
+
+#ifdef TEST_BUILD
+loaded_config_result_t load_from_string(const char *content,
+                                        load_config_overwrite_parameters_t overwrite_parameters = {});
+#endif
 
 }  // namespace bongocat::config
 

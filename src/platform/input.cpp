@@ -577,7 +577,7 @@ static void *input_thread(void *arg) {
 
     /// @TODO: move to tests
     // check indices
-    if constexpr (features::Debug) {
+    if constexpr (features::Debug || features::Testing) {
       // const bool has_update_config = fds_update_config_index >= 0;
       // const bool has_udev = fds_udev_monitor_index >= 0;
       const bool has_std_in = fds_stdin_index >= 0;
