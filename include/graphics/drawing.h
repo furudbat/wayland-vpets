@@ -5,13 +5,13 @@
 
 namespace bongocat::animation {
 enum class blit_image_color_option_flags_t : uint32_t {
+  Normal = 0,
   Invisible = (1u << 0),
-  Normal = (1u << 1),
-  Invert = (1u << 2),
-  MirrorX = (1u << 3),
-  MirrorY = (1u << 4),
-  BilinearInterpolation = (1u << 5),
-  DisableThresholdAlpha = (1u << 6),
+  Invert = (1u << 1),
+  MirrorX = (1u << 2),
+  MirrorY = (1u << 3),
+  BilinearInterpolation = (1u << 4),
+  DisableThresholdAlpha = (1u << 5),
 };
 enum class blit_image_color_order_t : uint8_t {
   RGBA,

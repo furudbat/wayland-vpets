@@ -81,8 +81,7 @@ static inline constexpr int MAX_OVERLAY_HEIGHT = 2560;
 static inline constexpr int MIN_FPS = 1;
 static inline constexpr int MAX_FPS = 540;
 static inline constexpr int MIN_DURATION_MS = 10;
-static inline constexpr int MAX_DURATION_MS = 5000;
-static inline constexpr int MAX_INTERVAL_SEC = 3600;
+static inline constexpr int MAX_DURATION_MS = 60 * 1000;
 static inline constexpr int MIN_KPM = 0;
 static inline constexpr int MAX_KPM = 10000;
 static inline constexpr double MAX_CPU_THRESHOLD = 100.0;
@@ -243,96 +242,126 @@ static inline constexpr size_t KEY_BUF = 256;
 static inline constexpr size_t VALUE_BUF = PATH_MAX + 256;                      // max value + comment
 static inline constexpr size_t LINE_BUF = KEY_BUF - 1 + VALUE_BUF - 1 + 1 + 1;  // key + '=' + value + '\0'
 
+/*
+inline static constexpr config_parsing_warning_t ignore_warnings_in_strict_mode[] = {
+  config_parsing_warning_t::CustomSpriteSheetRequiredSleepAnimation,
+  config_parsing_warning_t::CustomSpriteSheetRequiredMovingAnimation,
+  config_parsing_warning_t::CustomSpriteSheetRequiredWritingAnimation,
+  config_parsing_warning_t::CustomSpriteSheetRequiredHappyAnimation,
+  config_parsing_warning_t::WarningConfigLineTooLong,
+  config_parsing_warning_t::WarningInvalidAnimationName,
+  config_parsing_warning_t::WarningConfigLineTooLong,
+  config_parsing_warning_t::WarningInvalidConfigLine,
+  config_parsing_warning_t::WarningUnknownConfigKey,
+  config_parsing_warning_t::WarningMaxDeviceNamesReached,
+  config_parsing_warning_t::WarningNoInputDevices,
+};
+BONGOCAT_NODISCARD static bool config_has_warnings(const config_parse_result_t& res) {
+  return res.warnings != config_parsing_warning_t::Success;
+}
+BONGOCAT_NODISCARD static bool config_has_warnings(config_parsing_warning_t warn) {
+  return warn != config_parsing_warning_t::Success;
+}
+BONGOCAT_NODISCARD static bool config_has_only_warnings(const config_parse_result_t& res) {
+  return res.errors == config_parsing_error_t::Success && res.warnings != config_parsing_warning_t::Success;
+}
+*/
+
+BONGOCAT_NODISCARD static config_parse_result_t config_add_parse_error(config_parse_result_t res, config_parsing_error_t err) {
+  res.errors = flag_add(res.errors, err);
+  return res;
+}
+BONGOCAT_NODISCARD static config_parse_result_t config_add_parse_warning(config_parse_result_t res, config_parsing_warning_t warn) {
+  res.warnings = flag_add(res.warnings, warn);
+  return res;
+}
+BONGOCAT_NODISCARD static config_parse_result_t config_chain_parse_result(config_parse_result_t res, const config_parse_result_t& in) {
+  res.warnings = flag_add(res.warnings, in.warnings);
+  res.errors = flag_add(res.errors, in.errors);
+  return res;
+}
+BONGOCAT_NODISCARD static bool config_was_key_unknown(const config_parse_result_t& res) {
+  return res.errors == config_parsing_error_t::Success && has_flag(res.warnings, config_parsing_warning_t::WarningUnknownConfigKey);
+}
+
 // =============================================================================
 // CONFIGURATION VALIDATION MODULE
 // =============================================================================
 
-static constexpr uint64_t config_clamp_int(int& value, int min, int max, [[maybe_unused]] const char *name) {
+static constexpr config_parsing_error_t config_clamp_int(int& value, int min, int max, [[maybe_unused]] const char *name) {
   if (value < min || value > max) {
     BONGOCAT_LOG_WARNING("%s %d out of range [%d-%d], clamping", name, value, min, max);
     value = (value < min) ? min : max;
-    return (1u << 0);
+    return config_parsing_error_t::OutOfRangeInt;
   }
-  return 0;
+  return config_parsing_error_t::Success;
 }
-static constexpr uint64_t config_clamp_double(double& value, double min, double max,
+static constexpr config_parsing_error_t config_clamp_double(double& value, double min, double max,
                                               [[maybe_unused]] const char *name) {
   if (value < min || value > max) {
     BONGOCAT_LOG_WARNING("%s %.2f out of range [%.0f-%.0f], clamping", name, value, min, max);
     value = (value < min) ? min : max;
-    return (1u << 0);
+    return config_parsing_error_t::OutOfRangeDouble;
   }
-  return 0;
+  return config_parsing_error_t::Success;
 }
 
-static constexpr uint64_t config_validate_max_int(const int& value, int max, [[maybe_unused]] const char *name) {
+static constexpr config_parsing_error_t config_validate_max_int(const int& value, int max, [[maybe_unused]] const char *name) {
   if (value > max) {
     BONGOCAT_LOG_WARNING("%s %d out of range [%d], clamping", name, value, max);
-    return (1u << 0);
+    return config_parsing_error_t::OutOfRangeInt;
   }
-  return 0;
+  return config_parsing_error_t::Success;
 }
 
-static uint64_t config_validate_dimensions(config_t& config) {
-  uint64_t ret{0};
-  ret |= config_clamp_int(config.cat_height, MIN_CAT_HEIGHT, MAX_CAT_HEIGHT, CAT_HEIGHT_KEY);
-  ret |= config_clamp_int(config.overlay_height, MIN_OVERLAY_HEIGHT, MAX_OVERLAY_HEIGHT, OVERLAY_HEIGHT_KEY);
-  ret |= config_clamp_int(config.cat_x_offset, MIN_OFFSET, MAX_OFFSET, CAT_X_OFFSET_KEY);
-  ret |= config_clamp_int(config.cat_y_offset, MIN_OFFSET, MAX_OFFSET, CAT_Y_OFFSET_KEY);
-  ret |= config_clamp_int(config.movement_radius, MIN_MOVEMENT_RADIUS, MAX_MOVEMENT_RADIUS, CAT_Y_OFFSET_KEY);
-  ret |= config_clamp_int(config.padding_x, 0, MAX_OFFSET, PADDING_X_KEY);
-  ret |= config_clamp_int(config.padding_y, 0, MAX_OFFSET, PADDING_Y_KEY);
-  ret |= config_clamp_int(config.screen_width, 0, MAX_OFFSET, SCREEN_WIDTH_KEY);
+static config_parse_result_t config_validate_dimensions(config_t& config) {
+  config_parse_result_t ret{};
+  ret = config_add_parse_error(ret, config_clamp_int(config.cat_height, MIN_CAT_HEIGHT, MAX_CAT_HEIGHT, CAT_HEIGHT_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.overlay_height, MIN_OVERLAY_HEIGHT, MAX_OVERLAY_HEIGHT, OVERLAY_HEIGHT_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.cat_x_offset, MIN_OFFSET, MAX_OFFSET, CAT_X_OFFSET_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.cat_y_offset, MIN_OFFSET, MAX_OFFSET, CAT_Y_OFFSET_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.movement_radius, MIN_MOVEMENT_RADIUS, MAX_MOVEMENT_RADIUS, CAT_Y_OFFSET_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.padding_x, 0, MAX_OFFSET, PADDING_X_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.padding_y, 0, MAX_OFFSET, PADDING_Y_KEY));
+  ret = config_add_parse_error(ret, config_clamp_int(config.screen_width, 0, MAX_OFFSET, SCREEN_WIDTH_KEY));
   return ret;
 }
 
-static uint64_t config_validate_timing(config_t& config) {
-  uint64_t ret{0};
-  ret |= config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY);
-  ret |= config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY);
-  ret |= config_clamp_int(config.test_animation_duration_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY);
-  ret |= config_clamp_int(config.animation_speed_ms, 0, MAX_DURATION_MS, ANIMATION_SPEED_KEY);
-  ret |= config_clamp_int(config.idle_sleep_timeout_sec, 0, MAX_SLEEP_TIMEOUT_SEC, IDLE_SLEEP_TIMEOUT_KEY);
-  ret |= config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY);
-  ret |= config_clamp_int(config.movement_speed, 0, MAX_DURATION_MS, MOVEMENT_SPEED_KEY);
-  ret |= config_clamp_int(config.hotplug_scan_interval_ms, MIN_HOTPLUG_SCAN_INTERVAL_MS, MAX_HOTPLUG_SCAN_INTERVAL_MS,
-                          HOTPLUG_SCAN_INTERVAL_KEY);
-
-  // Validate interval (0 is allowed to disable)
-  if (config.test_animation_interval_sec < 0 || config.test_animation_interval_sec > MAX_INTERVAL_SEC) {
-    BONGOCAT_LOG_WARNING("%s %d out of range [0-%dsec], clamping", TEST_ANIMATION_INTERVAL_KEY,
-                         config.test_animation_interval_sec, MAX_INTERVAL_SEC);
-    config.test_animation_interval_sec = (config.test_animation_interval_sec < 0) ? 0 : MAX_INTERVAL_SEC;
-    ret = (1u << 1);
-  }
-  if (config.animation_speed_ms < 0 || config.animation_speed_ms > MAX_INTERVAL_SEC * 1000) {
-    BONGOCAT_LOG_WARNING("%s %d out of range [0-%dms], clamping", ANIMATION_SPEED_KEY,
-                         config.test_animation_interval_sec, MAX_INTERVAL_SEC * 1000);
-    config.animation_speed_ms = (config.animation_speed_ms < 0) ? 0 : MAX_INTERVAL_SEC * 1000;
-    ret = (1u << 2);
-  }
+static config_parse_result_t config_validate_timing(config_t& config) {
+  config_parse_result_t ret{};
+  ret = config_add_parse_error(ret,config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY));
+  ret = config_add_parse_error(ret,config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY));
+  ret = config_add_parse_error(ret,config_clamp_int(config.test_animation_duration_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY));
+  ret = config_add_parse_error(ret,config_clamp_int(config.animation_speed_ms, 0, MAX_DURATION_MS, ANIMATION_SPEED_KEY));
+  ret = config_add_parse_error(ret,config_clamp_int(config.idle_sleep_timeout_sec, 0, MAX_SLEEP_TIMEOUT_SEC, IDLE_SLEEP_TIMEOUT_KEY));
+  ret = config_add_parse_error(ret,config_clamp_int(config.input_fps, 0, MAX_FPS, INPUT_FPS_KEY));
+  ret = config_add_parse_error(ret,config_clamp_int(config.movement_speed, 0, MAX_DURATION_MS, MOVEMENT_SPEED_KEY));
+  ret = config_add_parse_error(ret,config_clamp_int(config.hotplug_scan_interval_ms, MIN_HOTPLUG_SCAN_INTERVAL_MS, MAX_HOTPLUG_SCAN_INTERVAL_MS,
+                          HOTPLUG_SCAN_INTERVAL_KEY));
 
   return ret;
 }
 
-static uint64_t config_validate_kpm(config_t& config) {
-  return config_clamp_int(config.happy_kpm, MIN_KPM, MAX_KPM, HAPPY_KPM_KEY);
+static config_parse_result_t config_validate_kpm(config_t& config) {
+  config_parse_result_t ret{};
+  ret = config_add_parse_error(ret, config_clamp_int(config.happy_kpm, MIN_KPM, MAX_KPM, HAPPY_KPM_KEY));
+  return ret;
 }
 
-static uint64_t config_validate_update(config_t& config) {
-  uint64_t ret{0};
+static config_parse_result_t config_validate_update(config_t& config) {
+  config_parse_result_t ret{};
 
-  ret |= config_clamp_int(config.update_rate_ms, 0, MAX_UPDATE_RATE_MS, UPDATE_RATE_KEY);
-  ret |= config_clamp_double(config.cpu_threshold, 0, MAX_CPU_THRESHOLD, CPU_THRESHOLD_KEY);
-  ret |= config_clamp_double(config.cpu_running_factor, 0, MAX_CPU_RUNNING_FACTOR, CPU_RUNNING_FACTOR_KEY);
-  ret |= config_clamp_double(config.evolution_speed_factor, 0, MAX_EVOLUTION_SPEED_FACTOR, EVOLUTION_SPEED_FACTOR_KEY);
+  ret = config_add_parse_error(ret,config_clamp_int(config.update_rate_ms, 0, MAX_UPDATE_RATE_MS, UPDATE_RATE_KEY));
+  ret = config_add_parse_error(ret,config_clamp_double(config.cpu_threshold, 0, MAX_CPU_THRESHOLD, CPU_THRESHOLD_KEY));
+  ret = config_add_parse_error(ret,config_clamp_double(config.cpu_running_factor, 0, MAX_CPU_RUNNING_FACTOR, CPU_RUNNING_FACTOR_KEY));
+  ret = config_add_parse_error(ret,config_clamp_double(config.evolution_speed_factor, 0, MAX_EVOLUTION_SPEED_FACTOR, EVOLUTION_SPEED_FACTOR_KEY));
 
   return ret;
 }
 
-static uint64_t config_validate_custom(config_t& config) {
+static config_parse_result_t config_validate_custom(config_t& config) {
   using namespace assets;
-  uint64_t ret{0};
+  config_parse_result_t ret{};
 
   if (config._custom) {
     if (config.custom_sprite_sheet_settings.feature_toggle_writing_frames >= 0) {
@@ -349,145 +378,145 @@ static uint64_t config_validate_custom(config_t& config) {
     }
 
     // clamp cols
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.idle_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_IDLE_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.idle_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_IDLE_FRAMES_KEY));
 
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.boring_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_BORING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.boring_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_BORING_FRAMES_KEY));
 
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_writing_frames, MIN_CUSTOM_FRAMES,
-                            MAX_CUSTOM_FRAMES, CUSTOM_START_WRITING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.writing_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_WRITING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_writing_frames, MIN_CUSTOM_FRAMES,
-                            MAX_CUSTOM_FRAMES, CUSTOM_END_WRITING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.happy_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_HAPPY_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.start_writing_frames, MIN_CUSTOM_FRAMES,
+                            MAX_CUSTOM_FRAMES, CUSTOM_START_WRITING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.writing_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_WRITING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.end_writing_frames, MIN_CUSTOM_FRAMES,
+                            MAX_CUSTOM_FRAMES, CUSTOM_END_WRITING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.happy_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_HAPPY_FRAMES_KEY));
 
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.asleep_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_ASLEEP_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.sleep_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_SLEEP_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.wake_up_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_WAKE_UP_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.asleep_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_ASLEEP_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.sleep_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_SLEEP_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.wake_up_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_WAKE_UP_FRAMES_KEY));
 
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_working_frames, MIN_CUSTOM_FRAMES,
-                            MAX_CUSTOM_FRAMES, CUSTOM_START_WORKING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.working_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_WORKING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_working_frames, MIN_CUSTOM_FRAMES,
-                            MAX_CUSTOM_FRAMES, CUSTOM_END_WORKING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.start_working_frames, MIN_CUSTOM_FRAMES,
+                            MAX_CUSTOM_FRAMES, CUSTOM_START_WORKING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.working_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_WORKING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.end_working_frames, MIN_CUSTOM_FRAMES,
+                            MAX_CUSTOM_FRAMES, CUSTOM_END_WORKING_FRAMES_KEY));
 
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_moving_frames, MIN_CUSTOM_FRAMES,
-                            MAX_CUSTOM_FRAMES, CUSTOM_START_MOVING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.moving_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_MOVING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_moving_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_END_MOVING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.start_moving_frames, MIN_CUSTOM_FRAMES,
+                            MAX_CUSTOM_FRAMES, CUSTOM_START_MOVING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.moving_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_MOVING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.end_moving_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_END_MOVING_FRAMES_KEY));
 
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_running_frames, MIN_CUSTOM_FRAMES,
-                            MAX_CUSTOM_FRAMES, CUSTOM_START_RUNNING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.running_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
-                            CUSTOM_RUNNING_FRAMES_KEY);
-    ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_running_frames, MIN_CUSTOM_FRAMES,
-                            MAX_CUSTOM_FRAMES, CUSTOM_END_RUNNING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.start_running_frames, MIN_CUSTOM_FRAMES,
+                            MAX_CUSTOM_FRAMES, CUSTOM_START_RUNNING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.running_frames, MIN_CUSTOM_FRAMES, MAX_CUSTOM_FRAMES,
+                            CUSTOM_RUNNING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.end_running_frames, MIN_CUSTOM_FRAMES,
+                            MAX_CUSTOM_FRAMES, CUSTOM_END_RUNNING_FRAMES_KEY));
 
     // clamp rows
     if (config.custom_sprite_sheet_settings.idle_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.idle_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_IDLE_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.idle_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_IDLE_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.boring_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.boring_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_BORING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.boring_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_BORING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.start_writing_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_writing_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_START_WRITING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.start_writing_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_WRITING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.writing_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.writing_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_WRITING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.writing_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_WRITING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.end_writing_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_writing_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_END_WRITING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.end_writing_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_END_WRITING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.happy_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.happy_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_HAPPY_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.happy_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_HAPPY_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.asleep_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.asleep_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_ASLEEP_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.asleep_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_ASLEEP_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.sleep_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.sleep_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_SLEEP_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.sleep_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_SLEEP_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.wake_up_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.wake_up_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_WAKE_UP_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.wake_up_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_WAKE_UP_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.start_working_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_working_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_START_WORKING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.start_working_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_WORKING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.working_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.working_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_WORKING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.working_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_WORKING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.end_working_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_working_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_END_WORKING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.end_working_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_END_WORKING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.start_moving_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_moving_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_START_MOVING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.start_moving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_MOVING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.moving_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.moving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_MOVING_ROW_KEY);
+      ret = config_add_parse_error(ret,config_clamp_int(config.custom_sprite_sheet_settings.moving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_MOVING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.end_moving_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_moving_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_END_MOVING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.end_moving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_END_MOVING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.start_running_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_running_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_START_RUNNING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.start_running_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_RUNNING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.running_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.running_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_RUNNING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.running_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_RUNNING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.end_running_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.end_running_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_END_RUNNING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.end_running_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_END_RUNNING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.start_evolving_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_evolving_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_START_EVOLVING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.start_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_EVOLVING_ROW_KEY));
     } else if (config.custom_sprite_sheet_settings.start_working_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.start_evolving_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_START_WORKING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.start_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_START_WORKING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.evolving_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.evolving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_EVOLVING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.evolving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_EVOLVING_ROW_KEY));
     } else if (config.custom_sprite_sheet_settings.working_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.evolving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
-                              CUSTOM_WORKING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.evolving_row_index, MIN_CUSTOM_ROWS, MAX_CUSTOM_ROWS,
+                              CUSTOM_WORKING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.after_evolving_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.after_evolving_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_AFTER_EVOLVING_ROW_KEY);
-    } else if (config.custom_sprite_sheet_settings.end_working_row_index >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.after_evolving_row_index, MIN_CUSTOM_ROWS,
-                              MAX_CUSTOM_ROWS, CUSTOM_END_WORKING_ROW_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.after_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_AFTER_EVOLVING_ROW_KEY));
+    } else if (config.custom_sprite_sheet_settings.after_evolving_row_index >= 0) {
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.after_evolving_row_index, MIN_CUSTOM_ROWS,
+                              MAX_CUSTOM_ROWS, CUSTOM_END_WORKING_ROW_KEY));
     }
     if (config.custom_sprite_sheet_settings.rows >= 0) {
-      ret |= config_clamp_int(config.custom_sprite_sheet_settings.rows, 1, MAX_CUSTOM_ROWS, CUSTOM_ROWS_KEY);
+      ret = config_add_parse_error(ret, config_clamp_int(config.custom_sprite_sheet_settings.rows, 1, MAX_CUSTOM_ROWS, CUSTOM_ROWS_KEY));
     }
 
     const int sprite_sheet_cols = get_custom_animation_settings_max_cols(config.custom_sprite_sheet_settings);
@@ -495,131 +524,131 @@ static uint64_t config_validate_custom(config_t& config) {
 
     if (sprite_sheet_cols <= 0) {
       BONGOCAT_LOG_WARNING("custom sprite sheet has no columns");
-      ret |= (1u << 3);
+      ret = config_add_parse_error(ret, config_parsing_error_t::InvalidCustomSpriteSheetCols);
     }
 
     // validate cols
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.idle_frames, sprite_sheet_cols,
-                                   CUSTOM_IDLE_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.idle_frames, sprite_sheet_cols,
+                                   CUSTOM_IDLE_FRAMES_KEY));
 
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.boring_frames, sprite_sheet_cols,
-                                   CUSTOM_BORING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.boring_frames, sprite_sheet_cols,
+                                   CUSTOM_BORING_FRAMES_KEY));
 
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_writing_frames, sprite_sheet_cols,
-                                   CUSTOM_START_WRITING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.writing_frames, sprite_sheet_cols,
-                                   CUSTOM_WRITING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_writing_frames, sprite_sheet_cols,
-                                   CUSTOM_END_WRITING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.happy_frames, sprite_sheet_cols,
-                                   CUSTOM_HAPPY_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_writing_frames, sprite_sheet_cols,
+                                   CUSTOM_START_WRITING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.writing_frames, sprite_sheet_cols,
+                                   CUSTOM_WRITING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_writing_frames, sprite_sheet_cols,
+                                   CUSTOM_END_WRITING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.happy_frames, sprite_sheet_cols,
+                                   CUSTOM_HAPPY_FRAMES_KEY));
 
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.asleep_frames, sprite_sheet_cols,
-                                   CUSTOM_ASLEEP_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.sleep_frames, sprite_sheet_cols,
-                                   CUSTOM_SLEEP_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.wake_up_frames, sprite_sheet_cols,
-                                   CUSTOM_WAKE_UP_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.asleep_frames, sprite_sheet_cols,
+                                   CUSTOM_ASLEEP_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.sleep_frames, sprite_sheet_cols,
+                                   CUSTOM_SLEEP_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.wake_up_frames, sprite_sheet_cols,
+                                   CUSTOM_WAKE_UP_FRAMES_KEY));
 
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_working_frames, sprite_sheet_cols,
-                                   CUSTOM_START_WORKING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.working_frames, sprite_sheet_cols,
-                                   CUSTOM_WORKING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_working_frames, sprite_sheet_cols,
-                                   CUSTOM_END_WORKING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_working_frames, sprite_sheet_cols,
+                                   CUSTOM_START_WORKING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.working_frames, sprite_sheet_cols,
+                                   CUSTOM_WORKING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_working_frames, sprite_sheet_cols,
+                                   CUSTOM_END_WORKING_FRAMES_KEY));
 
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_moving_frames, sprite_sheet_cols,
-                                   CUSTOM_START_MOVING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.moving_frames, sprite_sheet_cols,
-                                   CUSTOM_MOVING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_moving_frames, sprite_sheet_cols,
-                                   CUSTOM_END_MOVING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_moving_frames, sprite_sheet_cols,
+                                   CUSTOM_START_MOVING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.moving_frames, sprite_sheet_cols,
+                                   CUSTOM_MOVING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_moving_frames, sprite_sheet_cols,
+                                   CUSTOM_END_MOVING_FRAMES_KEY));
 
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_running_frames, sprite_sheet_cols,
-                                   CUSTOM_START_RUNNING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.running_frames, sprite_sheet_cols,
-                                   CUSTOM_RUNNING_FRAMES_KEY);
-    ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_running_frames, sprite_sheet_cols,
-                                   CUSTOM_END_RUNNING_FRAMES_KEY);
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_running_frames, sprite_sheet_cols,
+                                   CUSTOM_START_RUNNING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.running_frames, sprite_sheet_cols,
+                                   CUSTOM_RUNNING_FRAMES_KEY));
+    ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_running_frames, sprite_sheet_cols,
+                                   CUSTOM_END_RUNNING_FRAMES_KEY));
 
     // validate rows
     if (sprite_sheet_rows > 0) {
       if (config.custom_sprite_sheet_settings.idle_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.idle_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_IDLE_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.idle_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_IDLE_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.boring_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.boring_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_BORING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.boring_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_BORING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.start_writing_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_writing_row_index,
-                                       sprite_sheet_rows - 1, CUSTOM_START_WRITING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_writing_row_index,
+                                       sprite_sheet_rows - 1, CUSTOM_START_WRITING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.writing_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.writing_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_WRITING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.writing_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_WRITING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.end_writing_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_writing_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_END_WRITING_ROW_KEY);
+       ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_writing_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_END_WRITING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.happy_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.happy_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_HAPPY_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.happy_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_HAPPY_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.asleep_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.asleep_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_ASLEEP_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.asleep_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_ASLEEP_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.sleep_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.sleep_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_SLEEP_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.sleep_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_SLEEP_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.wake_up_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.wake_up_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_WAKE_UP_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.wake_up_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_WAKE_UP_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.start_working_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_working_row_index,
-                                       sprite_sheet_rows - 1, CUSTOM_START_WORKING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_working_row_index,
+                                       sprite_sheet_rows - 1, CUSTOM_START_WORKING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.working_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.working_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_WORKING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.working_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_WORKING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.end_working_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_working_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_END_WORKING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_working_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_END_WORKING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.start_moving_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_moving_row_index,
-                                       sprite_sheet_rows - 1, CUSTOM_START_MOVING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_moving_row_index,
+                                       sprite_sheet_rows - 1, CUSTOM_START_MOVING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.moving_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.moving_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_MOVING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.moving_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_MOVING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.end_moving_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_moving_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_END_MOVING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_moving_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_END_MOVING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.start_running_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.start_running_row_index,
-                                       sprite_sheet_rows - 1, CUSTOM_START_RUNNING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.start_running_row_index,
+                                       sprite_sheet_rows - 1, CUSTOM_START_RUNNING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.running_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.running_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_RUNNING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.running_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_RUNNING_ROW_KEY));
       }
       if (config.custom_sprite_sheet_settings.end_running_row_index >= 0) {
-        ret |= config_validate_max_int(config.custom_sprite_sheet_settings.end_running_row_index, sprite_sheet_rows - 1,
-                                       CUSTOM_END_RUNNING_ROW_KEY);
+        ret = config_add_parse_error(ret,config_validate_max_int(config.custom_sprite_sheet_settings.end_running_row_index, sprite_sheet_rows - 1,
+                                       CUSTOM_END_RUNNING_ROW_KEY));
       }
     } else {
       if (config.custom_sprite_sheet_settings.rows <= 0) {
         BONGOCAT_LOG_WARNING("custom sprite sheet has no rows");
-        ret |= (1u << 4);
+        ret = config_add_parse_error(ret, config_parsing_error_t::InvalidCustomSpriteSheetRows);
       }
     }
 
@@ -633,19 +662,19 @@ static uint64_t config_validate_custom(config_t& config) {
       if (fd._fd < 0) {
         BONGOCAT_LOG_ERROR("Custom Sprite Sheet doesn't exist or can't be opened: %s",
                            config.custom_sprite_sheet_filename.c_str());
-        ret |= (1u << 6);
+        ret = config_add_parse_error(ret, config_parsing_error_t::CustomSpriteSheetFileNotFound);
         return ret;
       }
 
       struct stat st;
       if (fstat(fd._fd, &st) < 0) {
         BONGOCAT_LOG_ERROR("Custom Sprite Sheet can't be opened: %s", config.custom_sprite_sheet_filename.c_str());
-        ret |= (1u << 7);
+        ret = config_add_parse_error(ret, config_parsing_error_t::CanNotOpenCustomSpriteSheet);
         return ret;
       }
       if (st.st_size == 0) {
         BONGOCAT_LOG_ERROR("Custom Sprite Sheet is an empty file: %s", config.custom_sprite_sheet_filename.c_str());
-        ret |= (1u << 8);
+        ret = config_add_parse_error(ret, config_parsing_error_t::CustomSpriteSheetFileEmpty);
         return ret;
       }
 
@@ -653,32 +682,31 @@ static uint64_t config_validate_custom(config_t& config) {
       const ssize_t n = read(fd._fd, header, PNG_SIGNATURE_SIZE);
       if (n < static_cast<ssize_t>(PNG_SIGNATURE_SIZE)) {
         BONGOCAT_LOG_ERROR("Failed to read PNG header: %s", config.custom_sprite_sheet_filename.c_str());
-        ret |= (1u << 9);
+        ret = config_add_parse_error(ret, config_parsing_error_t::CustomSpriteSheetInvalidPNGHeader);
         return ret;
       }
       if (memcmp(header, PNG_SIGNATURE, PNG_SIGNATURE_SIZE) != 0) {
         BONGOCAT_LOG_ERROR("Invalid PNG signature: %s", config.custom_sprite_sheet_filename.c_str());
-        ret |= (1u << 10);
+        ret = config_add_parse_error(ret, config_parsing_error_t::CustomSpriteSheetInvalidPNGSignature);
         return ret;
       }
     } else {
       // empty custom_sprite_sheet_filename
       BONGOCAT_LOG_WARNING("custom_sprite_sheet_filename is empty");
-      ret |= (1u << 5);
+      ret = config_add_parse_error(ret, config_parsing_error_t::CustomSpriteSheetFilenameEmpty);
     }
 
     // validate frames
     if (config.custom_sprite_sheet_settings.idle_frames <= 0) {
       BONGOCAT_LOG_WARNING("custom sprite sheet needs at least an idle animation");
-      ret |= (1u << 11);
+      ret = config_add_parse_error(ret, config_parsing_error_t::CustomSpriteSheetRequiredIdleAnimation);
     }
 
     if (config.custom_sprite_sheet_settings.wake_up_frames > 0 &&
         (config.custom_sprite_sheet_settings.asleep_frames <= 0 ||
          config.custom_sprite_sheet_settings.sleep_frames <= 0)) {
       BONGOCAT_LOG_WARNING("custom sprite sheet has a wake up animation, but no sleep animation");
-      // ret |= (1u << 12);
-      //  to hard of an error in strict mode, just print warning
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::CustomSpriteSheetRequiredSleepAnimation);
     }
 
     if (config.custom_sprite_sheet_settings.feature_mirror_x_moving >= 0 &&
@@ -686,7 +714,7 @@ static uint64_t config_validate_custom(config_t& config) {
          config.custom_sprite_sheet_settings.moving_frames <= 0 &&
          config.custom_sprite_sheet_settings.end_moving_frames <= 0)) {
       BONGOCAT_LOG_WARNING("feature_mirror_x_moving for custom sprite sheet is used, but has no moving animation");
-      // ret |= (1u << 13);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::CustomSpriteSheetRequiredMovingAnimation);
     }
 
     if ((config.custom_sprite_sheet_settings.feature_toggle_writing_frames >= 0 ||
@@ -696,35 +724,38 @@ static uint64_t config_validate_custom(config_t& config) {
          config.custom_sprite_sheet_settings.end_writing_frames <= 0)) {
       BONGOCAT_LOG_WARNING(
           "feature_toggle_writing_frames for custom sprite sheet is used, but has no writing animation");
-      // ret |= (1u << 14);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::CustomSpriteSheetRequiredWritingAnimation);
     }
 
     if (config.enable_scheduled_sleep && (config.custom_sprite_sheet_settings.asleep_frames <= 0 &&
                                           config.custom_sprite_sheet_settings.sleep_frames <= 0)) {
       BONGOCAT_LOG_WARNING("enable_scheduled_sleep is enabled, but custom sprite sheet has no sleep animation");
-      // ret |= (1u << 15);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::CustomSpriteSheetRequiredSleepAnimation);
     }
     if (config.happy_kpm >= 0 && (config.custom_sprite_sheet_settings.happy_frames <= 0)) {
       BONGOCAT_LOG_WARNING("happy_kpm is used, but custom sprite sheet has no happy animation");
-      // ret |= (1u << 16);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::CustomSpriteSheetRequiredHappyAnimation);
     }
+  }
+
+  if (ret.errors != config_parsing_error_t::Success) {
+    ret = config_add_parse_error(ret, config_parsing_error_t::InvalidCustomSpriteSheetSettings);
   }
 
   return ret;
 }
 
-static uint64_t config_validate_appearance(config_t& config) {
+static config_parse_result_t config_validate_appearance(config_t& config) {
   using namespace assets;
   using namespace animation;
-  uint64_t ret{0};
+  config_parse_result_t ret{};
   // Validate opacity
-  ret |= config_clamp_int(config.overlay_opacity, 0, 255, OVERLAY_OPACITY_KEY);
+  ret = config_add_parse_error(ret, config_clamp_int(config.overlay_opacity, 0, 255, OVERLAY_OPACITY_KEY));
 
   switch (config.animation_sprite_sheet_layout) {
   case config_animation_sprite_sheet_layout_t::None:
     BONGOCAT_LOG_WARNING("Cant determine sprite sheet layout");
-    /// @TODO: move validation error codes (1 << ..) into constants
-    ret |= (1u << 17);
+    ret = config_add_parse_error(ret, config_parsing_error_t::InvalidAnimationSpriteSheetLayout);
     break;
   case config_animation_sprite_sheet_layout_t::Bongocat:
     if constexpr (features::EnableBongocatEmbeddedAssets) {
@@ -734,7 +765,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              BONGOCAT_ANIMATIONS_COUNT - 1);
         config.animation_index = 0;
-        ret |= (1u << 18);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeAnimationIndex);
       }
       // Validate idle frame
       static_assert(animation::BONGOCAT_NUM_FRAMES <= INT_MAX);
@@ -742,7 +773,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              BONGOCAT_NUM_FRAMES - 1);
         config.idle_frame = 0;
-        ret |= (1u << 19);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeIdleFrameAnimationIndex);
       }
     }
     break;
@@ -754,7 +785,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              assets::DM_ANIMATIONS_COUNT - 1);
         config.animation_index = 0;
-        ret |= (1u << 20);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeAnimationIndex);
       }
       // Validate idle frame
       static_assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
@@ -762,7 +793,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              animation::MAX_DIGIMON_FRAMES - 1);
         config.idle_frame = 0;
-        ret |= (1u << 21);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeIdleFrameAnimationIndex);
       }
     }
     break;
@@ -774,7 +805,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              assets::PKMN_ANIMATIONS_COUNT - 1);
         config.animation_index = 0;
-        ret |= (1u << 22);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeAnimationIndex);
       }
       // Validate idle frame
       static_assert(animation::MAX_DIGIMON_FRAMES <= INT_MAX);
@@ -782,7 +813,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              MAX_PKMN_FRAMES - 1);
         config.idle_frame = 0;
-        ret |= (1u << 23);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeIdleFrameAnimationIndex);
       }
     }
     break;
@@ -794,7 +825,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                              MS_AGENTS_ANIMATIONS_COUNT - 1);
         config.animation_index = 0;
-        ret |= (1u << 24);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeAnimationIndex);
       }
       // Validate idle frame
       static_assert(assets::MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
@@ -802,7 +833,7 @@ static uint64_t config_validate_appearance(config_t& config) {
         BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                              MS_AGENT_MAX_SPRITE_SHEET_COL_FRAMES - 1);
         config.idle_frame = 0;
-        ret |= (1u << 25);
+        ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeIdleFrameAnimationIndex);
       }
     }
     break;
@@ -817,7 +848,7 @@ static uint64_t config_validate_appearance(config_t& config) {
           BONGOCAT_LOG_WARNING("%s %d out of range [%d], resetting to 0", ANIMATION_INDEX_KEY, config.animation_index,
                                CUSTOM_ANIM_INDEX);
           config.animation_index = 0;
-          ret |= (1u << 26);
+          ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeIdleFrameAnimationIndex);
         }
         /// @TODO: validate max (idle) frames
       }
@@ -833,7 +864,7 @@ static uint64_t config_validate_appearance(config_t& config) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY,
                                  config.animation_index, MAX_MISC_ANIM_INDEX);
             config.animation_index = 0;
-            ret |= (1u << 27);
+            ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeAnimationIndex);
           }
           // Validate idle frame
           static_assert(assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES <= INT_MAX);
@@ -841,7 +872,7 @@ static uint64_t config_validate_appearance(config_t& config) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                                  assets::MISC_MAX_SPRITE_SHEET_COL_FRAMES - 1);
             config.idle_frame = 0;
-            ret |= (1u << 28);
+            ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeIdleFrameAnimationIndex);
           }
         }
         break;
@@ -853,14 +884,14 @@ static uint64_t config_validate_appearance(config_t& config) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", ANIMATION_INDEX_KEY,
                                  config.animation_index, PMD_ANIM_COUNT - 1);
             config.animation_index = 0;
-            ret |= (1uz << 29);
+            ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeAnimationIndex);
           }
           // Validate idle frame
           if (config.idle_frame < 0 || config.idle_frame >= static_cast<int>(PMD_ANIM_COUNT)) {
             BONGOCAT_LOG_WARNING("%s %d out of range [0-%d], resetting to 0", IDLE_FRAME_KEY, config.idle_frame,
                                  assets::PMD_ANIM_COUNT - 1);
             config.idle_frame = 0;
-            ret |= (1uz << 30);
+            ret = config_add_parse_error(ret, config_parsing_error_t::OutOfRangeIdleFrameAnimationIndex);
           }
         }
         break;
@@ -874,14 +905,14 @@ static uint64_t config_validate_appearance(config_t& config) {
   return ret;
 }
 
-static uint64_t config_validate_enums(config_t& config) {
-  uint64_t ret{0};
+static config_parse_result_t config_validate_enums(config_t& config) {
+  config_parse_result_t ret{};
   // Validate layer
   if (config.layer != layer_type_t::LAYER_BACKGROUND && config.layer != layer_type_t::LAYER_BOTTOM &&
       config.layer != layer_type_t::LAYER_TOP && config.layer != layer_type_t::LAYER_OVERLAY) {
     BONGOCAT_LOG_WARNING("Invalid layer %d, resetting to top", config.layer);
     config.layer = layer_type_t::LAYER_TOP;
-    ret |= (1uz << 31);
+    ret = config_add_parse_error(ret, config_parsing_error_t::InvalidLayer);
   }
 
   // Validate overlay_position
@@ -889,7 +920,7 @@ static uint64_t config_validate_enums(config_t& config) {
       config.overlay_position != overlay_position_t::POSITION_BOTTOM) {
     BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to top", OVERLAY_OPACITY_KEY, config.overlay_position);
     config.overlay_position = overlay_position_t::POSITION_TOP;
-    ret |= (1uz << 32);
+    ret = config_add_parse_error(ret, config_parsing_error_t::InvalidOverlayPosition);
   }
 
   // Validate cat_align
@@ -897,29 +928,31 @@ static uint64_t config_validate_enums(config_t& config) {
       config.cat_align != align_type_t::ALIGN_RIGHT) {
     BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to center", CAT_ALIGN_KEY, config.cat_align);
     config.cat_align = align_type_t::ALIGN_CENTER;
-    ret |= (1uz << 33);
+    ret = config_add_parse_error(ret, config_parsing_error_t::InvalidCatAlign);
   }
 
-  // Validate evolution
-  if (config.evolution != evolution_time_mode_t::NONE && config.evolution != evolution_time_mode_t::NORMAL &&
-      config.evolution != evolution_time_mode_t::PROGRAM_START && config.evolution != evolution_time_mode_t::UPTIME) {
-    BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to none", EVOLUTION_KEY, config.evolution);
-    config.evolution = evolution_time_mode_t::NONE;
-    ret |= (1uz << 34);
-  }
-  if (config.evolution != evolution_time_mode_t::NONE && config.evolution_speed_factor <= 0.0) {
-    BONGOCAT_LOG_WARNING("Invalid %s is zero or below (%f), resetting to 1.0", EVOLUTION_SPEED_FACTOR_KEY,
-                         config.evolution_speed_factor);
-    config.evolution_speed_factor = 1.0;
-    ret |= (1uz << 35);
+  if constexpr (features::EnableEvolution) {
+    // Validate evolution
+    if (config.evolution != evolution_time_mode_t::NONE && config.evolution != evolution_time_mode_t::NORMAL &&
+        config.evolution != evolution_time_mode_t::PROGRAM_START && config.evolution != evolution_time_mode_t::UPTIME) {
+      BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to none", EVOLUTION_KEY, config.evolution);
+      config.evolution = evolution_time_mode_t::NONE;
+      ret = config_add_parse_error(ret, config_parsing_error_t::InvalidEvolution);
+    }
+    if (config.evolution != evolution_time_mode_t::NONE && config.evolution_speed_factor <= 0.0) {
+      BONGOCAT_LOG_WARNING("Invalid %s is zero or below (%f), resetting to 1.0", EVOLUTION_SPEED_FACTOR_KEY,
+                           config.evolution_speed_factor);
+      config.evolution_speed_factor = 1.0;
+      ret = config_add_parse_error(ret, config_parsing_error_t::InvalidEvolutionSpeed);
+    }
   }
 
   return ret;
 }
 
-static uint64_t config_validate_time(config_t& config) {
-  uint64_t ret{0};
-  if (config.enable_scheduled_sleep >= 1) {
+static config_parse_result_t config_validate_time(config_t& config) {
+  config_parse_result_t ret{};
+  if (config.enable_scheduled_sleep) {
     const int begin_minutes = (config.sleep_begin.hour * 60) + config.sleep_begin.min;
     const int end_minutes = (config.sleep_end.hour * 60) + config.sleep_end.min;
 
@@ -927,19 +960,20 @@ static uint64_t config_validate_time(config_t& config) {
       BONGOCAT_LOG_WARNING("Sleep mode is enabled, but time is equal: %02d:%02d, disable sleep mode",
                            config.sleep_begin.hour, config.sleep_begin.min);
 
-      config.enable_scheduled_sleep = 0;
+      config.enable_scheduled_sleep = false;
       // config.sleep_begin.hour = 0;
       // config.sleep_begin.min = 0;
       // config.sleep_end.hour = 0;
       // config.sleep_end.min = 0;
-      ret |= (1uz << 34);
+
+      ret = config_add_parse_error(ret, config_parsing_error_t::InvalidSleepTime);
     }
   }
   return ret;
 }
 
-static bongocat_error_t config_validate(config_t& config) {
-  uint64_t ret{0};
+static config_parse_result_t config_validate(config_t& config) {
+  config_parse_result_t ret{};
   // Normalize boolean values
   /*
   config.enable_debug = config.enable_debug >= 1 ? 1 : 0;
@@ -956,30 +990,31 @@ static bongocat_error_t config_validate(config_t& config) {
   config.disable_fullscreen_hide = config.disable_fullscreen_hide >= 1 ? 1 : 0;
   */
 
-  ret |= config_validate_dimensions(config);
-  ret |= config_validate_timing(config);
-  ret |= config_validate_appearance(config);
-  ret |= config_validate_enums(config);
-  ret |= config_validate_time(config);
-  ret |= config_validate_kpm(config);
-  ret |= config_validate_update(config);
-  ret |= config_validate_custom(config);
+  ret = config_chain_parse_result(ret, config_validate_dimensions(config));
+  ret = config_chain_parse_result(ret,config_validate_timing(config));
+  ret = config_chain_parse_result(ret,config_validate_appearance(config));
+  ret = config_chain_parse_result(ret,config_validate_enums(config));
+  ret = config_chain_parse_result(ret,config_validate_time(config));
+  ret = config_chain_parse_result(ret,config_validate_kpm(config));
+  ret = config_chain_parse_result(ret,config_validate_update(config));
+  ret = config_chain_parse_result(ret,config_validate_custom(config));
 
   if (config._strict) {
-    if (ret != 0) [[unlikely]] {
+    if (ret.errors != config_parsing_error_t::Success) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to load configuration in strict mode: %x", ret);
-      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+      ret = config_add_parse_error(ret, config_parsing_error_t::InvalidConfig);
     }
   }
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+
+  return ret;
 }
 
 // =============================================================================
 // DEVICE MANAGEMENT MODULE
 // =============================================================================
 
-static bongocat_error_t config_add_keyboard_device(config_t& config, const char *device_path) {
-  BONGOCAT_CHECK_NULL(device_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+static config_parse_result_t config_add_keyboard_device(config_t& config, const char *device_path) {
+  BONGOCAT_CHECK_NULL(device_path, config_parse_result_t(config_parsing_error_t::InvalidInputDeviceName));
 
   assert(config.num_keyboard_devices >= 0 && config.num_keyboard_devices < INT_MAX - 1);
 
@@ -988,7 +1023,7 @@ static bongocat_error_t config_add_keyboard_device(config_t& config, const char 
   static_assert(input::MAX_INPUT_DEVICES <= INT_MAX);
   if (old_num_keyboard_devices >= static_cast<int>(input::MAX_INPUT_DEVICES)) {
     BONGOCAT_LOG_WARNING("Can not add more devices from config, max. reach: %d", input::MAX_INPUT_DEVICES);
-    return config._strict ? bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM : bongocat_error_t::BONGOCAT_SUCCESS;
+    return config._strict ? config_parse_result_t(config_parsing_error_t::MaxDeviceNamesReachedStrict) : config_parse_result_t(config_parsing_warning_t::WarningMaxDeviceNamesReached);
   }
   const int new_num_keyboard_devices = old_num_keyboard_devices + 1;
   assert(new_num_keyboard_devices >= 0);
@@ -1009,17 +1044,17 @@ static bongocat_error_t config_add_keyboard_device(config_t& config, const char 
     }
     config.num_keyboard_devices = old_num_keyboard_devices;
     BONGOCAT_LOG_ERROR("Failed to copy new keyboard device path");
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+    return config_parse_result_t(flag_add(config_parsing_error_t::StringMemoryError, config_parsing_error_t::InvalidInputDeviceName));
   }
 
   // update new size
   config.num_keyboard_devices = new_num_keyboard_devices;
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
-static bongocat_error_t config_add_keyboard_name(config_t& config, const char *device_path) {
-  BONGOCAT_CHECK_NULL(device_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+static config_parse_result_t config_add_keyboard_name(config_t& config, const char *device_path) {
+  BONGOCAT_CHECK_NULL(device_path, config_parse_result_t(config_parsing_error_t::InvalidInputDeviceName));
 
   assert(config._num_keyboard_names >= 0 && config._num_keyboard_names < INT_MAX - 1);
 
@@ -1028,7 +1063,7 @@ static bongocat_error_t config_add_keyboard_name(config_t& config, const char *d
   static_assert(input::MAX_INPUT_DEVICES <= INT_MAX);
   if (old_num_keyboard_names >= static_cast<int>(input::MAX_INPUT_DEVICES)) {
     BONGOCAT_LOG_WARNING("Can not add more keyboard_names from config, max. reach: %d", input::MAX_INPUT_DEVICES);
-    return config._strict ? bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM : bongocat_error_t::BONGOCAT_SUCCESS;
+    return config._strict ? config_parse_result_t(config_parsing_error_t::MaxDeviceNamesReachedStrict) : config_parse_result_t(config_parsing_warning_t::WarningMaxDeviceNamesReached);
   }
   const int new_num_keyboard_names = old_num_keyboard_names + 1;
   assert(new_num_keyboard_names >= 0);
@@ -1049,13 +1084,13 @@ static bongocat_error_t config_add_keyboard_name(config_t& config, const char *d
     }
     config._num_keyboard_names = old_num_keyboard_names;
     BONGOCAT_LOG_ERROR("Failed to copy new keyboard name path");
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+    return config_parse_result_t(flag_add(config_parsing_error_t::StringMemoryError, config_parsing_error_t::InvalidInputDeviceName));
   }
 
   // update new size
   config._num_keyboard_names = new_num_keyboard_names;
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
 static void config_cleanup_devices(config_t& config) {
@@ -1088,17 +1123,18 @@ static void config_cleanup_devices(config_t& config) {
   config._num_keyboard_names = 0;
 }
 
-static bongocat_error_t config_resolve_devices(config_t& config) {
+static config_parse_result_t config_resolve_devices(config_t& config) {
   DIR *dir = opendir("/dev/input");
   if (dir == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_WARNING("Failed to open /dev/input for scanning: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+    return config_parse_result_t(config_parsing_error_t::InvalidInputDeviceName);
   }
 
   struct dirent *entry;
   char path[PATH_MAX];
   char name[256] = {0};
 
+  config_parse_result_t ret;
   while ((entry = readdir(dir)) != BONGOCAT_NULLPTR) {
     if (strncmp(entry->d_name, "event", 5) != 0) {
       continue;
@@ -1127,14 +1163,14 @@ static bongocat_error_t config_resolve_devices(config_t& config) {
     }
 
     if (matched) {
-      config_add_keyboard_device(config, path);
+      ret = config_chain_parse_result(ret, config_add_keyboard_device(config, path));
     }
 
     // platform::close_fd(fd);
   }
 
   closedir(dir);
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return ret;
 }
 
 // =============================================================================
@@ -1156,7 +1192,7 @@ static char *config_trim_str(char *key) {
   return key_start;
 }
 
-static bongocat_error_t config_parse_boolean_key(config_t& config, const char *key, const char *value) {
+static config_parse_result_t config_parse_boolean_key(config_t& config, const char *key, const char *value) {
   const auto [bool_value, read_error] = [&]() -> created_result_t<bool> {
     if (strcasecmp(value, "true") == 0 || strcasecmp(value, "yes") == 0 || strcasecmp(value, "on") == 0) {
       return true;
@@ -1178,7 +1214,7 @@ static bongocat_error_t config_parse_boolean_key(config_t& config, const char *k
     return static_cast<int>(read_value) > 0;
   }();
   if (read_error != bongocat_error_t::BONGOCAT_SUCCESS) {
-    return read_error;
+    return config_parse_result_t(config_parsing_error_t::InvalidBoolean);
   }
 
   if (strcmp(key, MIRROR_X_KEY) == 0) {
@@ -1206,21 +1242,21 @@ static bongocat_error_t config_parse_boolean_key(config_t& config, const char *k
   } else if (features::EnableEvolution && strcmp(key, EVOLUTION_KEY) == 0) {
     config.evolution = bool_value ? evolution_time_mode_t::NORMAL : evolution_time_mode_t::NONE;
   } else {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
+    return config_parse_result_t(config_parsing_warning_t::WarningUnknownConfigKey);
   }
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
-static bongocat_error_t config_parse_integer_key(config_t& config, const char *key, const char *value) {
+static config_parse_result_t config_parse_integer_key(config_t& config, const char *key, const char *value) {
   errno = 0;
   char *endptr_int = BONGOCAT_NULLPTR;
   const auto read_value = strtol(value, &endptr_int, 10);
   if (errno != 0 || endptr_int == value || (*endptr_int != '\0' && *endptr_int != ' ' && *endptr_int != '\t')) {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    return config_parse_result_t(config_parsing_error_t::InvalidInteger);
   }
   if (read_value < INT_MIN || read_value > INT_MAX) {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    return config_parse_result_t(config_parsing_error_t::OutOfRangeInt);
   }
   const int int_value = static_cast<int>(read_value);
 
@@ -1395,18 +1431,18 @@ static bongocat_error_t config_parse_integer_key(config_t& config, const char *k
   } else if (features::EnableCustomSpriteSheetsAssets && strcmp(key, CUSTOM_ROWS_KEY) == 0) {
     config.custom_sprite_sheet_settings.rows = int_value;
   } else {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
+    return config_parse_result_t(config_parsing_warning_t::WarningUnknownConfigKey);
   }
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
-static bongocat_error_t config_parse_double_key(config_t& config, const char *key, const char *value) {
+static config_parse_result_t config_parse_double_key(config_t& config, const char *key, const char *value) {
   errno = 0;
   char *endptr_double = BONGOCAT_NULLPTR;
   const double double_value = strtod(value, &endptr_double);
   if (errno != 0 || endptr_double == value || *endptr_double != '\0') {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    return config_parse_result_t(config_parsing_error_t::InvalidInteger);
   }
 
   if (strcmp(key, CPU_THRESHOLD_KEY) == 0) {
@@ -1418,13 +1454,13 @@ static bongocat_error_t config_parse_double_key(config_t& config, const char *ke
   } else if (features::EnableEvolution && strcmp(key, EVOLUTION_SPEED_FACTOR_KEY) == 0) {
     config.evolution_speed_factor = double_value;
   } else {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
+    return config_parse_result_t(config_parsing_warning_t::WarningUnknownConfigKey);
   }
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
-static bongocat_error_t config_parse_enum_key(config_t& config, const char *key, const char *value) {
+static config_parse_result_t config_parse_enum_key(config_t& config, const char *key, const char *value) {
   if (strcmp(key, LAYER_KEY) == 0 || strcmp(key, OVERLAY_LAYER_KEY) == 0) {
     if (strcmp(value, LAYER_TOP_STR) == 0) {
       config.layer = layer_type_t::LAYER_TOP;
@@ -1437,6 +1473,7 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
     } else {
       BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'top'", LAYER_KEY, value);
       config.layer = layer_type_t::LAYER_TOP;
+      return config_parse_result_t(config_parsing_error_t::InvalidLayer);
     }
   } else if (strcmp(key, OVERLAY_POSITION_KEY) == 0) {
     if (strcmp(value, POSITION_TOP_STR) == 0) {
@@ -1446,6 +1483,7 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
     } else {
       BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'top'", OVERLAY_POSITION_KEY, value);
       config.overlay_position = overlay_position_t::POSITION_TOP;
+      return config_parse_result_t(config_parsing_error_t::InvalidOverlayPosition);
     }
   } else if (strcmp(key, CAT_ALIGN_KEY) == 0) {
     if (strcmp(value, ALIGN_CENTER_STR) == 0) {
@@ -1457,6 +1495,7 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
     } else {
       BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'center'", CAT_ALIGN_KEY, value);
       config.cat_align = align_type_t::ALIGN_CENTER;
+      return config_parse_result_t(config_parsing_error_t::InvalidCatAlign);
     }
   } else if (features::EnableEvolution && strcmp(key, EVOLUTION_KEY) == 0) {
     if (strcmp(value, EVOLUTION_TIME_MODE_NONE_STR) == 0) {
@@ -1471,22 +1510,23 @@ static bongocat_error_t config_parse_enum_key(config_t& config, const char *key,
     } else {
       BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'none'", EVOLUTION_KEY, value);
       config.evolution = evolution_time_mode_t::NONE;
+      return config_parse_result_t(config_parsing_error_t::InvalidEvolution);
     }
   } else {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
+    return config_parse_result_t(config_parsing_warning_t::WarningUnknownConfigKey);
   }
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
-bongocat_error_t config_parse_time(const char *value, int& hour, int& min) {
+config_parse_result_t config_parse_time(const char *value, int& hour, int& min) {
   char *endptr = BONGOCAT_NULLPTR;
   errno = 0;
 
   // Parse hour
   const long h = strtol(value, &endptr, 10);
   if (endptr == value || *endptr != ':' || errno == ERANGE || h < 0 || h > 23) {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    return config_parse_result_t(config_parsing_error_t::InvalidTimeString);
   }
 
   // Parse minute
@@ -1494,14 +1534,14 @@ bongocat_error_t config_parse_time(const char *value, int& hour, int& min) {
   errno = 0;
   const long m = strtol(value, &endptr, 10);
   if (endptr == value || *endptr != '\0' || errno == ERANGE || m < 0 || m > 59) {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    return config_parse_result_t(config_parsing_error_t::InvalidTimeString);
   }
 
   hour = static_cast<int>(h);
   min = static_cast<int>(m);
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
-static bongocat_error_t config_parse_string(config_t& config, const char *key, const char *value,
+static config_parse_result_t config_parse_string(config_t& config, const char *key, const char *value,
                                             const load_config_overwrite_parameters_t& overwrite_parameters) {
   using namespace assets;
   if (strcmp(key, MONITOR_KEY) == 0 || strcmp(key, OUTPUT_NAME_KEY) == 0) {
@@ -1510,7 +1550,7 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
       config.output_name = duplicate_string(value);
       if (!config.output_name) [[unlikely]] {
         BONGOCAT_LOG_ERROR("Failed to allocate memory for interface output");
-        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        return config_parse_result_t(flag_add(config_parsing_error_t::InvalidMonitorName,config_parsing_error_t::StringMemoryError));
       }
     } else {
       config.output_name = BONGOCAT_NULLPTR;
@@ -1521,7 +1561,7 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
       config.custom_sprite_sheet_filename = duplicate_string(value);
       if (!config.custom_sprite_sheet_filename) [[unlikely]] {
         BONGOCAT_LOG_ERROR("Failed to allocate memory for custom sprite sheet filename");
-        return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+        return config_parse_result_t(flag_add(config_parsing_error_t::InvalidCustomSpriteSheetFilename,config_parsing_error_t::StringMemoryError));
       }
     } else {
       config.custom_sprite_sheet_filename = BONGOCAT_NULLPTR;
@@ -1530,11 +1570,11 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
     if (value != BONGOCAT_NULLPTR && value[0] != '\0') {
       int hour{0};
       int min{0};
-      if (config_parse_time(value, hour, min) != bongocat_error_t::BONGOCAT_SUCCESS) {
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Invalid time format
+      if (auto result_parse_time = config_parse_time(value, hour, min);result_parse_time.errors != config_parsing_error_t::Success) {
+        return config_chain_parse_result(result_parse_time, config_add_parse_error(result_parse_time, config_parsing_error_t::InvalidSleepTime));
       }
       if (hour < 0 || hour > 23 || min < 0 || min > 59) {
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Invalid time format
+        return config_parse_result_t(config_parsing_error_t::InvalidSleepTime);
       }
 
       config.sleep_begin.hour = hour;
@@ -1547,11 +1587,11 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
     if (value != BONGOCAT_NULLPTR && value[0] != '\0') {
       int hour{0};
       int min{0};
-      if (config_parse_time(value, hour, min) != bongocat_error_t::BONGOCAT_SUCCESS) {
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Invalid time format
+      if (auto result_parse_time = config_parse_time(value, hour, min);result_parse_time.errors != config_parsing_error_t::Success) {
+        return config_chain_parse_result(result_parse_time, config_add_parse_error(result_parse_time, config_parsing_error_t::InvalidSleepTime));
       }
       if (hour < 0 || hour > 23 || min < 0 || min > 59) {
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Invalid time format
+        return config_parse_result_t(config_parsing_error_t::InvalidSleepTime);
       }
 
       config.sleep_end.hour = hour;
@@ -1566,6 +1606,7 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
       value = overwrite_parameters.animation_name;
     }
 
+    config_parse_result_t ret;
     // set config._animation_name
     release_allocated_string(config._animation_name);
     config._animation_name = value != BONGOCAT_NULLPTR ? duplicate_string(value) : make_null_string();
@@ -1901,6 +1942,7 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
         if (!config.custom_sprite_sheet_filename) {
           BONGOCAT_LOG_WARNING("custom_sprite_sheet_filename required for custom sprite sheet");
           animation_found = false;
+          ret = config_add_parse_error(ret, config_parsing_error_t::FilenameRequiredForCustomSpriteSheet);
         }
       }
     }
@@ -1916,7 +1958,8 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
       }
       if (config._strict) {
         BONGOCAT_LOG_ERROR("Invalid %s '%s'", ANIMATION_NAME_KEY, value, BONGOCAT_NAME);
-        return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+        ret = config_add_parse_error(ret, config_parsing_error_t::InvalidAnimationNameStrict);
+        return ret;
       }
       BONGOCAT_LOG_WARNING("Invalid %s '%s', using '%s'", ANIMATION_NAME_KEY, value, BONGOCAT_NAME);
       config.animation_index = BONGOCAT_ANIM_INDEX;
@@ -1930,39 +1973,44 @@ static bongocat_error_t config_parse_string(config_t& config, const char *key, c
       }
       */
       config._loaded_animation_fqname = duplicate_string(BONGOCAT_FQNAME);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningInvalidAnimationName);
+      return ret;
     }
   } else {
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;  // Unknown key
+    return config_parse_result_t(config_parsing_warning_t::WarningUnknownConfigKey);
   }
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
-static bongocat_error_t config_parse_key_value(config_t& config, const char *key, const char *value,
+static config_parse_result_t config_parse_key_value(config_t& config, const char *key, const char *value,
                                                const load_config_overwrite_parameters_t& overwrite_parameters) {
   /// @TODO: sanitize config input (key and value)
 
+  const auto parse_was_successful = [](const config_parse_result_t& res) {
+    return res.errors == config_parsing_error_t::Success && res.warnings == config_parsing_warning_t::Success;
+  };
+
   // Try integer keys first
-  if (config_parse_integer_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
-    return bongocat_error_t::BONGOCAT_SUCCESS;
+  if (auto result = config_parse_double_key(config, key, value); parse_was_successful(result)) {
+    return result;
+  } else
+  // Try double keys
+  if (auto result = config_parse_integer_key(config, key, value); parse_was_successful(result)) {
+    return result;
   }
   // Try booleans keys
-  if (config_parse_boolean_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
-    return bongocat_error_t::BONGOCAT_SUCCESS;
-  }
-  // Try double keys
-  if (config_parse_double_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
-    return bongocat_error_t::BONGOCAT_SUCCESS;
+  if (auto result = config_parse_boolean_key(config, key, value); parse_was_successful(result)) {
+    return result;
   }
 
   // Try enum keys
-  if (config_parse_enum_key(config, key, value) == bongocat_error_t::BONGOCAT_SUCCESS) {
-    return bongocat_error_t::BONGOCAT_SUCCESS;
+  if (auto result = config_parse_enum_key(config, key, value); parse_was_successful(result)) {
+    return result;
   }
-
   // Try string
-  if (config_parse_string(config, key, value, overwrite_parameters) == bongocat_error_t::BONGOCAT_SUCCESS) {
-    return bongocat_error_t::BONGOCAT_SUCCESS;
+  else if (auto result = config_parse_string(config, key, value, overwrite_parameters); parse_was_successful(result)) {
+    return result;
   }
 
   // Handle device keys
@@ -1974,29 +2022,27 @@ static bongocat_error_t config_parse_key_value(config_t& config, const char *key
     // Validate path starts with /dev/input/ and has no traversal
     if (strncmp(value, "/dev/input/", 11) != 0) {
       BONGOCAT_LOG_WARNING("keyboard_device path must start with /dev/input/: %s", value);
-      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+      return config_parse_result_t(config_parsing_error_t::InvalidInputDeviceName);
     }
     if (strstr(value, "..") != BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_WARNING("Path traversal detected in device path: %s", value);
-      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+      return config_parse_result_t(config_parsing_error_t::InvalidInputDeviceName);
     }
     return config_add_keyboard_device(config, value);
   }
 
-  // Unknown key
-  return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+  return config_parse_result_t(config_parsing_warning_t::WarningUnknownConfigKey);
 }
 
 static bool config_is_comment_or_empty(const char *line) {
   return (line[0] == '#' || line[0] == '\0' || strspn(line, " \t") == strlen(line));
 }
 
-static bongocat_error_t config_parse_file(FILE *file, config_t& config,
-                                          const load_config_overwrite_parameters_t& overwrite_parameters) {
+static config_parse_result_t config_parse_file(FILE *file, config_t& config, const load_config_overwrite_parameters_t& overwrite_parameters) {
   char line[LINE_BUF] = {0};
 
   [[maybe_unused]] int line_number = 0;
-  bongocat_error_t result = bongocat_error_t::BONGOCAT_SUCCESS;
+  config_parse_result_t ret {};
 
   while (fgets(line, LINE_BUF, file) != BONGOCAT_NULLPTR) {
     line_number++;
@@ -2006,6 +2052,7 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
     // validate newline
     if (line_len == LINE_BUF - 1 && line[line_len - 1] != '\n') {
       BONGOCAT_LOG_WARNING("Configuration line %d too long", line_number);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningConfigLineTooLong);
       // Flush remainder of the line
       int ch;
       while ((ch = fgetc(file)) != '\n' && ch != EOF) {}
@@ -2025,6 +2072,7 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
     char *eq = strchr(line, '=');
     if (eq == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_WARNING("Invalid configuration line %d: %s", line_number, line);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningInvalidConfigLine);
       continue;
     }
     *eq = '\0';
@@ -2034,6 +2082,7 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
     ptrdiff_t eq_offset = eq - line;
     if (eq_offset < 0 || static_cast<size_t>(eq_offset) >= sizeof(line)) {
       BONGOCAT_LOG_WARNING("Invalid configuration line %d: malformed separator", line_number);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningInvalidConfigLine);
       continue;
     }
 
@@ -2047,6 +2096,7 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
     const char *trimmed_value = config_trim_str(value);
     if (trimmed_key == BONGOCAT_NULLPTR || trimmed_value == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_WARNING("Invalid configuration line %d: trim failure", line_number);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningInvalidConfigLine);
       continue;
     }
 
@@ -2054,31 +2104,32 @@ static bongocat_error_t config_parse_file(FILE *file, config_t& config,
     const size_t value_len = strnlen(trimmed_value, VALUE_BUF);
     if (key_len == 0) {
       BONGOCAT_LOG_WARNING("Invalid configuration line %d: empty key", line_number);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningInvalidConfigLine);
       continue;
     }
     if (key_len >= KEY_BUF) {
       BONGOCAT_LOG_WARNING("Configuration key too long at line %d", line_number);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningInvalidConfigLine);
       continue;
     }
     if (value_len >= VALUE_BUF) {
       BONGOCAT_LOG_WARNING("Configuration value too long at line %d", line_number);
+      ret = config_add_parse_warning(ret, config_parsing_warning_t::WarningConfigLineTooLong);
       continue;
     }
 
-    const bongocat_error_t parse_result =
+    const auto parse_result =
         config_parse_key_value(config, trimmed_key, trimmed_value, overwrite_parameters);
-    if (parse_result == bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM) {
+    if (config_was_key_unknown(parse_result)) {
       BONGOCAT_LOG_WARNING("Unknown configuration key '%s' at line %d", trimmed_key, line_number);
-    } else if (parse_result != bongocat_error_t::BONGOCAT_SUCCESS) {
-      result = parse_result;
-      break;
     }
+    ret = config_chain_parse_result(ret,parse_result);
   }
 
-  return result;
+  return ret;
 }
 
-static bongocat_error_t config_parse_file(config_t& config, const char *config_file_path,
+static config_parse_result_t config_parse_file(config_t& config, const char *config_file_path,
                                           load_config_overwrite_parameters_t overwrite_parameters) {
   const char *file_path = config_file_path != BONGOCAT_NULLPTR ? config_file_path : DEFAULT_CONFIG_FILE_PATH;
 
@@ -2086,29 +2137,29 @@ static bongocat_error_t config_parse_file(config_t& config, const char *config_f
   if (file == BONGOCAT_NULLPTR) {
     if (overwrite_parameters.strict >= 0) {
       BONGOCAT_LOG_INFO("Config file '%s' not found", file_path);
-      return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
+      return config_parse_result_t(config_parsing_error_t::ConfigNotFound);
     }
     BONGOCAT_LOG_INFO("Config file '%s' not found, using defaults", file_path);
-    return bongocat_error_t::BONGOCAT_SUCCESS;
+    return {};
   }
 
-  const bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
+  const auto result = config_parse_file(file, config, overwrite_parameters);
   fclose(file);
   file = BONGOCAT_NULLPTR;
 
-  if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
+  if (result.errors == config_parsing_error_t::Success) {
     BONGOCAT_LOG_INFO("Loaded configuration from %s", file_path);
   }
 
   return result;
 }
 
-static bongocat_error_t config_parse_stdin(config_t& config,
+static config_parse_result_t config_parse_stdin(config_t& config,
                                            const load_config_overwrite_parameters_t& overwrite_parameters) {
   FILE *file = stdin;
 
-  const bongocat_error_t result = config_parse_file(file, config, overwrite_parameters);
-  if (result == bongocat_error_t::BONGOCAT_SUCCESS) {
+  const auto result = config_parse_file(file, config, overwrite_parameters);
+  if (result.errors == config_parsing_error_t::Success) {
     BONGOCAT_LOG_INFO("Loaded configuration from stdin");
   }
 
@@ -2183,15 +2234,15 @@ void set_defaults(config_t& config) {
   config = bongocat::move(cfg);
 }
 
-static bongocat_error_t config_set_default_devices(config_t& config) {
+static config_parse_result_t config_set_default_devices(config_t& config) {
   if (config.num_keyboard_devices == 0) {
     return config_add_keyboard_device(config, DEFAULT_DEVICE);
   }
 
-  return bongocat_error_t::BONGOCAT_SUCCESS;
+  return {};
 }
 
-static void config_log_summary(const config_t& config) {
+static void config_log_summary(const config_t& config, [[maybe_unused]] const config_parse_result_t& errors) {
   using namespace assets;
   BONGOCAT_LOG_DEBUG("Configuration loaded successfully");
   BONGOCAT_LOG_DEBUG("  Overlay Height: %dpx", config.overlay_height);
@@ -2262,23 +2313,28 @@ static void config_log_summary(const config_t& config) {
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-created_result_t<config_t> load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
-  BONGOCAT_CHECK_NULL(config_file_path, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
+loaded_config_result_t load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
+  BONGOCAT_CHECK_NULL(config_file_path, loaded_config_result_t(config_parsing_error_t::ConfigFilenameEmpty));
 
   config_t ret;
   set_defaults(ret);
+  config_parse_result_t errors{};
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-  // Parse config file and override defaults
-  bongocat_error_t result = bongocat_error_t::BONGOCAT_ERROR_CONFIG;
-  if (strcmp(config_file_path, "-") == 0) {
-    result = config_parse_stdin(ret, overwrite_parameters);
-  } else {
-    result = config_parse_file(ret, config_file_path, overwrite_parameters);
+
+  if (overwrite_parameters.strict >= 0) {
+    ret._strict = overwrite_parameters.strict >= 1;
   }
-  if (result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to parse configuration file: %s", bongocat::error_string(result));
-    return result;
+
+  // Parse config file and override defaults
+  {
+    const auto load_result = [&]() {
+      if (strcmp(config_file_path, "-") == 0) {
+        return config_parse_stdin(ret, overwrite_parameters);
+      }
+      return config_parse_file(ret, config_file_path, overwrite_parameters);
+    }();
+    errors = config_chain_parse_result(errors, load_result);
   }
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();
   BONGOCAT_LOG_INFO("Config loaded in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
@@ -2291,9 +2347,6 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
   if (overwrite_parameters.randomize_index >= 0) {
     ret.randomize_index = overwrite_parameters.randomize_index >= 1 ? 1 : 0;
   }
-  if (overwrite_parameters.strict >= 0) {
-    ret._strict = overwrite_parameters.strict >= 1;
-  }
 
   if (ret.input_fps <= 0) {
     ret.input_fps = ret.fps;
@@ -2301,38 +2354,37 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
 
   // Resolve keyboard_name entries to device paths.
   // Continue on scan failure so static keyboard_device entries still work.
-  result = config_resolve_devices(ret);
-  if (result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-    BONGOCAT_LOG_WARNING("Failed to resolve keyboard names, continuing: %s", bongocat::error_string(result));
-  }
-
-  // Set default keyboard device if none specified
-  if (ret.num_keyboard_devices == 0) {
-    if (!ret._strict) {
-      result = config_set_default_devices(ret);
-      if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
-        return result;
+  {
+    auto devices_result = config_resolve_devices(ret);
+    if (devices_result.errors != config_parsing_error_t::Success) [[unlikely]] {
+      BONGOCAT_LOG_WARNING("Failed to resolve keyboard names, continuing");
+    }
+    // Set default keyboard device if none specified
+    if (ret.num_keyboard_devices == 0) {
+      if (!ret._strict) {
+        const auto devices_result_def = config_set_default_devices(ret);
+        if (devices_result_def.errors != config_parsing_error_t::Success) [[unlikely]] {
+          BONGOCAT_LOG_ERROR("Failed to set default keyboard devices");
+        }
+        devices_result = config_chain_parse_result(devices_result, devices_result_def);
       }
     }
+    errors = config_chain_parse_result(errors, devices_result);
   }
 
   // Validate and sanitize configuration
-  result = config_validate(ret);
-  if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-    BONGOCAT_LOG_ERROR("Configuration validation failed: %s", bongocat::error_string(result));
-    return result;
-  }
+  errors = config_chain_parse_result(errors, config_validate(ret));
 
   if (ret.num_keyboard_devices == 0) {
     if (!ret._strict) {
       // Set default keyboard device if none specified
-      result = config_set_default_devices(ret);
-      if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
-        BONGOCAT_LOG_ERROR("Failed to set default keyboard devices: %s", bongocat::error_string(result));
-        return result;
+      const auto devices_result = config_set_default_devices(ret);
+      if (devices_result.errors != config_parsing_error_t::Success) [[unlikely]] {
+        BONGOCAT_LOG_ERROR("Failed to set default keyboard devices");
+        errors = config_chain_parse_result(errors, devices_result);
       } else {
         BONGOCAT_LOG_INFO("No device loaded, use default keyboard device: %s", DEFAULT_DEVICE);
+        errors = config_add_parse_warning(errors, config_parsing_warning_t::WarningNoInputDevices);
       }
     } else {
       BONGOCAT_LOG_INFO("No device loaded");
@@ -2340,9 +2392,14 @@ created_result_t<config_t> load(const char *config_file_path, load_config_overwr
   }
 
   // Log configuration summary
-  config_log_summary(ret);
+  config_log_summary(ret, errors);
 
-  return ret;
+  if (ret._strict && errors.errors != config_parsing_error_t::Success) [[unlikely]] {
+    errors = config_add_parse_error(errors, config_parsing_error_t::InvalidConfig);
+    return loaded_config_result_t(errors);
+  }
+
+  return loaded_config_result_t(bongocat::move(ret), bongocat::move(errors));
 }
 
 void reset(config_t& config) {

@@ -34,10 +34,10 @@ struct tracked_toplevel_t {
 // =============================================================================
 
 enum class screen_info_received_flags_t : uint32_t {
-  None = (1U << 0),
-  Mode = (1U << 1),
-  Geometry = (1U << 2),
-  Scale = (1U << 3),
+  None = 0,
+  Mode = (1u << 0),
+  Geometry = (1u << 1),
+  Scale = (1u << 2),
 };
 struct screen_info_t {
   struct wl_output *wl_output{BONGOCAT_NULLPTR};  // ref of output
@@ -59,10 +59,10 @@ struct screen_info_t {
 struct wayland_context_t;
 
 enum class output_ref_received_flags_t : uint32_t {
-  None = (1u << 0),
-  Name = (1u << 1),
-  LogicalPosition = (1u << 2),
-  LogicalSize = (1u << 3),
+  None = 0,
+  Name = (1u << 0),
+  LogicalPosition = (1u << 1),
+  LogicalSize = (1u << 2),
 };
 // Output monitor reference structure
 struct output_ref_t {

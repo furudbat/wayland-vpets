@@ -571,14 +571,9 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
-  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
-  // Load embedded images/animations
-  if constexpr (features::EnableLazyLoadAssets) {
-    hot_load_animation(ret->thread_context);
-  }
-
-  /// @TODO: async assets load
   // Initialize embedded images/animations
+  [[maybe_unused]] const auto t0 = platform::get_current_time_us();
+  /// @TODO: async assets load
   if constexpr (!features::EnableLazyLoadAssets || features::EnablePreloadAssets) {
     assert(ret->thread_context._local_copy_config);
     // preload assets
@@ -780,7 +775,10 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
                         ctx.shm->evolution.data.num_animation_indices);
     }
   }
-
+  // Load embedded images/animations
+  else if constexpr (features::EnableLazyLoadAssets) {
+    hot_load_animation(ret->thread_context);
+  }
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
   // init anim

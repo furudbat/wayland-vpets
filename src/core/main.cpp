@@ -483,10 +483,10 @@ static void config_reload_callback() {
   }
 
   // Create a temporary config to test loading
-  auto [new_config, error] =
+  auto [new_config, errors] =
       config::load(get_main_context().signal_watch_path.c_str(), get_main_context().overwrite_config_parameters);
-  if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to reload config: %s", bongocat::error_string(error));
+  if (errors.errors != config::config_parsing_error_t::Success) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to reload config", static_cast<uint64_t>(errors.errors));
     BONGOCAT_LOG_INFO("Keeping current configuration");
     return;
   }
@@ -1016,17 +1016,19 @@ int main(int argc, char *argv[]) {
     }
   }
 
-  BONGOCAT_LOG_VERBOSE("Try to load Configuration file: %s", config_file);
-  auto [config, config_error] = config::load(config_file, ctx.overwrite_config_parameters);
-  if (config_error != bongocat_error_t::BONGOCAT_SUCCESS) {
-    BONGOCAT_LOG_ERROR("Failed to load configuration: %s", bongocat::error_string(config_error));
-    return EXIT_FAILURE;
+  {
+    BONGOCAT_LOG_VERBOSE("Try to load Configuration file: %s", config_file);
+    auto config_result = config::load(config_file, ctx.overwrite_config_parameters);
+    if (!is_valid_config_result(config_result)) {
+      BONGOCAT_LOG_ERROR("Failed to load configuration");
+      return EXIT_FAILURE;
+    }
+    ctx.config = bongocat::move(config_result.config);
+    bongocat::error_init(ctx.config.enable_debug);
   }
-  ctx.config = bongocat::move(config);
-  bongocat::error_init(ctx.config.enable_debug >= 1);
 
   // validate args
-  if (config._strict) {
+  if (ctx.config._strict) {
     if (args.nr_set && args.nr < 0) {
       BONGOCAT_LOG_ERROR("--nr needs to be a positive number");
       return EXIT_FAILURE;

@@ -36,8 +36,8 @@ struct cat_rect_t {
 };
 
 enum class blit_image_sprite_option_flags_t : uint32_t {
-  None = (1u << 0),
-  IgnoreCatHeight = (1u << 1),  // use frame_height
+  None = 0,
+  IgnoreCatHeight = (1u << 0),  // use frame_height
 };
 
 template <class SpriteSheet>

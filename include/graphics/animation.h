@@ -15,14 +15,14 @@ namespace bongocat::animation {
 struct animation_state_t;
 enum class trigger_animation_cause_mask_t : uint64_t {
   NONE = 0,
-  Init = (1U << 0),
-  KeyPress = (1U << 1),
-  IdleUpdate = (1U << 2),
-  CpuUpdate = (1U << 3),
-  UpdateConfig = (1U << 4),
-  Timeout = (1U << 5),
-  EvolutionUpdate = (1U << 6),
-  StartEvolution = (1U << 7),
+  Init = (1u << 0),
+  KeyPress = (1u << 1),
+  IdleUpdate = (1u << 2),
+  CpuUpdate = (1u << 3),
+  UpdateConfig = (1u << 4),
+  Timeout = (1u << 5),
+  EvolutionUpdate = (1u << 6),
+  StartEvolution = (1u << 7),
 };
 
 // =============================================================================
