@@ -160,11 +160,11 @@ for group in release; do
     echo "| Variant | Binary Size | Peak RAM | Avg. RAM | Median RAM |" >> "$REPORT"
     echo "|---------|-------------|----------|----------|------------|" >> "$REPORT"
 
+    #./cmake-build-release-all-features \
+    #./cmake-build-release-preload-assets \
+    #./cmake-build-release-preload-assets-svg \
+    #./cmake-build-relwithdebinfo \
     find ./cmake-build-release \
-        ./cmake-build-release-all-features \
-        ./cmake-build-release-preload-assets \
-        ./cmake-build-release-preload-assets-svg \
-        ./cmake-build-relwithdebinfo \
         -type f -executable \
         \( -name "bongocat" \
         -o -name "bongocat-ms-agent" \
@@ -242,7 +242,7 @@ for group in release; do
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:ho_oh/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 2
+        sleep 4
         echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
         sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmx:Hexeblaumon/' "$CONFIG"
@@ -278,7 +278,7 @@ for group in release; do
         sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pmd:volcanion/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 5
+        sleep 3
 
 
         echo "[TEST] CPU threshold"
@@ -306,7 +306,7 @@ for group in release; do
         sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 2
+        sleep 5
 
         # --- verify running ---
         if kill -0 "$PID" 2>/dev/null; then
@@ -327,7 +327,7 @@ for group in release; do
         sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 10
+        sleep 15
 
         echo "[TEST] Change animation sprite"
         echo "[INFO] Set animation_name..."
@@ -337,7 +337,7 @@ for group in release; do
         sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 10
+        sleep 20
 
         #sed -i -E 's/^cat_height=[0-9]+/cat_height=72/' "$CONFIG"
         #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
@@ -350,7 +350,7 @@ for group in release; do
         sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 10
+        sleep 30
 
         #sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
         #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
@@ -373,10 +373,10 @@ for group in release; do
             exit 1
         fi
 
-        sleep 5
+        sleep 4
         pmap_output=$(pmap -x $PID || echo "")
         ram_kib=$(measure_ram "$PID" || echo 0)
-        sleep 5
+        sleep 3
 
         # --- send SIGTERM ---
         echo "[INFO] Sending SIGTERM..."
@@ -457,6 +457,7 @@ for group in release; do
         echo "| \`$variant\` | $size | $ram | $avg_ram | $median_ram |" >> "$REPORT"
 
         PMAP_TABLE="${PMAP_TABLE} **\`$variant\`**\n\`\`\`bash\n$pmap_output\n\`\`\`\n\n"
+        #echo -e "$PMAP_TABLE"
 
         if [ "$USE_HEAPTRACK" = true ]; then
             if ps -p $HEAPTRACK_PID > /dev/null; then
