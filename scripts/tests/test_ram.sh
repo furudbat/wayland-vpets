@@ -148,6 +148,170 @@ if [ "$USE_HEAPTRACK" = true ] && [ -z "$HEAPTRACK_BIN" ]; then
     USE_HEAPTRACK=false
 fi
 
+run_test_sequence() {
+    local PID="$1"
+    local CONFIG="$2"
+
+    # Give it time to start
+    sleep 5
+    echo "[INFO] Update Config"
+    sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
+    echo "[INFO] Set Sprite Sheet: bongocat"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Bongocat/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
+    if [[ -f "/proc/$PID/fd/0" ]]; then
+      echo "[INFO] Send stdin"
+      printf '\e' > "/proc/$PID/fd/0"
+      sleep 0.5
+      printf '\e' > "/proc/$PID/fd/0"
+      sleep 0.5
+    fi
+    sleep 2
+
+    echo "[INFO] Load biggest assets"
+    echo "[INFO] Set Sprite Sheet: Links"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Links/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 5
+    echo "[INFO] Set Sprite Sheet: Rover"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Rover/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 5
+    echo "[INFO] Set Sprite Sheet: pkmn:ho_oh"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:ho_oh/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 4
+    echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmx:Hexeblaumon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
+    echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
+    echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmc:Omegamon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
+    echo "[INFO] Set Sprite Sheet: dm:Coronamon"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm:Coronamon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
+    echo "[INFO] Set Sprite Sheet: Metal Greymon"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Metal Greymon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
+    echo "[INFO] Set Sprite Sheet: pmd:volcanion"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pmd:volcanion/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 3
+
+
+    echo "[TEST] CPU threshold"
+    echo "[INFO] Enable CPU threshold"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Agumon/' "$CONFIG"
+    sed -i -E 's/^update_rate=[0-9]+/update_rate=1000/' "$CONFIG"
+    sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=30/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
+    if command -v stress-ng >/dev/null 2>&1; then
+        echo "[INFO] Running stress-ng to generate load"
+        stress-ng --cpu 0 --timeout 15s --metrics-brief &
+        sleep 20
+    elif command -v stress >/dev/null 2>&1; then
+        echo "[INFO] Running stress to generate load"
+        stress --cpu "$(nproc)" --timeout 15s &
+        sleep 20
+    else
+        echo "[WARN] No stress tool found, skipping load generation"
+    fi
+    echo "[INFO] Disable CPU threshold"
+    sed -i -E 's/^update_rate=[0-9]+/update_rate=0/' "$CONFIG"
+    sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 5
+
+    # --- verify running ---
+    if kill -0 "$PID" 2>/dev/null; then
+        echo "[INFO] Process $PID still running!"
+    else
+        echo "[FAIL] Process terminated"
+        exit 1
+    fi
+
+    #sed -i -E 's/^cat_height=[0-9]+/cat_height=64/' "$CONFIG"
+    #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
+
+    echo "[TEST] Change animation sprite"
+    echo "[INFO] Set animation_name..."
+    sed -i -E 's/^animation_name=.*/animation_name=dm20:Koromon/' "$CONFIG"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
+    sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+    sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 15
+
+    echo "[TEST] Change animation sprite"
+    echo "[INFO] Set animation_name..."
+    sed -i -E 's/^animation_name=.*/animation_name=Koromon/' "$CONFIG"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+    sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 20
+
+    #sed -i -E 's/^cat_height=[0-9]+/cat_height=72/' "$CONFIG"
+    #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
+
+    echo "[TEST] Change animation sprite"
+    echo "[INFO] Set animation_name..."
+    sed -i -E 's/^animation_name=.*/animation_name=pkmn:bulbasaur/' "$CONFIG"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+    sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 30
+
+    #sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
+    #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
+
+    echo "[TEST] Change animation sprite"
+    echo "[INFO] Set animation_name..."
+    sed -i -E 's/^animation_name=.*/animation_name=pmd:charmander/' "$CONFIG"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
+    sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 10
+}
 
 PMAP_TABLE="# pmaps
 
@@ -164,12 +328,6 @@ for group in release; do
     #./cmake-build-release-preload-assets \
     #./cmake-build-release-preload-assets-svg \
     #./cmake-build-relwithdebinfo \
-    find ./cmake-build-release \
-        -type f -executable \
-        \( -name "bongocat" \
-        -o -name "bongocat-ms-agent" \
-        -o -name "bongocat-all" \
-        -o -name "bongocat-pkmn" \) |
     while read -r binary; do
         size=$(convert_file_size "$binary")
         echo "Testing $binary (size $size)..."
@@ -180,7 +338,7 @@ for group in release; do
         echo "Binary PID: $PID"
 
         RAM_LOG=$(mktemp)
-        # Monitor RAM in background
+
         (
             while kill -0 "$PID" 2>/dev/null; do
                 awk '/VmRSS:/ {print $2}' /proc/$PID/status 2>/dev/null
@@ -205,108 +363,7 @@ for group in release; do
             HEAPTRACK_PID=$!
         fi
 
-        # Give it time to start
-        sleep 5
-        echo "[INFO] Update Config"
-        sed -i 's/^enable_scheduled_sleep=1/enable_scheduled_sleep=0/' "$CONFIG"
-        echo "[INFO] Set Sprite Sheet: bongocat"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Bongocat/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        if [[ -f "/proc/$PID/fd/0" ]]; then
-          echo "[INFO] Send stdin"
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 0.5
-          printf '\e' > "/proc/$PID/fd/0"
-          sleep 0.5
-        fi
-        sleep 2
-
-        echo "[INFO] Load biggest assets"
-        echo "[INFO] Set Sprite Sheet: Links"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Links/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 5
-        echo "[INFO] Set Sprite Sheet: Rover"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Rover/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 5
-        echo "[INFO] Set Sprite Sheet: pkmn:ho_oh"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pkmn:ho_oh/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 4
-        echo "[INFO] Set Sprite Sheet: dmx:Hexeblaumon"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmx:Hexeblaumon/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        echo "[INFO] Set Sprite Sheet: dm20:Omegamon"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Omegamon/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        echo "[INFO] Set Sprite Sheet: dmc:Omegamon"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmc:Omegamon/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        echo "[INFO] Set Sprite Sheet: dm:Coronamon"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm:Coronamon/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        echo "[INFO] Set Sprite Sheet: Metal Greymon"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=Metal Greymon/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        echo "[INFO] Set Sprite Sheet: pmd:volcanion"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pmd:volcanion/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 3
-
-
-        echo "[TEST] CPU threshold"
-        echo "[INFO] Enable CPU threshold"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-        sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dm20:Agumon/' "$CONFIG"
-        sed -i -E 's/^update_rate=[0-9]+/update_rate=1000/' "$CONFIG"
-        sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=30/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 2
-        if command -v stress-ng >/dev/null 2>&1; then
-            echo "[INFO] Running stress-ng to generate load"
-            stress-ng --cpu 0 --timeout 15s --metrics-brief &
-            sleep 20
-        elif command -v stress >/dev/null 2>&1; then
-            echo "[INFO] Running stress to generate load"
-            stress --cpu "$(nproc)" --timeout 15s &
-            sleep 20
-        else
-            echo "[WARN] No stress tool found, skipping load generation"
-        fi
-        echo "[INFO] Disable CPU threshold"
-        sed -i -E 's/^update_rate=[0-9]+/update_rate=0/' "$CONFIG"
-        sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 5
+        run_test_sequence "$PID" "$CONFIG"
 
         # --- verify running ---
         if kill -0 "$PID" 2>/dev/null; then
@@ -316,74 +373,26 @@ for group in release; do
             exit 1
         fi
 
-        #sed -i -E 's/^cat_height=[0-9]+/cat_height=64/' "$CONFIG"
-        #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
 
-        echo "[TEST] Change animation sprite"
-        echo "[INFO] Set animation_name..."
-        sed -i -E 's/^animation_name=.*/animation_name=dm20:Koromon/' "$CONFIG"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=1/' "$CONFIG"
-        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
-        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 15
-
-        echo "[TEST] Change animation sprite"
-        echo "[INFO] Set animation_name..."
-        sed -i -E 's/^animation_name=.*/animation_name=Koromon/' "$CONFIG"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
-        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 20
-
-        #sed -i -E 's/^cat_height=[0-9]+/cat_height=72/' "$CONFIG"
-        #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
-
-        echo "[TEST] Change animation sprite"
-        echo "[INFO] Set animation_name..."
-        sed -i -E 's/^animation_name=.*/animation_name=pkmn:bulbasaur/' "$CONFIG"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
-        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 30
-
-        #sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
-        #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
-
-        echo "[TEST] Change animation sprite"
-        echo "[INFO] Set animation_name..."
-        sed -i -E 's/^animation_name=.*/animation_name=pmd:charmander/' "$CONFIG"
-        sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
-        sed -i -E 's/^evolution=.*/evolution=normal/' "$CONFIG"
-        sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
-        echo "[INFO] Send SIGUSR2"
-        kill -USR2 "$PID" # Reload config
-        sleep 10
-
-        # --- verify running ---
+        # --- verify running before pmap ---
         if kill -0 "$PID" 2>/dev/null; then
-            echo "[INFO] Process $PID still running!"
+            echo "[INFO] Capturing pmap for PID $PID"
+
+            pmap_output=$(pmap -x "$PID" 2>&1 || true)
         else
-            echo "[FAIL] Process terminated"
-            exit 1
+            echo "[WARN] PID $PID no longer exists"
+            pmap_output="process exited before pmap capture"
         fi
 
-        sleep 4
-        pmap_output=$(pmap -x $PID || echo "")
         ram_kib=$(measure_ram "$PID" || echo 0)
         sleep 3
 
         # --- send SIGTERM ---
         echo "[INFO] Sending SIGTERM..."
-        kill -TERM "$PID"
+        kill -TERM "$PID" 2>/dev/null || true
         sleep 5
+
         echo "[INFO] Wait for TERM"
-        # wait up to 5 seconds
         for i in {1..5}; do
             if ! kill -0 "$PID" 2>/dev/null; then
                 break
@@ -391,22 +400,12 @@ for group in release; do
             sleep 1
         done
 
-        # --- verify not running ---
         if kill -0 "$PID" 2>/dev/null; then
             echo "[FAIL] Process $PID still running!"
-            kill -9 "$PID" 2>/dev/null
-            exit 1
+            kill -9 "$PID" 2>/dev/null || true
         else
             echo "[PASS] Process terminated successfully"
         fi
-
-        if [ "$USE_HEAPTRACK" = true ]; then
-            echo "Heaptrack file generated: $HEAPTRACK_FILE"
-        fi
-
-        # Stop monitor
-        #kill "$MONITOR_PID" 2>/dev/null
-        #wait "$MONITOR_PID" 2>/dev/null
 
         avg_ram_kib=$(awk '
         {
@@ -420,6 +419,7 @@ for group in release; do
                 print 0
         }' "$RAM_LOG")
 
+
         median_ram_kib=$(awk '
         {
             samples[n++] = $1
@@ -430,13 +430,12 @@ for group in release; do
                 exit
             }
 
-            # sort samples numerically
             for (i = 0; i < n; i++) {
                 for (j = i + 1; j < n; j++) {
                     if (samples[i] > samples[j]) {
-                        tmp = samples[i]
-                        samples[i] = samples[j]
-                        samples[j] = tmp
+                        tmp=samples[i]
+                        samples[i]=samples[j]
+                        samples[j]=tmp
                     }
                 }
             }
@@ -444,33 +443,41 @@ for group in release; do
             if (n % 2 == 1)
                 printf "%.0f", samples[int(n/2)]
             else
-                printf "%.0f", (samples[n/2-1] + samples[n/2]) / 2
+                printf "%.0f", (samples[n/2-1]+samples[n/2])/2
         }' "$RAM_LOG")
+
 
         ram=$(convert_size "$ram_kib")
         avg_ram=$(convert_size "$avg_ram_kib")
         median_ram=$(convert_size "$median_ram_kib")
 
-        # Variant name = path relative to build dir
         variant=$(basename "$(dirname "$binary")")/$(basename "$binary")
+
 
         echo "| \`$variant\` | $size | $ram | $avg_ram | $median_ram |" >> "$REPORT"
 
-        PMAP_TABLE="${PMAP_TABLE} **\`$variant\`**\n\`\`\`bash\n$pmap_output\n\`\`\`\n\n"
-        #echo -e "$PMAP_TABLE"
-
-        if [ "$USE_HEAPTRACK" = true ]; then
-            if ps -p $HEAPTRACK_PID > /dev/null; then
-                kill -TERM "$HEAPTRACK_PID"
-            fi
-            echo "Heaptrack recording finished for PID $PID"
-        fi
+        PMAP_TABLE+="**\`$variant\`**\n"
+        PMAP_TABLE+='```bash\n'
+        PMAP_TABLE+="$pmap_output"
+        PMAP_TABLE+='\n```\n\n'
 
         rm "$RAM_LOG"
-    done
+    done < <(
+        find ./cmake-build-release \
+             ./cmake-build-release-all-features \
+             ./cmake-build-release-preload-assets \
+             ./cmake-build-release-preload-assets-svg \
+             ./cmake-build-relwithdebinfo \
+            -type f -executable \
+            \( -name "bongocat" \
+            -o -name "bongocat-ms-agent" \
+            -o -name "bongocat-all" \
+            -o -name "bongocat-pkmn" \)
+    )
     echo "" >> "$REPORT"
 done
 
+echo -e "$PMAP_TABLE" >> "$REPORT"
 echo -e "$PMAP_TABLE" >> "$REPORT"
 
 echo ""

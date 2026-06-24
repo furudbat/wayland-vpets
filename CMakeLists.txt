@@ -125,8 +125,6 @@ else()
   option(GENERATE_PROTOCOLS "Generate Wayland protocol files" OFF)
 endif()
 
-option(BUILD_TESTS "Build unit tests" OFF)
-
 if(FEATURE_PRELOAD_ASSETS)
   message(WARNING "Preload assets is more for Testing. Use lazy-load assets.")
 endif()
@@ -264,7 +262,9 @@ add_subdirectory(protocols)
 set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(src)
-if(BUILD_TESTS)
+
+include(CTest)
+if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
 

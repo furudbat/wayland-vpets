@@ -23,11 +23,11 @@ _Pokemon_
 ## Features
 
 - **🐈 Pets**
-  - Bongocat 😺 - SVG-based, pixel-perfect at any resolution
-  - Digimon V-Pets 🦖 - Variety of V-Pets
-  - Clippy 📎 - Your Classic Microsoft Companion
-  - Pokémon 🐭 - up to Gen 5 + Mystery Dungeon sprites
-  - Custom sprite sheets 🎨 - runtime custom sprite sheet, your own pets
+  - Bongocat 😺
+  - Digimon V-Pets 🦖
+  - Clippy 📎
+  - Pokémon 🐭
+  - Custom sprite sheets 🎨
 - 🎯 Real-time keyboard animation
 - 🔥 Hot-reload configuration
 - 🎮 Auto-hides in fullscreen apps
@@ -46,8 +46,11 @@ _Pokemon_
 ### Install
 
 ```bash
-# Arch Linux
+# Arch Linux - latest release
 yay -S wpets
+
+# Arch Linux - latest commits
+yay -S wpets-git
 ```
 
 For other distros, see [Building](#building).

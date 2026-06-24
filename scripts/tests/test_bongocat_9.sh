@@ -8,7 +8,7 @@ PROGRAM="./cmake-build-debug/bongocat-all"
 #PROGRAM="./build/bongocat-all"
 
 echo "[TEST] Starting program (with wrong config)..."
-"$PROGRAM" --ignore-running --config 123.not-found.bongocat.conf &
+"$PROGRAM" --ignore-running --config 123.not-found.bongocat.conf --strict &
 PID=$!
 echo "[TEST] Program PID = $PID"
 sleep 5

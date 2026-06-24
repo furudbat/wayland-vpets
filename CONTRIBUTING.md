@@ -201,7 +201,7 @@ wayland-vpets/
 Unit Test are located in [`tests/`](tests/) and made with [doctest](https://github.com/doctest/doctest).
 
 ```bash
-cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTING=ON
 cmake --build build --target bongocat_tests
 ./build/tests/bongocat_tests
 ```

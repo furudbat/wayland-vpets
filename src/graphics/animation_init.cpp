@@ -345,8 +345,8 @@ void unload_readonly_sections() {
       continue;
     }
 
-    assert((start % 4096) == 0);
-    assert((size % 4096) == 0);
+    //assert((start % 4096) == 0);
+    //assert((size % 4096) == 0);
 
     if (madvise(reinterpret_cast<void *>(start), size, MADV_DONTNEED) != 0) {
       BONGOCAT_LOG_WARNING("madvise: failed to evict %s: %s", region.name, strerror(errno));

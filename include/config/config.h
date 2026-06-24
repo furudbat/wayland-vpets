@@ -200,7 +200,7 @@ struct config_t {
   double cpu_running_factor{0};
 
   int32_t movement_radius{0};
-  int32_t enable_movement_debug{0};
+  bool enable_movement_debug{0};
   int32_t movement_speed{0};
   double movement_wait_factor{0};
 

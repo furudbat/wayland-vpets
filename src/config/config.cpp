@@ -987,7 +987,7 @@ static config_parse_result_t config_validate_enums(config_t& config) {
     // Validate evolution
     if (config.evolution != evolution_time_mode_t::NONE && config.evolution != evolution_time_mode_t::NORMAL &&
         config.evolution != evolution_time_mode_t::PROGRAM_START && config.evolution != evolution_time_mode_t::UPTIME) {
-      BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to none", EVOLUTION_KEY, config.evolution);
+      BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to 'none'", EVOLUTION_KEY, config.evolution);
       config.evolution = evolution_time_mode_t::NONE;
       ret = config_add_parse_error(ret, config_parsing_error_t::InvalidEvolution);
     }
@@ -1257,6 +1257,8 @@ static config_parse_result_t config_parse_boolean_key(config_t& config, const ch
       return &config.enable_hand_mapping;
     } else if (strcmp(key, DISABLE_FULLSCREEN_HIDE_KEY) == 0) {
       return &config.disable_fullscreen_hide;
+    } else if (strcmp(key, ENABLE_MOVEMENT_DEBUG_KEY) == 0) {
+      return &config.enable_movement_debug;
     }
 
     return BONGOCAT_NULLPTR;
@@ -1316,219 +1318,250 @@ static config_parse_result_t config_parse_integer_key(config_t& config, const ch
   //  value-1
   const auto parse_int_row = [&](int& out) -> config_parse_result_t {
     int raw = 0;
-    if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success)
+    if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success) {
       return r;
+    }
     out = raw - 1;  // 1-based in config, 0-based internally; -1 means unset
-    return {};
-  };
-  const auto parse_int_as_bool = [&](bool& out) -> config_parse_result_t {
-    int raw = 0;
-    if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success)
-      return r;
-    out = raw > 0;
     return {};
   };
   // double fallback
   const auto parse_int_as_double = [&](double& out) -> config_parse_result_t {
     int raw = 0;
-    if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success)
+    if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success) {
       return r;
+    }
     out = static_cast<double>(raw);
     return {};
   };
   // time based int
   const auto parse_int_sec_to_ms = [&](int& out) -> config_parse_result_t {
     int raw = 0;
-    if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success)
+    if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success) {
       return r;
+    }
     out = raw * 1000;
     return {};
   };
 
-  if (strcmp(key, CAT_X_OFFSET_KEY) == 0)
+  if (strcmp(key, CAT_X_OFFSET_KEY) == 0) {
     return parse_int(config.cat_x_offset);
-  if (strcmp(key, CAT_Y_OFFSET_KEY) == 0)
+  }
+  if (strcmp(key, CAT_Y_OFFSET_KEY) == 0) {
     return parse_int(config.cat_y_offset);
-  if (strcmp(key, CAT_HEIGHT_KEY) == 0)
+  }
+  if (strcmp(key, CAT_HEIGHT_KEY) == 0) {
     return parse_int(config.cat_height);
-  if (strcmp(key, OVERLAY_HEIGHT_KEY) == 0)
+  }
+  if (strcmp(key, OVERLAY_HEIGHT_KEY) == 0) {
     return parse_int(config.overlay_height);
-  if (strcmp(key, IDLE_FRAME_KEY) == 0)
+  }
+  if (strcmp(key, IDLE_FRAME_KEY) == 0) {
     return parse_int(config.idle_frame);
-  if (strcmp(key, KEYPRESS_DURATION_KEY) == 0)
+  }
+  if (strcmp(key, KEYPRESS_DURATION_KEY) == 0) {
     return parse_int(config.keypress_duration_ms);
-  if (strcmp(key, TEST_ANIMATION_DURATION_KEY) == 0)
+  }
+  if (strcmp(key, TEST_ANIMATION_DURATION_KEY) == 0) {
     return parse_int(config.test_animation_duration_ms);
-  if (strcmp(key, TEST_ANIMATION_INTERVAL_KEY) == 0)
+  }
+  if (strcmp(key, TEST_ANIMATION_INTERVAL_KEY) == 0) {
     return parse_int(config.test_animation_interval_sec);
-  if (strcmp(key, FPS_KEY) == 0)
+  }
+  if (strcmp(key, FPS_KEY) == 0) {
     return parse_int(config.fps);
-  if (strcmp(key, OVERLAY_OPACITY_KEY) == 0)
+  }
+  if (strcmp(key, OVERLAY_OPACITY_KEY) == 0) {
     return parse_int(config.overlay_opacity);
-  if (strcmp(key, ANIMATION_INDEX_KEY) == 0)
+  }
+  if (strcmp(key, ANIMATION_INDEX_KEY) == 0) {
     return parse_int(config.animation_index);
-  if (strcmp(key, PADDING_X_KEY) == 0)
+  }
+  if (strcmp(key, PADDING_X_KEY) == 0) {
     return parse_int(config.padding_x);
-  if (strcmp(key, PADDING_Y_KEY) == 0)
+  }
+  if (strcmp(key, PADDING_Y_KEY) == 0) {
     return parse_int(config.padding_y);
-  if (strcmp(key, IDLE_SLEEP_TIMEOUT_KEY) == 0)
+  }
+  if (strcmp(key, IDLE_SLEEP_TIMEOUT_KEY) == 0) {
     return parse_int(config.idle_sleep_timeout_sec);
-  if (strcmp(key, HAPPY_KPM_KEY) == 0)
+  }
+  if (strcmp(key, HAPPY_KPM_KEY) == 0) {
     return parse_int(config.happy_kpm);
-  if (strcmp(key, ANIMATION_SPEED_KEY) == 0)
+  }
+  if (strcmp(key, ANIMATION_SPEED_KEY) == 0) {
     return parse_int(config.animation_speed_ms);
-  if (strcmp(key, INPUT_FPS_KEY) == 0)
+  }
+  if (strcmp(key, INPUT_FPS_KEY) == 0) {
     return parse_int(config.input_fps);
-  if (strcmp(key, UPDATE_RATE_KEY) == 0)
+  }
+  if (strcmp(key, UPDATE_RATE_KEY) == 0) {
     return parse_int(config.update_rate_ms);
-  if (strcmp(key, MOVEMENT_RADIUS_KEY) == 0)
+  }
+  if (strcmp(key, MOVEMENT_RADIUS_KEY) == 0) {
     return parse_int(config.movement_radius);
-  if (strcmp(key, ENABLE_MOVEMENT_DEBUG_KEY) == 0)
-    return parse_int(config.enable_movement_debug);
-  if (strcmp(key, MOVEMENT_SPEED_KEY) == 0)
+  }
+  if (strcmp(key, MOVEMENT_SPEED_KEY) == 0) {
     return parse_int(config.movement_speed);
-  if (strcmp(key, SCREEN_WIDTH_KEY) == 0)
+  }
+  if (strcmp(key, SCREEN_WIDTH_KEY) == 0) {
     return parse_int(config.screen_width);
-  if (strcmp(key, HOTPLUG_SCAN_INTERVAL_KEY) == 0)
+  }
+  if (strcmp(key, HOTPLUG_SCAN_INTERVAL_KEY) == 0) {
     return parse_int_sec_to_ms(config.hotplug_scan_interval_ms);
-
-  // bool fields
-  if (strcmp(key, MIRROR_X_KEY) == 0)
-    return parse_int_as_bool(config.mirror_x);
-  if (strcmp(key, MIRROR_Y_KEY) == 0)
-    return parse_int_as_bool(config.mirror_y);
-  if (strcmp(key, ENABLE_ANTIALIASING_KEY) == 0)
-    return parse_int_as_bool(config.enable_antialiasing);
-  if (strcmp(key, ENABLE_DEBUG_KEY) == 0)
-    return parse_int_as_bool(config.enable_debug);
-  if (strcmp(key, INVERT_COLOR_KEY) == 0)
-    return parse_int_as_bool(config.invert_color);
-  if (strcmp(key, ENABLE_SCHEDULED_SLEEP_KEY) == 0)
-    return parse_int_as_bool(config.enable_scheduled_sleep);
-  if (strcmp(key, IDLE_ANIMATION_KEY) == 0)
-    return parse_int_as_bool(config.idle_animation);
-  if (strcmp(key, RANDOM_KEY) == 0)
-    return parse_int_as_bool(config.randomize_index);
-  if (strcmp(key, RANDOM_ON_RELOAD_KEY) == 0)
-    return parse_int_as_bool(config.randomize_on_reload);
-  if (strcmp(key, ENABLE_HAND_MAPPING_KEY) == 0)
-    return parse_int_as_bool(config.enable_hand_mapping);
-  if (strcmp(key, DISABLE_FULLSCREEN_HIDE_KEY) == 0)
-    return parse_int_as_bool(config.disable_fullscreen_hide);
+  }
 
   // double fields written as int
-  if (strcmp(key, CPU_THRESHOLD_KEY) == 0)
+  if (strcmp(key, CPU_THRESHOLD_KEY) == 0) {
     return parse_int_as_double(config.cpu_threshold);
-  if (strcmp(key, CPU_RUNNING_FACTOR_KEY) == 0)
+  }
+  if (strcmp(key, CPU_RUNNING_FACTOR_KEY) == 0) {
     return parse_int_as_double(config.cpu_running_factor);
-  if (strcmp(key, MOVEMENT_WAIT_FACTOR_KEY) == 0)
+  }
+  if (strcmp(key, MOVEMENT_WAIT_FACTOR_KEY) == 0) {
     return parse_int_as_double(config.movement_wait_factor);
+  }
 
   // feature-gated
   if (features::EnableEvolution) {
-    if (strcmp(key, EVOLUTION_SPEED_FACTOR_KEY) == 0)
+    if (strcmp(key, EVOLUTION_SPEED_FACTOR_KEY) == 0) {
       return parse_int_as_double(config.evolution_speed_factor);
-    if (strcmp(key, EVOLUTION_KEY) == 0) {
-      int raw = 0;
-      if (auto r = parse_int(raw); r.errors != config_parsing_error_t::Success)
-        return r;
-      if (raw > 0)
-        config.evolution = evolution_time_mode_t::NORMAL;
-      return {};
     }
   }
 
   if (features::EnableCustomSpriteSheetsAssets) {
-    if (strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0)
+    if (strcmp(key, CUSTOM_IDLE_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.idle_frames);
-    if (strcmp(key, CUSTOM_BORING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_BORING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.boring_frames);
-    if (strcmp(key, CUSTOM_START_WRITING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_WRITING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.start_writing_frames);
-    if (strcmp(key, CUSTOM_WRITING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_WRITING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.writing_frames);
-    if (strcmp(key, CUSTOM_END_WRITING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_WRITING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.end_writing_frames);
-    if (strcmp(key, CUSTOM_HAPPY_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_HAPPY_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.happy_frames);
-    if (strcmp(key, CUSTOM_ASLEEP_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_ASLEEP_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.asleep_frames);
-    if (strcmp(key, CUSTOM_SLEEP_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_SLEEP_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.sleep_frames);
-    if (strcmp(key, CUSTOM_WAKE_UP_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_WAKE_UP_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.wake_up_frames);
-    if (strcmp(key, CUSTOM_START_WORKING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_WORKING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.start_working_frames);
-    if (strcmp(key, CUSTOM_WORKING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_WORKING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.working_frames);
-    if (strcmp(key, CUSTOM_END_WORKING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_WORKING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.end_working_frames);
-    if (strcmp(key, CUSTOM_START_MOVING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_MOVING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.start_moving_frames);
-    if (strcmp(key, CUSTOM_MOVING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_MOVING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.moving_frames);
-    if (strcmp(key, CUSTOM_END_MOVING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_MOVING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.end_moving_frames);
-    if (strcmp(key, CUSTOM_START_RUNNING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_RUNNING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.start_running_frames);
-    if (strcmp(key, CUSTOM_RUNNING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_RUNNING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.running_frames);
-    if (strcmp(key, CUSTOM_END_RUNNING_FRAMES_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_RUNNING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.end_running_frames);
+    }
 
-    if (strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_KEY) == 0)
+    if (strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.feature_toggle_writing_frames);
-    if (strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_RANDOM_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_TOGGLE_WRITING_FRAMES_RANDOM_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.feature_toggle_writing_frames_random);
-    if (strcmp(key, CUSTOM_MIRROR_X_MOVING_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_MIRROR_X_MOVING_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.feature_mirror_x_moving);
+    }
 
-    if (strcmp(key, CUSTOM_IDLE_ROW_KEY) == 0)
+    if (strcmp(key, CUSTOM_IDLE_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.idle_row_index);
-    if (strcmp(key, CUSTOM_BORING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_BORING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.boring_row_index);
-    if (strcmp(key, CUSTOM_START_WRITING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_WRITING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.start_writing_row_index);
-    if (strcmp(key, CUSTOM_WRITING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_WRITING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.writing_row_index);
-    if (strcmp(key, CUSTOM_END_WRITING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_WRITING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.end_writing_row_index);
-    if (strcmp(key, CUSTOM_HAPPY_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_HAPPY_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.happy_row_index);
-    if (strcmp(key, CUSTOM_ASLEEP_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_ASLEEP_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.asleep_row_index);
-    if (strcmp(key, CUSTOM_SLEEP_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_SLEEP_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.sleep_row_index);
-    if (strcmp(key, CUSTOM_WAKE_UP_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_WAKE_UP_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.wake_up_row_index);
-    if (strcmp(key, CUSTOM_START_WORKING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_WORKING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.start_working_row_index);
-    if (strcmp(key, CUSTOM_WORKING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_WORKING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.working_row_index);
-    if (strcmp(key, CUSTOM_END_WORKING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_WORKING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.end_working_row_index);
-    if (strcmp(key, CUSTOM_START_MOVING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_MOVING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.start_moving_row_index);
-    if (strcmp(key, CUSTOM_MOVING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_MOVING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.moving_row_index);
-    if (strcmp(key, CUSTOM_END_MOVING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_MOVING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.end_moving_row_index);
-    if (strcmp(key, CUSTOM_START_RUNNING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_START_RUNNING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.start_running_row_index);
-    if (strcmp(key, CUSTOM_RUNNING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_RUNNING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.running_row_index);
-    if (strcmp(key, CUSTOM_END_RUNNING_ROW_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_END_RUNNING_ROW_KEY) == 0) {
       return parse_int_row(config.custom_sprite_sheet_settings.end_running_row_index);
-    if (strcmp(key, CUSTOM_ROWS_KEY) == 0)
+    }
+    if (strcmp(key, CUSTOM_ROWS_KEY) == 0) {
       return parse_int(config.custom_sprite_sheet_settings.rows);
+    }
 
     if (features::EnableEvolution) {
-      if (strcmp(key, CUSTOM_START_EVOLVING_ROW_KEY) == 0)
+      if (strcmp(key, CUSTOM_START_EVOLVING_ROW_KEY) == 0) {
         return parse_int_row(config.custom_sprite_sheet_settings.start_evolving_row_index);
-      if (strcmp(key, CUSTOM_EVOLVING_ROW_KEY) == 0)
+      }
+      if (strcmp(key, CUSTOM_EVOLVING_ROW_KEY) == 0) {
         return parse_int_row(config.custom_sprite_sheet_settings.evolving_row_index);
-      if (strcmp(key, CUSTOM_AFTER_EVOLVING_ROW_KEY) == 0)
+      }
+      if (strcmp(key, CUSTOM_AFTER_EVOLVING_ROW_KEY) == 0) {
         return parse_int_row(config.custom_sprite_sheet_settings.after_evolving_row_index);
+      }
     }
   }
 
@@ -1613,6 +1646,10 @@ static config_parse_result_t config_parse_enum_key(config_t& config, const char 
       config.evolution = evolution_time_mode_t::PROGRAM_START;
     } else if (strcmp(value, EVOLUTION_TIME_MODE_UPTIME_STR) == 0) {
       config.evolution = evolution_time_mode_t::UPTIME;
+    } else if (strcmp(value, "1") == 0) {
+      config.evolution = evolution_time_mode_t::NORMAL;
+    } else if (strcmp(value, "0") == 0) {
+      config.evolution = evolution_time_mode_t::NONE;
     } else {
       BONGOCAT_LOG_WARNING("Invalid %s '%s', using 'none'", EVOLUTION_KEY, value);
       config.evolution = evolution_time_mode_t::NONE;
@@ -2147,6 +2184,14 @@ static config_parse_result_t config_parse_key_value(config_t& config, const char
     res.infos = flag_remove(res.infos, config_parsing_info_t::UnknownConfigKey);
     return res;
   };
+
+  if (auto r = config_parse_enum_key(config, key, value); key_was_handled(r)) {
+    return return_handled_result(r);
+  }
+  if (auto r = config_parse_string(config, key, value, overwrite_parameters); key_was_handled(r)) {
+    return return_handled_result(r);
+  }
+
   if (auto r = config_parse_boolean_key(config, key, value); key_was_handled(r)) {
     return return_handled_result(r);
   }
@@ -2154,12 +2199,6 @@ static config_parse_result_t config_parse_key_value(config_t& config, const char
     return return_handled_result(r);
   }
   if (auto r = config_parse_integer_key(config, key, value); key_was_handled(r)) {
-    return return_handled_result(r);
-  }
-  if (auto r = config_parse_enum_key(config, key, value); key_was_handled(r)) {
-    return return_handled_result(r);
-  }
-  if (auto r = config_parse_string(config, key, value, overwrite_parameters); key_was_handled(r)) {
     return return_handled_result(r);
   }
 

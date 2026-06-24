@@ -8,7 +8,7 @@
 
 namespace bongocat {
 
-bongocat::config::config_t config_load_ok(const char *content) {
+static bongocat::config::config_t config_load_ok(const char *content) {
   auto res = config::load_from_string(content);
   CHECK(bongocat::config::is_valid_config_result(res));
   return bongocat::move(res.config);

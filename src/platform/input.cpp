@@ -546,7 +546,7 @@ static void *input_thread(void *arg) {
       }
     }
     if (device_nfds == 0 && !include_stdin) {
-      BONGOCAT_LOG_ERROR("input: All input devices became unavailable");
+      BONGOCAT_LOG_WARNING("input: No Input devices ");
       break;
     } else if (device_nfds > MAX_DEVICE_FDS) {
       device_nfds = MAX_DEVICE_FDS;

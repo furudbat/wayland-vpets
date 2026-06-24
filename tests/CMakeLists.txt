@@ -1,3 +1,5 @@
+enable_testing()
+
 add_library(test_bongocat_all_loaders INTERFACE)
 target_link_libraries(
   test_bongocat_all_loaders
@@ -107,7 +109,15 @@ target_link_libraries(test_bongocat_base INTERFACE bongocat_options bongocat_lib
 target_compile_options(test_bongocat_base INTERFACE -ffunction-sections -fdata-sections)
 target_compile_definitions(test_bongocat_base INTERFACE TEST_BUILD)
 
-add_executable(bongocat_tests test_main.cpp test_utils.cpp test_memory.cpp test_config.cpp)
+add_executable(
+  bongocat_tests
+  test_main.cpp
+  test_utils.cpp
+  test_memory.cpp
+  test_config.cpp
+  test_config_2.cpp
+  test_config_3.cpp
+)
 target_include_directories(bongocat_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests ${CMAKE_SOURCE_DIR}/lib)
 target_link_libraries(
   bongocat_tests
@@ -121,5 +131,4 @@ target_link_libraries(
 )
 target_link_options(bongocat_tests PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
 
-enable_testing()
 add_test(NAME bongocat_tests COMMAND bongocat_tests)
