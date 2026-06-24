@@ -87,6 +87,20 @@ TEST_CASE("config not found - default fallback") {
   using namespace bongocat;
   auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", {});
   CHECK(bongocat::config::is_valid_config_result(res));
+
+  CHECK(res.config.fps == 60);
+  CHECK(res.config.cat_height == 40);
+  CHECK(res.config.overlay_height == 50);
+  // CHECK(res.config.overlay_opacity == 150);
+  //  NEW: default opacity
+  CHECK(res.config.overlay_opacity == 0);
+  CHECK(res.config.overlay_position == config::overlay_position_t::POSITION_TOP);
+  CHECK(res.config.layer == config::layer_type_t::LAYER_TOP);
+  CHECK(res.config.enable_antialiasing == 1);
+  CHECK(res.config.enable_hand_mapping == 1);
+  CHECK(res.config.cat_x_offset == 100);
+  CHECK(res.config.cat_y_offset == 10);
+  CHECK(res.config.keypress_duration_ms == 100);
 }
 
 TEST_CASE("integer clamping") {
