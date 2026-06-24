@@ -12,7 +12,7 @@ All notable changes to this project will be documented in this file.
   - Add support for `dm`s and `pkmn`s
   - Update Config & Doc
 - Unit Tests
-  - add test from [upstream](https://github.com/saatvik333/wayland-bongocat/tree/main/tests) for parietie
+  - add test from [upstream](https://github.com/saatvik333/wayland-bongocat/tree/main/tests) for parity
 
 ### Improve
 
