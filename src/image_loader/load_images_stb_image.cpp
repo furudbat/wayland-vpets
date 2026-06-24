@@ -45,6 +45,6 @@ namespace bongocat::animation {
     }
 
     void init_image_loader() {
-
+      BONGOCAT_LOG_VERBOSE("stb_image image loader initialized");
     }
 }

@@ -516,7 +516,6 @@ TEST_CASE("overwrite parameters") {
   }
 }
 
-
 TEST_CASE("scheduled sleep") {
   using namespace bongocat;
 

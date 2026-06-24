@@ -48,7 +48,9 @@
 #endif
 
 namespace bongocat::animation {
-inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 192zu * 1024zu;  // 192kb
+//inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 192zu * 1024zu;  // 192kb
+//inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 1812zu;  // after profiling and testing
+inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 1859zu;  // after profiling and testing
 
 struct decode_state_t {
   Image *image{BONGOCAT_NULLPTR};
@@ -142,10 +144,18 @@ BONGOCAT_NODISCARD static created_result_t<Image> load_image_stb_image(const uns
 }
 
 created_result_t<Image> load_image(const unsigned char *data, size_t size, int desired_channels) {
-  if (size >= HybridImageBackendPngleThresholdBytes) {
+  // Estimate decompressed size (typical PNG ratio: 10-30%)
+  [[maybe_unused]] const size_t est_decompressed = size * 3;
+
+  const bool use_streaming = size >= HybridImageBackendPngleThresholdBytes;
+  if (use_streaming) {
+    BONGOCAT_LOG_VERBOSE("Using pngle streaming for %.1f KB image (estimated %.1f MB decompressed)",
+                        static_cast<double>(size) / 1024.0, static_cast<double>(est_decompressed) / 1024.0 / 1024.0);
     return load_image_pngle(data, size, desired_channels);
   }
 
+  BONGOCAT_LOG_VERBOSE("Using stb_image for %.1f KB image (estimated %.1f MB decompressed)",
+                      static_cast<double>(size) / 1024.0, static_cast<double>(est_decompressed) / 1024.0 / 1024.0);
   return load_image_stb_image(data, size, desired_channels);
 }
 
@@ -156,5 +166,9 @@ void cleanup_image(Image& image) {
   }
 }
 
-void init_image_loader() {}
+void init_image_loader() {
+  BONGOCAT_LOG_VERBOSE("Hybrid image loader initialized");
+  BONGOCAT_LOG_VERBOSE("  stb_image: images < %.0f KB", HybridImageBackendPngleThresholdBytes / 1024.0);
+  BONGOCAT_LOG_VERBOSE("  pngle: images >= %.0f KB", HybridImageBackendPngleThresholdBytes / 1024.0);
+}
 }  // namespace bongocat::animation
