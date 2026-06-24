@@ -40,6 +40,8 @@ Feature requests are welcome! To submit a request:
 - wayland-client, wayland-protocols
 - Make and CMake
 
+> **Note:** `wayland-scanner` and `wayland-protocols` are only needed if you modify protocol XML files. The generated protocol bindings are committed to git.
+
 ### Building
 
 ```bash
@@ -194,14 +196,24 @@ wayland-vpets/
 # Build with Sanitizers (UBSAN,ASAN) enabled for checking for memory leaks
 ```
 
+#### Unit Test
+
+Unit Test are located in [`tests/`](tests/) and made with [doctest](https://github.com/doctest/doctest).
+
+```bash
+cmake -S . -B build -DCMAKE_BUILD_TYPE=Debug -DBUILD_TESTS=ON
+cmake --build build --target bongocat_tests
+./build/tests/bongocat_tests
+```
+
 ### Test Scripts
 
 ```bash
-./scripts/test_bongocat.sh
+./scripts/tests/test_bongocat.sh
 ```
 
 There are also some test scripts, they are just for running, reloading and changing config for integration tests, meaning it's just for triggering the `asserts`.
-Also test on your own and trust your eyes when testing four your rice :)
+Also test on your own and trust your eyes when testing for your rice :)
 
 ## Reporting Issues
 

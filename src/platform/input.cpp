@@ -1039,7 +1039,7 @@ static void *input_thread(void *arg) {
 
   atomic_store(&input._capture_input_running, false);
   if (track_valid_devices == 0) {
-    BONGOCAT_LOG_ERROR("input: All input devices are unavailable");
+    BONGOCAT_LOG_VERBOSE("input: All input devices are unavailable");
   }
 
   // Will run only on normal return

@@ -66,7 +66,20 @@ target_compile_definitions(
     $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_MEMORY_STATISTICS>
     $<$<CONFIG:MinSizeRel>:BONGOCAT_DISABLE_LOGGER>
 )
-target_link_options(bongocat_options INTERFACE $<$<CONFIG:MinSizeRel>:-Wl,--gc-sections -s>)
+target_link_options(
+  bongocat_options
+  INTERFACE
+    $<$<CONFIG:Release>:
+    -Wl,-z,relro,-z,now
+    -Wl,-z,noexecstack
+    >
+    $<$<CONFIG:MinSizeRel>:
+    -Wl,-z,relro,-z,now
+    -Wl,-z,noexecstack
+    -Wl,--gc-sections
+    -s
+    >
+)
 
 add_library(bongocat_libs INTERFACE)
 # wayland-client dependency
@@ -84,7 +97,6 @@ target_link_libraries(bongocat_libs INTERFACE ${UDEV_LIBRARIES})
 # Thread dependency
 find_package(Threads REQUIRED)
 target_link_libraries(bongocat_libs INTERFACE m rt Threads::Threads)
-target_link_options(bongocat_libs INTERFACE -Wl,--gc-sections)
 
 # base for assembling exec(s)
 set(

@@ -154,16 +154,23 @@ PMAP_TABLE="# pmaps
 "
 
 # Group by build type
-for group in release minsizerel relwithdebinfo; do
+for group in release; do
     echo "## $(tr '[:lower:]' '[:upper:]' <<< ${group:0:1})${group:1}" >> "$REPORT"
     echo "" >> "$REPORT"
     echo "| Variant | Binary Size | Peak RAM | Avg. RAM | Median RAM |" >> "$REPORT"
     echo "|---------|-------------|----------|----------|------------|" >> "$REPORT"
 
-    find ./cmake-build-* -type f -executable -name "bongocat*" |
-      grep -i "$group" |
-      grep -vi "bongocat_tests" |
-      while read -r binary; do
+    find ./cmake-build-release \
+        ./cmake-build-release-all-features \
+        ./cmake-build-release-preload-assets \
+        ./cmake-build-release-preload-assets-svg \
+        ./cmake-build-relwithdebinfo \
+        -type f -executable \
+        \( -name "bongocat" \
+        -o -name "bongocat-ms-agent" \
+        -o -name "bongocat-all" \
+        -o -name "bongocat-pkmn" \) |
+    while read -r binary; do
         size=$(convert_file_size "$binary")
         echo "Testing $binary (size $size)..."
 
@@ -211,9 +218,9 @@ for group in release minsizerel relwithdebinfo; do
         if [[ -f "/proc/$PID/fd/0" ]]; then
           echo "[INFO] Send stdin"
           printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
+          sleep 0.5
           printf '\e' > "/proc/$PID/fd/0"
-          sleep 1
+          sleep 0.5
         fi
         sleep 2
 
@@ -299,7 +306,7 @@ for group in release minsizerel relwithdebinfo; do
         sed -i -E 's/^cpu_threshold=[0-9]+/cpu_threshold=90/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 5
+        sleep 2
 
         # --- verify running ---
         if kill -0 "$PID" 2>/dev/null; then
@@ -320,7 +327,7 @@ for group in release minsizerel relwithdebinfo; do
         sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 40
+        sleep 10
 
         echo "[TEST] Change animation sprite"
         echo "[INFO] Set animation_name..."
@@ -330,7 +337,7 @@ for group in release minsizerel relwithdebinfo; do
         sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 40
+        sleep 10
 
         #sed -i -E 's/^cat_height=[0-9]+/cat_height=72/' "$CONFIG"
         #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
@@ -343,7 +350,7 @@ for group in release minsizerel relwithdebinfo; do
         sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 30
+        sleep 10
 
         #sed -i -E 's/^cat_height=[0-9]+/cat_height=96/' "$CONFIG"
         #sed -i -E 's/^overlay_height=[0-9]+/overlay_height=128/' "$CONFIG"
@@ -356,7 +363,7 @@ for group in release minsizerel relwithdebinfo; do
         sed -i -E 's/^evolution_speed_factor=.*/evolution_speed_factor=3600.0/' "$CONFIG"
         echo "[INFO] Send SIGUSR2"
         kill -USR2 "$PID" # Reload config
-        sleep 30
+        sleep 10
 
         # --- verify running ---
         if kill -0 "$PID" 2>/dev/null; then
@@ -366,7 +373,7 @@ for group in release minsizerel relwithdebinfo; do
             exit 1
         fi
 
-        sleep 10
+        sleep 5
         pmap_output=$(pmap -x $PID || echo "")
         ram_kib=$(measure_ram "$PID" || echo 0)
         sleep 5
@@ -374,8 +381,7 @@ for group in release minsizerel relwithdebinfo; do
         # --- send SIGTERM ---
         echo "[INFO] Sending SIGTERM..."
         kill -TERM "$PID"
-        sleep 7
-
+        sleep 5
         echo "[INFO] Wait for TERM"
         # wait up to 5 seconds
         for i in {1..5}; do
