@@ -104,5 +104,7 @@ void cleanup_image(Image& image) {
   }
 }
 
-void init_image_loader() {}
+void init_image_loader() {
+    BONGOCAT_LOG_VERBOSE("pngle image loader initialized");
+}
 }  // namespace bongocat::animation
