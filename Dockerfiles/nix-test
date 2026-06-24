@@ -12,7 +12,7 @@ WORKDIR /app
 COPY . .
 
 # Make script executable
-RUN chmod +x scripts/test_nix_build.sh
+RUN chmod +x scripts/tests/test_nix_build.sh
 
 # Run the test
-CMD ["./scripts/test_nix_build.sh"]
+CMD ["./scripts/tests/test_nix_build.sh"]
