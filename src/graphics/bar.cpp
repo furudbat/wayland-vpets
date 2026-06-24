@@ -141,7 +141,7 @@ static void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::way
 
   if (region != BONGOCAT_NULLPTR) {
     // draw debug rectangle
-    if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
+    if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
       cat_rect_t movement_debug_bar{};
       switch (current_config.cat_align) {
       case config::align_type_t::ALIGN_CENTER:
@@ -301,7 +301,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
   if (region != BONGOCAT_NULLPTR) {
     // draw debug rectangle
-    if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
+    if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
       cat_rect_t movement_debug_bar{};
       switch (current_config.cat_align) {
       case config::align_type_t::ALIGN_CENTER:
@@ -416,7 +416,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
 
   if (region != BONGOCAT_NULLPTR) {
     // draw debug rectangle
-    if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
+    if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
       cat_rect_t movement_debug_bar{};
       switch (current_config.cat_align) {
       case config::align_type_t::ALIGN_CENTER:
@@ -567,7 +567,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   const auto movement_radius_phys = platform::wayland::details::phys_dim(wayland_ctx, current_config.movement_radius);
 
   // draw debug rectangle
-  if (current_config.enable_movement_debug >= 1 && current_config.movement_radius > 0) {
+  if (current_config.enable_movement_debug && current_config.movement_radius > 0) {
     cat_rect_t movement_debug_bar{};
     switch (current_config.cat_align) {
     case config::align_type_t::ALIGN_CENTER:

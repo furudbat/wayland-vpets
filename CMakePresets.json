@@ -17,7 +17,7 @@
         "ENABLE_ASAN": "ON",
         "ENABLE_UBSAN": "ON",
         "SKIP_CPM": "OFF",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -30,7 +30,7 @@
         "CMAKE_BUILD_TYPE": "Release",
         "GENERATE_PROTOCOLS": "OFF",
         "SKIP_CPM": "ON",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -42,7 +42,7 @@
       "cacheVariables": {
         "CMAKE_BUILD_TYPE": "RelWithDebInfo",
         "SKIP_CPM": "OFF",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -56,7 +56,7 @@
         "ENABLE_TSAN": "ON",
         "ENABLE_UBSAN": "ON",
         "SKIP_CPM": "OFF",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -265,7 +265,7 @@
         "FEATURE_MISC_EMBEDDED_ASSETS": "ON",
         "FEATURE_PRELOAD_ASSETS": "ON",
         "FEATURE_LAZY_LOAD_ASSETS": "OFF",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -386,7 +386,7 @@
         "FEATURE_USE_BONGOCAT_SVG": "ON",
         "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
         "FEATURE_EVOLUTION": "ON",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -418,7 +418,7 @@
         "FEATURE_USE_BONGOCAT_SVG": "ON",
         "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
         "FEATURE_EVOLUTION": "ON",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     },
     {
@@ -451,7 +451,7 @@
         "FEATURE_USE_BONGOCAT_SVG": "ON",
         "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
         "FEATURE_EVOLUTION": "ON",
-        "BUILD_TESTS": "ON"
+        "BUILD_TESTING": "ON"
       }
     }
   ],

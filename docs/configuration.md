@@ -47,7 +47,7 @@
 See man pages for more details and full list:
 
 - [Bongocat 😺](fragments/set-bongocat.md)
-- [MS Agent 📎](fragments/set-ms-agent.md)
+- [MS Agent 📎](fragments/set-ms-agent.md) 
 - [Pokémon 🐭](fragments/set-pkmn.md)
 - [Misc 🐈‍](fragments/set-misc.md)
 
@@ -55,7 +55,7 @@ See man pages for more details and full list:
 
 SVG-based rendering (pixel-perfect at any size). No need for `enable_antialiasing`.
 
-##### Digimon 🦖
+##### Digimon 🦖 - Variety of V-Pets
 
 - [Original](fragments/set-dm.md)
 - [Pendulum Original](fragments/set-pen.md)
@@ -66,20 +66,19 @@ SVG-based rendering (pixel-perfect at any size). No need for `enable_antialiasin
 
 > When building with ALL assets, use full names to avoid conflicts: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`
 
-##### Pokémon 🐭
+##### Pokémon 🐭 - up to Gen 5 + Mystery Dungeon sprites
 
 `wpets-all` and `wpets-pkmn` includes up to Gen. 5.
 [Pokémon Mystery Dungeon](fragments/set-pmd.md) sprites are bundled in `wpets-pkmn`, not in `wpets-all`: `pmd:Pikachu`
 
 _Best to disable antialiasing (`enable_antialiasing=0`) for pixel-perfect scaling_
 
-##### MS Agent 📎
+##### MS Agent 📎 - Your Classic Microsoft Companion
 
 While only Clippy is bundled in `wpets-all`, the other MS Agent friends are bundled in `wpets-ms-agent`: `Links`
 
 
 #### Evolution (`evolution`)
-
 
 Sprites change form over time.
 Trigger modes:
@@ -91,6 +90,8 @@ _Only available for Digimon and Pokémon._
 See [evolution docs](fragments/evol-all.md).
 
 #### Custom Sprite Sheet (`custom_...`)
+
+Use custom sprite sheet at runtime make your own pets
 
 Set `animation_name=custom` and point `custom_sprite_sheet_filename` to your PNG sprite sheet. Full frame/row control per animation state:
 
