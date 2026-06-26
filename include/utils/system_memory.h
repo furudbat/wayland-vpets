@@ -421,12 +421,12 @@ BONGOCAT_NODISCARD inline static MMapMemory<T> make_unallocated_mmap_value(const
   return ret;
 }
 
-template <typename T>
+template <typename T, int Flags = MAP_SHARED>
 class MMapArray;
-template <typename T>
-void release_allocated_mmap_array(MMapArray<T>& memory) noexcept;
+template <typename T, int Flags = MAP_SHARED>
+void release_allocated_mmap_array(MMapArray<T, Flags>& memory) noexcept;
 
-template <typename T>
+template <typename T, int Flags>
 class MMapArray {
 public:
   T *data{BONGOCAT_NULLPTR};
@@ -447,8 +447,8 @@ public:
   // Allocate shared memory using mmap and count
   explicit MMapArray(size_t p_count) : count(p_count), _size_bytes(sizeof(T) * count) {
     if (_size_bytes > 0) {
-      data = static_cast<T *>(
-          mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+      data =
+          static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, Flags | MAP_ANONYMOUS, -1, 0));
       if (data != MAP_FAILED) {
         return;
       } else {
@@ -462,8 +462,8 @@ public:
 
   MMapArray(const MMapArray& other) : count(other.count), _size_bytes(other._size_bytes) {
     if (other.data && _size_bytes > 0) {
-      data = static_cast<T *>(
-          mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+      data =
+          static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, Flags | MAP_ANONYMOUS, -1, 0));
       if (data != MAP_FAILED) {
         if constexpr (is_trivially_copyable<T>::value) {
           ::memcpy(data, other.data, _size_bytes);
@@ -487,8 +487,8 @@ public:
       count = other.count;
       _size_bytes = other._size_bytes;
       if (other.data && _size_bytes > 0) {
-        data = static_cast<T *>(
-            mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, MAP_SHARED | MAP_ANONYMOUS, -1, 0));
+        data =
+            static_cast<T *>(mmap(BONGOCAT_NULLPTR, _size_bytes, PROT_READ | PROT_WRITE, Flags | MAP_ANONYMOUS, -1, 0));
         if (data != MAP_FAILED) {
           if constexpr (is_trivially_copyable<T>::value) {
             ::memcpy(data, other.data, _size_bytes);
@@ -547,8 +547,8 @@ public:
     return data != BONGOCAT_NULLPTR;
   }
 };
-template <typename T>
-void release_allocated_mmap_array(MMapArray<T>& memory) noexcept {
+template <typename T, int F>
+void release_allocated_mmap_array(MMapArray<T, F>& memory) noexcept {
   if (memory.data) {
     if constexpr (!is_trivially_destructible<T>::value) {
       for (size_t i = 0; i < memory.count; i++) {
@@ -561,17 +561,17 @@ void release_allocated_mmap_array(MMapArray<T>& memory) noexcept {
     memory._size_bytes = 0;
   }
 }
-template <typename T>
-BONGOCAT_NODISCARD inline static MMapArray<T> make_unallocated_mmap_array() noexcept {
-  return MMapArray<T>();
+template <typename T, int Flags = MAP_SHARED>
+BONGOCAT_NODISCARD inline static MMapArray<T, Flags> make_unallocated_mmap_array() noexcept {
+  return MMapArray<T, Flags>();
 }
-template <typename T>
-BONGOCAT_NODISCARD inline static MMapArray<T> make_allocated_mmap_array_uninitialized(size_t count) {
-  return count > 0 ? MMapArray<T>(count) : MMapArray<T>();
+template <typename T, int Flags = MAP_SHARED>
+BONGOCAT_NODISCARD inline static MMapArray<T, Flags> make_allocated_mmap_array_uninitialized(size_t count) {
+  return count > 0 ? MMapArray<T, Flags>(count) : MMapArray<T, Flags>();
 }
-template <typename T>
-BONGOCAT_NODISCARD inline static MMapArray<T> make_allocated_mmap_array(size_t count) {
-  auto ret = count > 0 ? MMapArray<T>(count) : MMapArray<T>();
+template <typename T, int Flags = MAP_SHARED>
+BONGOCAT_NODISCARD inline static MMapArray<T, Flags> make_allocated_mmap_array(size_t count) {
+  auto ret = count > 0 ? MMapArray<T, Flags>(count) : MMapArray<T, Flags>();
   for (size_t i = 0; i < ret.count; i++) {
     new (&ret.data[i]) T();
   }

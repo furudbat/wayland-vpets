@@ -435,6 +435,7 @@ struct load_config_overwrite_parameters_t {
   int32_t randomize_index{-1};
   int32_t strict{-1};
   const char *animation_name{BONGOCAT_NULLPTR};
+  int32_t debug{-1};
 };
 BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path,
                                                load_config_overwrite_parameters_t overwrite_parameters);
@@ -450,6 +451,11 @@ AllocatedString resolve_path(const char *explicit_path);
 loaded_config_result_t load_from_string(const char *content,
                                         load_config_overwrite_parameters_t overwrite_parameters = {});
 #endif
+
+extern "C" {
+extern const char __start_config_str[];
+extern const char __stop_config_str[];
+}
 
 }  // namespace bongocat::config
 

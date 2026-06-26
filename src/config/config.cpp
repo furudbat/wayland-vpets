@@ -2553,6 +2553,10 @@ static void config_log_result([[maybe_unused]] const config_t& config,
 
 static loaded_config_result_t config_after_parsing(config_t& ret, config_parse_result_t& errors,
                                                    const load_config_overwrite_parameters_t& overwrite_parameters) {
+  if (overwrite_parameters.debug >= 0) {
+    ret.enable_debug = overwrite_parameters.debug >= 1;
+  }
+
   if (overwrite_parameters.output_name != BONGOCAT_NULLPTR) {
     ret.output_name = duplicate_string(overwrite_parameters.output_name);
     if (ret.output_name) {

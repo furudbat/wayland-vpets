@@ -128,7 +128,7 @@ namespace details {
   }
 }  // namespace details
 
-static void unload_readonly_sections();
+static void unload_assets_readonly_sections();
 created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& ctx) {
   // read-only config
   assert(ctx._local_copy_config);
@@ -309,7 +309,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   ret.error = bongocat_error_t::BONGOCAT_SUCCESS;
 
   // after heavy sprite loading, try to free some memory
-  unload_readonly_sections();
+  unload_assets_readonly_sections();
   // return unused heap memory back to the OS
 #ifdef __GLIBC__
   malloc_trim(0);
@@ -328,7 +328,7 @@ struct madvise_region {
   const char *stop{};
   const char *name{};
 };
-void unload_readonly_sections() {
+void unload_assets_readonly_sections() {
   static constexpr madvise_region evictable_regions[] = {
       {__start_assets_images,          __stop_assets_images,          ".assets.images"         },
       {__start_assets_data_evol,       __stop_assets_data_evol,       ".assets.data_evol"      },
@@ -345,8 +345,9 @@ void unload_readonly_sections() {
       continue;
     }
 
-    //assert((start % 4096) == 0);
-    //assert((size % 4096) == 0);
+    // @TODO: check for MAXPAGESIZE
+    // assert((start % 4096) == 0);
+    // assert((size % 4096) == 0);
 
     if (madvise(reinterpret_cast<void *>(start), size, MADV_DONTNEED) != 0) {
       BONGOCAT_LOG_WARNING("madvise: failed to evict %s: %s", region.name, strerror(errno));

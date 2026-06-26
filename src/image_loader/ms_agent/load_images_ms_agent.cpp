@@ -112,7 +112,7 @@ load_ms_agent_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite
 
           if (src_px_idx >= 0 && dst_px_idx >= 0 && static_cast<size_t>(src_px_idx) < src_pixels_size &&
               static_cast<size_t>(dst_px_idx) < dest_pixels_size) {
-            drawing_copy_pixel(dest_pixels.data, sprite_sheet.channels, dst_px_idx, sprite_sheet.pixels,
+            drawing_copy_pixel(dest_pixels.data, sprite_sheet.channels, dst_px_idx, sprite_sheet.pixels.data,
                                sprite_sheet.channels, src_px_idx, blit_image_color_option_flags_t::Normal,
                                blit_image_color_order_t::RGBA, blit_image_color_order_t::RGBA);
             if (!set_frames && frame_index < MAX_NUM_FRAMES) {
