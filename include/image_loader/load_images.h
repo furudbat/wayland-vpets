@@ -6,6 +6,8 @@
 #include "embedded_assets/embedded_image.h"
 #include "graphics/sprite_sheet.h"
 #include "utils/memory.h"
+#include "utils/system_memory.h"
+
 #include <cstdlib>
 #include <cstdint>
 
@@ -44,7 +46,7 @@ void init_image_loader();
 
 class Image {
 public:
-  unsigned char *pixels{BONGOCAT_NULLPTR};
+  platform::MMapArray<uint8_t, MAP_PRIVATE> pixels;
   int width{0};
   int height{0};
   int channels{0};
@@ -54,90 +56,10 @@ public:
     cleanup_image(*this);
   }
 
-  Image(const Image& other) : width(other.width), height(other.height), channels(other.channels) {
-    assert(width >= 0);
-    assert(height >= 0);
-    assert(channels >= 0);
-    const size_t data_size = static_cast<size_t>(width) *
-                       static_cast<size_t>(height) *
-                       static_cast<size_t>(channels);
-    if (data_size == 0 || other.pixels == nullptr) {
-      width = 0;
-      height = 0;
-      channels = 0;
-      pixels = nullptr;
-      return;
-    }
-
-    pixels = static_cast<unsigned char*>(::malloc(data_size));
-    if (pixels == BONGOCAT_NULLPTR) {
-      width = 0;
-      height = 0;
-      channels = 0;
-      return;
-    }
-
-    ::memcpy(pixels, other.pixels, data_size);
-  }
-  Image& operator=(const Image& other) {
-    if (this == &other) {
-      return *this;
-    }
-
-    assert(other.width >= 0);
-    assert(other.height >= 0);
-    assert(other.channels >= 0);
-    const size_t data_size = static_cast<size_t>(other.width) *
-                       static_cast<size_t>(other.height) *
-                       static_cast<size_t>(other.channels);
-
-    unsigned char* new_pixels = nullptr;
-    if (data_size != 0 && other.pixels != nullptr) {
-      new_pixels = static_cast<unsigned char*>(::malloc(data_size));
-      if (new_pixels == BONGOCAT_NULLPTR) {
-        return *this;
-      }
-
-      ::memcpy(new_pixels, other.pixels, data_size);
-    }
-
-    cleanup_image(*this);
-
-    width = other.width;
-    height = other.height;
-    channels = other.channels;
-    pixels = new_pixels;
-    new_pixels = BONGOCAT_NULLPTR;
-
-    return *this;
-  }
-
-  Image(Image&& other) noexcept
-      : pixels(other.pixels), width(other.width), height(other.height), channels(other.channels) {
-    other.pixels = BONGOCAT_NULLPTR;
-    other.width = 0;
-    other.height = 0;
-    other.channels = 0;
-  }
-  Image& operator=(Image&& other) noexcept {
-    if (this == &other) {
-      return *this;
-    }
-
-    cleanup_image(*this);
-
-    pixels = other.pixels;
-    width = other.width;
-    height = other.height;
-    channels = other.channels;
-
-    other.pixels = BONGOCAT_NULLPTR;
-    other.width = 0;
-    other.height = 0;
-    other.channels = 0;
-
-    return *this;
-  }
+  Image(const Image& other) = default;
+  Image& operator=(const Image& other) = default;
+  Image(Image&& other) noexcept = default;
+  Image& operator=(Image&& other) noexcept = default;
 };
 
 BONGOCAT_NODISCARD created_result_t<Image> make_image(int width, int height, int desired_channels = RGBA_CHANNELS);

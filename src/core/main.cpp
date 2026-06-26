@@ -203,6 +203,7 @@ struct cli_args_t {
   int32_t strict{-1};
   bool ignore_running{false};
   int64_t nr{-1};
+  int32_t debug{-1};
 
   bool nr_set{false};
   bool output_name_set{false};
@@ -443,6 +444,37 @@ static int process_handle_toggle(const char *program_name, const char *pid_filen
 // CONFIGURATION MANAGEMENT MODULE
 // =============================================================================
 
+struct madvise_region {
+  const char *start{};
+  const char *stop{};
+  const char *name{};
+};
+void unload_config_readonly_sections() {
+  static constexpr madvise_region evictable_regions[] = {
+      {config::__start_config_str, config::__stop_config_str, ".config.str"},
+  };
+
+  for (const auto& region : evictable_regions) {
+    const uintptr_t start = reinterpret_cast<uintptr_t>(region.start);
+    const uintptr_t stop = reinterpret_cast<uintptr_t>(region.stop);
+    assert(stop >= start);
+    const size_t size = stop - start;
+    if (size == 0) {
+      continue;
+    }
+
+    // @TODO: check for MAXPAGESIZE
+    // assert((start % 4096) == 0);
+    // assert((size % 4096) == 0);
+
+    if (madvise(reinterpret_cast<void *>(start), size, MADV_DONTNEED) != 0) {
+      BONGOCAT_LOG_WARNING("madvise: failed to evict %s: %s", region.name, strerror(errno));
+    } else {
+      BONGOCAT_LOG_VERBOSE("madvise: evicted %s: %zu kb", region.name, size / 1024);
+    }
+  }
+}
+
 static bool config_devices_changed(const config::config_t& old_config, const config::config_t& new_config) {
   if (old_config.num_keyboard_devices != new_config.num_keyboard_devices) {
     return true;
@@ -664,6 +696,11 @@ static void config_reload_callback() {
                        atomic_load(&get_main_context().input->ready));
   BONGOCAT_LOG_VERBOSE("Update: running %d (ready=%d)", atomic_load(&get_main_context().update->_running),
                        atomic_load(&get_main_context().update->ready));
+
+  {
+    platform::LockGuard guard(get_main_context().sync_configs);
+    unload_config_readonly_sections();
+  }
 }
 
 static bongocat_error_t start_config_watcher(main_context_t& ctx, const char *config_file) {
@@ -850,6 +887,7 @@ static void cli_show_help(const char *program_name) {
     return;
   }
 
+  // clang-format: off
   printf("Bongo Cat Wayland Overlay.\n\n");
   printf("Usage: %s [OPTIONS]\n\n", basename(base_program_name.ptr));
   printf("Options:\n");
@@ -865,8 +903,10 @@ static void cli_show_help(const char *program_name) {
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
   printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting ruinning instances\n");
   printf("      --ignore-running        Ignore current running instance\n");
+  printf("      --debug                 Override enable_debug setting\n");
   printf("\n");
   printf("Included sets:\n");
+  // clang-format: on
   if constexpr (features::EnableBongocatEmbeddedAssets) {
     printf("  %8s - Classic Bongo cat\n", "bongocat");
   }
@@ -936,6 +976,8 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
       args.strict = 1;
     } else if (strcmp(argv[i], "--ignore-running") == 0) {
       args.ignore_running = true;
+    } else if (strcmp(argv[i], "--debug") == 0) {
+      args.debug = 1;
     } else if (strcmp(argv[i], "--nr") == 0) {
       args.nr_set = true;
       if (i + 1 < argc) {
@@ -1003,6 +1045,7 @@ int main(int argc, char *argv[]) {
       .output_name = args.output_name,
       .randomize_index = args.randomize_index,
       .strict = args.strict,
+      .debug = args.debug,
   };
   AllocatedString existing_config_file = config::resolve_path(args.config_file);
   const char *config_file = existing_config_file ? existing_config_file.c_str() : "";
@@ -1014,6 +1057,9 @@ int main(int argc, char *argv[]) {
   }
 
   {
+    if (ctx.overwrite_config_parameters.debug >= 0) {
+      bongocat::error_init(ctx.overwrite_config_parameters.debug);
+    }
     BONGOCAT_LOG_VERBOSE("Try to load Configuration file: %s", config_file);
     auto config_result = config::load(config_file, ctx.overwrite_config_parameters);
     if (!is_valid_config_result(config_result)) {
@@ -1054,12 +1100,12 @@ int main(int argc, char *argv[]) {
   // Create PID file to track this instance
   const platform::FileDescriptor pid_fd = process_create_pid_file(ctx.pid_filename.c_str());
   if (pid_fd._fd < 0) {
-    BONGOCAT_LOG_ERROR("Failed to create PID file");
+    BONGOCAT_LOG_ERROR("Failed to create PID file: %s", ctx.pid_filename.c_str());
     return EXIT_FAILURE;
   }
   if (!args.ignore_running) {
     if (pid_fd._fd == -2) {
-      BONGOCAT_LOG_ERROR("Another instance of bongocat is already running");
+      BONGOCAT_LOG_ERROR("Another instance of bongocat is already running: %s", ctx.pid_filename.c_str());
       return EXIT_FAILURE;
     }
   }
@@ -1105,6 +1151,7 @@ int main(int argc, char *argv[]) {
   BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland->thread_context._screen_width, ctx.config.overlay_height);
 
   BONGOCAT_LOG_INFO("Bongo Cat Overlay configured successfully");
+  unload_config_readonly_sections();
 
   // trigger initial rendering
   platform::wayland::request_render(*ctx.animation);

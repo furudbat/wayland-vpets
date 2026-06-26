@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##############################################################################
-# check_readonly_sections.sh (FIXED)
+# check_readonly_sections.sh
 # Validates that asset sections are read-only for safe MADV_DONTNEED usage
 ##############################################################################
 
@@ -52,8 +52,12 @@ for section in "${TEST_READONLY_SECTIONS[@]}"; do
     addr=$(echo "$line" | awk '{print $4}')
     size=$(echo "$line" | awk '{print $6}')
     flags=$(echo "$line" | awk '{print $8}')
+    size_hex=$(echo "$line" | awk '{print $6}')
+    size_dec=$((16#$size_hex))
 
-    printf "%-30s Size: %-12s Addr: %-18s " "$name" "$size" "$addr"
+    human_size=$(numfmt --to=iec-i --suffix=B "$size_dec")
+
+    printf "%-30s Size: %-8s (%s)  Addr: %-18s " "$name" "$human_size" "$size_hex" "$addr"
     printf "Flags: %-10s " "$flags"
 
     # Check for W flag (writable)

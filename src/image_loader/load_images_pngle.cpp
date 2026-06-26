@@ -28,6 +28,7 @@ namespace bongocat::animation {
 struct decode_state_t {
   Image *image{BONGOCAT_NULLPTR};
   int desired_channels{RGBA_CHANNELS};
+  size_t buf_size{0};
 };
 created_result_t<Image> load_image(const unsigned char *data, size_t size, int desired_channels) {
   Image ret;
@@ -38,25 +39,27 @@ created_result_t<Image> load_image(const unsigned char *data, size_t size, int d
 
   decode_state_t state{.image = &ret, .desired_channels = desired_channels};
 
+  // Init callback: called once when PNG header is parsed, before any pixels
+  pngle_set_init_callback(pngle, [](pngle_t *p_pngle, uint32_t w, uint32_t h) {
+    auto *st = static_cast<decode_state_t *>(pngle_get_user_data(p_pngle));
+    assert(w <= INT32_MAX);
+    assert(h <= INT32_MAX);
+    Image *img = st->image;
+    constexpr uint32_t channels = 4;
+    img->width = static_cast<int>(w);
+    img->height = static_cast<int>(h);
+    img->channels = channels;
+    st->buf_size = static_cast<size_t>(w) * static_cast<size_t>(h) * channels;
+
+    img->pixels = platform::make_allocated_mmap_array_uninitialized<unsigned char, MAP_PRIVATE>(st->buf_size);
+  });
+
   // Pixel callback: pngle calls this for each RGBA pixel
-  pngle_set_draw_callback(pngle, [](pngle_t *p_pngle, uint32_t x, uint32_t y, [[maybe_unused]] uint32_t w,
-                                    [[maybe_unused]] uint32_t h, const uint8_t rgba[4]) {
+  pngle_set_draw_callback(pngle, [](pngle_t *p_pngle, uint32_t x, uint32_t y, [[maybe_unused]] uint32_t w, [[maybe_unused]] uint32_t h, const uint8_t rgba[4]) {
     auto *st = static_cast<decode_state_t *>(pngle_get_user_data(p_pngle));
     Image *img = st->image;
 
     constexpr uint32_t channels = 4;
-    if (!img->pixels) {
-      // Allocate buffer on first pixel
-      img->width = static_cast<int>(pngle_get_width(p_pngle));
-      img->height = static_cast<int>(pngle_get_height(p_pngle));
-      img->channels = channels;  // pngle always gives RGBA
-      const size_t buf_size = pngle_get_width(p_pngle) * pngle_get_height(p_pngle) * channels;
-      img->pixels = static_cast<unsigned char *>(::malloc(buf_size));
-      if (img->pixels == BONGOCAT_NULLPTR) {
-        return;
-      }
-    }
-
     unsigned char *dst = &img->pixels[(y * pngle_get_width(p_pngle) + x) * channels];
     dst[0] = rgba[0];
     dst[1] = rgba[1];
@@ -72,7 +75,7 @@ created_result_t<Image> load_image(const unsigned char *data, size_t size, int d
     pngle_destroy(pngle);
     pngle = BONGOCAT_NULLPTR;
     if (ret.pixels != BONGOCAT_NULLPTR) {
-      ::free(ret.pixels);
+      platform::release_allocated_mmap_array(ret.pixels);
       ret.pixels = BONGOCAT_NULLPTR;
     }
     return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
@@ -99,7 +102,7 @@ created_result_t<Image> load_image(const unsigned char *data, size_t size, int d
 
 void cleanup_image(Image& image) {
   if (image.pixels != BONGOCAT_NULLPTR) {
-    ::free(image.pixels);
+    release_allocated_mmap_array(image.pixels);
     image.pixels = BONGOCAT_NULLPTR;
   }
 }

@@ -83,7 +83,7 @@ load_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_siz
 
           if (src_px_idx >= 0 && dst_px_idx >= 0 && static_cast<size_t>(src_px_idx) < src_pixels_size &&
               static_cast<size_t>(dst_px_idx) < dest_pixels_size) {
-            drawing_copy_pixel(dest_pixels.data, sprite_sheet.channels, dst_px_idx, sprite_sheet.pixels,
+            drawing_copy_pixel(dest_pixels.data, sprite_sheet.channels, dst_px_idx, sprite_sheet.pixels.data,
                                sprite_sheet.channels, src_px_idx, blit_image_color_option_flags_t::Normal,
                                blit_image_color_order_t::RGBA, blit_image_color_order_t::RGBA);
             if (!set_frames && frame_index < MAX_NUM_FRAMES) {
@@ -200,7 +200,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(
                                                            (frame * static_cast<size_t>(max_frame_width))) *
                                                               static_cast<size_t>(max_channels));
         const unsigned char *src_row =
-            src.pixels + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
+            src.pixels.data + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
         ::memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
       }
 
@@ -262,17 +262,10 @@ BONGOCAT_NODISCARD created_result_t<Image> make_image(int width, int height, int
                      static_cast<size_t>(desired_channels);
   assert(data_size > 0);
 
-  unsigned char* new_pixels = static_cast<unsigned char*>(::malloc(data_size));
-  if (new_pixels == BONGOCAT_NULLPTR) {
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
-  ::memset(new_pixels, 0, data_size);
-
   ret.width = width;
   ret.height = height;
   ret.channels = desired_channels;
-  ret.pixels = new_pixels;
-  new_pixels = BONGOCAT_NULLPTR;
+  ret.pixels = platform::make_allocated_mmap_array<unsigned char, MAP_PRIVATE>(data_size);
 
   return ret;
 }

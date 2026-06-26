@@ -75,7 +75,7 @@ created_result_t<Image> load_svg_image(SvgImage& svg, LoadSvgImageParams params)
   //assert(image.height >= 0);
   //assert(image.channels >= 0);
   //::memset(image.pixels, 0, static_cast<size_t>(image.width) * static_cast<size_t>(image.height) * static_cast<size_t>(image.channels));
-  ::nsvgRasterizeA(svg_raster.image, svg.image, params.tx, params.ty, params.scale, image.pixels, params.w, params.h, image.width * image.channels, params.alpha_mask);
+  ::nsvgRasterizeA(svg_raster.image, svg.image, params.tx, params.ty, params.scale, image.pixels.data, params.w, params.h, image.width * image.channels, params.alpha_mask);
 
   return bongocat::move(image);
 }
@@ -217,7 +217,7 @@ created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_svgs(ge
 
         if (y < src.height) {
           const unsigned char* src_row =
-              src.pixels +
+              src.pixels.data +
               static_cast<ptrdiff_t>(((y * src.width) + cropping.left) * src.channels);
 
           assert(ret.image.sprite_sheet_height >= 0);
