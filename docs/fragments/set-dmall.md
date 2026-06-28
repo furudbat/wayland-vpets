@@ -89,6 +89,7 @@ Made by Fans <3
 - Boltmon
 - Bombmon
 - Bommon
+- Botamon
 - Boutmon
 - Bryweludramon
 - Bubbmon

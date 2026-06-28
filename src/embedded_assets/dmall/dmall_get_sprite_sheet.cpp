@@ -95,6 +95,7 @@ namespace bongocat::assets {
         {dmall_boltmon_png, dmall_boltmon_png_size, DMALL_BOLTMON_ID}, 
         {dmall_bombmon_png, dmall_bombmon_png_size, DMALL_BOMBMON_ID}, 
         {dmall_bommon_png, dmall_bommon_png_size, DMALL_BOMMON_ID}, 
+        {dmall_botamon_png, dmall_botamon_png_size, DMALL_BOTAMON_ID}, 
         {dmall_boutmon_png, dmall_boutmon_png_size, DMALL_BOUTMON_ID}, 
         {dmall_bryweludramon_png, dmall_bryweludramon_png_size, DMALL_BRYWELUDRAMON_ID}, 
         {dmall_bubbmon_png, dmall_bubbmon_png_size, DMALL_BUBBMON_ID}, 

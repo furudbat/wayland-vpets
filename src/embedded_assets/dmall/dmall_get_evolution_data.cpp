@@ -877,6 +877,16 @@ namespace bongocat::assets {
                 
             },
         },
+        // Name: Botamon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            
+            .num_animation_indices = 2,
+            .animation_indices = {
+                DMALL_KOROMON_ANIM_INDEX ,DMALL_WANYAMON_ANIM_INDEX
+            },
+        },
         // Name: Boutmon
         {
             // Stage: Perfect

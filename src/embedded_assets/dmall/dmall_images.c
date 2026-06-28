@@ -612,6 +612,13 @@ const unsigned char dmall_bommon_png[] ASSETS_IMAGES_SECTION = {
 const size_t dmall_bommon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_bommon_png);
 
 
+// Name: Botamon
+const unsigned char dmall_botamon_png[] ASSETS_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Botamon.png"
+};
+const size_t dmall_botamon_png_size ASSETS_SIZES_SECTION = sizeof(dmall_botamon_png);
+
+
 // Name: Boutmon
 const unsigned char dmall_boutmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Boutmon.png"

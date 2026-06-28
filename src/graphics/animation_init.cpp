@@ -216,6 +216,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
       if constexpr (features::EnableDmcEmbeddedAssets) {
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_dmc_sprite_sheet(ctx, static_cast<size_t>(anim_index));
+        patch_dm_anim(l_result, {.sleep_in_bed = false, .no_happy = true});
         result = bongocat::move(l_result);
         error = bongocat::move(l_error);
       }

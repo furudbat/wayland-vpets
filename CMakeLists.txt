@@ -722,22 +722,21 @@ if(FEATURE_MULTI_VERSIONS)
       assets_misc
       -Wl,--no-whole-archive
   )
+  target_link_libraries(
+    bongocat_all_loaders
+    INTERFACE assets_pkmn_loader assets_pkmn_feature assets_pkmn_interface -Wl,--whole-archive assets_pkmn -Wl,--no-whole-archive
+  )
   if(FEATURE_PMD_EMBEDDED_ASSETS)
     target_link_libraries(
-      bongocat_all_loaders
-      INTERFACE
-        assets_pmd_loader
-        assets_pmd_feature
-        assets_pmd_interface
-        assets_custom_loader
-        -Wl,--whole-archive
-        assets_pmd
-        -Wl,--no-whole-archive
-    )
-  else()
-    target_link_libraries(
-      bongocat_all_loaders
-      INTERFACE assets_pkmn_loader assets_pkmn_feature assets_pkmn_interface -Wl,--whole-archive assets_pkmn -Wl,--no-whole-archive
+            bongocat_all_loaders
+            INTERFACE
+            assets_pmd_loader
+            assets_pmd_feature
+            assets_pmd_interface
+            assets_custom_loader
+            -Wl,--whole-archive
+            assets_pmd
+            -Wl,--no-whole-archive
     )
   endif()
   add_executable(bongocat-all)

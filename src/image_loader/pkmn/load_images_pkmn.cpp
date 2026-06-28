@@ -51,10 +51,10 @@ namespace bongocat::animation {
         ret.animations.boring[2] = ret.idle_1.col;
         ret.animations.boring[3] = ret.idle_2.col;
 
-        ret.animations.writing[0] = ret.idle_1.col;
-        ret.animations.writing[1] = ret.idle_2.col;
-        ret.animations.writing[2] = ret.idle_1.col;
-        ret.animations.writing[3] = ret.idle_2.col;
+        ret.animations.writing[0] = ret.idle_2.col;
+        ret.animations.writing[1] = ret.idle_1.col;
+        ret.animations.writing[2] = ret.idle_2.col;
+        ret.animations.writing[3] = ret.idle_1.col;
 
         ret.animations.sleep[0] = ret.idle_2.col;
         ret.animations.sleep[1] = ret.idle_2.col;

@@ -93,6 +93,7 @@ namespace bongocat::assets {
         { DMALL_BOLTMON_NAME, DMALL_BOLTMON_ID, DMALL_BOLTMON_FQID, DMALL_BOLTMON_FQNAME, DMALL_BOLTMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_BOMBMON_NAME, DMALL_BOMBMON_ID, DMALL_BOMBMON_FQID, DMALL_BOMBMON_FQNAME, DMALL_BOMBMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_BOMMON_NAME, DMALL_BOMMON_ID, DMALL_BOMMON_FQID, DMALL_BOMMON_FQNAME, DMALL_BOMMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
+        { DMALL_BOTAMON_NAME, DMALL_BOTAMON_ID, DMALL_BOTAMON_FQID, DMALL_BOTAMON_FQNAME, DMALL_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_BOUTMON_NAME, DMALL_BOUTMON_ID, DMALL_BOUTMON_FQID, DMALL_BOUTMON_FQNAME, DMALL_BOUTMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_BRYWELUDRAMON_NAME, DMALL_BRYWELUDRAMON_ID, DMALL_BRYWELUDRAMON_FQID, DMALL_BRYWELUDRAMON_FQNAME, DMALL_BRYWELUDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
         { DMALL_BUBBMON_NAME, DMALL_BUBBMON_ID, DMALL_BUBBMON_FQID, DMALL_BUBBMON_FQNAME, DMALL_BUBBMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -1198,6 +1199,12 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DMALL_BOMMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Bommon";
     inline static constexpr const char* ALT_DMALL_BOMMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_BOMMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DMALL_BOMMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_BOMMON_FQNAME_ARR)-1;
+    inline static constexpr char ALT_DMALL_BOTAMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:botamon";
+    inline static constexpr const char* ALT_DMALL_BOTAMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_BOTAMON_FQID_ARR;
+    inline static constexpr size_t ALT_DMALL_BOTAMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_BOTAMON_FQID_ARR)-1;
+    inline static constexpr char ALT_DMALL_BOTAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dmall:Botamon";
+    inline static constexpr const char* ALT_DMALL_BOTAMON_FQNAME CONFIG_STRING_SECTION = ALT_DMALL_BOTAMON_FQNAME_ARR;
+    inline static constexpr size_t ALT_DMALL_BOTAMON_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_BOTAMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_DMALL_BOUTMON_FQID_ARR[] CONFIG_STRING_SECTION = "dmall:boutmon";
     inline static constexpr const char* ALT_DMALL_BOUTMON_FQID CONFIG_STRING_SECTION = ALT_DMALL_BOUTMON_FQID_ARR;
     inline static constexpr size_t ALT_DMALL_BOUTMON_FQID_LEN CONFIG_STRING_SECTION = sizeof(ALT_DMALL_BOUTMON_FQID_ARR)-1;
@@ -4774,6 +4781,7 @@ namespace bongocat::assets {
         { DMALL_BOLTMON_NAME, DMALL_BOLTMON_ID, ALT_DMALL_BOLTMON_FQID, ALT_DMALL_BOLTMON_FQNAME, DMALL_BOLTMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Boltmon
         { DMALL_BOMBMON_NAME, DMALL_BOMBMON_ID, ALT_DMALL_BOMBMON_FQID, ALT_DMALL_BOMBMON_FQNAME, DMALL_BOMBMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bombmon
         { DMALL_BOMMON_NAME, DMALL_BOMMON_ID, ALT_DMALL_BOMMON_FQID, ALT_DMALL_BOMMON_FQNAME, DMALL_BOMMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bommon
+        { DMALL_BOTAMON_NAME, DMALL_BOTAMON_ID, ALT_DMALL_BOTAMON_FQID, ALT_DMALL_BOTAMON_FQNAME, DMALL_BOTAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Botamon
         { DMALL_BOUTMON_NAME, DMALL_BOUTMON_ID, ALT_DMALL_BOUTMON_FQID, ALT_DMALL_BOUTMON_FQNAME, DMALL_BOUTMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Boutmon
         { DMALL_BRYWELUDRAMON_NAME, DMALL_BRYWELUDRAMON_ID, ALT_DMALL_BRYWELUDRAMON_FQID, ALT_DMALL_BRYWELUDRAMON_FQNAME, DMALL_BRYWELUDRAMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bryweludramon
         { DMALL_BUBBMON_NAME, DMALL_BUBBMON_ID, ALT_DMALL_BUBBMON_FQID, ALT_DMALL_BUBBMON_FQNAME, DMALL_BUBBMON_ANIM_INDEX, config::config_animation_dm_set_t::dmall, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Bubbmon
@@ -5533,6 +5541,8 @@ namespace bongocat::assets {
         { DMALL_BOMBMON_NAME, DMALL_BOMBMON_NAME_LEN, DMALL_BOMBMON_ID, DMALL_BOMBMON_ID_LEN, ALT_DMALL_BOMBMON_FQID, ALT_DMALL_BOMBMON_FQID_LEN, ALT_DMALL_BOMBMON_FQNAME, ALT_DMALL_BOMBMON_FQNAME_LEN },
         { DMALL_BOMMON_NAME, DMALL_BOMMON_NAME_LEN, DMALL_BOMMON_ID, DMALL_BOMMON_ID_LEN, DMALL_BOMMON_FQID, DMALL_BOMMON_FQID_LEN, DMALL_BOMMON_FQNAME, DMALL_BOMMON_FQNAME_LEN },
         { DMALL_BOMMON_NAME, DMALL_BOMMON_NAME_LEN, DMALL_BOMMON_ID, DMALL_BOMMON_ID_LEN, ALT_DMALL_BOMMON_FQID, ALT_DMALL_BOMMON_FQID_LEN, ALT_DMALL_BOMMON_FQNAME, ALT_DMALL_BOMMON_FQNAME_LEN },
+        { DMALL_BOTAMON_NAME, DMALL_BOTAMON_NAME_LEN, DMALL_BOTAMON_ID, DMALL_BOTAMON_ID_LEN, DMALL_BOTAMON_FQID, DMALL_BOTAMON_FQID_LEN, DMALL_BOTAMON_FQNAME, DMALL_BOTAMON_FQNAME_LEN },
+        { DMALL_BOTAMON_NAME, DMALL_BOTAMON_NAME_LEN, DMALL_BOTAMON_ID, DMALL_BOTAMON_ID_LEN, ALT_DMALL_BOTAMON_FQID, ALT_DMALL_BOTAMON_FQID_LEN, ALT_DMALL_BOTAMON_FQNAME, ALT_DMALL_BOTAMON_FQNAME_LEN },
         { DMALL_BOUTMON_NAME, DMALL_BOUTMON_NAME_LEN, DMALL_BOUTMON_ID, DMALL_BOUTMON_ID_LEN, DMALL_BOUTMON_FQID, DMALL_BOUTMON_FQID_LEN, DMALL_BOUTMON_FQNAME, DMALL_BOUTMON_FQNAME_LEN },
         { DMALL_BOUTMON_NAME, DMALL_BOUTMON_NAME_LEN, DMALL_BOUTMON_ID, DMALL_BOUTMON_ID_LEN, ALT_DMALL_BOUTMON_FQID, ALT_DMALL_BOUTMON_FQID_LEN, ALT_DMALL_BOUTMON_FQNAME, ALT_DMALL_BOUTMON_FQNAME_LEN },
         { DMALL_BRYWELUDRAMON_NAME, DMALL_BRYWELUDRAMON_NAME_LEN, DMALL_BRYWELUDRAMON_ID, DMALL_BRYWELUDRAMON_ID_LEN, DMALL_BRYWELUDRAMON_FQID, DMALL_BRYWELUDRAMON_FQID_LEN, DMALL_BRYWELUDRAMON_FQNAME, DMALL_BRYWELUDRAMON_FQNAME_LEN },
