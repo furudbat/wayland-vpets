@@ -354,6 +354,10 @@ extern const size_t dmall_bombmon_png_size;
 extern const unsigned char dmall_bommon_png[];
 extern const size_t dmall_bommon_png_size;
 
+// Name: Botamon
+extern const unsigned char dmall_botamon_png[];
+extern const size_t dmall_botamon_png_size;
+
 // Name: Boutmon
 extern const unsigned char dmall_boutmon_png[];
 extern const size_t dmall_boutmon_png_size;

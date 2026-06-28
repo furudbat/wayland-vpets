@@ -8,6 +8,7 @@ namespace bongocat::animation {
 
 struct load_dm_anim_options_t {
   bool sleep_in_bed{false};
+  bool no_happy{false};
 };
 void patch_dm_anim(dm_sprite_sheet_t& ret, load_dm_anim_options_t options);
 

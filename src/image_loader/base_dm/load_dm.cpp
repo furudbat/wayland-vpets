@@ -25,6 +25,13 @@ void patch_dm_anim(dm_sprite_sheet_t& ret, load_dm_anim_options_t options) {
     ret.animations.idle_sleep[2] = ret.animations.sleep[2];
     ret.animations.idle_sleep[3] = ret.animations.sleep[3];
   }
+
+  if (options.no_happy) {
+    ret.animations.happy[0] = ret.frames.angry.valid ? ret.frames.angry.col : ret.frames.idle_1.col;
+    ret.animations.happy[1] = ret.frames.idle_2.col;
+    ret.animations.happy[2] = ret.frames.angry.valid ? ret.frames.angry.col : ret.frames.idle_1.col;
+    ret.animations.happy[3] = ret.frames.idle_2.col;
+  }
 }
 created_result_t<dm_sprite_sheet_t> load_base_dm_anim(const animation_thread_context_t& ctx, [[maybe_unused]] size_t anim_index,
                                                  const assets::embedded_image_t& sprite_sheet_image,
@@ -168,9 +175,9 @@ created_result_t<dm_sprite_sheet_t> load_base_dm_anim(const animation_thread_con
     ret.animations.happy[3] = ret.frames.idle_1.col;
   } else {
     // fallback
-    ret.animations.happy[0] = ret.frames.idle_1.col;
+    ret.animations.happy[0] = ret.frames.angry.valid ? ret.frames.angry.col : ret.frames.idle_1.col;
     ret.animations.happy[1] = ret.frames.idle_2.col;
-    ret.animations.happy[2] = ret.frames.idle_1.col;
+    ret.animations.happy[2] = ret.frames.angry.valid ? ret.frames.angry.col : ret.frames.idle_1.col;
     ret.animations.happy[3] = ret.frames.idle_2.col;
   }
 
