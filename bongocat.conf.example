@@ -126,6 +126,7 @@ happy_kpm=400
 
 # Animation timing (in milliseconds)
 # keypress_duration: How long to show animation after keypress
+# DEPRECATED: use animation_speed, keypress_duration is only for the old bongocat
 keypress_duration=100
 
 # enable_hand_mapping: Left half of keyboard triggers left cat hand, right half triggers right hand

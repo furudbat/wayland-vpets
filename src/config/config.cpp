@@ -80,7 +80,7 @@ static inline constexpr int MIN_OVERLAY_HEIGHT = 16;
 static inline constexpr int MAX_OVERLAY_HEIGHT = 2560;
 static inline constexpr int MIN_FPS = 1;
 static inline constexpr int MAX_FPS = 540;
-static inline constexpr int MIN_DURATION_MS = 10;
+// static inline constexpr int MIN_DURATION_MS = 10;
 static inline constexpr int MAX_DURATION_MS = 60 * 1000;
 static inline constexpr int MIN_KPM = 0;
 static inline constexpr int MAX_KPM = 10000;
@@ -122,8 +122,6 @@ static inline constexpr overlay_position_t DEFAULT_OVERLAY_POSITION = overlay_po
 static inline constexpr int32_t DEFAULT_HAPPY_KPM = 0;
 static inline constexpr platform::time_sec_t DEFAULT_IDLE_SLEEP_TIMEOUT_SEC = 0;
 static inline constexpr align_type_t DEFAULT_CAT_ALIGN = align_type_t::ALIGN_CENTER;
-static inline constexpr platform::time_ms_t DEFAULT_TEST_ANIMATION_DURATION_MS = 0;
-static inline constexpr platform::time_sec_t DEFAULT_TEST_ANIMATION_INTERVAL_SEC = 0;
 static inline constexpr bool DEFAULT_ENABLE_ANTIALIASING = true;
 static inline constexpr double DEFAULT_MOVEMENT_WAIT_FACTOR = 5.1;
 static inline constexpr bool DEFAULT_ENABLE_HAND_MAPPING = true;
@@ -349,7 +347,7 @@ static config_parse_result_t config_validate_timing(config_t& config) {
   config_parse_result_t ret{};
   ret = config_add_parse_error(ret, config_clamp_int(config.fps, MIN_FPS, MAX_FPS, FPS_KEY));
   ret = config_add_parse_error(
-      ret, config_clamp_int(config.keypress_duration_ms, MIN_DURATION_MS, MAX_DURATION_MS, KEYPRESS_DURATION_KEY));
+      ret, config_clamp_int(config.keypress_duration_ms, 0, MAX_DURATION_MS, KEYPRESS_DURATION_KEY));
   ret = config_add_parse_error(
       ret, config_clamp_int(config.test_animation_duration_ms, 0, MAX_DURATION_MS, TEST_ANIMATION_DURATION_KEY));
   ret =
@@ -2415,8 +2413,8 @@ void set_defaults(config_t& config) {
   cfg.overlay_height = DEFAULT_OVERLAY_HEIGHT;
   cfg.idle_frame = DEFAULT_IDLE_FRAME;
   cfg.keypress_duration_ms = DEFAULT_KEYPRESS_DURATION_MS;
-  cfg.test_animation_duration_ms = DEFAULT_TEST_ANIMATION_DURATION_MS;
-  cfg.test_animation_interval_sec = DEFAULT_TEST_ANIMATION_INTERVAL_SEC;
+  cfg.test_animation_duration_ms = 0;
+  cfg.test_animation_interval_sec = 0;
   cfg.fps = DEFAULT_FPS;
   cfg.overlay_opacity = DEFAULT_OVERLAY_OPACITY;
   cfg.mirror_x = false;
@@ -2577,8 +2575,20 @@ static loaded_config_result_t config_after_parsing(config_t& ret, config_parse_r
     ret.randomize_index = overwrite_parameters.randomize_index >= 1 ? 1 : 0;
   }
 
+  // fallback values
   if (ret.input_fps <= 0) {
     ret.input_fps = ret.fps;
+  }
+  if (ret.animation_speed_ms <= 0) {
+    ret.animation_speed_ms = 1000 / ret.fps;
+  }
+  if (ret.keypress_duration_ms <= 0) {
+    ret.keypress_duration_ms = 4 * ret.animation_speed_ms;
+  } else if (ret.animation_speed_ms <= 0 && ret.keypress_duration_ms > 0) {
+    ret.animation_speed_ms = ret.keypress_duration_ms / 2;
+    if (ret.animation_speed_ms <= 0) {
+      ret.animation_speed_ms = 1000 / ret.fps;
+    }
   }
 
   // Resolve keyboard_name entries to device paths.

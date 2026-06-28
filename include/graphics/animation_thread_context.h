@@ -74,6 +74,8 @@ struct animation_state_t {
   int32_t end_col_index{0};
   // for am/bongocat/pkmn (cached animation frames)
   int32_t animations_index{0};  // for sprite_sheet.frames (col indices) array
+
+  bool _hold_write_animation_started{false};
 };
 
 struct animation_thread_context_t {
