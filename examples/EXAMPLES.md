@@ -1,5 +1,17 @@
 # Examples
 
+![kde dmall](../assets/screenshots/screenshot1.png)
+
+![waybar cpu dm20](../assets/screenshots/screenshot2.png)
+
+![waybar dm20](../assets/screenshots/screenshot3.png)
+
+![walking pmd](../assets/screenshots/recording1.mp4)
+
+![cpu running neko](../assets/screenshots/recording2.mp4)
+
+![evolving dmall](../assets/screenshots/recording3.mp4)
+
 ## animated digimon (no Input)
 
 ![animated digimon (no Input) demo](../assets/test-demo-animated-digimon.bongocat.gif)
