@@ -38,7 +38,7 @@ jobs:
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Release -DSKIP_CPM=ON
+          cmake .. -DCMAKE_BUILD_TYPE=Release
 
       - name: Build
         run: |

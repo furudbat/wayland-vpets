@@ -41,8 +41,8 @@ echo "--- Test 20 ---"
 
 echo "--- Integration Test done ---"
 
-echo "--- Test RAM --"
+echo "--- Test NixOS --"
 ./scripts/tests/test_nix_build_docker.sh
 
-
+echo "--- Test RAM --"
 ./scripts/tests/test_ram.sh
