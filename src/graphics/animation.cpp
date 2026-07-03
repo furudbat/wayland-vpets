@@ -6732,10 +6732,12 @@ void update_config(animation_thread_context_t& ctx, const config::config_t& conf
       return /*old_config.invert_color != new_config.invert_color ||*/ old_config.animation_index !=
                  new_config.animation_index ||
              old_config.enable_antialiasing != new_config.enable_antialiasing ||
-             (features::EnableBongocatSvg && old_config.cat_height != new_config.cat_height);
+             (features::EnableBongocatSvg && old_config.cat_height != new_config.cat_height) ||
+             (old_config.padding_x != new_config.padding_x || old_config.padding_y != new_config.padding_y);
     }
 
-    return old_config.animation_index != new_config.animation_index;
+    return old_config.animation_index != new_config.animation_index ||
+           (old_config.padding_x != new_config.padding_x || old_config.padding_y != new_config.padding_y);
   }();
 
   *ctx._local_copy_config = config;

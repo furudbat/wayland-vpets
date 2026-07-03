@@ -59,9 +59,14 @@ static cat_rect_t get_position(const platform::wayland::wayland_thread_context& 
       return sheet.frame_width;
     }
 
-    return static_cast<int>(static_cast<float>(cat_height_phys) *
-                            static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_width)) /
-                            static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_height)));
+    const auto frame_width_phys =
+        static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_width));
+    const auto frame_height_phys =
+        static_cast<float>(platform::wayland::details::phys_dim(wayland_ctx, sheet.frame_height));
+    assert(frame_width_phys >= 0);
+    assert(frame_height_phys > 0);
+
+    return static_cast<int>(static_cast<float>(cat_height_phys) * frame_width_phys / frame_height_phys);
   }();
 
   // Cat dimensions and offsets are in logical pixels in the config; convert
@@ -565,6 +570,7 @@ void draw_sprite(platform::wayland::wayland_context_t& ctx, platform::wayland::w
   auto cat_x_with_offset =
       cat_x + platform::wayland::details::phys_dim(wayland_ctx, static_cast<int32_t>(anim_shm.movement_offset_x));
   const auto movement_radius_phys = platform::wayland::details::phys_dim(wayland_ctx, current_config.movement_radius);
+  assert(movement_radius_phys >= 0);
 
   // draw debug rectangle
   if (current_config.enable_movement_debug && current_config.movement_radius > 0) {

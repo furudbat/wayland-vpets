@@ -72,11 +72,6 @@ random=0
 # random_on_reload: Randomize sprite on config reload (random needs to be enabled) (0 = off, 1 = on)
 random_on_reload=1
 
-# Padding for sprite frame (experimental)
-# (ignored for bongocat)
-#padding_x=0
-#padding_y=0
-
 # Animation settings
 # idle_frame: Which frame to use when idle (0, 1, 2, 3)
 # Options for bongocat: 0 = both paws up, 1 = left paw down, 2 = right paw down, 3 = both paw down
