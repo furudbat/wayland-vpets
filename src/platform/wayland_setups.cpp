@@ -38,10 +38,6 @@ static inline constexpr size_t CREATE_SHM_NAME_PREFIX_LEN =
 static_assert((CREATE_SHM_NAME_PREFIX_LEN + CREATE_SHM_NAME_SUFFIX_LEN) == LEN_ARRAY(CREATE_SHM_NAME_TEMPLATE) - 1);
 
 int phys_dim(const wayland_thread_context& ctx, int logical) {
-  if (logical <= 0) {
-    return 0;
-  }
-
   if (ctx._preferred_scale <= 0) {
     return logical;
   }
