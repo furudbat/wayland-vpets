@@ -4427,11 +4427,19 @@ anim_custom_handle_movement(animation_thread_context_t& ctx, const platform::inp
 
   return ret;
 }
-static anim_next_frame_result_t
-anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
-                            [[maybe_unused]] const platform::update::update_context_t& upd, animation_state_t& state,
-                            const anim_handle_key_press_result_t& trigger_result) {
+static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t& animation_ctx,
+                                                            animation_state_t& state,
+                                                            const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
+
+  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_ctx._input->shm != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update->shm != BONGOCAT_NULLPTR);
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+  [[maybe_unused]] const platform::input::input_context_t& input = *animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t& upd = *animation_ctx._update;
+  auto& anim_shm = *ctx.shm;
 
   // read-only config
   assert(ctx._local_copy_config);
@@ -4440,7 +4448,6 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
   assert(ctx.shm != BONGOCAT_NULLPTR);
   assert(input.shm != BONGOCAT_NULLPTR);
   assert(upd.shm != BONGOCAT_NULLPTR);
-  animation_shared_memory_t& anim_shm = *ctx.shm;
   const auto& input_shm = *input.shm;
   const auto& update_shm = *upd.shm;
   const auto current_state = state;
@@ -4449,6 +4456,7 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
   const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm.last_key_pressed_timestamp;
   assert(get_current_animation(ctx).type == animation_t::type_t::Custom);
   const auto& current_frames = get_current_animation(ctx).custom;
+  auto& evol = anim_shm.evolution;
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
@@ -4887,9 +4895,16 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
   case animation_state_row_t::StartEvolution:
     if (current_frames.feature_evolving) {
       if (conditions.go_next_frame) {
-        anim_custom_start_or_process_animation(ctx, animation_state_row_t::Evolution,
-                                               animation_state_row_t::AfterEvolution, new_animation_result, new_state,
-                                               current_state, current_frames, current_config);
+        const auto animation_result = anim_custom_start_or_process_animation(
+            ctx, animation_state_row_t::Evolution, animation_state_row_t::AfterEvolution, new_animation_result,
+            new_state, current_state, current_frames, current_config);
+        if (animation_result.row_state == animation_state_row_t::Evolution ||
+            animation_result.row_state == animation_state_row_t::AfterEvolution) {
+          if (evol._evolution_pending_animation_index >= 0) {
+            evol._swap_animation = true;
+            trigger_reload_animation(animation_ctx);
+          }
+        }
       }
     } else {
       anim_custom_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
@@ -4900,7 +4915,17 @@ anim_custom_idle_next_frame(animation_thread_context_t& ctx, const platform::inp
     if (current_frames.feature_evolving) {
       if (conditions.go_next_frame) {
         if (conditions.is_evolving) {
-          anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+          auto animation_result =
+              anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+          // @TODO: make Evolution result in End instead of Looped
+          if (animation_result.status == anim_custom_process_animation_result_status_t::End ||
+              animation_result.status == anim_custom_process_animation_result_status_t::Looped) {
+            if (evol._evolution_pending_animation_index >= 0) {
+              animation_result.status = anim_custom_process_animation_result_status_t::End;
+              evol._swap_animation = true;
+              trigger_reload_animation(animation_ctx);
+            }
+          }
         } else {
           anim_custom_start_or_process_animation(ctx, animation_state_row_t::AfterEvolution,
                                                  animation_state_row_t::Idle, new_animation_result, new_state,
@@ -5466,7 +5491,7 @@ static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& 
   } break;
   case config::config_animation_sprite_sheet_layout_t::Custom: {
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-    return anim_custom_idle_next_frame(ctx, input, upd, state, trigger_result);
+    return anim_custom_idle_next_frame(animation_ctx, state, trigger_result);
 #endif
   } break;
   }
@@ -6211,7 +6236,7 @@ static void *anim_thread(void *arg) {
       if (anim_result.rerender) {
         constexpr uint64_t u = 1;
         if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
-          BONGOCAT_LOG_VERBOSE("animation: Write animation render event");
+          BONGOCAT_LOG_VERBOSE("animation: animation render event");
         } else {
           BONGOCAT_LOG_ERROR("animation: Failed to write to notify pipe in animation: %s", strerror(errno));
         }
@@ -6295,7 +6320,7 @@ static void *anim_thread(void *arg) {
 
       constexpr uint64_t u = 1;
       if (write(trigger_ctx.render_efd._fd, &u, sizeof(uint64_t)) >= 0) {
-        BONGOCAT_LOG_VERBOSE("animation: Write animation render event");
+        BONGOCAT_LOG_VERBOSE("animation: animation render event");
       } else {
         BONGOCAT_LOG_ERROR("animation: Failed to write to notify pipe in animation: %s", strerror(errno));
       }
@@ -6736,7 +6761,10 @@ void update_config(animation_thread_context_t& ctx, const config::config_t& conf
              (old_config.padding_x != new_config.padding_x || old_config.padding_y != new_config.padding_y);
     }
 
-    return old_config.animation_index != new_config.animation_index ||
+    return (old_config.animation_index != new_config.animation_index ||
+            old_config.animation_dm_set != new_config.animation_dm_set ||
+            old_config.animation_custom_set != new_config.animation_custom_set ||
+            old_config.animation_sprite_sheet_layout != new_config.animation_sprite_sheet_layout) ||
            (old_config.padding_x != new_config.padding_x || old_config.padding_y != new_config.padding_y);
   }();
 

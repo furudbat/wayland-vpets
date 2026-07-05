@@ -2,6 +2,25 @@
 
 All notable changes to this project will be documented in this file.
 
+
+### [5.0.2] - 2026-07-05
+
+## Fixed
+
+- fix pmd evolution animation
+
+### [5.0.1] - 2026-07-03
+
+## Fixed
+
+- fix pkmn animation
+- fix negative offset_y
+- config parsing in strict mode
+
+### Improve
+
+- reduce RAM usage footprint
+
 ### [5.0.0] - 2026-06-23
 
 **BREAKING CHANGE:** renaming- and cleanup sprites. **Check your `animation_name` in config.**
