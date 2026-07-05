@@ -36,13 +36,15 @@ echo "--- Test 16 ---"
 ./scripts/tests/test_bongocat_16.sh
 echo "--- Test 17 ---"
 ./scripts/tests/test_bongocat_17.sh
+echo "--- Test 18 ---"
+./scripts/tests/test_bongocat_18.sh
 echo "--- Test 20 ---"
 ./scripts/tests/test_bongocat_20.sh
 
 echo "--- Integration Test done ---"
 
-echo "--- Test RAM --"
+echo "--- Test NixOS --"
 ./scripts/tests/test_nix_build_docker.sh
 
-
+echo "--- Test RAM --"
 ./scripts/tests/test_ram.sh

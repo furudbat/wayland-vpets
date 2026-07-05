@@ -25,7 +25,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
 endif()
 
-project(bongocat LANGUAGES C CXX VERSION 5.0.0)
+project(bongocat LANGUAGES C CXX VERSION 5.0.2)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -728,15 +728,15 @@ if(FEATURE_MULTI_VERSIONS)
   )
   if(FEATURE_PMD_EMBEDDED_ASSETS)
     target_link_libraries(
-            bongocat_all_loaders
-            INTERFACE
-            assets_pmd_loader
-            assets_pmd_feature
-            assets_pmd_interface
-            assets_custom_loader
-            -Wl,--whole-archive
-            assets_pmd
-            -Wl,--no-whole-archive
+      bongocat_all_loaders
+      INTERFACE
+        assets_pmd_loader
+        assets_pmd_feature
+        assets_pmd_interface
+        assets_custom_loader
+        -Wl,--whole-archive
+        assets_pmd
+        -Wl,--no-whole-archive
     )
   endif()
   add_executable(bongocat-all)
@@ -895,35 +895,39 @@ if(PANDOC)
 endif()
 
 # Package
-if(NOT DEFINED ENV{NIX_BUILD_TOP} AND NOT SKIP_CPM)
-  cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
-  set(CPACK_PACKAGE_NAME "bongocat")
+if(NOT DEFINED ENV{NIX_BUILD_TOP})
+  set(CPACK_PACKAGE_NAME "${PROJECT_NAME}")
   set(CPACK_PACKAGE_VERSION "${PROJECT_VERSION}")
   set(CPACK_PACKAGE_CONTACT "hircreacc@gmail.com")
   set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A delightful Wayland overlay that displays an animated V-Pet reacting to your keyboard input! ")
   set(CPACK_RESOURCE_FILE_LICENSE "${PROJECT_SOURCE_DIR}/LICENSE")
   set(CPACK_GENERATOR "TGZ;ZIP")
-  packageproject(
-    # the name of the target to export
-    NAME
-    ${PROJECT_NAME}
-    # the version of the target to export
-    VERSION
-    ${PROJECT_VERSION}
-    # a temporary directory to create the config files
-    BINARY_DIR
-    ${PROJECT_BINARY_DIR}
-    # should match the target's INSTALL_INTERFACE include directory
-    INCLUDE_DESTINATION
-    include/${PROJECT_NAME}-${PROJECT_VERSION}
-    # (optional) define the project's version compatibility, defaults to `AnyNewerVersion` supported values:
-    # `AnyNewerVersion|SameMajorVersion|SameMinorVersion|ExactVersion`
-    COMPATIBILITY
-    SameMajorVersion
-    # (optional) option to generate CPack variables
-    CPACK
-    YES
-  )
+  if(NOT SKIP_CPM)
+    cpmaddpackage("gh:TheLartians/PackageProject.cmake@1.13.0")
+    packageproject(
+      # the name of the target to export
+      NAME
+      ${PROJECT_NAME}
+      # the version of the target to export
+      VERSION
+      ${PROJECT_VERSION}
+      # a temporary directory to create the config files
+      BINARY_DIR
+      ${PROJECT_BINARY_DIR}
+      # should match the target's INSTALL_INTERFACE include directory
+      INCLUDE_DESTINATION
+      include/${PROJECT_NAME}-${PROJECT_VERSION}
+      # (optional) define the project's version compatibility, defaults to `AnyNewerVersion` supported values:
+      # `AnyNewerVersion|SameMajorVersion|SameMinorVersion|ExactVersion`
+      COMPATIBILITY
+      SameMajorVersion
+      # (optional) option to generate CPack variables
+      CPACK
+      YES
+    )
+  else()
+    include(CPack)
+  endif()
 endif()
 
 # If MSVC is being used, and ASAN is enabled, we need to set the debugger environment so that it behaves well with MSVC's debugger, and we
