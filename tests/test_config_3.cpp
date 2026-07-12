@@ -167,27 +167,27 @@ enable_debug=1
 # keyboard_device=/dev/input/event5   # Another input device
 
 # Input devices
-keyboard_device=/dev/input/event3
-keyboard_device=/dev/input/event8
-keyboard_device=/dev/input/event16
-keyboard_device=/dev/input/event19
-keyboard_device=/dev/input/event4
-keyboard_device=/dev/input/event7
-keyboard_device=/dev/input/event17
+#keyboard_device=/dev/input/event3
+#keyboard_device=/dev/input/event8
+#keyboard_device=/dev/input/event16
+#keyboard_device=/dev/input/event19
+#keyboard_device=/dev/input/event4
+#keyboard_device=/dev/input/event7
+#keyboard_device=/dev/input/event17
 #keyboard_device=/dev/input/event0
 #keyboard_device=/dev/input/event1
-keyboard_device=/dev/input/event3
+#keyboard_device=/dev/input/event3
 #keyboard_device=/dev/input/event6
-keyboard_device=/dev/input/event7
-keyboard_device=/dev/input/event8
-keyboard_device=/dev/input/event9
-keyboard_device=/dev/input/event10
-keyboard_device=/dev/input/event12
-keyboard_device=/dev/input/event13
-keyboard_device=/dev/input/event16
-keyboard_device=/dev/input/event17
-keyboard_device=/dev/input/event18
-keyboard_device=/dev/input/event21
+#keyboard_device=/dev/input/event7
+#keyboard_device=/dev/input/event8
+#keyboard_device=/dev/input/event9
+#keyboard_device=/dev/input/event10
+#keyboard_device=/dev/input/event12
+#keyboard_device=/dev/input/event13
+#keyboard_device=/dev/input/event16
+#keyboard_device=/dev/input/event17
+#keyboard_device=/dev/input/event18
+#keyboard_device=/dev/input/event21
 
 # Multi-monitor support
 # Specify which monitor to display bongocat on (optional)
@@ -355,31 +355,31 @@ enable_debug=1
 # keyboard_device=/dev/input/event5   # Another input device
 
 # Input devices
-keyboard_device=/dev/input/event3
-keyboard_device=/dev/input/event8
-keyboard_device=/dev/input/event16
-keyboard_device=/dev/input/event19
-keyboard_device=/dev/input/event4
-keyboard_device=/dev/input/event7
-keyboard_device=/dev/input/event17
+#keyboard_device=/dev/input/event3
+#keyboard_device=/dev/input/event8
+#keyboard_device=/dev/input/event16
+#keyboard_device=/dev/input/event19
+#keyboard_device=/dev/input/event4
+#keyboard_device=/dev/input/event7
+#keyboard_device=/dev/input/event17
 #keyboard_device=/dev/input/event0
 #keyboard_device=/dev/input/event1
-keyboard_device=/dev/input/event3
+#keyboard_device=/dev/input/event3
 #keyboard_device=/dev/input/event6
-keyboard_device=/dev/input/event7
-keyboard_device=/dev/input/event8
-keyboard_device=/dev/input/event9
-keyboard_device=/dev/input/event10
-keyboard_device=/dev/input/event12
-keyboard_device=/dev/input/event13
-keyboard_device=/dev/input/event16
-keyboard_device=/dev/input/event17
-keyboard_device=/dev/input/event18
-keyboard_device=/dev/input/event21
+#keyboard_device=/dev/input/event7
+#keyboard_device=/dev/input/event8
+#keyboard_device=/dev/input/event9
+#keyboard_device=/dev/input/event10
+#keyboard_device=/dev/input/event12
+#keyboard_device=/dev/input/event13
+#keyboard_device=/dev/input/event16
+#keyboard_device=/dev/input/event17
+#keyboard_device=/dev/input/event18
+#keyboard_device=/dev/input/event21
 
-keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-kbd
-keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-if01
-keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-if01-event-kbd
+#keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-kbd
+#keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-if01
+#keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-if01-event-kbd
 
 hotplug_scan_interval=30
 
@@ -544,31 +544,31 @@ enable_debug=1
 # keyboard_device=/dev/input/event5   # Another input device
 
 # Input devices
-keyboard_device=/dev/input/event3
-keyboard_device=/dev/input/event8
-keyboard_device=/dev/input/event16
-keyboard_device=/dev/input/event19
-keyboard_device=/dev/input/event4
-keyboard_device=/dev/input/event7
-keyboard_device=/dev/input/event17
+#keyboard_device=/dev/input/event3
+#keyboard_device=/dev/input/event8
+#keyboard_device=/dev/input/event16
+#keyboard_device=/dev/input/event19
+#keyboard_device=/dev/input/event4
+#keyboard_device=/dev/input/event7
+#keyboard_device=/dev/input/event17
 #keyboard_device=/dev/input/event0
 #keyboard_device=/dev/input/event1
-keyboard_device=/dev/input/event3
+#keyboard_device=/dev/input/event3
 #keyboard_device=/dev/input/event6
-keyboard_device=/dev/input/event7
-keyboard_device=/dev/input/event8
-keyboard_device=/dev/input/event9
-keyboard_device=/dev/input/event10
-keyboard_device=/dev/input/event12
-keyboard_device=/dev/input/event13
-keyboard_device=/dev/input/event16
-keyboard_device=/dev/input/event17
-keyboard_device=/dev/input/event18
-keyboard_device=/dev/input/event21
+#keyboard_device=/dev/input/event7
+#keyboard_device=/dev/input/event8
+#keyboard_device=/dev/input/event9
+#keyboard_device=/dev/input/event10
+#keyboard_device=/dev/input/event12
+#keyboard_device=/dev/input/event13
+#keyboard_device=/dev/input/event16
+#keyboard_device=/dev/input/event17
+#keyboard_device=/dev/input/event18
+#keyboard_device=/dev/input/event21
 
-keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-kbd
-keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-if01
-keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-if01-event-kbd
+#keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-kbd
+#keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-event-if01
+#keyboard_name=/dev/input/by-id/usb-SEMICO_DIERYA_61SE-if01-event-kbd
 
 hotplug_scan_interval=30
 

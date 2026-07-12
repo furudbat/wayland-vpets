@@ -112,7 +112,7 @@ A home manager module is also provided by the repository flake. It's just like t
       url = "github:nix-community/home-manager";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-    bongocat.url = "github:saatvik333/wayland-bongocat";
+    bongocat.url = "github:furudbat/wayland-vpets";
   };
 
   outputs = inputs: {
