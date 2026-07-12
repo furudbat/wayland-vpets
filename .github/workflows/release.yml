@@ -32,7 +32,7 @@ jobs:
             wayland \
             wayland-protocols \
             unzip \
-            pandoc-cli
+            pandoc
 
       - name: Configure CMake (Release)
         run: |

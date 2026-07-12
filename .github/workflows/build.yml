@@ -43,13 +43,26 @@ jobs:
             echo "CXX=clang++" >> $GITHUB_ENV
           fi
 
-      - name: Configure CMake (Debug)
+      - name: Configure CMake
         run: |
           mkdir -p build
           cd build
-          cmake .. -DCMAKE_BUILD_TYPE=Debug -DSKIP_CPM=ON
+          cmake .. -DCMAKE_BUILD_TYPE=RelWithDebInfo -DSKIP_CPM=ON -DBUILD_TESTING=ON
 
       - name: Build
         run: |
           cd build
           cmake --build . -- -j$(nproc)
+
+      - name: Tests
+        run: |
+          cd build
+          ctest --output-on-failure --parallel $(nproc)
+
+  nix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3 # v6.0.0
+      - uses: cachix/install-nix-action@a49548c11d9846ad46ecc0115273879b045f001c # v31
+      - name: Check flake and package
+        run: ./scripts/tests/test_nix_build.sh
