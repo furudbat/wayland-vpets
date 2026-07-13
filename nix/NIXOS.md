@@ -312,6 +312,6 @@ See the [README](../README.md) for contribution guidelines. The NixOS integratio
 For NixOS-specific issues:
 
 1. Read through this guide thoroughly
-1. Read through `nixos-module.nix`
-1. Test with the development shell
-1. Open an issue with your NixOS version and configuration
+2. Read through `nixos-module.nix`
+3. Test with the development shell
+4. Open an issue with your NixOS version and configuration
