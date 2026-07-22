@@ -62,8 +62,8 @@ BONGOCAT_NODISCARD bool fs_detector_available(wayland_context_t& ctx);
 zwlr_layer_shell_v1_layer wayland_apply_layer_properties_v1(wayland_context_t& ctx);
 uint32_t wayland_apply_anchor_properties_v1(wayland_context_t& ctx);
 
-// Ceil-divide logical pixels by 120 / scale_120 to get physical pixels.
-int phys_dim(const wayland_thread_context& ctx, int logical);
+BONGOCAT_NODISCARD int phys_dim(const wayland_thread_context& ctx, int logical);
+BONGOCAT_NODISCARD int scale_offset_120(const wayland_thread_context& ctx, int logical);
 
 }  // namespace bongocat::platform::wayland::details
 

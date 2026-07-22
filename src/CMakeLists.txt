@@ -113,6 +113,7 @@ set(
   graphics/animation_init.cpp
   graphics/bar.cpp
   graphics/drawing_images.cpp
+  graphics/drawing_scale.cpp
   platform/input.cpp
   platform/update.cpp
   platform/wayland.cpp

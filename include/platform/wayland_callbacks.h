@@ -151,19 +151,17 @@ inline static constexpr wp_fractional_scale_v1_listener fractional_scale_listene
     .preferred_scale = fractional_scale_preferred_scale,
 };
 
-namespace details {
-  struct fullscreen_toplevel_relevant_params_t {
-    bool has_output_events;
-    bool is_on_output;
-    bool is_activated;
-  };
-  BONGOCAT_NODISCARD inline bool fullscreen_toplevel_relevant(fullscreen_toplevel_relevant_params_t params) {
-    return params.is_activated && (!params.has_output_events || params.is_on_output);
-  }
+struct fullscreen_toplevel_relevant_params_t {
+  bool has_output_events;
+  bool is_on_output;
+  bool is_activated;
+};
+BONGOCAT_NODISCARD inline bool fullscreen_toplevel_relevant(fullscreen_toplevel_relevant_params_t params) {
+  return params.is_activated && (!params.has_output_events || params.is_on_output);
+}
 
-  struct wl_output *wayland_get_current_screen_output(wayland_context_t& ctx);
-  tracked_toplevel_t *get_current_toplevel_data(wayland_context_t& ctx);
-}  // namespace details
+BONGOCAT_NODISCARD struct wl_output *wayland_get_current_screen_output(wayland_context_t& ctx);
+BONGOCAT_NODISCARD tracked_toplevel_t *get_current_toplevel_data(wayland_context_t& ctx);
 
 }  // namespace bongocat::platform::wayland::details
 

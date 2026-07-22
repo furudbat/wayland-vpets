@@ -44,23 +44,23 @@ struct tracked_toplevel_t {
 
 enum class screen_info_received_flags_t : uint32_t {
   None = 0,
-  Mode = (1u << 0),
-  Geometry = (1u << 1),
-  Scale = (1u << 2),
+  Mode = (1u << 0u),
+  Geometry = (1u << 1u),
+  Scale = (1u << 2u),
 };
 struct screen_info_t {
   struct wl_output *wl_output{BONGOCAT_NULLPTR};  // ref of output
 
   // compositor logical coordinate space
-  int logical_width{0};
-  int logical_height{0};
+  int32_t logical_width{0};
+  int32_t logical_height{0};
 
   // physical monitor mode
-  int physical_width{0};
-  int physical_height{0};
+  int32_t physical_width{0};
+  int32_t physical_height{0};
 
-  int transform{0};
-  int scale{1};
+  int32_t transform{0};
+  int32_t scale{1};
 
   screen_info_received_flags_t received{screen_info_received_flags_t::None};
 };
@@ -69,9 +69,9 @@ struct wayland_context_t;
 
 enum class output_ref_received_flags_t : uint32_t {
   None = 0,
-  Name = (1u << 0),
-  LogicalPosition = (1u << 1),
-  LogicalSize = (1u << 2),
+  Name = (1u << 0u),
+  LogicalPosition = (1u << 1u),
+  LogicalSize = (1u << 2u),
 };
 // Output monitor reference structure
 struct output_ref_t {

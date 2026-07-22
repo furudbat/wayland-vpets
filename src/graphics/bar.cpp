@@ -37,7 +37,7 @@ struct cat_rect_t {
 
 enum class blit_image_sprite_option_flags_t : uint32_t {
   None = 0,
-  IgnoreCatHeight = (1u << 0),  // use frame_height
+  IgnoreCatHeight = (1u << 0u),  // use frame_height
 };
 
 template <class SpriteSheet>
@@ -74,21 +74,22 @@ static cat_rect_t get_position(const platform::wayland::wayland_thread_context& 
   int cat_x_phys = 0;
   switch (config.cat_align) {
   case config::align_type_t::ALIGN_CENTER:
-    cat_x_phys =
-        ((phys_w - cat_width_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
+    cat_x_phys = ((phys_w - cat_width_phys) / 2) +
+                 platform::wayland::details::scale_offset_120(wayland_ctx, config.cat_x_offset);
     break;
   case config::align_type_t::ALIGN_LEFT:
-    cat_x_phys = platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
+    cat_x_phys = platform::wayland::details::scale_offset_120(wayland_ctx, config.cat_x_offset);
     break;
   case config::align_type_t::ALIGN_RIGHT:
-    cat_x_phys = phys_w - cat_width_phys - platform::wayland::details::phys_dim(wayland_ctx, config.cat_x_offset);
+    cat_x_phys =
+        phys_w - cat_width_phys - platform::wayland::details::scale_offset_120(wayland_ctx, config.cat_x_offset);
     break;
   default:
     BONGOCAT_LOG_VERBOSE("Invalid cat_align %d", config.cat_align);
     break;
   }
   const int cat_y_phys =
-      ((phys_h - cat_height_phys) / 2) + platform::wayland::details::phys_dim(wayland_ctx, config.cat_y_offset);
+      ((phys_h - cat_height_phys) / 2) + platform::wayland::details::scale_offset_120(wayland_ctx, config.cat_y_offset);
 
   return {.x = cat_x_phys, .y = cat_y_phys, .width = cat_width_phys, .height = cat_height_phys};
 }

@@ -94,6 +94,7 @@ set(
   ${CMAKE_SOURCE_DIR}/src/graphics/animation_init.cpp
   ${CMAKE_SOURCE_DIR}/src/graphics/bar.cpp
   ${CMAKE_SOURCE_DIR}/src/graphics/drawing_images.cpp
+  ${CMAKE_SOURCE_DIR}/src/graphics/drawing_scale.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/input.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/update.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland.cpp
@@ -117,6 +118,8 @@ add_executable(
   test_config.cpp
   test_config_2.cpp
   test_config_3.cpp
+  test_fullscreen_state.cpp
+  test_scale.cpp
 )
 target_include_directories(bongocat_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests ${CMAKE_SOURCE_DIR}/lib)
 target_link_libraries(

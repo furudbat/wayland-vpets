@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <wayland-client.h>
 // #include "wayland_sway.h"
+#include "graphics/drawing.h"
 #include "platform/wayland_callbacks.h"
 
 namespace bongocat::platform::wayland::details {
@@ -45,7 +46,14 @@ int phys_dim(const wayland_thread_context& ctx, int logical) {
   assert(ctx._preferred_scale <= INT_MAX);
   return animation::details::phys_dim({
       .logical = logical,
-      .scale120 = static_cast<int>(ctx._preferred_scale),
+      .scale120 = ctx._preferred_scale,
+  });
+}
+
+int scale_offset_120(const wayland_thread_context& ctx, int logical) {
+  return animation::details::scale_offset_120({
+      .logical = logical,
+      .scale120 = ctx._preferred_scale,
   });
 }
 

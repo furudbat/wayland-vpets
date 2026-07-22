@@ -623,10 +623,11 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
                              current_config.overlay_height);
         }
 
+        assert(ctx.thread_context._screen_info->scale >= 0);
         animation_ctx.thread_context.shm->scale120 =
             (has_flag(ctx.thread_context._screen_info->received, screen_info_received_flags_t::Scale))
-                ? ctx.thread_context._screen_info->scale * 120
-                : 120;
+                ? static_cast<uint32_t>(ctx.thread_context._screen_info->scale) * 120u
+                : 120u;
         animation_ctx.thread_context.shm->cat_height_phys =
             phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
       }

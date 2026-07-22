@@ -149,6 +149,7 @@ void handle_xdg_output_logical_size(void *data, [[maybe_unused]] zxdg_output_v1 
 
     for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
       if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
+        // screen_calculate_dimensions(wayland_ctx.screen_infos[i], oref);
         wayland_ctx.screen_infos[i].logical_width = width;
         wayland_ctx.screen_infos[i].logical_height = height;
         break;
@@ -172,6 +173,7 @@ void handle_xdg_output_done(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
 
     for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
       if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
+        // screen_calculate_dimensions(wayland_ctx.screen_infos[i], oref);
         wayland_ctx.screen_infos[i].logical_width = oref->width;
         wayland_ctx.screen_infos[i].logical_height = oref->height;
         break;
@@ -701,30 +703,15 @@ void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *ma
 // =============================================================================
 
 /*
-static void screen_calculate_dimensions(screen_info_t& screen_info) {
-  if (screen_info.received == screen_info_received_flags_t::None ||
-      (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Geometry)) ==
-          0 ||
-      (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Mode)) == 0) {
-    return;
+[[deprecated]] static void screen_calculate_dimensions(screen_info_t& screen_info, const output_ref_t& oref) {
+  if ((screen_info.received == screen_info_received_flags_t::None || !has_flag(screen_info.received,
+screen_info_received_flags_t::Geometry)) && (oref.width <= 0 || oref.height <= 0)) { return;
   }
 
-  const bool is_rotated = screen_info.transform == WL_OUTPUT_TRANSFORM_90 ||
-                          screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
-                          screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
-                          screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270;
-
-  if (is_rotated) {
-    screen_info.screen_width = screen_info.raw_height;
-    screen_info.screen_height = screen_info.raw_width;
-    BONGOCAT_LOG_DEBUG("Detected rotated screen: %dx%d (transform: %d)", screen_info.raw_height, screen_info.raw_width,
-                       screen_info.transform);
-  } else {
-    screen_info.screen_width = screen_info.raw_width;
-    screen_info.screen_height = screen_info.raw_height;
-    BONGOCAT_LOG_DEBUG("Detected screen: %dx%d (transform: %d)", screen_info.raw_width, screen_info.raw_height,
-                       screen_info.transform);
-  }
+  auto [width, height] = animation::details::output_logical_size({screen_info.physical_width,
+screen_info.physical_height}, screen_info.transform, screen_info.scale, {oref.width, oref.height});
+  screen_info.logical_width = width;
+  screen_info.logical_height = height;
 }
 */
 
@@ -1047,8 +1034,7 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
   }
   if (ctx.animation_context != BONGOCAT_NULLPTR && ctx.animation_context->thread_context.shm != BONGOCAT_NULLPTR) {
     platform::LockGuard anim_guard(ctx.animation_context->thread_context.anim_lock);
-    assert(scale <= INT_MAX);
-    ctx.animation_context->thread_context.shm->scale120 = static_cast<int>(scale);
+    ctx.animation_context->thread_context.shm->scale120 = scale;
     ctx.animation_context->thread_context.shm->cat_height_phys =
         phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
     trigger_reload_animation(*ctx.animation_context);
