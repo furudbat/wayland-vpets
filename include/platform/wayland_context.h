@@ -22,11 +22,20 @@ struct fullscreen_detector_t {
   bool has_fullscreen_toplevel{false};
   timespec last_check{};
 };
+
+// Foreign toplevel protocol event handlers
+// Each toplevel tracks its fullscreen and activated state
+struct toplevel_data_t {
+  bool is_fullscreen{false};
+  bool is_activated{false};                  // Track if this toplevel is the currently focused one
+  wayland_context_t *ctx{BONGOCAT_NULLPTR};  // backtrack wayland context
+};
 struct tracked_toplevel_t {
   struct zwlr_foreign_toplevel_handle_v1 *handle{BONGOCAT_NULLPTR};
   wl_output *output{BONGOCAT_NULLPTR};
   bool is_fullscreen{false};
   bool is_activated{false};
+  AllocatedMemory<toplevel_data_t> data;
 };
 
 // =============================================================================
@@ -104,6 +113,10 @@ struct wayland_context_t {
   atomic_bool _output_lost{false};  // Set when our output disconnects
 
   // Fullscreen
+  // Track whether the compositor has ever sent output_enter for any toplevel.
+  // When false, the compositor likely doesn't support per-toplevel output
+  // tracking (e.g. older KDE/KWin), and we should use the global fallback
+  // regardless of output_count.
   atomic_bool _compositor_sends_output_events{false};
   atomic_bool _active_toplevel_fullscreen{false};
 

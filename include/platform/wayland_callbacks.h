@@ -47,7 +47,7 @@ extern void fs_handle_done(void *data, zwlr_foreign_toplevel_handle_v1 *handle);
 extern void fs_handle_parent(void *data, zwlr_foreign_toplevel_handle_v1 *handle,
                              zwlr_foreign_toplevel_handle_v1 *parent);
 
-/// @NOTE: fs_toplevel_listener MUST pass data as output_ref_t, see zwlr_foreign_toplevel_handle_v1_add_listener
+/// @NOTE: fs_toplevel_listener MUST pass data as toplevel_data_t, see zxdg_output_v1_add_listener
 inline static constexpr zwlr_foreign_toplevel_handle_v1_listener fs_toplevel_listener = {
     .title = fs_handle_title,
     .app_id = fs_handle_app_id,
@@ -65,8 +65,7 @@ extern void fs_handle_manager_toplevel(void *data, zwlr_foreign_toplevel_manager
                                        zwlr_foreign_toplevel_handle_v1 *toplevel);
 extern void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *manager);
 
-/// @NOTE: fs_manager_listeners MUST pass data as wayland_listeners_context_t, see
-/// zwlr_foreign_toplevel_manager_v1_add_listener
+/// @NOTE: fs_manager_listener MUST pass data as wayland_context_t, see zwlr_foreign_toplevel_manager_v1_add_listener
 inline static constexpr zwlr_foreign_toplevel_manager_v1_listener fs_manager_listener = {
     .toplevel = fs_handle_manager_toplevel,
     .finished = fs_handle_manager_finished,
@@ -79,7 +78,7 @@ inline static constexpr zwlr_foreign_toplevel_manager_v1_listener fs_manager_lis
 extern void layer_surface_configure(void *data, zwlr_layer_surface_v1 *ls, uint32_t serial, uint32_t w, uint32_t h);
 extern void layer_surface_closed(void *data, zwlr_layer_surface_v1 *ls);
 
-/// @NOTE: layer_listeners MUST pass data as wayland_listeners_context_t, see zwlr_layer_surface_v1_add_listener
+/// @NOTE: layer_listener MUST pass data as wayland_context_t, see zwlr_layer_surface_v1_add_listener
 inline static constexpr zwlr_layer_surface_v1_listener layer_listener = {
     .configure = layer_surface_configure,
     .closed = layer_surface_closed,
@@ -87,7 +86,7 @@ inline static constexpr zwlr_layer_surface_v1_listener layer_listener = {
 
 extern void xdg_wm_base_ping(void *data, xdg_wm_base *wm_base, uint32_t serial);
 
-/// @NOTE: xdg_wm_base_listeners MUST pass data as wayland_listeners_context_t, see xdg_wm_base_add_listener
+/// @NOTE: xdg_wm_base_listener MUST pass data as wayland_context_t, see xdg_wm_base_add_listener
 inline static constexpr xdg_wm_base_listener xdg_wm_base_listener = {
     .ping = xdg_wm_base_ping,
 };
@@ -102,7 +101,7 @@ extern void output_scale(void *data, wl_output *wl_output, int32_t factor);
 extern void output_name(void *data, wl_output *wl_output, const char *name);
 extern void output_description(void *data, wl_output *wl_output, const char *name);
 
-/// @NOTE: output_listeners MUST pass data as wayland_listeners_context_t, see wl_output_add_listener
+/// @NOTE: output_listener MUST pass data as wayland_context_t, see wl_output_add_listener
 inline static constexpr wl_output_listener output_listener = {
     .geometry = output_geometry,
     .mode = output_mode,
@@ -151,6 +150,20 @@ extern void fractional_scale_preferred_scale(void *data, struct wp_fractional_sc
 inline static constexpr wp_fractional_scale_v1_listener fractional_scale_listener = {
     .preferred_scale = fractional_scale_preferred_scale,
 };
+
+namespace details {
+  struct fullscreen_toplevel_relevant_params_t {
+    bool has_output_events;
+    bool is_on_output;
+    bool is_activated;
+  };
+  BONGOCAT_NODISCARD inline bool fullscreen_toplevel_relevant(fullscreen_toplevel_relevant_params_t params) {
+    return params.is_activated && (!params.has_output_events || params.is_on_output);
+  }
+
+  struct wl_output *wayland_get_current_screen_output(wayland_context_t& ctx);
+  tracked_toplevel_t *get_current_toplevel_data(wayland_context_t& ctx);
+}  // namespace details
 
 }  // namespace bongocat::platform::wayland::details
 
