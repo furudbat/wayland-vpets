@@ -13,6 +13,7 @@
 #include "embedded_assets/pkmn/pkmn_evol.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 #include "graphics/animation_thread_context.h"
+#include "graphics/drawing.h"
 #include "graphics/embedded_assets_dms.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
@@ -6778,8 +6779,8 @@ void update_config(animation_thread_context_t& ctx, const config::config_t& conf
 }
 
 namespace details {
-  int phys_dim(phys_dim_params params) {
-    return static_cast<int>(((static_cast<int64_t>(params.logical) * params.scale120) + 119) / 120);
+  int phys_dim(scale_120_params params) {
+    return scale_size_120(params);
   }
   void update_cat_height_physical(animation_thread_context_t& ctx) {
     ctx.shm->cat_height_phys = details::phys_dim({

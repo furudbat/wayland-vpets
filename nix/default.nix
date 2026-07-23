@@ -39,7 +39,7 @@ gcc15Stdenv.mkDerivation (finalAttrs: {
 
   # Package information
   meta = {
-    description = "Delightful Wayland overlay that displays an animated bongo cat and more vpets reacting to your keyboard input!";
+    description = "Delightful Wayland overlay that displays an animated bongo cat and other v-pets reacting to your keyboard input!";
     homepage = "https://github.com/furudbat/wayland-vpets";
     license = lib.licenses.mit;
     maintainers = with lib.maintainers; [voxi0 furudbat];

@@ -407,8 +407,8 @@ struct loaded_config_result_t {
 
   // explicit(true) loaded_config_result_t(config_t&& res) : config(bongocat::move(res)) {}
   loaded_config_result_t(config_t&& res_config, config_parse_result_t&& res)
-      : config(std::move(res_config))
-      , result(std::move(res)) {}
+      : config(bongocat::move(res_config))
+      , result(bongocat::move(res)) {}
   explicit(true) loaded_config_result_t(config_parse_result_t&& res) : result(bongocat::move(res)) {}
 };
 BONGOCAT_NODISCARD inline bool is_valid_config_result(const loaded_config_result_t& res) {

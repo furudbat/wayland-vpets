@@ -149,6 +149,7 @@ void handle_xdg_output_logical_size(void *data, [[maybe_unused]] zxdg_output_v1 
 
     for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
       if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
+        // screen_calculate_dimensions(wayland_ctx.screen_infos[i], oref);
         wayland_ctx.screen_infos[i].logical_width = width;
         wayland_ctx.screen_infos[i].logical_height = height;
         break;
@@ -172,6 +173,7 @@ void handle_xdg_output_done(void *data, [[maybe_unused]] zxdg_output_v1 *xdg_out
 
     for (size_t i = 0; i < MAX_OUTPUTS; ++i) {
       if (wayland_ctx.screen_infos[i].wl_output == oref->wl_output) {
+        // screen_calculate_dimensions(wayland_ctx.screen_infos[i], oref);
         wayland_ctx.screen_infos[i].logical_width = oref->width;
         wayland_ctx.screen_infos[i].logical_height = oref->height;
         break;
@@ -232,7 +234,18 @@ static bool fs_update_state(wayland_context_t& ctx, update_fullscreen_state_topl
 }
 
 namespace hyprland {
-  static int fs_update_state(wayland_context_t& ctx) {
+  enum class fs_update_state_result_t : int8_t {
+    NoActiveWindow = -1,
+    OutputNotFound = 0,
+    FoundOutput = 1,
+    FoundWindow = 2,
+    FoundWindowInFullscreen = 3,
+  };
+  // hypr_fs_update_state
+  static fs_update_state_result_t fs_update_state(toplevel_data_t& toplevel_data) {
+    assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+    wayland_context_t& ctx = *toplevel_data.ctx;
+
     if (wayland::hyprland::window_info_t win; wayland::hyprland::get_active_window(ctx, win)) {
       bool find_output = false;
       wl_output *found_wl_output = BONGOCAT_NULLPTR;
@@ -245,15 +258,23 @@ namespace hyprland {
           }
         }
       }
-      if (find_output && ctx.thread_context.output == found_wl_output) {
-        details::fs_update_state(ctx, {.is_fullscreen = win.fullscreen, .is_activated = true});
-        return win.fullscreen ? 2 : 1;
+
+      if (find_output) {
+        toplevel_data.is_activated = true;
+        toplevel_data.is_fullscreen = win.fullscreen;
+
+        struct wl_output *current_wl_output = ctx.thread_context.output;
+        if (current_wl_output != BONGOCAT_NULLPTR && current_wl_output == found_wl_output) {
+          wayland::details::fs_update_state(ctx, {.is_fullscreen = win.fullscreen, .is_activated = true});
+          return win.fullscreen ? fs_update_state_result_t::FoundWindowInFullscreen
+                                : fs_update_state_result_t::FoundWindow;
+        }
       }
 
-      return 0;
+      return find_output ? fs_update_state_result_t::FoundOutput : fs_update_state_result_t::OutputNotFound;
     }
 
-    return -1;
+    return fs_update_state_result_t::NoActiveWindow;
   }
 }  // namespace hyprland
 
@@ -332,13 +353,45 @@ update_fullscreen_state_toplevel(wayland_context_t& ctx, tracked_toplevel_t& tra
   return {.output_found = false, .changed = state_changed};
 }
 
+static void fs_recompute_state(wayland_context_t& ctx) {
+  bool fullscreen = false;
+  bool activated = false;
+  for (size_t i = 0; i < ctx.num_toplevels; i++) {
+    const bool relevant = details::fullscreen_toplevel_relevant({
+        .has_output_events = ctx._compositor_sends_output_events,
+        .is_on_output = ctx.tracked_toplevels[i].output == ctx.thread_context.output,
+        .is_activated = ctx.tracked_toplevels[i].is_activated,
+    });
+    if (relevant) {
+      activated = ctx.tracked_toplevels[i].is_activated;
+      if (ctx.tracked_toplevels[i].is_fullscreen) {
+        fullscreen = true;
+      }
+      break;
+    }
+  }
+  fs_update_state(ctx, {
+                           .is_fullscreen = fullscreen,
+                           .is_activated = activated,
+                       });
+}
+
 // Foreign toplevel protocol event handlers
 void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel_handle_v1 *handle, wl_array *state) {
   if (data == BONGOCAT_NULLPTR) {
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+
+  toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  if (toplevel_data.ctx == BONGOCAT_NULLPTR) {
+    BONGOCAT_LOG_VERBOSE("toplevel data not ready, skipping handling");
+    return;
+  }
+
+  assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  wayland_context_t& ctx = *toplevel_data.ctx;
+
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return;
@@ -378,16 +431,19 @@ void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel
     }
   }
 
-  // This toplevel is known to belong to a different output. Do not use
-  // compositor-global fallbacks, otherwise fullscreen on monitor A can hide
-  // overlay on monitor B.
+  // This toplevel is known to belong to a different output.
+  // Do not use compositor-global fallbacks, otherwise fullscreen on monitor A can hide overlay on monitor B.
   if (handle_tracked && handle_has_output && !output_found) {
+    BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Ignore fullscreen state, toplevel is on a different output");
     return;
   }
 
   // fallback: check for hyprland active fullscreen windows
   if (!output_found) {
-    if (const int result = hyprland::fs_update_state(ctx); result >= 0) {
+    if (const auto result = hyprland::fs_update_state(toplevel_data);
+        result != hyprland::fs_update_state_result_t::NoActiveWindow &&
+        result != hyprland::fs_update_state_result_t::OutputNotFound) {
+      // no toplevel_data needed, already handled above
       output_found = true;
       BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: %d (hyprland)", result);
     }
@@ -401,27 +457,15 @@ void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel
   // any monitor will hide the overlay on all monitors - acceptable trade-off
   // vs never hiding at all.
   if (!output_found && (ctx.output_count <= 1 || !atomic_load(&ctx._compositor_sends_output_events))) {
-    // Case 1: Window becomes active - update state based on its fullscreen
-    // status
-    if (is_activated) {
-      atomic_store(&ctx._active_toplevel_fullscreen, is_fullscreen);
-
-      const bool changed = fs_update_state(ctx, {.is_fullscreen = is_fullscreen, .is_activated = is_activated});
-      if (changed) {
-        BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)",
-                             is_fullscreen, is_activated);
-      }
-    }
-    // Case 2: Previously active fullscreen window loses activation
-    // (e.g., switching to empty workspace) - show bongocat
-    else if (!is_activated) {
-      atomic_store(&ctx._active_toplevel_fullscreen, false);
-
-      const bool changed = fs_update_state(ctx, {.is_fullscreen = false, .is_activated = is_activated});
-      if (changed) {
-        BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)",
-                             is_fullscreen, is_activated);
-      }
+    // @NOTE: no current tracked_toplevel found, no update for toplevel_data
+    atomic_store(&ctx._active_toplevel_fullscreen, is_fullscreen);
+    const bool changed = fs_update_state(ctx, {.is_fullscreen = is_fullscreen, .is_activated = is_activated});
+    toplevel_data.is_fullscreen = is_fullscreen;
+    toplevel_data.is_activated = is_activated;
+    fs_recompute_state(ctx);
+    if (changed) {
+      BONGOCAT_LOG_VERBOSE("fs_handle_toplevel.state: Update fullscreen state: (fullscreen=%d;activated=%d)",
+                           is_fullscreen, is_activated);
     }
   }
 }
@@ -431,7 +475,11 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+
+  toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  wayland_context_t& ctx = *toplevel_data.ctx;
+
   if (!atomic_load(&ctx.ready)) {
     BONGOCAT_LOG_VERBOSE("Wayland configured yet, skipping handling");
     return;
@@ -452,13 +500,16 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
     fs_update_state(ctx, {.is_fullscreen = false, .is_activated = true});
   }
 
+  zwlr_foreign_toplevel_handle_v1_destroy(handle);
+
   // remove from tracked_toplevels if present
   for (size_t i = 0; i < ctx.num_toplevels; ++i) {
     if (ctx.tracked_toplevels[i].handle == handle) {
-      if (ctx.tracked_toplevels[i].handle != BONGOCAT_NULLPTR) {
-        zwlr_foreign_toplevel_handle_v1_destroy(ctx.tracked_toplevels[i].handle);
-        ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
-      }
+      ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
+      ctx.tracked_toplevels[i].output = BONGOCAT_NULLPTR;
+      ctx.tracked_toplevels[i].is_fullscreen = false;
+      release_allocated_memory(ctx.tracked_toplevels[i].data);
+      ctx.tracked_toplevels[i].data = BONGOCAT_NULLPTR;
       // compact array to keep contiguous
       for (size_t j = i; j + 1 < ctx.num_toplevels; ++j) {
         ctx.tracked_toplevels[j] = ctx.tracked_toplevels[j + 1];
@@ -468,6 +519,8 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
       break;
     }
   }
+
+  fs_recompute_state(ctx);
 
   BONGOCAT_LOG_DEBUG("fs_handle_toplevel.closed: Close toplevel handle");
 }
@@ -479,7 +532,9 @@ void fs_handle_title(void *data, [[maybe_unused]] zwlr_foreign_toplevel_handle_v
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  // wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  // toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  // assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  // wayland_context_t& ctx = *toplevel_data.ctx;
 
   BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.title: title received");
 }
@@ -490,7 +545,9 @@ void fs_handle_app_id(void *data, [[maybe_unused]] zwlr_foreign_toplevel_handle_
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  // wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  // toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  // assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  // wayland_context_t& ctx = *toplevel_data.ctx;
 
   BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.app_id: app_id received");
 }
@@ -501,7 +558,9 @@ void fs_handle_output_enter(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+  toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  wayland_context_t& ctx = *toplevel_data.ctx;
 
   atomic_store(&ctx._compositor_sends_output_events, true);
 
@@ -510,11 +569,14 @@ void fs_handle_output_enter(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     if (tracked.handle == handle) {
       BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.output_enter: update tracked_toplevels[%i] output", i);
       tracked.output = output;
+      /*
       if (tracked.is_fullscreen) {
         if (tracked.output == ctx.thread_context.output) {
           fs_update_state(ctx, {.is_fullscreen = true, .is_activated = true});
         }
       }
+      */
+      fs_recompute_state(ctx);
       break;
     }
   }
@@ -528,7 +590,9 @@ void fs_handle_output_leave(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  wayland_context_t& ctx = *static_cast<wayland_context_t *>(data);
+  toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  wayland_context_t& ctx = *toplevel_data.ctx;
 
   for (size_t i = 0; i < ctx.num_toplevels; i++) {
     auto& tracked = ctx.tracked_toplevels[i];
@@ -538,6 +602,7 @@ void fs_handle_output_leave(void *data, [[maybe_unused]] zwlr_foreign_toplevel_h
         fs_update_state(ctx, {.is_fullscreen = false, .is_activated = false});
       }
       tracked.output = BONGOCAT_NULLPTR;
+      fs_recompute_state(ctx);
       break;
     }
   }
@@ -550,7 +615,9 @@ void fs_handle_done(void *data, [[maybe_unused]] zwlr_foreign_toplevel_handle_v1
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  // wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  // toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  // assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  // wayland_context_t& ctx = *toplevel_data.ctx;
 
   BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.done: done received");
 }
@@ -561,7 +628,9 @@ void fs_handle_parent(void *data, [[maybe_unused]] zwlr_foreign_toplevel_handle_
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-  // wayland_session_t& ctx = *static_cast<wayland_session_t *>(data);
+  // toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  // assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
+  // wayland_context_t& ctx = *toplevel_data.ctx;
 
   BONGOCAT_LOG_VERBOSE("fs_toplevel_listener.parent: parent received");
 }
@@ -576,7 +645,17 @@ void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplev
 
   BONGOCAT_LOG_VERBOSE("fs_toplevel_manager_listener.toplevel: toplevel received");
 
-  zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener, &ctx);
+  // Allocate per-toplevel data to track its fullscreen state
+  AllocatedMemory<toplevel_data_t> toplevel_data = make_allocated_memory<toplevel_data_t>();
+  if (!toplevel_data) {
+    BONGOCAT_LOG_ERROR("fs_toplevel_manager_listener.toplevel: Failed to allocate toplevel data");
+    return;
+  }
+  // Initialize: toplevel starts as not fullscreen and not activated
+  toplevel_data->is_fullscreen = false;
+  toplevel_data->is_activated = false;
+  toplevel_data->ctx = &ctx;
+
   if (ctx.num_toplevels < MAX_TOP_LEVELS) {
     bool already_tracked = false;
     for (size_t i = 0; i < ctx.num_toplevels; i++) {
@@ -587,9 +666,17 @@ void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplev
     }
     if (!already_tracked) {
       ctx.tracked_toplevels[ctx.num_toplevels].handle = toplevel;
+      ctx.tracked_toplevels[ctx.num_toplevels].output = NULL;
+      ctx.tracked_toplevels[ctx.num_toplevels].is_fullscreen = false;
+      ctx.tracked_toplevels[ctx.num_toplevels].data = bongocat::move(toplevel_data);
+      zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener,
+                                                   ctx.tracked_toplevels[ctx.num_toplevels].data.ptr);
+      /// @NOTE: keep data alive for fs_toplevel_listener
+      toplevel_data = BONGOCAT_NULLPTR;
       ctx.num_toplevels++;
     }
   } else {
+    zwlr_foreign_toplevel_handle_v1_destroy(toplevel);
     BONGOCAT_LOG_ERROR("fs_toplevel_manager_listener.toplevel: toplevel tracker is full, %zu max: %d",
                        ctx.num_toplevels, MAX_TOP_LEVELS);
   }
@@ -622,30 +709,15 @@ void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *ma
 // =============================================================================
 
 /*
-static void screen_calculate_dimensions(screen_info_t& screen_info) {
-  if (screen_info.received == screen_info_received_flags_t::None ||
-      (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Geometry)) ==
-          0 ||
-      (static_cast<uint32_t>(screen_info.received) & static_cast<uint32_t>(screen_info_received_flags_t::Mode)) == 0) {
-    return;
+[[deprecated]] static void screen_calculate_dimensions(screen_info_t& screen_info, const output_ref_t& oref) {
+  if ((screen_info.received == screen_info_received_flags_t::None || !has_flag(screen_info.received,
+screen_info_received_flags_t::Geometry)) && (oref.width <= 0 || oref.height <= 0)) { return;
   }
 
-  const bool is_rotated = screen_info.transform == WL_OUTPUT_TRANSFORM_90 ||
-                          screen_info.transform == WL_OUTPUT_TRANSFORM_270 ||
-                          screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_90 ||
-                          screen_info.transform == WL_OUTPUT_TRANSFORM_FLIPPED_270;
-
-  if (is_rotated) {
-    screen_info.screen_width = screen_info.raw_height;
-    screen_info.screen_height = screen_info.raw_width;
-    BONGOCAT_LOG_DEBUG("Detected rotated screen: %dx%d (transform: %d)", screen_info.raw_height, screen_info.raw_width,
-                       screen_info.transform);
-  } else {
-    screen_info.screen_width = screen_info.raw_width;
-    screen_info.screen_height = screen_info.raw_height;
-    BONGOCAT_LOG_DEBUG("Detected screen: %dx%d (transform: %d)", screen_info.raw_width, screen_info.raw_height,
-                       screen_info.transform);
-  }
+  auto [width, height] = animation::details::output_logical_size({screen_info.physical_width,
+screen_info.physical_height}, screen_info.transform, screen_info.scale, {oref.width, oref.height});
+  screen_info.logical_width = width;
+  screen_info.logical_height = height;
 }
 */
 
@@ -958,18 +1030,17 @@ void fractional_scale_preferred_scale([[maybe_unused]] void *data, [[maybe_unuse
   BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: update _current_scale_120: %d", wayland_ctx._preferred_scale);
   if (wayland_ctx.surface != BONGOCAT_NULLPTR && wayland_ctx.ctx_shm != BONGOCAT_NULLPTR &&
       atomic_load(&wayland_ctx.ctx_shm->configured)) {
-    if (details::wayland_update_screen_info(ctx, {
-                                                     .skip_display_events = true,
-                                                 }) != bongocat_error_t::BONGOCAT_SUCCESS) {
+    if (wayland_update_screen_info(ctx, {
+                                            .skip_display_events = true,
+                                        }) != bongocat_error_t::BONGOCAT_SUCCESS) {
       BONGOCAT_LOG_ERROR("fractional_scale_preferred_scale: Failed to update width for recreate buffer");
     }
     BONGOCAT_LOG_VERBOSE("fractional_scale_preferred_scale: recreate buffer...");
-    details::wayland_recreate_buffer(ctx);
+    wayland_recreate_buffer(ctx);
   }
   if (ctx.animation_context != BONGOCAT_NULLPTR && ctx.animation_context->thread_context.shm != BONGOCAT_NULLPTR) {
     platform::LockGuard anim_guard(ctx.animation_context->thread_context.anim_lock);
-    assert(scale <= INT_MAX);
-    ctx.animation_context->thread_context.shm->scale120 = static_cast<int>(scale);
+    ctx.animation_context->thread_context.shm->scale120 = scale;
     ctx.animation_context->thread_context.shm->cat_height_phys =
         phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
     trigger_reload_animation(*ctx.animation_context);
@@ -1150,6 +1221,21 @@ void registry_remove(void *data, [[maybe_unused]] wl_registry *registry, [[maybe
       }
     }
   }
+}
+
+tracked_toplevel_t *get_current_toplevel_data(wayland_context_t& ctx) {
+  for (size_t i = 0; i < ctx.num_toplevels; ++i) {
+    tracked_toplevel_t& tracked = ctx.tracked_toplevels[i];
+    if (tracked.output == ctx.thread_context.output) {
+      return &tracked;
+    }
+  }
+
+  return BONGOCAT_NULLPTR;
+}
+
+struct wl_output *wayland_get_current_screen_output(wayland_context_t& ctx) {
+  return ctx.thread_context.output;
 }
 
 }  // namespace bongocat::platform::wayland::details

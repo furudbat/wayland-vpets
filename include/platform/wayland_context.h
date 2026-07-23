@@ -22,11 +22,20 @@ struct fullscreen_detector_t {
   bool has_fullscreen_toplevel{false};
   timespec last_check{};
 };
+
+// Foreign toplevel protocol event handlers
+// Each toplevel tracks its fullscreen and activated state
+struct toplevel_data_t {
+  bool is_fullscreen{false};
+  bool is_activated{false};                  // Track if this toplevel is the currently focused one
+  wayland_context_t *ctx{BONGOCAT_NULLPTR};  // backtrack wayland context
+};
 struct tracked_toplevel_t {
   struct zwlr_foreign_toplevel_handle_v1 *handle{BONGOCAT_NULLPTR};
   wl_output *output{BONGOCAT_NULLPTR};
   bool is_fullscreen{false};
   bool is_activated{false};
+  AllocatedMemory<toplevel_data_t> data{BONGOCAT_NULLPTR};
 };
 
 // =============================================================================
@@ -35,23 +44,23 @@ struct tracked_toplevel_t {
 
 enum class screen_info_received_flags_t : uint32_t {
   None = 0,
-  Mode = (1u << 0),
-  Geometry = (1u << 1),
-  Scale = (1u << 2),
+  Mode = (1u << 0u),
+  Geometry = (1u << 1u),
+  Scale = (1u << 2u),
 };
 struct screen_info_t {
   struct wl_output *wl_output{BONGOCAT_NULLPTR};  // ref of output
 
   // compositor logical coordinate space
-  int logical_width{0};
-  int logical_height{0};
+  int32_t logical_width{0};
+  int32_t logical_height{0};
 
   // physical monitor mode
-  int physical_width{0};
-  int physical_height{0};
+  int32_t physical_width{0};
+  int32_t physical_height{0};
 
-  int transform{0};
-  int scale{1};
+  int32_t transform{0};
+  int32_t scale{1};
 
   screen_info_received_flags_t received{screen_info_received_flags_t::None};
 };
@@ -60,9 +69,9 @@ struct wayland_context_t;
 
 enum class output_ref_received_flags_t : uint32_t {
   None = 0,
-  Name = (1u << 0),
-  LogicalPosition = (1u << 1),
-  LogicalSize = (1u << 2),
+  Name = (1u << 0u),
+  LogicalPosition = (1u << 1u),
+  LogicalSize = (1u << 2u),
 };
 // Output monitor reference structure
 struct output_ref_t {
@@ -104,6 +113,10 @@ struct wayland_context_t {
   atomic_bool _output_lost{false};  // Set when our output disconnects
 
   // Fullscreen
+  // Track whether the compositor has ever sent output_enter for any toplevel.
+  // When false, the compositor likely doesn't support per-toplevel output
+  // tracking (e.g. older KDE/KWin), and we should use the global fallback
+  // regardless of output_count.
   atomic_bool _compositor_sends_output_events{false};
   atomic_bool _active_toplevel_fullscreen{false};
 

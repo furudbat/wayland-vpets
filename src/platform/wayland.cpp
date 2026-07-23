@@ -173,6 +173,9 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
       ctx.fs_detector.last_check = now;
     }
 
+    const int config_reload_watcher_fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1;
+    const int wl_display_fd = wl_display_get_fd(wayland_ctx.display);
+
     // Handle Wayland events
     constexpr size_t fds_signals_index = 0;
     constexpr size_t fds_config_reload_index = 1;
@@ -180,12 +183,10 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
     constexpr size_t fds_wayland_index = 3;
     constexpr nfds_t fds_count = 4;
     pollfd fds[fds_count] = {
-        {.fd = signal_fd,                                                                .events = POLLIN, .revents = 0},
-        {.fd = config_watcher != BONGOCAT_NULLPTR ? config_watcher->reload_efd._fd : -1,
-         .events = POLLIN,
-         .revents = 0                                                                                                  },
-        {.fd = animation_ctx.render_efd._fd,                                             .events = POLLIN, .revents = 0},
-        {.fd = wl_display_get_fd(wayland_ctx.display),                                   .events = POLLIN, .revents = 0},
+        {.fd = signal_fd,                    .events = POLLIN, .revents = 0},
+        {.fd = config_reload_watcher_fd,     .events = POLLIN, .revents = 0},
+        {.fd = animation_ctx.render_efd._fd, .events = POLLIN, .revents = 0},
+        {.fd = wl_display_fd,                .events = POLLIN, .revents = 0},
     };
     static_assert(fds_count == LEN_ARRAY(fds));
 
@@ -454,7 +455,7 @@ namespace details {
     // assert(wayland_ctx._local_copy_config);
     // const config::config_t& current_config = *wayland_ctx._local_copy_config;
 
-    created_result_t<details::wayland_setup_buffer_result_t> ret;
+    created_result_t<wayland_setup_buffer_result_t> ret;
     platform::LockGuard anim_guard(animation_ctx.thread_context.anim_lock);
     {
       assert(ctx.thread_context.ctx_shm);
@@ -463,7 +464,7 @@ namespace details {
       // Cleanup old buffer
       cleanup_wayland_context_buffer(ctx.thread_context);
 
-      ret = details::wayland_setup_buffer(ctx.thread_context, animation_ctx);
+      ret = wayland_setup_buffer(ctx.thread_context, animation_ctx);
       if (ret.error != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("Failed to recreate buffer after config change");
         return ret;
@@ -622,10 +623,11 @@ void update_config(wayland_context_t& ctx, const config::config_t& config,
                              current_config.overlay_height);
         }
 
+        assert(ctx.thread_context._screen_info->scale >= 0);
         animation_ctx.thread_context.shm->scale120 =
             (has_flag(ctx.thread_context._screen_info->received, screen_info_received_flags_t::Scale))
-                ? ctx.thread_context._screen_info->scale * 120
-                : 120;
+                ? static_cast<uint32_t>(ctx.thread_context._screen_info->scale) * 120u
+                : 120u;
         animation_ctx.thread_context.shm->cat_height_phys =
             phys_dim(ctx, ctx.animation_context->thread_context._local_copy_config->cat_height);
       }

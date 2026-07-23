@@ -20,6 +20,7 @@
 #include <unistd.h>
 #include <wayland-client.h>
 // #include "wayland_sway.h"
+#include "graphics/drawing.h"
 #include "platform/wayland_callbacks.h"
 
 namespace bongocat::platform::wayland::details {
@@ -45,7 +46,14 @@ int phys_dim(const wayland_thread_context& ctx, int logical) {
   assert(ctx._preferred_scale <= INT_MAX);
   return animation::details::phys_dim({
       .logical = logical,
-      .scale120 = static_cast<int>(ctx._preferred_scale),
+      .scale120 = ctx._preferred_scale,
+  });
+}
+
+int scale_offset_120(const wayland_thread_context& ctx, int logical) {
+  return animation::details::scale_offset_120({
+      .logical = logical,
+      .scale120 = ctx._preferred_scale,
   });
 }
 
@@ -249,7 +257,7 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
     return bongocat_error_t::BONGOCAT_ERROR_WAYLAND;
   }
 
-  wl_registry_add_listener(registry, &details::reg_listener, &ctx);
+  wl_registry_add_listener(registry, &reg_listener, &ctx);
   wl_display_roundtrip(wayland_ctx.display);
 
   if (ctx.xdg_output_manager != BONGOCAT_NULLPTR) {
@@ -259,7 +267,7 @@ bongocat_error_t wayland_setup_protocols(wayland_context_t& ctx) {
           zxdg_output_manager_v1_get_xdg_output(ctx.xdg_output_manager, ctx.outputs[i].wl_output);
       ctx.screen_infos[i] = {};
       ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
-      zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &details::xdg_output_listener, &ctx.outputs[i]);
+      zxdg_output_v1_add_listener(ctx.outputs[i].xdg_output, &xdg_output_listener, &ctx.outputs[i]);
 
       assert(ctx.outputs[i].wl_output);
       ctx.screen_infos[i].wl_output = ctx.outputs[i].wl_output;
@@ -479,7 +487,7 @@ bongocat_error_t wayland_setup_surface(wayland_context_t& ctx) {
   zwlr_layer_surface_v1_set_exclusive_zone(wayland_ctx.layer_surface, -1);
   zwlr_layer_surface_v1_set_keyboard_interactivity(wayland_ctx.layer_surface,
                                                    ZWLR_LAYER_SURFACE_V1_KEYBOARD_INTERACTIVITY_NONE);
-  zwlr_layer_surface_v1_add_listener(wayland_ctx.layer_surface, &details::layer_listener, &ctx);
+  zwlr_layer_surface_v1_add_listener(wayland_ctx.layer_surface, &layer_listener, &ctx);
 
   // Make surface click-through
   wl_region *input_region = wl_compositor_create_region(wayland_ctx.compositor);
@@ -507,8 +515,8 @@ created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thr
 
   const int logical_w = wayland_context._screen_width;
   const int logical_h = wayland_context._overlay_height;
-  const int phys_w = details::phys_dim(wayland_context, logical_w);
-  const int phys_h = details::phys_dim(wayland_context, logical_h);
+  const int phys_w = phys_dim(wayland_context, logical_w);
+  const int phys_h = phys_dim(wayland_context, logical_h);
   assert(phys_w <= INT32_MAX);
   assert(phys_h <= INT32_MAX);
   /// @TODO: limit screen_width and bar_height for buffer_size
@@ -593,7 +601,7 @@ created_result_t<wayland_setup_buffer_result_t> wayland_setup_buffer(wayland_thr
     wayland_ctx_shm.buffers[i]._wayland_thread_context = &wayland_context;
     wayland_ctx_shm.buffers[i]._physical_buffer_width = phys_w;
     wayland_ctx_shm.buffers[i]._physical_buffer_height = phys_h;
-    wl_buffer_add_listener(wayland_ctx_shm.buffers[i].buffer, &details::buffer_listener, &wayland_ctx_shm.buffers[i]);
+    wl_buffer_add_listener(wayland_ctx_shm.buffers[i].buffer, &buffer_listener, &wayland_ctx_shm.buffers[i]);
   }
 
   wl_shm_pool_destroy(pool);

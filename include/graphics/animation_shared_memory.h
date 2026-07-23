@@ -59,14 +59,14 @@ struct animation_evolution_t {
 
 enum class anim_index_changed_t : uint32_t {
   None = 0,
-  NoChange = (1u << 0),
-  FromConfig = (1u << 1),
-  Randomize = (1u << 2),
-  Evolution = (1u << 3),
+  NoChange = (1u << 0u),
+  FromConfig = (1u << 1u),
+  Randomize = (1u << 2u),
+  Evolution = (1u << 3u),
 };
 
 struct animation_shared_memory_t {
-  inline static constexpr int DEFAULT_PREFER_SCALE120 = 120;
+  inline static constexpr uint32_t DEFAULT_PREFER_SCALE120 = 120;
 
   // animation state
   animation_player_result_t animation_player_result{};
@@ -77,7 +77,7 @@ struct animation_shared_memory_t {
   float movement_offset_x{0.0};
   float anim_direction{0.0};
   platform::timestamp_ms_t last_wakeup_timestamp{0};  ///< wake up from latest idle sleep
-  int scale120{DEFAULT_PREFER_SCALE120};              ///< up/down-scale graphic for fractional scaling
+  uint32_t scale120{DEFAULT_PREFER_SCALE120};         ///< up/down-scale graphic for fractional scaling
   int cat_height_phys{0};                             ///< cat_height from config.cat_height * scale
 
   // Animation frame data for sprite sheet preload
