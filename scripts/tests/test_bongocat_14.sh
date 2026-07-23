@@ -12,6 +12,9 @@ WORKDIR=$(mktemp -d)
 CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
 OG_CONFIG=./examples/test/test.bongocat.conf
 cp $OG_CONFIG $CONFIG
+CONFIG2="$WORKDIR/invalid2.test.bongocat.conf"  # config file to modify
+OG_CONFIG2=./examples/test/invalid2.test.bongocat.conf
+cp $OG_CONFIG2 $CONFIG2
 
 if [[ $# -ge 1 ]]; then
     PID="$1"
@@ -32,6 +35,7 @@ cleanup() {
     echo "[TEST] Cleaning up..."
     kill -9 "$PID" 2>/dev/null || true
     cp $OG_CONFIG $CONFIG
+    cp $OG_CONFIG2 $CONFIG2
     rm -rf "$WORKDIR"
 }
 trap cleanup EXIT
@@ -120,7 +124,7 @@ else
     exit 1
 fi
 
-for i in {1..5}; do
+for i in {1..7}; do
     kill -STOP $PID
     sleep 5
     kill -CONT $PID
@@ -139,8 +143,8 @@ echo "[TEST] Sending SIGTERM..."
 kill -TERM "$PID"
 sleep 10
 echo "[INFO] Wait for TERM"
-# wait up to 5 seconds
-for i in {1..5}; do
+# wait up to 10 seconds
+for i in {1..10}; do
     if ! kill -0 "$PID" 2>/dev/null; then
         break
     fi
@@ -158,8 +162,8 @@ fi
 
 
 # Restart
-echo "[TEST] Start mal config..."
-"$PROGRAM" --ignore-running --config "$CONFIG" &
+echo "[TEST] Start invalid config..."
+"$PROGRAM" --ignore-running --config "$CONFIG2" &
 PID=$!
 sleep 10
 kill -USR2 $PID
@@ -168,14 +172,16 @@ kill -USR2 $PID
 kill -USR2 $PID
 kill -USR2 $PID
 kill -TERM "$PID"
+sleep 0.5
 kill -USR2 $PID
 kill -USR2 $PID
 kill -TERM "$PID"
 kill -USR2 $PID
+kill -TERM "$PID"
 sleep 10
 echo "[INFO] Wait for TERM"
-# wait up to 5 seconds
-for i in {1..5}; do
+# wait up to 10 seconds
+for i in {1..10}; do
     if ! kill -0 "$PID" 2>/dev/null; then
         break
     fi

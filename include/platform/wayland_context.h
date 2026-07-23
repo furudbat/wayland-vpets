@@ -35,7 +35,7 @@ struct tracked_toplevel_t {
   wl_output *output{BONGOCAT_NULLPTR};
   bool is_fullscreen{false};
   bool is_activated{false};
-  AllocatedMemory<toplevel_data_t> data;
+  AllocatedMemory<toplevel_data_t> data{BONGOCAT_NULLPTR};
 };
 
 // =============================================================================

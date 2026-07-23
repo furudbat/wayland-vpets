@@ -38,6 +38,8 @@ echo "--- Test 17 ---"
 ./scripts/tests/test_bongocat_17.sh
 echo "--- Test 18 ---"
 ./scripts/tests/test_bongocat_18.sh
+echo "--- Test 19 ---"
+./scripts/tests/test_bongocat_19.sh
 echo "--- Test 20 ---"
 ./scripts/tests/test_bongocat_20.sh
 

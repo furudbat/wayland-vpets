@@ -42,9 +42,6 @@
 | `evolution`                  | 0 or "normal", "program_start", "uptime"                           | 0             | Animation change over time (0 = disabled)                                                 |
 | `evolution_speed_factor`     | 0.0–5000.0                                                         | 0             | Speed up factor for evolution time (0 = disabled)                                         |
 
-Changing monitor count while running requires a restart; other settings are
-hot-reloadable with `--watch-config`.
-
 #### Available Sprites (`animation_name`)
 
 See man pages for more details and full list:

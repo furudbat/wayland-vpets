@@ -384,6 +384,11 @@ void fs_handle_toplevel_state(void *data, [[maybe_unused]] zwlr_foreign_toplevel
   }
 
   toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+  if (toplevel_data.ctx == BONGOCAT_NULLPTR) {
+    BONGOCAT_LOG_VERBOSE("toplevel data not ready, skipping handling");
+    return;
+  }
+
   assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
   wayland_context_t& ctx = *toplevel_data.ctx;
 
@@ -651,7 +656,6 @@ void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplev
   toplevel_data->is_activated = false;
   toplevel_data->ctx = &ctx;
 
-  zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener, toplevel_data.ptr);
   if (ctx.num_toplevels < MAX_TOP_LEVELS) {
     bool already_tracked = false;
     for (size_t i = 0; i < ctx.num_toplevels; i++) {
@@ -665,6 +669,8 @@ void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplev
       ctx.tracked_toplevels[ctx.num_toplevels].output = NULL;
       ctx.tracked_toplevels[ctx.num_toplevels].is_fullscreen = false;
       ctx.tracked_toplevels[ctx.num_toplevels].data = bongocat::move(toplevel_data);
+      zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener,
+                                                   ctx.tracked_toplevels[ctx.num_toplevels].data.ptr);
       /// @NOTE: keep data alive for fs_toplevel_listener
       toplevel_data = BONGOCAT_NULLPTR;
       ctx.num_toplevels++;
