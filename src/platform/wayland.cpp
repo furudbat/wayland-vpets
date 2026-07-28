@@ -274,15 +274,20 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
         }
       }
       if (!running) {
-        // draining pools
-        for (size_t i = 0; i < fds_count; i++) {
-          platform::drain_event(fds[i], MAX_ATTEMPTS);
-        }
+        BONGOCAT_LOG_VERBOSE("Exit wayland loop, draining events...");
         if (prepared_read) {
           wl_display_cancel_read(wayland_ctx.display);
+          prepared_read = false;
         }
+        // exclude wayland socket fd
+        platform::drain_event(fds[fds_signals_index], MAX_ATTEMPTS);
+        if (fds[fds_config_reload_index].fd >= 0) {
+          platform::drain_event(fds[fds_config_reload_index], MAX_ATTEMPTS);
+        }
+        platform::drain_event(fds[fds_animation_render_index], MAX_ATTEMPTS);
         render_requested = false;
         toggle_visibility_requested = false;
+        BONGOCAT_LOG_VERBOSE("Exit wayland loop, events drained");
         break;
       }
 

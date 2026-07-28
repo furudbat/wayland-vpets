@@ -172,13 +172,21 @@ kill -USR2 $PID
 kill -USR2 $PID
 kill -USR2 $PID
 kill -TERM "$PID"
-sleep 0.5
-kill -USR2 $PID
-kill -USR2 $PID
-kill -TERM "$PID"
-kill -USR2 $PID
-kill -TERM "$PID"
-sleep 10
+sleep 1
+if kill -0 "$PID" 2>/dev/null; then
+  kill -USR2 $PID
+  kill -USR2 $PID
+  kill -TERM "$PID"
+fi
+if kill -0 "$PID" 2>/dev/null; then
+  kill -USR2 $PID
+  kill -TERM "$PID"
+  sleep 10
+fi
+if kill -0 "$PID" 2>/dev/null; then
+  kill -TERM "$PID"
+  sleep 7
+fi
 echo "[INFO] Wait for TERM"
 # wait up to 10 seconds
 for i in {1..10}; do

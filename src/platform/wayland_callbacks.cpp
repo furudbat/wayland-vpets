@@ -475,8 +475,12 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
     BONGOCAT_LOG_VERBOSE("Handler called with null data (ignored)");
     return;
   }
-
   toplevel_data_t& toplevel_data = *static_cast<toplevel_data_t *>(data);
+
+  if (toplevel_data.ctx == BONGOCAT_NULLPTR) {
+    BONGOCAT_LOG_VERBOSE("toplevel is empty, skipping handling");
+    return;
+  }
   assert(toplevel_data.ctx != BONGOCAT_NULLPTR);
   wayland_context_t& ctx = *toplevel_data.ctx;
 
@@ -508,8 +512,7 @@ void fs_handle_toplevel_closed(void *data, zwlr_foreign_toplevel_handle_v1 *hand
       ctx.tracked_toplevels[i].handle = BONGOCAT_NULLPTR;
       ctx.tracked_toplevels[i].output = BONGOCAT_NULLPTR;
       ctx.tracked_toplevels[i].is_fullscreen = false;
-      release_allocated_memory(ctx.tracked_toplevels[i].data);
-      ctx.tracked_toplevels[i].data = BONGOCAT_NULLPTR;
+      ctx.tracked_toplevels[i].data = {};
       // compact array to keep contiguous
       for (size_t j = i; j + 1 < ctx.num_toplevels; ++j) {
         ctx.tracked_toplevels[j] = ctx.tracked_toplevels[j + 1];
@@ -645,17 +648,6 @@ void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplev
 
   BONGOCAT_LOG_VERBOSE("fs_toplevel_manager_listener.toplevel: toplevel received");
 
-  // Allocate per-toplevel data to track its fullscreen state
-  AllocatedMemory<toplevel_data_t> toplevel_data = make_allocated_memory<toplevel_data_t>();
-  if (!toplevel_data) {
-    BONGOCAT_LOG_ERROR("fs_toplevel_manager_listener.toplevel: Failed to allocate toplevel data");
-    return;
-  }
-  // Initialize: toplevel starts as not fullscreen and not activated
-  toplevel_data->is_fullscreen = false;
-  toplevel_data->is_activated = false;
-  toplevel_data->ctx = &ctx;
-
   if (ctx.num_toplevels < MAX_TOP_LEVELS) {
     bool already_tracked = false;
     for (size_t i = 0; i < ctx.num_toplevels; i++) {
@@ -668,21 +660,26 @@ void fs_handle_manager_toplevel(void *data, [[maybe_unused]] zwlr_foreign_toplev
       ctx.tracked_toplevels[ctx.num_toplevels].handle = toplevel;
       ctx.tracked_toplevels[ctx.num_toplevels].output = NULL;
       ctx.tracked_toplevels[ctx.num_toplevels].is_fullscreen = false;
-      ctx.tracked_toplevels[ctx.num_toplevels].data = bongocat::move(toplevel_data);
+      ctx.tracked_toplevels[ctx.num_toplevels].data = {};
+      // Initialize: toplevel starts as not fullscreen and not activated
+      ctx.tracked_toplevels[ctx.num_toplevels].data.is_fullscreen = false;
+      ctx.tracked_toplevels[ctx.num_toplevels].data.is_activated = false;
+      ctx.tracked_toplevels[ctx.num_toplevels].data.ctx = &ctx;
       zwlr_foreign_toplevel_handle_v1_add_listener(toplevel, &fs_toplevel_listener,
-                                                   ctx.tracked_toplevels[ctx.num_toplevels].data.ptr);
-      /// @NOTE: keep data alive for fs_toplevel_listener
-      toplevel_data = BONGOCAT_NULLPTR;
+                                                   &ctx.tracked_toplevels[ctx.num_toplevels].data);
       ctx.num_toplevels++;
+
+      BONGOCAT_LOG_DEBUG(
+          "fs_toplevel_manager_listener.toplevel: New toplevel registered for fullscreen monitoring: %zu",
+          ctx.num_toplevels);
+    } else {
+      BONGOCAT_LOG_DEBUG("fs_toplevel_manager_listener.toplevel: toplevel already registered: %zu", ctx.num_toplevels);
     }
   } else {
     zwlr_foreign_toplevel_handle_v1_destroy(toplevel);
     BONGOCAT_LOG_ERROR("fs_toplevel_manager_listener.toplevel: toplevel tracker is full, %zu max: %d",
                        ctx.num_toplevels, MAX_TOP_LEVELS);
   }
-
-  BONGOCAT_LOG_DEBUG("fs_toplevel_manager_listener.toplevel: New toplevel registered for fullscreen monitoring: %zu",
-                     ctx.num_toplevels);
 }
 
 void fs_handle_manager_finished(void *data, zwlr_foreign_toplevel_manager_v1 *manager) {

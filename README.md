@@ -90,28 +90,35 @@ Save to `~/.config/bongocat/bongocat.conf`:
 # Position & Size
 cat_height=80
 cat_align=center
-# cat_x_offset=0
-# cat_y_offset=0
+#cat_x_offset=0
+#cat_y_offset=0
 
 # Appearance
 enable_antialiasing=1
 overlay_height=80
 overlay_opacity=0
 overlay_position=bottom
-# mirror_x=0
-# mirror_y=0
+#mirror_x=0
+#mirror_y=0
+
+# animation_name: Sprite name (CASE SENSITIVE)
+# Default Option: "bongocat"
+# dm Options: "Agumon", "Greymon", "metal_greymon", "dm20:Agumon", "dmc:Agumon", "dm:Gabumon", ...
+# MS Agent Options: "Clippy", "ms_agent:Links", ...
+# pkmn Options: "Bulbasaur", "Pikachu", "pkmn:Charizard", "pmd:Umbreon", ...
+animation_name=bongocat
 
 # Input device (run wpet-find-devices to find yours)
 keyboard_device=/dev/input/event4
 
-# Multi-monitor (optional - auto-detects by default)
-# monitor=HDMI-A-1
-
 # Sleep mode (optional)
-# idle_sleep_timeout=300
-# enable_scheduled_sleep=0
-# sleep_begin=22:00
-# sleep_end=06:00
+#idle_sleep_timeout=300
+#enable_scheduled_sleep=0
+#sleep_begin=22:00
+#sleep_end=06:00
+
+# Select Monitor (optional - auto-detects by default)
+#monitor=HDMI-A-1
 ```
 
 
