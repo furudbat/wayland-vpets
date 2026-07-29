@@ -107,6 +107,7 @@ struct bongocat_sprite_sheet_animations_t {
   // extras
   int32_t left_writing[MAX_ANIMATION_FRAMES]{};
   int32_t right_writing[MAX_ANIMATION_FRAMES]{};
+  int32_t both_writing[MAX_ANIMATION_FRAMES]{};
 };
 
 struct bongocat_sprite_sheet_t {

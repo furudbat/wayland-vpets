@@ -121,7 +121,8 @@ inline static bool is_open_device_valid(int fd) {
   struct stat fd_st{};
   return fd >= 0 && fstat(fd, &fd_st) == 0 && (S_ISCHR(fd_st.st_mode) && !S_ISLNK(fd_st.st_mode));
 }
-inline static void trigger_key_press(animation::animation_context_t& animation_ctx, int keycode = 0) {
+inline static void trigger_key_press(animation::animation_context_t& animation_ctx, const int *captured_keycodes,
+                                     size_t captured_keycode_ring_buffer_size) {
   assert(animation_ctx._input);
   // animation_context_t& anim = trigger_ctx.anim;
   input_context_t& input = *animation_ctx._input;
@@ -159,14 +160,23 @@ inline static void trigger_key_press(animation::animation_context_t& animation_c
       input._latest_kpm_update_ms = now;
     }
   }
-  input.shm->any_key_pressed = keycode != 0 ? 1 : 0;
+  bool got_keycode = false;
+  for (size_t i = 0; i < captured_keycode_ring_buffer_size; i++) {
+    input.shm->any_key_pressed |= captured_keycodes[i] != 0 ? 1 : 0;
+    got_keycode |= captured_keycodes[i] != 0;
+  }
   input.shm->last_key_pressed_timestamp = now;
   atomic_fetch_add(&input.shm->input_counter, 1);
   atomic_fetch_add(&input._input_kpm_counter, 1);
-  if (current_config.enable_hand_mapping >= 1 && keycode != 0) {
-    input.shm->hand_mapping = get_hand_mapping_form_keycode(input, keycode);
+  if (current_config.enable_hand_mapping >= 1 && got_keycode) {
+    for (size_t i = 0; i < captured_keycode_ring_buffer_size; i++) {
+      if (captured_keycodes[i] != 0) {
+        input.shm->pending_hand_mapping =
+            flag_add(input.shm->pending_hand_mapping, get_hand_mapping_form_keycode(input, captured_keycodes[i]));
+      }
+    }
   } else {
-    input.shm->hand_mapping = input_hand_mapping_t::None;
+    input.shm->pending_hand_mapping = input_hand_mapping_t::None;
   }
   animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::KeyPress);
 }
@@ -362,7 +372,7 @@ static bongocat_error_t setup_udev_monitor(input_context_t& input) {
 
   input._udev = udev_new();
   if (input._udev == BONGOCAT_NULLPTR) {
-    BONGOCAT_LOG_ERROR("Failed to init udev\n");
+    BONGOCAT_LOG_ERROR("Failed to init udev");
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
@@ -389,7 +399,7 @@ static void *input_thread(void *arg) {
   // from thread context
   // animation_context_t& anim = trigger_ctx.anim;
   // wait for input context (in animation start)
-  animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
+  animation_ctx.init_cond.timedwait([&] { return atomic_load(&animation_ctx.ready); },
                                     COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   assert(animation_ctx._input != BONGOCAT_NULLPTR);
   input_context_t& input = *animation_ctx._input;
@@ -479,7 +489,6 @@ static void *input_thread(void *arg) {
   // last:    stdin (optional)
   constexpr size_t MAX_PFDS = 2 + MAX_DEVICE_FDS + MAX_ACTIVE_DEVICE_FDS + ((features::Debug) ? 1 : 0);
   pollfd pfds[MAX_PFDS];
-  input_event ev[INPUT_EVENT_BUF];
 
   constexpr bool include_stdin = features::Debug;
   FileDescriptor tty_fd;
@@ -782,6 +791,7 @@ static void *input_thread(void *arg) {
              p++) {
           // Handle ready devices
           if (pfds[p].revents & POLLIN) {
+            input_event ev[INPUT_EVENT_BUF];
             // discard evdev input
             [[maybe_unused]] auto discard_result = read(pfds[p].fd, ev, sizeof(ev));
             ((void)discard_result);
@@ -864,6 +874,7 @@ static void *input_thread(void *arg) {
              p++) {
           // Handle ready devices
           if (pfds[p].revents & POLLIN) {
+            input_event ev[INPUT_EVENT_BUF];
             // handle evdev input
             const ssize_t rd = read(pfds[p].fd, ev, sizeof(ev));
             if (rd < 0) {
@@ -904,36 +915,48 @@ static void *input_thread(void *arg) {
               continue;
             }
 
-            bool key_pressed = false;
             // keep captured keycode short-lived
-            int captured_keycode = 0;
-            assert(rd >= 0);
-            static_assert(sizeof(input_event) > 0);
-            const auto num_events = static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
-            for (ssize_t j = 0; j < num_events; j++) {
-              if (ev[j].type == EV_KEY && ev[j].value == 1) {
-                key_pressed = true;
-                captured_keycode = ev[j].code;  // Store for hand mapping
-                if (enable_debug) {
-                  BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd, ev[j].code,
-                                       ev[j].time.tv_sec, ev[j].time.tv_usec);
-                } else {
-                  // break loop early, when no debug (no print needed for every key press)
-                  break;
+            {
+              bool key_pressed = false;
+              constexpr size_t captured_keycode_ring_buffer_size = 10;
+              int captured_keycodes[captured_keycode_ring_buffer_size] = {0};
+              size_t captured_keycode_index = 0;
+              assert(rd >= 0);
+              static_assert(sizeof(input_event) > 0);
+              const auto num_events = static_cast<ssize_t>(static_cast<size_t>(rd) / sizeof(input_event));
+              BONGOCAT_LOG_VERBOSE("input: Key events: %i", num_events);
+              for (ssize_t j = 0; j < num_events; j++) {
+                if (ev[j].type == EV_KEY && ev[j].value == 1) {
+                  key_pressed = true;
+                  if (captured_keycode_index == 0 ||
+                      (captured_keycode_index > 0 && captured_keycodes[captured_keycode_index - 1] != ev[j].code)) {
+                    captured_keycodes[captured_keycode_index] = ev[j].code;  // Store for hand mapping
+                    captured_keycode_index = (captured_keycode_index + 1) % captured_keycode_ring_buffer_size;
+                  }
+                  if (enable_debug) {
+                    BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd, ev[j].code,
+                                         ev[j].time.tv_sec, ev[j].time.tv_usec);
+                  } else {
+                    // break loop early, when no debug (no print needed for every key press)
+                    break;
+                  }
                 }
               }
-            }
 
-            const timestamp_ms_t now = get_current_time_ms();
-            if (key_pressed) {
-              trigger_key_press(animation_ctx, captured_keycode);
-            } else {
-              input.shm->any_key_pressed = 0;
-              input.shm->hand_mapping = input_hand_mapping_t::None;
-              if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
-                input.shm->kpm = 0;
-                atomic_store(&input._input_kpm_counter, 0);
-                input._latest_kpm_update_ms = now;
+              const timestamp_ms_t now = get_current_time_ms();
+              if (key_pressed) {
+                trigger_key_press(animation_ctx, captured_keycodes, captured_keycode_ring_buffer_size);
+                if (enable_debug && input.shm) {
+                  BONGOCAT_LOG_VERBOSE("input: press count: %ll", atomic_load(&input.shm->input_counter));
+                }
+              } else {
+                input.shm->any_key_pressed = 0;
+                input.shm->pending_hand_mapping = input_hand_mapping_t::None;
+                if (input.shm->kpm > 0 && now - input._latest_kpm_update_ms >= RESET_KPM_TIMEOUT_MS) {
+                  input.shm->kpm = 0;
+                  atomic_store(&input._input_kpm_counter, 0);
+                  input._latest_kpm_update_ms = now;
+                }
               }
             }
           }
@@ -980,7 +1003,9 @@ static void *input_thread(void *arg) {
           }
 
           if (got_key) {
-            trigger_key_press(animation_ctx);
+            constexpr size_t dummy_keycodes_size = 1;
+            constexpr int dummy_keycodes[dummy_keycodes_size] = {0};
+            trigger_key_press(animation_ctx, dummy_keycodes, dummy_keycodes_size);
             if (enable_debug) {
               const size_t len = (rd > 0) ? (static_cast<size_t>(rd) < TEST_STDIN_BUF_LEN ? static_cast<size_t>(rd)
                                                                                           : TEST_STDIN_BUF_LEN - 1)
@@ -1082,7 +1107,7 @@ created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
   ret->shm->any_key_pressed = 0;
-  ret->shm->hand_mapping = input_hand_mapping_t::None;
+  ret->shm->pending_hand_mapping = input_hand_mapping_t::None;
   ret->shm->kpm = 0;
   ret->shm->input_counter = 0;
   ret->shm->last_key_pressed_timestamp = 0;
@@ -1131,7 +1156,7 @@ bongocat_error_t start(input_context_t& input, animation::animation_context_t& a
   update_config(input, config, atomic_load(&config_generation));
 
   // wait for animation trigger to be ready (input should be the same)
-  int cond_ret = animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
+  int cond_ret = animation_ctx.init_cond.timedwait([&] { return atomic_load(&animation_ctx.ready); },
                                                    COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
   if (cond_ret == ETIMEDOUT) {
     BONGOCAT_LOG_ERROR("Failed to initialize input monitoring: waiting for animation thread to start in time");

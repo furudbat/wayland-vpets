@@ -53,6 +53,8 @@ struct animation_state_t {
   platform::time_ns_t frame_time_ns{0};
   platform::time_ms_t frame_time_ms{0};
   platform::time_ms_t hold_frame_ms{0};
+  platform::time_ms_t left_hold_frame_ms{0};
+  platform::time_ms_t right_hold_frame_ms{0};
   platform::timestamp_ms_t last_frame_update_ms{0};
   platform::timestamp_ms_t time_until_next_frame_ms{0};
 
@@ -76,6 +78,7 @@ struct animation_state_t {
   int32_t animations_index{0};  // for sprite_sheet.frames (col indices) array
 
   bool _hold_write_animation_started{false};
+  platform::input::input_hand_mapping_t _current_hand_mapping{platform::input::input_hand_mapping_t::None};
 };
 
 struct animation_thread_context_t {

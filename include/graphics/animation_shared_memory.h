@@ -2,6 +2,7 @@
 #define BONGOCAT_ANIMATION_SHARED_MEMORY_H
 
 #include "config/config.h"
+#include "platform/input_shared_memory.h"
 #include "sprite_sheet.h"
 #include "utils/system_memory.h"
 #include "utils/time.h"
@@ -10,7 +11,7 @@ namespace bongocat::animation {
 enum class animation_player_custom_overwrite_mirror_x : uint8_t {
   None,
   NoMirror,
-  Mirror
+  Mirror,
 };
 struct animation_player_result_t {
   int32_t sprite_sheet_col{0};
