@@ -120,6 +120,11 @@ load_bongocat_anim([[maybe_unused]] size_t anim_index, get_sprite_callback_t get
   ret.animations.right_writing[2] = BONGOCAT_FRAME_RIGHT_DOWN;
   ret.animations.right_writing[3] = BONGOCAT_FRAME_BOTH_UP;
 
+  ret.animations.both_writing[0] = BONGOCAT_FRAME_BOTH_DOWN;
+  ret.animations.both_writing[1] = BONGOCAT_FRAME_BOTH_UP;
+  ret.animations.both_writing[2] = BONGOCAT_FRAME_BOTH_DOWN;
+  ret.animations.both_writing[3] = BONGOCAT_FRAME_BOTH_UP;
+
   return ret;
 }
 

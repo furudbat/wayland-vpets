@@ -2,13 +2,14 @@
 
 All notable changes to this project will be documented in this file.
 
-### [5.0.3] - 2026-07-22
+### [5.0.3] - 2026-07-29
 
 ## Fixed
 
 - pull from [upstream](https://github.com/saatvik333/wayland-bongocat/releases/tag/v2.0.2) for parity
   - Fullscreen focus tracking
   - add tests
+  - Concurrent bongocat paw animation
 
 
 ### [5.0.2] - 2026-07-05

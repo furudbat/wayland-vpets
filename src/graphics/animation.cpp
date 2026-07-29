@@ -124,6 +124,8 @@ struct anim_conditions_t {
   // trigger (back to idle)
   bool release_test_frame{false};
   bool release_frame_after_press{false};
+  bool left_release_frame_after_press{false};
+  bool right_release_frame_after_press{false};
   bool release_frame_after_update{false};
 
   // for continues animations
@@ -135,6 +137,8 @@ struct anim_conditions_t {
   bool go_next_frame{false};
   bool go_next_frame_running{false};
   bool release_frame_for_non_idle{false};
+  bool left_release_frame_for_non_idle{false};
+  bool right_release_frame_for_non_idle{false};
 
   // current animation
   bool is_writing{false};
@@ -142,6 +146,8 @@ struct anim_conditions_t {
   bool is_working{false};
   bool is_running{false};
   bool continue_writing{false};
+  bool left_continue_writing{false};
+  bool right_continue_writing{false};
   bool is_idle_sleep{false};
   bool is_full_sleep{false};
   bool ready_to_work{false};
@@ -164,7 +170,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   /// @TODO: refactor animation time process, based on ??? animation_speed ? vs fps vs other times like movement_speed
 
-  const bool process_idle_animation = [&]() {
+  const bool process_idle_animation = [&] {
     if (current_config.idle_animation) {
       // by animation_speed
       if (current_config.animation_speed_ms > 0) {
@@ -177,7 +183,8 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
     return false;
   }();
-  const bool release_frame_for_non_idle = [&]() {
+
+  const bool release_frame_for_non_idle = [&] {
     if (!current_config.idle_animation) {
       // by animation_speed
       if (current_config.animation_speed_ms > 0) {
@@ -190,8 +197,34 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
     return false;
   }();
+  const bool left_release_frame_for_non_idle = [&] {
+    if (!current_config.idle_animation) {
+      // by animation_speed
+      if (current_config.animation_speed_ms > 0) {
+        return current_state.left_hold_frame_ms >= current_config.animation_speed_ms;
+      }
 
-  const bool go_next_frame = [&]() {
+      // by fps
+      return current_state.left_hold_frame_ms >= fps_ms;
+    }
+
+    return false;
+  }();
+  const bool right_release_frame_for_non_idle = [&] {
+    if (!current_config.idle_animation) {
+      // by animation_speed
+      if (current_config.animation_speed_ms > 0) {
+        return current_state.right_hold_frame_ms >= current_config.animation_speed_ms;
+      }
+
+      // by fps
+      return current_state.right_hold_frame_ms >= fps_ms;
+    }
+
+    return false;
+  }();
+
+  const bool go_next_frame = [&] {
     if (current_config.animation_speed_ms > 0) {
       // by animation_speed
       return current_state.frame_delta_ms_counter >= current_config.animation_speed_ms;
@@ -201,7 +234,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
     return current_state.frame_delta_ms_counter >= fps_ms;
   }();
 
-  const bool process_movement_animation = [&]() {
+  const bool process_movement_animation = [&] {
     if (current_config.movement_radius > 0 && current_config.movement_speed > 0) {
       // by animation_speed
       if (current_config.movement_speed > 0 && current_config.animation_speed_ms > 0) {
@@ -215,7 +248,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
     return false;
   }();
 
-  const bool process_working_animation = [&]() {
+  const bool process_working_animation = [&] {
     if (current_config.cpu_running_factor < 1.0 && current_config.cpu_threshold > 0 &&
         current_config.update_rate_ms > 0) {
       // by animation_speed
@@ -230,7 +263,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
     return false;
   }();
 
-  const bool process_running_animation = [&]() {
+  const bool process_running_animation = [&] {
     if (current_config.cpu_running_factor >= 1.0 && current_config.cpu_threshold > 0 &&
         current_config.update_rate_ms > 0) {
       // by animation_speed
@@ -245,7 +278,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
     return false;
   }();
 
-  const bool process_movement = [&]() {
+  const bool process_movement = [&] {
     if (current_config.movement_speed > 0 && current_config.movement_radius > 0) {
       // by animation_speed
       if (current_config.animation_speed_ms > 0) {
@@ -262,7 +295,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
   const bool is_writing = current_state.row_state == animation_state_row_t::StartWriting ||
                           current_state.row_state == animation_state_row_t::Writing ||
                           current_state.row_state == animation_state_row_t::EndWriting;
-  const bool release_frame_after_press = [&]() {
+  const bool release_frame_after_press = [&] {
     if (!current_state._hold_write_animation_started) {
       if (!any_key_pressed) {
         // by keypress_duration
@@ -286,7 +319,56 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
     return false;
   }();
-  const bool continue_writing = [&]() {
+  const bool left_release_frame_after_press = [&] {
+    if (!current_state._hold_write_animation_started) {
+      if (!any_key_pressed) {
+        // by keypress_duration
+        if (current_config.keypress_duration_ms > 0) {
+          return current_state.left_hold_frame_ms >= current_config.keypress_duration_ms;
+        }
+
+        // by animation_speed
+        if (current_config.animation_speed_ms > 0) {
+          return current_state.left_hold_frame_ms >= current_config.animation_speed_ms;
+        }
+
+        // by fps
+        return current_state.left_hold_frame_ms >= fps_ms;
+      }
+
+      if (!current_state.hold_frame_after_release && !any_key_pressed) {
+        return false;
+      }
+    }
+
+    return false;
+  }();
+  const bool right_release_frame_after_press = [&] {
+    if (!current_state._hold_write_animation_started) {
+      if (!any_key_pressed) {
+        // by keypress_duration
+        if (current_config.keypress_duration_ms > 0) {
+          return current_state.right_hold_frame_ms >= current_config.keypress_duration_ms;
+        }
+
+        // by animation_speed
+        if (current_config.animation_speed_ms > 0) {
+          return current_state.right_hold_frame_ms >= current_config.animation_speed_ms;
+        }
+
+        // by fps
+        return current_state.right_hold_frame_ms >= fps_ms;
+      }
+
+      if (!current_state.hold_frame_after_release && !any_key_pressed) {
+        return false;
+      }
+    }
+
+    return false;
+  }();
+
+  const bool continue_writing = [&] {
     if (is_writing) {
       if (!any_key_pressed) {
         // by keypress_duration
@@ -308,15 +390,59 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
     return false;
   }();
+  const bool left_continue_writing = [&] {
+    if (is_writing) {
+      if (!any_key_pressed) {
+        // by keypress_duration
+        if (current_config.keypress_duration_ms > 0) {
+          return current_state.left_hold_frame_ms < current_config.keypress_duration_ms;
+        }
+
+        // by animation_speed
+        if (current_config.animation_speed_ms > 0) {
+          return current_state.left_hold_frame_ms < current_config.animation_speed_ms;
+        }
+
+        // by fps
+        return current_state.left_hold_frame_ms < fps_ms;
+      }
+
+      return !left_release_frame_after_press;
+    }
+
+    return false;
+  }();
+  const bool right_continue_writing = [&] {
+    if (is_writing) {
+      if (!any_key_pressed) {
+        // by keypress_duration
+        if (current_config.keypress_duration_ms > 0) {
+          return current_state.right_hold_frame_ms < current_config.keypress_duration_ms;
+        }
+
+        // by animation_speed
+        if (current_config.animation_speed_ms > 0) {
+          return current_state.right_hold_frame_ms < current_config.animation_speed_ms;
+        }
+
+        // by fps
+        return current_state.right_hold_frame_ms < fps_ms;
+      }
+
+      return !right_release_frame_after_press;
+    }
+
+    return false;
+  }();
 
   const bool is_running = current_state.row_state == animation_state_row_t::StartRunning ||
                           current_state.row_state == animation_state_row_t::Running;
-  const double running_animation_speed_factor = [&]() {
+  const double running_animation_speed_factor = [&] {
     if (current_config.cpu_running_factor >= 1.0 && update_shm.cpu_active) {
       if (update_shm.avg_cpu_usage > 0) {
         assert(update_shm.avg_cpu_usage > 0);
         assert(current_config.cpu_running_factor > 0);
-        return 1.0 / ((update_shm.avg_cpu_usage / 100.0) * (current_config.cpu_running_factor));
+        return 1.0 / ((update_shm.avg_cpu_usage / 100.0) * current_config.cpu_running_factor);
       }
 
       return 0.0;
@@ -325,7 +451,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
     return 1.0;
   }();
 
-  const bool go_next_frame_running = [&]() {
+  const bool go_next_frame_running = [&] {
     if (current_config.cpu_running_factor >= 1.0) {
       // by animation_speed
       if (current_config.animation_speed_ms > 0) {
@@ -366,7 +492,8 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   static_assert(MAX_DISTANCE_PER_MOVEMENT_PART > 0);
 
-  // @TODO: reduce duplicated condition for when updating frames vs. movement vs. working animation
+  // @TODO: reduce duplicated condition for when updating frames vs. movement vs. working animation; right now
+  // EVERYTHING is pre-calucated
 
   return {
       .last_key_pressed_timestamp = last_key_pressed_timestamp,
@@ -388,6 +515,8 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
       .release_test_frame = current_config.test_animation_duration_ms > 0 &&
                             current_state.frame_delta_ms_counter > current_config.test_animation_duration_ms,
       .release_frame_after_press = release_frame_after_press,
+      .left_release_frame_after_press = left_release_frame_after_press,
+      .right_release_frame_after_press = right_release_frame_after_press,
       .release_frame_after_update =
           (!any_key_pressed && has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::CpuUpdate)) &&
           current_state.hold_frame_ms > current_config.keypress_duration_ms,
@@ -401,12 +530,18 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
       .go_next_frame_running = go_next_frame_running,
       .release_frame_for_non_idle =
           release_frame_for_non_idle || go_next_frame || (is_running && go_next_frame_running),
+      .left_release_frame_for_non_idle =
+          left_release_frame_for_non_idle || go_next_frame || (is_running && go_next_frame_running),
+      .right_release_frame_for_non_idle =
+          right_release_frame_for_non_idle || go_next_frame || (is_running && go_next_frame_running),
 
       .is_writing = is_writing,
       .is_moving = is_moving,
       .is_working = is_working,
       .is_running = is_running,
       .continue_writing = continue_writing,
+      .left_continue_writing = left_continue_writing,
+      .right_continue_writing = right_continue_writing,
       .is_idle_sleep = is_idle_sleep,
       .is_full_sleep = current_state.row_state == animation_state_row_t::Sleep && !is_idle_sleep,
       .ready_to_work =
@@ -482,8 +617,10 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   assert(input._local_copy_config);
   const config::config_t& current_config = *input._local_copy_config;
 
-  anim_bongocat_process_animation_result_t ret{.row_state = new_state.row_state,
-                                               .status = anim_bongocat_process_animation_result_status_t::Updated};
+  anim_bongocat_process_animation_result_t ret{
+      .row_state = new_state.row_state,
+      .status = anim_bongocat_process_animation_result_status_t::Updated,
+  };
   // forward animation
   new_state.animations_index = current_state.animations_index + 1;
   if (new_state.animations_index > static_cast<int>(MAX_ANIMATION_FRAMES - 1)) {
@@ -505,7 +642,7 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   case animation_state_row_t::Writing:
   case animation_state_row_t::EndWriting:
     if (current_config.enable_hand_mapping) {
-      switch (input.shm->hand_mapping) {
+      switch (input.shm->pending_hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
         break;
@@ -518,6 +655,9 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
         new_animation_result.sprite_sheet_col =
             (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
                                       : current_frames.animations.right_writing[new_state.animations_index];
+        break;
+      case platform::input::input_hand_mapping_t::Both:
+        new_animation_result.sprite_sheet_col = current_frames.animations.both_writing[new_state.animations_index];
         break;
       }
     } else {
@@ -577,18 +717,17 @@ anim_bongocat_process_animation(const platform::input::input_context_t& input,
   }
   return ret;
 }
-static anim_bongocat_process_animation_result_t
-anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform::input::input_context_t& input,
-                                animation_state_row_t new_row_state, animation_player_result_t& new_animation_result,
-                                animation_state_t& new_state, [[maybe_unused]] const animation_state_t& current_state,
-                                const bongocat_sprite_sheet_t& current_frames) {
+static anim_bongocat_process_animation_result_t anim_bongocat_restart_animation(
+    animation_thread_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t& input,
+    animation_state_row_t new_row_state, animation_player_result_t& new_animation_result, animation_state_t& new_state,
+    [[maybe_unused]] const animation_state_t& current_state, const bongocat_sprite_sheet_t& current_frames) {
   using namespace assets;
   static_assert(MAX_ANIMATION_FRAMES > 0);
   static_assert(MAX_ANIMATION_FRAMES <= INT_MAX);
 
   // read-only config
-  assert(input._local_copy_config);
-  const config::config_t& current_config = *input._local_copy_config;
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
 
   new_state.row_state = new_row_state;
   new_animation_result.sprite_sheet_row = BONGOCAT_SPRITE_SHEET_ROW;
@@ -605,24 +744,23 @@ anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform:
     break;
   case animation_state_row_t::StartWriting: {
     if (current_config.enable_hand_mapping) {
-      switch (input.shm->hand_mapping) {
+      switch (new_state._current_hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
-        new_state.animations_index = static_cast<int>(ctx._rng.range(0, (MAX_ANIMATION_FRAMES - 1) / 2));
-        break;
       case platform::input::input_hand_mapping_t::Left:
       case platform::input::input_hand_mapping_t::Right:
+      case platform::input::input_hand_mapping_t::Both:
         new_state.animations_index = 0;
         break;
       }
     } else {
-      new_state.animations_index = static_cast<int>(ctx._rng.range(0, (MAX_ANIMATION_FRAMES - 1) / 2));
+      new_state.animations_index = ctx._rng.range(0, 100) < 50 ? 0 : 1;
     }
     [[fallthrough]];
   }
   case animation_state_row_t::Writing:
   case animation_state_row_t::EndWriting:
     if (current_config.enable_hand_mapping) {
-      switch (input.shm->hand_mapping) {
+      switch (new_state._current_hand_mapping) {
       case platform::input::input_hand_mapping_t::None:
         new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
         break;
@@ -635,6 +773,13 @@ anim_bongocat_restart_animation(animation_thread_context_t& ctx, const platform:
         new_animation_result.sprite_sheet_col =
             (current_config.mirror_x) ? current_frames.animations.left_writing[new_state.animations_index]
                                       : current_frames.animations.right_writing[new_state.animations_index];
+        break;
+      case platform::input::input_hand_mapping_t::Both:
+        if (new_state.row_state == animation_state_row_t::StartWriting) {
+          new_animation_result.sprite_sheet_col = current_frames.animations.both_writing[new_state.animations_index];
+        } else {
+          new_animation_result.sprite_sheet_col = current_frames.animations.writing[new_state.animations_index];
+        }
         break;
       }
     } else {
@@ -834,7 +979,32 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
       get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger_result.trigger, current_config);
 
   // Idle Animation
-  const bool stop_writing = conditions.is_writing && conditions.release_frame_after_press;
+  const auto stop_writing = [&] {
+    switch (current_state._current_hand_mapping) {
+    case platform::input::input_hand_mapping_t::None:
+      break;
+    case platform::input::input_hand_mapping_t::Left:
+      return conditions.is_writing && conditions.left_release_frame_after_press;
+    case platform::input::input_hand_mapping_t::Right:
+      return conditions.is_writing && conditions.right_release_frame_after_press;
+    case platform::input::input_hand_mapping_t::Both:
+      break;
+    }
+    return conditions.is_writing && conditions.release_frame_after_press;
+  }();
+  const auto release_frame_for_non_idle = [&] {
+    switch (current_state._current_hand_mapping) {
+    case platform::input::input_hand_mapping_t::None:
+      break;
+    case platform::input::input_hand_mapping_t::Left:
+      return conditions.left_release_frame_for_non_idle;
+    case platform::input::input_hand_mapping_t::Right:
+      return conditions.right_release_frame_for_non_idle;
+    case platform::input::input_hand_mapping_t::Both:
+      break;
+    }
+    return conditions.release_frame_for_non_idle;
+  }();
   const bool stop_test_animation = conditions.trigger_test_animation &&
                                    current_state.row_state == animation_state_row_t::Test &&
                                    conditions.release_test_frame;
@@ -842,8 +1012,8 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
     // back to idle
     anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result, new_state,
                                     current_state, current_frames);
+    new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
   }
-
   if constexpr (features::BongocatIdleAnimation) {
     if (!stop_writing && !stop_test_animation && conditions.process_idle_animation) {
       if (current_state.row_state == animation_state_row_t::Idle) {
@@ -857,10 +1027,11 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
       }
     }
   } else {
-    if (current_state.row_state == animation_state_row_t::WakeUp && conditions.release_frame_for_non_idle) {
+    if (current_state.row_state == animation_state_row_t::WakeUp && release_frame_for_non_idle) {
       // back to idle
       anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result, new_state,
                                       current_state, current_frames);
+      new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
     }
   }
 
@@ -897,6 +1068,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
             anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Boring, new_animation_result, new_state,
                                             current_state, current_frames);
             new_state.show_boring_animation_once = true;
+            new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
           }
         } else if (current_state.row_state == animation_state_row_t::Boring) {
           if constexpr (features::BongocatIdleAnimation) {
@@ -904,16 +1076,18 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
               const auto animation_result = anim_bongocat_start_or_process_animation(
                   ctx, input, animation_state_row_t::Idle,  // back to idle, when animation ended
                   new_animation_result, new_state, current_state, current_frames);
+              new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
               if (!start_boring && animation_result.row_state == animation_state_row_t::Idle) {
                 new_state.show_boring_animation_once = false;
               }
             }
           } else {
             if (!start_boring || (start_boring && current_state.show_boring_animation_once)) {
-              if (conditions.release_frame_for_non_idle) {
+              if (release_frame_for_non_idle) {
                 // back to idle
                 anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result,
                                                 new_state, current_state, current_frames);
+                new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
                 if (!start_boring) {
                   new_state.show_boring_animation_once = false;
                 }
@@ -929,6 +1103,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
         if (current_state.row_state == animation_state_row_t::Idle) {
           anim_bongocat_restart_animation(ctx, input, animation_state_row_t::IdleSleep, new_animation_result, new_state,
                                           current_state, current_frames);
+          new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
           new_state.show_boring_animation_once = false;
         } else if (conditions.is_idle_sleep) {
           if constexpr (features::BongocatIdleAnimation) {
@@ -948,10 +1123,11 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
                                                      new_animation_result, new_state, current_state, current_frames);
           }
         } else {
-          if (conditions.release_frame_for_non_idle) {
+          if (release_frame_for_non_idle) {
             // back to idle
             anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result, new_state,
                                             current_state, current_frames);
+            new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
           }
         }
       }
@@ -964,6 +1140,7 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
       if (current_state.row_state == animation_state_row_t::Idle) {
         anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Sleep, new_animation_result, new_state,
                                         current_state, current_frames);
+        new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
       } else {
         if constexpr (features::BongocatIdleAnimation) {
           if (current_state.row_state == animation_state_row_t::Sleep && conditions.process_idle_animation) {
@@ -974,19 +1151,21 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx, const platform::i
       }
     } else {
       if (current_state.row_state == animation_state_row_t::Sleep) {
-        if (conditions.release_frame_for_non_idle) {
+        if (release_frame_for_non_idle) {
           // back to idle
           anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result, new_state,
                                           current_state, current_frames);
+          new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
         }
       }
     }
   } else {
     if (current_state.row_state == animation_state_row_t::Sleep) {
-      if (conditions.release_frame_for_non_idle) {
+      if (release_frame_for_non_idle) {
         // back to idle
         anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result, new_state,
                                         current_state, current_frames);
+        new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
       }
     }
   }
@@ -1017,38 +1196,87 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
 
   auto new_animation_result = anim_shm.animation_player_result;
   auto new_state = state;
+  new_state._current_hand_mapping = flag_add(new_state._current_hand_mapping, input.shm->pending_hand_mapping);
+  const auto reset_writing = [&] {
+    switch (input.shm->pending_hand_mapping) {
+    case platform::input::input_hand_mapping_t::None:
+      break;
+    case platform::input::input_hand_mapping_t::Left:
+      return current_state._current_hand_mapping == platform::input::input_hand_mapping_t::Right;
+    case platform::input::input_hand_mapping_t::Right:
+      return current_state._current_hand_mapping == platform::input::input_hand_mapping_t::Left;
+    case platform::input::input_hand_mapping_t::Both:
+      return current_state._current_hand_mapping != platform::input::input_hand_mapping_t::Both;
+    }
+
+    return false;
+  }();
 
   const auto conditions =
       get_anim_conditions(ctx, input, upd, current_state, anim_shm.evolution, trigger, current_config);
 
   /// @TODO: use state machine for animation (states)
 
+  const auto release_frame_after_press = [&] {
+    switch (current_state._current_hand_mapping) {
+    case platform::input::input_hand_mapping_t::None:
+      break;
+    case platform::input::input_hand_mapping_t::Left:
+      return conditions.left_release_frame_after_press;
+    case platform::input::input_hand_mapping_t::Right:
+      return conditions.right_release_frame_after_press;
+    case platform::input::input_hand_mapping_t::Both:
+      break;
+    }
+    return conditions.release_frame_after_press;
+  }();
+  const auto continue_writing = [&] {
+    switch (current_state._current_hand_mapping) {
+    case platform::input::input_hand_mapping_t::None:
+      break;
+    case platform::input::input_hand_mapping_t::Left:
+      return conditions.left_continue_writing;
+    case platform::input::input_hand_mapping_t::Right:
+      return conditions.right_continue_writing;
+    case platform::input::input_hand_mapping_t::Both:
+      break;
+    }
+    return conditions.continue_writing;
+  }();
   if constexpr (features::BongocatIdleAnimation) {
     if (conditions.is_writing && conditions.process_idle_animation) {
-      if (conditions.release_frame_after_press && current_state.row_state == animation_state_row_t::Writing) {
+      if (release_frame_after_press && current_state.row_state == animation_state_row_t::Writing) {
         anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::EndWriting, new_animation_result,
                                                  new_state, current_state, current_frames);
-      } else if (conditions.release_frame_after_press &&
-                 (current_state.row_state == animation_state_row_t::EndWriting ||
-                  current_state.row_state == animation_state_row_t::WakeUp)) {
+      } else if (release_frame_after_press && (current_state.row_state == animation_state_row_t::EndWriting ||
+                                               current_state.row_state == animation_state_row_t::WakeUp)) {
         anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Idle,  // back to idle
                                                  new_animation_result, new_state, current_state, current_frames);
+        new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
       }
     }
   } else {
     if (conditions.is_writing) {
-      if (conditions.continue_writing) {
-        // keep writing
-        anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
-      } else if (conditions.release_frame_after_press) {
+      if (continue_writing) {
+        if (reset_writing) {
+          // start writing with new hand positions
+          anim_bongocat_restart_animation(ctx, input, animation_state_row_t::StartWriting, new_animation_result,
+                                          new_state, current_state, current_frames);
+        } else {
+          // keep writing
+          anim_bongocat_process_animation(input, new_animation_result, new_state, current_state, current_frames);
+        }
+      } else if (release_frame_after_press) {
         // back to idle
         anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result, new_state,
                                         current_state, current_frames);
+        new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
       }
     } else if (state.row_state == animation_state_row_t::WakeUp) {
       // back to idle
       anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, new_animation_result, new_state,
                                       current_state, current_frames);
+      new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
     }
   }
 
@@ -1059,14 +1287,22 @@ static anim_next_frame_result_t anim_bongocat_key_pressed_next_frame(
       anim_bongocat_restart_animation(ctx, input, animation_state_row_t::WakeUp, new_animation_result, new_state,
                                       current_state, current_frames);
       ctx.shm->last_wakeup_timestamp = platform::get_current_time_ms();
+      new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
     } else if (state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
       // start writing
       anim_bongocat_restart_animation(ctx, input, animation_state_row_t::StartWriting, new_animation_result, new_state,
                                       current_state, current_frames);
     }
   } else if (state.row_state == animation_state_row_t::StartWriting) {
-    anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Writing, new_animation_result,
-                                             new_state, current_state, current_frames);
+    if (reset_writing) {
+      // start writing with new hand positions
+      anim_bongocat_restart_animation(ctx, input, animation_state_row_t::StartWriting, new_animation_result, new_state,
+                                      current_state, current_frames);
+    } else {
+      // keep writing
+      anim_bongocat_start_or_process_animation(ctx, input, animation_state_row_t::Writing, new_animation_result,
+                                               new_state, current_state, current_frames);
+    }
   }
 
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
@@ -3613,6 +3849,7 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx, const platform::i
         // reset release counter after writing is started (for real)
         new_state.hold_frame_after_release = true;
         new_state.hold_frame_ms = 0;
+        // new_state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
       }
     }
     break;
@@ -5690,7 +5927,7 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
   state.frame_delta_ms_counter += state.frame_time_ms;
   state.update_delta_ms_counter += state.frame_time_ms;
 
-  const anim_update_state_result_t ret = [&]() {
+  anim_update_state_result_t ret = [&] {
     platform::LockGuard input_guard(input.input_lock);
     platform::LockGuard update_guard(upd.update_lock);
 
@@ -5717,11 +5954,11 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
         key_pressed || idle_update_result.frame_changed || idle_update_result.rerender || state.swap_animation_done;
     const auto rerender = idle_update_result.rerender || trigger_result.update_frame_result.rerender;
 
-    if (key_pressed) {
-      BONGOCAT_LOG_VERBOSE("Trigger key press animation");
-    }
     if (idle_update_result.frame_changed) {
       BONGOCAT_LOG_VERBOSE("Trigger frame changed");
+    }
+    if (key_pressed) {
+      BONGOCAT_LOG_VERBOSE("Trigger key press animation");
     }
     if (idle_update_result.moved) {
       BONGOCAT_LOG_VERBOSE("Trigger movement animation");
@@ -5740,14 +5977,75 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
     };
   }();
 
+  assert(animation_ctx.thread_context.shm != BONGOCAT_NULLPTR);
   if (!state.hold_frame_after_release && ret.hold_frame) {
     state.hold_frame_after_release = true;
   } else if (state.hold_frame_after_release && (!ret.key_pressed && !ret.hold_frame) &&
-             ret.conditions.release_frame_after_press) {
+             (ret.conditions.release_frame_after_press || ret.conditions.left_release_frame_after_press ||
+              ret.conditions.right_release_frame_after_press)) {
     state.hold_frame_after_release = false;
     state.hold_frame_ms = 0;
+    state.left_hold_frame_ms = 0;
+    state.right_hold_frame_ms = 0;
+    if (animation_ctx.thread_context.shm->anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat) {
+      if (ret.conditions.left_release_frame_after_press) {
+        state._current_hand_mapping =
+            flag_remove(state._current_hand_mapping, platform::input::input_hand_mapping_t::Left);
+      }
+      if (ret.conditions.right_release_frame_after_press) {
+        state._current_hand_mapping =
+            flag_remove(state._current_hand_mapping, platform::input::input_hand_mapping_t::Right);
+      }
+      state._current_hand_mapping =
+          flag_remove(state._current_hand_mapping, platform::input::input_hand_mapping_t::Both);
+
+      /// @FIXME: bongocat reset to idle frame after button press
+      /// @WORKAROUND: fallback, back to idle
+      if (ret.conditions.is_writing) {
+        platform::LockGuard input_guard(input.input_lock);
+        platform::LockGuard update_guard(upd.update_lock);
+
+        // read-only config
+        assert(ctx._local_copy_config != BONGOCAT_NULLPTR);
+        assert(ctx.shm != BONGOCAT_NULLPTR);
+        assert(animation_ctx._config != BONGOCAT_NULLPTR);
+        const config::config_t& current_config = *ctx._local_copy_config;
+        animation_shared_memory_t& anim_shm = *ctx.shm;
+
+        const auto trigger_result = anim_handle_animation_trigger(animation_ctx, state, trigger);
+        assert(animation_ctx.thread_context.shm->anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat);
+        anim_bongocat_restart_animation(ctx, input, animation_state_row_t::Idle, anim_shm.animation_player_result,
+                                        state, state, get_current_animation(ctx).bongocat);
+        ret.rerender = true;
+        ret.hold_frame = false;
+        ret.conditions =
+            get_anim_conditions(ctx, input, upd, state, anim_shm.evolution, trigger_result.trigger, current_config);
+      }
+    }
   } else if (state.hold_frame_after_release) {
-    state.hold_frame_ms += state.frame_time_ms;
+    if (animation_ctx.thread_context.shm->anim_type == config::config_animation_sprite_sheet_layout_t::Bongocat) {
+      // Extend the given paw's deadline
+      switch (state._current_hand_mapping) {
+      case platform::input::input_hand_mapping_t::None:
+        state.hold_frame_ms += state.frame_time_ms;
+        break;
+      case platform::input::input_hand_mapping_t::Left:
+        state.left_hold_frame_ms += state.frame_time_ms;
+        state.hold_frame_ms += state.left_hold_frame_ms;
+        break;
+      case platform::input::input_hand_mapping_t::Right:
+        state.right_hold_frame_ms += state.frame_time_ms;
+        state.hold_frame_ms += state.right_hold_frame_ms;
+        break;
+      case platform::input::input_hand_mapping_t::Both:
+        state.left_hold_frame_ms += state.frame_time_ms;
+        state.right_hold_frame_ms += state.frame_time_ms;
+        state.hold_frame_ms += state.frame_time_ms;
+        break;
+      }
+    } else {
+      state.hold_frame_ms += state.frame_time_ms;
+    }
   }
 
   return ret;
@@ -5861,12 +6159,15 @@ static void anim_init_state(animation_thread_context_t& ctx) {
   assert(current_config.fps > 0);
 
   ctx._state.hold_frame_ms = 0;
+  ctx._state.left_hold_frame_ms = 0;
+  ctx._state.right_hold_frame_ms = 0;
   ctx._state.frame_delta_ms_counter = 0;
   ctx._state.update_delta_ms_counter = 0;
   ctx._state.frame_time_ns = 1000000000LL / current_config.fps;
   ctx._state.frame_time_ms = ctx._state.frame_time_ns / 1000000LL;
   ctx._state.last_frame_update_ms = platform::get_current_time_ms();
   ctx._state.row_state = animation_state_row_t::Idle;
+  ctx._state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
 }
 
 static void anim_init_evol(animation_context_t& animation_ctx, animation_evolution_t& state) {
@@ -6612,7 +6913,7 @@ update_config_reload_sprite_sheet(animation_thread_context_t& ctx,
   const auto old_last_evolution_timestamp = anim_shm.evolution.last_evolution_timestamp;
   const auto old_anim_index_from_config = anim_shm._old_anim_index_from_config;
   const auto old_anim_index_changed = anim_shm._anim_index_changed;
-  const auto rollback_animation = [&]() {
+  const auto rollback_animation = [&] {
     anim_shm.anim_type = old_anim_type;
     anim_shm.anim_dm_set = old_anim_dm_set;
     anim_shm.anim_custom_set = old_anim_custom_set;
@@ -6630,7 +6931,7 @@ update_config_reload_sprite_sheet(animation_thread_context_t& ctx,
   /// @NOTE: set dm_set, etc. first so rand_animation_index works
 
   // change anim_index from config
-  anim_shm._anim_index_changed = [&]() {
+  anim_shm._anim_index_changed = [&] {
     if constexpr (features::EnableEvolution) {
       // don't reset animation when initial anim_index (from config didn't change, but evolution is enabled)
       if (anim_shm._old_anim_index_from_config == current_config.animation_index &&
@@ -6654,7 +6955,7 @@ update_config_reload_sprite_sheet(animation_thread_context_t& ctx,
 
     return anim_index_changed_t::None;
   }();
-  anim_shm.anim_index = [&]() {
+  anim_shm.anim_index = [&] {
     switch (anim_shm._anim_index_changed) {
     case anim_index_changed_t::None:
       return anim_shm.anim_index;
