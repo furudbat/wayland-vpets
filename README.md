@@ -108,7 +108,7 @@ overlay_position=bottom
 # pkmn Options: "Bulbasaur", "Pikachu", "pkmn:Charizard", "pmd:Umbreon", ...
 animation_name=bongocat
 
-# Input device (run wpet-find-devices to find yours)
+# Input device (run wpets-find-devices to find yours)
 keyboard_device=/dev/input/event4
 
 # Sleep mode (optional)
