@@ -934,11 +934,14 @@ static void *input_thread(void *arg) {
                     captured_keycode_index = (captured_keycode_index + 1) % captured_keycode_ring_buffer_size;
                   }
                   if (enable_debug) {
-                    BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd, ev[j].code,
-                                         ev[j].time.tv_sec, ev[j].time.tv_usec);
-                  } else {
-                    // break loop early, when no debug (no print needed for every key press)
-                    break;
+                    // BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd,
+                    // ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
+                    for (size_t i = 0; i < input._unique_devices.count; i++) {
+                      if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+                        BONGOCAT_LOG_DEBUG("input: Key press from %s", input._unique_devices[i]._device_path);
+                        break;
+                      }
+                    }
                   }
                 }
               }
