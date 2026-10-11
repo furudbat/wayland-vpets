@@ -37,9 +37,9 @@ inline static constexpr const char *FILENAME_CPU_PRESET = "/sys/devices/system/c
 inline static constexpr const char *FILENAME_PROC_STAT = "/proc/stat";
 
 static time_sec_t get_boottime() {
-  struct timespec uptime, current_time;
-  if (clock_gettime(CLOCK_BOOTTIME, &uptime) == 0 && clock_gettime(CLOCK_REALTIME, &current_time) == 0) {
-    return current_time.tv_sec - uptime.tv_sec;
+  struct timespec uptime;
+  if (clock_gettime(CLOCK_BOOTTIME, &uptime) == 0) {
+    return uptime.tv_sec;
   }
 
   return 0;

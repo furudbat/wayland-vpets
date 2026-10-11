@@ -12,7 +12,7 @@
 // =============================================================================
 
 // Version
-inline static constexpr const char *BONGOCAT_VERSION = "5.0.2";
+inline static constexpr const char *BONGOCAT_VERSION = "5.0.3";
 
 // =============================================================================
 // COMPILE-TIME CONSTANTS

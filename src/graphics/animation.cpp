@@ -6113,7 +6113,7 @@ static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_ev
       const bool can_evol =
           (evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL &&
            state._lvl >= evol_data.conditions.min_lvl) ||
-          (evol_data.conditions.next_evolution_time_sec > 0 &&
+          (evol_data.conditions.next_evolution_time_sec > 0 && current_config.evolution_speed_factor > 0 &&
            (static_cast<double>(state.current_stage_life_time_sec) * current_config.evolution_speed_factor) >=
                static_cast<double>(evol_data.conditions.next_evolution_time_sec));
 

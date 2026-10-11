@@ -25,7 +25,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
 endif()
 
-project(bongocat LANGUAGES C CXX VERSION 5.0.2)
+project(bongocat LANGUAGES C CXX VERSION 5.0.3)
 
 # Feature Flags
 include(CMakeDependentOption)
