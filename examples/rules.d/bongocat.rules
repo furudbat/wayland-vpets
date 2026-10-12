@@ -1,0 +1,1 @@
+SUBSYSTEM=="input", KERNEL=="event*", ATTRS{name}=="My Keyboard Name", GROUP="bongocat", MODE="0640"

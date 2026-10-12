@@ -11,6 +11,7 @@ Checks: >
   -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
   concurrency-*,
   misc-*,
+#  -concurrency-mt-unsafe,
   -misc-no-recursion,
   performance-*,
   portability-*,
@@ -32,6 +33,13 @@ WarningsAsErrors: ''
 
 # Check options
 CheckOptions:
+  # Public libc headers provide these internal macros/types. Do not require
+  # direct inclusion of glibc implementation headers.
+  - key: misc-include-cleaner.IgnoreHeaders
+    value: '(^|/)(bits|asm-generic)/.*;(^|/)linux/(limits|prctl)\.h$'
+  # Feature-test macros are prescribed by libc, rather than project naming.
+  - key: readability-identifier-naming.MacroDefinitionIgnoredRegexp
+    value: '^_(GNU_SOURCE|DEFAULT_SOURCE|POSIX_C_SOURCE)$'
   # Naming conventions (C style)
   - key: readability-identifier-naming.GlobalConstantCase
     value: UPPER_CASE

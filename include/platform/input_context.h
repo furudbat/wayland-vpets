@@ -79,6 +79,8 @@ void cleanup(input_context_t& ctx);
 // =============================================================================
 
 struct input_context_t {
+  inline static constexpr gid_t NONE_GID{static_cast<gid_t>(-1)};
+
   // local copy from other thread, update after reload (shared memory)
   MMapMemory<config::config_t> _local_copy_config;
   MMapMemory<input_shared_memory_t> shm;
@@ -100,6 +102,8 @@ struct input_context_t {
   udev *_udev{BONGOCAT_NULLPTR};
   udev_monitor *_udev_mon{BONGOCAT_NULLPTR};
   int _udev_fd{-1};
+  // Group granted by a setgid install
+  gid_t _privileged_gid{NONE_GID};
 
   // config reload threading
   FileDescriptor update_config_efd;  // get new_gen from here
@@ -138,6 +142,8 @@ inline void cleanup(input_context_t& ctx) {
     release_allocated_string(ctx._device_paths[i]);
   }
   release_allocated_array(ctx._device_paths);
+
+  ctx._privileged_gid = input_context_t::NONE_GID;
 
   if (ctx._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(ctx._udev_mon);

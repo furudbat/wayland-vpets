@@ -57,10 +57,25 @@ For other distros, see [Building](#building).
 
 ### Setup Permissions
 
+~~`sudo usermod -a -G input $USER`~~
+
+1. `sudo groupadd --system bongocat` -- Create `bongocat` group for input devices
+2. Create `/etc/udev/rules.d/70-bongocat.rules`:
 ```bash
-sudo usermod -a -G input $USER
-# Log out and back in
+SUBSYSTEM=="input", KERNEL=="event*", GROUP="bongocat", MODE="0640"
 ```
+3. Reload udev rules:
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger --subsystem-match=input
+```
+4. setgid for binary
+```bash
+sudo chgrp bongocat /usr/bin/wpets-all
+sudo chmod 2755 /usr/bin/wpets-all
+```
+
+#### TODO: keep group and mode when installing via AUR
 
 ### Find Your Keyboard
 
@@ -108,8 +123,8 @@ overlay_position=bottom
 # pkmn Options: "Bulbasaur", "Pikachu", "pkmn:Charizard", "pmd:Umbreon", ...
 animation_name=bongocat
 
-# Input device (run wpet-find-devices to find yours)
-keyboard_device=/dev/input/event4
+# Input device (run bongocat-find-devices to find yours)
+# Optional: keyboard_device=/dev/input/by-id/YOUR-KEYBOARD-event-kbd
 
 # Sleep mode (optional)
 #idle_sleep_timeout=300
@@ -162,7 +177,7 @@ sudo usermod -a -G input $USER
 <details>
 <summary>Not showing on correct monitor</summary>
 
-Add `monitor=YOUR_MONITOR` to config. Find monitor names with `wlr-randr` or `hyprctl monitors`.
+Set `monitor=YOUR_MONITOR` in config. Find names with `wlr-randr` or `hyprctl monitors`.
 
 </details>
 <details>
@@ -183,9 +198,6 @@ cmake --build build
 ```
 
 **Requirements:** wayland-client, gcc15 or clang19, make, cmake
-
-> [!CAUTION]
-> **Privacy Notice**: When building in `DEBUG` mode and by enabling `enable_debug=1`, all keystrokes are logged to stdout/stderr. Ensure this is disabled (default: 0) for normal usage.
 
 ### Installation from source
 
