@@ -376,7 +376,12 @@ static AllocatedString get_pid_file_path(const cli_args_t& args, const config::c
 
   constexpr const char *tmp_dir = "/tmp";
   const char *runtime_dir = getenv("XDG_RUNTIME_DIR");
-  const char *pid_dir = (runtime_dir != BONGOCAT_NULLPTR && runtime_dir[0] != '\0') ? runtime_dir : tmp_dir;
+  const bool runtime_dir_valid = [&]() {
+    struct stat st{};
+    return runtime_dir != BONGOCAT_NULLPTR && runtime_dir[0] != '\0' && stat(runtime_dir, &st) == 0 &&
+           S_ISDIR(st.st_mode);
+  }();
+  const char *pid_dir = runtime_dir_valid ? runtime_dir : tmp_dir;
 
   BONGOCAT_LOG_VERBOSE("Use path for PID file: %s", pid_dir);
 
