@@ -67,7 +67,7 @@ enum class anim_index_changed_t : uint32_t {
 };
 
 struct animation_shared_memory_t {
-  inline static constexpr uint32_t DEFAULT_PREFER_SCALE120 = 120;
+  static constexpr uint32_t DEFAULT_PREFER_SCALE120 = 120;
 
   // animation state
   animation_player_result_t animation_player_result{};

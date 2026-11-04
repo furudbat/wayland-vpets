@@ -452,11 +452,11 @@ loaded_config_result_t load_from_string(const char *content,
                                         load_config_overwrite_parameters_t overwrite_parameters = {});
 #endif
 
-extern "C" {
-extern const char __start_config_str[];
-extern const char __stop_config_str[];
-}
-
 }  // namespace bongocat::config
+
+extern "C" {
+extern const char _bongocat_start_config_str[];
+extern const char _bongocat_stop_config_str[];
+}
 
 #endif  // BONGOCAT_CONFIG_H

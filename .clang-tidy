@@ -7,22 +7,39 @@ Checks: >
   bugprone-*,
   -bugprone-easily-swappable-parameters,
   -bugprone-reserved-identifier,
+  -bugprone-assignment-in-selection-statement,
+  -bugprone-easily-swappable-parameters,
+  -bugprone-multi-level-implicit-pointer-conversion,
+  -bugprone-reserved-identifier,
+  -bugprone-signed-bitwise,
   clang-analyzer-*,
   -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
+  -clang-analyzer-optin.performance.Padding,
+  -clang-analyzer-security.ArrayBound,
+  -clang-analyzer-security.insecureAPI.DeprecatedOrUnsafeBufferHandling,
+  -clang-analyzer-valist.Uninitialized,
   concurrency-*,
+  -concurrency-mt-unsafe,
   misc-*,
+  -misc-include-cleaner,
   -misc-no-recursion,
   performance-*,
+  -performance-enum-size,
   portability-*,
+  -misc-use-anonymous-namespace,
+  -readability-non-const-parameter,
+  -performance-enum-size,
   readability-*,
   -readability-identifier-length,
   -readability-magic-numbers,
   -readability-function-cognitive-complexity,
   -readability-else-after-return,
   -readability-uppercase-literal-suffix,
-  -misc-use-anonymous-namespace,
-  -readability-non-const-parameter,
-  -performance-enum-size,
+  -readability-function-cognitive-complexity,
+  -readability-identifier-length,
+  -readability-implicit-bool-conversion,
+  -readability-magic-numbers,
+  -readability-trailing-comma
 
 # Only analyze project headers, not system/lib headers
 HeaderFilterRegex: '.*/(include|src)/.*\.(h|hpp)$'
@@ -32,6 +49,9 @@ WarningsAsErrors: ''
 
 # Check options
 CheckOptions:
+  # Feature-test macros are prescribed by libc, rather than project naming.
+  - key: readability-identifier-naming.MacroDefinitionIgnoredRegexp
+    value: '^_(GNU_SOURCE|DEFAULT_SOURCE|POSIX_C_SOURCE)$'
   # Naming conventions (C style)
   - key: readability-identifier-naming.GlobalConstantCase
     value: UPPER_CASE

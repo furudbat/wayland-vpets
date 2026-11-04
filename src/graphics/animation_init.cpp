@@ -1,3 +1,4 @@
+#include "core/bongocat.h"
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "platform/wayland.h"
@@ -331,10 +332,9 @@ struct madvise_region {
 };
 void unload_assets_readonly_sections() {
   static constexpr madvise_region evictable_regions[] = {
-      {__start_assets_images,          __stop_assets_images,          ".assets.images"         },
-      {__start_assets_data_evol,       __stop_assets_data_evol,       ".assets.data_evol"      },
-      {__start_assets_sprite_settings, __stop_assets_sprite_settings, ".assets.sprite_settings"},
-      //{ __start_config_str,            __stop_config_str,            ".config.str"             },
+      {_bongocat_start_assets_images,          _bongocat_stop_assets_images,          ".assets.images"         },
+      {_bongocat_start_assets_data_evol,       _bongocat_stop_assets_data_evol,       ".assets.data_evol"      },
+      {_bongocat_start_assets_sprite_settings, _bongocat_stop_assets_sprite_settings, ".assets.sprite_settings"},
   };
 
   for (const auto& region : evictable_regions) {

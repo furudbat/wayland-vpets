@@ -7,7 +7,7 @@
 #ifndef ASSETS_SECTION
 #if defined(__GNUC__) || defined(__clang__)
 #define ASSETS_SECTION __attribute__((section(".assets")))
-#elif defined(_MSC_VER)
+#elifdef _MSC_VER
 #define ASSETS_SECTION __declspec(allocate(".assets"))
 #pragma section(".assets", read)
 #else
@@ -18,7 +18,7 @@
 #ifndef ASSETS_IMAGES_SECTION
 #if defined(__GNUC__) || defined(__clang__)
 #define ASSETS_IMAGES_SECTION __attribute__((section(".assets.images")))
-#elif defined(_MSC_VER)
+#elifdef _MSC_VER
 #define ASSETS_SIZES_SECTION __declspec(allocate(".assets.images"))
 #pragma section(".assets", read)
 #else
@@ -29,7 +29,7 @@
 #ifndef ASSETS_SIZES_SECTION
 #if defined(__GNUC__) || defined(__clang__)
 #define ASSETS_SIZES_SECTION __attribute__((section(".assets.sizes")))
-#elif defined(_MSC_VER)
+#elifdef _MSC_VER
 #define ASSETS_SIZES_SECTION __declspec(allocate(".assets.sizes"))
 #pragma section(".assets", read)
 #else

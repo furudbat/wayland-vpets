@@ -25,7 +25,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
 endif()
 
-project(bongocat LANGUAGES C CXX VERSION 5.0.3)
+project(bongocat LANGUAGES C CXX VERSION 5.1.0)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -275,42 +275,42 @@ file(
 /* Page alignment for safe madvise(MADV_DONTNEED) */
 SECTIONS
 {
-  /* ── Read-only assets (safe for MADV_DONTNEED) ── */
+  /* Read-only assets (safe for MADV_DONTNEED) */
 
   . = ALIGN(CONSTANT(MAXPAGESIZE));
   .assets.images :
   {
-    __start_assets_images = .;
+    _bongocat_start_assets_images = .;
     KEEP(*(.assets.images))
     . = ALIGN(CONSTANT(MAXPAGESIZE));
-    __stop_assets_images = .;
+    _bongocat_stop_assets_images = .;
   }
 
   . = ALIGN(CONSTANT(MAXPAGESIZE));
   .assets.sprite_settings :
   {
-    __start_assets_sprite_settings = .;
+    _bongocat_start_assets_sprite_settings = .;
     KEEP(*(.assets.sprite_settings))
     . = ALIGN(CONSTANT(MAXPAGESIZE));
-    __stop_assets_sprite_settings = .;
+    _bongocat_stop_assets_sprite_settings = .;
   }
 
   . = ALIGN(CONSTANT(MAXPAGESIZE));
   .assets.data_evol :
   {
-    __start_assets_data_evol = .;
+    _bongocat_start_assets_data_evol = .;
     KEEP(*(.assets.data_evol))
     . = ALIGN(CONSTANT(MAXPAGESIZE));
-    __stop_assets_data_evol = .;
+    _bongocat_stop_assets_data_evol = .;
   }
 
   . = ALIGN(CONSTANT(MAXPAGESIZE));
   .config.str :
   {
-    __start_config_str = .;
+    _bongocat_start_config_str = .;
     KEEP(*(.config.str))
     . = ALIGN(CONSTANT(MAXPAGESIZE));
-    __stop_config_str = .;
+    _bongocat_stop_config_str = .;
   }
 }
 INSERT AFTER .rodata;

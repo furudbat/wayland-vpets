@@ -451,7 +451,7 @@ struct madvise_region {
 };
 void unload_config_readonly_sections() {
   static constexpr madvise_region evictable_regions[] = {
-      {config::__start_config_str, config::__stop_config_str, ".config.str"},
+      {_bongocat_start_config_str, _bongocat_stop_config_str, ".config.str"},
   };
 
   for (const auto& region : evictable_regions) {
