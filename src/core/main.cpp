@@ -204,6 +204,7 @@ struct cli_args_t {
   bool ignore_running{false};
   int64_t nr{-1};
   int32_t debug{-1};
+  bool check_config{false};
 
   bool nr_set{false};
   bool output_name_set{false};
@@ -898,12 +899,12 @@ static void cli_show_help(const char *program_name) {
   printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
   printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
   printf("  -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)\n");
-  printf(
-      "      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
+  printf("      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
   printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting ruinning instances\n");
   printf("      --ignore-running        Ignore current running instance\n");
   printf("      --debug                 Override enable_debug setting\n");
+  printf("      --check-config          Strictly validate the configuration\n");
   printf("\n");
   printf("Included sets:\n");
   // clang-format: on
@@ -978,6 +979,9 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
       args.ignore_running = true;
     } else if (strcmp(argv[i], "--debug") == 0) {
       args.debug = 1;
+    } else if (strcmp(argv[i], "--check-config") == 0) {
+      args.check_config = true;
+      args.strict = 1;
     } else if (strcmp(argv[i], "--nr") == 0) {
       args.nr_set = true;
       if (i + 1 < argc) {
@@ -1036,8 +1040,6 @@ int main(int argc, char *argv[]) {
     return EXIT_SUCCESS;
   }
 
-  BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
-
   main_context_t& ctx = get_main_context();
 
   // Load configuration
@@ -1046,10 +1048,11 @@ int main(int argc, char *argv[]) {
       .randomize_index = args.randomize_index,
       .strict = args.strict,
       .debug = args.debug,
+      .check_config = args.check_config,
   };
   AllocatedString existing_config_file = config::resolve_path(args.config_file);
   const char *config_file = existing_config_file ? existing_config_file.c_str() : "";
-  if (args.strict >= 1) {
+  if (args.strict >= 1 && !args.check_config) {
     if (strcmp(config_file, "-") != 0 && access(config_file, F_OK) != 0) {
       BONGOCAT_LOG_ERROR("Configuration file required: %s", config_file);
       return EXIT_FAILURE;
@@ -1062,6 +1065,14 @@ int main(int argc, char *argv[]) {
     }
     BONGOCAT_LOG_VERBOSE("Try to load Configuration file: %s", config_file);
     auto config_result = config::load(config_file, ctx.overwrite_config_parameters);
+    if (args.check_config) {
+      const bool valid = is_valid_config_result(config_result);
+      printf("Config: %s (%s)\n", config_file && strlen(config_file) > 0 ? config_file : "no file, using defaults",
+             valid ? "valid" : "invalid");
+
+      return valid ? EXIT_SUCCESS : EXIT_FAILURE;
+    }
+
     if (!is_valid_config_result(config_result)) {
       BONGOCAT_LOG_ERROR("Failed to load configuration");
       return EXIT_FAILURE;
@@ -1096,6 +1107,8 @@ int main(int argc, char *argv[]) {
     }
     // toggle_result == -1 means continue with startup
   }
+
+  BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
 
   // Create PID file to track this instance
   const platform::FileDescriptor pid_fd = process_create_pid_file(ctx.pid_filename.c_str());

@@ -436,6 +436,7 @@ struct load_config_overwrite_parameters_t {
   int32_t strict{-1};
   const char *animation_name{BONGOCAT_NULLPTR};
   int32_t debug{-1};
+  bool check_config{false};
 };
 BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path,
                                                load_config_overwrite_parameters_t overwrite_parameters);

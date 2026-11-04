@@ -32,6 +32,9 @@
           --nr NR                 
             Specify Nr. for PID file to avoid conflicting ruinning instances
 
+          --check-config
+            Strictly validate the configuration
+
 Included sets:
   bongocat - Classic Bongo cat
 
