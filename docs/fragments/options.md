@@ -35,6 +35,9 @@
           --check-config
             Strictly validate the configuration
 
+          --list-monitors
+            List Wayland outputs, sizes and scales
+
 Included sets:
   bongocat - Classic Bongo cat
 

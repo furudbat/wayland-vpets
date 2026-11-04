@@ -16,10 +16,17 @@ namespace details {
     static atomic_bool g_instance = true;
     return g_instance;
   }
+  inline atomic_bool& get_log_silenced() {
+    static atomic_bool g_instance = true;
+    return g_instance;
+  }
 }  // namespace details
 
 void error_init(bool enable_debug) {
   atomic_store(&details::get_debug_enabled(), enable_debug);
+}
+void silence_logs(bool disable_logs) {
+  atomic_store(&details::get_log_silenced(), disable_logs);
 }
 
 #if !defined(BONGOCAT_DISABLE_LOGGER) || defined(BONGOCAT_ENABLE_LOGGER)
@@ -57,6 +64,11 @@ namespace details {
 
   // Convenience inline functions
   void log_error(const char *fmt, ...) {
+    /*
+    if (atomic_load(&get_log_silenced())) {
+      return;
+    }
+    */
     va_list args;
     va_start(args, fmt);
     log_vprintf("ERROR", fmt, args);
@@ -64,6 +76,9 @@ namespace details {
   }
 
   void log_warning(const char *fmt, ...) {
+    if (atomic_load(&get_log_silenced())) {
+      return;
+    }
     va_list args;
     va_start(args, fmt);
     log_vprintf("WARNING", fmt, args);
@@ -71,6 +86,9 @@ namespace details {
   }
 
   void log_info(const char *fmt, ...) {
+    if (atomic_load(&get_log_silenced())) {
+      return;
+    }
     va_list args;
     va_start(args, fmt);
     log_vprintf("INFO", fmt, args);
@@ -81,6 +99,9 @@ namespace details {
     if (!atomic_load(&get_debug_enabled())) {
       return;
     }
+    if (atomic_load(&get_log_silenced())) {
+      return;
+    }
     va_list args;
     va_start(args, fmt);
     log_vprintf("DEBUG", fmt, args);
@@ -89,6 +110,9 @@ namespace details {
 
   void log_verbose(const char *fmt, ...) {
     if (!atomic_load(&get_debug_enabled())) {
+      return;
+    }
+    if (atomic_load(&get_log_silenced())) {
       return;
     }
     va_list args;

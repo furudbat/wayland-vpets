@@ -205,6 +205,8 @@ struct cli_args_t {
   int64_t nr{-1};
   int32_t debug{-1};
   bool check_config{false};
+  bool list_monitors{false};
+  bool doctor{false};
 
   bool nr_set{false};
   bool output_name_set{false};
@@ -905,6 +907,7 @@ static void cli_show_help(const char *program_name) {
   printf("      --ignore-running        Ignore current running instance\n");
   printf("      --debug                 Override enable_debug setting\n");
   printf("      --check-config          Strictly validate the configuration\n");
+  printf("      --list-monitors         List Wayland outputs, sizes and scales\n");
   printf("\n");
   printf("Included sets:\n");
   // clang-format: on
@@ -982,6 +985,8 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
     } else if (strcmp(argv[i], "--check-config") == 0) {
       args.check_config = true;
       args.strict = 1;
+    } else if (strcmp(argv[i], "--list-monitors") == 0) {
+      args.list_monitors = true;
     } else if (strcmp(argv[i], "--nr") == 0) {
       args.nr_set = true;
       if (i + 1 < argc) {
@@ -1022,6 +1027,7 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
 int main(int argc, char *argv[]) {
   using namespace bongocat;
   // Initialize error system early
+  bongocat::silence_logs(false);
   bongocat::error_init(true);  // Enable debug initially
 
   // Parse command line arguments
@@ -1032,12 +1038,23 @@ int main(int argc, char *argv[]) {
 
   // Handle help and version requests
   if (args.show_help) {
+    bongocat::error_init(args.debug >= 1);
+    bongocat::silence_logs(true);
     cli_show_help(argv[0]);
     return EXIT_SUCCESS;
   }
   if (args.show_version) {
+    bongocat::error_init(args.debug >= 1);
+    bongocat::silence_logs(true);
     cli_show_version();
     return EXIT_SUCCESS;
+  }
+  if (args.list_monitors) {
+    bongocat::error_init(args.debug >= 1);
+    bongocat::silence_logs(args.debug < 1);
+    return platform::wayland::cli_list_monitors({
+        .doctor = args.doctor,
+    });
   }
 
   main_context_t& ctx = get_main_context();
@@ -1060,6 +1077,9 @@ int main(int argc, char *argv[]) {
   }
 
   {
+    if (args.check_config) {
+      bongocat::silence_logs(args.debug < 1);
+    }
     if (ctx.overwrite_config_parameters.debug >= 0) {
       bongocat::error_init(ctx.overwrite_config_parameters.debug);
     }

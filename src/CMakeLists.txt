@@ -121,6 +121,7 @@ set(
   platform/wayland_hyprland.cpp
   platform/wayland_setups.cpp
   platform/wayland_sway.cpp
+  platform/wayland_monitors.cpp
 )
 add_library(bongocat_base INTERFACE)
 target_sources(bongocat_base INTERFACE ${SOURCES})
