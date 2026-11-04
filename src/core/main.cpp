@@ -209,6 +209,7 @@ struct cli_args_t {
   bool list_devices{false};
   bool doctor{false};
   bool list_devices_config{false};
+  bool default_devices{false};
 
   bool nr_set{false};
   bool output_name_set{false};
@@ -525,8 +526,8 @@ static void config_reload_callback() {
   }
 
   // Create a temporary config to test loading
-  auto [new_config, errors] =
-      config::load(get_main_context().signal_watch_path.c_str(), get_main_context().overwrite_config_parameters);
+  auto [new_config, errors] = config::load(get_main_context().signal_watch_path.c_str(), *get_main_context().input,
+                                           get_main_context().overwrite_config_parameters);
   if (errors.errors != config::config_parsing_error_t::Success) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to reload config", static_cast<uint64_t>(errors.errors));
     BONGOCAT_LOG_INFO("Keeping current configuration");
@@ -911,7 +912,7 @@ static void cli_show_help(const char *program_name) {
   printf("  -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)\n");
   printf("      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
-  printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting ruinning instances\n");
+  printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting with ruinning instances\n");
   printf("      --ignore-running        Ignore current running instance\n");
   printf("      --debug                 Override enable_debug setting\n");
   printf("      --check-config          Strictly validate the configuration\n");
@@ -919,6 +920,7 @@ static void cli_show_help(const char *program_name) {
   printf("      --list-monitors         List Wayland outputs, sizes and scales\n");
   printf("      --doctor                Check config, devices and protocols\n");
   printf("      --list-devices-config   List input devices and keyboard settings in config format\n");
+  printf("      --default-devices       Load every keyboard by default, when no keyboard were found in config\n");
   printf("\n");
   printf("Included sets:\n");
   // clang-format: on
@@ -1005,6 +1007,8 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
       args.list_devices_config = true;
     } else if (strcmp(argv[i], "--doctor") == 0) {
       args.doctor = true;
+    } else if (strcmp(argv[i], "--default-devices") == 0) {
+      args.default_devices = true;
     } else if (strcmp(argv[i], "--nr") == 0) {
       args.nr_set = true;
       if (i + 1 < argc) {
@@ -1137,6 +1141,7 @@ int main(int argc, char *argv[]) {
       .strict = args.strict,
       .debug = args.debug,
       .check_config = args.check_config,
+      .default_devices = args.default_devices,
   };
   AllocatedString existing_config_file = config::resolve_path(args.config_file);
   const char *config_file = existing_config_file ? existing_config_file.c_str() : "";
@@ -1155,7 +1160,12 @@ int main(int argc, char *argv[]) {
       bongocat::error_set(ctx.overwrite_config_parameters.debug);
     }
     BONGOCAT_LOG_VERBOSE("Try to load Configuration file: %s", config_file);
-    auto config_result = config::load(config_file, ctx.overwrite_config_parameters);
+
+    assert(ctx.input != BONGOCAT_NULLPTR);
+    (void)platform::input::details::privilege_init(*ctx.input);
+    auto config_result = config::load(config_file, *ctx.input, ctx.overwrite_config_parameters);
+    (void)platform::input::details::privilege_drop(*ctx.input);
+
     if (args.check_config || args.doctor) {
       const bool config_valid = is_valid_config_result(config_result);
       printf("Config: %s (%s)\n", config_file && strlen(config_file) > 0 ? config_file : "no file, using defaults",

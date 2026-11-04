@@ -19,6 +19,8 @@
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/custom/load_custom.h"
 #include "image_loader/custom/load_custom_features.h"
+#include "platform/input.h"
+#include "platform/input_context.h"
 #include "utils/error.h"
 
 #include <cassert>
@@ -1211,6 +1213,13 @@ static void config_cleanup_devices(config_t& config) {
   }
   config._num_keyboard_names = 0;
 }
+
+struct config_add_default_keyboard_devices_result_t {
+  config_parse_result_t result;
+  unsigned keyboards{0};
+};
+static config_add_default_keyboard_devices_result_t
+config_add_default_keyboard_devices(platform::input::input_context_t& input, config_t& config);
 
 // =============================================================================
 // CONFIGURATION PARSING MODULE
@@ -2549,7 +2558,8 @@ static void config_log_result([[maybe_unused]] const config_t& config,
   }
 }
 
-static loaded_config_result_t config_after_parsing(config_t& ret, config_parse_result_t& errors,
+static loaded_config_result_t config_after_parsing(config_t& ret, platform::input::input_context_t& input,
+                                                   config_parse_result_t& errors,
                                                    const load_config_overwrite_parameters_t& overwrite_parameters) {
   if (overwrite_parameters.debug >= 0) {
     ret.enable_debug = overwrite_parameters.debug >= 1;
@@ -2605,8 +2615,17 @@ static loaded_config_result_t config_after_parsing(config_t& ret, config_parse_r
   errors = config_chain_parse_result(errors, config_validate(ret));
 
   if (ret.num_keyboard_devices == 0) {
-    BONGOCAT_LOG_INFO("No device loaded");
-    errors = config_add_parse_info(errors, config_parsing_info_t::NoInputDevices);
+    if (overwrite_parameters.default_devices) {
+      BONGOCAT_LOG_INFO("Search for keyboard devices (--default-devices)");
+      auto add_devices_result = config_add_default_keyboard_devices(input, ret);
+      errors = config_chain_parse_result(errors, add_devices_result.result);
+      BONGOCAT_LOG_INFO("Default devices loaded: %u", add_devices_result.keyboards);
+    } else {
+      BONGOCAT_LOG_INFO("No device loaded");
+    }
+    if (ret.num_keyboard_devices == 0) {
+      errors = config_add_parse_info(errors, config_parsing_info_t::NoInputDevices);
+    }
   }
 
   // Log configuration summary
@@ -2619,7 +2638,7 @@ static loaded_config_result_t config_after_parsing(config_t& ret, config_parse_r
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-loaded_config_result_t load(const char *config_file_path,
+loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t& input,
                             const load_config_overwrite_parameters_t& overwrite_parameters) {
   BONGOCAT_CHECK_NULL(config_file_path, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
 
@@ -2651,7 +2670,7 @@ loaded_config_result_t load(const char *config_file_path,
   BONGOCAT_LOG_INFO("Config loaded in %.3fms (%.6fsec)", static_cast<double>(t1 - t0) / 1000.0,
                     static_cast<double>(t1 - t0) / 1000000.0);
 
-  return config_after_parsing(ret, errors, overwrite_parameters);
+  return config_after_parsing(ret, input, errors, overwrite_parameters);
 }
 
 void reset(config_t& config) {
@@ -2693,6 +2712,136 @@ AllocatedString resolve_path(const char *explicit_path) {
   return make_null_string();
 }
 
+//
+// device search
+//
+
+namespace details {
+
+  /// @TODO: duplicated code from input_devices
+
+  inline static constexpr auto BITS_PER_LONG{(8 * sizeof(unsigned long))};
+
+  inline static constexpr size_t NUMBERS_SIZE = 1024;
+  inline static constexpr size_t DEVICE_NAME_SIZE = PATH_MAX;
+
+  static bool is_keyboard(int fd) {
+    static_assert(BITS_PER_LONG != 0);
+    constexpr size_t bits_size = (KEY_MAX / BITS_PER_LONG) + 1;
+    unsigned long bits[bits_size] = {0};
+    if (ioctl(fd, EVIOCGBIT(EV_KEY, sizeof(bits)), bits) < 0) {
+      return false;
+    }
+    static const unsigned keys[] = {KEY_A, KEY_Z, KEY_ENTER, KEY_SPACE};
+    for (size_t i = 0; i < LEN_ARRAY(keys); i++) {
+      if (!(bits[keys[i] / BITS_PER_LONG] & (1UL << (keys[i] % BITS_PER_LONG)))) {
+        return false;
+      }
+    }
+    return true;
+  }
+
+  static void device_name(int fd, char *name, size_t size) {
+    memset(name, 0, size);
+    if (ioctl(fd, EVIOCGNAME(size - 1), name) < 0) {
+      name[0] = '\0';
+    }
+  }
+
+  static bool event_node(const char *name, unsigned *number) {
+    char *end{BONGOCAT_NULLPTR};
+    if (strncmp(name, "event", 5) != 0 || !name[5]) {
+      return false;
+    }
+    errno = 0;
+    unsigned long value = strtoul(name + 5, &end, 10);
+    if (errno || *end || value > UINT_MAX) {
+      return false;
+    }
+    *number = static_cast<unsigned>(value);
+    return true;
+  }
+
+  static int compare_unsigned(const void *a, const void *b) {
+    unsigned x = *static_cast<const unsigned *>(a);
+    unsigned y = *static_cast<const unsigned *>(b);
+    return (x > y) - (x < y);
+  }
+
+  // Prints the /dev/input/by-id links that resolve to path.
+  static config_parse_result_t add_device(config_t& config, const char *path) {
+    config_parse_result_t ret;
+    DIR *dir = opendir("/dev/input/by-id");
+
+    struct dirent *entry;
+    while (dir && (entry = readdir(dir))) {
+      char link[PATH_MAX] = {0};
+      char target[PATH_MAX] = {0};
+      if (entry->d_name[0] != '.' &&
+          snprintf(link, sizeof(link), "/dev/input/by-id/%s", entry->d_name) < static_cast<int>(sizeof(link)) &&
+          realpath(link, target) && strcmp(target, path) == 0) {
+        BONGOCAT_LOG_INFO("config: Found input device %s", link);
+        auto add_result = config_add_keyboard_device(config, link);
+        ret = config_chain_parse_result(ret, add_result);
+      }
+    }
+
+    if (dir) {
+      closedir(dir);
+    }
+
+    return ret;
+  }
+
+}  // namespace details
+
+config_add_default_keyboard_devices_result_t config_add_default_keyboard_devices(platform::input::input_context_t& ctx,
+                                                                                 config_t& config) {
+  config_parse_result_t result;
+  DIR *dir = opendir("/dev/input");
+  if (!dir) {
+    BONGOCAT_LOG_ERROR("config: input device /dev/input: %s", strerror(errno));
+    return {.result = result, .keyboards = 0};
+  }
+  unsigned numbers[details::NUMBERS_SIZE] = {0};
+  size_t count = 0;
+  struct dirent *entry;
+  while ((entry = readdir(dir)) && count < details::NUMBERS_SIZE) {
+    count += details::event_node(entry->d_name, &numbers[count]);
+  }
+  closedir(dir);
+
+  qsort(numbers, count, sizeof(*numbers), details::compare_unsigned);
+  unsigned keyboards = 0;
+  for (size_t i = 0; i < count; i++) {
+    char path[PATH_MAX] = {0};
+    snprintf(path, sizeof(path), "/dev/input/event%u", numbers[i]);
+
+    (void)platform::input::details::privilege_raise(ctx);
+    platform::FileDescriptor fd(open(path, O_RDONLY | O_NONBLOCK | O_CLOEXEC));
+    (void)platform::input::details::privilege_lower(ctx);
+
+    if (fd._fd < 0) {
+      BONGOCAT_LOG_WARNING("config: input device %s: inaccessible (%s)", path, strerror(errno));
+      // result = config_add_parse_warning(result, config_parsing_warning_t::InaccessibleInputDevice);
+      continue;
+    }
+
+    char name[details::DEVICE_NAME_SIZE] = {0};
+    details::device_name(fd._fd, name, sizeof(name));
+
+    const bool keyboard = details::is_keyboard(fd._fd);
+    close_fd(fd);
+    if (keyboard) {
+      keyboards++;
+      auto add_result = details::add_device(config, path);
+      result = config_chain_parse_result(result, add_result);
+    }
+  }
+
+  return {.result = result, .keyboards = keyboards};
+}
+
 #ifdef TEST_BUILD
 static config_parse_result_t config_parse_string(config_t& config, const char *content,
                                                  load_config_overwrite_parameters_t overwrite_parameters) {
@@ -2709,7 +2858,8 @@ static config_parse_result_t config_parse_string(config_t& config, const char *c
   return result;
 }
 
-loaded_config_result_t load_from_string(const char *content, load_config_overwrite_parameters_t overwrite_parameters) {
+loaded_config_result_t load_from_string(const char *content, platform::input::input_context_t& input,
+                                        load_config_overwrite_parameters_t overwrite_parameters) {
   BONGOCAT_CHECK_NULL(content, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
 
   config_t ret;
@@ -2725,7 +2875,7 @@ loaded_config_result_t load_from_string(const char *content, load_config_overwri
     return loaded_config_result_t(bongocat::move(errors));
   }
 
-  return config_after_parsing(ret, errors, overwrite_parameters);
+  return config_after_parsing(ret, input, errors, overwrite_parameters);
 }
 #endif
 

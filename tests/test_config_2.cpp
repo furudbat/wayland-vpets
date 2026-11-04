@@ -1,5 +1,6 @@
 #include "config/config.h"
 #include "core/bongocat.h"
+#include "platform/input_context.h"
 #include "utils/error.h"
 #include "utils/system_error.h"
 
@@ -10,7 +11,8 @@ namespace bongocat {
 
 static bongocat::config::config_t config_load_ok(const char *content,
                                                  config::load_config_overwrite_parameters_t options = {}) {
-  auto res = config::load_from_string(content, options);
+  platform::input::input_context_t input;
+  auto res = config::load_from_string(content, input, options);
   CHECK(bongocat::config::is_valid_config_result(res));
   return bongocat::move(res.config);
 }

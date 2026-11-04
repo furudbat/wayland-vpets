@@ -4,9 +4,7 @@
 [![Version](https://img.shields.io/badge/version-5.1.0-blue.svg)](https://github.com/furudbat/wayland-vpets/releases)
 [![Release Build](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml/badge.svg?branch=main)](https://github.com/furudbat/wayland-vpets/actions/workflows/release.yml)
 
-A passive Wayland overlay that puts an animated pet on your screen, reacting to your keyboard in real time. 
-Whether you're a Hyprland ricer chasing the perfect setup or just want Clippy watching you write code at 2am, this is the widget your dotfiles are missing.
-
+A passive Wayland overlay that puts an animated pet on your screen, reacting to your keyboard.
 
 ![Bongocat - Demo](assets/demo.gif)  
 _Classic Bongocat_
@@ -22,28 +20,26 @@ _Pokemon_
 
 ## Features
 
-- **🐈 Pets**
+- **Pets**
   - Bongocat 😺
   - Digimon V-Pets 🦖
   - Clippy 📎
   - Pokémon 🐭
   - Custom sprite sheets 🎨
-- 🎯 Real-time keyboard animation
-- 🔥 Hot-reload configuration
-- 🎮 Auto-hides in fullscreen apps
-- 🖥️ Multi-monitor support
-- 😴 Idle & scheduled sleep mode
-- 😄 Happy animation triggered by KPM threshold
-- 🎲 Randomize sprite on startup
-- 🔲 React to CPU usage
-- ↔️ Movement on screen
-- ⚡ Lightweight (~8MB RAM)
-- 💗 Evolution (Digimon & Pokémon grow over time)
+- Reacts to every keyboard instantly
+- Live configuration reload
+- Hides under fullscreen windows
+- Idle and scheduled sleep
+- SVG artwork, sharp at any size and scale
+- Happy animation triggered by KPM threshold
+- Randomize sprite on startup
+- React to CPU usage
+- Movement animation
+- Evolution (Digimon & Pokémon grow over time)
 
+Requires a compositor with `wlr-layer-shell` (Sway, Hyprland, Niri, river, Wayfire and others).
 
 ## Quick Start
-
-### Install
 
 ```bash
 # Arch Linux - latest release
@@ -52,88 +48,40 @@ yay -S wpets
 # Arch Linux - latest commits
 yay -S wpets-git
 ```
-
 For other distros, see [Building](#building).
 
-### Setup Permissions
-
-~~`sudo usermod -a -G input $USER`~~
-
-1. `sudo groupadd --system bongocat` -- Create `bongocat` group for input devices
-2. Create `/etc/udev/rules.d/70-bongocat.rules`:
+Reading keyboards needs access to `/dev/input`:
 ```bash
-SUBSYSTEM=="input", KERNEL=="event*", GROUP="bongocat", MODE="0640"
-```
-3. Reload udev rules:
-```bash
-sudo udevadm control --reload-rules
-sudo udevadm trigger --subsystem-match=input
-```
-4. setgid for binary
-```bash
-sudo chgrp bongocat /usr/bin/wpets-all
-sudo chmod 2755 /usr/bin/wpets-all
+sudo usermod -a -G input $USER   # then log out and back in
 ```
 
-#### TODO: keep group and mode when installing via AUR
-
-### Find Your Keyboard
-
-```bash
-wpets-find-devices  # or ./scripts/find_input_devices.sh
-```
-
-### Run
-
+Run it:
 ```bash
 wpets-all --watch-config
-# Optional: force a specific monitor
-wpets-all --watch-config --monitor DP-1
 ```
+
+**No keyboard is used by default, use `wpets-all --default-devices` for using every keyboard by default.**
+`wpets-all --list-devices` shows each input device, marks keyboards, and prints `keyboard_name=` and `keyboard_device=` lines you can paste into the configuration to pick specific ones. 
+`wpets-all --doctor` checks the configuration, device access and compositor support at once.
+Or find your devices with `wpets-find-devices`
 
 ## Configuration
 
-Save to `~/.config/bongocat/bongocat.conf`:
+The configuration is read from `$XDG_CONFIG_HOME/bongocat/bongocat.conf`,
+`~/.config/bongocat/bongocat.conf` or `./bongocat.conf`, or from `-c FILE`.
+Every setting is optional; [`bongocat.conf.example`](bongocat.conf.example)
+documents each one. For example, a large cat at the bottom of the screen:
 
 ```ini
-# Bongo Cat Configuration File
-# Edit these values to customize your bongo cat overlay
-
-# Save this file to: ~/.config/bongocat/bongocat.conf
-# Run with: wpets-all --watch-config --config ~/.config/bongocat/bongocat.conf
-
-# Position & Size
-cat_height=80
-cat_align=center
-#cat_x_offset=0
-#cat_y_offset=0
-
-# Appearance
-enable_antialiasing=1
-overlay_height=80
-overlay_opacity=0
+cat_height=110
+overlay_height=120
 overlay_position=bottom
-#mirror_x=0
-#mirror_y=0
+overlay_opacity=0
+cat_align=center
+cat_x_offset=0
+cat_y_offset=0
 
-# animation_name: Sprite name (CASE SENSITIVE)
-# Default Option: "bongocat"
-# dm Options: "Agumon", "Greymon", "metal_greymon", "dm20:Agumon", "dmc:Agumon", "dm:Gabumon", ...
-# MS Agent Options: "Clippy", "ms_agent:Links", ...
-# pkmn Options: "Bulbasaur", "Pikachu", "pkmn:Charizard", "pmd:Umbreon", ...
 animation_name=bongocat
-
-# Input device (run bongocat-find-devices to find yours)
-# Optional: keyboard_device=/dev/input/by-id/YOUR-KEYBOARD-event-kbd
-
-# Sleep mode (optional)
-#idle_sleep_timeout=300
-#enable_scheduled_sleep=0
-#sleep_begin=22:00
-#sleep_end=06:00
-
-# Select Monitor (optional - auto-detects by default)
-#monitor=HDMI-A-1
 ```
 
 
@@ -156,7 +104,10 @@ For CLI flags, Hyprland autostart, ricing tips, and more config examples, see **
 ## Troubleshooting
 
 <details>
-<summary>Permission denied on input device</summary>
+<summary>Permission denied on input devices</summary>
+
+add yourself to the `input` group as shown above, then log in again. 
+`bongocat --list-devices` shows which devices are inaccessible.
 
 ```bash
 sudo usermod -a -G input $USER
@@ -166,7 +117,9 @@ sudo usermod -a -G input $USER
 </details>
 
 <details>
-<summary>Cat not responding to keyboard</summary>
+<summary>Pet ignores the keyboard</summary>
+
+use `wpets-all --list-devices` shows which devices are inaccessible.
 
 1. Run `wpets-find-devices` to find correct device
 2. Update `keyboard_device` in config
@@ -175,11 +128,13 @@ sudo usermod -a -G input $USER
 </details>
 
 <details>
-<summary>Not showing on correct monitor</summary>
+<summary>Pet on the wrong monitor</summary>
 
-Set `monitor=YOUR_MONITOR` in config. Find names with `wlr-randr` or `hyprctl monitors`.
+Set `monitor=YOUR_MONITOR` in config to a name from `wpets-all --list-monitors`. 
+Or find names with `wlr-randr` or `hyprctl monitors`.
 
 </details>
+
 <details>
 <summary>Pet hidden behind waybar</summary>
 
@@ -187,6 +142,16 @@ Both run on the same Wayland layer. Delay startup: `exec-once = sleep 5 && wpets
 
 </details>
 
+<details>
+<summary>Pet still over fullscreen windows</summary>
+
+Use an other layer than `overlay` or toggle visibility via signal: `USR1`
+```bash
+kill -USR1 <bongocat_pid>
+```
+
+
+</details>
 
 ## Building
 
@@ -197,7 +162,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-**Requirements:** wayland-client, gcc15 or clang19, make, cmake
+**Requirements:** `wayland-client`, `make`, `cmake` and a C++20/C23 compiler (gcc15 or clang19).
 
 ### Installation from source
 
@@ -210,6 +175,26 @@ sudo cmake --install build
 ```
 
 > ⚠️ If you already have [bongocat](https://github.com/saatvik333/wayland-bongocat) installed, system-wide install may conflict.
+
+### Alternative Permissions Setup (experimental) -- setgid setup
+
+1. `sudo groupadd --system bongocat` -- Create `bongocat` group for input devices
+2. Create `/etc/udev/rules.d/70-bongocat.rules`:
+```bash
+SUBSYSTEM=="input", KERNEL=="event*", GROUP="bongocat", MODE="0640"
+```
+3. Reload udev rules:
+```bash
+sudo udevadm control --reload-rules
+sudo udevadm trigger --subsystem-match=input
+```
+4. setgid for binary
+```bash
+sudo chgrp bongocat /usr/bin/wpets-all
+sudo chmod 2755 /usr/bin/wpets-all
+```
+
+#### TODO: keep group and mode when installing via AUR
 
 ## License
 

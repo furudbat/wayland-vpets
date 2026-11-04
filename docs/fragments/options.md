@@ -44,6 +44,9 @@
           --doctor             
             Check configuration, devices and compositor support
 
+          --default-devices       
+            Load every keyboard by default, when no keyboard were found in config
+
 Included sets:
   bongocat - Classic Bongo cat
 

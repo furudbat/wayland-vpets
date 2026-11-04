@@ -32,6 +32,21 @@
           --nr NR                 
             Specify Nr. for PID file to avoid conflicting ruinning instances
 
+          --check-config
+            Strictly validate the configuration
+
+          --list-monitors
+            List Wayland outputs, sizes and scales
+
+          --list-devices       
+            List input devices and keyboard settings
+
+          --doctor             
+            Check configuration, devices and compositor support
+
+          --default-devices       
+            Load every keyboard by default, when no keyboard were found in config
+
 Included sets:
   bongocat - Classic Bongo cat
   ms_agent - MS Agent

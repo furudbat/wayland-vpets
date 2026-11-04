@@ -11,6 +11,10 @@
 #include <cstdlib>
 #include <cstring>
 
+namespace bongocat::platform::input {
+struct input_context_t;
+}
+
 namespace bongocat::config {
 enum class overlay_position_t : uint8_t {
   POSITION_TOP,
@@ -437,8 +441,9 @@ struct load_config_overwrite_parameters_t {
   const char *animation_name{BONGOCAT_NULLPTR};
   int32_t debug{-1};
   bool check_config{false};
+  bool default_devices{false};
 };
-BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path,
+BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t& input,
                                                const load_config_overwrite_parameters_t& overwrite_parameters);
 void reset(config_t& config);
 
@@ -449,7 +454,7 @@ void set_defaults(config_t& config);
 AllocatedString resolve_path(const char *explicit_path);
 
 #ifdef TEST_BUILD
-loaded_config_result_t load_from_string(const char *content,
+loaded_config_result_t load_from_string(const char *content, platform::input::input_context_t& input,
                                         load_config_overwrite_parameters_t overwrite_parameters = {});
 #endif
 
