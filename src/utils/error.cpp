@@ -13,16 +13,21 @@
 namespace bongocat {
 namespace details {
   inline atomic_bool& get_debug_enabled() {
-    static atomic_bool g_instance = true;
+    static atomic_bool g_instance = false;
     return g_instance;
   }
   inline atomic_bool& get_log_silenced() {
-    static atomic_bool g_instance = true;
+    static atomic_bool g_instance = false;
     return g_instance;
   }
 }  // namespace details
 
 void error_init(bool enable_debug) {
+  (void)details::get_debug_enabled();
+  (void)details::get_log_silenced();
+  atomic_store(&details::get_debug_enabled(), enable_debug);
+}
+void error_set(bool enable_debug) {
   atomic_store(&details::get_debug_enabled(), enable_debug);
 }
 void silence_logs(bool disable_logs) {

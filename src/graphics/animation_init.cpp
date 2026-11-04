@@ -522,7 +522,6 @@ animation_t& get_current_animation(animation_thread_context_t& ctx) {
 
 created_result_t<AllocatedMemory<animation_context_t>> create(const config::config_t& config) {
   using namespace assets;
-  BONGOCAT_LOG_INFO("Initializing animation system");
   AllocatedMemory<animation_context_t> ret = make_allocated_memory<animation_context_t>();
   assert(ret);
   if (!ret) [[unlikely]] {
@@ -798,8 +797,8 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
   }
   assert(ret->thread_context._local_copy_config);
 
-  BONGOCAT_LOG_INFO("Animation system initialized successfully with embedded assets; load assets in %.3fms (%.6fsec)",
-                    static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
+  BONGOCAT_LOG_VERBOSE("Animation created successfully with embedded assets; load assets in %.3fms (%.6fsec)",
+                       static_cast<double>(t1 - t0) / 1000.0, static_cast<double>(t1 - t0) / 1000000.0);
   return ret;
 }
 

@@ -115,6 +115,7 @@ set(
   graphics/drawing_images.cpp
   graphics/drawing_scale.cpp
   platform/input.cpp
+  platform/input_devices.cpp
   platform/update.cpp
   platform/wayland.cpp
   platform/wayland_callbacks.cpp

@@ -106,7 +106,7 @@ static inline constexpr int MAX_CUSTOM_ROWS = assets::CUSTOM_SPRITE_SHEET_MAX_RO
 static_assert(MIN_FPS > 0, "FPS cannot be zero, for math reasons");
 
 // Default settings
-static inline constexpr auto DEFAULT_DEVICE = "/dev/input/event4";
+// static inline constexpr auto DEFAULT_DEVICE = "/dev/input/event4";
 static inline constexpr auto DEFAULT_CONFIG_FILE_PATH = "bongocat.conf";
 
 static inline constexpr int32_t DEFAULT_CAT_X_OFFSET = 100;
@@ -2619,7 +2619,8 @@ static loaded_config_result_t config_after_parsing(config_t& ret, config_parse_r
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-loaded_config_result_t load(const char *config_file_path, load_config_overwrite_parameters_t overwrite_parameters) {
+loaded_config_result_t load(const char *config_file_path,
+                            const load_config_overwrite_parameters_t& overwrite_parameters) {
   BONGOCAT_CHECK_NULL(config_file_path, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
 
   config_t ret;

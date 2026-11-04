@@ -439,7 +439,7 @@ struct load_config_overwrite_parameters_t {
   bool check_config{false};
 };
 BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path,
-                                               load_config_overwrite_parameters_t overwrite_parameters);
+                                               const load_config_overwrite_parameters_t& overwrite_parameters);
 void reset(config_t& config);
 
 void set_defaults(config_t& config);

@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ### [5.1.0] - 2026-11-04
 
+### Added
+
+- adapt from [upstream](https://github.com/saatvik333/wayland-bongocat/releases/tag/v2.1.1) for parity
+  - add `--list-device` argument
+  - add `--list-monitors` argument
+  - add `--check-config` argument
+  - drop setgid privilege after opening devices (experimental)
 
 ### [5.0.4] - 2026-10-11
 

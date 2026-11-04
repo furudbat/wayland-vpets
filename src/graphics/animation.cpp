@@ -6658,7 +6658,7 @@ static void *anim_thread(void *arg) {
 bongocat_error_t start(animation_context_t& animation_ctx, platform::input::input_context_t& input,
                        platform::update::update_context_t& upd, const config::config_t& config,
                        platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
-  BONGOCAT_LOG_INFO("Starting animation thread");
+  BONGOCAT_LOG_INFO("Initializing animation system");
 
   assert(animation_ctx.thread_context._local_copy_config);
   update_config(animation_ctx.thread_context, config, atomic_load(&config_generation));
@@ -6674,6 +6674,7 @@ bongocat_error_t start(animation_context_t& animation_ctx, platform::input::inpu
 
   animation_ctx._configs_reloaded_cond->notify_all();
 
+  BONGOCAT_LOG_INFO("Starting animation thread");
   // start animation thread
   const int result =
       pthread_create(&animation_ctx.thread_context._anim_thread, BONGOCAT_NULLPTR, anim_thread, &animation_ctx);

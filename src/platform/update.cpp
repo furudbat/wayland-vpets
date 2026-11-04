@@ -610,8 +610,6 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
 
   ret->_running = false;
 
-  BONGOCAT_LOG_INFO("Initializing update monitoring system");
-
   // Initialize shared memory
   ret->shm = make_allocated_mmap<update_shared_memory_t>();
   if (!ret->shm) [[unlikely]] {
@@ -683,7 +681,6 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
 
-  BONGOCAT_LOG_INFO("Input monitoring started");
   return ret;
 }
 

@@ -111,6 +111,7 @@ namespace details {
 
 // Error handling initialization
 void error_init(bool enable_debug);
+void error_set(bool enable_debug);
 BONGOCAT_NODISCARD const char *error_string(bongocat_error_t error);
 void silence_logs(bool disable_logs);
 

@@ -1166,16 +1166,12 @@ created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t
   if (ret == BONGOCAT_NULLPTR) [[unlikely]] {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  if (config.num_keyboard_devices <= 0) {
-    BONGOCAT_LOG_WARNING("No input devices specified");
-  }
 
   const timestamp_ms_t now = get_current_time_ms();
   ret->_capture_input_running = false;
   ret->_input_kpm_counter = 0;
   ret->_latest_kpm_update_ms = now;
-
-  BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", config.num_keyboard_devices);
+  ret->_privileged_gid = input_context_t::NONE_GID;
 
   // Initialize shared memory for key press flag
   ret->shm = make_allocated_mmap<input_shared_memory_t>();
@@ -1204,7 +1200,6 @@ created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
-  BONGOCAT_LOG_INFO("Input monitoring started");
   return ret;
 }
 

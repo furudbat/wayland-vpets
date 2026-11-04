@@ -39,6 +39,13 @@ namespace details {
 #endif
 }  // namespace details
 
+void memory_stats_init() {
+#if !defined(BONGOCAT_DISABLE_MEMORY_STATISTICS) || defined(BONGOCAT_ENABLE_MEMORY_STATISTICS)
+  (void)details::get_memory_stats();
+  (void)details::get_memory_mutex();
+#endif
+}
+
 void *malloc(size_t size) {
   if (size == 0) {
     BONGOCAT_LOG_WARNING("Attempted to allocate 0 bytes");

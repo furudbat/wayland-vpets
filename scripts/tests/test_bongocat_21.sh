@@ -67,6 +67,29 @@ run_test \
     0 \
     "$PROGRAM_2" --list-monitors
 
+run_test \
+    "List Devices (debug)" \
+    0 \
+    "$PROGRAM_1" --list-devices --debug
+
+run_test \
+    "List Devices (release)" \
+    0 \
+    "$PROGRAM_2" --list-devices
+
+run_test \
+    "Doctor -- devices (debug)" \
+    0 \
+    "$PROGRAM_1" --list-devices --doctor
+run_test \
+    "Doctor -- monitors (debug)" \
+    0 \
+    "$PROGRAM_1" --list-monitors --doctor
+run_test \
+    "Doctor (debug)" \
+    0 \
+    "$PROGRAM_1" --list-devices --list-monitors --doctor
+
 if [ "$FAILED_TESTS" -gt 0 ]; then
     echo "[FAIL] Some tests failed!"
     exit 1

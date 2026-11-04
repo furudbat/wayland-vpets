@@ -38,6 +38,12 @@
           --list-monitors
             List Wayland outputs, sizes and scales
 
+          --list-devices       
+            List input devices and keyboard settings
+
+          --doctor             
+            Check configuration, devices and compositor support
+
 Included sets:
   bongocat - Classic Bongo cat
 

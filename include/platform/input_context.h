@@ -14,7 +14,7 @@
 namespace bongocat::platform::input {
 
 inline static constexpr size_t MAX_ACTIVE_DEVICES{32};
-inline static constexpr size_t input_hotplug_events{64};
+inline static constexpr size_t INPUT_HOTPLUG_EVENTS{64};
 
 enum class input_unique_file_type_t : uint8_t {
   NONE,

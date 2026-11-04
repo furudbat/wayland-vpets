@@ -26,6 +26,12 @@ BONGOCAT_NODISCARD bongocat_error_t restart(input_context_t& input, animation::a
 void trigger_update_config(input_context_t& ctx, const config::config_t& config, uint64_t config_generation);
 void update_config(input_context_t& ctx, const config::config_t& config, uint64_t new_gen);
 
+struct cli_list_devices_args_t {
+  bool doctor{false};
+  bool config_format{false};
+};
+int cli_list_devices(input_context_t& ctx, const cli_list_devices_args_t& args);
+
 namespace details {
   enum class privilege_result_t : int8_t {
     Fatal = -1,

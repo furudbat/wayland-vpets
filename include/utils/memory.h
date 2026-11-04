@@ -63,6 +63,7 @@ struct memory_stats_t {
 void memory_get_stats(memory_stats_t& stats);
 #endif
 void memory_print_stats();
+void memory_stats_init();
 
 // =============================================================================
 // DEBUG BUILD FEATURES
