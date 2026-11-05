@@ -3,15 +3,15 @@
 # === Usage Check ===
 if [[ $# -lt 3 ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
-    echo "Example: $0 assets/dm20 assets/input/dm20 include/graphics/embedded_assets/dm20_images.h src/embedded_assets/dm20_images.c include/embedded_assets/dm20.hpp include/embedded_assets/dm20_sprite.h src/embedded_assets/dm20_images.c"
+    echo "Example: $0 assets/dm20 assets/input/dm20 include/graphics/embedded_assets/dm20_images.h src/embedded_assets/dm20_images.cpp include/embedded_assets/dm20.hpp include/embedded_assets/dm20_sprite.h src/embedded_assets/dm20_images.c"
     exit 1
 fi
 
 # === Arguments ===
 INPUT_DIR="$1"
 OG_INPUT_DIR="$2"
-C_HEADER_IMAGES_OUT="$3"
-C_SOURCE_IMAGES_OUT="$4"
+CPP_HEADER_IMAGES_OUT="$3"
+CPP_SOURCE_IMAGES_OUT="$4"
 CPP_HEADER_OUT="$5"
 CPP_HEADER_GET_SPRITE_OUT="$6"
 CPP_SOURCE_GET_SPRITE_OUT="$7"
@@ -44,8 +44,8 @@ set -- "${POSITIONAL_ARGS[@]}"
 
 INPUT_DIR="${POSITIONAL_ARGS[0]}"
 OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
-C_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
-C_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
+CPP_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
+CPP_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
 CPP_HEADER_OUT="${POSITIONAL_ARGS[4]}"
 CPP_HEADER_GET_SPRITE_OUT="${POSITIONAL_ARGS[5]}"
 CPP_SOURCE_GET_SPRITE_OUT="${POSITIONAL_ARGS[6]}"
@@ -58,15 +58,15 @@ if ! command -v magick &>/dev/null; then
     exit 1
 fi
 
-if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" ]]; then
+if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$CPP_HEADER_IMAGES_OUT" || -z "$CPP_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
     exit 1
 fi
 
 #echo $INPUT_DIR
 #echo $OG_INPUT_DIR
-#echo $C_HEADER_IMAGES_OUT
-#echo $C_SOURCE_IMAGES_OUT
+#echo $CPP_HEADER_IMAGES_OUT
+#echo $CPP_SOURCE_IMAGES_OUT
 #echo $CPP_HEADER_OUT
 #echo $FRAME_SIZE
 #exit 1
@@ -81,8 +81,8 @@ ASSETS_PREFIX_LOWER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:upper:]' '[:lower:]')
 ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
 # Clean output files at the start
-> "$C_HEADER_IMAGES_OUT"
-> "$C_SOURCE_IMAGES_OUT"
+> "$CPP_HEADER_IMAGES_OUT"
+> "$CPP_SOURCE_IMAGES_OUT"
 > "$CPP_HEADER_OUT"
 > "$CPP_HEADER_GET_SPRITE_OUT"
 > "$CPP_SOURCE_GET_SPRITE_OUT"
@@ -90,13 +90,13 @@ ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
 # === Header file intro ===
 C_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_H"
-echo "#ifndef $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
-echo "#define $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
-echo "#include <stddef.h>" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
-echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
+echo "#ifndef $C_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo "#define $C_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "#include <stddef.h>" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
 
 CPP_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_${ASSETS_PREFIX_UPPER}_HPP"
 echo "#ifndef $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
@@ -109,13 +109,14 @@ echo >> "$CPP_HEADER_OUT"
 echo "namespace bongocat::assets {" >> "$CPP_HEADER_OUT"
 
 # === Source file intro ===
-HEADER_RELATIVE_PATH="${C_HEADER_IMAGES_OUT#include/}"
-echo "#include \"$HEADER_RELATIVE_PATH\"" >> "$C_SOURCE_IMAGES_OUT"
-echo "#include \"embedded_assets/assets.h\"" >> "$C_HEADER_IMAGES_OUT"
-echo "#include <stddef.h>" >> "$C_SOURCE_IMAGES_OUT"
-echo >> "$C_SOURCE_IMAGES_OUT"
-echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_SOURCE_IMAGES_OUT"
-echo >> "$C_SOURCE_IMAGES_OUT"
+HEADER_RELATIVE_PATH="${CPP_HEADER_IMAGES_OUT#include/}"
+echo "#pragma GCC diagnostic ignored \"-Wc++26-extensions\"  // #embed is C++26, GCC/Clang extension" >> "$CPP_SOURCE_IMAGES_OUT"
+echo "#include \"$HEADER_RELATIVE_PATH\"" >> "$CPP_SOURCE_IMAGES_OUT"
+echo "#include \"embedded_assets/assets.h\"" >> "$CPP_HEADER_IMAGES_OUT"
+echo "#include <cstddef>" >> "$CPP_SOURCE_IMAGES_OUT"
+echo >> "$CPP_SOURCE_IMAGES_OUT"
+echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$CPP_SOURCE_IMAGES_OUT"
+echo >> "$CPP_SOURCE_IMAGES_OUT"
 
 
 
@@ -188,6 +189,7 @@ CPP_SOURCE_GET_SPRITE_OUT_IMAGES_TABLE=""
 # === Process all PNGs ===
 for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
+    IMAGE_SIZE=$(stat -c %s "$FILE")
 
     # Handle optional frame size or COLS/ROWS
     if [[ -n "$FRAME_SIZE" ]]; then
@@ -233,11 +235,11 @@ for FILE in "$INPUT_DIR"/*.png; do
     RELATIVE_PATH_2="../../../$INPUT_DIR/$BASENAME"
 
     # === Header content ===
-    echo "// Name: $NAME_NO_EXT" >> "$C_HEADER_IMAGES_OUT"
+    echo "// Name: $NAME_NO_EXT" >> "$CPP_HEADER_IMAGES_OUT"
     #echo "#define ${MACRO_PREFIX}_NAME \"$NAME_NO_EXT\"" >> "$C_HEADER_OUT"
-    echo "extern const unsigned char $EMBED_SYMBOL[];" >> "$C_HEADER_IMAGES_OUT"
-    echo "extern const size_t $SIZE_SYMBOL;" >> "$C_HEADER_IMAGES_OUT"
-    echo >> "$C_HEADER_IMAGES_OUT"
+    echo "extern const unsigned char $EMBED_SYMBOL[${IMAGE_SIZE}];" >> "$CPP_HEADER_IMAGES_OUT"
+    echo "inline constexpr size_t $SIZE_SYMBOL = ${IMAGE_SIZE};" >> "$CPP_HEADER_IMAGES_OUT"
+    echo >> "$CPP_HEADER_IMAGES_OUT"
 
     FQID="${ASSETS_PREFIX_LOWER}:${IDENTIFIER}"
     FQNAME="${ASSETS_PREFIX_LOWER}:${NAME_NO_EXT}"
@@ -262,13 +264,14 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo >> "$CPP_HEADER_OUT"
 
     # === Source content ===
-    echo "// Name: $NAME_NO_EXT" >> "$C_SOURCE_IMAGES_OUT"
-    echo "const unsigned char $EMBED_SYMBOL[] ASSETS_IMAGES_SECTION = {" >> "$C_SOURCE_IMAGES_OUT"
-    echo "#embed \"$RELATIVE_PATH\"" >> "$C_SOURCE_IMAGES_OUT"
-    echo "};" >> "$C_SOURCE_IMAGES_OUT"
-    echo "const size_t $SIZE_SYMBOL ASSETS_SIZES_SECTION = sizeof($EMBED_SYMBOL);" >> "$C_SOURCE_IMAGES_OUT"
-    echo >> "$C_SOURCE_IMAGES_OUT"
-    echo >> "$C_SOURCE_IMAGES_OUT" # extra EOL
+    echo "// Name: $NAME_NO_EXT" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "const unsigned char $EMBED_SYMBOL[] ASSETS_IMAGES_SECTION = {" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "#embed \"$RELATIVE_PATH\"" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "};" >> "$CPP_SOURCE_IMAGES_OUT"
+    #echo "const size_t $SIZE_SYMBOL ASSETS_SIZES_SECTION = sizeof($EMBED_SYMBOL);" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "static_assert(sizeof($EMBED_SYMBOL) == ${IMAGE_SIZE}, \"re-run generate_embedded_assets.sh\");" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo >> "$CPP_SOURCE_IMAGES_OUT"
+    echo >> "$CPP_SOURCE_IMAGES_OUT" # extra EOL
 
 
     #echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {$EMBED_SYMBOL, $SIZE_SYMBOL, \"${IDENTIFIER}\"};" >> "$CPP_SOURCE_GET_SPRITE_OUT"
@@ -295,9 +298,9 @@ done
 echo "$INDEX done"
 
 
-echo >> "$C_HEADER_IMAGES_OUT"
-echo "#endif // $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "#endif // $C_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
 
 echo "    inline static constexpr size_t ${ASSETS_PREFIX_UPPER}_ANIM_COUNT = $((INDEX-START_INDEX));" >> "$CPP_HEADER_OUT"
 echo '}' >> "$CPP_HEADER_OUT"
@@ -308,7 +311,7 @@ echo >> "$CPP_HEADER_OUT"
 
 echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 #echo -e "${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}" >> "$CPP_SOURCE_GET_SPRITE_OUT"
-echo "    static const embedded_image_t ${ASSETS_PREFIX_LOWER}_images_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "    static const embedded_image_t ${ASSETS_PREFIX_LOWER}_images_table[] = {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_GET_SPRITE_OUT_IMAGES_TABLE}" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
@@ -323,13 +326,13 @@ echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "    static constexpr assets::embedded_sprite_sheet_dims_t ${ASSETS_PREFIX_LOWER}_dims_table[] ASSETS_DIMS_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_DIMS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const unsigned char* ${ASSETS_PREFIX_LOWER}_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const unsigned char* ${ASSETS_PREFIX_LOWER}_pngs_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_PNGS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const size_t ${ASSETS_PREFIX_LOWER}_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const size_t ${ASSETS_PREFIX_LOWER}_png_sizes_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_PNG_SIZES_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const char* ${ASSETS_PREFIX_LOWER}_names_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const char* ${ASSETS_PREFIX_LOWER}_names_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_NAMES_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    created_result_t<${LAYOUT_LOWER}_sprite_sheet_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_thread_context_t& ctx, size_t index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

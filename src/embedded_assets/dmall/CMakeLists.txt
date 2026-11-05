@@ -10,7 +10,7 @@ target_sources(
   PRIVATE
     dmall_get_sprite_sheet.cpp
     dmall_config_parse_animation_name.cpp
-    dmall_images.c
+    dmall_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:dmall_get_evolution_data.cpp>
 )
 target_compile_options(assets_dmall PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

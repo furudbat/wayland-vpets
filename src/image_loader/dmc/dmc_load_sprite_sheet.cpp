@@ -120,7 +120,7 @@ namespace bongocat::animation {
         {assets::DMC_ZURUMON_SPRITE_SHEET_COLS, assets::DMC_ZURUMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* dmc_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {
+    static const unsigned char* dmc_pngs_table[] = {
         dmc_agumon_png, 
         dmc_airdramon_png, 
         dmc_andromon_png, 
@@ -224,7 +224,7 @@ namespace bongocat::animation {
         dmc_zurumon_png, 
         
     };
-    static const size_t dmc_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {
+    static const size_t dmc_png_sizes_table[] = {
         dmc_agumon_png_size, 
         dmc_airdramon_png_size, 
         dmc_andromon_png_size, 
@@ -328,7 +328,7 @@ namespace bongocat::animation {
         dmc_zurumon_png_size, 
         
     };
-    static const char* dmc_names_table[] ASSETS_IMAGES_TABLE_SECTION = {
+    static const char* dmc_names_table[] = {
         assets::DMC_AGUMON_ID, 
         assets::DMC_AIRDRAMON_ID, 
         assets::DMC_ANDROMON_ID, 

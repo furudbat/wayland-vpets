@@ -1,3 +1,4 @@
+#pragma GCC diagnostic ignored "-Wc++26-extensions"  // #embed is C++26, GCC/Clang extension
 #include "embedded_assets/pen20/pen20_images.h"
 #include <stddef.h>
 
@@ -7,1644 +8,1644 @@
 const unsigned char pen20_aero_v_dramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Aero V-dramon.png"
 };
-const size_t pen20_aero_v_dramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_aero_v_dramon_png);
+static_assert(sizeof(pen20_aero_v_dramon_png) == 1404, "re-run generate_embedded_assets.sh");
 
 
 // Name: Agumon Hakase
 const unsigned char pen20_agumon_hakase_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Agumon Hakase.png"
 };
-const size_t pen20_agumon_hakase_png_size ASSETS_SIZES_SECTION = sizeof(pen20_agumon_hakase_png);
+static_assert(sizeof(pen20_agumon_hakase_png) == 1280, "re-run generate_embedded_assets.sh");
 
 
 // Name: Agumon
 const unsigned char pen20_agumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Agumon.png"
 };
-const size_t pen20_agumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_agumon_png);
+static_assert(sizeof(pen20_agumon_png) == 842, "re-run generate_embedded_assets.sh");
 
 
 // Name: Alphamon Ouryuken
 const unsigned char pen20_alphamon_ouryuken_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Alphamon Ouryuken.png"
 };
-const size_t pen20_alphamon_ouryuken_png_size ASSETS_SIZES_SECTION = sizeof(pen20_alphamon_ouryuken_png);
+static_assert(sizeof(pen20_alphamon_ouryuken_png) == 1372, "re-run generate_embedded_assets.sh");
 
 
 // Name: Alphamon
 const unsigned char pen20_alphamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Alphamon.png"
 };
-const size_t pen20_alphamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_alphamon_png);
+static_assert(sizeof(pen20_alphamon_png) == 1308, "re-run generate_embedded_assets.sh");
 
 
 // Name: Andiramon
 const unsigned char pen20_andiramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Andiramon.png"
 };
-const size_t pen20_andiramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_andiramon_png);
+static_assert(sizeof(pen20_andiramon_png) == 1323, "re-run generate_embedded_assets.sh");
 
 
 // Name: Andromon
 const unsigned char pen20_andromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Andromon.png"
 };
-const size_t pen20_andromon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_andromon_png);
+static_assert(sizeof(pen20_andromon_png) == 970, "re-run generate_embedded_assets.sh");
 
 
 // Name: Angemon
 const unsigned char pen20_angemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Angemon.png"
 };
-const size_t pen20_angemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_angemon_png);
+static_assert(sizeof(pen20_angemon_png) == 1171, "re-run generate_embedded_assets.sh");
 
 
 // Name: Angewomon
 const unsigned char pen20_angewomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Angewomon.png"
 };
-const size_t pen20_angewomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_angewomon_png);
+static_assert(sizeof(pen20_angewomon_png) == 1508, "re-run generate_embedded_assets.sh");
 
 
 // Name: Anomalocarimon
 const unsigned char pen20_anomalocarimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Anomalocarimon.png"
 };
-const size_t pen20_anomalocarimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_anomalocarimon_png);
+static_assert(sizeof(pen20_anomalocarimon_png) == 1350, "re-run generate_embedded_assets.sh");
 
 
 // Name: Arresterdramon
 const unsigned char pen20_arresterdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Arresterdramon.png"
 };
-const size_t pen20_arresterdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_arresterdramon_png);
+static_assert(sizeof(pen20_arresterdramon_png) == 1285, "re-run generate_embedded_assets.sh");
 
 
 // Name: Astamon
 const unsigned char pen20_astamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Astamon.png"
 };
-const size_t pen20_astamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_astamon_png);
+static_assert(sizeof(pen20_astamon_png) == 1334, "re-run generate_embedded_assets.sh");
 
 
 // Name: Asuramon
 const unsigned char pen20_asuramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Asuramon.png"
 };
-const size_t pen20_asuramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_asuramon_png);
+static_assert(sizeof(pen20_asuramon_png) == 1383, "re-run generate_embedded_assets.sh");
 
 
 // Name: Atlur Kabuterimon
 const unsigned char pen20_atlur_kabuterimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Atlur Kabuterimon.png"
 };
-const size_t pen20_atlur_kabuterimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_atlur_kabuterimon_png);
+static_assert(sizeof(pen20_atlur_kabuterimon_png) == 1358, "re-run generate_embedded_assets.sh");
 
 
 // Name: Baalmon
 const unsigned char pen20_baalmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Baalmon.png"
 };
-const size_t pen20_baalmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_baalmon_png);
+static_assert(sizeof(pen20_baalmon_png) == 1359, "re-run generate_embedded_assets.sh");
 
 
 // Name: Bakemon
 const unsigned char pen20_bakemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bakemon.png"
 };
-const size_t pen20_bakemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_bakemon_png);
+static_assert(sizeof(pen20_bakemon_png) == 872, "re-run generate_embedded_assets.sh");
 
 
 // Name: Bakumon
 const unsigned char pen20_bakumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bakumon.png"
 };
-const size_t pen20_bakumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_bakumon_png);
+static_assert(sizeof(pen20_bakumon_png) == 1313, "re-run generate_embedded_assets.sh");
 
 
 // Name: Bancho Leomon
 const unsigned char pen20_bancho_leomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bancho Leomon.png"
 };
-const size_t pen20_bancho_leomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_bancho_leomon_png);
+static_assert(sizeof(pen20_bancho_leomon_png) == 1433, "re-run generate_embedded_assets.sh");
 
 
 // Name: Bao Hackmon
 const unsigned char pen20_bao_hackmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bao Hackmon.png"
 };
-const size_t pen20_bao_hackmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_bao_hackmon_png);
+static_assert(sizeof(pen20_bao_hackmon_png) == 1243, "re-run generate_embedded_assets.sh");
 
 
 // Name: Beelzebumon Blast Mode
 const unsigned char pen20_beelzebumon_blast_mode_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Beelzebumon Blast Mode.png"
 };
-const size_t pen20_beelzebumon_blast_mode_png_size ASSETS_SIZES_SECTION = sizeof(pen20_beelzebumon_blast_mode_png);
+static_assert(sizeof(pen20_beelzebumon_blast_mode_png) == 1308, "re-run generate_embedded_assets.sh");
 
 
 // Name: Beowolfmon
 const unsigned char pen20_beowolfmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Beowolfmon.png"
 };
-const size_t pen20_beowolfmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_beowolfmon_png);
+static_assert(sizeof(pen20_beowolfmon_png) == 1348, "re-run generate_embedded_assets.sh");
 
 
 // Name: Beowulfmon
 const unsigned char pen20_beowulfmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Beowulfmon.png"
 };
-const size_t pen20_beowulfmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_beowulfmon_png);
+static_assert(sizeof(pen20_beowulfmon_png) == 1348, "re-run generate_embedded_assets.sh");
 
 
 // Name: Big Mamemon
 const unsigned char pen20_big_mamemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Big Mamemon.png"
 };
-const size_t pen20_big_mamemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_big_mamemon_png);
+static_assert(sizeof(pen20_big_mamemon_png) == 993, "re-run generate_embedded_assets.sh");
 
 
 // Name: Birdramon
 const unsigned char pen20_birdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Birdramon.png"
 };
-const size_t pen20_birdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_birdramon_png);
+static_assert(sizeof(pen20_birdramon_png) == 896, "re-run generate_embedded_assets.sh");
 
 
 // Name: Blossomon
 const unsigned char pen20_blossomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Blossomon.png"
 };
-const size_t pen20_blossomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_blossomon_png);
+static_assert(sizeof(pen20_blossomon_png) == 1408, "re-run generate_embedded_assets.sh");
 
 
 // Name: Boltmon
 const unsigned char pen20_boltmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Boltmon.png"
 };
-const size_t pen20_boltmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_boltmon_png);
+static_assert(sizeof(pen20_boltmon_png) == 1463, "re-run generate_embedded_assets.sh");
 
 
 // Name: Botamon
 const unsigned char pen20_botamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Botamon.png"
 };
-const size_t pen20_botamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_botamon_png);
+static_assert(sizeof(pen20_botamon_png) == 476, "re-run generate_embedded_assets.sh");
 
 
 // Name: Breakdramon
 const unsigned char pen20_breakdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Breakdramon.png"
 };
-const size_t pen20_breakdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_breakdramon_png);
+static_assert(sizeof(pen20_breakdramon_png) == 1385, "re-run generate_embedded_assets.sh");
 
 
 // Name: Bryweludramon
 const unsigned char pen20_bryweludramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bryweludramon.png"
 };
-const size_t pen20_bryweludramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_bryweludramon_png);
+static_assert(sizeof(pen20_bryweludramon_png) == 1363, "re-run generate_embedded_assets.sh");
 
 
 // Name: Bubbmon
 const unsigned char pen20_bubbmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bubbmon.png"
 };
-const size_t pen20_bubbmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_bubbmon_png);
+static_assert(sizeof(pen20_bubbmon_png) == 739, "re-run generate_embedded_assets.sh");
 
 
 // Name: Budmon
 const unsigned char pen20_budmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Budmon.png"
 };
-const size_t pen20_budmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_budmon_png);
+static_assert(sizeof(pen20_budmon_png) == 1156, "re-run generate_embedded_assets.sh");
 
 
 // Name: Bushi Agumon
 const unsigned char pen20_bushi_agumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bushi Agumon.png"
 };
-const size_t pen20_bushi_agumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_bushi_agumon_png);
+static_assert(sizeof(pen20_bushi_agumon_png) == 1348, "re-run generate_embedded_assets.sh");
 
 
 // Name: Candmon
 const unsigned char pen20_candmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Candmon.png"
 };
-const size_t pen20_candmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_candmon_png);
+static_assert(sizeof(pen20_candmon_png) == 1216, "re-run generate_embedded_assets.sh");
 
 
 // Name: Caprimon
 const unsigned char pen20_caprimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Caprimon.png"
 };
-const size_t pen20_caprimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_caprimon_png);
+static_assert(sizeof(pen20_caprimon_png) == 1221, "re-run generate_embedded_assets.sh");
 
 
 // Name: Chaosmon
 const unsigned char pen20_chaosmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Chaosmon.png"
 };
-const size_t pen20_chaosmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_chaosmon_png);
+static_assert(sizeof(pen20_chaosmon_png) == 1288, "re-run generate_embedded_assets.sh");
 
 
 // Name: Cherubimon
 const unsigned char pen20_cherubimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Cherubimon.png"
 };
-const size_t pen20_cherubimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_cherubimon_png);
+static_assert(sizeof(pen20_cherubimon_png) == 1358, "re-run generate_embedded_assets.sh");
 
 
 // Name: Chibimon
 const unsigned char pen20_chibimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Chibimon.png"
 };
-const size_t pen20_chibimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_chibimon_png);
+static_assert(sizeof(pen20_chibimon_png) == 1228, "re-run generate_embedded_assets.sh");
 
 
 // Name: Chicomon
 const unsigned char pen20_chicomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Chicomon.png"
 };
-const size_t pen20_chicomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_chicomon_png);
+static_assert(sizeof(pen20_chicomon_png) == 853, "re-run generate_embedded_assets.sh");
 
 
 // Name: Choromon
 const unsigned char pen20_choromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Choromon.png"
 };
-const size_t pen20_choromon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_choromon_png);
+static_assert(sizeof(pen20_choromon_png) == 730, "re-run generate_embedded_assets.sh");
 
 
 // Name: Clockmon
 const unsigned char pen20_clockmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Clockmon.png"
 };
-const size_t pen20_clockmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_clockmon_png);
+static_assert(sizeof(pen20_clockmon_png) == 1297, "re-run generate_embedded_assets.sh");
 
 
 // Name: Cocomon
 const unsigned char pen20_cocomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Cocomon.png"
 };
-const size_t pen20_cocomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_cocomon_png);
+static_assert(sizeof(pen20_cocomon_png) == 865, "re-run generate_embedded_assets.sh");
 
 
 // Name: Coelamon
 const unsigned char pen20_coelamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Coelamon.png"
 };
-const size_t pen20_coelamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_coelamon_png);
+static_assert(sizeof(pen20_coelamon_png) == 892, "re-run generate_embedded_assets.sh");
 
 
 // Name: Coredramon (Blue)
 const unsigned char pen20_coredramon_blue_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Coredramon (Blue).png"
 };
-const size_t pen20_coredramon_blue_png_size ASSETS_SIZES_SECTION = sizeof(pen20_coredramon_blue_png);
+static_assert(sizeof(pen20_coredramon_blue_png) == 1356, "re-run generate_embedded_assets.sh");
 
 
 // Name: Coredramon (Green)
 const unsigned char pen20_coredramon_green_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Coredramon (Green).png"
 };
-const size_t pen20_coredramon_green_png_size ASSETS_SIZES_SECTION = sizeof(pen20_coredramon_green_png);
+static_assert(sizeof(pen20_coredramon_green_png) == 1310, "re-run generate_embedded_assets.sh");
 
 
 // Name: Cotsucomon
 const unsigned char pen20_cotsucomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Cotsucomon.png"
 };
-const size_t pen20_cotsucomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_cotsucomon_png);
+static_assert(sizeof(pen20_cotsucomon_png) == 862, "re-run generate_embedded_assets.sh");
 
 
 // Name: Cyberdramon
 const unsigned char pen20_cyberdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Cyberdramon.png"
 };
-const size_t pen20_cyberdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_cyberdramon_png);
+static_assert(sizeof(pen20_cyberdramon_png) == 1492, "re-run generate_embedded_assets.sh");
 
 
 // Name: Dagomon
 const unsigned char pen20_dagomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Dagomon.png"
 };
-const size_t pen20_dagomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dagomon_png);
+static_assert(sizeof(pen20_dagomon_png) == 1390, "re-run generate_embedded_assets.sh");
 
 
 // Name: Darkdramon
 const unsigned char pen20_darkdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Darkdramon.png"
 };
-const size_t pen20_darkdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_darkdramon_png);
+static_assert(sizeof(pen20_darkdramon_png) == 1315, "re-run generate_embedded_assets.sh");
 
 
 // Name: Dark Knightmon
 const unsigned char pen20_dark_knightmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Dark Knightmon.png"
 };
-const size_t pen20_dark_knightmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dark_knightmon_png);
+static_assert(sizeof(pen20_dark_knightmon_png) == 1270, "re-run generate_embedded_assets.sh");
 
 
 // Name: Death Meramon
 const unsigned char pen20_death_meramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Death Meramon.png"
 };
-const size_t pen20_death_meramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_death_meramon_png);
+static_assert(sizeof(pen20_death_meramon_png) == 1468, "re-run generate_embedded_assets.sh");
 
 
 // Name: Delumon
 const unsigned char pen20_delumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Delumon.png"
 };
-const size_t pen20_delumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_delumon_png);
+static_assert(sizeof(pen20_delumon_png) == 1444, "re-run generate_embedded_assets.sh");
 
 
 // Name: Devidramon
 const unsigned char pen20_devidramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Devidramon.png"
 };
-const size_t pen20_devidramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_devidramon_png);
+static_assert(sizeof(pen20_devidramon_png) == 922, "re-run generate_embedded_assets.sh");
 
 
 // Name: Devimon
 const unsigned char pen20_devimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Devimon.png"
 };
-const size_t pen20_devimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_devimon_png);
+static_assert(sizeof(pen20_devimon_png) == 931, "re-run generate_embedded_assets.sh");
 
 
 // Name: Dokugumon
 const unsigned char pen20_dokugumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Dokugumon.png"
 };
-const size_t pen20_dokugumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dokugumon_png);
+static_assert(sizeof(pen20_dokugumon_png) == 1407, "re-run generate_embedded_assets.sh");
 
 
 // Name: Dorimon
 const unsigned char pen20_dorimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Dorimon.png"
 };
-const size_t pen20_dorimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dorimon_png);
+static_assert(sizeof(pen20_dorimon_png) == 995, "re-run generate_embedded_assets.sh");
 
 
 // Name: DORUgamon
 const unsigned char pen20_dorugamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/DORUgamon.png"
 };
-const size_t pen20_dorugamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dorugamon_png);
+static_assert(sizeof(pen20_dorugamon_png) == 1344, "re-run generate_embedded_assets.sh");
 
 
 // Name: DORUgoramon
 const unsigned char pen20_dorugoramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/DORUgoramon.png"
 };
-const size_t pen20_dorugoramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dorugoramon_png);
+static_assert(sizeof(pen20_dorugoramon_png) == 1227, "re-run generate_embedded_assets.sh");
 
 
 // Name: DORUguremon
 const unsigned char pen20_doruguremon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/DORUguremon.png"
 };
-const size_t pen20_doruguremon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_doruguremon_png);
+static_assert(sizeof(pen20_doruguremon_png) == 1256, "re-run generate_embedded_assets.sh");
 
 
 // Name: DORUmon
 const unsigned char pen20_dorumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/DORUmon.png"
 };
-const size_t pen20_dorumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dorumon_png);
+static_assert(sizeof(pen20_dorumon_png) == 1333, "re-run generate_embedded_assets.sh");
 
 
 // Name: Dracomon
 const unsigned char pen20_dracomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Dracomon.png"
 };
-const size_t pen20_dracomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_dracomon_png);
+static_assert(sizeof(pen20_dracomon_png) == 1401, "re-run generate_embedded_assets.sh");
 
 
 // Name: Duramon
 const unsigned char pen20_duramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Duramon.png"
 };
-const size_t pen20_duramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_duramon_png);
+static_assert(sizeof(pen20_duramon_png) == 1370, "re-run generate_embedded_assets.sh");
 
 
 // Name: Durandamon
 const unsigned char pen20_durandamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Durandamon.png"
 };
-const size_t pen20_durandamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_durandamon_png);
+static_assert(sizeof(pen20_durandamon_png) == 1294, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ebidramon
 const unsigned char pen20_ebidramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ebidramon.png"
 };
-const size_t pen20_ebidramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ebidramon_png);
+static_assert(sizeof(pen20_ebidramon_png) == 1508, "re-run generate_embedded_assets.sh");
 
 
 // Name: Etemon
 const unsigned char pen20_etemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Etemon.png"
 };
-const size_t pen20_etemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_etemon_png);
+static_assert(sizeof(pen20_etemon_png) == 1063, "re-run generate_embedded_assets.sh");
 
 
 // Name: Examon
 const unsigned char pen20_examon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Examon.png"
 };
-const size_t pen20_examon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_examon_png);
+static_assert(sizeof(pen20_examon_png) == 1351, "re-run generate_embedded_assets.sh");
 
 
 // Name: Fantomon
 const unsigned char pen20_fantomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Fantomon.png"
 };
-const size_t pen20_fantomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_fantomon_png);
+static_assert(sizeof(pen20_fantomon_png) == 1396, "re-run generate_embedded_assets.sh");
 
 
 // Name: Floramon
 const unsigned char pen20_floramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Floramon.png"
 };
-const size_t pen20_floramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_floramon_png);
+static_assert(sizeof(pen20_floramon_png) == 1320, "re-run generate_embedded_assets.sh");
 
 
 // Name: Fufumon
 const unsigned char pen20_fufumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Fufumon.png"
 };
-const size_t pen20_fufumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_fufumon_png);
+static_assert(sizeof(pen20_fufumon_png) == 844, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gabumon
 const unsigned char pen20_gabumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Gabumon.png"
 };
-const size_t pen20_gabumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_gabumon_png);
+static_assert(sizeof(pen20_gabumon_png) == 938, "re-run generate_embedded_assets.sh");
 
 
 // Name: Galgomon
 const unsigned char pen20_galgomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Galgomon.png"
 };
-const size_t pen20_galgomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_galgomon_png);
+static_assert(sizeof(pen20_galgomon_png) == 1213, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ganimon
 const unsigned char pen20_ganimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ganimon.png"
 };
-const size_t pen20_ganimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ganimon_png);
+static_assert(sizeof(pen20_ganimon_png) == 1417, "re-run generate_embedded_assets.sh");
 
 
 // Name: Garudamon
 const unsigned char pen20_garudamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Garudamon.png"
 };
-const size_t pen20_garudamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_garudamon_png);
+static_assert(sizeof(pen20_garudamon_png) == 1420, "re-run generate_embedded_assets.sh");
 
 
 // Name: Garurumon
 const unsigned char pen20_garurumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Garurumon.png"
 };
-const size_t pen20_garurumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_garurumon_png);
+static_assert(sizeof(pen20_garurumon_png) == 1075, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gekomon
 const unsigned char pen20_gekomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Gekomon.png"
 };
-const size_t pen20_gekomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_gekomon_png);
+static_assert(sizeof(pen20_gekomon_png) == 1084, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gerbemon
 const unsigned char pen20_gerbemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Gerbemon.png"
 };
-const size_t pen20_gerbemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_gerbemon_png);
+static_assert(sizeof(pen20_gerbemon_png) == 1275, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gesomon
 const unsigned char pen20_gesomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Gesomon.png"
 };
-const size_t pen20_gesomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_gesomon_png);
+static_assert(sizeof(pen20_gesomon_png) == 1002, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ginryumon
 const unsigned char pen20_ginryumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ginryumon.png"
 };
-const size_t pen20_ginryumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ginryumon_png);
+static_assert(sizeof(pen20_ginryumon_png) == 1105, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gomamon
 const unsigned char pen20_gomamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Gomamon.png"
 };
-const size_t pen20_gomamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_gomamon_png);
+static_assert(sizeof(pen20_gomamon_png) == 858, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gottsumon
 const unsigned char pen20_gottsumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Gottsumon.png"
 };
-const size_t pen20_gottsumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_gottsumon_png);
+static_assert(sizeof(pen20_gottsumon_png) == 1292, "re-run generate_embedded_assets.sh");
 
 
 // Name: Greymon
 const unsigned char pen20_greymon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Greymon.png"
 };
-const size_t pen20_greymon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_greymon_png);
+static_assert(sizeof(pen20_greymon_png) == 948, "re-run generate_embedded_assets.sh");
 
 
 // Name: Griffomon
 const unsigned char pen20_griffomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Griffomon.png"
 };
-const size_t pen20_griffomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_griffomon_png);
+static_assert(sizeof(pen20_griffomon_png) == 1380, "re-run generate_embedded_assets.sh");
 
 
 // Name: Groundramon
 const unsigned char pen20_groundramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Groundramon.png"
 };
-const size_t pen20_groundramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_groundramon_png);
+static_assert(sizeof(pen20_groundramon_png) == 1329, "re-run generate_embedded_assets.sh");
 
 
 // Name: Growmon
 const unsigned char pen20_growmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Growmon.png"
 };
-const size_t pen20_growmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_growmon_png);
+static_assert(sizeof(pen20_growmon_png) == 1433, "re-run generate_embedded_assets.sh");
 
 
 // Name: Guardromon
 const unsigned char pen20_guardromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Guardromon.png"
 };
-const size_t pen20_guardromon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_guardromon_png);
+static_assert(sizeof(pen20_guardromon_png) == 1247, "re-run generate_embedded_assets.sh");
 
 
 // Name: Guimon
 const unsigned char pen20_guimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Guimon.png"
 };
-const size_t pen20_guimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_guimon_png);
+static_assert(sizeof(pen20_guimon_png) == 1428, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gummymon
 const unsigned char pen20_gummymon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Gummymon.png"
 };
-const size_t pen20_gummymon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_gummymon_png);
+static_assert(sizeof(pen20_gummymon_png) == 1188, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hackmon
 const unsigned char pen20_hackmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hackmon.png"
 };
-const size_t pen20_hackmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_hackmon_png);
+static_assert(sizeof(pen20_hackmon_png) == 1291, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hagurumon
 const unsigned char pen20_hagurumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hagurumon.png"
 };
-const size_t pen20_hagurumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_hagurumon_png);
+static_assert(sizeof(pen20_hagurumon_png) == 1225, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hangymon
 const unsigned char pen20_hangymon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hangymon.png"
 };
-const size_t pen20_hangymon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_hangymon_png);
+static_assert(sizeof(pen20_hangymon_png) == 1426, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hangyomon
 const unsigned char pen20_hangyomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hangyomon.png"
 };
-const size_t pen20_hangyomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_hangyomon_png);
+static_assert(sizeof(pen20_hangyomon_png) == 1426, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hanumon
 const unsigned char pen20_hanumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hanumon.png"
 };
-const size_t pen20_hanumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_hanumon_png);
+static_assert(sizeof(pen20_hanumon_png) == 1488, "re-run generate_embedded_assets.sh");
 
 
 // Name: Herakle Kabuterimon
 const unsigned char pen20_herakle_kabuterimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Herakle Kabuterimon.png"
 };
-const size_t pen20_herakle_kabuterimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_herakle_kabuterimon_png);
+static_assert(sizeof(pen20_herakle_kabuterimon_png) == 1277, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hisyaryumon
 const unsigned char pen20_hisyaryumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hisyaryumon.png"
 };
-const size_t pen20_hisyaryumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_hisyaryumon_png);
+static_assert(sizeof(pen20_hisyaryumon_png) == 1264, "re-run generate_embedded_assets.sh");
 
 
 // Name: Holy Angemon
 const unsigned char pen20_holy_angemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Holy Angemon.png"
 };
-const size_t pen20_holy_angemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_holy_angemon_png);
+static_assert(sizeof(pen20_holy_angemon_png) == 1491, "re-run generate_embedded_assets.sh");
 
 
 // Name: Holydramon
 const unsigned char pen20_holydramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Holydramon.png"
 };
-const size_t pen20_holydramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_holydramon_png);
+static_assert(sizeof(pen20_holydramon_png) == 1258, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hououmon
 const unsigned char pen20_hououmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hououmon.png"
 };
-const size_t pen20_hououmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_hououmon_png);
+static_assert(sizeof(pen20_hououmon_png) == 1441, "re-run generate_embedded_assets.sh");
 
 
 // Name: Igamon
 const unsigned char pen20_igamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Igamon.png"
 };
-const size_t pen20_igamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_igamon_png);
+static_assert(sizeof(pen20_igamon_png) == 1327, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ikkakumon
 const unsigned char pen20_ikkakumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ikkakumon.png"
 };
-const size_t pen20_ikkakumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ikkakumon_png);
+static_assert(sizeof(pen20_ikkakumon_png) == 1229, "re-run generate_embedded_assets.sh");
 
 
 // Name: Imperialdramon Fighter Mode
 const unsigned char pen20_imperialdramon_fighter_mode_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Imperialdramon Fighter Mode.png"
 };
-const size_t pen20_imperialdramon_fighter_mode_png_size ASSETS_SIZES_SECTION = sizeof(pen20_imperialdramon_fighter_mode_png);
+static_assert(sizeof(pen20_imperialdramon_fighter_mode_png) == 1451, "re-run generate_embedded_assets.sh");
 
 
 // Name: Impmon
 const unsigned char pen20_impmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Impmon.png"
 };
-const size_t pen20_impmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_impmon_png);
+static_assert(sizeof(pen20_impmon_png) == 1244, "re-run generate_embedded_assets.sh");
 
 
 // Name: Jesmon
 const unsigned char pen20_jesmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Jesmon.png"
 };
-const size_t pen20_jesmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_jesmon_png);
+static_assert(sizeof(pen20_jesmon_png) == 1285, "re-run generate_embedded_assets.sh");
 
 
 // Name: Jesmon X
 const unsigned char pen20_jesmon_x_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Jesmon X.png"
 };
-const size_t pen20_jesmon_x_png_size ASSETS_SIZES_SECTION = sizeof(pen20_jesmon_x_png);
+static_assert(sizeof(pen20_jesmon_x_png) == 1317, "re-run generate_embedded_assets.sh");
 
 
 // Name: Jyagamon
 const unsigned char pen20_jyagamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Jyagamon.png"
 };
-const size_t pen20_jyagamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_jyagamon_png);
+static_assert(sizeof(pen20_jyagamon_png) == 1384, "re-run generate_embedded_assets.sh");
 
 
 // Name: Jyureimon
 const unsigned char pen20_jyureimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Jyureimon.png"
 };
-const size_t pen20_jyureimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_jyureimon_png);
+static_assert(sizeof(pen20_jyureimon_png) == 895, "re-run generate_embedded_assets.sh");
 
 
 // Name: Kabuterimon
 const unsigned char pen20_kabuterimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Kabuterimon.png"
 };
-const size_t pen20_kabuterimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_kabuterimon_png);
+static_assert(sizeof(pen20_kabuterimon_png) == 834, "re-run generate_embedded_assets.sh");
 
 
 // Name: Kakkinmon
 const unsigned char pen20_kakkinmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Kakkinmon.png"
 };
-const size_t pen20_kakkinmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_kakkinmon_png);
+static_assert(sizeof(pen20_kakkinmon_png) == 1106, "re-run generate_embedded_assets.sh");
 
 
 // Name: Kiwimon
 const unsigned char pen20_kiwimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Kiwimon.png"
 };
-const size_t pen20_kiwimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_kiwimon_png);
+static_assert(sizeof(pen20_kiwimon_png) == 1329, "re-run generate_embedded_assets.sh");
 
 
 // Name: Knightmon
 const unsigned char pen20_knightmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Knightmon.png"
 };
-const size_t pen20_knightmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_knightmon_png);
+static_assert(sizeof(pen20_knightmon_png) == 1344, "re-run generate_embedded_assets.sh");
 
 
 // Name: Kokuwamon
 const unsigned char pen20_kokuwamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Kokuwamon.png"
 };
-const size_t pen20_kokuwamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_kokuwamon_png);
+static_assert(sizeof(pen20_kokuwamon_png) == 1266, "re-run generate_embedded_assets.sh");
 
 
 // Name: Koromon
 const unsigned char pen20_koromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Koromon.png"
 };
-const size_t pen20_koromon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_koromon_png);
+static_assert(sizeof(pen20_koromon_png) == 699, "re-run generate_embedded_assets.sh");
 
 
 // Name: Kuwagamon
 const unsigned char pen20_kuwagamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Kuwagamon.png"
 };
-const size_t pen20_kuwagamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_kuwagamon_png);
+static_assert(sizeof(pen20_kuwagamon_png) == 1048, "re-run generate_embedded_assets.sh");
 
 
 // Name: Kyokyomon
 const unsigned char pen20_kyokyomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Kyokyomon.png"
 };
-const size_t pen20_kyokyomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_kyokyomon_png);
+static_assert(sizeof(pen20_kyokyomon_png) == 1180, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lady Devimon
 const unsigned char pen20_lady_devimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lady Devimon.png"
 };
-const size_t pen20_lady_devimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lady_devimon_png);
+static_assert(sizeof(pen20_lady_devimon_png) == 1530, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lalamon
 const unsigned char pen20_lalamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lalamon.png"
 };
-const size_t pen20_lalamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lalamon_png);
+static_assert(sizeof(pen20_lalamon_png) == 1186, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lavogaritamon
 const unsigned char pen20_lavogaritamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lavogaritamon.png"
 };
-const size_t pen20_lavogaritamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lavogaritamon_png);
+static_assert(sizeof(pen20_lavogaritamon_png) == 1279, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lavorvomon
 const unsigned char pen20_lavorvomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lavorvomon.png"
 };
-const size_t pen20_lavorvomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lavorvomon_png);
+static_assert(sizeof(pen20_lavorvomon_png) == 1119, "re-run generate_embedded_assets.sh");
 
 
 // Name: Leomon
 const unsigned char pen20_leomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Leomon.png"
 };
-const size_t pen20_leomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_leomon_png);
+static_assert(sizeof(pen20_leomon_png) == 1058, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lilamon
 const unsigned char pen20_lilamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lilamon.png"
 };
-const size_t pen20_lilamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lilamon_png);
+static_assert(sizeof(pen20_lilamon_png) == 1468, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lilimon
 const unsigned char pen20_lilimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lilimon.png"
 };
-const size_t pen20_lilimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lilimon_png);
+static_assert(sizeof(pen20_lilimon_png) == 1480, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lopmon
 const unsigned char pen20_lopmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lopmon.png"
 };
-const size_t pen20_lopmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lopmon_png);
+static_assert(sizeof(pen20_lopmon_png) == 1203, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lotusmon
 const unsigned char pen20_lotusmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Lotusmon.png"
 };
-const size_t pen20_lotusmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_lotusmon_png);
+static_assert(sizeof(pen20_lotusmon_png) == 1374, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ludomon
 const unsigned char pen20_ludomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ludomon.png"
 };
-const size_t pen20_ludomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ludomon_png);
+static_assert(sizeof(pen20_ludomon_png) == 1303, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mad Leomon
 const unsigned char pen20_mad_leomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mad Leomon.png"
 };
-const size_t pen20_mad_leomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mad_leomon_png);
+static_assert(sizeof(pen20_mad_leomon_png) == 1294, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mambomon
 const unsigned char pen20_mambomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mambomon.png"
 };
-const size_t pen20_mambomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mambomon_png);
+static_assert(sizeof(pen20_mambomon_png) == 1331, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mammon
 const unsigned char pen20_mammon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mammon.png"
 };
-const size_t pen20_mammon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mammon_png);
+static_assert(sizeof(pen20_mammon_png) == 1397, "re-run generate_embedded_assets.sh");
 
 
 // Name: Manbomon
 const unsigned char pen20_manbomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Manbomon.png"
 };
-const size_t pen20_manbomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_manbomon_png);
+static_assert(sizeof(pen20_manbomon_png) == 1331, "re-run generate_embedded_assets.sh");
 
 
 // Name: Marin Angemon
 const unsigned char pen20_marin_angemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Marin Angemon.png"
 };
-const size_t pen20_marin_angemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_marin_angemon_png);
+static_assert(sizeof(pen20_marin_angemon_png) == 1346, "re-run generate_embedded_assets.sh");
 
 
 // Name: Marin Devimon
 const unsigned char pen20_marin_devimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Marin Devimon.png"
 };
-const size_t pen20_marin_devimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_marin_devimon_png);
+static_assert(sizeof(pen20_marin_devimon_png) == 1371, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mastemon
 const unsigned char pen20_mastemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mastemon.png"
 };
-const size_t pen20_mastemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mastemon_png);
+static_assert(sizeof(pen20_mastemon_png) == 1358, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mechanorimon
 const unsigned char pen20_mechanorimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mechanorimon.png"
 };
-const size_t pen20_mechanorimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mechanorimon_png);
+static_assert(sizeof(pen20_mechanorimon_png) == 1380, "re-run generate_embedded_assets.sh");
 
 
 // Name: Megadramon
 const unsigned char pen20_megadramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Megadramon.png"
 };
-const size_t pen20_megadramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_megadramon_png);
+static_assert(sizeof(pen20_megadramon_png) == 1035, "re-run generate_embedded_assets.sh");
 
 
 // Name: Megalo Growmon
 const unsigned char pen20_megalo_growmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Megalo Growmon.png"
 };
-const size_t pen20_megalo_growmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_megalo_growmon_png);
+static_assert(sizeof(pen20_megalo_growmon_png) == 1434, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mega Seadramon
 const unsigned char pen20_mega_seadramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mega Seadramon.png"
 };
-const size_t pen20_mega_seadramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mega_seadramon_png);
+static_assert(sizeof(pen20_mega_seadramon_png) == 937, "re-run generate_embedded_assets.sh");
 
 
 // Name: Meicoomon
 const unsigned char pen20_meicoomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Meicoomon.png"
 };
-const size_t pen20_meicoomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_meicoomon_png);
+static_assert(sizeof(pen20_meicoomon_png) == 1273, "re-run generate_embedded_assets.sh");
 
 
 // Name: Meicrackmon Vicious Mode
 const unsigned char pen20_meicrackmon_vicious_mode_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Meicrackmon Vicious Mode.png"
 };
-const size_t pen20_meicrackmon_vicious_mode_png_size ASSETS_SIZES_SECTION = sizeof(pen20_meicrackmon_vicious_mode_png);
+static_assert(sizeof(pen20_meicrackmon_vicious_mode_png) == 1337, "re-run generate_embedded_assets.sh");
 
 
 // Name: Meramon
 const unsigned char pen20_meramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Meramon.png"
 };
-const size_t pen20_meramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_meramon_png);
+static_assert(sizeof(pen20_meramon_png) == 1059, "re-run generate_embedded_assets.sh");
 
 
 // Name: Metal Etemon
 const unsigned char pen20_metal_etemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Metal Etemon.png"
 };
-const size_t pen20_metal_etemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_metal_etemon_png);
+static_assert(sizeof(pen20_metal_etemon_png) == 1348, "re-run generate_embedded_assets.sh");
 
 
 // Name: Metal Garurumon
 const unsigned char pen20_metal_garurumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Metal Garurumon.png"
 };
-const size_t pen20_metal_garurumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_metal_garurumon_png);
+static_assert(sizeof(pen20_metal_garurumon_png) == 1254, "re-run generate_embedded_assets.sh");
 
 
 // Name: Metal Greymon
 const unsigned char pen20_metal_greymon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Metal Greymon.png"
 };
-const size_t pen20_metal_greymon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_metal_greymon_png);
+static_assert(sizeof(pen20_metal_greymon_png) == 869, "re-run generate_embedded_assets.sh");
 
 
 // Name: Metal Mamemon
 const unsigned char pen20_metal_mamemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Metal Mamemon.png"
 };
-const size_t pen20_metal_mamemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_metal_mamemon_png);
+static_assert(sizeof(pen20_metal_mamemon_png) == 605, "re-run generate_embedded_assets.sh");
 
 
 // Name: Metal Seadramon
 const unsigned char pen20_metal_seadramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Metal Seadramon.png"
 };
-const size_t pen20_metal_seadramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_metal_seadramon_png);
+static_assert(sizeof(pen20_metal_seadramon_png) == 1250, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mochimon
 const unsigned char pen20_mochimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mochimon.png"
 };
-const size_t pen20_mochimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mochimon_png);
+static_assert(sizeof(pen20_mochimon_png) == 931, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mokumon
 const unsigned char pen20_mokumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mokumon.png"
 };
-const size_t pen20_mokumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mokumon_png);
+static_assert(sizeof(pen20_mokumon_png) == 724, "re-run generate_embedded_assets.sh");
 
 
 // Name: Monchromon
 const unsigned char pen20_monchromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Monchromon.png"
 };
-const size_t pen20_monchromon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_monchromon_png);
+static_assert(sizeof(pen20_monchromon_png) == 852, "re-run generate_embedded_assets.sh");
 
 
 // Name: Monochromon
 const unsigned char pen20_monochromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Monochromon.png"
 };
-const size_t pen20_monochromon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_monochromon_png);
+static_assert(sizeof(pen20_monochromon_png) == 890, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mugendramon
 const unsigned char pen20_mugendramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mugendramon.png"
 };
-const size_t pen20_mugendramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mugendramon_png);
+static_assert(sizeof(pen20_mugendramon_png) == 1355, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mushmon
 const unsigned char pen20_mushmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mushmon.png"
 };
-const size_t pen20_mushmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_mushmon_png);
+static_assert(sizeof(pen20_mushmon_png) == 1390, "re-run generate_embedded_assets.sh");
 
 
 // Name: Nyaromon
 const unsigned char pen20_nyaromon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Nyaromon.png"
 };
-const size_t pen20_nyaromon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_nyaromon_png);
+static_assert(sizeof(pen20_nyaromon_png) == 1190, "re-run generate_embedded_assets.sh");
 
 
 // Name: Nyokimon
 const unsigned char pen20_nyokimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Nyokimon.png"
 };
-const size_t pen20_nyokimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_nyokimon_png);
+static_assert(sizeof(pen20_nyokimon_png) == 607, "re-run generate_embedded_assets.sh");
 
 
 // Name: Octmon
 const unsigned char pen20_octmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Octmon.png"
 };
-const size_t pen20_octmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_octmon_png);
+static_assert(sizeof(pen20_octmon_png) == 1272, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ofanimon
 const unsigned char pen20_ofanimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ofanimon.png"
 };
-const size_t pen20_ofanimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ofanimon_png);
+static_assert(sizeof(pen20_ofanimon_png) == 1395, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ogudomon
 const unsigned char pen20_ogudomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ogudomon.png"
 };
-const size_t pen20_ogudomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ogudomon_png);
+static_assert(sizeof(pen20_ogudomon_png) == 1201, "re-run generate_embedded_assets.sh");
 
 
 // Name: Okuwamon
 const unsigned char pen20_okuwamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Okuwamon.png"
 };
-const size_t pen20_okuwamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_okuwamon_png);
+static_assert(sizeof(pen20_okuwamon_png) == 1393, "re-run generate_embedded_assets.sh");
 
 
 // Name: Omegamon
 const unsigned char pen20_omegamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Omegamon.png"
 };
-const size_t pen20_omegamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_omegamon_png);
+static_assert(sizeof(pen20_omegamon_png) == 1430, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ordinemon
 const unsigned char pen20_ordinemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ordinemon.png"
 };
-const size_t pen20_ordinemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ordinemon_png);
+static_assert(sizeof(pen20_ordinemon_png) == 1367, "re-run generate_embedded_assets.sh");
 
 
 // Name: Otamamon
 const unsigned char pen20_otamamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Otamamon.png"
 };
-const size_t pen20_otamamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_otamamon_png);
+static_assert(sizeof(pen20_otamamon_png) == 922, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ouryumon
 const unsigned char pen20_ouryumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ouryumon.png"
 };
-const size_t pen20_ouryumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ouryumon_png);
+static_assert(sizeof(pen20_ouryumon_png) == 1297, "re-run generate_embedded_assets.sh");
 
 
 // Name: Paildramon
 const unsigned char pen20_paildramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Paildramon.png"
 };
-const size_t pen20_paildramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_paildramon_png);
+static_assert(sizeof(pen20_paildramon_png) == 1292, "re-run generate_embedded_assets.sh");
 
 
 // Name: Palmon
 const unsigned char pen20_palmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Palmon.png"
 };
-const size_t pen20_palmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_palmon_png);
+static_assert(sizeof(pen20_palmon_png) == 932, "re-run generate_embedded_assets.sh");
 
 
 // Name: Peti Meramon
 const unsigned char pen20_peti_meramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Peti Meramon.png"
 };
-const size_t pen20_peti_meramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_peti_meramon_png);
+static_assert(sizeof(pen20_peti_meramon_png) == 1096, "re-run generate_embedded_assets.sh");
 
 
 // Name: Petitmon
 const unsigned char pen20_petitmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Petitmon.png"
 };
-const size_t pen20_petitmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_petitmon_png);
+static_assert(sizeof(pen20_petitmon_png) == 972, "re-run generate_embedded_assets.sh");
 
 
 // Name: Phascomon
 const unsigned char pen20_phascomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Phascomon.png"
 };
-const size_t pen20_phascomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_phascomon_png);
+static_assert(sizeof(pen20_phascomon_png) == 1164, "re-run generate_embedded_assets.sh");
 
 
 // Name: Piccolomon
 const unsigned char pen20_piccolomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Piccolomon.png"
 };
-const size_t pen20_piccolomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_piccolomon_png);
+static_assert(sizeof(pen20_piccolomon_png) == 584, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pico Devimon
 const unsigned char pen20_pico_devimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Pico Devimon.png"
 };
-const size_t pen20_pico_devimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_pico_devimon_png);
+static_assert(sizeof(pen20_pico_devimon_png) == 1311, "re-run generate_embedded_assets.sh");
 
 
 // Name: Piemon
 const unsigned char pen20_piemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Piemon.png"
 };
-const size_t pen20_piemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_piemon_png);
+static_assert(sizeof(pen20_piemon_png) == 1418, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pinochimon
 const unsigned char pen20_pinochimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Pinochimon.png"
 };
-const size_t pen20_pinochimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_pinochimon_png);
+static_assert(sizeof(pen20_pinochimon_png) == 1390, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pitchmon
 const unsigned char pen20_pitchmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Pitchmon.png"
 };
-const size_t pen20_pitchmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_pitchmon_png);
+static_assert(sizeof(pen20_pitchmon_png) == 793, "re-run generate_embedded_assets.sh");
 
 
 // Name: Piyomon
 const unsigned char pen20_piyomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Piyomon.png"
 };
-const size_t pen20_piyomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_piyomon_png);
+static_assert(sizeof(pen20_piyomon_png) == 937, "re-run generate_embedded_assets.sh");
 
 
 // Name: Plesiomon
 const unsigned char pen20_plesiomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Plesiomon.png"
 };
-const size_t pen20_plesiomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_plesiomon_png);
+static_assert(sizeof(pen20_plesiomon_png) == 1337, "re-run generate_embedded_assets.sh");
 
 
 // Name: Plotmon
 const unsigned char pen20_plotmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Plotmon.png"
 };
-const size_t pen20_plotmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_plotmon_png);
+static_assert(sizeof(pen20_plotmon_png) == 1273, "re-run generate_embedded_assets.sh");
 
 
 // Name: Porcupamon
 const unsigned char pen20_porcupamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Porcupamon.png"
 };
-const size_t pen20_porcupamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_porcupamon_png);
+static_assert(sizeof(pen20_porcupamon_png) == 1327, "re-run generate_embedded_assets.sh");
 
 
 // Name: Porcupmon
 const unsigned char pen20_porcupmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Porcupmon.png"
 };
-const size_t pen20_porcupmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_porcupmon_png);
+static_assert(sizeof(pen20_porcupmon_png) == 1327, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pukamon
 const unsigned char pen20_pukamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Pukamon.png"
 };
-const size_t pen20_pukamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_pukamon_png);
+static_assert(sizeof(pen20_pukamon_png) == 1222, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pukumon
 const unsigned char pen20_pukumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Pukumon.png"
 };
-const size_t pen20_pukumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_pukumon_png);
+static_assert(sizeof(pen20_pukumon_png) == 1409, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pumpmon
 const unsigned char pen20_pumpmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Pumpmon.png"
 };
-const size_t pen20_pumpmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_pumpmon_png);
+static_assert(sizeof(pen20_pumpmon_png) == 1302, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pyocomon
 const unsigned char pen20_pyocomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Pyocomon.png"
 };
-const size_t pen20_pyocomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_pyocomon_png);
+static_assert(sizeof(pen20_pyocomon_png) == 1118, "re-run generate_embedded_assets.sh");
 
 
 // Name: Rafflesimon
 const unsigned char pen20_rafflesimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Rafflesimon.png"
 };
-const size_t pen20_rafflesimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_rafflesimon_png);
+static_assert(sizeof(pen20_rafflesimon_png) == 1342, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ragna Lordmon
 const unsigned char pen20_ragna_lordmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ragna Lordmon.png"
 };
-const size_t pen20_ragna_lordmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ragna_lordmon_png);
+static_assert(sizeof(pen20_ragna_lordmon_png) == 1517, "re-run generate_embedded_assets.sh");
 
 
 // Name: Raguelmon
 const unsigned char pen20_raguelmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Raguelmon.png"
 };
-const size_t pen20_raguelmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_raguelmon_png);
+static_assert(sizeof(pen20_raguelmon_png) == 1355, "re-run generate_embedded_assets.sh");
 
 
 // Name: Raiji Ludomon
 const unsigned char pen20_raiji_ludomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Raiji Ludomon.png"
 };
-const size_t pen20_raiji_ludomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_raiji_ludomon_png);
+static_assert(sizeof(pen20_raiji_ludomon_png) == 1387, "re-run generate_embedded_assets.sh");
 
 
 // Name: Rapidmon
 const unsigned char pen20_rapidmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Rapidmon.png"
 };
-const size_t pen20_rapidmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_rapidmon_png);
+static_assert(sizeof(pen20_rapidmon_png) == 842, "re-run generate_embedded_assets.sh");
 
 
 // Name: Red Vegimon
 const unsigned char pen20_red_vegimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Red Vegimon.png"
 };
-const size_t pen20_red_vegimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_red_vegimon_png);
+static_assert(sizeof(pen20_red_vegimon_png) == 1344, "re-run generate_embedded_assets.sh");
 
 
 // Name: Reppamon
 const unsigned char pen20_reppamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Reppamon.png"
 };
-const size_t pen20_reppamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_reppamon_png);
+static_assert(sizeof(pen20_reppamon_png) == 1279, "re-run generate_embedded_assets.sh");
 
 
 // Name: Revolmon
 const unsigned char pen20_revolmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Revolmon.png"
 };
-const size_t pen20_revolmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_revolmon_png);
+static_assert(sizeof(pen20_revolmon_png) == 1234, "re-run generate_embedded_assets.sh");
 
 
 // Name: Rize Greymon
 const unsigned char pen20_rize_greymon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Rize Greymon.png"
 };
-const size_t pen20_rize_greymon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_rize_greymon_png);
+static_assert(sizeof(pen20_rize_greymon_png) == 1362, "re-run generate_embedded_assets.sh");
 
 
 // Name: Rosemon
 const unsigned char pen20_rosemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Rosemon.png"
 };
-const size_t pen20_rosemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_rosemon_png);
+static_assert(sizeof(pen20_rosemon_png) == 1274, "re-run generate_embedded_assets.sh");
 
 
 // Name: Rukamon
 const unsigned char pen20_rukamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Rukamon.png"
 };
-const size_t pen20_rukamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_rukamon_png);
+static_assert(sizeof(pen20_rukamon_png) == 956, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ryudamon
 const unsigned char pen20_ryudamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Ryudamon.png"
 };
-const size_t pen20_ryudamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_ryudamon_png);
+static_assert(sizeof(pen20_ryudamon_png) == 1176, "re-run generate_embedded_assets.sh");
 
 
 // Name: Saber Leomon
 const unsigned char pen20_saber_leomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Saber Leomon.png"
 };
-const size_t pen20_saber_leomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_saber_leomon_png);
+static_assert(sizeof(pen20_saber_leomon_png) == 1373, "re-run generate_embedded_assets.sh");
 
 
 // Name: Saint Galgomon
 const unsigned char pen20_saint_galgomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Saint Galgomon.png"
 };
-const size_t pen20_saint_galgomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_saint_galgomon_png);
+static_assert(sizeof(pen20_saint_galgomon_png) == 1261, "re-run generate_embedded_assets.sh");
 
 
 // Name: Sakumon
 const unsigned char pen20_sakumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Sakumon.png"
 };
-const size_t pen20_sakumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_sakumon_png);
+static_assert(sizeof(pen20_sakumon_png) == 807, "re-run generate_embedded_assets.sh");
 
 
 // Name: Sakuttomon
 const unsigned char pen20_sakuttomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Sakuttomon.png"
 };
-const size_t pen20_sakuttomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_sakuttomon_png);
+static_assert(sizeof(pen20_sakuttomon_png) == 911, "re-run generate_embedded_assets.sh");
 
 
 // Name: Savior Hackmon
 const unsigned char pen20_savior_hackmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Savior Hackmon.png"
 };
-const size_t pen20_savior_hackmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_savior_hackmon_png);
+static_assert(sizeof(pen20_savior_hackmon_png) == 1292, "re-run generate_embedded_assets.sh");
 
 
 // Name: Seadramon
 const unsigned char pen20_seadramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Seadramon.png"
 };
-const size_t pen20_seadramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_seadramon_png);
+static_assert(sizeof(pen20_seadramon_png) == 834, "re-run generate_embedded_assets.sh");
 
 
 // Name: Seraphimon
 const unsigned char pen20_seraphimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Seraphimon.png"
 };
-const size_t pen20_seraphimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_seraphimon_png);
+static_assert(sizeof(pen20_seraphimon_png) == 1509, "re-run generate_embedded_assets.sh");
 
 
 // Name: Shadramon
 const unsigned char pen20_shadramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Shadramon.png"
 };
-const size_t pen20_shadramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_shadramon_png);
+static_assert(sizeof(pen20_shadramon_png) == 1339, "re-run generate_embedded_assets.sh");
 
 
 // Name: Shakomon
 const unsigned char pen20_shakomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Shakomon.png"
 };
-const size_t pen20_shakomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_shakomon_png);
+static_assert(sizeof(pen20_shakomon_png) == 1071, "re-run generate_embedded_assets.sh");
 
 
 // Name: Skull Mammon
 const unsigned char pen20_skull_mammon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Skull Mammon.png"
 };
-const size_t pen20_skull_mammon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_skull_mammon_png);
+static_assert(sizeof(pen20_skull_mammon_png) == 1400, "re-run generate_embedded_assets.sh");
 
 
 // Name: Slayerdramon
 const unsigned char pen20_slayerdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Slayerdramon.png"
 };
-const size_t pen20_slayerdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_slayerdramon_png);
+static_assert(sizeof(pen20_slayerdramon_png) == 1428, "re-run generate_embedded_assets.sh");
 
 
 // Name: Starmon
 const unsigned char pen20_starmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Starmon.png"
 };
-const size_t pen20_starmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_starmon_png);
+static_assert(sizeof(pen20_starmon_png) == 1326, "re-run generate_embedded_assets.sh");
 
 
 // Name: Sunflowmon
 const unsigned char pen20_sunflowmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Sunflowmon.png"
 };
-const size_t pen20_sunflowmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_sunflowmon_png);
+static_assert(sizeof(pen20_sunflowmon_png) == 1317, "re-run generate_embedded_assets.sh");
 
 
 // Name: Tailmon
 const unsigned char pen20_tailmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Tailmon.png"
 };
-const size_t pen20_tailmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_tailmon_png);
+static_assert(sizeof(pen20_tailmon_png) == 1310, "re-run generate_embedded_assets.sh");
 
 
 // Name: Tankmon
 const unsigned char pen20_tankmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Tankmon.png"
 };
-const size_t pen20_tankmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_tankmon_png);
+static_assert(sizeof(pen20_tankmon_png) == 1270, "re-run generate_embedded_assets.sh");
 
 
 // Name: Targetmon
 const unsigned char pen20_targetmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Targetmon.png"
 };
-const size_t pen20_targetmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_targetmon_png);
+static_assert(sizeof(pen20_targetmon_png) == 1272, "re-run generate_embedded_assets.sh");
 
 
 // Name: Tentomon
 const unsigned char pen20_tentomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Tentomon.png"
 };
-const size_t pen20_tentomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_tentomon_png);
+static_assert(sizeof(pen20_tentomon_png) == 1358, "re-run generate_embedded_assets.sh");
 
 
 // Name: Terriermon
 const unsigned char pen20_terriermon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Terriermon.png"
 };
-const size_t pen20_terriermon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_terriermon_png);
+static_assert(sizeof(pen20_terriermon_png) == 1268, "re-run generate_embedded_assets.sh");
 
 
 // Name: Thunderballmon
 const unsigned char pen20_thunderballmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Thunderballmon.png"
 };
-const size_t pen20_thunderballmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_thunderballmon_png);
+static_assert(sizeof(pen20_thunderballmon_png) == 1358, "re-run generate_embedded_assets.sh");
 
 
 // Name: Tia Ludomon
 const unsigned char pen20_tia_ludomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Tia Ludomon.png"
 };
-const size_t pen20_tia_ludomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_tia_ludomon_png);
+static_assert(sizeof(pen20_tia_ludomon_png) == 1321, "re-run generate_embedded_assets.sh");
 
 
 // Name: Togemon
 const unsigned char pen20_togemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Togemon.png"
 };
-const size_t pen20_togemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_togemon_png);
+static_assert(sizeof(pen20_togemon_png) == 1282, "re-run generate_embedded_assets.sh");
 
 
 // Name: Tonosama Gekomon
 const unsigned char pen20_tonosama_gekomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Tonosama Gekomon.png"
 };
-const size_t pen20_tonosama_gekomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_tonosama_gekomon_png);
+static_assert(sizeof(pen20_tonosama_gekomon_png) == 1327, "re-run generate_embedded_assets.sh");
 
 
 // Name: Tortamon
 const unsigned char pen20_tortamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Tortamon.png"
 };
-const size_t pen20_tortamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_tortamon_png);
+static_assert(sizeof(pen20_tortamon_png) == 1351, "re-run generate_embedded_assets.sh");
 
 
 // Name: Toy Agumon
 const unsigned char pen20_toy_agumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Toy Agumon.png"
 };
-const size_t pen20_toy_agumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_toy_agumon_png);
+static_assert(sizeof(pen20_toy_agumon_png) == 1200, "re-run generate_embedded_assets.sh");
 
 
 // Name: Triceramon
 const unsigned char pen20_triceramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Triceramon.png"
 };
-const size_t pen20_triceramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_triceramon_png);
+static_assert(sizeof(pen20_triceramon_png) == 1322, "re-run generate_embedded_assets.sh");
 
 
 // Name: Troopmon
 const unsigned char pen20_troopmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Troopmon.png"
 };
-const size_t pen20_troopmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_troopmon_png);
+static_assert(sizeof(pen20_troopmon_png) == 1244, "re-run generate_embedded_assets.sh");
 
 
 // Name: Turuiemon
 const unsigned char pen20_turuiemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Turuiemon.png"
 };
-const size_t pen20_turuiemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_turuiemon_png);
+static_assert(sizeof(pen20_turuiemon_png) == 1266, "re-run generate_embedded_assets.sh");
 
 
 // Name: Vamdemon
 const unsigned char pen20_vamdemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Vamdemon.png"
 };
-const size_t pen20_vamdemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_vamdemon_png);
+static_assert(sizeof(pen20_vamdemon_png) == 965, "re-run generate_embedded_assets.sh");
 
 
 // Name: V-dramon
 const unsigned char pen20_v_dramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/V-dramon.png"
 };
-const size_t pen20_v_dramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_v_dramon_png);
+static_assert(sizeof(pen20_v_dramon_png) == 1319, "re-run generate_embedded_assets.sh");
 
 
 // Name: Venom Vamdemon
 const unsigned char pen20_venom_vamdemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Venom Vamdemon.png"
 };
-const size_t pen20_venom_vamdemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_venom_vamdemon_png);
+static_assert(sizeof(pen20_venom_vamdemon_png) == 1436, "re-run generate_embedded_assets.sh");
 
 
 // Name: V-mon
 const unsigned char pen20_v_mon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/V-mon.png"
 };
-const size_t pen20_v_mon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_v_mon_png);
+static_assert(sizeof(pen20_v_mon_png) == 1424, "re-run generate_embedded_assets.sh");
 
 
 // Name: Volcanicdramon
 const unsigned char pen20_volcanicdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Volcanicdramon.png"
 };
-const size_t pen20_volcanicdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_volcanicdramon_png);
+static_assert(sizeof(pen20_volcanicdramon_png) == 1273, "re-run generate_embedded_assets.sh");
 
 
 // Name: Voltobautamon
 const unsigned char pen20_voltobautamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Voltobautamon.png"
 };
-const size_t pen20_voltobautamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_voltobautamon_png);
+static_assert(sizeof(pen20_voltobautamon_png) == 1291, "re-run generate_embedded_assets.sh");
 
 
 // Name: Vorvomon
 const unsigned char pen20_vorvomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Vorvomon.png"
 };
-const size_t pen20_vorvomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_vorvomon_png);
+static_assert(sizeof(pen20_vorvomon_png) == 1127, "re-run generate_embedded_assets.sh");
 
 
 // Name: War Greymon
 const unsigned char pen20_war_greymon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/War Greymon.png"
 };
-const size_t pen20_war_greymon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_war_greymon_png);
+static_assert(sizeof(pen20_war_greymon_png) == 1230, "re-run generate_embedded_assets.sh");
 
 
 // Name: Waru Monzaemon
 const unsigned char pen20_waru_monzaemon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Waru Monzaemon.png"
 };
-const size_t pen20_waru_monzaemon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_waru_monzaemon_png);
+static_assert(sizeof(pen20_waru_monzaemon_png) == 1280, "re-run generate_embedded_assets.sh");
 
 
 // Name: Were Garurumon
 const unsigned char pen20_were_garurumon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Were Garurumon.png"
 };
-const size_t pen20_were_garurumon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_were_garurumon_png);
+static_assert(sizeof(pen20_were_garurumon_png) == 1242, "re-run generate_embedded_assets.sh");
 
 
 // Name: Whamon
 const unsigned char pen20_whamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Whamon.png"
 };
-const size_t pen20_whamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_whamon_png);
+static_assert(sizeof(pen20_whamon_png) == 875, "re-run generate_embedded_assets.sh");
 
 
 // Name: Wingdramon
 const unsigned char pen20_wingdramon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Wingdramon.png"
 };
-const size_t pen20_wingdramon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_wingdramon_png);
+static_assert(sizeof(pen20_wingdramon_png) == 1421, "re-run generate_embedded_assets.sh");
 
 
 // Name: Wizarmon
 const unsigned char pen20_wizarmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Wizarmon.png"
 };
-const size_t pen20_wizarmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_wizarmon_png);
+static_assert(sizeof(pen20_wizarmon_png) == 1289, "re-run generate_embedded_assets.sh");
 
 
 // Name: Woodmon
 const unsigned char pen20_woodmon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Woodmon.png"
 };
-const size_t pen20_woodmon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_woodmon_png);
+static_assert(sizeof(pen20_woodmon_png) == 1331, "re-run generate_embedded_assets.sh");
 
 
 // Name: XV-mon
 const unsigned char pen20_xv_mon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/XV-mon.png"
 };
-const size_t pen20_xv_mon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_xv_mon_png);
+static_assert(sizeof(pen20_xv_mon_png) == 1366, "re-run generate_embedded_assets.sh");
 
 
 // Name: Yukimi Botamon
 const unsigned char pen20_yukimi_botamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Yukimi Botamon.png"
 };
-const size_t pen20_yukimi_botamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_yukimi_botamon_png);
+static_assert(sizeof(pen20_yukimi_botamon_png) == 784, "re-run generate_embedded_assets.sh");
 
 
 // Name: Zerimon
 const unsigned char pen20_zerimon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Zerimon.png"
 };
-const size_t pen20_zerimon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_zerimon_png);
+static_assert(sizeof(pen20_zerimon_png) == 838, "re-run generate_embedded_assets.sh");
 
 
 // Name: Zubaeagermon
 const unsigned char pen20_zubaeagermon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Zubaeagermon.png"
 };
-const size_t pen20_zubaeagermon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_zubaeagermon_png);
+static_assert(sizeof(pen20_zubaeagermon_png) == 1310, "re-run generate_embedded_assets.sh");
 
 
 // Name: Zubamon
 const unsigned char pen20_zubamon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Zubamon.png"
 };
-const size_t pen20_zubamon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_zubamon_png);
+static_assert(sizeof(pen20_zubamon_png) == 1157, "re-run generate_embedded_assets.sh");
 
 
 // Name: Zudomon
 const unsigned char pen20_zudomon_png[] ASSETS_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Zudomon.png"
 };
-const size_t pen20_zudomon_png_size ASSETS_SIZES_SECTION = sizeof(pen20_zudomon_png);
+static_assert(sizeof(pen20_zudomon_png) == 857, "re-run generate_embedded_assets.sh");
 
 

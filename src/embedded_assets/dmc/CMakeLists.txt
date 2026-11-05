@@ -10,7 +10,7 @@ target_sources(
   PRIVATE
     dmc_get_sprite_sheet.cpp
     dmc_config_parse_animation_name.cpp
-    dmc_images.c
+    dmc_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:dmc_get_evolution_data.cpp>
 )
 target_compile_options(assets_dmc PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

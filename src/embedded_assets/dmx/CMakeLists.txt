@@ -10,7 +10,7 @@ target_sources(
   PRIVATE
     dmx_get_sprite_sheet.cpp
     dmx_config_parse_animation_name.cpp
-    dmx_images.c
+    dmx_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:dmx_get_evolution_data.cpp>
 )
 target_compile_options(assets_dmx PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)
