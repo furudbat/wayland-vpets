@@ -87,6 +87,7 @@ static void cleanup_input_thread_context(input_context_t& input) {
   release_allocated_array(input._unique_paths_indices);
   input._unique_paths_indices_capacity = 0;
   release_allocated_array(input._unique_devices);
+  (void)details::privilege_drop(input);
   if (input._udev_mon != BONGOCAT_NULLPTR) {
     udev_monitor_unref(input._udev_mon);
     input._udev_mon = BONGOCAT_NULLPTR;
@@ -108,7 +109,7 @@ static void cleanup_input_thread(void *arg) {
 
   input.config_updated.notify_all();
 
-  cleanup_input_thread_context(*animation_context._input);
+  cleanup_input_thread_context(input);
 
   BONGOCAT_LOG_INFO("Input thread cleanup completed (via pthread_cancel)");
 }
@@ -204,6 +205,49 @@ static FileDescriptor open_tty_nonblocking() {
   return FileDescriptor(fd);
 }
 
+namespace details {
+
+  class input_privilege_guard_t {
+  public:
+    input_privilege_guard_t() = delete;
+    input_privilege_guard_t(const input_privilege_guard_t&) = delete;
+    input_privilege_guard_t& operator=(const input_privilege_guard_t&) = delete;
+    input_privilege_guard_t(input_privilege_guard_t&&) = delete;
+    input_privilege_guard_t& operator=(input_privilege_guard_t&&) = delete;
+
+    explicit input_privilege_guard_t(input_context_t& input)
+        : m_input(input)
+        , m_raise_result(details::privilege_raise(m_input)) {}
+
+    ~input_privilege_guard_t() noexcept {
+      if (m_raise_result == privilege_result_t::Success && m_lower_result == privilege_result_t::Noop) {
+        m_lower_result = details::privilege_lower(m_input);
+      }
+    }
+
+    [[nodiscard]] privilege_result_t raise_result() const noexcept {
+      return m_raise_result;
+    }
+
+    [[nodiscard]] privilege_result_t lower_result() const noexcept {
+      return m_lower_result;
+    }
+
+    [[nodiscard]] privilege_result_t lower() {
+      if (m_raise_result == privilege_result_t::Success && m_lower_result == privilege_result_t::Noop) {
+        m_lower_result = details::privilege_lower(m_input);
+      }
+      return m_lower_result;
+    }
+
+  private:
+    input_context_t& m_input;
+    privilege_result_t m_raise_result{privilege_result_t::Noop};
+    privilege_result_t m_lower_result{privilege_result_t::Noop};
+  };
+
+}  // namespace details
+
 struct sync_devices_options_t {
   bool reload_devices_needed{false};
 };
@@ -236,10 +280,15 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
     input._unique_paths_indices_capacity = input._device_paths.count;
   }
 
+  details::input_privilege_guard_t input_raise_guard(input);
+  BONGOCAT_LOG_VERBOSE("sync_devices: privilege gid=0x%08x", input._privileged_gid);
+  if (input_raise_guard.raise_result() == details::privilege_result_t::Fatal) {
+    return bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE;
+  }
+
   size_t broken_symlink = 0;
   size_t failed = 0;
   size_t ignore = 0;
-
   // recover real size for syncing
   input._unique_devices.count = input._unique_paths_indices_capacity;
   input._unique_paths_indices.count = input._unique_paths_indices_capacity;
@@ -351,6 +400,14 @@ sync_devices(input_context_t& input, sync_devices_options_t options = {}) {
   // shrink size, @NOTE: don't do this with mmap array
   input._unique_devices.count = num_unique_devices;
   input._unique_paths_indices.count = num_unique_devices;
+
+  {
+    const auto privilege_result = input_raise_guard.lower();
+    if (privilege_result == details::privilege_result_t::Fatal) {
+      return bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE;
+    }
+  }
+
   return sync_devices_options_result_t{
       .valid_devices = valid_devices,
       .broken_symlink = broken_symlink,
@@ -701,6 +758,8 @@ static void *input_thread(void *arg) {
       BONGOCAT_LOG_ERROR("input: Poll error: %s", strerror(errno));
       break;
     }
+
+    details::privilege_result_t input_privilege_result{details::privilege_result_t::Noop};
     if (poll_result == 0) {
       // @TODO: device checking with scan_interval
       check_counter++;
@@ -741,7 +800,13 @@ static void *input_thread(void *arg) {
               close_fd(input._unique_devices[i].fd);
             }
 
-            if (int new_fd = open(device_path.c_str(), O_RDONLY | O_NONBLOCK | O_CLOEXEC); new_fd >= 0) {
+            details::input_privilege_guard_t input_privilege_guard(input);
+            input_privilege_result = input_privilege_guard.raise_result();
+            int new_fd = input_privilege_result != details::privilege_result_t::Fatal
+                             ? open(device_path.c_str(), O_RDONLY | O_NONBLOCK | O_CLOEXEC)
+                             : -1;
+
+            if (new_fd >= 0) {
               if (is_open_device_valid(new_fd)) {
                 input._unique_devices[i].fd = FileDescriptor(new_fd);
                 new_fd = -1;
@@ -756,6 +821,7 @@ static void *input_thread(void *arg) {
             } else {
               BONGOCAT_LOG_VERBOSE("input: Failed to open input device: %s (%s)", device_path.c_str(), strerror(errno));
             }
+            input_privilege_result = input_privilege_guard.lower();
           }
         }
 
@@ -773,6 +839,9 @@ static void *input_thread(void *arg) {
         }
       }
       continue;
+    }
+    if (input_privilege_result == details::privilege_result_t::Fatal) {
+      atomic_store(&input._capture_input_running, false);
     }
 
     // cancel pooling (when not running anymore)
@@ -934,11 +1003,14 @@ static void *input_thread(void *arg) {
                     captured_keycode_index = (captured_keycode_index + 1) % captured_keycode_ring_buffer_size;
                   }
                   if (enable_debug) {
-                    BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd, ev[j].code,
-                                         ev[j].time.tv_sec, ev[j].time.tv_usec);
-                  } else {
-                    // break loop early, when no debug (no print needed for every key press)
-                    break;
+                    // BONGOCAT_LOG_VERBOSE("input: Key event: fd=%d, code=%d, time=%lld.%06lld", pfds[p].fd,
+                    // ev[j].code, ev[j].time.tv_sec, ev[j].time.tv_usec);
+                    for (size_t i = 0; i < input._unique_devices.count; i++) {
+                      if (input._unique_devices[i].fd._fd == pfds[p].fd) {
+                        BONGOCAT_LOG_DEBUG("input: Key press from %s", input._unique_devices[i]._device_path);
+                        break;
+                      }
+                    }
                   }
                 }
               }
@@ -1024,6 +1096,11 @@ static void *input_thread(void *arg) {
 
       auto [sync_devices_result, revalid_devices_result] =
           sync_devices(input, {.reload_devices_needed = reload_devices_needed});
+      if (revalid_devices_result == bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE) {
+        BONGOCAT_LOG_ERROR("input: Failed to revalidate devices and file descriptors; failed input privilege");
+        atomic_store(&input._capture_input_running, false);
+        break;
+      }
       if (revalid_devices_result != bongocat_error_t::BONGOCAT_SUCCESS) {
         BONGOCAT_LOG_ERROR("input: Failed to revalidate devices and file descriptors");
       } else {
@@ -1089,16 +1166,12 @@ created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t
   if (ret == BONGOCAT_NULLPTR) [[unlikely]] {
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-  if (config.num_keyboard_devices <= 0) {
-    BONGOCAT_LOG_WARNING("No input devices specified");
-  }
 
   const timestamp_ms_t now = get_current_time_ms();
   ret->_capture_input_running = false;
   ret->_input_kpm_counter = 0;
   ret->_latest_kpm_update_ms = now;
-
-  BONGOCAT_LOG_INFO("Initializing input monitoring system for %d devices", config.num_keyboard_devices);
+  ret->_privileged_gid = input_context_t::NONE_GID;
 
   // Initialize shared memory for key press flag
   ret->shm = make_allocated_mmap<input_shared_memory_t>();
@@ -1127,7 +1200,6 @@ created_result_t<AllocatedMemory<input_context_t>> create(const config::config_t
     return bongocat_error_t::BONGOCAT_ERROR_FILE_IO;
   }
 
-  BONGOCAT_LOG_INFO("Input monitoring started");
   return ret;
 }
 
@@ -1139,6 +1211,13 @@ bongocat_error_t start(input_context_t& input, animation::animation_context_t& a
     return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
   } else if (config.num_keyboard_devices == 0) {
     BONGOCAT_LOG_WARNING("No input devices specified");
+  }
+
+  {
+    const auto privilege_result = details::privilege_init(input);
+    if (privilege_result == details::privilege_result_t::Fatal) {
+      return bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE;
+    }
   }
 
   const timestamp_ms_t now = get_current_time_ms();
@@ -1213,6 +1292,17 @@ bongocat_error_t restart(input_context_t& input, animation::animation_context_t&
 
   // reset stats
   // ret._latest_kpm_update_ms = get_current_time_ms();
+
+  {
+    auto privilege_result = details::privilege_drop(input);
+    if (privilege_result == details::privilege_result_t::Fatal) {
+      return bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE;
+    }
+    privilege_result = details::privilege_init(input);
+    if (privilege_result == details::privilege_result_t::Fatal) {
+      return bongocat_error_t::BONGOCAT_FATAL_INPUT_PRIVILEGE;
+    }
+  }
 
   /// @TODO: re-create context with create(), avoid duplicate code
 
@@ -1316,4 +1406,74 @@ void update_config(input_context_t& input, const config::config_t& config, uint6
   // Signal main that reload is done
   input.config_updated.notify_all();
 }
+
+namespace details {
+
+  privilege_result_t privilege_init(input_context_t& input) {
+    gid_t rgid{input_context_t::NONE_GID};
+    gid_t egid{input_context_t::NONE_GID};
+    gid_t sgid{input_context_t::NONE_GID};
+    if (getresgid(&rgid, &egid, &sgid) != 0 || egid == rgid) {
+      BONGOCAT_LOG_VERBOSE(
+          "privilege_init: No privilege needed for input gid=0x%08x (rgid=0x%08X;egid=0x%08X;sgid=0x%08X)",
+          input._privileged_gid, rgid, egid, sgid);
+      return privilege_result_t::Noop;
+    }
+    input._privileged_gid = egid;
+    if (setresgid(input_context_t::NONE_GID, rgid, input_context_t::NONE_GID) != 0) {
+      BONGOCAT_LOG_VERBOSE("privilege_init: FATAL gid=0x%08x (rgid=0x%08X;egid=0x%08X;sgid=0x%08X)",
+                           input._privileged_gid, rgid, egid, sgid);
+      return privilege_result_t::Fatal;
+    }
+
+    BONGOCAT_LOG_VERBOSE("privilege_init: gid=0x%08x", input._privileged_gid);
+    return privilege_result_t::Success;
+  }
+
+  privilege_result_t privilege_raise(input_context_t& input) {
+    if (input._privileged_gid != input_context_t::NONE_GID &&
+        setresgid(input_context_t::NONE_GID, input._privileged_gid, input_context_t::NONE_GID) != 0) {
+      // Not fatal: opening the devices simply fails and the cat stays idle.
+      BONGOCAT_LOG_WARNING("privilege_raise: Could not raise input group: %s", strerror(errno));
+      return privilege_result_t::Warning;
+    }
+
+    BONGOCAT_LOG_VERBOSE("privilege_raise: gid=0x%08x", input._privileged_gid);
+    return input._privileged_gid != input_context_t::NONE_GID ? privilege_result_t::Success : privilege_result_t::Noop;
+  }
+
+  privilege_result_t privilege_lower(input_context_t& input) {
+    if (input._privileged_gid != input_context_t::NONE_GID &&
+        setresgid(input_context_t::NONE_GID, getgid(), input_context_t::NONE_GID) != 0) {
+      BONGOCAT_LOG_VERBOSE("privilege_lower: FATAL gid=0x%08x", input._privileged_gid);
+      return privilege_result_t::Fatal;
+    }
+
+    BONGOCAT_LOG_VERBOSE("privilege_lower: gid=0x%08x", input._privileged_gid);
+    return input._privileged_gid != input_context_t::NONE_GID ? privilege_result_t::Success : privilege_result_t::Noop;
+  }
+
+  privilege_result_t privilege_drop(input_context_t& input) {
+    if (input._privileged_gid == input_context_t::NONE_GID) {
+      return privilege_result_t::Noop;
+    }
+
+    const gid_t gid = getgid();
+    gid_t rgid{input_context_t::NONE_GID};
+    gid_t egid{input_context_t::NONE_GID};
+    gid_t sgid{input_context_t::NONE_GID};
+    if (setresgid(gid, gid, gid) != 0 || getresgid(&rgid, &egid, &sgid) != 0 ||
+        (rgid != gid || egid != gid || sgid != gid)) {
+      BONGOCAT_LOG_VERBOSE("privilege_drop: FATAL gid=0x%08x (rgid=0x%08X;egid=0x%08X;sgid=0x%08X)",
+                           input._privileged_gid, rgid, egid, sgid);
+      return privilege_result_t::Fatal;
+    }
+
+    BONGOCAT_LOG_VERBOSE("privilege_drop: gid=0x%08x", input._privileged_gid);
+    input._privileged_gid = input_context_t::NONE_GID;
+
+    return privilege_result_t::Success;
+  }
+}  // namespace details
+
 }  // namespace bongocat::platform::input

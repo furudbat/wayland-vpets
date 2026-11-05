@@ -42,6 +42,12 @@ echo "--- Test 19 ---"
 ./scripts/tests/test_bongocat_19.sh
 echo "--- Test 20 ---"
 ./scripts/tests/test_bongocat_20.sh
+echo "--- Test 21 ---"
+./scripts/tests/test_bongocat_21.sh
+echo "--- Test 22 ---"
+./scripts/tests/test_bongocat_22.sh
+echo "--- Test 30 ---"
+./scripts/tests/test_bongocat_30.sh
 
 echo "--- Integration Test done ---"
 

@@ -60,12 +60,12 @@ namespace details {
 }  // namespace bongocat::animation
 
 extern "C" {
-extern const char __start_assets_images[];
-extern const char __stop_assets_images[];
-extern const char __start_assets_data_evol[];
-extern const char __stop_assets_data_evol[];
-extern const char __start_assets_sprite_settings[];
-extern const char __stop_assets_sprite_settings[];
+extern const char _bongocat_start_assets_images[];
+extern const char _bongocat_stop_assets_images[];
+extern const char _bongocat_start_assets_data_evol[];
+extern const char _bongocat_stop_assets_data_evol[];
+extern const char _bongocat_start_assets_sprite_settings[];
+extern const char _bongocat_stop_assets_sprite_settings[];
 }
 
 #endif  // BONGOCAT_ANIMATION_H

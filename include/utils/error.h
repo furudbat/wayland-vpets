@@ -57,6 +57,7 @@ enum class bongocat_error_t : uint8_t {
   BONGOCAT_ERROR_INVALID_PARAM,
   BONGOCAT_ERROR_IMAGE,
   BONGOCAT_ERROR_SVG,
+  BONGOCAT_FATAL_INPUT_PRIVILEGE,
 };
 
 // =============================================================================
@@ -110,7 +111,9 @@ namespace details {
 
 // Error handling initialization
 void error_init(bool enable_debug);
+void error_set(bool enable_debug);
 BONGOCAT_NODISCARD const char *error_string(bongocat_error_t error);
+void silence_logs(bool disable_logs);
 
 // 1 = Error
 // 2 = Warning

@@ -184,7 +184,7 @@ void cleanup(main_context_t& context) {
 }
 
 inline main_context_t& get_main_context() {
-  static main_context_t g_instance;
+  static main_context_t g_instance{};
   return g_instance;
 }
 
@@ -204,6 +204,12 @@ struct cli_args_t {
   bool ignore_running{false};
   int64_t nr{-1};
   int32_t debug{-1};
+  bool check_config{false};
+  bool list_monitors{false};
+  bool list_devices{false};
+  bool doctor{false};
+  bool list_devices_config{false};
+  bool default_devices{false};
 
   bool nr_set{false};
   bool output_name_set{false};
@@ -373,7 +379,12 @@ static AllocatedString get_pid_file_path(const cli_args_t& args, const config::c
 
   constexpr const char *tmp_dir = "/tmp";
   const char *runtime_dir = getenv("XDG_RUNTIME_DIR");
-  const char *pid_dir = (runtime_dir != BONGOCAT_NULLPTR && runtime_dir[0] != '\0') ? runtime_dir : tmp_dir;
+  const bool runtime_dir_valid = [&]() {
+    struct stat st{};
+    return runtime_dir != BONGOCAT_NULLPTR && runtime_dir[0] != '\0' && stat(runtime_dir, &st) == 0 &&
+           S_ISDIR(st.st_mode);
+  }();
+  const char *pid_dir = runtime_dir_valid ? runtime_dir : tmp_dir;
 
   BONGOCAT_LOG_VERBOSE("Use path for PID file: %s", pid_dir);
 
@@ -451,7 +462,7 @@ struct madvise_region {
 };
 void unload_config_readonly_sections() {
   static constexpr madvise_region evictable_regions[] = {
-      {config::__start_config_str, config::__stop_config_str, ".config.str"},
+      {_bongocat_start_config_str, _bongocat_stop_config_str, ".config.str"},
   };
 
   for (const auto& region : evictable_regions) {
@@ -515,8 +526,8 @@ static void config_reload_callback() {
   }
 
   // Create a temporary config to test loading
-  auto [new_config, errors] =
-      config::load(get_main_context().signal_watch_path.c_str(), get_main_context().overwrite_config_parameters);
+  auto [new_config, errors] = config::load(get_main_context().signal_watch_path.c_str(), *get_main_context().input,
+                                           get_main_context().overwrite_config_parameters);
   if (errors.errors != config::config_parsing_error_t::Success) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to reload config", static_cast<uint64_t>(errors.errors));
     BONGOCAT_LOG_INFO("Keeping current configuration");
@@ -561,7 +572,7 @@ static void config_reload_callback() {
     /// @NOTE: don't use new_config after move
     new_config = {};
     // Initialize error system with debug setting
-    bongocat::error_init(get_main_context().config.enable_debug >= 1);
+    bongocat::error_set(get_main_context().config.enable_debug >= 1);
 
     // Increment generation atomically
     // Update the running systems with new config
@@ -754,8 +765,8 @@ static void init_program_timer(main_context_t& ctx) {
 }
 
 static bongocat_error_t system_initialize_components(main_context_t& ctx) {
-  // Initialize input system
-  {
+  // Create input system
+  if (!ctx.input) {  // NOTE: input may already been aoolicated
     auto [input, input_error] = platform::input::create(ctx.config);
     if (input_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to initialize input system: %s", bongocat::error_string(input_error));
@@ -764,8 +775,8 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
     ctx.input = bongocat::move(input);
   }
 
-  // Initialize update system
-  {
+  // Create update system
+  if (!ctx.update) {
     auto [update, update_error] = platform::update::create(ctx.config);
     if (update_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to initialize updfate system: %s", bongocat::error_string(update_error));
@@ -774,8 +785,8 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
     ctx.update = bongocat::move(update);
   }
 
-  // Initialize animation system
-  {
+  // Create animation system
+  if (!ctx.animation) {
     animation::init_image_loader();
     auto [animation, animation_error] = animation::create(ctx.config);
     if (animation_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -785,8 +796,8 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
     ctx.animation = bongocat::move(animation);
   }
 
-  // Initialize Wayland
-  {
+  // Create Wayland
+  if (!ctx.wayland) {
     assert(ctx.animation != BONGOCAT_NULLPTR);
     /// @NOTE: animation needed only for reference
     auto [wayland, wayland_error] = platform::wayland::create(*ctx.animation, ctx.config);
@@ -797,6 +808,7 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
     ctx.wayland = bongocat::move(wayland);
   }
 
+  // Start program timer
   {
     init_program_timer(ctx);
 
@@ -898,12 +910,17 @@ static void cli_show_help(const char *program_name) {
   printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
   printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
   printf("  -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)\n");
-  printf(
-      "      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
+  printf("      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
-  printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting ruinning instances\n");
+  printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting with ruinning instances\n");
   printf("      --ignore-running        Ignore current running instance\n");
   printf("      --debug                 Override enable_debug setting\n");
+  printf("      --check-config          Strictly validate the configuration\n");
+  printf("      --list-devices          List input devices and keyboard settings\n");
+  printf("      --list-monitors         List Wayland outputs, sizes and scales\n");
+  printf("      --doctor                Check config, devices and protocols\n");
+  printf("      --list-devices-config   List input devices and keyboard settings in config format\n");
+  printf("      --default-devices       Load every keyboard by default, when no keyboard were found in config\n");
   printf("\n");
   printf("Included sets:\n");
   // clang-format: on
@@ -978,6 +995,20 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
       args.ignore_running = true;
     } else if (strcmp(argv[i], "--debug") == 0) {
       args.debug = 1;
+    } else if (strcmp(argv[i], "--check-config") == 0) {
+      args.check_config = true;
+      args.strict = 1;
+    } else if (strcmp(argv[i], "--list-monitors") == 0) {
+      args.list_monitors = true;
+    } else if (strcmp(argv[i], "--list-devices") == 0) {
+      args.list_devices = true;
+    } else if (strcmp(argv[i], "--list-devices-config") == 0) {
+      args.list_devices = true;
+      args.list_devices_config = true;
+    } else if (strcmp(argv[i], "--doctor") == 0) {
+      args.doctor = true;
+    } else if (strcmp(argv[i], "--default-devices") == 0) {
+      args.default_devices = true;
     } else if (strcmp(argv[i], "--nr") == 0) {
       args.nr_set = true;
       if (i + 1 < argc) {
@@ -1018,7 +1049,11 @@ static created_result_t<cli_args_t> cli_parse_arguments(int argc, char *argv[]) 
 int main(int argc, char *argv[]) {
   using namespace bongocat;
   // Initialize error system early
+  bongocat::memory_stats_init();
   bongocat::error_init(true);  // Enable debug initially
+  bongocat::silence_logs(false);
+  // (void)get_main_context();
+  // NOTE: init globals early to void globals destroy fiscto
 
   // Parse command line arguments
   const auto [args, args_result] = cli_parse_arguments(argc, argv);
@@ -1028,17 +1063,76 @@ int main(int argc, char *argv[]) {
 
   // Handle help and version requests
   if (args.show_help) {
+    bongocat::error_set(args.debug >= 1);
+    bongocat::silence_logs(true);
     cli_show_help(argv[0]);
     return EXIT_SUCCESS;
   }
   if (args.show_version) {
+    bongocat::error_set(args.debug >= 1);
+    bongocat::silence_logs(true);
     cli_show_version();
     return EXIT_SUCCESS;
   }
 
-  BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
+  if (args.list_monitors && !args.doctor) {
+    bongocat::error_set(args.debug >= 1);
+    bongocat::silence_logs(args.debug < 1);
+    return platform::wayland::cli_list_monitors({
+        .doctor = args.doctor,
+    });
+  }
 
   main_context_t& ctx = get_main_context();
+
+  int device_failure = EXIT_SUCCESS;
+  {
+    bongocat::error_set(args.debug >= 1);
+    bongocat::silence_logs((args.debug < 1 || args.list_devices_config) && !args.doctor);
+
+    // Create input context
+    {
+      auto [input, input_error] = platform::input::create(ctx.config);
+      if (input_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+        BONGOCAT_LOG_ERROR("Failed to initialize input system: %s", bongocat::error_string(input_error));
+        return EXIT_FAILURE;
+      }
+      ctx.input = bongocat::move(input);
+    }
+
+    assert(ctx.input);
+    /// @TODO: make input privilege guard
+    if (ctx.input) {
+      const auto privilege_result = platform::input::details::privilege_init(*ctx.input);
+      if (privilege_result == platform::input::details::privilege_result_t::Fatal) {
+        return EXIT_FAILURE;
+      }
+    }
+
+    if (args.list_devices && !args.doctor) {
+      bongocat::error_set(args.debug >= 1);
+      bongocat::silence_logs(args.debug < 1 || args.list_devices_config);
+      const int ret = platform::input::cli_list_devices(*ctx.input, {
+                                                                        .doctor = args.doctor,
+                                                                        .config_format = args.list_devices_config,
+                                                                    });
+      (void)platform::input::details::privilege_drop(*ctx.input);
+      return ret;
+    } else if (args.doctor) {
+      device_failure = platform::input::cli_list_devices(*ctx.input, {
+                                                                         .doctor = args.doctor,
+                                                                         .config_format = args.list_devices_config,
+                                                                     });
+    }
+
+    if (ctx.input) {
+      auto privilege_result = platform::input::details::privilege_drop(*ctx.input);
+      if (privilege_result == platform::input::details::privilege_result_t::Fatal) {
+        /// @TODO: ignore error ? when exit anyway
+        return EXIT_FAILURE;
+      }
+    }
+  }
 
   // Load configuration
   ctx.overwrite_config_parameters = {
@@ -1046,10 +1140,12 @@ int main(int argc, char *argv[]) {
       .randomize_index = args.randomize_index,
       .strict = args.strict,
       .debug = args.debug,
+      .check_config = args.check_config,
+      .default_devices = args.default_devices,
   };
   AllocatedString existing_config_file = config::resolve_path(args.config_file);
   const char *config_file = existing_config_file ? existing_config_file.c_str() : "";
-  if (args.strict >= 1) {
+  if (args.strict >= 1 && !args.check_config) {
     if (strcmp(config_file, "-") != 0 && access(config_file, F_OK) != 0) {
       BONGOCAT_LOG_ERROR("Configuration file required: %s", config_file);
       return EXIT_FAILURE;
@@ -1057,17 +1153,38 @@ int main(int argc, char *argv[]) {
   }
 
   {
+    if (args.check_config) {
+      bongocat::silence_logs(args.debug < 1);
+    }
     if (ctx.overwrite_config_parameters.debug >= 0) {
-      bongocat::error_init(ctx.overwrite_config_parameters.debug);
+      bongocat::error_set(ctx.overwrite_config_parameters.debug);
     }
     BONGOCAT_LOG_VERBOSE("Try to load Configuration file: %s", config_file);
-    auto config_result = config::load(config_file, ctx.overwrite_config_parameters);
+
+    assert(ctx.input != BONGOCAT_NULLPTR);
+    (void)platform::input::details::privilege_init(*ctx.input);
+    auto config_result = config::load(config_file, *ctx.input, ctx.overwrite_config_parameters);
+    (void)platform::input::details::privilege_drop(*ctx.input);
+
+    if (args.check_config || args.doctor) {
+      const bool config_valid = is_valid_config_result(config_result);
+      printf("Config: %s (%s)\n", config_file && strlen(config_file) > 0 ? config_file : "no file, using defaults",
+             config_valid ? "valid" : "invalid");
+
+      int ret = config_valid ? EXIT_SUCCESS : EXIT_FAILURE;
+      if (args.doctor) {
+        ret |= device_failure | platform::wayland::cli_list_monitors({.doctor = args.doctor});
+      }
+
+      return ret;
+    }
+
     if (!is_valid_config_result(config_result)) {
       BONGOCAT_LOG_ERROR("Failed to load configuration");
       return EXIT_FAILURE;
     }
     ctx.config = bongocat::move(config_result.config);
-    bongocat::error_init(ctx.config.enable_debug);
+    bongocat::error_set(ctx.config.enable_debug);
   }
 
   // validate args
@@ -1096,6 +1213,8 @@ int main(int argc, char *argv[]) {
     }
     // toggle_result == -1 means continue with startup
   }
+
+  BONGOCAT_LOG_INFO("Starting Bongo Cat Overlay v%s", BONGOCAT_VERSION);
 
   // Create PID file to track this instance
   const platform::FileDescriptor pid_fd = process_create_pid_file(ctx.pid_filename.c_str());

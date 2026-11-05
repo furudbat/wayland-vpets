@@ -1,6 +1,6 @@
 % BONGOCAT.CONF(5)
 % 
-% June 2026
+% November 2026
 
 # NAME
 

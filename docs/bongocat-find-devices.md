@@ -1,6 +1,6 @@
 % bongocat-find-devices(1)
 % 
-% September 2025
+% November 2026
 
 # NAME
 Wayland Bongo Cat - Input Device Discovery

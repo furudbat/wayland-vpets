@@ -115,12 +115,14 @@ set(
   graphics/drawing_images.cpp
   graphics/drawing_scale.cpp
   platform/input.cpp
+  platform/input_devices.cpp
   platform/update.cpp
   platform/wayland.cpp
   platform/wayland_callbacks.cpp
   platform/wayland_hyprland.cpp
   platform/wayland_setups.cpp
   platform/wayland_sway.cpp
+  platform/wayland_monitors.cpp
 )
 add_library(bongocat_base INTERFACE)
 target_sources(bongocat_base INTERFACE ${SOURCES})

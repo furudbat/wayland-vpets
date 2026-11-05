@@ -1,8 +1,9 @@
 # DESCRIPTION
 
-**Bongo Cat Wayland Overlay** is a Wayland compositor overlay that displays
-animated sets, including the classic Bongo Cat, Digimon, and Pokémon. It reacts
-to keyboard input or system state, adding a playful, interactive pet on your
+Shows an animated pet in a bar on wlr-layer-shell compositors that can display different
+pets, including the classic Bongo Cat, Digimon, and Pokémon. It reacts
+to key presses on every keyboard, system state.
+Adding a playful, interactive pet on your
 screen.
 
 The program is lightweight, configurable, and can be toggled on or off at

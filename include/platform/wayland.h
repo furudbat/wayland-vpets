@@ -47,9 +47,16 @@ BONGOCAT_NODISCARD int phys_dim(const wayland_context_t& ctx, int logical);
 
 bongocat_error_t request_render(animation::animation_context_t& animation_ctx);
 
+struct cli_list_monitors_args_t {
+  bool doctor{false};
+};
+int cli_list_monitors(const cli_list_monitors_args_t& args);
+
 namespace details {
   struct wayland_setup_buffer_result_t;
   created_result_t<wayland_setup_buffer_result_t> wayland_recreate_buffer(wayland_context_t& ctx);
+
+  BONGOCAT_NODISCARD bool fullscreen_available(wayland_context_t& ctx);
 }  // namespace details
 
 }  // namespace bongocat::platform::wayland

@@ -759,4 +759,11 @@ bongocat_error_t request_render(animation::animation_context_t& animation_ctx) {
 
   return bongocat_error_t::BONGOCAT_SUCCESS;
 }
+
+namespace details {
+  BONGOCAT_NODISCARD bool fullscreen_available(wayland_context_t& ctx) {
+    return ctx.fs_detector.manager != nullptr;
+  }
+}  // namespace details
+
 }  // namespace bongocat::platform::wayland

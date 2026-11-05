@@ -6113,7 +6113,7 @@ static bool anim_evolution_stat(animation_context_t& animation_ctx, animation_ev
       const bool can_evol =
           (evol_data.conditions.min_lvl >= MIN_ANIMATION_EVOLUTION_LEVEL &&
            state._lvl >= evol_data.conditions.min_lvl) ||
-          (evol_data.conditions.next_evolution_time_sec > 0 &&
+          (evol_data.conditions.next_evolution_time_sec > 0 && current_config.evolution_speed_factor > 0 &&
            (static_cast<double>(state.current_stage_life_time_sec) * current_config.evolution_speed_factor) >=
                static_cast<double>(evol_data.conditions.next_evolution_time_sec));
 
@@ -6658,7 +6658,7 @@ static void *anim_thread(void *arg) {
 bongocat_error_t start(animation_context_t& animation_ctx, platform::input::input_context_t& input,
                        platform::update::update_context_t& upd, const config::config_t& config,
                        platform::CondVariable& configs_reloaded_cond, atomic_uint64_t& config_generation) {
-  BONGOCAT_LOG_INFO("Starting animation thread");
+  BONGOCAT_LOG_INFO("Initializing animation system");
 
   assert(animation_ctx.thread_context._local_copy_config);
   update_config(animation_ctx.thread_context, config, atomic_load(&config_generation));
@@ -6674,6 +6674,7 @@ bongocat_error_t start(animation_context_t& animation_ctx, platform::input::inpu
 
   animation_ctx._configs_reloaded_cond->notify_all();
 
+  BONGOCAT_LOG_INFO("Starting animation thread");
   // start animation thread
   const int result =
       pthread_create(&animation_ctx.thread_context._anim_thread, BONGOCAT_NULLPTR, anim_thread, &animation_ctx);
