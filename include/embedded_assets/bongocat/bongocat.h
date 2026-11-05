@@ -4,8 +4,14 @@
 #include "core/bongocat.h"
 #include "embedded_assets/embedded_image.h"
 #include "graphics/sprite_sheet.h"
+#include "embedded_assets/assets.h"
 #include <cstddef>
 #include <cstdint>
+
+// bongocat
+#define ASSETS_BONGOCAT_SPRITE_SETTINGS_SECTION BONGOCAT_ASSETS_SET_SECTION(bongocat, "sprite_settings")
+#define ASSETS_BONGOCAT_DIMS_SECTION BONGOCAT_ASSETS_SET_SECTION(bongocat, "dims")
+//#define ASSETS_BONGOCAT_EVOL_DATA_SECTION BONGOCAT_ASSETS_SET_SECTION(bongocat, "evol_data")
 
 namespace bongocat::animation {
 struct animation_thread_context_t;
@@ -19,8 +25,8 @@ inline static constexpr int BONGOCAT_FRAME_RIGHT_DOWN = 2;
 inline static constexpr int BONGOCAT_FRAME_BOTH_DOWN = 3;
 inline static constexpr int BONGOCAT_FRAME_SLEEPING = 4;
 
-inline static constexpr size_t BONGOCAT_SPRITE_SHEET_COLS = 5;
-inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROWS = 1;
+inline static constexpr size_t BONGOCAT_SPRITE_SHEET_COLS ASSETS_BONGOCAT_DIMS_SECTION = 5;
+inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROWS ASSETS_BONGOCAT_DIMS_SECTION = 1;
 inline static constexpr size_t BONGOCAT_SPRITE_SHEET_ROW = 0;
 
 // apparently

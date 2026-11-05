@@ -56,16 +56,62 @@ namespace details {
   void update_cat_height_physical(animation_thread_context_t& ctx);
 
   void update_evolution_data(animation_shared_memory_t& shm);
+
+  void unload_assets_readonly_sections();
+  void unload_current_assets_set_readonly_sections(const animation_shared_memory_t& anim_shm);
+
+  struct assets_set_region_t {
+    const char *start{BONGOCAT_NULLPTR};
+    const char *stop{BONGOCAT_NULLPTR};
+    const char *name{"none"};
+  };
+#define BONGOCAT_ASSETS_SET_REGION(set)                                        \
+  ::bongocat::animation::details::assets_set_region_t {                        \
+    _bongocat_start_assets_##set, _bongocat_stop_assets_##set, ".assets." #set \
+  }
+
+  assets_set_region_t get_assets_set_region(const animation_shared_memory_t& anim_shm);
+  void load_assets_set_readonly_sections(const assets_set_region_t& region);
+  void unload_assets_set_readonly_sections(const assets_set_region_t& region);
+
+  class assets_set_scope_t {
+  public:
+    assets_set_scope_t() = default;
+    explicit assets_set_scope_t(const assets_set_region_t& region) {
+      load(region);
+    }
+    ~assets_set_scope_t() {
+      unload();
+    }
+    assets_set_scope_t(const assets_set_scope_t&) = delete;
+    assets_set_scope_t& operator=(const assets_set_scope_t&) = delete;
+    assets_set_scope_t(assets_set_scope_t&&) = delete;
+    assets_set_scope_t& operator=(assets_set_scope_t&&) = delete;
+
+    void load(const assets_set_region_t& region) {
+      unload();
+      _region = region;
+      _loaded = true;
+      load_assets_set_readonly_sections(_region);
+    }
+    void unload() {
+      if (_loaded) {
+        unload_assets_set_readonly_sections(_region);
+        _loaded = false;
+      }
+    }
+
+  private:
+    assets_set_region_t _region;
+    bool _loaded{false};
+  };
 }  // namespace details
+
 }  // namespace bongocat::animation
 
 extern "C" {
-extern const char _bongocat_start_assets_images[];
-extern const char _bongocat_stop_assets_images[];
-extern const char _bongocat_start_assets_data_evol[];
-extern const char _bongocat_stop_assets_data_evol[];
-extern const char _bongocat_start_assets_sprite_settings[];
-extern const char _bongocat_stop_assets_sprite_settings[];
+extern const char _bongocat_start_assets[];
+extern const char _bongocat_stop_assets[];
 }
 
 #endif  // BONGOCAT_ANIMATION_H

@@ -28,11 +28,11 @@ static const size_t ms_agent_png_sizes_table[] = {
 #endif
 };
 static const char* ms_agent_names_table[] = {
-  assets::CLIPPY_NAME,
+  "Clippy",
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-  assets::LINKS_NAME,
-  assets::ROVER_NAME,
-  assets::MERLIN_NAME,
+  "Links",
+  "Rover",
+  "Merlin",
 #endif
 };
 

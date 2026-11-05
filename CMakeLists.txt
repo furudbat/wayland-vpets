@@ -259,63 +259,17 @@ endif()
 set(PROTOCOLS_DIR ${PROJECT_SOURCE_DIR}/protocols)
 add_subdirectory(protocols)
 
+include(cmake/EmbeddedAssets.cmake)
 set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)
 add_subdirectory(src)
+
 
 include(CTest)
 if(BUILD_TESTING)
   add_subdirectory(tests)
 endif()
 
-# custom linker script for assets alignment and page unload
-file(
-  WRITE ${CMAKE_BINARY_DIR}/assets_segment.ld
-  [=[
-/* Page alignment for safe madvise(MADV_DONTNEED) */
-SECTIONS
-{
-  /* Read-only assets (safe for MADV_DONTNEED) */
-
-  . = ALIGN(CONSTANT(MAXPAGESIZE));
-  .assets.images :
-  {
-    _bongocat_start_assets_images = .;
-    KEEP(*(.assets.images))
-    . = ALIGN(CONSTANT(MAXPAGESIZE));
-    _bongocat_stop_assets_images = .;
-  }
-
-  . = ALIGN(CONSTANT(MAXPAGESIZE));
-  .assets.sprite_settings :
-  {
-    _bongocat_start_assets_sprite_settings = .;
-    KEEP(*(.assets.sprite_settings))
-    . = ALIGN(CONSTANT(MAXPAGESIZE));
-    _bongocat_stop_assets_sprite_settings = .;
-  }
-
-  . = ALIGN(CONSTANT(MAXPAGESIZE));
-  .assets.data_evol :
-  {
-    _bongocat_start_assets_data_evol = .;
-    KEEP(*(.assets.data_evol))
-    . = ALIGN(CONSTANT(MAXPAGESIZE));
-    _bongocat_stop_assets_data_evol = .;
-  }
-
-  . = ALIGN(CONSTANT(MAXPAGESIZE));
-  .config.str :
-  {
-    _bongocat_start_config_str = .;
-    KEEP(*(.config.str))
-    . = ALIGN(CONSTANT(MAXPAGESIZE));
-    _bongocat_stop_config_str = .;
-  }
-}
-INSERT AFTER .rodata;
-]=]
-)
 
 add_library(bongocat_loaders INTERFACE)
 if(FEATURE_BONGOCAT_EMBEDDED_ASSETS)
@@ -461,7 +415,7 @@ add_executable(bongocat)
 # @NOTE(assets): 1.1. link embedded assets
 target_link_libraries(bongocat PRIVATE bongocat_loaders)
 target_link_libraries(bongocat PRIVATE bongocat_base bongocat_options bongocat_libs)
-target_link_options(bongocat PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+bongocat_target_assets_segment(bongocat bongocat_loaders)
 
 if(FEATURE_MULTI_VERSIONS)
   add_library(bongocat_dm_classic_loaders INTERFACE)
@@ -507,7 +461,7 @@ if(FEATURE_MULTI_VERSIONS)
   )
   add_executable(bongocat-dm-classic)
   target_link_libraries(bongocat-dm-classic PRIVATE bongocat_base bongocat_dm_classic_loaders bongocat_options bongocat_libs)
-  target_link_options(bongocat-dm-classic PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-dm-classic bongocat_dm_classic_loaders)
 
   add_library(bongocat_dm_colored_loaders INTERFACE)
   target_link_libraries(
@@ -546,7 +500,7 @@ if(FEATURE_MULTI_VERSIONS)
   )
   add_executable(bongocat-dm-colored)
   target_link_libraries(bongocat-dm-colored PRIVATE bongocat_base bongocat_dm_colored_loaders bongocat_options bongocat_libs)
-  target_link_options(bongocat-dm-colored PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-dm-colored bongocat_dm_colored_loaders)
 
   add_library(bongocat_dm_colored_all_loaders INTERFACE)
   target_link_libraries(
@@ -567,7 +521,7 @@ if(FEATURE_MULTI_VERSIONS)
   )
   add_executable(bongocat-dm-colored-all)
   target_link_libraries(bongocat-dm-colored-all PRIVATE bongocat_base bongocat_dm_colored_all_loaders bongocat_options bongocat_libs)
-  target_link_options(bongocat-dm-colored-all PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-dm-colored-all bongocat_dm_colored_all_loaders)
 
   add_library(bongocat_dm_loaders INTERFACE)
   target_link_libraries(
@@ -606,7 +560,7 @@ if(FEATURE_MULTI_VERSIONS)
   )
   add_executable(bongocat-dm)
   target_link_libraries(bongocat-dm PRIVATE bongocat_base bongocat_dm_loaders bongocat_options bongocat_libs)
-  target_link_options(bongocat-dm PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-dm bongocat_dm_loaders)
 
   add_library(bongocat_ms_agent_loaders INTERFACE)
   target_link_libraries(
@@ -628,7 +582,7 @@ if(FEATURE_MULTI_VERSIONS)
   )
   add_executable(bongocat-ms-agent)
   target_link_libraries(bongocat-ms-agent PRIVATE bongocat_base bongocat_ms_agent_loaders bongocat_options bongocat_libs)
-  target_link_options(bongocat-ms-agent PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-ms-agent bongocat_ms_agent_loaders)
 
   add_library(bongocat_pkmn_loaders INTERFACE)
   target_link_libraries(
@@ -654,7 +608,7 @@ if(FEATURE_MULTI_VERSIONS)
   )
   add_executable(bongocat-pkmn)
   target_link_libraries(bongocat-pkmn PRIVATE bongocat_base bongocat_pkmn_loaders bongocat_options bongocat_libs)
-  target_link_options(bongocat-pkmn PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-pkmn bongocat_pkmn_loaders)
 
   add_library(bongocat_all_loaders INTERFACE)
   target_link_libraries(
@@ -744,7 +698,7 @@ if(FEATURE_MULTI_VERSIONS)
     bongocat-all
     PRIVATE bongocat_base bongocat_all_loaders assets_custom_sprite_sheet_feature assets_custom_loader bongocat_options bongocat_libs
   )
-  target_link_options(bongocat-all PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-all bongocat_all_loaders)
 
   add_library(bongocat_neko_loaders INTERFACE)
   target_link_libraries(
@@ -766,7 +720,7 @@ if(FEATURE_MULTI_VERSIONS)
   )
   add_executable(bongocat-neko)
   target_link_libraries(bongocat-neko PRIVATE bongocat_base bongocat_neko_loaders bongocat_options bongocat_libs)
-  target_link_options(bongocat-neko PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+  bongocat_target_assets_segment(bongocat-neko bongocat_neko_loaders)
 
   # @NOTE(assets): 1.2. add exec for multi versions
 endif()

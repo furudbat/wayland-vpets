@@ -132,6 +132,6 @@ target_link_libraries(
     bongocat_options
     bongocat_libs
 )
-target_link_options(bongocat_tests PRIVATE -Wl,-T,${CMAKE_BINARY_DIR}/assets_segment.ld)
+bongocat_target_assets_segment(bongocat_tests test_bongocat_all_loaders)
 
 add_test(NAME bongocat_tests COMMAND bongocat_tests)
