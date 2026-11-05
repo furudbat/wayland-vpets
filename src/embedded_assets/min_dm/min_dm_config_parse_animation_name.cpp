@@ -4,22 +4,22 @@
 
 namespace bongocat::assets {
     static const config_animation_entry_t min_dm_animation_table[] CONFIG_ENTRIES_TABLE_SECTION = {
-      { DM_BOTAMON_NAME,       DM_BOTAMON_ID,       DM_BOTAMON_FQID,       DM_BOTAMON_FQNAME,       DM_BOTAMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_KOROMON_NAME,       DM_KOROMON_ID,       DM_KOROMON_FQID,       DM_KOROMON_FQNAME,       DM_KOROMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_AGUMON_NAME,        DM_AGUMON_ID,        DM_AGUMON_FQID,        DM_AGUMON_FQNAME,        DM_AGUMON_ANIM_INDEX,        config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_BETAMON_NAME,       DM_BETAMON_ID,       DM_BETAMON_FQID,       DM_BETAMON_FQNAME,       DM_BETAMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_BOTAMON_NAME,       MIN_DM_BOTAMON_ID,       MIN_DM_BOTAMON_FQID,       MIN_DM_BOTAMON_FQNAME,       MIN_DM_BOTAMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_KOROMON_NAME,       MIN_DM_KOROMON_ID,       MIN_DM_KOROMON_FQID,       MIN_DM_KOROMON_FQNAME,       MIN_DM_KOROMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_AGUMON_NAME,        MIN_DM_AGUMON_ID,        MIN_DM_AGUMON_FQID,        MIN_DM_AGUMON_FQNAME,        MIN_DM_AGUMON_ANIM_INDEX,        config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_BETAMON_NAME,       MIN_DM_BETAMON_ID,       MIN_DM_BETAMON_FQID,       MIN_DM_BETAMON_FQNAME,       MIN_DM_BETAMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
 
-      { DM_GREYMON_NAME,       DM_GREYMON_ID,       DM_GREYMON_FQID,       DM_GREYMON_FQNAME,       DM_GREYMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_TYRANOMON_NAME,     DM_TYRANOMON_ID,     DM_TYRANOMON_FQID,     DM_TYRANOMON_FQNAME,     DM_TYRANOMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_DEVIMON_NAME,       DM_DEVIMON_ID,       DM_DEVIMON_FQID,       DM_DEVIMON_FQNAME,       DM_DEVIMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_MERAMON_NAME,       DM_MERAMON_ID,       DM_MERAMON_FQID,       DM_MERAMON_FQNAME,       DM_MERAMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_AIRDRAMON_NAME,     DM_AIRDRAMON_ID,     DM_AIRDRAMON_FQID,     DM_AIRDRAMON_FQNAME,     DM_AIRDRAMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_SEADRAMON_NAME,     DM_SEADRAMON_ID,     DM_SEADRAMON_FQID,     DM_SEADRAMON_FQNAME,     DM_SEADRAMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_NUMEMON_NAME,       DM_NUMEMON_ID,       DM_NUMEMON_FQID,       DM_NUMEMON_FQNAME,       DM_NUMEMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_GREYMON_NAME,       MIN_DM_GREYMON_ID,       MIN_DM_GREYMON_FQID,       MIN_DM_GREYMON_FQNAME,       MIN_DM_GREYMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_TYRANOMON_NAME,     MIN_DM_TYRANOMON_ID,     MIN_DM_TYRANOMON_FQID,     MIN_DM_TYRANOMON_FQNAME,     MIN_DM_TYRANOMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_DEVIMON_NAME,       MIN_DM_DEVIMON_ID,       MIN_DM_DEVIMON_FQID,       MIN_DM_DEVIMON_FQNAME,       MIN_DM_DEVIMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_MERAMON_NAME,       MIN_DM_MERAMON_ID,       MIN_DM_MERAMON_FQID,       MIN_DM_MERAMON_FQNAME,       MIN_DM_MERAMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_AIRDRAMON_NAME,     MIN_DM_AIRDRAMON_ID,     MIN_DM_AIRDRAMON_FQID,     MIN_DM_AIRDRAMON_FQNAME,     MIN_DM_AIRDRAMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_SEADRAMON_NAME,     MIN_DM_SEADRAMON_ID,     MIN_DM_SEADRAMON_FQID,     MIN_DM_SEADRAMON_FQNAME,     MIN_DM_SEADRAMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_NUMEMON_NAME,       MIN_DM_NUMEMON_ID,       MIN_DM_NUMEMON_FQID,       MIN_DM_NUMEMON_FQNAME,       MIN_DM_NUMEMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
 
-      { DM_METAL_GREYMON_NAME, DM_METAL_GREYMON_ID, DM_METAL_GREYMON_FQID, DM_METAL_GREYMON_FQNAME, DM_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_MAMEMON_NAME,       DM_MAMEMON_ID,       DM_MAMEMON_FQID,       DM_MAMEMON_FQNAME,       DM_MAMEMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
-      { DM_MONZAEMON_NAME,     DM_MONZAEMON_ID,     DM_MONZAEMON_FQID,     DM_MONZAEMON_FQNAME,     DM_MONZAEMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_METAL_GREYMON_NAME, MIN_DM_METAL_GREYMON_ID, MIN_DM_METAL_GREYMON_FQID, MIN_DM_METAL_GREYMON_FQNAME, MIN_DM_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_MAMEMON_NAME,       MIN_DM_MAMEMON_ID,       MIN_DM_MAMEMON_FQID,       MIN_DM_MAMEMON_FQNAME,       MIN_DM_MAMEMON_ANIM_INDEX,       config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
+      { MIN_DM_MONZAEMON_NAME,     MIN_DM_MONZAEMON_ID,     MIN_DM_MONZAEMON_FQID,     MIN_DM_MONZAEMON_FQNAME,     MIN_DM_MONZAEMON_ANIM_INDEX,     config::config_animation_dm_set_t::dm, config::config_animation_sprite_sheet_layout_t::Dm },
   };
 
     config_animation_entry_t get_config_animation_name_min_dm(size_t index) {

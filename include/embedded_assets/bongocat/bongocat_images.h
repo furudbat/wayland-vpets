@@ -1,38 +1,40 @@
 #ifndef BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_IMAGES_H
 #define BONGOCAT_EMBEDDED_ASSETS_BONGOCAT_IMAGES_H
 
-#include <stddef.h>
+#include <cstddef>
+
+/// @NOTE: sizes are the asset file sizes in bytes; bongocat_images.cpp static_asserts them against the #embed data
 
 // Embedded asset data
-extern const unsigned char bongo_cat_both_up_png[];
-extern const size_t bongo_cat_both_up_png_size;
+extern const unsigned char bongo_cat_both_up_png[6873];
+inline constexpr size_t bongo_cat_both_up_png_size = 6873;
 
-extern const unsigned char bongo_cat_left_down_png[];
-extern const size_t bongo_cat_left_down_png_size;
+extern const unsigned char bongo_cat_left_down_png[7387];
+inline constexpr size_t bongo_cat_left_down_png_size = 7387;
 
-extern const unsigned char bongo_cat_right_down_png[];
-extern const size_t bongo_cat_right_down_png_size;
+extern const unsigned char bongo_cat_right_down_png[7023];
+inline constexpr size_t bongo_cat_right_down_png_size = 7023;
 
-extern const unsigned char bongo_cat_both_down_png[];
-extern const size_t bongo_cat_both_down_png_size;
+extern const unsigned char bongo_cat_both_down_png[18400];
+inline constexpr size_t bongo_cat_both_down_png_size = 18400;
 
-extern const unsigned char bongo_cat_sleeping_png[];
-extern const size_t bongo_cat_sleeping_png_size;
+extern const unsigned char bongo_cat_sleeping_png[18602];
+inline constexpr size_t bongo_cat_sleeping_png_size = 18602;
 
 
 // Embedded asset data (new svg files)
-extern const unsigned char bongo_cat_both_up_svg[];
-extern const size_t bongo_cat_both_up_svg_size;
+extern const unsigned char bongo_cat_both_up_svg[9029];
+inline constexpr size_t bongo_cat_both_up_svg_size = 9029;
 
-extern const unsigned char bongo_cat_left_down_svg[];
-extern const size_t bongo_cat_left_down_svg_size;
+extern const unsigned char bongo_cat_left_down_svg[6397];
+inline constexpr size_t bongo_cat_left_down_svg_size = 6397;
 
-extern const unsigned char bongo_cat_right_down_svg[];
-extern const size_t bongo_cat_right_down_svg_size;
+extern const unsigned char bongo_cat_right_down_svg[6767];
+inline constexpr size_t bongo_cat_right_down_svg_size = 6767;
 
-extern const unsigned char bongo_cat_both_down_svg[];
-extern const size_t bongo_cat_both_down_svg_size;
+extern const unsigned char bongo_cat_both_down_svg[9834];
+inline constexpr size_t bongo_cat_both_down_svg_size = 9834;
 
-extern const unsigned char bongo_cat_sleeping_svg[];
-extern const size_t bongo_cat_sleeping_svg_size;
+extern const unsigned char bongo_cat_sleeping_svg[5860];
+inline constexpr size_t bongo_cat_sleeping_svg_size = 5860;
 #endif

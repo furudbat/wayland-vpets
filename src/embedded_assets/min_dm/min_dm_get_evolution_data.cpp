@@ -33,7 +33,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_KOROMON_ANIM_INDEX,
+        MIN_DM_KOROMON_ANIM_INDEX,
       },
     },
     {
@@ -41,8 +41,8 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 2,
       .animation_indices ={
-        DM_AGUMON_ANIM_INDEX,
-        DM_BETAMON_ANIM_INDEX,
+        MIN_DM_AGUMON_ANIM_INDEX,
+        MIN_DM_BETAMON_ANIM_INDEX,
       },
     },
     {
@@ -50,11 +50,11 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 5,
       .animation_indices ={
-        DM_GREYMON_ANIM_INDEX,
-        DM_TYRANOMON_ANIM_INDEX,
-        DM_DEVIMON_ANIM_INDEX,
-        DM_MERAMON_ANIM_INDEX,
-        DM_NUMEMON_ANIM_INDEX,
+        MIN_DM_GREYMON_ANIM_INDEX,
+        MIN_DM_TYRANOMON_ANIM_INDEX,
+        MIN_DM_DEVIMON_ANIM_INDEX,
+        MIN_DM_MERAMON_ANIM_INDEX,
+        MIN_DM_NUMEMON_ANIM_INDEX,
       },
     },
     {
@@ -62,11 +62,11 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 5,
       .animation_indices ={
-        DM_DEVIMON_ANIM_INDEX,
-        DM_MERAMON_ANIM_INDEX,
-        DM_AIRDRAMON_ANIM_INDEX,
-        DM_SEADRAMON_ANIM_INDEX,
-        DM_NUMEMON_ANIM_INDEX,
+        MIN_DM_DEVIMON_ANIM_INDEX,
+        MIN_DM_MERAMON_ANIM_INDEX,
+        MIN_DM_AIRDRAMON_ANIM_INDEX,
+        MIN_DM_SEADRAMON_ANIM_INDEX,
+        MIN_DM_NUMEMON_ANIM_INDEX,
       },
     },
     {
@@ -74,7 +74,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_METAL_GREYMON_ANIM_INDEX,
+        MIN_DM_METAL_GREYMON_ANIM_INDEX,
       },
     },
     {
@@ -82,7 +82,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_MAMEMON_ANIM_INDEX,
+        MIN_DM_MAMEMON_ANIM_INDEX,
       },
     },
     {
@@ -90,7 +90,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_METAL_GREYMON_ANIM_INDEX,
+        MIN_DM_METAL_GREYMON_ANIM_INDEX,
       },
     },
     {
@@ -98,7 +98,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_MAMEMON_ANIM_INDEX,
+        MIN_DM_MAMEMON_ANIM_INDEX,
       },
     },
     {
@@ -106,7 +106,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_METAL_GREYMON_ANIM_INDEX,
+        MIN_DM_METAL_GREYMON_ANIM_INDEX,
       },
     },
     {
@@ -114,7 +114,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_METAL_GREYMON_ANIM_INDEX,
+        MIN_DM_METAL_GREYMON_ANIM_INDEX,
       },
     },
     {
@@ -122,7 +122,7 @@ static constexpr animation::animation_evolution_data_t min_dm_evol_data_table[] 
 
       .num_animation_indices = 1,
       .animation_indices ={
-        DM_MONZAEMON_ANIM_INDEX,
+        MIN_DM_MONZAEMON_ANIM_INDEX,
       },
     },
     {
