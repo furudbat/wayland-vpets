@@ -635,7 +635,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           // dm20
           init_all_dm20_anim(ctx);
 #endif
-          for (size_t i = 0; i < MIN_DM_ANIM_COUNT; ++i) {
+          for (size_t i = 0; i < DM20_ANIM_COUNT; ++i) {
             patch_dm_anim(ctx.shm->dm20_anims[i].dm, {.sleep_in_bed = true});
           }
         }
@@ -648,7 +648,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 #endif
         }
         if constexpr (features::EnablePenEmbeddedAssets) {
-          BONGOCAT_LOG_INFO("Init pen sprite sheets: %d", PEN20_ANIM_COUNT);
+          BONGOCAT_LOG_INFO("Init pen sprite sheets: %d", PEN_ANIM_COUNT);
           ctx.shm->pen_anims = platform::make_allocated_mmap_array<animation_t>(PEN_ANIM_COUNT);
 #ifdef FEATURE_PEN_EMBEDDED_ASSETS
           // pen
