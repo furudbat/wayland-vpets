@@ -15,7 +15,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_AERO_V_DRAMON_FQID_LEN = sizeof(PEN20_AERO_V_DRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_AERO_V_DRAMON_ID_ARR[] CONFIG_STRING_SECTION = "aero_v_dramon";
     inline static constexpr const char* PEN20_AERO_V_DRAMON_ID = PEN20_AERO_V_DRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_AERO_V_DRAMON_ID_LEN = sizeof(PEN20_AERO_V_DRAMON_ID)-1;
+    inline static constexpr size_t PEN20_AERO_V_DRAMON_ID_LEN = sizeof(PEN20_AERO_V_DRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_AERO_V_DRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Aero V-dramon";
     inline static constexpr const char* PEN20_AERO_V_DRAMON_NAME = PEN20_AERO_V_DRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_AERO_V_DRAMON_NAME_LEN = sizeof(PEN20_AERO_V_DRAMON_NAME_ARR)-1;
@@ -33,7 +33,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_AGUMON_HAKASE_FQID_LEN = sizeof(PEN20_AGUMON_HAKASE_FQID_ARR)-1;
     inline static constexpr char PEN20_AGUMON_HAKASE_ID_ARR[] CONFIG_STRING_SECTION = "agumon_hakase";
     inline static constexpr const char* PEN20_AGUMON_HAKASE_ID = PEN20_AGUMON_HAKASE_ID_ARR;
-    inline static constexpr size_t PEN20_AGUMON_HAKASE_ID_LEN = sizeof(PEN20_AGUMON_HAKASE_ID)-1;
+    inline static constexpr size_t PEN20_AGUMON_HAKASE_ID_LEN = sizeof(PEN20_AGUMON_HAKASE_ID_ARR)-1;
     inline static constexpr char PEN20_AGUMON_HAKASE_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon Hakase";
     inline static constexpr const char* PEN20_AGUMON_HAKASE_NAME = PEN20_AGUMON_HAKASE_NAME_ARR;
     inline static constexpr size_t PEN20_AGUMON_HAKASE_NAME_LEN = sizeof(PEN20_AGUMON_HAKASE_NAME_ARR)-1;
@@ -51,7 +51,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_AGUMON_FQID_LEN = sizeof(PEN20_AGUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_AGUMON_ID_ARR[] CONFIG_STRING_SECTION = "agumon";
     inline static constexpr const char* PEN20_AGUMON_ID = PEN20_AGUMON_ID_ARR;
-    inline static constexpr size_t PEN20_AGUMON_ID_LEN = sizeof(PEN20_AGUMON_ID)-1;
+    inline static constexpr size_t PEN20_AGUMON_ID_LEN = sizeof(PEN20_AGUMON_ID_ARR)-1;
     inline static constexpr char PEN20_AGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon";
     inline static constexpr const char* PEN20_AGUMON_NAME = PEN20_AGUMON_NAME_ARR;
     inline static constexpr size_t PEN20_AGUMON_NAME_LEN = sizeof(PEN20_AGUMON_NAME_ARR)-1;
@@ -69,7 +69,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ALPHAMON_OURYUKEN_FQID_LEN = sizeof(PEN20_ALPHAMON_OURYUKEN_FQID_ARR)-1;
     inline static constexpr char PEN20_ALPHAMON_OURYUKEN_ID_ARR[] CONFIG_STRING_SECTION = "alphamon_ouryuken";
     inline static constexpr const char* PEN20_ALPHAMON_OURYUKEN_ID = PEN20_ALPHAMON_OURYUKEN_ID_ARR;
-    inline static constexpr size_t PEN20_ALPHAMON_OURYUKEN_ID_LEN = sizeof(PEN20_ALPHAMON_OURYUKEN_ID)-1;
+    inline static constexpr size_t PEN20_ALPHAMON_OURYUKEN_ID_LEN = sizeof(PEN20_ALPHAMON_OURYUKEN_ID_ARR)-1;
     inline static constexpr char PEN20_ALPHAMON_OURYUKEN_NAME_ARR[] CONFIG_STRING_SECTION = "Alphamon Ouryuken";
     inline static constexpr const char* PEN20_ALPHAMON_OURYUKEN_NAME = PEN20_ALPHAMON_OURYUKEN_NAME_ARR;
     inline static constexpr size_t PEN20_ALPHAMON_OURYUKEN_NAME_LEN = sizeof(PEN20_ALPHAMON_OURYUKEN_NAME_ARR)-1;
@@ -87,7 +87,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ALPHAMON_FQID_LEN = sizeof(PEN20_ALPHAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ALPHAMON_ID_ARR[] CONFIG_STRING_SECTION = "alphamon";
     inline static constexpr const char* PEN20_ALPHAMON_ID = PEN20_ALPHAMON_ID_ARR;
-    inline static constexpr size_t PEN20_ALPHAMON_ID_LEN = sizeof(PEN20_ALPHAMON_ID)-1;
+    inline static constexpr size_t PEN20_ALPHAMON_ID_LEN = sizeof(PEN20_ALPHAMON_ID_ARR)-1;
     inline static constexpr char PEN20_ALPHAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Alphamon";
     inline static constexpr const char* PEN20_ALPHAMON_NAME = PEN20_ALPHAMON_NAME_ARR;
     inline static constexpr size_t PEN20_ALPHAMON_NAME_LEN = sizeof(PEN20_ALPHAMON_NAME_ARR)-1;
@@ -105,7 +105,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANDIRAMON_FQID_LEN = sizeof(PEN20_ANDIRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ANDIRAMON_ID_ARR[] CONFIG_STRING_SECTION = "andiramon";
     inline static constexpr const char* PEN20_ANDIRAMON_ID = PEN20_ANDIRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_ANDIRAMON_ID_LEN = sizeof(PEN20_ANDIRAMON_ID)-1;
+    inline static constexpr size_t PEN20_ANDIRAMON_ID_LEN = sizeof(PEN20_ANDIRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_ANDIRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Andiramon";
     inline static constexpr const char* PEN20_ANDIRAMON_NAME = PEN20_ANDIRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_ANDIRAMON_NAME_LEN = sizeof(PEN20_ANDIRAMON_NAME_ARR)-1;
@@ -123,7 +123,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANDROMON_FQID_LEN = sizeof(PEN20_ANDROMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ANDROMON_ID_ARR[] CONFIG_STRING_SECTION = "andromon";
     inline static constexpr const char* PEN20_ANDROMON_ID = PEN20_ANDROMON_ID_ARR;
-    inline static constexpr size_t PEN20_ANDROMON_ID_LEN = sizeof(PEN20_ANDROMON_ID)-1;
+    inline static constexpr size_t PEN20_ANDROMON_ID_LEN = sizeof(PEN20_ANDROMON_ID_ARR)-1;
     inline static constexpr char PEN20_ANDROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Andromon";
     inline static constexpr const char* PEN20_ANDROMON_NAME = PEN20_ANDROMON_NAME_ARR;
     inline static constexpr size_t PEN20_ANDROMON_NAME_LEN = sizeof(PEN20_ANDROMON_NAME_ARR)-1;
@@ -141,7 +141,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANGEMON_FQID_LEN = sizeof(PEN20_ANGEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ANGEMON_ID_ARR[] CONFIG_STRING_SECTION = "angemon";
     inline static constexpr const char* PEN20_ANGEMON_ID = PEN20_ANGEMON_ID_ARR;
-    inline static constexpr size_t PEN20_ANGEMON_ID_LEN = sizeof(PEN20_ANGEMON_ID)-1;
+    inline static constexpr size_t PEN20_ANGEMON_ID_LEN = sizeof(PEN20_ANGEMON_ID_ARR)-1;
     inline static constexpr char PEN20_ANGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Angemon";
     inline static constexpr const char* PEN20_ANGEMON_NAME = PEN20_ANGEMON_NAME_ARR;
     inline static constexpr size_t PEN20_ANGEMON_NAME_LEN = sizeof(PEN20_ANGEMON_NAME_ARR)-1;
@@ -159,7 +159,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANGEWOMON_FQID_LEN = sizeof(PEN20_ANGEWOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ANGEWOMON_ID_ARR[] CONFIG_STRING_SECTION = "angewomon";
     inline static constexpr const char* PEN20_ANGEWOMON_ID = PEN20_ANGEWOMON_ID_ARR;
-    inline static constexpr size_t PEN20_ANGEWOMON_ID_LEN = sizeof(PEN20_ANGEWOMON_ID)-1;
+    inline static constexpr size_t PEN20_ANGEWOMON_ID_LEN = sizeof(PEN20_ANGEWOMON_ID_ARR)-1;
     inline static constexpr char PEN20_ANGEWOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Angewomon";
     inline static constexpr const char* PEN20_ANGEWOMON_NAME = PEN20_ANGEWOMON_NAME_ARR;
     inline static constexpr size_t PEN20_ANGEWOMON_NAME_LEN = sizeof(PEN20_ANGEWOMON_NAME_ARR)-1;
@@ -177,7 +177,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ANOMALOCARIMON_FQID_LEN = sizeof(PEN20_ANOMALOCARIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ANOMALOCARIMON_ID_ARR[] CONFIG_STRING_SECTION = "anomalocarimon";
     inline static constexpr const char* PEN20_ANOMALOCARIMON_ID = PEN20_ANOMALOCARIMON_ID_ARR;
-    inline static constexpr size_t PEN20_ANOMALOCARIMON_ID_LEN = sizeof(PEN20_ANOMALOCARIMON_ID)-1;
+    inline static constexpr size_t PEN20_ANOMALOCARIMON_ID_LEN = sizeof(PEN20_ANOMALOCARIMON_ID_ARR)-1;
     inline static constexpr char PEN20_ANOMALOCARIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Anomalocarimon";
     inline static constexpr const char* PEN20_ANOMALOCARIMON_NAME = PEN20_ANOMALOCARIMON_NAME_ARR;
     inline static constexpr size_t PEN20_ANOMALOCARIMON_NAME_LEN = sizeof(PEN20_ANOMALOCARIMON_NAME_ARR)-1;
@@ -195,7 +195,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ARRESTERDRAMON_FQID_LEN = sizeof(PEN20_ARRESTERDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ARRESTERDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "arresterdramon";
     inline static constexpr const char* PEN20_ARRESTERDRAMON_ID = PEN20_ARRESTERDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_ARRESTERDRAMON_ID_LEN = sizeof(PEN20_ARRESTERDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_ARRESTERDRAMON_ID_LEN = sizeof(PEN20_ARRESTERDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_ARRESTERDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Arresterdramon";
     inline static constexpr const char* PEN20_ARRESTERDRAMON_NAME = PEN20_ARRESTERDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_ARRESTERDRAMON_NAME_LEN = sizeof(PEN20_ARRESTERDRAMON_NAME_ARR)-1;
@@ -213,7 +213,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ASTAMON_FQID_LEN = sizeof(PEN20_ASTAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ASTAMON_ID_ARR[] CONFIG_STRING_SECTION = "astamon";
     inline static constexpr const char* PEN20_ASTAMON_ID = PEN20_ASTAMON_ID_ARR;
-    inline static constexpr size_t PEN20_ASTAMON_ID_LEN = sizeof(PEN20_ASTAMON_ID)-1;
+    inline static constexpr size_t PEN20_ASTAMON_ID_LEN = sizeof(PEN20_ASTAMON_ID_ARR)-1;
     inline static constexpr char PEN20_ASTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Astamon";
     inline static constexpr const char* PEN20_ASTAMON_NAME = PEN20_ASTAMON_NAME_ARR;
     inline static constexpr size_t PEN20_ASTAMON_NAME_LEN = sizeof(PEN20_ASTAMON_NAME_ARR)-1;
@@ -231,7 +231,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ASURAMON_FQID_LEN = sizeof(PEN20_ASURAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ASURAMON_ID_ARR[] CONFIG_STRING_SECTION = "asuramon";
     inline static constexpr const char* PEN20_ASURAMON_ID = PEN20_ASURAMON_ID_ARR;
-    inline static constexpr size_t PEN20_ASURAMON_ID_LEN = sizeof(PEN20_ASURAMON_ID)-1;
+    inline static constexpr size_t PEN20_ASURAMON_ID_LEN = sizeof(PEN20_ASURAMON_ID_ARR)-1;
     inline static constexpr char PEN20_ASURAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Asuramon";
     inline static constexpr const char* PEN20_ASURAMON_NAME = PEN20_ASURAMON_NAME_ARR;
     inline static constexpr size_t PEN20_ASURAMON_NAME_LEN = sizeof(PEN20_ASURAMON_NAME_ARR)-1;
@@ -249,7 +249,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ATLUR_KABUTERIMON_FQID_LEN = sizeof(PEN20_ATLUR_KABUTERIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ATLUR_KABUTERIMON_ID_ARR[] CONFIG_STRING_SECTION = "atlur_kabuterimon";
     inline static constexpr const char* PEN20_ATLUR_KABUTERIMON_ID = PEN20_ATLUR_KABUTERIMON_ID_ARR;
-    inline static constexpr size_t PEN20_ATLUR_KABUTERIMON_ID_LEN = sizeof(PEN20_ATLUR_KABUTERIMON_ID)-1;
+    inline static constexpr size_t PEN20_ATLUR_KABUTERIMON_ID_LEN = sizeof(PEN20_ATLUR_KABUTERIMON_ID_ARR)-1;
     inline static constexpr char PEN20_ATLUR_KABUTERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Atlur Kabuterimon";
     inline static constexpr const char* PEN20_ATLUR_KABUTERIMON_NAME = PEN20_ATLUR_KABUTERIMON_NAME_ARR;
     inline static constexpr size_t PEN20_ATLUR_KABUTERIMON_NAME_LEN = sizeof(PEN20_ATLUR_KABUTERIMON_NAME_ARR)-1;
@@ -267,7 +267,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BAALMON_FQID_LEN = sizeof(PEN20_BAALMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BAALMON_ID_ARR[] CONFIG_STRING_SECTION = "baalmon";
     inline static constexpr const char* PEN20_BAALMON_ID = PEN20_BAALMON_ID_ARR;
-    inline static constexpr size_t PEN20_BAALMON_ID_LEN = sizeof(PEN20_BAALMON_ID)-1;
+    inline static constexpr size_t PEN20_BAALMON_ID_LEN = sizeof(PEN20_BAALMON_ID_ARR)-1;
     inline static constexpr char PEN20_BAALMON_NAME_ARR[] CONFIG_STRING_SECTION = "Baalmon";
     inline static constexpr const char* PEN20_BAALMON_NAME = PEN20_BAALMON_NAME_ARR;
     inline static constexpr size_t PEN20_BAALMON_NAME_LEN = sizeof(PEN20_BAALMON_NAME_ARR)-1;
@@ -285,7 +285,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BAKEMON_FQID_LEN = sizeof(PEN20_BAKEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BAKEMON_ID_ARR[] CONFIG_STRING_SECTION = "bakemon";
     inline static constexpr const char* PEN20_BAKEMON_ID = PEN20_BAKEMON_ID_ARR;
-    inline static constexpr size_t PEN20_BAKEMON_ID_LEN = sizeof(PEN20_BAKEMON_ID)-1;
+    inline static constexpr size_t PEN20_BAKEMON_ID_LEN = sizeof(PEN20_BAKEMON_ID_ARR)-1;
     inline static constexpr char PEN20_BAKEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bakemon";
     inline static constexpr const char* PEN20_BAKEMON_NAME = PEN20_BAKEMON_NAME_ARR;
     inline static constexpr size_t PEN20_BAKEMON_NAME_LEN = sizeof(PEN20_BAKEMON_NAME_ARR)-1;
@@ -303,7 +303,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BAKUMON_FQID_LEN = sizeof(PEN20_BAKUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BAKUMON_ID_ARR[] CONFIG_STRING_SECTION = "bakumon";
     inline static constexpr const char* PEN20_BAKUMON_ID = PEN20_BAKUMON_ID_ARR;
-    inline static constexpr size_t PEN20_BAKUMON_ID_LEN = sizeof(PEN20_BAKUMON_ID)-1;
+    inline static constexpr size_t PEN20_BAKUMON_ID_LEN = sizeof(PEN20_BAKUMON_ID_ARR)-1;
     inline static constexpr char PEN20_BAKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bakumon";
     inline static constexpr const char* PEN20_BAKUMON_NAME = PEN20_BAKUMON_NAME_ARR;
     inline static constexpr size_t PEN20_BAKUMON_NAME_LEN = sizeof(PEN20_BAKUMON_NAME_ARR)-1;
@@ -321,7 +321,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BANCHO_LEOMON_FQID_LEN = sizeof(PEN20_BANCHO_LEOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BANCHO_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "bancho_leomon";
     inline static constexpr const char* PEN20_BANCHO_LEOMON_ID = PEN20_BANCHO_LEOMON_ID_ARR;
-    inline static constexpr size_t PEN20_BANCHO_LEOMON_ID_LEN = sizeof(PEN20_BANCHO_LEOMON_ID)-1;
+    inline static constexpr size_t PEN20_BANCHO_LEOMON_ID_LEN = sizeof(PEN20_BANCHO_LEOMON_ID_ARR)-1;
     inline static constexpr char PEN20_BANCHO_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bancho Leomon";
     inline static constexpr const char* PEN20_BANCHO_LEOMON_NAME = PEN20_BANCHO_LEOMON_NAME_ARR;
     inline static constexpr size_t PEN20_BANCHO_LEOMON_NAME_LEN = sizeof(PEN20_BANCHO_LEOMON_NAME_ARR)-1;
@@ -339,7 +339,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BAO_HACKMON_FQID_LEN = sizeof(PEN20_BAO_HACKMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BAO_HACKMON_ID_ARR[] CONFIG_STRING_SECTION = "bao_hackmon";
     inline static constexpr const char* PEN20_BAO_HACKMON_ID = PEN20_BAO_HACKMON_ID_ARR;
-    inline static constexpr size_t PEN20_BAO_HACKMON_ID_LEN = sizeof(PEN20_BAO_HACKMON_ID)-1;
+    inline static constexpr size_t PEN20_BAO_HACKMON_ID_LEN = sizeof(PEN20_BAO_HACKMON_ID_ARR)-1;
     inline static constexpr char PEN20_BAO_HACKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bao Hackmon";
     inline static constexpr const char* PEN20_BAO_HACKMON_NAME = PEN20_BAO_HACKMON_NAME_ARR;
     inline static constexpr size_t PEN20_BAO_HACKMON_NAME_LEN = sizeof(PEN20_BAO_HACKMON_NAME_ARR)-1;
@@ -357,7 +357,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BEELZEBUMON_BLAST_MODE_FQID_LEN = sizeof(PEN20_BEELZEBUMON_BLAST_MODE_FQID_ARR)-1;
     inline static constexpr char PEN20_BEELZEBUMON_BLAST_MODE_ID_ARR[] CONFIG_STRING_SECTION = "beelzebumon_blast_mode";
     inline static constexpr const char* PEN20_BEELZEBUMON_BLAST_MODE_ID = PEN20_BEELZEBUMON_BLAST_MODE_ID_ARR;
-    inline static constexpr size_t PEN20_BEELZEBUMON_BLAST_MODE_ID_LEN = sizeof(PEN20_BEELZEBUMON_BLAST_MODE_ID)-1;
+    inline static constexpr size_t PEN20_BEELZEBUMON_BLAST_MODE_ID_LEN = sizeof(PEN20_BEELZEBUMON_BLAST_MODE_ID_ARR)-1;
     inline static constexpr char PEN20_BEELZEBUMON_BLAST_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Beelzebumon Blast Mode";
     inline static constexpr const char* PEN20_BEELZEBUMON_BLAST_MODE_NAME = PEN20_BEELZEBUMON_BLAST_MODE_NAME_ARR;
     inline static constexpr size_t PEN20_BEELZEBUMON_BLAST_MODE_NAME_LEN = sizeof(PEN20_BEELZEBUMON_BLAST_MODE_NAME_ARR)-1;
@@ -375,7 +375,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BEOWOLFMON_FQID_LEN = sizeof(PEN20_BEOWOLFMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BEOWOLFMON_ID_ARR[] CONFIG_STRING_SECTION = "beowolfmon";
     inline static constexpr const char* PEN20_BEOWOLFMON_ID = PEN20_BEOWOLFMON_ID_ARR;
-    inline static constexpr size_t PEN20_BEOWOLFMON_ID_LEN = sizeof(PEN20_BEOWOLFMON_ID)-1;
+    inline static constexpr size_t PEN20_BEOWOLFMON_ID_LEN = sizeof(PEN20_BEOWOLFMON_ID_ARR)-1;
     inline static constexpr char PEN20_BEOWOLFMON_NAME_ARR[] CONFIG_STRING_SECTION = "Beowolfmon";
     inline static constexpr const char* PEN20_BEOWOLFMON_NAME = PEN20_BEOWOLFMON_NAME_ARR;
     inline static constexpr size_t PEN20_BEOWOLFMON_NAME_LEN = sizeof(PEN20_BEOWOLFMON_NAME_ARR)-1;
@@ -393,7 +393,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BEOWULFMON_FQID_LEN = sizeof(PEN20_BEOWULFMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BEOWULFMON_ID_ARR[] CONFIG_STRING_SECTION = "beowulfmon";
     inline static constexpr const char* PEN20_BEOWULFMON_ID = PEN20_BEOWULFMON_ID_ARR;
-    inline static constexpr size_t PEN20_BEOWULFMON_ID_LEN = sizeof(PEN20_BEOWULFMON_ID)-1;
+    inline static constexpr size_t PEN20_BEOWULFMON_ID_LEN = sizeof(PEN20_BEOWULFMON_ID_ARR)-1;
     inline static constexpr char PEN20_BEOWULFMON_NAME_ARR[] CONFIG_STRING_SECTION = "Beowulfmon";
     inline static constexpr const char* PEN20_BEOWULFMON_NAME = PEN20_BEOWULFMON_NAME_ARR;
     inline static constexpr size_t PEN20_BEOWULFMON_NAME_LEN = sizeof(PEN20_BEOWULFMON_NAME_ARR)-1;
@@ -411,7 +411,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BIG_MAMEMON_FQID_LEN = sizeof(PEN20_BIG_MAMEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BIG_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "big_mamemon";
     inline static constexpr const char* PEN20_BIG_MAMEMON_ID = PEN20_BIG_MAMEMON_ID_ARR;
-    inline static constexpr size_t PEN20_BIG_MAMEMON_ID_LEN = sizeof(PEN20_BIG_MAMEMON_ID)-1;
+    inline static constexpr size_t PEN20_BIG_MAMEMON_ID_LEN = sizeof(PEN20_BIG_MAMEMON_ID_ARR)-1;
     inline static constexpr char PEN20_BIG_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Big Mamemon";
     inline static constexpr const char* PEN20_BIG_MAMEMON_NAME = PEN20_BIG_MAMEMON_NAME_ARR;
     inline static constexpr size_t PEN20_BIG_MAMEMON_NAME_LEN = sizeof(PEN20_BIG_MAMEMON_NAME_ARR)-1;
@@ -429,7 +429,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BIRDRAMON_FQID_LEN = sizeof(PEN20_BIRDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BIRDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "birdramon";
     inline static constexpr const char* PEN20_BIRDRAMON_ID = PEN20_BIRDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_BIRDRAMON_ID_LEN = sizeof(PEN20_BIRDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_BIRDRAMON_ID_LEN = sizeof(PEN20_BIRDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_BIRDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Birdramon";
     inline static constexpr const char* PEN20_BIRDRAMON_NAME = PEN20_BIRDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_BIRDRAMON_NAME_LEN = sizeof(PEN20_BIRDRAMON_NAME_ARR)-1;
@@ -447,7 +447,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BLOSSOMON_FQID_LEN = sizeof(PEN20_BLOSSOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BLOSSOMON_ID_ARR[] CONFIG_STRING_SECTION = "blossomon";
     inline static constexpr const char* PEN20_BLOSSOMON_ID = PEN20_BLOSSOMON_ID_ARR;
-    inline static constexpr size_t PEN20_BLOSSOMON_ID_LEN = sizeof(PEN20_BLOSSOMON_ID)-1;
+    inline static constexpr size_t PEN20_BLOSSOMON_ID_LEN = sizeof(PEN20_BLOSSOMON_ID_ARR)-1;
     inline static constexpr char PEN20_BLOSSOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Blossomon";
     inline static constexpr const char* PEN20_BLOSSOMON_NAME = PEN20_BLOSSOMON_NAME_ARR;
     inline static constexpr size_t PEN20_BLOSSOMON_NAME_LEN = sizeof(PEN20_BLOSSOMON_NAME_ARR)-1;
@@ -465,7 +465,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BOLTMON_FQID_LEN = sizeof(PEN20_BOLTMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BOLTMON_ID_ARR[] CONFIG_STRING_SECTION = "boltmon";
     inline static constexpr const char* PEN20_BOLTMON_ID = PEN20_BOLTMON_ID_ARR;
-    inline static constexpr size_t PEN20_BOLTMON_ID_LEN = sizeof(PEN20_BOLTMON_ID)-1;
+    inline static constexpr size_t PEN20_BOLTMON_ID_LEN = sizeof(PEN20_BOLTMON_ID_ARR)-1;
     inline static constexpr char PEN20_BOLTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Boltmon";
     inline static constexpr const char* PEN20_BOLTMON_NAME = PEN20_BOLTMON_NAME_ARR;
     inline static constexpr size_t PEN20_BOLTMON_NAME_LEN = sizeof(PEN20_BOLTMON_NAME_ARR)-1;
@@ -483,7 +483,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BOTAMON_FQID_LEN = sizeof(PEN20_BOTAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BOTAMON_ID_ARR[] CONFIG_STRING_SECTION = "botamon";
     inline static constexpr const char* PEN20_BOTAMON_ID = PEN20_BOTAMON_ID_ARR;
-    inline static constexpr size_t PEN20_BOTAMON_ID_LEN = sizeof(PEN20_BOTAMON_ID)-1;
+    inline static constexpr size_t PEN20_BOTAMON_ID_LEN = sizeof(PEN20_BOTAMON_ID_ARR)-1;
     inline static constexpr char PEN20_BOTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Botamon";
     inline static constexpr const char* PEN20_BOTAMON_NAME = PEN20_BOTAMON_NAME_ARR;
     inline static constexpr size_t PEN20_BOTAMON_NAME_LEN = sizeof(PEN20_BOTAMON_NAME_ARR)-1;
@@ -501,7 +501,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BREAKDRAMON_FQID_LEN = sizeof(PEN20_BREAKDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BREAKDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "breakdramon";
     inline static constexpr const char* PEN20_BREAKDRAMON_ID = PEN20_BREAKDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_BREAKDRAMON_ID_LEN = sizeof(PEN20_BREAKDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_BREAKDRAMON_ID_LEN = sizeof(PEN20_BREAKDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_BREAKDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Breakdramon";
     inline static constexpr const char* PEN20_BREAKDRAMON_NAME = PEN20_BREAKDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_BREAKDRAMON_NAME_LEN = sizeof(PEN20_BREAKDRAMON_NAME_ARR)-1;
@@ -519,7 +519,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BRYWELUDRAMON_FQID_LEN = sizeof(PEN20_BRYWELUDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BRYWELUDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "bryweludramon";
     inline static constexpr const char* PEN20_BRYWELUDRAMON_ID = PEN20_BRYWELUDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_BRYWELUDRAMON_ID_LEN = sizeof(PEN20_BRYWELUDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_BRYWELUDRAMON_ID_LEN = sizeof(PEN20_BRYWELUDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_BRYWELUDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bryweludramon";
     inline static constexpr const char* PEN20_BRYWELUDRAMON_NAME = PEN20_BRYWELUDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_BRYWELUDRAMON_NAME_LEN = sizeof(PEN20_BRYWELUDRAMON_NAME_ARR)-1;
@@ -537,7 +537,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BUBBMON_FQID_LEN = sizeof(PEN20_BUBBMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BUBBMON_ID_ARR[] CONFIG_STRING_SECTION = "bubbmon";
     inline static constexpr const char* PEN20_BUBBMON_ID = PEN20_BUBBMON_ID_ARR;
-    inline static constexpr size_t PEN20_BUBBMON_ID_LEN = sizeof(PEN20_BUBBMON_ID)-1;
+    inline static constexpr size_t PEN20_BUBBMON_ID_LEN = sizeof(PEN20_BUBBMON_ID_ARR)-1;
     inline static constexpr char PEN20_BUBBMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bubbmon";
     inline static constexpr const char* PEN20_BUBBMON_NAME = PEN20_BUBBMON_NAME_ARR;
     inline static constexpr size_t PEN20_BUBBMON_NAME_LEN = sizeof(PEN20_BUBBMON_NAME_ARR)-1;
@@ -555,7 +555,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BUDMON_FQID_LEN = sizeof(PEN20_BUDMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BUDMON_ID_ARR[] CONFIG_STRING_SECTION = "budmon";
     inline static constexpr const char* PEN20_BUDMON_ID = PEN20_BUDMON_ID_ARR;
-    inline static constexpr size_t PEN20_BUDMON_ID_LEN = sizeof(PEN20_BUDMON_ID)-1;
+    inline static constexpr size_t PEN20_BUDMON_ID_LEN = sizeof(PEN20_BUDMON_ID_ARR)-1;
     inline static constexpr char PEN20_BUDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Budmon";
     inline static constexpr const char* PEN20_BUDMON_NAME = PEN20_BUDMON_NAME_ARR;
     inline static constexpr size_t PEN20_BUDMON_NAME_LEN = sizeof(PEN20_BUDMON_NAME_ARR)-1;
@@ -573,7 +573,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_BUSHI_AGUMON_FQID_LEN = sizeof(PEN20_BUSHI_AGUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_BUSHI_AGUMON_ID_ARR[] CONFIG_STRING_SECTION = "bushi_agumon";
     inline static constexpr const char* PEN20_BUSHI_AGUMON_ID = PEN20_BUSHI_AGUMON_ID_ARR;
-    inline static constexpr size_t PEN20_BUSHI_AGUMON_ID_LEN = sizeof(PEN20_BUSHI_AGUMON_ID)-1;
+    inline static constexpr size_t PEN20_BUSHI_AGUMON_ID_LEN = sizeof(PEN20_BUSHI_AGUMON_ID_ARR)-1;
     inline static constexpr char PEN20_BUSHI_AGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bushi Agumon";
     inline static constexpr const char* PEN20_BUSHI_AGUMON_NAME = PEN20_BUSHI_AGUMON_NAME_ARR;
     inline static constexpr size_t PEN20_BUSHI_AGUMON_NAME_LEN = sizeof(PEN20_BUSHI_AGUMON_NAME_ARR)-1;
@@ -591,7 +591,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CANDMON_FQID_LEN = sizeof(PEN20_CANDMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CANDMON_ID_ARR[] CONFIG_STRING_SECTION = "candmon";
     inline static constexpr const char* PEN20_CANDMON_ID = PEN20_CANDMON_ID_ARR;
-    inline static constexpr size_t PEN20_CANDMON_ID_LEN = sizeof(PEN20_CANDMON_ID)-1;
+    inline static constexpr size_t PEN20_CANDMON_ID_LEN = sizeof(PEN20_CANDMON_ID_ARR)-1;
     inline static constexpr char PEN20_CANDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Candmon";
     inline static constexpr const char* PEN20_CANDMON_NAME = PEN20_CANDMON_NAME_ARR;
     inline static constexpr size_t PEN20_CANDMON_NAME_LEN = sizeof(PEN20_CANDMON_NAME_ARR)-1;
@@ -609,7 +609,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CAPRIMON_FQID_LEN = sizeof(PEN20_CAPRIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CAPRIMON_ID_ARR[] CONFIG_STRING_SECTION = "caprimon";
     inline static constexpr const char* PEN20_CAPRIMON_ID = PEN20_CAPRIMON_ID_ARR;
-    inline static constexpr size_t PEN20_CAPRIMON_ID_LEN = sizeof(PEN20_CAPRIMON_ID)-1;
+    inline static constexpr size_t PEN20_CAPRIMON_ID_LEN = sizeof(PEN20_CAPRIMON_ID_ARR)-1;
     inline static constexpr char PEN20_CAPRIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Caprimon";
     inline static constexpr const char* PEN20_CAPRIMON_NAME = PEN20_CAPRIMON_NAME_ARR;
     inline static constexpr size_t PEN20_CAPRIMON_NAME_LEN = sizeof(PEN20_CAPRIMON_NAME_ARR)-1;
@@ -627,7 +627,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CHAOSMON_FQID_LEN = sizeof(PEN20_CHAOSMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CHAOSMON_ID_ARR[] CONFIG_STRING_SECTION = "chaosmon";
     inline static constexpr const char* PEN20_CHAOSMON_ID = PEN20_CHAOSMON_ID_ARR;
-    inline static constexpr size_t PEN20_CHAOSMON_ID_LEN = sizeof(PEN20_CHAOSMON_ID)-1;
+    inline static constexpr size_t PEN20_CHAOSMON_ID_LEN = sizeof(PEN20_CHAOSMON_ID_ARR)-1;
     inline static constexpr char PEN20_CHAOSMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chaosmon";
     inline static constexpr const char* PEN20_CHAOSMON_NAME = PEN20_CHAOSMON_NAME_ARR;
     inline static constexpr size_t PEN20_CHAOSMON_NAME_LEN = sizeof(PEN20_CHAOSMON_NAME_ARR)-1;
@@ -645,7 +645,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CHERUBIMON_FQID_LEN = sizeof(PEN20_CHERUBIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CHERUBIMON_ID_ARR[] CONFIG_STRING_SECTION = "cherubimon";
     inline static constexpr const char* PEN20_CHERUBIMON_ID = PEN20_CHERUBIMON_ID_ARR;
-    inline static constexpr size_t PEN20_CHERUBIMON_ID_LEN = sizeof(PEN20_CHERUBIMON_ID)-1;
+    inline static constexpr size_t PEN20_CHERUBIMON_ID_LEN = sizeof(PEN20_CHERUBIMON_ID_ARR)-1;
     inline static constexpr char PEN20_CHERUBIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubimon";
     inline static constexpr const char* PEN20_CHERUBIMON_NAME = PEN20_CHERUBIMON_NAME_ARR;
     inline static constexpr size_t PEN20_CHERUBIMON_NAME_LEN = sizeof(PEN20_CHERUBIMON_NAME_ARR)-1;
@@ -663,7 +663,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CHIBIMON_FQID_LEN = sizeof(PEN20_CHIBIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CHIBIMON_ID_ARR[] CONFIG_STRING_SECTION = "chibimon";
     inline static constexpr const char* PEN20_CHIBIMON_ID = PEN20_CHIBIMON_ID_ARR;
-    inline static constexpr size_t PEN20_CHIBIMON_ID_LEN = sizeof(PEN20_CHIBIMON_ID)-1;
+    inline static constexpr size_t PEN20_CHIBIMON_ID_LEN = sizeof(PEN20_CHIBIMON_ID_ARR)-1;
     inline static constexpr char PEN20_CHIBIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chibimon";
     inline static constexpr const char* PEN20_CHIBIMON_NAME = PEN20_CHIBIMON_NAME_ARR;
     inline static constexpr size_t PEN20_CHIBIMON_NAME_LEN = sizeof(PEN20_CHIBIMON_NAME_ARR)-1;
@@ -681,7 +681,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CHICOMON_FQID_LEN = sizeof(PEN20_CHICOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CHICOMON_ID_ARR[] CONFIG_STRING_SECTION = "chicomon";
     inline static constexpr const char* PEN20_CHICOMON_ID = PEN20_CHICOMON_ID_ARR;
-    inline static constexpr size_t PEN20_CHICOMON_ID_LEN = sizeof(PEN20_CHICOMON_ID)-1;
+    inline static constexpr size_t PEN20_CHICOMON_ID_LEN = sizeof(PEN20_CHICOMON_ID_ARR)-1;
     inline static constexpr char PEN20_CHICOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chicomon";
     inline static constexpr const char* PEN20_CHICOMON_NAME = PEN20_CHICOMON_NAME_ARR;
     inline static constexpr size_t PEN20_CHICOMON_NAME_LEN = sizeof(PEN20_CHICOMON_NAME_ARR)-1;
@@ -699,7 +699,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CHOROMON_FQID_LEN = sizeof(PEN20_CHOROMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CHOROMON_ID_ARR[] CONFIG_STRING_SECTION = "choromon";
     inline static constexpr const char* PEN20_CHOROMON_ID = PEN20_CHOROMON_ID_ARR;
-    inline static constexpr size_t PEN20_CHOROMON_ID_LEN = sizeof(PEN20_CHOROMON_ID)-1;
+    inline static constexpr size_t PEN20_CHOROMON_ID_LEN = sizeof(PEN20_CHOROMON_ID_ARR)-1;
     inline static constexpr char PEN20_CHOROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Choromon";
     inline static constexpr const char* PEN20_CHOROMON_NAME = PEN20_CHOROMON_NAME_ARR;
     inline static constexpr size_t PEN20_CHOROMON_NAME_LEN = sizeof(PEN20_CHOROMON_NAME_ARR)-1;
@@ -717,7 +717,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CLOCKMON_FQID_LEN = sizeof(PEN20_CLOCKMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CLOCKMON_ID_ARR[] CONFIG_STRING_SECTION = "clockmon";
     inline static constexpr const char* PEN20_CLOCKMON_ID = PEN20_CLOCKMON_ID_ARR;
-    inline static constexpr size_t PEN20_CLOCKMON_ID_LEN = sizeof(PEN20_CLOCKMON_ID)-1;
+    inline static constexpr size_t PEN20_CLOCKMON_ID_LEN = sizeof(PEN20_CLOCKMON_ID_ARR)-1;
     inline static constexpr char PEN20_CLOCKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Clockmon";
     inline static constexpr const char* PEN20_CLOCKMON_NAME = PEN20_CLOCKMON_NAME_ARR;
     inline static constexpr size_t PEN20_CLOCKMON_NAME_LEN = sizeof(PEN20_CLOCKMON_NAME_ARR)-1;
@@ -735,7 +735,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_COCOMON_FQID_LEN = sizeof(PEN20_COCOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_COCOMON_ID_ARR[] CONFIG_STRING_SECTION = "cocomon";
     inline static constexpr const char* PEN20_COCOMON_ID = PEN20_COCOMON_ID_ARR;
-    inline static constexpr size_t PEN20_COCOMON_ID_LEN = sizeof(PEN20_COCOMON_ID)-1;
+    inline static constexpr size_t PEN20_COCOMON_ID_LEN = sizeof(PEN20_COCOMON_ID_ARR)-1;
     inline static constexpr char PEN20_COCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cocomon";
     inline static constexpr const char* PEN20_COCOMON_NAME = PEN20_COCOMON_NAME_ARR;
     inline static constexpr size_t PEN20_COCOMON_NAME_LEN = sizeof(PEN20_COCOMON_NAME_ARR)-1;
@@ -753,7 +753,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_COELAMON_FQID_LEN = sizeof(PEN20_COELAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_COELAMON_ID_ARR[] CONFIG_STRING_SECTION = "coelamon";
     inline static constexpr const char* PEN20_COELAMON_ID = PEN20_COELAMON_ID_ARR;
-    inline static constexpr size_t PEN20_COELAMON_ID_LEN = sizeof(PEN20_COELAMON_ID)-1;
+    inline static constexpr size_t PEN20_COELAMON_ID_LEN = sizeof(PEN20_COELAMON_ID_ARR)-1;
     inline static constexpr char PEN20_COELAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Coelamon";
     inline static constexpr const char* PEN20_COELAMON_NAME = PEN20_COELAMON_NAME_ARR;
     inline static constexpr size_t PEN20_COELAMON_NAME_LEN = sizeof(PEN20_COELAMON_NAME_ARR)-1;
@@ -771,7 +771,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_COREDRAMON_BLUE_FQID_LEN = sizeof(PEN20_COREDRAMON_BLUE_FQID_ARR)-1;
     inline static constexpr char PEN20_COREDRAMON_BLUE_ID_ARR[] CONFIG_STRING_SECTION = "coredramon_blue";
     inline static constexpr const char* PEN20_COREDRAMON_BLUE_ID = PEN20_COREDRAMON_BLUE_ID_ARR;
-    inline static constexpr size_t PEN20_COREDRAMON_BLUE_ID_LEN = sizeof(PEN20_COREDRAMON_BLUE_ID)-1;
+    inline static constexpr size_t PEN20_COREDRAMON_BLUE_ID_LEN = sizeof(PEN20_COREDRAMON_BLUE_ID_ARR)-1;
     inline static constexpr char PEN20_COREDRAMON_BLUE_NAME_ARR[] CONFIG_STRING_SECTION = "Coredramon (Blue)";
     inline static constexpr const char* PEN20_COREDRAMON_BLUE_NAME = PEN20_COREDRAMON_BLUE_NAME_ARR;
     inline static constexpr size_t PEN20_COREDRAMON_BLUE_NAME_LEN = sizeof(PEN20_COREDRAMON_BLUE_NAME_ARR)-1;
@@ -789,7 +789,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_COREDRAMON_GREEN_FQID_LEN = sizeof(PEN20_COREDRAMON_GREEN_FQID_ARR)-1;
     inline static constexpr char PEN20_COREDRAMON_GREEN_ID_ARR[] CONFIG_STRING_SECTION = "coredramon_green";
     inline static constexpr const char* PEN20_COREDRAMON_GREEN_ID = PEN20_COREDRAMON_GREEN_ID_ARR;
-    inline static constexpr size_t PEN20_COREDRAMON_GREEN_ID_LEN = sizeof(PEN20_COREDRAMON_GREEN_ID)-1;
+    inline static constexpr size_t PEN20_COREDRAMON_GREEN_ID_LEN = sizeof(PEN20_COREDRAMON_GREEN_ID_ARR)-1;
     inline static constexpr char PEN20_COREDRAMON_GREEN_NAME_ARR[] CONFIG_STRING_SECTION = "Coredramon (Green)";
     inline static constexpr const char* PEN20_COREDRAMON_GREEN_NAME = PEN20_COREDRAMON_GREEN_NAME_ARR;
     inline static constexpr size_t PEN20_COREDRAMON_GREEN_NAME_LEN = sizeof(PEN20_COREDRAMON_GREEN_NAME_ARR)-1;
@@ -807,7 +807,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_COTSUCOMON_FQID_LEN = sizeof(PEN20_COTSUCOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_COTSUCOMON_ID_ARR[] CONFIG_STRING_SECTION = "cotsucomon";
     inline static constexpr const char* PEN20_COTSUCOMON_ID = PEN20_COTSUCOMON_ID_ARR;
-    inline static constexpr size_t PEN20_COTSUCOMON_ID_LEN = sizeof(PEN20_COTSUCOMON_ID)-1;
+    inline static constexpr size_t PEN20_COTSUCOMON_ID_LEN = sizeof(PEN20_COTSUCOMON_ID_ARR)-1;
     inline static constexpr char PEN20_COTSUCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cotsucomon";
     inline static constexpr const char* PEN20_COTSUCOMON_NAME = PEN20_COTSUCOMON_NAME_ARR;
     inline static constexpr size_t PEN20_COTSUCOMON_NAME_LEN = sizeof(PEN20_COTSUCOMON_NAME_ARR)-1;
@@ -825,7 +825,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_CYBERDRAMON_FQID_LEN = sizeof(PEN20_CYBERDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_CYBERDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "cyberdramon";
     inline static constexpr const char* PEN20_CYBERDRAMON_ID = PEN20_CYBERDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_CYBERDRAMON_ID_LEN = sizeof(PEN20_CYBERDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_CYBERDRAMON_ID_LEN = sizeof(PEN20_CYBERDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_CYBERDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cyberdramon";
     inline static constexpr const char* PEN20_CYBERDRAMON_NAME = PEN20_CYBERDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_CYBERDRAMON_NAME_LEN = sizeof(PEN20_CYBERDRAMON_NAME_ARR)-1;
@@ -843,7 +843,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DAGOMON_FQID_LEN = sizeof(PEN20_DAGOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DAGOMON_ID_ARR[] CONFIG_STRING_SECTION = "dagomon";
     inline static constexpr const char* PEN20_DAGOMON_ID = PEN20_DAGOMON_ID_ARR;
-    inline static constexpr size_t PEN20_DAGOMON_ID_LEN = sizeof(PEN20_DAGOMON_ID)-1;
+    inline static constexpr size_t PEN20_DAGOMON_ID_LEN = sizeof(PEN20_DAGOMON_ID_ARR)-1;
     inline static constexpr char PEN20_DAGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dagomon";
     inline static constexpr const char* PEN20_DAGOMON_NAME = PEN20_DAGOMON_NAME_ARR;
     inline static constexpr size_t PEN20_DAGOMON_NAME_LEN = sizeof(PEN20_DAGOMON_NAME_ARR)-1;
@@ -861,7 +861,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DARKDRAMON_FQID_LEN = sizeof(PEN20_DARKDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DARKDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "darkdramon";
     inline static constexpr const char* PEN20_DARKDRAMON_ID = PEN20_DARKDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_DARKDRAMON_ID_LEN = sizeof(PEN20_DARKDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_DARKDRAMON_ID_LEN = sizeof(PEN20_DARKDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_DARKDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Darkdramon";
     inline static constexpr const char* PEN20_DARKDRAMON_NAME = PEN20_DARKDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_DARKDRAMON_NAME_LEN = sizeof(PEN20_DARKDRAMON_NAME_ARR)-1;
@@ -879,7 +879,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DARK_KNIGHTMON_FQID_LEN = sizeof(PEN20_DARK_KNIGHTMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DARK_KNIGHTMON_ID_ARR[] CONFIG_STRING_SECTION = "dark_knightmon";
     inline static constexpr const char* PEN20_DARK_KNIGHTMON_ID = PEN20_DARK_KNIGHTMON_ID_ARR;
-    inline static constexpr size_t PEN20_DARK_KNIGHTMON_ID_LEN = sizeof(PEN20_DARK_KNIGHTMON_ID)-1;
+    inline static constexpr size_t PEN20_DARK_KNIGHTMON_ID_LEN = sizeof(PEN20_DARK_KNIGHTMON_ID_ARR)-1;
     inline static constexpr char PEN20_DARK_KNIGHTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dark Knightmon";
     inline static constexpr const char* PEN20_DARK_KNIGHTMON_NAME = PEN20_DARK_KNIGHTMON_NAME_ARR;
     inline static constexpr size_t PEN20_DARK_KNIGHTMON_NAME_LEN = sizeof(PEN20_DARK_KNIGHTMON_NAME_ARR)-1;
@@ -897,7 +897,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DEATH_MERAMON_FQID_LEN = sizeof(PEN20_DEATH_MERAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DEATH_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "death_meramon";
     inline static constexpr const char* PEN20_DEATH_MERAMON_ID = PEN20_DEATH_MERAMON_ID_ARR;
-    inline static constexpr size_t PEN20_DEATH_MERAMON_ID_LEN = sizeof(PEN20_DEATH_MERAMON_ID)-1;
+    inline static constexpr size_t PEN20_DEATH_MERAMON_ID_LEN = sizeof(PEN20_DEATH_MERAMON_ID_ARR)-1;
     inline static constexpr char PEN20_DEATH_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Death Meramon";
     inline static constexpr const char* PEN20_DEATH_MERAMON_NAME = PEN20_DEATH_MERAMON_NAME_ARR;
     inline static constexpr size_t PEN20_DEATH_MERAMON_NAME_LEN = sizeof(PEN20_DEATH_MERAMON_NAME_ARR)-1;
@@ -915,7 +915,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DELUMON_FQID_LEN = sizeof(PEN20_DELUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DELUMON_ID_ARR[] CONFIG_STRING_SECTION = "delumon";
     inline static constexpr const char* PEN20_DELUMON_ID = PEN20_DELUMON_ID_ARR;
-    inline static constexpr size_t PEN20_DELUMON_ID_LEN = sizeof(PEN20_DELUMON_ID)-1;
+    inline static constexpr size_t PEN20_DELUMON_ID_LEN = sizeof(PEN20_DELUMON_ID_ARR)-1;
     inline static constexpr char PEN20_DELUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Delumon";
     inline static constexpr const char* PEN20_DELUMON_NAME = PEN20_DELUMON_NAME_ARR;
     inline static constexpr size_t PEN20_DELUMON_NAME_LEN = sizeof(PEN20_DELUMON_NAME_ARR)-1;
@@ -933,7 +933,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DEVIDRAMON_FQID_LEN = sizeof(PEN20_DEVIDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DEVIDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "devidramon";
     inline static constexpr const char* PEN20_DEVIDRAMON_ID = PEN20_DEVIDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_DEVIDRAMON_ID_LEN = sizeof(PEN20_DEVIDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_DEVIDRAMON_ID_LEN = sizeof(PEN20_DEVIDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_DEVIDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Devidramon";
     inline static constexpr const char* PEN20_DEVIDRAMON_NAME = PEN20_DEVIDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_DEVIDRAMON_NAME_LEN = sizeof(PEN20_DEVIDRAMON_NAME_ARR)-1;
@@ -951,7 +951,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DEVIMON_FQID_LEN = sizeof(PEN20_DEVIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "devimon";
     inline static constexpr const char* PEN20_DEVIMON_ID = PEN20_DEVIMON_ID_ARR;
-    inline static constexpr size_t PEN20_DEVIMON_ID_LEN = sizeof(PEN20_DEVIMON_ID)-1;
+    inline static constexpr size_t PEN20_DEVIMON_ID_LEN = sizeof(PEN20_DEVIMON_ID_ARR)-1;
     inline static constexpr char PEN20_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Devimon";
     inline static constexpr const char* PEN20_DEVIMON_NAME = PEN20_DEVIMON_NAME_ARR;
     inline static constexpr size_t PEN20_DEVIMON_NAME_LEN = sizeof(PEN20_DEVIMON_NAME_ARR)-1;
@@ -969,7 +969,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DOKUGUMON_FQID_LEN = sizeof(PEN20_DOKUGUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DOKUGUMON_ID_ARR[] CONFIG_STRING_SECTION = "dokugumon";
     inline static constexpr const char* PEN20_DOKUGUMON_ID = PEN20_DOKUGUMON_ID_ARR;
-    inline static constexpr size_t PEN20_DOKUGUMON_ID_LEN = sizeof(PEN20_DOKUGUMON_ID)-1;
+    inline static constexpr size_t PEN20_DOKUGUMON_ID_LEN = sizeof(PEN20_DOKUGUMON_ID_ARR)-1;
     inline static constexpr char PEN20_DOKUGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dokugumon";
     inline static constexpr const char* PEN20_DOKUGUMON_NAME = PEN20_DOKUGUMON_NAME_ARR;
     inline static constexpr size_t PEN20_DOKUGUMON_NAME_LEN = sizeof(PEN20_DOKUGUMON_NAME_ARR)-1;
@@ -987,7 +987,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DORIMON_FQID_LEN = sizeof(PEN20_DORIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DORIMON_ID_ARR[] CONFIG_STRING_SECTION = "dorimon";
     inline static constexpr const char* PEN20_DORIMON_ID = PEN20_DORIMON_ID_ARR;
-    inline static constexpr size_t PEN20_DORIMON_ID_LEN = sizeof(PEN20_DORIMON_ID)-1;
+    inline static constexpr size_t PEN20_DORIMON_ID_LEN = sizeof(PEN20_DORIMON_ID_ARR)-1;
     inline static constexpr char PEN20_DORIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dorimon";
     inline static constexpr const char* PEN20_DORIMON_NAME = PEN20_DORIMON_NAME_ARR;
     inline static constexpr size_t PEN20_DORIMON_NAME_LEN = sizeof(PEN20_DORIMON_NAME_ARR)-1;
@@ -1005,7 +1005,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DORUGAMON_FQID_LEN = sizeof(PEN20_DORUGAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DORUGAMON_ID_ARR[] CONFIG_STRING_SECTION = "dorugamon";
     inline static constexpr const char* PEN20_DORUGAMON_ID = PEN20_DORUGAMON_ID_ARR;
-    inline static constexpr size_t PEN20_DORUGAMON_ID_LEN = sizeof(PEN20_DORUGAMON_ID)-1;
+    inline static constexpr size_t PEN20_DORUGAMON_ID_LEN = sizeof(PEN20_DORUGAMON_ID_ARR)-1;
     inline static constexpr char PEN20_DORUGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUgamon";
     inline static constexpr const char* PEN20_DORUGAMON_NAME = PEN20_DORUGAMON_NAME_ARR;
     inline static constexpr size_t PEN20_DORUGAMON_NAME_LEN = sizeof(PEN20_DORUGAMON_NAME_ARR)-1;
@@ -1023,7 +1023,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DORUGORAMON_FQID_LEN = sizeof(PEN20_DORUGORAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DORUGORAMON_ID_ARR[] CONFIG_STRING_SECTION = "dorugoramon";
     inline static constexpr const char* PEN20_DORUGORAMON_ID = PEN20_DORUGORAMON_ID_ARR;
-    inline static constexpr size_t PEN20_DORUGORAMON_ID_LEN = sizeof(PEN20_DORUGORAMON_ID)-1;
+    inline static constexpr size_t PEN20_DORUGORAMON_ID_LEN = sizeof(PEN20_DORUGORAMON_ID_ARR)-1;
     inline static constexpr char PEN20_DORUGORAMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUgoramon";
     inline static constexpr const char* PEN20_DORUGORAMON_NAME = PEN20_DORUGORAMON_NAME_ARR;
     inline static constexpr size_t PEN20_DORUGORAMON_NAME_LEN = sizeof(PEN20_DORUGORAMON_NAME_ARR)-1;
@@ -1041,7 +1041,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DORUGUREMON_FQID_LEN = sizeof(PEN20_DORUGUREMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DORUGUREMON_ID_ARR[] CONFIG_STRING_SECTION = "doruguremon";
     inline static constexpr const char* PEN20_DORUGUREMON_ID = PEN20_DORUGUREMON_ID_ARR;
-    inline static constexpr size_t PEN20_DORUGUREMON_ID_LEN = sizeof(PEN20_DORUGUREMON_ID)-1;
+    inline static constexpr size_t PEN20_DORUGUREMON_ID_LEN = sizeof(PEN20_DORUGUREMON_ID_ARR)-1;
     inline static constexpr char PEN20_DORUGUREMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUguremon";
     inline static constexpr const char* PEN20_DORUGUREMON_NAME = PEN20_DORUGUREMON_NAME_ARR;
     inline static constexpr size_t PEN20_DORUGUREMON_NAME_LEN = sizeof(PEN20_DORUGUREMON_NAME_ARR)-1;
@@ -1059,7 +1059,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DORUMON_FQID_LEN = sizeof(PEN20_DORUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DORUMON_ID_ARR[] CONFIG_STRING_SECTION = "dorumon";
     inline static constexpr const char* PEN20_DORUMON_ID = PEN20_DORUMON_ID_ARR;
-    inline static constexpr size_t PEN20_DORUMON_ID_LEN = sizeof(PEN20_DORUMON_ID)-1;
+    inline static constexpr size_t PEN20_DORUMON_ID_LEN = sizeof(PEN20_DORUMON_ID_ARR)-1;
     inline static constexpr char PEN20_DORUMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUmon";
     inline static constexpr const char* PEN20_DORUMON_NAME = PEN20_DORUMON_NAME_ARR;
     inline static constexpr size_t PEN20_DORUMON_NAME_LEN = sizeof(PEN20_DORUMON_NAME_ARR)-1;
@@ -1077,7 +1077,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DRACOMON_FQID_LEN = sizeof(PEN20_DRACOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DRACOMON_ID_ARR[] CONFIG_STRING_SECTION = "dracomon";
     inline static constexpr const char* PEN20_DRACOMON_ID = PEN20_DRACOMON_ID_ARR;
-    inline static constexpr size_t PEN20_DRACOMON_ID_LEN = sizeof(PEN20_DRACOMON_ID)-1;
+    inline static constexpr size_t PEN20_DRACOMON_ID_LEN = sizeof(PEN20_DRACOMON_ID_ARR)-1;
     inline static constexpr char PEN20_DRACOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dracomon";
     inline static constexpr const char* PEN20_DRACOMON_NAME = PEN20_DRACOMON_NAME_ARR;
     inline static constexpr size_t PEN20_DRACOMON_NAME_LEN = sizeof(PEN20_DRACOMON_NAME_ARR)-1;
@@ -1095,7 +1095,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DURAMON_FQID_LEN = sizeof(PEN20_DURAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DURAMON_ID_ARR[] CONFIG_STRING_SECTION = "duramon";
     inline static constexpr const char* PEN20_DURAMON_ID = PEN20_DURAMON_ID_ARR;
-    inline static constexpr size_t PEN20_DURAMON_ID_LEN = sizeof(PEN20_DURAMON_ID)-1;
+    inline static constexpr size_t PEN20_DURAMON_ID_LEN = sizeof(PEN20_DURAMON_ID_ARR)-1;
     inline static constexpr char PEN20_DURAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Duramon";
     inline static constexpr const char* PEN20_DURAMON_NAME = PEN20_DURAMON_NAME_ARR;
     inline static constexpr size_t PEN20_DURAMON_NAME_LEN = sizeof(PEN20_DURAMON_NAME_ARR)-1;
@@ -1113,7 +1113,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_DURANDAMON_FQID_LEN = sizeof(PEN20_DURANDAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_DURANDAMON_ID_ARR[] CONFIG_STRING_SECTION = "durandamon";
     inline static constexpr const char* PEN20_DURANDAMON_ID = PEN20_DURANDAMON_ID_ARR;
-    inline static constexpr size_t PEN20_DURANDAMON_ID_LEN = sizeof(PEN20_DURANDAMON_ID)-1;
+    inline static constexpr size_t PEN20_DURANDAMON_ID_LEN = sizeof(PEN20_DURANDAMON_ID_ARR)-1;
     inline static constexpr char PEN20_DURANDAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Durandamon";
     inline static constexpr const char* PEN20_DURANDAMON_NAME = PEN20_DURANDAMON_NAME_ARR;
     inline static constexpr size_t PEN20_DURANDAMON_NAME_LEN = sizeof(PEN20_DURANDAMON_NAME_ARR)-1;
@@ -1131,7 +1131,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_EBIDRAMON_FQID_LEN = sizeof(PEN20_EBIDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_EBIDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "ebidramon";
     inline static constexpr const char* PEN20_EBIDRAMON_ID = PEN20_EBIDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_EBIDRAMON_ID_LEN = sizeof(PEN20_EBIDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_EBIDRAMON_ID_LEN = sizeof(PEN20_EBIDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_EBIDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ebidramon";
     inline static constexpr const char* PEN20_EBIDRAMON_NAME = PEN20_EBIDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_EBIDRAMON_NAME_LEN = sizeof(PEN20_EBIDRAMON_NAME_ARR)-1;
@@ -1149,7 +1149,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ETEMON_FQID_LEN = sizeof(PEN20_ETEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ETEMON_ID_ARR[] CONFIG_STRING_SECTION = "etemon";
     inline static constexpr const char* PEN20_ETEMON_ID = PEN20_ETEMON_ID_ARR;
-    inline static constexpr size_t PEN20_ETEMON_ID_LEN = sizeof(PEN20_ETEMON_ID)-1;
+    inline static constexpr size_t PEN20_ETEMON_ID_LEN = sizeof(PEN20_ETEMON_ID_ARR)-1;
     inline static constexpr char PEN20_ETEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Etemon";
     inline static constexpr const char* PEN20_ETEMON_NAME = PEN20_ETEMON_NAME_ARR;
     inline static constexpr size_t PEN20_ETEMON_NAME_LEN = sizeof(PEN20_ETEMON_NAME_ARR)-1;
@@ -1167,7 +1167,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_EXAMON_FQID_LEN = sizeof(PEN20_EXAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_EXAMON_ID_ARR[] CONFIG_STRING_SECTION = "examon";
     inline static constexpr const char* PEN20_EXAMON_ID = PEN20_EXAMON_ID_ARR;
-    inline static constexpr size_t PEN20_EXAMON_ID_LEN = sizeof(PEN20_EXAMON_ID)-1;
+    inline static constexpr size_t PEN20_EXAMON_ID_LEN = sizeof(PEN20_EXAMON_ID_ARR)-1;
     inline static constexpr char PEN20_EXAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Examon";
     inline static constexpr const char* PEN20_EXAMON_NAME = PEN20_EXAMON_NAME_ARR;
     inline static constexpr size_t PEN20_EXAMON_NAME_LEN = sizeof(PEN20_EXAMON_NAME_ARR)-1;
@@ -1185,7 +1185,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_FANTOMON_FQID_LEN = sizeof(PEN20_FANTOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_FANTOMON_ID_ARR[] CONFIG_STRING_SECTION = "fantomon";
     inline static constexpr const char* PEN20_FANTOMON_ID = PEN20_FANTOMON_ID_ARR;
-    inline static constexpr size_t PEN20_FANTOMON_ID_LEN = sizeof(PEN20_FANTOMON_ID)-1;
+    inline static constexpr size_t PEN20_FANTOMON_ID_LEN = sizeof(PEN20_FANTOMON_ID_ARR)-1;
     inline static constexpr char PEN20_FANTOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Fantomon";
     inline static constexpr const char* PEN20_FANTOMON_NAME = PEN20_FANTOMON_NAME_ARR;
     inline static constexpr size_t PEN20_FANTOMON_NAME_LEN = sizeof(PEN20_FANTOMON_NAME_ARR)-1;
@@ -1203,7 +1203,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_FLORAMON_FQID_LEN = sizeof(PEN20_FLORAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_FLORAMON_ID_ARR[] CONFIG_STRING_SECTION = "floramon";
     inline static constexpr const char* PEN20_FLORAMON_ID = PEN20_FLORAMON_ID_ARR;
-    inline static constexpr size_t PEN20_FLORAMON_ID_LEN = sizeof(PEN20_FLORAMON_ID)-1;
+    inline static constexpr size_t PEN20_FLORAMON_ID_LEN = sizeof(PEN20_FLORAMON_ID_ARR)-1;
     inline static constexpr char PEN20_FLORAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Floramon";
     inline static constexpr const char* PEN20_FLORAMON_NAME = PEN20_FLORAMON_NAME_ARR;
     inline static constexpr size_t PEN20_FLORAMON_NAME_LEN = sizeof(PEN20_FLORAMON_NAME_ARR)-1;
@@ -1221,7 +1221,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_FUFUMON_FQID_LEN = sizeof(PEN20_FUFUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_FUFUMON_ID_ARR[] CONFIG_STRING_SECTION = "fufumon";
     inline static constexpr const char* PEN20_FUFUMON_ID = PEN20_FUFUMON_ID_ARR;
-    inline static constexpr size_t PEN20_FUFUMON_ID_LEN = sizeof(PEN20_FUFUMON_ID)-1;
+    inline static constexpr size_t PEN20_FUFUMON_ID_LEN = sizeof(PEN20_FUFUMON_ID_ARR)-1;
     inline static constexpr char PEN20_FUFUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Fufumon";
     inline static constexpr const char* PEN20_FUFUMON_NAME = PEN20_FUFUMON_NAME_ARR;
     inline static constexpr size_t PEN20_FUFUMON_NAME_LEN = sizeof(PEN20_FUFUMON_NAME_ARR)-1;
@@ -1239,7 +1239,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GABUMON_FQID_LEN = sizeof(PEN20_GABUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GABUMON_ID_ARR[] CONFIG_STRING_SECTION = "gabumon";
     inline static constexpr const char* PEN20_GABUMON_ID = PEN20_GABUMON_ID_ARR;
-    inline static constexpr size_t PEN20_GABUMON_ID_LEN = sizeof(PEN20_GABUMON_ID)-1;
+    inline static constexpr size_t PEN20_GABUMON_ID_LEN = sizeof(PEN20_GABUMON_ID_ARR)-1;
     inline static constexpr char PEN20_GABUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gabumon";
     inline static constexpr const char* PEN20_GABUMON_NAME = PEN20_GABUMON_NAME_ARR;
     inline static constexpr size_t PEN20_GABUMON_NAME_LEN = sizeof(PEN20_GABUMON_NAME_ARR)-1;
@@ -1257,7 +1257,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GALGOMON_FQID_LEN = sizeof(PEN20_GALGOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GALGOMON_ID_ARR[] CONFIG_STRING_SECTION = "galgomon";
     inline static constexpr const char* PEN20_GALGOMON_ID = PEN20_GALGOMON_ID_ARR;
-    inline static constexpr size_t PEN20_GALGOMON_ID_LEN = sizeof(PEN20_GALGOMON_ID)-1;
+    inline static constexpr size_t PEN20_GALGOMON_ID_LEN = sizeof(PEN20_GALGOMON_ID_ARR)-1;
     inline static constexpr char PEN20_GALGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Galgomon";
     inline static constexpr const char* PEN20_GALGOMON_NAME = PEN20_GALGOMON_NAME_ARR;
     inline static constexpr size_t PEN20_GALGOMON_NAME_LEN = sizeof(PEN20_GALGOMON_NAME_ARR)-1;
@@ -1275,7 +1275,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GANIMON_FQID_LEN = sizeof(PEN20_GANIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GANIMON_ID_ARR[] CONFIG_STRING_SECTION = "ganimon";
     inline static constexpr const char* PEN20_GANIMON_ID = PEN20_GANIMON_ID_ARR;
-    inline static constexpr size_t PEN20_GANIMON_ID_LEN = sizeof(PEN20_GANIMON_ID)-1;
+    inline static constexpr size_t PEN20_GANIMON_ID_LEN = sizeof(PEN20_GANIMON_ID_ARR)-1;
     inline static constexpr char PEN20_GANIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ganimon";
     inline static constexpr const char* PEN20_GANIMON_NAME = PEN20_GANIMON_NAME_ARR;
     inline static constexpr size_t PEN20_GANIMON_NAME_LEN = sizeof(PEN20_GANIMON_NAME_ARR)-1;
@@ -1293,7 +1293,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GARUDAMON_FQID_LEN = sizeof(PEN20_GARUDAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GARUDAMON_ID_ARR[] CONFIG_STRING_SECTION = "garudamon";
     inline static constexpr const char* PEN20_GARUDAMON_ID = PEN20_GARUDAMON_ID_ARR;
-    inline static constexpr size_t PEN20_GARUDAMON_ID_LEN = sizeof(PEN20_GARUDAMON_ID)-1;
+    inline static constexpr size_t PEN20_GARUDAMON_ID_LEN = sizeof(PEN20_GARUDAMON_ID_ARR)-1;
     inline static constexpr char PEN20_GARUDAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Garudamon";
     inline static constexpr const char* PEN20_GARUDAMON_NAME = PEN20_GARUDAMON_NAME_ARR;
     inline static constexpr size_t PEN20_GARUDAMON_NAME_LEN = sizeof(PEN20_GARUDAMON_NAME_ARR)-1;
@@ -1311,7 +1311,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GARURUMON_FQID_LEN = sizeof(PEN20_GARURUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GARURUMON_ID_ARR[] CONFIG_STRING_SECTION = "garurumon";
     inline static constexpr const char* PEN20_GARURUMON_ID = PEN20_GARURUMON_ID_ARR;
-    inline static constexpr size_t PEN20_GARURUMON_ID_LEN = sizeof(PEN20_GARURUMON_ID)-1;
+    inline static constexpr size_t PEN20_GARURUMON_ID_LEN = sizeof(PEN20_GARURUMON_ID_ARR)-1;
     inline static constexpr char PEN20_GARURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Garurumon";
     inline static constexpr const char* PEN20_GARURUMON_NAME = PEN20_GARURUMON_NAME_ARR;
     inline static constexpr size_t PEN20_GARURUMON_NAME_LEN = sizeof(PEN20_GARURUMON_NAME_ARR)-1;
@@ -1329,7 +1329,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GEKOMON_FQID_LEN = sizeof(PEN20_GEKOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GEKOMON_ID_ARR[] CONFIG_STRING_SECTION = "gekomon";
     inline static constexpr const char* PEN20_GEKOMON_ID = PEN20_GEKOMON_ID_ARR;
-    inline static constexpr size_t PEN20_GEKOMON_ID_LEN = sizeof(PEN20_GEKOMON_ID)-1;
+    inline static constexpr size_t PEN20_GEKOMON_ID_LEN = sizeof(PEN20_GEKOMON_ID_ARR)-1;
     inline static constexpr char PEN20_GEKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gekomon";
     inline static constexpr const char* PEN20_GEKOMON_NAME = PEN20_GEKOMON_NAME_ARR;
     inline static constexpr size_t PEN20_GEKOMON_NAME_LEN = sizeof(PEN20_GEKOMON_NAME_ARR)-1;
@@ -1347,7 +1347,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GERBEMON_FQID_LEN = sizeof(PEN20_GERBEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GERBEMON_ID_ARR[] CONFIG_STRING_SECTION = "gerbemon";
     inline static constexpr const char* PEN20_GERBEMON_ID = PEN20_GERBEMON_ID_ARR;
-    inline static constexpr size_t PEN20_GERBEMON_ID_LEN = sizeof(PEN20_GERBEMON_ID)-1;
+    inline static constexpr size_t PEN20_GERBEMON_ID_LEN = sizeof(PEN20_GERBEMON_ID_ARR)-1;
     inline static constexpr char PEN20_GERBEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gerbemon";
     inline static constexpr const char* PEN20_GERBEMON_NAME = PEN20_GERBEMON_NAME_ARR;
     inline static constexpr size_t PEN20_GERBEMON_NAME_LEN = sizeof(PEN20_GERBEMON_NAME_ARR)-1;
@@ -1365,7 +1365,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GESOMON_FQID_LEN = sizeof(PEN20_GESOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GESOMON_ID_ARR[] CONFIG_STRING_SECTION = "gesomon";
     inline static constexpr const char* PEN20_GESOMON_ID = PEN20_GESOMON_ID_ARR;
-    inline static constexpr size_t PEN20_GESOMON_ID_LEN = sizeof(PEN20_GESOMON_ID)-1;
+    inline static constexpr size_t PEN20_GESOMON_ID_LEN = sizeof(PEN20_GESOMON_ID_ARR)-1;
     inline static constexpr char PEN20_GESOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gesomon";
     inline static constexpr const char* PEN20_GESOMON_NAME = PEN20_GESOMON_NAME_ARR;
     inline static constexpr size_t PEN20_GESOMON_NAME_LEN = sizeof(PEN20_GESOMON_NAME_ARR)-1;
@@ -1383,7 +1383,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GINRYUMON_FQID_LEN = sizeof(PEN20_GINRYUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GINRYUMON_ID_ARR[] CONFIG_STRING_SECTION = "ginryumon";
     inline static constexpr const char* PEN20_GINRYUMON_ID = PEN20_GINRYUMON_ID_ARR;
-    inline static constexpr size_t PEN20_GINRYUMON_ID_LEN = sizeof(PEN20_GINRYUMON_ID)-1;
+    inline static constexpr size_t PEN20_GINRYUMON_ID_LEN = sizeof(PEN20_GINRYUMON_ID_ARR)-1;
     inline static constexpr char PEN20_GINRYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ginryumon";
     inline static constexpr const char* PEN20_GINRYUMON_NAME = PEN20_GINRYUMON_NAME_ARR;
     inline static constexpr size_t PEN20_GINRYUMON_NAME_LEN = sizeof(PEN20_GINRYUMON_NAME_ARR)-1;
@@ -1401,7 +1401,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GOMAMON_FQID_LEN = sizeof(PEN20_GOMAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GOMAMON_ID_ARR[] CONFIG_STRING_SECTION = "gomamon";
     inline static constexpr const char* PEN20_GOMAMON_ID = PEN20_GOMAMON_ID_ARR;
-    inline static constexpr size_t PEN20_GOMAMON_ID_LEN = sizeof(PEN20_GOMAMON_ID)-1;
+    inline static constexpr size_t PEN20_GOMAMON_ID_LEN = sizeof(PEN20_GOMAMON_ID_ARR)-1;
     inline static constexpr char PEN20_GOMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gomamon";
     inline static constexpr const char* PEN20_GOMAMON_NAME = PEN20_GOMAMON_NAME_ARR;
     inline static constexpr size_t PEN20_GOMAMON_NAME_LEN = sizeof(PEN20_GOMAMON_NAME_ARR)-1;
@@ -1419,7 +1419,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GOTTSUMON_FQID_LEN = sizeof(PEN20_GOTTSUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GOTTSUMON_ID_ARR[] CONFIG_STRING_SECTION = "gottsumon";
     inline static constexpr const char* PEN20_GOTTSUMON_ID = PEN20_GOTTSUMON_ID_ARR;
-    inline static constexpr size_t PEN20_GOTTSUMON_ID_LEN = sizeof(PEN20_GOTTSUMON_ID)-1;
+    inline static constexpr size_t PEN20_GOTTSUMON_ID_LEN = sizeof(PEN20_GOTTSUMON_ID_ARR)-1;
     inline static constexpr char PEN20_GOTTSUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gottsumon";
     inline static constexpr const char* PEN20_GOTTSUMON_NAME = PEN20_GOTTSUMON_NAME_ARR;
     inline static constexpr size_t PEN20_GOTTSUMON_NAME_LEN = sizeof(PEN20_GOTTSUMON_NAME_ARR)-1;
@@ -1437,7 +1437,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GREYMON_FQID_LEN = sizeof(PEN20_GREYMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "greymon";
     inline static constexpr const char* PEN20_GREYMON_ID = PEN20_GREYMON_ID_ARR;
-    inline static constexpr size_t PEN20_GREYMON_ID_LEN = sizeof(PEN20_GREYMON_ID)-1;
+    inline static constexpr size_t PEN20_GREYMON_ID_LEN = sizeof(PEN20_GREYMON_ID_ARR)-1;
     inline static constexpr char PEN20_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Greymon";
     inline static constexpr const char* PEN20_GREYMON_NAME = PEN20_GREYMON_NAME_ARR;
     inline static constexpr size_t PEN20_GREYMON_NAME_LEN = sizeof(PEN20_GREYMON_NAME_ARR)-1;
@@ -1455,7 +1455,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GRIFFOMON_FQID_LEN = sizeof(PEN20_GRIFFOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GRIFFOMON_ID_ARR[] CONFIG_STRING_SECTION = "griffomon";
     inline static constexpr const char* PEN20_GRIFFOMON_ID = PEN20_GRIFFOMON_ID_ARR;
-    inline static constexpr size_t PEN20_GRIFFOMON_ID_LEN = sizeof(PEN20_GRIFFOMON_ID)-1;
+    inline static constexpr size_t PEN20_GRIFFOMON_ID_LEN = sizeof(PEN20_GRIFFOMON_ID_ARR)-1;
     inline static constexpr char PEN20_GRIFFOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Griffomon";
     inline static constexpr const char* PEN20_GRIFFOMON_NAME = PEN20_GRIFFOMON_NAME_ARR;
     inline static constexpr size_t PEN20_GRIFFOMON_NAME_LEN = sizeof(PEN20_GRIFFOMON_NAME_ARR)-1;
@@ -1473,7 +1473,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GROUNDRAMON_FQID_LEN = sizeof(PEN20_GROUNDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GROUNDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "groundramon";
     inline static constexpr const char* PEN20_GROUNDRAMON_ID = PEN20_GROUNDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_GROUNDRAMON_ID_LEN = sizeof(PEN20_GROUNDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_GROUNDRAMON_ID_LEN = sizeof(PEN20_GROUNDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_GROUNDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Groundramon";
     inline static constexpr const char* PEN20_GROUNDRAMON_NAME = PEN20_GROUNDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_GROUNDRAMON_NAME_LEN = sizeof(PEN20_GROUNDRAMON_NAME_ARR)-1;
@@ -1491,7 +1491,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GROWMON_FQID_LEN = sizeof(PEN20_GROWMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GROWMON_ID_ARR[] CONFIG_STRING_SECTION = "growmon";
     inline static constexpr const char* PEN20_GROWMON_ID = PEN20_GROWMON_ID_ARR;
-    inline static constexpr size_t PEN20_GROWMON_ID_LEN = sizeof(PEN20_GROWMON_ID)-1;
+    inline static constexpr size_t PEN20_GROWMON_ID_LEN = sizeof(PEN20_GROWMON_ID_ARR)-1;
     inline static constexpr char PEN20_GROWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Growmon";
     inline static constexpr const char* PEN20_GROWMON_NAME = PEN20_GROWMON_NAME_ARR;
     inline static constexpr size_t PEN20_GROWMON_NAME_LEN = sizeof(PEN20_GROWMON_NAME_ARR)-1;
@@ -1509,7 +1509,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GUARDROMON_FQID_LEN = sizeof(PEN20_GUARDROMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GUARDROMON_ID_ARR[] CONFIG_STRING_SECTION = "guardromon";
     inline static constexpr const char* PEN20_GUARDROMON_ID = PEN20_GUARDROMON_ID_ARR;
-    inline static constexpr size_t PEN20_GUARDROMON_ID_LEN = sizeof(PEN20_GUARDROMON_ID)-1;
+    inline static constexpr size_t PEN20_GUARDROMON_ID_LEN = sizeof(PEN20_GUARDROMON_ID_ARR)-1;
     inline static constexpr char PEN20_GUARDROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Guardromon";
     inline static constexpr const char* PEN20_GUARDROMON_NAME = PEN20_GUARDROMON_NAME_ARR;
     inline static constexpr size_t PEN20_GUARDROMON_NAME_LEN = sizeof(PEN20_GUARDROMON_NAME_ARR)-1;
@@ -1527,7 +1527,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GUIMON_FQID_LEN = sizeof(PEN20_GUIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GUIMON_ID_ARR[] CONFIG_STRING_SECTION = "guimon";
     inline static constexpr const char* PEN20_GUIMON_ID = PEN20_GUIMON_ID_ARR;
-    inline static constexpr size_t PEN20_GUIMON_ID_LEN = sizeof(PEN20_GUIMON_ID)-1;
+    inline static constexpr size_t PEN20_GUIMON_ID_LEN = sizeof(PEN20_GUIMON_ID_ARR)-1;
     inline static constexpr char PEN20_GUIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Guimon";
     inline static constexpr const char* PEN20_GUIMON_NAME = PEN20_GUIMON_NAME_ARR;
     inline static constexpr size_t PEN20_GUIMON_NAME_LEN = sizeof(PEN20_GUIMON_NAME_ARR)-1;
@@ -1545,7 +1545,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_GUMMYMON_FQID_LEN = sizeof(PEN20_GUMMYMON_FQID_ARR)-1;
     inline static constexpr char PEN20_GUMMYMON_ID_ARR[] CONFIG_STRING_SECTION = "gummymon";
     inline static constexpr const char* PEN20_GUMMYMON_ID = PEN20_GUMMYMON_ID_ARR;
-    inline static constexpr size_t PEN20_GUMMYMON_ID_LEN = sizeof(PEN20_GUMMYMON_ID)-1;
+    inline static constexpr size_t PEN20_GUMMYMON_ID_LEN = sizeof(PEN20_GUMMYMON_ID_ARR)-1;
     inline static constexpr char PEN20_GUMMYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gummymon";
     inline static constexpr const char* PEN20_GUMMYMON_NAME = PEN20_GUMMYMON_NAME_ARR;
     inline static constexpr size_t PEN20_GUMMYMON_NAME_LEN = sizeof(PEN20_GUMMYMON_NAME_ARR)-1;
@@ -1563,7 +1563,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HACKMON_FQID_LEN = sizeof(PEN20_HACKMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HACKMON_ID_ARR[] CONFIG_STRING_SECTION = "hackmon";
     inline static constexpr const char* PEN20_HACKMON_ID = PEN20_HACKMON_ID_ARR;
-    inline static constexpr size_t PEN20_HACKMON_ID_LEN = sizeof(PEN20_HACKMON_ID)-1;
+    inline static constexpr size_t PEN20_HACKMON_ID_LEN = sizeof(PEN20_HACKMON_ID_ARR)-1;
     inline static constexpr char PEN20_HACKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hackmon";
     inline static constexpr const char* PEN20_HACKMON_NAME = PEN20_HACKMON_NAME_ARR;
     inline static constexpr size_t PEN20_HACKMON_NAME_LEN = sizeof(PEN20_HACKMON_NAME_ARR)-1;
@@ -1581,7 +1581,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HAGURUMON_FQID_LEN = sizeof(PEN20_HAGURUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HAGURUMON_ID_ARR[] CONFIG_STRING_SECTION = "hagurumon";
     inline static constexpr const char* PEN20_HAGURUMON_ID = PEN20_HAGURUMON_ID_ARR;
-    inline static constexpr size_t PEN20_HAGURUMON_ID_LEN = sizeof(PEN20_HAGURUMON_ID)-1;
+    inline static constexpr size_t PEN20_HAGURUMON_ID_LEN = sizeof(PEN20_HAGURUMON_ID_ARR)-1;
     inline static constexpr char PEN20_HAGURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hagurumon";
     inline static constexpr const char* PEN20_HAGURUMON_NAME = PEN20_HAGURUMON_NAME_ARR;
     inline static constexpr size_t PEN20_HAGURUMON_NAME_LEN = sizeof(PEN20_HAGURUMON_NAME_ARR)-1;
@@ -1599,7 +1599,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HANGYMON_FQID_LEN = sizeof(PEN20_HANGYMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HANGYMON_ID_ARR[] CONFIG_STRING_SECTION = "hangymon";
     inline static constexpr const char* PEN20_HANGYMON_ID = PEN20_HANGYMON_ID_ARR;
-    inline static constexpr size_t PEN20_HANGYMON_ID_LEN = sizeof(PEN20_HANGYMON_ID)-1;
+    inline static constexpr size_t PEN20_HANGYMON_ID_LEN = sizeof(PEN20_HANGYMON_ID_ARR)-1;
     inline static constexpr char PEN20_HANGYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hangymon";
     inline static constexpr const char* PEN20_HANGYMON_NAME = PEN20_HANGYMON_NAME_ARR;
     inline static constexpr size_t PEN20_HANGYMON_NAME_LEN = sizeof(PEN20_HANGYMON_NAME_ARR)-1;
@@ -1617,7 +1617,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HANGYOMON_FQID_LEN = sizeof(PEN20_HANGYOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HANGYOMON_ID_ARR[] CONFIG_STRING_SECTION = "hangyomon";
     inline static constexpr const char* PEN20_HANGYOMON_ID = PEN20_HANGYOMON_ID_ARR;
-    inline static constexpr size_t PEN20_HANGYOMON_ID_LEN = sizeof(PEN20_HANGYOMON_ID)-1;
+    inline static constexpr size_t PEN20_HANGYOMON_ID_LEN = sizeof(PEN20_HANGYOMON_ID_ARR)-1;
     inline static constexpr char PEN20_HANGYOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hangyomon";
     inline static constexpr const char* PEN20_HANGYOMON_NAME = PEN20_HANGYOMON_NAME_ARR;
     inline static constexpr size_t PEN20_HANGYOMON_NAME_LEN = sizeof(PEN20_HANGYOMON_NAME_ARR)-1;
@@ -1635,7 +1635,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HANUMON_FQID_LEN = sizeof(PEN20_HANUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HANUMON_ID_ARR[] CONFIG_STRING_SECTION = "hanumon";
     inline static constexpr const char* PEN20_HANUMON_ID = PEN20_HANUMON_ID_ARR;
-    inline static constexpr size_t PEN20_HANUMON_ID_LEN = sizeof(PEN20_HANUMON_ID)-1;
+    inline static constexpr size_t PEN20_HANUMON_ID_LEN = sizeof(PEN20_HANUMON_ID_ARR)-1;
     inline static constexpr char PEN20_HANUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hanumon";
     inline static constexpr const char* PEN20_HANUMON_NAME = PEN20_HANUMON_NAME_ARR;
     inline static constexpr size_t PEN20_HANUMON_NAME_LEN = sizeof(PEN20_HANUMON_NAME_ARR)-1;
@@ -1653,7 +1653,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HERAKLE_KABUTERIMON_FQID_LEN = sizeof(PEN20_HERAKLE_KABUTERIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HERAKLE_KABUTERIMON_ID_ARR[] CONFIG_STRING_SECTION = "herakle_kabuterimon";
     inline static constexpr const char* PEN20_HERAKLE_KABUTERIMON_ID = PEN20_HERAKLE_KABUTERIMON_ID_ARR;
-    inline static constexpr size_t PEN20_HERAKLE_KABUTERIMON_ID_LEN = sizeof(PEN20_HERAKLE_KABUTERIMON_ID)-1;
+    inline static constexpr size_t PEN20_HERAKLE_KABUTERIMON_ID_LEN = sizeof(PEN20_HERAKLE_KABUTERIMON_ID_ARR)-1;
     inline static constexpr char PEN20_HERAKLE_KABUTERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Herakle Kabuterimon";
     inline static constexpr const char* PEN20_HERAKLE_KABUTERIMON_NAME = PEN20_HERAKLE_KABUTERIMON_NAME_ARR;
     inline static constexpr size_t PEN20_HERAKLE_KABUTERIMON_NAME_LEN = sizeof(PEN20_HERAKLE_KABUTERIMON_NAME_ARR)-1;
@@ -1671,7 +1671,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HISYARYUMON_FQID_LEN = sizeof(PEN20_HISYARYUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HISYARYUMON_ID_ARR[] CONFIG_STRING_SECTION = "hisyaryumon";
     inline static constexpr const char* PEN20_HISYARYUMON_ID = PEN20_HISYARYUMON_ID_ARR;
-    inline static constexpr size_t PEN20_HISYARYUMON_ID_LEN = sizeof(PEN20_HISYARYUMON_ID)-1;
+    inline static constexpr size_t PEN20_HISYARYUMON_ID_LEN = sizeof(PEN20_HISYARYUMON_ID_ARR)-1;
     inline static constexpr char PEN20_HISYARYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hisyaryumon";
     inline static constexpr const char* PEN20_HISYARYUMON_NAME = PEN20_HISYARYUMON_NAME_ARR;
     inline static constexpr size_t PEN20_HISYARYUMON_NAME_LEN = sizeof(PEN20_HISYARYUMON_NAME_ARR)-1;
@@ -1689,7 +1689,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HOLY_ANGEMON_FQID_LEN = sizeof(PEN20_HOLY_ANGEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HOLY_ANGEMON_ID_ARR[] CONFIG_STRING_SECTION = "holy_angemon";
     inline static constexpr const char* PEN20_HOLY_ANGEMON_ID = PEN20_HOLY_ANGEMON_ID_ARR;
-    inline static constexpr size_t PEN20_HOLY_ANGEMON_ID_LEN = sizeof(PEN20_HOLY_ANGEMON_ID)-1;
+    inline static constexpr size_t PEN20_HOLY_ANGEMON_ID_LEN = sizeof(PEN20_HOLY_ANGEMON_ID_ARR)-1;
     inline static constexpr char PEN20_HOLY_ANGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Holy Angemon";
     inline static constexpr const char* PEN20_HOLY_ANGEMON_NAME = PEN20_HOLY_ANGEMON_NAME_ARR;
     inline static constexpr size_t PEN20_HOLY_ANGEMON_NAME_LEN = sizeof(PEN20_HOLY_ANGEMON_NAME_ARR)-1;
@@ -1707,7 +1707,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HOLYDRAMON_FQID_LEN = sizeof(PEN20_HOLYDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HOLYDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "holydramon";
     inline static constexpr const char* PEN20_HOLYDRAMON_ID = PEN20_HOLYDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_HOLYDRAMON_ID_LEN = sizeof(PEN20_HOLYDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_HOLYDRAMON_ID_LEN = sizeof(PEN20_HOLYDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_HOLYDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Holydramon";
     inline static constexpr const char* PEN20_HOLYDRAMON_NAME = PEN20_HOLYDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_HOLYDRAMON_NAME_LEN = sizeof(PEN20_HOLYDRAMON_NAME_ARR)-1;
@@ -1725,7 +1725,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_HOUOUMON_FQID_LEN = sizeof(PEN20_HOUOUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_HOUOUMON_ID_ARR[] CONFIG_STRING_SECTION = "hououmon";
     inline static constexpr const char* PEN20_HOUOUMON_ID = PEN20_HOUOUMON_ID_ARR;
-    inline static constexpr size_t PEN20_HOUOUMON_ID_LEN = sizeof(PEN20_HOUOUMON_ID)-1;
+    inline static constexpr size_t PEN20_HOUOUMON_ID_LEN = sizeof(PEN20_HOUOUMON_ID_ARR)-1;
     inline static constexpr char PEN20_HOUOUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hououmon";
     inline static constexpr const char* PEN20_HOUOUMON_NAME = PEN20_HOUOUMON_NAME_ARR;
     inline static constexpr size_t PEN20_HOUOUMON_NAME_LEN = sizeof(PEN20_HOUOUMON_NAME_ARR)-1;
@@ -1743,7 +1743,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_IGAMON_FQID_LEN = sizeof(PEN20_IGAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_IGAMON_ID_ARR[] CONFIG_STRING_SECTION = "igamon";
     inline static constexpr const char* PEN20_IGAMON_ID = PEN20_IGAMON_ID_ARR;
-    inline static constexpr size_t PEN20_IGAMON_ID_LEN = sizeof(PEN20_IGAMON_ID)-1;
+    inline static constexpr size_t PEN20_IGAMON_ID_LEN = sizeof(PEN20_IGAMON_ID_ARR)-1;
     inline static constexpr char PEN20_IGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Igamon";
     inline static constexpr const char* PEN20_IGAMON_NAME = PEN20_IGAMON_NAME_ARR;
     inline static constexpr size_t PEN20_IGAMON_NAME_LEN = sizeof(PEN20_IGAMON_NAME_ARR)-1;
@@ -1761,7 +1761,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_IKKAKUMON_FQID_LEN = sizeof(PEN20_IKKAKUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_IKKAKUMON_ID_ARR[] CONFIG_STRING_SECTION = "ikkakumon";
     inline static constexpr const char* PEN20_IKKAKUMON_ID = PEN20_IKKAKUMON_ID_ARR;
-    inline static constexpr size_t PEN20_IKKAKUMON_ID_LEN = sizeof(PEN20_IKKAKUMON_ID)-1;
+    inline static constexpr size_t PEN20_IKKAKUMON_ID_LEN = sizeof(PEN20_IKKAKUMON_ID_ARR)-1;
     inline static constexpr char PEN20_IKKAKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ikkakumon";
     inline static constexpr const char* PEN20_IKKAKUMON_NAME = PEN20_IKKAKUMON_NAME_ARR;
     inline static constexpr size_t PEN20_IKKAKUMON_NAME_LEN = sizeof(PEN20_IKKAKUMON_NAME_ARR)-1;
@@ -1779,7 +1779,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_LEN = sizeof(PEN20_IMPERIALDRAMON_FIGHTER_MODE_FQID_ARR)-1;
     inline static constexpr char PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_ARR[] CONFIG_STRING_SECTION = "imperialdramon_fighter_mode";
     inline static constexpr const char* PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID = PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_ARR;
-    inline static constexpr size_t PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_LEN = sizeof(PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID)-1;
+    inline static constexpr size_t PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_LEN = sizeof(PEN20_IMPERIALDRAMON_FIGHTER_MODE_ID_ARR)-1;
     inline static constexpr char PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Imperialdramon Fighter Mode";
     inline static constexpr const char* PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME = PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_ARR;
     inline static constexpr size_t PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_LEN = sizeof(PEN20_IMPERIALDRAMON_FIGHTER_MODE_NAME_ARR)-1;
@@ -1797,7 +1797,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_IMPMON_FQID_LEN = sizeof(PEN20_IMPMON_FQID_ARR)-1;
     inline static constexpr char PEN20_IMPMON_ID_ARR[] CONFIG_STRING_SECTION = "impmon";
     inline static constexpr const char* PEN20_IMPMON_ID = PEN20_IMPMON_ID_ARR;
-    inline static constexpr size_t PEN20_IMPMON_ID_LEN = sizeof(PEN20_IMPMON_ID)-1;
+    inline static constexpr size_t PEN20_IMPMON_ID_LEN = sizeof(PEN20_IMPMON_ID_ARR)-1;
     inline static constexpr char PEN20_IMPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Impmon";
     inline static constexpr const char* PEN20_IMPMON_NAME = PEN20_IMPMON_NAME_ARR;
     inline static constexpr size_t PEN20_IMPMON_NAME_LEN = sizeof(PEN20_IMPMON_NAME_ARR)-1;
@@ -1815,7 +1815,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_JESMON_FQID_LEN = sizeof(PEN20_JESMON_FQID_ARR)-1;
     inline static constexpr char PEN20_JESMON_ID_ARR[] CONFIG_STRING_SECTION = "jesmon";
     inline static constexpr const char* PEN20_JESMON_ID = PEN20_JESMON_ID_ARR;
-    inline static constexpr size_t PEN20_JESMON_ID_LEN = sizeof(PEN20_JESMON_ID)-1;
+    inline static constexpr size_t PEN20_JESMON_ID_LEN = sizeof(PEN20_JESMON_ID_ARR)-1;
     inline static constexpr char PEN20_JESMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jesmon";
     inline static constexpr const char* PEN20_JESMON_NAME = PEN20_JESMON_NAME_ARR;
     inline static constexpr size_t PEN20_JESMON_NAME_LEN = sizeof(PEN20_JESMON_NAME_ARR)-1;
@@ -1833,7 +1833,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_JESMON_X_FQID_LEN = sizeof(PEN20_JESMON_X_FQID_ARR)-1;
     inline static constexpr char PEN20_JESMON_X_ID_ARR[] CONFIG_STRING_SECTION = "jesmon_x";
     inline static constexpr const char* PEN20_JESMON_X_ID = PEN20_JESMON_X_ID_ARR;
-    inline static constexpr size_t PEN20_JESMON_X_ID_LEN = sizeof(PEN20_JESMON_X_ID)-1;
+    inline static constexpr size_t PEN20_JESMON_X_ID_LEN = sizeof(PEN20_JESMON_X_ID_ARR)-1;
     inline static constexpr char PEN20_JESMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Jesmon X";
     inline static constexpr const char* PEN20_JESMON_X_NAME = PEN20_JESMON_X_NAME_ARR;
     inline static constexpr size_t PEN20_JESMON_X_NAME_LEN = sizeof(PEN20_JESMON_X_NAME_ARR)-1;
@@ -1851,7 +1851,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_JYAGAMON_FQID_LEN = sizeof(PEN20_JYAGAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_JYAGAMON_ID_ARR[] CONFIG_STRING_SECTION = "jyagamon";
     inline static constexpr const char* PEN20_JYAGAMON_ID = PEN20_JYAGAMON_ID_ARR;
-    inline static constexpr size_t PEN20_JYAGAMON_ID_LEN = sizeof(PEN20_JYAGAMON_ID)-1;
+    inline static constexpr size_t PEN20_JYAGAMON_ID_LEN = sizeof(PEN20_JYAGAMON_ID_ARR)-1;
     inline static constexpr char PEN20_JYAGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jyagamon";
     inline static constexpr const char* PEN20_JYAGAMON_NAME = PEN20_JYAGAMON_NAME_ARR;
     inline static constexpr size_t PEN20_JYAGAMON_NAME_LEN = sizeof(PEN20_JYAGAMON_NAME_ARR)-1;
@@ -1869,7 +1869,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_JYUREIMON_FQID_LEN = sizeof(PEN20_JYUREIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_JYUREIMON_ID_ARR[] CONFIG_STRING_SECTION = "jyureimon";
     inline static constexpr const char* PEN20_JYUREIMON_ID = PEN20_JYUREIMON_ID_ARR;
-    inline static constexpr size_t PEN20_JYUREIMON_ID_LEN = sizeof(PEN20_JYUREIMON_ID)-1;
+    inline static constexpr size_t PEN20_JYUREIMON_ID_LEN = sizeof(PEN20_JYUREIMON_ID_ARR)-1;
     inline static constexpr char PEN20_JYUREIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jyureimon";
     inline static constexpr const char* PEN20_JYUREIMON_NAME = PEN20_JYUREIMON_NAME_ARR;
     inline static constexpr size_t PEN20_JYUREIMON_NAME_LEN = sizeof(PEN20_JYUREIMON_NAME_ARR)-1;
@@ -1887,7 +1887,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KABUTERIMON_FQID_LEN = sizeof(PEN20_KABUTERIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KABUTERIMON_ID_ARR[] CONFIG_STRING_SECTION = "kabuterimon";
     inline static constexpr const char* PEN20_KABUTERIMON_ID = PEN20_KABUTERIMON_ID_ARR;
-    inline static constexpr size_t PEN20_KABUTERIMON_ID_LEN = sizeof(PEN20_KABUTERIMON_ID)-1;
+    inline static constexpr size_t PEN20_KABUTERIMON_ID_LEN = sizeof(PEN20_KABUTERIMON_ID_ARR)-1;
     inline static constexpr char PEN20_KABUTERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kabuterimon";
     inline static constexpr const char* PEN20_KABUTERIMON_NAME = PEN20_KABUTERIMON_NAME_ARR;
     inline static constexpr size_t PEN20_KABUTERIMON_NAME_LEN = sizeof(PEN20_KABUTERIMON_NAME_ARR)-1;
@@ -1905,7 +1905,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KAKKINMON_FQID_LEN = sizeof(PEN20_KAKKINMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KAKKINMON_ID_ARR[] CONFIG_STRING_SECTION = "kakkinmon";
     inline static constexpr const char* PEN20_KAKKINMON_ID = PEN20_KAKKINMON_ID_ARR;
-    inline static constexpr size_t PEN20_KAKKINMON_ID_LEN = sizeof(PEN20_KAKKINMON_ID)-1;
+    inline static constexpr size_t PEN20_KAKKINMON_ID_LEN = sizeof(PEN20_KAKKINMON_ID_ARR)-1;
     inline static constexpr char PEN20_KAKKINMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kakkinmon";
     inline static constexpr const char* PEN20_KAKKINMON_NAME = PEN20_KAKKINMON_NAME_ARR;
     inline static constexpr size_t PEN20_KAKKINMON_NAME_LEN = sizeof(PEN20_KAKKINMON_NAME_ARR)-1;
@@ -1923,7 +1923,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KIWIMON_FQID_LEN = sizeof(PEN20_KIWIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KIWIMON_ID_ARR[] CONFIG_STRING_SECTION = "kiwimon";
     inline static constexpr const char* PEN20_KIWIMON_ID = PEN20_KIWIMON_ID_ARR;
-    inline static constexpr size_t PEN20_KIWIMON_ID_LEN = sizeof(PEN20_KIWIMON_ID)-1;
+    inline static constexpr size_t PEN20_KIWIMON_ID_LEN = sizeof(PEN20_KIWIMON_ID_ARR)-1;
     inline static constexpr char PEN20_KIWIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kiwimon";
     inline static constexpr const char* PEN20_KIWIMON_NAME = PEN20_KIWIMON_NAME_ARR;
     inline static constexpr size_t PEN20_KIWIMON_NAME_LEN = sizeof(PEN20_KIWIMON_NAME_ARR)-1;
@@ -1941,7 +1941,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KNIGHTMON_FQID_LEN = sizeof(PEN20_KNIGHTMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KNIGHTMON_ID_ARR[] CONFIG_STRING_SECTION = "knightmon";
     inline static constexpr const char* PEN20_KNIGHTMON_ID = PEN20_KNIGHTMON_ID_ARR;
-    inline static constexpr size_t PEN20_KNIGHTMON_ID_LEN = sizeof(PEN20_KNIGHTMON_ID)-1;
+    inline static constexpr size_t PEN20_KNIGHTMON_ID_LEN = sizeof(PEN20_KNIGHTMON_ID_ARR)-1;
     inline static constexpr char PEN20_KNIGHTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Knightmon";
     inline static constexpr const char* PEN20_KNIGHTMON_NAME = PEN20_KNIGHTMON_NAME_ARR;
     inline static constexpr size_t PEN20_KNIGHTMON_NAME_LEN = sizeof(PEN20_KNIGHTMON_NAME_ARR)-1;
@@ -1959,7 +1959,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KOKUWAMON_FQID_LEN = sizeof(PEN20_KOKUWAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KOKUWAMON_ID_ARR[] CONFIG_STRING_SECTION = "kokuwamon";
     inline static constexpr const char* PEN20_KOKUWAMON_ID = PEN20_KOKUWAMON_ID_ARR;
-    inline static constexpr size_t PEN20_KOKUWAMON_ID_LEN = sizeof(PEN20_KOKUWAMON_ID)-1;
+    inline static constexpr size_t PEN20_KOKUWAMON_ID_LEN = sizeof(PEN20_KOKUWAMON_ID_ARR)-1;
     inline static constexpr char PEN20_KOKUWAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kokuwamon";
     inline static constexpr const char* PEN20_KOKUWAMON_NAME = PEN20_KOKUWAMON_NAME_ARR;
     inline static constexpr size_t PEN20_KOKUWAMON_NAME_LEN = sizeof(PEN20_KOKUWAMON_NAME_ARR)-1;
@@ -1977,7 +1977,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KOROMON_FQID_LEN = sizeof(PEN20_KOROMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KOROMON_ID_ARR[] CONFIG_STRING_SECTION = "koromon";
     inline static constexpr const char* PEN20_KOROMON_ID = PEN20_KOROMON_ID_ARR;
-    inline static constexpr size_t PEN20_KOROMON_ID_LEN = sizeof(PEN20_KOROMON_ID)-1;
+    inline static constexpr size_t PEN20_KOROMON_ID_LEN = sizeof(PEN20_KOROMON_ID_ARR)-1;
     inline static constexpr char PEN20_KOROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Koromon";
     inline static constexpr const char* PEN20_KOROMON_NAME = PEN20_KOROMON_NAME_ARR;
     inline static constexpr size_t PEN20_KOROMON_NAME_LEN = sizeof(PEN20_KOROMON_NAME_ARR)-1;
@@ -1995,7 +1995,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KUWAGAMON_FQID_LEN = sizeof(PEN20_KUWAGAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KUWAGAMON_ID_ARR[] CONFIG_STRING_SECTION = "kuwagamon";
     inline static constexpr const char* PEN20_KUWAGAMON_ID = PEN20_KUWAGAMON_ID_ARR;
-    inline static constexpr size_t PEN20_KUWAGAMON_ID_LEN = sizeof(PEN20_KUWAGAMON_ID)-1;
+    inline static constexpr size_t PEN20_KUWAGAMON_ID_LEN = sizeof(PEN20_KUWAGAMON_ID_ARR)-1;
     inline static constexpr char PEN20_KUWAGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kuwagamon";
     inline static constexpr const char* PEN20_KUWAGAMON_NAME = PEN20_KUWAGAMON_NAME_ARR;
     inline static constexpr size_t PEN20_KUWAGAMON_NAME_LEN = sizeof(PEN20_KUWAGAMON_NAME_ARR)-1;
@@ -2013,7 +2013,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_KYOKYOMON_FQID_LEN = sizeof(PEN20_KYOKYOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_KYOKYOMON_ID_ARR[] CONFIG_STRING_SECTION = "kyokyomon";
     inline static constexpr const char* PEN20_KYOKYOMON_ID = PEN20_KYOKYOMON_ID_ARR;
-    inline static constexpr size_t PEN20_KYOKYOMON_ID_LEN = sizeof(PEN20_KYOKYOMON_ID)-1;
+    inline static constexpr size_t PEN20_KYOKYOMON_ID_LEN = sizeof(PEN20_KYOKYOMON_ID_ARR)-1;
     inline static constexpr char PEN20_KYOKYOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kyokyomon";
     inline static constexpr const char* PEN20_KYOKYOMON_NAME = PEN20_KYOKYOMON_NAME_ARR;
     inline static constexpr size_t PEN20_KYOKYOMON_NAME_LEN = sizeof(PEN20_KYOKYOMON_NAME_ARR)-1;
@@ -2031,7 +2031,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LADY_DEVIMON_FQID_LEN = sizeof(PEN20_LADY_DEVIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LADY_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "lady_devimon";
     inline static constexpr const char* PEN20_LADY_DEVIMON_ID = PEN20_LADY_DEVIMON_ID_ARR;
-    inline static constexpr size_t PEN20_LADY_DEVIMON_ID_LEN = sizeof(PEN20_LADY_DEVIMON_ID)-1;
+    inline static constexpr size_t PEN20_LADY_DEVIMON_ID_LEN = sizeof(PEN20_LADY_DEVIMON_ID_ARR)-1;
     inline static constexpr char PEN20_LADY_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lady Devimon";
     inline static constexpr const char* PEN20_LADY_DEVIMON_NAME = PEN20_LADY_DEVIMON_NAME_ARR;
     inline static constexpr size_t PEN20_LADY_DEVIMON_NAME_LEN = sizeof(PEN20_LADY_DEVIMON_NAME_ARR)-1;
@@ -2049,7 +2049,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LALAMON_FQID_LEN = sizeof(PEN20_LALAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LALAMON_ID_ARR[] CONFIG_STRING_SECTION = "lalamon";
     inline static constexpr const char* PEN20_LALAMON_ID = PEN20_LALAMON_ID_ARR;
-    inline static constexpr size_t PEN20_LALAMON_ID_LEN = sizeof(PEN20_LALAMON_ID)-1;
+    inline static constexpr size_t PEN20_LALAMON_ID_LEN = sizeof(PEN20_LALAMON_ID_ARR)-1;
     inline static constexpr char PEN20_LALAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lalamon";
     inline static constexpr const char* PEN20_LALAMON_NAME = PEN20_LALAMON_NAME_ARR;
     inline static constexpr size_t PEN20_LALAMON_NAME_LEN = sizeof(PEN20_LALAMON_NAME_ARR)-1;
@@ -2067,7 +2067,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LAVOGARITAMON_FQID_LEN = sizeof(PEN20_LAVOGARITAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LAVOGARITAMON_ID_ARR[] CONFIG_STRING_SECTION = "lavogaritamon";
     inline static constexpr const char* PEN20_LAVOGARITAMON_ID = PEN20_LAVOGARITAMON_ID_ARR;
-    inline static constexpr size_t PEN20_LAVOGARITAMON_ID_LEN = sizeof(PEN20_LAVOGARITAMON_ID)-1;
+    inline static constexpr size_t PEN20_LAVOGARITAMON_ID_LEN = sizeof(PEN20_LAVOGARITAMON_ID_ARR)-1;
     inline static constexpr char PEN20_LAVOGARITAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lavogaritamon";
     inline static constexpr const char* PEN20_LAVOGARITAMON_NAME = PEN20_LAVOGARITAMON_NAME_ARR;
     inline static constexpr size_t PEN20_LAVOGARITAMON_NAME_LEN = sizeof(PEN20_LAVOGARITAMON_NAME_ARR)-1;
@@ -2085,7 +2085,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LAVORVOMON_FQID_LEN = sizeof(PEN20_LAVORVOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LAVORVOMON_ID_ARR[] CONFIG_STRING_SECTION = "lavorvomon";
     inline static constexpr const char* PEN20_LAVORVOMON_ID = PEN20_LAVORVOMON_ID_ARR;
-    inline static constexpr size_t PEN20_LAVORVOMON_ID_LEN = sizeof(PEN20_LAVORVOMON_ID)-1;
+    inline static constexpr size_t PEN20_LAVORVOMON_ID_LEN = sizeof(PEN20_LAVORVOMON_ID_ARR)-1;
     inline static constexpr char PEN20_LAVORVOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lavorvomon";
     inline static constexpr const char* PEN20_LAVORVOMON_NAME = PEN20_LAVORVOMON_NAME_ARR;
     inline static constexpr size_t PEN20_LAVORVOMON_NAME_LEN = sizeof(PEN20_LAVORVOMON_NAME_ARR)-1;
@@ -2103,7 +2103,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LEOMON_FQID_LEN = sizeof(PEN20_LEOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "leomon";
     inline static constexpr const char* PEN20_LEOMON_ID = PEN20_LEOMON_ID_ARR;
-    inline static constexpr size_t PEN20_LEOMON_ID_LEN = sizeof(PEN20_LEOMON_ID)-1;
+    inline static constexpr size_t PEN20_LEOMON_ID_LEN = sizeof(PEN20_LEOMON_ID_ARR)-1;
     inline static constexpr char PEN20_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Leomon";
     inline static constexpr const char* PEN20_LEOMON_NAME = PEN20_LEOMON_NAME_ARR;
     inline static constexpr size_t PEN20_LEOMON_NAME_LEN = sizeof(PEN20_LEOMON_NAME_ARR)-1;
@@ -2121,7 +2121,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LILAMON_FQID_LEN = sizeof(PEN20_LILAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LILAMON_ID_ARR[] CONFIG_STRING_SECTION = "lilamon";
     inline static constexpr const char* PEN20_LILAMON_ID = PEN20_LILAMON_ID_ARR;
-    inline static constexpr size_t PEN20_LILAMON_ID_LEN = sizeof(PEN20_LILAMON_ID)-1;
+    inline static constexpr size_t PEN20_LILAMON_ID_LEN = sizeof(PEN20_LILAMON_ID_ARR)-1;
     inline static constexpr char PEN20_LILAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lilamon";
     inline static constexpr const char* PEN20_LILAMON_NAME = PEN20_LILAMON_NAME_ARR;
     inline static constexpr size_t PEN20_LILAMON_NAME_LEN = sizeof(PEN20_LILAMON_NAME_ARR)-1;
@@ -2139,7 +2139,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LILIMON_FQID_LEN = sizeof(PEN20_LILIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LILIMON_ID_ARR[] CONFIG_STRING_SECTION = "lilimon";
     inline static constexpr const char* PEN20_LILIMON_ID = PEN20_LILIMON_ID_ARR;
-    inline static constexpr size_t PEN20_LILIMON_ID_LEN = sizeof(PEN20_LILIMON_ID)-1;
+    inline static constexpr size_t PEN20_LILIMON_ID_LEN = sizeof(PEN20_LILIMON_ID_ARR)-1;
     inline static constexpr char PEN20_LILIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lilimon";
     inline static constexpr const char* PEN20_LILIMON_NAME = PEN20_LILIMON_NAME_ARR;
     inline static constexpr size_t PEN20_LILIMON_NAME_LEN = sizeof(PEN20_LILIMON_NAME_ARR)-1;
@@ -2157,7 +2157,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LOPMON_FQID_LEN = sizeof(PEN20_LOPMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LOPMON_ID_ARR[] CONFIG_STRING_SECTION = "lopmon";
     inline static constexpr const char* PEN20_LOPMON_ID = PEN20_LOPMON_ID_ARR;
-    inline static constexpr size_t PEN20_LOPMON_ID_LEN = sizeof(PEN20_LOPMON_ID)-1;
+    inline static constexpr size_t PEN20_LOPMON_ID_LEN = sizeof(PEN20_LOPMON_ID_ARR)-1;
     inline static constexpr char PEN20_LOPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lopmon";
     inline static constexpr const char* PEN20_LOPMON_NAME = PEN20_LOPMON_NAME_ARR;
     inline static constexpr size_t PEN20_LOPMON_NAME_LEN = sizeof(PEN20_LOPMON_NAME_ARR)-1;
@@ -2175,7 +2175,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LOTUSMON_FQID_LEN = sizeof(PEN20_LOTUSMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LOTUSMON_ID_ARR[] CONFIG_STRING_SECTION = "lotusmon";
     inline static constexpr const char* PEN20_LOTUSMON_ID = PEN20_LOTUSMON_ID_ARR;
-    inline static constexpr size_t PEN20_LOTUSMON_ID_LEN = sizeof(PEN20_LOTUSMON_ID)-1;
+    inline static constexpr size_t PEN20_LOTUSMON_ID_LEN = sizeof(PEN20_LOTUSMON_ID_ARR)-1;
     inline static constexpr char PEN20_LOTUSMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lotusmon";
     inline static constexpr const char* PEN20_LOTUSMON_NAME = PEN20_LOTUSMON_NAME_ARR;
     inline static constexpr size_t PEN20_LOTUSMON_NAME_LEN = sizeof(PEN20_LOTUSMON_NAME_ARR)-1;
@@ -2193,7 +2193,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_LUDOMON_FQID_LEN = sizeof(PEN20_LUDOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_LUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "ludomon";
     inline static constexpr const char* PEN20_LUDOMON_ID = PEN20_LUDOMON_ID_ARR;
-    inline static constexpr size_t PEN20_LUDOMON_ID_LEN = sizeof(PEN20_LUDOMON_ID)-1;
+    inline static constexpr size_t PEN20_LUDOMON_ID_LEN = sizeof(PEN20_LUDOMON_ID_ARR)-1;
     inline static constexpr char PEN20_LUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ludomon";
     inline static constexpr const char* PEN20_LUDOMON_NAME = PEN20_LUDOMON_NAME_ARR;
     inline static constexpr size_t PEN20_LUDOMON_NAME_LEN = sizeof(PEN20_LUDOMON_NAME_ARR)-1;
@@ -2211,7 +2211,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MAD_LEOMON_FQID_LEN = sizeof(PEN20_MAD_LEOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MAD_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "mad_leomon";
     inline static constexpr const char* PEN20_MAD_LEOMON_ID = PEN20_MAD_LEOMON_ID_ARR;
-    inline static constexpr size_t PEN20_MAD_LEOMON_ID_LEN = sizeof(PEN20_MAD_LEOMON_ID)-1;
+    inline static constexpr size_t PEN20_MAD_LEOMON_ID_LEN = sizeof(PEN20_MAD_LEOMON_ID_ARR)-1;
     inline static constexpr char PEN20_MAD_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mad Leomon";
     inline static constexpr const char* PEN20_MAD_LEOMON_NAME = PEN20_MAD_LEOMON_NAME_ARR;
     inline static constexpr size_t PEN20_MAD_LEOMON_NAME_LEN = sizeof(PEN20_MAD_LEOMON_NAME_ARR)-1;
@@ -2229,7 +2229,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MAMBOMON_FQID_LEN = sizeof(PEN20_MAMBOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MAMBOMON_ID_ARR[] CONFIG_STRING_SECTION = "mambomon";
     inline static constexpr const char* PEN20_MAMBOMON_ID = PEN20_MAMBOMON_ID_ARR;
-    inline static constexpr size_t PEN20_MAMBOMON_ID_LEN = sizeof(PEN20_MAMBOMON_ID)-1;
+    inline static constexpr size_t PEN20_MAMBOMON_ID_LEN = sizeof(PEN20_MAMBOMON_ID_ARR)-1;
     inline static constexpr char PEN20_MAMBOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mambomon";
     inline static constexpr const char* PEN20_MAMBOMON_NAME = PEN20_MAMBOMON_NAME_ARR;
     inline static constexpr size_t PEN20_MAMBOMON_NAME_LEN = sizeof(PEN20_MAMBOMON_NAME_ARR)-1;
@@ -2247,7 +2247,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MAMMON_FQID_LEN = sizeof(PEN20_MAMMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MAMMON_ID_ARR[] CONFIG_STRING_SECTION = "mammon";
     inline static constexpr const char* PEN20_MAMMON_ID = PEN20_MAMMON_ID_ARR;
-    inline static constexpr size_t PEN20_MAMMON_ID_LEN = sizeof(PEN20_MAMMON_ID)-1;
+    inline static constexpr size_t PEN20_MAMMON_ID_LEN = sizeof(PEN20_MAMMON_ID_ARR)-1;
     inline static constexpr char PEN20_MAMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mammon";
     inline static constexpr const char* PEN20_MAMMON_NAME = PEN20_MAMMON_NAME_ARR;
     inline static constexpr size_t PEN20_MAMMON_NAME_LEN = sizeof(PEN20_MAMMON_NAME_ARR)-1;
@@ -2265,7 +2265,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MANBOMON_FQID_LEN = sizeof(PEN20_MANBOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MANBOMON_ID_ARR[] CONFIG_STRING_SECTION = "manbomon";
     inline static constexpr const char* PEN20_MANBOMON_ID = PEN20_MANBOMON_ID_ARR;
-    inline static constexpr size_t PEN20_MANBOMON_ID_LEN = sizeof(PEN20_MANBOMON_ID)-1;
+    inline static constexpr size_t PEN20_MANBOMON_ID_LEN = sizeof(PEN20_MANBOMON_ID_ARR)-1;
     inline static constexpr char PEN20_MANBOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Manbomon";
     inline static constexpr const char* PEN20_MANBOMON_NAME = PEN20_MANBOMON_NAME_ARR;
     inline static constexpr size_t PEN20_MANBOMON_NAME_LEN = sizeof(PEN20_MANBOMON_NAME_ARR)-1;
@@ -2283,7 +2283,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MARIN_ANGEMON_FQID_LEN = sizeof(PEN20_MARIN_ANGEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MARIN_ANGEMON_ID_ARR[] CONFIG_STRING_SECTION = "marin_angemon";
     inline static constexpr const char* PEN20_MARIN_ANGEMON_ID = PEN20_MARIN_ANGEMON_ID_ARR;
-    inline static constexpr size_t PEN20_MARIN_ANGEMON_ID_LEN = sizeof(PEN20_MARIN_ANGEMON_ID)-1;
+    inline static constexpr size_t PEN20_MARIN_ANGEMON_ID_LEN = sizeof(PEN20_MARIN_ANGEMON_ID_ARR)-1;
     inline static constexpr char PEN20_MARIN_ANGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Marin Angemon";
     inline static constexpr const char* PEN20_MARIN_ANGEMON_NAME = PEN20_MARIN_ANGEMON_NAME_ARR;
     inline static constexpr size_t PEN20_MARIN_ANGEMON_NAME_LEN = sizeof(PEN20_MARIN_ANGEMON_NAME_ARR)-1;
@@ -2301,7 +2301,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MARIN_DEVIMON_FQID_LEN = sizeof(PEN20_MARIN_DEVIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MARIN_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "marin_devimon";
     inline static constexpr const char* PEN20_MARIN_DEVIMON_ID = PEN20_MARIN_DEVIMON_ID_ARR;
-    inline static constexpr size_t PEN20_MARIN_DEVIMON_ID_LEN = sizeof(PEN20_MARIN_DEVIMON_ID)-1;
+    inline static constexpr size_t PEN20_MARIN_DEVIMON_ID_LEN = sizeof(PEN20_MARIN_DEVIMON_ID_ARR)-1;
     inline static constexpr char PEN20_MARIN_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Marin Devimon";
     inline static constexpr const char* PEN20_MARIN_DEVIMON_NAME = PEN20_MARIN_DEVIMON_NAME_ARR;
     inline static constexpr size_t PEN20_MARIN_DEVIMON_NAME_LEN = sizeof(PEN20_MARIN_DEVIMON_NAME_ARR)-1;
@@ -2319,7 +2319,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MASTEMON_FQID_LEN = sizeof(PEN20_MASTEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MASTEMON_ID_ARR[] CONFIG_STRING_SECTION = "mastemon";
     inline static constexpr const char* PEN20_MASTEMON_ID = PEN20_MASTEMON_ID_ARR;
-    inline static constexpr size_t PEN20_MASTEMON_ID_LEN = sizeof(PEN20_MASTEMON_ID)-1;
+    inline static constexpr size_t PEN20_MASTEMON_ID_LEN = sizeof(PEN20_MASTEMON_ID_ARR)-1;
     inline static constexpr char PEN20_MASTEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mastemon";
     inline static constexpr const char* PEN20_MASTEMON_NAME = PEN20_MASTEMON_NAME_ARR;
     inline static constexpr size_t PEN20_MASTEMON_NAME_LEN = sizeof(PEN20_MASTEMON_NAME_ARR)-1;
@@ -2337,7 +2337,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MECHANORIMON_FQID_LEN = sizeof(PEN20_MECHANORIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MECHANORIMON_ID_ARR[] CONFIG_STRING_SECTION = "mechanorimon";
     inline static constexpr const char* PEN20_MECHANORIMON_ID = PEN20_MECHANORIMON_ID_ARR;
-    inline static constexpr size_t PEN20_MECHANORIMON_ID_LEN = sizeof(PEN20_MECHANORIMON_ID)-1;
+    inline static constexpr size_t PEN20_MECHANORIMON_ID_LEN = sizeof(PEN20_MECHANORIMON_ID_ARR)-1;
     inline static constexpr char PEN20_MECHANORIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mechanorimon";
     inline static constexpr const char* PEN20_MECHANORIMON_NAME = PEN20_MECHANORIMON_NAME_ARR;
     inline static constexpr size_t PEN20_MECHANORIMON_NAME_LEN = sizeof(PEN20_MECHANORIMON_NAME_ARR)-1;
@@ -2355,7 +2355,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MEGADRAMON_FQID_LEN = sizeof(PEN20_MEGADRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MEGADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "megadramon";
     inline static constexpr const char* PEN20_MEGADRAMON_ID = PEN20_MEGADRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_MEGADRAMON_ID_LEN = sizeof(PEN20_MEGADRAMON_ID)-1;
+    inline static constexpr size_t PEN20_MEGADRAMON_ID_LEN = sizeof(PEN20_MEGADRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_MEGADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Megadramon";
     inline static constexpr const char* PEN20_MEGADRAMON_NAME = PEN20_MEGADRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_MEGADRAMON_NAME_LEN = sizeof(PEN20_MEGADRAMON_NAME_ARR)-1;
@@ -2373,7 +2373,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MEGALO_GROWMON_FQID_LEN = sizeof(PEN20_MEGALO_GROWMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MEGALO_GROWMON_ID_ARR[] CONFIG_STRING_SECTION = "megalo_growmon";
     inline static constexpr const char* PEN20_MEGALO_GROWMON_ID = PEN20_MEGALO_GROWMON_ID_ARR;
-    inline static constexpr size_t PEN20_MEGALO_GROWMON_ID_LEN = sizeof(PEN20_MEGALO_GROWMON_ID)-1;
+    inline static constexpr size_t PEN20_MEGALO_GROWMON_ID_LEN = sizeof(PEN20_MEGALO_GROWMON_ID_ARR)-1;
     inline static constexpr char PEN20_MEGALO_GROWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Megalo Growmon";
     inline static constexpr const char* PEN20_MEGALO_GROWMON_NAME = PEN20_MEGALO_GROWMON_NAME_ARR;
     inline static constexpr size_t PEN20_MEGALO_GROWMON_NAME_LEN = sizeof(PEN20_MEGALO_GROWMON_NAME_ARR)-1;
@@ -2391,7 +2391,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MEGA_SEADRAMON_FQID_LEN = sizeof(PEN20_MEGA_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MEGA_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "mega_seadramon";
     inline static constexpr const char* PEN20_MEGA_SEADRAMON_ID = PEN20_MEGA_SEADRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_MEGA_SEADRAMON_ID_LEN = sizeof(PEN20_MEGA_SEADRAMON_ID)-1;
+    inline static constexpr size_t PEN20_MEGA_SEADRAMON_ID_LEN = sizeof(PEN20_MEGA_SEADRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_MEGA_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mega Seadramon";
     inline static constexpr const char* PEN20_MEGA_SEADRAMON_NAME = PEN20_MEGA_SEADRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_MEGA_SEADRAMON_NAME_LEN = sizeof(PEN20_MEGA_SEADRAMON_NAME_ARR)-1;
@@ -2409,7 +2409,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MEICOOMON_FQID_LEN = sizeof(PEN20_MEICOOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MEICOOMON_ID_ARR[] CONFIG_STRING_SECTION = "meicoomon";
     inline static constexpr const char* PEN20_MEICOOMON_ID = PEN20_MEICOOMON_ID_ARR;
-    inline static constexpr size_t PEN20_MEICOOMON_ID_LEN = sizeof(PEN20_MEICOOMON_ID)-1;
+    inline static constexpr size_t PEN20_MEICOOMON_ID_LEN = sizeof(PEN20_MEICOOMON_ID_ARR)-1;
     inline static constexpr char PEN20_MEICOOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Meicoomon";
     inline static constexpr const char* PEN20_MEICOOMON_NAME = PEN20_MEICOOMON_NAME_ARR;
     inline static constexpr size_t PEN20_MEICOOMON_NAME_LEN = sizeof(PEN20_MEICOOMON_NAME_ARR)-1;
@@ -2427,7 +2427,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MEICRACKMON_VICIOUS_MODE_FQID_LEN = sizeof(PEN20_MEICRACKMON_VICIOUS_MODE_FQID_ARR)-1;
     inline static constexpr char PEN20_MEICRACKMON_VICIOUS_MODE_ID_ARR[] CONFIG_STRING_SECTION = "meicrackmon_vicious_mode";
     inline static constexpr const char* PEN20_MEICRACKMON_VICIOUS_MODE_ID = PEN20_MEICRACKMON_VICIOUS_MODE_ID_ARR;
-    inline static constexpr size_t PEN20_MEICRACKMON_VICIOUS_MODE_ID_LEN = sizeof(PEN20_MEICRACKMON_VICIOUS_MODE_ID)-1;
+    inline static constexpr size_t PEN20_MEICRACKMON_VICIOUS_MODE_ID_LEN = sizeof(PEN20_MEICRACKMON_VICIOUS_MODE_ID_ARR)-1;
     inline static constexpr char PEN20_MEICRACKMON_VICIOUS_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Meicrackmon Vicious Mode";
     inline static constexpr const char* PEN20_MEICRACKMON_VICIOUS_MODE_NAME = PEN20_MEICRACKMON_VICIOUS_MODE_NAME_ARR;
     inline static constexpr size_t PEN20_MEICRACKMON_VICIOUS_MODE_NAME_LEN = sizeof(PEN20_MEICRACKMON_VICIOUS_MODE_NAME_ARR)-1;
@@ -2445,7 +2445,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MERAMON_FQID_LEN = sizeof(PEN20_MERAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "meramon";
     inline static constexpr const char* PEN20_MERAMON_ID = PEN20_MERAMON_ID_ARR;
-    inline static constexpr size_t PEN20_MERAMON_ID_LEN = sizeof(PEN20_MERAMON_ID)-1;
+    inline static constexpr size_t PEN20_MERAMON_ID_LEN = sizeof(PEN20_MERAMON_ID_ARR)-1;
     inline static constexpr char PEN20_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Meramon";
     inline static constexpr const char* PEN20_MERAMON_NAME = PEN20_MERAMON_NAME_ARR;
     inline static constexpr size_t PEN20_MERAMON_NAME_LEN = sizeof(PEN20_MERAMON_NAME_ARR)-1;
@@ -2463,7 +2463,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_METAL_ETEMON_FQID_LEN = sizeof(PEN20_METAL_ETEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_METAL_ETEMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_etemon";
     inline static constexpr const char* PEN20_METAL_ETEMON_ID = PEN20_METAL_ETEMON_ID_ARR;
-    inline static constexpr size_t PEN20_METAL_ETEMON_ID_LEN = sizeof(PEN20_METAL_ETEMON_ID)-1;
+    inline static constexpr size_t PEN20_METAL_ETEMON_ID_LEN = sizeof(PEN20_METAL_ETEMON_ID_ARR)-1;
     inline static constexpr char PEN20_METAL_ETEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Etemon";
     inline static constexpr const char* PEN20_METAL_ETEMON_NAME = PEN20_METAL_ETEMON_NAME_ARR;
     inline static constexpr size_t PEN20_METAL_ETEMON_NAME_LEN = sizeof(PEN20_METAL_ETEMON_NAME_ARR)-1;
@@ -2481,7 +2481,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_METAL_GARURUMON_FQID_LEN = sizeof(PEN20_METAL_GARURUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_METAL_GARURUMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_garurumon";
     inline static constexpr const char* PEN20_METAL_GARURUMON_ID = PEN20_METAL_GARURUMON_ID_ARR;
-    inline static constexpr size_t PEN20_METAL_GARURUMON_ID_LEN = sizeof(PEN20_METAL_GARURUMON_ID)-1;
+    inline static constexpr size_t PEN20_METAL_GARURUMON_ID_LEN = sizeof(PEN20_METAL_GARURUMON_ID_ARR)-1;
     inline static constexpr char PEN20_METAL_GARURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Garurumon";
     inline static constexpr const char* PEN20_METAL_GARURUMON_NAME = PEN20_METAL_GARURUMON_NAME_ARR;
     inline static constexpr size_t PEN20_METAL_GARURUMON_NAME_LEN = sizeof(PEN20_METAL_GARURUMON_NAME_ARR)-1;
@@ -2499,7 +2499,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_METAL_GREYMON_FQID_LEN = sizeof(PEN20_METAL_GREYMON_FQID_ARR)-1;
     inline static constexpr char PEN20_METAL_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon";
     inline static constexpr const char* PEN20_METAL_GREYMON_ID = PEN20_METAL_GREYMON_ID_ARR;
-    inline static constexpr size_t PEN20_METAL_GREYMON_ID_LEN = sizeof(PEN20_METAL_GREYMON_ID)-1;
+    inline static constexpr size_t PEN20_METAL_GREYMON_ID_LEN = sizeof(PEN20_METAL_GREYMON_ID_ARR)-1;
     inline static constexpr char PEN20_METAL_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon";
     inline static constexpr const char* PEN20_METAL_GREYMON_NAME = PEN20_METAL_GREYMON_NAME_ARR;
     inline static constexpr size_t PEN20_METAL_GREYMON_NAME_LEN = sizeof(PEN20_METAL_GREYMON_NAME_ARR)-1;
@@ -2517,7 +2517,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_METAL_MAMEMON_FQID_LEN = sizeof(PEN20_METAL_MAMEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_METAL_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_mamemon";
     inline static constexpr const char* PEN20_METAL_MAMEMON_ID = PEN20_METAL_MAMEMON_ID_ARR;
-    inline static constexpr size_t PEN20_METAL_MAMEMON_ID_LEN = sizeof(PEN20_METAL_MAMEMON_ID)-1;
+    inline static constexpr size_t PEN20_METAL_MAMEMON_ID_LEN = sizeof(PEN20_METAL_MAMEMON_ID_ARR)-1;
     inline static constexpr char PEN20_METAL_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Mamemon";
     inline static constexpr const char* PEN20_METAL_MAMEMON_NAME = PEN20_METAL_MAMEMON_NAME_ARR;
     inline static constexpr size_t PEN20_METAL_MAMEMON_NAME_LEN = sizeof(PEN20_METAL_MAMEMON_NAME_ARR)-1;
@@ -2535,7 +2535,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_METAL_SEADRAMON_FQID_LEN = sizeof(PEN20_METAL_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_METAL_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_seadramon";
     inline static constexpr const char* PEN20_METAL_SEADRAMON_ID = PEN20_METAL_SEADRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_METAL_SEADRAMON_ID_LEN = sizeof(PEN20_METAL_SEADRAMON_ID)-1;
+    inline static constexpr size_t PEN20_METAL_SEADRAMON_ID_LEN = sizeof(PEN20_METAL_SEADRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_METAL_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Seadramon";
     inline static constexpr const char* PEN20_METAL_SEADRAMON_NAME = PEN20_METAL_SEADRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_METAL_SEADRAMON_NAME_LEN = sizeof(PEN20_METAL_SEADRAMON_NAME_ARR)-1;
@@ -2553,7 +2553,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MOCHIMON_FQID_LEN = sizeof(PEN20_MOCHIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MOCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "mochimon";
     inline static constexpr const char* PEN20_MOCHIMON_ID = PEN20_MOCHIMON_ID_ARR;
-    inline static constexpr size_t PEN20_MOCHIMON_ID_LEN = sizeof(PEN20_MOCHIMON_ID)-1;
+    inline static constexpr size_t PEN20_MOCHIMON_ID_LEN = sizeof(PEN20_MOCHIMON_ID_ARR)-1;
     inline static constexpr char PEN20_MOCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mochimon";
     inline static constexpr const char* PEN20_MOCHIMON_NAME = PEN20_MOCHIMON_NAME_ARR;
     inline static constexpr size_t PEN20_MOCHIMON_NAME_LEN = sizeof(PEN20_MOCHIMON_NAME_ARR)-1;
@@ -2571,7 +2571,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MOKUMON_FQID_LEN = sizeof(PEN20_MOKUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MOKUMON_ID_ARR[] CONFIG_STRING_SECTION = "mokumon";
     inline static constexpr const char* PEN20_MOKUMON_ID = PEN20_MOKUMON_ID_ARR;
-    inline static constexpr size_t PEN20_MOKUMON_ID_LEN = sizeof(PEN20_MOKUMON_ID)-1;
+    inline static constexpr size_t PEN20_MOKUMON_ID_LEN = sizeof(PEN20_MOKUMON_ID_ARR)-1;
     inline static constexpr char PEN20_MOKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mokumon";
     inline static constexpr const char* PEN20_MOKUMON_NAME = PEN20_MOKUMON_NAME_ARR;
     inline static constexpr size_t PEN20_MOKUMON_NAME_LEN = sizeof(PEN20_MOKUMON_NAME_ARR)-1;
@@ -2589,7 +2589,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MONCHROMON_FQID_LEN = sizeof(PEN20_MONCHROMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MONCHROMON_ID_ARR[] CONFIG_STRING_SECTION = "monchromon";
     inline static constexpr const char* PEN20_MONCHROMON_ID = PEN20_MONCHROMON_ID_ARR;
-    inline static constexpr size_t PEN20_MONCHROMON_ID_LEN = sizeof(PEN20_MONCHROMON_ID)-1;
+    inline static constexpr size_t PEN20_MONCHROMON_ID_LEN = sizeof(PEN20_MONCHROMON_ID_ARR)-1;
     inline static constexpr char PEN20_MONCHROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Monchromon";
     inline static constexpr const char* PEN20_MONCHROMON_NAME = PEN20_MONCHROMON_NAME_ARR;
     inline static constexpr size_t PEN20_MONCHROMON_NAME_LEN = sizeof(PEN20_MONCHROMON_NAME_ARR)-1;
@@ -2607,7 +2607,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MONOCHROMON_FQID_LEN = sizeof(PEN20_MONOCHROMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MONOCHROMON_ID_ARR[] CONFIG_STRING_SECTION = "monochromon";
     inline static constexpr const char* PEN20_MONOCHROMON_ID = PEN20_MONOCHROMON_ID_ARR;
-    inline static constexpr size_t PEN20_MONOCHROMON_ID_LEN = sizeof(PEN20_MONOCHROMON_ID)-1;
+    inline static constexpr size_t PEN20_MONOCHROMON_ID_LEN = sizeof(PEN20_MONOCHROMON_ID_ARR)-1;
     inline static constexpr char PEN20_MONOCHROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Monochromon";
     inline static constexpr const char* PEN20_MONOCHROMON_NAME = PEN20_MONOCHROMON_NAME_ARR;
     inline static constexpr size_t PEN20_MONOCHROMON_NAME_LEN = sizeof(PEN20_MONOCHROMON_NAME_ARR)-1;
@@ -2625,7 +2625,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MUGENDRAMON_FQID_LEN = sizeof(PEN20_MUGENDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MUGENDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "mugendramon";
     inline static constexpr const char* PEN20_MUGENDRAMON_ID = PEN20_MUGENDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_MUGENDRAMON_ID_LEN = sizeof(PEN20_MUGENDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_MUGENDRAMON_ID_LEN = sizeof(PEN20_MUGENDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_MUGENDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mugendramon";
     inline static constexpr const char* PEN20_MUGENDRAMON_NAME = PEN20_MUGENDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_MUGENDRAMON_NAME_LEN = sizeof(PEN20_MUGENDRAMON_NAME_ARR)-1;
@@ -2643,7 +2643,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_MUSHMON_FQID_LEN = sizeof(PEN20_MUSHMON_FQID_ARR)-1;
     inline static constexpr char PEN20_MUSHMON_ID_ARR[] CONFIG_STRING_SECTION = "mushmon";
     inline static constexpr const char* PEN20_MUSHMON_ID = PEN20_MUSHMON_ID_ARR;
-    inline static constexpr size_t PEN20_MUSHMON_ID_LEN = sizeof(PEN20_MUSHMON_ID)-1;
+    inline static constexpr size_t PEN20_MUSHMON_ID_LEN = sizeof(PEN20_MUSHMON_ID_ARR)-1;
     inline static constexpr char PEN20_MUSHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mushmon";
     inline static constexpr const char* PEN20_MUSHMON_NAME = PEN20_MUSHMON_NAME_ARR;
     inline static constexpr size_t PEN20_MUSHMON_NAME_LEN = sizeof(PEN20_MUSHMON_NAME_ARR)-1;
@@ -2661,7 +2661,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_NYAROMON_FQID_LEN = sizeof(PEN20_NYAROMON_FQID_ARR)-1;
     inline static constexpr char PEN20_NYAROMON_ID_ARR[] CONFIG_STRING_SECTION = "nyaromon";
     inline static constexpr const char* PEN20_NYAROMON_ID = PEN20_NYAROMON_ID_ARR;
-    inline static constexpr size_t PEN20_NYAROMON_ID_LEN = sizeof(PEN20_NYAROMON_ID)-1;
+    inline static constexpr size_t PEN20_NYAROMON_ID_LEN = sizeof(PEN20_NYAROMON_ID_ARR)-1;
     inline static constexpr char PEN20_NYAROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Nyaromon";
     inline static constexpr const char* PEN20_NYAROMON_NAME = PEN20_NYAROMON_NAME_ARR;
     inline static constexpr size_t PEN20_NYAROMON_NAME_LEN = sizeof(PEN20_NYAROMON_NAME_ARR)-1;
@@ -2679,7 +2679,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_NYOKIMON_FQID_LEN = sizeof(PEN20_NYOKIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_NYOKIMON_ID_ARR[] CONFIG_STRING_SECTION = "nyokimon";
     inline static constexpr const char* PEN20_NYOKIMON_ID = PEN20_NYOKIMON_ID_ARR;
-    inline static constexpr size_t PEN20_NYOKIMON_ID_LEN = sizeof(PEN20_NYOKIMON_ID)-1;
+    inline static constexpr size_t PEN20_NYOKIMON_ID_LEN = sizeof(PEN20_NYOKIMON_ID_ARR)-1;
     inline static constexpr char PEN20_NYOKIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Nyokimon";
     inline static constexpr const char* PEN20_NYOKIMON_NAME = PEN20_NYOKIMON_NAME_ARR;
     inline static constexpr size_t PEN20_NYOKIMON_NAME_LEN = sizeof(PEN20_NYOKIMON_NAME_ARR)-1;
@@ -2697,7 +2697,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_OCTMON_FQID_LEN = sizeof(PEN20_OCTMON_FQID_ARR)-1;
     inline static constexpr char PEN20_OCTMON_ID_ARR[] CONFIG_STRING_SECTION = "octmon";
     inline static constexpr const char* PEN20_OCTMON_ID = PEN20_OCTMON_ID_ARR;
-    inline static constexpr size_t PEN20_OCTMON_ID_LEN = sizeof(PEN20_OCTMON_ID)-1;
+    inline static constexpr size_t PEN20_OCTMON_ID_LEN = sizeof(PEN20_OCTMON_ID_ARR)-1;
     inline static constexpr char PEN20_OCTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Octmon";
     inline static constexpr const char* PEN20_OCTMON_NAME = PEN20_OCTMON_NAME_ARR;
     inline static constexpr size_t PEN20_OCTMON_NAME_LEN = sizeof(PEN20_OCTMON_NAME_ARR)-1;
@@ -2715,7 +2715,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_OFANIMON_FQID_LEN = sizeof(PEN20_OFANIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_OFANIMON_ID_ARR[] CONFIG_STRING_SECTION = "ofanimon";
     inline static constexpr const char* PEN20_OFANIMON_ID = PEN20_OFANIMON_ID_ARR;
-    inline static constexpr size_t PEN20_OFANIMON_ID_LEN = sizeof(PEN20_OFANIMON_ID)-1;
+    inline static constexpr size_t PEN20_OFANIMON_ID_LEN = sizeof(PEN20_OFANIMON_ID_ARR)-1;
     inline static constexpr char PEN20_OFANIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ofanimon";
     inline static constexpr const char* PEN20_OFANIMON_NAME = PEN20_OFANIMON_NAME_ARR;
     inline static constexpr size_t PEN20_OFANIMON_NAME_LEN = sizeof(PEN20_OFANIMON_NAME_ARR)-1;
@@ -2733,7 +2733,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_OGUDOMON_FQID_LEN = sizeof(PEN20_OGUDOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_OGUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "ogudomon";
     inline static constexpr const char* PEN20_OGUDOMON_ID = PEN20_OGUDOMON_ID_ARR;
-    inline static constexpr size_t PEN20_OGUDOMON_ID_LEN = sizeof(PEN20_OGUDOMON_ID)-1;
+    inline static constexpr size_t PEN20_OGUDOMON_ID_LEN = sizeof(PEN20_OGUDOMON_ID_ARR)-1;
     inline static constexpr char PEN20_OGUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ogudomon";
     inline static constexpr const char* PEN20_OGUDOMON_NAME = PEN20_OGUDOMON_NAME_ARR;
     inline static constexpr size_t PEN20_OGUDOMON_NAME_LEN = sizeof(PEN20_OGUDOMON_NAME_ARR)-1;
@@ -2751,7 +2751,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_OKUWAMON_FQID_LEN = sizeof(PEN20_OKUWAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_OKUWAMON_ID_ARR[] CONFIG_STRING_SECTION = "okuwamon";
     inline static constexpr const char* PEN20_OKUWAMON_ID = PEN20_OKUWAMON_ID_ARR;
-    inline static constexpr size_t PEN20_OKUWAMON_ID_LEN = sizeof(PEN20_OKUWAMON_ID)-1;
+    inline static constexpr size_t PEN20_OKUWAMON_ID_LEN = sizeof(PEN20_OKUWAMON_ID_ARR)-1;
     inline static constexpr char PEN20_OKUWAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Okuwamon";
     inline static constexpr const char* PEN20_OKUWAMON_NAME = PEN20_OKUWAMON_NAME_ARR;
     inline static constexpr size_t PEN20_OKUWAMON_NAME_LEN = sizeof(PEN20_OKUWAMON_NAME_ARR)-1;
@@ -2769,7 +2769,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_OMEGAMON_FQID_LEN = sizeof(PEN20_OMEGAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_OMEGAMON_ID_ARR[] CONFIG_STRING_SECTION = "omegamon";
     inline static constexpr const char* PEN20_OMEGAMON_ID = PEN20_OMEGAMON_ID_ARR;
-    inline static constexpr size_t PEN20_OMEGAMON_ID_LEN = sizeof(PEN20_OMEGAMON_ID)-1;
+    inline static constexpr size_t PEN20_OMEGAMON_ID_LEN = sizeof(PEN20_OMEGAMON_ID_ARR)-1;
     inline static constexpr char PEN20_OMEGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Omegamon";
     inline static constexpr const char* PEN20_OMEGAMON_NAME = PEN20_OMEGAMON_NAME_ARR;
     inline static constexpr size_t PEN20_OMEGAMON_NAME_LEN = sizeof(PEN20_OMEGAMON_NAME_ARR)-1;
@@ -2787,7 +2787,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ORDINEMON_FQID_LEN = sizeof(PEN20_ORDINEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ORDINEMON_ID_ARR[] CONFIG_STRING_SECTION = "ordinemon";
     inline static constexpr const char* PEN20_ORDINEMON_ID = PEN20_ORDINEMON_ID_ARR;
-    inline static constexpr size_t PEN20_ORDINEMON_ID_LEN = sizeof(PEN20_ORDINEMON_ID)-1;
+    inline static constexpr size_t PEN20_ORDINEMON_ID_LEN = sizeof(PEN20_ORDINEMON_ID_ARR)-1;
     inline static constexpr char PEN20_ORDINEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ordinemon";
     inline static constexpr const char* PEN20_ORDINEMON_NAME = PEN20_ORDINEMON_NAME_ARR;
     inline static constexpr size_t PEN20_ORDINEMON_NAME_LEN = sizeof(PEN20_ORDINEMON_NAME_ARR)-1;
@@ -2805,7 +2805,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_OTAMAMON_FQID_LEN = sizeof(PEN20_OTAMAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_OTAMAMON_ID_ARR[] CONFIG_STRING_SECTION = "otamamon";
     inline static constexpr const char* PEN20_OTAMAMON_ID = PEN20_OTAMAMON_ID_ARR;
-    inline static constexpr size_t PEN20_OTAMAMON_ID_LEN = sizeof(PEN20_OTAMAMON_ID)-1;
+    inline static constexpr size_t PEN20_OTAMAMON_ID_LEN = sizeof(PEN20_OTAMAMON_ID_ARR)-1;
     inline static constexpr char PEN20_OTAMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Otamamon";
     inline static constexpr const char* PEN20_OTAMAMON_NAME = PEN20_OTAMAMON_NAME_ARR;
     inline static constexpr size_t PEN20_OTAMAMON_NAME_LEN = sizeof(PEN20_OTAMAMON_NAME_ARR)-1;
@@ -2823,7 +2823,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_OURYUMON_FQID_LEN = sizeof(PEN20_OURYUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_OURYUMON_ID_ARR[] CONFIG_STRING_SECTION = "ouryumon";
     inline static constexpr const char* PEN20_OURYUMON_ID = PEN20_OURYUMON_ID_ARR;
-    inline static constexpr size_t PEN20_OURYUMON_ID_LEN = sizeof(PEN20_OURYUMON_ID)-1;
+    inline static constexpr size_t PEN20_OURYUMON_ID_LEN = sizeof(PEN20_OURYUMON_ID_ARR)-1;
     inline static constexpr char PEN20_OURYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ouryumon";
     inline static constexpr const char* PEN20_OURYUMON_NAME = PEN20_OURYUMON_NAME_ARR;
     inline static constexpr size_t PEN20_OURYUMON_NAME_LEN = sizeof(PEN20_OURYUMON_NAME_ARR)-1;
@@ -2841,7 +2841,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PAILDRAMON_FQID_LEN = sizeof(PEN20_PAILDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PAILDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "paildramon";
     inline static constexpr const char* PEN20_PAILDRAMON_ID = PEN20_PAILDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_PAILDRAMON_ID_LEN = sizeof(PEN20_PAILDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_PAILDRAMON_ID_LEN = sizeof(PEN20_PAILDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_PAILDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Paildramon";
     inline static constexpr const char* PEN20_PAILDRAMON_NAME = PEN20_PAILDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_PAILDRAMON_NAME_LEN = sizeof(PEN20_PAILDRAMON_NAME_ARR)-1;
@@ -2859,7 +2859,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PALMON_FQID_LEN = sizeof(PEN20_PALMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PALMON_ID_ARR[] CONFIG_STRING_SECTION = "palmon";
     inline static constexpr const char* PEN20_PALMON_ID = PEN20_PALMON_ID_ARR;
-    inline static constexpr size_t PEN20_PALMON_ID_LEN = sizeof(PEN20_PALMON_ID)-1;
+    inline static constexpr size_t PEN20_PALMON_ID_LEN = sizeof(PEN20_PALMON_ID_ARR)-1;
     inline static constexpr char PEN20_PALMON_NAME_ARR[] CONFIG_STRING_SECTION = "Palmon";
     inline static constexpr const char* PEN20_PALMON_NAME = PEN20_PALMON_NAME_ARR;
     inline static constexpr size_t PEN20_PALMON_NAME_LEN = sizeof(PEN20_PALMON_NAME_ARR)-1;
@@ -2877,7 +2877,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PETI_MERAMON_FQID_LEN = sizeof(PEN20_PETI_MERAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PETI_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "peti_meramon";
     inline static constexpr const char* PEN20_PETI_MERAMON_ID = PEN20_PETI_MERAMON_ID_ARR;
-    inline static constexpr size_t PEN20_PETI_MERAMON_ID_LEN = sizeof(PEN20_PETI_MERAMON_ID)-1;
+    inline static constexpr size_t PEN20_PETI_MERAMON_ID_LEN = sizeof(PEN20_PETI_MERAMON_ID_ARR)-1;
     inline static constexpr char PEN20_PETI_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Peti Meramon";
     inline static constexpr const char* PEN20_PETI_MERAMON_NAME = PEN20_PETI_MERAMON_NAME_ARR;
     inline static constexpr size_t PEN20_PETI_MERAMON_NAME_LEN = sizeof(PEN20_PETI_MERAMON_NAME_ARR)-1;
@@ -2895,7 +2895,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PETITMON_FQID_LEN = sizeof(PEN20_PETITMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PETITMON_ID_ARR[] CONFIG_STRING_SECTION = "petitmon";
     inline static constexpr const char* PEN20_PETITMON_ID = PEN20_PETITMON_ID_ARR;
-    inline static constexpr size_t PEN20_PETITMON_ID_LEN = sizeof(PEN20_PETITMON_ID)-1;
+    inline static constexpr size_t PEN20_PETITMON_ID_LEN = sizeof(PEN20_PETITMON_ID_ARR)-1;
     inline static constexpr char PEN20_PETITMON_NAME_ARR[] CONFIG_STRING_SECTION = "Petitmon";
     inline static constexpr const char* PEN20_PETITMON_NAME = PEN20_PETITMON_NAME_ARR;
     inline static constexpr size_t PEN20_PETITMON_NAME_LEN = sizeof(PEN20_PETITMON_NAME_ARR)-1;
@@ -2913,7 +2913,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PHASCOMON_FQID_LEN = sizeof(PEN20_PHASCOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PHASCOMON_ID_ARR[] CONFIG_STRING_SECTION = "phascomon";
     inline static constexpr const char* PEN20_PHASCOMON_ID = PEN20_PHASCOMON_ID_ARR;
-    inline static constexpr size_t PEN20_PHASCOMON_ID_LEN = sizeof(PEN20_PHASCOMON_ID)-1;
+    inline static constexpr size_t PEN20_PHASCOMON_ID_LEN = sizeof(PEN20_PHASCOMON_ID_ARR)-1;
     inline static constexpr char PEN20_PHASCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Phascomon";
     inline static constexpr const char* PEN20_PHASCOMON_NAME = PEN20_PHASCOMON_NAME_ARR;
     inline static constexpr size_t PEN20_PHASCOMON_NAME_LEN = sizeof(PEN20_PHASCOMON_NAME_ARR)-1;
@@ -2931,7 +2931,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PICCOLOMON_FQID_LEN = sizeof(PEN20_PICCOLOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PICCOLOMON_ID_ARR[] CONFIG_STRING_SECTION = "piccolomon";
     inline static constexpr const char* PEN20_PICCOLOMON_ID = PEN20_PICCOLOMON_ID_ARR;
-    inline static constexpr size_t PEN20_PICCOLOMON_ID_LEN = sizeof(PEN20_PICCOLOMON_ID)-1;
+    inline static constexpr size_t PEN20_PICCOLOMON_ID_LEN = sizeof(PEN20_PICCOLOMON_ID_ARR)-1;
     inline static constexpr char PEN20_PICCOLOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Piccolomon";
     inline static constexpr const char* PEN20_PICCOLOMON_NAME = PEN20_PICCOLOMON_NAME_ARR;
     inline static constexpr size_t PEN20_PICCOLOMON_NAME_LEN = sizeof(PEN20_PICCOLOMON_NAME_ARR)-1;
@@ -2949,7 +2949,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PICO_DEVIMON_FQID_LEN = sizeof(PEN20_PICO_DEVIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PICO_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "pico_devimon";
     inline static constexpr const char* PEN20_PICO_DEVIMON_ID = PEN20_PICO_DEVIMON_ID_ARR;
-    inline static constexpr size_t PEN20_PICO_DEVIMON_ID_LEN = sizeof(PEN20_PICO_DEVIMON_ID)-1;
+    inline static constexpr size_t PEN20_PICO_DEVIMON_ID_LEN = sizeof(PEN20_PICO_DEVIMON_ID_ARR)-1;
     inline static constexpr char PEN20_PICO_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pico Devimon";
     inline static constexpr const char* PEN20_PICO_DEVIMON_NAME = PEN20_PICO_DEVIMON_NAME_ARR;
     inline static constexpr size_t PEN20_PICO_DEVIMON_NAME_LEN = sizeof(PEN20_PICO_DEVIMON_NAME_ARR)-1;
@@ -2967,7 +2967,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PIEMON_FQID_LEN = sizeof(PEN20_PIEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PIEMON_ID_ARR[] CONFIG_STRING_SECTION = "piemon";
     inline static constexpr const char* PEN20_PIEMON_ID = PEN20_PIEMON_ID_ARR;
-    inline static constexpr size_t PEN20_PIEMON_ID_LEN = sizeof(PEN20_PIEMON_ID)-1;
+    inline static constexpr size_t PEN20_PIEMON_ID_LEN = sizeof(PEN20_PIEMON_ID_ARR)-1;
     inline static constexpr char PEN20_PIEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Piemon";
     inline static constexpr const char* PEN20_PIEMON_NAME = PEN20_PIEMON_NAME_ARR;
     inline static constexpr size_t PEN20_PIEMON_NAME_LEN = sizeof(PEN20_PIEMON_NAME_ARR)-1;
@@ -2985,7 +2985,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PINOCHIMON_FQID_LEN = sizeof(PEN20_PINOCHIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PINOCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "pinochimon";
     inline static constexpr const char* PEN20_PINOCHIMON_ID = PEN20_PINOCHIMON_ID_ARR;
-    inline static constexpr size_t PEN20_PINOCHIMON_ID_LEN = sizeof(PEN20_PINOCHIMON_ID)-1;
+    inline static constexpr size_t PEN20_PINOCHIMON_ID_LEN = sizeof(PEN20_PINOCHIMON_ID_ARR)-1;
     inline static constexpr char PEN20_PINOCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pinochimon";
     inline static constexpr const char* PEN20_PINOCHIMON_NAME = PEN20_PINOCHIMON_NAME_ARR;
     inline static constexpr size_t PEN20_PINOCHIMON_NAME_LEN = sizeof(PEN20_PINOCHIMON_NAME_ARR)-1;
@@ -3003,7 +3003,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PITCHMON_FQID_LEN = sizeof(PEN20_PITCHMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PITCHMON_ID_ARR[] CONFIG_STRING_SECTION = "pitchmon";
     inline static constexpr const char* PEN20_PITCHMON_ID = PEN20_PITCHMON_ID_ARR;
-    inline static constexpr size_t PEN20_PITCHMON_ID_LEN = sizeof(PEN20_PITCHMON_ID)-1;
+    inline static constexpr size_t PEN20_PITCHMON_ID_LEN = sizeof(PEN20_PITCHMON_ID_ARR)-1;
     inline static constexpr char PEN20_PITCHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pitchmon";
     inline static constexpr const char* PEN20_PITCHMON_NAME = PEN20_PITCHMON_NAME_ARR;
     inline static constexpr size_t PEN20_PITCHMON_NAME_LEN = sizeof(PEN20_PITCHMON_NAME_ARR)-1;
@@ -3021,7 +3021,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PIYOMON_FQID_LEN = sizeof(PEN20_PIYOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PIYOMON_ID_ARR[] CONFIG_STRING_SECTION = "piyomon";
     inline static constexpr const char* PEN20_PIYOMON_ID = PEN20_PIYOMON_ID_ARR;
-    inline static constexpr size_t PEN20_PIYOMON_ID_LEN = sizeof(PEN20_PIYOMON_ID)-1;
+    inline static constexpr size_t PEN20_PIYOMON_ID_LEN = sizeof(PEN20_PIYOMON_ID_ARR)-1;
     inline static constexpr char PEN20_PIYOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Piyomon";
     inline static constexpr const char* PEN20_PIYOMON_NAME = PEN20_PIYOMON_NAME_ARR;
     inline static constexpr size_t PEN20_PIYOMON_NAME_LEN = sizeof(PEN20_PIYOMON_NAME_ARR)-1;
@@ -3039,7 +3039,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PLESIOMON_FQID_LEN = sizeof(PEN20_PLESIOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PLESIOMON_ID_ARR[] CONFIG_STRING_SECTION = "plesiomon";
     inline static constexpr const char* PEN20_PLESIOMON_ID = PEN20_PLESIOMON_ID_ARR;
-    inline static constexpr size_t PEN20_PLESIOMON_ID_LEN = sizeof(PEN20_PLESIOMON_ID)-1;
+    inline static constexpr size_t PEN20_PLESIOMON_ID_LEN = sizeof(PEN20_PLESIOMON_ID_ARR)-1;
     inline static constexpr char PEN20_PLESIOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Plesiomon";
     inline static constexpr const char* PEN20_PLESIOMON_NAME = PEN20_PLESIOMON_NAME_ARR;
     inline static constexpr size_t PEN20_PLESIOMON_NAME_LEN = sizeof(PEN20_PLESIOMON_NAME_ARR)-1;
@@ -3057,7 +3057,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PLOTMON_FQID_LEN = sizeof(PEN20_PLOTMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PLOTMON_ID_ARR[] CONFIG_STRING_SECTION = "plotmon";
     inline static constexpr const char* PEN20_PLOTMON_ID = PEN20_PLOTMON_ID_ARR;
-    inline static constexpr size_t PEN20_PLOTMON_ID_LEN = sizeof(PEN20_PLOTMON_ID)-1;
+    inline static constexpr size_t PEN20_PLOTMON_ID_LEN = sizeof(PEN20_PLOTMON_ID_ARR)-1;
     inline static constexpr char PEN20_PLOTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Plotmon";
     inline static constexpr const char* PEN20_PLOTMON_NAME = PEN20_PLOTMON_NAME_ARR;
     inline static constexpr size_t PEN20_PLOTMON_NAME_LEN = sizeof(PEN20_PLOTMON_NAME_ARR)-1;
@@ -3075,7 +3075,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PORCUPAMON_FQID_LEN = sizeof(PEN20_PORCUPAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PORCUPAMON_ID_ARR[] CONFIG_STRING_SECTION = "porcupamon";
     inline static constexpr const char* PEN20_PORCUPAMON_ID = PEN20_PORCUPAMON_ID_ARR;
-    inline static constexpr size_t PEN20_PORCUPAMON_ID_LEN = sizeof(PEN20_PORCUPAMON_ID)-1;
+    inline static constexpr size_t PEN20_PORCUPAMON_ID_LEN = sizeof(PEN20_PORCUPAMON_ID_ARR)-1;
     inline static constexpr char PEN20_PORCUPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Porcupamon";
     inline static constexpr const char* PEN20_PORCUPAMON_NAME = PEN20_PORCUPAMON_NAME_ARR;
     inline static constexpr size_t PEN20_PORCUPAMON_NAME_LEN = sizeof(PEN20_PORCUPAMON_NAME_ARR)-1;
@@ -3093,7 +3093,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PORCUPMON_FQID_LEN = sizeof(PEN20_PORCUPMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PORCUPMON_ID_ARR[] CONFIG_STRING_SECTION = "porcupmon";
     inline static constexpr const char* PEN20_PORCUPMON_ID = PEN20_PORCUPMON_ID_ARR;
-    inline static constexpr size_t PEN20_PORCUPMON_ID_LEN = sizeof(PEN20_PORCUPMON_ID)-1;
+    inline static constexpr size_t PEN20_PORCUPMON_ID_LEN = sizeof(PEN20_PORCUPMON_ID_ARR)-1;
     inline static constexpr char PEN20_PORCUPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Porcupmon";
     inline static constexpr const char* PEN20_PORCUPMON_NAME = PEN20_PORCUPMON_NAME_ARR;
     inline static constexpr size_t PEN20_PORCUPMON_NAME_LEN = sizeof(PEN20_PORCUPMON_NAME_ARR)-1;
@@ -3111,7 +3111,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PUKAMON_FQID_LEN = sizeof(PEN20_PUKAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PUKAMON_ID_ARR[] CONFIG_STRING_SECTION = "pukamon";
     inline static constexpr const char* PEN20_PUKAMON_ID = PEN20_PUKAMON_ID_ARR;
-    inline static constexpr size_t PEN20_PUKAMON_ID_LEN = sizeof(PEN20_PUKAMON_ID)-1;
+    inline static constexpr size_t PEN20_PUKAMON_ID_LEN = sizeof(PEN20_PUKAMON_ID_ARR)-1;
     inline static constexpr char PEN20_PUKAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pukamon";
     inline static constexpr const char* PEN20_PUKAMON_NAME = PEN20_PUKAMON_NAME_ARR;
     inline static constexpr size_t PEN20_PUKAMON_NAME_LEN = sizeof(PEN20_PUKAMON_NAME_ARR)-1;
@@ -3129,7 +3129,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PUKUMON_FQID_LEN = sizeof(PEN20_PUKUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PUKUMON_ID_ARR[] CONFIG_STRING_SECTION = "pukumon";
     inline static constexpr const char* PEN20_PUKUMON_ID = PEN20_PUKUMON_ID_ARR;
-    inline static constexpr size_t PEN20_PUKUMON_ID_LEN = sizeof(PEN20_PUKUMON_ID)-1;
+    inline static constexpr size_t PEN20_PUKUMON_ID_LEN = sizeof(PEN20_PUKUMON_ID_ARR)-1;
     inline static constexpr char PEN20_PUKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pukumon";
     inline static constexpr const char* PEN20_PUKUMON_NAME = PEN20_PUKUMON_NAME_ARR;
     inline static constexpr size_t PEN20_PUKUMON_NAME_LEN = sizeof(PEN20_PUKUMON_NAME_ARR)-1;
@@ -3147,7 +3147,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PUMPMON_FQID_LEN = sizeof(PEN20_PUMPMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PUMPMON_ID_ARR[] CONFIG_STRING_SECTION = "pumpmon";
     inline static constexpr const char* PEN20_PUMPMON_ID = PEN20_PUMPMON_ID_ARR;
-    inline static constexpr size_t PEN20_PUMPMON_ID_LEN = sizeof(PEN20_PUMPMON_ID)-1;
+    inline static constexpr size_t PEN20_PUMPMON_ID_LEN = sizeof(PEN20_PUMPMON_ID_ARR)-1;
     inline static constexpr char PEN20_PUMPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pumpmon";
     inline static constexpr const char* PEN20_PUMPMON_NAME = PEN20_PUMPMON_NAME_ARR;
     inline static constexpr size_t PEN20_PUMPMON_NAME_LEN = sizeof(PEN20_PUMPMON_NAME_ARR)-1;
@@ -3165,7 +3165,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_PYOCOMON_FQID_LEN = sizeof(PEN20_PYOCOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_PYOCOMON_ID_ARR[] CONFIG_STRING_SECTION = "pyocomon";
     inline static constexpr const char* PEN20_PYOCOMON_ID = PEN20_PYOCOMON_ID_ARR;
-    inline static constexpr size_t PEN20_PYOCOMON_ID_LEN = sizeof(PEN20_PYOCOMON_ID)-1;
+    inline static constexpr size_t PEN20_PYOCOMON_ID_LEN = sizeof(PEN20_PYOCOMON_ID_ARR)-1;
     inline static constexpr char PEN20_PYOCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pyocomon";
     inline static constexpr const char* PEN20_PYOCOMON_NAME = PEN20_PYOCOMON_NAME_ARR;
     inline static constexpr size_t PEN20_PYOCOMON_NAME_LEN = sizeof(PEN20_PYOCOMON_NAME_ARR)-1;
@@ -3183,7 +3183,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RAFFLESIMON_FQID_LEN = sizeof(PEN20_RAFFLESIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RAFFLESIMON_ID_ARR[] CONFIG_STRING_SECTION = "rafflesimon";
     inline static constexpr const char* PEN20_RAFFLESIMON_ID = PEN20_RAFFLESIMON_ID_ARR;
-    inline static constexpr size_t PEN20_RAFFLESIMON_ID_LEN = sizeof(PEN20_RAFFLESIMON_ID)-1;
+    inline static constexpr size_t PEN20_RAFFLESIMON_ID_LEN = sizeof(PEN20_RAFFLESIMON_ID_ARR)-1;
     inline static constexpr char PEN20_RAFFLESIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rafflesimon";
     inline static constexpr const char* PEN20_RAFFLESIMON_NAME = PEN20_RAFFLESIMON_NAME_ARR;
     inline static constexpr size_t PEN20_RAFFLESIMON_NAME_LEN = sizeof(PEN20_RAFFLESIMON_NAME_ARR)-1;
@@ -3201,7 +3201,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RAGNA_LORDMON_FQID_LEN = sizeof(PEN20_RAGNA_LORDMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RAGNA_LORDMON_ID_ARR[] CONFIG_STRING_SECTION = "ragna_lordmon";
     inline static constexpr const char* PEN20_RAGNA_LORDMON_ID = PEN20_RAGNA_LORDMON_ID_ARR;
-    inline static constexpr size_t PEN20_RAGNA_LORDMON_ID_LEN = sizeof(PEN20_RAGNA_LORDMON_ID)-1;
+    inline static constexpr size_t PEN20_RAGNA_LORDMON_ID_LEN = sizeof(PEN20_RAGNA_LORDMON_ID_ARR)-1;
     inline static constexpr char PEN20_RAGNA_LORDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ragna Lordmon";
     inline static constexpr const char* PEN20_RAGNA_LORDMON_NAME = PEN20_RAGNA_LORDMON_NAME_ARR;
     inline static constexpr size_t PEN20_RAGNA_LORDMON_NAME_LEN = sizeof(PEN20_RAGNA_LORDMON_NAME_ARR)-1;
@@ -3219,7 +3219,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RAGUELMON_FQID_LEN = sizeof(PEN20_RAGUELMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RAGUELMON_ID_ARR[] CONFIG_STRING_SECTION = "raguelmon";
     inline static constexpr const char* PEN20_RAGUELMON_ID = PEN20_RAGUELMON_ID_ARR;
-    inline static constexpr size_t PEN20_RAGUELMON_ID_LEN = sizeof(PEN20_RAGUELMON_ID)-1;
+    inline static constexpr size_t PEN20_RAGUELMON_ID_LEN = sizeof(PEN20_RAGUELMON_ID_ARR)-1;
     inline static constexpr char PEN20_RAGUELMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raguelmon";
     inline static constexpr const char* PEN20_RAGUELMON_NAME = PEN20_RAGUELMON_NAME_ARR;
     inline static constexpr size_t PEN20_RAGUELMON_NAME_LEN = sizeof(PEN20_RAGUELMON_NAME_ARR)-1;
@@ -3237,7 +3237,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RAIJI_LUDOMON_FQID_LEN = sizeof(PEN20_RAIJI_LUDOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RAIJI_LUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "raiji_ludomon";
     inline static constexpr const char* PEN20_RAIJI_LUDOMON_ID = PEN20_RAIJI_LUDOMON_ID_ARR;
-    inline static constexpr size_t PEN20_RAIJI_LUDOMON_ID_LEN = sizeof(PEN20_RAIJI_LUDOMON_ID)-1;
+    inline static constexpr size_t PEN20_RAIJI_LUDOMON_ID_LEN = sizeof(PEN20_RAIJI_LUDOMON_ID_ARR)-1;
     inline static constexpr char PEN20_RAIJI_LUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raiji Ludomon";
     inline static constexpr const char* PEN20_RAIJI_LUDOMON_NAME = PEN20_RAIJI_LUDOMON_NAME_ARR;
     inline static constexpr size_t PEN20_RAIJI_LUDOMON_NAME_LEN = sizeof(PEN20_RAIJI_LUDOMON_NAME_ARR)-1;
@@ -3255,7 +3255,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RAPIDMON_FQID_LEN = sizeof(PEN20_RAPIDMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RAPIDMON_ID_ARR[] CONFIG_STRING_SECTION = "rapidmon";
     inline static constexpr const char* PEN20_RAPIDMON_ID = PEN20_RAPIDMON_ID_ARR;
-    inline static constexpr size_t PEN20_RAPIDMON_ID_LEN = sizeof(PEN20_RAPIDMON_ID)-1;
+    inline static constexpr size_t PEN20_RAPIDMON_ID_LEN = sizeof(PEN20_RAPIDMON_ID_ARR)-1;
     inline static constexpr char PEN20_RAPIDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rapidmon";
     inline static constexpr const char* PEN20_RAPIDMON_NAME = PEN20_RAPIDMON_NAME_ARR;
     inline static constexpr size_t PEN20_RAPIDMON_NAME_LEN = sizeof(PEN20_RAPIDMON_NAME_ARR)-1;
@@ -3273,7 +3273,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RED_VEGIMON_FQID_LEN = sizeof(PEN20_RED_VEGIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RED_VEGIMON_ID_ARR[] CONFIG_STRING_SECTION = "red_vegimon";
     inline static constexpr const char* PEN20_RED_VEGIMON_ID = PEN20_RED_VEGIMON_ID_ARR;
-    inline static constexpr size_t PEN20_RED_VEGIMON_ID_LEN = sizeof(PEN20_RED_VEGIMON_ID)-1;
+    inline static constexpr size_t PEN20_RED_VEGIMON_ID_LEN = sizeof(PEN20_RED_VEGIMON_ID_ARR)-1;
     inline static constexpr char PEN20_RED_VEGIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Red Vegimon";
     inline static constexpr const char* PEN20_RED_VEGIMON_NAME = PEN20_RED_VEGIMON_NAME_ARR;
     inline static constexpr size_t PEN20_RED_VEGIMON_NAME_LEN = sizeof(PEN20_RED_VEGIMON_NAME_ARR)-1;
@@ -3291,7 +3291,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_REPPAMON_FQID_LEN = sizeof(PEN20_REPPAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_REPPAMON_ID_ARR[] CONFIG_STRING_SECTION = "reppamon";
     inline static constexpr const char* PEN20_REPPAMON_ID = PEN20_REPPAMON_ID_ARR;
-    inline static constexpr size_t PEN20_REPPAMON_ID_LEN = sizeof(PEN20_REPPAMON_ID)-1;
+    inline static constexpr size_t PEN20_REPPAMON_ID_LEN = sizeof(PEN20_REPPAMON_ID_ARR)-1;
     inline static constexpr char PEN20_REPPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Reppamon";
     inline static constexpr const char* PEN20_REPPAMON_NAME = PEN20_REPPAMON_NAME_ARR;
     inline static constexpr size_t PEN20_REPPAMON_NAME_LEN = sizeof(PEN20_REPPAMON_NAME_ARR)-1;
@@ -3309,7 +3309,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_REVOLMON_FQID_LEN = sizeof(PEN20_REVOLMON_FQID_ARR)-1;
     inline static constexpr char PEN20_REVOLMON_ID_ARR[] CONFIG_STRING_SECTION = "revolmon";
     inline static constexpr const char* PEN20_REVOLMON_ID = PEN20_REVOLMON_ID_ARR;
-    inline static constexpr size_t PEN20_REVOLMON_ID_LEN = sizeof(PEN20_REVOLMON_ID)-1;
+    inline static constexpr size_t PEN20_REVOLMON_ID_LEN = sizeof(PEN20_REVOLMON_ID_ARR)-1;
     inline static constexpr char PEN20_REVOLMON_NAME_ARR[] CONFIG_STRING_SECTION = "Revolmon";
     inline static constexpr const char* PEN20_REVOLMON_NAME = PEN20_REVOLMON_NAME_ARR;
     inline static constexpr size_t PEN20_REVOLMON_NAME_LEN = sizeof(PEN20_REVOLMON_NAME_ARR)-1;
@@ -3327,7 +3327,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RIZE_GREYMON_FQID_LEN = sizeof(PEN20_RIZE_GREYMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RIZE_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "rize_greymon";
     inline static constexpr const char* PEN20_RIZE_GREYMON_ID = PEN20_RIZE_GREYMON_ID_ARR;
-    inline static constexpr size_t PEN20_RIZE_GREYMON_ID_LEN = sizeof(PEN20_RIZE_GREYMON_ID)-1;
+    inline static constexpr size_t PEN20_RIZE_GREYMON_ID_LEN = sizeof(PEN20_RIZE_GREYMON_ID_ARR)-1;
     inline static constexpr char PEN20_RIZE_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rize Greymon";
     inline static constexpr const char* PEN20_RIZE_GREYMON_NAME = PEN20_RIZE_GREYMON_NAME_ARR;
     inline static constexpr size_t PEN20_RIZE_GREYMON_NAME_LEN = sizeof(PEN20_RIZE_GREYMON_NAME_ARR)-1;
@@ -3345,7 +3345,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ROSEMON_FQID_LEN = sizeof(PEN20_ROSEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ROSEMON_ID_ARR[] CONFIG_STRING_SECTION = "rosemon";
     inline static constexpr const char* PEN20_ROSEMON_ID = PEN20_ROSEMON_ID_ARR;
-    inline static constexpr size_t PEN20_ROSEMON_ID_LEN = sizeof(PEN20_ROSEMON_ID)-1;
+    inline static constexpr size_t PEN20_ROSEMON_ID_LEN = sizeof(PEN20_ROSEMON_ID_ARR)-1;
     inline static constexpr char PEN20_ROSEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rosemon";
     inline static constexpr const char* PEN20_ROSEMON_NAME = PEN20_ROSEMON_NAME_ARR;
     inline static constexpr size_t PEN20_ROSEMON_NAME_LEN = sizeof(PEN20_ROSEMON_NAME_ARR)-1;
@@ -3363,7 +3363,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RUKAMON_FQID_LEN = sizeof(PEN20_RUKAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RUKAMON_ID_ARR[] CONFIG_STRING_SECTION = "rukamon";
     inline static constexpr const char* PEN20_RUKAMON_ID = PEN20_RUKAMON_ID_ARR;
-    inline static constexpr size_t PEN20_RUKAMON_ID_LEN = sizeof(PEN20_RUKAMON_ID)-1;
+    inline static constexpr size_t PEN20_RUKAMON_ID_LEN = sizeof(PEN20_RUKAMON_ID_ARR)-1;
     inline static constexpr char PEN20_RUKAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rukamon";
     inline static constexpr const char* PEN20_RUKAMON_NAME = PEN20_RUKAMON_NAME_ARR;
     inline static constexpr size_t PEN20_RUKAMON_NAME_LEN = sizeof(PEN20_RUKAMON_NAME_ARR)-1;
@@ -3381,7 +3381,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_RYUDAMON_FQID_LEN = sizeof(PEN20_RYUDAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_RYUDAMON_ID_ARR[] CONFIG_STRING_SECTION = "ryudamon";
     inline static constexpr const char* PEN20_RYUDAMON_ID = PEN20_RYUDAMON_ID_ARR;
-    inline static constexpr size_t PEN20_RYUDAMON_ID_LEN = sizeof(PEN20_RYUDAMON_ID)-1;
+    inline static constexpr size_t PEN20_RYUDAMON_ID_LEN = sizeof(PEN20_RYUDAMON_ID_ARR)-1;
     inline static constexpr char PEN20_RYUDAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ryudamon";
     inline static constexpr const char* PEN20_RYUDAMON_NAME = PEN20_RYUDAMON_NAME_ARR;
     inline static constexpr size_t PEN20_RYUDAMON_NAME_LEN = sizeof(PEN20_RYUDAMON_NAME_ARR)-1;
@@ -3399,7 +3399,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SABER_LEOMON_FQID_LEN = sizeof(PEN20_SABER_LEOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SABER_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "saber_leomon";
     inline static constexpr const char* PEN20_SABER_LEOMON_ID = PEN20_SABER_LEOMON_ID_ARR;
-    inline static constexpr size_t PEN20_SABER_LEOMON_ID_LEN = sizeof(PEN20_SABER_LEOMON_ID)-1;
+    inline static constexpr size_t PEN20_SABER_LEOMON_ID_LEN = sizeof(PEN20_SABER_LEOMON_ID_ARR)-1;
     inline static constexpr char PEN20_SABER_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Saber Leomon";
     inline static constexpr const char* PEN20_SABER_LEOMON_NAME = PEN20_SABER_LEOMON_NAME_ARR;
     inline static constexpr size_t PEN20_SABER_LEOMON_NAME_LEN = sizeof(PEN20_SABER_LEOMON_NAME_ARR)-1;
@@ -3417,7 +3417,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SAINT_GALGOMON_FQID_LEN = sizeof(PEN20_SAINT_GALGOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SAINT_GALGOMON_ID_ARR[] CONFIG_STRING_SECTION = "saint_galgomon";
     inline static constexpr const char* PEN20_SAINT_GALGOMON_ID = PEN20_SAINT_GALGOMON_ID_ARR;
-    inline static constexpr size_t PEN20_SAINT_GALGOMON_ID_LEN = sizeof(PEN20_SAINT_GALGOMON_ID)-1;
+    inline static constexpr size_t PEN20_SAINT_GALGOMON_ID_LEN = sizeof(PEN20_SAINT_GALGOMON_ID_ARR)-1;
     inline static constexpr char PEN20_SAINT_GALGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Saint Galgomon";
     inline static constexpr const char* PEN20_SAINT_GALGOMON_NAME = PEN20_SAINT_GALGOMON_NAME_ARR;
     inline static constexpr size_t PEN20_SAINT_GALGOMON_NAME_LEN = sizeof(PEN20_SAINT_GALGOMON_NAME_ARR)-1;
@@ -3435,7 +3435,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SAKUMON_FQID_LEN = sizeof(PEN20_SAKUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SAKUMON_ID_ARR[] CONFIG_STRING_SECTION = "sakumon";
     inline static constexpr const char* PEN20_SAKUMON_ID = PEN20_SAKUMON_ID_ARR;
-    inline static constexpr size_t PEN20_SAKUMON_ID_LEN = sizeof(PEN20_SAKUMON_ID)-1;
+    inline static constexpr size_t PEN20_SAKUMON_ID_LEN = sizeof(PEN20_SAKUMON_ID_ARR)-1;
     inline static constexpr char PEN20_SAKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sakumon";
     inline static constexpr const char* PEN20_SAKUMON_NAME = PEN20_SAKUMON_NAME_ARR;
     inline static constexpr size_t PEN20_SAKUMON_NAME_LEN = sizeof(PEN20_SAKUMON_NAME_ARR)-1;
@@ -3453,7 +3453,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SAKUTTOMON_FQID_LEN = sizeof(PEN20_SAKUTTOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SAKUTTOMON_ID_ARR[] CONFIG_STRING_SECTION = "sakuttomon";
     inline static constexpr const char* PEN20_SAKUTTOMON_ID = PEN20_SAKUTTOMON_ID_ARR;
-    inline static constexpr size_t PEN20_SAKUTTOMON_ID_LEN = sizeof(PEN20_SAKUTTOMON_ID)-1;
+    inline static constexpr size_t PEN20_SAKUTTOMON_ID_LEN = sizeof(PEN20_SAKUTTOMON_ID_ARR)-1;
     inline static constexpr char PEN20_SAKUTTOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sakuttomon";
     inline static constexpr const char* PEN20_SAKUTTOMON_NAME = PEN20_SAKUTTOMON_NAME_ARR;
     inline static constexpr size_t PEN20_SAKUTTOMON_NAME_LEN = sizeof(PEN20_SAKUTTOMON_NAME_ARR)-1;
@@ -3471,7 +3471,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SAVIOR_HACKMON_FQID_LEN = sizeof(PEN20_SAVIOR_HACKMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SAVIOR_HACKMON_ID_ARR[] CONFIG_STRING_SECTION = "savior_hackmon";
     inline static constexpr const char* PEN20_SAVIOR_HACKMON_ID = PEN20_SAVIOR_HACKMON_ID_ARR;
-    inline static constexpr size_t PEN20_SAVIOR_HACKMON_ID_LEN = sizeof(PEN20_SAVIOR_HACKMON_ID)-1;
+    inline static constexpr size_t PEN20_SAVIOR_HACKMON_ID_LEN = sizeof(PEN20_SAVIOR_HACKMON_ID_ARR)-1;
     inline static constexpr char PEN20_SAVIOR_HACKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Savior Hackmon";
     inline static constexpr const char* PEN20_SAVIOR_HACKMON_NAME = PEN20_SAVIOR_HACKMON_NAME_ARR;
     inline static constexpr size_t PEN20_SAVIOR_HACKMON_NAME_LEN = sizeof(PEN20_SAVIOR_HACKMON_NAME_ARR)-1;
@@ -3489,7 +3489,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SEADRAMON_FQID_LEN = sizeof(PEN20_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "seadramon";
     inline static constexpr const char* PEN20_SEADRAMON_ID = PEN20_SEADRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_SEADRAMON_ID_LEN = sizeof(PEN20_SEADRAMON_ID)-1;
+    inline static constexpr size_t PEN20_SEADRAMON_ID_LEN = sizeof(PEN20_SEADRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Seadramon";
     inline static constexpr const char* PEN20_SEADRAMON_NAME = PEN20_SEADRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_SEADRAMON_NAME_LEN = sizeof(PEN20_SEADRAMON_NAME_ARR)-1;
@@ -3507,7 +3507,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SERAPHIMON_FQID_LEN = sizeof(PEN20_SERAPHIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SERAPHIMON_ID_ARR[] CONFIG_STRING_SECTION = "seraphimon";
     inline static constexpr const char* PEN20_SERAPHIMON_ID = PEN20_SERAPHIMON_ID_ARR;
-    inline static constexpr size_t PEN20_SERAPHIMON_ID_LEN = sizeof(PEN20_SERAPHIMON_ID)-1;
+    inline static constexpr size_t PEN20_SERAPHIMON_ID_LEN = sizeof(PEN20_SERAPHIMON_ID_ARR)-1;
     inline static constexpr char PEN20_SERAPHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Seraphimon";
     inline static constexpr const char* PEN20_SERAPHIMON_NAME = PEN20_SERAPHIMON_NAME_ARR;
     inline static constexpr size_t PEN20_SERAPHIMON_NAME_LEN = sizeof(PEN20_SERAPHIMON_NAME_ARR)-1;
@@ -3525,7 +3525,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SHADRAMON_FQID_LEN = sizeof(PEN20_SHADRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SHADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "shadramon";
     inline static constexpr const char* PEN20_SHADRAMON_ID = PEN20_SHADRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_SHADRAMON_ID_LEN = sizeof(PEN20_SHADRAMON_ID)-1;
+    inline static constexpr size_t PEN20_SHADRAMON_ID_LEN = sizeof(PEN20_SHADRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_SHADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shadramon";
     inline static constexpr const char* PEN20_SHADRAMON_NAME = PEN20_SHADRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_SHADRAMON_NAME_LEN = sizeof(PEN20_SHADRAMON_NAME_ARR)-1;
@@ -3543,7 +3543,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SHAKOMON_FQID_LEN = sizeof(PEN20_SHAKOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SHAKOMON_ID_ARR[] CONFIG_STRING_SECTION = "shakomon";
     inline static constexpr const char* PEN20_SHAKOMON_ID = PEN20_SHAKOMON_ID_ARR;
-    inline static constexpr size_t PEN20_SHAKOMON_ID_LEN = sizeof(PEN20_SHAKOMON_ID)-1;
+    inline static constexpr size_t PEN20_SHAKOMON_ID_LEN = sizeof(PEN20_SHAKOMON_ID_ARR)-1;
     inline static constexpr char PEN20_SHAKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shakomon";
     inline static constexpr const char* PEN20_SHAKOMON_NAME = PEN20_SHAKOMON_NAME_ARR;
     inline static constexpr size_t PEN20_SHAKOMON_NAME_LEN = sizeof(PEN20_SHAKOMON_NAME_ARR)-1;
@@ -3561,7 +3561,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SKULL_MAMMON_FQID_LEN = sizeof(PEN20_SKULL_MAMMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SKULL_MAMMON_ID_ARR[] CONFIG_STRING_SECTION = "skull_mammon";
     inline static constexpr const char* PEN20_SKULL_MAMMON_ID = PEN20_SKULL_MAMMON_ID_ARR;
-    inline static constexpr size_t PEN20_SKULL_MAMMON_ID_LEN = sizeof(PEN20_SKULL_MAMMON_ID)-1;
+    inline static constexpr size_t PEN20_SKULL_MAMMON_ID_LEN = sizeof(PEN20_SKULL_MAMMON_ID_ARR)-1;
     inline static constexpr char PEN20_SKULL_MAMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Skull Mammon";
     inline static constexpr const char* PEN20_SKULL_MAMMON_NAME = PEN20_SKULL_MAMMON_NAME_ARR;
     inline static constexpr size_t PEN20_SKULL_MAMMON_NAME_LEN = sizeof(PEN20_SKULL_MAMMON_NAME_ARR)-1;
@@ -3579,7 +3579,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SLAYERDRAMON_FQID_LEN = sizeof(PEN20_SLAYERDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SLAYERDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "slayerdramon";
     inline static constexpr const char* PEN20_SLAYERDRAMON_ID = PEN20_SLAYERDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_SLAYERDRAMON_ID_LEN = sizeof(PEN20_SLAYERDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_SLAYERDRAMON_ID_LEN = sizeof(PEN20_SLAYERDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_SLAYERDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Slayerdramon";
     inline static constexpr const char* PEN20_SLAYERDRAMON_NAME = PEN20_SLAYERDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_SLAYERDRAMON_NAME_LEN = sizeof(PEN20_SLAYERDRAMON_NAME_ARR)-1;
@@ -3597,7 +3597,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_STARMON_FQID_LEN = sizeof(PEN20_STARMON_FQID_ARR)-1;
     inline static constexpr char PEN20_STARMON_ID_ARR[] CONFIG_STRING_SECTION = "starmon";
     inline static constexpr const char* PEN20_STARMON_ID = PEN20_STARMON_ID_ARR;
-    inline static constexpr size_t PEN20_STARMON_ID_LEN = sizeof(PEN20_STARMON_ID)-1;
+    inline static constexpr size_t PEN20_STARMON_ID_LEN = sizeof(PEN20_STARMON_ID_ARR)-1;
     inline static constexpr char PEN20_STARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Starmon";
     inline static constexpr const char* PEN20_STARMON_NAME = PEN20_STARMON_NAME_ARR;
     inline static constexpr size_t PEN20_STARMON_NAME_LEN = sizeof(PEN20_STARMON_NAME_ARR)-1;
@@ -3615,7 +3615,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_SUNFLOWMON_FQID_LEN = sizeof(PEN20_SUNFLOWMON_FQID_ARR)-1;
     inline static constexpr char PEN20_SUNFLOWMON_ID_ARR[] CONFIG_STRING_SECTION = "sunflowmon";
     inline static constexpr const char* PEN20_SUNFLOWMON_ID = PEN20_SUNFLOWMON_ID_ARR;
-    inline static constexpr size_t PEN20_SUNFLOWMON_ID_LEN = sizeof(PEN20_SUNFLOWMON_ID)-1;
+    inline static constexpr size_t PEN20_SUNFLOWMON_ID_LEN = sizeof(PEN20_SUNFLOWMON_ID_ARR)-1;
     inline static constexpr char PEN20_SUNFLOWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sunflowmon";
     inline static constexpr const char* PEN20_SUNFLOWMON_NAME = PEN20_SUNFLOWMON_NAME_ARR;
     inline static constexpr size_t PEN20_SUNFLOWMON_NAME_LEN = sizeof(PEN20_SUNFLOWMON_NAME_ARR)-1;
@@ -3633,7 +3633,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TAILMON_FQID_LEN = sizeof(PEN20_TAILMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TAILMON_ID_ARR[] CONFIG_STRING_SECTION = "tailmon";
     inline static constexpr const char* PEN20_TAILMON_ID = PEN20_TAILMON_ID_ARR;
-    inline static constexpr size_t PEN20_TAILMON_ID_LEN = sizeof(PEN20_TAILMON_ID)-1;
+    inline static constexpr size_t PEN20_TAILMON_ID_LEN = sizeof(PEN20_TAILMON_ID_ARR)-1;
     inline static constexpr char PEN20_TAILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tailmon";
     inline static constexpr const char* PEN20_TAILMON_NAME = PEN20_TAILMON_NAME_ARR;
     inline static constexpr size_t PEN20_TAILMON_NAME_LEN = sizeof(PEN20_TAILMON_NAME_ARR)-1;
@@ -3651,7 +3651,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TANKMON_FQID_LEN = sizeof(PEN20_TANKMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TANKMON_ID_ARR[] CONFIG_STRING_SECTION = "tankmon";
     inline static constexpr const char* PEN20_TANKMON_ID = PEN20_TANKMON_ID_ARR;
-    inline static constexpr size_t PEN20_TANKMON_ID_LEN = sizeof(PEN20_TANKMON_ID)-1;
+    inline static constexpr size_t PEN20_TANKMON_ID_LEN = sizeof(PEN20_TANKMON_ID_ARR)-1;
     inline static constexpr char PEN20_TANKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tankmon";
     inline static constexpr const char* PEN20_TANKMON_NAME = PEN20_TANKMON_NAME_ARR;
     inline static constexpr size_t PEN20_TANKMON_NAME_LEN = sizeof(PEN20_TANKMON_NAME_ARR)-1;
@@ -3669,7 +3669,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TARGETMON_FQID_LEN = sizeof(PEN20_TARGETMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TARGETMON_ID_ARR[] CONFIG_STRING_SECTION = "targetmon";
     inline static constexpr const char* PEN20_TARGETMON_ID = PEN20_TARGETMON_ID_ARR;
-    inline static constexpr size_t PEN20_TARGETMON_ID_LEN = sizeof(PEN20_TARGETMON_ID)-1;
+    inline static constexpr size_t PEN20_TARGETMON_ID_LEN = sizeof(PEN20_TARGETMON_ID_ARR)-1;
     inline static constexpr char PEN20_TARGETMON_NAME_ARR[] CONFIG_STRING_SECTION = "Targetmon";
     inline static constexpr const char* PEN20_TARGETMON_NAME = PEN20_TARGETMON_NAME_ARR;
     inline static constexpr size_t PEN20_TARGETMON_NAME_LEN = sizeof(PEN20_TARGETMON_NAME_ARR)-1;
@@ -3687,7 +3687,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TENTOMON_FQID_LEN = sizeof(PEN20_TENTOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TENTOMON_ID_ARR[] CONFIG_STRING_SECTION = "tentomon";
     inline static constexpr const char* PEN20_TENTOMON_ID = PEN20_TENTOMON_ID_ARR;
-    inline static constexpr size_t PEN20_TENTOMON_ID_LEN = sizeof(PEN20_TENTOMON_ID)-1;
+    inline static constexpr size_t PEN20_TENTOMON_ID_LEN = sizeof(PEN20_TENTOMON_ID_ARR)-1;
     inline static constexpr char PEN20_TENTOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tentomon";
     inline static constexpr const char* PEN20_TENTOMON_NAME = PEN20_TENTOMON_NAME_ARR;
     inline static constexpr size_t PEN20_TENTOMON_NAME_LEN = sizeof(PEN20_TENTOMON_NAME_ARR)-1;
@@ -3705,7 +3705,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TERRIERMON_FQID_LEN = sizeof(PEN20_TERRIERMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TERRIERMON_ID_ARR[] CONFIG_STRING_SECTION = "terriermon";
     inline static constexpr const char* PEN20_TERRIERMON_ID = PEN20_TERRIERMON_ID_ARR;
-    inline static constexpr size_t PEN20_TERRIERMON_ID_LEN = sizeof(PEN20_TERRIERMON_ID)-1;
+    inline static constexpr size_t PEN20_TERRIERMON_ID_LEN = sizeof(PEN20_TERRIERMON_ID_ARR)-1;
     inline static constexpr char PEN20_TERRIERMON_NAME_ARR[] CONFIG_STRING_SECTION = "Terriermon";
     inline static constexpr const char* PEN20_TERRIERMON_NAME = PEN20_TERRIERMON_NAME_ARR;
     inline static constexpr size_t PEN20_TERRIERMON_NAME_LEN = sizeof(PEN20_TERRIERMON_NAME_ARR)-1;
@@ -3723,7 +3723,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_THUNDERBALLMON_FQID_LEN = sizeof(PEN20_THUNDERBALLMON_FQID_ARR)-1;
     inline static constexpr char PEN20_THUNDERBALLMON_ID_ARR[] CONFIG_STRING_SECTION = "thunderballmon";
     inline static constexpr const char* PEN20_THUNDERBALLMON_ID = PEN20_THUNDERBALLMON_ID_ARR;
-    inline static constexpr size_t PEN20_THUNDERBALLMON_ID_LEN = sizeof(PEN20_THUNDERBALLMON_ID)-1;
+    inline static constexpr size_t PEN20_THUNDERBALLMON_ID_LEN = sizeof(PEN20_THUNDERBALLMON_ID_ARR)-1;
     inline static constexpr char PEN20_THUNDERBALLMON_NAME_ARR[] CONFIG_STRING_SECTION = "Thunderballmon";
     inline static constexpr const char* PEN20_THUNDERBALLMON_NAME = PEN20_THUNDERBALLMON_NAME_ARR;
     inline static constexpr size_t PEN20_THUNDERBALLMON_NAME_LEN = sizeof(PEN20_THUNDERBALLMON_NAME_ARR)-1;
@@ -3741,7 +3741,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TIA_LUDOMON_FQID_LEN = sizeof(PEN20_TIA_LUDOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TIA_LUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "tia_ludomon";
     inline static constexpr const char* PEN20_TIA_LUDOMON_ID = PEN20_TIA_LUDOMON_ID_ARR;
-    inline static constexpr size_t PEN20_TIA_LUDOMON_ID_LEN = sizeof(PEN20_TIA_LUDOMON_ID)-1;
+    inline static constexpr size_t PEN20_TIA_LUDOMON_ID_LEN = sizeof(PEN20_TIA_LUDOMON_ID_ARR)-1;
     inline static constexpr char PEN20_TIA_LUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tia Ludomon";
     inline static constexpr const char* PEN20_TIA_LUDOMON_NAME = PEN20_TIA_LUDOMON_NAME_ARR;
     inline static constexpr size_t PEN20_TIA_LUDOMON_NAME_LEN = sizeof(PEN20_TIA_LUDOMON_NAME_ARR)-1;
@@ -3759,7 +3759,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TOGEMON_FQID_LEN = sizeof(PEN20_TOGEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TOGEMON_ID_ARR[] CONFIG_STRING_SECTION = "togemon";
     inline static constexpr const char* PEN20_TOGEMON_ID = PEN20_TOGEMON_ID_ARR;
-    inline static constexpr size_t PEN20_TOGEMON_ID_LEN = sizeof(PEN20_TOGEMON_ID)-1;
+    inline static constexpr size_t PEN20_TOGEMON_ID_LEN = sizeof(PEN20_TOGEMON_ID_ARR)-1;
     inline static constexpr char PEN20_TOGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Togemon";
     inline static constexpr const char* PEN20_TOGEMON_NAME = PEN20_TOGEMON_NAME_ARR;
     inline static constexpr size_t PEN20_TOGEMON_NAME_LEN = sizeof(PEN20_TOGEMON_NAME_ARR)-1;
@@ -3777,7 +3777,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TONOSAMA_GEKOMON_FQID_LEN = sizeof(PEN20_TONOSAMA_GEKOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TONOSAMA_GEKOMON_ID_ARR[] CONFIG_STRING_SECTION = "tonosama_gekomon";
     inline static constexpr const char* PEN20_TONOSAMA_GEKOMON_ID = PEN20_TONOSAMA_GEKOMON_ID_ARR;
-    inline static constexpr size_t PEN20_TONOSAMA_GEKOMON_ID_LEN = sizeof(PEN20_TONOSAMA_GEKOMON_ID)-1;
+    inline static constexpr size_t PEN20_TONOSAMA_GEKOMON_ID_LEN = sizeof(PEN20_TONOSAMA_GEKOMON_ID_ARR)-1;
     inline static constexpr char PEN20_TONOSAMA_GEKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tonosama Gekomon";
     inline static constexpr const char* PEN20_TONOSAMA_GEKOMON_NAME = PEN20_TONOSAMA_GEKOMON_NAME_ARR;
     inline static constexpr size_t PEN20_TONOSAMA_GEKOMON_NAME_LEN = sizeof(PEN20_TONOSAMA_GEKOMON_NAME_ARR)-1;
@@ -3795,7 +3795,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TORTAMON_FQID_LEN = sizeof(PEN20_TORTAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TORTAMON_ID_ARR[] CONFIG_STRING_SECTION = "tortamon";
     inline static constexpr const char* PEN20_TORTAMON_ID = PEN20_TORTAMON_ID_ARR;
-    inline static constexpr size_t PEN20_TORTAMON_ID_LEN = sizeof(PEN20_TORTAMON_ID)-1;
+    inline static constexpr size_t PEN20_TORTAMON_ID_LEN = sizeof(PEN20_TORTAMON_ID_ARR)-1;
     inline static constexpr char PEN20_TORTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tortamon";
     inline static constexpr const char* PEN20_TORTAMON_NAME = PEN20_TORTAMON_NAME_ARR;
     inline static constexpr size_t PEN20_TORTAMON_NAME_LEN = sizeof(PEN20_TORTAMON_NAME_ARR)-1;
@@ -3813,7 +3813,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TOY_AGUMON_FQID_LEN = sizeof(PEN20_TOY_AGUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TOY_AGUMON_ID_ARR[] CONFIG_STRING_SECTION = "toy_agumon";
     inline static constexpr const char* PEN20_TOY_AGUMON_ID = PEN20_TOY_AGUMON_ID_ARR;
-    inline static constexpr size_t PEN20_TOY_AGUMON_ID_LEN = sizeof(PEN20_TOY_AGUMON_ID)-1;
+    inline static constexpr size_t PEN20_TOY_AGUMON_ID_LEN = sizeof(PEN20_TOY_AGUMON_ID_ARR)-1;
     inline static constexpr char PEN20_TOY_AGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Toy Agumon";
     inline static constexpr const char* PEN20_TOY_AGUMON_NAME = PEN20_TOY_AGUMON_NAME_ARR;
     inline static constexpr size_t PEN20_TOY_AGUMON_NAME_LEN = sizeof(PEN20_TOY_AGUMON_NAME_ARR)-1;
@@ -3831,7 +3831,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TRICERAMON_FQID_LEN = sizeof(PEN20_TRICERAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TRICERAMON_ID_ARR[] CONFIG_STRING_SECTION = "triceramon";
     inline static constexpr const char* PEN20_TRICERAMON_ID = PEN20_TRICERAMON_ID_ARR;
-    inline static constexpr size_t PEN20_TRICERAMON_ID_LEN = sizeof(PEN20_TRICERAMON_ID)-1;
+    inline static constexpr size_t PEN20_TRICERAMON_ID_LEN = sizeof(PEN20_TRICERAMON_ID_ARR)-1;
     inline static constexpr char PEN20_TRICERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Triceramon";
     inline static constexpr const char* PEN20_TRICERAMON_NAME = PEN20_TRICERAMON_NAME_ARR;
     inline static constexpr size_t PEN20_TRICERAMON_NAME_LEN = sizeof(PEN20_TRICERAMON_NAME_ARR)-1;
@@ -3849,7 +3849,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TROOPMON_FQID_LEN = sizeof(PEN20_TROOPMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TROOPMON_ID_ARR[] CONFIG_STRING_SECTION = "troopmon";
     inline static constexpr const char* PEN20_TROOPMON_ID = PEN20_TROOPMON_ID_ARR;
-    inline static constexpr size_t PEN20_TROOPMON_ID_LEN = sizeof(PEN20_TROOPMON_ID)-1;
+    inline static constexpr size_t PEN20_TROOPMON_ID_LEN = sizeof(PEN20_TROOPMON_ID_ARR)-1;
     inline static constexpr char PEN20_TROOPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Troopmon";
     inline static constexpr const char* PEN20_TROOPMON_NAME = PEN20_TROOPMON_NAME_ARR;
     inline static constexpr size_t PEN20_TROOPMON_NAME_LEN = sizeof(PEN20_TROOPMON_NAME_ARR)-1;
@@ -3867,7 +3867,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_TURUIEMON_FQID_LEN = sizeof(PEN20_TURUIEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_TURUIEMON_ID_ARR[] CONFIG_STRING_SECTION = "turuiemon";
     inline static constexpr const char* PEN20_TURUIEMON_ID = PEN20_TURUIEMON_ID_ARR;
-    inline static constexpr size_t PEN20_TURUIEMON_ID_LEN = sizeof(PEN20_TURUIEMON_ID)-1;
+    inline static constexpr size_t PEN20_TURUIEMON_ID_LEN = sizeof(PEN20_TURUIEMON_ID_ARR)-1;
     inline static constexpr char PEN20_TURUIEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Turuiemon";
     inline static constexpr const char* PEN20_TURUIEMON_NAME = PEN20_TURUIEMON_NAME_ARR;
     inline static constexpr size_t PEN20_TURUIEMON_NAME_LEN = sizeof(PEN20_TURUIEMON_NAME_ARR)-1;
@@ -3885,7 +3885,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_VAMDEMON_FQID_LEN = sizeof(PEN20_VAMDEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_VAMDEMON_ID_ARR[] CONFIG_STRING_SECTION = "vamdemon";
     inline static constexpr const char* PEN20_VAMDEMON_ID = PEN20_VAMDEMON_ID_ARR;
-    inline static constexpr size_t PEN20_VAMDEMON_ID_LEN = sizeof(PEN20_VAMDEMON_ID)-1;
+    inline static constexpr size_t PEN20_VAMDEMON_ID_LEN = sizeof(PEN20_VAMDEMON_ID_ARR)-1;
     inline static constexpr char PEN20_VAMDEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Vamdemon";
     inline static constexpr const char* PEN20_VAMDEMON_NAME = PEN20_VAMDEMON_NAME_ARR;
     inline static constexpr size_t PEN20_VAMDEMON_NAME_LEN = sizeof(PEN20_VAMDEMON_NAME_ARR)-1;
@@ -3903,7 +3903,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_V_DRAMON_FQID_LEN = sizeof(PEN20_V_DRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_V_DRAMON_ID_ARR[] CONFIG_STRING_SECTION = "v_dramon";
     inline static constexpr const char* PEN20_V_DRAMON_ID = PEN20_V_DRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_V_DRAMON_ID_LEN = sizeof(PEN20_V_DRAMON_ID)-1;
+    inline static constexpr size_t PEN20_V_DRAMON_ID_LEN = sizeof(PEN20_V_DRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_V_DRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "V-dramon";
     inline static constexpr const char* PEN20_V_DRAMON_NAME = PEN20_V_DRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_V_DRAMON_NAME_LEN = sizeof(PEN20_V_DRAMON_NAME_ARR)-1;
@@ -3921,7 +3921,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_VENOM_VAMDEMON_FQID_LEN = sizeof(PEN20_VENOM_VAMDEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_VENOM_VAMDEMON_ID_ARR[] CONFIG_STRING_SECTION = "venom_vamdemon";
     inline static constexpr const char* PEN20_VENOM_VAMDEMON_ID = PEN20_VENOM_VAMDEMON_ID_ARR;
-    inline static constexpr size_t PEN20_VENOM_VAMDEMON_ID_LEN = sizeof(PEN20_VENOM_VAMDEMON_ID)-1;
+    inline static constexpr size_t PEN20_VENOM_VAMDEMON_ID_LEN = sizeof(PEN20_VENOM_VAMDEMON_ID_ARR)-1;
     inline static constexpr char PEN20_VENOM_VAMDEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Venom Vamdemon";
     inline static constexpr const char* PEN20_VENOM_VAMDEMON_NAME = PEN20_VENOM_VAMDEMON_NAME_ARR;
     inline static constexpr size_t PEN20_VENOM_VAMDEMON_NAME_LEN = sizeof(PEN20_VENOM_VAMDEMON_NAME_ARR)-1;
@@ -3939,7 +3939,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_V_MON_FQID_LEN = sizeof(PEN20_V_MON_FQID_ARR)-1;
     inline static constexpr char PEN20_V_MON_ID_ARR[] CONFIG_STRING_SECTION = "v_mon";
     inline static constexpr const char* PEN20_V_MON_ID = PEN20_V_MON_ID_ARR;
-    inline static constexpr size_t PEN20_V_MON_ID_LEN = sizeof(PEN20_V_MON_ID)-1;
+    inline static constexpr size_t PEN20_V_MON_ID_LEN = sizeof(PEN20_V_MON_ID_ARR)-1;
     inline static constexpr char PEN20_V_MON_NAME_ARR[] CONFIG_STRING_SECTION = "V-mon";
     inline static constexpr const char* PEN20_V_MON_NAME = PEN20_V_MON_NAME_ARR;
     inline static constexpr size_t PEN20_V_MON_NAME_LEN = sizeof(PEN20_V_MON_NAME_ARR)-1;
@@ -3957,7 +3957,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_VOLCANICDRAMON_FQID_LEN = sizeof(PEN20_VOLCANICDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_VOLCANICDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "volcanicdramon";
     inline static constexpr const char* PEN20_VOLCANICDRAMON_ID = PEN20_VOLCANICDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_VOLCANICDRAMON_ID_LEN = sizeof(PEN20_VOLCANICDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_VOLCANICDRAMON_ID_LEN = sizeof(PEN20_VOLCANICDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_VOLCANICDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Volcanicdramon";
     inline static constexpr const char* PEN20_VOLCANICDRAMON_NAME = PEN20_VOLCANICDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_VOLCANICDRAMON_NAME_LEN = sizeof(PEN20_VOLCANICDRAMON_NAME_ARR)-1;
@@ -3975,7 +3975,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_VOLTOBAUTAMON_FQID_LEN = sizeof(PEN20_VOLTOBAUTAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_VOLTOBAUTAMON_ID_ARR[] CONFIG_STRING_SECTION = "voltobautamon";
     inline static constexpr const char* PEN20_VOLTOBAUTAMON_ID = PEN20_VOLTOBAUTAMON_ID_ARR;
-    inline static constexpr size_t PEN20_VOLTOBAUTAMON_ID_LEN = sizeof(PEN20_VOLTOBAUTAMON_ID)-1;
+    inline static constexpr size_t PEN20_VOLTOBAUTAMON_ID_LEN = sizeof(PEN20_VOLTOBAUTAMON_ID_ARR)-1;
     inline static constexpr char PEN20_VOLTOBAUTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Voltobautamon";
     inline static constexpr const char* PEN20_VOLTOBAUTAMON_NAME = PEN20_VOLTOBAUTAMON_NAME_ARR;
     inline static constexpr size_t PEN20_VOLTOBAUTAMON_NAME_LEN = sizeof(PEN20_VOLTOBAUTAMON_NAME_ARR)-1;
@@ -3993,7 +3993,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_VORVOMON_FQID_LEN = sizeof(PEN20_VORVOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_VORVOMON_ID_ARR[] CONFIG_STRING_SECTION = "vorvomon";
     inline static constexpr const char* PEN20_VORVOMON_ID = PEN20_VORVOMON_ID_ARR;
-    inline static constexpr size_t PEN20_VORVOMON_ID_LEN = sizeof(PEN20_VORVOMON_ID)-1;
+    inline static constexpr size_t PEN20_VORVOMON_ID_LEN = sizeof(PEN20_VORVOMON_ID_ARR)-1;
     inline static constexpr char PEN20_VORVOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Vorvomon";
     inline static constexpr const char* PEN20_VORVOMON_NAME = PEN20_VORVOMON_NAME_ARR;
     inline static constexpr size_t PEN20_VORVOMON_NAME_LEN = sizeof(PEN20_VORVOMON_NAME_ARR)-1;
@@ -4011,7 +4011,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WAR_GREYMON_FQID_LEN = sizeof(PEN20_WAR_GREYMON_FQID_ARR)-1;
     inline static constexpr char PEN20_WAR_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "war_greymon";
     inline static constexpr const char* PEN20_WAR_GREYMON_ID = PEN20_WAR_GREYMON_ID_ARR;
-    inline static constexpr size_t PEN20_WAR_GREYMON_ID_LEN = sizeof(PEN20_WAR_GREYMON_ID)-1;
+    inline static constexpr size_t PEN20_WAR_GREYMON_ID_LEN = sizeof(PEN20_WAR_GREYMON_ID_ARR)-1;
     inline static constexpr char PEN20_WAR_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "War Greymon";
     inline static constexpr const char* PEN20_WAR_GREYMON_NAME = PEN20_WAR_GREYMON_NAME_ARR;
     inline static constexpr size_t PEN20_WAR_GREYMON_NAME_LEN = sizeof(PEN20_WAR_GREYMON_NAME_ARR)-1;
@@ -4029,7 +4029,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WARU_MONZAEMON_FQID_LEN = sizeof(PEN20_WARU_MONZAEMON_FQID_ARR)-1;
     inline static constexpr char PEN20_WARU_MONZAEMON_ID_ARR[] CONFIG_STRING_SECTION = "waru_monzaemon";
     inline static constexpr const char* PEN20_WARU_MONZAEMON_ID = PEN20_WARU_MONZAEMON_ID_ARR;
-    inline static constexpr size_t PEN20_WARU_MONZAEMON_ID_LEN = sizeof(PEN20_WARU_MONZAEMON_ID)-1;
+    inline static constexpr size_t PEN20_WARU_MONZAEMON_ID_LEN = sizeof(PEN20_WARU_MONZAEMON_ID_ARR)-1;
     inline static constexpr char PEN20_WARU_MONZAEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Waru Monzaemon";
     inline static constexpr const char* PEN20_WARU_MONZAEMON_NAME = PEN20_WARU_MONZAEMON_NAME_ARR;
     inline static constexpr size_t PEN20_WARU_MONZAEMON_NAME_LEN = sizeof(PEN20_WARU_MONZAEMON_NAME_ARR)-1;
@@ -4047,7 +4047,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WERE_GARURUMON_FQID_LEN = sizeof(PEN20_WERE_GARURUMON_FQID_ARR)-1;
     inline static constexpr char PEN20_WERE_GARURUMON_ID_ARR[] CONFIG_STRING_SECTION = "were_garurumon";
     inline static constexpr const char* PEN20_WERE_GARURUMON_ID = PEN20_WERE_GARURUMON_ID_ARR;
-    inline static constexpr size_t PEN20_WERE_GARURUMON_ID_LEN = sizeof(PEN20_WERE_GARURUMON_ID)-1;
+    inline static constexpr size_t PEN20_WERE_GARURUMON_ID_LEN = sizeof(PEN20_WERE_GARURUMON_ID_ARR)-1;
     inline static constexpr char PEN20_WERE_GARURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Were Garurumon";
     inline static constexpr const char* PEN20_WERE_GARURUMON_NAME = PEN20_WERE_GARURUMON_NAME_ARR;
     inline static constexpr size_t PEN20_WERE_GARURUMON_NAME_LEN = sizeof(PEN20_WERE_GARURUMON_NAME_ARR)-1;
@@ -4065,7 +4065,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WHAMON_FQID_LEN = sizeof(PEN20_WHAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_WHAMON_ID_ARR[] CONFIG_STRING_SECTION = "whamon";
     inline static constexpr const char* PEN20_WHAMON_ID = PEN20_WHAMON_ID_ARR;
-    inline static constexpr size_t PEN20_WHAMON_ID_LEN = sizeof(PEN20_WHAMON_ID)-1;
+    inline static constexpr size_t PEN20_WHAMON_ID_LEN = sizeof(PEN20_WHAMON_ID_ARR)-1;
     inline static constexpr char PEN20_WHAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Whamon";
     inline static constexpr const char* PEN20_WHAMON_NAME = PEN20_WHAMON_NAME_ARR;
     inline static constexpr size_t PEN20_WHAMON_NAME_LEN = sizeof(PEN20_WHAMON_NAME_ARR)-1;
@@ -4083,7 +4083,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WINGDRAMON_FQID_LEN = sizeof(PEN20_WINGDRAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_WINGDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "wingdramon";
     inline static constexpr const char* PEN20_WINGDRAMON_ID = PEN20_WINGDRAMON_ID_ARR;
-    inline static constexpr size_t PEN20_WINGDRAMON_ID_LEN = sizeof(PEN20_WINGDRAMON_ID)-1;
+    inline static constexpr size_t PEN20_WINGDRAMON_ID_LEN = sizeof(PEN20_WINGDRAMON_ID_ARR)-1;
     inline static constexpr char PEN20_WINGDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Wingdramon";
     inline static constexpr const char* PEN20_WINGDRAMON_NAME = PEN20_WINGDRAMON_NAME_ARR;
     inline static constexpr size_t PEN20_WINGDRAMON_NAME_LEN = sizeof(PEN20_WINGDRAMON_NAME_ARR)-1;
@@ -4101,7 +4101,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WIZARMON_FQID_LEN = sizeof(PEN20_WIZARMON_FQID_ARR)-1;
     inline static constexpr char PEN20_WIZARMON_ID_ARR[] CONFIG_STRING_SECTION = "wizarmon";
     inline static constexpr const char* PEN20_WIZARMON_ID = PEN20_WIZARMON_ID_ARR;
-    inline static constexpr size_t PEN20_WIZARMON_ID_LEN = sizeof(PEN20_WIZARMON_ID)-1;
+    inline static constexpr size_t PEN20_WIZARMON_ID_LEN = sizeof(PEN20_WIZARMON_ID_ARR)-1;
     inline static constexpr char PEN20_WIZARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Wizarmon";
     inline static constexpr const char* PEN20_WIZARMON_NAME = PEN20_WIZARMON_NAME_ARR;
     inline static constexpr size_t PEN20_WIZARMON_NAME_LEN = sizeof(PEN20_WIZARMON_NAME_ARR)-1;
@@ -4119,7 +4119,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_WOODMON_FQID_LEN = sizeof(PEN20_WOODMON_FQID_ARR)-1;
     inline static constexpr char PEN20_WOODMON_ID_ARR[] CONFIG_STRING_SECTION = "woodmon";
     inline static constexpr const char* PEN20_WOODMON_ID = PEN20_WOODMON_ID_ARR;
-    inline static constexpr size_t PEN20_WOODMON_ID_LEN = sizeof(PEN20_WOODMON_ID)-1;
+    inline static constexpr size_t PEN20_WOODMON_ID_LEN = sizeof(PEN20_WOODMON_ID_ARR)-1;
     inline static constexpr char PEN20_WOODMON_NAME_ARR[] CONFIG_STRING_SECTION = "Woodmon";
     inline static constexpr const char* PEN20_WOODMON_NAME = PEN20_WOODMON_NAME_ARR;
     inline static constexpr size_t PEN20_WOODMON_NAME_LEN = sizeof(PEN20_WOODMON_NAME_ARR)-1;
@@ -4137,7 +4137,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_XV_MON_FQID_LEN = sizeof(PEN20_XV_MON_FQID_ARR)-1;
     inline static constexpr char PEN20_XV_MON_ID_ARR[] CONFIG_STRING_SECTION = "xv_mon";
     inline static constexpr const char* PEN20_XV_MON_ID = PEN20_XV_MON_ID_ARR;
-    inline static constexpr size_t PEN20_XV_MON_ID_LEN = sizeof(PEN20_XV_MON_ID)-1;
+    inline static constexpr size_t PEN20_XV_MON_ID_LEN = sizeof(PEN20_XV_MON_ID_ARR)-1;
     inline static constexpr char PEN20_XV_MON_NAME_ARR[] CONFIG_STRING_SECTION = "XV-mon";
     inline static constexpr const char* PEN20_XV_MON_NAME = PEN20_XV_MON_NAME_ARR;
     inline static constexpr size_t PEN20_XV_MON_NAME_LEN = sizeof(PEN20_XV_MON_NAME_ARR)-1;
@@ -4155,7 +4155,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_YUKIMI_BOTAMON_FQID_LEN = sizeof(PEN20_YUKIMI_BOTAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_YUKIMI_BOTAMON_ID_ARR[] CONFIG_STRING_SECTION = "yukimi_botamon";
     inline static constexpr const char* PEN20_YUKIMI_BOTAMON_ID = PEN20_YUKIMI_BOTAMON_ID_ARR;
-    inline static constexpr size_t PEN20_YUKIMI_BOTAMON_ID_LEN = sizeof(PEN20_YUKIMI_BOTAMON_ID)-1;
+    inline static constexpr size_t PEN20_YUKIMI_BOTAMON_ID_LEN = sizeof(PEN20_YUKIMI_BOTAMON_ID_ARR)-1;
     inline static constexpr char PEN20_YUKIMI_BOTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yukimi Botamon";
     inline static constexpr const char* PEN20_YUKIMI_BOTAMON_NAME = PEN20_YUKIMI_BOTAMON_NAME_ARR;
     inline static constexpr size_t PEN20_YUKIMI_BOTAMON_NAME_LEN = sizeof(PEN20_YUKIMI_BOTAMON_NAME_ARR)-1;
@@ -4173,7 +4173,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ZERIMON_FQID_LEN = sizeof(PEN20_ZERIMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ZERIMON_ID_ARR[] CONFIG_STRING_SECTION = "zerimon";
     inline static constexpr const char* PEN20_ZERIMON_ID = PEN20_ZERIMON_ID_ARR;
-    inline static constexpr size_t PEN20_ZERIMON_ID_LEN = sizeof(PEN20_ZERIMON_ID)-1;
+    inline static constexpr size_t PEN20_ZERIMON_ID_LEN = sizeof(PEN20_ZERIMON_ID_ARR)-1;
     inline static constexpr char PEN20_ZERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zerimon";
     inline static constexpr const char* PEN20_ZERIMON_NAME = PEN20_ZERIMON_NAME_ARR;
     inline static constexpr size_t PEN20_ZERIMON_NAME_LEN = sizeof(PEN20_ZERIMON_NAME_ARR)-1;
@@ -4191,7 +4191,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ZUBAEAGERMON_FQID_LEN = sizeof(PEN20_ZUBAEAGERMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ZUBAEAGERMON_ID_ARR[] CONFIG_STRING_SECTION = "zubaeagermon";
     inline static constexpr const char* PEN20_ZUBAEAGERMON_ID = PEN20_ZUBAEAGERMON_ID_ARR;
-    inline static constexpr size_t PEN20_ZUBAEAGERMON_ID_LEN = sizeof(PEN20_ZUBAEAGERMON_ID)-1;
+    inline static constexpr size_t PEN20_ZUBAEAGERMON_ID_LEN = sizeof(PEN20_ZUBAEAGERMON_ID_ARR)-1;
     inline static constexpr char PEN20_ZUBAEAGERMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zubaeagermon";
     inline static constexpr const char* PEN20_ZUBAEAGERMON_NAME = PEN20_ZUBAEAGERMON_NAME_ARR;
     inline static constexpr size_t PEN20_ZUBAEAGERMON_NAME_LEN = sizeof(PEN20_ZUBAEAGERMON_NAME_ARR)-1;
@@ -4209,7 +4209,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ZUBAMON_FQID_LEN = sizeof(PEN20_ZUBAMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ZUBAMON_ID_ARR[] CONFIG_STRING_SECTION = "zubamon";
     inline static constexpr const char* PEN20_ZUBAMON_ID = PEN20_ZUBAMON_ID_ARR;
-    inline static constexpr size_t PEN20_ZUBAMON_ID_LEN = sizeof(PEN20_ZUBAMON_ID)-1;
+    inline static constexpr size_t PEN20_ZUBAMON_ID_LEN = sizeof(PEN20_ZUBAMON_ID_ARR)-1;
     inline static constexpr char PEN20_ZUBAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zubamon";
     inline static constexpr const char* PEN20_ZUBAMON_NAME = PEN20_ZUBAMON_NAME_ARR;
     inline static constexpr size_t PEN20_ZUBAMON_NAME_LEN = sizeof(PEN20_ZUBAMON_NAME_ARR)-1;
@@ -4227,7 +4227,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PEN20_ZUDOMON_FQID_LEN = sizeof(PEN20_ZUDOMON_FQID_ARR)-1;
     inline static constexpr char PEN20_ZUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "zudomon";
     inline static constexpr const char* PEN20_ZUDOMON_ID = PEN20_ZUDOMON_ID_ARR;
-    inline static constexpr size_t PEN20_ZUDOMON_ID_LEN = sizeof(PEN20_ZUDOMON_ID)-1;
+    inline static constexpr size_t PEN20_ZUDOMON_ID_LEN = sizeof(PEN20_ZUDOMON_ID_ARR)-1;
     inline static constexpr char PEN20_ZUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zudomon";
     inline static constexpr const char* PEN20_ZUDOMON_NAME = PEN20_ZUDOMON_NAME_ARR;
     inline static constexpr size_t PEN20_ZUDOMON_NAME_LEN = sizeof(PEN20_ZUDOMON_NAME_ARR)-1;

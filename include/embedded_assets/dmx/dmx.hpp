@@ -15,7 +15,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_AGUMON_BLACK_X_FQID_LEN = sizeof(DMX_AGUMON_BLACK_X_FQID_ARR)-1;
     inline static constexpr char DMX_AGUMON_BLACK_X_ID_ARR[] CONFIG_STRING_SECTION = "agumon_black_x";
     inline static constexpr const char* DMX_AGUMON_BLACK_X_ID = DMX_AGUMON_BLACK_X_ID_ARR;
-    inline static constexpr size_t DMX_AGUMON_BLACK_X_ID_LEN = sizeof(DMX_AGUMON_BLACK_X_ID)-1;
+    inline static constexpr size_t DMX_AGUMON_BLACK_X_ID_LEN = sizeof(DMX_AGUMON_BLACK_X_ID_ARR)-1;
     inline static constexpr char DMX_AGUMON_BLACK_X_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon (Black) X";
     inline static constexpr const char* DMX_AGUMON_BLACK_X_NAME = DMX_AGUMON_BLACK_X_NAME_ARR;
     inline static constexpr size_t DMX_AGUMON_BLACK_X_NAME_LEN = sizeof(DMX_AGUMON_BLACK_X_NAME_ARR)-1;
@@ -33,7 +33,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_AGUMON_X_FQID_LEN = sizeof(DMX_AGUMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_AGUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "agumon_x";
     inline static constexpr const char* DMX_AGUMON_X_ID = DMX_AGUMON_X_ID_ARR;
-    inline static constexpr size_t DMX_AGUMON_X_ID_LEN = sizeof(DMX_AGUMON_X_ID)-1;
+    inline static constexpr size_t DMX_AGUMON_X_ID_LEN = sizeof(DMX_AGUMON_X_ID_ARR)-1;
     inline static constexpr char DMX_AGUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon X";
     inline static constexpr const char* DMX_AGUMON_X_NAME = DMX_AGUMON_X_NAME_ARR;
     inline static constexpr size_t DMX_AGUMON_X_NAME_LEN = sizeof(DMX_AGUMON_X_NAME_ARR)-1;
@@ -51,7 +51,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ALLOMON_X_FQID_LEN = sizeof(DMX_ALLOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_ALLOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "allomon_x";
     inline static constexpr const char* DMX_ALLOMON_X_ID = DMX_ALLOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_ALLOMON_X_ID_LEN = sizeof(DMX_ALLOMON_X_ID)-1;
+    inline static constexpr size_t DMX_ALLOMON_X_ID_LEN = sizeof(DMX_ALLOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_ALLOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Allomon X";
     inline static constexpr const char* DMX_ALLOMON_X_NAME = DMX_ALLOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_ALLOMON_X_NAME_LEN = sizeof(DMX_ALLOMON_X_NAME_ARR)-1;
@@ -69,7 +69,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ALPHAMON_OURYUKEN_FQID_LEN = sizeof(DMX_ALPHAMON_OURYUKEN_FQID_ARR)-1;
     inline static constexpr char DMX_ALPHAMON_OURYUKEN_ID_ARR[] CONFIG_STRING_SECTION = "alphamon_ouryuken";
     inline static constexpr const char* DMX_ALPHAMON_OURYUKEN_ID = DMX_ALPHAMON_OURYUKEN_ID_ARR;
-    inline static constexpr size_t DMX_ALPHAMON_OURYUKEN_ID_LEN = sizeof(DMX_ALPHAMON_OURYUKEN_ID)-1;
+    inline static constexpr size_t DMX_ALPHAMON_OURYUKEN_ID_LEN = sizeof(DMX_ALPHAMON_OURYUKEN_ID_ARR)-1;
     inline static constexpr char DMX_ALPHAMON_OURYUKEN_NAME_ARR[] CONFIG_STRING_SECTION = "Alphamon Ouryuken";
     inline static constexpr const char* DMX_ALPHAMON_OURYUKEN_NAME = DMX_ALPHAMON_OURYUKEN_NAME_ARR;
     inline static constexpr size_t DMX_ALPHAMON_OURYUKEN_NAME_LEN = sizeof(DMX_ALPHAMON_OURYUKEN_NAME_ARR)-1;
@@ -87,7 +87,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ALPHAMON_FQID_LEN = sizeof(DMX_ALPHAMON_FQID_ARR)-1;
     inline static constexpr char DMX_ALPHAMON_ID_ARR[] CONFIG_STRING_SECTION = "alphamon";
     inline static constexpr const char* DMX_ALPHAMON_ID = DMX_ALPHAMON_ID_ARR;
-    inline static constexpr size_t DMX_ALPHAMON_ID_LEN = sizeof(DMX_ALPHAMON_ID)-1;
+    inline static constexpr size_t DMX_ALPHAMON_ID_LEN = sizeof(DMX_ALPHAMON_ID_ARR)-1;
     inline static constexpr char DMX_ALPHAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Alphamon";
     inline static constexpr const char* DMX_ALPHAMON_NAME = DMX_ALPHAMON_NAME_ARR;
     inline static constexpr size_t DMX_ALPHAMON_NAME_LEN = sizeof(DMX_ALPHAMON_NAME_ARR)-1;
@@ -105,7 +105,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ANCIENT_SPHINXMON_FQID_LEN = sizeof(DMX_ANCIENT_SPHINXMON_FQID_ARR)-1;
     inline static constexpr char DMX_ANCIENT_SPHINXMON_ID_ARR[] CONFIG_STRING_SECTION = "ancient_sphinxmon";
     inline static constexpr const char* DMX_ANCIENT_SPHINXMON_ID = DMX_ANCIENT_SPHINXMON_ID_ARR;
-    inline static constexpr size_t DMX_ANCIENT_SPHINXMON_ID_LEN = sizeof(DMX_ANCIENT_SPHINXMON_ID)-1;
+    inline static constexpr size_t DMX_ANCIENT_SPHINXMON_ID_LEN = sizeof(DMX_ANCIENT_SPHINXMON_ID_ARR)-1;
     inline static constexpr char DMX_ANCIENT_SPHINXMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ancient Sphinxmon";
     inline static constexpr const char* DMX_ANCIENT_SPHINXMON_NAME = DMX_ANCIENT_SPHINXMON_NAME_ARR;
     inline static constexpr size_t DMX_ANCIENT_SPHINXMON_NAME_LEN = sizeof(DMX_ANCIENT_SPHINXMON_NAME_ARR)-1;
@@ -123,7 +123,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ANGEWOMON_X_FQID_LEN = sizeof(DMX_ANGEWOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_ANGEWOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "angewomon_x";
     inline static constexpr const char* DMX_ANGEWOMON_X_ID = DMX_ANGEWOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_ANGEWOMON_X_ID_LEN = sizeof(DMX_ANGEWOMON_X_ID)-1;
+    inline static constexpr size_t DMX_ANGEWOMON_X_ID_LEN = sizeof(DMX_ANGEWOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_ANGEWOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Angewomon X";
     inline static constexpr const char* DMX_ANGEWOMON_X_NAME = DMX_ANGEWOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_ANGEWOMON_X_NAME_LEN = sizeof(DMX_ANGEWOMON_X_NAME_ARR)-1;
@@ -141,7 +141,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ANOMALOCARIMON_X_FQID_LEN = sizeof(DMX_ANOMALOCARIMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_ANOMALOCARIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "anomalocarimon_x";
     inline static constexpr const char* DMX_ANOMALOCARIMON_X_ID = DMX_ANOMALOCARIMON_X_ID_ARR;
-    inline static constexpr size_t DMX_ANOMALOCARIMON_X_ID_LEN = sizeof(DMX_ANOMALOCARIMON_X_ID)-1;
+    inline static constexpr size_t DMX_ANOMALOCARIMON_X_ID_LEN = sizeof(DMX_ANOMALOCARIMON_X_ID_ARR)-1;
     inline static constexpr char DMX_ANOMALOCARIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Anomalocarimon X";
     inline static constexpr const char* DMX_ANOMALOCARIMON_X_NAME = DMX_ANOMALOCARIMON_X_NAME_ARR;
     inline static constexpr size_t DMX_ANOMALOCARIMON_X_NAME_LEN = sizeof(DMX_ANOMALOCARIMON_X_NAME_ARR)-1;
@@ -159,7 +159,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_BAGRAMON_FQID_LEN = sizeof(DMX_BAGRAMON_FQID_ARR)-1;
     inline static constexpr char DMX_BAGRAMON_ID_ARR[] CONFIG_STRING_SECTION = "bagramon";
     inline static constexpr const char* DMX_BAGRAMON_ID = DMX_BAGRAMON_ID_ARR;
-    inline static constexpr size_t DMX_BAGRAMON_ID_LEN = sizeof(DMX_BAGRAMON_ID)-1;
+    inline static constexpr size_t DMX_BAGRAMON_ID_LEN = sizeof(DMX_BAGRAMON_ID_ARR)-1;
     inline static constexpr char DMX_BAGRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bagramon";
     inline static constexpr const char* DMX_BAGRAMON_NAME = DMX_BAGRAMON_NAME_ARR;
     inline static constexpr size_t DMX_BAGRAMON_NAME_LEN = sizeof(DMX_BAGRAMON_NAME_ARR)-1;
@@ -177,7 +177,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_BARBAMON_X_FQID_LEN = sizeof(DMX_BARBAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_BARBAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "barbamon_x";
     inline static constexpr const char* DMX_BARBAMON_X_ID = DMX_BARBAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_BARBAMON_X_ID_LEN = sizeof(DMX_BARBAMON_X_ID)-1;
+    inline static constexpr size_t DMX_BARBAMON_X_ID_LEN = sizeof(DMX_BARBAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_BARBAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Barbamon X";
     inline static constexpr const char* DMX_BARBAMON_X_NAME = DMX_BARBAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_BARBAMON_X_NAME_LEN = sizeof(DMX_BARBAMON_X_NAME_ARR)-1;
@@ -195,7 +195,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_BEEL_STARMON_X_FQID_LEN = sizeof(DMX_BEEL_STARMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_BEEL_STARMON_X_ID_ARR[] CONFIG_STRING_SECTION = "beel_starmon_x";
     inline static constexpr const char* DMX_BEEL_STARMON_X_ID = DMX_BEEL_STARMON_X_ID_ARR;
-    inline static constexpr size_t DMX_BEEL_STARMON_X_ID_LEN = sizeof(DMX_BEEL_STARMON_X_ID)-1;
+    inline static constexpr size_t DMX_BEEL_STARMON_X_ID_LEN = sizeof(DMX_BEEL_STARMON_X_ID_ARR)-1;
     inline static constexpr char DMX_BEEL_STARMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Beel Starmon X";
     inline static constexpr const char* DMX_BEEL_STARMON_X_NAME = DMX_BEEL_STARMON_X_NAME_ARR;
     inline static constexpr size_t DMX_BEEL_STARMON_X_NAME_LEN = sizeof(DMX_BEEL_STARMON_X_NAME_ARR)-1;
@@ -213,7 +213,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_BEELZEBUMON_X_FQID_LEN = sizeof(DMX_BEELZEBUMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_BEELZEBUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "beelzebumon_x";
     inline static constexpr const char* DMX_BEELZEBUMON_X_ID = DMX_BEELZEBUMON_X_ID_ARR;
-    inline static constexpr size_t DMX_BEELZEBUMON_X_ID_LEN = sizeof(DMX_BEELZEBUMON_X_ID)-1;
+    inline static constexpr size_t DMX_BEELZEBUMON_X_ID_LEN = sizeof(DMX_BEELZEBUMON_X_ID_ARR)-1;
     inline static constexpr char DMX_BEELZEBUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Beelzebumon X";
     inline static constexpr const char* DMX_BEELZEBUMON_X_NAME = DMX_BEELZEBUMON_X_NAME_ARR;
     inline static constexpr size_t DMX_BEELZEBUMON_X_NAME_LEN = sizeof(DMX_BEELZEBUMON_X_NAME_ARR)-1;
@@ -231,7 +231,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_BELIAL_VAMDEMON_FQID_LEN = sizeof(DMX_BELIAL_VAMDEMON_FQID_ARR)-1;
     inline static constexpr char DMX_BELIAL_VAMDEMON_ID_ARR[] CONFIG_STRING_SECTION = "belial_vamdemon";
     inline static constexpr const char* DMX_BELIAL_VAMDEMON_ID = DMX_BELIAL_VAMDEMON_ID_ARR;
-    inline static constexpr size_t DMX_BELIAL_VAMDEMON_ID_LEN = sizeof(DMX_BELIAL_VAMDEMON_ID)-1;
+    inline static constexpr size_t DMX_BELIAL_VAMDEMON_ID_LEN = sizeof(DMX_BELIAL_VAMDEMON_ID_ARR)-1;
     inline static constexpr char DMX_BELIAL_VAMDEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Belial Vamdemon";
     inline static constexpr const char* DMX_BELIAL_VAMDEMON_NAME = DMX_BELIAL_VAMDEMON_NAME_ARR;
     inline static constexpr size_t DMX_BELIAL_VAMDEMON_NAME_LEN = sizeof(DMX_BELIAL_VAMDEMON_NAME_ARR)-1;
@@ -249,7 +249,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_BELPHEMON_X_FQID_LEN = sizeof(DMX_BELPHEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_BELPHEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "belphemon_x";
     inline static constexpr const char* DMX_BELPHEMON_X_ID = DMX_BELPHEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_BELPHEMON_X_ID_LEN = sizeof(DMX_BELPHEMON_X_ID)-1;
+    inline static constexpr size_t DMX_BELPHEMON_X_ID_LEN = sizeof(DMX_BELPHEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_BELPHEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Belphemon X";
     inline static constexpr const char* DMX_BELPHEMON_X_NAME = DMX_BELPHEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_BELPHEMON_X_NAME_LEN = sizeof(DMX_BELPHEMON_X_NAME_ARR)-1;
@@ -267,7 +267,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_BLACK_WAR_GREYMON_X_FQID_LEN = sizeof(DMX_BLACK_WAR_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_BLACK_WAR_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "black_war_greymon_x";
     inline static constexpr const char* DMX_BLACK_WAR_GREYMON_X_ID = DMX_BLACK_WAR_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMX_BLACK_WAR_GREYMON_X_ID_LEN = sizeof(DMX_BLACK_WAR_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMX_BLACK_WAR_GREYMON_X_ID_LEN = sizeof(DMX_BLACK_WAR_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMX_BLACK_WAR_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Black War Greymon X";
     inline static constexpr const char* DMX_BLACK_WAR_GREYMON_X_NAME = DMX_BLACK_WAR_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMX_BLACK_WAR_GREYMON_X_NAME_LEN = sizeof(DMX_BLACK_WAR_GREYMON_X_NAME_ARR)-1;
@@ -285,7 +285,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CANNONBEEMON_FQID_LEN = sizeof(DMX_CANNONBEEMON_FQID_ARR)-1;
     inline static constexpr char DMX_CANNONBEEMON_ID_ARR[] CONFIG_STRING_SECTION = "cannonbeemon";
     inline static constexpr const char* DMX_CANNONBEEMON_ID = DMX_CANNONBEEMON_ID_ARR;
-    inline static constexpr size_t DMX_CANNONBEEMON_ID_LEN = sizeof(DMX_CANNONBEEMON_ID)-1;
+    inline static constexpr size_t DMX_CANNONBEEMON_ID_LEN = sizeof(DMX_CANNONBEEMON_ID_ARR)-1;
     inline static constexpr char DMX_CANNONBEEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cannonbeemon";
     inline static constexpr const char* DMX_CANNONBEEMON_NAME = DMX_CANNONBEEMON_NAME_ARR;
     inline static constexpr size_t DMX_CANNONBEEMON_NAME_LEN = sizeof(DMX_CANNONBEEMON_NAME_ARR)-1;
@@ -303,7 +303,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CERBERUMON_X_FQID_LEN = sizeof(DMX_CERBERUMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_CERBERUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "cerberumon_x";
     inline static constexpr const char* DMX_CERBERUMON_X_ID = DMX_CERBERUMON_X_ID_ARR;
-    inline static constexpr size_t DMX_CERBERUMON_X_ID_LEN = sizeof(DMX_CERBERUMON_X_ID)-1;
+    inline static constexpr size_t DMX_CERBERUMON_X_ID_LEN = sizeof(DMX_CERBERUMON_X_ID_ARR)-1;
     inline static constexpr char DMX_CERBERUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cerberumon X";
     inline static constexpr const char* DMX_CERBERUMON_X_NAME = DMX_CERBERUMON_X_NAME_ARR;
     inline static constexpr size_t DMX_CERBERUMON_X_NAME_LEN = sizeof(DMX_CERBERUMON_X_NAME_ARR)-1;
@@ -321,7 +321,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CHAOSDRAMON_X_FQID_LEN = sizeof(DMX_CHAOSDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_CHAOSDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "chaosdramon_x";
     inline static constexpr const char* DMX_CHAOSDRAMON_X_ID = DMX_CHAOSDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_CHAOSDRAMON_X_ID_LEN = sizeof(DMX_CHAOSDRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_CHAOSDRAMON_X_ID_LEN = sizeof(DMX_CHAOSDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_CHAOSDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Chaosdramon X";
     inline static constexpr const char* DMX_CHAOSDRAMON_X_NAME = DMX_CHAOSDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_CHAOSDRAMON_X_NAME_LEN = sizeof(DMX_CHAOSDRAMON_X_NAME_ARR)-1;
@@ -339,7 +339,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CHERUBIMON_VICE_X_FQID_LEN = sizeof(DMX_CHERUBIMON_VICE_X_FQID_ARR)-1;
     inline static constexpr char DMX_CHERUBIMON_VICE_X_ID_ARR[] CONFIG_STRING_SECTION = "cherubimon_vice_x";
     inline static constexpr const char* DMX_CHERUBIMON_VICE_X_ID = DMX_CHERUBIMON_VICE_X_ID_ARR;
-    inline static constexpr size_t DMX_CHERUBIMON_VICE_X_ID_LEN = sizeof(DMX_CHERUBIMON_VICE_X_ID)-1;
+    inline static constexpr size_t DMX_CHERUBIMON_VICE_X_ID_LEN = sizeof(DMX_CHERUBIMON_VICE_X_ID_ARR)-1;
     inline static constexpr char DMX_CHERUBIMON_VICE_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubimon (Vice) X";
     inline static constexpr const char* DMX_CHERUBIMON_VICE_X_NAME = DMX_CHERUBIMON_VICE_X_NAME_ARR;
     inline static constexpr size_t DMX_CHERUBIMON_VICE_X_NAME_LEN = sizeof(DMX_CHERUBIMON_VICE_X_NAME_ARR)-1;
@@ -357,7 +357,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CHERUBIMON_VIRTUE_X_FQID_LEN = sizeof(DMX_CHERUBIMON_VIRTUE_X_FQID_ARR)-1;
     inline static constexpr char DMX_CHERUBIMON_VIRTUE_X_ID_ARR[] CONFIG_STRING_SECTION = "cherubimon_virtue_x";
     inline static constexpr const char* DMX_CHERUBIMON_VIRTUE_X_ID = DMX_CHERUBIMON_VIRTUE_X_ID_ARR;
-    inline static constexpr size_t DMX_CHERUBIMON_VIRTUE_X_ID_LEN = sizeof(DMX_CHERUBIMON_VIRTUE_X_ID)-1;
+    inline static constexpr size_t DMX_CHERUBIMON_VIRTUE_X_ID_LEN = sizeof(DMX_CHERUBIMON_VIRTUE_X_ID_ARR)-1;
     inline static constexpr char DMX_CHERUBIMON_VIRTUE_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubimon (Virtue) X";
     inline static constexpr const char* DMX_CHERUBIMON_VIRTUE_X_NAME = DMX_CHERUBIMON_VIRTUE_X_NAME_ARR;
     inline static constexpr size_t DMX_CHERUBIMON_VIRTUE_X_NAME_LEN = sizeof(DMX_CHERUBIMON_VIRTUE_X_NAME_ARR)-1;
@@ -375,7 +375,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CHO_HAKKAIMON_FQID_LEN = sizeof(DMX_CHO_HAKKAIMON_FQID_ARR)-1;
     inline static constexpr char DMX_CHO_HAKKAIMON_ID_ARR[] CONFIG_STRING_SECTION = "cho_hakkaimon";
     inline static constexpr const char* DMX_CHO_HAKKAIMON_ID = DMX_CHO_HAKKAIMON_ID_ARR;
-    inline static constexpr size_t DMX_CHO_HAKKAIMON_ID_LEN = sizeof(DMX_CHO_HAKKAIMON_ID)-1;
+    inline static constexpr size_t DMX_CHO_HAKKAIMON_ID_LEN = sizeof(DMX_CHO_HAKKAIMON_ID_ARR)-1;
     inline static constexpr char DMX_CHO_HAKKAIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cho-Hakkaimon";
     inline static constexpr const char* DMX_CHO_HAKKAIMON_NAME = DMX_CHO_HAKKAIMON_NAME_ARR;
     inline static constexpr size_t DMX_CHO_HAKKAIMON_NAME_LEN = sizeof(DMX_CHO_HAKKAIMON_NAME_ARR)-1;
@@ -393,7 +393,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_COCOMON_FQID_LEN = sizeof(DMX_COCOMON_FQID_ARR)-1;
     inline static constexpr char DMX_COCOMON_ID_ARR[] CONFIG_STRING_SECTION = "cocomon";
     inline static constexpr const char* DMX_COCOMON_ID = DMX_COCOMON_ID_ARR;
-    inline static constexpr size_t DMX_COCOMON_ID_LEN = sizeof(DMX_COCOMON_ID)-1;
+    inline static constexpr size_t DMX_COCOMON_ID_LEN = sizeof(DMX_COCOMON_ID_ARR)-1;
     inline static constexpr char DMX_COCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cocomon";
     inline static constexpr const char* DMX_COCOMON_NAME = DMX_COCOMON_NAME_ARR;
     inline static constexpr size_t DMX_COCOMON_NAME_LEN = sizeof(DMX_COCOMON_NAME_ARR)-1;
@@ -411,7 +411,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CRANIUMMON_X_FQID_LEN = sizeof(DMX_CRANIUMMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_CRANIUMMON_X_ID_ARR[] CONFIG_STRING_SECTION = "craniummon_x";
     inline static constexpr const char* DMX_CRANIUMMON_X_ID = DMX_CRANIUMMON_X_ID_ARR;
-    inline static constexpr size_t DMX_CRANIUMMON_X_ID_LEN = sizeof(DMX_CRANIUMMON_X_ID)-1;
+    inline static constexpr size_t DMX_CRANIUMMON_X_ID_LEN = sizeof(DMX_CRANIUMMON_X_ID_ARR)-1;
     inline static constexpr char DMX_CRANIUMMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Craniummon X";
     inline static constexpr const char* DMX_CRANIUMMON_X_NAME = DMX_CRANIUMMON_X_NAME_ARR;
     inline static constexpr size_t DMX_CRANIUMMON_X_NAME_LEN = sizeof(DMX_CRANIUMMON_X_NAME_ARR)-1;
@@ -429,7 +429,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CRYS_PALEDRAMON_FQID_LEN = sizeof(DMX_CRYS_PALEDRAMON_FQID_ARR)-1;
     inline static constexpr char DMX_CRYS_PALEDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "crys_paledramon";
     inline static constexpr const char* DMX_CRYS_PALEDRAMON_ID = DMX_CRYS_PALEDRAMON_ID_ARR;
-    inline static constexpr size_t DMX_CRYS_PALEDRAMON_ID_LEN = sizeof(DMX_CRYS_PALEDRAMON_ID)-1;
+    inline static constexpr size_t DMX_CRYS_PALEDRAMON_ID_LEN = sizeof(DMX_CRYS_PALEDRAMON_ID_ARR)-1;
     inline static constexpr char DMX_CRYS_PALEDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Crys Paledramon";
     inline static constexpr const char* DMX_CRYS_PALEDRAMON_NAME = DMX_CRYS_PALEDRAMON_NAME_ARR;
     inline static constexpr size_t DMX_CRYS_PALEDRAMON_NAME_LEN = sizeof(DMX_CRYS_PALEDRAMON_NAME_ARR)-1;
@@ -447,7 +447,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_CYBERDRAMON_X_FQID_LEN = sizeof(DMX_CYBERDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_CYBERDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "cyberdramon_x";
     inline static constexpr const char* DMX_CYBERDRAMON_X_ID = DMX_CYBERDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_CYBERDRAMON_X_ID_LEN = sizeof(DMX_CYBERDRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_CYBERDRAMON_X_ID_LEN = sizeof(DMX_CYBERDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_CYBERDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cyberdramon X";
     inline static constexpr const char* DMX_CYBERDRAMON_X_NAME = DMX_CYBERDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_CYBERDRAMON_X_NAME_LEN = sizeof(DMX_CYBERDRAMON_X_NAME_ARR)-1;
@@ -465,7 +465,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DAMEMON_FQID_LEN = sizeof(DMX_DAMEMON_FQID_ARR)-1;
     inline static constexpr char DMX_DAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "damemon";
     inline static constexpr const char* DMX_DAMEMON_ID = DMX_DAMEMON_ID_ARR;
-    inline static constexpr size_t DMX_DAMEMON_ID_LEN = sizeof(DMX_DAMEMON_ID)-1;
+    inline static constexpr size_t DMX_DAMEMON_ID_LEN = sizeof(DMX_DAMEMON_ID_ARR)-1;
     inline static constexpr char DMX_DAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Damemon";
     inline static constexpr const char* DMX_DAMEMON_NAME = DMX_DAMEMON_NAME_ARR;
     inline static constexpr size_t DMX_DAMEMON_NAME_LEN = sizeof(DMX_DAMEMON_NAME_ARR)-1;
@@ -483,7 +483,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DARK_KNIGHTMON_X_FQID_LEN = sizeof(DMX_DARK_KNIGHTMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DARK_KNIGHTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dark_knightmon_x";
     inline static constexpr const char* DMX_DARK_KNIGHTMON_X_ID = DMX_DARK_KNIGHTMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DARK_KNIGHTMON_X_ID_LEN = sizeof(DMX_DARK_KNIGHTMON_X_ID)-1;
+    inline static constexpr size_t DMX_DARK_KNIGHTMON_X_ID_LEN = sizeof(DMX_DARK_KNIGHTMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DARK_KNIGHTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dark Knightmon X";
     inline static constexpr const char* DMX_DARK_KNIGHTMON_X_NAME = DMX_DARK_KNIGHTMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DARK_KNIGHTMON_X_NAME_LEN = sizeof(DMX_DARK_KNIGHTMON_X_NAME_ARR)-1;
@@ -501,7 +501,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DARKNESS_BAGRAMON_FQID_LEN = sizeof(DMX_DARKNESS_BAGRAMON_FQID_ARR)-1;
     inline static constexpr char DMX_DARKNESS_BAGRAMON_ID_ARR[] CONFIG_STRING_SECTION = "darkness_bagramon";
     inline static constexpr const char* DMX_DARKNESS_BAGRAMON_ID = DMX_DARKNESS_BAGRAMON_ID_ARR;
-    inline static constexpr size_t DMX_DARKNESS_BAGRAMON_ID_LEN = sizeof(DMX_DARKNESS_BAGRAMON_ID)-1;
+    inline static constexpr size_t DMX_DARKNESS_BAGRAMON_ID_LEN = sizeof(DMX_DARKNESS_BAGRAMON_ID_ARR)-1;
     inline static constexpr char DMX_DARKNESS_BAGRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Darkness Bagramon";
     inline static constexpr const char* DMX_DARKNESS_BAGRAMON_NAME = DMX_DARKNESS_BAGRAMON_NAME_ARR;
     inline static constexpr size_t DMX_DARKNESS_BAGRAMON_NAME_LEN = sizeof(DMX_DARKNESS_BAGRAMON_NAME_ARR)-1;
@@ -519,7 +519,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DARK_TYRANOMON_X_FQID_LEN = sizeof(DMX_DARK_TYRANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DARK_TYRANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dark_tyranomon_x";
     inline static constexpr const char* DMX_DARK_TYRANOMON_X_ID = DMX_DARK_TYRANOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DARK_TYRANOMON_X_ID_LEN = sizeof(DMX_DARK_TYRANOMON_X_ID)-1;
+    inline static constexpr size_t DMX_DARK_TYRANOMON_X_ID_LEN = sizeof(DMX_DARK_TYRANOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DARK_TYRANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dark Tyranomon X";
     inline static constexpr const char* DMX_DARK_TYRANOMON_X_NAME = DMX_DARK_TYRANOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DARK_TYRANOMON_X_NAME_LEN = sizeof(DMX_DARK_TYRANOMON_X_NAME_ARR)-1;
@@ -537,7 +537,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DEMON_X_FQID_LEN = sizeof(DMX_DEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "demon_x";
     inline static constexpr const char* DMX_DEMON_X_ID = DMX_DEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DEMON_X_ID_LEN = sizeof(DMX_DEMON_X_ID)-1;
+    inline static constexpr size_t DMX_DEMON_X_ID_LEN = sizeof(DMX_DEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Demon X";
     inline static constexpr const char* DMX_DEMON_X_NAME = DMX_DEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DEMON_X_NAME_LEN = sizeof(DMX_DEMON_X_NAME_ARR)-1;
@@ -555,7 +555,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DIABLOMON_X_FQID_LEN = sizeof(DMX_DIABLOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DIABLOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "diablomon_x";
     inline static constexpr const char* DMX_DIABLOMON_X_ID = DMX_DIABLOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DIABLOMON_X_ID_LEN = sizeof(DMX_DIABLOMON_X_ID)-1;
+    inline static constexpr size_t DMX_DIABLOMON_X_ID_LEN = sizeof(DMX_DIABLOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DIABLOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Diablomon X";
     inline static constexpr const char* DMX_DIABLOMON_X_NAME = DMX_DIABLOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DIABLOMON_X_NAME_LEN = sizeof(DMX_DIABLOMON_X_NAME_ARR)-1;
@@ -573,7 +573,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DINOREXMON_FQID_LEN = sizeof(DMX_DINOREXMON_FQID_ARR)-1;
     inline static constexpr char DMX_DINOREXMON_ID_ARR[] CONFIG_STRING_SECTION = "dinorexmon";
     inline static constexpr const char* DMX_DINOREXMON_ID = DMX_DINOREXMON_ID_ARR;
-    inline static constexpr size_t DMX_DINOREXMON_ID_LEN = sizeof(DMX_DINOREXMON_ID)-1;
+    inline static constexpr size_t DMX_DINOREXMON_ID_LEN = sizeof(DMX_DINOREXMON_ID_ARR)-1;
     inline static constexpr char DMX_DINOREXMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dinorexmon";
     inline static constexpr const char* DMX_DINOREXMON_NAME = DMX_DINOREXMON_NAME_ARR;
     inline static constexpr size_t DMX_DINOREXMON_NAME_LEN = sizeof(DMX_DINOREXMON_NAME_ARR)-1;
@@ -591,7 +591,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DINOTIGERMON_FQID_LEN = sizeof(DMX_DINOTIGERMON_FQID_ARR)-1;
     inline static constexpr char DMX_DINOTIGERMON_ID_ARR[] CONFIG_STRING_SECTION = "dinotigermon";
     inline static constexpr const char* DMX_DINOTIGERMON_ID = DMX_DINOTIGERMON_ID_ARR;
-    inline static constexpr size_t DMX_DINOTIGERMON_ID_LEN = sizeof(DMX_DINOTIGERMON_ID)-1;
+    inline static constexpr size_t DMX_DINOTIGERMON_ID_LEN = sizeof(DMX_DINOTIGERMON_ID_ARR)-1;
     inline static constexpr char DMX_DINOTIGERMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dinotigermon";
     inline static constexpr const char* DMX_DINOTIGERMON_NAME = DMX_DINOTIGERMON_NAME_ARR;
     inline static constexpr size_t DMX_DINOTIGERMON_NAME_LEN = sizeof(DMX_DINOTIGERMON_NAME_ARR)-1;
@@ -609,7 +609,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DORUGAMON_FQID_LEN = sizeof(DMX_DORUGAMON_FQID_ARR)-1;
     inline static constexpr char DMX_DORUGAMON_ID_ARR[] CONFIG_STRING_SECTION = "dorugamon";
     inline static constexpr const char* DMX_DORUGAMON_ID = DMX_DORUGAMON_ID_ARR;
-    inline static constexpr size_t DMX_DORUGAMON_ID_LEN = sizeof(DMX_DORUGAMON_ID)-1;
+    inline static constexpr size_t DMX_DORUGAMON_ID_LEN = sizeof(DMX_DORUGAMON_ID_ARR)-1;
     inline static constexpr char DMX_DORUGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUgamon";
     inline static constexpr const char* DMX_DORUGAMON_NAME = DMX_DORUGAMON_NAME_ARR;
     inline static constexpr size_t DMX_DORUGAMON_NAME_LEN = sizeof(DMX_DORUGAMON_NAME_ARR)-1;
@@ -627,7 +627,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DORUGUREMON_FQID_LEN = sizeof(DMX_DORUGUREMON_FQID_ARR)-1;
     inline static constexpr char DMX_DORUGUREMON_ID_ARR[] CONFIG_STRING_SECTION = "doruguremon";
     inline static constexpr const char* DMX_DORUGUREMON_ID = DMX_DORUGUREMON_ID_ARR;
-    inline static constexpr size_t DMX_DORUGUREMON_ID_LEN = sizeof(DMX_DORUGUREMON_ID)-1;
+    inline static constexpr size_t DMX_DORUGUREMON_ID_LEN = sizeof(DMX_DORUGUREMON_ID_ARR)-1;
     inline static constexpr char DMX_DORUGUREMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUguremon";
     inline static constexpr const char* DMX_DORUGUREMON_NAME = DMX_DORUGUREMON_NAME_ARR;
     inline static constexpr size_t DMX_DORUGUREMON_NAME_LEN = sizeof(DMX_DORUGUREMON_NAME_ARR)-1;
@@ -645,7 +645,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DORUMON_FQID_LEN = sizeof(DMX_DORUMON_FQID_ARR)-1;
     inline static constexpr char DMX_DORUMON_ID_ARR[] CONFIG_STRING_SECTION = "dorumon";
     inline static constexpr const char* DMX_DORUMON_ID = DMX_DORUMON_ID_ARR;
-    inline static constexpr size_t DMX_DORUMON_ID_LEN = sizeof(DMX_DORUMON_ID)-1;
+    inline static constexpr size_t DMX_DORUMON_ID_LEN = sizeof(DMX_DORUMON_ID_ARR)-1;
     inline static constexpr char DMX_DORUMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUmon";
     inline static constexpr const char* DMX_DORUMON_NAME = DMX_DORUMON_NAME_ARR;
     inline static constexpr size_t DMX_DORUMON_NAME_LEN = sizeof(DMX_DORUMON_NAME_ARR)-1;
@@ -663,7 +663,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DRACOMON_X_FQID_LEN = sizeof(DMX_DRACOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DRACOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dracomon_x";
     inline static constexpr const char* DMX_DRACOMON_X_ID = DMX_DRACOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DRACOMON_X_ID_LEN = sizeof(DMX_DRACOMON_X_ID)-1;
+    inline static constexpr size_t DMX_DRACOMON_X_ID_LEN = sizeof(DMX_DRACOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DRACOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dracomon X";
     inline static constexpr const char* DMX_DRACOMON_X_NAME = DMX_DRACOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DRACOMON_X_NAME_LEN = sizeof(DMX_DRACOMON_X_NAME_ARR)-1;
@@ -681,7 +681,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DUFTMON_X_FQID_LEN = sizeof(DMX_DUFTMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DUFTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "duftmon_x";
     inline static constexpr const char* DMX_DUFTMON_X_ID = DMX_DUFTMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DUFTMON_X_ID_LEN = sizeof(DMX_DUFTMON_X_ID)-1;
+    inline static constexpr size_t DMX_DUFTMON_X_ID_LEN = sizeof(DMX_DUFTMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DUFTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Duftmon X";
     inline static constexpr const char* DMX_DUFTMON_X_NAME = DMX_DUFTMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DUFTMON_X_NAME_LEN = sizeof(DMX_DUFTMON_X_NAME_ARR)-1;
@@ -699,7 +699,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DUKEMON_X_FQID_LEN = sizeof(DMX_DUKEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DUKEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dukemon_x";
     inline static constexpr const char* DMX_DUKEMON_X_ID = DMX_DUKEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DUKEMON_X_ID_LEN = sizeof(DMX_DUKEMON_X_ID)-1;
+    inline static constexpr size_t DMX_DUKEMON_X_ID_LEN = sizeof(DMX_DUKEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DUKEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dukemon X";
     inline static constexpr const char* DMX_DUKEMON_X_NAME = DMX_DUKEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DUKEMON_X_NAME_LEN = sizeof(DMX_DUKEMON_X_NAME_ARR)-1;
@@ -717,7 +717,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DUSKMON_FQID_LEN = sizeof(DMX_DUSKMON_FQID_ARR)-1;
     inline static constexpr char DMX_DUSKMON_ID_ARR[] CONFIG_STRING_SECTION = "duskmon";
     inline static constexpr const char* DMX_DUSKMON_ID = DMX_DUSKMON_ID_ARR;
-    inline static constexpr size_t DMX_DUSKMON_ID_LEN = sizeof(DMX_DUSKMON_ID)-1;
+    inline static constexpr size_t DMX_DUSKMON_ID_LEN = sizeof(DMX_DUSKMON_ID_ARR)-1;
     inline static constexpr char DMX_DUSKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Duskmon";
     inline static constexpr const char* DMX_DUSKMON_NAME = DMX_DUSKMON_NAME_ARR;
     inline static constexpr size_t DMX_DUSKMON_NAME_LEN = sizeof(DMX_DUSKMON_NAME_ARR)-1;
@@ -735,7 +735,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_DYNASMON_X_FQID_LEN = sizeof(DMX_DYNASMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_DYNASMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dynasmon_x";
     inline static constexpr const char* DMX_DYNASMON_X_ID = DMX_DYNASMON_X_ID_ARR;
-    inline static constexpr size_t DMX_DYNASMON_X_ID_LEN = sizeof(DMX_DYNASMON_X_ID)-1;
+    inline static constexpr size_t DMX_DYNASMON_X_ID_LEN = sizeof(DMX_DYNASMON_X_ID_ARR)-1;
     inline static constexpr char DMX_DYNASMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dynasmon X";
     inline static constexpr const char* DMX_DYNASMON_X_NAME = DMX_DYNASMON_X_NAME_ARR;
     inline static constexpr size_t DMX_DYNASMON_X_NAME_LEN = sizeof(DMX_DYNASMON_X_NAME_ARR)-1;
@@ -753,7 +753,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_EBEMON_X_FQID_LEN = sizeof(DMX_EBEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_EBEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ebemon_x";
     inline static constexpr const char* DMX_EBEMON_X_ID = DMX_EBEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_EBEMON_X_ID_LEN = sizeof(DMX_EBEMON_X_ID)-1;
+    inline static constexpr size_t DMX_EBEMON_X_ID_LEN = sizeof(DMX_EBEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_EBEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ebemon X";
     inline static constexpr const char* DMX_EBEMON_X_NAME = DMX_EBEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_EBEMON_X_NAME_LEN = sizeof(DMX_EBEMON_X_NAME_ARR)-1;
@@ -771,7 +771,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_EXAMON_FQID_LEN = sizeof(DMX_EXAMON_FQID_ARR)-1;
     inline static constexpr char DMX_EXAMON_ID_ARR[] CONFIG_STRING_SECTION = "examon";
     inline static constexpr const char* DMX_EXAMON_ID = DMX_EXAMON_ID_ARR;
-    inline static constexpr size_t DMX_EXAMON_ID_LEN = sizeof(DMX_EXAMON_ID)-1;
+    inline static constexpr size_t DMX_EXAMON_ID_LEN = sizeof(DMX_EXAMON_ID_ARR)-1;
     inline static constexpr char DMX_EXAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Examon";
     inline static constexpr const char* DMX_EXAMON_NAME = DMX_EXAMON_NAME_ARR;
     inline static constexpr size_t DMX_EXAMON_NAME_LEN = sizeof(DMX_EXAMON_NAME_ARR)-1;
@@ -789,7 +789,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_EXAMON_X_FQID_LEN = sizeof(DMX_EXAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_EXAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "examon_x";
     inline static constexpr const char* DMX_EXAMON_X_ID = DMX_EXAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_EXAMON_X_ID_LEN = sizeof(DMX_EXAMON_X_ID)-1;
+    inline static constexpr size_t DMX_EXAMON_X_ID_LEN = sizeof(DMX_EXAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_EXAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Examon X";
     inline static constexpr const char* DMX_EXAMON_X_NAME = DMX_EXAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_EXAMON_X_NAME_LEN = sizeof(DMX_EXAMON_X_NAME_ARR)-1;
@@ -807,7 +807,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_FILMON_FQID_LEN = sizeof(DMX_FILMON_FQID_ARR)-1;
     inline static constexpr char DMX_FILMON_ID_ARR[] CONFIG_STRING_SECTION = "filmon";
     inline static constexpr const char* DMX_FILMON_ID = DMX_FILMON_ID_ARR;
-    inline static constexpr size_t DMX_FILMON_ID_LEN = sizeof(DMX_FILMON_ID)-1;
+    inline static constexpr size_t DMX_FILMON_ID_LEN = sizeof(DMX_FILMON_ID_ARR)-1;
     inline static constexpr char DMX_FILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Filmon";
     inline static constexpr const char* DMX_FILMON_NAME = DMX_FILMON_NAME_ARR;
     inline static constexpr size_t DMX_FILMON_NAME_LEN = sizeof(DMX_FILMON_NAME_ARR)-1;
@@ -825,7 +825,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GABUMON_X_FQID_LEN = sizeof(DMX_GABUMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_GABUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "gabumon_x";
     inline static constexpr const char* DMX_GABUMON_X_ID = DMX_GABUMON_X_ID_ARR;
-    inline static constexpr size_t DMX_GABUMON_X_ID_LEN = sizeof(DMX_GABUMON_X_ID)-1;
+    inline static constexpr size_t DMX_GABUMON_X_ID_LEN = sizeof(DMX_GABUMON_X_ID_ARR)-1;
     inline static constexpr char DMX_GABUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Gabumon X";
     inline static constexpr const char* DMX_GABUMON_X_NAME = DMX_GABUMON_X_NAME_ARR;
     inline static constexpr size_t DMX_GABUMON_X_NAME_LEN = sizeof(DMX_GABUMON_X_NAME_ARR)-1;
@@ -843,7 +843,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GAIOUMON_FQID_LEN = sizeof(DMX_GAIOUMON_FQID_ARR)-1;
     inline static constexpr char DMX_GAIOUMON_ID_ARR[] CONFIG_STRING_SECTION = "gaioumon";
     inline static constexpr const char* DMX_GAIOUMON_ID = DMX_GAIOUMON_ID_ARR;
-    inline static constexpr size_t DMX_GAIOUMON_ID_LEN = sizeof(DMX_GAIOUMON_ID)-1;
+    inline static constexpr size_t DMX_GAIOUMON_ID_LEN = sizeof(DMX_GAIOUMON_ID_ARR)-1;
     inline static constexpr char DMX_GAIOUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gaioumon";
     inline static constexpr const char* DMX_GAIOUMON_NAME = DMX_GAIOUMON_NAME_ARR;
     inline static constexpr size_t DMX_GAIOUMON_NAME_LEN = sizeof(DMX_GAIOUMON_NAME_ARR)-1;
@@ -861,7 +861,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GANKOOMON_X_FQID_LEN = sizeof(DMX_GANKOOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_GANKOOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "gankoomon_x";
     inline static constexpr const char* DMX_GANKOOMON_X_ID = DMX_GANKOOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_GANKOOMON_X_ID_LEN = sizeof(DMX_GANKOOMON_X_ID)-1;
+    inline static constexpr size_t DMX_GANKOOMON_X_ID_LEN = sizeof(DMX_GANKOOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_GANKOOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Gankoomon X";
     inline static constexpr const char* DMX_GANKOOMON_X_NAME = DMX_GANKOOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_GANKOOMON_X_NAME_LEN = sizeof(DMX_GANKOOMON_X_NAME_ARR)-1;
@@ -879,7 +879,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GARUDAMON_X_FQID_LEN = sizeof(DMX_GARUDAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_GARUDAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "garudamon_x";
     inline static constexpr const char* DMX_GARUDAMON_X_ID = DMX_GARUDAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_GARUDAMON_X_ID_LEN = sizeof(DMX_GARUDAMON_X_ID)-1;
+    inline static constexpr size_t DMX_GARUDAMON_X_ID_LEN = sizeof(DMX_GARUDAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_GARUDAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Garudamon X";
     inline static constexpr const char* DMX_GARUDAMON_X_NAME = DMX_GARUDAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_GARUDAMON_X_NAME_LEN = sizeof(DMX_GARUDAMON_X_NAME_ARR)-1;
@@ -897,7 +897,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GIGA_SEADRAMON_FQID_LEN = sizeof(DMX_GIGA_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char DMX_GIGA_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "giga_seadramon";
     inline static constexpr const char* DMX_GIGA_SEADRAMON_ID = DMX_GIGA_SEADRAMON_ID_ARR;
-    inline static constexpr size_t DMX_GIGA_SEADRAMON_ID_LEN = sizeof(DMX_GIGA_SEADRAMON_ID)-1;
+    inline static constexpr size_t DMX_GIGA_SEADRAMON_ID_LEN = sizeof(DMX_GIGA_SEADRAMON_ID_ARR)-1;
     inline static constexpr char DMX_GIGA_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Giga Seadramon";
     inline static constexpr const char* DMX_GIGA_SEADRAMON_NAME = DMX_GIGA_SEADRAMON_NAME_ARR;
     inline static constexpr size_t DMX_GIGA_SEADRAMON_NAME_LEN = sizeof(DMX_GIGA_SEADRAMON_NAME_ARR)-1;
@@ -915,7 +915,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GINRYUMON_FQID_LEN = sizeof(DMX_GINRYUMON_FQID_ARR)-1;
     inline static constexpr char DMX_GINRYUMON_ID_ARR[] CONFIG_STRING_SECTION = "ginryumon";
     inline static constexpr const char* DMX_GINRYUMON_ID = DMX_GINRYUMON_ID_ARR;
-    inline static constexpr size_t DMX_GINRYUMON_ID_LEN = sizeof(DMX_GINRYUMON_ID)-1;
+    inline static constexpr size_t DMX_GINRYUMON_ID_LEN = sizeof(DMX_GINRYUMON_ID_ARR)-1;
     inline static constexpr char DMX_GINRYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ginryumon";
     inline static constexpr const char* DMX_GINRYUMON_NAME = DMX_GINRYUMON_NAME_ARR;
     inline static constexpr size_t DMX_GINRYUMON_NAME_LEN = sizeof(DMX_GINRYUMON_NAME_ARR)-1;
@@ -933,7 +933,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GODDRAMON_X_FQID_LEN = sizeof(DMX_GODDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_GODDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "goddramon_x";
     inline static constexpr const char* DMX_GODDRAMON_X_ID = DMX_GODDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_GODDRAMON_X_ID_LEN = sizeof(DMX_GODDRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_GODDRAMON_X_ID_LEN = sizeof(DMX_GODDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_GODDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Goddramon X";
     inline static constexpr const char* DMX_GODDRAMON_X_NAME = DMX_GODDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_GODDRAMON_X_NAME_LEN = sizeof(DMX_GODDRAMON_X_NAME_ARR)-1;
@@ -951,7 +951,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GOMAMON_X_FQID_LEN = sizeof(DMX_GOMAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_GOMAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "gomamon_x";
     inline static constexpr const char* DMX_GOMAMON_X_ID = DMX_GOMAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_GOMAMON_X_ID_LEN = sizeof(DMX_GOMAMON_X_ID)-1;
+    inline static constexpr size_t DMX_GOMAMON_X_ID_LEN = sizeof(DMX_GOMAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_GOMAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Gomamon X";
     inline static constexpr const char* DMX_GOMAMON_X_NAME = DMX_GOMAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_GOMAMON_X_NAME_LEN = sizeof(DMX_GOMAMON_X_NAME_ARR)-1;
@@ -969,7 +969,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GRADEMON_FQID_LEN = sizeof(DMX_GRADEMON_FQID_ARR)-1;
     inline static constexpr char DMX_GRADEMON_ID_ARR[] CONFIG_STRING_SECTION = "grademon";
     inline static constexpr const char* DMX_GRADEMON_ID = DMX_GRADEMON_ID_ARR;
-    inline static constexpr size_t DMX_GRADEMON_ID_LEN = sizeof(DMX_GRADEMON_ID)-1;
+    inline static constexpr size_t DMX_GRADEMON_ID_LEN = sizeof(DMX_GRADEMON_ID_ARR)-1;
     inline static constexpr char DMX_GRADEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grademon";
     inline static constexpr const char* DMX_GRADEMON_NAME = DMX_GRADEMON_NAME_ARR;
     inline static constexpr size_t DMX_GRADEMON_NAME_LEN = sizeof(DMX_GRADEMON_NAME_ARR)-1;
@@ -987,7 +987,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GRAND_DRACUMON_FQID_LEN = sizeof(DMX_GRAND_DRACUMON_FQID_ARR)-1;
     inline static constexpr char DMX_GRAND_DRACUMON_ID_ARR[] CONFIG_STRING_SECTION = "grand_dracumon";
     inline static constexpr const char* DMX_GRAND_DRACUMON_ID = DMX_GRAND_DRACUMON_ID_ARR;
-    inline static constexpr size_t DMX_GRAND_DRACUMON_ID_LEN = sizeof(DMX_GRAND_DRACUMON_ID)-1;
+    inline static constexpr size_t DMX_GRAND_DRACUMON_ID_LEN = sizeof(DMX_GRAND_DRACUMON_ID_ARR)-1;
     inline static constexpr char DMX_GRAND_DRACUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grand Dracumon";
     inline static constexpr const char* DMX_GRAND_DRACUMON_NAME = DMX_GRAND_DRACUMON_NAME_ARR;
     inline static constexpr size_t DMX_GRAND_DRACUMON_NAME_LEN = sizeof(DMX_GRAND_DRACUMON_NAME_ARR)-1;
@@ -1005,7 +1005,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GRANDIS_KUWAGAMON_FQID_LEN = sizeof(DMX_GRANDIS_KUWAGAMON_FQID_ARR)-1;
     inline static constexpr char DMX_GRANDIS_KUWAGAMON_ID_ARR[] CONFIG_STRING_SECTION = "grandis_kuwagamon";
     inline static constexpr const char* DMX_GRANDIS_KUWAGAMON_ID = DMX_GRANDIS_KUWAGAMON_ID_ARR;
-    inline static constexpr size_t DMX_GRANDIS_KUWAGAMON_ID_LEN = sizeof(DMX_GRANDIS_KUWAGAMON_ID)-1;
+    inline static constexpr size_t DMX_GRANDIS_KUWAGAMON_ID_LEN = sizeof(DMX_GRANDIS_KUWAGAMON_ID_ARR)-1;
     inline static constexpr char DMX_GRANDIS_KUWAGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grandis Kuwagamon";
     inline static constexpr const char* DMX_GRANDIS_KUWAGAMON_NAME = DMX_GRANDIS_KUWAGAMON_NAME_ARR;
     inline static constexpr size_t DMX_GRANDIS_KUWAGAMON_NAME_LEN = sizeof(DMX_GRANDIS_KUWAGAMON_NAME_ARR)-1;
@@ -1023,7 +1023,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GROWMON_X_FQID_LEN = sizeof(DMX_GROWMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_GROWMON_X_ID_ARR[] CONFIG_STRING_SECTION = "growmon_x";
     inline static constexpr const char* DMX_GROWMON_X_ID = DMX_GROWMON_X_ID_ARR;
-    inline static constexpr size_t DMX_GROWMON_X_ID_LEN = sizeof(DMX_GROWMON_X_ID)-1;
+    inline static constexpr size_t DMX_GROWMON_X_ID_LEN = sizeof(DMX_GROWMON_X_ID_ARR)-1;
     inline static constexpr char DMX_GROWMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Growmon X";
     inline static constexpr const char* DMX_GROWMON_X_NAME = DMX_GROWMON_X_NAME_ARR;
     inline static constexpr size_t DMX_GROWMON_X_NAME_LEN = sizeof(DMX_GROWMON_X_NAME_ARR)-1;
@@ -1041,7 +1041,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_GUMMYMON_FQID_LEN = sizeof(DMX_GUMMYMON_FQID_ARR)-1;
     inline static constexpr char DMX_GUMMYMON_ID_ARR[] CONFIG_STRING_SECTION = "gummymon";
     inline static constexpr const char* DMX_GUMMYMON_ID = DMX_GUMMYMON_ID_ARR;
-    inline static constexpr size_t DMX_GUMMYMON_ID_LEN = sizeof(DMX_GUMMYMON_ID)-1;
+    inline static constexpr size_t DMX_GUMMYMON_ID_LEN = sizeof(DMX_GUMMYMON_ID_ARR)-1;
     inline static constexpr char DMX_GUMMYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gummymon";
     inline static constexpr const char* DMX_GUMMYMON_NAME = DMX_GUMMYMON_NAME_ARR;
     inline static constexpr size_t DMX_GUMMYMON_NAME_LEN = sizeof(DMX_GUMMYMON_NAME_ARR)-1;
@@ -1059,7 +1059,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_HERISSMON_FQID_LEN = sizeof(DMX_HERISSMON_FQID_ARR)-1;
     inline static constexpr char DMX_HERISSMON_ID_ARR[] CONFIG_STRING_SECTION = "herissmon";
     inline static constexpr const char* DMX_HERISSMON_ID = DMX_HERISSMON_ID_ARR;
-    inline static constexpr size_t DMX_HERISSMON_ID_LEN = sizeof(DMX_HERISSMON_ID)-1;
+    inline static constexpr size_t DMX_HERISSMON_ID_LEN = sizeof(DMX_HERISSMON_ID_ARR)-1;
     inline static constexpr char DMX_HERISSMON_NAME_ARR[] CONFIG_STRING_SECTION = "Herissmon";
     inline static constexpr const char* DMX_HERISSMON_NAME = DMX_HERISSMON_NAME_ARR;
     inline static constexpr size_t DMX_HERISSMON_NAME_LEN = sizeof(DMX_HERISSMON_NAME_ARR)-1;
@@ -1077,7 +1077,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_HEXEBLAUMON_FQID_LEN = sizeof(DMX_HEXEBLAUMON_FQID_ARR)-1;
     inline static constexpr char DMX_HEXEBLAUMON_ID_ARR[] CONFIG_STRING_SECTION = "hexeblaumon";
     inline static constexpr const char* DMX_HEXEBLAUMON_ID = DMX_HEXEBLAUMON_ID_ARR;
-    inline static constexpr size_t DMX_HEXEBLAUMON_ID_LEN = sizeof(DMX_HEXEBLAUMON_ID)-1;
+    inline static constexpr size_t DMX_HEXEBLAUMON_ID_LEN = sizeof(DMX_HEXEBLAUMON_ID_ARR)-1;
     inline static constexpr char DMX_HEXEBLAUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hexeblaumon";
     inline static constexpr const char* DMX_HEXEBLAUMON_NAME = DMX_HEXEBLAUMON_NAME_ARR;
     inline static constexpr size_t DMX_HEXEBLAUMON_NAME_LEN = sizeof(DMX_HEXEBLAUMON_NAME_ARR)-1;
@@ -1095,7 +1095,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_HISYARYUMON_FQID_LEN = sizeof(DMX_HISYARYUMON_FQID_ARR)-1;
     inline static constexpr char DMX_HISYARYUMON_ID_ARR[] CONFIG_STRING_SECTION = "hisyaryumon";
     inline static constexpr const char* DMX_HISYARYUMON_ID = DMX_HISYARYUMON_ID_ARR;
-    inline static constexpr size_t DMX_HISYARYUMON_ID_LEN = sizeof(DMX_HISYARYUMON_ID)-1;
+    inline static constexpr size_t DMX_HISYARYUMON_ID_LEN = sizeof(DMX_HISYARYUMON_ID_ARR)-1;
     inline static constexpr char DMX_HISYARYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hisyaryumon";
     inline static constexpr const char* DMX_HISYARYUMON_NAME = DMX_HISYARYUMON_NAME_ARR;
     inline static constexpr size_t DMX_HISYARYUMON_NAME_LEN = sizeof(DMX_HISYARYUMON_NAME_ARR)-1;
@@ -1113,7 +1113,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_HOLYDRAMON_X_FQID_LEN = sizeof(DMX_HOLYDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_HOLYDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "holydramon_x";
     inline static constexpr const char* DMX_HOLYDRAMON_X_ID = DMX_HOLYDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_HOLYDRAMON_X_ID_LEN = sizeof(DMX_HOLYDRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_HOLYDRAMON_X_ID_LEN = sizeof(DMX_HOLYDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_HOLYDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Holydramon X";
     inline static constexpr const char* DMX_HOLYDRAMON_X_NAME = DMX_HOLYDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_HOLYDRAMON_X_NAME_LEN = sizeof(DMX_HOLYDRAMON_X_NAME_ARR)-1;
@@ -1131,7 +1131,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_HOUOUMON_X_FQID_LEN = sizeof(DMX_HOUOUMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_HOUOUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "hououmon_x";
     inline static constexpr const char* DMX_HOUOUMON_X_ID = DMX_HOUOUMON_X_ID_ARR;
-    inline static constexpr size_t DMX_HOUOUMON_X_ID_LEN = sizeof(DMX_HOUOUMON_X_ID)-1;
+    inline static constexpr size_t DMX_HOUOUMON_X_ID_LEN = sizeof(DMX_HOUOUMON_X_ID_ARR)-1;
     inline static constexpr char DMX_HOUOUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Hououmon X";
     inline static constexpr const char* DMX_HOUOUMON_X_NAME = DMX_HOUOUMON_X_NAME_ARR;
     inline static constexpr size_t DMX_HOUOUMON_X_NAME_LEN = sizeof(DMX_HOUOUMON_X_NAME_ARR)-1;
@@ -1149,7 +1149,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_IMPMON_X_FQID_LEN = sizeof(DMX_IMPMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_IMPMON_X_ID_ARR[] CONFIG_STRING_SECTION = "impmon_x";
     inline static constexpr const char* DMX_IMPMON_X_ID = DMX_IMPMON_X_ID_ARR;
-    inline static constexpr size_t DMX_IMPMON_X_ID_LEN = sizeof(DMX_IMPMON_X_ID)-1;
+    inline static constexpr size_t DMX_IMPMON_X_ID_LEN = sizeof(DMX_IMPMON_X_ID_ARR)-1;
     inline static constexpr char DMX_IMPMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Impmon X";
     inline static constexpr const char* DMX_IMPMON_X_NAME = DMX_IMPMON_X_NAME_ARR;
     inline static constexpr size_t DMX_IMPMON_X_NAME_LEN = sizeof(DMX_IMPMON_X_NAME_ARR)-1;
@@ -1167,7 +1167,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_JARARCHIMON_FQID_LEN = sizeof(DMX_JARARCHIMON_FQID_ARR)-1;
     inline static constexpr char DMX_JARARCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "jararchimon";
     inline static constexpr const char* DMX_JARARCHIMON_ID = DMX_JARARCHIMON_ID_ARR;
-    inline static constexpr size_t DMX_JARARCHIMON_ID_LEN = sizeof(DMX_JARARCHIMON_ID)-1;
+    inline static constexpr size_t DMX_JARARCHIMON_ID_LEN = sizeof(DMX_JARARCHIMON_ID_ARR)-1;
     inline static constexpr char DMX_JARARCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jararchimon";
     inline static constexpr const char* DMX_JARARCHIMON_NAME = DMX_JARARCHIMON_NAME_ARR;
     inline static constexpr size_t DMX_JARARCHIMON_NAME_LEN = sizeof(DMX_JARARCHIMON_NAME_ARR)-1;
@@ -1185,7 +1185,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_JAZAMON_FQID_LEN = sizeof(DMX_JAZAMON_FQID_ARR)-1;
     inline static constexpr char DMX_JAZAMON_ID_ARR[] CONFIG_STRING_SECTION = "jazamon";
     inline static constexpr const char* DMX_JAZAMON_ID = DMX_JAZAMON_ID_ARR;
-    inline static constexpr size_t DMX_JAZAMON_ID_LEN = sizeof(DMX_JAZAMON_ID)-1;
+    inline static constexpr size_t DMX_JAZAMON_ID_LEN = sizeof(DMX_JAZAMON_ID_ARR)-1;
     inline static constexpr char DMX_JAZAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jazamon";
     inline static constexpr const char* DMX_JAZAMON_NAME = DMX_JAZAMON_NAME_ARR;
     inline static constexpr size_t DMX_JAZAMON_NAME_LEN = sizeof(DMX_JAZAMON_NAME_ARR)-1;
@@ -1203,7 +1203,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_JAZARDMON_FQID_LEN = sizeof(DMX_JAZARDMON_FQID_ARR)-1;
     inline static constexpr char DMX_JAZARDMON_ID_ARR[] CONFIG_STRING_SECTION = "jazardmon";
     inline static constexpr const char* DMX_JAZARDMON_ID = DMX_JAZARDMON_ID_ARR;
-    inline static constexpr size_t DMX_JAZARDMON_ID_LEN = sizeof(DMX_JAZARDMON_ID)-1;
+    inline static constexpr size_t DMX_JAZARDMON_ID_LEN = sizeof(DMX_JAZARDMON_ID_ARR)-1;
     inline static constexpr char DMX_JAZARDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jazardmon";
     inline static constexpr const char* DMX_JAZARDMON_NAME = DMX_JAZARDMON_NAME_ARR;
     inline static constexpr size_t DMX_JAZARDMON_NAME_LEN = sizeof(DMX_JAZARDMON_NAME_ARR)-1;
@@ -1221,7 +1221,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_JAZARICHMON_FQID_LEN = sizeof(DMX_JAZARICHMON_FQID_ARR)-1;
     inline static constexpr char DMX_JAZARICHMON_ID_ARR[] CONFIG_STRING_SECTION = "jazarichmon";
     inline static constexpr const char* DMX_JAZARICHMON_ID = DMX_JAZARICHMON_ID_ARR;
-    inline static constexpr size_t DMX_JAZARICHMON_ID_LEN = sizeof(DMX_JAZARICHMON_ID)-1;
+    inline static constexpr size_t DMX_JAZARICHMON_ID_LEN = sizeof(DMX_JAZARICHMON_ID_ARR)-1;
     inline static constexpr char DMX_JAZARICHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jazarichmon";
     inline static constexpr const char* DMX_JAZARICHMON_NAME = DMX_JAZARICHMON_NAME_ARR;
     inline static constexpr size_t DMX_JAZARICHMON_NAME_LEN = sizeof(DMX_JAZARICHMON_NAME_ARR)-1;
@@ -1239,7 +1239,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_JESMON_GX_FQID_LEN = sizeof(DMX_JESMON_GX_FQID_ARR)-1;
     inline static constexpr char DMX_JESMON_GX_ID_ARR[] CONFIG_STRING_SECTION = "jesmon_gx";
     inline static constexpr const char* DMX_JESMON_GX_ID = DMX_JESMON_GX_ID_ARR;
-    inline static constexpr size_t DMX_JESMON_GX_ID_LEN = sizeof(DMX_JESMON_GX_ID)-1;
+    inline static constexpr size_t DMX_JESMON_GX_ID_LEN = sizeof(DMX_JESMON_GX_ID_ARR)-1;
     inline static constexpr char DMX_JESMON_GX_NAME_ARR[] CONFIG_STRING_SECTION = "Jesmon GX";
     inline static constexpr const char* DMX_JESMON_GX_NAME = DMX_JESMON_GX_NAME_ARR;
     inline static constexpr size_t DMX_JESMON_GX_NAME_LEN = sizeof(DMX_JESMON_GX_NAME_ARR)-1;
@@ -1257,7 +1257,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_JESMON_X_FQID_LEN = sizeof(DMX_JESMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_JESMON_X_ID_ARR[] CONFIG_STRING_SECTION = "jesmon_x";
     inline static constexpr const char* DMX_JESMON_X_ID = DMX_JESMON_X_ID_ARR;
-    inline static constexpr size_t DMX_JESMON_X_ID_LEN = sizeof(DMX_JESMON_X_ID)-1;
+    inline static constexpr size_t DMX_JESMON_X_ID_LEN = sizeof(DMX_JESMON_X_ID_ARR)-1;
     inline static constexpr char DMX_JESMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Jesmon X";
     inline static constexpr const char* DMX_JESMON_X_NAME = DMX_JESMON_X_NAME_ARR;
     inline static constexpr size_t DMX_JESMON_X_NAME_LEN = sizeof(DMX_JESMON_X_NAME_ARR)-1;
@@ -1275,7 +1275,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_JUSTIMON_X_FQID_LEN = sizeof(DMX_JUSTIMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_JUSTIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "justimon_x";
     inline static constexpr const char* DMX_JUSTIMON_X_ID = DMX_JUSTIMON_X_ID_ARR;
-    inline static constexpr size_t DMX_JUSTIMON_X_ID_LEN = sizeof(DMX_JUSTIMON_X_ID)-1;
+    inline static constexpr size_t DMX_JUSTIMON_X_ID_LEN = sizeof(DMX_JUSTIMON_X_ID_ARR)-1;
     inline static constexpr char DMX_JUSTIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Justimon X";
     inline static constexpr const char* DMX_JUSTIMON_X_NAME = DMX_JUSTIMON_X_NAME_ARR;
     inline static constexpr size_t DMX_JUSTIMON_X_NAME_LEN = sizeof(DMX_JUSTIMON_X_NAME_ARR)-1;
@@ -1293,7 +1293,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_KAISER_LEOMON_FQID_LEN = sizeof(DMX_KAISER_LEOMON_FQID_ARR)-1;
     inline static constexpr char DMX_KAISER_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "kaiser_leomon";
     inline static constexpr const char* DMX_KAISER_LEOMON_ID = DMX_KAISER_LEOMON_ID_ARR;
-    inline static constexpr size_t DMX_KAISER_LEOMON_ID_LEN = sizeof(DMX_KAISER_LEOMON_ID)-1;
+    inline static constexpr size_t DMX_KAISER_LEOMON_ID_LEN = sizeof(DMX_KAISER_LEOMON_ID_ARR)-1;
     inline static constexpr char DMX_KAISER_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kaiser Leomon";
     inline static constexpr const char* DMX_KAISER_LEOMON_NAME = DMX_KAISER_LEOMON_NAME_ARR;
     inline static constexpr size_t DMX_KAISER_LEOMON_NAME_LEN = sizeof(DMX_KAISER_LEOMON_NAME_ARR)-1;
@@ -1311,7 +1311,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_KEEMON_FQID_LEN = sizeof(DMX_KEEMON_FQID_ARR)-1;
     inline static constexpr char DMX_KEEMON_ID_ARR[] CONFIG_STRING_SECTION = "keemon";
     inline static constexpr const char* DMX_KEEMON_ID = DMX_KEEMON_ID_ARR;
-    inline static constexpr size_t DMX_KEEMON_ID_LEN = sizeof(DMX_KEEMON_ID)-1;
+    inline static constexpr size_t DMX_KEEMON_ID_LEN = sizeof(DMX_KEEMON_ID_ARR)-1;
     inline static constexpr char DMX_KEEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Keemon";
     inline static constexpr const char* DMX_KEEMON_NAME = DMX_KEEMON_NAME_ARR;
     inline static constexpr size_t DMX_KEEMON_NAME_LEN = sizeof(DMX_KEEMON_NAME_ARR)-1;
@@ -1329,7 +1329,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_KERAMON_X_FQID_LEN = sizeof(DMX_KERAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_KERAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "keramon_x";
     inline static constexpr const char* DMX_KERAMON_X_ID = DMX_KERAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_KERAMON_X_ID_LEN = sizeof(DMX_KERAMON_X_ID)-1;
+    inline static constexpr size_t DMX_KERAMON_X_ID_LEN = sizeof(DMX_KERAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_KERAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Keramon X";
     inline static constexpr const char* DMX_KERAMON_X_NAME = DMX_KERAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_KERAMON_X_NAME_LEN = sizeof(DMX_KERAMON_X_NAME_ARR)-1;
@@ -1347,7 +1347,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_KIIMON_FQID_LEN = sizeof(DMX_KIIMON_FQID_ARR)-1;
     inline static constexpr char DMX_KIIMON_ID_ARR[] CONFIG_STRING_SECTION = "kiimon";
     inline static constexpr const char* DMX_KIIMON_ID = DMX_KIIMON_ID_ARR;
-    inline static constexpr size_t DMX_KIIMON_ID_LEN = sizeof(DMX_KIIMON_ID)-1;
+    inline static constexpr size_t DMX_KIIMON_ID_LEN = sizeof(DMX_KIIMON_ID_ARR)-1;
     inline static constexpr char DMX_KIIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kiimon";
     inline static constexpr const char* DMX_KIIMON_NAME = DMX_KIIMON_NAME_ARR;
     inline static constexpr size_t DMX_KIIMON_NAME_LEN = sizeof(DMX_KIIMON_NAME_ARR)-1;
@@ -1365,7 +1365,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_KOKUWAMON_X_FQID_LEN = sizeof(DMX_KOKUWAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_KOKUWAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "kokuwamon_x";
     inline static constexpr const char* DMX_KOKUWAMON_X_ID = DMX_KOKUWAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_KOKUWAMON_X_ID_LEN = sizeof(DMX_KOKUWAMON_X_ID)-1;
+    inline static constexpr size_t DMX_KOKUWAMON_X_ID_LEN = sizeof(DMX_KOKUWAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_KOKUWAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Kokuwamon X";
     inline static constexpr const char* DMX_KOKUWAMON_X_NAME = DMX_KOKUWAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_KOKUWAMON_X_NAME_LEN = sizeof(DMX_KOKUWAMON_X_NAME_ARR)-1;
@@ -1383,7 +1383,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_KUWAGAMON_X_FQID_LEN = sizeof(DMX_KUWAGAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_KUWAGAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "kuwagamon_x";
     inline static constexpr const char* DMX_KUWAGAMON_X_ID = DMX_KUWAGAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_KUWAGAMON_X_ID_LEN = sizeof(DMX_KUWAGAMON_X_ID)-1;
+    inline static constexpr size_t DMX_KUWAGAMON_X_ID_LEN = sizeof(DMX_KUWAGAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_KUWAGAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Kuwagamon X";
     inline static constexpr const char* DMX_KUWAGAMON_X_NAME = DMX_KUWAGAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_KUWAGAMON_X_NAME_LEN = sizeof(DMX_KUWAGAMON_X_NAME_ARR)-1;
@@ -1401,7 +1401,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LADY_DEVIMON_X_FQID_LEN = sizeof(DMX_LADY_DEVIMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LADY_DEVIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lady_devimon_x";
     inline static constexpr const char* DMX_LADY_DEVIMON_X_ID = DMX_LADY_DEVIMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LADY_DEVIMON_X_ID_LEN = sizeof(DMX_LADY_DEVIMON_X_ID)-1;
+    inline static constexpr size_t DMX_LADY_DEVIMON_X_ID_LEN = sizeof(DMX_LADY_DEVIMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LADY_DEVIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lady Devimon X";
     inline static constexpr const char* DMX_LADY_DEVIMON_X_NAME = DMX_LADY_DEVIMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LADY_DEVIMON_X_NAME_LEN = sizeof(DMX_LADY_DEVIMON_X_NAME_ARR)-1;
@@ -1419,7 +1419,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LEOMON_X_FQID_LEN = sizeof(DMX_LEOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LEOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "leomon_x";
     inline static constexpr const char* DMX_LEOMON_X_ID = DMX_LEOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LEOMON_X_ID_LEN = sizeof(DMX_LEOMON_X_ID)-1;
+    inline static constexpr size_t DMX_LEOMON_X_ID_LEN = sizeof(DMX_LEOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LEOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Leomon X";
     inline static constexpr const char* DMX_LEOMON_X_NAME = DMX_LEOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LEOMON_X_NAME_LEN = sizeof(DMX_LEOMON_X_NAME_ARR)-1;
@@ -1437,7 +1437,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LEVIAMON_X_FQID_LEN = sizeof(DMX_LEVIAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LEVIAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "leviamon_x";
     inline static constexpr const char* DMX_LEVIAMON_X_ID = DMX_LEVIAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LEVIAMON_X_ID_LEN = sizeof(DMX_LEVIAMON_X_ID)-1;
+    inline static constexpr size_t DMX_LEVIAMON_X_ID_LEN = sizeof(DMX_LEVIAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LEVIAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Leviamon X";
     inline static constexpr const char* DMX_LEVIAMON_X_NAME = DMX_LEVIAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LEVIAMON_X_NAME_LEN = sizeof(DMX_LEVIAMON_X_NAME_ARR)-1;
@@ -1455,7 +1455,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LILIMON_X_FQID_LEN = sizeof(DMX_LILIMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LILIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lilimon_x";
     inline static constexpr const char* DMX_LILIMON_X_ID = DMX_LILIMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LILIMON_X_ID_LEN = sizeof(DMX_LILIMON_X_ID)-1;
+    inline static constexpr size_t DMX_LILIMON_X_ID_LEN = sizeof(DMX_LILIMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LILIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lilimon X";
     inline static constexpr const char* DMX_LILIMON_X_NAME = DMX_LILIMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LILIMON_X_NAME_LEN = sizeof(DMX_LILIMON_X_NAME_ARR)-1;
@@ -1473,7 +1473,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LILITHMON_X_FQID_LEN = sizeof(DMX_LILITHMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LILITHMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lilithmon_x";
     inline static constexpr const char* DMX_LILITHMON_X_ID = DMX_LILITHMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LILITHMON_X_ID_LEN = sizeof(DMX_LILITHMON_X_ID)-1;
+    inline static constexpr size_t DMX_LILITHMON_X_ID_LEN = sizeof(DMX_LILITHMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LILITHMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lilithmon X";
     inline static constexpr const char* DMX_LILITHMON_X_NAME = DMX_LILITHMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LILITHMON_X_NAME_LEN = sizeof(DMX_LILITHMON_X_NAME_ARR)-1;
@@ -1491,7 +1491,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LOPMON_X_FQID_LEN = sizeof(DMX_LOPMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LOPMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lopmon_x";
     inline static constexpr const char* DMX_LOPMON_X_ID = DMX_LOPMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LOPMON_X_ID_LEN = sizeof(DMX_LOPMON_X_ID)-1;
+    inline static constexpr size_t DMX_LOPMON_X_ID_LEN = sizeof(DMX_LOPMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LOPMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lopmon X";
     inline static constexpr const char* DMX_LOPMON_X_NAME = DMX_LOPMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LOPMON_X_NAME_LEN = sizeof(DMX_LOPMON_X_NAME_ARR)-1;
@@ -1509,7 +1509,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LORD_KIGHTMON_X_FQID_LEN = sizeof(DMX_LORD_KIGHTMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LORD_KIGHTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lord_kightmon_x";
     inline static constexpr const char* DMX_LORD_KIGHTMON_X_ID = DMX_LORD_KIGHTMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LORD_KIGHTMON_X_ID_LEN = sizeof(DMX_LORD_KIGHTMON_X_ID)-1;
+    inline static constexpr size_t DMX_LORD_KIGHTMON_X_ID_LEN = sizeof(DMX_LORD_KIGHTMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LORD_KIGHTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lord Kightmon X";
     inline static constexpr const char* DMX_LORD_KIGHTMON_X_NAME = DMX_LORD_KIGHTMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LORD_KIGHTMON_X_NAME_LEN = sizeof(DMX_LORD_KIGHTMON_X_NAME_ARR)-1;
@@ -1527,7 +1527,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LORD_KNIGHTMON_X_FQID_LEN = sizeof(DMX_LORD_KNIGHTMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LORD_KNIGHTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lord_knightmon_x";
     inline static constexpr const char* DMX_LORD_KNIGHTMON_X_ID = DMX_LORD_KNIGHTMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LORD_KNIGHTMON_X_ID_LEN = sizeof(DMX_LORD_KNIGHTMON_X_ID)-1;
+    inline static constexpr size_t DMX_LORD_KNIGHTMON_X_ID_LEN = sizeof(DMX_LORD_KNIGHTMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LORD_KNIGHTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lord Knightmon X";
     inline static constexpr const char* DMX_LORD_KNIGHTMON_X_NAME = DMX_LORD_KNIGHTMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LORD_KNIGHTMON_X_NAME_LEN = sizeof(DMX_LORD_KNIGHTMON_X_NAME_ARR)-1;
@@ -1545,7 +1545,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_LUCEMON_X_FQID_LEN = sizeof(DMX_LUCEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_LUCEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lucemon_x";
     inline static constexpr const char* DMX_LUCEMON_X_ID = DMX_LUCEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_LUCEMON_X_ID_LEN = sizeof(DMX_LUCEMON_X_ID)-1;
+    inline static constexpr size_t DMX_LUCEMON_X_ID_LEN = sizeof(DMX_LUCEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_LUCEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lucemon X";
     inline static constexpr const char* DMX_LUCEMON_X_NAME = DMX_LUCEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_LUCEMON_X_NAME_LEN = sizeof(DMX_LUCEMON_X_NAME_ARR)-1;
@@ -1563,7 +1563,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MAGIDRAMON_X_FQID_LEN = sizeof(DMX_MAGIDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MAGIDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "magidramon_x";
     inline static constexpr const char* DMX_MAGIDRAMON_X_ID = DMX_MAGIDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MAGIDRAMON_X_ID_LEN = sizeof(DMX_MAGIDRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_MAGIDRAMON_X_ID_LEN = sizeof(DMX_MAGIDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MAGIDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Magidramon X";
     inline static constexpr const char* DMX_MAGIDRAMON_X_NAME = DMX_MAGIDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MAGIDRAMON_X_NAME_LEN = sizeof(DMX_MAGIDRAMON_X_NAME_ARR)-1;
@@ -1581,7 +1581,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MAGNAMON_X_FQID_LEN = sizeof(DMX_MAGNAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MAGNAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "magnamon_x";
     inline static constexpr const char* DMX_MAGNAMON_X_ID = DMX_MAGNAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MAGNAMON_X_ID_LEN = sizeof(DMX_MAGNAMON_X_ID)-1;
+    inline static constexpr size_t DMX_MAGNAMON_X_ID_LEN = sizeof(DMX_MAGNAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MAGNAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Magnamon X";
     inline static constexpr const char* DMX_MAGNAMON_X_NAME = DMX_MAGNAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MAGNAMON_X_NAME_LEN = sizeof(DMX_MAGNAMON_X_NAME_ARR)-1;
@@ -1599,7 +1599,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MAMEMON_X_FQID_LEN = sizeof(DMX_MAMEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MAMEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mamemon_x";
     inline static constexpr const char* DMX_MAMEMON_X_ID = DMX_MAMEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MAMEMON_X_ID_LEN = sizeof(DMX_MAMEMON_X_ID)-1;
+    inline static constexpr size_t DMX_MAMEMON_X_ID_LEN = sizeof(DMX_MAMEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MAMEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mamemon X";
     inline static constexpr const char* DMX_MAMEMON_X_NAME = DMX_MAMEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MAMEMON_X_NAME_LEN = sizeof(DMX_MAMEMON_X_NAME_ARR)-1;
@@ -1617,7 +1617,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MAMETYRAMON_FQID_LEN = sizeof(DMX_MAMETYRAMON_FQID_ARR)-1;
     inline static constexpr char DMX_MAMETYRAMON_ID_ARR[] CONFIG_STRING_SECTION = "mametyramon";
     inline static constexpr const char* DMX_MAMETYRAMON_ID = DMX_MAMETYRAMON_ID_ARR;
-    inline static constexpr size_t DMX_MAMETYRAMON_ID_LEN = sizeof(DMX_MAMETYRAMON_ID)-1;
+    inline static constexpr size_t DMX_MAMETYRAMON_ID_LEN = sizeof(DMX_MAMETYRAMON_ID_ARR)-1;
     inline static constexpr char DMX_MAMETYRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mametyramon";
     inline static constexpr const char* DMX_MAMETYRAMON_NAME = DMX_MAMETYRAMON_NAME_ARR;
     inline static constexpr size_t DMX_MAMETYRAMON_NAME_LEN = sizeof(DMX_MAMETYRAMON_NAME_ARR)-1;
@@ -1635,7 +1635,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MAMMON_X_FQID_LEN = sizeof(DMX_MAMMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MAMMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mammon_x";
     inline static constexpr const char* DMX_MAMMON_X_ID = DMX_MAMMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MAMMON_X_ID_LEN = sizeof(DMX_MAMMON_X_ID)-1;
+    inline static constexpr size_t DMX_MAMMON_X_ID_LEN = sizeof(DMX_MAMMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MAMMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mammon X";
     inline static constexpr const char* DMX_MAMMON_X_NAME = DMX_MAMMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MAMMON_X_NAME_LEN = sizeof(DMX_MAMMON_X_NAME_ARR)-1;
@@ -1653,7 +1653,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MANTARAYMON_X_FQID_LEN = sizeof(DMX_MANTARAYMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MANTARAYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mantaraymon_x";
     inline static constexpr const char* DMX_MANTARAYMON_X_ID = DMX_MANTARAYMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MANTARAYMON_X_ID_LEN = sizeof(DMX_MANTARAYMON_X_ID)-1;
+    inline static constexpr size_t DMX_MANTARAYMON_X_ID_LEN = sizeof(DMX_MANTARAYMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MANTARAYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mantaraymon X";
     inline static constexpr const char* DMX_MANTARAYMON_X_NAME = DMX_MANTARAYMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MANTARAYMON_X_NAME_LEN = sizeof(DMX_MANTARAYMON_X_NAME_ARR)-1;
@@ -1671,7 +1671,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MEGALO_GROWMON_X_FQID_LEN = sizeof(DMX_MEGALO_GROWMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MEGALO_GROWMON_X_ID_ARR[] CONFIG_STRING_SECTION = "megalo_growmon_x";
     inline static constexpr const char* DMX_MEGALO_GROWMON_X_ID = DMX_MEGALO_GROWMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MEGALO_GROWMON_X_ID_LEN = sizeof(DMX_MEGALO_GROWMON_X_ID)-1;
+    inline static constexpr size_t DMX_MEGALO_GROWMON_X_ID_LEN = sizeof(DMX_MEGALO_GROWMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MEGALO_GROWMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Megalo Growmon X";
     inline static constexpr const char* DMX_MEGALO_GROWMON_X_NAME = DMX_MEGALO_GROWMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MEGALO_GROWMON_X_NAME_LEN = sizeof(DMX_MEGALO_GROWMON_X_NAME_ARR)-1;
@@ -1689,7 +1689,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MEGA_SEADRAMON_X_FQID_LEN = sizeof(DMX_MEGA_SEADRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MEGA_SEADRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mega_seadramon_x";
     inline static constexpr const char* DMX_MEGA_SEADRAMON_X_ID = DMX_MEGA_SEADRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MEGA_SEADRAMON_X_ID_LEN = sizeof(DMX_MEGA_SEADRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_MEGA_SEADRAMON_X_ID_LEN = sizeof(DMX_MEGA_SEADRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MEGA_SEADRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mega Seadramon X";
     inline static constexpr const char* DMX_MEGA_SEADRAMON_X_NAME = DMX_MEGA_SEADRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MEGA_SEADRAMON_X_NAME_LEN = sizeof(DMX_MEGA_SEADRAMON_X_NAME_ARR)-1;
@@ -1707,7 +1707,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MEGIDRAMON_X_FQID_LEN = sizeof(DMX_MEGIDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MEGIDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "megidramon_x";
     inline static constexpr const char* DMX_MEGIDRAMON_X_ID = DMX_MEGIDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MEGIDRAMON_X_ID_LEN = sizeof(DMX_MEGIDRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_MEGIDRAMON_X_ID_LEN = sizeof(DMX_MEGIDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MEGIDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Megidramon X";
     inline static constexpr const char* DMX_MEGIDRAMON_X_NAME = DMX_MEGIDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MEGIDRAMON_X_NAME_LEN = sizeof(DMX_MEGIDRAMON_X_NAME_ARR)-1;
@@ -1725,7 +1725,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MEPHISMON_X_FQID_LEN = sizeof(DMX_MEPHISMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MEPHISMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mephismon_x";
     inline static constexpr const char* DMX_MEPHISMON_X_ID = DMX_MEPHISMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MEPHISMON_X_ID_LEN = sizeof(DMX_MEPHISMON_X_ID)-1;
+    inline static constexpr size_t DMX_MEPHISMON_X_ID_LEN = sizeof(DMX_MEPHISMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MEPHISMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mephismon X";
     inline static constexpr const char* DMX_MEPHISMON_X_NAME = DMX_MEPHISMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MEPHISMON_X_NAME_LEN = sizeof(DMX_MEPHISMON_X_NAME_ARR)-1;
@@ -1743,7 +1743,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MERAMON_X_FQID_LEN = sizeof(DMX_MERAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MERAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "meramon_x";
     inline static constexpr const char* DMX_MERAMON_X_ID = DMX_MERAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MERAMON_X_ID_LEN = sizeof(DMX_MERAMON_X_ID)-1;
+    inline static constexpr size_t DMX_MERAMON_X_ID_LEN = sizeof(DMX_MERAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MERAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Meramon X";
     inline static constexpr const char* DMX_MERAMON_X_NAME = DMX_MERAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MERAMON_X_NAME_LEN = sizeof(DMX_MERAMON_X_NAME_ARR)-1;
@@ -1761,7 +1761,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_METAL_FANTOMON_FQID_LEN = sizeof(DMX_METAL_FANTOMON_FQID_ARR)-1;
     inline static constexpr char DMX_METAL_FANTOMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_fantomon";
     inline static constexpr const char* DMX_METAL_FANTOMON_ID = DMX_METAL_FANTOMON_ID_ARR;
-    inline static constexpr size_t DMX_METAL_FANTOMON_ID_LEN = sizeof(DMX_METAL_FANTOMON_ID)-1;
+    inline static constexpr size_t DMX_METAL_FANTOMON_ID_LEN = sizeof(DMX_METAL_FANTOMON_ID_ARR)-1;
     inline static constexpr char DMX_METAL_FANTOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Fantomon";
     inline static constexpr const char* DMX_METAL_FANTOMON_NAME = DMX_METAL_FANTOMON_NAME_ARR;
     inline static constexpr size_t DMX_METAL_FANTOMON_NAME_LEN = sizeof(DMX_METAL_FANTOMON_NAME_ARR)-1;
@@ -1779,7 +1779,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_METAL_GARURUMON_X_FQID_LEN = sizeof(DMX_METAL_GARURUMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_METAL_GARURUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_garurumon_x";
     inline static constexpr const char* DMX_METAL_GARURUMON_X_ID = DMX_METAL_GARURUMON_X_ID_ARR;
-    inline static constexpr size_t DMX_METAL_GARURUMON_X_ID_LEN = sizeof(DMX_METAL_GARURUMON_X_ID)-1;
+    inline static constexpr size_t DMX_METAL_GARURUMON_X_ID_LEN = sizeof(DMX_METAL_GARURUMON_X_ID_ARR)-1;
     inline static constexpr char DMX_METAL_GARURUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Garurumon X";
     inline static constexpr const char* DMX_METAL_GARURUMON_X_NAME = DMX_METAL_GARURUMON_X_NAME_ARR;
     inline static constexpr size_t DMX_METAL_GARURUMON_X_NAME_LEN = sizeof(DMX_METAL_GARURUMON_X_NAME_ARR)-1;
@@ -1797,7 +1797,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_METAL_GREYMON_VIRUS_X_FQID_LEN = sizeof(DMX_METAL_GREYMON_VIRUS_X_FQID_ARR)-1;
     inline static constexpr char DMX_METAL_GREYMON_VIRUS_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon_virus_x";
     inline static constexpr const char* DMX_METAL_GREYMON_VIRUS_X_ID = DMX_METAL_GREYMON_VIRUS_X_ID_ARR;
-    inline static constexpr size_t DMX_METAL_GREYMON_VIRUS_X_ID_LEN = sizeof(DMX_METAL_GREYMON_VIRUS_X_ID)-1;
+    inline static constexpr size_t DMX_METAL_GREYMON_VIRUS_X_ID_LEN = sizeof(DMX_METAL_GREYMON_VIRUS_X_ID_ARR)-1;
     inline static constexpr char DMX_METAL_GREYMON_VIRUS_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon (Virus) X";
     inline static constexpr const char* DMX_METAL_GREYMON_VIRUS_X_NAME = DMX_METAL_GREYMON_VIRUS_X_NAME_ARR;
     inline static constexpr size_t DMX_METAL_GREYMON_VIRUS_X_NAME_LEN = sizeof(DMX_METAL_GREYMON_VIRUS_X_NAME_ARR)-1;
@@ -1815,7 +1815,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_METAL_GREYMON_X_FQID_LEN = sizeof(DMX_METAL_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_METAL_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon_x";
     inline static constexpr const char* DMX_METAL_GREYMON_X_ID = DMX_METAL_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMX_METAL_GREYMON_X_ID_LEN = sizeof(DMX_METAL_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMX_METAL_GREYMON_X_ID_LEN = sizeof(DMX_METAL_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMX_METAL_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon X";
     inline static constexpr const char* DMX_METAL_GREYMON_X_NAME = DMX_METAL_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMX_METAL_GREYMON_X_NAME_LEN = sizeof(DMX_METAL_GREYMON_X_NAME_ARR)-1;
@@ -1833,7 +1833,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_METALLICDRAMON_FQID_LEN = sizeof(DMX_METALLICDRAMON_FQID_ARR)-1;
     inline static constexpr char DMX_METALLICDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "metallicdramon";
     inline static constexpr const char* DMX_METALLICDRAMON_ID = DMX_METALLICDRAMON_ID_ARR;
-    inline static constexpr size_t DMX_METALLICDRAMON_ID_LEN = sizeof(DMX_METALLICDRAMON_ID)-1;
+    inline static constexpr size_t DMX_METALLICDRAMON_ID_LEN = sizeof(DMX_METALLICDRAMON_ID_ARR)-1;
     inline static constexpr char DMX_METALLICDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metallicdramon";
     inline static constexpr const char* DMX_METALLICDRAMON_NAME = DMX_METALLICDRAMON_NAME_ARR;
     inline static constexpr size_t DMX_METALLICDRAMON_NAME_LEN = sizeof(DMX_METALLICDRAMON_NAME_ARR)-1;
@@ -1851,7 +1851,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_METAL_PIRANIMON_FQID_LEN = sizeof(DMX_METAL_PIRANIMON_FQID_ARR)-1;
     inline static constexpr char DMX_METAL_PIRANIMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_piranimon";
     inline static constexpr const char* DMX_METAL_PIRANIMON_ID = DMX_METAL_PIRANIMON_ID_ARR;
-    inline static constexpr size_t DMX_METAL_PIRANIMON_ID_LEN = sizeof(DMX_METAL_PIRANIMON_ID)-1;
+    inline static constexpr size_t DMX_METAL_PIRANIMON_ID_LEN = sizeof(DMX_METAL_PIRANIMON_ID_ARR)-1;
     inline static constexpr char DMX_METAL_PIRANIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Piranimon";
     inline static constexpr const char* DMX_METAL_PIRANIMON_NAME = DMX_METAL_PIRANIMON_NAME_ARR;
     inline static constexpr size_t DMX_METAL_PIRANIMON_NAME_LEN = sizeof(DMX_METAL_PIRANIMON_NAME_ARR)-1;
@@ -1869,7 +1869,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_METAL_TYRANOMON_X_FQID_LEN = sizeof(DMX_METAL_TYRANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_METAL_TYRANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_tyranomon_x";
     inline static constexpr const char* DMX_METAL_TYRANOMON_X_ID = DMX_METAL_TYRANOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_METAL_TYRANOMON_X_ID_LEN = sizeof(DMX_METAL_TYRANOMON_X_ID)-1;
+    inline static constexpr size_t DMX_METAL_TYRANOMON_X_ID_LEN = sizeof(DMX_METAL_TYRANOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_METAL_TYRANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Tyranomon X";
     inline static constexpr const char* DMX_METAL_TYRANOMON_X_NAME = DMX_METAL_TYRANOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_METAL_TYRANOMON_X_NAME_LEN = sizeof(DMX_METAL_TYRANOMON_X_NAME_ARR)-1;
@@ -1887,7 +1887,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MINERVAMON_X_FQID_LEN = sizeof(DMX_MINERVAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MINERVAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "minervamon_x";
     inline static constexpr const char* DMX_MINERVAMON_X_ID = DMX_MINERVAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MINERVAMON_X_ID_LEN = sizeof(DMX_MINERVAMON_X_ID)-1;
+    inline static constexpr size_t DMX_MINERVAMON_X_ID_LEN = sizeof(DMX_MINERVAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MINERVAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Minervamon X";
     inline static constexpr const char* DMX_MINERVAMON_X_NAME = DMX_MINERVAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MINERVAMON_X_NAME_LEN = sizeof(DMX_MINERVAMON_X_NAME_ARR)-1;
@@ -1905,7 +1905,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_MONZAEMON_X_FQID_LEN = sizeof(DMX_MONZAEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_MONZAEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "monzaemon_x";
     inline static constexpr const char* DMX_MONZAEMON_X_ID = DMX_MONZAEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_MONZAEMON_X_ID_LEN = sizeof(DMX_MONZAEMON_X_ID)-1;
+    inline static constexpr size_t DMX_MONZAEMON_X_ID_LEN = sizeof(DMX_MONZAEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_MONZAEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Monzaemon X";
     inline static constexpr const char* DMX_MONZAEMON_X_NAME = DMX_MONZAEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_MONZAEMON_X_NAME_LEN = sizeof(DMX_MONZAEMON_X_NAME_ARR)-1;
@@ -1923,7 +1923,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_NEFERTIMON_X_FQID_LEN = sizeof(DMX_NEFERTIMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_NEFERTIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "nefertimon_x";
     inline static constexpr const char* DMX_NEFERTIMON_X_ID = DMX_NEFERTIMON_X_ID_ARR;
-    inline static constexpr size_t DMX_NEFERTIMON_X_ID_LEN = sizeof(DMX_NEFERTIMON_X_ID)-1;
+    inline static constexpr size_t DMX_NEFERTIMON_X_ID_LEN = sizeof(DMX_NEFERTIMON_X_ID_ARR)-1;
     inline static constexpr char DMX_NEFERTIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Nefertimon X";
     inline static constexpr const char* DMX_NEFERTIMON_X_NAME = DMX_NEFERTIMON_X_NAME_ARR;
     inline static constexpr size_t DMX_NEFERTIMON_X_NAME_LEN = sizeof(DMX_NEFERTIMON_X_NAME_ARR)-1;
@@ -1941,7 +1941,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_NOBLE_PUMPMON_FQID_LEN = sizeof(DMX_NOBLE_PUMPMON_FQID_ARR)-1;
     inline static constexpr char DMX_NOBLE_PUMPMON_ID_ARR[] CONFIG_STRING_SECTION = "noble_pumpmon";
     inline static constexpr const char* DMX_NOBLE_PUMPMON_ID = DMX_NOBLE_PUMPMON_ID_ARR;
-    inline static constexpr size_t DMX_NOBLE_PUMPMON_ID_LEN = sizeof(DMX_NOBLE_PUMPMON_ID)-1;
+    inline static constexpr size_t DMX_NOBLE_PUMPMON_ID_LEN = sizeof(DMX_NOBLE_PUMPMON_ID_ARR)-1;
     inline static constexpr char DMX_NOBLE_PUMPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Noble Pumpmon";
     inline static constexpr const char* DMX_NOBLE_PUMPMON_NAME = DMX_NOBLE_PUMPMON_NAME_ARR;
     inline static constexpr size_t DMX_NOBLE_PUMPMON_NAME_LEN = sizeof(DMX_NOBLE_PUMPMON_NAME_ARR)-1;
@@ -1959,7 +1959,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_NUMEMON_X_FQID_LEN = sizeof(DMX_NUMEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_NUMEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "numemon_x";
     inline static constexpr const char* DMX_NUMEMON_X_ID = DMX_NUMEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_NUMEMON_X_ID_LEN = sizeof(DMX_NUMEMON_X_ID)-1;
+    inline static constexpr size_t DMX_NUMEMON_X_ID_LEN = sizeof(DMX_NUMEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_NUMEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Numemon X";
     inline static constexpr const char* DMX_NUMEMON_X_NAME = DMX_NUMEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_NUMEMON_X_NAME_LEN = sizeof(DMX_NUMEMON_X_NAME_ARR)-1;
@@ -1977,7 +1977,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_FQID_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_FQID_ARR)-1;
     inline static constexpr char DMX_OFANIMON_FALLDOWN_MODE_ID_ARR[] CONFIG_STRING_SECTION = "ofanimon_falldown_mode";
     inline static constexpr const char* DMX_OFANIMON_FALLDOWN_MODE_ID = DMX_OFANIMON_FALLDOWN_MODE_ID_ARR;
-    inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_ID_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_ID)-1;
+    inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_ID_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_ID_ARR)-1;
     inline static constexpr char DMX_OFANIMON_FALLDOWN_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Ofanimon Falldown Mode";
     inline static constexpr const char* DMX_OFANIMON_FALLDOWN_MODE_NAME = DMX_OFANIMON_FALLDOWN_MODE_NAME_ARR;
     inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_NAME_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_NAME_ARR)-1;
@@ -1995,7 +1995,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_X_FQID_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_X_FQID_ARR)-1;
     inline static constexpr char DMX_OFANIMON_FALLDOWN_MODE_X_ID_ARR[] CONFIG_STRING_SECTION = "ofanimon_falldown_mode_x";
     inline static constexpr const char* DMX_OFANIMON_FALLDOWN_MODE_X_ID = DMX_OFANIMON_FALLDOWN_MODE_X_ID_ARR;
-    inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_X_ID_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_X_ID)-1;
+    inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_X_ID_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_X_ID_ARR)-1;
     inline static constexpr char DMX_OFANIMON_FALLDOWN_MODE_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ofanimon Falldown Mode X";
     inline static constexpr const char* DMX_OFANIMON_FALLDOWN_MODE_X_NAME = DMX_OFANIMON_FALLDOWN_MODE_X_NAME_ARR;
     inline static constexpr size_t DMX_OFANIMON_FALLDOWN_MODE_X_NAME_LEN = sizeof(DMX_OFANIMON_FALLDOWN_MODE_X_NAME_ARR)-1;
@@ -2013,7 +2013,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OFANIMON_X_FQID_LEN = sizeof(DMX_OFANIMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_OFANIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ofanimon_x";
     inline static constexpr const char* DMX_OFANIMON_X_ID = DMX_OFANIMON_X_ID_ARR;
-    inline static constexpr size_t DMX_OFANIMON_X_ID_LEN = sizeof(DMX_OFANIMON_X_ID)-1;
+    inline static constexpr size_t DMX_OFANIMON_X_ID_LEN = sizeof(DMX_OFANIMON_X_ID_ARR)-1;
     inline static constexpr char DMX_OFANIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ofanimon X";
     inline static constexpr const char* DMX_OFANIMON_X_NAME = DMX_OFANIMON_X_NAME_ARR;
     inline static constexpr size_t DMX_OFANIMON_X_NAME_LEN = sizeof(DMX_OFANIMON_X_NAME_ARR)-1;
@@ -2031,7 +2031,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OGREMON_X_FQID_LEN = sizeof(DMX_OGREMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_OGREMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ogremon_x";
     inline static constexpr const char* DMX_OGREMON_X_ID = DMX_OGREMON_X_ID_ARR;
-    inline static constexpr size_t DMX_OGREMON_X_ID_LEN = sizeof(DMX_OGREMON_X_ID)-1;
+    inline static constexpr size_t DMX_OGREMON_X_ID_LEN = sizeof(DMX_OGREMON_X_ID_ARR)-1;
     inline static constexpr char DMX_OGREMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ogremon X";
     inline static constexpr const char* DMX_OGREMON_X_NAME = DMX_OGREMON_X_NAME_ARR;
     inline static constexpr size_t DMX_OGREMON_X_NAME_LEN = sizeof(DMX_OGREMON_X_NAME_ARR)-1;
@@ -2049,7 +2049,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OGUDOMON_X_FQID_LEN = sizeof(DMX_OGUDOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_OGUDOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ogudomon_x";
     inline static constexpr const char* DMX_OGUDOMON_X_ID = DMX_OGUDOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_OGUDOMON_X_ID_LEN = sizeof(DMX_OGUDOMON_X_ID)-1;
+    inline static constexpr size_t DMX_OGUDOMON_X_ID_LEN = sizeof(DMX_OGUDOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_OGUDOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ogudomon X";
     inline static constexpr const char* DMX_OGUDOMON_X_NAME = DMX_OGUDOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_OGUDOMON_X_NAME_LEN = sizeof(DMX_OGUDOMON_X_NAME_ARR)-1;
@@ -2067,7 +2067,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OKUWAMON_X_FQID_LEN = sizeof(DMX_OKUWAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_OKUWAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "okuwamon_x";
     inline static constexpr const char* DMX_OKUWAMON_X_ID = DMX_OKUWAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_OKUWAMON_X_ID_LEN = sizeof(DMX_OKUWAMON_X_ID)-1;
+    inline static constexpr size_t DMX_OKUWAMON_X_ID_LEN = sizeof(DMX_OKUWAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_OKUWAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Okuwamon X";
     inline static constexpr const char* DMX_OKUWAMON_X_NAME = DMX_OKUWAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_OKUWAMON_X_NAME_LEN = sizeof(DMX_OKUWAMON_X_NAME_ARR)-1;
@@ -2085,7 +2085,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OMEGAMON_X_FQID_LEN = sizeof(DMX_OMEGAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_OMEGAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "omegamon_x";
     inline static constexpr const char* DMX_OMEGAMON_X_ID = DMX_OMEGAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_OMEGAMON_X_ID_LEN = sizeof(DMX_OMEGAMON_X_ID)-1;
+    inline static constexpr size_t DMX_OMEGAMON_X_ID_LEN = sizeof(DMX_OMEGAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_OMEGAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Omegamon X";
     inline static constexpr const char* DMX_OMEGAMON_X_NAME = DMX_OMEGAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_OMEGAMON_X_NAME_LEN = sizeof(DMX_OMEGAMON_X_NAME_ARR)-1;
@@ -2103,7 +2103,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OMEGA_SHOUTMON_X_FQID_LEN = sizeof(DMX_OMEGA_SHOUTMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_OMEGA_SHOUTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "omega_shoutmon_x";
     inline static constexpr const char* DMX_OMEGA_SHOUTMON_X_ID = DMX_OMEGA_SHOUTMON_X_ID_ARR;
-    inline static constexpr size_t DMX_OMEGA_SHOUTMON_X_ID_LEN = sizeof(DMX_OMEGA_SHOUTMON_X_ID)-1;
+    inline static constexpr size_t DMX_OMEGA_SHOUTMON_X_ID_LEN = sizeof(DMX_OMEGA_SHOUTMON_X_ID_ARR)-1;
     inline static constexpr char DMX_OMEGA_SHOUTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Omega Shoutmon X";
     inline static constexpr const char* DMX_OMEGA_SHOUTMON_X_NAME = DMX_OMEGA_SHOUTMON_X_NAME_ARR;
     inline static constexpr size_t DMX_OMEGA_SHOUTMON_X_NAME_LEN = sizeof(DMX_OMEGA_SHOUTMON_X_NAME_ARR)-1;
@@ -2121,7 +2121,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OMEKAMON_FQID_LEN = sizeof(DMX_OMEKAMON_FQID_ARR)-1;
     inline static constexpr char DMX_OMEKAMON_ID_ARR[] CONFIG_STRING_SECTION = "omekamon";
     inline static constexpr const char* DMX_OMEKAMON_ID = DMX_OMEKAMON_ID_ARR;
-    inline static constexpr size_t DMX_OMEKAMON_ID_LEN = sizeof(DMX_OMEKAMON_ID)-1;
+    inline static constexpr size_t DMX_OMEKAMON_ID_LEN = sizeof(DMX_OMEKAMON_ID_ARR)-1;
     inline static constexpr char DMX_OMEKAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Omekamon";
     inline static constexpr const char* DMX_OMEKAMON_NAME = DMX_OMEKAMON_NAME_ARR;
     inline static constexpr size_t DMX_OMEKAMON_NAME_LEN = sizeof(DMX_OMEKAMON_NAME_ARR)-1;
@@ -2139,7 +2139,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OTAMAMON_X_FQID_LEN = sizeof(DMX_OTAMAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_OTAMAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "otamamon_x";
     inline static constexpr const char* DMX_OTAMAMON_X_ID = DMX_OTAMAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_OTAMAMON_X_ID_LEN = sizeof(DMX_OTAMAMON_X_ID)-1;
+    inline static constexpr size_t DMX_OTAMAMON_X_ID_LEN = sizeof(DMX_OTAMAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_OTAMAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Otamamon X";
     inline static constexpr const char* DMX_OTAMAMON_X_NAME = DMX_OTAMAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_OTAMAMON_X_NAME_LEN = sizeof(DMX_OTAMAMON_X_NAME_ARR)-1;
@@ -2157,7 +2157,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_OURYUMON_FQID_LEN = sizeof(DMX_OURYUMON_FQID_ARR)-1;
     inline static constexpr char DMX_OURYUMON_ID_ARR[] CONFIG_STRING_SECTION = "ouryumon";
     inline static constexpr const char* DMX_OURYUMON_ID = DMX_OURYUMON_ID_ARR;
-    inline static constexpr size_t DMX_OURYUMON_ID_LEN = sizeof(DMX_OURYUMON_ID)-1;
+    inline static constexpr size_t DMX_OURYUMON_ID_LEN = sizeof(DMX_OURYUMON_ID_ARR)-1;
     inline static constexpr char DMX_OURYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ouryumon";
     inline static constexpr const char* DMX_OURYUMON_NAME = DMX_OURYUMON_NAME_ARR;
     inline static constexpr size_t DMX_OURYUMON_NAME_LEN = sizeof(DMX_OURYUMON_NAME_ARR)-1;
@@ -2175,7 +2175,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PALEDRAMON_FQID_LEN = sizeof(DMX_PALEDRAMON_FQID_ARR)-1;
     inline static constexpr char DMX_PALEDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "paledramon";
     inline static constexpr const char* DMX_PALEDRAMON_ID = DMX_PALEDRAMON_ID_ARR;
-    inline static constexpr size_t DMX_PALEDRAMON_ID_LEN = sizeof(DMX_PALEDRAMON_ID)-1;
+    inline static constexpr size_t DMX_PALEDRAMON_ID_LEN = sizeof(DMX_PALEDRAMON_ID_ARR)-1;
     inline static constexpr char DMX_PALEDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Paledramon";
     inline static constexpr const char* DMX_PALEDRAMON_NAME = DMX_PALEDRAMON_NAME_ARR;
     inline static constexpr size_t DMX_PALEDRAMON_NAME_LEN = sizeof(DMX_PALEDRAMON_NAME_ARR)-1;
@@ -2193,7 +2193,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PALMON_X_FQID_LEN = sizeof(DMX_PALMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_PALMON_X_ID_ARR[] CONFIG_STRING_SECTION = "palmon_x";
     inline static constexpr const char* DMX_PALMON_X_ID = DMX_PALMON_X_ID_ARR;
-    inline static constexpr size_t DMX_PALMON_X_ID_LEN = sizeof(DMX_PALMON_X_ID)-1;
+    inline static constexpr size_t DMX_PALMON_X_ID_LEN = sizeof(DMX_PALMON_X_ID_ARR)-1;
     inline static constexpr char DMX_PALMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Palmon X";
     inline static constexpr const char* DMX_PALMON_X_NAME = DMX_PALMON_X_NAME_ARR;
     inline static constexpr size_t DMX_PALMON_X_NAME_LEN = sizeof(DMX_PALMON_X_NAME_ARR)-1;
@@ -2211,7 +2211,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PEGASMON_X_FQID_LEN = sizeof(DMX_PEGASMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_PEGASMON_X_ID_ARR[] CONFIG_STRING_SECTION = "pegasmon_x";
     inline static constexpr const char* DMX_PEGASMON_X_ID = DMX_PEGASMON_X_ID_ARR;
-    inline static constexpr size_t DMX_PEGASMON_X_ID_LEN = sizeof(DMX_PEGASMON_X_ID)-1;
+    inline static constexpr size_t DMX_PEGASMON_X_ID_LEN = sizeof(DMX_PEGASMON_X_ID_ARR)-1;
     inline static constexpr char DMX_PEGASMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Pegasmon X";
     inline static constexpr const char* DMX_PEGASMON_X_NAME = DMX_PEGASMON_X_NAME_ARR;
     inline static constexpr size_t DMX_PEGASMON_X_NAME_LEN = sizeof(DMX_PEGASMON_X_NAME_ARR)-1;
@@ -2229,7 +2229,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PLATINUM_NUMEMON_FQID_LEN = sizeof(DMX_PLATINUM_NUMEMON_FQID_ARR)-1;
     inline static constexpr char DMX_PLATINUM_NUMEMON_ID_ARR[] CONFIG_STRING_SECTION = "platinum_numemon";
     inline static constexpr const char* DMX_PLATINUM_NUMEMON_ID = DMX_PLATINUM_NUMEMON_ID_ARR;
-    inline static constexpr size_t DMX_PLATINUM_NUMEMON_ID_LEN = sizeof(DMX_PLATINUM_NUMEMON_ID)-1;
+    inline static constexpr size_t DMX_PLATINUM_NUMEMON_ID_LEN = sizeof(DMX_PLATINUM_NUMEMON_ID_ARR)-1;
     inline static constexpr char DMX_PLATINUM_NUMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Platinum Numemon";
     inline static constexpr const char* DMX_PLATINUM_NUMEMON_NAME = DMX_PLATINUM_NUMEMON_NAME_ARR;
     inline static constexpr size_t DMX_PLATINUM_NUMEMON_NAME_LEN = sizeof(DMX_PLATINUM_NUMEMON_NAME_ARR)-1;
@@ -2247,7 +2247,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PLESIOMON_X_FQID_LEN = sizeof(DMX_PLESIOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_PLESIOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "plesiomon_x";
     inline static constexpr const char* DMX_PLESIOMON_X_ID = DMX_PLESIOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_PLESIOMON_X_ID_LEN = sizeof(DMX_PLESIOMON_X_ID)-1;
+    inline static constexpr size_t DMX_PLESIOMON_X_ID_LEN = sizeof(DMX_PLESIOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_PLESIOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Plesiomon X";
     inline static constexpr const char* DMX_PLESIOMON_X_NAME = DMX_PLESIOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_PLESIOMON_X_NAME_LEN = sizeof(DMX_PLESIOMON_X_NAME_ARR)-1;
@@ -2265,7 +2265,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PLOTMON_X_FQID_LEN = sizeof(DMX_PLOTMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_PLOTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "plotmon_x";
     inline static constexpr const char* DMX_PLOTMON_X_ID = DMX_PLOTMON_X_ID_ARR;
-    inline static constexpr size_t DMX_PLOTMON_X_ID_LEN = sizeof(DMX_PLOTMON_X_ID)-1;
+    inline static constexpr size_t DMX_PLOTMON_X_ID_LEN = sizeof(DMX_PLOTMON_X_ID_ARR)-1;
     inline static constexpr char DMX_PLOTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Plotmon X";
     inline static constexpr const char* DMX_PLOTMON_X_NAME = DMX_PLOTMON_X_NAME_ARR;
     inline static constexpr size_t DMX_PLOTMON_X_NAME_LEN = sizeof(DMX_PLOTMON_X_NAME_ARR)-1;
@@ -2283,7 +2283,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PRINCE_MAMEMON_X_FQID_LEN = sizeof(DMX_PRINCE_MAMEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_PRINCE_MAMEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "prince_mamemon_x";
     inline static constexpr const char* DMX_PRINCE_MAMEMON_X_ID = DMX_PRINCE_MAMEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_PRINCE_MAMEMON_X_ID_LEN = sizeof(DMX_PRINCE_MAMEMON_X_ID)-1;
+    inline static constexpr size_t DMX_PRINCE_MAMEMON_X_ID_LEN = sizeof(DMX_PRINCE_MAMEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_PRINCE_MAMEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Prince Mamemon X";
     inline static constexpr const char* DMX_PRINCE_MAMEMON_X_NAME = DMX_PRINCE_MAMEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_PRINCE_MAMEMON_X_NAME_LEN = sizeof(DMX_PRINCE_MAMEMON_X_NAME_ARR)-1;
@@ -2301,7 +2301,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PTERANMON_X_FQID_LEN = sizeof(DMX_PTERANMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_PTERANMON_X_ID_ARR[] CONFIG_STRING_SECTION = "pteranmon_x";
     inline static constexpr const char* DMX_PTERANMON_X_ID = DMX_PTERANMON_X_ID_ARR;
-    inline static constexpr size_t DMX_PTERANMON_X_ID_LEN = sizeof(DMX_PTERANMON_X_ID)-1;
+    inline static constexpr size_t DMX_PTERANMON_X_ID_LEN = sizeof(DMX_PTERANMON_X_ID_ARR)-1;
     inline static constexpr char DMX_PTERANMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Pteranmon X";
     inline static constexpr const char* DMX_PTERANMON_X_NAME = DMX_PTERANMON_X_NAME_ARR;
     inline static constexpr size_t DMX_PTERANMON_X_NAME_LEN = sizeof(DMX_PTERANMON_X_NAME_ARR)-1;
@@ -2319,7 +2319,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PTERANOMON_X_FQID_LEN = sizeof(DMX_PTERANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_PTERANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "pteranomon_x";
     inline static constexpr const char* DMX_PTERANOMON_X_ID = DMX_PTERANOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_PTERANOMON_X_ID_LEN = sizeof(DMX_PTERANOMON_X_ID)-1;
+    inline static constexpr size_t DMX_PTERANOMON_X_ID_LEN = sizeof(DMX_PTERANOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_PTERANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Pteranomon X";
     inline static constexpr const char* DMX_PTERANOMON_X_NAME = DMX_PTERANOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_PTERANOMON_X_NAME_LEN = sizeof(DMX_PTERANOMON_X_NAME_ARR)-1;
@@ -2337,7 +2337,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PUMPMON_FQID_LEN = sizeof(DMX_PUMPMON_FQID_ARR)-1;
     inline static constexpr char DMX_PUMPMON_ID_ARR[] CONFIG_STRING_SECTION = "pumpmon";
     inline static constexpr const char* DMX_PUMPMON_ID = DMX_PUMPMON_ID_ARR;
-    inline static constexpr size_t DMX_PUMPMON_ID_LEN = sizeof(DMX_PUMPMON_ID)-1;
+    inline static constexpr size_t DMX_PUMPMON_ID_LEN = sizeof(DMX_PUMPMON_ID_ARR)-1;
     inline static constexpr char DMX_PUMPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pumpmon";
     inline static constexpr const char* DMX_PUMPMON_NAME = DMX_PUMPMON_NAME_ARR;
     inline static constexpr size_t DMX_PUMPMON_NAME_LEN = sizeof(DMX_PUMPMON_NAME_ARR)-1;
@@ -2355,7 +2355,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_PUTTIMON_FQID_LEN = sizeof(DMX_PUTTIMON_FQID_ARR)-1;
     inline static constexpr char DMX_PUTTIMON_ID_ARR[] CONFIG_STRING_SECTION = "puttimon";
     inline static constexpr const char* DMX_PUTTIMON_ID = DMX_PUTTIMON_ID_ARR;
-    inline static constexpr size_t DMX_PUTTIMON_ID_LEN = sizeof(DMX_PUTTIMON_ID)-1;
+    inline static constexpr size_t DMX_PUTTIMON_ID_LEN = sizeof(DMX_PUTTIMON_ID_ARR)-1;
     inline static constexpr char DMX_PUTTIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Puttimon";
     inline static constexpr const char* DMX_PUTTIMON_NAME = DMX_PUTTIMON_NAME_ARR;
     inline static constexpr size_t DMX_PUTTIMON_NAME_LEN = sizeof(DMX_PUTTIMON_NAME_ARR)-1;
@@ -2373,7 +2373,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RAFFLESIMON_FQID_LEN = sizeof(DMX_RAFFLESIMON_FQID_ARR)-1;
     inline static constexpr char DMX_RAFFLESIMON_ID_ARR[] CONFIG_STRING_SECTION = "rafflesimon";
     inline static constexpr const char* DMX_RAFFLESIMON_ID = DMX_RAFFLESIMON_ID_ARR;
-    inline static constexpr size_t DMX_RAFFLESIMON_ID_LEN = sizeof(DMX_RAFFLESIMON_ID)-1;
+    inline static constexpr size_t DMX_RAFFLESIMON_ID_LEN = sizeof(DMX_RAFFLESIMON_ID_ARR)-1;
     inline static constexpr char DMX_RAFFLESIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rafflesimon";
     inline static constexpr const char* DMX_RAFFLESIMON_NAME = DMX_RAFFLESIMON_NAME_ARR;
     inline static constexpr size_t DMX_RAFFLESIMON_NAME_LEN = sizeof(DMX_RAFFLESIMON_NAME_ARR)-1;
@@ -2391,7 +2391,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RAIHIMON_FQID_LEN = sizeof(DMX_RAIHIMON_FQID_ARR)-1;
     inline static constexpr char DMX_RAIHIMON_ID_ARR[] CONFIG_STRING_SECTION = "raihimon";
     inline static constexpr const char* DMX_RAIHIMON_ID = DMX_RAIHIMON_ID_ARR;
-    inline static constexpr size_t DMX_RAIHIMON_ID_LEN = sizeof(DMX_RAIHIMON_ID)-1;
+    inline static constexpr size_t DMX_RAIHIMON_ID_LEN = sizeof(DMX_RAIHIMON_ID_ARR)-1;
     inline static constexpr char DMX_RAIHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raihimon";
     inline static constexpr const char* DMX_RAIHIMON_NAME = DMX_RAIHIMON_NAME_ARR;
     inline static constexpr size_t DMX_RAIHIMON_NAME_LEN = sizeof(DMX_RAIHIMON_NAME_ARR)-1;
@@ -2409,7 +2409,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RAPIDMON_X_FQID_LEN = sizeof(DMX_RAPIDMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_RAPIDMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rapidmon_x";
     inline static constexpr const char* DMX_RAPIDMON_X_ID = DMX_RAPIDMON_X_ID_ARR;
-    inline static constexpr size_t DMX_RAPIDMON_X_ID_LEN = sizeof(DMX_RAPIDMON_X_ID)-1;
+    inline static constexpr size_t DMX_RAPIDMON_X_ID_LEN = sizeof(DMX_RAPIDMON_X_ID_ARR)-1;
     inline static constexpr char DMX_RAPIDMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rapidmon X";
     inline static constexpr const char* DMX_RAPIDMON_X_NAME = DMX_RAPIDMON_X_NAME_ARR;
     inline static constexpr size_t DMX_RAPIDMON_X_NAME_LEN = sizeof(DMX_RAPIDMON_X_NAME_ARR)-1;
@@ -2427,7 +2427,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RASENMON_FURY_MODE_FQID_LEN = sizeof(DMX_RASENMON_FURY_MODE_FQID_ARR)-1;
     inline static constexpr char DMX_RASENMON_FURY_MODE_ID_ARR[] CONFIG_STRING_SECTION = "rasenmon_fury_mode";
     inline static constexpr const char* DMX_RASENMON_FURY_MODE_ID = DMX_RASENMON_FURY_MODE_ID_ARR;
-    inline static constexpr size_t DMX_RASENMON_FURY_MODE_ID_LEN = sizeof(DMX_RASENMON_FURY_MODE_ID)-1;
+    inline static constexpr size_t DMX_RASENMON_FURY_MODE_ID_LEN = sizeof(DMX_RASENMON_FURY_MODE_ID_ARR)-1;
     inline static constexpr char DMX_RASENMON_FURY_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Rasenmon Fury Mode";
     inline static constexpr const char* DMX_RASENMON_FURY_MODE_NAME = DMX_RASENMON_FURY_MODE_NAME_ARR;
     inline static constexpr size_t DMX_RASENMON_FURY_MODE_NAME_LEN = sizeof(DMX_RASENMON_FURY_MODE_NAME_ARR)-1;
@@ -2445,7 +2445,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RASENMON_FQID_LEN = sizeof(DMX_RASENMON_FQID_ARR)-1;
     inline static constexpr char DMX_RASENMON_ID_ARR[] CONFIG_STRING_SECTION = "rasenmon";
     inline static constexpr const char* DMX_RASENMON_ID = DMX_RASENMON_ID_ARR;
-    inline static constexpr size_t DMX_RASENMON_ID_LEN = sizeof(DMX_RASENMON_ID)-1;
+    inline static constexpr size_t DMX_RASENMON_ID_LEN = sizeof(DMX_RASENMON_ID_ARR)-1;
     inline static constexpr char DMX_RASENMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rasenmon";
     inline static constexpr const char* DMX_RASENMON_NAME = DMX_RASENMON_NAME_ARR;
     inline static constexpr size_t DMX_RASENMON_NAME_LEN = sizeof(DMX_RASENMON_NAME_ARR)-1;
@@ -2463,7 +2463,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RENAMON_X_FQID_LEN = sizeof(DMX_RENAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_RENAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "renamon_x";
     inline static constexpr const char* DMX_RENAMON_X_ID = DMX_RENAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_RENAMON_X_ID_LEN = sizeof(DMX_RENAMON_X_ID)-1;
+    inline static constexpr size_t DMX_RENAMON_X_ID_LEN = sizeof(DMX_RENAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_RENAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Renamon X";
     inline static constexpr const char* DMX_RENAMON_X_NAME = DMX_RENAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_RENAMON_X_NAME_LEN = sizeof(DMX_RENAMON_X_NAME_ARR)-1;
@@ -2481,7 +2481,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RHINOMON_X_FQID_LEN = sizeof(DMX_RHINOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_RHINOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rhinomon_x";
     inline static constexpr const char* DMX_RHINOMON_X_ID = DMX_RHINOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_RHINOMON_X_ID_LEN = sizeof(DMX_RHINOMON_X_ID)-1;
+    inline static constexpr size_t DMX_RHINOMON_X_ID_LEN = sizeof(DMX_RHINOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_RHINOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rhinomon X";
     inline static constexpr const char* DMX_RHINOMON_X_NAME = DMX_RHINOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_RHINOMON_X_NAME_LEN = sizeof(DMX_RHINOMON_X_NAME_ARR)-1;
@@ -2499,7 +2499,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RIZE_GREYMON_X_FQID_LEN = sizeof(DMX_RIZE_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_RIZE_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rize_greymon_x";
     inline static constexpr const char* DMX_RIZE_GREYMON_X_ID = DMX_RIZE_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMX_RIZE_GREYMON_X_ID_LEN = sizeof(DMX_RIZE_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMX_RIZE_GREYMON_X_ID_LEN = sizeof(DMX_RIZE_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMX_RIZE_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rize Greymon X";
     inline static constexpr const char* DMX_RIZE_GREYMON_X_NAME = DMX_RIZE_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMX_RIZE_GREYMON_X_NAME_LEN = sizeof(DMX_RIZE_GREYMON_X_NAME_ARR)-1;
@@ -2517,7 +2517,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ROSEMON_X_FQID_LEN = sizeof(DMX_ROSEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_ROSEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rosemon_x";
     inline static constexpr const char* DMX_ROSEMON_X_ID = DMX_ROSEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_ROSEMON_X_ID_LEN = sizeof(DMX_ROSEMON_X_ID)-1;
+    inline static constexpr size_t DMX_ROSEMON_X_ID_LEN = sizeof(DMX_ROSEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_ROSEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rosemon X";
     inline static constexpr const char* DMX_ROSEMON_X_NAME = DMX_ROSEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_ROSEMON_X_NAME_LEN = sizeof(DMX_ROSEMON_X_NAME_ARR)-1;
@@ -2535,7 +2535,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_RYUDAMON_FQID_LEN = sizeof(DMX_RYUDAMON_FQID_ARR)-1;
     inline static constexpr char DMX_RYUDAMON_ID_ARR[] CONFIG_STRING_SECTION = "ryudamon";
     inline static constexpr const char* DMX_RYUDAMON_ID = DMX_RYUDAMON_ID_ARR;
-    inline static constexpr size_t DMX_RYUDAMON_ID_LEN = sizeof(DMX_RYUDAMON_ID)-1;
+    inline static constexpr size_t DMX_RYUDAMON_ID_LEN = sizeof(DMX_RYUDAMON_ID_ARR)-1;
     inline static constexpr char DMX_RYUDAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ryudamon";
     inline static constexpr const char* DMX_RYUDAMON_NAME = DMX_RYUDAMON_NAME_ARR;
     inline static constexpr size_t DMX_RYUDAMON_NAME_LEN = sizeof(DMX_RYUDAMON_NAME_ARR)-1;
@@ -2553,7 +2553,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SAKUYAMON_X_FQID_LEN = sizeof(DMX_SAKUYAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_SAKUYAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "sakuyamon_x";
     inline static constexpr const char* DMX_SAKUYAMON_X_ID = DMX_SAKUYAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_SAKUYAMON_X_ID_LEN = sizeof(DMX_SAKUYAMON_X_ID)-1;
+    inline static constexpr size_t DMX_SAKUYAMON_X_ID_LEN = sizeof(DMX_SAKUYAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_SAKUYAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Sakuyamon X";
     inline static constexpr const char* DMX_SAKUYAMON_X_NAME = DMX_SAKUYAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_SAKUYAMON_X_NAME_LEN = sizeof(DMX_SAKUYAMON_X_NAME_ARR)-1;
@@ -2571,7 +2571,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SANGLOUPMON_FQID_LEN = sizeof(DMX_SANGLOUPMON_FQID_ARR)-1;
     inline static constexpr char DMX_SANGLOUPMON_ID_ARR[] CONFIG_STRING_SECTION = "sangloupmon";
     inline static constexpr const char* DMX_SANGLOUPMON_ID = DMX_SANGLOUPMON_ID_ARR;
-    inline static constexpr size_t DMX_SANGLOUPMON_ID_LEN = sizeof(DMX_SANGLOUPMON_ID)-1;
+    inline static constexpr size_t DMX_SANGLOUPMON_ID_LEN = sizeof(DMX_SANGLOUPMON_ID_ARR)-1;
     inline static constexpr char DMX_SANGLOUPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sangloupmon";
     inline static constexpr const char* DMX_SANGLOUPMON_NAME = DMX_SANGLOUPMON_NAME_ARR;
     inline static constexpr size_t DMX_SANGLOUPMON_NAME_LEN = sizeof(DMX_SANGLOUPMON_NAME_ARR)-1;
@@ -2589,7 +2589,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SEADRAMON_X_FQID_LEN = sizeof(DMX_SEADRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_SEADRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "seadramon_x";
     inline static constexpr const char* DMX_SEADRAMON_X_ID = DMX_SEADRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_SEADRAMON_X_ID_LEN = sizeof(DMX_SEADRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_SEADRAMON_X_ID_LEN = sizeof(DMX_SEADRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_SEADRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Seadramon X";
     inline static constexpr const char* DMX_SEADRAMON_X_NAME = DMX_SEADRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_SEADRAMON_X_NAME_LEN = sizeof(DMX_SEADRAMON_X_NAME_ARR)-1;
@@ -2607,7 +2607,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SHAKOMON_X_FQID_LEN = sizeof(DMX_SHAKOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_SHAKOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "shakomon_x";
     inline static constexpr const char* DMX_SHAKOMON_X_ID = DMX_SHAKOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_SHAKOMON_X_ID_LEN = sizeof(DMX_SHAKOMON_X_ID)-1;
+    inline static constexpr size_t DMX_SHAKOMON_X_ID_LEN = sizeof(DMX_SHAKOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_SHAKOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Shakomon X";
     inline static constexpr const char* DMX_SHAKOMON_X_NAME = DMX_SHAKOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_SHAKOMON_X_NAME_LEN = sizeof(DMX_SHAKOMON_X_NAME_ARR)-1;
@@ -2625,7 +2625,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SIESAMON_X_FQID_LEN = sizeof(DMX_SIESAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_SIESAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "siesamon_x";
     inline static constexpr const char* DMX_SIESAMON_X_ID = DMX_SIESAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_SIESAMON_X_ID_LEN = sizeof(DMX_SIESAMON_X_ID)-1;
+    inline static constexpr size_t DMX_SIESAMON_X_ID_LEN = sizeof(DMX_SIESAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_SIESAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Siesamon X";
     inline static constexpr const char* DMX_SIESAMON_X_NAME = DMX_SIESAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_SIESAMON_X_NAME_LEN = sizeof(DMX_SIESAMON_X_NAME_ARR)-1;
@@ -2643,7 +2643,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SISTERMON_BLANC_FQID_LEN = sizeof(DMX_SISTERMON_BLANC_FQID_ARR)-1;
     inline static constexpr char DMX_SISTERMON_BLANC_ID_ARR[] CONFIG_STRING_SECTION = "sistermon_blanc";
     inline static constexpr const char* DMX_SISTERMON_BLANC_ID = DMX_SISTERMON_BLANC_ID_ARR;
-    inline static constexpr size_t DMX_SISTERMON_BLANC_ID_LEN = sizeof(DMX_SISTERMON_BLANC_ID)-1;
+    inline static constexpr size_t DMX_SISTERMON_BLANC_ID_LEN = sizeof(DMX_SISTERMON_BLANC_ID_ARR)-1;
     inline static constexpr char DMX_SISTERMON_BLANC_NAME_ARR[] CONFIG_STRING_SECTION = "Sistermon Blanc";
     inline static constexpr const char* DMX_SISTERMON_BLANC_NAME = DMX_SISTERMON_BLANC_NAME_ARR;
     inline static constexpr size_t DMX_SISTERMON_BLANC_NAME_LEN = sizeof(DMX_SISTERMON_BLANC_NAME_ARR)-1;
@@ -2661,7 +2661,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SKULL_BALUCHIMON_FQID_LEN = sizeof(DMX_SKULL_BALUCHIMON_FQID_ARR)-1;
     inline static constexpr char DMX_SKULL_BALUCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "skull_baluchimon";
     inline static constexpr const char* DMX_SKULL_BALUCHIMON_ID = DMX_SKULL_BALUCHIMON_ID_ARR;
-    inline static constexpr size_t DMX_SKULL_BALUCHIMON_ID_LEN = sizeof(DMX_SKULL_BALUCHIMON_ID)-1;
+    inline static constexpr size_t DMX_SKULL_BALUCHIMON_ID_LEN = sizeof(DMX_SKULL_BALUCHIMON_ID_ARR)-1;
     inline static constexpr char DMX_SKULL_BALUCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Skull Baluchimon";
     inline static constexpr const char* DMX_SKULL_BALUCHIMON_NAME = DMX_SKULL_BALUCHIMON_NAME_ARR;
     inline static constexpr size_t DMX_SKULL_BALUCHIMON_NAME_LEN = sizeof(DMX_SKULL_BALUCHIMON_NAME_ARR)-1;
@@ -2679,7 +2679,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SKULL_MAMMON_X_FQID_LEN = sizeof(DMX_SKULL_MAMMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_SKULL_MAMMON_X_ID_ARR[] CONFIG_STRING_SECTION = "skull_mammon_x";
     inline static constexpr const char* DMX_SKULL_MAMMON_X_ID = DMX_SKULL_MAMMON_X_ID_ARR;
-    inline static constexpr size_t DMX_SKULL_MAMMON_X_ID_LEN = sizeof(DMX_SKULL_MAMMON_X_ID)-1;
+    inline static constexpr size_t DMX_SKULL_MAMMON_X_ID_LEN = sizeof(DMX_SKULL_MAMMON_X_ID_ARR)-1;
     inline static constexpr char DMX_SKULL_MAMMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Skull Mammon X";
     inline static constexpr const char* DMX_SKULL_MAMMON_X_NAME = DMX_SKULL_MAMMON_X_NAME_ARR;
     inline static constexpr size_t DMX_SKULL_MAMMON_X_NAME_LEN = sizeof(DMX_SKULL_MAMMON_X_NAME_ARR)-1;
@@ -2697,7 +2697,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_SLEIPMON_X_FQID_LEN = sizeof(DMX_SLEIPMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_SLEIPMON_X_ID_ARR[] CONFIG_STRING_SECTION = "sleipmon_x";
     inline static constexpr const char* DMX_SLEIPMON_X_ID = DMX_SLEIPMON_X_ID_ARR;
-    inline static constexpr size_t DMX_SLEIPMON_X_ID_LEN = sizeof(DMX_SLEIPMON_X_ID)-1;
+    inline static constexpr size_t DMX_SLEIPMON_X_ID_LEN = sizeof(DMX_SLEIPMON_X_ID_ARR)-1;
     inline static constexpr char DMX_SLEIPMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Sleipmon X";
     inline static constexpr const char* DMX_SLEIPMON_X_NAME = DMX_SLEIPMON_X_NAME_ARR;
     inline static constexpr size_t DMX_SLEIPMON_X_NAME_LEN = sizeof(DMX_SLEIPMON_X_NAME_ARR)-1;
@@ -2715,7 +2715,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_STIFFILMON_FQID_LEN = sizeof(DMX_STIFFILMON_FQID_ARR)-1;
     inline static constexpr char DMX_STIFFILMON_ID_ARR[] CONFIG_STRING_SECTION = "stiffilmon";
     inline static constexpr const char* DMX_STIFFILMON_ID = DMX_STIFFILMON_ID_ARR;
-    inline static constexpr size_t DMX_STIFFILMON_ID_LEN = sizeof(DMX_STIFFILMON_ID)-1;
+    inline static constexpr size_t DMX_STIFFILMON_ID_LEN = sizeof(DMX_STIFFILMON_ID_ARR)-1;
     inline static constexpr char DMX_STIFFILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Stiffilmon";
     inline static constexpr const char* DMX_STIFFILMON_NAME = DMX_STIFFILMON_NAME_ARR;
     inline static constexpr size_t DMX_STIFFILMON_NAME_LEN = sizeof(DMX_STIFFILMON_NAME_ARR)-1;
@@ -2733,7 +2733,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TAILMON_X_FQID_LEN = sizeof(DMX_TAILMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_TAILMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tailmon_x";
     inline static constexpr const char* DMX_TAILMON_X_ID = DMX_TAILMON_X_ID_ARR;
-    inline static constexpr size_t DMX_TAILMON_X_ID_LEN = sizeof(DMX_TAILMON_X_ID)-1;
+    inline static constexpr size_t DMX_TAILMON_X_ID_LEN = sizeof(DMX_TAILMON_X_ID_ARR)-1;
     inline static constexpr char DMX_TAILMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tailmon X";
     inline static constexpr const char* DMX_TAILMON_X_NAME = DMX_TAILMON_X_NAME_ARR;
     inline static constexpr size_t DMX_TAILMON_X_NAME_LEN = sizeof(DMX_TAILMON_X_NAME_ARR)-1;
@@ -2751,7 +2751,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TERRIERMON_X_FQID_LEN = sizeof(DMX_TERRIERMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_TERRIERMON_X_ID_ARR[] CONFIG_STRING_SECTION = "terriermon_x";
     inline static constexpr const char* DMX_TERRIERMON_X_ID = DMX_TERRIERMON_X_ID_ARR;
-    inline static constexpr size_t DMX_TERRIERMON_X_ID_LEN = sizeof(DMX_TERRIERMON_X_ID)-1;
+    inline static constexpr size_t DMX_TERRIERMON_X_ID_LEN = sizeof(DMX_TERRIERMON_X_ID_ARR)-1;
     inline static constexpr char DMX_TERRIERMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Terriermon X";
     inline static constexpr const char* DMX_TERRIERMON_X_NAME = DMX_TERRIERMON_X_NAME_ARR;
     inline static constexpr size_t DMX_TERRIERMON_X_NAME_LEN = sizeof(DMX_TERRIERMON_X_NAME_ARR)-1;
@@ -2769,7 +2769,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TIGER_VESPAMON_FQID_LEN = sizeof(DMX_TIGER_VESPAMON_FQID_ARR)-1;
     inline static constexpr char DMX_TIGER_VESPAMON_ID_ARR[] CONFIG_STRING_SECTION = "tiger_vespamon";
     inline static constexpr const char* DMX_TIGER_VESPAMON_ID = DMX_TIGER_VESPAMON_ID_ARR;
-    inline static constexpr size_t DMX_TIGER_VESPAMON_ID_LEN = sizeof(DMX_TIGER_VESPAMON_ID)-1;
+    inline static constexpr size_t DMX_TIGER_VESPAMON_ID_LEN = sizeof(DMX_TIGER_VESPAMON_ID_ARR)-1;
     inline static constexpr char DMX_TIGER_VESPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tiger Vespamon";
     inline static constexpr const char* DMX_TIGER_VESPAMON_NAME = DMX_TIGER_VESPAMON_NAME_ARR;
     inline static constexpr size_t DMX_TIGER_VESPAMON_NAME_LEN = sizeof(DMX_TIGER_VESPAMON_NAME_ARR)-1;
@@ -2787,7 +2787,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TOBUCATMON_FQID_LEN = sizeof(DMX_TOBUCATMON_FQID_ARR)-1;
     inline static constexpr char DMX_TOBUCATMON_ID_ARR[] CONFIG_STRING_SECTION = "tobucatmon";
     inline static constexpr const char* DMX_TOBUCATMON_ID = DMX_TOBUCATMON_ID_ARR;
-    inline static constexpr size_t DMX_TOBUCATMON_ID_LEN = sizeof(DMX_TOBUCATMON_ID)-1;
+    inline static constexpr size_t DMX_TOBUCATMON_ID_LEN = sizeof(DMX_TOBUCATMON_ID_ARR)-1;
     inline static constexpr char DMX_TOBUCATMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tobucatmon";
     inline static constexpr const char* DMX_TOBUCATMON_NAME = DMX_TOBUCATMON_NAME_ARR;
     inline static constexpr size_t DMX_TOBUCATMON_NAME_LEN = sizeof(DMX_TOBUCATMON_NAME_ARR)-1;
@@ -2805,7 +2805,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TOGEMON_X_FQID_LEN = sizeof(DMX_TOGEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_TOGEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "togemon_x";
     inline static constexpr const char* DMX_TOGEMON_X_ID = DMX_TOGEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_TOGEMON_X_ID_LEN = sizeof(DMX_TOGEMON_X_ID)-1;
+    inline static constexpr size_t DMX_TOGEMON_X_ID_LEN = sizeof(DMX_TOGEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_TOGEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Togemon X";
     inline static constexpr const char* DMX_TOGEMON_X_NAME = DMX_TOGEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_TOGEMON_X_NAME_LEN = sizeof(DMX_TOGEMON_X_NAME_ARR)-1;
@@ -2823,7 +2823,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TOKOMON_X_FQID_LEN = sizeof(DMX_TOKOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_TOKOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tokomon_x";
     inline static constexpr const char* DMX_TOKOMON_X_ID = DMX_TOKOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_TOKOMON_X_ID_LEN = sizeof(DMX_TOKOMON_X_ID)-1;
+    inline static constexpr size_t DMX_TOKOMON_X_ID_LEN = sizeof(DMX_TOKOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_TOKOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tokomon X";
     inline static constexpr const char* DMX_TOKOMON_X_NAME = DMX_TOKOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_TOKOMON_X_NAME_LEN = sizeof(DMX_TOKOMON_X_NAME_ARR)-1;
@@ -2841,7 +2841,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TRICERAMON_X_FQID_LEN = sizeof(DMX_TRICERAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_TRICERAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "triceramon_x";
     inline static constexpr const char* DMX_TRICERAMON_X_ID = DMX_TRICERAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_TRICERAMON_X_ID_LEN = sizeof(DMX_TRICERAMON_X_ID)-1;
+    inline static constexpr size_t DMX_TRICERAMON_X_ID_LEN = sizeof(DMX_TRICERAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_TRICERAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Triceramon X";
     inline static constexpr const char* DMX_TRICERAMON_X_NAME = DMX_TRICERAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_TRICERAMON_X_NAME_LEN = sizeof(DMX_TRICERAMON_X_NAME_ARR)-1;
@@ -2859,7 +2859,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TYLOMON_X_FQID_LEN = sizeof(DMX_TYLOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_TYLOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tylomon_x";
     inline static constexpr const char* DMX_TYLOMON_X_ID = DMX_TYLOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_TYLOMON_X_ID_LEN = sizeof(DMX_TYLOMON_X_ID)-1;
+    inline static constexpr size_t DMX_TYLOMON_X_ID_LEN = sizeof(DMX_TYLOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_TYLOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tylomon X";
     inline static constexpr const char* DMX_TYLOMON_X_NAME = DMX_TYLOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_TYLOMON_X_NAME_LEN = sizeof(DMX_TYLOMON_X_NAME_ARR)-1;
@@ -2877,7 +2877,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_TYRANOMON_X_FQID_LEN = sizeof(DMX_TYRANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_TYRANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tyranomon_x";
     inline static constexpr const char* DMX_TYRANOMON_X_ID = DMX_TYRANOMON_X_ID_ARR;
-    inline static constexpr size_t DMX_TYRANOMON_X_ID_LEN = sizeof(DMX_TYRANOMON_X_ID)-1;
+    inline static constexpr size_t DMX_TYRANOMON_X_ID_LEN = sizeof(DMX_TYRANOMON_X_ID_ARR)-1;
     inline static constexpr char DMX_TYRANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tyranomon X";
     inline static constexpr const char* DMX_TYRANOMON_X_NAME = DMX_TYRANOMON_X_NAME_ARR;
     inline static constexpr size_t DMX_TYRANOMON_X_NAME_LEN = sizeof(DMX_TYRANOMON_X_NAME_ARR)-1;
@@ -2895,7 +2895,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ULFORCE_V_DRAMON_X_FQID_LEN = sizeof(DMX_ULFORCE_V_DRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_ULFORCE_V_DRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ulforce_v_dramon_x";
     inline static constexpr const char* DMX_ULFORCE_V_DRAMON_X_ID = DMX_ULFORCE_V_DRAMON_X_ID_ARR;
-    inline static constexpr size_t DMX_ULFORCE_V_DRAMON_X_ID_LEN = sizeof(DMX_ULFORCE_V_DRAMON_X_ID)-1;
+    inline static constexpr size_t DMX_ULFORCE_V_DRAMON_X_ID_LEN = sizeof(DMX_ULFORCE_V_DRAMON_X_ID_ARR)-1;
     inline static constexpr char DMX_ULFORCE_V_DRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ulforce V-dramon X";
     inline static constexpr const char* DMX_ULFORCE_V_DRAMON_X_NAME = DMX_ULFORCE_V_DRAMON_X_NAME_ARR;
     inline static constexpr size_t DMX_ULFORCE_V_DRAMON_X_NAME_LEN = sizeof(DMX_ULFORCE_V_DRAMON_X_NAME_ARR)-1;
@@ -2913,7 +2913,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ULTIMATE_BRACHIOMON_FQID_LEN = sizeof(DMX_ULTIMATE_BRACHIOMON_FQID_ARR)-1;
     inline static constexpr char DMX_ULTIMATE_BRACHIOMON_ID_ARR[] CONFIG_STRING_SECTION = "ultimate_brachiomon";
     inline static constexpr const char* DMX_ULTIMATE_BRACHIOMON_ID = DMX_ULTIMATE_BRACHIOMON_ID_ARR;
-    inline static constexpr size_t DMX_ULTIMATE_BRACHIOMON_ID_LEN = sizeof(DMX_ULTIMATE_BRACHIOMON_ID)-1;
+    inline static constexpr size_t DMX_ULTIMATE_BRACHIOMON_ID_LEN = sizeof(DMX_ULTIMATE_BRACHIOMON_ID_ARR)-1;
     inline static constexpr char DMX_ULTIMATE_BRACHIOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ultimate Brachiomon";
     inline static constexpr const char* DMX_ULTIMATE_BRACHIOMON_NAME = DMX_ULTIMATE_BRACHIOMON_NAME_ARR;
     inline static constexpr size_t DMX_ULTIMATE_BRACHIOMON_NAME_LEN = sizeof(DMX_ULTIMATE_BRACHIOMON_NAME_ARR)-1;
@@ -2931,7 +2931,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_VALDURMON_FQID_LEN = sizeof(DMX_VALDURMON_FQID_ARR)-1;
     inline static constexpr char DMX_VALDURMON_ID_ARR[] CONFIG_STRING_SECTION = "valdurmon";
     inline static constexpr const char* DMX_VALDURMON_ID = DMX_VALDURMON_ID_ARR;
-    inline static constexpr size_t DMX_VALDURMON_ID_LEN = sizeof(DMX_VALDURMON_ID)-1;
+    inline static constexpr size_t DMX_VALDURMON_ID_LEN = sizeof(DMX_VALDURMON_ID_ARR)-1;
     inline static constexpr char DMX_VALDURMON_NAME_ARR[] CONFIG_STRING_SECTION = "Valdurmon";
     inline static constexpr const char* DMX_VALDURMON_NAME = DMX_VALDURMON_NAME_ARR;
     inline static constexpr size_t DMX_VALDURMON_NAME_LEN = sizeof(DMX_VALDURMON_NAME_ARR)-1;
@@ -2949,7 +2949,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_VAMDEMON_X_FQID_LEN = sizeof(DMX_VAMDEMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_VAMDEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "vamdemon_x";
     inline static constexpr const char* DMX_VAMDEMON_X_ID = DMX_VAMDEMON_X_ID_ARR;
-    inline static constexpr size_t DMX_VAMDEMON_X_ID_LEN = sizeof(DMX_VAMDEMON_X_ID)-1;
+    inline static constexpr size_t DMX_VAMDEMON_X_ID_LEN = sizeof(DMX_VAMDEMON_X_ID_ARR)-1;
     inline static constexpr char DMX_VAMDEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Vamdemon X";
     inline static constexpr const char* DMX_VAMDEMON_X_NAME = DMX_VAMDEMON_X_NAME_ARR;
     inline static constexpr size_t DMX_VAMDEMON_X_NAME_LEN = sizeof(DMX_VAMDEMON_X_NAME_ARR)-1;
@@ -2967,7 +2967,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_VELGRMON_FQID_LEN = sizeof(DMX_VELGRMON_FQID_ARR)-1;
     inline static constexpr char DMX_VELGRMON_ID_ARR[] CONFIG_STRING_SECTION = "velgrmon";
     inline static constexpr const char* DMX_VELGRMON_ID = DMX_VELGRMON_ID_ARR;
-    inline static constexpr size_t DMX_VELGRMON_ID_LEN = sizeof(DMX_VELGRMON_ID)-1;
+    inline static constexpr size_t DMX_VELGRMON_ID_LEN = sizeof(DMX_VELGRMON_ID_ARR)-1;
     inline static constexpr char DMX_VELGRMON_NAME_ARR[] CONFIG_STRING_SECTION = "Velgrmon";
     inline static constexpr const char* DMX_VELGRMON_NAME = DMX_VELGRMON_NAME_ARR;
     inline static constexpr size_t DMX_VELGRMON_NAME_LEN = sizeof(DMX_VELGRMON_NAME_ARR)-1;
@@ -2985,7 +2985,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_VOLTOBAUTAMON_FQID_LEN = sizeof(DMX_VOLTOBAUTAMON_FQID_ARR)-1;
     inline static constexpr char DMX_VOLTOBAUTAMON_ID_ARR[] CONFIG_STRING_SECTION = "voltobautamon";
     inline static constexpr const char* DMX_VOLTOBAUTAMON_ID = DMX_VOLTOBAUTAMON_ID_ARR;
-    inline static constexpr size_t DMX_VOLTOBAUTAMON_ID_LEN = sizeof(DMX_VOLTOBAUTAMON_ID)-1;
+    inline static constexpr size_t DMX_VOLTOBAUTAMON_ID_LEN = sizeof(DMX_VOLTOBAUTAMON_ID_ARR)-1;
     inline static constexpr char DMX_VOLTOBAUTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Voltobautamon";
     inline static constexpr const char* DMX_VOLTOBAUTAMON_NAME = DMX_VOLTOBAUTAMON_NAME_ARR;
     inline static constexpr size_t DMX_VOLTOBAUTAMON_NAME_LEN = sizeof(DMX_VOLTOBAUTAMON_NAME_ARR)-1;
@@ -3003,7 +3003,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_WAR_GREYMON_X_FQID_LEN = sizeof(DMX_WAR_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_WAR_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "war_greymon_x";
     inline static constexpr const char* DMX_WAR_GREYMON_X_ID = DMX_WAR_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMX_WAR_GREYMON_X_ID_LEN = sizeof(DMX_WAR_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMX_WAR_GREYMON_X_ID_LEN = sizeof(DMX_WAR_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMX_WAR_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "War Greymon X";
     inline static constexpr const char* DMX_WAR_GREYMON_X_NAME = DMX_WAR_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMX_WAR_GREYMON_X_NAME_LEN = sizeof(DMX_WAR_GREYMON_X_NAME_ARR)-1;
@@ -3021,7 +3021,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_WERE_GARURUMON_X_FQID_LEN = sizeof(DMX_WERE_GARURUMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_WERE_GARURUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "were_garurumon_x";
     inline static constexpr const char* DMX_WERE_GARURUMON_X_ID = DMX_WERE_GARURUMON_X_ID_ARR;
-    inline static constexpr size_t DMX_WERE_GARURUMON_X_ID_LEN = sizeof(DMX_WERE_GARURUMON_X_ID)-1;
+    inline static constexpr size_t DMX_WERE_GARURUMON_X_ID_LEN = sizeof(DMX_WERE_GARURUMON_X_ID_ARR)-1;
     inline static constexpr char DMX_WERE_GARURUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Were Garurumon X";
     inline static constexpr const char* DMX_WERE_GARURUMON_X_NAME = DMX_WERE_GARURUMON_X_NAME_ARR;
     inline static constexpr size_t DMX_WERE_GARURUMON_X_NAME_LEN = sizeof(DMX_WERE_GARURUMON_X_NAME_ARR)-1;
@@ -3039,7 +3039,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_WIZARMON_X_FQID_LEN = sizeof(DMX_WIZARMON_X_FQID_ARR)-1;
     inline static constexpr char DMX_WIZARMON_X_ID_ARR[] CONFIG_STRING_SECTION = "wizarmon_x";
     inline static constexpr const char* DMX_WIZARMON_X_ID = DMX_WIZARMON_X_ID_ARR;
-    inline static constexpr size_t DMX_WIZARMON_X_ID_LEN = sizeof(DMX_WIZARMON_X_ID)-1;
+    inline static constexpr size_t DMX_WIZARMON_X_ID_LEN = sizeof(DMX_WIZARMON_X_ID_ARR)-1;
     inline static constexpr char DMX_WIZARMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Wizarmon X";
     inline static constexpr const char* DMX_WIZARMON_X_NAME = DMX_WIZARMON_X_NAME_ARR;
     inline static constexpr size_t DMX_WIZARMON_X_NAME_LEN = sizeof(DMX_WIZARMON_X_NAME_ARR)-1;
@@ -3057,7 +3057,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_YAAMON_FQID_LEN = sizeof(DMX_YAAMON_FQID_ARR)-1;
     inline static constexpr char DMX_YAAMON_ID_ARR[] CONFIG_STRING_SECTION = "yaamon";
     inline static constexpr const char* DMX_YAAMON_ID = DMX_YAAMON_ID_ARR;
-    inline static constexpr size_t DMX_YAAMON_ID_LEN = sizeof(DMX_YAAMON_ID)-1;
+    inline static constexpr size_t DMX_YAAMON_ID_LEN = sizeof(DMX_YAAMON_ID_ARR)-1;
     inline static constexpr char DMX_YAAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yaamon";
     inline static constexpr const char* DMX_YAAMON_NAME = DMX_YAAMON_NAME_ARR;
     inline static constexpr size_t DMX_YAAMON_NAME_LEN = sizeof(DMX_YAAMON_NAME_ARR)-1;
@@ -3075,7 +3075,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_YATAGARAMON_FQID_LEN = sizeof(DMX_YATAGARAMON_FQID_ARR)-1;
     inline static constexpr char DMX_YATAGARAMON_ID_ARR[] CONFIG_STRING_SECTION = "yatagaramon";
     inline static constexpr const char* DMX_YATAGARAMON_ID = DMX_YATAGARAMON_ID_ARR;
-    inline static constexpr size_t DMX_YATAGARAMON_ID_LEN = sizeof(DMX_YATAGARAMON_ID)-1;
+    inline static constexpr size_t DMX_YATAGARAMON_ID_LEN = sizeof(DMX_YATAGARAMON_ID_ARR)-1;
     inline static constexpr char DMX_YATAGARAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yatagaramon";
     inline static constexpr const char* DMX_YATAGARAMON_NAME = DMX_YATAGARAMON_NAME_ARR;
     inline static constexpr size_t DMX_YATAGARAMON_NAME_LEN = sizeof(DMX_YATAGARAMON_NAME_ARR)-1;
@@ -3093,7 +3093,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMX_ZERIMON_FQID_LEN = sizeof(DMX_ZERIMON_FQID_ARR)-1;
     inline static constexpr char DMX_ZERIMON_ID_ARR[] CONFIG_STRING_SECTION = "zerimon";
     inline static constexpr const char* DMX_ZERIMON_ID = DMX_ZERIMON_ID_ARR;
-    inline static constexpr size_t DMX_ZERIMON_ID_LEN = sizeof(DMX_ZERIMON_ID)-1;
+    inline static constexpr size_t DMX_ZERIMON_ID_LEN = sizeof(DMX_ZERIMON_ID_ARR)-1;
     inline static constexpr char DMX_ZERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zerimon";
     inline static constexpr const char* DMX_ZERIMON_NAME = DMX_ZERIMON_NAME_ARR;
     inline static constexpr size_t DMX_ZERIMON_NAME_LEN = sizeof(DMX_ZERIMON_NAME_ARR)-1;

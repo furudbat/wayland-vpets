@@ -262,7 +262,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQID_LEN = sizeof(${MACRO_PREFIX}_FQID_ARR)-1;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr char ${MACRO_PREFIX}_ID_ARR[] CONFIG_STRING_SECTION = \"${IDENTIFIER}\";" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr const char* ${MACRO_PREFIX}_ID = ${MACRO_PREFIX}_ID_ARR;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ID_LEN = sizeof(${MACRO_PREFIX}_ID)-1;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ID_LEN = sizeof(${MACRO_PREFIX}_ID_ARR)-1;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr char ${MACRO_PREFIX}_NAME_ARR[] CONFIG_STRING_SECTION = \"${NAME_NO_EXT}\";" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr const char* ${MACRO_PREFIX}_NAME = ${MACRO_PREFIX}_NAME_ARR;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr size_t ${MACRO_PREFIX}_NAME_LEN = sizeof(${MACRO_PREFIX}_NAME_ARR)-1;" >> "$CPP_HEADER_OUT"

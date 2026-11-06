@@ -16,7 +16,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BULBASAUR_FQID_LEN = sizeof(PMD_BULBASAUR_FQID_ARR)-1;
     inline static constexpr char PMD_BULBASAUR_ID_ARR[] CONFIG_STRING_SECTION = "bulbasaur";
     inline static constexpr const char* PMD_BULBASAUR_ID = PMD_BULBASAUR_ID_ARR;
-    inline static constexpr size_t PMD_BULBASAUR_ID_LEN = sizeof(PMD_BULBASAUR_ID)-1;
+    inline static constexpr size_t PMD_BULBASAUR_ID_LEN = sizeof(PMD_BULBASAUR_ID_ARR)-1;
     inline static constexpr char PMD_BULBASAUR_NAME_ARR[] CONFIG_STRING_SECTION = "Bulbasaur";
     inline static constexpr const char* PMD_BULBASAUR_NAME = PMD_BULBASAUR_NAME_ARR;
     inline static constexpr size_t PMD_BULBASAUR_NAME_LEN = sizeof(PMD_BULBASAUR_NAME_ARR)-1;
@@ -54,7 +54,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_IVYSAUR_FQID_LEN = sizeof(PMD_IVYSAUR_FQID_ARR)-1;
     inline static constexpr char PMD_IVYSAUR_ID_ARR[] CONFIG_STRING_SECTION = "ivysaur";
     inline static constexpr const char* PMD_IVYSAUR_ID = PMD_IVYSAUR_ID_ARR;
-    inline static constexpr size_t PMD_IVYSAUR_ID_LEN = sizeof(PMD_IVYSAUR_ID)-1;
+    inline static constexpr size_t PMD_IVYSAUR_ID_LEN = sizeof(PMD_IVYSAUR_ID_ARR)-1;
     inline static constexpr char PMD_IVYSAUR_NAME_ARR[] CONFIG_STRING_SECTION = "Ivysaur";
     inline static constexpr const char* PMD_IVYSAUR_NAME = PMD_IVYSAUR_NAME_ARR;
     inline static constexpr size_t PMD_IVYSAUR_NAME_LEN = sizeof(PMD_IVYSAUR_NAME_ARR)-1;
@@ -92,7 +92,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VENUSAUR_FQID_LEN = sizeof(PMD_VENUSAUR_FQID_ARR)-1;
     inline static constexpr char PMD_VENUSAUR_ID_ARR[] CONFIG_STRING_SECTION = "venusaur";
     inline static constexpr const char* PMD_VENUSAUR_ID = PMD_VENUSAUR_ID_ARR;
-    inline static constexpr size_t PMD_VENUSAUR_ID_LEN = sizeof(PMD_VENUSAUR_ID)-1;
+    inline static constexpr size_t PMD_VENUSAUR_ID_LEN = sizeof(PMD_VENUSAUR_ID_ARR)-1;
     inline static constexpr char PMD_VENUSAUR_NAME_ARR[] CONFIG_STRING_SECTION = "Venusaur";
     inline static constexpr const char* PMD_VENUSAUR_NAME = PMD_VENUSAUR_NAME_ARR;
     inline static constexpr size_t PMD_VENUSAUR_NAME_LEN = sizeof(PMD_VENUSAUR_NAME_ARR)-1;
@@ -130,7 +130,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHARMANDER_FQID_LEN = sizeof(PMD_CHARMANDER_FQID_ARR)-1;
     inline static constexpr char PMD_CHARMANDER_ID_ARR[] CONFIG_STRING_SECTION = "charmander";
     inline static constexpr const char* PMD_CHARMANDER_ID = PMD_CHARMANDER_ID_ARR;
-    inline static constexpr size_t PMD_CHARMANDER_ID_LEN = sizeof(PMD_CHARMANDER_ID)-1;
+    inline static constexpr size_t PMD_CHARMANDER_ID_LEN = sizeof(PMD_CHARMANDER_ID_ARR)-1;
     inline static constexpr char PMD_CHARMANDER_NAME_ARR[] CONFIG_STRING_SECTION = "Charmander";
     inline static constexpr const char* PMD_CHARMANDER_NAME = PMD_CHARMANDER_NAME_ARR;
     inline static constexpr size_t PMD_CHARMANDER_NAME_LEN = sizeof(PMD_CHARMANDER_NAME_ARR)-1;
@@ -168,7 +168,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHARMELEON_FQID_LEN = sizeof(PMD_CHARMELEON_FQID_ARR)-1;
     inline static constexpr char PMD_CHARMELEON_ID_ARR[] CONFIG_STRING_SECTION = "charmeleon";
     inline static constexpr const char* PMD_CHARMELEON_ID = PMD_CHARMELEON_ID_ARR;
-    inline static constexpr size_t PMD_CHARMELEON_ID_LEN = sizeof(PMD_CHARMELEON_ID)-1;
+    inline static constexpr size_t PMD_CHARMELEON_ID_LEN = sizeof(PMD_CHARMELEON_ID_ARR)-1;
     inline static constexpr char PMD_CHARMELEON_NAME_ARR[] CONFIG_STRING_SECTION = "Charmeleon";
     inline static constexpr const char* PMD_CHARMELEON_NAME = PMD_CHARMELEON_NAME_ARR;
     inline static constexpr size_t PMD_CHARMELEON_NAME_LEN = sizeof(PMD_CHARMELEON_NAME_ARR)-1;
@@ -206,7 +206,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHARIZARD_FQID_LEN = sizeof(PMD_CHARIZARD_FQID_ARR)-1;
     inline static constexpr char PMD_CHARIZARD_ID_ARR[] CONFIG_STRING_SECTION = "charizard";
     inline static constexpr const char* PMD_CHARIZARD_ID = PMD_CHARIZARD_ID_ARR;
-    inline static constexpr size_t PMD_CHARIZARD_ID_LEN = sizeof(PMD_CHARIZARD_ID)-1;
+    inline static constexpr size_t PMD_CHARIZARD_ID_LEN = sizeof(PMD_CHARIZARD_ID_ARR)-1;
     inline static constexpr char PMD_CHARIZARD_NAME_ARR[] CONFIG_STRING_SECTION = "Charizard";
     inline static constexpr const char* PMD_CHARIZARD_NAME = PMD_CHARIZARD_NAME_ARR;
     inline static constexpr size_t PMD_CHARIZARD_NAME_LEN = sizeof(PMD_CHARIZARD_NAME_ARR)-1;
@@ -244,7 +244,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SQUIRTLE_FQID_LEN = sizeof(PMD_SQUIRTLE_FQID_ARR)-1;
     inline static constexpr char PMD_SQUIRTLE_ID_ARR[] CONFIG_STRING_SECTION = "squirtle";
     inline static constexpr const char* PMD_SQUIRTLE_ID = PMD_SQUIRTLE_ID_ARR;
-    inline static constexpr size_t PMD_SQUIRTLE_ID_LEN = sizeof(PMD_SQUIRTLE_ID)-1;
+    inline static constexpr size_t PMD_SQUIRTLE_ID_LEN = sizeof(PMD_SQUIRTLE_ID_ARR)-1;
     inline static constexpr char PMD_SQUIRTLE_NAME_ARR[] CONFIG_STRING_SECTION = "Squirtle";
     inline static constexpr const char* PMD_SQUIRTLE_NAME = PMD_SQUIRTLE_NAME_ARR;
     inline static constexpr size_t PMD_SQUIRTLE_NAME_LEN = sizeof(PMD_SQUIRTLE_NAME_ARR)-1;
@@ -282,7 +282,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WARTORTLE_FQID_LEN = sizeof(PMD_WARTORTLE_FQID_ARR)-1;
     inline static constexpr char PMD_WARTORTLE_ID_ARR[] CONFIG_STRING_SECTION = "wartortle";
     inline static constexpr const char* PMD_WARTORTLE_ID = PMD_WARTORTLE_ID_ARR;
-    inline static constexpr size_t PMD_WARTORTLE_ID_LEN = sizeof(PMD_WARTORTLE_ID)-1;
+    inline static constexpr size_t PMD_WARTORTLE_ID_LEN = sizeof(PMD_WARTORTLE_ID_ARR)-1;
     inline static constexpr char PMD_WARTORTLE_NAME_ARR[] CONFIG_STRING_SECTION = "Wartortle";
     inline static constexpr const char* PMD_WARTORTLE_NAME = PMD_WARTORTLE_NAME_ARR;
     inline static constexpr size_t PMD_WARTORTLE_NAME_LEN = sizeof(PMD_WARTORTLE_NAME_ARR)-1;
@@ -320,7 +320,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BLASTOISE_FQID_LEN = sizeof(PMD_BLASTOISE_FQID_ARR)-1;
     inline static constexpr char PMD_BLASTOISE_ID_ARR[] CONFIG_STRING_SECTION = "blastoise";
     inline static constexpr const char* PMD_BLASTOISE_ID = PMD_BLASTOISE_ID_ARR;
-    inline static constexpr size_t PMD_BLASTOISE_ID_LEN = sizeof(PMD_BLASTOISE_ID)-1;
+    inline static constexpr size_t PMD_BLASTOISE_ID_LEN = sizeof(PMD_BLASTOISE_ID_ARR)-1;
     inline static constexpr char PMD_BLASTOISE_NAME_ARR[] CONFIG_STRING_SECTION = "Blastoise";
     inline static constexpr const char* PMD_BLASTOISE_NAME = PMD_BLASTOISE_NAME_ARR;
     inline static constexpr size_t PMD_BLASTOISE_NAME_LEN = sizeof(PMD_BLASTOISE_NAME_ARR)-1;
@@ -358,7 +358,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CATERPIE_FQID_LEN = sizeof(PMD_CATERPIE_FQID_ARR)-1;
     inline static constexpr char PMD_CATERPIE_ID_ARR[] CONFIG_STRING_SECTION = "caterpie";
     inline static constexpr const char* PMD_CATERPIE_ID = PMD_CATERPIE_ID_ARR;
-    inline static constexpr size_t PMD_CATERPIE_ID_LEN = sizeof(PMD_CATERPIE_ID)-1;
+    inline static constexpr size_t PMD_CATERPIE_ID_LEN = sizeof(PMD_CATERPIE_ID_ARR)-1;
     inline static constexpr char PMD_CATERPIE_NAME_ARR[] CONFIG_STRING_SECTION = "Caterpie";
     inline static constexpr const char* PMD_CATERPIE_NAME = PMD_CATERPIE_NAME_ARR;
     inline static constexpr size_t PMD_CATERPIE_NAME_LEN = sizeof(PMD_CATERPIE_NAME_ARR)-1;
@@ -396,7 +396,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_METAPOD_FQID_LEN = sizeof(PMD_METAPOD_FQID_ARR)-1;
     inline static constexpr char PMD_METAPOD_ID_ARR[] CONFIG_STRING_SECTION = "metapod";
     inline static constexpr const char* PMD_METAPOD_ID = PMD_METAPOD_ID_ARR;
-    inline static constexpr size_t PMD_METAPOD_ID_LEN = sizeof(PMD_METAPOD_ID)-1;
+    inline static constexpr size_t PMD_METAPOD_ID_LEN = sizeof(PMD_METAPOD_ID_ARR)-1;
     inline static constexpr char PMD_METAPOD_NAME_ARR[] CONFIG_STRING_SECTION = "Metapod";
     inline static constexpr const char* PMD_METAPOD_NAME = PMD_METAPOD_NAME_ARR;
     inline static constexpr size_t PMD_METAPOD_NAME_LEN = sizeof(PMD_METAPOD_NAME_ARR)-1;
@@ -434,7 +434,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BUTTERFREE_FQID_LEN = sizeof(PMD_BUTTERFREE_FQID_ARR)-1;
     inline static constexpr char PMD_BUTTERFREE_ID_ARR[] CONFIG_STRING_SECTION = "butterfree";
     inline static constexpr const char* PMD_BUTTERFREE_ID = PMD_BUTTERFREE_ID_ARR;
-    inline static constexpr size_t PMD_BUTTERFREE_ID_LEN = sizeof(PMD_BUTTERFREE_ID)-1;
+    inline static constexpr size_t PMD_BUTTERFREE_ID_LEN = sizeof(PMD_BUTTERFREE_ID_ARR)-1;
     inline static constexpr char PMD_BUTTERFREE_NAME_ARR[] CONFIG_STRING_SECTION = "Butterfree";
     inline static constexpr const char* PMD_BUTTERFREE_NAME = PMD_BUTTERFREE_NAME_ARR;
     inline static constexpr size_t PMD_BUTTERFREE_NAME_LEN = sizeof(PMD_BUTTERFREE_NAME_ARR)-1;
@@ -472,7 +472,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WEEDLE_FQID_LEN = sizeof(PMD_WEEDLE_FQID_ARR)-1;
     inline static constexpr char PMD_WEEDLE_ID_ARR[] CONFIG_STRING_SECTION = "weedle";
     inline static constexpr const char* PMD_WEEDLE_ID = PMD_WEEDLE_ID_ARR;
-    inline static constexpr size_t PMD_WEEDLE_ID_LEN = sizeof(PMD_WEEDLE_ID)-1;
+    inline static constexpr size_t PMD_WEEDLE_ID_LEN = sizeof(PMD_WEEDLE_ID_ARR)-1;
     inline static constexpr char PMD_WEEDLE_NAME_ARR[] CONFIG_STRING_SECTION = "Weedle";
     inline static constexpr const char* PMD_WEEDLE_NAME = PMD_WEEDLE_NAME_ARR;
     inline static constexpr size_t PMD_WEEDLE_NAME_LEN = sizeof(PMD_WEEDLE_NAME_ARR)-1;
@@ -510,7 +510,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KAKUNA_FQID_LEN = sizeof(PMD_KAKUNA_FQID_ARR)-1;
     inline static constexpr char PMD_KAKUNA_ID_ARR[] CONFIG_STRING_SECTION = "kakuna";
     inline static constexpr const char* PMD_KAKUNA_ID = PMD_KAKUNA_ID_ARR;
-    inline static constexpr size_t PMD_KAKUNA_ID_LEN = sizeof(PMD_KAKUNA_ID)-1;
+    inline static constexpr size_t PMD_KAKUNA_ID_LEN = sizeof(PMD_KAKUNA_ID_ARR)-1;
     inline static constexpr char PMD_KAKUNA_NAME_ARR[] CONFIG_STRING_SECTION = "Kakuna";
     inline static constexpr const char* PMD_KAKUNA_NAME = PMD_KAKUNA_NAME_ARR;
     inline static constexpr size_t PMD_KAKUNA_NAME_LEN = sizeof(PMD_KAKUNA_NAME_ARR)-1;
@@ -548,7 +548,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BEEDRILL_FQID_LEN = sizeof(PMD_BEEDRILL_FQID_ARR)-1;
     inline static constexpr char PMD_BEEDRILL_ID_ARR[] CONFIG_STRING_SECTION = "beedrill";
     inline static constexpr const char* PMD_BEEDRILL_ID = PMD_BEEDRILL_ID_ARR;
-    inline static constexpr size_t PMD_BEEDRILL_ID_LEN = sizeof(PMD_BEEDRILL_ID)-1;
+    inline static constexpr size_t PMD_BEEDRILL_ID_LEN = sizeof(PMD_BEEDRILL_ID_ARR)-1;
     inline static constexpr char PMD_BEEDRILL_NAME_ARR[] CONFIG_STRING_SECTION = "Beedrill";
     inline static constexpr const char* PMD_BEEDRILL_NAME = PMD_BEEDRILL_NAME_ARR;
     inline static constexpr size_t PMD_BEEDRILL_NAME_LEN = sizeof(PMD_BEEDRILL_NAME_ARR)-1;
@@ -586,7 +586,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PIDGEY_FQID_LEN = sizeof(PMD_PIDGEY_FQID_ARR)-1;
     inline static constexpr char PMD_PIDGEY_ID_ARR[] CONFIG_STRING_SECTION = "pidgey";
     inline static constexpr const char* PMD_PIDGEY_ID = PMD_PIDGEY_ID_ARR;
-    inline static constexpr size_t PMD_PIDGEY_ID_LEN = sizeof(PMD_PIDGEY_ID)-1;
+    inline static constexpr size_t PMD_PIDGEY_ID_LEN = sizeof(PMD_PIDGEY_ID_ARR)-1;
     inline static constexpr char PMD_PIDGEY_NAME_ARR[] CONFIG_STRING_SECTION = "Pidgey";
     inline static constexpr const char* PMD_PIDGEY_NAME = PMD_PIDGEY_NAME_ARR;
     inline static constexpr size_t PMD_PIDGEY_NAME_LEN = sizeof(PMD_PIDGEY_NAME_ARR)-1;
@@ -624,7 +624,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PIDGEOTTO_FQID_LEN = sizeof(PMD_PIDGEOTTO_FQID_ARR)-1;
     inline static constexpr char PMD_PIDGEOTTO_ID_ARR[] CONFIG_STRING_SECTION = "pidgeotto";
     inline static constexpr const char* PMD_PIDGEOTTO_ID = PMD_PIDGEOTTO_ID_ARR;
-    inline static constexpr size_t PMD_PIDGEOTTO_ID_LEN = sizeof(PMD_PIDGEOTTO_ID)-1;
+    inline static constexpr size_t PMD_PIDGEOTTO_ID_LEN = sizeof(PMD_PIDGEOTTO_ID_ARR)-1;
     inline static constexpr char PMD_PIDGEOTTO_NAME_ARR[] CONFIG_STRING_SECTION = "Pidgeotto";
     inline static constexpr const char* PMD_PIDGEOTTO_NAME = PMD_PIDGEOTTO_NAME_ARR;
     inline static constexpr size_t PMD_PIDGEOTTO_NAME_LEN = sizeof(PMD_PIDGEOTTO_NAME_ARR)-1;
@@ -662,7 +662,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PIDGEOT_FQID_LEN = sizeof(PMD_PIDGEOT_FQID_ARR)-1;
     inline static constexpr char PMD_PIDGEOT_ID_ARR[] CONFIG_STRING_SECTION = "pidgeot";
     inline static constexpr const char* PMD_PIDGEOT_ID = PMD_PIDGEOT_ID_ARR;
-    inline static constexpr size_t PMD_PIDGEOT_ID_LEN = sizeof(PMD_PIDGEOT_ID)-1;
+    inline static constexpr size_t PMD_PIDGEOT_ID_LEN = sizeof(PMD_PIDGEOT_ID_ARR)-1;
     inline static constexpr char PMD_PIDGEOT_NAME_ARR[] CONFIG_STRING_SECTION = "Pidgeot";
     inline static constexpr const char* PMD_PIDGEOT_NAME = PMD_PIDGEOT_NAME_ARR;
     inline static constexpr size_t PMD_PIDGEOT_NAME_LEN = sizeof(PMD_PIDGEOT_NAME_ARR)-1;
@@ -700,7 +700,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RATTATA_FQID_LEN = sizeof(PMD_RATTATA_FQID_ARR)-1;
     inline static constexpr char PMD_RATTATA_ID_ARR[] CONFIG_STRING_SECTION = "rattata";
     inline static constexpr const char* PMD_RATTATA_ID = PMD_RATTATA_ID_ARR;
-    inline static constexpr size_t PMD_RATTATA_ID_LEN = sizeof(PMD_RATTATA_ID)-1;
+    inline static constexpr size_t PMD_RATTATA_ID_LEN = sizeof(PMD_RATTATA_ID_ARR)-1;
     inline static constexpr char PMD_RATTATA_NAME_ARR[] CONFIG_STRING_SECTION = "Rattata";
     inline static constexpr const char* PMD_RATTATA_NAME = PMD_RATTATA_NAME_ARR;
     inline static constexpr size_t PMD_RATTATA_NAME_LEN = sizeof(PMD_RATTATA_NAME_ARR)-1;
@@ -738,7 +738,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RATICATE_FQID_LEN = sizeof(PMD_RATICATE_FQID_ARR)-1;
     inline static constexpr char PMD_RATICATE_ID_ARR[] CONFIG_STRING_SECTION = "raticate";
     inline static constexpr const char* PMD_RATICATE_ID = PMD_RATICATE_ID_ARR;
-    inline static constexpr size_t PMD_RATICATE_ID_LEN = sizeof(PMD_RATICATE_ID)-1;
+    inline static constexpr size_t PMD_RATICATE_ID_LEN = sizeof(PMD_RATICATE_ID_ARR)-1;
     inline static constexpr char PMD_RATICATE_NAME_ARR[] CONFIG_STRING_SECTION = "Raticate";
     inline static constexpr const char* PMD_RATICATE_NAME = PMD_RATICATE_NAME_ARR;
     inline static constexpr size_t PMD_RATICATE_NAME_LEN = sizeof(PMD_RATICATE_NAME_ARR)-1;
@@ -776,7 +776,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPEAROW_FQID_LEN = sizeof(PMD_SPEAROW_FQID_ARR)-1;
     inline static constexpr char PMD_SPEAROW_ID_ARR[] CONFIG_STRING_SECTION = "spearow";
     inline static constexpr const char* PMD_SPEAROW_ID = PMD_SPEAROW_ID_ARR;
-    inline static constexpr size_t PMD_SPEAROW_ID_LEN = sizeof(PMD_SPEAROW_ID)-1;
+    inline static constexpr size_t PMD_SPEAROW_ID_LEN = sizeof(PMD_SPEAROW_ID_ARR)-1;
     inline static constexpr char PMD_SPEAROW_NAME_ARR[] CONFIG_STRING_SECTION = "Spearow";
     inline static constexpr const char* PMD_SPEAROW_NAME = PMD_SPEAROW_NAME_ARR;
     inline static constexpr size_t PMD_SPEAROW_NAME_LEN = sizeof(PMD_SPEAROW_NAME_ARR)-1;
@@ -814,7 +814,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FEAROW_FQID_LEN = sizeof(PMD_FEAROW_FQID_ARR)-1;
     inline static constexpr char PMD_FEAROW_ID_ARR[] CONFIG_STRING_SECTION = "fearow";
     inline static constexpr const char* PMD_FEAROW_ID = PMD_FEAROW_ID_ARR;
-    inline static constexpr size_t PMD_FEAROW_ID_LEN = sizeof(PMD_FEAROW_ID)-1;
+    inline static constexpr size_t PMD_FEAROW_ID_LEN = sizeof(PMD_FEAROW_ID_ARR)-1;
     inline static constexpr char PMD_FEAROW_NAME_ARR[] CONFIG_STRING_SECTION = "Fearow";
     inline static constexpr const char* PMD_FEAROW_NAME = PMD_FEAROW_NAME_ARR;
     inline static constexpr size_t PMD_FEAROW_NAME_LEN = sizeof(PMD_FEAROW_NAME_ARR)-1;
@@ -852,7 +852,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EKANS_FQID_LEN = sizeof(PMD_EKANS_FQID_ARR)-1;
     inline static constexpr char PMD_EKANS_ID_ARR[] CONFIG_STRING_SECTION = "ekans";
     inline static constexpr const char* PMD_EKANS_ID = PMD_EKANS_ID_ARR;
-    inline static constexpr size_t PMD_EKANS_ID_LEN = sizeof(PMD_EKANS_ID)-1;
+    inline static constexpr size_t PMD_EKANS_ID_LEN = sizeof(PMD_EKANS_ID_ARR)-1;
     inline static constexpr char PMD_EKANS_NAME_ARR[] CONFIG_STRING_SECTION = "Ekans";
     inline static constexpr const char* PMD_EKANS_NAME = PMD_EKANS_NAME_ARR;
     inline static constexpr size_t PMD_EKANS_NAME_LEN = sizeof(PMD_EKANS_NAME_ARR)-1;
@@ -890,7 +890,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARBOK_FQID_LEN = sizeof(PMD_ARBOK_FQID_ARR)-1;
     inline static constexpr char PMD_ARBOK_ID_ARR[] CONFIG_STRING_SECTION = "arbok";
     inline static constexpr const char* PMD_ARBOK_ID = PMD_ARBOK_ID_ARR;
-    inline static constexpr size_t PMD_ARBOK_ID_LEN = sizeof(PMD_ARBOK_ID)-1;
+    inline static constexpr size_t PMD_ARBOK_ID_LEN = sizeof(PMD_ARBOK_ID_ARR)-1;
     inline static constexpr char PMD_ARBOK_NAME_ARR[] CONFIG_STRING_SECTION = "Arbok";
     inline static constexpr const char* PMD_ARBOK_NAME = PMD_ARBOK_NAME_ARR;
     inline static constexpr size_t PMD_ARBOK_NAME_LEN = sizeof(PMD_ARBOK_NAME_ARR)-1;
@@ -928,7 +928,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PIKACHU_FQID_LEN = sizeof(PMD_PIKACHU_FQID_ARR)-1;
     inline static constexpr char PMD_PIKACHU_ID_ARR[] CONFIG_STRING_SECTION = "pikachu";
     inline static constexpr const char* PMD_PIKACHU_ID = PMD_PIKACHU_ID_ARR;
-    inline static constexpr size_t PMD_PIKACHU_ID_LEN = sizeof(PMD_PIKACHU_ID)-1;
+    inline static constexpr size_t PMD_PIKACHU_ID_LEN = sizeof(PMD_PIKACHU_ID_ARR)-1;
     inline static constexpr char PMD_PIKACHU_NAME_ARR[] CONFIG_STRING_SECTION = "Pikachu";
     inline static constexpr const char* PMD_PIKACHU_NAME = PMD_PIKACHU_NAME_ARR;
     inline static constexpr size_t PMD_PIKACHU_NAME_LEN = sizeof(PMD_PIKACHU_NAME_ARR)-1;
@@ -966,7 +966,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RAICHU_FQID_LEN = sizeof(PMD_RAICHU_FQID_ARR)-1;
     inline static constexpr char PMD_RAICHU_ID_ARR[] CONFIG_STRING_SECTION = "raichu";
     inline static constexpr const char* PMD_RAICHU_ID = PMD_RAICHU_ID_ARR;
-    inline static constexpr size_t PMD_RAICHU_ID_LEN = sizeof(PMD_RAICHU_ID)-1;
+    inline static constexpr size_t PMD_RAICHU_ID_LEN = sizeof(PMD_RAICHU_ID_ARR)-1;
     inline static constexpr char PMD_RAICHU_NAME_ARR[] CONFIG_STRING_SECTION = "Raichu";
     inline static constexpr const char* PMD_RAICHU_NAME = PMD_RAICHU_NAME_ARR;
     inline static constexpr size_t PMD_RAICHU_NAME_LEN = sizeof(PMD_RAICHU_NAME_ARR)-1;
@@ -1004,7 +1004,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SANDSHREW_FQID_LEN = sizeof(PMD_SANDSHREW_FQID_ARR)-1;
     inline static constexpr char PMD_SANDSHREW_ID_ARR[] CONFIG_STRING_SECTION = "sandshrew";
     inline static constexpr const char* PMD_SANDSHREW_ID = PMD_SANDSHREW_ID_ARR;
-    inline static constexpr size_t PMD_SANDSHREW_ID_LEN = sizeof(PMD_SANDSHREW_ID)-1;
+    inline static constexpr size_t PMD_SANDSHREW_ID_LEN = sizeof(PMD_SANDSHREW_ID_ARR)-1;
     inline static constexpr char PMD_SANDSHREW_NAME_ARR[] CONFIG_STRING_SECTION = "Sandshrew";
     inline static constexpr const char* PMD_SANDSHREW_NAME = PMD_SANDSHREW_NAME_ARR;
     inline static constexpr size_t PMD_SANDSHREW_NAME_LEN = sizeof(PMD_SANDSHREW_NAME_ARR)-1;
@@ -1042,7 +1042,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SANDSLASH_FQID_LEN = sizeof(PMD_SANDSLASH_FQID_ARR)-1;
     inline static constexpr char PMD_SANDSLASH_ID_ARR[] CONFIG_STRING_SECTION = "sandslash";
     inline static constexpr const char* PMD_SANDSLASH_ID = PMD_SANDSLASH_ID_ARR;
-    inline static constexpr size_t PMD_SANDSLASH_ID_LEN = sizeof(PMD_SANDSLASH_ID)-1;
+    inline static constexpr size_t PMD_SANDSLASH_ID_LEN = sizeof(PMD_SANDSLASH_ID_ARR)-1;
     inline static constexpr char PMD_SANDSLASH_NAME_ARR[] CONFIG_STRING_SECTION = "Sandslash";
     inline static constexpr const char* PMD_SANDSLASH_NAME = PMD_SANDSLASH_NAME_ARR;
     inline static constexpr size_t PMD_SANDSLASH_NAME_LEN = sizeof(PMD_SANDSLASH_NAME_ARR)-1;
@@ -1080,7 +1080,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NIDORAN_F_FQID_LEN = sizeof(PMD_NIDORAN_F_FQID_ARR)-1;
     inline static constexpr char PMD_NIDORAN_F_ID_ARR[] CONFIG_STRING_SECTION = "nidoran_f";
     inline static constexpr const char* PMD_NIDORAN_F_ID = PMD_NIDORAN_F_ID_ARR;
-    inline static constexpr size_t PMD_NIDORAN_F_ID_LEN = sizeof(PMD_NIDORAN_F_ID)-1;
+    inline static constexpr size_t PMD_NIDORAN_F_ID_LEN = sizeof(PMD_NIDORAN_F_ID_ARR)-1;
     inline static constexpr char PMD_NIDORAN_F_NAME_ARR[] CONFIG_STRING_SECTION = "Nidoran-f";
     inline static constexpr const char* PMD_NIDORAN_F_NAME = PMD_NIDORAN_F_NAME_ARR;
     inline static constexpr size_t PMD_NIDORAN_F_NAME_LEN = sizeof(PMD_NIDORAN_F_NAME_ARR)-1;
@@ -1118,7 +1118,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NIDORINA_FQID_LEN = sizeof(PMD_NIDORINA_FQID_ARR)-1;
     inline static constexpr char PMD_NIDORINA_ID_ARR[] CONFIG_STRING_SECTION = "nidorina";
     inline static constexpr const char* PMD_NIDORINA_ID = PMD_NIDORINA_ID_ARR;
-    inline static constexpr size_t PMD_NIDORINA_ID_LEN = sizeof(PMD_NIDORINA_ID)-1;
+    inline static constexpr size_t PMD_NIDORINA_ID_LEN = sizeof(PMD_NIDORINA_ID_ARR)-1;
     inline static constexpr char PMD_NIDORINA_NAME_ARR[] CONFIG_STRING_SECTION = "Nidorina";
     inline static constexpr const char* PMD_NIDORINA_NAME = PMD_NIDORINA_NAME_ARR;
     inline static constexpr size_t PMD_NIDORINA_NAME_LEN = sizeof(PMD_NIDORINA_NAME_ARR)-1;
@@ -1156,7 +1156,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NIDOQUEEN_FQID_LEN = sizeof(PMD_NIDOQUEEN_FQID_ARR)-1;
     inline static constexpr char PMD_NIDOQUEEN_ID_ARR[] CONFIG_STRING_SECTION = "nidoqueen";
     inline static constexpr const char* PMD_NIDOQUEEN_ID = PMD_NIDOQUEEN_ID_ARR;
-    inline static constexpr size_t PMD_NIDOQUEEN_ID_LEN = sizeof(PMD_NIDOQUEEN_ID)-1;
+    inline static constexpr size_t PMD_NIDOQUEEN_ID_LEN = sizeof(PMD_NIDOQUEEN_ID_ARR)-1;
     inline static constexpr char PMD_NIDOQUEEN_NAME_ARR[] CONFIG_STRING_SECTION = "Nidoqueen";
     inline static constexpr const char* PMD_NIDOQUEEN_NAME = PMD_NIDOQUEEN_NAME_ARR;
     inline static constexpr size_t PMD_NIDOQUEEN_NAME_LEN = sizeof(PMD_NIDOQUEEN_NAME_ARR)-1;
@@ -1194,7 +1194,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NIDORAN_M_FQID_LEN = sizeof(PMD_NIDORAN_M_FQID_ARR)-1;
     inline static constexpr char PMD_NIDORAN_M_ID_ARR[] CONFIG_STRING_SECTION = "nidoran_m";
     inline static constexpr const char* PMD_NIDORAN_M_ID = PMD_NIDORAN_M_ID_ARR;
-    inline static constexpr size_t PMD_NIDORAN_M_ID_LEN = sizeof(PMD_NIDORAN_M_ID)-1;
+    inline static constexpr size_t PMD_NIDORAN_M_ID_LEN = sizeof(PMD_NIDORAN_M_ID_ARR)-1;
     inline static constexpr char PMD_NIDORAN_M_NAME_ARR[] CONFIG_STRING_SECTION = "Nidoran-m";
     inline static constexpr const char* PMD_NIDORAN_M_NAME = PMD_NIDORAN_M_NAME_ARR;
     inline static constexpr size_t PMD_NIDORAN_M_NAME_LEN = sizeof(PMD_NIDORAN_M_NAME_ARR)-1;
@@ -1232,7 +1232,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NIDORINO_FQID_LEN = sizeof(PMD_NIDORINO_FQID_ARR)-1;
     inline static constexpr char PMD_NIDORINO_ID_ARR[] CONFIG_STRING_SECTION = "nidorino";
     inline static constexpr const char* PMD_NIDORINO_ID = PMD_NIDORINO_ID_ARR;
-    inline static constexpr size_t PMD_NIDORINO_ID_LEN = sizeof(PMD_NIDORINO_ID)-1;
+    inline static constexpr size_t PMD_NIDORINO_ID_LEN = sizeof(PMD_NIDORINO_ID_ARR)-1;
     inline static constexpr char PMD_NIDORINO_NAME_ARR[] CONFIG_STRING_SECTION = "Nidorino";
     inline static constexpr const char* PMD_NIDORINO_NAME = PMD_NIDORINO_NAME_ARR;
     inline static constexpr size_t PMD_NIDORINO_NAME_LEN = sizeof(PMD_NIDORINO_NAME_ARR)-1;
@@ -1270,7 +1270,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NIDOKING_FQID_LEN = sizeof(PMD_NIDOKING_FQID_ARR)-1;
     inline static constexpr char PMD_NIDOKING_ID_ARR[] CONFIG_STRING_SECTION = "nidoking";
     inline static constexpr const char* PMD_NIDOKING_ID = PMD_NIDOKING_ID_ARR;
-    inline static constexpr size_t PMD_NIDOKING_ID_LEN = sizeof(PMD_NIDOKING_ID)-1;
+    inline static constexpr size_t PMD_NIDOKING_ID_LEN = sizeof(PMD_NIDOKING_ID_ARR)-1;
     inline static constexpr char PMD_NIDOKING_NAME_ARR[] CONFIG_STRING_SECTION = "Nidoking";
     inline static constexpr const char* PMD_NIDOKING_NAME = PMD_NIDOKING_NAME_ARR;
     inline static constexpr size_t PMD_NIDOKING_NAME_LEN = sizeof(PMD_NIDOKING_NAME_ARR)-1;
@@ -1308,7 +1308,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLEFAIRY_FQID_LEN = sizeof(PMD_CLEFAIRY_FQID_ARR)-1;
     inline static constexpr char PMD_CLEFAIRY_ID_ARR[] CONFIG_STRING_SECTION = "clefairy";
     inline static constexpr const char* PMD_CLEFAIRY_ID = PMD_CLEFAIRY_ID_ARR;
-    inline static constexpr size_t PMD_CLEFAIRY_ID_LEN = sizeof(PMD_CLEFAIRY_ID)-1;
+    inline static constexpr size_t PMD_CLEFAIRY_ID_LEN = sizeof(PMD_CLEFAIRY_ID_ARR)-1;
     inline static constexpr char PMD_CLEFAIRY_NAME_ARR[] CONFIG_STRING_SECTION = "Clefairy";
     inline static constexpr const char* PMD_CLEFAIRY_NAME = PMD_CLEFAIRY_NAME_ARR;
     inline static constexpr size_t PMD_CLEFAIRY_NAME_LEN = sizeof(PMD_CLEFAIRY_NAME_ARR)-1;
@@ -1346,7 +1346,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLEFABLE_FQID_LEN = sizeof(PMD_CLEFABLE_FQID_ARR)-1;
     inline static constexpr char PMD_CLEFABLE_ID_ARR[] CONFIG_STRING_SECTION = "clefable";
     inline static constexpr const char* PMD_CLEFABLE_ID = PMD_CLEFABLE_ID_ARR;
-    inline static constexpr size_t PMD_CLEFABLE_ID_LEN = sizeof(PMD_CLEFABLE_ID)-1;
+    inline static constexpr size_t PMD_CLEFABLE_ID_LEN = sizeof(PMD_CLEFABLE_ID_ARR)-1;
     inline static constexpr char PMD_CLEFABLE_NAME_ARR[] CONFIG_STRING_SECTION = "Clefable";
     inline static constexpr const char* PMD_CLEFABLE_NAME = PMD_CLEFABLE_NAME_ARR;
     inline static constexpr size_t PMD_CLEFABLE_NAME_LEN = sizeof(PMD_CLEFABLE_NAME_ARR)-1;
@@ -1384,7 +1384,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VULPIX_FQID_LEN = sizeof(PMD_VULPIX_FQID_ARR)-1;
     inline static constexpr char PMD_VULPIX_ID_ARR[] CONFIG_STRING_SECTION = "vulpix";
     inline static constexpr const char* PMD_VULPIX_ID = PMD_VULPIX_ID_ARR;
-    inline static constexpr size_t PMD_VULPIX_ID_LEN = sizeof(PMD_VULPIX_ID)-1;
+    inline static constexpr size_t PMD_VULPIX_ID_LEN = sizeof(PMD_VULPIX_ID_ARR)-1;
     inline static constexpr char PMD_VULPIX_NAME_ARR[] CONFIG_STRING_SECTION = "Vulpix";
     inline static constexpr const char* PMD_VULPIX_NAME = PMD_VULPIX_NAME_ARR;
     inline static constexpr size_t PMD_VULPIX_NAME_LEN = sizeof(PMD_VULPIX_NAME_ARR)-1;
@@ -1422,7 +1422,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NINETALES_FQID_LEN = sizeof(PMD_NINETALES_FQID_ARR)-1;
     inline static constexpr char PMD_NINETALES_ID_ARR[] CONFIG_STRING_SECTION = "ninetales";
     inline static constexpr const char* PMD_NINETALES_ID = PMD_NINETALES_ID_ARR;
-    inline static constexpr size_t PMD_NINETALES_ID_LEN = sizeof(PMD_NINETALES_ID)-1;
+    inline static constexpr size_t PMD_NINETALES_ID_LEN = sizeof(PMD_NINETALES_ID_ARR)-1;
     inline static constexpr char PMD_NINETALES_NAME_ARR[] CONFIG_STRING_SECTION = "Ninetales";
     inline static constexpr const char* PMD_NINETALES_NAME = PMD_NINETALES_NAME_ARR;
     inline static constexpr size_t PMD_NINETALES_NAME_LEN = sizeof(PMD_NINETALES_NAME_ARR)-1;
@@ -1460,7 +1460,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JIGGLYPUFF_FQID_LEN = sizeof(PMD_JIGGLYPUFF_FQID_ARR)-1;
     inline static constexpr char PMD_JIGGLYPUFF_ID_ARR[] CONFIG_STRING_SECTION = "jigglypuff";
     inline static constexpr const char* PMD_JIGGLYPUFF_ID = PMD_JIGGLYPUFF_ID_ARR;
-    inline static constexpr size_t PMD_JIGGLYPUFF_ID_LEN = sizeof(PMD_JIGGLYPUFF_ID)-1;
+    inline static constexpr size_t PMD_JIGGLYPUFF_ID_LEN = sizeof(PMD_JIGGLYPUFF_ID_ARR)-1;
     inline static constexpr char PMD_JIGGLYPUFF_NAME_ARR[] CONFIG_STRING_SECTION = "Jigglypuff";
     inline static constexpr const char* PMD_JIGGLYPUFF_NAME = PMD_JIGGLYPUFF_NAME_ARR;
     inline static constexpr size_t PMD_JIGGLYPUFF_NAME_LEN = sizeof(PMD_JIGGLYPUFF_NAME_ARR)-1;
@@ -1498,7 +1498,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WIGGLYTUFF_FQID_LEN = sizeof(PMD_WIGGLYTUFF_FQID_ARR)-1;
     inline static constexpr char PMD_WIGGLYTUFF_ID_ARR[] CONFIG_STRING_SECTION = "wigglytuff";
     inline static constexpr const char* PMD_WIGGLYTUFF_ID = PMD_WIGGLYTUFF_ID_ARR;
-    inline static constexpr size_t PMD_WIGGLYTUFF_ID_LEN = sizeof(PMD_WIGGLYTUFF_ID)-1;
+    inline static constexpr size_t PMD_WIGGLYTUFF_ID_LEN = sizeof(PMD_WIGGLYTUFF_ID_ARR)-1;
     inline static constexpr char PMD_WIGGLYTUFF_NAME_ARR[] CONFIG_STRING_SECTION = "Wigglytuff";
     inline static constexpr const char* PMD_WIGGLYTUFF_NAME = PMD_WIGGLYTUFF_NAME_ARR;
     inline static constexpr size_t PMD_WIGGLYTUFF_NAME_LEN = sizeof(PMD_WIGGLYTUFF_NAME_ARR)-1;
@@ -1536,7 +1536,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZUBAT_FQID_LEN = sizeof(PMD_ZUBAT_FQID_ARR)-1;
     inline static constexpr char PMD_ZUBAT_ID_ARR[] CONFIG_STRING_SECTION = "zubat";
     inline static constexpr const char* PMD_ZUBAT_ID = PMD_ZUBAT_ID_ARR;
-    inline static constexpr size_t PMD_ZUBAT_ID_LEN = sizeof(PMD_ZUBAT_ID)-1;
+    inline static constexpr size_t PMD_ZUBAT_ID_LEN = sizeof(PMD_ZUBAT_ID_ARR)-1;
     inline static constexpr char PMD_ZUBAT_NAME_ARR[] CONFIG_STRING_SECTION = "Zubat";
     inline static constexpr const char* PMD_ZUBAT_NAME = PMD_ZUBAT_NAME_ARR;
     inline static constexpr size_t PMD_ZUBAT_NAME_LEN = sizeof(PMD_ZUBAT_NAME_ARR)-1;
@@ -1574,7 +1574,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOLBAT_FQID_LEN = sizeof(PMD_GOLBAT_FQID_ARR)-1;
     inline static constexpr char PMD_GOLBAT_ID_ARR[] CONFIG_STRING_SECTION = "golbat";
     inline static constexpr const char* PMD_GOLBAT_ID = PMD_GOLBAT_ID_ARR;
-    inline static constexpr size_t PMD_GOLBAT_ID_LEN = sizeof(PMD_GOLBAT_ID)-1;
+    inline static constexpr size_t PMD_GOLBAT_ID_LEN = sizeof(PMD_GOLBAT_ID_ARR)-1;
     inline static constexpr char PMD_GOLBAT_NAME_ARR[] CONFIG_STRING_SECTION = "Golbat";
     inline static constexpr const char* PMD_GOLBAT_NAME = PMD_GOLBAT_NAME_ARR;
     inline static constexpr size_t PMD_GOLBAT_NAME_LEN = sizeof(PMD_GOLBAT_NAME_ARR)-1;
@@ -1612,7 +1612,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ODDISH_FQID_LEN = sizeof(PMD_ODDISH_FQID_ARR)-1;
     inline static constexpr char PMD_ODDISH_ID_ARR[] CONFIG_STRING_SECTION = "oddish";
     inline static constexpr const char* PMD_ODDISH_ID = PMD_ODDISH_ID_ARR;
-    inline static constexpr size_t PMD_ODDISH_ID_LEN = sizeof(PMD_ODDISH_ID)-1;
+    inline static constexpr size_t PMD_ODDISH_ID_LEN = sizeof(PMD_ODDISH_ID_ARR)-1;
     inline static constexpr char PMD_ODDISH_NAME_ARR[] CONFIG_STRING_SECTION = "Oddish";
     inline static constexpr const char* PMD_ODDISH_NAME = PMD_ODDISH_NAME_ARR;
     inline static constexpr size_t PMD_ODDISH_NAME_LEN = sizeof(PMD_ODDISH_NAME_ARR)-1;
@@ -1650,7 +1650,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GLOOM_FQID_LEN = sizeof(PMD_GLOOM_FQID_ARR)-1;
     inline static constexpr char PMD_GLOOM_ID_ARR[] CONFIG_STRING_SECTION = "gloom";
     inline static constexpr const char* PMD_GLOOM_ID = PMD_GLOOM_ID_ARR;
-    inline static constexpr size_t PMD_GLOOM_ID_LEN = sizeof(PMD_GLOOM_ID)-1;
+    inline static constexpr size_t PMD_GLOOM_ID_LEN = sizeof(PMD_GLOOM_ID_ARR)-1;
     inline static constexpr char PMD_GLOOM_NAME_ARR[] CONFIG_STRING_SECTION = "Gloom";
     inline static constexpr const char* PMD_GLOOM_NAME = PMD_GLOOM_NAME_ARR;
     inline static constexpr size_t PMD_GLOOM_NAME_LEN = sizeof(PMD_GLOOM_NAME_ARR)-1;
@@ -1688,7 +1688,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VILEPLUME_FQID_LEN = sizeof(PMD_VILEPLUME_FQID_ARR)-1;
     inline static constexpr char PMD_VILEPLUME_ID_ARR[] CONFIG_STRING_SECTION = "vileplume";
     inline static constexpr const char* PMD_VILEPLUME_ID = PMD_VILEPLUME_ID_ARR;
-    inline static constexpr size_t PMD_VILEPLUME_ID_LEN = sizeof(PMD_VILEPLUME_ID)-1;
+    inline static constexpr size_t PMD_VILEPLUME_ID_LEN = sizeof(PMD_VILEPLUME_ID_ARR)-1;
     inline static constexpr char PMD_VILEPLUME_NAME_ARR[] CONFIG_STRING_SECTION = "Vileplume";
     inline static constexpr const char* PMD_VILEPLUME_NAME = PMD_VILEPLUME_NAME_ARR;
     inline static constexpr size_t PMD_VILEPLUME_NAME_LEN = sizeof(PMD_VILEPLUME_NAME_ARR)-1;
@@ -1726,7 +1726,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PARAS_FQID_LEN = sizeof(PMD_PARAS_FQID_ARR)-1;
     inline static constexpr char PMD_PARAS_ID_ARR[] CONFIG_STRING_SECTION = "paras";
     inline static constexpr const char* PMD_PARAS_ID = PMD_PARAS_ID_ARR;
-    inline static constexpr size_t PMD_PARAS_ID_LEN = sizeof(PMD_PARAS_ID)-1;
+    inline static constexpr size_t PMD_PARAS_ID_LEN = sizeof(PMD_PARAS_ID_ARR)-1;
     inline static constexpr char PMD_PARAS_NAME_ARR[] CONFIG_STRING_SECTION = "Paras";
     inline static constexpr const char* PMD_PARAS_NAME = PMD_PARAS_NAME_ARR;
     inline static constexpr size_t PMD_PARAS_NAME_LEN = sizeof(PMD_PARAS_NAME_ARR)-1;
@@ -1764,7 +1764,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PARASECT_FQID_LEN = sizeof(PMD_PARASECT_FQID_ARR)-1;
     inline static constexpr char PMD_PARASECT_ID_ARR[] CONFIG_STRING_SECTION = "parasect";
     inline static constexpr const char* PMD_PARASECT_ID = PMD_PARASECT_ID_ARR;
-    inline static constexpr size_t PMD_PARASECT_ID_LEN = sizeof(PMD_PARASECT_ID)-1;
+    inline static constexpr size_t PMD_PARASECT_ID_LEN = sizeof(PMD_PARASECT_ID_ARR)-1;
     inline static constexpr char PMD_PARASECT_NAME_ARR[] CONFIG_STRING_SECTION = "Parasect";
     inline static constexpr const char* PMD_PARASECT_NAME = PMD_PARASECT_NAME_ARR;
     inline static constexpr size_t PMD_PARASECT_NAME_LEN = sizeof(PMD_PARASECT_NAME_ARR)-1;
@@ -1802,7 +1802,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VENONAT_FQID_LEN = sizeof(PMD_VENONAT_FQID_ARR)-1;
     inline static constexpr char PMD_VENONAT_ID_ARR[] CONFIG_STRING_SECTION = "venonat";
     inline static constexpr const char* PMD_VENONAT_ID = PMD_VENONAT_ID_ARR;
-    inline static constexpr size_t PMD_VENONAT_ID_LEN = sizeof(PMD_VENONAT_ID)-1;
+    inline static constexpr size_t PMD_VENONAT_ID_LEN = sizeof(PMD_VENONAT_ID_ARR)-1;
     inline static constexpr char PMD_VENONAT_NAME_ARR[] CONFIG_STRING_SECTION = "Venonat";
     inline static constexpr const char* PMD_VENONAT_NAME = PMD_VENONAT_NAME_ARR;
     inline static constexpr size_t PMD_VENONAT_NAME_LEN = sizeof(PMD_VENONAT_NAME_ARR)-1;
@@ -1840,7 +1840,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VENOMOTH_FQID_LEN = sizeof(PMD_VENOMOTH_FQID_ARR)-1;
     inline static constexpr char PMD_VENOMOTH_ID_ARR[] CONFIG_STRING_SECTION = "venomoth";
     inline static constexpr const char* PMD_VENOMOTH_ID = PMD_VENOMOTH_ID_ARR;
-    inline static constexpr size_t PMD_VENOMOTH_ID_LEN = sizeof(PMD_VENOMOTH_ID)-1;
+    inline static constexpr size_t PMD_VENOMOTH_ID_LEN = sizeof(PMD_VENOMOTH_ID_ARR)-1;
     inline static constexpr char PMD_VENOMOTH_NAME_ARR[] CONFIG_STRING_SECTION = "Venomoth";
     inline static constexpr const char* PMD_VENOMOTH_NAME = PMD_VENOMOTH_NAME_ARR;
     inline static constexpr size_t PMD_VENOMOTH_NAME_LEN = sizeof(PMD_VENOMOTH_NAME_ARR)-1;
@@ -1878,7 +1878,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DIGLETT_FQID_LEN = sizeof(PMD_DIGLETT_FQID_ARR)-1;
     inline static constexpr char PMD_DIGLETT_ID_ARR[] CONFIG_STRING_SECTION = "diglett";
     inline static constexpr const char* PMD_DIGLETT_ID = PMD_DIGLETT_ID_ARR;
-    inline static constexpr size_t PMD_DIGLETT_ID_LEN = sizeof(PMD_DIGLETT_ID)-1;
+    inline static constexpr size_t PMD_DIGLETT_ID_LEN = sizeof(PMD_DIGLETT_ID_ARR)-1;
     inline static constexpr char PMD_DIGLETT_NAME_ARR[] CONFIG_STRING_SECTION = "Diglett";
     inline static constexpr const char* PMD_DIGLETT_NAME = PMD_DIGLETT_NAME_ARR;
     inline static constexpr size_t PMD_DIGLETT_NAME_LEN = sizeof(PMD_DIGLETT_NAME_ARR)-1;
@@ -1916,7 +1916,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DUGTRIO_FQID_LEN = sizeof(PMD_DUGTRIO_FQID_ARR)-1;
     inline static constexpr char PMD_DUGTRIO_ID_ARR[] CONFIG_STRING_SECTION = "dugtrio";
     inline static constexpr const char* PMD_DUGTRIO_ID = PMD_DUGTRIO_ID_ARR;
-    inline static constexpr size_t PMD_DUGTRIO_ID_LEN = sizeof(PMD_DUGTRIO_ID)-1;
+    inline static constexpr size_t PMD_DUGTRIO_ID_LEN = sizeof(PMD_DUGTRIO_ID_ARR)-1;
     inline static constexpr char PMD_DUGTRIO_NAME_ARR[] CONFIG_STRING_SECTION = "Dugtrio";
     inline static constexpr const char* PMD_DUGTRIO_NAME = PMD_DUGTRIO_NAME_ARR;
     inline static constexpr size_t PMD_DUGTRIO_NAME_LEN = sizeof(PMD_DUGTRIO_NAME_ARR)-1;
@@ -1954,7 +1954,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MEOWTH_FQID_LEN = sizeof(PMD_MEOWTH_FQID_ARR)-1;
     inline static constexpr char PMD_MEOWTH_ID_ARR[] CONFIG_STRING_SECTION = "meowth";
     inline static constexpr const char* PMD_MEOWTH_ID = PMD_MEOWTH_ID_ARR;
-    inline static constexpr size_t PMD_MEOWTH_ID_LEN = sizeof(PMD_MEOWTH_ID)-1;
+    inline static constexpr size_t PMD_MEOWTH_ID_LEN = sizeof(PMD_MEOWTH_ID_ARR)-1;
     inline static constexpr char PMD_MEOWTH_NAME_ARR[] CONFIG_STRING_SECTION = "Meowth";
     inline static constexpr const char* PMD_MEOWTH_NAME = PMD_MEOWTH_NAME_ARR;
     inline static constexpr size_t PMD_MEOWTH_NAME_LEN = sizeof(PMD_MEOWTH_NAME_ARR)-1;
@@ -1992,7 +1992,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PERSIAN_FQID_LEN = sizeof(PMD_PERSIAN_FQID_ARR)-1;
     inline static constexpr char PMD_PERSIAN_ID_ARR[] CONFIG_STRING_SECTION = "persian";
     inline static constexpr const char* PMD_PERSIAN_ID = PMD_PERSIAN_ID_ARR;
-    inline static constexpr size_t PMD_PERSIAN_ID_LEN = sizeof(PMD_PERSIAN_ID)-1;
+    inline static constexpr size_t PMD_PERSIAN_ID_LEN = sizeof(PMD_PERSIAN_ID_ARR)-1;
     inline static constexpr char PMD_PERSIAN_NAME_ARR[] CONFIG_STRING_SECTION = "Persian";
     inline static constexpr const char* PMD_PERSIAN_NAME = PMD_PERSIAN_NAME_ARR;
     inline static constexpr size_t PMD_PERSIAN_NAME_LEN = sizeof(PMD_PERSIAN_NAME_ARR)-1;
@@ -2030,7 +2030,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PSYDUCK_FQID_LEN = sizeof(PMD_PSYDUCK_FQID_ARR)-1;
     inline static constexpr char PMD_PSYDUCK_ID_ARR[] CONFIG_STRING_SECTION = "psyduck";
     inline static constexpr const char* PMD_PSYDUCK_ID = PMD_PSYDUCK_ID_ARR;
-    inline static constexpr size_t PMD_PSYDUCK_ID_LEN = sizeof(PMD_PSYDUCK_ID)-1;
+    inline static constexpr size_t PMD_PSYDUCK_ID_LEN = sizeof(PMD_PSYDUCK_ID_ARR)-1;
     inline static constexpr char PMD_PSYDUCK_NAME_ARR[] CONFIG_STRING_SECTION = "Psyduck";
     inline static constexpr const char* PMD_PSYDUCK_NAME = PMD_PSYDUCK_NAME_ARR;
     inline static constexpr size_t PMD_PSYDUCK_NAME_LEN = sizeof(PMD_PSYDUCK_NAME_ARR)-1;
@@ -2068,7 +2068,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOLDUCK_FQID_LEN = sizeof(PMD_GOLDUCK_FQID_ARR)-1;
     inline static constexpr char PMD_GOLDUCK_ID_ARR[] CONFIG_STRING_SECTION = "golduck";
     inline static constexpr const char* PMD_GOLDUCK_ID = PMD_GOLDUCK_ID_ARR;
-    inline static constexpr size_t PMD_GOLDUCK_ID_LEN = sizeof(PMD_GOLDUCK_ID)-1;
+    inline static constexpr size_t PMD_GOLDUCK_ID_LEN = sizeof(PMD_GOLDUCK_ID_ARR)-1;
     inline static constexpr char PMD_GOLDUCK_NAME_ARR[] CONFIG_STRING_SECTION = "Golduck";
     inline static constexpr const char* PMD_GOLDUCK_NAME = PMD_GOLDUCK_NAME_ARR;
     inline static constexpr size_t PMD_GOLDUCK_NAME_LEN = sizeof(PMD_GOLDUCK_NAME_ARR)-1;
@@ -2106,7 +2106,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MANKEY_FQID_LEN = sizeof(PMD_MANKEY_FQID_ARR)-1;
     inline static constexpr char PMD_MANKEY_ID_ARR[] CONFIG_STRING_SECTION = "mankey";
     inline static constexpr const char* PMD_MANKEY_ID = PMD_MANKEY_ID_ARR;
-    inline static constexpr size_t PMD_MANKEY_ID_LEN = sizeof(PMD_MANKEY_ID)-1;
+    inline static constexpr size_t PMD_MANKEY_ID_LEN = sizeof(PMD_MANKEY_ID_ARR)-1;
     inline static constexpr char PMD_MANKEY_NAME_ARR[] CONFIG_STRING_SECTION = "Mankey";
     inline static constexpr const char* PMD_MANKEY_NAME = PMD_MANKEY_NAME_ARR;
     inline static constexpr size_t PMD_MANKEY_NAME_LEN = sizeof(PMD_MANKEY_NAME_ARR)-1;
@@ -2144,7 +2144,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PRIMEAPE_FQID_LEN = sizeof(PMD_PRIMEAPE_FQID_ARR)-1;
     inline static constexpr char PMD_PRIMEAPE_ID_ARR[] CONFIG_STRING_SECTION = "primeape";
     inline static constexpr const char* PMD_PRIMEAPE_ID = PMD_PRIMEAPE_ID_ARR;
-    inline static constexpr size_t PMD_PRIMEAPE_ID_LEN = sizeof(PMD_PRIMEAPE_ID)-1;
+    inline static constexpr size_t PMD_PRIMEAPE_ID_LEN = sizeof(PMD_PRIMEAPE_ID_ARR)-1;
     inline static constexpr char PMD_PRIMEAPE_NAME_ARR[] CONFIG_STRING_SECTION = "Primeape";
     inline static constexpr const char* PMD_PRIMEAPE_NAME = PMD_PRIMEAPE_NAME_ARR;
     inline static constexpr size_t PMD_PRIMEAPE_NAME_LEN = sizeof(PMD_PRIMEAPE_NAME_ARR)-1;
@@ -2182,7 +2182,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GROWLITHE_FQID_LEN = sizeof(PMD_GROWLITHE_FQID_ARR)-1;
     inline static constexpr char PMD_GROWLITHE_ID_ARR[] CONFIG_STRING_SECTION = "growlithe";
     inline static constexpr const char* PMD_GROWLITHE_ID = PMD_GROWLITHE_ID_ARR;
-    inline static constexpr size_t PMD_GROWLITHE_ID_LEN = sizeof(PMD_GROWLITHE_ID)-1;
+    inline static constexpr size_t PMD_GROWLITHE_ID_LEN = sizeof(PMD_GROWLITHE_ID_ARR)-1;
     inline static constexpr char PMD_GROWLITHE_NAME_ARR[] CONFIG_STRING_SECTION = "Growlithe";
     inline static constexpr const char* PMD_GROWLITHE_NAME = PMD_GROWLITHE_NAME_ARR;
     inline static constexpr size_t PMD_GROWLITHE_NAME_LEN = sizeof(PMD_GROWLITHE_NAME_ARR)-1;
@@ -2220,7 +2220,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARCANINE_FQID_LEN = sizeof(PMD_ARCANINE_FQID_ARR)-1;
     inline static constexpr char PMD_ARCANINE_ID_ARR[] CONFIG_STRING_SECTION = "arcanine";
     inline static constexpr const char* PMD_ARCANINE_ID = PMD_ARCANINE_ID_ARR;
-    inline static constexpr size_t PMD_ARCANINE_ID_LEN = sizeof(PMD_ARCANINE_ID)-1;
+    inline static constexpr size_t PMD_ARCANINE_ID_LEN = sizeof(PMD_ARCANINE_ID_ARR)-1;
     inline static constexpr char PMD_ARCANINE_NAME_ARR[] CONFIG_STRING_SECTION = "Arcanine";
     inline static constexpr const char* PMD_ARCANINE_NAME = PMD_ARCANINE_NAME_ARR;
     inline static constexpr size_t PMD_ARCANINE_NAME_LEN = sizeof(PMD_ARCANINE_NAME_ARR)-1;
@@ -2258,7 +2258,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POLIWAG_FQID_LEN = sizeof(PMD_POLIWAG_FQID_ARR)-1;
     inline static constexpr char PMD_POLIWAG_ID_ARR[] CONFIG_STRING_SECTION = "poliwag";
     inline static constexpr const char* PMD_POLIWAG_ID = PMD_POLIWAG_ID_ARR;
-    inline static constexpr size_t PMD_POLIWAG_ID_LEN = sizeof(PMD_POLIWAG_ID)-1;
+    inline static constexpr size_t PMD_POLIWAG_ID_LEN = sizeof(PMD_POLIWAG_ID_ARR)-1;
     inline static constexpr char PMD_POLIWAG_NAME_ARR[] CONFIG_STRING_SECTION = "Poliwag";
     inline static constexpr const char* PMD_POLIWAG_NAME = PMD_POLIWAG_NAME_ARR;
     inline static constexpr size_t PMD_POLIWAG_NAME_LEN = sizeof(PMD_POLIWAG_NAME_ARR)-1;
@@ -2296,7 +2296,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POLIWHIRL_FQID_LEN = sizeof(PMD_POLIWHIRL_FQID_ARR)-1;
     inline static constexpr char PMD_POLIWHIRL_ID_ARR[] CONFIG_STRING_SECTION = "poliwhirl";
     inline static constexpr const char* PMD_POLIWHIRL_ID = PMD_POLIWHIRL_ID_ARR;
-    inline static constexpr size_t PMD_POLIWHIRL_ID_LEN = sizeof(PMD_POLIWHIRL_ID)-1;
+    inline static constexpr size_t PMD_POLIWHIRL_ID_LEN = sizeof(PMD_POLIWHIRL_ID_ARR)-1;
     inline static constexpr char PMD_POLIWHIRL_NAME_ARR[] CONFIG_STRING_SECTION = "Poliwhirl";
     inline static constexpr const char* PMD_POLIWHIRL_NAME = PMD_POLIWHIRL_NAME_ARR;
     inline static constexpr size_t PMD_POLIWHIRL_NAME_LEN = sizeof(PMD_POLIWHIRL_NAME_ARR)-1;
@@ -2334,7 +2334,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POLIWRATH_FQID_LEN = sizeof(PMD_POLIWRATH_FQID_ARR)-1;
     inline static constexpr char PMD_POLIWRATH_ID_ARR[] CONFIG_STRING_SECTION = "poliwrath";
     inline static constexpr const char* PMD_POLIWRATH_ID = PMD_POLIWRATH_ID_ARR;
-    inline static constexpr size_t PMD_POLIWRATH_ID_LEN = sizeof(PMD_POLIWRATH_ID)-1;
+    inline static constexpr size_t PMD_POLIWRATH_ID_LEN = sizeof(PMD_POLIWRATH_ID_ARR)-1;
     inline static constexpr char PMD_POLIWRATH_NAME_ARR[] CONFIG_STRING_SECTION = "Poliwrath";
     inline static constexpr const char* PMD_POLIWRATH_NAME = PMD_POLIWRATH_NAME_ARR;
     inline static constexpr size_t PMD_POLIWRATH_NAME_LEN = sizeof(PMD_POLIWRATH_NAME_ARR)-1;
@@ -2372,7 +2372,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ABRA_FQID_LEN = sizeof(PMD_ABRA_FQID_ARR)-1;
     inline static constexpr char PMD_ABRA_ID_ARR[] CONFIG_STRING_SECTION = "abra";
     inline static constexpr const char* PMD_ABRA_ID = PMD_ABRA_ID_ARR;
-    inline static constexpr size_t PMD_ABRA_ID_LEN = sizeof(PMD_ABRA_ID)-1;
+    inline static constexpr size_t PMD_ABRA_ID_LEN = sizeof(PMD_ABRA_ID_ARR)-1;
     inline static constexpr char PMD_ABRA_NAME_ARR[] CONFIG_STRING_SECTION = "Abra";
     inline static constexpr const char* PMD_ABRA_NAME = PMD_ABRA_NAME_ARR;
     inline static constexpr size_t PMD_ABRA_NAME_LEN = sizeof(PMD_ABRA_NAME_ARR)-1;
@@ -2410,7 +2410,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KADABRA_FQID_LEN = sizeof(PMD_KADABRA_FQID_ARR)-1;
     inline static constexpr char PMD_KADABRA_ID_ARR[] CONFIG_STRING_SECTION = "kadabra";
     inline static constexpr const char* PMD_KADABRA_ID = PMD_KADABRA_ID_ARR;
-    inline static constexpr size_t PMD_KADABRA_ID_LEN = sizeof(PMD_KADABRA_ID)-1;
+    inline static constexpr size_t PMD_KADABRA_ID_LEN = sizeof(PMD_KADABRA_ID_ARR)-1;
     inline static constexpr char PMD_KADABRA_NAME_ARR[] CONFIG_STRING_SECTION = "Kadabra";
     inline static constexpr const char* PMD_KADABRA_NAME = PMD_KADABRA_NAME_ARR;
     inline static constexpr size_t PMD_KADABRA_NAME_LEN = sizeof(PMD_KADABRA_NAME_ARR)-1;
@@ -2448,7 +2448,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ALAKAZAM_FQID_LEN = sizeof(PMD_ALAKAZAM_FQID_ARR)-1;
     inline static constexpr char PMD_ALAKAZAM_ID_ARR[] CONFIG_STRING_SECTION = "alakazam";
     inline static constexpr const char* PMD_ALAKAZAM_ID = PMD_ALAKAZAM_ID_ARR;
-    inline static constexpr size_t PMD_ALAKAZAM_ID_LEN = sizeof(PMD_ALAKAZAM_ID)-1;
+    inline static constexpr size_t PMD_ALAKAZAM_ID_LEN = sizeof(PMD_ALAKAZAM_ID_ARR)-1;
     inline static constexpr char PMD_ALAKAZAM_NAME_ARR[] CONFIG_STRING_SECTION = "Alakazam";
     inline static constexpr const char* PMD_ALAKAZAM_NAME = PMD_ALAKAZAM_NAME_ARR;
     inline static constexpr size_t PMD_ALAKAZAM_NAME_LEN = sizeof(PMD_ALAKAZAM_NAME_ARR)-1;
@@ -2486,7 +2486,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MACHOP_FQID_LEN = sizeof(PMD_MACHOP_FQID_ARR)-1;
     inline static constexpr char PMD_MACHOP_ID_ARR[] CONFIG_STRING_SECTION = "machop";
     inline static constexpr const char* PMD_MACHOP_ID = PMD_MACHOP_ID_ARR;
-    inline static constexpr size_t PMD_MACHOP_ID_LEN = sizeof(PMD_MACHOP_ID)-1;
+    inline static constexpr size_t PMD_MACHOP_ID_LEN = sizeof(PMD_MACHOP_ID_ARR)-1;
     inline static constexpr char PMD_MACHOP_NAME_ARR[] CONFIG_STRING_SECTION = "Machop";
     inline static constexpr const char* PMD_MACHOP_NAME = PMD_MACHOP_NAME_ARR;
     inline static constexpr size_t PMD_MACHOP_NAME_LEN = sizeof(PMD_MACHOP_NAME_ARR)-1;
@@ -2524,7 +2524,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MACHOKE_FQID_LEN = sizeof(PMD_MACHOKE_FQID_ARR)-1;
     inline static constexpr char PMD_MACHOKE_ID_ARR[] CONFIG_STRING_SECTION = "machoke";
     inline static constexpr const char* PMD_MACHOKE_ID = PMD_MACHOKE_ID_ARR;
-    inline static constexpr size_t PMD_MACHOKE_ID_LEN = sizeof(PMD_MACHOKE_ID)-1;
+    inline static constexpr size_t PMD_MACHOKE_ID_LEN = sizeof(PMD_MACHOKE_ID_ARR)-1;
     inline static constexpr char PMD_MACHOKE_NAME_ARR[] CONFIG_STRING_SECTION = "Machoke";
     inline static constexpr const char* PMD_MACHOKE_NAME = PMD_MACHOKE_NAME_ARR;
     inline static constexpr size_t PMD_MACHOKE_NAME_LEN = sizeof(PMD_MACHOKE_NAME_ARR)-1;
@@ -2562,7 +2562,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MACHAMP_FQID_LEN = sizeof(PMD_MACHAMP_FQID_ARR)-1;
     inline static constexpr char PMD_MACHAMP_ID_ARR[] CONFIG_STRING_SECTION = "machamp";
     inline static constexpr const char* PMD_MACHAMP_ID = PMD_MACHAMP_ID_ARR;
-    inline static constexpr size_t PMD_MACHAMP_ID_LEN = sizeof(PMD_MACHAMP_ID)-1;
+    inline static constexpr size_t PMD_MACHAMP_ID_LEN = sizeof(PMD_MACHAMP_ID_ARR)-1;
     inline static constexpr char PMD_MACHAMP_NAME_ARR[] CONFIG_STRING_SECTION = "Machamp";
     inline static constexpr const char* PMD_MACHAMP_NAME = PMD_MACHAMP_NAME_ARR;
     inline static constexpr size_t PMD_MACHAMP_NAME_LEN = sizeof(PMD_MACHAMP_NAME_ARR)-1;
@@ -2600,7 +2600,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BELLSPROUT_FQID_LEN = sizeof(PMD_BELLSPROUT_FQID_ARR)-1;
     inline static constexpr char PMD_BELLSPROUT_ID_ARR[] CONFIG_STRING_SECTION = "bellsprout";
     inline static constexpr const char* PMD_BELLSPROUT_ID = PMD_BELLSPROUT_ID_ARR;
-    inline static constexpr size_t PMD_BELLSPROUT_ID_LEN = sizeof(PMD_BELLSPROUT_ID)-1;
+    inline static constexpr size_t PMD_BELLSPROUT_ID_LEN = sizeof(PMD_BELLSPROUT_ID_ARR)-1;
     inline static constexpr char PMD_BELLSPROUT_NAME_ARR[] CONFIG_STRING_SECTION = "Bellsprout";
     inline static constexpr const char* PMD_BELLSPROUT_NAME = PMD_BELLSPROUT_NAME_ARR;
     inline static constexpr size_t PMD_BELLSPROUT_NAME_LEN = sizeof(PMD_BELLSPROUT_NAME_ARR)-1;
@@ -2638,7 +2638,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WEEPINBELL_FQID_LEN = sizeof(PMD_WEEPINBELL_FQID_ARR)-1;
     inline static constexpr char PMD_WEEPINBELL_ID_ARR[] CONFIG_STRING_SECTION = "weepinbell";
     inline static constexpr const char* PMD_WEEPINBELL_ID = PMD_WEEPINBELL_ID_ARR;
-    inline static constexpr size_t PMD_WEEPINBELL_ID_LEN = sizeof(PMD_WEEPINBELL_ID)-1;
+    inline static constexpr size_t PMD_WEEPINBELL_ID_LEN = sizeof(PMD_WEEPINBELL_ID_ARR)-1;
     inline static constexpr char PMD_WEEPINBELL_NAME_ARR[] CONFIG_STRING_SECTION = "Weepinbell";
     inline static constexpr const char* PMD_WEEPINBELL_NAME = PMD_WEEPINBELL_NAME_ARR;
     inline static constexpr size_t PMD_WEEPINBELL_NAME_LEN = sizeof(PMD_WEEPINBELL_NAME_ARR)-1;
@@ -2676,7 +2676,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VICTREEBEL_FQID_LEN = sizeof(PMD_VICTREEBEL_FQID_ARR)-1;
     inline static constexpr char PMD_VICTREEBEL_ID_ARR[] CONFIG_STRING_SECTION = "victreebel";
     inline static constexpr const char* PMD_VICTREEBEL_ID = PMD_VICTREEBEL_ID_ARR;
-    inline static constexpr size_t PMD_VICTREEBEL_ID_LEN = sizeof(PMD_VICTREEBEL_ID)-1;
+    inline static constexpr size_t PMD_VICTREEBEL_ID_LEN = sizeof(PMD_VICTREEBEL_ID_ARR)-1;
     inline static constexpr char PMD_VICTREEBEL_NAME_ARR[] CONFIG_STRING_SECTION = "Victreebel";
     inline static constexpr const char* PMD_VICTREEBEL_NAME = PMD_VICTREEBEL_NAME_ARR;
     inline static constexpr size_t PMD_VICTREEBEL_NAME_LEN = sizeof(PMD_VICTREEBEL_NAME_ARR)-1;
@@ -2714,7 +2714,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TENTACOOL_FQID_LEN = sizeof(PMD_TENTACOOL_FQID_ARR)-1;
     inline static constexpr char PMD_TENTACOOL_ID_ARR[] CONFIG_STRING_SECTION = "tentacool";
     inline static constexpr const char* PMD_TENTACOOL_ID = PMD_TENTACOOL_ID_ARR;
-    inline static constexpr size_t PMD_TENTACOOL_ID_LEN = sizeof(PMD_TENTACOOL_ID)-1;
+    inline static constexpr size_t PMD_TENTACOOL_ID_LEN = sizeof(PMD_TENTACOOL_ID_ARR)-1;
     inline static constexpr char PMD_TENTACOOL_NAME_ARR[] CONFIG_STRING_SECTION = "Tentacool";
     inline static constexpr const char* PMD_TENTACOOL_NAME = PMD_TENTACOOL_NAME_ARR;
     inline static constexpr size_t PMD_TENTACOOL_NAME_LEN = sizeof(PMD_TENTACOOL_NAME_ARR)-1;
@@ -2752,7 +2752,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TENTACRUEL_FQID_LEN = sizeof(PMD_TENTACRUEL_FQID_ARR)-1;
     inline static constexpr char PMD_TENTACRUEL_ID_ARR[] CONFIG_STRING_SECTION = "tentacruel";
     inline static constexpr const char* PMD_TENTACRUEL_ID = PMD_TENTACRUEL_ID_ARR;
-    inline static constexpr size_t PMD_TENTACRUEL_ID_LEN = sizeof(PMD_TENTACRUEL_ID)-1;
+    inline static constexpr size_t PMD_TENTACRUEL_ID_LEN = sizeof(PMD_TENTACRUEL_ID_ARR)-1;
     inline static constexpr char PMD_TENTACRUEL_NAME_ARR[] CONFIG_STRING_SECTION = "Tentacruel";
     inline static constexpr const char* PMD_TENTACRUEL_NAME = PMD_TENTACRUEL_NAME_ARR;
     inline static constexpr size_t PMD_TENTACRUEL_NAME_LEN = sizeof(PMD_TENTACRUEL_NAME_ARR)-1;
@@ -2790,7 +2790,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GEODUDE_FQID_LEN = sizeof(PMD_GEODUDE_FQID_ARR)-1;
     inline static constexpr char PMD_GEODUDE_ID_ARR[] CONFIG_STRING_SECTION = "geodude";
     inline static constexpr const char* PMD_GEODUDE_ID = PMD_GEODUDE_ID_ARR;
-    inline static constexpr size_t PMD_GEODUDE_ID_LEN = sizeof(PMD_GEODUDE_ID)-1;
+    inline static constexpr size_t PMD_GEODUDE_ID_LEN = sizeof(PMD_GEODUDE_ID_ARR)-1;
     inline static constexpr char PMD_GEODUDE_NAME_ARR[] CONFIG_STRING_SECTION = "Geodude";
     inline static constexpr const char* PMD_GEODUDE_NAME = PMD_GEODUDE_NAME_ARR;
     inline static constexpr size_t PMD_GEODUDE_NAME_LEN = sizeof(PMD_GEODUDE_NAME_ARR)-1;
@@ -2828,7 +2828,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRAVELER_FQID_LEN = sizeof(PMD_GRAVELER_FQID_ARR)-1;
     inline static constexpr char PMD_GRAVELER_ID_ARR[] CONFIG_STRING_SECTION = "graveler";
     inline static constexpr const char* PMD_GRAVELER_ID = PMD_GRAVELER_ID_ARR;
-    inline static constexpr size_t PMD_GRAVELER_ID_LEN = sizeof(PMD_GRAVELER_ID)-1;
+    inline static constexpr size_t PMD_GRAVELER_ID_LEN = sizeof(PMD_GRAVELER_ID_ARR)-1;
     inline static constexpr char PMD_GRAVELER_NAME_ARR[] CONFIG_STRING_SECTION = "Graveler";
     inline static constexpr const char* PMD_GRAVELER_NAME = PMD_GRAVELER_NAME_ARR;
     inline static constexpr size_t PMD_GRAVELER_NAME_LEN = sizeof(PMD_GRAVELER_NAME_ARR)-1;
@@ -2866,7 +2866,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOLEM_FQID_LEN = sizeof(PMD_GOLEM_FQID_ARR)-1;
     inline static constexpr char PMD_GOLEM_ID_ARR[] CONFIG_STRING_SECTION = "golem";
     inline static constexpr const char* PMD_GOLEM_ID = PMD_GOLEM_ID_ARR;
-    inline static constexpr size_t PMD_GOLEM_ID_LEN = sizeof(PMD_GOLEM_ID)-1;
+    inline static constexpr size_t PMD_GOLEM_ID_LEN = sizeof(PMD_GOLEM_ID_ARR)-1;
     inline static constexpr char PMD_GOLEM_NAME_ARR[] CONFIG_STRING_SECTION = "Golem";
     inline static constexpr const char* PMD_GOLEM_NAME = PMD_GOLEM_NAME_ARR;
     inline static constexpr size_t PMD_GOLEM_NAME_LEN = sizeof(PMD_GOLEM_NAME_ARR)-1;
@@ -2904,7 +2904,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PONYTA_FQID_LEN = sizeof(PMD_PONYTA_FQID_ARR)-1;
     inline static constexpr char PMD_PONYTA_ID_ARR[] CONFIG_STRING_SECTION = "ponyta";
     inline static constexpr const char* PMD_PONYTA_ID = PMD_PONYTA_ID_ARR;
-    inline static constexpr size_t PMD_PONYTA_ID_LEN = sizeof(PMD_PONYTA_ID)-1;
+    inline static constexpr size_t PMD_PONYTA_ID_LEN = sizeof(PMD_PONYTA_ID_ARR)-1;
     inline static constexpr char PMD_PONYTA_NAME_ARR[] CONFIG_STRING_SECTION = "Ponyta";
     inline static constexpr const char* PMD_PONYTA_NAME = PMD_PONYTA_NAME_ARR;
     inline static constexpr size_t PMD_PONYTA_NAME_LEN = sizeof(PMD_PONYTA_NAME_ARR)-1;
@@ -2942,7 +2942,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RAPIDASH_FQID_LEN = sizeof(PMD_RAPIDASH_FQID_ARR)-1;
     inline static constexpr char PMD_RAPIDASH_ID_ARR[] CONFIG_STRING_SECTION = "rapidash";
     inline static constexpr const char* PMD_RAPIDASH_ID = PMD_RAPIDASH_ID_ARR;
-    inline static constexpr size_t PMD_RAPIDASH_ID_LEN = sizeof(PMD_RAPIDASH_ID)-1;
+    inline static constexpr size_t PMD_RAPIDASH_ID_LEN = sizeof(PMD_RAPIDASH_ID_ARR)-1;
     inline static constexpr char PMD_RAPIDASH_NAME_ARR[] CONFIG_STRING_SECTION = "Rapidash";
     inline static constexpr const char* PMD_RAPIDASH_NAME = PMD_RAPIDASH_NAME_ARR;
     inline static constexpr size_t PMD_RAPIDASH_NAME_LEN = sizeof(PMD_RAPIDASH_NAME_ARR)-1;
@@ -2980,7 +2980,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLOWPOKE_FQID_LEN = sizeof(PMD_SLOWPOKE_FQID_ARR)-1;
     inline static constexpr char PMD_SLOWPOKE_ID_ARR[] CONFIG_STRING_SECTION = "slowpoke";
     inline static constexpr const char* PMD_SLOWPOKE_ID = PMD_SLOWPOKE_ID_ARR;
-    inline static constexpr size_t PMD_SLOWPOKE_ID_LEN = sizeof(PMD_SLOWPOKE_ID)-1;
+    inline static constexpr size_t PMD_SLOWPOKE_ID_LEN = sizeof(PMD_SLOWPOKE_ID_ARR)-1;
     inline static constexpr char PMD_SLOWPOKE_NAME_ARR[] CONFIG_STRING_SECTION = "Slowpoke";
     inline static constexpr const char* PMD_SLOWPOKE_NAME = PMD_SLOWPOKE_NAME_ARR;
     inline static constexpr size_t PMD_SLOWPOKE_NAME_LEN = sizeof(PMD_SLOWPOKE_NAME_ARR)-1;
@@ -3018,7 +3018,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLOWBRO_FQID_LEN = sizeof(PMD_SLOWBRO_FQID_ARR)-1;
     inline static constexpr char PMD_SLOWBRO_ID_ARR[] CONFIG_STRING_SECTION = "slowbro";
     inline static constexpr const char* PMD_SLOWBRO_ID = PMD_SLOWBRO_ID_ARR;
-    inline static constexpr size_t PMD_SLOWBRO_ID_LEN = sizeof(PMD_SLOWBRO_ID)-1;
+    inline static constexpr size_t PMD_SLOWBRO_ID_LEN = sizeof(PMD_SLOWBRO_ID_ARR)-1;
     inline static constexpr char PMD_SLOWBRO_NAME_ARR[] CONFIG_STRING_SECTION = "Slowbro";
     inline static constexpr const char* PMD_SLOWBRO_NAME = PMD_SLOWBRO_NAME_ARR;
     inline static constexpr size_t PMD_SLOWBRO_NAME_LEN = sizeof(PMD_SLOWBRO_NAME_ARR)-1;
@@ -3056,7 +3056,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGNEMITE_FQID_LEN = sizeof(PMD_MAGNEMITE_FQID_ARR)-1;
     inline static constexpr char PMD_MAGNEMITE_ID_ARR[] CONFIG_STRING_SECTION = "magnemite";
     inline static constexpr const char* PMD_MAGNEMITE_ID = PMD_MAGNEMITE_ID_ARR;
-    inline static constexpr size_t PMD_MAGNEMITE_ID_LEN = sizeof(PMD_MAGNEMITE_ID)-1;
+    inline static constexpr size_t PMD_MAGNEMITE_ID_LEN = sizeof(PMD_MAGNEMITE_ID_ARR)-1;
     inline static constexpr char PMD_MAGNEMITE_NAME_ARR[] CONFIG_STRING_SECTION = "Magnemite";
     inline static constexpr const char* PMD_MAGNEMITE_NAME = PMD_MAGNEMITE_NAME_ARR;
     inline static constexpr size_t PMD_MAGNEMITE_NAME_LEN = sizeof(PMD_MAGNEMITE_NAME_ARR)-1;
@@ -3094,7 +3094,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGNETON_FQID_LEN = sizeof(PMD_MAGNETON_FQID_ARR)-1;
     inline static constexpr char PMD_MAGNETON_ID_ARR[] CONFIG_STRING_SECTION = "magneton";
     inline static constexpr const char* PMD_MAGNETON_ID = PMD_MAGNETON_ID_ARR;
-    inline static constexpr size_t PMD_MAGNETON_ID_LEN = sizeof(PMD_MAGNETON_ID)-1;
+    inline static constexpr size_t PMD_MAGNETON_ID_LEN = sizeof(PMD_MAGNETON_ID_ARR)-1;
     inline static constexpr char PMD_MAGNETON_NAME_ARR[] CONFIG_STRING_SECTION = "Magneton";
     inline static constexpr const char* PMD_MAGNETON_NAME = PMD_MAGNETON_NAME_ARR;
     inline static constexpr size_t PMD_MAGNETON_NAME_LEN = sizeof(PMD_MAGNETON_NAME_ARR)-1;
@@ -3132,7 +3132,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FARFETCHD_FQID_LEN = sizeof(PMD_FARFETCHD_FQID_ARR)-1;
     inline static constexpr char PMD_FARFETCHD_ID_ARR[] CONFIG_STRING_SECTION = "farfetchd";
     inline static constexpr const char* PMD_FARFETCHD_ID = PMD_FARFETCHD_ID_ARR;
-    inline static constexpr size_t PMD_FARFETCHD_ID_LEN = sizeof(PMD_FARFETCHD_ID)-1;
+    inline static constexpr size_t PMD_FARFETCHD_ID_LEN = sizeof(PMD_FARFETCHD_ID_ARR)-1;
     inline static constexpr char PMD_FARFETCHD_NAME_ARR[] CONFIG_STRING_SECTION = "Farfetchd";
     inline static constexpr const char* PMD_FARFETCHD_NAME = PMD_FARFETCHD_NAME_ARR;
     inline static constexpr size_t PMD_FARFETCHD_NAME_LEN = sizeof(PMD_FARFETCHD_NAME_ARR)-1;
@@ -3170,7 +3170,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DODUO_FQID_LEN = sizeof(PMD_DODUO_FQID_ARR)-1;
     inline static constexpr char PMD_DODUO_ID_ARR[] CONFIG_STRING_SECTION = "doduo";
     inline static constexpr const char* PMD_DODUO_ID = PMD_DODUO_ID_ARR;
-    inline static constexpr size_t PMD_DODUO_ID_LEN = sizeof(PMD_DODUO_ID)-1;
+    inline static constexpr size_t PMD_DODUO_ID_LEN = sizeof(PMD_DODUO_ID_ARR)-1;
     inline static constexpr char PMD_DODUO_NAME_ARR[] CONFIG_STRING_SECTION = "Doduo";
     inline static constexpr const char* PMD_DODUO_NAME = PMD_DODUO_NAME_ARR;
     inline static constexpr size_t PMD_DODUO_NAME_LEN = sizeof(PMD_DODUO_NAME_ARR)-1;
@@ -3208,7 +3208,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DODRIO_FQID_LEN = sizeof(PMD_DODRIO_FQID_ARR)-1;
     inline static constexpr char PMD_DODRIO_ID_ARR[] CONFIG_STRING_SECTION = "dodrio";
     inline static constexpr const char* PMD_DODRIO_ID = PMD_DODRIO_ID_ARR;
-    inline static constexpr size_t PMD_DODRIO_ID_LEN = sizeof(PMD_DODRIO_ID)-1;
+    inline static constexpr size_t PMD_DODRIO_ID_LEN = sizeof(PMD_DODRIO_ID_ARR)-1;
     inline static constexpr char PMD_DODRIO_NAME_ARR[] CONFIG_STRING_SECTION = "Dodrio";
     inline static constexpr const char* PMD_DODRIO_NAME = PMD_DODRIO_NAME_ARR;
     inline static constexpr size_t PMD_DODRIO_NAME_LEN = sizeof(PMD_DODRIO_NAME_ARR)-1;
@@ -3246,7 +3246,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEEL_FQID_LEN = sizeof(PMD_SEEL_FQID_ARR)-1;
     inline static constexpr char PMD_SEEL_ID_ARR[] CONFIG_STRING_SECTION = "seel";
     inline static constexpr const char* PMD_SEEL_ID = PMD_SEEL_ID_ARR;
-    inline static constexpr size_t PMD_SEEL_ID_LEN = sizeof(PMD_SEEL_ID)-1;
+    inline static constexpr size_t PMD_SEEL_ID_LEN = sizeof(PMD_SEEL_ID_ARR)-1;
     inline static constexpr char PMD_SEEL_NAME_ARR[] CONFIG_STRING_SECTION = "Seel";
     inline static constexpr const char* PMD_SEEL_NAME = PMD_SEEL_NAME_ARR;
     inline static constexpr size_t PMD_SEEL_NAME_LEN = sizeof(PMD_SEEL_NAME_ARR)-1;
@@ -3284,7 +3284,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DEWGONG_FQID_LEN = sizeof(PMD_DEWGONG_FQID_ARR)-1;
     inline static constexpr char PMD_DEWGONG_ID_ARR[] CONFIG_STRING_SECTION = "dewgong";
     inline static constexpr const char* PMD_DEWGONG_ID = PMD_DEWGONG_ID_ARR;
-    inline static constexpr size_t PMD_DEWGONG_ID_LEN = sizeof(PMD_DEWGONG_ID)-1;
+    inline static constexpr size_t PMD_DEWGONG_ID_LEN = sizeof(PMD_DEWGONG_ID_ARR)-1;
     inline static constexpr char PMD_DEWGONG_NAME_ARR[] CONFIG_STRING_SECTION = "Dewgong";
     inline static constexpr const char* PMD_DEWGONG_NAME = PMD_DEWGONG_NAME_ARR;
     inline static constexpr size_t PMD_DEWGONG_NAME_LEN = sizeof(PMD_DEWGONG_NAME_ARR)-1;
@@ -3322,7 +3322,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRIMER_FQID_LEN = sizeof(PMD_GRIMER_FQID_ARR)-1;
     inline static constexpr char PMD_GRIMER_ID_ARR[] CONFIG_STRING_SECTION = "grimer";
     inline static constexpr const char* PMD_GRIMER_ID = PMD_GRIMER_ID_ARR;
-    inline static constexpr size_t PMD_GRIMER_ID_LEN = sizeof(PMD_GRIMER_ID)-1;
+    inline static constexpr size_t PMD_GRIMER_ID_LEN = sizeof(PMD_GRIMER_ID_ARR)-1;
     inline static constexpr char PMD_GRIMER_NAME_ARR[] CONFIG_STRING_SECTION = "Grimer";
     inline static constexpr const char* PMD_GRIMER_NAME = PMD_GRIMER_NAME_ARR;
     inline static constexpr size_t PMD_GRIMER_NAME_LEN = sizeof(PMD_GRIMER_NAME_ARR)-1;
@@ -3360,7 +3360,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MUK_FQID_LEN = sizeof(PMD_MUK_FQID_ARR)-1;
     inline static constexpr char PMD_MUK_ID_ARR[] CONFIG_STRING_SECTION = "muk";
     inline static constexpr const char* PMD_MUK_ID = PMD_MUK_ID_ARR;
-    inline static constexpr size_t PMD_MUK_ID_LEN = sizeof(PMD_MUK_ID)-1;
+    inline static constexpr size_t PMD_MUK_ID_LEN = sizeof(PMD_MUK_ID_ARR)-1;
     inline static constexpr char PMD_MUK_NAME_ARR[] CONFIG_STRING_SECTION = "Muk";
     inline static constexpr const char* PMD_MUK_NAME = PMD_MUK_NAME_ARR;
     inline static constexpr size_t PMD_MUK_NAME_LEN = sizeof(PMD_MUK_NAME_ARR)-1;
@@ -3398,7 +3398,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHELLDER_FQID_LEN = sizeof(PMD_SHELLDER_FQID_ARR)-1;
     inline static constexpr char PMD_SHELLDER_ID_ARR[] CONFIG_STRING_SECTION = "shellder";
     inline static constexpr const char* PMD_SHELLDER_ID = PMD_SHELLDER_ID_ARR;
-    inline static constexpr size_t PMD_SHELLDER_ID_LEN = sizeof(PMD_SHELLDER_ID)-1;
+    inline static constexpr size_t PMD_SHELLDER_ID_LEN = sizeof(PMD_SHELLDER_ID_ARR)-1;
     inline static constexpr char PMD_SHELLDER_NAME_ARR[] CONFIG_STRING_SECTION = "Shellder";
     inline static constexpr const char* PMD_SHELLDER_NAME = PMD_SHELLDER_NAME_ARR;
     inline static constexpr size_t PMD_SHELLDER_NAME_LEN = sizeof(PMD_SHELLDER_NAME_ARR)-1;
@@ -3436,7 +3436,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLOYSTER_FQID_LEN = sizeof(PMD_CLOYSTER_FQID_ARR)-1;
     inline static constexpr char PMD_CLOYSTER_ID_ARR[] CONFIG_STRING_SECTION = "cloyster";
     inline static constexpr const char* PMD_CLOYSTER_ID = PMD_CLOYSTER_ID_ARR;
-    inline static constexpr size_t PMD_CLOYSTER_ID_LEN = sizeof(PMD_CLOYSTER_ID)-1;
+    inline static constexpr size_t PMD_CLOYSTER_ID_LEN = sizeof(PMD_CLOYSTER_ID_ARR)-1;
     inline static constexpr char PMD_CLOYSTER_NAME_ARR[] CONFIG_STRING_SECTION = "Cloyster";
     inline static constexpr const char* PMD_CLOYSTER_NAME = PMD_CLOYSTER_NAME_ARR;
     inline static constexpr size_t PMD_CLOYSTER_NAME_LEN = sizeof(PMD_CLOYSTER_NAME_ARR)-1;
@@ -3474,7 +3474,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GASTLY_FQID_LEN = sizeof(PMD_GASTLY_FQID_ARR)-1;
     inline static constexpr char PMD_GASTLY_ID_ARR[] CONFIG_STRING_SECTION = "gastly";
     inline static constexpr const char* PMD_GASTLY_ID = PMD_GASTLY_ID_ARR;
-    inline static constexpr size_t PMD_GASTLY_ID_LEN = sizeof(PMD_GASTLY_ID)-1;
+    inline static constexpr size_t PMD_GASTLY_ID_LEN = sizeof(PMD_GASTLY_ID_ARR)-1;
     inline static constexpr char PMD_GASTLY_NAME_ARR[] CONFIG_STRING_SECTION = "Gastly";
     inline static constexpr const char* PMD_GASTLY_NAME = PMD_GASTLY_NAME_ARR;
     inline static constexpr size_t PMD_GASTLY_NAME_LEN = sizeof(PMD_GASTLY_NAME_ARR)-1;
@@ -3512,7 +3512,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HAUNTER_FQID_LEN = sizeof(PMD_HAUNTER_FQID_ARR)-1;
     inline static constexpr char PMD_HAUNTER_ID_ARR[] CONFIG_STRING_SECTION = "haunter";
     inline static constexpr const char* PMD_HAUNTER_ID = PMD_HAUNTER_ID_ARR;
-    inline static constexpr size_t PMD_HAUNTER_ID_LEN = sizeof(PMD_HAUNTER_ID)-1;
+    inline static constexpr size_t PMD_HAUNTER_ID_LEN = sizeof(PMD_HAUNTER_ID_ARR)-1;
     inline static constexpr char PMD_HAUNTER_NAME_ARR[] CONFIG_STRING_SECTION = "Haunter";
     inline static constexpr const char* PMD_HAUNTER_NAME = PMD_HAUNTER_NAME_ARR;
     inline static constexpr size_t PMD_HAUNTER_NAME_LEN = sizeof(PMD_HAUNTER_NAME_ARR)-1;
@@ -3550,7 +3550,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GENGAR_FQID_LEN = sizeof(PMD_GENGAR_FQID_ARR)-1;
     inline static constexpr char PMD_GENGAR_ID_ARR[] CONFIG_STRING_SECTION = "gengar";
     inline static constexpr const char* PMD_GENGAR_ID = PMD_GENGAR_ID_ARR;
-    inline static constexpr size_t PMD_GENGAR_ID_LEN = sizeof(PMD_GENGAR_ID)-1;
+    inline static constexpr size_t PMD_GENGAR_ID_LEN = sizeof(PMD_GENGAR_ID_ARR)-1;
     inline static constexpr char PMD_GENGAR_NAME_ARR[] CONFIG_STRING_SECTION = "Gengar";
     inline static constexpr const char* PMD_GENGAR_NAME = PMD_GENGAR_NAME_ARR;
     inline static constexpr size_t PMD_GENGAR_NAME_LEN = sizeof(PMD_GENGAR_NAME_ARR)-1;
@@ -3588,7 +3588,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ONIX_FQID_LEN = sizeof(PMD_ONIX_FQID_ARR)-1;
     inline static constexpr char PMD_ONIX_ID_ARR[] CONFIG_STRING_SECTION = "onix";
     inline static constexpr const char* PMD_ONIX_ID = PMD_ONIX_ID_ARR;
-    inline static constexpr size_t PMD_ONIX_ID_LEN = sizeof(PMD_ONIX_ID)-1;
+    inline static constexpr size_t PMD_ONIX_ID_LEN = sizeof(PMD_ONIX_ID_ARR)-1;
     inline static constexpr char PMD_ONIX_NAME_ARR[] CONFIG_STRING_SECTION = "Onix";
     inline static constexpr const char* PMD_ONIX_NAME = PMD_ONIX_NAME_ARR;
     inline static constexpr size_t PMD_ONIX_NAME_LEN = sizeof(PMD_ONIX_NAME_ARR)-1;
@@ -3626,7 +3626,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DROWZEE_FQID_LEN = sizeof(PMD_DROWZEE_FQID_ARR)-1;
     inline static constexpr char PMD_DROWZEE_ID_ARR[] CONFIG_STRING_SECTION = "drowzee";
     inline static constexpr const char* PMD_DROWZEE_ID = PMD_DROWZEE_ID_ARR;
-    inline static constexpr size_t PMD_DROWZEE_ID_LEN = sizeof(PMD_DROWZEE_ID)-1;
+    inline static constexpr size_t PMD_DROWZEE_ID_LEN = sizeof(PMD_DROWZEE_ID_ARR)-1;
     inline static constexpr char PMD_DROWZEE_NAME_ARR[] CONFIG_STRING_SECTION = "Drowzee";
     inline static constexpr const char* PMD_DROWZEE_NAME = PMD_DROWZEE_NAME_ARR;
     inline static constexpr size_t PMD_DROWZEE_NAME_LEN = sizeof(PMD_DROWZEE_NAME_ARR)-1;
@@ -3664,7 +3664,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HYPNO_FQID_LEN = sizeof(PMD_HYPNO_FQID_ARR)-1;
     inline static constexpr char PMD_HYPNO_ID_ARR[] CONFIG_STRING_SECTION = "hypno";
     inline static constexpr const char* PMD_HYPNO_ID = PMD_HYPNO_ID_ARR;
-    inline static constexpr size_t PMD_HYPNO_ID_LEN = sizeof(PMD_HYPNO_ID)-1;
+    inline static constexpr size_t PMD_HYPNO_ID_LEN = sizeof(PMD_HYPNO_ID_ARR)-1;
     inline static constexpr char PMD_HYPNO_NAME_ARR[] CONFIG_STRING_SECTION = "Hypno";
     inline static constexpr const char* PMD_HYPNO_NAME = PMD_HYPNO_NAME_ARR;
     inline static constexpr size_t PMD_HYPNO_NAME_LEN = sizeof(PMD_HYPNO_NAME_ARR)-1;
@@ -3702,7 +3702,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KRABBY_FQID_LEN = sizeof(PMD_KRABBY_FQID_ARR)-1;
     inline static constexpr char PMD_KRABBY_ID_ARR[] CONFIG_STRING_SECTION = "krabby";
     inline static constexpr const char* PMD_KRABBY_ID = PMD_KRABBY_ID_ARR;
-    inline static constexpr size_t PMD_KRABBY_ID_LEN = sizeof(PMD_KRABBY_ID)-1;
+    inline static constexpr size_t PMD_KRABBY_ID_LEN = sizeof(PMD_KRABBY_ID_ARR)-1;
     inline static constexpr char PMD_KRABBY_NAME_ARR[] CONFIG_STRING_SECTION = "Krabby";
     inline static constexpr const char* PMD_KRABBY_NAME = PMD_KRABBY_NAME_ARR;
     inline static constexpr size_t PMD_KRABBY_NAME_LEN = sizeof(PMD_KRABBY_NAME_ARR)-1;
@@ -3740,7 +3740,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KINGLER_FQID_LEN = sizeof(PMD_KINGLER_FQID_ARR)-1;
     inline static constexpr char PMD_KINGLER_ID_ARR[] CONFIG_STRING_SECTION = "kingler";
     inline static constexpr const char* PMD_KINGLER_ID = PMD_KINGLER_ID_ARR;
-    inline static constexpr size_t PMD_KINGLER_ID_LEN = sizeof(PMD_KINGLER_ID)-1;
+    inline static constexpr size_t PMD_KINGLER_ID_LEN = sizeof(PMD_KINGLER_ID_ARR)-1;
     inline static constexpr char PMD_KINGLER_NAME_ARR[] CONFIG_STRING_SECTION = "Kingler";
     inline static constexpr const char* PMD_KINGLER_NAME = PMD_KINGLER_NAME_ARR;
     inline static constexpr size_t PMD_KINGLER_NAME_LEN = sizeof(PMD_KINGLER_NAME_ARR)-1;
@@ -3778,7 +3778,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VOLTORB_FQID_LEN = sizeof(PMD_VOLTORB_FQID_ARR)-1;
     inline static constexpr char PMD_VOLTORB_ID_ARR[] CONFIG_STRING_SECTION = "voltorb";
     inline static constexpr const char* PMD_VOLTORB_ID = PMD_VOLTORB_ID_ARR;
-    inline static constexpr size_t PMD_VOLTORB_ID_LEN = sizeof(PMD_VOLTORB_ID)-1;
+    inline static constexpr size_t PMD_VOLTORB_ID_LEN = sizeof(PMD_VOLTORB_ID_ARR)-1;
     inline static constexpr char PMD_VOLTORB_NAME_ARR[] CONFIG_STRING_SECTION = "Voltorb";
     inline static constexpr const char* PMD_VOLTORB_NAME = PMD_VOLTORB_NAME_ARR;
     inline static constexpr size_t PMD_VOLTORB_NAME_LEN = sizeof(PMD_VOLTORB_NAME_ARR)-1;
@@ -3816,7 +3816,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ELECTRODE_FQID_LEN = sizeof(PMD_ELECTRODE_FQID_ARR)-1;
     inline static constexpr char PMD_ELECTRODE_ID_ARR[] CONFIG_STRING_SECTION = "electrode";
     inline static constexpr const char* PMD_ELECTRODE_ID = PMD_ELECTRODE_ID_ARR;
-    inline static constexpr size_t PMD_ELECTRODE_ID_LEN = sizeof(PMD_ELECTRODE_ID)-1;
+    inline static constexpr size_t PMD_ELECTRODE_ID_LEN = sizeof(PMD_ELECTRODE_ID_ARR)-1;
     inline static constexpr char PMD_ELECTRODE_NAME_ARR[] CONFIG_STRING_SECTION = "Electrode";
     inline static constexpr const char* PMD_ELECTRODE_NAME = PMD_ELECTRODE_NAME_ARR;
     inline static constexpr size_t PMD_ELECTRODE_NAME_LEN = sizeof(PMD_ELECTRODE_NAME_ARR)-1;
@@ -3854,7 +3854,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EXEGGCUTE_FQID_LEN = sizeof(PMD_EXEGGCUTE_FQID_ARR)-1;
     inline static constexpr char PMD_EXEGGCUTE_ID_ARR[] CONFIG_STRING_SECTION = "exeggcute";
     inline static constexpr const char* PMD_EXEGGCUTE_ID = PMD_EXEGGCUTE_ID_ARR;
-    inline static constexpr size_t PMD_EXEGGCUTE_ID_LEN = sizeof(PMD_EXEGGCUTE_ID)-1;
+    inline static constexpr size_t PMD_EXEGGCUTE_ID_LEN = sizeof(PMD_EXEGGCUTE_ID_ARR)-1;
     inline static constexpr char PMD_EXEGGCUTE_NAME_ARR[] CONFIG_STRING_SECTION = "Exeggcute";
     inline static constexpr const char* PMD_EXEGGCUTE_NAME = PMD_EXEGGCUTE_NAME_ARR;
     inline static constexpr size_t PMD_EXEGGCUTE_NAME_LEN = sizeof(PMD_EXEGGCUTE_NAME_ARR)-1;
@@ -3892,7 +3892,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EXEGGUTOR_FQID_LEN = sizeof(PMD_EXEGGUTOR_FQID_ARR)-1;
     inline static constexpr char PMD_EXEGGUTOR_ID_ARR[] CONFIG_STRING_SECTION = "exeggutor";
     inline static constexpr const char* PMD_EXEGGUTOR_ID = PMD_EXEGGUTOR_ID_ARR;
-    inline static constexpr size_t PMD_EXEGGUTOR_ID_LEN = sizeof(PMD_EXEGGUTOR_ID)-1;
+    inline static constexpr size_t PMD_EXEGGUTOR_ID_LEN = sizeof(PMD_EXEGGUTOR_ID_ARR)-1;
     inline static constexpr char PMD_EXEGGUTOR_NAME_ARR[] CONFIG_STRING_SECTION = "Exeggutor";
     inline static constexpr const char* PMD_EXEGGUTOR_NAME = PMD_EXEGGUTOR_NAME_ARR;
     inline static constexpr size_t PMD_EXEGGUTOR_NAME_LEN = sizeof(PMD_EXEGGUTOR_NAME_ARR)-1;
@@ -3930,7 +3930,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CUBONE_FQID_LEN = sizeof(PMD_CUBONE_FQID_ARR)-1;
     inline static constexpr char PMD_CUBONE_ID_ARR[] CONFIG_STRING_SECTION = "cubone";
     inline static constexpr const char* PMD_CUBONE_ID = PMD_CUBONE_ID_ARR;
-    inline static constexpr size_t PMD_CUBONE_ID_LEN = sizeof(PMD_CUBONE_ID)-1;
+    inline static constexpr size_t PMD_CUBONE_ID_LEN = sizeof(PMD_CUBONE_ID_ARR)-1;
     inline static constexpr char PMD_CUBONE_NAME_ARR[] CONFIG_STRING_SECTION = "Cubone";
     inline static constexpr const char* PMD_CUBONE_NAME = PMD_CUBONE_NAME_ARR;
     inline static constexpr size_t PMD_CUBONE_NAME_LEN = sizeof(PMD_CUBONE_NAME_ARR)-1;
@@ -3968,7 +3968,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAROWAK_FQID_LEN = sizeof(PMD_MAROWAK_FQID_ARR)-1;
     inline static constexpr char PMD_MAROWAK_ID_ARR[] CONFIG_STRING_SECTION = "marowak";
     inline static constexpr const char* PMD_MAROWAK_ID = PMD_MAROWAK_ID_ARR;
-    inline static constexpr size_t PMD_MAROWAK_ID_LEN = sizeof(PMD_MAROWAK_ID)-1;
+    inline static constexpr size_t PMD_MAROWAK_ID_LEN = sizeof(PMD_MAROWAK_ID_ARR)-1;
     inline static constexpr char PMD_MAROWAK_NAME_ARR[] CONFIG_STRING_SECTION = "Marowak";
     inline static constexpr const char* PMD_MAROWAK_NAME = PMD_MAROWAK_NAME_ARR;
     inline static constexpr size_t PMD_MAROWAK_NAME_LEN = sizeof(PMD_MAROWAK_NAME_ARR)-1;
@@ -4006,7 +4006,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HITMONLEE_FQID_LEN = sizeof(PMD_HITMONLEE_FQID_ARR)-1;
     inline static constexpr char PMD_HITMONLEE_ID_ARR[] CONFIG_STRING_SECTION = "hitmonlee";
     inline static constexpr const char* PMD_HITMONLEE_ID = PMD_HITMONLEE_ID_ARR;
-    inline static constexpr size_t PMD_HITMONLEE_ID_LEN = sizeof(PMD_HITMONLEE_ID)-1;
+    inline static constexpr size_t PMD_HITMONLEE_ID_LEN = sizeof(PMD_HITMONLEE_ID_ARR)-1;
     inline static constexpr char PMD_HITMONLEE_NAME_ARR[] CONFIG_STRING_SECTION = "Hitmonlee";
     inline static constexpr const char* PMD_HITMONLEE_NAME = PMD_HITMONLEE_NAME_ARR;
     inline static constexpr size_t PMD_HITMONLEE_NAME_LEN = sizeof(PMD_HITMONLEE_NAME_ARR)-1;
@@ -4044,7 +4044,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HITMONCHAN_FQID_LEN = sizeof(PMD_HITMONCHAN_FQID_ARR)-1;
     inline static constexpr char PMD_HITMONCHAN_ID_ARR[] CONFIG_STRING_SECTION = "hitmonchan";
     inline static constexpr const char* PMD_HITMONCHAN_ID = PMD_HITMONCHAN_ID_ARR;
-    inline static constexpr size_t PMD_HITMONCHAN_ID_LEN = sizeof(PMD_HITMONCHAN_ID)-1;
+    inline static constexpr size_t PMD_HITMONCHAN_ID_LEN = sizeof(PMD_HITMONCHAN_ID_ARR)-1;
     inline static constexpr char PMD_HITMONCHAN_NAME_ARR[] CONFIG_STRING_SECTION = "Hitmonchan";
     inline static constexpr const char* PMD_HITMONCHAN_NAME = PMD_HITMONCHAN_NAME_ARR;
     inline static constexpr size_t PMD_HITMONCHAN_NAME_LEN = sizeof(PMD_HITMONCHAN_NAME_ARR)-1;
@@ -4082,7 +4082,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LICKITUNG_FQID_LEN = sizeof(PMD_LICKITUNG_FQID_ARR)-1;
     inline static constexpr char PMD_LICKITUNG_ID_ARR[] CONFIG_STRING_SECTION = "lickitung";
     inline static constexpr const char* PMD_LICKITUNG_ID = PMD_LICKITUNG_ID_ARR;
-    inline static constexpr size_t PMD_LICKITUNG_ID_LEN = sizeof(PMD_LICKITUNG_ID)-1;
+    inline static constexpr size_t PMD_LICKITUNG_ID_LEN = sizeof(PMD_LICKITUNG_ID_ARR)-1;
     inline static constexpr char PMD_LICKITUNG_NAME_ARR[] CONFIG_STRING_SECTION = "Lickitung";
     inline static constexpr const char* PMD_LICKITUNG_NAME = PMD_LICKITUNG_NAME_ARR;
     inline static constexpr size_t PMD_LICKITUNG_NAME_LEN = sizeof(PMD_LICKITUNG_NAME_ARR)-1;
@@ -4120,7 +4120,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KOFFING_FQID_LEN = sizeof(PMD_KOFFING_FQID_ARR)-1;
     inline static constexpr char PMD_KOFFING_ID_ARR[] CONFIG_STRING_SECTION = "koffing";
     inline static constexpr const char* PMD_KOFFING_ID = PMD_KOFFING_ID_ARR;
-    inline static constexpr size_t PMD_KOFFING_ID_LEN = sizeof(PMD_KOFFING_ID)-1;
+    inline static constexpr size_t PMD_KOFFING_ID_LEN = sizeof(PMD_KOFFING_ID_ARR)-1;
     inline static constexpr char PMD_KOFFING_NAME_ARR[] CONFIG_STRING_SECTION = "Koffing";
     inline static constexpr const char* PMD_KOFFING_NAME = PMD_KOFFING_NAME_ARR;
     inline static constexpr size_t PMD_KOFFING_NAME_LEN = sizeof(PMD_KOFFING_NAME_ARR)-1;
@@ -4158,7 +4158,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WEEZING_FQID_LEN = sizeof(PMD_WEEZING_FQID_ARR)-1;
     inline static constexpr char PMD_WEEZING_ID_ARR[] CONFIG_STRING_SECTION = "weezing";
     inline static constexpr const char* PMD_WEEZING_ID = PMD_WEEZING_ID_ARR;
-    inline static constexpr size_t PMD_WEEZING_ID_LEN = sizeof(PMD_WEEZING_ID)-1;
+    inline static constexpr size_t PMD_WEEZING_ID_LEN = sizeof(PMD_WEEZING_ID_ARR)-1;
     inline static constexpr char PMD_WEEZING_NAME_ARR[] CONFIG_STRING_SECTION = "Weezing";
     inline static constexpr const char* PMD_WEEZING_NAME = PMD_WEEZING_NAME_ARR;
     inline static constexpr size_t PMD_WEEZING_NAME_LEN = sizeof(PMD_WEEZING_NAME_ARR)-1;
@@ -4196,7 +4196,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RHYHORN_FQID_LEN = sizeof(PMD_RHYHORN_FQID_ARR)-1;
     inline static constexpr char PMD_RHYHORN_ID_ARR[] CONFIG_STRING_SECTION = "rhyhorn";
     inline static constexpr const char* PMD_RHYHORN_ID = PMD_RHYHORN_ID_ARR;
-    inline static constexpr size_t PMD_RHYHORN_ID_LEN = sizeof(PMD_RHYHORN_ID)-1;
+    inline static constexpr size_t PMD_RHYHORN_ID_LEN = sizeof(PMD_RHYHORN_ID_ARR)-1;
     inline static constexpr char PMD_RHYHORN_NAME_ARR[] CONFIG_STRING_SECTION = "Rhyhorn";
     inline static constexpr const char* PMD_RHYHORN_NAME = PMD_RHYHORN_NAME_ARR;
     inline static constexpr size_t PMD_RHYHORN_NAME_LEN = sizeof(PMD_RHYHORN_NAME_ARR)-1;
@@ -4234,7 +4234,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RHYDON_FQID_LEN = sizeof(PMD_RHYDON_FQID_ARR)-1;
     inline static constexpr char PMD_RHYDON_ID_ARR[] CONFIG_STRING_SECTION = "rhydon";
     inline static constexpr const char* PMD_RHYDON_ID = PMD_RHYDON_ID_ARR;
-    inline static constexpr size_t PMD_RHYDON_ID_LEN = sizeof(PMD_RHYDON_ID)-1;
+    inline static constexpr size_t PMD_RHYDON_ID_LEN = sizeof(PMD_RHYDON_ID_ARR)-1;
     inline static constexpr char PMD_RHYDON_NAME_ARR[] CONFIG_STRING_SECTION = "Rhydon";
     inline static constexpr const char* PMD_RHYDON_NAME = PMD_RHYDON_NAME_ARR;
     inline static constexpr size_t PMD_RHYDON_NAME_LEN = sizeof(PMD_RHYDON_NAME_ARR)-1;
@@ -4272,7 +4272,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHANSEY_FQID_LEN = sizeof(PMD_CHANSEY_FQID_ARR)-1;
     inline static constexpr char PMD_CHANSEY_ID_ARR[] CONFIG_STRING_SECTION = "chansey";
     inline static constexpr const char* PMD_CHANSEY_ID = PMD_CHANSEY_ID_ARR;
-    inline static constexpr size_t PMD_CHANSEY_ID_LEN = sizeof(PMD_CHANSEY_ID)-1;
+    inline static constexpr size_t PMD_CHANSEY_ID_LEN = sizeof(PMD_CHANSEY_ID_ARR)-1;
     inline static constexpr char PMD_CHANSEY_NAME_ARR[] CONFIG_STRING_SECTION = "Chansey";
     inline static constexpr const char* PMD_CHANSEY_NAME = PMD_CHANSEY_NAME_ARR;
     inline static constexpr size_t PMD_CHANSEY_NAME_LEN = sizeof(PMD_CHANSEY_NAME_ARR)-1;
@@ -4310,7 +4310,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TANGELA_FQID_LEN = sizeof(PMD_TANGELA_FQID_ARR)-1;
     inline static constexpr char PMD_TANGELA_ID_ARR[] CONFIG_STRING_SECTION = "tangela";
     inline static constexpr const char* PMD_TANGELA_ID = PMD_TANGELA_ID_ARR;
-    inline static constexpr size_t PMD_TANGELA_ID_LEN = sizeof(PMD_TANGELA_ID)-1;
+    inline static constexpr size_t PMD_TANGELA_ID_LEN = sizeof(PMD_TANGELA_ID_ARR)-1;
     inline static constexpr char PMD_TANGELA_NAME_ARR[] CONFIG_STRING_SECTION = "Tangela";
     inline static constexpr const char* PMD_TANGELA_NAME = PMD_TANGELA_NAME_ARR;
     inline static constexpr size_t PMD_TANGELA_NAME_LEN = sizeof(PMD_TANGELA_NAME_ARR)-1;
@@ -4348,7 +4348,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KANGASKHAN_FQID_LEN = sizeof(PMD_KANGASKHAN_FQID_ARR)-1;
     inline static constexpr char PMD_KANGASKHAN_ID_ARR[] CONFIG_STRING_SECTION = "kangaskhan";
     inline static constexpr const char* PMD_KANGASKHAN_ID = PMD_KANGASKHAN_ID_ARR;
-    inline static constexpr size_t PMD_KANGASKHAN_ID_LEN = sizeof(PMD_KANGASKHAN_ID)-1;
+    inline static constexpr size_t PMD_KANGASKHAN_ID_LEN = sizeof(PMD_KANGASKHAN_ID_ARR)-1;
     inline static constexpr char PMD_KANGASKHAN_NAME_ARR[] CONFIG_STRING_SECTION = "Kangaskhan";
     inline static constexpr const char* PMD_KANGASKHAN_NAME = PMD_KANGASKHAN_NAME_ARR;
     inline static constexpr size_t PMD_KANGASKHAN_NAME_LEN = sizeof(PMD_KANGASKHAN_NAME_ARR)-1;
@@ -4386,7 +4386,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HORSEA_FQID_LEN = sizeof(PMD_HORSEA_FQID_ARR)-1;
     inline static constexpr char PMD_HORSEA_ID_ARR[] CONFIG_STRING_SECTION = "horsea";
     inline static constexpr const char* PMD_HORSEA_ID = PMD_HORSEA_ID_ARR;
-    inline static constexpr size_t PMD_HORSEA_ID_LEN = sizeof(PMD_HORSEA_ID)-1;
+    inline static constexpr size_t PMD_HORSEA_ID_LEN = sizeof(PMD_HORSEA_ID_ARR)-1;
     inline static constexpr char PMD_HORSEA_NAME_ARR[] CONFIG_STRING_SECTION = "Horsea";
     inline static constexpr const char* PMD_HORSEA_NAME = PMD_HORSEA_NAME_ARR;
     inline static constexpr size_t PMD_HORSEA_NAME_LEN = sizeof(PMD_HORSEA_NAME_ARR)-1;
@@ -4424,7 +4424,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEADRA_FQID_LEN = sizeof(PMD_SEADRA_FQID_ARR)-1;
     inline static constexpr char PMD_SEADRA_ID_ARR[] CONFIG_STRING_SECTION = "seadra";
     inline static constexpr const char* PMD_SEADRA_ID = PMD_SEADRA_ID_ARR;
-    inline static constexpr size_t PMD_SEADRA_ID_LEN = sizeof(PMD_SEADRA_ID)-1;
+    inline static constexpr size_t PMD_SEADRA_ID_LEN = sizeof(PMD_SEADRA_ID_ARR)-1;
     inline static constexpr char PMD_SEADRA_NAME_ARR[] CONFIG_STRING_SECTION = "Seadra";
     inline static constexpr const char* PMD_SEADRA_NAME = PMD_SEADRA_NAME_ARR;
     inline static constexpr size_t PMD_SEADRA_NAME_LEN = sizeof(PMD_SEADRA_NAME_ARR)-1;
@@ -4462,7 +4462,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOLDEEN_FQID_LEN = sizeof(PMD_GOLDEEN_FQID_ARR)-1;
     inline static constexpr char PMD_GOLDEEN_ID_ARR[] CONFIG_STRING_SECTION = "goldeen";
     inline static constexpr const char* PMD_GOLDEEN_ID = PMD_GOLDEEN_ID_ARR;
-    inline static constexpr size_t PMD_GOLDEEN_ID_LEN = sizeof(PMD_GOLDEEN_ID)-1;
+    inline static constexpr size_t PMD_GOLDEEN_ID_LEN = sizeof(PMD_GOLDEEN_ID_ARR)-1;
     inline static constexpr char PMD_GOLDEEN_NAME_ARR[] CONFIG_STRING_SECTION = "Goldeen";
     inline static constexpr const char* PMD_GOLDEEN_NAME = PMD_GOLDEEN_NAME_ARR;
     inline static constexpr size_t PMD_GOLDEEN_NAME_LEN = sizeof(PMD_GOLDEEN_NAME_ARR)-1;
@@ -4500,7 +4500,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEAKING_FQID_LEN = sizeof(PMD_SEAKING_FQID_ARR)-1;
     inline static constexpr char PMD_SEAKING_ID_ARR[] CONFIG_STRING_SECTION = "seaking";
     inline static constexpr const char* PMD_SEAKING_ID = PMD_SEAKING_ID_ARR;
-    inline static constexpr size_t PMD_SEAKING_ID_LEN = sizeof(PMD_SEAKING_ID)-1;
+    inline static constexpr size_t PMD_SEAKING_ID_LEN = sizeof(PMD_SEAKING_ID_ARR)-1;
     inline static constexpr char PMD_SEAKING_NAME_ARR[] CONFIG_STRING_SECTION = "Seaking";
     inline static constexpr const char* PMD_SEAKING_NAME = PMD_SEAKING_NAME_ARR;
     inline static constexpr size_t PMD_SEAKING_NAME_LEN = sizeof(PMD_SEAKING_NAME_ARR)-1;
@@ -4538,7 +4538,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STARYU_FQID_LEN = sizeof(PMD_STARYU_FQID_ARR)-1;
     inline static constexpr char PMD_STARYU_ID_ARR[] CONFIG_STRING_SECTION = "staryu";
     inline static constexpr const char* PMD_STARYU_ID = PMD_STARYU_ID_ARR;
-    inline static constexpr size_t PMD_STARYU_ID_LEN = sizeof(PMD_STARYU_ID)-1;
+    inline static constexpr size_t PMD_STARYU_ID_LEN = sizeof(PMD_STARYU_ID_ARR)-1;
     inline static constexpr char PMD_STARYU_NAME_ARR[] CONFIG_STRING_SECTION = "Staryu";
     inline static constexpr const char* PMD_STARYU_NAME = PMD_STARYU_NAME_ARR;
     inline static constexpr size_t PMD_STARYU_NAME_LEN = sizeof(PMD_STARYU_NAME_ARR)-1;
@@ -4576,7 +4576,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STARMIE_FQID_LEN = sizeof(PMD_STARMIE_FQID_ARR)-1;
     inline static constexpr char PMD_STARMIE_ID_ARR[] CONFIG_STRING_SECTION = "starmie";
     inline static constexpr const char* PMD_STARMIE_ID = PMD_STARMIE_ID_ARR;
-    inline static constexpr size_t PMD_STARMIE_ID_LEN = sizeof(PMD_STARMIE_ID)-1;
+    inline static constexpr size_t PMD_STARMIE_ID_LEN = sizeof(PMD_STARMIE_ID_ARR)-1;
     inline static constexpr char PMD_STARMIE_NAME_ARR[] CONFIG_STRING_SECTION = "Starmie";
     inline static constexpr const char* PMD_STARMIE_NAME = PMD_STARMIE_NAME_ARR;
     inline static constexpr size_t PMD_STARMIE_NAME_LEN = sizeof(PMD_STARMIE_NAME_ARR)-1;
@@ -4614,7 +4614,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MR_MIME_FQID_LEN = sizeof(PMD_MR_MIME_FQID_ARR)-1;
     inline static constexpr char PMD_MR_MIME_ID_ARR[] CONFIG_STRING_SECTION = "mr_mime";
     inline static constexpr const char* PMD_MR_MIME_ID = PMD_MR_MIME_ID_ARR;
-    inline static constexpr size_t PMD_MR_MIME_ID_LEN = sizeof(PMD_MR_MIME_ID)-1;
+    inline static constexpr size_t PMD_MR_MIME_ID_LEN = sizeof(PMD_MR_MIME_ID_ARR)-1;
     inline static constexpr char PMD_MR_MIME_NAME_ARR[] CONFIG_STRING_SECTION = "Mr-mime";
     inline static constexpr const char* PMD_MR_MIME_NAME = PMD_MR_MIME_NAME_ARR;
     inline static constexpr size_t PMD_MR_MIME_NAME_LEN = sizeof(PMD_MR_MIME_NAME_ARR)-1;
@@ -4652,7 +4652,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCYTHER_FQID_LEN = sizeof(PMD_SCYTHER_FQID_ARR)-1;
     inline static constexpr char PMD_SCYTHER_ID_ARR[] CONFIG_STRING_SECTION = "scyther";
     inline static constexpr const char* PMD_SCYTHER_ID = PMD_SCYTHER_ID_ARR;
-    inline static constexpr size_t PMD_SCYTHER_ID_LEN = sizeof(PMD_SCYTHER_ID)-1;
+    inline static constexpr size_t PMD_SCYTHER_ID_LEN = sizeof(PMD_SCYTHER_ID_ARR)-1;
     inline static constexpr char PMD_SCYTHER_NAME_ARR[] CONFIG_STRING_SECTION = "Scyther";
     inline static constexpr const char* PMD_SCYTHER_NAME = PMD_SCYTHER_NAME_ARR;
     inline static constexpr size_t PMD_SCYTHER_NAME_LEN = sizeof(PMD_SCYTHER_NAME_ARR)-1;
@@ -4690,7 +4690,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JYNX_FQID_LEN = sizeof(PMD_JYNX_FQID_ARR)-1;
     inline static constexpr char PMD_JYNX_ID_ARR[] CONFIG_STRING_SECTION = "jynx";
     inline static constexpr const char* PMD_JYNX_ID = PMD_JYNX_ID_ARR;
-    inline static constexpr size_t PMD_JYNX_ID_LEN = sizeof(PMD_JYNX_ID)-1;
+    inline static constexpr size_t PMD_JYNX_ID_LEN = sizeof(PMD_JYNX_ID_ARR)-1;
     inline static constexpr char PMD_JYNX_NAME_ARR[] CONFIG_STRING_SECTION = "Jynx";
     inline static constexpr const char* PMD_JYNX_NAME = PMD_JYNX_NAME_ARR;
     inline static constexpr size_t PMD_JYNX_NAME_LEN = sizeof(PMD_JYNX_NAME_ARR)-1;
@@ -4728,7 +4728,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ELECTABUZZ_FQID_LEN = sizeof(PMD_ELECTABUZZ_FQID_ARR)-1;
     inline static constexpr char PMD_ELECTABUZZ_ID_ARR[] CONFIG_STRING_SECTION = "electabuzz";
     inline static constexpr const char* PMD_ELECTABUZZ_ID = PMD_ELECTABUZZ_ID_ARR;
-    inline static constexpr size_t PMD_ELECTABUZZ_ID_LEN = sizeof(PMD_ELECTABUZZ_ID)-1;
+    inline static constexpr size_t PMD_ELECTABUZZ_ID_LEN = sizeof(PMD_ELECTABUZZ_ID_ARR)-1;
     inline static constexpr char PMD_ELECTABUZZ_NAME_ARR[] CONFIG_STRING_SECTION = "Electabuzz";
     inline static constexpr const char* PMD_ELECTABUZZ_NAME = PMD_ELECTABUZZ_NAME_ARR;
     inline static constexpr size_t PMD_ELECTABUZZ_NAME_LEN = sizeof(PMD_ELECTABUZZ_NAME_ARR)-1;
@@ -4766,7 +4766,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGMAR_FQID_LEN = sizeof(PMD_MAGMAR_FQID_ARR)-1;
     inline static constexpr char PMD_MAGMAR_ID_ARR[] CONFIG_STRING_SECTION = "magmar";
     inline static constexpr const char* PMD_MAGMAR_ID = PMD_MAGMAR_ID_ARR;
-    inline static constexpr size_t PMD_MAGMAR_ID_LEN = sizeof(PMD_MAGMAR_ID)-1;
+    inline static constexpr size_t PMD_MAGMAR_ID_LEN = sizeof(PMD_MAGMAR_ID_ARR)-1;
     inline static constexpr char PMD_MAGMAR_NAME_ARR[] CONFIG_STRING_SECTION = "Magmar";
     inline static constexpr const char* PMD_MAGMAR_NAME = PMD_MAGMAR_NAME_ARR;
     inline static constexpr size_t PMD_MAGMAR_NAME_LEN = sizeof(PMD_MAGMAR_NAME_ARR)-1;
@@ -4804,7 +4804,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PINSIR_FQID_LEN = sizeof(PMD_PINSIR_FQID_ARR)-1;
     inline static constexpr char PMD_PINSIR_ID_ARR[] CONFIG_STRING_SECTION = "pinsir";
     inline static constexpr const char* PMD_PINSIR_ID = PMD_PINSIR_ID_ARR;
-    inline static constexpr size_t PMD_PINSIR_ID_LEN = sizeof(PMD_PINSIR_ID)-1;
+    inline static constexpr size_t PMD_PINSIR_ID_LEN = sizeof(PMD_PINSIR_ID_ARR)-1;
     inline static constexpr char PMD_PINSIR_NAME_ARR[] CONFIG_STRING_SECTION = "Pinsir";
     inline static constexpr const char* PMD_PINSIR_NAME = PMD_PINSIR_NAME_ARR;
     inline static constexpr size_t PMD_PINSIR_NAME_LEN = sizeof(PMD_PINSIR_NAME_ARR)-1;
@@ -4842,7 +4842,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TAUROS_FQID_LEN = sizeof(PMD_TAUROS_FQID_ARR)-1;
     inline static constexpr char PMD_TAUROS_ID_ARR[] CONFIG_STRING_SECTION = "tauros";
     inline static constexpr const char* PMD_TAUROS_ID = PMD_TAUROS_ID_ARR;
-    inline static constexpr size_t PMD_TAUROS_ID_LEN = sizeof(PMD_TAUROS_ID)-1;
+    inline static constexpr size_t PMD_TAUROS_ID_LEN = sizeof(PMD_TAUROS_ID_ARR)-1;
     inline static constexpr char PMD_TAUROS_NAME_ARR[] CONFIG_STRING_SECTION = "Tauros";
     inline static constexpr const char* PMD_TAUROS_NAME = PMD_TAUROS_NAME_ARR;
     inline static constexpr size_t PMD_TAUROS_NAME_LEN = sizeof(PMD_TAUROS_NAME_ARR)-1;
@@ -4880,7 +4880,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGIKARP_FQID_LEN = sizeof(PMD_MAGIKARP_FQID_ARR)-1;
     inline static constexpr char PMD_MAGIKARP_ID_ARR[] CONFIG_STRING_SECTION = "magikarp";
     inline static constexpr const char* PMD_MAGIKARP_ID = PMD_MAGIKARP_ID_ARR;
-    inline static constexpr size_t PMD_MAGIKARP_ID_LEN = sizeof(PMD_MAGIKARP_ID)-1;
+    inline static constexpr size_t PMD_MAGIKARP_ID_LEN = sizeof(PMD_MAGIKARP_ID_ARR)-1;
     inline static constexpr char PMD_MAGIKARP_NAME_ARR[] CONFIG_STRING_SECTION = "Magikarp";
     inline static constexpr const char* PMD_MAGIKARP_NAME = PMD_MAGIKARP_NAME_ARR;
     inline static constexpr size_t PMD_MAGIKARP_NAME_LEN = sizeof(PMD_MAGIKARP_NAME_ARR)-1;
@@ -4918,7 +4918,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GYARADOS_FQID_LEN = sizeof(PMD_GYARADOS_FQID_ARR)-1;
     inline static constexpr char PMD_GYARADOS_ID_ARR[] CONFIG_STRING_SECTION = "gyarados";
     inline static constexpr const char* PMD_GYARADOS_ID = PMD_GYARADOS_ID_ARR;
-    inline static constexpr size_t PMD_GYARADOS_ID_LEN = sizeof(PMD_GYARADOS_ID)-1;
+    inline static constexpr size_t PMD_GYARADOS_ID_LEN = sizeof(PMD_GYARADOS_ID_ARR)-1;
     inline static constexpr char PMD_GYARADOS_NAME_ARR[] CONFIG_STRING_SECTION = "Gyarados";
     inline static constexpr const char* PMD_GYARADOS_NAME = PMD_GYARADOS_NAME_ARR;
     inline static constexpr size_t PMD_GYARADOS_NAME_LEN = sizeof(PMD_GYARADOS_NAME_ARR)-1;
@@ -4956,7 +4956,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LAPRAS_FQID_LEN = sizeof(PMD_LAPRAS_FQID_ARR)-1;
     inline static constexpr char PMD_LAPRAS_ID_ARR[] CONFIG_STRING_SECTION = "lapras";
     inline static constexpr const char* PMD_LAPRAS_ID = PMD_LAPRAS_ID_ARR;
-    inline static constexpr size_t PMD_LAPRAS_ID_LEN = sizeof(PMD_LAPRAS_ID)-1;
+    inline static constexpr size_t PMD_LAPRAS_ID_LEN = sizeof(PMD_LAPRAS_ID_ARR)-1;
     inline static constexpr char PMD_LAPRAS_NAME_ARR[] CONFIG_STRING_SECTION = "Lapras";
     inline static constexpr const char* PMD_LAPRAS_NAME = PMD_LAPRAS_NAME_ARR;
     inline static constexpr size_t PMD_LAPRAS_NAME_LEN = sizeof(PMD_LAPRAS_NAME_ARR)-1;
@@ -4994,7 +4994,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DITTO_FQID_LEN = sizeof(PMD_DITTO_FQID_ARR)-1;
     inline static constexpr char PMD_DITTO_ID_ARR[] CONFIG_STRING_SECTION = "ditto";
     inline static constexpr const char* PMD_DITTO_ID = PMD_DITTO_ID_ARR;
-    inline static constexpr size_t PMD_DITTO_ID_LEN = sizeof(PMD_DITTO_ID)-1;
+    inline static constexpr size_t PMD_DITTO_ID_LEN = sizeof(PMD_DITTO_ID_ARR)-1;
     inline static constexpr char PMD_DITTO_NAME_ARR[] CONFIG_STRING_SECTION = "Ditto";
     inline static constexpr const char* PMD_DITTO_NAME = PMD_DITTO_NAME_ARR;
     inline static constexpr size_t PMD_DITTO_NAME_LEN = sizeof(PMD_DITTO_NAME_ARR)-1;
@@ -5032,7 +5032,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EEVEE_FQID_LEN = sizeof(PMD_EEVEE_FQID_ARR)-1;
     inline static constexpr char PMD_EEVEE_ID_ARR[] CONFIG_STRING_SECTION = "eevee";
     inline static constexpr const char* PMD_EEVEE_ID = PMD_EEVEE_ID_ARR;
-    inline static constexpr size_t PMD_EEVEE_ID_LEN = sizeof(PMD_EEVEE_ID)-1;
+    inline static constexpr size_t PMD_EEVEE_ID_LEN = sizeof(PMD_EEVEE_ID_ARR)-1;
     inline static constexpr char PMD_EEVEE_NAME_ARR[] CONFIG_STRING_SECTION = "Eevee";
     inline static constexpr const char* PMD_EEVEE_NAME = PMD_EEVEE_NAME_ARR;
     inline static constexpr size_t PMD_EEVEE_NAME_LEN = sizeof(PMD_EEVEE_NAME_ARR)-1;
@@ -5070,7 +5070,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VAPOREON_FQID_LEN = sizeof(PMD_VAPOREON_FQID_ARR)-1;
     inline static constexpr char PMD_VAPOREON_ID_ARR[] CONFIG_STRING_SECTION = "vaporeon";
     inline static constexpr const char* PMD_VAPOREON_ID = PMD_VAPOREON_ID_ARR;
-    inline static constexpr size_t PMD_VAPOREON_ID_LEN = sizeof(PMD_VAPOREON_ID)-1;
+    inline static constexpr size_t PMD_VAPOREON_ID_LEN = sizeof(PMD_VAPOREON_ID_ARR)-1;
     inline static constexpr char PMD_VAPOREON_NAME_ARR[] CONFIG_STRING_SECTION = "Vaporeon";
     inline static constexpr const char* PMD_VAPOREON_NAME = PMD_VAPOREON_NAME_ARR;
     inline static constexpr size_t PMD_VAPOREON_NAME_LEN = sizeof(PMD_VAPOREON_NAME_ARR)-1;
@@ -5108,7 +5108,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JOLTEON_FQID_LEN = sizeof(PMD_JOLTEON_FQID_ARR)-1;
     inline static constexpr char PMD_JOLTEON_ID_ARR[] CONFIG_STRING_SECTION = "jolteon";
     inline static constexpr const char* PMD_JOLTEON_ID = PMD_JOLTEON_ID_ARR;
-    inline static constexpr size_t PMD_JOLTEON_ID_LEN = sizeof(PMD_JOLTEON_ID)-1;
+    inline static constexpr size_t PMD_JOLTEON_ID_LEN = sizeof(PMD_JOLTEON_ID_ARR)-1;
     inline static constexpr char PMD_JOLTEON_NAME_ARR[] CONFIG_STRING_SECTION = "Jolteon";
     inline static constexpr const char* PMD_JOLTEON_NAME = PMD_JOLTEON_NAME_ARR;
     inline static constexpr size_t PMD_JOLTEON_NAME_LEN = sizeof(PMD_JOLTEON_NAME_ARR)-1;
@@ -5146,7 +5146,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLAREON_FQID_LEN = sizeof(PMD_FLAREON_FQID_ARR)-1;
     inline static constexpr char PMD_FLAREON_ID_ARR[] CONFIG_STRING_SECTION = "flareon";
     inline static constexpr const char* PMD_FLAREON_ID = PMD_FLAREON_ID_ARR;
-    inline static constexpr size_t PMD_FLAREON_ID_LEN = sizeof(PMD_FLAREON_ID)-1;
+    inline static constexpr size_t PMD_FLAREON_ID_LEN = sizeof(PMD_FLAREON_ID_ARR)-1;
     inline static constexpr char PMD_FLAREON_NAME_ARR[] CONFIG_STRING_SECTION = "Flareon";
     inline static constexpr const char* PMD_FLAREON_NAME = PMD_FLAREON_NAME_ARR;
     inline static constexpr size_t PMD_FLAREON_NAME_LEN = sizeof(PMD_FLAREON_NAME_ARR)-1;
@@ -5184,7 +5184,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PORYGON_FQID_LEN = sizeof(PMD_PORYGON_FQID_ARR)-1;
     inline static constexpr char PMD_PORYGON_ID_ARR[] CONFIG_STRING_SECTION = "porygon";
     inline static constexpr const char* PMD_PORYGON_ID = PMD_PORYGON_ID_ARR;
-    inline static constexpr size_t PMD_PORYGON_ID_LEN = sizeof(PMD_PORYGON_ID)-1;
+    inline static constexpr size_t PMD_PORYGON_ID_LEN = sizeof(PMD_PORYGON_ID_ARR)-1;
     inline static constexpr char PMD_PORYGON_NAME_ARR[] CONFIG_STRING_SECTION = "Porygon";
     inline static constexpr const char* PMD_PORYGON_NAME = PMD_PORYGON_NAME_ARR;
     inline static constexpr size_t PMD_PORYGON_NAME_LEN = sizeof(PMD_PORYGON_NAME_ARR)-1;
@@ -5222,7 +5222,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_OMANYTE_FQID_LEN = sizeof(PMD_OMANYTE_FQID_ARR)-1;
     inline static constexpr char PMD_OMANYTE_ID_ARR[] CONFIG_STRING_SECTION = "omanyte";
     inline static constexpr const char* PMD_OMANYTE_ID = PMD_OMANYTE_ID_ARR;
-    inline static constexpr size_t PMD_OMANYTE_ID_LEN = sizeof(PMD_OMANYTE_ID)-1;
+    inline static constexpr size_t PMD_OMANYTE_ID_LEN = sizeof(PMD_OMANYTE_ID_ARR)-1;
     inline static constexpr char PMD_OMANYTE_NAME_ARR[] CONFIG_STRING_SECTION = "Omanyte";
     inline static constexpr const char* PMD_OMANYTE_NAME = PMD_OMANYTE_NAME_ARR;
     inline static constexpr size_t PMD_OMANYTE_NAME_LEN = sizeof(PMD_OMANYTE_NAME_ARR)-1;
@@ -5260,7 +5260,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_OMASTAR_FQID_LEN = sizeof(PMD_OMASTAR_FQID_ARR)-1;
     inline static constexpr char PMD_OMASTAR_ID_ARR[] CONFIG_STRING_SECTION = "omastar";
     inline static constexpr const char* PMD_OMASTAR_ID = PMD_OMASTAR_ID_ARR;
-    inline static constexpr size_t PMD_OMASTAR_ID_LEN = sizeof(PMD_OMASTAR_ID)-1;
+    inline static constexpr size_t PMD_OMASTAR_ID_LEN = sizeof(PMD_OMASTAR_ID_ARR)-1;
     inline static constexpr char PMD_OMASTAR_NAME_ARR[] CONFIG_STRING_SECTION = "Omastar";
     inline static constexpr const char* PMD_OMASTAR_NAME = PMD_OMASTAR_NAME_ARR;
     inline static constexpr size_t PMD_OMASTAR_NAME_LEN = sizeof(PMD_OMASTAR_NAME_ARR)-1;
@@ -5298,7 +5298,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KABUTO_FQID_LEN = sizeof(PMD_KABUTO_FQID_ARR)-1;
     inline static constexpr char PMD_KABUTO_ID_ARR[] CONFIG_STRING_SECTION = "kabuto";
     inline static constexpr const char* PMD_KABUTO_ID = PMD_KABUTO_ID_ARR;
-    inline static constexpr size_t PMD_KABUTO_ID_LEN = sizeof(PMD_KABUTO_ID)-1;
+    inline static constexpr size_t PMD_KABUTO_ID_LEN = sizeof(PMD_KABUTO_ID_ARR)-1;
     inline static constexpr char PMD_KABUTO_NAME_ARR[] CONFIG_STRING_SECTION = "Kabuto";
     inline static constexpr const char* PMD_KABUTO_NAME = PMD_KABUTO_NAME_ARR;
     inline static constexpr size_t PMD_KABUTO_NAME_LEN = sizeof(PMD_KABUTO_NAME_ARR)-1;
@@ -5336,7 +5336,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KABUTOPS_FQID_LEN = sizeof(PMD_KABUTOPS_FQID_ARR)-1;
     inline static constexpr char PMD_KABUTOPS_ID_ARR[] CONFIG_STRING_SECTION = "kabutops";
     inline static constexpr const char* PMD_KABUTOPS_ID = PMD_KABUTOPS_ID_ARR;
-    inline static constexpr size_t PMD_KABUTOPS_ID_LEN = sizeof(PMD_KABUTOPS_ID)-1;
+    inline static constexpr size_t PMD_KABUTOPS_ID_LEN = sizeof(PMD_KABUTOPS_ID_ARR)-1;
     inline static constexpr char PMD_KABUTOPS_NAME_ARR[] CONFIG_STRING_SECTION = "Kabutops";
     inline static constexpr const char* PMD_KABUTOPS_NAME = PMD_KABUTOPS_NAME_ARR;
     inline static constexpr size_t PMD_KABUTOPS_NAME_LEN = sizeof(PMD_KABUTOPS_NAME_ARR)-1;
@@ -5374,7 +5374,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AERODACTYL_FQID_LEN = sizeof(PMD_AERODACTYL_FQID_ARR)-1;
     inline static constexpr char PMD_AERODACTYL_ID_ARR[] CONFIG_STRING_SECTION = "aerodactyl";
     inline static constexpr const char* PMD_AERODACTYL_ID = PMD_AERODACTYL_ID_ARR;
-    inline static constexpr size_t PMD_AERODACTYL_ID_LEN = sizeof(PMD_AERODACTYL_ID)-1;
+    inline static constexpr size_t PMD_AERODACTYL_ID_LEN = sizeof(PMD_AERODACTYL_ID_ARR)-1;
     inline static constexpr char PMD_AERODACTYL_NAME_ARR[] CONFIG_STRING_SECTION = "Aerodactyl";
     inline static constexpr const char* PMD_AERODACTYL_NAME = PMD_AERODACTYL_NAME_ARR;
     inline static constexpr size_t PMD_AERODACTYL_NAME_LEN = sizeof(PMD_AERODACTYL_NAME_ARR)-1;
@@ -5412,7 +5412,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNORLAX_FQID_LEN = sizeof(PMD_SNORLAX_FQID_ARR)-1;
     inline static constexpr char PMD_SNORLAX_ID_ARR[] CONFIG_STRING_SECTION = "snorlax";
     inline static constexpr const char* PMD_SNORLAX_ID = PMD_SNORLAX_ID_ARR;
-    inline static constexpr size_t PMD_SNORLAX_ID_LEN = sizeof(PMD_SNORLAX_ID)-1;
+    inline static constexpr size_t PMD_SNORLAX_ID_LEN = sizeof(PMD_SNORLAX_ID_ARR)-1;
     inline static constexpr char PMD_SNORLAX_NAME_ARR[] CONFIG_STRING_SECTION = "Snorlax";
     inline static constexpr const char* PMD_SNORLAX_NAME = PMD_SNORLAX_NAME_ARR;
     inline static constexpr size_t PMD_SNORLAX_NAME_LEN = sizeof(PMD_SNORLAX_NAME_ARR)-1;
@@ -5450,7 +5450,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARTICUNO_FQID_LEN = sizeof(PMD_ARTICUNO_FQID_ARR)-1;
     inline static constexpr char PMD_ARTICUNO_ID_ARR[] CONFIG_STRING_SECTION = "articuno";
     inline static constexpr const char* PMD_ARTICUNO_ID = PMD_ARTICUNO_ID_ARR;
-    inline static constexpr size_t PMD_ARTICUNO_ID_LEN = sizeof(PMD_ARTICUNO_ID)-1;
+    inline static constexpr size_t PMD_ARTICUNO_ID_LEN = sizeof(PMD_ARTICUNO_ID_ARR)-1;
     inline static constexpr char PMD_ARTICUNO_NAME_ARR[] CONFIG_STRING_SECTION = "Articuno";
     inline static constexpr const char* PMD_ARTICUNO_NAME = PMD_ARTICUNO_NAME_ARR;
     inline static constexpr size_t PMD_ARTICUNO_NAME_LEN = sizeof(PMD_ARTICUNO_NAME_ARR)-1;
@@ -5488,7 +5488,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZAPDOS_FQID_LEN = sizeof(PMD_ZAPDOS_FQID_ARR)-1;
     inline static constexpr char PMD_ZAPDOS_ID_ARR[] CONFIG_STRING_SECTION = "zapdos";
     inline static constexpr const char* PMD_ZAPDOS_ID = PMD_ZAPDOS_ID_ARR;
-    inline static constexpr size_t PMD_ZAPDOS_ID_LEN = sizeof(PMD_ZAPDOS_ID)-1;
+    inline static constexpr size_t PMD_ZAPDOS_ID_LEN = sizeof(PMD_ZAPDOS_ID_ARR)-1;
     inline static constexpr char PMD_ZAPDOS_NAME_ARR[] CONFIG_STRING_SECTION = "Zapdos";
     inline static constexpr const char* PMD_ZAPDOS_NAME = PMD_ZAPDOS_NAME_ARR;
     inline static constexpr size_t PMD_ZAPDOS_NAME_LEN = sizeof(PMD_ZAPDOS_NAME_ARR)-1;
@@ -5526,7 +5526,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MOLTRES_FQID_LEN = sizeof(PMD_MOLTRES_FQID_ARR)-1;
     inline static constexpr char PMD_MOLTRES_ID_ARR[] CONFIG_STRING_SECTION = "moltres";
     inline static constexpr const char* PMD_MOLTRES_ID = PMD_MOLTRES_ID_ARR;
-    inline static constexpr size_t PMD_MOLTRES_ID_LEN = sizeof(PMD_MOLTRES_ID)-1;
+    inline static constexpr size_t PMD_MOLTRES_ID_LEN = sizeof(PMD_MOLTRES_ID_ARR)-1;
     inline static constexpr char PMD_MOLTRES_NAME_ARR[] CONFIG_STRING_SECTION = "Moltres";
     inline static constexpr const char* PMD_MOLTRES_NAME = PMD_MOLTRES_NAME_ARR;
     inline static constexpr size_t PMD_MOLTRES_NAME_LEN = sizeof(PMD_MOLTRES_NAME_ARR)-1;
@@ -5564,7 +5564,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRATINI_FQID_LEN = sizeof(PMD_DRATINI_FQID_ARR)-1;
     inline static constexpr char PMD_DRATINI_ID_ARR[] CONFIG_STRING_SECTION = "dratini";
     inline static constexpr const char* PMD_DRATINI_ID = PMD_DRATINI_ID_ARR;
-    inline static constexpr size_t PMD_DRATINI_ID_LEN = sizeof(PMD_DRATINI_ID)-1;
+    inline static constexpr size_t PMD_DRATINI_ID_LEN = sizeof(PMD_DRATINI_ID_ARR)-1;
     inline static constexpr char PMD_DRATINI_NAME_ARR[] CONFIG_STRING_SECTION = "Dratini";
     inline static constexpr const char* PMD_DRATINI_NAME = PMD_DRATINI_NAME_ARR;
     inline static constexpr size_t PMD_DRATINI_NAME_LEN = sizeof(PMD_DRATINI_NAME_ARR)-1;
@@ -5602,7 +5602,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRAGONAIR_FQID_LEN = sizeof(PMD_DRAGONAIR_FQID_ARR)-1;
     inline static constexpr char PMD_DRAGONAIR_ID_ARR[] CONFIG_STRING_SECTION = "dragonair";
     inline static constexpr const char* PMD_DRAGONAIR_ID = PMD_DRAGONAIR_ID_ARR;
-    inline static constexpr size_t PMD_DRAGONAIR_ID_LEN = sizeof(PMD_DRAGONAIR_ID)-1;
+    inline static constexpr size_t PMD_DRAGONAIR_ID_LEN = sizeof(PMD_DRAGONAIR_ID_ARR)-1;
     inline static constexpr char PMD_DRAGONAIR_NAME_ARR[] CONFIG_STRING_SECTION = "Dragonair";
     inline static constexpr const char* PMD_DRAGONAIR_NAME = PMD_DRAGONAIR_NAME_ARR;
     inline static constexpr size_t PMD_DRAGONAIR_NAME_LEN = sizeof(PMD_DRAGONAIR_NAME_ARR)-1;
@@ -5640,7 +5640,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRAGONITE_FQID_LEN = sizeof(PMD_DRAGONITE_FQID_ARR)-1;
     inline static constexpr char PMD_DRAGONITE_ID_ARR[] CONFIG_STRING_SECTION = "dragonite";
     inline static constexpr const char* PMD_DRAGONITE_ID = PMD_DRAGONITE_ID_ARR;
-    inline static constexpr size_t PMD_DRAGONITE_ID_LEN = sizeof(PMD_DRAGONITE_ID)-1;
+    inline static constexpr size_t PMD_DRAGONITE_ID_LEN = sizeof(PMD_DRAGONITE_ID_ARR)-1;
     inline static constexpr char PMD_DRAGONITE_NAME_ARR[] CONFIG_STRING_SECTION = "Dragonite";
     inline static constexpr const char* PMD_DRAGONITE_NAME = PMD_DRAGONITE_NAME_ARR;
     inline static constexpr size_t PMD_DRAGONITE_NAME_LEN = sizeof(PMD_DRAGONITE_NAME_ARR)-1;
@@ -5678,7 +5678,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MEWTWO_FQID_LEN = sizeof(PMD_MEWTWO_FQID_ARR)-1;
     inline static constexpr char PMD_MEWTWO_ID_ARR[] CONFIG_STRING_SECTION = "mewtwo";
     inline static constexpr const char* PMD_MEWTWO_ID = PMD_MEWTWO_ID_ARR;
-    inline static constexpr size_t PMD_MEWTWO_ID_LEN = sizeof(PMD_MEWTWO_ID)-1;
+    inline static constexpr size_t PMD_MEWTWO_ID_LEN = sizeof(PMD_MEWTWO_ID_ARR)-1;
     inline static constexpr char PMD_MEWTWO_NAME_ARR[] CONFIG_STRING_SECTION = "Mewtwo";
     inline static constexpr const char* PMD_MEWTWO_NAME = PMD_MEWTWO_NAME_ARR;
     inline static constexpr size_t PMD_MEWTWO_NAME_LEN = sizeof(PMD_MEWTWO_NAME_ARR)-1;
@@ -5716,7 +5716,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MEW_FQID_LEN = sizeof(PMD_MEW_FQID_ARR)-1;
     inline static constexpr char PMD_MEW_ID_ARR[] CONFIG_STRING_SECTION = "mew";
     inline static constexpr const char* PMD_MEW_ID = PMD_MEW_ID_ARR;
-    inline static constexpr size_t PMD_MEW_ID_LEN = sizeof(PMD_MEW_ID)-1;
+    inline static constexpr size_t PMD_MEW_ID_LEN = sizeof(PMD_MEW_ID_ARR)-1;
     inline static constexpr char PMD_MEW_NAME_ARR[] CONFIG_STRING_SECTION = "Mew";
     inline static constexpr const char* PMD_MEW_NAME = PMD_MEW_NAME_ARR;
     inline static constexpr size_t PMD_MEW_NAME_LEN = sizeof(PMD_MEW_NAME_ARR)-1;
@@ -5754,7 +5754,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHIKORITA_FQID_LEN = sizeof(PMD_CHIKORITA_FQID_ARR)-1;
     inline static constexpr char PMD_CHIKORITA_ID_ARR[] CONFIG_STRING_SECTION = "chikorita";
     inline static constexpr const char* PMD_CHIKORITA_ID = PMD_CHIKORITA_ID_ARR;
-    inline static constexpr size_t PMD_CHIKORITA_ID_LEN = sizeof(PMD_CHIKORITA_ID)-1;
+    inline static constexpr size_t PMD_CHIKORITA_ID_LEN = sizeof(PMD_CHIKORITA_ID_ARR)-1;
     inline static constexpr char PMD_CHIKORITA_NAME_ARR[] CONFIG_STRING_SECTION = "Chikorita";
     inline static constexpr const char* PMD_CHIKORITA_NAME = PMD_CHIKORITA_NAME_ARR;
     inline static constexpr size_t PMD_CHIKORITA_NAME_LEN = sizeof(PMD_CHIKORITA_NAME_ARR)-1;
@@ -5792,7 +5792,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BAYLEEF_FQID_LEN = sizeof(PMD_BAYLEEF_FQID_ARR)-1;
     inline static constexpr char PMD_BAYLEEF_ID_ARR[] CONFIG_STRING_SECTION = "bayleef";
     inline static constexpr const char* PMD_BAYLEEF_ID = PMD_BAYLEEF_ID_ARR;
-    inline static constexpr size_t PMD_BAYLEEF_ID_LEN = sizeof(PMD_BAYLEEF_ID)-1;
+    inline static constexpr size_t PMD_BAYLEEF_ID_LEN = sizeof(PMD_BAYLEEF_ID_ARR)-1;
     inline static constexpr char PMD_BAYLEEF_NAME_ARR[] CONFIG_STRING_SECTION = "Bayleef";
     inline static constexpr const char* PMD_BAYLEEF_NAME = PMD_BAYLEEF_NAME_ARR;
     inline static constexpr size_t PMD_BAYLEEF_NAME_LEN = sizeof(PMD_BAYLEEF_NAME_ARR)-1;
@@ -5830,7 +5830,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MEGANIUM_FQID_LEN = sizeof(PMD_MEGANIUM_FQID_ARR)-1;
     inline static constexpr char PMD_MEGANIUM_ID_ARR[] CONFIG_STRING_SECTION = "meganium";
     inline static constexpr const char* PMD_MEGANIUM_ID = PMD_MEGANIUM_ID_ARR;
-    inline static constexpr size_t PMD_MEGANIUM_ID_LEN = sizeof(PMD_MEGANIUM_ID)-1;
+    inline static constexpr size_t PMD_MEGANIUM_ID_LEN = sizeof(PMD_MEGANIUM_ID_ARR)-1;
     inline static constexpr char PMD_MEGANIUM_NAME_ARR[] CONFIG_STRING_SECTION = "Meganium";
     inline static constexpr const char* PMD_MEGANIUM_NAME = PMD_MEGANIUM_NAME_ARR;
     inline static constexpr size_t PMD_MEGANIUM_NAME_LEN = sizeof(PMD_MEGANIUM_NAME_ARR)-1;
@@ -5868,7 +5868,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CYNDAQUIL_FQID_LEN = sizeof(PMD_CYNDAQUIL_FQID_ARR)-1;
     inline static constexpr char PMD_CYNDAQUIL_ID_ARR[] CONFIG_STRING_SECTION = "cyndaquil";
     inline static constexpr const char* PMD_CYNDAQUIL_ID = PMD_CYNDAQUIL_ID_ARR;
-    inline static constexpr size_t PMD_CYNDAQUIL_ID_LEN = sizeof(PMD_CYNDAQUIL_ID)-1;
+    inline static constexpr size_t PMD_CYNDAQUIL_ID_LEN = sizeof(PMD_CYNDAQUIL_ID_ARR)-1;
     inline static constexpr char PMD_CYNDAQUIL_NAME_ARR[] CONFIG_STRING_SECTION = "Cyndaquil";
     inline static constexpr const char* PMD_CYNDAQUIL_NAME = PMD_CYNDAQUIL_NAME_ARR;
     inline static constexpr size_t PMD_CYNDAQUIL_NAME_LEN = sizeof(PMD_CYNDAQUIL_NAME_ARR)-1;
@@ -5906,7 +5906,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_QUILAVA_FQID_LEN = sizeof(PMD_QUILAVA_FQID_ARR)-1;
     inline static constexpr char PMD_QUILAVA_ID_ARR[] CONFIG_STRING_SECTION = "quilava";
     inline static constexpr const char* PMD_QUILAVA_ID = PMD_QUILAVA_ID_ARR;
-    inline static constexpr size_t PMD_QUILAVA_ID_LEN = sizeof(PMD_QUILAVA_ID)-1;
+    inline static constexpr size_t PMD_QUILAVA_ID_LEN = sizeof(PMD_QUILAVA_ID_ARR)-1;
     inline static constexpr char PMD_QUILAVA_NAME_ARR[] CONFIG_STRING_SECTION = "Quilava";
     inline static constexpr const char* PMD_QUILAVA_NAME = PMD_QUILAVA_NAME_ARR;
     inline static constexpr size_t PMD_QUILAVA_NAME_LEN = sizeof(PMD_QUILAVA_NAME_ARR)-1;
@@ -5944,7 +5944,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYPHLOSION_FQID_LEN = sizeof(PMD_TYPHLOSION_FQID_ARR)-1;
     inline static constexpr char PMD_TYPHLOSION_ID_ARR[] CONFIG_STRING_SECTION = "typhlosion";
     inline static constexpr const char* PMD_TYPHLOSION_ID = PMD_TYPHLOSION_ID_ARR;
-    inline static constexpr size_t PMD_TYPHLOSION_ID_LEN = sizeof(PMD_TYPHLOSION_ID)-1;
+    inline static constexpr size_t PMD_TYPHLOSION_ID_LEN = sizeof(PMD_TYPHLOSION_ID_ARR)-1;
     inline static constexpr char PMD_TYPHLOSION_NAME_ARR[] CONFIG_STRING_SECTION = "Typhlosion";
     inline static constexpr const char* PMD_TYPHLOSION_NAME = PMD_TYPHLOSION_NAME_ARR;
     inline static constexpr size_t PMD_TYPHLOSION_NAME_LEN = sizeof(PMD_TYPHLOSION_NAME_ARR)-1;
@@ -5982,7 +5982,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOTODILE_FQID_LEN = sizeof(PMD_TOTODILE_FQID_ARR)-1;
     inline static constexpr char PMD_TOTODILE_ID_ARR[] CONFIG_STRING_SECTION = "totodile";
     inline static constexpr const char* PMD_TOTODILE_ID = PMD_TOTODILE_ID_ARR;
-    inline static constexpr size_t PMD_TOTODILE_ID_LEN = sizeof(PMD_TOTODILE_ID)-1;
+    inline static constexpr size_t PMD_TOTODILE_ID_LEN = sizeof(PMD_TOTODILE_ID_ARR)-1;
     inline static constexpr char PMD_TOTODILE_NAME_ARR[] CONFIG_STRING_SECTION = "Totodile";
     inline static constexpr const char* PMD_TOTODILE_NAME = PMD_TOTODILE_NAME_ARR;
     inline static constexpr size_t PMD_TOTODILE_NAME_LEN = sizeof(PMD_TOTODILE_NAME_ARR)-1;
@@ -6020,7 +6020,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CROCONAW_FQID_LEN = sizeof(PMD_CROCONAW_FQID_ARR)-1;
     inline static constexpr char PMD_CROCONAW_ID_ARR[] CONFIG_STRING_SECTION = "croconaw";
     inline static constexpr const char* PMD_CROCONAW_ID = PMD_CROCONAW_ID_ARR;
-    inline static constexpr size_t PMD_CROCONAW_ID_LEN = sizeof(PMD_CROCONAW_ID)-1;
+    inline static constexpr size_t PMD_CROCONAW_ID_LEN = sizeof(PMD_CROCONAW_ID_ARR)-1;
     inline static constexpr char PMD_CROCONAW_NAME_ARR[] CONFIG_STRING_SECTION = "Croconaw";
     inline static constexpr const char* PMD_CROCONAW_NAME = PMD_CROCONAW_NAME_ARR;
     inline static constexpr size_t PMD_CROCONAW_NAME_LEN = sizeof(PMD_CROCONAW_NAME_ARR)-1;
@@ -6058,7 +6058,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FERALIGATR_FQID_LEN = sizeof(PMD_FERALIGATR_FQID_ARR)-1;
     inline static constexpr char PMD_FERALIGATR_ID_ARR[] CONFIG_STRING_SECTION = "feraligatr";
     inline static constexpr const char* PMD_FERALIGATR_ID = PMD_FERALIGATR_ID_ARR;
-    inline static constexpr size_t PMD_FERALIGATR_ID_LEN = sizeof(PMD_FERALIGATR_ID)-1;
+    inline static constexpr size_t PMD_FERALIGATR_ID_LEN = sizeof(PMD_FERALIGATR_ID_ARR)-1;
     inline static constexpr char PMD_FERALIGATR_NAME_ARR[] CONFIG_STRING_SECTION = "Feraligatr";
     inline static constexpr const char* PMD_FERALIGATR_NAME = PMD_FERALIGATR_NAME_ARR;
     inline static constexpr size_t PMD_FERALIGATR_NAME_LEN = sizeof(PMD_FERALIGATR_NAME_ARR)-1;
@@ -6096,7 +6096,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SENTRET_FQID_LEN = sizeof(PMD_SENTRET_FQID_ARR)-1;
     inline static constexpr char PMD_SENTRET_ID_ARR[] CONFIG_STRING_SECTION = "sentret";
     inline static constexpr const char* PMD_SENTRET_ID = PMD_SENTRET_ID_ARR;
-    inline static constexpr size_t PMD_SENTRET_ID_LEN = sizeof(PMD_SENTRET_ID)-1;
+    inline static constexpr size_t PMD_SENTRET_ID_LEN = sizeof(PMD_SENTRET_ID_ARR)-1;
     inline static constexpr char PMD_SENTRET_NAME_ARR[] CONFIG_STRING_SECTION = "Sentret";
     inline static constexpr const char* PMD_SENTRET_NAME = PMD_SENTRET_NAME_ARR;
     inline static constexpr size_t PMD_SENTRET_NAME_LEN = sizeof(PMD_SENTRET_NAME_ARR)-1;
@@ -6134,7 +6134,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FURRET_FQID_LEN = sizeof(PMD_FURRET_FQID_ARR)-1;
     inline static constexpr char PMD_FURRET_ID_ARR[] CONFIG_STRING_SECTION = "furret";
     inline static constexpr const char* PMD_FURRET_ID = PMD_FURRET_ID_ARR;
-    inline static constexpr size_t PMD_FURRET_ID_LEN = sizeof(PMD_FURRET_ID)-1;
+    inline static constexpr size_t PMD_FURRET_ID_LEN = sizeof(PMD_FURRET_ID_ARR)-1;
     inline static constexpr char PMD_FURRET_NAME_ARR[] CONFIG_STRING_SECTION = "Furret";
     inline static constexpr const char* PMD_FURRET_NAME = PMD_FURRET_NAME_ARR;
     inline static constexpr size_t PMD_FURRET_NAME_LEN = sizeof(PMD_FURRET_NAME_ARR)-1;
@@ -6172,7 +6172,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HOOTHOOT_FQID_LEN = sizeof(PMD_HOOTHOOT_FQID_ARR)-1;
     inline static constexpr char PMD_HOOTHOOT_ID_ARR[] CONFIG_STRING_SECTION = "hoothoot";
     inline static constexpr const char* PMD_HOOTHOOT_ID = PMD_HOOTHOOT_ID_ARR;
-    inline static constexpr size_t PMD_HOOTHOOT_ID_LEN = sizeof(PMD_HOOTHOOT_ID)-1;
+    inline static constexpr size_t PMD_HOOTHOOT_ID_LEN = sizeof(PMD_HOOTHOOT_ID_ARR)-1;
     inline static constexpr char PMD_HOOTHOOT_NAME_ARR[] CONFIG_STRING_SECTION = "Hoothoot";
     inline static constexpr const char* PMD_HOOTHOOT_NAME = PMD_HOOTHOOT_NAME_ARR;
     inline static constexpr size_t PMD_HOOTHOOT_NAME_LEN = sizeof(PMD_HOOTHOOT_NAME_ARR)-1;
@@ -6210,7 +6210,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NOCTOWL_FQID_LEN = sizeof(PMD_NOCTOWL_FQID_ARR)-1;
     inline static constexpr char PMD_NOCTOWL_ID_ARR[] CONFIG_STRING_SECTION = "noctowl";
     inline static constexpr const char* PMD_NOCTOWL_ID = PMD_NOCTOWL_ID_ARR;
-    inline static constexpr size_t PMD_NOCTOWL_ID_LEN = sizeof(PMD_NOCTOWL_ID)-1;
+    inline static constexpr size_t PMD_NOCTOWL_ID_LEN = sizeof(PMD_NOCTOWL_ID_ARR)-1;
     inline static constexpr char PMD_NOCTOWL_NAME_ARR[] CONFIG_STRING_SECTION = "Noctowl";
     inline static constexpr const char* PMD_NOCTOWL_NAME = PMD_NOCTOWL_NAME_ARR;
     inline static constexpr size_t PMD_NOCTOWL_NAME_LEN = sizeof(PMD_NOCTOWL_NAME_ARR)-1;
@@ -6248,7 +6248,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LEDYBA_FQID_LEN = sizeof(PMD_LEDYBA_FQID_ARR)-1;
     inline static constexpr char PMD_LEDYBA_ID_ARR[] CONFIG_STRING_SECTION = "ledyba";
     inline static constexpr const char* PMD_LEDYBA_ID = PMD_LEDYBA_ID_ARR;
-    inline static constexpr size_t PMD_LEDYBA_ID_LEN = sizeof(PMD_LEDYBA_ID)-1;
+    inline static constexpr size_t PMD_LEDYBA_ID_LEN = sizeof(PMD_LEDYBA_ID_ARR)-1;
     inline static constexpr char PMD_LEDYBA_NAME_ARR[] CONFIG_STRING_SECTION = "Ledyba";
     inline static constexpr const char* PMD_LEDYBA_NAME = PMD_LEDYBA_NAME_ARR;
     inline static constexpr size_t PMD_LEDYBA_NAME_LEN = sizeof(PMD_LEDYBA_NAME_ARR)-1;
@@ -6286,7 +6286,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LEDIAN_FQID_LEN = sizeof(PMD_LEDIAN_FQID_ARR)-1;
     inline static constexpr char PMD_LEDIAN_ID_ARR[] CONFIG_STRING_SECTION = "ledian";
     inline static constexpr const char* PMD_LEDIAN_ID = PMD_LEDIAN_ID_ARR;
-    inline static constexpr size_t PMD_LEDIAN_ID_LEN = sizeof(PMD_LEDIAN_ID)-1;
+    inline static constexpr size_t PMD_LEDIAN_ID_LEN = sizeof(PMD_LEDIAN_ID_ARR)-1;
     inline static constexpr char PMD_LEDIAN_NAME_ARR[] CONFIG_STRING_SECTION = "Ledian";
     inline static constexpr const char* PMD_LEDIAN_NAME = PMD_LEDIAN_NAME_ARR;
     inline static constexpr size_t PMD_LEDIAN_NAME_LEN = sizeof(PMD_LEDIAN_NAME_ARR)-1;
@@ -6324,7 +6324,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPINARAK_FQID_LEN = sizeof(PMD_SPINARAK_FQID_ARR)-1;
     inline static constexpr char PMD_SPINARAK_ID_ARR[] CONFIG_STRING_SECTION = "spinarak";
     inline static constexpr const char* PMD_SPINARAK_ID = PMD_SPINARAK_ID_ARR;
-    inline static constexpr size_t PMD_SPINARAK_ID_LEN = sizeof(PMD_SPINARAK_ID)-1;
+    inline static constexpr size_t PMD_SPINARAK_ID_LEN = sizeof(PMD_SPINARAK_ID_ARR)-1;
     inline static constexpr char PMD_SPINARAK_NAME_ARR[] CONFIG_STRING_SECTION = "Spinarak";
     inline static constexpr const char* PMD_SPINARAK_NAME = PMD_SPINARAK_NAME_ARR;
     inline static constexpr size_t PMD_SPINARAK_NAME_LEN = sizeof(PMD_SPINARAK_NAME_ARR)-1;
@@ -6362,7 +6362,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARIADOS_FQID_LEN = sizeof(PMD_ARIADOS_FQID_ARR)-1;
     inline static constexpr char PMD_ARIADOS_ID_ARR[] CONFIG_STRING_SECTION = "ariados";
     inline static constexpr const char* PMD_ARIADOS_ID = PMD_ARIADOS_ID_ARR;
-    inline static constexpr size_t PMD_ARIADOS_ID_LEN = sizeof(PMD_ARIADOS_ID)-1;
+    inline static constexpr size_t PMD_ARIADOS_ID_LEN = sizeof(PMD_ARIADOS_ID_ARR)-1;
     inline static constexpr char PMD_ARIADOS_NAME_ARR[] CONFIG_STRING_SECTION = "Ariados";
     inline static constexpr const char* PMD_ARIADOS_NAME = PMD_ARIADOS_NAME_ARR;
     inline static constexpr size_t PMD_ARIADOS_NAME_LEN = sizeof(PMD_ARIADOS_NAME_ARR)-1;
@@ -6400,7 +6400,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CROBAT_FQID_LEN = sizeof(PMD_CROBAT_FQID_ARR)-1;
     inline static constexpr char PMD_CROBAT_ID_ARR[] CONFIG_STRING_SECTION = "crobat";
     inline static constexpr const char* PMD_CROBAT_ID = PMD_CROBAT_ID_ARR;
-    inline static constexpr size_t PMD_CROBAT_ID_LEN = sizeof(PMD_CROBAT_ID)-1;
+    inline static constexpr size_t PMD_CROBAT_ID_LEN = sizeof(PMD_CROBAT_ID_ARR)-1;
     inline static constexpr char PMD_CROBAT_NAME_ARR[] CONFIG_STRING_SECTION = "Crobat";
     inline static constexpr const char* PMD_CROBAT_NAME = PMD_CROBAT_NAME_ARR;
     inline static constexpr size_t PMD_CROBAT_NAME_LEN = sizeof(PMD_CROBAT_NAME_ARR)-1;
@@ -6438,7 +6438,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHINCHOU_FQID_LEN = sizeof(PMD_CHINCHOU_FQID_ARR)-1;
     inline static constexpr char PMD_CHINCHOU_ID_ARR[] CONFIG_STRING_SECTION = "chinchou";
     inline static constexpr const char* PMD_CHINCHOU_ID = PMD_CHINCHOU_ID_ARR;
-    inline static constexpr size_t PMD_CHINCHOU_ID_LEN = sizeof(PMD_CHINCHOU_ID)-1;
+    inline static constexpr size_t PMD_CHINCHOU_ID_LEN = sizeof(PMD_CHINCHOU_ID_ARR)-1;
     inline static constexpr char PMD_CHINCHOU_NAME_ARR[] CONFIG_STRING_SECTION = "Chinchou";
     inline static constexpr const char* PMD_CHINCHOU_NAME = PMD_CHINCHOU_NAME_ARR;
     inline static constexpr size_t PMD_CHINCHOU_NAME_LEN = sizeof(PMD_CHINCHOU_NAME_ARR)-1;
@@ -6476,7 +6476,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LANTURN_FQID_LEN = sizeof(PMD_LANTURN_FQID_ARR)-1;
     inline static constexpr char PMD_LANTURN_ID_ARR[] CONFIG_STRING_SECTION = "lanturn";
     inline static constexpr const char* PMD_LANTURN_ID = PMD_LANTURN_ID_ARR;
-    inline static constexpr size_t PMD_LANTURN_ID_LEN = sizeof(PMD_LANTURN_ID)-1;
+    inline static constexpr size_t PMD_LANTURN_ID_LEN = sizeof(PMD_LANTURN_ID_ARR)-1;
     inline static constexpr char PMD_LANTURN_NAME_ARR[] CONFIG_STRING_SECTION = "Lanturn";
     inline static constexpr const char* PMD_LANTURN_NAME = PMD_LANTURN_NAME_ARR;
     inline static constexpr size_t PMD_LANTURN_NAME_LEN = sizeof(PMD_LANTURN_NAME_ARR)-1;
@@ -6514,7 +6514,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PICHU_FQID_LEN = sizeof(PMD_PICHU_FQID_ARR)-1;
     inline static constexpr char PMD_PICHU_ID_ARR[] CONFIG_STRING_SECTION = "pichu";
     inline static constexpr const char* PMD_PICHU_ID = PMD_PICHU_ID_ARR;
-    inline static constexpr size_t PMD_PICHU_ID_LEN = sizeof(PMD_PICHU_ID)-1;
+    inline static constexpr size_t PMD_PICHU_ID_LEN = sizeof(PMD_PICHU_ID_ARR)-1;
     inline static constexpr char PMD_PICHU_NAME_ARR[] CONFIG_STRING_SECTION = "Pichu";
     inline static constexpr const char* PMD_PICHU_NAME = PMD_PICHU_NAME_ARR;
     inline static constexpr size_t PMD_PICHU_NAME_LEN = sizeof(PMD_PICHU_NAME_ARR)-1;
@@ -6552,7 +6552,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLEFFA_FQID_LEN = sizeof(PMD_CLEFFA_FQID_ARR)-1;
     inline static constexpr char PMD_CLEFFA_ID_ARR[] CONFIG_STRING_SECTION = "cleffa";
     inline static constexpr const char* PMD_CLEFFA_ID = PMD_CLEFFA_ID_ARR;
-    inline static constexpr size_t PMD_CLEFFA_ID_LEN = sizeof(PMD_CLEFFA_ID)-1;
+    inline static constexpr size_t PMD_CLEFFA_ID_LEN = sizeof(PMD_CLEFFA_ID_ARR)-1;
     inline static constexpr char PMD_CLEFFA_NAME_ARR[] CONFIG_STRING_SECTION = "Cleffa";
     inline static constexpr const char* PMD_CLEFFA_NAME = PMD_CLEFFA_NAME_ARR;
     inline static constexpr size_t PMD_CLEFFA_NAME_LEN = sizeof(PMD_CLEFFA_NAME_ARR)-1;
@@ -6590,7 +6590,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_IGGLYBUFF_FQID_LEN = sizeof(PMD_IGGLYBUFF_FQID_ARR)-1;
     inline static constexpr char PMD_IGGLYBUFF_ID_ARR[] CONFIG_STRING_SECTION = "igglybuff";
     inline static constexpr const char* PMD_IGGLYBUFF_ID = PMD_IGGLYBUFF_ID_ARR;
-    inline static constexpr size_t PMD_IGGLYBUFF_ID_LEN = sizeof(PMD_IGGLYBUFF_ID)-1;
+    inline static constexpr size_t PMD_IGGLYBUFF_ID_LEN = sizeof(PMD_IGGLYBUFF_ID_ARR)-1;
     inline static constexpr char PMD_IGGLYBUFF_NAME_ARR[] CONFIG_STRING_SECTION = "Igglybuff";
     inline static constexpr const char* PMD_IGGLYBUFF_NAME = PMD_IGGLYBUFF_NAME_ARR;
     inline static constexpr size_t PMD_IGGLYBUFF_NAME_LEN = sizeof(PMD_IGGLYBUFF_NAME_ARR)-1;
@@ -6628,7 +6628,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOGEPI_FQID_LEN = sizeof(PMD_TOGEPI_FQID_ARR)-1;
     inline static constexpr char PMD_TOGEPI_ID_ARR[] CONFIG_STRING_SECTION = "togepi";
     inline static constexpr const char* PMD_TOGEPI_ID = PMD_TOGEPI_ID_ARR;
-    inline static constexpr size_t PMD_TOGEPI_ID_LEN = sizeof(PMD_TOGEPI_ID)-1;
+    inline static constexpr size_t PMD_TOGEPI_ID_LEN = sizeof(PMD_TOGEPI_ID_ARR)-1;
     inline static constexpr char PMD_TOGEPI_NAME_ARR[] CONFIG_STRING_SECTION = "Togepi";
     inline static constexpr const char* PMD_TOGEPI_NAME = PMD_TOGEPI_NAME_ARR;
     inline static constexpr size_t PMD_TOGEPI_NAME_LEN = sizeof(PMD_TOGEPI_NAME_ARR)-1;
@@ -6666,7 +6666,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOGETIC_FQID_LEN = sizeof(PMD_TOGETIC_FQID_ARR)-1;
     inline static constexpr char PMD_TOGETIC_ID_ARR[] CONFIG_STRING_SECTION = "togetic";
     inline static constexpr const char* PMD_TOGETIC_ID = PMD_TOGETIC_ID_ARR;
-    inline static constexpr size_t PMD_TOGETIC_ID_LEN = sizeof(PMD_TOGETIC_ID)-1;
+    inline static constexpr size_t PMD_TOGETIC_ID_LEN = sizeof(PMD_TOGETIC_ID_ARR)-1;
     inline static constexpr char PMD_TOGETIC_NAME_ARR[] CONFIG_STRING_SECTION = "Togetic";
     inline static constexpr const char* PMD_TOGETIC_NAME = PMD_TOGETIC_NAME_ARR;
     inline static constexpr size_t PMD_TOGETIC_NAME_LEN = sizeof(PMD_TOGETIC_NAME_ARR)-1;
@@ -6704,7 +6704,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NATU_FQID_LEN = sizeof(PMD_NATU_FQID_ARR)-1;
     inline static constexpr char PMD_NATU_ID_ARR[] CONFIG_STRING_SECTION = "natu";
     inline static constexpr const char* PMD_NATU_ID = PMD_NATU_ID_ARR;
-    inline static constexpr size_t PMD_NATU_ID_LEN = sizeof(PMD_NATU_ID)-1;
+    inline static constexpr size_t PMD_NATU_ID_LEN = sizeof(PMD_NATU_ID_ARR)-1;
     inline static constexpr char PMD_NATU_NAME_ARR[] CONFIG_STRING_SECTION = "Natu";
     inline static constexpr const char* PMD_NATU_NAME = PMD_NATU_NAME_ARR;
     inline static constexpr size_t PMD_NATU_NAME_LEN = sizeof(PMD_NATU_NAME_ARR)-1;
@@ -6742,7 +6742,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_XATU_FQID_LEN = sizeof(PMD_XATU_FQID_ARR)-1;
     inline static constexpr char PMD_XATU_ID_ARR[] CONFIG_STRING_SECTION = "xatu";
     inline static constexpr const char* PMD_XATU_ID = PMD_XATU_ID_ARR;
-    inline static constexpr size_t PMD_XATU_ID_LEN = sizeof(PMD_XATU_ID)-1;
+    inline static constexpr size_t PMD_XATU_ID_LEN = sizeof(PMD_XATU_ID_ARR)-1;
     inline static constexpr char PMD_XATU_NAME_ARR[] CONFIG_STRING_SECTION = "Xatu";
     inline static constexpr const char* PMD_XATU_NAME = PMD_XATU_NAME_ARR;
     inline static constexpr size_t PMD_XATU_NAME_LEN = sizeof(PMD_XATU_NAME_ARR)-1;
@@ -6780,7 +6780,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAREEP_FQID_LEN = sizeof(PMD_MAREEP_FQID_ARR)-1;
     inline static constexpr char PMD_MAREEP_ID_ARR[] CONFIG_STRING_SECTION = "mareep";
     inline static constexpr const char* PMD_MAREEP_ID = PMD_MAREEP_ID_ARR;
-    inline static constexpr size_t PMD_MAREEP_ID_LEN = sizeof(PMD_MAREEP_ID)-1;
+    inline static constexpr size_t PMD_MAREEP_ID_LEN = sizeof(PMD_MAREEP_ID_ARR)-1;
     inline static constexpr char PMD_MAREEP_NAME_ARR[] CONFIG_STRING_SECTION = "Mareep";
     inline static constexpr const char* PMD_MAREEP_NAME = PMD_MAREEP_NAME_ARR;
     inline static constexpr size_t PMD_MAREEP_NAME_LEN = sizeof(PMD_MAREEP_NAME_ARR)-1;
@@ -6818,7 +6818,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLAAFFY_FQID_LEN = sizeof(PMD_FLAAFFY_FQID_ARR)-1;
     inline static constexpr char PMD_FLAAFFY_ID_ARR[] CONFIG_STRING_SECTION = "flaaffy";
     inline static constexpr const char* PMD_FLAAFFY_ID = PMD_FLAAFFY_ID_ARR;
-    inline static constexpr size_t PMD_FLAAFFY_ID_LEN = sizeof(PMD_FLAAFFY_ID)-1;
+    inline static constexpr size_t PMD_FLAAFFY_ID_LEN = sizeof(PMD_FLAAFFY_ID_ARR)-1;
     inline static constexpr char PMD_FLAAFFY_NAME_ARR[] CONFIG_STRING_SECTION = "Flaaffy";
     inline static constexpr const char* PMD_FLAAFFY_NAME = PMD_FLAAFFY_NAME_ARR;
     inline static constexpr size_t PMD_FLAAFFY_NAME_LEN = sizeof(PMD_FLAAFFY_NAME_ARR)-1;
@@ -6856,7 +6856,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AMPHAROS_FQID_LEN = sizeof(PMD_AMPHAROS_FQID_ARR)-1;
     inline static constexpr char PMD_AMPHAROS_ID_ARR[] CONFIG_STRING_SECTION = "ampharos";
     inline static constexpr const char* PMD_AMPHAROS_ID = PMD_AMPHAROS_ID_ARR;
-    inline static constexpr size_t PMD_AMPHAROS_ID_LEN = sizeof(PMD_AMPHAROS_ID)-1;
+    inline static constexpr size_t PMD_AMPHAROS_ID_LEN = sizeof(PMD_AMPHAROS_ID_ARR)-1;
     inline static constexpr char PMD_AMPHAROS_NAME_ARR[] CONFIG_STRING_SECTION = "Ampharos";
     inline static constexpr const char* PMD_AMPHAROS_NAME = PMD_AMPHAROS_NAME_ARR;
     inline static constexpr size_t PMD_AMPHAROS_NAME_LEN = sizeof(PMD_AMPHAROS_NAME_ARR)-1;
@@ -6894,7 +6894,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BELLOSSOM_FQID_LEN = sizeof(PMD_BELLOSSOM_FQID_ARR)-1;
     inline static constexpr char PMD_BELLOSSOM_ID_ARR[] CONFIG_STRING_SECTION = "bellossom";
     inline static constexpr const char* PMD_BELLOSSOM_ID = PMD_BELLOSSOM_ID_ARR;
-    inline static constexpr size_t PMD_BELLOSSOM_ID_LEN = sizeof(PMD_BELLOSSOM_ID)-1;
+    inline static constexpr size_t PMD_BELLOSSOM_ID_LEN = sizeof(PMD_BELLOSSOM_ID_ARR)-1;
     inline static constexpr char PMD_BELLOSSOM_NAME_ARR[] CONFIG_STRING_SECTION = "Bellossom";
     inline static constexpr const char* PMD_BELLOSSOM_NAME = PMD_BELLOSSOM_NAME_ARR;
     inline static constexpr size_t PMD_BELLOSSOM_NAME_LEN = sizeof(PMD_BELLOSSOM_NAME_ARR)-1;
@@ -6932,7 +6932,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MARILL_FQID_LEN = sizeof(PMD_MARILL_FQID_ARR)-1;
     inline static constexpr char PMD_MARILL_ID_ARR[] CONFIG_STRING_SECTION = "marill";
     inline static constexpr const char* PMD_MARILL_ID = PMD_MARILL_ID_ARR;
-    inline static constexpr size_t PMD_MARILL_ID_LEN = sizeof(PMD_MARILL_ID)-1;
+    inline static constexpr size_t PMD_MARILL_ID_LEN = sizeof(PMD_MARILL_ID_ARR)-1;
     inline static constexpr char PMD_MARILL_NAME_ARR[] CONFIG_STRING_SECTION = "Marill";
     inline static constexpr const char* PMD_MARILL_NAME = PMD_MARILL_NAME_ARR;
     inline static constexpr size_t PMD_MARILL_NAME_LEN = sizeof(PMD_MARILL_NAME_ARR)-1;
@@ -6970,7 +6970,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AZUMARILL_FQID_LEN = sizeof(PMD_AZUMARILL_FQID_ARR)-1;
     inline static constexpr char PMD_AZUMARILL_ID_ARR[] CONFIG_STRING_SECTION = "azumarill";
     inline static constexpr const char* PMD_AZUMARILL_ID = PMD_AZUMARILL_ID_ARR;
-    inline static constexpr size_t PMD_AZUMARILL_ID_LEN = sizeof(PMD_AZUMARILL_ID)-1;
+    inline static constexpr size_t PMD_AZUMARILL_ID_LEN = sizeof(PMD_AZUMARILL_ID_ARR)-1;
     inline static constexpr char PMD_AZUMARILL_NAME_ARR[] CONFIG_STRING_SECTION = "Azumarill";
     inline static constexpr const char* PMD_AZUMARILL_NAME = PMD_AZUMARILL_NAME_ARR;
     inline static constexpr size_t PMD_AZUMARILL_NAME_LEN = sizeof(PMD_AZUMARILL_NAME_ARR)-1;
@@ -7008,7 +7008,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SUDOWOODO_FQID_LEN = sizeof(PMD_SUDOWOODO_FQID_ARR)-1;
     inline static constexpr char PMD_SUDOWOODO_ID_ARR[] CONFIG_STRING_SECTION = "sudowoodo";
     inline static constexpr const char* PMD_SUDOWOODO_ID = PMD_SUDOWOODO_ID_ARR;
-    inline static constexpr size_t PMD_SUDOWOODO_ID_LEN = sizeof(PMD_SUDOWOODO_ID)-1;
+    inline static constexpr size_t PMD_SUDOWOODO_ID_LEN = sizeof(PMD_SUDOWOODO_ID_ARR)-1;
     inline static constexpr char PMD_SUDOWOODO_NAME_ARR[] CONFIG_STRING_SECTION = "Sudowoodo";
     inline static constexpr const char* PMD_SUDOWOODO_NAME = PMD_SUDOWOODO_NAME_ARR;
     inline static constexpr size_t PMD_SUDOWOODO_NAME_LEN = sizeof(PMD_SUDOWOODO_NAME_ARR)-1;
@@ -7046,7 +7046,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POLITOED_FQID_LEN = sizeof(PMD_POLITOED_FQID_ARR)-1;
     inline static constexpr char PMD_POLITOED_ID_ARR[] CONFIG_STRING_SECTION = "politoed";
     inline static constexpr const char* PMD_POLITOED_ID = PMD_POLITOED_ID_ARR;
-    inline static constexpr size_t PMD_POLITOED_ID_LEN = sizeof(PMD_POLITOED_ID)-1;
+    inline static constexpr size_t PMD_POLITOED_ID_LEN = sizeof(PMD_POLITOED_ID_ARR)-1;
     inline static constexpr char PMD_POLITOED_NAME_ARR[] CONFIG_STRING_SECTION = "Politoed";
     inline static constexpr const char* PMD_POLITOED_NAME = PMD_POLITOED_NAME_ARR;
     inline static constexpr size_t PMD_POLITOED_NAME_LEN = sizeof(PMD_POLITOED_NAME_ARR)-1;
@@ -7084,7 +7084,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HOPPIP_FQID_LEN = sizeof(PMD_HOPPIP_FQID_ARR)-1;
     inline static constexpr char PMD_HOPPIP_ID_ARR[] CONFIG_STRING_SECTION = "hoppip";
     inline static constexpr const char* PMD_HOPPIP_ID = PMD_HOPPIP_ID_ARR;
-    inline static constexpr size_t PMD_HOPPIP_ID_LEN = sizeof(PMD_HOPPIP_ID)-1;
+    inline static constexpr size_t PMD_HOPPIP_ID_LEN = sizeof(PMD_HOPPIP_ID_ARR)-1;
     inline static constexpr char PMD_HOPPIP_NAME_ARR[] CONFIG_STRING_SECTION = "Hoppip";
     inline static constexpr const char* PMD_HOPPIP_NAME = PMD_HOPPIP_NAME_ARR;
     inline static constexpr size_t PMD_HOPPIP_NAME_LEN = sizeof(PMD_HOPPIP_NAME_ARR)-1;
@@ -7122,7 +7122,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKIPLOOM_FQID_LEN = sizeof(PMD_SKIPLOOM_FQID_ARR)-1;
     inline static constexpr char PMD_SKIPLOOM_ID_ARR[] CONFIG_STRING_SECTION = "skiploom";
     inline static constexpr const char* PMD_SKIPLOOM_ID = PMD_SKIPLOOM_ID_ARR;
-    inline static constexpr size_t PMD_SKIPLOOM_ID_LEN = sizeof(PMD_SKIPLOOM_ID)-1;
+    inline static constexpr size_t PMD_SKIPLOOM_ID_LEN = sizeof(PMD_SKIPLOOM_ID_ARR)-1;
     inline static constexpr char PMD_SKIPLOOM_NAME_ARR[] CONFIG_STRING_SECTION = "Skiploom";
     inline static constexpr const char* PMD_SKIPLOOM_NAME = PMD_SKIPLOOM_NAME_ARR;
     inline static constexpr size_t PMD_SKIPLOOM_NAME_LEN = sizeof(PMD_SKIPLOOM_NAME_ARR)-1;
@@ -7160,7 +7160,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JUMPLUFF_FQID_LEN = sizeof(PMD_JUMPLUFF_FQID_ARR)-1;
     inline static constexpr char PMD_JUMPLUFF_ID_ARR[] CONFIG_STRING_SECTION = "jumpluff";
     inline static constexpr const char* PMD_JUMPLUFF_ID = PMD_JUMPLUFF_ID_ARR;
-    inline static constexpr size_t PMD_JUMPLUFF_ID_LEN = sizeof(PMD_JUMPLUFF_ID)-1;
+    inline static constexpr size_t PMD_JUMPLUFF_ID_LEN = sizeof(PMD_JUMPLUFF_ID_ARR)-1;
     inline static constexpr char PMD_JUMPLUFF_NAME_ARR[] CONFIG_STRING_SECTION = "Jumpluff";
     inline static constexpr const char* PMD_JUMPLUFF_NAME = PMD_JUMPLUFF_NAME_ARR;
     inline static constexpr size_t PMD_JUMPLUFF_NAME_LEN = sizeof(PMD_JUMPLUFF_NAME_ARR)-1;
@@ -7198,7 +7198,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AIPOM_FQID_LEN = sizeof(PMD_AIPOM_FQID_ARR)-1;
     inline static constexpr char PMD_AIPOM_ID_ARR[] CONFIG_STRING_SECTION = "aipom";
     inline static constexpr const char* PMD_AIPOM_ID = PMD_AIPOM_ID_ARR;
-    inline static constexpr size_t PMD_AIPOM_ID_LEN = sizeof(PMD_AIPOM_ID)-1;
+    inline static constexpr size_t PMD_AIPOM_ID_LEN = sizeof(PMD_AIPOM_ID_ARR)-1;
     inline static constexpr char PMD_AIPOM_NAME_ARR[] CONFIG_STRING_SECTION = "Aipom";
     inline static constexpr const char* PMD_AIPOM_NAME = PMD_AIPOM_NAME_ARR;
     inline static constexpr size_t PMD_AIPOM_NAME_LEN = sizeof(PMD_AIPOM_NAME_ARR)-1;
@@ -7236,7 +7236,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SUNKERN_FQID_LEN = sizeof(PMD_SUNKERN_FQID_ARR)-1;
     inline static constexpr char PMD_SUNKERN_ID_ARR[] CONFIG_STRING_SECTION = "sunkern";
     inline static constexpr const char* PMD_SUNKERN_ID = PMD_SUNKERN_ID_ARR;
-    inline static constexpr size_t PMD_SUNKERN_ID_LEN = sizeof(PMD_SUNKERN_ID)-1;
+    inline static constexpr size_t PMD_SUNKERN_ID_LEN = sizeof(PMD_SUNKERN_ID_ARR)-1;
     inline static constexpr char PMD_SUNKERN_NAME_ARR[] CONFIG_STRING_SECTION = "Sunkern";
     inline static constexpr const char* PMD_SUNKERN_NAME = PMD_SUNKERN_NAME_ARR;
     inline static constexpr size_t PMD_SUNKERN_NAME_LEN = sizeof(PMD_SUNKERN_NAME_ARR)-1;
@@ -7274,7 +7274,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SUNFLORA_FQID_LEN = sizeof(PMD_SUNFLORA_FQID_ARR)-1;
     inline static constexpr char PMD_SUNFLORA_ID_ARR[] CONFIG_STRING_SECTION = "sunflora";
     inline static constexpr const char* PMD_SUNFLORA_ID = PMD_SUNFLORA_ID_ARR;
-    inline static constexpr size_t PMD_SUNFLORA_ID_LEN = sizeof(PMD_SUNFLORA_ID)-1;
+    inline static constexpr size_t PMD_SUNFLORA_ID_LEN = sizeof(PMD_SUNFLORA_ID_ARR)-1;
     inline static constexpr char PMD_SUNFLORA_NAME_ARR[] CONFIG_STRING_SECTION = "Sunflora";
     inline static constexpr const char* PMD_SUNFLORA_NAME = PMD_SUNFLORA_NAME_ARR;
     inline static constexpr size_t PMD_SUNFLORA_NAME_LEN = sizeof(PMD_SUNFLORA_NAME_ARR)-1;
@@ -7312,7 +7312,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_YANMA_FQID_LEN = sizeof(PMD_YANMA_FQID_ARR)-1;
     inline static constexpr char PMD_YANMA_ID_ARR[] CONFIG_STRING_SECTION = "yanma";
     inline static constexpr const char* PMD_YANMA_ID = PMD_YANMA_ID_ARR;
-    inline static constexpr size_t PMD_YANMA_ID_LEN = sizeof(PMD_YANMA_ID)-1;
+    inline static constexpr size_t PMD_YANMA_ID_LEN = sizeof(PMD_YANMA_ID_ARR)-1;
     inline static constexpr char PMD_YANMA_NAME_ARR[] CONFIG_STRING_SECTION = "Yanma";
     inline static constexpr const char* PMD_YANMA_NAME = PMD_YANMA_NAME_ARR;
     inline static constexpr size_t PMD_YANMA_NAME_LEN = sizeof(PMD_YANMA_NAME_ARR)-1;
@@ -7350,7 +7350,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WOOPER_FQID_LEN = sizeof(PMD_WOOPER_FQID_ARR)-1;
     inline static constexpr char PMD_WOOPER_ID_ARR[] CONFIG_STRING_SECTION = "wooper";
     inline static constexpr const char* PMD_WOOPER_ID = PMD_WOOPER_ID_ARR;
-    inline static constexpr size_t PMD_WOOPER_ID_LEN = sizeof(PMD_WOOPER_ID)-1;
+    inline static constexpr size_t PMD_WOOPER_ID_LEN = sizeof(PMD_WOOPER_ID_ARR)-1;
     inline static constexpr char PMD_WOOPER_NAME_ARR[] CONFIG_STRING_SECTION = "Wooper";
     inline static constexpr const char* PMD_WOOPER_NAME = PMD_WOOPER_NAME_ARR;
     inline static constexpr size_t PMD_WOOPER_NAME_LEN = sizeof(PMD_WOOPER_NAME_ARR)-1;
@@ -7388,7 +7388,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_QUAGSIRE_FQID_LEN = sizeof(PMD_QUAGSIRE_FQID_ARR)-1;
     inline static constexpr char PMD_QUAGSIRE_ID_ARR[] CONFIG_STRING_SECTION = "quagsire";
     inline static constexpr const char* PMD_QUAGSIRE_ID = PMD_QUAGSIRE_ID_ARR;
-    inline static constexpr size_t PMD_QUAGSIRE_ID_LEN = sizeof(PMD_QUAGSIRE_ID)-1;
+    inline static constexpr size_t PMD_QUAGSIRE_ID_LEN = sizeof(PMD_QUAGSIRE_ID_ARR)-1;
     inline static constexpr char PMD_QUAGSIRE_NAME_ARR[] CONFIG_STRING_SECTION = "Quagsire";
     inline static constexpr const char* PMD_QUAGSIRE_NAME = PMD_QUAGSIRE_NAME_ARR;
     inline static constexpr size_t PMD_QUAGSIRE_NAME_LEN = sizeof(PMD_QUAGSIRE_NAME_ARR)-1;
@@ -7426,7 +7426,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ESPEON_FQID_LEN = sizeof(PMD_ESPEON_FQID_ARR)-1;
     inline static constexpr char PMD_ESPEON_ID_ARR[] CONFIG_STRING_SECTION = "espeon";
     inline static constexpr const char* PMD_ESPEON_ID = PMD_ESPEON_ID_ARR;
-    inline static constexpr size_t PMD_ESPEON_ID_LEN = sizeof(PMD_ESPEON_ID)-1;
+    inline static constexpr size_t PMD_ESPEON_ID_LEN = sizeof(PMD_ESPEON_ID_ARR)-1;
     inline static constexpr char PMD_ESPEON_NAME_ARR[] CONFIG_STRING_SECTION = "Espeon";
     inline static constexpr const char* PMD_ESPEON_NAME = PMD_ESPEON_NAME_ARR;
     inline static constexpr size_t PMD_ESPEON_NAME_LEN = sizeof(PMD_ESPEON_NAME_ARR)-1;
@@ -7464,7 +7464,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_UMBREON_FQID_LEN = sizeof(PMD_UMBREON_FQID_ARR)-1;
     inline static constexpr char PMD_UMBREON_ID_ARR[] CONFIG_STRING_SECTION = "umbreon";
     inline static constexpr const char* PMD_UMBREON_ID = PMD_UMBREON_ID_ARR;
-    inline static constexpr size_t PMD_UMBREON_ID_LEN = sizeof(PMD_UMBREON_ID)-1;
+    inline static constexpr size_t PMD_UMBREON_ID_LEN = sizeof(PMD_UMBREON_ID_ARR)-1;
     inline static constexpr char PMD_UMBREON_NAME_ARR[] CONFIG_STRING_SECTION = "Umbreon";
     inline static constexpr const char* PMD_UMBREON_NAME = PMD_UMBREON_NAME_ARR;
     inline static constexpr size_t PMD_UMBREON_NAME_LEN = sizeof(PMD_UMBREON_NAME_ARR)-1;
@@ -7502,7 +7502,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MURKROW_FQID_LEN = sizeof(PMD_MURKROW_FQID_ARR)-1;
     inline static constexpr char PMD_MURKROW_ID_ARR[] CONFIG_STRING_SECTION = "murkrow";
     inline static constexpr const char* PMD_MURKROW_ID = PMD_MURKROW_ID_ARR;
-    inline static constexpr size_t PMD_MURKROW_ID_LEN = sizeof(PMD_MURKROW_ID)-1;
+    inline static constexpr size_t PMD_MURKROW_ID_LEN = sizeof(PMD_MURKROW_ID_ARR)-1;
     inline static constexpr char PMD_MURKROW_NAME_ARR[] CONFIG_STRING_SECTION = "Murkrow";
     inline static constexpr const char* PMD_MURKROW_NAME = PMD_MURKROW_NAME_ARR;
     inline static constexpr size_t PMD_MURKROW_NAME_LEN = sizeof(PMD_MURKROW_NAME_ARR)-1;
@@ -7540,7 +7540,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLOWKING_FQID_LEN = sizeof(PMD_SLOWKING_FQID_ARR)-1;
     inline static constexpr char PMD_SLOWKING_ID_ARR[] CONFIG_STRING_SECTION = "slowking";
     inline static constexpr const char* PMD_SLOWKING_ID = PMD_SLOWKING_ID_ARR;
-    inline static constexpr size_t PMD_SLOWKING_ID_LEN = sizeof(PMD_SLOWKING_ID)-1;
+    inline static constexpr size_t PMD_SLOWKING_ID_LEN = sizeof(PMD_SLOWKING_ID_ARR)-1;
     inline static constexpr char PMD_SLOWKING_NAME_ARR[] CONFIG_STRING_SECTION = "Slowking";
     inline static constexpr const char* PMD_SLOWKING_NAME = PMD_SLOWKING_NAME_ARR;
     inline static constexpr size_t PMD_SLOWKING_NAME_LEN = sizeof(PMD_SLOWKING_NAME_ARR)-1;
@@ -7578,7 +7578,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MISDREAVUS_FQID_LEN = sizeof(PMD_MISDREAVUS_FQID_ARR)-1;
     inline static constexpr char PMD_MISDREAVUS_ID_ARR[] CONFIG_STRING_SECTION = "misdreavus";
     inline static constexpr const char* PMD_MISDREAVUS_ID = PMD_MISDREAVUS_ID_ARR;
-    inline static constexpr size_t PMD_MISDREAVUS_ID_LEN = sizeof(PMD_MISDREAVUS_ID)-1;
+    inline static constexpr size_t PMD_MISDREAVUS_ID_LEN = sizeof(PMD_MISDREAVUS_ID_ARR)-1;
     inline static constexpr char PMD_MISDREAVUS_NAME_ARR[] CONFIG_STRING_SECTION = "Misdreavus";
     inline static constexpr const char* PMD_MISDREAVUS_NAME = PMD_MISDREAVUS_NAME_ARR;
     inline static constexpr size_t PMD_MISDREAVUS_NAME_LEN = sizeof(PMD_MISDREAVUS_NAME_ARR)-1;
@@ -7616,7 +7616,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_UNOWN_FQID_LEN = sizeof(PMD_UNOWN_FQID_ARR)-1;
     inline static constexpr char PMD_UNOWN_ID_ARR[] CONFIG_STRING_SECTION = "unown";
     inline static constexpr const char* PMD_UNOWN_ID = PMD_UNOWN_ID_ARR;
-    inline static constexpr size_t PMD_UNOWN_ID_LEN = sizeof(PMD_UNOWN_ID)-1;
+    inline static constexpr size_t PMD_UNOWN_ID_LEN = sizeof(PMD_UNOWN_ID_ARR)-1;
     inline static constexpr char PMD_UNOWN_NAME_ARR[] CONFIG_STRING_SECTION = "Unown";
     inline static constexpr const char* PMD_UNOWN_NAME = PMD_UNOWN_NAME_ARR;
     inline static constexpr size_t PMD_UNOWN_NAME_LEN = sizeof(PMD_UNOWN_NAME_ARR)-1;
@@ -7654,7 +7654,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WOBBUFFET_FQID_LEN = sizeof(PMD_WOBBUFFET_FQID_ARR)-1;
     inline static constexpr char PMD_WOBBUFFET_ID_ARR[] CONFIG_STRING_SECTION = "wobbuffet";
     inline static constexpr const char* PMD_WOBBUFFET_ID = PMD_WOBBUFFET_ID_ARR;
-    inline static constexpr size_t PMD_WOBBUFFET_ID_LEN = sizeof(PMD_WOBBUFFET_ID)-1;
+    inline static constexpr size_t PMD_WOBBUFFET_ID_LEN = sizeof(PMD_WOBBUFFET_ID_ARR)-1;
     inline static constexpr char PMD_WOBBUFFET_NAME_ARR[] CONFIG_STRING_SECTION = "Wobbuffet";
     inline static constexpr const char* PMD_WOBBUFFET_NAME = PMD_WOBBUFFET_NAME_ARR;
     inline static constexpr size_t PMD_WOBBUFFET_NAME_LEN = sizeof(PMD_WOBBUFFET_NAME_ARR)-1;
@@ -7692,7 +7692,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GIRAFARIG_FQID_LEN = sizeof(PMD_GIRAFARIG_FQID_ARR)-1;
     inline static constexpr char PMD_GIRAFARIG_ID_ARR[] CONFIG_STRING_SECTION = "girafarig";
     inline static constexpr const char* PMD_GIRAFARIG_ID = PMD_GIRAFARIG_ID_ARR;
-    inline static constexpr size_t PMD_GIRAFARIG_ID_LEN = sizeof(PMD_GIRAFARIG_ID)-1;
+    inline static constexpr size_t PMD_GIRAFARIG_ID_LEN = sizeof(PMD_GIRAFARIG_ID_ARR)-1;
     inline static constexpr char PMD_GIRAFARIG_NAME_ARR[] CONFIG_STRING_SECTION = "Girafarig";
     inline static constexpr const char* PMD_GIRAFARIG_NAME = PMD_GIRAFARIG_NAME_ARR;
     inline static constexpr size_t PMD_GIRAFARIG_NAME_LEN = sizeof(PMD_GIRAFARIG_NAME_ARR)-1;
@@ -7730,7 +7730,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PINECO_FQID_LEN = sizeof(PMD_PINECO_FQID_ARR)-1;
     inline static constexpr char PMD_PINECO_ID_ARR[] CONFIG_STRING_SECTION = "pineco";
     inline static constexpr const char* PMD_PINECO_ID = PMD_PINECO_ID_ARR;
-    inline static constexpr size_t PMD_PINECO_ID_LEN = sizeof(PMD_PINECO_ID)-1;
+    inline static constexpr size_t PMD_PINECO_ID_LEN = sizeof(PMD_PINECO_ID_ARR)-1;
     inline static constexpr char PMD_PINECO_NAME_ARR[] CONFIG_STRING_SECTION = "Pineco";
     inline static constexpr const char* PMD_PINECO_NAME = PMD_PINECO_NAME_ARR;
     inline static constexpr size_t PMD_PINECO_NAME_LEN = sizeof(PMD_PINECO_NAME_ARR)-1;
@@ -7768,7 +7768,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FORRETRESS_FQID_LEN = sizeof(PMD_FORRETRESS_FQID_ARR)-1;
     inline static constexpr char PMD_FORRETRESS_ID_ARR[] CONFIG_STRING_SECTION = "forretress";
     inline static constexpr const char* PMD_FORRETRESS_ID = PMD_FORRETRESS_ID_ARR;
-    inline static constexpr size_t PMD_FORRETRESS_ID_LEN = sizeof(PMD_FORRETRESS_ID)-1;
+    inline static constexpr size_t PMD_FORRETRESS_ID_LEN = sizeof(PMD_FORRETRESS_ID_ARR)-1;
     inline static constexpr char PMD_FORRETRESS_NAME_ARR[] CONFIG_STRING_SECTION = "Forretress";
     inline static constexpr const char* PMD_FORRETRESS_NAME = PMD_FORRETRESS_NAME_ARR;
     inline static constexpr size_t PMD_FORRETRESS_NAME_LEN = sizeof(PMD_FORRETRESS_NAME_ARR)-1;
@@ -7806,7 +7806,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DUNSPARCE_FQID_LEN = sizeof(PMD_DUNSPARCE_FQID_ARR)-1;
     inline static constexpr char PMD_DUNSPARCE_ID_ARR[] CONFIG_STRING_SECTION = "dunsparce";
     inline static constexpr const char* PMD_DUNSPARCE_ID = PMD_DUNSPARCE_ID_ARR;
-    inline static constexpr size_t PMD_DUNSPARCE_ID_LEN = sizeof(PMD_DUNSPARCE_ID)-1;
+    inline static constexpr size_t PMD_DUNSPARCE_ID_LEN = sizeof(PMD_DUNSPARCE_ID_ARR)-1;
     inline static constexpr char PMD_DUNSPARCE_NAME_ARR[] CONFIG_STRING_SECTION = "Dunsparce";
     inline static constexpr const char* PMD_DUNSPARCE_NAME = PMD_DUNSPARCE_NAME_ARR;
     inline static constexpr size_t PMD_DUNSPARCE_NAME_LEN = sizeof(PMD_DUNSPARCE_NAME_ARR)-1;
@@ -7844,7 +7844,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GLIGAR_FQID_LEN = sizeof(PMD_GLIGAR_FQID_ARR)-1;
     inline static constexpr char PMD_GLIGAR_ID_ARR[] CONFIG_STRING_SECTION = "gligar";
     inline static constexpr const char* PMD_GLIGAR_ID = PMD_GLIGAR_ID_ARR;
-    inline static constexpr size_t PMD_GLIGAR_ID_LEN = sizeof(PMD_GLIGAR_ID)-1;
+    inline static constexpr size_t PMD_GLIGAR_ID_LEN = sizeof(PMD_GLIGAR_ID_ARR)-1;
     inline static constexpr char PMD_GLIGAR_NAME_ARR[] CONFIG_STRING_SECTION = "Gligar";
     inline static constexpr const char* PMD_GLIGAR_NAME = PMD_GLIGAR_NAME_ARR;
     inline static constexpr size_t PMD_GLIGAR_NAME_LEN = sizeof(PMD_GLIGAR_NAME_ARR)-1;
@@ -7882,7 +7882,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STEELIX_FQID_LEN = sizeof(PMD_STEELIX_FQID_ARR)-1;
     inline static constexpr char PMD_STEELIX_ID_ARR[] CONFIG_STRING_SECTION = "steelix";
     inline static constexpr const char* PMD_STEELIX_ID = PMD_STEELIX_ID_ARR;
-    inline static constexpr size_t PMD_STEELIX_ID_LEN = sizeof(PMD_STEELIX_ID)-1;
+    inline static constexpr size_t PMD_STEELIX_ID_LEN = sizeof(PMD_STEELIX_ID_ARR)-1;
     inline static constexpr char PMD_STEELIX_NAME_ARR[] CONFIG_STRING_SECTION = "Steelix";
     inline static constexpr const char* PMD_STEELIX_NAME = PMD_STEELIX_NAME_ARR;
     inline static constexpr size_t PMD_STEELIX_NAME_LEN = sizeof(PMD_STEELIX_NAME_ARR)-1;
@@ -7920,7 +7920,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNUBBULL_FQID_LEN = sizeof(PMD_SNUBBULL_FQID_ARR)-1;
     inline static constexpr char PMD_SNUBBULL_ID_ARR[] CONFIG_STRING_SECTION = "snubbull";
     inline static constexpr const char* PMD_SNUBBULL_ID = PMD_SNUBBULL_ID_ARR;
-    inline static constexpr size_t PMD_SNUBBULL_ID_LEN = sizeof(PMD_SNUBBULL_ID)-1;
+    inline static constexpr size_t PMD_SNUBBULL_ID_LEN = sizeof(PMD_SNUBBULL_ID_ARR)-1;
     inline static constexpr char PMD_SNUBBULL_NAME_ARR[] CONFIG_STRING_SECTION = "Snubbull";
     inline static constexpr const char* PMD_SNUBBULL_NAME = PMD_SNUBBULL_NAME_ARR;
     inline static constexpr size_t PMD_SNUBBULL_NAME_LEN = sizeof(PMD_SNUBBULL_NAME_ARR)-1;
@@ -7958,7 +7958,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRANBULL_FQID_LEN = sizeof(PMD_GRANBULL_FQID_ARR)-1;
     inline static constexpr char PMD_GRANBULL_ID_ARR[] CONFIG_STRING_SECTION = "granbull";
     inline static constexpr const char* PMD_GRANBULL_ID = PMD_GRANBULL_ID_ARR;
-    inline static constexpr size_t PMD_GRANBULL_ID_LEN = sizeof(PMD_GRANBULL_ID)-1;
+    inline static constexpr size_t PMD_GRANBULL_ID_LEN = sizeof(PMD_GRANBULL_ID_ARR)-1;
     inline static constexpr char PMD_GRANBULL_NAME_ARR[] CONFIG_STRING_SECTION = "Granbull";
     inline static constexpr const char* PMD_GRANBULL_NAME = PMD_GRANBULL_NAME_ARR;
     inline static constexpr size_t PMD_GRANBULL_NAME_LEN = sizeof(PMD_GRANBULL_NAME_ARR)-1;
@@ -7996,7 +7996,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_QWILFISH_FQID_LEN = sizeof(PMD_QWILFISH_FQID_ARR)-1;
     inline static constexpr char PMD_QWILFISH_ID_ARR[] CONFIG_STRING_SECTION = "qwilfish";
     inline static constexpr const char* PMD_QWILFISH_ID = PMD_QWILFISH_ID_ARR;
-    inline static constexpr size_t PMD_QWILFISH_ID_LEN = sizeof(PMD_QWILFISH_ID)-1;
+    inline static constexpr size_t PMD_QWILFISH_ID_LEN = sizeof(PMD_QWILFISH_ID_ARR)-1;
     inline static constexpr char PMD_QWILFISH_NAME_ARR[] CONFIG_STRING_SECTION = "Qwilfish";
     inline static constexpr const char* PMD_QWILFISH_NAME = PMD_QWILFISH_NAME_ARR;
     inline static constexpr size_t PMD_QWILFISH_NAME_LEN = sizeof(PMD_QWILFISH_NAME_ARR)-1;
@@ -8034,7 +8034,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCIZOR_FQID_LEN = sizeof(PMD_SCIZOR_FQID_ARR)-1;
     inline static constexpr char PMD_SCIZOR_ID_ARR[] CONFIG_STRING_SECTION = "scizor";
     inline static constexpr const char* PMD_SCIZOR_ID = PMD_SCIZOR_ID_ARR;
-    inline static constexpr size_t PMD_SCIZOR_ID_LEN = sizeof(PMD_SCIZOR_ID)-1;
+    inline static constexpr size_t PMD_SCIZOR_ID_LEN = sizeof(PMD_SCIZOR_ID_ARR)-1;
     inline static constexpr char PMD_SCIZOR_NAME_ARR[] CONFIG_STRING_SECTION = "Scizor";
     inline static constexpr const char* PMD_SCIZOR_NAME = PMD_SCIZOR_NAME_ARR;
     inline static constexpr size_t PMD_SCIZOR_NAME_LEN = sizeof(PMD_SCIZOR_NAME_ARR)-1;
@@ -8072,7 +8072,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHUCKLE_FQID_LEN = sizeof(PMD_SHUCKLE_FQID_ARR)-1;
     inline static constexpr char PMD_SHUCKLE_ID_ARR[] CONFIG_STRING_SECTION = "shuckle";
     inline static constexpr const char* PMD_SHUCKLE_ID = PMD_SHUCKLE_ID_ARR;
-    inline static constexpr size_t PMD_SHUCKLE_ID_LEN = sizeof(PMD_SHUCKLE_ID)-1;
+    inline static constexpr size_t PMD_SHUCKLE_ID_LEN = sizeof(PMD_SHUCKLE_ID_ARR)-1;
     inline static constexpr char PMD_SHUCKLE_NAME_ARR[] CONFIG_STRING_SECTION = "Shuckle";
     inline static constexpr const char* PMD_SHUCKLE_NAME = PMD_SHUCKLE_NAME_ARR;
     inline static constexpr size_t PMD_SHUCKLE_NAME_LEN = sizeof(PMD_SHUCKLE_NAME_ARR)-1;
@@ -8110,7 +8110,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HERACROSS_FQID_LEN = sizeof(PMD_HERACROSS_FQID_ARR)-1;
     inline static constexpr char PMD_HERACROSS_ID_ARR[] CONFIG_STRING_SECTION = "heracross";
     inline static constexpr const char* PMD_HERACROSS_ID = PMD_HERACROSS_ID_ARR;
-    inline static constexpr size_t PMD_HERACROSS_ID_LEN = sizeof(PMD_HERACROSS_ID)-1;
+    inline static constexpr size_t PMD_HERACROSS_ID_LEN = sizeof(PMD_HERACROSS_ID_ARR)-1;
     inline static constexpr char PMD_HERACROSS_NAME_ARR[] CONFIG_STRING_SECTION = "Heracross";
     inline static constexpr const char* PMD_HERACROSS_NAME = PMD_HERACROSS_NAME_ARR;
     inline static constexpr size_t PMD_HERACROSS_NAME_LEN = sizeof(PMD_HERACROSS_NAME_ARR)-1;
@@ -8148,7 +8148,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNEASEL_FQID_LEN = sizeof(PMD_SNEASEL_FQID_ARR)-1;
     inline static constexpr char PMD_SNEASEL_ID_ARR[] CONFIG_STRING_SECTION = "sneasel";
     inline static constexpr const char* PMD_SNEASEL_ID = PMD_SNEASEL_ID_ARR;
-    inline static constexpr size_t PMD_SNEASEL_ID_LEN = sizeof(PMD_SNEASEL_ID)-1;
+    inline static constexpr size_t PMD_SNEASEL_ID_LEN = sizeof(PMD_SNEASEL_ID_ARR)-1;
     inline static constexpr char PMD_SNEASEL_NAME_ARR[] CONFIG_STRING_SECTION = "Sneasel";
     inline static constexpr const char* PMD_SNEASEL_NAME = PMD_SNEASEL_NAME_ARR;
     inline static constexpr size_t PMD_SNEASEL_NAME_LEN = sizeof(PMD_SNEASEL_NAME_ARR)-1;
@@ -8186,7 +8186,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TEDDIURSA_FQID_LEN = sizeof(PMD_TEDDIURSA_FQID_ARR)-1;
     inline static constexpr char PMD_TEDDIURSA_ID_ARR[] CONFIG_STRING_SECTION = "teddiursa";
     inline static constexpr const char* PMD_TEDDIURSA_ID = PMD_TEDDIURSA_ID_ARR;
-    inline static constexpr size_t PMD_TEDDIURSA_ID_LEN = sizeof(PMD_TEDDIURSA_ID)-1;
+    inline static constexpr size_t PMD_TEDDIURSA_ID_LEN = sizeof(PMD_TEDDIURSA_ID_ARR)-1;
     inline static constexpr char PMD_TEDDIURSA_NAME_ARR[] CONFIG_STRING_SECTION = "Teddiursa";
     inline static constexpr const char* PMD_TEDDIURSA_NAME = PMD_TEDDIURSA_NAME_ARR;
     inline static constexpr size_t PMD_TEDDIURSA_NAME_LEN = sizeof(PMD_TEDDIURSA_NAME_ARR)-1;
@@ -8224,7 +8224,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_URSARING_FQID_LEN = sizeof(PMD_URSARING_FQID_ARR)-1;
     inline static constexpr char PMD_URSARING_ID_ARR[] CONFIG_STRING_SECTION = "ursaring";
     inline static constexpr const char* PMD_URSARING_ID = PMD_URSARING_ID_ARR;
-    inline static constexpr size_t PMD_URSARING_ID_LEN = sizeof(PMD_URSARING_ID)-1;
+    inline static constexpr size_t PMD_URSARING_ID_LEN = sizeof(PMD_URSARING_ID_ARR)-1;
     inline static constexpr char PMD_URSARING_NAME_ARR[] CONFIG_STRING_SECTION = "Ursaring";
     inline static constexpr const char* PMD_URSARING_NAME = PMD_URSARING_NAME_ARR;
     inline static constexpr size_t PMD_URSARING_NAME_LEN = sizeof(PMD_URSARING_NAME_ARR)-1;
@@ -8262,7 +8262,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLUGMA_FQID_LEN = sizeof(PMD_SLUGMA_FQID_ARR)-1;
     inline static constexpr char PMD_SLUGMA_ID_ARR[] CONFIG_STRING_SECTION = "slugma";
     inline static constexpr const char* PMD_SLUGMA_ID = PMD_SLUGMA_ID_ARR;
-    inline static constexpr size_t PMD_SLUGMA_ID_LEN = sizeof(PMD_SLUGMA_ID)-1;
+    inline static constexpr size_t PMD_SLUGMA_ID_LEN = sizeof(PMD_SLUGMA_ID_ARR)-1;
     inline static constexpr char PMD_SLUGMA_NAME_ARR[] CONFIG_STRING_SECTION = "Slugma";
     inline static constexpr const char* PMD_SLUGMA_NAME = PMD_SLUGMA_NAME_ARR;
     inline static constexpr size_t PMD_SLUGMA_NAME_LEN = sizeof(PMD_SLUGMA_NAME_ARR)-1;
@@ -8300,7 +8300,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGCARGO_FQID_LEN = sizeof(PMD_MAGCARGO_FQID_ARR)-1;
     inline static constexpr char PMD_MAGCARGO_ID_ARR[] CONFIG_STRING_SECTION = "magcargo";
     inline static constexpr const char* PMD_MAGCARGO_ID = PMD_MAGCARGO_ID_ARR;
-    inline static constexpr size_t PMD_MAGCARGO_ID_LEN = sizeof(PMD_MAGCARGO_ID)-1;
+    inline static constexpr size_t PMD_MAGCARGO_ID_LEN = sizeof(PMD_MAGCARGO_ID_ARR)-1;
     inline static constexpr char PMD_MAGCARGO_NAME_ARR[] CONFIG_STRING_SECTION = "Magcargo";
     inline static constexpr const char* PMD_MAGCARGO_NAME = PMD_MAGCARGO_NAME_ARR;
     inline static constexpr size_t PMD_MAGCARGO_NAME_LEN = sizeof(PMD_MAGCARGO_NAME_ARR)-1;
@@ -8338,7 +8338,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWINUB_FQID_LEN = sizeof(PMD_SWINUB_FQID_ARR)-1;
     inline static constexpr char PMD_SWINUB_ID_ARR[] CONFIG_STRING_SECTION = "swinub";
     inline static constexpr const char* PMD_SWINUB_ID = PMD_SWINUB_ID_ARR;
-    inline static constexpr size_t PMD_SWINUB_ID_LEN = sizeof(PMD_SWINUB_ID)-1;
+    inline static constexpr size_t PMD_SWINUB_ID_LEN = sizeof(PMD_SWINUB_ID_ARR)-1;
     inline static constexpr char PMD_SWINUB_NAME_ARR[] CONFIG_STRING_SECTION = "Swinub";
     inline static constexpr const char* PMD_SWINUB_NAME = PMD_SWINUB_NAME_ARR;
     inline static constexpr size_t PMD_SWINUB_NAME_LEN = sizeof(PMD_SWINUB_NAME_ARR)-1;
@@ -8376,7 +8376,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PILOSWINE_FQID_LEN = sizeof(PMD_PILOSWINE_FQID_ARR)-1;
     inline static constexpr char PMD_PILOSWINE_ID_ARR[] CONFIG_STRING_SECTION = "piloswine";
     inline static constexpr const char* PMD_PILOSWINE_ID = PMD_PILOSWINE_ID_ARR;
-    inline static constexpr size_t PMD_PILOSWINE_ID_LEN = sizeof(PMD_PILOSWINE_ID)-1;
+    inline static constexpr size_t PMD_PILOSWINE_ID_LEN = sizeof(PMD_PILOSWINE_ID_ARR)-1;
     inline static constexpr char PMD_PILOSWINE_NAME_ARR[] CONFIG_STRING_SECTION = "Piloswine";
     inline static constexpr const char* PMD_PILOSWINE_NAME = PMD_PILOSWINE_NAME_ARR;
     inline static constexpr size_t PMD_PILOSWINE_NAME_LEN = sizeof(PMD_PILOSWINE_NAME_ARR)-1;
@@ -8414,7 +8414,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CORSOLA_FQID_LEN = sizeof(PMD_CORSOLA_FQID_ARR)-1;
     inline static constexpr char PMD_CORSOLA_ID_ARR[] CONFIG_STRING_SECTION = "corsola";
     inline static constexpr const char* PMD_CORSOLA_ID = PMD_CORSOLA_ID_ARR;
-    inline static constexpr size_t PMD_CORSOLA_ID_LEN = sizeof(PMD_CORSOLA_ID)-1;
+    inline static constexpr size_t PMD_CORSOLA_ID_LEN = sizeof(PMD_CORSOLA_ID_ARR)-1;
     inline static constexpr char PMD_CORSOLA_NAME_ARR[] CONFIG_STRING_SECTION = "Corsola";
     inline static constexpr const char* PMD_CORSOLA_NAME = PMD_CORSOLA_NAME_ARR;
     inline static constexpr size_t PMD_CORSOLA_NAME_LEN = sizeof(PMD_CORSOLA_NAME_ARR)-1;
@@ -8452,7 +8452,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REMORAID_FQID_LEN = sizeof(PMD_REMORAID_FQID_ARR)-1;
     inline static constexpr char PMD_REMORAID_ID_ARR[] CONFIG_STRING_SECTION = "remoraid";
     inline static constexpr const char* PMD_REMORAID_ID = PMD_REMORAID_ID_ARR;
-    inline static constexpr size_t PMD_REMORAID_ID_LEN = sizeof(PMD_REMORAID_ID)-1;
+    inline static constexpr size_t PMD_REMORAID_ID_LEN = sizeof(PMD_REMORAID_ID_ARR)-1;
     inline static constexpr char PMD_REMORAID_NAME_ARR[] CONFIG_STRING_SECTION = "Remoraid";
     inline static constexpr const char* PMD_REMORAID_NAME = PMD_REMORAID_NAME_ARR;
     inline static constexpr size_t PMD_REMORAID_NAME_LEN = sizeof(PMD_REMORAID_NAME_ARR)-1;
@@ -8490,7 +8490,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_OCTILLERY_FQID_LEN = sizeof(PMD_OCTILLERY_FQID_ARR)-1;
     inline static constexpr char PMD_OCTILLERY_ID_ARR[] CONFIG_STRING_SECTION = "octillery";
     inline static constexpr const char* PMD_OCTILLERY_ID = PMD_OCTILLERY_ID_ARR;
-    inline static constexpr size_t PMD_OCTILLERY_ID_LEN = sizeof(PMD_OCTILLERY_ID)-1;
+    inline static constexpr size_t PMD_OCTILLERY_ID_LEN = sizeof(PMD_OCTILLERY_ID_ARR)-1;
     inline static constexpr char PMD_OCTILLERY_NAME_ARR[] CONFIG_STRING_SECTION = "Octillery";
     inline static constexpr const char* PMD_OCTILLERY_NAME = PMD_OCTILLERY_NAME_ARR;
     inline static constexpr size_t PMD_OCTILLERY_NAME_LEN = sizeof(PMD_OCTILLERY_NAME_ARR)-1;
@@ -8528,7 +8528,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DELIBIRD_FQID_LEN = sizeof(PMD_DELIBIRD_FQID_ARR)-1;
     inline static constexpr char PMD_DELIBIRD_ID_ARR[] CONFIG_STRING_SECTION = "delibird";
     inline static constexpr const char* PMD_DELIBIRD_ID = PMD_DELIBIRD_ID_ARR;
-    inline static constexpr size_t PMD_DELIBIRD_ID_LEN = sizeof(PMD_DELIBIRD_ID)-1;
+    inline static constexpr size_t PMD_DELIBIRD_ID_LEN = sizeof(PMD_DELIBIRD_ID_ARR)-1;
     inline static constexpr char PMD_DELIBIRD_NAME_ARR[] CONFIG_STRING_SECTION = "Delibird";
     inline static constexpr const char* PMD_DELIBIRD_NAME = PMD_DELIBIRD_NAME_ARR;
     inline static constexpr size_t PMD_DELIBIRD_NAME_LEN = sizeof(PMD_DELIBIRD_NAME_ARR)-1;
@@ -8566,7 +8566,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MANTINE_FQID_LEN = sizeof(PMD_MANTINE_FQID_ARR)-1;
     inline static constexpr char PMD_MANTINE_ID_ARR[] CONFIG_STRING_SECTION = "mantine";
     inline static constexpr const char* PMD_MANTINE_ID = PMD_MANTINE_ID_ARR;
-    inline static constexpr size_t PMD_MANTINE_ID_LEN = sizeof(PMD_MANTINE_ID)-1;
+    inline static constexpr size_t PMD_MANTINE_ID_LEN = sizeof(PMD_MANTINE_ID_ARR)-1;
     inline static constexpr char PMD_MANTINE_NAME_ARR[] CONFIG_STRING_SECTION = "Mantine";
     inline static constexpr const char* PMD_MANTINE_NAME = PMD_MANTINE_NAME_ARR;
     inline static constexpr size_t PMD_MANTINE_NAME_LEN = sizeof(PMD_MANTINE_NAME_ARR)-1;
@@ -8604,7 +8604,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKARMORY_FQID_LEN = sizeof(PMD_SKARMORY_FQID_ARR)-1;
     inline static constexpr char PMD_SKARMORY_ID_ARR[] CONFIG_STRING_SECTION = "skarmory";
     inline static constexpr const char* PMD_SKARMORY_ID = PMD_SKARMORY_ID_ARR;
-    inline static constexpr size_t PMD_SKARMORY_ID_LEN = sizeof(PMD_SKARMORY_ID)-1;
+    inline static constexpr size_t PMD_SKARMORY_ID_LEN = sizeof(PMD_SKARMORY_ID_ARR)-1;
     inline static constexpr char PMD_SKARMORY_NAME_ARR[] CONFIG_STRING_SECTION = "Skarmory";
     inline static constexpr const char* PMD_SKARMORY_NAME = PMD_SKARMORY_NAME_ARR;
     inline static constexpr size_t PMD_SKARMORY_NAME_LEN = sizeof(PMD_SKARMORY_NAME_ARR)-1;
@@ -8642,7 +8642,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HOUNDOUR_FQID_LEN = sizeof(PMD_HOUNDOUR_FQID_ARR)-1;
     inline static constexpr char PMD_HOUNDOUR_ID_ARR[] CONFIG_STRING_SECTION = "houndour";
     inline static constexpr const char* PMD_HOUNDOUR_ID = PMD_HOUNDOUR_ID_ARR;
-    inline static constexpr size_t PMD_HOUNDOUR_ID_LEN = sizeof(PMD_HOUNDOUR_ID)-1;
+    inline static constexpr size_t PMD_HOUNDOUR_ID_LEN = sizeof(PMD_HOUNDOUR_ID_ARR)-1;
     inline static constexpr char PMD_HOUNDOUR_NAME_ARR[] CONFIG_STRING_SECTION = "Houndour";
     inline static constexpr const char* PMD_HOUNDOUR_NAME = PMD_HOUNDOUR_NAME_ARR;
     inline static constexpr size_t PMD_HOUNDOUR_NAME_LEN = sizeof(PMD_HOUNDOUR_NAME_ARR)-1;
@@ -8680,7 +8680,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HOUNDOOM_FQID_LEN = sizeof(PMD_HOUNDOOM_FQID_ARR)-1;
     inline static constexpr char PMD_HOUNDOOM_ID_ARR[] CONFIG_STRING_SECTION = "houndoom";
     inline static constexpr const char* PMD_HOUNDOOM_ID = PMD_HOUNDOOM_ID_ARR;
-    inline static constexpr size_t PMD_HOUNDOOM_ID_LEN = sizeof(PMD_HOUNDOOM_ID)-1;
+    inline static constexpr size_t PMD_HOUNDOOM_ID_LEN = sizeof(PMD_HOUNDOOM_ID_ARR)-1;
     inline static constexpr char PMD_HOUNDOOM_NAME_ARR[] CONFIG_STRING_SECTION = "Houndoom";
     inline static constexpr const char* PMD_HOUNDOOM_NAME = PMD_HOUNDOOM_NAME_ARR;
     inline static constexpr size_t PMD_HOUNDOOM_NAME_LEN = sizeof(PMD_HOUNDOOM_NAME_ARR)-1;
@@ -8718,7 +8718,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KINGDRA_FQID_LEN = sizeof(PMD_KINGDRA_FQID_ARR)-1;
     inline static constexpr char PMD_KINGDRA_ID_ARR[] CONFIG_STRING_SECTION = "kingdra";
     inline static constexpr const char* PMD_KINGDRA_ID = PMD_KINGDRA_ID_ARR;
-    inline static constexpr size_t PMD_KINGDRA_ID_LEN = sizeof(PMD_KINGDRA_ID)-1;
+    inline static constexpr size_t PMD_KINGDRA_ID_LEN = sizeof(PMD_KINGDRA_ID_ARR)-1;
     inline static constexpr char PMD_KINGDRA_NAME_ARR[] CONFIG_STRING_SECTION = "Kingdra";
     inline static constexpr const char* PMD_KINGDRA_NAME = PMD_KINGDRA_NAME_ARR;
     inline static constexpr size_t PMD_KINGDRA_NAME_LEN = sizeof(PMD_KINGDRA_NAME_ARR)-1;
@@ -8756,7 +8756,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PHANPY_FQID_LEN = sizeof(PMD_PHANPY_FQID_ARR)-1;
     inline static constexpr char PMD_PHANPY_ID_ARR[] CONFIG_STRING_SECTION = "phanpy";
     inline static constexpr const char* PMD_PHANPY_ID = PMD_PHANPY_ID_ARR;
-    inline static constexpr size_t PMD_PHANPY_ID_LEN = sizeof(PMD_PHANPY_ID)-1;
+    inline static constexpr size_t PMD_PHANPY_ID_LEN = sizeof(PMD_PHANPY_ID_ARR)-1;
     inline static constexpr char PMD_PHANPY_NAME_ARR[] CONFIG_STRING_SECTION = "Phanpy";
     inline static constexpr const char* PMD_PHANPY_NAME = PMD_PHANPY_NAME_ARR;
     inline static constexpr size_t PMD_PHANPY_NAME_LEN = sizeof(PMD_PHANPY_NAME_ARR)-1;
@@ -8794,7 +8794,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DONPHAN_FQID_LEN = sizeof(PMD_DONPHAN_FQID_ARR)-1;
     inline static constexpr char PMD_DONPHAN_ID_ARR[] CONFIG_STRING_SECTION = "donphan";
     inline static constexpr const char* PMD_DONPHAN_ID = PMD_DONPHAN_ID_ARR;
-    inline static constexpr size_t PMD_DONPHAN_ID_LEN = sizeof(PMD_DONPHAN_ID)-1;
+    inline static constexpr size_t PMD_DONPHAN_ID_LEN = sizeof(PMD_DONPHAN_ID_ARR)-1;
     inline static constexpr char PMD_DONPHAN_NAME_ARR[] CONFIG_STRING_SECTION = "Donphan";
     inline static constexpr const char* PMD_DONPHAN_NAME = PMD_DONPHAN_NAME_ARR;
     inline static constexpr size_t PMD_DONPHAN_NAME_LEN = sizeof(PMD_DONPHAN_NAME_ARR)-1;
@@ -8832,7 +8832,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PORYGON2_FQID_LEN = sizeof(PMD_PORYGON2_FQID_ARR)-1;
     inline static constexpr char PMD_PORYGON2_ID_ARR[] CONFIG_STRING_SECTION = "porygon2";
     inline static constexpr const char* PMD_PORYGON2_ID = PMD_PORYGON2_ID_ARR;
-    inline static constexpr size_t PMD_PORYGON2_ID_LEN = sizeof(PMD_PORYGON2_ID)-1;
+    inline static constexpr size_t PMD_PORYGON2_ID_LEN = sizeof(PMD_PORYGON2_ID_ARR)-1;
     inline static constexpr char PMD_PORYGON2_NAME_ARR[] CONFIG_STRING_SECTION = "Porygon2";
     inline static constexpr const char* PMD_PORYGON2_NAME = PMD_PORYGON2_NAME_ARR;
     inline static constexpr size_t PMD_PORYGON2_NAME_LEN = sizeof(PMD_PORYGON2_NAME_ARR)-1;
@@ -8870,7 +8870,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STANTLER_FQID_LEN = sizeof(PMD_STANTLER_FQID_ARR)-1;
     inline static constexpr char PMD_STANTLER_ID_ARR[] CONFIG_STRING_SECTION = "stantler";
     inline static constexpr const char* PMD_STANTLER_ID = PMD_STANTLER_ID_ARR;
-    inline static constexpr size_t PMD_STANTLER_ID_LEN = sizeof(PMD_STANTLER_ID)-1;
+    inline static constexpr size_t PMD_STANTLER_ID_LEN = sizeof(PMD_STANTLER_ID_ARR)-1;
     inline static constexpr char PMD_STANTLER_NAME_ARR[] CONFIG_STRING_SECTION = "Stantler";
     inline static constexpr const char* PMD_STANTLER_NAME = PMD_STANTLER_NAME_ARR;
     inline static constexpr size_t PMD_STANTLER_NAME_LEN = sizeof(PMD_STANTLER_NAME_ARR)-1;
@@ -8908,7 +8908,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SMEARGLE_FQID_LEN = sizeof(PMD_SMEARGLE_FQID_ARR)-1;
     inline static constexpr char PMD_SMEARGLE_ID_ARR[] CONFIG_STRING_SECTION = "smeargle";
     inline static constexpr const char* PMD_SMEARGLE_ID = PMD_SMEARGLE_ID_ARR;
-    inline static constexpr size_t PMD_SMEARGLE_ID_LEN = sizeof(PMD_SMEARGLE_ID)-1;
+    inline static constexpr size_t PMD_SMEARGLE_ID_LEN = sizeof(PMD_SMEARGLE_ID_ARR)-1;
     inline static constexpr char PMD_SMEARGLE_NAME_ARR[] CONFIG_STRING_SECTION = "Smeargle";
     inline static constexpr const char* PMD_SMEARGLE_NAME = PMD_SMEARGLE_NAME_ARR;
     inline static constexpr size_t PMD_SMEARGLE_NAME_LEN = sizeof(PMD_SMEARGLE_NAME_ARR)-1;
@@ -8946,7 +8946,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYROGUE_FQID_LEN = sizeof(PMD_TYROGUE_FQID_ARR)-1;
     inline static constexpr char PMD_TYROGUE_ID_ARR[] CONFIG_STRING_SECTION = "tyrogue";
     inline static constexpr const char* PMD_TYROGUE_ID = PMD_TYROGUE_ID_ARR;
-    inline static constexpr size_t PMD_TYROGUE_ID_LEN = sizeof(PMD_TYROGUE_ID)-1;
+    inline static constexpr size_t PMD_TYROGUE_ID_LEN = sizeof(PMD_TYROGUE_ID_ARR)-1;
     inline static constexpr char PMD_TYROGUE_NAME_ARR[] CONFIG_STRING_SECTION = "Tyrogue";
     inline static constexpr const char* PMD_TYROGUE_NAME = PMD_TYROGUE_NAME_ARR;
     inline static constexpr size_t PMD_TYROGUE_NAME_LEN = sizeof(PMD_TYROGUE_NAME_ARR)-1;
@@ -8984,7 +8984,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HITMONTOP_FQID_LEN = sizeof(PMD_HITMONTOP_FQID_ARR)-1;
     inline static constexpr char PMD_HITMONTOP_ID_ARR[] CONFIG_STRING_SECTION = "hitmontop";
     inline static constexpr const char* PMD_HITMONTOP_ID = PMD_HITMONTOP_ID_ARR;
-    inline static constexpr size_t PMD_HITMONTOP_ID_LEN = sizeof(PMD_HITMONTOP_ID)-1;
+    inline static constexpr size_t PMD_HITMONTOP_ID_LEN = sizeof(PMD_HITMONTOP_ID_ARR)-1;
     inline static constexpr char PMD_HITMONTOP_NAME_ARR[] CONFIG_STRING_SECTION = "Hitmontop";
     inline static constexpr const char* PMD_HITMONTOP_NAME = PMD_HITMONTOP_NAME_ARR;
     inline static constexpr size_t PMD_HITMONTOP_NAME_LEN = sizeof(PMD_HITMONTOP_NAME_ARR)-1;
@@ -9022,7 +9022,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SMOOCHUM_FQID_LEN = sizeof(PMD_SMOOCHUM_FQID_ARR)-1;
     inline static constexpr char PMD_SMOOCHUM_ID_ARR[] CONFIG_STRING_SECTION = "smoochum";
     inline static constexpr const char* PMD_SMOOCHUM_ID = PMD_SMOOCHUM_ID_ARR;
-    inline static constexpr size_t PMD_SMOOCHUM_ID_LEN = sizeof(PMD_SMOOCHUM_ID)-1;
+    inline static constexpr size_t PMD_SMOOCHUM_ID_LEN = sizeof(PMD_SMOOCHUM_ID_ARR)-1;
     inline static constexpr char PMD_SMOOCHUM_NAME_ARR[] CONFIG_STRING_SECTION = "Smoochum";
     inline static constexpr const char* PMD_SMOOCHUM_NAME = PMD_SMOOCHUM_NAME_ARR;
     inline static constexpr size_t PMD_SMOOCHUM_NAME_LEN = sizeof(PMD_SMOOCHUM_NAME_ARR)-1;
@@ -9060,7 +9060,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ELEKID_FQID_LEN = sizeof(PMD_ELEKID_FQID_ARR)-1;
     inline static constexpr char PMD_ELEKID_ID_ARR[] CONFIG_STRING_SECTION = "elekid";
     inline static constexpr const char* PMD_ELEKID_ID = PMD_ELEKID_ID_ARR;
-    inline static constexpr size_t PMD_ELEKID_ID_LEN = sizeof(PMD_ELEKID_ID)-1;
+    inline static constexpr size_t PMD_ELEKID_ID_LEN = sizeof(PMD_ELEKID_ID_ARR)-1;
     inline static constexpr char PMD_ELEKID_NAME_ARR[] CONFIG_STRING_SECTION = "Elekid";
     inline static constexpr const char* PMD_ELEKID_NAME = PMD_ELEKID_NAME_ARR;
     inline static constexpr size_t PMD_ELEKID_NAME_LEN = sizeof(PMD_ELEKID_NAME_ARR)-1;
@@ -9098,7 +9098,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGBY_FQID_LEN = sizeof(PMD_MAGBY_FQID_ARR)-1;
     inline static constexpr char PMD_MAGBY_ID_ARR[] CONFIG_STRING_SECTION = "magby";
     inline static constexpr const char* PMD_MAGBY_ID = PMD_MAGBY_ID_ARR;
-    inline static constexpr size_t PMD_MAGBY_ID_LEN = sizeof(PMD_MAGBY_ID)-1;
+    inline static constexpr size_t PMD_MAGBY_ID_LEN = sizeof(PMD_MAGBY_ID_ARR)-1;
     inline static constexpr char PMD_MAGBY_NAME_ARR[] CONFIG_STRING_SECTION = "Magby";
     inline static constexpr const char* PMD_MAGBY_NAME = PMD_MAGBY_NAME_ARR;
     inline static constexpr size_t PMD_MAGBY_NAME_LEN = sizeof(PMD_MAGBY_NAME_ARR)-1;
@@ -9136,7 +9136,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MILTANK_FQID_LEN = sizeof(PMD_MILTANK_FQID_ARR)-1;
     inline static constexpr char PMD_MILTANK_ID_ARR[] CONFIG_STRING_SECTION = "miltank";
     inline static constexpr const char* PMD_MILTANK_ID = PMD_MILTANK_ID_ARR;
-    inline static constexpr size_t PMD_MILTANK_ID_LEN = sizeof(PMD_MILTANK_ID)-1;
+    inline static constexpr size_t PMD_MILTANK_ID_LEN = sizeof(PMD_MILTANK_ID_ARR)-1;
     inline static constexpr char PMD_MILTANK_NAME_ARR[] CONFIG_STRING_SECTION = "Miltank";
     inline static constexpr const char* PMD_MILTANK_NAME = PMD_MILTANK_NAME_ARR;
     inline static constexpr size_t PMD_MILTANK_NAME_LEN = sizeof(PMD_MILTANK_NAME_ARR)-1;
@@ -9174,7 +9174,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BLISSEY_FQID_LEN = sizeof(PMD_BLISSEY_FQID_ARR)-1;
     inline static constexpr char PMD_BLISSEY_ID_ARR[] CONFIG_STRING_SECTION = "blissey";
     inline static constexpr const char* PMD_BLISSEY_ID = PMD_BLISSEY_ID_ARR;
-    inline static constexpr size_t PMD_BLISSEY_ID_LEN = sizeof(PMD_BLISSEY_ID)-1;
+    inline static constexpr size_t PMD_BLISSEY_ID_LEN = sizeof(PMD_BLISSEY_ID_ARR)-1;
     inline static constexpr char PMD_BLISSEY_NAME_ARR[] CONFIG_STRING_SECTION = "Blissey";
     inline static constexpr const char* PMD_BLISSEY_NAME = PMD_BLISSEY_NAME_ARR;
     inline static constexpr size_t PMD_BLISSEY_NAME_LEN = sizeof(PMD_BLISSEY_NAME_ARR)-1;
@@ -9212,7 +9212,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RAIKOU_FQID_LEN = sizeof(PMD_RAIKOU_FQID_ARR)-1;
     inline static constexpr char PMD_RAIKOU_ID_ARR[] CONFIG_STRING_SECTION = "raikou";
     inline static constexpr const char* PMD_RAIKOU_ID = PMD_RAIKOU_ID_ARR;
-    inline static constexpr size_t PMD_RAIKOU_ID_LEN = sizeof(PMD_RAIKOU_ID)-1;
+    inline static constexpr size_t PMD_RAIKOU_ID_LEN = sizeof(PMD_RAIKOU_ID_ARR)-1;
     inline static constexpr char PMD_RAIKOU_NAME_ARR[] CONFIG_STRING_SECTION = "Raikou";
     inline static constexpr const char* PMD_RAIKOU_NAME = PMD_RAIKOU_NAME_ARR;
     inline static constexpr size_t PMD_RAIKOU_NAME_LEN = sizeof(PMD_RAIKOU_NAME_ARR)-1;
@@ -9250,7 +9250,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ENTEI_FQID_LEN = sizeof(PMD_ENTEI_FQID_ARR)-1;
     inline static constexpr char PMD_ENTEI_ID_ARR[] CONFIG_STRING_SECTION = "entei";
     inline static constexpr const char* PMD_ENTEI_ID = PMD_ENTEI_ID_ARR;
-    inline static constexpr size_t PMD_ENTEI_ID_LEN = sizeof(PMD_ENTEI_ID)-1;
+    inline static constexpr size_t PMD_ENTEI_ID_LEN = sizeof(PMD_ENTEI_ID_ARR)-1;
     inline static constexpr char PMD_ENTEI_NAME_ARR[] CONFIG_STRING_SECTION = "Entei";
     inline static constexpr const char* PMD_ENTEI_NAME = PMD_ENTEI_NAME_ARR;
     inline static constexpr size_t PMD_ENTEI_NAME_LEN = sizeof(PMD_ENTEI_NAME_ARR)-1;
@@ -9288,7 +9288,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SUICUNE_FQID_LEN = sizeof(PMD_SUICUNE_FQID_ARR)-1;
     inline static constexpr char PMD_SUICUNE_ID_ARR[] CONFIG_STRING_SECTION = "suicune";
     inline static constexpr const char* PMD_SUICUNE_ID = PMD_SUICUNE_ID_ARR;
-    inline static constexpr size_t PMD_SUICUNE_ID_LEN = sizeof(PMD_SUICUNE_ID)-1;
+    inline static constexpr size_t PMD_SUICUNE_ID_LEN = sizeof(PMD_SUICUNE_ID_ARR)-1;
     inline static constexpr char PMD_SUICUNE_NAME_ARR[] CONFIG_STRING_SECTION = "Suicune";
     inline static constexpr const char* PMD_SUICUNE_NAME = PMD_SUICUNE_NAME_ARR;
     inline static constexpr size_t PMD_SUICUNE_NAME_LEN = sizeof(PMD_SUICUNE_NAME_ARR)-1;
@@ -9326,7 +9326,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LARVITAR_FQID_LEN = sizeof(PMD_LARVITAR_FQID_ARR)-1;
     inline static constexpr char PMD_LARVITAR_ID_ARR[] CONFIG_STRING_SECTION = "larvitar";
     inline static constexpr const char* PMD_LARVITAR_ID = PMD_LARVITAR_ID_ARR;
-    inline static constexpr size_t PMD_LARVITAR_ID_LEN = sizeof(PMD_LARVITAR_ID)-1;
+    inline static constexpr size_t PMD_LARVITAR_ID_LEN = sizeof(PMD_LARVITAR_ID_ARR)-1;
     inline static constexpr char PMD_LARVITAR_NAME_ARR[] CONFIG_STRING_SECTION = "Larvitar";
     inline static constexpr const char* PMD_LARVITAR_NAME = PMD_LARVITAR_NAME_ARR;
     inline static constexpr size_t PMD_LARVITAR_NAME_LEN = sizeof(PMD_LARVITAR_NAME_ARR)-1;
@@ -9364,7 +9364,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PUPITAR_FQID_LEN = sizeof(PMD_PUPITAR_FQID_ARR)-1;
     inline static constexpr char PMD_PUPITAR_ID_ARR[] CONFIG_STRING_SECTION = "pupitar";
     inline static constexpr const char* PMD_PUPITAR_ID = PMD_PUPITAR_ID_ARR;
-    inline static constexpr size_t PMD_PUPITAR_ID_LEN = sizeof(PMD_PUPITAR_ID)-1;
+    inline static constexpr size_t PMD_PUPITAR_ID_LEN = sizeof(PMD_PUPITAR_ID_ARR)-1;
     inline static constexpr char PMD_PUPITAR_NAME_ARR[] CONFIG_STRING_SECTION = "Pupitar";
     inline static constexpr const char* PMD_PUPITAR_NAME = PMD_PUPITAR_NAME_ARR;
     inline static constexpr size_t PMD_PUPITAR_NAME_LEN = sizeof(PMD_PUPITAR_NAME_ARR)-1;
@@ -9402,7 +9402,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYRANITAR_FQID_LEN = sizeof(PMD_TYRANITAR_FQID_ARR)-1;
     inline static constexpr char PMD_TYRANITAR_ID_ARR[] CONFIG_STRING_SECTION = "tyranitar";
     inline static constexpr const char* PMD_TYRANITAR_ID = PMD_TYRANITAR_ID_ARR;
-    inline static constexpr size_t PMD_TYRANITAR_ID_LEN = sizeof(PMD_TYRANITAR_ID)-1;
+    inline static constexpr size_t PMD_TYRANITAR_ID_LEN = sizeof(PMD_TYRANITAR_ID_ARR)-1;
     inline static constexpr char PMD_TYRANITAR_NAME_ARR[] CONFIG_STRING_SECTION = "Tyranitar";
     inline static constexpr const char* PMD_TYRANITAR_NAME = PMD_TYRANITAR_NAME_ARR;
     inline static constexpr size_t PMD_TYRANITAR_NAME_LEN = sizeof(PMD_TYRANITAR_NAME_ARR)-1;
@@ -9440,7 +9440,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUGIA_FQID_LEN = sizeof(PMD_LUGIA_FQID_ARR)-1;
     inline static constexpr char PMD_LUGIA_ID_ARR[] CONFIG_STRING_SECTION = "lugia";
     inline static constexpr const char* PMD_LUGIA_ID = PMD_LUGIA_ID_ARR;
-    inline static constexpr size_t PMD_LUGIA_ID_LEN = sizeof(PMD_LUGIA_ID)-1;
+    inline static constexpr size_t PMD_LUGIA_ID_LEN = sizeof(PMD_LUGIA_ID_ARR)-1;
     inline static constexpr char PMD_LUGIA_NAME_ARR[] CONFIG_STRING_SECTION = "Lugia";
     inline static constexpr const char* PMD_LUGIA_NAME = PMD_LUGIA_NAME_ARR;
     inline static constexpr size_t PMD_LUGIA_NAME_LEN = sizeof(PMD_LUGIA_NAME_ARR)-1;
@@ -9478,7 +9478,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HO_OH_FQID_LEN = sizeof(PMD_HO_OH_FQID_ARR)-1;
     inline static constexpr char PMD_HO_OH_ID_ARR[] CONFIG_STRING_SECTION = "ho_oh";
     inline static constexpr const char* PMD_HO_OH_ID = PMD_HO_OH_ID_ARR;
-    inline static constexpr size_t PMD_HO_OH_ID_LEN = sizeof(PMD_HO_OH_ID)-1;
+    inline static constexpr size_t PMD_HO_OH_ID_LEN = sizeof(PMD_HO_OH_ID_ARR)-1;
     inline static constexpr char PMD_HO_OH_NAME_ARR[] CONFIG_STRING_SECTION = "Ho-oh";
     inline static constexpr const char* PMD_HO_OH_NAME = PMD_HO_OH_NAME_ARR;
     inline static constexpr size_t PMD_HO_OH_NAME_LEN = sizeof(PMD_HO_OH_NAME_ARR)-1;
@@ -9516,7 +9516,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CELEBI_FQID_LEN = sizeof(PMD_CELEBI_FQID_ARR)-1;
     inline static constexpr char PMD_CELEBI_ID_ARR[] CONFIG_STRING_SECTION = "celebi";
     inline static constexpr const char* PMD_CELEBI_ID = PMD_CELEBI_ID_ARR;
-    inline static constexpr size_t PMD_CELEBI_ID_LEN = sizeof(PMD_CELEBI_ID)-1;
+    inline static constexpr size_t PMD_CELEBI_ID_LEN = sizeof(PMD_CELEBI_ID_ARR)-1;
     inline static constexpr char PMD_CELEBI_NAME_ARR[] CONFIG_STRING_SECTION = "Celebi";
     inline static constexpr const char* PMD_CELEBI_NAME = PMD_CELEBI_NAME_ARR;
     inline static constexpr size_t PMD_CELEBI_NAME_LEN = sizeof(PMD_CELEBI_NAME_ARR)-1;
@@ -9554,7 +9554,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TREECKO_FQID_LEN = sizeof(PMD_TREECKO_FQID_ARR)-1;
     inline static constexpr char PMD_TREECKO_ID_ARR[] CONFIG_STRING_SECTION = "treecko";
     inline static constexpr const char* PMD_TREECKO_ID = PMD_TREECKO_ID_ARR;
-    inline static constexpr size_t PMD_TREECKO_ID_LEN = sizeof(PMD_TREECKO_ID)-1;
+    inline static constexpr size_t PMD_TREECKO_ID_LEN = sizeof(PMD_TREECKO_ID_ARR)-1;
     inline static constexpr char PMD_TREECKO_NAME_ARR[] CONFIG_STRING_SECTION = "Treecko";
     inline static constexpr const char* PMD_TREECKO_NAME = PMD_TREECKO_NAME_ARR;
     inline static constexpr size_t PMD_TREECKO_NAME_LEN = sizeof(PMD_TREECKO_NAME_ARR)-1;
@@ -9592,7 +9592,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GROVYLE_FQID_LEN = sizeof(PMD_GROVYLE_FQID_ARR)-1;
     inline static constexpr char PMD_GROVYLE_ID_ARR[] CONFIG_STRING_SECTION = "grovyle";
     inline static constexpr const char* PMD_GROVYLE_ID = PMD_GROVYLE_ID_ARR;
-    inline static constexpr size_t PMD_GROVYLE_ID_LEN = sizeof(PMD_GROVYLE_ID)-1;
+    inline static constexpr size_t PMD_GROVYLE_ID_LEN = sizeof(PMD_GROVYLE_ID_ARR)-1;
     inline static constexpr char PMD_GROVYLE_NAME_ARR[] CONFIG_STRING_SECTION = "Grovyle";
     inline static constexpr const char* PMD_GROVYLE_NAME = PMD_GROVYLE_NAME_ARR;
     inline static constexpr size_t PMD_GROVYLE_NAME_LEN = sizeof(PMD_GROVYLE_NAME_ARR)-1;
@@ -9630,7 +9630,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCEPTILE_FQID_LEN = sizeof(PMD_SCEPTILE_FQID_ARR)-1;
     inline static constexpr char PMD_SCEPTILE_ID_ARR[] CONFIG_STRING_SECTION = "sceptile";
     inline static constexpr const char* PMD_SCEPTILE_ID = PMD_SCEPTILE_ID_ARR;
-    inline static constexpr size_t PMD_SCEPTILE_ID_LEN = sizeof(PMD_SCEPTILE_ID)-1;
+    inline static constexpr size_t PMD_SCEPTILE_ID_LEN = sizeof(PMD_SCEPTILE_ID_ARR)-1;
     inline static constexpr char PMD_SCEPTILE_NAME_ARR[] CONFIG_STRING_SECTION = "Sceptile";
     inline static constexpr const char* PMD_SCEPTILE_NAME = PMD_SCEPTILE_NAME_ARR;
     inline static constexpr size_t PMD_SCEPTILE_NAME_LEN = sizeof(PMD_SCEPTILE_NAME_ARR)-1;
@@ -9668,7 +9668,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TORCHIC_FQID_LEN = sizeof(PMD_TORCHIC_FQID_ARR)-1;
     inline static constexpr char PMD_TORCHIC_ID_ARR[] CONFIG_STRING_SECTION = "torchic";
     inline static constexpr const char* PMD_TORCHIC_ID = PMD_TORCHIC_ID_ARR;
-    inline static constexpr size_t PMD_TORCHIC_ID_LEN = sizeof(PMD_TORCHIC_ID)-1;
+    inline static constexpr size_t PMD_TORCHIC_ID_LEN = sizeof(PMD_TORCHIC_ID_ARR)-1;
     inline static constexpr char PMD_TORCHIC_NAME_ARR[] CONFIG_STRING_SECTION = "Torchic";
     inline static constexpr const char* PMD_TORCHIC_NAME = PMD_TORCHIC_NAME_ARR;
     inline static constexpr size_t PMD_TORCHIC_NAME_LEN = sizeof(PMD_TORCHIC_NAME_ARR)-1;
@@ -9706,7 +9706,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COMBUSKEN_FQID_LEN = sizeof(PMD_COMBUSKEN_FQID_ARR)-1;
     inline static constexpr char PMD_COMBUSKEN_ID_ARR[] CONFIG_STRING_SECTION = "combusken";
     inline static constexpr const char* PMD_COMBUSKEN_ID = PMD_COMBUSKEN_ID_ARR;
-    inline static constexpr size_t PMD_COMBUSKEN_ID_LEN = sizeof(PMD_COMBUSKEN_ID)-1;
+    inline static constexpr size_t PMD_COMBUSKEN_ID_LEN = sizeof(PMD_COMBUSKEN_ID_ARR)-1;
     inline static constexpr char PMD_COMBUSKEN_NAME_ARR[] CONFIG_STRING_SECTION = "Combusken";
     inline static constexpr const char* PMD_COMBUSKEN_NAME = PMD_COMBUSKEN_NAME_ARR;
     inline static constexpr size_t PMD_COMBUSKEN_NAME_LEN = sizeof(PMD_COMBUSKEN_NAME_ARR)-1;
@@ -9744,7 +9744,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BLAZIKEN_FQID_LEN = sizeof(PMD_BLAZIKEN_FQID_ARR)-1;
     inline static constexpr char PMD_BLAZIKEN_ID_ARR[] CONFIG_STRING_SECTION = "blaziken";
     inline static constexpr const char* PMD_BLAZIKEN_ID = PMD_BLAZIKEN_ID_ARR;
-    inline static constexpr size_t PMD_BLAZIKEN_ID_LEN = sizeof(PMD_BLAZIKEN_ID)-1;
+    inline static constexpr size_t PMD_BLAZIKEN_ID_LEN = sizeof(PMD_BLAZIKEN_ID_ARR)-1;
     inline static constexpr char PMD_BLAZIKEN_NAME_ARR[] CONFIG_STRING_SECTION = "Blaziken";
     inline static constexpr const char* PMD_BLAZIKEN_NAME = PMD_BLAZIKEN_NAME_ARR;
     inline static constexpr size_t PMD_BLAZIKEN_NAME_LEN = sizeof(PMD_BLAZIKEN_NAME_ARR)-1;
@@ -9782,7 +9782,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MUDKIP_FQID_LEN = sizeof(PMD_MUDKIP_FQID_ARR)-1;
     inline static constexpr char PMD_MUDKIP_ID_ARR[] CONFIG_STRING_SECTION = "mudkip";
     inline static constexpr const char* PMD_MUDKIP_ID = PMD_MUDKIP_ID_ARR;
-    inline static constexpr size_t PMD_MUDKIP_ID_LEN = sizeof(PMD_MUDKIP_ID)-1;
+    inline static constexpr size_t PMD_MUDKIP_ID_LEN = sizeof(PMD_MUDKIP_ID_ARR)-1;
     inline static constexpr char PMD_MUDKIP_NAME_ARR[] CONFIG_STRING_SECTION = "Mudkip";
     inline static constexpr const char* PMD_MUDKIP_NAME = PMD_MUDKIP_NAME_ARR;
     inline static constexpr size_t PMD_MUDKIP_NAME_LEN = sizeof(PMD_MUDKIP_NAME_ARR)-1;
@@ -9820,7 +9820,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MARSHTOMP_FQID_LEN = sizeof(PMD_MARSHTOMP_FQID_ARR)-1;
     inline static constexpr char PMD_MARSHTOMP_ID_ARR[] CONFIG_STRING_SECTION = "marshtomp";
     inline static constexpr const char* PMD_MARSHTOMP_ID = PMD_MARSHTOMP_ID_ARR;
-    inline static constexpr size_t PMD_MARSHTOMP_ID_LEN = sizeof(PMD_MARSHTOMP_ID)-1;
+    inline static constexpr size_t PMD_MARSHTOMP_ID_LEN = sizeof(PMD_MARSHTOMP_ID_ARR)-1;
     inline static constexpr char PMD_MARSHTOMP_NAME_ARR[] CONFIG_STRING_SECTION = "Marshtomp";
     inline static constexpr const char* PMD_MARSHTOMP_NAME = PMD_MARSHTOMP_NAME_ARR;
     inline static constexpr size_t PMD_MARSHTOMP_NAME_LEN = sizeof(PMD_MARSHTOMP_NAME_ARR)-1;
@@ -9858,7 +9858,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWAMPERT_FQID_LEN = sizeof(PMD_SWAMPERT_FQID_ARR)-1;
     inline static constexpr char PMD_SWAMPERT_ID_ARR[] CONFIG_STRING_SECTION = "swampert";
     inline static constexpr const char* PMD_SWAMPERT_ID = PMD_SWAMPERT_ID_ARR;
-    inline static constexpr size_t PMD_SWAMPERT_ID_LEN = sizeof(PMD_SWAMPERT_ID)-1;
+    inline static constexpr size_t PMD_SWAMPERT_ID_LEN = sizeof(PMD_SWAMPERT_ID_ARR)-1;
     inline static constexpr char PMD_SWAMPERT_NAME_ARR[] CONFIG_STRING_SECTION = "Swampert";
     inline static constexpr const char* PMD_SWAMPERT_NAME = PMD_SWAMPERT_NAME_ARR;
     inline static constexpr size_t PMD_SWAMPERT_NAME_LEN = sizeof(PMD_SWAMPERT_NAME_ARR)-1;
@@ -9896,7 +9896,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POOCHYENA_FQID_LEN = sizeof(PMD_POOCHYENA_FQID_ARR)-1;
     inline static constexpr char PMD_POOCHYENA_ID_ARR[] CONFIG_STRING_SECTION = "poochyena";
     inline static constexpr const char* PMD_POOCHYENA_ID = PMD_POOCHYENA_ID_ARR;
-    inline static constexpr size_t PMD_POOCHYENA_ID_LEN = sizeof(PMD_POOCHYENA_ID)-1;
+    inline static constexpr size_t PMD_POOCHYENA_ID_LEN = sizeof(PMD_POOCHYENA_ID_ARR)-1;
     inline static constexpr char PMD_POOCHYENA_NAME_ARR[] CONFIG_STRING_SECTION = "Poochyena";
     inline static constexpr const char* PMD_POOCHYENA_NAME = PMD_POOCHYENA_NAME_ARR;
     inline static constexpr size_t PMD_POOCHYENA_NAME_LEN = sizeof(PMD_POOCHYENA_NAME_ARR)-1;
@@ -9934,7 +9934,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MIGHTYENA_FQID_LEN = sizeof(PMD_MIGHTYENA_FQID_ARR)-1;
     inline static constexpr char PMD_MIGHTYENA_ID_ARR[] CONFIG_STRING_SECTION = "mightyena";
     inline static constexpr const char* PMD_MIGHTYENA_ID = PMD_MIGHTYENA_ID_ARR;
-    inline static constexpr size_t PMD_MIGHTYENA_ID_LEN = sizeof(PMD_MIGHTYENA_ID)-1;
+    inline static constexpr size_t PMD_MIGHTYENA_ID_LEN = sizeof(PMD_MIGHTYENA_ID_ARR)-1;
     inline static constexpr char PMD_MIGHTYENA_NAME_ARR[] CONFIG_STRING_SECTION = "Mightyena";
     inline static constexpr const char* PMD_MIGHTYENA_NAME = PMD_MIGHTYENA_NAME_ARR;
     inline static constexpr size_t PMD_MIGHTYENA_NAME_LEN = sizeof(PMD_MIGHTYENA_NAME_ARR)-1;
@@ -9972,7 +9972,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZIGZAGOON_FQID_LEN = sizeof(PMD_ZIGZAGOON_FQID_ARR)-1;
     inline static constexpr char PMD_ZIGZAGOON_ID_ARR[] CONFIG_STRING_SECTION = "zigzagoon";
     inline static constexpr const char* PMD_ZIGZAGOON_ID = PMD_ZIGZAGOON_ID_ARR;
-    inline static constexpr size_t PMD_ZIGZAGOON_ID_LEN = sizeof(PMD_ZIGZAGOON_ID)-1;
+    inline static constexpr size_t PMD_ZIGZAGOON_ID_LEN = sizeof(PMD_ZIGZAGOON_ID_ARR)-1;
     inline static constexpr char PMD_ZIGZAGOON_NAME_ARR[] CONFIG_STRING_SECTION = "Zigzagoon";
     inline static constexpr const char* PMD_ZIGZAGOON_NAME = PMD_ZIGZAGOON_NAME_ARR;
     inline static constexpr size_t PMD_ZIGZAGOON_NAME_LEN = sizeof(PMD_ZIGZAGOON_NAME_ARR)-1;
@@ -10010,7 +10010,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LINOONE_FQID_LEN = sizeof(PMD_LINOONE_FQID_ARR)-1;
     inline static constexpr char PMD_LINOONE_ID_ARR[] CONFIG_STRING_SECTION = "linoone";
     inline static constexpr const char* PMD_LINOONE_ID = PMD_LINOONE_ID_ARR;
-    inline static constexpr size_t PMD_LINOONE_ID_LEN = sizeof(PMD_LINOONE_ID)-1;
+    inline static constexpr size_t PMD_LINOONE_ID_LEN = sizeof(PMD_LINOONE_ID_ARR)-1;
     inline static constexpr char PMD_LINOONE_NAME_ARR[] CONFIG_STRING_SECTION = "Linoone";
     inline static constexpr const char* PMD_LINOONE_NAME = PMD_LINOONE_NAME_ARR;
     inline static constexpr size_t PMD_LINOONE_NAME_LEN = sizeof(PMD_LINOONE_NAME_ARR)-1;
@@ -10048,7 +10048,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WURMPLE_FQID_LEN = sizeof(PMD_WURMPLE_FQID_ARR)-1;
     inline static constexpr char PMD_WURMPLE_ID_ARR[] CONFIG_STRING_SECTION = "wurmple";
     inline static constexpr const char* PMD_WURMPLE_ID = PMD_WURMPLE_ID_ARR;
-    inline static constexpr size_t PMD_WURMPLE_ID_LEN = sizeof(PMD_WURMPLE_ID)-1;
+    inline static constexpr size_t PMD_WURMPLE_ID_LEN = sizeof(PMD_WURMPLE_ID_ARR)-1;
     inline static constexpr char PMD_WURMPLE_NAME_ARR[] CONFIG_STRING_SECTION = "Wurmple";
     inline static constexpr const char* PMD_WURMPLE_NAME = PMD_WURMPLE_NAME_ARR;
     inline static constexpr size_t PMD_WURMPLE_NAME_LEN = sizeof(PMD_WURMPLE_NAME_ARR)-1;
@@ -10086,7 +10086,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SILCOON_FQID_LEN = sizeof(PMD_SILCOON_FQID_ARR)-1;
     inline static constexpr char PMD_SILCOON_ID_ARR[] CONFIG_STRING_SECTION = "silcoon";
     inline static constexpr const char* PMD_SILCOON_ID = PMD_SILCOON_ID_ARR;
-    inline static constexpr size_t PMD_SILCOON_ID_LEN = sizeof(PMD_SILCOON_ID)-1;
+    inline static constexpr size_t PMD_SILCOON_ID_LEN = sizeof(PMD_SILCOON_ID_ARR)-1;
     inline static constexpr char PMD_SILCOON_NAME_ARR[] CONFIG_STRING_SECTION = "Silcoon";
     inline static constexpr const char* PMD_SILCOON_NAME = PMD_SILCOON_NAME_ARR;
     inline static constexpr size_t PMD_SILCOON_NAME_LEN = sizeof(PMD_SILCOON_NAME_ARR)-1;
@@ -10124,7 +10124,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BEAUTIFLY_FQID_LEN = sizeof(PMD_BEAUTIFLY_FQID_ARR)-1;
     inline static constexpr char PMD_BEAUTIFLY_ID_ARR[] CONFIG_STRING_SECTION = "beautifly";
     inline static constexpr const char* PMD_BEAUTIFLY_ID = PMD_BEAUTIFLY_ID_ARR;
-    inline static constexpr size_t PMD_BEAUTIFLY_ID_LEN = sizeof(PMD_BEAUTIFLY_ID)-1;
+    inline static constexpr size_t PMD_BEAUTIFLY_ID_LEN = sizeof(PMD_BEAUTIFLY_ID_ARR)-1;
     inline static constexpr char PMD_BEAUTIFLY_NAME_ARR[] CONFIG_STRING_SECTION = "Beautifly";
     inline static constexpr const char* PMD_BEAUTIFLY_NAME = PMD_BEAUTIFLY_NAME_ARR;
     inline static constexpr size_t PMD_BEAUTIFLY_NAME_LEN = sizeof(PMD_BEAUTIFLY_NAME_ARR)-1;
@@ -10162,7 +10162,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CASCOON_FQID_LEN = sizeof(PMD_CASCOON_FQID_ARR)-1;
     inline static constexpr char PMD_CASCOON_ID_ARR[] CONFIG_STRING_SECTION = "cascoon";
     inline static constexpr const char* PMD_CASCOON_ID = PMD_CASCOON_ID_ARR;
-    inline static constexpr size_t PMD_CASCOON_ID_LEN = sizeof(PMD_CASCOON_ID)-1;
+    inline static constexpr size_t PMD_CASCOON_ID_LEN = sizeof(PMD_CASCOON_ID_ARR)-1;
     inline static constexpr char PMD_CASCOON_NAME_ARR[] CONFIG_STRING_SECTION = "Cascoon";
     inline static constexpr const char* PMD_CASCOON_NAME = PMD_CASCOON_NAME_ARR;
     inline static constexpr size_t PMD_CASCOON_NAME_LEN = sizeof(PMD_CASCOON_NAME_ARR)-1;
@@ -10200,7 +10200,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DUSTOX_FQID_LEN = sizeof(PMD_DUSTOX_FQID_ARR)-1;
     inline static constexpr char PMD_DUSTOX_ID_ARR[] CONFIG_STRING_SECTION = "dustox";
     inline static constexpr const char* PMD_DUSTOX_ID = PMD_DUSTOX_ID_ARR;
-    inline static constexpr size_t PMD_DUSTOX_ID_LEN = sizeof(PMD_DUSTOX_ID)-1;
+    inline static constexpr size_t PMD_DUSTOX_ID_LEN = sizeof(PMD_DUSTOX_ID_ARR)-1;
     inline static constexpr char PMD_DUSTOX_NAME_ARR[] CONFIG_STRING_SECTION = "Dustox";
     inline static constexpr const char* PMD_DUSTOX_NAME = PMD_DUSTOX_NAME_ARR;
     inline static constexpr size_t PMD_DUSTOX_NAME_LEN = sizeof(PMD_DUSTOX_NAME_ARR)-1;
@@ -10238,7 +10238,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LOTAD_FQID_LEN = sizeof(PMD_LOTAD_FQID_ARR)-1;
     inline static constexpr char PMD_LOTAD_ID_ARR[] CONFIG_STRING_SECTION = "lotad";
     inline static constexpr const char* PMD_LOTAD_ID = PMD_LOTAD_ID_ARR;
-    inline static constexpr size_t PMD_LOTAD_ID_LEN = sizeof(PMD_LOTAD_ID)-1;
+    inline static constexpr size_t PMD_LOTAD_ID_LEN = sizeof(PMD_LOTAD_ID_ARR)-1;
     inline static constexpr char PMD_LOTAD_NAME_ARR[] CONFIG_STRING_SECTION = "Lotad";
     inline static constexpr const char* PMD_LOTAD_NAME = PMD_LOTAD_NAME_ARR;
     inline static constexpr size_t PMD_LOTAD_NAME_LEN = sizeof(PMD_LOTAD_NAME_ARR)-1;
@@ -10276,7 +10276,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LOMBRE_FQID_LEN = sizeof(PMD_LOMBRE_FQID_ARR)-1;
     inline static constexpr char PMD_LOMBRE_ID_ARR[] CONFIG_STRING_SECTION = "lombre";
     inline static constexpr const char* PMD_LOMBRE_ID = PMD_LOMBRE_ID_ARR;
-    inline static constexpr size_t PMD_LOMBRE_ID_LEN = sizeof(PMD_LOMBRE_ID)-1;
+    inline static constexpr size_t PMD_LOMBRE_ID_LEN = sizeof(PMD_LOMBRE_ID_ARR)-1;
     inline static constexpr char PMD_LOMBRE_NAME_ARR[] CONFIG_STRING_SECTION = "Lombre";
     inline static constexpr const char* PMD_LOMBRE_NAME = PMD_LOMBRE_NAME_ARR;
     inline static constexpr size_t PMD_LOMBRE_NAME_LEN = sizeof(PMD_LOMBRE_NAME_ARR)-1;
@@ -10314,7 +10314,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUDICOLO_FQID_LEN = sizeof(PMD_LUDICOLO_FQID_ARR)-1;
     inline static constexpr char PMD_LUDICOLO_ID_ARR[] CONFIG_STRING_SECTION = "ludicolo";
     inline static constexpr const char* PMD_LUDICOLO_ID = PMD_LUDICOLO_ID_ARR;
-    inline static constexpr size_t PMD_LUDICOLO_ID_LEN = sizeof(PMD_LUDICOLO_ID)-1;
+    inline static constexpr size_t PMD_LUDICOLO_ID_LEN = sizeof(PMD_LUDICOLO_ID_ARR)-1;
     inline static constexpr char PMD_LUDICOLO_NAME_ARR[] CONFIG_STRING_SECTION = "Ludicolo";
     inline static constexpr const char* PMD_LUDICOLO_NAME = PMD_LUDICOLO_NAME_ARR;
     inline static constexpr size_t PMD_LUDICOLO_NAME_LEN = sizeof(PMD_LUDICOLO_NAME_ARR)-1;
@@ -10352,7 +10352,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEEDOT_FQID_LEN = sizeof(PMD_SEEDOT_FQID_ARR)-1;
     inline static constexpr char PMD_SEEDOT_ID_ARR[] CONFIG_STRING_SECTION = "seedot";
     inline static constexpr const char* PMD_SEEDOT_ID = PMD_SEEDOT_ID_ARR;
-    inline static constexpr size_t PMD_SEEDOT_ID_LEN = sizeof(PMD_SEEDOT_ID)-1;
+    inline static constexpr size_t PMD_SEEDOT_ID_LEN = sizeof(PMD_SEEDOT_ID_ARR)-1;
     inline static constexpr char PMD_SEEDOT_NAME_ARR[] CONFIG_STRING_SECTION = "Seedot";
     inline static constexpr const char* PMD_SEEDOT_NAME = PMD_SEEDOT_NAME_ARR;
     inline static constexpr size_t PMD_SEEDOT_NAME_LEN = sizeof(PMD_SEEDOT_NAME_ARR)-1;
@@ -10390,7 +10390,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NUZLEAF_FQID_LEN = sizeof(PMD_NUZLEAF_FQID_ARR)-1;
     inline static constexpr char PMD_NUZLEAF_ID_ARR[] CONFIG_STRING_SECTION = "nuzleaf";
     inline static constexpr const char* PMD_NUZLEAF_ID = PMD_NUZLEAF_ID_ARR;
-    inline static constexpr size_t PMD_NUZLEAF_ID_LEN = sizeof(PMD_NUZLEAF_ID)-1;
+    inline static constexpr size_t PMD_NUZLEAF_ID_LEN = sizeof(PMD_NUZLEAF_ID_ARR)-1;
     inline static constexpr char PMD_NUZLEAF_NAME_ARR[] CONFIG_STRING_SECTION = "Nuzleaf";
     inline static constexpr const char* PMD_NUZLEAF_NAME = PMD_NUZLEAF_NAME_ARR;
     inline static constexpr size_t PMD_NUZLEAF_NAME_LEN = sizeof(PMD_NUZLEAF_NAME_ARR)-1;
@@ -10428,7 +10428,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHIFTRY_FQID_LEN = sizeof(PMD_SHIFTRY_FQID_ARR)-1;
     inline static constexpr char PMD_SHIFTRY_ID_ARR[] CONFIG_STRING_SECTION = "shiftry";
     inline static constexpr const char* PMD_SHIFTRY_ID = PMD_SHIFTRY_ID_ARR;
-    inline static constexpr size_t PMD_SHIFTRY_ID_LEN = sizeof(PMD_SHIFTRY_ID)-1;
+    inline static constexpr size_t PMD_SHIFTRY_ID_LEN = sizeof(PMD_SHIFTRY_ID_ARR)-1;
     inline static constexpr char PMD_SHIFTRY_NAME_ARR[] CONFIG_STRING_SECTION = "Shiftry";
     inline static constexpr const char* PMD_SHIFTRY_NAME = PMD_SHIFTRY_NAME_ARR;
     inline static constexpr size_t PMD_SHIFTRY_NAME_LEN = sizeof(PMD_SHIFTRY_NAME_ARR)-1;
@@ -10466,7 +10466,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TAILLOW_FQID_LEN = sizeof(PMD_TAILLOW_FQID_ARR)-1;
     inline static constexpr char PMD_TAILLOW_ID_ARR[] CONFIG_STRING_SECTION = "taillow";
     inline static constexpr const char* PMD_TAILLOW_ID = PMD_TAILLOW_ID_ARR;
-    inline static constexpr size_t PMD_TAILLOW_ID_LEN = sizeof(PMD_TAILLOW_ID)-1;
+    inline static constexpr size_t PMD_TAILLOW_ID_LEN = sizeof(PMD_TAILLOW_ID_ARR)-1;
     inline static constexpr char PMD_TAILLOW_NAME_ARR[] CONFIG_STRING_SECTION = "Taillow";
     inline static constexpr const char* PMD_TAILLOW_NAME = PMD_TAILLOW_NAME_ARR;
     inline static constexpr size_t PMD_TAILLOW_NAME_LEN = sizeof(PMD_TAILLOW_NAME_ARR)-1;
@@ -10504,7 +10504,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWELLOW_FQID_LEN = sizeof(PMD_SWELLOW_FQID_ARR)-1;
     inline static constexpr char PMD_SWELLOW_ID_ARR[] CONFIG_STRING_SECTION = "swellow";
     inline static constexpr const char* PMD_SWELLOW_ID = PMD_SWELLOW_ID_ARR;
-    inline static constexpr size_t PMD_SWELLOW_ID_LEN = sizeof(PMD_SWELLOW_ID)-1;
+    inline static constexpr size_t PMD_SWELLOW_ID_LEN = sizeof(PMD_SWELLOW_ID_ARR)-1;
     inline static constexpr char PMD_SWELLOW_NAME_ARR[] CONFIG_STRING_SECTION = "Swellow";
     inline static constexpr const char* PMD_SWELLOW_NAME = PMD_SWELLOW_NAME_ARR;
     inline static constexpr size_t PMD_SWELLOW_NAME_LEN = sizeof(PMD_SWELLOW_NAME_ARR)-1;
@@ -10542,7 +10542,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WINGULL_FQID_LEN = sizeof(PMD_WINGULL_FQID_ARR)-1;
     inline static constexpr char PMD_WINGULL_ID_ARR[] CONFIG_STRING_SECTION = "wingull";
     inline static constexpr const char* PMD_WINGULL_ID = PMD_WINGULL_ID_ARR;
-    inline static constexpr size_t PMD_WINGULL_ID_LEN = sizeof(PMD_WINGULL_ID)-1;
+    inline static constexpr size_t PMD_WINGULL_ID_LEN = sizeof(PMD_WINGULL_ID_ARR)-1;
     inline static constexpr char PMD_WINGULL_NAME_ARR[] CONFIG_STRING_SECTION = "Wingull";
     inline static constexpr const char* PMD_WINGULL_NAME = PMD_WINGULL_NAME_ARR;
     inline static constexpr size_t PMD_WINGULL_NAME_LEN = sizeof(PMD_WINGULL_NAME_ARR)-1;
@@ -10580,7 +10580,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PELIPPER_FQID_LEN = sizeof(PMD_PELIPPER_FQID_ARR)-1;
     inline static constexpr char PMD_PELIPPER_ID_ARR[] CONFIG_STRING_SECTION = "pelipper";
     inline static constexpr const char* PMD_PELIPPER_ID = PMD_PELIPPER_ID_ARR;
-    inline static constexpr size_t PMD_PELIPPER_ID_LEN = sizeof(PMD_PELIPPER_ID)-1;
+    inline static constexpr size_t PMD_PELIPPER_ID_LEN = sizeof(PMD_PELIPPER_ID_ARR)-1;
     inline static constexpr char PMD_PELIPPER_NAME_ARR[] CONFIG_STRING_SECTION = "Pelipper";
     inline static constexpr const char* PMD_PELIPPER_NAME = PMD_PELIPPER_NAME_ARR;
     inline static constexpr size_t PMD_PELIPPER_NAME_LEN = sizeof(PMD_PELIPPER_NAME_ARR)-1;
@@ -10618,7 +10618,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RALTS_FQID_LEN = sizeof(PMD_RALTS_FQID_ARR)-1;
     inline static constexpr char PMD_RALTS_ID_ARR[] CONFIG_STRING_SECTION = "ralts";
     inline static constexpr const char* PMD_RALTS_ID = PMD_RALTS_ID_ARR;
-    inline static constexpr size_t PMD_RALTS_ID_LEN = sizeof(PMD_RALTS_ID)-1;
+    inline static constexpr size_t PMD_RALTS_ID_LEN = sizeof(PMD_RALTS_ID_ARR)-1;
     inline static constexpr char PMD_RALTS_NAME_ARR[] CONFIG_STRING_SECTION = "Ralts";
     inline static constexpr const char* PMD_RALTS_NAME = PMD_RALTS_NAME_ARR;
     inline static constexpr size_t PMD_RALTS_NAME_LEN = sizeof(PMD_RALTS_NAME_ARR)-1;
@@ -10656,7 +10656,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KIRLIA_FQID_LEN = sizeof(PMD_KIRLIA_FQID_ARR)-1;
     inline static constexpr char PMD_KIRLIA_ID_ARR[] CONFIG_STRING_SECTION = "kirlia";
     inline static constexpr const char* PMD_KIRLIA_ID = PMD_KIRLIA_ID_ARR;
-    inline static constexpr size_t PMD_KIRLIA_ID_LEN = sizeof(PMD_KIRLIA_ID)-1;
+    inline static constexpr size_t PMD_KIRLIA_ID_LEN = sizeof(PMD_KIRLIA_ID_ARR)-1;
     inline static constexpr char PMD_KIRLIA_NAME_ARR[] CONFIG_STRING_SECTION = "Kirlia";
     inline static constexpr const char* PMD_KIRLIA_NAME = PMD_KIRLIA_NAME_ARR;
     inline static constexpr size_t PMD_KIRLIA_NAME_LEN = sizeof(PMD_KIRLIA_NAME_ARR)-1;
@@ -10694,7 +10694,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GARDEVOIR_FQID_LEN = sizeof(PMD_GARDEVOIR_FQID_ARR)-1;
     inline static constexpr char PMD_GARDEVOIR_ID_ARR[] CONFIG_STRING_SECTION = "gardevoir";
     inline static constexpr const char* PMD_GARDEVOIR_ID = PMD_GARDEVOIR_ID_ARR;
-    inline static constexpr size_t PMD_GARDEVOIR_ID_LEN = sizeof(PMD_GARDEVOIR_ID)-1;
+    inline static constexpr size_t PMD_GARDEVOIR_ID_LEN = sizeof(PMD_GARDEVOIR_ID_ARR)-1;
     inline static constexpr char PMD_GARDEVOIR_NAME_ARR[] CONFIG_STRING_SECTION = "Gardevoir";
     inline static constexpr const char* PMD_GARDEVOIR_NAME = PMD_GARDEVOIR_NAME_ARR;
     inline static constexpr size_t PMD_GARDEVOIR_NAME_LEN = sizeof(PMD_GARDEVOIR_NAME_ARR)-1;
@@ -10732,7 +10732,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SURSKIT_FQID_LEN = sizeof(PMD_SURSKIT_FQID_ARR)-1;
     inline static constexpr char PMD_SURSKIT_ID_ARR[] CONFIG_STRING_SECTION = "surskit";
     inline static constexpr const char* PMD_SURSKIT_ID = PMD_SURSKIT_ID_ARR;
-    inline static constexpr size_t PMD_SURSKIT_ID_LEN = sizeof(PMD_SURSKIT_ID)-1;
+    inline static constexpr size_t PMD_SURSKIT_ID_LEN = sizeof(PMD_SURSKIT_ID_ARR)-1;
     inline static constexpr char PMD_SURSKIT_NAME_ARR[] CONFIG_STRING_SECTION = "Surskit";
     inline static constexpr const char* PMD_SURSKIT_NAME = PMD_SURSKIT_NAME_ARR;
     inline static constexpr size_t PMD_SURSKIT_NAME_LEN = sizeof(PMD_SURSKIT_NAME_ARR)-1;
@@ -10770,7 +10770,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MASQUERAIN_FQID_LEN = sizeof(PMD_MASQUERAIN_FQID_ARR)-1;
     inline static constexpr char PMD_MASQUERAIN_ID_ARR[] CONFIG_STRING_SECTION = "masquerain";
     inline static constexpr const char* PMD_MASQUERAIN_ID = PMD_MASQUERAIN_ID_ARR;
-    inline static constexpr size_t PMD_MASQUERAIN_ID_LEN = sizeof(PMD_MASQUERAIN_ID)-1;
+    inline static constexpr size_t PMD_MASQUERAIN_ID_LEN = sizeof(PMD_MASQUERAIN_ID_ARR)-1;
     inline static constexpr char PMD_MASQUERAIN_NAME_ARR[] CONFIG_STRING_SECTION = "Masquerain";
     inline static constexpr const char* PMD_MASQUERAIN_NAME = PMD_MASQUERAIN_NAME_ARR;
     inline static constexpr size_t PMD_MASQUERAIN_NAME_LEN = sizeof(PMD_MASQUERAIN_NAME_ARR)-1;
@@ -10808,7 +10808,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHROOMISH_FQID_LEN = sizeof(PMD_SHROOMISH_FQID_ARR)-1;
     inline static constexpr char PMD_SHROOMISH_ID_ARR[] CONFIG_STRING_SECTION = "shroomish";
     inline static constexpr const char* PMD_SHROOMISH_ID = PMD_SHROOMISH_ID_ARR;
-    inline static constexpr size_t PMD_SHROOMISH_ID_LEN = sizeof(PMD_SHROOMISH_ID)-1;
+    inline static constexpr size_t PMD_SHROOMISH_ID_LEN = sizeof(PMD_SHROOMISH_ID_ARR)-1;
     inline static constexpr char PMD_SHROOMISH_NAME_ARR[] CONFIG_STRING_SECTION = "Shroomish";
     inline static constexpr const char* PMD_SHROOMISH_NAME = PMD_SHROOMISH_NAME_ARR;
     inline static constexpr size_t PMD_SHROOMISH_NAME_LEN = sizeof(PMD_SHROOMISH_NAME_ARR)-1;
@@ -10846,7 +10846,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BRELOOM_FQID_LEN = sizeof(PMD_BRELOOM_FQID_ARR)-1;
     inline static constexpr char PMD_BRELOOM_ID_ARR[] CONFIG_STRING_SECTION = "breloom";
     inline static constexpr const char* PMD_BRELOOM_ID = PMD_BRELOOM_ID_ARR;
-    inline static constexpr size_t PMD_BRELOOM_ID_LEN = sizeof(PMD_BRELOOM_ID)-1;
+    inline static constexpr size_t PMD_BRELOOM_ID_LEN = sizeof(PMD_BRELOOM_ID_ARR)-1;
     inline static constexpr char PMD_BRELOOM_NAME_ARR[] CONFIG_STRING_SECTION = "Breloom";
     inline static constexpr const char* PMD_BRELOOM_NAME = PMD_BRELOOM_NAME_ARR;
     inline static constexpr size_t PMD_BRELOOM_NAME_LEN = sizeof(PMD_BRELOOM_NAME_ARR)-1;
@@ -10884,7 +10884,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLAKOTH_FQID_LEN = sizeof(PMD_SLAKOTH_FQID_ARR)-1;
     inline static constexpr char PMD_SLAKOTH_ID_ARR[] CONFIG_STRING_SECTION = "slakoth";
     inline static constexpr const char* PMD_SLAKOTH_ID = PMD_SLAKOTH_ID_ARR;
-    inline static constexpr size_t PMD_SLAKOTH_ID_LEN = sizeof(PMD_SLAKOTH_ID)-1;
+    inline static constexpr size_t PMD_SLAKOTH_ID_LEN = sizeof(PMD_SLAKOTH_ID_ARR)-1;
     inline static constexpr char PMD_SLAKOTH_NAME_ARR[] CONFIG_STRING_SECTION = "Slakoth";
     inline static constexpr const char* PMD_SLAKOTH_NAME = PMD_SLAKOTH_NAME_ARR;
     inline static constexpr size_t PMD_SLAKOTH_NAME_LEN = sizeof(PMD_SLAKOTH_NAME_ARR)-1;
@@ -10922,7 +10922,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VIGOROTH_FQID_LEN = sizeof(PMD_VIGOROTH_FQID_ARR)-1;
     inline static constexpr char PMD_VIGOROTH_ID_ARR[] CONFIG_STRING_SECTION = "vigoroth";
     inline static constexpr const char* PMD_VIGOROTH_ID = PMD_VIGOROTH_ID_ARR;
-    inline static constexpr size_t PMD_VIGOROTH_ID_LEN = sizeof(PMD_VIGOROTH_ID)-1;
+    inline static constexpr size_t PMD_VIGOROTH_ID_LEN = sizeof(PMD_VIGOROTH_ID_ARR)-1;
     inline static constexpr char PMD_VIGOROTH_NAME_ARR[] CONFIG_STRING_SECTION = "Vigoroth";
     inline static constexpr const char* PMD_VIGOROTH_NAME = PMD_VIGOROTH_NAME_ARR;
     inline static constexpr size_t PMD_VIGOROTH_NAME_LEN = sizeof(PMD_VIGOROTH_NAME_ARR)-1;
@@ -10960,7 +10960,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLAKING_FQID_LEN = sizeof(PMD_SLAKING_FQID_ARR)-1;
     inline static constexpr char PMD_SLAKING_ID_ARR[] CONFIG_STRING_SECTION = "slaking";
     inline static constexpr const char* PMD_SLAKING_ID = PMD_SLAKING_ID_ARR;
-    inline static constexpr size_t PMD_SLAKING_ID_LEN = sizeof(PMD_SLAKING_ID)-1;
+    inline static constexpr size_t PMD_SLAKING_ID_LEN = sizeof(PMD_SLAKING_ID_ARR)-1;
     inline static constexpr char PMD_SLAKING_NAME_ARR[] CONFIG_STRING_SECTION = "Slaking";
     inline static constexpr const char* PMD_SLAKING_NAME = PMD_SLAKING_NAME_ARR;
     inline static constexpr size_t PMD_SLAKING_NAME_LEN = sizeof(PMD_SLAKING_NAME_ARR)-1;
@@ -10998,7 +10998,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NINCADA_FQID_LEN = sizeof(PMD_NINCADA_FQID_ARR)-1;
     inline static constexpr char PMD_NINCADA_ID_ARR[] CONFIG_STRING_SECTION = "nincada";
     inline static constexpr const char* PMD_NINCADA_ID = PMD_NINCADA_ID_ARR;
-    inline static constexpr size_t PMD_NINCADA_ID_LEN = sizeof(PMD_NINCADA_ID)-1;
+    inline static constexpr size_t PMD_NINCADA_ID_LEN = sizeof(PMD_NINCADA_ID_ARR)-1;
     inline static constexpr char PMD_NINCADA_NAME_ARR[] CONFIG_STRING_SECTION = "Nincada";
     inline static constexpr const char* PMD_NINCADA_NAME = PMD_NINCADA_NAME_ARR;
     inline static constexpr size_t PMD_NINCADA_NAME_LEN = sizeof(PMD_NINCADA_NAME_ARR)-1;
@@ -11036,7 +11036,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NINJASK_FQID_LEN = sizeof(PMD_NINJASK_FQID_ARR)-1;
     inline static constexpr char PMD_NINJASK_ID_ARR[] CONFIG_STRING_SECTION = "ninjask";
     inline static constexpr const char* PMD_NINJASK_ID = PMD_NINJASK_ID_ARR;
-    inline static constexpr size_t PMD_NINJASK_ID_LEN = sizeof(PMD_NINJASK_ID)-1;
+    inline static constexpr size_t PMD_NINJASK_ID_LEN = sizeof(PMD_NINJASK_ID_ARR)-1;
     inline static constexpr char PMD_NINJASK_NAME_ARR[] CONFIG_STRING_SECTION = "Ninjask";
     inline static constexpr const char* PMD_NINJASK_NAME = PMD_NINJASK_NAME_ARR;
     inline static constexpr size_t PMD_NINJASK_NAME_LEN = sizeof(PMD_NINJASK_NAME_ARR)-1;
@@ -11074,7 +11074,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHEDINJA_FQID_LEN = sizeof(PMD_SHEDINJA_FQID_ARR)-1;
     inline static constexpr char PMD_SHEDINJA_ID_ARR[] CONFIG_STRING_SECTION = "shedinja";
     inline static constexpr const char* PMD_SHEDINJA_ID = PMD_SHEDINJA_ID_ARR;
-    inline static constexpr size_t PMD_SHEDINJA_ID_LEN = sizeof(PMD_SHEDINJA_ID)-1;
+    inline static constexpr size_t PMD_SHEDINJA_ID_LEN = sizeof(PMD_SHEDINJA_ID_ARR)-1;
     inline static constexpr char PMD_SHEDINJA_NAME_ARR[] CONFIG_STRING_SECTION = "Shedinja";
     inline static constexpr const char* PMD_SHEDINJA_NAME = PMD_SHEDINJA_NAME_ARR;
     inline static constexpr size_t PMD_SHEDINJA_NAME_LEN = sizeof(PMD_SHEDINJA_NAME_ARR)-1;
@@ -11112,7 +11112,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WHISMUR_FQID_LEN = sizeof(PMD_WHISMUR_FQID_ARR)-1;
     inline static constexpr char PMD_WHISMUR_ID_ARR[] CONFIG_STRING_SECTION = "whismur";
     inline static constexpr const char* PMD_WHISMUR_ID = PMD_WHISMUR_ID_ARR;
-    inline static constexpr size_t PMD_WHISMUR_ID_LEN = sizeof(PMD_WHISMUR_ID)-1;
+    inline static constexpr size_t PMD_WHISMUR_ID_LEN = sizeof(PMD_WHISMUR_ID_ARR)-1;
     inline static constexpr char PMD_WHISMUR_NAME_ARR[] CONFIG_STRING_SECTION = "Whismur";
     inline static constexpr const char* PMD_WHISMUR_NAME = PMD_WHISMUR_NAME_ARR;
     inline static constexpr size_t PMD_WHISMUR_NAME_LEN = sizeof(PMD_WHISMUR_NAME_ARR)-1;
@@ -11150,7 +11150,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LOUDRED_FQID_LEN = sizeof(PMD_LOUDRED_FQID_ARR)-1;
     inline static constexpr char PMD_LOUDRED_ID_ARR[] CONFIG_STRING_SECTION = "loudred";
     inline static constexpr const char* PMD_LOUDRED_ID = PMD_LOUDRED_ID_ARR;
-    inline static constexpr size_t PMD_LOUDRED_ID_LEN = sizeof(PMD_LOUDRED_ID)-1;
+    inline static constexpr size_t PMD_LOUDRED_ID_LEN = sizeof(PMD_LOUDRED_ID_ARR)-1;
     inline static constexpr char PMD_LOUDRED_NAME_ARR[] CONFIG_STRING_SECTION = "Loudred";
     inline static constexpr const char* PMD_LOUDRED_NAME = PMD_LOUDRED_NAME_ARR;
     inline static constexpr size_t PMD_LOUDRED_NAME_LEN = sizeof(PMD_LOUDRED_NAME_ARR)-1;
@@ -11188,7 +11188,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EXPLOUD_FQID_LEN = sizeof(PMD_EXPLOUD_FQID_ARR)-1;
     inline static constexpr char PMD_EXPLOUD_ID_ARR[] CONFIG_STRING_SECTION = "exploud";
     inline static constexpr const char* PMD_EXPLOUD_ID = PMD_EXPLOUD_ID_ARR;
-    inline static constexpr size_t PMD_EXPLOUD_ID_LEN = sizeof(PMD_EXPLOUD_ID)-1;
+    inline static constexpr size_t PMD_EXPLOUD_ID_LEN = sizeof(PMD_EXPLOUD_ID_ARR)-1;
     inline static constexpr char PMD_EXPLOUD_NAME_ARR[] CONFIG_STRING_SECTION = "Exploud";
     inline static constexpr const char* PMD_EXPLOUD_NAME = PMD_EXPLOUD_NAME_ARR;
     inline static constexpr size_t PMD_EXPLOUD_NAME_LEN = sizeof(PMD_EXPLOUD_NAME_ARR)-1;
@@ -11226,7 +11226,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAKUHITA_FQID_LEN = sizeof(PMD_MAKUHITA_FQID_ARR)-1;
     inline static constexpr char PMD_MAKUHITA_ID_ARR[] CONFIG_STRING_SECTION = "makuhita";
     inline static constexpr const char* PMD_MAKUHITA_ID = PMD_MAKUHITA_ID_ARR;
-    inline static constexpr size_t PMD_MAKUHITA_ID_LEN = sizeof(PMD_MAKUHITA_ID)-1;
+    inline static constexpr size_t PMD_MAKUHITA_ID_LEN = sizeof(PMD_MAKUHITA_ID_ARR)-1;
     inline static constexpr char PMD_MAKUHITA_NAME_ARR[] CONFIG_STRING_SECTION = "Makuhita";
     inline static constexpr const char* PMD_MAKUHITA_NAME = PMD_MAKUHITA_NAME_ARR;
     inline static constexpr size_t PMD_MAKUHITA_NAME_LEN = sizeof(PMD_MAKUHITA_NAME_ARR)-1;
@@ -11264,7 +11264,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HARIYAMA_FQID_LEN = sizeof(PMD_HARIYAMA_FQID_ARR)-1;
     inline static constexpr char PMD_HARIYAMA_ID_ARR[] CONFIG_STRING_SECTION = "hariyama";
     inline static constexpr const char* PMD_HARIYAMA_ID = PMD_HARIYAMA_ID_ARR;
-    inline static constexpr size_t PMD_HARIYAMA_ID_LEN = sizeof(PMD_HARIYAMA_ID)-1;
+    inline static constexpr size_t PMD_HARIYAMA_ID_LEN = sizeof(PMD_HARIYAMA_ID_ARR)-1;
     inline static constexpr char PMD_HARIYAMA_NAME_ARR[] CONFIG_STRING_SECTION = "Hariyama";
     inline static constexpr const char* PMD_HARIYAMA_NAME = PMD_HARIYAMA_NAME_ARR;
     inline static constexpr size_t PMD_HARIYAMA_NAME_LEN = sizeof(PMD_HARIYAMA_NAME_ARR)-1;
@@ -11302,7 +11302,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AZURILL_FQID_LEN = sizeof(PMD_AZURILL_FQID_ARR)-1;
     inline static constexpr char PMD_AZURILL_ID_ARR[] CONFIG_STRING_SECTION = "azurill";
     inline static constexpr const char* PMD_AZURILL_ID = PMD_AZURILL_ID_ARR;
-    inline static constexpr size_t PMD_AZURILL_ID_LEN = sizeof(PMD_AZURILL_ID)-1;
+    inline static constexpr size_t PMD_AZURILL_ID_LEN = sizeof(PMD_AZURILL_ID_ARR)-1;
     inline static constexpr char PMD_AZURILL_NAME_ARR[] CONFIG_STRING_SECTION = "Azurill";
     inline static constexpr const char* PMD_AZURILL_NAME = PMD_AZURILL_NAME_ARR;
     inline static constexpr size_t PMD_AZURILL_NAME_LEN = sizeof(PMD_AZURILL_NAME_ARR)-1;
@@ -11340,7 +11340,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NOSEPASS_FQID_LEN = sizeof(PMD_NOSEPASS_FQID_ARR)-1;
     inline static constexpr char PMD_NOSEPASS_ID_ARR[] CONFIG_STRING_SECTION = "nosepass";
     inline static constexpr const char* PMD_NOSEPASS_ID = PMD_NOSEPASS_ID_ARR;
-    inline static constexpr size_t PMD_NOSEPASS_ID_LEN = sizeof(PMD_NOSEPASS_ID)-1;
+    inline static constexpr size_t PMD_NOSEPASS_ID_LEN = sizeof(PMD_NOSEPASS_ID_ARR)-1;
     inline static constexpr char PMD_NOSEPASS_NAME_ARR[] CONFIG_STRING_SECTION = "Nosepass";
     inline static constexpr const char* PMD_NOSEPASS_NAME = PMD_NOSEPASS_NAME_ARR;
     inline static constexpr size_t PMD_NOSEPASS_NAME_LEN = sizeof(PMD_NOSEPASS_NAME_ARR)-1;
@@ -11378,7 +11378,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKITTY_FQID_LEN = sizeof(PMD_SKITTY_FQID_ARR)-1;
     inline static constexpr char PMD_SKITTY_ID_ARR[] CONFIG_STRING_SECTION = "skitty";
     inline static constexpr const char* PMD_SKITTY_ID = PMD_SKITTY_ID_ARR;
-    inline static constexpr size_t PMD_SKITTY_ID_LEN = sizeof(PMD_SKITTY_ID)-1;
+    inline static constexpr size_t PMD_SKITTY_ID_LEN = sizeof(PMD_SKITTY_ID_ARR)-1;
     inline static constexpr char PMD_SKITTY_NAME_ARR[] CONFIG_STRING_SECTION = "Skitty";
     inline static constexpr const char* PMD_SKITTY_NAME = PMD_SKITTY_NAME_ARR;
     inline static constexpr size_t PMD_SKITTY_NAME_LEN = sizeof(PMD_SKITTY_NAME_ARR)-1;
@@ -11416,7 +11416,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DELCATTY_FQID_LEN = sizeof(PMD_DELCATTY_FQID_ARR)-1;
     inline static constexpr char PMD_DELCATTY_ID_ARR[] CONFIG_STRING_SECTION = "delcatty";
     inline static constexpr const char* PMD_DELCATTY_ID = PMD_DELCATTY_ID_ARR;
-    inline static constexpr size_t PMD_DELCATTY_ID_LEN = sizeof(PMD_DELCATTY_ID)-1;
+    inline static constexpr size_t PMD_DELCATTY_ID_LEN = sizeof(PMD_DELCATTY_ID_ARR)-1;
     inline static constexpr char PMD_DELCATTY_NAME_ARR[] CONFIG_STRING_SECTION = "Delcatty";
     inline static constexpr const char* PMD_DELCATTY_NAME = PMD_DELCATTY_NAME_ARR;
     inline static constexpr size_t PMD_DELCATTY_NAME_LEN = sizeof(PMD_DELCATTY_NAME_ARR)-1;
@@ -11454,7 +11454,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SABLEYE_FQID_LEN = sizeof(PMD_SABLEYE_FQID_ARR)-1;
     inline static constexpr char PMD_SABLEYE_ID_ARR[] CONFIG_STRING_SECTION = "sableye";
     inline static constexpr const char* PMD_SABLEYE_ID = PMD_SABLEYE_ID_ARR;
-    inline static constexpr size_t PMD_SABLEYE_ID_LEN = sizeof(PMD_SABLEYE_ID)-1;
+    inline static constexpr size_t PMD_SABLEYE_ID_LEN = sizeof(PMD_SABLEYE_ID_ARR)-1;
     inline static constexpr char PMD_SABLEYE_NAME_ARR[] CONFIG_STRING_SECTION = "Sableye";
     inline static constexpr const char* PMD_SABLEYE_NAME = PMD_SABLEYE_NAME_ARR;
     inline static constexpr size_t PMD_SABLEYE_NAME_LEN = sizeof(PMD_SABLEYE_NAME_ARR)-1;
@@ -11492,7 +11492,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAWILE_FQID_LEN = sizeof(PMD_MAWILE_FQID_ARR)-1;
     inline static constexpr char PMD_MAWILE_ID_ARR[] CONFIG_STRING_SECTION = "mawile";
     inline static constexpr const char* PMD_MAWILE_ID = PMD_MAWILE_ID_ARR;
-    inline static constexpr size_t PMD_MAWILE_ID_LEN = sizeof(PMD_MAWILE_ID)-1;
+    inline static constexpr size_t PMD_MAWILE_ID_LEN = sizeof(PMD_MAWILE_ID_ARR)-1;
     inline static constexpr char PMD_MAWILE_NAME_ARR[] CONFIG_STRING_SECTION = "Mawile";
     inline static constexpr const char* PMD_MAWILE_NAME = PMD_MAWILE_NAME_ARR;
     inline static constexpr size_t PMD_MAWILE_NAME_LEN = sizeof(PMD_MAWILE_NAME_ARR)-1;
@@ -11530,7 +11530,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARON_FQID_LEN = sizeof(PMD_ARON_FQID_ARR)-1;
     inline static constexpr char PMD_ARON_ID_ARR[] CONFIG_STRING_SECTION = "aron";
     inline static constexpr const char* PMD_ARON_ID = PMD_ARON_ID_ARR;
-    inline static constexpr size_t PMD_ARON_ID_LEN = sizeof(PMD_ARON_ID)-1;
+    inline static constexpr size_t PMD_ARON_ID_LEN = sizeof(PMD_ARON_ID_ARR)-1;
     inline static constexpr char PMD_ARON_NAME_ARR[] CONFIG_STRING_SECTION = "Aron";
     inline static constexpr const char* PMD_ARON_NAME = PMD_ARON_NAME_ARR;
     inline static constexpr size_t PMD_ARON_NAME_LEN = sizeof(PMD_ARON_NAME_ARR)-1;
@@ -11568,7 +11568,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LAIRON_FQID_LEN = sizeof(PMD_LAIRON_FQID_ARR)-1;
     inline static constexpr char PMD_LAIRON_ID_ARR[] CONFIG_STRING_SECTION = "lairon";
     inline static constexpr const char* PMD_LAIRON_ID = PMD_LAIRON_ID_ARR;
-    inline static constexpr size_t PMD_LAIRON_ID_LEN = sizeof(PMD_LAIRON_ID)-1;
+    inline static constexpr size_t PMD_LAIRON_ID_LEN = sizeof(PMD_LAIRON_ID_ARR)-1;
     inline static constexpr char PMD_LAIRON_NAME_ARR[] CONFIG_STRING_SECTION = "Lairon";
     inline static constexpr const char* PMD_LAIRON_NAME = PMD_LAIRON_NAME_ARR;
     inline static constexpr size_t PMD_LAIRON_NAME_LEN = sizeof(PMD_LAIRON_NAME_ARR)-1;
@@ -11606,7 +11606,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AGGRON_FQID_LEN = sizeof(PMD_AGGRON_FQID_ARR)-1;
     inline static constexpr char PMD_AGGRON_ID_ARR[] CONFIG_STRING_SECTION = "aggron";
     inline static constexpr const char* PMD_AGGRON_ID = PMD_AGGRON_ID_ARR;
-    inline static constexpr size_t PMD_AGGRON_ID_LEN = sizeof(PMD_AGGRON_ID)-1;
+    inline static constexpr size_t PMD_AGGRON_ID_LEN = sizeof(PMD_AGGRON_ID_ARR)-1;
     inline static constexpr char PMD_AGGRON_NAME_ARR[] CONFIG_STRING_SECTION = "Aggron";
     inline static constexpr const char* PMD_AGGRON_NAME = PMD_AGGRON_NAME_ARR;
     inline static constexpr size_t PMD_AGGRON_NAME_LEN = sizeof(PMD_AGGRON_NAME_ARR)-1;
@@ -11644,7 +11644,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MEDITITE_FQID_LEN = sizeof(PMD_MEDITITE_FQID_ARR)-1;
     inline static constexpr char PMD_MEDITITE_ID_ARR[] CONFIG_STRING_SECTION = "meditite";
     inline static constexpr const char* PMD_MEDITITE_ID = PMD_MEDITITE_ID_ARR;
-    inline static constexpr size_t PMD_MEDITITE_ID_LEN = sizeof(PMD_MEDITITE_ID)-1;
+    inline static constexpr size_t PMD_MEDITITE_ID_LEN = sizeof(PMD_MEDITITE_ID_ARR)-1;
     inline static constexpr char PMD_MEDITITE_NAME_ARR[] CONFIG_STRING_SECTION = "Meditite";
     inline static constexpr const char* PMD_MEDITITE_NAME = PMD_MEDITITE_NAME_ARR;
     inline static constexpr size_t PMD_MEDITITE_NAME_LEN = sizeof(PMD_MEDITITE_NAME_ARR)-1;
@@ -11682,7 +11682,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MEDICHAM_FQID_LEN = sizeof(PMD_MEDICHAM_FQID_ARR)-1;
     inline static constexpr char PMD_MEDICHAM_ID_ARR[] CONFIG_STRING_SECTION = "medicham";
     inline static constexpr const char* PMD_MEDICHAM_ID = PMD_MEDICHAM_ID_ARR;
-    inline static constexpr size_t PMD_MEDICHAM_ID_LEN = sizeof(PMD_MEDICHAM_ID)-1;
+    inline static constexpr size_t PMD_MEDICHAM_ID_LEN = sizeof(PMD_MEDICHAM_ID_ARR)-1;
     inline static constexpr char PMD_MEDICHAM_NAME_ARR[] CONFIG_STRING_SECTION = "Medicham";
     inline static constexpr const char* PMD_MEDICHAM_NAME = PMD_MEDICHAM_NAME_ARR;
     inline static constexpr size_t PMD_MEDICHAM_NAME_LEN = sizeof(PMD_MEDICHAM_NAME_ARR)-1;
@@ -11720,7 +11720,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ELECTRIKE_FQID_LEN = sizeof(PMD_ELECTRIKE_FQID_ARR)-1;
     inline static constexpr char PMD_ELECTRIKE_ID_ARR[] CONFIG_STRING_SECTION = "electrike";
     inline static constexpr const char* PMD_ELECTRIKE_ID = PMD_ELECTRIKE_ID_ARR;
-    inline static constexpr size_t PMD_ELECTRIKE_ID_LEN = sizeof(PMD_ELECTRIKE_ID)-1;
+    inline static constexpr size_t PMD_ELECTRIKE_ID_LEN = sizeof(PMD_ELECTRIKE_ID_ARR)-1;
     inline static constexpr char PMD_ELECTRIKE_NAME_ARR[] CONFIG_STRING_SECTION = "Electrike";
     inline static constexpr const char* PMD_ELECTRIKE_NAME = PMD_ELECTRIKE_NAME_ARR;
     inline static constexpr size_t PMD_ELECTRIKE_NAME_LEN = sizeof(PMD_ELECTRIKE_NAME_ARR)-1;
@@ -11758,7 +11758,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MANECTRIC_FQID_LEN = sizeof(PMD_MANECTRIC_FQID_ARR)-1;
     inline static constexpr char PMD_MANECTRIC_ID_ARR[] CONFIG_STRING_SECTION = "manectric";
     inline static constexpr const char* PMD_MANECTRIC_ID = PMD_MANECTRIC_ID_ARR;
-    inline static constexpr size_t PMD_MANECTRIC_ID_LEN = sizeof(PMD_MANECTRIC_ID)-1;
+    inline static constexpr size_t PMD_MANECTRIC_ID_LEN = sizeof(PMD_MANECTRIC_ID_ARR)-1;
     inline static constexpr char PMD_MANECTRIC_NAME_ARR[] CONFIG_STRING_SECTION = "Manectric";
     inline static constexpr const char* PMD_MANECTRIC_NAME = PMD_MANECTRIC_NAME_ARR;
     inline static constexpr size_t PMD_MANECTRIC_NAME_LEN = sizeof(PMD_MANECTRIC_NAME_ARR)-1;
@@ -11796,7 +11796,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PLUSLE_FQID_LEN = sizeof(PMD_PLUSLE_FQID_ARR)-1;
     inline static constexpr char PMD_PLUSLE_ID_ARR[] CONFIG_STRING_SECTION = "plusle";
     inline static constexpr const char* PMD_PLUSLE_ID = PMD_PLUSLE_ID_ARR;
-    inline static constexpr size_t PMD_PLUSLE_ID_LEN = sizeof(PMD_PLUSLE_ID)-1;
+    inline static constexpr size_t PMD_PLUSLE_ID_LEN = sizeof(PMD_PLUSLE_ID_ARR)-1;
     inline static constexpr char PMD_PLUSLE_NAME_ARR[] CONFIG_STRING_SECTION = "Plusle";
     inline static constexpr const char* PMD_PLUSLE_NAME = PMD_PLUSLE_NAME_ARR;
     inline static constexpr size_t PMD_PLUSLE_NAME_LEN = sizeof(PMD_PLUSLE_NAME_ARR)-1;
@@ -11834,7 +11834,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MINUN_FQID_LEN = sizeof(PMD_MINUN_FQID_ARR)-1;
     inline static constexpr char PMD_MINUN_ID_ARR[] CONFIG_STRING_SECTION = "minun";
     inline static constexpr const char* PMD_MINUN_ID = PMD_MINUN_ID_ARR;
-    inline static constexpr size_t PMD_MINUN_ID_LEN = sizeof(PMD_MINUN_ID)-1;
+    inline static constexpr size_t PMD_MINUN_ID_LEN = sizeof(PMD_MINUN_ID_ARR)-1;
     inline static constexpr char PMD_MINUN_NAME_ARR[] CONFIG_STRING_SECTION = "Minun";
     inline static constexpr const char* PMD_MINUN_NAME = PMD_MINUN_NAME_ARR;
     inline static constexpr size_t PMD_MINUN_NAME_LEN = sizeof(PMD_MINUN_NAME_ARR)-1;
@@ -11872,7 +11872,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VOLBEAT_FQID_LEN = sizeof(PMD_VOLBEAT_FQID_ARR)-1;
     inline static constexpr char PMD_VOLBEAT_ID_ARR[] CONFIG_STRING_SECTION = "volbeat";
     inline static constexpr const char* PMD_VOLBEAT_ID = PMD_VOLBEAT_ID_ARR;
-    inline static constexpr size_t PMD_VOLBEAT_ID_LEN = sizeof(PMD_VOLBEAT_ID)-1;
+    inline static constexpr size_t PMD_VOLBEAT_ID_LEN = sizeof(PMD_VOLBEAT_ID_ARR)-1;
     inline static constexpr char PMD_VOLBEAT_NAME_ARR[] CONFIG_STRING_SECTION = "Volbeat";
     inline static constexpr const char* PMD_VOLBEAT_NAME = PMD_VOLBEAT_NAME_ARR;
     inline static constexpr size_t PMD_VOLBEAT_NAME_LEN = sizeof(PMD_VOLBEAT_NAME_ARR)-1;
@@ -11910,7 +11910,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ILLUMISE_FQID_LEN = sizeof(PMD_ILLUMISE_FQID_ARR)-1;
     inline static constexpr char PMD_ILLUMISE_ID_ARR[] CONFIG_STRING_SECTION = "illumise";
     inline static constexpr const char* PMD_ILLUMISE_ID = PMD_ILLUMISE_ID_ARR;
-    inline static constexpr size_t PMD_ILLUMISE_ID_LEN = sizeof(PMD_ILLUMISE_ID)-1;
+    inline static constexpr size_t PMD_ILLUMISE_ID_LEN = sizeof(PMD_ILLUMISE_ID_ARR)-1;
     inline static constexpr char PMD_ILLUMISE_NAME_ARR[] CONFIG_STRING_SECTION = "Illumise";
     inline static constexpr const char* PMD_ILLUMISE_NAME = PMD_ILLUMISE_NAME_ARR;
     inline static constexpr size_t PMD_ILLUMISE_NAME_LEN = sizeof(PMD_ILLUMISE_NAME_ARR)-1;
@@ -11948,7 +11948,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ROSELIA_FQID_LEN = sizeof(PMD_ROSELIA_FQID_ARR)-1;
     inline static constexpr char PMD_ROSELIA_ID_ARR[] CONFIG_STRING_SECTION = "roselia";
     inline static constexpr const char* PMD_ROSELIA_ID = PMD_ROSELIA_ID_ARR;
-    inline static constexpr size_t PMD_ROSELIA_ID_LEN = sizeof(PMD_ROSELIA_ID)-1;
+    inline static constexpr size_t PMD_ROSELIA_ID_LEN = sizeof(PMD_ROSELIA_ID_ARR)-1;
     inline static constexpr char PMD_ROSELIA_NAME_ARR[] CONFIG_STRING_SECTION = "Roselia";
     inline static constexpr const char* PMD_ROSELIA_NAME = PMD_ROSELIA_NAME_ARR;
     inline static constexpr size_t PMD_ROSELIA_NAME_LEN = sizeof(PMD_ROSELIA_NAME_ARR)-1;
@@ -11986,7 +11986,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GULPIN_FQID_LEN = sizeof(PMD_GULPIN_FQID_ARR)-1;
     inline static constexpr char PMD_GULPIN_ID_ARR[] CONFIG_STRING_SECTION = "gulpin";
     inline static constexpr const char* PMD_GULPIN_ID = PMD_GULPIN_ID_ARR;
-    inline static constexpr size_t PMD_GULPIN_ID_LEN = sizeof(PMD_GULPIN_ID)-1;
+    inline static constexpr size_t PMD_GULPIN_ID_LEN = sizeof(PMD_GULPIN_ID_ARR)-1;
     inline static constexpr char PMD_GULPIN_NAME_ARR[] CONFIG_STRING_SECTION = "Gulpin";
     inline static constexpr const char* PMD_GULPIN_NAME = PMD_GULPIN_NAME_ARR;
     inline static constexpr size_t PMD_GULPIN_NAME_LEN = sizeof(PMD_GULPIN_NAME_ARR)-1;
@@ -12024,7 +12024,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWALOT_FQID_LEN = sizeof(PMD_SWALOT_FQID_ARR)-1;
     inline static constexpr char PMD_SWALOT_ID_ARR[] CONFIG_STRING_SECTION = "swalot";
     inline static constexpr const char* PMD_SWALOT_ID = PMD_SWALOT_ID_ARR;
-    inline static constexpr size_t PMD_SWALOT_ID_LEN = sizeof(PMD_SWALOT_ID)-1;
+    inline static constexpr size_t PMD_SWALOT_ID_LEN = sizeof(PMD_SWALOT_ID_ARR)-1;
     inline static constexpr char PMD_SWALOT_NAME_ARR[] CONFIG_STRING_SECTION = "Swalot";
     inline static constexpr const char* PMD_SWALOT_NAME = PMD_SWALOT_NAME_ARR;
     inline static constexpr size_t PMD_SWALOT_NAME_LEN = sizeof(PMD_SWALOT_NAME_ARR)-1;
@@ -12062,7 +12062,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CARVANHA_FQID_LEN = sizeof(PMD_CARVANHA_FQID_ARR)-1;
     inline static constexpr char PMD_CARVANHA_ID_ARR[] CONFIG_STRING_SECTION = "carvanha";
     inline static constexpr const char* PMD_CARVANHA_ID = PMD_CARVANHA_ID_ARR;
-    inline static constexpr size_t PMD_CARVANHA_ID_LEN = sizeof(PMD_CARVANHA_ID)-1;
+    inline static constexpr size_t PMD_CARVANHA_ID_LEN = sizeof(PMD_CARVANHA_ID_ARR)-1;
     inline static constexpr char PMD_CARVANHA_NAME_ARR[] CONFIG_STRING_SECTION = "Carvanha";
     inline static constexpr const char* PMD_CARVANHA_NAME = PMD_CARVANHA_NAME_ARR;
     inline static constexpr size_t PMD_CARVANHA_NAME_LEN = sizeof(PMD_CARVANHA_NAME_ARR)-1;
@@ -12100,7 +12100,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHARPEDO_FQID_LEN = sizeof(PMD_SHARPEDO_FQID_ARR)-1;
     inline static constexpr char PMD_SHARPEDO_ID_ARR[] CONFIG_STRING_SECTION = "sharpedo";
     inline static constexpr const char* PMD_SHARPEDO_ID = PMD_SHARPEDO_ID_ARR;
-    inline static constexpr size_t PMD_SHARPEDO_ID_LEN = sizeof(PMD_SHARPEDO_ID)-1;
+    inline static constexpr size_t PMD_SHARPEDO_ID_LEN = sizeof(PMD_SHARPEDO_ID_ARR)-1;
     inline static constexpr char PMD_SHARPEDO_NAME_ARR[] CONFIG_STRING_SECTION = "Sharpedo";
     inline static constexpr const char* PMD_SHARPEDO_NAME = PMD_SHARPEDO_NAME_ARR;
     inline static constexpr size_t PMD_SHARPEDO_NAME_LEN = sizeof(PMD_SHARPEDO_NAME_ARR)-1;
@@ -12138,7 +12138,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WAILMER_FQID_LEN = sizeof(PMD_WAILMER_FQID_ARR)-1;
     inline static constexpr char PMD_WAILMER_ID_ARR[] CONFIG_STRING_SECTION = "wailmer";
     inline static constexpr const char* PMD_WAILMER_ID = PMD_WAILMER_ID_ARR;
-    inline static constexpr size_t PMD_WAILMER_ID_LEN = sizeof(PMD_WAILMER_ID)-1;
+    inline static constexpr size_t PMD_WAILMER_ID_LEN = sizeof(PMD_WAILMER_ID_ARR)-1;
     inline static constexpr char PMD_WAILMER_NAME_ARR[] CONFIG_STRING_SECTION = "Wailmer";
     inline static constexpr const char* PMD_WAILMER_NAME = PMD_WAILMER_NAME_ARR;
     inline static constexpr size_t PMD_WAILMER_NAME_LEN = sizeof(PMD_WAILMER_NAME_ARR)-1;
@@ -12176,7 +12176,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WAILORD_FQID_LEN = sizeof(PMD_WAILORD_FQID_ARR)-1;
     inline static constexpr char PMD_WAILORD_ID_ARR[] CONFIG_STRING_SECTION = "wailord";
     inline static constexpr const char* PMD_WAILORD_ID = PMD_WAILORD_ID_ARR;
-    inline static constexpr size_t PMD_WAILORD_ID_LEN = sizeof(PMD_WAILORD_ID)-1;
+    inline static constexpr size_t PMD_WAILORD_ID_LEN = sizeof(PMD_WAILORD_ID_ARR)-1;
     inline static constexpr char PMD_WAILORD_NAME_ARR[] CONFIG_STRING_SECTION = "Wailord";
     inline static constexpr const char* PMD_WAILORD_NAME = PMD_WAILORD_NAME_ARR;
     inline static constexpr size_t PMD_WAILORD_NAME_LEN = sizeof(PMD_WAILORD_NAME_ARR)-1;
@@ -12214,7 +12214,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NUMEL_FQID_LEN = sizeof(PMD_NUMEL_FQID_ARR)-1;
     inline static constexpr char PMD_NUMEL_ID_ARR[] CONFIG_STRING_SECTION = "numel";
     inline static constexpr const char* PMD_NUMEL_ID = PMD_NUMEL_ID_ARR;
-    inline static constexpr size_t PMD_NUMEL_ID_LEN = sizeof(PMD_NUMEL_ID)-1;
+    inline static constexpr size_t PMD_NUMEL_ID_LEN = sizeof(PMD_NUMEL_ID_ARR)-1;
     inline static constexpr char PMD_NUMEL_NAME_ARR[] CONFIG_STRING_SECTION = "Numel";
     inline static constexpr const char* PMD_NUMEL_NAME = PMD_NUMEL_NAME_ARR;
     inline static constexpr size_t PMD_NUMEL_NAME_LEN = sizeof(PMD_NUMEL_NAME_ARR)-1;
@@ -12252,7 +12252,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CAMERUPT_FQID_LEN = sizeof(PMD_CAMERUPT_FQID_ARR)-1;
     inline static constexpr char PMD_CAMERUPT_ID_ARR[] CONFIG_STRING_SECTION = "camerupt";
     inline static constexpr const char* PMD_CAMERUPT_ID = PMD_CAMERUPT_ID_ARR;
-    inline static constexpr size_t PMD_CAMERUPT_ID_LEN = sizeof(PMD_CAMERUPT_ID)-1;
+    inline static constexpr size_t PMD_CAMERUPT_ID_LEN = sizeof(PMD_CAMERUPT_ID_ARR)-1;
     inline static constexpr char PMD_CAMERUPT_NAME_ARR[] CONFIG_STRING_SECTION = "Camerupt";
     inline static constexpr const char* PMD_CAMERUPT_NAME = PMD_CAMERUPT_NAME_ARR;
     inline static constexpr size_t PMD_CAMERUPT_NAME_LEN = sizeof(PMD_CAMERUPT_NAME_ARR)-1;
@@ -12290,7 +12290,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TORKOAL_FQID_LEN = sizeof(PMD_TORKOAL_FQID_ARR)-1;
     inline static constexpr char PMD_TORKOAL_ID_ARR[] CONFIG_STRING_SECTION = "torkoal";
     inline static constexpr const char* PMD_TORKOAL_ID = PMD_TORKOAL_ID_ARR;
-    inline static constexpr size_t PMD_TORKOAL_ID_LEN = sizeof(PMD_TORKOAL_ID)-1;
+    inline static constexpr size_t PMD_TORKOAL_ID_LEN = sizeof(PMD_TORKOAL_ID_ARR)-1;
     inline static constexpr char PMD_TORKOAL_NAME_ARR[] CONFIG_STRING_SECTION = "Torkoal";
     inline static constexpr const char* PMD_TORKOAL_NAME = PMD_TORKOAL_NAME_ARR;
     inline static constexpr size_t PMD_TORKOAL_NAME_LEN = sizeof(PMD_TORKOAL_NAME_ARR)-1;
@@ -12328,7 +12328,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPOINK_FQID_LEN = sizeof(PMD_SPOINK_FQID_ARR)-1;
     inline static constexpr char PMD_SPOINK_ID_ARR[] CONFIG_STRING_SECTION = "spoink";
     inline static constexpr const char* PMD_SPOINK_ID = PMD_SPOINK_ID_ARR;
-    inline static constexpr size_t PMD_SPOINK_ID_LEN = sizeof(PMD_SPOINK_ID)-1;
+    inline static constexpr size_t PMD_SPOINK_ID_LEN = sizeof(PMD_SPOINK_ID_ARR)-1;
     inline static constexpr char PMD_SPOINK_NAME_ARR[] CONFIG_STRING_SECTION = "Spoink";
     inline static constexpr const char* PMD_SPOINK_NAME = PMD_SPOINK_NAME_ARR;
     inline static constexpr size_t PMD_SPOINK_NAME_LEN = sizeof(PMD_SPOINK_NAME_ARR)-1;
@@ -12366,7 +12366,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRUMPIG_FQID_LEN = sizeof(PMD_GRUMPIG_FQID_ARR)-1;
     inline static constexpr char PMD_GRUMPIG_ID_ARR[] CONFIG_STRING_SECTION = "grumpig";
     inline static constexpr const char* PMD_GRUMPIG_ID = PMD_GRUMPIG_ID_ARR;
-    inline static constexpr size_t PMD_GRUMPIG_ID_LEN = sizeof(PMD_GRUMPIG_ID)-1;
+    inline static constexpr size_t PMD_GRUMPIG_ID_LEN = sizeof(PMD_GRUMPIG_ID_ARR)-1;
     inline static constexpr char PMD_GRUMPIG_NAME_ARR[] CONFIG_STRING_SECTION = "Grumpig";
     inline static constexpr const char* PMD_GRUMPIG_NAME = PMD_GRUMPIG_NAME_ARR;
     inline static constexpr size_t PMD_GRUMPIG_NAME_LEN = sizeof(PMD_GRUMPIG_NAME_ARR)-1;
@@ -12404,7 +12404,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPINDA_FQID_LEN = sizeof(PMD_SPINDA_FQID_ARR)-1;
     inline static constexpr char PMD_SPINDA_ID_ARR[] CONFIG_STRING_SECTION = "spinda";
     inline static constexpr const char* PMD_SPINDA_ID = PMD_SPINDA_ID_ARR;
-    inline static constexpr size_t PMD_SPINDA_ID_LEN = sizeof(PMD_SPINDA_ID)-1;
+    inline static constexpr size_t PMD_SPINDA_ID_LEN = sizeof(PMD_SPINDA_ID_ARR)-1;
     inline static constexpr char PMD_SPINDA_NAME_ARR[] CONFIG_STRING_SECTION = "Spinda";
     inline static constexpr const char* PMD_SPINDA_NAME = PMD_SPINDA_NAME_ARR;
     inline static constexpr size_t PMD_SPINDA_NAME_LEN = sizeof(PMD_SPINDA_NAME_ARR)-1;
@@ -12442,7 +12442,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TRAPINCH_FQID_LEN = sizeof(PMD_TRAPINCH_FQID_ARR)-1;
     inline static constexpr char PMD_TRAPINCH_ID_ARR[] CONFIG_STRING_SECTION = "trapinch";
     inline static constexpr const char* PMD_TRAPINCH_ID = PMD_TRAPINCH_ID_ARR;
-    inline static constexpr size_t PMD_TRAPINCH_ID_LEN = sizeof(PMD_TRAPINCH_ID)-1;
+    inline static constexpr size_t PMD_TRAPINCH_ID_LEN = sizeof(PMD_TRAPINCH_ID_ARR)-1;
     inline static constexpr char PMD_TRAPINCH_NAME_ARR[] CONFIG_STRING_SECTION = "Trapinch";
     inline static constexpr const char* PMD_TRAPINCH_NAME = PMD_TRAPINCH_NAME_ARR;
     inline static constexpr size_t PMD_TRAPINCH_NAME_LEN = sizeof(PMD_TRAPINCH_NAME_ARR)-1;
@@ -12480,7 +12480,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VIBRAVA_FQID_LEN = sizeof(PMD_VIBRAVA_FQID_ARR)-1;
     inline static constexpr char PMD_VIBRAVA_ID_ARR[] CONFIG_STRING_SECTION = "vibrava";
     inline static constexpr const char* PMD_VIBRAVA_ID = PMD_VIBRAVA_ID_ARR;
-    inline static constexpr size_t PMD_VIBRAVA_ID_LEN = sizeof(PMD_VIBRAVA_ID)-1;
+    inline static constexpr size_t PMD_VIBRAVA_ID_LEN = sizeof(PMD_VIBRAVA_ID_ARR)-1;
     inline static constexpr char PMD_VIBRAVA_NAME_ARR[] CONFIG_STRING_SECTION = "Vibrava";
     inline static constexpr const char* PMD_VIBRAVA_NAME = PMD_VIBRAVA_NAME_ARR;
     inline static constexpr size_t PMD_VIBRAVA_NAME_LEN = sizeof(PMD_VIBRAVA_NAME_ARR)-1;
@@ -12518,7 +12518,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLYGON_FQID_LEN = sizeof(PMD_FLYGON_FQID_ARR)-1;
     inline static constexpr char PMD_FLYGON_ID_ARR[] CONFIG_STRING_SECTION = "flygon";
     inline static constexpr const char* PMD_FLYGON_ID = PMD_FLYGON_ID_ARR;
-    inline static constexpr size_t PMD_FLYGON_ID_LEN = sizeof(PMD_FLYGON_ID)-1;
+    inline static constexpr size_t PMD_FLYGON_ID_LEN = sizeof(PMD_FLYGON_ID_ARR)-1;
     inline static constexpr char PMD_FLYGON_NAME_ARR[] CONFIG_STRING_SECTION = "Flygon";
     inline static constexpr const char* PMD_FLYGON_NAME = PMD_FLYGON_NAME_ARR;
     inline static constexpr size_t PMD_FLYGON_NAME_LEN = sizeof(PMD_FLYGON_NAME_ARR)-1;
@@ -12556,7 +12556,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CACNEA_FQID_LEN = sizeof(PMD_CACNEA_FQID_ARR)-1;
     inline static constexpr char PMD_CACNEA_ID_ARR[] CONFIG_STRING_SECTION = "cacnea";
     inline static constexpr const char* PMD_CACNEA_ID = PMD_CACNEA_ID_ARR;
-    inline static constexpr size_t PMD_CACNEA_ID_LEN = sizeof(PMD_CACNEA_ID)-1;
+    inline static constexpr size_t PMD_CACNEA_ID_LEN = sizeof(PMD_CACNEA_ID_ARR)-1;
     inline static constexpr char PMD_CACNEA_NAME_ARR[] CONFIG_STRING_SECTION = "Cacnea";
     inline static constexpr const char* PMD_CACNEA_NAME = PMD_CACNEA_NAME_ARR;
     inline static constexpr size_t PMD_CACNEA_NAME_LEN = sizeof(PMD_CACNEA_NAME_ARR)-1;
@@ -12594,7 +12594,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CACTURNE_FQID_LEN = sizeof(PMD_CACTURNE_FQID_ARR)-1;
     inline static constexpr char PMD_CACTURNE_ID_ARR[] CONFIG_STRING_SECTION = "cacturne";
     inline static constexpr const char* PMD_CACTURNE_ID = PMD_CACTURNE_ID_ARR;
-    inline static constexpr size_t PMD_CACTURNE_ID_LEN = sizeof(PMD_CACTURNE_ID)-1;
+    inline static constexpr size_t PMD_CACTURNE_ID_LEN = sizeof(PMD_CACTURNE_ID_ARR)-1;
     inline static constexpr char PMD_CACTURNE_NAME_ARR[] CONFIG_STRING_SECTION = "Cacturne";
     inline static constexpr const char* PMD_CACTURNE_NAME = PMD_CACTURNE_NAME_ARR;
     inline static constexpr size_t PMD_CACTURNE_NAME_LEN = sizeof(PMD_CACTURNE_NAME_ARR)-1;
@@ -12632,7 +12632,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWABLU_FQID_LEN = sizeof(PMD_SWABLU_FQID_ARR)-1;
     inline static constexpr char PMD_SWABLU_ID_ARR[] CONFIG_STRING_SECTION = "swablu";
     inline static constexpr const char* PMD_SWABLU_ID = PMD_SWABLU_ID_ARR;
-    inline static constexpr size_t PMD_SWABLU_ID_LEN = sizeof(PMD_SWABLU_ID)-1;
+    inline static constexpr size_t PMD_SWABLU_ID_LEN = sizeof(PMD_SWABLU_ID_ARR)-1;
     inline static constexpr char PMD_SWABLU_NAME_ARR[] CONFIG_STRING_SECTION = "Swablu";
     inline static constexpr const char* PMD_SWABLU_NAME = PMD_SWABLU_NAME_ARR;
     inline static constexpr size_t PMD_SWABLU_NAME_LEN = sizeof(PMD_SWABLU_NAME_ARR)-1;
@@ -12670,7 +12670,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ALTARIA_FQID_LEN = sizeof(PMD_ALTARIA_FQID_ARR)-1;
     inline static constexpr char PMD_ALTARIA_ID_ARR[] CONFIG_STRING_SECTION = "altaria";
     inline static constexpr const char* PMD_ALTARIA_ID = PMD_ALTARIA_ID_ARR;
-    inline static constexpr size_t PMD_ALTARIA_ID_LEN = sizeof(PMD_ALTARIA_ID)-1;
+    inline static constexpr size_t PMD_ALTARIA_ID_LEN = sizeof(PMD_ALTARIA_ID_ARR)-1;
     inline static constexpr char PMD_ALTARIA_NAME_ARR[] CONFIG_STRING_SECTION = "Altaria";
     inline static constexpr const char* PMD_ALTARIA_NAME = PMD_ALTARIA_NAME_ARR;
     inline static constexpr size_t PMD_ALTARIA_NAME_LEN = sizeof(PMD_ALTARIA_NAME_ARR)-1;
@@ -12708,7 +12708,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZANGOOSE_FQID_LEN = sizeof(PMD_ZANGOOSE_FQID_ARR)-1;
     inline static constexpr char PMD_ZANGOOSE_ID_ARR[] CONFIG_STRING_SECTION = "zangoose";
     inline static constexpr const char* PMD_ZANGOOSE_ID = PMD_ZANGOOSE_ID_ARR;
-    inline static constexpr size_t PMD_ZANGOOSE_ID_LEN = sizeof(PMD_ZANGOOSE_ID)-1;
+    inline static constexpr size_t PMD_ZANGOOSE_ID_LEN = sizeof(PMD_ZANGOOSE_ID_ARR)-1;
     inline static constexpr char PMD_ZANGOOSE_NAME_ARR[] CONFIG_STRING_SECTION = "Zangoose";
     inline static constexpr const char* PMD_ZANGOOSE_NAME = PMD_ZANGOOSE_NAME_ARR;
     inline static constexpr size_t PMD_ZANGOOSE_NAME_LEN = sizeof(PMD_ZANGOOSE_NAME_ARR)-1;
@@ -12746,7 +12746,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEVIPER_FQID_LEN = sizeof(PMD_SEVIPER_FQID_ARR)-1;
     inline static constexpr char PMD_SEVIPER_ID_ARR[] CONFIG_STRING_SECTION = "seviper";
     inline static constexpr const char* PMD_SEVIPER_ID = PMD_SEVIPER_ID_ARR;
-    inline static constexpr size_t PMD_SEVIPER_ID_LEN = sizeof(PMD_SEVIPER_ID)-1;
+    inline static constexpr size_t PMD_SEVIPER_ID_LEN = sizeof(PMD_SEVIPER_ID_ARR)-1;
     inline static constexpr char PMD_SEVIPER_NAME_ARR[] CONFIG_STRING_SECTION = "Seviper";
     inline static constexpr const char* PMD_SEVIPER_NAME = PMD_SEVIPER_NAME_ARR;
     inline static constexpr size_t PMD_SEVIPER_NAME_LEN = sizeof(PMD_SEVIPER_NAME_ARR)-1;
@@ -12784,7 +12784,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUNATONE_FQID_LEN = sizeof(PMD_LUNATONE_FQID_ARR)-1;
     inline static constexpr char PMD_LUNATONE_ID_ARR[] CONFIG_STRING_SECTION = "lunatone";
     inline static constexpr const char* PMD_LUNATONE_ID = PMD_LUNATONE_ID_ARR;
-    inline static constexpr size_t PMD_LUNATONE_ID_LEN = sizeof(PMD_LUNATONE_ID)-1;
+    inline static constexpr size_t PMD_LUNATONE_ID_LEN = sizeof(PMD_LUNATONE_ID_ARR)-1;
     inline static constexpr char PMD_LUNATONE_NAME_ARR[] CONFIG_STRING_SECTION = "Lunatone";
     inline static constexpr const char* PMD_LUNATONE_NAME = PMD_LUNATONE_NAME_ARR;
     inline static constexpr size_t PMD_LUNATONE_NAME_LEN = sizeof(PMD_LUNATONE_NAME_ARR)-1;
@@ -12822,7 +12822,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SOLROCK_FQID_LEN = sizeof(PMD_SOLROCK_FQID_ARR)-1;
     inline static constexpr char PMD_SOLROCK_ID_ARR[] CONFIG_STRING_SECTION = "solrock";
     inline static constexpr const char* PMD_SOLROCK_ID = PMD_SOLROCK_ID_ARR;
-    inline static constexpr size_t PMD_SOLROCK_ID_LEN = sizeof(PMD_SOLROCK_ID)-1;
+    inline static constexpr size_t PMD_SOLROCK_ID_LEN = sizeof(PMD_SOLROCK_ID_ARR)-1;
     inline static constexpr char PMD_SOLROCK_NAME_ARR[] CONFIG_STRING_SECTION = "Solrock";
     inline static constexpr const char* PMD_SOLROCK_NAME = PMD_SOLROCK_NAME_ARR;
     inline static constexpr size_t PMD_SOLROCK_NAME_LEN = sizeof(PMD_SOLROCK_NAME_ARR)-1;
@@ -12860,7 +12860,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BARBOACH_FQID_LEN = sizeof(PMD_BARBOACH_FQID_ARR)-1;
     inline static constexpr char PMD_BARBOACH_ID_ARR[] CONFIG_STRING_SECTION = "barboach";
     inline static constexpr const char* PMD_BARBOACH_ID = PMD_BARBOACH_ID_ARR;
-    inline static constexpr size_t PMD_BARBOACH_ID_LEN = sizeof(PMD_BARBOACH_ID)-1;
+    inline static constexpr size_t PMD_BARBOACH_ID_LEN = sizeof(PMD_BARBOACH_ID_ARR)-1;
     inline static constexpr char PMD_BARBOACH_NAME_ARR[] CONFIG_STRING_SECTION = "Barboach";
     inline static constexpr const char* PMD_BARBOACH_NAME = PMD_BARBOACH_NAME_ARR;
     inline static constexpr size_t PMD_BARBOACH_NAME_LEN = sizeof(PMD_BARBOACH_NAME_ARR)-1;
@@ -12898,7 +12898,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WHISCASH_FQID_LEN = sizeof(PMD_WHISCASH_FQID_ARR)-1;
     inline static constexpr char PMD_WHISCASH_ID_ARR[] CONFIG_STRING_SECTION = "whiscash";
     inline static constexpr const char* PMD_WHISCASH_ID = PMD_WHISCASH_ID_ARR;
-    inline static constexpr size_t PMD_WHISCASH_ID_LEN = sizeof(PMD_WHISCASH_ID)-1;
+    inline static constexpr size_t PMD_WHISCASH_ID_LEN = sizeof(PMD_WHISCASH_ID_ARR)-1;
     inline static constexpr char PMD_WHISCASH_NAME_ARR[] CONFIG_STRING_SECTION = "Whiscash";
     inline static constexpr const char* PMD_WHISCASH_NAME = PMD_WHISCASH_NAME_ARR;
     inline static constexpr size_t PMD_WHISCASH_NAME_LEN = sizeof(PMD_WHISCASH_NAME_ARR)-1;
@@ -12936,7 +12936,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CORPHISH_FQID_LEN = sizeof(PMD_CORPHISH_FQID_ARR)-1;
     inline static constexpr char PMD_CORPHISH_ID_ARR[] CONFIG_STRING_SECTION = "corphish";
     inline static constexpr const char* PMD_CORPHISH_ID = PMD_CORPHISH_ID_ARR;
-    inline static constexpr size_t PMD_CORPHISH_ID_LEN = sizeof(PMD_CORPHISH_ID)-1;
+    inline static constexpr size_t PMD_CORPHISH_ID_LEN = sizeof(PMD_CORPHISH_ID_ARR)-1;
     inline static constexpr char PMD_CORPHISH_NAME_ARR[] CONFIG_STRING_SECTION = "Corphish";
     inline static constexpr const char* PMD_CORPHISH_NAME = PMD_CORPHISH_NAME_ARR;
     inline static constexpr size_t PMD_CORPHISH_NAME_LEN = sizeof(PMD_CORPHISH_NAME_ARR)-1;
@@ -12974,7 +12974,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRAWDAUNT_FQID_LEN = sizeof(PMD_CRAWDAUNT_FQID_ARR)-1;
     inline static constexpr char PMD_CRAWDAUNT_ID_ARR[] CONFIG_STRING_SECTION = "crawdaunt";
     inline static constexpr const char* PMD_CRAWDAUNT_ID = PMD_CRAWDAUNT_ID_ARR;
-    inline static constexpr size_t PMD_CRAWDAUNT_ID_LEN = sizeof(PMD_CRAWDAUNT_ID)-1;
+    inline static constexpr size_t PMD_CRAWDAUNT_ID_LEN = sizeof(PMD_CRAWDAUNT_ID_ARR)-1;
     inline static constexpr char PMD_CRAWDAUNT_NAME_ARR[] CONFIG_STRING_SECTION = "Crawdaunt";
     inline static constexpr const char* PMD_CRAWDAUNT_NAME = PMD_CRAWDAUNT_NAME_ARR;
     inline static constexpr size_t PMD_CRAWDAUNT_NAME_LEN = sizeof(PMD_CRAWDAUNT_NAME_ARR)-1;
@@ -13012,7 +13012,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BALTOY_FQID_LEN = sizeof(PMD_BALTOY_FQID_ARR)-1;
     inline static constexpr char PMD_BALTOY_ID_ARR[] CONFIG_STRING_SECTION = "baltoy";
     inline static constexpr const char* PMD_BALTOY_ID = PMD_BALTOY_ID_ARR;
-    inline static constexpr size_t PMD_BALTOY_ID_LEN = sizeof(PMD_BALTOY_ID)-1;
+    inline static constexpr size_t PMD_BALTOY_ID_LEN = sizeof(PMD_BALTOY_ID_ARR)-1;
     inline static constexpr char PMD_BALTOY_NAME_ARR[] CONFIG_STRING_SECTION = "Baltoy";
     inline static constexpr const char* PMD_BALTOY_NAME = PMD_BALTOY_NAME_ARR;
     inline static constexpr size_t PMD_BALTOY_NAME_LEN = sizeof(PMD_BALTOY_NAME_ARR)-1;
@@ -13050,7 +13050,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLAYDOL_FQID_LEN = sizeof(PMD_CLAYDOL_FQID_ARR)-1;
     inline static constexpr char PMD_CLAYDOL_ID_ARR[] CONFIG_STRING_SECTION = "claydol";
     inline static constexpr const char* PMD_CLAYDOL_ID = PMD_CLAYDOL_ID_ARR;
-    inline static constexpr size_t PMD_CLAYDOL_ID_LEN = sizeof(PMD_CLAYDOL_ID)-1;
+    inline static constexpr size_t PMD_CLAYDOL_ID_LEN = sizeof(PMD_CLAYDOL_ID_ARR)-1;
     inline static constexpr char PMD_CLAYDOL_NAME_ARR[] CONFIG_STRING_SECTION = "Claydol";
     inline static constexpr const char* PMD_CLAYDOL_NAME = PMD_CLAYDOL_NAME_ARR;
     inline static constexpr size_t PMD_CLAYDOL_NAME_LEN = sizeof(PMD_CLAYDOL_NAME_ARR)-1;
@@ -13088,7 +13088,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LILEEP_FQID_LEN = sizeof(PMD_LILEEP_FQID_ARR)-1;
     inline static constexpr char PMD_LILEEP_ID_ARR[] CONFIG_STRING_SECTION = "lileep";
     inline static constexpr const char* PMD_LILEEP_ID = PMD_LILEEP_ID_ARR;
-    inline static constexpr size_t PMD_LILEEP_ID_LEN = sizeof(PMD_LILEEP_ID)-1;
+    inline static constexpr size_t PMD_LILEEP_ID_LEN = sizeof(PMD_LILEEP_ID_ARR)-1;
     inline static constexpr char PMD_LILEEP_NAME_ARR[] CONFIG_STRING_SECTION = "Lileep";
     inline static constexpr const char* PMD_LILEEP_NAME = PMD_LILEEP_NAME_ARR;
     inline static constexpr size_t PMD_LILEEP_NAME_LEN = sizeof(PMD_LILEEP_NAME_ARR)-1;
@@ -13126,7 +13126,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRADILY_FQID_LEN = sizeof(PMD_CRADILY_FQID_ARR)-1;
     inline static constexpr char PMD_CRADILY_ID_ARR[] CONFIG_STRING_SECTION = "cradily";
     inline static constexpr const char* PMD_CRADILY_ID = PMD_CRADILY_ID_ARR;
-    inline static constexpr size_t PMD_CRADILY_ID_LEN = sizeof(PMD_CRADILY_ID)-1;
+    inline static constexpr size_t PMD_CRADILY_ID_LEN = sizeof(PMD_CRADILY_ID_ARR)-1;
     inline static constexpr char PMD_CRADILY_NAME_ARR[] CONFIG_STRING_SECTION = "Cradily";
     inline static constexpr const char* PMD_CRADILY_NAME = PMD_CRADILY_NAME_ARR;
     inline static constexpr size_t PMD_CRADILY_NAME_LEN = sizeof(PMD_CRADILY_NAME_ARR)-1;
@@ -13164,7 +13164,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ANORITH_FQID_LEN = sizeof(PMD_ANORITH_FQID_ARR)-1;
     inline static constexpr char PMD_ANORITH_ID_ARR[] CONFIG_STRING_SECTION = "anorith";
     inline static constexpr const char* PMD_ANORITH_ID = PMD_ANORITH_ID_ARR;
-    inline static constexpr size_t PMD_ANORITH_ID_LEN = sizeof(PMD_ANORITH_ID)-1;
+    inline static constexpr size_t PMD_ANORITH_ID_LEN = sizeof(PMD_ANORITH_ID_ARR)-1;
     inline static constexpr char PMD_ANORITH_NAME_ARR[] CONFIG_STRING_SECTION = "Anorith";
     inline static constexpr const char* PMD_ANORITH_NAME = PMD_ANORITH_NAME_ARR;
     inline static constexpr size_t PMD_ANORITH_NAME_LEN = sizeof(PMD_ANORITH_NAME_ARR)-1;
@@ -13202,7 +13202,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARMALDO_FQID_LEN = sizeof(PMD_ARMALDO_FQID_ARR)-1;
     inline static constexpr char PMD_ARMALDO_ID_ARR[] CONFIG_STRING_SECTION = "armaldo";
     inline static constexpr const char* PMD_ARMALDO_ID = PMD_ARMALDO_ID_ARR;
-    inline static constexpr size_t PMD_ARMALDO_ID_LEN = sizeof(PMD_ARMALDO_ID)-1;
+    inline static constexpr size_t PMD_ARMALDO_ID_LEN = sizeof(PMD_ARMALDO_ID_ARR)-1;
     inline static constexpr char PMD_ARMALDO_NAME_ARR[] CONFIG_STRING_SECTION = "Armaldo";
     inline static constexpr const char* PMD_ARMALDO_NAME = PMD_ARMALDO_NAME_ARR;
     inline static constexpr size_t PMD_ARMALDO_NAME_LEN = sizeof(PMD_ARMALDO_NAME_ARR)-1;
@@ -13240,7 +13240,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FEEBAS_FQID_LEN = sizeof(PMD_FEEBAS_FQID_ARR)-1;
     inline static constexpr char PMD_FEEBAS_ID_ARR[] CONFIG_STRING_SECTION = "feebas";
     inline static constexpr const char* PMD_FEEBAS_ID = PMD_FEEBAS_ID_ARR;
-    inline static constexpr size_t PMD_FEEBAS_ID_LEN = sizeof(PMD_FEEBAS_ID)-1;
+    inline static constexpr size_t PMD_FEEBAS_ID_LEN = sizeof(PMD_FEEBAS_ID_ARR)-1;
     inline static constexpr char PMD_FEEBAS_NAME_ARR[] CONFIG_STRING_SECTION = "Feebas";
     inline static constexpr const char* PMD_FEEBAS_NAME = PMD_FEEBAS_NAME_ARR;
     inline static constexpr size_t PMD_FEEBAS_NAME_LEN = sizeof(PMD_FEEBAS_NAME_ARR)-1;
@@ -13278,7 +13278,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MILOTIC_FQID_LEN = sizeof(PMD_MILOTIC_FQID_ARR)-1;
     inline static constexpr char PMD_MILOTIC_ID_ARR[] CONFIG_STRING_SECTION = "milotic";
     inline static constexpr const char* PMD_MILOTIC_ID = PMD_MILOTIC_ID_ARR;
-    inline static constexpr size_t PMD_MILOTIC_ID_LEN = sizeof(PMD_MILOTIC_ID)-1;
+    inline static constexpr size_t PMD_MILOTIC_ID_LEN = sizeof(PMD_MILOTIC_ID_ARR)-1;
     inline static constexpr char PMD_MILOTIC_NAME_ARR[] CONFIG_STRING_SECTION = "Milotic";
     inline static constexpr const char* PMD_MILOTIC_NAME = PMD_MILOTIC_NAME_ARR;
     inline static constexpr size_t PMD_MILOTIC_NAME_LEN = sizeof(PMD_MILOTIC_NAME_ARR)-1;
@@ -13316,7 +13316,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CASTFORM_FQID_LEN = sizeof(PMD_CASTFORM_FQID_ARR)-1;
     inline static constexpr char PMD_CASTFORM_ID_ARR[] CONFIG_STRING_SECTION = "castform";
     inline static constexpr const char* PMD_CASTFORM_ID = PMD_CASTFORM_ID_ARR;
-    inline static constexpr size_t PMD_CASTFORM_ID_LEN = sizeof(PMD_CASTFORM_ID)-1;
+    inline static constexpr size_t PMD_CASTFORM_ID_LEN = sizeof(PMD_CASTFORM_ID_ARR)-1;
     inline static constexpr char PMD_CASTFORM_NAME_ARR[] CONFIG_STRING_SECTION = "Castform";
     inline static constexpr const char* PMD_CASTFORM_NAME = PMD_CASTFORM_NAME_ARR;
     inline static constexpr size_t PMD_CASTFORM_NAME_LEN = sizeof(PMD_CASTFORM_NAME_ARR)-1;
@@ -13354,7 +13354,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KECLEON_FQID_LEN = sizeof(PMD_KECLEON_FQID_ARR)-1;
     inline static constexpr char PMD_KECLEON_ID_ARR[] CONFIG_STRING_SECTION = "kecleon";
     inline static constexpr const char* PMD_KECLEON_ID = PMD_KECLEON_ID_ARR;
-    inline static constexpr size_t PMD_KECLEON_ID_LEN = sizeof(PMD_KECLEON_ID)-1;
+    inline static constexpr size_t PMD_KECLEON_ID_LEN = sizeof(PMD_KECLEON_ID_ARR)-1;
     inline static constexpr char PMD_KECLEON_NAME_ARR[] CONFIG_STRING_SECTION = "Kecleon";
     inline static constexpr const char* PMD_KECLEON_NAME = PMD_KECLEON_NAME_ARR;
     inline static constexpr size_t PMD_KECLEON_NAME_LEN = sizeof(PMD_KECLEON_NAME_ARR)-1;
@@ -13392,7 +13392,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHUPPET_FQID_LEN = sizeof(PMD_SHUPPET_FQID_ARR)-1;
     inline static constexpr char PMD_SHUPPET_ID_ARR[] CONFIG_STRING_SECTION = "shuppet";
     inline static constexpr const char* PMD_SHUPPET_ID = PMD_SHUPPET_ID_ARR;
-    inline static constexpr size_t PMD_SHUPPET_ID_LEN = sizeof(PMD_SHUPPET_ID)-1;
+    inline static constexpr size_t PMD_SHUPPET_ID_LEN = sizeof(PMD_SHUPPET_ID_ARR)-1;
     inline static constexpr char PMD_SHUPPET_NAME_ARR[] CONFIG_STRING_SECTION = "Shuppet";
     inline static constexpr const char* PMD_SHUPPET_NAME = PMD_SHUPPET_NAME_ARR;
     inline static constexpr size_t PMD_SHUPPET_NAME_LEN = sizeof(PMD_SHUPPET_NAME_ARR)-1;
@@ -13430,7 +13430,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BANETTE_FQID_LEN = sizeof(PMD_BANETTE_FQID_ARR)-1;
     inline static constexpr char PMD_BANETTE_ID_ARR[] CONFIG_STRING_SECTION = "banette";
     inline static constexpr const char* PMD_BANETTE_ID = PMD_BANETTE_ID_ARR;
-    inline static constexpr size_t PMD_BANETTE_ID_LEN = sizeof(PMD_BANETTE_ID)-1;
+    inline static constexpr size_t PMD_BANETTE_ID_LEN = sizeof(PMD_BANETTE_ID_ARR)-1;
     inline static constexpr char PMD_BANETTE_NAME_ARR[] CONFIG_STRING_SECTION = "Banette";
     inline static constexpr const char* PMD_BANETTE_NAME = PMD_BANETTE_NAME_ARR;
     inline static constexpr size_t PMD_BANETTE_NAME_LEN = sizeof(PMD_BANETTE_NAME_ARR)-1;
@@ -13468,7 +13468,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DUSKULL_FQID_LEN = sizeof(PMD_DUSKULL_FQID_ARR)-1;
     inline static constexpr char PMD_DUSKULL_ID_ARR[] CONFIG_STRING_SECTION = "duskull";
     inline static constexpr const char* PMD_DUSKULL_ID = PMD_DUSKULL_ID_ARR;
-    inline static constexpr size_t PMD_DUSKULL_ID_LEN = sizeof(PMD_DUSKULL_ID)-1;
+    inline static constexpr size_t PMD_DUSKULL_ID_LEN = sizeof(PMD_DUSKULL_ID_ARR)-1;
     inline static constexpr char PMD_DUSKULL_NAME_ARR[] CONFIG_STRING_SECTION = "Duskull";
     inline static constexpr const char* PMD_DUSKULL_NAME = PMD_DUSKULL_NAME_ARR;
     inline static constexpr size_t PMD_DUSKULL_NAME_LEN = sizeof(PMD_DUSKULL_NAME_ARR)-1;
@@ -13506,7 +13506,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DUSCLOPS_FQID_LEN = sizeof(PMD_DUSCLOPS_FQID_ARR)-1;
     inline static constexpr char PMD_DUSCLOPS_ID_ARR[] CONFIG_STRING_SECTION = "dusclops";
     inline static constexpr const char* PMD_DUSCLOPS_ID = PMD_DUSCLOPS_ID_ARR;
-    inline static constexpr size_t PMD_DUSCLOPS_ID_LEN = sizeof(PMD_DUSCLOPS_ID)-1;
+    inline static constexpr size_t PMD_DUSCLOPS_ID_LEN = sizeof(PMD_DUSCLOPS_ID_ARR)-1;
     inline static constexpr char PMD_DUSCLOPS_NAME_ARR[] CONFIG_STRING_SECTION = "Dusclops";
     inline static constexpr const char* PMD_DUSCLOPS_NAME = PMD_DUSCLOPS_NAME_ARR;
     inline static constexpr size_t PMD_DUSCLOPS_NAME_LEN = sizeof(PMD_DUSCLOPS_NAME_ARR)-1;
@@ -13544,7 +13544,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TROPIUS_FQID_LEN = sizeof(PMD_TROPIUS_FQID_ARR)-1;
     inline static constexpr char PMD_TROPIUS_ID_ARR[] CONFIG_STRING_SECTION = "tropius";
     inline static constexpr const char* PMD_TROPIUS_ID = PMD_TROPIUS_ID_ARR;
-    inline static constexpr size_t PMD_TROPIUS_ID_LEN = sizeof(PMD_TROPIUS_ID)-1;
+    inline static constexpr size_t PMD_TROPIUS_ID_LEN = sizeof(PMD_TROPIUS_ID_ARR)-1;
     inline static constexpr char PMD_TROPIUS_NAME_ARR[] CONFIG_STRING_SECTION = "Tropius";
     inline static constexpr const char* PMD_TROPIUS_NAME = PMD_TROPIUS_NAME_ARR;
     inline static constexpr size_t PMD_TROPIUS_NAME_LEN = sizeof(PMD_TROPIUS_NAME_ARR)-1;
@@ -13582,7 +13582,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHIMECHO_FQID_LEN = sizeof(PMD_CHIMECHO_FQID_ARR)-1;
     inline static constexpr char PMD_CHIMECHO_ID_ARR[] CONFIG_STRING_SECTION = "chimecho";
     inline static constexpr const char* PMD_CHIMECHO_ID = PMD_CHIMECHO_ID_ARR;
-    inline static constexpr size_t PMD_CHIMECHO_ID_LEN = sizeof(PMD_CHIMECHO_ID)-1;
+    inline static constexpr size_t PMD_CHIMECHO_ID_LEN = sizeof(PMD_CHIMECHO_ID_ARR)-1;
     inline static constexpr char PMD_CHIMECHO_NAME_ARR[] CONFIG_STRING_SECTION = "Chimecho";
     inline static constexpr const char* PMD_CHIMECHO_NAME = PMD_CHIMECHO_NAME_ARR;
     inline static constexpr size_t PMD_CHIMECHO_NAME_LEN = sizeof(PMD_CHIMECHO_NAME_ARR)-1;
@@ -13620,7 +13620,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ABSOL_FQID_LEN = sizeof(PMD_ABSOL_FQID_ARR)-1;
     inline static constexpr char PMD_ABSOL_ID_ARR[] CONFIG_STRING_SECTION = "absol";
     inline static constexpr const char* PMD_ABSOL_ID = PMD_ABSOL_ID_ARR;
-    inline static constexpr size_t PMD_ABSOL_ID_LEN = sizeof(PMD_ABSOL_ID)-1;
+    inline static constexpr size_t PMD_ABSOL_ID_LEN = sizeof(PMD_ABSOL_ID_ARR)-1;
     inline static constexpr char PMD_ABSOL_NAME_ARR[] CONFIG_STRING_SECTION = "Absol";
     inline static constexpr const char* PMD_ABSOL_NAME = PMD_ABSOL_NAME_ARR;
     inline static constexpr size_t PMD_ABSOL_NAME_LEN = sizeof(PMD_ABSOL_NAME_ARR)-1;
@@ -13658,7 +13658,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WYNAUT_FQID_LEN = sizeof(PMD_WYNAUT_FQID_ARR)-1;
     inline static constexpr char PMD_WYNAUT_ID_ARR[] CONFIG_STRING_SECTION = "wynaut";
     inline static constexpr const char* PMD_WYNAUT_ID = PMD_WYNAUT_ID_ARR;
-    inline static constexpr size_t PMD_WYNAUT_ID_LEN = sizeof(PMD_WYNAUT_ID)-1;
+    inline static constexpr size_t PMD_WYNAUT_ID_LEN = sizeof(PMD_WYNAUT_ID_ARR)-1;
     inline static constexpr char PMD_WYNAUT_NAME_ARR[] CONFIG_STRING_SECTION = "Wynaut";
     inline static constexpr const char* PMD_WYNAUT_NAME = PMD_WYNAUT_NAME_ARR;
     inline static constexpr size_t PMD_WYNAUT_NAME_LEN = sizeof(PMD_WYNAUT_NAME_ARR)-1;
@@ -13696,7 +13696,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNORUNT_FQID_LEN = sizeof(PMD_SNORUNT_FQID_ARR)-1;
     inline static constexpr char PMD_SNORUNT_ID_ARR[] CONFIG_STRING_SECTION = "snorunt";
     inline static constexpr const char* PMD_SNORUNT_ID = PMD_SNORUNT_ID_ARR;
-    inline static constexpr size_t PMD_SNORUNT_ID_LEN = sizeof(PMD_SNORUNT_ID)-1;
+    inline static constexpr size_t PMD_SNORUNT_ID_LEN = sizeof(PMD_SNORUNT_ID_ARR)-1;
     inline static constexpr char PMD_SNORUNT_NAME_ARR[] CONFIG_STRING_SECTION = "Snorunt";
     inline static constexpr const char* PMD_SNORUNT_NAME = PMD_SNORUNT_NAME_ARR;
     inline static constexpr size_t PMD_SNORUNT_NAME_LEN = sizeof(PMD_SNORUNT_NAME_ARR)-1;
@@ -13734,7 +13734,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GLALIE_FQID_LEN = sizeof(PMD_GLALIE_FQID_ARR)-1;
     inline static constexpr char PMD_GLALIE_ID_ARR[] CONFIG_STRING_SECTION = "glalie";
     inline static constexpr const char* PMD_GLALIE_ID = PMD_GLALIE_ID_ARR;
-    inline static constexpr size_t PMD_GLALIE_ID_LEN = sizeof(PMD_GLALIE_ID)-1;
+    inline static constexpr size_t PMD_GLALIE_ID_LEN = sizeof(PMD_GLALIE_ID_ARR)-1;
     inline static constexpr char PMD_GLALIE_NAME_ARR[] CONFIG_STRING_SECTION = "Glalie";
     inline static constexpr const char* PMD_GLALIE_NAME = PMD_GLALIE_NAME_ARR;
     inline static constexpr size_t PMD_GLALIE_NAME_LEN = sizeof(PMD_GLALIE_NAME_ARR)-1;
@@ -13772,7 +13772,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPHEAL_FQID_LEN = sizeof(PMD_SPHEAL_FQID_ARR)-1;
     inline static constexpr char PMD_SPHEAL_ID_ARR[] CONFIG_STRING_SECTION = "spheal";
     inline static constexpr const char* PMD_SPHEAL_ID = PMD_SPHEAL_ID_ARR;
-    inline static constexpr size_t PMD_SPHEAL_ID_LEN = sizeof(PMD_SPHEAL_ID)-1;
+    inline static constexpr size_t PMD_SPHEAL_ID_LEN = sizeof(PMD_SPHEAL_ID_ARR)-1;
     inline static constexpr char PMD_SPHEAL_NAME_ARR[] CONFIG_STRING_SECTION = "Spheal";
     inline static constexpr const char* PMD_SPHEAL_NAME = PMD_SPHEAL_NAME_ARR;
     inline static constexpr size_t PMD_SPHEAL_NAME_LEN = sizeof(PMD_SPHEAL_NAME_ARR)-1;
@@ -13810,7 +13810,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEALEO_FQID_LEN = sizeof(PMD_SEALEO_FQID_ARR)-1;
     inline static constexpr char PMD_SEALEO_ID_ARR[] CONFIG_STRING_SECTION = "sealeo";
     inline static constexpr const char* PMD_SEALEO_ID = PMD_SEALEO_ID_ARR;
-    inline static constexpr size_t PMD_SEALEO_ID_LEN = sizeof(PMD_SEALEO_ID)-1;
+    inline static constexpr size_t PMD_SEALEO_ID_LEN = sizeof(PMD_SEALEO_ID_ARR)-1;
     inline static constexpr char PMD_SEALEO_NAME_ARR[] CONFIG_STRING_SECTION = "Sealeo";
     inline static constexpr const char* PMD_SEALEO_NAME = PMD_SEALEO_NAME_ARR;
     inline static constexpr size_t PMD_SEALEO_NAME_LEN = sizeof(PMD_SEALEO_NAME_ARR)-1;
@@ -13848,7 +13848,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WALREIN_FQID_LEN = sizeof(PMD_WALREIN_FQID_ARR)-1;
     inline static constexpr char PMD_WALREIN_ID_ARR[] CONFIG_STRING_SECTION = "walrein";
     inline static constexpr const char* PMD_WALREIN_ID = PMD_WALREIN_ID_ARR;
-    inline static constexpr size_t PMD_WALREIN_ID_LEN = sizeof(PMD_WALREIN_ID)-1;
+    inline static constexpr size_t PMD_WALREIN_ID_LEN = sizeof(PMD_WALREIN_ID_ARR)-1;
     inline static constexpr char PMD_WALREIN_NAME_ARR[] CONFIG_STRING_SECTION = "Walrein";
     inline static constexpr const char* PMD_WALREIN_NAME = PMD_WALREIN_NAME_ARR;
     inline static constexpr size_t PMD_WALREIN_NAME_LEN = sizeof(PMD_WALREIN_NAME_ARR)-1;
@@ -13886,7 +13886,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLAMPERL_FQID_LEN = sizeof(PMD_CLAMPERL_FQID_ARR)-1;
     inline static constexpr char PMD_CLAMPERL_ID_ARR[] CONFIG_STRING_SECTION = "clamperl";
     inline static constexpr const char* PMD_CLAMPERL_ID = PMD_CLAMPERL_ID_ARR;
-    inline static constexpr size_t PMD_CLAMPERL_ID_LEN = sizeof(PMD_CLAMPERL_ID)-1;
+    inline static constexpr size_t PMD_CLAMPERL_ID_LEN = sizeof(PMD_CLAMPERL_ID_ARR)-1;
     inline static constexpr char PMD_CLAMPERL_NAME_ARR[] CONFIG_STRING_SECTION = "Clamperl";
     inline static constexpr const char* PMD_CLAMPERL_NAME = PMD_CLAMPERL_NAME_ARR;
     inline static constexpr size_t PMD_CLAMPERL_NAME_LEN = sizeof(PMD_CLAMPERL_NAME_ARR)-1;
@@ -13924,7 +13924,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HUNTAIL_FQID_LEN = sizeof(PMD_HUNTAIL_FQID_ARR)-1;
     inline static constexpr char PMD_HUNTAIL_ID_ARR[] CONFIG_STRING_SECTION = "huntail";
     inline static constexpr const char* PMD_HUNTAIL_ID = PMD_HUNTAIL_ID_ARR;
-    inline static constexpr size_t PMD_HUNTAIL_ID_LEN = sizeof(PMD_HUNTAIL_ID)-1;
+    inline static constexpr size_t PMD_HUNTAIL_ID_LEN = sizeof(PMD_HUNTAIL_ID_ARR)-1;
     inline static constexpr char PMD_HUNTAIL_NAME_ARR[] CONFIG_STRING_SECTION = "Huntail";
     inline static constexpr const char* PMD_HUNTAIL_NAME = PMD_HUNTAIL_NAME_ARR;
     inline static constexpr size_t PMD_HUNTAIL_NAME_LEN = sizeof(PMD_HUNTAIL_NAME_ARR)-1;
@@ -13962,7 +13962,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOREBYSS_FQID_LEN = sizeof(PMD_GOREBYSS_FQID_ARR)-1;
     inline static constexpr char PMD_GOREBYSS_ID_ARR[] CONFIG_STRING_SECTION = "gorebyss";
     inline static constexpr const char* PMD_GOREBYSS_ID = PMD_GOREBYSS_ID_ARR;
-    inline static constexpr size_t PMD_GOREBYSS_ID_LEN = sizeof(PMD_GOREBYSS_ID)-1;
+    inline static constexpr size_t PMD_GOREBYSS_ID_LEN = sizeof(PMD_GOREBYSS_ID_ARR)-1;
     inline static constexpr char PMD_GOREBYSS_NAME_ARR[] CONFIG_STRING_SECTION = "Gorebyss";
     inline static constexpr const char* PMD_GOREBYSS_NAME = PMD_GOREBYSS_NAME_ARR;
     inline static constexpr size_t PMD_GOREBYSS_NAME_LEN = sizeof(PMD_GOREBYSS_NAME_ARR)-1;
@@ -14000,7 +14000,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RELICANTH_FQID_LEN = sizeof(PMD_RELICANTH_FQID_ARR)-1;
     inline static constexpr char PMD_RELICANTH_ID_ARR[] CONFIG_STRING_SECTION = "relicanth";
     inline static constexpr const char* PMD_RELICANTH_ID = PMD_RELICANTH_ID_ARR;
-    inline static constexpr size_t PMD_RELICANTH_ID_LEN = sizeof(PMD_RELICANTH_ID)-1;
+    inline static constexpr size_t PMD_RELICANTH_ID_LEN = sizeof(PMD_RELICANTH_ID_ARR)-1;
     inline static constexpr char PMD_RELICANTH_NAME_ARR[] CONFIG_STRING_SECTION = "Relicanth";
     inline static constexpr const char* PMD_RELICANTH_NAME = PMD_RELICANTH_NAME_ARR;
     inline static constexpr size_t PMD_RELICANTH_NAME_LEN = sizeof(PMD_RELICANTH_NAME_ARR)-1;
@@ -14038,7 +14038,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUVDISC_FQID_LEN = sizeof(PMD_LUVDISC_FQID_ARR)-1;
     inline static constexpr char PMD_LUVDISC_ID_ARR[] CONFIG_STRING_SECTION = "luvdisc";
     inline static constexpr const char* PMD_LUVDISC_ID = PMD_LUVDISC_ID_ARR;
-    inline static constexpr size_t PMD_LUVDISC_ID_LEN = sizeof(PMD_LUVDISC_ID)-1;
+    inline static constexpr size_t PMD_LUVDISC_ID_LEN = sizeof(PMD_LUVDISC_ID_ARR)-1;
     inline static constexpr char PMD_LUVDISC_NAME_ARR[] CONFIG_STRING_SECTION = "Luvdisc";
     inline static constexpr const char* PMD_LUVDISC_NAME = PMD_LUVDISC_NAME_ARR;
     inline static constexpr size_t PMD_LUVDISC_NAME_LEN = sizeof(PMD_LUVDISC_NAME_ARR)-1;
@@ -14076,7 +14076,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BAGON_FQID_LEN = sizeof(PMD_BAGON_FQID_ARR)-1;
     inline static constexpr char PMD_BAGON_ID_ARR[] CONFIG_STRING_SECTION = "bagon";
     inline static constexpr const char* PMD_BAGON_ID = PMD_BAGON_ID_ARR;
-    inline static constexpr size_t PMD_BAGON_ID_LEN = sizeof(PMD_BAGON_ID)-1;
+    inline static constexpr size_t PMD_BAGON_ID_LEN = sizeof(PMD_BAGON_ID_ARR)-1;
     inline static constexpr char PMD_BAGON_NAME_ARR[] CONFIG_STRING_SECTION = "Bagon";
     inline static constexpr const char* PMD_BAGON_NAME = PMD_BAGON_NAME_ARR;
     inline static constexpr size_t PMD_BAGON_NAME_LEN = sizeof(PMD_BAGON_NAME_ARR)-1;
@@ -14114,7 +14114,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHELGON_FQID_LEN = sizeof(PMD_SHELGON_FQID_ARR)-1;
     inline static constexpr char PMD_SHELGON_ID_ARR[] CONFIG_STRING_SECTION = "shelgon";
     inline static constexpr const char* PMD_SHELGON_ID = PMD_SHELGON_ID_ARR;
-    inline static constexpr size_t PMD_SHELGON_ID_LEN = sizeof(PMD_SHELGON_ID)-1;
+    inline static constexpr size_t PMD_SHELGON_ID_LEN = sizeof(PMD_SHELGON_ID_ARR)-1;
     inline static constexpr char PMD_SHELGON_NAME_ARR[] CONFIG_STRING_SECTION = "Shelgon";
     inline static constexpr const char* PMD_SHELGON_NAME = PMD_SHELGON_NAME_ARR;
     inline static constexpr size_t PMD_SHELGON_NAME_LEN = sizeof(PMD_SHELGON_NAME_ARR)-1;
@@ -14152,7 +14152,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SALAMENCE_FQID_LEN = sizeof(PMD_SALAMENCE_FQID_ARR)-1;
     inline static constexpr char PMD_SALAMENCE_ID_ARR[] CONFIG_STRING_SECTION = "salamence";
     inline static constexpr const char* PMD_SALAMENCE_ID = PMD_SALAMENCE_ID_ARR;
-    inline static constexpr size_t PMD_SALAMENCE_ID_LEN = sizeof(PMD_SALAMENCE_ID)-1;
+    inline static constexpr size_t PMD_SALAMENCE_ID_LEN = sizeof(PMD_SALAMENCE_ID_ARR)-1;
     inline static constexpr char PMD_SALAMENCE_NAME_ARR[] CONFIG_STRING_SECTION = "Salamence";
     inline static constexpr const char* PMD_SALAMENCE_NAME = PMD_SALAMENCE_NAME_ARR;
     inline static constexpr size_t PMD_SALAMENCE_NAME_LEN = sizeof(PMD_SALAMENCE_NAME_ARR)-1;
@@ -14190,7 +14190,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BELDUM_FQID_LEN = sizeof(PMD_BELDUM_FQID_ARR)-1;
     inline static constexpr char PMD_BELDUM_ID_ARR[] CONFIG_STRING_SECTION = "beldum";
     inline static constexpr const char* PMD_BELDUM_ID = PMD_BELDUM_ID_ARR;
-    inline static constexpr size_t PMD_BELDUM_ID_LEN = sizeof(PMD_BELDUM_ID)-1;
+    inline static constexpr size_t PMD_BELDUM_ID_LEN = sizeof(PMD_BELDUM_ID_ARR)-1;
     inline static constexpr char PMD_BELDUM_NAME_ARR[] CONFIG_STRING_SECTION = "Beldum";
     inline static constexpr const char* PMD_BELDUM_NAME = PMD_BELDUM_NAME_ARR;
     inline static constexpr size_t PMD_BELDUM_NAME_LEN = sizeof(PMD_BELDUM_NAME_ARR)-1;
@@ -14228,7 +14228,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_METANG_FQID_LEN = sizeof(PMD_METANG_FQID_ARR)-1;
     inline static constexpr char PMD_METANG_ID_ARR[] CONFIG_STRING_SECTION = "metang";
     inline static constexpr const char* PMD_METANG_ID = PMD_METANG_ID_ARR;
-    inline static constexpr size_t PMD_METANG_ID_LEN = sizeof(PMD_METANG_ID)-1;
+    inline static constexpr size_t PMD_METANG_ID_LEN = sizeof(PMD_METANG_ID_ARR)-1;
     inline static constexpr char PMD_METANG_NAME_ARR[] CONFIG_STRING_SECTION = "Metang";
     inline static constexpr const char* PMD_METANG_NAME = PMD_METANG_NAME_ARR;
     inline static constexpr size_t PMD_METANG_NAME_LEN = sizeof(PMD_METANG_NAME_ARR)-1;
@@ -14266,7 +14266,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_METAGROSS_FQID_LEN = sizeof(PMD_METAGROSS_FQID_ARR)-1;
     inline static constexpr char PMD_METAGROSS_ID_ARR[] CONFIG_STRING_SECTION = "metagross";
     inline static constexpr const char* PMD_METAGROSS_ID = PMD_METAGROSS_ID_ARR;
-    inline static constexpr size_t PMD_METAGROSS_ID_LEN = sizeof(PMD_METAGROSS_ID)-1;
+    inline static constexpr size_t PMD_METAGROSS_ID_LEN = sizeof(PMD_METAGROSS_ID_ARR)-1;
     inline static constexpr char PMD_METAGROSS_NAME_ARR[] CONFIG_STRING_SECTION = "Metagross";
     inline static constexpr const char* PMD_METAGROSS_NAME = PMD_METAGROSS_NAME_ARR;
     inline static constexpr size_t PMD_METAGROSS_NAME_LEN = sizeof(PMD_METAGROSS_NAME_ARR)-1;
@@ -14304,7 +14304,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REGIROCK_FQID_LEN = sizeof(PMD_REGIROCK_FQID_ARR)-1;
     inline static constexpr char PMD_REGIROCK_ID_ARR[] CONFIG_STRING_SECTION = "regirock";
     inline static constexpr const char* PMD_REGIROCK_ID = PMD_REGIROCK_ID_ARR;
-    inline static constexpr size_t PMD_REGIROCK_ID_LEN = sizeof(PMD_REGIROCK_ID)-1;
+    inline static constexpr size_t PMD_REGIROCK_ID_LEN = sizeof(PMD_REGIROCK_ID_ARR)-1;
     inline static constexpr char PMD_REGIROCK_NAME_ARR[] CONFIG_STRING_SECTION = "Regirock";
     inline static constexpr const char* PMD_REGIROCK_NAME = PMD_REGIROCK_NAME_ARR;
     inline static constexpr size_t PMD_REGIROCK_NAME_LEN = sizeof(PMD_REGIROCK_NAME_ARR)-1;
@@ -14342,7 +14342,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REGICE_FQID_LEN = sizeof(PMD_REGICE_FQID_ARR)-1;
     inline static constexpr char PMD_REGICE_ID_ARR[] CONFIG_STRING_SECTION = "regice";
     inline static constexpr const char* PMD_REGICE_ID = PMD_REGICE_ID_ARR;
-    inline static constexpr size_t PMD_REGICE_ID_LEN = sizeof(PMD_REGICE_ID)-1;
+    inline static constexpr size_t PMD_REGICE_ID_LEN = sizeof(PMD_REGICE_ID_ARR)-1;
     inline static constexpr char PMD_REGICE_NAME_ARR[] CONFIG_STRING_SECTION = "Regice";
     inline static constexpr const char* PMD_REGICE_NAME = PMD_REGICE_NAME_ARR;
     inline static constexpr size_t PMD_REGICE_NAME_LEN = sizeof(PMD_REGICE_NAME_ARR)-1;
@@ -14380,7 +14380,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REGISTEEL_FQID_LEN = sizeof(PMD_REGISTEEL_FQID_ARR)-1;
     inline static constexpr char PMD_REGISTEEL_ID_ARR[] CONFIG_STRING_SECTION = "registeel";
     inline static constexpr const char* PMD_REGISTEEL_ID = PMD_REGISTEEL_ID_ARR;
-    inline static constexpr size_t PMD_REGISTEEL_ID_LEN = sizeof(PMD_REGISTEEL_ID)-1;
+    inline static constexpr size_t PMD_REGISTEEL_ID_LEN = sizeof(PMD_REGISTEEL_ID_ARR)-1;
     inline static constexpr char PMD_REGISTEEL_NAME_ARR[] CONFIG_STRING_SECTION = "Registeel";
     inline static constexpr const char* PMD_REGISTEEL_NAME = PMD_REGISTEEL_NAME_ARR;
     inline static constexpr size_t PMD_REGISTEEL_NAME_LEN = sizeof(PMD_REGISTEEL_NAME_ARR)-1;
@@ -14418,7 +14418,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LATIAS_FQID_LEN = sizeof(PMD_LATIAS_FQID_ARR)-1;
     inline static constexpr char PMD_LATIAS_ID_ARR[] CONFIG_STRING_SECTION = "latias";
     inline static constexpr const char* PMD_LATIAS_ID = PMD_LATIAS_ID_ARR;
-    inline static constexpr size_t PMD_LATIAS_ID_LEN = sizeof(PMD_LATIAS_ID)-1;
+    inline static constexpr size_t PMD_LATIAS_ID_LEN = sizeof(PMD_LATIAS_ID_ARR)-1;
     inline static constexpr char PMD_LATIAS_NAME_ARR[] CONFIG_STRING_SECTION = "Latias";
     inline static constexpr const char* PMD_LATIAS_NAME = PMD_LATIAS_NAME_ARR;
     inline static constexpr size_t PMD_LATIAS_NAME_LEN = sizeof(PMD_LATIAS_NAME_ARR)-1;
@@ -14456,7 +14456,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LATIOS_FQID_LEN = sizeof(PMD_LATIOS_FQID_ARR)-1;
     inline static constexpr char PMD_LATIOS_ID_ARR[] CONFIG_STRING_SECTION = "latios";
     inline static constexpr const char* PMD_LATIOS_ID = PMD_LATIOS_ID_ARR;
-    inline static constexpr size_t PMD_LATIOS_ID_LEN = sizeof(PMD_LATIOS_ID)-1;
+    inline static constexpr size_t PMD_LATIOS_ID_LEN = sizeof(PMD_LATIOS_ID_ARR)-1;
     inline static constexpr char PMD_LATIOS_NAME_ARR[] CONFIG_STRING_SECTION = "Latios";
     inline static constexpr const char* PMD_LATIOS_NAME = PMD_LATIOS_NAME_ARR;
     inline static constexpr size_t PMD_LATIOS_NAME_LEN = sizeof(PMD_LATIOS_NAME_ARR)-1;
@@ -14494,7 +14494,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KYOGRE_FQID_LEN = sizeof(PMD_KYOGRE_FQID_ARR)-1;
     inline static constexpr char PMD_KYOGRE_ID_ARR[] CONFIG_STRING_SECTION = "kyogre";
     inline static constexpr const char* PMD_KYOGRE_ID = PMD_KYOGRE_ID_ARR;
-    inline static constexpr size_t PMD_KYOGRE_ID_LEN = sizeof(PMD_KYOGRE_ID)-1;
+    inline static constexpr size_t PMD_KYOGRE_ID_LEN = sizeof(PMD_KYOGRE_ID_ARR)-1;
     inline static constexpr char PMD_KYOGRE_NAME_ARR[] CONFIG_STRING_SECTION = "Kyogre";
     inline static constexpr const char* PMD_KYOGRE_NAME = PMD_KYOGRE_NAME_ARR;
     inline static constexpr size_t PMD_KYOGRE_NAME_LEN = sizeof(PMD_KYOGRE_NAME_ARR)-1;
@@ -14532,7 +14532,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GROUDON_FQID_LEN = sizeof(PMD_GROUDON_FQID_ARR)-1;
     inline static constexpr char PMD_GROUDON_ID_ARR[] CONFIG_STRING_SECTION = "groudon";
     inline static constexpr const char* PMD_GROUDON_ID = PMD_GROUDON_ID_ARR;
-    inline static constexpr size_t PMD_GROUDON_ID_LEN = sizeof(PMD_GROUDON_ID)-1;
+    inline static constexpr size_t PMD_GROUDON_ID_LEN = sizeof(PMD_GROUDON_ID_ARR)-1;
     inline static constexpr char PMD_GROUDON_NAME_ARR[] CONFIG_STRING_SECTION = "Groudon";
     inline static constexpr const char* PMD_GROUDON_NAME = PMD_GROUDON_NAME_ARR;
     inline static constexpr size_t PMD_GROUDON_NAME_LEN = sizeof(PMD_GROUDON_NAME_ARR)-1;
@@ -14570,7 +14570,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RAYQUAZA_FQID_LEN = sizeof(PMD_RAYQUAZA_FQID_ARR)-1;
     inline static constexpr char PMD_RAYQUAZA_ID_ARR[] CONFIG_STRING_SECTION = "rayquaza";
     inline static constexpr const char* PMD_RAYQUAZA_ID = PMD_RAYQUAZA_ID_ARR;
-    inline static constexpr size_t PMD_RAYQUAZA_ID_LEN = sizeof(PMD_RAYQUAZA_ID)-1;
+    inline static constexpr size_t PMD_RAYQUAZA_ID_LEN = sizeof(PMD_RAYQUAZA_ID_ARR)-1;
     inline static constexpr char PMD_RAYQUAZA_NAME_ARR[] CONFIG_STRING_SECTION = "Rayquaza";
     inline static constexpr const char* PMD_RAYQUAZA_NAME = PMD_RAYQUAZA_NAME_ARR;
     inline static constexpr size_t PMD_RAYQUAZA_NAME_LEN = sizeof(PMD_RAYQUAZA_NAME_ARR)-1;
@@ -14608,7 +14608,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JIRACHI_FQID_LEN = sizeof(PMD_JIRACHI_FQID_ARR)-1;
     inline static constexpr char PMD_JIRACHI_ID_ARR[] CONFIG_STRING_SECTION = "jirachi";
     inline static constexpr const char* PMD_JIRACHI_ID = PMD_JIRACHI_ID_ARR;
-    inline static constexpr size_t PMD_JIRACHI_ID_LEN = sizeof(PMD_JIRACHI_ID)-1;
+    inline static constexpr size_t PMD_JIRACHI_ID_LEN = sizeof(PMD_JIRACHI_ID_ARR)-1;
     inline static constexpr char PMD_JIRACHI_NAME_ARR[] CONFIG_STRING_SECTION = "Jirachi";
     inline static constexpr const char* PMD_JIRACHI_NAME = PMD_JIRACHI_NAME_ARR;
     inline static constexpr size_t PMD_JIRACHI_NAME_LEN = sizeof(PMD_JIRACHI_NAME_ARR)-1;
@@ -14646,7 +14646,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DEOXYS_FQID_LEN = sizeof(PMD_DEOXYS_FQID_ARR)-1;
     inline static constexpr char PMD_DEOXYS_ID_ARR[] CONFIG_STRING_SECTION = "deoxys";
     inline static constexpr const char* PMD_DEOXYS_ID = PMD_DEOXYS_ID_ARR;
-    inline static constexpr size_t PMD_DEOXYS_ID_LEN = sizeof(PMD_DEOXYS_ID)-1;
+    inline static constexpr size_t PMD_DEOXYS_ID_LEN = sizeof(PMD_DEOXYS_ID_ARR)-1;
     inline static constexpr char PMD_DEOXYS_NAME_ARR[] CONFIG_STRING_SECTION = "Deoxys";
     inline static constexpr const char* PMD_DEOXYS_NAME = PMD_DEOXYS_NAME_ARR;
     inline static constexpr size_t PMD_DEOXYS_NAME_LEN = sizeof(PMD_DEOXYS_NAME_ARR)-1;
@@ -14684,7 +14684,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TURTWIG_FQID_LEN = sizeof(PMD_TURTWIG_FQID_ARR)-1;
     inline static constexpr char PMD_TURTWIG_ID_ARR[] CONFIG_STRING_SECTION = "turtwig";
     inline static constexpr const char* PMD_TURTWIG_ID = PMD_TURTWIG_ID_ARR;
-    inline static constexpr size_t PMD_TURTWIG_ID_LEN = sizeof(PMD_TURTWIG_ID)-1;
+    inline static constexpr size_t PMD_TURTWIG_ID_LEN = sizeof(PMD_TURTWIG_ID_ARR)-1;
     inline static constexpr char PMD_TURTWIG_NAME_ARR[] CONFIG_STRING_SECTION = "Turtwig";
     inline static constexpr const char* PMD_TURTWIG_NAME = PMD_TURTWIG_NAME_ARR;
     inline static constexpr size_t PMD_TURTWIG_NAME_LEN = sizeof(PMD_TURTWIG_NAME_ARR)-1;
@@ -14722,7 +14722,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GROTLE_FQID_LEN = sizeof(PMD_GROTLE_FQID_ARR)-1;
     inline static constexpr char PMD_GROTLE_ID_ARR[] CONFIG_STRING_SECTION = "grotle";
     inline static constexpr const char* PMD_GROTLE_ID = PMD_GROTLE_ID_ARR;
-    inline static constexpr size_t PMD_GROTLE_ID_LEN = sizeof(PMD_GROTLE_ID)-1;
+    inline static constexpr size_t PMD_GROTLE_ID_LEN = sizeof(PMD_GROTLE_ID_ARR)-1;
     inline static constexpr char PMD_GROTLE_NAME_ARR[] CONFIG_STRING_SECTION = "Grotle";
     inline static constexpr const char* PMD_GROTLE_NAME = PMD_GROTLE_NAME_ARR;
     inline static constexpr size_t PMD_GROTLE_NAME_LEN = sizeof(PMD_GROTLE_NAME_ARR)-1;
@@ -14760,7 +14760,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TORTERRA_FQID_LEN = sizeof(PMD_TORTERRA_FQID_ARR)-1;
     inline static constexpr char PMD_TORTERRA_ID_ARR[] CONFIG_STRING_SECTION = "torterra";
     inline static constexpr const char* PMD_TORTERRA_ID = PMD_TORTERRA_ID_ARR;
-    inline static constexpr size_t PMD_TORTERRA_ID_LEN = sizeof(PMD_TORTERRA_ID)-1;
+    inline static constexpr size_t PMD_TORTERRA_ID_LEN = sizeof(PMD_TORTERRA_ID_ARR)-1;
     inline static constexpr char PMD_TORTERRA_NAME_ARR[] CONFIG_STRING_SECTION = "Torterra";
     inline static constexpr const char* PMD_TORTERRA_NAME = PMD_TORTERRA_NAME_ARR;
     inline static constexpr size_t PMD_TORTERRA_NAME_LEN = sizeof(PMD_TORTERRA_NAME_ARR)-1;
@@ -14798,7 +14798,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHIMCHAR_FQID_LEN = sizeof(PMD_CHIMCHAR_FQID_ARR)-1;
     inline static constexpr char PMD_CHIMCHAR_ID_ARR[] CONFIG_STRING_SECTION = "chimchar";
     inline static constexpr const char* PMD_CHIMCHAR_ID = PMD_CHIMCHAR_ID_ARR;
-    inline static constexpr size_t PMD_CHIMCHAR_ID_LEN = sizeof(PMD_CHIMCHAR_ID)-1;
+    inline static constexpr size_t PMD_CHIMCHAR_ID_LEN = sizeof(PMD_CHIMCHAR_ID_ARR)-1;
     inline static constexpr char PMD_CHIMCHAR_NAME_ARR[] CONFIG_STRING_SECTION = "Chimchar";
     inline static constexpr const char* PMD_CHIMCHAR_NAME = PMD_CHIMCHAR_NAME_ARR;
     inline static constexpr size_t PMD_CHIMCHAR_NAME_LEN = sizeof(PMD_CHIMCHAR_NAME_ARR)-1;
@@ -14836,7 +14836,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MONFERNO_FQID_LEN = sizeof(PMD_MONFERNO_FQID_ARR)-1;
     inline static constexpr char PMD_MONFERNO_ID_ARR[] CONFIG_STRING_SECTION = "monferno";
     inline static constexpr const char* PMD_MONFERNO_ID = PMD_MONFERNO_ID_ARR;
-    inline static constexpr size_t PMD_MONFERNO_ID_LEN = sizeof(PMD_MONFERNO_ID)-1;
+    inline static constexpr size_t PMD_MONFERNO_ID_LEN = sizeof(PMD_MONFERNO_ID_ARR)-1;
     inline static constexpr char PMD_MONFERNO_NAME_ARR[] CONFIG_STRING_SECTION = "Monferno";
     inline static constexpr const char* PMD_MONFERNO_NAME = PMD_MONFERNO_NAME_ARR;
     inline static constexpr size_t PMD_MONFERNO_NAME_LEN = sizeof(PMD_MONFERNO_NAME_ARR)-1;
@@ -14874,7 +14874,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_INFERNAPE_FQID_LEN = sizeof(PMD_INFERNAPE_FQID_ARR)-1;
     inline static constexpr char PMD_INFERNAPE_ID_ARR[] CONFIG_STRING_SECTION = "infernape";
     inline static constexpr const char* PMD_INFERNAPE_ID = PMD_INFERNAPE_ID_ARR;
-    inline static constexpr size_t PMD_INFERNAPE_ID_LEN = sizeof(PMD_INFERNAPE_ID)-1;
+    inline static constexpr size_t PMD_INFERNAPE_ID_LEN = sizeof(PMD_INFERNAPE_ID_ARR)-1;
     inline static constexpr char PMD_INFERNAPE_NAME_ARR[] CONFIG_STRING_SECTION = "Infernape";
     inline static constexpr const char* PMD_INFERNAPE_NAME = PMD_INFERNAPE_NAME_ARR;
     inline static constexpr size_t PMD_INFERNAPE_NAME_LEN = sizeof(PMD_INFERNAPE_NAME_ARR)-1;
@@ -14912,7 +14912,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PIPLUP_FQID_LEN = sizeof(PMD_PIPLUP_FQID_ARR)-1;
     inline static constexpr char PMD_PIPLUP_ID_ARR[] CONFIG_STRING_SECTION = "piplup";
     inline static constexpr const char* PMD_PIPLUP_ID = PMD_PIPLUP_ID_ARR;
-    inline static constexpr size_t PMD_PIPLUP_ID_LEN = sizeof(PMD_PIPLUP_ID)-1;
+    inline static constexpr size_t PMD_PIPLUP_ID_LEN = sizeof(PMD_PIPLUP_ID_ARR)-1;
     inline static constexpr char PMD_PIPLUP_NAME_ARR[] CONFIG_STRING_SECTION = "Piplup";
     inline static constexpr const char* PMD_PIPLUP_NAME = PMD_PIPLUP_NAME_ARR;
     inline static constexpr size_t PMD_PIPLUP_NAME_LEN = sizeof(PMD_PIPLUP_NAME_ARR)-1;
@@ -14950,7 +14950,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PRINPLUP_FQID_LEN = sizeof(PMD_PRINPLUP_FQID_ARR)-1;
     inline static constexpr char PMD_PRINPLUP_ID_ARR[] CONFIG_STRING_SECTION = "prinplup";
     inline static constexpr const char* PMD_PRINPLUP_ID = PMD_PRINPLUP_ID_ARR;
-    inline static constexpr size_t PMD_PRINPLUP_ID_LEN = sizeof(PMD_PRINPLUP_ID)-1;
+    inline static constexpr size_t PMD_PRINPLUP_ID_LEN = sizeof(PMD_PRINPLUP_ID_ARR)-1;
     inline static constexpr char PMD_PRINPLUP_NAME_ARR[] CONFIG_STRING_SECTION = "Prinplup";
     inline static constexpr const char* PMD_PRINPLUP_NAME = PMD_PRINPLUP_NAME_ARR;
     inline static constexpr size_t PMD_PRINPLUP_NAME_LEN = sizeof(PMD_PRINPLUP_NAME_ARR)-1;
@@ -14988,7 +14988,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EMPOLEON_FQID_LEN = sizeof(PMD_EMPOLEON_FQID_ARR)-1;
     inline static constexpr char PMD_EMPOLEON_ID_ARR[] CONFIG_STRING_SECTION = "empoleon";
     inline static constexpr const char* PMD_EMPOLEON_ID = PMD_EMPOLEON_ID_ARR;
-    inline static constexpr size_t PMD_EMPOLEON_ID_LEN = sizeof(PMD_EMPOLEON_ID)-1;
+    inline static constexpr size_t PMD_EMPOLEON_ID_LEN = sizeof(PMD_EMPOLEON_ID_ARR)-1;
     inline static constexpr char PMD_EMPOLEON_NAME_ARR[] CONFIG_STRING_SECTION = "Empoleon";
     inline static constexpr const char* PMD_EMPOLEON_NAME = PMD_EMPOLEON_NAME_ARR;
     inline static constexpr size_t PMD_EMPOLEON_NAME_LEN = sizeof(PMD_EMPOLEON_NAME_ARR)-1;
@@ -15026,7 +15026,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STARLY_FQID_LEN = sizeof(PMD_STARLY_FQID_ARR)-1;
     inline static constexpr char PMD_STARLY_ID_ARR[] CONFIG_STRING_SECTION = "starly";
     inline static constexpr const char* PMD_STARLY_ID = PMD_STARLY_ID_ARR;
-    inline static constexpr size_t PMD_STARLY_ID_LEN = sizeof(PMD_STARLY_ID)-1;
+    inline static constexpr size_t PMD_STARLY_ID_LEN = sizeof(PMD_STARLY_ID_ARR)-1;
     inline static constexpr char PMD_STARLY_NAME_ARR[] CONFIG_STRING_SECTION = "Starly";
     inline static constexpr const char* PMD_STARLY_NAME = PMD_STARLY_NAME_ARR;
     inline static constexpr size_t PMD_STARLY_NAME_LEN = sizeof(PMD_STARLY_NAME_ARR)-1;
@@ -15064,7 +15064,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STARAVIA_FQID_LEN = sizeof(PMD_STARAVIA_FQID_ARR)-1;
     inline static constexpr char PMD_STARAVIA_ID_ARR[] CONFIG_STRING_SECTION = "staravia";
     inline static constexpr const char* PMD_STARAVIA_ID = PMD_STARAVIA_ID_ARR;
-    inline static constexpr size_t PMD_STARAVIA_ID_LEN = sizeof(PMD_STARAVIA_ID)-1;
+    inline static constexpr size_t PMD_STARAVIA_ID_LEN = sizeof(PMD_STARAVIA_ID_ARR)-1;
     inline static constexpr char PMD_STARAVIA_NAME_ARR[] CONFIG_STRING_SECTION = "Staravia";
     inline static constexpr const char* PMD_STARAVIA_NAME = PMD_STARAVIA_NAME_ARR;
     inline static constexpr size_t PMD_STARAVIA_NAME_LEN = sizeof(PMD_STARAVIA_NAME_ARR)-1;
@@ -15102,7 +15102,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STARAPTOR_FQID_LEN = sizeof(PMD_STARAPTOR_FQID_ARR)-1;
     inline static constexpr char PMD_STARAPTOR_ID_ARR[] CONFIG_STRING_SECTION = "staraptor";
     inline static constexpr const char* PMD_STARAPTOR_ID = PMD_STARAPTOR_ID_ARR;
-    inline static constexpr size_t PMD_STARAPTOR_ID_LEN = sizeof(PMD_STARAPTOR_ID)-1;
+    inline static constexpr size_t PMD_STARAPTOR_ID_LEN = sizeof(PMD_STARAPTOR_ID_ARR)-1;
     inline static constexpr char PMD_STARAPTOR_NAME_ARR[] CONFIG_STRING_SECTION = "Staraptor";
     inline static constexpr const char* PMD_STARAPTOR_NAME = PMD_STARAPTOR_NAME_ARR;
     inline static constexpr size_t PMD_STARAPTOR_NAME_LEN = sizeof(PMD_STARAPTOR_NAME_ARR)-1;
@@ -15140,7 +15140,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BIDOOF_FQID_LEN = sizeof(PMD_BIDOOF_FQID_ARR)-1;
     inline static constexpr char PMD_BIDOOF_ID_ARR[] CONFIG_STRING_SECTION = "bidoof";
     inline static constexpr const char* PMD_BIDOOF_ID = PMD_BIDOOF_ID_ARR;
-    inline static constexpr size_t PMD_BIDOOF_ID_LEN = sizeof(PMD_BIDOOF_ID)-1;
+    inline static constexpr size_t PMD_BIDOOF_ID_LEN = sizeof(PMD_BIDOOF_ID_ARR)-1;
     inline static constexpr char PMD_BIDOOF_NAME_ARR[] CONFIG_STRING_SECTION = "Bidoof";
     inline static constexpr const char* PMD_BIDOOF_NAME = PMD_BIDOOF_NAME_ARR;
     inline static constexpr size_t PMD_BIDOOF_NAME_LEN = sizeof(PMD_BIDOOF_NAME_ARR)-1;
@@ -15178,7 +15178,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BIBAREL_FQID_LEN = sizeof(PMD_BIBAREL_FQID_ARR)-1;
     inline static constexpr char PMD_BIBAREL_ID_ARR[] CONFIG_STRING_SECTION = "bibarel";
     inline static constexpr const char* PMD_BIBAREL_ID = PMD_BIBAREL_ID_ARR;
-    inline static constexpr size_t PMD_BIBAREL_ID_LEN = sizeof(PMD_BIBAREL_ID)-1;
+    inline static constexpr size_t PMD_BIBAREL_ID_LEN = sizeof(PMD_BIBAREL_ID_ARR)-1;
     inline static constexpr char PMD_BIBAREL_NAME_ARR[] CONFIG_STRING_SECTION = "Bibarel";
     inline static constexpr const char* PMD_BIBAREL_NAME = PMD_BIBAREL_NAME_ARR;
     inline static constexpr size_t PMD_BIBAREL_NAME_LEN = sizeof(PMD_BIBAREL_NAME_ARR)-1;
@@ -15216,7 +15216,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KRICKETOT_FQID_LEN = sizeof(PMD_KRICKETOT_FQID_ARR)-1;
     inline static constexpr char PMD_KRICKETOT_ID_ARR[] CONFIG_STRING_SECTION = "kricketot";
     inline static constexpr const char* PMD_KRICKETOT_ID = PMD_KRICKETOT_ID_ARR;
-    inline static constexpr size_t PMD_KRICKETOT_ID_LEN = sizeof(PMD_KRICKETOT_ID)-1;
+    inline static constexpr size_t PMD_KRICKETOT_ID_LEN = sizeof(PMD_KRICKETOT_ID_ARR)-1;
     inline static constexpr char PMD_KRICKETOT_NAME_ARR[] CONFIG_STRING_SECTION = "Kricketot";
     inline static constexpr const char* PMD_KRICKETOT_NAME = PMD_KRICKETOT_NAME_ARR;
     inline static constexpr size_t PMD_KRICKETOT_NAME_LEN = sizeof(PMD_KRICKETOT_NAME_ARR)-1;
@@ -15254,7 +15254,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KRICKETUNE_FQID_LEN = sizeof(PMD_KRICKETUNE_FQID_ARR)-1;
     inline static constexpr char PMD_KRICKETUNE_ID_ARR[] CONFIG_STRING_SECTION = "kricketune";
     inline static constexpr const char* PMD_KRICKETUNE_ID = PMD_KRICKETUNE_ID_ARR;
-    inline static constexpr size_t PMD_KRICKETUNE_ID_LEN = sizeof(PMD_KRICKETUNE_ID)-1;
+    inline static constexpr size_t PMD_KRICKETUNE_ID_LEN = sizeof(PMD_KRICKETUNE_ID_ARR)-1;
     inline static constexpr char PMD_KRICKETUNE_NAME_ARR[] CONFIG_STRING_SECTION = "Kricketune";
     inline static constexpr const char* PMD_KRICKETUNE_NAME = PMD_KRICKETUNE_NAME_ARR;
     inline static constexpr size_t PMD_KRICKETUNE_NAME_LEN = sizeof(PMD_KRICKETUNE_NAME_ARR)-1;
@@ -15292,7 +15292,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHINX_FQID_LEN = sizeof(PMD_SHINX_FQID_ARR)-1;
     inline static constexpr char PMD_SHINX_ID_ARR[] CONFIG_STRING_SECTION = "shinx";
     inline static constexpr const char* PMD_SHINX_ID = PMD_SHINX_ID_ARR;
-    inline static constexpr size_t PMD_SHINX_ID_LEN = sizeof(PMD_SHINX_ID)-1;
+    inline static constexpr size_t PMD_SHINX_ID_LEN = sizeof(PMD_SHINX_ID_ARR)-1;
     inline static constexpr char PMD_SHINX_NAME_ARR[] CONFIG_STRING_SECTION = "Shinx";
     inline static constexpr const char* PMD_SHINX_NAME = PMD_SHINX_NAME_ARR;
     inline static constexpr size_t PMD_SHINX_NAME_LEN = sizeof(PMD_SHINX_NAME_ARR)-1;
@@ -15330,7 +15330,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUXIO_FQID_LEN = sizeof(PMD_LUXIO_FQID_ARR)-1;
     inline static constexpr char PMD_LUXIO_ID_ARR[] CONFIG_STRING_SECTION = "luxio";
     inline static constexpr const char* PMD_LUXIO_ID = PMD_LUXIO_ID_ARR;
-    inline static constexpr size_t PMD_LUXIO_ID_LEN = sizeof(PMD_LUXIO_ID)-1;
+    inline static constexpr size_t PMD_LUXIO_ID_LEN = sizeof(PMD_LUXIO_ID_ARR)-1;
     inline static constexpr char PMD_LUXIO_NAME_ARR[] CONFIG_STRING_SECTION = "Luxio";
     inline static constexpr const char* PMD_LUXIO_NAME = PMD_LUXIO_NAME_ARR;
     inline static constexpr size_t PMD_LUXIO_NAME_LEN = sizeof(PMD_LUXIO_NAME_ARR)-1;
@@ -15368,7 +15368,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUXRAY_FQID_LEN = sizeof(PMD_LUXRAY_FQID_ARR)-1;
     inline static constexpr char PMD_LUXRAY_ID_ARR[] CONFIG_STRING_SECTION = "luxray";
     inline static constexpr const char* PMD_LUXRAY_ID = PMD_LUXRAY_ID_ARR;
-    inline static constexpr size_t PMD_LUXRAY_ID_LEN = sizeof(PMD_LUXRAY_ID)-1;
+    inline static constexpr size_t PMD_LUXRAY_ID_LEN = sizeof(PMD_LUXRAY_ID_ARR)-1;
     inline static constexpr char PMD_LUXRAY_NAME_ARR[] CONFIG_STRING_SECTION = "Luxray";
     inline static constexpr const char* PMD_LUXRAY_NAME = PMD_LUXRAY_NAME_ARR;
     inline static constexpr size_t PMD_LUXRAY_NAME_LEN = sizeof(PMD_LUXRAY_NAME_ARR)-1;
@@ -15406,7 +15406,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BUDEW_FQID_LEN = sizeof(PMD_BUDEW_FQID_ARR)-1;
     inline static constexpr char PMD_BUDEW_ID_ARR[] CONFIG_STRING_SECTION = "budew";
     inline static constexpr const char* PMD_BUDEW_ID = PMD_BUDEW_ID_ARR;
-    inline static constexpr size_t PMD_BUDEW_ID_LEN = sizeof(PMD_BUDEW_ID)-1;
+    inline static constexpr size_t PMD_BUDEW_ID_LEN = sizeof(PMD_BUDEW_ID_ARR)-1;
     inline static constexpr char PMD_BUDEW_NAME_ARR[] CONFIG_STRING_SECTION = "Budew";
     inline static constexpr const char* PMD_BUDEW_NAME = PMD_BUDEW_NAME_ARR;
     inline static constexpr size_t PMD_BUDEW_NAME_LEN = sizeof(PMD_BUDEW_NAME_ARR)-1;
@@ -15444,7 +15444,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ROSERADE_FQID_LEN = sizeof(PMD_ROSERADE_FQID_ARR)-1;
     inline static constexpr char PMD_ROSERADE_ID_ARR[] CONFIG_STRING_SECTION = "roserade";
     inline static constexpr const char* PMD_ROSERADE_ID = PMD_ROSERADE_ID_ARR;
-    inline static constexpr size_t PMD_ROSERADE_ID_LEN = sizeof(PMD_ROSERADE_ID)-1;
+    inline static constexpr size_t PMD_ROSERADE_ID_LEN = sizeof(PMD_ROSERADE_ID_ARR)-1;
     inline static constexpr char PMD_ROSERADE_NAME_ARR[] CONFIG_STRING_SECTION = "Roserade";
     inline static constexpr const char* PMD_ROSERADE_NAME = PMD_ROSERADE_NAME_ARR;
     inline static constexpr size_t PMD_ROSERADE_NAME_LEN = sizeof(PMD_ROSERADE_NAME_ARR)-1;
@@ -15482,7 +15482,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRANIDOS_FQID_LEN = sizeof(PMD_CRANIDOS_FQID_ARR)-1;
     inline static constexpr char PMD_CRANIDOS_ID_ARR[] CONFIG_STRING_SECTION = "cranidos";
     inline static constexpr const char* PMD_CRANIDOS_ID = PMD_CRANIDOS_ID_ARR;
-    inline static constexpr size_t PMD_CRANIDOS_ID_LEN = sizeof(PMD_CRANIDOS_ID)-1;
+    inline static constexpr size_t PMD_CRANIDOS_ID_LEN = sizeof(PMD_CRANIDOS_ID_ARR)-1;
     inline static constexpr char PMD_CRANIDOS_NAME_ARR[] CONFIG_STRING_SECTION = "Cranidos";
     inline static constexpr const char* PMD_CRANIDOS_NAME = PMD_CRANIDOS_NAME_ARR;
     inline static constexpr size_t PMD_CRANIDOS_NAME_LEN = sizeof(PMD_CRANIDOS_NAME_ARR)-1;
@@ -15520,7 +15520,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RAMPARDOS_FQID_LEN = sizeof(PMD_RAMPARDOS_FQID_ARR)-1;
     inline static constexpr char PMD_RAMPARDOS_ID_ARR[] CONFIG_STRING_SECTION = "rampardos";
     inline static constexpr const char* PMD_RAMPARDOS_ID = PMD_RAMPARDOS_ID_ARR;
-    inline static constexpr size_t PMD_RAMPARDOS_ID_LEN = sizeof(PMD_RAMPARDOS_ID)-1;
+    inline static constexpr size_t PMD_RAMPARDOS_ID_LEN = sizeof(PMD_RAMPARDOS_ID_ARR)-1;
     inline static constexpr char PMD_RAMPARDOS_NAME_ARR[] CONFIG_STRING_SECTION = "Rampardos";
     inline static constexpr const char* PMD_RAMPARDOS_NAME = PMD_RAMPARDOS_NAME_ARR;
     inline static constexpr size_t PMD_RAMPARDOS_NAME_LEN = sizeof(PMD_RAMPARDOS_NAME_ARR)-1;
@@ -15558,7 +15558,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHIELDON_FQID_LEN = sizeof(PMD_SHIELDON_FQID_ARR)-1;
     inline static constexpr char PMD_SHIELDON_ID_ARR[] CONFIG_STRING_SECTION = "shieldon";
     inline static constexpr const char* PMD_SHIELDON_ID = PMD_SHIELDON_ID_ARR;
-    inline static constexpr size_t PMD_SHIELDON_ID_LEN = sizeof(PMD_SHIELDON_ID)-1;
+    inline static constexpr size_t PMD_SHIELDON_ID_LEN = sizeof(PMD_SHIELDON_ID_ARR)-1;
     inline static constexpr char PMD_SHIELDON_NAME_ARR[] CONFIG_STRING_SECTION = "Shieldon";
     inline static constexpr const char* PMD_SHIELDON_NAME = PMD_SHIELDON_NAME_ARR;
     inline static constexpr size_t PMD_SHIELDON_NAME_LEN = sizeof(PMD_SHIELDON_NAME_ARR)-1;
@@ -15596,7 +15596,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BASTIODON_FQID_LEN = sizeof(PMD_BASTIODON_FQID_ARR)-1;
     inline static constexpr char PMD_BASTIODON_ID_ARR[] CONFIG_STRING_SECTION = "bastiodon";
     inline static constexpr const char* PMD_BASTIODON_ID = PMD_BASTIODON_ID_ARR;
-    inline static constexpr size_t PMD_BASTIODON_ID_LEN = sizeof(PMD_BASTIODON_ID)-1;
+    inline static constexpr size_t PMD_BASTIODON_ID_LEN = sizeof(PMD_BASTIODON_ID_ARR)-1;
     inline static constexpr char PMD_BASTIODON_NAME_ARR[] CONFIG_STRING_SECTION = "Bastiodon";
     inline static constexpr const char* PMD_BASTIODON_NAME = PMD_BASTIODON_NAME_ARR;
     inline static constexpr size_t PMD_BASTIODON_NAME_LEN = sizeof(PMD_BASTIODON_NAME_ARR)-1;
@@ -15634,7 +15634,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BURMY_FQID_LEN = sizeof(PMD_BURMY_FQID_ARR)-1;
     inline static constexpr char PMD_BURMY_ID_ARR[] CONFIG_STRING_SECTION = "burmy";
     inline static constexpr const char* PMD_BURMY_ID = PMD_BURMY_ID_ARR;
-    inline static constexpr size_t PMD_BURMY_ID_LEN = sizeof(PMD_BURMY_ID)-1;
+    inline static constexpr size_t PMD_BURMY_ID_LEN = sizeof(PMD_BURMY_ID_ARR)-1;
     inline static constexpr char PMD_BURMY_NAME_ARR[] CONFIG_STRING_SECTION = "Burmy";
     inline static constexpr const char* PMD_BURMY_NAME = PMD_BURMY_NAME_ARR;
     inline static constexpr size_t PMD_BURMY_NAME_LEN = sizeof(PMD_BURMY_NAME_ARR)-1;
@@ -15672,7 +15672,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WORMADAM_FQID_LEN = sizeof(PMD_WORMADAM_FQID_ARR)-1;
     inline static constexpr char PMD_WORMADAM_ID_ARR[] CONFIG_STRING_SECTION = "wormadam";
     inline static constexpr const char* PMD_WORMADAM_ID = PMD_WORMADAM_ID_ARR;
-    inline static constexpr size_t PMD_WORMADAM_ID_LEN = sizeof(PMD_WORMADAM_ID)-1;
+    inline static constexpr size_t PMD_WORMADAM_ID_LEN = sizeof(PMD_WORMADAM_ID_ARR)-1;
     inline static constexpr char PMD_WORMADAM_NAME_ARR[] CONFIG_STRING_SECTION = "Wormadam";
     inline static constexpr const char* PMD_WORMADAM_NAME = PMD_WORMADAM_NAME_ARR;
     inline static constexpr size_t PMD_WORMADAM_NAME_LEN = sizeof(PMD_WORMADAM_NAME_ARR)-1;
@@ -15710,7 +15710,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MOTHIM_FQID_LEN = sizeof(PMD_MOTHIM_FQID_ARR)-1;
     inline static constexpr char PMD_MOTHIM_ID_ARR[] CONFIG_STRING_SECTION = "mothim";
     inline static constexpr const char* PMD_MOTHIM_ID = PMD_MOTHIM_ID_ARR;
-    inline static constexpr size_t PMD_MOTHIM_ID_LEN = sizeof(PMD_MOTHIM_ID)-1;
+    inline static constexpr size_t PMD_MOTHIM_ID_LEN = sizeof(PMD_MOTHIM_ID_ARR)-1;
     inline static constexpr char PMD_MOTHIM_NAME_ARR[] CONFIG_STRING_SECTION = "Mothim";
     inline static constexpr const char* PMD_MOTHIM_NAME = PMD_MOTHIM_NAME_ARR;
     inline static constexpr size_t PMD_MOTHIM_NAME_LEN = sizeof(PMD_MOTHIM_NAME_ARR)-1;
@@ -15748,7 +15748,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COMBEE_FQID_LEN = sizeof(PMD_COMBEE_FQID_ARR)-1;
     inline static constexpr char PMD_COMBEE_ID_ARR[] CONFIG_STRING_SECTION = "combee";
     inline static constexpr const char* PMD_COMBEE_ID = PMD_COMBEE_ID_ARR;
-    inline static constexpr size_t PMD_COMBEE_ID_LEN = sizeof(PMD_COMBEE_ID)-1;
+    inline static constexpr size_t PMD_COMBEE_ID_LEN = sizeof(PMD_COMBEE_ID_ARR)-1;
     inline static constexpr char PMD_COMBEE_NAME_ARR[] CONFIG_STRING_SECTION = "Combee";
     inline static constexpr const char* PMD_COMBEE_NAME = PMD_COMBEE_NAME_ARR;
     inline static constexpr size_t PMD_COMBEE_NAME_LEN = sizeof(PMD_COMBEE_NAME_ARR)-1;
@@ -15786,7 +15786,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VESPIQUEN_FQID_LEN = sizeof(PMD_VESPIQUEN_FQID_ARR)-1;
     inline static constexpr char PMD_VESPIQUEN_ID_ARR[] CONFIG_STRING_SECTION = "vespiquen";
     inline static constexpr const char* PMD_VESPIQUEN_ID = PMD_VESPIQUEN_ID_ARR;
-    inline static constexpr size_t PMD_VESPIQUEN_ID_LEN = sizeof(PMD_VESPIQUEN_ID)-1;
+    inline static constexpr size_t PMD_VESPIQUEN_ID_LEN = sizeof(PMD_VESPIQUEN_ID_ARR)-1;
     inline static constexpr char PMD_VESPIQUEN_NAME_ARR[] CONFIG_STRING_SECTION = "Vespiquen";
     inline static constexpr const char* PMD_VESPIQUEN_NAME = PMD_VESPIQUEN_NAME_ARR;
     inline static constexpr size_t PMD_VESPIQUEN_NAME_LEN = sizeof(PMD_VESPIQUEN_NAME_ARR)-1;
@@ -15824,7 +15824,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PACHIRISU_FQID_LEN = sizeof(PMD_PACHIRISU_FQID_ARR)-1;
     inline static constexpr char PMD_PACHIRISU_ID_ARR[] CONFIG_STRING_SECTION = "pachirisu";
     inline static constexpr const char* PMD_PACHIRISU_ID = PMD_PACHIRISU_ID_ARR;
-    inline static constexpr size_t PMD_PACHIRISU_ID_LEN = sizeof(PMD_PACHIRISU_ID)-1;
+    inline static constexpr size_t PMD_PACHIRISU_ID_LEN = sizeof(PMD_PACHIRISU_ID_ARR)-1;
     inline static constexpr char PMD_PACHIRISU_NAME_ARR[] CONFIG_STRING_SECTION = "Pachirisu";
     inline static constexpr const char* PMD_PACHIRISU_NAME = PMD_PACHIRISU_NAME_ARR;
     inline static constexpr size_t PMD_PACHIRISU_NAME_LEN = sizeof(PMD_PACHIRISU_NAME_ARR)-1;
@@ -15862,7 +15862,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BUIZEL_FQID_LEN = sizeof(PMD_BUIZEL_FQID_ARR)-1;
     inline static constexpr char PMD_BUIZEL_ID_ARR[] CONFIG_STRING_SECTION = "buizel";
     inline static constexpr const char* PMD_BUIZEL_ID = PMD_BUIZEL_ID_ARR;
-    inline static constexpr size_t PMD_BUIZEL_ID_LEN = sizeof(PMD_BUIZEL_ID)-1;
+    inline static constexpr size_t PMD_BUIZEL_ID_LEN = sizeof(PMD_BUIZEL_ID_ARR)-1;
     inline static constexpr char PMD_BUIZEL_NAME_ARR[] CONFIG_STRING_SECTION = "Buizel";
     inline static constexpr const char* PMD_BUIZEL_NAME = PMD_BUIZEL_NAME_ARR;
     inline static constexpr size_t PMD_BUIZEL_NAME_LEN = sizeof(PMD_BUIZEL_NAME_ARR)-1;
@@ -15900,7 +15900,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLOATZEL_FQID_LEN = sizeof(PMD_FLOATZEL_FQID_ARR)-1;
     inline static constexpr char PMD_FLOATZEL_ID_ARR[] CONFIG_STRING_SECTION = "floatzel";
     inline static constexpr const char* PMD_FLOATZEL_ID = PMD_FLOATZEL_ID_ARR;
-    inline static constexpr size_t PMD_FLOATZEL_ID_LEN = sizeof(PMD_FLOATZEL_ID)-1;
+    inline static constexpr size_t PMD_FLOATZEL_ID_LEN = sizeof(PMD_FLOATZEL_ID_ARR)-1;
     inline static constexpr char PMD_FLOATZEL_NAME_ARR[] CONFIG_STRING_SECTION = "Floatzel";
     inline static constexpr const char* PMD_FLOATZEL_NAME = PMD_FLOATZEL_NAME_ARR;
     inline static constexpr size_t PMD_FLOATZEL_NAME_LEN = sizeof(PMD_FLOATZEL_NAME_ARR)-1;
@@ -15938,7 +15938,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHERUBI_FQID_LEN = sizeof(PMD_CHERUBI_FQID_ARR)-1;
     inline static constexpr char PMD_CHERUBI_ID_ARR[] CONFIG_STRING_SECTION = "cherubi";
     inline static constexpr const char* PMD_CHERUBI_ID = PMD_CHERUBI_ID_ARR;
-    inline static constexpr size_t PMD_CHERUBI_ID_LEN = sizeof(PMD_CHERUBI_ID)-1;
+    inline static constexpr size_t PMD_CHERUBI_ID_LEN = sizeof(PMD_CHERUBI_ID_ARR)-1;
     inline static constexpr char PMD_CHERUBI_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubi";
     inline static constexpr const char* PMD_CHERUBI_NAME = PMD_CHERUBI_NAME_ARR;
     inline static constexpr size_t PMD_CHERUBI_NAME_LEN = sizeof(PMD_CHERUBI_NAME_ARR)-1;
@@ -15976,7 +15976,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHERRIM_FQID_LEN = sizeof(PMD_CHERRIM_FQID_ARR)-1;
     inline static constexpr char PMD_CHERRIM_ID_ARR[] CONFIG_STRING_SECTION = "cherrim";
     inline static constexpr const char* PMD_CHERRIM_ID = PMD_CHERRIM_ID_ARR;
-    inline static constexpr size_t PMD_CHERRIM_ID_LEN = sizeof(PMD_CHERRIM_ID)-1;
+    inline static constexpr size_t PMD_CHERRIM_ID_LEN = sizeof(PMD_CHERRIM_ID_ARR)-1;
     inline static constexpr char PMD_CHERRIM_NAME_ARR[] CONFIG_STRING_SECTION = "Cherrim";
     inline static constexpr const char* PMD_CHERRIM_NAME = PMD_CHERRIM_NAME_ARR;
     inline static constexpr size_t PMD_CHERRIM_NAME_LEN = sizeof(PMD_CHERRIM_NAME_ARR)-1;
@@ -16014,7 +16014,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHELLOS_FQID_LEN = sizeof(PMD_SHELLOS_FQID_ARR)-1;
     inline static constexpr char PMD_SHELLOS_ID_ARR[] CONFIG_STRING_SECTION = "shellos";
     inline static constexpr const char* PMD_SHELLOS_ID = PMD_SHELLOS_ID_ARR;
-    inline static constexpr size_t PMD_SHELLOS_ID_LEN = sizeof(PMD_SHELLOS_ID)-1;
+    inline static constexpr size_t PMD_SHELLOS_ID_LEN = sizeof(PMD_SHELLOS_ID_ARR)-1;
     inline static constexpr char PMD_SHELLOS_NAME_ARR[] CONFIG_STRING_SECTION = "Shellos";
     inline static constexpr const char* PMD_SHELLOS_NAME = PMD_SHELLOS_NAME_ARR;
     inline static constexpr size_t PMD_SHELLOS_NAME_LEN = sizeof(PMD_SHELLOS_NAME_ARR)-1;
@@ -16052,7 +16052,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GASTRODON_FQID_LEN = sizeof(PMD_GASTRODON_FQID_ARR)-1;
     inline static constexpr char PMD_GASTRODON_ID_ARR[] CONFIG_STRING_SECTION = "gastrodon";
     inline static constexpr const char* PMD_GASTRODON_ID = PMD_GASTRODON_ID_ARR;
-    inline static constexpr size_t PMD_GASTRODON_ID_LEN = sizeof(PMD_GASTRODON_ID)-1;
+    inline static constexpr size_t PMD_GASTRODON_ID_LEN = sizeof(PMD_GASTRODON_ID_ARR)-1;
     inline static constexpr char PMD_GASTRODON_NAME_ARR[] CONFIG_STRING_SECTION = "Gastrodon";
     inline static constexpr const char* PMD_GASTRODON_NAME = PMD_GASTRODON_NAME_ARR;
     inline static constexpr size_t PMD_GASTRODON_NAME_LEN = sizeof(PMD_GASTRODON_NAME_ARR)-1;
@@ -16090,7 +16090,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AMBIPOM_FQID_LEN = sizeof(PMD_AMBIPOM_FQID_ARR)-1;
     inline static constexpr char PMD_AMBIPOM_ID_ARR[] CONFIG_STRING_SECTION = "ambipom";
     inline static constexpr const char* PMD_AMBIPOM_ID = PMD_AMBIPOM_ID_ARR;
-    inline static constexpr size_t PMD_AMBIPOM_ID_LEN = sizeof(PMD_AMBIPOM_ID)-1;
+    inline static constexpr size_t PMD_AMBIPOM_ID_LEN = sizeof(PMD_AMBIPOM_ID_ARR)-1;
     inline static constexpr char PMD_AMBIPOM_NAME_ARR[] CONFIG_STRING_SECTION = "Ambipom";
     inline static constexpr const char* PMD_AMBIPOM_NAME = PMD_AMBIPOM_NAME_ARR;
     inline static constexpr size_t PMD_AMBIPOM_NAME_LEN = sizeof(PMD_AMBIPOM_NAME_ARR)-1;
@@ -16128,7 +16128,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRIFLOON_FQID_LEN = sizeof(PMD_DRIFLOON_FQID_ARR)-1;
     inline static constexpr char PMD_DRIFLOON_ID_ARR[] CONFIG_STRING_SECTION = "drifloon";
     inline static constexpr const char* PMD_DRIFLOON_ID = PMD_DRIFLOON_ID_ARR;
-    inline static constexpr size_t PMD_DRIFLOON_ID_LEN = sizeof(PMD_DRIFLOON_ID)-1;
+    inline static constexpr size_t PMD_DRIFLOON_ID_LEN = sizeof(PMD_DRIFLOON_ID_ARR)-1;
     inline static constexpr char PMD_DRIFLOON_NAME_ARR[] CONFIG_STRING_SECTION = "Drifloon";
     inline static constexpr const char* PMD_DRIFLOON_NAME = PMD_DRIFLOON_NAME_ARR;
     inline static constexpr size_t PMD_DRIFLOON_NAME_LEN = sizeof(PMD_DRIFLOON_NAME_ARR)-1;
@@ -16166,7 +16166,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRIFBLIM_FQID_LEN = sizeof(PMD_DRIFBLIM_FQID_ARR)-1;
     inline static constexpr char PMD_DRIFBLIM_ID_ARR[] CONFIG_STRING_SECTION = "drifblim";
     inline static constexpr const char* PMD_DRIFBLIM_ID = PMD_DRIFBLIM_ID_ARR;
-    inline static constexpr size_t PMD_DRIFBLIM_ID_LEN = sizeof(PMD_DRIFBLIM_ID)-1;
+    inline static constexpr size_t PMD_DRIFBLIM_ID_LEN = sizeof(PMD_DRIFBLIM_ID_ARR)-1;
     inline static constexpr char PMD_DRIFBLIM_NAME_ARR[] CONFIG_STRING_SECTION = "Drifblim";
     inline static constexpr const char* PMD_DRIFBLIM_NAME = PMD_DRIFBLIM_NAME_ARR;
     inline static constexpr size_t PMD_DRIFBLIM_NAME_LEN = sizeof(PMD_DRIFBLIM_NAME_ARR)-1;
@@ -16204,7 +16204,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BUNEARY_FQID_LEN = sizeof(PMD_BUNEARY_FQID_ARR)-1;
     inline static constexpr char PMD_BUNEARY_ID_ARR[] CONFIG_STRING_SECTION = "buneary";
     inline static constexpr const char* PMD_BUNEARY_ID = PMD_BUNEARY_ID_ARR;
-    inline static constexpr size_t PMD_BUNEARY_ID_LEN = sizeof(PMD_BUNEARY_ID)-1;
+    inline static constexpr size_t PMD_BUNEARY_ID_LEN = sizeof(PMD_BUNEARY_ID_ARR)-1;
     inline static constexpr char PMD_BUNEARY_NAME_ARR[] CONFIG_STRING_SECTION = "Buneary";
     inline static constexpr const char* PMD_BUNEARY_NAME = PMD_BUNEARY_NAME_ARR;
     inline static constexpr size_t PMD_BUNEARY_NAME_LEN = sizeof(PMD_BUNEARY_NAME_ARR)-1;
@@ -16242,7 +16242,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LOPUNNY_FQID_LEN = sizeof(PMD_LOPUNNY_FQID_ARR)-1;
     inline static constexpr char PMD_LOPUNNY_ID_ARR[] CONFIG_STRING_SECTION = "lopunny";
     inline static constexpr const char* PMD_LOPUNNY_ID = PMD_LOPUNNY_ID_ARR;
-    inline static constexpr size_t PMD_LOPUNNY_ID_LEN = sizeof(PMD_LOPUNNY_ID)-1;
+    inline static constexpr size_t PMD_LOPUNNY_ID_LEN = sizeof(PMD_LOPUNNY_ID_ARR)-1;
     inline static constexpr char PMD_LOPUNNY_NAME_ARR[] CONFIG_STRING_SECTION = "Lopunny";
     inline static constexpr const char* PMD_LOPUNNY_NAME = PMD_LOPUNNY_NAME_ARR;
     inline static constexpr size_t PMD_LOPUNNY_NAME_LEN = sizeof(PMD_LOPUNNY_NAME_ARR)-1;
@@ -16280,7 +16280,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MISMAGIUS_FQID_LEN = sizeof(PMD_MISMAGIUS_FQID_ARR)-1;
     inline static constexpr char PMD_MISMAGIUS_ID_ARR[] CONFIG_STRING_SECTION = "mismagius";
     inline static constexpr const char* PMD_MISMAGIUS_ID = PMD_MISMAGIUS_ID_ARR;
-    inline static constexpr size_t PMD_MISMAGIUS_ID_LEN = sizeof(PMD_MISMAGIUS_ID)-1;
+    inline static constexpr size_t PMD_MISMAGIUS_ID_LEN = sizeof(PMD_MISMAGIUS_ID_ARR)-1;
     inline static constexpr char PMD_MISMAGIUS_NAME_ARR[] CONFIG_STRING_SECTION = "Mismagius";
     inline static constexpr const char* PMD_MISMAGIUS_NAME = PMD_MISMAGIUS_NAME_ARR;
     inline static constexpr size_t PMD_MISMAGIUS_NAME_LEN = sizeof(PMD_MISMAGIUS_NAME_ARR)-1;
@@ -16318,7 +16318,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HONCHKROW_FQID_LEN = sizeof(PMD_HONCHKROW_FQID_ARR)-1;
     inline static constexpr char PMD_HONCHKROW_ID_ARR[] CONFIG_STRING_SECTION = "honchkrow";
     inline static constexpr const char* PMD_HONCHKROW_ID = PMD_HONCHKROW_ID_ARR;
-    inline static constexpr size_t PMD_HONCHKROW_ID_LEN = sizeof(PMD_HONCHKROW_ID)-1;
+    inline static constexpr size_t PMD_HONCHKROW_ID_LEN = sizeof(PMD_HONCHKROW_ID_ARR)-1;
     inline static constexpr char PMD_HONCHKROW_NAME_ARR[] CONFIG_STRING_SECTION = "Honchkrow";
     inline static constexpr const char* PMD_HONCHKROW_NAME = PMD_HONCHKROW_NAME_ARR;
     inline static constexpr size_t PMD_HONCHKROW_NAME_LEN = sizeof(PMD_HONCHKROW_NAME_ARR)-1;
@@ -16356,7 +16356,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GLAMEOW_FQID_LEN = sizeof(PMD_GLAMEOW_FQID_ARR)-1;
     inline static constexpr char PMD_GLAMEOW_ID_ARR[] CONFIG_STRING_SECTION = "glameow";
     inline static constexpr const char* PMD_GLAMEOW_ID = PMD_GLAMEOW_ID_ARR;
-    inline static constexpr size_t PMD_GLAMEOW_ID_LEN = sizeof(PMD_GLAMEOW_ID)-1;
+    inline static constexpr size_t PMD_GLAMEOW_ID_LEN = sizeof(PMD_GLAMEOW_ID_ARR)-1;
     inline static constexpr char PMD_GLAMEOW_NAME_ARR[] CONFIG_STRING_SECTION = "Glameow";
     inline static constexpr const char* PMD_GLAMEOW_NAME = PMD_GLAMEOW_NAME_ARR;
     inline static constexpr size_t PMD_GLAMEOW_NAME_LEN = sizeof(PMD_GLAMEOW_NAME_ARR)-1;
@@ -16394,7 +16394,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PURUGLY_FQID_LEN = sizeof(PMD_PURUGLY_FQID_ARR)-1;
     inline static constexpr char PMD_PURUGLY_ID_ARR[] CONFIG_STRING_SECTION = "purugly";
     inline static constexpr const char* PMD_PURUGLY_ID = PMD_PURUGLY_ID_ARR;
-    inline static constexpr size_t PMD_PURUGLY_ID_LEN = sizeof(PMD_PURUGLY_ID)-1;
+    inline static constexpr size_t PMD_PURUGLY_ID_LEN = sizeof(PMD_PURUGLY_ID_ARR)-1;
     inline static constexpr char PMD_PURUGLY_NAME_ARR[] CONFIG_STRING_SECTION = "Purugly";
     inline static constexpr const char* PMD_PURUGLY_NAME = PMD_PURUGLY_NAME_ARR;
     inline static constexpr size_t PMD_PURUGLY_NAME_LEN = sizeof(PMD_PURUGLY_NAME_ARR)-1;
@@ -16432,7 +16432,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHINGLING_FQID_LEN = sizeof(PMD_CHINGLING_FQID_ARR)-1;
     inline static constexpr char PMD_CHINGLING_ID_ARR[] CONFIG_STRING_SECTION = "chingling";
     inline static constexpr const char* PMD_CHINGLING_ID = PMD_CHINGLING_ID_ARR;
-    inline static constexpr size_t PMD_CHINGLING_ID_LEN = sizeof(PMD_CHINGLING_ID)-1;
+    inline static constexpr size_t PMD_CHINGLING_ID_LEN = sizeof(PMD_CHINGLING_ID_ARR)-1;
     inline static constexpr char PMD_CHINGLING_NAME_ARR[] CONFIG_STRING_SECTION = "Chingling";
     inline static constexpr const char* PMD_CHINGLING_NAME = PMD_CHINGLING_NAME_ARR;
     inline static constexpr size_t PMD_CHINGLING_NAME_LEN = sizeof(PMD_CHINGLING_NAME_ARR)-1;
@@ -16470,7 +16470,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STUNKY_FQID_LEN = sizeof(PMD_STUNKY_FQID_ARR)-1;
     inline static constexpr char PMD_STUNKY_ID_ARR[] CONFIG_STRING_SECTION = "stunky";
     inline static constexpr const char* PMD_STUNKY_ID = PMD_STUNKY_ID_ARR;
-    inline static constexpr size_t PMD_STUNKY_ID_LEN = sizeof(PMD_STUNKY_ID)-1;
+    inline static constexpr size_t PMD_STUNKY_ID_LEN = sizeof(PMD_STUNKY_ID_ARR)-1;
     inline static constexpr char PMD_STUNKY_NAME_ARR[] CONFIG_STRING_SECTION = "Stunky";
     inline static constexpr const char* PMD_STUNKY_NAME = PMD_STUNKY_NAME_ARR;
     inline static constexpr size_t PMD_STUNKY_NAME_LEN = sizeof(PMD_STUNKY_NAME_ARR)-1;
@@ -16508,7 +16508,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKUNTANK_FQID_LEN = sizeof(PMD_SKUNTANK_FQID_ARR)-1;
     inline static constexpr char PMD_SKUNTANK_ID_ARR[] CONFIG_STRING_SECTION = "skuntank";
     inline static constexpr const char* PMD_SKUNTANK_ID = PMD_SKUNTANK_ID_ARR;
-    inline static constexpr size_t PMD_SKUNTANK_ID_LEN = sizeof(PMD_SKUNTANK_ID)-1;
+    inline static constexpr size_t PMD_SKUNTANK_ID_LEN = sizeof(PMD_SKUNTANK_ID_ARR)-1;
     inline static constexpr char PMD_SKUNTANK_NAME_ARR[] CONFIG_STRING_SECTION = "Skuntank";
     inline static constexpr const char* PMD_SKUNTANK_NAME = PMD_SKUNTANK_NAME_ARR;
     inline static constexpr size_t PMD_SKUNTANK_NAME_LEN = sizeof(PMD_SKUNTANK_NAME_ARR)-1;
@@ -16546,7 +16546,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BRONZOR_FQID_LEN = sizeof(PMD_BRONZOR_FQID_ARR)-1;
     inline static constexpr char PMD_BRONZOR_ID_ARR[] CONFIG_STRING_SECTION = "bronzor";
     inline static constexpr const char* PMD_BRONZOR_ID = PMD_BRONZOR_ID_ARR;
-    inline static constexpr size_t PMD_BRONZOR_ID_LEN = sizeof(PMD_BRONZOR_ID)-1;
+    inline static constexpr size_t PMD_BRONZOR_ID_LEN = sizeof(PMD_BRONZOR_ID_ARR)-1;
     inline static constexpr char PMD_BRONZOR_NAME_ARR[] CONFIG_STRING_SECTION = "Bronzor";
     inline static constexpr const char* PMD_BRONZOR_NAME = PMD_BRONZOR_NAME_ARR;
     inline static constexpr size_t PMD_BRONZOR_NAME_LEN = sizeof(PMD_BRONZOR_NAME_ARR)-1;
@@ -16584,7 +16584,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BRONZONG_FQID_LEN = sizeof(PMD_BRONZONG_FQID_ARR)-1;
     inline static constexpr char PMD_BRONZONG_ID_ARR[] CONFIG_STRING_SECTION = "bronzong";
     inline static constexpr const char* PMD_BRONZONG_ID = PMD_BRONZONG_ID_ARR;
-    inline static constexpr size_t PMD_BRONZONG_ID_LEN = sizeof(PMD_BRONZONG_ID)-1;
+    inline static constexpr size_t PMD_BRONZONG_ID_LEN = sizeof(PMD_BRONZONG_ID_ARR)-1;
     inline static constexpr char PMD_BRONZONG_NAME_ARR[] CONFIG_STRING_SECTION = "Bronzong";
     inline static constexpr const char* PMD_BRONZONG_NAME = PMD_BRONZONG_NAME_ARR;
     inline static constexpr size_t PMD_BRONZONG_NAME_LEN = sizeof(PMD_BRONZONG_NAME_ARR)-1;
@@ -16622,7 +16622,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BONSLY_FQID_LEN = sizeof(PMD_BONSLY_FQID_ARR)-1;
     inline static constexpr char PMD_BONSLY_ID_ARR[] CONFIG_STRING_SECTION = "bonsly";
     inline static constexpr const char* PMD_BONSLY_ID = PMD_BONSLY_ID_ARR;
-    inline static constexpr size_t PMD_BONSLY_ID_LEN = sizeof(PMD_BONSLY_ID)-1;
+    inline static constexpr size_t PMD_BONSLY_ID_LEN = sizeof(PMD_BONSLY_ID_ARR)-1;
     inline static constexpr char PMD_BONSLY_NAME_ARR[] CONFIG_STRING_SECTION = "Bonsly";
     inline static constexpr const char* PMD_BONSLY_NAME = PMD_BONSLY_NAME_ARR;
     inline static constexpr size_t PMD_BONSLY_NAME_LEN = sizeof(PMD_BONSLY_NAME_ARR)-1;
@@ -16660,7 +16660,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MIME_JR_FQID_LEN = sizeof(PMD_MIME_JR_FQID_ARR)-1;
     inline static constexpr char PMD_MIME_JR_ID_ARR[] CONFIG_STRING_SECTION = "mime_jr";
     inline static constexpr const char* PMD_MIME_JR_ID = PMD_MIME_JR_ID_ARR;
-    inline static constexpr size_t PMD_MIME_JR_ID_LEN = sizeof(PMD_MIME_JR_ID)-1;
+    inline static constexpr size_t PMD_MIME_JR_ID_LEN = sizeof(PMD_MIME_JR_ID_ARR)-1;
     inline static constexpr char PMD_MIME_JR_NAME_ARR[] CONFIG_STRING_SECTION = "Mime-jr";
     inline static constexpr const char* PMD_MIME_JR_NAME = PMD_MIME_JR_NAME_ARR;
     inline static constexpr size_t PMD_MIME_JR_NAME_LEN = sizeof(PMD_MIME_JR_NAME_ARR)-1;
@@ -16698,7 +16698,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HAPPINY_FQID_LEN = sizeof(PMD_HAPPINY_FQID_ARR)-1;
     inline static constexpr char PMD_HAPPINY_ID_ARR[] CONFIG_STRING_SECTION = "happiny";
     inline static constexpr const char* PMD_HAPPINY_ID = PMD_HAPPINY_ID_ARR;
-    inline static constexpr size_t PMD_HAPPINY_ID_LEN = sizeof(PMD_HAPPINY_ID)-1;
+    inline static constexpr size_t PMD_HAPPINY_ID_LEN = sizeof(PMD_HAPPINY_ID_ARR)-1;
     inline static constexpr char PMD_HAPPINY_NAME_ARR[] CONFIG_STRING_SECTION = "Happiny";
     inline static constexpr const char* PMD_HAPPINY_NAME = PMD_HAPPINY_NAME_ARR;
     inline static constexpr size_t PMD_HAPPINY_NAME_LEN = sizeof(PMD_HAPPINY_NAME_ARR)-1;
@@ -16736,7 +16736,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHATOT_FQID_LEN = sizeof(PMD_CHATOT_FQID_ARR)-1;
     inline static constexpr char PMD_CHATOT_ID_ARR[] CONFIG_STRING_SECTION = "chatot";
     inline static constexpr const char* PMD_CHATOT_ID = PMD_CHATOT_ID_ARR;
-    inline static constexpr size_t PMD_CHATOT_ID_LEN = sizeof(PMD_CHATOT_ID)-1;
+    inline static constexpr size_t PMD_CHATOT_ID_LEN = sizeof(PMD_CHATOT_ID_ARR)-1;
     inline static constexpr char PMD_CHATOT_NAME_ARR[] CONFIG_STRING_SECTION = "Chatot";
     inline static constexpr const char* PMD_CHATOT_NAME = PMD_CHATOT_NAME_ARR;
     inline static constexpr size_t PMD_CHATOT_NAME_LEN = sizeof(PMD_CHATOT_NAME_ARR)-1;
@@ -16774,7 +16774,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPIRITOMB_FQID_LEN = sizeof(PMD_SPIRITOMB_FQID_ARR)-1;
     inline static constexpr char PMD_SPIRITOMB_ID_ARR[] CONFIG_STRING_SECTION = "spiritomb";
     inline static constexpr const char* PMD_SPIRITOMB_ID = PMD_SPIRITOMB_ID_ARR;
-    inline static constexpr size_t PMD_SPIRITOMB_ID_LEN = sizeof(PMD_SPIRITOMB_ID)-1;
+    inline static constexpr size_t PMD_SPIRITOMB_ID_LEN = sizeof(PMD_SPIRITOMB_ID_ARR)-1;
     inline static constexpr char PMD_SPIRITOMB_NAME_ARR[] CONFIG_STRING_SECTION = "Spiritomb";
     inline static constexpr const char* PMD_SPIRITOMB_NAME = PMD_SPIRITOMB_NAME_ARR;
     inline static constexpr size_t PMD_SPIRITOMB_NAME_LEN = sizeof(PMD_SPIRITOMB_NAME_ARR)-1;
@@ -16812,7 +16812,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GIBLE_FQID_LEN = sizeof(PMD_GIBLE_FQID_ARR)-1;
     inline static constexpr char PMD_GIBLE_ID_ARR[] CONFIG_STRING_SECTION = "gible";
     inline static constexpr const char* PMD_GIBLE_ID = PMD_GIBLE_ID_ARR;
-    inline static constexpr size_t PMD_GIBLE_ID_LEN = sizeof(PMD_GIBLE_ID)-1;
+    inline static constexpr size_t PMD_GIBLE_ID_LEN = sizeof(PMD_GIBLE_ID_ARR)-1;
     inline static constexpr char PMD_GIBLE_NAME_ARR[] CONFIG_STRING_SECTION = "Gible";
     inline static constexpr const char* PMD_GIBLE_NAME = PMD_GIBLE_NAME_ARR;
     inline static constexpr size_t PMD_GIBLE_NAME_LEN = sizeof(PMD_GIBLE_NAME_ARR)-1;
@@ -16850,7 +16850,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GABITE_FQID_LEN = sizeof(PMD_GABITE_FQID_ARR)-1;
     inline static constexpr char PMD_GABITE_ID_ARR[] CONFIG_STRING_SECTION = "gabite";
     inline static constexpr const char* PMD_GABITE_ID = PMD_GABITE_ID_ARR;
-    inline static constexpr size_t PMD_GABITE_ID_LEN = sizeof(PMD_GABITE_ID)-1;
+    inline static constexpr size_t PMD_GABITE_ID_LEN = sizeof(PMD_GABITE_ID_ARR)-1;
     inline static constexpr char PMD_GABITE_NAME_ARR[] CONFIG_STRING_SECTION = "Gabite";
     inline static constexpr const char* PMD_GABITE_NAME = PMD_GABITE_NAME_ARR;
     inline static constexpr size_t PMD_GABITE_NAME_LEN = sizeof(PMD_GABITE_NAME_ARR)-1;
@@ -16888,7 +16888,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GARCHOMP_FQID_LEN = sizeof(PMD_GARCHOMP_FQID_ARR)-1;
     inline static constexpr char PMD_GARCHOMP_ID_ARR[] CONFIG_STRING_SECTION = "garchomp";
     inline static constexpr const char* PMD_GARCHOMP_ID = PMD_GARCHOMP_ID_ARR;
-    inline static constexpr size_t PMD_GARCHOMP_ID_LEN = sizeof(PMD_GARCHOMP_ID)-1;
+    inline static constexpr size_t PMD_GARCHOMP_ID_LEN = sizeof(PMD_GARCHOMP_ID_ARR)-1;
     inline static constexpr char PMD_GARCHOMP_NAME_ARR[] CONFIG_STRING_SECTION = "Garchomp";
     inline static constexpr const char* PMD_GARCHOMP_NAME = PMD_GARCHOMP_NAME_ARR;
     inline static constexpr size_t PMD_GARCHOMP_NAME_LEN = sizeof(PMD_GARCHOMP_NAME_ARR)-1;
@@ -16926,7 +16926,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MUNCHLAX_FQID_LEN = sizeof(PMD_MUNCHLAX_FQID_ARR)-1;
     inline static constexpr char PMD_MUNCHLAX_ID_ARR[] CONFIG_STRING_SECTION = "munchlax";
     inline static constexpr const char* PMD_MUNCHLAX_ID = PMD_MUNCHLAX_ID_ARR;
-    inline static constexpr size_t PMD_MUNCHLAX_ID_LEN = sizeof(PMD_MUNCHLAX_ID)-1;
+    inline static constexpr size_t PMD_MUNCHLAX_ID_LEN = sizeof(PMD_MUNCHLAX_ID_ARR)-1;
     inline static constexpr char PMD_MUNCHLAX_NAME_ARR[] CONFIG_STRING_SECTION = "Munchlax";
     inline static constexpr const char* PMD_MUNCHLAX_NAME = PMD_MUNCHLAX_NAME_ARR;
     inline static constexpr size_t PMD_MUNCHLAX_NAME_LEN = sizeof(PMD_MUNCHLAX_NAME_ARR)-1;
@@ -16964,7 +16964,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RIOLU_FQID_LEN = sizeof(PMD_RIOLU_FQID_ARR)-1;
     inline static constexpr char PMD_RIOLU_ID_ARR[] CONFIG_STRING_SECTION = "riolu";
     inline static constexpr const char* PMD_RIOLU_ID = PMD_RIOLU_ID_ARR;
-    inline static constexpr size_t PMD_RIOLU_ID_LEN = sizeof(PMD_RIOLU_ID)-1;
+    inline static constexpr size_t PMD_RIOLU_ID_LEN = sizeof(PMD_RIOLU_ID_ARR)-1;
     inline static constexpr char PMD_RIOLU_NAME_ARR[] CONFIG_STRING_SECTION = "Riolu";
     inline static constexpr const char* PMD_RIOLU_NAME = PMD_RIOLU_NAME_ARR;
     inline static constexpr size_t PMD_RIOLU_NAME_LEN = sizeof(PMD_RIOLU_NAME_ARR)-1;
@@ -17002,7 +17002,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUCARIO_FQID_LEN = sizeof(PMD_LUCARIO_FQID_ARR)-1;
     inline static constexpr char PMD_LUCARIO_ID_ARR[] CONFIG_STRING_SECTION = "lucario";
     inline static constexpr const char* PMD_LUCARIO_ID = PMD_LUCARIO_ID_ARR;
-    inline static constexpr size_t PMD_LUCARIO_ID_LEN = sizeof(PMD_LUCARIO_ID)-1;
+    inline static constexpr size_t PMD_LUCARIO_ID_LEN = sizeof(PMD_LUCARIO_ID_ARR)-1;
     inline static constexpr char PMD_LUCARIO_NAME_ARR[] CONFIG_STRING_SECTION = "Lucario";
     inline static constexpr const char* PMD_LUCARIO_NAME = PMD_LUCARIO_NAME_ARR;
     inline static constexpr size_t PMD_LUCARIO_NAME_LEN = sizeof(PMD_LUCARIO_NAME_ARR)-1;
@@ -17040,7 +17040,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HIPPOPOTAS_FQID_LEN = sizeof(PMD_HIPPOPOTAS_FQID_ARR)-1;
     inline static constexpr char PMD_HIPPOPOTAS_ID_ARR[] CONFIG_STRING_SECTION = "hippopotas";
     inline static constexpr const char* PMD_HIPPOPOTAS_ID = PMD_HIPPOPOTAS_ID_ARR;
-    inline static constexpr size_t PMD_HIPPOPOTAS_ID_LEN = sizeof(PMD_HIPPOPOTAS_ID)-1;
+    inline static constexpr size_t PMD_HIPPOPOTAS_ID_LEN = sizeof(PMD_HIPPOPOTAS_ID_ARR)-1;
     inline static constexpr char PMD_HIPPOPOTAS_NAME_ARR[] CONFIG_STRING_SECTION = "Hippopotas";
     inline static constexpr const char* PMD_HIPPOPOTAS_NAME = PMD_HIPPOPOTAS_NAME_ARR;
     inline static constexpr size_t PMD_HIPPOPOTAS_NAME_LEN = sizeof(PMD_HIPPOPOTAS_NAME_ARR)-1;
@@ -17078,7 +17078,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HIPPOWDON_FQID_LEN = sizeof(PMD_HIPPOWDON_FQID_ARR)-1;
     inline static constexpr char PMD_HIPPOWDON_ID_ARR[] CONFIG_STRING_SECTION = "hippowdon";
     inline static constexpr const char* PMD_HIPPOWDON_ID = PMD_HIPPOWDON_ID_ARR;
-    inline static constexpr size_t PMD_HIPPOWDON_ID_LEN = sizeof(PMD_HIPPOWDON_ID)-1;
+    inline static constexpr size_t PMD_HIPPOWDON_ID_LEN = sizeof(PMD_HIPPOWDON_ID_ARR)-1;
     inline static constexpr char PMD_HIPPOWDON_NAME_ARR[] CONFIG_STRING_SECTION = "Hippowdon";
     inline static constexpr const char* PMD_HIPPOWDON_NAME = PMD_HIPPOWDON_NAME_ARR;
     inline static constexpr size_t PMD_HIPPOWDON_NAME_LEN = sizeof(PMD_HIPPOWDON_NAME_ARR)-1;
@@ -17116,7 +17116,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKORUPI_FQID_LEN = sizeof(PMD_SKORUPI_FQID_ARR)-1;
     inline static constexpr char PMD_SKORUPI_ID_ARR[] CONFIG_STRING_SECTION = "skorupi";
     inline static constexpr const char* PMD_SKORUPI_ID = PMD_SKORUPI_ID_ARR;
-    inline static constexpr size_t PMD_SKORUPI_ID_LEN = sizeof(PMD_SKORUPI_ID)-1;
+    inline static constexpr size_t PMD_SKORUPI_ID_LEN = sizeof(PMD_SKORUPI_ID_ARR)-1;
     inline static constexpr char PMD_SKORUPI_NAME_ARR[] CONFIG_STRING_SECTION = "Skorupi";
     inline static constexpr const char* PMD_SKORUPI_NAME = PMD_SKORUPI_NAME_ARR;
     inline static constexpr size_t PMD_SKORUPI_NAME_LEN = sizeof(PMD_SKORUPI_NAME_ARR)-1;
@@ -17154,7 +17154,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRAPION_FQID_LEN = sizeof(PMD_DRAPION_FQID_ARR)-1;
     inline static constexpr char PMD_DRAPION_ID_ARR[] CONFIG_STRING_SECTION = "drapion";
     inline static constexpr const char* PMD_DRAPION_ID = PMD_DRAPION_ID_ARR;
-    inline static constexpr size_t PMD_DRAPION_ID_LEN = sizeof(PMD_DRAPION_ID)-1;
+    inline static constexpr size_t PMD_DRAPION_ID_LEN = sizeof(PMD_DRAPION_ID_ARR)-1;
     inline static constexpr char PMD_DRAPION_NAME_ARR[] CONFIG_STRING_SECTION = "Drapion";
     inline static constexpr const char* PMD_DRAPION_NAME = PMD_DRAPION_NAME_ARR;
     inline static constexpr size_t PMD_DRAPION_NAME_LEN = sizeof(PMD_DRAPION_NAME_ARR)-1;
@@ -17192,7 +17192,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CROAGUNK_FQID_LEN = sizeof(PMD_CROAGUNK_FQID_ARR)-1;
     inline static constexpr char PMD_CROAGUNK_ID_ARR[] CONFIG_STRING_SECTION = "croagunk";
     inline static constexpr const char* PMD_CROAGUNK_ID = PMD_CROAGUNK_ID_ARR;
-    inline static constexpr size_t PMD_CROAGUNK_ID_LEN = sizeof(PMD_CROAGUNK_ID)-1;
+    inline static constexpr size_t PMD_CROAGUNK_ID_LEN = sizeof(PMD_CROAGUNK_ID_ARR)-1;
     inline static constexpr char PMD_CROAGUNK_NAME_ARR[] CONFIG_STRING_SECTION = "Croagunk";
     inline static constexpr const char* PMD_CROAGUNK_NAME = PMD_CROAGUNK_NAME_ARR;
     inline static constexpr size_t PMD_CROAGUNK_NAME_LEN = sizeof(PMD_CROAGUNK_NAME_ARR)-1;
@@ -17230,7 +17230,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOXICROAK_FQID_LEN = sizeof(PMD_TOXICROAK_FQID_ARR)-1;
     inline static constexpr char PMD_TOXICROAK_ID_ARR[] CONFIG_STRING_SECTION = "toxicroak";
     inline static constexpr const char* PMD_TOXICROAK_ID = PMD_TOXICROAK_ID_ARR;
-    inline static constexpr size_t PMD_TOXICROAK_ID_LEN = sizeof(PMD_TOXICROAK_ID)-1;
+    inline static constexpr size_t PMD_TOXICROAK_ID_LEN = sizeof(PMD_TOXICROAK_ID_ARR)-1;
     inline static constexpr char PMD_TOXICROAK_NAME_ARR[] CONFIG_STRING_SECTION = "Toxicroak";
     inline static constexpr const char* PMD_TOXICROAK_NAME = PMD_TOXICROAK_NAME_ARR;
     inline static constexpr size_t PMD_TOXICROAK_NAME_LEN = sizeof(PMD_TOXICROAK_NAME_ARR)-1;
@@ -17268,7 +17268,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CARNIVINE_FQID_LEN = sizeof(PMD_CARNIVINE_FQID_ARR)-1;
     inline static constexpr char PMD_CARNIVINE_ID_ARR[] CONFIG_STRING_SECTION = "carnivine";
     inline static constexpr const char* PMD_CARNIVINE_ID = PMD_CARNIVINE_ID_ARR;
-    inline static constexpr size_t PMD_CARNIVINE_ID_LEN = sizeof(PMD_CARNIVINE_ID)-1;
+    inline static constexpr size_t PMD_CARNIVINE_ID_LEN = sizeof(PMD_CARNIVINE_ID_ARR)-1;
     inline static constexpr char PMD_CARNIVINE_NAME_ARR[] CONFIG_STRING_SECTION = "Carnivine";
     inline static constexpr const char* PMD_CARNIVINE_NAME = PMD_CARNIVINE_NAME_ARR;
     inline static constexpr size_t PMD_CARNIVINE_NAME_LEN = sizeof(PMD_CARNIVINE_NAME_ARR)-1;
@@ -17306,7 +17306,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FINNEON_FQID_LEN = sizeof(PMD_FINNEON_FQID_ARR)-1;
     inline static constexpr char PMD_FINNEON_ID_ARR[] CONFIG_STRING_SECTION = "finneon";
     inline static constexpr const char* PMD_FINNEON_ID = PMD_FINNEON_ID_ARR;
-    inline static constexpr size_t PMD_FINNEON_ID_LEN = sizeof(PMD_FINNEON_ID)-1;
+    inline static constexpr size_t PMD_FINNEON_ID_LEN = sizeof(PMD_FINNEON_ID_ARR)-1;
     inline static constexpr char PMD_FINNEON_NAME_ARR[] CONFIG_STRING_SECTION = "Finneon";
     inline static constexpr const char* PMD_FINNEON_NAME = PMD_FINNEON_NAME_ARR;
     inline static constexpr size_t PMD_FINNEON_NAME_LEN = sizeof(PMD_FINNEON_NAME_ARR)-1;
@@ -17344,7 +17344,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUMINEON_FQID_LEN = sizeof(PMD_LUMINEON_FQID_ARR)-1;
     inline static constexpr char PMD_LUMINEON_ID_ARR[] CONFIG_STRING_SECTION = "lumineon";
     inline static constexpr const char* PMD_LUMINEON_ID = PMD_LUMINEON_ID_ARR;
-    inline static constexpr size_t PMD_LUMINEON_ID_LEN = sizeof(PMD_LUMINEON_ID)-1;
+    inline static constexpr size_t PMD_LUMINEON_ID_LEN = sizeof(PMD_LUMINEON_ID_ARR)-1;
     inline static constexpr char PMD_LUMINEON_NAME_ARR[] CONFIG_STRING_SECTION = "Lumineon";
     inline static constexpr const char* PMD_LUMINEON_NAME = PMD_LUMINEON_NAME_ARR;
     inline static constexpr size_t PMD_LUMINEON_NAME_LEN = sizeof(PMD_LUMINEON_NAME_ARR)-1;
@@ -17382,7 +17382,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MANTYKE_FQID_LEN = sizeof(PMD_MANTYKE_FQID_ARR)-1;
     inline static constexpr char PMD_MANTYKE_ID_ARR[] CONFIG_STRING_SECTION = "mantyke";
     inline static constexpr const char* PMD_MANTYKE_ID = PMD_MANTYKE_ID_ARR;
-    inline static constexpr size_t PMD_MANTYKE_ID_LEN = sizeof(PMD_MANTYKE_ID)-1;
+    inline static constexpr size_t PMD_MANTYKE_ID_LEN = sizeof(PMD_MANTYKE_ID_ARR)-1;
     inline static constexpr char PMD_MANTYKE_NAME_ARR[] CONFIG_STRING_SECTION = "Mantyke";
     inline static constexpr const char* PMD_MANTYKE_NAME = PMD_MANTYKE_NAME_ARR;
     inline static constexpr size_t PMD_MANTYKE_NAME_LEN = sizeof(PMD_MANTYKE_NAME_ARR)-1;
@@ -17420,7 +17420,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNOVER_FQID_LEN = sizeof(PMD_SNOVER_FQID_ARR)-1;
     inline static constexpr char PMD_SNOVER_ID_ARR[] CONFIG_STRING_SECTION = "snover";
     inline static constexpr const char* PMD_SNOVER_ID = PMD_SNOVER_ID_ARR;
-    inline static constexpr size_t PMD_SNOVER_ID_LEN = sizeof(PMD_SNOVER_ID)-1;
+    inline static constexpr size_t PMD_SNOVER_ID_LEN = sizeof(PMD_SNOVER_ID_ARR)-1;
     inline static constexpr char PMD_SNOVER_NAME_ARR[] CONFIG_STRING_SECTION = "Snover";
     inline static constexpr const char* PMD_SNOVER_NAME = PMD_SNOVER_NAME_ARR;
     inline static constexpr size_t PMD_SNOVER_NAME_LEN = sizeof(PMD_SNOVER_NAME_ARR)-1;
@@ -17458,7 +17458,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ABOMASNOW_FQID_LEN = sizeof(PMD_ABOMASNOW_FQID_ARR)-1;
     inline static constexpr char PMD_ABOMASNOW_ID_ARR[] CONFIG_STRING_SECTION = "abomasnow";
     inline static constexpr const char* PMD_ABOMASNOW_ID = PMD_ABOMASNOW_ID_ARR;
-    inline static constexpr size_t PMD_ABOMASNOW_ID_LEN = sizeof(PMD_ABOMASNOW_ID)-1;
+    inline static constexpr size_t PMD_ABOMASNOW_ID_LEN = sizeof(PMD_ABOMASNOW_ID_ARR)-1;
     inline static constexpr char PMD_ABOMASNOW_NAME_ARR[] CONFIG_STRING_SECTION = "Abomasnow";
     inline static constexpr const char* PMD_ABOMASNOW_NAME = PMD_ABOMASNOW_NAME_ARR;
     inline static constexpr size_t PMD_ABOMASNOW_NAME_LEN = sizeof(PMD_ABOMASNOW_NAME_ARR)-1;
@@ -17496,7 +17496,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WEAVILE_FQID_LEN = sizeof(PMD_WEAVILE_FQID_ARR)-1;
     inline static constexpr char PMD_WEAVILE_ID_ARR[] CONFIG_STRING_SECTION = "weavile";
     inline static constexpr const char* PMD_WEAVILE_ID = PMD_WEAVILE_ID_ARR;
-    inline static constexpr size_t PMD_WEAVILE_ID_LEN = sizeof(PMD_WEAVILE_ID)-1;
+    inline static constexpr size_t PMD_WEAVILE_ID_LEN = sizeof(PMD_WEAVILE_ID_ARR)-1;
     inline static constexpr char PMD_WEAVILE_NAME_ARR[] CONFIG_STRING_SECTION = "Weavile";
     inline static constexpr const char* PMD_WEAVILE_NAME = PMD_WEAVILE_NAME_ARR;
     inline static constexpr size_t PMD_WEAVILE_NAME_LEN = sizeof(PMD_WEAVILE_NAME_ARR)-1;
@@ -17534,7 +17534,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGNEZONE_FQID_LEN = sizeof(PMD_MAGNEZONE_FQID_ARR)-1;
     inline static constexpr char PMD_MAGNEZONE_ID_ARR[] CONFIG_STRING_SECTION = "magnezone";
     inline static constexpr const char* PMD_MAGNEZONE_ID = PMD_MAGNEZONE_ID_ARR;
-    inline static constexpr size_t PMD_MAGNEZONE_ID_LEN = sizeof(PMD_MAGNEZONE_ID)-1;
+    inline static constexpr size_t PMD_MAGNEZONE_ID_LEN = sizeof(PMD_MAGNEZONE_ID_ARR)-1;
     inline static constexpr char PMD_MAGNEZONE_NAME_ARR[] CONFIG_STRING_SECTION = "Magnezone";
     inline static constexpr const char* PMD_MAGNEZONE_NAME = PMD_MAGNEZONE_NAME_ARR;
     inline static constexpr size_t PMD_MAGNEZONE_NAME_LEN = sizeof(PMD_MAGNEZONE_NAME_ARR)-1;
@@ -17572,7 +17572,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LICKILICKY_FQID_LEN = sizeof(PMD_LICKILICKY_FQID_ARR)-1;
     inline static constexpr char PMD_LICKILICKY_ID_ARR[] CONFIG_STRING_SECTION = "lickilicky";
     inline static constexpr const char* PMD_LICKILICKY_ID = PMD_LICKILICKY_ID_ARR;
-    inline static constexpr size_t PMD_LICKILICKY_ID_LEN = sizeof(PMD_LICKILICKY_ID)-1;
+    inline static constexpr size_t PMD_LICKILICKY_ID_LEN = sizeof(PMD_LICKILICKY_ID_ARR)-1;
     inline static constexpr char PMD_LICKILICKY_NAME_ARR[] CONFIG_STRING_SECTION = "Lickilicky";
     inline static constexpr const char* PMD_LICKILICKY_NAME = PMD_LICKILICKY_NAME_ARR;
     inline static constexpr size_t PMD_LICKILICKY_NAME_LEN = sizeof(PMD_LICKILICKY_NAME_ARR)-1;
@@ -17610,7 +17610,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RHYPERIOR_FQID_LEN = sizeof(PMD_RHYPERIOR_FQID_ARR)-1;
     inline static constexpr char PMD_RHYPERIOR_ID_ARR[] CONFIG_STRING_SECTION = "rhyperior";
     inline static constexpr const char* PMD_RHYPERIOR_ID = PMD_RHYPERIOR_ID_ARR;
-    inline static constexpr size_t PMD_RHYPERIOR_ID_LEN = sizeof(PMD_RHYPERIOR_ID)-1;
+    inline static constexpr size_t PMD_RHYPERIOR_ID_LEN = sizeof(PMD_RHYPERIOR_ID_ARR)-1;
     inline static constexpr char PMD_RHYPERIOR_NAME_ARR[] CONFIG_STRING_SECTION = "Rhyperior";
     inline static constexpr const char* PMD_RHYPERIOR_NAME = PMD_RHYPERIOR_NAME_ARR;
     inline static constexpr size_t PMD_RHYPERIOR_NAME_LEN = sizeof(PMD_RHYPERIOR_NAME_ARR)-1;
@@ -17648,7 +17648,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TANGROWTH_FQID_LEN = sizeof(PMD_TANGROWTH_FQID_ARR)-1;
     inline static constexpr char PMD_TANGROWTH_ID_ARR[] CONFIG_STRING_SECTION = "tangrowth";
     inline static constexpr const char* PMD_TANGROWTH_ID = PMD_TANGROWTH_ID_ARR;
-    inline static constexpr size_t PMD_TANGROWTH_ID_LEN = sizeof(PMD_TANGROWTH_ID)-1;
+    inline static constexpr size_t PMD_TANGROWTH_ID_LEN = sizeof(PMD_TANGROWTH_ID_ARR)-1;
     inline static constexpr char PMD_TANGROWTH_NAME_ARR[] CONFIG_STRING_SECTION = "Tangrowth";
     inline static constexpr const char* PMD_TANGROWTH_NAME = PMD_TANGROWTH_NAME_ARR;
     inline static constexpr size_t PMD_TANGROWTH_NAME_LEN = sizeof(PMD_TANGROWTH_NAME_ARR)-1;
@@ -17686,7 +17686,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ELECTIVIRE_FQID_LEN = sizeof(PMD_ELECTIVIRE_FQID_ARR)-1;
     inline static constexpr char PMD_ELECTIVIRE_ID_ARR[] CONFIG_STRING_SECTION = "electivire";
     inline static constexpr const char* PMD_ELECTIVIRE_ID = PMD_ELECTIVIRE_ID_ARR;
-    inline static constexpr size_t PMD_ELECTIVIRE_ID_LEN = sizeof(PMD_ELECTIVIRE_ID)-1;
+    inline static constexpr size_t PMD_ELECTIVIRE_ID_LEN = sizeof(PMD_ELECTIVIRE_ID_ARR)-1;
     inline static constexpr char PMD_ELECTIVIRE_NAME_ARR[] CONFIG_STRING_SECTION = "Electivire";
     inline static constexpr const char* PMD_ELECTIVIRE_NAME = PMD_ELECTIVIRE_NAME_ARR;
     inline static constexpr size_t PMD_ELECTIVIRE_NAME_LEN = sizeof(PMD_ELECTIVIRE_NAME_ARR)-1;
@@ -17724,7 +17724,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGMORTAR_FQID_LEN = sizeof(PMD_MAGMORTAR_FQID_ARR)-1;
     inline static constexpr char PMD_MAGMORTAR_ID_ARR[] CONFIG_STRING_SECTION = "magmortar";
     inline static constexpr const char* PMD_MAGMORTAR_ID = PMD_MAGMORTAR_ID_ARR;
-    inline static constexpr size_t PMD_MAGMORTAR_ID_LEN = sizeof(PMD_MAGMORTAR_ID)-1;
+    inline static constexpr size_t PMD_MAGMORTAR_ID_LEN = sizeof(PMD_MAGMORTAR_ID_ARR)-1;
     inline static constexpr char PMD_MAGMORTAR_NAME_ARR[] CONFIG_STRING_SECTION = "Magmortar";
     inline static constexpr const char* PMD_MAGMORTAR_NAME = PMD_MAGMORTAR_NAME_ARR;
     inline static constexpr size_t PMD_MAGMORTAR_NAME_LEN = sizeof(PMD_MAGMORTAR_NAME_ARR)-1;
@@ -17762,7 +17762,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOGEKISS_FQID_LEN = sizeof(PMD_TOGEKISS_FQID_ARR)-1;
     inline static constexpr char PMD_TOGEKISS_ID_ARR[] CONFIG_STRING_SECTION = "togekiss";
     inline static constexpr const char* PMD_TOGEKISS_ID = PMD_TOGEKISS_ID_ARR;
-    inline static constexpr size_t PMD_TOGEKISS_ID_LEN = sizeof(PMD_TOGEKISS_ID)-1;
+    inline static constexpr size_t PMD_TOGEKISS_ID_LEN = sizeof(PMD_TOGEKISS_ID_ARR)-1;
     inline static constexpr char PMD_TOGEKISS_NAME_ARR[] CONFIG_STRING_SECTION = "Togekiss";
     inline static constexpr const char* PMD_TOGEKISS_NAME = PMD_TOGEKISS_NAME_ARR;
     inline static constexpr size_t PMD_TOGEKISS_NAME_LEN = sizeof(PMD_TOGEKISS_NAME_ARR)-1;
@@ -17800,7 +17800,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_YANMEGA_FQID_LEN = sizeof(PMD_YANMEGA_FQID_ARR)-1;
     inline static constexpr char PMD_YANMEGA_ID_ARR[] CONFIG_STRING_SECTION = "yanmega";
     inline static constexpr const char* PMD_YANMEGA_ID = PMD_YANMEGA_ID_ARR;
-    inline static constexpr size_t PMD_YANMEGA_ID_LEN = sizeof(PMD_YANMEGA_ID)-1;
+    inline static constexpr size_t PMD_YANMEGA_ID_LEN = sizeof(PMD_YANMEGA_ID_ARR)-1;
     inline static constexpr char PMD_YANMEGA_NAME_ARR[] CONFIG_STRING_SECTION = "Yanmega";
     inline static constexpr const char* PMD_YANMEGA_NAME = PMD_YANMEGA_NAME_ARR;
     inline static constexpr size_t PMD_YANMEGA_NAME_LEN = sizeof(PMD_YANMEGA_NAME_ARR)-1;
@@ -17838,7 +17838,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LEAFEON_FQID_LEN = sizeof(PMD_LEAFEON_FQID_ARR)-1;
     inline static constexpr char PMD_LEAFEON_ID_ARR[] CONFIG_STRING_SECTION = "leafeon";
     inline static constexpr const char* PMD_LEAFEON_ID = PMD_LEAFEON_ID_ARR;
-    inline static constexpr size_t PMD_LEAFEON_ID_LEN = sizeof(PMD_LEAFEON_ID)-1;
+    inline static constexpr size_t PMD_LEAFEON_ID_LEN = sizeof(PMD_LEAFEON_ID_ARR)-1;
     inline static constexpr char PMD_LEAFEON_NAME_ARR[] CONFIG_STRING_SECTION = "Leafeon";
     inline static constexpr const char* PMD_LEAFEON_NAME = PMD_LEAFEON_NAME_ARR;
     inline static constexpr size_t PMD_LEAFEON_NAME_LEN = sizeof(PMD_LEAFEON_NAME_ARR)-1;
@@ -17876,7 +17876,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GLACEON_FQID_LEN = sizeof(PMD_GLACEON_FQID_ARR)-1;
     inline static constexpr char PMD_GLACEON_ID_ARR[] CONFIG_STRING_SECTION = "glaceon";
     inline static constexpr const char* PMD_GLACEON_ID = PMD_GLACEON_ID_ARR;
-    inline static constexpr size_t PMD_GLACEON_ID_LEN = sizeof(PMD_GLACEON_ID)-1;
+    inline static constexpr size_t PMD_GLACEON_ID_LEN = sizeof(PMD_GLACEON_ID_ARR)-1;
     inline static constexpr char PMD_GLACEON_NAME_ARR[] CONFIG_STRING_SECTION = "Glaceon";
     inline static constexpr const char* PMD_GLACEON_NAME = PMD_GLACEON_NAME_ARR;
     inline static constexpr size_t PMD_GLACEON_NAME_LEN = sizeof(PMD_GLACEON_NAME_ARR)-1;
@@ -17914,7 +17914,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GLISCOR_FQID_LEN = sizeof(PMD_GLISCOR_FQID_ARR)-1;
     inline static constexpr char PMD_GLISCOR_ID_ARR[] CONFIG_STRING_SECTION = "gliscor";
     inline static constexpr const char* PMD_GLISCOR_ID = PMD_GLISCOR_ID_ARR;
-    inline static constexpr size_t PMD_GLISCOR_ID_LEN = sizeof(PMD_GLISCOR_ID)-1;
+    inline static constexpr size_t PMD_GLISCOR_ID_LEN = sizeof(PMD_GLISCOR_ID_ARR)-1;
     inline static constexpr char PMD_GLISCOR_NAME_ARR[] CONFIG_STRING_SECTION = "Gliscor";
     inline static constexpr const char* PMD_GLISCOR_NAME = PMD_GLISCOR_NAME_ARR;
     inline static constexpr size_t PMD_GLISCOR_NAME_LEN = sizeof(PMD_GLISCOR_NAME_ARR)-1;
@@ -17952,7 +17952,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAMOSWINE_FQID_LEN = sizeof(PMD_MAMOSWINE_FQID_ARR)-1;
     inline static constexpr char PMD_MAMOSWINE_ID_ARR[] CONFIG_STRING_SECTION = "mamoswine";
     inline static constexpr const char* PMD_MAMOSWINE_ID = PMD_MAMOSWINE_ID_ARR;
-    inline static constexpr size_t PMD_MAMOSWINE_ID_LEN = sizeof(PMD_MAMOSWINE_ID)-1;
+    inline static constexpr size_t PMD_MAMOSWINE_ID_LEN = sizeof(PMD_MAMOSWINE_ID_ARR)-1;
     inline static constexpr char PMD_MAMOSWINE_NAME_ARR[] CONFIG_STRING_SECTION = "Mamoswine";
     inline static constexpr const char* PMD_MAMOSWINE_NAME = PMD_MAMOSWINE_NAME_ARR;
     inline static constexpr size_t PMD_MAMOSWINE_NAME_LEN = sizeof(PMD_MAMOSWINE_NAME_ARR)-1;
@@ -17990,7 +17990,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PORYGON_Z_FQID_LEN = sizeof(PMD_PORYGON_Z_FQID_ARR)-1;
     inline static constexpr char PMD_PORYGON_Z_ID_ARR[] CONFIG_STRING_SECTION = "porygon_z";
     inline static constexpr const char* PMD_PORYGON_Z_ID = PMD_PORYGON_Z_ID_ARR;
-    inline static constexpr size_t PMD_PORYGON_Z_ID_LEN = sizeof(PMD_PORYGON_Z_ID)-1;
+    inline static constexpr size_t PMD_PORYGON_Z_ID_LEN = sizeof(PMD_PORYGON_Z_ID_ARR)-1;
     inline static constexpr char PMD_PORYGON_Z_NAME_ARR[] CONFIG_STRING_SECTION = "Porygon-z";
     inline static constexpr const char* PMD_PORYGON_Z_NAME = PMD_PORYGON_Z_NAME_ARR;
     inline static constexpr size_t PMD_PORYGON_Z_NAME_LEN = sizeof(PMD_PORYGON_Z_NAME_ARR)-1;
@@ -18028,7 +18028,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GALLADE_FQID_LEN = sizeof(PMD_GALLADE_FQID_ARR)-1;
     inline static constexpr char PMD_GALLADE_ID_ARR[] CONFIG_STRING_SECTION = "gallade";
     inline static constexpr const char* PMD_GALLADE_ID = PMD_GALLADE_ID_ARR;
-    inline static constexpr size_t PMD_GALLADE_ID_LEN = sizeof(PMD_GALLADE_ID)-1;
+    inline static constexpr size_t PMD_GALLADE_ID_LEN = sizeof(PMD_GALLADE_ID_ARR)-1;
     inline static constexpr char PMD_GALLADE_NAME_ARR[] CONFIG_STRING_SECTION = "Gallade";
     inline static constexpr const char* PMD_GALLADE_NAME = PMD_GALLADE_NAME_ARR;
     inline static constexpr size_t PMD_GALLADE_NAME_LEN = sizeof(PMD_GALLADE_NAME_ARR)-1;
@@ -18066,7 +18066,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PROBOPASS_FQID_LEN = sizeof(PMD_PROBOPASS_FQID_ARR)-1;
     inline static constexpr char PMD_PROBOPASS_ID_ARR[] CONFIG_STRING_SECTION = "probopass";
     inline static constexpr const char* PMD_PROBOPASS_ID = PMD_PROBOPASS_ID_ARR;
-    inline static constexpr size_t PMD_PROBOPASS_ID_LEN = sizeof(PMD_PROBOPASS_ID)-1;
+    inline static constexpr size_t PMD_PROBOPASS_ID_LEN = sizeof(PMD_PROBOPASS_ID_ARR)-1;
     inline static constexpr char PMD_PROBOPASS_NAME_ARR[] CONFIG_STRING_SECTION = "Probopass";
     inline static constexpr const char* PMD_PROBOPASS_NAME = PMD_PROBOPASS_NAME_ARR;
     inline static constexpr size_t PMD_PROBOPASS_NAME_LEN = sizeof(PMD_PROBOPASS_NAME_ARR)-1;
@@ -18104,7 +18104,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DUSKNOIR_FQID_LEN = sizeof(PMD_DUSKNOIR_FQID_ARR)-1;
     inline static constexpr char PMD_DUSKNOIR_ID_ARR[] CONFIG_STRING_SECTION = "dusknoir";
     inline static constexpr const char* PMD_DUSKNOIR_ID = PMD_DUSKNOIR_ID_ARR;
-    inline static constexpr size_t PMD_DUSKNOIR_ID_LEN = sizeof(PMD_DUSKNOIR_ID)-1;
+    inline static constexpr size_t PMD_DUSKNOIR_ID_LEN = sizeof(PMD_DUSKNOIR_ID_ARR)-1;
     inline static constexpr char PMD_DUSKNOIR_NAME_ARR[] CONFIG_STRING_SECTION = "Dusknoir";
     inline static constexpr const char* PMD_DUSKNOIR_NAME = PMD_DUSKNOIR_NAME_ARR;
     inline static constexpr size_t PMD_DUSKNOIR_NAME_LEN = sizeof(PMD_DUSKNOIR_NAME_ARR)-1;
@@ -18142,7 +18142,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FROSLASS_FQID_LEN = sizeof(PMD_FROSLASS_FQID_ARR)-1;
     inline static constexpr char PMD_FROSLASS_ID_ARR[] CONFIG_STRING_SECTION = "froslass";
     inline static constexpr const char* PMD_FROSLASS_ID = PMD_FROSLASS_ID_ARR;
-    inline static constexpr size_t PMD_FROSLASS_ID_LEN = sizeof(PMD_FROSLASS_ID)-1;
+    inline static constexpr size_t PMD_FROSLASS_ID_LEN = sizeof(PMD_FROSLASS_ID_ARR)-1;
     inline static constexpr char PMD_FROSLASS_NAME_ARR[] CONFIG_STRING_SECTION = "Froslass";
     inline static constexpr const char* PMD_FROSLASS_NAME = PMD_FROSLASS_NAME_ARR;
     inline static constexpr size_t PMD_FROSLASS_NAME_LEN = sizeof(PMD_FROSLASS_NAME_ARR)-1;
@@ -18180,7 +18180,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ROTOM_FQID_LEN = sizeof(PMD_ROTOM_FQID_ARR)-1;
     inline static constexpr char PMD_ROTOM_ID_ARR[] CONFIG_STRING_SECTION = "rotom";
     inline static constexpr const char* PMD_ROTOM_ID = PMD_ROTOM_ID_ARR;
-    inline static constexpr size_t PMD_ROTOM_ID_LEN = sizeof(PMD_ROTOM_ID)-1;
+    inline static constexpr size_t PMD_ROTOM_ID_LEN = sizeof(PMD_ROTOM_ID_ARR)-1;
     inline static constexpr char PMD_ROTOM_NAME_ARR[] CONFIG_STRING_SECTION = "Rotom";
     inline static constexpr const char* PMD_ROTOM_NAME = PMD_ROTOM_NAME_ARR;
     inline static constexpr size_t PMD_ROTOM_NAME_LEN = sizeof(PMD_ROTOM_NAME_ARR)-1;
@@ -18218,7 +18218,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_UXIE_FQID_LEN = sizeof(PMD_UXIE_FQID_ARR)-1;
     inline static constexpr char PMD_UXIE_ID_ARR[] CONFIG_STRING_SECTION = "uxie";
     inline static constexpr const char* PMD_UXIE_ID = PMD_UXIE_ID_ARR;
-    inline static constexpr size_t PMD_UXIE_ID_LEN = sizeof(PMD_UXIE_ID)-1;
+    inline static constexpr size_t PMD_UXIE_ID_LEN = sizeof(PMD_UXIE_ID_ARR)-1;
     inline static constexpr char PMD_UXIE_NAME_ARR[] CONFIG_STRING_SECTION = "Uxie";
     inline static constexpr const char* PMD_UXIE_NAME = PMD_UXIE_NAME_ARR;
     inline static constexpr size_t PMD_UXIE_NAME_LEN = sizeof(PMD_UXIE_NAME_ARR)-1;
@@ -18256,7 +18256,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MESPRIT_FQID_LEN = sizeof(PMD_MESPRIT_FQID_ARR)-1;
     inline static constexpr char PMD_MESPRIT_ID_ARR[] CONFIG_STRING_SECTION = "mesprit";
     inline static constexpr const char* PMD_MESPRIT_ID = PMD_MESPRIT_ID_ARR;
-    inline static constexpr size_t PMD_MESPRIT_ID_LEN = sizeof(PMD_MESPRIT_ID)-1;
+    inline static constexpr size_t PMD_MESPRIT_ID_LEN = sizeof(PMD_MESPRIT_ID_ARR)-1;
     inline static constexpr char PMD_MESPRIT_NAME_ARR[] CONFIG_STRING_SECTION = "Mesprit";
     inline static constexpr const char* PMD_MESPRIT_NAME = PMD_MESPRIT_NAME_ARR;
     inline static constexpr size_t PMD_MESPRIT_NAME_LEN = sizeof(PMD_MESPRIT_NAME_ARR)-1;
@@ -18294,7 +18294,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AZELF_FQID_LEN = sizeof(PMD_AZELF_FQID_ARR)-1;
     inline static constexpr char PMD_AZELF_ID_ARR[] CONFIG_STRING_SECTION = "azelf";
     inline static constexpr const char* PMD_AZELF_ID = PMD_AZELF_ID_ARR;
-    inline static constexpr size_t PMD_AZELF_ID_LEN = sizeof(PMD_AZELF_ID)-1;
+    inline static constexpr size_t PMD_AZELF_ID_LEN = sizeof(PMD_AZELF_ID_ARR)-1;
     inline static constexpr char PMD_AZELF_NAME_ARR[] CONFIG_STRING_SECTION = "Azelf";
     inline static constexpr const char* PMD_AZELF_NAME = PMD_AZELF_NAME_ARR;
     inline static constexpr size_t PMD_AZELF_NAME_LEN = sizeof(PMD_AZELF_NAME_ARR)-1;
@@ -18332,7 +18332,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DIALGA_FQID_LEN = sizeof(PMD_DIALGA_FQID_ARR)-1;
     inline static constexpr char PMD_DIALGA_ID_ARR[] CONFIG_STRING_SECTION = "dialga";
     inline static constexpr const char* PMD_DIALGA_ID = PMD_DIALGA_ID_ARR;
-    inline static constexpr size_t PMD_DIALGA_ID_LEN = sizeof(PMD_DIALGA_ID)-1;
+    inline static constexpr size_t PMD_DIALGA_ID_LEN = sizeof(PMD_DIALGA_ID_ARR)-1;
     inline static constexpr char PMD_DIALGA_NAME_ARR[] CONFIG_STRING_SECTION = "Dialga";
     inline static constexpr const char* PMD_DIALGA_NAME = PMD_DIALGA_NAME_ARR;
     inline static constexpr size_t PMD_DIALGA_NAME_LEN = sizeof(PMD_DIALGA_NAME_ARR)-1;
@@ -18370,7 +18370,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PALKIA_FQID_LEN = sizeof(PMD_PALKIA_FQID_ARR)-1;
     inline static constexpr char PMD_PALKIA_ID_ARR[] CONFIG_STRING_SECTION = "palkia";
     inline static constexpr const char* PMD_PALKIA_ID = PMD_PALKIA_ID_ARR;
-    inline static constexpr size_t PMD_PALKIA_ID_LEN = sizeof(PMD_PALKIA_ID)-1;
+    inline static constexpr size_t PMD_PALKIA_ID_LEN = sizeof(PMD_PALKIA_ID_ARR)-1;
     inline static constexpr char PMD_PALKIA_NAME_ARR[] CONFIG_STRING_SECTION = "Palkia";
     inline static constexpr const char* PMD_PALKIA_NAME = PMD_PALKIA_NAME_ARR;
     inline static constexpr size_t PMD_PALKIA_NAME_LEN = sizeof(PMD_PALKIA_NAME_ARR)-1;
@@ -18408,7 +18408,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HEATRAN_FQID_LEN = sizeof(PMD_HEATRAN_FQID_ARR)-1;
     inline static constexpr char PMD_HEATRAN_ID_ARR[] CONFIG_STRING_SECTION = "heatran";
     inline static constexpr const char* PMD_HEATRAN_ID = PMD_HEATRAN_ID_ARR;
-    inline static constexpr size_t PMD_HEATRAN_ID_LEN = sizeof(PMD_HEATRAN_ID)-1;
+    inline static constexpr size_t PMD_HEATRAN_ID_LEN = sizeof(PMD_HEATRAN_ID_ARR)-1;
     inline static constexpr char PMD_HEATRAN_NAME_ARR[] CONFIG_STRING_SECTION = "Heatran";
     inline static constexpr const char* PMD_HEATRAN_NAME = PMD_HEATRAN_NAME_ARR;
     inline static constexpr size_t PMD_HEATRAN_NAME_LEN = sizeof(PMD_HEATRAN_NAME_ARR)-1;
@@ -18446,7 +18446,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REGIGIGAS_FQID_LEN = sizeof(PMD_REGIGIGAS_FQID_ARR)-1;
     inline static constexpr char PMD_REGIGIGAS_ID_ARR[] CONFIG_STRING_SECTION = "regigigas";
     inline static constexpr const char* PMD_REGIGIGAS_ID = PMD_REGIGIGAS_ID_ARR;
-    inline static constexpr size_t PMD_REGIGIGAS_ID_LEN = sizeof(PMD_REGIGIGAS_ID)-1;
+    inline static constexpr size_t PMD_REGIGIGAS_ID_LEN = sizeof(PMD_REGIGIGAS_ID_ARR)-1;
     inline static constexpr char PMD_REGIGIGAS_NAME_ARR[] CONFIG_STRING_SECTION = "Regigigas";
     inline static constexpr const char* PMD_REGIGIGAS_NAME = PMD_REGIGIGAS_NAME_ARR;
     inline static constexpr size_t PMD_REGIGIGAS_NAME_LEN = sizeof(PMD_REGIGIGAS_NAME_ARR)-1;
@@ -18484,7 +18484,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GIRATINA_FQID_LEN = sizeof(PMD_GIRATINA_FQID_ARR)-1;
     inline static constexpr char PMD_GIRATINA_ID_ARR[] CONFIG_STRING_SECTION = "giratina";
     inline static constexpr const char* PMD_GIRATINA_ID = PMD_GIRATINA_ID_ARR;
-    inline static constexpr size_t PMD_GIRATINA_ID_LEN = sizeof(PMD_GIRATINA_ID)-1;
+    inline static constexpr size_t PMD_GIRATINA_ID_LEN = sizeof(PMD_GIRATINA_ID_ARR)-1;
     inline static constexpr char PMD_GIRATINA_NAME_ARR[] CONFIG_STRING_SECTION = "Giratina";
     inline static constexpr const char* PMD_GIRATINA_NAME = PMD_GIRATINA_NAME_ARR;
     inline static constexpr size_t PMD_GIRATINA_NAME_LEN = sizeof(PMD_GIRATINA_NAME_ARR)-1;
@@ -18522,7 +18522,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRESSELIA_FQID_LEN = sizeof(PMD_CRESSELIA_FQID_ARR)-1;
     inline static constexpr char PMD_CRESSELIA_ID_ARR[] CONFIG_STRING_SECTION = "cresselia";
     inline static constexpr const char* PMD_CRESSELIA_ID = PMD_CRESSELIA_ID_ARR;
-    inline static constexpr size_t PMD_CRESSELIA_ID_LEN = sizeof(PMD_CRESSELIA_ID)-1;
+    inline static constexpr size_t PMD_CRESSELIA_ID_LEN = sizeof(PMD_CRESSELIA_ID_ARR)-1;
     inline static constexpr char PMD_CRESSELIA_NAME_ARR[] CONFIG_STRING_SECTION = "Cresselia";
     inline static constexpr const char* PMD_CRESSELIA_NAME = PMD_CRESSELIA_NAME_ARR;
     inline static constexpr size_t PMD_CRESSELIA_NAME_LEN = sizeof(PMD_CRESSELIA_NAME_ARR)-1;
@@ -18560,7 +18560,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PHIONE_FQID_LEN = sizeof(PMD_PHIONE_FQID_ARR)-1;
     inline static constexpr char PMD_PHIONE_ID_ARR[] CONFIG_STRING_SECTION = "phione";
     inline static constexpr const char* PMD_PHIONE_ID = PMD_PHIONE_ID_ARR;
-    inline static constexpr size_t PMD_PHIONE_ID_LEN = sizeof(PMD_PHIONE_ID)-1;
+    inline static constexpr size_t PMD_PHIONE_ID_LEN = sizeof(PMD_PHIONE_ID_ARR)-1;
     inline static constexpr char PMD_PHIONE_NAME_ARR[] CONFIG_STRING_SECTION = "Phione";
     inline static constexpr const char* PMD_PHIONE_NAME = PMD_PHIONE_NAME_ARR;
     inline static constexpr size_t PMD_PHIONE_NAME_LEN = sizeof(PMD_PHIONE_NAME_ARR)-1;
@@ -18598,7 +18598,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MANAPHY_FQID_LEN = sizeof(PMD_MANAPHY_FQID_ARR)-1;
     inline static constexpr char PMD_MANAPHY_ID_ARR[] CONFIG_STRING_SECTION = "manaphy";
     inline static constexpr const char* PMD_MANAPHY_ID = PMD_MANAPHY_ID_ARR;
-    inline static constexpr size_t PMD_MANAPHY_ID_LEN = sizeof(PMD_MANAPHY_ID)-1;
+    inline static constexpr size_t PMD_MANAPHY_ID_LEN = sizeof(PMD_MANAPHY_ID_ARR)-1;
     inline static constexpr char PMD_MANAPHY_NAME_ARR[] CONFIG_STRING_SECTION = "Manaphy";
     inline static constexpr const char* PMD_MANAPHY_NAME = PMD_MANAPHY_NAME_ARR;
     inline static constexpr size_t PMD_MANAPHY_NAME_LEN = sizeof(PMD_MANAPHY_NAME_ARR)-1;
@@ -18636,7 +18636,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DARKRAI_FQID_LEN = sizeof(PMD_DARKRAI_FQID_ARR)-1;
     inline static constexpr char PMD_DARKRAI_ID_ARR[] CONFIG_STRING_SECTION = "darkrai";
     inline static constexpr const char* PMD_DARKRAI_ID = PMD_DARKRAI_ID_ARR;
-    inline static constexpr size_t PMD_DARKRAI_ID_LEN = sizeof(PMD_DARKRAI_ID)-1;
+    inline static constexpr size_t PMD_DARKRAI_ID_LEN = sizeof(PMD_DARKRAI_ID_ARR)-1;
     inline static constexpr char PMD_DARKRAI_NAME_ARR[] CONFIG_STRING_SECTION = "Darkrai";
     inline static constexpr const char* PMD_DARKRAI_NAME = PMD_DARKRAI_NAME_ARR;
     inline static constexpr size_t PMD_DARKRAI_NAME_LEN = sizeof(PMD_DARKRAI_NAME_ARR)-1;
@@ -18674,7 +18674,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SHAYMIN_FQID_LEN = sizeof(PMD_SHAYMIN_FQID_ARR)-1;
     inline static constexpr char PMD_SHAYMIN_ID_ARR[] CONFIG_STRING_SECTION = "shaymin";
     inline static constexpr const char* PMD_SHAYMIN_ID = PMD_SHAYMIN_ID_ARR;
-    inline static constexpr size_t PMD_SHAYMIN_ID_LEN = sizeof(PMD_SHAYMIN_ID)-1;
+    inline static constexpr size_t PMD_SHAYMIN_ID_LEN = sizeof(PMD_SHAYMIN_ID_ARR)-1;
     inline static constexpr char PMD_SHAYMIN_NAME_ARR[] CONFIG_STRING_SECTION = "Shaymin";
     inline static constexpr const char* PMD_SHAYMIN_NAME = PMD_SHAYMIN_NAME_ARR;
     inline static constexpr size_t PMD_SHAYMIN_NAME_LEN = sizeof(PMD_SHAYMIN_NAME_ARR)-1;
@@ -18712,7 +18712,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARCEUS_FQID_LEN = sizeof(PMD_ARCEUS_FQID_ARR)-1;
     inline static constexpr char PMD_ARCEUS_ID_ARR[] CONFIG_STRING_SECTION = "arceus";
     inline static constexpr const char* PMD_ARCEUS_ID = PMD_ARCEUS_ID_ARR;
-    inline static constexpr size_t PMD_ARCEUS_ID_LEN = sizeof(PMD_ARCEUS_ID)-1;
+    inline static constexpr size_t PMD_ARCEUS_ID_LEN = sizeof(PMD_ARCEUS_ID_ARR)-1;
     inline static constexpr char PMD_ARCEUS_NAME_ARR[] CONFIG_STRING_SECTION = "Arceus";
     inline static constexpr const char* PMD_ARCEUS_NAME = PMD_ARCEUS_NAME_ARR;
     inline static constexpr size_t PMD_ARCEUS_NAME_LEN = sizeof(PMD_ARCEUS_NAME_ARR)-1;
@@ -18750,7 +18750,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VICTINI_FQID_LEN = sizeof(PMD_VICTINI_FQID_ARR)-1;
     inline static constexpr char PMD_VICTINI_ID_ARR[] CONFIG_STRING_SECTION = "victini";
     inline static constexpr const char* PMD_VICTINI_ID = PMD_VICTINI_ID_ARR;
-    inline static constexpr size_t PMD_VICTINI_ID_LEN = sizeof(PMD_VICTINI_ID)-1;
+    inline static constexpr size_t PMD_VICTINI_ID_LEN = sizeof(PMD_VICTINI_ID_ARR)-1;
     inline static constexpr char PMD_VICTINI_NAME_ARR[] CONFIG_STRING_SECTION = "Victini";
     inline static constexpr const char* PMD_VICTINI_NAME = PMD_VICTINI_NAME_ARR;
     inline static constexpr size_t PMD_VICTINI_NAME_LEN = sizeof(PMD_VICTINI_NAME_ARR)-1;
@@ -18788,7 +18788,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNIVY_FQID_LEN = sizeof(PMD_SNIVY_FQID_ARR)-1;
     inline static constexpr char PMD_SNIVY_ID_ARR[] CONFIG_STRING_SECTION = "snivy";
     inline static constexpr const char* PMD_SNIVY_ID = PMD_SNIVY_ID_ARR;
-    inline static constexpr size_t PMD_SNIVY_ID_LEN = sizeof(PMD_SNIVY_ID)-1;
+    inline static constexpr size_t PMD_SNIVY_ID_LEN = sizeof(PMD_SNIVY_ID_ARR)-1;
     inline static constexpr char PMD_SNIVY_NAME_ARR[] CONFIG_STRING_SECTION = "Snivy";
     inline static constexpr const char* PMD_SNIVY_NAME = PMD_SNIVY_NAME_ARR;
     inline static constexpr size_t PMD_SNIVY_NAME_LEN = sizeof(PMD_SNIVY_NAME_ARR)-1;
@@ -18826,7 +18826,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SERVINE_FQID_LEN = sizeof(PMD_SERVINE_FQID_ARR)-1;
     inline static constexpr char PMD_SERVINE_ID_ARR[] CONFIG_STRING_SECTION = "servine";
     inline static constexpr const char* PMD_SERVINE_ID = PMD_SERVINE_ID_ARR;
-    inline static constexpr size_t PMD_SERVINE_ID_LEN = sizeof(PMD_SERVINE_ID)-1;
+    inline static constexpr size_t PMD_SERVINE_ID_LEN = sizeof(PMD_SERVINE_ID_ARR)-1;
     inline static constexpr char PMD_SERVINE_NAME_ARR[] CONFIG_STRING_SECTION = "Servine";
     inline static constexpr const char* PMD_SERVINE_NAME = PMD_SERVINE_NAME_ARR;
     inline static constexpr size_t PMD_SERVINE_NAME_LEN = sizeof(PMD_SERVINE_NAME_ARR)-1;
@@ -18864,7 +18864,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SERPERIOR_FQID_LEN = sizeof(PMD_SERPERIOR_FQID_ARR)-1;
     inline static constexpr char PMD_SERPERIOR_ID_ARR[] CONFIG_STRING_SECTION = "serperior";
     inline static constexpr const char* PMD_SERPERIOR_ID = PMD_SERPERIOR_ID_ARR;
-    inline static constexpr size_t PMD_SERPERIOR_ID_LEN = sizeof(PMD_SERPERIOR_ID)-1;
+    inline static constexpr size_t PMD_SERPERIOR_ID_LEN = sizeof(PMD_SERPERIOR_ID_ARR)-1;
     inline static constexpr char PMD_SERPERIOR_NAME_ARR[] CONFIG_STRING_SECTION = "Serperior";
     inline static constexpr const char* PMD_SERPERIOR_NAME = PMD_SERPERIOR_NAME_ARR;
     inline static constexpr size_t PMD_SERPERIOR_NAME_LEN = sizeof(PMD_SERPERIOR_NAME_ARR)-1;
@@ -18902,7 +18902,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TEPIG_FQID_LEN = sizeof(PMD_TEPIG_FQID_ARR)-1;
     inline static constexpr char PMD_TEPIG_ID_ARR[] CONFIG_STRING_SECTION = "tepig";
     inline static constexpr const char* PMD_TEPIG_ID = PMD_TEPIG_ID_ARR;
-    inline static constexpr size_t PMD_TEPIG_ID_LEN = sizeof(PMD_TEPIG_ID)-1;
+    inline static constexpr size_t PMD_TEPIG_ID_LEN = sizeof(PMD_TEPIG_ID_ARR)-1;
     inline static constexpr char PMD_TEPIG_NAME_ARR[] CONFIG_STRING_SECTION = "Tepig";
     inline static constexpr const char* PMD_TEPIG_NAME = PMD_TEPIG_NAME_ARR;
     inline static constexpr size_t PMD_TEPIG_NAME_LEN = sizeof(PMD_TEPIG_NAME_ARR)-1;
@@ -18940,7 +18940,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PIGNITE_FQID_LEN = sizeof(PMD_PIGNITE_FQID_ARR)-1;
     inline static constexpr char PMD_PIGNITE_ID_ARR[] CONFIG_STRING_SECTION = "pignite";
     inline static constexpr const char* PMD_PIGNITE_ID = PMD_PIGNITE_ID_ARR;
-    inline static constexpr size_t PMD_PIGNITE_ID_LEN = sizeof(PMD_PIGNITE_ID)-1;
+    inline static constexpr size_t PMD_PIGNITE_ID_LEN = sizeof(PMD_PIGNITE_ID_ARR)-1;
     inline static constexpr char PMD_PIGNITE_NAME_ARR[] CONFIG_STRING_SECTION = "Pignite";
     inline static constexpr const char* PMD_PIGNITE_NAME = PMD_PIGNITE_NAME_ARR;
     inline static constexpr size_t PMD_PIGNITE_NAME_LEN = sizeof(PMD_PIGNITE_NAME_ARR)-1;
@@ -18978,7 +18978,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EMBOAR_FQID_LEN = sizeof(PMD_EMBOAR_FQID_ARR)-1;
     inline static constexpr char PMD_EMBOAR_ID_ARR[] CONFIG_STRING_SECTION = "emboar";
     inline static constexpr const char* PMD_EMBOAR_ID = PMD_EMBOAR_ID_ARR;
-    inline static constexpr size_t PMD_EMBOAR_ID_LEN = sizeof(PMD_EMBOAR_ID)-1;
+    inline static constexpr size_t PMD_EMBOAR_ID_LEN = sizeof(PMD_EMBOAR_ID_ARR)-1;
     inline static constexpr char PMD_EMBOAR_NAME_ARR[] CONFIG_STRING_SECTION = "Emboar";
     inline static constexpr const char* PMD_EMBOAR_NAME = PMD_EMBOAR_NAME_ARR;
     inline static constexpr size_t PMD_EMBOAR_NAME_LEN = sizeof(PMD_EMBOAR_NAME_ARR)-1;
@@ -19016,7 +19016,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_OSHAWOTT_FQID_LEN = sizeof(PMD_OSHAWOTT_FQID_ARR)-1;
     inline static constexpr char PMD_OSHAWOTT_ID_ARR[] CONFIG_STRING_SECTION = "oshawott";
     inline static constexpr const char* PMD_OSHAWOTT_ID = PMD_OSHAWOTT_ID_ARR;
-    inline static constexpr size_t PMD_OSHAWOTT_ID_LEN = sizeof(PMD_OSHAWOTT_ID)-1;
+    inline static constexpr size_t PMD_OSHAWOTT_ID_LEN = sizeof(PMD_OSHAWOTT_ID_ARR)-1;
     inline static constexpr char PMD_OSHAWOTT_NAME_ARR[] CONFIG_STRING_SECTION = "Oshawott";
     inline static constexpr const char* PMD_OSHAWOTT_NAME = PMD_OSHAWOTT_NAME_ARR;
     inline static constexpr size_t PMD_OSHAWOTT_NAME_LEN = sizeof(PMD_OSHAWOTT_NAME_ARR)-1;
@@ -19054,7 +19054,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DEWOTT_FQID_LEN = sizeof(PMD_DEWOTT_FQID_ARR)-1;
     inline static constexpr char PMD_DEWOTT_ID_ARR[] CONFIG_STRING_SECTION = "dewott";
     inline static constexpr const char* PMD_DEWOTT_ID = PMD_DEWOTT_ID_ARR;
-    inline static constexpr size_t PMD_DEWOTT_ID_LEN = sizeof(PMD_DEWOTT_ID)-1;
+    inline static constexpr size_t PMD_DEWOTT_ID_LEN = sizeof(PMD_DEWOTT_ID_ARR)-1;
     inline static constexpr char PMD_DEWOTT_NAME_ARR[] CONFIG_STRING_SECTION = "Dewott";
     inline static constexpr const char* PMD_DEWOTT_NAME = PMD_DEWOTT_NAME_ARR;
     inline static constexpr size_t PMD_DEWOTT_NAME_LEN = sizeof(PMD_DEWOTT_NAME_ARR)-1;
@@ -19092,7 +19092,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SAMUROTT_FQID_LEN = sizeof(PMD_SAMUROTT_FQID_ARR)-1;
     inline static constexpr char PMD_SAMUROTT_ID_ARR[] CONFIG_STRING_SECTION = "samurott";
     inline static constexpr const char* PMD_SAMUROTT_ID = PMD_SAMUROTT_ID_ARR;
-    inline static constexpr size_t PMD_SAMUROTT_ID_LEN = sizeof(PMD_SAMUROTT_ID)-1;
+    inline static constexpr size_t PMD_SAMUROTT_ID_LEN = sizeof(PMD_SAMUROTT_ID_ARR)-1;
     inline static constexpr char PMD_SAMUROTT_NAME_ARR[] CONFIG_STRING_SECTION = "Samurott";
     inline static constexpr const char* PMD_SAMUROTT_NAME = PMD_SAMUROTT_NAME_ARR;
     inline static constexpr size_t PMD_SAMUROTT_NAME_LEN = sizeof(PMD_SAMUROTT_NAME_ARR)-1;
@@ -19130,7 +19130,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PATRAT_FQID_LEN = sizeof(PMD_PATRAT_FQID_ARR)-1;
     inline static constexpr char PMD_PATRAT_ID_ARR[] CONFIG_STRING_SECTION = "patrat";
     inline static constexpr const char* PMD_PATRAT_ID = PMD_PATRAT_ID_ARR;
-    inline static constexpr size_t PMD_PATRAT_ID_LEN = sizeof(PMD_PATRAT_ID)-1;
+    inline static constexpr size_t PMD_PATRAT_ID_LEN = sizeof(PMD_PATRAT_ID_ARR)-1;
     inline static constexpr char PMD_PATRAT_NAME_ARR[] CONFIG_STRING_SECTION = "Patrat";
     inline static constexpr const char* PMD_PATRAT_NAME = PMD_PATRAT_NAME_ARR;
     inline static constexpr size_t PMD_PATRAT_NAME_LEN = sizeof(PMD_PATRAT_NAME_ARR)-1;
@@ -19168,7 +19168,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WATCHOG_FQID_LEN = sizeof(PMD_WATCHOG_FQID_ARR)-1;
     inline static constexpr char PMD_WATCHOG_ID_ARR[] CONFIG_STRING_SECTION = "watchog";
     inline static constexpr const char* PMD_WATCHOG_ID = PMD_WATCHOG_ID_ARR;
-    inline static constexpr size_t PMD_WATCHOG_ID_LEN = sizeof(PMD_WATCHOG_ID)-1;
+    inline static constexpr size_t PMD_WATCHOG_ID_LEN = sizeof(PMD_WATCHOG_ID_ARR)-1;
     inline static constexpr char PMD_WATCHOG_NAME_ARR[] CONFIG_STRING_SECTION = "Watchog";
     inline static constexpr const char* PMD_WATCHOG_NAME = PMD_WATCHOG_NAME_ARR;
     inline static constexpr size_t PMD_WATCHOG_NAME_LEN = sizeof(PMD_WATCHOG_NAME_ARR)-1;
@@ -19206,7 +19206,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LILLIPUP_FQID_LEN = sizeof(PMD_LILLIPUP_FQID_ARR)-1;
     inline static constexpr char PMD_LILLIPUP_ID_ARR[] CONFIG_STRING_SECTION = "lillipup";
     inline static constexpr const char* PMD_LILLIPUP_ID = PMD_LILLIPUP_ID_ARR;
-    inline static constexpr size_t PMD_LILLIPUP_ID_LEN = sizeof(PMD_LILLIPUP_ID)-1;
+    inline static constexpr size_t PMD_LILLIPUP_ID_LEN = sizeof(PMD_LILLIPUP_ID_ARR)-1;
     inline static constexpr char PMD_LILLIPUP_NAME_ARR[] CONFIG_STRING_SECTION = "Lillipup";
     inline static constexpr const char* PMD_LILLIPUP_NAME = PMD_LILLIPUP_NAME_ARR;
     inline static constexpr size_t PMD_LILLIPUP_NAME_LEN = sizeof(PMD_LILLIPUP_NAME_ARR)-1;
@@ -19244,7 +19244,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HERDIER_FQID_LEN = sizeof(PMD_HERDIER_FQID_ARR)-1;
     inline static constexpr char PMD_HERDIER_ID_ARR[] CONFIG_STRING_SECTION = "herdier";
     inline static constexpr const char* PMD_HERDIER_ID = PMD_HERDIER_ID_ARR;
-    inline static constexpr size_t PMD_HERDIER_ID_LEN = sizeof(PMD_HERDIER_ID)-1;
+    inline static constexpr size_t PMD_HERDIER_ID_LEN = sizeof(PMD_HERDIER_ID_ARR)-1;
     inline static constexpr char PMD_HERDIER_NAME_ARR[] CONFIG_STRING_SECTION = "Herdier";
     inline static constexpr const char* PMD_HERDIER_NAME = PMD_HERDIER_NAME_ARR;
     inline static constexpr size_t PMD_HERDIER_NAME_LEN = sizeof(PMD_HERDIER_NAME_ARR)-1;
@@ -19282,7 +19282,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STOUTLAND_FQID_LEN = sizeof(PMD_STOUTLAND_FQID_ARR)-1;
     inline static constexpr char PMD_STOUTLAND_ID_ARR[] CONFIG_STRING_SECTION = "stoutland";
     inline static constexpr const char* PMD_STOUTLAND_ID = PMD_STOUTLAND_ID_ARR;
-    inline static constexpr size_t PMD_STOUTLAND_ID_LEN = sizeof(PMD_STOUTLAND_ID)-1;
+    inline static constexpr size_t PMD_STOUTLAND_ID_LEN = sizeof(PMD_STOUTLAND_ID_ARR)-1;
     inline static constexpr char PMD_STOUTLAND_NAME_ARR[] CONFIG_STRING_SECTION = "Stoutland";
     inline static constexpr const char* PMD_STOUTLAND_NAME = PMD_STOUTLAND_NAME_ARR;
     inline static constexpr size_t PMD_STOUTLAND_NAME_LEN = sizeof(PMD_STOUTLAND_NAME_ARR)-1;
@@ -19320,7 +19320,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PURRLOIN_FQID_LEN = sizeof(PMD_PURRLOIN_FQID_ARR)-1;
     inline static constexpr char PMD_PURRLOIN_ID_ARR[] CONFIG_STRING_SECTION = "purrloin";
     inline static constexpr const char* PMD_PURRLOIN_ID = PMD_PURRLOIN_ID_ARR;
-    inline static constexpr size_t PMD_PURRLOIN_ID_LEN = sizeof(PMD_PURRLOIN_ID)-1;
+    inline static constexpr size_t PMD_PURRLOIN_ID_LEN = sizeof(PMD_PURRLOIN_ID_ARR)-1;
     inline static constexpr char PMD_PURRLOIN_NAME_ARR[] CONFIG_STRING_SECTION = "Purrloin";
     inline static constexpr const char* PMD_PURRLOIN_NAME = PMD_PURRLOIN_NAME_ARR;
     inline static constexpr size_t PMD_PURRLOIN_NAME_LEN = sizeof(PMD_PURRLOIN_NAME_ARR)-1;
@@ -19358,7 +19358,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LIEPARD_FQID_LEN = sizeof(PMD_LIEPARD_FQID_ARR)-1;
     inline static constexpr char PMD_LIEPARD_ID_ARR[] CONFIG_STRING_SECTION = "liepard";
     inline static constexpr const char* PMD_LIEPARD_ID = PMD_LIEPARD_ID_ARR;
-    inline static constexpr size_t PMD_LIEPARD_ID_LEN = sizeof(PMD_LIEPARD_ID)-1;
+    inline static constexpr size_t PMD_LIEPARD_ID_LEN = sizeof(PMD_LIEPARD_ID_ARR)-1;
     inline static constexpr char PMD_LIEPARD_NAME_ARR[] CONFIG_STRING_SECTION = "Liepard";
     inline static constexpr const char* PMD_LIEPARD_NAME = PMD_LIEPARD_NAME_ARR;
     inline static constexpr size_t PMD_LIEPARD_NAME_LEN = sizeof(PMD_LIEPARD_NAME_ARR)-1;
@@ -19396,7 +19396,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PANSAGE_FQID_LEN = sizeof(PMD_PANSAGE_FQID_ARR)-1;
     inline static constexpr char PMD_PANSAGE_ID_ARR[] CONFIG_STRING_SECTION = "pansage";
     inline static constexpr const char* PMD_PANSAGE_ID = PMD_PANSAGE_ID_ARR;
-    inline static constexpr size_t PMD_PANSAGE_ID_LEN = sizeof(PMD_PANSAGE_ID)-1;
+    inline static constexpr size_t PMD_PANSAGE_ID_LEN = sizeof(PMD_PANSAGE_ID_ARR)-1;
     inline static constexpr char PMD_PANSAGE_NAME_ARR[] CONFIG_STRING_SECTION = "Pansage";
     inline static constexpr const char* PMD_PANSAGE_NAME = PMD_PANSAGE_NAME_ARR;
     inline static constexpr size_t PMD_PANSAGE_NAME_LEN = sizeof(PMD_PANSAGE_NAME_ARR)-1;
@@ -19434,7 +19434,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SIMISAGE_FQID_LEN = sizeof(PMD_SIMISAGE_FQID_ARR)-1;
     inline static constexpr char PMD_SIMISAGE_ID_ARR[] CONFIG_STRING_SECTION = "simisage";
     inline static constexpr const char* PMD_SIMISAGE_ID = PMD_SIMISAGE_ID_ARR;
-    inline static constexpr size_t PMD_SIMISAGE_ID_LEN = sizeof(PMD_SIMISAGE_ID)-1;
+    inline static constexpr size_t PMD_SIMISAGE_ID_LEN = sizeof(PMD_SIMISAGE_ID_ARR)-1;
     inline static constexpr char PMD_SIMISAGE_NAME_ARR[] CONFIG_STRING_SECTION = "Simisage";
     inline static constexpr const char* PMD_SIMISAGE_NAME = PMD_SIMISAGE_NAME_ARR;
     inline static constexpr size_t PMD_SIMISAGE_NAME_LEN = sizeof(PMD_SIMISAGE_NAME_ARR)-1;
@@ -19472,7 +19472,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PANSEAR_FQID_LEN = sizeof(PMD_PANSEAR_FQID_ARR)-1;
     inline static constexpr char PMD_PANSEAR_ID_ARR[] CONFIG_STRING_SECTION = "pansear";
     inline static constexpr const char* PMD_PANSEAR_ID = PMD_PANSEAR_ID_ARR;
-    inline static constexpr size_t PMD_PANSEAR_ID_LEN = sizeof(PMD_PANSEAR_ID)-1;
+    inline static constexpr size_t PMD_PANSEAR_ID_LEN = sizeof(PMD_PANSEAR_ID_ARR)-1;
     inline static constexpr char PMD_PANSEAR_NAME_ARR[] CONFIG_STRING_SECTION = "Pansear";
     inline static constexpr const char* PMD_PANSEAR_NAME = PMD_PANSEAR_NAME_ARR;
     inline static constexpr size_t PMD_PANSEAR_NAME_LEN = sizeof(PMD_PANSEAR_NAME_ARR)-1;
@@ -19510,7 +19510,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PANPOUR_FQID_LEN = sizeof(PMD_PANPOUR_FQID_ARR)-1;
     inline static constexpr char PMD_PANPOUR_ID_ARR[] CONFIG_STRING_SECTION = "panpour";
     inline static constexpr const char* PMD_PANPOUR_ID = PMD_PANPOUR_ID_ARR;
-    inline static constexpr size_t PMD_PANPOUR_ID_LEN = sizeof(PMD_PANPOUR_ID)-1;
+    inline static constexpr size_t PMD_PANPOUR_ID_LEN = sizeof(PMD_PANPOUR_ID_ARR)-1;
     inline static constexpr char PMD_PANPOUR_NAME_ARR[] CONFIG_STRING_SECTION = "Panpour";
     inline static constexpr const char* PMD_PANPOUR_NAME = PMD_PANPOUR_NAME_ARR;
     inline static constexpr size_t PMD_PANPOUR_NAME_LEN = sizeof(PMD_PANPOUR_NAME_ARR)-1;
@@ -19548,7 +19548,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MUNNA_FQID_LEN = sizeof(PMD_MUNNA_FQID_ARR)-1;
     inline static constexpr char PMD_MUNNA_ID_ARR[] CONFIG_STRING_SECTION = "munna";
     inline static constexpr const char* PMD_MUNNA_ID = PMD_MUNNA_ID_ARR;
-    inline static constexpr size_t PMD_MUNNA_ID_LEN = sizeof(PMD_MUNNA_ID)-1;
+    inline static constexpr size_t PMD_MUNNA_ID_LEN = sizeof(PMD_MUNNA_ID_ARR)-1;
     inline static constexpr char PMD_MUNNA_NAME_ARR[] CONFIG_STRING_SECTION = "Munna";
     inline static constexpr const char* PMD_MUNNA_NAME = PMD_MUNNA_NAME_ARR;
     inline static constexpr size_t PMD_MUNNA_NAME_LEN = sizeof(PMD_MUNNA_NAME_ARR)-1;
@@ -19586,7 +19586,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MUSHARNA_FQID_LEN = sizeof(PMD_MUSHARNA_FQID_ARR)-1;
     inline static constexpr char PMD_MUSHARNA_ID_ARR[] CONFIG_STRING_SECTION = "musharna";
     inline static constexpr const char* PMD_MUSHARNA_ID = PMD_MUSHARNA_ID_ARR;
-    inline static constexpr size_t PMD_MUSHARNA_ID_LEN = sizeof(PMD_MUSHARNA_ID)-1;
+    inline static constexpr size_t PMD_MUSHARNA_ID_LEN = sizeof(PMD_MUSHARNA_ID_ARR)-1;
     inline static constexpr char PMD_MUSHARNA_NAME_ARR[] CONFIG_STRING_SECTION = "Musharna";
     inline static constexpr const char* PMD_MUSHARNA_NAME = PMD_MUSHARNA_NAME_ARR;
     inline static constexpr size_t PMD_MUSHARNA_NAME_LEN = sizeof(PMD_MUSHARNA_NAME_ARR)-1;
@@ -19624,7 +19624,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PIDOVE_FQID_LEN = sizeof(PMD_PIDOVE_FQID_ARR)-1;
     inline static constexpr char PMD_PIDOVE_ID_ARR[] CONFIG_STRING_SECTION = "pidove";
     inline static constexpr const char* PMD_PIDOVE_ID = PMD_PIDOVE_ID_ARR;
-    inline static constexpr size_t PMD_PIDOVE_ID_LEN = sizeof(PMD_PIDOVE_ID)-1;
+    inline static constexpr size_t PMD_PIDOVE_ID_LEN = sizeof(PMD_PIDOVE_ID_ARR)-1;
     inline static constexpr char PMD_PIDOVE_NAME_ARR[] CONFIG_STRING_SECTION = "Pidove";
     inline static constexpr const char* PMD_PIDOVE_NAME = PMD_PIDOVE_NAME_ARR;
     inline static constexpr size_t PMD_PIDOVE_NAME_LEN = sizeof(PMD_PIDOVE_NAME_ARR)-1;
@@ -19662,7 +19662,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_UNFEZANT_FQID_LEN = sizeof(PMD_UNFEZANT_FQID_ARR)-1;
     inline static constexpr char PMD_UNFEZANT_ID_ARR[] CONFIG_STRING_SECTION = "unfezant";
     inline static constexpr const char* PMD_UNFEZANT_ID = PMD_UNFEZANT_ID_ARR;
-    inline static constexpr size_t PMD_UNFEZANT_ID_LEN = sizeof(PMD_UNFEZANT_ID)-1;
+    inline static constexpr size_t PMD_UNFEZANT_ID_LEN = sizeof(PMD_UNFEZANT_ID_ARR)-1;
     inline static constexpr char PMD_UNFEZANT_NAME_ARR[] CONFIG_STRING_SECTION = "Unfezant";
     inline static constexpr const char* PMD_UNFEZANT_NAME = PMD_UNFEZANT_NAME_ARR;
     inline static constexpr size_t PMD_UNFEZANT_NAME_LEN = sizeof(PMD_UNFEZANT_NAME_ARR)-1;
@@ -19700,7 +19700,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ROGGENROLA_FQID_LEN = sizeof(PMD_ROGGENROLA_FQID_ARR)-1;
     inline static constexpr char PMD_ROGGENROLA_ID_ARR[] CONFIG_STRING_SECTION = "roggenrola";
     inline static constexpr const char* PMD_ROGGENROLA_ID = PMD_ROGGENROLA_ID_ARR;
-    inline static constexpr size_t PMD_ROGGENROLA_ID_LEN = sizeof(PMD_ROGGENROLA_ID)-1;
+    inline static constexpr size_t PMD_ROGGENROLA_ID_LEN = sizeof(PMD_ROGGENROLA_ID_ARR)-1;
     inline static constexpr char PMD_ROGGENROLA_NAME_ARR[] CONFIG_STRING_SECTION = "Roggenrola";
     inline static constexpr const char* PMD_ROGGENROLA_NAME = PMD_ROGGENROLA_NAME_ARR;
     inline static constexpr size_t PMD_ROGGENROLA_NAME_LEN = sizeof(PMD_ROGGENROLA_NAME_ARR)-1;
@@ -19738,7 +19738,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BOLDORE_FQID_LEN = sizeof(PMD_BOLDORE_FQID_ARR)-1;
     inline static constexpr char PMD_BOLDORE_ID_ARR[] CONFIG_STRING_SECTION = "boldore";
     inline static constexpr const char* PMD_BOLDORE_ID = PMD_BOLDORE_ID_ARR;
-    inline static constexpr size_t PMD_BOLDORE_ID_LEN = sizeof(PMD_BOLDORE_ID)-1;
+    inline static constexpr size_t PMD_BOLDORE_ID_LEN = sizeof(PMD_BOLDORE_ID_ARR)-1;
     inline static constexpr char PMD_BOLDORE_NAME_ARR[] CONFIG_STRING_SECTION = "Boldore";
     inline static constexpr const char* PMD_BOLDORE_NAME = PMD_BOLDORE_NAME_ARR;
     inline static constexpr size_t PMD_BOLDORE_NAME_LEN = sizeof(PMD_BOLDORE_NAME_ARR)-1;
@@ -19776,7 +19776,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GIGALITH_FQID_LEN = sizeof(PMD_GIGALITH_FQID_ARR)-1;
     inline static constexpr char PMD_GIGALITH_ID_ARR[] CONFIG_STRING_SECTION = "gigalith";
     inline static constexpr const char* PMD_GIGALITH_ID = PMD_GIGALITH_ID_ARR;
-    inline static constexpr size_t PMD_GIGALITH_ID_LEN = sizeof(PMD_GIGALITH_ID)-1;
+    inline static constexpr size_t PMD_GIGALITH_ID_LEN = sizeof(PMD_GIGALITH_ID_ARR)-1;
     inline static constexpr char PMD_GIGALITH_NAME_ARR[] CONFIG_STRING_SECTION = "Gigalith";
     inline static constexpr const char* PMD_GIGALITH_NAME = PMD_GIGALITH_NAME_ARR;
     inline static constexpr size_t PMD_GIGALITH_NAME_LEN = sizeof(PMD_GIGALITH_NAME_ARR)-1;
@@ -19814,7 +19814,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WOOBAT_FQID_LEN = sizeof(PMD_WOOBAT_FQID_ARR)-1;
     inline static constexpr char PMD_WOOBAT_ID_ARR[] CONFIG_STRING_SECTION = "woobat";
     inline static constexpr const char* PMD_WOOBAT_ID = PMD_WOOBAT_ID_ARR;
-    inline static constexpr size_t PMD_WOOBAT_ID_LEN = sizeof(PMD_WOOBAT_ID)-1;
+    inline static constexpr size_t PMD_WOOBAT_ID_LEN = sizeof(PMD_WOOBAT_ID_ARR)-1;
     inline static constexpr char PMD_WOOBAT_NAME_ARR[] CONFIG_STRING_SECTION = "Woobat";
     inline static constexpr const char* PMD_WOOBAT_NAME = PMD_WOOBAT_NAME_ARR;
     inline static constexpr size_t PMD_WOOBAT_NAME_LEN = sizeof(PMD_WOOBAT_NAME_ARR)-1;
@@ -19852,7 +19852,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWOOBAT_FQID_LEN = sizeof(PMD_SWOOBAT_FQID_ARR)-1;
     inline static constexpr char PMD_SWOOBAT_ID_ARR[] CONFIG_STRING_SECTION = "swoobat";
     inline static constexpr const char* PMD_SWOOBAT_ID = PMD_SWOOBAT_ID_ARR;
-    inline static constexpr size_t PMD_SWOOBAT_ID_LEN = sizeof(PMD_SWOOBAT_ID)-1;
+    inline static constexpr size_t PMD_SWOOBAT_ID_LEN = sizeof(PMD_SWOOBAT_ID_ARR)-1;
     inline static constexpr char PMD_SWOOBAT_NAME_ARR[] CONFIG_STRING_SECTION = "Swoobat";
     inline static constexpr const char* PMD_SWOOBAT_NAME = PMD_SWOOBAT_NAME_ARR;
     inline static constexpr size_t PMD_SWOOBAT_NAME_LEN = sizeof(PMD_SWOOBAT_NAME_ARR)-1;
@@ -19890,7 +19890,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRILBUR_FQID_LEN = sizeof(PMD_DRILBUR_FQID_ARR)-1;
     inline static constexpr char PMD_DRILBUR_ID_ARR[] CONFIG_STRING_SECTION = "drilbur";
     inline static constexpr const char* PMD_DRILBUR_ID = PMD_DRILBUR_ID_ARR;
-    inline static constexpr size_t PMD_DRILBUR_ID_LEN = sizeof(PMD_DRILBUR_ID)-1;
+    inline static constexpr size_t PMD_DRILBUR_ID_LEN = sizeof(PMD_DRILBUR_ID_ARR)-1;
     inline static constexpr char PMD_DRILBUR_NAME_ARR[] CONFIG_STRING_SECTION = "Drilbur";
     inline static constexpr const char* PMD_DRILBUR_NAME = PMD_DRILBUR_NAME_ARR;
     inline static constexpr size_t PMD_DRILBUR_NAME_LEN = sizeof(PMD_DRILBUR_NAME_ARR)-1;
@@ -19928,7 +19928,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EXCADRILL_FQID_LEN = sizeof(PMD_EXCADRILL_FQID_ARR)-1;
     inline static constexpr char PMD_EXCADRILL_ID_ARR[] CONFIG_STRING_SECTION = "excadrill";
     inline static constexpr const char* PMD_EXCADRILL_ID = PMD_EXCADRILL_ID_ARR;
-    inline static constexpr size_t PMD_EXCADRILL_ID_LEN = sizeof(PMD_EXCADRILL_ID)-1;
+    inline static constexpr size_t PMD_EXCADRILL_ID_LEN = sizeof(PMD_EXCADRILL_ID_ARR)-1;
     inline static constexpr char PMD_EXCADRILL_NAME_ARR[] CONFIG_STRING_SECTION = "Excadrill";
     inline static constexpr const char* PMD_EXCADRILL_NAME = PMD_EXCADRILL_NAME_ARR;
     inline static constexpr size_t PMD_EXCADRILL_NAME_LEN = sizeof(PMD_EXCADRILL_NAME_ARR)-1;
@@ -19966,7 +19966,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AUDINO_FQID_LEN = sizeof(PMD_AUDINO_FQID_ARR)-1;
     inline static constexpr char PMD_AUDINO_ID_ARR[] CONFIG_STRING_SECTION = "audino";
     inline static constexpr const char* PMD_AUDINO_ID = PMD_AUDINO_ID_ARR;
-    inline static constexpr size_t PMD_AUDINO_ID_LEN = sizeof(PMD_AUDINO_ID)-1;
+    inline static constexpr size_t PMD_AUDINO_ID_LEN = sizeof(PMD_AUDINO_ID_ARR)-1;
     inline static constexpr char PMD_AUDINO_NAME_ARR[] CONFIG_STRING_SECTION = "Audino";
     inline static constexpr const char* PMD_AUDINO_NAME = PMD_AUDINO_NAME_ARR;
     inline static constexpr size_t PMD_AUDINO_NAME_LEN = sizeof(PMD_AUDINO_NAME_ARR)-1;
@@ -20004,7 +20004,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TIMBURR_FQID_LEN = sizeof(PMD_TIMBURR_FQID_ARR)-1;
     inline static constexpr char PMD_TIMBURR_ID_ARR[] CONFIG_STRING_SECTION = "timburr";
     inline static constexpr const char* PMD_TIMBURR_ID = PMD_TIMBURR_ID_ARR;
-    inline static constexpr size_t PMD_TIMBURR_ID_LEN = sizeof(PMD_TIMBURR_ID)-1;
+    inline static constexpr size_t PMD_TIMBURR_ID_LEN = sizeof(PMD_TIMBURR_ID_ARR)-1;
     inline static constexpr char PMD_TIMBURR_NAME_ARR[] CONFIG_STRING_SECTION = "Timburr";
     inline static constexpr const char* PMD_TIMBURR_NAME = PMD_TIMBURR_NAME_ARR;
     inline static constexpr size_t PMD_TIMBURR_NAME_LEN = sizeof(PMD_TIMBURR_NAME_ARR)-1;
@@ -20042,7 +20042,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GURDURR_FQID_LEN = sizeof(PMD_GURDURR_FQID_ARR)-1;
     inline static constexpr char PMD_GURDURR_ID_ARR[] CONFIG_STRING_SECTION = "gurdurr";
     inline static constexpr const char* PMD_GURDURR_ID = PMD_GURDURR_ID_ARR;
-    inline static constexpr size_t PMD_GURDURR_ID_LEN = sizeof(PMD_GURDURR_ID)-1;
+    inline static constexpr size_t PMD_GURDURR_ID_LEN = sizeof(PMD_GURDURR_ID_ARR)-1;
     inline static constexpr char PMD_GURDURR_NAME_ARR[] CONFIG_STRING_SECTION = "Gurdurr";
     inline static constexpr const char* PMD_GURDURR_NAME = PMD_GURDURR_NAME_ARR;
     inline static constexpr size_t PMD_GURDURR_NAME_LEN = sizeof(PMD_GURDURR_NAME_ARR)-1;
@@ -20080,7 +20080,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CONKELDURR_FQID_LEN = sizeof(PMD_CONKELDURR_FQID_ARR)-1;
     inline static constexpr char PMD_CONKELDURR_ID_ARR[] CONFIG_STRING_SECTION = "conkeldurr";
     inline static constexpr const char* PMD_CONKELDURR_ID = PMD_CONKELDURR_ID_ARR;
-    inline static constexpr size_t PMD_CONKELDURR_ID_LEN = sizeof(PMD_CONKELDURR_ID)-1;
+    inline static constexpr size_t PMD_CONKELDURR_ID_LEN = sizeof(PMD_CONKELDURR_ID_ARR)-1;
     inline static constexpr char PMD_CONKELDURR_NAME_ARR[] CONFIG_STRING_SECTION = "Conkeldurr";
     inline static constexpr const char* PMD_CONKELDURR_NAME = PMD_CONKELDURR_NAME_ARR;
     inline static constexpr size_t PMD_CONKELDURR_NAME_LEN = sizeof(PMD_CONKELDURR_NAME_ARR)-1;
@@ -20118,7 +20118,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYMPOLE_FQID_LEN = sizeof(PMD_TYMPOLE_FQID_ARR)-1;
     inline static constexpr char PMD_TYMPOLE_ID_ARR[] CONFIG_STRING_SECTION = "tympole";
     inline static constexpr const char* PMD_TYMPOLE_ID = PMD_TYMPOLE_ID_ARR;
-    inline static constexpr size_t PMD_TYMPOLE_ID_LEN = sizeof(PMD_TYMPOLE_ID)-1;
+    inline static constexpr size_t PMD_TYMPOLE_ID_LEN = sizeof(PMD_TYMPOLE_ID_ARR)-1;
     inline static constexpr char PMD_TYMPOLE_NAME_ARR[] CONFIG_STRING_SECTION = "Tympole";
     inline static constexpr const char* PMD_TYMPOLE_NAME = PMD_TYMPOLE_NAME_ARR;
     inline static constexpr size_t PMD_TYMPOLE_NAME_LEN = sizeof(PMD_TYMPOLE_NAME_ARR)-1;
@@ -20156,7 +20156,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PALPITOAD_FQID_LEN = sizeof(PMD_PALPITOAD_FQID_ARR)-1;
     inline static constexpr char PMD_PALPITOAD_ID_ARR[] CONFIG_STRING_SECTION = "palpitoad";
     inline static constexpr const char* PMD_PALPITOAD_ID = PMD_PALPITOAD_ID_ARR;
-    inline static constexpr size_t PMD_PALPITOAD_ID_LEN = sizeof(PMD_PALPITOAD_ID)-1;
+    inline static constexpr size_t PMD_PALPITOAD_ID_LEN = sizeof(PMD_PALPITOAD_ID_ARR)-1;
     inline static constexpr char PMD_PALPITOAD_NAME_ARR[] CONFIG_STRING_SECTION = "Palpitoad";
     inline static constexpr const char* PMD_PALPITOAD_NAME = PMD_PALPITOAD_NAME_ARR;
     inline static constexpr size_t PMD_PALPITOAD_NAME_LEN = sizeof(PMD_PALPITOAD_NAME_ARR)-1;
@@ -20194,7 +20194,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEISMITOAD_FQID_LEN = sizeof(PMD_SEISMITOAD_FQID_ARR)-1;
     inline static constexpr char PMD_SEISMITOAD_ID_ARR[] CONFIG_STRING_SECTION = "seismitoad";
     inline static constexpr const char* PMD_SEISMITOAD_ID = PMD_SEISMITOAD_ID_ARR;
-    inline static constexpr size_t PMD_SEISMITOAD_ID_LEN = sizeof(PMD_SEISMITOAD_ID)-1;
+    inline static constexpr size_t PMD_SEISMITOAD_ID_LEN = sizeof(PMD_SEISMITOAD_ID_ARR)-1;
     inline static constexpr char PMD_SEISMITOAD_NAME_ARR[] CONFIG_STRING_SECTION = "Seismitoad";
     inline static constexpr const char* PMD_SEISMITOAD_NAME = PMD_SEISMITOAD_NAME_ARR;
     inline static constexpr size_t PMD_SEISMITOAD_NAME_LEN = sizeof(PMD_SEISMITOAD_NAME_ARR)-1;
@@ -20232,7 +20232,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SEWADDLE_FQID_LEN = sizeof(PMD_SEWADDLE_FQID_ARR)-1;
     inline static constexpr char PMD_SEWADDLE_ID_ARR[] CONFIG_STRING_SECTION = "sewaddle";
     inline static constexpr const char* PMD_SEWADDLE_ID = PMD_SEWADDLE_ID_ARR;
-    inline static constexpr size_t PMD_SEWADDLE_ID_LEN = sizeof(PMD_SEWADDLE_ID)-1;
+    inline static constexpr size_t PMD_SEWADDLE_ID_LEN = sizeof(PMD_SEWADDLE_ID_ARR)-1;
     inline static constexpr char PMD_SEWADDLE_NAME_ARR[] CONFIG_STRING_SECTION = "Sewaddle";
     inline static constexpr const char* PMD_SEWADDLE_NAME = PMD_SEWADDLE_NAME_ARR;
     inline static constexpr size_t PMD_SEWADDLE_NAME_LEN = sizeof(PMD_SEWADDLE_NAME_ARR)-1;
@@ -20270,7 +20270,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWADLOON_FQID_LEN = sizeof(PMD_SWADLOON_FQID_ARR)-1;
     inline static constexpr char PMD_SWADLOON_ID_ARR[] CONFIG_STRING_SECTION = "swadloon";
     inline static constexpr const char* PMD_SWADLOON_ID = PMD_SWADLOON_ID_ARR;
-    inline static constexpr size_t PMD_SWADLOON_ID_LEN = sizeof(PMD_SWADLOON_ID)-1;
+    inline static constexpr size_t PMD_SWADLOON_ID_LEN = sizeof(PMD_SWADLOON_ID_ARR)-1;
     inline static constexpr char PMD_SWADLOON_NAME_ARR[] CONFIG_STRING_SECTION = "Swadloon";
     inline static constexpr const char* PMD_SWADLOON_NAME = PMD_SWADLOON_NAME_ARR;
     inline static constexpr size_t PMD_SWADLOON_NAME_LEN = sizeof(PMD_SWADLOON_NAME_ARR)-1;
@@ -20308,7 +20308,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LEAVANNY_FQID_LEN = sizeof(PMD_LEAVANNY_FQID_ARR)-1;
     inline static constexpr char PMD_LEAVANNY_ID_ARR[] CONFIG_STRING_SECTION = "leavanny";
     inline static constexpr const char* PMD_LEAVANNY_ID = PMD_LEAVANNY_ID_ARR;
-    inline static constexpr size_t PMD_LEAVANNY_ID_LEN = sizeof(PMD_LEAVANNY_ID)-1;
+    inline static constexpr size_t PMD_LEAVANNY_ID_LEN = sizeof(PMD_LEAVANNY_ID_ARR)-1;
     inline static constexpr char PMD_LEAVANNY_NAME_ARR[] CONFIG_STRING_SECTION = "Leavanny";
     inline static constexpr const char* PMD_LEAVANNY_NAME = PMD_LEAVANNY_NAME_ARR;
     inline static constexpr size_t PMD_LEAVANNY_NAME_LEN = sizeof(PMD_LEAVANNY_NAME_ARR)-1;
@@ -20346,7 +20346,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VENIPEDE_FQID_LEN = sizeof(PMD_VENIPEDE_FQID_ARR)-1;
     inline static constexpr char PMD_VENIPEDE_ID_ARR[] CONFIG_STRING_SECTION = "venipede";
     inline static constexpr const char* PMD_VENIPEDE_ID = PMD_VENIPEDE_ID_ARR;
-    inline static constexpr size_t PMD_VENIPEDE_ID_LEN = sizeof(PMD_VENIPEDE_ID)-1;
+    inline static constexpr size_t PMD_VENIPEDE_ID_LEN = sizeof(PMD_VENIPEDE_ID_ARR)-1;
     inline static constexpr char PMD_VENIPEDE_NAME_ARR[] CONFIG_STRING_SECTION = "Venipede";
     inline static constexpr const char* PMD_VENIPEDE_NAME = PMD_VENIPEDE_NAME_ARR;
     inline static constexpr size_t PMD_VENIPEDE_NAME_LEN = sizeof(PMD_VENIPEDE_NAME_ARR)-1;
@@ -20384,7 +20384,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WHIRLIPEDE_FQID_LEN = sizeof(PMD_WHIRLIPEDE_FQID_ARR)-1;
     inline static constexpr char PMD_WHIRLIPEDE_ID_ARR[] CONFIG_STRING_SECTION = "whirlipede";
     inline static constexpr const char* PMD_WHIRLIPEDE_ID = PMD_WHIRLIPEDE_ID_ARR;
-    inline static constexpr size_t PMD_WHIRLIPEDE_ID_LEN = sizeof(PMD_WHIRLIPEDE_ID)-1;
+    inline static constexpr size_t PMD_WHIRLIPEDE_ID_LEN = sizeof(PMD_WHIRLIPEDE_ID_ARR)-1;
     inline static constexpr char PMD_WHIRLIPEDE_NAME_ARR[] CONFIG_STRING_SECTION = "Whirlipede";
     inline static constexpr const char* PMD_WHIRLIPEDE_NAME = PMD_WHIRLIPEDE_NAME_ARR;
     inline static constexpr size_t PMD_WHIRLIPEDE_NAME_LEN = sizeof(PMD_WHIRLIPEDE_NAME_ARR)-1;
@@ -20422,7 +20422,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCOLIPEDE_FQID_LEN = sizeof(PMD_SCOLIPEDE_FQID_ARR)-1;
     inline static constexpr char PMD_SCOLIPEDE_ID_ARR[] CONFIG_STRING_SECTION = "scolipede";
     inline static constexpr const char* PMD_SCOLIPEDE_ID = PMD_SCOLIPEDE_ID_ARR;
-    inline static constexpr size_t PMD_SCOLIPEDE_ID_LEN = sizeof(PMD_SCOLIPEDE_ID)-1;
+    inline static constexpr size_t PMD_SCOLIPEDE_ID_LEN = sizeof(PMD_SCOLIPEDE_ID_ARR)-1;
     inline static constexpr char PMD_SCOLIPEDE_NAME_ARR[] CONFIG_STRING_SECTION = "Scolipede";
     inline static constexpr const char* PMD_SCOLIPEDE_NAME = PMD_SCOLIPEDE_NAME_ARR;
     inline static constexpr size_t PMD_SCOLIPEDE_NAME_LEN = sizeof(PMD_SCOLIPEDE_NAME_ARR)-1;
@@ -20460,7 +20460,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COTTONEE_FQID_LEN = sizeof(PMD_COTTONEE_FQID_ARR)-1;
     inline static constexpr char PMD_COTTONEE_ID_ARR[] CONFIG_STRING_SECTION = "cottonee";
     inline static constexpr const char* PMD_COTTONEE_ID = PMD_COTTONEE_ID_ARR;
-    inline static constexpr size_t PMD_COTTONEE_ID_LEN = sizeof(PMD_COTTONEE_ID)-1;
+    inline static constexpr size_t PMD_COTTONEE_ID_LEN = sizeof(PMD_COTTONEE_ID_ARR)-1;
     inline static constexpr char PMD_COTTONEE_NAME_ARR[] CONFIG_STRING_SECTION = "Cottonee";
     inline static constexpr const char* PMD_COTTONEE_NAME = PMD_COTTONEE_NAME_ARR;
     inline static constexpr size_t PMD_COTTONEE_NAME_LEN = sizeof(PMD_COTTONEE_NAME_ARR)-1;
@@ -20498,7 +20498,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WHIMSICOTT_FQID_LEN = sizeof(PMD_WHIMSICOTT_FQID_ARR)-1;
     inline static constexpr char PMD_WHIMSICOTT_ID_ARR[] CONFIG_STRING_SECTION = "whimsicott";
     inline static constexpr const char* PMD_WHIMSICOTT_ID = PMD_WHIMSICOTT_ID_ARR;
-    inline static constexpr size_t PMD_WHIMSICOTT_ID_LEN = sizeof(PMD_WHIMSICOTT_ID)-1;
+    inline static constexpr size_t PMD_WHIMSICOTT_ID_LEN = sizeof(PMD_WHIMSICOTT_ID_ARR)-1;
     inline static constexpr char PMD_WHIMSICOTT_NAME_ARR[] CONFIG_STRING_SECTION = "Whimsicott";
     inline static constexpr const char* PMD_WHIMSICOTT_NAME = PMD_WHIMSICOTT_NAME_ARR;
     inline static constexpr size_t PMD_WHIMSICOTT_NAME_LEN = sizeof(PMD_WHIMSICOTT_NAME_ARR)-1;
@@ -20536,7 +20536,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PETILIL_FQID_LEN = sizeof(PMD_PETILIL_FQID_ARR)-1;
     inline static constexpr char PMD_PETILIL_ID_ARR[] CONFIG_STRING_SECTION = "petilil";
     inline static constexpr const char* PMD_PETILIL_ID = PMD_PETILIL_ID_ARR;
-    inline static constexpr size_t PMD_PETILIL_ID_LEN = sizeof(PMD_PETILIL_ID)-1;
+    inline static constexpr size_t PMD_PETILIL_ID_LEN = sizeof(PMD_PETILIL_ID_ARR)-1;
     inline static constexpr char PMD_PETILIL_NAME_ARR[] CONFIG_STRING_SECTION = "Petilil";
     inline static constexpr const char* PMD_PETILIL_NAME = PMD_PETILIL_NAME_ARR;
     inline static constexpr size_t PMD_PETILIL_NAME_LEN = sizeof(PMD_PETILIL_NAME_ARR)-1;
@@ -20574,7 +20574,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LILLIGANT_FQID_LEN = sizeof(PMD_LILLIGANT_FQID_ARR)-1;
     inline static constexpr char PMD_LILLIGANT_ID_ARR[] CONFIG_STRING_SECTION = "lilligant";
     inline static constexpr const char* PMD_LILLIGANT_ID = PMD_LILLIGANT_ID_ARR;
-    inline static constexpr size_t PMD_LILLIGANT_ID_LEN = sizeof(PMD_LILLIGANT_ID)-1;
+    inline static constexpr size_t PMD_LILLIGANT_ID_LEN = sizeof(PMD_LILLIGANT_ID_ARR)-1;
     inline static constexpr char PMD_LILLIGANT_NAME_ARR[] CONFIG_STRING_SECTION = "Lilligant";
     inline static constexpr const char* PMD_LILLIGANT_NAME = PMD_LILLIGANT_NAME_ARR;
     inline static constexpr size_t PMD_LILLIGANT_NAME_LEN = sizeof(PMD_LILLIGANT_NAME_ARR)-1;
@@ -20612,7 +20612,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BASCULIN_FQID_LEN = sizeof(PMD_BASCULIN_FQID_ARR)-1;
     inline static constexpr char PMD_BASCULIN_ID_ARR[] CONFIG_STRING_SECTION = "basculin";
     inline static constexpr const char* PMD_BASCULIN_ID = PMD_BASCULIN_ID_ARR;
-    inline static constexpr size_t PMD_BASCULIN_ID_LEN = sizeof(PMD_BASCULIN_ID)-1;
+    inline static constexpr size_t PMD_BASCULIN_ID_LEN = sizeof(PMD_BASCULIN_ID_ARR)-1;
     inline static constexpr char PMD_BASCULIN_NAME_ARR[] CONFIG_STRING_SECTION = "Basculin";
     inline static constexpr const char* PMD_BASCULIN_NAME = PMD_BASCULIN_NAME_ARR;
     inline static constexpr size_t PMD_BASCULIN_NAME_LEN = sizeof(PMD_BASCULIN_NAME_ARR)-1;
@@ -20650,7 +20650,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SANDILE_FQID_LEN = sizeof(PMD_SANDILE_FQID_ARR)-1;
     inline static constexpr char PMD_SANDILE_ID_ARR[] CONFIG_STRING_SECTION = "sandile";
     inline static constexpr const char* PMD_SANDILE_ID = PMD_SANDILE_ID_ARR;
-    inline static constexpr size_t PMD_SANDILE_ID_LEN = sizeof(PMD_SANDILE_ID)-1;
+    inline static constexpr size_t PMD_SANDILE_ID_LEN = sizeof(PMD_SANDILE_ID_ARR)-1;
     inline static constexpr char PMD_SANDILE_NAME_ARR[] CONFIG_STRING_SECTION = "Sandile";
     inline static constexpr const char* PMD_SANDILE_NAME = PMD_SANDILE_NAME_ARR;
     inline static constexpr size_t PMD_SANDILE_NAME_LEN = sizeof(PMD_SANDILE_NAME_ARR)-1;
@@ -20688,7 +20688,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KROKOROK_FQID_LEN = sizeof(PMD_KROKOROK_FQID_ARR)-1;
     inline static constexpr char PMD_KROKOROK_ID_ARR[] CONFIG_STRING_SECTION = "krokorok";
     inline static constexpr const char* PMD_KROKOROK_ID = PMD_KROKOROK_ID_ARR;
-    inline static constexpr size_t PMD_KROKOROK_ID_LEN = sizeof(PMD_KROKOROK_ID)-1;
+    inline static constexpr size_t PMD_KROKOROK_ID_LEN = sizeof(PMD_KROKOROK_ID_ARR)-1;
     inline static constexpr char PMD_KROKOROK_NAME_ARR[] CONFIG_STRING_SECTION = "Krokorok";
     inline static constexpr const char* PMD_KROKOROK_NAME = PMD_KROKOROK_NAME_ARR;
     inline static constexpr size_t PMD_KROKOROK_NAME_LEN = sizeof(PMD_KROKOROK_NAME_ARR)-1;
@@ -20726,7 +20726,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KROOKODILE_FQID_LEN = sizeof(PMD_KROOKODILE_FQID_ARR)-1;
     inline static constexpr char PMD_KROOKODILE_ID_ARR[] CONFIG_STRING_SECTION = "krookodile";
     inline static constexpr const char* PMD_KROOKODILE_ID = PMD_KROOKODILE_ID_ARR;
-    inline static constexpr size_t PMD_KROOKODILE_ID_LEN = sizeof(PMD_KROOKODILE_ID)-1;
+    inline static constexpr size_t PMD_KROOKODILE_ID_LEN = sizeof(PMD_KROOKODILE_ID_ARR)-1;
     inline static constexpr char PMD_KROOKODILE_NAME_ARR[] CONFIG_STRING_SECTION = "Krookodile";
     inline static constexpr const char* PMD_KROOKODILE_NAME = PMD_KROOKODILE_NAME_ARR;
     inline static constexpr size_t PMD_KROOKODILE_NAME_LEN = sizeof(PMD_KROOKODILE_NAME_ARR)-1;
@@ -20764,7 +20764,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DARUMAKA_FQID_LEN = sizeof(PMD_DARUMAKA_FQID_ARR)-1;
     inline static constexpr char PMD_DARUMAKA_ID_ARR[] CONFIG_STRING_SECTION = "darumaka";
     inline static constexpr const char* PMD_DARUMAKA_ID = PMD_DARUMAKA_ID_ARR;
-    inline static constexpr size_t PMD_DARUMAKA_ID_LEN = sizeof(PMD_DARUMAKA_ID)-1;
+    inline static constexpr size_t PMD_DARUMAKA_ID_LEN = sizeof(PMD_DARUMAKA_ID_ARR)-1;
     inline static constexpr char PMD_DARUMAKA_NAME_ARR[] CONFIG_STRING_SECTION = "Darumaka";
     inline static constexpr const char* PMD_DARUMAKA_NAME = PMD_DARUMAKA_NAME_ARR;
     inline static constexpr size_t PMD_DARUMAKA_NAME_LEN = sizeof(PMD_DARUMAKA_NAME_ARR)-1;
@@ -20802,7 +20802,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DARMANITAN_FQID_LEN = sizeof(PMD_DARMANITAN_FQID_ARR)-1;
     inline static constexpr char PMD_DARMANITAN_ID_ARR[] CONFIG_STRING_SECTION = "darmanitan";
     inline static constexpr const char* PMD_DARMANITAN_ID = PMD_DARMANITAN_ID_ARR;
-    inline static constexpr size_t PMD_DARMANITAN_ID_LEN = sizeof(PMD_DARMANITAN_ID)-1;
+    inline static constexpr size_t PMD_DARMANITAN_ID_LEN = sizeof(PMD_DARMANITAN_ID_ARR)-1;
     inline static constexpr char PMD_DARMANITAN_NAME_ARR[] CONFIG_STRING_SECTION = "Darmanitan";
     inline static constexpr const char* PMD_DARMANITAN_NAME = PMD_DARMANITAN_NAME_ARR;
     inline static constexpr size_t PMD_DARMANITAN_NAME_LEN = sizeof(PMD_DARMANITAN_NAME_ARR)-1;
@@ -20840,7 +20840,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MARACTUS_FQID_LEN = sizeof(PMD_MARACTUS_FQID_ARR)-1;
     inline static constexpr char PMD_MARACTUS_ID_ARR[] CONFIG_STRING_SECTION = "maractus";
     inline static constexpr const char* PMD_MARACTUS_ID = PMD_MARACTUS_ID_ARR;
-    inline static constexpr size_t PMD_MARACTUS_ID_LEN = sizeof(PMD_MARACTUS_ID)-1;
+    inline static constexpr size_t PMD_MARACTUS_ID_LEN = sizeof(PMD_MARACTUS_ID_ARR)-1;
     inline static constexpr char PMD_MARACTUS_NAME_ARR[] CONFIG_STRING_SECTION = "Maractus";
     inline static constexpr const char* PMD_MARACTUS_NAME = PMD_MARACTUS_NAME_ARR;
     inline static constexpr size_t PMD_MARACTUS_NAME_LEN = sizeof(PMD_MARACTUS_NAME_ARR)-1;
@@ -20878,7 +20878,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DWEBBLE_FQID_LEN = sizeof(PMD_DWEBBLE_FQID_ARR)-1;
     inline static constexpr char PMD_DWEBBLE_ID_ARR[] CONFIG_STRING_SECTION = "dwebble";
     inline static constexpr const char* PMD_DWEBBLE_ID = PMD_DWEBBLE_ID_ARR;
-    inline static constexpr size_t PMD_DWEBBLE_ID_LEN = sizeof(PMD_DWEBBLE_ID)-1;
+    inline static constexpr size_t PMD_DWEBBLE_ID_LEN = sizeof(PMD_DWEBBLE_ID_ARR)-1;
     inline static constexpr char PMD_DWEBBLE_NAME_ARR[] CONFIG_STRING_SECTION = "Dwebble";
     inline static constexpr const char* PMD_DWEBBLE_NAME = PMD_DWEBBLE_NAME_ARR;
     inline static constexpr size_t PMD_DWEBBLE_NAME_LEN = sizeof(PMD_DWEBBLE_NAME_ARR)-1;
@@ -20916,7 +20916,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCRAGGY_FQID_LEN = sizeof(PMD_SCRAGGY_FQID_ARR)-1;
     inline static constexpr char PMD_SCRAGGY_ID_ARR[] CONFIG_STRING_SECTION = "scraggy";
     inline static constexpr const char* PMD_SCRAGGY_ID = PMD_SCRAGGY_ID_ARR;
-    inline static constexpr size_t PMD_SCRAGGY_ID_LEN = sizeof(PMD_SCRAGGY_ID)-1;
+    inline static constexpr size_t PMD_SCRAGGY_ID_LEN = sizeof(PMD_SCRAGGY_ID_ARR)-1;
     inline static constexpr char PMD_SCRAGGY_NAME_ARR[] CONFIG_STRING_SECTION = "Scraggy";
     inline static constexpr const char* PMD_SCRAGGY_NAME = PMD_SCRAGGY_NAME_ARR;
     inline static constexpr size_t PMD_SCRAGGY_NAME_LEN = sizeof(PMD_SCRAGGY_NAME_ARR)-1;
@@ -20954,7 +20954,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCRAFTY_FQID_LEN = sizeof(PMD_SCRAFTY_FQID_ARR)-1;
     inline static constexpr char PMD_SCRAFTY_ID_ARR[] CONFIG_STRING_SECTION = "scrafty";
     inline static constexpr const char* PMD_SCRAFTY_ID = PMD_SCRAFTY_ID_ARR;
-    inline static constexpr size_t PMD_SCRAFTY_ID_LEN = sizeof(PMD_SCRAFTY_ID)-1;
+    inline static constexpr size_t PMD_SCRAFTY_ID_LEN = sizeof(PMD_SCRAFTY_ID_ARR)-1;
     inline static constexpr char PMD_SCRAFTY_NAME_ARR[] CONFIG_STRING_SECTION = "Scrafty";
     inline static constexpr const char* PMD_SCRAFTY_NAME = PMD_SCRAFTY_NAME_ARR;
     inline static constexpr size_t PMD_SCRAFTY_NAME_LEN = sizeof(PMD_SCRAFTY_NAME_ARR)-1;
@@ -20992,7 +20992,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SIGILYPH_FQID_LEN = sizeof(PMD_SIGILYPH_FQID_ARR)-1;
     inline static constexpr char PMD_SIGILYPH_ID_ARR[] CONFIG_STRING_SECTION = "sigilyph";
     inline static constexpr const char* PMD_SIGILYPH_ID = PMD_SIGILYPH_ID_ARR;
-    inline static constexpr size_t PMD_SIGILYPH_ID_LEN = sizeof(PMD_SIGILYPH_ID)-1;
+    inline static constexpr size_t PMD_SIGILYPH_ID_LEN = sizeof(PMD_SIGILYPH_ID_ARR)-1;
     inline static constexpr char PMD_SIGILYPH_NAME_ARR[] CONFIG_STRING_SECTION = "Sigilyph";
     inline static constexpr const char* PMD_SIGILYPH_NAME = PMD_SIGILYPH_NAME_ARR;
     inline static constexpr size_t PMD_SIGILYPH_NAME_LEN = sizeof(PMD_SIGILYPH_NAME_ARR)-1;
@@ -21030,7 +21030,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_YAMASK_FQID_LEN = sizeof(PMD_YAMASK_FQID_ARR)-1;
     inline static constexpr char PMD_YAMASK_ID_ARR[] CONFIG_STRING_SECTION = "yamask";
     inline static constexpr const char* PMD_YAMASK_ID = PMD_YAMASK_ID_ARR;
-    inline static constexpr size_t PMD_YAMASK_ID_LEN = sizeof(PMD_YAMASK_ID)-1;
+    inline static constexpr size_t PMD_YAMASK_ID_LEN = sizeof(PMD_YAMASK_ID_ARR)-1;
     inline static constexpr char PMD_YAMASK_NAME_ARR[] CONFIG_STRING_SECTION = "Yamask";
     inline static constexpr const char* PMD_YAMASK_NAME = PMD_YAMASK_NAME_ARR;
     inline static constexpr size_t PMD_YAMASK_NAME_LEN = sizeof(PMD_YAMASK_NAME_ARR)-1;
@@ -21068,7 +21068,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COFAGRIGUS_FQID_LEN = sizeof(PMD_COFAGRIGUS_FQID_ARR)-1;
     inline static constexpr char PMD_COFAGRIGUS_ID_ARR[] CONFIG_STRING_SECTION = "cofagrigus";
     inline static constexpr const char* PMD_COFAGRIGUS_ID = PMD_COFAGRIGUS_ID_ARR;
-    inline static constexpr size_t PMD_COFAGRIGUS_ID_LEN = sizeof(PMD_COFAGRIGUS_ID)-1;
+    inline static constexpr size_t PMD_COFAGRIGUS_ID_LEN = sizeof(PMD_COFAGRIGUS_ID_ARR)-1;
     inline static constexpr char PMD_COFAGRIGUS_NAME_ARR[] CONFIG_STRING_SECTION = "Cofagrigus";
     inline static constexpr const char* PMD_COFAGRIGUS_NAME = PMD_COFAGRIGUS_NAME_ARR;
     inline static constexpr size_t PMD_COFAGRIGUS_NAME_LEN = sizeof(PMD_COFAGRIGUS_NAME_ARR)-1;
@@ -21106,7 +21106,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARCHEN_FQID_LEN = sizeof(PMD_ARCHEN_FQID_ARR)-1;
     inline static constexpr char PMD_ARCHEN_ID_ARR[] CONFIG_STRING_SECTION = "archen";
     inline static constexpr const char* PMD_ARCHEN_ID = PMD_ARCHEN_ID_ARR;
-    inline static constexpr size_t PMD_ARCHEN_ID_LEN = sizeof(PMD_ARCHEN_ID)-1;
+    inline static constexpr size_t PMD_ARCHEN_ID_LEN = sizeof(PMD_ARCHEN_ID_ARR)-1;
     inline static constexpr char PMD_ARCHEN_NAME_ARR[] CONFIG_STRING_SECTION = "Archen";
     inline static constexpr const char* PMD_ARCHEN_NAME = PMD_ARCHEN_NAME_ARR;
     inline static constexpr size_t PMD_ARCHEN_NAME_LEN = sizeof(PMD_ARCHEN_NAME_ARR)-1;
@@ -21144,7 +21144,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARCHEOPS_FQID_LEN = sizeof(PMD_ARCHEOPS_FQID_ARR)-1;
     inline static constexpr char PMD_ARCHEOPS_ID_ARR[] CONFIG_STRING_SECTION = "archeops";
     inline static constexpr const char* PMD_ARCHEOPS_ID = PMD_ARCHEOPS_ID_ARR;
-    inline static constexpr size_t PMD_ARCHEOPS_ID_LEN = sizeof(PMD_ARCHEOPS_ID)-1;
+    inline static constexpr size_t PMD_ARCHEOPS_ID_LEN = sizeof(PMD_ARCHEOPS_ID_ARR)-1;
     inline static constexpr char PMD_ARCHEOPS_NAME_ARR[] CONFIG_STRING_SECTION = "Archeops";
     inline static constexpr const char* PMD_ARCHEOPS_NAME = PMD_ARCHEOPS_NAME_ARR;
     inline static constexpr size_t PMD_ARCHEOPS_NAME_LEN = sizeof(PMD_ARCHEOPS_NAME_ARR)-1;
@@ -21182,7 +21182,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TRUBBISH_FQID_LEN = sizeof(PMD_TRUBBISH_FQID_ARR)-1;
     inline static constexpr char PMD_TRUBBISH_ID_ARR[] CONFIG_STRING_SECTION = "trubbish";
     inline static constexpr const char* PMD_TRUBBISH_ID = PMD_TRUBBISH_ID_ARR;
-    inline static constexpr size_t PMD_TRUBBISH_ID_LEN = sizeof(PMD_TRUBBISH_ID)-1;
+    inline static constexpr size_t PMD_TRUBBISH_ID_LEN = sizeof(PMD_TRUBBISH_ID_ARR)-1;
     inline static constexpr char PMD_TRUBBISH_NAME_ARR[] CONFIG_STRING_SECTION = "Trubbish";
     inline static constexpr const char* PMD_TRUBBISH_NAME = PMD_TRUBBISH_NAME_ARR;
     inline static constexpr size_t PMD_TRUBBISH_NAME_LEN = sizeof(PMD_TRUBBISH_NAME_ARR)-1;
@@ -21220,7 +21220,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GARBODOR_FQID_LEN = sizeof(PMD_GARBODOR_FQID_ARR)-1;
     inline static constexpr char PMD_GARBODOR_ID_ARR[] CONFIG_STRING_SECTION = "garbodor";
     inline static constexpr const char* PMD_GARBODOR_ID = PMD_GARBODOR_ID_ARR;
-    inline static constexpr size_t PMD_GARBODOR_ID_LEN = sizeof(PMD_GARBODOR_ID)-1;
+    inline static constexpr size_t PMD_GARBODOR_ID_LEN = sizeof(PMD_GARBODOR_ID_ARR)-1;
     inline static constexpr char PMD_GARBODOR_NAME_ARR[] CONFIG_STRING_SECTION = "Garbodor";
     inline static constexpr const char* PMD_GARBODOR_NAME = PMD_GARBODOR_NAME_ARR;
     inline static constexpr size_t PMD_GARBODOR_NAME_LEN = sizeof(PMD_GARBODOR_NAME_ARR)-1;
@@ -21258,7 +21258,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZORUA_FQID_LEN = sizeof(PMD_ZORUA_FQID_ARR)-1;
     inline static constexpr char PMD_ZORUA_ID_ARR[] CONFIG_STRING_SECTION = "zorua";
     inline static constexpr const char* PMD_ZORUA_ID = PMD_ZORUA_ID_ARR;
-    inline static constexpr size_t PMD_ZORUA_ID_LEN = sizeof(PMD_ZORUA_ID)-1;
+    inline static constexpr size_t PMD_ZORUA_ID_LEN = sizeof(PMD_ZORUA_ID_ARR)-1;
     inline static constexpr char PMD_ZORUA_NAME_ARR[] CONFIG_STRING_SECTION = "Zorua";
     inline static constexpr const char* PMD_ZORUA_NAME = PMD_ZORUA_NAME_ARR;
     inline static constexpr size_t PMD_ZORUA_NAME_LEN = sizeof(PMD_ZORUA_NAME_ARR)-1;
@@ -21296,7 +21296,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZOROARK_FQID_LEN = sizeof(PMD_ZOROARK_FQID_ARR)-1;
     inline static constexpr char PMD_ZOROARK_ID_ARR[] CONFIG_STRING_SECTION = "zoroark";
     inline static constexpr const char* PMD_ZOROARK_ID = PMD_ZOROARK_ID_ARR;
-    inline static constexpr size_t PMD_ZOROARK_ID_LEN = sizeof(PMD_ZOROARK_ID)-1;
+    inline static constexpr size_t PMD_ZOROARK_ID_LEN = sizeof(PMD_ZOROARK_ID_ARR)-1;
     inline static constexpr char PMD_ZOROARK_NAME_ARR[] CONFIG_STRING_SECTION = "Zoroark";
     inline static constexpr const char* PMD_ZOROARK_NAME = PMD_ZOROARK_NAME_ARR;
     inline static constexpr size_t PMD_ZOROARK_NAME_LEN = sizeof(PMD_ZOROARK_NAME_ARR)-1;
@@ -21334,7 +21334,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MINCCINO_FQID_LEN = sizeof(PMD_MINCCINO_FQID_ARR)-1;
     inline static constexpr char PMD_MINCCINO_ID_ARR[] CONFIG_STRING_SECTION = "minccino";
     inline static constexpr const char* PMD_MINCCINO_ID = PMD_MINCCINO_ID_ARR;
-    inline static constexpr size_t PMD_MINCCINO_ID_LEN = sizeof(PMD_MINCCINO_ID)-1;
+    inline static constexpr size_t PMD_MINCCINO_ID_LEN = sizeof(PMD_MINCCINO_ID_ARR)-1;
     inline static constexpr char PMD_MINCCINO_NAME_ARR[] CONFIG_STRING_SECTION = "Minccino";
     inline static constexpr const char* PMD_MINCCINO_NAME = PMD_MINCCINO_NAME_ARR;
     inline static constexpr size_t PMD_MINCCINO_NAME_LEN = sizeof(PMD_MINCCINO_NAME_ARR)-1;
@@ -21372,7 +21372,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CINCCINO_FQID_LEN = sizeof(PMD_CINCCINO_FQID_ARR)-1;
     inline static constexpr char PMD_CINCCINO_ID_ARR[] CONFIG_STRING_SECTION = "cinccino";
     inline static constexpr const char* PMD_CINCCINO_ID = PMD_CINCCINO_ID_ARR;
-    inline static constexpr size_t PMD_CINCCINO_ID_LEN = sizeof(PMD_CINCCINO_ID)-1;
+    inline static constexpr size_t PMD_CINCCINO_ID_LEN = sizeof(PMD_CINCCINO_ID_ARR)-1;
     inline static constexpr char PMD_CINCCINO_NAME_ARR[] CONFIG_STRING_SECTION = "Cinccino";
     inline static constexpr const char* PMD_CINCCINO_NAME = PMD_CINCCINO_NAME_ARR;
     inline static constexpr size_t PMD_CINCCINO_NAME_LEN = sizeof(PMD_CINCCINO_NAME_ARR)-1;
@@ -21410,7 +21410,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOTHITA_FQID_LEN = sizeof(PMD_GOTHITA_FQID_ARR)-1;
     inline static constexpr char PMD_GOTHITA_ID_ARR[] CONFIG_STRING_SECTION = "gothita";
     inline static constexpr const char* PMD_GOTHITA_ID = PMD_GOTHITA_ID_ARR;
-    inline static constexpr size_t PMD_GOTHITA_ID_LEN = sizeof(PMD_GOTHITA_ID)-1;
+    inline static constexpr size_t PMD_GOTHITA_ID_LEN = sizeof(PMD_GOTHITA_ID_ARR)-1;
     inline static constexpr char PMD_GOTHITA_NAME_ARR[] CONFIG_STRING_SECTION = "Gothita";
     inline static constexpr const char* PMD_GOTHITA_NAME = PMD_GOTHITA_NAME_ARR;
     inline static constexpr size_t PMD_GOTHITA_NAME_LEN = sizeof(PMD_GOTHITA_NAME_ARR)-1;
@@ -21448,7 +21448,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOTHORITA_FQID_LEN = sizeof(PMD_GOTHORITA_FQID_ARR)-1;
     inline static constexpr char PMD_GOTHORITA_ID_ARR[] CONFIG_STRING_SECTION = "gothorita";
     inline static constexpr const char* PMD_GOTHORITA_ID = PMD_GOTHORITA_ID_ARR;
-    inline static constexpr size_t PMD_GOTHORITA_ID_LEN = sizeof(PMD_GOTHORITA_ID)-1;
+    inline static constexpr size_t PMD_GOTHORITA_ID_LEN = sizeof(PMD_GOTHORITA_ID_ARR)-1;
     inline static constexpr char PMD_GOTHORITA_NAME_ARR[] CONFIG_STRING_SECTION = "Gothorita";
     inline static constexpr const char* PMD_GOTHORITA_NAME = PMD_GOTHORITA_NAME_ARR;
     inline static constexpr size_t PMD_GOTHORITA_NAME_LEN = sizeof(PMD_GOTHORITA_NAME_ARR)-1;
@@ -21486,7 +21486,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOTHITELLE_FQID_LEN = sizeof(PMD_GOTHITELLE_FQID_ARR)-1;
     inline static constexpr char PMD_GOTHITELLE_ID_ARR[] CONFIG_STRING_SECTION = "gothitelle";
     inline static constexpr const char* PMD_GOTHITELLE_ID = PMD_GOTHITELLE_ID_ARR;
-    inline static constexpr size_t PMD_GOTHITELLE_ID_LEN = sizeof(PMD_GOTHITELLE_ID)-1;
+    inline static constexpr size_t PMD_GOTHITELLE_ID_LEN = sizeof(PMD_GOTHITELLE_ID_ARR)-1;
     inline static constexpr char PMD_GOTHITELLE_NAME_ARR[] CONFIG_STRING_SECTION = "Gothitelle";
     inline static constexpr const char* PMD_GOTHITELLE_NAME = PMD_GOTHITELLE_NAME_ARR;
     inline static constexpr size_t PMD_GOTHITELLE_NAME_LEN = sizeof(PMD_GOTHITELLE_NAME_ARR)-1;
@@ -21524,7 +21524,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SOLOSIS_FQID_LEN = sizeof(PMD_SOLOSIS_FQID_ARR)-1;
     inline static constexpr char PMD_SOLOSIS_ID_ARR[] CONFIG_STRING_SECTION = "solosis";
     inline static constexpr const char* PMD_SOLOSIS_ID = PMD_SOLOSIS_ID_ARR;
-    inline static constexpr size_t PMD_SOLOSIS_ID_LEN = sizeof(PMD_SOLOSIS_ID)-1;
+    inline static constexpr size_t PMD_SOLOSIS_ID_LEN = sizeof(PMD_SOLOSIS_ID_ARR)-1;
     inline static constexpr char PMD_SOLOSIS_NAME_ARR[] CONFIG_STRING_SECTION = "Solosis";
     inline static constexpr const char* PMD_SOLOSIS_NAME = PMD_SOLOSIS_NAME_ARR;
     inline static constexpr size_t PMD_SOLOSIS_NAME_LEN = sizeof(PMD_SOLOSIS_NAME_ARR)-1;
@@ -21562,7 +21562,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DUOSION_FQID_LEN = sizeof(PMD_DUOSION_FQID_ARR)-1;
     inline static constexpr char PMD_DUOSION_ID_ARR[] CONFIG_STRING_SECTION = "duosion";
     inline static constexpr const char* PMD_DUOSION_ID = PMD_DUOSION_ID_ARR;
-    inline static constexpr size_t PMD_DUOSION_ID_LEN = sizeof(PMD_DUOSION_ID)-1;
+    inline static constexpr size_t PMD_DUOSION_ID_LEN = sizeof(PMD_DUOSION_ID_ARR)-1;
     inline static constexpr char PMD_DUOSION_NAME_ARR[] CONFIG_STRING_SECTION = "Duosion";
     inline static constexpr const char* PMD_DUOSION_NAME = PMD_DUOSION_NAME_ARR;
     inline static constexpr size_t PMD_DUOSION_NAME_LEN = sizeof(PMD_DUOSION_NAME_ARR)-1;
@@ -21600,7 +21600,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REUNICLUS_FQID_LEN = sizeof(PMD_REUNICLUS_FQID_ARR)-1;
     inline static constexpr char PMD_REUNICLUS_ID_ARR[] CONFIG_STRING_SECTION = "reuniclus";
     inline static constexpr const char* PMD_REUNICLUS_ID = PMD_REUNICLUS_ID_ARR;
-    inline static constexpr size_t PMD_REUNICLUS_ID_LEN = sizeof(PMD_REUNICLUS_ID)-1;
+    inline static constexpr size_t PMD_REUNICLUS_ID_LEN = sizeof(PMD_REUNICLUS_ID_ARR)-1;
     inline static constexpr char PMD_REUNICLUS_NAME_ARR[] CONFIG_STRING_SECTION = "Reuniclus";
     inline static constexpr const char* PMD_REUNICLUS_NAME = PMD_REUNICLUS_NAME_ARR;
     inline static constexpr size_t PMD_REUNICLUS_NAME_LEN = sizeof(PMD_REUNICLUS_NAME_ARR)-1;
@@ -21638,7 +21638,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWANNA_FQID_LEN = sizeof(PMD_SWANNA_FQID_ARR)-1;
     inline static constexpr char PMD_SWANNA_ID_ARR[] CONFIG_STRING_SECTION = "swanna";
     inline static constexpr const char* PMD_SWANNA_ID = PMD_SWANNA_ID_ARR;
-    inline static constexpr size_t PMD_SWANNA_ID_LEN = sizeof(PMD_SWANNA_ID)-1;
+    inline static constexpr size_t PMD_SWANNA_ID_LEN = sizeof(PMD_SWANNA_ID_ARR)-1;
     inline static constexpr char PMD_SWANNA_NAME_ARR[] CONFIG_STRING_SECTION = "Swanna";
     inline static constexpr const char* PMD_SWANNA_NAME = PMD_SWANNA_NAME_ARR;
     inline static constexpr size_t PMD_SWANNA_NAME_LEN = sizeof(PMD_SWANNA_NAME_ARR)-1;
@@ -21676,7 +21676,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VANILLITE_FQID_LEN = sizeof(PMD_VANILLITE_FQID_ARR)-1;
     inline static constexpr char PMD_VANILLITE_ID_ARR[] CONFIG_STRING_SECTION = "vanillite";
     inline static constexpr const char* PMD_VANILLITE_ID = PMD_VANILLITE_ID_ARR;
-    inline static constexpr size_t PMD_VANILLITE_ID_LEN = sizeof(PMD_VANILLITE_ID)-1;
+    inline static constexpr size_t PMD_VANILLITE_ID_LEN = sizeof(PMD_VANILLITE_ID_ARR)-1;
     inline static constexpr char PMD_VANILLITE_NAME_ARR[] CONFIG_STRING_SECTION = "Vanillite";
     inline static constexpr const char* PMD_VANILLITE_NAME = PMD_VANILLITE_NAME_ARR;
     inline static constexpr size_t PMD_VANILLITE_NAME_LEN = sizeof(PMD_VANILLITE_NAME_ARR)-1;
@@ -21714,7 +21714,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VANILLISH_FQID_LEN = sizeof(PMD_VANILLISH_FQID_ARR)-1;
     inline static constexpr char PMD_VANILLISH_ID_ARR[] CONFIG_STRING_SECTION = "vanillish";
     inline static constexpr const char* PMD_VANILLISH_ID = PMD_VANILLISH_ID_ARR;
-    inline static constexpr size_t PMD_VANILLISH_ID_LEN = sizeof(PMD_VANILLISH_ID)-1;
+    inline static constexpr size_t PMD_VANILLISH_ID_LEN = sizeof(PMD_VANILLISH_ID_ARR)-1;
     inline static constexpr char PMD_VANILLISH_NAME_ARR[] CONFIG_STRING_SECTION = "Vanillish";
     inline static constexpr const char* PMD_VANILLISH_NAME = PMD_VANILLISH_NAME_ARR;
     inline static constexpr size_t PMD_VANILLISH_NAME_LEN = sizeof(PMD_VANILLISH_NAME_ARR)-1;
@@ -21752,7 +21752,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VANILLUXE_FQID_LEN = sizeof(PMD_VANILLUXE_FQID_ARR)-1;
     inline static constexpr char PMD_VANILLUXE_ID_ARR[] CONFIG_STRING_SECTION = "vanilluxe";
     inline static constexpr const char* PMD_VANILLUXE_ID = PMD_VANILLUXE_ID_ARR;
-    inline static constexpr size_t PMD_VANILLUXE_ID_LEN = sizeof(PMD_VANILLUXE_ID)-1;
+    inline static constexpr size_t PMD_VANILLUXE_ID_LEN = sizeof(PMD_VANILLUXE_ID_ARR)-1;
     inline static constexpr char PMD_VANILLUXE_NAME_ARR[] CONFIG_STRING_SECTION = "Vanilluxe";
     inline static constexpr const char* PMD_VANILLUXE_NAME = PMD_VANILLUXE_NAME_ARR;
     inline static constexpr size_t PMD_VANILLUXE_NAME_LEN = sizeof(PMD_VANILLUXE_NAME_ARR)-1;
@@ -21790,7 +21790,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DEERLING_FQID_LEN = sizeof(PMD_DEERLING_FQID_ARR)-1;
     inline static constexpr char PMD_DEERLING_ID_ARR[] CONFIG_STRING_SECTION = "deerling";
     inline static constexpr const char* PMD_DEERLING_ID = PMD_DEERLING_ID_ARR;
-    inline static constexpr size_t PMD_DEERLING_ID_LEN = sizeof(PMD_DEERLING_ID)-1;
+    inline static constexpr size_t PMD_DEERLING_ID_LEN = sizeof(PMD_DEERLING_ID_ARR)-1;
     inline static constexpr char PMD_DEERLING_NAME_ARR[] CONFIG_STRING_SECTION = "Deerling";
     inline static constexpr const char* PMD_DEERLING_NAME = PMD_DEERLING_NAME_ARR;
     inline static constexpr size_t PMD_DEERLING_NAME_LEN = sizeof(PMD_DEERLING_NAME_ARR)-1;
@@ -21828,7 +21828,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SAWSBUCK_FQID_LEN = sizeof(PMD_SAWSBUCK_FQID_ARR)-1;
     inline static constexpr char PMD_SAWSBUCK_ID_ARR[] CONFIG_STRING_SECTION = "sawsbuck";
     inline static constexpr const char* PMD_SAWSBUCK_ID = PMD_SAWSBUCK_ID_ARR;
-    inline static constexpr size_t PMD_SAWSBUCK_ID_LEN = sizeof(PMD_SAWSBUCK_ID)-1;
+    inline static constexpr size_t PMD_SAWSBUCK_ID_LEN = sizeof(PMD_SAWSBUCK_ID_ARR)-1;
     inline static constexpr char PMD_SAWSBUCK_NAME_ARR[] CONFIG_STRING_SECTION = "Sawsbuck";
     inline static constexpr const char* PMD_SAWSBUCK_NAME = PMD_SAWSBUCK_NAME_ARR;
     inline static constexpr size_t PMD_SAWSBUCK_NAME_LEN = sizeof(PMD_SAWSBUCK_NAME_ARR)-1;
@@ -21866,7 +21866,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EMOLGA_FQID_LEN = sizeof(PMD_EMOLGA_FQID_ARR)-1;
     inline static constexpr char PMD_EMOLGA_ID_ARR[] CONFIG_STRING_SECTION = "emolga";
     inline static constexpr const char* PMD_EMOLGA_ID = PMD_EMOLGA_ID_ARR;
-    inline static constexpr size_t PMD_EMOLGA_ID_LEN = sizeof(PMD_EMOLGA_ID)-1;
+    inline static constexpr size_t PMD_EMOLGA_ID_LEN = sizeof(PMD_EMOLGA_ID_ARR)-1;
     inline static constexpr char PMD_EMOLGA_NAME_ARR[] CONFIG_STRING_SECTION = "Emolga";
     inline static constexpr const char* PMD_EMOLGA_NAME = PMD_EMOLGA_NAME_ARR;
     inline static constexpr size_t PMD_EMOLGA_NAME_LEN = sizeof(PMD_EMOLGA_NAME_ARR)-1;
@@ -21904,7 +21904,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KARRABLAST_FQID_LEN = sizeof(PMD_KARRABLAST_FQID_ARR)-1;
     inline static constexpr char PMD_KARRABLAST_ID_ARR[] CONFIG_STRING_SECTION = "karrablast";
     inline static constexpr const char* PMD_KARRABLAST_ID = PMD_KARRABLAST_ID_ARR;
-    inline static constexpr size_t PMD_KARRABLAST_ID_LEN = sizeof(PMD_KARRABLAST_ID)-1;
+    inline static constexpr size_t PMD_KARRABLAST_ID_LEN = sizeof(PMD_KARRABLAST_ID_ARR)-1;
     inline static constexpr char PMD_KARRABLAST_NAME_ARR[] CONFIG_STRING_SECTION = "Karrablast";
     inline static constexpr const char* PMD_KARRABLAST_NAME = PMD_KARRABLAST_NAME_ARR;
     inline static constexpr size_t PMD_KARRABLAST_NAME_LEN = sizeof(PMD_KARRABLAST_NAME_ARR)-1;
@@ -21942,7 +21942,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ESCAVALIER_FQID_LEN = sizeof(PMD_ESCAVALIER_FQID_ARR)-1;
     inline static constexpr char PMD_ESCAVALIER_ID_ARR[] CONFIG_STRING_SECTION = "escavalier";
     inline static constexpr const char* PMD_ESCAVALIER_ID = PMD_ESCAVALIER_ID_ARR;
-    inline static constexpr size_t PMD_ESCAVALIER_ID_LEN = sizeof(PMD_ESCAVALIER_ID)-1;
+    inline static constexpr size_t PMD_ESCAVALIER_ID_LEN = sizeof(PMD_ESCAVALIER_ID_ARR)-1;
     inline static constexpr char PMD_ESCAVALIER_NAME_ARR[] CONFIG_STRING_SECTION = "Escavalier";
     inline static constexpr const char* PMD_ESCAVALIER_NAME = PMD_ESCAVALIER_NAME_ARR;
     inline static constexpr size_t PMD_ESCAVALIER_NAME_LEN = sizeof(PMD_ESCAVALIER_NAME_ARR)-1;
@@ -21980,7 +21980,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FOONGUS_FQID_LEN = sizeof(PMD_FOONGUS_FQID_ARR)-1;
     inline static constexpr char PMD_FOONGUS_ID_ARR[] CONFIG_STRING_SECTION = "foongus";
     inline static constexpr const char* PMD_FOONGUS_ID = PMD_FOONGUS_ID_ARR;
-    inline static constexpr size_t PMD_FOONGUS_ID_LEN = sizeof(PMD_FOONGUS_ID)-1;
+    inline static constexpr size_t PMD_FOONGUS_ID_LEN = sizeof(PMD_FOONGUS_ID_ARR)-1;
     inline static constexpr char PMD_FOONGUS_NAME_ARR[] CONFIG_STRING_SECTION = "Foongus";
     inline static constexpr const char* PMD_FOONGUS_NAME = PMD_FOONGUS_NAME_ARR;
     inline static constexpr size_t PMD_FOONGUS_NAME_LEN = sizeof(PMD_FOONGUS_NAME_ARR)-1;
@@ -22018,7 +22018,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JELLICENT_FQID_LEN = sizeof(PMD_JELLICENT_FQID_ARR)-1;
     inline static constexpr char PMD_JELLICENT_ID_ARR[] CONFIG_STRING_SECTION = "jellicent";
     inline static constexpr const char* PMD_JELLICENT_ID = PMD_JELLICENT_ID_ARR;
-    inline static constexpr size_t PMD_JELLICENT_ID_LEN = sizeof(PMD_JELLICENT_ID)-1;
+    inline static constexpr size_t PMD_JELLICENT_ID_LEN = sizeof(PMD_JELLICENT_ID_ARR)-1;
     inline static constexpr char PMD_JELLICENT_NAME_ARR[] CONFIG_STRING_SECTION = "Jellicent";
     inline static constexpr const char* PMD_JELLICENT_NAME = PMD_JELLICENT_NAME_ARR;
     inline static constexpr size_t PMD_JELLICENT_NAME_LEN = sizeof(PMD_JELLICENT_NAME_ARR)-1;
@@ -22056,7 +22056,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ALOMOMOLA_FQID_LEN = sizeof(PMD_ALOMOMOLA_FQID_ARR)-1;
     inline static constexpr char PMD_ALOMOMOLA_ID_ARR[] CONFIG_STRING_SECTION = "alomomola";
     inline static constexpr const char* PMD_ALOMOMOLA_ID = PMD_ALOMOMOLA_ID_ARR;
-    inline static constexpr size_t PMD_ALOMOMOLA_ID_LEN = sizeof(PMD_ALOMOMOLA_ID)-1;
+    inline static constexpr size_t PMD_ALOMOMOLA_ID_LEN = sizeof(PMD_ALOMOMOLA_ID_ARR)-1;
     inline static constexpr char PMD_ALOMOMOLA_NAME_ARR[] CONFIG_STRING_SECTION = "Alomomola";
     inline static constexpr const char* PMD_ALOMOMOLA_NAME = PMD_ALOMOMOLA_NAME_ARR;
     inline static constexpr size_t PMD_ALOMOMOLA_NAME_LEN = sizeof(PMD_ALOMOMOLA_NAME_ARR)-1;
@@ -22094,7 +22094,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JOLTIK_FQID_LEN = sizeof(PMD_JOLTIK_FQID_ARR)-1;
     inline static constexpr char PMD_JOLTIK_ID_ARR[] CONFIG_STRING_SECTION = "joltik";
     inline static constexpr const char* PMD_JOLTIK_ID = PMD_JOLTIK_ID_ARR;
-    inline static constexpr size_t PMD_JOLTIK_ID_LEN = sizeof(PMD_JOLTIK_ID)-1;
+    inline static constexpr size_t PMD_JOLTIK_ID_LEN = sizeof(PMD_JOLTIK_ID_ARR)-1;
     inline static constexpr char PMD_JOLTIK_NAME_ARR[] CONFIG_STRING_SECTION = "Joltik";
     inline static constexpr const char* PMD_JOLTIK_NAME = PMD_JOLTIK_NAME_ARR;
     inline static constexpr size_t PMD_JOLTIK_NAME_LEN = sizeof(PMD_JOLTIK_NAME_ARR)-1;
@@ -22132,7 +22132,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GALVANTULA_FQID_LEN = sizeof(PMD_GALVANTULA_FQID_ARR)-1;
     inline static constexpr char PMD_GALVANTULA_ID_ARR[] CONFIG_STRING_SECTION = "galvantula";
     inline static constexpr const char* PMD_GALVANTULA_ID = PMD_GALVANTULA_ID_ARR;
-    inline static constexpr size_t PMD_GALVANTULA_ID_LEN = sizeof(PMD_GALVANTULA_ID)-1;
+    inline static constexpr size_t PMD_GALVANTULA_ID_LEN = sizeof(PMD_GALVANTULA_ID_ARR)-1;
     inline static constexpr char PMD_GALVANTULA_NAME_ARR[] CONFIG_STRING_SECTION = "Galvantula";
     inline static constexpr const char* PMD_GALVANTULA_NAME = PMD_GALVANTULA_NAME_ARR;
     inline static constexpr size_t PMD_GALVANTULA_NAME_LEN = sizeof(PMD_GALVANTULA_NAME_ARR)-1;
@@ -22170,7 +22170,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FERROSEED_FQID_LEN = sizeof(PMD_FERROSEED_FQID_ARR)-1;
     inline static constexpr char PMD_FERROSEED_ID_ARR[] CONFIG_STRING_SECTION = "ferroseed";
     inline static constexpr const char* PMD_FERROSEED_ID = PMD_FERROSEED_ID_ARR;
-    inline static constexpr size_t PMD_FERROSEED_ID_LEN = sizeof(PMD_FERROSEED_ID)-1;
+    inline static constexpr size_t PMD_FERROSEED_ID_LEN = sizeof(PMD_FERROSEED_ID_ARR)-1;
     inline static constexpr char PMD_FERROSEED_NAME_ARR[] CONFIG_STRING_SECTION = "Ferroseed";
     inline static constexpr const char* PMD_FERROSEED_NAME = PMD_FERROSEED_NAME_ARR;
     inline static constexpr size_t PMD_FERROSEED_NAME_LEN = sizeof(PMD_FERROSEED_NAME_ARR)-1;
@@ -22208,7 +22208,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FERROTHORN_FQID_LEN = sizeof(PMD_FERROTHORN_FQID_ARR)-1;
     inline static constexpr char PMD_FERROTHORN_ID_ARR[] CONFIG_STRING_SECTION = "ferrothorn";
     inline static constexpr const char* PMD_FERROTHORN_ID = PMD_FERROTHORN_ID_ARR;
-    inline static constexpr size_t PMD_FERROTHORN_ID_LEN = sizeof(PMD_FERROTHORN_ID)-1;
+    inline static constexpr size_t PMD_FERROTHORN_ID_LEN = sizeof(PMD_FERROTHORN_ID_ARR)-1;
     inline static constexpr char PMD_FERROTHORN_NAME_ARR[] CONFIG_STRING_SECTION = "Ferrothorn";
     inline static constexpr const char* PMD_FERROTHORN_NAME = PMD_FERROTHORN_NAME_ARR;
     inline static constexpr size_t PMD_FERROTHORN_NAME_LEN = sizeof(PMD_FERROTHORN_NAME_ARR)-1;
@@ -22246,7 +22246,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYNAMO_FQID_LEN = sizeof(PMD_TYNAMO_FQID_ARR)-1;
     inline static constexpr char PMD_TYNAMO_ID_ARR[] CONFIG_STRING_SECTION = "tynamo";
     inline static constexpr const char* PMD_TYNAMO_ID = PMD_TYNAMO_ID_ARR;
-    inline static constexpr size_t PMD_TYNAMO_ID_LEN = sizeof(PMD_TYNAMO_ID)-1;
+    inline static constexpr size_t PMD_TYNAMO_ID_LEN = sizeof(PMD_TYNAMO_ID_ARR)-1;
     inline static constexpr char PMD_TYNAMO_NAME_ARR[] CONFIG_STRING_SECTION = "Tynamo";
     inline static constexpr const char* PMD_TYNAMO_NAME = PMD_TYNAMO_NAME_ARR;
     inline static constexpr size_t PMD_TYNAMO_NAME_LEN = sizeof(PMD_TYNAMO_NAME_ARR)-1;
@@ -22284,7 +22284,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EELEKTRIK_FQID_LEN = sizeof(PMD_EELEKTRIK_FQID_ARR)-1;
     inline static constexpr char PMD_EELEKTRIK_ID_ARR[] CONFIG_STRING_SECTION = "eelektrik";
     inline static constexpr const char* PMD_EELEKTRIK_ID = PMD_EELEKTRIK_ID_ARR;
-    inline static constexpr size_t PMD_EELEKTRIK_ID_LEN = sizeof(PMD_EELEKTRIK_ID)-1;
+    inline static constexpr size_t PMD_EELEKTRIK_ID_LEN = sizeof(PMD_EELEKTRIK_ID_ARR)-1;
     inline static constexpr char PMD_EELEKTRIK_NAME_ARR[] CONFIG_STRING_SECTION = "Eelektrik";
     inline static constexpr const char* PMD_EELEKTRIK_NAME = PMD_EELEKTRIK_NAME_ARR;
     inline static constexpr size_t PMD_EELEKTRIK_NAME_LEN = sizeof(PMD_EELEKTRIK_NAME_ARR)-1;
@@ -22322,7 +22322,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EELEKTROSS_FQID_LEN = sizeof(PMD_EELEKTROSS_FQID_ARR)-1;
     inline static constexpr char PMD_EELEKTROSS_ID_ARR[] CONFIG_STRING_SECTION = "eelektross";
     inline static constexpr const char* PMD_EELEKTROSS_ID = PMD_EELEKTROSS_ID_ARR;
-    inline static constexpr size_t PMD_EELEKTROSS_ID_LEN = sizeof(PMD_EELEKTROSS_ID)-1;
+    inline static constexpr size_t PMD_EELEKTROSS_ID_LEN = sizeof(PMD_EELEKTROSS_ID_ARR)-1;
     inline static constexpr char PMD_EELEKTROSS_NAME_ARR[] CONFIG_STRING_SECTION = "Eelektross";
     inline static constexpr const char* PMD_EELEKTROSS_NAME = PMD_EELEKTROSS_NAME_ARR;
     inline static constexpr size_t PMD_EELEKTROSS_NAME_LEN = sizeof(PMD_EELEKTROSS_NAME_ARR)-1;
@@ -22360,7 +22360,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ELGYEM_FQID_LEN = sizeof(PMD_ELGYEM_FQID_ARR)-1;
     inline static constexpr char PMD_ELGYEM_ID_ARR[] CONFIG_STRING_SECTION = "elgyem";
     inline static constexpr const char* PMD_ELGYEM_ID = PMD_ELGYEM_ID_ARR;
-    inline static constexpr size_t PMD_ELGYEM_ID_LEN = sizeof(PMD_ELGYEM_ID)-1;
+    inline static constexpr size_t PMD_ELGYEM_ID_LEN = sizeof(PMD_ELGYEM_ID_ARR)-1;
     inline static constexpr char PMD_ELGYEM_NAME_ARR[] CONFIG_STRING_SECTION = "Elgyem";
     inline static constexpr const char* PMD_ELGYEM_NAME = PMD_ELGYEM_NAME_ARR;
     inline static constexpr size_t PMD_ELGYEM_NAME_LEN = sizeof(PMD_ELGYEM_NAME_ARR)-1;
@@ -22398,7 +22398,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BEHEEYEM_FQID_LEN = sizeof(PMD_BEHEEYEM_FQID_ARR)-1;
     inline static constexpr char PMD_BEHEEYEM_ID_ARR[] CONFIG_STRING_SECTION = "beheeyem";
     inline static constexpr const char* PMD_BEHEEYEM_ID = PMD_BEHEEYEM_ID_ARR;
-    inline static constexpr size_t PMD_BEHEEYEM_ID_LEN = sizeof(PMD_BEHEEYEM_ID)-1;
+    inline static constexpr size_t PMD_BEHEEYEM_ID_LEN = sizeof(PMD_BEHEEYEM_ID_ARR)-1;
     inline static constexpr char PMD_BEHEEYEM_NAME_ARR[] CONFIG_STRING_SECTION = "Beheeyem";
     inline static constexpr const char* PMD_BEHEEYEM_NAME = PMD_BEHEEYEM_NAME_ARR;
     inline static constexpr size_t PMD_BEHEEYEM_NAME_LEN = sizeof(PMD_BEHEEYEM_NAME_ARR)-1;
@@ -22436,7 +22436,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LITWICK_FQID_LEN = sizeof(PMD_LITWICK_FQID_ARR)-1;
     inline static constexpr char PMD_LITWICK_ID_ARR[] CONFIG_STRING_SECTION = "litwick";
     inline static constexpr const char* PMD_LITWICK_ID = PMD_LITWICK_ID_ARR;
-    inline static constexpr size_t PMD_LITWICK_ID_LEN = sizeof(PMD_LITWICK_ID)-1;
+    inline static constexpr size_t PMD_LITWICK_ID_LEN = sizeof(PMD_LITWICK_ID_ARR)-1;
     inline static constexpr char PMD_LITWICK_NAME_ARR[] CONFIG_STRING_SECTION = "Litwick";
     inline static constexpr const char* PMD_LITWICK_NAME = PMD_LITWICK_NAME_ARR;
     inline static constexpr size_t PMD_LITWICK_NAME_LEN = sizeof(PMD_LITWICK_NAME_ARR)-1;
@@ -22474,7 +22474,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LAMPENT_FQID_LEN = sizeof(PMD_LAMPENT_FQID_ARR)-1;
     inline static constexpr char PMD_LAMPENT_ID_ARR[] CONFIG_STRING_SECTION = "lampent";
     inline static constexpr const char* PMD_LAMPENT_ID = PMD_LAMPENT_ID_ARR;
-    inline static constexpr size_t PMD_LAMPENT_ID_LEN = sizeof(PMD_LAMPENT_ID)-1;
+    inline static constexpr size_t PMD_LAMPENT_ID_LEN = sizeof(PMD_LAMPENT_ID_ARR)-1;
     inline static constexpr char PMD_LAMPENT_NAME_ARR[] CONFIG_STRING_SECTION = "Lampent";
     inline static constexpr const char* PMD_LAMPENT_NAME = PMD_LAMPENT_NAME_ARR;
     inline static constexpr size_t PMD_LAMPENT_NAME_LEN = sizeof(PMD_LAMPENT_NAME_ARR)-1;
@@ -22512,7 +22512,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHANDELURE_FQID_LEN = sizeof(PMD_CHANDELURE_FQID_ARR)-1;
     inline static constexpr char PMD_CHANDELURE_ID_ARR[] CONFIG_STRING_SECTION = "chandelure";
     inline static constexpr const char* PMD_CHANDELURE_ID = PMD_CHANDELURE_ID_ARR;
-    inline static constexpr size_t PMD_CHANDELURE_ID_LEN = sizeof(PMD_CHANDELURE_ID)-1;
+    inline static constexpr size_t PMD_CHANDELURE_ID_LEN = sizeof(PMD_CHANDELURE_ID_ARR)-1;
     inline static constexpr char PMD_CHANDELURE_NAME_ARR[] CONFIG_STRING_SECTION = "Chandelure";
     inline static constexpr const char* PMD_CHANDELURE_NAME = PMD_CHANDELURE_NAME_ARR;
     inline static constexpr size_t PMD_CHANDELURE_NAME_LEN = sizeof(PMD_CHANDELURE_NAME_ARR)-1;
@@ -22550,7 +22550,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AXEW_FQID_LEN = sizeof(PMD_AXEW_FQID_ARR)-1;
     inline static constexpr char PMD_AXEW_ID_ARR[] CONFIG_STRING_SECTION = "axew";
     inline static constexpr const char* PMD_AXEW_ID = PMD_AXEW_ID_ARR;
-    inline static constexpr size_t PMD_AXEW_ID_LEN = sizeof(PMD_AXEW_ID)-1;
+    inline static constexpr size_t PMD_AXEW_ID_LEN = sizeof(PMD_AXEW_ID_ARR)-1;
     inline static constexpr char PMD_AXEW_NAME_ARR[] CONFIG_STRING_SECTION = "Axew";
     inline static constexpr const char* PMD_AXEW_NAME = PMD_AXEW_NAME_ARR;
     inline static constexpr size_t PMD_AXEW_NAME_LEN = sizeof(PMD_AXEW_NAME_ARR)-1;
@@ -22588,7 +22588,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FRAXURE_FQID_LEN = sizeof(PMD_FRAXURE_FQID_ARR)-1;
     inline static constexpr char PMD_FRAXURE_ID_ARR[] CONFIG_STRING_SECTION = "fraxure";
     inline static constexpr const char* PMD_FRAXURE_ID = PMD_FRAXURE_ID_ARR;
-    inline static constexpr size_t PMD_FRAXURE_ID_LEN = sizeof(PMD_FRAXURE_ID)-1;
+    inline static constexpr size_t PMD_FRAXURE_ID_LEN = sizeof(PMD_FRAXURE_ID_ARR)-1;
     inline static constexpr char PMD_FRAXURE_NAME_ARR[] CONFIG_STRING_SECTION = "Fraxure";
     inline static constexpr const char* PMD_FRAXURE_NAME = PMD_FRAXURE_NAME_ARR;
     inline static constexpr size_t PMD_FRAXURE_NAME_LEN = sizeof(PMD_FRAXURE_NAME_ARR)-1;
@@ -22626,7 +22626,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HAXORUS_FQID_LEN = sizeof(PMD_HAXORUS_FQID_ARR)-1;
     inline static constexpr char PMD_HAXORUS_ID_ARR[] CONFIG_STRING_SECTION = "haxorus";
     inline static constexpr const char* PMD_HAXORUS_ID = PMD_HAXORUS_ID_ARR;
-    inline static constexpr size_t PMD_HAXORUS_ID_LEN = sizeof(PMD_HAXORUS_ID)-1;
+    inline static constexpr size_t PMD_HAXORUS_ID_LEN = sizeof(PMD_HAXORUS_ID_ARR)-1;
     inline static constexpr char PMD_HAXORUS_NAME_ARR[] CONFIG_STRING_SECTION = "Haxorus";
     inline static constexpr const char* PMD_HAXORUS_NAME = PMD_HAXORUS_NAME_ARR;
     inline static constexpr size_t PMD_HAXORUS_NAME_LEN = sizeof(PMD_HAXORUS_NAME_ARR)-1;
@@ -22664,7 +22664,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CUBCHOO_FQID_LEN = sizeof(PMD_CUBCHOO_FQID_ARR)-1;
     inline static constexpr char PMD_CUBCHOO_ID_ARR[] CONFIG_STRING_SECTION = "cubchoo";
     inline static constexpr const char* PMD_CUBCHOO_ID = PMD_CUBCHOO_ID_ARR;
-    inline static constexpr size_t PMD_CUBCHOO_ID_LEN = sizeof(PMD_CUBCHOO_ID)-1;
+    inline static constexpr size_t PMD_CUBCHOO_ID_LEN = sizeof(PMD_CUBCHOO_ID_ARR)-1;
     inline static constexpr char PMD_CUBCHOO_NAME_ARR[] CONFIG_STRING_SECTION = "Cubchoo";
     inline static constexpr const char* PMD_CUBCHOO_NAME = PMD_CUBCHOO_NAME_ARR;
     inline static constexpr size_t PMD_CUBCHOO_NAME_LEN = sizeof(PMD_CUBCHOO_NAME_ARR)-1;
@@ -22702,7 +22702,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BEARTIC_FQID_LEN = sizeof(PMD_BEARTIC_FQID_ARR)-1;
     inline static constexpr char PMD_BEARTIC_ID_ARR[] CONFIG_STRING_SECTION = "beartic";
     inline static constexpr const char* PMD_BEARTIC_ID = PMD_BEARTIC_ID_ARR;
-    inline static constexpr size_t PMD_BEARTIC_ID_LEN = sizeof(PMD_BEARTIC_ID)-1;
+    inline static constexpr size_t PMD_BEARTIC_ID_LEN = sizeof(PMD_BEARTIC_ID_ARR)-1;
     inline static constexpr char PMD_BEARTIC_NAME_ARR[] CONFIG_STRING_SECTION = "Beartic";
     inline static constexpr const char* PMD_BEARTIC_NAME = PMD_BEARTIC_NAME_ARR;
     inline static constexpr size_t PMD_BEARTIC_NAME_LEN = sizeof(PMD_BEARTIC_NAME_ARR)-1;
@@ -22740,7 +22740,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRYOGONAL_FQID_LEN = sizeof(PMD_CRYOGONAL_FQID_ARR)-1;
     inline static constexpr char PMD_CRYOGONAL_ID_ARR[] CONFIG_STRING_SECTION = "cryogonal";
     inline static constexpr const char* PMD_CRYOGONAL_ID = PMD_CRYOGONAL_ID_ARR;
-    inline static constexpr size_t PMD_CRYOGONAL_ID_LEN = sizeof(PMD_CRYOGONAL_ID)-1;
+    inline static constexpr size_t PMD_CRYOGONAL_ID_LEN = sizeof(PMD_CRYOGONAL_ID_ARR)-1;
     inline static constexpr char PMD_CRYOGONAL_NAME_ARR[] CONFIG_STRING_SECTION = "Cryogonal";
     inline static constexpr const char* PMD_CRYOGONAL_NAME = PMD_CRYOGONAL_NAME_ARR;
     inline static constexpr size_t PMD_CRYOGONAL_NAME_LEN = sizeof(PMD_CRYOGONAL_NAME_ARR)-1;
@@ -22778,7 +22778,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STUNFISK_FQID_LEN = sizeof(PMD_STUNFISK_FQID_ARR)-1;
     inline static constexpr char PMD_STUNFISK_ID_ARR[] CONFIG_STRING_SECTION = "stunfisk";
     inline static constexpr const char* PMD_STUNFISK_ID = PMD_STUNFISK_ID_ARR;
-    inline static constexpr size_t PMD_STUNFISK_ID_LEN = sizeof(PMD_STUNFISK_ID)-1;
+    inline static constexpr size_t PMD_STUNFISK_ID_LEN = sizeof(PMD_STUNFISK_ID_ARR)-1;
     inline static constexpr char PMD_STUNFISK_NAME_ARR[] CONFIG_STRING_SECTION = "Stunfisk";
     inline static constexpr const char* PMD_STUNFISK_NAME = PMD_STUNFISK_NAME_ARR;
     inline static constexpr size_t PMD_STUNFISK_NAME_LEN = sizeof(PMD_STUNFISK_NAME_ARR)-1;
@@ -22816,7 +22816,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MIENFOO_FQID_LEN = sizeof(PMD_MIENFOO_FQID_ARR)-1;
     inline static constexpr char PMD_MIENFOO_ID_ARR[] CONFIG_STRING_SECTION = "mienfoo";
     inline static constexpr const char* PMD_MIENFOO_ID = PMD_MIENFOO_ID_ARR;
-    inline static constexpr size_t PMD_MIENFOO_ID_LEN = sizeof(PMD_MIENFOO_ID)-1;
+    inline static constexpr size_t PMD_MIENFOO_ID_LEN = sizeof(PMD_MIENFOO_ID_ARR)-1;
     inline static constexpr char PMD_MIENFOO_NAME_ARR[] CONFIG_STRING_SECTION = "Mienfoo";
     inline static constexpr const char* PMD_MIENFOO_NAME = PMD_MIENFOO_NAME_ARR;
     inline static constexpr size_t PMD_MIENFOO_NAME_LEN = sizeof(PMD_MIENFOO_NAME_ARR)-1;
@@ -22854,7 +22854,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MIENSHAO_FQID_LEN = sizeof(PMD_MIENSHAO_FQID_ARR)-1;
     inline static constexpr char PMD_MIENSHAO_ID_ARR[] CONFIG_STRING_SECTION = "mienshao";
     inline static constexpr const char* PMD_MIENSHAO_ID = PMD_MIENSHAO_ID_ARR;
-    inline static constexpr size_t PMD_MIENSHAO_ID_LEN = sizeof(PMD_MIENSHAO_ID)-1;
+    inline static constexpr size_t PMD_MIENSHAO_ID_LEN = sizeof(PMD_MIENSHAO_ID_ARR)-1;
     inline static constexpr char PMD_MIENSHAO_NAME_ARR[] CONFIG_STRING_SECTION = "Mienshao";
     inline static constexpr const char* PMD_MIENSHAO_NAME = PMD_MIENSHAO_NAME_ARR;
     inline static constexpr size_t PMD_MIENSHAO_NAME_LEN = sizeof(PMD_MIENSHAO_NAME_ARR)-1;
@@ -22892,7 +22892,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRUDDIGON_FQID_LEN = sizeof(PMD_DRUDDIGON_FQID_ARR)-1;
     inline static constexpr char PMD_DRUDDIGON_ID_ARR[] CONFIG_STRING_SECTION = "druddigon";
     inline static constexpr const char* PMD_DRUDDIGON_ID = PMD_DRUDDIGON_ID_ARR;
-    inline static constexpr size_t PMD_DRUDDIGON_ID_LEN = sizeof(PMD_DRUDDIGON_ID)-1;
+    inline static constexpr size_t PMD_DRUDDIGON_ID_LEN = sizeof(PMD_DRUDDIGON_ID_ARR)-1;
     inline static constexpr char PMD_DRUDDIGON_NAME_ARR[] CONFIG_STRING_SECTION = "Druddigon";
     inline static constexpr const char* PMD_DRUDDIGON_NAME = PMD_DRUDDIGON_NAME_ARR;
     inline static constexpr size_t PMD_DRUDDIGON_NAME_LEN = sizeof(PMD_DRUDDIGON_NAME_ARR)-1;
@@ -22930,7 +22930,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOLETT_FQID_LEN = sizeof(PMD_GOLETT_FQID_ARR)-1;
     inline static constexpr char PMD_GOLETT_ID_ARR[] CONFIG_STRING_SECTION = "golett";
     inline static constexpr const char* PMD_GOLETT_ID = PMD_GOLETT_ID_ARR;
-    inline static constexpr size_t PMD_GOLETT_ID_LEN = sizeof(PMD_GOLETT_ID)-1;
+    inline static constexpr size_t PMD_GOLETT_ID_LEN = sizeof(PMD_GOLETT_ID_ARR)-1;
     inline static constexpr char PMD_GOLETT_NAME_ARR[] CONFIG_STRING_SECTION = "Golett";
     inline static constexpr const char* PMD_GOLETT_NAME = PMD_GOLETT_NAME_ARR;
     inline static constexpr size_t PMD_GOLETT_NAME_LEN = sizeof(PMD_GOLETT_NAME_ARR)-1;
@@ -22968,7 +22968,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOLURK_FQID_LEN = sizeof(PMD_GOLURK_FQID_ARR)-1;
     inline static constexpr char PMD_GOLURK_ID_ARR[] CONFIG_STRING_SECTION = "golurk";
     inline static constexpr const char* PMD_GOLURK_ID = PMD_GOLURK_ID_ARR;
-    inline static constexpr size_t PMD_GOLURK_ID_LEN = sizeof(PMD_GOLURK_ID)-1;
+    inline static constexpr size_t PMD_GOLURK_ID_LEN = sizeof(PMD_GOLURK_ID_ARR)-1;
     inline static constexpr char PMD_GOLURK_NAME_ARR[] CONFIG_STRING_SECTION = "Golurk";
     inline static constexpr const char* PMD_GOLURK_NAME = PMD_GOLURK_NAME_ARR;
     inline static constexpr size_t PMD_GOLURK_NAME_LEN = sizeof(PMD_GOLURK_NAME_ARR)-1;
@@ -23006,7 +23006,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PAWNIARD_FQID_LEN = sizeof(PMD_PAWNIARD_FQID_ARR)-1;
     inline static constexpr char PMD_PAWNIARD_ID_ARR[] CONFIG_STRING_SECTION = "pawniard";
     inline static constexpr const char* PMD_PAWNIARD_ID = PMD_PAWNIARD_ID_ARR;
-    inline static constexpr size_t PMD_PAWNIARD_ID_LEN = sizeof(PMD_PAWNIARD_ID)-1;
+    inline static constexpr size_t PMD_PAWNIARD_ID_LEN = sizeof(PMD_PAWNIARD_ID_ARR)-1;
     inline static constexpr char PMD_PAWNIARD_NAME_ARR[] CONFIG_STRING_SECTION = "Pawniard";
     inline static constexpr const char* PMD_PAWNIARD_NAME = PMD_PAWNIARD_NAME_ARR;
     inline static constexpr size_t PMD_PAWNIARD_NAME_LEN = sizeof(PMD_PAWNIARD_NAME_ARR)-1;
@@ -23044,7 +23044,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BISHARP_FQID_LEN = sizeof(PMD_BISHARP_FQID_ARR)-1;
     inline static constexpr char PMD_BISHARP_ID_ARR[] CONFIG_STRING_SECTION = "bisharp";
     inline static constexpr const char* PMD_BISHARP_ID = PMD_BISHARP_ID_ARR;
-    inline static constexpr size_t PMD_BISHARP_ID_LEN = sizeof(PMD_BISHARP_ID)-1;
+    inline static constexpr size_t PMD_BISHARP_ID_LEN = sizeof(PMD_BISHARP_ID_ARR)-1;
     inline static constexpr char PMD_BISHARP_NAME_ARR[] CONFIG_STRING_SECTION = "Bisharp";
     inline static constexpr const char* PMD_BISHARP_NAME = PMD_BISHARP_NAME_ARR;
     inline static constexpr size_t PMD_BISHARP_NAME_LEN = sizeof(PMD_BISHARP_NAME_ARR)-1;
@@ -23082,7 +23082,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RUFFLET_FQID_LEN = sizeof(PMD_RUFFLET_FQID_ARR)-1;
     inline static constexpr char PMD_RUFFLET_ID_ARR[] CONFIG_STRING_SECTION = "rufflet";
     inline static constexpr const char* PMD_RUFFLET_ID = PMD_RUFFLET_ID_ARR;
-    inline static constexpr size_t PMD_RUFFLET_ID_LEN = sizeof(PMD_RUFFLET_ID)-1;
+    inline static constexpr size_t PMD_RUFFLET_ID_LEN = sizeof(PMD_RUFFLET_ID_ARR)-1;
     inline static constexpr char PMD_RUFFLET_NAME_ARR[] CONFIG_STRING_SECTION = "Rufflet";
     inline static constexpr const char* PMD_RUFFLET_NAME = PMD_RUFFLET_NAME_ARR;
     inline static constexpr size_t PMD_RUFFLET_NAME_LEN = sizeof(PMD_RUFFLET_NAME_ARR)-1;
@@ -23120,7 +23120,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BRAVIARY_FQID_LEN = sizeof(PMD_BRAVIARY_FQID_ARR)-1;
     inline static constexpr char PMD_BRAVIARY_ID_ARR[] CONFIG_STRING_SECTION = "braviary";
     inline static constexpr const char* PMD_BRAVIARY_ID = PMD_BRAVIARY_ID_ARR;
-    inline static constexpr size_t PMD_BRAVIARY_ID_LEN = sizeof(PMD_BRAVIARY_ID)-1;
+    inline static constexpr size_t PMD_BRAVIARY_ID_LEN = sizeof(PMD_BRAVIARY_ID_ARR)-1;
     inline static constexpr char PMD_BRAVIARY_NAME_ARR[] CONFIG_STRING_SECTION = "Braviary";
     inline static constexpr const char* PMD_BRAVIARY_NAME = PMD_BRAVIARY_NAME_ARR;
     inline static constexpr size_t PMD_BRAVIARY_NAME_LEN = sizeof(PMD_BRAVIARY_NAME_ARR)-1;
@@ -23158,7 +23158,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VULLABY_FQID_LEN = sizeof(PMD_VULLABY_FQID_ARR)-1;
     inline static constexpr char PMD_VULLABY_ID_ARR[] CONFIG_STRING_SECTION = "vullaby";
     inline static constexpr const char* PMD_VULLABY_ID = PMD_VULLABY_ID_ARR;
-    inline static constexpr size_t PMD_VULLABY_ID_LEN = sizeof(PMD_VULLABY_ID)-1;
+    inline static constexpr size_t PMD_VULLABY_ID_LEN = sizeof(PMD_VULLABY_ID_ARR)-1;
     inline static constexpr char PMD_VULLABY_NAME_ARR[] CONFIG_STRING_SECTION = "Vullaby";
     inline static constexpr const char* PMD_VULLABY_NAME = PMD_VULLABY_NAME_ARR;
     inline static constexpr size_t PMD_VULLABY_NAME_LEN = sizeof(PMD_VULLABY_NAME_ARR)-1;
@@ -23196,7 +23196,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MANDIBUZZ_FQID_LEN = sizeof(PMD_MANDIBUZZ_FQID_ARR)-1;
     inline static constexpr char PMD_MANDIBUZZ_ID_ARR[] CONFIG_STRING_SECTION = "mandibuzz";
     inline static constexpr const char* PMD_MANDIBUZZ_ID = PMD_MANDIBUZZ_ID_ARR;
-    inline static constexpr size_t PMD_MANDIBUZZ_ID_LEN = sizeof(PMD_MANDIBUZZ_ID)-1;
+    inline static constexpr size_t PMD_MANDIBUZZ_ID_LEN = sizeof(PMD_MANDIBUZZ_ID_ARR)-1;
     inline static constexpr char PMD_MANDIBUZZ_NAME_ARR[] CONFIG_STRING_SECTION = "Mandibuzz";
     inline static constexpr const char* PMD_MANDIBUZZ_NAME = PMD_MANDIBUZZ_NAME_ARR;
     inline static constexpr size_t PMD_MANDIBUZZ_NAME_LEN = sizeof(PMD_MANDIBUZZ_NAME_ARR)-1;
@@ -23234,7 +23234,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HEATMOR_FQID_LEN = sizeof(PMD_HEATMOR_FQID_ARR)-1;
     inline static constexpr char PMD_HEATMOR_ID_ARR[] CONFIG_STRING_SECTION = "heatmor";
     inline static constexpr const char* PMD_HEATMOR_ID = PMD_HEATMOR_ID_ARR;
-    inline static constexpr size_t PMD_HEATMOR_ID_LEN = sizeof(PMD_HEATMOR_ID)-1;
+    inline static constexpr size_t PMD_HEATMOR_ID_LEN = sizeof(PMD_HEATMOR_ID_ARR)-1;
     inline static constexpr char PMD_HEATMOR_NAME_ARR[] CONFIG_STRING_SECTION = "Heatmor";
     inline static constexpr const char* PMD_HEATMOR_NAME = PMD_HEATMOR_NAME_ARR;
     inline static constexpr size_t PMD_HEATMOR_NAME_LEN = sizeof(PMD_HEATMOR_NAME_ARR)-1;
@@ -23272,7 +23272,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DURANT_FQID_LEN = sizeof(PMD_DURANT_FQID_ARR)-1;
     inline static constexpr char PMD_DURANT_ID_ARR[] CONFIG_STRING_SECTION = "durant";
     inline static constexpr const char* PMD_DURANT_ID = PMD_DURANT_ID_ARR;
-    inline static constexpr size_t PMD_DURANT_ID_LEN = sizeof(PMD_DURANT_ID)-1;
+    inline static constexpr size_t PMD_DURANT_ID_LEN = sizeof(PMD_DURANT_ID_ARR)-1;
     inline static constexpr char PMD_DURANT_NAME_ARR[] CONFIG_STRING_SECTION = "Durant";
     inline static constexpr const char* PMD_DURANT_NAME = PMD_DURANT_NAME_ARR;
     inline static constexpr size_t PMD_DURANT_NAME_LEN = sizeof(PMD_DURANT_NAME_ARR)-1;
@@ -23310,7 +23310,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DEINO_FQID_LEN = sizeof(PMD_DEINO_FQID_ARR)-1;
     inline static constexpr char PMD_DEINO_ID_ARR[] CONFIG_STRING_SECTION = "deino";
     inline static constexpr const char* PMD_DEINO_ID = PMD_DEINO_ID_ARR;
-    inline static constexpr size_t PMD_DEINO_ID_LEN = sizeof(PMD_DEINO_ID)-1;
+    inline static constexpr size_t PMD_DEINO_ID_LEN = sizeof(PMD_DEINO_ID_ARR)-1;
     inline static constexpr char PMD_DEINO_NAME_ARR[] CONFIG_STRING_SECTION = "Deino";
     inline static constexpr const char* PMD_DEINO_NAME = PMD_DEINO_NAME_ARR;
     inline static constexpr size_t PMD_DEINO_NAME_LEN = sizeof(PMD_DEINO_NAME_ARR)-1;
@@ -23348,7 +23348,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZWEILOUS_FQID_LEN = sizeof(PMD_ZWEILOUS_FQID_ARR)-1;
     inline static constexpr char PMD_ZWEILOUS_ID_ARR[] CONFIG_STRING_SECTION = "zweilous";
     inline static constexpr const char* PMD_ZWEILOUS_ID = PMD_ZWEILOUS_ID_ARR;
-    inline static constexpr size_t PMD_ZWEILOUS_ID_LEN = sizeof(PMD_ZWEILOUS_ID)-1;
+    inline static constexpr size_t PMD_ZWEILOUS_ID_LEN = sizeof(PMD_ZWEILOUS_ID_ARR)-1;
     inline static constexpr char PMD_ZWEILOUS_NAME_ARR[] CONFIG_STRING_SECTION = "Zweilous";
     inline static constexpr const char* PMD_ZWEILOUS_NAME = PMD_ZWEILOUS_NAME_ARR;
     inline static constexpr size_t PMD_ZWEILOUS_NAME_LEN = sizeof(PMD_ZWEILOUS_NAME_ARR)-1;
@@ -23386,7 +23386,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HYDREIGON_FQID_LEN = sizeof(PMD_HYDREIGON_FQID_ARR)-1;
     inline static constexpr char PMD_HYDREIGON_ID_ARR[] CONFIG_STRING_SECTION = "hydreigon";
     inline static constexpr const char* PMD_HYDREIGON_ID = PMD_HYDREIGON_ID_ARR;
-    inline static constexpr size_t PMD_HYDREIGON_ID_LEN = sizeof(PMD_HYDREIGON_ID)-1;
+    inline static constexpr size_t PMD_HYDREIGON_ID_LEN = sizeof(PMD_HYDREIGON_ID_ARR)-1;
     inline static constexpr char PMD_HYDREIGON_NAME_ARR[] CONFIG_STRING_SECTION = "Hydreigon";
     inline static constexpr const char* PMD_HYDREIGON_NAME = PMD_HYDREIGON_NAME_ARR;
     inline static constexpr size_t PMD_HYDREIGON_NAME_LEN = sizeof(PMD_HYDREIGON_NAME_ARR)-1;
@@ -23424,7 +23424,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LARVESTA_FQID_LEN = sizeof(PMD_LARVESTA_FQID_ARR)-1;
     inline static constexpr char PMD_LARVESTA_ID_ARR[] CONFIG_STRING_SECTION = "larvesta";
     inline static constexpr const char* PMD_LARVESTA_ID = PMD_LARVESTA_ID_ARR;
-    inline static constexpr size_t PMD_LARVESTA_ID_LEN = sizeof(PMD_LARVESTA_ID)-1;
+    inline static constexpr size_t PMD_LARVESTA_ID_LEN = sizeof(PMD_LARVESTA_ID_ARR)-1;
     inline static constexpr char PMD_LARVESTA_NAME_ARR[] CONFIG_STRING_SECTION = "Larvesta";
     inline static constexpr const char* PMD_LARVESTA_NAME = PMD_LARVESTA_NAME_ARR;
     inline static constexpr size_t PMD_LARVESTA_NAME_LEN = sizeof(PMD_LARVESTA_NAME_ARR)-1;
@@ -23462,7 +23462,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VOLCARONA_FQID_LEN = sizeof(PMD_VOLCARONA_FQID_ARR)-1;
     inline static constexpr char PMD_VOLCARONA_ID_ARR[] CONFIG_STRING_SECTION = "volcarona";
     inline static constexpr const char* PMD_VOLCARONA_ID = PMD_VOLCARONA_ID_ARR;
-    inline static constexpr size_t PMD_VOLCARONA_ID_LEN = sizeof(PMD_VOLCARONA_ID)-1;
+    inline static constexpr size_t PMD_VOLCARONA_ID_LEN = sizeof(PMD_VOLCARONA_ID_ARR)-1;
     inline static constexpr char PMD_VOLCARONA_NAME_ARR[] CONFIG_STRING_SECTION = "Volcarona";
     inline static constexpr const char* PMD_VOLCARONA_NAME = PMD_VOLCARONA_NAME_ARR;
     inline static constexpr size_t PMD_VOLCARONA_NAME_LEN = sizeof(PMD_VOLCARONA_NAME_ARR)-1;
@@ -23500,7 +23500,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COBALION_FQID_LEN = sizeof(PMD_COBALION_FQID_ARR)-1;
     inline static constexpr char PMD_COBALION_ID_ARR[] CONFIG_STRING_SECTION = "cobalion";
     inline static constexpr const char* PMD_COBALION_ID = PMD_COBALION_ID_ARR;
-    inline static constexpr size_t PMD_COBALION_ID_LEN = sizeof(PMD_COBALION_ID)-1;
+    inline static constexpr size_t PMD_COBALION_ID_LEN = sizeof(PMD_COBALION_ID_ARR)-1;
     inline static constexpr char PMD_COBALION_NAME_ARR[] CONFIG_STRING_SECTION = "Cobalion";
     inline static constexpr const char* PMD_COBALION_NAME = PMD_COBALION_NAME_ARR;
     inline static constexpr size_t PMD_COBALION_NAME_LEN = sizeof(PMD_COBALION_NAME_ARR)-1;
@@ -23538,7 +23538,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TERRAKION_FQID_LEN = sizeof(PMD_TERRAKION_FQID_ARR)-1;
     inline static constexpr char PMD_TERRAKION_ID_ARR[] CONFIG_STRING_SECTION = "terrakion";
     inline static constexpr const char* PMD_TERRAKION_ID = PMD_TERRAKION_ID_ARR;
-    inline static constexpr size_t PMD_TERRAKION_ID_LEN = sizeof(PMD_TERRAKION_ID)-1;
+    inline static constexpr size_t PMD_TERRAKION_ID_LEN = sizeof(PMD_TERRAKION_ID_ARR)-1;
     inline static constexpr char PMD_TERRAKION_NAME_ARR[] CONFIG_STRING_SECTION = "Terrakion";
     inline static constexpr const char* PMD_TERRAKION_NAME = PMD_TERRAKION_NAME_ARR;
     inline static constexpr size_t PMD_TERRAKION_NAME_LEN = sizeof(PMD_TERRAKION_NAME_ARR)-1;
@@ -23576,7 +23576,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VIRIZION_FQID_LEN = sizeof(PMD_VIRIZION_FQID_ARR)-1;
     inline static constexpr char PMD_VIRIZION_ID_ARR[] CONFIG_STRING_SECTION = "virizion";
     inline static constexpr const char* PMD_VIRIZION_ID = PMD_VIRIZION_ID_ARR;
-    inline static constexpr size_t PMD_VIRIZION_ID_LEN = sizeof(PMD_VIRIZION_ID)-1;
+    inline static constexpr size_t PMD_VIRIZION_ID_LEN = sizeof(PMD_VIRIZION_ID_ARR)-1;
     inline static constexpr char PMD_VIRIZION_NAME_ARR[] CONFIG_STRING_SECTION = "Virizion";
     inline static constexpr const char* PMD_VIRIZION_NAME = PMD_VIRIZION_NAME_ARR;
     inline static constexpr size_t PMD_VIRIZION_NAME_LEN = sizeof(PMD_VIRIZION_NAME_ARR)-1;
@@ -23614,7 +23614,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TORNADUS_FQID_LEN = sizeof(PMD_TORNADUS_FQID_ARR)-1;
     inline static constexpr char PMD_TORNADUS_ID_ARR[] CONFIG_STRING_SECTION = "tornadus";
     inline static constexpr const char* PMD_TORNADUS_ID = PMD_TORNADUS_ID_ARR;
-    inline static constexpr size_t PMD_TORNADUS_ID_LEN = sizeof(PMD_TORNADUS_ID)-1;
+    inline static constexpr size_t PMD_TORNADUS_ID_LEN = sizeof(PMD_TORNADUS_ID_ARR)-1;
     inline static constexpr char PMD_TORNADUS_NAME_ARR[] CONFIG_STRING_SECTION = "Tornadus";
     inline static constexpr const char* PMD_TORNADUS_NAME = PMD_TORNADUS_NAME_ARR;
     inline static constexpr size_t PMD_TORNADUS_NAME_LEN = sizeof(PMD_TORNADUS_NAME_ARR)-1;
@@ -23652,7 +23652,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_THUNDURUS_FQID_LEN = sizeof(PMD_THUNDURUS_FQID_ARR)-1;
     inline static constexpr char PMD_THUNDURUS_ID_ARR[] CONFIG_STRING_SECTION = "thundurus";
     inline static constexpr const char* PMD_THUNDURUS_ID = PMD_THUNDURUS_ID_ARR;
-    inline static constexpr size_t PMD_THUNDURUS_ID_LEN = sizeof(PMD_THUNDURUS_ID)-1;
+    inline static constexpr size_t PMD_THUNDURUS_ID_LEN = sizeof(PMD_THUNDURUS_ID_ARR)-1;
     inline static constexpr char PMD_THUNDURUS_NAME_ARR[] CONFIG_STRING_SECTION = "Thundurus";
     inline static constexpr const char* PMD_THUNDURUS_NAME = PMD_THUNDURUS_NAME_ARR;
     inline static constexpr size_t PMD_THUNDURUS_NAME_LEN = sizeof(PMD_THUNDURUS_NAME_ARR)-1;
@@ -23690,7 +23690,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RESHIRAM_FQID_LEN = sizeof(PMD_RESHIRAM_FQID_ARR)-1;
     inline static constexpr char PMD_RESHIRAM_ID_ARR[] CONFIG_STRING_SECTION = "reshiram";
     inline static constexpr const char* PMD_RESHIRAM_ID = PMD_RESHIRAM_ID_ARR;
-    inline static constexpr size_t PMD_RESHIRAM_ID_LEN = sizeof(PMD_RESHIRAM_ID)-1;
+    inline static constexpr size_t PMD_RESHIRAM_ID_LEN = sizeof(PMD_RESHIRAM_ID_ARR)-1;
     inline static constexpr char PMD_RESHIRAM_NAME_ARR[] CONFIG_STRING_SECTION = "Reshiram";
     inline static constexpr const char* PMD_RESHIRAM_NAME = PMD_RESHIRAM_NAME_ARR;
     inline static constexpr size_t PMD_RESHIRAM_NAME_LEN = sizeof(PMD_RESHIRAM_NAME_ARR)-1;
@@ -23728,7 +23728,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZEKROM_FQID_LEN = sizeof(PMD_ZEKROM_FQID_ARR)-1;
     inline static constexpr char PMD_ZEKROM_ID_ARR[] CONFIG_STRING_SECTION = "zekrom";
     inline static constexpr const char* PMD_ZEKROM_ID = PMD_ZEKROM_ID_ARR;
-    inline static constexpr size_t PMD_ZEKROM_ID_LEN = sizeof(PMD_ZEKROM_ID)-1;
+    inline static constexpr size_t PMD_ZEKROM_ID_LEN = sizeof(PMD_ZEKROM_ID_ARR)-1;
     inline static constexpr char PMD_ZEKROM_NAME_ARR[] CONFIG_STRING_SECTION = "Zekrom";
     inline static constexpr const char* PMD_ZEKROM_NAME = PMD_ZEKROM_NAME_ARR;
     inline static constexpr size_t PMD_ZEKROM_NAME_LEN = sizeof(PMD_ZEKROM_NAME_ARR)-1;
@@ -23766,7 +23766,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LANDORUS_FQID_LEN = sizeof(PMD_LANDORUS_FQID_ARR)-1;
     inline static constexpr char PMD_LANDORUS_ID_ARR[] CONFIG_STRING_SECTION = "landorus";
     inline static constexpr const char* PMD_LANDORUS_ID = PMD_LANDORUS_ID_ARR;
-    inline static constexpr size_t PMD_LANDORUS_ID_LEN = sizeof(PMD_LANDORUS_ID)-1;
+    inline static constexpr size_t PMD_LANDORUS_ID_LEN = sizeof(PMD_LANDORUS_ID_ARR)-1;
     inline static constexpr char PMD_LANDORUS_NAME_ARR[] CONFIG_STRING_SECTION = "Landorus";
     inline static constexpr const char* PMD_LANDORUS_NAME = PMD_LANDORUS_NAME_ARR;
     inline static constexpr size_t PMD_LANDORUS_NAME_LEN = sizeof(PMD_LANDORUS_NAME_ARR)-1;
@@ -23804,7 +23804,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KYUREM_FQID_LEN = sizeof(PMD_KYUREM_FQID_ARR)-1;
     inline static constexpr char PMD_KYUREM_ID_ARR[] CONFIG_STRING_SECTION = "kyurem";
     inline static constexpr const char* PMD_KYUREM_ID = PMD_KYUREM_ID_ARR;
-    inline static constexpr size_t PMD_KYUREM_ID_LEN = sizeof(PMD_KYUREM_ID)-1;
+    inline static constexpr size_t PMD_KYUREM_ID_LEN = sizeof(PMD_KYUREM_ID_ARR)-1;
     inline static constexpr char PMD_KYUREM_NAME_ARR[] CONFIG_STRING_SECTION = "Kyurem";
     inline static constexpr const char* PMD_KYUREM_NAME = PMD_KYUREM_NAME_ARR;
     inline static constexpr size_t PMD_KYUREM_NAME_LEN = sizeof(PMD_KYUREM_NAME_ARR)-1;
@@ -23842,7 +23842,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KELDEO_FQID_LEN = sizeof(PMD_KELDEO_FQID_ARR)-1;
     inline static constexpr char PMD_KELDEO_ID_ARR[] CONFIG_STRING_SECTION = "keldeo";
     inline static constexpr const char* PMD_KELDEO_ID = PMD_KELDEO_ID_ARR;
-    inline static constexpr size_t PMD_KELDEO_ID_LEN = sizeof(PMD_KELDEO_ID)-1;
+    inline static constexpr size_t PMD_KELDEO_ID_LEN = sizeof(PMD_KELDEO_ID_ARR)-1;
     inline static constexpr char PMD_KELDEO_NAME_ARR[] CONFIG_STRING_SECTION = "Keldeo";
     inline static constexpr const char* PMD_KELDEO_NAME = PMD_KELDEO_NAME_ARR;
     inline static constexpr size_t PMD_KELDEO_NAME_LEN = sizeof(PMD_KELDEO_NAME_ARR)-1;
@@ -23880,7 +23880,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MELOETTA_FQID_LEN = sizeof(PMD_MELOETTA_FQID_ARR)-1;
     inline static constexpr char PMD_MELOETTA_ID_ARR[] CONFIG_STRING_SECTION = "meloetta";
     inline static constexpr const char* PMD_MELOETTA_ID = PMD_MELOETTA_ID_ARR;
-    inline static constexpr size_t PMD_MELOETTA_ID_LEN = sizeof(PMD_MELOETTA_ID)-1;
+    inline static constexpr size_t PMD_MELOETTA_ID_LEN = sizeof(PMD_MELOETTA_ID_ARR)-1;
     inline static constexpr char PMD_MELOETTA_NAME_ARR[] CONFIG_STRING_SECTION = "Meloetta";
     inline static constexpr const char* PMD_MELOETTA_NAME = PMD_MELOETTA_NAME_ARR;
     inline static constexpr size_t PMD_MELOETTA_NAME_LEN = sizeof(PMD_MELOETTA_NAME_ARR)-1;
@@ -23918,7 +23918,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GENESECT_FQID_LEN = sizeof(PMD_GENESECT_FQID_ARR)-1;
     inline static constexpr char PMD_GENESECT_ID_ARR[] CONFIG_STRING_SECTION = "genesect";
     inline static constexpr const char* PMD_GENESECT_ID = PMD_GENESECT_ID_ARR;
-    inline static constexpr size_t PMD_GENESECT_ID_LEN = sizeof(PMD_GENESECT_ID)-1;
+    inline static constexpr size_t PMD_GENESECT_ID_LEN = sizeof(PMD_GENESECT_ID_ARR)-1;
     inline static constexpr char PMD_GENESECT_NAME_ARR[] CONFIG_STRING_SECTION = "Genesect";
     inline static constexpr const char* PMD_GENESECT_NAME = PMD_GENESECT_NAME_ARR;
     inline static constexpr size_t PMD_GENESECT_NAME_LEN = sizeof(PMD_GENESECT_NAME_ARR)-1;
@@ -23956,7 +23956,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHESPIN_FQID_LEN = sizeof(PMD_CHESPIN_FQID_ARR)-1;
     inline static constexpr char PMD_CHESPIN_ID_ARR[] CONFIG_STRING_SECTION = "chespin";
     inline static constexpr const char* PMD_CHESPIN_ID = PMD_CHESPIN_ID_ARR;
-    inline static constexpr size_t PMD_CHESPIN_ID_LEN = sizeof(PMD_CHESPIN_ID)-1;
+    inline static constexpr size_t PMD_CHESPIN_ID_LEN = sizeof(PMD_CHESPIN_ID_ARR)-1;
     inline static constexpr char PMD_CHESPIN_NAME_ARR[] CONFIG_STRING_SECTION = "Chespin";
     inline static constexpr const char* PMD_CHESPIN_NAME = PMD_CHESPIN_NAME_ARR;
     inline static constexpr size_t PMD_CHESPIN_NAME_LEN = sizeof(PMD_CHESPIN_NAME_ARR)-1;
@@ -23994,7 +23994,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_QUILLADIN_FQID_LEN = sizeof(PMD_QUILLADIN_FQID_ARR)-1;
     inline static constexpr char PMD_QUILLADIN_ID_ARR[] CONFIG_STRING_SECTION = "quilladin";
     inline static constexpr const char* PMD_QUILLADIN_ID = PMD_QUILLADIN_ID_ARR;
-    inline static constexpr size_t PMD_QUILLADIN_ID_LEN = sizeof(PMD_QUILLADIN_ID)-1;
+    inline static constexpr size_t PMD_QUILLADIN_ID_LEN = sizeof(PMD_QUILLADIN_ID_ARR)-1;
     inline static constexpr char PMD_QUILLADIN_NAME_ARR[] CONFIG_STRING_SECTION = "Quilladin";
     inline static constexpr const char* PMD_QUILLADIN_NAME = PMD_QUILLADIN_NAME_ARR;
     inline static constexpr size_t PMD_QUILLADIN_NAME_LEN = sizeof(PMD_QUILLADIN_NAME_ARR)-1;
@@ -24032,7 +24032,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHESNAUGHT_FQID_LEN = sizeof(PMD_CHESNAUGHT_FQID_ARR)-1;
     inline static constexpr char PMD_CHESNAUGHT_ID_ARR[] CONFIG_STRING_SECTION = "chesnaught";
     inline static constexpr const char* PMD_CHESNAUGHT_ID = PMD_CHESNAUGHT_ID_ARR;
-    inline static constexpr size_t PMD_CHESNAUGHT_ID_LEN = sizeof(PMD_CHESNAUGHT_ID)-1;
+    inline static constexpr size_t PMD_CHESNAUGHT_ID_LEN = sizeof(PMD_CHESNAUGHT_ID_ARR)-1;
     inline static constexpr char PMD_CHESNAUGHT_NAME_ARR[] CONFIG_STRING_SECTION = "Chesnaught";
     inline static constexpr const char* PMD_CHESNAUGHT_NAME = PMD_CHESNAUGHT_NAME_ARR;
     inline static constexpr size_t PMD_CHESNAUGHT_NAME_LEN = sizeof(PMD_CHESNAUGHT_NAME_ARR)-1;
@@ -24070,7 +24070,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FENNEKIN_FQID_LEN = sizeof(PMD_FENNEKIN_FQID_ARR)-1;
     inline static constexpr char PMD_FENNEKIN_ID_ARR[] CONFIG_STRING_SECTION = "fennekin";
     inline static constexpr const char* PMD_FENNEKIN_ID = PMD_FENNEKIN_ID_ARR;
-    inline static constexpr size_t PMD_FENNEKIN_ID_LEN = sizeof(PMD_FENNEKIN_ID)-1;
+    inline static constexpr size_t PMD_FENNEKIN_ID_LEN = sizeof(PMD_FENNEKIN_ID_ARR)-1;
     inline static constexpr char PMD_FENNEKIN_NAME_ARR[] CONFIG_STRING_SECTION = "Fennekin";
     inline static constexpr const char* PMD_FENNEKIN_NAME = PMD_FENNEKIN_NAME_ARR;
     inline static constexpr size_t PMD_FENNEKIN_NAME_LEN = sizeof(PMD_FENNEKIN_NAME_ARR)-1;
@@ -24108,7 +24108,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BRAIXEN_FQID_LEN = sizeof(PMD_BRAIXEN_FQID_ARR)-1;
     inline static constexpr char PMD_BRAIXEN_ID_ARR[] CONFIG_STRING_SECTION = "braixen";
     inline static constexpr const char* PMD_BRAIXEN_ID = PMD_BRAIXEN_ID_ARR;
-    inline static constexpr size_t PMD_BRAIXEN_ID_LEN = sizeof(PMD_BRAIXEN_ID)-1;
+    inline static constexpr size_t PMD_BRAIXEN_ID_LEN = sizeof(PMD_BRAIXEN_ID_ARR)-1;
     inline static constexpr char PMD_BRAIXEN_NAME_ARR[] CONFIG_STRING_SECTION = "Braixen";
     inline static constexpr const char* PMD_BRAIXEN_NAME = PMD_BRAIXEN_NAME_ARR;
     inline static constexpr size_t PMD_BRAIXEN_NAME_LEN = sizeof(PMD_BRAIXEN_NAME_ARR)-1;
@@ -24146,7 +24146,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DELPHOX_FQID_LEN = sizeof(PMD_DELPHOX_FQID_ARR)-1;
     inline static constexpr char PMD_DELPHOX_ID_ARR[] CONFIG_STRING_SECTION = "delphox";
     inline static constexpr const char* PMD_DELPHOX_ID = PMD_DELPHOX_ID_ARR;
-    inline static constexpr size_t PMD_DELPHOX_ID_LEN = sizeof(PMD_DELPHOX_ID)-1;
+    inline static constexpr size_t PMD_DELPHOX_ID_LEN = sizeof(PMD_DELPHOX_ID_ARR)-1;
     inline static constexpr char PMD_DELPHOX_NAME_ARR[] CONFIG_STRING_SECTION = "Delphox";
     inline static constexpr const char* PMD_DELPHOX_NAME = PMD_DELPHOX_NAME_ARR;
     inline static constexpr size_t PMD_DELPHOX_NAME_LEN = sizeof(PMD_DELPHOX_NAME_ARR)-1;
@@ -24184,7 +24184,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FROAKIE_FQID_LEN = sizeof(PMD_FROAKIE_FQID_ARR)-1;
     inline static constexpr char PMD_FROAKIE_ID_ARR[] CONFIG_STRING_SECTION = "froakie";
     inline static constexpr const char* PMD_FROAKIE_ID = PMD_FROAKIE_ID_ARR;
-    inline static constexpr size_t PMD_FROAKIE_ID_LEN = sizeof(PMD_FROAKIE_ID)-1;
+    inline static constexpr size_t PMD_FROAKIE_ID_LEN = sizeof(PMD_FROAKIE_ID_ARR)-1;
     inline static constexpr char PMD_FROAKIE_NAME_ARR[] CONFIG_STRING_SECTION = "Froakie";
     inline static constexpr const char* PMD_FROAKIE_NAME = PMD_FROAKIE_NAME_ARR;
     inline static constexpr size_t PMD_FROAKIE_NAME_LEN = sizeof(PMD_FROAKIE_NAME_ARR)-1;
@@ -24222,7 +24222,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FROGADIER_FQID_LEN = sizeof(PMD_FROGADIER_FQID_ARR)-1;
     inline static constexpr char PMD_FROGADIER_ID_ARR[] CONFIG_STRING_SECTION = "frogadier";
     inline static constexpr const char* PMD_FROGADIER_ID = PMD_FROGADIER_ID_ARR;
-    inline static constexpr size_t PMD_FROGADIER_ID_LEN = sizeof(PMD_FROGADIER_ID)-1;
+    inline static constexpr size_t PMD_FROGADIER_ID_LEN = sizeof(PMD_FROGADIER_ID_ARR)-1;
     inline static constexpr char PMD_FROGADIER_NAME_ARR[] CONFIG_STRING_SECTION = "Frogadier";
     inline static constexpr const char* PMD_FROGADIER_NAME = PMD_FROGADIER_NAME_ARR;
     inline static constexpr size_t PMD_FROGADIER_NAME_LEN = sizeof(PMD_FROGADIER_NAME_ARR)-1;
@@ -24260,7 +24260,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRENINJA_FQID_LEN = sizeof(PMD_GRENINJA_FQID_ARR)-1;
     inline static constexpr char PMD_GRENINJA_ID_ARR[] CONFIG_STRING_SECTION = "greninja";
     inline static constexpr const char* PMD_GRENINJA_ID = PMD_GRENINJA_ID_ARR;
-    inline static constexpr size_t PMD_GRENINJA_ID_LEN = sizeof(PMD_GRENINJA_ID)-1;
+    inline static constexpr size_t PMD_GRENINJA_ID_LEN = sizeof(PMD_GRENINJA_ID_ARR)-1;
     inline static constexpr char PMD_GRENINJA_NAME_ARR[] CONFIG_STRING_SECTION = "Greninja";
     inline static constexpr const char* PMD_GRENINJA_NAME = PMD_GRENINJA_NAME_ARR;
     inline static constexpr size_t PMD_GRENINJA_NAME_LEN = sizeof(PMD_GRENINJA_NAME_ARR)-1;
@@ -24298,7 +24298,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BUNNELBY_FQID_LEN = sizeof(PMD_BUNNELBY_FQID_ARR)-1;
     inline static constexpr char PMD_BUNNELBY_ID_ARR[] CONFIG_STRING_SECTION = "bunnelby";
     inline static constexpr const char* PMD_BUNNELBY_ID = PMD_BUNNELBY_ID_ARR;
-    inline static constexpr size_t PMD_BUNNELBY_ID_LEN = sizeof(PMD_BUNNELBY_ID)-1;
+    inline static constexpr size_t PMD_BUNNELBY_ID_LEN = sizeof(PMD_BUNNELBY_ID_ARR)-1;
     inline static constexpr char PMD_BUNNELBY_NAME_ARR[] CONFIG_STRING_SECTION = "Bunnelby";
     inline static constexpr const char* PMD_BUNNELBY_NAME = PMD_BUNNELBY_NAME_ARR;
     inline static constexpr size_t PMD_BUNNELBY_NAME_LEN = sizeof(PMD_BUNNELBY_NAME_ARR)-1;
@@ -24336,7 +24336,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLETCHLING_FQID_LEN = sizeof(PMD_FLETCHLING_FQID_ARR)-1;
     inline static constexpr char PMD_FLETCHLING_ID_ARR[] CONFIG_STRING_SECTION = "fletchling";
     inline static constexpr const char* PMD_FLETCHLING_ID = PMD_FLETCHLING_ID_ARR;
-    inline static constexpr size_t PMD_FLETCHLING_ID_LEN = sizeof(PMD_FLETCHLING_ID)-1;
+    inline static constexpr size_t PMD_FLETCHLING_ID_LEN = sizeof(PMD_FLETCHLING_ID_ARR)-1;
     inline static constexpr char PMD_FLETCHLING_NAME_ARR[] CONFIG_STRING_SECTION = "Fletchling";
     inline static constexpr const char* PMD_FLETCHLING_NAME = PMD_FLETCHLING_NAME_ARR;
     inline static constexpr size_t PMD_FLETCHLING_NAME_LEN = sizeof(PMD_FLETCHLING_NAME_ARR)-1;
@@ -24374,7 +24374,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLETCHINDER_FQID_LEN = sizeof(PMD_FLETCHINDER_FQID_ARR)-1;
     inline static constexpr char PMD_FLETCHINDER_ID_ARR[] CONFIG_STRING_SECTION = "fletchinder";
     inline static constexpr const char* PMD_FLETCHINDER_ID = PMD_FLETCHINDER_ID_ARR;
-    inline static constexpr size_t PMD_FLETCHINDER_ID_LEN = sizeof(PMD_FLETCHINDER_ID)-1;
+    inline static constexpr size_t PMD_FLETCHINDER_ID_LEN = sizeof(PMD_FLETCHINDER_ID_ARR)-1;
     inline static constexpr char PMD_FLETCHINDER_NAME_ARR[] CONFIG_STRING_SECTION = "Fletchinder";
     inline static constexpr const char* PMD_FLETCHINDER_NAME = PMD_FLETCHINDER_NAME_ARR;
     inline static constexpr size_t PMD_FLETCHINDER_NAME_LEN = sizeof(PMD_FLETCHINDER_NAME_ARR)-1;
@@ -24412,7 +24412,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TALONFLAME_FQID_LEN = sizeof(PMD_TALONFLAME_FQID_ARR)-1;
     inline static constexpr char PMD_TALONFLAME_ID_ARR[] CONFIG_STRING_SECTION = "talonflame";
     inline static constexpr const char* PMD_TALONFLAME_ID = PMD_TALONFLAME_ID_ARR;
-    inline static constexpr size_t PMD_TALONFLAME_ID_LEN = sizeof(PMD_TALONFLAME_ID)-1;
+    inline static constexpr size_t PMD_TALONFLAME_ID_LEN = sizeof(PMD_TALONFLAME_ID_ARR)-1;
     inline static constexpr char PMD_TALONFLAME_NAME_ARR[] CONFIG_STRING_SECTION = "Talonflame";
     inline static constexpr const char* PMD_TALONFLAME_NAME = PMD_TALONFLAME_NAME_ARR;
     inline static constexpr size_t PMD_TALONFLAME_NAME_LEN = sizeof(PMD_TALONFLAME_NAME_ARR)-1;
@@ -24450,7 +24450,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCATTERBUG_FQID_LEN = sizeof(PMD_SCATTERBUG_FQID_ARR)-1;
     inline static constexpr char PMD_SCATTERBUG_ID_ARR[] CONFIG_STRING_SECTION = "scatterbug";
     inline static constexpr const char* PMD_SCATTERBUG_ID = PMD_SCATTERBUG_ID_ARR;
-    inline static constexpr size_t PMD_SCATTERBUG_ID_LEN = sizeof(PMD_SCATTERBUG_ID)-1;
+    inline static constexpr size_t PMD_SCATTERBUG_ID_LEN = sizeof(PMD_SCATTERBUG_ID_ARR)-1;
     inline static constexpr char PMD_SCATTERBUG_NAME_ARR[] CONFIG_STRING_SECTION = "Scatterbug";
     inline static constexpr const char* PMD_SCATTERBUG_NAME = PMD_SCATTERBUG_NAME_ARR;
     inline static constexpr size_t PMD_SCATTERBUG_NAME_LEN = sizeof(PMD_SCATTERBUG_NAME_ARR)-1;
@@ -24488,7 +24488,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPEWPA_FQID_LEN = sizeof(PMD_SPEWPA_FQID_ARR)-1;
     inline static constexpr char PMD_SPEWPA_ID_ARR[] CONFIG_STRING_SECTION = "spewpa";
     inline static constexpr const char* PMD_SPEWPA_ID = PMD_SPEWPA_ID_ARR;
-    inline static constexpr size_t PMD_SPEWPA_ID_LEN = sizeof(PMD_SPEWPA_ID)-1;
+    inline static constexpr size_t PMD_SPEWPA_ID_LEN = sizeof(PMD_SPEWPA_ID_ARR)-1;
     inline static constexpr char PMD_SPEWPA_NAME_ARR[] CONFIG_STRING_SECTION = "Spewpa";
     inline static constexpr const char* PMD_SPEWPA_NAME = PMD_SPEWPA_NAME_ARR;
     inline static constexpr size_t PMD_SPEWPA_NAME_LEN = sizeof(PMD_SPEWPA_NAME_ARR)-1;
@@ -24526,7 +24526,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VIVILLON_FQID_LEN = sizeof(PMD_VIVILLON_FQID_ARR)-1;
     inline static constexpr char PMD_VIVILLON_ID_ARR[] CONFIG_STRING_SECTION = "vivillon";
     inline static constexpr const char* PMD_VIVILLON_ID = PMD_VIVILLON_ID_ARR;
-    inline static constexpr size_t PMD_VIVILLON_ID_LEN = sizeof(PMD_VIVILLON_ID)-1;
+    inline static constexpr size_t PMD_VIVILLON_ID_LEN = sizeof(PMD_VIVILLON_ID_ARR)-1;
     inline static constexpr char PMD_VIVILLON_NAME_ARR[] CONFIG_STRING_SECTION = "Vivillon";
     inline static constexpr const char* PMD_VIVILLON_NAME = PMD_VIVILLON_NAME_ARR;
     inline static constexpr size_t PMD_VIVILLON_NAME_LEN = sizeof(PMD_VIVILLON_NAME_ARR)-1;
@@ -24564,7 +24564,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LITLEO_FQID_LEN = sizeof(PMD_LITLEO_FQID_ARR)-1;
     inline static constexpr char PMD_LITLEO_ID_ARR[] CONFIG_STRING_SECTION = "litleo";
     inline static constexpr const char* PMD_LITLEO_ID = PMD_LITLEO_ID_ARR;
-    inline static constexpr size_t PMD_LITLEO_ID_LEN = sizeof(PMD_LITLEO_ID)-1;
+    inline static constexpr size_t PMD_LITLEO_ID_LEN = sizeof(PMD_LITLEO_ID_ARR)-1;
     inline static constexpr char PMD_LITLEO_NAME_ARR[] CONFIG_STRING_SECTION = "Litleo";
     inline static constexpr const char* PMD_LITLEO_NAME = PMD_LITLEO_NAME_ARR;
     inline static constexpr size_t PMD_LITLEO_NAME_LEN = sizeof(PMD_LITLEO_NAME_ARR)-1;
@@ -24602,7 +24602,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLABEBE_FQID_LEN = sizeof(PMD_FLABEBE_FQID_ARR)-1;
     inline static constexpr char PMD_FLABEBE_ID_ARR[] CONFIG_STRING_SECTION = "flabebe";
     inline static constexpr const char* PMD_FLABEBE_ID = PMD_FLABEBE_ID_ARR;
-    inline static constexpr size_t PMD_FLABEBE_ID_LEN = sizeof(PMD_FLABEBE_ID)-1;
+    inline static constexpr size_t PMD_FLABEBE_ID_LEN = sizeof(PMD_FLABEBE_ID_ARR)-1;
     inline static constexpr char PMD_FLABEBE_NAME_ARR[] CONFIG_STRING_SECTION = "Flabebe";
     inline static constexpr const char* PMD_FLABEBE_NAME = PMD_FLABEBE_NAME_ARR;
     inline static constexpr size_t PMD_FLABEBE_NAME_LEN = sizeof(PMD_FLABEBE_NAME_ARR)-1;
@@ -24640,7 +24640,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLOETTE_FQID_LEN = sizeof(PMD_FLOETTE_FQID_ARR)-1;
     inline static constexpr char PMD_FLOETTE_ID_ARR[] CONFIG_STRING_SECTION = "floette";
     inline static constexpr const char* PMD_FLOETTE_ID = PMD_FLOETTE_ID_ARR;
-    inline static constexpr size_t PMD_FLOETTE_ID_LEN = sizeof(PMD_FLOETTE_ID)-1;
+    inline static constexpr size_t PMD_FLOETTE_ID_LEN = sizeof(PMD_FLOETTE_ID_ARR)-1;
     inline static constexpr char PMD_FLOETTE_NAME_ARR[] CONFIG_STRING_SECTION = "Floette";
     inline static constexpr const char* PMD_FLOETTE_NAME = PMD_FLOETTE_NAME_ARR;
     inline static constexpr size_t PMD_FLOETTE_NAME_LEN = sizeof(PMD_FLOETTE_NAME_ARR)-1;
@@ -24678,7 +24678,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLORGES_FQID_LEN = sizeof(PMD_FLORGES_FQID_ARR)-1;
     inline static constexpr char PMD_FLORGES_ID_ARR[] CONFIG_STRING_SECTION = "florges";
     inline static constexpr const char* PMD_FLORGES_ID = PMD_FLORGES_ID_ARR;
-    inline static constexpr size_t PMD_FLORGES_ID_LEN = sizeof(PMD_FLORGES_ID)-1;
+    inline static constexpr size_t PMD_FLORGES_ID_LEN = sizeof(PMD_FLORGES_ID_ARR)-1;
     inline static constexpr char PMD_FLORGES_NAME_ARR[] CONFIG_STRING_SECTION = "Florges";
     inline static constexpr const char* PMD_FLORGES_NAME = PMD_FLORGES_NAME_ARR;
     inline static constexpr size_t PMD_FLORGES_NAME_LEN = sizeof(PMD_FLORGES_NAME_ARR)-1;
@@ -24716,7 +24716,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKIDDO_FQID_LEN = sizeof(PMD_SKIDDO_FQID_ARR)-1;
     inline static constexpr char PMD_SKIDDO_ID_ARR[] CONFIG_STRING_SECTION = "skiddo";
     inline static constexpr const char* PMD_SKIDDO_ID = PMD_SKIDDO_ID_ARR;
-    inline static constexpr size_t PMD_SKIDDO_ID_LEN = sizeof(PMD_SKIDDO_ID)-1;
+    inline static constexpr size_t PMD_SKIDDO_ID_LEN = sizeof(PMD_SKIDDO_ID_ARR)-1;
     inline static constexpr char PMD_SKIDDO_NAME_ARR[] CONFIG_STRING_SECTION = "Skiddo";
     inline static constexpr const char* PMD_SKIDDO_NAME = PMD_SKIDDO_NAME_ARR;
     inline static constexpr size_t PMD_SKIDDO_NAME_LEN = sizeof(PMD_SKIDDO_NAME_ARR)-1;
@@ -24754,7 +24754,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOGOAT_FQID_LEN = sizeof(PMD_GOGOAT_FQID_ARR)-1;
     inline static constexpr char PMD_GOGOAT_ID_ARR[] CONFIG_STRING_SECTION = "gogoat";
     inline static constexpr const char* PMD_GOGOAT_ID = PMD_GOGOAT_ID_ARR;
-    inline static constexpr size_t PMD_GOGOAT_ID_LEN = sizeof(PMD_GOGOAT_ID)-1;
+    inline static constexpr size_t PMD_GOGOAT_ID_LEN = sizeof(PMD_GOGOAT_ID_ARR)-1;
     inline static constexpr char PMD_GOGOAT_NAME_ARR[] CONFIG_STRING_SECTION = "Gogoat";
     inline static constexpr const char* PMD_GOGOAT_NAME = PMD_GOGOAT_NAME_ARR;
     inline static constexpr size_t PMD_GOGOAT_NAME_LEN = sizeof(PMD_GOGOAT_NAME_ARR)-1;
@@ -24792,7 +24792,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PANCHAM_FQID_LEN = sizeof(PMD_PANCHAM_FQID_ARR)-1;
     inline static constexpr char PMD_PANCHAM_ID_ARR[] CONFIG_STRING_SECTION = "pancham";
     inline static constexpr const char* PMD_PANCHAM_ID = PMD_PANCHAM_ID_ARR;
-    inline static constexpr size_t PMD_PANCHAM_ID_LEN = sizeof(PMD_PANCHAM_ID)-1;
+    inline static constexpr size_t PMD_PANCHAM_ID_LEN = sizeof(PMD_PANCHAM_ID_ARR)-1;
     inline static constexpr char PMD_PANCHAM_NAME_ARR[] CONFIG_STRING_SECTION = "Pancham";
     inline static constexpr const char* PMD_PANCHAM_NAME = PMD_PANCHAM_NAME_ARR;
     inline static constexpr size_t PMD_PANCHAM_NAME_LEN = sizeof(PMD_PANCHAM_NAME_ARR)-1;
@@ -24830,7 +24830,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PANGORO_FQID_LEN = sizeof(PMD_PANGORO_FQID_ARR)-1;
     inline static constexpr char PMD_PANGORO_ID_ARR[] CONFIG_STRING_SECTION = "pangoro";
     inline static constexpr const char* PMD_PANGORO_ID = PMD_PANGORO_ID_ARR;
-    inline static constexpr size_t PMD_PANGORO_ID_LEN = sizeof(PMD_PANGORO_ID)-1;
+    inline static constexpr size_t PMD_PANGORO_ID_LEN = sizeof(PMD_PANGORO_ID_ARR)-1;
     inline static constexpr char PMD_PANGORO_NAME_ARR[] CONFIG_STRING_SECTION = "Pangoro";
     inline static constexpr const char* PMD_PANGORO_NAME = PMD_PANGORO_NAME_ARR;
     inline static constexpr size_t PMD_PANGORO_NAME_LEN = sizeof(PMD_PANGORO_NAME_ARR)-1;
@@ -24868,7 +24868,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FURFROU_FQID_LEN = sizeof(PMD_FURFROU_FQID_ARR)-1;
     inline static constexpr char PMD_FURFROU_ID_ARR[] CONFIG_STRING_SECTION = "furfrou";
     inline static constexpr const char* PMD_FURFROU_ID = PMD_FURFROU_ID_ARR;
-    inline static constexpr size_t PMD_FURFROU_ID_LEN = sizeof(PMD_FURFROU_ID)-1;
+    inline static constexpr size_t PMD_FURFROU_ID_LEN = sizeof(PMD_FURFROU_ID_ARR)-1;
     inline static constexpr char PMD_FURFROU_NAME_ARR[] CONFIG_STRING_SECTION = "Furfrou";
     inline static constexpr const char* PMD_FURFROU_NAME = PMD_FURFROU_NAME_ARR;
     inline static constexpr size_t PMD_FURFROU_NAME_LEN = sizeof(PMD_FURFROU_NAME_ARR)-1;
@@ -24906,7 +24906,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ESPURR_FQID_LEN = sizeof(PMD_ESPURR_FQID_ARR)-1;
     inline static constexpr char PMD_ESPURR_ID_ARR[] CONFIG_STRING_SECTION = "espurr";
     inline static constexpr const char* PMD_ESPURR_ID = PMD_ESPURR_ID_ARR;
-    inline static constexpr size_t PMD_ESPURR_ID_LEN = sizeof(PMD_ESPURR_ID)-1;
+    inline static constexpr size_t PMD_ESPURR_ID_LEN = sizeof(PMD_ESPURR_ID_ARR)-1;
     inline static constexpr char PMD_ESPURR_NAME_ARR[] CONFIG_STRING_SECTION = "Espurr";
     inline static constexpr const char* PMD_ESPURR_NAME = PMD_ESPURR_NAME_ARR;
     inline static constexpr size_t PMD_ESPURR_NAME_LEN = sizeof(PMD_ESPURR_NAME_ARR)-1;
@@ -24944,7 +24944,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MEOWSTIC_FQID_LEN = sizeof(PMD_MEOWSTIC_FQID_ARR)-1;
     inline static constexpr char PMD_MEOWSTIC_ID_ARR[] CONFIG_STRING_SECTION = "meowstic";
     inline static constexpr const char* PMD_MEOWSTIC_ID = PMD_MEOWSTIC_ID_ARR;
-    inline static constexpr size_t PMD_MEOWSTIC_ID_LEN = sizeof(PMD_MEOWSTIC_ID)-1;
+    inline static constexpr size_t PMD_MEOWSTIC_ID_LEN = sizeof(PMD_MEOWSTIC_ID_ARR)-1;
     inline static constexpr char PMD_MEOWSTIC_NAME_ARR[] CONFIG_STRING_SECTION = "Meowstic";
     inline static constexpr const char* PMD_MEOWSTIC_NAME = PMD_MEOWSTIC_NAME_ARR;
     inline static constexpr size_t PMD_MEOWSTIC_NAME_LEN = sizeof(PMD_MEOWSTIC_NAME_ARR)-1;
@@ -24982,7 +24982,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HONEDGE_FQID_LEN = sizeof(PMD_HONEDGE_FQID_ARR)-1;
     inline static constexpr char PMD_HONEDGE_ID_ARR[] CONFIG_STRING_SECTION = "honedge";
     inline static constexpr const char* PMD_HONEDGE_ID = PMD_HONEDGE_ID_ARR;
-    inline static constexpr size_t PMD_HONEDGE_ID_LEN = sizeof(PMD_HONEDGE_ID)-1;
+    inline static constexpr size_t PMD_HONEDGE_ID_LEN = sizeof(PMD_HONEDGE_ID_ARR)-1;
     inline static constexpr char PMD_HONEDGE_NAME_ARR[] CONFIG_STRING_SECTION = "Honedge";
     inline static constexpr const char* PMD_HONEDGE_NAME = PMD_HONEDGE_NAME_ARR;
     inline static constexpr size_t PMD_HONEDGE_NAME_LEN = sizeof(PMD_HONEDGE_NAME_ARR)-1;
@@ -25020,7 +25020,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DOUBLADE_FQID_LEN = sizeof(PMD_DOUBLADE_FQID_ARR)-1;
     inline static constexpr char PMD_DOUBLADE_ID_ARR[] CONFIG_STRING_SECTION = "doublade";
     inline static constexpr const char* PMD_DOUBLADE_ID = PMD_DOUBLADE_ID_ARR;
-    inline static constexpr size_t PMD_DOUBLADE_ID_LEN = sizeof(PMD_DOUBLADE_ID)-1;
+    inline static constexpr size_t PMD_DOUBLADE_ID_LEN = sizeof(PMD_DOUBLADE_ID_ARR)-1;
     inline static constexpr char PMD_DOUBLADE_NAME_ARR[] CONFIG_STRING_SECTION = "Doublade";
     inline static constexpr const char* PMD_DOUBLADE_NAME = PMD_DOUBLADE_NAME_ARR;
     inline static constexpr size_t PMD_DOUBLADE_NAME_LEN = sizeof(PMD_DOUBLADE_NAME_ARR)-1;
@@ -25058,7 +25058,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AEGISLASH_FQID_LEN = sizeof(PMD_AEGISLASH_FQID_ARR)-1;
     inline static constexpr char PMD_AEGISLASH_ID_ARR[] CONFIG_STRING_SECTION = "aegislash";
     inline static constexpr const char* PMD_AEGISLASH_ID = PMD_AEGISLASH_ID_ARR;
-    inline static constexpr size_t PMD_AEGISLASH_ID_LEN = sizeof(PMD_AEGISLASH_ID)-1;
+    inline static constexpr size_t PMD_AEGISLASH_ID_LEN = sizeof(PMD_AEGISLASH_ID_ARR)-1;
     inline static constexpr char PMD_AEGISLASH_NAME_ARR[] CONFIG_STRING_SECTION = "Aegislash";
     inline static constexpr const char* PMD_AEGISLASH_NAME = PMD_AEGISLASH_NAME_ARR;
     inline static constexpr size_t PMD_AEGISLASH_NAME_LEN = sizeof(PMD_AEGISLASH_NAME_ARR)-1;
@@ -25096,7 +25096,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPRITZEE_FQID_LEN = sizeof(PMD_SPRITZEE_FQID_ARR)-1;
     inline static constexpr char PMD_SPRITZEE_ID_ARR[] CONFIG_STRING_SECTION = "spritzee";
     inline static constexpr const char* PMD_SPRITZEE_ID = PMD_SPRITZEE_ID_ARR;
-    inline static constexpr size_t PMD_SPRITZEE_ID_LEN = sizeof(PMD_SPRITZEE_ID)-1;
+    inline static constexpr size_t PMD_SPRITZEE_ID_LEN = sizeof(PMD_SPRITZEE_ID_ARR)-1;
     inline static constexpr char PMD_SPRITZEE_NAME_ARR[] CONFIG_STRING_SECTION = "Spritzee";
     inline static constexpr const char* PMD_SPRITZEE_NAME = PMD_SPRITZEE_NAME_ARR;
     inline static constexpr size_t PMD_SPRITZEE_NAME_LEN = sizeof(PMD_SPRITZEE_NAME_ARR)-1;
@@ -25134,7 +25134,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AROMATISSE_FQID_LEN = sizeof(PMD_AROMATISSE_FQID_ARR)-1;
     inline static constexpr char PMD_AROMATISSE_ID_ARR[] CONFIG_STRING_SECTION = "aromatisse";
     inline static constexpr const char* PMD_AROMATISSE_ID = PMD_AROMATISSE_ID_ARR;
-    inline static constexpr size_t PMD_AROMATISSE_ID_LEN = sizeof(PMD_AROMATISSE_ID)-1;
+    inline static constexpr size_t PMD_AROMATISSE_ID_LEN = sizeof(PMD_AROMATISSE_ID_ARR)-1;
     inline static constexpr char PMD_AROMATISSE_NAME_ARR[] CONFIG_STRING_SECTION = "Aromatisse";
     inline static constexpr const char* PMD_AROMATISSE_NAME = PMD_AROMATISSE_NAME_ARR;
     inline static constexpr size_t PMD_AROMATISSE_NAME_LEN = sizeof(PMD_AROMATISSE_NAME_ARR)-1;
@@ -25172,7 +25172,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SWIRLIX_FQID_LEN = sizeof(PMD_SWIRLIX_FQID_ARR)-1;
     inline static constexpr char PMD_SWIRLIX_ID_ARR[] CONFIG_STRING_SECTION = "swirlix";
     inline static constexpr const char* PMD_SWIRLIX_ID = PMD_SWIRLIX_ID_ARR;
-    inline static constexpr size_t PMD_SWIRLIX_ID_LEN = sizeof(PMD_SWIRLIX_ID)-1;
+    inline static constexpr size_t PMD_SWIRLIX_ID_LEN = sizeof(PMD_SWIRLIX_ID_ARR)-1;
     inline static constexpr char PMD_SWIRLIX_NAME_ARR[] CONFIG_STRING_SECTION = "Swirlix";
     inline static constexpr const char* PMD_SWIRLIX_NAME = PMD_SWIRLIX_NAME_ARR;
     inline static constexpr size_t PMD_SWIRLIX_NAME_LEN = sizeof(PMD_SWIRLIX_NAME_ARR)-1;
@@ -25210,7 +25210,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLURPUFF_FQID_LEN = sizeof(PMD_SLURPUFF_FQID_ARR)-1;
     inline static constexpr char PMD_SLURPUFF_ID_ARR[] CONFIG_STRING_SECTION = "slurpuff";
     inline static constexpr const char* PMD_SLURPUFF_ID = PMD_SLURPUFF_ID_ARR;
-    inline static constexpr size_t PMD_SLURPUFF_ID_LEN = sizeof(PMD_SLURPUFF_ID)-1;
+    inline static constexpr size_t PMD_SLURPUFF_ID_LEN = sizeof(PMD_SLURPUFF_ID_ARR)-1;
     inline static constexpr char PMD_SLURPUFF_NAME_ARR[] CONFIG_STRING_SECTION = "Slurpuff";
     inline static constexpr const char* PMD_SLURPUFF_NAME = PMD_SLURPUFF_NAME_ARR;
     inline static constexpr size_t PMD_SLURPUFF_NAME_LEN = sizeof(PMD_SLURPUFF_NAME_ARR)-1;
@@ -25248,7 +25248,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_INKAY_FQID_LEN = sizeof(PMD_INKAY_FQID_ARR)-1;
     inline static constexpr char PMD_INKAY_ID_ARR[] CONFIG_STRING_SECTION = "inkay";
     inline static constexpr const char* PMD_INKAY_ID = PMD_INKAY_ID_ARR;
-    inline static constexpr size_t PMD_INKAY_ID_LEN = sizeof(PMD_INKAY_ID)-1;
+    inline static constexpr size_t PMD_INKAY_ID_LEN = sizeof(PMD_INKAY_ID_ARR)-1;
     inline static constexpr char PMD_INKAY_NAME_ARR[] CONFIG_STRING_SECTION = "Inkay";
     inline static constexpr const char* PMD_INKAY_NAME = PMD_INKAY_NAME_ARR;
     inline static constexpr size_t PMD_INKAY_NAME_LEN = sizeof(PMD_INKAY_NAME_ARR)-1;
@@ -25286,7 +25286,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MALAMAR_FQID_LEN = sizeof(PMD_MALAMAR_FQID_ARR)-1;
     inline static constexpr char PMD_MALAMAR_ID_ARR[] CONFIG_STRING_SECTION = "malamar";
     inline static constexpr const char* PMD_MALAMAR_ID = PMD_MALAMAR_ID_ARR;
-    inline static constexpr size_t PMD_MALAMAR_ID_LEN = sizeof(PMD_MALAMAR_ID)-1;
+    inline static constexpr size_t PMD_MALAMAR_ID_LEN = sizeof(PMD_MALAMAR_ID_ARR)-1;
     inline static constexpr char PMD_MALAMAR_NAME_ARR[] CONFIG_STRING_SECTION = "Malamar";
     inline static constexpr const char* PMD_MALAMAR_NAME = PMD_MALAMAR_NAME_ARR;
     inline static constexpr size_t PMD_MALAMAR_NAME_LEN = sizeof(PMD_MALAMAR_NAME_ARR)-1;
@@ -25324,7 +25324,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BINACLE_FQID_LEN = sizeof(PMD_BINACLE_FQID_ARR)-1;
     inline static constexpr char PMD_BINACLE_ID_ARR[] CONFIG_STRING_SECTION = "binacle";
     inline static constexpr const char* PMD_BINACLE_ID = PMD_BINACLE_ID_ARR;
-    inline static constexpr size_t PMD_BINACLE_ID_LEN = sizeof(PMD_BINACLE_ID)-1;
+    inline static constexpr size_t PMD_BINACLE_ID_LEN = sizeof(PMD_BINACLE_ID_ARR)-1;
     inline static constexpr char PMD_BINACLE_NAME_ARR[] CONFIG_STRING_SECTION = "Binacle";
     inline static constexpr const char* PMD_BINACLE_NAME = PMD_BINACLE_NAME_ARR;
     inline static constexpr size_t PMD_BINACLE_NAME_LEN = sizeof(PMD_BINACLE_NAME_ARR)-1;
@@ -25362,7 +25362,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BARBARACLE_FQID_LEN = sizeof(PMD_BARBARACLE_FQID_ARR)-1;
     inline static constexpr char PMD_BARBARACLE_ID_ARR[] CONFIG_STRING_SECTION = "barbaracle";
     inline static constexpr const char* PMD_BARBARACLE_ID = PMD_BARBARACLE_ID_ARR;
-    inline static constexpr size_t PMD_BARBARACLE_ID_LEN = sizeof(PMD_BARBARACLE_ID)-1;
+    inline static constexpr size_t PMD_BARBARACLE_ID_LEN = sizeof(PMD_BARBARACLE_ID_ARR)-1;
     inline static constexpr char PMD_BARBARACLE_NAME_ARR[] CONFIG_STRING_SECTION = "Barbaracle";
     inline static constexpr const char* PMD_BARBARACLE_NAME = PMD_BARBARACLE_NAME_ARR;
     inline static constexpr size_t PMD_BARBARACLE_NAME_LEN = sizeof(PMD_BARBARACLE_NAME_ARR)-1;
@@ -25400,7 +25400,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKRELP_FQID_LEN = sizeof(PMD_SKRELP_FQID_ARR)-1;
     inline static constexpr char PMD_SKRELP_ID_ARR[] CONFIG_STRING_SECTION = "skrelp";
     inline static constexpr const char* PMD_SKRELP_ID = PMD_SKRELP_ID_ARR;
-    inline static constexpr size_t PMD_SKRELP_ID_LEN = sizeof(PMD_SKRELP_ID)-1;
+    inline static constexpr size_t PMD_SKRELP_ID_LEN = sizeof(PMD_SKRELP_ID_ARR)-1;
     inline static constexpr char PMD_SKRELP_NAME_ARR[] CONFIG_STRING_SECTION = "Skrelp";
     inline static constexpr const char* PMD_SKRELP_NAME = PMD_SKRELP_NAME_ARR;
     inline static constexpr size_t PMD_SKRELP_NAME_LEN = sizeof(PMD_SKRELP_NAME_ARR)-1;
@@ -25438,7 +25438,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRAGALGE_FQID_LEN = sizeof(PMD_DRAGALGE_FQID_ARR)-1;
     inline static constexpr char PMD_DRAGALGE_ID_ARR[] CONFIG_STRING_SECTION = "dragalge";
     inline static constexpr const char* PMD_DRAGALGE_ID = PMD_DRAGALGE_ID_ARR;
-    inline static constexpr size_t PMD_DRAGALGE_ID_LEN = sizeof(PMD_DRAGALGE_ID)-1;
+    inline static constexpr size_t PMD_DRAGALGE_ID_LEN = sizeof(PMD_DRAGALGE_ID_ARR)-1;
     inline static constexpr char PMD_DRAGALGE_NAME_ARR[] CONFIG_STRING_SECTION = "Dragalge";
     inline static constexpr const char* PMD_DRAGALGE_NAME = PMD_DRAGALGE_NAME_ARR;
     inline static constexpr size_t PMD_DRAGALGE_NAME_LEN = sizeof(PMD_DRAGALGE_NAME_ARR)-1;
@@ -25476,7 +25476,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLAUNCHER_FQID_LEN = sizeof(PMD_CLAUNCHER_FQID_ARR)-1;
     inline static constexpr char PMD_CLAUNCHER_ID_ARR[] CONFIG_STRING_SECTION = "clauncher";
     inline static constexpr const char* PMD_CLAUNCHER_ID = PMD_CLAUNCHER_ID_ARR;
-    inline static constexpr size_t PMD_CLAUNCHER_ID_LEN = sizeof(PMD_CLAUNCHER_ID)-1;
+    inline static constexpr size_t PMD_CLAUNCHER_ID_LEN = sizeof(PMD_CLAUNCHER_ID_ARR)-1;
     inline static constexpr char PMD_CLAUNCHER_NAME_ARR[] CONFIG_STRING_SECTION = "Clauncher";
     inline static constexpr const char* PMD_CLAUNCHER_NAME = PMD_CLAUNCHER_NAME_ARR;
     inline static constexpr size_t PMD_CLAUNCHER_NAME_LEN = sizeof(PMD_CLAUNCHER_NAME_ARR)-1;
@@ -25514,7 +25514,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLAWITZER_FQID_LEN = sizeof(PMD_CLAWITZER_FQID_ARR)-1;
     inline static constexpr char PMD_CLAWITZER_ID_ARR[] CONFIG_STRING_SECTION = "clawitzer";
     inline static constexpr const char* PMD_CLAWITZER_ID = PMD_CLAWITZER_ID_ARR;
-    inline static constexpr size_t PMD_CLAWITZER_ID_LEN = sizeof(PMD_CLAWITZER_ID)-1;
+    inline static constexpr size_t PMD_CLAWITZER_ID_LEN = sizeof(PMD_CLAWITZER_ID_ARR)-1;
     inline static constexpr char PMD_CLAWITZER_NAME_ARR[] CONFIG_STRING_SECTION = "Clawitzer";
     inline static constexpr const char* PMD_CLAWITZER_NAME = PMD_CLAWITZER_NAME_ARR;
     inline static constexpr size_t PMD_CLAWITZER_NAME_LEN = sizeof(PMD_CLAWITZER_NAME_ARR)-1;
@@ -25552,7 +25552,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HELIOPTILE_FQID_LEN = sizeof(PMD_HELIOPTILE_FQID_ARR)-1;
     inline static constexpr char PMD_HELIOPTILE_ID_ARR[] CONFIG_STRING_SECTION = "helioptile";
     inline static constexpr const char* PMD_HELIOPTILE_ID = PMD_HELIOPTILE_ID_ARR;
-    inline static constexpr size_t PMD_HELIOPTILE_ID_LEN = sizeof(PMD_HELIOPTILE_ID)-1;
+    inline static constexpr size_t PMD_HELIOPTILE_ID_LEN = sizeof(PMD_HELIOPTILE_ID_ARR)-1;
     inline static constexpr char PMD_HELIOPTILE_NAME_ARR[] CONFIG_STRING_SECTION = "Helioptile";
     inline static constexpr const char* PMD_HELIOPTILE_NAME = PMD_HELIOPTILE_NAME_ARR;
     inline static constexpr size_t PMD_HELIOPTILE_NAME_LEN = sizeof(PMD_HELIOPTILE_NAME_ARR)-1;
@@ -25590,7 +25590,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HELIOLISK_FQID_LEN = sizeof(PMD_HELIOLISK_FQID_ARR)-1;
     inline static constexpr char PMD_HELIOLISK_ID_ARR[] CONFIG_STRING_SECTION = "heliolisk";
     inline static constexpr const char* PMD_HELIOLISK_ID = PMD_HELIOLISK_ID_ARR;
-    inline static constexpr size_t PMD_HELIOLISK_ID_LEN = sizeof(PMD_HELIOLISK_ID)-1;
+    inline static constexpr size_t PMD_HELIOLISK_ID_LEN = sizeof(PMD_HELIOLISK_ID_ARR)-1;
     inline static constexpr char PMD_HELIOLISK_NAME_ARR[] CONFIG_STRING_SECTION = "Heliolisk";
     inline static constexpr const char* PMD_HELIOLISK_NAME = PMD_HELIOLISK_NAME_ARR;
     inline static constexpr size_t PMD_HELIOLISK_NAME_LEN = sizeof(PMD_HELIOLISK_NAME_ARR)-1;
@@ -25628,7 +25628,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYRUNT_FQID_LEN = sizeof(PMD_TYRUNT_FQID_ARR)-1;
     inline static constexpr char PMD_TYRUNT_ID_ARR[] CONFIG_STRING_SECTION = "tyrunt";
     inline static constexpr const char* PMD_TYRUNT_ID = PMD_TYRUNT_ID_ARR;
-    inline static constexpr size_t PMD_TYRUNT_ID_LEN = sizeof(PMD_TYRUNT_ID)-1;
+    inline static constexpr size_t PMD_TYRUNT_ID_LEN = sizeof(PMD_TYRUNT_ID_ARR)-1;
     inline static constexpr char PMD_TYRUNT_NAME_ARR[] CONFIG_STRING_SECTION = "Tyrunt";
     inline static constexpr const char* PMD_TYRUNT_NAME = PMD_TYRUNT_NAME_ARR;
     inline static constexpr size_t PMD_TYRUNT_NAME_LEN = sizeof(PMD_TYRUNT_NAME_ARR)-1;
@@ -25666,7 +25666,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYRANTRUM_FQID_LEN = sizeof(PMD_TYRANTRUM_FQID_ARR)-1;
     inline static constexpr char PMD_TYRANTRUM_ID_ARR[] CONFIG_STRING_SECTION = "tyrantrum";
     inline static constexpr const char* PMD_TYRANTRUM_ID = PMD_TYRANTRUM_ID_ARR;
-    inline static constexpr size_t PMD_TYRANTRUM_ID_LEN = sizeof(PMD_TYRANTRUM_ID)-1;
+    inline static constexpr size_t PMD_TYRANTRUM_ID_LEN = sizeof(PMD_TYRANTRUM_ID_ARR)-1;
     inline static constexpr char PMD_TYRANTRUM_NAME_ARR[] CONFIG_STRING_SECTION = "Tyrantrum";
     inline static constexpr const char* PMD_TYRANTRUM_NAME = PMD_TYRANTRUM_NAME_ARR;
     inline static constexpr size_t PMD_TYRANTRUM_NAME_LEN = sizeof(PMD_TYRANTRUM_NAME_ARR)-1;
@@ -25704,7 +25704,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AMAURA_FQID_LEN = sizeof(PMD_AMAURA_FQID_ARR)-1;
     inline static constexpr char PMD_AMAURA_ID_ARR[] CONFIG_STRING_SECTION = "amaura";
     inline static constexpr const char* PMD_AMAURA_ID = PMD_AMAURA_ID_ARR;
-    inline static constexpr size_t PMD_AMAURA_ID_LEN = sizeof(PMD_AMAURA_ID)-1;
+    inline static constexpr size_t PMD_AMAURA_ID_LEN = sizeof(PMD_AMAURA_ID_ARR)-1;
     inline static constexpr char PMD_AMAURA_NAME_ARR[] CONFIG_STRING_SECTION = "Amaura";
     inline static constexpr const char* PMD_AMAURA_NAME = PMD_AMAURA_NAME_ARR;
     inline static constexpr size_t PMD_AMAURA_NAME_LEN = sizeof(PMD_AMAURA_NAME_ARR)-1;
@@ -25742,7 +25742,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_AURORUS_FQID_LEN = sizeof(PMD_AURORUS_FQID_ARR)-1;
     inline static constexpr char PMD_AURORUS_ID_ARR[] CONFIG_STRING_SECTION = "aurorus";
     inline static constexpr const char* PMD_AURORUS_ID = PMD_AURORUS_ID_ARR;
-    inline static constexpr size_t PMD_AURORUS_ID_LEN = sizeof(PMD_AURORUS_ID)-1;
+    inline static constexpr size_t PMD_AURORUS_ID_LEN = sizeof(PMD_AURORUS_ID_ARR)-1;
     inline static constexpr char PMD_AURORUS_NAME_ARR[] CONFIG_STRING_SECTION = "Aurorus";
     inline static constexpr const char* PMD_AURORUS_NAME = PMD_AURORUS_NAME_ARR;
     inline static constexpr size_t PMD_AURORUS_NAME_LEN = sizeof(PMD_AURORUS_NAME_ARR)-1;
@@ -25780,7 +25780,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SYLVEON_FQID_LEN = sizeof(PMD_SYLVEON_FQID_ARR)-1;
     inline static constexpr char PMD_SYLVEON_ID_ARR[] CONFIG_STRING_SECTION = "sylveon";
     inline static constexpr const char* PMD_SYLVEON_ID = PMD_SYLVEON_ID_ARR;
-    inline static constexpr size_t PMD_SYLVEON_ID_LEN = sizeof(PMD_SYLVEON_ID)-1;
+    inline static constexpr size_t PMD_SYLVEON_ID_LEN = sizeof(PMD_SYLVEON_ID_ARR)-1;
     inline static constexpr char PMD_SYLVEON_NAME_ARR[] CONFIG_STRING_SECTION = "Sylveon";
     inline static constexpr const char* PMD_SYLVEON_NAME = PMD_SYLVEON_NAME_ARR;
     inline static constexpr size_t PMD_SYLVEON_NAME_LEN = sizeof(PMD_SYLVEON_NAME_ARR)-1;
@@ -25818,7 +25818,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HAWLUCHA_FQID_LEN = sizeof(PMD_HAWLUCHA_FQID_ARR)-1;
     inline static constexpr char PMD_HAWLUCHA_ID_ARR[] CONFIG_STRING_SECTION = "hawlucha";
     inline static constexpr const char* PMD_HAWLUCHA_ID = PMD_HAWLUCHA_ID_ARR;
-    inline static constexpr size_t PMD_HAWLUCHA_ID_LEN = sizeof(PMD_HAWLUCHA_ID)-1;
+    inline static constexpr size_t PMD_HAWLUCHA_ID_LEN = sizeof(PMD_HAWLUCHA_ID_ARR)-1;
     inline static constexpr char PMD_HAWLUCHA_NAME_ARR[] CONFIG_STRING_SECTION = "Hawlucha";
     inline static constexpr const char* PMD_HAWLUCHA_NAME = PMD_HAWLUCHA_NAME_ARR;
     inline static constexpr size_t PMD_HAWLUCHA_NAME_LEN = sizeof(PMD_HAWLUCHA_NAME_ARR)-1;
@@ -25856,7 +25856,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DEDENNE_FQID_LEN = sizeof(PMD_DEDENNE_FQID_ARR)-1;
     inline static constexpr char PMD_DEDENNE_ID_ARR[] CONFIG_STRING_SECTION = "dedenne";
     inline static constexpr const char* PMD_DEDENNE_ID = PMD_DEDENNE_ID_ARR;
-    inline static constexpr size_t PMD_DEDENNE_ID_LEN = sizeof(PMD_DEDENNE_ID)-1;
+    inline static constexpr size_t PMD_DEDENNE_ID_LEN = sizeof(PMD_DEDENNE_ID_ARR)-1;
     inline static constexpr char PMD_DEDENNE_NAME_ARR[] CONFIG_STRING_SECTION = "Dedenne";
     inline static constexpr const char* PMD_DEDENNE_NAME = PMD_DEDENNE_NAME_ARR;
     inline static constexpr size_t PMD_DEDENNE_NAME_LEN = sizeof(PMD_DEDENNE_NAME_ARR)-1;
@@ -25894,7 +25894,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CARBINK_FQID_LEN = sizeof(PMD_CARBINK_FQID_ARR)-1;
     inline static constexpr char PMD_CARBINK_ID_ARR[] CONFIG_STRING_SECTION = "carbink";
     inline static constexpr const char* PMD_CARBINK_ID = PMD_CARBINK_ID_ARR;
-    inline static constexpr size_t PMD_CARBINK_ID_LEN = sizeof(PMD_CARBINK_ID)-1;
+    inline static constexpr size_t PMD_CARBINK_ID_LEN = sizeof(PMD_CARBINK_ID_ARR)-1;
     inline static constexpr char PMD_CARBINK_NAME_ARR[] CONFIG_STRING_SECTION = "Carbink";
     inline static constexpr const char* PMD_CARBINK_NAME = PMD_CARBINK_NAME_ARR;
     inline static constexpr size_t PMD_CARBINK_NAME_LEN = sizeof(PMD_CARBINK_NAME_ARR)-1;
@@ -25932,7 +25932,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOOMY_FQID_LEN = sizeof(PMD_GOOMY_FQID_ARR)-1;
     inline static constexpr char PMD_GOOMY_ID_ARR[] CONFIG_STRING_SECTION = "goomy";
     inline static constexpr const char* PMD_GOOMY_ID = PMD_GOOMY_ID_ARR;
-    inline static constexpr size_t PMD_GOOMY_ID_LEN = sizeof(PMD_GOOMY_ID)-1;
+    inline static constexpr size_t PMD_GOOMY_ID_LEN = sizeof(PMD_GOOMY_ID_ARR)-1;
     inline static constexpr char PMD_GOOMY_NAME_ARR[] CONFIG_STRING_SECTION = "Goomy";
     inline static constexpr const char* PMD_GOOMY_NAME = PMD_GOOMY_NAME_ARR;
     inline static constexpr size_t PMD_GOOMY_NAME_LEN = sizeof(PMD_GOOMY_NAME_ARR)-1;
@@ -25970,7 +25970,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SLIGGOO_FQID_LEN = sizeof(PMD_SLIGGOO_FQID_ARR)-1;
     inline static constexpr char PMD_SLIGGOO_ID_ARR[] CONFIG_STRING_SECTION = "sliggoo";
     inline static constexpr const char* PMD_SLIGGOO_ID = PMD_SLIGGOO_ID_ARR;
-    inline static constexpr size_t PMD_SLIGGOO_ID_LEN = sizeof(PMD_SLIGGOO_ID)-1;
+    inline static constexpr size_t PMD_SLIGGOO_ID_LEN = sizeof(PMD_SLIGGOO_ID_ARR)-1;
     inline static constexpr char PMD_SLIGGOO_NAME_ARR[] CONFIG_STRING_SECTION = "Sliggoo";
     inline static constexpr const char* PMD_SLIGGOO_NAME = PMD_SLIGGOO_NAME_ARR;
     inline static constexpr size_t PMD_SLIGGOO_NAME_LEN = sizeof(PMD_SLIGGOO_NAME_ARR)-1;
@@ -26008,7 +26008,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOODRA_FQID_LEN = sizeof(PMD_GOODRA_FQID_ARR)-1;
     inline static constexpr char PMD_GOODRA_ID_ARR[] CONFIG_STRING_SECTION = "goodra";
     inline static constexpr const char* PMD_GOODRA_ID = PMD_GOODRA_ID_ARR;
-    inline static constexpr size_t PMD_GOODRA_ID_LEN = sizeof(PMD_GOODRA_ID)-1;
+    inline static constexpr size_t PMD_GOODRA_ID_LEN = sizeof(PMD_GOODRA_ID_ARR)-1;
     inline static constexpr char PMD_GOODRA_NAME_ARR[] CONFIG_STRING_SECTION = "Goodra";
     inline static constexpr const char* PMD_GOODRA_NAME = PMD_GOODRA_NAME_ARR;
     inline static constexpr size_t PMD_GOODRA_NAME_LEN = sizeof(PMD_GOODRA_NAME_ARR)-1;
@@ -26046,7 +26046,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KLEFKI_FQID_LEN = sizeof(PMD_KLEFKI_FQID_ARR)-1;
     inline static constexpr char PMD_KLEFKI_ID_ARR[] CONFIG_STRING_SECTION = "klefki";
     inline static constexpr const char* PMD_KLEFKI_ID = PMD_KLEFKI_ID_ARR;
-    inline static constexpr size_t PMD_KLEFKI_ID_LEN = sizeof(PMD_KLEFKI_ID)-1;
+    inline static constexpr size_t PMD_KLEFKI_ID_LEN = sizeof(PMD_KLEFKI_ID_ARR)-1;
     inline static constexpr char PMD_KLEFKI_NAME_ARR[] CONFIG_STRING_SECTION = "Klefki";
     inline static constexpr const char* PMD_KLEFKI_NAME = PMD_KLEFKI_NAME_ARR;
     inline static constexpr size_t PMD_KLEFKI_NAME_LEN = sizeof(PMD_KLEFKI_NAME_ARR)-1;
@@ -26084,7 +26084,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PHANTUMP_FQID_LEN = sizeof(PMD_PHANTUMP_FQID_ARR)-1;
     inline static constexpr char PMD_PHANTUMP_ID_ARR[] CONFIG_STRING_SECTION = "phantump";
     inline static constexpr const char* PMD_PHANTUMP_ID = PMD_PHANTUMP_ID_ARR;
-    inline static constexpr size_t PMD_PHANTUMP_ID_LEN = sizeof(PMD_PHANTUMP_ID)-1;
+    inline static constexpr size_t PMD_PHANTUMP_ID_LEN = sizeof(PMD_PHANTUMP_ID_ARR)-1;
     inline static constexpr char PMD_PHANTUMP_NAME_ARR[] CONFIG_STRING_SECTION = "Phantump";
     inline static constexpr const char* PMD_PHANTUMP_NAME = PMD_PHANTUMP_NAME_ARR;
     inline static constexpr size_t PMD_PHANTUMP_NAME_LEN = sizeof(PMD_PHANTUMP_NAME_ARR)-1;
@@ -26122,7 +26122,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TREVENANT_FQID_LEN = sizeof(PMD_TREVENANT_FQID_ARR)-1;
     inline static constexpr char PMD_TREVENANT_ID_ARR[] CONFIG_STRING_SECTION = "trevenant";
     inline static constexpr const char* PMD_TREVENANT_ID = PMD_TREVENANT_ID_ARR;
-    inline static constexpr size_t PMD_TREVENANT_ID_LEN = sizeof(PMD_TREVENANT_ID)-1;
+    inline static constexpr size_t PMD_TREVENANT_ID_LEN = sizeof(PMD_TREVENANT_ID_ARR)-1;
     inline static constexpr char PMD_TREVENANT_NAME_ARR[] CONFIG_STRING_SECTION = "Trevenant";
     inline static constexpr const char* PMD_TREVENANT_NAME = PMD_TREVENANT_NAME_ARR;
     inline static constexpr size_t PMD_TREVENANT_NAME_LEN = sizeof(PMD_TREVENANT_NAME_ARR)-1;
@@ -26160,7 +26160,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PUMPKABOO_FQID_LEN = sizeof(PMD_PUMPKABOO_FQID_ARR)-1;
     inline static constexpr char PMD_PUMPKABOO_ID_ARR[] CONFIG_STRING_SECTION = "pumpkaboo";
     inline static constexpr const char* PMD_PUMPKABOO_ID = PMD_PUMPKABOO_ID_ARR;
-    inline static constexpr size_t PMD_PUMPKABOO_ID_LEN = sizeof(PMD_PUMPKABOO_ID)-1;
+    inline static constexpr size_t PMD_PUMPKABOO_ID_LEN = sizeof(PMD_PUMPKABOO_ID_ARR)-1;
     inline static constexpr char PMD_PUMPKABOO_NAME_ARR[] CONFIG_STRING_SECTION = "Pumpkaboo";
     inline static constexpr const char* PMD_PUMPKABOO_NAME = PMD_PUMPKABOO_NAME_ARR;
     inline static constexpr size_t PMD_PUMPKABOO_NAME_LEN = sizeof(PMD_PUMPKABOO_NAME_ARR)-1;
@@ -26198,7 +26198,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOURGEIST_FQID_LEN = sizeof(PMD_GOURGEIST_FQID_ARR)-1;
     inline static constexpr char PMD_GOURGEIST_ID_ARR[] CONFIG_STRING_SECTION = "gourgeist";
     inline static constexpr const char* PMD_GOURGEIST_ID = PMD_GOURGEIST_ID_ARR;
-    inline static constexpr size_t PMD_GOURGEIST_ID_LEN = sizeof(PMD_GOURGEIST_ID)-1;
+    inline static constexpr size_t PMD_GOURGEIST_ID_LEN = sizeof(PMD_GOURGEIST_ID_ARR)-1;
     inline static constexpr char PMD_GOURGEIST_NAME_ARR[] CONFIG_STRING_SECTION = "Gourgeist";
     inline static constexpr const char* PMD_GOURGEIST_NAME = PMD_GOURGEIST_NAME_ARR;
     inline static constexpr size_t PMD_GOURGEIST_NAME_LEN = sizeof(PMD_GOURGEIST_NAME_ARR)-1;
@@ -26236,7 +26236,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BERGMITE_FQID_LEN = sizeof(PMD_BERGMITE_FQID_ARR)-1;
     inline static constexpr char PMD_BERGMITE_ID_ARR[] CONFIG_STRING_SECTION = "bergmite";
     inline static constexpr const char* PMD_BERGMITE_ID = PMD_BERGMITE_ID_ARR;
-    inline static constexpr size_t PMD_BERGMITE_ID_LEN = sizeof(PMD_BERGMITE_ID)-1;
+    inline static constexpr size_t PMD_BERGMITE_ID_LEN = sizeof(PMD_BERGMITE_ID_ARR)-1;
     inline static constexpr char PMD_BERGMITE_NAME_ARR[] CONFIG_STRING_SECTION = "Bergmite";
     inline static constexpr const char* PMD_BERGMITE_NAME = PMD_BERGMITE_NAME_ARR;
     inline static constexpr size_t PMD_BERGMITE_NAME_LEN = sizeof(PMD_BERGMITE_NAME_ARR)-1;
@@ -26274,7 +26274,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NOIBAT_FQID_LEN = sizeof(PMD_NOIBAT_FQID_ARR)-1;
     inline static constexpr char PMD_NOIBAT_ID_ARR[] CONFIG_STRING_SECTION = "noibat";
     inline static constexpr const char* PMD_NOIBAT_ID = PMD_NOIBAT_ID_ARR;
-    inline static constexpr size_t PMD_NOIBAT_ID_LEN = sizeof(PMD_NOIBAT_ID)-1;
+    inline static constexpr size_t PMD_NOIBAT_ID_LEN = sizeof(PMD_NOIBAT_ID_ARR)-1;
     inline static constexpr char PMD_NOIBAT_NAME_ARR[] CONFIG_STRING_SECTION = "Noibat";
     inline static constexpr const char* PMD_NOIBAT_NAME = PMD_NOIBAT_NAME_ARR;
     inline static constexpr size_t PMD_NOIBAT_NAME_LEN = sizeof(PMD_NOIBAT_NAME_ARR)-1;
@@ -26312,7 +26312,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NOIVERN_FQID_LEN = sizeof(PMD_NOIVERN_FQID_ARR)-1;
     inline static constexpr char PMD_NOIVERN_ID_ARR[] CONFIG_STRING_SECTION = "noivern";
     inline static constexpr const char* PMD_NOIVERN_ID = PMD_NOIVERN_ID_ARR;
-    inline static constexpr size_t PMD_NOIVERN_ID_LEN = sizeof(PMD_NOIVERN_ID)-1;
+    inline static constexpr size_t PMD_NOIVERN_ID_LEN = sizeof(PMD_NOIVERN_ID_ARR)-1;
     inline static constexpr char PMD_NOIVERN_NAME_ARR[] CONFIG_STRING_SECTION = "Noivern";
     inline static constexpr const char* PMD_NOIVERN_NAME = PMD_NOIVERN_NAME_ARR;
     inline static constexpr size_t PMD_NOIVERN_NAME_LEN = sizeof(PMD_NOIVERN_NAME_ARR)-1;
@@ -26350,7 +26350,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_XERNEAS_FQID_LEN = sizeof(PMD_XERNEAS_FQID_ARR)-1;
     inline static constexpr char PMD_XERNEAS_ID_ARR[] CONFIG_STRING_SECTION = "xerneas";
     inline static constexpr const char* PMD_XERNEAS_ID = PMD_XERNEAS_ID_ARR;
-    inline static constexpr size_t PMD_XERNEAS_ID_LEN = sizeof(PMD_XERNEAS_ID)-1;
+    inline static constexpr size_t PMD_XERNEAS_ID_LEN = sizeof(PMD_XERNEAS_ID_ARR)-1;
     inline static constexpr char PMD_XERNEAS_NAME_ARR[] CONFIG_STRING_SECTION = "Xerneas";
     inline static constexpr const char* PMD_XERNEAS_NAME = PMD_XERNEAS_NAME_ARR;
     inline static constexpr size_t PMD_XERNEAS_NAME_LEN = sizeof(PMD_XERNEAS_NAME_ARR)-1;
@@ -26388,7 +26388,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_YVELTAL_FQID_LEN = sizeof(PMD_YVELTAL_FQID_ARR)-1;
     inline static constexpr char PMD_YVELTAL_ID_ARR[] CONFIG_STRING_SECTION = "yveltal";
     inline static constexpr const char* PMD_YVELTAL_ID = PMD_YVELTAL_ID_ARR;
-    inline static constexpr size_t PMD_YVELTAL_ID_LEN = sizeof(PMD_YVELTAL_ID)-1;
+    inline static constexpr size_t PMD_YVELTAL_ID_LEN = sizeof(PMD_YVELTAL_ID_ARR)-1;
     inline static constexpr char PMD_YVELTAL_NAME_ARR[] CONFIG_STRING_SECTION = "Yveltal";
     inline static constexpr const char* PMD_YVELTAL_NAME = PMD_YVELTAL_NAME_ARR;
     inline static constexpr size_t PMD_YVELTAL_NAME_LEN = sizeof(PMD_YVELTAL_NAME_ARR)-1;
@@ -26426,7 +26426,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZYGARDE_FQID_LEN = sizeof(PMD_ZYGARDE_FQID_ARR)-1;
     inline static constexpr char PMD_ZYGARDE_ID_ARR[] CONFIG_STRING_SECTION = "zygarde";
     inline static constexpr const char* PMD_ZYGARDE_ID = PMD_ZYGARDE_ID_ARR;
-    inline static constexpr size_t PMD_ZYGARDE_ID_LEN = sizeof(PMD_ZYGARDE_ID)-1;
+    inline static constexpr size_t PMD_ZYGARDE_ID_LEN = sizeof(PMD_ZYGARDE_ID_ARR)-1;
     inline static constexpr char PMD_ZYGARDE_NAME_ARR[] CONFIG_STRING_SECTION = "Zygarde";
     inline static constexpr const char* PMD_ZYGARDE_NAME = PMD_ZYGARDE_NAME_ARR;
     inline static constexpr size_t PMD_ZYGARDE_NAME_LEN = sizeof(PMD_ZYGARDE_NAME_ARR)-1;
@@ -26464,7 +26464,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DIANCIE_FQID_LEN = sizeof(PMD_DIANCIE_FQID_ARR)-1;
     inline static constexpr char PMD_DIANCIE_ID_ARR[] CONFIG_STRING_SECTION = "diancie";
     inline static constexpr const char* PMD_DIANCIE_ID = PMD_DIANCIE_ID_ARR;
-    inline static constexpr size_t PMD_DIANCIE_ID_LEN = sizeof(PMD_DIANCIE_ID)-1;
+    inline static constexpr size_t PMD_DIANCIE_ID_LEN = sizeof(PMD_DIANCIE_ID_ARR)-1;
     inline static constexpr char PMD_DIANCIE_NAME_ARR[] CONFIG_STRING_SECTION = "Diancie";
     inline static constexpr const char* PMD_DIANCIE_NAME = PMD_DIANCIE_NAME_ARR;
     inline static constexpr size_t PMD_DIANCIE_NAME_LEN = sizeof(PMD_DIANCIE_NAME_ARR)-1;
@@ -26502,7 +26502,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HOOPA_FQID_LEN = sizeof(PMD_HOOPA_FQID_ARR)-1;
     inline static constexpr char PMD_HOOPA_ID_ARR[] CONFIG_STRING_SECTION = "hoopa";
     inline static constexpr const char* PMD_HOOPA_ID = PMD_HOOPA_ID_ARR;
-    inline static constexpr size_t PMD_HOOPA_ID_LEN = sizeof(PMD_HOOPA_ID)-1;
+    inline static constexpr size_t PMD_HOOPA_ID_LEN = sizeof(PMD_HOOPA_ID_ARR)-1;
     inline static constexpr char PMD_HOOPA_NAME_ARR[] CONFIG_STRING_SECTION = "Hoopa";
     inline static constexpr const char* PMD_HOOPA_NAME = PMD_HOOPA_NAME_ARR;
     inline static constexpr size_t PMD_HOOPA_NAME_LEN = sizeof(PMD_HOOPA_NAME_ARR)-1;
@@ -26540,7 +26540,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VOLCANION_FQID_LEN = sizeof(PMD_VOLCANION_FQID_ARR)-1;
     inline static constexpr char PMD_VOLCANION_ID_ARR[] CONFIG_STRING_SECTION = "volcanion";
     inline static constexpr const char* PMD_VOLCANION_ID = PMD_VOLCANION_ID_ARR;
-    inline static constexpr size_t PMD_VOLCANION_ID_LEN = sizeof(PMD_VOLCANION_ID)-1;
+    inline static constexpr size_t PMD_VOLCANION_ID_LEN = sizeof(PMD_VOLCANION_ID_ARR)-1;
     inline static constexpr char PMD_VOLCANION_NAME_ARR[] CONFIG_STRING_SECTION = "Volcanion";
     inline static constexpr const char* PMD_VOLCANION_NAME = PMD_VOLCANION_NAME_ARR;
     inline static constexpr size_t PMD_VOLCANION_NAME_LEN = sizeof(PMD_VOLCANION_NAME_ARR)-1;
@@ -26578,7 +26578,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ROWLET_FQID_LEN = sizeof(PMD_ROWLET_FQID_ARR)-1;
     inline static constexpr char PMD_ROWLET_ID_ARR[] CONFIG_STRING_SECTION = "rowlet";
     inline static constexpr const char* PMD_ROWLET_ID = PMD_ROWLET_ID_ARR;
-    inline static constexpr size_t PMD_ROWLET_ID_LEN = sizeof(PMD_ROWLET_ID)-1;
+    inline static constexpr size_t PMD_ROWLET_ID_LEN = sizeof(PMD_ROWLET_ID_ARR)-1;
     inline static constexpr char PMD_ROWLET_NAME_ARR[] CONFIG_STRING_SECTION = "Rowlet";
     inline static constexpr const char* PMD_ROWLET_NAME = PMD_ROWLET_NAME_ARR;
     inline static constexpr size_t PMD_ROWLET_NAME_LEN = sizeof(PMD_ROWLET_NAME_ARR)-1;
@@ -26616,7 +26616,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DARTRIX_FQID_LEN = sizeof(PMD_DARTRIX_FQID_ARR)-1;
     inline static constexpr char PMD_DARTRIX_ID_ARR[] CONFIG_STRING_SECTION = "dartrix";
     inline static constexpr const char* PMD_DARTRIX_ID = PMD_DARTRIX_ID_ARR;
-    inline static constexpr size_t PMD_DARTRIX_ID_LEN = sizeof(PMD_DARTRIX_ID)-1;
+    inline static constexpr size_t PMD_DARTRIX_ID_LEN = sizeof(PMD_DARTRIX_ID_ARR)-1;
     inline static constexpr char PMD_DARTRIX_NAME_ARR[] CONFIG_STRING_SECTION = "Dartrix";
     inline static constexpr const char* PMD_DARTRIX_NAME = PMD_DARTRIX_NAME_ARR;
     inline static constexpr size_t PMD_DARTRIX_NAME_LEN = sizeof(PMD_DARTRIX_NAME_ARR)-1;
@@ -26654,7 +26654,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DECIDUEYE_FQID_LEN = sizeof(PMD_DECIDUEYE_FQID_ARR)-1;
     inline static constexpr char PMD_DECIDUEYE_ID_ARR[] CONFIG_STRING_SECTION = "decidueye";
     inline static constexpr const char* PMD_DECIDUEYE_ID = PMD_DECIDUEYE_ID_ARR;
-    inline static constexpr size_t PMD_DECIDUEYE_ID_LEN = sizeof(PMD_DECIDUEYE_ID)-1;
+    inline static constexpr size_t PMD_DECIDUEYE_ID_LEN = sizeof(PMD_DECIDUEYE_ID_ARR)-1;
     inline static constexpr char PMD_DECIDUEYE_NAME_ARR[] CONFIG_STRING_SECTION = "Decidueye";
     inline static constexpr const char* PMD_DECIDUEYE_NAME = PMD_DECIDUEYE_NAME_ARR;
     inline static constexpr size_t PMD_DECIDUEYE_NAME_LEN = sizeof(PMD_DECIDUEYE_NAME_ARR)-1;
@@ -26692,7 +26692,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LITTEN_FQID_LEN = sizeof(PMD_LITTEN_FQID_ARR)-1;
     inline static constexpr char PMD_LITTEN_ID_ARR[] CONFIG_STRING_SECTION = "litten";
     inline static constexpr const char* PMD_LITTEN_ID = PMD_LITTEN_ID_ARR;
-    inline static constexpr size_t PMD_LITTEN_ID_LEN = sizeof(PMD_LITTEN_ID)-1;
+    inline static constexpr size_t PMD_LITTEN_ID_LEN = sizeof(PMD_LITTEN_ID_ARR)-1;
     inline static constexpr char PMD_LITTEN_NAME_ARR[] CONFIG_STRING_SECTION = "Litten";
     inline static constexpr const char* PMD_LITTEN_NAME = PMD_LITTEN_NAME_ARR;
     inline static constexpr size_t PMD_LITTEN_NAME_LEN = sizeof(PMD_LITTEN_NAME_ARR)-1;
@@ -26730,7 +26730,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TORRACAT_FQID_LEN = sizeof(PMD_TORRACAT_FQID_ARR)-1;
     inline static constexpr char PMD_TORRACAT_ID_ARR[] CONFIG_STRING_SECTION = "torracat";
     inline static constexpr const char* PMD_TORRACAT_ID = PMD_TORRACAT_ID_ARR;
-    inline static constexpr size_t PMD_TORRACAT_ID_LEN = sizeof(PMD_TORRACAT_ID)-1;
+    inline static constexpr size_t PMD_TORRACAT_ID_LEN = sizeof(PMD_TORRACAT_ID_ARR)-1;
     inline static constexpr char PMD_TORRACAT_NAME_ARR[] CONFIG_STRING_SECTION = "Torracat";
     inline static constexpr const char* PMD_TORRACAT_NAME = PMD_TORRACAT_NAME_ARR;
     inline static constexpr size_t PMD_TORRACAT_NAME_LEN = sizeof(PMD_TORRACAT_NAME_ARR)-1;
@@ -26768,7 +26768,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_INCINEROAR_FQID_LEN = sizeof(PMD_INCINEROAR_FQID_ARR)-1;
     inline static constexpr char PMD_INCINEROAR_ID_ARR[] CONFIG_STRING_SECTION = "incineroar";
     inline static constexpr const char* PMD_INCINEROAR_ID = PMD_INCINEROAR_ID_ARR;
-    inline static constexpr size_t PMD_INCINEROAR_ID_LEN = sizeof(PMD_INCINEROAR_ID)-1;
+    inline static constexpr size_t PMD_INCINEROAR_ID_LEN = sizeof(PMD_INCINEROAR_ID_ARR)-1;
     inline static constexpr char PMD_INCINEROAR_NAME_ARR[] CONFIG_STRING_SECTION = "Incineroar";
     inline static constexpr const char* PMD_INCINEROAR_NAME = PMD_INCINEROAR_NAME_ARR;
     inline static constexpr size_t PMD_INCINEROAR_NAME_LEN = sizeof(PMD_INCINEROAR_NAME_ARR)-1;
@@ -26806,7 +26806,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POPPLIO_FQID_LEN = sizeof(PMD_POPPLIO_FQID_ARR)-1;
     inline static constexpr char PMD_POPPLIO_ID_ARR[] CONFIG_STRING_SECTION = "popplio";
     inline static constexpr const char* PMD_POPPLIO_ID = PMD_POPPLIO_ID_ARR;
-    inline static constexpr size_t PMD_POPPLIO_ID_LEN = sizeof(PMD_POPPLIO_ID)-1;
+    inline static constexpr size_t PMD_POPPLIO_ID_LEN = sizeof(PMD_POPPLIO_ID_ARR)-1;
     inline static constexpr char PMD_POPPLIO_NAME_ARR[] CONFIG_STRING_SECTION = "Popplio";
     inline static constexpr const char* PMD_POPPLIO_NAME = PMD_POPPLIO_NAME_ARR;
     inline static constexpr size_t PMD_POPPLIO_NAME_LEN = sizeof(PMD_POPPLIO_NAME_ARR)-1;
@@ -26844,7 +26844,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BRIONNE_FQID_LEN = sizeof(PMD_BRIONNE_FQID_ARR)-1;
     inline static constexpr char PMD_BRIONNE_ID_ARR[] CONFIG_STRING_SECTION = "brionne";
     inline static constexpr const char* PMD_BRIONNE_ID = PMD_BRIONNE_ID_ARR;
-    inline static constexpr size_t PMD_BRIONNE_ID_LEN = sizeof(PMD_BRIONNE_ID)-1;
+    inline static constexpr size_t PMD_BRIONNE_ID_LEN = sizeof(PMD_BRIONNE_ID_ARR)-1;
     inline static constexpr char PMD_BRIONNE_NAME_ARR[] CONFIG_STRING_SECTION = "Brionne";
     inline static constexpr const char* PMD_BRIONNE_NAME = PMD_BRIONNE_NAME_ARR;
     inline static constexpr size_t PMD_BRIONNE_NAME_LEN = sizeof(PMD_BRIONNE_NAME_ARR)-1;
@@ -26882,7 +26882,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PRIMARINA_FQID_LEN = sizeof(PMD_PRIMARINA_FQID_ARR)-1;
     inline static constexpr char PMD_PRIMARINA_ID_ARR[] CONFIG_STRING_SECTION = "primarina";
     inline static constexpr const char* PMD_PRIMARINA_ID = PMD_PRIMARINA_ID_ARR;
-    inline static constexpr size_t PMD_PRIMARINA_ID_LEN = sizeof(PMD_PRIMARINA_ID)-1;
+    inline static constexpr size_t PMD_PRIMARINA_ID_LEN = sizeof(PMD_PRIMARINA_ID_ARR)-1;
     inline static constexpr char PMD_PRIMARINA_NAME_ARR[] CONFIG_STRING_SECTION = "Primarina";
     inline static constexpr const char* PMD_PRIMARINA_NAME = PMD_PRIMARINA_NAME_ARR;
     inline static constexpr size_t PMD_PRIMARINA_NAME_LEN = sizeof(PMD_PRIMARINA_NAME_ARR)-1;
@@ -26920,7 +26920,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOUCANNON_FQID_LEN = sizeof(PMD_TOUCANNON_FQID_ARR)-1;
     inline static constexpr char PMD_TOUCANNON_ID_ARR[] CONFIG_STRING_SECTION = "toucannon";
     inline static constexpr const char* PMD_TOUCANNON_ID = PMD_TOUCANNON_ID_ARR;
-    inline static constexpr size_t PMD_TOUCANNON_ID_LEN = sizeof(PMD_TOUCANNON_ID)-1;
+    inline static constexpr size_t PMD_TOUCANNON_ID_LEN = sizeof(PMD_TOUCANNON_ID_ARR)-1;
     inline static constexpr char PMD_TOUCANNON_NAME_ARR[] CONFIG_STRING_SECTION = "Toucannon";
     inline static constexpr const char* PMD_TOUCANNON_NAME = PMD_TOUCANNON_NAME_ARR;
     inline static constexpr size_t PMD_TOUCANNON_NAME_LEN = sizeof(PMD_TOUCANNON_NAME_ARR)-1;
@@ -26958,7 +26958,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRUBBIN_FQID_LEN = sizeof(PMD_GRUBBIN_FQID_ARR)-1;
     inline static constexpr char PMD_GRUBBIN_ID_ARR[] CONFIG_STRING_SECTION = "grubbin";
     inline static constexpr const char* PMD_GRUBBIN_ID = PMD_GRUBBIN_ID_ARR;
-    inline static constexpr size_t PMD_GRUBBIN_ID_LEN = sizeof(PMD_GRUBBIN_ID)-1;
+    inline static constexpr size_t PMD_GRUBBIN_ID_LEN = sizeof(PMD_GRUBBIN_ID_ARR)-1;
     inline static constexpr char PMD_GRUBBIN_NAME_ARR[] CONFIG_STRING_SECTION = "Grubbin";
     inline static constexpr const char* PMD_GRUBBIN_NAME = PMD_GRUBBIN_NAME_ARR;
     inline static constexpr size_t PMD_GRUBBIN_NAME_LEN = sizeof(PMD_GRUBBIN_NAME_ARR)-1;
@@ -26996,7 +26996,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHARJABUG_FQID_LEN = sizeof(PMD_CHARJABUG_FQID_ARR)-1;
     inline static constexpr char PMD_CHARJABUG_ID_ARR[] CONFIG_STRING_SECTION = "charjabug";
     inline static constexpr const char* PMD_CHARJABUG_ID = PMD_CHARJABUG_ID_ARR;
-    inline static constexpr size_t PMD_CHARJABUG_ID_LEN = sizeof(PMD_CHARJABUG_ID)-1;
+    inline static constexpr size_t PMD_CHARJABUG_ID_LEN = sizeof(PMD_CHARJABUG_ID_ARR)-1;
     inline static constexpr char PMD_CHARJABUG_NAME_ARR[] CONFIG_STRING_SECTION = "Charjabug";
     inline static constexpr const char* PMD_CHARJABUG_NAME = PMD_CHARJABUG_NAME_ARR;
     inline static constexpr size_t PMD_CHARJABUG_NAME_LEN = sizeof(PMD_CHARJABUG_NAME_ARR)-1;
@@ -27034,7 +27034,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_VIKAVOLT_FQID_LEN = sizeof(PMD_VIKAVOLT_FQID_ARR)-1;
     inline static constexpr char PMD_VIKAVOLT_ID_ARR[] CONFIG_STRING_SECTION = "vikavolt";
     inline static constexpr const char* PMD_VIKAVOLT_ID = PMD_VIKAVOLT_ID_ARR;
-    inline static constexpr size_t PMD_VIKAVOLT_ID_LEN = sizeof(PMD_VIKAVOLT_ID)-1;
+    inline static constexpr size_t PMD_VIKAVOLT_ID_LEN = sizeof(PMD_VIKAVOLT_ID_ARR)-1;
     inline static constexpr char PMD_VIKAVOLT_NAME_ARR[] CONFIG_STRING_SECTION = "Vikavolt";
     inline static constexpr const char* PMD_VIKAVOLT_NAME = PMD_VIKAVOLT_NAME_ARR;
     inline static constexpr size_t PMD_VIKAVOLT_NAME_LEN = sizeof(PMD_VIKAVOLT_NAME_ARR)-1;
@@ -27072,7 +27072,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRABRAWLER_FQID_LEN = sizeof(PMD_CRABRAWLER_FQID_ARR)-1;
     inline static constexpr char PMD_CRABRAWLER_ID_ARR[] CONFIG_STRING_SECTION = "crabrawler";
     inline static constexpr const char* PMD_CRABRAWLER_ID = PMD_CRABRAWLER_ID_ARR;
-    inline static constexpr size_t PMD_CRABRAWLER_ID_LEN = sizeof(PMD_CRABRAWLER_ID)-1;
+    inline static constexpr size_t PMD_CRABRAWLER_ID_LEN = sizeof(PMD_CRABRAWLER_ID_ARR)-1;
     inline static constexpr char PMD_CRABRAWLER_NAME_ARR[] CONFIG_STRING_SECTION = "Crabrawler";
     inline static constexpr const char* PMD_CRABRAWLER_NAME = PMD_CRABRAWLER_NAME_ARR;
     inline static constexpr size_t PMD_CRABRAWLER_NAME_LEN = sizeof(PMD_CRABRAWLER_NAME_ARR)-1;
@@ -27110,7 +27110,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRABOMINABLE_FQID_LEN = sizeof(PMD_CRABOMINABLE_FQID_ARR)-1;
     inline static constexpr char PMD_CRABOMINABLE_ID_ARR[] CONFIG_STRING_SECTION = "crabominable";
     inline static constexpr const char* PMD_CRABOMINABLE_ID = PMD_CRABOMINABLE_ID_ARR;
-    inline static constexpr size_t PMD_CRABOMINABLE_ID_LEN = sizeof(PMD_CRABOMINABLE_ID)-1;
+    inline static constexpr size_t PMD_CRABOMINABLE_ID_LEN = sizeof(PMD_CRABOMINABLE_ID_ARR)-1;
     inline static constexpr char PMD_CRABOMINABLE_NAME_ARR[] CONFIG_STRING_SECTION = "Crabominable";
     inline static constexpr const char* PMD_CRABOMINABLE_NAME = PMD_CRABOMINABLE_NAME_ARR;
     inline static constexpr size_t PMD_CRABOMINABLE_NAME_LEN = sizeof(PMD_CRABOMINABLE_NAME_ARR)-1;
@@ -27148,7 +27148,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CUTIEFLY_FQID_LEN = sizeof(PMD_CUTIEFLY_FQID_ARR)-1;
     inline static constexpr char PMD_CUTIEFLY_ID_ARR[] CONFIG_STRING_SECTION = "cutiefly";
     inline static constexpr const char* PMD_CUTIEFLY_ID = PMD_CUTIEFLY_ID_ARR;
-    inline static constexpr size_t PMD_CUTIEFLY_ID_LEN = sizeof(PMD_CUTIEFLY_ID)-1;
+    inline static constexpr size_t PMD_CUTIEFLY_ID_LEN = sizeof(PMD_CUTIEFLY_ID_ARR)-1;
     inline static constexpr char PMD_CUTIEFLY_NAME_ARR[] CONFIG_STRING_SECTION = "Cutiefly";
     inline static constexpr const char* PMD_CUTIEFLY_NAME = PMD_CUTIEFLY_NAME_ARR;
     inline static constexpr size_t PMD_CUTIEFLY_NAME_LEN = sizeof(PMD_CUTIEFLY_NAME_ARR)-1;
@@ -27186,7 +27186,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RIBOMBEE_FQID_LEN = sizeof(PMD_RIBOMBEE_FQID_ARR)-1;
     inline static constexpr char PMD_RIBOMBEE_ID_ARR[] CONFIG_STRING_SECTION = "ribombee";
     inline static constexpr const char* PMD_RIBOMBEE_ID = PMD_RIBOMBEE_ID_ARR;
-    inline static constexpr size_t PMD_RIBOMBEE_ID_LEN = sizeof(PMD_RIBOMBEE_ID)-1;
+    inline static constexpr size_t PMD_RIBOMBEE_ID_LEN = sizeof(PMD_RIBOMBEE_ID_ARR)-1;
     inline static constexpr char PMD_RIBOMBEE_NAME_ARR[] CONFIG_STRING_SECTION = "Ribombee";
     inline static constexpr const char* PMD_RIBOMBEE_NAME = PMD_RIBOMBEE_NAME_ARR;
     inline static constexpr size_t PMD_RIBOMBEE_NAME_LEN = sizeof(PMD_RIBOMBEE_NAME_ARR)-1;
@@ -27224,7 +27224,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ROCKRUFF_FQID_LEN = sizeof(PMD_ROCKRUFF_FQID_ARR)-1;
     inline static constexpr char PMD_ROCKRUFF_ID_ARR[] CONFIG_STRING_SECTION = "rockruff";
     inline static constexpr const char* PMD_ROCKRUFF_ID = PMD_ROCKRUFF_ID_ARR;
-    inline static constexpr size_t PMD_ROCKRUFF_ID_LEN = sizeof(PMD_ROCKRUFF_ID)-1;
+    inline static constexpr size_t PMD_ROCKRUFF_ID_LEN = sizeof(PMD_ROCKRUFF_ID_ARR)-1;
     inline static constexpr char PMD_ROCKRUFF_NAME_ARR[] CONFIG_STRING_SECTION = "Rockruff";
     inline static constexpr const char* PMD_ROCKRUFF_NAME = PMD_ROCKRUFF_NAME_ARR;
     inline static constexpr size_t PMD_ROCKRUFF_NAME_LEN = sizeof(PMD_ROCKRUFF_NAME_ARR)-1;
@@ -27262,7 +27262,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LYCANROC_FQID_LEN = sizeof(PMD_LYCANROC_FQID_ARR)-1;
     inline static constexpr char PMD_LYCANROC_ID_ARR[] CONFIG_STRING_SECTION = "lycanroc";
     inline static constexpr const char* PMD_LYCANROC_ID = PMD_LYCANROC_ID_ARR;
-    inline static constexpr size_t PMD_LYCANROC_ID_LEN = sizeof(PMD_LYCANROC_ID)-1;
+    inline static constexpr size_t PMD_LYCANROC_ID_LEN = sizeof(PMD_LYCANROC_ID_ARR)-1;
     inline static constexpr char PMD_LYCANROC_NAME_ARR[] CONFIG_STRING_SECTION = "Lycanroc";
     inline static constexpr const char* PMD_LYCANROC_NAME = PMD_LYCANROC_NAME_ARR;
     inline static constexpr size_t PMD_LYCANROC_NAME_LEN = sizeof(PMD_LYCANROC_NAME_ARR)-1;
@@ -27300,7 +27300,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WISHIWASHI_FQID_LEN = sizeof(PMD_WISHIWASHI_FQID_ARR)-1;
     inline static constexpr char PMD_WISHIWASHI_ID_ARR[] CONFIG_STRING_SECTION = "wishiwashi";
     inline static constexpr const char* PMD_WISHIWASHI_ID = PMD_WISHIWASHI_ID_ARR;
-    inline static constexpr size_t PMD_WISHIWASHI_ID_LEN = sizeof(PMD_WISHIWASHI_ID)-1;
+    inline static constexpr size_t PMD_WISHIWASHI_ID_LEN = sizeof(PMD_WISHIWASHI_ID_ARR)-1;
     inline static constexpr char PMD_WISHIWASHI_NAME_ARR[] CONFIG_STRING_SECTION = "Wishiwashi";
     inline static constexpr const char* PMD_WISHIWASHI_NAME = PMD_WISHIWASHI_NAME_ARR;
     inline static constexpr size_t PMD_WISHIWASHI_NAME_LEN = sizeof(PMD_WISHIWASHI_NAME_ARR)-1;
@@ -27338,7 +27338,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAREANIE_FQID_LEN = sizeof(PMD_MAREANIE_FQID_ARR)-1;
     inline static constexpr char PMD_MAREANIE_ID_ARR[] CONFIG_STRING_SECTION = "mareanie";
     inline static constexpr const char* PMD_MAREANIE_ID = PMD_MAREANIE_ID_ARR;
-    inline static constexpr size_t PMD_MAREANIE_ID_LEN = sizeof(PMD_MAREANIE_ID)-1;
+    inline static constexpr size_t PMD_MAREANIE_ID_LEN = sizeof(PMD_MAREANIE_ID_ARR)-1;
     inline static constexpr char PMD_MAREANIE_NAME_ARR[] CONFIG_STRING_SECTION = "Mareanie";
     inline static constexpr const char* PMD_MAREANIE_NAME = PMD_MAREANIE_NAME_ARR;
     inline static constexpr size_t PMD_MAREANIE_NAME_LEN = sizeof(PMD_MAREANIE_NAME_ARR)-1;
@@ -27376,7 +27376,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MUDBRAY_FQID_LEN = sizeof(PMD_MUDBRAY_FQID_ARR)-1;
     inline static constexpr char PMD_MUDBRAY_ID_ARR[] CONFIG_STRING_SECTION = "mudbray";
     inline static constexpr const char* PMD_MUDBRAY_ID = PMD_MUDBRAY_ID_ARR;
-    inline static constexpr size_t PMD_MUDBRAY_ID_LEN = sizeof(PMD_MUDBRAY_ID)-1;
+    inline static constexpr size_t PMD_MUDBRAY_ID_LEN = sizeof(PMD_MUDBRAY_ID_ARR)-1;
     inline static constexpr char PMD_MUDBRAY_NAME_ARR[] CONFIG_STRING_SECTION = "Mudbray";
     inline static constexpr const char* PMD_MUDBRAY_NAME = PMD_MUDBRAY_NAME_ARR;
     inline static constexpr size_t PMD_MUDBRAY_NAME_LEN = sizeof(PMD_MUDBRAY_NAME_ARR)-1;
@@ -27414,7 +27414,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MUDSDALE_FQID_LEN = sizeof(PMD_MUDSDALE_FQID_ARR)-1;
     inline static constexpr char PMD_MUDSDALE_ID_ARR[] CONFIG_STRING_SECTION = "mudsdale";
     inline static constexpr const char* PMD_MUDSDALE_ID = PMD_MUDSDALE_ID_ARR;
-    inline static constexpr size_t PMD_MUDSDALE_ID_LEN = sizeof(PMD_MUDSDALE_ID)-1;
+    inline static constexpr size_t PMD_MUDSDALE_ID_LEN = sizeof(PMD_MUDSDALE_ID_ARR)-1;
     inline static constexpr char PMD_MUDSDALE_NAME_ARR[] CONFIG_STRING_SECTION = "Mudsdale";
     inline static constexpr const char* PMD_MUDSDALE_NAME = PMD_MUDSDALE_NAME_ARR;
     inline static constexpr size_t PMD_MUDSDALE_NAME_LEN = sizeof(PMD_MUDSDALE_NAME_ARR)-1;
@@ -27452,7 +27452,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DEWPIDER_FQID_LEN = sizeof(PMD_DEWPIDER_FQID_ARR)-1;
     inline static constexpr char PMD_DEWPIDER_ID_ARR[] CONFIG_STRING_SECTION = "dewpider";
     inline static constexpr const char* PMD_DEWPIDER_ID = PMD_DEWPIDER_ID_ARR;
-    inline static constexpr size_t PMD_DEWPIDER_ID_LEN = sizeof(PMD_DEWPIDER_ID)-1;
+    inline static constexpr size_t PMD_DEWPIDER_ID_LEN = sizeof(PMD_DEWPIDER_ID_ARR)-1;
     inline static constexpr char PMD_DEWPIDER_NAME_ARR[] CONFIG_STRING_SECTION = "Dewpider";
     inline static constexpr const char* PMD_DEWPIDER_NAME = PMD_DEWPIDER_NAME_ARR;
     inline static constexpr size_t PMD_DEWPIDER_NAME_LEN = sizeof(PMD_DEWPIDER_NAME_ARR)-1;
@@ -27490,7 +27490,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARAQUANID_FQID_LEN = sizeof(PMD_ARAQUANID_FQID_ARR)-1;
     inline static constexpr char PMD_ARAQUANID_ID_ARR[] CONFIG_STRING_SECTION = "araquanid";
     inline static constexpr const char* PMD_ARAQUANID_ID = PMD_ARAQUANID_ID_ARR;
-    inline static constexpr size_t PMD_ARAQUANID_ID_LEN = sizeof(PMD_ARAQUANID_ID)-1;
+    inline static constexpr size_t PMD_ARAQUANID_ID_LEN = sizeof(PMD_ARAQUANID_ID_ARR)-1;
     inline static constexpr char PMD_ARAQUANID_NAME_ARR[] CONFIG_STRING_SECTION = "Araquanid";
     inline static constexpr const char* PMD_ARAQUANID_NAME = PMD_ARAQUANID_NAME_ARR;
     inline static constexpr size_t PMD_ARAQUANID_NAME_LEN = sizeof(PMD_ARAQUANID_NAME_ARR)-1;
@@ -27528,7 +27528,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FOMANTIS_FQID_LEN = sizeof(PMD_FOMANTIS_FQID_ARR)-1;
     inline static constexpr char PMD_FOMANTIS_ID_ARR[] CONFIG_STRING_SECTION = "fomantis";
     inline static constexpr const char* PMD_FOMANTIS_ID = PMD_FOMANTIS_ID_ARR;
-    inline static constexpr size_t PMD_FOMANTIS_ID_LEN = sizeof(PMD_FOMANTIS_ID)-1;
+    inline static constexpr size_t PMD_FOMANTIS_ID_LEN = sizeof(PMD_FOMANTIS_ID_ARR)-1;
     inline static constexpr char PMD_FOMANTIS_NAME_ARR[] CONFIG_STRING_SECTION = "Fomantis";
     inline static constexpr const char* PMD_FOMANTIS_NAME = PMD_FOMANTIS_NAME_ARR;
     inline static constexpr size_t PMD_FOMANTIS_NAME_LEN = sizeof(PMD_FOMANTIS_NAME_ARR)-1;
@@ -27566,7 +27566,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LURANTIS_FQID_LEN = sizeof(PMD_LURANTIS_FQID_ARR)-1;
     inline static constexpr char PMD_LURANTIS_ID_ARR[] CONFIG_STRING_SECTION = "lurantis";
     inline static constexpr const char* PMD_LURANTIS_ID = PMD_LURANTIS_ID_ARR;
-    inline static constexpr size_t PMD_LURANTIS_ID_LEN = sizeof(PMD_LURANTIS_ID)-1;
+    inline static constexpr size_t PMD_LURANTIS_ID_LEN = sizeof(PMD_LURANTIS_ID_ARR)-1;
     inline static constexpr char PMD_LURANTIS_NAME_ARR[] CONFIG_STRING_SECTION = "Lurantis";
     inline static constexpr const char* PMD_LURANTIS_NAME = PMD_LURANTIS_NAME_ARR;
     inline static constexpr size_t PMD_LURANTIS_NAME_LEN = sizeof(PMD_LURANTIS_NAME_ARR)-1;
@@ -27604,7 +27604,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MORELULL_FQID_LEN = sizeof(PMD_MORELULL_FQID_ARR)-1;
     inline static constexpr char PMD_MORELULL_ID_ARR[] CONFIG_STRING_SECTION = "morelull";
     inline static constexpr const char* PMD_MORELULL_ID = PMD_MORELULL_ID_ARR;
-    inline static constexpr size_t PMD_MORELULL_ID_LEN = sizeof(PMD_MORELULL_ID)-1;
+    inline static constexpr size_t PMD_MORELULL_ID_LEN = sizeof(PMD_MORELULL_ID_ARR)-1;
     inline static constexpr char PMD_MORELULL_NAME_ARR[] CONFIG_STRING_SECTION = "Morelull";
     inline static constexpr const char* PMD_MORELULL_NAME = PMD_MORELULL_NAME_ARR;
     inline static constexpr size_t PMD_MORELULL_NAME_LEN = sizeof(PMD_MORELULL_NAME_ARR)-1;
@@ -27642,7 +27642,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SALANDIT_FQID_LEN = sizeof(PMD_SALANDIT_FQID_ARR)-1;
     inline static constexpr char PMD_SALANDIT_ID_ARR[] CONFIG_STRING_SECTION = "salandit";
     inline static constexpr const char* PMD_SALANDIT_ID = PMD_SALANDIT_ID_ARR;
-    inline static constexpr size_t PMD_SALANDIT_ID_LEN = sizeof(PMD_SALANDIT_ID)-1;
+    inline static constexpr size_t PMD_SALANDIT_ID_LEN = sizeof(PMD_SALANDIT_ID_ARR)-1;
     inline static constexpr char PMD_SALANDIT_NAME_ARR[] CONFIG_STRING_SECTION = "Salandit";
     inline static constexpr const char* PMD_SALANDIT_NAME = PMD_SALANDIT_NAME_ARR;
     inline static constexpr size_t PMD_SALANDIT_NAME_LEN = sizeof(PMD_SALANDIT_NAME_ARR)-1;
@@ -27680,7 +27680,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SALAZZLE_FQID_LEN = sizeof(PMD_SALAZZLE_FQID_ARR)-1;
     inline static constexpr char PMD_SALAZZLE_ID_ARR[] CONFIG_STRING_SECTION = "salazzle";
     inline static constexpr const char* PMD_SALAZZLE_ID = PMD_SALAZZLE_ID_ARR;
-    inline static constexpr size_t PMD_SALAZZLE_ID_LEN = sizeof(PMD_SALAZZLE_ID)-1;
+    inline static constexpr size_t PMD_SALAZZLE_ID_LEN = sizeof(PMD_SALAZZLE_ID_ARR)-1;
     inline static constexpr char PMD_SALAZZLE_NAME_ARR[] CONFIG_STRING_SECTION = "Salazzle";
     inline static constexpr const char* PMD_SALAZZLE_NAME = PMD_SALAZZLE_NAME_ARR;
     inline static constexpr size_t PMD_SALAZZLE_NAME_LEN = sizeof(PMD_SALAZZLE_NAME_ARR)-1;
@@ -27718,7 +27718,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STUFFUL_FQID_LEN = sizeof(PMD_STUFFUL_FQID_ARR)-1;
     inline static constexpr char PMD_STUFFUL_ID_ARR[] CONFIG_STRING_SECTION = "stufful";
     inline static constexpr const char* PMD_STUFFUL_ID = PMD_STUFFUL_ID_ARR;
-    inline static constexpr size_t PMD_STUFFUL_ID_LEN = sizeof(PMD_STUFFUL_ID)-1;
+    inline static constexpr size_t PMD_STUFFUL_ID_LEN = sizeof(PMD_STUFFUL_ID_ARR)-1;
     inline static constexpr char PMD_STUFFUL_NAME_ARR[] CONFIG_STRING_SECTION = "Stufful";
     inline static constexpr const char* PMD_STUFFUL_NAME = PMD_STUFFUL_NAME_ARR;
     inline static constexpr size_t PMD_STUFFUL_NAME_LEN = sizeof(PMD_STUFFUL_NAME_ARR)-1;
@@ -27756,7 +27756,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BEWEAR_FQID_LEN = sizeof(PMD_BEWEAR_FQID_ARR)-1;
     inline static constexpr char PMD_BEWEAR_ID_ARR[] CONFIG_STRING_SECTION = "bewear";
     inline static constexpr const char* PMD_BEWEAR_ID = PMD_BEWEAR_ID_ARR;
-    inline static constexpr size_t PMD_BEWEAR_ID_LEN = sizeof(PMD_BEWEAR_ID)-1;
+    inline static constexpr size_t PMD_BEWEAR_ID_LEN = sizeof(PMD_BEWEAR_ID_ARR)-1;
     inline static constexpr char PMD_BEWEAR_NAME_ARR[] CONFIG_STRING_SECTION = "Bewear";
     inline static constexpr const char* PMD_BEWEAR_NAME = PMD_BEWEAR_NAME_ARR;
     inline static constexpr size_t PMD_BEWEAR_NAME_LEN = sizeof(PMD_BEWEAR_NAME_ARR)-1;
@@ -27794,7 +27794,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BOUNSWEET_FQID_LEN = sizeof(PMD_BOUNSWEET_FQID_ARR)-1;
     inline static constexpr char PMD_BOUNSWEET_ID_ARR[] CONFIG_STRING_SECTION = "bounsweet";
     inline static constexpr const char* PMD_BOUNSWEET_ID = PMD_BOUNSWEET_ID_ARR;
-    inline static constexpr size_t PMD_BOUNSWEET_ID_LEN = sizeof(PMD_BOUNSWEET_ID)-1;
+    inline static constexpr size_t PMD_BOUNSWEET_ID_LEN = sizeof(PMD_BOUNSWEET_ID_ARR)-1;
     inline static constexpr char PMD_BOUNSWEET_NAME_ARR[] CONFIG_STRING_SECTION = "Bounsweet";
     inline static constexpr const char* PMD_BOUNSWEET_NAME = PMD_BOUNSWEET_NAME_ARR;
     inline static constexpr size_t PMD_BOUNSWEET_NAME_LEN = sizeof(PMD_BOUNSWEET_NAME_ARR)-1;
@@ -27832,7 +27832,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STEENEE_FQID_LEN = sizeof(PMD_STEENEE_FQID_ARR)-1;
     inline static constexpr char PMD_STEENEE_ID_ARR[] CONFIG_STRING_SECTION = "steenee";
     inline static constexpr const char* PMD_STEENEE_ID = PMD_STEENEE_ID_ARR;
-    inline static constexpr size_t PMD_STEENEE_ID_LEN = sizeof(PMD_STEENEE_ID)-1;
+    inline static constexpr size_t PMD_STEENEE_ID_LEN = sizeof(PMD_STEENEE_ID_ARR)-1;
     inline static constexpr char PMD_STEENEE_NAME_ARR[] CONFIG_STRING_SECTION = "Steenee";
     inline static constexpr const char* PMD_STEENEE_NAME = PMD_STEENEE_NAME_ARR;
     inline static constexpr size_t PMD_STEENEE_NAME_LEN = sizeof(PMD_STEENEE_NAME_ARR)-1;
@@ -27870,7 +27870,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TSAREENA_FQID_LEN = sizeof(PMD_TSAREENA_FQID_ARR)-1;
     inline static constexpr char PMD_TSAREENA_ID_ARR[] CONFIG_STRING_SECTION = "tsareena";
     inline static constexpr const char* PMD_TSAREENA_ID = PMD_TSAREENA_ID_ARR;
-    inline static constexpr size_t PMD_TSAREENA_ID_LEN = sizeof(PMD_TSAREENA_ID)-1;
+    inline static constexpr size_t PMD_TSAREENA_ID_LEN = sizeof(PMD_TSAREENA_ID_ARR)-1;
     inline static constexpr char PMD_TSAREENA_NAME_ARR[] CONFIG_STRING_SECTION = "Tsareena";
     inline static constexpr const char* PMD_TSAREENA_NAME = PMD_TSAREENA_NAME_ARR;
     inline static constexpr size_t PMD_TSAREENA_NAME_LEN = sizeof(PMD_TSAREENA_NAME_ARR)-1;
@@ -27908,7 +27908,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COMFEY_FQID_LEN = sizeof(PMD_COMFEY_FQID_ARR)-1;
     inline static constexpr char PMD_COMFEY_ID_ARR[] CONFIG_STRING_SECTION = "comfey";
     inline static constexpr const char* PMD_COMFEY_ID = PMD_COMFEY_ID_ARR;
-    inline static constexpr size_t PMD_COMFEY_ID_LEN = sizeof(PMD_COMFEY_ID)-1;
+    inline static constexpr size_t PMD_COMFEY_ID_LEN = sizeof(PMD_COMFEY_ID_ARR)-1;
     inline static constexpr char PMD_COMFEY_NAME_ARR[] CONFIG_STRING_SECTION = "Comfey";
     inline static constexpr const char* PMD_COMFEY_NAME = PMD_COMFEY_NAME_ARR;
     inline static constexpr size_t PMD_COMFEY_NAME_LEN = sizeof(PMD_COMFEY_NAME_ARR)-1;
@@ -27946,7 +27946,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PASSIMIAN_FQID_LEN = sizeof(PMD_PASSIMIAN_FQID_ARR)-1;
     inline static constexpr char PMD_PASSIMIAN_ID_ARR[] CONFIG_STRING_SECTION = "passimian";
     inline static constexpr const char* PMD_PASSIMIAN_ID = PMD_PASSIMIAN_ID_ARR;
-    inline static constexpr size_t PMD_PASSIMIAN_ID_LEN = sizeof(PMD_PASSIMIAN_ID)-1;
+    inline static constexpr size_t PMD_PASSIMIAN_ID_LEN = sizeof(PMD_PASSIMIAN_ID_ARR)-1;
     inline static constexpr char PMD_PASSIMIAN_NAME_ARR[] CONFIG_STRING_SECTION = "Passimian";
     inline static constexpr const char* PMD_PASSIMIAN_NAME = PMD_PASSIMIAN_NAME_ARR;
     inline static constexpr size_t PMD_PASSIMIAN_NAME_LEN = sizeof(PMD_PASSIMIAN_NAME_ARR)-1;
@@ -27984,7 +27984,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WIMPOD_FQID_LEN = sizeof(PMD_WIMPOD_FQID_ARR)-1;
     inline static constexpr char PMD_WIMPOD_ID_ARR[] CONFIG_STRING_SECTION = "wimpod";
     inline static constexpr const char* PMD_WIMPOD_ID = PMD_WIMPOD_ID_ARR;
-    inline static constexpr size_t PMD_WIMPOD_ID_LEN = sizeof(PMD_WIMPOD_ID)-1;
+    inline static constexpr size_t PMD_WIMPOD_ID_LEN = sizeof(PMD_WIMPOD_ID_ARR)-1;
     inline static constexpr char PMD_WIMPOD_NAME_ARR[] CONFIG_STRING_SECTION = "Wimpod";
     inline static constexpr const char* PMD_WIMPOD_NAME = PMD_WIMPOD_NAME_ARR;
     inline static constexpr size_t PMD_WIMPOD_NAME_LEN = sizeof(PMD_WIMPOD_NAME_ARR)-1;
@@ -28022,7 +28022,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOLISOPOD_FQID_LEN = sizeof(PMD_GOLISOPOD_FQID_ARR)-1;
     inline static constexpr char PMD_GOLISOPOD_ID_ARR[] CONFIG_STRING_SECTION = "golisopod";
     inline static constexpr const char* PMD_GOLISOPOD_ID = PMD_GOLISOPOD_ID_ARR;
-    inline static constexpr size_t PMD_GOLISOPOD_ID_LEN = sizeof(PMD_GOLISOPOD_ID)-1;
+    inline static constexpr size_t PMD_GOLISOPOD_ID_LEN = sizeof(PMD_GOLISOPOD_ID_ARR)-1;
     inline static constexpr char PMD_GOLISOPOD_NAME_ARR[] CONFIG_STRING_SECTION = "Golisopod";
     inline static constexpr const char* PMD_GOLISOPOD_NAME = PMD_GOLISOPOD_NAME_ARR;
     inline static constexpr size_t PMD_GOLISOPOD_NAME_LEN = sizeof(PMD_GOLISOPOD_NAME_ARR)-1;
@@ -28060,7 +28060,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SANDYGAST_FQID_LEN = sizeof(PMD_SANDYGAST_FQID_ARR)-1;
     inline static constexpr char PMD_SANDYGAST_ID_ARR[] CONFIG_STRING_SECTION = "sandygast";
     inline static constexpr const char* PMD_SANDYGAST_ID = PMD_SANDYGAST_ID_ARR;
-    inline static constexpr size_t PMD_SANDYGAST_ID_LEN = sizeof(PMD_SANDYGAST_ID)-1;
+    inline static constexpr size_t PMD_SANDYGAST_ID_LEN = sizeof(PMD_SANDYGAST_ID_ARR)-1;
     inline static constexpr char PMD_SANDYGAST_NAME_ARR[] CONFIG_STRING_SECTION = "Sandygast";
     inline static constexpr const char* PMD_SANDYGAST_NAME = PMD_SANDYGAST_NAME_ARR;
     inline static constexpr size_t PMD_SANDYGAST_NAME_LEN = sizeof(PMD_SANDYGAST_NAME_ARR)-1;
@@ -28098,7 +28098,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PALOSSAND_FQID_LEN = sizeof(PMD_PALOSSAND_FQID_ARR)-1;
     inline static constexpr char PMD_PALOSSAND_ID_ARR[] CONFIG_STRING_SECTION = "palossand";
     inline static constexpr const char* PMD_PALOSSAND_ID = PMD_PALOSSAND_ID_ARR;
-    inline static constexpr size_t PMD_PALOSSAND_ID_LEN = sizeof(PMD_PALOSSAND_ID)-1;
+    inline static constexpr size_t PMD_PALOSSAND_ID_LEN = sizeof(PMD_PALOSSAND_ID_ARR)-1;
     inline static constexpr char PMD_PALOSSAND_NAME_ARR[] CONFIG_STRING_SECTION = "Palossand";
     inline static constexpr const char* PMD_PALOSSAND_NAME = PMD_PALOSSAND_NAME_ARR;
     inline static constexpr size_t PMD_PALOSSAND_NAME_LEN = sizeof(PMD_PALOSSAND_NAME_ARR)-1;
@@ -28136,7 +28136,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PYUKUMUKU_FQID_LEN = sizeof(PMD_PYUKUMUKU_FQID_ARR)-1;
     inline static constexpr char PMD_PYUKUMUKU_ID_ARR[] CONFIG_STRING_SECTION = "pyukumuku";
     inline static constexpr const char* PMD_PYUKUMUKU_ID = PMD_PYUKUMUKU_ID_ARR;
-    inline static constexpr size_t PMD_PYUKUMUKU_ID_LEN = sizeof(PMD_PYUKUMUKU_ID)-1;
+    inline static constexpr size_t PMD_PYUKUMUKU_ID_LEN = sizeof(PMD_PYUKUMUKU_ID_ARR)-1;
     inline static constexpr char PMD_PYUKUMUKU_NAME_ARR[] CONFIG_STRING_SECTION = "Pyukumuku";
     inline static constexpr const char* PMD_PYUKUMUKU_NAME = PMD_PYUKUMUKU_NAME_ARR;
     inline static constexpr size_t PMD_PYUKUMUKU_NAME_LEN = sizeof(PMD_PYUKUMUKU_NAME_ARR)-1;
@@ -28174,7 +28174,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TYPE_NULL_FQID_LEN = sizeof(PMD_TYPE_NULL_FQID_ARR)-1;
     inline static constexpr char PMD_TYPE_NULL_ID_ARR[] CONFIG_STRING_SECTION = "type_null";
     inline static constexpr const char* PMD_TYPE_NULL_ID = PMD_TYPE_NULL_ID_ARR;
-    inline static constexpr size_t PMD_TYPE_NULL_ID_LEN = sizeof(PMD_TYPE_NULL_ID)-1;
+    inline static constexpr size_t PMD_TYPE_NULL_ID_LEN = sizeof(PMD_TYPE_NULL_ID_ARR)-1;
     inline static constexpr char PMD_TYPE_NULL_NAME_ARR[] CONFIG_STRING_SECTION = "Type-null";
     inline static constexpr const char* PMD_TYPE_NULL_NAME = PMD_TYPE_NULL_NAME_ARR;
     inline static constexpr size_t PMD_TYPE_NULL_NAME_LEN = sizeof(PMD_TYPE_NULL_NAME_ARR)-1;
@@ -28212,7 +28212,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SILVALLY_FQID_LEN = sizeof(PMD_SILVALLY_FQID_ARR)-1;
     inline static constexpr char PMD_SILVALLY_ID_ARR[] CONFIG_STRING_SECTION = "silvally";
     inline static constexpr const char* PMD_SILVALLY_ID = PMD_SILVALLY_ID_ARR;
-    inline static constexpr size_t PMD_SILVALLY_ID_LEN = sizeof(PMD_SILVALLY_ID)-1;
+    inline static constexpr size_t PMD_SILVALLY_ID_LEN = sizeof(PMD_SILVALLY_ID_ARR)-1;
     inline static constexpr char PMD_SILVALLY_NAME_ARR[] CONFIG_STRING_SECTION = "Silvally";
     inline static constexpr const char* PMD_SILVALLY_NAME = PMD_SILVALLY_NAME_ARR;
     inline static constexpr size_t PMD_SILVALLY_NAME_LEN = sizeof(PMD_SILVALLY_NAME_ARR)-1;
@@ -28250,7 +28250,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MINIOR_FQID_LEN = sizeof(PMD_MINIOR_FQID_ARR)-1;
     inline static constexpr char PMD_MINIOR_ID_ARR[] CONFIG_STRING_SECTION = "minior";
     inline static constexpr const char* PMD_MINIOR_ID = PMD_MINIOR_ID_ARR;
-    inline static constexpr size_t PMD_MINIOR_ID_LEN = sizeof(PMD_MINIOR_ID)-1;
+    inline static constexpr size_t PMD_MINIOR_ID_LEN = sizeof(PMD_MINIOR_ID_ARR)-1;
     inline static constexpr char PMD_MINIOR_NAME_ARR[] CONFIG_STRING_SECTION = "Minior";
     inline static constexpr const char* PMD_MINIOR_NAME = PMD_MINIOR_NAME_ARR;
     inline static constexpr size_t PMD_MINIOR_NAME_LEN = sizeof(PMD_MINIOR_NAME_ARR)-1;
@@ -28288,7 +28288,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KOMALA_FQID_LEN = sizeof(PMD_KOMALA_FQID_ARR)-1;
     inline static constexpr char PMD_KOMALA_ID_ARR[] CONFIG_STRING_SECTION = "komala";
     inline static constexpr const char* PMD_KOMALA_ID = PMD_KOMALA_ID_ARR;
-    inline static constexpr size_t PMD_KOMALA_ID_LEN = sizeof(PMD_KOMALA_ID)-1;
+    inline static constexpr size_t PMD_KOMALA_ID_LEN = sizeof(PMD_KOMALA_ID_ARR)-1;
     inline static constexpr char PMD_KOMALA_NAME_ARR[] CONFIG_STRING_SECTION = "Komala";
     inline static constexpr const char* PMD_KOMALA_NAME = PMD_KOMALA_NAME_ARR;
     inline static constexpr size_t PMD_KOMALA_NAME_LEN = sizeof(PMD_KOMALA_NAME_ARR)-1;
@@ -28326,7 +28326,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TURTONATOR_FQID_LEN = sizeof(PMD_TURTONATOR_FQID_ARR)-1;
     inline static constexpr char PMD_TURTONATOR_ID_ARR[] CONFIG_STRING_SECTION = "turtonator";
     inline static constexpr const char* PMD_TURTONATOR_ID = PMD_TURTONATOR_ID_ARR;
-    inline static constexpr size_t PMD_TURTONATOR_ID_LEN = sizeof(PMD_TURTONATOR_ID)-1;
+    inline static constexpr size_t PMD_TURTONATOR_ID_LEN = sizeof(PMD_TURTONATOR_ID_ARR)-1;
     inline static constexpr char PMD_TURTONATOR_NAME_ARR[] CONFIG_STRING_SECTION = "Turtonator";
     inline static constexpr const char* PMD_TURTONATOR_NAME = PMD_TURTONATOR_NAME_ARR;
     inline static constexpr size_t PMD_TURTONATOR_NAME_LEN = sizeof(PMD_TURTONATOR_NAME_ARR)-1;
@@ -28364,7 +28364,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOGEDEMARU_FQID_LEN = sizeof(PMD_TOGEDEMARU_FQID_ARR)-1;
     inline static constexpr char PMD_TOGEDEMARU_ID_ARR[] CONFIG_STRING_SECTION = "togedemaru";
     inline static constexpr const char* PMD_TOGEDEMARU_ID = PMD_TOGEDEMARU_ID_ARR;
-    inline static constexpr size_t PMD_TOGEDEMARU_ID_LEN = sizeof(PMD_TOGEDEMARU_ID)-1;
+    inline static constexpr size_t PMD_TOGEDEMARU_ID_LEN = sizeof(PMD_TOGEDEMARU_ID_ARR)-1;
     inline static constexpr char PMD_TOGEDEMARU_NAME_ARR[] CONFIG_STRING_SECTION = "Togedemaru";
     inline static constexpr const char* PMD_TOGEDEMARU_NAME = PMD_TOGEDEMARU_NAME_ARR;
     inline static constexpr size_t PMD_TOGEDEMARU_NAME_LEN = sizeof(PMD_TOGEDEMARU_NAME_ARR)-1;
@@ -28402,7 +28402,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MIMIKYU_FQID_LEN = sizeof(PMD_MIMIKYU_FQID_ARR)-1;
     inline static constexpr char PMD_MIMIKYU_ID_ARR[] CONFIG_STRING_SECTION = "mimikyu";
     inline static constexpr const char* PMD_MIMIKYU_ID = PMD_MIMIKYU_ID_ARR;
-    inline static constexpr size_t PMD_MIMIKYU_ID_LEN = sizeof(PMD_MIMIKYU_ID)-1;
+    inline static constexpr size_t PMD_MIMIKYU_ID_LEN = sizeof(PMD_MIMIKYU_ID_ARR)-1;
     inline static constexpr char PMD_MIMIKYU_NAME_ARR[] CONFIG_STRING_SECTION = "Mimikyu";
     inline static constexpr const char* PMD_MIMIKYU_NAME = PMD_MIMIKYU_NAME_ARR;
     inline static constexpr size_t PMD_MIMIKYU_NAME_LEN = sizeof(PMD_MIMIKYU_NAME_ARR)-1;
@@ -28440,7 +28440,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BRUXISH_FQID_LEN = sizeof(PMD_BRUXISH_FQID_ARR)-1;
     inline static constexpr char PMD_BRUXISH_ID_ARR[] CONFIG_STRING_SECTION = "bruxish";
     inline static constexpr const char* PMD_BRUXISH_ID = PMD_BRUXISH_ID_ARR;
-    inline static constexpr size_t PMD_BRUXISH_ID_LEN = sizeof(PMD_BRUXISH_ID)-1;
+    inline static constexpr size_t PMD_BRUXISH_ID_LEN = sizeof(PMD_BRUXISH_ID_ARR)-1;
     inline static constexpr char PMD_BRUXISH_NAME_ARR[] CONFIG_STRING_SECTION = "Bruxish";
     inline static constexpr const char* PMD_BRUXISH_NAME = PMD_BRUXISH_NAME_ARR;
     inline static constexpr size_t PMD_BRUXISH_NAME_LEN = sizeof(PMD_BRUXISH_NAME_ARR)-1;
@@ -28478,7 +28478,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRAMPA_FQID_LEN = sizeof(PMD_DRAMPA_FQID_ARR)-1;
     inline static constexpr char PMD_DRAMPA_ID_ARR[] CONFIG_STRING_SECTION = "drampa";
     inline static constexpr const char* PMD_DRAMPA_ID = PMD_DRAMPA_ID_ARR;
-    inline static constexpr size_t PMD_DRAMPA_ID_LEN = sizeof(PMD_DRAMPA_ID)-1;
+    inline static constexpr size_t PMD_DRAMPA_ID_LEN = sizeof(PMD_DRAMPA_ID_ARR)-1;
     inline static constexpr char PMD_DRAMPA_NAME_ARR[] CONFIG_STRING_SECTION = "Drampa";
     inline static constexpr const char* PMD_DRAMPA_NAME = PMD_DRAMPA_NAME_ARR;
     inline static constexpr size_t PMD_DRAMPA_NAME_LEN = sizeof(PMD_DRAMPA_NAME_ARR)-1;
@@ -28516,7 +28516,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DHELMISE_FQID_LEN = sizeof(PMD_DHELMISE_FQID_ARR)-1;
     inline static constexpr char PMD_DHELMISE_ID_ARR[] CONFIG_STRING_SECTION = "dhelmise";
     inline static constexpr const char* PMD_DHELMISE_ID = PMD_DHELMISE_ID_ARR;
-    inline static constexpr size_t PMD_DHELMISE_ID_LEN = sizeof(PMD_DHELMISE_ID)-1;
+    inline static constexpr size_t PMD_DHELMISE_ID_LEN = sizeof(PMD_DHELMISE_ID_ARR)-1;
     inline static constexpr char PMD_DHELMISE_NAME_ARR[] CONFIG_STRING_SECTION = "Dhelmise";
     inline static constexpr const char* PMD_DHELMISE_NAME = PMD_DHELMISE_NAME_ARR;
     inline static constexpr size_t PMD_DHELMISE_NAME_LEN = sizeof(PMD_DHELMISE_NAME_ARR)-1;
@@ -28554,7 +28554,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_JANGMO_O_FQID_LEN = sizeof(PMD_JANGMO_O_FQID_ARR)-1;
     inline static constexpr char PMD_JANGMO_O_ID_ARR[] CONFIG_STRING_SECTION = "jangmo_o";
     inline static constexpr const char* PMD_JANGMO_O_ID = PMD_JANGMO_O_ID_ARR;
-    inline static constexpr size_t PMD_JANGMO_O_ID_LEN = sizeof(PMD_JANGMO_O_ID)-1;
+    inline static constexpr size_t PMD_JANGMO_O_ID_LEN = sizeof(PMD_JANGMO_O_ID_ARR)-1;
     inline static constexpr char PMD_JANGMO_O_NAME_ARR[] CONFIG_STRING_SECTION = "Jangmo-o";
     inline static constexpr const char* PMD_JANGMO_O_NAME = PMD_JANGMO_O_NAME_ARR;
     inline static constexpr size_t PMD_JANGMO_O_NAME_LEN = sizeof(PMD_JANGMO_O_NAME_ARR)-1;
@@ -28592,7 +28592,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HAKAMO_O_FQID_LEN = sizeof(PMD_HAKAMO_O_FQID_ARR)-1;
     inline static constexpr char PMD_HAKAMO_O_ID_ARR[] CONFIG_STRING_SECTION = "hakamo_o";
     inline static constexpr const char* PMD_HAKAMO_O_ID = PMD_HAKAMO_O_ID_ARR;
-    inline static constexpr size_t PMD_HAKAMO_O_ID_LEN = sizeof(PMD_HAKAMO_O_ID)-1;
+    inline static constexpr size_t PMD_HAKAMO_O_ID_LEN = sizeof(PMD_HAKAMO_O_ID_ARR)-1;
     inline static constexpr char PMD_HAKAMO_O_NAME_ARR[] CONFIG_STRING_SECTION = "Hakamo-o";
     inline static constexpr const char* PMD_HAKAMO_O_NAME = PMD_HAKAMO_O_NAME_ARR;
     inline static constexpr size_t PMD_HAKAMO_O_NAME_LEN = sizeof(PMD_HAKAMO_O_NAME_ARR)-1;
@@ -28630,7 +28630,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KOMMO_O_FQID_LEN = sizeof(PMD_KOMMO_O_FQID_ARR)-1;
     inline static constexpr char PMD_KOMMO_O_ID_ARR[] CONFIG_STRING_SECTION = "kommo_o";
     inline static constexpr const char* PMD_KOMMO_O_ID = PMD_KOMMO_O_ID_ARR;
-    inline static constexpr size_t PMD_KOMMO_O_ID_LEN = sizeof(PMD_KOMMO_O_ID)-1;
+    inline static constexpr size_t PMD_KOMMO_O_ID_LEN = sizeof(PMD_KOMMO_O_ID_ARR)-1;
     inline static constexpr char PMD_KOMMO_O_NAME_ARR[] CONFIG_STRING_SECTION = "Kommo-o";
     inline static constexpr const char* PMD_KOMMO_O_NAME = PMD_KOMMO_O_NAME_ARR;
     inline static constexpr size_t PMD_KOMMO_O_NAME_LEN = sizeof(PMD_KOMMO_O_NAME_ARR)-1;
@@ -28668,7 +28668,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TAPU_KOKO_FQID_LEN = sizeof(PMD_TAPU_KOKO_FQID_ARR)-1;
     inline static constexpr char PMD_TAPU_KOKO_ID_ARR[] CONFIG_STRING_SECTION = "tapu_koko";
     inline static constexpr const char* PMD_TAPU_KOKO_ID = PMD_TAPU_KOKO_ID_ARR;
-    inline static constexpr size_t PMD_TAPU_KOKO_ID_LEN = sizeof(PMD_TAPU_KOKO_ID)-1;
+    inline static constexpr size_t PMD_TAPU_KOKO_ID_LEN = sizeof(PMD_TAPU_KOKO_ID_ARR)-1;
     inline static constexpr char PMD_TAPU_KOKO_NAME_ARR[] CONFIG_STRING_SECTION = "Tapu-koko";
     inline static constexpr const char* PMD_TAPU_KOKO_NAME = PMD_TAPU_KOKO_NAME_ARR;
     inline static constexpr size_t PMD_TAPU_KOKO_NAME_LEN = sizeof(PMD_TAPU_KOKO_NAME_ARR)-1;
@@ -28706,7 +28706,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TAPU_LELE_FQID_LEN = sizeof(PMD_TAPU_LELE_FQID_ARR)-1;
     inline static constexpr char PMD_TAPU_LELE_ID_ARR[] CONFIG_STRING_SECTION = "tapu_lele";
     inline static constexpr const char* PMD_TAPU_LELE_ID = PMD_TAPU_LELE_ID_ARR;
-    inline static constexpr size_t PMD_TAPU_LELE_ID_LEN = sizeof(PMD_TAPU_LELE_ID)-1;
+    inline static constexpr size_t PMD_TAPU_LELE_ID_LEN = sizeof(PMD_TAPU_LELE_ID_ARR)-1;
     inline static constexpr char PMD_TAPU_LELE_NAME_ARR[] CONFIG_STRING_SECTION = "Tapu-lele";
     inline static constexpr const char* PMD_TAPU_LELE_NAME = PMD_TAPU_LELE_NAME_ARR;
     inline static constexpr size_t PMD_TAPU_LELE_NAME_LEN = sizeof(PMD_TAPU_LELE_NAME_ARR)-1;
@@ -28744,7 +28744,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TAPU_BULU_FQID_LEN = sizeof(PMD_TAPU_BULU_FQID_ARR)-1;
     inline static constexpr char PMD_TAPU_BULU_ID_ARR[] CONFIG_STRING_SECTION = "tapu_bulu";
     inline static constexpr const char* PMD_TAPU_BULU_ID = PMD_TAPU_BULU_ID_ARR;
-    inline static constexpr size_t PMD_TAPU_BULU_ID_LEN = sizeof(PMD_TAPU_BULU_ID)-1;
+    inline static constexpr size_t PMD_TAPU_BULU_ID_LEN = sizeof(PMD_TAPU_BULU_ID_ARR)-1;
     inline static constexpr char PMD_TAPU_BULU_NAME_ARR[] CONFIG_STRING_SECTION = "Tapu-bulu";
     inline static constexpr const char* PMD_TAPU_BULU_NAME = PMD_TAPU_BULU_NAME_ARR;
     inline static constexpr size_t PMD_TAPU_BULU_NAME_LEN = sizeof(PMD_TAPU_BULU_NAME_ARR)-1;
@@ -28782,7 +28782,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TAPU_FINI_FQID_LEN = sizeof(PMD_TAPU_FINI_FQID_ARR)-1;
     inline static constexpr char PMD_TAPU_FINI_ID_ARR[] CONFIG_STRING_SECTION = "tapu_fini";
     inline static constexpr const char* PMD_TAPU_FINI_ID = PMD_TAPU_FINI_ID_ARR;
-    inline static constexpr size_t PMD_TAPU_FINI_ID_LEN = sizeof(PMD_TAPU_FINI_ID)-1;
+    inline static constexpr size_t PMD_TAPU_FINI_ID_LEN = sizeof(PMD_TAPU_FINI_ID_ARR)-1;
     inline static constexpr char PMD_TAPU_FINI_NAME_ARR[] CONFIG_STRING_SECTION = "Tapu-fini";
     inline static constexpr const char* PMD_TAPU_FINI_NAME = PMD_TAPU_FINI_NAME_ARR;
     inline static constexpr size_t PMD_TAPU_FINI_NAME_LEN = sizeof(PMD_TAPU_FINI_NAME_ARR)-1;
@@ -28820,7 +28820,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COSMOG_FQID_LEN = sizeof(PMD_COSMOG_FQID_ARR)-1;
     inline static constexpr char PMD_COSMOG_ID_ARR[] CONFIG_STRING_SECTION = "cosmog";
     inline static constexpr const char* PMD_COSMOG_ID = PMD_COSMOG_ID_ARR;
-    inline static constexpr size_t PMD_COSMOG_ID_LEN = sizeof(PMD_COSMOG_ID)-1;
+    inline static constexpr size_t PMD_COSMOG_ID_LEN = sizeof(PMD_COSMOG_ID_ARR)-1;
     inline static constexpr char PMD_COSMOG_NAME_ARR[] CONFIG_STRING_SECTION = "Cosmog";
     inline static constexpr const char* PMD_COSMOG_NAME = PMD_COSMOG_NAME_ARR;
     inline static constexpr size_t PMD_COSMOG_NAME_LEN = sizeof(PMD_COSMOG_NAME_ARR)-1;
@@ -28858,7 +28858,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COSMOEM_FQID_LEN = sizeof(PMD_COSMOEM_FQID_ARR)-1;
     inline static constexpr char PMD_COSMOEM_ID_ARR[] CONFIG_STRING_SECTION = "cosmoem";
     inline static constexpr const char* PMD_COSMOEM_ID = PMD_COSMOEM_ID_ARR;
-    inline static constexpr size_t PMD_COSMOEM_ID_LEN = sizeof(PMD_COSMOEM_ID)-1;
+    inline static constexpr size_t PMD_COSMOEM_ID_LEN = sizeof(PMD_COSMOEM_ID_ARR)-1;
     inline static constexpr char PMD_COSMOEM_NAME_ARR[] CONFIG_STRING_SECTION = "Cosmoem";
     inline static constexpr const char* PMD_COSMOEM_NAME = PMD_COSMOEM_NAME_ARR;
     inline static constexpr size_t PMD_COSMOEM_NAME_LEN = sizeof(PMD_COSMOEM_NAME_ARR)-1;
@@ -28896,7 +28896,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SOLGALEO_FQID_LEN = sizeof(PMD_SOLGALEO_FQID_ARR)-1;
     inline static constexpr char PMD_SOLGALEO_ID_ARR[] CONFIG_STRING_SECTION = "solgaleo";
     inline static constexpr const char* PMD_SOLGALEO_ID = PMD_SOLGALEO_ID_ARR;
-    inline static constexpr size_t PMD_SOLGALEO_ID_LEN = sizeof(PMD_SOLGALEO_ID)-1;
+    inline static constexpr size_t PMD_SOLGALEO_ID_LEN = sizeof(PMD_SOLGALEO_ID_ARR)-1;
     inline static constexpr char PMD_SOLGALEO_NAME_ARR[] CONFIG_STRING_SECTION = "Solgaleo";
     inline static constexpr const char* PMD_SOLGALEO_NAME = PMD_SOLGALEO_NAME_ARR;
     inline static constexpr size_t PMD_SOLGALEO_NAME_LEN = sizeof(PMD_SOLGALEO_NAME_ARR)-1;
@@ -28934,7 +28934,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_LUNALA_FQID_LEN = sizeof(PMD_LUNALA_FQID_ARR)-1;
     inline static constexpr char PMD_LUNALA_ID_ARR[] CONFIG_STRING_SECTION = "lunala";
     inline static constexpr const char* PMD_LUNALA_ID = PMD_LUNALA_ID_ARR;
-    inline static constexpr size_t PMD_LUNALA_ID_LEN = sizeof(PMD_LUNALA_ID)-1;
+    inline static constexpr size_t PMD_LUNALA_ID_LEN = sizeof(PMD_LUNALA_ID_ARR)-1;
     inline static constexpr char PMD_LUNALA_NAME_ARR[] CONFIG_STRING_SECTION = "Lunala";
     inline static constexpr const char* PMD_LUNALA_NAME = PMD_LUNALA_NAME_ARR;
     inline static constexpr size_t PMD_LUNALA_NAME_LEN = sizeof(PMD_LUNALA_NAME_ARR)-1;
@@ -28972,7 +28972,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NIHILEGO_FQID_LEN = sizeof(PMD_NIHILEGO_FQID_ARR)-1;
     inline static constexpr char PMD_NIHILEGO_ID_ARR[] CONFIG_STRING_SECTION = "nihilego";
     inline static constexpr const char* PMD_NIHILEGO_ID = PMD_NIHILEGO_ID_ARR;
-    inline static constexpr size_t PMD_NIHILEGO_ID_LEN = sizeof(PMD_NIHILEGO_ID)-1;
+    inline static constexpr size_t PMD_NIHILEGO_ID_LEN = sizeof(PMD_NIHILEGO_ID_ARR)-1;
     inline static constexpr char PMD_NIHILEGO_NAME_ARR[] CONFIG_STRING_SECTION = "Nihilego";
     inline static constexpr const char* PMD_NIHILEGO_NAME = PMD_NIHILEGO_NAME_ARR;
     inline static constexpr size_t PMD_NIHILEGO_NAME_LEN = sizeof(PMD_NIHILEGO_NAME_ARR)-1;
@@ -29010,7 +29010,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BUZZWOLE_FQID_LEN = sizeof(PMD_BUZZWOLE_FQID_ARR)-1;
     inline static constexpr char PMD_BUZZWOLE_ID_ARR[] CONFIG_STRING_SECTION = "buzzwole";
     inline static constexpr const char* PMD_BUZZWOLE_ID = PMD_BUZZWOLE_ID_ARR;
-    inline static constexpr size_t PMD_BUZZWOLE_ID_LEN = sizeof(PMD_BUZZWOLE_ID)-1;
+    inline static constexpr size_t PMD_BUZZWOLE_ID_LEN = sizeof(PMD_BUZZWOLE_ID_ARR)-1;
     inline static constexpr char PMD_BUZZWOLE_NAME_ARR[] CONFIG_STRING_SECTION = "Buzzwole";
     inline static constexpr const char* PMD_BUZZWOLE_NAME = PMD_BUZZWOLE_NAME_ARR;
     inline static constexpr size_t PMD_BUZZWOLE_NAME_LEN = sizeof(PMD_BUZZWOLE_NAME_ARR)-1;
@@ -29048,7 +29048,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PHEROMOSA_FQID_LEN = sizeof(PMD_PHEROMOSA_FQID_ARR)-1;
     inline static constexpr char PMD_PHEROMOSA_ID_ARR[] CONFIG_STRING_SECTION = "pheromosa";
     inline static constexpr const char* PMD_PHEROMOSA_ID = PMD_PHEROMOSA_ID_ARR;
-    inline static constexpr size_t PMD_PHEROMOSA_ID_LEN = sizeof(PMD_PHEROMOSA_ID)-1;
+    inline static constexpr size_t PMD_PHEROMOSA_ID_LEN = sizeof(PMD_PHEROMOSA_ID_ARR)-1;
     inline static constexpr char PMD_PHEROMOSA_NAME_ARR[] CONFIG_STRING_SECTION = "Pheromosa";
     inline static constexpr const char* PMD_PHEROMOSA_NAME = PMD_PHEROMOSA_NAME_ARR;
     inline static constexpr size_t PMD_PHEROMOSA_NAME_LEN = sizeof(PMD_PHEROMOSA_NAME_ARR)-1;
@@ -29086,7 +29086,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_XURKITREE_FQID_LEN = sizeof(PMD_XURKITREE_FQID_ARR)-1;
     inline static constexpr char PMD_XURKITREE_ID_ARR[] CONFIG_STRING_SECTION = "xurkitree";
     inline static constexpr const char* PMD_XURKITREE_ID = PMD_XURKITREE_ID_ARR;
-    inline static constexpr size_t PMD_XURKITREE_ID_LEN = sizeof(PMD_XURKITREE_ID)-1;
+    inline static constexpr size_t PMD_XURKITREE_ID_LEN = sizeof(PMD_XURKITREE_ID_ARR)-1;
     inline static constexpr char PMD_XURKITREE_NAME_ARR[] CONFIG_STRING_SECTION = "Xurkitree";
     inline static constexpr const char* PMD_XURKITREE_NAME = PMD_XURKITREE_NAME_ARR;
     inline static constexpr size_t PMD_XURKITREE_NAME_LEN = sizeof(PMD_XURKITREE_NAME_ARR)-1;
@@ -29124,7 +29124,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CELESTEELA_FQID_LEN = sizeof(PMD_CELESTEELA_FQID_ARR)-1;
     inline static constexpr char PMD_CELESTEELA_ID_ARR[] CONFIG_STRING_SECTION = "celesteela";
     inline static constexpr const char* PMD_CELESTEELA_ID = PMD_CELESTEELA_ID_ARR;
-    inline static constexpr size_t PMD_CELESTEELA_ID_LEN = sizeof(PMD_CELESTEELA_ID)-1;
+    inline static constexpr size_t PMD_CELESTEELA_ID_LEN = sizeof(PMD_CELESTEELA_ID_ARR)-1;
     inline static constexpr char PMD_CELESTEELA_NAME_ARR[] CONFIG_STRING_SECTION = "Celesteela";
     inline static constexpr const char* PMD_CELESTEELA_NAME = PMD_CELESTEELA_NAME_ARR;
     inline static constexpr size_t PMD_CELESTEELA_NAME_LEN = sizeof(PMD_CELESTEELA_NAME_ARR)-1;
@@ -29162,7 +29162,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KARTANA_FQID_LEN = sizeof(PMD_KARTANA_FQID_ARR)-1;
     inline static constexpr char PMD_KARTANA_ID_ARR[] CONFIG_STRING_SECTION = "kartana";
     inline static constexpr const char* PMD_KARTANA_ID = PMD_KARTANA_ID_ARR;
-    inline static constexpr size_t PMD_KARTANA_ID_LEN = sizeof(PMD_KARTANA_ID)-1;
+    inline static constexpr size_t PMD_KARTANA_ID_LEN = sizeof(PMD_KARTANA_ID_ARR)-1;
     inline static constexpr char PMD_KARTANA_NAME_ARR[] CONFIG_STRING_SECTION = "Kartana";
     inline static constexpr const char* PMD_KARTANA_NAME = PMD_KARTANA_NAME_ARR;
     inline static constexpr size_t PMD_KARTANA_NAME_LEN = sizeof(PMD_KARTANA_NAME_ARR)-1;
@@ -29200,7 +29200,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GUZZLORD_FQID_LEN = sizeof(PMD_GUZZLORD_FQID_ARR)-1;
     inline static constexpr char PMD_GUZZLORD_ID_ARR[] CONFIG_STRING_SECTION = "guzzlord";
     inline static constexpr const char* PMD_GUZZLORD_ID = PMD_GUZZLORD_ID_ARR;
-    inline static constexpr size_t PMD_GUZZLORD_ID_LEN = sizeof(PMD_GUZZLORD_ID)-1;
+    inline static constexpr size_t PMD_GUZZLORD_ID_LEN = sizeof(PMD_GUZZLORD_ID_ARR)-1;
     inline static constexpr char PMD_GUZZLORD_NAME_ARR[] CONFIG_STRING_SECTION = "Guzzlord";
     inline static constexpr const char* PMD_GUZZLORD_NAME = PMD_GUZZLORD_NAME_ARR;
     inline static constexpr size_t PMD_GUZZLORD_NAME_LEN = sizeof(PMD_GUZZLORD_NAME_ARR)-1;
@@ -29238,7 +29238,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NECROZMA_FQID_LEN = sizeof(PMD_NECROZMA_FQID_ARR)-1;
     inline static constexpr char PMD_NECROZMA_ID_ARR[] CONFIG_STRING_SECTION = "necrozma";
     inline static constexpr const char* PMD_NECROZMA_ID = PMD_NECROZMA_ID_ARR;
-    inline static constexpr size_t PMD_NECROZMA_ID_LEN = sizeof(PMD_NECROZMA_ID)-1;
+    inline static constexpr size_t PMD_NECROZMA_ID_LEN = sizeof(PMD_NECROZMA_ID_ARR)-1;
     inline static constexpr char PMD_NECROZMA_NAME_ARR[] CONFIG_STRING_SECTION = "Necrozma";
     inline static constexpr const char* PMD_NECROZMA_NAME = PMD_NECROZMA_NAME_ARR;
     inline static constexpr size_t PMD_NECROZMA_NAME_LEN = sizeof(PMD_NECROZMA_NAME_ARR)-1;
@@ -29276,7 +29276,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MAGEARNA_FQID_LEN = sizeof(PMD_MAGEARNA_FQID_ARR)-1;
     inline static constexpr char PMD_MAGEARNA_ID_ARR[] CONFIG_STRING_SECTION = "magearna";
     inline static constexpr const char* PMD_MAGEARNA_ID = PMD_MAGEARNA_ID_ARR;
-    inline static constexpr size_t PMD_MAGEARNA_ID_LEN = sizeof(PMD_MAGEARNA_ID)-1;
+    inline static constexpr size_t PMD_MAGEARNA_ID_LEN = sizeof(PMD_MAGEARNA_ID_ARR)-1;
     inline static constexpr char PMD_MAGEARNA_NAME_ARR[] CONFIG_STRING_SECTION = "Magearna";
     inline static constexpr const char* PMD_MAGEARNA_NAME = PMD_MAGEARNA_NAME_ARR;
     inline static constexpr size_t PMD_MAGEARNA_NAME_LEN = sizeof(PMD_MAGEARNA_NAME_ARR)-1;
@@ -29314,7 +29314,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MARSHADOW_FQID_LEN = sizeof(PMD_MARSHADOW_FQID_ARR)-1;
     inline static constexpr char PMD_MARSHADOW_ID_ARR[] CONFIG_STRING_SECTION = "marshadow";
     inline static constexpr const char* PMD_MARSHADOW_ID = PMD_MARSHADOW_ID_ARR;
-    inline static constexpr size_t PMD_MARSHADOW_ID_LEN = sizeof(PMD_MARSHADOW_ID)-1;
+    inline static constexpr size_t PMD_MARSHADOW_ID_LEN = sizeof(PMD_MARSHADOW_ID_ARR)-1;
     inline static constexpr char PMD_MARSHADOW_NAME_ARR[] CONFIG_STRING_SECTION = "Marshadow";
     inline static constexpr const char* PMD_MARSHADOW_NAME = PMD_MARSHADOW_NAME_ARR;
     inline static constexpr size_t PMD_MARSHADOW_NAME_LEN = sizeof(PMD_MARSHADOW_NAME_ARR)-1;
@@ -29352,7 +29352,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POIPOLE_FQID_LEN = sizeof(PMD_POIPOLE_FQID_ARR)-1;
     inline static constexpr char PMD_POIPOLE_ID_ARR[] CONFIG_STRING_SECTION = "poipole";
     inline static constexpr const char* PMD_POIPOLE_ID = PMD_POIPOLE_ID_ARR;
-    inline static constexpr size_t PMD_POIPOLE_ID_LEN = sizeof(PMD_POIPOLE_ID)-1;
+    inline static constexpr size_t PMD_POIPOLE_ID_LEN = sizeof(PMD_POIPOLE_ID_ARR)-1;
     inline static constexpr char PMD_POIPOLE_NAME_ARR[] CONFIG_STRING_SECTION = "Poipole";
     inline static constexpr const char* PMD_POIPOLE_NAME = PMD_POIPOLE_NAME_ARR;
     inline static constexpr size_t PMD_POIPOLE_NAME_LEN = sizeof(PMD_POIPOLE_NAME_ARR)-1;
@@ -29390,7 +29390,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NAGANADEL_FQID_LEN = sizeof(PMD_NAGANADEL_FQID_ARR)-1;
     inline static constexpr char PMD_NAGANADEL_ID_ARR[] CONFIG_STRING_SECTION = "naganadel";
     inline static constexpr const char* PMD_NAGANADEL_ID = PMD_NAGANADEL_ID_ARR;
-    inline static constexpr size_t PMD_NAGANADEL_ID_LEN = sizeof(PMD_NAGANADEL_ID)-1;
+    inline static constexpr size_t PMD_NAGANADEL_ID_LEN = sizeof(PMD_NAGANADEL_ID_ARR)-1;
     inline static constexpr char PMD_NAGANADEL_NAME_ARR[] CONFIG_STRING_SECTION = "Naganadel";
     inline static constexpr const char* PMD_NAGANADEL_NAME = PMD_NAGANADEL_NAME_ARR;
     inline static constexpr size_t PMD_NAGANADEL_NAME_LEN = sizeof(PMD_NAGANADEL_NAME_ARR)-1;
@@ -29428,7 +29428,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STAKATAKA_FQID_LEN = sizeof(PMD_STAKATAKA_FQID_ARR)-1;
     inline static constexpr char PMD_STAKATAKA_ID_ARR[] CONFIG_STRING_SECTION = "stakataka";
     inline static constexpr const char* PMD_STAKATAKA_ID = PMD_STAKATAKA_ID_ARR;
-    inline static constexpr size_t PMD_STAKATAKA_ID_LEN = sizeof(PMD_STAKATAKA_ID)-1;
+    inline static constexpr size_t PMD_STAKATAKA_ID_LEN = sizeof(PMD_STAKATAKA_ID_ARR)-1;
     inline static constexpr char PMD_STAKATAKA_NAME_ARR[] CONFIG_STRING_SECTION = "Stakataka";
     inline static constexpr const char* PMD_STAKATAKA_NAME = PMD_STAKATAKA_NAME_ARR;
     inline static constexpr size_t PMD_STAKATAKA_NAME_LEN = sizeof(PMD_STAKATAKA_NAME_ARR)-1;
@@ -29466,7 +29466,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BLACEPHALON_FQID_LEN = sizeof(PMD_BLACEPHALON_FQID_ARR)-1;
     inline static constexpr char PMD_BLACEPHALON_ID_ARR[] CONFIG_STRING_SECTION = "blacephalon";
     inline static constexpr const char* PMD_BLACEPHALON_ID = PMD_BLACEPHALON_ID_ARR;
-    inline static constexpr size_t PMD_BLACEPHALON_ID_LEN = sizeof(PMD_BLACEPHALON_ID)-1;
+    inline static constexpr size_t PMD_BLACEPHALON_ID_LEN = sizeof(PMD_BLACEPHALON_ID_ARR)-1;
     inline static constexpr char PMD_BLACEPHALON_NAME_ARR[] CONFIG_STRING_SECTION = "Blacephalon";
     inline static constexpr const char* PMD_BLACEPHALON_NAME = PMD_BLACEPHALON_NAME_ARR;
     inline static constexpr size_t PMD_BLACEPHALON_NAME_LEN = sizeof(PMD_BLACEPHALON_NAME_ARR)-1;
@@ -29504,7 +29504,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZERAORA_FQID_LEN = sizeof(PMD_ZERAORA_FQID_ARR)-1;
     inline static constexpr char PMD_ZERAORA_ID_ARR[] CONFIG_STRING_SECTION = "zeraora";
     inline static constexpr const char* PMD_ZERAORA_ID = PMD_ZERAORA_ID_ARR;
-    inline static constexpr size_t PMD_ZERAORA_ID_LEN = sizeof(PMD_ZERAORA_ID)-1;
+    inline static constexpr size_t PMD_ZERAORA_ID_LEN = sizeof(PMD_ZERAORA_ID_ARR)-1;
     inline static constexpr char PMD_ZERAORA_NAME_ARR[] CONFIG_STRING_SECTION = "Zeraora";
     inline static constexpr const char* PMD_ZERAORA_NAME = PMD_ZERAORA_NAME_ARR;
     inline static constexpr size_t PMD_ZERAORA_NAME_LEN = sizeof(PMD_ZERAORA_NAME_ARR)-1;
@@ -29542,7 +29542,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MELTAN_FQID_LEN = sizeof(PMD_MELTAN_FQID_ARR)-1;
     inline static constexpr char PMD_MELTAN_ID_ARR[] CONFIG_STRING_SECTION = "meltan";
     inline static constexpr const char* PMD_MELTAN_ID = PMD_MELTAN_ID_ARR;
-    inline static constexpr size_t PMD_MELTAN_ID_LEN = sizeof(PMD_MELTAN_ID)-1;
+    inline static constexpr size_t PMD_MELTAN_ID_LEN = sizeof(PMD_MELTAN_ID_ARR)-1;
     inline static constexpr char PMD_MELTAN_NAME_ARR[] CONFIG_STRING_SECTION = "Meltan";
     inline static constexpr const char* PMD_MELTAN_NAME = PMD_MELTAN_NAME_ARR;
     inline static constexpr size_t PMD_MELTAN_NAME_LEN = sizeof(PMD_MELTAN_NAME_ARR)-1;
@@ -29580,7 +29580,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MELMETAL_FQID_LEN = sizeof(PMD_MELMETAL_FQID_ARR)-1;
     inline static constexpr char PMD_MELMETAL_ID_ARR[] CONFIG_STRING_SECTION = "melmetal";
     inline static constexpr const char* PMD_MELMETAL_ID = PMD_MELMETAL_ID_ARR;
-    inline static constexpr size_t PMD_MELMETAL_ID_LEN = sizeof(PMD_MELMETAL_ID)-1;
+    inline static constexpr size_t PMD_MELMETAL_ID_LEN = sizeof(PMD_MELMETAL_ID_ARR)-1;
     inline static constexpr char PMD_MELMETAL_NAME_ARR[] CONFIG_STRING_SECTION = "Melmetal";
     inline static constexpr const char* PMD_MELMETAL_NAME = PMD_MELMETAL_NAME_ARR;
     inline static constexpr size_t PMD_MELMETAL_NAME_LEN = sizeof(PMD_MELMETAL_NAME_ARR)-1;
@@ -29618,7 +29618,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GROOKEY_FQID_LEN = sizeof(PMD_GROOKEY_FQID_ARR)-1;
     inline static constexpr char PMD_GROOKEY_ID_ARR[] CONFIG_STRING_SECTION = "grookey";
     inline static constexpr const char* PMD_GROOKEY_ID = PMD_GROOKEY_ID_ARR;
-    inline static constexpr size_t PMD_GROOKEY_ID_LEN = sizeof(PMD_GROOKEY_ID)-1;
+    inline static constexpr size_t PMD_GROOKEY_ID_LEN = sizeof(PMD_GROOKEY_ID_ARR)-1;
     inline static constexpr char PMD_GROOKEY_NAME_ARR[] CONFIG_STRING_SECTION = "Grookey";
     inline static constexpr const char* PMD_GROOKEY_NAME = PMD_GROOKEY_NAME_ARR;
     inline static constexpr size_t PMD_GROOKEY_NAME_LEN = sizeof(PMD_GROOKEY_NAME_ARR)-1;
@@ -29656,7 +29656,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_THWACKEY_FQID_LEN = sizeof(PMD_THWACKEY_FQID_ARR)-1;
     inline static constexpr char PMD_THWACKEY_ID_ARR[] CONFIG_STRING_SECTION = "thwackey";
     inline static constexpr const char* PMD_THWACKEY_ID = PMD_THWACKEY_ID_ARR;
-    inline static constexpr size_t PMD_THWACKEY_ID_LEN = sizeof(PMD_THWACKEY_ID)-1;
+    inline static constexpr size_t PMD_THWACKEY_ID_LEN = sizeof(PMD_THWACKEY_ID_ARR)-1;
     inline static constexpr char PMD_THWACKEY_NAME_ARR[] CONFIG_STRING_SECTION = "Thwackey";
     inline static constexpr const char* PMD_THWACKEY_NAME = PMD_THWACKEY_NAME_ARR;
     inline static constexpr size_t PMD_THWACKEY_NAME_LEN = sizeof(PMD_THWACKEY_NAME_ARR)-1;
@@ -29694,7 +29694,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RILLABOOM_FQID_LEN = sizeof(PMD_RILLABOOM_FQID_ARR)-1;
     inline static constexpr char PMD_RILLABOOM_ID_ARR[] CONFIG_STRING_SECTION = "rillaboom";
     inline static constexpr const char* PMD_RILLABOOM_ID = PMD_RILLABOOM_ID_ARR;
-    inline static constexpr size_t PMD_RILLABOOM_ID_LEN = sizeof(PMD_RILLABOOM_ID)-1;
+    inline static constexpr size_t PMD_RILLABOOM_ID_LEN = sizeof(PMD_RILLABOOM_ID_ARR)-1;
     inline static constexpr char PMD_RILLABOOM_NAME_ARR[] CONFIG_STRING_SECTION = "Rillaboom";
     inline static constexpr const char* PMD_RILLABOOM_NAME = PMD_RILLABOOM_NAME_ARR;
     inline static constexpr size_t PMD_RILLABOOM_NAME_LEN = sizeof(PMD_RILLABOOM_NAME_ARR)-1;
@@ -29732,7 +29732,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SCORBUNNY_FQID_LEN = sizeof(PMD_SCORBUNNY_FQID_ARR)-1;
     inline static constexpr char PMD_SCORBUNNY_ID_ARR[] CONFIG_STRING_SECTION = "scorbunny";
     inline static constexpr const char* PMD_SCORBUNNY_ID = PMD_SCORBUNNY_ID_ARR;
-    inline static constexpr size_t PMD_SCORBUNNY_ID_LEN = sizeof(PMD_SCORBUNNY_ID)-1;
+    inline static constexpr size_t PMD_SCORBUNNY_ID_LEN = sizeof(PMD_SCORBUNNY_ID_ARR)-1;
     inline static constexpr char PMD_SCORBUNNY_NAME_ARR[] CONFIG_STRING_SECTION = "Scorbunny";
     inline static constexpr const char* PMD_SCORBUNNY_NAME = PMD_SCORBUNNY_NAME_ARR;
     inline static constexpr size_t PMD_SCORBUNNY_NAME_LEN = sizeof(PMD_SCORBUNNY_NAME_ARR)-1;
@@ -29770,7 +29770,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RABOOT_FQID_LEN = sizeof(PMD_RABOOT_FQID_ARR)-1;
     inline static constexpr char PMD_RABOOT_ID_ARR[] CONFIG_STRING_SECTION = "raboot";
     inline static constexpr const char* PMD_RABOOT_ID = PMD_RABOOT_ID_ARR;
-    inline static constexpr size_t PMD_RABOOT_ID_LEN = sizeof(PMD_RABOOT_ID)-1;
+    inline static constexpr size_t PMD_RABOOT_ID_LEN = sizeof(PMD_RABOOT_ID_ARR)-1;
     inline static constexpr char PMD_RABOOT_NAME_ARR[] CONFIG_STRING_SECTION = "Raboot";
     inline static constexpr const char* PMD_RABOOT_NAME = PMD_RABOOT_NAME_ARR;
     inline static constexpr size_t PMD_RABOOT_NAME_LEN = sizeof(PMD_RABOOT_NAME_ARR)-1;
@@ -29808,7 +29808,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CINDERACE_FQID_LEN = sizeof(PMD_CINDERACE_FQID_ARR)-1;
     inline static constexpr char PMD_CINDERACE_ID_ARR[] CONFIG_STRING_SECTION = "cinderace";
     inline static constexpr const char* PMD_CINDERACE_ID = PMD_CINDERACE_ID_ARR;
-    inline static constexpr size_t PMD_CINDERACE_ID_LEN = sizeof(PMD_CINDERACE_ID)-1;
+    inline static constexpr size_t PMD_CINDERACE_ID_LEN = sizeof(PMD_CINDERACE_ID_ARR)-1;
     inline static constexpr char PMD_CINDERACE_NAME_ARR[] CONFIG_STRING_SECTION = "Cinderace";
     inline static constexpr const char* PMD_CINDERACE_NAME = PMD_CINDERACE_NAME_ARR;
     inline static constexpr size_t PMD_CINDERACE_NAME_LEN = sizeof(PMD_CINDERACE_NAME_ARR)-1;
@@ -29846,7 +29846,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SOBBLE_FQID_LEN = sizeof(PMD_SOBBLE_FQID_ARR)-1;
     inline static constexpr char PMD_SOBBLE_ID_ARR[] CONFIG_STRING_SECTION = "sobble";
     inline static constexpr const char* PMD_SOBBLE_ID = PMD_SOBBLE_ID_ARR;
-    inline static constexpr size_t PMD_SOBBLE_ID_LEN = sizeof(PMD_SOBBLE_ID)-1;
+    inline static constexpr size_t PMD_SOBBLE_ID_LEN = sizeof(PMD_SOBBLE_ID_ARR)-1;
     inline static constexpr char PMD_SOBBLE_NAME_ARR[] CONFIG_STRING_SECTION = "Sobble";
     inline static constexpr const char* PMD_SOBBLE_NAME = PMD_SOBBLE_NAME_ARR;
     inline static constexpr size_t PMD_SOBBLE_NAME_LEN = sizeof(PMD_SOBBLE_NAME_ARR)-1;
@@ -29884,7 +29884,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRIZZILE_FQID_LEN = sizeof(PMD_DRIZZILE_FQID_ARR)-1;
     inline static constexpr char PMD_DRIZZILE_ID_ARR[] CONFIG_STRING_SECTION = "drizzile";
     inline static constexpr const char* PMD_DRIZZILE_ID = PMD_DRIZZILE_ID_ARR;
-    inline static constexpr size_t PMD_DRIZZILE_ID_LEN = sizeof(PMD_DRIZZILE_ID)-1;
+    inline static constexpr size_t PMD_DRIZZILE_ID_LEN = sizeof(PMD_DRIZZILE_ID_ARR)-1;
     inline static constexpr char PMD_DRIZZILE_NAME_ARR[] CONFIG_STRING_SECTION = "Drizzile";
     inline static constexpr const char* PMD_DRIZZILE_NAME = PMD_DRIZZILE_NAME_ARR;
     inline static constexpr size_t PMD_DRIZZILE_NAME_LEN = sizeof(PMD_DRIZZILE_NAME_ARR)-1;
@@ -29922,7 +29922,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_INTELEON_FQID_LEN = sizeof(PMD_INTELEON_FQID_ARR)-1;
     inline static constexpr char PMD_INTELEON_ID_ARR[] CONFIG_STRING_SECTION = "inteleon";
     inline static constexpr const char* PMD_INTELEON_ID = PMD_INTELEON_ID_ARR;
-    inline static constexpr size_t PMD_INTELEON_ID_LEN = sizeof(PMD_INTELEON_ID)-1;
+    inline static constexpr size_t PMD_INTELEON_ID_LEN = sizeof(PMD_INTELEON_ID_ARR)-1;
     inline static constexpr char PMD_INTELEON_NAME_ARR[] CONFIG_STRING_SECTION = "Inteleon";
     inline static constexpr const char* PMD_INTELEON_NAME = PMD_INTELEON_NAME_ARR;
     inline static constexpr size_t PMD_INTELEON_NAME_LEN = sizeof(PMD_INTELEON_NAME_ARR)-1;
@@ -29960,7 +29960,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SKWOVET_FQID_LEN = sizeof(PMD_SKWOVET_FQID_ARR)-1;
     inline static constexpr char PMD_SKWOVET_ID_ARR[] CONFIG_STRING_SECTION = "skwovet";
     inline static constexpr const char* PMD_SKWOVET_ID = PMD_SKWOVET_ID_ARR;
-    inline static constexpr size_t PMD_SKWOVET_ID_LEN = sizeof(PMD_SKWOVET_ID)-1;
+    inline static constexpr size_t PMD_SKWOVET_ID_LEN = sizeof(PMD_SKWOVET_ID_ARR)-1;
     inline static constexpr char PMD_SKWOVET_NAME_ARR[] CONFIG_STRING_SECTION = "Skwovet";
     inline static constexpr const char* PMD_SKWOVET_NAME = PMD_SKWOVET_NAME_ARR;
     inline static constexpr size_t PMD_SKWOVET_NAME_LEN = sizeof(PMD_SKWOVET_NAME_ARR)-1;
@@ -29998,7 +29998,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ROOKIDEE_FQID_LEN = sizeof(PMD_ROOKIDEE_FQID_ARR)-1;
     inline static constexpr char PMD_ROOKIDEE_ID_ARR[] CONFIG_STRING_SECTION = "rookidee";
     inline static constexpr const char* PMD_ROOKIDEE_ID = PMD_ROOKIDEE_ID_ARR;
-    inline static constexpr size_t PMD_ROOKIDEE_ID_LEN = sizeof(PMD_ROOKIDEE_ID)-1;
+    inline static constexpr size_t PMD_ROOKIDEE_ID_LEN = sizeof(PMD_ROOKIDEE_ID_ARR)-1;
     inline static constexpr char PMD_ROOKIDEE_NAME_ARR[] CONFIG_STRING_SECTION = "Rookidee";
     inline static constexpr const char* PMD_ROOKIDEE_NAME = PMD_ROOKIDEE_NAME_ARR;
     inline static constexpr size_t PMD_ROOKIDEE_NAME_LEN = sizeof(PMD_ROOKIDEE_NAME_ARR)-1;
@@ -30036,7 +30036,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CORVISQUIRE_FQID_LEN = sizeof(PMD_CORVISQUIRE_FQID_ARR)-1;
     inline static constexpr char PMD_CORVISQUIRE_ID_ARR[] CONFIG_STRING_SECTION = "corvisquire";
     inline static constexpr const char* PMD_CORVISQUIRE_ID = PMD_CORVISQUIRE_ID_ARR;
-    inline static constexpr size_t PMD_CORVISQUIRE_ID_LEN = sizeof(PMD_CORVISQUIRE_ID)-1;
+    inline static constexpr size_t PMD_CORVISQUIRE_ID_LEN = sizeof(PMD_CORVISQUIRE_ID_ARR)-1;
     inline static constexpr char PMD_CORVISQUIRE_NAME_ARR[] CONFIG_STRING_SECTION = "Corvisquire";
     inline static constexpr const char* PMD_CORVISQUIRE_NAME = PMD_CORVISQUIRE_NAME_ARR;
     inline static constexpr size_t PMD_CORVISQUIRE_NAME_LEN = sizeof(PMD_CORVISQUIRE_NAME_ARR)-1;
@@ -30074,7 +30074,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CORVIKNIGHT_FQID_LEN = sizeof(PMD_CORVIKNIGHT_FQID_ARR)-1;
     inline static constexpr char PMD_CORVIKNIGHT_ID_ARR[] CONFIG_STRING_SECTION = "corviknight";
     inline static constexpr const char* PMD_CORVIKNIGHT_ID = PMD_CORVIKNIGHT_ID_ARR;
-    inline static constexpr size_t PMD_CORVIKNIGHT_ID_LEN = sizeof(PMD_CORVIKNIGHT_ID)-1;
+    inline static constexpr size_t PMD_CORVIKNIGHT_ID_LEN = sizeof(PMD_CORVIKNIGHT_ID_ARR)-1;
     inline static constexpr char PMD_CORVIKNIGHT_NAME_ARR[] CONFIG_STRING_SECTION = "Corviknight";
     inline static constexpr const char* PMD_CORVIKNIGHT_NAME = PMD_CORVIKNIGHT_NAME_ARR;
     inline static constexpr size_t PMD_CORVIKNIGHT_NAME_LEN = sizeof(PMD_CORVIKNIGHT_NAME_ARR)-1;
@@ -30112,7 +30112,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BLIPBUG_FQID_LEN = sizeof(PMD_BLIPBUG_FQID_ARR)-1;
     inline static constexpr char PMD_BLIPBUG_ID_ARR[] CONFIG_STRING_SECTION = "blipbug";
     inline static constexpr const char* PMD_BLIPBUG_ID = PMD_BLIPBUG_ID_ARR;
-    inline static constexpr size_t PMD_BLIPBUG_ID_LEN = sizeof(PMD_BLIPBUG_ID)-1;
+    inline static constexpr size_t PMD_BLIPBUG_ID_LEN = sizeof(PMD_BLIPBUG_ID_ARR)-1;
     inline static constexpr char PMD_BLIPBUG_NAME_ARR[] CONFIG_STRING_SECTION = "Blipbug";
     inline static constexpr const char* PMD_BLIPBUG_NAME = PMD_BLIPBUG_NAME_ARR;
     inline static constexpr size_t PMD_BLIPBUG_NAME_LEN = sizeof(PMD_BLIPBUG_NAME_ARR)-1;
@@ -30150,7 +30150,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DOTTLER_FQID_LEN = sizeof(PMD_DOTTLER_FQID_ARR)-1;
     inline static constexpr char PMD_DOTTLER_ID_ARR[] CONFIG_STRING_SECTION = "dottler";
     inline static constexpr const char* PMD_DOTTLER_ID = PMD_DOTTLER_ID_ARR;
-    inline static constexpr size_t PMD_DOTTLER_ID_LEN = sizeof(PMD_DOTTLER_ID)-1;
+    inline static constexpr size_t PMD_DOTTLER_ID_LEN = sizeof(PMD_DOTTLER_ID_ARR)-1;
     inline static constexpr char PMD_DOTTLER_NAME_ARR[] CONFIG_STRING_SECTION = "Dottler";
     inline static constexpr const char* PMD_DOTTLER_NAME = PMD_DOTTLER_NAME_ARR;
     inline static constexpr size_t PMD_DOTTLER_NAME_LEN = sizeof(PMD_DOTTLER_NAME_ARR)-1;
@@ -30188,7 +30188,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ORBEETLE_FQID_LEN = sizeof(PMD_ORBEETLE_FQID_ARR)-1;
     inline static constexpr char PMD_ORBEETLE_ID_ARR[] CONFIG_STRING_SECTION = "orbeetle";
     inline static constexpr const char* PMD_ORBEETLE_ID = PMD_ORBEETLE_ID_ARR;
-    inline static constexpr size_t PMD_ORBEETLE_ID_LEN = sizeof(PMD_ORBEETLE_ID)-1;
+    inline static constexpr size_t PMD_ORBEETLE_ID_LEN = sizeof(PMD_ORBEETLE_ID_ARR)-1;
     inline static constexpr char PMD_ORBEETLE_NAME_ARR[] CONFIG_STRING_SECTION = "Orbeetle";
     inline static constexpr const char* PMD_ORBEETLE_NAME = PMD_ORBEETLE_NAME_ARR;
     inline static constexpr size_t PMD_ORBEETLE_NAME_LEN = sizeof(PMD_ORBEETLE_NAME_ARR)-1;
@@ -30226,7 +30226,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_NICKIT_FQID_LEN = sizeof(PMD_NICKIT_FQID_ARR)-1;
     inline static constexpr char PMD_NICKIT_ID_ARR[] CONFIG_STRING_SECTION = "nickit";
     inline static constexpr const char* PMD_NICKIT_ID = PMD_NICKIT_ID_ARR;
-    inline static constexpr size_t PMD_NICKIT_ID_LEN = sizeof(PMD_NICKIT_ID)-1;
+    inline static constexpr size_t PMD_NICKIT_ID_LEN = sizeof(PMD_NICKIT_ID_ARR)-1;
     inline static constexpr char PMD_NICKIT_NAME_ARR[] CONFIG_STRING_SECTION = "Nickit";
     inline static constexpr const char* PMD_NICKIT_NAME = PMD_NICKIT_NAME_ARR;
     inline static constexpr size_t PMD_NICKIT_NAME_LEN = sizeof(PMD_NICKIT_NAME_ARR)-1;
@@ -30264,7 +30264,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_THIEVUL_FQID_LEN = sizeof(PMD_THIEVUL_FQID_ARR)-1;
     inline static constexpr char PMD_THIEVUL_ID_ARR[] CONFIG_STRING_SECTION = "thievul";
     inline static constexpr const char* PMD_THIEVUL_ID = PMD_THIEVUL_ID_ARR;
-    inline static constexpr size_t PMD_THIEVUL_ID_LEN = sizeof(PMD_THIEVUL_ID)-1;
+    inline static constexpr size_t PMD_THIEVUL_ID_LEN = sizeof(PMD_THIEVUL_ID_ARR)-1;
     inline static constexpr char PMD_THIEVUL_NAME_ARR[] CONFIG_STRING_SECTION = "Thievul";
     inline static constexpr const char* PMD_THIEVUL_NAME = PMD_THIEVUL_NAME_ARR;
     inline static constexpr size_t PMD_THIEVUL_NAME_LEN = sizeof(PMD_THIEVUL_NAME_ARR)-1;
@@ -30302,7 +30302,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GOSSIFLEUR_FQID_LEN = sizeof(PMD_GOSSIFLEUR_FQID_ARR)-1;
     inline static constexpr char PMD_GOSSIFLEUR_ID_ARR[] CONFIG_STRING_SECTION = "gossifleur";
     inline static constexpr const char* PMD_GOSSIFLEUR_ID = PMD_GOSSIFLEUR_ID_ARR;
-    inline static constexpr size_t PMD_GOSSIFLEUR_ID_LEN = sizeof(PMD_GOSSIFLEUR_ID)-1;
+    inline static constexpr size_t PMD_GOSSIFLEUR_ID_LEN = sizeof(PMD_GOSSIFLEUR_ID_ARR)-1;
     inline static constexpr char PMD_GOSSIFLEUR_NAME_ARR[] CONFIG_STRING_SECTION = "Gossifleur";
     inline static constexpr const char* PMD_GOSSIFLEUR_NAME = PMD_GOSSIFLEUR_NAME_ARR;
     inline static constexpr size_t PMD_GOSSIFLEUR_NAME_LEN = sizeof(PMD_GOSSIFLEUR_NAME_ARR)-1;
@@ -30340,7 +30340,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ELDEGOSS_FQID_LEN = sizeof(PMD_ELDEGOSS_FQID_ARR)-1;
     inline static constexpr char PMD_ELDEGOSS_ID_ARR[] CONFIG_STRING_SECTION = "eldegoss";
     inline static constexpr const char* PMD_ELDEGOSS_ID = PMD_ELDEGOSS_ID_ARR;
-    inline static constexpr size_t PMD_ELDEGOSS_ID_LEN = sizeof(PMD_ELDEGOSS_ID)-1;
+    inline static constexpr size_t PMD_ELDEGOSS_ID_LEN = sizeof(PMD_ELDEGOSS_ID_ARR)-1;
     inline static constexpr char PMD_ELDEGOSS_NAME_ARR[] CONFIG_STRING_SECTION = "Eldegoss";
     inline static constexpr const char* PMD_ELDEGOSS_NAME = PMD_ELDEGOSS_NAME_ARR;
     inline static constexpr size_t PMD_ELDEGOSS_NAME_LEN = sizeof(PMD_ELDEGOSS_NAME_ARR)-1;
@@ -30378,7 +30378,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WOOLOO_FQID_LEN = sizeof(PMD_WOOLOO_FQID_ARR)-1;
     inline static constexpr char PMD_WOOLOO_ID_ARR[] CONFIG_STRING_SECTION = "wooloo";
     inline static constexpr const char* PMD_WOOLOO_ID = PMD_WOOLOO_ID_ARR;
-    inline static constexpr size_t PMD_WOOLOO_ID_LEN = sizeof(PMD_WOOLOO_ID)-1;
+    inline static constexpr size_t PMD_WOOLOO_ID_LEN = sizeof(PMD_WOOLOO_ID_ARR)-1;
     inline static constexpr char PMD_WOOLOO_NAME_ARR[] CONFIG_STRING_SECTION = "Wooloo";
     inline static constexpr const char* PMD_WOOLOO_NAME = PMD_WOOLOO_NAME_ARR;
     inline static constexpr size_t PMD_WOOLOO_NAME_LEN = sizeof(PMD_WOOLOO_NAME_ARR)-1;
@@ -30416,7 +30416,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CHEWTLE_FQID_LEN = sizeof(PMD_CHEWTLE_FQID_ARR)-1;
     inline static constexpr char PMD_CHEWTLE_ID_ARR[] CONFIG_STRING_SECTION = "chewtle";
     inline static constexpr const char* PMD_CHEWTLE_ID = PMD_CHEWTLE_ID_ARR;
-    inline static constexpr size_t PMD_CHEWTLE_ID_LEN = sizeof(PMD_CHEWTLE_ID)-1;
+    inline static constexpr size_t PMD_CHEWTLE_ID_LEN = sizeof(PMD_CHEWTLE_ID_ARR)-1;
     inline static constexpr char PMD_CHEWTLE_NAME_ARR[] CONFIG_STRING_SECTION = "Chewtle";
     inline static constexpr const char* PMD_CHEWTLE_NAME = PMD_CHEWTLE_NAME_ARR;
     inline static constexpr size_t PMD_CHEWTLE_NAME_LEN = sizeof(PMD_CHEWTLE_NAME_ARR)-1;
@@ -30454,7 +30454,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DREDNAW_FQID_LEN = sizeof(PMD_DREDNAW_FQID_ARR)-1;
     inline static constexpr char PMD_DREDNAW_ID_ARR[] CONFIG_STRING_SECTION = "drednaw";
     inline static constexpr const char* PMD_DREDNAW_ID = PMD_DREDNAW_ID_ARR;
-    inline static constexpr size_t PMD_DREDNAW_ID_LEN = sizeof(PMD_DREDNAW_ID)-1;
+    inline static constexpr size_t PMD_DREDNAW_ID_LEN = sizeof(PMD_DREDNAW_ID_ARR)-1;
     inline static constexpr char PMD_DREDNAW_NAME_ARR[] CONFIG_STRING_SECTION = "Drednaw";
     inline static constexpr const char* PMD_DREDNAW_NAME = PMD_DREDNAW_NAME_ARR;
     inline static constexpr size_t PMD_DREDNAW_NAME_LEN = sizeof(PMD_DREDNAW_NAME_ARR)-1;
@@ -30492,7 +30492,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_YAMPER_FQID_LEN = sizeof(PMD_YAMPER_FQID_ARR)-1;
     inline static constexpr char PMD_YAMPER_ID_ARR[] CONFIG_STRING_SECTION = "yamper";
     inline static constexpr const char* PMD_YAMPER_ID = PMD_YAMPER_ID_ARR;
-    inline static constexpr size_t PMD_YAMPER_ID_LEN = sizeof(PMD_YAMPER_ID)-1;
+    inline static constexpr size_t PMD_YAMPER_ID_LEN = sizeof(PMD_YAMPER_ID_ARR)-1;
     inline static constexpr char PMD_YAMPER_NAME_ARR[] CONFIG_STRING_SECTION = "Yamper";
     inline static constexpr const char* PMD_YAMPER_NAME = PMD_YAMPER_NAME_ARR;
     inline static constexpr size_t PMD_YAMPER_NAME_LEN = sizeof(PMD_YAMPER_NAME_ARR)-1;
@@ -30530,7 +30530,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_APPLIN_FQID_LEN = sizeof(PMD_APPLIN_FQID_ARR)-1;
     inline static constexpr char PMD_APPLIN_ID_ARR[] CONFIG_STRING_SECTION = "applin";
     inline static constexpr const char* PMD_APPLIN_ID = PMD_APPLIN_ID_ARR;
-    inline static constexpr size_t PMD_APPLIN_ID_LEN = sizeof(PMD_APPLIN_ID)-1;
+    inline static constexpr size_t PMD_APPLIN_ID_LEN = sizeof(PMD_APPLIN_ID_ARR)-1;
     inline static constexpr char PMD_APPLIN_NAME_ARR[] CONFIG_STRING_SECTION = "Applin";
     inline static constexpr const char* PMD_APPLIN_NAME = PMD_APPLIN_NAME_ARR;
     inline static constexpr size_t PMD_APPLIN_NAME_LEN = sizeof(PMD_APPLIN_NAME_ARR)-1;
@@ -30568,7 +30568,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FLAPPLE_FQID_LEN = sizeof(PMD_FLAPPLE_FQID_ARR)-1;
     inline static constexpr char PMD_FLAPPLE_ID_ARR[] CONFIG_STRING_SECTION = "flapple";
     inline static constexpr const char* PMD_FLAPPLE_ID = PMD_FLAPPLE_ID_ARR;
-    inline static constexpr size_t PMD_FLAPPLE_ID_LEN = sizeof(PMD_FLAPPLE_ID)-1;
+    inline static constexpr size_t PMD_FLAPPLE_ID_LEN = sizeof(PMD_FLAPPLE_ID_ARR)-1;
     inline static constexpr char PMD_FLAPPLE_NAME_ARR[] CONFIG_STRING_SECTION = "Flapple";
     inline static constexpr const char* PMD_FLAPPLE_NAME = PMD_FLAPPLE_NAME_ARR;
     inline static constexpr size_t PMD_FLAPPLE_NAME_LEN = sizeof(PMD_FLAPPLE_NAME_ARR)-1;
@@ -30606,7 +30606,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_APPLETUN_FQID_LEN = sizeof(PMD_APPLETUN_FQID_ARR)-1;
     inline static constexpr char PMD_APPLETUN_ID_ARR[] CONFIG_STRING_SECTION = "appletun";
     inline static constexpr const char* PMD_APPLETUN_ID = PMD_APPLETUN_ID_ARR;
-    inline static constexpr size_t PMD_APPLETUN_ID_LEN = sizeof(PMD_APPLETUN_ID)-1;
+    inline static constexpr size_t PMD_APPLETUN_ID_LEN = sizeof(PMD_APPLETUN_ID_ARR)-1;
     inline static constexpr char PMD_APPLETUN_NAME_ARR[] CONFIG_STRING_SECTION = "Appletun";
     inline static constexpr const char* PMD_APPLETUN_NAME = PMD_APPLETUN_NAME_ARR;
     inline static constexpr size_t PMD_APPLETUN_NAME_LEN = sizeof(PMD_APPLETUN_NAME_ARR)-1;
@@ -30644,7 +30644,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SILICOBRA_FQID_LEN = sizeof(PMD_SILICOBRA_FQID_ARR)-1;
     inline static constexpr char PMD_SILICOBRA_ID_ARR[] CONFIG_STRING_SECTION = "silicobra";
     inline static constexpr const char* PMD_SILICOBRA_ID = PMD_SILICOBRA_ID_ARR;
-    inline static constexpr size_t PMD_SILICOBRA_ID_LEN = sizeof(PMD_SILICOBRA_ID)-1;
+    inline static constexpr size_t PMD_SILICOBRA_ID_LEN = sizeof(PMD_SILICOBRA_ID_ARR)-1;
     inline static constexpr char PMD_SILICOBRA_NAME_ARR[] CONFIG_STRING_SECTION = "Silicobra";
     inline static constexpr const char* PMD_SILICOBRA_NAME = PMD_SILICOBRA_NAME_ARR;
     inline static constexpr size_t PMD_SILICOBRA_NAME_LEN = sizeof(PMD_SILICOBRA_NAME_ARR)-1;
@@ -30682,7 +30682,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SANDACONDA_FQID_LEN = sizeof(PMD_SANDACONDA_FQID_ARR)-1;
     inline static constexpr char PMD_SANDACONDA_ID_ARR[] CONFIG_STRING_SECTION = "sandaconda";
     inline static constexpr const char* PMD_SANDACONDA_ID = PMD_SANDACONDA_ID_ARR;
-    inline static constexpr size_t PMD_SANDACONDA_ID_LEN = sizeof(PMD_SANDACONDA_ID)-1;
+    inline static constexpr size_t PMD_SANDACONDA_ID_LEN = sizeof(PMD_SANDACONDA_ID_ARR)-1;
     inline static constexpr char PMD_SANDACONDA_NAME_ARR[] CONFIG_STRING_SECTION = "Sandaconda";
     inline static constexpr const char* PMD_SANDACONDA_NAME = PMD_SANDACONDA_NAME_ARR;
     inline static constexpr size_t PMD_SANDACONDA_NAME_LEN = sizeof(PMD_SANDACONDA_NAME_ARR)-1;
@@ -30720,7 +30720,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CRAMORANT_FQID_LEN = sizeof(PMD_CRAMORANT_FQID_ARR)-1;
     inline static constexpr char PMD_CRAMORANT_ID_ARR[] CONFIG_STRING_SECTION = "cramorant";
     inline static constexpr const char* PMD_CRAMORANT_ID = PMD_CRAMORANT_ID_ARR;
-    inline static constexpr size_t PMD_CRAMORANT_ID_LEN = sizeof(PMD_CRAMORANT_ID)-1;
+    inline static constexpr size_t PMD_CRAMORANT_ID_LEN = sizeof(PMD_CRAMORANT_ID_ARR)-1;
     inline static constexpr char PMD_CRAMORANT_NAME_ARR[] CONFIG_STRING_SECTION = "Cramorant";
     inline static constexpr const char* PMD_CRAMORANT_NAME = PMD_CRAMORANT_NAME_ARR;
     inline static constexpr size_t PMD_CRAMORANT_NAME_LEN = sizeof(PMD_CRAMORANT_NAME_ARR)-1;
@@ -30758,7 +30758,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARROKUDA_FQID_LEN = sizeof(PMD_ARROKUDA_FQID_ARR)-1;
     inline static constexpr char PMD_ARROKUDA_ID_ARR[] CONFIG_STRING_SECTION = "arrokuda";
     inline static constexpr const char* PMD_ARROKUDA_ID = PMD_ARROKUDA_ID_ARR;
-    inline static constexpr size_t PMD_ARROKUDA_ID_LEN = sizeof(PMD_ARROKUDA_ID)-1;
+    inline static constexpr size_t PMD_ARROKUDA_ID_LEN = sizeof(PMD_ARROKUDA_ID_ARR)-1;
     inline static constexpr char PMD_ARROKUDA_NAME_ARR[] CONFIG_STRING_SECTION = "Arrokuda";
     inline static constexpr const char* PMD_ARROKUDA_NAME = PMD_ARROKUDA_NAME_ARR;
     inline static constexpr size_t PMD_ARROKUDA_NAME_LEN = sizeof(PMD_ARROKUDA_NAME_ARR)-1;
@@ -30796,7 +30796,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOXEL_FQID_LEN = sizeof(PMD_TOXEL_FQID_ARR)-1;
     inline static constexpr char PMD_TOXEL_ID_ARR[] CONFIG_STRING_SECTION = "toxel";
     inline static constexpr const char* PMD_TOXEL_ID = PMD_TOXEL_ID_ARR;
-    inline static constexpr size_t PMD_TOXEL_ID_LEN = sizeof(PMD_TOXEL_ID)-1;
+    inline static constexpr size_t PMD_TOXEL_ID_LEN = sizeof(PMD_TOXEL_ID_ARR)-1;
     inline static constexpr char PMD_TOXEL_NAME_ARR[] CONFIG_STRING_SECTION = "Toxel";
     inline static constexpr const char* PMD_TOXEL_NAME = PMD_TOXEL_NAME_ARR;
     inline static constexpr size_t PMD_TOXEL_NAME_LEN = sizeof(PMD_TOXEL_NAME_ARR)-1;
@@ -30834,7 +30834,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_TOXTRICITY_FQID_LEN = sizeof(PMD_TOXTRICITY_FQID_ARR)-1;
     inline static constexpr char PMD_TOXTRICITY_ID_ARR[] CONFIG_STRING_SECTION = "toxtricity";
     inline static constexpr const char* PMD_TOXTRICITY_ID = PMD_TOXTRICITY_ID_ARR;
-    inline static constexpr size_t PMD_TOXTRICITY_ID_LEN = sizeof(PMD_TOXTRICITY_ID)-1;
+    inline static constexpr size_t PMD_TOXTRICITY_ID_LEN = sizeof(PMD_TOXTRICITY_ID_ARR)-1;
     inline static constexpr char PMD_TOXTRICITY_NAME_ARR[] CONFIG_STRING_SECTION = "Toxtricity";
     inline static constexpr const char* PMD_TOXTRICITY_NAME = PMD_TOXTRICITY_NAME_ARR;
     inline static constexpr size_t PMD_TOXTRICITY_NAME_LEN = sizeof(PMD_TOXTRICITY_NAME_ARR)-1;
@@ -30872,7 +30872,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SIZZLIPEDE_FQID_LEN = sizeof(PMD_SIZZLIPEDE_FQID_ARR)-1;
     inline static constexpr char PMD_SIZZLIPEDE_ID_ARR[] CONFIG_STRING_SECTION = "sizzlipede";
     inline static constexpr const char* PMD_SIZZLIPEDE_ID = PMD_SIZZLIPEDE_ID_ARR;
-    inline static constexpr size_t PMD_SIZZLIPEDE_ID_LEN = sizeof(PMD_SIZZLIPEDE_ID)-1;
+    inline static constexpr size_t PMD_SIZZLIPEDE_ID_LEN = sizeof(PMD_SIZZLIPEDE_ID_ARR)-1;
     inline static constexpr char PMD_SIZZLIPEDE_NAME_ARR[] CONFIG_STRING_SECTION = "Sizzlipede";
     inline static constexpr const char* PMD_SIZZLIPEDE_NAME = PMD_SIZZLIPEDE_NAME_ARR;
     inline static constexpr size_t PMD_SIZZLIPEDE_NAME_LEN = sizeof(PMD_SIZZLIPEDE_NAME_ARR)-1;
@@ -30910,7 +30910,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CENTISKORCH_FQID_LEN = sizeof(PMD_CENTISKORCH_FQID_ARR)-1;
     inline static constexpr char PMD_CENTISKORCH_ID_ARR[] CONFIG_STRING_SECTION = "centiskorch";
     inline static constexpr const char* PMD_CENTISKORCH_ID = PMD_CENTISKORCH_ID_ARR;
-    inline static constexpr size_t PMD_CENTISKORCH_ID_LEN = sizeof(PMD_CENTISKORCH_ID)-1;
+    inline static constexpr size_t PMD_CENTISKORCH_ID_LEN = sizeof(PMD_CENTISKORCH_ID_ARR)-1;
     inline static constexpr char PMD_CENTISKORCH_NAME_ARR[] CONFIG_STRING_SECTION = "Centiskorch";
     inline static constexpr const char* PMD_CENTISKORCH_NAME = PMD_CENTISKORCH_NAME_ARR;
     inline static constexpr size_t PMD_CENTISKORCH_NAME_LEN = sizeof(PMD_CENTISKORCH_NAME_ARR)-1;
@@ -30948,7 +30948,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CLOBBOPUS_FQID_LEN = sizeof(PMD_CLOBBOPUS_FQID_ARR)-1;
     inline static constexpr char PMD_CLOBBOPUS_ID_ARR[] CONFIG_STRING_SECTION = "clobbopus";
     inline static constexpr const char* PMD_CLOBBOPUS_ID = PMD_CLOBBOPUS_ID_ARR;
-    inline static constexpr size_t PMD_CLOBBOPUS_ID_LEN = sizeof(PMD_CLOBBOPUS_ID)-1;
+    inline static constexpr size_t PMD_CLOBBOPUS_ID_LEN = sizeof(PMD_CLOBBOPUS_ID_ARR)-1;
     inline static constexpr char PMD_CLOBBOPUS_NAME_ARR[] CONFIG_STRING_SECTION = "Clobbopus";
     inline static constexpr const char* PMD_CLOBBOPUS_NAME = PMD_CLOBBOPUS_NAME_ARR;
     inline static constexpr size_t PMD_CLOBBOPUS_NAME_LEN = sizeof(PMD_CLOBBOPUS_NAME_ARR)-1;
@@ -30986,7 +30986,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRAPPLOCT_FQID_LEN = sizeof(PMD_GRAPPLOCT_FQID_ARR)-1;
     inline static constexpr char PMD_GRAPPLOCT_ID_ARR[] CONFIG_STRING_SECTION = "grapploct";
     inline static constexpr const char* PMD_GRAPPLOCT_ID = PMD_GRAPPLOCT_ID_ARR;
-    inline static constexpr size_t PMD_GRAPPLOCT_ID_LEN = sizeof(PMD_GRAPPLOCT_ID)-1;
+    inline static constexpr size_t PMD_GRAPPLOCT_ID_LEN = sizeof(PMD_GRAPPLOCT_ID_ARR)-1;
     inline static constexpr char PMD_GRAPPLOCT_NAME_ARR[] CONFIG_STRING_SECTION = "Grapploct";
     inline static constexpr const char* PMD_GRAPPLOCT_NAME = PMD_GRAPPLOCT_NAME_ARR;
     inline static constexpr size_t PMD_GRAPPLOCT_NAME_LEN = sizeof(PMD_GRAPPLOCT_NAME_ARR)-1;
@@ -31024,7 +31024,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SINISTEA_FQID_LEN = sizeof(PMD_SINISTEA_FQID_ARR)-1;
     inline static constexpr char PMD_SINISTEA_ID_ARR[] CONFIG_STRING_SECTION = "sinistea";
     inline static constexpr const char* PMD_SINISTEA_ID = PMD_SINISTEA_ID_ARR;
-    inline static constexpr size_t PMD_SINISTEA_ID_LEN = sizeof(PMD_SINISTEA_ID)-1;
+    inline static constexpr size_t PMD_SINISTEA_ID_LEN = sizeof(PMD_SINISTEA_ID_ARR)-1;
     inline static constexpr char PMD_SINISTEA_NAME_ARR[] CONFIG_STRING_SECTION = "Sinistea";
     inline static constexpr const char* PMD_SINISTEA_NAME = PMD_SINISTEA_NAME_ARR;
     inline static constexpr size_t PMD_SINISTEA_NAME_LEN = sizeof(PMD_SINISTEA_NAME_ARR)-1;
@@ -31062,7 +31062,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_POLTEAGEIST_FQID_LEN = sizeof(PMD_POLTEAGEIST_FQID_ARR)-1;
     inline static constexpr char PMD_POLTEAGEIST_ID_ARR[] CONFIG_STRING_SECTION = "polteageist";
     inline static constexpr const char* PMD_POLTEAGEIST_ID = PMD_POLTEAGEIST_ID_ARR;
-    inline static constexpr size_t PMD_POLTEAGEIST_ID_LEN = sizeof(PMD_POLTEAGEIST_ID)-1;
+    inline static constexpr size_t PMD_POLTEAGEIST_ID_LEN = sizeof(PMD_POLTEAGEIST_ID_ARR)-1;
     inline static constexpr char PMD_POLTEAGEIST_NAME_ARR[] CONFIG_STRING_SECTION = "Polteageist";
     inline static constexpr const char* PMD_POLTEAGEIST_NAME = PMD_POLTEAGEIST_NAME_ARR;
     inline static constexpr size_t PMD_POLTEAGEIST_NAME_LEN = sizeof(PMD_POLTEAGEIST_NAME_ARR)-1;
@@ -31100,7 +31100,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HATENNA_FQID_LEN = sizeof(PMD_HATENNA_FQID_ARR)-1;
     inline static constexpr char PMD_HATENNA_ID_ARR[] CONFIG_STRING_SECTION = "hatenna";
     inline static constexpr const char* PMD_HATENNA_ID = PMD_HATENNA_ID_ARR;
-    inline static constexpr size_t PMD_HATENNA_ID_LEN = sizeof(PMD_HATENNA_ID)-1;
+    inline static constexpr size_t PMD_HATENNA_ID_LEN = sizeof(PMD_HATENNA_ID_ARR)-1;
     inline static constexpr char PMD_HATENNA_NAME_ARR[] CONFIG_STRING_SECTION = "Hatenna";
     inline static constexpr const char* PMD_HATENNA_NAME = PMD_HATENNA_NAME_ARR;
     inline static constexpr size_t PMD_HATENNA_NAME_LEN = sizeof(PMD_HATENNA_NAME_ARR)-1;
@@ -31138,7 +31138,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HATTREM_FQID_LEN = sizeof(PMD_HATTREM_FQID_ARR)-1;
     inline static constexpr char PMD_HATTREM_ID_ARR[] CONFIG_STRING_SECTION = "hattrem";
     inline static constexpr const char* PMD_HATTREM_ID = PMD_HATTREM_ID_ARR;
-    inline static constexpr size_t PMD_HATTREM_ID_LEN = sizeof(PMD_HATTREM_ID)-1;
+    inline static constexpr size_t PMD_HATTREM_ID_LEN = sizeof(PMD_HATTREM_ID_ARR)-1;
     inline static constexpr char PMD_HATTREM_NAME_ARR[] CONFIG_STRING_SECTION = "Hattrem";
     inline static constexpr const char* PMD_HATTREM_NAME = PMD_HATTREM_NAME_ARR;
     inline static constexpr size_t PMD_HATTREM_NAME_LEN = sizeof(PMD_HATTREM_NAME_ARR)-1;
@@ -31176,7 +31176,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_HATTERENE_FQID_LEN = sizeof(PMD_HATTERENE_FQID_ARR)-1;
     inline static constexpr char PMD_HATTERENE_ID_ARR[] CONFIG_STRING_SECTION = "hatterene";
     inline static constexpr const char* PMD_HATTERENE_ID = PMD_HATTERENE_ID_ARR;
-    inline static constexpr size_t PMD_HATTERENE_ID_LEN = sizeof(PMD_HATTERENE_ID)-1;
+    inline static constexpr size_t PMD_HATTERENE_ID_LEN = sizeof(PMD_HATTERENE_ID_ARR)-1;
     inline static constexpr char PMD_HATTERENE_NAME_ARR[] CONFIG_STRING_SECTION = "Hatterene";
     inline static constexpr const char* PMD_HATTERENE_NAME = PMD_HATTERENE_NAME_ARR;
     inline static constexpr size_t PMD_HATTERENE_NAME_LEN = sizeof(PMD_HATTERENE_NAME_ARR)-1;
@@ -31214,7 +31214,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_IMPIDIMP_FQID_LEN = sizeof(PMD_IMPIDIMP_FQID_ARR)-1;
     inline static constexpr char PMD_IMPIDIMP_ID_ARR[] CONFIG_STRING_SECTION = "impidimp";
     inline static constexpr const char* PMD_IMPIDIMP_ID = PMD_IMPIDIMP_ID_ARR;
-    inline static constexpr size_t PMD_IMPIDIMP_ID_LEN = sizeof(PMD_IMPIDIMP_ID)-1;
+    inline static constexpr size_t PMD_IMPIDIMP_ID_LEN = sizeof(PMD_IMPIDIMP_ID_ARR)-1;
     inline static constexpr char PMD_IMPIDIMP_NAME_ARR[] CONFIG_STRING_SECTION = "Impidimp";
     inline static constexpr const char* PMD_IMPIDIMP_NAME = PMD_IMPIDIMP_NAME_ARR;
     inline static constexpr size_t PMD_IMPIDIMP_NAME_LEN = sizeof(PMD_IMPIDIMP_NAME_ARR)-1;
@@ -31252,7 +31252,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MORGREM_FQID_LEN = sizeof(PMD_MORGREM_FQID_ARR)-1;
     inline static constexpr char PMD_MORGREM_ID_ARR[] CONFIG_STRING_SECTION = "morgrem";
     inline static constexpr const char* PMD_MORGREM_ID = PMD_MORGREM_ID_ARR;
-    inline static constexpr size_t PMD_MORGREM_ID_LEN = sizeof(PMD_MORGREM_ID)-1;
+    inline static constexpr size_t PMD_MORGREM_ID_LEN = sizeof(PMD_MORGREM_ID_ARR)-1;
     inline static constexpr char PMD_MORGREM_NAME_ARR[] CONFIG_STRING_SECTION = "Morgrem";
     inline static constexpr const char* PMD_MORGREM_NAME = PMD_MORGREM_NAME_ARR;
     inline static constexpr size_t PMD_MORGREM_NAME_LEN = sizeof(PMD_MORGREM_NAME_ARR)-1;
@@ -31290,7 +31290,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_GRIMMSNARL_FQID_LEN = sizeof(PMD_GRIMMSNARL_FQID_ARR)-1;
     inline static constexpr char PMD_GRIMMSNARL_ID_ARR[] CONFIG_STRING_SECTION = "grimmsnarl";
     inline static constexpr const char* PMD_GRIMMSNARL_ID = PMD_GRIMMSNARL_ID_ARR;
-    inline static constexpr size_t PMD_GRIMMSNARL_ID_LEN = sizeof(PMD_GRIMMSNARL_ID)-1;
+    inline static constexpr size_t PMD_GRIMMSNARL_ID_LEN = sizeof(PMD_GRIMMSNARL_ID_ARR)-1;
     inline static constexpr char PMD_GRIMMSNARL_NAME_ARR[] CONFIG_STRING_SECTION = "Grimmsnarl";
     inline static constexpr const char* PMD_GRIMMSNARL_NAME = PMD_GRIMMSNARL_NAME_ARR;
     inline static constexpr size_t PMD_GRIMMSNARL_NAME_LEN = sizeof(PMD_GRIMMSNARL_NAME_ARR)-1;
@@ -31328,7 +31328,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_OBSTAGOON_FQID_LEN = sizeof(PMD_OBSTAGOON_FQID_ARR)-1;
     inline static constexpr char PMD_OBSTAGOON_ID_ARR[] CONFIG_STRING_SECTION = "obstagoon";
     inline static constexpr const char* PMD_OBSTAGOON_ID = PMD_OBSTAGOON_ID_ARR;
-    inline static constexpr size_t PMD_OBSTAGOON_ID_LEN = sizeof(PMD_OBSTAGOON_ID)-1;
+    inline static constexpr size_t PMD_OBSTAGOON_ID_LEN = sizeof(PMD_OBSTAGOON_ID_ARR)-1;
     inline static constexpr char PMD_OBSTAGOON_NAME_ARR[] CONFIG_STRING_SECTION = "Obstagoon";
     inline static constexpr const char* PMD_OBSTAGOON_NAME = PMD_OBSTAGOON_NAME_ARR;
     inline static constexpr size_t PMD_OBSTAGOON_NAME_LEN = sizeof(PMD_OBSTAGOON_NAME_ARR)-1;
@@ -31366,7 +31366,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CURSOLA_FQID_LEN = sizeof(PMD_CURSOLA_FQID_ARR)-1;
     inline static constexpr char PMD_CURSOLA_ID_ARR[] CONFIG_STRING_SECTION = "cursola";
     inline static constexpr const char* PMD_CURSOLA_ID = PMD_CURSOLA_ID_ARR;
-    inline static constexpr size_t PMD_CURSOLA_ID_LEN = sizeof(PMD_CURSOLA_ID)-1;
+    inline static constexpr size_t PMD_CURSOLA_ID_LEN = sizeof(PMD_CURSOLA_ID_ARR)-1;
     inline static constexpr char PMD_CURSOLA_NAME_ARR[] CONFIG_STRING_SECTION = "Cursola";
     inline static constexpr const char* PMD_CURSOLA_NAME = PMD_CURSOLA_NAME_ARR;
     inline static constexpr size_t PMD_CURSOLA_NAME_LEN = sizeof(PMD_CURSOLA_NAME_ARR)-1;
@@ -31404,7 +31404,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SIRFETCHD_FQID_LEN = sizeof(PMD_SIRFETCHD_FQID_ARR)-1;
     inline static constexpr char PMD_SIRFETCHD_ID_ARR[] CONFIG_STRING_SECTION = "sirfetchd";
     inline static constexpr const char* PMD_SIRFETCHD_ID = PMD_SIRFETCHD_ID_ARR;
-    inline static constexpr size_t PMD_SIRFETCHD_ID_LEN = sizeof(PMD_SIRFETCHD_ID)-1;
+    inline static constexpr size_t PMD_SIRFETCHD_ID_LEN = sizeof(PMD_SIRFETCHD_ID_ARR)-1;
     inline static constexpr char PMD_SIRFETCHD_NAME_ARR[] CONFIG_STRING_SECTION = "Sirfetchd";
     inline static constexpr const char* PMD_SIRFETCHD_NAME = PMD_SIRFETCHD_NAME_ARR;
     inline static constexpr size_t PMD_SIRFETCHD_NAME_LEN = sizeof(PMD_SIRFETCHD_NAME_ARR)-1;
@@ -31442,7 +31442,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_RUNERIGUS_FQID_LEN = sizeof(PMD_RUNERIGUS_FQID_ARR)-1;
     inline static constexpr char PMD_RUNERIGUS_ID_ARR[] CONFIG_STRING_SECTION = "runerigus";
     inline static constexpr const char* PMD_RUNERIGUS_ID = PMD_RUNERIGUS_ID_ARR;
-    inline static constexpr size_t PMD_RUNERIGUS_ID_LEN = sizeof(PMD_RUNERIGUS_ID)-1;
+    inline static constexpr size_t PMD_RUNERIGUS_ID_LEN = sizeof(PMD_RUNERIGUS_ID_ARR)-1;
     inline static constexpr char PMD_RUNERIGUS_NAME_ARR[] CONFIG_STRING_SECTION = "Runerigus";
     inline static constexpr const char* PMD_RUNERIGUS_NAME = PMD_RUNERIGUS_NAME_ARR;
     inline static constexpr size_t PMD_RUNERIGUS_NAME_LEN = sizeof(PMD_RUNERIGUS_NAME_ARR)-1;
@@ -31480,7 +31480,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MILCERY_FQID_LEN = sizeof(PMD_MILCERY_FQID_ARR)-1;
     inline static constexpr char PMD_MILCERY_ID_ARR[] CONFIG_STRING_SECTION = "milcery";
     inline static constexpr const char* PMD_MILCERY_ID = PMD_MILCERY_ID_ARR;
-    inline static constexpr size_t PMD_MILCERY_ID_LEN = sizeof(PMD_MILCERY_ID)-1;
+    inline static constexpr size_t PMD_MILCERY_ID_LEN = sizeof(PMD_MILCERY_ID_ARR)-1;
     inline static constexpr char PMD_MILCERY_NAME_ARR[] CONFIG_STRING_SECTION = "Milcery";
     inline static constexpr const char* PMD_MILCERY_NAME = PMD_MILCERY_NAME_ARR;
     inline static constexpr size_t PMD_MILCERY_NAME_LEN = sizeof(PMD_MILCERY_NAME_ARR)-1;
@@ -31518,7 +31518,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ALCREMIE_FQID_LEN = sizeof(PMD_ALCREMIE_FQID_ARR)-1;
     inline static constexpr char PMD_ALCREMIE_ID_ARR[] CONFIG_STRING_SECTION = "alcremie";
     inline static constexpr const char* PMD_ALCREMIE_ID = PMD_ALCREMIE_ID_ARR;
-    inline static constexpr size_t PMD_ALCREMIE_ID_LEN = sizeof(PMD_ALCREMIE_ID)-1;
+    inline static constexpr size_t PMD_ALCREMIE_ID_LEN = sizeof(PMD_ALCREMIE_ID_ARR)-1;
     inline static constexpr char PMD_ALCREMIE_NAME_ARR[] CONFIG_STRING_SECTION = "Alcremie";
     inline static constexpr const char* PMD_ALCREMIE_NAME = PMD_ALCREMIE_NAME_ARR;
     inline static constexpr size_t PMD_ALCREMIE_NAME_LEN = sizeof(PMD_ALCREMIE_NAME_ARR)-1;
@@ -31556,7 +31556,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_PINCURCHIN_FQID_LEN = sizeof(PMD_PINCURCHIN_FQID_ARR)-1;
     inline static constexpr char PMD_PINCURCHIN_ID_ARR[] CONFIG_STRING_SECTION = "pincurchin";
     inline static constexpr const char* PMD_PINCURCHIN_ID = PMD_PINCURCHIN_ID_ARR;
-    inline static constexpr size_t PMD_PINCURCHIN_ID_LEN = sizeof(PMD_PINCURCHIN_ID)-1;
+    inline static constexpr size_t PMD_PINCURCHIN_ID_LEN = sizeof(PMD_PINCURCHIN_ID_ARR)-1;
     inline static constexpr char PMD_PINCURCHIN_NAME_ARR[] CONFIG_STRING_SECTION = "Pincurchin";
     inline static constexpr const char* PMD_PINCURCHIN_NAME = PMD_PINCURCHIN_NAME_ARR;
     inline static constexpr size_t PMD_PINCURCHIN_NAME_LEN = sizeof(PMD_PINCURCHIN_NAME_ARR)-1;
@@ -31594,7 +31594,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNOM_FQID_LEN = sizeof(PMD_SNOM_FQID_ARR)-1;
     inline static constexpr char PMD_SNOM_ID_ARR[] CONFIG_STRING_SECTION = "snom";
     inline static constexpr const char* PMD_SNOM_ID = PMD_SNOM_ID_ARR;
-    inline static constexpr size_t PMD_SNOM_ID_LEN = sizeof(PMD_SNOM_ID)-1;
+    inline static constexpr size_t PMD_SNOM_ID_LEN = sizeof(PMD_SNOM_ID_ARR)-1;
     inline static constexpr char PMD_SNOM_NAME_ARR[] CONFIG_STRING_SECTION = "Snom";
     inline static constexpr const char* PMD_SNOM_NAME = PMD_SNOM_NAME_ARR;
     inline static constexpr size_t PMD_SNOM_NAME_LEN = sizeof(PMD_SNOM_NAME_ARR)-1;
@@ -31632,7 +31632,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_FROSMOTH_FQID_LEN = sizeof(PMD_FROSMOTH_FQID_ARR)-1;
     inline static constexpr char PMD_FROSMOTH_ID_ARR[] CONFIG_STRING_SECTION = "frosmoth";
     inline static constexpr const char* PMD_FROSMOTH_ID = PMD_FROSMOTH_ID_ARR;
-    inline static constexpr size_t PMD_FROSMOTH_ID_LEN = sizeof(PMD_FROSMOTH_ID)-1;
+    inline static constexpr size_t PMD_FROSMOTH_ID_LEN = sizeof(PMD_FROSMOTH_ID_ARR)-1;
     inline static constexpr char PMD_FROSMOTH_NAME_ARR[] CONFIG_STRING_SECTION = "Frosmoth";
     inline static constexpr const char* PMD_FROSMOTH_NAME = PMD_FROSMOTH_NAME_ARR;
     inline static constexpr size_t PMD_FROSMOTH_NAME_LEN = sizeof(PMD_FROSMOTH_NAME_ARR)-1;
@@ -31670,7 +31670,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_STONJOURNER_FQID_LEN = sizeof(PMD_STONJOURNER_FQID_ARR)-1;
     inline static constexpr char PMD_STONJOURNER_ID_ARR[] CONFIG_STRING_SECTION = "stonjourner";
     inline static constexpr const char* PMD_STONJOURNER_ID = PMD_STONJOURNER_ID_ARR;
-    inline static constexpr size_t PMD_STONJOURNER_ID_LEN = sizeof(PMD_STONJOURNER_ID)-1;
+    inline static constexpr size_t PMD_STONJOURNER_ID_LEN = sizeof(PMD_STONJOURNER_ID_ARR)-1;
     inline static constexpr char PMD_STONJOURNER_NAME_ARR[] CONFIG_STRING_SECTION = "Stonjourner";
     inline static constexpr const char* PMD_STONJOURNER_NAME = PMD_STONJOURNER_NAME_ARR;
     inline static constexpr size_t PMD_STONJOURNER_NAME_LEN = sizeof(PMD_STONJOURNER_NAME_ARR)-1;
@@ -31708,7 +31708,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_EISCUE_FQID_LEN = sizeof(PMD_EISCUE_FQID_ARR)-1;
     inline static constexpr char PMD_EISCUE_ID_ARR[] CONFIG_STRING_SECTION = "eiscue";
     inline static constexpr const char* PMD_EISCUE_ID = PMD_EISCUE_ID_ARR;
-    inline static constexpr size_t PMD_EISCUE_ID_LEN = sizeof(PMD_EISCUE_ID)-1;
+    inline static constexpr size_t PMD_EISCUE_ID_LEN = sizeof(PMD_EISCUE_ID_ARR)-1;
     inline static constexpr char PMD_EISCUE_NAME_ARR[] CONFIG_STRING_SECTION = "Eiscue";
     inline static constexpr const char* PMD_EISCUE_NAME = PMD_EISCUE_NAME_ARR;
     inline static constexpr size_t PMD_EISCUE_NAME_LEN = sizeof(PMD_EISCUE_NAME_ARR)-1;
@@ -31746,7 +31746,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_INDEEDEE_FQID_LEN = sizeof(PMD_INDEEDEE_FQID_ARR)-1;
     inline static constexpr char PMD_INDEEDEE_ID_ARR[] CONFIG_STRING_SECTION = "indeedee";
     inline static constexpr const char* PMD_INDEEDEE_ID = PMD_INDEEDEE_ID_ARR;
-    inline static constexpr size_t PMD_INDEEDEE_ID_LEN = sizeof(PMD_INDEEDEE_ID)-1;
+    inline static constexpr size_t PMD_INDEEDEE_ID_LEN = sizeof(PMD_INDEEDEE_ID_ARR)-1;
     inline static constexpr char PMD_INDEEDEE_NAME_ARR[] CONFIG_STRING_SECTION = "Indeedee";
     inline static constexpr const char* PMD_INDEEDEE_NAME = PMD_INDEEDEE_NAME_ARR;
     inline static constexpr size_t PMD_INDEEDEE_NAME_LEN = sizeof(PMD_INDEEDEE_NAME_ARR)-1;
@@ -31784,7 +31784,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_MORPEKO_FQID_LEN = sizeof(PMD_MORPEKO_FQID_ARR)-1;
     inline static constexpr char PMD_MORPEKO_ID_ARR[] CONFIG_STRING_SECTION = "morpeko";
     inline static constexpr const char* PMD_MORPEKO_ID = PMD_MORPEKO_ID_ARR;
-    inline static constexpr size_t PMD_MORPEKO_ID_LEN = sizeof(PMD_MORPEKO_ID)-1;
+    inline static constexpr size_t PMD_MORPEKO_ID_LEN = sizeof(PMD_MORPEKO_ID_ARR)-1;
     inline static constexpr char PMD_MORPEKO_NAME_ARR[] CONFIG_STRING_SECTION = "Morpeko";
     inline static constexpr const char* PMD_MORPEKO_NAME = PMD_MORPEKO_NAME_ARR;
     inline static constexpr size_t PMD_MORPEKO_NAME_LEN = sizeof(PMD_MORPEKO_NAME_ARR)-1;
@@ -31822,7 +31822,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_COPPERAJAH_FQID_LEN = sizeof(PMD_COPPERAJAH_FQID_ARR)-1;
     inline static constexpr char PMD_COPPERAJAH_ID_ARR[] CONFIG_STRING_SECTION = "copperajah";
     inline static constexpr const char* PMD_COPPERAJAH_ID = PMD_COPPERAJAH_ID_ARR;
-    inline static constexpr size_t PMD_COPPERAJAH_ID_LEN = sizeof(PMD_COPPERAJAH_ID)-1;
+    inline static constexpr size_t PMD_COPPERAJAH_ID_LEN = sizeof(PMD_COPPERAJAH_ID_ARR)-1;
     inline static constexpr char PMD_COPPERAJAH_NAME_ARR[] CONFIG_STRING_SECTION = "Copperajah";
     inline static constexpr const char* PMD_COPPERAJAH_NAME = PMD_COPPERAJAH_NAME_ARR;
     inline static constexpr size_t PMD_COPPERAJAH_NAME_LEN = sizeof(PMD_COPPERAJAH_NAME_ARR)-1;
@@ -31860,7 +31860,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRACOZOLT_FQID_LEN = sizeof(PMD_DRACOZOLT_FQID_ARR)-1;
     inline static constexpr char PMD_DRACOZOLT_ID_ARR[] CONFIG_STRING_SECTION = "dracozolt";
     inline static constexpr const char* PMD_DRACOZOLT_ID = PMD_DRACOZOLT_ID_ARR;
-    inline static constexpr size_t PMD_DRACOZOLT_ID_LEN = sizeof(PMD_DRACOZOLT_ID)-1;
+    inline static constexpr size_t PMD_DRACOZOLT_ID_LEN = sizeof(PMD_DRACOZOLT_ID_ARR)-1;
     inline static constexpr char PMD_DRACOZOLT_NAME_ARR[] CONFIG_STRING_SECTION = "Dracozolt";
     inline static constexpr const char* PMD_DRACOZOLT_NAME = PMD_DRACOZOLT_NAME_ARR;
     inline static constexpr size_t PMD_DRACOZOLT_NAME_LEN = sizeof(PMD_DRACOZOLT_NAME_ARR)-1;
@@ -31898,7 +31898,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARCTOZOLT_FQID_LEN = sizeof(PMD_ARCTOZOLT_FQID_ARR)-1;
     inline static constexpr char PMD_ARCTOZOLT_ID_ARR[] CONFIG_STRING_SECTION = "arctozolt";
     inline static constexpr const char* PMD_ARCTOZOLT_ID = PMD_ARCTOZOLT_ID_ARR;
-    inline static constexpr size_t PMD_ARCTOZOLT_ID_LEN = sizeof(PMD_ARCTOZOLT_ID)-1;
+    inline static constexpr size_t PMD_ARCTOZOLT_ID_LEN = sizeof(PMD_ARCTOZOLT_ID_ARR)-1;
     inline static constexpr char PMD_ARCTOZOLT_NAME_ARR[] CONFIG_STRING_SECTION = "Arctozolt";
     inline static constexpr const char* PMD_ARCTOZOLT_NAME = PMD_ARCTOZOLT_NAME_ARR;
     inline static constexpr size_t PMD_ARCTOZOLT_NAME_LEN = sizeof(PMD_ARCTOZOLT_NAME_ARR)-1;
@@ -31936,7 +31936,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRACOVISH_FQID_LEN = sizeof(PMD_DRACOVISH_FQID_ARR)-1;
     inline static constexpr char PMD_DRACOVISH_ID_ARR[] CONFIG_STRING_SECTION = "dracovish";
     inline static constexpr const char* PMD_DRACOVISH_ID = PMD_DRACOVISH_ID_ARR;
-    inline static constexpr size_t PMD_DRACOVISH_ID_LEN = sizeof(PMD_DRACOVISH_ID)-1;
+    inline static constexpr size_t PMD_DRACOVISH_ID_LEN = sizeof(PMD_DRACOVISH_ID_ARR)-1;
     inline static constexpr char PMD_DRACOVISH_NAME_ARR[] CONFIG_STRING_SECTION = "Dracovish";
     inline static constexpr const char* PMD_DRACOVISH_NAME = PMD_DRACOVISH_NAME_ARR;
     inline static constexpr size_t PMD_DRACOVISH_NAME_LEN = sizeof(PMD_DRACOVISH_NAME_ARR)-1;
@@ -31974,7 +31974,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ARCTOVISH_FQID_LEN = sizeof(PMD_ARCTOVISH_FQID_ARR)-1;
     inline static constexpr char PMD_ARCTOVISH_ID_ARR[] CONFIG_STRING_SECTION = "arctovish";
     inline static constexpr const char* PMD_ARCTOVISH_ID = PMD_ARCTOVISH_ID_ARR;
-    inline static constexpr size_t PMD_ARCTOVISH_ID_LEN = sizeof(PMD_ARCTOVISH_ID)-1;
+    inline static constexpr size_t PMD_ARCTOVISH_ID_LEN = sizeof(PMD_ARCTOVISH_ID_ARR)-1;
     inline static constexpr char PMD_ARCTOVISH_NAME_ARR[] CONFIG_STRING_SECTION = "Arctovish";
     inline static constexpr const char* PMD_ARCTOVISH_NAME = PMD_ARCTOVISH_NAME_ARR;
     inline static constexpr size_t PMD_ARCTOVISH_NAME_LEN = sizeof(PMD_ARCTOVISH_NAME_ARR)-1;
@@ -32012,7 +32012,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DURALUDON_FQID_LEN = sizeof(PMD_DURALUDON_FQID_ARR)-1;
     inline static constexpr char PMD_DURALUDON_ID_ARR[] CONFIG_STRING_SECTION = "duraludon";
     inline static constexpr const char* PMD_DURALUDON_ID = PMD_DURALUDON_ID_ARR;
-    inline static constexpr size_t PMD_DURALUDON_ID_LEN = sizeof(PMD_DURALUDON_ID)-1;
+    inline static constexpr size_t PMD_DURALUDON_ID_LEN = sizeof(PMD_DURALUDON_ID_ARR)-1;
     inline static constexpr char PMD_DURALUDON_NAME_ARR[] CONFIG_STRING_SECTION = "Duraludon";
     inline static constexpr const char* PMD_DURALUDON_NAME = PMD_DURALUDON_NAME_ARR;
     inline static constexpr size_t PMD_DURALUDON_NAME_LEN = sizeof(PMD_DURALUDON_NAME_ARR)-1;
@@ -32050,7 +32050,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DREEPY_FQID_LEN = sizeof(PMD_DREEPY_FQID_ARR)-1;
     inline static constexpr char PMD_DREEPY_ID_ARR[] CONFIG_STRING_SECTION = "dreepy";
     inline static constexpr const char* PMD_DREEPY_ID = PMD_DREEPY_ID_ARR;
-    inline static constexpr size_t PMD_DREEPY_ID_LEN = sizeof(PMD_DREEPY_ID)-1;
+    inline static constexpr size_t PMD_DREEPY_ID_LEN = sizeof(PMD_DREEPY_ID_ARR)-1;
     inline static constexpr char PMD_DREEPY_NAME_ARR[] CONFIG_STRING_SECTION = "Dreepy";
     inline static constexpr const char* PMD_DREEPY_NAME = PMD_DREEPY_NAME_ARR;
     inline static constexpr size_t PMD_DREEPY_NAME_LEN = sizeof(PMD_DREEPY_NAME_ARR)-1;
@@ -32088,7 +32088,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRAKLOAK_FQID_LEN = sizeof(PMD_DRAKLOAK_FQID_ARR)-1;
     inline static constexpr char PMD_DRAKLOAK_ID_ARR[] CONFIG_STRING_SECTION = "drakloak";
     inline static constexpr const char* PMD_DRAKLOAK_ID = PMD_DRAKLOAK_ID_ARR;
-    inline static constexpr size_t PMD_DRAKLOAK_ID_LEN = sizeof(PMD_DRAKLOAK_ID)-1;
+    inline static constexpr size_t PMD_DRAKLOAK_ID_LEN = sizeof(PMD_DRAKLOAK_ID_ARR)-1;
     inline static constexpr char PMD_DRAKLOAK_NAME_ARR[] CONFIG_STRING_SECTION = "Drakloak";
     inline static constexpr const char* PMD_DRAKLOAK_NAME = PMD_DRAKLOAK_NAME_ARR;
     inline static constexpr size_t PMD_DRAKLOAK_NAME_LEN = sizeof(PMD_DRAKLOAK_NAME_ARR)-1;
@@ -32126,7 +32126,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_DRAGAPULT_FQID_LEN = sizeof(PMD_DRAGAPULT_FQID_ARR)-1;
     inline static constexpr char PMD_DRAGAPULT_ID_ARR[] CONFIG_STRING_SECTION = "dragapult";
     inline static constexpr const char* PMD_DRAGAPULT_ID = PMD_DRAGAPULT_ID_ARR;
-    inline static constexpr size_t PMD_DRAGAPULT_ID_LEN = sizeof(PMD_DRAGAPULT_ID)-1;
+    inline static constexpr size_t PMD_DRAGAPULT_ID_LEN = sizeof(PMD_DRAGAPULT_ID_ARR)-1;
     inline static constexpr char PMD_DRAGAPULT_NAME_ARR[] CONFIG_STRING_SECTION = "Dragapult";
     inline static constexpr const char* PMD_DRAGAPULT_NAME = PMD_DRAGAPULT_NAME_ARR;
     inline static constexpr size_t PMD_DRAGAPULT_NAME_LEN = sizeof(PMD_DRAGAPULT_NAME_ARR)-1;
@@ -32164,7 +32164,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ZACIAN_FQID_LEN = sizeof(PMD_ZACIAN_FQID_ARR)-1;
     inline static constexpr char PMD_ZACIAN_ID_ARR[] CONFIG_STRING_SECTION = "zacian";
     inline static constexpr const char* PMD_ZACIAN_ID = PMD_ZACIAN_ID_ARR;
-    inline static constexpr size_t PMD_ZACIAN_ID_LEN = sizeof(PMD_ZACIAN_ID)-1;
+    inline static constexpr size_t PMD_ZACIAN_ID_LEN = sizeof(PMD_ZACIAN_ID_ARR)-1;
     inline static constexpr char PMD_ZACIAN_NAME_ARR[] CONFIG_STRING_SECTION = "Zacian";
     inline static constexpr const char* PMD_ZACIAN_NAME = PMD_ZACIAN_NAME_ARR;
     inline static constexpr size_t PMD_ZACIAN_NAME_LEN = sizeof(PMD_ZACIAN_NAME_ARR)-1;
@@ -32202,7 +32202,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ETERNATUS_FQID_LEN = sizeof(PMD_ETERNATUS_FQID_ARR)-1;
     inline static constexpr char PMD_ETERNATUS_ID_ARR[] CONFIG_STRING_SECTION = "eternatus";
     inline static constexpr const char* PMD_ETERNATUS_ID = PMD_ETERNATUS_ID_ARR;
-    inline static constexpr size_t PMD_ETERNATUS_ID_LEN = sizeof(PMD_ETERNATUS_ID)-1;
+    inline static constexpr size_t PMD_ETERNATUS_ID_LEN = sizeof(PMD_ETERNATUS_ID_ARR)-1;
     inline static constexpr char PMD_ETERNATUS_NAME_ARR[] CONFIG_STRING_SECTION = "Eternatus";
     inline static constexpr const char* PMD_ETERNATUS_NAME = PMD_ETERNATUS_NAME_ARR;
     inline static constexpr size_t PMD_ETERNATUS_NAME_LEN = sizeof(PMD_ETERNATUS_NAME_ARR)-1;
@@ -32240,7 +32240,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KUBFU_FQID_LEN = sizeof(PMD_KUBFU_FQID_ARR)-1;
     inline static constexpr char PMD_KUBFU_ID_ARR[] CONFIG_STRING_SECTION = "kubfu";
     inline static constexpr const char* PMD_KUBFU_ID = PMD_KUBFU_ID_ARR;
-    inline static constexpr size_t PMD_KUBFU_ID_LEN = sizeof(PMD_KUBFU_ID)-1;
+    inline static constexpr size_t PMD_KUBFU_ID_LEN = sizeof(PMD_KUBFU_ID_ARR)-1;
     inline static constexpr char PMD_KUBFU_NAME_ARR[] CONFIG_STRING_SECTION = "Kubfu";
     inline static constexpr const char* PMD_KUBFU_NAME = PMD_KUBFU_NAME_ARR;
     inline static constexpr size_t PMD_KUBFU_NAME_LEN = sizeof(PMD_KUBFU_NAME_ARR)-1;
@@ -32278,7 +32278,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_URSHIFU_FQID_LEN = sizeof(PMD_URSHIFU_FQID_ARR)-1;
     inline static constexpr char PMD_URSHIFU_ID_ARR[] CONFIG_STRING_SECTION = "urshifu";
     inline static constexpr const char* PMD_URSHIFU_ID = PMD_URSHIFU_ID_ARR;
-    inline static constexpr size_t PMD_URSHIFU_ID_LEN = sizeof(PMD_URSHIFU_ID)-1;
+    inline static constexpr size_t PMD_URSHIFU_ID_LEN = sizeof(PMD_URSHIFU_ID_ARR)-1;
     inline static constexpr char PMD_URSHIFU_NAME_ARR[] CONFIG_STRING_SECTION = "Urshifu";
     inline static constexpr const char* PMD_URSHIFU_NAME = PMD_URSHIFU_NAME_ARR;
     inline static constexpr size_t PMD_URSHIFU_NAME_LEN = sizeof(PMD_URSHIFU_NAME_ARR)-1;
@@ -32316,7 +32316,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REGIELEKI_FQID_LEN = sizeof(PMD_REGIELEKI_FQID_ARR)-1;
     inline static constexpr char PMD_REGIELEKI_ID_ARR[] CONFIG_STRING_SECTION = "regieleki";
     inline static constexpr const char* PMD_REGIELEKI_ID = PMD_REGIELEKI_ID_ARR;
-    inline static constexpr size_t PMD_REGIELEKI_ID_LEN = sizeof(PMD_REGIELEKI_ID)-1;
+    inline static constexpr size_t PMD_REGIELEKI_ID_LEN = sizeof(PMD_REGIELEKI_ID_ARR)-1;
     inline static constexpr char PMD_REGIELEKI_NAME_ARR[] CONFIG_STRING_SECTION = "Regieleki";
     inline static constexpr const char* PMD_REGIELEKI_NAME = PMD_REGIELEKI_NAME_ARR;
     inline static constexpr size_t PMD_REGIELEKI_NAME_LEN = sizeof(PMD_REGIELEKI_NAME_ARR)-1;
@@ -32354,7 +32354,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_REGIDRAGO_FQID_LEN = sizeof(PMD_REGIDRAGO_FQID_ARR)-1;
     inline static constexpr char PMD_REGIDRAGO_ID_ARR[] CONFIG_STRING_SECTION = "regidrago";
     inline static constexpr const char* PMD_REGIDRAGO_ID = PMD_REGIDRAGO_ID_ARR;
-    inline static constexpr size_t PMD_REGIDRAGO_ID_LEN = sizeof(PMD_REGIDRAGO_ID)-1;
+    inline static constexpr size_t PMD_REGIDRAGO_ID_LEN = sizeof(PMD_REGIDRAGO_ID_ARR)-1;
     inline static constexpr char PMD_REGIDRAGO_NAME_ARR[] CONFIG_STRING_SECTION = "Regidrago";
     inline static constexpr const char* PMD_REGIDRAGO_NAME = PMD_REGIDRAGO_NAME_ARR;
     inline static constexpr size_t PMD_REGIDRAGO_NAME_LEN = sizeof(PMD_REGIDRAGO_NAME_ARR)-1;
@@ -32392,7 +32392,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SPECTRIER_FQID_LEN = sizeof(PMD_SPECTRIER_FQID_ARR)-1;
     inline static constexpr char PMD_SPECTRIER_ID_ARR[] CONFIG_STRING_SECTION = "spectrier";
     inline static constexpr const char* PMD_SPECTRIER_ID = PMD_SPECTRIER_ID_ARR;
-    inline static constexpr size_t PMD_SPECTRIER_ID_LEN = sizeof(PMD_SPECTRIER_ID)-1;
+    inline static constexpr size_t PMD_SPECTRIER_ID_LEN = sizeof(PMD_SPECTRIER_ID_ARR)-1;
     inline static constexpr char PMD_SPECTRIER_NAME_ARR[] CONFIG_STRING_SECTION = "Spectrier";
     inline static constexpr const char* PMD_SPECTRIER_NAME = PMD_SPECTRIER_NAME_ARR;
     inline static constexpr size_t PMD_SPECTRIER_NAME_LEN = sizeof(PMD_SPECTRIER_NAME_ARR)-1;
@@ -32430,7 +32430,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_CALYREX_FQID_LEN = sizeof(PMD_CALYREX_FQID_ARR)-1;
     inline static constexpr char PMD_CALYREX_ID_ARR[] CONFIG_STRING_SECTION = "calyrex";
     inline static constexpr const char* PMD_CALYREX_ID = PMD_CALYREX_ID_ARR;
-    inline static constexpr size_t PMD_CALYREX_ID_LEN = sizeof(PMD_CALYREX_ID)-1;
+    inline static constexpr size_t PMD_CALYREX_ID_LEN = sizeof(PMD_CALYREX_ID_ARR)-1;
     inline static constexpr char PMD_CALYREX_NAME_ARR[] CONFIG_STRING_SECTION = "Calyrex";
     inline static constexpr const char* PMD_CALYREX_NAME = PMD_CALYREX_NAME_ARR;
     inline static constexpr size_t PMD_CALYREX_NAME_LEN = sizeof(PMD_CALYREX_NAME_ARR)-1;
@@ -32468,7 +32468,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_WYRDEER_FQID_LEN = sizeof(PMD_WYRDEER_FQID_ARR)-1;
     inline static constexpr char PMD_WYRDEER_ID_ARR[] CONFIG_STRING_SECTION = "wyrdeer";
     inline static constexpr const char* PMD_WYRDEER_ID = PMD_WYRDEER_ID_ARR;
-    inline static constexpr size_t PMD_WYRDEER_ID_LEN = sizeof(PMD_WYRDEER_ID)-1;
+    inline static constexpr size_t PMD_WYRDEER_ID_LEN = sizeof(PMD_WYRDEER_ID_ARR)-1;
     inline static constexpr char PMD_WYRDEER_NAME_ARR[] CONFIG_STRING_SECTION = "Wyrdeer";
     inline static constexpr const char* PMD_WYRDEER_NAME = PMD_WYRDEER_NAME_ARR;
     inline static constexpr size_t PMD_WYRDEER_NAME_LEN = sizeof(PMD_WYRDEER_NAME_ARR)-1;
@@ -32506,7 +32506,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_KLEAVOR_FQID_LEN = sizeof(PMD_KLEAVOR_FQID_ARR)-1;
     inline static constexpr char PMD_KLEAVOR_ID_ARR[] CONFIG_STRING_SECTION = "kleavor";
     inline static constexpr const char* PMD_KLEAVOR_ID = PMD_KLEAVOR_ID_ARR;
-    inline static constexpr size_t PMD_KLEAVOR_ID_LEN = sizeof(PMD_KLEAVOR_ID)-1;
+    inline static constexpr size_t PMD_KLEAVOR_ID_LEN = sizeof(PMD_KLEAVOR_ID_ARR)-1;
     inline static constexpr char PMD_KLEAVOR_NAME_ARR[] CONFIG_STRING_SECTION = "Kleavor";
     inline static constexpr const char* PMD_KLEAVOR_NAME = PMD_KLEAVOR_NAME_ARR;
     inline static constexpr size_t PMD_KLEAVOR_NAME_LEN = sizeof(PMD_KLEAVOR_NAME_ARR)-1;
@@ -32544,7 +32544,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_URSALUNA_FQID_LEN = sizeof(PMD_URSALUNA_FQID_ARR)-1;
     inline static constexpr char PMD_URSALUNA_ID_ARR[] CONFIG_STRING_SECTION = "ursaluna";
     inline static constexpr const char* PMD_URSALUNA_ID = PMD_URSALUNA_ID_ARR;
-    inline static constexpr size_t PMD_URSALUNA_ID_LEN = sizeof(PMD_URSALUNA_ID)-1;
+    inline static constexpr size_t PMD_URSALUNA_ID_LEN = sizeof(PMD_URSALUNA_ID_ARR)-1;
     inline static constexpr char PMD_URSALUNA_NAME_ARR[] CONFIG_STRING_SECTION = "Ursaluna";
     inline static constexpr const char* PMD_URSALUNA_NAME = PMD_URSALUNA_NAME_ARR;
     inline static constexpr size_t PMD_URSALUNA_NAME_LEN = sizeof(PMD_URSALUNA_NAME_ARR)-1;
@@ -32582,7 +32582,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_BASCULEGION_FQID_LEN = sizeof(PMD_BASCULEGION_FQID_ARR)-1;
     inline static constexpr char PMD_BASCULEGION_ID_ARR[] CONFIG_STRING_SECTION = "basculegion";
     inline static constexpr const char* PMD_BASCULEGION_ID = PMD_BASCULEGION_ID_ARR;
-    inline static constexpr size_t PMD_BASCULEGION_ID_LEN = sizeof(PMD_BASCULEGION_ID)-1;
+    inline static constexpr size_t PMD_BASCULEGION_ID_LEN = sizeof(PMD_BASCULEGION_ID_ARR)-1;
     inline static constexpr char PMD_BASCULEGION_NAME_ARR[] CONFIG_STRING_SECTION = "Basculegion";
     inline static constexpr const char* PMD_BASCULEGION_NAME = PMD_BASCULEGION_NAME_ARR;
     inline static constexpr size_t PMD_BASCULEGION_NAME_LEN = sizeof(PMD_BASCULEGION_NAME_ARR)-1;
@@ -32620,7 +32620,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_SNEASLER_FQID_LEN = sizeof(PMD_SNEASLER_FQID_ARR)-1;
     inline static constexpr char PMD_SNEASLER_ID_ARR[] CONFIG_STRING_SECTION = "sneasler";
     inline static constexpr const char* PMD_SNEASLER_ID = PMD_SNEASLER_ID_ARR;
-    inline static constexpr size_t PMD_SNEASLER_ID_LEN = sizeof(PMD_SNEASLER_ID)-1;
+    inline static constexpr size_t PMD_SNEASLER_ID_LEN = sizeof(PMD_SNEASLER_ID_ARR)-1;
     inline static constexpr char PMD_SNEASLER_NAME_ARR[] CONFIG_STRING_SECTION = "Sneasler";
     inline static constexpr const char* PMD_SNEASLER_NAME = PMD_SNEASLER_NAME_ARR;
     inline static constexpr size_t PMD_SNEASLER_NAME_LEN = sizeof(PMD_SNEASLER_NAME_ARR)-1;
@@ -32658,7 +32658,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_OVERQWIL_FQID_LEN = sizeof(PMD_OVERQWIL_FQID_ARR)-1;
     inline static constexpr char PMD_OVERQWIL_ID_ARR[] CONFIG_STRING_SECTION = "overqwil";
     inline static constexpr const char* PMD_OVERQWIL_ID = PMD_OVERQWIL_ID_ARR;
-    inline static constexpr size_t PMD_OVERQWIL_ID_LEN = sizeof(PMD_OVERQWIL_ID)-1;
+    inline static constexpr size_t PMD_OVERQWIL_ID_LEN = sizeof(PMD_OVERQWIL_ID_ARR)-1;
     inline static constexpr char PMD_OVERQWIL_NAME_ARR[] CONFIG_STRING_SECTION = "Overqwil";
     inline static constexpr const char* PMD_OVERQWIL_NAME = PMD_OVERQWIL_NAME_ARR;
     inline static constexpr size_t PMD_OVERQWIL_NAME_LEN = sizeof(PMD_OVERQWIL_NAME_ARR)-1;
@@ -32696,7 +32696,7 @@ namespace bongocat::assets {
     inline static constexpr size_t PMD_ENAMORUS_FQID_LEN = sizeof(PMD_ENAMORUS_FQID_ARR)-1;
     inline static constexpr char PMD_ENAMORUS_ID_ARR[] CONFIG_STRING_SECTION = "enamorus";
     inline static constexpr const char* PMD_ENAMORUS_ID = PMD_ENAMORUS_ID_ARR;
-    inline static constexpr size_t PMD_ENAMORUS_ID_LEN = sizeof(PMD_ENAMORUS_ID)-1;
+    inline static constexpr size_t PMD_ENAMORUS_ID_LEN = sizeof(PMD_ENAMORUS_ID_ARR)-1;
     inline static constexpr char PMD_ENAMORUS_NAME_ARR[] CONFIG_STRING_SECTION = "Enamorus";
     inline static constexpr const char* PMD_ENAMORUS_NAME = PMD_ENAMORUS_NAME_ARR;
     inline static constexpr size_t PMD_ENAMORUS_NAME_LEN = sizeof(PMD_ENAMORUS_NAME_ARR)-1;

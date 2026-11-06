@@ -15,7 +15,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AEGISDRAMON_FQID_LEN = sizeof(DMALL_AEGISDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_AEGISDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "aegisdramon";
     inline static constexpr const char* DMALL_AEGISDRAMON_ID = DMALL_AEGISDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_AEGISDRAMON_ID_LEN = sizeof(DMALL_AEGISDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_AEGISDRAMON_ID_LEN = sizeof(DMALL_AEGISDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_AEGISDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Aegisdramon";
     inline static constexpr const char* DMALL_AEGISDRAMON_NAME = DMALL_AEGISDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_AEGISDRAMON_NAME_LEN = sizeof(DMALL_AEGISDRAMON_NAME_ARR)-1;
@@ -33,7 +33,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AERO_V_DRAMON_FQID_LEN = sizeof(DMALL_AERO_V_DRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_AERO_V_DRAMON_ID_ARR[] CONFIG_STRING_SECTION = "aero_v_dramon";
     inline static constexpr const char* DMALL_AERO_V_DRAMON_ID = DMALL_AERO_V_DRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_AERO_V_DRAMON_ID_LEN = sizeof(DMALL_AERO_V_DRAMON_ID)-1;
+    inline static constexpr size_t DMALL_AERO_V_DRAMON_ID_LEN = sizeof(DMALL_AERO_V_DRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_AERO_V_DRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Aero V-dramon";
     inline static constexpr const char* DMALL_AERO_V_DRAMON_NAME = DMALL_AERO_V_DRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_AERO_V_DRAMON_NAME_LEN = sizeof(DMALL_AERO_V_DRAMON_NAME_ARR)-1;
@@ -51,7 +51,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AGUMON_2006_FQID_LEN = sizeof(DMALL_AGUMON_2006_FQID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_2006_ID_ARR[] CONFIG_STRING_SECTION = "agumon_2006";
     inline static constexpr const char* DMALL_AGUMON_2006_ID = DMALL_AGUMON_2006_ID_ARR;
-    inline static constexpr size_t DMALL_AGUMON_2006_ID_LEN = sizeof(DMALL_AGUMON_2006_ID)-1;
+    inline static constexpr size_t DMALL_AGUMON_2006_ID_LEN = sizeof(DMALL_AGUMON_2006_ID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_2006_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon (2006)";
     inline static constexpr const char* DMALL_AGUMON_2006_NAME = DMALL_AGUMON_2006_NAME_ARR;
     inline static constexpr size_t DMALL_AGUMON_2006_NAME_LEN = sizeof(DMALL_AGUMON_2006_NAME_ARR)-1;
@@ -69,7 +69,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AGUMON_BLACK_FQID_LEN = sizeof(DMALL_AGUMON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "agumon_black";
     inline static constexpr const char* DMALL_AGUMON_BLACK_ID = DMALL_AGUMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_AGUMON_BLACK_ID_LEN = sizeof(DMALL_AGUMON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_AGUMON_BLACK_ID_LEN = sizeof(DMALL_AGUMON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon (Black)";
     inline static constexpr const char* DMALL_AGUMON_BLACK_NAME = DMALL_AGUMON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_AGUMON_BLACK_NAME_LEN = sizeof(DMALL_AGUMON_BLACK_NAME_ARR)-1;
@@ -87,7 +87,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AGUMON_BLACK_X_FQID_LEN = sizeof(DMALL_AGUMON_BLACK_X_FQID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_BLACK_X_ID_ARR[] CONFIG_STRING_SECTION = "agumon_black_x";
     inline static constexpr const char* DMALL_AGUMON_BLACK_X_ID = DMALL_AGUMON_BLACK_X_ID_ARR;
-    inline static constexpr size_t DMALL_AGUMON_BLACK_X_ID_LEN = sizeof(DMALL_AGUMON_BLACK_X_ID)-1;
+    inline static constexpr size_t DMALL_AGUMON_BLACK_X_ID_LEN = sizeof(DMALL_AGUMON_BLACK_X_ID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_BLACK_X_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon (Black) X";
     inline static constexpr const char* DMALL_AGUMON_BLACK_X_NAME = DMALL_AGUMON_BLACK_X_NAME_ARR;
     inline static constexpr size_t DMALL_AGUMON_BLACK_X_NAME_LEN = sizeof(DMALL_AGUMON_BLACK_X_NAME_ARR)-1;
@@ -105,7 +105,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AGUMON_FQID_LEN = sizeof(DMALL_AGUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_ID_ARR[] CONFIG_STRING_SECTION = "agumon";
     inline static constexpr const char* DMALL_AGUMON_ID = DMALL_AGUMON_ID_ARR;
-    inline static constexpr size_t DMALL_AGUMON_ID_LEN = sizeof(DMALL_AGUMON_ID)-1;
+    inline static constexpr size_t DMALL_AGUMON_ID_LEN = sizeof(DMALL_AGUMON_ID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon";
     inline static constexpr const char* DMALL_AGUMON_NAME = DMALL_AGUMON_NAME_ARR;
     inline static constexpr size_t DMALL_AGUMON_NAME_LEN = sizeof(DMALL_AGUMON_NAME_ARR)-1;
@@ -123,7 +123,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AGUMON_X_FQID_LEN = sizeof(DMALL_AGUMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "agumon_x";
     inline static constexpr const char* DMALL_AGUMON_X_ID = DMALL_AGUMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_AGUMON_X_ID_LEN = sizeof(DMALL_AGUMON_X_ID)-1;
+    inline static constexpr size_t DMALL_AGUMON_X_ID_LEN = sizeof(DMALL_AGUMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon X";
     inline static constexpr const char* DMALL_AGUMON_X_NAME = DMALL_AGUMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_AGUMON_X_NAME_LEN = sizeof(DMALL_AGUMON_X_NAME_ARR)-1;
@@ -141,7 +141,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AGUMON_YUKI_NO_KIZUNA_FQID_LEN = sizeof(DMALL_AGUMON_YUKI_NO_KIZUNA_FQID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_YUKI_NO_KIZUNA_ID_ARR[] CONFIG_STRING_SECTION = "agumon_yuki_no_kizuna";
     inline static constexpr const char* DMALL_AGUMON_YUKI_NO_KIZUNA_ID = DMALL_AGUMON_YUKI_NO_KIZUNA_ID_ARR;
-    inline static constexpr size_t DMALL_AGUMON_YUKI_NO_KIZUNA_ID_LEN = sizeof(DMALL_AGUMON_YUKI_NO_KIZUNA_ID)-1;
+    inline static constexpr size_t DMALL_AGUMON_YUKI_NO_KIZUNA_ID_LEN = sizeof(DMALL_AGUMON_YUKI_NO_KIZUNA_ID_ARR)-1;
     inline static constexpr char DMALL_AGUMON_YUKI_NO_KIZUNA_NAME_ARR[] CONFIG_STRING_SECTION = "Agumon - Yuki no Kizuna";
     inline static constexpr const char* DMALL_AGUMON_YUKI_NO_KIZUNA_NAME = DMALL_AGUMON_YUKI_NO_KIZUNA_NAME_ARR;
     inline static constexpr size_t DMALL_AGUMON_YUKI_NO_KIZUNA_NAME_LEN = sizeof(DMALL_AGUMON_YUKI_NO_KIZUNA_NAME_ARR)-1;
@@ -159,7 +159,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AIRDRAMON_FQID_LEN = sizeof(DMALL_AIRDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_AIRDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "airdramon";
     inline static constexpr const char* DMALL_AIRDRAMON_ID = DMALL_AIRDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_AIRDRAMON_ID_LEN = sizeof(DMALL_AIRDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_AIRDRAMON_ID_LEN = sizeof(DMALL_AIRDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_AIRDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Airdramon";
     inline static constexpr const char* DMALL_AIRDRAMON_NAME = DMALL_AIRDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_AIRDRAMON_NAME_LEN = sizeof(DMALL_AIRDRAMON_NAME_ARR)-1;
@@ -177,7 +177,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALGOMON_ADULT_FQID_LEN = sizeof(DMALL_ALGOMON_ADULT_FQID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_ADULT_ID_ARR[] CONFIG_STRING_SECTION = "algomon_adult";
     inline static constexpr const char* DMALL_ALGOMON_ADULT_ID = DMALL_ALGOMON_ADULT_ID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_ADULT_ID_LEN = sizeof(DMALL_ALGOMON_ADULT_ID)-1;
+    inline static constexpr size_t DMALL_ALGOMON_ADULT_ID_LEN = sizeof(DMALL_ALGOMON_ADULT_ID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_ADULT_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (Adult)";
     inline static constexpr const char* DMALL_ALGOMON_ADULT_NAME = DMALL_ALGOMON_ADULT_NAME_ARR;
     inline static constexpr size_t DMALL_ALGOMON_ADULT_NAME_LEN = sizeof(DMALL_ALGOMON_ADULT_NAME_ARR)-1;
@@ -195,7 +195,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALGOMON_BABY_II_FQID_LEN = sizeof(DMALL_ALGOMON_BABY_II_FQID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_BABY_II_ID_ARR[] CONFIG_STRING_SECTION = "algomon_baby_ii";
     inline static constexpr const char* DMALL_ALGOMON_BABY_II_ID = DMALL_ALGOMON_BABY_II_ID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABY_II_ID_LEN = sizeof(DMALL_ALGOMON_BABY_II_ID)-1;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_II_ID_LEN = sizeof(DMALL_ALGOMON_BABY_II_ID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_BABY_II_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (Baby II)";
     inline static constexpr const char* DMALL_ALGOMON_BABY_II_NAME = DMALL_ALGOMON_BABY_II_NAME_ARR;
     inline static constexpr size_t DMALL_ALGOMON_BABY_II_NAME_LEN = sizeof(DMALL_ALGOMON_BABY_II_NAME_ARR)-1;
@@ -213,7 +213,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALGOMON_BABY_I_FQID_LEN = sizeof(DMALL_ALGOMON_BABY_I_FQID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_BABY_I_ID_ARR[] CONFIG_STRING_SECTION = "algomon_baby_i";
     inline static constexpr const char* DMALL_ALGOMON_BABY_I_ID = DMALL_ALGOMON_BABY_I_ID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_BABY_I_ID_LEN = sizeof(DMALL_ALGOMON_BABY_I_ID)-1;
+    inline static constexpr size_t DMALL_ALGOMON_BABY_I_ID_LEN = sizeof(DMALL_ALGOMON_BABY_I_ID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_BABY_I_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (Baby I)";
     inline static constexpr const char* DMALL_ALGOMON_BABY_I_NAME = DMALL_ALGOMON_BABY_I_NAME_ARR;
     inline static constexpr size_t DMALL_ALGOMON_BABY_I_NAME_LEN = sizeof(DMALL_ALGOMON_BABY_I_NAME_ARR)-1;
@@ -231,7 +231,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALGOMON_CHILD_FQID_LEN = sizeof(DMALL_ALGOMON_CHILD_FQID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_CHILD_ID_ARR[] CONFIG_STRING_SECTION = "algomon_child";
     inline static constexpr const char* DMALL_ALGOMON_CHILD_ID = DMALL_ALGOMON_CHILD_ID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_CHILD_ID_LEN = sizeof(DMALL_ALGOMON_CHILD_ID)-1;
+    inline static constexpr size_t DMALL_ALGOMON_CHILD_ID_LEN = sizeof(DMALL_ALGOMON_CHILD_ID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_CHILD_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (Child)";
     inline static constexpr const char* DMALL_ALGOMON_CHILD_NAME = DMALL_ALGOMON_CHILD_NAME_ARR;
     inline static constexpr size_t DMALL_ALGOMON_CHILD_NAME_LEN = sizeof(DMALL_ALGOMON_CHILD_NAME_ARR)-1;
@@ -249,7 +249,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALGOMON_ULTIMATE_FQID_LEN = sizeof(DMALL_ALGOMON_ULTIMATE_FQID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_ULTIMATE_ID_ARR[] CONFIG_STRING_SECTION = "algomon_ultimate";
     inline static constexpr const char* DMALL_ALGOMON_ULTIMATE_ID = DMALL_ALGOMON_ULTIMATE_ID_ARR;
-    inline static constexpr size_t DMALL_ALGOMON_ULTIMATE_ID_LEN = sizeof(DMALL_ALGOMON_ULTIMATE_ID)-1;
+    inline static constexpr size_t DMALL_ALGOMON_ULTIMATE_ID_LEN = sizeof(DMALL_ALGOMON_ULTIMATE_ID_ARR)-1;
     inline static constexpr char DMALL_ALGOMON_ULTIMATE_NAME_ARR[] CONFIG_STRING_SECTION = "Algomon (Ultimate)";
     inline static constexpr const char* DMALL_ALGOMON_ULTIMATE_NAME = DMALL_ALGOMON_ULTIMATE_NAME_ARR;
     inline static constexpr size_t DMALL_ALGOMON_ULTIMATE_NAME_LEN = sizeof(DMALL_ALGOMON_ULTIMATE_NAME_ARR)-1;
@@ -267,7 +267,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALLOMON_X_FQID_LEN = sizeof(DMALL_ALLOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_ALLOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "allomon_x";
     inline static constexpr const char* DMALL_ALLOMON_X_ID = DMALL_ALLOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_ALLOMON_X_ID_LEN = sizeof(DMALL_ALLOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_ALLOMON_X_ID_LEN = sizeof(DMALL_ALLOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_ALLOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Allomon X";
     inline static constexpr const char* DMALL_ALLOMON_X_NAME = DMALL_ALLOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_ALLOMON_X_NAME_LEN = sizeof(DMALL_ALLOMON_X_NAME_ARR)-1;
@@ -285,7 +285,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALPHAMON_OURYUKEN_FQID_LEN = sizeof(DMALL_ALPHAMON_OURYUKEN_FQID_ARR)-1;
     inline static constexpr char DMALL_ALPHAMON_OURYUKEN_ID_ARR[] CONFIG_STRING_SECTION = "alphamon_ouryuken";
     inline static constexpr const char* DMALL_ALPHAMON_OURYUKEN_ID = DMALL_ALPHAMON_OURYUKEN_ID_ARR;
-    inline static constexpr size_t DMALL_ALPHAMON_OURYUKEN_ID_LEN = sizeof(DMALL_ALPHAMON_OURYUKEN_ID)-1;
+    inline static constexpr size_t DMALL_ALPHAMON_OURYUKEN_ID_LEN = sizeof(DMALL_ALPHAMON_OURYUKEN_ID_ARR)-1;
     inline static constexpr char DMALL_ALPHAMON_OURYUKEN_NAME_ARR[] CONFIG_STRING_SECTION = "Alphamon Ouryuken";
     inline static constexpr const char* DMALL_ALPHAMON_OURYUKEN_NAME = DMALL_ALPHAMON_OURYUKEN_NAME_ARR;
     inline static constexpr size_t DMALL_ALPHAMON_OURYUKEN_NAME_LEN = sizeof(DMALL_ALPHAMON_OURYUKEN_NAME_ARR)-1;
@@ -303,7 +303,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALPHAMON_FQID_LEN = sizeof(DMALL_ALPHAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ALPHAMON_ID_ARR[] CONFIG_STRING_SECTION = "alphamon";
     inline static constexpr const char* DMALL_ALPHAMON_ID = DMALL_ALPHAMON_ID_ARR;
-    inline static constexpr size_t DMALL_ALPHAMON_ID_LEN = sizeof(DMALL_ALPHAMON_ID)-1;
+    inline static constexpr size_t DMALL_ALPHAMON_ID_LEN = sizeof(DMALL_ALPHAMON_ID_ARR)-1;
     inline static constexpr char DMALL_ALPHAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Alphamon";
     inline static constexpr const char* DMALL_ALPHAMON_NAME = DMALL_ALPHAMON_NAME_ARR;
     inline static constexpr size_t DMALL_ALPHAMON_NAME_LEN = sizeof(DMALL_ALPHAMON_NAME_ARR)-1;
@@ -321,7 +321,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ALRAUMON_FQID_LEN = sizeof(DMALL_ALRAUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ALRAUMON_ID_ARR[] CONFIG_STRING_SECTION = "alraumon";
     inline static constexpr const char* DMALL_ALRAUMON_ID = DMALL_ALRAUMON_ID_ARR;
-    inline static constexpr size_t DMALL_ALRAUMON_ID_LEN = sizeof(DMALL_ALRAUMON_ID)-1;
+    inline static constexpr size_t DMALL_ALRAUMON_ID_LEN = sizeof(DMALL_ALRAUMON_ID_ARR)-1;
     inline static constexpr char DMALL_ALRAUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Alraumon";
     inline static constexpr const char* DMALL_ALRAUMON_NAME = DMALL_ALRAUMON_NAME_ARR;
     inline static constexpr size_t DMALL_ALRAUMON_NAME_LEN = sizeof(DMALL_ALRAUMON_NAME_ARR)-1;
@@ -339,7 +339,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANCIENT_BEATMON_FQID_LEN = sizeof(DMALL_ANCIENT_BEATMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_BEATMON_ID_ARR[] CONFIG_STRING_SECTION = "ancient_beatmon";
     inline static constexpr const char* DMALL_ANCIENT_BEATMON_ID = DMALL_ANCIENT_BEATMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANCIENT_BEATMON_ID_LEN = sizeof(DMALL_ANCIENT_BEATMON_ID)-1;
+    inline static constexpr size_t DMALL_ANCIENT_BEATMON_ID_LEN = sizeof(DMALL_ANCIENT_BEATMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_BEATMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ancient Beatmon";
     inline static constexpr const char* DMALL_ANCIENT_BEATMON_NAME = DMALL_ANCIENT_BEATMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANCIENT_BEATMON_NAME_LEN = sizeof(DMALL_ANCIENT_BEATMON_NAME_ARR)-1;
@@ -357,7 +357,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANCIENT_MEGATHERIUMON_FQID_LEN = sizeof(DMALL_ANCIENT_MEGATHERIUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_MEGATHERIUMON_ID_ARR[] CONFIG_STRING_SECTION = "ancient_megatheriumon";
     inline static constexpr const char* DMALL_ANCIENT_MEGATHERIUMON_ID = DMALL_ANCIENT_MEGATHERIUMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANCIENT_MEGATHERIUMON_ID_LEN = sizeof(DMALL_ANCIENT_MEGATHERIUMON_ID)-1;
+    inline static constexpr size_t DMALL_ANCIENT_MEGATHERIUMON_ID_LEN = sizeof(DMALL_ANCIENT_MEGATHERIUMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_MEGATHERIUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ancient Megatheriumon";
     inline static constexpr const char* DMALL_ANCIENT_MEGATHERIUMON_NAME = DMALL_ANCIENT_MEGATHERIUMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANCIENT_MEGATHERIUMON_NAME_LEN = sizeof(DMALL_ANCIENT_MEGATHERIUMON_NAME_ARR)-1;
@@ -375,7 +375,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANCIENT_MERMAIMON_FQID_LEN = sizeof(DMALL_ANCIENT_MERMAIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_MERMAIMON_ID_ARR[] CONFIG_STRING_SECTION = "ancient_mermaimon";
     inline static constexpr const char* DMALL_ANCIENT_MERMAIMON_ID = DMALL_ANCIENT_MERMAIMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANCIENT_MERMAIMON_ID_LEN = sizeof(DMALL_ANCIENT_MERMAIMON_ID)-1;
+    inline static constexpr size_t DMALL_ANCIENT_MERMAIMON_ID_LEN = sizeof(DMALL_ANCIENT_MERMAIMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_MERMAIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ancient Mermaimon";
     inline static constexpr const char* DMALL_ANCIENT_MERMAIMON_NAME = DMALL_ANCIENT_MERMAIMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANCIENT_MERMAIMON_NAME_LEN = sizeof(DMALL_ANCIENT_MERMAIMON_NAME_ARR)-1;
@@ -393,7 +393,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANCIENT_SPHINXMON_FQID_LEN = sizeof(DMALL_ANCIENT_SPHINXMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_SPHINXMON_ID_ARR[] CONFIG_STRING_SECTION = "ancient_sphinxmon";
     inline static constexpr const char* DMALL_ANCIENT_SPHINXMON_ID = DMALL_ANCIENT_SPHINXMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANCIENT_SPHINXMON_ID_LEN = sizeof(DMALL_ANCIENT_SPHINXMON_ID)-1;
+    inline static constexpr size_t DMALL_ANCIENT_SPHINXMON_ID_LEN = sizeof(DMALL_ANCIENT_SPHINXMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANCIENT_SPHINXMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ancient Sphinxmon";
     inline static constexpr const char* DMALL_ANCIENT_SPHINXMON_NAME = DMALL_ANCIENT_SPHINXMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANCIENT_SPHINXMON_NAME_LEN = sizeof(DMALL_ANCIENT_SPHINXMON_NAME_ARR)-1;
@@ -411,7 +411,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANDIRAMON_DATA_FQID_LEN = sizeof(DMALL_ANDIRAMON_DATA_FQID_ARR)-1;
     inline static constexpr char DMALL_ANDIRAMON_DATA_ID_ARR[] CONFIG_STRING_SECTION = "andiramon_data";
     inline static constexpr const char* DMALL_ANDIRAMON_DATA_ID = DMALL_ANDIRAMON_DATA_ID_ARR;
-    inline static constexpr size_t DMALL_ANDIRAMON_DATA_ID_LEN = sizeof(DMALL_ANDIRAMON_DATA_ID)-1;
+    inline static constexpr size_t DMALL_ANDIRAMON_DATA_ID_LEN = sizeof(DMALL_ANDIRAMON_DATA_ID_ARR)-1;
     inline static constexpr char DMALL_ANDIRAMON_DATA_NAME_ARR[] CONFIG_STRING_SECTION = "Andiramon (Data)";
     inline static constexpr const char* DMALL_ANDIRAMON_DATA_NAME = DMALL_ANDIRAMON_DATA_NAME_ARR;
     inline static constexpr size_t DMALL_ANDIRAMON_DATA_NAME_LEN = sizeof(DMALL_ANDIRAMON_DATA_NAME_ARR)-1;
@@ -429,7 +429,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANDIRAMON_VIRUS_FQID_LEN = sizeof(DMALL_ANDIRAMON_VIRUS_FQID_ARR)-1;
     inline static constexpr char DMALL_ANDIRAMON_VIRUS_ID_ARR[] CONFIG_STRING_SECTION = "andiramon_virus";
     inline static constexpr const char* DMALL_ANDIRAMON_VIRUS_ID = DMALL_ANDIRAMON_VIRUS_ID_ARR;
-    inline static constexpr size_t DMALL_ANDIRAMON_VIRUS_ID_LEN = sizeof(DMALL_ANDIRAMON_VIRUS_ID)-1;
+    inline static constexpr size_t DMALL_ANDIRAMON_VIRUS_ID_LEN = sizeof(DMALL_ANDIRAMON_VIRUS_ID_ARR)-1;
     inline static constexpr char DMALL_ANDIRAMON_VIRUS_NAME_ARR[] CONFIG_STRING_SECTION = "Andiramon (Virus)";
     inline static constexpr const char* DMALL_ANDIRAMON_VIRUS_NAME = DMALL_ANDIRAMON_VIRUS_NAME_ARR;
     inline static constexpr size_t DMALL_ANDIRAMON_VIRUS_NAME_LEN = sizeof(DMALL_ANDIRAMON_VIRUS_NAME_ARR)-1;
@@ -447,7 +447,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANDROMON_FQID_LEN = sizeof(DMALL_ANDROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANDROMON_ID_ARR[] CONFIG_STRING_SECTION = "andromon";
     inline static constexpr const char* DMALL_ANDROMON_ID = DMALL_ANDROMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANDROMON_ID_LEN = sizeof(DMALL_ANDROMON_ID)-1;
+    inline static constexpr size_t DMALL_ANDROMON_ID_LEN = sizeof(DMALL_ANDROMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANDROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Andromon";
     inline static constexpr const char* DMALL_ANDROMON_NAME = DMALL_ANDROMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANDROMON_NAME_LEN = sizeof(DMALL_ANDROMON_NAME_ARR)-1;
@@ -465,7 +465,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANGEMON_FQID_LEN = sizeof(DMALL_ANGEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANGEMON_ID_ARR[] CONFIG_STRING_SECTION = "angemon";
     inline static constexpr const char* DMALL_ANGEMON_ID = DMALL_ANGEMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANGEMON_ID_LEN = sizeof(DMALL_ANGEMON_ID)-1;
+    inline static constexpr size_t DMALL_ANGEMON_ID_LEN = sizeof(DMALL_ANGEMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Angemon";
     inline static constexpr const char* DMALL_ANGEMON_NAME = DMALL_ANGEMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANGEMON_NAME_LEN = sizeof(DMALL_ANGEMON_NAME_ARR)-1;
@@ -483,7 +483,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANGEWOMON_FQID_LEN = sizeof(DMALL_ANGEWOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANGEWOMON_ID_ARR[] CONFIG_STRING_SECTION = "angewomon";
     inline static constexpr const char* DMALL_ANGEWOMON_ID = DMALL_ANGEWOMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANGEWOMON_ID_LEN = sizeof(DMALL_ANGEWOMON_ID)-1;
+    inline static constexpr size_t DMALL_ANGEWOMON_ID_LEN = sizeof(DMALL_ANGEWOMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANGEWOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Angewomon";
     inline static constexpr const char* DMALL_ANGEWOMON_NAME = DMALL_ANGEWOMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANGEWOMON_NAME_LEN = sizeof(DMALL_ANGEWOMON_NAME_ARR)-1;
@@ -501,7 +501,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANGEWOMON_X_FQID_LEN = sizeof(DMALL_ANGEWOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_ANGEWOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "angewomon_x";
     inline static constexpr const char* DMALL_ANGEWOMON_X_ID = DMALL_ANGEWOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_ANGEWOMON_X_ID_LEN = sizeof(DMALL_ANGEWOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_ANGEWOMON_X_ID_LEN = sizeof(DMALL_ANGEWOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_ANGEWOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Angewomon X";
     inline static constexpr const char* DMALL_ANGEWOMON_X_NAME = DMALL_ANGEWOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_ANGEWOMON_X_NAME_LEN = sizeof(DMALL_ANGEWOMON_X_NAME_ARR)-1;
@@ -519,7 +519,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANOMALOCARIMON_FQID_LEN = sizeof(DMALL_ANOMALOCARIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ANOMALOCARIMON_ID_ARR[] CONFIG_STRING_SECTION = "anomalocarimon";
     inline static constexpr const char* DMALL_ANOMALOCARIMON_ID = DMALL_ANOMALOCARIMON_ID_ARR;
-    inline static constexpr size_t DMALL_ANOMALOCARIMON_ID_LEN = sizeof(DMALL_ANOMALOCARIMON_ID)-1;
+    inline static constexpr size_t DMALL_ANOMALOCARIMON_ID_LEN = sizeof(DMALL_ANOMALOCARIMON_ID_ARR)-1;
     inline static constexpr char DMALL_ANOMALOCARIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Anomalocarimon";
     inline static constexpr const char* DMALL_ANOMALOCARIMON_NAME = DMALL_ANOMALOCARIMON_NAME_ARR;
     inline static constexpr size_t DMALL_ANOMALOCARIMON_NAME_LEN = sizeof(DMALL_ANOMALOCARIMON_NAME_ARR)-1;
@@ -537,7 +537,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ANOMALOCARIMON_X_FQID_LEN = sizeof(DMALL_ANOMALOCARIMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_ANOMALOCARIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "anomalocarimon_x";
     inline static constexpr const char* DMALL_ANOMALOCARIMON_X_ID = DMALL_ANOMALOCARIMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_ANOMALOCARIMON_X_ID_LEN = sizeof(DMALL_ANOMALOCARIMON_X_ID)-1;
+    inline static constexpr size_t DMALL_ANOMALOCARIMON_X_ID_LEN = sizeof(DMALL_ANOMALOCARIMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_ANOMALOCARIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Anomalocarimon X";
     inline static constexpr const char* DMALL_ANOMALOCARIMON_X_NAME = DMALL_ANOMALOCARIMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_ANOMALOCARIMON_X_NAME_LEN = sizeof(DMALL_ANOMALOCARIMON_X_NAME_ARR)-1;
@@ -555,7 +555,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_APOCALYMON_FQID_LEN = sizeof(DMALL_APOCALYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_APOCALYMON_ID_ARR[] CONFIG_STRING_SECTION = "apocalymon";
     inline static constexpr const char* DMALL_APOCALYMON_ID = DMALL_APOCALYMON_ID_ARR;
-    inline static constexpr size_t DMALL_APOCALYMON_ID_LEN = sizeof(DMALL_APOCALYMON_ID)-1;
+    inline static constexpr size_t DMALL_APOCALYMON_ID_LEN = sizeof(DMALL_APOCALYMON_ID_ARR)-1;
     inline static constexpr char DMALL_APOCALYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Apocalymon";
     inline static constexpr const char* DMALL_APOCALYMON_NAME = DMALL_APOCALYMON_NAME_ARR;
     inline static constexpr size_t DMALL_APOCALYMON_NAME_LEN = sizeof(DMALL_APOCALYMON_NAME_ARR)-1;
@@ -573,7 +573,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_APOLLOMON_FQID_LEN = sizeof(DMALL_APOLLOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_APOLLOMON_ID_ARR[] CONFIG_STRING_SECTION = "apollomon";
     inline static constexpr const char* DMALL_APOLLOMON_ID = DMALL_APOLLOMON_ID_ARR;
-    inline static constexpr size_t DMALL_APOLLOMON_ID_LEN = sizeof(DMALL_APOLLOMON_ID)-1;
+    inline static constexpr size_t DMALL_APOLLOMON_ID_LEN = sizeof(DMALL_APOLLOMON_ID_ARR)-1;
     inline static constexpr char DMALL_APOLLOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Apollomon";
     inline static constexpr const char* DMALL_APOLLOMON_NAME = DMALL_APOLLOMON_NAME_ARR;
     inline static constexpr size_t DMALL_APOLLOMON_NAME_LEN = sizeof(DMALL_APOLLOMON_NAME_ARR)-1;
@@ -591,7 +591,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ARCHNEMON_FQID_LEN = sizeof(DMALL_ARCHNEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ARCHNEMON_ID_ARR[] CONFIG_STRING_SECTION = "archnemon";
     inline static constexpr const char* DMALL_ARCHNEMON_ID = DMALL_ARCHNEMON_ID_ARR;
-    inline static constexpr size_t DMALL_ARCHNEMON_ID_LEN = sizeof(DMALL_ARCHNEMON_ID)-1;
+    inline static constexpr size_t DMALL_ARCHNEMON_ID_LEN = sizeof(DMALL_ARCHNEMON_ID_ARR)-1;
     inline static constexpr char DMALL_ARCHNEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Archnemon";
     inline static constexpr const char* DMALL_ARCHNEMON_NAME = DMALL_ARCHNEMON_NAME_ARR;
     inline static constexpr size_t DMALL_ARCHNEMON_NAME_LEN = sizeof(DMALL_ARCHNEMON_NAME_ARR)-1;
@@ -609,7 +609,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ARKADIMON_BABY_FQID_LEN = sizeof(DMALL_ARKADIMON_BABY_FQID_ARR)-1;
     inline static constexpr char DMALL_ARKADIMON_BABY_ID_ARR[] CONFIG_STRING_SECTION = "arkadimon_baby";
     inline static constexpr const char* DMALL_ARKADIMON_BABY_ID = DMALL_ARKADIMON_BABY_ID_ARR;
-    inline static constexpr size_t DMALL_ARKADIMON_BABY_ID_LEN = sizeof(DMALL_ARKADIMON_BABY_ID)-1;
+    inline static constexpr size_t DMALL_ARKADIMON_BABY_ID_LEN = sizeof(DMALL_ARKADIMON_BABY_ID_ARR)-1;
     inline static constexpr char DMALL_ARKADIMON_BABY_NAME_ARR[] CONFIG_STRING_SECTION = "Arkadimon (Baby)";
     inline static constexpr const char* DMALL_ARKADIMON_BABY_NAME = DMALL_ARKADIMON_BABY_NAME_ARR;
     inline static constexpr size_t DMALL_ARKADIMON_BABY_NAME_LEN = sizeof(DMALL_ARKADIMON_BABY_NAME_ARR)-1;
@@ -627,7 +627,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ARKADIMON_CHILD_FQID_LEN = sizeof(DMALL_ARKADIMON_CHILD_FQID_ARR)-1;
     inline static constexpr char DMALL_ARKADIMON_CHILD_ID_ARR[] CONFIG_STRING_SECTION = "arkadimon_child";
     inline static constexpr const char* DMALL_ARKADIMON_CHILD_ID = DMALL_ARKADIMON_CHILD_ID_ARR;
-    inline static constexpr size_t DMALL_ARKADIMON_CHILD_ID_LEN = sizeof(DMALL_ARKADIMON_CHILD_ID)-1;
+    inline static constexpr size_t DMALL_ARKADIMON_CHILD_ID_LEN = sizeof(DMALL_ARKADIMON_CHILD_ID_ARR)-1;
     inline static constexpr char DMALL_ARKADIMON_CHILD_NAME_ARR[] CONFIG_STRING_SECTION = "Arkadimon (Child)";
     inline static constexpr const char* DMALL_ARKADIMON_CHILD_NAME = DMALL_ARKADIMON_CHILD_NAME_ARR;
     inline static constexpr size_t DMALL_ARKADIMON_CHILD_NAME_LEN = sizeof(DMALL_ARKADIMON_CHILD_NAME_ARR)-1;
@@ -645,7 +645,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ARMADIMON_FQID_LEN = sizeof(DMALL_ARMADIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ARMADIMON_ID_ARR[] CONFIG_STRING_SECTION = "armadimon";
     inline static constexpr const char* DMALL_ARMADIMON_ID = DMALL_ARMADIMON_ID_ARR;
-    inline static constexpr size_t DMALL_ARMADIMON_ID_LEN = sizeof(DMALL_ARMADIMON_ID)-1;
+    inline static constexpr size_t DMALL_ARMADIMON_ID_LEN = sizeof(DMALL_ARMADIMON_ID_ARR)-1;
     inline static constexpr char DMALL_ARMADIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Armadimon";
     inline static constexpr const char* DMALL_ARMADIMON_NAME = DMALL_ARMADIMON_NAME_ARR;
     inline static constexpr size_t DMALL_ARMADIMON_NAME_LEN = sizeof(DMALL_ARMADIMON_NAME_ARR)-1;
@@ -663,7 +663,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ARMAGEMON_FQID_LEN = sizeof(DMALL_ARMAGEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ARMAGEMON_ID_ARR[] CONFIG_STRING_SECTION = "armagemon";
     inline static constexpr const char* DMALL_ARMAGEMON_ID = DMALL_ARMAGEMON_ID_ARR;
-    inline static constexpr size_t DMALL_ARMAGEMON_ID_LEN = sizeof(DMALL_ARMAGEMON_ID)-1;
+    inline static constexpr size_t DMALL_ARMAGEMON_ID_LEN = sizeof(DMALL_ARMAGEMON_ID_ARR)-1;
     inline static constexpr char DMALL_ARMAGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Armagemon";
     inline static constexpr const char* DMALL_ARMAGEMON_NAME = DMALL_ARMAGEMON_NAME_ARR;
     inline static constexpr size_t DMALL_ARMAGEMON_NAME_LEN = sizeof(DMALL_ARMAGEMON_NAME_ARR)-1;
@@ -681,7 +681,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ASTAMON_FQID_LEN = sizeof(DMALL_ASTAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ASTAMON_ID_ARR[] CONFIG_STRING_SECTION = "astamon";
     inline static constexpr const char* DMALL_ASTAMON_ID = DMALL_ASTAMON_ID_ARR;
-    inline static constexpr size_t DMALL_ASTAMON_ID_LEN = sizeof(DMALL_ASTAMON_ID)-1;
+    inline static constexpr size_t DMALL_ASTAMON_ID_LEN = sizeof(DMALL_ASTAMON_ID_ARR)-1;
     inline static constexpr char DMALL_ASTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Astamon";
     inline static constexpr const char* DMALL_ASTAMON_NAME = DMALL_ASTAMON_NAME_ARR;
     inline static constexpr size_t DMALL_ASTAMON_NAME_LEN = sizeof(DMALL_ASTAMON_NAME_ARR)-1;
@@ -699,7 +699,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ASURAMON_FQID_LEN = sizeof(DMALL_ASURAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ASURAMON_ID_ARR[] CONFIG_STRING_SECTION = "asuramon";
     inline static constexpr const char* DMALL_ASURAMON_ID = DMALL_ASURAMON_ID_ARR;
-    inline static constexpr size_t DMALL_ASURAMON_ID_LEN = sizeof(DMALL_ASURAMON_ID)-1;
+    inline static constexpr size_t DMALL_ASURAMON_ID_LEN = sizeof(DMALL_ASURAMON_ID_ARR)-1;
     inline static constexpr char DMALL_ASURAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Asuramon";
     inline static constexpr const char* DMALL_ASURAMON_NAME = DMALL_ASURAMON_NAME_ARR;
     inline static constexpr size_t DMALL_ASURAMON_NAME_LEN = sizeof(DMALL_ASURAMON_NAME_ARR)-1;
@@ -717,7 +717,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_BLUE_FQID_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_BLUE_FQID_ARR)-1;
     inline static constexpr char DMALL_ATLUR_KABUTERIMON_BLUE_ID_ARR[] CONFIG_STRING_SECTION = "atlur_kabuterimon_blue";
     inline static constexpr const char* DMALL_ATLUR_KABUTERIMON_BLUE_ID = DMALL_ATLUR_KABUTERIMON_BLUE_ID_ARR;
-    inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_BLUE_ID_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_BLUE_ID)-1;
+    inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_BLUE_ID_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_BLUE_ID_ARR)-1;
     inline static constexpr char DMALL_ATLUR_KABUTERIMON_BLUE_NAME_ARR[] CONFIG_STRING_SECTION = "Atlur Kabuterimon (Blue)";
     inline static constexpr const char* DMALL_ATLUR_KABUTERIMON_BLUE_NAME = DMALL_ATLUR_KABUTERIMON_BLUE_NAME_ARR;
     inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_BLUE_NAME_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_BLUE_NAME_ARR)-1;
@@ -735,7 +735,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_RED_FQID_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_RED_FQID_ARR)-1;
     inline static constexpr char DMALL_ATLUR_KABUTERIMON_RED_ID_ARR[] CONFIG_STRING_SECTION = "atlur_kabuterimon_red";
     inline static constexpr const char* DMALL_ATLUR_KABUTERIMON_RED_ID = DMALL_ATLUR_KABUTERIMON_RED_ID_ARR;
-    inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_RED_ID_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_RED_ID)-1;
+    inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_RED_ID_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_RED_ID_ARR)-1;
     inline static constexpr char DMALL_ATLUR_KABUTERIMON_RED_NAME_ARR[] CONFIG_STRING_SECTION = "Atlur Kabuterimon (Red)";
     inline static constexpr const char* DMALL_ATLUR_KABUTERIMON_RED_NAME = DMALL_ATLUR_KABUTERIMON_RED_NAME_ARR;
     inline static constexpr size_t DMALL_ATLUR_KABUTERIMON_RED_NAME_LEN = sizeof(DMALL_ATLUR_KABUTERIMON_RED_NAME_ARR)-1;
@@ -753,7 +753,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_AXEKNIGHTMON_FQID_LEN = sizeof(DMALL_AXEKNIGHTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_AXEKNIGHTMON_ID_ARR[] CONFIG_STRING_SECTION = "axeknightmon";
     inline static constexpr const char* DMALL_AXEKNIGHTMON_ID = DMALL_AXEKNIGHTMON_ID_ARR;
-    inline static constexpr size_t DMALL_AXEKNIGHTMON_ID_LEN = sizeof(DMALL_AXEKNIGHTMON_ID)-1;
+    inline static constexpr size_t DMALL_AXEKNIGHTMON_ID_LEN = sizeof(DMALL_AXEKNIGHTMON_ID_ARR)-1;
     inline static constexpr char DMALL_AXEKNIGHTMON_NAME_ARR[] CONFIG_STRING_SECTION = "AxeKnightmon";
     inline static constexpr const char* DMALL_AXEKNIGHTMON_NAME = DMALL_AXEKNIGHTMON_NAME_ARR;
     inline static constexpr size_t DMALL_AXEKNIGHTMON_NAME_LEN = sizeof(DMALL_AXEKNIGHTMON_NAME_ARR)-1;
@@ -771,7 +771,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BAALMON_FQID_LEN = sizeof(DMALL_BAALMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BAALMON_ID_ARR[] CONFIG_STRING_SECTION = "baalmon";
     inline static constexpr const char* DMALL_BAALMON_ID = DMALL_BAALMON_ID_ARR;
-    inline static constexpr size_t DMALL_BAALMON_ID_LEN = sizeof(DMALL_BAALMON_ID)-1;
+    inline static constexpr size_t DMALL_BAALMON_ID_LEN = sizeof(DMALL_BAALMON_ID_ARR)-1;
     inline static constexpr char DMALL_BAALMON_NAME_ARR[] CONFIG_STRING_SECTION = "Baalmon";
     inline static constexpr const char* DMALL_BAALMON_NAME = DMALL_BAALMON_NAME_ARR;
     inline static constexpr size_t DMALL_BAALMON_NAME_LEN = sizeof(DMALL_BAALMON_NAME_ARR)-1;
@@ -789,7 +789,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BABOONGAMON_FQID_LEN = sizeof(DMALL_BABOONGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BABOONGAMON_ID_ARR[] CONFIG_STRING_SECTION = "baboongamon";
     inline static constexpr const char* DMALL_BABOONGAMON_ID = DMALL_BABOONGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BABOONGAMON_ID_LEN = sizeof(DMALL_BABOONGAMON_ID)-1;
+    inline static constexpr size_t DMALL_BABOONGAMON_ID_LEN = sizeof(DMALL_BABOONGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BABOONGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Baboongamon";
     inline static constexpr const char* DMALL_BABOONGAMON_NAME = DMALL_BABOONGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BABOONGAMON_NAME_LEN = sizeof(DMALL_BABOONGAMON_NAME_ARR)-1;
@@ -807,7 +807,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BABYDMON_FQID_LEN = sizeof(DMALL_BABYDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BABYDMON_ID_ARR[] CONFIG_STRING_SECTION = "babydmon";
     inline static constexpr const char* DMALL_BABYDMON_ID = DMALL_BABYDMON_ID_ARR;
-    inline static constexpr size_t DMALL_BABYDMON_ID_LEN = sizeof(DMALL_BABYDMON_ID)-1;
+    inline static constexpr size_t DMALL_BABYDMON_ID_LEN = sizeof(DMALL_BABYDMON_ID_ARR)-1;
     inline static constexpr char DMALL_BABYDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Babydmon";
     inline static constexpr const char* DMALL_BABYDMON_NAME = DMALL_BABYDMON_NAME_ARR;
     inline static constexpr size_t DMALL_BABYDMON_NAME_LEN = sizeof(DMALL_BABYDMON_NAME_ARR)-1;
@@ -825,7 +825,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BAGRAMON_FQID_LEN = sizeof(DMALL_BAGRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BAGRAMON_ID_ARR[] CONFIG_STRING_SECTION = "bagramon";
     inline static constexpr const char* DMALL_BAGRAMON_ID = DMALL_BAGRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BAGRAMON_ID_LEN = sizeof(DMALL_BAGRAMON_ID)-1;
+    inline static constexpr size_t DMALL_BAGRAMON_ID_LEN = sizeof(DMALL_BAGRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BAGRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bagramon";
     inline static constexpr const char* DMALL_BAGRAMON_NAME = DMALL_BAGRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BAGRAMON_NAME_LEN = sizeof(DMALL_BAGRAMON_NAME_ARR)-1;
@@ -843,7 +843,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BAKEMON_FQID_LEN = sizeof(DMALL_BAKEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BAKEMON_ID_ARR[] CONFIG_STRING_SECTION = "bakemon";
     inline static constexpr const char* DMALL_BAKEMON_ID = DMALL_BAKEMON_ID_ARR;
-    inline static constexpr size_t DMALL_BAKEMON_ID_LEN = sizeof(DMALL_BAKEMON_ID)-1;
+    inline static constexpr size_t DMALL_BAKEMON_ID_LEN = sizeof(DMALL_BAKEMON_ID_ARR)-1;
     inline static constexpr char DMALL_BAKEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bakemon";
     inline static constexpr const char* DMALL_BAKEMON_NAME = DMALL_BAKEMON_NAME_ARR;
     inline static constexpr size_t DMALL_BAKEMON_NAME_LEN = sizeof(DMALL_BAKEMON_NAME_ARR)-1;
@@ -861,7 +861,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BAKUMON_FQID_LEN = sizeof(DMALL_BAKUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BAKUMON_ID_ARR[] CONFIG_STRING_SECTION = "bakumon";
     inline static constexpr const char* DMALL_BAKUMON_ID = DMALL_BAKUMON_ID_ARR;
-    inline static constexpr size_t DMALL_BAKUMON_ID_LEN = sizeof(DMALL_BAKUMON_ID)-1;
+    inline static constexpr size_t DMALL_BAKUMON_ID_LEN = sizeof(DMALL_BAKUMON_ID_ARR)-1;
     inline static constexpr char DMALL_BAKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bakumon";
     inline static constexpr const char* DMALL_BAKUMON_NAME = DMALL_BAKUMON_NAME_ARR;
     inline static constexpr size_t DMALL_BAKUMON_NAME_LEN = sizeof(DMALL_BAKUMON_NAME_ARR)-1;
@@ -879,7 +879,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BANCHO_LEOMON_FQID_LEN = sizeof(DMALL_BANCHO_LEOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BANCHO_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "bancho_leomon";
     inline static constexpr const char* DMALL_BANCHO_LEOMON_ID = DMALL_BANCHO_LEOMON_ID_ARR;
-    inline static constexpr size_t DMALL_BANCHO_LEOMON_ID_LEN = sizeof(DMALL_BANCHO_LEOMON_ID)-1;
+    inline static constexpr size_t DMALL_BANCHO_LEOMON_ID_LEN = sizeof(DMALL_BANCHO_LEOMON_ID_ARR)-1;
     inline static constexpr char DMALL_BANCHO_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bancho Leomon";
     inline static constexpr const char* DMALL_BANCHO_LEOMON_NAME = DMALL_BANCHO_LEOMON_NAME_ARR;
     inline static constexpr size_t DMALL_BANCHO_LEOMON_NAME_LEN = sizeof(DMALL_BANCHO_LEOMON_NAME_ARR)-1;
@@ -897,7 +897,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BANCHO_LILIMON_FQID_LEN = sizeof(DMALL_BANCHO_LILIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BANCHO_LILIMON_ID_ARR[] CONFIG_STRING_SECTION = "bancho_lilimon";
     inline static constexpr const char* DMALL_BANCHO_LILIMON_ID = DMALL_BANCHO_LILIMON_ID_ARR;
-    inline static constexpr size_t DMALL_BANCHO_LILIMON_ID_LEN = sizeof(DMALL_BANCHO_LILIMON_ID)-1;
+    inline static constexpr size_t DMALL_BANCHO_LILIMON_ID_LEN = sizeof(DMALL_BANCHO_LILIMON_ID_ARR)-1;
     inline static constexpr char DMALL_BANCHO_LILIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bancho Lilimon";
     inline static constexpr const char* DMALL_BANCHO_LILIMON_NAME = DMALL_BANCHO_LILIMON_NAME_ARR;
     inline static constexpr size_t DMALL_BANCHO_LILIMON_NAME_LEN = sizeof(DMALL_BANCHO_LILIMON_NAME_ARR)-1;
@@ -915,7 +915,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BANCHO_MAMEMON_FQID_LEN = sizeof(DMALL_BANCHO_MAMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BANCHO_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "bancho_mamemon";
     inline static constexpr const char* DMALL_BANCHO_MAMEMON_ID = DMALL_BANCHO_MAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_BANCHO_MAMEMON_ID_LEN = sizeof(DMALL_BANCHO_MAMEMON_ID)-1;
+    inline static constexpr size_t DMALL_BANCHO_MAMEMON_ID_LEN = sizeof(DMALL_BANCHO_MAMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_BANCHO_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bancho Mamemon";
     inline static constexpr const char* DMALL_BANCHO_MAMEMON_NAME = DMALL_BANCHO_MAMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_BANCHO_MAMEMON_NAME_LEN = sizeof(DMALL_BANCHO_MAMEMON_NAME_ARR)-1;
@@ -933,7 +933,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BARBAMON_FQID_LEN = sizeof(DMALL_BARBAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BARBAMON_ID_ARR[] CONFIG_STRING_SECTION = "barbamon";
     inline static constexpr const char* DMALL_BARBAMON_ID = DMALL_BARBAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BARBAMON_ID_LEN = sizeof(DMALL_BARBAMON_ID)-1;
+    inline static constexpr size_t DMALL_BARBAMON_ID_LEN = sizeof(DMALL_BARBAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BARBAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Barbamon";
     inline static constexpr const char* DMALL_BARBAMON_NAME = DMALL_BARBAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BARBAMON_NAME_LEN = sizeof(DMALL_BARBAMON_NAME_ARR)-1;
@@ -951,7 +951,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BARBAMON_X_FQID_LEN = sizeof(DMALL_BARBAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_BARBAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "barbamon_x";
     inline static constexpr const char* DMALL_BARBAMON_X_ID = DMALL_BARBAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_BARBAMON_X_ID_LEN = sizeof(DMALL_BARBAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_BARBAMON_X_ID_LEN = sizeof(DMALL_BARBAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_BARBAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Barbamon X";
     inline static constexpr const char* DMALL_BARBAMON_X_NAME = DMALL_BARBAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_BARBAMON_X_NAME_LEN = sizeof(DMALL_BARBAMON_X_NAME_ARR)-1;
@@ -969,7 +969,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BEARMON_FQID_LEN = sizeof(DMALL_BEARMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BEARMON_ID_ARR[] CONFIG_STRING_SECTION = "bearmon";
     inline static constexpr const char* DMALL_BEARMON_ID = DMALL_BEARMON_ID_ARR;
-    inline static constexpr size_t DMALL_BEARMON_ID_LEN = sizeof(DMALL_BEARMON_ID)-1;
+    inline static constexpr size_t DMALL_BEARMON_ID_LEN = sizeof(DMALL_BEARMON_ID_ARR)-1;
     inline static constexpr char DMALL_BEARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bearmon";
     inline static constexpr const char* DMALL_BEARMON_NAME = DMALL_BEARMON_NAME_ARR;
     inline static constexpr size_t DMALL_BEARMON_NAME_LEN = sizeof(DMALL_BEARMON_NAME_ARR)-1;
@@ -987,7 +987,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BEEL_STARMON_X_FQID_LEN = sizeof(DMALL_BEEL_STARMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_BEEL_STARMON_X_ID_ARR[] CONFIG_STRING_SECTION = "beel_starmon_x";
     inline static constexpr const char* DMALL_BEEL_STARMON_X_ID = DMALL_BEEL_STARMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_BEEL_STARMON_X_ID_LEN = sizeof(DMALL_BEEL_STARMON_X_ID)-1;
+    inline static constexpr size_t DMALL_BEEL_STARMON_X_ID_LEN = sizeof(DMALL_BEEL_STARMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_BEEL_STARMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Beel Starmon X";
     inline static constexpr const char* DMALL_BEEL_STARMON_X_NAME = DMALL_BEEL_STARMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_BEEL_STARMON_X_NAME_LEN = sizeof(DMALL_BEEL_STARMON_X_NAME_ARR)-1;
@@ -1005,7 +1005,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BEELZEBUMON_BLAST_MODE_FQID_LEN = sizeof(DMALL_BEELZEBUMON_BLAST_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_BEELZEBUMON_BLAST_MODE_ID_ARR[] CONFIG_STRING_SECTION = "beelzebumon_blast_mode";
     inline static constexpr const char* DMALL_BEELZEBUMON_BLAST_MODE_ID = DMALL_BEELZEBUMON_BLAST_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_BEELZEBUMON_BLAST_MODE_ID_LEN = sizeof(DMALL_BEELZEBUMON_BLAST_MODE_ID)-1;
+    inline static constexpr size_t DMALL_BEELZEBUMON_BLAST_MODE_ID_LEN = sizeof(DMALL_BEELZEBUMON_BLAST_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_BEELZEBUMON_BLAST_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Beelzebumon Blast Mode";
     inline static constexpr const char* DMALL_BEELZEBUMON_BLAST_MODE_NAME = DMALL_BEELZEBUMON_BLAST_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_BEELZEBUMON_BLAST_MODE_NAME_LEN = sizeof(DMALL_BEELZEBUMON_BLAST_MODE_NAME_ARR)-1;
@@ -1023,7 +1023,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BEELZEBUMON_FQID_LEN = sizeof(DMALL_BEELZEBUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BEELZEBUMON_ID_ARR[] CONFIG_STRING_SECTION = "beelzebumon";
     inline static constexpr const char* DMALL_BEELZEBUMON_ID = DMALL_BEELZEBUMON_ID_ARR;
-    inline static constexpr size_t DMALL_BEELZEBUMON_ID_LEN = sizeof(DMALL_BEELZEBUMON_ID)-1;
+    inline static constexpr size_t DMALL_BEELZEBUMON_ID_LEN = sizeof(DMALL_BEELZEBUMON_ID_ARR)-1;
     inline static constexpr char DMALL_BEELZEBUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Beelzebumon";
     inline static constexpr const char* DMALL_BEELZEBUMON_NAME = DMALL_BEELZEBUMON_NAME_ARR;
     inline static constexpr size_t DMALL_BEELZEBUMON_NAME_LEN = sizeof(DMALL_BEELZEBUMON_NAME_ARR)-1;
@@ -1041,7 +1041,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BEELZEBUMON_X_FQID_LEN = sizeof(DMALL_BEELZEBUMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_BEELZEBUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "beelzebumon_x";
     inline static constexpr const char* DMALL_BEELZEBUMON_X_ID = DMALL_BEELZEBUMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_BEELZEBUMON_X_ID_LEN = sizeof(DMALL_BEELZEBUMON_X_ID)-1;
+    inline static constexpr size_t DMALL_BEELZEBUMON_X_ID_LEN = sizeof(DMALL_BEELZEBUMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_BEELZEBUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Beelzebumon X";
     inline static constexpr const char* DMALL_BEELZEBUMON_X_NAME = DMALL_BEELZEBUMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_BEELZEBUMON_X_NAME_LEN = sizeof(DMALL_BEELZEBUMON_X_NAME_ARR)-1;
@@ -1059,7 +1059,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BELIAL_VAMDEMON_FQID_LEN = sizeof(DMALL_BELIAL_VAMDEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BELIAL_VAMDEMON_ID_ARR[] CONFIG_STRING_SECTION = "belial_vamdemon";
     inline static constexpr const char* DMALL_BELIAL_VAMDEMON_ID = DMALL_BELIAL_VAMDEMON_ID_ARR;
-    inline static constexpr size_t DMALL_BELIAL_VAMDEMON_ID_LEN = sizeof(DMALL_BELIAL_VAMDEMON_ID)-1;
+    inline static constexpr size_t DMALL_BELIAL_VAMDEMON_ID_LEN = sizeof(DMALL_BELIAL_VAMDEMON_ID_ARR)-1;
     inline static constexpr char DMALL_BELIAL_VAMDEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Belial Vamdemon";
     inline static constexpr const char* DMALL_BELIAL_VAMDEMON_NAME = DMALL_BELIAL_VAMDEMON_NAME_ARR;
     inline static constexpr size_t DMALL_BELIAL_VAMDEMON_NAME_LEN = sizeof(DMALL_BELIAL_VAMDEMON_NAME_ARR)-1;
@@ -1077,7 +1077,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BELPHEMON_RAGE_MODE_FQID_LEN = sizeof(DMALL_BELPHEMON_RAGE_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_BELPHEMON_RAGE_MODE_ID_ARR[] CONFIG_STRING_SECTION = "belphemon_rage_mode";
     inline static constexpr const char* DMALL_BELPHEMON_RAGE_MODE_ID = DMALL_BELPHEMON_RAGE_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_BELPHEMON_RAGE_MODE_ID_LEN = sizeof(DMALL_BELPHEMON_RAGE_MODE_ID)-1;
+    inline static constexpr size_t DMALL_BELPHEMON_RAGE_MODE_ID_LEN = sizeof(DMALL_BELPHEMON_RAGE_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_BELPHEMON_RAGE_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Belphemon Rage Mode";
     inline static constexpr const char* DMALL_BELPHEMON_RAGE_MODE_NAME = DMALL_BELPHEMON_RAGE_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_BELPHEMON_RAGE_MODE_NAME_LEN = sizeof(DMALL_BELPHEMON_RAGE_MODE_NAME_ARR)-1;
@@ -1095,7 +1095,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BELPHEMON_X_FQID_LEN = sizeof(DMALL_BELPHEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_BELPHEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "belphemon_x";
     inline static constexpr const char* DMALL_BELPHEMON_X_ID = DMALL_BELPHEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_BELPHEMON_X_ID_LEN = sizeof(DMALL_BELPHEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_BELPHEMON_X_ID_LEN = sizeof(DMALL_BELPHEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_BELPHEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Belphemon X";
     inline static constexpr const char* DMALL_BELPHEMON_X_NAME = DMALL_BELPHEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_BELPHEMON_X_NAME_LEN = sizeof(DMALL_BELPHEMON_X_NAME_ARR)-1;
@@ -1113,7 +1113,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BEOWOLFMON_FQID_LEN = sizeof(DMALL_BEOWOLFMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BEOWOLFMON_ID_ARR[] CONFIG_STRING_SECTION = "beowolfmon";
     inline static constexpr const char* DMALL_BEOWOLFMON_ID = DMALL_BEOWOLFMON_ID_ARR;
-    inline static constexpr size_t DMALL_BEOWOLFMON_ID_LEN = sizeof(DMALL_BEOWOLFMON_ID)-1;
+    inline static constexpr size_t DMALL_BEOWOLFMON_ID_LEN = sizeof(DMALL_BEOWOLFMON_ID_ARR)-1;
     inline static constexpr char DMALL_BEOWOLFMON_NAME_ARR[] CONFIG_STRING_SECTION = "Beowolfmon";
     inline static constexpr const char* DMALL_BEOWOLFMON_NAME = DMALL_BEOWOLFMON_NAME_ARR;
     inline static constexpr size_t DMALL_BEOWOLFMON_NAME_LEN = sizeof(DMALL_BEOWOLFMON_NAME_ARR)-1;
@@ -1131,7 +1131,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BIBIMON_FQID_LEN = sizeof(DMALL_BIBIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BIBIMON_ID_ARR[] CONFIG_STRING_SECTION = "bibimon";
     inline static constexpr const char* DMALL_BIBIMON_ID = DMALL_BIBIMON_ID_ARR;
-    inline static constexpr size_t DMALL_BIBIMON_ID_LEN = sizeof(DMALL_BIBIMON_ID)-1;
+    inline static constexpr size_t DMALL_BIBIMON_ID_LEN = sizeof(DMALL_BIBIMON_ID_ARR)-1;
     inline static constexpr char DMALL_BIBIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bibimon";
     inline static constexpr const char* DMALL_BIBIMON_NAME = DMALL_BIBIMON_NAME_ARR;
     inline static constexpr size_t DMALL_BIBIMON_NAME_LEN = sizeof(DMALL_BIBIMON_NAME_ARR)-1;
@@ -1149,7 +1149,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BIG_MAMEMON_FQID_LEN = sizeof(DMALL_BIG_MAMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BIG_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "big_mamemon";
     inline static constexpr const char* DMALL_BIG_MAMEMON_ID = DMALL_BIG_MAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_BIG_MAMEMON_ID_LEN = sizeof(DMALL_BIG_MAMEMON_ID)-1;
+    inline static constexpr size_t DMALL_BIG_MAMEMON_ID_LEN = sizeof(DMALL_BIG_MAMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_BIG_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Big Mamemon";
     inline static constexpr const char* DMALL_BIG_MAMEMON_NAME = DMALL_BIG_MAMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_BIG_MAMEMON_NAME_LEN = sizeof(DMALL_BIG_MAMEMON_NAME_ARR)-1;
@@ -1167,7 +1167,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BIRDRAMON_FQID_LEN = sizeof(DMALL_BIRDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BIRDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "birdramon";
     inline static constexpr const char* DMALL_BIRDRAMON_ID = DMALL_BIRDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BIRDRAMON_ID_LEN = sizeof(DMALL_BIRDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_BIRDRAMON_ID_LEN = sizeof(DMALL_BIRDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BIRDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Birdramon";
     inline static constexpr const char* DMALL_BIRDRAMON_NAME = DMALL_BIRDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BIRDRAMON_NAME_LEN = sizeof(DMALL_BIRDRAMON_NAME_ARR)-1;
@@ -1185,7 +1185,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BITMON_FQID_LEN = sizeof(DMALL_BITMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BITMON_ID_ARR[] CONFIG_STRING_SECTION = "bitmon";
     inline static constexpr const char* DMALL_BITMON_ID = DMALL_BITMON_ID_ARR;
-    inline static constexpr size_t DMALL_BITMON_ID_LEN = sizeof(DMALL_BITMON_ID)-1;
+    inline static constexpr size_t DMALL_BITMON_ID_LEN = sizeof(DMALL_BITMON_ID_ARR)-1;
     inline static constexpr char DMALL_BITMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bitmon";
     inline static constexpr const char* DMALL_BITMON_NAME = DMALL_BITMON_NAME_ARR;
     inline static constexpr size_t DMALL_BITMON_NAME_LEN = sizeof(DMALL_BITMON_NAME_ARR)-1;
@@ -1203,7 +1203,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_GALGOMON_FQID_LEN = sizeof(DMALL_BLACK_GALGOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GALGOMON_ID_ARR[] CONFIG_STRING_SECTION = "black_galgomon";
     inline static constexpr const char* DMALL_BLACK_GALGOMON_ID = DMALL_BLACK_GALGOMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_GALGOMON_ID_LEN = sizeof(DMALL_BLACK_GALGOMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_GALGOMON_ID_LEN = sizeof(DMALL_BLACK_GALGOMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GALGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Galgomon";
     inline static constexpr const char* DMALL_BLACK_GALGOMON_NAME = DMALL_BLACK_GALGOMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_GALGOMON_NAME_LEN = sizeof(DMALL_BLACK_GALGOMON_NAME_ARR)-1;
@@ -1221,7 +1221,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_GAOGAMON_FQID_LEN = sizeof(DMALL_BLACK_GAOGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GAOGAMON_ID_ARR[] CONFIG_STRING_SECTION = "black_gaogamon";
     inline static constexpr const char* DMALL_BLACK_GAOGAMON_ID = DMALL_BLACK_GAOGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_GAOGAMON_ID_LEN = sizeof(DMALL_BLACK_GAOGAMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_GAOGAMON_ID_LEN = sizeof(DMALL_BLACK_GAOGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GAOGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Gaogamon";
     inline static constexpr const char* DMALL_BLACK_GAOGAMON_NAME = DMALL_BLACK_GAOGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_GAOGAMON_NAME_LEN = sizeof(DMALL_BLACK_GAOGAMON_NAME_ARR)-1;
@@ -1239,7 +1239,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_GROWMON_FQID_LEN = sizeof(DMALL_BLACK_GROWMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GROWMON_ID_ARR[] CONFIG_STRING_SECTION = "black_growmon";
     inline static constexpr const char* DMALL_BLACK_GROWMON_ID = DMALL_BLACK_GROWMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_GROWMON_ID_LEN = sizeof(DMALL_BLACK_GROWMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_GROWMON_ID_LEN = sizeof(DMALL_BLACK_GROWMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GROWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Growmon";
     inline static constexpr const char* DMALL_BLACK_GROWMON_NAME = DMALL_BLACK_GROWMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_GROWMON_NAME_LEN = sizeof(DMALL_BLACK_GROWMON_NAME_ARR)-1;
@@ -1257,7 +1257,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_GUILMON_FQID_LEN = sizeof(DMALL_BLACK_GUILMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GUILMON_ID_ARR[] CONFIG_STRING_SECTION = "black_guilmon";
     inline static constexpr const char* DMALL_BLACK_GUILMON_ID = DMALL_BLACK_GUILMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_GUILMON_ID_LEN = sizeof(DMALL_BLACK_GUILMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_GUILMON_ID_LEN = sizeof(DMALL_BLACK_GUILMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_GUILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Guilmon";
     inline static constexpr const char* DMALL_BLACK_GUILMON_NAME = DMALL_BLACK_GUILMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_GUILMON_NAME_LEN = sizeof(DMALL_BLACK_GUILMON_NAME_ARR)-1;
@@ -1275,7 +1275,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_KING_NUMEMON_FQID_LEN = sizeof(DMALL_BLACK_KING_NUMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_KING_NUMEMON_ID_ARR[] CONFIG_STRING_SECTION = "black_king_numemon";
     inline static constexpr const char* DMALL_BLACK_KING_NUMEMON_ID = DMALL_BLACK_KING_NUMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_KING_NUMEMON_ID_LEN = sizeof(DMALL_BLACK_KING_NUMEMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_KING_NUMEMON_ID_LEN = sizeof(DMALL_BLACK_KING_NUMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_KING_NUMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black King Numemon";
     inline static constexpr const char* DMALL_BLACK_KING_NUMEMON_NAME = DMALL_BLACK_KING_NUMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_KING_NUMEMON_NAME_LEN = sizeof(DMALL_BLACK_KING_NUMEMON_NAME_ARR)-1;
@@ -1293,7 +1293,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_MACH_GAOGAMON_FQID_LEN = sizeof(DMALL_BLACK_MACH_GAOGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_MACH_GAOGAMON_ID_ARR[] CONFIG_STRING_SECTION = "black_mach_gaogamon";
     inline static constexpr const char* DMALL_BLACK_MACH_GAOGAMON_ID = DMALL_BLACK_MACH_GAOGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_MACH_GAOGAMON_ID_LEN = sizeof(DMALL_BLACK_MACH_GAOGAMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_MACH_GAOGAMON_ID_LEN = sizeof(DMALL_BLACK_MACH_GAOGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_MACH_GAOGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Mach Gaogamon";
     inline static constexpr const char* DMALL_BLACK_MACH_GAOGAMON_NAME = DMALL_BLACK_MACH_GAOGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_MACH_GAOGAMON_NAME_LEN = sizeof(DMALL_BLACK_MACH_GAOGAMON_NAME_ARR)-1;
@@ -1311,7 +1311,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_MEGALO_GROWMON_FQID_LEN = sizeof(DMALL_BLACK_MEGALO_GROWMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_MEGALO_GROWMON_ID_ARR[] CONFIG_STRING_SECTION = "black_megalo_growmon";
     inline static constexpr const char* DMALL_BLACK_MEGALO_GROWMON_ID = DMALL_BLACK_MEGALO_GROWMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_MEGALO_GROWMON_ID_LEN = sizeof(DMALL_BLACK_MEGALO_GROWMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_MEGALO_GROWMON_ID_LEN = sizeof(DMALL_BLACK_MEGALO_GROWMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_MEGALO_GROWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Megalo Growmon";
     inline static constexpr const char* DMALL_BLACK_MEGALO_GROWMON_NAME = DMALL_BLACK_MEGALO_GROWMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_MEGALO_GROWMON_NAME_LEN = sizeof(DMALL_BLACK_MEGALO_GROWMON_NAME_ARR)-1;
@@ -1329,7 +1329,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_RAPIDMON_FQID_LEN = sizeof(DMALL_BLACK_RAPIDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_RAPIDMON_ID_ARR[] CONFIG_STRING_SECTION = "black_rapidmon";
     inline static constexpr const char* DMALL_BLACK_RAPIDMON_ID = DMALL_BLACK_RAPIDMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_RAPIDMON_ID_LEN = sizeof(DMALL_BLACK_RAPIDMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_RAPIDMON_ID_LEN = sizeof(DMALL_BLACK_RAPIDMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_RAPIDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Rapidmon";
     inline static constexpr const char* DMALL_BLACK_RAPIDMON_NAME = DMALL_BLACK_RAPIDMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_RAPIDMON_NAME_LEN = sizeof(DMALL_BLACK_RAPIDMON_NAME_ARR)-1;
@@ -1347,7 +1347,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_SAINT_GALGOMON_FQID_LEN = sizeof(DMALL_BLACK_SAINT_GALGOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_SAINT_GALGOMON_ID_ARR[] CONFIG_STRING_SECTION = "black_saint_galgomon";
     inline static constexpr const char* DMALL_BLACK_SAINT_GALGOMON_ID = DMALL_BLACK_SAINT_GALGOMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_SAINT_GALGOMON_ID_LEN = sizeof(DMALL_BLACK_SAINT_GALGOMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_SAINT_GALGOMON_ID_LEN = sizeof(DMALL_BLACK_SAINT_GALGOMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_SAINT_GALGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Saint Galgomon";
     inline static constexpr const char* DMALL_BLACK_SAINT_GALGOMON_NAME = DMALL_BLACK_SAINT_GALGOMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_SAINT_GALGOMON_NAME_LEN = sizeof(DMALL_BLACK_SAINT_GALGOMON_NAME_ARR)-1;
@@ -1365,7 +1365,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_SERAPHIMON_FQID_LEN = sizeof(DMALL_BLACK_SERAPHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_SERAPHIMON_ID_ARR[] CONFIG_STRING_SECTION = "black_seraphimon";
     inline static constexpr const char* DMALL_BLACK_SERAPHIMON_ID = DMALL_BLACK_SERAPHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_SERAPHIMON_ID_LEN = sizeof(DMALL_BLACK_SERAPHIMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_SERAPHIMON_ID_LEN = sizeof(DMALL_BLACK_SERAPHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_SERAPHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Seraphimon";
     inline static constexpr const char* DMALL_BLACK_SERAPHIMON_NAME = DMALL_BLACK_SERAPHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_SERAPHIMON_NAME_LEN = sizeof(DMALL_BLACK_SERAPHIMON_NAME_ARR)-1;
@@ -1383,7 +1383,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_TAILMON_FQID_LEN = sizeof(DMALL_BLACK_TAILMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_TAILMON_ID_ARR[] CONFIG_STRING_SECTION = "black_tailmon";
     inline static constexpr const char* DMALL_BLACK_TAILMON_ID = DMALL_BLACK_TAILMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_TAILMON_ID_LEN = sizeof(DMALL_BLACK_TAILMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_TAILMON_ID_LEN = sizeof(DMALL_BLACK_TAILMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_TAILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black Tailmon";
     inline static constexpr const char* DMALL_BLACK_TAILMON_NAME = DMALL_BLACK_TAILMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_TAILMON_NAME_LEN = sizeof(DMALL_BLACK_TAILMON_NAME_ARR)-1;
@@ -1401,7 +1401,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_FQID_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_WAR_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "black_war_greymon";
     inline static constexpr const char* DMALL_BLACK_WAR_GREYMON_ID = DMALL_BLACK_WAR_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_ID_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_ID_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_WAR_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Black War Greymon";
     inline static constexpr const char* DMALL_BLACK_WAR_GREYMON_NAME = DMALL_BLACK_WAR_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_NAME_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_NAME_ARR)-1;
@@ -1419,7 +1419,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_X_FQID_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_BLACK_WAR_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "black_war_greymon_x";
     inline static constexpr const char* DMALL_BLACK_WAR_GREYMON_X_ID = DMALL_BLACK_WAR_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_X_ID_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_X_ID_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_BLACK_WAR_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Black War Greymon X";
     inline static constexpr const char* DMALL_BLACK_WAR_GREYMON_X_NAME = DMALL_BLACK_WAR_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_BLACK_WAR_GREYMON_X_NAME_LEN = sizeof(DMALL_BLACK_WAR_GREYMON_X_NAME_ARR)-1;
@@ -1437,7 +1437,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLITZ_GREYMON_FQID_LEN = sizeof(DMALL_BLITZ_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLITZ_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "blitz_greymon";
     inline static constexpr const char* DMALL_BLITZ_GREYMON_ID = DMALL_BLITZ_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLITZ_GREYMON_ID_LEN = sizeof(DMALL_BLITZ_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_BLITZ_GREYMON_ID_LEN = sizeof(DMALL_BLITZ_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLITZ_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Blitz Greymon";
     inline static constexpr const char* DMALL_BLITZ_GREYMON_NAME = DMALL_BLITZ_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLITZ_GREYMON_NAME_LEN = sizeof(DMALL_BLITZ_GREYMON_NAME_ARR)-1;
@@ -1455,7 +1455,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLOOM_LORDMON_FQID_LEN = sizeof(DMALL_BLOOM_LORDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLOOM_LORDMON_ID_ARR[] CONFIG_STRING_SECTION = "bloom_lordmon";
     inline static constexpr const char* DMALL_BLOOM_LORDMON_ID = DMALL_BLOOM_LORDMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLOOM_LORDMON_ID_LEN = sizeof(DMALL_BLOOM_LORDMON_ID)-1;
+    inline static constexpr size_t DMALL_BLOOM_LORDMON_ID_LEN = sizeof(DMALL_BLOOM_LORDMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLOOM_LORDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bloom Lordmon";
     inline static constexpr const char* DMALL_BLOOM_LORDMON_NAME = DMALL_BLOOM_LORDMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLOOM_LORDMON_NAME_LEN = sizeof(DMALL_BLOOM_LORDMON_NAME_ARR)-1;
@@ -1473,7 +1473,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLOSSOMON_FQID_LEN = sizeof(DMALL_BLOSSOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLOSSOMON_ID_ARR[] CONFIG_STRING_SECTION = "blossomon";
     inline static constexpr const char* DMALL_BLOSSOMON_ID = DMALL_BLOSSOMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLOSSOMON_ID_LEN = sizeof(DMALL_BLOSSOMON_ID)-1;
+    inline static constexpr size_t DMALL_BLOSSOMON_ID_LEN = sizeof(DMALL_BLOSSOMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLOSSOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Blossomon";
     inline static constexpr const char* DMALL_BLOSSOMON_NAME = DMALL_BLOSSOMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLOSSOMON_NAME_LEN = sizeof(DMALL_BLOSSOMON_NAME_ARR)-1;
@@ -1491,7 +1491,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLUCOMON_FQID_LEN = sizeof(DMALL_BLUCOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLUCOMON_ID_ARR[] CONFIG_STRING_SECTION = "blucomon";
     inline static constexpr const char* DMALL_BLUCOMON_ID = DMALL_BLUCOMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLUCOMON_ID_LEN = sizeof(DMALL_BLUCOMON_ID)-1;
+    inline static constexpr size_t DMALL_BLUCOMON_ID_LEN = sizeof(DMALL_BLUCOMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLUCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Blucomon";
     inline static constexpr const char* DMALL_BLUCOMON_NAME = DMALL_BLUCOMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLUCOMON_NAME_LEN = sizeof(DMALL_BLUCOMON_NAME_ARR)-1;
@@ -1509,7 +1509,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BLUE_MERAMON_FQID_LEN = sizeof(DMALL_BLUE_MERAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BLUE_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "blue_meramon";
     inline static constexpr const char* DMALL_BLUE_MERAMON_ID = DMALL_BLUE_MERAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BLUE_MERAMON_ID_LEN = sizeof(DMALL_BLUE_MERAMON_ID)-1;
+    inline static constexpr size_t DMALL_BLUE_MERAMON_ID_LEN = sizeof(DMALL_BLUE_MERAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BLUE_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Blue Meramon";
     inline static constexpr const char* DMALL_BLUE_MERAMON_NAME = DMALL_BLUE_MERAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BLUE_MERAMON_NAME_LEN = sizeof(DMALL_BLUE_MERAMON_NAME_ARR)-1;
@@ -1527,7 +1527,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BOLTMON_FQID_LEN = sizeof(DMALL_BOLTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BOLTMON_ID_ARR[] CONFIG_STRING_SECTION = "boltmon";
     inline static constexpr const char* DMALL_BOLTMON_ID = DMALL_BOLTMON_ID_ARR;
-    inline static constexpr size_t DMALL_BOLTMON_ID_LEN = sizeof(DMALL_BOLTMON_ID)-1;
+    inline static constexpr size_t DMALL_BOLTMON_ID_LEN = sizeof(DMALL_BOLTMON_ID_ARR)-1;
     inline static constexpr char DMALL_BOLTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Boltmon";
     inline static constexpr const char* DMALL_BOLTMON_NAME = DMALL_BOLTMON_NAME_ARR;
     inline static constexpr size_t DMALL_BOLTMON_NAME_LEN = sizeof(DMALL_BOLTMON_NAME_ARR)-1;
@@ -1545,7 +1545,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BOMBMON_FQID_LEN = sizeof(DMALL_BOMBMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BOMBMON_ID_ARR[] CONFIG_STRING_SECTION = "bombmon";
     inline static constexpr const char* DMALL_BOMBMON_ID = DMALL_BOMBMON_ID_ARR;
-    inline static constexpr size_t DMALL_BOMBMON_ID_LEN = sizeof(DMALL_BOMBMON_ID)-1;
+    inline static constexpr size_t DMALL_BOMBMON_ID_LEN = sizeof(DMALL_BOMBMON_ID_ARR)-1;
     inline static constexpr char DMALL_BOMBMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bombmon";
     inline static constexpr const char* DMALL_BOMBMON_NAME = DMALL_BOMBMON_NAME_ARR;
     inline static constexpr size_t DMALL_BOMBMON_NAME_LEN = sizeof(DMALL_BOMBMON_NAME_ARR)-1;
@@ -1563,7 +1563,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BOMMON_FQID_LEN = sizeof(DMALL_BOMMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BOMMON_ID_ARR[] CONFIG_STRING_SECTION = "bommon";
     inline static constexpr const char* DMALL_BOMMON_ID = DMALL_BOMMON_ID_ARR;
-    inline static constexpr size_t DMALL_BOMMON_ID_LEN = sizeof(DMALL_BOMMON_ID)-1;
+    inline static constexpr size_t DMALL_BOMMON_ID_LEN = sizeof(DMALL_BOMMON_ID_ARR)-1;
     inline static constexpr char DMALL_BOMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bommon";
     inline static constexpr const char* DMALL_BOMMON_NAME = DMALL_BOMMON_NAME_ARR;
     inline static constexpr size_t DMALL_BOMMON_NAME_LEN = sizeof(DMALL_BOMMON_NAME_ARR)-1;
@@ -1581,7 +1581,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BOTAMON_FQID_LEN = sizeof(DMALL_BOTAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BOTAMON_ID_ARR[] CONFIG_STRING_SECTION = "botamon";
     inline static constexpr const char* DMALL_BOTAMON_ID = DMALL_BOTAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BOTAMON_ID_LEN = sizeof(DMALL_BOTAMON_ID)-1;
+    inline static constexpr size_t DMALL_BOTAMON_ID_LEN = sizeof(DMALL_BOTAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BOTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Botamon";
     inline static constexpr const char* DMALL_BOTAMON_NAME = DMALL_BOTAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BOTAMON_NAME_LEN = sizeof(DMALL_BOTAMON_NAME_ARR)-1;
@@ -1599,7 +1599,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BOUTMON_FQID_LEN = sizeof(DMALL_BOUTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BOUTMON_ID_ARR[] CONFIG_STRING_SECTION = "boutmon";
     inline static constexpr const char* DMALL_BOUTMON_ID = DMALL_BOUTMON_ID_ARR;
-    inline static constexpr size_t DMALL_BOUTMON_ID_LEN = sizeof(DMALL_BOUTMON_ID)-1;
+    inline static constexpr size_t DMALL_BOUTMON_ID_LEN = sizeof(DMALL_BOUTMON_ID_ARR)-1;
     inline static constexpr char DMALL_BOUTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Boutmon";
     inline static constexpr const char* DMALL_BOUTMON_NAME = DMALL_BOUTMON_NAME_ARR;
     inline static constexpr size_t DMALL_BOUTMON_NAME_LEN = sizeof(DMALL_BOUTMON_NAME_ARR)-1;
@@ -1617,7 +1617,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BRYWELUDRAMON_FQID_LEN = sizeof(DMALL_BRYWELUDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BRYWELUDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "bryweludramon";
     inline static constexpr const char* DMALL_BRYWELUDRAMON_ID = DMALL_BRYWELUDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_BRYWELUDRAMON_ID_LEN = sizeof(DMALL_BRYWELUDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_BRYWELUDRAMON_ID_LEN = sizeof(DMALL_BRYWELUDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_BRYWELUDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bryweludramon";
     inline static constexpr const char* DMALL_BRYWELUDRAMON_NAME = DMALL_BRYWELUDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_BRYWELUDRAMON_NAME_LEN = sizeof(DMALL_BRYWELUDRAMON_NAME_ARR)-1;
@@ -1635,7 +1635,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BUBBMON_FQID_LEN = sizeof(DMALL_BUBBMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BUBBMON_ID_ARR[] CONFIG_STRING_SECTION = "bubbmon";
     inline static constexpr const char* DMALL_BUBBMON_ID = DMALL_BUBBMON_ID_ARR;
-    inline static constexpr size_t DMALL_BUBBMON_ID_LEN = sizeof(DMALL_BUBBMON_ID)-1;
+    inline static constexpr size_t DMALL_BUBBMON_ID_LEN = sizeof(DMALL_BUBBMON_ID_ARR)-1;
     inline static constexpr char DMALL_BUBBMON_NAME_ARR[] CONFIG_STRING_SECTION = "Bubbmon";
     inline static constexpr const char* DMALL_BUBBMON_NAME = DMALL_BUBBMON_NAME_ARR;
     inline static constexpr size_t DMALL_BUBBMON_NAME_LEN = sizeof(DMALL_BUBBMON_NAME_ARR)-1;
@@ -1653,7 +1653,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BUDMON_FQID_LEN = sizeof(DMALL_BUDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_BUDMON_ID_ARR[] CONFIG_STRING_SECTION = "budmon";
     inline static constexpr const char* DMALL_BUDMON_ID = DMALL_BUDMON_ID_ARR;
-    inline static constexpr size_t DMALL_BUDMON_ID_LEN = sizeof(DMALL_BUDMON_ID)-1;
+    inline static constexpr size_t DMALL_BUDMON_ID_LEN = sizeof(DMALL_BUDMON_ID_ARR)-1;
     inline static constexpr char DMALL_BUDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Budmon";
     inline static constexpr const char* DMALL_BUDMON_NAME = DMALL_BUDMON_NAME_ARR;
     inline static constexpr size_t DMALL_BUDMON_NAME_LEN = sizeof(DMALL_BUDMON_NAME_ARR)-1;
@@ -1671,7 +1671,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BURGERMON_MAMA_FQID_LEN = sizeof(DMALL_BURGERMON_MAMA_FQID_ARR)-1;
     inline static constexpr char DMALL_BURGERMON_MAMA_ID_ARR[] CONFIG_STRING_SECTION = "burgermon_mama";
     inline static constexpr const char* DMALL_BURGERMON_MAMA_ID = DMALL_BURGERMON_MAMA_ID_ARR;
-    inline static constexpr size_t DMALL_BURGERMON_MAMA_ID_LEN = sizeof(DMALL_BURGERMON_MAMA_ID)-1;
+    inline static constexpr size_t DMALL_BURGERMON_MAMA_ID_LEN = sizeof(DMALL_BURGERMON_MAMA_ID_ARR)-1;
     inline static constexpr char DMALL_BURGERMON_MAMA_NAME_ARR[] CONFIG_STRING_SECTION = "Burgermon (Mama)";
     inline static constexpr const char* DMALL_BURGERMON_MAMA_NAME = DMALL_BURGERMON_MAMA_NAME_ARR;
     inline static constexpr size_t DMALL_BURGERMON_MAMA_NAME_LEN = sizeof(DMALL_BURGERMON_MAMA_NAME_ARR)-1;
@@ -1689,7 +1689,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_BURGERMON_PAPA_FQID_LEN = sizeof(DMALL_BURGERMON_PAPA_FQID_ARR)-1;
     inline static constexpr char DMALL_BURGERMON_PAPA_ID_ARR[] CONFIG_STRING_SECTION = "burgermon_papa";
     inline static constexpr const char* DMALL_BURGERMON_PAPA_ID = DMALL_BURGERMON_PAPA_ID_ARR;
-    inline static constexpr size_t DMALL_BURGERMON_PAPA_ID_LEN = sizeof(DMALL_BURGERMON_PAPA_ID)-1;
+    inline static constexpr size_t DMALL_BURGERMON_PAPA_ID_LEN = sizeof(DMALL_BURGERMON_PAPA_ID_ARR)-1;
     inline static constexpr char DMALL_BURGERMON_PAPA_NAME_ARR[] CONFIG_STRING_SECTION = "Burgermon (Papa)";
     inline static constexpr const char* DMALL_BURGERMON_PAPA_NAME = DMALL_BURGERMON_PAPA_NAME_ARR;
     inline static constexpr size_t DMALL_BURGERMON_PAPA_NAME_LEN = sizeof(DMALL_BURGERMON_PAPA_NAME_ARR)-1;
@@ -1707,7 +1707,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CANDMON_FQID_LEN = sizeof(DMALL_CANDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CANDMON_ID_ARR[] CONFIG_STRING_SECTION = "candmon";
     inline static constexpr const char* DMALL_CANDMON_ID = DMALL_CANDMON_ID_ARR;
-    inline static constexpr size_t DMALL_CANDMON_ID_LEN = sizeof(DMALL_CANDMON_ID)-1;
+    inline static constexpr size_t DMALL_CANDMON_ID_LEN = sizeof(DMALL_CANDMON_ID_ARR)-1;
     inline static constexpr char DMALL_CANDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Candmon";
     inline static constexpr const char* DMALL_CANDMON_NAME = DMALL_CANDMON_NAME_ARR;
     inline static constexpr size_t DMALL_CANDMON_NAME_LEN = sizeof(DMALL_CANDMON_NAME_ARR)-1;
@@ -1725,7 +1725,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CANNONBEEMON_FQID_LEN = sizeof(DMALL_CANNONBEEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CANNONBEEMON_ID_ARR[] CONFIG_STRING_SECTION = "cannonbeemon";
     inline static constexpr const char* DMALL_CANNONBEEMON_ID = DMALL_CANNONBEEMON_ID_ARR;
-    inline static constexpr size_t DMALL_CANNONBEEMON_ID_LEN = sizeof(DMALL_CANNONBEEMON_ID)-1;
+    inline static constexpr size_t DMALL_CANNONBEEMON_ID_LEN = sizeof(DMALL_CANNONBEEMON_ID_ARR)-1;
     inline static constexpr char DMALL_CANNONBEEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cannonbeemon";
     inline static constexpr const char* DMALL_CANNONBEEMON_NAME = DMALL_CANNONBEEMON_NAME_ARR;
     inline static constexpr size_t DMALL_CANNONBEEMON_NAME_LEN = sizeof(DMALL_CANNONBEEMON_NAME_ARR)-1;
@@ -1743,7 +1743,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CAPRIMON_FQID_LEN = sizeof(DMALL_CAPRIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CAPRIMON_ID_ARR[] CONFIG_STRING_SECTION = "caprimon";
     inline static constexpr const char* DMALL_CAPRIMON_ID = DMALL_CAPRIMON_ID_ARR;
-    inline static constexpr size_t DMALL_CAPRIMON_ID_LEN = sizeof(DMALL_CAPRIMON_ID)-1;
+    inline static constexpr size_t DMALL_CAPRIMON_ID_LEN = sizeof(DMALL_CAPRIMON_ID_ARR)-1;
     inline static constexpr char DMALL_CAPRIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Caprimon";
     inline static constexpr const char* DMALL_CAPRIMON_NAME = DMALL_CAPRIMON_NAME_ARR;
     inline static constexpr size_t DMALL_CAPRIMON_NAME_LEN = sizeof(DMALL_CAPRIMON_NAME_ARR)-1;
@@ -1761,7 +1761,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CATCH_MAMEMON_FQID_LEN = sizeof(DMALL_CATCH_MAMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CATCH_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "catch_mamemon";
     inline static constexpr const char* DMALL_CATCH_MAMEMON_ID = DMALL_CATCH_MAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_CATCH_MAMEMON_ID_LEN = sizeof(DMALL_CATCH_MAMEMON_ID)-1;
+    inline static constexpr size_t DMALL_CATCH_MAMEMON_ID_LEN = sizeof(DMALL_CATCH_MAMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_CATCH_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Catch Mamemon";
     inline static constexpr const char* DMALL_CATCH_MAMEMON_NAME = DMALL_CATCH_MAMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_CATCH_MAMEMON_NAME_LEN = sizeof(DMALL_CATCH_MAMEMON_NAME_ARR)-1;
@@ -1779,7 +1779,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CATURAMON_FQID_LEN = sizeof(DMALL_CATURAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CATURAMON_ID_ARR[] CONFIG_STRING_SECTION = "caturamon";
     inline static constexpr const char* DMALL_CATURAMON_ID = DMALL_CATURAMON_ID_ARR;
-    inline static constexpr size_t DMALL_CATURAMON_ID_LEN = sizeof(DMALL_CATURAMON_ID)-1;
+    inline static constexpr size_t DMALL_CATURAMON_ID_LEN = sizeof(DMALL_CATURAMON_ID_ARR)-1;
     inline static constexpr char DMALL_CATURAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Caturamon";
     inline static constexpr const char* DMALL_CATURAMON_NAME = DMALL_CATURAMON_NAME_ARR;
     inline static constexpr size_t DMALL_CATURAMON_NAME_LEN = sizeof(DMALL_CATURAMON_NAME_ARR)-1;
@@ -1797,7 +1797,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CENTALMON_FQID_LEN = sizeof(DMALL_CENTALMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CENTALMON_ID_ARR[] CONFIG_STRING_SECTION = "centalmon";
     inline static constexpr const char* DMALL_CENTALMON_ID = DMALL_CENTALMON_ID_ARR;
-    inline static constexpr size_t DMALL_CENTALMON_ID_LEN = sizeof(DMALL_CENTALMON_ID)-1;
+    inline static constexpr size_t DMALL_CENTALMON_ID_LEN = sizeof(DMALL_CENTALMON_ID_ARR)-1;
     inline static constexpr char DMALL_CENTALMON_NAME_ARR[] CONFIG_STRING_SECTION = "Centalmon";
     inline static constexpr const char* DMALL_CENTALMON_NAME = DMALL_CENTALMON_NAME_ARR;
     inline static constexpr size_t DMALL_CENTALMON_NAME_LEN = sizeof(DMALL_CENTALMON_NAME_ARR)-1;
@@ -1815,7 +1815,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CERBERUMON_X_FQID_LEN = sizeof(DMALL_CERBERUMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_CERBERUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "cerberumon_x";
     inline static constexpr const char* DMALL_CERBERUMON_X_ID = DMALL_CERBERUMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_CERBERUMON_X_ID_LEN = sizeof(DMALL_CERBERUMON_X_ID)-1;
+    inline static constexpr size_t DMALL_CERBERUMON_X_ID_LEN = sizeof(DMALL_CERBERUMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_CERBERUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cerberumon X";
     inline static constexpr const char* DMALL_CERBERUMON_X_NAME = DMALL_CERBERUMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_CERBERUMON_X_NAME_LEN = sizeof(DMALL_CERBERUMON_X_NAME_ARR)-1;
@@ -1833,7 +1833,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHAMBLEMON_FQID_LEN = sizeof(DMALL_CHAMBLEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHAMBLEMON_ID_ARR[] CONFIG_STRING_SECTION = "chamblemon";
     inline static constexpr const char* DMALL_CHAMBLEMON_ID = DMALL_CHAMBLEMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHAMBLEMON_ID_LEN = sizeof(DMALL_CHAMBLEMON_ID)-1;
+    inline static constexpr size_t DMALL_CHAMBLEMON_ID_LEN = sizeof(DMALL_CHAMBLEMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHAMBLEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chamblemon";
     inline static constexpr const char* DMALL_CHAMBLEMON_NAME = DMALL_CHAMBLEMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHAMBLEMON_NAME_LEN = sizeof(DMALL_CHAMBLEMON_NAME_ARR)-1;
@@ -1851,7 +1851,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHAOSDRAMON_FQID_LEN = sizeof(DMALL_CHAOSDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHAOSDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "chaosdramon";
     inline static constexpr const char* DMALL_CHAOSDRAMON_ID = DMALL_CHAOSDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHAOSDRAMON_ID_LEN = sizeof(DMALL_CHAOSDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_CHAOSDRAMON_ID_LEN = sizeof(DMALL_CHAOSDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHAOSDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chaosdramon";
     inline static constexpr const char* DMALL_CHAOSDRAMON_NAME = DMALL_CHAOSDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHAOSDRAMON_NAME_LEN = sizeof(DMALL_CHAOSDRAMON_NAME_ARR)-1;
@@ -1869,7 +1869,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHAOSDRAMON_X_FQID_LEN = sizeof(DMALL_CHAOSDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_CHAOSDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "chaosdramon_x";
     inline static constexpr const char* DMALL_CHAOSDRAMON_X_ID = DMALL_CHAOSDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_CHAOSDRAMON_X_ID_LEN = sizeof(DMALL_CHAOSDRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_CHAOSDRAMON_X_ID_LEN = sizeof(DMALL_CHAOSDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_CHAOSDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Chaosdramon X";
     inline static constexpr const char* DMALL_CHAOSDRAMON_X_NAME = DMALL_CHAOSDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_CHAOSDRAMON_X_NAME_LEN = sizeof(DMALL_CHAOSDRAMON_X_NAME_ARR)-1;
@@ -1887,7 +1887,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHAOS_DUKEMON_CORE_FQID_LEN = sizeof(DMALL_CHAOS_DUKEMON_CORE_FQID_ARR)-1;
     inline static constexpr char DMALL_CHAOS_DUKEMON_CORE_ID_ARR[] CONFIG_STRING_SECTION = "chaos_dukemon_core";
     inline static constexpr const char* DMALL_CHAOS_DUKEMON_CORE_ID = DMALL_CHAOS_DUKEMON_CORE_ID_ARR;
-    inline static constexpr size_t DMALL_CHAOS_DUKEMON_CORE_ID_LEN = sizeof(DMALL_CHAOS_DUKEMON_CORE_ID)-1;
+    inline static constexpr size_t DMALL_CHAOS_DUKEMON_CORE_ID_LEN = sizeof(DMALL_CHAOS_DUKEMON_CORE_ID_ARR)-1;
     inline static constexpr char DMALL_CHAOS_DUKEMON_CORE_NAME_ARR[] CONFIG_STRING_SECTION = "Chaos Dukemon Core";
     inline static constexpr const char* DMALL_CHAOS_DUKEMON_CORE_NAME = DMALL_CHAOS_DUKEMON_CORE_NAME_ARR;
     inline static constexpr size_t DMALL_CHAOS_DUKEMON_CORE_NAME_LEN = sizeof(DMALL_CHAOS_DUKEMON_CORE_NAME_ARR)-1;
@@ -1905,7 +1905,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHAOS_DUKEMON_FQID_LEN = sizeof(DMALL_CHAOS_DUKEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHAOS_DUKEMON_ID_ARR[] CONFIG_STRING_SECTION = "chaos_dukemon";
     inline static constexpr const char* DMALL_CHAOS_DUKEMON_ID = DMALL_CHAOS_DUKEMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHAOS_DUKEMON_ID_LEN = sizeof(DMALL_CHAOS_DUKEMON_ID)-1;
+    inline static constexpr size_t DMALL_CHAOS_DUKEMON_ID_LEN = sizeof(DMALL_CHAOS_DUKEMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHAOS_DUKEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chaos Dukemon";
     inline static constexpr const char* DMALL_CHAOS_DUKEMON_NAME = DMALL_CHAOS_DUKEMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHAOS_DUKEMON_NAME_LEN = sizeof(DMALL_CHAOS_DUKEMON_NAME_ARR)-1;
@@ -1923,7 +1923,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHAOSMON_FQID_LEN = sizeof(DMALL_CHAOSMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHAOSMON_ID_ARR[] CONFIG_STRING_SECTION = "chaosmon";
     inline static constexpr const char* DMALL_CHAOSMON_ID = DMALL_CHAOSMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHAOSMON_ID_LEN = sizeof(DMALL_CHAOSMON_ID)-1;
+    inline static constexpr size_t DMALL_CHAOSMON_ID_LEN = sizeof(DMALL_CHAOSMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHAOSMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chaosmon";
     inline static constexpr const char* DMALL_CHAOSMON_NAME = DMALL_CHAOSMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHAOSMON_NAME_LEN = sizeof(DMALL_CHAOSMON_NAME_ARR)-1;
@@ -1941,7 +1941,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHERUBIMON_VICE_FQID_LEN = sizeof(DMALL_CHERUBIMON_VICE_FQID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VICE_ID_ARR[] CONFIG_STRING_SECTION = "cherubimon_vice";
     inline static constexpr const char* DMALL_CHERUBIMON_VICE_ID = DMALL_CHERUBIMON_VICE_ID_ARR;
-    inline static constexpr size_t DMALL_CHERUBIMON_VICE_ID_LEN = sizeof(DMALL_CHERUBIMON_VICE_ID)-1;
+    inline static constexpr size_t DMALL_CHERUBIMON_VICE_ID_LEN = sizeof(DMALL_CHERUBIMON_VICE_ID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VICE_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubimon (Vice)";
     inline static constexpr const char* DMALL_CHERUBIMON_VICE_NAME = DMALL_CHERUBIMON_VICE_NAME_ARR;
     inline static constexpr size_t DMALL_CHERUBIMON_VICE_NAME_LEN = sizeof(DMALL_CHERUBIMON_VICE_NAME_ARR)-1;
@@ -1959,7 +1959,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHERUBIMON_VICE_X_FQID_LEN = sizeof(DMALL_CHERUBIMON_VICE_X_FQID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VICE_X_ID_ARR[] CONFIG_STRING_SECTION = "cherubimon_vice_x";
     inline static constexpr const char* DMALL_CHERUBIMON_VICE_X_ID = DMALL_CHERUBIMON_VICE_X_ID_ARR;
-    inline static constexpr size_t DMALL_CHERUBIMON_VICE_X_ID_LEN = sizeof(DMALL_CHERUBIMON_VICE_X_ID)-1;
+    inline static constexpr size_t DMALL_CHERUBIMON_VICE_X_ID_LEN = sizeof(DMALL_CHERUBIMON_VICE_X_ID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VICE_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubimon (Vice) X";
     inline static constexpr const char* DMALL_CHERUBIMON_VICE_X_NAME = DMALL_CHERUBIMON_VICE_X_NAME_ARR;
     inline static constexpr size_t DMALL_CHERUBIMON_VICE_X_NAME_LEN = sizeof(DMALL_CHERUBIMON_VICE_X_NAME_ARR)-1;
@@ -1977,7 +1977,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_FQID_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_FQID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VIRTUE_ID_ARR[] CONFIG_STRING_SECTION = "cherubimon_virtue";
     inline static constexpr const char* DMALL_CHERUBIMON_VIRTUE_ID = DMALL_CHERUBIMON_VIRTUE_ID_ARR;
-    inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_ID_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_ID)-1;
+    inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_ID_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_ID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VIRTUE_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubimon (Virtue)";
     inline static constexpr const char* DMALL_CHERUBIMON_VIRTUE_NAME = DMALL_CHERUBIMON_VIRTUE_NAME_ARR;
     inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_NAME_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_NAME_ARR)-1;
@@ -1995,7 +1995,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_X_FQID_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_X_FQID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VIRTUE_X_ID_ARR[] CONFIG_STRING_SECTION = "cherubimon_virtue_x";
     inline static constexpr const char* DMALL_CHERUBIMON_VIRTUE_X_ID = DMALL_CHERUBIMON_VIRTUE_X_ID_ARR;
-    inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_X_ID_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_X_ID)-1;
+    inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_X_ID_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_X_ID_ARR)-1;
     inline static constexpr char DMALL_CHERUBIMON_VIRTUE_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cherubimon (Virtue) X";
     inline static constexpr const char* DMALL_CHERUBIMON_VIRTUE_X_NAME = DMALL_CHERUBIMON_VIRTUE_X_NAME_ARR;
     inline static constexpr size_t DMALL_CHERUBIMON_VIRTUE_X_NAME_LEN = sizeof(DMALL_CHERUBIMON_VIRTUE_X_NAME_ARR)-1;
@@ -2013,7 +2013,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHIBICKMON_FQID_LEN = sizeof(DMALL_CHIBICKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHIBICKMON_ID_ARR[] CONFIG_STRING_SECTION = "chibickmon";
     inline static constexpr const char* DMALL_CHIBICKMON_ID = DMALL_CHIBICKMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHIBICKMON_ID_LEN = sizeof(DMALL_CHIBICKMON_ID)-1;
+    inline static constexpr size_t DMALL_CHIBICKMON_ID_LEN = sizeof(DMALL_CHIBICKMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHIBICKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chibickmon";
     inline static constexpr const char* DMALL_CHIBICKMON_NAME = DMALL_CHIBICKMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHIBICKMON_NAME_LEN = sizeof(DMALL_CHIBICKMON_NAME_ARR)-1;
@@ -2031,7 +2031,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHIBIMON_FQID_LEN = sizeof(DMALL_CHIBIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHIBIMON_ID_ARR[] CONFIG_STRING_SECTION = "chibimon";
     inline static constexpr const char* DMALL_CHIBIMON_ID = DMALL_CHIBIMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHIBIMON_ID_LEN = sizeof(DMALL_CHIBIMON_ID)-1;
+    inline static constexpr size_t DMALL_CHIBIMON_ID_LEN = sizeof(DMALL_CHIBIMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHIBIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chibimon";
     inline static constexpr const char* DMALL_CHIBIMON_NAME = DMALL_CHIBIMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHIBIMON_NAME_LEN = sizeof(DMALL_CHIBIMON_NAME_ARR)-1;
@@ -2049,7 +2049,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHICCHIMON_FQID_LEN = sizeof(DMALL_CHICCHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHICCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "chicchimon";
     inline static constexpr const char* DMALL_CHICCHIMON_ID = DMALL_CHICCHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHICCHIMON_ID_LEN = sizeof(DMALL_CHICCHIMON_ID)-1;
+    inline static constexpr size_t DMALL_CHICCHIMON_ID_LEN = sizeof(DMALL_CHICCHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHICCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chicchimon";
     inline static constexpr const char* DMALL_CHICCHIMON_NAME = DMALL_CHICCHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHICCHIMON_NAME_LEN = sizeof(DMALL_CHICCHIMON_NAME_ARR)-1;
@@ -2067,7 +2067,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHICOMON_FQID_LEN = sizeof(DMALL_CHICOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHICOMON_ID_ARR[] CONFIG_STRING_SECTION = "chicomon";
     inline static constexpr const char* DMALL_CHICOMON_ID = DMALL_CHICOMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHICOMON_ID_LEN = sizeof(DMALL_CHICOMON_ID)-1;
+    inline static constexpr size_t DMALL_CHICOMON_ID_LEN = sizeof(DMALL_CHICOMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHICOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chicomon";
     inline static constexpr const char* DMALL_CHICOMON_NAME = DMALL_CHICOMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHICOMON_NAME_LEN = sizeof(DMALL_CHICOMON_NAME_ARR)-1;
@@ -2085,7 +2085,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHIMAIRAMON_FQID_LEN = sizeof(DMALL_CHIMAIRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHIMAIRAMON_ID_ARR[] CONFIG_STRING_SECTION = "chimairamon";
     inline static constexpr const char* DMALL_CHIMAIRAMON_ID = DMALL_CHIMAIRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHIMAIRAMON_ID_LEN = sizeof(DMALL_CHIMAIRAMON_ID)-1;
+    inline static constexpr size_t DMALL_CHIMAIRAMON_ID_LEN = sizeof(DMALL_CHIMAIRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHIMAIRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chimairamon";
     inline static constexpr const char* DMALL_CHIMAIRAMON_NAME = DMALL_CHIMAIRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHIMAIRAMON_NAME_LEN = sizeof(DMALL_CHIMAIRAMON_NAME_ARR)-1;
@@ -2103,7 +2103,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHOCOMON_FQID_LEN = sizeof(DMALL_CHOCOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHOCOMON_ID_ARR[] CONFIG_STRING_SECTION = "chocomon";
     inline static constexpr const char* DMALL_CHOCOMON_ID = DMALL_CHOCOMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHOCOMON_ID_LEN = sizeof(DMALL_CHOCOMON_ID)-1;
+    inline static constexpr size_t DMALL_CHOCOMON_ID_LEN = sizeof(DMALL_CHOCOMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHOCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Chocomon";
     inline static constexpr const char* DMALL_CHOCOMON_NAME = DMALL_CHOCOMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHOCOMON_NAME_LEN = sizeof(DMALL_CHOCOMON_NAME_ARR)-1;
@@ -2121,7 +2121,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHO_HAKKAIMON_FQID_LEN = sizeof(DMALL_CHO_HAKKAIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHO_HAKKAIMON_ID_ARR[] CONFIG_STRING_SECTION = "cho_hakkaimon";
     inline static constexpr const char* DMALL_CHO_HAKKAIMON_ID = DMALL_CHO_HAKKAIMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHO_HAKKAIMON_ID_LEN = sizeof(DMALL_CHO_HAKKAIMON_ID)-1;
+    inline static constexpr size_t DMALL_CHO_HAKKAIMON_ID_LEN = sizeof(DMALL_CHO_HAKKAIMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHO_HAKKAIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cho Hakkaimon";
     inline static constexpr const char* DMALL_CHO_HAKKAIMON_NAME = DMALL_CHO_HAKKAIMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHO_HAKKAIMON_NAME_LEN = sizeof(DMALL_CHO_HAKKAIMON_NAME_ARR)-1;
@@ -2139,7 +2139,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CHOROMON_FQID_LEN = sizeof(DMALL_CHOROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CHOROMON_ID_ARR[] CONFIG_STRING_SECTION = "choromon";
     inline static constexpr const char* DMALL_CHOROMON_ID = DMALL_CHOROMON_ID_ARR;
-    inline static constexpr size_t DMALL_CHOROMON_ID_LEN = sizeof(DMALL_CHOROMON_ID)-1;
+    inline static constexpr size_t DMALL_CHOROMON_ID_LEN = sizeof(DMALL_CHOROMON_ID_ARR)-1;
     inline static constexpr char DMALL_CHOROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Choromon";
     inline static constexpr const char* DMALL_CHOROMON_NAME = DMALL_CHOROMON_NAME_ARR;
     inline static constexpr size_t DMALL_CHOROMON_NAME_LEN = sizeof(DMALL_CHOROMON_NAME_ARR)-1;
@@ -2157,7 +2157,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CLEAR_AGUMON_FQID_LEN = sizeof(DMALL_CLEAR_AGUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CLEAR_AGUMON_ID_ARR[] CONFIG_STRING_SECTION = "clear_agumon";
     inline static constexpr const char* DMALL_CLEAR_AGUMON_ID = DMALL_CLEAR_AGUMON_ID_ARR;
-    inline static constexpr size_t DMALL_CLEAR_AGUMON_ID_LEN = sizeof(DMALL_CLEAR_AGUMON_ID)-1;
+    inline static constexpr size_t DMALL_CLEAR_AGUMON_ID_LEN = sizeof(DMALL_CLEAR_AGUMON_ID_ARR)-1;
     inline static constexpr char DMALL_CLEAR_AGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Clear Agumon";
     inline static constexpr const char* DMALL_CLEAR_AGUMON_NAME = DMALL_CLEAR_AGUMON_NAME_ARR;
     inline static constexpr size_t DMALL_CLEAR_AGUMON_NAME_LEN = sizeof(DMALL_CLEAR_AGUMON_NAME_ARR)-1;
@@ -2175,7 +2175,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CLOCKMON_FQID_LEN = sizeof(DMALL_CLOCKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CLOCKMON_ID_ARR[] CONFIG_STRING_SECTION = "clockmon";
     inline static constexpr const char* DMALL_CLOCKMON_ID = DMALL_CLOCKMON_ID_ARR;
-    inline static constexpr size_t DMALL_CLOCKMON_ID_LEN = sizeof(DMALL_CLOCKMON_ID)-1;
+    inline static constexpr size_t DMALL_CLOCKMON_ID_LEN = sizeof(DMALL_CLOCKMON_ID_ARR)-1;
     inline static constexpr char DMALL_CLOCKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Clockmon";
     inline static constexpr const char* DMALL_CLOCKMON_NAME = DMALL_CLOCKMON_NAME_ARR;
     inline static constexpr size_t DMALL_CLOCKMON_NAME_LEN = sizeof(DMALL_CLOCKMON_NAME_ARR)-1;
@@ -2193,7 +2193,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_COCOMON_FQID_LEN = sizeof(DMALL_COCOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_COCOMON_ID_ARR[] CONFIG_STRING_SECTION = "cocomon";
     inline static constexpr const char* DMALL_COCOMON_ID = DMALL_COCOMON_ID_ARR;
-    inline static constexpr size_t DMALL_COCOMON_ID_LEN = sizeof(DMALL_COCOMON_ID)-1;
+    inline static constexpr size_t DMALL_COCOMON_ID_LEN = sizeof(DMALL_COCOMON_ID_ARR)-1;
     inline static constexpr char DMALL_COCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cocomon";
     inline static constexpr const char* DMALL_COCOMON_NAME = DMALL_COCOMON_NAME_ARR;
     inline static constexpr size_t DMALL_COCOMON_NAME_LEN = sizeof(DMALL_COCOMON_NAME_ARR)-1;
@@ -2211,7 +2211,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_COELAMON_FQID_LEN = sizeof(DMALL_COELAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_COELAMON_ID_ARR[] CONFIG_STRING_SECTION = "coelamon";
     inline static constexpr const char* DMALL_COELAMON_ID = DMALL_COELAMON_ID_ARR;
-    inline static constexpr size_t DMALL_COELAMON_ID_LEN = sizeof(DMALL_COELAMON_ID)-1;
+    inline static constexpr size_t DMALL_COELAMON_ID_LEN = sizeof(DMALL_COELAMON_ID_ARR)-1;
     inline static constexpr char DMALL_COELAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Coelamon";
     inline static constexpr const char* DMALL_COELAMON_NAME = DMALL_COELAMON_NAME_ARR;
     inline static constexpr size_t DMALL_COELAMON_NAME_LEN = sizeof(DMALL_COELAMON_NAME_ARR)-1;
@@ -2229,7 +2229,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_COMMANDRAMON_FQID_LEN = sizeof(DMALL_COMMANDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_COMMANDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "commandramon";
     inline static constexpr const char* DMALL_COMMANDRAMON_ID = DMALL_COMMANDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_COMMANDRAMON_ID_LEN = sizeof(DMALL_COMMANDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_COMMANDRAMON_ID_LEN = sizeof(DMALL_COMMANDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_COMMANDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Commandramon";
     inline static constexpr const char* DMALL_COMMANDRAMON_NAME = DMALL_COMMANDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_COMMANDRAMON_NAME_LEN = sizeof(DMALL_COMMANDRAMON_NAME_ARR)-1;
@@ -2247,7 +2247,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CORONAMON_FQID_LEN = sizeof(DMALL_CORONAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CORONAMON_ID_ARR[] CONFIG_STRING_SECTION = "coronamon";
     inline static constexpr const char* DMALL_CORONAMON_ID = DMALL_CORONAMON_ID_ARR;
-    inline static constexpr size_t DMALL_CORONAMON_ID_LEN = sizeof(DMALL_CORONAMON_ID)-1;
+    inline static constexpr size_t DMALL_CORONAMON_ID_LEN = sizeof(DMALL_CORONAMON_ID_ARR)-1;
     inline static constexpr char DMALL_CORONAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Coronamon";
     inline static constexpr const char* DMALL_CORONAMON_NAME = DMALL_CORONAMON_NAME_ARR;
     inline static constexpr size_t DMALL_CORONAMON_NAME_LEN = sizeof(DMALL_CORONAMON_NAME_ARR)-1;
@@ -2265,7 +2265,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_COTSUCOMON_FQID_LEN = sizeof(DMALL_COTSUCOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_COTSUCOMON_ID_ARR[] CONFIG_STRING_SECTION = "cotsucomon";
     inline static constexpr const char* DMALL_COTSUCOMON_ID = DMALL_COTSUCOMON_ID_ARR;
-    inline static constexpr size_t DMALL_COTSUCOMON_ID_LEN = sizeof(DMALL_COTSUCOMON_ID)-1;
+    inline static constexpr size_t DMALL_COTSUCOMON_ID_LEN = sizeof(DMALL_COTSUCOMON_ID_ARR)-1;
     inline static constexpr char DMALL_COTSUCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cotsucomon";
     inline static constexpr const char* DMALL_COTSUCOMON_NAME = DMALL_COTSUCOMON_NAME_ARR;
     inline static constexpr size_t DMALL_COTSUCOMON_NAME_LEN = sizeof(DMALL_COTSUCOMON_NAME_ARR)-1;
@@ -2283,7 +2283,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CRANIUMMON_FQID_LEN = sizeof(DMALL_CRANIUMMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CRANIUMMON_ID_ARR[] CONFIG_STRING_SECTION = "craniummon";
     inline static constexpr const char* DMALL_CRANIUMMON_ID = DMALL_CRANIUMMON_ID_ARR;
-    inline static constexpr size_t DMALL_CRANIUMMON_ID_LEN = sizeof(DMALL_CRANIUMMON_ID)-1;
+    inline static constexpr size_t DMALL_CRANIUMMON_ID_LEN = sizeof(DMALL_CRANIUMMON_ID_ARR)-1;
     inline static constexpr char DMALL_CRANIUMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Craniummon";
     inline static constexpr const char* DMALL_CRANIUMMON_NAME = DMALL_CRANIUMMON_NAME_ARR;
     inline static constexpr size_t DMALL_CRANIUMMON_NAME_LEN = sizeof(DMALL_CRANIUMMON_NAME_ARR)-1;
@@ -2301,7 +2301,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CRANIUMMON_X_FQID_LEN = sizeof(DMALL_CRANIUMMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_CRANIUMMON_X_ID_ARR[] CONFIG_STRING_SECTION = "craniummon_x";
     inline static constexpr const char* DMALL_CRANIUMMON_X_ID = DMALL_CRANIUMMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_CRANIUMMON_X_ID_LEN = sizeof(DMALL_CRANIUMMON_X_ID)-1;
+    inline static constexpr size_t DMALL_CRANIUMMON_X_ID_LEN = sizeof(DMALL_CRANIUMMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_CRANIUMMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Craniummon X";
     inline static constexpr const char* DMALL_CRANIUMMON_X_NAME = DMALL_CRANIUMMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_CRANIUMMON_X_NAME_LEN = sizeof(DMALL_CRANIUMMON_X_NAME_ARR)-1;
@@ -2319,7 +2319,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CRESCEMON_FQID_LEN = sizeof(DMALL_CRESCEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CRESCEMON_ID_ARR[] CONFIG_STRING_SECTION = "crescemon";
     inline static constexpr const char* DMALL_CRESCEMON_ID = DMALL_CRESCEMON_ID_ARR;
-    inline static constexpr size_t DMALL_CRESCEMON_ID_LEN = sizeof(DMALL_CRESCEMON_ID)-1;
+    inline static constexpr size_t DMALL_CRESCEMON_ID_LEN = sizeof(DMALL_CRESCEMON_ID_ARR)-1;
     inline static constexpr char DMALL_CRESCEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Crescemon";
     inline static constexpr const char* DMALL_CRESCEMON_NAME = DMALL_CRESCEMON_NAME_ARR;
     inline static constexpr size_t DMALL_CRESCEMON_NAME_LEN = sizeof(DMALL_CRESCEMON_NAME_ARR)-1;
@@ -2337,7 +2337,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CRES_GARURUMON_FQID_LEN = sizeof(DMALL_CRES_GARURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CRES_GARURUMON_ID_ARR[] CONFIG_STRING_SECTION = "cres_garurumon";
     inline static constexpr const char* DMALL_CRES_GARURUMON_ID = DMALL_CRES_GARURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_CRES_GARURUMON_ID_LEN = sizeof(DMALL_CRES_GARURUMON_ID)-1;
+    inline static constexpr size_t DMALL_CRES_GARURUMON_ID_LEN = sizeof(DMALL_CRES_GARURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_CRES_GARURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cres Garurumon";
     inline static constexpr const char* DMALL_CRES_GARURUMON_NAME = DMALL_CRES_GARURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_CRES_GARURUMON_NAME_LEN = sizeof(DMALL_CRES_GARURUMON_NAME_ARR)-1;
@@ -2355,7 +2355,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CRYS_PALEDRAMON_FQID_LEN = sizeof(DMALL_CRYS_PALEDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CRYS_PALEDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "crys_paledramon";
     inline static constexpr const char* DMALL_CRYS_PALEDRAMON_ID = DMALL_CRYS_PALEDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_CRYS_PALEDRAMON_ID_LEN = sizeof(DMALL_CRYS_PALEDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_CRYS_PALEDRAMON_ID_LEN = sizeof(DMALL_CRYS_PALEDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_CRYS_PALEDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Crys Paledramon";
     inline static constexpr const char* DMALL_CRYS_PALEDRAMON_NAME = DMALL_CRYS_PALEDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_CRYS_PALEDRAMON_NAME_LEN = sizeof(DMALL_CRYS_PALEDRAMON_NAME_ARR)-1;
@@ -2373,7 +2373,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CTHYLLAMON_FQID_LEN = sizeof(DMALL_CTHYLLAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CTHYLLAMON_ID_ARR[] CONFIG_STRING_SECTION = "cthyllamon";
     inline static constexpr const char* DMALL_CTHYLLAMON_ID = DMALL_CTHYLLAMON_ID_ARR;
-    inline static constexpr size_t DMALL_CTHYLLAMON_ID_LEN = sizeof(DMALL_CTHYLLAMON_ID)-1;
+    inline static constexpr size_t DMALL_CTHYLLAMON_ID_LEN = sizeof(DMALL_CTHYLLAMON_ID_ARR)-1;
     inline static constexpr char DMALL_CTHYLLAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cthyllamon";
     inline static constexpr const char* DMALL_CTHYLLAMON_NAME = DMALL_CTHYLLAMON_NAME_ARR;
     inline static constexpr size_t DMALL_CTHYLLAMON_NAME_LEN = sizeof(DMALL_CTHYLLAMON_NAME_ARR)-1;
@@ -2391,7 +2391,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CUPIMON_FQID_LEN = sizeof(DMALL_CUPIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CUPIMON_ID_ARR[] CONFIG_STRING_SECTION = "cupimon";
     inline static constexpr const char* DMALL_CUPIMON_ID = DMALL_CUPIMON_ID_ARR;
-    inline static constexpr size_t DMALL_CUPIMON_ID_LEN = sizeof(DMALL_CUPIMON_ID)-1;
+    inline static constexpr size_t DMALL_CUPIMON_ID_LEN = sizeof(DMALL_CUPIMON_ID_ARR)-1;
     inline static constexpr char DMALL_CUPIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cupimon";
     inline static constexpr const char* DMALL_CUPIMON_NAME = DMALL_CUPIMON_NAME_ARR;
     inline static constexpr size_t DMALL_CUPIMON_NAME_LEN = sizeof(DMALL_CUPIMON_NAME_ARR)-1;
@@ -2409,7 +2409,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CURIMON_FQID_LEN = sizeof(DMALL_CURIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CURIMON_ID_ARR[] CONFIG_STRING_SECTION = "curimon";
     inline static constexpr const char* DMALL_CURIMON_ID = DMALL_CURIMON_ID_ARR;
-    inline static constexpr size_t DMALL_CURIMON_ID_LEN = sizeof(DMALL_CURIMON_ID)-1;
+    inline static constexpr size_t DMALL_CURIMON_ID_LEN = sizeof(DMALL_CURIMON_ID_ARR)-1;
     inline static constexpr char DMALL_CURIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Curimon";
     inline static constexpr const char* DMALL_CURIMON_NAME = DMALL_CURIMON_NAME_ARR;
     inline static constexpr size_t DMALL_CURIMON_NAME_LEN = sizeof(DMALL_CURIMON_NAME_ARR)-1;
@@ -2427,7 +2427,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CYBERDRAMON_FQID_LEN = sizeof(DMALL_CYBERDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CYBERDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "cyberdramon";
     inline static constexpr const char* DMALL_CYBERDRAMON_ID = DMALL_CYBERDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_CYBERDRAMON_ID_LEN = sizeof(DMALL_CYBERDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_CYBERDRAMON_ID_LEN = sizeof(DMALL_CYBERDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_CYBERDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cyberdramon";
     inline static constexpr const char* DMALL_CYBERDRAMON_NAME = DMALL_CYBERDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_CYBERDRAMON_NAME_LEN = sizeof(DMALL_CYBERDRAMON_NAME_ARR)-1;
@@ -2445,7 +2445,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CYBERDRAMON_X_FQID_LEN = sizeof(DMALL_CYBERDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_CYBERDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "cyberdramon_x";
     inline static constexpr const char* DMALL_CYBERDRAMON_X_ID = DMALL_CYBERDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_CYBERDRAMON_X_ID_LEN = sizeof(DMALL_CYBERDRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_CYBERDRAMON_X_ID_LEN = sizeof(DMALL_CYBERDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_CYBERDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Cyberdramon X";
     inline static constexpr const char* DMALL_CYBERDRAMON_X_NAME = DMALL_CYBERDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_CYBERDRAMON_X_NAME_LEN = sizeof(DMALL_CYBERDRAMON_X_NAME_ARR)-1;
@@ -2463,7 +2463,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_CYCLOMON_FQID_LEN = sizeof(DMALL_CYCLOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_CYCLOMON_ID_ARR[] CONFIG_STRING_SECTION = "cyclomon";
     inline static constexpr const char* DMALL_CYCLOMON_ID = DMALL_CYCLOMON_ID_ARR;
-    inline static constexpr size_t DMALL_CYCLOMON_ID_LEN = sizeof(DMALL_CYCLOMON_ID)-1;
+    inline static constexpr size_t DMALL_CYCLOMON_ID_LEN = sizeof(DMALL_CYCLOMON_ID_ARR)-1;
     inline static constexpr char DMALL_CYCLOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Cyclomon";
     inline static constexpr const char* DMALL_CYCLOMON_NAME = DMALL_CYCLOMON_NAME_ARR;
     inline static constexpr size_t DMALL_CYCLOMON_NAME_LEN = sizeof(DMALL_CYCLOMON_NAME_ARR)-1;
@@ -2481,7 +2481,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DAGOMON_FQID_LEN = sizeof(DMALL_DAGOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DAGOMON_ID_ARR[] CONFIG_STRING_SECTION = "dagomon";
     inline static constexpr const char* DMALL_DAGOMON_ID = DMALL_DAGOMON_ID_ARR;
-    inline static constexpr size_t DMALL_DAGOMON_ID_LEN = sizeof(DMALL_DAGOMON_ID)-1;
+    inline static constexpr size_t DMALL_DAGOMON_ID_LEN = sizeof(DMALL_DAGOMON_ID_ARR)-1;
     inline static constexpr char DMALL_DAGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dagomon";
     inline static constexpr const char* DMALL_DAGOMON_NAME = DMALL_DAGOMON_NAME_ARR;
     inline static constexpr size_t DMALL_DAGOMON_NAME_LEN = sizeof(DMALL_DAGOMON_NAME_ARR)-1;
@@ -2499,7 +2499,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DAMEMON_FQID_LEN = sizeof(DMALL_DAMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "damemon";
     inline static constexpr const char* DMALL_DAMEMON_ID = DMALL_DAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_DAMEMON_ID_LEN = sizeof(DMALL_DAMEMON_ID)-1;
+    inline static constexpr size_t DMALL_DAMEMON_ID_LEN = sizeof(DMALL_DAMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_DAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Damemon";
     inline static constexpr const char* DMALL_DAMEMON_NAME = DMALL_DAMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_DAMEMON_NAME_LEN = sizeof(DMALL_DAMEMON_NAME_ARR)-1;
@@ -2517,7 +2517,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DARKDRAMON_FQID_LEN = sizeof(DMALL_DARKDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DARKDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "darkdramon";
     inline static constexpr const char* DMALL_DARKDRAMON_ID = DMALL_DARKDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DARKDRAMON_ID_LEN = sizeof(DMALL_DARKDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_DARKDRAMON_ID_LEN = sizeof(DMALL_DARKDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DARKDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Darkdramon";
     inline static constexpr const char* DMALL_DARKDRAMON_NAME = DMALL_DARKDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DARKDRAMON_NAME_LEN = sizeof(DMALL_DARKDRAMON_NAME_ARR)-1;
@@ -2535,7 +2535,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DARK_KNIGHTMON_FQID_LEN = sizeof(DMALL_DARK_KNIGHTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DARK_KNIGHTMON_ID_ARR[] CONFIG_STRING_SECTION = "dark_knightmon";
     inline static constexpr const char* DMALL_DARK_KNIGHTMON_ID = DMALL_DARK_KNIGHTMON_ID_ARR;
-    inline static constexpr size_t DMALL_DARK_KNIGHTMON_ID_LEN = sizeof(DMALL_DARK_KNIGHTMON_ID)-1;
+    inline static constexpr size_t DMALL_DARK_KNIGHTMON_ID_LEN = sizeof(DMALL_DARK_KNIGHTMON_ID_ARR)-1;
     inline static constexpr char DMALL_DARK_KNIGHTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dark Knightmon";
     inline static constexpr const char* DMALL_DARK_KNIGHTMON_NAME = DMALL_DARK_KNIGHTMON_NAME_ARR;
     inline static constexpr size_t DMALL_DARK_KNIGHTMON_NAME_LEN = sizeof(DMALL_DARK_KNIGHTMON_NAME_ARR)-1;
@@ -2553,7 +2553,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DARKNESS_BAGRAMON_FQID_LEN = sizeof(DMALL_DARKNESS_BAGRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DARKNESS_BAGRAMON_ID_ARR[] CONFIG_STRING_SECTION = "darkness_bagramon";
     inline static constexpr const char* DMALL_DARKNESS_BAGRAMON_ID = DMALL_DARKNESS_BAGRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DARKNESS_BAGRAMON_ID_LEN = sizeof(DMALL_DARKNESS_BAGRAMON_ID)-1;
+    inline static constexpr size_t DMALL_DARKNESS_BAGRAMON_ID_LEN = sizeof(DMALL_DARKNESS_BAGRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DARKNESS_BAGRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Darkness Bagramon";
     inline static constexpr const char* DMALL_DARKNESS_BAGRAMON_NAME = DMALL_DARKNESS_BAGRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DARKNESS_BAGRAMON_NAME_LEN = sizeof(DMALL_DARKNESS_BAGRAMON_NAME_ARR)-1;
@@ -2571,7 +2571,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DARK_SUPERSTARMON_FQID_LEN = sizeof(DMALL_DARK_SUPERSTARMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DARK_SUPERSTARMON_ID_ARR[] CONFIG_STRING_SECTION = "dark_superstarmon";
     inline static constexpr const char* DMALL_DARK_SUPERSTARMON_ID = DMALL_DARK_SUPERSTARMON_ID_ARR;
-    inline static constexpr size_t DMALL_DARK_SUPERSTARMON_ID_LEN = sizeof(DMALL_DARK_SUPERSTARMON_ID)-1;
+    inline static constexpr size_t DMALL_DARK_SUPERSTARMON_ID_LEN = sizeof(DMALL_DARK_SUPERSTARMON_ID_ARR)-1;
     inline static constexpr char DMALL_DARK_SUPERSTARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dark Superstarmon";
     inline static constexpr const char* DMALL_DARK_SUPERSTARMON_NAME = DMALL_DARK_SUPERSTARMON_NAME_ARR;
     inline static constexpr size_t DMALL_DARK_SUPERSTARMON_NAME_LEN = sizeof(DMALL_DARK_SUPERSTARMON_NAME_ARR)-1;
@@ -2589,7 +2589,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DARK_TYRANOMON_X_FQID_LEN = sizeof(DMALL_DARK_TYRANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_DARK_TYRANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dark_tyranomon_x";
     inline static constexpr const char* DMALL_DARK_TYRANOMON_X_ID = DMALL_DARK_TYRANOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_DARK_TYRANOMON_X_ID_LEN = sizeof(DMALL_DARK_TYRANOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_DARK_TYRANOMON_X_ID_LEN = sizeof(DMALL_DARK_TYRANOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_DARK_TYRANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dark Tyranomon X";
     inline static constexpr const char* DMALL_DARK_TYRANOMON_X_NAME = DMALL_DARK_TYRANOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_DARK_TYRANOMON_X_NAME_LEN = sizeof(DMALL_DARK_TYRANOMON_X_NAME_ARR)-1;
@@ -2607,7 +2607,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DEATH_MERAMON_FQID_LEN = sizeof(DMALL_DEATH_MERAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DEATH_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "death_meramon";
     inline static constexpr const char* DMALL_DEATH_MERAMON_ID = DMALL_DEATH_MERAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DEATH_MERAMON_ID_LEN = sizeof(DMALL_DEATH_MERAMON_ID)-1;
+    inline static constexpr size_t DMALL_DEATH_MERAMON_ID_LEN = sizeof(DMALL_DEATH_MERAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DEATH_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Death Meramon";
     inline static constexpr const char* DMALL_DEATH_MERAMON_NAME = DMALL_DEATH_MERAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DEATH_MERAMON_NAME_LEN = sizeof(DMALL_DEATH_MERAMON_NAME_ARR)-1;
@@ -2625,7 +2625,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DEATHMON_BLACK_FQID_LEN = sizeof(DMALL_DEATHMON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_DEATHMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "deathmon_black";
     inline static constexpr const char* DMALL_DEATHMON_BLACK_ID = DMALL_DEATHMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_DEATHMON_BLACK_ID_LEN = sizeof(DMALL_DEATHMON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_DEATHMON_BLACK_ID_LEN = sizeof(DMALL_DEATHMON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_DEATHMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "Deathmon (Black)";
     inline static constexpr const char* DMALL_DEATHMON_BLACK_NAME = DMALL_DEATHMON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_DEATHMON_BLACK_NAME_LEN = sizeof(DMALL_DEATHMON_BLACK_NAME_ARR)-1;
@@ -2643,7 +2643,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DEATHMON_FQID_LEN = sizeof(DMALL_DEATHMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DEATHMON_ID_ARR[] CONFIG_STRING_SECTION = "deathmon";
     inline static constexpr const char* DMALL_DEATHMON_ID = DMALL_DEATHMON_ID_ARR;
-    inline static constexpr size_t DMALL_DEATHMON_ID_LEN = sizeof(DMALL_DEATHMON_ID)-1;
+    inline static constexpr size_t DMALL_DEATHMON_ID_LEN = sizeof(DMALL_DEATHMON_ID_ARR)-1;
     inline static constexpr char DMALL_DEATHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Deathmon";
     inline static constexpr const char* DMALL_DEATHMON_NAME = DMALL_DEATHMON_NAME_ARR;
     inline static constexpr size_t DMALL_DEATHMON_NAME_LEN = sizeof(DMALL_DEATHMON_NAME_ARR)-1;
@@ -2661,7 +2661,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DEATH_X_DORUGAMON_FQID_LEN = sizeof(DMALL_DEATH_X_DORUGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DEATH_X_DORUGAMON_ID_ARR[] CONFIG_STRING_SECTION = "death_x_dorugamon";
     inline static constexpr const char* DMALL_DEATH_X_DORUGAMON_ID = DMALL_DEATH_X_DORUGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DEATH_X_DORUGAMON_ID_LEN = sizeof(DMALL_DEATH_X_DORUGAMON_ID)-1;
+    inline static constexpr size_t DMALL_DEATH_X_DORUGAMON_ID_LEN = sizeof(DMALL_DEATH_X_DORUGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DEATH_X_DORUGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Death-X-DORUgamon";
     inline static constexpr const char* DMALL_DEATH_X_DORUGAMON_NAME = DMALL_DEATH_X_DORUGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DEATH_X_DORUGAMON_NAME_LEN = sizeof(DMALL_DEATH_X_DORUGAMON_NAME_ARR)-1;
@@ -2679,7 +2679,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DELUMON_FQID_LEN = sizeof(DMALL_DELUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DELUMON_ID_ARR[] CONFIG_STRING_SECTION = "delumon";
     inline static constexpr const char* DMALL_DELUMON_ID = DMALL_DELUMON_ID_ARR;
-    inline static constexpr size_t DMALL_DELUMON_ID_LEN = sizeof(DMALL_DELUMON_ID)-1;
+    inline static constexpr size_t DMALL_DELUMON_ID_LEN = sizeof(DMALL_DELUMON_ID_ARR)-1;
     inline static constexpr char DMALL_DELUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Delumon";
     inline static constexpr const char* DMALL_DELUMON_NAME = DMALL_DELUMON_NAME_ARR;
     inline static constexpr size_t DMALL_DELUMON_NAME_LEN = sizeof(DMALL_DELUMON_NAME_ARR)-1;
@@ -2697,7 +2697,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DEMON_FQID_LEN = sizeof(DMALL_DEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DEMON_ID_ARR[] CONFIG_STRING_SECTION = "demon";
     inline static constexpr const char* DMALL_DEMON_ID = DMALL_DEMON_ID_ARR;
-    inline static constexpr size_t DMALL_DEMON_ID_LEN = sizeof(DMALL_DEMON_ID)-1;
+    inline static constexpr size_t DMALL_DEMON_ID_LEN = sizeof(DMALL_DEMON_ID_ARR)-1;
     inline static constexpr char DMALL_DEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Demon";
     inline static constexpr const char* DMALL_DEMON_NAME = DMALL_DEMON_NAME_ARR;
     inline static constexpr size_t DMALL_DEMON_NAME_LEN = sizeof(DMALL_DEMON_NAME_ARR)-1;
@@ -2715,7 +2715,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DEMON_X_FQID_LEN = sizeof(DMALL_DEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_DEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "demon_x";
     inline static constexpr const char* DMALL_DEMON_X_ID = DMALL_DEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_DEMON_X_ID_LEN = sizeof(DMALL_DEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_DEMON_X_ID_LEN = sizeof(DMALL_DEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_DEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Demon X";
     inline static constexpr const char* DMALL_DEMON_X_NAME = DMALL_DEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_DEMON_X_NAME_LEN = sizeof(DMALL_DEMON_X_NAME_ARR)-1;
@@ -2733,7 +2733,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DEVIMON_FQID_LEN = sizeof(DMALL_DEVIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "devimon";
     inline static constexpr const char* DMALL_DEVIMON_ID = DMALL_DEVIMON_ID_ARR;
-    inline static constexpr size_t DMALL_DEVIMON_ID_LEN = sizeof(DMALL_DEVIMON_ID)-1;
+    inline static constexpr size_t DMALL_DEVIMON_ID_LEN = sizeof(DMALL_DEVIMON_ID_ARR)-1;
     inline static constexpr char DMALL_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Devimon";
     inline static constexpr const char* DMALL_DEVIMON_NAME = DMALL_DEVIMON_NAME_ARR;
     inline static constexpr size_t DMALL_DEVIMON_NAME_LEN = sizeof(DMALL_DEVIMON_NAME_ARR)-1;
@@ -2751,7 +2751,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DIABLOMON_FQID_LEN = sizeof(DMALL_DIABLOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DIABLOMON_ID_ARR[] CONFIG_STRING_SECTION = "diablomon";
     inline static constexpr const char* DMALL_DIABLOMON_ID = DMALL_DIABLOMON_ID_ARR;
-    inline static constexpr size_t DMALL_DIABLOMON_ID_LEN = sizeof(DMALL_DIABLOMON_ID)-1;
+    inline static constexpr size_t DMALL_DIABLOMON_ID_LEN = sizeof(DMALL_DIABLOMON_ID_ARR)-1;
     inline static constexpr char DMALL_DIABLOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Diablomon";
     inline static constexpr const char* DMALL_DIABLOMON_NAME = DMALL_DIABLOMON_NAME_ARR;
     inline static constexpr size_t DMALL_DIABLOMON_NAME_LEN = sizeof(DMALL_DIABLOMON_NAME_ARR)-1;
@@ -2769,7 +2769,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DIABLOMON_X_FQID_LEN = sizeof(DMALL_DIABLOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_DIABLOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "diablomon_x";
     inline static constexpr const char* DMALL_DIABLOMON_X_ID = DMALL_DIABLOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_DIABLOMON_X_ID_LEN = sizeof(DMALL_DIABLOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_DIABLOMON_X_ID_LEN = sizeof(DMALL_DIABLOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_DIABLOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Diablomon X";
     inline static constexpr const char* DMALL_DIABLOMON_X_NAME = DMALL_DIABLOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_DIABLOMON_X_NAME_LEN = sizeof(DMALL_DIABLOMON_X_NAME_ARR)-1;
@@ -2787,7 +2787,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DIANAMON_FQID_LEN = sizeof(DMALL_DIANAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DIANAMON_ID_ARR[] CONFIG_STRING_SECTION = "dianamon";
     inline static constexpr const char* DMALL_DIANAMON_ID = DMALL_DIANAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DIANAMON_ID_LEN = sizeof(DMALL_DIANAMON_ID)-1;
+    inline static constexpr size_t DMALL_DIANAMON_ID_LEN = sizeof(DMALL_DIANAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DIANAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dianamon";
     inline static constexpr const char* DMALL_DIANAMON_NAME = DMALL_DIANAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DIANAMON_NAME_LEN = sizeof(DMALL_DIANAMON_NAME_ARR)-1;
@@ -2805,7 +2805,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DIGINORIMON_FQID_LEN = sizeof(DMALL_DIGINORIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DIGINORIMON_ID_ARR[] CONFIG_STRING_SECTION = "diginorimon";
     inline static constexpr const char* DMALL_DIGINORIMON_ID = DMALL_DIGINORIMON_ID_ARR;
-    inline static constexpr size_t DMALL_DIGINORIMON_ID_LEN = sizeof(DMALL_DIGINORIMON_ID)-1;
+    inline static constexpr size_t DMALL_DIGINORIMON_ID_LEN = sizeof(DMALL_DIGINORIMON_ID_ARR)-1;
     inline static constexpr char DMALL_DIGINORIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Diginorimon";
     inline static constexpr const char* DMALL_DIGINORIMON_NAME = DMALL_DIGINORIMON_NAME_ARR;
     inline static constexpr size_t DMALL_DIGINORIMON_NAME_LEN = sizeof(DMALL_DIGINORIMON_NAME_ARR)-1;
@@ -2823,7 +2823,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DIGITAMAMON_FQID_LEN = sizeof(DMALL_DIGITAMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DIGITAMAMON_ID_ARR[] CONFIG_STRING_SECTION = "digitamamon";
     inline static constexpr const char* DMALL_DIGITAMAMON_ID = DMALL_DIGITAMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DIGITAMAMON_ID_LEN = sizeof(DMALL_DIGITAMAMON_ID)-1;
+    inline static constexpr size_t DMALL_DIGITAMAMON_ID_LEN = sizeof(DMALL_DIGITAMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DIGITAMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Digitamamon";
     inline static constexpr const char* DMALL_DIGITAMAMON_NAME = DMALL_DIGITAMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DIGITAMAMON_NAME_LEN = sizeof(DMALL_DIGITAMAMON_NAME_ARR)-1;
@@ -2841,7 +2841,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DINOHUMON_FQID_LEN = sizeof(DMALL_DINOHUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DINOHUMON_ID_ARR[] CONFIG_STRING_SECTION = "dinohumon";
     inline static constexpr const char* DMALL_DINOHUMON_ID = DMALL_DINOHUMON_ID_ARR;
-    inline static constexpr size_t DMALL_DINOHUMON_ID_LEN = sizeof(DMALL_DINOHUMON_ID)-1;
+    inline static constexpr size_t DMALL_DINOHUMON_ID_LEN = sizeof(DMALL_DINOHUMON_ID_ARR)-1;
     inline static constexpr char DMALL_DINOHUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dinohumon";
     inline static constexpr const char* DMALL_DINOHUMON_NAME = DMALL_DINOHUMON_NAME_ARR;
     inline static constexpr size_t DMALL_DINOHUMON_NAME_LEN = sizeof(DMALL_DINOHUMON_NAME_ARR)-1;
@@ -2859,7 +2859,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DINOREXMON_FQID_LEN = sizeof(DMALL_DINOREXMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DINOREXMON_ID_ARR[] CONFIG_STRING_SECTION = "dinorexmon";
     inline static constexpr const char* DMALL_DINOREXMON_ID = DMALL_DINOREXMON_ID_ARR;
-    inline static constexpr size_t DMALL_DINOREXMON_ID_LEN = sizeof(DMALL_DINOREXMON_ID)-1;
+    inline static constexpr size_t DMALL_DINOREXMON_ID_LEN = sizeof(DMALL_DINOREXMON_ID_ARR)-1;
     inline static constexpr char DMALL_DINOREXMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dinorexmon";
     inline static constexpr const char* DMALL_DINOREXMON_NAME = DMALL_DINOREXMON_NAME_ARR;
     inline static constexpr size_t DMALL_DINOREXMON_NAME_LEN = sizeof(DMALL_DINOREXMON_NAME_ARR)-1;
@@ -2877,7 +2877,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DINOTIGERMON_FQID_LEN = sizeof(DMALL_DINOTIGERMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DINOTIGERMON_ID_ARR[] CONFIG_STRING_SECTION = "dinotigermon";
     inline static constexpr const char* DMALL_DINOTIGERMON_ID = DMALL_DINOTIGERMON_ID_ARR;
-    inline static constexpr size_t DMALL_DINOTIGERMON_ID_LEN = sizeof(DMALL_DINOTIGERMON_ID)-1;
+    inline static constexpr size_t DMALL_DINOTIGERMON_ID_LEN = sizeof(DMALL_DINOTIGERMON_ID_ARR)-1;
     inline static constexpr char DMALL_DINOTIGERMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dinotigermon";
     inline static constexpr const char* DMALL_DINOTIGERMON_NAME = DMALL_DINOTIGERMON_NAME_ARR;
     inline static constexpr size_t DMALL_DINOTIGERMON_NAME_LEN = sizeof(DMALL_DINOTIGERMON_NAME_ARR)-1;
@@ -2895,7 +2895,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DOBERMON_FQID_LEN = sizeof(DMALL_DOBERMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DOBERMON_ID_ARR[] CONFIG_STRING_SECTION = "dobermon";
     inline static constexpr const char* DMALL_DOBERMON_ID = DMALL_DOBERMON_ID_ARR;
-    inline static constexpr size_t DMALL_DOBERMON_ID_LEN = sizeof(DMALL_DOBERMON_ID)-1;
+    inline static constexpr size_t DMALL_DOBERMON_ID_LEN = sizeof(DMALL_DOBERMON_ID_ARR)-1;
     inline static constexpr char DMALL_DOBERMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dobermon";
     inline static constexpr const char* DMALL_DOBERMON_NAME = DMALL_DOBERMON_NAME_ARR;
     inline static constexpr size_t DMALL_DOBERMON_NAME_LEN = sizeof(DMALL_DOBERMON_NAME_ARR)-1;
@@ -2913,7 +2913,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DODOMON_FQID_LEN = sizeof(DMALL_DODOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DODOMON_ID_ARR[] CONFIG_STRING_SECTION = "dodomon";
     inline static constexpr const char* DMALL_DODOMON_ID = DMALL_DODOMON_ID_ARR;
-    inline static constexpr size_t DMALL_DODOMON_ID_LEN = sizeof(DMALL_DODOMON_ID)-1;
+    inline static constexpr size_t DMALL_DODOMON_ID_LEN = sizeof(DMALL_DODOMON_ID_ARR)-1;
     inline static constexpr char DMALL_DODOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dodomon";
     inline static constexpr const char* DMALL_DODOMON_NAME = DMALL_DODOMON_NAME_ARR;
     inline static constexpr size_t DMALL_DODOMON_NAME_LEN = sizeof(DMALL_DODOMON_NAME_ARR)-1;
@@ -2931,7 +2931,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DOGMON_FQID_LEN = sizeof(DMALL_DOGMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DOGMON_ID_ARR[] CONFIG_STRING_SECTION = "dogmon";
     inline static constexpr const char* DMALL_DOGMON_ID = DMALL_DOGMON_ID_ARR;
-    inline static constexpr size_t DMALL_DOGMON_ID_LEN = sizeof(DMALL_DOGMON_ID)-1;
+    inline static constexpr size_t DMALL_DOGMON_ID_LEN = sizeof(DMALL_DOGMON_ID_ARR)-1;
     inline static constexpr char DMALL_DOGMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dogmon";
     inline static constexpr const char* DMALL_DOGMON_NAME = DMALL_DOGMON_NAME_ARR;
     inline static constexpr size_t DMALL_DOGMON_NAME_LEN = sizeof(DMALL_DOGMON_NAME_ARR)-1;
@@ -2949,7 +2949,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DOKIMON_FQID_LEN = sizeof(DMALL_DOKIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DOKIMON_ID_ARR[] CONFIG_STRING_SECTION = "dokimon";
     inline static constexpr const char* DMALL_DOKIMON_ID = DMALL_DOKIMON_ID_ARR;
-    inline static constexpr size_t DMALL_DOKIMON_ID_LEN = sizeof(DMALL_DOKIMON_ID)-1;
+    inline static constexpr size_t DMALL_DOKIMON_ID_LEN = sizeof(DMALL_DOKIMON_ID_ARR)-1;
     inline static constexpr char DMALL_DOKIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dokimon";
     inline static constexpr const char* DMALL_DOKIMON_NAME = DMALL_DOKIMON_NAME_ARR;
     inline static constexpr size_t DMALL_DOKIMON_NAME_LEN = sizeof(DMALL_DOKIMON_NAME_ARR)-1;
@@ -2967,7 +2967,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DOKUGUMON_FQID_LEN = sizeof(DMALL_DOKUGUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DOKUGUMON_ID_ARR[] CONFIG_STRING_SECTION = "dokugumon";
     inline static constexpr const char* DMALL_DOKUGUMON_ID = DMALL_DOKUGUMON_ID_ARR;
-    inline static constexpr size_t DMALL_DOKUGUMON_ID_LEN = sizeof(DMALL_DOKUGUMON_ID)-1;
+    inline static constexpr size_t DMALL_DOKUGUMON_ID_LEN = sizeof(DMALL_DOKUGUMON_ID_ARR)-1;
     inline static constexpr char DMALL_DOKUGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dokugumon";
     inline static constexpr const char* DMALL_DOKUGUMON_NAME = DMALL_DOKUGUMON_NAME_ARR;
     inline static constexpr size_t DMALL_DOKUGUMON_NAME_LEN = sizeof(DMALL_DOKUGUMON_NAME_ARR)-1;
@@ -2985,7 +2985,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DOKUNEMON_FQID_LEN = sizeof(DMALL_DOKUNEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DOKUNEMON_ID_ARR[] CONFIG_STRING_SECTION = "dokunemon";
     inline static constexpr const char* DMALL_DOKUNEMON_ID = DMALL_DOKUNEMON_ID_ARR;
-    inline static constexpr size_t DMALL_DOKUNEMON_ID_LEN = sizeof(DMALL_DOKUNEMON_ID)-1;
+    inline static constexpr size_t DMALL_DOKUNEMON_ID_LEN = sizeof(DMALL_DOKUNEMON_ID_ARR)-1;
     inline static constexpr char DMALL_DOKUNEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dokunemon";
     inline static constexpr const char* DMALL_DOKUNEMON_NAME = DMALL_DOKUNEMON_NAME_ARR;
     inline static constexpr size_t DMALL_DOKUNEMON_NAME_LEN = sizeof(DMALL_DOKUNEMON_NAME_ARR)-1;
@@ -3003,7 +3003,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DORIMON_FQID_LEN = sizeof(DMALL_DORIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DORIMON_ID_ARR[] CONFIG_STRING_SECTION = "dorimon";
     inline static constexpr const char* DMALL_DORIMON_ID = DMALL_DORIMON_ID_ARR;
-    inline static constexpr size_t DMALL_DORIMON_ID_LEN = sizeof(DMALL_DORIMON_ID)-1;
+    inline static constexpr size_t DMALL_DORIMON_ID_LEN = sizeof(DMALL_DORIMON_ID_ARR)-1;
     inline static constexpr char DMALL_DORIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dorimon";
     inline static constexpr const char* DMALL_DORIMON_NAME = DMALL_DORIMON_NAME_ARR;
     inline static constexpr size_t DMALL_DORIMON_NAME_LEN = sizeof(DMALL_DORIMON_NAME_ARR)-1;
@@ -3021,7 +3021,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DORUGAMON_FQID_LEN = sizeof(DMALL_DORUGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DORUGAMON_ID_ARR[] CONFIG_STRING_SECTION = "dorugamon";
     inline static constexpr const char* DMALL_DORUGAMON_ID = DMALL_DORUGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DORUGAMON_ID_LEN = sizeof(DMALL_DORUGAMON_ID)-1;
+    inline static constexpr size_t DMALL_DORUGAMON_ID_LEN = sizeof(DMALL_DORUGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DORUGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUgamon";
     inline static constexpr const char* DMALL_DORUGAMON_NAME = DMALL_DORUGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DORUGAMON_NAME_LEN = sizeof(DMALL_DORUGAMON_NAME_ARR)-1;
@@ -3039,7 +3039,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DORUGORAMON_FQID_LEN = sizeof(DMALL_DORUGORAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DORUGORAMON_ID_ARR[] CONFIG_STRING_SECTION = "dorugoramon";
     inline static constexpr const char* DMALL_DORUGORAMON_ID = DMALL_DORUGORAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DORUGORAMON_ID_LEN = sizeof(DMALL_DORUGORAMON_ID)-1;
+    inline static constexpr size_t DMALL_DORUGORAMON_ID_LEN = sizeof(DMALL_DORUGORAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DORUGORAMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUgoramon";
     inline static constexpr const char* DMALL_DORUGORAMON_NAME = DMALL_DORUGORAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DORUGORAMON_NAME_LEN = sizeof(DMALL_DORUGORAMON_NAME_ARR)-1;
@@ -3057,7 +3057,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DORUGUREMON_FQID_LEN = sizeof(DMALL_DORUGUREMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DORUGUREMON_ID_ARR[] CONFIG_STRING_SECTION = "doruguremon";
     inline static constexpr const char* DMALL_DORUGUREMON_ID = DMALL_DORUGUREMON_ID_ARR;
-    inline static constexpr size_t DMALL_DORUGUREMON_ID_LEN = sizeof(DMALL_DORUGUREMON_ID)-1;
+    inline static constexpr size_t DMALL_DORUGUREMON_ID_LEN = sizeof(DMALL_DORUGUREMON_ID_ARR)-1;
     inline static constexpr char DMALL_DORUGUREMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUguremon";
     inline static constexpr const char* DMALL_DORUGUREMON_NAME = DMALL_DORUGUREMON_NAME_ARR;
     inline static constexpr size_t DMALL_DORUGUREMON_NAME_LEN = sizeof(DMALL_DORUGUREMON_NAME_ARR)-1;
@@ -3075,7 +3075,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DORUMON_FQID_LEN = sizeof(DMALL_DORUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DORUMON_ID_ARR[] CONFIG_STRING_SECTION = "dorumon";
     inline static constexpr const char* DMALL_DORUMON_ID = DMALL_DORUMON_ID_ARR;
-    inline static constexpr size_t DMALL_DORUMON_ID_LEN = sizeof(DMALL_DORUMON_ID)-1;
+    inline static constexpr size_t DMALL_DORUMON_ID_LEN = sizeof(DMALL_DORUMON_ID_ARR)-1;
     inline static constexpr char DMALL_DORUMON_NAME_ARR[] CONFIG_STRING_SECTION = "DORUmon";
     inline static constexpr const char* DMALL_DORUMON_NAME = DMALL_DORUMON_NAME_ARR;
     inline static constexpr size_t DMALL_DORUMON_NAME_LEN = sizeof(DMALL_DORUMON_NAME_ARR)-1;
@@ -3093,7 +3093,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DRACOMON_X_FQID_LEN = sizeof(DMALL_DRACOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_DRACOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dracomon_x";
     inline static constexpr const char* DMALL_DRACOMON_X_ID = DMALL_DRACOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_DRACOMON_X_ID_LEN = sizeof(DMALL_DRACOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_DRACOMON_X_ID_LEN = sizeof(DMALL_DRACOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_DRACOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dracomon X";
     inline static constexpr const char* DMALL_DRACOMON_X_NAME = DMALL_DRACOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_DRACOMON_X_NAME_LEN = sizeof(DMALL_DRACOMON_X_NAME_ARR)-1;
@@ -3111,7 +3111,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DRACUMON_FQID_LEN = sizeof(DMALL_DRACUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DRACUMON_ID_ARR[] CONFIG_STRING_SECTION = "dracumon";
     inline static constexpr const char* DMALL_DRACUMON_ID = DMALL_DRACUMON_ID_ARR;
-    inline static constexpr size_t DMALL_DRACUMON_ID_LEN = sizeof(DMALL_DRACUMON_ID)-1;
+    inline static constexpr size_t DMALL_DRACUMON_ID_LEN = sizeof(DMALL_DRACUMON_ID_ARR)-1;
     inline static constexpr char DMALL_DRACUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dracumon";
     inline static constexpr const char* DMALL_DRACUMON_NAME = DMALL_DRACUMON_NAME_ARR;
     inline static constexpr size_t DMALL_DRACUMON_NAME_LEN = sizeof(DMALL_DRACUMON_NAME_ARR)-1;
@@ -3129,7 +3129,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DRIMOGEMON_FQID_LEN = sizeof(DMALL_DRIMOGEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DRIMOGEMON_ID_ARR[] CONFIG_STRING_SECTION = "drimogemon";
     inline static constexpr const char* DMALL_DRIMOGEMON_ID = DMALL_DRIMOGEMON_ID_ARR;
-    inline static constexpr size_t DMALL_DRIMOGEMON_ID_LEN = sizeof(DMALL_DRIMOGEMON_ID)-1;
+    inline static constexpr size_t DMALL_DRIMOGEMON_ID_LEN = sizeof(DMALL_DRIMOGEMON_ID_ARR)-1;
     inline static constexpr char DMALL_DRIMOGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Drimogemon";
     inline static constexpr const char* DMALL_DRIMOGEMON_NAME = DMALL_DRIMOGEMON_NAME_ARR;
     inline static constexpr size_t DMALL_DRIMOGEMON_NAME_LEN = sizeof(DMALL_DRIMOGEMON_NAME_ARR)-1;
@@ -3147,7 +3147,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DUFTMON_FQID_LEN = sizeof(DMALL_DUFTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DUFTMON_ID_ARR[] CONFIG_STRING_SECTION = "duftmon";
     inline static constexpr const char* DMALL_DUFTMON_ID = DMALL_DUFTMON_ID_ARR;
-    inline static constexpr size_t DMALL_DUFTMON_ID_LEN = sizeof(DMALL_DUFTMON_ID)-1;
+    inline static constexpr size_t DMALL_DUFTMON_ID_LEN = sizeof(DMALL_DUFTMON_ID_ARR)-1;
     inline static constexpr char DMALL_DUFTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Duftmon";
     inline static constexpr const char* DMALL_DUFTMON_NAME = DMALL_DUFTMON_NAME_ARR;
     inline static constexpr size_t DMALL_DUFTMON_NAME_LEN = sizeof(DMALL_DUFTMON_NAME_ARR)-1;
@@ -3165,7 +3165,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DUFTMON_X_FQID_LEN = sizeof(DMALL_DUFTMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_DUFTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "duftmon_x";
     inline static constexpr const char* DMALL_DUFTMON_X_ID = DMALL_DUFTMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_DUFTMON_X_ID_LEN = sizeof(DMALL_DUFTMON_X_ID)-1;
+    inline static constexpr size_t DMALL_DUFTMON_X_ID_LEN = sizeof(DMALL_DUFTMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_DUFTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Duftmon X";
     inline static constexpr const char* DMALL_DUFTMON_X_NAME = DMALL_DUFTMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_DUFTMON_X_NAME_LEN = sizeof(DMALL_DUFTMON_X_NAME_ARR)-1;
@@ -3183,7 +3183,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DUKEMON_FQID_LEN = sizeof(DMALL_DUKEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DUKEMON_ID_ARR[] CONFIG_STRING_SECTION = "dukemon";
     inline static constexpr const char* DMALL_DUKEMON_ID = DMALL_DUKEMON_ID_ARR;
-    inline static constexpr size_t DMALL_DUKEMON_ID_LEN = sizeof(DMALL_DUKEMON_ID)-1;
+    inline static constexpr size_t DMALL_DUKEMON_ID_LEN = sizeof(DMALL_DUKEMON_ID_ARR)-1;
     inline static constexpr char DMALL_DUKEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Dukemon";
     inline static constexpr const char* DMALL_DUKEMON_NAME = DMALL_DUKEMON_NAME_ARR;
     inline static constexpr size_t DMALL_DUKEMON_NAME_LEN = sizeof(DMALL_DUKEMON_NAME_ARR)-1;
@@ -3201,7 +3201,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DUKEMON_X_FQID_LEN = sizeof(DMALL_DUKEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_DUKEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dukemon_x";
     inline static constexpr const char* DMALL_DUKEMON_X_ID = DMALL_DUKEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_DUKEMON_X_ID_LEN = sizeof(DMALL_DUKEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_DUKEMON_X_ID_LEN = sizeof(DMALL_DUKEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_DUKEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dukemon X";
     inline static constexpr const char* DMALL_DUKEMON_X_NAME = DMALL_DUKEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_DUKEMON_X_NAME_LEN = sizeof(DMALL_DUKEMON_X_NAME_ARR)-1;
@@ -3219,7 +3219,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DURAMON_FQID_LEN = sizeof(DMALL_DURAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DURAMON_ID_ARR[] CONFIG_STRING_SECTION = "duramon";
     inline static constexpr const char* DMALL_DURAMON_ID = DMALL_DURAMON_ID_ARR;
-    inline static constexpr size_t DMALL_DURAMON_ID_LEN = sizeof(DMALL_DURAMON_ID)-1;
+    inline static constexpr size_t DMALL_DURAMON_ID_LEN = sizeof(DMALL_DURAMON_ID_ARR)-1;
     inline static constexpr char DMALL_DURAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Duramon";
     inline static constexpr const char* DMALL_DURAMON_NAME = DMALL_DURAMON_NAME_ARR;
     inline static constexpr size_t DMALL_DURAMON_NAME_LEN = sizeof(DMALL_DURAMON_NAME_ARR)-1;
@@ -3237,7 +3237,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DUSKMON_FQID_LEN = sizeof(DMALL_DUSKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_DUSKMON_ID_ARR[] CONFIG_STRING_SECTION = "duskmon";
     inline static constexpr const char* DMALL_DUSKMON_ID = DMALL_DUSKMON_ID_ARR;
-    inline static constexpr size_t DMALL_DUSKMON_ID_LEN = sizeof(DMALL_DUSKMON_ID)-1;
+    inline static constexpr size_t DMALL_DUSKMON_ID_LEN = sizeof(DMALL_DUSKMON_ID_ARR)-1;
     inline static constexpr char DMALL_DUSKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Duskmon";
     inline static constexpr const char* DMALL_DUSKMON_NAME = DMALL_DUSKMON_NAME_ARR;
     inline static constexpr size_t DMALL_DUSKMON_NAME_LEN = sizeof(DMALL_DUSKMON_NAME_ARR)-1;
@@ -3255,7 +3255,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_DYNASMON_X_FQID_LEN = sizeof(DMALL_DYNASMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_DYNASMON_X_ID_ARR[] CONFIG_STRING_SECTION = "dynasmon_x";
     inline static constexpr const char* DMALL_DYNASMON_X_ID = DMALL_DYNASMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_DYNASMON_X_ID_LEN = sizeof(DMALL_DYNASMON_X_ID)-1;
+    inline static constexpr size_t DMALL_DYNASMON_X_ID_LEN = sizeof(DMALL_DYNASMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_DYNASMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Dynasmon X";
     inline static constexpr const char* DMALL_DYNASMON_X_NAME = DMALL_DYNASMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_DYNASMON_X_NAME_LEN = sizeof(DMALL_DYNASMON_X_NAME_ARR)-1;
@@ -3273,7 +3273,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_EBEMON_FQID_LEN = sizeof(DMALL_EBEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_EBEMON_ID_ARR[] CONFIG_STRING_SECTION = "ebemon";
     inline static constexpr const char* DMALL_EBEMON_ID = DMALL_EBEMON_ID_ARR;
-    inline static constexpr size_t DMALL_EBEMON_ID_LEN = sizeof(DMALL_EBEMON_ID)-1;
+    inline static constexpr size_t DMALL_EBEMON_ID_LEN = sizeof(DMALL_EBEMON_ID_ARR)-1;
     inline static constexpr char DMALL_EBEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ebemon";
     inline static constexpr const char* DMALL_EBEMON_NAME = DMALL_EBEMON_NAME_ARR;
     inline static constexpr size_t DMALL_EBEMON_NAME_LEN = sizeof(DMALL_EBEMON_NAME_ARR)-1;
@@ -3291,7 +3291,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_EBEMON_X_FQID_LEN = sizeof(DMALL_EBEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_EBEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ebemon_x";
     inline static constexpr const char* DMALL_EBEMON_X_ID = DMALL_EBEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_EBEMON_X_ID_LEN = sizeof(DMALL_EBEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_EBEMON_X_ID_LEN = sizeof(DMALL_EBEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_EBEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ebemon X";
     inline static constexpr const char* DMALL_EBEMON_X_NAME = DMALL_EBEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_EBEMON_X_NAME_LEN = sizeof(DMALL_EBEMON_X_NAME_ARR)-1;
@@ -3309,7 +3309,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_EBIDRAMON_FQID_LEN = sizeof(DMALL_EBIDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_EBIDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "ebidramon";
     inline static constexpr const char* DMALL_EBIDRAMON_ID = DMALL_EBIDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_EBIDRAMON_ID_LEN = sizeof(DMALL_EBIDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_EBIDRAMON_ID_LEN = sizeof(DMALL_EBIDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_EBIDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ebidramon";
     inline static constexpr const char* DMALL_EBIDRAMON_NAME = DMALL_EBIDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_EBIDRAMON_NAME_LEN = sizeof(DMALL_EBIDRAMON_NAME_ARR)-1;
@@ -3327,7 +3327,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_EKAKIMON_FQID_LEN = sizeof(DMALL_EKAKIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_EKAKIMON_ID_ARR[] CONFIG_STRING_SECTION = "ekakimon";
     inline static constexpr const char* DMALL_EKAKIMON_ID = DMALL_EKAKIMON_ID_ARR;
-    inline static constexpr size_t DMALL_EKAKIMON_ID_LEN = sizeof(DMALL_EKAKIMON_ID)-1;
+    inline static constexpr size_t DMALL_EKAKIMON_ID_LEN = sizeof(DMALL_EKAKIMON_ID_ARR)-1;
     inline static constexpr char DMALL_EKAKIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ekakimon";
     inline static constexpr const char* DMALL_EKAKIMON_NAME = DMALL_EKAKIMON_NAME_ARR;
     inline static constexpr size_t DMALL_EKAKIMON_NAME_LEN = sizeof(DMALL_EKAKIMON_NAME_ARR)-1;
@@ -3345,7 +3345,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ELECMON_FQID_LEN = sizeof(DMALL_ELECMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ELECMON_ID_ARR[] CONFIG_STRING_SECTION = "elecmon";
     inline static constexpr const char* DMALL_ELECMON_ID = DMALL_ELECMON_ID_ARR;
-    inline static constexpr size_t DMALL_ELECMON_ID_LEN = sizeof(DMALL_ELECMON_ID)-1;
+    inline static constexpr size_t DMALL_ELECMON_ID_LEN = sizeof(DMALL_ELECMON_ID_ARR)-1;
     inline static constexpr char DMALL_ELECMON_NAME_ARR[] CONFIG_STRING_SECTION = "Elecmon";
     inline static constexpr const char* DMALL_ELECMON_NAME = DMALL_ELECMON_NAME_ARR;
     inline static constexpr size_t DMALL_ELECMON_NAME_LEN = sizeof(DMALL_ELECMON_NAME_ARR)-1;
@@ -3363,7 +3363,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ELECMON_VIOLET_FQID_LEN = sizeof(DMALL_ELECMON_VIOLET_FQID_ARR)-1;
     inline static constexpr char DMALL_ELECMON_VIOLET_ID_ARR[] CONFIG_STRING_SECTION = "elecmon_violet";
     inline static constexpr const char* DMALL_ELECMON_VIOLET_ID = DMALL_ELECMON_VIOLET_ID_ARR;
-    inline static constexpr size_t DMALL_ELECMON_VIOLET_ID_LEN = sizeof(DMALL_ELECMON_VIOLET_ID)-1;
+    inline static constexpr size_t DMALL_ELECMON_VIOLET_ID_LEN = sizeof(DMALL_ELECMON_VIOLET_ID_ARR)-1;
     inline static constexpr char DMALL_ELECMON_VIOLET_NAME_ARR[] CONFIG_STRING_SECTION = "Elecmon (Violet)";
     inline static constexpr const char* DMALL_ELECMON_VIOLET_NAME = DMALL_ELECMON_VIOLET_NAME_ARR;
     inline static constexpr size_t DMALL_ELECMON_VIOLET_NAME_LEN = sizeof(DMALL_ELECMON_VIOLET_NAME_ARR)-1;
@@ -3381,7 +3381,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ENTMON_FQID_LEN = sizeof(DMALL_ENTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ENTMON_ID_ARR[] CONFIG_STRING_SECTION = "entmon";
     inline static constexpr const char* DMALL_ENTMON_ID = DMALL_ENTMON_ID_ARR;
-    inline static constexpr size_t DMALL_ENTMON_ID_LEN = sizeof(DMALL_ENTMON_ID)-1;
+    inline static constexpr size_t DMALL_ENTMON_ID_LEN = sizeof(DMALL_ENTMON_ID_ARR)-1;
     inline static constexpr char DMALL_ENTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Entmon";
     inline static constexpr const char* DMALL_ENTMON_NAME = DMALL_ENTMON_NAME_ARR;
     inline static constexpr size_t DMALL_ENTMON_NAME_LEN = sizeof(DMALL_ENTMON_NAME_ARR)-1;
@@ -3399,7 +3399,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ETEMON_FQID_LEN = sizeof(DMALL_ETEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ETEMON_ID_ARR[] CONFIG_STRING_SECTION = "etemon";
     inline static constexpr const char* DMALL_ETEMON_ID = DMALL_ETEMON_ID_ARR;
-    inline static constexpr size_t DMALL_ETEMON_ID_LEN = sizeof(DMALL_ETEMON_ID)-1;
+    inline static constexpr size_t DMALL_ETEMON_ID_LEN = sizeof(DMALL_ETEMON_ID_ARR)-1;
     inline static constexpr char DMALL_ETEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Etemon";
     inline static constexpr const char* DMALL_ETEMON_NAME = DMALL_ETEMON_NAME_ARR;
     inline static constexpr size_t DMALL_ETEMON_NAME_LEN = sizeof(DMALL_ETEMON_NAME_ARR)-1;
@@ -3417,7 +3417,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_EXAMON_X_FQID_LEN = sizeof(DMALL_EXAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_EXAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "examon_x";
     inline static constexpr const char* DMALL_EXAMON_X_ID = DMALL_EXAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_EXAMON_X_ID_LEN = sizeof(DMALL_EXAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_EXAMON_X_ID_LEN = sizeof(DMALL_EXAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_EXAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Examon X";
     inline static constexpr const char* DMALL_EXAMON_X_NAME = DMALL_EXAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_EXAMON_X_NAME_LEN = sizeof(DMALL_EXAMON_X_NAME_ARR)-1;
@@ -3435,7 +3435,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_FILMON_FQID_LEN = sizeof(DMALL_FILMON_FQID_ARR)-1;
     inline static constexpr char DMALL_FILMON_ID_ARR[] CONFIG_STRING_SECTION = "filmon";
     inline static constexpr const char* DMALL_FILMON_ID = DMALL_FILMON_ID_ARR;
-    inline static constexpr size_t DMALL_FILMON_ID_LEN = sizeof(DMALL_FILMON_ID)-1;
+    inline static constexpr size_t DMALL_FILMON_ID_LEN = sizeof(DMALL_FILMON_ID_ARR)-1;
     inline static constexpr char DMALL_FILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Filmon";
     inline static constexpr const char* DMALL_FILMON_NAME = DMALL_FILMON_NAME_ARR;
     inline static constexpr size_t DMALL_FILMON_NAME_LEN = sizeof(DMALL_FILMON_NAME_ARR)-1;
@@ -3453,7 +3453,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_FIRAMON_FQID_LEN = sizeof(DMALL_FIRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_FIRAMON_ID_ARR[] CONFIG_STRING_SECTION = "firamon";
     inline static constexpr const char* DMALL_FIRAMON_ID = DMALL_FIRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_FIRAMON_ID_LEN = sizeof(DMALL_FIRAMON_ID)-1;
+    inline static constexpr size_t DMALL_FIRAMON_ID_LEN = sizeof(DMALL_FIRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_FIRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Firamon";
     inline static constexpr const char* DMALL_FIRAMON_NAME = DMALL_FIRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_FIRAMON_NAME_LEN = sizeof(DMALL_FIRAMON_NAME_ARR)-1;
@@ -3471,7 +3471,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_FLAREMON_FQID_LEN = sizeof(DMALL_FLAREMON_FQID_ARR)-1;
     inline static constexpr char DMALL_FLAREMON_ID_ARR[] CONFIG_STRING_SECTION = "flaremon";
     inline static constexpr const char* DMALL_FLAREMON_ID = DMALL_FLAREMON_ID_ARR;
-    inline static constexpr size_t DMALL_FLAREMON_ID_LEN = sizeof(DMALL_FLAREMON_ID)-1;
+    inline static constexpr size_t DMALL_FLAREMON_ID_LEN = sizeof(DMALL_FLAREMON_ID_ARR)-1;
     inline static constexpr char DMALL_FLAREMON_NAME_ARR[] CONFIG_STRING_SECTION = "Flaremon";
     inline static constexpr const char* DMALL_FLAREMON_NAME = DMALL_FLAREMON_NAME_ARR;
     inline static constexpr size_t DMALL_FLAREMON_NAME_LEN = sizeof(DMALL_FLAREMON_NAME_ARR)-1;
@@ -3489,7 +3489,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_FLORAMON_FQID_LEN = sizeof(DMALL_FLORAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_FLORAMON_ID_ARR[] CONFIG_STRING_SECTION = "floramon";
     inline static constexpr const char* DMALL_FLORAMON_ID = DMALL_FLORAMON_ID_ARR;
-    inline static constexpr size_t DMALL_FLORAMON_ID_LEN = sizeof(DMALL_FLORAMON_ID)-1;
+    inline static constexpr size_t DMALL_FLORAMON_ID_LEN = sizeof(DMALL_FLORAMON_ID_ARR)-1;
     inline static constexpr char DMALL_FLORAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Floramon";
     inline static constexpr const char* DMALL_FLORAMON_NAME = DMALL_FLORAMON_NAME_ARR;
     inline static constexpr size_t DMALL_FLORAMON_NAME_LEN = sizeof(DMALL_FLORAMON_NAME_ARR)-1;
@@ -3507,7 +3507,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_FUFUMON_FQID_LEN = sizeof(DMALL_FUFUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_FUFUMON_ID_ARR[] CONFIG_STRING_SECTION = "fufumon";
     inline static constexpr const char* DMALL_FUFUMON_ID = DMALL_FUFUMON_ID_ARR;
-    inline static constexpr size_t DMALL_FUFUMON_ID_LEN = sizeof(DMALL_FUFUMON_ID)-1;
+    inline static constexpr size_t DMALL_FUFUMON_ID_LEN = sizeof(DMALL_FUFUMON_ID_ARR)-1;
     inline static constexpr char DMALL_FUFUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Fufumon";
     inline static constexpr const char* DMALL_FUFUMON_NAME = DMALL_FUFUMON_NAME_ARR;
     inline static constexpr size_t DMALL_FUFUMON_NAME_LEN = sizeof(DMALL_FUFUMON_NAME_ARR)-1;
@@ -3525,7 +3525,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_FUGAMON_FQID_LEN = sizeof(DMALL_FUGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_FUGAMON_ID_ARR[] CONFIG_STRING_SECTION = "fugamon";
     inline static constexpr const char* DMALL_FUGAMON_ID = DMALL_FUGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_FUGAMON_ID_LEN = sizeof(DMALL_FUGAMON_ID)-1;
+    inline static constexpr size_t DMALL_FUGAMON_ID_LEN = sizeof(DMALL_FUGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_FUGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Fugamon";
     inline static constexpr const char* DMALL_FUGAMON_NAME = DMALL_FUGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_FUGAMON_NAME_LEN = sizeof(DMALL_FUGAMON_NAME_ARR)-1;
@@ -3543,7 +3543,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_FUNBEEMON_FQID_LEN = sizeof(DMALL_FUNBEEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_FUNBEEMON_ID_ARR[] CONFIG_STRING_SECTION = "funbeemon";
     inline static constexpr const char* DMALL_FUNBEEMON_ID = DMALL_FUNBEEMON_ID_ARR;
-    inline static constexpr size_t DMALL_FUNBEEMON_ID_LEN = sizeof(DMALL_FUNBEEMON_ID)-1;
+    inline static constexpr size_t DMALL_FUNBEEMON_ID_LEN = sizeof(DMALL_FUNBEEMON_ID_ARR)-1;
     inline static constexpr char DMALL_FUNBEEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Funbeemon";
     inline static constexpr const char* DMALL_FUNBEEMON_NAME = DMALL_FUNBEEMON_NAME_ARR;
     inline static constexpr size_t DMALL_FUNBEEMON_NAME_LEN = sizeof(DMALL_FUNBEEMON_NAME_ARR)-1;
@@ -3561,7 +3561,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GABUMON_X_FQID_LEN = sizeof(DMALL_GABUMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GABUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "gabumon_x";
     inline static constexpr const char* DMALL_GABUMON_X_ID = DMALL_GABUMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GABUMON_X_ID_LEN = sizeof(DMALL_GABUMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GABUMON_X_ID_LEN = sizeof(DMALL_GABUMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GABUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Gabumon X";
     inline static constexpr const char* DMALL_GABUMON_X_NAME = DMALL_GABUMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GABUMON_X_NAME_LEN = sizeof(DMALL_GABUMON_X_NAME_ARR)-1;
@@ -3579,7 +3579,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GAIOUMON_FQID_LEN = sizeof(DMALL_GAIOUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GAIOUMON_ID_ARR[] CONFIG_STRING_SECTION = "gaioumon";
     inline static constexpr const char* DMALL_GAIOUMON_ID = DMALL_GAIOUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GAIOUMON_ID_LEN = sizeof(DMALL_GAIOUMON_ID)-1;
+    inline static constexpr size_t DMALL_GAIOUMON_ID_LEN = sizeof(DMALL_GAIOUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GAIOUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gaioumon";
     inline static constexpr const char* DMALL_GAIOUMON_NAME = DMALL_GAIOUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GAIOUMON_NAME_LEN = sizeof(DMALL_GAIOUMON_NAME_ARR)-1;
@@ -3597,7 +3597,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GALGOMON_FQID_LEN = sizeof(DMALL_GALGOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GALGOMON_ID_ARR[] CONFIG_STRING_SECTION = "galgomon";
     inline static constexpr const char* DMALL_GALGOMON_ID = DMALL_GALGOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GALGOMON_ID_LEN = sizeof(DMALL_GALGOMON_ID)-1;
+    inline static constexpr size_t DMALL_GALGOMON_ID_LEN = sizeof(DMALL_GALGOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GALGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Galgomon";
     inline static constexpr const char* DMALL_GALGOMON_NAME = DMALL_GALGOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GALGOMON_NAME_LEN = sizeof(DMALL_GALGOMON_NAME_ARR)-1;
@@ -3615,7 +3615,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GAMMAMON_FQID_LEN = sizeof(DMALL_GAMMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GAMMAMON_ID_ARR[] CONFIG_STRING_SECTION = "gammamon";
     inline static constexpr const char* DMALL_GAMMAMON_ID = DMALL_GAMMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GAMMAMON_ID_LEN = sizeof(DMALL_GAMMAMON_ID)-1;
+    inline static constexpr size_t DMALL_GAMMAMON_ID_LEN = sizeof(DMALL_GAMMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GAMMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gammamon";
     inline static constexpr const char* DMALL_GAMMAMON_NAME = DMALL_GAMMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GAMMAMON_NAME_LEN = sizeof(DMALL_GAMMAMON_NAME_ARR)-1;
@@ -3633,7 +3633,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GANIMON_FQID_LEN = sizeof(DMALL_GANIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GANIMON_ID_ARR[] CONFIG_STRING_SECTION = "ganimon";
     inline static constexpr const char* DMALL_GANIMON_ID = DMALL_GANIMON_ID_ARR;
-    inline static constexpr size_t DMALL_GANIMON_ID_LEN = sizeof(DMALL_GANIMON_ID)-1;
+    inline static constexpr size_t DMALL_GANIMON_ID_LEN = sizeof(DMALL_GANIMON_ID_ARR)-1;
     inline static constexpr char DMALL_GANIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ganimon";
     inline static constexpr const char* DMALL_GANIMON_NAME = DMALL_GANIMON_NAME_ARR;
     inline static constexpr size_t DMALL_GANIMON_NAME_LEN = sizeof(DMALL_GANIMON_NAME_ARR)-1;
@@ -3651,7 +3651,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GANKOOMON_FQID_LEN = sizeof(DMALL_GANKOOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GANKOOMON_ID_ARR[] CONFIG_STRING_SECTION = "gankoomon";
     inline static constexpr const char* DMALL_GANKOOMON_ID = DMALL_GANKOOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GANKOOMON_ID_LEN = sizeof(DMALL_GANKOOMON_ID)-1;
+    inline static constexpr size_t DMALL_GANKOOMON_ID_LEN = sizeof(DMALL_GANKOOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GANKOOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gankoomon";
     inline static constexpr const char* DMALL_GANKOOMON_NAME = DMALL_GANKOOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GANKOOMON_NAME_LEN = sizeof(DMALL_GANKOOMON_NAME_ARR)-1;
@@ -3669,7 +3669,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GANKOOMON_X_FQID_LEN = sizeof(DMALL_GANKOOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GANKOOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "gankoomon_x";
     inline static constexpr const char* DMALL_GANKOOMON_X_ID = DMALL_GANKOOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GANKOOMON_X_ID_LEN = sizeof(DMALL_GANKOOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GANKOOMON_X_ID_LEN = sizeof(DMALL_GANKOOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GANKOOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Gankoomon X";
     inline static constexpr const char* DMALL_GANKOOMON_X_NAME = DMALL_GANKOOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GANKOOMON_X_NAME_LEN = sizeof(DMALL_GANKOOMON_X_NAME_ARR)-1;
@@ -3687,7 +3687,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GAOGAMON_FQID_LEN = sizeof(DMALL_GAOGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GAOGAMON_ID_ARR[] CONFIG_STRING_SECTION = "gaogamon";
     inline static constexpr const char* DMALL_GAOGAMON_ID = DMALL_GAOGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GAOGAMON_ID_LEN = sizeof(DMALL_GAOGAMON_ID)-1;
+    inline static constexpr size_t DMALL_GAOGAMON_ID_LEN = sizeof(DMALL_GAOGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GAOGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gaogamon";
     inline static constexpr const char* DMALL_GAOGAMON_NAME = DMALL_GAOGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GAOGAMON_NAME_LEN = sizeof(DMALL_GAOGAMON_NAME_ARR)-1;
@@ -3705,7 +3705,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GAOMON_FQID_LEN = sizeof(DMALL_GAOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GAOMON_ID_ARR[] CONFIG_STRING_SECTION = "gaomon";
     inline static constexpr const char* DMALL_GAOMON_ID = DMALL_GAOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GAOMON_ID_LEN = sizeof(DMALL_GAOMON_ID)-1;
+    inline static constexpr size_t DMALL_GAOMON_ID_LEN = sizeof(DMALL_GAOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GAOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gaomon";
     inline static constexpr const char* DMALL_GAOMON_NAME = DMALL_GAOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GAOMON_NAME_LEN = sizeof(DMALL_GAOMON_NAME_ARR)-1;
@@ -3723,7 +3723,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GARUDAMON_FQID_LEN = sizeof(DMALL_GARUDAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GARUDAMON_ID_ARR[] CONFIG_STRING_SECTION = "garudamon";
     inline static constexpr const char* DMALL_GARUDAMON_ID = DMALL_GARUDAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GARUDAMON_ID_LEN = sizeof(DMALL_GARUDAMON_ID)-1;
+    inline static constexpr size_t DMALL_GARUDAMON_ID_LEN = sizeof(DMALL_GARUDAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GARUDAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Garudamon";
     inline static constexpr const char* DMALL_GARUDAMON_NAME = DMALL_GARUDAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GARUDAMON_NAME_LEN = sizeof(DMALL_GARUDAMON_NAME_ARR)-1;
@@ -3741,7 +3741,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GARUDAMON_X_FQID_LEN = sizeof(DMALL_GARUDAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GARUDAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "garudamon_x";
     inline static constexpr const char* DMALL_GARUDAMON_X_ID = DMALL_GARUDAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GARUDAMON_X_ID_LEN = sizeof(DMALL_GARUDAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GARUDAMON_X_ID_LEN = sizeof(DMALL_GARUDAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GARUDAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Garudamon X";
     inline static constexpr const char* DMALL_GARUDAMON_X_NAME = DMALL_GARUDAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GARUDAMON_X_NAME_LEN = sizeof(DMALL_GARUDAMON_X_NAME_ARR)-1;
@@ -3759,7 +3759,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GARURUMON_BLACK_FQID_LEN = sizeof(DMALL_GARURUMON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_GARURUMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "garurumon_black";
     inline static constexpr const char* DMALL_GARURUMON_BLACK_ID = DMALL_GARURUMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_GARURUMON_BLACK_ID_LEN = sizeof(DMALL_GARURUMON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_GARURUMON_BLACK_ID_LEN = sizeof(DMALL_GARURUMON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_GARURUMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "Garurumon (Black)";
     inline static constexpr const char* DMALL_GARURUMON_BLACK_NAME = DMALL_GARURUMON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_GARURUMON_BLACK_NAME_LEN = sizeof(DMALL_GARURUMON_BLACK_NAME_ARR)-1;
@@ -3777,7 +3777,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GARURUMON_FQID_LEN = sizeof(DMALL_GARURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GARURUMON_ID_ARR[] CONFIG_STRING_SECTION = "garurumon";
     inline static constexpr const char* DMALL_GARURUMON_ID = DMALL_GARURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GARURUMON_ID_LEN = sizeof(DMALL_GARURUMON_ID)-1;
+    inline static constexpr size_t DMALL_GARURUMON_ID_LEN = sizeof(DMALL_GARURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GARURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Garurumon";
     inline static constexpr const char* DMALL_GARURUMON_NAME = DMALL_GARURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GARURUMON_NAME_LEN = sizeof(DMALL_GARURUMON_NAME_ARR)-1;
@@ -3795,7 +3795,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GAWAPPAMON_FQID_LEN = sizeof(DMALL_GAWAPPAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GAWAPPAMON_ID_ARR[] CONFIG_STRING_SECTION = "gawappamon";
     inline static constexpr const char* DMALL_GAWAPPAMON_ID = DMALL_GAWAPPAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GAWAPPAMON_ID_LEN = sizeof(DMALL_GAWAPPAMON_ID)-1;
+    inline static constexpr size_t DMALL_GAWAPPAMON_ID_LEN = sizeof(DMALL_GAWAPPAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GAWAPPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gawappamon";
     inline static constexpr const char* DMALL_GAWAPPAMON_NAME = DMALL_GAWAPPAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GAWAPPAMON_NAME_LEN = sizeof(DMALL_GAWAPPAMON_NAME_ARR)-1;
@@ -3813,7 +3813,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GAZIMON_FQID_LEN = sizeof(DMALL_GAZIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GAZIMON_ID_ARR[] CONFIG_STRING_SECTION = "gazimon";
     inline static constexpr const char* DMALL_GAZIMON_ID = DMALL_GAZIMON_ID_ARR;
-    inline static constexpr size_t DMALL_GAZIMON_ID_LEN = sizeof(DMALL_GAZIMON_ID)-1;
+    inline static constexpr size_t DMALL_GAZIMON_ID_LEN = sizeof(DMALL_GAZIMON_ID_ARR)-1;
     inline static constexpr char DMALL_GAZIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gazimon";
     inline static constexpr const char* DMALL_GAZIMON_NAME = DMALL_GAZIMON_NAME_ARR;
     inline static constexpr size_t DMALL_GAZIMON_NAME_LEN = sizeof(DMALL_GAZIMON_NAME_ARR)-1;
@@ -3831,7 +3831,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GAZIMON_X_FQID_LEN = sizeof(DMALL_GAZIMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GAZIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "gazimon_x";
     inline static constexpr const char* DMALL_GAZIMON_X_ID = DMALL_GAZIMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GAZIMON_X_ID_LEN = sizeof(DMALL_GAZIMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GAZIMON_X_ID_LEN = sizeof(DMALL_GAZIMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GAZIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Gazimon X";
     inline static constexpr const char* DMALL_GAZIMON_X_NAME = DMALL_GAZIMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GAZIMON_X_NAME_LEN = sizeof(DMALL_GAZIMON_X_NAME_ARR)-1;
@@ -3849,7 +3849,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GEKOMON_FQID_LEN = sizeof(DMALL_GEKOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GEKOMON_ID_ARR[] CONFIG_STRING_SECTION = "gekomon";
     inline static constexpr const char* DMALL_GEKOMON_ID = DMALL_GEKOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GEKOMON_ID_LEN = sizeof(DMALL_GEKOMON_ID)-1;
+    inline static constexpr size_t DMALL_GEKOMON_ID_LEN = sizeof(DMALL_GEKOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GEKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gekomon";
     inline static constexpr const char* DMALL_GEKOMON_NAME = DMALL_GEKOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GEKOMON_NAME_LEN = sizeof(DMALL_GEKOMON_NAME_ARR)-1;
@@ -3867,7 +3867,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GEO_GREYMON_FQID_LEN = sizeof(DMALL_GEO_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GEO_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "geo_greymon";
     inline static constexpr const char* DMALL_GEO_GREYMON_ID = DMALL_GEO_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_GEO_GREYMON_ID_LEN = sizeof(DMALL_GEO_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_GEO_GREYMON_ID_LEN = sizeof(DMALL_GEO_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_GEO_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Geo Greymon";
     inline static constexpr const char* DMALL_GEO_GREYMON_NAME = DMALL_GEO_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_GEO_GREYMON_NAME_LEN = sizeof(DMALL_GEO_GREYMON_NAME_ARR)-1;
@@ -3885,7 +3885,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GERBEMON_FQID_LEN = sizeof(DMALL_GERBEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GERBEMON_ID_ARR[] CONFIG_STRING_SECTION = "gerbemon";
     inline static constexpr const char* DMALL_GERBEMON_ID = DMALL_GERBEMON_ID_ARR;
-    inline static constexpr size_t DMALL_GERBEMON_ID_LEN = sizeof(DMALL_GERBEMON_ID)-1;
+    inline static constexpr size_t DMALL_GERBEMON_ID_LEN = sizeof(DMALL_GERBEMON_ID_ARR)-1;
     inline static constexpr char DMALL_GERBEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gerbemon";
     inline static constexpr const char* DMALL_GERBEMON_NAME = DMALL_GERBEMON_NAME_ARR;
     inline static constexpr size_t DMALL_GERBEMON_NAME_LEN = sizeof(DMALL_GERBEMON_NAME_ARR)-1;
@@ -3903,7 +3903,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GEREMON_FQID_LEN = sizeof(DMALL_GEREMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GEREMON_ID_ARR[] CONFIG_STRING_SECTION = "geremon";
     inline static constexpr const char* DMALL_GEREMON_ID = DMALL_GEREMON_ID_ARR;
-    inline static constexpr size_t DMALL_GEREMON_ID_LEN = sizeof(DMALL_GEREMON_ID)-1;
+    inline static constexpr size_t DMALL_GEREMON_ID_LEN = sizeof(DMALL_GEREMON_ID_ARR)-1;
     inline static constexpr char DMALL_GEREMON_NAME_ARR[] CONFIG_STRING_SECTION = "Geremon";
     inline static constexpr const char* DMALL_GEREMON_NAME = DMALL_GEREMON_NAME_ARR;
     inline static constexpr size_t DMALL_GEREMON_NAME_LEN = sizeof(DMALL_GEREMON_NAME_ARR)-1;
@@ -3921,7 +3921,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GESOMON_FQID_LEN = sizeof(DMALL_GESOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GESOMON_ID_ARR[] CONFIG_STRING_SECTION = "gesomon";
     inline static constexpr const char* DMALL_GESOMON_ID = DMALL_GESOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GESOMON_ID_LEN = sizeof(DMALL_GESOMON_ID)-1;
+    inline static constexpr size_t DMALL_GESOMON_ID_LEN = sizeof(DMALL_GESOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GESOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gesomon";
     inline static constexpr const char* DMALL_GESOMON_NAME = DMALL_GESOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GESOMON_NAME_LEN = sizeof(DMALL_GESOMON_NAME_ARR)-1;
@@ -3939,7 +3939,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GHOSTMON_FQID_LEN = sizeof(DMALL_GHOSTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GHOSTMON_ID_ARR[] CONFIG_STRING_SECTION = "ghostmon";
     inline static constexpr const char* DMALL_GHOSTMON_ID = DMALL_GHOSTMON_ID_ARR;
-    inline static constexpr size_t DMALL_GHOSTMON_ID_LEN = sizeof(DMALL_GHOSTMON_ID)-1;
+    inline static constexpr size_t DMALL_GHOSTMON_ID_LEN = sizeof(DMALL_GHOSTMON_ID_ARR)-1;
     inline static constexpr char DMALL_GHOSTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ghostmon";
     inline static constexpr const char* DMALL_GHOSTMON_NAME = DMALL_GHOSTMON_NAME_ARR;
     inline static constexpr size_t DMALL_GHOSTMON_NAME_LEN = sizeof(DMALL_GHOSTMON_NAME_ARR)-1;
@@ -3957,7 +3957,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GIGADRAMON_FQID_LEN = sizeof(DMALL_GIGADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GIGADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "gigadramon";
     inline static constexpr const char* DMALL_GIGADRAMON_ID = DMALL_GIGADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GIGADRAMON_ID_LEN = sizeof(DMALL_GIGADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_GIGADRAMON_ID_LEN = sizeof(DMALL_GIGADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GIGADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gigadramon";
     inline static constexpr const char* DMALL_GIGADRAMON_NAME = DMALL_GIGADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GIGADRAMON_NAME_LEN = sizeof(DMALL_GIGADRAMON_NAME_ARR)-1;
@@ -3975,7 +3975,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GIGA_SEADRAMON_FQID_LEN = sizeof(DMALL_GIGA_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GIGA_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "giga_seadramon";
     inline static constexpr const char* DMALL_GIGA_SEADRAMON_ID = DMALL_GIGA_SEADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GIGA_SEADRAMON_ID_LEN = sizeof(DMALL_GIGA_SEADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_GIGA_SEADRAMON_ID_LEN = sizeof(DMALL_GIGA_SEADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GIGA_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Giga Seadramon";
     inline static constexpr const char* DMALL_GIGA_SEADRAMON_NAME = DMALL_GIGA_SEADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GIGA_SEADRAMON_NAME_LEN = sizeof(DMALL_GIGA_SEADRAMON_NAME_ARR)-1;
@@ -3993,7 +3993,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GIGIMON_FQID_LEN = sizeof(DMALL_GIGIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GIGIMON_ID_ARR[] CONFIG_STRING_SECTION = "gigimon";
     inline static constexpr const char* DMALL_GIGIMON_ID = DMALL_GIGIMON_ID_ARR;
-    inline static constexpr size_t DMALL_GIGIMON_ID_LEN = sizeof(DMALL_GIGIMON_ID)-1;
+    inline static constexpr size_t DMALL_GIGIMON_ID_LEN = sizeof(DMALL_GIGIMON_ID_ARR)-1;
     inline static constexpr char DMALL_GIGIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gigimon";
     inline static constexpr const char* DMALL_GIGIMON_NAME = DMALL_GIGIMON_NAME_ARR;
     inline static constexpr size_t DMALL_GIGIMON_NAME_LEN = sizeof(DMALL_GIGIMON_NAME_ARR)-1;
@@ -4011,7 +4011,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GINRYUMON_FQID_LEN = sizeof(DMALL_GINRYUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GINRYUMON_ID_ARR[] CONFIG_STRING_SECTION = "ginryumon";
     inline static constexpr const char* DMALL_GINRYUMON_ID = DMALL_GINRYUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GINRYUMON_ID_LEN = sizeof(DMALL_GINRYUMON_ID)-1;
+    inline static constexpr size_t DMALL_GINRYUMON_ID_LEN = sizeof(DMALL_GINRYUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GINRYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ginryumon";
     inline static constexpr const char* DMALL_GINRYUMON_NAME = DMALL_GINRYUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GINRYUMON_NAME_LEN = sizeof(DMALL_GINRYUMON_NAME_ARR)-1;
@@ -4029,7 +4029,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GIROMON_FQID_LEN = sizeof(DMALL_GIROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GIROMON_ID_ARR[] CONFIG_STRING_SECTION = "giromon";
     inline static constexpr const char* DMALL_GIROMON_ID = DMALL_GIROMON_ID_ARR;
-    inline static constexpr size_t DMALL_GIROMON_ID_LEN = sizeof(DMALL_GIROMON_ID)-1;
+    inline static constexpr size_t DMALL_GIROMON_ID_LEN = sizeof(DMALL_GIROMON_ID_ARR)-1;
     inline static constexpr char DMALL_GIROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Giromon";
     inline static constexpr const char* DMALL_GIROMON_NAME = DMALL_GIROMON_NAME_ARR;
     inline static constexpr size_t DMALL_GIROMON_NAME_LEN = sizeof(DMALL_GIROMON_NAME_ARR)-1;
@@ -4047,7 +4047,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GIZAMON_FQID_LEN = sizeof(DMALL_GIZAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GIZAMON_ID_ARR[] CONFIG_STRING_SECTION = "gizamon";
     inline static constexpr const char* DMALL_GIZAMON_ID = DMALL_GIZAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GIZAMON_ID_LEN = sizeof(DMALL_GIZAMON_ID)-1;
+    inline static constexpr size_t DMALL_GIZAMON_ID_LEN = sizeof(DMALL_GIZAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GIZAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gizamon";
     inline static constexpr const char* DMALL_GIZAMON_NAME = DMALL_GIZAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GIZAMON_NAME_LEN = sizeof(DMALL_GIZAMON_NAME_ARR)-1;
@@ -4065,7 +4065,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GODDRAMON_X_FQID_LEN = sizeof(DMALL_GODDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GODDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "goddramon_x";
     inline static constexpr const char* DMALL_GODDRAMON_X_ID = DMALL_GODDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GODDRAMON_X_ID_LEN = sizeof(DMALL_GODDRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GODDRAMON_X_ID_LEN = sizeof(DMALL_GODDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GODDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Goddramon X";
     inline static constexpr const char* DMALL_GODDRAMON_X_NAME = DMALL_GODDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GODDRAMON_X_NAME_LEN = sizeof(DMALL_GODDRAMON_X_NAME_ARR)-1;
@@ -4083,7 +4083,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOGMAMON_FQID_LEN = sizeof(DMALL_GOGMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOGMAMON_ID_ARR[] CONFIG_STRING_SECTION = "gogmamon";
     inline static constexpr const char* DMALL_GOGMAMON_ID = DMALL_GOGMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOGMAMON_ID_LEN = sizeof(DMALL_GOGMAMON_ID)-1;
+    inline static constexpr size_t DMALL_GOGMAMON_ID_LEN = sizeof(DMALL_GOGMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOGMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gogmamon";
     inline static constexpr const char* DMALL_GOGMAMON_NAME = DMALL_GOGMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOGMAMON_NAME_LEN = sizeof(DMALL_GOGMAMON_NAME_ARR)-1;
@@ -4101,7 +4101,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOKIMON_FQID_LEN = sizeof(DMALL_GOKIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOKIMON_ID_ARR[] CONFIG_STRING_SECTION = "gokimon";
     inline static constexpr const char* DMALL_GOKIMON_ID = DMALL_GOKIMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOKIMON_ID_LEN = sizeof(DMALL_GOKIMON_ID)-1;
+    inline static constexpr size_t DMALL_GOKIMON_ID_LEN = sizeof(DMALL_GOKIMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOKIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gokimon";
     inline static constexpr const char* DMALL_GOKIMON_NAME = DMALL_GOKIMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOKIMON_NAME_LEN = sizeof(DMALL_GOKIMON_NAME_ARR)-1;
@@ -4119,7 +4119,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOKUMON_FQID_LEN = sizeof(DMALL_GOKUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOKUMON_ID_ARR[] CONFIG_STRING_SECTION = "gokumon";
     inline static constexpr const char* DMALL_GOKUMON_ID = DMALL_GOKUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOKUMON_ID_LEN = sizeof(DMALL_GOKUMON_ID)-1;
+    inline static constexpr size_t DMALL_GOKUMON_ID_LEN = sizeof(DMALL_GOKUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gokumon";
     inline static constexpr const char* DMALL_GOKUMON_NAME = DMALL_GOKUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOKUMON_NAME_LEN = sizeof(DMALL_GOKUMON_NAME_ARR)-1;
@@ -4137,7 +4137,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOLD_NUMEMON_FQID_LEN = sizeof(DMALL_GOLD_NUMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOLD_NUMEMON_ID_ARR[] CONFIG_STRING_SECTION = "gold_numemon";
     inline static constexpr const char* DMALL_GOLD_NUMEMON_ID = DMALL_GOLD_NUMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOLD_NUMEMON_ID_LEN = sizeof(DMALL_GOLD_NUMEMON_ID)-1;
+    inline static constexpr size_t DMALL_GOLD_NUMEMON_ID_LEN = sizeof(DMALL_GOLD_NUMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOLD_NUMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gold Numemon";
     inline static constexpr const char* DMALL_GOLD_NUMEMON_NAME = DMALL_GOLD_NUMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOLD_NUMEMON_NAME_LEN = sizeof(DMALL_GOLD_NUMEMON_NAME_ARR)-1;
@@ -4155,7 +4155,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOLD_V_DRAMON_FQID_LEN = sizeof(DMALL_GOLD_V_DRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOLD_V_DRAMON_ID_ARR[] CONFIG_STRING_SECTION = "gold_v_dramon";
     inline static constexpr const char* DMALL_GOLD_V_DRAMON_ID = DMALL_GOLD_V_DRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOLD_V_DRAMON_ID_LEN = sizeof(DMALL_GOLD_V_DRAMON_ID)-1;
+    inline static constexpr size_t DMALL_GOLD_V_DRAMON_ID_LEN = sizeof(DMALL_GOLD_V_DRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOLD_V_DRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gold V-dramon";
     inline static constexpr const char* DMALL_GOLD_V_DRAMON_NAME = DMALL_GOLD_V_DRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOLD_V_DRAMON_NAME_LEN = sizeof(DMALL_GOLD_V_DRAMON_NAME_ARR)-1;
@@ -4173,7 +4173,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOMAMON_FQID_LEN = sizeof(DMALL_GOMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOMAMON_ID_ARR[] CONFIG_STRING_SECTION = "gomamon";
     inline static constexpr const char* DMALL_GOMAMON_ID = DMALL_GOMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOMAMON_ID_LEN = sizeof(DMALL_GOMAMON_ID)-1;
+    inline static constexpr size_t DMALL_GOMAMON_ID_LEN = sizeof(DMALL_GOMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gomamon";
     inline static constexpr const char* DMALL_GOMAMON_NAME = DMALL_GOMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOMAMON_NAME_LEN = sizeof(DMALL_GOMAMON_NAME_ARR)-1;
@@ -4191,7 +4191,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOMAMON_X_FQID_LEN = sizeof(DMALL_GOMAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GOMAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "gomamon_x";
     inline static constexpr const char* DMALL_GOMAMON_X_ID = DMALL_GOMAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GOMAMON_X_ID_LEN = sizeof(DMALL_GOMAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GOMAMON_X_ID_LEN = sizeof(DMALL_GOMAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GOMAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Gomamon X";
     inline static constexpr const char* DMALL_GOMAMON_X_NAME = DMALL_GOMAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GOMAMON_X_NAME_LEN = sizeof(DMALL_GOMAMON_X_NAME_ARR)-1;
@@ -4209,7 +4209,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOROMON_FQID_LEN = sizeof(DMALL_GOROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOROMON_ID_ARR[] CONFIG_STRING_SECTION = "goromon";
     inline static constexpr const char* DMALL_GOROMON_ID = DMALL_GOROMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOROMON_ID_LEN = sizeof(DMALL_GOROMON_ID)-1;
+    inline static constexpr size_t DMALL_GOROMON_ID_LEN = sizeof(DMALL_GOROMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Goromon";
     inline static constexpr const char* DMALL_GOROMON_NAME = DMALL_GOROMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOROMON_NAME_LEN = sizeof(DMALL_GOROMON_NAME_ARR)-1;
@@ -4227,7 +4227,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GOTSUMON_FQID_LEN = sizeof(DMALL_GOTSUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GOTSUMON_ID_ARR[] CONFIG_STRING_SECTION = "gotsumon";
     inline static constexpr const char* DMALL_GOTSUMON_ID = DMALL_GOTSUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GOTSUMON_ID_LEN = sizeof(DMALL_GOTSUMON_ID)-1;
+    inline static constexpr size_t DMALL_GOTSUMON_ID_LEN = sizeof(DMALL_GOTSUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GOTSUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gotsumon";
     inline static constexpr const char* DMALL_GOTSUMON_NAME = DMALL_GOTSUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GOTSUMON_NAME_LEN = sizeof(DMALL_GOTSUMON_NAME_ARR)-1;
@@ -4245,7 +4245,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRACE_NOVAMON_FQID_LEN = sizeof(DMALL_GRACE_NOVAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRACE_NOVAMON_ID_ARR[] CONFIG_STRING_SECTION = "grace_novamon";
     inline static constexpr const char* DMALL_GRACE_NOVAMON_ID = DMALL_GRACE_NOVAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRACE_NOVAMON_ID_LEN = sizeof(DMALL_GRACE_NOVAMON_ID)-1;
+    inline static constexpr size_t DMALL_GRACE_NOVAMON_ID_LEN = sizeof(DMALL_GRACE_NOVAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRACE_NOVAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grace Novamon";
     inline static constexpr const char* DMALL_GRACE_NOVAMON_NAME = DMALL_GRACE_NOVAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRACE_NOVAMON_NAME_LEN = sizeof(DMALL_GRACE_NOVAMON_NAME_ARR)-1;
@@ -4263,7 +4263,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRADEMON_FQID_LEN = sizeof(DMALL_GRADEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRADEMON_ID_ARR[] CONFIG_STRING_SECTION = "grademon";
     inline static constexpr const char* DMALL_GRADEMON_ID = DMALL_GRADEMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRADEMON_ID_LEN = sizeof(DMALL_GRADEMON_ID)-1;
+    inline static constexpr size_t DMALL_GRADEMON_ID_LEN = sizeof(DMALL_GRADEMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRADEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grademon";
     inline static constexpr const char* DMALL_GRADEMON_NAME = DMALL_GRADEMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRADEMON_NAME_LEN = sizeof(DMALL_GRADEMON_NAME_ARR)-1;
@@ -4281,7 +4281,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRAND_DRACUMON_FQID_LEN = sizeof(DMALL_GRAND_DRACUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRAND_DRACUMON_ID_ARR[] CONFIG_STRING_SECTION = "grand_dracumon";
     inline static constexpr const char* DMALL_GRAND_DRACUMON_ID = DMALL_GRAND_DRACUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRAND_DRACUMON_ID_LEN = sizeof(DMALL_GRAND_DRACUMON_ID)-1;
+    inline static constexpr size_t DMALL_GRAND_DRACUMON_ID_LEN = sizeof(DMALL_GRAND_DRACUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRAND_DRACUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grand Dracumon";
     inline static constexpr const char* DMALL_GRAND_DRACUMON_NAME = DMALL_GRAND_DRACUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRAND_DRACUMON_NAME_LEN = sizeof(DMALL_GRAND_DRACUMON_NAME_ARR)-1;
@@ -4299,7 +4299,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRANDIS_KUWAGAMON_FQID_LEN = sizeof(DMALL_GRANDIS_KUWAGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRANDIS_KUWAGAMON_ID_ARR[] CONFIG_STRING_SECTION = "grandis_kuwagamon";
     inline static constexpr const char* DMALL_GRANDIS_KUWAGAMON_ID = DMALL_GRANDIS_KUWAGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRANDIS_KUWAGAMON_ID_LEN = sizeof(DMALL_GRANDIS_KUWAGAMON_ID)-1;
+    inline static constexpr size_t DMALL_GRANDIS_KUWAGAMON_ID_LEN = sizeof(DMALL_GRANDIS_KUWAGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRANDIS_KUWAGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grandis Kuwagamon";
     inline static constexpr const char* DMALL_GRANDIS_KUWAGAMON_NAME = DMALL_GRANDIS_KUWAGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRANDIS_KUWAGAMON_NAME_LEN = sizeof(DMALL_GRANDIS_KUWAGAMON_NAME_ARR)-1;
@@ -4317,7 +4317,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRAND_LOCOMON_FQID_LEN = sizeof(DMALL_GRAND_LOCOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRAND_LOCOMON_ID_ARR[] CONFIG_STRING_SECTION = "grand_locomon";
     inline static constexpr const char* DMALL_GRAND_LOCOMON_ID = DMALL_GRAND_LOCOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRAND_LOCOMON_ID_LEN = sizeof(DMALL_GRAND_LOCOMON_ID)-1;
+    inline static constexpr size_t DMALL_GRAND_LOCOMON_ID_LEN = sizeof(DMALL_GRAND_LOCOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRAND_LOCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grand Locomon";
     inline static constexpr const char* DMALL_GRAND_LOCOMON_NAME = DMALL_GRAND_LOCOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRAND_LOCOMON_NAME_LEN = sizeof(DMALL_GRAND_LOCOMON_NAME_ARR)-1;
@@ -4335,7 +4335,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRAPPLEOMON_FQID_LEN = sizeof(DMALL_GRAPPLEOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRAPPLEOMON_ID_ARR[] CONFIG_STRING_SECTION = "grappleomon";
     inline static constexpr const char* DMALL_GRAPPLEOMON_ID = DMALL_GRAPPLEOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRAPPLEOMON_ID_LEN = sizeof(DMALL_GRAPPLEOMON_ID)-1;
+    inline static constexpr size_t DMALL_GRAPPLEOMON_ID_LEN = sizeof(DMALL_GRAPPLEOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRAPPLEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Grappleomon";
     inline static constexpr const char* DMALL_GRAPPLEOMON_NAME = DMALL_GRAPPLEOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRAPPLEOMON_NAME_LEN = sizeof(DMALL_GRAPPLEOMON_NAME_ARR)-1;
@@ -4353,7 +4353,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GREAT_KING_SCUMON_FQID_LEN = sizeof(DMALL_GREAT_KING_SCUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GREAT_KING_SCUMON_ID_ARR[] CONFIG_STRING_SECTION = "great_king_scumon";
     inline static constexpr const char* DMALL_GREAT_KING_SCUMON_ID = DMALL_GREAT_KING_SCUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GREAT_KING_SCUMON_ID_LEN = sizeof(DMALL_GREAT_KING_SCUMON_ID)-1;
+    inline static constexpr size_t DMALL_GREAT_KING_SCUMON_ID_LEN = sizeof(DMALL_GREAT_KING_SCUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GREAT_KING_SCUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Great King Scumon";
     inline static constexpr const char* DMALL_GREAT_KING_SCUMON_NAME = DMALL_GREAT_KING_SCUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GREAT_KING_SCUMON_NAME_LEN = sizeof(DMALL_GREAT_KING_SCUMON_NAME_ARR)-1;
@@ -4371,7 +4371,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GREYMON_2010_FQID_LEN = sizeof(DMALL_GREYMON_2010_FQID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_2010_ID_ARR[] CONFIG_STRING_SECTION = "greymon_2010";
     inline static constexpr const char* DMALL_GREYMON_2010_ID = DMALL_GREYMON_2010_ID_ARR;
-    inline static constexpr size_t DMALL_GREYMON_2010_ID_LEN = sizeof(DMALL_GREYMON_2010_ID)-1;
+    inline static constexpr size_t DMALL_GREYMON_2010_ID_LEN = sizeof(DMALL_GREYMON_2010_ID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_2010_NAME_ARR[] CONFIG_STRING_SECTION = "Greymon (2010)";
     inline static constexpr const char* DMALL_GREYMON_2010_NAME = DMALL_GREYMON_2010_NAME_ARR;
     inline static constexpr size_t DMALL_GREYMON_2010_NAME_LEN = sizeof(DMALL_GREYMON_2010_NAME_ARR)-1;
@@ -4389,7 +4389,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GREYMON_BLUE_FQID_LEN = sizeof(DMALL_GREYMON_BLUE_FQID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_BLUE_ID_ARR[] CONFIG_STRING_SECTION = "greymon_blue";
     inline static constexpr const char* DMALL_GREYMON_BLUE_ID = DMALL_GREYMON_BLUE_ID_ARR;
-    inline static constexpr size_t DMALL_GREYMON_BLUE_ID_LEN = sizeof(DMALL_GREYMON_BLUE_ID)-1;
+    inline static constexpr size_t DMALL_GREYMON_BLUE_ID_LEN = sizeof(DMALL_GREYMON_BLUE_ID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_BLUE_NAME_ARR[] CONFIG_STRING_SECTION = "Greymon (Blue)";
     inline static constexpr const char* DMALL_GREYMON_BLUE_NAME = DMALL_GREYMON_BLUE_NAME_ARR;
     inline static constexpr size_t DMALL_GREYMON_BLUE_NAME_LEN = sizeof(DMALL_GREYMON_BLUE_NAME_ARR)-1;
@@ -4407,7 +4407,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GREYMON_FQID_LEN = sizeof(DMALL_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "greymon";
     inline static constexpr const char* DMALL_GREYMON_ID = DMALL_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_GREYMON_ID_LEN = sizeof(DMALL_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_GREYMON_ID_LEN = sizeof(DMALL_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Greymon";
     inline static constexpr const char* DMALL_GREYMON_NAME = DMALL_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_GREYMON_NAME_LEN = sizeof(DMALL_GREYMON_NAME_ARR)-1;
@@ -4425,7 +4425,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GREYMON_X_FQID_LEN = sizeof(DMALL_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "greymon_x";
     inline static constexpr const char* DMALL_GREYMON_X_ID = DMALL_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GREYMON_X_ID_LEN = sizeof(DMALL_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GREYMON_X_ID_LEN = sizeof(DMALL_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Greymon X";
     inline static constexpr const char* DMALL_GREYMON_X_NAME = DMALL_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GREYMON_X_NAME_LEN = sizeof(DMALL_GREYMON_X_NAME_ARR)-1;
@@ -4443,7 +4443,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRIFFOMON_FQID_LEN = sizeof(DMALL_GRIFFOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRIFFOMON_ID_ARR[] CONFIG_STRING_SECTION = "griffomon";
     inline static constexpr const char* DMALL_GRIFFOMON_ID = DMALL_GRIFFOMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRIFFOMON_ID_LEN = sizeof(DMALL_GRIFFOMON_ID)-1;
+    inline static constexpr size_t DMALL_GRIFFOMON_ID_LEN = sizeof(DMALL_GRIFFOMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRIFFOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Griffomon";
     inline static constexpr const char* DMALL_GRIFFOMON_NAME = DMALL_GRIFFOMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRIFFOMON_NAME_LEN = sizeof(DMALL_GRIFFOMON_NAME_ARR)-1;
@@ -4461,7 +4461,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GROWMON_ORANGE_FQID_LEN = sizeof(DMALL_GROWMON_ORANGE_FQID_ARR)-1;
     inline static constexpr char DMALL_GROWMON_ORANGE_ID_ARR[] CONFIG_STRING_SECTION = "growmon_orange";
     inline static constexpr const char* DMALL_GROWMON_ORANGE_ID = DMALL_GROWMON_ORANGE_ID_ARR;
-    inline static constexpr size_t DMALL_GROWMON_ORANGE_ID_LEN = sizeof(DMALL_GROWMON_ORANGE_ID)-1;
+    inline static constexpr size_t DMALL_GROWMON_ORANGE_ID_LEN = sizeof(DMALL_GROWMON_ORANGE_ID_ARR)-1;
     inline static constexpr char DMALL_GROWMON_ORANGE_NAME_ARR[] CONFIG_STRING_SECTION = "Growmon (Orange)";
     inline static constexpr const char* DMALL_GROWMON_ORANGE_NAME = DMALL_GROWMON_ORANGE_NAME_ARR;
     inline static constexpr size_t DMALL_GROWMON_ORANGE_NAME_LEN = sizeof(DMALL_GROWMON_ORANGE_NAME_ARR)-1;
@@ -4479,7 +4479,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GROWMON_FQID_LEN = sizeof(DMALL_GROWMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GROWMON_ID_ARR[] CONFIG_STRING_SECTION = "growmon";
     inline static constexpr const char* DMALL_GROWMON_ID = DMALL_GROWMON_ID_ARR;
-    inline static constexpr size_t DMALL_GROWMON_ID_LEN = sizeof(DMALL_GROWMON_ID)-1;
+    inline static constexpr size_t DMALL_GROWMON_ID_LEN = sizeof(DMALL_GROWMON_ID_ARR)-1;
     inline static constexpr char DMALL_GROWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Growmon";
     inline static constexpr const char* DMALL_GROWMON_NAME = DMALL_GROWMON_NAME_ARR;
     inline static constexpr size_t DMALL_GROWMON_NAME_LEN = sizeof(DMALL_GROWMON_NAME_ARR)-1;
@@ -4497,7 +4497,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GROWMON_X_FQID_LEN = sizeof(DMALL_GROWMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GROWMON_X_ID_ARR[] CONFIG_STRING_SECTION = "growmon_x";
     inline static constexpr const char* DMALL_GROWMON_X_ID = DMALL_GROWMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GROWMON_X_ID_LEN = sizeof(DMALL_GROWMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GROWMON_X_ID_LEN = sizeof(DMALL_GROWMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GROWMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Growmon X";
     inline static constexpr const char* DMALL_GROWMON_X_NAME = DMALL_GROWMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GROWMON_X_NAME_LEN = sizeof(DMALL_GROWMON_X_NAME_ARR)-1;
@@ -4515,7 +4515,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GRYZMON_FQID_LEN = sizeof(DMALL_GRYZMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GRYZMON_ID_ARR[] CONFIG_STRING_SECTION = "gryzmon";
     inline static constexpr const char* DMALL_GRYZMON_ID = DMALL_GRYZMON_ID_ARR;
-    inline static constexpr size_t DMALL_GRYZMON_ID_LEN = sizeof(DMALL_GRYZMON_ID)-1;
+    inline static constexpr size_t DMALL_GRYZMON_ID_LEN = sizeof(DMALL_GRYZMON_ID_ARR)-1;
     inline static constexpr char DMALL_GRYZMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gryzmon";
     inline static constexpr const char* DMALL_GRYZMON_NAME = DMALL_GRYZMON_NAME_ARR;
     inline static constexpr size_t DMALL_GRYZMON_NAME_LEN = sizeof(DMALL_GRYZMON_NAME_ARR)-1;
@@ -4533,7 +4533,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GUARDROMON_GOLD_FQID_LEN = sizeof(DMALL_GUARDROMON_GOLD_FQID_ARR)-1;
     inline static constexpr char DMALL_GUARDROMON_GOLD_ID_ARR[] CONFIG_STRING_SECTION = "guardromon_gold";
     inline static constexpr const char* DMALL_GUARDROMON_GOLD_ID = DMALL_GUARDROMON_GOLD_ID_ARR;
-    inline static constexpr size_t DMALL_GUARDROMON_GOLD_ID_LEN = sizeof(DMALL_GUARDROMON_GOLD_ID)-1;
+    inline static constexpr size_t DMALL_GUARDROMON_GOLD_ID_LEN = sizeof(DMALL_GUARDROMON_GOLD_ID_ARR)-1;
     inline static constexpr char DMALL_GUARDROMON_GOLD_NAME_ARR[] CONFIG_STRING_SECTION = "Guardromon (Gold)";
     inline static constexpr const char* DMALL_GUARDROMON_GOLD_NAME = DMALL_GUARDROMON_GOLD_NAME_ARR;
     inline static constexpr size_t DMALL_GUARDROMON_GOLD_NAME_LEN = sizeof(DMALL_GUARDROMON_GOLD_NAME_ARR)-1;
@@ -4551,7 +4551,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GUARDROMON_FQID_LEN = sizeof(DMALL_GUARDROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GUARDROMON_ID_ARR[] CONFIG_STRING_SECTION = "guardromon";
     inline static constexpr const char* DMALL_GUARDROMON_ID = DMALL_GUARDROMON_ID_ARR;
-    inline static constexpr size_t DMALL_GUARDROMON_ID_LEN = sizeof(DMALL_GUARDROMON_ID)-1;
+    inline static constexpr size_t DMALL_GUARDROMON_ID_LEN = sizeof(DMALL_GUARDROMON_ID_ARR)-1;
     inline static constexpr char DMALL_GUARDROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Guardromon";
     inline static constexpr const char* DMALL_GUARDROMON_NAME = DMALL_GUARDROMON_NAME_ARR;
     inline static constexpr size_t DMALL_GUARDROMON_NAME_LEN = sizeof(DMALL_GUARDROMON_NAME_ARR)-1;
@@ -4569,7 +4569,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GUILMON_FQID_LEN = sizeof(DMALL_GUILMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GUILMON_ID_ARR[] CONFIG_STRING_SECTION = "guilmon";
     inline static constexpr const char* DMALL_GUILMON_ID = DMALL_GUILMON_ID_ARR;
-    inline static constexpr size_t DMALL_GUILMON_ID_LEN = sizeof(DMALL_GUILMON_ID)-1;
+    inline static constexpr size_t DMALL_GUILMON_ID_LEN = sizeof(DMALL_GUILMON_ID_ARR)-1;
     inline static constexpr char DMALL_GUILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Guilmon";
     inline static constexpr const char* DMALL_GUILMON_NAME = DMALL_GUILMON_NAME_ARR;
     inline static constexpr size_t DMALL_GUILMON_NAME_LEN = sizeof(DMALL_GUILMON_NAME_ARR)-1;
@@ -4587,7 +4587,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GUILMON_X_FQID_LEN = sizeof(DMALL_GUILMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_GUILMON_X_ID_ARR[] CONFIG_STRING_SECTION = "guilmon_x";
     inline static constexpr const char* DMALL_GUILMON_X_ID = DMALL_GUILMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_GUILMON_X_ID_LEN = sizeof(DMALL_GUILMON_X_ID)-1;
+    inline static constexpr size_t DMALL_GUILMON_X_ID_LEN = sizeof(DMALL_GUILMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_GUILMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Guilmon X";
     inline static constexpr const char* DMALL_GUILMON_X_NAME = DMALL_GUILMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_GUILMON_X_NAME_LEN = sizeof(DMALL_GUILMON_X_NAME_ARR)-1;
@@ -4605,7 +4605,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GUMMYMON_FQID_LEN = sizeof(DMALL_GUMMYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GUMMYMON_ID_ARR[] CONFIG_STRING_SECTION = "gummymon";
     inline static constexpr const char* DMALL_GUMMYMON_ID = DMALL_GUMMYMON_ID_ARR;
-    inline static constexpr size_t DMALL_GUMMYMON_ID_LEN = sizeof(DMALL_GUMMYMON_ID)-1;
+    inline static constexpr size_t DMALL_GUMMYMON_ID_LEN = sizeof(DMALL_GUMMYMON_ID_ARR)-1;
     inline static constexpr char DMALL_GUMMYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gummymon";
     inline static constexpr const char* DMALL_GUMMYMON_NAME = DMALL_GUMMYMON_NAME_ARR;
     inline static constexpr size_t DMALL_GUMMYMON_NAME_LEN = sizeof(DMALL_GUMMYMON_NAME_ARR)-1;
@@ -4623,7 +4623,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GUNDRAMON_FQID_LEN = sizeof(DMALL_GUNDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GUNDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "gundramon";
     inline static constexpr const char* DMALL_GUNDRAMON_ID = DMALL_GUNDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_GUNDRAMON_ID_LEN = sizeof(DMALL_GUNDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_GUNDRAMON_ID_LEN = sizeof(DMALL_GUNDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_GUNDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gundramon";
     inline static constexpr const char* DMALL_GUNDRAMON_NAME = DMALL_GUNDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_GUNDRAMON_NAME_LEN = sizeof(DMALL_GUNDRAMON_NAME_ARR)-1;
@@ -4641,7 +4641,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GURURUMON_FQID_LEN = sizeof(DMALL_GURURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GURURUMON_ID_ARR[] CONFIG_STRING_SECTION = "gururumon";
     inline static constexpr const char* DMALL_GURURUMON_ID = DMALL_GURURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GURURUMON_ID_LEN = sizeof(DMALL_GURURUMON_ID)-1;
+    inline static constexpr size_t DMALL_GURURUMON_ID_LEN = sizeof(DMALL_GURURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GURURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gururumon";
     inline static constexpr const char* DMALL_GURURUMON_NAME = DMALL_GURURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GURURUMON_NAME_LEN = sizeof(DMALL_GURURUMON_NAME_ARR)-1;
@@ -4659,7 +4659,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_GUSOKUMON_FQID_LEN = sizeof(DMALL_GUSOKUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_GUSOKUMON_ID_ARR[] CONFIG_STRING_SECTION = "gusokumon";
     inline static constexpr const char* DMALL_GUSOKUMON_ID = DMALL_GUSOKUMON_ID_ARR;
-    inline static constexpr size_t DMALL_GUSOKUMON_ID_LEN = sizeof(DMALL_GUSOKUMON_ID)-1;
+    inline static constexpr size_t DMALL_GUSOKUMON_ID_LEN = sizeof(DMALL_GUSOKUMON_ID_ARR)-1;
     inline static constexpr char DMALL_GUSOKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Gusokumon";
     inline static constexpr const char* DMALL_GUSOKUMON_NAME = DMALL_GUSOKUMON_NAME_ARR;
     inline static constexpr size_t DMALL_GUSOKUMON_NAME_LEN = sizeof(DMALL_GUSOKUMON_NAME_ARR)-1;
@@ -4677,7 +4677,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HACKMON_FQID_LEN = sizeof(DMALL_HACKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HACKMON_ID_ARR[] CONFIG_STRING_SECTION = "hackmon";
     inline static constexpr const char* DMALL_HACKMON_ID = DMALL_HACKMON_ID_ARR;
-    inline static constexpr size_t DMALL_HACKMON_ID_LEN = sizeof(DMALL_HACKMON_ID)-1;
+    inline static constexpr size_t DMALL_HACKMON_ID_LEN = sizeof(DMALL_HACKMON_ID_ARR)-1;
     inline static constexpr char DMALL_HACKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hackmon";
     inline static constexpr const char* DMALL_HACKMON_NAME = DMALL_HACKMON_NAME_ARR;
     inline static constexpr size_t DMALL_HACKMON_NAME_LEN = sizeof(DMALL_HACKMON_NAME_ARR)-1;
@@ -4695,7 +4695,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HAGURUMON_FQID_LEN = sizeof(DMALL_HAGURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HAGURUMON_ID_ARR[] CONFIG_STRING_SECTION = "hagurumon";
     inline static constexpr const char* DMALL_HAGURUMON_ID = DMALL_HAGURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_HAGURUMON_ID_LEN = sizeof(DMALL_HAGURUMON_ID)-1;
+    inline static constexpr size_t DMALL_HAGURUMON_ID_LEN = sizeof(DMALL_HAGURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_HAGURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hagurumon";
     inline static constexpr const char* DMALL_HAGURUMON_NAME = DMALL_HAGURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_HAGURUMON_NAME_LEN = sizeof(DMALL_HAGURUMON_NAME_ARR)-1;
@@ -4713,7 +4713,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HANGYOMON_FQID_LEN = sizeof(DMALL_HANGYOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HANGYOMON_ID_ARR[] CONFIG_STRING_SECTION = "hangyomon";
     inline static constexpr const char* DMALL_HANGYOMON_ID = DMALL_HANGYOMON_ID_ARR;
-    inline static constexpr size_t DMALL_HANGYOMON_ID_LEN = sizeof(DMALL_HANGYOMON_ID)-1;
+    inline static constexpr size_t DMALL_HANGYOMON_ID_LEN = sizeof(DMALL_HANGYOMON_ID_ARR)-1;
     inline static constexpr char DMALL_HANGYOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hangyomon";
     inline static constexpr const char* DMALL_HANGYOMON_NAME = DMALL_HANGYOMON_NAME_ARR;
     inline static constexpr size_t DMALL_HANGYOMON_NAME_LEN = sizeof(DMALL_HANGYOMON_NAME_ARR)-1;
@@ -4731,7 +4731,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HANUMON_FQID_LEN = sizeof(DMALL_HANUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HANUMON_ID_ARR[] CONFIG_STRING_SECTION = "hanumon";
     inline static constexpr const char* DMALL_HANUMON_ID = DMALL_HANUMON_ID_ARR;
-    inline static constexpr size_t DMALL_HANUMON_ID_LEN = sizeof(DMALL_HANUMON_ID)-1;
+    inline static constexpr size_t DMALL_HANUMON_ID_LEN = sizeof(DMALL_HANUMON_ID_ARR)-1;
     inline static constexpr char DMALL_HANUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hanumon";
     inline static constexpr const char* DMALL_HANUMON_NAME = DMALL_HANUMON_NAME_ARR;
     inline static constexpr size_t DMALL_HANUMON_NAME_LEN = sizeof(DMALL_HANUMON_NAME_ARR)-1;
@@ -4749,7 +4749,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HERAKLE_KABUTERIMON_FQID_LEN = sizeof(DMALL_HERAKLE_KABUTERIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HERAKLE_KABUTERIMON_ID_ARR[] CONFIG_STRING_SECTION = "herakle_kabuterimon";
     inline static constexpr const char* DMALL_HERAKLE_KABUTERIMON_ID = DMALL_HERAKLE_KABUTERIMON_ID_ARR;
-    inline static constexpr size_t DMALL_HERAKLE_KABUTERIMON_ID_LEN = sizeof(DMALL_HERAKLE_KABUTERIMON_ID)-1;
+    inline static constexpr size_t DMALL_HERAKLE_KABUTERIMON_ID_LEN = sizeof(DMALL_HERAKLE_KABUTERIMON_ID_ARR)-1;
     inline static constexpr char DMALL_HERAKLE_KABUTERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Herakle Kabuterimon";
     inline static constexpr const char* DMALL_HERAKLE_KABUTERIMON_NAME = DMALL_HERAKLE_KABUTERIMON_NAME_ARR;
     inline static constexpr size_t DMALL_HERAKLE_KABUTERIMON_NAME_LEN = sizeof(DMALL_HERAKLE_KABUTERIMON_NAME_ARR)-1;
@@ -4767,7 +4767,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HERISSMON_FQID_LEN = sizeof(DMALL_HERISSMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HERISSMON_ID_ARR[] CONFIG_STRING_SECTION = "herissmon";
     inline static constexpr const char* DMALL_HERISSMON_ID = DMALL_HERISSMON_ID_ARR;
-    inline static constexpr size_t DMALL_HERISSMON_ID_LEN = sizeof(DMALL_HERISSMON_ID)-1;
+    inline static constexpr size_t DMALL_HERISSMON_ID_LEN = sizeof(DMALL_HERISSMON_ID_ARR)-1;
     inline static constexpr char DMALL_HERISSMON_NAME_ARR[] CONFIG_STRING_SECTION = "Herissmon";
     inline static constexpr const char* DMALL_HERISSMON_NAME = DMALL_HERISSMON_NAME_ARR;
     inline static constexpr size_t DMALL_HERISSMON_NAME_LEN = sizeof(DMALL_HERISSMON_NAME_ARR)-1;
@@ -4785,7 +4785,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HEXEBLAUMON_FQID_LEN = sizeof(DMALL_HEXEBLAUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HEXEBLAUMON_ID_ARR[] CONFIG_STRING_SECTION = "hexeblaumon";
     inline static constexpr const char* DMALL_HEXEBLAUMON_ID = DMALL_HEXEBLAUMON_ID_ARR;
-    inline static constexpr size_t DMALL_HEXEBLAUMON_ID_LEN = sizeof(DMALL_HEXEBLAUMON_ID)-1;
+    inline static constexpr size_t DMALL_HEXEBLAUMON_ID_LEN = sizeof(DMALL_HEXEBLAUMON_ID_ARR)-1;
     inline static constexpr char DMALL_HEXEBLAUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hexeblaumon";
     inline static constexpr const char* DMALL_HEXEBLAUMON_NAME = DMALL_HEXEBLAUMON_NAME_ARR;
     inline static constexpr size_t DMALL_HEXEBLAUMON_NAME_LEN = sizeof(DMALL_HEXEBLAUMON_NAME_ARR)-1;
@@ -4803,7 +4803,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HI_ANDROMON_FQID_LEN = sizeof(DMALL_HI_ANDROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HI_ANDROMON_ID_ARR[] CONFIG_STRING_SECTION = "hi_andromon";
     inline static constexpr const char* DMALL_HI_ANDROMON_ID = DMALL_HI_ANDROMON_ID_ARR;
-    inline static constexpr size_t DMALL_HI_ANDROMON_ID_LEN = sizeof(DMALL_HI_ANDROMON_ID)-1;
+    inline static constexpr size_t DMALL_HI_ANDROMON_ID_LEN = sizeof(DMALL_HI_ANDROMON_ID_ARR)-1;
     inline static constexpr char DMALL_HI_ANDROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hi Andromon";
     inline static constexpr const char* DMALL_HI_ANDROMON_NAME = DMALL_HI_ANDROMON_NAME_ARR;
     inline static constexpr size_t DMALL_HI_ANDROMON_NAME_LEN = sizeof(DMALL_HI_ANDROMON_NAME_ARR)-1;
@@ -4821,7 +4821,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HISYARYUMON_FQID_LEN = sizeof(DMALL_HISYARYUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HISYARYUMON_ID_ARR[] CONFIG_STRING_SECTION = "hisyaryumon";
     inline static constexpr const char* DMALL_HISYARYUMON_ID = DMALL_HISYARYUMON_ID_ARR;
-    inline static constexpr size_t DMALL_HISYARYUMON_ID_LEN = sizeof(DMALL_HISYARYUMON_ID)-1;
+    inline static constexpr size_t DMALL_HISYARYUMON_ID_LEN = sizeof(DMALL_HISYARYUMON_ID_ARR)-1;
     inline static constexpr char DMALL_HISYARYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hisyaryumon";
     inline static constexpr const char* DMALL_HISYARYUMON_NAME = DMALL_HISYARYUMON_NAME_ARR;
     inline static constexpr size_t DMALL_HISYARYUMON_NAME_LEN = sizeof(DMALL_HISYARYUMON_NAME_ARR)-1;
@@ -4839,7 +4839,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HIYARIMON_FQID_LEN = sizeof(DMALL_HIYARIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HIYARIMON_ID_ARR[] CONFIG_STRING_SECTION = "hiyarimon";
     inline static constexpr const char* DMALL_HIYARIMON_ID = DMALL_HIYARIMON_ID_ARR;
-    inline static constexpr size_t DMALL_HIYARIMON_ID_LEN = sizeof(DMALL_HIYARIMON_ID)-1;
+    inline static constexpr size_t DMALL_HIYARIMON_ID_LEN = sizeof(DMALL_HIYARIMON_ID_ARR)-1;
     inline static constexpr char DMALL_HIYARIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hiyarimon";
     inline static constexpr const char* DMALL_HIYARIMON_NAME = DMALL_HIYARIMON_NAME_ARR;
     inline static constexpr size_t DMALL_HIYARIMON_NAME_LEN = sizeof(DMALL_HIYARIMON_NAME_ARR)-1;
@@ -4857,7 +4857,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HOLY_ANGEMON_FQID_LEN = sizeof(DMALL_HOLY_ANGEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HOLY_ANGEMON_ID_ARR[] CONFIG_STRING_SECTION = "holy_angemon";
     inline static constexpr const char* DMALL_HOLY_ANGEMON_ID = DMALL_HOLY_ANGEMON_ID_ARR;
-    inline static constexpr size_t DMALL_HOLY_ANGEMON_ID_LEN = sizeof(DMALL_HOLY_ANGEMON_ID)-1;
+    inline static constexpr size_t DMALL_HOLY_ANGEMON_ID_LEN = sizeof(DMALL_HOLY_ANGEMON_ID_ARR)-1;
     inline static constexpr char DMALL_HOLY_ANGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Holy Angemon";
     inline static constexpr const char* DMALL_HOLY_ANGEMON_NAME = DMALL_HOLY_ANGEMON_NAME_ARR;
     inline static constexpr size_t DMALL_HOLY_ANGEMON_NAME_LEN = sizeof(DMALL_HOLY_ANGEMON_NAME_ARR)-1;
@@ -4875,7 +4875,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HOLY_DIGITAMAMON_FQID_LEN = sizeof(DMALL_HOLY_DIGITAMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HOLY_DIGITAMAMON_ID_ARR[] CONFIG_STRING_SECTION = "holy_digitamamon";
     inline static constexpr const char* DMALL_HOLY_DIGITAMAMON_ID = DMALL_HOLY_DIGITAMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_HOLY_DIGITAMAMON_ID_LEN = sizeof(DMALL_HOLY_DIGITAMAMON_ID)-1;
+    inline static constexpr size_t DMALL_HOLY_DIGITAMAMON_ID_LEN = sizeof(DMALL_HOLY_DIGITAMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_HOLY_DIGITAMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Holy Digitamamon";
     inline static constexpr const char* DMALL_HOLY_DIGITAMAMON_NAME = DMALL_HOLY_DIGITAMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_HOLY_DIGITAMAMON_NAME_LEN = sizeof(DMALL_HOLY_DIGITAMAMON_NAME_ARR)-1;
@@ -4893,7 +4893,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HOLYDRAMON_FQID_LEN = sizeof(DMALL_HOLYDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HOLYDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "holydramon";
     inline static constexpr const char* DMALL_HOLYDRAMON_ID = DMALL_HOLYDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_HOLYDRAMON_ID_LEN = sizeof(DMALL_HOLYDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_HOLYDRAMON_ID_LEN = sizeof(DMALL_HOLYDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_HOLYDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Holydramon";
     inline static constexpr const char* DMALL_HOLYDRAMON_NAME = DMALL_HOLYDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_HOLYDRAMON_NAME_LEN = sizeof(DMALL_HOLYDRAMON_NAME_ARR)-1;
@@ -4911,7 +4911,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HOLYDRAMON_X_FQID_LEN = sizeof(DMALL_HOLYDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_HOLYDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "holydramon_x";
     inline static constexpr const char* DMALL_HOLYDRAMON_X_ID = DMALL_HOLYDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_HOLYDRAMON_X_ID_LEN = sizeof(DMALL_HOLYDRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_HOLYDRAMON_X_ID_LEN = sizeof(DMALL_HOLYDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_HOLYDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Holydramon X";
     inline static constexpr const char* DMALL_HOLYDRAMON_X_NAME = DMALL_HOLYDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_HOLYDRAMON_X_NAME_LEN = sizeof(DMALL_HOLYDRAMON_X_NAME_ARR)-1;
@@ -4929,7 +4929,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HOOKMON_FQID_LEN = sizeof(DMALL_HOOKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HOOKMON_ID_ARR[] CONFIG_STRING_SECTION = "hookmon";
     inline static constexpr const char* DMALL_HOOKMON_ID = DMALL_HOOKMON_ID_ARR;
-    inline static constexpr size_t DMALL_HOOKMON_ID_LEN = sizeof(DMALL_HOOKMON_ID)-1;
+    inline static constexpr size_t DMALL_HOOKMON_ID_LEN = sizeof(DMALL_HOOKMON_ID_ARR)-1;
     inline static constexpr char DMALL_HOOKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hookmon";
     inline static constexpr const char* DMALL_HOOKMON_NAME = DMALL_HOOKMON_NAME_ARR;
     inline static constexpr size_t DMALL_HOOKMON_NAME_LEN = sizeof(DMALL_HOOKMON_NAME_ARR)-1;
@@ -4947,7 +4947,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HOUOUMON_FQID_LEN = sizeof(DMALL_HOUOUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HOUOUMON_ID_ARR[] CONFIG_STRING_SECTION = "hououmon";
     inline static constexpr const char* DMALL_HOUOUMON_ID = DMALL_HOUOUMON_ID_ARR;
-    inline static constexpr size_t DMALL_HOUOUMON_ID_LEN = sizeof(DMALL_HOUOUMON_ID)-1;
+    inline static constexpr size_t DMALL_HOUOUMON_ID_LEN = sizeof(DMALL_HOUOUMON_ID_ARR)-1;
     inline static constexpr char DMALL_HOUOUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hououmon";
     inline static constexpr const char* DMALL_HOUOUMON_NAME = DMALL_HOUOUMON_NAME_ARR;
     inline static constexpr size_t DMALL_HOUOUMON_NAME_LEN = sizeof(DMALL_HOUOUMON_NAME_ARR)-1;
@@ -4965,7 +4965,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HOUOUMON_X_FQID_LEN = sizeof(DMALL_HOUOUMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_HOUOUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "hououmon_x";
     inline static constexpr const char* DMALL_HOUOUMON_X_ID = DMALL_HOUOUMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_HOUOUMON_X_ID_LEN = sizeof(DMALL_HOUOUMON_X_ID)-1;
+    inline static constexpr size_t DMALL_HOUOUMON_X_ID_LEN = sizeof(DMALL_HOUOUMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_HOUOUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Hououmon X";
     inline static constexpr const char* DMALL_HOUOUMON_X_NAME = DMALL_HOUOUMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_HOUOUMON_X_NAME_LEN = sizeof(DMALL_HOUOUMON_X_NAME_ARR)-1;
@@ -4983,7 +4983,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HYOKOMON_FQID_LEN = sizeof(DMALL_HYOKOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HYOKOMON_ID_ARR[] CONFIG_STRING_SECTION = "hyokomon";
     inline static constexpr const char* DMALL_HYOKOMON_ID = DMALL_HYOKOMON_ID_ARR;
-    inline static constexpr size_t DMALL_HYOKOMON_ID_LEN = sizeof(DMALL_HYOKOMON_ID)-1;
+    inline static constexpr size_t DMALL_HYOKOMON_ID_LEN = sizeof(DMALL_HYOKOMON_ID_ARR)-1;
     inline static constexpr char DMALL_HYOKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hyokomon";
     inline static constexpr const char* DMALL_HYOKOMON_NAME = DMALL_HYOKOMON_NAME_ARR;
     inline static constexpr size_t DMALL_HYOKOMON_NAME_LEN = sizeof(DMALL_HYOKOMON_NAME_ARR)-1;
@@ -5001,7 +5001,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_HYOUGAMON_FQID_LEN = sizeof(DMALL_HYOUGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_HYOUGAMON_ID_ARR[] CONFIG_STRING_SECTION = "hyougamon";
     inline static constexpr const char* DMALL_HYOUGAMON_ID = DMALL_HYOUGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_HYOUGAMON_ID_LEN = sizeof(DMALL_HYOUGAMON_ID)-1;
+    inline static constexpr size_t DMALL_HYOUGAMON_ID_LEN = sizeof(DMALL_HYOUGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_HYOUGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Hyougamon";
     inline static constexpr const char* DMALL_HYOUGAMON_NAME = DMALL_HYOUGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_HYOUGAMON_NAME_LEN = sizeof(DMALL_HYOUGAMON_NAME_ARR)-1;
@@ -5019,7 +5019,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ICE_DEVIMON_FQID_LEN = sizeof(DMALL_ICE_DEVIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ICE_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "ice_devimon";
     inline static constexpr const char* DMALL_ICE_DEVIMON_ID = DMALL_ICE_DEVIMON_ID_ARR;
-    inline static constexpr size_t DMALL_ICE_DEVIMON_ID_LEN = sizeof(DMALL_ICE_DEVIMON_ID)-1;
+    inline static constexpr size_t DMALL_ICE_DEVIMON_ID_LEN = sizeof(DMALL_ICE_DEVIMON_ID_ARR)-1;
     inline static constexpr char DMALL_ICE_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ice Devimon";
     inline static constexpr const char* DMALL_ICE_DEVIMON_NAME = DMALL_ICE_DEVIMON_NAME_ARR;
     inline static constexpr size_t DMALL_ICE_DEVIMON_NAME_LEN = sizeof(DMALL_ICE_DEVIMON_NAME_ARR)-1;
@@ -5037,7 +5037,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ICEMON_FQID_LEN = sizeof(DMALL_ICEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ICEMON_ID_ARR[] CONFIG_STRING_SECTION = "icemon";
     inline static constexpr const char* DMALL_ICEMON_ID = DMALL_ICEMON_ID_ARR;
-    inline static constexpr size_t DMALL_ICEMON_ID_LEN = sizeof(DMALL_ICEMON_ID)-1;
+    inline static constexpr size_t DMALL_ICEMON_ID_LEN = sizeof(DMALL_ICEMON_ID_ARR)-1;
     inline static constexpr char DMALL_ICEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Icemon";
     inline static constexpr const char* DMALL_ICEMON_NAME = DMALL_ICEMON_NAME_ARR;
     inline static constexpr size_t DMALL_ICEMON_NAME_LEN = sizeof(DMALL_ICEMON_NAME_ARR)-1;
@@ -5055,7 +5055,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_IGAMON_FQID_LEN = sizeof(DMALL_IGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_IGAMON_ID_ARR[] CONFIG_STRING_SECTION = "igamon";
     inline static constexpr const char* DMALL_IGAMON_ID = DMALL_IGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_IGAMON_ID_LEN = sizeof(DMALL_IGAMON_ID)-1;
+    inline static constexpr size_t DMALL_IGAMON_ID_LEN = sizeof(DMALL_IGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_IGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Igamon";
     inline static constexpr const char* DMALL_IGAMON_NAME = DMALL_IGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_IGAMON_NAME_LEN = sizeof(DMALL_IGAMON_NAME_ARR)-1;
@@ -5073,7 +5073,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_IKKAKUMON_FQID_LEN = sizeof(DMALL_IKKAKUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_IKKAKUMON_ID_ARR[] CONFIG_STRING_SECTION = "ikkakumon";
     inline static constexpr const char* DMALL_IKKAKUMON_ID = DMALL_IKKAKUMON_ID_ARR;
-    inline static constexpr size_t DMALL_IKKAKUMON_ID_LEN = sizeof(DMALL_IKKAKUMON_ID)-1;
+    inline static constexpr size_t DMALL_IKKAKUMON_ID_LEN = sizeof(DMALL_IKKAKUMON_ID_ARR)-1;
     inline static constexpr char DMALL_IKKAKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ikkakumon";
     inline static constexpr const char* DMALL_IKKAKUMON_NAME = DMALL_IKKAKUMON_NAME_ARR;
     inline static constexpr size_t DMALL_IKKAKUMON_NAME_LEN = sizeof(DMALL_IKKAKUMON_NAME_ARR)-1;
@@ -5091,7 +5091,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_FQID_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "imperialdramon_fighter_mode_black";
     inline static constexpr const char* DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_ID = DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_ID_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_ID_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "Imperialdramon Fighter Mode (Black)";
     inline static constexpr const char* DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_NAME = DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_NAME_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_BLACK_NAME_ARR)-1;
@@ -5109,7 +5109,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_FQID_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_IMPERIALDRAMON_FIGHTER_MODE_ID_ARR[] CONFIG_STRING_SECTION = "imperialdramon_fighter_mode";
     inline static constexpr const char* DMALL_IMPERIALDRAMON_FIGHTER_MODE_ID = DMALL_IMPERIALDRAMON_FIGHTER_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_ID_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_ID)-1;
+    inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_ID_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_IMPERIALDRAMON_FIGHTER_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Imperialdramon Fighter Mode";
     inline static constexpr const char* DMALL_IMPERIALDRAMON_FIGHTER_MODE_NAME = DMALL_IMPERIALDRAMON_FIGHTER_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_IMPERIALDRAMON_FIGHTER_MODE_NAME_LEN = sizeof(DMALL_IMPERIALDRAMON_FIGHTER_MODE_NAME_ARR)-1;
@@ -5127,7 +5127,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_IMPERIALDRAMON_PALADIN_MODE_FQID_LEN = sizeof(DMALL_IMPERIALDRAMON_PALADIN_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_IMPERIALDRAMON_PALADIN_MODE_ID_ARR[] CONFIG_STRING_SECTION = "imperialdramon_paladin_mode";
     inline static constexpr const char* DMALL_IMPERIALDRAMON_PALADIN_MODE_ID = DMALL_IMPERIALDRAMON_PALADIN_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_IMPERIALDRAMON_PALADIN_MODE_ID_LEN = sizeof(DMALL_IMPERIALDRAMON_PALADIN_MODE_ID)-1;
+    inline static constexpr size_t DMALL_IMPERIALDRAMON_PALADIN_MODE_ID_LEN = sizeof(DMALL_IMPERIALDRAMON_PALADIN_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_IMPERIALDRAMON_PALADIN_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Imperialdramon Paladin Mode";
     inline static constexpr const char* DMALL_IMPERIALDRAMON_PALADIN_MODE_NAME = DMALL_IMPERIALDRAMON_PALADIN_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_IMPERIALDRAMON_PALADIN_MODE_NAME_LEN = sizeof(DMALL_IMPERIALDRAMON_PALADIN_MODE_NAME_ARR)-1;
@@ -5145,7 +5145,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_IMPMON_FQID_LEN = sizeof(DMALL_IMPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_IMPMON_ID_ARR[] CONFIG_STRING_SECTION = "impmon";
     inline static constexpr const char* DMALL_IMPMON_ID = DMALL_IMPMON_ID_ARR;
-    inline static constexpr size_t DMALL_IMPMON_ID_LEN = sizeof(DMALL_IMPMON_ID)-1;
+    inline static constexpr size_t DMALL_IMPMON_ID_LEN = sizeof(DMALL_IMPMON_ID_ARR)-1;
     inline static constexpr char DMALL_IMPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Impmon";
     inline static constexpr const char* DMALL_IMPMON_NAME = DMALL_IMPMON_NAME_ARR;
     inline static constexpr size_t DMALL_IMPMON_NAME_LEN = sizeof(DMALL_IMPMON_NAME_ARR)-1;
@@ -5163,7 +5163,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_IMPMON_X_FQID_LEN = sizeof(DMALL_IMPMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_IMPMON_X_ID_ARR[] CONFIG_STRING_SECTION = "impmon_x";
     inline static constexpr const char* DMALL_IMPMON_X_ID = DMALL_IMPMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_IMPMON_X_ID_LEN = sizeof(DMALL_IMPMON_X_ID)-1;
+    inline static constexpr size_t DMALL_IMPMON_X_ID_LEN = sizeof(DMALL_IMPMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_IMPMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Impmon X";
     inline static constexpr const char* DMALL_IMPMON_X_NAME = DMALL_IMPMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_IMPMON_X_NAME_LEN = sizeof(DMALL_IMPMON_X_NAME_ARR)-1;
@@ -5181,7 +5181,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_INSEKIMON_FQID_LEN = sizeof(DMALL_INSEKIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_INSEKIMON_ID_ARR[] CONFIG_STRING_SECTION = "insekimon";
     inline static constexpr const char* DMALL_INSEKIMON_ID = DMALL_INSEKIMON_ID_ARR;
-    inline static constexpr size_t DMALL_INSEKIMON_ID_LEN = sizeof(DMALL_INSEKIMON_ID)-1;
+    inline static constexpr size_t DMALL_INSEKIMON_ID_LEN = sizeof(DMALL_INSEKIMON_ID_ARR)-1;
     inline static constexpr char DMALL_INSEKIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Insekimon";
     inline static constexpr const char* DMALL_INSEKIMON_NAME = DMALL_INSEKIMON_NAME_ARR;
     inline static constexpr size_t DMALL_INSEKIMON_NAME_LEN = sizeof(DMALL_INSEKIMON_NAME_ARR)-1;
@@ -5199,7 +5199,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JAZAMON_FQID_LEN = sizeof(DMALL_JAZAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JAZAMON_ID_ARR[] CONFIG_STRING_SECTION = "jazamon";
     inline static constexpr const char* DMALL_JAZAMON_ID = DMALL_JAZAMON_ID_ARR;
-    inline static constexpr size_t DMALL_JAZAMON_ID_LEN = sizeof(DMALL_JAZAMON_ID)-1;
+    inline static constexpr size_t DMALL_JAZAMON_ID_LEN = sizeof(DMALL_JAZAMON_ID_ARR)-1;
     inline static constexpr char DMALL_JAZAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jazamon";
     inline static constexpr const char* DMALL_JAZAMON_NAME = DMALL_JAZAMON_NAME_ARR;
     inline static constexpr size_t DMALL_JAZAMON_NAME_LEN = sizeof(DMALL_JAZAMON_NAME_ARR)-1;
@@ -5217,7 +5217,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JAZARDMON_FQID_LEN = sizeof(DMALL_JAZARDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JAZARDMON_ID_ARR[] CONFIG_STRING_SECTION = "jazardmon";
     inline static constexpr const char* DMALL_JAZARDMON_ID = DMALL_JAZARDMON_ID_ARR;
-    inline static constexpr size_t DMALL_JAZARDMON_ID_LEN = sizeof(DMALL_JAZARDMON_ID)-1;
+    inline static constexpr size_t DMALL_JAZARDMON_ID_LEN = sizeof(DMALL_JAZARDMON_ID_ARR)-1;
     inline static constexpr char DMALL_JAZARDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jazardmon";
     inline static constexpr const char* DMALL_JAZARDMON_NAME = DMALL_JAZARDMON_NAME_ARR;
     inline static constexpr size_t DMALL_JAZARDMON_NAME_LEN = sizeof(DMALL_JAZARDMON_NAME_ARR)-1;
@@ -5235,7 +5235,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JAZARICHMON_FQID_LEN = sizeof(DMALL_JAZARICHMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JAZARICHMON_ID_ARR[] CONFIG_STRING_SECTION = "jazarichmon";
     inline static constexpr const char* DMALL_JAZARICHMON_ID = DMALL_JAZARICHMON_ID_ARR;
-    inline static constexpr size_t DMALL_JAZARICHMON_ID_LEN = sizeof(DMALL_JAZARICHMON_ID)-1;
+    inline static constexpr size_t DMALL_JAZARICHMON_ID_LEN = sizeof(DMALL_JAZARICHMON_ID_ARR)-1;
     inline static constexpr char DMALL_JAZARICHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jazarichmon";
     inline static constexpr const char* DMALL_JAZARICHMON_NAME = DMALL_JAZARICHMON_NAME_ARR;
     inline static constexpr size_t DMALL_JAZARICHMON_NAME_LEN = sizeof(DMALL_JAZARICHMON_NAME_ARR)-1;
@@ -5253,7 +5253,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JESMON_GX_FQID_LEN = sizeof(DMALL_JESMON_GX_FQID_ARR)-1;
     inline static constexpr char DMALL_JESMON_GX_ID_ARR[] CONFIG_STRING_SECTION = "jesmon_gx";
     inline static constexpr const char* DMALL_JESMON_GX_ID = DMALL_JESMON_GX_ID_ARR;
-    inline static constexpr size_t DMALL_JESMON_GX_ID_LEN = sizeof(DMALL_JESMON_GX_ID)-1;
+    inline static constexpr size_t DMALL_JESMON_GX_ID_LEN = sizeof(DMALL_JESMON_GX_ID_ARR)-1;
     inline static constexpr char DMALL_JESMON_GX_NAME_ARR[] CONFIG_STRING_SECTION = "Jesmon GX";
     inline static constexpr const char* DMALL_JESMON_GX_NAME = DMALL_JESMON_GX_NAME_ARR;
     inline static constexpr size_t DMALL_JESMON_GX_NAME_LEN = sizeof(DMALL_JESMON_GX_NAME_ARR)-1;
@@ -5271,7 +5271,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JESMON_FQID_LEN = sizeof(DMALL_JESMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JESMON_ID_ARR[] CONFIG_STRING_SECTION = "jesmon";
     inline static constexpr const char* DMALL_JESMON_ID = DMALL_JESMON_ID_ARR;
-    inline static constexpr size_t DMALL_JESMON_ID_LEN = sizeof(DMALL_JESMON_ID)-1;
+    inline static constexpr size_t DMALL_JESMON_ID_LEN = sizeof(DMALL_JESMON_ID_ARR)-1;
     inline static constexpr char DMALL_JESMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jesmon";
     inline static constexpr const char* DMALL_JESMON_NAME = DMALL_JESMON_NAME_ARR;
     inline static constexpr size_t DMALL_JESMON_NAME_LEN = sizeof(DMALL_JESMON_NAME_ARR)-1;
@@ -5289,7 +5289,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JESMON_X_FQID_LEN = sizeof(DMALL_JESMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_JESMON_X_ID_ARR[] CONFIG_STRING_SECTION = "jesmon_x";
     inline static constexpr const char* DMALL_JESMON_X_ID = DMALL_JESMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_JESMON_X_ID_LEN = sizeof(DMALL_JESMON_X_ID)-1;
+    inline static constexpr size_t DMALL_JESMON_X_ID_LEN = sizeof(DMALL_JESMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_JESMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Jesmon X";
     inline static constexpr const char* DMALL_JESMON_X_NAME = DMALL_JESMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_JESMON_X_NAME_LEN = sizeof(DMALL_JESMON_X_NAME_ARR)-1;
@@ -5307,7 +5307,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JUNKMON_FQID_LEN = sizeof(DMALL_JUNKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JUNKMON_ID_ARR[] CONFIG_STRING_SECTION = "junkmon";
     inline static constexpr const char* DMALL_JUNKMON_ID = DMALL_JUNKMON_ID_ARR;
-    inline static constexpr size_t DMALL_JUNKMON_ID_LEN = sizeof(DMALL_JUNKMON_ID)-1;
+    inline static constexpr size_t DMALL_JUNKMON_ID_LEN = sizeof(DMALL_JUNKMON_ID_ARR)-1;
     inline static constexpr char DMALL_JUNKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Junkmon";
     inline static constexpr const char* DMALL_JUNKMON_NAME = DMALL_JUNKMON_NAME_ARR;
     inline static constexpr size_t DMALL_JUNKMON_NAME_LEN = sizeof(DMALL_JUNKMON_NAME_ARR)-1;
@@ -5325,7 +5325,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JUSTIMON_X_FQID_LEN = sizeof(DMALL_JUSTIMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_JUSTIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "justimon_x";
     inline static constexpr const char* DMALL_JUSTIMON_X_ID = DMALL_JUSTIMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_JUSTIMON_X_ID_LEN = sizeof(DMALL_JUSTIMON_X_ID)-1;
+    inline static constexpr size_t DMALL_JUSTIMON_X_ID_LEN = sizeof(DMALL_JUSTIMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_JUSTIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Justimon X";
     inline static constexpr const char* DMALL_JUSTIMON_X_NAME = DMALL_JUSTIMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_JUSTIMON_X_NAME_LEN = sizeof(DMALL_JUSTIMON_X_NAME_ARR)-1;
@@ -5343,7 +5343,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JYAGAMON_FQID_LEN = sizeof(DMALL_JYAGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JYAGAMON_ID_ARR[] CONFIG_STRING_SECTION = "jyagamon";
     inline static constexpr const char* DMALL_JYAGAMON_ID = DMALL_JYAGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_JYAGAMON_ID_LEN = sizeof(DMALL_JYAGAMON_ID)-1;
+    inline static constexpr size_t DMALL_JYAGAMON_ID_LEN = sizeof(DMALL_JYAGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_JYAGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jyagamon";
     inline static constexpr const char* DMALL_JYAGAMON_NAME = DMALL_JYAGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_JYAGAMON_NAME_LEN = sizeof(DMALL_JYAGAMON_NAME_ARR)-1;
@@ -5361,7 +5361,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JYARIMON_FQID_LEN = sizeof(DMALL_JYARIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JYARIMON_ID_ARR[] CONFIG_STRING_SECTION = "jyarimon";
     inline static constexpr const char* DMALL_JYARIMON_ID = DMALL_JYARIMON_ID_ARR;
-    inline static constexpr size_t DMALL_JYARIMON_ID_LEN = sizeof(DMALL_JYARIMON_ID)-1;
+    inline static constexpr size_t DMALL_JYARIMON_ID_LEN = sizeof(DMALL_JYARIMON_ID_ARR)-1;
     inline static constexpr char DMALL_JYARIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jyarimon";
     inline static constexpr const char* DMALL_JYARIMON_NAME = DMALL_JYARIMON_NAME_ARR;
     inline static constexpr size_t DMALL_JYARIMON_NAME_LEN = sizeof(DMALL_JYARIMON_NAME_ARR)-1;
@@ -5379,7 +5379,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_JYUREIMON_FQID_LEN = sizeof(DMALL_JYUREIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_JYUREIMON_ID_ARR[] CONFIG_STRING_SECTION = "jyureimon";
     inline static constexpr const char* DMALL_JYUREIMON_ID = DMALL_JYUREIMON_ID_ARR;
-    inline static constexpr size_t DMALL_JYUREIMON_ID_LEN = sizeof(DMALL_JYUREIMON_ID)-1;
+    inline static constexpr size_t DMALL_JYUREIMON_ID_LEN = sizeof(DMALL_JYUREIMON_ID_ARR)-1;
     inline static constexpr char DMALL_JYUREIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Jyureimon";
     inline static constexpr const char* DMALL_JYUREIMON_NAME = DMALL_JYUREIMON_NAME_ARR;
     inline static constexpr size_t DMALL_JYUREIMON_NAME_LEN = sizeof(DMALL_JYUREIMON_NAME_ARR)-1;
@@ -5397,7 +5397,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KABUTERIMON_FQID_LEN = sizeof(DMALL_KABUTERIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KABUTERIMON_ID_ARR[] CONFIG_STRING_SECTION = "kabuterimon";
     inline static constexpr const char* DMALL_KABUTERIMON_ID = DMALL_KABUTERIMON_ID_ARR;
-    inline static constexpr size_t DMALL_KABUTERIMON_ID_LEN = sizeof(DMALL_KABUTERIMON_ID)-1;
+    inline static constexpr size_t DMALL_KABUTERIMON_ID_LEN = sizeof(DMALL_KABUTERIMON_ID_ARR)-1;
     inline static constexpr char DMALL_KABUTERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kabuterimon";
     inline static constexpr const char* DMALL_KABUTERIMON_NAME = DMALL_KABUTERIMON_NAME_ARR;
     inline static constexpr size_t DMALL_KABUTERIMON_NAME_LEN = sizeof(DMALL_KABUTERIMON_NAME_ARR)-1;
@@ -5415,7 +5415,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KAISER_GREYMON_FQID_LEN = sizeof(DMALL_KAISER_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KAISER_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "kaiser_greymon";
     inline static constexpr const char* DMALL_KAISER_GREYMON_ID = DMALL_KAISER_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_KAISER_GREYMON_ID_LEN = sizeof(DMALL_KAISER_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_KAISER_GREYMON_ID_LEN = sizeof(DMALL_KAISER_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_KAISER_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kaiser Greymon";
     inline static constexpr const char* DMALL_KAISER_GREYMON_NAME = DMALL_KAISER_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_KAISER_GREYMON_NAME_LEN = sizeof(DMALL_KAISER_GREYMON_NAME_ARR)-1;
@@ -5433,7 +5433,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KAISER_LEOMON_FQID_LEN = sizeof(DMALL_KAISER_LEOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KAISER_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "kaiser_leomon";
     inline static constexpr const char* DMALL_KAISER_LEOMON_ID = DMALL_KAISER_LEOMON_ID_ARR;
-    inline static constexpr size_t DMALL_KAISER_LEOMON_ID_LEN = sizeof(DMALL_KAISER_LEOMON_ID)-1;
+    inline static constexpr size_t DMALL_KAISER_LEOMON_ID_LEN = sizeof(DMALL_KAISER_LEOMON_ID_ARR)-1;
     inline static constexpr char DMALL_KAISER_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kaiser Leomon";
     inline static constexpr const char* DMALL_KAISER_LEOMON_NAME = DMALL_KAISER_LEOMON_NAME_ARR;
     inline static constexpr size_t DMALL_KAISER_LEOMON_NAME_LEN = sizeof(DMALL_KAISER_LEOMON_NAME_ARR)-1;
@@ -5451,7 +5451,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KAKKINMON_FQID_LEN = sizeof(DMALL_KAKKINMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KAKKINMON_ID_ARR[] CONFIG_STRING_SECTION = "kakkinmon";
     inline static constexpr const char* DMALL_KAKKINMON_ID = DMALL_KAKKINMON_ID_ARR;
-    inline static constexpr size_t DMALL_KAKKINMON_ID_LEN = sizeof(DMALL_KAKKINMON_ID)-1;
+    inline static constexpr size_t DMALL_KAKKINMON_ID_LEN = sizeof(DMALL_KAKKINMON_ID_ARR)-1;
     inline static constexpr char DMALL_KAKKINMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kakkinmon";
     inline static constexpr const char* DMALL_KAKKINMON_NAME = DMALL_KAKKINMON_NAME_ARR;
     inline static constexpr size_t DMALL_KAKKINMON_NAME_LEN = sizeof(DMALL_KAKKINMON_NAME_ARR)-1;
@@ -5469,7 +5469,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KARATSUKI_NUMEMON_FQID_LEN = sizeof(DMALL_KARATSUKI_NUMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KARATSUKI_NUMEMON_ID_ARR[] CONFIG_STRING_SECTION = "karatsuki_numemon";
     inline static constexpr const char* DMALL_KARATSUKI_NUMEMON_ID = DMALL_KARATSUKI_NUMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_KARATSUKI_NUMEMON_ID_LEN = sizeof(DMALL_KARATSUKI_NUMEMON_ID)-1;
+    inline static constexpr size_t DMALL_KARATSUKI_NUMEMON_ID_LEN = sizeof(DMALL_KARATSUKI_NUMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_KARATSUKI_NUMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Karatsuki Numemon";
     inline static constexpr const char* DMALL_KARATSUKI_NUMEMON_NAME = DMALL_KARATSUKI_NUMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_KARATSUKI_NUMEMON_NAME_LEN = sizeof(DMALL_KARATSUKI_NUMEMON_NAME_ARR)-1;
@@ -5487,7 +5487,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KAZUCHIMON_FQID_LEN = sizeof(DMALL_KAZUCHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KAZUCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "kazuchimon";
     inline static constexpr const char* DMALL_KAZUCHIMON_ID = DMALL_KAZUCHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_KAZUCHIMON_ID_LEN = sizeof(DMALL_KAZUCHIMON_ID)-1;
+    inline static constexpr size_t DMALL_KAZUCHIMON_ID_LEN = sizeof(DMALL_KAZUCHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_KAZUCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kazuchimon";
     inline static constexpr const char* DMALL_KAZUCHIMON_NAME = DMALL_KAZUCHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_KAZUCHIMON_NAME_LEN = sizeof(DMALL_KAZUCHIMON_NAME_ARR)-1;
@@ -5505,7 +5505,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KERAMON_FQID_LEN = sizeof(DMALL_KERAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KERAMON_ID_ARR[] CONFIG_STRING_SECTION = "keramon";
     inline static constexpr const char* DMALL_KERAMON_ID = DMALL_KERAMON_ID_ARR;
-    inline static constexpr size_t DMALL_KERAMON_ID_LEN = sizeof(DMALL_KERAMON_ID)-1;
+    inline static constexpr size_t DMALL_KERAMON_ID_LEN = sizeof(DMALL_KERAMON_ID_ARR)-1;
     inline static constexpr char DMALL_KERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Keramon";
     inline static constexpr const char* DMALL_KERAMON_NAME = DMALL_KERAMON_NAME_ARR;
     inline static constexpr size_t DMALL_KERAMON_NAME_LEN = sizeof(DMALL_KERAMON_NAME_ARR)-1;
@@ -5523,7 +5523,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KERAMON_X_FQID_LEN = sizeof(DMALL_KERAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_KERAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "keramon_x";
     inline static constexpr const char* DMALL_KERAMON_X_ID = DMALL_KERAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_KERAMON_X_ID_LEN = sizeof(DMALL_KERAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_KERAMON_X_ID_LEN = sizeof(DMALL_KERAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_KERAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Keramon X";
     inline static constexpr const char* DMALL_KERAMON_X_NAME = DMALL_KERAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_KERAMON_X_NAME_LEN = sizeof(DMALL_KERAMON_X_NAME_ARR)-1;
@@ -5541,7 +5541,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KETOMON_FQID_LEN = sizeof(DMALL_KETOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KETOMON_ID_ARR[] CONFIG_STRING_SECTION = "ketomon";
     inline static constexpr const char* DMALL_KETOMON_ID = DMALL_KETOMON_ID_ARR;
-    inline static constexpr size_t DMALL_KETOMON_ID_LEN = sizeof(DMALL_KETOMON_ID)-1;
+    inline static constexpr size_t DMALL_KETOMON_ID_LEN = sizeof(DMALL_KETOMON_ID_ARR)-1;
     inline static constexpr char DMALL_KETOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ketomon";
     inline static constexpr const char* DMALL_KETOMON_NAME = DMALL_KETOMON_NAME_ARR;
     inline static constexpr size_t DMALL_KETOMON_NAME_LEN = sizeof(DMALL_KETOMON_NAME_ARR)-1;
@@ -5559,7 +5559,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KIIMON_FQID_LEN = sizeof(DMALL_KIIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KIIMON_ID_ARR[] CONFIG_STRING_SECTION = "kiimon";
     inline static constexpr const char* DMALL_KIIMON_ID = DMALL_KIIMON_ID_ARR;
-    inline static constexpr size_t DMALL_KIIMON_ID_LEN = sizeof(DMALL_KIIMON_ID)-1;
+    inline static constexpr size_t DMALL_KIIMON_ID_LEN = sizeof(DMALL_KIIMON_ID_ARR)-1;
     inline static constexpr char DMALL_KIIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kiimon";
     inline static constexpr const char* DMALL_KIIMON_NAME = DMALL_KIIMON_NAME_ARR;
     inline static constexpr size_t DMALL_KIIMON_NAME_LEN = sizeof(DMALL_KIIMON_NAME_ARR)-1;
@@ -5577,7 +5577,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KING_ETEMON_FQID_LEN = sizeof(DMALL_KING_ETEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KING_ETEMON_ID_ARR[] CONFIG_STRING_SECTION = "king_etemon";
     inline static constexpr const char* DMALL_KING_ETEMON_ID = DMALL_KING_ETEMON_ID_ARR;
-    inline static constexpr size_t DMALL_KING_ETEMON_ID_LEN = sizeof(DMALL_KING_ETEMON_ID)-1;
+    inline static constexpr size_t DMALL_KING_ETEMON_ID_LEN = sizeof(DMALL_KING_ETEMON_ID_ARR)-1;
     inline static constexpr char DMALL_KING_ETEMON_NAME_ARR[] CONFIG_STRING_SECTION = "King Etemon";
     inline static constexpr const char* DMALL_KING_ETEMON_NAME = DMALL_KING_ETEMON_NAME_ARR;
     inline static constexpr size_t DMALL_KING_ETEMON_NAME_LEN = sizeof(DMALL_KING_ETEMON_NAME_ARR)-1;
@@ -5595,7 +5595,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KIWIMON_FQID_LEN = sizeof(DMALL_KIWIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KIWIMON_ID_ARR[] CONFIG_STRING_SECTION = "kiwimon";
     inline static constexpr const char* DMALL_KIWIMON_ID = DMALL_KIWIMON_ID_ARR;
-    inline static constexpr size_t DMALL_KIWIMON_ID_LEN = sizeof(DMALL_KIWIMON_ID)-1;
+    inline static constexpr size_t DMALL_KIWIMON_ID_LEN = sizeof(DMALL_KIWIMON_ID_ARR)-1;
     inline static constexpr char DMALL_KIWIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kiwimon";
     inline static constexpr const char* DMALL_KIWIMON_NAME = DMALL_KIWIMON_NAME_ARR;
     inline static constexpr size_t DMALL_KIWIMON_NAME_LEN = sizeof(DMALL_KIWIMON_NAME_ARR)-1;
@@ -5613,7 +5613,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KNIGHTMON_FQID_LEN = sizeof(DMALL_KNIGHTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KNIGHTMON_ID_ARR[] CONFIG_STRING_SECTION = "knightmon";
     inline static constexpr const char* DMALL_KNIGHTMON_ID = DMALL_KNIGHTMON_ID_ARR;
-    inline static constexpr size_t DMALL_KNIGHTMON_ID_LEN = sizeof(DMALL_KNIGHTMON_ID)-1;
+    inline static constexpr size_t DMALL_KNIGHTMON_ID_LEN = sizeof(DMALL_KNIGHTMON_ID_ARR)-1;
     inline static constexpr char DMALL_KNIGHTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Knightmon";
     inline static constexpr const char* DMALL_KNIGHTMON_NAME = DMALL_KNIGHTMON_NAME_ARR;
     inline static constexpr size_t DMALL_KNIGHTMON_NAME_LEN = sizeof(DMALL_KNIGHTMON_NAME_ARR)-1;
@@ -5631,7 +5631,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KOEMON_FQID_LEN = sizeof(DMALL_KOEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KOEMON_ID_ARR[] CONFIG_STRING_SECTION = "koemon";
     inline static constexpr const char* DMALL_KOEMON_ID = DMALL_KOEMON_ID_ARR;
-    inline static constexpr size_t DMALL_KOEMON_ID_LEN = sizeof(DMALL_KOEMON_ID)-1;
+    inline static constexpr size_t DMALL_KOEMON_ID_LEN = sizeof(DMALL_KOEMON_ID_ARR)-1;
     inline static constexpr char DMALL_KOEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Koemon";
     inline static constexpr const char* DMALL_KOEMON_NAME = DMALL_KOEMON_NAME_ARR;
     inline static constexpr size_t DMALL_KOEMON_NAME_LEN = sizeof(DMALL_KOEMON_NAME_ARR)-1;
@@ -5649,7 +5649,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KOKABUTERIMON_FQID_LEN = sizeof(DMALL_KOKABUTERIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KOKABUTERIMON_ID_ARR[] CONFIG_STRING_SECTION = "kokabuterimon";
     inline static constexpr const char* DMALL_KOKABUTERIMON_ID = DMALL_KOKABUTERIMON_ID_ARR;
-    inline static constexpr size_t DMALL_KOKABUTERIMON_ID_LEN = sizeof(DMALL_KOKABUTERIMON_ID)-1;
+    inline static constexpr size_t DMALL_KOKABUTERIMON_ID_LEN = sizeof(DMALL_KOKABUTERIMON_ID_ARR)-1;
     inline static constexpr char DMALL_KOKABUTERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kokabuterimon";
     inline static constexpr const char* DMALL_KOKABUTERIMON_NAME = DMALL_KOKABUTERIMON_NAME_ARR;
     inline static constexpr size_t DMALL_KOKABUTERIMON_NAME_LEN = sizeof(DMALL_KOKABUTERIMON_NAME_ARR)-1;
@@ -5667,7 +5667,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KOKUWAMON_FQID_LEN = sizeof(DMALL_KOKUWAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KOKUWAMON_ID_ARR[] CONFIG_STRING_SECTION = "kokuwamon";
     inline static constexpr const char* DMALL_KOKUWAMON_ID = DMALL_KOKUWAMON_ID_ARR;
-    inline static constexpr size_t DMALL_KOKUWAMON_ID_LEN = sizeof(DMALL_KOKUWAMON_ID)-1;
+    inline static constexpr size_t DMALL_KOKUWAMON_ID_LEN = sizeof(DMALL_KOKUWAMON_ID_ARR)-1;
     inline static constexpr char DMALL_KOKUWAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kokuwamon";
     inline static constexpr const char* DMALL_KOKUWAMON_NAME = DMALL_KOKUWAMON_NAME_ARR;
     inline static constexpr size_t DMALL_KOKUWAMON_NAME_LEN = sizeof(DMALL_KOKUWAMON_NAME_ARR)-1;
@@ -5685,7 +5685,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KOKUWAMON_X_FQID_LEN = sizeof(DMALL_KOKUWAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_KOKUWAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "kokuwamon_x";
     inline static constexpr const char* DMALL_KOKUWAMON_X_ID = DMALL_KOKUWAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_KOKUWAMON_X_ID_LEN = sizeof(DMALL_KOKUWAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_KOKUWAMON_X_ID_LEN = sizeof(DMALL_KOKUWAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_KOKUWAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Kokuwamon X";
     inline static constexpr const char* DMALL_KOKUWAMON_X_NAME = DMALL_KOKUWAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_KOKUWAMON_X_NAME_LEN = sizeof(DMALL_KOKUWAMON_X_NAME_ARR)-1;
@@ -5703,7 +5703,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KOROMON_FQID_LEN = sizeof(DMALL_KOROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KOROMON_ID_ARR[] CONFIG_STRING_SECTION = "koromon";
     inline static constexpr const char* DMALL_KOROMON_ID = DMALL_KOROMON_ID_ARR;
-    inline static constexpr size_t DMALL_KOROMON_ID_LEN = sizeof(DMALL_KOROMON_ID)-1;
+    inline static constexpr size_t DMALL_KOROMON_ID_LEN = sizeof(DMALL_KOROMON_ID_ARR)-1;
     inline static constexpr char DMALL_KOROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Koromon";
     inline static constexpr const char* DMALL_KOROMON_NAME = DMALL_KOROMON_NAME_ARR;
     inline static constexpr size_t DMALL_KOROMON_NAME_LEN = sizeof(DMALL_KOROMON_NAME_ARR)-1;
@@ -5721,7 +5721,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KOUGAMON_FQID_LEN = sizeof(DMALL_KOUGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KOUGAMON_ID_ARR[] CONFIG_STRING_SECTION = "kougamon";
     inline static constexpr const char* DMALL_KOUGAMON_ID = DMALL_KOUGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_KOUGAMON_ID_LEN = sizeof(DMALL_KOUGAMON_ID)-1;
+    inline static constexpr size_t DMALL_KOUGAMON_ID_LEN = sizeof(DMALL_KOUGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_KOUGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kougamon";
     inline static constexpr const char* DMALL_KOUGAMON_NAME = DMALL_KOUGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_KOUGAMON_NAME_LEN = sizeof(DMALL_KOUGAMON_NAME_ARR)-1;
@@ -5739,7 +5739,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KOZENIMON_FQID_LEN = sizeof(DMALL_KOZENIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KOZENIMON_ID_ARR[] CONFIG_STRING_SECTION = "kozenimon";
     inline static constexpr const char* DMALL_KOZENIMON_ID = DMALL_KOZENIMON_ID_ARR;
-    inline static constexpr size_t DMALL_KOZENIMON_ID_LEN = sizeof(DMALL_KOZENIMON_ID)-1;
+    inline static constexpr size_t DMALL_KOZENIMON_ID_LEN = sizeof(DMALL_KOZENIMON_ID_ARR)-1;
     inline static constexpr char DMALL_KOZENIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kozenimon";
     inline static constexpr const char* DMALL_KOZENIMON_NAME = DMALL_KOZENIMON_NAME_ARR;
     inline static constexpr size_t DMALL_KOZENIMON_NAME_LEN = sizeof(DMALL_KOZENIMON_NAME_ARR)-1;
@@ -5757,7 +5757,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KUNEMON_FQID_LEN = sizeof(DMALL_KUNEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KUNEMON_ID_ARR[] CONFIG_STRING_SECTION = "kunemon";
     inline static constexpr const char* DMALL_KUNEMON_ID = DMALL_KUNEMON_ID_ARR;
-    inline static constexpr size_t DMALL_KUNEMON_ID_LEN = sizeof(DMALL_KUNEMON_ID)-1;
+    inline static constexpr size_t DMALL_KUNEMON_ID_LEN = sizeof(DMALL_KUNEMON_ID_ARR)-1;
     inline static constexpr char DMALL_KUNEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kunemon";
     inline static constexpr const char* DMALL_KUNEMON_NAME = DMALL_KUNEMON_NAME_ARR;
     inline static constexpr size_t DMALL_KUNEMON_NAME_LEN = sizeof(DMALL_KUNEMON_NAME_ARR)-1;
@@ -5775,7 +5775,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KURAMON_FQID_LEN = sizeof(DMALL_KURAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KURAMON_ID_ARR[] CONFIG_STRING_SECTION = "kuramon";
     inline static constexpr const char* DMALL_KURAMON_ID = DMALL_KURAMON_ID_ARR;
-    inline static constexpr size_t DMALL_KURAMON_ID_LEN = sizeof(DMALL_KURAMON_ID)-1;
+    inline static constexpr size_t DMALL_KURAMON_ID_LEN = sizeof(DMALL_KURAMON_ID_ARR)-1;
     inline static constexpr char DMALL_KURAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kuramon";
     inline static constexpr const char* DMALL_KURAMON_NAME = DMALL_KURAMON_NAME_ARR;
     inline static constexpr size_t DMALL_KURAMON_NAME_LEN = sizeof(DMALL_KURAMON_NAME_ARR)-1;
@@ -5793,7 +5793,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KUWAGAMON_FQID_LEN = sizeof(DMALL_KUWAGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KUWAGAMON_ID_ARR[] CONFIG_STRING_SECTION = "kuwagamon";
     inline static constexpr const char* DMALL_KUWAGAMON_ID = DMALL_KUWAGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_KUWAGAMON_ID_LEN = sizeof(DMALL_KUWAGAMON_ID)-1;
+    inline static constexpr size_t DMALL_KUWAGAMON_ID_LEN = sizeof(DMALL_KUWAGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_KUWAGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kuwagamon";
     inline static constexpr const char* DMALL_KUWAGAMON_NAME = DMALL_KUWAGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_KUWAGAMON_NAME_LEN = sizeof(DMALL_KUWAGAMON_NAME_ARR)-1;
@@ -5811,7 +5811,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KUWAGAMON_X_FQID_LEN = sizeof(DMALL_KUWAGAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_KUWAGAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "kuwagamon_x";
     inline static constexpr const char* DMALL_KUWAGAMON_X_ID = DMALL_KUWAGAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_KUWAGAMON_X_ID_LEN = sizeof(DMALL_KUWAGAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_KUWAGAMON_X_ID_LEN = sizeof(DMALL_KUWAGAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_KUWAGAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Kuwagamon X";
     inline static constexpr const char* DMALL_KUWAGAMON_X_NAME = DMALL_KUWAGAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_KUWAGAMON_X_NAME_LEN = sizeof(DMALL_KUWAGAMON_X_NAME_ARR)-1;
@@ -5829,7 +5829,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KUZUHAMON_FQID_LEN = sizeof(DMALL_KUZUHAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KUZUHAMON_ID_ARR[] CONFIG_STRING_SECTION = "kuzuhamon";
     inline static constexpr const char* DMALL_KUZUHAMON_ID = DMALL_KUZUHAMON_ID_ARR;
-    inline static constexpr size_t DMALL_KUZUHAMON_ID_LEN = sizeof(DMALL_KUZUHAMON_ID)-1;
+    inline static constexpr size_t DMALL_KUZUHAMON_ID_LEN = sizeof(DMALL_KUZUHAMON_ID_ARR)-1;
     inline static constexpr char DMALL_KUZUHAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kuzuhamon";
     inline static constexpr const char* DMALL_KUZUHAMON_NAME = DMALL_KUZUHAMON_NAME_ARR;
     inline static constexpr size_t DMALL_KUZUHAMON_NAME_LEN = sizeof(DMALL_KUZUHAMON_NAME_ARR)-1;
@@ -5847,7 +5847,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KYOKYOMON_FQID_LEN = sizeof(DMALL_KYOKYOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KYOKYOMON_ID_ARR[] CONFIG_STRING_SECTION = "kyokyomon";
     inline static constexpr const char* DMALL_KYOKYOMON_ID = DMALL_KYOKYOMON_ID_ARR;
-    inline static constexpr size_t DMALL_KYOKYOMON_ID_LEN = sizeof(DMALL_KYOKYOMON_ID)-1;
+    inline static constexpr size_t DMALL_KYOKYOMON_ID_LEN = sizeof(DMALL_KYOKYOMON_ID_ARR)-1;
     inline static constexpr char DMALL_KYOKYOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kyokyomon";
     inline static constexpr const char* DMALL_KYOKYOMON_NAME = DMALL_KYOKYOMON_NAME_ARR;
     inline static constexpr size_t DMALL_KYOKYOMON_NAME_LEN = sizeof(DMALL_KYOKYOMON_NAME_ARR)-1;
@@ -5865,7 +5865,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KYUBIMON_FQID_LEN = sizeof(DMALL_KYUBIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_KYUBIMON_ID_ARR[] CONFIG_STRING_SECTION = "kyubimon";
     inline static constexpr const char* DMALL_KYUBIMON_ID = DMALL_KYUBIMON_ID_ARR;
-    inline static constexpr size_t DMALL_KYUBIMON_ID_LEN = sizeof(DMALL_KYUBIMON_ID)-1;
+    inline static constexpr size_t DMALL_KYUBIMON_ID_LEN = sizeof(DMALL_KYUBIMON_ID_ARR)-1;
     inline static constexpr char DMALL_KYUBIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Kyubimon";
     inline static constexpr const char* DMALL_KYUBIMON_NAME = DMALL_KYUBIMON_NAME_ARR;
     inline static constexpr size_t DMALL_KYUBIMON_NAME_LEN = sizeof(DMALL_KYUBIMON_NAME_ARR)-1;
@@ -5883,7 +5883,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_KYUBIMON_SILVER_FQID_LEN = sizeof(DMALL_KYUBIMON_SILVER_FQID_ARR)-1;
     inline static constexpr char DMALL_KYUBIMON_SILVER_ID_ARR[] CONFIG_STRING_SECTION = "kyubimon_silver";
     inline static constexpr const char* DMALL_KYUBIMON_SILVER_ID = DMALL_KYUBIMON_SILVER_ID_ARR;
-    inline static constexpr size_t DMALL_KYUBIMON_SILVER_ID_LEN = sizeof(DMALL_KYUBIMON_SILVER_ID)-1;
+    inline static constexpr size_t DMALL_KYUBIMON_SILVER_ID_LEN = sizeof(DMALL_KYUBIMON_SILVER_ID_ARR)-1;
     inline static constexpr char DMALL_KYUBIMON_SILVER_NAME_ARR[] CONFIG_STRING_SECTION = "Kyubimon (Silver)";
     inline static constexpr const char* DMALL_KYUBIMON_SILVER_NAME = DMALL_KYUBIMON_SILVER_NAME_ARR;
     inline static constexpr size_t DMALL_KYUBIMON_SILVER_NAME_LEN = sizeof(DMALL_KYUBIMON_SILVER_NAME_ARR)-1;
@@ -5901,7 +5901,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LABRAMON_FQID_LEN = sizeof(DMALL_LABRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LABRAMON_ID_ARR[] CONFIG_STRING_SECTION = "labramon";
     inline static constexpr const char* DMALL_LABRAMON_ID = DMALL_LABRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_LABRAMON_ID_LEN = sizeof(DMALL_LABRAMON_ID)-1;
+    inline static constexpr size_t DMALL_LABRAMON_ID_LEN = sizeof(DMALL_LABRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_LABRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Labramon";
     inline static constexpr const char* DMALL_LABRAMON_NAME = DMALL_LABRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_LABRAMON_NAME_LEN = sizeof(DMALL_LABRAMON_NAME_ARR)-1;
@@ -5919,7 +5919,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LADYDEVIMON_FQID_LEN = sizeof(DMALL_LADYDEVIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LADYDEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "ladydevimon";
     inline static constexpr const char* DMALL_LADYDEVIMON_ID = DMALL_LADYDEVIMON_ID_ARR;
-    inline static constexpr size_t DMALL_LADYDEVIMON_ID_LEN = sizeof(DMALL_LADYDEVIMON_ID)-1;
+    inline static constexpr size_t DMALL_LADYDEVIMON_ID_LEN = sizeof(DMALL_LADYDEVIMON_ID_ARR)-1;
     inline static constexpr char DMALL_LADYDEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "LadyDevimon";
     inline static constexpr const char* DMALL_LADYDEVIMON_NAME = DMALL_LADYDEVIMON_NAME_ARR;
     inline static constexpr size_t DMALL_LADYDEVIMON_NAME_LEN = sizeof(DMALL_LADYDEVIMON_NAME_ARR)-1;
@@ -5937,7 +5937,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LADYDEVIMON_X_FQID_LEN = sizeof(DMALL_LADYDEVIMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LADYDEVIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ladydevimon_x";
     inline static constexpr const char* DMALL_LADYDEVIMON_X_ID = DMALL_LADYDEVIMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LADYDEVIMON_X_ID_LEN = sizeof(DMALL_LADYDEVIMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LADYDEVIMON_X_ID_LEN = sizeof(DMALL_LADYDEVIMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LADYDEVIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "LadyDevimon X";
     inline static constexpr const char* DMALL_LADYDEVIMON_X_NAME = DMALL_LADYDEVIMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LADYDEVIMON_X_NAME_LEN = sizeof(DMALL_LADYDEVIMON_X_NAME_ARR)-1;
@@ -5955,7 +5955,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LALAMON_FQID_LEN = sizeof(DMALL_LALAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LALAMON_ID_ARR[] CONFIG_STRING_SECTION = "lalamon";
     inline static constexpr const char* DMALL_LALAMON_ID = DMALL_LALAMON_ID_ARR;
-    inline static constexpr size_t DMALL_LALAMON_ID_LEN = sizeof(DMALL_LALAMON_ID)-1;
+    inline static constexpr size_t DMALL_LALAMON_ID_LEN = sizeof(DMALL_LALAMON_ID_ARR)-1;
     inline static constexpr char DMALL_LALAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lalamon";
     inline static constexpr const char* DMALL_LALAMON_NAME = DMALL_LALAMON_NAME_ARR;
     inline static constexpr size_t DMALL_LALAMON_NAME_LEN = sizeof(DMALL_LALAMON_NAME_ARR)-1;
@@ -5973,7 +5973,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LAVOGARITAMON_FQID_LEN = sizeof(DMALL_LAVOGARITAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LAVOGARITAMON_ID_ARR[] CONFIG_STRING_SECTION = "lavogaritamon";
     inline static constexpr const char* DMALL_LAVOGARITAMON_ID = DMALL_LAVOGARITAMON_ID_ARR;
-    inline static constexpr size_t DMALL_LAVOGARITAMON_ID_LEN = sizeof(DMALL_LAVOGARITAMON_ID)-1;
+    inline static constexpr size_t DMALL_LAVOGARITAMON_ID_LEN = sizeof(DMALL_LAVOGARITAMON_ID_ARR)-1;
     inline static constexpr char DMALL_LAVOGARITAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lavogaritamon";
     inline static constexpr const char* DMALL_LAVOGARITAMON_NAME = DMALL_LAVOGARITAMON_NAME_ARR;
     inline static constexpr size_t DMALL_LAVOGARITAMON_NAME_LEN = sizeof(DMALL_LAVOGARITAMON_NAME_ARR)-1;
@@ -5991,7 +5991,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LAVORVOMON_FQID_LEN = sizeof(DMALL_LAVORVOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LAVORVOMON_ID_ARR[] CONFIG_STRING_SECTION = "lavorvomon";
     inline static constexpr const char* DMALL_LAVORVOMON_ID = DMALL_LAVORVOMON_ID_ARR;
-    inline static constexpr size_t DMALL_LAVORVOMON_ID_LEN = sizeof(DMALL_LAVORVOMON_ID)-1;
+    inline static constexpr size_t DMALL_LAVORVOMON_ID_LEN = sizeof(DMALL_LAVORVOMON_ID_ARR)-1;
     inline static constexpr char DMALL_LAVORVOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lavorvomon";
     inline static constexpr const char* DMALL_LAVORVOMON_NAME = DMALL_LAVORVOMON_NAME_ARR;
     inline static constexpr size_t DMALL_LAVORVOMON_NAME_LEN = sizeof(DMALL_LAVORVOMON_NAME_ARR)-1;
@@ -6009,7 +6009,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LEAFMON_FQID_LEN = sizeof(DMALL_LEAFMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LEAFMON_ID_ARR[] CONFIG_STRING_SECTION = "leafmon";
     inline static constexpr const char* DMALL_LEAFMON_ID = DMALL_LEAFMON_ID_ARR;
-    inline static constexpr size_t DMALL_LEAFMON_ID_LEN = sizeof(DMALL_LEAFMON_ID)-1;
+    inline static constexpr size_t DMALL_LEAFMON_ID_LEN = sizeof(DMALL_LEAFMON_ID_ARR)-1;
     inline static constexpr char DMALL_LEAFMON_NAME_ARR[] CONFIG_STRING_SECTION = "Leafmon";
     inline static constexpr const char* DMALL_LEAFMON_NAME = DMALL_LEAFMON_NAME_ARR;
     inline static constexpr size_t DMALL_LEAFMON_NAME_LEN = sizeof(DMALL_LEAFMON_NAME_ARR)-1;
@@ -6027,7 +6027,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LEKISMON_FQID_LEN = sizeof(DMALL_LEKISMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LEKISMON_ID_ARR[] CONFIG_STRING_SECTION = "lekismon";
     inline static constexpr const char* DMALL_LEKISMON_ID = DMALL_LEKISMON_ID_ARR;
-    inline static constexpr size_t DMALL_LEKISMON_ID_LEN = sizeof(DMALL_LEKISMON_ID)-1;
+    inline static constexpr size_t DMALL_LEKISMON_ID_LEN = sizeof(DMALL_LEKISMON_ID_ARR)-1;
     inline static constexpr char DMALL_LEKISMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lekismon";
     inline static constexpr const char* DMALL_LEKISMON_NAME = DMALL_LEKISMON_NAME_ARR;
     inline static constexpr size_t DMALL_LEKISMON_NAME_LEN = sizeof(DMALL_LEKISMON_NAME_ARR)-1;
@@ -6045,7 +6045,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LEOMON_FQID_LEN = sizeof(DMALL_LEOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "leomon";
     inline static constexpr const char* DMALL_LEOMON_ID = DMALL_LEOMON_ID_ARR;
-    inline static constexpr size_t DMALL_LEOMON_ID_LEN = sizeof(DMALL_LEOMON_ID)-1;
+    inline static constexpr size_t DMALL_LEOMON_ID_LEN = sizeof(DMALL_LEOMON_ID_ARR)-1;
     inline static constexpr char DMALL_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Leomon";
     inline static constexpr const char* DMALL_LEOMON_NAME = DMALL_LEOMON_NAME_ARR;
     inline static constexpr size_t DMALL_LEOMON_NAME_LEN = sizeof(DMALL_LEOMON_NAME_ARR)-1;
@@ -6063,7 +6063,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LEOMON_X_FQID_LEN = sizeof(DMALL_LEOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LEOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "leomon_x";
     inline static constexpr const char* DMALL_LEOMON_X_ID = DMALL_LEOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LEOMON_X_ID_LEN = sizeof(DMALL_LEOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LEOMON_X_ID_LEN = sizeof(DMALL_LEOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LEOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Leomon X";
     inline static constexpr const char* DMALL_LEOMON_X_NAME = DMALL_LEOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LEOMON_X_NAME_LEN = sizeof(DMALL_LEOMON_X_NAME_ARR)-1;
@@ -6081,7 +6081,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LEVIAMON_FQID_LEN = sizeof(DMALL_LEVIAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LEVIAMON_ID_ARR[] CONFIG_STRING_SECTION = "leviamon";
     inline static constexpr const char* DMALL_LEVIAMON_ID = DMALL_LEVIAMON_ID_ARR;
-    inline static constexpr size_t DMALL_LEVIAMON_ID_LEN = sizeof(DMALL_LEVIAMON_ID)-1;
+    inline static constexpr size_t DMALL_LEVIAMON_ID_LEN = sizeof(DMALL_LEVIAMON_ID_ARR)-1;
     inline static constexpr char DMALL_LEVIAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Leviamon";
     inline static constexpr const char* DMALL_LEVIAMON_NAME = DMALL_LEVIAMON_NAME_ARR;
     inline static constexpr size_t DMALL_LEVIAMON_NAME_LEN = sizeof(DMALL_LEVIAMON_NAME_ARR)-1;
@@ -6099,7 +6099,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LEVIAMON_X_FQID_LEN = sizeof(DMALL_LEVIAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LEVIAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "leviamon_x";
     inline static constexpr const char* DMALL_LEVIAMON_X_ID = DMALL_LEVIAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LEVIAMON_X_ID_LEN = sizeof(DMALL_LEVIAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LEVIAMON_X_ID_LEN = sizeof(DMALL_LEVIAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LEVIAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Leviamon X";
     inline static constexpr const char* DMALL_LEVIAMON_X_NAME = DMALL_LEVIAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LEVIAMON_X_NAME_LEN = sizeof(DMALL_LEVIAMON_X_NAME_ARR)-1;
@@ -6117,7 +6117,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LILAMON_FQID_LEN = sizeof(DMALL_LILAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LILAMON_ID_ARR[] CONFIG_STRING_SECTION = "lilamon";
     inline static constexpr const char* DMALL_LILAMON_ID = DMALL_LILAMON_ID_ARR;
-    inline static constexpr size_t DMALL_LILAMON_ID_LEN = sizeof(DMALL_LILAMON_ID)-1;
+    inline static constexpr size_t DMALL_LILAMON_ID_LEN = sizeof(DMALL_LILAMON_ID_ARR)-1;
     inline static constexpr char DMALL_LILAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lilamon";
     inline static constexpr const char* DMALL_LILAMON_NAME = DMALL_LILAMON_NAME_ARR;
     inline static constexpr size_t DMALL_LILAMON_NAME_LEN = sizeof(DMALL_LILAMON_NAME_ARR)-1;
@@ -6135,7 +6135,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LILIMON_FQID_LEN = sizeof(DMALL_LILIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LILIMON_ID_ARR[] CONFIG_STRING_SECTION = "lilimon";
     inline static constexpr const char* DMALL_LILIMON_ID = DMALL_LILIMON_ID_ARR;
-    inline static constexpr size_t DMALL_LILIMON_ID_LEN = sizeof(DMALL_LILIMON_ID)-1;
+    inline static constexpr size_t DMALL_LILIMON_ID_LEN = sizeof(DMALL_LILIMON_ID_ARR)-1;
     inline static constexpr char DMALL_LILIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lilimon";
     inline static constexpr const char* DMALL_LILIMON_NAME = DMALL_LILIMON_NAME_ARR;
     inline static constexpr size_t DMALL_LILIMON_NAME_LEN = sizeof(DMALL_LILIMON_NAME_ARR)-1;
@@ -6153,7 +6153,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LILIMON_X_FQID_LEN = sizeof(DMALL_LILIMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LILIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lilimon_x";
     inline static constexpr const char* DMALL_LILIMON_X_ID = DMALL_LILIMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LILIMON_X_ID_LEN = sizeof(DMALL_LILIMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LILIMON_X_ID_LEN = sizeof(DMALL_LILIMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LILIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lilimon X";
     inline static constexpr const char* DMALL_LILIMON_X_NAME = DMALL_LILIMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LILIMON_X_NAME_LEN = sizeof(DMALL_LILIMON_X_NAME_ARR)-1;
@@ -6171,7 +6171,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LILITHMON_FQID_LEN = sizeof(DMALL_LILITHMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LILITHMON_ID_ARR[] CONFIG_STRING_SECTION = "lilithmon";
     inline static constexpr const char* DMALL_LILITHMON_ID = DMALL_LILITHMON_ID_ARR;
-    inline static constexpr size_t DMALL_LILITHMON_ID_LEN = sizeof(DMALL_LILITHMON_ID)-1;
+    inline static constexpr size_t DMALL_LILITHMON_ID_LEN = sizeof(DMALL_LILITHMON_ID_ARR)-1;
     inline static constexpr char DMALL_LILITHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lilithmon";
     inline static constexpr const char* DMALL_LILITHMON_NAME = DMALL_LILITHMON_NAME_ARR;
     inline static constexpr size_t DMALL_LILITHMON_NAME_LEN = sizeof(DMALL_LILITHMON_NAME_ARR)-1;
@@ -6189,7 +6189,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LILITHMON_X_FQID_LEN = sizeof(DMALL_LILITHMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LILITHMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lilithmon_x";
     inline static constexpr const char* DMALL_LILITHMON_X_ID = DMALL_LILITHMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LILITHMON_X_ID_LEN = sizeof(DMALL_LILITHMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LILITHMON_X_ID_LEN = sizeof(DMALL_LILITHMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LILITHMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lilithmon X";
     inline static constexpr const char* DMALL_LILITHMON_X_NAME = DMALL_LILITHMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LILITHMON_X_NAME_LEN = sizeof(DMALL_LILITHMON_X_NAME_ARR)-1;
@@ -6207,7 +6207,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LOPMON_FQID_LEN = sizeof(DMALL_LOPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LOPMON_ID_ARR[] CONFIG_STRING_SECTION = "lopmon";
     inline static constexpr const char* DMALL_LOPMON_ID = DMALL_LOPMON_ID_ARR;
-    inline static constexpr size_t DMALL_LOPMON_ID_LEN = sizeof(DMALL_LOPMON_ID)-1;
+    inline static constexpr size_t DMALL_LOPMON_ID_LEN = sizeof(DMALL_LOPMON_ID_ARR)-1;
     inline static constexpr char DMALL_LOPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lopmon";
     inline static constexpr const char* DMALL_LOPMON_NAME = DMALL_LOPMON_NAME_ARR;
     inline static constexpr size_t DMALL_LOPMON_NAME_LEN = sizeof(DMALL_LOPMON_NAME_ARR)-1;
@@ -6225,7 +6225,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LOPMON_X_FQID_LEN = sizeof(DMALL_LOPMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LOPMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lopmon_x";
     inline static constexpr const char* DMALL_LOPMON_X_ID = DMALL_LOPMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LOPMON_X_ID_LEN = sizeof(DMALL_LOPMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LOPMON_X_ID_LEN = sizeof(DMALL_LOPMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LOPMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lopmon X";
     inline static constexpr const char* DMALL_LOPMON_X_NAME = DMALL_LOPMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LOPMON_X_NAME_LEN = sizeof(DMALL_LOPMON_X_NAME_ARR)-1;
@@ -6243,7 +6243,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LORDKNIGHTMON_X_FQID_LEN = sizeof(DMALL_LORDKNIGHTMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LORDKNIGHTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lordknightmon_x";
     inline static constexpr const char* DMALL_LORDKNIGHTMON_X_ID = DMALL_LORDKNIGHTMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LORDKNIGHTMON_X_ID_LEN = sizeof(DMALL_LORDKNIGHTMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LORDKNIGHTMON_X_ID_LEN = sizeof(DMALL_LORDKNIGHTMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LORDKNIGHTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "LordKnightmon X";
     inline static constexpr const char* DMALL_LORDKNIGHTMON_X_NAME = DMALL_LORDKNIGHTMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LORDKNIGHTMON_X_NAME_LEN = sizeof(DMALL_LORDKNIGHTMON_X_NAME_ARR)-1;
@@ -6261,7 +6261,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LOTUSMON_FQID_LEN = sizeof(DMALL_LOTUSMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LOTUSMON_ID_ARR[] CONFIG_STRING_SECTION = "lotusmon";
     inline static constexpr const char* DMALL_LOTUSMON_ID = DMALL_LOTUSMON_ID_ARR;
-    inline static constexpr size_t DMALL_LOTUSMON_ID_LEN = sizeof(DMALL_LOTUSMON_ID)-1;
+    inline static constexpr size_t DMALL_LOTUSMON_ID_LEN = sizeof(DMALL_LOTUSMON_ID_ARR)-1;
     inline static constexpr char DMALL_LOTUSMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lotusmon";
     inline static constexpr const char* DMALL_LOTUSMON_NAME = DMALL_LOTUSMON_NAME_ARR;
     inline static constexpr size_t DMALL_LOTUSMON_NAME_LEN = sizeof(DMALL_LOTUSMON_NAME_ARR)-1;
@@ -6279,7 +6279,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LUCEMON_FALLDOWN_MODE_FQID_LEN = sizeof(DMALL_LUCEMON_FALLDOWN_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_FALLDOWN_MODE_ID_ARR[] CONFIG_STRING_SECTION = "lucemon_falldown_mode";
     inline static constexpr const char* DMALL_LUCEMON_FALLDOWN_MODE_ID = DMALL_LUCEMON_FALLDOWN_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_LUCEMON_FALLDOWN_MODE_ID_LEN = sizeof(DMALL_LUCEMON_FALLDOWN_MODE_ID)-1;
+    inline static constexpr size_t DMALL_LUCEMON_FALLDOWN_MODE_ID_LEN = sizeof(DMALL_LUCEMON_FALLDOWN_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_FALLDOWN_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Lucemon Falldown Mode";
     inline static constexpr const char* DMALL_LUCEMON_FALLDOWN_MODE_NAME = DMALL_LUCEMON_FALLDOWN_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_LUCEMON_FALLDOWN_MODE_NAME_LEN = sizeof(DMALL_LUCEMON_FALLDOWN_MODE_NAME_ARR)-1;
@@ -6297,7 +6297,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LUCEMON_FQID_LEN = sizeof(DMALL_LUCEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_ID_ARR[] CONFIG_STRING_SECTION = "lucemon";
     inline static constexpr const char* DMALL_LUCEMON_ID = DMALL_LUCEMON_ID_ARR;
-    inline static constexpr size_t DMALL_LUCEMON_ID_LEN = sizeof(DMALL_LUCEMON_ID)-1;
+    inline static constexpr size_t DMALL_LUCEMON_ID_LEN = sizeof(DMALL_LUCEMON_ID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lucemon";
     inline static constexpr const char* DMALL_LUCEMON_NAME = DMALL_LUCEMON_NAME_ARR;
     inline static constexpr size_t DMALL_LUCEMON_NAME_LEN = sizeof(DMALL_LUCEMON_NAME_ARR)-1;
@@ -6315,7 +6315,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LUCEMON_SATAN_MODE_FQID_LEN = sizeof(DMALL_LUCEMON_SATAN_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_SATAN_MODE_ID_ARR[] CONFIG_STRING_SECTION = "lucemon_satan_mode";
     inline static constexpr const char* DMALL_LUCEMON_SATAN_MODE_ID = DMALL_LUCEMON_SATAN_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_LUCEMON_SATAN_MODE_ID_LEN = sizeof(DMALL_LUCEMON_SATAN_MODE_ID)-1;
+    inline static constexpr size_t DMALL_LUCEMON_SATAN_MODE_ID_LEN = sizeof(DMALL_LUCEMON_SATAN_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_SATAN_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Lucemon Satan Mode";
     inline static constexpr const char* DMALL_LUCEMON_SATAN_MODE_NAME = DMALL_LUCEMON_SATAN_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_LUCEMON_SATAN_MODE_NAME_LEN = sizeof(DMALL_LUCEMON_SATAN_MODE_NAME_ARR)-1;
@@ -6333,7 +6333,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LUCEMON_X_FQID_LEN = sizeof(DMALL_LUCEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "lucemon_x";
     inline static constexpr const char* DMALL_LUCEMON_X_ID = DMALL_LUCEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_LUCEMON_X_ID_LEN = sizeof(DMALL_LUCEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_LUCEMON_X_ID_LEN = sizeof(DMALL_LUCEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_LUCEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Lucemon X";
     inline static constexpr const char* DMALL_LUCEMON_X_NAME = DMALL_LUCEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_LUCEMON_X_NAME_LEN = sizeof(DMALL_LUCEMON_X_NAME_ARR)-1;
@@ -6351,7 +6351,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LUDOMON_FQID_LEN = sizeof(DMALL_LUDOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "ludomon";
     inline static constexpr const char* DMALL_LUDOMON_ID = DMALL_LUDOMON_ID_ARR;
-    inline static constexpr size_t DMALL_LUDOMON_ID_LEN = sizeof(DMALL_LUDOMON_ID)-1;
+    inline static constexpr size_t DMALL_LUDOMON_ID_LEN = sizeof(DMALL_LUDOMON_ID_ARR)-1;
     inline static constexpr char DMALL_LUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ludomon";
     inline static constexpr const char* DMALL_LUDOMON_NAME = DMALL_LUDOMON_NAME_ARR;
     inline static constexpr size_t DMALL_LUDOMON_NAME_LEN = sizeof(DMALL_LUDOMON_NAME_ARR)-1;
@@ -6369,7 +6369,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LUNAMON_FQID_LEN = sizeof(DMALL_LUNAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LUNAMON_ID_ARR[] CONFIG_STRING_SECTION = "lunamon";
     inline static constexpr const char* DMALL_LUNAMON_ID = DMALL_LUNAMON_ID_ARR;
-    inline static constexpr size_t DMALL_LUNAMON_ID_LEN = sizeof(DMALL_LUNAMON_ID)-1;
+    inline static constexpr size_t DMALL_LUNAMON_ID_LEN = sizeof(DMALL_LUNAMON_ID_ARR)-1;
     inline static constexpr char DMALL_LUNAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lunamon";
     inline static constexpr const char* DMALL_LUNAMON_NAME = DMALL_LUNAMON_NAME_ARR;
     inline static constexpr size_t DMALL_LUNAMON_NAME_LEN = sizeof(DMALL_LUNAMON_NAME_ARR)-1;
@@ -6387,7 +6387,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_LYNXMON_FQID_LEN = sizeof(DMALL_LYNXMON_FQID_ARR)-1;
     inline static constexpr char DMALL_LYNXMON_ID_ARR[] CONFIG_STRING_SECTION = "lynxmon";
     inline static constexpr const char* DMALL_LYNXMON_ID = DMALL_LYNXMON_ID_ARR;
-    inline static constexpr size_t DMALL_LYNXMON_ID_LEN = sizeof(DMALL_LYNXMON_ID)-1;
+    inline static constexpr size_t DMALL_LYNXMON_ID_LEN = sizeof(DMALL_LYNXMON_ID_ARR)-1;
     inline static constexpr char DMALL_LYNXMON_NAME_ARR[] CONFIG_STRING_SECTION = "Lynxmon";
     inline static constexpr const char* DMALL_LYNXMON_NAME = DMALL_LYNXMON_NAME_ARR;
     inline static constexpr size_t DMALL_LYNXMON_NAME_LEN = sizeof(DMALL_LYNXMON_NAME_ARR)-1;
@@ -6405,7 +6405,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MACH_GAOGAMON_FQID_LEN = sizeof(DMALL_MACH_GAOGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MACH_GAOGAMON_ID_ARR[] CONFIG_STRING_SECTION = "mach_gaogamon";
     inline static constexpr const char* DMALL_MACH_GAOGAMON_ID = DMALL_MACH_GAOGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MACH_GAOGAMON_ID_LEN = sizeof(DMALL_MACH_GAOGAMON_ID)-1;
+    inline static constexpr size_t DMALL_MACH_GAOGAMON_ID_LEN = sizeof(DMALL_MACH_GAOGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MACH_GAOGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mach Gaogamon";
     inline static constexpr const char* DMALL_MACH_GAOGAMON_NAME = DMALL_MACH_GAOGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MACH_GAOGAMON_NAME_LEN = sizeof(DMALL_MACH_GAOGAMON_NAME_ARR)-1;
@@ -6423,7 +6423,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAD_LEOMON_FQID_LEN = sizeof(DMALL_MAD_LEOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MAD_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "mad_leomon";
     inline static constexpr const char* DMALL_MAD_LEOMON_ID = DMALL_MAD_LEOMON_ID_ARR;
-    inline static constexpr size_t DMALL_MAD_LEOMON_ID_LEN = sizeof(DMALL_MAD_LEOMON_ID)-1;
+    inline static constexpr size_t DMALL_MAD_LEOMON_ID_LEN = sizeof(DMALL_MAD_LEOMON_ID_ARR)-1;
     inline static constexpr char DMALL_MAD_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mad Leomon";
     inline static constexpr const char* DMALL_MAD_LEOMON_NAME = DMALL_MAD_LEOMON_NAME_ARR;
     inline static constexpr size_t DMALL_MAD_LEOMON_NAME_LEN = sizeof(DMALL_MAD_LEOMON_NAME_ARR)-1;
@@ -6441,7 +6441,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAGNAMON_X_FQID_LEN = sizeof(DMALL_MAGNAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MAGNAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "magnamon_x";
     inline static constexpr const char* DMALL_MAGNAMON_X_ID = DMALL_MAGNAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MAGNAMON_X_ID_LEN = sizeof(DMALL_MAGNAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MAGNAMON_X_ID_LEN = sizeof(DMALL_MAGNAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MAGNAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Magnamon X";
     inline static constexpr const char* DMALL_MAGNAMON_X_NAME = DMALL_MAGNAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MAGNAMON_X_NAME_LEN = sizeof(DMALL_MAGNAMON_X_NAME_ARR)-1;
@@ -6459,7 +6459,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAMBOMON_FQID_LEN = sizeof(DMALL_MAMBOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MAMBOMON_ID_ARR[] CONFIG_STRING_SECTION = "mambomon";
     inline static constexpr const char* DMALL_MAMBOMON_ID = DMALL_MAMBOMON_ID_ARR;
-    inline static constexpr size_t DMALL_MAMBOMON_ID_LEN = sizeof(DMALL_MAMBOMON_ID)-1;
+    inline static constexpr size_t DMALL_MAMBOMON_ID_LEN = sizeof(DMALL_MAMBOMON_ID_ARR)-1;
     inline static constexpr char DMALL_MAMBOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mambomon";
     inline static constexpr const char* DMALL_MAMBOMON_NAME = DMALL_MAMBOMON_NAME_ARR;
     inline static constexpr size_t DMALL_MAMBOMON_NAME_LEN = sizeof(DMALL_MAMBOMON_NAME_ARR)-1;
@@ -6477,7 +6477,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAMEMON_FQID_LEN = sizeof(DMALL_MAMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "mamemon";
     inline static constexpr const char* DMALL_MAMEMON_ID = DMALL_MAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_MAMEMON_ID_LEN = sizeof(DMALL_MAMEMON_ID)-1;
+    inline static constexpr size_t DMALL_MAMEMON_ID_LEN = sizeof(DMALL_MAMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mamemon";
     inline static constexpr const char* DMALL_MAMEMON_NAME = DMALL_MAMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_MAMEMON_NAME_LEN = sizeof(DMALL_MAMEMON_NAME_ARR)-1;
@@ -6495,7 +6495,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAMEMON_X_FQID_LEN = sizeof(DMALL_MAMEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MAMEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mamemon_x";
     inline static constexpr const char* DMALL_MAMEMON_X_ID = DMALL_MAMEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MAMEMON_X_ID_LEN = sizeof(DMALL_MAMEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MAMEMON_X_ID_LEN = sizeof(DMALL_MAMEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MAMEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mamemon X";
     inline static constexpr const char* DMALL_MAMEMON_X_NAME = DMALL_MAMEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MAMEMON_X_NAME_LEN = sizeof(DMALL_MAMEMON_X_NAME_ARR)-1;
@@ -6513,7 +6513,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAMETYRAMON_FQID_LEN = sizeof(DMALL_MAMETYRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MAMETYRAMON_ID_ARR[] CONFIG_STRING_SECTION = "mametyramon";
     inline static constexpr const char* DMALL_MAMETYRAMON_ID = DMALL_MAMETYRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MAMETYRAMON_ID_LEN = sizeof(DMALL_MAMETYRAMON_ID)-1;
+    inline static constexpr size_t DMALL_MAMETYRAMON_ID_LEN = sizeof(DMALL_MAMETYRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MAMETYRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mametyramon";
     inline static constexpr const char* DMALL_MAMETYRAMON_NAME = DMALL_MAMETYRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MAMETYRAMON_NAME_LEN = sizeof(DMALL_MAMETYRAMON_NAME_ARR)-1;
@@ -6531,7 +6531,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAMMON_FQID_LEN = sizeof(DMALL_MAMMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MAMMON_ID_ARR[] CONFIG_STRING_SECTION = "mammon";
     inline static constexpr const char* DMALL_MAMMON_ID = DMALL_MAMMON_ID_ARR;
-    inline static constexpr size_t DMALL_MAMMON_ID_LEN = sizeof(DMALL_MAMMON_ID)-1;
+    inline static constexpr size_t DMALL_MAMMON_ID_LEN = sizeof(DMALL_MAMMON_ID_ARR)-1;
     inline static constexpr char DMALL_MAMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mammon";
     inline static constexpr const char* DMALL_MAMMON_NAME = DMALL_MAMMON_NAME_ARR;
     inline static constexpr size_t DMALL_MAMMON_NAME_LEN = sizeof(DMALL_MAMMON_NAME_ARR)-1;
@@ -6549,7 +6549,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MAMMON_X_FQID_LEN = sizeof(DMALL_MAMMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MAMMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mammon_x";
     inline static constexpr const char* DMALL_MAMMON_X_ID = DMALL_MAMMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MAMMON_X_ID_LEN = sizeof(DMALL_MAMMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MAMMON_X_ID_LEN = sizeof(DMALL_MAMMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MAMMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mammon X";
     inline static constexpr const char* DMALL_MAMMON_X_NAME = DMALL_MAMMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MAMMON_X_NAME_LEN = sizeof(DMALL_MAMMON_X_NAME_ARR)-1;
@@ -6567,7 +6567,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MANTARAYMON_X_FQID_LEN = sizeof(DMALL_MANTARAYMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MANTARAYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mantaraymon_x";
     inline static constexpr const char* DMALL_MANTARAYMON_X_ID = DMALL_MANTARAYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MANTARAYMON_X_ID_LEN = sizeof(DMALL_MANTARAYMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MANTARAYMON_X_ID_LEN = sizeof(DMALL_MANTARAYMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MANTARAYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mantaraymon X";
     inline static constexpr const char* DMALL_MANTARAYMON_X_NAME = DMALL_MANTARAYMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MANTARAYMON_X_NAME_LEN = sizeof(DMALL_MANTARAYMON_X_NAME_ARR)-1;
@@ -6585,7 +6585,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MANTICOREMON_FQID_LEN = sizeof(DMALL_MANTICOREMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MANTICOREMON_ID_ARR[] CONFIG_STRING_SECTION = "manticoremon";
     inline static constexpr const char* DMALL_MANTICOREMON_ID = DMALL_MANTICOREMON_ID_ARR;
-    inline static constexpr size_t DMALL_MANTICOREMON_ID_LEN = sizeof(DMALL_MANTICOREMON_ID)-1;
+    inline static constexpr size_t DMALL_MANTICOREMON_ID_LEN = sizeof(DMALL_MANTICOREMON_ID_ARR)-1;
     inline static constexpr char DMALL_MANTICOREMON_NAME_ARR[] CONFIG_STRING_SECTION = "Manticoremon";
     inline static constexpr const char* DMALL_MANTICOREMON_NAME = DMALL_MANTICOREMON_NAME_ARR;
     inline static constexpr size_t DMALL_MANTICOREMON_NAME_LEN = sizeof(DMALL_MANTICOREMON_NAME_ARR)-1;
@@ -6603,7 +6603,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MARIN_ANGEMON_FQID_LEN = sizeof(DMALL_MARIN_ANGEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MARIN_ANGEMON_ID_ARR[] CONFIG_STRING_SECTION = "marin_angemon";
     inline static constexpr const char* DMALL_MARIN_ANGEMON_ID = DMALL_MARIN_ANGEMON_ID_ARR;
-    inline static constexpr size_t DMALL_MARIN_ANGEMON_ID_LEN = sizeof(DMALL_MARIN_ANGEMON_ID)-1;
+    inline static constexpr size_t DMALL_MARIN_ANGEMON_ID_LEN = sizeof(DMALL_MARIN_ANGEMON_ID_ARR)-1;
     inline static constexpr char DMALL_MARIN_ANGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Marin Angemon";
     inline static constexpr const char* DMALL_MARIN_ANGEMON_NAME = DMALL_MARIN_ANGEMON_NAME_ARR;
     inline static constexpr size_t DMALL_MARIN_ANGEMON_NAME_LEN = sizeof(DMALL_MARIN_ANGEMON_NAME_ARR)-1;
@@ -6621,7 +6621,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MARIN_CHIMAIRAMON_FQID_LEN = sizeof(DMALL_MARIN_CHIMAIRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MARIN_CHIMAIRAMON_ID_ARR[] CONFIG_STRING_SECTION = "marin_chimairamon";
     inline static constexpr const char* DMALL_MARIN_CHIMAIRAMON_ID = DMALL_MARIN_CHIMAIRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MARIN_CHIMAIRAMON_ID_LEN = sizeof(DMALL_MARIN_CHIMAIRAMON_ID)-1;
+    inline static constexpr size_t DMALL_MARIN_CHIMAIRAMON_ID_LEN = sizeof(DMALL_MARIN_CHIMAIRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MARIN_CHIMAIRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Marin Chimairamon";
     inline static constexpr const char* DMALL_MARIN_CHIMAIRAMON_NAME = DMALL_MARIN_CHIMAIRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MARIN_CHIMAIRAMON_NAME_LEN = sizeof(DMALL_MARIN_CHIMAIRAMON_NAME_ARR)-1;
@@ -6639,7 +6639,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MARIN_DEVIMON_FQID_LEN = sizeof(DMALL_MARIN_DEVIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MARIN_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "marin_devimon";
     inline static constexpr const char* DMALL_MARIN_DEVIMON_ID = DMALL_MARIN_DEVIMON_ID_ARR;
-    inline static constexpr size_t DMALL_MARIN_DEVIMON_ID_LEN = sizeof(DMALL_MARIN_DEVIMON_ID)-1;
+    inline static constexpr size_t DMALL_MARIN_DEVIMON_ID_LEN = sizeof(DMALL_MARIN_DEVIMON_ID_ARR)-1;
     inline static constexpr char DMALL_MARIN_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Marin Devimon";
     inline static constexpr const char* DMALL_MARIN_DEVIMON_NAME = DMALL_MARIN_DEVIMON_NAME_ARR;
     inline static constexpr size_t DMALL_MARIN_DEVIMON_NAME_LEN = sizeof(DMALL_MARIN_DEVIMON_NAME_ARR)-1;
@@ -6657,7 +6657,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MASTEMON_FQID_LEN = sizeof(DMALL_MASTEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MASTEMON_ID_ARR[] CONFIG_STRING_SECTION = "mastemon";
     inline static constexpr const char* DMALL_MASTEMON_ID = DMALL_MASTEMON_ID_ARR;
-    inline static constexpr size_t DMALL_MASTEMON_ID_LEN = sizeof(DMALL_MASTEMON_ID)-1;
+    inline static constexpr size_t DMALL_MASTEMON_ID_LEN = sizeof(DMALL_MASTEMON_ID_ARR)-1;
     inline static constexpr char DMALL_MASTEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mastemon";
     inline static constexpr const char* DMALL_MASTEMON_NAME = DMALL_MASTEMON_NAME_ARR;
     inline static constexpr size_t DMALL_MASTEMON_NAME_LEN = sizeof(DMALL_MASTEMON_NAME_ARR)-1;
@@ -6675,7 +6675,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MECHANORIMON_FQID_LEN = sizeof(DMALL_MECHANORIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MECHANORIMON_ID_ARR[] CONFIG_STRING_SECTION = "mechanorimon";
     inline static constexpr const char* DMALL_MECHANORIMON_ID = DMALL_MECHANORIMON_ID_ARR;
-    inline static constexpr size_t DMALL_MECHANORIMON_ID_LEN = sizeof(DMALL_MECHANORIMON_ID)-1;
+    inline static constexpr size_t DMALL_MECHANORIMON_ID_LEN = sizeof(DMALL_MECHANORIMON_ID_ARR)-1;
     inline static constexpr char DMALL_MECHANORIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mechanorimon";
     inline static constexpr const char* DMALL_MECHANORIMON_NAME = DMALL_MECHANORIMON_NAME_ARR;
     inline static constexpr size_t DMALL_MECHANORIMON_NAME_LEN = sizeof(DMALL_MECHANORIMON_NAME_ARR)-1;
@@ -6693,7 +6693,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGADRAMON_FQID_LEN = sizeof(DMALL_MEGADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "megadramon";
     inline static constexpr const char* DMALL_MEGADRAMON_ID = DMALL_MEGADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MEGADRAMON_ID_LEN = sizeof(DMALL_MEGADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_MEGADRAMON_ID_LEN = sizeof(DMALL_MEGADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MEGADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Megadramon";
     inline static constexpr const char* DMALL_MEGADRAMON_NAME = DMALL_MEGADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MEGADRAMON_NAME_LEN = sizeof(DMALL_MEGADRAMON_NAME_ARR)-1;
@@ -6711,7 +6711,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGALO_GROWMON_ORANGE_FQID_LEN = sizeof(DMALL_MEGALO_GROWMON_ORANGE_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGALO_GROWMON_ORANGE_ID_ARR[] CONFIG_STRING_SECTION = "megalo_growmon_orange";
     inline static constexpr const char* DMALL_MEGALO_GROWMON_ORANGE_ID = DMALL_MEGALO_GROWMON_ORANGE_ID_ARR;
-    inline static constexpr size_t DMALL_MEGALO_GROWMON_ORANGE_ID_LEN = sizeof(DMALL_MEGALO_GROWMON_ORANGE_ID)-1;
+    inline static constexpr size_t DMALL_MEGALO_GROWMON_ORANGE_ID_LEN = sizeof(DMALL_MEGALO_GROWMON_ORANGE_ID_ARR)-1;
     inline static constexpr char DMALL_MEGALO_GROWMON_ORANGE_NAME_ARR[] CONFIG_STRING_SECTION = "Megalo Growmon (Orange)";
     inline static constexpr const char* DMALL_MEGALO_GROWMON_ORANGE_NAME = DMALL_MEGALO_GROWMON_ORANGE_NAME_ARR;
     inline static constexpr size_t DMALL_MEGALO_GROWMON_ORANGE_NAME_LEN = sizeof(DMALL_MEGALO_GROWMON_ORANGE_NAME_ARR)-1;
@@ -6729,7 +6729,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGALO_GROWMON_FQID_LEN = sizeof(DMALL_MEGALO_GROWMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGALO_GROWMON_ID_ARR[] CONFIG_STRING_SECTION = "megalo_growmon";
     inline static constexpr const char* DMALL_MEGALO_GROWMON_ID = DMALL_MEGALO_GROWMON_ID_ARR;
-    inline static constexpr size_t DMALL_MEGALO_GROWMON_ID_LEN = sizeof(DMALL_MEGALO_GROWMON_ID)-1;
+    inline static constexpr size_t DMALL_MEGALO_GROWMON_ID_LEN = sizeof(DMALL_MEGALO_GROWMON_ID_ARR)-1;
     inline static constexpr char DMALL_MEGALO_GROWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Megalo Growmon";
     inline static constexpr const char* DMALL_MEGALO_GROWMON_NAME = DMALL_MEGALO_GROWMON_NAME_ARR;
     inline static constexpr size_t DMALL_MEGALO_GROWMON_NAME_LEN = sizeof(DMALL_MEGALO_GROWMON_NAME_ARR)-1;
@@ -6747,7 +6747,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGALO_GROWMON_X_FQID_LEN = sizeof(DMALL_MEGALO_GROWMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGALO_GROWMON_X_ID_ARR[] CONFIG_STRING_SECTION = "megalo_growmon_x";
     inline static constexpr const char* DMALL_MEGALO_GROWMON_X_ID = DMALL_MEGALO_GROWMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MEGALO_GROWMON_X_ID_LEN = sizeof(DMALL_MEGALO_GROWMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MEGALO_GROWMON_X_ID_LEN = sizeof(DMALL_MEGALO_GROWMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MEGALO_GROWMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Megalo Growmon X";
     inline static constexpr const char* DMALL_MEGALO_GROWMON_X_NAME = DMALL_MEGALO_GROWMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MEGALO_GROWMON_X_NAME_LEN = sizeof(DMALL_MEGALO_GROWMON_X_NAME_ARR)-1;
@@ -6765,7 +6765,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGA_SEADRAMON_FQID_LEN = sizeof(DMALL_MEGA_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGA_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "mega_seadramon";
     inline static constexpr const char* DMALL_MEGA_SEADRAMON_ID = DMALL_MEGA_SEADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MEGA_SEADRAMON_ID_LEN = sizeof(DMALL_MEGA_SEADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_MEGA_SEADRAMON_ID_LEN = sizeof(DMALL_MEGA_SEADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MEGA_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mega Seadramon";
     inline static constexpr const char* DMALL_MEGA_SEADRAMON_NAME = DMALL_MEGA_SEADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MEGA_SEADRAMON_NAME_LEN = sizeof(DMALL_MEGA_SEADRAMON_NAME_ARR)-1;
@@ -6783,7 +6783,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGA_SEADRAMON_X_FQID_LEN = sizeof(DMALL_MEGA_SEADRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGA_SEADRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mega_seadramon_x";
     inline static constexpr const char* DMALL_MEGA_SEADRAMON_X_ID = DMALL_MEGA_SEADRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MEGA_SEADRAMON_X_ID_LEN = sizeof(DMALL_MEGA_SEADRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MEGA_SEADRAMON_X_ID_LEN = sizeof(DMALL_MEGA_SEADRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MEGA_SEADRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mega Seadramon X";
     inline static constexpr const char* DMALL_MEGA_SEADRAMON_X_NAME = DMALL_MEGA_SEADRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MEGA_SEADRAMON_X_NAME_LEN = sizeof(DMALL_MEGA_SEADRAMON_X_NAME_ARR)-1;
@@ -6801,7 +6801,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGIDRAMON_FQID_LEN = sizeof(DMALL_MEGIDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGIDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "megidramon";
     inline static constexpr const char* DMALL_MEGIDRAMON_ID = DMALL_MEGIDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MEGIDRAMON_ID_LEN = sizeof(DMALL_MEGIDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_MEGIDRAMON_ID_LEN = sizeof(DMALL_MEGIDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MEGIDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Megidramon";
     inline static constexpr const char* DMALL_MEGIDRAMON_NAME = DMALL_MEGIDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MEGIDRAMON_NAME_LEN = sizeof(DMALL_MEGIDRAMON_NAME_ARR)-1;
@@ -6819,7 +6819,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEGIDRAMON_X_FQID_LEN = sizeof(DMALL_MEGIDRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MEGIDRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "megidramon_x";
     inline static constexpr const char* DMALL_MEGIDRAMON_X_ID = DMALL_MEGIDRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MEGIDRAMON_X_ID_LEN = sizeof(DMALL_MEGIDRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MEGIDRAMON_X_ID_LEN = sizeof(DMALL_MEGIDRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MEGIDRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Megidramon X";
     inline static constexpr const char* DMALL_MEGIDRAMON_X_NAME = DMALL_MEGIDRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MEGIDRAMON_X_NAME_LEN = sizeof(DMALL_MEGIDRAMON_X_NAME_ARR)-1;
@@ -6837,7 +6837,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEICOOMON_BABY_FQID_LEN = sizeof(DMALL_MEICOOMON_BABY_FQID_ARR)-1;
     inline static constexpr char DMALL_MEICOOMON_BABY_ID_ARR[] CONFIG_STRING_SECTION = "meicoomon_baby";
     inline static constexpr const char* DMALL_MEICOOMON_BABY_ID = DMALL_MEICOOMON_BABY_ID_ARR;
-    inline static constexpr size_t DMALL_MEICOOMON_BABY_ID_LEN = sizeof(DMALL_MEICOOMON_BABY_ID)-1;
+    inline static constexpr size_t DMALL_MEICOOMON_BABY_ID_LEN = sizeof(DMALL_MEICOOMON_BABY_ID_ARR)-1;
     inline static constexpr char DMALL_MEICOOMON_BABY_NAME_ARR[] CONFIG_STRING_SECTION = "Meicoomon (Baby)";
     inline static constexpr const char* DMALL_MEICOOMON_BABY_NAME = DMALL_MEICOOMON_BABY_NAME_ARR;
     inline static constexpr size_t DMALL_MEICOOMON_BABY_NAME_LEN = sizeof(DMALL_MEICOOMON_BABY_NAME_ARR)-1;
@@ -6855,7 +6855,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEICOOMON_CHILD_FQID_LEN = sizeof(DMALL_MEICOOMON_CHILD_FQID_ARR)-1;
     inline static constexpr char DMALL_MEICOOMON_CHILD_ID_ARR[] CONFIG_STRING_SECTION = "meicoomon_child";
     inline static constexpr const char* DMALL_MEICOOMON_CHILD_ID = DMALL_MEICOOMON_CHILD_ID_ARR;
-    inline static constexpr size_t DMALL_MEICOOMON_CHILD_ID_LEN = sizeof(DMALL_MEICOOMON_CHILD_ID)-1;
+    inline static constexpr size_t DMALL_MEICOOMON_CHILD_ID_LEN = sizeof(DMALL_MEICOOMON_CHILD_ID_ARR)-1;
     inline static constexpr char DMALL_MEICOOMON_CHILD_NAME_ARR[] CONFIG_STRING_SECTION = "Meicoomon (Child)";
     inline static constexpr const char* DMALL_MEICOOMON_CHILD_NAME = DMALL_MEICOOMON_CHILD_NAME_ARR;
     inline static constexpr size_t DMALL_MEICOOMON_CHILD_NAME_LEN = sizeof(DMALL_MEICOOMON_CHILD_NAME_ARR)-1;
@@ -6873,7 +6873,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEICOOMON_FQID_LEN = sizeof(DMALL_MEICOOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MEICOOMON_ID_ARR[] CONFIG_STRING_SECTION = "meicoomon";
     inline static constexpr const char* DMALL_MEICOOMON_ID = DMALL_MEICOOMON_ID_ARR;
-    inline static constexpr size_t DMALL_MEICOOMON_ID_LEN = sizeof(DMALL_MEICOOMON_ID)-1;
+    inline static constexpr size_t DMALL_MEICOOMON_ID_LEN = sizeof(DMALL_MEICOOMON_ID_ARR)-1;
     inline static constexpr char DMALL_MEICOOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Meicoomon";
     inline static constexpr const char* DMALL_MEICOOMON_NAME = DMALL_MEICOOMON_NAME_ARR;
     inline static constexpr size_t DMALL_MEICOOMON_NAME_LEN = sizeof(DMALL_MEICOOMON_NAME_ARR)-1;
@@ -6891,7 +6891,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEICRACKMON_FQID_LEN = sizeof(DMALL_MEICRACKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MEICRACKMON_ID_ARR[] CONFIG_STRING_SECTION = "meicrackmon";
     inline static constexpr const char* DMALL_MEICRACKMON_ID = DMALL_MEICRACKMON_ID_ARR;
-    inline static constexpr size_t DMALL_MEICRACKMON_ID_LEN = sizeof(DMALL_MEICRACKMON_ID)-1;
+    inline static constexpr size_t DMALL_MEICRACKMON_ID_LEN = sizeof(DMALL_MEICRACKMON_ID_ARR)-1;
     inline static constexpr char DMALL_MEICRACKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Meicrackmon";
     inline static constexpr const char* DMALL_MEICRACKMON_NAME = DMALL_MEICRACKMON_NAME_ARR;
     inline static constexpr size_t DMALL_MEICRACKMON_NAME_LEN = sizeof(DMALL_MEICRACKMON_NAME_ARR)-1;
@@ -6909,7 +6909,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEICRACKMON_VICIOUS_MODE_FQID_LEN = sizeof(DMALL_MEICRACKMON_VICIOUS_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_MEICRACKMON_VICIOUS_MODE_ID_ARR[] CONFIG_STRING_SECTION = "meicrackmon_vicious_mode";
     inline static constexpr const char* DMALL_MEICRACKMON_VICIOUS_MODE_ID = DMALL_MEICRACKMON_VICIOUS_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_MEICRACKMON_VICIOUS_MODE_ID_LEN = sizeof(DMALL_MEICRACKMON_VICIOUS_MODE_ID)-1;
+    inline static constexpr size_t DMALL_MEICRACKMON_VICIOUS_MODE_ID_LEN = sizeof(DMALL_MEICRACKMON_VICIOUS_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_MEICRACKMON_VICIOUS_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Meicrackmon Vicious Mode";
     inline static constexpr const char* DMALL_MEICRACKMON_VICIOUS_MODE_NAME = DMALL_MEICRACKMON_VICIOUS_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_MEICRACKMON_VICIOUS_MODE_NAME_LEN = sizeof(DMALL_MEICRACKMON_VICIOUS_MODE_NAME_ARR)-1;
@@ -6927,7 +6927,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEPHISMON_FQID_LEN = sizeof(DMALL_MEPHISMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MEPHISMON_ID_ARR[] CONFIG_STRING_SECTION = "mephismon";
     inline static constexpr const char* DMALL_MEPHISMON_ID = DMALL_MEPHISMON_ID_ARR;
-    inline static constexpr size_t DMALL_MEPHISMON_ID_LEN = sizeof(DMALL_MEPHISMON_ID)-1;
+    inline static constexpr size_t DMALL_MEPHISMON_ID_LEN = sizeof(DMALL_MEPHISMON_ID_ARR)-1;
     inline static constexpr char DMALL_MEPHISMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mephismon";
     inline static constexpr const char* DMALL_MEPHISMON_NAME = DMALL_MEPHISMON_NAME_ARR;
     inline static constexpr size_t DMALL_MEPHISMON_NAME_LEN = sizeof(DMALL_MEPHISMON_NAME_ARR)-1;
@@ -6945,7 +6945,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MEPHISMON_X_FQID_LEN = sizeof(DMALL_MEPHISMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MEPHISMON_X_ID_ARR[] CONFIG_STRING_SECTION = "mephismon_x";
     inline static constexpr const char* DMALL_MEPHISMON_X_ID = DMALL_MEPHISMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MEPHISMON_X_ID_LEN = sizeof(DMALL_MEPHISMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MEPHISMON_X_ID_LEN = sizeof(DMALL_MEPHISMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MEPHISMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Mephismon X";
     inline static constexpr const char* DMALL_MEPHISMON_X_NAME = DMALL_MEPHISMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MEPHISMON_X_NAME_LEN = sizeof(DMALL_MEPHISMON_X_NAME_ARR)-1;
@@ -6963,7 +6963,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MERAMON_FQID_LEN = sizeof(DMALL_MERAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "meramon";
     inline static constexpr const char* DMALL_MERAMON_ID = DMALL_MERAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MERAMON_ID_LEN = sizeof(DMALL_MERAMON_ID)-1;
+    inline static constexpr size_t DMALL_MERAMON_ID_LEN = sizeof(DMALL_MERAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Meramon";
     inline static constexpr const char* DMALL_MERAMON_NAME = DMALL_MERAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MERAMON_NAME_LEN = sizeof(DMALL_MERAMON_NAME_ARR)-1;
@@ -6981,7 +6981,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MERAMON_X_FQID_LEN = sizeof(DMALL_MERAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MERAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "meramon_x";
     inline static constexpr const char* DMALL_MERAMON_X_ID = DMALL_MERAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MERAMON_X_ID_LEN = sizeof(DMALL_MERAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MERAMON_X_ID_LEN = sizeof(DMALL_MERAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MERAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Meramon X";
     inline static constexpr const char* DMALL_MERAMON_X_NAME = DMALL_MERAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MERAMON_X_NAME_LEN = sizeof(DMALL_MERAMON_X_NAME_ARR)-1;
@@ -6999,7 +6999,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MERMAIMON_FQID_LEN = sizeof(DMALL_MERMAIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MERMAIMON_ID_ARR[] CONFIG_STRING_SECTION = "mermaimon";
     inline static constexpr const char* DMALL_MERMAIMON_ID = DMALL_MERMAIMON_ID_ARR;
-    inline static constexpr size_t DMALL_MERMAIMON_ID_LEN = sizeof(DMALL_MERMAIMON_ID)-1;
+    inline static constexpr size_t DMALL_MERMAIMON_ID_LEN = sizeof(DMALL_MERMAIMON_ID_ARR)-1;
     inline static constexpr char DMALL_MERMAIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mermaimon";
     inline static constexpr const char* DMALL_MERMAIMON_NAME = DMALL_MERMAIMON_NAME_ARR;
     inline static constexpr size_t DMALL_MERMAIMON_NAME_LEN = sizeof(DMALL_MERMAIMON_NAME_ARR)-1;
@@ -7017,7 +7017,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_ETEMON_FQID_LEN = sizeof(DMALL_METAL_ETEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_ETEMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_etemon";
     inline static constexpr const char* DMALL_METAL_ETEMON_ID = DMALL_METAL_ETEMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_ETEMON_ID_LEN = sizeof(DMALL_METAL_ETEMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_ETEMON_ID_LEN = sizeof(DMALL_METAL_ETEMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_ETEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Etemon";
     inline static constexpr const char* DMALL_METAL_ETEMON_NAME = DMALL_METAL_ETEMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_ETEMON_NAME_LEN = sizeof(DMALL_METAL_ETEMON_NAME_ARR)-1;
@@ -7035,7 +7035,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GARURUMON_BLACK_FQID_LEN = sizeof(DMALL_METAL_GARURUMON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_GARURUMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "metal_garurumon_black";
     inline static constexpr const char* DMALL_METAL_GARURUMON_BLACK_ID = DMALL_METAL_GARURUMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_GARURUMON_BLACK_ID_LEN = sizeof(DMALL_METAL_GARURUMON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_METAL_GARURUMON_BLACK_ID_LEN = sizeof(DMALL_METAL_GARURUMON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_GARURUMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Garurumon (Black)";
     inline static constexpr const char* DMALL_METAL_GARURUMON_BLACK_NAME = DMALL_METAL_GARURUMON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_GARURUMON_BLACK_NAME_LEN = sizeof(DMALL_METAL_GARURUMON_BLACK_NAME_ARR)-1;
@@ -7053,7 +7053,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GARURUMON_FQID_LEN = sizeof(DMALL_METAL_GARURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_GARURUMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_garurumon";
     inline static constexpr const char* DMALL_METAL_GARURUMON_ID = DMALL_METAL_GARURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_GARURUMON_ID_LEN = sizeof(DMALL_METAL_GARURUMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_GARURUMON_ID_LEN = sizeof(DMALL_METAL_GARURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_GARURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Garurumon";
     inline static constexpr const char* DMALL_METAL_GARURUMON_NAME = DMALL_METAL_GARURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_GARURUMON_NAME_LEN = sizeof(DMALL_METAL_GARURUMON_NAME_ARR)-1;
@@ -7071,7 +7071,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GARURUMON_X_FQID_LEN = sizeof(DMALL_METAL_GARURUMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_GARURUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_garurumon_x";
     inline static constexpr const char* DMALL_METAL_GARURUMON_X_ID = DMALL_METAL_GARURUMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_GARURUMON_X_ID_LEN = sizeof(DMALL_METAL_GARURUMON_X_ID)-1;
+    inline static constexpr size_t DMALL_METAL_GARURUMON_X_ID_LEN = sizeof(DMALL_METAL_GARURUMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_GARURUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Garurumon X";
     inline static constexpr const char* DMALL_METAL_GARURUMON_X_NAME = DMALL_METAL_GARURUMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_GARURUMON_X_NAME_LEN = sizeof(DMALL_METAL_GARURUMON_X_NAME_ARR)-1;
@@ -7089,7 +7089,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GREYMON_FQID_LEN = sizeof(DMALL_METAL_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon";
     inline static constexpr const char* DMALL_METAL_GREYMON_ID = DMALL_METAL_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_GREYMON_ID_LEN = sizeof(DMALL_METAL_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_GREYMON_ID_LEN = sizeof(DMALL_METAL_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon";
     inline static constexpr const char* DMALL_METAL_GREYMON_NAME = DMALL_METAL_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_GREYMON_NAME_LEN = sizeof(DMALL_METAL_GREYMON_NAME_ARR)-1;
@@ -7107,7 +7107,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_FQID_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_VIRUS_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon_virus";
     inline static constexpr const char* DMALL_METAL_GREYMON_VIRUS_ID = DMALL_METAL_GREYMON_VIRUS_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_ID_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_ID)-1;
+    inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_ID_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_VIRUS_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon (Virus)";
     inline static constexpr const char* DMALL_METAL_GREYMON_VIRUS_NAME = DMALL_METAL_GREYMON_VIRUS_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_NAME_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_NAME_ARR)-1;
@@ -7125,7 +7125,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_X_FQID_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_X_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_VIRUS_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon_virus_x";
     inline static constexpr const char* DMALL_METAL_GREYMON_VIRUS_X_ID = DMALL_METAL_GREYMON_VIRUS_X_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_X_ID_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_X_ID)-1;
+    inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_X_ID_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_X_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_VIRUS_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon (Virus) X";
     inline static constexpr const char* DMALL_METAL_GREYMON_VIRUS_X_NAME = DMALL_METAL_GREYMON_VIRUS_X_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_GREYMON_VIRUS_X_NAME_LEN = sizeof(DMALL_METAL_GREYMON_VIRUS_X_NAME_ARR)-1;
@@ -7143,7 +7143,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_GREYMON_X_FQID_LEN = sizeof(DMALL_METAL_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_greymon_x";
     inline static constexpr const char* DMALL_METAL_GREYMON_X_ID = DMALL_METAL_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_GREYMON_X_ID_LEN = sizeof(DMALL_METAL_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMALL_METAL_GREYMON_X_ID_LEN = sizeof(DMALL_METAL_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Greymon X";
     inline static constexpr const char* DMALL_METAL_GREYMON_X_NAME = DMALL_METAL_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_GREYMON_X_NAME_LEN = sizeof(DMALL_METAL_GREYMON_X_NAME_ARR)-1;
@@ -7161,7 +7161,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METALLICDRAMON_FQID_LEN = sizeof(DMALL_METALLICDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METALLICDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "metallicdramon";
     inline static constexpr const char* DMALL_METALLICDRAMON_ID = DMALL_METALLICDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_METALLICDRAMON_ID_LEN = sizeof(DMALL_METALLICDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_METALLICDRAMON_ID_LEN = sizeof(DMALL_METALLICDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_METALLICDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metallicdramon";
     inline static constexpr const char* DMALL_METALLICDRAMON_NAME = DMALL_METALLICDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_METALLICDRAMON_NAME_LEN = sizeof(DMALL_METALLICDRAMON_NAME_ARR)-1;
@@ -7179,7 +7179,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_MAMEMON_FQID_LEN = sizeof(DMALL_METAL_MAMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_mamemon";
     inline static constexpr const char* DMALL_METAL_MAMEMON_ID = DMALL_METAL_MAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_MAMEMON_ID_LEN = sizeof(DMALL_METAL_MAMEMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_MAMEMON_ID_LEN = sizeof(DMALL_METAL_MAMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Mamemon";
     inline static constexpr const char* DMALL_METAL_MAMEMON_NAME = DMALL_METAL_MAMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_MAMEMON_NAME_LEN = sizeof(DMALL_METAL_MAMEMON_NAME_ARR)-1;
@@ -7197,7 +7197,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_MAMEMON_X_FQID_LEN = sizeof(DMALL_METAL_MAMEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_MAMEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_mamemon_x";
     inline static constexpr const char* DMALL_METAL_MAMEMON_X_ID = DMALL_METAL_MAMEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_MAMEMON_X_ID_LEN = sizeof(DMALL_METAL_MAMEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_METAL_MAMEMON_X_ID_LEN = sizeof(DMALL_METAL_MAMEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_MAMEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Mamemon X";
     inline static constexpr const char* DMALL_METAL_MAMEMON_X_NAME = DMALL_METAL_MAMEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_MAMEMON_X_NAME_LEN = sizeof(DMALL_METAL_MAMEMON_X_NAME_ARR)-1;
@@ -7215,7 +7215,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_PHANTOMON_FQID_LEN = sizeof(DMALL_METAL_PHANTOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_PHANTOMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_phantomon";
     inline static constexpr const char* DMALL_METAL_PHANTOMON_ID = DMALL_METAL_PHANTOMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_PHANTOMON_ID_LEN = sizeof(DMALL_METAL_PHANTOMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_PHANTOMON_ID_LEN = sizeof(DMALL_METAL_PHANTOMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_PHANTOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Phantomon";
     inline static constexpr const char* DMALL_METAL_PHANTOMON_NAME = DMALL_METAL_PHANTOMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_PHANTOMON_NAME_LEN = sizeof(DMALL_METAL_PHANTOMON_NAME_ARR)-1;
@@ -7233,7 +7233,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_PIRANIMON_FQID_LEN = sizeof(DMALL_METAL_PIRANIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_PIRANIMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_piranimon";
     inline static constexpr const char* DMALL_METAL_PIRANIMON_ID = DMALL_METAL_PIRANIMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_PIRANIMON_ID_LEN = sizeof(DMALL_METAL_PIRANIMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_PIRANIMON_ID_LEN = sizeof(DMALL_METAL_PIRANIMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_PIRANIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Piranimon";
     inline static constexpr const char* DMALL_METAL_PIRANIMON_NAME = DMALL_METAL_PIRANIMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_PIRANIMON_NAME_LEN = sizeof(DMALL_METAL_PIRANIMON_NAME_ARR)-1;
@@ -7251,7 +7251,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_SEADRAMON_FQID_LEN = sizeof(DMALL_METAL_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_seadramon";
     inline static constexpr const char* DMALL_METAL_SEADRAMON_ID = DMALL_METAL_SEADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_SEADRAMON_ID_LEN = sizeof(DMALL_METAL_SEADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_SEADRAMON_ID_LEN = sizeof(DMALL_METAL_SEADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Seadramon";
     inline static constexpr const char* DMALL_METAL_SEADRAMON_NAME = DMALL_METAL_SEADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_SEADRAMON_NAME_LEN = sizeof(DMALL_METAL_SEADRAMON_NAME_ARR)-1;
@@ -7269,7 +7269,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_TYRANOMON_FQID_LEN = sizeof(DMALL_METAL_TYRANOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_TYRANOMON_ID_ARR[] CONFIG_STRING_SECTION = "metal_tyranomon";
     inline static constexpr const char* DMALL_METAL_TYRANOMON_ID = DMALL_METAL_TYRANOMON_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_TYRANOMON_ID_LEN = sizeof(DMALL_METAL_TYRANOMON_ID)-1;
+    inline static constexpr size_t DMALL_METAL_TYRANOMON_ID_LEN = sizeof(DMALL_METAL_TYRANOMON_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_TYRANOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Tyranomon";
     inline static constexpr const char* DMALL_METAL_TYRANOMON_NAME = DMALL_METAL_TYRANOMON_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_TYRANOMON_NAME_LEN = sizeof(DMALL_METAL_TYRANOMON_NAME_ARR)-1;
@@ -7287,7 +7287,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_METAL_TYRANOMON_X_FQID_LEN = sizeof(DMALL_METAL_TYRANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_METAL_TYRANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "metal_tyranomon_x";
     inline static constexpr const char* DMALL_METAL_TYRANOMON_X_ID = DMALL_METAL_TYRANOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_METAL_TYRANOMON_X_ID_LEN = sizeof(DMALL_METAL_TYRANOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_METAL_TYRANOMON_X_ID_LEN = sizeof(DMALL_METAL_TYRANOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_METAL_TYRANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Metal Tyranomon X";
     inline static constexpr const char* DMALL_METAL_TYRANOMON_X_NAME = DMALL_METAL_TYRANOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_METAL_TYRANOMON_X_NAME_LEN = sizeof(DMALL_METAL_TYRANOMON_X_NAME_ARR)-1;
@@ -7305,7 +7305,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MIKEMON_FQID_LEN = sizeof(DMALL_MIKEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MIKEMON_ID_ARR[] CONFIG_STRING_SECTION = "mikemon";
     inline static constexpr const char* DMALL_MIKEMON_ID = DMALL_MIKEMON_ID_ARR;
-    inline static constexpr size_t DMALL_MIKEMON_ID_LEN = sizeof(DMALL_MIKEMON_ID)-1;
+    inline static constexpr size_t DMALL_MIKEMON_ID_LEN = sizeof(DMALL_MIKEMON_ID_ARR)-1;
     inline static constexpr char DMALL_MIKEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mikemon";
     inline static constexpr const char* DMALL_MIKEMON_NAME = DMALL_MIKEMON_NAME_ARR;
     inline static constexpr size_t DMALL_MIKEMON_NAME_LEN = sizeof(DMALL_MIKEMON_NAME_ARR)-1;
@@ -7323,7 +7323,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MILLENNIUMON_FQID_LEN = sizeof(DMALL_MILLENNIUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MILLENNIUMON_ID_ARR[] CONFIG_STRING_SECTION = "millenniumon";
     inline static constexpr const char* DMALL_MILLENNIUMON_ID = DMALL_MILLENNIUMON_ID_ARR;
-    inline static constexpr size_t DMALL_MILLENNIUMON_ID_LEN = sizeof(DMALL_MILLENNIUMON_ID)-1;
+    inline static constexpr size_t DMALL_MILLENNIUMON_ID_LEN = sizeof(DMALL_MILLENNIUMON_ID_ARR)-1;
     inline static constexpr char DMALL_MILLENNIUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Millenniumon";
     inline static constexpr const char* DMALL_MILLENNIUMON_NAME = DMALL_MILLENNIUMON_NAME_ARR;
     inline static constexpr size_t DMALL_MILLENNIUMON_NAME_LEN = sizeof(DMALL_MILLENNIUMON_NAME_ARR)-1;
@@ -7341,7 +7341,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MIMICMON_FQID_LEN = sizeof(DMALL_MIMICMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MIMICMON_ID_ARR[] CONFIG_STRING_SECTION = "mimicmon";
     inline static constexpr const char* DMALL_MIMICMON_ID = DMALL_MIMICMON_ID_ARR;
-    inline static constexpr size_t DMALL_MIMICMON_ID_LEN = sizeof(DMALL_MIMICMON_ID)-1;
+    inline static constexpr size_t DMALL_MIMICMON_ID_LEN = sizeof(DMALL_MIMICMON_ID_ARR)-1;
     inline static constexpr char DMALL_MIMICMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mimicmon";
     inline static constexpr const char* DMALL_MIMICMON_NAME = DMALL_MIMICMON_NAME_ARR;
     inline static constexpr size_t DMALL_MIMICMON_NAME_LEN = sizeof(DMALL_MIMICMON_NAME_ARR)-1;
@@ -7359,7 +7359,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MINERVAMON_X_FQID_LEN = sizeof(DMALL_MINERVAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MINERVAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "minervamon_x";
     inline static constexpr const char* DMALL_MINERVAMON_X_ID = DMALL_MINERVAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MINERVAMON_X_ID_LEN = sizeof(DMALL_MINERVAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MINERVAMON_X_ID_LEN = sizeof(DMALL_MINERVAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MINERVAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Minervamon X";
     inline static constexpr const char* DMALL_MINERVAMON_X_NAME = DMALL_MINERVAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MINERVAMON_X_NAME_LEN = sizeof(DMALL_MINERVAMON_X_NAME_ARR)-1;
@@ -7377,7 +7377,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MINOMON_FQID_LEN = sizeof(DMALL_MINOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MINOMON_ID_ARR[] CONFIG_STRING_SECTION = "minomon";
     inline static constexpr const char* DMALL_MINOMON_ID = DMALL_MINOMON_ID_ARR;
-    inline static constexpr size_t DMALL_MINOMON_ID_LEN = sizeof(DMALL_MINOMON_ID)-1;
+    inline static constexpr size_t DMALL_MINOMON_ID_LEN = sizeof(DMALL_MINOMON_ID_ARR)-1;
     inline static constexpr char DMALL_MINOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Minomon";
     inline static constexpr const char* DMALL_MINOMON_NAME = DMALL_MINOMON_NAME_ARR;
     inline static constexpr size_t DMALL_MINOMON_NAME_LEN = sizeof(DMALL_MINOMON_NAME_ARR)-1;
@@ -7395,7 +7395,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MOCHIMON_FQID_LEN = sizeof(DMALL_MOCHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MOCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "mochimon";
     inline static constexpr const char* DMALL_MOCHIMON_ID = DMALL_MOCHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_MOCHIMON_ID_LEN = sizeof(DMALL_MOCHIMON_ID)-1;
+    inline static constexpr size_t DMALL_MOCHIMON_ID_LEN = sizeof(DMALL_MOCHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_MOCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mochimon";
     inline static constexpr const char* DMALL_MOCHIMON_NAME = DMALL_MOCHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_MOCHIMON_NAME_LEN = sizeof(DMALL_MOCHIMON_NAME_ARR)-1;
@@ -7413,7 +7413,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MOKUMON_FQID_LEN = sizeof(DMALL_MOKUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MOKUMON_ID_ARR[] CONFIG_STRING_SECTION = "mokumon";
     inline static constexpr const char* DMALL_MOKUMON_ID = DMALL_MOKUMON_ID_ARR;
-    inline static constexpr size_t DMALL_MOKUMON_ID_LEN = sizeof(DMALL_MOKUMON_ID)-1;
+    inline static constexpr size_t DMALL_MOKUMON_ID_LEN = sizeof(DMALL_MOKUMON_ID_ARR)-1;
     inline static constexpr char DMALL_MOKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mokumon";
     inline static constexpr const char* DMALL_MOKUMON_NAME = DMALL_MOKUMON_NAME_ARR;
     inline static constexpr size_t DMALL_MOKUMON_NAME_LEN = sizeof(DMALL_MOKUMON_NAME_ARR)-1;
@@ -7431,7 +7431,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MONIMON_FQID_LEN = sizeof(DMALL_MONIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MONIMON_ID_ARR[] CONFIG_STRING_SECTION = "monimon";
     inline static constexpr const char* DMALL_MONIMON_ID = DMALL_MONIMON_ID_ARR;
-    inline static constexpr size_t DMALL_MONIMON_ID_LEN = sizeof(DMALL_MONIMON_ID)-1;
+    inline static constexpr size_t DMALL_MONIMON_ID_LEN = sizeof(DMALL_MONIMON_ID_ARR)-1;
     inline static constexpr char DMALL_MONIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Monimon";
     inline static constexpr const char* DMALL_MONIMON_NAME = DMALL_MONIMON_NAME_ARR;
     inline static constexpr size_t DMALL_MONIMON_NAME_LEN = sizeof(DMALL_MONIMON_NAME_ARR)-1;
@@ -7449,7 +7449,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MONOCHROMON_FQID_LEN = sizeof(DMALL_MONOCHROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MONOCHROMON_ID_ARR[] CONFIG_STRING_SECTION = "monochromon";
     inline static constexpr const char* DMALL_MONOCHROMON_ID = DMALL_MONOCHROMON_ID_ARR;
-    inline static constexpr size_t DMALL_MONOCHROMON_ID_LEN = sizeof(DMALL_MONOCHROMON_ID)-1;
+    inline static constexpr size_t DMALL_MONOCHROMON_ID_LEN = sizeof(DMALL_MONOCHROMON_ID_ARR)-1;
     inline static constexpr char DMALL_MONOCHROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Monochromon";
     inline static constexpr const char* DMALL_MONOCHROMON_NAME = DMALL_MONOCHROMON_NAME_ARR;
     inline static constexpr size_t DMALL_MONOCHROMON_NAME_LEN = sizeof(DMALL_MONOCHROMON_NAME_ARR)-1;
@@ -7467,7 +7467,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MONOCHROMON_X_FQID_LEN = sizeof(DMALL_MONOCHROMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MONOCHROMON_X_ID_ARR[] CONFIG_STRING_SECTION = "monochromon_x";
     inline static constexpr const char* DMALL_MONOCHROMON_X_ID = DMALL_MONOCHROMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MONOCHROMON_X_ID_LEN = sizeof(DMALL_MONOCHROMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MONOCHROMON_X_ID_LEN = sizeof(DMALL_MONOCHROMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MONOCHROMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Monochromon X";
     inline static constexpr const char* DMALL_MONOCHROMON_X_NAME = DMALL_MONOCHROMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MONOCHROMON_X_NAME_LEN = sizeof(DMALL_MONOCHROMON_X_NAME_ARR)-1;
@@ -7485,7 +7485,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MONZAEMON_FQID_LEN = sizeof(DMALL_MONZAEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MONZAEMON_ID_ARR[] CONFIG_STRING_SECTION = "monzaemon";
     inline static constexpr const char* DMALL_MONZAEMON_ID = DMALL_MONZAEMON_ID_ARR;
-    inline static constexpr size_t DMALL_MONZAEMON_ID_LEN = sizeof(DMALL_MONZAEMON_ID)-1;
+    inline static constexpr size_t DMALL_MONZAEMON_ID_LEN = sizeof(DMALL_MONZAEMON_ID_ARR)-1;
     inline static constexpr char DMALL_MONZAEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Monzaemon";
     inline static constexpr const char* DMALL_MONZAEMON_NAME = DMALL_MONZAEMON_NAME_ARR;
     inline static constexpr size_t DMALL_MONZAEMON_NAME_LEN = sizeof(DMALL_MONZAEMON_NAME_ARR)-1;
@@ -7503,7 +7503,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MONZAEMON_X_FQID_LEN = sizeof(DMALL_MONZAEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_MONZAEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "monzaemon_x";
     inline static constexpr const char* DMALL_MONZAEMON_X_ID = DMALL_MONZAEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_MONZAEMON_X_ID_LEN = sizeof(DMALL_MONZAEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_MONZAEMON_X_ID_LEN = sizeof(DMALL_MONZAEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_MONZAEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Monzaemon X";
     inline static constexpr const char* DMALL_MONZAEMON_X_NAME = DMALL_MONZAEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_MONZAEMON_X_NAME_LEN = sizeof(DMALL_MONZAEMON_X_NAME_ARR)-1;
@@ -7521,7 +7521,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MOONMON_FQID_LEN = sizeof(DMALL_MOONMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MOONMON_ID_ARR[] CONFIG_STRING_SECTION = "moonmon";
     inline static constexpr const char* DMALL_MOONMON_ID = DMALL_MOONMON_ID_ARR;
-    inline static constexpr size_t DMALL_MOONMON_ID_LEN = sizeof(DMALL_MOONMON_ID)-1;
+    inline static constexpr size_t DMALL_MOONMON_ID_LEN = sizeof(DMALL_MOONMON_ID_ARR)-1;
     inline static constexpr char DMALL_MOONMON_NAME_ARR[] CONFIG_STRING_SECTION = "Moonmon";
     inline static constexpr const char* DMALL_MOONMON_NAME = DMALL_MOONMON_NAME_ARR;
     inline static constexpr size_t DMALL_MOONMON_NAME_LEN = sizeof(DMALL_MOONMON_NAME_ARR)-1;
@@ -7539,7 +7539,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MORI_SHELLMON_FQID_LEN = sizeof(DMALL_MORI_SHELLMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MORI_SHELLMON_ID_ARR[] CONFIG_STRING_SECTION = "mori_shellmon";
     inline static constexpr const char* DMALL_MORI_SHELLMON_ID = DMALL_MORI_SHELLMON_ID_ARR;
-    inline static constexpr size_t DMALL_MORI_SHELLMON_ID_LEN = sizeof(DMALL_MORI_SHELLMON_ID)-1;
+    inline static constexpr size_t DMALL_MORI_SHELLMON_ID_LEN = sizeof(DMALL_MORI_SHELLMON_ID_ARR)-1;
     inline static constexpr char DMALL_MORI_SHELLMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mori Shellmon";
     inline static constexpr const char* DMALL_MORI_SHELLMON_NAME = DMALL_MORI_SHELLMON_NAME_ARR;
     inline static constexpr size_t DMALL_MORI_SHELLMON_NAME_LEN = sizeof(DMALL_MORI_SHELLMON_NAME_ARR)-1;
@@ -7557,7 +7557,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MORPHOMON_FQID_LEN = sizeof(DMALL_MORPHOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MORPHOMON_ID_ARR[] CONFIG_STRING_SECTION = "morphomon";
     inline static constexpr const char* DMALL_MORPHOMON_ID = DMALL_MORPHOMON_ID_ARR;
-    inline static constexpr size_t DMALL_MORPHOMON_ID_LEN = sizeof(DMALL_MORPHOMON_ID)-1;
+    inline static constexpr size_t DMALL_MORPHOMON_ID_LEN = sizeof(DMALL_MORPHOMON_ID_ARR)-1;
     inline static constexpr char DMALL_MORPHOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Morphomon";
     inline static constexpr const char* DMALL_MORPHOMON_NAME = DMALL_MORPHOMON_NAME_ARR;
     inline static constexpr size_t DMALL_MORPHOMON_NAME_LEN = sizeof(DMALL_MORPHOMON_NAME_ARR)-1;
@@ -7575,7 +7575,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MUCHOMON_FQID_LEN = sizeof(DMALL_MUCHOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MUCHOMON_ID_ARR[] CONFIG_STRING_SECTION = "muchomon";
     inline static constexpr const char* DMALL_MUCHOMON_ID = DMALL_MUCHOMON_ID_ARR;
-    inline static constexpr size_t DMALL_MUCHOMON_ID_LEN = sizeof(DMALL_MUCHOMON_ID)-1;
+    inline static constexpr size_t DMALL_MUCHOMON_ID_LEN = sizeof(DMALL_MUCHOMON_ID_ARR)-1;
     inline static constexpr char DMALL_MUCHOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Muchomon";
     inline static constexpr const char* DMALL_MUCHOMON_NAME = DMALL_MUCHOMON_NAME_ARR;
     inline static constexpr size_t DMALL_MUCHOMON_NAME_LEN = sizeof(DMALL_MUCHOMON_NAME_ARR)-1;
@@ -7593,7 +7593,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MUGENDRAMON_FQID_LEN = sizeof(DMALL_MUGENDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MUGENDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "mugendramon";
     inline static constexpr const char* DMALL_MUGENDRAMON_ID = DMALL_MUGENDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_MUGENDRAMON_ID_LEN = sizeof(DMALL_MUGENDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_MUGENDRAMON_ID_LEN = sizeof(DMALL_MUGENDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_MUGENDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mugendramon";
     inline static constexpr const char* DMALL_MUGENDRAMON_NAME = DMALL_MUGENDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_MUGENDRAMON_NAME_LEN = sizeof(DMALL_MUGENDRAMON_NAME_ARR)-1;
@@ -7611,7 +7611,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_MUSHMON_FQID_LEN = sizeof(DMALL_MUSHMON_FQID_ARR)-1;
     inline static constexpr char DMALL_MUSHMON_ID_ARR[] CONFIG_STRING_SECTION = "mushmon";
     inline static constexpr const char* DMALL_MUSHMON_ID = DMALL_MUSHMON_ID_ARR;
-    inline static constexpr size_t DMALL_MUSHMON_ID_LEN = sizeof(DMALL_MUSHMON_ID)-1;
+    inline static constexpr size_t DMALL_MUSHMON_ID_LEN = sizeof(DMALL_MUSHMON_ID_ARR)-1;
     inline static constexpr char DMALL_MUSHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Mushmon";
     inline static constexpr const char* DMALL_MUSHMON_NAME = DMALL_MUSHMON_NAME_ARR;
     inline static constexpr size_t DMALL_MUSHMON_NAME_LEN = sizeof(DMALL_MUSHMON_NAME_ARR)-1;
@@ -7629,7 +7629,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NANOMON_FQID_LEN = sizeof(DMALL_NANOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_NANOMON_ID_ARR[] CONFIG_STRING_SECTION = "nanomon";
     inline static constexpr const char* DMALL_NANOMON_ID = DMALL_NANOMON_ID_ARR;
-    inline static constexpr size_t DMALL_NANOMON_ID_LEN = sizeof(DMALL_NANOMON_ID)-1;
+    inline static constexpr size_t DMALL_NANOMON_ID_LEN = sizeof(DMALL_NANOMON_ID_ARR)-1;
     inline static constexpr char DMALL_NANOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Nanomon";
     inline static constexpr const char* DMALL_NANOMON_NAME = DMALL_NANOMON_NAME_ARR;
     inline static constexpr size_t DMALL_NANOMON_NAME_LEN = sizeof(DMALL_NANOMON_NAME_ARR)-1;
@@ -7647,7 +7647,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NEFERTIMON_X_FQID_LEN = sizeof(DMALL_NEFERTIMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_NEFERTIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "nefertimon_x";
     inline static constexpr const char* DMALL_NEFERTIMON_X_ID = DMALL_NEFERTIMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_NEFERTIMON_X_ID_LEN = sizeof(DMALL_NEFERTIMON_X_ID)-1;
+    inline static constexpr size_t DMALL_NEFERTIMON_X_ID_LEN = sizeof(DMALL_NEFERTIMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_NEFERTIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Nefertimon X";
     inline static constexpr const char* DMALL_NEFERTIMON_X_NAME = DMALL_NEFERTIMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_NEFERTIMON_X_NAME_LEN = sizeof(DMALL_NEFERTIMON_X_NAME_ARR)-1;
@@ -7665,7 +7665,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NEO_DEVIMON_FQID_LEN = sizeof(DMALL_NEO_DEVIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_NEO_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "neo_devimon";
     inline static constexpr const char* DMALL_NEO_DEVIMON_ID = DMALL_NEO_DEVIMON_ID_ARR;
-    inline static constexpr size_t DMALL_NEO_DEVIMON_ID_LEN = sizeof(DMALL_NEO_DEVIMON_ID)-1;
+    inline static constexpr size_t DMALL_NEO_DEVIMON_ID_LEN = sizeof(DMALL_NEO_DEVIMON_ID_ARR)-1;
     inline static constexpr char DMALL_NEO_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Neo Devimon";
     inline static constexpr const char* DMALL_NEO_DEVIMON_NAME = DMALL_NEO_DEVIMON_NAME_ARR;
     inline static constexpr size_t DMALL_NEO_DEVIMON_NAME_LEN = sizeof(DMALL_NEO_DEVIMON_NAME_ARR)-1;
@@ -7683,7 +7683,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NISE_DRIMOGEMON_FQID_LEN = sizeof(DMALL_NISE_DRIMOGEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_NISE_DRIMOGEMON_ID_ARR[] CONFIG_STRING_SECTION = "nise_drimogemon";
     inline static constexpr const char* DMALL_NISE_DRIMOGEMON_ID = DMALL_NISE_DRIMOGEMON_ID_ARR;
-    inline static constexpr size_t DMALL_NISE_DRIMOGEMON_ID_LEN = sizeof(DMALL_NISE_DRIMOGEMON_ID)-1;
+    inline static constexpr size_t DMALL_NISE_DRIMOGEMON_ID_LEN = sizeof(DMALL_NISE_DRIMOGEMON_ID_ARR)-1;
     inline static constexpr char DMALL_NISE_DRIMOGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Nise Drimogemon";
     inline static constexpr const char* DMALL_NISE_DRIMOGEMON_NAME = DMALL_NISE_DRIMOGEMON_NAME_ARR;
     inline static constexpr size_t DMALL_NISE_DRIMOGEMON_NAME_LEN = sizeof(DMALL_NISE_DRIMOGEMON_NAME_ARR)-1;
@@ -7701,7 +7701,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NOBLE_PUMPMON_FQID_LEN = sizeof(DMALL_NOBLE_PUMPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_NOBLE_PUMPMON_ID_ARR[] CONFIG_STRING_SECTION = "noble_pumpmon";
     inline static constexpr const char* DMALL_NOBLE_PUMPMON_ID = DMALL_NOBLE_PUMPMON_ID_ARR;
-    inline static constexpr size_t DMALL_NOBLE_PUMPMON_ID_LEN = sizeof(DMALL_NOBLE_PUMPMON_ID)-1;
+    inline static constexpr size_t DMALL_NOBLE_PUMPMON_ID_LEN = sizeof(DMALL_NOBLE_PUMPMON_ID_ARR)-1;
     inline static constexpr char DMALL_NOBLE_PUMPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Noble Pumpmon";
     inline static constexpr const char* DMALL_NOBLE_PUMPMON_NAME = DMALL_NOBLE_PUMPMON_NAME_ARR;
     inline static constexpr size_t DMALL_NOBLE_PUMPMON_NAME_LEN = sizeof(DMALL_NOBLE_PUMPMON_NAME_ARR)-1;
@@ -7719,7 +7719,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NUMEMON_FQID_LEN = sizeof(DMALL_NUMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_NUMEMON_ID_ARR[] CONFIG_STRING_SECTION = "numemon";
     inline static constexpr const char* DMALL_NUMEMON_ID = DMALL_NUMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_NUMEMON_ID_LEN = sizeof(DMALL_NUMEMON_ID)-1;
+    inline static constexpr size_t DMALL_NUMEMON_ID_LEN = sizeof(DMALL_NUMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_NUMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Numemon";
     inline static constexpr const char* DMALL_NUMEMON_NAME = DMALL_NUMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_NUMEMON_NAME_LEN = sizeof(DMALL_NUMEMON_NAME_ARR)-1;
@@ -7737,7 +7737,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NUMEMON_X_FQID_LEN = sizeof(DMALL_NUMEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_NUMEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "numemon_x";
     inline static constexpr const char* DMALL_NUMEMON_X_ID = DMALL_NUMEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_NUMEMON_X_ID_LEN = sizeof(DMALL_NUMEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_NUMEMON_X_ID_LEN = sizeof(DMALL_NUMEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_NUMEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Numemon X";
     inline static constexpr const char* DMALL_NUMEMON_X_NAME = DMALL_NUMEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_NUMEMON_X_NAME_LEN = sizeof(DMALL_NUMEMON_X_NAME_ARR)-1;
@@ -7755,7 +7755,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NYAROMON_FQID_LEN = sizeof(DMALL_NYAROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_NYAROMON_ID_ARR[] CONFIG_STRING_SECTION = "nyaromon";
     inline static constexpr const char* DMALL_NYAROMON_ID = DMALL_NYAROMON_ID_ARR;
-    inline static constexpr size_t DMALL_NYAROMON_ID_LEN = sizeof(DMALL_NYAROMON_ID)-1;
+    inline static constexpr size_t DMALL_NYAROMON_ID_LEN = sizeof(DMALL_NYAROMON_ID_ARR)-1;
     inline static constexpr char DMALL_NYAROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Nyaromon";
     inline static constexpr const char* DMALL_NYAROMON_NAME = DMALL_NYAROMON_NAME_ARR;
     inline static constexpr size_t DMALL_NYAROMON_NAME_LEN = sizeof(DMALL_NYAROMON_NAME_ARR)-1;
@@ -7773,7 +7773,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_NYOKIMON_FQID_LEN = sizeof(DMALL_NYOKIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_NYOKIMON_ID_ARR[] CONFIG_STRING_SECTION = "nyokimon";
     inline static constexpr const char* DMALL_NYOKIMON_ID = DMALL_NYOKIMON_ID_ARR;
-    inline static constexpr size_t DMALL_NYOKIMON_ID_LEN = sizeof(DMALL_NYOKIMON_ID)-1;
+    inline static constexpr size_t DMALL_NYOKIMON_ID_LEN = sizeof(DMALL_NYOKIMON_ID_ARR)-1;
     inline static constexpr char DMALL_NYOKIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Nyokimon";
     inline static constexpr const char* DMALL_NYOKIMON_NAME = DMALL_NYOKIMON_NAME_ARR;
     inline static constexpr size_t DMALL_NYOKIMON_NAME_LEN = sizeof(DMALL_NYOKIMON_NAME_ARR)-1;
@@ -7791,7 +7791,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OFANIMON_CORE_FQID_LEN = sizeof(DMALL_OFANIMON_CORE_FQID_ARR)-1;
     inline static constexpr char DMALL_OFANIMON_CORE_ID_ARR[] CONFIG_STRING_SECTION = "ofanimon_core";
     inline static constexpr const char* DMALL_OFANIMON_CORE_ID = DMALL_OFANIMON_CORE_ID_ARR;
-    inline static constexpr size_t DMALL_OFANIMON_CORE_ID_LEN = sizeof(DMALL_OFANIMON_CORE_ID)-1;
+    inline static constexpr size_t DMALL_OFANIMON_CORE_ID_LEN = sizeof(DMALL_OFANIMON_CORE_ID_ARR)-1;
     inline static constexpr char DMALL_OFANIMON_CORE_NAME_ARR[] CONFIG_STRING_SECTION = "Ofanimon Core";
     inline static constexpr const char* DMALL_OFANIMON_CORE_NAME = DMALL_OFANIMON_CORE_NAME_ARR;
     inline static constexpr size_t DMALL_OFANIMON_CORE_NAME_LEN = sizeof(DMALL_OFANIMON_CORE_NAME_ARR)-1;
@@ -7809,7 +7809,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OFANIMON_FALLDOWN_MODE_FQID_LEN = sizeof(DMALL_OFANIMON_FALLDOWN_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_OFANIMON_FALLDOWN_MODE_ID_ARR[] CONFIG_STRING_SECTION = "ofanimon_falldown_mode";
     inline static constexpr const char* DMALL_OFANIMON_FALLDOWN_MODE_ID = DMALL_OFANIMON_FALLDOWN_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_OFANIMON_FALLDOWN_MODE_ID_LEN = sizeof(DMALL_OFANIMON_FALLDOWN_MODE_ID)-1;
+    inline static constexpr size_t DMALL_OFANIMON_FALLDOWN_MODE_ID_LEN = sizeof(DMALL_OFANIMON_FALLDOWN_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_OFANIMON_FALLDOWN_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Ofanimon Falldown Mode";
     inline static constexpr const char* DMALL_OFANIMON_FALLDOWN_MODE_NAME = DMALL_OFANIMON_FALLDOWN_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_OFANIMON_FALLDOWN_MODE_NAME_LEN = sizeof(DMALL_OFANIMON_FALLDOWN_MODE_NAME_ARR)-1;
@@ -7827,7 +7827,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OGREMON_FQID_LEN = sizeof(DMALL_OGREMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OGREMON_ID_ARR[] CONFIG_STRING_SECTION = "ogremon";
     inline static constexpr const char* DMALL_OGREMON_ID = DMALL_OGREMON_ID_ARR;
-    inline static constexpr size_t DMALL_OGREMON_ID_LEN = sizeof(DMALL_OGREMON_ID)-1;
+    inline static constexpr size_t DMALL_OGREMON_ID_LEN = sizeof(DMALL_OGREMON_ID_ARR)-1;
     inline static constexpr char DMALL_OGREMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ogremon";
     inline static constexpr const char* DMALL_OGREMON_NAME = DMALL_OGREMON_NAME_ARR;
     inline static constexpr size_t DMALL_OGREMON_NAME_LEN = sizeof(DMALL_OGREMON_NAME_ARR)-1;
@@ -7845,7 +7845,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OGREMON_X_FQID_LEN = sizeof(DMALL_OGREMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_OGREMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ogremon_x";
     inline static constexpr const char* DMALL_OGREMON_X_ID = DMALL_OGREMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_OGREMON_X_ID_LEN = sizeof(DMALL_OGREMON_X_ID)-1;
+    inline static constexpr size_t DMALL_OGREMON_X_ID_LEN = sizeof(DMALL_OGREMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_OGREMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ogremon X";
     inline static constexpr const char* DMALL_OGREMON_X_NAME = DMALL_OGREMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_OGREMON_X_NAME_LEN = sizeof(DMALL_OGREMON_X_NAME_ARR)-1;
@@ -7863,7 +7863,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OGUDOMON_FQID_LEN = sizeof(DMALL_OGUDOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OGUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "ogudomon";
     inline static constexpr const char* DMALL_OGUDOMON_ID = DMALL_OGUDOMON_ID_ARR;
-    inline static constexpr size_t DMALL_OGUDOMON_ID_LEN = sizeof(DMALL_OGUDOMON_ID)-1;
+    inline static constexpr size_t DMALL_OGUDOMON_ID_LEN = sizeof(DMALL_OGUDOMON_ID_ARR)-1;
     inline static constexpr char DMALL_OGUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ogudomon";
     inline static constexpr const char* DMALL_OGUDOMON_NAME = DMALL_OGUDOMON_NAME_ARR;
     inline static constexpr size_t DMALL_OGUDOMON_NAME_LEN = sizeof(DMALL_OGUDOMON_NAME_ARR)-1;
@@ -7881,7 +7881,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OGUDOMON_X_FQID_LEN = sizeof(DMALL_OGUDOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_OGUDOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ogudomon_x";
     inline static constexpr const char* DMALL_OGUDOMON_X_ID = DMALL_OGUDOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_OGUDOMON_X_ID_LEN = sizeof(DMALL_OGUDOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_OGUDOMON_X_ID_LEN = sizeof(DMALL_OGUDOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_OGUDOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ogudomon X";
     inline static constexpr const char* DMALL_OGUDOMON_X_NAME = DMALL_OGUDOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_OGUDOMON_X_NAME_LEN = sizeof(DMALL_OGUDOMON_X_NAME_ARR)-1;
@@ -7899,7 +7899,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OKUWAMON_FQID_LEN = sizeof(DMALL_OKUWAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OKUWAMON_ID_ARR[] CONFIG_STRING_SECTION = "okuwamon";
     inline static constexpr const char* DMALL_OKUWAMON_ID = DMALL_OKUWAMON_ID_ARR;
-    inline static constexpr size_t DMALL_OKUWAMON_ID_LEN = sizeof(DMALL_OKUWAMON_ID)-1;
+    inline static constexpr size_t DMALL_OKUWAMON_ID_LEN = sizeof(DMALL_OKUWAMON_ID_ARR)-1;
     inline static constexpr char DMALL_OKUWAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Okuwamon";
     inline static constexpr const char* DMALL_OKUWAMON_NAME = DMALL_OKUWAMON_NAME_ARR;
     inline static constexpr size_t DMALL_OKUWAMON_NAME_LEN = sizeof(DMALL_OKUWAMON_NAME_ARR)-1;
@@ -7917,7 +7917,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OKUWAMON_X_FQID_LEN = sizeof(DMALL_OKUWAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_OKUWAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "okuwamon_x";
     inline static constexpr const char* DMALL_OKUWAMON_X_ID = DMALL_OKUWAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_OKUWAMON_X_ID_LEN = sizeof(DMALL_OKUWAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_OKUWAMON_X_ID_LEN = sizeof(DMALL_OKUWAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_OKUWAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Okuwamon X";
     inline static constexpr const char* DMALL_OKUWAMON_X_NAME = DMALL_OKUWAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_OKUWAMON_X_NAME_LEN = sizeof(DMALL_OKUWAMON_X_NAME_ARR)-1;
@@ -7935,7 +7935,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OMEGAMON_ALTER_S_FQID_LEN = sizeof(DMALL_OMEGAMON_ALTER_S_FQID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_ALTER_S_ID_ARR[] CONFIG_STRING_SECTION = "omegamon_alter_s";
     inline static constexpr const char* DMALL_OMEGAMON_ALTER_S_ID = DMALL_OMEGAMON_ALTER_S_ID_ARR;
-    inline static constexpr size_t DMALL_OMEGAMON_ALTER_S_ID_LEN = sizeof(DMALL_OMEGAMON_ALTER_S_ID)-1;
+    inline static constexpr size_t DMALL_OMEGAMON_ALTER_S_ID_LEN = sizeof(DMALL_OMEGAMON_ALTER_S_ID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_ALTER_S_NAME_ARR[] CONFIG_STRING_SECTION = "Omegamon Alter S";
     inline static constexpr const char* DMALL_OMEGAMON_ALTER_S_NAME = DMALL_OMEGAMON_ALTER_S_NAME_ARR;
     inline static constexpr size_t DMALL_OMEGAMON_ALTER_S_NAME_LEN = sizeof(DMALL_OMEGAMON_ALTER_S_NAME_ARR)-1;
@@ -7953,7 +7953,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OMEGAMON_FQID_LEN = sizeof(DMALL_OMEGAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_ID_ARR[] CONFIG_STRING_SECTION = "omegamon";
     inline static constexpr const char* DMALL_OMEGAMON_ID = DMALL_OMEGAMON_ID_ARR;
-    inline static constexpr size_t DMALL_OMEGAMON_ID_LEN = sizeof(DMALL_OMEGAMON_ID)-1;
+    inline static constexpr size_t DMALL_OMEGAMON_ID_LEN = sizeof(DMALL_OMEGAMON_ID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Omegamon";
     inline static constexpr const char* DMALL_OMEGAMON_NAME = DMALL_OMEGAMON_NAME_ARR;
     inline static constexpr size_t DMALL_OMEGAMON_NAME_LEN = sizeof(DMALL_OMEGAMON_NAME_ARR)-1;
@@ -7971,7 +7971,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OMEGAMON_X_FQID_LEN = sizeof(DMALL_OMEGAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "omegamon_x";
     inline static constexpr const char* DMALL_OMEGAMON_X_ID = DMALL_OMEGAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_OMEGAMON_X_ID_LEN = sizeof(DMALL_OMEGAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_OMEGAMON_X_ID_LEN = sizeof(DMALL_OMEGAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Omegamon X";
     inline static constexpr const char* DMALL_OMEGAMON_X_NAME = DMALL_OMEGAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_OMEGAMON_X_NAME_LEN = sizeof(DMALL_OMEGAMON_X_NAME_ARR)-1;
@@ -7989,7 +7989,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OMEGAMON_ZWART_FQID_LEN = sizeof(DMALL_OMEGAMON_ZWART_FQID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_ZWART_ID_ARR[] CONFIG_STRING_SECTION = "omegamon_zwart";
     inline static constexpr const char* DMALL_OMEGAMON_ZWART_ID = DMALL_OMEGAMON_ZWART_ID_ARR;
-    inline static constexpr size_t DMALL_OMEGAMON_ZWART_ID_LEN = sizeof(DMALL_OMEGAMON_ZWART_ID)-1;
+    inline static constexpr size_t DMALL_OMEGAMON_ZWART_ID_LEN = sizeof(DMALL_OMEGAMON_ZWART_ID_ARR)-1;
     inline static constexpr char DMALL_OMEGAMON_ZWART_NAME_ARR[] CONFIG_STRING_SECTION = "Omegamon Zwart";
     inline static constexpr const char* DMALL_OMEGAMON_ZWART_NAME = DMALL_OMEGAMON_ZWART_NAME_ARR;
     inline static constexpr size_t DMALL_OMEGAMON_ZWART_NAME_LEN = sizeof(DMALL_OMEGAMON_ZWART_NAME_ARR)-1;
@@ -8007,7 +8007,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OMEGA_SHOUTMON_X_FQID_LEN = sizeof(DMALL_OMEGA_SHOUTMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_OMEGA_SHOUTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "omega_shoutmon_x";
     inline static constexpr const char* DMALL_OMEGA_SHOUTMON_X_ID = DMALL_OMEGA_SHOUTMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_OMEGA_SHOUTMON_X_ID_LEN = sizeof(DMALL_OMEGA_SHOUTMON_X_ID)-1;
+    inline static constexpr size_t DMALL_OMEGA_SHOUTMON_X_ID_LEN = sizeof(DMALL_OMEGA_SHOUTMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_OMEGA_SHOUTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Omega Shoutmon X";
     inline static constexpr const char* DMALL_OMEGA_SHOUTMON_X_NAME = DMALL_OMEGA_SHOUTMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_OMEGA_SHOUTMON_X_NAME_LEN = sizeof(DMALL_OMEGA_SHOUTMON_X_NAME_ARR)-1;
@@ -8025,7 +8025,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OMEKAMON_FQID_LEN = sizeof(DMALL_OMEKAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OMEKAMON_ID_ARR[] CONFIG_STRING_SECTION = "omekamon";
     inline static constexpr const char* DMALL_OMEKAMON_ID = DMALL_OMEKAMON_ID_ARR;
-    inline static constexpr size_t DMALL_OMEKAMON_ID_LEN = sizeof(DMALL_OMEKAMON_ID)-1;
+    inline static constexpr size_t DMALL_OMEKAMON_ID_LEN = sizeof(DMALL_OMEKAMON_ID_ARR)-1;
     inline static constexpr char DMALL_OMEKAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Omekamon";
     inline static constexpr const char* DMALL_OMEKAMON_NAME = DMALL_OMEKAMON_NAME_ARR;
     inline static constexpr size_t DMALL_OMEKAMON_NAME_LEN = sizeof(DMALL_OMEKAMON_NAME_ARR)-1;
@@ -8043,7 +8043,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OPHANIMON_FQID_LEN = sizeof(DMALL_OPHANIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OPHANIMON_ID_ARR[] CONFIG_STRING_SECTION = "ophanimon";
     inline static constexpr const char* DMALL_OPHANIMON_ID = DMALL_OPHANIMON_ID_ARR;
-    inline static constexpr size_t DMALL_OPHANIMON_ID_LEN = sizeof(DMALL_OPHANIMON_ID)-1;
+    inline static constexpr size_t DMALL_OPHANIMON_ID_LEN = sizeof(DMALL_OPHANIMON_ID_ARR)-1;
     inline static constexpr char DMALL_OPHANIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ophanimon";
     inline static constexpr const char* DMALL_OPHANIMON_NAME = DMALL_OPHANIMON_NAME_ARR;
     inline static constexpr size_t DMALL_OPHANIMON_NAME_LEN = sizeof(DMALL_OPHANIMON_NAME_ARR)-1;
@@ -8061,7 +8061,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OPHANIMON_X_FQID_LEN = sizeof(DMALL_OPHANIMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_OPHANIMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ophanimon_x";
     inline static constexpr const char* DMALL_OPHANIMON_X_ID = DMALL_OPHANIMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_OPHANIMON_X_ID_LEN = sizeof(DMALL_OPHANIMON_X_ID)-1;
+    inline static constexpr size_t DMALL_OPHANIMON_X_ID_LEN = sizeof(DMALL_OPHANIMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_OPHANIMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ophanimon X";
     inline static constexpr const char* DMALL_OPHANIMON_X_NAME = DMALL_OPHANIMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_OPHANIMON_X_NAME_LEN = sizeof(DMALL_OPHANIMON_X_NAME_ARR)-1;
@@ -8079,7 +8079,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ORDINEMON_FQID_LEN = sizeof(DMALL_ORDINEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ORDINEMON_ID_ARR[] CONFIG_STRING_SECTION = "ordinemon";
     inline static constexpr const char* DMALL_ORDINEMON_ID = DMALL_ORDINEMON_ID_ARR;
-    inline static constexpr size_t DMALL_ORDINEMON_ID_LEN = sizeof(DMALL_ORDINEMON_ID)-1;
+    inline static constexpr size_t DMALL_ORDINEMON_ID_LEN = sizeof(DMALL_ORDINEMON_ID_ARR)-1;
     inline static constexpr char DMALL_ORDINEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ordinemon";
     inline static constexpr const char* DMALL_ORDINEMON_NAME = DMALL_ORDINEMON_NAME_ARR;
     inline static constexpr size_t DMALL_ORDINEMON_NAME_LEN = sizeof(DMALL_ORDINEMON_NAME_ARR)-1;
@@ -8097,7 +8097,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OROCHIMON_FQID_LEN = sizeof(DMALL_OROCHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OROCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "orochimon";
     inline static constexpr const char* DMALL_OROCHIMON_ID = DMALL_OROCHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_OROCHIMON_ID_LEN = sizeof(DMALL_OROCHIMON_ID)-1;
+    inline static constexpr size_t DMALL_OROCHIMON_ID_LEN = sizeof(DMALL_OROCHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_OROCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Orochimon";
     inline static constexpr const char* DMALL_OROCHIMON_NAME = DMALL_OROCHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_OROCHIMON_NAME_LEN = sizeof(DMALL_OROCHIMON_NAME_ARR)-1;
@@ -8115,7 +8115,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OTAMAMON_FQID_LEN = sizeof(DMALL_OTAMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OTAMAMON_ID_ARR[] CONFIG_STRING_SECTION = "otamamon";
     inline static constexpr const char* DMALL_OTAMAMON_ID = DMALL_OTAMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_OTAMAMON_ID_LEN = sizeof(DMALL_OTAMAMON_ID)-1;
+    inline static constexpr size_t DMALL_OTAMAMON_ID_LEN = sizeof(DMALL_OTAMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_OTAMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Otamamon";
     inline static constexpr const char* DMALL_OTAMAMON_NAME = DMALL_OTAMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_OTAMAMON_NAME_LEN = sizeof(DMALL_OTAMAMON_NAME_ARR)-1;
@@ -8133,7 +8133,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OTAMAMON_RED_FQID_LEN = sizeof(DMALL_OTAMAMON_RED_FQID_ARR)-1;
     inline static constexpr char DMALL_OTAMAMON_RED_ID_ARR[] CONFIG_STRING_SECTION = "otamamon_red";
     inline static constexpr const char* DMALL_OTAMAMON_RED_ID = DMALL_OTAMAMON_RED_ID_ARR;
-    inline static constexpr size_t DMALL_OTAMAMON_RED_ID_LEN = sizeof(DMALL_OTAMAMON_RED_ID)-1;
+    inline static constexpr size_t DMALL_OTAMAMON_RED_ID_LEN = sizeof(DMALL_OTAMAMON_RED_ID_ARR)-1;
     inline static constexpr char DMALL_OTAMAMON_RED_NAME_ARR[] CONFIG_STRING_SECTION = "Otamamon (Red)";
     inline static constexpr const char* DMALL_OTAMAMON_RED_NAME = DMALL_OTAMAMON_RED_NAME_ARR;
     inline static constexpr size_t DMALL_OTAMAMON_RED_NAME_LEN = sizeof(DMALL_OTAMAMON_RED_NAME_ARR)-1;
@@ -8151,7 +8151,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OTAMAMON_X_FQID_LEN = sizeof(DMALL_OTAMAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_OTAMAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "otamamon_x";
     inline static constexpr const char* DMALL_OTAMAMON_X_ID = DMALL_OTAMAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_OTAMAMON_X_ID_LEN = sizeof(DMALL_OTAMAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_OTAMAMON_X_ID_LEN = sizeof(DMALL_OTAMAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_OTAMAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Otamamon X";
     inline static constexpr const char* DMALL_OTAMAMON_X_NAME = DMALL_OTAMAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_OTAMAMON_X_NAME_LEN = sizeof(DMALL_OTAMAMON_X_NAME_ARR)-1;
@@ -8169,7 +8169,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_OURYUMON_FQID_LEN = sizeof(DMALL_OURYUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_OURYUMON_ID_ARR[] CONFIG_STRING_SECTION = "ouryumon";
     inline static constexpr const char* DMALL_OURYUMON_ID = DMALL_OURYUMON_ID_ARR;
-    inline static constexpr size_t DMALL_OURYUMON_ID_LEN = sizeof(DMALL_OURYUMON_ID)-1;
+    inline static constexpr size_t DMALL_OURYUMON_ID_LEN = sizeof(DMALL_OURYUMON_ID_ARR)-1;
     inline static constexpr char DMALL_OURYUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ouryumon";
     inline static constexpr const char* DMALL_OURYUMON_NAME = DMALL_OURYUMON_NAME_ARR;
     inline static constexpr size_t DMALL_OURYUMON_NAME_LEN = sizeof(DMALL_OURYUMON_NAME_ARR)-1;
@@ -8187,7 +8187,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PAFUMON_FQID_LEN = sizeof(DMALL_PAFUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PAFUMON_ID_ARR[] CONFIG_STRING_SECTION = "pafumon";
     inline static constexpr const char* DMALL_PAFUMON_ID = DMALL_PAFUMON_ID_ARR;
-    inline static constexpr size_t DMALL_PAFUMON_ID_LEN = sizeof(DMALL_PAFUMON_ID)-1;
+    inline static constexpr size_t DMALL_PAFUMON_ID_LEN = sizeof(DMALL_PAFUMON_ID_ARR)-1;
     inline static constexpr char DMALL_PAFUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pafumon";
     inline static constexpr const char* DMALL_PAFUMON_NAME = DMALL_PAFUMON_NAME_ARR;
     inline static constexpr size_t DMALL_PAFUMON_NAME_LEN = sizeof(DMALL_PAFUMON_NAME_ARR)-1;
@@ -8205,7 +8205,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PAGUMON_FQID_LEN = sizeof(DMALL_PAGUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PAGUMON_ID_ARR[] CONFIG_STRING_SECTION = "pagumon";
     inline static constexpr const char* DMALL_PAGUMON_ID = DMALL_PAGUMON_ID_ARR;
-    inline static constexpr size_t DMALL_PAGUMON_ID_LEN = sizeof(DMALL_PAGUMON_ID)-1;
+    inline static constexpr size_t DMALL_PAGUMON_ID_LEN = sizeof(DMALL_PAGUMON_ID_ARR)-1;
     inline static constexpr char DMALL_PAGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pagumon";
     inline static constexpr const char* DMALL_PAGUMON_NAME = DMALL_PAGUMON_NAME_ARR;
     inline static constexpr size_t DMALL_PAGUMON_NAME_LEN = sizeof(DMALL_PAGUMON_NAME_ARR)-1;
@@ -8223,7 +8223,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PAILDRAMON_FQID_LEN = sizeof(DMALL_PAILDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PAILDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "paildramon";
     inline static constexpr const char* DMALL_PAILDRAMON_ID = DMALL_PAILDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PAILDRAMON_ID_LEN = sizeof(DMALL_PAILDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_PAILDRAMON_ID_LEN = sizeof(DMALL_PAILDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PAILDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Paildramon";
     inline static constexpr const char* DMALL_PAILDRAMON_NAME = DMALL_PAILDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PAILDRAMON_NAME_LEN = sizeof(DMALL_PAILDRAMON_NAME_ARR)-1;
@@ -8241,7 +8241,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PALEDRAMON_FQID_LEN = sizeof(DMALL_PALEDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PALEDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "paledramon";
     inline static constexpr const char* DMALL_PALEDRAMON_ID = DMALL_PALEDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PALEDRAMON_ID_LEN = sizeof(DMALL_PALEDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_PALEDRAMON_ID_LEN = sizeof(DMALL_PALEDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PALEDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Paledramon";
     inline static constexpr const char* DMALL_PALEDRAMON_NAME = DMALL_PALEDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PALEDRAMON_NAME_LEN = sizeof(DMALL_PALEDRAMON_NAME_ARR)-1;
@@ -8259,7 +8259,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PALMON_FQID_LEN = sizeof(DMALL_PALMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PALMON_ID_ARR[] CONFIG_STRING_SECTION = "palmon";
     inline static constexpr const char* DMALL_PALMON_ID = DMALL_PALMON_ID_ARR;
-    inline static constexpr size_t DMALL_PALMON_ID_LEN = sizeof(DMALL_PALMON_ID)-1;
+    inline static constexpr size_t DMALL_PALMON_ID_LEN = sizeof(DMALL_PALMON_ID_ARR)-1;
     inline static constexpr char DMALL_PALMON_NAME_ARR[] CONFIG_STRING_SECTION = "Palmon";
     inline static constexpr const char* DMALL_PALMON_NAME = DMALL_PALMON_NAME_ARR;
     inline static constexpr size_t DMALL_PALMON_NAME_LEN = sizeof(DMALL_PALMON_NAME_ARR)-1;
@@ -8277,7 +8277,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PALMON_X_FQID_LEN = sizeof(DMALL_PALMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_PALMON_X_ID_ARR[] CONFIG_STRING_SECTION = "palmon_x";
     inline static constexpr const char* DMALL_PALMON_X_ID = DMALL_PALMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_PALMON_X_ID_LEN = sizeof(DMALL_PALMON_X_ID)-1;
+    inline static constexpr size_t DMALL_PALMON_X_ID_LEN = sizeof(DMALL_PALMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_PALMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Palmon X";
     inline static constexpr const char* DMALL_PALMON_X_NAME = DMALL_PALMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_PALMON_X_NAME_LEN = sizeof(DMALL_PALMON_X_NAME_ARR)-1;
@@ -8295,7 +8295,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PANDAMON_FQID_LEN = sizeof(DMALL_PANDAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PANDAMON_ID_ARR[] CONFIG_STRING_SECTION = "pandamon";
     inline static constexpr const char* DMALL_PANDAMON_ID = DMALL_PANDAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PANDAMON_ID_LEN = sizeof(DMALL_PANDAMON_ID)-1;
+    inline static constexpr size_t DMALL_PANDAMON_ID_LEN = sizeof(DMALL_PANDAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PANDAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pandamon";
     inline static constexpr const char* DMALL_PANDAMON_NAME = DMALL_PANDAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PANDAMON_NAME_LEN = sizeof(DMALL_PANDAMON_NAME_ARR)-1;
@@ -8313,7 +8313,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PANJYAMON_FQID_LEN = sizeof(DMALL_PANJYAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PANJYAMON_ID_ARR[] CONFIG_STRING_SECTION = "panjyamon";
     inline static constexpr const char* DMALL_PANJYAMON_ID = DMALL_PANJYAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PANJYAMON_ID_LEN = sizeof(DMALL_PANJYAMON_ID)-1;
+    inline static constexpr size_t DMALL_PANJYAMON_ID_LEN = sizeof(DMALL_PANJYAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PANJYAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Panjyamon";
     inline static constexpr const char* DMALL_PANJYAMON_NAME = DMALL_PANJYAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PANJYAMON_NAME_LEN = sizeof(DMALL_PANJYAMON_NAME_ARR)-1;
@@ -8331,7 +8331,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PANJYAMON_X_FQID_LEN = sizeof(DMALL_PANJYAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_PANJYAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "panjyamon_x";
     inline static constexpr const char* DMALL_PANJYAMON_X_ID = DMALL_PANJYAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_PANJYAMON_X_ID_LEN = sizeof(DMALL_PANJYAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_PANJYAMON_X_ID_LEN = sizeof(DMALL_PANJYAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_PANJYAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Panjyamon X";
     inline static constexpr const char* DMALL_PANJYAMON_X_NAME = DMALL_PANJYAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_PANJYAMON_X_NAME_LEN = sizeof(DMALL_PANJYAMON_X_NAME_ARR)-1;
@@ -8349,7 +8349,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PAOMON_FQID_LEN = sizeof(DMALL_PAOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PAOMON_ID_ARR[] CONFIG_STRING_SECTION = "paomon";
     inline static constexpr const char* DMALL_PAOMON_ID = DMALL_PAOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PAOMON_ID_LEN = sizeof(DMALL_PAOMON_ID)-1;
+    inline static constexpr size_t DMALL_PAOMON_ID_LEN = sizeof(DMALL_PAOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PAOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Paomon";
     inline static constexpr const char* DMALL_PAOMON_NAME = DMALL_PAOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PAOMON_NAME_LEN = sizeof(DMALL_PAOMON_NAME_ARR)-1;
@@ -8367,7 +8367,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PARASAURMON_FQID_LEN = sizeof(DMALL_PARASAURMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PARASAURMON_ID_ARR[] CONFIG_STRING_SECTION = "parasaurmon";
     inline static constexpr const char* DMALL_PARASAURMON_ID = DMALL_PARASAURMON_ID_ARR;
-    inline static constexpr size_t DMALL_PARASAURMON_ID_LEN = sizeof(DMALL_PARASAURMON_ID)-1;
+    inline static constexpr size_t DMALL_PARASAURMON_ID_LEN = sizeof(DMALL_PARASAURMON_ID_ARR)-1;
     inline static constexpr char DMALL_PARASAURMON_NAME_ARR[] CONFIG_STRING_SECTION = "Parasaurmon";
     inline static constexpr const char* DMALL_PARASAURMON_NAME = DMALL_PARASAURMON_NAME_ARR;
     inline static constexpr size_t DMALL_PARASAURMON_NAME_LEN = sizeof(DMALL_PARASAURMON_NAME_ARR)-1;
@@ -8385,7 +8385,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PEGASMON_X_FQID_LEN = sizeof(DMALL_PEGASMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_PEGASMON_X_ID_ARR[] CONFIG_STRING_SECTION = "pegasmon_x";
     inline static constexpr const char* DMALL_PEGASMON_X_ID = DMALL_PEGASMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_PEGASMON_X_ID_LEN = sizeof(DMALL_PEGASMON_X_ID)-1;
+    inline static constexpr size_t DMALL_PEGASMON_X_ID_LEN = sizeof(DMALL_PEGASMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_PEGASMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Pegasmon X";
     inline static constexpr const char* DMALL_PEGASMON_X_NAME = DMALL_PEGASMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_PEGASMON_X_NAME_LEN = sizeof(DMALL_PEGASMON_X_NAME_ARR)-1;
@@ -8403,7 +8403,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PENMON_FQID_LEN = sizeof(DMALL_PENMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PENMON_ID_ARR[] CONFIG_STRING_SECTION = "penmon";
     inline static constexpr const char* DMALL_PENMON_ID = DMALL_PENMON_ID_ARR;
-    inline static constexpr size_t DMALL_PENMON_ID_LEN = sizeof(DMALL_PENMON_ID)-1;
+    inline static constexpr size_t DMALL_PENMON_ID_LEN = sizeof(DMALL_PENMON_ID_ARR)-1;
     inline static constexpr char DMALL_PENMON_NAME_ARR[] CONFIG_STRING_SECTION = "Penmon";
     inline static constexpr const char* DMALL_PENMON_NAME = DMALL_PENMON_NAME_ARR;
     inline static constexpr size_t DMALL_PENMON_NAME_LEN = sizeof(DMALL_PENMON_NAME_ARR)-1;
@@ -8421,7 +8421,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PETI_MERAMON_FQID_LEN = sizeof(DMALL_PETI_MERAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PETI_MERAMON_ID_ARR[] CONFIG_STRING_SECTION = "peti_meramon";
     inline static constexpr const char* DMALL_PETI_MERAMON_ID = DMALL_PETI_MERAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PETI_MERAMON_ID_LEN = sizeof(DMALL_PETI_MERAMON_ID)-1;
+    inline static constexpr size_t DMALL_PETI_MERAMON_ID_LEN = sizeof(DMALL_PETI_MERAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PETI_MERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Peti Meramon";
     inline static constexpr const char* DMALL_PETI_MERAMON_NAME = DMALL_PETI_MERAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PETI_MERAMON_NAME_LEN = sizeof(DMALL_PETI_MERAMON_NAME_ARR)-1;
@@ -8439,7 +8439,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PETIT_MAMON_FQID_LEN = sizeof(DMALL_PETIT_MAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PETIT_MAMON_ID_ARR[] CONFIG_STRING_SECTION = "petit_mamon";
     inline static constexpr const char* DMALL_PETIT_MAMON_ID = DMALL_PETIT_MAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PETIT_MAMON_ID_LEN = sizeof(DMALL_PETIT_MAMON_ID)-1;
+    inline static constexpr size_t DMALL_PETIT_MAMON_ID_LEN = sizeof(DMALL_PETIT_MAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PETIT_MAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Petit Mamon";
     inline static constexpr const char* DMALL_PETIT_MAMON_NAME = DMALL_PETIT_MAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PETIT_MAMON_NAME_LEN = sizeof(DMALL_PETIT_MAMON_NAME_ARR)-1;
@@ -8457,7 +8457,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PETITMON_FQID_LEN = sizeof(DMALL_PETITMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PETITMON_ID_ARR[] CONFIG_STRING_SECTION = "petitmon";
     inline static constexpr const char* DMALL_PETITMON_ID = DMALL_PETITMON_ID_ARR;
-    inline static constexpr size_t DMALL_PETITMON_ID_LEN = sizeof(DMALL_PETITMON_ID)-1;
+    inline static constexpr size_t DMALL_PETITMON_ID_LEN = sizeof(DMALL_PETITMON_ID_ARR)-1;
     inline static constexpr char DMALL_PETITMON_NAME_ARR[] CONFIG_STRING_SECTION = "Petitmon";
     inline static constexpr const char* DMALL_PETITMON_NAME = DMALL_PETITMON_NAME_ARR;
     inline static constexpr size_t DMALL_PETITMON_NAME_LEN = sizeof(DMALL_PETITMON_NAME_ARR)-1;
@@ -8475,7 +8475,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PHANTOMON_FQID_LEN = sizeof(DMALL_PHANTOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PHANTOMON_ID_ARR[] CONFIG_STRING_SECTION = "phantomon";
     inline static constexpr const char* DMALL_PHANTOMON_ID = DMALL_PHANTOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PHANTOMON_ID_LEN = sizeof(DMALL_PHANTOMON_ID)-1;
+    inline static constexpr size_t DMALL_PHANTOMON_ID_LEN = sizeof(DMALL_PHANTOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PHANTOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Phantomon";
     inline static constexpr const char* DMALL_PHANTOMON_NAME = DMALL_PHANTOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PHANTOMON_NAME_LEN = sizeof(DMALL_PHANTOMON_NAME_ARR)-1;
@@ -8493,7 +8493,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PHASCOMON_FQID_LEN = sizeof(DMALL_PHASCOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PHASCOMON_ID_ARR[] CONFIG_STRING_SECTION = "phascomon";
     inline static constexpr const char* DMALL_PHASCOMON_ID = DMALL_PHASCOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PHASCOMON_ID_LEN = sizeof(DMALL_PHASCOMON_ID)-1;
+    inline static constexpr size_t DMALL_PHASCOMON_ID_LEN = sizeof(DMALL_PHASCOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PHASCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Phascomon";
     inline static constexpr const char* DMALL_PHASCOMON_NAME = DMALL_PHASCOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PHASCOMON_NAME_LEN = sizeof(DMALL_PHASCOMON_NAME_ARR)-1;
@@ -8511,7 +8511,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PICCOLOMON_FQID_LEN = sizeof(DMALL_PICCOLOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PICCOLOMON_ID_ARR[] CONFIG_STRING_SECTION = "piccolomon";
     inline static constexpr const char* DMALL_PICCOLOMON_ID = DMALL_PICCOLOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PICCOLOMON_ID_LEN = sizeof(DMALL_PICCOLOMON_ID)-1;
+    inline static constexpr size_t DMALL_PICCOLOMON_ID_LEN = sizeof(DMALL_PICCOLOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PICCOLOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Piccolomon";
     inline static constexpr const char* DMALL_PICCOLOMON_NAME = DMALL_PICCOLOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PICCOLOMON_NAME_LEN = sizeof(DMALL_PICCOLOMON_NAME_ARR)-1;
@@ -8529,7 +8529,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PICKMON_FQID_LEN = sizeof(DMALL_PICKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PICKMON_ID_ARR[] CONFIG_STRING_SECTION = "pickmon";
     inline static constexpr const char* DMALL_PICKMON_ID = DMALL_PICKMON_ID_ARR;
-    inline static constexpr size_t DMALL_PICKMON_ID_LEN = sizeof(DMALL_PICKMON_ID)-1;
+    inline static constexpr size_t DMALL_PICKMON_ID_LEN = sizeof(DMALL_PICKMON_ID_ARR)-1;
     inline static constexpr char DMALL_PICKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pickmon";
     inline static constexpr const char* DMALL_PICKMON_NAME = DMALL_PICKMON_NAME_ARR;
     inline static constexpr size_t DMALL_PICKMON_NAME_LEN = sizeof(DMALL_PICKMON_NAME_ARR)-1;
@@ -8547,7 +8547,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PICO_DEVIMON_FQID_LEN = sizeof(DMALL_PICO_DEVIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PICO_DEVIMON_ID_ARR[] CONFIG_STRING_SECTION = "pico_devimon";
     inline static constexpr const char* DMALL_PICO_DEVIMON_ID = DMALL_PICO_DEVIMON_ID_ARR;
-    inline static constexpr size_t DMALL_PICO_DEVIMON_ID_LEN = sizeof(DMALL_PICO_DEVIMON_ID)-1;
+    inline static constexpr size_t DMALL_PICO_DEVIMON_ID_LEN = sizeof(DMALL_PICO_DEVIMON_ID_ARR)-1;
     inline static constexpr char DMALL_PICO_DEVIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pico Devimon";
     inline static constexpr const char* DMALL_PICO_DEVIMON_NAME = DMALL_PICO_DEVIMON_NAME_ARR;
     inline static constexpr size_t DMALL_PICO_DEVIMON_NAME_LEN = sizeof(DMALL_PICO_DEVIMON_NAME_ARR)-1;
@@ -8565,7 +8565,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PIDMON_FQID_LEN = sizeof(DMALL_PIDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PIDMON_ID_ARR[] CONFIG_STRING_SECTION = "pidmon";
     inline static constexpr const char* DMALL_PIDMON_ID = DMALL_PIDMON_ID_ARR;
-    inline static constexpr size_t DMALL_PIDMON_ID_LEN = sizeof(DMALL_PIDMON_ID)-1;
+    inline static constexpr size_t DMALL_PIDMON_ID_LEN = sizeof(DMALL_PIDMON_ID_ARR)-1;
     inline static constexpr char DMALL_PIDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pidmon";
     inline static constexpr const char* DMALL_PIDMON_NAME = DMALL_PIDMON_NAME_ARR;
     inline static constexpr size_t DMALL_PIDMON_NAME_LEN = sizeof(DMALL_PIDMON_NAME_ARR)-1;
@@ -8583,7 +8583,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PIEMON_FQID_LEN = sizeof(DMALL_PIEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PIEMON_ID_ARR[] CONFIG_STRING_SECTION = "piemon";
     inline static constexpr const char* DMALL_PIEMON_ID = DMALL_PIEMON_ID_ARR;
-    inline static constexpr size_t DMALL_PIEMON_ID_LEN = sizeof(DMALL_PIEMON_ID)-1;
+    inline static constexpr size_t DMALL_PIEMON_ID_LEN = sizeof(DMALL_PIEMON_ID_ARR)-1;
     inline static constexpr char DMALL_PIEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Piemon";
     inline static constexpr const char* DMALL_PIEMON_NAME = DMALL_PIEMON_NAME_ARR;
     inline static constexpr size_t DMALL_PIEMON_NAME_LEN = sizeof(DMALL_PIEMON_NAME_ARR)-1;
@@ -8601,7 +8601,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PINOCHIMON_FQID_LEN = sizeof(DMALL_PINOCHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PINOCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "pinochimon";
     inline static constexpr const char* DMALL_PINOCHIMON_ID = DMALL_PINOCHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_PINOCHIMON_ID_LEN = sizeof(DMALL_PINOCHIMON_ID)-1;
+    inline static constexpr size_t DMALL_PINOCHIMON_ID_LEN = sizeof(DMALL_PINOCHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_PINOCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pinochimon";
     inline static constexpr const char* DMALL_PINOCHIMON_NAME = DMALL_PINOCHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_PINOCHIMON_NAME_LEN = sizeof(DMALL_PINOCHIMON_NAME_ARR)-1;
@@ -8619,7 +8619,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PIPIMON_FQID_LEN = sizeof(DMALL_PIPIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PIPIMON_ID_ARR[] CONFIG_STRING_SECTION = "pipimon";
     inline static constexpr const char* DMALL_PIPIMON_ID = DMALL_PIPIMON_ID_ARR;
-    inline static constexpr size_t DMALL_PIPIMON_ID_LEN = sizeof(DMALL_PIPIMON_ID)-1;
+    inline static constexpr size_t DMALL_PIPIMON_ID_LEN = sizeof(DMALL_PIPIMON_ID_ARR)-1;
     inline static constexpr char DMALL_PIPIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pipimon";
     inline static constexpr const char* DMALL_PIPIMON_NAME = DMALL_PIPIMON_NAME_ARR;
     inline static constexpr size_t DMALL_PIPIMON_NAME_LEN = sizeof(DMALL_PIPIMON_NAME_ARR)-1;
@@ -8637,7 +8637,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PIRANIMON_FQID_LEN = sizeof(DMALL_PIRANIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PIRANIMON_ID_ARR[] CONFIG_STRING_SECTION = "piranimon";
     inline static constexpr const char* DMALL_PIRANIMON_ID = DMALL_PIRANIMON_ID_ARR;
-    inline static constexpr size_t DMALL_PIRANIMON_ID_LEN = sizeof(DMALL_PIRANIMON_ID)-1;
+    inline static constexpr size_t DMALL_PIRANIMON_ID_LEN = sizeof(DMALL_PIRANIMON_ID_ARR)-1;
     inline static constexpr char DMALL_PIRANIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Piranimon";
     inline static constexpr const char* DMALL_PIRANIMON_NAME = DMALL_PIRANIMON_NAME_ARR;
     inline static constexpr size_t DMALL_PIRANIMON_NAME_LEN = sizeof(DMALL_PIRANIMON_NAME_ARR)-1;
@@ -8655,7 +8655,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PITCHMON_FQID_LEN = sizeof(DMALL_PITCHMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PITCHMON_ID_ARR[] CONFIG_STRING_SECTION = "pitchmon";
     inline static constexpr const char* DMALL_PITCHMON_ID = DMALL_PITCHMON_ID_ARR;
-    inline static constexpr size_t DMALL_PITCHMON_ID_LEN = sizeof(DMALL_PITCHMON_ID)-1;
+    inline static constexpr size_t DMALL_PITCHMON_ID_LEN = sizeof(DMALL_PITCHMON_ID_ARR)-1;
     inline static constexpr char DMALL_PITCHMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pitchmon";
     inline static constexpr const char* DMALL_PITCHMON_NAME = DMALL_PITCHMON_NAME_ARR;
     inline static constexpr size_t DMALL_PITCHMON_NAME_LEN = sizeof(DMALL_PITCHMON_NAME_ARR)-1;
@@ -8673,7 +8673,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PIYOMON_FQID_LEN = sizeof(DMALL_PIYOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PIYOMON_ID_ARR[] CONFIG_STRING_SECTION = "piyomon";
     inline static constexpr const char* DMALL_PIYOMON_ID = DMALL_PIYOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PIYOMON_ID_LEN = sizeof(DMALL_PIYOMON_ID)-1;
+    inline static constexpr size_t DMALL_PIYOMON_ID_LEN = sizeof(DMALL_PIYOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PIYOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Piyomon";
     inline static constexpr const char* DMALL_PIYOMON_NAME = DMALL_PIYOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PIYOMON_NAME_LEN = sizeof(DMALL_PIYOMON_NAME_ARR)-1;
@@ -8691,7 +8691,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PLATINUM_NUMEMON_FQID_LEN = sizeof(DMALL_PLATINUM_NUMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PLATINUM_NUMEMON_ID_ARR[] CONFIG_STRING_SECTION = "platinum_numemon";
     inline static constexpr const char* DMALL_PLATINUM_NUMEMON_ID = DMALL_PLATINUM_NUMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_PLATINUM_NUMEMON_ID_LEN = sizeof(DMALL_PLATINUM_NUMEMON_ID)-1;
+    inline static constexpr size_t DMALL_PLATINUM_NUMEMON_ID_LEN = sizeof(DMALL_PLATINUM_NUMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_PLATINUM_NUMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Platinum Numemon";
     inline static constexpr const char* DMALL_PLATINUM_NUMEMON_NAME = DMALL_PLATINUM_NUMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_PLATINUM_NUMEMON_NAME_LEN = sizeof(DMALL_PLATINUM_NUMEMON_NAME_ARR)-1;
@@ -8709,7 +8709,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PLATINUM_SCUMON_FQID_LEN = sizeof(DMALL_PLATINUM_SCUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PLATINUM_SCUMON_ID_ARR[] CONFIG_STRING_SECTION = "platinum_scumon";
     inline static constexpr const char* DMALL_PLATINUM_SCUMON_ID = DMALL_PLATINUM_SCUMON_ID_ARR;
-    inline static constexpr size_t DMALL_PLATINUM_SCUMON_ID_LEN = sizeof(DMALL_PLATINUM_SCUMON_ID)-1;
+    inline static constexpr size_t DMALL_PLATINUM_SCUMON_ID_LEN = sizeof(DMALL_PLATINUM_SCUMON_ID_ARR)-1;
     inline static constexpr char DMALL_PLATINUM_SCUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Platinum Scumon";
     inline static constexpr const char* DMALL_PLATINUM_SCUMON_NAME = DMALL_PLATINUM_SCUMON_NAME_ARR;
     inline static constexpr size_t DMALL_PLATINUM_SCUMON_NAME_LEN = sizeof(DMALL_PLATINUM_SCUMON_NAME_ARR)-1;
@@ -8727,7 +8727,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PLESIOMON_FQID_LEN = sizeof(DMALL_PLESIOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PLESIOMON_ID_ARR[] CONFIG_STRING_SECTION = "plesiomon";
     inline static constexpr const char* DMALL_PLESIOMON_ID = DMALL_PLESIOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PLESIOMON_ID_LEN = sizeof(DMALL_PLESIOMON_ID)-1;
+    inline static constexpr size_t DMALL_PLESIOMON_ID_LEN = sizeof(DMALL_PLESIOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PLESIOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Plesiomon";
     inline static constexpr const char* DMALL_PLESIOMON_NAME = DMALL_PLESIOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PLESIOMON_NAME_LEN = sizeof(DMALL_PLESIOMON_NAME_ARR)-1;
@@ -8745,7 +8745,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PLESIOMON_X_FQID_LEN = sizeof(DMALL_PLESIOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_PLESIOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "plesiomon_x";
     inline static constexpr const char* DMALL_PLESIOMON_X_ID = DMALL_PLESIOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_PLESIOMON_X_ID_LEN = sizeof(DMALL_PLESIOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_PLESIOMON_X_ID_LEN = sizeof(DMALL_PLESIOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_PLESIOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Plesiomon X";
     inline static constexpr const char* DMALL_PLESIOMON_X_NAME = DMALL_PLESIOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_PLESIOMON_X_NAME_LEN = sizeof(DMALL_PLESIOMON_X_NAME_ARR)-1;
@@ -8763,7 +8763,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PLOTMON_FQID_LEN = sizeof(DMALL_PLOTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PLOTMON_ID_ARR[] CONFIG_STRING_SECTION = "plotmon";
     inline static constexpr const char* DMALL_PLOTMON_ID = DMALL_PLOTMON_ID_ARR;
-    inline static constexpr size_t DMALL_PLOTMON_ID_LEN = sizeof(DMALL_PLOTMON_ID)-1;
+    inline static constexpr size_t DMALL_PLOTMON_ID_LEN = sizeof(DMALL_PLOTMON_ID_ARR)-1;
     inline static constexpr char DMALL_PLOTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Plotmon";
     inline static constexpr const char* DMALL_PLOTMON_NAME = DMALL_PLOTMON_NAME_ARR;
     inline static constexpr size_t DMALL_PLOTMON_NAME_LEN = sizeof(DMALL_PLOTMON_NAME_ARR)-1;
@@ -8781,7 +8781,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PLOTMON_X_FQID_LEN = sizeof(DMALL_PLOTMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_PLOTMON_X_ID_ARR[] CONFIG_STRING_SECTION = "plotmon_x";
     inline static constexpr const char* DMALL_PLOTMON_X_ID = DMALL_PLOTMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_PLOTMON_X_ID_LEN = sizeof(DMALL_PLOTMON_X_ID)-1;
+    inline static constexpr size_t DMALL_PLOTMON_X_ID_LEN = sizeof(DMALL_PLOTMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_PLOTMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Plotmon X";
     inline static constexpr const char* DMALL_PLOTMON_X_NAME = DMALL_PLOTMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_PLOTMON_X_NAME_LEN = sizeof(DMALL_PLOTMON_X_NAME_ARR)-1;
@@ -8799,7 +8799,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_POKOMON_FQID_LEN = sizeof(DMALL_POKOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_POKOMON_ID_ARR[] CONFIG_STRING_SECTION = "pokomon";
     inline static constexpr const char* DMALL_POKOMON_ID = DMALL_POKOMON_ID_ARR;
-    inline static constexpr size_t DMALL_POKOMON_ID_LEN = sizeof(DMALL_POKOMON_ID)-1;
+    inline static constexpr size_t DMALL_POKOMON_ID_LEN = sizeof(DMALL_POKOMON_ID_ARR)-1;
     inline static constexpr char DMALL_POKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pokomon";
     inline static constexpr const char* DMALL_POKOMON_NAME = DMALL_POKOMON_NAME_ARR;
     inline static constexpr size_t DMALL_POKOMON_NAME_LEN = sizeof(DMALL_POKOMON_NAME_ARR)-1;
@@ -8817,7 +8817,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_POPOMON_FQID_LEN = sizeof(DMALL_POPOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_POPOMON_ID_ARR[] CONFIG_STRING_SECTION = "popomon";
     inline static constexpr const char* DMALL_POPOMON_ID = DMALL_POPOMON_ID_ARR;
-    inline static constexpr size_t DMALL_POPOMON_ID_LEN = sizeof(DMALL_POPOMON_ID)-1;
+    inline static constexpr size_t DMALL_POPOMON_ID_LEN = sizeof(DMALL_POPOMON_ID_ARR)-1;
     inline static constexpr char DMALL_POPOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Popomon";
     inline static constexpr const char* DMALL_POPOMON_NAME = DMALL_POPOMON_NAME_ARR;
     inline static constexpr size_t DMALL_POPOMON_NAME_LEN = sizeof(DMALL_POPOMON_NAME_ARR)-1;
@@ -8835,7 +8835,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PORCUPAMON_FQID_LEN = sizeof(DMALL_PORCUPAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PORCUPAMON_ID_ARR[] CONFIG_STRING_SECTION = "porcupamon";
     inline static constexpr const char* DMALL_PORCUPAMON_ID = DMALL_PORCUPAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PORCUPAMON_ID_LEN = sizeof(DMALL_PORCUPAMON_ID)-1;
+    inline static constexpr size_t DMALL_PORCUPAMON_ID_LEN = sizeof(DMALL_PORCUPAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PORCUPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Porcupamon";
     inline static constexpr const char* DMALL_PORCUPAMON_NAME = DMALL_PORCUPAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PORCUPAMON_NAME_LEN = sizeof(DMALL_PORCUPAMON_NAME_ARR)-1;
@@ -8853,7 +8853,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_POROMON_FQID_LEN = sizeof(DMALL_POROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_POROMON_ID_ARR[] CONFIG_STRING_SECTION = "poromon";
     inline static constexpr const char* DMALL_POROMON_ID = DMALL_POROMON_ID_ARR;
-    inline static constexpr size_t DMALL_POROMON_ID_LEN = sizeof(DMALL_POROMON_ID)-1;
+    inline static constexpr size_t DMALL_POROMON_ID_LEN = sizeof(DMALL_POROMON_ID_ARR)-1;
     inline static constexpr char DMALL_POROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Poromon";
     inline static constexpr const char* DMALL_POROMON_NAME = DMALL_POROMON_NAME_ARR;
     inline static constexpr size_t DMALL_POROMON_NAME_LEN = sizeof(DMALL_POROMON_NAME_ARR)-1;
@@ -8871,7 +8871,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PRINCE_MAMEMON_FQID_LEN = sizeof(DMALL_PRINCE_MAMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PRINCE_MAMEMON_ID_ARR[] CONFIG_STRING_SECTION = "prince_mamemon";
     inline static constexpr const char* DMALL_PRINCE_MAMEMON_ID = DMALL_PRINCE_MAMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_PRINCE_MAMEMON_ID_LEN = sizeof(DMALL_PRINCE_MAMEMON_ID)-1;
+    inline static constexpr size_t DMALL_PRINCE_MAMEMON_ID_LEN = sizeof(DMALL_PRINCE_MAMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_PRINCE_MAMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Prince Mamemon";
     inline static constexpr const char* DMALL_PRINCE_MAMEMON_NAME = DMALL_PRINCE_MAMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_PRINCE_MAMEMON_NAME_LEN = sizeof(DMALL_PRINCE_MAMEMON_NAME_ARR)-1;
@@ -8889,7 +8889,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PRINCE_MAMEMON_X_FQID_LEN = sizeof(DMALL_PRINCE_MAMEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_PRINCE_MAMEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "prince_mamemon_x";
     inline static constexpr const char* DMALL_PRINCE_MAMEMON_X_ID = DMALL_PRINCE_MAMEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_PRINCE_MAMEMON_X_ID_LEN = sizeof(DMALL_PRINCE_MAMEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_PRINCE_MAMEMON_X_ID_LEN = sizeof(DMALL_PRINCE_MAMEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_PRINCE_MAMEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Prince Mamemon X";
     inline static constexpr const char* DMALL_PRINCE_MAMEMON_X_NAME = DMALL_PRINCE_MAMEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_PRINCE_MAMEMON_X_NAME_LEN = sizeof(DMALL_PRINCE_MAMEMON_X_NAME_ARR)-1;
@@ -8907,7 +8907,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PTERANOMON_X_FQID_LEN = sizeof(DMALL_PTERANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_PTERANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "pteranomon_x";
     inline static constexpr const char* DMALL_PTERANOMON_X_ID = DMALL_PTERANOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_PTERANOMON_X_ID_LEN = sizeof(DMALL_PTERANOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_PTERANOMON_X_ID_LEN = sizeof(DMALL_PTERANOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_PTERANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Pteranomon X";
     inline static constexpr const char* DMALL_PTERANOMON_X_NAME = DMALL_PTERANOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_PTERANOMON_X_NAME_LEN = sizeof(DMALL_PTERANOMON_X_NAME_ARR)-1;
@@ -8925,7 +8925,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUKAMON_FQID_LEN = sizeof(DMALL_PUKAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUKAMON_ID_ARR[] CONFIG_STRING_SECTION = "pukamon";
     inline static constexpr const char* DMALL_PUKAMON_ID = DMALL_PUKAMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUKAMON_ID_LEN = sizeof(DMALL_PUKAMON_ID)-1;
+    inline static constexpr size_t DMALL_PUKAMON_ID_LEN = sizeof(DMALL_PUKAMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUKAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pukamon";
     inline static constexpr const char* DMALL_PUKAMON_NAME = DMALL_PUKAMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUKAMON_NAME_LEN = sizeof(DMALL_PUKAMON_NAME_ARR)-1;
@@ -8943,7 +8943,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUKUMON_FQID_LEN = sizeof(DMALL_PUKUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUKUMON_ID_ARR[] CONFIG_STRING_SECTION = "pukumon";
     inline static constexpr const char* DMALL_PUKUMON_ID = DMALL_PUKUMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUKUMON_ID_LEN = sizeof(DMALL_PUKUMON_ID)-1;
+    inline static constexpr size_t DMALL_PUKUMON_ID_LEN = sizeof(DMALL_PUKUMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUKUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pukumon";
     inline static constexpr const char* DMALL_PUKUMON_NAME = DMALL_PUKUMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUKUMON_NAME_LEN = sizeof(DMALL_PUKUMON_NAME_ARR)-1;
@@ -8961,7 +8961,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PULSEMON_FQID_LEN = sizeof(DMALL_PULSEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PULSEMON_ID_ARR[] CONFIG_STRING_SECTION = "pulsemon";
     inline static constexpr const char* DMALL_PULSEMON_ID = DMALL_PULSEMON_ID_ARR;
-    inline static constexpr size_t DMALL_PULSEMON_ID_LEN = sizeof(DMALL_PULSEMON_ID)-1;
+    inline static constexpr size_t DMALL_PULSEMON_ID_LEN = sizeof(DMALL_PULSEMON_ID_ARR)-1;
     inline static constexpr char DMALL_PULSEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pulsemon";
     inline static constexpr const char* DMALL_PULSEMON_NAME = DMALL_PULSEMON_NAME_ARR;
     inline static constexpr size_t DMALL_PULSEMON_NAME_LEN = sizeof(DMALL_PULSEMON_NAME_ARR)-1;
@@ -8979,7 +8979,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUMPMON_FQID_LEN = sizeof(DMALL_PUMPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUMPMON_ID_ARR[] CONFIG_STRING_SECTION = "pumpmon";
     inline static constexpr const char* DMALL_PUMPMON_ID = DMALL_PUMPMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUMPMON_ID_LEN = sizeof(DMALL_PUMPMON_ID)-1;
+    inline static constexpr size_t DMALL_PUMPMON_ID_LEN = sizeof(DMALL_PUMPMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUMPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pumpmon";
     inline static constexpr const char* DMALL_PUMPMON_NAME = DMALL_PUMPMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUMPMON_NAME_LEN = sizeof(DMALL_PUMPMON_NAME_ARR)-1;
@@ -8997,7 +8997,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUPUMON_FQID_LEN = sizeof(DMALL_PUPUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUPUMON_ID_ARR[] CONFIG_STRING_SECTION = "pupumon";
     inline static constexpr const char* DMALL_PUPUMON_ID = DMALL_PUPUMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUPUMON_ID_LEN = sizeof(DMALL_PUPUMON_ID)-1;
+    inline static constexpr size_t DMALL_PUPUMON_ID_LEN = sizeof(DMALL_PUPUMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUPUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pupumon";
     inline static constexpr const char* DMALL_PUPUMON_NAME = DMALL_PUPUMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUPUMON_NAME_LEN = sizeof(DMALL_PUPUMON_NAME_ARR)-1;
@@ -9015,7 +9015,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUROROMON_FQID_LEN = sizeof(DMALL_PUROROMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUROROMON_ID_ARR[] CONFIG_STRING_SECTION = "puroromon";
     inline static constexpr const char* DMALL_PUROROMON_ID = DMALL_PUROROMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUROROMON_ID_LEN = sizeof(DMALL_PUROROMON_ID)-1;
+    inline static constexpr size_t DMALL_PUROROMON_ID_LEN = sizeof(DMALL_PUROROMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUROROMON_NAME_ARR[] CONFIG_STRING_SECTION = "Puroromon";
     inline static constexpr const char* DMALL_PUROROMON_NAME = DMALL_PUROROMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUROROMON_NAME_LEN = sizeof(DMALL_PUROROMON_NAME_ARR)-1;
@@ -9033,7 +9033,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PURURUMON_FQID_LEN = sizeof(DMALL_PURURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PURURUMON_ID_ARR[] CONFIG_STRING_SECTION = "pururumon";
     inline static constexpr const char* DMALL_PURURUMON_ID = DMALL_PURURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_PURURUMON_ID_LEN = sizeof(DMALL_PURURUMON_ID)-1;
+    inline static constexpr size_t DMALL_PURURUMON_ID_LEN = sizeof(DMALL_PURURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_PURURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pururumon";
     inline static constexpr const char* DMALL_PURURUMON_NAME = DMALL_PURURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_PURURUMON_NAME_LEN = sizeof(DMALL_PURURUMON_NAME_ARR)-1;
@@ -9051,7 +9051,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUSUMON_FQID_LEN = sizeof(DMALL_PUSUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUSUMON_ID_ARR[] CONFIG_STRING_SECTION = "pusumon";
     inline static constexpr const char* DMALL_PUSUMON_ID = DMALL_PUSUMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUSUMON_ID_LEN = sizeof(DMALL_PUSUMON_ID)-1;
+    inline static constexpr size_t DMALL_PUSUMON_ID_LEN = sizeof(DMALL_PUSUMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUSUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pusumon";
     inline static constexpr const char* DMALL_PUSUMON_NAME = DMALL_PUSUMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUSUMON_NAME_LEN = sizeof(DMALL_PUSUMON_NAME_ARR)-1;
@@ -9069,7 +9069,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUSURIMON_FQID_LEN = sizeof(DMALL_PUSURIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUSURIMON_ID_ARR[] CONFIG_STRING_SECTION = "pusurimon";
     inline static constexpr const char* DMALL_PUSURIMON_ID = DMALL_PUSURIMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUSURIMON_ID_LEN = sizeof(DMALL_PUSURIMON_ID)-1;
+    inline static constexpr size_t DMALL_PUSURIMON_ID_LEN = sizeof(DMALL_PUSURIMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUSURIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pusurimon";
     inline static constexpr const char* DMALL_PUSURIMON_NAME = DMALL_PUSURIMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUSURIMON_NAME_LEN = sizeof(DMALL_PUSURIMON_NAME_ARR)-1;
@@ -9087,7 +9087,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUTTIMON_FQID_LEN = sizeof(DMALL_PUTTIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUTTIMON_ID_ARR[] CONFIG_STRING_SECTION = "puttimon";
     inline static constexpr const char* DMALL_PUTTIMON_ID = DMALL_PUTTIMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUTTIMON_ID_LEN = sizeof(DMALL_PUTTIMON_ID)-1;
+    inline static constexpr size_t DMALL_PUTTIMON_ID_LEN = sizeof(DMALL_PUTTIMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUTTIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Puttimon";
     inline static constexpr const char* DMALL_PUTTIMON_NAME = DMALL_PUTTIMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUTTIMON_NAME_LEN = sizeof(DMALL_PUTTIMON_NAME_ARR)-1;
@@ -9105,7 +9105,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PUYOMON_FQID_LEN = sizeof(DMALL_PUYOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PUYOMON_ID_ARR[] CONFIG_STRING_SECTION = "puyomon";
     inline static constexpr const char* DMALL_PUYOMON_ID = DMALL_PUYOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PUYOMON_ID_LEN = sizeof(DMALL_PUYOMON_ID)-1;
+    inline static constexpr size_t DMALL_PUYOMON_ID_LEN = sizeof(DMALL_PUYOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PUYOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Puyomon";
     inline static constexpr const char* DMALL_PUYOMON_NAME = DMALL_PUYOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PUYOMON_NAME_LEN = sizeof(DMALL_PUYOMON_NAME_ARR)-1;
@@ -9123,7 +9123,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PYOCOMON_FQID_LEN = sizeof(DMALL_PYOCOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PYOCOMON_ID_ARR[] CONFIG_STRING_SECTION = "pyocomon";
     inline static constexpr const char* DMALL_PYOCOMON_ID = DMALL_PYOCOMON_ID_ARR;
-    inline static constexpr size_t DMALL_PYOCOMON_ID_LEN = sizeof(DMALL_PYOCOMON_ID)-1;
+    inline static constexpr size_t DMALL_PYOCOMON_ID_LEN = sizeof(DMALL_PYOCOMON_ID_ARR)-1;
     inline static constexpr char DMALL_PYOCOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pyocomon";
     inline static constexpr const char* DMALL_PYOCOMON_NAME = DMALL_PYOCOMON_NAME_ARR;
     inline static constexpr size_t DMALL_PYOCOMON_NAME_LEN = sizeof(DMALL_PYOCOMON_NAME_ARR)-1;
@@ -9141,7 +9141,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_PYONMON_FQID_LEN = sizeof(DMALL_PYONMON_FQID_ARR)-1;
     inline static constexpr char DMALL_PYONMON_ID_ARR[] CONFIG_STRING_SECTION = "pyonmon";
     inline static constexpr const char* DMALL_PYONMON_ID = DMALL_PYONMON_ID_ARR;
-    inline static constexpr size_t DMALL_PYONMON_ID_LEN = sizeof(DMALL_PYONMON_ID)-1;
+    inline static constexpr size_t DMALL_PYONMON_ID_LEN = sizeof(DMALL_PYONMON_ID_ARR)-1;
     inline static constexpr char DMALL_PYONMON_NAME_ARR[] CONFIG_STRING_SECTION = "Pyonmon";
     inline static constexpr const char* DMALL_PYONMON_NAME = DMALL_PYONMON_NAME_ARR;
     inline static constexpr size_t DMALL_PYONMON_NAME_LEN = sizeof(DMALL_PYONMON_NAME_ARR)-1;
@@ -9159,7 +9159,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAFFLESIMON_FQID_LEN = sizeof(DMALL_RAFFLESIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAFFLESIMON_ID_ARR[] CONFIG_STRING_SECTION = "rafflesimon";
     inline static constexpr const char* DMALL_RAFFLESIMON_ID = DMALL_RAFFLESIMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAFFLESIMON_ID_LEN = sizeof(DMALL_RAFFLESIMON_ID)-1;
+    inline static constexpr size_t DMALL_RAFFLESIMON_ID_LEN = sizeof(DMALL_RAFFLESIMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAFFLESIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rafflesimon";
     inline static constexpr const char* DMALL_RAFFLESIMON_NAME = DMALL_RAFFLESIMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAFFLESIMON_NAME_LEN = sizeof(DMALL_RAFFLESIMON_NAME_ARR)-1;
@@ -9177,7 +9177,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAGNA_LORDMON_FQID_LEN = sizeof(DMALL_RAGNA_LORDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAGNA_LORDMON_ID_ARR[] CONFIG_STRING_SECTION = "ragna_lordmon";
     inline static constexpr const char* DMALL_RAGNA_LORDMON_ID = DMALL_RAGNA_LORDMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAGNA_LORDMON_ID_LEN = sizeof(DMALL_RAGNA_LORDMON_ID)-1;
+    inline static constexpr size_t DMALL_RAGNA_LORDMON_ID_LEN = sizeof(DMALL_RAGNA_LORDMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAGNA_LORDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ragna Lordmon";
     inline static constexpr const char* DMALL_RAGNA_LORDMON_NAME = DMALL_RAGNA_LORDMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAGNA_LORDMON_NAME_LEN = sizeof(DMALL_RAGNA_LORDMON_NAME_ARR)-1;
@@ -9195,7 +9195,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAGUELMON_FQID_LEN = sizeof(DMALL_RAGUELMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAGUELMON_ID_ARR[] CONFIG_STRING_SECTION = "raguelmon";
     inline static constexpr const char* DMALL_RAGUELMON_ID = DMALL_RAGUELMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAGUELMON_ID_LEN = sizeof(DMALL_RAGUELMON_ID)-1;
+    inline static constexpr size_t DMALL_RAGUELMON_ID_LEN = sizeof(DMALL_RAGUELMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAGUELMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raguelmon";
     inline static constexpr const char* DMALL_RAGUELMON_NAME = DMALL_RAGUELMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAGUELMON_NAME_LEN = sizeof(DMALL_RAGUELMON_NAME_ARR)-1;
@@ -9213,7 +9213,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAIDENMON_FQID_LEN = sizeof(DMALL_RAIDENMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAIDENMON_ID_ARR[] CONFIG_STRING_SECTION = "raidenmon";
     inline static constexpr const char* DMALL_RAIDENMON_ID = DMALL_RAIDENMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAIDENMON_ID_LEN = sizeof(DMALL_RAIDENMON_ID)-1;
+    inline static constexpr size_t DMALL_RAIDENMON_ID_LEN = sizeof(DMALL_RAIDENMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAIDENMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raidenmon";
     inline static constexpr const char* DMALL_RAIDENMON_NAME = DMALL_RAIDENMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAIDENMON_NAME_LEN = sizeof(DMALL_RAIDENMON_NAME_ARR)-1;
@@ -9231,7 +9231,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAIHIMON_FQID_LEN = sizeof(DMALL_RAIHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAIHIMON_ID_ARR[] CONFIG_STRING_SECTION = "raihimon";
     inline static constexpr const char* DMALL_RAIHIMON_ID = DMALL_RAIHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAIHIMON_ID_LEN = sizeof(DMALL_RAIHIMON_ID)-1;
+    inline static constexpr size_t DMALL_RAIHIMON_ID_LEN = sizeof(DMALL_RAIHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAIHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raihimon";
     inline static constexpr const char* DMALL_RAIHIMON_NAME = DMALL_RAIHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAIHIMON_NAME_LEN = sizeof(DMALL_RAIHIMON_NAME_ARR)-1;
@@ -9249,7 +9249,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAIJI_LUDOMON_FQID_LEN = sizeof(DMALL_RAIJI_LUDOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAIJI_LUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "raiji_ludomon";
     inline static constexpr const char* DMALL_RAIJI_LUDOMON_ID = DMALL_RAIJI_LUDOMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAIJI_LUDOMON_ID_LEN = sizeof(DMALL_RAIJI_LUDOMON_ID)-1;
+    inline static constexpr size_t DMALL_RAIJI_LUDOMON_ID_LEN = sizeof(DMALL_RAIJI_LUDOMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAIJI_LUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raiji Ludomon";
     inline static constexpr const char* DMALL_RAIJI_LUDOMON_NAME = DMALL_RAIJI_LUDOMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAIJI_LUDOMON_NAME_LEN = sizeof(DMALL_RAIJI_LUDOMON_NAME_ARR)-1;
@@ -9267,7 +9267,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAPIDMON_ARMOR_FQID_LEN = sizeof(DMALL_RAPIDMON_ARMOR_FQID_ARR)-1;
     inline static constexpr char DMALL_RAPIDMON_ARMOR_ID_ARR[] CONFIG_STRING_SECTION = "rapidmon_armor";
     inline static constexpr const char* DMALL_RAPIDMON_ARMOR_ID = DMALL_RAPIDMON_ARMOR_ID_ARR;
-    inline static constexpr size_t DMALL_RAPIDMON_ARMOR_ID_LEN = sizeof(DMALL_RAPIDMON_ARMOR_ID)-1;
+    inline static constexpr size_t DMALL_RAPIDMON_ARMOR_ID_LEN = sizeof(DMALL_RAPIDMON_ARMOR_ID_ARR)-1;
     inline static constexpr char DMALL_RAPIDMON_ARMOR_NAME_ARR[] CONFIG_STRING_SECTION = "Rapidmon (Armor)";
     inline static constexpr const char* DMALL_RAPIDMON_ARMOR_NAME = DMALL_RAPIDMON_ARMOR_NAME_ARR;
     inline static constexpr size_t DMALL_RAPIDMON_ARMOR_NAME_LEN = sizeof(DMALL_RAPIDMON_ARMOR_NAME_ARR)-1;
@@ -9285,7 +9285,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAPIDMON_FQID_LEN = sizeof(DMALL_RAPIDMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAPIDMON_ID_ARR[] CONFIG_STRING_SECTION = "rapidmon";
     inline static constexpr const char* DMALL_RAPIDMON_ID = DMALL_RAPIDMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAPIDMON_ID_LEN = sizeof(DMALL_RAPIDMON_ID)-1;
+    inline static constexpr size_t DMALL_RAPIDMON_ID_LEN = sizeof(DMALL_RAPIDMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAPIDMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rapidmon";
     inline static constexpr const char* DMALL_RAPIDMON_NAME = DMALL_RAPIDMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAPIDMON_NAME_LEN = sizeof(DMALL_RAPIDMON_NAME_ARR)-1;
@@ -9303,7 +9303,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAPIDMON_X_FQID_LEN = sizeof(DMALL_RAPIDMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_RAPIDMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rapidmon_x";
     inline static constexpr const char* DMALL_RAPIDMON_X_ID = DMALL_RAPIDMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_RAPIDMON_X_ID_LEN = sizeof(DMALL_RAPIDMON_X_ID)-1;
+    inline static constexpr size_t DMALL_RAPIDMON_X_ID_LEN = sizeof(DMALL_RAPIDMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_RAPIDMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rapidmon X";
     inline static constexpr const char* DMALL_RAPIDMON_X_NAME = DMALL_RAPIDMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_RAPIDMON_X_NAME_LEN = sizeof(DMALL_RAPIDMON_X_NAME_ARR)-1;
@@ -9321,7 +9321,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RAPTORDRAMON_FQID_LEN = sizeof(DMALL_RAPTORDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RAPTORDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "raptordramon";
     inline static constexpr const char* DMALL_RAPTORDRAMON_ID = DMALL_RAPTORDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_RAPTORDRAMON_ID_LEN = sizeof(DMALL_RAPTORDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_RAPTORDRAMON_ID_LEN = sizeof(DMALL_RAPTORDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_RAPTORDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Raptordramon";
     inline static constexpr const char* DMALL_RAPTORDRAMON_NAME = DMALL_RAPTORDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_RAPTORDRAMON_NAME_LEN = sizeof(DMALL_RAPTORDRAMON_NAME_ARR)-1;
@@ -9339,7 +9339,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RASENMON_FURY_MODE_FQID_LEN = sizeof(DMALL_RASENMON_FURY_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_RASENMON_FURY_MODE_ID_ARR[] CONFIG_STRING_SECTION = "rasenmon_fury_mode";
     inline static constexpr const char* DMALL_RASENMON_FURY_MODE_ID = DMALL_RASENMON_FURY_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_RASENMON_FURY_MODE_ID_LEN = sizeof(DMALL_RASENMON_FURY_MODE_ID)-1;
+    inline static constexpr size_t DMALL_RASENMON_FURY_MODE_ID_LEN = sizeof(DMALL_RASENMON_FURY_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_RASENMON_FURY_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Rasenmon Fury Mode";
     inline static constexpr const char* DMALL_RASENMON_FURY_MODE_NAME = DMALL_RASENMON_FURY_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_RASENMON_FURY_MODE_NAME_LEN = sizeof(DMALL_RASENMON_FURY_MODE_NAME_ARR)-1;
@@ -9357,7 +9357,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RASENMON_FQID_LEN = sizeof(DMALL_RASENMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RASENMON_ID_ARR[] CONFIG_STRING_SECTION = "rasenmon";
     inline static constexpr const char* DMALL_RASENMON_ID = DMALL_RASENMON_ID_ARR;
-    inline static constexpr size_t DMALL_RASENMON_ID_LEN = sizeof(DMALL_RASENMON_ID)-1;
+    inline static constexpr size_t DMALL_RASENMON_ID_LEN = sizeof(DMALL_RASENMON_ID_ARR)-1;
     inline static constexpr char DMALL_RASENMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rasenmon";
     inline static constexpr const char* DMALL_RASENMON_NAME = DMALL_RASENMON_NAME_ARR;
     inline static constexpr size_t DMALL_RASENMON_NAME_LEN = sizeof(DMALL_RASENMON_NAME_ARR)-1;
@@ -9375,7 +9375,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RASIELMON_FQID_LEN = sizeof(DMALL_RASIELMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RASIELMON_ID_ARR[] CONFIG_STRING_SECTION = "rasielmon";
     inline static constexpr const char* DMALL_RASIELMON_ID = DMALL_RASIELMON_ID_ARR;
-    inline static constexpr size_t DMALL_RASIELMON_ID_LEN = sizeof(DMALL_RASIELMON_ID)-1;
+    inline static constexpr size_t DMALL_RASIELMON_ID_LEN = sizeof(DMALL_RASIELMON_ID_ARR)-1;
     inline static constexpr char DMALL_RASIELMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rasielmon";
     inline static constexpr const char* DMALL_RASIELMON_NAME = DMALL_RASIELMON_NAME_ARR;
     inline static constexpr size_t DMALL_RASIELMON_NAME_LEN = sizeof(DMALL_RASIELMON_NAME_ARR)-1;
@@ -9393,7 +9393,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_REBELLIMON_FQID_LEN = sizeof(DMALL_REBELLIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_REBELLIMON_ID_ARR[] CONFIG_STRING_SECTION = "rebellimon";
     inline static constexpr const char* DMALL_REBELLIMON_ID = DMALL_REBELLIMON_ID_ARR;
-    inline static constexpr size_t DMALL_REBELLIMON_ID_LEN = sizeof(DMALL_REBELLIMON_ID)-1;
+    inline static constexpr size_t DMALL_REBELLIMON_ID_LEN = sizeof(DMALL_REBELLIMON_ID_ARR)-1;
     inline static constexpr char DMALL_REBELLIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rebellimon";
     inline static constexpr const char* DMALL_REBELLIMON_NAME = DMALL_REBELLIMON_NAME_ARR;
     inline static constexpr size_t DMALL_REBELLIMON_NAME_LEN = sizeof(DMALL_REBELLIMON_NAME_ARR)-1;
@@ -9411,7 +9411,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RED_V_DRAMON_FQID_LEN = sizeof(DMALL_RED_V_DRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RED_V_DRAMON_ID_ARR[] CONFIG_STRING_SECTION = "red_v_dramon";
     inline static constexpr const char* DMALL_RED_V_DRAMON_ID = DMALL_RED_V_DRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_RED_V_DRAMON_ID_LEN = sizeof(DMALL_RED_V_DRAMON_ID)-1;
+    inline static constexpr size_t DMALL_RED_V_DRAMON_ID_LEN = sizeof(DMALL_RED_V_DRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_RED_V_DRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Red V-dramon";
     inline static constexpr const char* DMALL_RED_V_DRAMON_NAME = DMALL_RED_V_DRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_RED_V_DRAMON_NAME_LEN = sizeof(DMALL_RED_V_DRAMON_NAME_ARR)-1;
@@ -9429,7 +9429,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RED_VEGIMON_FQID_LEN = sizeof(DMALL_RED_VEGIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RED_VEGIMON_ID_ARR[] CONFIG_STRING_SECTION = "red_vegimon";
     inline static constexpr const char* DMALL_RED_VEGIMON_ID = DMALL_RED_VEGIMON_ID_ARR;
-    inline static constexpr size_t DMALL_RED_VEGIMON_ID_LEN = sizeof(DMALL_RED_VEGIMON_ID)-1;
+    inline static constexpr size_t DMALL_RED_VEGIMON_ID_LEN = sizeof(DMALL_RED_VEGIMON_ID_ARR)-1;
     inline static constexpr char DMALL_RED_VEGIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Red Vegimon";
     inline static constexpr const char* DMALL_RED_VEGIMON_NAME = DMALL_RED_VEGIMON_NAME_ARR;
     inline static constexpr size_t DMALL_RED_VEGIMON_NAME_LEN = sizeof(DMALL_RED_VEGIMON_NAME_ARR)-1;
@@ -9447,7 +9447,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_REGALECUSMON_FQID_LEN = sizeof(DMALL_REGALECUSMON_FQID_ARR)-1;
     inline static constexpr char DMALL_REGALECUSMON_ID_ARR[] CONFIG_STRING_SECTION = "regalecusmon";
     inline static constexpr const char* DMALL_REGALECUSMON_ID = DMALL_REGALECUSMON_ID_ARR;
-    inline static constexpr size_t DMALL_REGALECUSMON_ID_LEN = sizeof(DMALL_REGALECUSMON_ID)-1;
+    inline static constexpr size_t DMALL_REGALECUSMON_ID_LEN = sizeof(DMALL_REGALECUSMON_ID_ARR)-1;
     inline static constexpr char DMALL_REGALECUSMON_NAME_ARR[] CONFIG_STRING_SECTION = "Regalecusmon";
     inline static constexpr const char* DMALL_REGALECUSMON_NAME = DMALL_REGALECUSMON_NAME_ARR;
     inline static constexpr size_t DMALL_REGALECUSMON_NAME_LEN = sizeof(DMALL_REGALECUSMON_NAME_ARR)-1;
@@ -9465,7 +9465,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RELEMON_FQID_LEN = sizeof(DMALL_RELEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RELEMON_ID_ARR[] CONFIG_STRING_SECTION = "relemon";
     inline static constexpr const char* DMALL_RELEMON_ID = DMALL_RELEMON_ID_ARR;
-    inline static constexpr size_t DMALL_RELEMON_ID_LEN = sizeof(DMALL_RELEMON_ID)-1;
+    inline static constexpr size_t DMALL_RELEMON_ID_LEN = sizeof(DMALL_RELEMON_ID_ARR)-1;
     inline static constexpr char DMALL_RELEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Relemon";
     inline static constexpr const char* DMALL_RELEMON_NAME = DMALL_RELEMON_NAME_ARR;
     inline static constexpr size_t DMALL_RELEMON_NAME_LEN = sizeof(DMALL_RELEMON_NAME_ARR)-1;
@@ -9483,7 +9483,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RENAMON_FQID_LEN = sizeof(DMALL_RENAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RENAMON_ID_ARR[] CONFIG_STRING_SECTION = "renamon";
     inline static constexpr const char* DMALL_RENAMON_ID = DMALL_RENAMON_ID_ARR;
-    inline static constexpr size_t DMALL_RENAMON_ID_LEN = sizeof(DMALL_RENAMON_ID)-1;
+    inline static constexpr size_t DMALL_RENAMON_ID_LEN = sizeof(DMALL_RENAMON_ID_ARR)-1;
     inline static constexpr char DMALL_RENAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Renamon";
     inline static constexpr const char* DMALL_RENAMON_NAME = DMALL_RENAMON_NAME_ARR;
     inline static constexpr size_t DMALL_RENAMON_NAME_LEN = sizeof(DMALL_RENAMON_NAME_ARR)-1;
@@ -9501,7 +9501,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RENAMON_X_FQID_LEN = sizeof(DMALL_RENAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_RENAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "renamon_x";
     inline static constexpr const char* DMALL_RENAMON_X_ID = DMALL_RENAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_RENAMON_X_ID_LEN = sizeof(DMALL_RENAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_RENAMON_X_ID_LEN = sizeof(DMALL_RENAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_RENAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Renamon X";
     inline static constexpr const char* DMALL_RENAMON_X_NAME = DMALL_RENAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_RENAMON_X_NAME_LEN = sizeof(DMALL_RENAMON_X_NAME_ARR)-1;
@@ -9519,7 +9519,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_REPPAMON_FQID_LEN = sizeof(DMALL_REPPAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_REPPAMON_ID_ARR[] CONFIG_STRING_SECTION = "reppamon";
     inline static constexpr const char* DMALL_REPPAMON_ID = DMALL_REPPAMON_ID_ARR;
-    inline static constexpr size_t DMALL_REPPAMON_ID_LEN = sizeof(DMALL_REPPAMON_ID)-1;
+    inline static constexpr size_t DMALL_REPPAMON_ID_LEN = sizeof(DMALL_REPPAMON_ID_ARR)-1;
     inline static constexpr char DMALL_REPPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Reppamon";
     inline static constexpr const char* DMALL_REPPAMON_NAME = DMALL_REPPAMON_NAME_ARR;
     inline static constexpr size_t DMALL_REPPAMON_NAME_LEN = sizeof(DMALL_REPPAMON_NAME_ARR)-1;
@@ -9537,7 +9537,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RHINOMON_FQID_LEN = sizeof(DMALL_RHINOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RHINOMON_ID_ARR[] CONFIG_STRING_SECTION = "rhinomon";
     inline static constexpr const char* DMALL_RHINOMON_ID = DMALL_RHINOMON_ID_ARR;
-    inline static constexpr size_t DMALL_RHINOMON_ID_LEN = sizeof(DMALL_RHINOMON_ID)-1;
+    inline static constexpr size_t DMALL_RHINOMON_ID_LEN = sizeof(DMALL_RHINOMON_ID_ARR)-1;
     inline static constexpr char DMALL_RHINOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rhinomon";
     inline static constexpr const char* DMALL_RHINOMON_NAME = DMALL_RHINOMON_NAME_ARR;
     inline static constexpr size_t DMALL_RHINOMON_NAME_LEN = sizeof(DMALL_RHINOMON_NAME_ARR)-1;
@@ -9555,7 +9555,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RHINOMON_X_FQID_LEN = sizeof(DMALL_RHINOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_RHINOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rhinomon_x";
     inline static constexpr const char* DMALL_RHINOMON_X_ID = DMALL_RHINOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_RHINOMON_X_ID_LEN = sizeof(DMALL_RHINOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_RHINOMON_X_ID_LEN = sizeof(DMALL_RHINOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_RHINOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rhinomon X";
     inline static constexpr const char* DMALL_RHINOMON_X_NAME = DMALL_RHINOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_RHINOMON_X_NAME_LEN = sizeof(DMALL_RHINOMON_X_NAME_ARR)-1;
@@ -9573,7 +9573,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RIZE_GREYMON_FQID_LEN = sizeof(DMALL_RIZE_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RIZE_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "rize_greymon";
     inline static constexpr const char* DMALL_RIZE_GREYMON_ID = DMALL_RIZE_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_RIZE_GREYMON_ID_LEN = sizeof(DMALL_RIZE_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_ID_LEN = sizeof(DMALL_RIZE_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_RIZE_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rize Greymon";
     inline static constexpr const char* DMALL_RIZE_GREYMON_NAME = DMALL_RIZE_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_RIZE_GREYMON_NAME_LEN = sizeof(DMALL_RIZE_GREYMON_NAME_ARR)-1;
@@ -9591,7 +9591,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RIZE_GREYMON_X_FQID_LEN = sizeof(DMALL_RIZE_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_RIZE_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rize_greymon_x";
     inline static constexpr const char* DMALL_RIZE_GREYMON_X_ID = DMALL_RIZE_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_RIZE_GREYMON_X_ID_LEN = sizeof(DMALL_RIZE_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMALL_RIZE_GREYMON_X_ID_LEN = sizeof(DMALL_RIZE_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_RIZE_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rize Greymon X";
     inline static constexpr const char* DMALL_RIZE_GREYMON_X_NAME = DMALL_RIZE_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_RIZE_GREYMON_X_NAME_LEN = sizeof(DMALL_RIZE_GREYMON_X_NAME_ARR)-1;
@@ -9609,7 +9609,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ROSEMON_BURST_MODE_FQID_LEN = sizeof(DMALL_ROSEMON_BURST_MODE_FQID_ARR)-1;
     inline static constexpr char DMALL_ROSEMON_BURST_MODE_ID_ARR[] CONFIG_STRING_SECTION = "rosemon_burst_mode";
     inline static constexpr const char* DMALL_ROSEMON_BURST_MODE_ID = DMALL_ROSEMON_BURST_MODE_ID_ARR;
-    inline static constexpr size_t DMALL_ROSEMON_BURST_MODE_ID_LEN = sizeof(DMALL_ROSEMON_BURST_MODE_ID)-1;
+    inline static constexpr size_t DMALL_ROSEMON_BURST_MODE_ID_LEN = sizeof(DMALL_ROSEMON_BURST_MODE_ID_ARR)-1;
     inline static constexpr char DMALL_ROSEMON_BURST_MODE_NAME_ARR[] CONFIG_STRING_SECTION = "Rosemon Burst Mode";
     inline static constexpr const char* DMALL_ROSEMON_BURST_MODE_NAME = DMALL_ROSEMON_BURST_MODE_NAME_ARR;
     inline static constexpr size_t DMALL_ROSEMON_BURST_MODE_NAME_LEN = sizeof(DMALL_ROSEMON_BURST_MODE_NAME_ARR)-1;
@@ -9627,7 +9627,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ROSEMON_FQID_LEN = sizeof(DMALL_ROSEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ROSEMON_ID_ARR[] CONFIG_STRING_SECTION = "rosemon";
     inline static constexpr const char* DMALL_ROSEMON_ID = DMALL_ROSEMON_ID_ARR;
-    inline static constexpr size_t DMALL_ROSEMON_ID_LEN = sizeof(DMALL_ROSEMON_ID)-1;
+    inline static constexpr size_t DMALL_ROSEMON_ID_LEN = sizeof(DMALL_ROSEMON_ID_ARR)-1;
     inline static constexpr char DMALL_ROSEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rosemon";
     inline static constexpr const char* DMALL_ROSEMON_NAME = DMALL_ROSEMON_NAME_ARR;
     inline static constexpr size_t DMALL_ROSEMON_NAME_LEN = sizeof(DMALL_ROSEMON_NAME_ARR)-1;
@@ -9645,7 +9645,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ROSEMON_X_FQID_LEN = sizeof(DMALL_ROSEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_ROSEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "rosemon_x";
     inline static constexpr const char* DMALL_ROSEMON_X_ID = DMALL_ROSEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_ROSEMON_X_ID_LEN = sizeof(DMALL_ROSEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_ROSEMON_X_ID_LEN = sizeof(DMALL_ROSEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_ROSEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Rosemon X";
     inline static constexpr const char* DMALL_ROSEMON_X_NAME = DMALL_ROSEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_ROSEMON_X_NAME_LEN = sizeof(DMALL_ROSEMON_X_NAME_ARR)-1;
@@ -9663,7 +9663,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RUKAMON_FQID_LEN = sizeof(DMALL_RUKAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RUKAMON_ID_ARR[] CONFIG_STRING_SECTION = "rukamon";
     inline static constexpr const char* DMALL_RUKAMON_ID = DMALL_RUKAMON_ID_ARR;
-    inline static constexpr size_t DMALL_RUKAMON_ID_LEN = sizeof(DMALL_RUKAMON_ID)-1;
+    inline static constexpr size_t DMALL_RUKAMON_ID_LEN = sizeof(DMALL_RUKAMON_ID_ARR)-1;
     inline static constexpr char DMALL_RUKAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rukamon";
     inline static constexpr const char* DMALL_RUKAMON_NAME = DMALL_RUKAMON_NAME_ARR;
     inline static constexpr size_t DMALL_RUKAMON_NAME_LEN = sizeof(DMALL_RUKAMON_NAME_ARR)-1;
@@ -9681,7 +9681,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RUST_TYRANNOMON_FQID_LEN = sizeof(DMALL_RUST_TYRANNOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RUST_TYRANNOMON_ID_ARR[] CONFIG_STRING_SECTION = "rust_tyrannomon";
     inline static constexpr const char* DMALL_RUST_TYRANNOMON_ID = DMALL_RUST_TYRANNOMON_ID_ARR;
-    inline static constexpr size_t DMALL_RUST_TYRANNOMON_ID_LEN = sizeof(DMALL_RUST_TYRANNOMON_ID)-1;
+    inline static constexpr size_t DMALL_RUST_TYRANNOMON_ID_LEN = sizeof(DMALL_RUST_TYRANNOMON_ID_ARR)-1;
     inline static constexpr char DMALL_RUST_TYRANNOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Rust Tyrannomon";
     inline static constexpr const char* DMALL_RUST_TYRANNOMON_NAME = DMALL_RUST_TYRANNOMON_NAME_ARR;
     inline static constexpr size_t DMALL_RUST_TYRANNOMON_NAME_LEN = sizeof(DMALL_RUST_TYRANNOMON_NAME_ARR)-1;
@@ -9699,7 +9699,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_RYUDAMON_FQID_LEN = sizeof(DMALL_RYUDAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_RYUDAMON_ID_ARR[] CONFIG_STRING_SECTION = "ryudamon";
     inline static constexpr const char* DMALL_RYUDAMON_ID = DMALL_RYUDAMON_ID_ARR;
-    inline static constexpr size_t DMALL_RYUDAMON_ID_LEN = sizeof(DMALL_RYUDAMON_ID)-1;
+    inline static constexpr size_t DMALL_RYUDAMON_ID_LEN = sizeof(DMALL_RYUDAMON_ID_ARR)-1;
     inline static constexpr char DMALL_RYUDAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ryudamon";
     inline static constexpr const char* DMALL_RYUDAMON_NAME = DMALL_RYUDAMON_NAME_ARR;
     inline static constexpr size_t DMALL_RYUDAMON_NAME_LEN = sizeof(DMALL_RYUDAMON_NAME_ARR)-1;
@@ -9717,7 +9717,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SABERDRAMON_FQID_LEN = sizeof(DMALL_SABERDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SABERDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "saberdramon";
     inline static constexpr const char* DMALL_SABERDRAMON_ID = DMALL_SABERDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_SABERDRAMON_ID_LEN = sizeof(DMALL_SABERDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_SABERDRAMON_ID_LEN = sizeof(DMALL_SABERDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_SABERDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Saberdramon";
     inline static constexpr const char* DMALL_SABERDRAMON_NAME = DMALL_SABERDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_SABERDRAMON_NAME_LEN = sizeof(DMALL_SABERDRAMON_NAME_ARR)-1;
@@ -9735,7 +9735,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SABER_LEOMON_FQID_LEN = sizeof(DMALL_SABER_LEOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SABER_LEOMON_ID_ARR[] CONFIG_STRING_SECTION = "saber_leomon";
     inline static constexpr const char* DMALL_SABER_LEOMON_ID = DMALL_SABER_LEOMON_ID_ARR;
-    inline static constexpr size_t DMALL_SABER_LEOMON_ID_LEN = sizeof(DMALL_SABER_LEOMON_ID)-1;
+    inline static constexpr size_t DMALL_SABER_LEOMON_ID_LEN = sizeof(DMALL_SABER_LEOMON_ID_ARR)-1;
     inline static constexpr char DMALL_SABER_LEOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Saber Leomon";
     inline static constexpr const char* DMALL_SABER_LEOMON_NAME = DMALL_SABER_LEOMON_NAME_ARR;
     inline static constexpr size_t DMALL_SABER_LEOMON_NAME_LEN = sizeof(DMALL_SABER_LEOMON_NAME_ARR)-1;
@@ -9753,7 +9753,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SAGOMON_FQID_LEN = sizeof(DMALL_SAGOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SAGOMON_ID_ARR[] CONFIG_STRING_SECTION = "sagomon";
     inline static constexpr const char* DMALL_SAGOMON_ID = DMALL_SAGOMON_ID_ARR;
-    inline static constexpr size_t DMALL_SAGOMON_ID_LEN = sizeof(DMALL_SAGOMON_ID)-1;
+    inline static constexpr size_t DMALL_SAGOMON_ID_LEN = sizeof(DMALL_SAGOMON_ID_ARR)-1;
     inline static constexpr char DMALL_SAGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sagomon";
     inline static constexpr const char* DMALL_SAGOMON_NAME = DMALL_SAGOMON_NAME_ARR;
     inline static constexpr size_t DMALL_SAGOMON_NAME_LEN = sizeof(DMALL_SAGOMON_NAME_ARR)-1;
@@ -9771,7 +9771,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SAINT_GALGOMON_FQID_LEN = sizeof(DMALL_SAINT_GALGOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SAINT_GALGOMON_ID_ARR[] CONFIG_STRING_SECTION = "saint_galgomon";
     inline static constexpr const char* DMALL_SAINT_GALGOMON_ID = DMALL_SAINT_GALGOMON_ID_ARR;
-    inline static constexpr size_t DMALL_SAINT_GALGOMON_ID_LEN = sizeof(DMALL_SAINT_GALGOMON_ID)-1;
+    inline static constexpr size_t DMALL_SAINT_GALGOMON_ID_LEN = sizeof(DMALL_SAINT_GALGOMON_ID_ARR)-1;
     inline static constexpr char DMALL_SAINT_GALGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Saint Galgomon";
     inline static constexpr const char* DMALL_SAINT_GALGOMON_NAME = DMALL_SAINT_GALGOMON_NAME_ARR;
     inline static constexpr size_t DMALL_SAINT_GALGOMON_NAME_LEN = sizeof(DMALL_SAINT_GALGOMON_NAME_ARR)-1;
@@ -9789,7 +9789,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SAKUYAMON_FQID_LEN = sizeof(DMALL_SAKUYAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SAKUYAMON_ID_ARR[] CONFIG_STRING_SECTION = "sakuyamon";
     inline static constexpr const char* DMALL_SAKUYAMON_ID = DMALL_SAKUYAMON_ID_ARR;
-    inline static constexpr size_t DMALL_SAKUYAMON_ID_LEN = sizeof(DMALL_SAKUYAMON_ID)-1;
+    inline static constexpr size_t DMALL_SAKUYAMON_ID_LEN = sizeof(DMALL_SAKUYAMON_ID_ARR)-1;
     inline static constexpr char DMALL_SAKUYAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sakuyamon";
     inline static constexpr const char* DMALL_SAKUYAMON_NAME = DMALL_SAKUYAMON_NAME_ARR;
     inline static constexpr size_t DMALL_SAKUYAMON_NAME_LEN = sizeof(DMALL_SAKUYAMON_NAME_ARR)-1;
@@ -9807,7 +9807,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SAKUYAMON_X_FQID_LEN = sizeof(DMALL_SAKUYAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_SAKUYAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "sakuyamon_x";
     inline static constexpr const char* DMALL_SAKUYAMON_X_ID = DMALL_SAKUYAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_SAKUYAMON_X_ID_LEN = sizeof(DMALL_SAKUYAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_SAKUYAMON_X_ID_LEN = sizeof(DMALL_SAKUYAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_SAKUYAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Sakuyamon X";
     inline static constexpr const char* DMALL_SAKUYAMON_X_NAME = DMALL_SAKUYAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_SAKUYAMON_X_NAME_LEN = sizeof(DMALL_SAKUYAMON_X_NAME_ARR)-1;
@@ -9825,7 +9825,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SAND_YANMAMON_FQID_LEN = sizeof(DMALL_SAND_YANMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SAND_YANMAMON_ID_ARR[] CONFIG_STRING_SECTION = "sand_yanmamon";
     inline static constexpr const char* DMALL_SAND_YANMAMON_ID = DMALL_SAND_YANMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_SAND_YANMAMON_ID_LEN = sizeof(DMALL_SAND_YANMAMON_ID)-1;
+    inline static constexpr size_t DMALL_SAND_YANMAMON_ID_LEN = sizeof(DMALL_SAND_YANMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_SAND_YANMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sand Yanmamon";
     inline static constexpr const char* DMALL_SAND_YANMAMON_NAME = DMALL_SAND_YANMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_SAND_YANMAMON_NAME_LEN = sizeof(DMALL_SAND_YANMAMON_NAME_ARR)-1;
@@ -9843,7 +9843,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SANGLOUPMON_FQID_LEN = sizeof(DMALL_SANGLOUPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SANGLOUPMON_ID_ARR[] CONFIG_STRING_SECTION = "sangloupmon";
     inline static constexpr const char* DMALL_SANGLOUPMON_ID = DMALL_SANGLOUPMON_ID_ARR;
-    inline static constexpr size_t DMALL_SANGLOUPMON_ID_LEN = sizeof(DMALL_SANGLOUPMON_ID)-1;
+    inline static constexpr size_t DMALL_SANGLOUPMON_ID_LEN = sizeof(DMALL_SANGLOUPMON_ID_ARR)-1;
     inline static constexpr char DMALL_SANGLOUPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sangloupmon";
     inline static constexpr const char* DMALL_SANGLOUPMON_NAME = DMALL_SANGLOUPMON_NAME_ARR;
     inline static constexpr size_t DMALL_SANGLOUPMON_NAME_LEN = sizeof(DMALL_SANGLOUPMON_NAME_ARR)-1;
@@ -9861,7 +9861,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SANGOMON_FQID_LEN = sizeof(DMALL_SANGOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SANGOMON_ID_ARR[] CONFIG_STRING_SECTION = "sangomon";
     inline static constexpr const char* DMALL_SANGOMON_ID = DMALL_SANGOMON_ID_ARR;
-    inline static constexpr size_t DMALL_SANGOMON_ID_LEN = sizeof(DMALL_SANGOMON_ID)-1;
+    inline static constexpr size_t DMALL_SANGOMON_ID_LEN = sizeof(DMALL_SANGOMON_ID_ARR)-1;
     inline static constexpr char DMALL_SANGOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sangomon";
     inline static constexpr const char* DMALL_SANGOMON_NAME = DMALL_SANGOMON_NAME_ARR;
     inline static constexpr size_t DMALL_SANGOMON_NAME_LEN = sizeof(DMALL_SANGOMON_NAME_ARR)-1;
@@ -9879,7 +9879,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SAVIORHACKMON_FQID_LEN = sizeof(DMALL_SAVIORHACKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SAVIORHACKMON_ID_ARR[] CONFIG_STRING_SECTION = "saviorhackmon";
     inline static constexpr const char* DMALL_SAVIORHACKMON_ID = DMALL_SAVIORHACKMON_ID_ARR;
-    inline static constexpr size_t DMALL_SAVIORHACKMON_ID_LEN = sizeof(DMALL_SAVIORHACKMON_ID)-1;
+    inline static constexpr size_t DMALL_SAVIORHACKMON_ID_LEN = sizeof(DMALL_SAVIORHACKMON_ID_ARR)-1;
     inline static constexpr char DMALL_SAVIORHACKMON_NAME_ARR[] CONFIG_STRING_SECTION = "SaviorHackmon";
     inline static constexpr const char* DMALL_SAVIORHACKMON_NAME = DMALL_SAVIORHACKMON_NAME_ARR;
     inline static constexpr size_t DMALL_SAVIORHACKMON_NAME_LEN = sizeof(DMALL_SAVIORHACKMON_NAME_ARR)-1;
@@ -9897,7 +9897,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SCORPIOMON_FQID_LEN = sizeof(DMALL_SCORPIOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SCORPIOMON_ID_ARR[] CONFIG_STRING_SECTION = "scorpiomon";
     inline static constexpr const char* DMALL_SCORPIOMON_ID = DMALL_SCORPIOMON_ID_ARR;
-    inline static constexpr size_t DMALL_SCORPIOMON_ID_LEN = sizeof(DMALL_SCORPIOMON_ID)-1;
+    inline static constexpr size_t DMALL_SCORPIOMON_ID_LEN = sizeof(DMALL_SCORPIOMON_ID_ARR)-1;
     inline static constexpr char DMALL_SCORPIOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Scorpiomon";
     inline static constexpr const char* DMALL_SCORPIOMON_NAME = DMALL_SCORPIOMON_NAME_ARR;
     inline static constexpr size_t DMALL_SCORPIOMON_NAME_LEN = sizeof(DMALL_SCORPIOMON_NAME_ARR)-1;
@@ -9915,7 +9915,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SCUMON_FQID_LEN = sizeof(DMALL_SCUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SCUMON_ID_ARR[] CONFIG_STRING_SECTION = "scumon";
     inline static constexpr const char* DMALL_SCUMON_ID = DMALL_SCUMON_ID_ARR;
-    inline static constexpr size_t DMALL_SCUMON_ID_LEN = sizeof(DMALL_SCUMON_ID)-1;
+    inline static constexpr size_t DMALL_SCUMON_ID_LEN = sizeof(DMALL_SCUMON_ID_ARR)-1;
     inline static constexpr char DMALL_SCUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Scumon";
     inline static constexpr const char* DMALL_SCUMON_NAME = DMALL_SCUMON_NAME_ARR;
     inline static constexpr size_t DMALL_SCUMON_NAME_LEN = sizeof(DMALL_SCUMON_NAME_ARR)-1;
@@ -9933,7 +9933,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SEADRAMON_FQID_LEN = sizeof(DMALL_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "seadramon";
     inline static constexpr const char* DMALL_SEADRAMON_ID = DMALL_SEADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_SEADRAMON_ID_LEN = sizeof(DMALL_SEADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_SEADRAMON_ID_LEN = sizeof(DMALL_SEADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Seadramon";
     inline static constexpr const char* DMALL_SEADRAMON_NAME = DMALL_SEADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_SEADRAMON_NAME_LEN = sizeof(DMALL_SEADRAMON_NAME_ARR)-1;
@@ -9951,7 +9951,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SEADRAMON_X_FQID_LEN = sizeof(DMALL_SEADRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_SEADRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "seadramon_x";
     inline static constexpr const char* DMALL_SEADRAMON_X_ID = DMALL_SEADRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_SEADRAMON_X_ID_LEN = sizeof(DMALL_SEADRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_SEADRAMON_X_ID_LEN = sizeof(DMALL_SEADRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_SEADRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Seadramon X";
     inline static constexpr const char* DMALL_SEADRAMON_X_NAME = DMALL_SEADRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_SEADRAMON_X_NAME_LEN = sizeof(DMALL_SEADRAMON_X_NAME_ARR)-1;
@@ -9969,7 +9969,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SERAPHIMON_FQID_LEN = sizeof(DMALL_SERAPHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SERAPHIMON_ID_ARR[] CONFIG_STRING_SECTION = "seraphimon";
     inline static constexpr const char* DMALL_SERAPHIMON_ID = DMALL_SERAPHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_SERAPHIMON_ID_LEN = sizeof(DMALL_SERAPHIMON_ID)-1;
+    inline static constexpr size_t DMALL_SERAPHIMON_ID_LEN = sizeof(DMALL_SERAPHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_SERAPHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Seraphimon";
     inline static constexpr const char* DMALL_SERAPHIMON_NAME = DMALL_SERAPHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_SERAPHIMON_NAME_LEN = sizeof(DMALL_SERAPHIMON_NAME_ARR)-1;
@@ -9987,7 +9987,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHADRAMON_FQID_LEN = sizeof(DMALL_SHADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "shadramon";
     inline static constexpr const char* DMALL_SHADRAMON_ID = DMALL_SHADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHADRAMON_ID_LEN = sizeof(DMALL_SHADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_SHADRAMON_ID_LEN = sizeof(DMALL_SHADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shadramon";
     inline static constexpr const char* DMALL_SHADRAMON_NAME = DMALL_SHADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHADRAMON_NAME_LEN = sizeof(DMALL_SHADRAMON_NAME_ARR)-1;
@@ -10005,7 +10005,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHAKOMON_FQID_LEN = sizeof(DMALL_SHAKOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHAKOMON_ID_ARR[] CONFIG_STRING_SECTION = "shakomon";
     inline static constexpr const char* DMALL_SHAKOMON_ID = DMALL_SHAKOMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHAKOMON_ID_LEN = sizeof(DMALL_SHAKOMON_ID)-1;
+    inline static constexpr size_t DMALL_SHAKOMON_ID_LEN = sizeof(DMALL_SHAKOMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHAKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shakomon";
     inline static constexpr const char* DMALL_SHAKOMON_NAME = DMALL_SHAKOMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHAKOMON_NAME_LEN = sizeof(DMALL_SHAKOMON_NAME_ARR)-1;
@@ -10023,7 +10023,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHAKOMON_X_FQID_LEN = sizeof(DMALL_SHAKOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_SHAKOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "shakomon_x";
     inline static constexpr const char* DMALL_SHAKOMON_X_ID = DMALL_SHAKOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_SHAKOMON_X_ID_LEN = sizeof(DMALL_SHAKOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_SHAKOMON_X_ID_LEN = sizeof(DMALL_SHAKOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_SHAKOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Shakomon X";
     inline static constexpr const char* DMALL_SHAKOMON_X_NAME = DMALL_SHAKOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_SHAKOMON_X_NAME_LEN = sizeof(DMALL_SHAKOMON_X_NAME_ARR)-1;
@@ -10041,7 +10041,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHAWUJINMON_FQID_LEN = sizeof(DMALL_SHAWUJINMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHAWUJINMON_ID_ARR[] CONFIG_STRING_SECTION = "shawujinmon";
     inline static constexpr const char* DMALL_SHAWUJINMON_ID = DMALL_SHAWUJINMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHAWUJINMON_ID_LEN = sizeof(DMALL_SHAWUJINMON_ID)-1;
+    inline static constexpr size_t DMALL_SHAWUJINMON_ID_LEN = sizeof(DMALL_SHAWUJINMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHAWUJINMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shawujinmon";
     inline static constexpr const char* DMALL_SHAWUJINMON_NAME = DMALL_SHAWUJINMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHAWUJINMON_NAME_LEN = sizeof(DMALL_SHAWUJINMON_NAME_ARR)-1;
@@ -10059,7 +10059,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHEEPMON_FQID_LEN = sizeof(DMALL_SHEEPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHEEPMON_ID_ARR[] CONFIG_STRING_SECTION = "sheepmon";
     inline static constexpr const char* DMALL_SHEEPMON_ID = DMALL_SHEEPMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHEEPMON_ID_LEN = sizeof(DMALL_SHEEPMON_ID)-1;
+    inline static constexpr size_t DMALL_SHEEPMON_ID_LEN = sizeof(DMALL_SHEEPMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHEEPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sheepmon";
     inline static constexpr const char* DMALL_SHEEPMON_NAME = DMALL_SHEEPMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHEEPMON_NAME_LEN = sizeof(DMALL_SHEEPMON_NAME_ARR)-1;
@@ -10077,7 +10077,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHELLMON_FQID_LEN = sizeof(DMALL_SHELLMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHELLMON_ID_ARR[] CONFIG_STRING_SECTION = "shellmon";
     inline static constexpr const char* DMALL_SHELLMON_ID = DMALL_SHELLMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHELLMON_ID_LEN = sizeof(DMALL_SHELLMON_ID)-1;
+    inline static constexpr size_t DMALL_SHELLMON_ID_LEN = sizeof(DMALL_SHELLMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHELLMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shellmon";
     inline static constexpr const char* DMALL_SHELLMON_NAME = DMALL_SHELLMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHELLMON_NAME_LEN = sizeof(DMALL_SHELLMON_NAME_ARR)-1;
@@ -10095,7 +10095,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHIMA_UNIMON_FQID_LEN = sizeof(DMALL_SHIMA_UNIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHIMA_UNIMON_ID_ARR[] CONFIG_STRING_SECTION = "shima_unimon";
     inline static constexpr const char* DMALL_SHIMA_UNIMON_ID = DMALL_SHIMA_UNIMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHIMA_UNIMON_ID_LEN = sizeof(DMALL_SHIMA_UNIMON_ID)-1;
+    inline static constexpr size_t DMALL_SHIMA_UNIMON_ID_LEN = sizeof(DMALL_SHIMA_UNIMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHIMA_UNIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shima Unimon";
     inline static constexpr const char* DMALL_SHIMA_UNIMON_NAME = DMALL_SHIMA_UNIMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHIMA_UNIMON_NAME_LEN = sizeof(DMALL_SHIMA_UNIMON_NAME_ARR)-1;
@@ -10113,7 +10113,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHIN_MONZAEMON_FQID_LEN = sizeof(DMALL_SHIN_MONZAEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHIN_MONZAEMON_ID_ARR[] CONFIG_STRING_SECTION = "shin_monzaemon";
     inline static constexpr const char* DMALL_SHIN_MONZAEMON_ID = DMALL_SHIN_MONZAEMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHIN_MONZAEMON_ID_LEN = sizeof(DMALL_SHIN_MONZAEMON_ID)-1;
+    inline static constexpr size_t DMALL_SHIN_MONZAEMON_ID_LEN = sizeof(DMALL_SHIN_MONZAEMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHIN_MONZAEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shin Monzaemon";
     inline static constexpr const char* DMALL_SHIN_MONZAEMON_NAME = DMALL_SHIN_MONZAEMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHIN_MONZAEMON_NAME_LEN = sizeof(DMALL_SHIN_MONZAEMON_NAME_ARR)-1;
@@ -10131,7 +10131,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SHOOTMON_FQID_LEN = sizeof(DMALL_SHOOTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SHOOTMON_ID_ARR[] CONFIG_STRING_SECTION = "shootmon";
     inline static constexpr const char* DMALL_SHOOTMON_ID = DMALL_SHOOTMON_ID_ARR;
-    inline static constexpr size_t DMALL_SHOOTMON_ID_LEN = sizeof(DMALL_SHOOTMON_ID)-1;
+    inline static constexpr size_t DMALL_SHOOTMON_ID_LEN = sizeof(DMALL_SHOOTMON_ID_ARR)-1;
     inline static constexpr char DMALL_SHOOTMON_NAME_ARR[] CONFIG_STRING_SECTION = "Shootmon";
     inline static constexpr const char* DMALL_SHOOTMON_NAME = DMALL_SHOOTMON_NAME_ARR;
     inline static constexpr size_t DMALL_SHOOTMON_NAME_LEN = sizeof(DMALL_SHOOTMON_NAME_ARR)-1;
@@ -10149,7 +10149,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SIESAMON_X_FQID_LEN = sizeof(DMALL_SIESAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_SIESAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "siesamon_x";
     inline static constexpr const char* DMALL_SIESAMON_X_ID = DMALL_SIESAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_SIESAMON_X_ID_LEN = sizeof(DMALL_SIESAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_SIESAMON_X_ID_LEN = sizeof(DMALL_SIESAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_SIESAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Siesamon X";
     inline static constexpr const char* DMALL_SIESAMON_X_NAME = DMALL_SIESAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_SIESAMON_X_NAME_LEN = sizeof(DMALL_SIESAMON_X_NAME_ARR)-1;
@@ -10167,7 +10167,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SIRENMON_FQID_LEN = sizeof(DMALL_SIRENMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SIRENMON_ID_ARR[] CONFIG_STRING_SECTION = "sirenmon";
     inline static constexpr const char* DMALL_SIRENMON_ID = DMALL_SIRENMON_ID_ARR;
-    inline static constexpr size_t DMALL_SIRENMON_ID_LEN = sizeof(DMALL_SIRENMON_ID)-1;
+    inline static constexpr size_t DMALL_SIRENMON_ID_LEN = sizeof(DMALL_SIRENMON_ID_ARR)-1;
     inline static constexpr char DMALL_SIRENMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sirenmon";
     inline static constexpr const char* DMALL_SIRENMON_NAME = DMALL_SIRENMON_NAME_ARR;
     inline static constexpr size_t DMALL_SIRENMON_NAME_LEN = sizeof(DMALL_SIRENMON_NAME_ARR)-1;
@@ -10185,7 +10185,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SISTERMON_BLANC_FQID_LEN = sizeof(DMALL_SISTERMON_BLANC_FQID_ARR)-1;
     inline static constexpr char DMALL_SISTERMON_BLANC_ID_ARR[] CONFIG_STRING_SECTION = "sistermon_blanc";
     inline static constexpr const char* DMALL_SISTERMON_BLANC_ID = DMALL_SISTERMON_BLANC_ID_ARR;
-    inline static constexpr size_t DMALL_SISTERMON_BLANC_ID_LEN = sizeof(DMALL_SISTERMON_BLANC_ID)-1;
+    inline static constexpr size_t DMALL_SISTERMON_BLANC_ID_LEN = sizeof(DMALL_SISTERMON_BLANC_ID_ARR)-1;
     inline static constexpr char DMALL_SISTERMON_BLANC_NAME_ARR[] CONFIG_STRING_SECTION = "Sistermon Blanc";
     inline static constexpr const char* DMALL_SISTERMON_BLANC_NAME = DMALL_SISTERMON_BLANC_NAME_ARR;
     inline static constexpr size_t DMALL_SISTERMON_BLANC_NAME_LEN = sizeof(DMALL_SISTERMON_BLANC_NAME_ARR)-1;
@@ -10203,7 +10203,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SKULL_BALUCHIMON_FQID_LEN = sizeof(DMALL_SKULL_BALUCHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SKULL_BALUCHIMON_ID_ARR[] CONFIG_STRING_SECTION = "skull_baluchimon";
     inline static constexpr const char* DMALL_SKULL_BALUCHIMON_ID = DMALL_SKULL_BALUCHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_SKULL_BALUCHIMON_ID_LEN = sizeof(DMALL_SKULL_BALUCHIMON_ID)-1;
+    inline static constexpr size_t DMALL_SKULL_BALUCHIMON_ID_LEN = sizeof(DMALL_SKULL_BALUCHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_SKULL_BALUCHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Skull Baluchimon";
     inline static constexpr const char* DMALL_SKULL_BALUCHIMON_NAME = DMALL_SKULL_BALUCHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_SKULL_BALUCHIMON_NAME_LEN = sizeof(DMALL_SKULL_BALUCHIMON_NAME_ARR)-1;
@@ -10221,7 +10221,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SKULL_GREYMON_FQID_LEN = sizeof(DMALL_SKULL_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SKULL_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "skull_greymon";
     inline static constexpr const char* DMALL_SKULL_GREYMON_ID = DMALL_SKULL_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_SKULL_GREYMON_ID_LEN = sizeof(DMALL_SKULL_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_SKULL_GREYMON_ID_LEN = sizeof(DMALL_SKULL_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_SKULL_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Skull Greymon";
     inline static constexpr const char* DMALL_SKULL_GREYMON_NAME = DMALL_SKULL_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_SKULL_GREYMON_NAME_LEN = sizeof(DMALL_SKULL_GREYMON_NAME_ARR)-1;
@@ -10239,7 +10239,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SKULLKNIGHTMON_FQID_LEN = sizeof(DMALL_SKULLKNIGHTMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SKULLKNIGHTMON_ID_ARR[] CONFIG_STRING_SECTION = "skullknightmon";
     inline static constexpr const char* DMALL_SKULLKNIGHTMON_ID = DMALL_SKULLKNIGHTMON_ID_ARR;
-    inline static constexpr size_t DMALL_SKULLKNIGHTMON_ID_LEN = sizeof(DMALL_SKULLKNIGHTMON_ID)-1;
+    inline static constexpr size_t DMALL_SKULLKNIGHTMON_ID_LEN = sizeof(DMALL_SKULLKNIGHTMON_ID_ARR)-1;
     inline static constexpr char DMALL_SKULLKNIGHTMON_NAME_ARR[] CONFIG_STRING_SECTION = "SkullKnightmon";
     inline static constexpr const char* DMALL_SKULLKNIGHTMON_NAME = DMALL_SKULLKNIGHTMON_NAME_ARR;
     inline static constexpr size_t DMALL_SKULLKNIGHTMON_NAME_LEN = sizeof(DMALL_SKULLKNIGHTMON_NAME_ARR)-1;
@@ -10257,7 +10257,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SKULL_MAMMON_FQID_LEN = sizeof(DMALL_SKULL_MAMMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SKULL_MAMMON_ID_ARR[] CONFIG_STRING_SECTION = "skull_mammon";
     inline static constexpr const char* DMALL_SKULL_MAMMON_ID = DMALL_SKULL_MAMMON_ID_ARR;
-    inline static constexpr size_t DMALL_SKULL_MAMMON_ID_LEN = sizeof(DMALL_SKULL_MAMMON_ID)-1;
+    inline static constexpr size_t DMALL_SKULL_MAMMON_ID_LEN = sizeof(DMALL_SKULL_MAMMON_ID_ARR)-1;
     inline static constexpr char DMALL_SKULL_MAMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Skull Mammon";
     inline static constexpr const char* DMALL_SKULL_MAMMON_NAME = DMALL_SKULL_MAMMON_NAME_ARR;
     inline static constexpr size_t DMALL_SKULL_MAMMON_NAME_LEN = sizeof(DMALL_SKULL_MAMMON_NAME_ARR)-1;
@@ -10275,7 +10275,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SKULL_MAMMON_X_FQID_LEN = sizeof(DMALL_SKULL_MAMMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_SKULL_MAMMON_X_ID_ARR[] CONFIG_STRING_SECTION = "skull_mammon_x";
     inline static constexpr const char* DMALL_SKULL_MAMMON_X_ID = DMALL_SKULL_MAMMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_SKULL_MAMMON_X_ID_LEN = sizeof(DMALL_SKULL_MAMMON_X_ID)-1;
+    inline static constexpr size_t DMALL_SKULL_MAMMON_X_ID_LEN = sizeof(DMALL_SKULL_MAMMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_SKULL_MAMMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Skull Mammon X";
     inline static constexpr const char* DMALL_SKULL_MAMMON_X_NAME = DMALL_SKULL_MAMMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_SKULL_MAMMON_X_NAME_LEN = sizeof(DMALL_SKULL_MAMMON_X_NAME_ARR)-1;
@@ -10293,7 +10293,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SLEIPMON_X_FQID_LEN = sizeof(DMALL_SLEIPMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_SLEIPMON_X_ID_ARR[] CONFIG_STRING_SECTION = "sleipmon_x";
     inline static constexpr const char* DMALL_SLEIPMON_X_ID = DMALL_SLEIPMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_SLEIPMON_X_ID_LEN = sizeof(DMALL_SLEIPMON_X_ID)-1;
+    inline static constexpr size_t DMALL_SLEIPMON_X_ID_LEN = sizeof(DMALL_SLEIPMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_SLEIPMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Sleipmon X";
     inline static constexpr const char* DMALL_SLEIPMON_X_NAME = DMALL_SLEIPMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_SLEIPMON_X_NAME_LEN = sizeof(DMALL_SLEIPMON_X_NAME_ARR)-1;
@@ -10311,7 +10311,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SOLARMON_FQID_LEN = sizeof(DMALL_SOLARMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SOLARMON_ID_ARR[] CONFIG_STRING_SECTION = "solarmon";
     inline static constexpr const char* DMALL_SOLARMON_ID = DMALL_SOLARMON_ID_ARR;
-    inline static constexpr size_t DMALL_SOLARMON_ID_LEN = sizeof(DMALL_SOLARMON_ID)-1;
+    inline static constexpr size_t DMALL_SOLARMON_ID_LEN = sizeof(DMALL_SOLARMON_ID_ARR)-1;
     inline static constexpr char DMALL_SOLARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Solarmon";
     inline static constexpr const char* DMALL_SOLARMON_NAME = DMALL_SOLARMON_NAME_ARR;
     inline static constexpr size_t DMALL_SOLARMON_NAME_LEN = sizeof(DMALL_SOLARMON_NAME_ARR)-1;
@@ -10329,7 +10329,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SORCERYMON_FQID_LEN = sizeof(DMALL_SORCERYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SORCERYMON_ID_ARR[] CONFIG_STRING_SECTION = "sorcerymon";
     inline static constexpr const char* DMALL_SORCERYMON_ID = DMALL_SORCERYMON_ID_ARR;
-    inline static constexpr size_t DMALL_SORCERYMON_ID_LEN = sizeof(DMALL_SORCERYMON_ID)-1;
+    inline static constexpr size_t DMALL_SORCERYMON_ID_LEN = sizeof(DMALL_SORCERYMON_ID_ARR)-1;
     inline static constexpr char DMALL_SORCERYMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sorcerymon";
     inline static constexpr const char* DMALL_SORCERYMON_NAME = DMALL_SORCERYMON_NAME_ARR;
     inline static constexpr size_t DMALL_SORCERYMON_NAME_LEN = sizeof(DMALL_SORCERYMON_NAME_ARR)-1;
@@ -10347,7 +10347,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SOULMON_FQID_LEN = sizeof(DMALL_SOULMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SOULMON_ID_ARR[] CONFIG_STRING_SECTION = "soulmon";
     inline static constexpr const char* DMALL_SOULMON_ID = DMALL_SOULMON_ID_ARR;
-    inline static constexpr size_t DMALL_SOULMON_ID_LEN = sizeof(DMALL_SOULMON_ID)-1;
+    inline static constexpr size_t DMALL_SOULMON_ID_LEN = sizeof(DMALL_SOULMON_ID_ARR)-1;
     inline static constexpr char DMALL_SOULMON_NAME_ARR[] CONFIG_STRING_SECTION = "Soulmon";
     inline static constexpr const char* DMALL_SOULMON_NAME = DMALL_SOULMON_NAME_ARR;
     inline static constexpr size_t DMALL_SOULMON_NAME_LEN = sizeof(DMALL_SOULMON_NAME_ARR)-1;
@@ -10365,7 +10365,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_STARMON_FQID_LEN = sizeof(DMALL_STARMON_FQID_ARR)-1;
     inline static constexpr char DMALL_STARMON_ID_ARR[] CONFIG_STRING_SECTION = "starmon";
     inline static constexpr const char* DMALL_STARMON_ID = DMALL_STARMON_ID_ARR;
-    inline static constexpr size_t DMALL_STARMON_ID_LEN = sizeof(DMALL_STARMON_ID)-1;
+    inline static constexpr size_t DMALL_STARMON_ID_LEN = sizeof(DMALL_STARMON_ID_ARR)-1;
     inline static constexpr char DMALL_STARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Starmon";
     inline static constexpr const char* DMALL_STARMON_NAME = DMALL_STARMON_NAME_ARR;
     inline static constexpr size_t DMALL_STARMON_NAME_LEN = sizeof(DMALL_STARMON_NAME_ARR)-1;
@@ -10383,7 +10383,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_STIFFILMON_FQID_LEN = sizeof(DMALL_STIFFILMON_FQID_ARR)-1;
     inline static constexpr char DMALL_STIFFILMON_ID_ARR[] CONFIG_STRING_SECTION = "stiffilmon";
     inline static constexpr const char* DMALL_STIFFILMON_ID = DMALL_STIFFILMON_ID_ARR;
-    inline static constexpr size_t DMALL_STIFFILMON_ID_LEN = sizeof(DMALL_STIFFILMON_ID)-1;
+    inline static constexpr size_t DMALL_STIFFILMON_ID_LEN = sizeof(DMALL_STIFFILMON_ID_ARR)-1;
     inline static constexpr char DMALL_STIFFILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Stiffilmon";
     inline static constexpr const char* DMALL_STIFFILMON_NAME = DMALL_STIFFILMON_NAME_ARR;
     inline static constexpr size_t DMALL_STIFFILMON_NAME_LEN = sizeof(DMALL_STIFFILMON_NAME_ARR)-1;
@@ -10401,7 +10401,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SUBMARINMON_FQID_LEN = sizeof(DMALL_SUBMARINMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SUBMARINMON_ID_ARR[] CONFIG_STRING_SECTION = "submarinmon";
     inline static constexpr const char* DMALL_SUBMARINMON_ID = DMALL_SUBMARINMON_ID_ARR;
-    inline static constexpr size_t DMALL_SUBMARINMON_ID_LEN = sizeof(DMALL_SUBMARINMON_ID)-1;
+    inline static constexpr size_t DMALL_SUBMARINMON_ID_LEN = sizeof(DMALL_SUBMARINMON_ID_ARR)-1;
     inline static constexpr char DMALL_SUBMARINMON_NAME_ARR[] CONFIG_STRING_SECTION = "Submarinmon";
     inline static constexpr const char* DMALL_SUBMARINMON_NAME = DMALL_SUBMARINMON_NAME_ARR;
     inline static constexpr size_t DMALL_SUBMARINMON_NAME_LEN = sizeof(DMALL_SUBMARINMON_NAME_ARR)-1;
@@ -10419,7 +10419,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SUNAMON_FQID_LEN = sizeof(DMALL_SUNAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SUNAMON_ID_ARR[] CONFIG_STRING_SECTION = "sunamon";
     inline static constexpr const char* DMALL_SUNAMON_ID = DMALL_SUNAMON_ID_ARR;
-    inline static constexpr size_t DMALL_SUNAMON_ID_LEN = sizeof(DMALL_SUNAMON_ID)-1;
+    inline static constexpr size_t DMALL_SUNAMON_ID_LEN = sizeof(DMALL_SUNAMON_ID_ARR)-1;
     inline static constexpr char DMALL_SUNAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sunamon";
     inline static constexpr const char* DMALL_SUNAMON_NAME = DMALL_SUNAMON_NAME_ARR;
     inline static constexpr size_t DMALL_SUNAMON_NAME_LEN = sizeof(DMALL_SUNAMON_NAME_ARR)-1;
@@ -10437,7 +10437,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SUNARIZAMON_FQID_LEN = sizeof(DMALL_SUNARIZAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SUNARIZAMON_ID_ARR[] CONFIG_STRING_SECTION = "sunarizamon";
     inline static constexpr const char* DMALL_SUNARIZAMON_ID = DMALL_SUNARIZAMON_ID_ARR;
-    inline static constexpr size_t DMALL_SUNARIZAMON_ID_LEN = sizeof(DMALL_SUNARIZAMON_ID)-1;
+    inline static constexpr size_t DMALL_SUNARIZAMON_ID_LEN = sizeof(DMALL_SUNARIZAMON_ID_ARR)-1;
     inline static constexpr char DMALL_SUNARIZAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sunarizamon";
     inline static constexpr const char* DMALL_SUNARIZAMON_NAME = DMALL_SUNARIZAMON_NAME_ARR;
     inline static constexpr size_t DMALL_SUNARIZAMON_NAME_LEN = sizeof(DMALL_SUNARIZAMON_NAME_ARR)-1;
@@ -10455,7 +10455,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SUNFLOWMON_FQID_LEN = sizeof(DMALL_SUNFLOWMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SUNFLOWMON_ID_ARR[] CONFIG_STRING_SECTION = "sunflowmon";
     inline static constexpr const char* DMALL_SUNFLOWMON_ID = DMALL_SUNFLOWMON_ID_ARR;
-    inline static constexpr size_t DMALL_SUNFLOWMON_ID_LEN = sizeof(DMALL_SUNFLOWMON_ID)-1;
+    inline static constexpr size_t DMALL_SUNFLOWMON_ID_LEN = sizeof(DMALL_SUNFLOWMON_ID_ARR)-1;
     inline static constexpr char DMALL_SUNFLOWMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sunflowmon";
     inline static constexpr const char* DMALL_SUNFLOWMON_NAME = DMALL_SUNFLOWMON_NAME_ARR;
     inline static constexpr size_t DMALL_SUNFLOWMON_NAME_LEN = sizeof(DMALL_SUNFLOWMON_NAME_ARR)-1;
@@ -10473,7 +10473,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SUNMON_FQID_LEN = sizeof(DMALL_SUNMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SUNMON_ID_ARR[] CONFIG_STRING_SECTION = "sunmon";
     inline static constexpr const char* DMALL_SUNMON_ID = DMALL_SUNMON_ID_ARR;
-    inline static constexpr size_t DMALL_SUNMON_ID_LEN = sizeof(DMALL_SUNMON_ID)-1;
+    inline static constexpr size_t DMALL_SUNMON_ID_LEN = sizeof(DMALL_SUNMON_ID_ARR)-1;
     inline static constexpr char DMALL_SUNMON_NAME_ARR[] CONFIG_STRING_SECTION = "Sunmon";
     inline static constexpr const char* DMALL_SUNMON_NAME = DMALL_SUNMON_NAME_ARR;
     inline static constexpr size_t DMALL_SUNMON_NAME_LEN = sizeof(DMALL_SUNMON_NAME_ARR)-1;
@@ -10491,7 +10491,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SUPERSTARMON_FQID_LEN = sizeof(DMALL_SUPERSTARMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SUPERSTARMON_ID_ARR[] CONFIG_STRING_SECTION = "superstarmon";
     inline static constexpr const char* DMALL_SUPERSTARMON_ID = DMALL_SUPERSTARMON_ID_ARR;
-    inline static constexpr size_t DMALL_SUPERSTARMON_ID_LEN = sizeof(DMALL_SUPERSTARMON_ID)-1;
+    inline static constexpr size_t DMALL_SUPERSTARMON_ID_LEN = sizeof(DMALL_SUPERSTARMON_ID_ARR)-1;
     inline static constexpr char DMALL_SUPERSTARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Superstarmon";
     inline static constexpr const char* DMALL_SUPERSTARMON_NAME = DMALL_SUPERSTARMON_NAME_ARR;
     inline static constexpr size_t DMALL_SUPERSTARMON_NAME_LEN = sizeof(DMALL_SUPERSTARMON_NAME_ARR)-1;
@@ -10509,7 +10509,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SUSANOOMON_FQID_LEN = sizeof(DMALL_SUSANOOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SUSANOOMON_ID_ARR[] CONFIG_STRING_SECTION = "susanoomon";
     inline static constexpr const char* DMALL_SUSANOOMON_ID = DMALL_SUSANOOMON_ID_ARR;
-    inline static constexpr size_t DMALL_SUSANOOMON_ID_LEN = sizeof(DMALL_SUSANOOMON_ID)-1;
+    inline static constexpr size_t DMALL_SUSANOOMON_ID_LEN = sizeof(DMALL_SUSANOOMON_ID_ARR)-1;
     inline static constexpr char DMALL_SUSANOOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Susanoomon";
     inline static constexpr const char* DMALL_SUSANOOMON_NAME = DMALL_SUSANOOMON_NAME_ARR;
     inline static constexpr size_t DMALL_SUSANOOMON_NAME_LEN = sizeof(DMALL_SUSANOOMON_NAME_ARR)-1;
@@ -10527,7 +10527,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_SWIMMON_FQID_LEN = sizeof(DMALL_SWIMMON_FQID_ARR)-1;
     inline static constexpr char DMALL_SWIMMON_ID_ARR[] CONFIG_STRING_SECTION = "swimmon";
     inline static constexpr const char* DMALL_SWIMMON_ID = DMALL_SWIMMON_ID_ARR;
-    inline static constexpr size_t DMALL_SWIMMON_ID_LEN = sizeof(DMALL_SWIMMON_ID)-1;
+    inline static constexpr size_t DMALL_SWIMMON_ID_LEN = sizeof(DMALL_SWIMMON_ID_ARR)-1;
     inline static constexpr char DMALL_SWIMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Swimmon";
     inline static constexpr const char* DMALL_SWIMMON_NAME = DMALL_SWIMMON_NAME_ARR;
     inline static constexpr size_t DMALL_SWIMMON_NAME_LEN = sizeof(DMALL_SWIMMON_NAME_ARR)-1;
@@ -10545,7 +10545,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TAILMON_FQID_LEN = sizeof(DMALL_TAILMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TAILMON_ID_ARR[] CONFIG_STRING_SECTION = "tailmon";
     inline static constexpr const char* DMALL_TAILMON_ID = DMALL_TAILMON_ID_ARR;
-    inline static constexpr size_t DMALL_TAILMON_ID_LEN = sizeof(DMALL_TAILMON_ID)-1;
+    inline static constexpr size_t DMALL_TAILMON_ID_LEN = sizeof(DMALL_TAILMON_ID_ARR)-1;
     inline static constexpr char DMALL_TAILMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tailmon";
     inline static constexpr const char* DMALL_TAILMON_NAME = DMALL_TAILMON_NAME_ARR;
     inline static constexpr size_t DMALL_TAILMON_NAME_LEN = sizeof(DMALL_TAILMON_NAME_ARR)-1;
@@ -10563,7 +10563,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TAILMON_X_FQID_LEN = sizeof(DMALL_TAILMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_TAILMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tailmon_x";
     inline static constexpr const char* DMALL_TAILMON_X_ID = DMALL_TAILMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TAILMON_X_ID_LEN = sizeof(DMALL_TAILMON_X_ID)-1;
+    inline static constexpr size_t DMALL_TAILMON_X_ID_LEN = sizeof(DMALL_TAILMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_TAILMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tailmon X";
     inline static constexpr const char* DMALL_TAILMON_X_NAME = DMALL_TAILMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_TAILMON_X_NAME_LEN = sizeof(DMALL_TAILMON_X_NAME_ARR)-1;
@@ -10581,7 +10581,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TANEMON_FQID_LEN = sizeof(DMALL_TANEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TANEMON_ID_ARR[] CONFIG_STRING_SECTION = "tanemon";
     inline static constexpr const char* DMALL_TANEMON_ID = DMALL_TANEMON_ID_ARR;
-    inline static constexpr size_t DMALL_TANEMON_ID_LEN = sizeof(DMALL_TANEMON_ID)-1;
+    inline static constexpr size_t DMALL_TANEMON_ID_LEN = sizeof(DMALL_TANEMON_ID_ARR)-1;
     inline static constexpr char DMALL_TANEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tanemon";
     inline static constexpr const char* DMALL_TANEMON_NAME = DMALL_TANEMON_NAME_ARR;
     inline static constexpr size_t DMALL_TANEMON_NAME_LEN = sizeof(DMALL_TANEMON_NAME_ARR)-1;
@@ -10599,7 +10599,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TANKMON_FQID_LEN = sizeof(DMALL_TANKMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TANKMON_ID_ARR[] CONFIG_STRING_SECTION = "tankmon";
     inline static constexpr const char* DMALL_TANKMON_ID = DMALL_TANKMON_ID_ARR;
-    inline static constexpr size_t DMALL_TANKMON_ID_LEN = sizeof(DMALL_TANKMON_ID)-1;
+    inline static constexpr size_t DMALL_TANKMON_ID_LEN = sizeof(DMALL_TANKMON_ID_ARR)-1;
     inline static constexpr char DMALL_TANKMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tankmon";
     inline static constexpr const char* DMALL_TANKMON_NAME = DMALL_TANKMON_NAME_ARR;
     inline static constexpr size_t DMALL_TANKMON_NAME_LEN = sizeof(DMALL_TANKMON_NAME_ARR)-1;
@@ -10617,7 +10617,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TARGETMON_FQID_LEN = sizeof(DMALL_TARGETMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TARGETMON_ID_ARR[] CONFIG_STRING_SECTION = "targetmon";
     inline static constexpr const char* DMALL_TARGETMON_ID = DMALL_TARGETMON_ID_ARR;
-    inline static constexpr size_t DMALL_TARGETMON_ID_LEN = sizeof(DMALL_TARGETMON_ID)-1;
+    inline static constexpr size_t DMALL_TARGETMON_ID_LEN = sizeof(DMALL_TARGETMON_ID_ARR)-1;
     inline static constexpr char DMALL_TARGETMON_NAME_ARR[] CONFIG_STRING_SECTION = "Targetmon";
     inline static constexpr const char* DMALL_TARGETMON_NAME = DMALL_TARGETMON_NAME_ARR;
     inline static constexpr size_t DMALL_TARGETMON_NAME_LEN = sizeof(DMALL_TARGETMON_NAME_ARR)-1;
@@ -10635,7 +10635,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TEKKAMON_FQID_LEN = sizeof(DMALL_TEKKAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TEKKAMON_ID_ARR[] CONFIG_STRING_SECTION = "tekkamon";
     inline static constexpr const char* DMALL_TEKKAMON_ID = DMALL_TEKKAMON_ID_ARR;
-    inline static constexpr size_t DMALL_TEKKAMON_ID_LEN = sizeof(DMALL_TEKKAMON_ID)-1;
+    inline static constexpr size_t DMALL_TEKKAMON_ID_LEN = sizeof(DMALL_TEKKAMON_ID_ARR)-1;
     inline static constexpr char DMALL_TEKKAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tekkamon";
     inline static constexpr const char* DMALL_TEKKAMON_NAME = DMALL_TEKKAMON_NAME_ARR;
     inline static constexpr size_t DMALL_TEKKAMON_NAME_LEN = sizeof(DMALL_TEKKAMON_NAME_ARR)-1;
@@ -10653,7 +10653,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TENTOMON_FQID_LEN = sizeof(DMALL_TENTOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TENTOMON_ID_ARR[] CONFIG_STRING_SECTION = "tentomon";
     inline static constexpr const char* DMALL_TENTOMON_ID = DMALL_TENTOMON_ID_ARR;
-    inline static constexpr size_t DMALL_TENTOMON_ID_LEN = sizeof(DMALL_TENTOMON_ID)-1;
+    inline static constexpr size_t DMALL_TENTOMON_ID_LEN = sizeof(DMALL_TENTOMON_ID_ARR)-1;
     inline static constexpr char DMALL_TENTOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tentomon";
     inline static constexpr const char* DMALL_TENTOMON_NAME = DMALL_TENTOMON_NAME_ARR;
     inline static constexpr size_t DMALL_TENTOMON_NAME_LEN = sizeof(DMALL_TENTOMON_NAME_ARR)-1;
@@ -10671,7 +10671,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TERRIERMON_FQID_LEN = sizeof(DMALL_TERRIERMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TERRIERMON_ID_ARR[] CONFIG_STRING_SECTION = "terriermon";
     inline static constexpr const char* DMALL_TERRIERMON_ID = DMALL_TERRIERMON_ID_ARR;
-    inline static constexpr size_t DMALL_TERRIERMON_ID_LEN = sizeof(DMALL_TERRIERMON_ID)-1;
+    inline static constexpr size_t DMALL_TERRIERMON_ID_LEN = sizeof(DMALL_TERRIERMON_ID_ARR)-1;
     inline static constexpr char DMALL_TERRIERMON_NAME_ARR[] CONFIG_STRING_SECTION = "Terriermon";
     inline static constexpr const char* DMALL_TERRIERMON_NAME = DMALL_TERRIERMON_NAME_ARR;
     inline static constexpr size_t DMALL_TERRIERMON_NAME_LEN = sizeof(DMALL_TERRIERMON_NAME_ARR)-1;
@@ -10689,7 +10689,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TERRIERMON_X_FQID_LEN = sizeof(DMALL_TERRIERMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_TERRIERMON_X_ID_ARR[] CONFIG_STRING_SECTION = "terriermon_x";
     inline static constexpr const char* DMALL_TERRIERMON_X_ID = DMALL_TERRIERMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TERRIERMON_X_ID_LEN = sizeof(DMALL_TERRIERMON_X_ID)-1;
+    inline static constexpr size_t DMALL_TERRIERMON_X_ID_LEN = sizeof(DMALL_TERRIERMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_TERRIERMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Terriermon X";
     inline static constexpr const char* DMALL_TERRIERMON_X_NAME = DMALL_TERRIERMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_TERRIERMON_X_NAME_LEN = sizeof(DMALL_TERRIERMON_X_NAME_ARR)-1;
@@ -10707,7 +10707,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_THUNDERBALLMON_FQID_LEN = sizeof(DMALL_THUNDERBALLMON_FQID_ARR)-1;
     inline static constexpr char DMALL_THUNDERBALLMON_ID_ARR[] CONFIG_STRING_SECTION = "thunderballmon";
     inline static constexpr const char* DMALL_THUNDERBALLMON_ID = DMALL_THUNDERBALLMON_ID_ARR;
-    inline static constexpr size_t DMALL_THUNDERBALLMON_ID_LEN = sizeof(DMALL_THUNDERBALLMON_ID)-1;
+    inline static constexpr size_t DMALL_THUNDERBALLMON_ID_LEN = sizeof(DMALL_THUNDERBALLMON_ID_ARR)-1;
     inline static constexpr char DMALL_THUNDERBALLMON_NAME_ARR[] CONFIG_STRING_SECTION = "Thunderballmon";
     inline static constexpr const char* DMALL_THUNDERBALLMON_NAME = DMALL_THUNDERBALLMON_NAME_ARR;
     inline static constexpr size_t DMALL_THUNDERBALLMON_NAME_LEN = sizeof(DMALL_THUNDERBALLMON_NAME_ARR)-1;
@@ -10725,7 +10725,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TIA_LUDOMON_FQID_LEN = sizeof(DMALL_TIA_LUDOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TIA_LUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "tia_ludomon";
     inline static constexpr const char* DMALL_TIA_LUDOMON_ID = DMALL_TIA_LUDOMON_ID_ARR;
-    inline static constexpr size_t DMALL_TIA_LUDOMON_ID_LEN = sizeof(DMALL_TIA_LUDOMON_ID)-1;
+    inline static constexpr size_t DMALL_TIA_LUDOMON_ID_LEN = sizeof(DMALL_TIA_LUDOMON_ID_ARR)-1;
     inline static constexpr char DMALL_TIA_LUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tia Ludomon";
     inline static constexpr const char* DMALL_TIA_LUDOMON_NAME = DMALL_TIA_LUDOMON_NAME_ARR;
     inline static constexpr size_t DMALL_TIA_LUDOMON_NAME_LEN = sizeof(DMALL_TIA_LUDOMON_NAME_ARR)-1;
@@ -10743,7 +10743,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TIGER_VESPAMON_FQID_LEN = sizeof(DMALL_TIGER_VESPAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TIGER_VESPAMON_ID_ARR[] CONFIG_STRING_SECTION = "tiger_vespamon";
     inline static constexpr const char* DMALL_TIGER_VESPAMON_ID = DMALL_TIGER_VESPAMON_ID_ARR;
-    inline static constexpr size_t DMALL_TIGER_VESPAMON_ID_LEN = sizeof(DMALL_TIGER_VESPAMON_ID)-1;
+    inline static constexpr size_t DMALL_TIGER_VESPAMON_ID_LEN = sizeof(DMALL_TIGER_VESPAMON_ID_ARR)-1;
     inline static constexpr char DMALL_TIGER_VESPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tiger Vespamon";
     inline static constexpr const char* DMALL_TIGER_VESPAMON_NAME = DMALL_TIGER_VESPAMON_NAME_ARR;
     inline static constexpr size_t DMALL_TIGER_VESPAMON_NAME_LEN = sizeof(DMALL_TIGER_VESPAMON_NAME_ARR)-1;
@@ -10761,7 +10761,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TINKERMON_FQID_LEN = sizeof(DMALL_TINKERMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TINKERMON_ID_ARR[] CONFIG_STRING_SECTION = "tinkermon";
     inline static constexpr const char* DMALL_TINKERMON_ID = DMALL_TINKERMON_ID_ARR;
-    inline static constexpr size_t DMALL_TINKERMON_ID_LEN = sizeof(DMALL_TINKERMON_ID)-1;
+    inline static constexpr size_t DMALL_TINKERMON_ID_LEN = sizeof(DMALL_TINKERMON_ID_ARR)-1;
     inline static constexpr char DMALL_TINKERMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tinkermon";
     inline static constexpr const char* DMALL_TINKERMON_NAME = DMALL_TINKERMON_NAME_ARR;
     inline static constexpr size_t DMALL_TINKERMON_NAME_LEN = sizeof(DMALL_TINKERMON_NAME_ARR)-1;
@@ -10779,7 +10779,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TITAMON_FQID_LEN = sizeof(DMALL_TITAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TITAMON_ID_ARR[] CONFIG_STRING_SECTION = "titamon";
     inline static constexpr const char* DMALL_TITAMON_ID = DMALL_TITAMON_ID_ARR;
-    inline static constexpr size_t DMALL_TITAMON_ID_LEN = sizeof(DMALL_TITAMON_ID)-1;
+    inline static constexpr size_t DMALL_TITAMON_ID_LEN = sizeof(DMALL_TITAMON_ID_ARR)-1;
     inline static constexpr char DMALL_TITAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Titamon";
     inline static constexpr const char* DMALL_TITAMON_NAME = DMALL_TITAMON_NAME_ARR;
     inline static constexpr size_t DMALL_TITAMON_NAME_LEN = sizeof(DMALL_TITAMON_NAME_ARR)-1;
@@ -10797,7 +10797,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TOBIUMON_FQID_LEN = sizeof(DMALL_TOBIUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TOBIUMON_ID_ARR[] CONFIG_STRING_SECTION = "tobiumon";
     inline static constexpr const char* DMALL_TOBIUMON_ID = DMALL_TOBIUMON_ID_ARR;
-    inline static constexpr size_t DMALL_TOBIUMON_ID_LEN = sizeof(DMALL_TOBIUMON_ID)-1;
+    inline static constexpr size_t DMALL_TOBIUMON_ID_LEN = sizeof(DMALL_TOBIUMON_ID_ARR)-1;
     inline static constexpr char DMALL_TOBIUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tobiumon";
     inline static constexpr const char* DMALL_TOBIUMON_NAME = DMALL_TOBIUMON_NAME_ARR;
     inline static constexpr size_t DMALL_TOBIUMON_NAME_LEN = sizeof(DMALL_TOBIUMON_NAME_ARR)-1;
@@ -10815,7 +10815,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TOBUCATMON_FQID_LEN = sizeof(DMALL_TOBUCATMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TOBUCATMON_ID_ARR[] CONFIG_STRING_SECTION = "tobucatmon";
     inline static constexpr const char* DMALL_TOBUCATMON_ID = DMALL_TOBUCATMON_ID_ARR;
-    inline static constexpr size_t DMALL_TOBUCATMON_ID_LEN = sizeof(DMALL_TOBUCATMON_ID)-1;
+    inline static constexpr size_t DMALL_TOBUCATMON_ID_LEN = sizeof(DMALL_TOBUCATMON_ID_ARR)-1;
     inline static constexpr char DMALL_TOBUCATMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tobucatmon";
     inline static constexpr const char* DMALL_TOBUCATMON_NAME = DMALL_TOBUCATMON_NAME_ARR;
     inline static constexpr size_t DMALL_TOBUCATMON_NAME_LEN = sizeof(DMALL_TOBUCATMON_NAME_ARR)-1;
@@ -10833,7 +10833,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TOGEMON_FQID_LEN = sizeof(DMALL_TOGEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TOGEMON_ID_ARR[] CONFIG_STRING_SECTION = "togemon";
     inline static constexpr const char* DMALL_TOGEMON_ID = DMALL_TOGEMON_ID_ARR;
-    inline static constexpr size_t DMALL_TOGEMON_ID_LEN = sizeof(DMALL_TOGEMON_ID)-1;
+    inline static constexpr size_t DMALL_TOGEMON_ID_LEN = sizeof(DMALL_TOGEMON_ID_ARR)-1;
     inline static constexpr char DMALL_TOGEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Togemon";
     inline static constexpr const char* DMALL_TOGEMON_NAME = DMALL_TOGEMON_NAME_ARR;
     inline static constexpr size_t DMALL_TOGEMON_NAME_LEN = sizeof(DMALL_TOGEMON_NAME_ARR)-1;
@@ -10851,7 +10851,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TOGEMON_X_FQID_LEN = sizeof(DMALL_TOGEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_TOGEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "togemon_x";
     inline static constexpr const char* DMALL_TOGEMON_X_ID = DMALL_TOGEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TOGEMON_X_ID_LEN = sizeof(DMALL_TOGEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_TOGEMON_X_ID_LEN = sizeof(DMALL_TOGEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_TOGEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Togemon X";
     inline static constexpr const char* DMALL_TOGEMON_X_NAME = DMALL_TOGEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_TOGEMON_X_NAME_LEN = sizeof(DMALL_TOGEMON_X_NAME_ARR)-1;
@@ -10869,7 +10869,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TOKOMON_X_FQID_LEN = sizeof(DMALL_TOKOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_TOKOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tokomon_x";
     inline static constexpr const char* DMALL_TOKOMON_X_ID = DMALL_TOKOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TOKOMON_X_ID_LEN = sizeof(DMALL_TOKOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_TOKOMON_X_ID_LEN = sizeof(DMALL_TOKOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_TOKOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tokomon X";
     inline static constexpr const char* DMALL_TOKOMON_X_NAME = DMALL_TOKOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_TOKOMON_X_NAME_LEN = sizeof(DMALL_TOKOMON_X_NAME_ARR)-1;
@@ -10887,7 +10887,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TONOSAMA_GEKOMON_FQID_LEN = sizeof(DMALL_TONOSAMA_GEKOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TONOSAMA_GEKOMON_ID_ARR[] CONFIG_STRING_SECTION = "tonosama_gekomon";
     inline static constexpr const char* DMALL_TONOSAMA_GEKOMON_ID = DMALL_TONOSAMA_GEKOMON_ID_ARR;
-    inline static constexpr size_t DMALL_TONOSAMA_GEKOMON_ID_LEN = sizeof(DMALL_TONOSAMA_GEKOMON_ID)-1;
+    inline static constexpr size_t DMALL_TONOSAMA_GEKOMON_ID_LEN = sizeof(DMALL_TONOSAMA_GEKOMON_ID_ARR)-1;
     inline static constexpr char DMALL_TONOSAMA_GEKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tonosama Gekomon";
     inline static constexpr const char* DMALL_TONOSAMA_GEKOMON_NAME = DMALL_TONOSAMA_GEKOMON_NAME_ARR;
     inline static constexpr size_t DMALL_TONOSAMA_GEKOMON_NAME_LEN = sizeof(DMALL_TONOSAMA_GEKOMON_NAME_ARR)-1;
@@ -10905,7 +10905,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TORIKARA_BALLMON_FQID_LEN = sizeof(DMALL_TORIKARA_BALLMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TORIKARA_BALLMON_ID_ARR[] CONFIG_STRING_SECTION = "torikara_ballmon";
     inline static constexpr const char* DMALL_TORIKARA_BALLMON_ID = DMALL_TORIKARA_BALLMON_ID_ARR;
-    inline static constexpr size_t DMALL_TORIKARA_BALLMON_ID_LEN = sizeof(DMALL_TORIKARA_BALLMON_ID)-1;
+    inline static constexpr size_t DMALL_TORIKARA_BALLMON_ID_LEN = sizeof(DMALL_TORIKARA_BALLMON_ID_ARR)-1;
     inline static constexpr char DMALL_TORIKARA_BALLMON_NAME_ARR[] CONFIG_STRING_SECTION = "Torikara Ballmon";
     inline static constexpr const char* DMALL_TORIKARA_BALLMON_NAME = DMALL_TORIKARA_BALLMON_NAME_ARR;
     inline static constexpr size_t DMALL_TORIKARA_BALLMON_NAME_LEN = sizeof(DMALL_TORIKARA_BALLMON_NAME_ARR)-1;
@@ -10923,7 +10923,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TORTAMON_FQID_LEN = sizeof(DMALL_TORTAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TORTAMON_ID_ARR[] CONFIG_STRING_SECTION = "tortamon";
     inline static constexpr const char* DMALL_TORTAMON_ID = DMALL_TORTAMON_ID_ARR;
-    inline static constexpr size_t DMALL_TORTAMON_ID_LEN = sizeof(DMALL_TORTAMON_ID)-1;
+    inline static constexpr size_t DMALL_TORTAMON_ID_LEN = sizeof(DMALL_TORTAMON_ID_ARR)-1;
     inline static constexpr char DMALL_TORTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tortamon";
     inline static constexpr const char* DMALL_TORTAMON_NAME = DMALL_TORTAMON_NAME_ARR;
     inline static constexpr size_t DMALL_TORTAMON_NAME_LEN = sizeof(DMALL_TORTAMON_NAME_ARR)-1;
@@ -10941,7 +10941,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TOYAGUMON_BLACK_FQID_LEN = sizeof(DMALL_TOYAGUMON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_TOYAGUMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "toyagumon_black";
     inline static constexpr const char* DMALL_TOYAGUMON_BLACK_ID = DMALL_TOYAGUMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_TOYAGUMON_BLACK_ID_LEN = sizeof(DMALL_TOYAGUMON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_TOYAGUMON_BLACK_ID_LEN = sizeof(DMALL_TOYAGUMON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_TOYAGUMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "ToyAgumon (Black)";
     inline static constexpr const char* DMALL_TOYAGUMON_BLACK_NAME = DMALL_TOYAGUMON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_TOYAGUMON_BLACK_NAME_LEN = sizeof(DMALL_TOYAGUMON_BLACK_NAME_ARR)-1;
@@ -10959,7 +10959,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TOYAGUMON_FQID_LEN = sizeof(DMALL_TOYAGUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TOYAGUMON_ID_ARR[] CONFIG_STRING_SECTION = "toyagumon";
     inline static constexpr const char* DMALL_TOYAGUMON_ID = DMALL_TOYAGUMON_ID_ARR;
-    inline static constexpr size_t DMALL_TOYAGUMON_ID_LEN = sizeof(DMALL_TOYAGUMON_ID)-1;
+    inline static constexpr size_t DMALL_TOYAGUMON_ID_LEN = sizeof(DMALL_TOYAGUMON_ID_ARR)-1;
     inline static constexpr char DMALL_TOYAGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "ToyAgumon";
     inline static constexpr const char* DMALL_TOYAGUMON_NAME = DMALL_TOYAGUMON_NAME_ARR;
     inline static constexpr size_t DMALL_TOYAGUMON_NAME_LEN = sizeof(DMALL_TOYAGUMON_NAME_ARR)-1;
@@ -10977,7 +10977,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TRICERAMON_FQID_LEN = sizeof(DMALL_TRICERAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TRICERAMON_ID_ARR[] CONFIG_STRING_SECTION = "triceramon";
     inline static constexpr const char* DMALL_TRICERAMON_ID = DMALL_TRICERAMON_ID_ARR;
-    inline static constexpr size_t DMALL_TRICERAMON_ID_LEN = sizeof(DMALL_TRICERAMON_ID)-1;
+    inline static constexpr size_t DMALL_TRICERAMON_ID_LEN = sizeof(DMALL_TRICERAMON_ID_ARR)-1;
     inline static constexpr char DMALL_TRICERAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Triceramon";
     inline static constexpr const char* DMALL_TRICERAMON_NAME = DMALL_TRICERAMON_NAME_ARR;
     inline static constexpr size_t DMALL_TRICERAMON_NAME_LEN = sizeof(DMALL_TRICERAMON_NAME_ARR)-1;
@@ -10995,7 +10995,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TRICERAMON_X_FQID_LEN = sizeof(DMALL_TRICERAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_TRICERAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "triceramon_x";
     inline static constexpr const char* DMALL_TRICERAMON_X_ID = DMALL_TRICERAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TRICERAMON_X_ID_LEN = sizeof(DMALL_TRICERAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_TRICERAMON_X_ID_LEN = sizeof(DMALL_TRICERAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_TRICERAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Triceramon X";
     inline static constexpr const char* DMALL_TRICERAMON_X_NAME = DMALL_TRICERAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_TRICERAMON_X_NAME_LEN = sizeof(DMALL_TRICERAMON_X_NAME_ARR)-1;
@@ -11013,7 +11013,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TROOPMON_FQID_LEN = sizeof(DMALL_TROOPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TROOPMON_ID_ARR[] CONFIG_STRING_SECTION = "troopmon";
     inline static constexpr const char* DMALL_TROOPMON_ID = DMALL_TROOPMON_ID_ARR;
-    inline static constexpr size_t DMALL_TROOPMON_ID_LEN = sizeof(DMALL_TROOPMON_ID)-1;
+    inline static constexpr size_t DMALL_TROOPMON_ID_LEN = sizeof(DMALL_TROOPMON_ID_ARR)-1;
     inline static constexpr char DMALL_TROOPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Troopmon";
     inline static constexpr const char* DMALL_TROOPMON_NAME = DMALL_TROOPMON_NAME_ARR;
     inline static constexpr size_t DMALL_TROOPMON_NAME_LEN = sizeof(DMALL_TROOPMON_NAME_ARR)-1;
@@ -11031,7 +11031,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TSUBUMON_FQID_LEN = sizeof(DMALL_TSUBUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TSUBUMON_ID_ARR[] CONFIG_STRING_SECTION = "tsubumon";
     inline static constexpr const char* DMALL_TSUBUMON_ID = DMALL_TSUBUMON_ID_ARR;
-    inline static constexpr size_t DMALL_TSUBUMON_ID_LEN = sizeof(DMALL_TSUBUMON_ID)-1;
+    inline static constexpr size_t DMALL_TSUBUMON_ID_LEN = sizeof(DMALL_TSUBUMON_ID_ARR)-1;
     inline static constexpr char DMALL_TSUBUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tsubumon";
     inline static constexpr const char* DMALL_TSUBUMON_NAME = DMALL_TSUBUMON_NAME_ARR;
     inline static constexpr size_t DMALL_TSUBUMON_NAME_LEN = sizeof(DMALL_TSUBUMON_NAME_ARR)-1;
@@ -11049,7 +11049,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TSUCHIDARUMON_FQID_LEN = sizeof(DMALL_TSUCHIDARUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TSUCHIDARUMON_ID_ARR[] CONFIG_STRING_SECTION = "tsuchidarumon";
     inline static constexpr const char* DMALL_TSUCHIDARUMON_ID = DMALL_TSUCHIDARUMON_ID_ARR;
-    inline static constexpr size_t DMALL_TSUCHIDARUMON_ID_LEN = sizeof(DMALL_TSUCHIDARUMON_ID)-1;
+    inline static constexpr size_t DMALL_TSUCHIDARUMON_ID_LEN = sizeof(DMALL_TSUCHIDARUMON_ID_ARR)-1;
     inline static constexpr char DMALL_TSUCHIDARUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tsuchidarumon";
     inline static constexpr const char* DMALL_TSUCHIDARUMON_NAME = DMALL_TSUCHIDARUMON_NAME_ARR;
     inline static constexpr size_t DMALL_TSUCHIDARUMON_NAME_LEN = sizeof(DMALL_TSUCHIDARUMON_NAME_ARR)-1;
@@ -11067,7 +11067,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TSUMEMON_FQID_LEN = sizeof(DMALL_TSUMEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TSUMEMON_ID_ARR[] CONFIG_STRING_SECTION = "tsumemon";
     inline static constexpr const char* DMALL_TSUMEMON_ID = DMALL_TSUMEMON_ID_ARR;
-    inline static constexpr size_t DMALL_TSUMEMON_ID_LEN = sizeof(DMALL_TSUMEMON_ID)-1;
+    inline static constexpr size_t DMALL_TSUMEMON_ID_LEN = sizeof(DMALL_TSUMEMON_ID_ARR)-1;
     inline static constexpr char DMALL_TSUMEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tsumemon";
     inline static constexpr const char* DMALL_TSUMEMON_NAME = DMALL_TSUMEMON_NAME_ARR;
     inline static constexpr size_t DMALL_TSUMEMON_NAME_LEN = sizeof(DMALL_TSUMEMON_NAME_ARR)-1;
@@ -11085,7 +11085,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TSUNOMON_FQID_LEN = sizeof(DMALL_TSUNOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TSUNOMON_ID_ARR[] CONFIG_STRING_SECTION = "tsunomon";
     inline static constexpr const char* DMALL_TSUNOMON_ID = DMALL_TSUNOMON_ID_ARR;
-    inline static constexpr size_t DMALL_TSUNOMON_ID_LEN = sizeof(DMALL_TSUNOMON_ID)-1;
+    inline static constexpr size_t DMALL_TSUNOMON_ID_LEN = sizeof(DMALL_TSUNOMON_ID_ARR)-1;
     inline static constexpr char DMALL_TSUNOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tsunomon";
     inline static constexpr const char* DMALL_TSUNOMON_NAME = DMALL_TSUNOMON_NAME_ARR;
     inline static constexpr size_t DMALL_TSUNOMON_NAME_LEN = sizeof(DMALL_TSUNOMON_NAME_ARR)-1;
@@ -11103,7 +11103,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TURUIEMON_FQID_LEN = sizeof(DMALL_TURUIEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TURUIEMON_ID_ARR[] CONFIG_STRING_SECTION = "turuiemon";
     inline static constexpr const char* DMALL_TURUIEMON_ID = DMALL_TURUIEMON_ID_ARR;
-    inline static constexpr size_t DMALL_TURUIEMON_ID_LEN = sizeof(DMALL_TURUIEMON_ID)-1;
+    inline static constexpr size_t DMALL_TURUIEMON_ID_LEN = sizeof(DMALL_TURUIEMON_ID_ARR)-1;
     inline static constexpr char DMALL_TURUIEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Turuiemon";
     inline static constexpr const char* DMALL_TURUIEMON_NAME = DMALL_TURUIEMON_NAME_ARR;
     inline static constexpr size_t DMALL_TURUIEMON_NAME_LEN = sizeof(DMALL_TURUIEMON_NAME_ARR)-1;
@@ -11121,7 +11121,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TYLOMON_X_FQID_LEN = sizeof(DMALL_TYLOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_TYLOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tylomon_x";
     inline static constexpr const char* DMALL_TYLOMON_X_ID = DMALL_TYLOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TYLOMON_X_ID_LEN = sizeof(DMALL_TYLOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_TYLOMON_X_ID_LEN = sizeof(DMALL_TYLOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_TYLOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tylomon X";
     inline static constexpr const char* DMALL_TYLOMON_X_NAME = DMALL_TYLOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_TYLOMON_X_NAME_LEN = sizeof(DMALL_TYLOMON_X_NAME_ARR)-1;
@@ -11139,7 +11139,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TYRANOMON_FQID_LEN = sizeof(DMALL_TYRANOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_TYRANOMON_ID_ARR[] CONFIG_STRING_SECTION = "tyranomon";
     inline static constexpr const char* DMALL_TYRANOMON_ID = DMALL_TYRANOMON_ID_ARR;
-    inline static constexpr size_t DMALL_TYRANOMON_ID_LEN = sizeof(DMALL_TYRANOMON_ID)-1;
+    inline static constexpr size_t DMALL_TYRANOMON_ID_LEN = sizeof(DMALL_TYRANOMON_ID_ARR)-1;
     inline static constexpr char DMALL_TYRANOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Tyranomon";
     inline static constexpr const char* DMALL_TYRANOMON_NAME = DMALL_TYRANOMON_NAME_ARR;
     inline static constexpr size_t DMALL_TYRANOMON_NAME_LEN = sizeof(DMALL_TYRANOMON_NAME_ARR)-1;
@@ -11157,7 +11157,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_TYRANOMON_X_FQID_LEN = sizeof(DMALL_TYRANOMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_TYRANOMON_X_ID_ARR[] CONFIG_STRING_SECTION = "tyranomon_x";
     inline static constexpr const char* DMALL_TYRANOMON_X_ID = DMALL_TYRANOMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_TYRANOMON_X_ID_LEN = sizeof(DMALL_TYRANOMON_X_ID)-1;
+    inline static constexpr size_t DMALL_TYRANOMON_X_ID_LEN = sizeof(DMALL_TYRANOMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_TYRANOMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Tyranomon X";
     inline static constexpr const char* DMALL_TYRANOMON_X_NAME = DMALL_TYRANOMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_TYRANOMON_X_NAME_LEN = sizeof(DMALL_TYRANOMON_X_NAME_ARR)-1;
@@ -11175,7 +11175,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_FQID_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ULFORCE_V_DRAMON_ID_ARR[] CONFIG_STRING_SECTION = "ulforce_v_dramon";
     inline static constexpr const char* DMALL_ULFORCE_V_DRAMON_ID = DMALL_ULFORCE_V_DRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_ID_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_ID)-1;
+    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_ID_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_ULFORCE_V_DRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ulforce V-dramon";
     inline static constexpr const char* DMALL_ULFORCE_V_DRAMON_NAME = DMALL_ULFORCE_V_DRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_NAME_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_NAME_ARR)-1;
@@ -11193,7 +11193,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_X_FQID_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_ULFORCE_V_DRAMON_X_ID_ARR[] CONFIG_STRING_SECTION = "ulforce_v_dramon_x";
     inline static constexpr const char* DMALL_ULFORCE_V_DRAMON_X_ID = DMALL_ULFORCE_V_DRAMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_X_ID_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_X_ID)-1;
+    inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_X_ID_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_ULFORCE_V_DRAMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Ulforce V-dramon X";
     inline static constexpr const char* DMALL_ULFORCE_V_DRAMON_X_NAME = DMALL_ULFORCE_V_DRAMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_ULFORCE_V_DRAMON_X_NAME_LEN = sizeof(DMALL_ULFORCE_V_DRAMON_X_NAME_ARR)-1;
@@ -11211,7 +11211,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ULTIMATE_BRACHIMON_FQID_LEN = sizeof(DMALL_ULTIMATE_BRACHIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ULTIMATE_BRACHIMON_ID_ARR[] CONFIG_STRING_SECTION = "ultimate_brachimon";
     inline static constexpr const char* DMALL_ULTIMATE_BRACHIMON_ID = DMALL_ULTIMATE_BRACHIMON_ID_ARR;
-    inline static constexpr size_t DMALL_ULTIMATE_BRACHIMON_ID_LEN = sizeof(DMALL_ULTIMATE_BRACHIMON_ID)-1;
+    inline static constexpr size_t DMALL_ULTIMATE_BRACHIMON_ID_LEN = sizeof(DMALL_ULTIMATE_BRACHIMON_ID_ARR)-1;
     inline static constexpr char DMALL_ULTIMATE_BRACHIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Ultimate Brachimon";
     inline static constexpr const char* DMALL_ULTIMATE_BRACHIMON_NAME = DMALL_ULTIMATE_BRACHIMON_NAME_ARR;
     inline static constexpr size_t DMALL_ULTIMATE_BRACHIMON_NAME_LEN = sizeof(DMALL_ULTIMATE_BRACHIMON_NAME_ARR)-1;
@@ -11229,7 +11229,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_UPAMON_FQID_LEN = sizeof(DMALL_UPAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_UPAMON_ID_ARR[] CONFIG_STRING_SECTION = "upamon";
     inline static constexpr const char* DMALL_UPAMON_ID = DMALL_UPAMON_ID_ARR;
-    inline static constexpr size_t DMALL_UPAMON_ID_LEN = sizeof(DMALL_UPAMON_ID)-1;
+    inline static constexpr size_t DMALL_UPAMON_ID_LEN = sizeof(DMALL_UPAMON_ID_ARR)-1;
     inline static constexpr char DMALL_UPAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Upamon";
     inline static constexpr const char* DMALL_UPAMON_NAME = DMALL_UPAMON_NAME_ARR;
     inline static constexpr size_t DMALL_UPAMON_NAME_LEN = sizeof(DMALL_UPAMON_NAME_ARR)-1;
@@ -11247,7 +11247,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VADEMON_FQID_LEN = sizeof(DMALL_VADEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VADEMON_ID_ARR[] CONFIG_STRING_SECTION = "vademon";
     inline static constexpr const char* DMALL_VADEMON_ID = DMALL_VADEMON_ID_ARR;
-    inline static constexpr size_t DMALL_VADEMON_ID_LEN = sizeof(DMALL_VADEMON_ID)-1;
+    inline static constexpr size_t DMALL_VADEMON_ID_LEN = sizeof(DMALL_VADEMON_ID_ARR)-1;
     inline static constexpr char DMALL_VADEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Vademon";
     inline static constexpr const char* DMALL_VADEMON_NAME = DMALL_VADEMON_NAME_ARR;
     inline static constexpr size_t DMALL_VADEMON_NAME_LEN = sizeof(DMALL_VADEMON_NAME_ARR)-1;
@@ -11265,7 +11265,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VALDURMON_FQID_LEN = sizeof(DMALL_VALDURMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VALDURMON_ID_ARR[] CONFIG_STRING_SECTION = "valdurmon";
     inline static constexpr const char* DMALL_VALDURMON_ID = DMALL_VALDURMON_ID_ARR;
-    inline static constexpr size_t DMALL_VALDURMON_ID_LEN = sizeof(DMALL_VALDURMON_ID)-1;
+    inline static constexpr size_t DMALL_VALDURMON_ID_LEN = sizeof(DMALL_VALDURMON_ID_ARR)-1;
     inline static constexpr char DMALL_VALDURMON_NAME_ARR[] CONFIG_STRING_SECTION = "Valdurmon";
     inline static constexpr const char* DMALL_VALDURMON_NAME = DMALL_VALDURMON_NAME_ARR;
     inline static constexpr size_t DMALL_VALDURMON_NAME_LEN = sizeof(DMALL_VALDURMON_NAME_ARR)-1;
@@ -11283,7 +11283,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VAMDEMON_FQID_LEN = sizeof(DMALL_VAMDEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VAMDEMON_ID_ARR[] CONFIG_STRING_SECTION = "vamdemon";
     inline static constexpr const char* DMALL_VAMDEMON_ID = DMALL_VAMDEMON_ID_ARR;
-    inline static constexpr size_t DMALL_VAMDEMON_ID_LEN = sizeof(DMALL_VAMDEMON_ID)-1;
+    inline static constexpr size_t DMALL_VAMDEMON_ID_LEN = sizeof(DMALL_VAMDEMON_ID_ARR)-1;
     inline static constexpr char DMALL_VAMDEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Vamdemon";
     inline static constexpr const char* DMALL_VAMDEMON_NAME = DMALL_VAMDEMON_NAME_ARR;
     inline static constexpr size_t DMALL_VAMDEMON_NAME_LEN = sizeof(DMALL_VAMDEMON_NAME_ARR)-1;
@@ -11301,7 +11301,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VAMDEMON_X_FQID_LEN = sizeof(DMALL_VAMDEMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_VAMDEMON_X_ID_ARR[] CONFIG_STRING_SECTION = "vamdemon_x";
     inline static constexpr const char* DMALL_VAMDEMON_X_ID = DMALL_VAMDEMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_VAMDEMON_X_ID_LEN = sizeof(DMALL_VAMDEMON_X_ID)-1;
+    inline static constexpr size_t DMALL_VAMDEMON_X_ID_LEN = sizeof(DMALL_VAMDEMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_VAMDEMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Vamdemon X";
     inline static constexpr const char* DMALL_VAMDEMON_X_NAME = DMALL_VAMDEMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_VAMDEMON_X_NAME_LEN = sizeof(DMALL_VAMDEMON_X_NAME_ARR)-1;
@@ -11319,7 +11319,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_V_DRAMON_BLACK_FQID_LEN = sizeof(DMALL_V_DRAMON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_V_DRAMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "v_dramon_black";
     inline static constexpr const char* DMALL_V_DRAMON_BLACK_ID = DMALL_V_DRAMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_V_DRAMON_BLACK_ID_LEN = sizeof(DMALL_V_DRAMON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_V_DRAMON_BLACK_ID_LEN = sizeof(DMALL_V_DRAMON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_V_DRAMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "V-dramon (Black)";
     inline static constexpr const char* DMALL_V_DRAMON_BLACK_NAME = DMALL_V_DRAMON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_V_DRAMON_BLACK_NAME_LEN = sizeof(DMALL_V_DRAMON_BLACK_NAME_ARR)-1;
@@ -11337,7 +11337,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_V_DRAMON_FQID_LEN = sizeof(DMALL_V_DRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_V_DRAMON_ID_ARR[] CONFIG_STRING_SECTION = "v_dramon";
     inline static constexpr const char* DMALL_V_DRAMON_ID = DMALL_V_DRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_V_DRAMON_ID_LEN = sizeof(DMALL_V_DRAMON_ID)-1;
+    inline static constexpr size_t DMALL_V_DRAMON_ID_LEN = sizeof(DMALL_V_DRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_V_DRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "V-dramon";
     inline static constexpr const char* DMALL_V_DRAMON_NAME = DMALL_V_DRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_V_DRAMON_NAME_LEN = sizeof(DMALL_V_DRAMON_NAME_ARR)-1;
@@ -11355,7 +11355,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VEGIMON_FQID_LEN = sizeof(DMALL_VEGIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VEGIMON_ID_ARR[] CONFIG_STRING_SECTION = "vegimon";
     inline static constexpr const char* DMALL_VEGIMON_ID = DMALL_VEGIMON_ID_ARR;
-    inline static constexpr size_t DMALL_VEGIMON_ID_LEN = sizeof(DMALL_VEGIMON_ID)-1;
+    inline static constexpr size_t DMALL_VEGIMON_ID_LEN = sizeof(DMALL_VEGIMON_ID_ARR)-1;
     inline static constexpr char DMALL_VEGIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Vegimon";
     inline static constexpr const char* DMALL_VEGIMON_NAME = DMALL_VEGIMON_NAME_ARR;
     inline static constexpr size_t DMALL_VEGIMON_NAME_LEN = sizeof(DMALL_VEGIMON_NAME_ARR)-1;
@@ -11373,7 +11373,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VELGRMON_FQID_LEN = sizeof(DMALL_VELGRMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VELGRMON_ID_ARR[] CONFIG_STRING_SECTION = "velgrmon";
     inline static constexpr const char* DMALL_VELGRMON_ID = DMALL_VELGRMON_ID_ARR;
-    inline static constexpr size_t DMALL_VELGRMON_ID_LEN = sizeof(DMALL_VELGRMON_ID)-1;
+    inline static constexpr size_t DMALL_VELGRMON_ID_LEN = sizeof(DMALL_VELGRMON_ID_ARR)-1;
     inline static constexpr char DMALL_VELGRMON_NAME_ARR[] CONFIG_STRING_SECTION = "Velgrmon";
     inline static constexpr const char* DMALL_VELGRMON_NAME = DMALL_VELGRMON_NAME_ARR;
     inline static constexpr size_t DMALL_VELGRMON_NAME_LEN = sizeof(DMALL_VELGRMON_NAME_ARR)-1;
@@ -11391,7 +11391,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VENOM_VAMDEMON_FQID_LEN = sizeof(DMALL_VENOM_VAMDEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VENOM_VAMDEMON_ID_ARR[] CONFIG_STRING_SECTION = "venom_vamdemon";
     inline static constexpr const char* DMALL_VENOM_VAMDEMON_ID = DMALL_VENOM_VAMDEMON_ID_ARR;
-    inline static constexpr size_t DMALL_VENOM_VAMDEMON_ID_LEN = sizeof(DMALL_VENOM_VAMDEMON_ID)-1;
+    inline static constexpr size_t DMALL_VENOM_VAMDEMON_ID_LEN = sizeof(DMALL_VENOM_VAMDEMON_ID_ARR)-1;
     inline static constexpr char DMALL_VENOM_VAMDEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Venom Vamdemon";
     inline static constexpr const char* DMALL_VENOM_VAMDEMON_NAME = DMALL_VENOM_VAMDEMON_NAME_ARR;
     inline static constexpr size_t DMALL_VENOM_VAMDEMON_NAME_LEN = sizeof(DMALL_VENOM_VAMDEMON_NAME_ARR)-1;
@@ -11409,7 +11409,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VERMILLIMON_FQID_LEN = sizeof(DMALL_VERMILLIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VERMILLIMON_ID_ARR[] CONFIG_STRING_SECTION = "vermillimon";
     inline static constexpr const char* DMALL_VERMILLIMON_ID = DMALL_VERMILLIMON_ID_ARR;
-    inline static constexpr size_t DMALL_VERMILLIMON_ID_LEN = sizeof(DMALL_VERMILLIMON_ID)-1;
+    inline static constexpr size_t DMALL_VERMILLIMON_ID_LEN = sizeof(DMALL_VERMILLIMON_ID_ARR)-1;
     inline static constexpr char DMALL_VERMILLIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Vermillimon";
     inline static constexpr const char* DMALL_VERMILLIMON_NAME = DMALL_VERMILLIMON_NAME_ARR;
     inline static constexpr size_t DMALL_VERMILLIMON_NAME_LEN = sizeof(DMALL_VERMILLIMON_NAME_ARR)-1;
@@ -11427,7 +11427,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_V_MON_FQID_LEN = sizeof(DMALL_V_MON_FQID_ARR)-1;
     inline static constexpr char DMALL_V_MON_ID_ARR[] CONFIG_STRING_SECTION = "v_mon";
     inline static constexpr const char* DMALL_V_MON_ID = DMALL_V_MON_ID_ARR;
-    inline static constexpr size_t DMALL_V_MON_ID_LEN = sizeof(DMALL_V_MON_ID)-1;
+    inline static constexpr size_t DMALL_V_MON_ID_LEN = sizeof(DMALL_V_MON_ID_ARR)-1;
     inline static constexpr char DMALL_V_MON_NAME_ARR[] CONFIG_STRING_SECTION = "V-mon";
     inline static constexpr const char* DMALL_V_MON_NAME = DMALL_V_MON_NAME_ARR;
     inline static constexpr size_t DMALL_V_MON_NAME_LEN = sizeof(DMALL_V_MON_NAME_ARR)-1;
@@ -11445,7 +11445,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VOLCANICDRAMON_FQID_LEN = sizeof(DMALL_VOLCANICDRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VOLCANICDRAMON_ID_ARR[] CONFIG_STRING_SECTION = "volcanicdramon";
     inline static constexpr const char* DMALL_VOLCANICDRAMON_ID = DMALL_VOLCANICDRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_VOLCANICDRAMON_ID_LEN = sizeof(DMALL_VOLCANICDRAMON_ID)-1;
+    inline static constexpr size_t DMALL_VOLCANICDRAMON_ID_LEN = sizeof(DMALL_VOLCANICDRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_VOLCANICDRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Volcanicdramon";
     inline static constexpr const char* DMALL_VOLCANICDRAMON_NAME = DMALL_VOLCANICDRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_VOLCANICDRAMON_NAME_LEN = sizeof(DMALL_VOLCANICDRAMON_NAME_ARR)-1;
@@ -11463,7 +11463,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VOLTO_BAUTAMON_FQID_LEN = sizeof(DMALL_VOLTO_BAUTAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VOLTO_BAUTAMON_ID_ARR[] CONFIG_STRING_SECTION = "volto_bautamon";
     inline static constexpr const char* DMALL_VOLTO_BAUTAMON_ID = DMALL_VOLTO_BAUTAMON_ID_ARR;
-    inline static constexpr size_t DMALL_VOLTO_BAUTAMON_ID_LEN = sizeof(DMALL_VOLTO_BAUTAMON_ID)-1;
+    inline static constexpr size_t DMALL_VOLTO_BAUTAMON_ID_LEN = sizeof(DMALL_VOLTO_BAUTAMON_ID_ARR)-1;
     inline static constexpr char DMALL_VOLTO_BAUTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Volto Bautamon";
     inline static constexpr const char* DMALL_VOLTO_BAUTAMON_NAME = DMALL_VOLTO_BAUTAMON_NAME_ARR;
     inline static constexpr size_t DMALL_VOLTO_BAUTAMON_NAME_LEN = sizeof(DMALL_VOLTO_BAUTAMON_NAME_ARR)-1;
@@ -11481,7 +11481,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_VORVOMON_FQID_LEN = sizeof(DMALL_VORVOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_VORVOMON_ID_ARR[] CONFIG_STRING_SECTION = "vorvomon";
     inline static constexpr const char* DMALL_VORVOMON_ID = DMALL_VORVOMON_ID_ARR;
-    inline static constexpr size_t DMALL_VORVOMON_ID_LEN = sizeof(DMALL_VORVOMON_ID)-1;
+    inline static constexpr size_t DMALL_VORVOMON_ID_LEN = sizeof(DMALL_VORVOMON_ID_ARR)-1;
     inline static constexpr char DMALL_VORVOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Vorvomon";
     inline static constexpr const char* DMALL_VORVOMON_NAME = DMALL_VORVOMON_NAME_ARR;
     inline static constexpr size_t DMALL_VORVOMON_NAME_LEN = sizeof(DMALL_VORVOMON_NAME_ARR)-1;
@@ -11499,7 +11499,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WANYAMON_FQID_LEN = sizeof(DMALL_WANYAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WANYAMON_ID_ARR[] CONFIG_STRING_SECTION = "wanyamon";
     inline static constexpr const char* DMALL_WANYAMON_ID = DMALL_WANYAMON_ID_ARR;
-    inline static constexpr size_t DMALL_WANYAMON_ID_LEN = sizeof(DMALL_WANYAMON_ID)-1;
+    inline static constexpr size_t DMALL_WANYAMON_ID_LEN = sizeof(DMALL_WANYAMON_ID_ARR)-1;
     inline static constexpr char DMALL_WANYAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Wanyamon";
     inline static constexpr const char* DMALL_WANYAMON_NAME = DMALL_WANYAMON_NAME_ARR;
     inline static constexpr size_t DMALL_WANYAMON_NAME_LEN = sizeof(DMALL_WANYAMON_NAME_ARR)-1;
@@ -11517,7 +11517,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WAR_GREYMON_FQID_LEN = sizeof(DMALL_WAR_GREYMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WAR_GREYMON_ID_ARR[] CONFIG_STRING_SECTION = "war_greymon";
     inline static constexpr const char* DMALL_WAR_GREYMON_ID = DMALL_WAR_GREYMON_ID_ARR;
-    inline static constexpr size_t DMALL_WAR_GREYMON_ID_LEN = sizeof(DMALL_WAR_GREYMON_ID)-1;
+    inline static constexpr size_t DMALL_WAR_GREYMON_ID_LEN = sizeof(DMALL_WAR_GREYMON_ID_ARR)-1;
     inline static constexpr char DMALL_WAR_GREYMON_NAME_ARR[] CONFIG_STRING_SECTION = "War Greymon";
     inline static constexpr const char* DMALL_WAR_GREYMON_NAME = DMALL_WAR_GREYMON_NAME_ARR;
     inline static constexpr size_t DMALL_WAR_GREYMON_NAME_LEN = sizeof(DMALL_WAR_GREYMON_NAME_ARR)-1;
@@ -11535,7 +11535,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WAR_GREYMON_X_FQID_LEN = sizeof(DMALL_WAR_GREYMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_WAR_GREYMON_X_ID_ARR[] CONFIG_STRING_SECTION = "war_greymon_x";
     inline static constexpr const char* DMALL_WAR_GREYMON_X_ID = DMALL_WAR_GREYMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_WAR_GREYMON_X_ID_LEN = sizeof(DMALL_WAR_GREYMON_X_ID)-1;
+    inline static constexpr size_t DMALL_WAR_GREYMON_X_ID_LEN = sizeof(DMALL_WAR_GREYMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_WAR_GREYMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "War Greymon X";
     inline static constexpr const char* DMALL_WAR_GREYMON_X_NAME = DMALL_WAR_GREYMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_WAR_GREYMON_X_NAME_LEN = sizeof(DMALL_WAR_GREYMON_X_NAME_ARR)-1;
@@ -11553,7 +11553,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WARU_MONZAEMON_FQID_LEN = sizeof(DMALL_WARU_MONZAEMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WARU_MONZAEMON_ID_ARR[] CONFIG_STRING_SECTION = "waru_monzaemon";
     inline static constexpr const char* DMALL_WARU_MONZAEMON_ID = DMALL_WARU_MONZAEMON_ID_ARR;
-    inline static constexpr size_t DMALL_WARU_MONZAEMON_ID_LEN = sizeof(DMALL_WARU_MONZAEMON_ID)-1;
+    inline static constexpr size_t DMALL_WARU_MONZAEMON_ID_LEN = sizeof(DMALL_WARU_MONZAEMON_ID_ARR)-1;
     inline static constexpr char DMALL_WARU_MONZAEMON_NAME_ARR[] CONFIG_STRING_SECTION = "Waru Monzaemon";
     inline static constexpr const char* DMALL_WARU_MONZAEMON_NAME = DMALL_WARU_MONZAEMON_NAME_ARR;
     inline static constexpr size_t DMALL_WARU_MONZAEMON_NAME_LEN = sizeof(DMALL_WARU_MONZAEMON_NAME_ARR)-1;
@@ -11571,7 +11571,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WARU_SEADRAMON_FQID_LEN = sizeof(DMALL_WARU_SEADRAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WARU_SEADRAMON_ID_ARR[] CONFIG_STRING_SECTION = "waru_seadramon";
     inline static constexpr const char* DMALL_WARU_SEADRAMON_ID = DMALL_WARU_SEADRAMON_ID_ARR;
-    inline static constexpr size_t DMALL_WARU_SEADRAMON_ID_LEN = sizeof(DMALL_WARU_SEADRAMON_ID)-1;
+    inline static constexpr size_t DMALL_WARU_SEADRAMON_ID_LEN = sizeof(DMALL_WARU_SEADRAMON_ID_ARR)-1;
     inline static constexpr char DMALL_WARU_SEADRAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Waru Seadramon";
     inline static constexpr const char* DMALL_WARU_SEADRAMON_NAME = DMALL_WARU_SEADRAMON_NAME_ARR;
     inline static constexpr size_t DMALL_WARU_SEADRAMON_NAME_LEN = sizeof(DMALL_WARU_SEADRAMON_NAME_ARR)-1;
@@ -11589,7 +11589,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WASPMON_FQID_LEN = sizeof(DMALL_WASPMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WASPMON_ID_ARR[] CONFIG_STRING_SECTION = "waspmon";
     inline static constexpr const char* DMALL_WASPMON_ID = DMALL_WASPMON_ID_ARR;
-    inline static constexpr size_t DMALL_WASPMON_ID_LEN = sizeof(DMALL_WASPMON_ID)-1;
+    inline static constexpr size_t DMALL_WASPMON_ID_LEN = sizeof(DMALL_WASPMON_ID_ARR)-1;
     inline static constexpr char DMALL_WASPMON_NAME_ARR[] CONFIG_STRING_SECTION = "Waspmon";
     inline static constexpr const char* DMALL_WASPMON_NAME = DMALL_WASPMON_NAME_ARR;
     inline static constexpr size_t DMALL_WASPMON_NAME_LEN = sizeof(DMALL_WASPMON_NAME_ARR)-1;
@@ -11607,7 +11607,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_FQID_LEN = sizeof(DMALL_WERE_GARURUMON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_WERE_GARURUMON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "were_garurumon_black";
     inline static constexpr const char* DMALL_WERE_GARURUMON_BLACK_ID = DMALL_WERE_GARURUMON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_ID_LEN = sizeof(DMALL_WERE_GARURUMON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_ID_LEN = sizeof(DMALL_WERE_GARURUMON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_WERE_GARURUMON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "Were Garurumon (Black)";
     inline static constexpr const char* DMALL_WERE_GARURUMON_BLACK_NAME = DMALL_WERE_GARURUMON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_WERE_GARURUMON_BLACK_NAME_LEN = sizeof(DMALL_WERE_GARURUMON_BLACK_NAME_ARR)-1;
@@ -11625,7 +11625,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WERE_GARURUMON_FQID_LEN = sizeof(DMALL_WERE_GARURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WERE_GARURUMON_ID_ARR[] CONFIG_STRING_SECTION = "were_garurumon";
     inline static constexpr const char* DMALL_WERE_GARURUMON_ID = DMALL_WERE_GARURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_WERE_GARURUMON_ID_LEN = sizeof(DMALL_WERE_GARURUMON_ID)-1;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_ID_LEN = sizeof(DMALL_WERE_GARURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_WERE_GARURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Were Garurumon";
     inline static constexpr const char* DMALL_WERE_GARURUMON_NAME = DMALL_WERE_GARURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_WERE_GARURUMON_NAME_LEN = sizeof(DMALL_WERE_GARURUMON_NAME_ARR)-1;
@@ -11643,7 +11643,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WERE_GARURUMON_X_FQID_LEN = sizeof(DMALL_WERE_GARURUMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_WERE_GARURUMON_X_ID_ARR[] CONFIG_STRING_SECTION = "were_garurumon_x";
     inline static constexpr const char* DMALL_WERE_GARURUMON_X_ID = DMALL_WERE_GARURUMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_WERE_GARURUMON_X_ID_LEN = sizeof(DMALL_WERE_GARURUMON_X_ID)-1;
+    inline static constexpr size_t DMALL_WERE_GARURUMON_X_ID_LEN = sizeof(DMALL_WERE_GARURUMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_WERE_GARURUMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Were Garurumon X";
     inline static constexpr const char* DMALL_WERE_GARURUMON_X_NAME = DMALL_WERE_GARURUMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_WERE_GARURUMON_X_NAME_LEN = sizeof(DMALL_WERE_GARURUMON_X_NAME_ARR)-1;
@@ -11661,7 +11661,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WHAMON_FQID_LEN = sizeof(DMALL_WHAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WHAMON_ID_ARR[] CONFIG_STRING_SECTION = "whamon";
     inline static constexpr const char* DMALL_WHAMON_ID = DMALL_WHAMON_ID_ARR;
-    inline static constexpr size_t DMALL_WHAMON_ID_LEN = sizeof(DMALL_WHAMON_ID)-1;
+    inline static constexpr size_t DMALL_WHAMON_ID_LEN = sizeof(DMALL_WHAMON_ID_ARR)-1;
     inline static constexpr char DMALL_WHAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Whamon";
     inline static constexpr const char* DMALL_WHAMON_NAME = DMALL_WHAMON_NAME_ARR;
     inline static constexpr size_t DMALL_WHAMON_NAME_LEN = sizeof(DMALL_WHAMON_NAME_ARR)-1;
@@ -11679,7 +11679,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WIZARMON_FQID_LEN = sizeof(DMALL_WIZARMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WIZARMON_ID_ARR[] CONFIG_STRING_SECTION = "wizarmon";
     inline static constexpr const char* DMALL_WIZARMON_ID = DMALL_WIZARMON_ID_ARR;
-    inline static constexpr size_t DMALL_WIZARMON_ID_LEN = sizeof(DMALL_WIZARMON_ID)-1;
+    inline static constexpr size_t DMALL_WIZARMON_ID_LEN = sizeof(DMALL_WIZARMON_ID_ARR)-1;
     inline static constexpr char DMALL_WIZARMON_NAME_ARR[] CONFIG_STRING_SECTION = "Wizarmon";
     inline static constexpr const char* DMALL_WIZARMON_NAME = DMALL_WIZARMON_NAME_ARR;
     inline static constexpr size_t DMALL_WIZARMON_NAME_LEN = sizeof(DMALL_WIZARMON_NAME_ARR)-1;
@@ -11697,7 +11697,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WIZARMON_X_FQID_LEN = sizeof(DMALL_WIZARMON_X_FQID_ARR)-1;
     inline static constexpr char DMALL_WIZARMON_X_ID_ARR[] CONFIG_STRING_SECTION = "wizarmon_x";
     inline static constexpr const char* DMALL_WIZARMON_X_ID = DMALL_WIZARMON_X_ID_ARR;
-    inline static constexpr size_t DMALL_WIZARMON_X_ID_LEN = sizeof(DMALL_WIZARMON_X_ID)-1;
+    inline static constexpr size_t DMALL_WIZARMON_X_ID_LEN = sizeof(DMALL_WIZARMON_X_ID_ARR)-1;
     inline static constexpr char DMALL_WIZARMON_X_NAME_ARR[] CONFIG_STRING_SECTION = "Wizarmon X";
     inline static constexpr const char* DMALL_WIZARMON_X_NAME = DMALL_WIZARMON_X_NAME_ARR;
     inline static constexpr size_t DMALL_WIZARMON_X_NAME_LEN = sizeof(DMALL_WIZARMON_X_NAME_ARR)-1;
@@ -11715,7 +11715,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WOODMON_FQID_LEN = sizeof(DMALL_WOODMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WOODMON_ID_ARR[] CONFIG_STRING_SECTION = "woodmon";
     inline static constexpr const char* DMALL_WOODMON_ID = DMALL_WOODMON_ID_ARR;
-    inline static constexpr size_t DMALL_WOODMON_ID_LEN = sizeof(DMALL_WOODMON_ID)-1;
+    inline static constexpr size_t DMALL_WOODMON_ID_LEN = sizeof(DMALL_WOODMON_ID_ARR)-1;
     inline static constexpr char DMALL_WOODMON_NAME_ARR[] CONFIG_STRING_SECTION = "Woodmon";
     inline static constexpr const char* DMALL_WOODMON_NAME = DMALL_WOODMON_NAME_ARR;
     inline static constexpr size_t DMALL_WOODMON_NAME_LEN = sizeof(DMALL_WOODMON_NAME_ARR)-1;
@@ -11733,7 +11733,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_WORMMON_FQID_LEN = sizeof(DMALL_WORMMON_FQID_ARR)-1;
     inline static constexpr char DMALL_WORMMON_ID_ARR[] CONFIG_STRING_SECTION = "wormmon";
     inline static constexpr const char* DMALL_WORMMON_ID = DMALL_WORMMON_ID_ARR;
-    inline static constexpr size_t DMALL_WORMMON_ID_LEN = sizeof(DMALL_WORMMON_ID)-1;
+    inline static constexpr size_t DMALL_WORMMON_ID_LEN = sizeof(DMALL_WORMMON_ID_ARR)-1;
     inline static constexpr char DMALL_WORMMON_NAME_ARR[] CONFIG_STRING_SECTION = "Wormmon";
     inline static constexpr const char* DMALL_WORMMON_NAME = DMALL_WORMMON_NAME_ARR;
     inline static constexpr size_t DMALL_WORMMON_NAME_LEN = sizeof(DMALL_WORMMON_NAME_ARR)-1;
@@ -11751,7 +11751,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_XIAOMON_FQID_LEN = sizeof(DMALL_XIAOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_XIAOMON_ID_ARR[] CONFIG_STRING_SECTION = "xiaomon";
     inline static constexpr const char* DMALL_XIAOMON_ID = DMALL_XIAOMON_ID_ARR;
-    inline static constexpr size_t DMALL_XIAOMON_ID_LEN = sizeof(DMALL_XIAOMON_ID)-1;
+    inline static constexpr size_t DMALL_XIAOMON_ID_LEN = sizeof(DMALL_XIAOMON_ID_ARR)-1;
     inline static constexpr char DMALL_XIAOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Xiaomon";
     inline static constexpr const char* DMALL_XIAOMON_NAME = DMALL_XIAOMON_NAME_ARR;
     inline static constexpr size_t DMALL_XIAOMON_NAME_LEN = sizeof(DMALL_XIAOMON_NAME_ARR)-1;
@@ -11769,7 +11769,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_XV_MON_BLACK_FQID_LEN = sizeof(DMALL_XV_MON_BLACK_FQID_ARR)-1;
     inline static constexpr char DMALL_XV_MON_BLACK_ID_ARR[] CONFIG_STRING_SECTION = "xv_mon_black";
     inline static constexpr const char* DMALL_XV_MON_BLACK_ID = DMALL_XV_MON_BLACK_ID_ARR;
-    inline static constexpr size_t DMALL_XV_MON_BLACK_ID_LEN = sizeof(DMALL_XV_MON_BLACK_ID)-1;
+    inline static constexpr size_t DMALL_XV_MON_BLACK_ID_LEN = sizeof(DMALL_XV_MON_BLACK_ID_ARR)-1;
     inline static constexpr char DMALL_XV_MON_BLACK_NAME_ARR[] CONFIG_STRING_SECTION = "XV-mon (Black)";
     inline static constexpr const char* DMALL_XV_MON_BLACK_NAME = DMALL_XV_MON_BLACK_NAME_ARR;
     inline static constexpr size_t DMALL_XV_MON_BLACK_NAME_LEN = sizeof(DMALL_XV_MON_BLACK_NAME_ARR)-1;
@@ -11787,7 +11787,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_XV_MON_FQID_LEN = sizeof(DMALL_XV_MON_FQID_ARR)-1;
     inline static constexpr char DMALL_XV_MON_ID_ARR[] CONFIG_STRING_SECTION = "xv_mon";
     inline static constexpr const char* DMALL_XV_MON_ID = DMALL_XV_MON_ID_ARR;
-    inline static constexpr size_t DMALL_XV_MON_ID_LEN = sizeof(DMALL_XV_MON_ID)-1;
+    inline static constexpr size_t DMALL_XV_MON_ID_LEN = sizeof(DMALL_XV_MON_ID_ARR)-1;
     inline static constexpr char DMALL_XV_MON_NAME_ARR[] CONFIG_STRING_SECTION = "XV-mon";
     inline static constexpr const char* DMALL_XV_MON_NAME = DMALL_XV_MON_NAME_ARR;
     inline static constexpr size_t DMALL_XV_MON_NAME_LEN = sizeof(DMALL_XV_MON_NAME_ARR)-1;
@@ -11805,7 +11805,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YAAMON_FQID_LEN = sizeof(DMALL_YAAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YAAMON_ID_ARR[] CONFIG_STRING_SECTION = "yaamon";
     inline static constexpr const char* DMALL_YAAMON_ID = DMALL_YAAMON_ID_ARR;
-    inline static constexpr size_t DMALL_YAAMON_ID_LEN = sizeof(DMALL_YAAMON_ID)-1;
+    inline static constexpr size_t DMALL_YAAMON_ID_LEN = sizeof(DMALL_YAAMON_ID_ARR)-1;
     inline static constexpr char DMALL_YAAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yaamon";
     inline static constexpr const char* DMALL_YAAMON_NAME = DMALL_YAAMON_NAME_ARR;
     inline static constexpr size_t DMALL_YAAMON_NAME_LEN = sizeof(DMALL_YAAMON_NAME_ARR)-1;
@@ -11823,7 +11823,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YANMAMON_FQID_LEN = sizeof(DMALL_YANMAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YANMAMON_ID_ARR[] CONFIG_STRING_SECTION = "yanmamon";
     inline static constexpr const char* DMALL_YANMAMON_ID = DMALL_YANMAMON_ID_ARR;
-    inline static constexpr size_t DMALL_YANMAMON_ID_LEN = sizeof(DMALL_YANMAMON_ID)-1;
+    inline static constexpr size_t DMALL_YANMAMON_ID_LEN = sizeof(DMALL_YANMAMON_ID_ARR)-1;
     inline static constexpr char DMALL_YANMAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yanmamon";
     inline static constexpr const char* DMALL_YANMAMON_NAME = DMALL_YANMAMON_NAME_ARR;
     inline static constexpr size_t DMALL_YANMAMON_NAME_LEN = sizeof(DMALL_YANMAMON_NAME_ARR)-1;
@@ -11841,7 +11841,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YATAGARAMON_2006_FQID_LEN = sizeof(DMALL_YATAGARAMON_2006_FQID_ARR)-1;
     inline static constexpr char DMALL_YATAGARAMON_2006_ID_ARR[] CONFIG_STRING_SECTION = "yatagaramon_2006";
     inline static constexpr const char* DMALL_YATAGARAMON_2006_ID = DMALL_YATAGARAMON_2006_ID_ARR;
-    inline static constexpr size_t DMALL_YATAGARAMON_2006_ID_LEN = sizeof(DMALL_YATAGARAMON_2006_ID)-1;
+    inline static constexpr size_t DMALL_YATAGARAMON_2006_ID_LEN = sizeof(DMALL_YATAGARAMON_2006_ID_ARR)-1;
     inline static constexpr char DMALL_YATAGARAMON_2006_NAME_ARR[] CONFIG_STRING_SECTION = "Yatagaramon (2006)";
     inline static constexpr const char* DMALL_YATAGARAMON_2006_NAME = DMALL_YATAGARAMON_2006_NAME_ARR;
     inline static constexpr size_t DMALL_YATAGARAMON_2006_NAME_LEN = sizeof(DMALL_YATAGARAMON_2006_NAME_ARR)-1;
@@ -11859,7 +11859,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YATAGARAMON_FQID_LEN = sizeof(DMALL_YATAGARAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YATAGARAMON_ID_ARR[] CONFIG_STRING_SECTION = "yatagaramon";
     inline static constexpr const char* DMALL_YATAGARAMON_ID = DMALL_YATAGARAMON_ID_ARR;
-    inline static constexpr size_t DMALL_YATAGARAMON_ID_LEN = sizeof(DMALL_YATAGARAMON_ID)-1;
+    inline static constexpr size_t DMALL_YATAGARAMON_ID_LEN = sizeof(DMALL_YATAGARAMON_ID_ARR)-1;
     inline static constexpr char DMALL_YATAGARAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yatagaramon";
     inline static constexpr const char* DMALL_YATAGARAMON_NAME = DMALL_YATAGARAMON_NAME_ARR;
     inline static constexpr size_t DMALL_YATAGARAMON_NAME_LEN = sizeof(DMALL_YATAGARAMON_NAME_ARR)-1;
@@ -11877,7 +11877,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YOUKOMON_FQID_LEN = sizeof(DMALL_YOUKOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YOUKOMON_ID_ARR[] CONFIG_STRING_SECTION = "youkomon";
     inline static constexpr const char* DMALL_YOUKOMON_ID = DMALL_YOUKOMON_ID_ARR;
-    inline static constexpr size_t DMALL_YOUKOMON_ID_LEN = sizeof(DMALL_YOUKOMON_ID)-1;
+    inline static constexpr size_t DMALL_YOUKOMON_ID_LEN = sizeof(DMALL_YOUKOMON_ID_ARR)-1;
     inline static constexpr char DMALL_YOUKOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Youkomon";
     inline static constexpr const char* DMALL_YOUKOMON_NAME = DMALL_YOUKOMON_NAME_ARR;
     inline static constexpr size_t DMALL_YOUKOMON_NAME_LEN = sizeof(DMALL_YOUKOMON_NAME_ARR)-1;
@@ -11895,7 +11895,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YUKI_AGUMON_FQID_LEN = sizeof(DMALL_YUKI_AGUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YUKI_AGUMON_ID_ARR[] CONFIG_STRING_SECTION = "yuki_agumon";
     inline static constexpr const char* DMALL_YUKI_AGUMON_ID = DMALL_YUKI_AGUMON_ID_ARR;
-    inline static constexpr size_t DMALL_YUKI_AGUMON_ID_LEN = sizeof(DMALL_YUKI_AGUMON_ID)-1;
+    inline static constexpr size_t DMALL_YUKI_AGUMON_ID_LEN = sizeof(DMALL_YUKI_AGUMON_ID_ARR)-1;
     inline static constexpr char DMALL_YUKI_AGUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yuki Agumon";
     inline static constexpr const char* DMALL_YUKI_AGUMON_NAME = DMALL_YUKI_AGUMON_NAME_ARR;
     inline static constexpr size_t DMALL_YUKI_AGUMON_NAME_LEN = sizeof(DMALL_YUKI_AGUMON_NAME_ARR)-1;
@@ -11913,7 +11913,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YUKIDARUMON_FQID_LEN = sizeof(DMALL_YUKIDARUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YUKIDARUMON_ID_ARR[] CONFIG_STRING_SECTION = "yukidarumon";
     inline static constexpr const char* DMALL_YUKIDARUMON_ID = DMALL_YUKIDARUMON_ID_ARR;
-    inline static constexpr size_t DMALL_YUKIDARUMON_ID_LEN = sizeof(DMALL_YUKIDARUMON_ID)-1;
+    inline static constexpr size_t DMALL_YUKIDARUMON_ID_LEN = sizeof(DMALL_YUKIDARUMON_ID_ARR)-1;
     inline static constexpr char DMALL_YUKIDARUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yukidarumon";
     inline static constexpr const char* DMALL_YUKIDARUMON_NAME = DMALL_YUKIDARUMON_NAME_ARR;
     inline static constexpr size_t DMALL_YUKIDARUMON_NAME_LEN = sizeof(DMALL_YUKIDARUMON_NAME_ARR)-1;
@@ -11931,7 +11931,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YUKIMI_BOTAMON_FQID_LEN = sizeof(DMALL_YUKIMI_BOTAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YUKIMI_BOTAMON_ID_ARR[] CONFIG_STRING_SECTION = "yukimi_botamon";
     inline static constexpr const char* DMALL_YUKIMI_BOTAMON_ID = DMALL_YUKIMI_BOTAMON_ID_ARR;
-    inline static constexpr size_t DMALL_YUKIMI_BOTAMON_ID_LEN = sizeof(DMALL_YUKIMI_BOTAMON_ID)-1;
+    inline static constexpr size_t DMALL_YUKIMI_BOTAMON_ID_LEN = sizeof(DMALL_YUKIMI_BOTAMON_ID_ARR)-1;
     inline static constexpr char DMALL_YUKIMI_BOTAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yukimi Botamon";
     inline static constexpr const char* DMALL_YUKIMI_BOTAMON_NAME = DMALL_YUKIMI_BOTAMON_NAME_ARR;
     inline static constexpr size_t DMALL_YUKIMI_BOTAMON_NAME_LEN = sizeof(DMALL_YUKIMI_BOTAMON_NAME_ARR)-1;
@@ -11949,7 +11949,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_YURAMON_FQID_LEN = sizeof(DMALL_YURAMON_FQID_ARR)-1;
     inline static constexpr char DMALL_YURAMON_ID_ARR[] CONFIG_STRING_SECTION = "yuramon";
     inline static constexpr const char* DMALL_YURAMON_ID = DMALL_YURAMON_ID_ARR;
-    inline static constexpr size_t DMALL_YURAMON_ID_LEN = sizeof(DMALL_YURAMON_ID)-1;
+    inline static constexpr size_t DMALL_YURAMON_ID_LEN = sizeof(DMALL_YURAMON_ID_ARR)-1;
     inline static constexpr char DMALL_YURAMON_NAME_ARR[] CONFIG_STRING_SECTION = "Yuramon";
     inline static constexpr const char* DMALL_YURAMON_NAME = DMALL_YURAMON_NAME_ARR;
     inline static constexpr size_t DMALL_YURAMON_NAME_LEN = sizeof(DMALL_YURAMON_NAME_ARR)-1;
@@ -11967,7 +11967,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ZASSOUMON_FQID_LEN = sizeof(DMALL_ZASSOUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ZASSOUMON_ID_ARR[] CONFIG_STRING_SECTION = "zassoumon";
     inline static constexpr const char* DMALL_ZASSOUMON_ID = DMALL_ZASSOUMON_ID_ARR;
-    inline static constexpr size_t DMALL_ZASSOUMON_ID_LEN = sizeof(DMALL_ZASSOUMON_ID)-1;
+    inline static constexpr size_t DMALL_ZASSOUMON_ID_LEN = sizeof(DMALL_ZASSOUMON_ID_ARR)-1;
     inline static constexpr char DMALL_ZASSOUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zassoumon";
     inline static constexpr const char* DMALL_ZASSOUMON_NAME = DMALL_ZASSOUMON_NAME_ARR;
     inline static constexpr size_t DMALL_ZASSOUMON_NAME_LEN = sizeof(DMALL_ZASSOUMON_NAME_ARR)-1;
@@ -11985,7 +11985,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ZENIMON_FQID_LEN = sizeof(DMALL_ZENIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ZENIMON_ID_ARR[] CONFIG_STRING_SECTION = "zenimon";
     inline static constexpr const char* DMALL_ZENIMON_ID = DMALL_ZENIMON_ID_ARR;
-    inline static constexpr size_t DMALL_ZENIMON_ID_LEN = sizeof(DMALL_ZENIMON_ID)-1;
+    inline static constexpr size_t DMALL_ZENIMON_ID_LEN = sizeof(DMALL_ZENIMON_ID_ARR)-1;
     inline static constexpr char DMALL_ZENIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zenimon";
     inline static constexpr const char* DMALL_ZENIMON_NAME = DMALL_ZENIMON_NAME_ARR;
     inline static constexpr size_t DMALL_ZENIMON_NAME_LEN = sizeof(DMALL_ZENIMON_NAME_ARR)-1;
@@ -12003,7 +12003,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ZERIMON_FQID_LEN = sizeof(DMALL_ZERIMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ZERIMON_ID_ARR[] CONFIG_STRING_SECTION = "zerimon";
     inline static constexpr const char* DMALL_ZERIMON_ID = DMALL_ZERIMON_ID_ARR;
-    inline static constexpr size_t DMALL_ZERIMON_ID_LEN = sizeof(DMALL_ZERIMON_ID)-1;
+    inline static constexpr size_t DMALL_ZERIMON_ID_LEN = sizeof(DMALL_ZERIMON_ID_ARR)-1;
     inline static constexpr char DMALL_ZERIMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zerimon";
     inline static constexpr const char* DMALL_ZERIMON_NAME = DMALL_ZERIMON_NAME_ARR;
     inline static constexpr size_t DMALL_ZERIMON_NAME_LEN = sizeof(DMALL_ZERIMON_NAME_ARR)-1;
@@ -12021,7 +12021,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ZUDOMON_FQID_LEN = sizeof(DMALL_ZUDOMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ZUDOMON_ID_ARR[] CONFIG_STRING_SECTION = "zudomon";
     inline static constexpr const char* DMALL_ZUDOMON_ID = DMALL_ZUDOMON_ID_ARR;
-    inline static constexpr size_t DMALL_ZUDOMON_ID_LEN = sizeof(DMALL_ZUDOMON_ID)-1;
+    inline static constexpr size_t DMALL_ZUDOMON_ID_LEN = sizeof(DMALL_ZUDOMON_ID_ARR)-1;
     inline static constexpr char DMALL_ZUDOMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zudomon";
     inline static constexpr const char* DMALL_ZUDOMON_NAME = DMALL_ZUDOMON_NAME_ARR;
     inline static constexpr size_t DMALL_ZUDOMON_NAME_LEN = sizeof(DMALL_ZUDOMON_NAME_ARR)-1;
@@ -12039,7 +12039,7 @@ namespace bongocat::assets {
     inline static constexpr size_t DMALL_ZURUMON_FQID_LEN = sizeof(DMALL_ZURUMON_FQID_ARR)-1;
     inline static constexpr char DMALL_ZURUMON_ID_ARR[] CONFIG_STRING_SECTION = "zurumon";
     inline static constexpr const char* DMALL_ZURUMON_ID = DMALL_ZURUMON_ID_ARR;
-    inline static constexpr size_t DMALL_ZURUMON_ID_LEN = sizeof(DMALL_ZURUMON_ID)-1;
+    inline static constexpr size_t DMALL_ZURUMON_ID_LEN = sizeof(DMALL_ZURUMON_ID_ARR)-1;
     inline static constexpr char DMALL_ZURUMON_NAME_ARR[] CONFIG_STRING_SECTION = "Zurumon";
     inline static constexpr const char* DMALL_ZURUMON_NAME = DMALL_ZURUMON_NAME_ARR;
     inline static constexpr size_t DMALL_ZURUMON_NAME_LEN = sizeof(DMALL_ZURUMON_NAME_ARR)-1;
