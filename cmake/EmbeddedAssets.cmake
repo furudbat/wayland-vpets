@@ -82,7 +82,7 @@ SECTIONS
     _bongocat_start_assets = .;
 ]=]
   )
-  foreach(asset_set IN LISTS linked_sets ITEMS common)
+  foreach(asset_set IN LISTS linked_sets)
     string(
       APPEND ld
       "    /* ${asset_set} */\n"
@@ -92,8 +92,18 @@ SECTIONS
       "    KEEP(*(.assets.${asset_set}.image_sizes))\n"
       "    KEEP(*(.assets.${asset_set}.dims))\n"
       "    KEEP(*(.assets.${asset_set}.sprite_settings))\n"
-      "    KEEP(*(.assets.${asset_set}.data_evol))\n"
     )
+    # @NOTE(10): sets without evolution data get no evol sub range
+    if(NOT asset_set MATCHES "^(bongocat|misc|ms_agent)$")
+      string(
+        APPEND ld
+        "    . = ALIGN(CONSTANT(MAXPAGESIZE));\n"
+        "    _bongocat_start_assets_${asset_set}_evol_data = .;\n"
+        "    KEEP(*(.assets.${asset_set}.evol_data))\n"
+        "    . = ALIGN(CONSTANT(MAXPAGESIZE));\n"
+        "    _bongocat_stop_assets_${asset_set}_evol_data = .;\n"
+      )
+    endif()
     if(asset_set STREQUAL "common")
       # safety net: sets linked only transitively (not found above) still end up in the evicted block
       string(
@@ -103,8 +113,18 @@ SECTIONS
         "    KEEP(*(.assets.*.image_sizes))\n"
         "    KEEP(*(.assets.*.dims))\n"
         "    KEEP(*(.assets.*.sprite_settings))\n"
-        "    KEEP(*(.assets.*.data_evol))\n"
       )
+      # @NOTE(10): sets without evolution data get no evol sub range
+      if(NOT asset_set MATCHES "^(bongocat|misc|ms_agent)$")
+        string(
+          APPEND ld
+          "    . = ALIGN(CONSTANT(MAXPAGESIZE));\n"
+          "    _bongocat_start_assets_${asset_set}_evol_data = .;\n"
+          "    KEEP(*(.assets.*.evol_data))\n"
+          "    . = ALIGN(CONSTANT(MAXPAGESIZE));\n"
+          "    _bongocat_stop_assets_${asset_set}_evol_data = .;\n"
+        )
+      endif()
     endif()
     string(APPEND ld "    . = ALIGN(CONSTANT(MAXPAGESIZE));\n" "    _bongocat_stop_assets_${asset_set} = .;\n")
   endforeach()

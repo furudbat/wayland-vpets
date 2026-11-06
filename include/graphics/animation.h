@@ -69,8 +69,14 @@ namespace details {
   ::bongocat::animation::details::assets_set_region_t {                        \
     _bongocat_start_assets_##set, _bongocat_stop_assets_##set, ".assets." #set \
   }
+#define BONGOCAT_ASSETS_SET_SUB_REGION(set, sub)                                                        \
+  ::bongocat::animation::details::assets_set_region_t {                                                 \
+    _bongocat_start_assets_##set##_##sub, _bongocat_stop_assets_##set##_##sub, ".assets." #set "." #sub \
+  }
 
   assets_set_region_t get_assets_set_region(const animation_shared_memory_t& anim_shm);
+  assets_set_region_t get_assets_set_region_evol_data(const animation_shared_memory_t& anim_shm);
+
   void load_assets_set_readonly_sections(const assets_set_region_t& region);
   void unload_assets_set_readonly_sections(const assets_set_region_t& region);
 

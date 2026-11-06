@@ -70,15 +70,25 @@
 // weak: null for sets that are not linked into this executable
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(bongocat);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(min_dm);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(min_dm, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(dm);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dm, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(dm20);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dm20, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(dmx);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dmx, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(dmc);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dmc, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(pen);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pen, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(pen20);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pen20, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(dmall);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dmall, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(pkmn);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pkmn, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(pmd);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pmd, evol_data);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(ms_agent);
 BONGOCAT_ASSETS_DECLARE_SET_RANGE(misc);
 /// @NOTE(assets): 8. add the set range (see BONGOCAT_ASSET_SETS in
@@ -87,7 +97,6 @@ BONGOCAT_ASSETS_DECLARE_SET_RANGE(misc);
 namespace bongocat::animation {
 
 namespace details {
-  /// set of the animation that is currently in shm (for evolution data updates outside hot_load_animation)
   assets_set_region_t get_assets_set_region(const animation_shared_memory_t& anim_shm) {
     switch (anim_shm.anim_type) {
     case config::config_animation_sprite_sheet_layout_t::None:
@@ -166,6 +175,83 @@ namespace details {
       case config::config_animation_custom_set_t::pmd:
         if constexpr (features::EnablePmdEmbeddedAssets) {
           return BONGOCAT_ASSETS_SET_REGION(pmd);
+        }
+        return {};
+      }
+      return {};
+      /// @NOTE(assets): 9. map the animation set to its range
+    }
+    return {};
+  }
+  assets_set_region_t get_assets_set_region_evol_data(const animation_shared_memory_t& anim_shm) {
+    switch (anim_shm.anim_type) {
+    case config::config_animation_sprite_sheet_layout_t::None:
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Dm:
+      switch (anim_shm.anim_dm_set) {
+      case config::config_animation_dm_set_t::None:
+        return {};
+      case config::config_animation_dm_set_t::min_dm:
+        if constexpr (features::EnableMinDmEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(min_dm, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dm:
+        if constexpr (features::EnableFullDmEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dm, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dm20:
+        if constexpr (features::EnableDm20EmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dm20, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmx:
+        if constexpr (features::EnableDmxEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dmx, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::pen:
+        if constexpr (features::EnablePenEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(pen, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::pen20:
+        if constexpr (features::EnablePen20EmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(pen20, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmc:
+        if constexpr (features::EnableDmcEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dmc, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmall:
+        if constexpr (features::EnableDmAllEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dmall, evol_data);
+        }
+        return {};
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Pkmn:
+      if constexpr (features::EnablePkmnEmbeddedAssets) {
+        return BONGOCAT_ASSETS_SET_SUB_REGION(pkmn, evol_data);
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Custom:
+      switch (anim_shm.anim_custom_set) {
+      case config::config_animation_custom_set_t::None:
+      case config::config_animation_custom_set_t::custom:  // loaded from file, nothing embedded
+        return {};
+      case config::config_animation_custom_set_t::misc:
+        return {};
+      case config::config_animation_custom_set_t::pmd:
+        if constexpr (features::EnablePmdEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(pmd, evol_data);
         }
         return {};
       }

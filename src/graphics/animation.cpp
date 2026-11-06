@@ -7015,7 +7015,7 @@ update_config_reload_sprite_sheet(animation_thread_context_t& ctx,
   // init evolution data
   if constexpr (features::EnableEvolution) {
     assert(ctx.shm);
-    const details::assets_set_scope_t assets_scope{details::get_assets_set_region(*ctx.shm)};
+    const details::assets_set_scope_t assets_scope{details::get_assets_set_region_evol_data(*ctx.shm)};
     details::update_evolution_data(*ctx.shm);
     details::unload_assets_readonly_sections();
   }

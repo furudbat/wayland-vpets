@@ -48,11 +48,11 @@ inline static constexpr size_t CUSTOM_SPRITE_SHEET_MAX_ROWS = 18;
 
 // custom (sprite sheet)
 inline static constexpr char CUSTOM_ID_ARR[] CONFIG_STRING_SECTION = "custom";
-inline static constexpr const char *CUSTOM_ID CONFIG_STRING_REF_SECTION = CUSTOM_ID_ARR;
-inline static constexpr std::size_t CUSTOM_ID_LEN CONFIG_STRING_SECTION = sizeof(CUSTOM_ID_ARR) - 1;
+inline static constexpr const char *CUSTOM_ID = CUSTOM_ID_ARR;
+inline static constexpr std::size_t CUSTOM_ID_LEN = sizeof(CUSTOM_ID_ARR) - 1;
 inline static constexpr char CUSTOM_NAME_ARR[] CONFIG_STRING_SECTION = "custom";
-inline static constexpr const char *CUSTOM_NAME CONFIG_STRING_REF_SECTION = CUSTOM_NAME_ARR;
-inline static constexpr std::size_t CUSTOM_NAME_LEN CONFIG_STRING_SECTION = sizeof(CUSTOM_NAME_ARR) - 1;
+inline static constexpr const char *CUSTOM_NAME = CUSTOM_NAME_ARR;
+inline static constexpr std::size_t CUSTOM_NAME_LEN = sizeof(CUSTOM_NAME_ARR) - 1;
 
 static inline constexpr int CUSTOM_HAPPY_CHANCE_PERCENT = 60;
 

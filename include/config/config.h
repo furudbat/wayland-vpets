@@ -461,8 +461,8 @@ loaded_config_result_t load_from_string(const char *content, platform::input::in
 }  // namespace bongocat::config
 
 extern "C" {
-extern const char _bongocat_start_config_str[];
-extern const char _bongocat_stop_config_str[];
+extern const char _bongocat_start_config[];
+extern const char _bongocat_stop_config[];
 }
 
 #endif  // BONGOCAT_CONFIG_H

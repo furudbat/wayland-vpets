@@ -37,9 +37,12 @@
 #else
 #  define BONGOCAT_ASSETS_EXTERN_C extern
 #endif
-#define BONGOCAT_ASSETS_DECLARE_SET_RANGE(set)                                       \
-  BONGOCAT_ASSETS_EXTERN_C const char _bongocat_start_assets_##set[] BONGOCAT_WEAK; \
+#define BONGOCAT_ASSETS_DECLARE_SET_RANGE(set)                                        \
+  BONGOCAT_ASSETS_EXTERN_C const char _bongocat_start_assets_##set[] BONGOCAT_WEAK;   \
   BONGOCAT_ASSETS_EXTERN_C const char _bongocat_stop_assets_##set[] BONGOCAT_WEAK
+#define BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(set, sub)                                     \
+  BONGOCAT_ASSETS_EXTERN_C const char _bongocat_start_assets_##set##_##sub[] BONGOCAT_WEAK;   \
+  BONGOCAT_ASSETS_EXTERN_C const char _bongocat_stop_assets_##set##_##sub[] BONGOCAT_WEAK
 
 // =============================================================================
 // config load/reload block (.config)
