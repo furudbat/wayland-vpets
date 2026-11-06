@@ -11,7 +11,7 @@ All notable changes to this project will be documented in this file.
 ### Improved
 
 - smaller binaries: win 0.8 MB overall
-- RAM usage mostly below 10MB
+- RAM usage: win some MBs (in some cases -15% or 7MB)
 
 ### [5.1.0] - 2026-11-04
 
