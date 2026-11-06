@@ -25,7 +25,7 @@ if(NOT CMAKE_BUILD_TYPE)
   set(CMAKE_BUILD_TYPE Release CACHE STRING "Choose the build type." FORCE)
 endif()
 
-project(bongocat LANGUAGES C CXX VERSION 5.1.0)
+project(bongocat LANGUAGES C CXX VERSION 6.0.0)
 
 # Feature Flags
 include(CMakeDependentOption)
@@ -112,7 +112,7 @@ option(
 option(FEATURE_USE_PNGLE "Use pngle for assets (png) loader (Less RAM usage, more loading time; replace stb_image)" OFF)
 option(FEATURE_CUSTOM_SPRITE_SHEETS "Enable custom sprite sheet at runtime" ON)
 
-option(FEATURE_EVOLUTION "Add Evolution for V-Pets (dm and pkmn) (Beta)" ON)
+option(FEATURE_EVOLUTION "Add Evolution for V-Pets (dm and pkmn)" ON)
 
 option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
