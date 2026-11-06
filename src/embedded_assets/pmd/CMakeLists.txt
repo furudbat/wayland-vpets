@@ -11,7 +11,7 @@ target_sources(
     pmd_get_sprite_sheet.cpp
     pmd_get_sprite_sheet_settings.cpp
     pmd_config_parse_animation_name.cpp
-    pmd_images.c
+    pmd_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:pmd_get_evolution_data.cpp>
 )
 target_compile_options(assets_pmd PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

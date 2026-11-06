@@ -20,6 +20,27 @@ namespace bongocat::platform {
 int join_thread_with_timeout(pthread_t& thread, time_ms_t timeout_ms);
 int stop_thread_graceful_or_cancel(pthread_t& thread, atomic_bool& running_flag);
 
+/// Drop the resident pages of a read-only, file-backed region (madvise MADV_DONTNEED).
+/// The pages are faulted back in from the page cache on the next access.
+/// [start, stop) must be page-aligned (see "Page alignment" linker script in CMakeLists.txt) and must NOT contain
+/// relocated data (pointers), otherwise the unrelocated file bytes would be re-read.
+/// A null or empty range (weak symbol of a set that is not linked) is a no-op.
+/// @return false if the region is misaligned or madvise failed (nothing evicted)
+bool evict_readonly_region(const char *start, const char *stop, const char *name);
+
+/// madvise(MADV_RANDOM) on a read-only, file-backed region: no read-ahead and no fault-around,
+/// so touching one small image only maps its own page(s), not the 64K+ of neighbouring assets.
+/// Call once (the advice sticks to the mapping), before the first access.
+bool advise_random_access_region(const char *start, const char *stop, const char *name);
+
+/// madvise(MADV_WILLNEED) on a read-only, file-backed region: read the WHOLE region in one batch (async read-ahead
+/// into the page cache). Only for regions that get read completely anyway (config strings), NOT for asset sets.
+bool prefetch_readonly_region(const char *start, const char *stop, const char *name);
+
+/// Bytes of [start, stop) currently mapped (resident) in THIS process (/proc/self/pagemap), 0 on error / empty range.
+/// For debugging/logging only (a syscall + one read per 256 pages).
+size_t resident_region_bytes(const char *start, const char *stop);
+
 class Mutex {
 public:
   pthread_mutex_t pt_mutex{};

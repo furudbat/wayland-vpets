@@ -5,10 +5,8 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/misc/assets_misc_features.h"
-#include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
 #include "embedded_assets/ms_agent/assets_ms_agent_features.h"
-#include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/pkmn/assets_pkmn_features.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
@@ -16,6 +14,8 @@
 #include "embedded_assets/pmd/pmd_sprite.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/embedded_assets_dms.h"
+#include "graphics/embedded_assets_misc.h"
+#include "graphics/embedded_assets_ms_agent.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/custom/load_custom.h"
 #include "image_loader/custom/load_custom_features.h"
@@ -108,7 +108,6 @@ static inline constexpr int MAX_CUSTOM_ROWS = assets::CUSTOM_SPRITE_SHEET_MAX_RO
 static_assert(MIN_FPS > 0, "FPS cannot be zero, for math reasons");
 
 // Default settings
-// static inline constexpr auto DEFAULT_DEVICE = "/dev/input/event4";
 static inline constexpr auto DEFAULT_CONFIG_FILE_PATH = "bongocat.conf";
 
 static inline constexpr int32_t DEFAULT_CAT_X_OFFSET = 100;
@@ -136,105 +135,111 @@ static inline constexpr bool DEFAULT_ENABLE_DEBUG = true;
 static inline constexpr bool DEFAULT_ENABLE_DEBUG = false;
 #endif
 
-static inline constexpr auto CAT_X_OFFSET_KEY CONFIG_STRING_SECTION = "cat_x_offset";
-static inline constexpr auto CAT_Y_OFFSET_KEY CONFIG_STRING_SECTION = "cat_y_offset";
-static inline constexpr auto CAT_HEIGHT_KEY CONFIG_STRING_SECTION = "cat_height";
-static inline constexpr auto OVERLAY_HEIGHT_KEY CONFIG_STRING_SECTION = "overlay_height";
-static inline constexpr auto OVERLAY_POSITION_KEY CONFIG_STRING_SECTION = "overlay_position";
-static inline constexpr auto ANIMATION_NAME_KEY CONFIG_STRING_SECTION = "animation_name";
-static inline constexpr auto INVERT_COLOR_KEY CONFIG_STRING_SECTION = "invert_color";
-static inline constexpr auto PADDING_X_KEY CONFIG_STRING_SECTION = "padding_x";
-static inline constexpr auto PADDING_Y_KEY CONFIG_STRING_SECTION = "padding_y";
-static inline constexpr auto IDLE_FRAME_KEY CONFIG_STRING_SECTION = "idle_frame";
-static inline constexpr auto ENABLE_SCHEDULED_SLEEP_KEY CONFIG_STRING_SECTION = "enable_scheduled_sleep";
-static inline constexpr auto SLEEP_BEGIN_KEY CONFIG_STRING_SECTION = "sleep_begin";
-static inline constexpr auto SLEEP_END_KEY CONFIG_STRING_SECTION = "sleep_end";
-static inline constexpr auto IDLE_SLEEP_TIMEOUT_KEY CONFIG_STRING_SECTION = "idle_sleep_timeout";
-static inline constexpr auto HAPPY_KPM_KEY CONFIG_STRING_SECTION = "happy_kpm";
-static inline constexpr auto KEYPRESS_DURATION_KEY CONFIG_STRING_SECTION = "keypress_duration";
-static inline constexpr auto TEST_ANIMATION_DURATION_KEY CONFIG_STRING_SECTION = "test_animation_duration";
-static inline constexpr auto TEST_ANIMATION_INTERVAL_KEY CONFIG_STRING_SECTION = "test_animation_interval";
-static inline constexpr auto ANIMATION_SPEED_KEY CONFIG_STRING_SECTION = "animation_speed";
-static inline constexpr auto FPS_KEY CONFIG_STRING_SECTION = "fps";
-static inline constexpr auto OVERLAY_OPACITY_KEY CONFIG_STRING_SECTION = "overlay_opacity";
-static inline constexpr auto ENABLE_DEBUG_KEY CONFIG_STRING_SECTION = "enable_debug";
-static inline constexpr auto KEYBOARD_DEVICE_KEY CONFIG_STRING_SECTION = "keyboard_device";
-static inline constexpr auto KEYBOARD_DEVICES_KEY CONFIG_STRING_SECTION = "keyboard_devices";
-static inline constexpr auto ANIMATION_INDEX_KEY CONFIG_STRING_SECTION = "animation_index";
-static inline constexpr auto LAYER_KEY CONFIG_STRING_SECTION = "layer";  ///< DEPRECATED: use overlay_layer
-static inline constexpr auto OVERLAY_LAYER_KEY CONFIG_STRING_SECTION = "overlay_layer";
-static inline constexpr auto CAT_ALIGN_KEY CONFIG_STRING_SECTION = "cat_align";
-static inline constexpr auto IDLE_ANIMATION_KEY CONFIG_STRING_SECTION = "idle_animation";
-static inline constexpr auto INPUT_FPS_KEY CONFIG_STRING_SECTION = "input_fps";
-static inline constexpr auto MIRROR_X_KEY CONFIG_STRING_SECTION = "mirror_x";
-static inline constexpr auto MIRROR_Y_KEY CONFIG_STRING_SECTION = "mirror_y";
-static inline constexpr auto RANDOM_KEY CONFIG_STRING_SECTION = "random";
-static inline constexpr auto RANDOM_ON_RELOAD_KEY CONFIG_STRING_SECTION = "random_on_reload";
-static inline constexpr auto ENABLE_ANTIALIASING_KEY CONFIG_STRING_SECTION = "enable_antialiasing";
-static inline constexpr auto UPDATE_RATE_KEY CONFIG_STRING_SECTION = "update_rate";
-static inline constexpr auto CPU_THRESHOLD_KEY CONFIG_STRING_SECTION = "cpu_threshold";
-static inline constexpr auto CPU_RUNNING_FACTOR_KEY CONFIG_STRING_SECTION = "cpu_running_factor";
-static inline constexpr auto MOVEMENT_RADIUS_KEY CONFIG_STRING_SECTION = "movement_radius";
-static inline constexpr auto ENABLE_MOVEMENT_DEBUG_KEY CONFIG_STRING_SECTION = "enable_movement_debug";
-static inline constexpr auto MOVEMENT_SPEED_KEY CONFIG_STRING_SECTION = "movement_speed";
-static inline constexpr auto MOVEMENT_WAIT_FACTOR_KEY CONFIG_STRING_SECTION = "movement_wait_factor";
-static inline constexpr auto SCREEN_WIDTH_KEY CONFIG_STRING_SECTION = "screen_width";
-static inline constexpr auto MONITOR_KEY CONFIG_STRING_SECTION = "monitor";
-static inline constexpr auto OUTPUT_NAME_KEY CONFIG_STRING_SECTION = "output_name";  // monitor alt key
-static inline constexpr auto ENABLE_HAND_MAPPING_KEY CONFIG_STRING_SECTION = "enable_hand_mapping";
-static inline constexpr auto HOTPLUG_SCAN_INTERVAL_KEY CONFIG_STRING_SECTION = "hotplug_scan_interval";
-static inline constexpr auto DISABLE_FULLSCREEN_HIDE_KEY CONFIG_STRING_SECTION = "disable_fullscreen_hide";
-static inline constexpr auto KEYBOARD_NAME_KEY CONFIG_STRING_SECTION = "keyboard_name";
-static inline constexpr auto EVOLUTION_KEY CONFIG_STRING_SECTION = "evolution";
-static inline constexpr auto EVOLUTION_SPEED_FACTOR_KEY CONFIG_STRING_SECTION = "evolution_speed_factor";
+static inline constexpr const char CAT_X_OFFSET_KEY[] CONFIG_STRING_SECTION = "cat_x_offset";
+static inline constexpr const char CAT_Y_OFFSET_KEY[] CONFIG_STRING_SECTION = "cat_y_offset";
+static inline constexpr const char CAT_HEIGHT_KEY[] CONFIG_STRING_SECTION = "cat_height";
+static inline constexpr const char OVERLAY_HEIGHT_KEY[] CONFIG_STRING_SECTION = "overlay_height";
+static inline constexpr const char OVERLAY_POSITION_KEY[] CONFIG_STRING_SECTION = "overlay_position";
+static inline constexpr const char ANIMATION_NAME_KEY[] CONFIG_STRING_SECTION = "animation_name";
+static inline constexpr const char INVERT_COLOR_KEY[] CONFIG_STRING_SECTION = "invert_color";
+static inline constexpr const char PADDING_X_KEY[] CONFIG_STRING_SECTION = "padding_x";
+static inline constexpr const char PADDING_Y_KEY[] CONFIG_STRING_SECTION = "padding_y";
+static inline constexpr const char IDLE_FRAME_KEY[] CONFIG_STRING_SECTION = "idle_frame";
+static inline constexpr const char ENABLE_SCHEDULED_SLEEP_KEY[] CONFIG_STRING_SECTION = "enable_scheduled_sleep";
+static inline constexpr const char SLEEP_BEGIN_KEY[] CONFIG_STRING_SECTION = "sleep_begin";
+static inline constexpr const char SLEEP_END_KEY[] CONFIG_STRING_SECTION = "sleep_end";
+static inline constexpr const char IDLE_SLEEP_TIMEOUT_KEY[] CONFIG_STRING_SECTION = "idle_sleep_timeout";
+static inline constexpr const char HAPPY_KPM_KEY[] CONFIG_STRING_SECTION = "happy_kpm";
+static inline constexpr const char KEYPRESS_DURATION_KEY[] CONFIG_STRING_SECTION = "keypress_duration";
+static inline constexpr const char TEST_ANIMATION_DURATION_KEY[] CONFIG_STRING_SECTION = "test_animation_duration";
+static inline constexpr const char TEST_ANIMATION_INTERVAL_KEY[] CONFIG_STRING_SECTION = "test_animation_interval";
+static inline constexpr const char ANIMATION_SPEED_KEY[] CONFIG_STRING_SECTION = "animation_speed";
+static inline constexpr const char FPS_KEY[] CONFIG_STRING_SECTION = "fps";
+static inline constexpr const char OVERLAY_OPACITY_KEY[] CONFIG_STRING_SECTION = "overlay_opacity";
+static inline constexpr const char ENABLE_DEBUG_KEY[] CONFIG_STRING_SECTION = "enable_debug";
+static inline constexpr const char KEYBOARD_DEVICE_KEY[] CONFIG_STRING_SECTION = "keyboard_device";
+static inline constexpr const char KEYBOARD_DEVICES_KEY[] CONFIG_STRING_SECTION = "keyboard_devices";
+static inline constexpr const char ANIMATION_INDEX_KEY[] CONFIG_STRING_SECTION = "animation_index";
+static inline constexpr const char LAYER_KEY[] CONFIG_STRING_SECTION = "layer";  ///< DEPRECATED: use overlay_layer
+static inline constexpr const char OVERLAY_LAYER_KEY[] CONFIG_STRING_SECTION = "overlay_layer";
+static inline constexpr const char CAT_ALIGN_KEY[] CONFIG_STRING_SECTION = "cat_align";
+static inline constexpr const char IDLE_ANIMATION_KEY[] CONFIG_STRING_SECTION = "idle_animation";
+static inline constexpr const char INPUT_FPS_KEY[] CONFIG_STRING_SECTION = "input_fps";
+static inline constexpr const char MIRROR_X_KEY[] CONFIG_STRING_SECTION = "mirror_x";
+static inline constexpr const char MIRROR_Y_KEY[] CONFIG_STRING_SECTION = "mirror_y";
+static inline constexpr const char RANDOM_KEY[] CONFIG_STRING_SECTION = "random";
+static inline constexpr const char RANDOM_ON_RELOAD_KEY[] CONFIG_STRING_SECTION = "random_on_reload";
+static inline constexpr const char ENABLE_ANTIALIASING_KEY[] CONFIG_STRING_SECTION = "enable_antialiasing";
+static inline constexpr const char UPDATE_RATE_KEY[] CONFIG_STRING_SECTION = "update_rate";
+static inline constexpr const char CPU_THRESHOLD_KEY[] CONFIG_STRING_SECTION = "cpu_threshold";
+static inline constexpr const char CPU_RUNNING_FACTOR_KEY[] CONFIG_STRING_SECTION = "cpu_running_factor";
+static inline constexpr const char MOVEMENT_RADIUS_KEY[] CONFIG_STRING_SECTION = "movement_radius";
+static inline constexpr const char ENABLE_MOVEMENT_DEBUG_KEY[] CONFIG_STRING_SECTION = "enable_movement_debug";
+static inline constexpr const char MOVEMENT_SPEED_KEY[] CONFIG_STRING_SECTION = "movement_speed";
+static inline constexpr const char MOVEMENT_WAIT_FACTOR_KEY[] CONFIG_STRING_SECTION = "movement_wait_factor";
+static inline constexpr const char SCREEN_WIDTH_KEY[] CONFIG_STRING_SECTION = "screen_width";
+static inline constexpr const char MONITOR_KEY[] CONFIG_STRING_SECTION = "monitor";
+static inline constexpr const char OUTPUT_NAME_KEY[] CONFIG_STRING_SECTION = "output_name";  // monitor alt key
+static inline constexpr const char ENABLE_HAND_MAPPING_KEY[] CONFIG_STRING_SECTION = "enable_hand_mapping";
+static inline constexpr const char HOTPLUG_SCAN_INTERVAL_KEY[] CONFIG_STRING_SECTION = "hotplug_scan_interval";
+static inline constexpr const char DISABLE_FULLSCREEN_HIDE_KEY[] CONFIG_STRING_SECTION = "disable_fullscreen_hide";
+static inline constexpr const char KEYBOARD_NAME_KEY[] CONFIG_STRING_SECTION = "keyboard_name";
+static inline constexpr const char EVOLUTION_KEY[] CONFIG_STRING_SECTION = "evolution";
+static inline constexpr const char EVOLUTION_SPEED_FACTOR_KEY[] CONFIG_STRING_SECTION = "evolution_speed_factor";
 
-static inline constexpr auto CUSTOM_SPRITE_SHEET_FILENAME_KEY CONFIG_STRING_SECTION = "custom_sprite_sheet_filename";
-static inline constexpr auto CUSTOM_IDLE_FRAMES_KEY CONFIG_STRING_SECTION = "custom_idle_frames";
-static inline constexpr auto CUSTOM_BORING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_boring_frames";
-static inline constexpr auto CUSTOM_START_WRITING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_start_writing_frames";
-static inline constexpr auto CUSTOM_WRITING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_writing_frames";
-static inline constexpr auto CUSTOM_END_WRITING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_end_writing_frames";
-static inline constexpr auto CUSTOM_HAPPY_FRAMES_KEY CONFIG_STRING_SECTION = "custom_happy_frames";
-static inline constexpr auto CUSTOM_ASLEEP_FRAMES_KEY CONFIG_STRING_SECTION = "custom_asleep_frames";
-static inline constexpr auto CUSTOM_SLEEP_FRAMES_KEY CONFIG_STRING_SECTION = "custom_sleep_frames";
-static inline constexpr auto CUSTOM_WAKE_UP_FRAMES_KEY CONFIG_STRING_SECTION = "custom_wake_up_frames";
-static inline constexpr auto CUSTOM_START_WORKING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_start_working_frames";
-static inline constexpr auto CUSTOM_WORKING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_working_frames";
-static inline constexpr auto CUSTOM_END_WORKING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_end_working_frames";
-static inline constexpr auto CUSTOM_START_MOVING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_start_moving_frames";
-static inline constexpr auto CUSTOM_MOVING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_moving_frames";
-static inline constexpr auto CUSTOM_END_MOVING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_end_moving_frames";
-static inline constexpr auto CUSTOM_START_RUNNING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_start_running_frames";
-static inline constexpr auto CUSTOM_RUNNING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_running_frames";
-static inline constexpr auto CUSTOM_END_RUNNING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_end_running_frames";
+static inline constexpr const char CUSTOM_SPRITE_SHEET_FILENAME_KEY[] CONFIG_STRING_SECTION =
+    "custom_sprite_sheet_filename";
+static inline constexpr const char CUSTOM_IDLE_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_idle_frames";
+static inline constexpr const char CUSTOM_BORING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_boring_frames";
+static inline constexpr const char CUSTOM_START_WRITING_FRAMES_KEY[] CONFIG_STRING_SECTION =
+    "custom_start_writing_frames";
+static inline constexpr const char CUSTOM_WRITING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_writing_frames";
+static inline constexpr const char CUSTOM_END_WRITING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_end_writing_frames";
+static inline constexpr const char CUSTOM_HAPPY_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_happy_frames";
+static inline constexpr const char CUSTOM_ASLEEP_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_asleep_frames";
+static inline constexpr const char CUSTOM_SLEEP_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_sleep_frames";
+static inline constexpr const char CUSTOM_WAKE_UP_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_wake_up_frames";
+static inline constexpr const char CUSTOM_START_WORKING_FRAMES_KEY[] CONFIG_STRING_SECTION =
+    "custom_start_working_frames";
+static inline constexpr const char CUSTOM_WORKING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_working_frames";
+static inline constexpr const char CUSTOM_END_WORKING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_end_working_frames";
+static inline constexpr const char CUSTOM_START_MOVING_FRAMES_KEY[] CONFIG_STRING_SECTION =
+    "custom_start_moving_frames";
+static inline constexpr const char CUSTOM_MOVING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_moving_frames";
+static inline constexpr const char CUSTOM_END_MOVING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_end_moving_frames";
+static inline constexpr const char CUSTOM_START_RUNNING_FRAMES_KEY[] CONFIG_STRING_SECTION =
+    "custom_start_running_frames";
+static inline constexpr const char CUSTOM_RUNNING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_running_frames";
+static inline constexpr const char CUSTOM_END_RUNNING_FRAMES_KEY[] CONFIG_STRING_SECTION = "custom_end_running_frames";
 
-static inline constexpr auto CUSTOM_TOGGLE_WRITING_FRAMES_KEY CONFIG_STRING_SECTION = "custom_toggle_writing_frames";
-static inline constexpr auto CUSTOM_TOGGLE_WRITING_FRAMES_RANDOM_KEY CONFIG_STRING_SECTION =
+static inline constexpr const char CUSTOM_TOGGLE_WRITING_FRAMES_KEY[] CONFIG_STRING_SECTION =
+    "custom_toggle_writing_frames";
+static inline constexpr const char CUSTOM_TOGGLE_WRITING_FRAMES_RANDOM_KEY[] CONFIG_STRING_SECTION =
     "custom_toggle_writing_frames_random";
-static inline constexpr auto CUSTOM_MIRROR_X_MOVING_KEY CONFIG_STRING_SECTION = "custom_mirror_x_moving";
+static inline constexpr const char CUSTOM_MIRROR_X_MOVING_KEY[] CONFIG_STRING_SECTION = "custom_mirror_x_moving";
 
-static inline constexpr auto CUSTOM_IDLE_ROW_KEY CONFIG_STRING_SECTION = "custom_idle_row";
-static inline constexpr auto CUSTOM_BORING_ROW_KEY CONFIG_STRING_SECTION = "custom_boring_row";
-static inline constexpr auto CUSTOM_START_WRITING_ROW_KEY CONFIG_STRING_SECTION = "custom_start_writing_row";
-static inline constexpr auto CUSTOM_WRITING_ROW_KEY CONFIG_STRING_SECTION = "custom_writing_row";
-static inline constexpr auto CUSTOM_END_WRITING_ROW_KEY CONFIG_STRING_SECTION = "custom_end_writing_row";
-static inline constexpr auto CUSTOM_HAPPY_ROW_KEY CONFIG_STRING_SECTION = "custom_happy_row";
-static inline constexpr auto CUSTOM_ASLEEP_ROW_KEY CONFIG_STRING_SECTION = "custom_asleep_row";
-static inline constexpr auto CUSTOM_SLEEP_ROW_KEY CONFIG_STRING_SECTION = "custom_sleep_row";
-static inline constexpr auto CUSTOM_WAKE_UP_ROW_KEY CONFIG_STRING_SECTION = "custom_wake_up_row";
-static inline constexpr auto CUSTOM_START_WORKING_ROW_KEY CONFIG_STRING_SECTION = "custom_start_working_row";
-static inline constexpr auto CUSTOM_WORKING_ROW_KEY CONFIG_STRING_SECTION = "custom_working_row";
-static inline constexpr auto CUSTOM_END_WORKING_ROW_KEY CONFIG_STRING_SECTION = "custom_end_working_row";
-static inline constexpr auto CUSTOM_START_MOVING_ROW_KEY CONFIG_STRING_SECTION = "custom_start_moving_row";
-static inline constexpr auto CUSTOM_MOVING_ROW_KEY CONFIG_STRING_SECTION = "custom_moving_row";
-static inline constexpr auto CUSTOM_END_MOVING_ROW_KEY CONFIG_STRING_SECTION = "custom_end_moving_row";
-static inline constexpr auto CUSTOM_START_RUNNING_ROW_KEY CONFIG_STRING_SECTION = "custom_start_running_row";
-static inline constexpr auto CUSTOM_RUNNING_ROW_KEY CONFIG_STRING_SECTION = "custom_running_row";
-static inline constexpr auto CUSTOM_END_RUNNING_ROW_KEY CONFIG_STRING_SECTION = "custom_end_running_row";
-static inline constexpr auto CUSTOM_START_EVOLVING_ROW_KEY CONFIG_STRING_SECTION = "custom_start_evolving_row";
-static inline constexpr auto CUSTOM_EVOLVING_ROW_KEY CONFIG_STRING_SECTION = "custom_evolving_row";
-static inline constexpr auto CUSTOM_AFTER_EVOLVING_ROW_KEY CONFIG_STRING_SECTION = "custom_after_evolving_row";
-static inline constexpr auto CUSTOM_ROWS_KEY CONFIG_STRING_SECTION = "custom_rows";
+static inline constexpr const char CUSTOM_IDLE_ROW_KEY[] CONFIG_STRING_SECTION = "custom_idle_row";
+static inline constexpr const char CUSTOM_BORING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_boring_row";
+static inline constexpr const char CUSTOM_START_WRITING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_start_writing_row";
+static inline constexpr const char CUSTOM_WRITING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_writing_row";
+static inline constexpr const char CUSTOM_END_WRITING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_end_writing_row";
+static inline constexpr const char CUSTOM_HAPPY_ROW_KEY[] CONFIG_STRING_SECTION = "custom_happy_row";
+static inline constexpr const char CUSTOM_ASLEEP_ROW_KEY[] CONFIG_STRING_SECTION = "custom_asleep_row";
+static inline constexpr const char CUSTOM_SLEEP_ROW_KEY[] CONFIG_STRING_SECTION = "custom_sleep_row";
+static inline constexpr const char CUSTOM_WAKE_UP_ROW_KEY[] CONFIG_STRING_SECTION = "custom_wake_up_row";
+static inline constexpr const char CUSTOM_START_WORKING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_start_working_row";
+static inline constexpr const char CUSTOM_WORKING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_working_row";
+static inline constexpr const char CUSTOM_END_WORKING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_end_working_row";
+static inline constexpr const char CUSTOM_START_MOVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_start_moving_row";
+static inline constexpr const char CUSTOM_MOVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_moving_row";
+static inline constexpr const char CUSTOM_END_MOVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_end_moving_row";
+static inline constexpr const char CUSTOM_START_RUNNING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_start_running_row";
+static inline constexpr const char CUSTOM_RUNNING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_running_row";
+static inline constexpr const char CUSTOM_END_RUNNING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_end_running_row";
+static inline constexpr const char CUSTOM_START_EVOLVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_start_evolving_row";
+static inline constexpr const char CUSTOM_EVOLVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_evolving_row";
+static inline constexpr const char CUSTOM_AFTER_EVOLVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_after_evolving_row";
+static inline constexpr const char CUSTOM_ROWS_KEY[] CONFIG_STRING_SECTION = "custom_rows";
 
 inline static constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR = "program_start";
 
@@ -1981,6 +1986,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
 
     // check for MS agent
     if constexpr (features::EnableMsAgentEmbeddedAssets) {
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
       // check for ms pets (clippy)
       if (strcmp(value, CLIPPY_NAME) == 0 || strcmp(value, CLIPPY_ID) == 0 || strcmp(value, CLIPPY_FQID) == 0 ||
           strcmp(value, CLIPPY_FQNAME) == 0) {
@@ -1994,7 +2000,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         */
         config._loaded_animation_fqname = duplicate_string(CLIPPY_FQNAME);
       }
-#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+#  ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
       /// @NOTE(assets): 4. add more MS Agents here
       // Links
       if (strcmp(value, LINKS_NAME) == 0 || strcmp(value, LINKS_ID) == 0 || strcmp(value, LINKS_FQID) == 0 ||
@@ -2035,9 +2041,10 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         */
         config._loaded_animation_fqname = duplicate_string(MERLIN_FQNAME);
       }
-#endif
+#  endif
 
       animation_found = config.animation_index >= 0;
+#endif
     }
 
     // check for pkmn
@@ -2087,6 +2094,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
 
     // check for Misc (neko)
     if constexpr (features::EnableMiscEmbeddedAssets) {
+#ifdef FEATURE_MISC_EMBEDDED_ASSETS
       // check neko
       if (strcmp(value, MISC_NEKO_NAME) == 0 || strcmp(value, MISC_NEKO_ID) == 0 ||
           strcmp(value, MISC_NEKO_FQID) == 0 || strcmp(value, MISC_NEKO_FQNAME) == 0) {
@@ -2102,6 +2110,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         config._loaded_animation_fqname = duplicate_string(MISC_NEKO_FQNAME);
         animation_found = config.animation_index >= 0;
       }
+#endif
     }
     /// @NOTE(assets): 4. add more config animation_name parsring here
 
@@ -2634,6 +2643,13 @@ static loaded_config_result_t config_after_parsing(config_t& ret, platform::inpu
   return loaded_config_result_t(bongocat::move(ret), bongocat::move(errors));
 }
 
+static void load_config_readonly_sections() {
+  platform::advise_random_access_region(_bongocat_start_config, _bongocat_stop_config, ".bongocat.config");
+}
+static void unload_config_readonly_sections() {
+  platform::evict_readonly_region(_bongocat_start_config, _bongocat_stop_config, ".bongocat.config");
+}
+
 // =============================================================================
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
@@ -2654,12 +2670,14 @@ loaded_config_result_t load(const char *config_file_path, platform::input::input
 
   // Parse config file and override defaults
   {
+    load_config_readonly_sections();
     const auto load_result = [&]() {
       if (strcmp(config_file_path, "-") == 0) {
         return config_parse_stdin(ret, overwrite_parameters);
       }
       return config_parse_file(ret, config_file_path, overwrite_parameters);
     }();
+    unload_config_readonly_sections();
     errors = config_chain_parse_result(errors, load_result);
     if (ret._strict && errors.fatal != config_parsing_fatal_t::Success) {
       return loaded_config_result_t(bongocat::move(errors));

@@ -19,6 +19,7 @@
 #include "utils/error.h"
 #include "utils/memory.h"
 #include "utils/system_error.h"
+#include "utils/system_memory.h"
 
 #include <cassert>
 #include <cerrno>
@@ -455,37 +456,6 @@ static int process_handle_toggle(const char *program_name, const char *pid_filen
 // CONFIGURATION MANAGEMENT MODULE
 // =============================================================================
 
-struct madvise_region {
-  const char *start{};
-  const char *stop{};
-  const char *name{};
-};
-void unload_config_readonly_sections() {
-  static constexpr madvise_region evictable_regions[] = {
-      {_bongocat_start_config_str, _bongocat_stop_config_str, ".config.str"},
-  };
-
-  for (const auto& region : evictable_regions) {
-    const uintptr_t start = reinterpret_cast<uintptr_t>(region.start);
-    const uintptr_t stop = reinterpret_cast<uintptr_t>(region.stop);
-    assert(stop >= start);
-    const size_t size = stop - start;
-    if (size == 0) {
-      continue;
-    }
-
-    // @TODO: check for MAXPAGESIZE
-    // assert((start % 4096) == 0);
-    // assert((size % 4096) == 0);
-
-    if (madvise(reinterpret_cast<void *>(start), size, MADV_DONTNEED) != 0) {
-      BONGOCAT_LOG_WARNING("madvise: failed to evict %s: %s", region.name, strerror(errno));
-    } else {
-      BONGOCAT_LOG_VERBOSE("madvise: evicted %s: %zu kb", region.name, size / 1024);
-    }
-  }
-}
-
 static bool config_devices_changed(const config::config_t& old_config, const config::config_t& new_config) {
   if (old_config.num_keyboard_devices != new_config.num_keyboard_devices) {
     return true;
@@ -707,11 +677,6 @@ static void config_reload_callback() {
                        atomic_load(&get_main_context().input->ready));
   BONGOCAT_LOG_VERBOSE("Update: running %d (ready=%d)", atomic_load(&get_main_context().update->_running),
                        atomic_load(&get_main_context().update->ready));
-
-  {
-    platform::LockGuard guard(get_main_context().sync_configs);
-    unload_config_readonly_sections();
-  }
 }
 
 static bongocat_error_t start_config_watcher(main_context_t& ctx, const char *config_file) {
@@ -1270,7 +1235,6 @@ int main(int argc, char *argv[]) {
   BONGOCAT_LOG_INFO("Bar dimensions: %dx%d", ctx.wayland->thread_context._screen_width, ctx.config.overlay_height);
 
   BONGOCAT_LOG_INFO("Bongo Cat Overlay configured successfully");
-  unload_config_readonly_sections();
 
   // trigger initial rendering
   platform::wayland::request_render(*ctx.animation);

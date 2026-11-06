@@ -3,15 +3,15 @@
 # === Usage Check ===
 if [[ $# -lt 3 ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
-    echo "Example: $0 assets/pmd assets/input/pmd include/graphics/embedded_assets/pmd_images.h src/embedded_assets/pmd_images.c include/embedded_assets/pmd.hpp include/embedded_assets/pmd_sprite.h src/embedded_assets/pmd_images.c"
+    echo "Example: $0 assets/pmd assets/input/pmd include/graphics/embedded_assets/pmd_images.h src/embedded_assets/pmd_images.cpp include/embedded_assets/pmd.hpp include/embedded_assets/pmd_sprite.h src/embedded_assets/pmd_images.c"
     exit 1
 fi
 
 # === Arguments ===
 INPUT_DIR="$1"
 OG_INPUT_DIR="$2"
-C_HEADER_IMAGES_OUT="$3"
-C_SOURCE_IMAGES_OUT="$4"
+CPP_HEADER_IMAGES_OUT="$3"
+CPP_SOURCE_IMAGES_OUT="$4"
 CPP_HEADER_OUT="$5"
 CPP_HEADER_GET_SPRITE_OUT="$6"
 CPP_SOURCE_GET_SPRITE_OUT="$7"
@@ -41,8 +41,8 @@ set -- "${POSITIONAL_ARGS[@]}"
 
 INPUT_DIR="${POSITIONAL_ARGS[0]}"
 OG_INPUT_DIR="${POSITIONAL_ARGS[1]}"
-C_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
-C_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
+CPP_HEADER_IMAGES_OUT="${POSITIONAL_ARGS[2]}"
+CPP_SOURCE_IMAGES_OUT="${POSITIONAL_ARGS[3]}"
 CPP_HEADER_OUT="${POSITIONAL_ARGS[4]}"
 CPP_HEADER_GET_SPRITE_OUT="${POSITIONAL_ARGS[5]}"
 CPP_SOURCE_GET_SPRITE_OUT="${POSITIONAL_ARGS[6]}"
@@ -59,8 +59,8 @@ fi
 
 #echo $INPUT_DIR
 #echo $OG_INPUT_DIR
-#echo $C_HEADER_IMAGES_OUT
-#echo $C_SOURCE_IMAGES_OUT
+#echo $CPP_HEADER_IMAGES_OUT
+#echo $CPP_SOURCE_IMAGES_OUT
 #echo $CPP_HEADER_OUT
 #echo $CPP_HEADER_GET_SPRITE_OUT
 #echo $CPP_SOURCE_GET_SPRITE_OUT
@@ -71,7 +71,7 @@ fi
 #echo $LAYOUT
 #exit 1
 
-if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$C_HEADER_IMAGES_OUT" || -z "$C_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" || -z "$LAYOUT" ]]; then
+if [[ -z "$INPUT_DIR" || -z "$OG_INPUT_DIR" || -z "$CPP_HEADER_IMAGES_OUT" || -z "$CPP_SOURCE_IMAGES_OUT" || -z "$CPP_HEADER_OUT" || -z "$LAYOUT" ]]; then
     echo "Usage: $0 <input-dir> <og-input-dir> <output-header> <output-source>"
     exit 1
 fi
@@ -86,8 +86,8 @@ ASSETS_PREFIX_LOWER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:upper:]' '[:lower:]')
 ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
 # Clean output files at the start
-> "$C_HEADER_IMAGES_OUT"
-> "$C_SOURCE_IMAGES_OUT"
+> "$CPP_HEADER_IMAGES_OUT"
+> "$CPP_SOURCE_IMAGES_OUT"
 > "$CPP_HEADER_OUT"
 > "$CPP_HEADER_GET_SPRITE_OUT"
 > "$CPP_SOURCE_GET_SPRITE_OUT"
@@ -96,13 +96,21 @@ ASSETS_PREFIX_UPPER=$(echo "$ASSETS_PREFIX_CLEAN" | tr '[:lower:]' '[:upper:]')
 
 # === Header file intro ===
 C_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CUSTOM_${ASSETS_PREFIX_UPPER}_H"
-echo "#ifndef $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
-echo "#define $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
-echo "#include <stddef.h>" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
-echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
+echo "#ifndef $C_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo "#define $C_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "#include \"embedded_assets/assets.h\"" >> "$CPP_HEADER_IMAGES_OUT"
+echo "#include <stddef.h>" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "// ${ASSETS_PREFIX_LOWER}" >> "$CPP_HEADER_IMAGES_OUT"
+echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_IMAGES_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"images\")" >> "$CPP_HEADER_IMAGES_OUT"
+echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_IMAGE_SIZES_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"image_sizes\")" >> "$CPP_HEADER_IMAGES_OUT"
+#echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_SPRITE_SETTINGS_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"sprite_settings\")" >> "$CPP_HEADER_IMAGES_OUT"
+#echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_EVOL_DATA_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"evol_data\")" >> "$CPP_HEADER_IMAGES_OUT"
+#echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_DIMS_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"dims\")" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
 
 CPP_HEADER_GUARD="BONGOCAT_EMBEDDED_ASSETS_CUSTOM_${ASSETS_PREFIX_UPPER}_HPP"
 echo "#ifndef $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
@@ -110,19 +118,24 @@ echo "#define $CPP_HEADER_GUARD" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "#include <cstddef>" >> "$CPP_HEADER_OUT"
 echo '#include "embedded_assets/custom/custom_sprite.h"' >> "$CPP_HEADER_OUT"
+echo "// ${ASSETS_PREFIX_LOWER}" >> "$CPP_HEADER_OUT"
+echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_SPRITE_SETTINGS_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"sprite_settings\")" >> "$CPP_HEADER_OUT"
+#echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_EVOL_DATA_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"evol_data\")" >> "$CPP_HEADER_OUT"
+echo "#define ASSETS_${ASSETS_PREFIX_UPPER}_DIMS_SECTION BONGOCAT_ASSETS_SET_SECTION(${ASSETS_PREFIX_LOWER}, \"dims\")" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "/// @NOTE: Generated embedded assets images data from $INPUT_DIR" >> "$CPP_HEADER_OUT"
 echo >> "$CPP_HEADER_OUT"
 echo "namespace bongocat::assets {" >> "$CPP_HEADER_OUT"
 
 # === Source file intro ===
-HEADER_RELATIVE_PATH="${C_HEADER_IMAGES_OUT#include/}"
-echo "#include \"$HEADER_RELATIVE_PATH\"" >> "$C_SOURCE_IMAGES_OUT"
-echo "#include <stddef.h>" >> "$C_SOURCE_IMAGES_OUT"
-echo "#include \"embedded_assets/assets.h\"" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_SOURCE_IMAGES_OUT"
-echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$C_SOURCE_IMAGES_OUT"
-echo >> "$C_SOURCE_IMAGES_OUT"
+HEADER_RELATIVE_PATH="${CPP_HEADER_IMAGES_OUT#include/}"
+echo "#pragma GCC diagnostic ignored \"-Wc++26-extensions\"  // #embed is C++26, GCC/Clang extension" >> "$CPP_SOURCE_IMAGES_OUT"
+echo "#include \"$HEADER_RELATIVE_PATH\"" >> "$CPP_SOURCE_IMAGES_OUT"
+echo "#include <cstddef>" >> "$CPP_SOURCE_IMAGES_OUT"
+echo "#include \"embedded_assets/assets.h\"" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_SOURCE_IMAGES_OUT"
+echo "/// @NOTE: Generated embedded assets from $INPUT_DIR" >> "$CPP_SOURCE_IMAGES_OUT"
+echo >> "$CPP_SOURCE_IMAGES_OUT"
 
 
 GET_SPRITE_SHEET_FUNC_NAME="get_${ASSETS_PREFIX_LOWER}_sprite_sheet"
@@ -170,6 +183,7 @@ MAX_COLS=0
 # === Process all PNGs ===
 for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
+    IMAGE_SIZE=$(stat -c %s "$FILE")
 
     NAME_NO_EXT="${BASENAME%.png}"
     NAME_NO_EXT="${NAME_NO_EXT#[0-9]*_}"
@@ -217,32 +231,32 @@ for FILE in "$INPUT_DIR"/*.png; do
     RELATIVE_PATH="../../../$INPUT_DIR/$BASENAME"
 
     # === Header content ===
-    echo "// Name: $NAME_NO_EXT" >> "$C_HEADER_IMAGES_OUT"
+    echo "// Name: $NAME_NO_EXT" >> "$CPP_HEADER_IMAGES_OUT"
     #echo "#define ${MACRO_PREFIX}_NAME \"$NAME_NO_EXT\"" >> "$C_HEADER_OUT"
-    echo "extern const unsigned char $EMBED_SYMBOL[];" >> "$C_HEADER_IMAGES_OUT"
-    echo "extern const size_t $SIZE_SYMBOL;" >> "$C_HEADER_IMAGES_OUT"
-    echo >> "$C_HEADER_IMAGES_OUT"
+    echo "extern const unsigned char $EMBED_SYMBOL[${IMAGE_SIZE}];" >> "$CPP_HEADER_IMAGES_OUT"
+    echo "inline constexpr size_t $SIZE_SYMBOL ASSETS_${ASSETS_PREFIX_UPPER}_IMAGE_SIZES_SECTION = ${IMAGE_SIZE};" >> "$CPP_HEADER_IMAGES_OUT"
+    echo >> "$CPP_HEADER_IMAGES_OUT"
 
     FQID="${ASSETS_PREFIX_LOWER}:${IDENTIFIER}"
     FQNAME="${ASSETS_PREFIX_LOWER}:${NAME_NO_EXT}"
 
     echo "    // Name: $NAME_NO_EXT" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr char ${MACRO_PREFIX}_FQID_ARR[] CONFIG_STRING_SECTION = \"${FQID}\";" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr const char* ${MACRO_PREFIX}_FQID CONFIG_STRING_REF_SECTION = ${MACRO_PREFIX}_FQID_ARR;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQID_LEN CONFIG_STRING_SECTION = sizeof(${MACRO_PREFIX}_FQID_ARR)-1;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr const char* ${MACRO_PREFIX}_FQID = ${MACRO_PREFIX}_FQID_ARR;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQID_LEN = sizeof(${MACRO_PREFIX}_FQID_ARR)-1;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr char ${MACRO_PREFIX}_ID_ARR[] CONFIG_STRING_SECTION = \"${IDENTIFIER}\";" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr const char* ${MACRO_PREFIX}_ID CONFIG_STRING_REF_SECTION = ${MACRO_PREFIX}_ID_ARR;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ID_LEN CONFIG_STRING_SECTION = sizeof(${MACRO_PREFIX}_ID)-1;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr const char* ${MACRO_PREFIX}_ID = ${MACRO_PREFIX}_ID_ARR;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ID_LEN = sizeof(${MACRO_PREFIX}_ID_ARR)-1;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr char ${MACRO_PREFIX}_NAME_ARR[] CONFIG_STRING_SECTION = \"${NAME_NO_EXT}\";" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr const char* ${MACRO_PREFIX}_NAME CONFIG_STRING_REF_SECTION = ${MACRO_PREFIX}_NAME_ARR;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_NAME_LEN CONFIG_STRING_SECTION = sizeof(${MACRO_PREFIX}_NAME_ARR)-1;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr const char* ${MACRO_PREFIX}_NAME = ${MACRO_PREFIX}_NAME_ARR;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_NAME_LEN = sizeof(${MACRO_PREFIX}_NAME_ARR)-1;" >> "$CPP_HEADER_OUT"
     echo "    inline static constexpr char ${MACRO_PREFIX}_FQNAME_ARR[] CONFIG_STRING_SECTION = \"${FQNAME}\";" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr const char* ${MACRO_PREFIX}_FQNAME CONFIG_STRING_REF_SECTION = ${MACRO_PREFIX}_FQNAME_ARR;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(${MACRO_PREFIX}_FQNAME_ARR)-1;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT ASSETS_DIMS_TABLE_SECTION = $FRAMES_COUNT;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ANIM_INDEX ASSETS_INDICES_SECTION = $INDEX;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr const char* ${MACRO_PREFIX}_FQNAME = ${MACRO_PREFIX}_FQNAME_ARR;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_FQNAME_LEN = sizeof(${MACRO_PREFIX}_FQNAME_ARR)-1;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_SPRITE_SHEET_FRAMES_COUNT = $FRAMES_COUNT;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr size_t ${MACRO_PREFIX}_ANIM_INDEX = $INDEX;" >> "$CPP_HEADER_OUT"
 
-    echo "    inline static constexpr custom_animation_settings_t ${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS ASSETS_SPRITE_SETTINGS_SECTION = {" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr custom_animation_settings_t ${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS ASSETS_${ASSETS_PREFIX_UPPER}_SPRITE_SETTINGS_SECTION = {" >> "$CPP_HEADER_OUT"
     echo "        .idle_frames = ${idle_frames}," >> "$CPP_HEADER_OUT"
     echo "        .boring_frames = ${boring_frames}," >> "$CPP_HEADER_OUT"
     echo "        .start_writing_frames = ${start_writing_frames}," >> "$CPP_HEADER_OUT"
@@ -263,19 +277,20 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "        .end_running_frames = ${end_running_frames}," >> "$CPP_HEADER_OUT"
     echo "    };" >> "$CPP_HEADER_OUT"
 
-    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_ROWS ASSETS_DIMS_TABLE_SECTION = $ROWS;" >> "$CPP_HEADER_OUT"
-    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_MAX_COLS ASSETS_DIMS_TABLE_SECTION = $COLS;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_ROWS ASSETS_${ASSETS_PREFIX_UPPER}_DIMS_SECTION = $ROWS;" >> "$CPP_HEADER_OUT"
+    echo "    inline static constexpr int ${MACRO_PREFIX}_SPRITE_SHEET_MAX_COLS ASSETS_${ASSETS_PREFIX_UPPER}_DIMS_SECTION = $COLS;" >> "$CPP_HEADER_OUT"
 
     echo >> "$CPP_HEADER_OUT"
 
     # === Source content ===
-    echo "// Name: $NAME_NO_EXT" >> "$C_SOURCE_IMAGES_OUT"
-    echo "const unsigned char $EMBED_SYMBOL[] ASSETS_IMAGES_SECTION = {" >> "$C_SOURCE_IMAGES_OUT"
-    echo "#embed \"$RELATIVE_PATH\"" >> "$C_SOURCE_IMAGES_OUT"
-    echo "};" >> "$C_SOURCE_IMAGES_OUT"
-    echo "const size_t $SIZE_SYMBOL ASSETS_SIZES_SECTION = sizeof($EMBED_SYMBOL);" >> "$C_SOURCE_IMAGES_OUT"
-    echo >> "$C_SOURCE_IMAGES_OUT"
-    echo >> "$C_SOURCE_IMAGES_OUT" # extra EOL
+    echo "// Name: $NAME_NO_EXT" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "const unsigned char $EMBED_SYMBOL[] ASSETS_${ASSETS_PREFIX_UPPER}_IMAGES_SECTION = {" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "#embed \"$RELATIVE_PATH\"" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "};" >> "$CPP_SOURCE_IMAGES_OUT"
+    #echo "const size_t $SIZE_SYMBOL ASSETS_IMAGE_SIZES_SECTION = sizeof($EMBED_SYMBOL);" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "static_assert(sizeof($EMBED_SYMBOL) == ${IMAGE_SIZE}, \"re-run generate_embedded_custom_assets.sh\");" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo >> "$CPP_SOURCE_IMAGES_OUT"
+    echo >> "$CPP_SOURCE_IMAGES_OUT" # extra EOL
 
     #echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {$EMBED_SYMBOL, $SIZE_SYMBOL, \"${IDENTIFIER}\"};" >> "$CPP_SOURCE_GET_SPRITE_OUT"
     CPP_SOURCE_GET_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_GET_SPRITE_OUT_IMAGES_TABLE}{${EMBED_SYMBOL}, ${SIZE_SYMBOL}, ${MACRO_PREFIX}_ID}, \n        "
@@ -287,10 +302,10 @@ for FILE in "$INPUT_DIR"/*.png; do
     CPP_SOURCE_GET_SPRITE_OUT_SETTINGS_TABLE="${CPP_SOURCE_GET_SPRITE_OUT_SETTINGS_TABLE}assets::${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS, \n        "
 
     CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}\n// Name: $NAME_NO_EXT\n"
-    CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}const unsigned char $EMBED_SYMBOL[] ASSETS_IMAGES_SECTION = {\n"
+    CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}const unsigned char $EMBED_SYMBOL[] ASSETS_${ASSETS_PREFIX_UPPER}_IMAGES_SECTION = {\n"
     CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}#embed \"$RELATIVE_PATH\"\n"
     CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}};\n"
-    CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}const size_t $SIZE_SYMBOL ASSETS_SIZES_SECTION = sizeof($EMBED_SYMBOL);\n"
+    #CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}const size_t $SIZE_SYMBOL ASSETS_IMAGE_SIZES_SECTION = sizeof($EMBED_SYMBOL);\n"
 
     CPP_SOURCE_LOAD_SPRITE_OUT_DIMS_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_DIMS_TABLE}{assets::${MACRO_PREFIX}_SPRITE_SHEET_COLS, assets::${MACRO_PREFIX}_SPRITE_SHEET_ROWS}, \n        "
     CPP_SOURCE_LOAD_SPRITE_OUT_PNGS_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_PNGS_TABLE}${EMBED_SYMBOL}, \n        "
@@ -305,9 +320,9 @@ done
 echo "$INDEX done"
 
 
-echo >> "$C_HEADER_IMAGES_OUT"
-echo "#endif // $C_HEADER_GUARD" >> "$C_HEADER_IMAGES_OUT"
-echo >> "$C_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
+echo "#endif // $C_HEADER_GUARD" >> "$CPP_HEADER_IMAGES_OUT"
+echo >> "$CPP_HEADER_IMAGES_OUT"
 
 echo "    inline static constexpr size_t ${ASSETS_PREFIX_UPPER}_ANIM_COUNT = $((INDEX-START_INDEX));" >> "$CPP_HEADER_OUT"
 echo '}' >> "$CPP_HEADER_OUT"
@@ -325,7 +340,7 @@ echo "/// @NOTE: Generated embedded assets images data from $INPUT_DIR" >> "$CPP
 echo >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 #echo -e "${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}" >> "$CPP_SOURCE_GET_SPRITE_OUT"
-echo "    static const embedded_image_t ${ASSETS_PREFIX_LOWER}_images_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
+echo "    static const embedded_image_t ${ASSETS_PREFIX_LOWER}_images_table[] = {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_GET_SPRITE_OUT_IMAGES_TABLE}" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_GET_SPRITE_OUT"
 echo "    embedded_image_t ${GET_SPRITE_SHEET_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT"
@@ -346,7 +361,7 @@ echo >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 echo "/// @NOTE: Generated embedded assets images data from $INPUT_DIR" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 echo >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
-echo "    static const custom_animation_settings_t ${ASSETS_PREFIX_LOWER}_settings_table[] ASSETS_SPRITE_SETTINGS_SECTION = {" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
+echo "    static const custom_animation_settings_t ${ASSETS_PREFIX_LOWER}_settings_table[] = {" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 echo -e "        ${CPP_SOURCE_GET_SPRITE_OUT_2_SETTINGS_TABLE}" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 echo "    };" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
 echo "    custom_animation_settings_t ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_SPRITE_OUT_2"
@@ -369,19 +384,19 @@ echo "#include \"image_loader/${ASSETS_PREFIX_LOWER}/load_images_${ASSETS_PREFIX
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const assets::custom_animation_settings_t ${ASSETS_PREFIX_LOWER}_settings_table[] ASSETS_SPRITE_SETTINGS_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const assets::custom_animation_settings_t ${ASSETS_PREFIX_LOWER}_settings_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_GET_SPRITE_OUT_2_SETTINGS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-#echo "    static constexpr assets::embedded_sprite_sheet_dims_t ${ASSETS_PREFIX_LOWER}_dims_table[] ASSETS_DIMS_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+#echo "    static constexpr assets::embedded_sprite_sheet_dims_t ${ASSETS_PREFIX_LOWER}_dims_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_DIMS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const unsigned char* ${ASSETS_PREFIX_LOWER}_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const unsigned char* ${ASSETS_PREFIX_LOWER}_pngs_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_PNGS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const size_t ${ASSETS_PREFIX_LOWER}_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const size_t ${ASSETS_PREFIX_LOWER}_png_sizes_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_PNG_SIZES_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const char* ${ASSETS_PREFIX_LOWER}_names_table[] ASSETS_IMAGES_TABLE_SECTION = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const char* ${ASSETS_PREFIX_LOWER}_names_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_NAMES_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    created_result_t<${LAYOUT_LOWER}_sprite_sheet_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_thread_context_t& ctx, size_t index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

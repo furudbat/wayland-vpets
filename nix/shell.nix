@@ -7,6 +7,8 @@ pkgs.mkShellNoCC {
     gcc         # C/C++ compiler and also for `make`
     clang
     cmake
+    ninja
+    pandoc      # man pages
 
     # Wayland
     wayland-scanner
@@ -24,6 +26,7 @@ pkgs.mkShellNoCC {
   buildInputs = with pkgs; [
     wayland
     wayland-protocols
+    systemd
   ];
   shellHook = ''
     export CC=clang

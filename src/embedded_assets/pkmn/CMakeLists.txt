@@ -10,7 +10,7 @@ target_sources(
   PRIVATE
     pkmn_get_sprite_sheet.cpp
     pkmn_config_parse_animation_name.cpp
-    pkmn_images.c
+    pkmn_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:pkmn_get_evolution_data.cpp>
 )
 target_compile_options(assets_pkmn PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

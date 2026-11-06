@@ -23,6 +23,7 @@
 #if defined(__GNUC__) || defined(__clang__)
 #  pragma GCC diagnostic pop
 #endif
+#include "load_sprite_sheet_pngle.h"
 
 namespace bongocat::animation {
 struct decode_state_t {
@@ -109,5 +110,10 @@ void cleanup_image(Image& image) {
 
 void init_image_loader() {
     BONGOCAT_LOG_VERBOSE("pngle image loader initialized");
+}
+
+created_result_t<generic_sprite_sheet_image_t> load_sprite_sheet_image(const unsigned char *data, size_t size,
+                                                                       sprite_sheet_layout_t layout) {
+  return details::load_sprite_sheet_image_pngle(data, size, layout);
 }
 }  // namespace bongocat::animation

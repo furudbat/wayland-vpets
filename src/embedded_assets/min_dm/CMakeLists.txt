@@ -10,7 +10,7 @@ target_sources(
   PRIVATE
     min_dm_get_sprite_sheet.cpp
     min_dm_config_parse_animation_name.cpp
-    min_dm_images.c
+    min_dm_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:min_dm_get_evolution_data.cpp>
 )
 target_compile_options(assets_min_dm PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

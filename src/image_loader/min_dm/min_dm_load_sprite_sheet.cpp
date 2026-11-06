@@ -1,6 +1,5 @@
 #include "core/bongocat.h"
 #include "embedded_assets/embedded_image.h"
-#include "embedded_assets/dm/dm_images.h"
 #include "embedded_assets/min_dm/min_dm.hpp"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
 #include "graphics/animation_thread_context.h"
@@ -8,63 +7,64 @@
 #include "image_loader/base_dm/load_dm.h"
 #include "image_loader/dm/load_images_dm.h"
 #include "image_loader/min_dm/load_images_min_dm.h"
+#include "embedded_assets/min_dm/min_dm_images.h"
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t min_dm_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
-      {assets::DM_BOTAMON_SPRITE_SHEET_COLS,       assets::DM_BOTAMON_SPRITE_SHEET_ROWS},
-      {assets::DM_KOROMON_SPRITE_SHEET_COLS,       assets::DM_KOROMON_SPRITE_SHEET_ROWS},
-      {assets::DM_AGUMON_SPRITE_SHEET_COLS,        assets::DM_AGUMON_SPRITE_SHEET_ROWS},
-      {assets::DM_BETAMON_SPRITE_SHEET_COLS,       assets::DM_BETAMON_SPRITE_SHEET_ROWS},
+    static constexpr assets::embedded_sprite_sheet_dims_t min_dm_dims_table[] = {
+      {assets::MIN_DM_BOTAMON_SPRITE_SHEET_COLS,       assets::MIN_DM_BOTAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_KOROMON_SPRITE_SHEET_COLS,       assets::MIN_DM_KOROMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_AGUMON_SPRITE_SHEET_COLS,        assets::MIN_DM_AGUMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_BETAMON_SPRITE_SHEET_COLS,       assets::MIN_DM_BETAMON_SPRITE_SHEET_ROWS},
 
-      {assets::DM_GREYMON_SPRITE_SHEET_COLS,       assets::DM_GREYMON_SPRITE_SHEET_ROWS},
-      {assets::DM_TYRANOMON_SPRITE_SHEET_COLS,     assets::DM_TYRANOMON_SPRITE_SHEET_ROWS},
-      {assets::DM_DEVIMON_SPRITE_SHEET_COLS,       assets::DM_DEVIMON_SPRITE_SHEET_ROWS},
-      {assets::DM_MERAMON_SPRITE_SHEET_COLS,       assets::DM_MERAMON_SPRITE_SHEET_ROWS},
-      {assets::DM_AIRDRAMON_SPRITE_SHEET_COLS,     assets::DM_AIRDRAMON_SPRITE_SHEET_ROWS},
-      {assets::DM_SEADRAMON_SPRITE_SHEET_COLS,     assets::DM_SEADRAMON_SPRITE_SHEET_ROWS},
-      {assets::DM_NUMEMON_SPRITE_SHEET_COLS,       assets::DM_NUMEMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_GREYMON_SPRITE_SHEET_COLS,       assets::MIN_DM_GREYMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_TYRANOMON_SPRITE_SHEET_COLS,     assets::MIN_DM_TYRANOMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_DEVIMON_SPRITE_SHEET_COLS,       assets::MIN_DM_DEVIMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_MERAMON_SPRITE_SHEET_COLS,       assets::MIN_DM_MERAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_AIRDRAMON_SPRITE_SHEET_COLS,     assets::MIN_DM_AIRDRAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_SEADRAMON_SPRITE_SHEET_COLS,     assets::MIN_DM_SEADRAMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_NUMEMON_SPRITE_SHEET_COLS,       assets::MIN_DM_NUMEMON_SPRITE_SHEET_ROWS},
 
-      {assets::DM_METAL_GREYMON_SPRITE_SHEET_COLS, assets::DM_METAL_GREYMON_SPRITE_SHEET_ROWS},
-      {assets::DM_MAMEMON_SPRITE_SHEET_COLS,       assets::DM_MAMEMON_SPRITE_SHEET_ROWS},
-      {assets::DM_MONZAEMON_SPRITE_SHEET_COLS,     assets::DM_MONZAEMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_METAL_GREYMON_SPRITE_SHEET_COLS, assets::MIN_DM_METAL_GREYMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_MAMEMON_SPRITE_SHEET_COLS,       assets::MIN_DM_MAMEMON_SPRITE_SHEET_ROWS},
+      {assets::MIN_DM_MONZAEMON_SPRITE_SHEET_COLS,     assets::MIN_DM_MONZAEMON_SPRITE_SHEET_ROWS},
     };
-    static const unsigned char* min_dm_pngs_table[] ASSETS_IMAGES_TABLE_SECTION = {
-        dm_botamon_png,
-        dm_koromon_png,
-        dm_agumon_png,
-        dm_betamon_png,
+    static const unsigned char* min_dm_pngs_table[] = {
+        min_dm_botamon_png,
+        min_dm_koromon_png,
+        min_dm_agumon_png,
+        min_dm_betamon_png,
 
-        dm_greymon_png,
-        dm_tyranomon_png,
-        dm_devimon_png,
-        dm_meramon_png,
-        dm_airdramon_png,
-        dm_seadramon_png,
-        dm_numemon_png,
+        min_dm_greymon_png,
+        min_dm_tyranomon_png,
+        min_dm_devimon_png,
+        min_dm_meramon_png,
+        min_dm_airdramon_png,
+        min_dm_seadramon_png,
+        min_dm_numemon_png,
 
-        dm_metal_greymon_png,
-        dm_mamemon_png,
-        dm_monzaemon_png,
+        min_dm_metal_greymon_png,
+        min_dm_mamemon_png,
+        min_dm_monzaemon_png,
     };
-    static const size_t min_dm_png_sizes_table[] ASSETS_IMAGES_TABLE_SECTION = {
-      dm_botamon_png_size,
-      dm_koromon_png_size,
-      dm_agumon_png_size,
-      dm_betamon_png_size,
+    static const size_t min_dm_png_sizes_table[] = {
+      min_dm_botamon_png_size,
+      min_dm_koromon_png_size,
+      min_dm_agumon_png_size,
+      min_dm_betamon_png_size,
 
-      dm_greymon_png_size,
-      dm_tyranomon_png_size,
-      dm_devimon_png_size,
-      dm_meramon_png_size,
-      dm_airdramon_png_size,
-      dm_seadramon_png_size,
-      dm_numemon_png_size,
+      min_dm_greymon_png_size,
+      min_dm_tyranomon_png_size,
+      min_dm_devimon_png_size,
+      min_dm_meramon_png_size,
+      min_dm_airdramon_png_size,
+      min_dm_seadramon_png_size,
+      min_dm_numemon_png_size,
 
-      dm_metal_greymon_png_size,
-      dm_mamemon_png_size,
-      dm_monzaemon_png_size,
+      min_dm_metal_greymon_png_size,
+      min_dm_mamemon_png_size,
+      min_dm_monzaemon_png_size,
     };
-    static const char* min_dm_names_table[] ASSETS_IMAGES_TABLE_SECTION = {
+    static const char* min_dm_names_table[] = {
         "botamon",
         "koromon",
         "agumon",

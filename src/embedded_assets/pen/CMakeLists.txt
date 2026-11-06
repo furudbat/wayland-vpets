@@ -10,7 +10,7 @@ target_sources(
   PRIVATE
     pen_get_sprite_sheet.cpp
     pen_config_parse_animation_name.cpp
-    pen_images.c
+    pen_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:pen_get_evolution_data.cpp>
 )
 target_compile_options(assets_pen PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

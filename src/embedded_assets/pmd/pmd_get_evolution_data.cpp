@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data pmd
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t pmd_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
+    static constexpr animation::animation_evolution_data_t pmd_evol_data_table[] ASSETS_PMD_EVOL_DATA_SECTION = {
         // Name: Bulbasaur
         {
             // Stage: 

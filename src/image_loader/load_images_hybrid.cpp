@@ -46,6 +46,8 @@
 #if defined(__GNUC__) || defined(__clang__)
 #  pragma GCC diagnostic pop
 #endif
+#include "load_sprite_sheet_pngle.h"
+#include "load_sprite_sheet_stb_image.h"
 
 namespace bongocat::animation {
 //inline static constexpr size_t HybridImageBackendPngleThresholdBytes = 192zu * 1024zu;  // 192kb
@@ -180,5 +182,13 @@ void init_image_loader() {
   BONGOCAT_LOG_VERBOSE("Hybrid image loader initialized");
   BONGOCAT_LOG_VERBOSE("  stb_image: images < %.0f KB (%zu Bytes)", HybridImageBackendPngleThresholdBytes / 1024.0, HybridImageBackendPngleThresholdBytes);
   BONGOCAT_LOG_VERBOSE("  pngle: images >= %.0f KB (%zu Bytes)", HybridImageBackendPngleThresholdBytes / 1024.0, HybridImageBackendPngleThresholdBytes);
+}
+
+created_result_t<generic_sprite_sheet_image_t> load_sprite_sheet_image(const unsigned char *data, size_t size,
+                                                                       sprite_sheet_layout_t layout) {
+  if (size >= HybridImageBackendPngleThresholdBytes) {
+    return details::load_sprite_sheet_image_pngle(data, size, layout);
+  }
+  return details::load_sprite_sheet_image_stb_image(data, size, layout);
 }
 }  // namespace bongocat::animation

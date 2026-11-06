@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.0.0] - 2026-11-06
+
+### Fixed
+
+- smaller internal fixes
+
+### Improved
+
+- smaller binaries: win 0.8 MB overall
+- RAM usage: win some MBs (in some cases -15% or 7MB)
+
 ### [5.1.0] - 2026-11-04
 
 ### Added
@@ -43,7 +54,7 @@ All notable changes to this project will be documented in this file.
 - fix negative offset_y
 - config parsing in strict mode
 
-### Improve
+### Improved
 
 - reduce RAM usage footprint
 
@@ -59,7 +70,7 @@ All notable changes to this project will be documented in this file.
 - Unit Tests
   - add test from [upstream](https://github.com/saatvik333/wayland-bongocat/tree/main/tests) for parity
 
-### Improve
+### Improved
 
 - **reduce RAM usage** - unload assets from pages and return memory to OS (assets loading)
 - config parsing
@@ -81,7 +92,7 @@ All notable changes to this project will be documented in this file.
 
 ### [4.0.2] - 2026-04-27
 
-### Improve
+### Improved
 
 - find_input_devices script keyboard_device vs. keyboard_name
 

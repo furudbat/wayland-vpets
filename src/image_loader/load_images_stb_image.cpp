@@ -21,6 +21,7 @@
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif
+#include "load_sprite_sheet_stb_image.h"
 
 namespace bongocat::animation {
     created_result_t<Image> load_image(const unsigned char *data, size_t size, int desired_channels) {
@@ -55,5 +56,10 @@ namespace bongocat::animation {
 
     void init_image_loader() {
       BONGOCAT_LOG_VERBOSE("stb_image image loader initialized");
+    }
+
+    created_result_t<generic_sprite_sheet_image_t> load_sprite_sheet_image(const unsigned char *data, size_t size,
+                                                                           sprite_sheet_layout_t layout) {
+      return details::load_sprite_sheet_image_stb_image(data, size, layout);
     }
 }

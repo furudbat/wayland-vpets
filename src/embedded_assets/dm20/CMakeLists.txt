@@ -10,7 +10,7 @@ target_sources(
   PRIVATE
     dm20_get_sprite_sheet.cpp
     dm20_config_parse_animation_name.cpp
-    dm20_images.c
+    dm20_images.cpp
     $<$<BOOL:${FEATURE_EVOLUTION}>:dm20_get_evolution_data.cpp>
 )
 target_compile_options(assets_dm20 PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

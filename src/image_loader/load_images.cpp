@@ -10,208 +10,237 @@
 
 namespace bongocat::animation {
 // =============================================================================
+// SPRITE SHEET LAYOUT (shared by all image backends)
+// =============================================================================
+
+namespace details {
+  sprite_sheet_layout_mapper_t make_sprite_sheet_layout_mapper(int32_t src_width, int32_t src_height,
+                                                               sprite_sheet_layout_t layout) {
+    sprite_sheet_layout_mapper_t ret;
+    if (src_width <= 0 || src_height <= 0 || layout.frame_columns <= 0 || layout.frame_rows <= 0 ||
+        layout.padding_x < 0 || layout.padding_y < 0 || src_width % layout.frame_columns != 0 ||
+        src_height % layout.frame_rows != 0) {
+      BONGOCAT_LOG_ERROR(
+          "Sprite sheet dimensions not divisible by frame grid; frame_columns=%d, frame_rows=%d vs %dx%d sprite size",
+          layout.frame_columns, layout.frame_rows, src_width, src_height);
+      return ret;
+    }
+    ret.src_width = src_width;
+    ret.src_height = src_height;
+    ret.frame_width = src_width / layout.frame_columns;
+    ret.frame_height = src_height / layout.frame_rows;
+    ret.padding_x = layout.padding_x;
+    ret.padding_y = layout.padding_y;
+    ret.dest_width = (ret.frame_width + (layout.padding_x * 2)) * layout.frame_columns;
+    ret.dest_height = (ret.frame_height + (layout.padding_y * 2)) * layout.frame_rows;
+    ret.valid = true;
+    return ret;
+  }
+
+  created_result_t<generic_sprite_sheet_image_t> allocate_sprite_sheet_image(const sprite_sheet_layout_mapper_t& mapper) {
+    if (!mapper.valid) [[unlikely]] {
+      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    }
+    generic_sprite_sheet_image_t ret;
+    const size_t size_bytes = mapper.dest_size_bytes();
+    ret.pixels = make_allocated_array_uninitialized<uint8_t>(size_bytes);
+    if (!ret.pixels) [[unlikely]] {
+      BONGOCAT_LOG_ERROR("Failed to allocate memory for sprite sheet (%zu bytes)", size_bytes);
+      return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+    }
+    /// @TODO: only memset to zero, when padding is needed, otherwise the whole pace gets used anyway
+    if (mapper.has_padding()) {
+      ::memset(ret.pixels.data, 0, size_bytes);
+    }
+    ret.sprite_sheet_width = mapper.dest_width;
+    ret.sprite_sheet_height = mapper.dest_height;
+    ret.channels = RGBA_CHANNELS;
+    return ret;
+  }
+
+  void copy_rgba_into_sprite_sheet_layout(generic_sprite_sheet_image_t& dest, const sprite_sheet_layout_mapper_t& mapper,
+                                          const uint8_t *src_rgba) {
+    assert(mapper.valid);
+    assert(dest.pixels._size_bytes >= mapper.dest_size_bytes());
+    if (!mapper.has_padding()) {
+      // 1:1 copy without padding
+      ::memcpy(dest.pixels.data, src_rgba, mapper.dest_size_bytes());
+      return;
+    }
+    const size_t src_stride = static_cast<size_t>(mapper.src_width) * RGBA_CHANNELS;
+    const size_t dest_stride = static_cast<size_t>(mapper.dest_width) * RGBA_CHANNELS;
+    const size_t frame_row_bytes = static_cast<size_t>(mapper.frame_width) * RGBA_CHANNELS;
+    const int32_t frame_columns = mapper.src_width / mapper.frame_width;
+    for (int32_t y = 0; y < mapper.src_height; ++y) {
+      const uint8_t *src_row = src_rgba + (static_cast<size_t>(y) * src_stride);
+      uint8_t *dest_row = dest.pixels.data + (static_cast<size_t>(mapper.dest_y(y)) * dest_stride);
+      for (int32_t col = 0; col < frame_columns; ++col) {
+        const int32_t src_x = col * mapper.frame_width;
+        ::memcpy(dest_row + (static_cast<size_t>(mapper.dest_x(src_x)) * RGBA_CHANNELS),
+                 src_row + (static_cast<size_t>(src_x) * RGBA_CHANNELS), frame_row_bytes);
+      }
+    }
+  }
+}  // namespace details
+
+// =============================================================================
 // IMAGE LOADING MODULE
 // =============================================================================
 
 BONGOCAT_NODISCARD static created_result_t<generic_sprite_sheet_t>
 load_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_size, int frame_columns, int frame_rows,
                               int padding_x, int padding_y) {
+  // decode straight into the final (padded) layout
+  auto [image, image_error] = load_sprite_sheet_image(sprite_data, sprite_data_size,
+                                                      {.frame_columns = frame_columns,
+                                                       .frame_rows = frame_rows,
+                                                       .padding_x = padding_x,
+                                                       .padding_y = padding_y});
+  if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+    BONGOCAT_LOG_ERROR("Failed to load sprite sheet (%d cols x %d rows)", frame_columns, frame_rows);
+    return image_error;
+  }
+  assert(frame_columns > 0 && frame_rows > 0);
+  assert(image.sprite_sheet_width % frame_columns == 0);
+  assert(image.sprite_sheet_height % frame_rows == 0);
+
   generic_sprite_sheet_t ret;
+  // padded frame size; image.sprite_sheet_width/height are the padded size (= row stride for blitting)
+  ret.frame_width = image.sprite_sheet_width / frame_columns;
+  ret.frame_height = image.sprite_sheet_height / frame_rows;
+  ret.total_frames = frame_columns * frame_rows;
+  ret.image = bongocat::move(image);
 
-  auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS);
-  if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to load sprite sheet. %dx%d", sprite_sheet.width, sprite_sheet.height);
-    return sprite_sheet_error;
-  }
-
-  assert(frame_columns != 0 && frame_rows != 0 && sprite_sheet.width % frame_columns == 0 &&
-         sprite_sheet.height % frame_rows == 0);
-  if (frame_columns == 0 || frame_rows == 0 || sprite_sheet.width % frame_columns != 0 ||
-      sprite_sheet.height % frame_rows != 0) {
-    BONGOCAT_LOG_ERROR(
-        "Sprite sheet dimensions not divisible by frame grid; frame_columns=%d, frame_rows=%d vs %dx%d sprite size",
-        frame_columns, frame_rows, sprite_sheet.width, sprite_sheet.height);
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-  }
-
-  const auto frame_width = sprite_sheet.width / frame_columns;
-  const auto frame_height = sprite_sheet.height / frame_rows;
-  const auto total_frames = frame_columns * frame_rows;
-
-  const auto dest_frame_width = frame_width + (padding_x * 2);
-  const auto dest_frame_height = frame_height + (padding_y * 2);
-  const auto dest_pixels_width = dest_frame_width * frame_columns;
-  const auto dest_pixels_height = dest_frame_height * frame_rows;
-  assert(dest_pixels_width >= 0);
-  assert(dest_pixels_height >= 0);
-  assert(sprite_sheet.channels >= 0);
-  const size_t dest_pixels_size = static_cast<size_t>(dest_pixels_width) * static_cast<size_t>(dest_pixels_height) *
-                                  static_cast<size_t>(sprite_sheet.channels);
-  auto dest_pixels = make_allocated_array<uint8_t>(dest_pixels_size);
-  if (!dest_pixels) {
-    BONGOCAT_LOG_ERROR("Failed to allocate memory for dest_pixels (%zu bytes)\n", dest_pixels_size);
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
-  ::memset(dest_pixels.data, 0, dest_pixels_size);
-
-  const auto src_frame_width = frame_width;
-  const auto src_frame_height = frame_height;
-  const auto src_pixels_width = sprite_sheet.width;
-  const auto src_pixels_height = sprite_sheet.height;
-  assert(src_pixels_width >= 0);
-  assert(src_pixels_height >= 0);
-  assert(sprite_sheet.channels >= 0);
-  const size_t src_pixels_size = static_cast<size_t>(src_pixels_width) * static_cast<size_t>(src_pixels_height) *
-                                 static_cast<size_t>(sprite_sheet.channels);
-  size_t frame_index = 0;
+  int frame_index = 0;
   for (int row = 0; row < frame_rows; ++row) {
     for (int col = 0; col < frame_columns; ++col) {
-      const auto src_x = col * src_frame_width;
-      const auto src_y = row * src_frame_height;
-      const auto dst_x = (col * dest_frame_width) + padding_x;
-      const auto dst_y = (row * dest_frame_height) + padding_y;
-      [[maybe_unused]] const auto src_idx = (src_y * src_pixels_width + src_x) * sprite_sheet.channels;
-      [[maybe_unused]] const auto dst_idx = (dst_y * dest_pixels_width + dst_x) * sprite_sheet.channels;
-      assert(src_idx >= 0);
-      assert(dst_idx >= 0);
-
-      bool set_frames = false;
-      for (int fy = 0; fy < src_frame_height; fy++) {
-        for (int fx = 0; fx < src_frame_width; fx++) {
-          const auto src_px_idx = ((src_y + fy) * src_pixels_width + (src_x + fx)) * sprite_sheet.channels;
-          const auto dst_px_idx = ((dst_y + fy) * dest_pixels_width + (dst_x + fx)) * sprite_sheet.channels;
-
-          if (src_px_idx >= 0 && dst_px_idx >= 0 && static_cast<size_t>(src_px_idx) < src_pixels_size &&
-              static_cast<size_t>(dst_px_idx) < dest_pixels_size) {
-            drawing_copy_pixel(dest_pixels.data, sprite_sheet.channels, dst_px_idx, sprite_sheet.pixels.data,
-                               sprite_sheet.channels, src_px_idx, blit_image_color_option_flags_t::Normal,
-                               blit_image_color_order_t::RGBA, blit_image_color_order_t::RGBA);
-            if (!set_frames && frame_index < MAX_NUM_FRAMES) {
-              set_frames = true;
-            }
-          }
-        }
+      if (static_cast<size_t>(frame_index) < MAX_NUM_FRAMES) {
+        ret.frames[frame_index] = {.valid = true, .col = col, .row = row};
       }
-      if (frame_index < MAX_NUM_FRAMES) {
-        if (set_frames) {
-          ret.frames[frame_index] = {.valid = true, .col = col, .row = row};
-        } else {
-          ret.frames[frame_index] = {
-              .valid = false,
-              .col = 0,
-              .row = 0,
-          };
-        }
-      }
-
       frame_index++;
     }
   }
 
-  ret.image.sprite_sheet_width = sprite_sheet.width;
-  ret.image.sprite_sheet_height = sprite_sheet.height;
-  ret.image.channels = sprite_sheet.channels;
-  // move pixels ownership into out_frames
-  ret.image.pixels = bongocat::move(dest_pixels);
-  dest_pixels = BONGOCAT_NULLPTR;
-  ret.frame_width = dest_frame_width;
-  ret.frame_height = dest_frame_height;
-  ret.total_frames = total_frames;
-
   return ret;
 }
+
+namespace details {
+  struct png_size_t {
+    int32_t width{0};
+    int32_t height{0};
+    bool valid{false};
+  };
+  /// read width/height from the PNG header (IHDR) without decoding anything
+  BONGOCAT_NODISCARD static png_size_t read_png_size(const uint8_t *data, size_t size) {
+    // 8 bytes signature, 4 bytes chunk length, "IHDR", 4 bytes width, 4 bytes height (big endian)
+    static constexpr uint8_t PNG_SIGNATURE[8] = {0x89, 'P', 'N', 'G', '\r', '\n', 0x1A, '\n'};
+    static constexpr size_t PNG_SIGNATURE_OFFSET = 8 + 4;
+    static constexpr size_t PNG_IHDR_MIN_SIZE = 24;
+    static constexpr const char PNG_IHDR[] = "IHDR";
+    static constexpr size_t PNG_IHDR_LEN = sizeof(PNG_IHDR)-1;
+    static_assert(PNG_IHDR_LEN == 4);
+    static constexpr size_t PNG_SIGNATURE_IHDR_OFFSET = PNG_SIGNATURE_OFFSET + PNG_IHDR_LEN;
+    static constexpr size_t PNG_SIGNATURE_IHDR_OFFSET_WIDTH = PNG_SIGNATURE_IHDR_OFFSET + 4;
+
+    png_size_t ret;
+    if (data == BONGOCAT_NULLPTR || size < PNG_IHDR_MIN_SIZE) {
+      return ret;
+    }
+    if (::memcmp(data, PNG_SIGNATURE, sizeof(PNG_SIGNATURE)) != 0 ||
+        ::memcmp(data + PNG_SIGNATURE_OFFSET, PNG_IHDR, PNG_IHDR_LEN) != 0) {
+      return ret;
+    }
+    const auto read_u32_be = [](const uint8_t *p) -> uint32_t {
+      return (static_cast<uint32_t>(p[0]) << 24u) | (static_cast<uint32_t>(p[1]) << 16u) |
+             (static_cast<uint32_t>(p[2]) << 8u) | static_cast<uint32_t>(p[3]);
+    };
+    const uint32_t w = read_u32_be(data + PNG_SIGNATURE_IHDR_OFFSET);
+    const uint32_t h = read_u32_be(data + PNG_SIGNATURE_IHDR_OFFSET_WIDTH);
+    if (w == 0 || h == 0 || w > INT32_MAX || h > INT32_MAX) {
+      return ret;
+    }
+    ret.width = static_cast<int32_t>(w);
+    ret.height = static_cast<int32_t>(h);
+    ret.valid = true;
+    return ret;
+  }
+}  // namespace details
 
 created_result_t<generic_sprite_sheet_t> anim_sprite_sheet_from_embedded_images(get_sprite_callback_t get_sprite,
                                                                                 size_t embedded_images_count) {
   generic_sprite_sheet_t ret;
 
+  // 1. frame size from the PNG headers only (no decoding), so the sprite sheet can be allocated first
   int total_frames = 0;
   int max_frame_width = 0;
   int max_frame_height = 0;
-  int max_channels = 0;
-  auto loaded_images = make_allocated_array<Image>(embedded_images_count);
-  for (size_t i = 0; i < embedded_images_count && i < loaded_images.count; i++) {
+  int max_channels = RGBA_CHANNELS;
+  // assume img is always RGBA
+  for (size_t i = 0; i < embedded_images_count; i++) {
     const assets::embedded_image_t img = get_sprite(i);
-
-    BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img.name);
-    auto [loaded_image, image_error] = load_image(img.data, img.size, RGBA_CHANNELS);
-    if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-      BONGOCAT_LOG_ERROR("Failed to load embedded image: %s (%d)", img.name, image_error);
+    const details::png_size_t png_size = details::read_png_size(img.data, img.size);
+    if (!png_size.valid) [[unlikely]] {
+      BONGOCAT_LOG_ERROR("Failed to read embedded image header: %s", img.name);
       continue;
     }
-    loaded_images[i] = bongocat::move(loaded_image);
-    assert(loaded_images[i].width >= 0);
-    assert(loaded_images[i].height >= 0);
-    assert(loaded_images[i].channels >= 0);
-
-    // update image properties
-    max_frame_width = loaded_images[i].width > max_frame_width ? loaded_images[i].width : max_frame_width;
-    max_frame_height = loaded_images[i].height > max_frame_height ? loaded_images[i].height : max_frame_height;
-    max_channels = loaded_images[i].channels > max_channels ? loaded_images[i].channels : max_channels;
-
-    BONGOCAT_LOG_DEBUG("Loaded %dx%d embedded image", loaded_images[i].width, loaded_images[i].height);
+    max_frame_width = png_size.width > max_frame_width ? png_size.width : max_frame_width;
+    max_frame_height = png_size.height > max_frame_height ? png_size.height : max_frame_height;
     total_frames++;
   }
+  if (max_frame_width <= 0 || max_frame_height <= 0) [[unlikely]] {
+    return bongocat_error_t::BONGOCAT_ERROR_IMAGE;
+  }
 
+  // 2. allocate the final sprite sheet once (one slot per embedded image)
+  const auto slots = static_cast<int32_t>(embedded_images_count);
   ret.frame_width = max_frame_width;
   ret.frame_height = max_frame_height;
   ret.total_frames = total_frames;
-  ret.image.sprite_sheet_width = max_frame_width * total_frames;
+  ret.image.sprite_sheet_width = max_frame_width * slots;
   ret.image.sprite_sheet_height = max_frame_height;
   ret.image.channels = max_channels;
-  // create sprite sheet
-  assert(ret.image.sprite_sheet_width >= 0);
-  assert(ret.image.sprite_sheet_height >= 0);
-  assert(ret.image.channels >= 0);
-  ret.image.pixels = make_allocated_array<uint8_t>(static_cast<size_t>(ret.image.sprite_sheet_width) *
-                                                   static_cast<size_t>(ret.image.sprite_sheet_height) *
-                                                   static_cast<size_t>(ret.image.channels));
-  if (!ret.image.pixels) {
+  const size_t sheet_size_bytes = static_cast<size_t>(ret.image.sprite_sheet_width) *
+                                  static_cast<size_t>(ret.image.sprite_sheet_height) * static_cast<size_t>(ret.image.channels);
+  ret.image.pixels = make_allocated_array_uninitialized<uint8_t>(sheet_size_bytes);
+  if (!ret.image.pixels) [[unlikely]] {
     ret.frame_width = 0;
     ret.frame_height = 0;
     ret.total_frames = 0;
     ret.image.sprite_sheet_width = 0;
     ret.image.sprite_sheet_height = 0;
     ret.image.channels = 0;
-
     return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
   }
-
-  // reset frames
-  ::memset(ret.image.pixels.data, 0, ret.image.pixels._size_bytes);
+  // keep the rest transparent
+  ::memset(ret.image.pixels.data, 0, sheet_size_bytes);
   for (size_t i = 0; i < MAX_NUM_FRAMES; i++) {
     ret.frames[i] = {};
   }
 
-  // append images into one sprite sheet
-  assert(max_frame_width >= 0);
-  assert(max_channels >= 0);
-  assert(ret.image.sprite_sheet_width >= 0);
-  for (size_t frame = 0; frame < loaded_images.count; frame++) {
-    const auto& src = loaded_images[frame];
-    assert(src.channels >= 0);
-    assert(src.width >= 0);
-    assert(src.height >= 0);
-    if (src.pixels != BONGOCAT_NULLPTR && src.height > 0) {
-      // copy pixel data of sub-region
-      assert(src.height >= 0);
-      for (size_t y = 0; y < static_cast<size_t>(src.height); y++) {
-        unsigned char *dest_row = ret.image.pixels.data + (((y * static_cast<size_t>(ret.image.sprite_sheet_width)) +
-                                                           (frame * static_cast<size_t>(max_frame_width))) *
-                                                              static_cast<size_t>(max_channels));
-        const unsigned char *src_row =
-            src.pixels.data + (y * static_cast<size_t>(src.width) * static_cast<size_t>(src.channels));
-        ::memcpy(dest_row, src_row, static_cast<size_t>(src.width) * static_cast<size_t>(max_channels));
+  assert(ret.image.channels >= 0);
+  // 3. decode one image at a time
+  const size_t dest_stride = static_cast<size_t>(ret.image.sprite_sheet_width) * static_cast<size_t>(ret.image.channels);
+  for (size_t frame = 0; frame < embedded_images_count; frame++) {
+    const assets::embedded_image_t img = get_sprite(frame);
+    BONGOCAT_LOG_DEBUG("Loading embedded image: %s", img.name);
+    bool loaded = false;
+    {
+      auto [src, image_error] = load_image(img.data, img.size, RGBA_CHANNELS);
+      if (image_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+        BONGOCAT_LOG_ERROR("Failed to load embedded image: %s (%d)", img.name, image_error);
+      } else if (src.pixels != BONGOCAT_NULLPTR && src.width > 0 && src.height > 0 && src.width <= max_frame_width &&
+                 src.height <= max_frame_height) {
+        const size_t src_stride = static_cast<size_t>(src.width) * RGBA_CHANNELS;
+        uint8_t *dest_slot = ret.image.pixels.data + (frame * static_cast<size_t>(max_frame_width) * RGBA_CHANNELS);
+        for (size_t y = 0; y < static_cast<size_t>(src.height); y++) {
+          ::memcpy(dest_slot + (y * dest_stride), src.pixels.data + (y * src_stride), src_stride);
+        }
+        BONGOCAT_LOG_DEBUG("Loaded %dx%d embedded image", src.width, src.height);
+        loaded = true;
       }
-
-      // update sub-region
-      if (frame < MAX_NUM_FRAMES) {
-        ret.frames[frame] = {.valid = true, .col = static_cast<int>(frame), .row = 0};
-      }
-    } else {
-      if (frame < MAX_NUM_FRAMES) {
-        ret.frames[frame] = {.valid = false, .col = static_cast<int>(frame), .row = 0};
-      }
+    }
+    if (frame < MAX_NUM_FRAMES) {
+      ret.frames[frame] = {.valid = loaded, .col = static_cast<int>(frame), .row = 0};
     }
   }
 

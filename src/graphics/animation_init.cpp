@@ -4,6 +4,7 @@
 #include "platform/wayland.h"
 #include "utils/memory.h"
 #include "utils/system_error.h"
+#include "utils/system_memory.h"
 
 #include <cassert>
 #include <cstdint>
@@ -30,10 +31,8 @@
 #include "embedded_assets/dmx/dmx_sprite.h"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
 #include "embedded_assets/misc/assets_misc_features.h"
-#include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
 #include "embedded_assets/ms_agent/assets_ms_agent_features.h"
-#include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/pen/assets_pen_features.h"
 #include "embedded_assets/pen/pen_sprite.h"
@@ -44,9 +43,12 @@
 #include "embedded_assets/pmd/assets_pmd_features.h"
 #include "embedded_assets/pmd/pmd_sprite.h"
 #include "graphics/embedded_assets_dms.h"
+#include "graphics/embedded_assets_misc.h"
+#include "graphics/embedded_assets_ms_agent.h"
 #include "graphics/embedded_assets_pkmn.h"
 
 // image loader
+#include "embedded_assets/assets.h"
 #include "image_loader/base_dm/load_dm.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
 #include "image_loader/custom/load_custom.h"
@@ -64,7 +66,209 @@
 #include "image_loader/pkmn/load_images_pkmn.h"
 #include "image_loader/pmd/load_images_pmd.h"
 
+// per-set ranges inside .bongocat.assets, generated per executable (cmake/EmbeddedAssets.cmake);
+// weak: null for sets that are not linked into this executable
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(bongocat);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(min_dm);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(min_dm, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(dm);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dm, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(dm20);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dm20, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(dmx);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dmx, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(dmc);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dmc, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(pen);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pen, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(pen20);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pen20, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(dmall);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(dmall, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(pkmn);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pkmn, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(pmd);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE_SUB(pmd, evol_data);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(ms_agent);
+BONGOCAT_ASSETS_DECLARE_SET_RANGE(misc);
+/// @NOTE(assets): 8. add the set range (see BONGOCAT_ASSET_SETS in
+/// cmake/EmbeddedAssets.cmake)
+
 namespace bongocat::animation {
+
+namespace details {
+  assets_set_region_t get_assets_set_region(const animation_shared_memory_t& anim_shm) {
+    switch (anim_shm.anim_type) {
+    case config::config_animation_sprite_sheet_layout_t::None:
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+      if constexpr (features::EnableBongocatEmbeddedAssets) {
+        return BONGOCAT_ASSETS_SET_REGION(bongocat);
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Dm:
+      switch (anim_shm.anim_dm_set) {
+      case config::config_animation_dm_set_t::None:
+        return {};
+      case config::config_animation_dm_set_t::min_dm:
+        if constexpr (features::EnableMinDmEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(min_dm);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dm:
+        if constexpr (features::EnableFullDmEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(dm);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dm20:
+        if constexpr (features::EnableDm20EmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(dm20);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmx:
+        if constexpr (features::EnableDmxEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(dmx);
+        }
+        return {};
+      case config::config_animation_dm_set_t::pen:
+        if constexpr (features::EnablePenEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(pen);
+        }
+        return {};
+      case config::config_animation_dm_set_t::pen20:
+        if constexpr (features::EnablePen20EmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(pen20);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmc:
+        if constexpr (features::EnableDmcEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(dmc);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmall:
+        if constexpr (features::EnableDmAllEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(dmall);
+        }
+        return {};
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Pkmn:
+      if constexpr (features::EnablePkmnEmbeddedAssets) {
+        return BONGOCAT_ASSETS_SET_REGION(pkmn);
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+      if constexpr (features::EnableMsAgentEmbeddedAssets) {
+        return BONGOCAT_ASSETS_SET_REGION(ms_agent);
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Custom:
+      switch (anim_shm.anim_custom_set) {
+      case config::config_animation_custom_set_t::None:
+      case config::config_animation_custom_set_t::custom:  // loaded from file, nothing embedded
+        return {};
+      case config::config_animation_custom_set_t::misc:
+        if constexpr (features::EnableMiscEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(misc);
+        }
+        return {};
+      case config::config_animation_custom_set_t::pmd:
+        if constexpr (features::EnablePmdEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_REGION(pmd);
+        }
+        return {};
+      }
+      return {};
+      /// @NOTE(assets): 9. map the animation set to its range
+    }
+    return {};
+  }
+  assets_set_region_t get_assets_set_region_evol_data(const animation_shared_memory_t& anim_shm) {
+    switch (anim_shm.anim_type) {
+    case config::config_animation_sprite_sheet_layout_t::None:
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Bongocat:
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Dm:
+      switch (anim_shm.anim_dm_set) {
+      case config::config_animation_dm_set_t::None:
+        return {};
+      case config::config_animation_dm_set_t::min_dm:
+        if constexpr (features::EnableMinDmEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(min_dm, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dm:
+        if constexpr (features::EnableFullDmEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dm, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dm20:
+        if constexpr (features::EnableDm20EmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dm20, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmx:
+        if constexpr (features::EnableDmxEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dmx, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::pen:
+        if constexpr (features::EnablePenEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(pen, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::pen20:
+        if constexpr (features::EnablePen20EmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(pen20, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmc:
+        if constexpr (features::EnableDmcEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dmc, evol_data);
+        }
+        return {};
+      case config::config_animation_dm_set_t::dmall:
+        if constexpr (features::EnableDmAllEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(dmall, evol_data);
+        }
+        return {};
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Pkmn:
+      if constexpr (features::EnablePkmnEmbeddedAssets) {
+        return BONGOCAT_ASSETS_SET_SUB_REGION(pkmn, evol_data);
+      }
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::MsAgent:
+      return {};
+    case config::config_animation_sprite_sheet_layout_t::Custom:
+      switch (anim_shm.anim_custom_set) {
+      case config::config_animation_custom_set_t::None:
+      case config::config_animation_custom_set_t::custom:  // loaded from file, nothing embedded
+        return {};
+      case config::config_animation_custom_set_t::misc:
+        return {};
+      case config::config_animation_custom_set_t::pmd:
+        if constexpr (features::EnablePmdEmbeddedAssets) {
+          return BONGOCAT_ASSETS_SET_SUB_REGION(pmd, evol_data);
+        }
+        return {};
+      }
+      return {};
+      /// @NOTE(assets): 9. map the animation set to its range
+    }
+    return {};
+  }
+
+  void load_assets_set_readonly_sections(const assets_set_region_t& region) {
+    platform::advise_random_access_region(region.start, region.stop, region.name);
+  }
+  void unload_assets_set_readonly_sections(const assets_set_region_t& region) {
+    platform::evict_readonly_region(region.start, region.stop, region.name);
+  }
+}  // namespace details
+
 [[maybe_unused]] static constexpr bool should_load_bongocat([[maybe_unused]] const config::config_t& config) {
   return features::EnablePreloadAssets ||
          config.animation_sprite_sheet_layout == config::config_animation_sprite_sheet_layout_t::Bongocat;
@@ -127,9 +331,17 @@ namespace details {
 
     return result;
   }
+
+  /*
+  void load_assets_readonly_sections() {
+    platform::evict_readonly_region(_bongocat_start_assets, _bongocat_stop_assets, ".bongocat.assets");
+  }
+  */
+  void unload_assets_readonly_sections() {
+    platform::evict_readonly_region(_bongocat_start_assets, _bongocat_stop_assets, ".bongocat.assets");
+  }
 }  // namespace details
 
-static void unload_assets_readonly_sections();
 created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& ctx) {
   // read-only config
   assert(ctx._local_copy_config);
@@ -140,6 +352,10 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
 
   [[maybe_unused]] const auto t0 = platform::get_current_time_us();
 
+  // only the ONE set that gets (re)loaded (config reload, evolution, ...), loaded inside its `if constexpr` below;
+  // unloaded when leaving this function (after update_evolution_data, also on every error return)
+  details::assets_set_scope_t assets_scope;
+
   switch (anim_shm.anim_type) {
   case config::config_animation_sprite_sheet_layout_t::None:
     // unload other sprite sheets
@@ -147,11 +363,13 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     break;
   case config::config_animation_sprite_sheet_layout_t::Bongocat: {
     if constexpr (features::EnableBongocatEmbeddedAssets) {
+      assets_scope.load(BONGOCAT_ASSETS_SET_REGION(bongocat));
       auto [result, error] = load_bongocat_sprite_sheet(ctx, anim_index);
       if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
         return error;
       }
       anim_shm.anim = bongocat::move(result);
+      // NOTE: keep assets_scope loaded, so evol data can be loaded too
     }
   } break;
   case config::config_animation_sprite_sheet_layout_t::Dm: {
@@ -164,6 +382,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
       break;
     case config::config_animation_dm_set_t::min_dm: {
       if constexpr (features::EnableMinDmEmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(min_dm));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_min_dm_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         patch_dm_anim(l_result, {.sleep_in_bed = true});
@@ -173,6 +392,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dm: {
       if constexpr (features::EnableFullDmEmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(dm));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_dm_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         patch_dm_anim(l_result, {.sleep_in_bed = true});
@@ -182,6 +402,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dm20: {
       if constexpr (features::EnableDm20EmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(dm20));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_dm20_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         patch_dm_anim(l_result, {.sleep_in_bed = true});
@@ -191,6 +412,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dmx: {
       if constexpr (features::EnableDmxEmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(dmx));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_dmx_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
@@ -199,6 +421,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::pen: {
       if constexpr (features::EnablePenEmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(pen));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_pen_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
@@ -207,6 +430,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::pen20: {
       if constexpr (features::EnablePen20EmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(pen20));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_pen20_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
@@ -215,6 +439,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dmc: {
       if constexpr (features::EnableDmcEmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(dmc));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_dmc_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         patch_dm_anim(l_result, {.sleep_in_bed = false, .no_happy = true});
@@ -224,6 +449,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     } break;
     case config::config_animation_dm_set_t::dmall: {
       if constexpr (features::EnableDmAllEmbeddedAssets) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(dmall));
         assert(anim_index >= 0);
         auto [l_result, l_error] = load_dmall_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         result = bongocat::move(l_result);
@@ -238,6 +464,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   } break;
   case config::config_animation_sprite_sheet_layout_t::Pkmn:
     if constexpr (features::EnablePkmnEmbeddedAssets) {
+      assets_scope.load(BONGOCAT_ASSETS_SET_REGION(pkmn));
       assert(anim_index >= 0);
       auto [result, error] = load_pkmn_sprite_sheet(ctx, static_cast<size_t>(anim_index));
       if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -248,6 +475,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     break;
   case config::config_animation_sprite_sheet_layout_t::MsAgent:
     if constexpr (features::EnableMsAgentEmbeddedAssets) {
+      assets_scope.load(BONGOCAT_ASSETS_SET_REGION(ms_agent));
       assert(anim_index >= 0);
       auto [result, error] = load_ms_agent_sprite_sheet(ctx, static_cast<size_t>(anim_index));
       if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
@@ -258,9 +486,10 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     break;
   case config::config_animation_sprite_sheet_layout_t::Custom:
     assert(anim_index >= 0);
-    if constexpr (features::EnableCustomSpriteSheetsAssets && features::EnableMiscEmbeddedAssets) {
-      static_assert(assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
-    }
+#if defined(FEATURE_MISC_EMBEDDED_ASSETS) && defined(FEATURE_CUSTOM_SPRITE_SHEETS)
+    static_assert((features::EnableCustomSpriteSheetsAssets && features::EnableMiscEmbeddedAssets) &&
+                  assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
+#endif
     if constexpr (features::EnableCustomSpriteSheetsAssets) {
       if (current_config._custom && anim_index == assets::CUSTOM_ANIM_INDEX) {
         auto [result, error] = details::anim_load_custom_animation(ctx, current_config);
@@ -274,6 +503,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
       assert(anim_index >= 0);
       if (current_config.animation_custom_set == config::config_animation_custom_set_t::misc &&
           static_cast<size_t>(anim_index) < assets::MISC_ANIM_COUNT) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(misc));
         auto [result, error] = load_misc_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
           return error;
@@ -285,6 +515,7 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
       assert(anim_index >= 0);
       if (current_config.animation_custom_set == config::config_animation_custom_set_t::pmd &&
           static_cast<size_t>(anim_index) < assets::PMD_ANIM_COUNT) {
+        assets_scope.load(BONGOCAT_ASSETS_SET_REGION(pmd));
         auto [result, error] = load_pmd_sprite_sheet(ctx, static_cast<size_t>(anim_index));
         if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
           return error;
@@ -310,8 +541,9 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
   ret.result = &get_current_animation(ctx);
   ret.error = bongocat_error_t::BONGOCAT_SUCCESS;
 
-  // after heavy sprite loading, try to free some memory
-  unload_assets_readonly_sections();
+  // after heavy sprite loading, try to free some memory: drop the loaded set (images, sizes, sprite_settings,
+  // data_evol, dims_table), no need to touch the other sets
+  assets_scope.unload();
   // return unused heap memory back to the OS
 #ifdef __GLIBC__
   malloc_trim(0);
@@ -323,39 +555,6 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
                        static_cast<double>(t1 - t0) / 1000000.0);
 
   return ret;
-}
-
-struct madvise_region {
-  const char *start{};
-  const char *stop{};
-  const char *name{};
-};
-void unload_assets_readonly_sections() {
-  static constexpr madvise_region evictable_regions[] = {
-      {_bongocat_start_assets_images,          _bongocat_stop_assets_images,          ".assets.images"         },
-      {_bongocat_start_assets_data_evol,       _bongocat_stop_assets_data_evol,       ".assets.data_evol"      },
-      {_bongocat_start_assets_sprite_settings, _bongocat_stop_assets_sprite_settings, ".assets.sprite_settings"},
-  };
-
-  for (const auto& region : evictable_regions) {
-    const uintptr_t start = reinterpret_cast<uintptr_t>(region.start);
-    const uintptr_t stop = reinterpret_cast<uintptr_t>(region.stop);
-    assert(stop >= start);
-    const size_t size = stop - start;
-    if (size == 0) {
-      continue;
-    }
-
-    // @TODO: check for MAXPAGESIZE
-    // assert((start % 4096) == 0);
-    // assert((size % 4096) == 0);
-
-    if (madvise(reinterpret_cast<void *>(start), size, MADV_DONTNEED) != 0) {
-      BONGOCAT_LOG_WARNING("madvise: failed to evict %s: %s", region.name, strerror(errno));
-    } else {
-      BONGOCAT_LOG_VERBOSE("madvise: evicted %s: %zu kb", region.name, size / 1024);
-    }
-  }
 }
 
 animation_t& get_current_animation(animation_thread_context_t& ctx) {
@@ -580,6 +779,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     assert(ret->thread_context._local_copy_config);
     // preload assets
     if constexpr (features::EnableBongocatEmbeddedAssets) {
+      const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(bongocat)};
       // Load Bongocat
       if (should_load_bongocat(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load bongocat sprite sheet frames: %d", BONGOCAT_EMBEDDED_IMAGES_COUNT);
@@ -608,6 +808,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
         animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
 
         if constexpr (features::EnableMinDmEmbeddedAssets) {
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(min_dm)};
           BONGOCAT_LOG_INFO("Init min_dm sprite sheets: %d", MIN_DM_ANIM_COUNT);
           ctx.shm->min_dm_anims = platform::make_allocated_mmap_array<animation_t>(MIN_DM_ANIM_COUNT);
 #ifdef FEATURE_MIN_DM_EMBEDDED_ASSETS
@@ -618,6 +819,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           }
         }
         if constexpr (features::EnableFullDmEmbeddedAssets) {
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(dm)};
           BONGOCAT_LOG_INFO("Init dm sprite sheets: %d", DM_ANIM_COUNT);
           ctx.shm->dm_anims = platform::make_allocated_mmap_array<animation_t>(DM_ANIM_COUNT);
 #ifdef FEATURE_DM_EMBEDDED_ASSETS
@@ -629,17 +831,19 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
           }
         }
         if constexpr (features::EnableDm20EmbeddedAssets) {
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(dm20)};
           BONGOCAT_LOG_INFO("Init dm20 sprite sheets: %d", DM20_ANIM_COUNT);
           ctx.shm->dm20_anims = platform::make_allocated_mmap_array<animation_t>(DM20_ANIM_COUNT);
 #ifdef FEATURE_DM20_EMBEDDED_ASSETS
           // dm20
           init_all_dm20_anim(ctx);
 #endif
-          for (size_t i = 0; i < MIN_DM_ANIM_COUNT; ++i) {
+          for (size_t i = 0; i < DM20_ANIM_COUNT; ++i) {
             patch_dm_anim(ctx.shm->dm20_anims[i].dm, {.sleep_in_bed = true});
           }
         }
         if constexpr (features::EnableDmxEmbeddedAssets) {
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(dmx)};
           BONGOCAT_LOG_INFO("Init dmx sprite sheets: %d", DMX_ANIM_COUNT);
           ctx.shm->dmx_anims = platform::make_allocated_mmap_array<animation_t>(DMX_ANIM_COUNT);
 #ifdef FEATURE_DMX_EMBEDDED_ASSETS
@@ -648,7 +852,8 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 #endif
         }
         if constexpr (features::EnablePenEmbeddedAssets) {
-          BONGOCAT_LOG_INFO("Init pen sprite sheets: %d", PEN20_ANIM_COUNT);
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(pen)};
+          BONGOCAT_LOG_INFO("Init pen sprite sheets: %d", PEN_ANIM_COUNT);
           ctx.shm->pen_anims = platform::make_allocated_mmap_array<animation_t>(PEN_ANIM_COUNT);
 #ifdef FEATURE_PEN_EMBEDDED_ASSETS
           // pen
@@ -656,6 +861,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 #endif
         }
         if constexpr (features::EnablePen20EmbeddedAssets) {
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(pen20)};
           BONGOCAT_LOG_INFO("Init pen20 sprite sheets: %d", PEN20_ANIM_COUNT);
           ctx.shm->pen20_anims = platform::make_allocated_mmap_array<animation_t>(PEN20_ANIM_COUNT);
 #ifdef FEATURE_PEN20_EMBEDDED_ASSETS
@@ -664,6 +870,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 #endif
         }
         if constexpr (features::EnableDmcEmbeddedAssets) {
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(dmc)};
           BONGOCAT_LOG_INFO("Init dmc sprite sheets: %d", DMC_ANIM_COUNT);
           ctx.shm->dmc_anims = platform::make_allocated_mmap_array<animation_t>(DMC_ANIM_COUNT);
 #ifdef FEATURE_DMC_EMBEDDED_ASSETS
@@ -672,6 +879,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
 #endif
         }
         if constexpr (features::EnableDmAllEmbeddedAssets) {
+          const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(dmall)};
           BONGOCAT_LOG_INFO("Init dmall sprite sheets: %d", DMALL_ANIM_COUNT);
           ctx.shm->dmall_anims = platform::make_allocated_mmap_array<animation_t>(DMALL_ANIM_COUNT);
 #ifdef FEATURE_DMALL_EMBEDDED_ASSETS
@@ -683,6 +891,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     }
 
     if constexpr (features::EnableMsAgentEmbeddedAssets) {
+      const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(ms_agent)};
       // Load Ms Pets (Clippy)
       if (should_load_ms_agent(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load MS agent sprite sheets: %d", MS_AGENTS_ANIM_COUNT);
@@ -698,6 +907,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     }
 
     if constexpr (features::EnablePkmnEmbeddedAssets) {
+      const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(pkmn)};
       // Load pkmn
       if (should_load_pkmn(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load pkmn sprite sheets: %d", PKMN_ANIM_COUNT);
@@ -712,6 +922,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
       }
     }
     if constexpr (features::EnablePmdEmbeddedAssets) {
+      const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(pmd)};
       // Load pmd (pkmn)
       if (should_load_pmd(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load pmd sprite sheets: %d", PMD_ANIM_COUNT);
@@ -727,6 +938,7 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
     }
 
     if constexpr (features::EnableMiscEmbeddedAssets) {
+      const details::assets_set_scope_t assets_scope{BONGOCAT_ASSETS_SET_REGION(misc)};
       // Load Misc Pets (neko)
       if (should_load_misc(*ret->thread_context._local_copy_config)) {
         BONGOCAT_LOG_INFO("Load Misc sprite sheets: %d", MISC_ANIM_COUNT);
@@ -771,16 +983,25 @@ created_result_t<AllocatedMemory<animation_context_t>> create(const config::conf
       animation_thread_context_t& ctx = ret->thread_context;  // alias for inits in includes
       assert(ctx.shm.ptr);
 
+      // evolution data only of the current set (.assets.<set>.data_evol)
+      const details::assets_set_scope_t assets_scope{details::get_assets_set_region(*ctx.shm)};
       details::update_evolution_data(*ctx.shm);
 
       BONGOCAT_LOG_INFO("Init Evolution (anim_index=%d) with %d possible evolution(s)", ctx.shm->anim_index,
                         ctx.shm->evolution.data.num_animation_indices);
     }
+
+    // drop the whole block anyway (just to be sure)
+    details::unload_assets_readonly_sections();
   }
   // Load embedded images/animations
   else if constexpr (features::EnableLazyLoadAssets) {
     hot_load_animation(ret->thread_context);
+    details::unload_assets_readonly_sections();
   }
+#ifdef __GLIBC__
+  malloc_trim(0);
+#endif
   [[maybe_unused]] const auto t1 = platform::get_current_time_us();
 
   // init anim

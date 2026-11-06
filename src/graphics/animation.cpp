@@ -3,18 +3,17 @@
 #include "embedded_assets/bongocat/assets_bongocat_features.h"
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
-#include "embedded_assets/custom/custom_sprite.h"
 #include "embedded_assets/min_dm/min_dm_evol.h"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
-#include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
-#include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/pkmn/pkmn_evol.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
 #include "graphics/embedded_assets_dms.h"
+#include "graphics/embedded_assets_misc.h"
+#include "graphics/embedded_assets_ms_agent.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/bongocat/load_images_bongocat.h"
 #include "image_loader/custom/load_custom.h"
@@ -22,6 +21,9 @@
 #include "platform/wayland.h"
 #include "utils/system_error.h"
 #include "utils/time.h"
+#ifdef FEATURE_CUSTOM_SPRITE_SHEETS
+#  include "embedded_assets/custom/custom_sprite.h"
+#endif
 
 #include <cassert>
 #include <climits>
@@ -7015,7 +7017,9 @@ update_config_reload_sprite_sheet(animation_thread_context_t& ctx,
   // init evolution data
   if constexpr (features::EnableEvolution) {
     assert(ctx.shm);
+    const details::assets_set_scope_t assets_scope{details::get_assets_set_region_evol_data(*ctx.shm)};
     details::update_evolution_data(*ctx.shm);
+    details::unload_assets_readonly_sections();
   }
 
   // reset animation

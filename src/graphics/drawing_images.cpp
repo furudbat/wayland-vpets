@@ -27,6 +27,74 @@ constexpr static uint8_t apply_invert(uint8_t v, bool invert) {
   return v ^ (invert ? 0xFF : 0x00);  // branchless invert
 }
 
+/// x / 255, exactly rounded (same result as lroundf(x / 255.0f)) for 0 <= x <= 255 * 255
+constexpr static uint8_t div255_round(uint32_t x) {
+  return static_cast<uint8_t>((x + 128u + ((x + 128u) >> 8u)) >> 8u);
+}
+/// src * alpha + dest * (1 - alpha)
+constexpr static uint8_t blend_channel(uint8_t src, uint8_t dest, uint8_t alpha) {
+  return div255_round((static_cast<uint32_t>(src) * alpha) + (static_cast<uint32_t>(dest) * (255u - alpha)));
+}
+
+// -----------------------------------------------------------------------------
+// 4-channel fast paths (RGBA/BGRA -> RGBA/BGRA), used by blit_image_scaled
+// color order and invert get resolved ONCE per blit, not per pixel:
+//   SwapRB:      src and dest order differ (RGBA <-> BGRA) => swap R and B
+//   invert_mask: 0x00 (normal) or 0xFF (invert), applied with XOR (branchless), alpha is never inverted
+// -----------------------------------------------------------------------------
+static inline void copy_pixel_4ch_swap_rb(uint8_t *dest, const uint8_t *src, uint8_t invert_mask) {
+  dest[0] = src[2] ^ invert_mask;
+  dest[2] = src[0] ^ invert_mask;
+  dest[1] = src[1] ^ invert_mask;
+  dest[3] = src[3];
+}
+static inline void copy_pixel_4ch_normal(uint8_t *dest, const uint8_t *src, uint8_t invert_mask) {
+  dest[0] = src[0] ^ invert_mask;
+  dest[2] = src[2] ^ invert_mask;
+  dest[1] = src[1] ^ invert_mask;
+  dest[3] = src[3];
+}
+
+struct premul_pixel_4ch_t {
+  uint8_t c0{0};
+  uint8_t c1{0};
+  uint8_t c2{0};
+  uint8_t a{0};
+};
+/// premultiplied invert: (255 - c) * a / 255 = a - c * a / 255
+constexpr static uint8_t invert_premul(uint8_t c, uint8_t a, bool invert) {
+  return invert ? static_cast<uint8_t>(a - c) : c;
+}
+// "source over" into the (premultiplied) ARGB8888 wayland buffer, keeps the coverage of the edges in dest alpha:
+//   out_c = src_c + dest_c * (1 - src_a)
+//   out_a = src_a + dest_a * (1 - src_a)
+static inline void composite_premul_4ch_swap_rb(uint8_t *dest, premul_pixel_4ch_t px, bool invert) {
+  if (px.a == 0) {
+    return;
+  }
+  const uint32_t ia = 255u - px.a;
+  const uint8_t c0 = invert_premul(px.c0, px.a, invert);
+  const uint8_t c1 = invert_premul(px.c1, px.a, invert);
+  const uint8_t c2 = invert_premul(px.c2, px.a, invert);
+  dest[0] = static_cast<uint8_t>(c2 + div255_round(dest[0] * ia));
+  dest[1] = static_cast<uint8_t>(c1 + div255_round(dest[1] * ia));
+  dest[2] = static_cast<uint8_t>(c0 + div255_round(dest[2] * ia));
+  dest[3] = static_cast<uint8_t>(px.a + div255_round(dest[3] * ia));
+}
+static inline void composite_premul_4ch_normal(uint8_t *dest, premul_pixel_4ch_t px, bool invert) {
+  if (px.a == 0) {
+    return;
+  }
+  const uint32_t ia = 255u - px.a;
+  const uint8_t c0 = invert_premul(px.c0, px.a, invert);
+  const uint8_t c1 = invert_premul(px.c1, px.a, invert);
+  const uint8_t c2 = invert_premul(px.c2, px.a, invert);
+  dest[0] = static_cast<uint8_t>(c0 + div255_round(dest[0] * ia));
+  dest[1] = static_cast<uint8_t>(c1 + div255_round(dest[1] * ia));
+  dest[2] = static_cast<uint8_t>(c2 + div255_round(dest[2] * ia));
+  dest[3] = static_cast<uint8_t>(px.a + div255_round(dest[3] * ia));
+}
+
 static void drawing_copy_pixel_rgba(uint8_t *dest, int dest_channels, int dest_idx, blit_image_color_order_t dest_order,
                                     uint8_t r, uint8_t g, uint8_t b, uint8_t a) {
   // Map destination channel indices
@@ -123,28 +191,19 @@ void drawing_blend_pixel(uint8_t *dest, int dest_channels, int dest_idx, uint8_t
     r = g = b = gray;
     a = 255;
   } else {
-    // Fully opaque - direct copy (fast path)
-    if (src_a == 255) {
-      // RGB / RGBA
-      r = apply_invert(sr, invert);
-      g = apply_invert(sg, invert);
-      b = apply_invert(sb, invert);
-      a = 255;  // Alpha not inverted
-    } else {
-      // Alpha blend: out = src * alpha + dest * (1 - alpha)
-      const float alpha = static_cast<float>(sa) / 255.0f;
-      const float inv_alpha = 1.0f - alpha;
-
-      // Map source channel indices for RGB
+    // invert the source color first (alpha is never inverted), then blend
+    r = apply_invert(sr, invert);
+    g = apply_invert(sg, invert);
+    b = apply_invert(sb, invert);
+    a = 255;
+    if (sa != 255) {
+      // Alpha blend: out = src * alpha + dest * (1 - alpha), integer math (exactly rounded like lroundf)
       const uint8_t dr = (dest_order == blit_image_color_order_t::RGBA) ? dest[dest_idx + 0] : dest[dest_idx + 2];
       const uint8_t dg = dest[dest_idx + 1];
       const uint8_t db = (dest_order == blit_image_color_order_t::RGBA) ? dest[dest_idx + 2] : dest[dest_idx + 0];
-      // const uint8_t da = dest[dest_idx + 3];
-
-      r = static_cast<uint8_t>(lroundf((sr * alpha) + (dr * inv_alpha)));
-      g = static_cast<uint8_t>(lroundf((sg * alpha) + (dg * inv_alpha)));
-      b = static_cast<uint8_t>(lroundf((sb * alpha) + (db * inv_alpha)));
-      a = 255;  // Alpha not inverted
+      r = blend_channel(r, dr, sa);
+      g = blend_channel(g, dg, sa);
+      b = blend_channel(b, db, sa);
     }
   }
 
@@ -330,6 +389,215 @@ static drawing_get_pixel_result_t drawing_get_box_filtered_pixel(const unsigned 
   return ret;
 }
 
+struct blit_scaled_4ch_params_t {
+  uint8_t *dest{BONGOCAT_NULLPTR};
+  size_t dest_row_bytes{0};
+  const unsigned char *src{BONGOCAT_NULLPTR};
+  size_t src_size{0};
+  int src_w{0};
+  int src_h{0};
+  size_t src_row_bytes{0};
+  int x0{0};
+  int x1{0};
+  int y0{0};
+  int y1{0};
+  int offset_x{0};
+  int offset_y{0};
+  int32_t src_x_start{0};
+  int32_t src_y_start{0};
+  int32_t inc_x{0};
+  int32_t inc_y{0};
+  uint8_t invert_mask{0x00};
+  bool disable_threshold_alpha{false};
+  bool bilinear{false};
+  bool box_filter{false};
+
+  // filtered path (bilinear/box): sample pixel centers, clamped to the current frame (no bleeding from neighbors)
+  int frame_x{0};
+  int frame_y{0};
+  int frame_w{0};
+  int frame_h{0};
+  int target_w{0};
+  int target_h{0};
+  float scale_x{1.0f};  ///< source pixels per target pixel
+  float scale_y{1.0f};
+  bool mirror_x{false};
+  bool mirror_y{false};
+  bool invert{false};
+};
+
+static inline int clamp_int(int v, int lo, int hi) {
+  return v < lo ? lo : (v > hi ? hi : v);
+}
+
+/// bilinear sample (premultiplied) at continuous source position (fx, fy), clamped to the frame
+static premul_pixel_4ch_t sample_bilinear_premul_4ch(const blit_scaled_4ch_params_t& p, float fx, float fy) {
+  // continuous coords -> pixel center coords
+  fx -= 0.5f;
+  fy -= 0.5f;
+  const float flx = floorf(fx);
+  const float fly = floorf(fy);
+  const auto wx = static_cast<uint32_t>(lroundf((fx - flx) * 256.0f));  // 0..256
+  const auto wy = static_cast<uint32_t>(lroundf((fy - fly) * 256.0f));
+  const int frame_x_max = p.frame_x + p.frame_w - 1;
+  const int frame_y_max = p.frame_y + p.frame_h - 1;
+  const int xa = clamp_int(static_cast<int>(flx), p.frame_x, frame_x_max);
+  const int xb = clamp_int(static_cast<int>(flx) + 1, p.frame_x, frame_x_max);
+  const int ya = clamp_int(static_cast<int>(fly), p.frame_y, frame_y_max);
+  const int yb = clamp_int(static_cast<int>(fly) + 1, p.frame_y, frame_y_max);
+
+  const unsigned char *row_a = p.src + (static_cast<size_t>(ya) * p.src_row_bytes);
+  const unsigned char *row_b = p.src + (static_cast<size_t>(yb) * p.src_row_bytes);
+  const unsigned char *taps[4] = {row_a + (static_cast<size_t>(xa) * 4), row_a + (static_cast<size_t>(xb) * 4),
+                                  row_b + (static_cast<size_t>(xa) * 4), row_b + (static_cast<size_t>(xb) * 4)};
+  const uint32_t weights[4] = {(256u - wx) * (256u - wy), wx * (256u - wy), (256u - wx) * wy, wx * wy};  // sum 65536
+
+  uint64_t sum_a = 0;
+  uint64_t sum_c0 = 0;
+  uint64_t sum_c1 = 0;
+  uint64_t sum_c2 = 0;
+  for (int i = 0; i < 4; ++i) {
+    const uint64_t aw = static_cast<uint64_t>(taps[i][3]) * weights[i];
+    sum_a += aw;
+    sum_c0 += taps[i][0] * aw;
+    sum_c1 += taps[i][1] * aw;
+    sum_c2 += taps[i][2] * aw;
+  }
+  premul_pixel_4ch_t ret;
+  ret.a = static_cast<uint8_t>((sum_a + 32768u) >> 16u);
+  constexpr uint64_t color_div = 255ull * 65536ull;
+  const auto premul = [&](uint64_t sum) -> uint8_t {
+    const uint64_t c = (sum + (color_div / 2)) / color_div;
+    return static_cast<uint8_t>(c < ret.a ? c : ret.a);
+  };
+  ret.c0 = premul(sum_c0);
+  ret.c1 = premul(sum_c1);
+  ret.c2 = premul(sum_c2);
+  return ret;
+}
+
+/// box filter (premultiplied): average of all source pixels covered by target pixel (tx, ty) of the frame
+static premul_pixel_4ch_t sample_box_premul_4ch(const blit_scaled_4ch_params_t& p, int tx, int ty) {
+  const int frame_x_max = p.frame_w - 1;
+  const int frame_y_max = p.frame_h - 1;
+  const int x_begin = clamp_int(static_cast<int>(floorf(static_cast<float>(tx) * p.scale_x)), 0, frame_x_max);
+  const int y_begin = clamp_int(static_cast<int>(floorf(static_cast<float>(ty) * p.scale_y)), 0, frame_y_max);
+  int x_end = clamp_int(static_cast<int>(ceilf(static_cast<float>(tx + 1) * p.scale_x)) - 1, 0, frame_x_max);
+  int y_end = clamp_int(static_cast<int>(ceilf(static_cast<float>(ty + 1) * p.scale_y)) - 1, 0, frame_y_max);
+  x_end = x_end < x_begin ? x_begin : x_end;
+  y_end = y_end < y_begin ? y_begin : y_end;
+
+  uint64_t sum_a = 0;
+  uint64_t sum_c0 = 0;
+  uint64_t sum_c1 = 0;
+  uint64_t sum_c2 = 0;
+  for (int y = y_begin; y <= y_end; ++y) {
+    const unsigned char *px =
+        p.src + (static_cast<size_t>(p.frame_y + y) * p.src_row_bytes) + (static_cast<size_t>(p.frame_x + x_begin) * 4);
+    for (int x = x_begin; x <= x_end; ++x, px += 4) {
+      const uint64_t a = px[3];
+      sum_a += a;
+      sum_c0 += px[0] * a;
+      sum_c1 += px[1] * a;
+      sum_c2 += px[2] * a;
+    }
+  }
+  const auto count = static_cast<uint64_t>(x_end - x_begin + 1) * static_cast<uint64_t>(y_end - y_begin + 1);
+  premul_pixel_4ch_t ret;
+  ret.a = static_cast<uint8_t>((sum_a + (count / 2)) / count);
+  const uint64_t color_div = 255ull * count;
+  const auto premul = [&](uint64_t sum) -> uint8_t {
+    const uint64_t c = (sum + (color_div / 2)) / color_div;
+    return static_cast<uint8_t>(c < ret.a ? c : ret.a);
+  };
+  ret.c0 = premul(sum_c0);
+  ret.c1 = premul(sum_c1);
+  ret.c2 = premul(sum_c2);
+  return ret;
+}
+
+/// anti-aliased sample of target pixel (tx, ty): premultiplied bilinear (upscaling) / box filter (downscaling)
+static inline premul_pixel_4ch_t sample_filtered_premul_4ch(const blit_scaled_4ch_params_t& p, int tx, int ty) {
+  // target pixel -> frame-local target pixel (mirroring flips the target, not the sampling)
+  const int ftx = p.mirror_x ? (p.target_w - 1 - tx) : tx;
+  const int fty = p.mirror_y ? (p.target_h - 1 - ty) : ty;
+  if (p.box_filter) {
+    return sample_box_premul_4ch(p, ftx, fty);
+  }
+  const float fx = static_cast<float>(p.frame_x) + ((static_cast<float>(ftx) + 0.5f) * p.scale_x);
+  const float fy = static_cast<float>(p.frame_y) + ((static_cast<float>(fty) + 0.5f) * p.scale_y);
+  return sample_bilinear_premul_4ch(p, fx, fy);
+}
+
+/// RGBA/BGRA -> RGBA/BGRA: options, color order and filter are resolved before the loops,
+/// the nearest-neighbor inner loop is a plain 4-byte (swizzled) copy
+static void blit_image_scaled_4ch_swap_rb(const blit_scaled_4ch_params_t& p) {
+  for (int ty = p.y0; ty < p.y1; ++ty) {
+    const int32_t sy_fixed = p.src_y_start + static_cast<int32_t>(static_cast<int64_t>(ty) * p.inc_y);
+    const int sy = sy_fixed >> FIXED_SHIFT;
+    if (static_cast<unsigned>(sy) >= static_cast<unsigned>(p.src_h)) {
+      continue;
+    }
+
+    const unsigned char *src_row = p.src + (static_cast<size_t>(sy) * p.src_row_bytes);
+    uint8_t *dest_ptr = p.dest + (static_cast<size_t>(p.offset_y + ty) * p.dest_row_bytes) +
+                        (static_cast<size_t>(p.offset_x + p.x0) * 4);
+    int32_t sx_fixed = p.src_x_start + static_cast<int32_t>(static_cast<int64_t>(p.x0) * p.inc_x);
+
+    if (!p.bilinear) {
+      // nearest-neighbor
+      for (int tx = p.x0; tx < p.x1; ++tx, sx_fixed += p.inc_x, dest_ptr += 4) {
+        const int sx = sx_fixed >> FIXED_SHIFT;
+        if (static_cast<unsigned>(sx) >= static_cast<unsigned>(p.src_w)) {
+          continue;
+        }
+        const unsigned char *src_pixel = src_row + (static_cast<size_t>(sx) * 4);
+        if (p.disable_threshold_alpha || src_pixel[3] > THRESHOLD_ALPHA) {
+          copy_pixel_4ch_swap_rb(dest_ptr, src_pixel, p.invert_mask);
+        }
+      }
+    } else {
+      // anti-aliased: bilinear (upscaling) / box filter (downscaling), premultiplied + "source over"
+      for (int tx = p.x0; tx < p.x1; ++tx, dest_ptr += 4) {
+        composite_premul_4ch_swap_rb(dest_ptr, sample_filtered_premul_4ch(p, tx, ty), p.invert);
+      }
+    }
+  }
+}
+static void blit_image_scaled_4ch_normal(const blit_scaled_4ch_params_t& p) {
+  for (int ty = p.y0; ty < p.y1; ++ty) {
+    const int32_t sy_fixed = p.src_y_start + static_cast<int32_t>(static_cast<int64_t>(ty) * p.inc_y);
+    const int sy = sy_fixed >> FIXED_SHIFT;
+    if (static_cast<unsigned>(sy) >= static_cast<unsigned>(p.src_h)) {
+      continue;
+    }
+
+    const unsigned char *src_row = p.src + (static_cast<size_t>(sy) * p.src_row_bytes);
+    uint8_t *dest_ptr = p.dest + (static_cast<size_t>(p.offset_y + ty) * p.dest_row_bytes) +
+                        (static_cast<size_t>(p.offset_x + p.x0) * 4);
+    int32_t sx_fixed = p.src_x_start + static_cast<int32_t>(static_cast<int64_t>(p.x0) * p.inc_x);
+
+    if (!p.bilinear) {
+      // nearest-neighbor
+      for (int tx = p.x0; tx < p.x1; ++tx, sx_fixed += p.inc_x, dest_ptr += 4) {
+        const int sx = sx_fixed >> FIXED_SHIFT;
+        if (static_cast<unsigned>(sx) >= static_cast<unsigned>(p.src_w)) {
+          continue;
+        }
+        const unsigned char *src_pixel = src_row + (static_cast<size_t>(sx) * 4);
+        if (p.disable_threshold_alpha || src_pixel[3] > THRESHOLD_ALPHA) {
+          copy_pixel_4ch_normal(dest_ptr, src_pixel, p.invert_mask);
+        }
+      }
+    } else {
+      // anti-aliased: bilinear (upscaling) / box filter (downscaling), premultiplied + "source over"
+      for (int tx = p.x0; tx < p.x1; ++tx, dest_ptr += 4) {
+        composite_premul_4ch_normal(dest_ptr, sample_filtered_premul_4ch(p, tx, ty), p.invert);
+      }
+    }
+  }
+}
+
 void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, int dest_channels,
                        const unsigned char *src, size_t src_size, int src_w, int src_h, int src_channels, int src_x,
                        int src_y, int frame_w, int frame_h, int offset_x, int offset_y, int target_w, int target_h,
@@ -426,7 +694,55 @@ void blit_image_scaled(uint8_t *dest, size_t dest_size, int dest_w, int dest_h, 
   const size_t src_row_bytes = static_cast<size_t>(src_w) * static_cast<size_t>(src_channels);
   const size_t dest_row_bytes = static_cast<size_t>(dest_w) * static_cast<size_t>(dest_channels);
 
-  const bool is_downscaling = (target_w < src_w) || (target_h < src_h);
+  // downscaling = one FRAME gets shrunk (not the whole sprite sheet)
+  const bool is_downscaling = (target_w < frame_w) || (target_h < frame_h);
+
+  // common case: 4 channels on both sides (all sprite sheets are RGBA, the wayland buffer is BGRA)
+  if (src_channels == 4 && dest_channels == 4) {
+    const blit_scaled_4ch_params_t params{
+        .dest = dest,
+        .dest_row_bytes = dest_row_bytes,
+        .src = src,
+        .src_size = src_size,
+        .src_w = src_w,
+        .src_h = src_h,
+        .src_row_bytes = src_row_bytes,
+        .x0 = x0,
+        .x1 = x1,
+        .y0 = y0,
+        .y1 = y1,
+        .offset_x = offset_x,
+        .offset_y = offset_y,
+        .src_x_start = src_x_start,
+        .src_y_start = src_y_start,
+        .inc_x = inc_x,
+        .inc_y = inc_y,
+        .invert_mask = has_flag(options, blit_image_color_option_flags_t::Invert) ? static_cast<uint8_t>(0xFF)
+                                                                                  : static_cast<uint8_t>(0x00),
+        .disable_threshold_alpha = disable_threshold_alpha,
+        .bilinear = use_bilinear_interpolation,
+        .box_filter = is_downscaling,
+        .frame_x = src_x,
+        .frame_y = src_y,
+        .frame_w = frame_w,
+        .frame_h = frame_h,
+        .target_w = target_w,
+        .target_h = target_h,
+        .scale_x = static_cast<float>(frame_w) / static_cast<float>(target_w),
+        .scale_y = static_cast<float>(frame_h) / static_cast<float>(target_h),
+        .mirror_x = mirror_x,
+        .mirror_y = mirror_y,
+        .invert = has_flag(options, blit_image_color_option_flags_t::Invert),
+    };
+    if (src_order != dest_order) {
+      blit_image_scaled_4ch_swap_rb(params);
+    } else {
+      blit_image_scaled_4ch_normal(params);
+    }
+    return;
+  }
+
+  // generic path (1-3 channels)
 
   for (int ty = y0; ty < y1; ++ty) {
     const int dy = offset_y + ty;

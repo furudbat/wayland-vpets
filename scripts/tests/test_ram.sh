@@ -38,7 +38,7 @@ echo "" >> "$REPORT"
 echo "" >> "$REPORT"
 
 
-echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo/bongocat-all -- ./cmake-build-debug/bongocat-all`' >> "$REPORT"
+echo '`bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo-all-features/bongocat-all -- ./cmake-build-relwithdebinfo/bongocat-all`' >> "$REPORT"
 echo '```bash' >> "$REPORT"
 echo "$(bloaty -d compileunits --source-filter=src ./cmake-build-relwithdebinfo-all-features/bongocat-all -- ./cmake-build-relwithdebinfo/bongocat-all | sed "s|$P/||g" | sed "s|$P||g")" >> "$REPORT"
 echo '```' >> "$REPORT"
@@ -92,19 +92,10 @@ echo "" >> "$REPORT"
 echo "## RAM Usage" >> "$REPORT"
 echo "" >> "$REPORT"
 
-measure_ram() {
-    local pid="$1"
-    local max_rss=0
-    for i in {1..10}; do
-        if ps -p "$pid" -o rss= | grep -q '[0-9]'; then
-            local rss=$(ps -p "$pid" -o rss= | awk '{print $1}')
-            (( rss > max_rss )) && max_rss=$rss
-        else
-            break
-        fi
-        sleep 1
-    done
-    echo "$max_rss"
+# Read a field (in KiB) from /proc/<pid>/status, e.g. VmRSS, VmHWM, RssAnon
+proc_status_kib() {
+    local pid="$1" field="$2"
+    awk -v f="$field:" '$1 == f {print $2; found=1} END {if (!found) print 0}' "/proc/$pid/status" 2>/dev/null || echo 0
 }
 
 convert_size() {
@@ -133,9 +124,12 @@ CONFIG="$WORKDIR/test.bongocat.conf"  # config file to modify
 OG_CONFIG=./examples/test/test.bongocat.conf
 cp $OG_CONFIG $CONFIG
 # --- trap cleanup ---
+PID=""
+MONITOR_PID=""
 cleanup() {
     echo "[INFO] Cleaning up..."
-    #kill -9 "$PID" 2>/dev/null || true
+    [[ -n "$MONITOR_PID" ]] && kill "$MONITOR_PID" 2>/dev/null || true
+    [[ -n "$PID" ]] && kill -9 "$PID" 2>/dev/null || true
     rm -rf "$WORKDIR"
 }
 trap cleanup EXIT
@@ -321,8 +315,8 @@ PMAP_TABLE="# pmaps
 for group in release; do
     echo "## $(tr '[:lower:]' '[:upper:]' <<< ${group:0:1})${group:1}" >> "$REPORT"
     echo "" >> "$REPORT"
-    echo "| Variant | Binary Size | Peak RAM | Avg. RAM | Median RAM |" >> "$REPORT"
-    echo "|---------|-------------|----------|----------|------------|" >> "$REPORT"
+    echo "| Variant | Binary Size | Peak RAM | Avg. RAM | Median RAM | End RAM |" >> "$REPORT"
+    echo "|---------|-------------|----------|----------|------------|---------|" >> "$REPORT"
 
     #./cmake-build-release-all-features \
     #./cmake-build-release-preload-assets \
@@ -331,6 +325,9 @@ for group in release; do
     while read -r binary; do
         size=$(convert_file_size "$binary")
         echo "Testing $binary (size $size)..."
+
+        # Every binary starts from the same, unmodified config
+        cp "$OG_CONFIG" "$CONFIG"
 
         # Start binary normally
         "$binary" --config "$CONFIG" --ignore-running &
@@ -373,19 +370,17 @@ for group in release; do
             exit 1
         fi
 
+        # Stop sampling: avg/median only cover the test sequence, not the shutdown
+        kill "$MONITOR_PID" 2>/dev/null || true
+        wait "$MONITOR_PID" 2>/dev/null || true
+        MONITOR_PID=""
 
-        # --- verify running before pmap ---
-        if kill -0 "$PID" 2>/dev/null; then
-            echo "[INFO] Capturing pmap for PID $PID"
+        # VmHWM = kernel RSS high-water mark (catches peaks between samples)
+        hwm_kib=$(proc_status_kib "$PID" VmHWM)
+        end_ram_kib=$(proc_status_kib "$PID" VmRSS)
 
-            pmap_output=$(pmap -x "$PID" 2>&1 || true)
-        else
-            echo "[WARN] PID $PID no longer exists"
-            pmap_output="process exited before pmap capture"
-        fi
-
-        ram_kib=$(measure_ram "$PID" || echo 0)
-        sleep 3
+        echo "[INFO] Capturing pmap for PID $PID"
+        pmap_output=$(pmap -x "$PID" 2>&1 || true)
 
         # --- send SIGTERM ---
         echo "[INFO] Sending SIGTERM..."
@@ -407,61 +402,40 @@ for group in release; do
             echo "[PASS] Process terminated successfully"
         fi
 
-        avg_ram_kib=$(awk '
-        {
-            sum += $1
-            n++
-        }
-        END {
-            if (n > 0)
-                printf "%.0f", sum / n
-            else
-                print 0
-        }' "$RAM_LOG")
+        # drop empty/non-numeric samples (process starting/exiting)
+        grep -E '^[0-9]+$' "$RAM_LOG" > "$RAM_LOG.clean" || true
 
+        max_sample_kib=$(sort -n "$RAM_LOG.clean" | tail -n 1)
+        max_sample_kib=${max_sample_kib:-0}
+        ram_kib=$(( hwm_kib > max_sample_kib ? hwm_kib : max_sample_kib ))
 
-        median_ram_kib=$(awk '
-        {
-            samples[n++] = $1
-        }
-        END {
-            if (n == 0) {
-                print 0
-                exit
-            }
+        avg_ram_kib=$(awk '{ sum += $1; n++ } END { if (n > 0) printf "%.0f", sum / n; else print 0 }' "$RAM_LOG.clean")
 
-            for (i = 0; i < n; i++) {
-                for (j = i + 1; j < n; j++) {
-                    if (samples[i] > samples[j]) {
-                        tmp=samples[i]
-                        samples[i]=samples[j]
-                        samples[j]=tmp
-                    }
-                }
-            }
-
-            if (n % 2 == 1)
-                printf "%.0f", samples[int(n/2)]
-            else
-                printf "%.0f", (samples[n/2-1]+samples[n/2])/2
-        }' "$RAM_LOG")
-
+        median_ram_kib=$(sort -n "$RAM_LOG.clean" | awk '
+            { v[n++] = $1 }
+            END {
+                if (n == 0) { print 0; exit }
+                if (n % 2 == 1) printf "%.0f", v[int(n/2)]
+                else            printf "%.0f", (v[n/2-1] + v[n/2]) / 2
+            }')
 
         ram=$(convert_size "$ram_kib")
+        end_ram=$(convert_size "$end_ram_kib")
         avg_ram=$(convert_size "$avg_ram_kib")
         median_ram=$(convert_size "$median_ram_kib")
 
         variant=$(basename "$(dirname "$binary")")/$(basename "$binary")
 
 
-        echo "| \`$variant\` | $size | $ram | $avg_ram | $median_ram |" >> "$REPORT"
+        echo "| \`$variant\` | $size | $ram | $avg_ram | $median_ram | $end_ram |" >> "$REPORT"
 
         PMAP_TABLE+="**\`$variant\`**\n"
         PMAP_TABLE+='```bash\n'
         PMAP_TABLE+="$pmap_output"
         PMAP_TABLE+='\n```\n\n'
 
-        rm "$RAM_LOG"
+        rm -f "$RAM_LOG" "$RAM_LOG.clean"
+        PID=""
     done < <(
         find ./cmake-build-release \
              ./cmake-build-release-all-features \
@@ -472,12 +446,11 @@ for group in release; do
             \( -name "bongocat" \
             -o -name "bongocat-ms-agent" \
             -o -name "bongocat-all" \
-            -o -name "bongocat-pkmn" \)
+            -o -name "bongocat-pkmn" \) | sort
     )
     echo "" >> "$REPORT"
 done
 
-echo -e "$PMAP_TABLE" >> "$REPORT"
 echo -e "$PMAP_TABLE" >> "$REPORT"
 
 echo ""
