@@ -37,8 +37,8 @@ inline static constexpr size_t CLIPPY_ANIM_INDEX = 0;
 
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
 // Name: Links
-inline static constexpr size_t LINKS_SPRITE_SHEET_COLS = 35;
-inline static constexpr size_t LINKS_SPRITE_SHEET_ROWS = 6;
+inline static constexpr size_t LINKS_SPRITE_SHEET_COLS ASSETS_MS_AGENT_DIMS_SECTION = 35;
+inline static constexpr size_t LINKS_SPRITE_SHEET_ROWS ASSETS_MS_AGENT_DIMS_SECTION = 6;
 inline static constexpr size_t LINKS_FRAMES_IDLE = 3;
 inline static constexpr size_t LINKS_FRAMES_BORING = 18;
 inline static constexpr size_t LINKS_FRAMES_START_WRITING = 13;

@@ -10,6 +10,80 @@
 
 namespace bongocat::animation {
 // =============================================================================
+// SPRITE SHEET LAYOUT (shared by all image backends)
+// =============================================================================
+
+namespace details {
+  sprite_sheet_layout_mapper_t make_sprite_sheet_layout_mapper(int32_t src_width, int32_t src_height,
+                                                               sprite_sheet_layout_t layout) {
+    sprite_sheet_layout_mapper_t ret;
+    if (src_width <= 0 || src_height <= 0 || layout.frame_columns <= 0 || layout.frame_rows <= 0 ||
+        layout.padding_x < 0 || layout.padding_y < 0 || src_width % layout.frame_columns != 0 ||
+        src_height % layout.frame_rows != 0) {
+      BONGOCAT_LOG_ERROR(
+          "Sprite sheet dimensions not divisible by frame grid; frame_columns=%d, frame_rows=%d vs %dx%d sprite size",
+          layout.frame_columns, layout.frame_rows, src_width, src_height);
+      return ret;
+    }
+    ret.src_width = src_width;
+    ret.src_height = src_height;
+    ret.frame_width = src_width / layout.frame_columns;
+    ret.frame_height = src_height / layout.frame_rows;
+    ret.padding_x = layout.padding_x;
+    ret.padding_y = layout.padding_y;
+    ret.dest_width = (ret.frame_width + (layout.padding_x * 2)) * layout.frame_columns;
+    ret.dest_height = (ret.frame_height + (layout.padding_y * 2)) * layout.frame_rows;
+    ret.valid = true;
+    return ret;
+  }
+
+  created_result_t<generic_sprite_sheet_image_t> allocate_sprite_sheet_image(const sprite_sheet_layout_mapper_t& mapper) {
+    if (!mapper.valid) [[unlikely]] {
+      return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
+    }
+    generic_sprite_sheet_image_t ret;
+    const size_t size_bytes = mapper.dest_size_bytes();
+    ret.pixels = make_allocated_array_uninitialized<uint8_t>(size_bytes);
+    if (!ret.pixels) [[unlikely]] {
+      BONGOCAT_LOG_ERROR("Failed to allocate memory for sprite sheet (%zu bytes)", size_bytes);
+      return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+    }
+    /// @TODO: only memset to zero, when padding is needed, otherwise the whole pace gets used anyway
+    if (mapper.has_padding()) {
+      ::memset(ret.pixels.data, 0, size_bytes);
+    }
+    ret.sprite_sheet_width = mapper.dest_width;
+    ret.sprite_sheet_height = mapper.dest_height;
+    ret.channels = RGBA_CHANNELS;
+    return ret;
+  }
+
+  void copy_rgba_into_sprite_sheet_layout(generic_sprite_sheet_image_t& dest, const sprite_sheet_layout_mapper_t& mapper,
+                                          const uint8_t *src_rgba) {
+    assert(mapper.valid);
+    assert(dest.pixels._size_bytes >= mapper.dest_size_bytes());
+    if (!mapper.has_padding()) {
+      // 1:1 copy without padding
+      ::memcpy(dest.pixels.data, src_rgba, mapper.dest_size_bytes());
+      return;
+    }
+    const size_t src_stride = static_cast<size_t>(mapper.src_width) * RGBA_CHANNELS;
+    const size_t dest_stride = static_cast<size_t>(mapper.dest_width) * RGBA_CHANNELS;
+    const size_t frame_row_bytes = static_cast<size_t>(mapper.frame_width) * RGBA_CHANNELS;
+    const int32_t frame_columns = mapper.src_width / mapper.frame_width;
+    for (int32_t y = 0; y < mapper.src_height; ++y) {
+      const uint8_t *src_row = src_rgba + (static_cast<size_t>(y) * src_stride);
+      uint8_t *dest_row = dest.pixels.data + (static_cast<size_t>(mapper.dest_y(y)) * dest_stride);
+      for (int32_t col = 0; col < frame_columns; ++col) {
+        const int32_t src_x = col * mapper.frame_width;
+        ::memcpy(dest_row + (static_cast<size_t>(mapper.dest_x(src_x)) * RGBA_CHANNELS),
+                 src_row + (static_cast<size_t>(src_x) * RGBA_CHANNELS), frame_row_bytes);
+      }
+    }
+  }
+}  // namespace details
+
+// =============================================================================
 // IMAGE LOADING MODULE
 // =============================================================================
 

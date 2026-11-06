@@ -40,102 +40,46 @@ static const char* ms_agent_names_table[] = {
 BONGOCAT_NODISCARD static created_result_t<ms_agent_sprite_sheet_t>
 load_ms_agent_sprite_sheet_from_memory(const uint8_t *sprite_data, size_t sprite_data_size, int frame_columns,
                                        int frame_rows, int padding_x, int padding_y) {
-  auto [sprite_sheet, sprite_sheet_error] = load_image(sprite_data, sprite_data_size, RGBA_CHANNELS);  // Force RGBA
-  if (sprite_sheet_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+  // decode straight into the final (padded) layout
+  auto [image, error] = load_sprite_sheet_image(sprite_data, sprite_data_size,
+                                                {.frame_columns = frame_columns,
+                                                 .frame_rows = frame_rows,
+                                                 .padding_x = padding_x,
+                                                 .padding_y = padding_y});
+  if (error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to load sprite sheet.");
-    return sprite_sheet_error;
+    return error;
   }
+  assert(frame_columns > 0 && frame_rows > 0);
+  assert(image.sprite_sheet_width % frame_columns == 0);
+  assert(image.sprite_sheet_height % frame_rows == 0);
 
-  assert(frame_columns != 0 && frame_rows != 0 && sprite_sheet.width % frame_columns == 0 &&
-         sprite_sheet.height % frame_rows == 0);
-  if (frame_columns == 0 || frame_rows == 0 || sprite_sheet.width % frame_columns != 0 ||
-      sprite_sheet.height % frame_rows != 0) {
-    BONGOCAT_LOG_ERROR(
-        "Sprite sheet dimensions not divisible by frame grid; frame_columns=%d, frame_rows=%d vs %dx%d sprite size",
-        frame_columns, frame_rows, sprite_sheet.width, sprite_sheet.height);
-    return bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM;
-  }
+  assert(frame_columns > 0 && frame_rows > 0);
+  // padded frame size, image.sprite_sheet_width/height are the padded size (= row stride for blitting)
+  return ms_agent_sprite_sheet_t{
+    .image = bongocat::move(image),
+    .frame_width = image.sprite_sheet_width / frame_columns,
+    .frame_height = image.sprite_sheet_height / frame_rows,
 
-  const auto frame_width = sprite_sheet.width / frame_columns;
-  const auto frame_height = sprite_sheet.height / frame_rows;
+    .idle{},
+    .boring{},
+    .start_writing{},
+    .writing{},
+    .end_writing{},
 
-  /*
-  assert(MAX_NUM_FRAMES <= INT_MAX);
-  if (total_frames > (int)MAX_NUM_FRAMES) {
-      BONGOCAT_LOG_ERROR("Sprite Sheet does not fit in out_frames: %d, total_frames: %d", MAX_NUM_FRAMES, total_frames);
-      return BONGOCAT_ERROR_INVALID_PARAM;
-  }
-  */
-
-  const auto dest_frame_width = frame_width + (padding_x * 2);
-  const auto dest_frame_height = frame_height + (padding_y * 2);
-  const auto dest_pixels_width = dest_frame_width * frame_columns;
-  const auto dest_pixels_height = dest_frame_height * frame_rows;
-  assert(dest_pixels_width >= 0);
-  assert(dest_pixels_height >= 0);
-  assert(sprite_sheet.channels >= 0);
-  const size_t dest_pixels_size = static_cast<size_t>(dest_pixels_width) * static_cast<size_t>(dest_pixels_height) *
-                                  static_cast<size_t>(sprite_sheet.channels);
-  auto dest_pixels = make_allocated_array<uint8_t>(dest_pixels_size);
-  if (!dest_pixels) {
-    BONGOCAT_LOG_ERROR("Failed to allocate memory for dest_pixels (%zu bytes)\n", dest_pixels_size);
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
-  // memset(dest_pixels.data, 0, dest_pixels_size);
-
-  const auto src_frame_width = frame_width;
-  const auto src_frame_height = frame_height;
-  const auto src_pixels_width = sprite_sheet.width;
-  const auto src_pixels_height = sprite_sheet.height;
-  assert(src_pixels_width >= 0);
-  assert(src_pixels_height >= 0);
-  assert(sprite_sheet.channels >= 0);
-  const size_t src_pixels_size = static_cast<size_t>(src_pixels_width) * static_cast<size_t>(src_pixels_height) *
-                                 static_cast<size_t>(sprite_sheet.channels);
-  size_t frame_index = 0;
-  for (int row = 0; row < frame_rows; ++row) {
-    for (int col = 0; col < frame_columns; ++col) {
-      const auto src_x = col * src_frame_width;
-      const auto src_y = row * src_frame_height;
-      const auto dst_x = (col * dest_frame_width) + padding_x;
-      const auto dst_y = (row * dest_frame_height) + padding_y;
-      [[maybe_unused]] const auto src_idx = (src_y * src_pixels_width + src_x) * sprite_sheet.channels;
-      [[maybe_unused]] const auto dst_idx = (dst_y * dest_pixels_width + dst_x) * sprite_sheet.channels;
-      assert(src_idx >= 0);
-      assert(dst_idx >= 0);
-
-      bool set_frames = false;
-      for (int fy = 0; fy < src_frame_height; fy++) {
-        for (int fx = 0; fx < src_frame_width; fx++) {
-          const auto src_px_idx = ((src_y + fy) * src_pixels_width + (src_x + fx)) * sprite_sheet.channels;
-          const auto dst_px_idx = ((dst_y + fy) * dest_pixels_width + (dst_x + fx)) * sprite_sheet.channels;
-
-          if (src_px_idx >= 0 && dst_px_idx >= 0 && static_cast<size_t>(src_px_idx) < src_pixels_size &&
-              static_cast<size_t>(dst_px_idx) < dest_pixels_size) {
-            drawing_copy_pixel(dest_pixels.data, sprite_sheet.channels, dst_px_idx, sprite_sheet.pixels.data,
-                               sprite_sheet.channels, src_px_idx, blit_image_color_option_flags_t::Normal,
-                               blit_image_color_order_t::RGBA, blit_image_color_order_t::RGBA);
-            if (!set_frames && frame_index < MAX_NUM_FRAMES) {
-              set_frames = true;
-            }
-          }
-        }
-      }
-      frame_index++;
-    }
-  }
-
-  ms_agent_sprite_sheet_t ret;
-  ret.image.sprite_sheet_width = sprite_sheet.width;
-  ret.image.sprite_sheet_height = sprite_sheet.height;
-  ret.image.channels = sprite_sheet.channels;
-  // move pixels ownership into out_frames
-  ret.image.pixels = move(dest_pixels);
-  dest_pixels = BONGOCAT_NULLPTR;
-  ret.frame_width = dest_frame_width;
-  ret.frame_height = dest_frame_height;
-
-  return ret;
+    .sleep{},
+    .wake_up{},
+    .start_working{},
+    .working{},
+    .end_working{},
+    .start_moving{},
+    .moving{},
+    .end_moving{},
+    .happy{},
+    .start_running{},
+    .running{},
+    .end_running{},
+  };
 }
 
 created_result_t<ms_agent_sprite_sheet_t> load_ms_agent_sprite_sheet(const config::config_t& config,

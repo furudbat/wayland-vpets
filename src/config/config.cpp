@@ -2000,7 +2000,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         */
         config._loaded_animation_fqname = duplicate_string(CLIPPY_FQNAME);
       }
-#  ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
       /// @NOTE(assets): 4. add more MS Agents here
       // Links
       if (strcmp(value, LINKS_NAME) == 0 || strcmp(value, LINKS_ID) == 0 || strcmp(value, LINKS_FQID) == 0 ||
@@ -2041,7 +2041,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         */
         config._loaded_animation_fqname = duplicate_string(MERLIN_FQNAME);
       }
-#  endif
+#endif
 
       animation_found = config.animation_index >= 0;
 #endif

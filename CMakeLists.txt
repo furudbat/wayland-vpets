@@ -358,6 +358,7 @@ if(FEATURE_MS_AGENT_EMBEDDED_ASSETS)
         assets_more_ms_agent
         -Wl,--no-whole-archive
     )
+    message(STATUS "Include More MS agent assets")
   else()
     target_link_libraries(
       bongocat_loaders
@@ -369,8 +370,8 @@ if(FEATURE_MS_AGENT_EMBEDDED_ASSETS)
         assets_ms_agent
         -Wl,--no-whole-archive
     )
+    message(STATUS "Include MS agent assets")
   endif()
-  message(STATUS "Include MS agent assets")
 endif()
 if(FEATURE_PMD_EMBEDDED_ASSETS)
   target_link_libraries(
