@@ -5,10 +5,8 @@
 #include "embedded_assets/bongocat/bongocat.h"
 #include "embedded_assets/bongocat/bongocat.hpp"
 #include "embedded_assets/misc/assets_misc_features.h"
-#include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
 #include "embedded_assets/ms_agent/assets_ms_agent_features.h"
-#include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/pkmn/assets_pkmn_features.h"
 #include "embedded_assets/pkmn/pkmn_sprite.h"
@@ -16,6 +14,8 @@
 #include "embedded_assets/pmd/pmd_sprite.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/embedded_assets_dms.h"
+#include "graphics/embedded_assets_misc.h"
+#include "graphics/embedded_assets_ms_agent.h"
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/custom/load_custom.h"
 #include "image_loader/custom/load_custom_features.h"
@@ -1986,6 +1986,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
 
     // check for MS agent
     if constexpr (features::EnableMsAgentEmbeddedAssets) {
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
       // check for ms pets (clippy)
       if (strcmp(value, CLIPPY_NAME) == 0 || strcmp(value, CLIPPY_ID) == 0 || strcmp(value, CLIPPY_FQID) == 0 ||
           strcmp(value, CLIPPY_FQNAME) == 0) {
@@ -1999,7 +2000,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         */
         config._loaded_animation_fqname = duplicate_string(CLIPPY_FQNAME);
       }
-#ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
+#  ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
       /// @NOTE(assets): 4. add more MS Agents here
       // Links
       if (strcmp(value, LINKS_NAME) == 0 || strcmp(value, LINKS_ID) == 0 || strcmp(value, LINKS_FQID) == 0 ||
@@ -2040,9 +2041,10 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         */
         config._loaded_animation_fqname = duplicate_string(MERLIN_FQNAME);
       }
-#endif
+#  endif
 
       animation_found = config.animation_index >= 0;
+#endif
     }
 
     // check for pkmn
@@ -2092,6 +2094,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
 
     // check for Misc (neko)
     if constexpr (features::EnableMiscEmbeddedAssets) {
+#ifdef FEATURE_MISC_EMBEDDED_ASSETS
       // check neko
       if (strcmp(value, MISC_NEKO_NAME) == 0 || strcmp(value, MISC_NEKO_ID) == 0 ||
           strcmp(value, MISC_NEKO_FQID) == 0 || strcmp(value, MISC_NEKO_FQNAME) == 0) {
@@ -2107,6 +2110,7 @@ static config_parse_result_t config_parse_string(config_t& config, const char *k
         config._loaded_animation_fqname = duplicate_string(MISC_NEKO_FQNAME);
         animation_found = config.animation_index >= 0;
       }
+#endif
     }
     /// @NOTE(assets): 4. add more config animation_name parsring here
 

@@ -2,7 +2,7 @@
 #define MISC_EMBEDDED_ASSETS_HPP
 
 #include "embedded_assets/assets.h"
-#include "embedded_assets/custom/custom_sprite.h"
+#include "embedded_assets/custom/custom_sprite_settings.h"
 
 #include <cstddef>
 
@@ -26,7 +26,7 @@ inline static constexpr char MISC_NEKO_FQNAME_ARR[] CONFIG_STRING_SECTION = "mis
 inline static constexpr const char *MISC_NEKO_FQNAME = MISC_NEKO_FQNAME_ARR;
 inline static constexpr std::size_t MISC_NEKO_FQNAME_LEN = sizeof(MISC_NEKO_FQNAME_ARR) - 1;
 inline static constexpr std::size_t MISC_NEKO_ANIM_INDEX = 0;
-inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTINGS = {
+inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTINGS ASSETS_MISC_SPRITE_SETTINGS_SECTION = {
     .idle_frames = 2,
     .boring_frames = 2,
     .writing_frames = 2,
@@ -38,13 +38,11 @@ inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTI
     .moving_frames = 2,
     .feature_toggle_writing_frames = 1,
 };
-inline static constexpr int MISC_NEKO_SPRITE_SHEET_ROWS = 9;
-inline static constexpr int MISC_NEKO_SPRITE_SHEET_MAX_COLS = 2;
+inline static constexpr int MISC_NEKO_SPRITE_SHEET_ROWS ASSETS_MISC_DIMS_SECTION = 9;
+inline static constexpr int MISC_NEKO_SPRITE_SHEET_MAX_COLS ASSETS_MISC_DIMS_SECTION = 2;
 
 inline static constexpr std::size_t MAX_MISC_ANIM_INDEX = 0;
 inline static constexpr std::size_t MISC_ANIM_COUNT = 1;
-// custom sprite sheet (at run time)
-inline static constexpr std::size_t CUSTOM_ANIM_INDEX = 1;
 
 inline static constexpr size_t MISC_MAX_SPRITE_SHEET_COL_FRAMES = 2;
 }  // namespace bongocat::assets

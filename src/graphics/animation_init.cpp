@@ -31,10 +31,8 @@
 #include "embedded_assets/dmx/dmx_sprite.h"
 #include "embedded_assets/min_dm/min_dm_sprite.h"
 #include "embedded_assets/misc/assets_misc_features.h"
-#include "embedded_assets/misc/misc.hpp"
 #include "embedded_assets/misc/misc_sprite.h"
 #include "embedded_assets/ms_agent/assets_ms_agent_features.h"
-#include "embedded_assets/ms_agent/ms_agent.hpp"
 #include "embedded_assets/ms_agent/ms_agent_sprite.h"
 #include "embedded_assets/pen/assets_pen_features.h"
 #include "embedded_assets/pen/pen_sprite.h"
@@ -45,6 +43,8 @@
 #include "embedded_assets/pmd/assets_pmd_features.h"
 #include "embedded_assets/pmd/pmd_sprite.h"
 #include "graphics/embedded_assets_dms.h"
+#include "graphics/embedded_assets_misc.h"
+#include "graphics/embedded_assets_ms_agent.h"
 #include "graphics/embedded_assets_pkmn.h"
 
 // image loader
@@ -486,9 +486,10 @@ created_result_t<animation_t *> hot_load_animation(animation_thread_context_t& c
     break;
   case config::config_animation_sprite_sheet_layout_t::Custom:
     assert(anim_index >= 0);
-    if constexpr (features::EnableCustomSpriteSheetsAssets && features::EnableMiscEmbeddedAssets) {
-      static_assert(assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
-    }
+#if defined(FEATURE_MISC_EMBEDDED_ASSETS) && defined(FEATURE_CUSTOM_SPRITE_SHEETS)
+    static_assert((features::EnableCustomSpriteSheetsAssets && features::EnableMiscEmbeddedAssets) &&
+                  assets::CUSTOM_ANIM_INDEX > assets::MAX_MISC_ANIM_INDEX);
+#endif
     if constexpr (features::EnableCustomSpriteSheetsAssets) {
       if (current_config._custom && anim_index == assets::CUSTOM_ANIM_INDEX) {
         auto [result, error] = details::anim_load_custom_animation(ctx, current_config);

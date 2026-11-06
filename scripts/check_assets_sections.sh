@@ -16,7 +16,7 @@
 #     no range for a set that is not linked
 #
 # Usage:
-#   scripts/tests/check_assets_sections.sh [-v] [build-dir|executable ...]
+#   scripts/check_assets_sections.sh [-v] [build-dir|executable ...]
 #   (default: all cmake-build-*/bongocat* executables)
 #
 # Exit code: 0 = ok (warnings allowed), 1 = errors
@@ -40,7 +40,19 @@ done
 PAGE_SIZE=$(getconf PAGESIZE 2>/dev/null || echo 4096)
 
 # all known asset sets (BONGOCAT_ASSET_SETS in cmake/EmbeddedAssets.cmake)
-PROJECT_ROOT=$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)
+# project root: first parent of the script dir (or of $PWD) that has cmake/EmbeddedAssets.cmake,
+# so the script keeps working when it is moved within the repo
+find_project_root() {
+  local d
+  for d in "$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)" "$PWD"; do
+    while [[ -n "$d" && "$d" != "/" ]]; do
+      [[ -f "$d/cmake/EmbeddedAssets.cmake" ]] && { echo "$d"; return; }
+      d=$(dirname "$d")
+    done
+  done
+  echo "$PWD"
+}
+PROJECT_ROOT=$(find_project_root)
 ALL_SETS=()
 if [[ -f "$PROJECT_ROOT/cmake/EmbeddedAssets.cmake" ]]; then
   # set(\n  BONGOCAT_ASSET_SETS\n  bongocat\n  ...\n)   (also works for "set(BONGOCAT_ASSET_SETS a b c)")

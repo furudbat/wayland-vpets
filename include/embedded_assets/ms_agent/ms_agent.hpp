@@ -11,8 +11,8 @@
 
 namespace bongocat::assets {
 // Name: Clippy
-inline static constexpr int CLIPPY_SPRITE_SHEET_COLS = 40;
-inline static constexpr int CLIPPY_SPRITE_SHEET_ROWS = 6;
+inline static constexpr int CLIPPY_SPRITE_SHEET_COLS ASSETS_MS_AGENT_DIMS_SECTION = 40;
+inline static constexpr int CLIPPY_SPRITE_SHEET_ROWS ASSETS_MS_AGENT_DIMS_SECTION = 6;
 inline static constexpr size_t CLIPPY_FRAMES_IDLE = 4;
 inline static constexpr size_t CLIPPY_FRAMES_BORING = 40;
 inline static constexpr size_t CLIPPY_FRAMES_START_WRITING = 9;
@@ -62,8 +62,8 @@ inline static constexpr std::size_t LINKS_FQNAME_LEN = sizeof(LINKS_FQNAME_ARR) 
 inline static constexpr size_t LINKS_ANIM_INDEX = 1;
 
 // Name: Rover
-inline static constexpr size_t ROVER_SPRITE_SHEET_COLS = 102;
-inline static constexpr size_t ROVER_SPRITE_SHEET_ROWS = 6;
+inline static constexpr size_t ROVER_SPRITE_SHEET_COLS ASSETS_MS_AGENT_DIMS_SECTION = 102;
+inline static constexpr size_t ROVER_SPRITE_SHEET_ROWS ASSETS_MS_AGENT_DIMS_SECTION = 6;
 inline static constexpr size_t ROVER_FRAMES_IDLE = 1;
 inline static constexpr size_t ROVER_FRAMES_BORING = 102;
 inline static constexpr size_t ROVER_FRAMES_START_WRITING = 9;
@@ -87,8 +87,8 @@ inline static constexpr std::size_t ROVER_FQNAME_LEN = sizeof(ROVER_FQNAME_ARR) 
 inline static constexpr size_t ROVER_ANIM_INDEX = 2;
 
 // Name: Merlin
-inline static constexpr size_t MERLIN_SPRITE_SHEET_COLS = 22;
-inline static constexpr size_t MERLIN_SPRITE_SHEET_ROWS = 6;
+inline static constexpr size_t MERLIN_SPRITE_SHEET_COLS ASSETS_MS_AGENT_DIMS_SECTION = 22;
+inline static constexpr size_t MERLIN_SPRITE_SHEET_ROWS ASSETS_MS_AGENT_DIMS_SECTION = 6;
 inline static constexpr size_t MERLIN_FRAMES_IDLE = 1;
 inline static constexpr size_t MERLIN_FRAMES_BORING = 22;
 inline static constexpr size_t MERLIN_FRAMES_START_WRITING = 6;
