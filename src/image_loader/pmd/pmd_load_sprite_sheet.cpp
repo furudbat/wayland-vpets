@@ -10,7 +10,7 @@
 
 
 namespace bongocat::animation {
-    static const assets::custom_animation_settings_t pmd_settings_table[] ASSETS_SPRITE_SETTINGS_SECTION = {
+    static const assets::custom_animation_settings_t pmd_settings_table[] = {
         assets::PMD_BULBASAUR_SPRITE_SHEET_SETTINGS, 
         assets::PMD_IVYSAUR_SPRITE_SHEET_SETTINGS, 
         assets::PMD_VENUSAUR_SPRITE_SHEET_SETTINGS, 

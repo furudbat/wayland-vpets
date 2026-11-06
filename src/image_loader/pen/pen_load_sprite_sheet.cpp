@@ -16,7 +16,7 @@
 
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t pen_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
+    static constexpr assets::embedded_sprite_sheet_dims_t pen_dims_table[] = {
         {assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_COLS, assets::PEN_AERO_V_DRAMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_AGUMON_SPRITE_SHEET_COLS, assets::PEN_AGUMON_SPRITE_SHEET_ROWS}, 
         {assets::PEN_ANDROMON_SPRITE_SHEET_COLS, assets::PEN_ANDROMON_SPRITE_SHEET_ROWS}, 

@@ -1,26 +1,32 @@
 #ifndef MISC_EMBEDDED_ASSETS_HPP
 #define MISC_EMBEDDED_ASSETS_HPP
 
+#include "embedded_assets/assets.h"
 #include "embedded_assets/custom/custom_sprite.h"
 
 #include <cstddef>
 
+// misc
+#define ASSETS_MISC_SPRITE_SETTINGS_SECTION BONGOCAT_ASSETS_SET_SECTION(misc, "sprite_settings")
+#define ASSETS_MISC_DIMS_SECTION BONGOCAT_ASSETS_SET_SECTION(misc, "dims")
+//#define ASSETS_MISC_EVOL_DATA_SECTION BONGOCAT_ASSETS_SET_SECTION(misc, "evol_data")
+
 namespace bongocat::assets {
 // neko
 inline static constexpr char MISC_NEKO_FQID_ARR[] CONFIG_STRING_SECTION = "misc:neko";
-inline static constexpr const char *MISC_NEKO_FQID CONFIG_STRING_REF_SECTION = MISC_NEKO_FQID_ARR;
-inline static constexpr std::size_t MISC_NEKO_FQID_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_FQID_ARR) - 1;
+inline static constexpr const char *MISC_NEKO_FQID = MISC_NEKO_FQID_ARR;
+inline static constexpr std::size_t MISC_NEKO_FQID_LEN = sizeof(MISC_NEKO_FQID_ARR) - 1;
 inline static constexpr char MISC_NEKO_ID_ARR[] CONFIG_STRING_SECTION = "neko";
-inline static constexpr const char *MISC_NEKO_ID CONFIG_STRING_REF_SECTION = MISC_NEKO_ID_ARR;
-inline static constexpr std::size_t MISC_NEKO_ID_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_ID_ARR) - 1;
+inline static constexpr const char *MISC_NEKO_ID = MISC_NEKO_ID_ARR;
+inline static constexpr std::size_t MISC_NEKO_ID_LEN = sizeof(MISC_NEKO_ID_ARR) - 1;
 inline static constexpr char MISC_NEKO_NAME_ARR[] CONFIG_STRING_SECTION = "neko";
-inline static constexpr const char *MISC_NEKO_NAME CONFIG_STRING_REF_SECTION = MISC_NEKO_NAME_ARR;
-inline static constexpr std::size_t MISC_NEKO_NAME_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_NAME_ARR) - 1;
+inline static constexpr const char *MISC_NEKO_NAME = MISC_NEKO_NAME_ARR;
+inline static constexpr std::size_t MISC_NEKO_NAME_LEN = sizeof(MISC_NEKO_NAME_ARR) - 1;
 inline static constexpr char MISC_NEKO_FQNAME_ARR[] CONFIG_STRING_SECTION = "misc:neko";
-inline static constexpr const char *MISC_NEKO_FQNAME CONFIG_STRING_REF_SECTION = MISC_NEKO_FQNAME_ARR;
-inline static constexpr std::size_t MISC_NEKO_FQNAME_LEN CONFIG_STRING_SECTION = sizeof(MISC_NEKO_FQNAME_ARR) - 1;
-inline static constexpr std::size_t MISC_NEKO_ANIM_INDEX ASSETS_INDICES_SECTION = 0;
-inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTINGS ASSETS_SPRITE_SETTINGS_SECTION = {
+inline static constexpr const char *MISC_NEKO_FQNAME = MISC_NEKO_FQNAME_ARR;
+inline static constexpr std::size_t MISC_NEKO_FQNAME_LEN = sizeof(MISC_NEKO_FQNAME_ARR) - 1;
+inline static constexpr std::size_t MISC_NEKO_ANIM_INDEX = 0;
+inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTINGS = {
     .idle_frames = 2,
     .boring_frames = 2,
     .writing_frames = 2,
@@ -32,8 +38,8 @@ inline static constexpr custom_animation_settings_t MISC_NEKO_SPRITE_SHEET_SETTI
     .moving_frames = 2,
     .feature_toggle_writing_frames = 1,
 };
-inline static constexpr std::size_t MISC_NEKO_SPRITE_SHEET_ROWS = 9;
-inline static constexpr std::size_t MISC_NEKO_SPRITE_SHEET_MAX_COLS = 2;
+inline static constexpr int MISC_NEKO_SPRITE_SHEET_ROWS = 9;
+inline static constexpr int MISC_NEKO_SPRITE_SHEET_MAX_COLS = 2;
 
 inline static constexpr std::size_t MAX_MISC_ANIM_INDEX = 0;
 inline static constexpr std::size_t MISC_ANIM_COUNT = 1;

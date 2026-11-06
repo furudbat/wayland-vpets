@@ -16,7 +16,7 @@
 
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t pkmn_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
+    static constexpr assets::embedded_sprite_sheet_dims_t pkmn_dims_table[] = {
         {assets::PKMN_BULBASAUR_SPRITE_SHEET_COLS, assets::PKMN_BULBASAUR_SPRITE_SHEET_ROWS}, 
         {assets::PKMN_IVYSAUR_SPRITE_SHEET_COLS, assets::PKMN_IVYSAUR_SPRITE_SHEET_ROWS}, 
         {assets::PKMN_VENUSAUR_SPRITE_SHEET_COLS, assets::PKMN_VENUSAUR_SPRITE_SHEET_ROWS}, 

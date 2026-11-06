@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data dmall
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dmall_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
+    static constexpr animation::animation_evolution_data_t dmall_evol_data_table[] ASSETS_DMALL_EVOL_DATA_SECTION = {
         // Name: Aegisdramon
         {
             // Stage: Ultimate

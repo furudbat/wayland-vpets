@@ -16,7 +16,7 @@
 
 
 namespace bongocat::animation {
-    static constexpr assets::embedded_sprite_sheet_dims_t dmx_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
+    static constexpr assets::embedded_sprite_sheet_dims_t dmx_dims_table[] = {
         {assets::DMX_AGUMON_BLACK_X_SPRITE_SHEET_COLS, assets::DMX_AGUMON_BLACK_X_SPRITE_SHEET_ROWS}, 
         {assets::DMX_AGUMON_X_SPRITE_SHEET_COLS, assets::DMX_AGUMON_X_SPRITE_SHEET_ROWS}, 
         {assets::DMX_ALLOMON_X_SPRITE_SHEET_COLS, assets::DMX_ALLOMON_X_SPRITE_SHEET_ROWS}, 

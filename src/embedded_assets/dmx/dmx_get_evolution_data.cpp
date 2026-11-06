@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data dmx
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dmx_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
+    static constexpr animation::animation_evolution_data_t dmx_evol_data_table[] ASSETS_DMX_EVOL_DATA_SECTION = {
         // Name: Agumon (Black) X
         {
             // Stage: Child

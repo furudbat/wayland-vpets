@@ -5,7 +5,7 @@
 
 namespace bongocat::assets {
 
-static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] ASSETS_DIMS_TABLE_SECTION = {
+static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] ASSETS_MS_AGENT_DIMS_SECTION = {
   {assets::CLIPPY_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
   {assets::LINKS_SPRITE_SHEET_COLS,       assets::CLIPPY_SPRITE_SHEET_ROWS},
@@ -14,16 +14,16 @@ static constexpr assets::embedded_sprite_sheet_dims_t ms_agent_dims_table[] ASSE
 #endif
 };
 
-static const embedded_image_t ms_agent_images_table[] ASSETS_IMAGES_TABLE_SECTION = {
-  {clippy_png, clippy_png_size, assets::CLIPPY_NAME},
+static const embedded_image_t ms_agent_images_table[] = {
+  {clippy_png, clippy_png_size, "Clippy"},
 #ifdef FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS
-  {links_png, links_png_size, assets::LINKS_NAME},
-  {rover_png, rover_png_size, assets::ROVER_NAME},
-  {merlin_png, merlin_png_size, assets::MERLIN_NAME},
+  {links_png, links_png_size, "Links"},
+  {rover_png, rover_png_size, "Rover"},
+  {merlin_png, merlin_png_size, "Merlin"},
 #endif
 };
 
-static const ms_agent_animation_indices_t ms_agent_animation_indices_table[] ASSETS_SPRITE_SETTINGS_SECTION = {
+static const ms_agent_animation_indices_t ms_agent_animation_indices_table[] ASSETS_MS_AGENT_SPRITE_SETTINGS_SECTION = {
     {
         .start_index_frame_idle = 0,
         .end_index_frame_idle = CLIPPY_FRAMES_IDLE - 1,

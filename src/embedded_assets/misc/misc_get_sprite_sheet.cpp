@@ -5,10 +5,10 @@
 
 namespace bongocat::assets {
 
-static const custom_animation_settings_t misc_settings_table[] ASSETS_SPRITE_SETTINGS_SECTION = {
+static const custom_animation_settings_t misc_settings_table[] ASSETS_MISC_SPRITE_SETTINGS_SECTION = {
         MISC_NEKO_SPRITE_SHEET_SETTINGS,
 };
-static const embedded_image_t misc_images_table[] ASSETS_IMAGES_TABLE_SECTION = {
+static const embedded_image_t misc_images_table[] = {
   {misc_neko_png, misc_neko_png_size, MISC_NEKO_NAME},
 };
 

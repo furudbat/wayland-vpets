@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data dmc
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dmc_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
+    static constexpr animation::animation_evolution_data_t dmc_evol_data_table[] ASSETS_DMC_EVOL_DATA_SECTION = {
         // Name: Agumon
         {
             // Stage: Child

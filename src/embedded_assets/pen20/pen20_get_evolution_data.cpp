@@ -6,7 +6,7 @@
 /// @NOTE: Generated evolution data pen20
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t pen20_evol_data_table[] ASSETS_DATA_EVOL_SECTION = {
+    static constexpr animation::animation_evolution_data_t pen20_evol_data_table[] ASSETS_PEN20_EVOL_DATA_SECTION = {
         // Name: Aero V-dramon
         {
             // Stage: Perfect
