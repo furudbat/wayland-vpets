@@ -1,3 +1,6 @@
+# Shared implementation of the NixOS and Home Manager modules.
+# `platform` is either "nixos" or "home-manager"; the result is a module.
+platform:
 {
   lib,
   config,
@@ -6,270 +9,258 @@
 }:
 let
   cfg = config.programs.wayland-bongocat;
-  wayland-bongocat = pkgs.callPackage ./default.nix { };
-  configFile = pkgs.writeTextFile {
-    name = "bongocat.conf";
-    text = ''
-      # Auto-generated config for `wayland-bongocat`
+  types = lib.types;
 
-      # Cat position and size
-      cat_x_offset=${toString cfg.catXOffset}
-      cat_y_offset=${toString cfg.catYOffset}
-      cat_height=${toString cfg.catHeight}
-      cat_align=${cfg.catAlign}
+  # Every setting defaults to null; null settings are not written to the
+  # generated config, so the binary's built-in defaults apply
+  # (see bongocat.conf.example and `man 5 bongocat`).
+  setting =
+    type: description:
+    lib.mkOption {
+      type = types.nullOr type;
+      default = null;
+      description = "${description} Unset uses the binary default.";
+    };
 
-      # Visual settings
-      mirror_x=${if cfg.mirrorX then "1" else "0"}
-      mirror_y=${if cfg.mirrorY then "1" else "0"}
-      enable_antialiasing=${if cfg.enableAntialiasing then "1" else "0"}
+  timeType = types.strMatching "([01][0-9]|2[0-3]):[0-5][0-9]";
+  offsetType = types.ints.between (-16000) 16000;
+  durationMsType = types.ints.between 0 60000;
 
-      # Overlay settings
-      overlay_position=${cfg.overlayPosition}
-      overlay_height=${toString cfg.overlayHeight}
-      overlay_opacity=${toString cfg.overlayOpacity}
-      layer=${cfg.layer}
+  # Limits match the clamping in src/config/config.cpp.
+  # name = [ configKey type description ]
+  settings = {
+    # Overlay
+    overlayHeight = [ "overlay_height" (types.ints.between 16 2560) "Height of the overlay bar in pixels." ];
+    overlayPosition = [ "overlay_position" (types.enum [ "top" "bottom" ]) "Screen edge the overlay is anchored to." ];
+    overlayLayer = [ "overlay_layer" (types.enum [ "background" "bottom" "top" "overlay" ]) "Layer-shell layer of the overlay." ];
+    overlayOpacity = [ "overlay_opacity" (types.ints.between 0 255) "Overlay background opacity, 0 is transparent." ];
+    disableFullscreenHide = [ "disable_fullscreen_hide" types.bool "Keep the overlay visible over fullscreen windows." ];
 
-      # Animation settings
-      idle_frame=${toString cfg.idleFrame}
-      keypress_duration=${toString cfg.keypressDuration}
-      test_animation_duration=${toString cfg.testAnimationDuration}
-      test_animation_interval=${toString cfg.testAnimationInterval}
-      fps=${toString cfg.fps}
-      enable_hand_mapping=${if cfg.enableHandMapping then "1" else "0"}
+    # Position and size
+    catHeight = [ "cat_height" (types.ints.between 8 1024) "Height of the pet in pixels." ];
+    catXOffset = [ "cat_x_offset" offsetType "Horizontal offset of the pet in pixels." ];
+    catYOffset = [ "cat_y_offset" offsetType "Vertical offset of the pet in pixels." ];
+    catAlign = [ "cat_align" (types.enum [ "left" "center" "right" ]) "Horizontal alignment of the pet." ];
+    paddingX = [ "padding_x" (types.ints.between 0 16000) "Horizontal padding around every sprite frame in pixels." ];
+    paddingY = [ "padding_y" (types.ints.between 0 16000) "Vertical padding around every sprite frame in pixels." ];
+    screenWidth = [ "screen_width" (types.ints.between 0 16000) "Override the detected screen width, 0 detects it." ];
 
-      # Sleep mode
-      idle_sleep_timeout=${toString cfg.idleSleepTimeout}
-      enable_scheduled_sleep=${if cfg.enableScheduledSleep then "1" else "0"}
-      sleep_begin=${cfg.sleepBegin}
-      sleep_end=${cfg.sleepEnd}
+    # Visual
+    mirrorX = [ "mirror_x" types.bool "Flip the pet horizontally." ];
+    mirrorY = [ "mirror_y" types.bool "Flip the pet vertically." ];
+    enableAntialiasing = [ "enable_antialiasing" types.bool "Smooth scaling using bilinear interpolation." ];
+    invertColor = [ "invert_color" types.bool "Invert the sprite colors (dark mode)." ];
 
-      # Debug mode
-      enable_debug=${if cfg.enableDebug then "1" else "0"}
+    # Pet
+    animationName = [ "animation_name" types.str "Pet to show, e.g. \"bongocat\", a Digimon/Pokemon name, \"clippy\" or \"custom\" (the executable must contain that set, e.g. bongocat-all)." ];
+    animationIndex = [ "animation_index" types.ints.unsigned "Pet index inside the selected set (alternative to animationName)." ];
+    random = [ "random" types.bool "Pick a random pet on start." ];
+    randomOnReload = [ "random_on_reload" types.bool "Pick a new random pet on config reload." ];
+    evolution = [ "evolution" (types.enum [ "none" "normal" "program" "uptime" ]) "Evolution mode for V-Pets." ];
+    evolutionSpeedFactor = [ "evolution_speed_factor" (types.numbers.between 0 5000) "Speed factor for evolution." ];
 
-      # Monitor
-      monitor=${cfg.monitor}
+    # Animation
+    idleFrame = [ "idle_frame" types.ints.unsigned "Frame shown while idle." ];
+    idleAnimation = [ "idle_animation" types.bool "Enable the idle animation." ];
+    animationSpeed = [ "animation_speed" durationMsType "Milliseconds per frame, 0 uses the fps speed." ];
+    keypressDuration = [ "keypress_duration" durationMsType "Duration of the keypress animation in milliseconds." ];
+    testAnimationDuration = [ "test_animation_duration" durationMsType "Duration of the test animation in milliseconds." ];
+    testAnimationInterval = [ "test_animation_interval" types.ints.unsigned "Seconds between test animations, 0 disables them." ];
+    happyKpm = [ "happy_kpm" (types.ints.between 0 10000) "Keystrokes per minute that trigger the happy animation, 0 disables it." ];
+    fps = [ "fps" (types.ints.between 1 540) "Animation frame rate." ];
+    inputFps = [ "input_fps" (types.ints.between 0 540) "Input thread frame rate, 0 uses fps." ];
+    enableHandMapping = [ "enable_hand_mapping" types.bool "Map left/right keyboard halves to the left/right paw." ];
 
-      # Input devices
-      ${lib.concatMapStringsSep "\n" (device: "keyboard_device=${device}") cfg.inputDevices}
-      ${lib.concatMapStringsSep "\n" (name: "keyboard_name=${name}") cfg.inputDeviceNames}
-      hotplug_scan_interval=${toString cfg.hotplugScanInterval}
-    ''
-    + lib.optionalString (cfg.extraConfig != "") ("\n# Extra Config\n" + cfg.extraConfig);
+    # Movement
+    movementRadius = [ "movement_radius" (types.ints.between 0 8000) "Moving area, the radius from center in pixels, 0 disables movement." ];
+    movementSpeed = [ "movement_speed" durationMsType "Traveling distance per movement animation." ];
+    movementWaitFactor = [ "movement_wait_factor" (types.numbers.nonnegative) "Wait time factor between movements." ];
+    enableMovementDebug = [ "enable_movement_debug" types.bool "Show the movement area (in red)." ];
+
+    # CPU
+    updateRate = [ "update_rate" (types.ints.between 0 3600000) "CPU usage update rate in milliseconds, 0 disables it." ];
+    cpuThreshold = [ "cpu_threshold" (types.numbers.between 0 100) "CPU usage (percent) that triggers the working animation." ];
+    cpuRunningFactor = [ "cpu_running_factor" (types.numbers.between 0 50) "Speed-up factor for animationSpeed when the CPU reaches 100% usage, 0 disables it." ];
+
+    # Sleep
+    enableScheduledSleep = [ "enable_scheduled_sleep" types.bool "Sleep between sleepBegin and sleepEnd." ];
+    sleepBegin = [ "sleep_begin" timeType "Scheduled sleep start time (HH:MM)." ];
+    sleepEnd = [ "sleep_end" timeType "Scheduled sleep end time (HH:MM)." ];
+    idleSleepTimeout = [ "idle_sleep_timeout" (types.ints.between 0 2592000) "Seconds without input before the pet sleeps, 0 disables it." ];
+
+    # Input
+    hotplugScanInterval = [ "hotplug_scan_interval" (types.ints.between 0 3600) "Seconds between input device rescans, 0 scans once." ];
+
+    # Debug
+    enableDebug = [ "enable_debug" types.bool "Enable debug logging." ];
   };
+
+  renderValue = value: if builtins.isBool value then (if value then "1" else "0") else toString value;
+
+  settingLines = lib.mapAttrsToList (name: spec: "${builtins.head spec}=${renderValue cfg.${name}}") (
+    lib.filterAttrs (name: _: cfg.${name} != null) settings
+  );
+
+  configFile = pkgs.writeText "bongocat.conf" (
+    lib.concatStringsSep "\n" (
+      [ "# Generated by the wayland-bongocat Nix module" ]
+      ++ settingLines
+      ++ lib.optional (cfg.monitor != "") "monitor=${cfg.monitor}"
+      ++ map (device: "keyboard_device=${device}") cfg.inputDevices
+      ++ map (name: "keyboard_name=${name}") cfg.inputDeviceNames
+      ++ lib.optional (cfg.extraConfig != "") cfg.extraConfig
+    )
+    + "\n"
+  );
+
+  execStart = lib.concatStringsSep " " (
+    [
+      "${cfg.package}/bin/${cfg.executable}"
+      "--config"
+      "${configFile}"
+    ]
+    ++ lib.optional cfg.defaultDevices "--default-devices"
+  );
+
+  # Starts bongocat with the config generated by this module.
+  execScript = pkgs.writeShellScriptBin "bongocat-exec" "exec ${execStart}";
+
+  description = "Wayland Bongo Cat Overlay";
+  sessionTarget = "graphical-session.target";
+  serviceConfig = {
+    Type = "exec";
+    ExecStart = execStart;
+    Restart = "on-failure";
+    RestartSec = "5s";
+  };
+
+  renamed =
+    from: to:
+    lib.mkRenamedOptionModule
+      [
+        "programs"
+        "wayland-bongocat"
+        from
+      ]
+      [
+        "programs"
+        "wayland-bongocat"
+        to
+      ];
 in
 {
-  meta.maintainers = with lib.maintainers; [ ];
-  options.programs.wayland-bongocat = {
-    enable = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      example = true;
-      description = "Enable `wayland-bongocat` overlay";
-    };
-    autostart = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      example = true;
-      description = "Enable and automatically start `bongocat-wayland` as a service on login";
+  imports = [
+    (renamed "layer" "overlayLayer")
+  ];
+
+  options.programs.wayland-bongocat =
+    lib.mapAttrs (_: spec: setting (builtins.elemAt spec 1) (builtins.elemAt spec 2)) settings
+    // {
+      enable = lib.mkEnableOption "the wayland-bongocat overlay";
+
+      autostart = lib.mkOption {
+        type = types.bool;
+        default = false;
+        example = true;
+        description = "Start bongocat on login through a systemd user service bound to graphical-session.target.";
+      };
+
+      package = lib.mkOption {
+        type = types.package;
+        default = pkgs.callPackage ./default.nix { };
+        defaultText = lib.literalMD "the package built from this repository";
+        description = "The wayland-bongocat package to use.";
+      };
+
+      executable = lib.mkOption {
+        type = types.str;
+        default = "bongocat";
+        example = "bongocat-all";
+        description = "Binary inside the package to run: bongocat, bongocat-all, bongocat-dm, bongocat-pkmn, bongocat-ms-agent, ...";
+      };
+
+      monitor = lib.mkOption {
+        type = types.str;
+        default = "";
+        example = "eDP-1";
+        description = "Output name to show the pet on. Empty selects the output automatically. Run `bongocat --list-monitors` to see the names.";
+      };
+
+      inputDevices = lib.mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "/dev/input/by-id/usb-Example_Keyboard-event-kbd" ];
+        description = "Input device paths to monitor. Run `bongocat --list-devices` or `bongocat-find-devices` to see candidates.";
+      };
+
+      defaultDevices = lib.mkOption {
+        type = types.bool;
+        default = true;
+        description = "Use every keyboard when neither inputDevices nor inputDeviceNames match a device (`--default-devices`).";
+      };
+
+      inputDeviceNames = lib.mkOption {
+        type = types.listOf types.str;
+        default = [ ];
+        example = [ "KW75 Keyboard" ];
+        description = "Input device names to monitor (keyboard_name). Run `bongocat --list-devices` to see candidates.";
+      };
+
+      extraConfig = lib.mkOption {
+        type = types.lines;
+        default = "";
+        example = ''
+          custom_sprite_sheet_filename=/path/to/sheet.png
+          custom_idle_frames=2
+        '';
+        description = "Extra lines appended to bongocat.conf (e.g. custom_* sprite sheet settings). Do not repeat keys set through options.";
+      };
     };
 
-    package = lib.mkOption {
-      type = lib.types.package;
-      default = wayland-bongocat;
-      description = "The wayland-bongocat package to use.";
-    };
-
-    # Debug mode
-    enableDebug = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      example = true;
-      description = "Enable debug logging";
-    };
-
-    # Overlay
-    overlayPosition = lib.mkOption {
-      type = lib.types.enum [ "top" "bottom" ];
-      default = "top";
-      example = "bottom";
-      description = "Bongocat overlay position on screen - `top` or `bottom`";
-    };
-    overlayHeight = lib.mkOption {
-      type = lib.types.ints.between 20 300;
-      default = 60;
-      example = 70;
-      description = "Height of the entire overlay bar";
-    };
-    overlayOpacity = lib.mkOption {
-      type = lib.types.ints.between 0 255;
-      default = 0;
-      example = 20;
-      description = "Overlay background opacity (0-255, 0 = transparent)";
-    };
-
-    # Position
-    catXOffset = lib.mkOption {
-      type = lib.types.int;
-      default = 120;
-      example = 200;
-      description = "Horizontal offset from center position (pixels)";
-    };
-    catYOffset = lib.mkOption {
-      type = lib.types.int;
-      default = 0;
-      example = 10;
-      description = "Vertical offset from center position (pixels)";
-    };
-
-    # Size
-    catHeight = lib.mkOption {
-      type = lib.types.ints.between 10 200;
-      default = 80;
-      example = 50;
-      description = "Height of the bongo cat in pixels";
-    };
-    catAlign = lib.mkOption {
-      type = lib.types.enum [ "left" "center" "right" ];
-      default = "center";
-      example = "right";
-      description = "Horizontal alignment: left, center, or right";
-    };
-
-    # Visual settings
-    mirrorX = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Flip cat horizontally";
-    };
-    mirrorY = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Flip cat vertically";
-    };
-    enableAntialiasing = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Enable smooth scaling (recommended)";
-    };
-    layer = lib.mkOption {
-      type = lib.types.enum [ "background" "bottom" "top" "overlay" ];
-      default = "top";
-      example = "overlay";
-      description = "Layer type: background, bottom, top, or overlay";
-    };
-
-    # Sleep mode
-    idleSleepTimeout = lib.mkOption {
-      type = lib.types.ints.between 0 3600;
-      default = 0;
-      example = 300;
-      description = "Seconds of inactivity before sleep (0 = disabled)";
-    };
-    enableScheduledSleep = lib.mkOption {
-      type = lib.types.bool;
-      default = false;
-      description = "Enable scheduled sleep mode";
-    };
-    sleepBegin = lib.mkOption {
-      type = lib.types.str;
-      default = "22:00";
-      description = "Sleep schedule start time (HH:MM)";
-    };
-    sleepEnd = lib.mkOption {
-      type = lib.types.str;
-      default = "06:00";
-      description = "Sleep schedule end time (HH:MM)";
-    };
-
-    # Animations
-    idleFrame = lib.mkOption {
-      type = lib.types.ints.between 0 4;
-      default = 0;
-      example = 1;
-      description = "Frame to use when idle (0, 1, or 2)";
-    };
-    keypressDuration = lib.mkOption {
-      type = lib.types.ints.between 10 5000;
-      default = 150;
-      example = 100;
-      description = "Animation duration after keypress (ms)";
-    };
-    testAnimationDuration = lib.mkOption {
-      type = lib.types.ints.between 10 5000;
-      default = 200;
-      example = 100;
-      description = "Test animation duration (ms)";
-    };
-    testAnimationInterval = lib.mkOption {
-      type = lib.types.ints.between 0 3600;
-      default = 0;
-      example = 10;
-      description = "How often to trigger test animation (seconds, 0 = disabled)";
-    };
-
-    # Performance
-    fps = lib.mkOption {
-      type = lib.types.ints.between 1 120;
-      default = 60;
-      example = 120;
-      description = "Animation framerate (FPS)";
-    };
-    enableHandMapping = lib.mkOption {
-      type = lib.types.bool;
-      default = true;
-      description = "Map left/right keyboard halves to left/right cat hands";
-    };
-
-    # Input devices
-    inputDevices = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ "/dev/input/event4" ];
-      description = "List of input devices to monitor, run `bongocat-find-devices` to see all devices to add to this list";
-      example = [
-        "/dev/input/event4"
-        "/dev/input/event20"
-      ];
-    };
-
-    inputDeviceNames = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      default = [ ];
-      description = "List of input device names to monitor, run `bongocat-find-devices` to see all devices to add to this list";
-      example = [
-        "hfd.cn KW75 Keyboard"
-      ];
-    };
-
-    hotplugScanInterval = lib.mkOption {
-      type = lib.types.ints.between 0 3600;
-      default = 30;
-      description = "Seconds between input rescans (0 scans once)";
-    };
-
-    monitor = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "The monitor for the Cat";
-      example = "eDP-1";
-    };
-
-    # Extra Config
-    extraConfig = lib.mkOption {
-      type = lib.types.str;
-      default = "";
-      description = "Extra lines to add to bongocat.conf";
-    };
-  };
-
-  # Internal configuration (not exposed to users)
+  # Internal: the generated config (used by the flake checks)
   options._bongocat = lib.mkOption {
-    type = lib.types.attrs;
+    type = types.attrs;
     internal = true;
     visible = false;
     default = { };
   };
 
-  config._bongocat = lib.mkIf cfg.enable {
-    inherit cfg configFile;
-  };
+  config = lib.mkIf cfg.enable (
+    {
+      _bongocat = {
+        inherit configFile;
+      };
+    }
+    // (
+      if platform == "nixos" then
+        {
+          environment.systemPackages = [
+            cfg.package
+            execScript
+          ];
+          systemd.user.services.wayland-bongocat = lib.mkIf cfg.autostart {
+            inherit description serviceConfig;
+            wantedBy = [ sessionTarget ];
+            partOf = [ sessionTarget ];
+            after = [ sessionTarget ];
+          };
+        }
+      else
+        {
+          home.packages = [
+            cfg.package
+            execScript
+          ];
+          systemd.user.services.wayland-bongocat = lib.mkIf cfg.autostart {
+            Unit = {
+              Description = description;
+              PartOf = [ sessionTarget ];
+              After = [ sessionTarget ];
+            };
+            Install.WantedBy = [ sessionTarget ];
+            Service = serviceConfig;
+          };
+        }
+    )
+  );
 }

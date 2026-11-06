@@ -11,8 +11,14 @@ command -v nix >/dev/null || { echo "❌ Nix is required"; exit 1; }
 echo "📦 Testing flake build..."
 nix flake check --no-build
 echo "✅ Flake check: SUCCESS"
-nix build --no-link
+nix build --no-link -L
 echo "✅ Flake build: SUCCESS"
+
+# Test NixOS + Home Manager modules (generated bongocat.conf, see `checks` in flake.nix)
+echo ""
+echo "🧩 Testing NixOS and Home Manager modules..."
+nix flake check -L
+echo "✅ Module checks: SUCCESS"
 
 # Test development shell
 echo ""

@@ -162,7 +162,7 @@ cmake -S . -B build -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 ```
 
-**Requirements:** `wayland-client`, `make`, `cmake` and a C++26/C23 compiler (gcc15 or clang19).
+**Requirements:** `wayland-client`, `libudev`, `make`, `cmake` and a C++26/C23 compiler (gcc15 or clang19)
 
 ### Installation from source
 

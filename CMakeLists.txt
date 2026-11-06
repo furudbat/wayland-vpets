@@ -777,18 +777,29 @@ if(FEATURE_MULTI_VERSIONS)
 endif()
 
 # man pages
+option(BONGOCAT_REQUIRE_MANPAGES "Fail configuring when pandoc is not found (man pages are skipped otherwise)" OFF)
 find_program(PANDOC pandoc)
+if(NOT PANDOC)
+  if(BONGOCAT_REQUIRE_MANPAGES)
+    message(FATAL_ERROR "pandoc not found, but BONGOCAT_REQUIRE_MANPAGES is ON")
+  endif()
+  message(STATUS "pandoc not found: skip man pages")
+endif()
 if(PANDOC)
-  # List all binaries
-  set(
-    BINARY_TARGETS
-    bongocat
-    bongocat-dm-classic
-    bongocat-dm
-    bongocat-ms-agent
-    bongocat-pkmn
-    bongocat-all
-  )
+  # List all (installed) binaries
+  if(FEATURE_MULTI_VERSIONS)
+    set(
+      BINARY_TARGETS
+      bongocat
+      bongocat-dm-classic
+      bongocat-dm
+      bongocat-ms-agent
+      bongocat-pkmn
+      bongocat-all
+    )
+  else()
+    set(BINARY_TARGETS bongocat)
+  endif()
 
   set(ALL_MAN_OUTPUTS)
   foreach(BIN ${BINARY_TARGETS})
