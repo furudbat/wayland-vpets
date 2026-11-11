@@ -443,7 +443,7 @@ struct load_config_overwrite_parameters_t {
   bool check_config{false};
   bool default_devices{false};
 };
-BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t& input,
+BONGOCAT_NODISCARD loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t *input,
                                                const load_config_overwrite_parameters_t& overwrite_parameters);
 void reset(config_t& config);
 

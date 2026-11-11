@@ -135,7 +135,7 @@ bongocat_error_t setup(wayland_context_t& ctx, animation::animation_context_t& a
 }
 
 bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int signal_fd,
-                     input::input_context_t& input, const config::config_t& config,
+                     input::input_context_t *input, const config::config_t& config,
                      const config::config_watcher_t *config_watcher, config_reload_callback_t config_reload_callback) {
   BONGOCAT_CHECK_NULL(config_reload_callback, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
   BONGOCAT_CHECK_NULL(ctx.animation_context, bongocat_error_t::BONGOCAT_ERROR_INVALID_PARAM);
@@ -143,14 +143,20 @@ bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int
   // from thread context
   wayland_thread_context& wayland_ctx = ctx.thread_context;
   // animation_context_t& anim = trigger_ctx.anim;
-  // wait for context
-  ctx.animation_context->init_cond.timedwait([&]() { return atomic_load(&ctx.animation_context->ready); },
-                                             COND_INIT_TIMEOUT_MS);
-  input.init_cond.timedwait([&]() { return atomic_load(&input.ready); }, COND_INIT_TIMEOUT_MS);
+  if (input) {
+    // wait for context
+    ctx.animation_context->init_cond.timedwait([&]() { return atomic_load(&ctx.animation_context->ready); },
+                                               COND_INIT_TIMEOUT_MS);
+    input->init_cond.timedwait([&]() { return atomic_load(&input->ready); }, COND_INIT_TIMEOUT_MS);
+  }
   animation::animation_context_t& animation_ctx = *ctx.animation_context;
-  assert(animation_ctx._input != BONGOCAT_NULLPTR);
-  assert(animation_ctx._input == &input);
   // wayland_shared_memory_t *wayland_ctx_shm = wayland_ctx.ctx_shm;
+
+  // sanety check
+  if (input) {
+    assert(animation_ctx._input != BONGOCAT_NULLPTR);
+    assert(animation_ctx._input == input);
+  }
 
   BONGOCAT_LOG_INFO("Starting Wayland event loop");
 

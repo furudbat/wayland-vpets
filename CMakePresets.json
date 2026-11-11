@@ -386,7 +386,10 @@
         "FEATURE_USE_BONGOCAT_SVG": "ON",
         "FEATURE_CUSTOM_SPRITE_SHEETS": "ON",
         "FEATURE_EVOLUTION": "ON",
-        "BUILD_TESTING": "ON"
+        "BUILD_TESTING": "ON",
+        "ENABLE_INPUT_MODULE": "ON",
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON"
       }
     },
     {
@@ -420,7 +423,8 @@
         "FEATURE_EVOLUTION": "ON",
         "BUILD_TESTING": "ON",
         "ENABLE_INPUT_MODULE": "ON",
-        "ENABLE_UPDATE_MODULE": "ON"
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON"
       }
     },
     {
@@ -455,7 +459,8 @@
         "FEATURE_EVOLUTION": "ON",
         "BUILD_TESTING": "ON",
         "ENABLE_INPUT_MODULE": "ON",
-        "ENABLE_UPDATE_MODULE": "ON"
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "ON"
       }
     },
     {

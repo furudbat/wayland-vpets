@@ -13,6 +13,7 @@
 #include "graphics/animation.h"
 #include "graphics/embedded_assets_dms.h"
 #include "image_loader/load_images.h"
+#include "platform/audio/audio.h"
 #include "platform/input/input.h"
 #include "platform/update/update.h"
 #include "platform/wayland.h"
@@ -45,6 +46,7 @@ static_assert(SLEEP_WAIT_FOR_SHUTDOWN_MS > 0);
 static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_ANIMATION_THREAD_MS = 5000;
 static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_INPUT_THREAD_MS = 2000;
 static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS = 5000;
+static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_AUDIO_THREAD_MS = 7500;
 static inline constexpr platform::time_ms_t WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS = 1000;
 inline static constexpr platform::time_ms_t COND_RELOAD_CONFIG_TIMEOUT_MS = 5000;
 inline static constexpr platform::time_ms_t COND_INIT_TIMEOUT_MS = 5000;
@@ -65,6 +67,7 @@ struct main_context_t {
   AllocatedMemory<config::config_watcher_t> config_watcher;
   AllocatedMemory<platform::input::input_context_t> input;
   AllocatedMemory<platform::update::update_context_t> update;
+  AllocatedMemory<platform::audio::audio_context_t> audio;
   AllocatedMemory<animation::animation_context_t> animation;
   AllocatedMemory<platform::wayland::wayland_context_t> wayland;
 
@@ -98,6 +101,9 @@ inline void stop_threads(main_context_t& context) {
   if (context.update != BONGOCAT_NULLPTR) {
     atomic_store(&context.update->_running, false);
   }
+  if (context.audio != BONGOCAT_NULLPTR) {
+    atomic_store(&context.audio->_running, false);
+  }
   if (context.config_watcher != BONGOCAT_NULLPTR) {
     atomic_store(&context.config_watcher->_running, false);
   }
@@ -113,6 +119,9 @@ inline void stop_threads(main_context_t& context) {
   if (context.update != BONGOCAT_NULLPTR) {
     platform::join_thread_with_timeout(context.update->_update_thread, WAIT_FOR_SHUTDOWN_UPDATE_THREAD_MS);
   }
+  if (context.audio != BONGOCAT_NULLPTR) {
+    platform::join_thread_with_timeout(context.audio->_audio_thread, WAIT_FOR_SHUTDOWN_AUDIO_THREAD_MS);
+  }
   if (context.config_watcher != BONGOCAT_NULLPTR) {
     platform::join_thread_with_timeout(context.config_watcher->_watcher_thread,
                                        WAIT_FOR_SHUTDOWN_CONFIG_WATCHER_THREAD_MS);
@@ -127,6 +136,9 @@ inline void stop_threads(main_context_t& context) {
   }
   if (context.update != BONGOCAT_NULLPTR) {
     platform::update::stop(*context.update);
+  }
+  if (context.audio != BONGOCAT_NULLPTR) {
+    platform::audio::stop(*context.audio);
   }
   if (context.config_watcher != BONGOCAT_NULLPTR) {
     config::stop_watcher(*context.config_watcher);
@@ -160,6 +172,9 @@ void cleanup(main_context_t& context) {
   if (context.update != BONGOCAT_NULLPTR) {
     cleanup(*context.update);
   }
+  if (context.audio != BONGOCAT_NULLPTR) {
+    cleanup(*context.audio);
+  }
   if (context.signal_fd._fd >= 0) {
     close_fd(context.signal_fd);
   }
@@ -171,6 +186,7 @@ void cleanup(main_context_t& context) {
   release_allocated_memory(context.config_watcher);
   release_allocated_memory(context.input);
   release_allocated_memory(context.update);
+  release_allocated_memory(context.audio);
   release_allocated_memory(context.animation);
   release_allocated_memory(context.wayland);
 
@@ -496,7 +512,7 @@ static void config_reload_callback() {
   }
 
   // Create a temporary config to test loading
-  auto [new_config, errors] = config::load(get_main_context().signal_watch_path.c_str(), *get_main_context().input,
+  auto [new_config, errors] = config::load(get_main_context().signal_watch_path.c_str(), get_main_context().input.ptr,
                                            get_main_context().overwrite_config_parameters);
   if (errors.errors != config::config_parsing_error_t::Success) [[unlikely]] {
     BONGOCAT_LOG_ERROR("Failed to reload config", static_cast<uint64_t>(errors.errors));
@@ -550,11 +566,13 @@ static void config_reload_callback() {
     assert(get_main_context().animation);
     assert(get_main_context().input);
     assert(get_main_context().update);
+    assert(get_main_context().audio);
     update_config(*get_main_context().wayland, get_main_context().config, *get_main_context().animation);
     atomic_fetch_add(&get_main_context().config_generation, 1);
     uint64_t new_gen{atomic_load(&get_main_context().config_generation)};
     platform::input::trigger_update_config(*get_main_context().input, get_main_context().config, new_gen);
     platform::update::trigger_update_config(*get_main_context().update, get_main_context().config, new_gen);
+    platform::audio::trigger_audio_config(*get_main_context().audio, get_main_context().config, new_gen);
     animation::trigger_update_config(*get_main_context().animation, get_main_context().config, new_gen);
 
     // Wait for both workers to catch up
@@ -569,6 +587,12 @@ static void config_reload_callback() {
         [&] {
           return !atomic_load(&get_main_context().update->_running) ||
                  atomic_load(&get_main_context().update->config_seen_generation) >= new_gen;
+        },
+        COND_RELOAD_CONFIG_TIMEOUT_MS);
+    timedwait_result |= get_main_context().audio->config_updated.timedwait(
+        [&] {
+          return !atomic_load(&get_main_context().audio->_running) ||
+                 atomic_load(&get_main_context().audio->config_seen_generation) >= new_gen;
         },
         COND_RELOAD_CONFIG_TIMEOUT_MS);
     timedwait_result |= get_main_context().animation->thread_context.config_updated.timedwait(
@@ -588,6 +612,9 @@ static void config_reload_callback() {
       if (atomic_load(&get_main_context().update->_running)) {
         atomic_store(&get_main_context().update->config_seen_generation, new_gen);
       }
+      if (atomic_load(&get_main_context().audio->_running)) {
+        atomic_store(&get_main_context().audio->config_seen_generation, new_gen);
+      }
       if (atomic_load(&get_main_context().animation->thread_context._animation_running)) {
         atomic_store(&get_main_context().animation->thread_context.config_seen_generation, new_gen);
       }
@@ -597,6 +624,7 @@ static void config_reload_callback() {
 
     BONGOCAT_LOG_VERBOSE("Input: config gen: %d", atomic_load(&get_main_context().input->config_seen_generation));
     BONGOCAT_LOG_VERBOSE("Update: config gen: %d", atomic_load(&get_main_context().update->config_seen_generation));
+    BONGOCAT_LOG_VERBOSE("Audio: config gen: %d", atomic_load(&get_main_context().audio->config_seen_generation));
     BONGOCAT_LOG_VERBOSE("Animation: config gen: %d",
                          atomic_load(&get_main_context().animation->thread_context.config_seen_generation));
     BONGOCAT_LOG_VERBOSE("Main: config gen: %d", atomic_load(&get_main_context().config_generation));
@@ -626,22 +654,47 @@ static void config_reload_callback() {
 
   // Check if update features are enabled and restart update if needed
   if (update_needed) {
-    BONGOCAT_LOG_INFO("Update features enabled, restarting update thread");
-    const bongocat_error_t update_result =
-        platform::update::restart(*get_main_context().update, *get_main_context().animation, get_main_context().config,
-                                  get_main_context().configs_reloaded_cond, get_main_context().config_generation);
-    if (update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-      BONGOCAT_LOG_ERROR("Failed to restart update thread: %s", bongocat::error_string(update_result));
-    } else {
-      {
-        assert(get_main_context().update);
-        platform::LockGuard guard(get_main_context().update->update_lock);
-        assert(get_main_context().update->shm);
-        auto& update_shm = *get_main_context().update->shm;
-        update_shm.program_start_time = get_main_context().program_start_time;
-      }
+    // restart update thread
+    if constexpr (features::EnableUpdateModule) {
+      BONGOCAT_LOG_INFO("Update features enabled, restarting update thread");
+      const bongocat_error_t update_result = platform::update::restart(
+          *get_main_context().update, *get_main_context().animation, get_main_context().config,
+          get_main_context().configs_reloaded_cond, get_main_context().config_generation);
+      if (update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+        BONGOCAT_LOG_ERROR("Failed to restart update thread: %s", bongocat::error_string(update_result));
+      } else {
+        {
+          assert(get_main_context().update);
+          platform::LockGuard guard(get_main_context().update->update_lock);
+          assert(get_main_context().update->shm);
+          auto& update_shm = *get_main_context().update->shm;
+          update_shm.program_start_time = get_main_context().program_start_time;
+        }
 
-      BONGOCAT_LOG_INFO("Update thread restarted successfully");
+        BONGOCAT_LOG_INFO("Update thread restarted successfully");
+      }
+    }
+    // restart audio thread
+    if constexpr (features::EnableAudioModule) {
+      BONGOCAT_LOG_INFO("Audio features enabled, restarting audio thread");
+      const bongocat_error_t update_result =
+          platform::audio::restart(*get_main_context().audio, *get_main_context().animation, get_main_context().config,
+                                   get_main_context().configs_reloaded_cond, get_main_context().config_generation);
+      if (update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+        BONGOCAT_LOG_ERROR("Failed to restart audio thread: %s", bongocat::error_string(update_result));
+      } else {
+        /*
+        {
+          assert(get_main_context().audio);
+          platform::LockGuard guard(get_main_context().audio->audio_lock);
+          assert(get_main_context().audio->shm);
+          auto& audio_shm = *get_main_context().audio->shm;
+          /// @TODO: update audio shared memory from global
+        }
+        */
+
+        BONGOCAT_LOG_INFO("Audio thread restarted successfully");
+      }
     }
   }
 
@@ -670,6 +723,13 @@ static void config_reload_callback() {
         },
         COND_INIT_TIMEOUT_MS);
   }
+  if (atomic_load(&get_main_context().audio->_running)) {
+    get_main_context().audio->init_cond.timedwait(
+        [&]() {
+          return !atomic_load(&get_main_context().audio->_running) || atomic_load(&get_main_context().audio->ready);
+        },
+        COND_INIT_TIMEOUT_MS);
+  }
   BONGOCAT_LOG_VERBOSE("Animation: running %d (ready=%d)",
                        atomic_load(&get_main_context().animation->thread_context._animation_running),
                        atomic_load(&get_main_context().animation->ready));
@@ -677,6 +737,8 @@ static void config_reload_callback() {
                        atomic_load(&get_main_context().input->ready));
   BONGOCAT_LOG_VERBOSE("Update: running %d (ready=%d)", atomic_load(&get_main_context().update->_running),
                        atomic_load(&get_main_context().update->ready));
+  BONGOCAT_LOG_VERBOSE("Audio: running %d (ready=%d)", atomic_load(&get_main_context().audio->_running),
+                       atomic_load(&get_main_context().audio->ready));
 }
 
 static bongocat_error_t start_config_watcher(main_context_t& ctx, const char *config_file) {
@@ -744,10 +806,20 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   if (!ctx.update) {
     auto [update, update_error] = platform::update::create(ctx.config);
     if (update_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-      BONGOCAT_LOG_ERROR("Failed to initialize updfate system: %s", bongocat::error_string(update_error));
+      BONGOCAT_LOG_ERROR("Failed to initialize update system: %s", bongocat::error_string(update_error));
       return update_error;
     }
     ctx.update = bongocat::move(update);
+  }
+
+  // Create audio system
+  if (!ctx.audio) {
+    auto [audio, audio_error] = platform::audio::create(ctx.config);
+    if (audio_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+      BONGOCAT_LOG_ERROR("Failed to initialize audio system: %s", bongocat::error_string(audio_error));
+      return audio_error;
+    }
+    ctx.audio = bongocat::move(audio);
   }
 
   // Create animation system
@@ -774,7 +846,7 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   }
 
   // Start program timer
-  {
+  if constexpr (features::EnableUpdateModule) {
     init_program_timer(ctx);
 
     assert(ctx.update);
@@ -783,6 +855,17 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
     auto& update_shm = *ctx.update->shm;
     update_shm.program_start_time = ctx.program_start_time;
   }
+
+  // @TODO: update audio shared memory from global
+  /*
+  if constexpr (features::EnableAudioModule) {
+    assert(ctx.audio);
+    platform::LockGuard guard(ctx.audio->audio_lock);
+    assert(ctx.audio->shm);
+    auto& update_shm = *ctx.audio->shm;
+    /// @TODO: update variables from global varaibles
+  }
+  */
 
   // Setup wayland
   {
@@ -798,11 +881,18 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   // Start animation thread
   {
     assert(ctx.animation != BONGOCAT_NULLPTR);
+#ifdef BONGOCAT_ENABLE_INPUT_MODULE
     assert(ctx.input != BONGOCAT_NULLPTR);
+#endif
+#ifdef BONGOCAT_ENABLE_UPDATE_MODULE
     assert(ctx.update != BONGOCAT_NULLPTR);
+#endif
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+    assert(ctx.audio != BONGOCAT_NULLPTR);
+#endif
     bongocat_error_t start_animation_result =
-        animation::start(*ctx.animation, *ctx.input, *ctx.update, ctx.config, get_main_context().configs_reloaded_cond,
-                         get_main_context().config_generation);
+        animation::start(*ctx.animation, ctx.input.ptr, ctx.update.ptr, ctx.audio.ptr, ctx.config,
+                         get_main_context().configs_reloaded_cond, get_main_context().config_generation);
     if (start_animation_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to start animation thread: %s", bongocat::error_string(start_animation_result));
       return start_animation_result;
@@ -810,7 +900,7 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   }
 
   // Start input monitoring
-  {
+  if constexpr (features::EnableInputModule) {
     assert(ctx.animation != BONGOCAT_NULLPTR);
     assert(ctx.input != BONGOCAT_NULLPTR);
     bongocat_error_t start_input_result =
@@ -823,7 +913,7 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   }
 
   // Start update monitoring
-  {
+  if constexpr (features::EnableUpdateModule) {
     assert(ctx.animation != BONGOCAT_NULLPTR);
     assert(ctx.update != BONGOCAT_NULLPTR);
     bongocat_error_t start_update_result =
@@ -832,6 +922,19 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
     if (start_update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to start update thread: %s", bongocat::error_string(start_update_result));
       return start_update_result;
+    }
+  }
+
+  // Start audio monitoring
+  if constexpr (features::EnableAudioModule) {
+    assert(ctx.animation != BONGOCAT_NULLPTR);
+    assert(ctx.audio != BONGOCAT_NULLPTR);
+    bongocat_error_t start_audio_result =
+        platform::audio::start(*ctx.audio, *ctx.animation, ctx.config, get_main_context().configs_reloaded_cond,
+                               get_main_context().config_generation);
+    if (start_audio_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+      BONGOCAT_LOG_ERROR("Failed to start audio thread: %s", bongocat::error_string(start_audio_result));
+      return start_audio_result;
     }
   }
 
@@ -1065,7 +1168,6 @@ int main(int argc, char *argv[]) {
       ctx.input = bongocat::move(input);
     }
 
-    assert(ctx.input);
     /// @TODO: make input privilege guard
     if (ctx.input) {
       const auto privilege_result = platform::input::details::privilege_init(*ctx.input);
@@ -1126,10 +1228,13 @@ int main(int argc, char *argv[]) {
     }
     BONGOCAT_LOG_VERBOSE("Try to load Configuration file: %s", config_file);
 
-    assert(ctx.input != BONGOCAT_NULLPTR);
-    (void)platform::input::details::privilege_init(*ctx.input);
-    auto config_result = config::load(config_file, *ctx.input, ctx.overwrite_config_parameters);
-    (void)platform::input::details::privilege_drop(*ctx.input);
+    if (ctx.input) {
+      (void)platform::input::details::privilege_init(*ctx.input);
+    }
+    auto config_result = config::load(config_file, ctx.input.ptr, ctx.overwrite_config_parameters);
+    if (ctx.input) {
+      (void)platform::input::details::privilege_drop(*ctx.input);
+    }
 
     if (args.check_config || args.doctor) {
       const bool config_valid = is_valid_config_result(config_result);
@@ -1223,9 +1328,18 @@ int main(int argc, char *argv[]) {
   }
   init_program_timer(ctx);
 
-  assert(ctx.input != BONGOCAT_NULLPTR);
+  // sanity checks
   assert(ctx.animation != BONGOCAT_NULLPTR);
   assert(ctx.wayland != BONGOCAT_NULLPTR);
+#ifdef BONGOCAT_ENABLE_INPUT_MODULE
+  assert(ctx.input != BONGOCAT_NULLPTR);
+#endif
+#ifdef BONGOCAT_ENABLE_UPDATE_MODULE
+  assert(ctx.update != BONGOCAT_NULLPTR);
+#endif
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+  assert(ctx.audio != BONGOCAT_NULLPTR);
+#endif
 
   if (abs(ctx.config.cat_x_offset) > ctx.wayland->thread_context._screen_width) {
     BONGOCAT_LOG_WARNING("cat_x_offset %d may position cat off-screen (screen width: %d)", ctx.config.cat_x_offset,
@@ -1240,9 +1354,8 @@ int main(int argc, char *argv[]) {
   platform::wayland::request_render(*ctx.animation);
   // Main Wayland event loop with graceful shutdown
   assert(ctx.wayland != BONGOCAT_NULLPTR);
-  assert(ctx.input != BONGOCAT_NULLPTR);
   /// @NOTE: config_watcher os optional
-  result = run(*ctx.wayland, ctx.running, ctx.signal_fd._fd, *ctx.input, ctx.config, ctx.config_watcher.ptr,
+  result = run(*ctx.wayland, ctx.running, ctx.signal_fd._fd, ctx.input.ptr, ctx.config, ctx.config_watcher.ptr,
                config_reload_callback);
   if (result != bongocat_error_t::BONGOCAT_SUCCESS) {
     BONGOCAT_LOG_ERROR("Wayland event loop error: %s", bongocat::error_string(result));

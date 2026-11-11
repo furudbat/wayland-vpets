@@ -123,6 +123,7 @@ set(
 )
 set(INPUT_SOURCES platform/input/input.cpp platform/input/input_devices.cpp)
 set(UPDATE_SOURCES platform/update/update.cpp)
+set(AUDIO_SOURCES platform/audio/audio.cpp)
 add_library(bongocat_base INTERFACE)
 target_sources(bongocat_base INTERFACE ${SOURCES})
 target_include_directories(bongocat_base INTERFACE ${INCLUDE_DIR})
@@ -136,6 +137,10 @@ endif()
 if(ENABLE_UPDATE_MODULE)
   target_sources(bongocat_base INTERFACE ${UPDATE_SOURCES})
   target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_UPDATE_MODULE)
+endif()
+if(ENABLE_AUDIO_MODULE)
+  target_sources(bongocat_base INTERFACE ${AUDIO_SOURCES})
+  target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_AUDIO_MODULE)
 endif()
 
 # @NOTE(assets): 2. add embedded_assets sub directory

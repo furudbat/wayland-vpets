@@ -84,15 +84,20 @@ namespace features {
   inline static constexpr bool EnableEvolution = false;
 #endif
 
-#ifndef BONGOCAT_ENABLE_INPUT_MODULE
+#ifdef BONGOCAT_ENABLE_INPUT_MODULE
   inline static constexpr bool EnableInputModule = true;
 #else
   inline static constexpr bool EnableInputModule = false;
 #endif
-#ifndef BONGOCAT_ENABLE_UPDATE_MODULE
+#ifdef BONGOCAT_ENABLE_UPDATE_MODULE
   inline static constexpr bool EnableUpdateModule = true;
 #else
   inline static constexpr bool EnableUpdateModule = false;
+#endif
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+  inline static constexpr bool EnableAudioModule = true;
+#else
+  inline static constexpr bool EnableAudioModule = false;
 #endif
 }  // namespace features
 

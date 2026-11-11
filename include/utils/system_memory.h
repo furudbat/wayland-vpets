@@ -119,6 +119,40 @@ public:
 
   pthread_mutex_t *pt_mutex{BONGOCAT_NULLPTR};
 };
+class LockGuardOptional {
+public:
+  explicit LockGuardOptional(Mutex *m) : pt_mutex(m ? &m->pt_mutex : BONGOCAT_NULLPTR) {
+    if (pt_mutex) {
+      if (const int rc = pthread_mutex_lock(pt_mutex); rc != 0) {
+        BONGOCAT_LOG_ERROR("LockGuardOptional: pthread_mutex_lock failed");
+      }
+    }
+  }
+  explicit LockGuardOptional(pthread_mutex_t *m) : pt_mutex(m) {
+    if (pt_mutex) {
+      if (const int rc = pthread_mutex_lock(pt_mutex); rc != 0) {
+        BONGOCAT_LOG_ERROR("LockGuardOptional: pthread_mutex_lock failed");
+      }
+    }
+  }
+  explicit LockGuardOptional(nullptr_t) {}
+
+  ~LockGuardOptional() {
+    if (pt_mutex) {
+      if (const int rc = pthread_mutex_unlock(pt_mutex); rc != 0) {
+        BONGOCAT_LOG_ERROR("LockGuardOptional: pthread_mutex_unlock failed");
+      }
+    }
+  }
+
+  // No copying, no move
+  LockGuardOptional(const LockGuardOptional&) = delete;
+  LockGuardOptional& operator=(const LockGuardOptional&) = delete;
+  LockGuardOptional(const LockGuardOptional&&) = delete;
+  LockGuardOptional&& operator=(const LockGuardOptional&&) = delete;
+
+  pthread_mutex_t *pt_mutex{BONGOCAT_NULLPTR};
+};
 
 class SingleCondVariable;
 void cond_destroy(SingleCondVariable& cond);

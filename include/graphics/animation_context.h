@@ -2,6 +2,7 @@
 #define BONGOCAT_ANIMATION_EVENT_CONTEXT_H
 
 #include "graphics/animation_thread_context.h"
+#include "platform/audio/audio_context.h"
 #include "platform/input/input_context.h"
 #include "platform/update/update_context.h"
 
@@ -24,6 +25,7 @@ struct animation_context_t {
   platform::CondVariable *_configs_reloaded_cond{BONGOCAT_NULLPTR};
   platform::input::input_context_t *_input{BONGOCAT_NULLPTR};
   platform::update::update_context_t *_update{BONGOCAT_NULLPTR};
+  platform::audio::audio_context_t *_audio{BONGOCAT_NULLPTR};
   atomic_uint64_t *_config_generation{BONGOCAT_NULLPTR};
   atomic_bool ready{false};
   platform::CondVariable init_cond;
@@ -59,6 +61,7 @@ inline void cleanup(animation_context_t& anim_ctx) {
   anim_ctx._config = BONGOCAT_NULLPTR;
   anim_ctx._input = BONGOCAT_NULLPTR;
   anim_ctx._update = BONGOCAT_NULLPTR;
+  anim_ctx._audio = BONGOCAT_NULLPTR;
   anim_ctx._configs_reloaded_cond = BONGOCAT_NULLPTR;
   atomic_store(&anim_ctx.ready, false);
   anim_ctx.init_cond.notify_all();

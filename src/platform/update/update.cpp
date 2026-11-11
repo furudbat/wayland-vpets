@@ -254,7 +254,7 @@ static void *update_thread(void *arg) {
   // wait for input context (in animation start)
   animation_ctx.init_cond.timedwait([&]() { return atomic_load(&animation_ctx.ready); },
                                     COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS);
-  assert(animation_ctx._input != BONGOCAT_NULLPTR);
+  assert(animation_ctx._update != BONGOCAT_NULLPTR);
   update_context_t& upd = *animation_ctx._update;
 
   // sanity checks

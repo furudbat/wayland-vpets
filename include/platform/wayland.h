@@ -23,7 +23,7 @@ BONGOCAT_NODISCARD bongocat_error_t setup(wayland_context_t& ctx, animation::ani
 
 // Run Wayland event loop - must be checked
 BONGOCAT_NODISCARD bongocat_error_t run(wayland_context_t& ctx, volatile sig_atomic_t& running, int signal_fd,
-                                        input::input_context_t& input, const config::config_t& config,
+                                        input::input_context_t *input, const config::config_t& config,
                                         const config::config_watcher_t *config_watcher,
                                         config_reload_callback_t config_reload_callback);
 

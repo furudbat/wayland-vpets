@@ -2567,7 +2567,7 @@ static void config_log_result([[maybe_unused]] const config_t& config,
   }
 }
 
-static loaded_config_result_t config_after_parsing(config_t& ret, platform::input::input_context_t& input,
+static loaded_config_result_t config_after_parsing(config_t& ret, platform::input::input_context_t *input,
                                                    config_parse_result_t& errors,
                                                    const load_config_overwrite_parameters_t& overwrite_parameters) {
   if (overwrite_parameters.debug >= 0) {
@@ -2623,18 +2623,22 @@ static loaded_config_result_t config_after_parsing(config_t& ret, platform::inpu
   // Validate and sanitize configuration
   errors = config_chain_parse_result(errors, config_validate(ret));
 
-  if (ret.num_keyboard_devices == 0) {
-    if (overwrite_parameters.default_devices) {
-      BONGOCAT_LOG_INFO("Search for keyboard devices (--default-devices)");
-      auto add_devices_result = config_add_default_keyboard_devices(input, ret);
-      errors = config_chain_parse_result(errors, add_devices_result.result);
-      BONGOCAT_LOG_INFO("Default devices loaded: %u", add_devices_result.keyboards);
-    } else {
-      BONGOCAT_LOG_INFO("No device loaded");
-    }
+  if (input) {
     if (ret.num_keyboard_devices == 0) {
-      errors = config_add_parse_info(errors, config_parsing_info_t::NoInputDevices);
+      if (overwrite_parameters.default_devices) {
+        BONGOCAT_LOG_INFO("Search for keyboard devices (--default-devices)");
+        auto add_devices_result = config_add_default_keyboard_devices(*input, ret);
+        errors = config_chain_parse_result(errors, add_devices_result.result);
+        BONGOCAT_LOG_INFO("Default devices loaded: %u", add_devices_result.keyboards);
+      } else {
+        BONGOCAT_LOG_INFO("No device loaded");
+      }
+      if (ret.num_keyboard_devices == 0) {
+        errors = config_add_parse_info(errors, config_parsing_info_t::NoInputDevices);
+      }
     }
+  } else if (!input && ret.num_keyboard_devices > 0) {
+    BONGOCAT_LOG_WARNING("No device loaded, input module disabled");
   }
 
   // Log configuration summary
@@ -2654,7 +2658,7 @@ static void unload_config_readonly_sections() {
 // PUBLIC API IMPLEMENTATION
 // =============================================================================
 
-loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t& input,
+loaded_config_result_t load(const char *config_file_path, platform::input::input_context_t *input,
                             const load_config_overwrite_parameters_t& overwrite_parameters) {
   BONGOCAT_CHECK_NULL(config_file_path, loaded_config_result_t(config_parsing_fatal_t::ConfigFilenameEmpty));
 
