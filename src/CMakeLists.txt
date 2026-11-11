@@ -114,9 +114,6 @@ set(
   graphics/bar.cpp
   graphics/drawing_images.cpp
   graphics/drawing_scale.cpp
-  platform/input.cpp
-  platform/input_devices.cpp
-  platform/update.cpp
   platform/wayland.cpp
   platform/wayland_callbacks.cpp
   platform/wayland_hyprland.cpp
@@ -124,11 +121,28 @@ set(
   platform/wayland_sway.cpp
   platform/wayland_monitors.cpp
 )
+set(
+  INPUT_SOURCES
+  platform/input/input.cpp
+  platform/input/input_devices.cpp
+)
+set(
+  UPDATE_SOURCES
+  platform/update/update.cpp
+)
 add_library(bongocat_base INTERFACE)
 target_sources(bongocat_base INTERFACE ${SOURCES})
 target_include_directories(bongocat_base INTERFACE ${INCLUDE_DIR})
 target_link_libraries(bongocat_base INTERFACE bongocat_options bongocat_libs)
 target_compile_options(bongocat_base INTERFACE -ffunction-sections -fdata-sections)
+if(ENABLE_INPUT_MODULE)
+  target_sources(bongocat_base INTERFACE ${INPUT_SOURCES})
+  target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_INPUT_MODULE)
+endif()
+if(ENABLE_UPDATE_MODULE)
+  target_sources(bongocat_base INTERFACE ${UPDATE_SOURCES})
+  target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_UPDATE_MODULE)
+endif()
 
 # @NOTE(assets): 2. add embedded_assets sub directory
 add_subdirectory(embedded_assets/bongocat)

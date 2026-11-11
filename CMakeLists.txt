@@ -118,6 +118,9 @@ option(ENABLE_ASAN "Enable Address Sanitizer" OFF)
 option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
 option(ENABLE_TSAN "Enable Thread Sanitizer" OFF)
 
+option(ENABLE_INPUT_MODULE "Enable input listener thread" ON)
+option(ENABLE_UPDATE_MODULE "Enable update thread" ON)
+
 find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner)
 if(WAYLAND_SCANNER_EXECUTABLE)
   option(GENERATE_PROTOCOLS "Generate Wayland protocol files" ON)

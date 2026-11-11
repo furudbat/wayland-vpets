@@ -1,6 +1,6 @@
 #include "config/config.h"
 #include "core/bongocat.h"
-#include "platform/input_context.h"
+#include "platform/input/input_context.h"
 #include "utils/error.h"
 #include "utils/system_error.h"
 

@@ -2,7 +2,7 @@
 #define BONGOCAT_ANIMATION_SHARED_MEMORY_H
 
 #include "config/config.h"
-#include "platform/input_shared_memory.h"
+#include "platform/input/input_shared_memory.h"
 #include "sprite_sheet.h"
 #include "utils/system_memory.h"
 #include "utils/time.h"

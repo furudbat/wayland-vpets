@@ -1,4 +1,4 @@
-#include "platform/update.h"
+#include "platform/update/update.h"
 
 #include "graphics/animation.h"
 #include "platform/wayland.h"

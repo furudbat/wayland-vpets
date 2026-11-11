@@ -1,4 +1,4 @@
-#include "platform/input.h"
+#include "platform/input/input.h"
 
 #include "graphics/animation.h"
 #include "platform/wayland.h"

@@ -1,5 +1,5 @@
 #include "graphics/animation.h"
-#include "platform/input.h"
+#include "platform/input/input.h"
 #include "platform/wayland.h"
 #include "utils/memory.h"
 

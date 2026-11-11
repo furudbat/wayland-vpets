@@ -2,8 +2,8 @@
 #define BONGOCAT_ANIMATION_EVENT_CONTEXT_H
 
 #include "graphics/animation_thread_context.h"
-#include "platform/input_context.h"
-#include "platform/update_context.h"
+#include "platform/input/input_context.h"
+#include "platform/update/update_context.h"
 
 namespace bongocat::animation {
 

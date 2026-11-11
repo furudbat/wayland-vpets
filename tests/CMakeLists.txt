@@ -95,8 +95,8 @@ set(
   ${CMAKE_SOURCE_DIR}/src/graphics/bar.cpp
   ${CMAKE_SOURCE_DIR}/src/graphics/drawing_images.cpp
   ${CMAKE_SOURCE_DIR}/src/graphics/drawing_scale.cpp
-  ${CMAKE_SOURCE_DIR}/src/platform/input.cpp
-  ${CMAKE_SOURCE_DIR}/src/platform/update.cpp
+  ${CMAKE_SOURCE_DIR}/src/platform/input/input.cpp
+  ${CMAKE_SOURCE_DIR}/src/platform/update/update.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_callbacks.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_hyprland.cpp

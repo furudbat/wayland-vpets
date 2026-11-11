@@ -19,8 +19,8 @@
 #include "graphics/embedded_assets_pkmn.h"
 #include "image_loader/custom/load_custom.h"
 #include "image_loader/custom/load_custom_features.h"
-#include "platform/input.h"
-#include "platform/input_context.h"
+#include "platform/input/input.h"
+#include "platform/input/input_context.h"
 #include "utils/error.h"
 
 #include <cassert>
