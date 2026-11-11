@@ -84,7 +84,6 @@ namespace features {
   inline static constexpr bool EnableEvolution = false;
 #endif
 
-
 #ifndef BONGOCAT_ENABLE_INPUT_MODULE
   inline static constexpr bool EnableInputModule = true;
 #else

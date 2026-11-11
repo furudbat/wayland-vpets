@@ -68,11 +68,11 @@ static void cleanup_update_thread(void *arg) {
   assert(arg);
   const animation::animation_context_t& animation_context = *static_cast<animation::animation_context_t *>(arg);
   assert(animation_context._update);
-  update_context_t& input = *animation_context._update;
+  update_context_t& update = *animation_context._update;
 
-  atomic_store(&input._running, false);
+  atomic_store(&update._running, false);
 
-  input.config_updated.notify_all();
+  update.config_updated.notify_all();
 
   BONGOCAT_LOG_INFO("Update thread cleanup completed (via pthread_cancel)");
 }
@@ -102,7 +102,7 @@ static size_t get_cpu_present_last(int fd) {
 }
 */
 
-static const cpu_snapshot_t& get_latest_snapshot_unlocked(update_context_t& ctx) {
+static const cpu_snapshot_t *get_latest_snapshot_unlocked(update_context_t& ctx) {
   assert(ctx.shm);
   auto& update_shm = *ctx.shm;
   ctx.update_cond.timedwait([&]() { return update_shm.cpu_snapshots.stored > 0; }, COND_STORED_TIMEOUT_MS);
@@ -110,10 +110,10 @@ static const cpu_snapshot_t& get_latest_snapshot_unlocked(update_context_t& ctx)
   const size_t latest =
       (update_shm.cpu_snapshots.head + CpuSnapshotRingBufferMaxHistory - 1) % CpuSnapshotRingBufferMaxHistory;
   assert(latest < CpuSnapshotRingBufferMaxHistory);
-  return update_shm.cpu_snapshots.history[latest];
+  return &update_shm.cpu_snapshots.history[latest];
 }
 
-const cpu_snapshot_t& get_latest_snapshot(update_context_t& ctx) {
+const cpu_snapshot_t *get_latest_snapshot(update_context_t& ctx) {
   LockGuard guard(ctx.update_lock);
   return get_latest_snapshot_unlocked(ctx);
 }
@@ -470,7 +470,7 @@ static void *update_thread(void *arg) {
       assert(upd._local_copy_config);
       const config::config_t& current_config = *upd._local_copy_config;
 
-      update_shm.latest_snapshot = &get_latest_snapshot_unlocked(upd);
+      update_shm.latest_snapshot = get_latest_snapshot_unlocked(upd);
 
       if (update_shm.cpu_snapshots.stored >= 2) {
         const size_t latest =

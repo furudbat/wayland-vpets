@@ -2,6 +2,7 @@
 #define BONGOCAT_UPDATE_CONTEXT_H
 
 #include "config/config.h"
+#include "module.h"
 #include "update_shared_memory.h"
 #include "utils/system_memory.h"
 
@@ -9,8 +10,11 @@
 #include <stdatomic.h>
 
 namespace bongocat::platform::update {
+
+BONGOCAT_STUBS_BEGIN
+
 struct update_context_t;
-void stop(update_context_t& ctx);
+BONGOCAT_UPDATE_STUB_INLINE void stop(update_context_t& ctx) BONGOCAT_UPDATE_STUB;
 void cleanup(update_context_t& ctx);
 
 struct update_context_t {
@@ -75,6 +79,9 @@ inline void cleanup(update_context_t& ctx) {
   atomic_store(&ctx.ready, false);
   ctx.init_cond.notify_all();
 }
+
+BONGOCAT_STUBS_END
+
 }  // namespace bongocat::platform::update
 
 #endif  // BONGOCAT_UPDATE_CONTEXT_H

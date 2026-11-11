@@ -1,6 +1,7 @@
 #ifndef BONGOCAT_INPUT_SHARED_MEMORY_H
 #define BONGOCAT_INPUT_SHARED_MEMORY_H
 
+#include "module.h"
 #include "utils/time.h"
 
 #include <stdatomic.h>
@@ -10,6 +11,8 @@ namespace bongocat::platform::input {
 // =============================================================================
 // INPUT STATE (shared memory)
 // =============================================================================
+
+BONGOCAT_STUBS_BEGIN
 
 enum class input_hand_mapping_t : uint32_t {
   None = 0,
@@ -75,6 +78,9 @@ struct input_shared_memory_t {
     return *this;
   }
 };
+
+BONGOCAT_STUBS_END
+
 }  // namespace bongocat::platform::input
 
 #endif  // BONGOCAT_INPUT_SHARED_MEMORY_H

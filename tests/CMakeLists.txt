@@ -109,6 +109,8 @@ target_include_directories(test_bongocat_base INTERFACE ${INCLUDE_DIR})
 target_link_libraries(test_bongocat_base INTERFACE bongocat_options bongocat_libs)
 target_compile_options(test_bongocat_base INTERFACE -ffunction-sections -fdata-sections)
 target_compile_definitions(test_bongocat_base INTERFACE TEST_BUILD)
+target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_INPUT_MODULE)
+target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_UPDATE_MODULE)
 
 add_executable(
   bongocat_tests

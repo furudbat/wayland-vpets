@@ -18,7 +18,6 @@ target_include_directories(assets_ms_agent_interface INTERFACE ${CMAKE_CURRENT_S
 add_library(assets_more_ms_agent_feature INTERFACE)
 target_compile_definitions(assets_more_ms_agent_feature INTERFACE FEATURE_MS_AGENT_EMBEDDED_ASSETS FEATURE_MORE_MS_AGENT_EMBEDDED_ASSETS)
 
-
 add_library(assets_more_ms_agent STATIC)
 target_sources(assets_more_ms_agent PRIVATE embedded_assets_ms_agent.cpp ms_agent_images.cpp)
 target_compile_options(assets_more_ms_agent PRIVATE -ffunction-sections -fdata-sections -fno-unroll-loops)

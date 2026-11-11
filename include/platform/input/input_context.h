@@ -3,6 +3,7 @@
 
 #include "config/config.h"
 #include "input_shared_memory.h"
+#include "module.h"
 #include "utils/system_memory.h"
 #include "utils/time.h"
 
@@ -12,6 +13,8 @@
 #include <stdatomic.h>
 
 namespace bongocat::platform::input {
+
+BONGOCAT_STUBS_BEGIN
 
 inline static constexpr size_t MAX_ACTIVE_DEVICES{32};
 inline static constexpr size_t INPUT_HOTPLUG_EVENTS{64};
@@ -70,7 +73,7 @@ inline void cleanup(input_unique_file_t& file) {
 }
 
 struct input_context_t;
-void stop(input_context_t& ctx);
+BONGOCAT_INPUT_STUB_INLINE void stop(input_context_t& ctx) BONGOCAT_INPUT_STUB;
 // Cleanup input monitoring resources
 void cleanup(input_context_t& ctx);
 
@@ -168,5 +171,7 @@ inline void cleanup(input_context_t& ctx) {
   ctx.init_cond.notify_all();
 }
 }  // namespace bongocat::platform::input
+
+BONGOCAT_STUBS_END
 
 #endif  // BONGOCAT_INPUT_CONTEXT_H

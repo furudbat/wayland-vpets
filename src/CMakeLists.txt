@@ -121,20 +121,14 @@ set(
   platform/wayland_sway.cpp
   platform/wayland_monitors.cpp
 )
-set(
-  INPUT_SOURCES
-  platform/input/input.cpp
-  platform/input/input_devices.cpp
-)
-set(
-  UPDATE_SOURCES
-  platform/update/update.cpp
-)
+set(INPUT_SOURCES platform/input/input.cpp platform/input/input_devices.cpp)
+set(UPDATE_SOURCES platform/update/update.cpp)
 add_library(bongocat_base INTERFACE)
 target_sources(bongocat_base INTERFACE ${SOURCES})
 target_include_directories(bongocat_base INTERFACE ${INCLUDE_DIR})
 target_link_libraries(bongocat_base INTERFACE bongocat_options bongocat_libs)
 target_compile_options(bongocat_base INTERFACE -ffunction-sections -fdata-sections)
+# @NOTE(module): enable more module here
 if(ENABLE_INPUT_MODULE)
   target_sources(bongocat_base INTERFACE ${INPUT_SOURCES})
   target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_INPUT_MODULE)

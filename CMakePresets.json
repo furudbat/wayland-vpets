@@ -173,7 +173,7 @@
     },
     {
       "name": "relwithdebinfo_hybrid",
-      "displayName": "RelWithDebInfo Build (hybrid image loader)",
+      "displayName": "RelWithDebInfo (hybrid image loader)",
       "description": "Release build with debug info and hybrid loader (stb_image + pngle)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-hybrid",
@@ -357,7 +357,7 @@
     },
     {
       "name": "debug_all_features",
-      "displayName": "Debug Build",
+      "displayName": "Debug (All Features)",
       "description": "Debug build with all sorts of features (for testing; experimental)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-all-features",
@@ -391,7 +391,7 @@
     },
     {
       "name": "release_all_features",
-      "displayName": "Release Build (All Features)",
+      "displayName": "Release (All Features)",
       "description": "Release build all sorts of features (for testing; experimental)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-release-all-features",
@@ -425,7 +425,7 @@
     },
     {
       "name": "relwithdebinfo_all_features",
-      "displayName": "RelWithDebInfo Build (All Features)",
+      "displayName": "RelWithDebInfo (All Features)",
       "description": "Release build with Debug Info + all sorts of features (for testing; experimental)",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-relwithdebinfo-all-features",
@@ -460,7 +460,7 @@
     },
     {
       "name": "debug_input_module_only",
-      "displayName": "Debug Build (Input Module only)",
+      "displayName": "Debug (Input Module only)",
       "description": "Debug build with input module only",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-input-only",
@@ -475,7 +475,7 @@
     },
     {
       "name": "debug_update_module_only",
-      "displayName": "Debug Build (Update Module only)",
+      "displayName": "Debug (Update Module only)",
       "description": "Debug build with update module only",
       "generator": "Ninja",
       "binaryDir": "${sourceDir}/cmake-build-debug-update-only",

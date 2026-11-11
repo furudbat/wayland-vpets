@@ -225,15 +225,15 @@ namespace details {
       }
     }
 
-    [[nodiscard]] privilege_result_t raise_result() const noexcept {
+    BONGOCAT_NODISCARD privilege_result_t raise_result() const noexcept {
       return m_raise_result;
     }
 
-    [[nodiscard]] privilege_result_t lower_result() const noexcept {
+    BONGOCAT_NODISCARD privilege_result_t lower_result() const noexcept {
       return m_lower_result;
     }
 
-    [[nodiscard]] privilege_result_t lower() {
+    BONGOCAT_NODISCARD privilege_result_t lower() {
       if (m_raise_result == privilege_result_t::Success && m_lower_result == privilege_result_t::Noop) {
         m_lower_result = details::privilege_lower(m_input);
       }
