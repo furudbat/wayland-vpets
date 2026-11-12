@@ -25,6 +25,8 @@ enum class trigger_animation_cause_mask_t : uint64_t {
   Timeout = (1u << 5u),
   EvolutionUpdate = (1u << 6u),
   StartEvolution = (1u << 7u),
+  AudioUpdate = (1u << 8u),
+  AudioPeak = (1u << 9u),
 };
 
 // =============================================================================

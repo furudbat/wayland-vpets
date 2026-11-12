@@ -57,6 +57,8 @@ struct animation_state_t {
   platform::time_ms_t right_hold_frame_ms{0};
   platform::timestamp_ms_t last_frame_update_ms{0};
   platform::timestamp_ms_t time_until_next_frame_ms{0};
+  // audio
+  double audio_speed_factor{1.0};  // idle animation speed factor (BPM); 1.0 = normal
 
   // state
   bool hold_frame_after_release{false};
