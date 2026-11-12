@@ -555,7 +555,7 @@ static void *audio_thread(void *arg) {
     time_ms_t frame_ms = AUDIO_POOL_TIMEOUT_MS;
     time_ms_t animation_speed_ms = 0;
     // int fps = 0;
-    //  bool enable_debug = false;
+    [[maybe_unused]] bool enable_debug = false;
     double audio_happy_peak = 0.0;
     {
       // read-only config
@@ -564,7 +564,7 @@ static void *audio_thread(void *arg) {
 
       enable_audio = current_config.enable_audio;
       audio_happy_peak = current_config.audio_happy_peak;
-      // enable_debug = current_config.enable_debug;
+      enable_debug = current_config.enable_debug;
 
       animation_speed_ms = current_config.animation_speed_ms;
       // fps = current_config.fps;
@@ -732,7 +732,7 @@ static void *audio_thread(void *arg) {
       // update shared memory (only derived values)
       {
         LockGuard guard(audio.audio_lock);
-        assert(audio.shm);
+        assert(audio.shm != BONGOCAT_NULLPTR);
         auto& audio_shm = *audio.shm;
         audio_shm.active = analysis.active;
         audio_shm.level = analysis.active ? analysis.level : 0.0;
@@ -761,9 +761,21 @@ static void *audio_thread(void *arg) {
         if (!was_active) {
           BONGOCAT_LOG_DEBUG("audio: audio active");
         }
+
+        if (enable_debug) {
+          assert(audio.shm != BONGOCAT_NULLPTR);
+          auto& audio_shm = *audio.shm;
+          BONGOCAT_LOG_VERBOSE("audio: level=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level, audio_shm.bpm, audio_shm.speed_factor);
+        }
       } else if (was_active) {
         // active -> silent: last update, so the animation can go back to normal speed
         BONGOCAT_LOG_DEBUG("audio: silence");
+        if (enable_debug) {
+          assert(audio.shm != BONGOCAT_NULLPTR);
+          auto& audio_shm = *audio.shm;
+          BONGOCAT_LOG_VERBOSE("audio: level=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level, audio_shm.bpm, audio_shm.speed_factor);
+        }
+
         animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioStop);
       }
       // silent: no animation trigger

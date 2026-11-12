@@ -24,10 +24,12 @@ struct cava_plan;
 
 namespace bongocat::platform::audio {
 
-inline static constexpr int CAVA_BARS = 16;
+inline static constexpr int CAVA_BARS = 12;
 inline static constexpr uint32_t MAX_CHANNELS = 2;
-// stereo audio at 96 kHz
-inline static constexpr size_t SAMPLE_BUFFER_SIZE = 96000 * MAX_CHANNELS;
+
+// stereo audio at 44.1 kHz
+inline static constexpr size_t SAMPLE_BUFFER_RATE_HZ = 44100L;
+inline static constexpr size_t SAMPLE_BUFFER_SIZE = SAMPLE_BUFFER_RATE_HZ * MAX_CHANNELS;
 
 static_assert(CAVA_BARS > 0);
 static_assert(MAX_CHANNELS > 0);
