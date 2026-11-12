@@ -195,13 +195,17 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
         assert(audio_speed_factor > 0.0);
         if (current_config.animation_speed_ms > 0) {
           return static_cast<double>(current_state.frame_delta_ms_counter) >
-                 static_cast<double>(current_config.animation_speed_ms) / audio_speed_factor ? process_idle_animation_t::Dancing : process_idle_animation_t::None;
+                         static_cast<double>(current_config.animation_speed_ms) / audio_speed_factor
+                     ? process_idle_animation_t::Dancing
+                     : process_idle_animation_t::None;
         }
 
         // by fps
         assert(audio_speed_factor > 0.0);
         return current_config.animation_speed_ms <= 0 && static_cast<double>(current_state.frame_delta_ms_counter) >=
-                                                             static_cast<double>(fps_ms) / audio_speed_factor ? process_idle_animation_t::Dancing : process_idle_animation_t::None;
+                                                             static_cast<double>(fps_ms) / audio_speed_factor
+                   ? process_idle_animation_t::Dancing
+                   : process_idle_animation_t::None;
       }
     }
 
@@ -210,13 +214,17 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
       assert(audio_speed_factor > 0.0);
       if (current_config.animation_speed_ms > 0) {
         return static_cast<double>(current_state.frame_delta_ms_counter) >
-               static_cast<double>(current_config.animation_speed_ms) ? process_idle_animation_t::Idle : process_idle_animation_t::None;
+                       static_cast<double>(current_config.animation_speed_ms)
+                   ? process_idle_animation_t::Idle
+                   : process_idle_animation_t::None;
       }
 
       // by fps
       assert(audio_speed_factor > 0.0);
       return current_config.animation_speed_ms <= 0 &&
-             static_cast<double>(current_state.frame_delta_ms_counter) >= static_cast<double>(fps_ms) ? process_idle_animation_t::Idle : process_idle_animation_t::None;
+                     static_cast<double>(current_state.frame_delta_ms_counter) >= static_cast<double>(fps_ms)
+                 ? process_idle_animation_t::Idle
+                 : process_idle_animation_t::None;
     }
 
     return process_idle_animation_t::None;
@@ -239,7 +247,9 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
     return false;
   }();
   const bool is_dancing = current_config.enable_audio && (audio_shm && audio_shm->active);
-  const bool stop_dancing = current_config.enable_audio && (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioStop) || (current_state.was_dancing && !is_dancing));
+  const bool stop_dancing =
+      current_config.enable_audio && (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioStop) ||
+                                      (current_state.was_dancing && !is_dancing));
 
   const bool release_frame_for_non_idle = [&] {
     if (!current_config.idle_animation) {
@@ -283,7 +293,8 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   const bool go_next_frame = [&] {
     // audio speed factor only applies to dancing
-    const double speed_factor = current_state.row_state == animation_state_row_t::Idle && is_dancing ? audio_speed_factor : 1.0;
+    const double speed_factor =
+        current_state.row_state == animation_state_row_t::Idle && is_dancing ? audio_speed_factor : 1.0;
     assert(speed_factor > 0.0);
     if (current_config.animation_speed_ms > 0) {
       // by animation_speed
@@ -1020,8 +1031,7 @@ static anim_next_frame_result_t
 anim_bongocat_idle_next_frame(animation_thread_context_t& ctx,
                               [[maybe_unused]] const platform::input::input_context_t *input,
                               [[maybe_unused]] const platform::update::update_context_t *upd,
-                              [[maybe_unused]] const platform::audio::audio_context_t *audio,
-                              animation_state_t& state,
+                              [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
                               const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
   // read-only config
@@ -1824,8 +1834,7 @@ anim_dm_start_or_process_animation(animation_thread_context_t& ctx, animation_st
 }
 
 static anim_dm_process_animation_result_t
-anim_dm_handle_movement(animation_thread_context_t& ctx,
-                        [[maybe_unused]] const platform::input::input_context_t *input,
+anim_dm_handle_movement(animation_thread_context_t& ctx, [[maybe_unused]] const platform::input::input_context_t *input,
                         [[maybe_unused]] const platform::update::update_context_t *upd,
                         [[maybe_unused]] const platform::audio::audio_context_t *audio,
                         animation_player_result_t& new_animation_result, animation_state_t& new_state,
@@ -2033,12 +2042,12 @@ anim_dm_handle_movement(animation_thread_context_t& ctx,
   return ret;
 }
 
-static anim_next_frame_result_t
-anim_dm_idle_next_frame(animation_thread_context_t& ctx,
-                        [[maybe_unused]] const platform::input::input_context_t *input,
-                        [[maybe_unused]] const platform::update::update_context_t *upd,
-                        [[maybe_unused]] const platform::audio::audio_context_t *audio,
-                        animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
+static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context_t& ctx,
+                                                        [[maybe_unused]] const platform::input::input_context_t *input,
+                                                        [[maybe_unused]] const platform::update::update_context_t *upd,
+                                                        [[maybe_unused]] const platform::audio::audio_context_t *audio,
+                                                        animation_state_t& state,
+                                                        const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
   // read-only config
@@ -2073,7 +2082,9 @@ anim_dm_idle_next_frame(animation_thread_context_t& ctx,
     const bool stop_test_animation = conditions.trigger_test_animation &&
                                      current_state.row_state == animation_state_row_t::Test &&
                                      conditions.release_test_frame;
-    const bool stop_dancing = (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) || (current_state.was_dancing && !conditions.is_dancing);
+    const bool stop_dancing =
+        (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) ||
+        (current_state.was_dancing && !conditions.is_dancing);
     if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing) && !conditions.is_evolving) {
       // back to idle
       anim_dm_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
@@ -2088,8 +2099,7 @@ anim_dm_idle_next_frame(animation_thread_context_t& ctx,
         if (current_state.row_state == animation_state_row_t::Idle) {
           // audio/dancing animation or idle animation
           if ((conditions.is_dancing && conditions.process_idle_animation == process_idle_animation_t::Dancing) ||
-              conditions.process_idle_animation == process_idle_animation_t::Idle ||
-              conditions.continues_animation) {
+              conditions.process_idle_animation == process_idle_animation_t::Idle || conditions.continues_animation) {
             // Idle Animation
             anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
@@ -2221,8 +2231,9 @@ anim_dm_idle_next_frame(animation_thread_context_t& ctx,
       }
 
       // idle sleep
-      const bool go_to_idle_sleep = !conditions.is_dancing && (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
-          sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms);
+      const bool go_to_idle_sleep =
+          !conditions.is_dancing && (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
+                                     sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms);
       if (go_to_idle_sleep) {
         if (current_state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
           if (conditions.continues_animation && conditions.is_moving) {
@@ -2330,8 +2341,7 @@ static anim_next_frame_result_t
 anim_dm_key_pressed_next_frame(animation_thread_context_t& ctx,
                                [[maybe_unused]] const platform::input::input_context_t *input,
                                [[maybe_unused]] const platform::update::update_context_t *upd,
-                               [[maybe_unused]] const platform::audio::audio_context_t *audio,
-                               animation_state_t& state,
+                               [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
                                const animation_trigger_t& trigger) {
   using namespace assets;
 
@@ -2450,8 +2460,7 @@ static anim_next_frame_result_t
 anim_dm_working_next_frame(animation_thread_context_t& ctx,
                            [[maybe_unused]] const platform::input::input_context_t *input,
                            [[maybe_unused]] const platform::update::update_context_t *upd,
-                           [[maybe_unused]] const platform::audio::audio_context_t *audio,
-                           animation_state_t& state,
+                           [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
                            const animation_trigger_t& trigger) {
   using namespace assets;
 
@@ -3048,8 +3057,8 @@ static anim_next_frame_result_t
 anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
                           [[maybe_unused]] const platform::input::input_context_t *input,
                           [[maybe_unused]] const platform::update::update_context_t *upd,
-                          [[maybe_unused]] const platform::audio::audio_context_t *audio,
-                          animation_state_t& state, const anim_handle_key_press_result_t& trigger_result) {
+                          [[maybe_unused]] const platform::audio::audio_context_t *audio, animation_state_t& state,
+                          const anim_handle_key_press_result_t& trigger_result) {
   using namespace assets;
 
   // read-only config
@@ -3084,7 +3093,9 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
     const bool stop_test_animation = conditions.trigger_test_animation &&
                                      current_state.row_state == animation_state_row_t::Test &&
                                      conditions.release_test_frame;
-    const bool stop_dancing = (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) || (current_state.was_dancing && !conditions.is_dancing);
+    const bool stop_dancing =
+        (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) ||
+        (current_state.was_dancing && !conditions.is_dancing);
     if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing) && !conditions.is_evolving) {
       // back to idle
       anim_pkmn_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
@@ -3099,8 +3110,7 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
         if (current_state.row_state == animation_state_row_t::Idle) {
           // audio/dancing animation or idle animation
           if ((conditions.is_dancing && conditions.process_idle_animation == process_idle_animation_t::Dancing) ||
-              conditions.process_idle_animation == process_idle_animation_t::Idle ||
-              conditions.continues_animation) {
+              conditions.process_idle_animation == process_idle_animation_t::Idle || conditions.continues_animation) {
             // Idle Animation
             anim_pkmn_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
@@ -4997,8 +5007,9 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
 
           // idle sleep
           if (current_frames.feature_sleep) {
-            const bool go_to_idle_sleep = !conditions.is_dancing && (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
-                sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms);
+            const bool go_to_idle_sleep =
+                !conditions.is_dancing && (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms &&
+                                           sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms);
             if (go_to_idle_sleep) {
               if (current_state.row_state == animation_state_row_t::Idle || conditions.is_moving) {
                 anim_custom_process_animation_result_t animation_result{.row_state = current_state.row_state};
@@ -5860,7 +5871,7 @@ static anim_next_frame_result_t anim_custom_audio_peak_next_frame(animation_thre
   if (!current_frames.feature_writing_happy || !current_frames.happy.valid ||
       state.row_state != animation_state_row_t::Idle) {
     return {};
-      }
+  }
 
   if (current_frames.feature_dancing) {
     const auto current_state = state;
@@ -5878,7 +5889,6 @@ static anim_next_frame_result_t anim_custom_audio_peak_next_frame(animation_thre
   return {};
 }
 #endif
-
 
 static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& animation_ctx, animation_state_t& state,
                                                            const anim_handle_key_press_result_t& trigger_result) {

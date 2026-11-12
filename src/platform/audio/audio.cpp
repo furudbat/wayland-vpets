@@ -75,12 +75,12 @@ inline static constexpr time_ms_t RECONNECT_DELAY_MS = 2000;
 
 inline static constexpr size_t POD_BUFFER_SIZE = 1024;
 
-inline static constexpr const char* PW_PROP_MEDIA_TYPE_VALUE = "Audio";
-inline static constexpr const char* PW_PROP_MEDIA_CATEGORY_VALUE = "Capture";
-inline static constexpr const char* PW_PROP_MEDIA_MEDIA_ROLE = "Music";
-inline static constexpr const char* PW_PROP_NODE_NAME_VALUE = "bongocat-audio";
-inline static constexpr const char* PW_PROP_APP_NAME_VALUE = "bongocat";
-inline static constexpr const char* PW_PROP_STREAM_MEDIA_NAME_VALUE = "bongocat-audio";
+inline static constexpr const char *PW_PROP_MEDIA_TYPE_VALUE = "Audio";
+inline static constexpr const char *PW_PROP_MEDIA_CATEGORY_VALUE = "Capture";
+inline static constexpr const char *PW_PROP_MEDIA_MEDIA_ROLE = "Music";
+inline static constexpr const char *PW_PROP_NODE_NAME_VALUE = "bongocat-audio";
+inline static constexpr const char *PW_PROP_APP_NAME_VALUE = "bongocat";
+inline static constexpr const char *PW_PROP_STREAM_MEDIA_NAME_VALUE = "bongocat-audio";
 
 struct audio_analysis_state_t {
   timestamp_ms_t last_analysis{0};
@@ -352,12 +352,9 @@ namespace details {
       }
 
       pw_properties *props =
-          pw_properties_new(PW_KEY_MEDIA_TYPE, PW_PROP_MEDIA_TYPE_VALUE,
-                            PW_KEY_MEDIA_CATEGORY, PW_PROP_MEDIA_CATEGORY_VALUE,
-                            PW_KEY_MEDIA_ROLE, PW_PROP_MEDIA_MEDIA_ROLE,
-                            PW_KEY_NODE_NAME, PW_PROP_NODE_NAME_VALUE,
-                            PW_KEY_APP_NAME, PW_PROP_APP_NAME_VALUE,
-                            BONGOCAT_NULLPTR);
+          pw_properties_new(PW_KEY_MEDIA_TYPE, PW_PROP_MEDIA_TYPE_VALUE, PW_KEY_MEDIA_CATEGORY,
+                            PW_PROP_MEDIA_CATEGORY_VALUE, PW_KEY_MEDIA_ROLE, PW_PROP_MEDIA_MEDIA_ROLE, PW_KEY_NODE_NAME,
+                            PW_PROP_NODE_NAME_VALUE, PW_KEY_APP_NAME, PW_PROP_APP_NAME_VALUE, BONGOCAT_NULLPTR);
       if (props == BONGOCAT_NULLPTR) {
         return bongocat_error_t::BONGOCAT_ERROR_AUDIO;
       }
@@ -554,11 +551,11 @@ static void *audio_thread(void *arg) {
 
     // read from config
     time_ms_t timeout_ms = AUDIO_POOL_TIMEOUT_MS;
-    time_ms_t idle_trigger_interval_ms = AUDIO_POOL_TIMEOUT_MS;
+    time_ms_t idle_trigger_interval_ms = MIN_IDLE_TRIGGER_INTERVAL_MS;
     time_ms_t frame_ms = AUDIO_POOL_TIMEOUT_MS;
     time_ms_t animation_speed_ms = 0;
-    //int fps = 0;
-    // bool enable_debug = false;
+    // int fps = 0;
+    //  bool enable_debug = false;
     double audio_happy_peak = 0.0;
     {
       // read-only config
@@ -570,7 +567,7 @@ static void *audio_thread(void *arg) {
       // enable_debug = current_config.enable_debug;
 
       animation_speed_ms = current_config.animation_speed_ms;
-      //fps = current_config.fps;
+      // fps = current_config.fps;
       if (current_config.audio_fps > 0) {
         timeout_ms = 1000 / current_config.audio_fps;
       } else if (animation_speed_ms > 0) {
@@ -582,17 +579,14 @@ static void *audio_thread(void *arg) {
       }
 
       if (current_config.audio_fps > 0) {
-        frame_ms = timeout_ms;
+        frame_ms = 1000 / current_config.audio_fps;
       } else if (current_config.input_fps > 0) {
-        frame_ms = 1000 / current_config.input_fps / 2;
+        frame_ms = 1000 / current_config.input_fps;
       } else if (current_config.fps > 0) {
-        frame_ms = timeout_ms;
+        frame_ms = 1000 / current_config.fps;
       }
 
       idle_trigger_interval_ms = current_config.animation_speed_ms > 0 ? current_config.animation_speed_ms : timeout_ms;
-      if (idle_trigger_interval_ms < MIN_IDLE_TRIGGER_INTERVAL_MS) {
-        idle_trigger_interval_ms = MIN_IDLE_TRIGGER_INTERVAL_MS;
-      }
 
       if (enable_audio && backend.stream != BONGOCAT_NULLPTR) {
         // re-connect stream after error/disconnect
@@ -894,7 +888,7 @@ bongocat_error_t start(audio_context_t& audio, animation::animation_context_t& a
 
   audio._configs_reloaded_cond->notify_all();
 
-  //assert(audio._backend);
+  // assert(audio._backend);
   details::setup_stream(audio);
 
   // start audio thread

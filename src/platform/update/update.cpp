@@ -674,13 +674,6 @@ created_result_t<AllocatedMemory<update_context_t>> create(const config::config_
   clock_gettime(CLOCK_MONOTONIC, &ret->shm->program_start_time);
   ret->shm->time_since_start_sec = get_time_since_start_sec(ret->shm->program_start_time);
 
-  // Initialize shared memory for local config
-  ret->_local_copy_config = make_allocated_mmap<config::config_t>();
-  if (!ret->_local_copy_config) [[unlikely]] {
-    BONGOCAT_LOG_ERROR("Failed to create shared memory for input monitoring: %s", strerror(errno));
-    return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
-  }
-
   return ret;
 }
 

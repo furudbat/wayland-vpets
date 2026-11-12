@@ -523,6 +523,7 @@ static void config_reload_callback() {
   // If successful, update the global config
   bool devices_changed = false;
   bool update_needed = false;
+  bool audio_needed = false;
   {
     platform::LockGuard guard(get_main_context().sync_configs);
     config::config_t old_config = get_main_context().config;
@@ -554,6 +555,15 @@ static void config_reload_callback() {
                      new_config.cpu_threshold >= platform::ENABLED_MIN_CPU_PERCENT) ||
                     (new_config.update_rate_ms > 0 && old_config.update_rate_ms <= 0) ||
                     (new_config.evolution != config::evolution_time_mode_t::NONE);
+    // audio has been enabled/disabled or audio sink changed: restart audio thread (re-create audio stream)
+    if constexpr (features::EnableAudioModule) {
+      const char *old_audio_sink = old_config.audio_sink ? old_config.audio_sink.c_str() : "";
+      const char *new_audio_sink = new_config.audio_sink ? new_config.audio_sink.c_str() : "";
+      audio_needed = old_config.enable_audio != new_config.enable_audio ||
+                     (new_config.enable_audio &&
+                      (strcmp(old_audio_sink, new_audio_sink) != 0 ||
+                       (get_main_context().audio && !atomic_load(&get_main_context().audio->_running))));
+    }
     get_main_context().config = bongocat::move(new_config);
     /// @NOTE: don't use new_config after move
     new_config = {};
@@ -674,25 +684,18 @@ static void config_reload_callback() {
         BONGOCAT_LOG_INFO("Update thread restarted successfully");
       }
     }
-    // restart audio thread
-    if constexpr (features::EnableAudioModule) {
-      BONGOCAT_LOG_INFO("Audio features enabled, restarting audio thread");
-      const bongocat_error_t update_result =
+  }
+
+  // Check if audio settings changed and restart audio thread if needed
+  if constexpr (features::EnableAudioModule) {
+    if (audio_needed) {
+      BONGOCAT_LOG_INFO("Audio settings changed, restarting audio thread");
+      const bongocat_error_t audio_result =
           platform::audio::restart(*get_main_context().audio, *get_main_context().animation, get_main_context().config,
                                    get_main_context().configs_reloaded_cond, get_main_context().config_generation);
-      if (update_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
-        BONGOCAT_LOG_ERROR("Failed to restart audio thread: %s", bongocat::error_string(update_result));
+      if (audio_result != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
+        BONGOCAT_LOG_ERROR("Failed to restart audio thread: %s", bongocat::error_string(audio_result));
       } else {
-        /*
-        {
-          assert(get_main_context().audio);
-          platform::LockGuard guard(get_main_context().audio->audio_lock);
-          assert(get_main_context().audio->shm);
-          auto& audio_shm = *get_main_context().audio->shm;
-          /// @TODO: update audio shared memory from global
-        }
-        */
-
         BONGOCAT_LOG_INFO("Audio thread restarted successfully");
       }
     }
@@ -792,8 +795,12 @@ static void init_program_timer(main_context_t& ctx) {
 }
 
 static bongocat_error_t system_initialize_components(main_context_t& ctx) {
+  if constexpr (features::EnableAudioModule) {
+    platform::audio::init_audio_backend();
+  }
+
   // Create input system
-  if (!ctx.input) {  // NOTE: input may already been aoolicated
+  if (!ctx.input) {  // NOTE: input may already been applicated
     auto [input, input_error] = platform::input::create(ctx.config);
     if (input_error != bongocat_error_t::BONGOCAT_SUCCESS) [[unlikely]] {
       BONGOCAT_LOG_ERROR("Failed to initialize input system: %s", bongocat::error_string(input_error));
@@ -951,6 +958,10 @@ static bongocat_error_t system_initialize_components(main_context_t& ctx) {
   // clean up context before global cleanup (log mutex, etc.)
   cleanup(ctx);
 
+  if constexpr (features::EnableAudioModule) {
+    platform::audio::deinit_audio_backend();
+  }
+
   BONGOCAT_LOG_INFO("Cleanup complete, exiting with code %d", exit_code);
   usleep(WAIT_FOR_FLUSH_BEFORE_EXIT_MS * 1000);
   exit(exit_code);
@@ -978,7 +989,8 @@ static void cli_show_help(const char *program_name) {
   printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
   printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
   printf("  -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)\n");
-  printf("      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
+  printf(
+      "      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
   printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting with ruinning instances\n");
   printf("      --ignore-running        Ignore current running instance\n");

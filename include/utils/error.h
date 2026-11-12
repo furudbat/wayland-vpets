@@ -58,6 +58,7 @@ enum class bongocat_error_t : uint8_t {
   BONGOCAT_ERROR_IMAGE,
   BONGOCAT_ERROR_SVG,
   BONGOCAT_FATAL_INPUT_PRIVILEGE,
+  BONGOCAT_ERROR_AUDIO,
 };
 
 // =============================================================================

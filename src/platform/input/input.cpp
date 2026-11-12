@@ -559,7 +559,7 @@ static void *input_thread(void *arg) {
     pthread_testcancel();  // optional, but makes cancellation more responsive
 
     // read from config
-    int timeout = INPUT_POOL_TIMEOUT_MS;
+    int timeout_ms = INPUT_POOL_TIMEOUT_MS;
     bool enable_debug = false;
     {
       // read-only config
@@ -569,9 +569,9 @@ static void *input_thread(void *arg) {
       enable_debug = current_config.enable_debug >= 1;
 
       if (current_config.input_fps > 0) {
-        timeout = 1000 / current_config.input_fps;
+        timeout_ms = 1000 / current_config.input_fps;
       } else if (current_config.fps > 0) {
-        timeout = 1000 / current_config.fps / 3;
+        timeout_ms = 1000 / current_config.fps / 3;
       }
     }
 
@@ -750,7 +750,7 @@ static void *input_thread(void *arg) {
     }
 
     // poll events
-    const int poll_result = poll(pfds, nfds, timeout);
+    const int poll_result = poll(pfds, nfds, timeout_ms);
     if (poll_result < 0) {
       if (errno == EINTR) {
         continue;  // Interrupted by signal
@@ -763,7 +763,7 @@ static void *input_thread(void *arg) {
     if (poll_result == 0) {
       // @TODO: device checking with scan_interval
       check_counter++;
-      if (check_counter >= (adaptive_check_interval_ms / timeout)) {
+      if (timeout_ms == 0 || check_counter >= (adaptive_check_interval_ms / timeout_ms)) {
         check_counter = 0;
         bool found_new_device = false;
         for (size_t i = 0; i < input._unique_devices.count; i++) {

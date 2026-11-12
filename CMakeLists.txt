@@ -119,8 +119,8 @@ option(ENABLE_UBSAN "Enable Undefined Behavior Sanitizer" OFF)
 option(ENABLE_TSAN "Enable Thread Sanitizer" OFF)
 
 option(ENABLE_INPUT_MODULE "Enable input listener thread" ON)
-option(ENABLE_UPDATE_MODULE "Enable update thread" ON)
-option(ENABLE_AUDIO_MODULE "Enable audio thread" OFF)
+option(ENABLE_UPDATE_MODULE "Enable update/CPU thread" ON)
+option(ENABLE_AUDIO_MODULE "Enable audio thread (PipeWire and fftw required)" OFF)
 
 find_program(WAYLAND_SCANNER_EXECUTABLE wayland-scanner)
 if(WAYLAND_SCANNER_EXECUTABLE)
