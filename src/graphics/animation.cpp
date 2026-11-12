@@ -156,6 +156,7 @@ struct anim_conditions_t {
   bool is_working{false};
   bool is_running{false};
   bool is_dancing{false};
+  bool stop_dancing{false};
   bool continue_writing{false};
   bool left_continue_writing{false};
   bool right_continue_writing{false};
@@ -237,7 +238,8 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
     return false;
   }();
-  const bool is_dancing = process_idle_animation == process_idle_animation_t::Dancing && current_config.enable_audio && (audio_shm && audio_shm->active);
+  const bool is_dancing = current_config.enable_audio && (audio_shm && audio_shm->active);
+  const bool stop_dancing = current_config.enable_audio && (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioStop) || (current_state.was_dancing && !is_dancing));
 
   const bool release_frame_for_non_idle = [&] {
     if (!current_config.idle_animation) {
@@ -600,6 +602,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
       .is_working = is_working,
       .is_running = is_running,
       .is_dancing = is_dancing,
+      .stop_dancing = stop_dancing,
       .continue_writing = continue_writing,
       .left_continue_writing = left_continue_writing,
       .right_continue_writing = right_continue_writing,
@@ -2070,7 +2073,8 @@ anim_dm_idle_next_frame(animation_thread_context_t& ctx,
     const bool stop_test_animation = conditions.trigger_test_animation &&
                                      current_state.row_state == animation_state_row_t::Test &&
                                      conditions.release_test_frame;
-    if ((stop_writing || stop_test_animation || stop_happy_kpm) && !conditions.is_evolving) {
+    const bool stop_dancing = (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) || (current_state.was_dancing && !conditions.is_dancing);
+    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing) && !conditions.is_evolving) {
       // back to idle
       anim_dm_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                 current_frames, current_config);
@@ -2646,6 +2650,33 @@ static anim_next_frame_result_t anim_dm_evolving_next_frame(animation_context_t&
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
                                      current_state, current_config);
 }
+static anim_next_frame_result_t anim_dm_audio_peak_next_frame(animation_thread_context_t& ctx,
+                                                              animation_state_t& state) {
+  using namespace assets;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  assert(ctx.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+  assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
+  const auto& current_frames = get_current_animation(ctx).dm;
+  // only start happy from idle (don't interrupt writing, working, sleeping, evolving, ...)
+  if (!current_frames.frames.happy.valid || state.row_state != animation_state_row_t::Idle) {
+    return {};
+  }
+
+  const auto current_state = state;
+  const auto& current_animation_result = anim_shm.animation_player_result;
+  auto new_animation_result = anim_shm.animation_player_result;
+  auto new_state = state;
+  anim_dm_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
+                            current_frames, current_config);
+
+  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                     current_state, current_config);
+}
 #endif
 
 #ifdef FEATURE_PKMN_EMBEDDED_ASSETS
@@ -3053,7 +3084,8 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
     const bool stop_test_animation = conditions.trigger_test_animation &&
                                      current_state.row_state == animation_state_row_t::Test &&
                                      conditions.release_test_frame;
-    if ((stop_writing || stop_test_animation || stop_happy_kpm) && !conditions.is_evolving) {
+    const bool stop_dancing = (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) || (current_state.was_dancing && !conditions.is_dancing);
+    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing) && !conditions.is_evolving) {
       // back to idle
       anim_pkmn_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                   current_frames, current_config);
@@ -4129,6 +4161,33 @@ current_frames = get_current_animation(ctx).ms_agent;
                                         current_config);
 }
 */
+static anim_next_frame_result_t anim_ms_agent_audio_peak_next_frame(animation_thread_context_t& ctx,
+                                                                    animation_state_t& state) {
+  using namespace assets;
+
+  // read-only config
+  assert(ctx._local_copy_config);
+  const config::config_t& current_config = *ctx._local_copy_config;
+
+  assert(ctx.shm);
+  animation_shared_memory_t& anim_shm = *ctx.shm;
+  assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
+  const auto& current_frames = get_current_animation(ctx).ms_agent;
+  // only start happy from idle
+  if (!current_frames.happy.valid || state.row_state != animation_state_row_t::Idle) {
+    return {};
+  }
+
+  const auto current_state = state;
+  const auto& current_animation_result = anim_shm.animation_player_result;
+  auto new_animation_result = anim_shm.animation_player_result;
+  auto new_state = state;
+  anim_ms_agent_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
+                                  current_frames, current_config);
+
+  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                     current_state, current_config);
+}
 #endif
 
 #ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
@@ -4906,8 +4965,9 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
     if (current_config.idle_animation && conditions.go_next_frame) {
       anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
     } else if (conditions.is_dancing && conditions.go_next_frame) {
-      /// @TODO: dancing animation for custom or keep idle ?
-      //anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+      if (current_frames.feature_dancing) {
+        anim_custom_process_animation(new_animation_result, new_state, current_state, current_frames);
+      }
     }
 
     if (current_frames.feature_moving) {
@@ -5784,73 +5844,6 @@ static anim_next_frame_result_t anim_custom_evolving_next_frame(animation_contex
   return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
                                      current_state, current_config);
 }
-#endif
-
-// =============================================================================
-// AUDIO (peak -> happy animation)
-// =============================================================================
-
-#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-static anim_next_frame_result_t anim_dm_audio_peak_next_frame(animation_thread_context_t& ctx,
-                                                              animation_state_t& state) {
-  using namespace assets;
-
-  // read-only config
-  assert(ctx._local_copy_config);
-  const config::config_t& current_config = *ctx._local_copy_config;
-
-  assert(ctx.shm);
-  animation_shared_memory_t& anim_shm = *ctx.shm;
-  assert(get_current_animation(ctx).type == animation_t::type_t::Dm);
-  const auto& current_frames = get_current_animation(ctx).dm;
-  // only start happy from idle (don't interrupt writing, working, sleeping, evolving, ...)
-  if (!current_frames.frames.happy.valid || state.row_state != animation_state_row_t::Idle) {
-    return {};
-  }
-
-  const auto current_state = state;
-  const auto& current_animation_result = anim_shm.animation_player_result;
-  auto new_animation_result = anim_shm.animation_player_result;
-  auto new_state = state;
-  anim_dm_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
-                            current_frames, current_config);
-
-  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
-                                     current_state, current_config);
-}
-#endif
-
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-static anim_next_frame_result_t anim_ms_agent_audio_peak_next_frame(animation_thread_context_t& ctx,
-                                                                    animation_state_t& state) {
-  using namespace assets;
-
-  // read-only config
-  assert(ctx._local_copy_config);
-  const config::config_t& current_config = *ctx._local_copy_config;
-
-  assert(ctx.shm);
-  animation_shared_memory_t& anim_shm = *ctx.shm;
-  assert(get_current_animation(ctx).type == animation_t::type_t::MsAgent);
-  const auto& current_frames = get_current_animation(ctx).ms_agent;
-  // only start happy from idle
-  if (!current_frames.happy.valid || state.row_state != animation_state_row_t::Idle) {
-    return {};
-  }
-
-  const auto current_state = state;
-  const auto& current_animation_result = anim_shm.animation_player_result;
-  auto new_animation_result = anim_shm.animation_player_result;
-  auto new_state = state;
-  anim_ms_agent_restart_animation(ctx, animation_state_row_t::Happy, new_animation_result, new_state, current_state,
-                                  current_frames, current_config);
-
-  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
-                                     current_state, current_config);
-}
-#endif
-
-#ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
 static anim_next_frame_result_t anim_custom_audio_peak_next_frame(animation_thread_context_t& ctx,
                                                                   animation_state_t& state) {
   using namespace assets;
@@ -5867,20 +5860,73 @@ static anim_next_frame_result_t anim_custom_audio_peak_next_frame(animation_thre
   if (!current_frames.feature_writing_happy || !current_frames.happy.valid ||
       state.row_state != animation_state_row_t::Idle) {
     return {};
+      }
+
+  if (current_frames.feature_dancing) {
+    const auto current_state = state;
+    const auto& current_animation_result = anim_shm.animation_player_result;
+    auto new_animation_result = anim_shm.animation_player_result;
+    auto new_state = state;
+    anim_custom_restart_animation(ctx, animation_state_row_t::Happy, animation_state_row_t::Idle,
+                                  animation_state_row_t::Idle, new_animation_result, new_state, current_state,
+                                  current_frames, current_config);
+
+    return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
+                                       current_state, current_config);
   }
 
-  const auto current_state = state;
-  const auto& current_animation_result = anim_shm.animation_player_result;
-  auto new_animation_result = anim_shm.animation_player_result;
-  auto new_state = state;
-  anim_custom_restart_animation(ctx, animation_state_row_t::Happy, animation_state_row_t::Idle,
-                                animation_state_row_t::Idle, new_animation_result, new_state, current_state,
-                                current_frames, current_config);
-
-  return anim_update_animation_state(anim_shm, state, new_animation_result, new_state, current_animation_result,
-                                     current_state, current_config);
+  return {};
 }
 #endif
+
+
+static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& animation_ctx, animation_state_t& state,
+                                                           const anim_handle_key_press_result_t& trigger_result) {
+  using namespace assets;
+
+  animation_thread_context_t& ctx = animation_ctx.thread_context;
+  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
+  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
+  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
+  const animation_shared_memory_t& anim_shm = *ctx.shm;
+  // const auto& input_shm = *input.shm;
+  // auto& animation_player_data = anim_shm.animation_player_data;
+  // const int current_frame = animation_player_data.frame_index;
+  // const int current_row = animation_player_data.sprite_sheet_row;
+  // const animation_state_row_t current_row_state = state.row_state;
+  // const int anim_index = anim_shm.anim_index;
+
+  switch (anim_shm.anim_type) {
+  case config::config_animation_sprite_sheet_layout_t::None:
+    break;
+  case config::config_animation_sprite_sheet_layout_t::Bongocat: {
+#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
+    return anim_bongocat_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
+#endif
+  } break;
+  case config::config_animation_sprite_sheet_layout_t::Dm: {
+#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
+    return anim_dm_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
+#endif
+  } break;
+  case config::config_animation_sprite_sheet_layout_t::Pkmn: {
+#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
+    return anim_pkmn_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
+#endif
+  } break;
+  case config::config_animation_sprite_sheet_layout_t::MsAgent: {
+#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
+    return anim_ms_agent_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
+#endif
+  } break;
+  case config::config_animation_sprite_sheet_layout_t::Custom: {
+#ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
+    return anim_custom_idle_next_frame(animation_ctx, state, trigger_result);
+#endif
+  } break;
+  }
+  return {};
+}
 
 static anim_next_frame_result_t anim_handle_audio_peak(animation_context_t& animation_ctx, animation_state_t& state) {
   [[maybe_unused]] animation_thread_context_t& ctx = animation_ctx.thread_context;
@@ -5931,54 +5977,6 @@ static void anim_update_audio_state([[maybe_unused]] animation_context_t& animat
 #endif
 }
 
-static anim_next_frame_result_t anim_handle_idle_animation(animation_context_t& animation_ctx, animation_state_t& state,
-                                                           const anim_handle_key_press_result_t& trigger_result) {
-  using namespace assets;
-
-  animation_thread_context_t& ctx = animation_ctx.thread_context;
-  [[maybe_unused]] const platform::input::input_context_t *input = animation_ctx._input;
-  [[maybe_unused]] const platform::update::update_context_t *upd = animation_ctx._update;
-  [[maybe_unused]] const platform::audio::audio_context_t *audio = animation_ctx._audio;
-  const animation_shared_memory_t& anim_shm = *ctx.shm;
-  // const auto& input_shm = *input.shm;
-  // auto& animation_player_data = anim_shm.animation_player_data;
-  // const int current_frame = animation_player_data.frame_index;
-  // const int current_row = animation_player_data.sprite_sheet_row;
-  // const animation_state_row_t current_row_state = state.row_state;
-  // const int anim_index = anim_shm.anim_index;
-
-  switch (anim_shm.anim_type) {
-  case config::config_animation_sprite_sheet_layout_t::None:
-    break;
-  case config::config_animation_sprite_sheet_layout_t::Bongocat: {
-#ifdef FEATURE_BONGOCAT_EMBEDDED_ASSETS
-    return anim_bongocat_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
-#endif
-  } break;
-  case config::config_animation_sprite_sheet_layout_t::Dm: {
-#ifdef FEATURE_ENABLE_DM_EMBEDDED_ASSETS
-    return anim_dm_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
-#endif
-  } break;
-  case config::config_animation_sprite_sheet_layout_t::Pkmn: {
-#ifdef FEATURE_PKMN_EMBEDDED_ASSETS
-    return anim_pkmn_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
-#endif
-  } break;
-  case config::config_animation_sprite_sheet_layout_t::MsAgent: {
-#ifdef FEATURE_MS_AGENT_EMBEDDED_ASSETS
-    return anim_ms_agent_idle_next_frame(ctx, input, upd, audio, state, trigger_result);
-#endif
-  } break;
-  case config::config_animation_sprite_sheet_layout_t::Custom: {
-#ifdef FEATURE_CUSTOM_SPRITE_SHEETS_ANIMATION
-    return anim_custom_idle_next_frame(animation_ctx, state, trigger_result);
-#endif
-  } break;
-  }
-  return {};
-}
-
 static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_context_t& animation_ctx,
                                                                     animation_state_t& state,
                                                                     const animation_trigger_t& trigger) {
@@ -6011,11 +6009,12 @@ static anim_handle_key_press_result_t anim_handle_animation_trigger(animation_co
   // (AudioUpdate itself only wakes up the animation thread, idle animation gets processed in
   // anim_handle_idle_animation)
   if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioUpdate) ||
-      has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioPeak)) {
+      has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioPeak) ||
+      has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioStop)) {
     anim_update_audio_state(animation_ctx, state);
   }
   if (has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioPeak) && !conditions.any_key_pressed &&
-      !conditions.is_evolving) {
+      !conditions.is_evolving && conditions.is_dancing) {
     update_frame_result = anim_handle_audio_peak(animation_ctx, state);
     if (update_frame_result.frame_changed) {
       BONGOCAT_LOG_VERBOSE("Audio peak detected - switching to happy frame %d", update_frame_result.new_col);
@@ -6421,6 +6420,7 @@ static void anim_init_state(animation_thread_context_t& ctx) {
   ctx._state.last_frame_update_ms = platform::get_current_time_ms();
   ctx._state.row_state = animation_state_row_t::Idle;
   ctx._state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
+  ctx._state.was_dancing = false;
 }
 
 static void anim_init_evol(animation_context_t& animation_ctx, animation_evolution_t& state) {
@@ -6765,6 +6765,9 @@ static void *anim_thread(void *arg) {
           case trigger_animation_cause_mask_t::AudioPeak:
             triggered_anim_cause = flag_add(triggered_anim_cause, cause);
             break;
+          case trigger_animation_cause_mask_t::AudioStop:
+            triggered_anim_cause = flag_add(triggered_anim_cause, cause);
+            break;
           }
         }
         if (rc < 0) {
@@ -6813,6 +6816,11 @@ static void *anim_thread(void *arg) {
         } else {
           BONGOCAT_LOG_ERROR("animation: Failed to write to notify pipe in animation: %s", strerror(errno));
         }
+      }
+
+      // keep last state of dancing for next frame
+      if constexpr (features::EnableAudioModule) {
+        ctx._state.was_dancing = anim_result.conditions.is_dancing;
       }
 
       // Advance next frame time by exactly one frame
@@ -6907,6 +6915,11 @@ static void *anim_thread(void *arg) {
         BONGOCAT_LOG_VERBOSE("animation: Animation reloaded after evolution: %d -> %d", reload_result.old_anim_index,
                              reload_result.new_anim_index);
       }
+
+      if constexpr (features::EnableAudioModule) {
+        ctx._state.was_dancing = false;
+      }
+
       reload_animation = false;
     }
   }

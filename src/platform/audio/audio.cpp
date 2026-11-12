@@ -575,14 +575,17 @@ static void *audio_thread(void *arg) {
         timeout_ms = 1000 / current_config.audio_fps;
       } else if (animation_speed_ms > 0) {
         timeout_ms = animation_speed_ms;
+      } else if (current_config.input_fps > 0) {
+        timeout_ms = 1000 / current_config.input_fps / 2;
       } else if (current_config.fps > 0) {
         timeout_ms = 1000 / current_config.fps / 2;
       }
 
       if (current_config.audio_fps > 0) {
         frame_ms = timeout_ms;
+      } else if (current_config.input_fps > 0) {
+        frame_ms = 1000 / current_config.input_fps / 2;
       } else if (current_config.fps > 0) {
-        timeout_ms = 1000 / current_config.fps / 2;
         frame_ms = timeout_ms;
       }
 
@@ -767,7 +770,7 @@ static void *audio_thread(void *arg) {
       } else if (was_active) {
         // active -> silent: last update, so the animation can go back to normal speed
         BONGOCAT_LOG_DEBUG("audio: silence");
-        animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioUpdate);
+        animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioStop);
       }
       // silent: no animation trigger
     }
