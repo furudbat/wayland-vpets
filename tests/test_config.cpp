@@ -616,7 +616,7 @@ TEST_CASE("audio config") {
     CHECK(cfg.audio_happy_peak == doctest::Approx(0.85));
   }
   SUBCASE("enable audio and set values") {
-    const auto cfg = config_load_ok(R"(enable_audio=1
+    const auto cfg = config_load_ok(R"(audio=1
 audio_sink=alsa_output.pci-0000_00_1f.3.analog-stereo
 audio_happy_peak=0.7
 )");
