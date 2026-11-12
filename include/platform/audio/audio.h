@@ -30,6 +30,9 @@ BONGOCAT_AUDIO_STUB_INLINE void trigger_audio_config(audio_context_t& ctx, const
 BONGOCAT_AUDIO_STUB_INLINE void update_config(audio_context_t& ctx, const config::config_t& config,
                                               uint64_t new_gen) BONGOCAT_AUDIO_STUB;
 
+BONGOCAT_AUDIO_STUB_INLINE void init_audio_backend() BONGOCAT_AUDIO_STUB;
+BONGOCAT_AUDIO_STUB_INLINE void deinit_audio_backend() BONGOCAT_AUDIO_STUB;
+
 BONGOCAT_STUBS_END
 
 }  // namespace bongocat::platform::audio

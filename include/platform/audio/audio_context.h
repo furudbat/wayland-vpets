@@ -6,10 +6,65 @@
 #include "module.h"
 #include "utils/system_memory.h"
 
+#include <cstddef>
+#include <cstdint>
 #include <pthread.h>
 #include <stdatomic.h>
 
+#ifdef BONGOCAT_ENABLE_AUDIO_MODULE
+#  include <spa/utils/hook.h>
+
+// PipeWire and cavacore
+struct pw_loop;
+struct pw_context;
+struct pw_core;
+struct pw_stream;
+struct cava_plan;
+#endif
+
 namespace bongocat::platform::audio {
+
+inline static constexpr int CAVA_BARS = 16;
+inline static constexpr uint32_t MAX_CHANNELS = 2;
+// stereo audio at 96 kHz
+inline static constexpr size_t SAMPLE_BUFFER_SIZE = 96000 * MAX_CHANNELS;
+
+static_assert(CAVA_BARS > 0);
+static_assert(MAX_CHANNELS > 0);
+inline static constexpr int CAVA_OUT_SIZE = static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS;
+
+#if BONGOCAT_AUDIO_MODULE_ON
+struct audio_backend_t {
+  // PipeWire
+  pw_loop *loop{BONGOCAT_NULLPTR};
+  pw_context *context{BONGOCAT_NULLPTR};
+  pw_core *core{BONGOCAT_NULLPTR};
+  pw_stream *stream{BONGOCAT_NULLPTR};
+  spa_hook stream_listener{};
+  bool thread_loop_entered{false};  // loop entered by the audio thread
+
+  // stream state
+  bool needs_reconnect{false};
+  timestamp_ms_t reconnect_at{0};
+
+  // negotiated format
+  uint32_t rate{0};
+  uint32_t channels{0};
+
+  // cavacore
+  cava_plan *cava{BONGOCAT_NULLPTR};
+  // raw samples
+  double cava_in[SAMPLE_BUFFER_SIZE]{};
+  size_t cava_in_count{0};
+  double cava_out[CAVA_OUT_SIZE]{};
+
+  // RMS (silence detection)
+  double rms_acc{0};
+  size_t rms_n{0};
+};
+#else
+struct audio_backend_t {};
+#endif
 
 BONGOCAT_STUBS_BEGIN
 
@@ -28,8 +83,8 @@ struct audio_context_t {
   Mutex audio_lock;
   platform::CondVariable audio_cond;
 
-  // thread context
-  // @TODO: add more internal thread context ...
+  AllocatedMemory<audio_backend_t> _backend;
+  int pw_loop_fd{-1};
 
   // config reload threading
   FileDescriptor audio_config_efd;  // get new_gen from here
@@ -61,7 +116,8 @@ inline void cleanup(audio_context_t& ctx) {
   atomic_store(&ctx._running, false);
   ctx._audio_thread = 0;
 
-  /// @TODO: clean up thread context
+  release_allocated_memory(ctx._backend);
+  ctx.pw_loop_fd = -1;
 
   close_fd(ctx.audio_config_efd);
   atomic_store(&ctx.config_seen_generation, 0);
