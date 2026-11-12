@@ -1,5 +1,6 @@
 #include "platform/audio/audio.h"
 
+#include "platform/audio/audio_beat_detector.h"
 #include "graphics/animation.h"
 #include "platform/wayland.h"
 #include "utils/memory.h"
@@ -55,16 +56,7 @@ inline static constexpr time_ms_t SILENCE_HOLD_MS = 1500;
 inline static constexpr time_ms_t PEAK_COOLDOWN_MS = 2000;
 inline static constexpr double LEVEL_EMA_ALPHA = 0.4;
 
-inline static constexpr int BASS_BARS = 3;
-inline static constexpr double BASS_AVG_EMA_ALPHA = 0.08;
-inline static constexpr double ONSET_FACTOR = 1.4;
-inline static constexpr double ONSET_MIN_BASS = 0.15;
-inline static constexpr time_ms_t ONSET_MIN_INTERVAL_MS = 300;  // max. 200 BPM
-inline static constexpr time_ms_t ONSET_MAX_INTERVAL_MS = 2000;
-inline static constexpr size_t ONSET_HISTORY = 16;
-inline static constexpr size_t MIN_INTERVALS_FOR_BPM = 4;
-inline static constexpr double MIN_BPM = 60.0;
-inline static constexpr double MAX_BPM = 200.0;
+// beat/onset detection + BPM: see audio_beat_detector.h
 inline static constexpr double REFERENCE_BPM = 120.0;
 inline static constexpr double MIN_SPEED_FACTOR = 0.5;
 inline static constexpr double MAX_SPEED_FACTOR = 2.0;
@@ -90,12 +82,8 @@ struct audio_analysis_state_t {
   bool active{false};
   double level{0};
 
-  // beat detection
-  double bass_avg{0};
-  timestamp_ms_t onsets[ONSET_HISTORY]{};
-  size_t onsets_head{0};
-  size_t onsets_count{0};
-  double bpm{0};
+  // beat detection (spectral flux onsets -> BPM)
+  details::beat_detector_t beat;
 };
 
 namespace details {
@@ -434,55 +422,8 @@ namespace details {
     return v < 0.0 ? 0.0 : (v > 1.0 ? 1.0 : v);
   }
 
-  static double estimate_bpm(const audio_analysis_state_t& state) {
-    if (state.onsets_count < MIN_INTERVALS_FOR_BPM + 1) {
-      return 0.0;
-    }
-    // collect intervals between consecutive onsets (oldest -> newest)
-    time_ms_t intervals[ONSET_HISTORY]{};
-    size_t n = 0;
-    const size_t start = (state.onsets_head + ONSET_HISTORY - state.onsets_count) % ONSET_HISTORY;
-    for (size_t i = 1; i < state.onsets_count; i++) {
-      const timestamp_ms_t prev = state.onsets[(start + i - 1) % ONSET_HISTORY];
-      const timestamp_ms_t cur = state.onsets[(start + i) % ONSET_HISTORY];
-      const time_ms_t delta = cur - prev;
-      if (delta >= ONSET_MIN_INTERVAL_MS && delta <= ONSET_MAX_INTERVAL_MS) {
-        intervals[n++] = delta;
-      }
-    }
-    if (n < MIN_INTERVALS_FOR_BPM) {
-      return 0.0;
-    }
-    // median (insertion sort, n <= 16)
-    for (size_t i = 1; i < n; i++) {
-      const time_ms_t key = intervals[i];
-      size_t j = i;
-      while (j > 0 && intervals[j - 1] > key) {
-        intervals[j] = intervals[j - 1];
-        j--;
-      }
-      intervals[j] = key;
-    }
-    const auto median = static_cast<double>(intervals[n / 2]);
-    if (median <= 0) {
-      return 0.0;
-    }
-    double bpm = 60000.0 / median;
-    // fold into range
-    while (bpm < MIN_BPM) {
-      bpm *= 2.0;
-    }
-    while (bpm > MAX_BPM) {
-      bpm /= 2.0;
-    }
-    return bpm;
-  }
-
   static void reset_beat_detection(audio_analysis_state_t& state) {
-    state.bass_avg = 0;
-    state.onsets_head = 0;
-    state.onsets_count = 0;
-    state.bpm = 0;
+    beat_detector_reset(state.beat);
     state.level = 0;
   }
 }  // namespace details
@@ -677,40 +618,24 @@ static void *audio_thread(void *arg) {
         const size_t total_bars = static_cast<size_t>(CAVA_BARS) * channels;
         double sum = 0;
         double max_bar = 0;
-        double bass = 0;
         for (size_t i = 0; i < total_bars; i++) {
           const double v = details::clamp01(backend.cava_out[i]);
           sum += v;
           max_bar = v > max_bar ? v : max_bar;
-          // lowest bars of each channel (each channel: low -> high)
-          assert(CAVA_BARS != 0);
-          if ((i % static_cast<size_t>(CAVA_BARS)) < static_cast<size_t>(BASS_BARS)) {
-            bass += v;
-          }
         }
         assert(total_bars != 0);
-        assert(channels != 0);
         const double mean = sum / static_cast<double>(total_bars);
-        bass /= static_cast<double>(static_cast<size_t>(BASS_BARS) * channels);
 
         // level: mix of overall energy and strongest band, smoothed
         const double instant_level = 0.5 * mean + 0.5 * max_bar;
         analysis.level = (1.0 - LEVEL_EMA_ALPHA) * analysis.level + LEVEL_EMA_ALPHA * instant_level;
 
-        // beat (onset) detection
-        const timestamp_ms_t last_onset =
-            analysis.onsets_count > 0 ? analysis.onsets[(analysis.onsets_head + ONSET_HISTORY - 1) % ONSET_HISTORY] : 0;
-        if (bass > analysis.bass_avg * ONSET_FACTOR && bass > ONSET_MIN_BASS &&
-            now - last_onset >= ONSET_MIN_INTERVAL_MS) {
-          onset = true;
-          analysis.onsets[analysis.onsets_head] = now;
-          analysis.onsets_head = (analysis.onsets_head + 1) % ONSET_HISTORY;
-          if (analysis.onsets_count < ONSET_HISTORY) {
-            analysis.onsets_count++;
-          }
-          analysis.bpm = details::estimate_bpm(analysis);
+        // beat (onset) detection on all bars (spectral flux) -> BPM
+        static_assert(static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS <= details::BEAT_DETECTOR_MAX_BARS);
+        onset = beat_detector_process(analysis.beat, backend.cava_out, total_bars, now) == details::beat_detector_process_t::OnSetDetected;
+        if (onset) {
+          BONGOCAT_LOG_VERBOSE("audio: beat (flux=%.3f, bpm=%.1f)", analysis.beat.flux, analysis.beat.bpm);
         }
-        analysis.bass_avg = (1.0 - BASS_AVG_EMA_ALPHA) * analysis.bass_avg + BASS_AVG_EMA_ALPHA * bass;
 
         // peak (happy)
         peak_reached = audio_happy_peak > 0.0 && analysis.level >= audio_happy_peak &&
@@ -721,11 +646,11 @@ static void *audio_thread(void *arg) {
       }
 
       const double speed_factor = [&] {
-        if (!analysis.active || analysis.bpm <= 0) {
+        if (!analysis.active || analysis.beat.bpm <= 0) {
           return 1.0;
         }
         static_assert(REFERENCE_BPM > 0);
-        const double f = analysis.bpm / REFERENCE_BPM;
+        const double f = analysis.beat.bpm / REFERENCE_BPM;
         return f < MIN_SPEED_FACTOR ? MIN_SPEED_FACTOR : (f > MAX_SPEED_FACTOR ? MAX_SPEED_FACTOR : f);
       }();
 
@@ -736,7 +661,7 @@ static void *audio_thread(void *arg) {
         auto& audio_shm = *audio.shm;
         audio_shm.active = analysis.active;
         audio_shm.level = analysis.active ? analysis.level : 0.0;
-        audio_shm.bpm = analysis.bpm;
+        audio_shm.bpm = analysis.beat.bpm;
         audio_shm.speed_factor = speed_factor;
         if (peak_reached) {
           audio_shm.peak = true;
@@ -750,7 +675,7 @@ static void *audio_thread(void *arg) {
       if (analysis.active) {
         const auto last_idle_trigger_diff = now - analysis.last_idle_trigger;
         if (peak_reached) {
-          BONGOCAT_LOG_VERBOSE("audio: peak reached (level=%.2f, bpm=%.1f)", analysis.level, analysis.bpm);
+          BONGOCAT_LOG_VERBOSE("audio: peak reached (level=%.2f, bpm=%.1f)", analysis.level, analysis.beat.bpm);
           animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioPeak);
           analysis.last_idle_trigger = now;
         } else if ((onset && last_idle_trigger_diff >= MIN_IDLE_TRIGGER_INTERVAL_MS) ||
