@@ -1,3 +1,5 @@
+include(${CMAKE_SOURCE_DIR}/cmake/EmbeddedAssets.cmake)
+
 enable_testing()
 
 add_library(test_bongocat_all_loaders INTERFACE)
@@ -97,6 +99,7 @@ set(
   ${CMAKE_SOURCE_DIR}/src/graphics/drawing_scale.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/input/input.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/update/update.cpp
+  #${CMAKE_SOURCE_DIR}/src/platform/audio/audio.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_callbacks.cpp
   ${CMAKE_SOURCE_DIR}/src/platform/wayland_hyprland.cpp
@@ -111,6 +114,7 @@ target_compile_options(test_bongocat_base INTERFACE -ffunction-sections -fdata-s
 target_compile_definitions(test_bongocat_base INTERFACE TEST_BUILD)
 target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_INPUT_MODULE)
 target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_UPDATE_MODULE)
+#target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_AUDIO_MODULE)
 
 add_executable(
   bongocat_tests
