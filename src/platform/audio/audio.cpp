@@ -1,7 +1,8 @@
 #include "platform/audio/audio.h"
 
-#include "platform/audio/audio_beat_detector.h"
 #include "graphics/animation.h"
+#include "platform/audio/audio_beat_detector.h"
+#include "platform/audio/audio_peak_detector.h"
 #include "platform/wayland.h"
 #include "utils/memory.h"
 
@@ -42,26 +43,43 @@ inline static constexpr time_ms_t COND_ANIMATION_TRIGGER_INIT_TIMEOUT_MS = 5000;
 inline static constexpr time_ms_t COND_RELOAD_CONFIGS_TIMEOUT_MS = 5000;
 
 inline static constexpr int CAVA_AUTOSENS = 1;
-inline static constexpr double CAVA_NOISE_REDUCTION = 0.77;
+// spectrum + beat detection run on fixed hops of the audio stream (independent of poll/wakeup timing),
+// onsets are timestamped on the audio sample timeline -> precise BPM (up to 300 BPM)
+inline static constexpr time_ms_t ANALYSIS_HOP_MS = 10;
+// lower noise reduction: bars fall faster between beats, needed for fast tempos (> 200 BPM); 0.77 = cava default
+inline static constexpr double CAVA_NOISE_REDUCTION = 0.3;
 inline static constexpr int CAVA_LOW_CUT_OFF_HZ = 50;
 inline static constexpr int CAVA_HIGH_CUT_OFF_HZ = 10000;
 inline static constexpr int CAVA_SCALING_MODE = CAVA_SCALING_LINEAR;
+inline static constexpr double CAVA_INPUT_SCALE = 32768.0;  // F32 (-1..1) -> 16-bit range (cava input convention)
 inline static constexpr uint32_t DEFAULT_CHANNELS = 2;
 inline static constexpr uint32_t DEFAULT_RATE = 48000;
 
-// silence: RMS below ~-80 dBFS for at least SILENCE_HOLD_MS
+// silence: RMS below ~-80 dBFS for a while
+// tempo unknown: SILENCE_HOLD_MS; tempo known: a bit longer than one beat (no beat expected anymore), stop fast
 inline static constexpr double SILENCE_RMS = 1e-4;
 inline static constexpr time_ms_t SILENCE_HOLD_MS = 1500;
+inline static constexpr time_ms_t SILENCE_MIN_HOLD_MS = 400;
+// keep the tempo over short pauses (resume reacts immediately), forget it after a longer silence (next song)
+// (same as the beat detector forgets old onsets)
+inline static constexpr time_ms_t BEAT_MEMORY_MS = details::ONSET_MAX_INTERVAL_MS * 2;
 
-inline static constexpr time_ms_t PEAK_COOLDOWN_MS = 2000;
+// peak (happy): see audio_peak_detector.h; shm.peak is cleared after this time
+inline static constexpr time_ms_t PEAK_COOLDOWN_MS = details::PEAK_COOLDOWN_MS;
 inline static constexpr double LEVEL_EMA_ALPHA = 0.4;
 
 // beat/onset detection + BPM: see audio_beat_detector.h
-inline static constexpr double REFERENCE_BPM = 120.0;
-inline static constexpr double MIN_SPEED_FACTOR = 0.5;
-inline static constexpr double MAX_SPEED_FACTOR = 2.0;
+// speed factor = animation frame time / beat interval -> one (dance) frame per beat
+inline static constexpr double MIN_SPEED_FACTOR = 0.05;
+inline static constexpr double MAX_SPEED_FACTOR = 20.0;
+// beat clock: onsets within +-BEAT_WINDOW (of the beat interval) around the predicted beat re-sync the beat phase,
+// onsets outside (off-beat) are ignored; missed beats are triggered at the predicted time
+inline static constexpr double BEAT_WINDOW = 0.25;
+static_assert(MAX_SPEED_FACTOR >= MIN_SPEED_FACTOR);
 
 inline static constexpr time_ms_t MIN_IDLE_TRIGGER_INTERVAL_MS = 100;
+inline static constexpr time_ms_t MIN_ANALYSIS_MS = 5;
+inline static constexpr double LOW_BPM_INTERVAL = 60000.0;
 
 inline static constexpr time_ms_t RECONNECT_DELAY_MS = 2000;
 
@@ -82,8 +100,17 @@ struct audio_analysis_state_t {
   bool active{false};
   double level{0};
 
+  // beat clock (one AudioUpdate per beat)
+  timestamp_ms_t last_beat{0};      // last beat (triggered)
+  bool last_beat_predicted{false};  // last beat was predicted (no onset)
+
   // beat detection (spectral flux onsets -> BPM)
   details::beat_detector_t beat;
+  double stream_time_ms{0};
+  details::bar_normalizer_t norm;  // gain independent beat detection
+
+  // peak detection (most bars at the top -> happy)
+  details::peak_detector_t peak;
 };
 
 namespace details {
@@ -223,8 +250,10 @@ namespace details {
       }
       for (size_t i = 0; i < n_samples; i++) {
         const double s = static_cast<double>(samples[i]);
-        backend.cava_in[backend.cava_in_count++] = s;
-        backend.rms_acc += s * s;
+        // cavacore expects 16-bit sample range (like cava itself), F32 is -1..1:
+        // unscaled input needs a ~32768x higher autosens, which takes many seconds to ramp up
+        backend.cava_in[backend.cava_in_count++] = s * CAVA_INPUT_SCALE;
+        backend.rms_acc += s * s;  // RMS on the normalized signal (silence threshold)
       }
       backend.rms_n += n_samples;
     }
@@ -415,16 +444,34 @@ namespace details {
     }
   }
 
+
   // ---------------------------------------------------------------------------
   // analysis
   // ---------------------------------------------------------------------------
-  static double clamp01(double v) {
+  inline static double clamp01(double v) {
     return v < 0.0 ? 0.0 : (v > 1.0 ? 1.0 : v);
   }
 
   static void reset_beat_detection(audio_analysis_state_t& state) {
     beat_detector_reset(state.beat);
+    peak_detector_reset(state.peak);
+    state.stream_time_ms = 0;
     state.level = 0;
+    state.last_beat = 0;
+    state.last_beat_predicted = false;
+    details::bar_normalizer_reset(state.norm);
+  }
+
+  // active -> silent: forget levels/peaks, keep the tempo (see BEAT_MEMORY_MS)
+  static void reset_on_silence(audio_analysis_state_t& state, audio_backend_t& backend) {
+    peak_detector_reset(state.peak);
+    state.level = 0;
+    details::bar_normalizer_reset(state.norm);
+    if (backend.cava != BONGOCAT_NULLPTR) {
+      // re-enable the fast initial ramp-up of cava's autosens (keep the learned sensitivity),
+      // the next audio may be much quieter; louder audio overshoots and lowers the sensitivity quickly
+      backend.cava->sens_init = 1;
+    }
   }
 }  // namespace details
 
@@ -493,7 +540,8 @@ static void *audio_thread(void *arg) {
     // read from config
     time_ms_t timeout_ms = AUDIO_POOL_TIMEOUT_MS;
     time_ms_t idle_trigger_interval_ms = MIN_IDLE_TRIGGER_INTERVAL_MS;
-    time_ms_t frame_ms = AUDIO_POOL_TIMEOUT_MS;
+    time_ms_t analysis_ms = AUDIO_POOL_TIMEOUT_MS;         // audio analysis (cava, beat detection) interval
+    time_ms_t animation_frame_ms = AUDIO_POOL_TIMEOUT_MS;  // animation frame time (same as in animation thread)
     time_ms_t animation_speed_ms = 0;
     // int fps = 0;
     [[maybe_unused]] bool enable_debug = false;
@@ -519,20 +567,41 @@ static void *audio_thread(void *arg) {
         timeout_ms = 1000 / current_config.fps / 2;
       }
 
-      if (current_config.audio_fps > 0) {
-        frame_ms = 1000 / current_config.audio_fps;
-      } else if (current_config.input_fps > 0) {
-        frame_ms = 1000 / current_config.input_fps;
+      // animation frame time, base for the speed factor (see animation.cpp)
+      if (animation_speed_ms > 0) {
+        animation_frame_ms = animation_speed_ms;
       } else if (current_config.fps > 0) {
-        frame_ms = 1000 / current_config.fps;
+        animation_frame_ms = 1000 / current_config.fps;
       }
 
-      idle_trigger_interval_ms = current_config.animation_speed_ms > 0 ? current_config.animation_speed_ms : timeout_ms;
+      // audio analysis needs a high rate for beat detection (independent of animation speed)
+      if (current_config.audio_fps > 0) {
+        analysis_ms = 1000 / current_config.audio_fps;
+      } else if (current_config.fps > 0) {
+        analysis_ms = 1000 / current_config.fps;
+      }
+      if (analysis_ms <= 0) {
+        analysis_ms = MIN_ANALYSIS_MS;
+      }
+      if (enable_audio && analysis.active && timeout_ms > analysis_ms) {
+        // active: wake up for analysis/beat clock/silence detection even without stream events
+        // inactive: new audio wakes up the poll (PipeWire fd), no need to wake up more often
+        timeout_ms = analysis_ms;
+      }
+
+      // tempo unknown (yet): keep the animation going with one frame per animation frame time
+      idle_trigger_interval_ms =
+          animation_frame_ms > MIN_IDLE_TRIGGER_INTERVAL_MS ? animation_frame_ms : MIN_IDLE_TRIGGER_INTERVAL_MS;
 
       if (enable_audio && backend.stream != BONGOCAT_NULLPTR) {
         // re-connect stream after error/disconnect
-        if (backend.needs_reconnect && get_current_time_ms() >= backend.reconnect_at) {
-          details::reconnect_stream(backend);
+        if (backend.needs_reconnect) {
+          const timestamp_ms_t now = get_current_time_ms();
+          if (now >= backend.reconnect_at) {
+            details::reconnect_stream(backend);
+          } else if (backend.reconnect_at - now < timeout_ms) {
+            timeout_ms = backend.reconnect_at - now;
+          }
         }
       }
     }
@@ -581,18 +650,13 @@ static void *audio_thread(void *arg) {
 
     // analyse audio and trigger animation (every frame)
     const timestamp_ms_t now = get_current_time_ms();
-    if (enable_audio && backend.cava != BONGOCAT_NULLPTR && (now - analysis.last_analysis) >= frame_ms) {
+    if (enable_audio && backend.cava != BONGOCAT_NULLPTR && (now - analysis.last_analysis) >= analysis_ms) {
       analysis.last_analysis = now;
 
       // RMS for silence detection (raw signal, before autosens)
       const double rms = backend.rms_n > 0 ? sqrt(backend.rms_acc / static_cast<double>(backend.rms_n)) : 0.0;
       backend.rms_acc = 0;
       backend.rms_n = 0;
-
-      // spectrum
-      static_assert(SAMPLE_BUFFER_SIZE <= INT_MAX);
-      cava_execute(backend.cava_in, static_cast<int>(backend.cava_in_count), backend.cava_out, backend.cava);
-      backend.cava_in_count = 0;
 
       // silence
       if (rms < SILENCE_RMS) {
@@ -602,14 +666,70 @@ static void *audio_thread(void *arg) {
       } else {
         analysis.silence_since = 0;
       }
-      const bool silent = analysis.silence_since != 0 && now - analysis.silence_since >= SILENCE_HOLD_MS;
+      const time_ms_t quiet_ms = analysis.silence_since != 0 ? now - analysis.silence_since : 0;
+      const time_ms_t silence_hold_ms = [&]() -> time_ms_t {
+        if (analysis.beat.bpm <= 0.0) {
+          return SILENCE_HOLD_MS;
+        }
+        // no onset within the next beat (+ beat window): music stopped
+        const auto hold = static_cast<time_ms_t>(LOW_BPM_INTERVAL / analysis.beat.bpm * (1.0 + BEAT_WINDOW));
+        return hold > SILENCE_MIN_HOLD_MS ? hold : SILENCE_MIN_HOLD_MS;
+      }();
+      const bool silent = analysis.silence_since != 0 && quiet_ms >= silence_hold_ms;
       const bool was_active = analysis.active;
+      const bool detect_beats = !silent && (rms >= SILENCE_RMS || was_active);
 
+      // spectrum + beat (onset) and peak detection on fixed hops (sample timeline)
       bool onset = false;
+      bool peak_hit = false;
+      {
+        static_assert(static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS <= details::PEAK_DETECTOR_MAX_BARS);
+        static_assert(SAMPLE_BUFFER_SIZE <= INT_MAX);
+        static_assert(static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS <= details::BEAT_DETECTOR_MAX_BARS);
+        static_assert(static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS <= details::BAR_NORM_MAX_BARS);
+        const size_t channels = backend.channels > 0 ? backend.channels : DEFAULT_CHANNELS;
+        const double rate = backend.rate > 0 ? static_cast<double>(backend.rate) : static_cast<double>(DEFAULT_RATE);
+        const size_t total_bars = static_cast<size_t>(CAVA_BARS) * channels;
+        size_t hop_samples = static_cast<size_t>(rate * static_cast<double>(ANALYSIS_HOP_MS) / 1000.0) * channels;
+        if (hop_samples == 0) {
+          hop_samples = channels;
+        }
+        if (backend.cava_in_count == 0) {
+          // no new samples: keep bars falling
+          cava_execute(backend.cava_in, 0, backend.cava_out, backend.cava);
+        }
+        for (size_t offset = 0; offset < backend.cava_in_count; offset += hop_samples) {
+          assert(rate > 0);
+          const size_t n = backend.cava_in_count - offset < hop_samples ? backend.cava_in_count - offset : hop_samples;
+          cava_execute(backend.cava_in + offset, static_cast<int>(n), backend.cava_out, backend.cava);
+          analysis.stream_time_ms += static_cast<double>(n / channels) * 1000.0 / rate;
+          const auto stream_now = static_cast<timestamp_ms_t>(analysis.stream_time_ms);
+          const double *beat_bars = details::bar_normalizer_process(analysis.norm, backend.cava_out, total_bars,
+                                                                    static_cast<double>(n / channels) * 1000.0 / rate);
+          if (detect_beats && beat_detector_process(analysis.beat, beat_bars, total_bars, stream_now) ==
+                                  details::beat_detector_process_t::OnSetDetected) {
+            onset = true;
+            BONGOCAT_LOG_VERBOSE("audio: onset (flux=%.3f, bpm=%.1f)", analysis.beat.flux, analysis.beat.bpm);
+          }
+          // peak: most bars reach the top
+          if (detect_beats && details::peak_detector_process(analysis.peak, backend.cava_out, total_bars, stream_now,
+                                                             audio_happy_peak) == details::peak_detector_process_result_t::Peaked) {
+            peak_hit = true;
+          }
+        }
+        backend.cava_in_count = 0;
+      }
+
       bool peak_reached = false;
       if (silent) {
+        if (was_active) {
+          details::reset_on_silence(analysis, backend);
+        }
         analysis.active = false;
-        details::reset_beat_detection(analysis);
+        if (quiet_ms >= BEAT_MEMORY_MS && analysis.beat.bpm > 0.0) {
+          // long silence: forget tempo (next song)
+          details::reset_beat_detection(analysis);
+        }
       } else if (rms >= SILENCE_RMS || was_active) {
         analysis.active = true;
 
@@ -630,27 +750,72 @@ static void *audio_thread(void *arg) {
         const double instant_level = 0.5 * mean + 0.5 * max_bar;
         analysis.level = (1.0 - LEVEL_EMA_ALPHA) * analysis.level + LEVEL_EMA_ALPHA * instant_level;
 
-        // beat (onset) detection on all bars (spectral flux) -> BPM
-        static_assert(static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS <= details::BEAT_DETECTOR_MAX_BARS);
-        onset = beat_detector_process(analysis.beat, backend.cava_out, total_bars, now) == details::beat_detector_process_t::OnSetDetected;
-        if (onset) {
-          BONGOCAT_LOG_VERBOSE("audio: beat (flux=%.3f, bpm=%.1f)", analysis.beat.flux, analysis.beat.bpm);
-        }
-
-        // peak (happy)
-        peak_reached = audio_happy_peak > 0.0 && analysis.level >= audio_happy_peak &&
-                       now - analysis.last_peak >= PEAK_COOLDOWN_MS;
+        // peak (happy): most bars reached the top (cooldown + re-arm in peak detector)
+        peak_reached = peak_hit;
         if (peak_reached) {
           analysis.last_peak = now;
         }
       }
 
+      // beat clock: one beat per beat interval, phase-locked to onsets
+      const double bpm = analysis.active ? analysis.beat.bpm : 0.0;
+      const bool beat = [&] {
+        if (!analysis.active) {
+          return false;
+        }
+        if (bpm <= 0.0) {
+          // tempo unknown (yet): every onset is a beat
+          if (onset) {
+            analysis.last_beat = now;
+            analysis.last_beat_predicted = false;
+          }
+          return onset;
+        }
+        assert(bpm > 0.0);
+        const double beat_interval_ms = LOW_BPM_INTERVAL / bpm;
+        const auto since_last_beat = static_cast<double>(now - analysis.last_beat);
+        if (analysis.last_beat == 0 || since_last_beat > beat_interval_ms * 4.0) {
+          // (re-)start beat clock
+          if (onset) {
+            analysis.last_beat = now;
+            analysis.last_beat_predicted = false;
+          }
+          return onset;
+        }
+        if (onset) {
+          if (since_last_beat >= beat_interval_ms * (1.0 - BEAT_WINDOW)) {
+            // onset close to (or after) the predicted beat
+            analysis.last_beat = now;
+            analysis.last_beat_predicted = false;
+            return true;
+          }
+          if (analysis.last_beat_predicted && since_last_beat <= beat_interval_ms * BEAT_WINDOW) {
+            // late onset shortly after a predicted beat: re-sync phase, beat was already triggered
+            analysis.last_beat = now;
+            analysis.last_beat_predicted = false;
+            return false;
+          }
+          // off-beat onset: ignore
+          return false;
+        }
+        if (since_last_beat >= beat_interval_ms) {
+          // missed onset: keep the beat going (predicted)
+          analysis.last_beat += static_cast<timestamp_ms_t>(beat_interval_ms);
+          analysis.last_beat_predicted = true;
+          return true;
+        }
+        return false;
+      }();
+
+      // speed factor: one animation frame per beat (animation frame time / beat interval)
       const double speed_factor = [&] {
-        if (!analysis.active || analysis.beat.bpm <= 0) {
+        if (!analysis.active || bpm <= 0.0 || animation_frame_ms <= 0) {
           return 1.0;
         }
-        static_assert(REFERENCE_BPM > 0);
-        const double f = analysis.beat.bpm / REFERENCE_BPM;
+        assert(bpm > 0.0);
+        const double beat_interval_ms = LOW_BPM_INTERVAL / bpm;
+        assert(beat_interval_ms > 0.0);
+        const double f = static_cast<double>(animation_frame_ms) / beat_interval_ms;
         return f < MIN_SPEED_FACTOR ? MIN_SPEED_FACTOR : (f > MAX_SPEED_FACTOR ? MAX_SPEED_FACTOR : f);
       }();
 
@@ -661,8 +826,9 @@ static void *audio_thread(void *arg) {
         auto& audio_shm = *audio.shm;
         audio_shm.active = analysis.active;
         audio_shm.level = analysis.active ? analysis.level : 0.0;
-        audio_shm.bpm = analysis.beat.bpm;
+        audio_shm.bpm = bpm;
         audio_shm.speed_factor = speed_factor;
+        audio_shm.beat_sync = analysis.active && bpm > 0.0;
         if (peak_reached) {
           audio_shm.peak = true;
           audio_shm.last_peak_timestamp = now;
@@ -675,11 +841,18 @@ static void *audio_thread(void *arg) {
       if (analysis.active) {
         const auto last_idle_trigger_diff = now - analysis.last_idle_trigger;
         if (peak_reached) {
-          BONGOCAT_LOG_VERBOSE("audio: peak reached (level=%.2f, bpm=%.1f)", analysis.level, analysis.beat.bpm);
+          BONGOCAT_LOG_VERBOSE("audio: peak reached (bars at top=%.2f, level=%.2f, bpm=%.1f)", analysis.peak.fraction,
+                               analysis.level, analysis.beat.bpm);
           animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioPeak);
           analysis.last_idle_trigger = now;
-        } else if ((onset && last_idle_trigger_diff >= MIN_IDLE_TRIGGER_INTERVAL_MS) ||
-                   last_idle_trigger_diff >= idle_trigger_interval_ms) {
+        } else if (beat) {
+          // every beat: one (dance) frame per beat
+          BONGOCAT_LOG_VERBOSE("audio: beat%s (bpm=%.1f, speed_factor=%.2f)", onset ? "" : " (predicted)", bpm,
+                               speed_factor);
+          animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioUpdate);
+          analysis.last_idle_trigger = now;
+        } else if (bpm <= 0.0 && last_idle_trigger_diff >= idle_trigger_interval_ms) {
+          // tempo unknown (yet): keep animation going
           animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioUpdate);
           analysis.last_idle_trigger = now;
         }
@@ -690,7 +863,8 @@ static void *audio_thread(void *arg) {
         if (enable_debug) {
           assert(audio.shm != BONGOCAT_NULLPTR);
           auto& audio_shm = *audio.shm;
-          BONGOCAT_LOG_VERBOSE("audio: level=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level, audio_shm.bpm, audio_shm.speed_factor);
+          BONGOCAT_LOG_VERBOSE("audio: level=%.2f, peak=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level,
+                               analysis.peak.fraction, audio_shm.bpm, audio_shm.speed_factor);
         }
       } else if (was_active) {
         // active -> silent: last update, so the animation can go back to normal speed
@@ -698,7 +872,8 @@ static void *audio_thread(void *arg) {
         if (enable_debug) {
           assert(audio.shm != BONGOCAT_NULLPTR);
           auto& audio_shm = *audio.shm;
-          BONGOCAT_LOG_VERBOSE("audio: level=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level, audio_shm.bpm, audio_shm.speed_factor);
+          BONGOCAT_LOG_VERBOSE("audio: level=%.2f, peak=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level,
+                               analysis.peak.fraction, audio_shm.bpm, audio_shm.speed_factor);
         }
 
         animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioStop);

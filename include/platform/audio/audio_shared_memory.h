@@ -21,6 +21,7 @@ struct audio_shared_memory_t {
   timestamp_ms_t last_peak_timestamp{0};  // last time a peak was reached
   double bpm{0.0};                        // estimated beats per minute; 0 = unknown
   double speed_factor{1.0};               // animation speed factor based on BPM; 1.0 = normal
+  bool beat_sync{false};                  // tempo known: AudioUpdate is triggered on every beat
 };
 
 BONGOCAT_STUBS_END

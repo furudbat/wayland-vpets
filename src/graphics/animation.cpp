@@ -114,6 +114,13 @@ struct anim_handle_key_press_result_t {
   anim_next_frame_result_t update_frame_result;
 };
 
+/// beat sync (audio): one dance frame per beat
+/// on a beat (AudioUpdate) the frame advances (the audio beat clock guarantees >= 75% beat interval between beats,
+/// so half an interval is safe against double steps and tolerates trigger jitter/render lag at fast tempos);
+/// without a beat the frame only advances when a beat is missing -> dance frames are locked to the beat
+inline static constexpr double AUDIO_BEAT_SYNC_ON_BEAT = 0.5;
+inline static constexpr double AUDIO_BEAT_SYNC_NO_BEAT = 1.25;
+
 enum class process_idle_animation_t : int8_t {
   None,
   Idle,
@@ -177,8 +184,10 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
   const auto *input_shm = input ? input->shm.ptr : BONGOCAT_NULLPTR;
   const auto *update_shm = upd ? upd->shm.ptr : BONGOCAT_NULLPTR;
   const auto *audio_shm = audio ? audio->shm.ptr : BONGOCAT_NULLPTR;
+
+  const auto now = platform::get_current_time_ms();
   const platform::timestamp_ms_t last_key_pressed_timestamp =
-      input_shm ? input_shm->last_key_pressed_timestamp : platform::get_current_time_ms();
+      input_shm ? input_shm->last_key_pressed_timestamp : now;
   const platform::timestamp_ms_t fps_ms = 1000 / current_config.fps;
 
   const bool any_key_pressed =
@@ -188,24 +197,35 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
 
   // audio (BPM) speed factor for idle animations; > 1.0 = faster
   const double audio_speed_factor = current_state.audio_speed_factor > 0.0 ? current_state.audio_speed_factor : 1.0;
+  // dance frame time (one frame per beat when tempo is known), with beat sync tolerance
+  const auto dance_frame_reached = [&](double base_frame_ms) {
+    assert(audio_speed_factor > 0.0);
+    const double dance_frame_ms = base_frame_ms / audio_speed_factor;
+    const double sync = [&] {
+      if (!current_state.audio_beat_sync) {
+        return 1.0;
+      }
+      return has_flag(trigger.anim_cause, trigger_animation_cause_mask_t::AudioUpdate)
+                 ? AUDIO_BEAT_SYNC_ON_BEAT   // beat: advance now
+                 : AUDIO_BEAT_SYNC_NO_BEAT;  // no beat: only when beat is missing
+    }();
+    const platform::timestamp_ms_t elapsed_ms = now - current_state.last_frame_change_ms;
+    return static_cast<double>(elapsed_ms) >= dance_frame_ms * sync;
+  };
   const process_idle_animation_t process_idle_animation = [&] {
     if (current_config.enable_audio) {
       if (audio_shm && audio_shm->active) {
         // by animation_speed
         assert(audio_speed_factor > 0.0);
         if (current_config.animation_speed_ms > 0) {
-          return static_cast<double>(current_state.frame_delta_ms_counter) >
-                         static_cast<double>(current_config.animation_speed_ms) / audio_speed_factor
+          return dance_frame_reached(static_cast<double>(current_config.animation_speed_ms))
                      ? process_idle_animation_t::Dancing
                      : process_idle_animation_t::None;
         }
 
         // by fps
-        assert(audio_speed_factor > 0.0);
-        return current_config.animation_speed_ms <= 0 && static_cast<double>(current_state.frame_delta_ms_counter) >=
-                                                             static_cast<double>(fps_ms) / audio_speed_factor
-                   ? process_idle_animation_t::Dancing
-                   : process_idle_animation_t::None;
+        return dance_frame_reached(static_cast<double>(fps_ms)) ? process_idle_animation_t::Dancing
+                                                                : process_idle_animation_t::None;
       }
     }
 
@@ -292,10 +312,13 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
   }();
 
   const bool go_next_frame = [&] {
-    // audio speed factor only applies to dancing
-    const double speed_factor =
-        current_state.row_state == animation_state_row_t::Idle && is_dancing ? audio_speed_factor : 1.0;
-    assert(speed_factor > 0.0);
+    // audio speed factor (one frame per beat) only applies to dancing
+    if (current_state.row_state == animation_state_row_t::Idle && is_dancing) {
+      return dance_frame_reached(current_config.animation_speed_ms > 0
+                                     ? static_cast<double>(current_config.animation_speed_ms)
+                                     : static_cast<double>(fps_ms));
+    }
+    const double speed_factor = 1.0;
     if (current_config.animation_speed_ms > 0) {
       // by animation_speed
       return static_cast<double>(current_state.frame_delta_ms_counter) >=
@@ -642,6 +665,7 @@ anim_update_animation_state(animation_shared_memory_t& anim_shm, animation_state
     }
     if (frame_changed) {
       state.frame_delta_ms_counter = 0;
+      state.last_frame_change_ms = platform::get_current_time_ms();
     }
     state.update_delta_ms_counter = 0;
   }
@@ -2098,8 +2122,13 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
         // continues animations
         if (current_state.row_state == animation_state_row_t::Idle) {
           // audio/dancing animation or idle animation
-          if ((conditions.is_dancing && conditions.process_idle_animation == process_idle_animation_t::Dancing) ||
-              conditions.process_idle_animation == process_idle_animation_t::Idle || conditions.continues_animation) {
+          // while dancing, only the dance frame time (one frame per beat) advances the animation
+          const bool advance_idle_animation =
+              conditions.is_dancing
+                  ? conditions.process_idle_animation == process_idle_animation_t::Dancing
+                  : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
+                     conditions.continues_animation);
+          if (advance_idle_animation) {
             // Idle Animation
             anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
@@ -3109,8 +3138,13 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
         // continues animations
         if (current_state.row_state == animation_state_row_t::Idle) {
           // audio/dancing animation or idle animation
-          if ((conditions.is_dancing && conditions.process_idle_animation == process_idle_animation_t::Dancing) ||
-              conditions.process_idle_animation == process_idle_animation_t::Idle || conditions.continues_animation) {
+          // while dancing, only the dance frame time (one frame per beat) advances the animation
+          const bool advance_idle_animation =
+              conditions.is_dancing
+                  ? conditions.process_idle_animation == process_idle_animation_t::Dancing
+                  : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
+                     conditions.continues_animation);
+          if (advance_idle_animation) {
             // Idle Animation
             anim_pkmn_process_animation(new_animation_result, new_state, current_state, current_frames);
           }
@@ -5972,18 +6006,22 @@ static void anim_update_audio_state([[maybe_unused]] animation_context_t& animat
 #ifdef BONGOCAT_ENABLE_AUDIO_MODULE
   if (animation_ctx._audio == BONGOCAT_NULLPTR) {
     state.audio_speed_factor = 1.0;
+    state.audio_beat_sync = false;
     return;
   }
   platform::audio::audio_context_t& audio = *animation_ctx._audio;
   platform::LockGuard guard(audio.audio_lock);
   if (!audio.shm) {
     state.audio_speed_factor = 1.0;
+    state.audio_beat_sync = false;
     return;
   }
   const auto& audio_shm = *audio.shm;
   state.audio_speed_factor = audio_shm.active && audio_shm.speed_factor > 0.0 ? audio_shm.speed_factor : 1.0;
+  state.audio_beat_sync = audio_shm.active && audio_shm.beat_sync;
 #else
   state.audio_speed_factor = 1.0;
+  state.audio_beat_sync = false;
 #endif
 }
 
@@ -6428,6 +6466,7 @@ static void anim_init_state(animation_thread_context_t& ctx) {
   ctx._state.frame_time_ns = 1000000000LL / current_config.fps;
   ctx._state.frame_time_ms = ctx._state.frame_time_ns / 1000000LL;
   ctx._state.last_frame_update_ms = platform::get_current_time_ms();
+  ctx._state.last_frame_change_ms = platform::get_current_time_ms();
   ctx._state.row_state = animation_state_row_t::Idle;
   ctx._state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
   ctx._state.was_dancing = false;

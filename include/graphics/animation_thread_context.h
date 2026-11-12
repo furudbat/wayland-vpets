@@ -56,9 +56,11 @@ struct animation_state_t {
   platform::time_ms_t left_hold_frame_ms{0};
   platform::time_ms_t right_hold_frame_ms{0};
   platform::timestamp_ms_t last_frame_update_ms{0};
+  platform::timestamp_ms_t last_frame_change_ms{0};
   platform::timestamp_ms_t time_until_next_frame_ms{0};
   // audio
   double audio_speed_factor{1.0};  // idle animation speed factor (BPM); 1.0 = normal
+  bool audio_beat_sync{false};     // AudioUpdate is triggered on every beat (tempo known)
   bool was_dancing{false};
 
   // state
