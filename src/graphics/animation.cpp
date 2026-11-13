@@ -208,7 +208,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
                  ? AUDIO_BEAT_SYNC_ON_BEAT   // beat: advance now
                  : AUDIO_BEAT_SYNC_NO_BEAT;  // no beat: only when beat is missing
     }();
-    const platform::timestamp_ms_t elapsed_ms = now - current_state.last_frame_change_ms;
+    const platform::timestamp_ms_t elapsed_ms = now - current_state.last_dance_frame_ms;
     return static_cast<double>(elapsed_ms) >= dance_frame_ms * sync;
   };
   const process_idle_animation_t process_idle_animation = [&] {
@@ -6261,7 +6261,14 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
       BONGOCAT_LOG_VERBOSE("Writing started animation triggered");
     }
 
+    const bool dance_step_due =
+        features::EnableAudioModule &&
+        get_anim_conditions(ctx, input, upd, audio, state, anim_shm.evolution, trigger_result.trigger, current_config)
+                .process_idle_animation == process_idle_animation_t::Dancing;
     const auto idle_update_result = anim_handle_idle_animation(animation_ctx, state, trigger_result);
+    if (dance_step_due && idle_update_result.frame_changed && !key_pressed) {
+      state.last_dance_frame_ms = platform::get_current_time_ms();
+    }
     const auto hold_frame =
         key_pressed || idle_update_result.frame_changed || idle_update_result.rerender || state.swap_animation_done;
     const auto rerender = idle_update_result.rerender || trigger_result.update_frame_result.rerender;
@@ -6478,6 +6485,7 @@ static void anim_init_state(animation_thread_context_t& ctx) {
   ctx._state.last_frame_change_ms = platform::get_current_time_ms();
   ctx._state.row_state = animation_state_row_t::Idle;
   ctx._state._current_hand_mapping = platform::input::input_hand_mapping_t::None;
+  ctx._state.last_dance_frame_ms = 0;
   ctx._state.was_dancing = false;
 }
 

@@ -1,5 +1,4 @@
 #include "platform/audio/audio.h"
-
 #include "graphics/animation.h"
 #include "platform/audio/audio_beat_detector.h"
 #include "platform/audio/audio_peak_detector.h"
@@ -21,14 +20,14 @@
 #include <sys/mman.h>
 #include <sys/types.h>
 #include <unistd.h>
+#ifdef __GLIBC__
+#  include <malloc.h>
+#endif
 
-// PipeWire (sink monitor capture)
 #include <pipewire/pipewire.h>
 #include <spa/param/audio/format-utils.h>
-
-// cavacore (lib/cavacore)
 extern "C" {
-#include "cavacore.h"
+#include <cavacore.h>
 }
 
 namespace bongocat::platform::audio {
@@ -40,12 +39,12 @@ inline static constexpr size_t SAMPLE_SIZE_BYTES = sizeof(sample_buffer_bytes_t)
 inline static constexpr size_t SAMPLE_BUFFER_FRAMES = 4096;
 
 static_assert(SAMPLE_RATE_HZ > 0);
-inline static constexpr size_t SAMPLE_BUFFER_SIZE  = SAMPLE_BUFFER_FRAMES * MAX_CHANNELS;     // samples
-inline static constexpr size_t SAMPLE_BUFFER_BYTES = SAMPLE_BUFFER_SIZE * SAMPLE_SIZE_BYTES;  // 64 KiB
+inline static constexpr size_t SAMPLE_BUFFER_SIZE  = SAMPLE_BUFFER_FRAMES * MAX_CHANNELS;
+inline static constexpr size_t SAMPLE_BUFFER_BYTES = SAMPLE_BUFFER_SIZE * SAMPLE_SIZE_BYTES;
 inline static constexpr double SAMPLE_BUFFER_MS =
     1000.0 * static_cast<double>(SAMPLE_BUFFER_FRAMES) / SAMPLE_RATE_HZ;                      // ~170.7 ms
 static_assert(SAMPLE_BUFFER_MS >= 170.0);
-static_assert(SAMPLE_BUFFER_BYTES == 64 * 1024, "Buffer expected to be 64 KiB");
+static_assert(SAMPLE_BUFFER_BYTES == 32 * 1024);
 static_assert(SAMPLE_BUFFER_SIZE > 0);
 
 inline static constexpr int MAX_ATTEMPTS = 2048;
@@ -73,7 +72,6 @@ static_assert(MAX_CHANNELS <= UINT32_MAX);
 inline static constexpr uint32_t STREAM_RATE_HZ = static_cast<uint32_t>(SAMPLE_RATE_HZ);
 inline static constexpr uint32_t STREAM_CHANNELS = static_cast<uint32_t>(MAX_CHANNELS);
 static_assert(STREAM_RATE_HZ / 2 > static_cast<uint32_t>(CAVA_HIGH_CUT_OFF_HZ), "Nyquist must be above the high cut-off");
-static_assert(STREAM_CHANNELS == 2, "stream positions are FL/FR (stereo)");
 
 // silence: RMS below ~-80 dBFS for a while
 // tempo unknown: SILENCE_HOLD_MS; tempo known: a bit longer than one beat (no beat expected anymore), stop fast
@@ -213,6 +211,8 @@ namespace details {
       backend.cava = BONGOCAT_NULLPTR;
       return bongocat_error_t::BONGOCAT_ERROR_AUDIO;
     }
+    // plans are created, drop the planner wisdom (not needed for fftw_execute)
+    fftw_forget_wisdom();
     backend.rate = rate;
     backend.channels = channels;
     BONGOCAT_LOG_DEBUG("audio: cavacore initialized (rate=%u, channels=%u, bars=%d)", rate, channels, CAVA_BARS);
@@ -416,7 +416,14 @@ namespace details {
     pw_loop_enter(backend.loop);
 
     const auto pw_setup_result = [&] -> bongocat_error_t {
-      backend.context = pw_context_new(backend.loop, BONGOCAT_NULLPTR, 0);
+      // only load the modules a capture stream needs (protocol-native, client-node, adapter), skip:
+      // rt (realtime via rtkit), client-device, metadata, session-manager
+      // support.dbus: don't load the dbus support plugin (libspa-dbus + libdbus)
+      pw_properties *context_props = pw_properties_new("module.rt", "false", "module.client-device", "false",
+                                                       "module.metadata", "false", "module.session-manager", "false",
+                                                       "support.dbus", "false", BONGOCAT_NULLPTR);
+      // pw_context_new takes ownership of props
+      backend.context = pw_context_new(backend.loop, context_props, 0);
       if (backend.context == BONGOCAT_NULLPTR) {
         BONGOCAT_LOG_ERROR("audio: failed to create PipeWire context");
         return bongocat_error_t::BONGOCAT_ERROR_AUDIO;
@@ -459,6 +466,11 @@ namespace details {
 
     // initial cava plan
     create_cava(backend, STREAM_RATE_HZ, STREAM_CHANNELS);
+
+    // return memory freed during PipeWire/FFTW setup (audio thread arena) back to the OS
+#ifdef __GLIBC__
+    malloc_trim(0);
+#endif
 
     BONGOCAT_LOG_INFO("audio: capturing sink monitor (%s)",
                       config.audio_sink && config.audio_sink.length() > 0 ? config.audio_sink.c_str() : "default sink");

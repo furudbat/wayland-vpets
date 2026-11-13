@@ -108,10 +108,9 @@ struct cava_plan *cava_init(int number_of_bars, unsigned int rate, int channels,
     p->noise_reduction = noise_reduction;
     p->scaling_mode = scaling_mode;
 
-    int fftw_flag = FFTW_MEASURE;
-#ifdef __ANDROID__
-    fftw_flag = FFTW_ESTIMATE;
-#endif
+    // @NOTE: measure not needed, let just do estimate
+    //int fftw_flag = FFTW_MEASURE;
+    int fftw_flag = FFTW_ESTIMATE;
 
     p->FFTbassbufferSize = fft_buffer_size * 2;
     p->FFTbufferSize = fft_buffer_size;
