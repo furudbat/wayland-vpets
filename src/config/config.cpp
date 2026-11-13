@@ -251,14 +251,18 @@ static inline constexpr const char CUSTOM_EVOLVING_ROW_KEY[] CONFIG_STRING_SECTI
 static inline constexpr const char CUSTOM_AFTER_EVOLVING_ROW_KEY[] CONFIG_STRING_SECTION = "custom_after_evolving_row";
 static inline constexpr const char CUSTOM_ROWS_KEY[] CONFIG_STRING_SECTION = "custom_rows";
 
+static inline constexpr const char ENABLE_AUDIO_KEY_ALT[] CONFIG_STRING_SECTION = "enable_audio";
+static inline constexpr const char ENABLE_RANDOM_KEY_ALT[] CONFIG_STRING_SECTION = "enable_random";
+static inline constexpr const char ENABLE_IDLE_ANIMATION_KEY_ALT[] CONFIG_STRING_SECTION = "enable_idle_animation";
+
 inline static constexpr const char *EVOLUTION_TIME_MODE_PROGRAM_START_ALT_STR = "program_start";
 
 static inline constexpr size_t KEY_BUF = 256;
 static inline constexpr size_t VALUE_BUF = PATH_MAX + 256;                      // max value + comment
 static inline constexpr size_t LINE_BUF = KEY_BUF - 1 + VALUE_BUF - 1 + 1 + 1;  // key + '=' + value + '\0'
 
-constexpr char COMMENT_CHAR_1 = '#';
-constexpr char COMMENT_CHAR_2 = ';';
+static inline constexpr char COMMENT_CHAR_1 = '#';
+static inline constexpr char COMMENT_CHAR_2 = ';';
 
 /*
 inline static constexpr config_parsing_warning_t ignore_warnings_in_strict_mode[] = {
@@ -1275,15 +1279,15 @@ static config_parse_result_t config_parse_boolean_key(config_t& config, const ch
       return &config.enable_antialiasing;
     } else if (strcmp(key, ENABLE_DEBUG_KEY) == 0) {
       return &config.enable_debug;
-    } else if (strcmp(key, ENABLE_AUDIO_KEY) == 0) {
+    } else if (strcmp(key, ENABLE_AUDIO_KEY) == 0 || strcmp(key, ENABLE_AUDIO_KEY_ALT) == 0) {
       return &config.enable_audio;
     } else if (strcmp(key, INVERT_COLOR_KEY) == 0) {
       return &config.invert_color;
     } else if (strcmp(key, ENABLE_SCHEDULED_SLEEP_KEY) == 0) {
       return &config.enable_scheduled_sleep;
-    } else if (strcmp(key, IDLE_ANIMATION_KEY) == 0) {
+    } else if (strcmp(key, IDLE_ANIMATION_KEY) == 0 || strcmp(key, ENABLE_IDLE_ANIMATION_KEY_ALT) == 0) {
       return &config.idle_animation;
-    } else if (strcmp(key, RANDOM_KEY) == 0) {
+    } else if (strcmp(key, RANDOM_KEY) == 0 || strcmp(key, ENABLE_RANDOM_KEY_ALT) == 0) {
       return &config.randomize_index;
     } else if (strcmp(key, RANDOM_ON_RELOAD_KEY) == 0) {
       return &config.randomize_on_reload;

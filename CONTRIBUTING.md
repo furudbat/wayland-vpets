@@ -244,6 +244,7 @@ Thank you for helping make **Wayland Bongo Cat + V-Pets** a better, more delight
 ## LLM Disclaimer
 
 I personally don't use much LLMs, only some Web based LLMs like ChatGPT, mainly for troubleshooting and helping me generate some Boilerplate-Code for some wayland functions, bash scripts, or rule-of-five C++ constructors.
-Upstream uses [Claude Code](https://github.com/saatvik333/wayland-bongocat/blob/main/CLAUDE.md), I merge most code by hand and adapt fixes, improvments, step-by-step.
+Upstream uses [Claude Code](https://github.com/saatvik333/wayland-bongocat/blob/main/CLAUDE.md), I merge most code by hand step-by-step, adapt fixes and little improvments.
+I tested Claude Code a little bit by helping me fix a smaller bug and optimizing RAM usage and binary size.
 
 This is a Project for fun and hand-writen code is fun for me.

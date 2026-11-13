@@ -39,6 +39,9 @@
 | `movement_speed`             | 0–5000                                                             | 0             | Movement speed (0 = disabled)                                                             |
 | `enable_movement_debug`      | 0 or 1                                                             | 0             | Show Movement area                                                                        |
 | `cpu_running_factor`         | 0.0–50.0                                                           | 0             | Speed up factor for 100% CPU, it's linear so the animation slowly speed up (0 = disabled) |
+| `audio`               | 0 or 1                                                             | 0             | React to playing audio (PipeWire sink monitor, requires audio module)                     |
+| `audio_sink`                 | PipeWire sink name                                                 | (default)     | Sink to listen to (`pactl list short sinks`), empty = system default sink                 |
+| `audio_happy_peak`           | 0.0–1.0                                                            | 0.6           | Fraction of bars reaching their top at the same time that triggers happy (0 = disabled) |
 | `evolution`                  | 0 or "normal", "program_start", "uptime"                           | 0             | Animation change over time (0 = disabled)                                                 |
 | `evolution_speed_factor`     | 0.0–5000.0                                                         | 0             | Speed up factor for evolution time (0 = disabled)                                         |
 

@@ -119,6 +119,15 @@ happy_kpm=400
 # When cpu_running_factor is set the running animation is played, instead of the working animation
 #cpu_running_factor=5.0
 
+# Audio (requires build with ENABLE_AUDIO_MODULE, PipeWire)
+# Only the monitor of an output sink is captured
+# audio: React to playing audio (0 = disabled)
+#audio=0
+# audio_sink: PipeWire sink name to listen to, see `pactl list short sinks` (empty = system default sink)
+#audio_sink=
+# audio_happy_peak: Fraction of the "visualizer bars" (0.0-1.0) to trigger the happy animation (lower = more often, 0 = disabled)
+#audio_happy_peak=0.6
+
 # Animation timing (in milliseconds)
 # keypress_duration: How long to show animation after keypress
 # DEPRECATED: use animation_speed, keypress_duration is only for the old bongocat
