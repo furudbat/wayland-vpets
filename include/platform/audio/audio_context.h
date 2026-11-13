@@ -24,18 +24,17 @@ struct cava_plan;
 
 namespace bongocat::platform::audio {
 
+#if BONGOCAT_AUDIO_MODULE_ON
+
+inline static constexpr size_t MAX_CHANNELS     = 2;               // stereo
+
 inline static constexpr int CAVA_BARS = 12;
-inline static constexpr uint32_t MAX_CHANNELS = 2;
-
-// stereo audio at 44.1 kHz
-inline static constexpr size_t SAMPLE_BUFFER_RATE_HZ = 44100L;
-inline static constexpr size_t SAMPLE_BUFFER_SIZE = SAMPLE_BUFFER_RATE_HZ * MAX_CHANNELS;
-
+inline static constexpr int CAVA_OUT_SIZE = static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS;
 static_assert(CAVA_BARS > 0);
 static_assert(MAX_CHANNELS > 0);
-inline static constexpr int CAVA_OUT_SIZE = static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS;
 
-#if BONGOCAT_AUDIO_MODULE_ON
+using sample_buffer_bytes_t = double;
+
 struct audio_backend_t {
   // PipeWire
   pw_loop *loop{BONGOCAT_NULLPTR};
@@ -55,9 +54,9 @@ struct audio_backend_t {
 
   // cavacore
   cava_plan *cava{BONGOCAT_NULLPTR};
-  // raw samples
-  double cava_in[SAMPLE_BUFFER_SIZE]{};
+  AllocatedArray<sample_buffer_bytes_t> cava_in;   // use allocated array, buffer can become huge (lazy init)
   size_t cava_in_count{0};
+  size_t cava_in_used{0};                           // for wiping only the used part
   double cava_out[CAVA_OUT_SIZE]{};
 
   // RMS (silence detection)

@@ -33,6 +33,21 @@ extern "C" {
 
 namespace bongocat::platform::audio {
 
+// Audio format
+inline static constexpr size_t SAMPLE_RATE_HZ   = 24000;
+inline static constexpr size_t SAMPLE_SIZE_BYTES = sizeof(sample_buffer_bytes_t); // 8 bytes
+
+inline static constexpr size_t SAMPLE_BUFFER_FRAMES = 4096;
+
+static_assert(SAMPLE_RATE_HZ > 0);
+inline static constexpr size_t SAMPLE_BUFFER_SIZE  = SAMPLE_BUFFER_FRAMES * MAX_CHANNELS;     // samples
+inline static constexpr size_t SAMPLE_BUFFER_BYTES = SAMPLE_BUFFER_SIZE * SAMPLE_SIZE_BYTES;  // 64 KiB
+inline static constexpr double SAMPLE_BUFFER_MS =
+    1000.0 * static_cast<double>(SAMPLE_BUFFER_FRAMES) / SAMPLE_RATE_HZ;                      // ~170.7 ms
+static_assert(SAMPLE_BUFFER_MS >= 170.0);
+static_assert(SAMPLE_BUFFER_BYTES == 64 * 1024, "Buffer expected to be 64 KiB");
+static_assert(SAMPLE_BUFFER_SIZE > 0);
+
 inline static constexpr int MAX_ATTEMPTS = 2048;
 
 static inline constexpr time_ms_t AUDIO_POOL_TIMEOUT_MS = 1000;
@@ -46,14 +61,19 @@ inline static constexpr int CAVA_AUTOSENS = 1;
 // spectrum + beat detection run on fixed hops of the audio stream (independent of poll/wakeup timing),
 // onsets are timestamped on the audio sample timeline -> precise BPM (up to 300 BPM)
 inline static constexpr time_ms_t ANALYSIS_HOP_MS = 10;
-// lower noise reduction: bars fall faster between beats, needed for fast tempos (> 200 BPM); 0.77 = cava default
+// smoothing (0..1): low = fast reaction
 inline static constexpr double CAVA_NOISE_REDUCTION = 0.3;
 inline static constexpr int CAVA_LOW_CUT_OFF_HZ = 50;
 inline static constexpr int CAVA_HIGH_CUT_OFF_HZ = 10000;
 inline static constexpr int CAVA_SCALING_MODE = CAVA_SCALING_LINEAR;
 inline static constexpr double CAVA_INPUT_SCALE = 32768.0;  // F32 (-1..1) -> 16-bit range (cava input convention)
-inline static constexpr uint32_t DEFAULT_CHANNELS = 2;
-inline static constexpr uint32_t DEFAULT_RATE = 48000;
+
+static_assert(SAMPLE_RATE_HZ <= UINT32_MAX);
+static_assert(MAX_CHANNELS <= UINT32_MAX);
+inline static constexpr uint32_t STREAM_RATE_HZ = static_cast<uint32_t>(SAMPLE_RATE_HZ);
+inline static constexpr uint32_t STREAM_CHANNELS = static_cast<uint32_t>(MAX_CHANNELS);
+static_assert(STREAM_RATE_HZ / 2 > static_cast<uint32_t>(CAVA_HIGH_CUT_OFF_HZ), "Nyquist must be above the high cut-off");
+static_assert(STREAM_CHANNELS == 2, "stream positions are FL/FR (stereo)");
 
 // silence: RMS below ~-80 dBFS for a while
 // tempo unknown: SILENCE_HOLD_MS; tempo known: a bit longer than one beat (no beat expected anymore), stop fast
@@ -73,8 +93,14 @@ inline static constexpr double LEVEL_EMA_ALPHA = 0.4;
 inline static constexpr double MIN_SPEED_FACTOR = 0.05;
 inline static constexpr double MAX_SPEED_FACTOR = 20.0;
 // beat clock: onsets within +-BEAT_WINDOW (of the beat interval) around the predicted beat re-sync the beat phase,
-// onsets outside (off-beat) are ignored; missed beats are triggered at the predicted time
+// onsets outside (off-beat) are ignored; missed beats are triggered at the predicted time.
+// two consecutive off-beat onsets one beat interval apart (+-BEAT_WINDOW) mean the phase is wrong (e.g. after a tempo
+// change): re-lock the beat clock to the onsets
 inline static constexpr double BEAT_WINDOW = 0.25;
+
+inline static constexpr double BEAT_LEAD_MS = 100.0;
+inline static constexpr double BEAT_LEAD_MAX_RATIO = 0.4;
+static_assert(BEAT_LEAD_MAX_RATIO < 1.0 - BEAT_WINDOW);
 static_assert(MAX_SPEED_FACTOR >= MIN_SPEED_FACTOR);
 
 inline static constexpr time_ms_t MIN_IDLE_TRIGGER_INTERVAL_MS = 100;
@@ -103,6 +129,8 @@ struct audio_analysis_state_t {
   // beat clock (one AudioUpdate per beat)
   timestamp_ms_t last_beat{0};      // last beat (triggered)
   bool last_beat_predicted{false};  // last beat was predicted (no onset)
+  bool next_beat_triggered{false};  // next beat already triggered early (latency compensation)
+  timestamp_ms_t last_offbeat_onset{0};  // last off-beat onset (phase re-lock)
 
   // beat detection (spectral flux onsets -> BPM)
   details::beat_detector_t beat;
@@ -114,22 +142,35 @@ struct audio_analysis_state_t {
 };
 
 namespace details {
-  // pw_init/pw_deinit are refcounted by PipeWire, keep our own count to stay balanced
-  static atomic_int g_pw_init_count{0};
+  struct pw_audio_backend_t {
+    atomic_bool audio_backend_ready{false};
+    atomic_bool pw_initialized{false};
+  };
+  inline pw_audio_backend_t& get_pw_audio_backend() {
+    static pw_audio_backend_t g_instance{};
+    return g_instance;
+  }
+
+  static void ensure_pw_init() {
+    (void)get_pw_audio_backend();
+    if (!atomic_load(&details::get_pw_audio_backend().audio_backend_ready)) {
+      BONGOCAT_LOG_WARNING("audio: audio backend not initialized");
+    }
+    bool expected = false;
+    if (atomic_compare_exchange_strong(&details::get_pw_audio_backend().pw_initialized, &expected, true)) {
+      pw_init(BONGOCAT_NULLPTR, BONGOCAT_NULLPTR);
+    }
+  }
 }  // namespace details
 void init_audio_backend() {
-  if (atomic_fetch_add(&details::g_pw_init_count, 1) == 0) {
-    pw_init(BONGOCAT_NULLPTR, BONGOCAT_NULLPTR);
-  }
+  (void)details::get_pw_audio_backend();
+  atomic_store(&details::get_pw_audio_backend().audio_backend_ready, true);
 }
 void deinit_audio_backend() {
-  int expected = atomic_load(&details::g_pw_init_count);
-  int attempts = 0;
-  while (expected > 0 && !atomic_compare_exchange_weak(&details::g_pw_init_count, &expected, expected - 1) &&
-         attempts < static_cast<int>(MAX_ATTEMPTS)) {
-    attempts++;
-  }
-  if (expected == 1) {
+  (void)details::get_pw_audio_backend();
+  atomic_store(&details::get_pw_audio_backend().audio_backend_ready, false);
+  bool expected = true;
+  if (atomic_compare_exchange_strong(&details::get_pw_audio_backend().pw_initialized, &expected, false)) {
     pw_deinit();
   }
 }
@@ -145,10 +186,13 @@ namespace details {
   }
 
   static void reset_samples(audio_backend_t& backend) {
-    // zero raw audio data
-    explicit_bzero(backend.cava_in, sizeof(backend.cava_in));
+    // zero raw audio data (only the used part, untouched pages stay non-resident)
+    if (backend.cava_in && backend.cava_in_used > 0) {
+      explicit_bzero(backend.cava_in.data, backend.cava_in_used * sizeof(double));
+    }
     explicit_bzero(backend.cava_out, sizeof(backend.cava_out));
     backend.cava_in_count = 0;
+    backend.cava_in_used = 0;
     backend.rms_acc = 0;
     backend.rms_n = 0;
   }
@@ -231,7 +275,7 @@ namespace details {
 
     const spa_buffer *buf = b->buffer;
     if (buf != BONGOCAT_NULLPTR && buf->n_datas > 0 && buf->datas[0].data != BONGOCAT_NULLPTR &&
-        buf->datas[0].chunk != BONGOCAT_NULLPTR && backend.cava != BONGOCAT_NULLPTR) {
+        buf->datas[0].chunk != BONGOCAT_NULLPTR && backend.cava != BONGOCAT_NULLPTR && backend.cava_in) {
       const spa_data& d = buf->datas[0];
       const uint32_t offset = d.chunk->offset < d.maxsize ? d.chunk->offset : d.maxsize;
       const uint32_t size = d.chunk->size <= d.maxsize - offset ? d.chunk->size : d.maxsize - offset;
@@ -245,17 +289,20 @@ namespace details {
       }
       if (backend.cava_in_count + n_samples > SAMPLE_BUFFER_SIZE) {
         const size_t drop = backend.cava_in_count + n_samples - SAMPLE_BUFFER_SIZE;
-        memmove(backend.cava_in, backend.cava_in + drop, (backend.cava_in_count - drop) * sizeof(double));
+        memmove(backend.cava_in.data, backend.cava_in.data + drop, (backend.cava_in_count - drop) * sizeof(double));
         backend.cava_in_count -= drop;
       }
       for (size_t i = 0; i < n_samples; i++) {
         const double s = static_cast<double>(samples[i]);
         // cavacore expects 16-bit sample range (like cava itself), F32 is -1..1:
         // unscaled input needs a ~32768x higher autosens, which takes many seconds to ramp up
-        backend.cava_in[backend.cava_in_count++] = s * CAVA_INPUT_SCALE;
+        backend.cava_in.data[backend.cava_in_count++] = s * CAVA_INPUT_SCALE;
         backend.rms_acc += s * s;  // RMS on the normalized signal (silence threshold)
       }
       backend.rms_n += n_samples;
+      if (backend.cava_in_count > backend.cava_in_used) {
+        backend.cava_in_used = backend.cava_in_count;
+      }
     }
 
     pw_stream_queue_buffer(backend.stream, b);
@@ -302,6 +349,7 @@ namespace details {
     backend.thread_loop_entered = false;
     destroy_cava(backend);
     reset_samples(backend);
+    release_allocated_array(backend.cava_in);
     backend.rate = 0;
     backend.channels = 0;
     backend.needs_reconnect = false;
@@ -316,7 +364,8 @@ namespace details {
     spa_pod_builder_init(&builder, pod_buffer, sizeof(pod_buffer));
     spa_audio_info_raw info{};
     info.format = SPA_AUDIO_FORMAT_F32;
-    info.channels = DEFAULT_CHANNELS;
+    info.rate = STREAM_RATE_HZ;  // fixed rate: PipeWire resamples, cava FFT size depends on the rate
+    info.channels = STREAM_CHANNELS;
     info.position[0] = SPA_AUDIO_CHANNEL_FL;
     info.position[1] = SPA_AUDIO_CHANNEL_FR;
     const spa_pod *params[1] = {spa_format_audio_raw_build(&builder, SPA_PARAM_EnumFormat, &info)};
@@ -349,6 +398,16 @@ namespace details {
   static bongocat_error_t create_stream(audio_backend_t& backend, const config::config_t& config) {
     destroy_stream(backend);
 
+    // sample buffer (uninitialized: only used pages become resident, wiped after use)
+    backend.cava_in = make_allocated_array_uninitialized<double>(SAMPLE_BUFFER_SIZE);
+    if (!backend.cava_in) {
+      BONGOCAT_LOG_ERROR("audio: failed to allocate sample buffer");
+      return bongocat_error_t::BONGOCAT_ERROR_MEMORY;
+    }
+    backend.cava_in_count = 0;
+    backend.cava_in_used = 0;
+
+    ensure_pw_init();
     backend.loop = pw_loop_new(BONGOCAT_NULLPTR);
     if (backend.loop == BONGOCAT_NULLPTR) {
       BONGOCAT_LOG_ERROR("audio: failed to create PipeWire loop");
@@ -399,7 +458,7 @@ namespace details {
     }
 
     // initial cava plan
-    create_cava(backend, DEFAULT_RATE, DEFAULT_CHANNELS);
+    create_cava(backend, STREAM_RATE_HZ, STREAM_CHANNELS);
 
     BONGOCAT_LOG_INFO("audio: capturing sink monitor (%s)",
                       config.audio_sink && config.audio_sink.length() > 0 ? config.audio_sink.c_str() : "default sink");
@@ -458,6 +517,8 @@ namespace details {
     state.level = 0;
     state.last_beat = 0;
     state.last_beat_predicted = false;
+    state.next_beat_triggered = false;
+    state.last_offbeat_onset = 0;
     details::bar_normalizer_reset(state.norm);
   }
 
@@ -686,8 +747,8 @@ static void *audio_thread(void *arg) {
         static_assert(SAMPLE_BUFFER_SIZE <= INT_MAX);
         static_assert(static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS <= details::BEAT_DETECTOR_MAX_BARS);
         static_assert(static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS <= details::BAR_NORM_MAX_BARS);
-        const size_t channels = backend.channels > 0 ? backend.channels : DEFAULT_CHANNELS;
-        const double rate = backend.rate > 0 ? static_cast<double>(backend.rate) : static_cast<double>(DEFAULT_RATE);
+        const size_t channels = backend.channels > 0 ? backend.channels : STREAM_CHANNELS;
+        const double rate = backend.rate > 0 ? static_cast<double>(backend.rate) : static_cast<double>(STREAM_RATE_HZ);
         const size_t total_bars = static_cast<size_t>(CAVA_BARS) * channels;
         size_t hop_samples = static_cast<size_t>(rate * static_cast<double>(ANALYSIS_HOP_MS) / 1000.0) * channels;
         if (hop_samples == 0) {
@@ -695,12 +756,12 @@ static void *audio_thread(void *arg) {
         }
         if (backend.cava_in_count == 0) {
           // no new samples: keep bars falling
-          cava_execute(backend.cava_in, 0, backend.cava_out, backend.cava);
+          cava_execute(backend.cava_in.data, 0, backend.cava_out, backend.cava);
         }
         for (size_t offset = 0; offset < backend.cava_in_count; offset += hop_samples) {
           assert(rate > 0);
           const size_t n = backend.cava_in_count - offset < hop_samples ? backend.cava_in_count - offset : hop_samples;
-          cava_execute(backend.cava_in + offset, static_cast<int>(n), backend.cava_out, backend.cava);
+          cava_execute(backend.cava_in.data + offset, static_cast<int>(n), backend.cava_out, backend.cava);
           analysis.stream_time_ms += static_cast<double>(n / channels) * 1000.0 / rate;
           const auto stream_now = static_cast<timestamp_ms_t>(analysis.stream_time_ms);
           const double *beat_bars = details::bar_normalizer_process(analysis.norm, backend.cava_out, total_bars,
@@ -779,15 +840,23 @@ static void *audio_thread(void *arg) {
           if (onset) {
             analysis.last_beat = now;
             analysis.last_beat_predicted = false;
+            analysis.next_beat_triggered = false;
+            analysis.last_offbeat_onset = 0;
           }
           return onset;
         }
+        // last_beat is the beat phase (on the beat), the trigger fires `lead` before the next beat
+        const double lead_ms =
+            BEAT_LEAD_MS < beat_interval_ms * BEAT_LEAD_MAX_RATIO ? BEAT_LEAD_MS : beat_interval_ms * BEAT_LEAD_MAX_RATIO;
         if (onset) {
           if (since_last_beat >= beat_interval_ms * (1.0 - BEAT_WINDOW)) {
-            // onset close to (or after) the predicted beat
+            // onset close to (or after) the predicted beat: re-sync phase, trigger if not already done early
+            const bool trigger = !analysis.next_beat_triggered;
             analysis.last_beat = now;
             analysis.last_beat_predicted = false;
-            return true;
+            analysis.next_beat_triggered = false;
+            analysis.last_offbeat_onset = 0;
+            return trigger;
           }
           if (analysis.last_beat_predicted && since_last_beat <= beat_interval_ms * BEAT_WINDOW) {
             // late onset shortly after a predicted beat: re-sync phase, beat was already triggered
@@ -795,13 +864,34 @@ static void *audio_thread(void *arg) {
             analysis.last_beat_predicted = false;
             return false;
           }
-          // off-beat onset: ignore
+          // off-beat onset
+          if (analysis.last_offbeat_onset != 0) {
+            const auto since_offbeat = static_cast<double>(now - analysis.last_offbeat_onset);
+            const double phase_error = since_offbeat - beat_interval_ms;
+            if (phase_error >= -beat_interval_ms * BEAT_WINDOW && phase_error <= beat_interval_ms * BEAT_WINDOW) {
+              // off-beat onsets keep coming on a steady beat: the beat phase is wrong, re-lock to the onsets
+              const bool trigger = !analysis.next_beat_triggered;
+              analysis.last_beat = now;
+              analysis.last_beat_predicted = false;
+              analysis.next_beat_triggered = false;
+              analysis.last_offbeat_onset = 0;
+              return trigger;
+            }
+          }
+          analysis.last_offbeat_onset = now;
           return false;
         }
-        if (since_last_beat >= beat_interval_ms) {
+        if (since_last_beat >= beat_interval_ms * (1.0 + BEAT_WINDOW)) {
           // missed onset: keep the beat going (predicted)
+          const bool trigger = !analysis.next_beat_triggered;
           analysis.last_beat += static_cast<timestamp_ms_t>(beat_interval_ms);
           analysis.last_beat_predicted = true;
+          analysis.next_beat_triggered = false;
+          return trigger;
+        }
+        if (!analysis.next_beat_triggered && since_last_beat >= beat_interval_ms - lead_ms) {
+          // trigger early (latency compensation), the onset re-syncs the phase
+          analysis.next_beat_triggered = true;
           return true;
         }
         return false;
@@ -847,7 +937,7 @@ static void *audio_thread(void *arg) {
           analysis.last_idle_trigger = now;
         } else if (beat) {
           // every beat: one (dance) frame per beat
-          BONGOCAT_LOG_VERBOSE("audio: beat%s (bpm=%.1f, speed_factor=%.2f)", onset ? "" : " (predicted)", bpm,
+          BONGOCAT_LOG_VERBOSE("audio: beat%s (bpm=%.1f, speed_factor=%.2f)", onset ? "" : " (predicted/early)", bpm,
                                speed_factor);
           animation::trigger(animation_ctx, animation::trigger_animation_cause_mask_t::AudioUpdate);
           analysis.last_idle_trigger = now;
