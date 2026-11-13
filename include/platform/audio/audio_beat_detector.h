@@ -170,8 +170,8 @@ enum class beat_detector_process_t : bool {
   None = false,
   OnSetDetected = true,
 };
-inline beat_detector_process_t beat_detector_process(beat_detector_t& detector, const double *bars,
-                                                                   size_t bars_count, timestamp_ms_t now) {
+inline beat_detector_process_t beat_detector_process(beat_detector_t& detector, const double *bars, size_t bars_count,
+                                                     timestamp_ms_t now) {
   if (bars == nullptr || bars_count == 0) {
     return beat_detector_process_t::None;
   }
