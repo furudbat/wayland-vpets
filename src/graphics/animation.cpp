@@ -6020,7 +6020,6 @@ static void anim_update_audio_state([[maybe_unused]] animation_context_t& animat
     return;
   }
   platform::audio::audio_context_t& audio = *animation_ctx._audio;
-  platform::LockGuard guard(audio.audio_lock);
   if (!audio.shm) {
     state.audio_speed_factor = 1.0;
     state.audio_beat_sync = false;
@@ -6236,6 +6235,10 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
   platform::audio::audio_context_t *audio = animation_ctx._audio;
   animation_thread_context_t& ctx = animation_ctx.thread_context;
 
+  platform::LockGuardOptional input_guard(input ? &input->input_lock.pt_mutex : BONGOCAT_NULLPTR);
+  platform::LockGuardOptional update_guard(upd ? &upd->update_lock.pt_mutex : BONGOCAT_NULLPTR);
+  platform::LockGuardOptional audio_guard(audio ? &audio->audio_lock.pt_mutex : BONGOCAT_NULLPTR);
+
   state.frame_delta_ms_counter += state.frame_time_ms;
   state.update_delta_ms_counter += state.frame_time_ms;
 
@@ -6311,10 +6314,6 @@ static anim_update_state_result_t anim_update_state(animation_context_t& animati
       /// @FIXME: bongocat reset to idle frame after button press
       /// @WORKAROUND: fallback, back to idle
       if (ret.conditions.is_writing) {
-        platform::LockGuardOptional input_guard(input ? &input->input_lock.pt_mutex : BONGOCAT_NULLPTR);
-        platform::LockGuardOptional update_guard(upd ? &upd->update_lock.pt_mutex : BONGOCAT_NULLPTR);
-        platform::LockGuardOptional audio_guard(audio ? &audio->audio_lock.pt_mutex : BONGOCAT_NULLPTR);
-
         // read-only config
         assert(ctx._local_copy_config != BONGOCAT_NULLPTR);
         assert(ctx.shm != BONGOCAT_NULLPTR);
