@@ -444,7 +444,6 @@ namespace details {
     }
   }
 
-
   // ---------------------------------------------------------------------------
   // analysis
   // ---------------------------------------------------------------------------
@@ -712,8 +711,9 @@ static void *audio_thread(void *arg) {
             BONGOCAT_LOG_VERBOSE("audio: onset (flux=%.3f, bpm=%.1f)", analysis.beat.flux, analysis.beat.bpm);
           }
           // peak: most bars reach the top
-          if (detect_beats && details::peak_detector_process(analysis.peak, backend.cava_out, total_bars, stream_now,
-                                                             audio_happy_peak) == details::peak_detector_process_result_t::Peaked) {
+          if (detect_beats &&
+              details::peak_detector_process(analysis.peak, backend.cava_out, total_bars, stream_now,
+                                             audio_happy_peak) == details::peak_detector_process_result_t::Peaked) {
             peak_hit = true;
           }
         }
@@ -862,7 +862,7 @@ static void *audio_thread(void *arg) {
 
         if (enable_debug) {
           assert(audio.shm != BONGOCAT_NULLPTR);
-          auto& audio_shm = *audio.shm;
+          [[maybe_unused]] auto& audio_shm = *audio.shm;
           BONGOCAT_LOG_VERBOSE("audio: level=%.2f, peak=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level,
                                analysis.peak.fraction, audio_shm.bpm, audio_shm.speed_factor);
         }
@@ -871,7 +871,7 @@ static void *audio_thread(void *arg) {
         BONGOCAT_LOG_DEBUG("audio: silence");
         if (enable_debug) {
           assert(audio.shm != BONGOCAT_NULLPTR);
-          auto& audio_shm = *audio.shm;
+          [[maybe_unused]] auto& audio_shm = *audio.shm;
           BONGOCAT_LOG_VERBOSE("audio: level=%.2f, peak=%.2f, bpm=%.2f, speed_factor=%.2f", audio_shm.level,
                                analysis.peak.fraction, audio_shm.bpm, audio_shm.speed_factor);
         }

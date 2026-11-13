@@ -613,7 +613,7 @@ TEST_CASE("audio config") {
     const auto cfg = config_load_ok("");
     CHECK(cfg.enable_audio == false);
     CHECK(!cfg.audio_sink);
-    CHECK(cfg.audio_happy_peak == doctest::Approx(0.85));
+    CHECK(cfg.audio_happy_peak == doctest::Approx(0.6));
   }
   SUBCASE("enable audio and set values") {
     const auto cfg = config_load_ok(R"(audio=1

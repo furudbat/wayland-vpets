@@ -475,7 +475,8 @@
         "ENABLE_UBSAN": "ON",
         "SKIP_CPM": "OFF",
         "ENABLE_INPUT_MODULE": "ON",
-        "ENABLE_UPDATE_MODULE": "OFF"
+        "ENABLE_UPDATE_MODULE": "OFF",
+        "ENABLE_AUDIO_MODULE": "OFF"
       }
     },
     {
@@ -490,7 +491,24 @@
         "ENABLE_UBSAN": "ON",
         "SKIP_CPM": "OFF",
         "ENABLE_INPUT_MODULE": "OFF",
-        "ENABLE_UPDATE_MODULE": "ON"
+        "ENABLE_UPDATE_MODULE": "ON",
+        "ENABLE_AUDIO_MODULE": "OFF"
+      }
+    },
+    {
+      "name": "debug_audio_module_only",
+      "displayName": "Debug (Audio Module only)",
+      "description": "Debug build with audio module only",
+      "generator": "Ninja",
+      "binaryDir": "${sourceDir}/cmake-build-debug-audio-only",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "ENABLE_ASAN": "ON",
+        "ENABLE_UBSAN": "ON",
+        "SKIP_CPM": "OFF",
+        "ENABLE_INPUT_MODULE": "OFF",
+        "ENABLE_UPDATE_MODULE": "OFF",
+        "ENABLE_AUDIO_MODULE": "ON"
       }
     }
   ],

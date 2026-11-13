@@ -119,13 +119,13 @@ target_sources(test_bongocat_base INTERFACE ${UPDATE_SOURCES})
 target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_UPDATE_MODULE)
 # @NOTE(module): enable more module here
 if(ENABLE_AUDIO_MODULE)
-    target_sources(test_bongocat_base INTERFACE ${AUDIO_SOURCES})
-    target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_AUDIO_MODULE)
+  target_sources(test_bongocat_base INTERFACE ${AUDIO_SOURCES})
+  target_compile_definitions(test_bongocat_base INTERFACE BONGOCAT_ENABLE_AUDIO_MODULE)
 
-    # PipeWire (sink-monitor capture)
-    target_include_directories(test_bongocat_base SYSTEM INTERFACE ${PIPEWIRE_INCLUDE_DIRS})
-    target_compile_options(test_bongocat_base INTERFACE ${PIPEWIRE_CFLAGS_OTHER})
-    target_link_libraries(test_bongocat_base INTERFACE cavacore ${PIPEWIRE_LIBRARIES})
+  # PipeWire (sink-monitor capture)
+  target_include_directories(test_bongocat_base SYSTEM INTERFACE ${PIPEWIRE_INCLUDE_DIRS})
+  target_compile_options(test_bongocat_base INTERFACE ${PIPEWIRE_CFLAGS_OTHER})
+  target_link_libraries(test_bongocat_base INTERFACE cavacore ${PIPEWIRE_LIBRARIES})
 endif()
 
 add_executable(
@@ -138,6 +138,8 @@ add_executable(
   test_config_3.cpp
   test_fullscreen_state.cpp
   test_scale.cpp
+  test_audio_beat_detector.cpp
+  test_audio_peak_detector.cpp
 )
 target_include_directories(bongocat_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests ${CMAKE_SOURCE_DIR}/lib)
 target_link_libraries(

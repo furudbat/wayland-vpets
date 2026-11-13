@@ -11,27 +11,26 @@ namespace bongocat::platform::audio::details {
 
 inline static constexpr int MAX_ATTEMPTS = 4096;
 
-inline static constexpr double MIN_BPM = 40.0;              // slower gets doubled (half time)
-inline static constexpr double MAX_BPM = 300.0;             // faster gets halved (double time)
+inline static constexpr double MIN_BPM = 40.0;   // slower gets doubled (half time)
+inline static constexpr double MAX_BPM = 300.0;  // faster gets halved (double time)
 static_assert(MAX_BPM >= MIN_BPM);
 
 inline static constexpr size_t BEAT_DETECTOR_MAX_BARS = 64;
 inline static constexpr size_t BEAT_DETECTOR_ONSET_HISTORY = 16;
 
-
-inline static constexpr double ONSET_FLUX_FACTOR = 1.5;           // flux must exceed avg * factor ...
+inline static constexpr double ONSET_FLUX_FACTOR = 1.5;  // flux must exceed avg * factor ...
 inline static constexpr double ONSET_MIN_FLUX = 0.005;
-inline static constexpr double ONSET_FLUX_AVG_EMA_ALPHA = 0.1;    // adaptive threshold (slow average)
-inline static constexpr time_ms_t ONSET_MIN_INTERVAL_MS = 200;    // refractory time, max. 300 BPM
-inline static constexpr time_ms_t ONSET_MAX_INTERVAL_MS = 2000;   // min. 30 BPM (folded into range)
-inline static constexpr size_t MIN_INTERVALS_FOR_BPM = 3;         // 4 onsets: fast first estimate (refined with every onset)
-inline static constexpr double BPM_MEDIAN_TOLERANCE = 0.1;        // intervals within +-10% of the median are averaged
+inline static constexpr double ONSET_FLUX_AVG_EMA_ALPHA = 0.1;   // adaptive threshold (slow average)
+inline static constexpr time_ms_t ONSET_MIN_INTERVAL_MS = 200;   // refractory time, max. 300 BPM
+inline static constexpr time_ms_t ONSET_MAX_INTERVAL_MS = 2000;  // min. 30 BPM (folded into range)
+inline static constexpr size_t MIN_INTERVALS_FOR_BPM = 3;   // 4 onsets: fast first estimate (refined with every onset)
+inline static constexpr double BPM_MEDIAN_TOLERANCE = 0.1;  // intervals within +-10% of the median are averaged
 // off-beat check: for fast tempos, if every other onset is much weaker (e.g. off-beat hi-hats between kicks),
 // the weaker onsets are off-beats -> half tempo
 inline static constexpr double ACCENT_CHECK_MIN_BPM = 150.0;
-inline static constexpr double ACCENT_WEAK_RATIO = 0.6;           // weak group strength < 60% of strong group
+inline static constexpr double ACCENT_WEAK_RATIO = 0.6;  // weak group strength < 60% of strong group
 inline static constexpr size_t ACCENT_CHECK_MIN_ONSETS = 6;
-inline static constexpr double ACCENT_REGULAR_TOLERANCE = 0.25;   // intervals within +-25% of the beat interval
+inline static constexpr double ACCENT_REGULAR_TOLERANCE = 0.25;  // intervals within +-25% of the beat interval
 
 // Bar normalizer (gain independent beat detection): bars / max of the bars in the last BAR_NORM_WINDOW_MS.
 // cava's autosens rises slowly after loud audio (quiet audio stays almost invisible for many seconds),
@@ -42,7 +41,6 @@ inline static constexpr double BAR_NORM_BLOCK_MS = 100.0;  // window = 20 * 100 
 inline static constexpr double BAR_NORM_FLOOR = 0.02;      // don't amplify (almost) empty bars/noise
 static_assert(BAR_NORM_BLOCKS > 0);
 
-
 struct beat_detector_t {
   double prev_bars[BEAT_DETECTOR_MAX_BARS]{};
   bool has_prev{false};
@@ -52,7 +50,7 @@ struct beat_detector_t {
   double onset_strengths[BEAT_DETECTOR_ONSET_HISTORY]{};  // peak flux of each onset
   size_t onsets_head{0};
   size_t onsets_count{0};
-  double bpm{0};            // 0 = unknown
+  double bpm{0};  // 0 = unknown
 };
 
 inline void beat_detector_reset(beat_detector_t& detector) {
@@ -172,8 +170,8 @@ enum class beat_detector_process_t : bool {
   None = false,
   OnSetDetected = true,
 };
-[[nodiscard]] inline beat_detector_process_t beat_detector_process(beat_detector_t& detector, const double *bars, size_t bars_count,
-                                                     timestamp_ms_t now) {
+inline beat_detector_process_t beat_detector_process(beat_detector_t& detector, const double *bars,
+                                                                   size_t bars_count, timestamp_ms_t now) {
   if (bars == nullptr || bars_count == 0) {
     return beat_detector_process_t::None;
   }
