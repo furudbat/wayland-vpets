@@ -59,7 +59,7 @@ inline void beat_detector_reset(beat_detector_t& detector) {
   detector = {};
 }
 
-BONGOCAT_NODISCARD inline timestamp_ms_t beat_detector_last_onset(const beat_detector_t& detector) {
+[[nodiscard]] inline timestamp_ms_t beat_detector_last_onset(const beat_detector_t& detector) {
   if (detector.onsets_count == 0) {
     return 0;
   }
@@ -67,7 +67,7 @@ BONGOCAT_NODISCARD inline timestamp_ms_t beat_detector_last_onset(const beat_det
 }
 
 // median interval between recent onsets -> BPM (folded into MIN_BPM..MAX_BPM); 0 = unknown
-BONGOCAT_NODISCARD inline double beat_detector_estimate_bpm(const beat_detector_t& detector) {
+[[nodiscard]] inline double beat_detector_estimate_bpm(const beat_detector_t& detector) {
   if (detector.onsets_count < MIN_INTERVALS_FOR_BPM + 1) {
     return 0.0;
   }
@@ -172,7 +172,7 @@ enum class beat_detector_process_t : bool {
   None = false,
   OnSetDetected = true,
 };
-BONGOCAT_NODISCARD inline beat_detector_process_t beat_detector_process(beat_detector_t& detector, const double *bars, size_t bars_count,
+[[nodiscard]] inline beat_detector_process_t beat_detector_process(beat_detector_t& detector, const double *bars, size_t bars_count,
                                                      timestamp_ms_t now) {
   if (bars == nullptr || bars_count == 0) {
     return beat_detector_process_t::None;

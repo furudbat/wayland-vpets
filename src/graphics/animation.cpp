@@ -186,8 +186,7 @@ static anim_conditions_t get_anim_conditions([[maybe_unused]] const animation_th
   const auto *audio_shm = audio ? audio->shm.ptr : BONGOCAT_NULLPTR;
 
   const auto now = platform::get_current_time_ms();
-  const platform::timestamp_ms_t last_key_pressed_timestamp =
-      input_shm ? input_shm->last_key_pressed_timestamp : now;
+  const platform::timestamp_ms_t last_key_pressed_timestamp = input_shm ? input_shm->last_key_pressed_timestamp : now;
   const platform::timestamp_ms_t fps_ms = 1000 / current_config.fps;
 
   const bool any_key_pressed =
@@ -1163,7 +1162,8 @@ anim_bongocat_idle_next_frame(animation_thread_context_t& ctx,
       if constexpr (features::BongocatBoringAnimation) {
         const bool start_boring = SLEEP_BORING_PART > 0 &&
                                   (sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                                   sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART);
+                                   sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART) &&
+                                  !conditions.is_dancing;
         if (current_state.row_state == animation_state_row_t::Idle) {
           // start boring animation
           if (start_boring && !current_state.show_boring_animation_once) {
@@ -2109,7 +2109,13 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
     const bool stop_dancing =
         (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) ||
         (current_state.was_dancing && !conditions.is_dancing);
-    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing) && !conditions.is_evolving) {
+    const bool stop_happy_dancing = (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.release_frame_after_press && !conditions.continues_animation) ||
+                                    (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.process_idle_animation == process_idle_animation_t::Dancing &&
+                                     conditions.release_frame_for_non_idle && !conditions.continues_animation);
+    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing || stop_happy_dancing) &&
+        !conditions.is_evolving) {
       // back to idle
       anim_dm_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                 current_frames, current_config);
@@ -2124,10 +2130,9 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
           // audio/dancing animation or idle animation
           // while dancing, only the dance frame time (one frame per beat) advances the animation
           const bool advance_idle_animation =
-              conditions.is_dancing
-                  ? conditions.process_idle_animation == process_idle_animation_t::Dancing
-                  : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
-                     conditions.continues_animation);
+              conditions.is_dancing ? conditions.process_idle_animation == process_idle_animation_t::Dancing
+                                    : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
+                                       conditions.continues_animation);
           if (advance_idle_animation) {
             // Idle Animation
             anim_dm_process_animation(new_animation_result, new_state, current_state, current_frames);
@@ -2221,9 +2226,9 @@ static anim_next_frame_result_t anim_dm_idle_next_frame(animation_thread_context
       const auto sleep_timeout_by_latest_keypress_ms = now - last_key_pressed_timestamp;
       const auto sleep_timeout_by_awake_ms = now - ctx.shm->last_wakeup_timestamp;
 
-      const bool start_boring = SLEEP_BORING_PART > 0 &&
-                                sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                                sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
+      const bool start_boring =
+          SLEEP_BORING_PART > 0 && sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+          sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART && !conditions.is_dancing;
       if (current_state.row_state == animation_state_row_t::Idle) {
         // start boring animation
         if (start_boring && !current_state.show_boring_animation_once) {
@@ -3125,7 +3130,13 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
     const bool stop_dancing =
         (conditions.stop_dancing && conditions.process_idle_animation == process_idle_animation_t::Idle) ||
         (current_state.was_dancing && !conditions.is_dancing);
-    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing) && !conditions.is_evolving) {
+    const bool stop_happy_dancing = (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.release_frame_after_press && !conditions.continues_animation) ||
+                                    (current_state.row_state == animation_state_row_t::Happy &&
+                                     conditions.process_idle_animation == process_idle_animation_t::Dancing &&
+                                     conditions.release_frame_for_non_idle && !conditions.continues_animation);
+    if ((stop_writing || stop_test_animation || stop_happy_kpm || stop_dancing || stop_happy_dancing) &&
+        !conditions.is_evolving) {
       // back to idle
       anim_pkmn_restart_animation(ctx, animation_state_row_t::Idle, new_animation_result, new_state, current_state,
                                   current_frames, current_config);
@@ -3140,10 +3151,9 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
           // audio/dancing animation or idle animation
           // while dancing, only the dance frame time (one frame per beat) advances the animation
           const bool advance_idle_animation =
-              conditions.is_dancing
-                  ? conditions.process_idle_animation == process_idle_animation_t::Dancing
-                  : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
-                     conditions.continues_animation);
+              conditions.is_dancing ? conditions.process_idle_animation == process_idle_animation_t::Dancing
+                                    : (conditions.process_idle_animation == process_idle_animation_t::Idle ||
+                                       conditions.continues_animation);
           if (advance_idle_animation) {
             // Idle Animation
             anim_pkmn_process_animation(new_animation_result, new_state, current_state, current_frames);
@@ -3236,9 +3246,9 @@ anim_pkmn_idle_next_frame(animation_thread_context_t& ctx,
       const auto sleep_timeout_by_latest_keypress_ms = now - last_key_pressed_timestamp;
       const auto sleep_timeout_by_awake_ms = now - ctx.shm->last_wakeup_timestamp;
 
-      const bool start_boring = SLEEP_BORING_PART > 0 &&
-                                sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                                sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
+      const bool start_boring =
+          SLEEP_BORING_PART > 0 && sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+          sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART && !conditions.is_dancing;
       if (current_state.row_state == animation_state_row_t::Idle) {
         // start boring animation
         if (start_boring && !current_state.show_boring_animation_once) {
@@ -3878,10 +3888,9 @@ anim_ms_agent_idle_next_frame(animation_thread_context_t& ctx,
   const auto sleep_timeout_by_latest_keypress_ms = now - last_key_pressed_timestamp;
   const auto sleep_timeout_by_awake_keypress_ms = now - ctx.shm->last_wakeup_timestamp;
 
-  const bool start_boring = SLEEP_BORING_PART > 0 &&
-                            sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                            sleep_timeout_by_awake_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
-
+  const bool start_boring =
+      SLEEP_BORING_PART > 0 && sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+      sleep_timeout_by_awake_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART && !conditions.is_dancing;
   switch (current_state.row_state) {
   case animation_state_row_t::Happy:
     /// @TODO: add happy animation for audio ?
@@ -4910,7 +4919,8 @@ static anim_next_frame_result_t anim_custom_idle_next_frame(animation_context_t&
 
   const bool start_boring = current_frames.feature_boring && SLEEP_BORING_PART > 0 &&
                             sleep_timeout_by_latest_keypress_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
-                            sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART;
+                            sleep_timeout_by_awake_ms >= idle_sleep_timeout_ms / SLEEP_BORING_PART &&
+                            !conditions.is_dancing;
 
   switch (current_state.row_state) {
   case animation_state_row_t::Happy:

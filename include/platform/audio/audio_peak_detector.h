@@ -47,7 +47,7 @@ inline void peak_detector_reset(peak_detector_t& detector) {
 }
 
 // fraction of bars at their peak cap (updates the caps)
-BONGOCAT_NODISCARD inline double peak_detector_bars_at_top(peak_detector_t& detector, const double *bars, size_t bars_count,
+[[nodiscard]] inline double peak_detector_bars_at_top(peak_detector_t& detector, const double *bars, size_t bars_count,
                                         time_ms_t dt_ms) {
   if (bars == nullptr || bars_count == 0) {
     return 0.0;
@@ -73,7 +73,7 @@ enum class peak_detector_sustained_result_t : bool {
   SustainDetected = true,
 };
 // track the mean of the bars, returns true when there was no (almost) silent moment within the last window
-BONGOCAT_NODISCARD inline peak_detector_sustained_result_t peak_detector_sustained(peak_detector_t& detector, const double *bars, size_t bars_count, time_ms_t dt_ms) {
+[[nodiscard]] inline peak_detector_sustained_result_t peak_detector_sustained(peak_detector_t& detector, const double *bars, size_t bars_count, time_ms_t dt_ms) {
   double mean = 0.0;
   if (bars != nullptr && bars_count > 0) {
     for (size_t i = 0; i < bars_count; i++) {
@@ -112,7 +112,7 @@ enum class peak_detector_process_result_t : bool {
   Peaked = true,
 };
 // feed one frame of bars, returns true when a peak (most bars at the top) was reached
-BONGOCAT_NODISCARD inline peak_detector_process_result_t peak_detector_process(peak_detector_t& detector, const double *bars, size_t bars_count, timestamp_ms_t now, double threshold) {
+[[nodiscard]] inline peak_detector_process_result_t peak_detector_process(peak_detector_t& detector, const double *bars, size_t bars_count, timestamp_ms_t now, double threshold) {
   if (detector.start < 0) {
     detector.start = now;
     detector.last_frame = now;
