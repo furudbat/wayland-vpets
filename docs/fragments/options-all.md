@@ -5,7 +5,8 @@
             Show version information
 
       -c, --config                
-            Specify config file (default: ~/.config/bongocat.conf)
+            Specify config file (default: $XDG_CONFIG_HOME/bongocat/bongocat.conf,
+            ~/.config/bongocat/bongocat.conf or ./bongocat.conf)
             Use "-" to read configuration from standard input.
 
       -w, --watch-config          
@@ -21,7 +22,7 @@
             Bind to a specific monitor output (same as --output-name)
 
           --random                
-            Enable random animation_index, at start (overwrite random_index from config)
+            Enable random animation_index, at start (overwrite random from config)
 
           --strict
             Enable strict mode, only start up with a valid config and valid parameter
@@ -30,7 +31,10 @@
             Ignore current running instance
 
           --nr NR                 
-            Specify Nr. for PID file to avoid conflicting ruinning instances
+            Specify Nr. for PID file to avoid conflicting running instances
+
+          --debug
+            Override enable_debug setting
 
           --check-config
             Strictly validate the configuration
@@ -44,17 +48,21 @@
           --doctor             
             Check configuration, devices and compositor support
 
+          --list-devices-config
+            List input devices and keyboard settings in config format
+
           --default-devices       
             Load every keyboard by default, when no keyboard were found in config
 
 Included sets:
-  bongocat - Classic Bongo cat
-        dm - Digital Monster Original
-      dm20 - Digital Monster Ver.20th
-       dmx - Digital Monster X
-       pen - Digimon Pendulum
-     pen20 - Digimon Pendulum Ver.20th
-       dmc - Digital Monster Color
-      pkmn - Pokemon, up to Gen 5
-  ms_agent - MS Agent
-    custom - Custom Sprite Sheets (at runtime)
+
+      bongocat - Classic Bongo cat
+            dm - Digital Monster Original
+          dm20 - Digital Monster Ver.20th
+           dmx - Digital Monster X
+           pen - Digimon Pendulum
+         pen20 - Digimon Pendulum Ver.20th
+           dmc - Digital Monster Color
+          pkmn - Pokemon, up to Gen 5
+      ms_agent - MS Agent
+        custom - Custom Sprite Sheets (at runtime)

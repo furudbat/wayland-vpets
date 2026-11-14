@@ -1,5 +1,5 @@
 #### pkmn
-Pokemon - up to Gen. 7
+Pokemon - up to Gen. 5
 
 - Bulbasaur
 - Ivysaur

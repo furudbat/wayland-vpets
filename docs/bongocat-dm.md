@@ -3,7 +3,7 @@
 % November 2026
 
 # NAME
-bongocat - Wayland overlay with animated V-Pet reacting to keyboard input
+bongocat-dm - Wayland overlay with animated V-Pet reacting to keyboard input
 
 # SYNOPSIS
 `bongocat-dm [options]`

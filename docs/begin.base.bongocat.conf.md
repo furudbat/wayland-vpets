@@ -32,7 +32,9 @@ Changes to some settings require restarting Bongo Cat to take effect.
 
 - **overlay_height**: Height of overlay bar (pixels).
 - **overlay_position**: Screen position of overlay. Options: `top`, `bottom`.
-- **overlay_layer**: Layer of overlay. Options: `overlay`, `top`, `bottom` or `background`.
+- **overlay_layer**: Layer of overlay. Options: `overlay`, `top` (default), `bottom` or `background`.
+- **screen_width**: Override the detected screen width in pixels (0 = auto-detect).
+- **disable_fullscreen_hide**: Keep the overlay visible when a fullscreen window is detected (0 = off, 1 = on).
 
 _Some overlay settings require a restart of the application_  
 _**overlay_height** should work on config reload, it may take a second to reappear_
@@ -41,10 +43,11 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 - **fps**: Animation frames per second.
 - **input_fps**: Input thread frame rate (optional, 0 = use fps).
+- **audio_fps**: Audio thread update rate (optional, 0 = use fps).
 
 ## TRANSPARENCY
 
-- **overlay_opacity**: Background opacity (0–255).
+- **overlay_opacity**: Background opacity (0–255, default 0).
 
 ## DEBUG
 
@@ -53,6 +56,8 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 ## INPUT DEVICES
 
 - **keyboard_device**: Input device path (can specify multiple).  
+- **keyboard_name**: Add every input device whose name contains this text (can specify multiple).
+- **hotplug_scan_interval**: Seconds between rescans for new input devices (0 = scan once at startup, default 30).
 
 ### Example
 
@@ -69,6 +74,14 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 ## MULTI-MONITOR
 
 - **monitor**: Monitor to display Bongo Cat. Uses first available if unspecified.
+
+## AUDIO
+
+_Requires a build with the audio module (PipeWire + FFTW); see `ENABLE_AUDIO_MODULE` in CMakeLists.txt_
+
+- **audio**: React to audio playing on a PipeWire sink (0 = off, 1 = on).
+- **audio_sink**: Sink name to listen to, see `pactl list short sinks` (empty = default sink).
+- **audio_happy_peak**: Fraction of visualizer bars (0.0–1.0) that must peak at once to trigger the happy animation (0 = disabled, default 0.6).
 
 
 ## MIRRORING
@@ -95,6 +108,7 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 - **happy_kpm**: Minimum keystrokes per minute to trigger a happy animation.
 - **keypress_duration**: Duration (ms) to display keypress animation.
+- **enable_hand_mapping**: Left half of the keyboard triggers the left hand, right half the right hand (0 = random, 1 = on, default 1).
 
 ## RANDOMIZE
 
@@ -111,8 +125,8 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 - **movement_radius**: Moving area, the radius from center (0 = disabled).
 - **movement_speed**: Traveling distance per movement animation.
+- **movement_wait_factor**: Pause after a movement: `movement_speed * movement_wait_factor` (default 5.1).
 - **enable_movement_debug**: Show Moving area, in _red_. (0 = off, 1 = on).
-- **animation_speed**: Milliseconds per frame (0 = use FPS speed).
 
 ## CPU
 
@@ -121,11 +135,7 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 ## RUNNING
 
-_Only available for custom sprite sheets_
-
-- **update_rate**: Update Rate for CPU watcher (ms) (0 = disabled)
-- **cpu_threshold**: Threshold of avg. CPU usage for triggering running animation (%) (0 = disabled)
-- **cpu_running_factor**: speed-up factor (for `animation_speed`) when CPU reaches 100% usage (0.0 - 1.0) (0 = disabled)
+- **cpu_running_factor**: speed-up factor (for `animation_speed`) when CPU reaches 100% usage (0.0–50.0) (0 = disabled)
 
 ## CUSTOM SPRITE SHEET
 

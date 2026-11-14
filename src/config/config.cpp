@@ -357,7 +357,7 @@ static config_parse_result_t config_validate_dimensions(config_t& config) {
   ret = config_add_parse_error(ret, config_clamp_int(config.cat_x_offset, MIN_OFFSET, MAX_OFFSET, CAT_X_OFFSET_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.cat_y_offset, MIN_OFFSET, MAX_OFFSET, CAT_Y_OFFSET_KEY));
   ret = config_add_parse_error(
-      ret, config_clamp_int(config.movement_radius, MIN_MOVEMENT_RADIUS, MAX_MOVEMENT_RADIUS, CAT_Y_OFFSET_KEY));
+      ret, config_clamp_int(config.movement_radius, MIN_MOVEMENT_RADIUS, MAX_MOVEMENT_RADIUS, MOVEMENT_RADIUS_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.padding_x, 0, MAX_OFFSET, PADDING_X_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.padding_y, 0, MAX_OFFSET, PADDING_Y_KEY));
   ret = config_add_parse_error(ret, config_clamp_int(config.screen_width, 0, MAX_OFFSET, SCREEN_WIDTH_KEY));
@@ -998,7 +998,7 @@ static config_parse_result_t config_validate_enums(config_t& config) {
   // Validate overlay_position
   if (config.overlay_position != overlay_position_t::POSITION_TOP &&
       config.overlay_position != overlay_position_t::POSITION_BOTTOM) {
-    BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to top", OVERLAY_OPACITY_KEY, config.overlay_position);
+    BONGOCAT_LOG_WARNING("Invalid %s %d, resetting to top", OVERLAY_POSITION_KEY, config.overlay_position);
     config.overlay_position = overlay_position_t::POSITION_TOP;
     ret = config_add_parse_error(ret, config_parsing_error_t::InvalidOverlayPosition);
   }

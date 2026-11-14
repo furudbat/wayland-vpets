@@ -805,6 +805,8 @@ if(PANDOC)
     set(BINARY_TARGETS bongocat)
   endif()
 
+  file(GLOB MAN_FRAGMENTS CONFIGURE_DEPENDS ${PROJECT_SOURCE_DIR}/docs/fragments/*.md)
+  set(MAN_SOURCE_DEPENDS ${MAN_FRAGMENTS} ${PROJECT_SOURCE_DIR}/docs/include.lua)
   set(ALL_MAN_OUTPUTS)
   foreach(BIN ${BINARY_TARGETS})
     set(MD_FILE_1 ${PROJECT_SOURCE_DIR}/docs/${BIN}.md)
@@ -814,7 +816,7 @@ if(PANDOC)
       OUTPUT ${MAN_OUTPUT_1}
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
       COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_1} ${MD_FILE_1}
-      DEPENDS ${MD_FILE_1}
+      DEPENDS ${MD_FILE_1} ${MAN_SOURCE_DEPENDS}
       COMMENT "Generating man page for ${BIN} using Pandoc"
       VERBATIM
     )
@@ -833,6 +835,7 @@ if(PANDOC)
         ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md
         ${MD_FILE_5}
         ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
+        ${MAN_SOURCE_DEPENDS}
       COMMENT "Generating man page for ${BIN}.conf using Pandoc"
       VERBATIM
     )
@@ -853,7 +856,7 @@ if(PANDOC)
     OUTPUT ${FD_MAN_OUTPUT_1}
     WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
     COMMAND ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${FD_MAN_OUTPUT_1} ${FD_MD_FILE_1}
-    DEPENDS ${FD_MD_FILE_1}
+    DEPENDS ${FD_MD_FILE_1} ${MAN_SOURCE_DEPENDS}
     COMMENT "Generating man page for bongocat-find-devices using Pandoc"
     VERBATIM
   )

@@ -9,6 +9,7 @@ screen.
 The program is lightweight, configurable, and can be toggled on or off at
 runtime. Multiple assets are embedded.
 
-By default, configuration is read from `bongocat.conf` in the current directory.
+By default, configuration is read from `$XDG_CONFIG_HOME/bongocat/bongocat.conf`,
+`~/.config/bongocat/bongocat.conf` or `bongocat.conf` in the current directory.
 You can override this with **--config**. Hot-reloading is supported with
 **--watch-config**.

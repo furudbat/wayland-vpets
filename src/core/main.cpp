@@ -1027,15 +1027,16 @@ static void cli_show_help(const char *program_name) {
   printf("Options:\n");
   printf("  -h, --help                  Show this help message\n");
   printf("  -v, --version               Show version information\n");
-  printf("  -c, --config                Specify config file (default: ~/.config/bongocat.conf)\n");
+  printf("  -c, --config                Specify config file, \"-\" reads from stdin\n");
+  printf("                              (default: $XDG_CONFIG_HOME/bongocat/bongocat.conf,\n");
+  printf("                               ~/.config/bongocat/bongocat.conf, ./bongocat.conf)\n");
   printf("  -w, --watch-config          Watch config file for changes and reload automatically\n");
   printf("  -t, --toggle                Toggle bongocat on/off (start if not running, stop if running)\n");
-  printf("  -o, --output-name NAME      Specify output name (overwrite output_name from config)\n");
+  printf("  -o, --output-name NAME      Specify output name (overwrite monitor from config)\n");
   printf("  -m, --monitor NAME          Bind to a specific monitor output (same as --output-name)\n");
-  printf(
-      "      --random                Enable random animation_index, at start (overwrite random_index from config)\n");
+  printf("      --random                Enable random animation_index, at start (overwrite random from config)\n");
   printf("      --strict                Enable strict mode, only start up with a valid config and valid parameter\n");
-  printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting with ruinning instances\n");
+  printf("      --nr NR                 Specify Nr. for PID file to avoid conflicting with running instances\n");
   printf("      --ignore-running        Ignore current running instance\n");
   printf("      --debug                 Override enable_debug setting\n");
   printf("      --check-config          Strictly validate the configuration\n");

@@ -42,6 +42,9 @@ _**animation_name** needs to be "custom"_
 - **custom_start_moving_frames**: Number of frames for start moving animation (0 = disabled)
 - **custom_moving_frames**: Number of frames for moving animation (0 = disabled)
 - **custom_end_moving_frames**: Number of frames for end moving animation (0 = disabled)
+- **custom_start_running_frames**: Number of frames for start running animation (0 = disabled)
+- **custom_running_frames**: Number of frames for running animation (0 = disabled)
+- **custom_end_running_frames**: Number of frames for end running animation (0 = disabled)
 - **custom_toggle_writing_frames**: Toggle writing frames when writing (`custom_writing_frames` must be `2`) (default; -1 = auto)
 - **custom_toggle_writing_frames_random**: Randomize writing frames on start writing (`custom_writing_frames` must be `2`) (default; -1 = auto)
 - **custom_mirror_x_moving**: Mirror frames horizontally when moving (default; -1 = ignore)
@@ -60,6 +63,13 @@ _**animation_name** needs to be "custom"_
 - **custom_start_moving_row**: Row number for start moving animation (default; -1 = auto)
 - **custom_moving_row**: Row number for moving animation (default; -1 = auto)
 - **custom_end_moving_row**: Row number for end moving animation (default; -1 = auto)
+- **custom_start_running_row**: Row number for start running animation (default; -1 = auto)
+- **custom_running_row**: Row number for running animation (default; -1 = auto)
+- **custom_end_running_row**: Row number for end running animation (default; -1 = auto)
+- **custom_start_evolving_row**: Row number for start evolving animation (default; -1 = auto)
+- **custom_evolving_row**: Row number for evolving animation (default; -1 = auto)
+- **custom_after_evolving_row**: Row number for after evolving animation (default; -1 = auto)
+- **custom_rows**: Total number of rows in the sprite sheet (1–17, default; auto)
 
 
 ### General Example
@@ -169,7 +179,7 @@ custom_rows=1
 animation_speed=250
 ```
 
-### Know issues
+### Known issues
 
 #### extra sprite when sprite is flipping (moving)
 
