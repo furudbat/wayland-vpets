@@ -65,4 +65,4 @@ done
 
 ./scripts/all_generate_embedded_assets.sh
 
-./scripts/all_generate_init_dm_anim_inl.sh
+./scripts/all_generate_set_docs.sh

@@ -131,4 +131,6 @@ for FILE in "$INPUT_DIR"/*.png; do
     fi
 done
 
+#bash ./scripts/convert_penc_to_dm_row.sh assets/input/all-dmc assets/input/all-colored-2 assets/dmall
+
 echo "All done!"
