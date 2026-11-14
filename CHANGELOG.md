@@ -2,6 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+### [6.1.0] - 2026-11-14
+
+### Added
+
+- **Audio Visualizer** - let pet 'dance' to music (optional)
+    - react to BPM, stop in silence
+    - show Happy animation at loude sounds
+
+
 ### [6.0.0] - 2026-11-06
 
 ### Fixed

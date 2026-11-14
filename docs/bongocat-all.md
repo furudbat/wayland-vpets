@@ -25,6 +25,7 @@ fragments/usage-custom.md
 ```{.include}
 fragments/files.md
 fragments/copyright.md
+fragments/license.md
 ```
 
 # SEE ALSO
