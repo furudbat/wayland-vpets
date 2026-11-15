@@ -50,7 +50,6 @@ namespace bongocat::assets {
         {pen_griffomon_png, pen_griffomon_png_size, PEN_GRIFFOMON_ID}, 
         {pen_guardromon_png, pen_guardromon_png_size, PEN_GUARDROMON_ID}, 
         {pen_hagurumon_png, pen_hagurumon_png_size, PEN_HAGURUMON_ID}, 
-        {pen_hangymon_png, pen_hangymon_png_size, PEN_HANGYMON_ID}, 
         {pen_hangyomon_png, pen_hangyomon_png_size, PEN_HANGYOMON_ID}, 
         {pen_hanumon_png, pen_hanumon_png_size, PEN_HANUMON_ID}, 
         {pen_herakle_kabuterimon_png, pen_herakle_kabuterimon_png_size, PEN_HERAKLE_KABUTERIMON_ID}, 

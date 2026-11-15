@@ -179,10 +179,6 @@ inline constexpr size_t dmx_dynasmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION =
 extern const unsigned char dmx_ebemon_x_png[1307];
 inline constexpr size_t dmx_ebemon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1307;
 
-// Name: Examon
-extern const unsigned char dmx_examon_png[1371];
-inline constexpr size_t dmx_examon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1371;
-
 // Name: Examon X
 extern const unsigned char dmx_examon_x_png[1356];
 inline constexpr size_t dmx_examon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1356;
@@ -227,10 +223,6 @@ inline constexpr size_t dmx_gomamon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 
 extern const unsigned char dmx_grademon_png[1296];
 inline constexpr size_t dmx_grademon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1296;
 
-// Name: Grand Dracumon
-extern const unsigned char dmx_grand_dracumon_png[751];
-inline constexpr size_t dmx_grand_dracumon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 751;
-
 // Name: Grandis Kuwagamon
 extern const unsigned char dmx_grandis_kuwagamon_png[1322];
 inline constexpr size_t dmx_grandis_kuwagamon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1322;
@@ -267,10 +259,6 @@ inline constexpr size_t dmx_hououmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION =
 extern const unsigned char dmx_impmon_x_png[1338];
 inline constexpr size_t dmx_impmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1338;
 
-// Name: Jararchimon
-extern const unsigned char dmx_jararchimon_png[1084];
-inline constexpr size_t dmx_jararchimon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1084;
-
 // Name: Jazamon
 extern const unsigned char dmx_jazamon_png[1209];
 inline constexpr size_t dmx_jazamon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1209;
@@ -280,8 +268,8 @@ extern const unsigned char dmx_jazardmon_png[1183];
 inline constexpr size_t dmx_jazardmon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1183;
 
 // Name: Jazarichmon
-extern const unsigned char dmx_jazarichmon_png[1183];
-inline constexpr size_t dmx_jazarichmon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1183;
+extern const unsigned char dmx_jazarichmon_png[1084];
+inline constexpr size_t dmx_jazarichmon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1084;
 
 // Name: Jesmon GX
 extern const unsigned char dmx_jesmon_gx_png[1283];
@@ -299,17 +287,13 @@ inline constexpr size_t dmx_justimon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION =
 extern const unsigned char dmx_kaiser_leomon_png[1177];
 inline constexpr size_t dmx_kaiser_leomon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1177;
 
-// Name: Keemon
-extern const unsigned char dmx_keemon_png[611];
-inline constexpr size_t dmx_keemon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 611;
-
 // Name: Keramon X
 extern const unsigned char dmx_keramon_x_png[1449];
 inline constexpr size_t dmx_keramon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1449;
 
 // Name: Kiimon
-extern const unsigned char dmx_kiimon_png[612];
-inline constexpr size_t dmx_kiimon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 612;
+extern const unsigned char dmx_kiimon_png[611];
+inline constexpr size_t dmx_kiimon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 611;
 
 // Name: Kokuwamon X
 extern const unsigned char dmx_kokuwamon_x_png[1320];
@@ -343,10 +327,6 @@ inline constexpr size_t dmx_lilithmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION 
 extern const unsigned char dmx_lopmon_x_png[1228];
 inline constexpr size_t dmx_lopmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1228;
 
-// Name: Lord Kightmon X
-extern const unsigned char dmx_lord_kightmon_x_png[1332];
-inline constexpr size_t dmx_lord_kightmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1332;
-
 // Name: Lord Knightmon X
 extern const unsigned char dmx_lord_knightmon_x_png[1332];
 inline constexpr size_t dmx_lord_knightmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1332;
@@ -354,10 +334,6 @@ inline constexpr size_t dmx_lord_knightmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SEC
 // Name: Lucemon X
 extern const unsigned char dmx_lucemon_x_png[1262];
 inline constexpr size_t dmx_lucemon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1262;
-
-// Name: Magidramon X
-extern const unsigned char dmx_magidramon_x_png[1412];
-inline constexpr size_t dmx_magidramon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1412;
 
 // Name: Magnamon X
 extern const unsigned char dmx_magnamon_x_png[1235];
@@ -447,10 +423,6 @@ inline constexpr size_t dmx_noble_pumpmon_png_size ASSETS_DMX_IMAGE_SIZES_SECTIO
 extern const unsigned char dmx_numemon_x_png[1190];
 inline constexpr size_t dmx_numemon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1190;
 
-// Name: Ofanimon Falldown Mode
-extern const unsigned char dmx_ofanimon_falldown_mode_png[1165];
-inline constexpr size_t dmx_ofanimon_falldown_mode_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1165;
-
 // Name: Ofanimon Falldown Mode X
 extern const unsigned char dmx_ofanimon_falldown_mode_x_png[1165];
 inline constexpr size_t dmx_ofanimon_falldown_mode_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1165;
@@ -518,10 +490,6 @@ inline constexpr size_t dmx_plotmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 
 // Name: Prince Mamemon X
 extern const unsigned char dmx_prince_mamemon_x_png[1220];
 inline constexpr size_t dmx_prince_mamemon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1220;
-
-// Name: Pteranmon X
-extern const unsigned char dmx_pteranmon_x_png[1079];
-inline constexpr size_t dmx_pteranmon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1079;
 
 // Name: Pteranomon X
 extern const unsigned char dmx_pteranomon_x_png[1079];
@@ -670,10 +638,6 @@ inline constexpr size_t dmx_vamdemon_x_png_size ASSETS_DMX_IMAGE_SIZES_SECTION =
 // Name: Velgrmon
 extern const unsigned char dmx_velgrmon_png[1497];
 inline constexpr size_t dmx_velgrmon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1497;
-
-// Name: Voltobautamon
-extern const unsigned char dmx_voltobautamon_png[1291];
-inline constexpr size_t dmx_voltobautamon_png_size ASSETS_DMX_IMAGE_SIZES_SECTION = 1291;
 
 // Name: War Greymon X
 extern const unsigned char dmx_war_greymon_x_png[1351];

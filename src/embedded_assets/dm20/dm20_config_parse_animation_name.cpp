@@ -77,7 +77,6 @@ namespace bongocat::assets {
         { DM20_MEICOOMON_NAME, DM20_MEICOOMON_ID, DM20_MEICOOMON_FQID, DM20_MEICOOMON_FQNAME, DM20_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_MEICRACKMON_NAME, DM20_MEICRACKMON_ID, DM20_MEICRACKMON_FQID, DM20_MEICRACKMON_FQNAME, DM20_MEICRACKMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_MERAMON_NAME, DM20_MERAMON_ID, DM20_MERAMON_FQID, DM20_MERAMON_FQNAME, DM20_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DM20_METAL_GARURUMON_NAME, DM20_METAL_GARURUMON_ID, DM20_METAL_GARURUMON_FQID, DM20_METAL_GARURUMON_FQNAME, DM20_METAL_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_METAL_GREYMON_NAME, DM20_METAL_GREYMON_ID, DM20_METAL_GREYMON_FQID, DM20_METAL_GREYMON_FQNAME, DM20_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_METAL_MAMEMON_NAME, DM20_METAL_MAMEMON_ID, DM20_METAL_MAMEMON_FQID, DM20_METAL_MAMEMON_FQNAME, DM20_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_METAL_TYRANOMON_NAME, DM20_METAL_TYRANOMON_ID, DM20_METAL_TYRANOMON_FQID, DM20_METAL_TYRANOMON_FQNAME, DM20_METAL_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -123,7 +122,6 @@ namespace bongocat::assets {
         { DM20_TANEMON_NAME, DM20_TANEMON_ID, DM20_TANEMON_FQID, DM20_TANEMON_FQNAME, DM20_TANEMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_TITAMON_NAME, DM20_TITAMON_ID, DM20_TITAMON_FQID, DM20_TITAMON_FQNAME, DM20_TITAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_TOKOMON_NAME, DM20_TOKOMON_ID, DM20_TOKOMON_FQID, DM20_TOKOMON_FQNAME, DM20_TOKOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
-        { DM20_TSUNOMON_NAME, DM20_TSUNOMON_ID, DM20_TSUNOMON_FQID, DM20_TSUNOMON_FQNAME, DM20_TSUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_TUNOMON_NAME, DM20_TUNOMON_ID, DM20_TUNOMON_FQID, DM20_TUNOMON_FQNAME, DM20_TUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_TUSKMON_NAME, DM20_TUSKMON_ID, DM20_TUSKMON_FQID, DM20_TUSKMON_FQNAME, DM20_TUSKMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
         { DM20_TYRANOMON_NAME, DM20_TYRANOMON_ID, DM20_TYRANOMON_FQID, DM20_TYRANOMON_FQNAME, DM20_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },
@@ -570,12 +568,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DM20_MERAMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dm20:Meramon";
     inline static constexpr const char* ALT_DM20_MERAMON_FQNAME = ALT_DM20_MERAMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DM20_MERAMON_FQNAME_LEN = sizeof(ALT_DM20_MERAMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DM20_METAL_GARURUMON_FQID_ARR[] CONFIG_STRING_SECTION = "dm20:metal_garurumon";
-    inline static constexpr const char* ALT_DM20_METAL_GARURUMON_FQID = ALT_DM20_METAL_GARURUMON_FQID_ARR;
-    inline static constexpr size_t ALT_DM20_METAL_GARURUMON_FQID_LEN = sizeof(ALT_DM20_METAL_GARURUMON_FQID_ARR)-1;
-    inline static constexpr char ALT_DM20_METAL_GARURUMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dm20:Metal Garurumon";
-    inline static constexpr const char* ALT_DM20_METAL_GARURUMON_FQNAME = ALT_DM20_METAL_GARURUMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_DM20_METAL_GARURUMON_FQNAME_LEN = sizeof(ALT_DM20_METAL_GARURUMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_DM20_METAL_GREYMON_FQID_ARR[] CONFIG_STRING_SECTION = "dm20:metal_greymon";
     inline static constexpr const char* ALT_DM20_METAL_GREYMON_FQID = ALT_DM20_METAL_GREYMON_FQID_ARR;
     inline static constexpr size_t ALT_DM20_METAL_GREYMON_FQID_LEN = sizeof(ALT_DM20_METAL_GREYMON_FQID_ARR)-1;
@@ -846,12 +838,6 @@ namespace bongocat::assets {
     inline static constexpr char ALT_DM20_TOKOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dm20:Tokomon";
     inline static constexpr const char* ALT_DM20_TOKOMON_FQNAME = ALT_DM20_TOKOMON_FQNAME_ARR;
     inline static constexpr size_t ALT_DM20_TOKOMON_FQNAME_LEN = sizeof(ALT_DM20_TOKOMON_FQNAME_ARR)-1;
-    inline static constexpr char ALT_DM20_TSUNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dm20:tsunomon";
-    inline static constexpr const char* ALT_DM20_TSUNOMON_FQID = ALT_DM20_TSUNOMON_FQID_ARR;
-    inline static constexpr size_t ALT_DM20_TSUNOMON_FQID_LEN = sizeof(ALT_DM20_TSUNOMON_FQID_ARR)-1;
-    inline static constexpr char ALT_DM20_TSUNOMON_FQNAME_ARR[] CONFIG_STRING_SECTION = "dm20:Tsunomon";
-    inline static constexpr const char* ALT_DM20_TSUNOMON_FQNAME = ALT_DM20_TSUNOMON_FQNAME_ARR;
-    inline static constexpr size_t ALT_DM20_TSUNOMON_FQNAME_LEN = sizeof(ALT_DM20_TSUNOMON_FQNAME_ARR)-1;
     inline static constexpr char ALT_DM20_TUNOMON_FQID_ARR[] CONFIG_STRING_SECTION = "dm20:tunomon";
     inline static constexpr const char* ALT_DM20_TUNOMON_FQID = ALT_DM20_TUNOMON_FQID_ARR;
     inline static constexpr size_t ALT_DM20_TUNOMON_FQID_LEN = sizeof(ALT_DM20_TUNOMON_FQID_ARR)-1;
@@ -1034,7 +1020,6 @@ namespace bongocat::assets {
         { DM20_MEICOOMON_NAME, DM20_MEICOOMON_ID, ALT_DM20_MEICOOMON_FQID, ALT_DM20_MEICOOMON_FQNAME, DM20_MEICOOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicoomon
         { DM20_MEICRACKMON_NAME, DM20_MEICRACKMON_ID, ALT_DM20_MEICRACKMON_FQID, ALT_DM20_MEICRACKMON_FQNAME, DM20_MEICRACKMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meicrackmon
         { DM20_MERAMON_NAME, DM20_MERAMON_ID, ALT_DM20_MERAMON_FQID, ALT_DM20_MERAMON_FQNAME, DM20_MERAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Meramon
-        { DM20_METAL_GARURUMON_NAME, DM20_METAL_GARURUMON_ID, ALT_DM20_METAL_GARURUMON_FQID, ALT_DM20_METAL_GARURUMON_FQNAME, DM20_METAL_GARURUMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Garurumon
         { DM20_METAL_GREYMON_NAME, DM20_METAL_GREYMON_ID, ALT_DM20_METAL_GREYMON_FQID, ALT_DM20_METAL_GREYMON_FQNAME, DM20_METAL_GREYMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Greymon
         { DM20_METAL_MAMEMON_NAME, DM20_METAL_MAMEMON_ID, ALT_DM20_METAL_MAMEMON_FQID, ALT_DM20_METAL_MAMEMON_FQNAME, DM20_METAL_MAMEMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Mamemon
         { DM20_METAL_TYRANOMON_NAME, DM20_METAL_TYRANOMON_ID, ALT_DM20_METAL_TYRANOMON_FQID, ALT_DM20_METAL_TYRANOMON_FQNAME, DM20_METAL_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Metal Tyranomon
@@ -1080,7 +1065,6 @@ namespace bongocat::assets {
         { DM20_TANEMON_NAME, DM20_TANEMON_ID, ALT_DM20_TANEMON_FQID, ALT_DM20_TANEMON_FQNAME, DM20_TANEMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tanemon
         { DM20_TITAMON_NAME, DM20_TITAMON_ID, ALT_DM20_TITAMON_FQID, ALT_DM20_TITAMON_FQNAME, DM20_TITAMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Titamon
         { DM20_TOKOMON_NAME, DM20_TOKOMON_ID, ALT_DM20_TOKOMON_FQID, ALT_DM20_TOKOMON_FQNAME, DM20_TOKOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tokomon
-        { DM20_TSUNOMON_NAME, DM20_TSUNOMON_ID, ALT_DM20_TSUNOMON_FQID, ALT_DM20_TSUNOMON_FQNAME, DM20_TSUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tsunomon
         { DM20_TUNOMON_NAME, DM20_TUNOMON_ID, ALT_DM20_TUNOMON_FQID, ALT_DM20_TUNOMON_FQNAME, DM20_TUNOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tunomon
         { DM20_TUSKMON_NAME, DM20_TUSKMON_ID, ALT_DM20_TUSKMON_FQID, ALT_DM20_TUSKMON_FQNAME, DM20_TUSKMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tuskmon
         { DM20_TYRANOMON_NAME, DM20_TYRANOMON_ID, ALT_DM20_TYRANOMON_FQID, ALT_DM20_TYRANOMON_FQNAME, DM20_TYRANOMON_ANIM_INDEX, config::config_animation_dm_set_t::dm20, config::config_animation_sprite_sheet_layout_t::Dm },  // alt ids for Tyranomon
@@ -1245,8 +1229,6 @@ namespace bongocat::assets {
         { DM20_MEICRACKMON_NAME, DM20_MEICRACKMON_NAME_LEN, DM20_MEICRACKMON_ID, DM20_MEICRACKMON_ID_LEN, ALT_DM20_MEICRACKMON_FQID, ALT_DM20_MEICRACKMON_FQID_LEN, ALT_DM20_MEICRACKMON_FQNAME, ALT_DM20_MEICRACKMON_FQNAME_LEN },
         { DM20_MERAMON_NAME, DM20_MERAMON_NAME_LEN, DM20_MERAMON_ID, DM20_MERAMON_ID_LEN, DM20_MERAMON_FQID, DM20_MERAMON_FQID_LEN, DM20_MERAMON_FQNAME, DM20_MERAMON_FQNAME_LEN },
         { DM20_MERAMON_NAME, DM20_MERAMON_NAME_LEN, DM20_MERAMON_ID, DM20_MERAMON_ID_LEN, ALT_DM20_MERAMON_FQID, ALT_DM20_MERAMON_FQID_LEN, ALT_DM20_MERAMON_FQNAME, ALT_DM20_MERAMON_FQNAME_LEN },
-        { DM20_METAL_GARURUMON_NAME, DM20_METAL_GARURUMON_NAME_LEN, DM20_METAL_GARURUMON_ID, DM20_METAL_GARURUMON_ID_LEN, DM20_METAL_GARURUMON_FQID, DM20_METAL_GARURUMON_FQID_LEN, DM20_METAL_GARURUMON_FQNAME, DM20_METAL_GARURUMON_FQNAME_LEN },
-        { DM20_METAL_GARURUMON_NAME, DM20_METAL_GARURUMON_NAME_LEN, DM20_METAL_GARURUMON_ID, DM20_METAL_GARURUMON_ID_LEN, ALT_DM20_METAL_GARURUMON_FQID, ALT_DM20_METAL_GARURUMON_FQID_LEN, ALT_DM20_METAL_GARURUMON_FQNAME, ALT_DM20_METAL_GARURUMON_FQNAME_LEN },
         { DM20_METAL_GREYMON_NAME, DM20_METAL_GREYMON_NAME_LEN, DM20_METAL_GREYMON_ID, DM20_METAL_GREYMON_ID_LEN, DM20_METAL_GREYMON_FQID, DM20_METAL_GREYMON_FQID_LEN, DM20_METAL_GREYMON_FQNAME, DM20_METAL_GREYMON_FQNAME_LEN },
         { DM20_METAL_GREYMON_NAME, DM20_METAL_GREYMON_NAME_LEN, DM20_METAL_GREYMON_ID, DM20_METAL_GREYMON_ID_LEN, ALT_DM20_METAL_GREYMON_FQID, ALT_DM20_METAL_GREYMON_FQID_LEN, ALT_DM20_METAL_GREYMON_FQNAME, ALT_DM20_METAL_GREYMON_FQNAME_LEN },
         { DM20_METAL_MAMEMON_NAME, DM20_METAL_MAMEMON_NAME_LEN, DM20_METAL_MAMEMON_ID, DM20_METAL_MAMEMON_ID_LEN, DM20_METAL_MAMEMON_FQID, DM20_METAL_MAMEMON_FQID_LEN, DM20_METAL_MAMEMON_FQNAME, DM20_METAL_MAMEMON_FQNAME_LEN },
@@ -1337,8 +1319,6 @@ namespace bongocat::assets {
         { DM20_TITAMON_NAME, DM20_TITAMON_NAME_LEN, DM20_TITAMON_ID, DM20_TITAMON_ID_LEN, ALT_DM20_TITAMON_FQID, ALT_DM20_TITAMON_FQID_LEN, ALT_DM20_TITAMON_FQNAME, ALT_DM20_TITAMON_FQNAME_LEN },
         { DM20_TOKOMON_NAME, DM20_TOKOMON_NAME_LEN, DM20_TOKOMON_ID, DM20_TOKOMON_ID_LEN, DM20_TOKOMON_FQID, DM20_TOKOMON_FQID_LEN, DM20_TOKOMON_FQNAME, DM20_TOKOMON_FQNAME_LEN },
         { DM20_TOKOMON_NAME, DM20_TOKOMON_NAME_LEN, DM20_TOKOMON_ID, DM20_TOKOMON_ID_LEN, ALT_DM20_TOKOMON_FQID, ALT_DM20_TOKOMON_FQID_LEN, ALT_DM20_TOKOMON_FQNAME, ALT_DM20_TOKOMON_FQNAME_LEN },
-        { DM20_TSUNOMON_NAME, DM20_TSUNOMON_NAME_LEN, DM20_TSUNOMON_ID, DM20_TSUNOMON_ID_LEN, DM20_TSUNOMON_FQID, DM20_TSUNOMON_FQID_LEN, DM20_TSUNOMON_FQNAME, DM20_TSUNOMON_FQNAME_LEN },
-        { DM20_TSUNOMON_NAME, DM20_TSUNOMON_NAME_LEN, DM20_TSUNOMON_ID, DM20_TSUNOMON_ID_LEN, ALT_DM20_TSUNOMON_FQID, ALT_DM20_TSUNOMON_FQID_LEN, ALT_DM20_TSUNOMON_FQNAME, ALT_DM20_TSUNOMON_FQNAME_LEN },
         { DM20_TUNOMON_NAME, DM20_TUNOMON_NAME_LEN, DM20_TUNOMON_ID, DM20_TUNOMON_ID_LEN, DM20_TUNOMON_FQID, DM20_TUNOMON_FQID_LEN, DM20_TUNOMON_FQNAME, DM20_TUNOMON_FQNAME_LEN },
         { DM20_TUNOMON_NAME, DM20_TUNOMON_NAME_LEN, DM20_TUNOMON_ID, DM20_TUNOMON_ID_LEN, ALT_DM20_TUNOMON_FQID, ALT_DM20_TUNOMON_FQID_LEN, ALT_DM20_TUNOMON_FQNAME, ALT_DM20_TUNOMON_FQNAME_LEN },
         { DM20_TUSKMON_NAME, DM20_TUSKMON_NAME_LEN, DM20_TUSKMON_ID, DM20_TUSKMON_ID_LEN, DM20_TUSKMON_FQID, DM20_TUSKMON_FQID_LEN, DM20_TUSKMON_FQNAME, DM20_TUSKMON_FQNAME_LEN },

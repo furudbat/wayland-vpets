@@ -27,10 +27,6 @@ inline constexpr size_t dmc_andromon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1
 extern const unsigned char dmc_angemon_png[1737];
 inline constexpr size_t dmc_angemon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1737;
 
-// Name: Babydmon
-extern const unsigned char dmc_babydmon_png[1171];
-inline constexpr size_t dmc_babydmon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1171;
-
 // Name: Bakemon
 extern const unsigned char dmc_bakemon_png[1188];
 inline constexpr size_t dmc_bakemon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1188;
@@ -63,9 +59,9 @@ inline constexpr size_t dmc_bloom_lordmon_png_size ASSETS_DMC_IMAGE_SIZES_SECTIO
 extern const unsigned char dmc_botamon_png[576];
 inline constexpr size_t dmc_botamon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 576;
 
-// Name: Centalmon
-extern const unsigned char dmc_centalmon_png[1529];
-inline constexpr size_t dmc_centalmon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1529;
+// Name: Centaurmon
+extern const unsigned char dmc_centaurmon_png[1529];
+inline constexpr size_t dmc_centaurmon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1529;
 
 // Name: Chaosdramon
 extern const unsigned char dmc_chaosdramon_png[1296];
@@ -86,10 +82,6 @@ inline constexpr size_t dmc_cockatrimon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION 
 // Name: Coelamon
 extern const unsigned char dmc_coelamon_png[1435];
 inline constexpr size_t dmc_coelamon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1435;
-
-// Name: Coronamon
-extern const unsigned char dmc_coronamon_png[1380];
-inline constexpr size_t dmc_coronamon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1380;
 
 // Name: Cres Garurumon
 extern const unsigned char dmc_cres_garurumon_png[1054];
@@ -219,14 +211,6 @@ inline constexpr size_t dmc_megadramon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION =
 extern const unsigned char dmc_meramon_png[1438];
 inline constexpr size_t dmc_meramon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1438;
 
-// Name: Metal Garurumon
-extern const unsigned char dmc_metal_garurumon_png[1442];
-inline constexpr size_t dmc_metal_garurumon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1442;
-
-// Name: Metal Greymon
-extern const unsigned char dmc_metal_greymon_png[1284];
-inline constexpr size_t dmc_metal_greymon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1284;
-
 // Name: Metal Greymon (Virus)
 extern const unsigned char dmc_metal_greymon_virus_png[1375];
 inline constexpr size_t dmc_metal_greymon_virus_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1375;
@@ -275,17 +259,9 @@ inline constexpr size_t dmc_numemon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 10
 extern const unsigned char dmc_ogremon_png[1286];
 inline constexpr size_t dmc_ogremon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1286;
 
-// Name: Omegamon Alter S
+// Name: Omegamon Alter-S
 extern const unsigned char dmc_omegamon_alter_s_png[1812];
 inline constexpr size_t dmc_omegamon_alter_s_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1812;
-
-// Name: Omegamon
-extern const unsigned char dmc_omegamon_png[1483];
-inline constexpr size_t dmc_omegamon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1483;
-
-// Name: Orgemon
-extern const unsigned char dmc_orgemon_png[1142];
-inline constexpr size_t dmc_orgemon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1142;
 
 // Name: Pagumon
 extern const unsigned char dmc_pagumon_png[1093];
@@ -298,10 +274,6 @@ inline constexpr size_t dmc_palmon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 130
 // Name: Patamon
 extern const unsigned char dmc_patamon_png[826];
 inline constexpr size_t dmc_patamon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 826;
-
-// Name: Petitmon
-extern const unsigned char dmc_petitmon_png[1006];
-inline constexpr size_t dmc_petitmon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1006;
 
 // Name: Piccolomon
 extern const unsigned char dmc_piccolomon_png[1059];
@@ -326,10 +298,6 @@ inline constexpr size_t dmc_raidenmon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 
 // Name: Raremon
 extern const unsigned char dmc_raremon_png[860];
 inline constexpr size_t dmc_raremon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 860;
-
-// Name: Rust Tyranomon
-extern const unsigned char dmc_rust_tyranomon_png[1194];
-inline constexpr size_t dmc_rust_tyranomon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1194;
 
 // Name: Scumon
 extern const unsigned char dmc_scumon_png[1306];
@@ -359,10 +327,6 @@ inline constexpr size_t dmc_skull_mammon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION
 extern const unsigned char dmc_tanemon_png[1104];
 inline constexpr size_t dmc_tanemon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1104;
 
-// Name: Titamon
-extern const unsigned char dmc_titamon_png[1084];
-inline constexpr size_t dmc_titamon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1084;
-
 // Name: Tokomon
 extern const unsigned char dmc_tokomon_png[850];
 inline constexpr size_t dmc_tokomon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 850;
@@ -390,14 +354,6 @@ inline constexpr size_t dmc_vademon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 14
 // Name: Vegimon
 extern const unsigned char dmc_vegimon_png[1358];
 inline constexpr size_t dmc_vegimon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1358;
-
-// Name: War Greymon
-extern const unsigned char dmc_war_greymon_png[1588];
-inline constexpr size_t dmc_war_greymon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1588;
-
-// Name: Were Garurumon
-extern const unsigned char dmc_were_garurumon_png[1568];
-inline constexpr size_t dmc_were_garurumon_png_size ASSETS_DMC_IMAGE_SIZES_SECTION = 1568;
 
 // Name: Whamon
 extern const unsigned char dmc_whamon_png[1313];

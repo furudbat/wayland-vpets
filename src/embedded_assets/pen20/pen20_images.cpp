@@ -109,6 +109,13 @@ const unsigned char pen20_baalmon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 static_assert(sizeof(pen20_baalmon_png) == 1359, "re-run generate_embedded_assets.sh");
 
 
+// Name: Babydmon
+const unsigned char pen20_babydmon_png[] ASSETS_PEN20_IMAGES_SECTION = {
+#embed "../../../assets/pen20/Babydmon.png"
+};
+static_assert(sizeof(pen20_babydmon_png) == 1221, "re-run generate_embedded_assets.sh");
+
+
 // Name: Bakemon
 const unsigned char pen20_bakemon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Bakemon.png"
@@ -149,13 +156,6 @@ const unsigned char pen20_beowolfmon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Beowolfmon.png"
 };
 static_assert(sizeof(pen20_beowolfmon_png) == 1348, "re-run generate_embedded_assets.sh");
-
-
-// Name: Beowulfmon
-const unsigned char pen20_beowulfmon_png[] ASSETS_PEN20_IMAGES_SECTION = {
-#embed "../../../assets/pen20/Beowulfmon.png"
-};
-static_assert(sizeof(pen20_beowulfmon_png) == 1348, "re-run generate_embedded_assets.sh");
 
 
 // Name: Big Mamemon
@@ -375,6 +375,13 @@ const unsigned char pen20_devimon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 static_assert(sizeof(pen20_devimon_png) == 931, "re-run generate_embedded_assets.sh");
 
 
+// Name: Dodomon
+const unsigned char pen20_dodomon_png[] ASSETS_PEN20_IMAGES_SECTION = {
+#embed "../../../assets/pen20/Dodomon.png"
+};
+static_assert(sizeof(pen20_dodomon_png) == 903, "re-run generate_embedded_assets.sh");
+
+
 // Name: Dokugumon
 const unsigned char pen20_dokugumon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Dokugumon.png"
@@ -592,11 +599,11 @@ const unsigned char pen20_guardromon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 static_assert(sizeof(pen20_guardromon_png) == 1247, "re-run generate_embedded_assets.sh");
 
 
-// Name: Guimon
-const unsigned char pen20_guimon_png[] ASSETS_PEN20_IMAGES_SECTION = {
-#embed "../../../assets/pen20/Guimon.png"
+// Name: Guilmon
+const unsigned char pen20_guilmon_png[] ASSETS_PEN20_IMAGES_SECTION = {
+#embed "../../../assets/pen20/Guilmon.png"
 };
-static_assert(sizeof(pen20_guimon_png) == 1428, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(pen20_guilmon_png) == 1428, "re-run generate_embedded_assets.sh");
 
 
 // Name: Gummymon
@@ -618,13 +625,6 @@ const unsigned char pen20_hagurumon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Hagurumon.png"
 };
 static_assert(sizeof(pen20_hagurumon_png) == 1225, "re-run generate_embedded_assets.sh");
-
-
-// Name: Hangymon
-const unsigned char pen20_hangymon_png[] ASSETS_PEN20_IMAGES_SECTION = {
-#embed "../../../assets/pen20/Hangymon.png"
-};
-static_assert(sizeof(pen20_hangymon_png) == 1426, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hangyomon
@@ -865,13 +865,6 @@ const unsigned char pen20_mad_leomon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 static_assert(sizeof(pen20_mad_leomon_png) == 1294, "re-run generate_embedded_assets.sh");
 
 
-// Name: Mambomon
-const unsigned char pen20_mambomon_png[] ASSETS_PEN20_IMAGES_SECTION = {
-#embed "../../../assets/pen20/Mambomon.png"
-};
-static_assert(sizeof(pen20_mambomon_png) == 1331, "re-run generate_embedded_assets.sh");
-
-
 // Name: Mammon
 const unsigned char pen20_mammon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mammon.png"
@@ -1003,13 +996,6 @@ const unsigned char pen20_mokumon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Mokumon.png"
 };
 static_assert(sizeof(pen20_mokumon_png) == 724, "re-run generate_embedded_assets.sh");
-
-
-// Name: Monchromon
-const unsigned char pen20_monchromon_png[] ASSETS_PEN20_IMAGES_SECTION = {
-#embed "../../../assets/pen20/Monchromon.png"
-};
-static_assert(sizeof(pen20_monchromon_png) == 852, "re-run generate_embedded_assets.sh");
 
 
 // Name: Monochromon
@@ -1199,13 +1185,6 @@ const unsigned char pen20_porcupamon_png[] ASSETS_PEN20_IMAGES_SECTION = {
 #embed "../../../assets/pen20/Porcupamon.png"
 };
 static_assert(sizeof(pen20_porcupamon_png) == 1327, "re-run generate_embedded_assets.sh");
-
-
-// Name: Porcupmon
-const unsigned char pen20_porcupmon_png[] ASSETS_PEN20_IMAGES_SECTION = {
-#embed "../../../assets/pen20/Porcupmon.png"
-};
-static_assert(sizeof(pen20_porcupmon_png) == 1327, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pukamon

@@ -501,13 +501,6 @@ const unsigned char dm20_meramon_png[] ASSETS_DM20_IMAGES_SECTION = {
 static_assert(sizeof(dm20_meramon_png) == 1059, "re-run generate_embedded_assets.sh");
 
 
-// Name: Metal Garurumon
-const unsigned char dm20_metal_garurumon_png[] ASSETS_DM20_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Metal Garurumon.png"
-};
-static_assert(sizeof(dm20_metal_garurumon_png) == 1254, "re-run generate_embedded_assets.sh");
-
-
 // Name: Metal Greymon
 const unsigned char dm20_metal_greymon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Metal Greymon.png"
@@ -821,13 +814,6 @@ const unsigned char dm20_tokomon_png[] ASSETS_DM20_IMAGES_SECTION = {
 #embed "../../../assets/dm20/Tokomon.png"
 };
 static_assert(sizeof(dm20_tokomon_png) == 862, "re-run generate_embedded_assets.sh");
-
-
-// Name: Tsunomon
-const unsigned char dm20_tsunomon_png[] ASSETS_DM20_IMAGES_SECTION = {
-#embed "../../../assets/dm20/Tsunomon.png"
-};
-static_assert(sizeof(dm20_tsunomon_png) == 783, "re-run generate_embedded_assets.sh");
 
 
 // Name: Tunomon

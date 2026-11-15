@@ -179,10 +179,6 @@ inline constexpr size_t pen_guardromon_png_size ASSETS_PEN_IMAGE_SIZES_SECTION =
 extern const unsigned char pen_hagurumon_png[1225];
 inline constexpr size_t pen_hagurumon_png_size ASSETS_PEN_IMAGE_SIZES_SECTION = 1225;
 
-// Name: Hangymon
-extern const unsigned char pen_hangymon_png[1426];
-inline constexpr size_t pen_hangymon_png_size ASSETS_PEN_IMAGE_SIZES_SECTION = 1426;
-
 // Name: Hangyomon
 extern const unsigned char pen_hangyomon_png[1426];
 inline constexpr size_t pen_hangyomon_png_size ASSETS_PEN_IMAGE_SIZES_SECTION = 1426;

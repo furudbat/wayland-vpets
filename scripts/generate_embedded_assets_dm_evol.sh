@@ -171,7 +171,7 @@ for FILE in "$INPUT_DIR"/*.png; do
          .digimons[] |
          select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
       ) | .level
-    ' assets/digimon.db.json)
+    ' assets/digimon.db.pretty.json)
 
     EVO_TIME=-1
     if [ -z "$STAGE" ] || [ "$STAGE" == "null" ]; then
@@ -182,7 +182,7 @@ for FILE in "$INPUT_DIR"/*.png; do
         ' assets/digimon-vpets.db.json)
 
         if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
-            echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: '$STAGE'" >&2
+            echo "⚠️  WARNING: No evolution time found for Prefix: '$ASSETS_PREFIX_CLEAN' at Stage: '$STAGE' ('$DIGIMON_NAME')" >&2
             EVO_TIME=-1
         fi
     fi
@@ -190,7 +190,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     JOGRESS=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "$ASSETS_PREFIX_CLEAN" '
         first(
            .[$prefix][] |
-           select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
+           select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
         ) | .jogress?
       ' assets/digimon-vpets.db.json)
     if [ "$JOGRESS" == "true" ]; then
@@ -200,15 +200,15 @@ for FILE in "$INPUT_DIR"/*.png; do
         ' assets/digimon-vpets.db.json)
 
         if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
-            echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'Jogress'" >&2
-            EVO_TIME=OLD_EVO_TIME
+            echo "⚠️  WARNING: No evolution time found for Prefix: '$ASSETS_PREFIX_CLEAN' at Stage: 'Jogress' ('$DIGIMON_NAME')" >&2
+            EVO_TIME=$OLD_EVO_TIME
         fi
     fi
 
     MAX_STAGE=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "$ASSETS_PREFIX_CLEAN" '
         first(
            .[$prefix][] |
-           select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
+           select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
         ) | .max?
       ' assets/digimon-vpets.db.json)
     if [ "$MAX_STAGE" == "true" ]; then
@@ -218,8 +218,8 @@ for FILE in "$INPUT_DIR"/*.png; do
         ' assets/digimon-vpets.db.json)
 
         if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
-            echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'max'" >&2
-            EVO_TIME=OLD_EVO_TIME
+            echo "⚠️  WARNING: No evolution time found for Prefix: '$ASSETS_PREFIX_CLEAN' at Stage: 'max' ('$DIGIMON_NAME')" >&2
+            EVO_TIME=$OLD_EVO_TIME
         fi
     fi
 
@@ -229,7 +229,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     NEXT_NAMES=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "$ASSETS_PREFIX_CLEAN" '
         first(
            .[$prefix][] |
-           select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
+           select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
         ) | .next[]?
       ' assets/digimon-vpets.db.json)
     if [ -n "$NEXT_NAMES" ] && [ "$NEXT_NAMES" != "null" ]; then
@@ -252,7 +252,7 @@ for FILE in "$INPUT_DIR"/*.png; do
                    .digimons[] |
                    select(.name == $name or (.altNames? and any(.altNames[]; . == $name)))
                 ) | .level
-              ' assets/digimon.db.json)
+              ' assets/digimon.db.pretty.json)
 
               if [ -z "$NEXT_STAGE" ] || [ "$NEXT_STAGE" == "null" ]; then
                   echo "⚠️  WARNING: Digimon '$NEXT_NAME' was not found in the database!" >&2
@@ -267,7 +267,7 @@ for FILE in "$INPUT_DIR"/*.png; do
                     ' assets/digimon-vpets.db.json)
 
                     if [ -z "$EVO_TIME" ] || [ "$EVO_TIME" == "null" ]; then
-                        #echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'Jogress'" >&2
+                        #echo "⚠️  WARNING: No evolution time found for Prefix: '$PREFIX' at Stage: 'Jogress' ('$DIGIMON_NAME')" >&2
                         NEXT_EVO_TIME=-1
                     else
                       EVO_TIME=$NEXT_EVO_TIME

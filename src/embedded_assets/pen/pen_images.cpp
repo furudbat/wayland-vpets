@@ -298,13 +298,6 @@ const unsigned char pen_hagurumon_png[] ASSETS_PEN_IMAGES_SECTION = {
 static_assert(sizeof(pen_hagurumon_png) == 1225, "re-run generate_embedded_assets.sh");
 
 
-// Name: Hangymon
-const unsigned char pen_hangymon_png[] ASSETS_PEN_IMAGES_SECTION = {
-#embed "../../../assets/pen/Hangymon.png"
-};
-static_assert(sizeof(pen_hangymon_png) == 1426, "re-run generate_embedded_assets.sh");
-
-
 // Name: Hangyomon
 const unsigned char pen_hangyomon_png[] ASSETS_PEN_IMAGES_SECTION = {
 #embed "../../../assets/pen/Hangyomon.png"

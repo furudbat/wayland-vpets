@@ -298,13 +298,6 @@ const unsigned char dmx_ebemon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 static_assert(sizeof(dmx_ebemon_x_png) == 1307, "re-run generate_embedded_assets.sh");
 
 
-// Name: Examon
-const unsigned char dmx_examon_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Examon.png"
-};
-static_assert(sizeof(dmx_examon_png) == 1371, "re-run generate_embedded_assets.sh");
-
-
 // Name: Examon X
 const unsigned char dmx_examon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Examon X.png"
@@ -382,13 +375,6 @@ const unsigned char dmx_grademon_png[] ASSETS_DMX_IMAGES_SECTION = {
 static_assert(sizeof(dmx_grademon_png) == 1296, "re-run generate_embedded_assets.sh");
 
 
-// Name: Grand Dracumon
-const unsigned char dmx_grand_dracumon_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Grand Dracumon.png"
-};
-static_assert(sizeof(dmx_grand_dracumon_png) == 751, "re-run generate_embedded_assets.sh");
-
-
 // Name: Grandis Kuwagamon
 const unsigned char dmx_grandis_kuwagamon_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Grandis Kuwagamon.png"
@@ -452,13 +438,6 @@ const unsigned char dmx_impmon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 static_assert(sizeof(dmx_impmon_x_png) == 1338, "re-run generate_embedded_assets.sh");
 
 
-// Name: Jararchimon
-const unsigned char dmx_jararchimon_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Jararchimon.png"
-};
-static_assert(sizeof(dmx_jararchimon_png) == 1084, "re-run generate_embedded_assets.sh");
-
-
 // Name: Jazamon
 const unsigned char dmx_jazamon_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Jazamon.png"
@@ -477,7 +456,7 @@ static_assert(sizeof(dmx_jazardmon_png) == 1183, "re-run generate_embedded_asset
 const unsigned char dmx_jazarichmon_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Jazarichmon.png"
 };
-static_assert(sizeof(dmx_jazarichmon_png) == 1183, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dmx_jazarichmon_png) == 1084, "re-run generate_embedded_assets.sh");
 
 
 // Name: Jesmon GX
@@ -508,13 +487,6 @@ const unsigned char dmx_kaiser_leomon_png[] ASSETS_DMX_IMAGES_SECTION = {
 static_assert(sizeof(dmx_kaiser_leomon_png) == 1177, "re-run generate_embedded_assets.sh");
 
 
-// Name: Keemon
-const unsigned char dmx_keemon_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Keemon.png"
-};
-static_assert(sizeof(dmx_keemon_png) == 611, "re-run generate_embedded_assets.sh");
-
-
 // Name: Keramon X
 const unsigned char dmx_keramon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Keramon X.png"
@@ -526,7 +498,7 @@ static_assert(sizeof(dmx_keramon_x_png) == 1449, "re-run generate_embedded_asset
 const unsigned char dmx_kiimon_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Kiimon.png"
 };
-static_assert(sizeof(dmx_kiimon_png) == 612, "re-run generate_embedded_assets.sh");
+static_assert(sizeof(dmx_kiimon_png) == 611, "re-run generate_embedded_assets.sh");
 
 
 // Name: Kokuwamon X
@@ -585,13 +557,6 @@ const unsigned char dmx_lopmon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 static_assert(sizeof(dmx_lopmon_x_png) == 1228, "re-run generate_embedded_assets.sh");
 
 
-// Name: Lord Kightmon X
-const unsigned char dmx_lord_kightmon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Lord Kightmon X.png"
-};
-static_assert(sizeof(dmx_lord_kightmon_x_png) == 1332, "re-run generate_embedded_assets.sh");
-
-
 // Name: Lord Knightmon X
 const unsigned char dmx_lord_knightmon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Lord Knightmon X.png"
@@ -604,13 +569,6 @@ const unsigned char dmx_lucemon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Lucemon X.png"
 };
 static_assert(sizeof(dmx_lucemon_x_png) == 1262, "re-run generate_embedded_assets.sh");
-
-
-// Name: Magidramon X
-const unsigned char dmx_magidramon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Magidramon X.png"
-};
-static_assert(sizeof(dmx_magidramon_x_png) == 1412, "re-run generate_embedded_assets.sh");
 
 
 // Name: Magnamon X
@@ -767,13 +725,6 @@ const unsigned char dmx_numemon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 static_assert(sizeof(dmx_numemon_x_png) == 1190, "re-run generate_embedded_assets.sh");
 
 
-// Name: Ofanimon Falldown Mode
-const unsigned char dmx_ofanimon_falldown_mode_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Ofanimon Falldown Mode.png"
-};
-static_assert(sizeof(dmx_ofanimon_falldown_mode_png) == 1165, "re-run generate_embedded_assets.sh");
-
-
 // Name: Ofanimon Falldown Mode X
 const unsigned char dmx_ofanimon_falldown_mode_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Ofanimon Falldown Mode X.png"
@@ -891,13 +842,6 @@ const unsigned char dmx_prince_mamemon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Prince Mamemon X.png"
 };
 static_assert(sizeof(dmx_prince_mamemon_x_png) == 1220, "re-run generate_embedded_assets.sh");
-
-
-// Name: Pteranmon X
-const unsigned char dmx_pteranmon_x_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Pteranmon X.png"
-};
-static_assert(sizeof(dmx_pteranmon_x_png) == 1079, "re-run generate_embedded_assets.sh");
 
 
 // Name: Pteranomon X
@@ -1157,13 +1101,6 @@ const unsigned char dmx_velgrmon_png[] ASSETS_DMX_IMAGES_SECTION = {
 #embed "../../../assets/dmx/Velgrmon.png"
 };
 static_assert(sizeof(dmx_velgrmon_png) == 1497, "re-run generate_embedded_assets.sh");
-
-
-// Name: Voltobautamon
-const unsigned char dmx_voltobautamon_png[] ASSETS_DMX_IMAGES_SECTION = {
-#embed "../../../assets/dmx/Voltobautamon.png"
-};
-static_assert(sizeof(dmx_voltobautamon_png) == 1291, "re-run generate_embedded_assets.sh");
 
 
 // Name: War Greymon X

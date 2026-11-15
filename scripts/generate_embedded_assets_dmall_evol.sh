@@ -177,7 +177,7 @@ for FILE in "$INPUT_DIR"/*.png; do
           )
         ) // {}
       ) | .level
-    ' assets/digimon.db.json)
+    ' assets/digimon.db.pretty.json)
 
     EVO_TIME=-1
     if [ -z "$STAGE" ] || [ "$STAGE" == "null" ]; then
@@ -208,7 +208,7 @@ for FILE in "$INPUT_DIR"/*.png; do
           )
         ) // {}
       ) | .name
-    ' assets/digimon.db.json)
+    ' assets/digimon.db.pretty.json)
 
     CANON_NEXT_NAMES=$(
       jq -r --arg name "$DIGIMON_NAME" --arg id "$NAME_CLEAN" '
@@ -226,7 +226,7 @@ for FILE in "$INPUT_DIR"/*.png; do
         | .[]
         | select(.canon == true)
         | .name
-      ' assets/digimon.db.json
+      ' assets/digimon.db.pretty.json
     )
     if [ -n "$CANON_NEXT_NAMES" ] && [ "$CANON_NEXT_NAMES" != "null" ]; then
       while IFS= read -r NEXT_NAME; do
@@ -248,7 +248,7 @@ for FILE in "$INPUT_DIR"/*.png; do
                    .digimons[] |
                    select(.name == $name or (.altNames? and any(.altNames[]; . == $name)))
                 ) | .level
-              ' assets/digimon.db.json)
+              ' assets/digimon.db.pretty.json)
 
               if [ -z "$NEXT_STAGE" ] || [ "$NEXT_STAGE" == "null" ]; then
                   echo "⚠️  WARNING: Digimon '$NEXT_NAME' was not found in the database!" >&2
@@ -291,7 +291,7 @@ for FILE in "$INPUT_DIR"/*.png; do
       DMC_NEXT_NAMES=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "dmc" '
           first(
              .[$prefix][] |
-             select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
+             select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
           ) | .next[]?
         ' assets/digimon-vpets.db.json)
       if [ -n "$DMC_NEXT_NAMES" ] && [ "$DMC_NEXT_NAMES" != "null" ]; then
@@ -314,7 +314,7 @@ for FILE in "$INPUT_DIR"/*.png; do
                      .digimons[] |
                      select(.name == $name or (.altNames? and any(.altNames[]; . == $name)))
                   ) | .level
-                ' assets/digimon.db.json)
+                ' assets/digimon.db.pretty.json)
 
                 if [ -z "$NEXT_STAGE" ] || [ "$NEXT_STAGE" == "null" ]; then
                     echo "⚠️  WARNING: Digimon '$NEXT_NAME' was not found in the database!" >&2
@@ -354,7 +354,7 @@ for FILE in "$INPUT_DIR"/*.png; do
       DMX_NEXT_NAMES=$(jq -r --arg name "$DIGIMON_NAME" --arg id "$IDENTIFIER" --arg prefix "dmx" '
           first(
              .[$prefix][] |
-             select(.id == $id or .name == $name or (.names? and any(.names[]; . == $name)))
+             select(.id == $id or .name == $name or (.altNames? and any(.altNames[]; . == $name)))
           ) | .next[]?
         ' assets/digimon-vpets.db.json)
       if [ -n "$DMX_NEXT_NAMES" ] && [ "$DMX_NEXT_NAMES" != "null" ]; then
@@ -377,7 +377,7 @@ for FILE in "$INPUT_DIR"/*.png; do
                      .digimons[] |
                      select(.name == $name or (.altNames? and any(.altNames[]; . == $name)))
                   ) | .level
-                ' assets/digimon.db.json)
+                ' assets/digimon.db.pretty.json)
 
                 if [ -z "$NEXT_STAGE" ] || [ "$NEXT_STAGE" == "null" ]; then
                     echo "⚠️  WARNING: Digimon '$NEXT_NAME' was not found in the database!" >&2
@@ -424,7 +424,7 @@ for FILE in "$INPUT_DIR"/*.png; do
           | (.evolvesTo // [])
           | .[]
           | .name
-        ' assets/digimon.db.json
+        ' assets/digimon.db.pretty.json
       )
       if [ -n "$NEXT_NAMES" ] && [ "$NEXT_NAMES" != "null" ]; then
         while IFS= read -r NEXT_NAME; do
@@ -446,7 +446,7 @@ for FILE in "$INPUT_DIR"/*.png; do
                      .digimons[] |
                      select(.name == $name or (.altNames? and any(.altNames[]; . == $name)))
                   ) | .level
-                ' assets/digimon.db.json)
+                ' assets/digimon.db.pretty.json)
 
                 if [ -z "$NEXT_STAGE" ] || [ "$NEXT_STAGE" == "null" ]; then
                     echo "⚠️  WARNING: Digimon '$NEXT_NAME' was not found in the database!" >&2

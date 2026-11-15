@@ -71,6 +71,10 @@ inline constexpr size_t pen20_atlur_kabuterimon_png_size ASSETS_PEN20_IMAGE_SIZE
 extern const unsigned char pen20_baalmon_png[1359];
 inline constexpr size_t pen20_baalmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1359;
 
+// Name: Babydmon
+extern const unsigned char pen20_babydmon_png[1221];
+inline constexpr size_t pen20_babydmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1221;
+
 // Name: Bakemon
 extern const unsigned char pen20_bakemon_png[872];
 inline constexpr size_t pen20_bakemon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 872;
@@ -94,10 +98,6 @@ inline constexpr size_t pen20_beelzebumon_blast_mode_png_size ASSETS_PEN20_IMAGE
 // Name: Beowolfmon
 extern const unsigned char pen20_beowolfmon_png[1348];
 inline constexpr size_t pen20_beowolfmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1348;
-
-// Name: Beowulfmon
-extern const unsigned char pen20_beowulfmon_png[1348];
-inline constexpr size_t pen20_beowulfmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1348;
 
 // Name: Big Mamemon
 extern const unsigned char pen20_big_mamemon_png[993];
@@ -223,6 +223,10 @@ inline constexpr size_t pen20_devidramon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTI
 extern const unsigned char pen20_devimon_png[931];
 inline constexpr size_t pen20_devimon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 931;
 
+// Name: Dodomon
+extern const unsigned char pen20_dodomon_png[903];
+inline constexpr size_t pen20_dodomon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 903;
+
 // Name: Dokugumon
 extern const unsigned char pen20_dokugumon_png[1407];
 inline constexpr size_t pen20_dokugumon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1407;
@@ -347,9 +351,9 @@ inline constexpr size_t pen20_growmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION 
 extern const unsigned char pen20_guardromon_png[1247];
 inline constexpr size_t pen20_guardromon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1247;
 
-// Name: Guimon
-extern const unsigned char pen20_guimon_png[1428];
-inline constexpr size_t pen20_guimon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1428;
+// Name: Guilmon
+extern const unsigned char pen20_guilmon_png[1428];
+inline constexpr size_t pen20_guilmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1428;
 
 // Name: Gummymon
 extern const unsigned char pen20_gummymon_png[1188];
@@ -362,10 +366,6 @@ inline constexpr size_t pen20_hackmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION 
 // Name: Hagurumon
 extern const unsigned char pen20_hagurumon_png[1225];
 inline constexpr size_t pen20_hagurumon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1225;
-
-// Name: Hangymon
-extern const unsigned char pen20_hangymon_png[1426];
-inline constexpr size_t pen20_hangymon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1426;
 
 // Name: Hangyomon
 extern const unsigned char pen20_hangyomon_png[1426];
@@ -503,10 +503,6 @@ inline constexpr size_t pen20_ludomon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION 
 extern const unsigned char pen20_mad_leomon_png[1294];
 inline constexpr size_t pen20_mad_leomon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1294;
 
-// Name: Mambomon
-extern const unsigned char pen20_mambomon_png[1331];
-inline constexpr size_t pen20_mambomon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1331;
-
 // Name: Mammon
 extern const unsigned char pen20_mammon_png[1397];
 inline constexpr size_t pen20_mammon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1397;
@@ -582,10 +578,6 @@ inline constexpr size_t pen20_mochimon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION
 // Name: Mokumon
 extern const unsigned char pen20_mokumon_png[724];
 inline constexpr size_t pen20_mokumon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 724;
-
-// Name: Monchromon
-extern const unsigned char pen20_monchromon_png[852];
-inline constexpr size_t pen20_monchromon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 852;
 
 // Name: Monochromon
 extern const unsigned char pen20_monochromon_png[890];
@@ -694,10 +686,6 @@ inline constexpr size_t pen20_plotmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION 
 // Name: Porcupamon
 extern const unsigned char pen20_porcupamon_png[1327];
 inline constexpr size_t pen20_porcupamon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1327;
-
-// Name: Porcupmon
-extern const unsigned char pen20_porcupmon_png[1327];
-inline constexpr size_t pen20_porcupmon_png_size ASSETS_PEN20_IMAGE_SIZES_SECTION = 1327;
 
 // Name: Pukamon
 extern const unsigned char pen20_pukamon_png[1222];
