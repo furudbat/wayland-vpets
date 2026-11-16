@@ -53,7 +53,7 @@ for FILE in "$INPUT_DIR"/*.png; do
         echo "Finished $FILE"
     fi
 done
-INPUT_DIR="assets/input/dmc-fixed"
+INPUT_DIR="assets/input/dmc-fixed-2"
 OUTPUT_DIR="assets/dmc"
 for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
@@ -116,7 +116,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     fi
 done
 
-INPUT_DIR="assets/input/all-colored"
+INPUT_DIR="assets/input/all-colored-3"
 OUTPUT_DIR="assets/dmall"
 for FILE in "$INPUT_DIR"/*.png; do
     BASENAME=$(basename "$FILE")
