@@ -2,7 +2,7 @@
 #include "core/bongocat.h"
 #include "platform/wayland_callbacks.h"
 
-#include <doctest/doctest.h>
+#include <doctest.h>
 
 TEST_CASE("fullscreen_toplevel_relevant") {
   using namespace bongocat::platform::wayland::details;

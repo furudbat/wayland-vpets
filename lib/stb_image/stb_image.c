@@ -15,7 +15,7 @@
 //#pragma GCC diagnostic ignored "-Wimplicit-int-conversion"
 #endif
 #endif
-#include "../lib/stb_image.h"
+#include <stb_image.h>
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif

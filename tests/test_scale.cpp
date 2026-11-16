@@ -2,7 +2,7 @@
 #include "core/bongocat.h"
 #include "graphics/animation.h"
 
-#include <doctest/doctest.h>
+#include <doctest.h>
 
 TEST_CASE("scale_size_120") {
   using namespace bongocat::animation::details;

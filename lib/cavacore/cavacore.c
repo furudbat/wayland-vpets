@@ -108,7 +108,7 @@ struct cava_plan *cava_init(int number_of_bars, unsigned int rate, int channels,
     p->noise_reduction = noise_reduction;
     p->scaling_mode = scaling_mode;
 
-    // @NOTE: measure not needed, let just do estimate
+    // @NOTE(furudbat): measure not needed, let just do estimate
     //int fftw_flag = FFTW_MEASURE;
     int fftw_flag = FFTW_ESTIMATE;
 

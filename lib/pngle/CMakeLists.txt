@@ -1,0 +1,6 @@
+add_library(pngle STATIC EXCLUDE_FROM_ALL miniz.c pngle.c)
+target_include_directories(pngle SYSTEM PUBLIC ${CMAKE_CURRENT_SOURCE_DIR})
+target_compile_options(pngle PRIVATE -Wno-misleading-indentation -Wno-unknown-warning-option)
+target_compile_definitions(pngle PUBLIC PNGLE_NO_GAMMA_CORRECTION)
+target_compile_definitions(pngle PRIVATE MINIZ_NO_MALLOC)
+target_link_libraries(pngle PRIVATE m project_lib_options)

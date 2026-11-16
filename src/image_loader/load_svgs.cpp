@@ -1,5 +1,8 @@
-#include "image_loader/load_svgs.h"
+#include "image_loader/load_base.h"
+#ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 #include "image_loader/load_images.h"
+#endif
+#include "image_loader/load_svgs.h"
 #include "graphics/animation.h"
 #include "graphics/drawing.h"
 #include "utils/memory.h"

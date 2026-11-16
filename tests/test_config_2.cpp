@@ -4,7 +4,7 @@
 #include "utils/error.h"
 #include "utils/system_error.h"
 
-#include <doctest/doctest.h>
+#include <doctest.h>
 #include <string>
 
 namespace bongocat {

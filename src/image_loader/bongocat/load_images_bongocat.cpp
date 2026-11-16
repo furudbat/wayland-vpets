@@ -5,8 +5,13 @@
 #include "graphics/animation.h"
 #include "graphics/animation_thread_context.h"
 #include "graphics/drawing.h"
+#include "image_loader/load_base.h"
+#ifdef FEATURE_USE_RASTER_IMAGE_LOADER
 #include "image_loader/load_images.h"
+#endif
+#ifdef FEATURE_USE_SVG_IMAGE_LOADER
 #include "image_loader/load_svgs.h"
+#endif
 #include "utils/memory.h"
 #include <cassert>
 

@@ -1,10 +1,6 @@
 #ifndef BONGOCAT_LOAD_SPRITE_SHEET_PNGLE_H
 #define BONGOCAT_LOAD_SPRITE_SHEET_PNGLE_H
 
-// Private header (src/image_loader): include AFTER "pngle.h".
-// Streams the PNG through pngle and writes every pixel straight to its final place in the padded sprite sheet:
-// RAM while decoding = final sprite sheet + pngle state (inflate window + 2 scanlines), no intermediate image.
-
 #include "image_loader/load_images.h"
 
 #include <cassert>

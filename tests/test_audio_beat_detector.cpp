@@ -1,6 +1,6 @@
 #include "platform/audio/audio_beat_detector.h"
 
-#include <doctest/doctest.h>
+#include <doctest.h>
 
 namespace {
 using namespace bongocat::platform;

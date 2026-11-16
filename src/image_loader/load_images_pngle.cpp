@@ -19,7 +19,7 @@
 // #pragma GCC diagnostic ignored "-Wimplicit-int-conversion"
 #  endif
 #endif
-#include "pngle.h"
+#include <pngle.h>
 #if defined(__GNUC__) || defined(__clang__)
 #  pragma GCC diagnostic pop
 #endif

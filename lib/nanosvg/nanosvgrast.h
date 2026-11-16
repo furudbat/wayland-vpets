@@ -26,6 +26,7 @@
 #define NANOSVGRAST_H
 
 #include "nanosvg.h"
+// @NOTE(furudbat): add header
 #include <stdint.h>
 
 #ifndef NANOSVGRAST_CPLUSPLUS
@@ -65,9 +66,10 @@ void nsvgRasterize(NSVGrasterizer* r,
 				   NSVGimage* image, float tx, float ty, float scale,
 				   unsigned char* dst, int w, int h, int stride);
 
+// @NOTE(furudbat): same as nsvgRasterize, but with alpha_mask_color
 void nsvgRasterizeA(NSVGrasterizer* r,
-           NSVGimage* image, float tx, float ty, float scale,
-           unsigned char* dst, int w, int h, int stride, uint32_t alpha_threshold);
+				   NSVGimage* image, float tx, float ty, float scale,
+				   unsigned char* dst, int w, int h, int stride, uint32_t alpha_mask_color);
 
 // Deletes rasterizer context.
 void nsvgDeleteRasterizer(NSVGrasterizer*);
@@ -1214,28 +1216,6 @@ static void nsvg__rasterizeSortedEdges(NSVGrasterizer *r, float tx, float ty, fl
 
 }
 
-static void nsvg__applyAlphaMask(unsigned char* image, int w, int h, int stride, uint32_t mask_color)
-{
-  // Extract mask RGBA
-  unsigned char mr = (mask_color >> 24) & 0xFF;
-  unsigned char mg = (mask_color >> 16) & 0xFF;
-  unsigned char mb = (mask_color >> 8)  & 0xFF;
-  unsigned char ma = (mask_color)       & 0xFF;
-
-  for (int y = 0; y < h; y++) {
-    unsigned char* row = &image[y * stride];
-    for (int x = 0; x < w; x++) {
-      if (row[0] == mr && row[1] == mg &&
-          row[2] == mb && row[3] == ma)
-      {
-        row[3] = 0;
-      }
-
-      row += 4;
-    }
-  }
-}
-
 static void nsvg__unpremultiplyAlpha(unsigned char* image, int w, int h, int stride)
 {
 	int x,y;
@@ -1399,6 +1379,30 @@ static void dumpEdges(NSVGrasterizer* r, const char* name)
 }
 */
 
+// @NOTE(furudbat): make pixels matching mask_color (0xRRGGBBAA) fully transparent
+static void nsvg__applyAlphaMask(unsigned char* image, int w, int h, int stride, uint32_t mask_color)
+{
+  // Extract mask RGBA
+  unsigned char mr = (mask_color >> 24) & 0xFF;
+  unsigned char mg = (mask_color >> 16) & 0xFF;
+  unsigned char mb = (mask_color >> 8)  & 0xFF;
+  unsigned char ma = (mask_color)       & 0xFF;
+
+  for (int y = 0; y < h; y++) {
+    unsigned char* row = &image[y * stride];
+    for (int x = 0; x < w; x++) {
+      if (row[0] == mr && row[1] == mg &&
+          row[2] == mb && row[3] == ma)
+      {
+        row[3] = 0;
+      }
+
+      row += 4;
+    }
+  }
+}
+
+// @NOTE(furudbat): old nsvgRasterize becomes nsvgRasterizeA with alpha_mask_color added
 void nsvgRasterizeA(NSVGrasterizer* r,
 				   NSVGimage* image, float tx, float ty, float scale,
 				   unsigned char* dst, int w, int h, int stride, uint32_t alpha_mask_color)
@@ -1486,9 +1490,10 @@ void nsvgRasterizeA(NSVGrasterizer* r,
         }
 	}
 
-  nsvg__applyAlphaMask(dst, w, h, stride, alpha_mask_color);
-
 	nsvg__unpremultiplyAlpha(dst, w, h, stride);
+
+	// @NOTE(furudbat): apply alpha mask
+	nsvg__applyAlphaMask(dst, w, h, stride, alpha_mask_color);
 
 	r->bitmap = NULL;
 	r->width = 0;
@@ -1496,10 +1501,12 @@ void nsvgRasterizeA(NSVGrasterizer* r,
 	r->stride = 0;
 }
 
+// @NOTE(furudbat): original nsvgRasterize now calls nsvgRasterizeA (no alpha mask)
 void nsvgRasterize(NSVGrasterizer* r,
-           NSVGimage* image, float tx, float ty, float scale,
-           unsigned char* dst, int w, int h, int stride) {
-  return nsvgRasterizeA(r, image, tx, ty, scale, dst, w, h, stride, 0);
+				   NSVGimage* image, float tx, float ty, float scale,
+				   unsigned char* dst, int w, int h, int stride)
+{
+	nsvgRasterizeA(r, image, tx, ty, scale, dst, w, h, stride, 0);
 }
 
 #endif // NANOSVGRAST_IMPLEMENTATION

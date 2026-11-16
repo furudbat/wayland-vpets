@@ -263,6 +263,7 @@ endif()
 set(PROTOCOLS_DIR ${PROJECT_SOURCE_DIR}/protocols)
 add_subdirectory(protocols)
 
+add_subdirectory(lib)
 include(cmake/EmbeddedAssets.cmake)
 set(SRC_DIR ${PROJECT_SOURCE_DIR}/src)
 set(INCLUDE_DIR ${PROJECT_SOURCE_DIR}/include)

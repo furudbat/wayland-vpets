@@ -142,7 +142,6 @@ if(ENABLE_AUDIO_MODULE)
   target_sources(bongocat_base INTERFACE ${AUDIO_SOURCES})
   target_compile_definitions(bongocat_base INTERFACE BONGOCAT_ENABLE_AUDIO_MODULE)
 
-  add_subdirectory(${CMAKE_SOURCE_DIR}/lib/cavacore ${CMAKE_BINARY_DIR}/lib/cavacore)
   # PipeWire (sink-monitor capture)
   pkg_check_modules(PIPEWIRE REQUIRED libpipewire-0.3)
   target_include_directories(bongocat_base SYSTEM INTERFACE ${PIPEWIRE_INCLUDE_DIRS})

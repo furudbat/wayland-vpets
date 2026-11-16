@@ -21,8 +21,8 @@
 //#pragma GCC diagnostic ignored "-Wimplicit-int-conversion"
 #endif
 #endif
-#include "../lib/nanosvg.h"
-#include "../lib/nanosvgrast.h"
+#include <nanosvg.h>
+#include <nanosvgrast.h>
 #if defined(__GNUC__) || defined(__clang__)
 #pragma GCC diagnostic pop
 #endif

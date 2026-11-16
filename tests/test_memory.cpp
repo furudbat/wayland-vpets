@@ -3,7 +3,7 @@
 #include "utils/error.h"
 #include "utils/system_error.h"
 
-#include <doctest/doctest.h>
+#include <doctest.h>
 
 TEST_CASE("malloc_free") {
   using namespace bongocat;

@@ -27,8 +27,7 @@
 #include <stdlib.h>
 #include <math.h>
 
-#define MINIZ_HEADER_FILE_ONLY
-#include "miniz.c"
+#include "miniz.h"
 #include "pngle.h"
 
 #ifndef MIN

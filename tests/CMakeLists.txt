@@ -141,7 +141,8 @@ add_executable(
   test_audio_beat_detector.cpp
   test_audio_peak_detector.cpp
 )
-target_include_directories(bongocat_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests ${CMAKE_SOURCE_DIR}/lib)
+target_include_directories(bongocat_tests PRIVATE ${CMAKE_SOURCE_DIR}/tests)
+target_link_libraries(bongocat_tests PRIVATE doctest)
 target_link_libraries(
   bongocat_tests
   PRIVATE
