@@ -269,6 +269,13 @@ sed -i -E 's/^animation_name=.*/animation_name=Metal Greymon/' "$CONFIG"
 echo "[INFO] Send SIGUSR2"
 kill -USR2 "$PID" # Reload config
 sleep 2
+echo "[INFO] Set Sprite Sheet: Reaper"
+sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
+sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+sed -i -E 's/^animation_name=.*/animation_name=dmall:Reaper/' "$CONFIG"
+echo "[INFO] Send SIGUSR2"
+kill -USR2 "$PID" # Reload config
+sleep 2
 echo "[INFO] Set Sprite Sheet: neko"
 sed -i -E 's/^enable_antialiasing=[0-9]+/enable_antialiasing=0/' "$CONFIG"
 sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"

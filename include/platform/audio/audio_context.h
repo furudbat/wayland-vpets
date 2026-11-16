@@ -27,7 +27,7 @@ namespace bongocat::platform::audio {
 #if BONGOCAT_AUDIO_MODULE_ON
 
 /// ~~stereo~~ -> mono -- @TODO: more testing, do I really need 2 channels ?
-inline static constexpr size_t MAX_CHANNELS     = 1;
+inline static constexpr size_t MAX_CHANNELS = 1;
 
 inline static constexpr int CAVA_BARS = 12;
 inline static constexpr int CAVA_OUT_SIZE = static_cast<size_t>(CAVA_BARS) * MAX_CHANNELS;
@@ -55,9 +55,9 @@ struct audio_backend_t {
 
   // cavacore
   cava_plan *cava{BONGOCAT_NULLPTR};
-  AllocatedArray<sample_buffer_bytes_t> cava_in;   // use allocated array, buffer can become huge (lazy init)
+  AllocatedArray<sample_buffer_bytes_t> cava_in;  // use allocated array, buffer can become huge (lazy init)
   size_t cava_in_count{0};
-  size_t cava_in_used{0};                           // for wiping only the used part
+  size_t cava_in_used{0};  // for wiping only the used part
   double cava_out[CAVA_OUT_SIZE]{};
 
   // RMS (silence detection)

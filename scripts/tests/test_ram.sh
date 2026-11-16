@@ -214,6 +214,12 @@ run_test_sequence() {
     echo "[INFO] Send SIGUSR2"
     kill -USR2 "$PID" # Reload config
     sleep 2
+    echo "[INFO] Set Sprite Sheet: Arma Lizamon"
+    sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
+    sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=dmall:Arma Lizamon/' "$CONFIG"
+    echo "[INFO] Send SIGUSR2"
+    kill -USR2 "$PID" # Reload config
+    sleep 2
     echo "[INFO] Set Sprite Sheet: pmd:volcanion"
     sed -i -E 's/^invert_color=[0-9]+/invert_color=0/' "$CONFIG"
     sed -i -E 's/^animation_name=[:A-Za-z0-9_. ]+/animation_name=pmd:volcanion/' "$CONFIG"

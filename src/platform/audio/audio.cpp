@@ -1,4 +1,5 @@
 #include "platform/audio/audio.h"
+
 #include "graphics/animation.h"
 #include "platform/audio/audio_beat_detector.h"
 #include "platform/audio/audio_peak_detector.h"
@@ -33,16 +34,16 @@ extern "C" {
 namespace bongocat::platform::audio {
 
 // Audio format
-inline static constexpr size_t SAMPLE_RATE_HZ   = 24000;
-inline static constexpr size_t SAMPLE_SIZE_BYTES = sizeof(sample_buffer_bytes_t); // 8 bytes
+inline static constexpr size_t SAMPLE_RATE_HZ = 24000;
+inline static constexpr size_t SAMPLE_SIZE_BYTES = sizeof(sample_buffer_bytes_t);  // 8 bytes
 
 inline static constexpr size_t SAMPLE_BUFFER_FRAMES = 4096;
 
 static_assert(SAMPLE_RATE_HZ > 0);
-inline static constexpr size_t SAMPLE_BUFFER_SIZE  = SAMPLE_BUFFER_FRAMES * MAX_CHANNELS;
+inline static constexpr size_t SAMPLE_BUFFER_SIZE = SAMPLE_BUFFER_FRAMES * MAX_CHANNELS;
 inline static constexpr size_t SAMPLE_BUFFER_BYTES = SAMPLE_BUFFER_SIZE * SAMPLE_SIZE_BYTES;
 inline static constexpr double SAMPLE_BUFFER_MS =
-    1000.0 * static_cast<double>(SAMPLE_BUFFER_FRAMES) / SAMPLE_RATE_HZ;                      // ~170.7 ms
+    1000.0 * static_cast<double>(SAMPLE_BUFFER_FRAMES) / SAMPLE_RATE_HZ;  // ~170.7 ms
 static_assert(SAMPLE_BUFFER_MS >= 170.0);
 static_assert(SAMPLE_BUFFER_BYTES == 32 * 1024);
 static_assert(SAMPLE_BUFFER_SIZE > 0);
@@ -71,7 +72,8 @@ static_assert(SAMPLE_RATE_HZ <= UINT32_MAX);
 static_assert(MAX_CHANNELS <= UINT32_MAX);
 inline static constexpr uint32_t STREAM_RATE_HZ = static_cast<uint32_t>(SAMPLE_RATE_HZ);
 inline static constexpr uint32_t STREAM_CHANNELS = static_cast<uint32_t>(MAX_CHANNELS);
-static_assert(STREAM_RATE_HZ / 2 > static_cast<uint32_t>(CAVA_HIGH_CUT_OFF_HZ), "Nyquist must be above the high cut-off");
+static_assert(STREAM_RATE_HZ / 2 > static_cast<uint32_t>(CAVA_HIGH_CUT_OFF_HZ),
+              "Nyquist must be above the high cut-off");
 
 // silence: RMS below ~-80 dBFS for a while
 // tempo unknown: SILENCE_HOLD_MS; tempo known: a bit longer than one beat (no beat expected anymore), stop fast
@@ -125,9 +127,9 @@ struct audio_analysis_state_t {
   double level{0};
 
   // beat clock (one AudioUpdate per beat)
-  timestamp_ms_t last_beat{0};      // last beat (triggered)
-  bool last_beat_predicted{false};  // last beat was predicted (no onset)
-  bool next_beat_triggered{false};  // next beat already triggered early (latency compensation)
+  timestamp_ms_t last_beat{0};           // last beat (triggered)
+  bool last_beat_predicted{false};       // last beat was predicted (no onset)
+  bool next_beat_triggered{false};       // next beat already triggered early (latency compensation)
   timestamp_ms_t last_offbeat_onset{0};  // last off-beat onset (phase re-lock)
 
   // beat detection (spectral flux onsets -> BPM)
@@ -419,9 +421,9 @@ namespace details {
       // only load the modules a capture stream needs (protocol-native, client-node, adapter), skip:
       // rt (realtime via rtkit), client-device, metadata, session-manager
       // support.dbus: don't load the dbus support plugin (libspa-dbus + libdbus)
-      pw_properties *context_props = pw_properties_new("module.rt", "false", "module.client-device", "false",
-                                                       "module.metadata", "false", "module.session-manager", "false",
-                                                       "support.dbus", "false", BONGOCAT_NULLPTR);
+      pw_properties *context_props =
+          pw_properties_new("module.rt", "false", "module.client-device", "false", "module.metadata", "false",
+                            "module.session-manager", "false", "support.dbus", "false", BONGOCAT_NULLPTR);
       // pw_context_new takes ownership of props
       backend.context = pw_context_new(backend.loop, context_props, 0);
       if (backend.context == BONGOCAT_NULLPTR) {
@@ -858,8 +860,9 @@ static void *audio_thread(void *arg) {
           return onset;
         }
         // last_beat is the beat phase (on the beat), the trigger fires `lead` before the next beat
-        const double lead_ms =
-            BEAT_LEAD_MS < beat_interval_ms * BEAT_LEAD_MAX_RATIO ? BEAT_LEAD_MS : beat_interval_ms * BEAT_LEAD_MAX_RATIO;
+        const double lead_ms = BEAT_LEAD_MS < beat_interval_ms * BEAT_LEAD_MAX_RATIO
+                                   ? BEAT_LEAD_MS
+                                   : beat_interval_ms * BEAT_LEAD_MAX_RATIO;
         if (onset) {
           if (since_last_beat >= beat_interval_ms * (1.0 - BEAT_WINDOW)) {
             // onset close to (or after) the predicted beat: re-sync phase, trigger if not already done early
