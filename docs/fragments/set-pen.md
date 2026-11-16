@@ -43,7 +43,6 @@ Digimon Pendulum
 - Griffomon
 - Guardromon
 - Hagurumon
-- Hangymon
 - Hangyomon
 - Hanumon
 - Herakle Kabuterimon

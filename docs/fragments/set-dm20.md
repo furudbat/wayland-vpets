@@ -72,7 +72,6 @@ Digital Monster Ver.20th.
 - Meicoomon
 - Meicrackmon
 - Meramon
-- Metal Garurumon
 - Metal Greymon
 - Metal Mamemon
 - Metal Tyranomon
@@ -118,7 +117,6 @@ Digital Monster Ver.20th.
 - Tanemon
 - Titamon
 - Tokomon
-- Tsunomon
 - Tunomon
 - Tuskmon
 - Tyranomon

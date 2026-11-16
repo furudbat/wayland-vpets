@@ -16,13 +16,13 @@ Digimon Pendulum Ver.20th
 - Asuramon
 - Atlur Kabuterimon
 - Baalmon
+- Babydmon
 - Bakemon
 - Bakumon
 - Bancho Leomon
 - Bao Hackmon
 - Beelzebumon Blast Mode
 - Beowolfmon
-- Beowulfmon
 - Big Mamemon
 - Birdramon
 - Blossomon
@@ -54,6 +54,7 @@ Digimon Pendulum Ver.20th
 - Delumon
 - Devidramon
 - Devimon
+- Dodomon
 - Dokugumon
 - Dorimon
 - DORUgamon
@@ -85,11 +86,10 @@ Digimon Pendulum Ver.20th
 - Groundramon
 - Growmon
 - Guardromon
-- Guimon
+- Guilmon
 - Gummymon
 - Hackmon
 - Hagurumon
-- Hangymon
 - Hangyomon
 - Hanumon
 - Herakle Kabuterimon
@@ -124,7 +124,6 @@ Digimon Pendulum Ver.20th
 - Lotusmon
 - Ludomon
 - Mad Leomon
-- Mambomon
 - Mammon
 - Manbomon
 - Marin Angemon
@@ -144,7 +143,6 @@ Digimon Pendulum Ver.20th
 - Metal Seadramon
 - Mochimon
 - Mokumon
-- Monchromon
 - Monochromon
 - Mugendramon
 - Mushmon
@@ -172,7 +170,6 @@ Digimon Pendulum Ver.20th
 - Plesiomon
 - Plotmon
 - Porcupamon
-- Porcupmon
 - Pukamon
 - Pukumon
 - Pumpmon
