@@ -22,9 +22,9 @@ _I kept it lose so it's compatible with the old bongocat_
 Custom digimon sprite sheet format (I used in my other projects).  
 Single row with all frames, optional frames at the end, cols can vary.
 
-Cols: 9 - 15  
+Cols: 9 - 15 (cols vary) 
 Rows: 1
-Frame Size: 64x64px
+Frame Size: 64x64px (can vary)
 
 - `idle1` -- Idle animation (frame 1)
 - `idle2` -- Idle animation (frame 2)

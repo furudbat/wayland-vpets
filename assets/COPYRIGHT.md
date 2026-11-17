@@ -69,3 +69,4 @@ Clippy and other MS Agents are owed by Microsoft.
 - https://github.com/msikma/pokesprite
 - [bulbagarden Wiki](https://archives.bulbagarden.net/wiki/Category:Animated_menu_sprites)
 - [pokeapi](https://pokeapi.co/)
+- [Digimon Color Sprite Database (dmc-sprite-database)](https://github.com/tero0x/dmc-sprite-database)

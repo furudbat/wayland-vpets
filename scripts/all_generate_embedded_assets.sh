@@ -26,11 +26,14 @@
 ./scripts/generate_embedded_assets_dm_evol.sh assets/dmx assets/input/dmx src/embedded_assets/dmx/dmx_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmx
 
 # dmc
-#bash ./scripts/convert_sprite_sheet.sh --penc --set dmc --output assets --output-input assets/input/dmc-fixed-2 -r assets/input/_source/dmc-penc-frames
-#bash ./scripts/convert_sprite_sheet.sh --dmc --set dmc --output assets --output-input assets/input/dmc-fixed-2 -r assets/input/_source/dmc-frames
-./scripts/generate_embedded_assets.sh assets/dmc assets/input/dmc-fixed include/embedded_assets/dmc/dmc_images.h src/embedded_assets/dmc/dmc_images.cpp include/embedded_assets/dmc/dmc.hpp include/embedded_assets/dmc/dmc_sprite.h src/embedded_assets/dmc/dmc_get_sprite_sheet.cpp src/image_loader/dmc/dmc_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmc --load-function "load_base_dm_anim"
+#bash ./scripts/convert_sprite_sheet.sh --dmc15 --set dmc --output assets --output-input assets/input/dmc-fixed-2 -r assets/input/_source/dmc-frames
+./scripts/generate_embedded_assets.sh assets/dmc assets/input/dmc-fixed-2 include/embedded_assets/dmc/dmc_images.h src/embedded_assets/dmc/dmc_images.cpp include/embedded_assets/dmc/dmc.hpp include/embedded_assets/dmc/dmc_sprite.h src/embedded_assets/dmc/dmc_get_sprite_sheet.cpp src/image_loader/dmc/dmc_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmc --load-function "load_base_dm_anim"
 ./scripts/generate_init_anim.sh assets/dmc src/embedded_assets/dmc ./include/embedded_assets/dmc/dmc_images.h dmc --layout Dm --set dmc
-./scripts/generate_embedded_assets_dm_evol.sh assets/dmc assets/input/dmc-fixed src/embedded_assets/dmc/dmc_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmc
+./scripts/generate_embedded_assets_dm_evol.sh assets/dmc assets/input/dmc-fixed-2 src/embedded_assets/dmc/dmc_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmc
+
+# @TODO: penc
+#bash ./scripts/convert_sprite_sheet.sh --penc --set penc --output assets --output-input assets/input/penc -r assets/input/_source/penc-frames
+
 
 # dmall
 #bash ./scripts/convert_penc_to_dm_row.sh assets/input/_source/dmall-dmc assets/input/all-colored-3 assets/dmall
