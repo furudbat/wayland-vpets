@@ -74,6 +74,13 @@ const unsigned char dmall_airdramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_airdramon_png) == 1379, "re-run generate_embedded_assets.sh");
 
 
+// Name: Ajatarmon
+const unsigned char dmall_ajatarmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Ajatarmon.png"
+};
+static_assert(sizeof(dmall_ajatarmon_png) == 1926, "re-run generate_embedded_assets.sh");
+
+
 // Name: Akatorimon
 const unsigned char dmall_akatorimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Akatorimon.png"
@@ -149,6 +156,13 @@ const unsigned char dmall_ancient_beatmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Ancient Beatmon.png"
 };
 static_assert(sizeof(dmall_ancient_beatmon_png) == 1314, "re-run generate_embedded_assets.sh");
+
+
+// Name: Ancient Garurumon
+const unsigned char dmall_ancient_garurumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Ancient Garurumon.png"
+};
+static_assert(sizeof(dmall_ancient_garurumon_png) == 1364, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ancient Megatheriumon
@@ -256,6 +270,13 @@ const unsigned char dmall_apollomon_whispered_png[] ASSETS_DMALL_IMAGES_SECTION 
 static_assert(sizeof(dmall_apollomon_whispered_png) == 1717, "re-run generate_embedded_assets.sh");
 
 
+// Name: Aquilamon
+const unsigned char dmall_aquilamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Aquilamon.png"
+};
+static_assert(sizeof(dmall_aquilamon_png) == 1306, "re-run generate_embedded_assets.sh");
+
+
 // Name: Archnemon
 const unsigned char dmall_archnemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Archnemon.png"
@@ -326,6 +347,13 @@ const unsigned char dmall_arma_lizamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_arma_lizamon_png) == 1376, "re-run generate_embedded_assets.sh");
 
 
+// Name: Arresterdramon
+const unsigned char dmall_arresterdramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Arresterdramon.png"
+};
+static_assert(sizeof(dmall_arresterdramon_png) == 1554, "re-run generate_embedded_assets.sh");
+
+
 // Name: Astamon
 const unsigned char dmall_astamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Astamon.png"
@@ -340,6 +368,13 @@ const unsigned char dmall_asuramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_asuramon_png) == 1581, "re-run generate_embedded_assets.sh");
 
 
+// Name: Atamadekachimon
+const unsigned char dmall_atamadekachimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Atamadekachimon.png"
+};
+static_assert(sizeof(dmall_atamadekachimon_png) == 1419, "re-run generate_embedded_assets.sh");
+
+
 // Name: Atlur Kabuterimon (Blue)
 const unsigned char dmall_atlur_kabuterimon_blue_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Atlur Kabuterimon (Blue).png"
@@ -352,6 +387,13 @@ const unsigned char dmall_atlur_kabuterimon_red_png[] ASSETS_DMALL_IMAGES_SECTIO
 #embed "../../../assets/dmall/Atlur Kabuterimon (Red).png"
 };
 static_assert(sizeof(dmall_atlur_kabuterimon_red_png) == 1602, "re-run generate_embedded_assets.sh");
+
+
+// Name: Avenge Kidmon
+const unsigned char dmall_avenge_kidmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Avenge Kidmon.png"
+};
+static_assert(sizeof(dmall_avenge_kidmon_png) == 1663, "re-run generate_embedded_assets.sh");
 
 
 // Name: Baalmon
@@ -450,6 +492,13 @@ const unsigned char dmall_bearmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Bearmon.png"
 };
 static_assert(sizeof(dmall_bearmon_png) == 1287, "re-run generate_embedded_assets.sh");
+
+
+// Name: Beel Starmon
+const unsigned char dmall_beel_starmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Beel Starmon.png"
+};
+static_assert(sizeof(dmall_beel_starmon_png) == 1423, "re-run generate_embedded_assets.sh");
 
 
 // Name: Beel Starmon X
@@ -774,6 +823,13 @@ const unsigned char dmall_cannonbeemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_cannonbeemon_png) == 1176, "re-run generate_embedded_assets.sh");
 
 
+// Name: Cannondramon
+const unsigned char dmall_cannondramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Cannondramon.png"
+};
+static_assert(sizeof(dmall_cannondramon_png) == 1398, "re-run generate_embedded_assets.sh");
+
+
 // Name: Caprimon
 const unsigned char dmall_caprimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Caprimon.png"
@@ -807,6 +863,13 @@ const unsigned char dmall_cerberumon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Cerberumon X.png"
 };
 static_assert(sizeof(dmall_cerberumon_x_png) == 1469, "re-run generate_embedded_assets.sh");
+
+
+// Name: Ceresmon Medium
+const unsigned char dmall_ceresmon_medium_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Ceresmon Medium.png"
+};
+static_assert(sizeof(dmall_ceresmon_medium_png) == 1596, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ceresmon
@@ -870,6 +933,13 @@ const unsigned char dmall_chaos_seadramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Chaos Seadramon.png"
 };
 static_assert(sizeof(dmall_chaos_seadramon_png) == 4378, "re-run generate_embedded_assets.sh");
+
+
+// Name: Chaperomon
+const unsigned char dmall_chaperomon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Chaperomon.png"
+};
+static_assert(sizeof(dmall_chaperomon_png) == 1782, "re-run generate_embedded_assets.sh");
 
 
 // Name: Cherubimon (Vice)
@@ -1257,6 +1327,13 @@ const unsigned char dmall_digitamamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_digitamamon_png) == 1151, "re-run generate_embedded_assets.sh");
 
 
+// Name: Dimetromon
+const unsigned char dmall_dimetromon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Dimetromon.png"
+};
+static_assert(sizeof(dmall_dimetromon_png) == 1424, "re-run generate_embedded_assets.sh");
+
+
 // Name: Dinohumon
 const unsigned char dmall_dinohumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Dinohumon.png"
@@ -1325,6 +1402,13 @@ const unsigned char dmall_dokunemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Dokunemon.png"
 };
 static_assert(sizeof(dmall_dokunemon_png) == 1194, "re-run generate_embedded_assets.sh");
+
+
+// Name: Dorbickmon
+const unsigned char dmall_dorbickmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Dorbickmon.png"
+};
+static_assert(sizeof(dmall_dorbickmon_png) == 1571, "re-run generate_embedded_assets.sh");
 
 
 // Name: Dorimon
@@ -1481,6 +1565,13 @@ const unsigned char dmall_elecmon_violet_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_elecmon_violet_png) == 1162, "re-run generate_embedded_assets.sh");
 
 
+// Name: Elizamon
+const unsigned char dmall_elizamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Elizamon.png"
+};
+static_assert(sizeof(dmall_elizamon_png) == 1455, "re-run generate_embedded_assets.sh");
+
+
 // Name: Entmon
 const unsigned char dmall_entmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Entmon.png"
@@ -1565,6 +1656,13 @@ const unsigned char dmall_flaremon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_flaremon_png) == 1469, "re-run generate_embedded_assets.sh");
 
 
+// Name: Fla Wizarmon
+const unsigned char dmall_fla_wizarmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Fla Wizarmon.png"
+};
+static_assert(sizeof(dmall_fla_wizarmon_png) == 4523, "re-run generate_embedded_assets.sh");
+
+
 // Name: Floramon
 const unsigned char dmall_floramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Floramon.png"
@@ -1577,6 +1675,13 @@ const unsigned char dmall_fluffymon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Fluffymon.png"
 };
 static_assert(sizeof(dmall_fluffymon_png) == 1400, "re-run generate_embedded_assets.sh");
+
+
+// Name: Fros Velgrmon
+const unsigned char dmall_fros_velgrmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Fros Velgrmon.png"
+};
+static_assert(sizeof(dmall_fros_velgrmon_png) == 1503, "re-run generate_embedded_assets.sh");
 
 
 // Name: Frozomon
@@ -1808,6 +1913,13 @@ const unsigned char dmall_gigimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Gigimon.png"
 };
 static_assert(sizeof(dmall_gigimon_png) == 1024, "re-run generate_embedded_assets.sh");
+
+
+// Name: Ginkakumon
+const unsigned char dmall_ginkakumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Ginkakumon.png"
+};
+static_assert(sizeof(dmall_ginkakumon_png) == 1671, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ginryumon
@@ -2055,6 +2167,13 @@ const unsigned char dmall_guilmon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_guilmon_x_png) == 1283, "re-run generate_embedded_assets.sh");
 
 
+// Name: Gumdramon
+const unsigned char dmall_gumdramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Gumdramon.png"
+};
+static_assert(sizeof(dmall_gumdramon_png) == 1850, "re-run generate_embedded_assets.sh");
+
+
 // Name: Gummymon
 const unsigned char dmall_gummymon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Gummymon.png"
@@ -2081,6 +2200,13 @@ const unsigned char dmall_gusokumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Gusokumon.png"
 };
 static_assert(sizeof(dmall_gusokumon_png) == 968, "re-run generate_embedded_assets.sh");
+
+
+// Name: Gyukimon
+const unsigned char dmall_gyukimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Gyukimon.png"
+};
+static_assert(sizeof(dmall_gyukimon_png) == 1669, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hackmon
@@ -2111,11 +2237,25 @@ const unsigned char dmall_hanumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_hanumon_png) == 1512, "re-run generate_embedded_assets.sh");
 
 
+// Name: Hawkmon
+const unsigned char dmall_hawkmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Hawkmon.png"
+};
+static_assert(sizeof(dmall_hawkmon_png) == 1298, "re-run generate_embedded_assets.sh");
+
+
 // Name: Heavy Leomon
 const unsigned char dmall_heavy_leomon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Heavy Leomon.png"
 };
 static_assert(sizeof(dmall_heavy_leomon_png) == 1190, "re-run generate_embedded_assets.sh");
+
+
+// Name: Heavy Metaldramon
+const unsigned char dmall_heavy_metaldramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Heavy Metaldramon.png"
+};
+static_assert(sizeof(dmall_heavy_metaldramon_png) == 1395, "re-run generate_embedded_assets.sh");
 
 
 // Name: Herakle Kabuterimon
@@ -2242,6 +2382,13 @@ const unsigned char dmall_huankunmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Huankunmon.png"
 };
 static_assert(sizeof(dmall_huankunmon_png) == 1518, "re-run generate_embedded_assets.sh");
+
+
+// Name: Hydramon
+const unsigned char dmall_hydramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Hydramon.png"
+};
+static_assert(sizeof(dmall_hydramon_png) == 1862, "re-run generate_embedded_assets.sh");
 
 
 // Name: Hyokomon
@@ -2391,6 +2538,13 @@ const unsigned char dmall_jesmon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_jesmon_x_png) == 1346, "re-run generate_embedded_assets.sh");
 
 
+// Name: Jewelbeemon
+const unsigned char dmall_jewelbeemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Jewelbeemon.png"
+};
+static_assert(sizeof(dmall_jewelbeemon_png) == 1425, "re-run generate_embedded_assets.sh");
+
+
 // Name: Junkmon
 const unsigned char dmall_junkmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Junkmon.png"
@@ -2538,6 +2692,13 @@ const unsigned char dmall_knightmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_knightmon_png) == 1440, "re-run generate_embedded_assets.sh");
 
 
+// Name: Kodokugumon Baby
+const unsigned char dmall_kodokugumon_baby_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Kodokugumon Baby.png"
+};
+static_assert(sizeof(dmall_kodokugumon_baby_png) == 1689, "re-run generate_embedded_assets.sh");
+
+
 // Name: Kodokugumon
 const unsigned char dmall_kodokugumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Kodokugumon.png"
@@ -2664,6 +2825,13 @@ const unsigned char dmall_kyubimon_silver_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_kyubimon_silver_png) == 1308, "re-run generate_embedded_assets.sh");
 
 
+// Name: Kyukimon
+const unsigned char dmall_kyukimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Kyukimon.png"
+};
+static_assert(sizeof(dmall_kyukimon_png) == 1597, "re-run generate_embedded_assets.sh");
+
+
 // Name: Labramon
 const unsigned char dmall_labramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Labramon.png"
@@ -2690,6 +2858,13 @@ const unsigned char dmall_lalamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Lalamon.png"
 };
 static_assert(sizeof(dmall_lalamon_png) == 1022, "re-run generate_embedded_assets.sh");
+
+
+// Name: Lamiamon
+const unsigned char dmall_lamiamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Lamiamon.png"
+};
+static_assert(sizeof(dmall_lamiamon_png) == 1755, "re-run generate_embedded_assets.sh");
 
 
 // Name: Lavogaritamon
@@ -2818,6 +2993,20 @@ const unsigned char dmall_lotusmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_lotusmon_png) == 1620, "re-run generate_embedded_assets.sh");
 
 
+// Name: Loudmon
+const unsigned char dmall_loudmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Loudmon.png"
+};
+static_assert(sizeof(dmall_loudmon_png) == 1590, "re-run generate_embedded_assets.sh");
+
+
+// Name: Lovely Angemon
+const unsigned char dmall_lovely_angemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Lovely Angemon.png"
+};
+static_assert(sizeof(dmall_lovely_angemon_png) == 1739, "re-run generate_embedded_assets.sh");
+
+
 // Name: Lucemon Falldown Mode
 const unsigned char dmall_lucemon_falldown_mode_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Lucemon Falldown Mode.png"
@@ -2888,11 +3077,39 @@ const unsigned char dmall_mad_leomon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_mad_leomon_png) == 1473, "re-run generate_embedded_assets.sh");
 
 
+// Name: Magna Garurumon
+const unsigned char dmall_magna_garurumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Magna Garurumon.png"
+};
+static_assert(sizeof(dmall_magna_garurumon_png) == 1848, "re-run generate_embedded_assets.sh");
+
+
+// Name: Magna Kidmon
+const unsigned char dmall_magna_kidmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Magna Kidmon.png"
+};
+static_assert(sizeof(dmall_magna_kidmon_png) == 1634, "re-run generate_embedded_assets.sh");
+
+
+// Name: Magnamon
+const unsigned char dmall_magnamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Magnamon.png"
+};
+static_assert(sizeof(dmall_magnamon_png) == 1749, "re-run generate_embedded_assets.sh");
+
+
 // Name: Magnamon X
 const unsigned char dmall_magnamon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Magnamon X.png"
 };
 static_assert(sizeof(dmall_magnamon_x_png) == 1162, "re-run generate_embedded_assets.sh");
+
+
+// Name: Majiramon
+const unsigned char dmall_majiramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Majiramon.png"
+};
+static_assert(sizeof(dmall_majiramon_png) == 1506, "re-run generate_embedded_assets.sh");
 
 
 // Name: Mamemon
@@ -2986,11 +3203,25 @@ const unsigned char dmall_mastemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_mastemon_png) == 1493, "re-run generate_embedded_assets.sh");
 
 
+// Name: Master Tyranomon
+const unsigned char dmall_master_tyranomon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Master Tyranomon.png"
+};
+static_assert(sizeof(dmall_master_tyranomon_png) == 1852, "re-run generate_embedded_assets.sh");
+
+
 // Name: Mechanorimon
 const unsigned char dmall_mechanorimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Mechanorimon.png"
 };
 static_assert(sizeof(dmall_mechanorimon_png) == 1289, "re-run generate_embedded_assets.sh");
+
+
+// Name: Medusamon
+const unsigned char dmall_medusamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Medusamon.png"
+};
+static_assert(sizeof(dmall_medusamon_png) == 1740, "re-run generate_embedded_assets.sh");
 
 
 // Name: Megadramon
@@ -3117,6 +3348,13 @@ const unsigned char dmall_mermaimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Mermaimon.png"
 };
 static_assert(sizeof(dmall_mermaimon_png) == 1192, "re-run generate_embedded_assets.sh");
+
+
+// Name: Mervamon
+const unsigned char dmall_mervamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Mervamon.png"
+};
+static_assert(sizeof(dmall_mervamon_png) == 2287, "re-run generate_embedded_assets.sh");
 
 
 // Name: Metal Etemon
@@ -3294,6 +3532,13 @@ const unsigned char dmall_mirage_gaogamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_mirage_gaogamon_png) == 1354, "re-run generate_embedded_assets.sh");
 
 
+// Name: Mistymon
+const unsigned char dmall_mistymon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Mistymon.png"
+};
+static_assert(sizeof(dmall_mistymon_png) == 1571, "re-run generate_embedded_assets.sh");
+
+
 // Name: Mitamamon
 const unsigned char dmall_mitamamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Mitamamon.png"
@@ -3355,6 +3600,13 @@ const unsigned char dmall_monzaemon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Monzaemon X.png"
 };
 static_assert(sizeof(dmall_monzaemon_x_png) == 1281, "re-run generate_embedded_assets.sh");
+
+
+// Name: Moon Millenniumon
+const unsigned char dmall_moon_millenniumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Moon Millenniumon.png"
+};
+static_assert(sizeof(dmall_moon_millenniumon_png) == 1593, "re-run generate_embedded_assets.sh");
 
 
 // Name: Moonmon
@@ -3616,6 +3868,13 @@ const unsigned char dmall_omekamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_omekamon_png) == 1184, "re-run generate_embedded_assets.sh");
 
 
+// Name: Orcamon
+const unsigned char dmall_orcamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Orcamon.png"
+};
+static_assert(sizeof(dmall_orcamon_png) == 1361, "re-run generate_embedded_assets.sh");
+
+
 // Name: Ordinemon
 const unsigned char dmall_ordinemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Ordinemon.png"
@@ -3784,6 +4043,13 @@ const unsigned char dmall_petaldramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_petaldramon_png) == 1562, "re-run generate_embedded_assets.sh");
 
 
+// Name: Petermon
+const unsigned char dmall_petermon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Petermon.png"
+};
+static_assert(sizeof(dmall_petermon_png) == 1395, "re-run generate_embedded_assets.sh");
+
+
 // Name: Peti Meramon
 const unsigned char dmall_peti_meramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Peti Meramon.png"
@@ -3945,6 +4211,13 @@ const unsigned char dmall_pokomon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_pokomon_png) == 1199, "re-run generate_embedded_assets.sh");
 
 
+// Name: Pomumon
+const unsigned char dmall_pomumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Pomumon.png"
+};
+static_assert(sizeof(dmall_pomumon_png) == 940, "re-run generate_embedded_assets.sh");
+
+
 // Name: Ponchomon
 const unsigned char dmall_ponchomon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Ponchomon.png"
@@ -4029,6 +4302,13 @@ const unsigned char dmall_pumpmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_pumpmon_png) == 1395, "re-run generate_embedded_assets.sh");
 
 
+// Name: Punkmon
+const unsigned char dmall_punkmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Punkmon.png"
+};
+static_assert(sizeof(dmall_punkmon_png) == 2222, "re-run generate_embedded_assets.sh");
+
+
 // Name: Pupumon
 const unsigned char dmall_pupumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Pupumon.png"
@@ -4090,6 +4370,13 @@ const unsigned char dmall_pyonmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Pyonmon.png"
 };
 static_assert(sizeof(dmall_pyonmon_png) == 946, "re-run generate_embedded_assets.sh");
+
+
+// Name: Pyramidimon
+const unsigned char dmall_pyramidimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Pyramidimon.png"
+};
+static_assert(sizeof(dmall_pyramidimon_png) == 1472, "re-run generate_embedded_assets.sh");
 
 
 // Name: Quartzmon
@@ -4449,6 +4736,13 @@ const unsigned char dmall_searchmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_searchmon_png) == 1481, "re-run generate_embedded_assets.sh");
 
 
+// Name: Seiten Gokuwmon
+const unsigned char dmall_seiten_gokuwmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Seiten Gokuwmon.png"
+};
+static_assert(sizeof(dmall_seiten_gokuwmon_png) == 1643, "re-run generate_embedded_assets.sh");
+
+
 // Name: Seraphimon
 const unsigned char dmall_seraphimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Seraphimon.png"
@@ -4505,6 +4799,13 @@ const unsigned char dmall_shima_unimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_shima_unimon_png) == 1203, "re-run generate_embedded_assets.sh");
 
 
+// Name: Shine Greymon Burst Mode
+const unsigned char dmall_shine_greymon_burst_mode_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Shine Greymon Burst Mode.png"
+};
+static_assert(sizeof(dmall_shine_greymon_burst_mode_png) == 1714, "re-run generate_embedded_assets.sh");
+
+
 // Name: Shine Greymon
 const unsigned char dmall_shine_greymon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Shine Greymon.png"
@@ -4524,6 +4825,20 @@ const unsigned char dmall_shivamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Shivamon.png"
 };
 static_assert(sizeof(dmall_shivamon_png) == 1638, "re-run generate_embedded_assets.sh");
+
+
+// Name: Shoemon
+const unsigned char dmall_shoemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Shoemon.png"
+};
+static_assert(sizeof(dmall_shoemon_png) == 1552, "re-run generate_embedded_assets.sh");
+
+
+// Name: Shoeshoemon
+const unsigned char dmall_shoeshoemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Shoeshoemon.png"
+};
+static_assert(sizeof(dmall_shoeshoemon_png) == 1794, "re-run generate_embedded_assets.sh");
 
 
 // Name: Shootmon
@@ -4554,11 +4869,25 @@ const unsigned char dmall_shoutmon_x3_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_shoutmon_x3_png) == 1599, "re-run generate_embedded_assets.sh");
 
 
+// Name: Siesamon
+const unsigned char dmall_siesamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Siesamon.png"
+};
+static_assert(sizeof(dmall_siesamon_png) == 1521, "re-run generate_embedded_assets.sh");
+
+
 // Name: Siesamon X
 const unsigned char dmall_siesamon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Siesamon X.png"
 };
 static_assert(sizeof(dmall_siesamon_x_png) == 1267, "re-run generate_embedded_assets.sh");
+
+
+// Name: Silphymon
+const unsigned char dmall_silphymon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Silphymon.png"
+};
+static_assert(sizeof(dmall_silphymon_png) == 1345, "re-run generate_embedded_assets.sh");
 
 
 // Name: Sirenmon
@@ -4580,6 +4909,13 @@ const unsigned char dmall_sistermon_blanc_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Sistermon Blanc.png"
 };
 static_assert(sizeof(dmall_sistermon_blanc_png) == 1285, "re-run generate_embedded_assets.sh");
+
+
+// Name: Sistermon Noir
+const unsigned char dmall_sistermon_noir_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Sistermon Noir.png"
+};
+static_assert(sizeof(dmall_sistermon_noir_png) == 1314, "re-run generate_embedded_assets.sh");
 
 
 // Name: Skull Baluchimon
@@ -4615,6 +4951,13 @@ const unsigned char dmall_skull_mammon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Skull Mammon X.png"
 };
 static_assert(sizeof(dmall_skull_mammon_x_png) == 1351, "re-run generate_embedded_assets.sh");
+
+
+// Name: Skull Seadramon
+const unsigned char dmall_skull_seadramon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Skull Seadramon.png"
+};
+static_assert(sizeof(dmall_skull_seadramon_png) == 1628, "re-run generate_embedded_assets.sh");
 
 
 // Name: Sleipmon X
@@ -4671,6 +5014,13 @@ const unsigned char dmall_stingmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Stingmon.png"
 };
 static_assert(sizeof(dmall_stingmon_png) == 1424, "re-run generate_embedded_assets.sh");
+
+
+// Name: Styracomon
+const unsigned char dmall_styracomon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Styracomon.png"
+};
+static_assert(sizeof(dmall_styracomon_png) == 1637, "re-run generate_embedded_assets.sh");
 
 
 // Name: Sunamon
@@ -4974,6 +5324,13 @@ const unsigned char dmall_tuchidarumon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 static_assert(sizeof(dmall_tuchidarumon_png) == 905, "re-run generate_embedded_assets.sh");
 
 
+// Name: Tukaimon
+const unsigned char dmall_tukaimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Tukaimon.png"
+};
+static_assert(sizeof(dmall_tukaimon_png) == 1228, "re-run generate_embedded_assets.sh");
+
+
 // Name: Turuiemon
 const unsigned char dmall_turuiemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Turuiemon.png"
@@ -5014,6 +5371,20 @@ const unsigned char dmall_tyranomon_x_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Tyranomon X.png"
 };
 static_assert(sizeof(dmall_tyranomon_x_png) == 1216, "re-run generate_embedded_assets.sh");
+
+
+// Name: Tyrant Kabuterimon
+const unsigned char dmall_tyrant_kabuterimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Tyrant Kabuterimon.png"
+};
+static_assert(sizeof(dmall_tyrant_kabuterimon_png) == 1738, "re-run generate_embedded_assets.sh");
+
+
+// Name: Ulforce V-dramon Future Mode
+const unsigned char dmall_ulforce_v_dramon_future_mode_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Ulforce V-dramon Future Mode.png"
+};
+static_assert(sizeof(dmall_ulforce_v_dramon_future_mode_png) == 2061, "re-run generate_embedded_assets.sh");
 
 
 // Name: Ulforce V-dramon
@@ -5119,6 +5490,13 @@ const unsigned char dmall_vermillimon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Vermillimon.png"
 };
 static_assert(sizeof(dmall_vermillimon_png) == 1214, "re-run generate_embedded_assets.sh");
+
+
+// Name: Vikemon
+const unsigned char dmall_vikemon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Vikemon.png"
+};
+static_assert(sizeof(dmall_vikemon_png) == 1601, "re-run generate_embedded_assets.sh");
 
 
 // Name: V-mon
@@ -5245,6 +5623,13 @@ const unsigned char dmall_whamon_png[] ASSETS_DMALL_IMAGES_SECTION = {
 #embed "../../../assets/dmall/Whamon.png"
 };
 static_assert(sizeof(dmall_whamon_png) == 1313, "re-run generate_embedded_assets.sh");
+
+
+// Name: Witchmon
+const unsigned char dmall_witchmon_png[] ASSETS_DMALL_IMAGES_SECTION = {
+#embed "../../../assets/dmall/Witchmon.png"
+};
+static_assert(sizeof(dmall_witchmon_png) == 1110, "re-run generate_embedded_assets.sh");
 
 
 // Name: Wizarmon

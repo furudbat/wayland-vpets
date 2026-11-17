@@ -12,6 +12,7 @@ Made by Fans <3
 - Agumon X
 - Agumon - Yuki no Kizuna
 - Airdramon
+- Ajatarmon
 - Akatorimon
 - Algomon (Adult)
 - Algomon (Baby II)
@@ -48,6 +49,7 @@ Made by Fans <3
 - Armadimon
 - Armagemon
 - Arma Lizamon
+- Arresterdramon
 - Astamon
 - Asuramon
 - Atlur Kabuterimon (Blue)
@@ -66,6 +68,7 @@ Made by Fans <3
 - Barbamon
 - Barbamon X
 - Bearmon
+- Beel Starmon
 - Beel Starmon X
 - Beelzebumon Blast Mode
 - Beelzebumon
@@ -117,6 +120,7 @@ Made by Fans <3
 - Caturamon
 - Centalmon
 - Cerberumon X
+- Ceresmon Medium
 - Ceresmon
 - Cernumon
 - Chamblemon
@@ -227,6 +231,7 @@ Made by Fans <3
 - Flaremon
 - Floramon
 - Fluffymon
+- Fros Velgrmon
 - Frozomon
 - Fufumon
 - Fugamon
@@ -260,6 +265,7 @@ Made by Fans <3
 - Gigadramon
 - Giga Seadramon
 - Gigimon
+- Ginkakumon
 - Ginryumon
 - Giromon
 - Gizamon
@@ -299,6 +305,7 @@ Made by Fans <3
 - Gundramon
 - Gururumon
 - Gusokumon
+- Gyukimon
 - Hackmon
 - Hagurumon
 - Hangyomon
@@ -322,6 +329,7 @@ Made by Fans <3
 - Hououmon X
 - Huanglongmon
 - Huankunmon
+- Hydramon
 - Hyokomon
 - Hyougamon
 - Ice Devimon
@@ -343,6 +351,7 @@ Made by Fans <3
 - Jesmon GX
 - Jesmon
 - Jesmon X
+- Jewelbeemon
 - Junkmon
 - Junomon
 - Jupitermon
@@ -364,6 +373,7 @@ Made by Fans <3
 - King Etemon
 - Kiwimon
 - Knightmon
+- Kodokugumon Baby
 - Kodokugumon
 - Koemon
 - Kokabuterimon
@@ -382,6 +392,7 @@ Made by Fans <3
 - Kyokyomon
 - Kyubimon
 - Kyubimon (Silver)
+- Kyukimon
 - Labramon
 - Lady Devimon
 - Lady Devimon X
@@ -404,6 +415,7 @@ Made by Fans <3
 - Lopmon X
 - Lord Knightmon X
 - Lotusmon
+- Lovely Angemon
 - Lucemon Falldown Mode
 - Lucemon
 - Lucemon Satan Mode
@@ -481,6 +493,7 @@ Made by Fans <3
 - Monochromon X
 - Monzaemon
 - Monzaemon X
+- Moon Millenniumon
 - Moonmon
 - Mori Shellmon
 - Morphomon
@@ -518,6 +531,7 @@ Made by Fans <3
 - Omegamon Zwart
 - Omega Shoutmon X
 - Omekamon
+- Orcamon
 - Ordinemon
 - Orochimon
 - Otamamon
@@ -542,6 +556,7 @@ Made by Fans <3
 - Pegasmon X
 - Penmon
 - Petaldramon
+- Petermon
 - Peti Meramon
 - Petit Mamon
 - Petitmon
@@ -565,6 +580,7 @@ Made by Fans <3
 - Plotmon X
 - Plutomon
 - Pokomon
+- Pomumon
 - Ponchomon
 - Popomon
 - Porcupamon
@@ -645,6 +661,7 @@ Made by Fans <3
 - Sheepmon
 - Shellmon
 - Shima Unimon
+- Shine Greymon Burst Mode
 - Shine Greymon
 - Shin Monzaemon
 - Shivamon
@@ -652,10 +669,12 @@ Made by Fans <3
 - Shoutmon X2 Plus M
 - Shoutmon X2
 - Shoutmon X3
+- Siesamon
 - Siesamon X
 - Sirenmon
 - Sistermon Blanc (Awakened)
 - Sistermon Blanc
+- Sistermon Noir
 - Skull Baluchimon
 - Skull Greymon
 - Skull Knightmon
@@ -718,6 +737,7 @@ Made by Fans <3
 - Tylomon X
 - Tyranomon
 - Tyranomon X
+- Tyrant Kabuterimon
 - Ulforce V-dramon
 - Ulforce V-dramon X
 - Ultimate Brachimon
@@ -733,6 +753,7 @@ Made by Fans <3
 - Venom Vamdemon
 - Venusmon
 - Vermillimon
+- Vikemon
 - V-mon
 - Volcanicdramon
 - Volto Bautamon
@@ -751,6 +772,7 @@ Made by Fans <3
 - Were Garurumon Sagittarius Mode
 - Were Garurumon X
 - Whamon
+- Witchmon
 - Wizarmon
 - Wizarmon X
 - Woodmon
