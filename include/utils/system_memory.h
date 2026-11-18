@@ -7,6 +7,7 @@
 #include "utils/error.h"
 
 #include <cassert>
+#include <cstddef>
 #include <cstdint>
 #include <fcntl.h>
 #include <pthread.h>
@@ -135,7 +136,7 @@ public:
       }
     }
   }
-  explicit LockGuardOptional(nullptr_t) {}
+  explicit LockGuardOptional(std::nullptr_t) {}
 
   ~LockGuardOptional() {
     if (pt_mutex) {
