@@ -41,7 +41,7 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 ## FRAME RATE
 
-- **fps**: Animation frames per second.
+- **fps**: Animation frames per second (when animation_speed = 0)
 - **input_fps**: Input thread frame rate (optional, 0 = use fps).
 - **audio_fps**: Audio thread update rate (optional, 0 = use fps).
 
@@ -123,8 +123,8 @@ _Requires a build with the audio module (PipeWire + FFTW); see `ENABLE_AUDIO_MOD
 
 ## MOVEMENT
 
-- **movement_radius**: Moving area, the radius from center (0 = disabled).
-- **movement_speed**: Traveling distance per movement animation.
+- **movement_radius**: Moving area, the radius from center (in px; 0 = disabled).
+- **movement_speed**: Traveling distance per movement animation (in px).
 - **movement_wait_factor**: Pause after a movement: `movement_speed * movement_wait_factor` (default 5.1).
 - **enable_movement_debug**: Show Moving area, in _red_. (0 = off, 1 = on).
 

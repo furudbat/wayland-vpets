@@ -38,7 +38,7 @@ enable_debug=0
 | `padding_x`                  | 0–16000                                                            | 0             | Horizontal padding (pixels) around each frame when loading the sprite sheet               |
 | `padding_y`                  | 0–16000                                                            | 0             | Vertical padding (pixels) around each frame when loading the sprite sheet                 |
 | `idle_frame`                 | 0–3 (varies by sprite type)                                        | 0             | Which frame to use when idle (sprite-specific options)                                    |
-| `idle_animation`             | 0 or 1                                                             | 0             | Enable idle animation (alias: `enable_idle_animation`)                                    |
+| `idle_animation`             | 0 or 1                                                             | 0             | Enable idle animation                                  |
 | `animation_speed`            | 0–60000                                                            | 0             | Frame duration in ms (0 = use `fps`)                                                      |
 | `keypress_duration`          | 0–60000                                                            | 100           | Duration to display keypress animation (ms)                                               |
 | `enable_hand_mapping`        | 0 or 1                                                             | 1             | Left half of the keyboard triggers the left hand, right half the right hand (Bongocat)    |
@@ -68,7 +68,7 @@ enable_debug=0
 | `movement_speed`             | 0–60000                                                            | 0             | Movement speed (0 = disabled)                                                             |
 | `movement_wait_factor`       | 0.0+                                                               | 5.1           | Pause after a movement: `movement_speed * movement_wait_factor`                           |
 | `enable_movement_debug`      | 0 or 1                                                             | 0             | Show Movement area                                                                        |
-| `audio`                      | 0 or 1                                                             | 0             | React to playing audio (PipeWire sink monitor, requires audio module) (alias: `enable_audio`) |
+| `audio`                      | 0 or 1                                                             | 0             | React to playing audio (PipeWire sink monitor, requires audio module) |
 | `audio_sink`                 | PipeWire sink name                                                 | (default)     | Sink to listen to (`pactl list short sinks`), empty = system default sink                 |
 | `audio_happy_peak`           | 0.0–1.0                                                            | 0.6           | Fraction of bars reaching their top at the same time that triggers happy (0 = disabled)   |
 | `audio_fps`                  | 0–540                                                              | 0             | Audio thread update rate (0 = use `fps`)                                                  |
@@ -108,7 +108,7 @@ _Best to disable antialiasing (`enable_antialiasing=0`) for pixel-perfect scalin
 
 ##### MS Agent 📎 - Your Classic Microsoft Companion
 
-While only Clippy is bundled in `wpets-all`, the other MS Agent friends are bundled in `wpets-ms-agent`: `Links`
+While only Clippy is bundled in `wpets-all`, the other MS Agent friends are bundled in `wpets-ms-agent` like `Links`
 
 
 #### Audio (`audio`)
@@ -190,4 +190,4 @@ Set `animation_name=custom` and point `custom_sprite_sheet_filename` to your PNG
 | `custom_after_evolving_row`                 | 1-18               | -1 (auto)        | Row nr for after evolving animation (requires evolution support)                     |
 
 
-*You can find more config- and sprite-sheet examples: [here](../examples/custom-sprite-sheets).*
+_You can find more config- and sprite-sheet examples in [examples/custom-sprite-sheets](../examples/custom-sprite-sheets)._

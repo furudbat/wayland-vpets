@@ -47,9 +47,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 1,
+            .num_animation_indices = 2,
             .animation_indices = {
-                DMALL_GREYMON_BLUE_ANIM_INDEX
+                DMALL_DARK_TYRANOMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX
             },
         },
         // Name: Agumon (Black) X
@@ -241,7 +241,7 @@ namespace bongocat::assets {
                 
             },
         },
-        // Name: Andiramon (Data)
+        // Name: Andiramon (Deva)
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
@@ -250,7 +250,7 @@ namespace bongocat::assets {
                 DMALL_CHERUBIMON_VIRTUE_ANIM_INDEX
             },
         },
-        // Name: Andiramon (Virus)
+        // Name: Andiramon
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
@@ -362,9 +362,9 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            .num_animation_indices = 14,
+            .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_ANCIENT_BEATMON_ANIM_INDEX ,DMALL_APOCALYMON_ANIM_INDEX ,DMALL_BEELZEBUMON_ANIM_INDEX ,DMALL_BELIAL_VAMDEMON_ANIM_INDEX ,DMALL_BLACK_WAR_GREYMON_ANIM_INDEX ,DMALL_BLOOM_LORDMON_ANIM_INDEX ,DMALL_DEMON_ANIM_INDEX ,DMALL_GIGA_SEADRAMON_ANIM_INDEX ,DMALL_HYDRAMON_ANIM_INDEX ,DMALL_LILITHMON_ANIM_INDEX ,DMALL_LOTUSMON_ANIM_INDEX ,DMALL_PIEMON_ANIM_INDEX ,DMALL_RAFFLESIMON_ANIM_INDEX ,DMALL_TYRANT_KABUTERIMON_ANIM_INDEX
+                DMALL_ANCIENT_BEATMON_ANIM_INDEX ,DMALL_APOCALYMON_ANIM_INDEX ,DMALL_BEELZEBUMON_ANIM_INDEX ,DMALL_BELIAL_VAMDEMON_ANIM_INDEX ,DMALL_BLACK_WAR_GREYMON_ANIM_INDEX ,DMALL_BLOOM_LORDMON_ANIM_INDEX ,DMALL_DEMON_ANIM_INDEX ,DMALL_GIGA_SEADRAMON_ANIM_INDEX ,DMALL_HYDRAMON_ANIM_INDEX ,DMALL_LILITHMON_ANIM_INDEX ,DMALL_LOTUSMON_ANIM_INDEX ,DMALL_PIEMON_ANIM_INDEX ,DMALL_RAFFLESIMON_ANIM_INDEX ,DMALL_TYRANT_KABUTERIMON_ANIM_INDEX ,DMALL_VOLTOBAUTAMON_ANIM_INDEX
             },
         },
         // Name: Arkadimon Adult
@@ -718,6 +718,15 @@ namespace bongocat::assets {
                 DMALL_MAGNA_GARURUMON_ANIM_INDEX
             },
         },
+        // Name: Betamon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            .num_animation_indices = 2,
+            .animation_indices = {
+                DMALL_DINOHUMON_ANIM_INDEX ,DMALL_SEADRAMON_ANIM_INDEX
+            },
+        },
         // Name: Betamon X
         {
             // Stage: Child
@@ -758,9 +767,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                DMALL_ASURAMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_KNIGHTMON_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_KNIGHTMON_ANIM_INDEX
             },
         },
         // Name: Black Galgomon
@@ -857,9 +866,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 11,
+            .num_animation_indices = 12,
             .animation_indices = {
-                DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DARK_SUPERSTARMON_ANIM_INDEX ,DMALL_DEATH_MERAMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_KNIGHTMON_ANIM_INDEX ,DMALL_LADY_DEVIMON_ANIM_INDEX ,DMALL_NEO_DEVIMON_ANIM_INDEX ,DMALL_PANDAMON_ANIM_INDEX ,DMALL_SKULL_BALUCHIMON_ANIM_INDEX ,DMALL_WARU_MONZAEMON_ANIM_INDEX ,DMALL_WERE_GARURUMON_BLACK_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DARK_SUPERSTARMON_ANIM_INDEX ,DMALL_DEATH_MERAMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_KNIGHTMON_ANIM_INDEX ,DMALL_LADY_DEVIMON_ANIM_INDEX ,DMALL_NEO_DEVIMON_ANIM_INDEX ,DMALL_PANDAMON_ANIM_INDEX ,DMALL_SKULL_BALUCHIMON_ANIM_INDEX ,DMALL_WARU_MONZAEMON_ANIM_INDEX ,DMALL_WERE_GARURUMON_BLACK_ANIM_INDEX
             },
         },
         // Name: Black War Greymon
@@ -892,10 +901,10 @@ namespace bongocat::assets {
         // Name: Blitz Greymon
         {
             // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            .num_animation_indices = 0,
+            .conditions = { .next_evolution_time_sec = 230400 },
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                DMALL_OMEGAMON_ALTER_S_ANIM_INDEX
             },
         },
         // Name: Bloom Lordmon
@@ -1102,7 +1111,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 129600 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_AERO_V_DRAMON_ANIM_INDEX ,DMALL_ANDROMON_ANIM_INDEX ,DMALL_ANOMALOCARIMON_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_BEOWOLFMON_ANIM_INDEX ,DMALL_BIG_MAMEMON_ANIM_INDEX ,DMALL_BLACK_RAPIDMON_ANIM_INDEX ,DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DAGOMON_ANIM_INDEX ,DMALL_DARK_KNIGHTMON_ANIM_INDEX ,DMALL_DURAMON_ANIM_INDEX ,DMALL_FANTOMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_GERBEMON_ANIM_INDEX ,DMALL_GIROMON_ANIM_INDEX
+                DMALL_AERO_V_DRAMON_ANIM_INDEX ,DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_ANDROMON_ANIM_INDEX ,DMALL_ANOMALOCARIMON_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_BEOWOLFMON_ANIM_INDEX ,DMALL_BIG_MAMEMON_ANIM_INDEX ,DMALL_BLACK_RAPIDMON_ANIM_INDEX ,DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DAGOMON_ANIM_INDEX ,DMALL_DARK_KNIGHTMON_ANIM_INDEX ,DMALL_DURAMON_ANIM_INDEX ,DMALL_FANTOMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_GERBEMON_ANIM_INDEX
             },
         },
         // Name: Cerberumon X
@@ -1336,7 +1345,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 86400 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_ANGEMON_ANIM_INDEX ,DMALL_BLACK_GALGOMON_ANIM_INDEX ,DMALL_CLOCKMON_ANIM_INDEX ,DMALL_DOGMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ORANGE_ANIM_INDEX ,DMALL_GUARDROMON_ANIM_INDEX ,DMALL_GUARDROMON_GOLD_ANIM_INDEX ,DMALL_HYOUGAMON_ANIM_INDEX ,DMALL_ICE_DEVIMON_ANIM_INDEX ,DMALL_IGAMON_ANIM_INDEX ,DMALL_NUMEMON_ANIM_INDEX
+                DMALL_ANGEMON_ANIM_INDEX ,DMALL_BLACK_GALGOMON_ANIM_INDEX ,DMALL_CLOCKMON_ANIM_INDEX ,DMALL_DARK_TYRANOMON_ANIM_INDEX ,DMALL_DOGMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ORANGE_ANIM_INDEX ,DMALL_GUARDROMON_ANIM_INDEX ,DMALL_GUARDROMON_GOLD_ANIM_INDEX ,DMALL_HYOUGAMON_ANIM_INDEX ,DMALL_ICE_DEVIMON_ANIM_INDEX ,DMALL_IGAMON_ANIM_INDEX
             },
         },
         // Name: Climbmon
@@ -1354,7 +1363,16 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 129600 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_AERO_V_DRAMON_ANIM_INDEX ,DMALL_ANDROMON_ANIM_INDEX ,DMALL_ANOMALOCARIMON_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_BEOWOLFMON_ANIM_INDEX ,DMALL_BIG_MAMEMON_ANIM_INDEX ,DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DAGOMON_ANIM_INDEX ,DMALL_DARK_KNIGHTMON_ANIM_INDEX ,DMALL_DEATH_MERAMON_ANIM_INDEX ,DMALL_DURAMON_ANIM_INDEX ,DMALL_EX_TYRANOMON_ANIM_INDEX ,DMALL_FANTOMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_GERBEMON_ANIM_INDEX
+                DMALL_AERO_V_DRAMON_ANIM_INDEX ,DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_ANDROMON_ANIM_INDEX ,DMALL_ANOMALOCARIMON_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_BEOWOLFMON_ANIM_INDEX ,DMALL_BIG_MAMEMON_ANIM_INDEX ,DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DAGOMON_ANIM_INDEX ,DMALL_DARK_KNIGHTMON_ANIM_INDEX ,DMALL_DEATH_MERAMON_ANIM_INDEX ,DMALL_DURAMON_ANIM_INDEX ,DMALL_EX_TYRANOMON_ANIM_INDEX ,DMALL_FANTOMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX
+            },
+        },
+        // Name: Cockatrimon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_MEGADRAMON_ANIM_INDEX
             },
         },
         // Name: Cocomon
@@ -1432,10 +1450,10 @@ namespace bongocat::assets {
         // Name: Cres Garurumon
         {
             // Stage: Ultimate
-            .conditions = { .next_evolution_time_sec = -1 },
-            .num_animation_indices = 0,
+            .conditions = { .next_evolution_time_sec = 230400 },
+            .num_animation_indices = 1,
             .animation_indices = {
-                
+                DMALL_OMEGAMON_ALTER_S_ANIM_INDEX
             },
         },
         // Name: Crys Paledramon
@@ -1460,9 +1478,9 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
-            .num_animation_indices = 4,
+            .num_animation_indices = 5,
             .animation_indices = {
-                DMALL_IMPMON_ANIM_INDEX ,DMALL_LUCEMON_ANIM_INDEX ,DMALL_PLOTMON_ANIM_INDEX ,DMALL_TERRIERMON_ANIM_INDEX
+                DMALL_IMPMON_ANIM_INDEX ,DMALL_LUCEMON_ANIM_INDEX ,DMALL_PATAMON_ANIM_INDEX ,DMALL_PLOTMON_ANIM_INDEX ,DMALL_TERRIERMON_ANIM_INDEX
             },
         },
         // Name: Curimon
@@ -1564,6 +1582,15 @@ namespace bongocat::assets {
                 DMALL_BEEL_STARMON_ANIM_INDEX ,DMALL_DARKDRAMON_ANIM_INDEX ,DMALL_KAISER_GREYMON_ANIM_INDEX ,DMALL_METAL_GARURUMON_BLACK_ANIM_INDEX ,DMALL_TITAMON_ANIM_INDEX
             },
         },
+        // Name: Dark Tyranomon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_METAL_TYRANOMON_ANIM_INDEX
+            },
+        },
         // Name: Dark Tyranomon X
         {
             // Stage: Adult
@@ -1609,6 +1636,15 @@ namespace bongocat::assets {
                 DMALL_ANDROMON_ANIM_INDEX ,DMALL_DORUGUREMON_ANIM_INDEX ,DMALL_METAL_TYRANOMON_ANIM_INDEX
             },
         },
+        // Name: Deltamon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_NANOMON_ANIM_INDEX
+            },
+        },
         // Name: Delumon
         {
             // Stage: Perfect
@@ -1643,6 +1679,15 @@ namespace bongocat::assets {
             .num_animation_indices = 0,
             .animation_indices = {
                 
+            },
+        },
+        // Name: Devidramon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_MEGADRAMON_ANIM_INDEX
             },
         },
         // Name: Devimon
@@ -1685,9 +1730,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                DMALL_DELUMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_YATAGARAMON_ANIM_INDEX
+                DMALL_ANDIRAMON_ANIM_INDEX ,DMALL_DELUMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_YATAGARAMON_ANIM_INDEX
             },
         },
         // Name: Diginorimon
@@ -1802,9 +1847,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 14,
+            .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_DOKUGUMON_ANIM_INDEX ,DMALL_GOKIMON_ANIM_INDEX ,DMALL_KUWAGAMON_ANIM_INDEX ,DMALL_MORI_SHELLMON_ANIM_INDEX ,DMALL_MOTHMON_ANIM_INDEX ,DMALL_NISE_DRIMOGEMON_ANIM_INDEX ,DMALL_PLATINUM_SCUMON_ANIM_INDEX ,DMALL_SAND_YANMAMON_ANIM_INDEX ,DMALL_SNIMON_ANIM_INDEX ,DMALL_STINGMON_ANIM_INDEX ,DMALL_TOGEMON_ANIM_INDEX ,DMALL_WOODMON_ANIM_INDEX ,DMALL_YANMAMON_ANIM_INDEX ,DMALL_ZASSOUMON_ANIM_INDEX
+                DMALL_COCKATRIMON_ANIM_INDEX ,DMALL_DOKUGUMON_ANIM_INDEX ,DMALL_FLYMON_ANIM_INDEX ,DMALL_GOKIMON_ANIM_INDEX ,DMALL_KUWAGAMON_ANIM_INDEX ,DMALL_MORI_SHELLMON_ANIM_INDEX ,DMALL_MOTHMON_ANIM_INDEX ,DMALL_NISE_DRIMOGEMON_ANIM_INDEX ,DMALL_PLATINUM_SCUMON_ANIM_INDEX ,DMALL_SAND_YANMAMON_ANIM_INDEX ,DMALL_SNIMON_ANIM_INDEX ,DMALL_STINGMON_ANIM_INDEX ,DMALL_TOGEMON_ANIM_INDEX ,DMALL_WOODMON_ANIM_INDEX ,DMALL_YANMAMON_ANIM_INDEX
             },
         },
         // Name: Dorbickmon
@@ -1973,9 +2018,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                DMALL_EBIDRAMON_ANIM_INDEX ,DMALL_KABUTERIMON_ANIM_INDEX ,DMALL_OCTMON_ANIM_INDEX
+                DMALL_COCKATRIMON_ANIM_INDEX ,DMALL_EBIDRAMON_ANIM_INDEX ,DMALL_KABUTERIMON_ANIM_INDEX ,DMALL_OCTMON_ANIM_INDEX
             },
         },
         // Name: Ebidramon
@@ -2000,9 +2045,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 4,
+            .num_animation_indices = 5,
             .animation_indices = {
-                DMALL_AEGIOMON_ANIM_INDEX ,DMALL_GARURUMON_BLACK_ANIM_INDEX ,DMALL_LEOMON_ANIM_INDEX ,DMALL_RAREMON_ANIM_INDEX
+                DMALL_AEGIOMON_ANIM_INDEX ,DMALL_DARK_TYRANOMON_ANIM_INDEX ,DMALL_GARURUMON_BLACK_ANIM_INDEX ,DMALL_LEOMON_ANIM_INDEX ,DMALL_RAREMON_ANIM_INDEX
             },
         },
         // Name: Elecmon (Violet)
@@ -2158,6 +2203,15 @@ namespace bongocat::assets {
                 
             },
         },
+        // Name: Flymon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_METAL_TYRANOMON_ANIM_INDEX
+            },
+        },
         // Name: Fros Velgrmon
         {
             // Stage: Ultimate
@@ -2212,6 +2266,15 @@ namespace bongocat::assets {
                 DMALL_GARURUMON_BLACK_ANIM_INDEX
             },
         },
+        // Name: Gabumon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_GARURUMON_ANIM_INDEX
+            },
+        },
         // Name: Gabumon X
         {
             // Stage: Child
@@ -2234,9 +2297,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 9,
+            .num_animation_indices = 11,
             .animation_indices = {
-                DMALL_BLACK_RAPIDMON_ANIM_INDEX ,DMALL_CATCH_MAMEMON_ANIM_INDEX ,DMALL_CRESCEMON_ANIM_INDEX ,DMALL_GRAPPU_LEOMON_ANIM_INDEX ,DMALL_JYAGAMON_ANIM_INDEX ,DMALL_MACH_GAOGAMON_ANIM_INDEX ,DMALL_MEGALO_GROWMON_ANIM_INDEX ,DMALL_METAL_MAMEMON_ANIM_INDEX ,DMALL_PANDAMON_ANIM_INDEX
+                DMALL_ANDIRAMON_ANIM_INDEX ,DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_BLACK_RAPIDMON_ANIM_INDEX ,DMALL_CATCH_MAMEMON_ANIM_INDEX ,DMALL_CRESCEMON_ANIM_INDEX ,DMALL_GRAPPU_LEOMON_ANIM_INDEX ,DMALL_JYAGAMON_ANIM_INDEX ,DMALL_MACH_GAOGAMON_ANIM_INDEX ,DMALL_MEGALO_GROWMON_ANIM_INDEX ,DMALL_METAL_MAMEMON_ANIM_INDEX ,DMALL_PANDAMON_ANIM_INDEX
             },
         },
         // Name: Gammamon
@@ -2362,7 +2425,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 86400 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_BITMON_ANIM_INDEX ,DMALL_CYCLOMON_ANIM_INDEX ,DMALL_DEVIMON_ANIM_INDEX ,DMALL_DOBERMON_ANIM_INDEX ,DMALL_DORUGAMON_ANIM_INDEX ,DMALL_GALGOMON_ANIM_INDEX ,DMALL_GAOGAMON_ANIM_INDEX ,DMALL_GARGOMON_ANIM_INDEX ,DMALL_GARURUMON_ANIM_INDEX ,DMALL_GRYZMON_ANIM_INDEX ,DMALL_LEOMON_ANIM_INDEX ,DMALL_LYNXMON_ANIM_INDEX ,DMALL_PEGASMON_ANIM_INDEX ,DMALL_RAREMON_ANIM_INDEX ,DMALL_SANGLOUPMON_ANIM_INDEX
+                DMALL_BITMON_ANIM_INDEX ,DMALL_CYCLOMON_ANIM_INDEX ,DMALL_DARK_TYRANOMON_ANIM_INDEX ,DMALL_DELTAMON_ANIM_INDEX ,DMALL_DEVIDRAMON_ANIM_INDEX ,DMALL_DEVIMON_ANIM_INDEX ,DMALL_DOBERMON_ANIM_INDEX ,DMALL_DORUGAMON_ANIM_INDEX ,DMALL_GALGOMON_ANIM_INDEX ,DMALL_GAOGAMON_ANIM_INDEX ,DMALL_GARGOMON_ANIM_INDEX ,DMALL_GARURUMON_ANIM_INDEX ,DMALL_GRYZMON_ANIM_INDEX ,DMALL_LEOMON_ANIM_INDEX ,DMALL_LYNXMON_ANIM_INDEX
             },
         },
         // Name: Gekkomon
@@ -2468,9 +2531,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 1,
+            .num_animation_indices = 2,
             .animation_indices = {
-                DMALL_PANDAMON_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_PANDAMON_ANIM_INDEX
             },
         },
         // Name: Ginryumon
@@ -2495,9 +2558,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 2,
+            .num_animation_indices = 5,
             .animation_indices = {
-                DMALL_TUSKMON_ANIM_INDEX ,DMALL_RAREMON_ANIM_INDEX
+                DMALL_DEVIDRAMON_ANIM_INDEX ,DMALL_TUSKMON_ANIM_INDEX ,DMALL_FLYMON_ANIM_INDEX ,DMALL_DELTAMON_ANIM_INDEX ,DMALL_RAREMON_ANIM_INDEX
             },
         },
         // Name: Goddramon
@@ -2785,7 +2848,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 86400 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_BLACK_GROWMON_ANIM_INDEX ,DMALL_CENTALMON_ANIM_INDEX ,DMALL_CYCLOMON_ANIM_INDEX ,DMALL_DEATH_X_DORUGAMON_ANIM_INDEX ,DMALL_EBIDRAMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GESOMON_ANIM_INDEX ,DMALL_GINRYUMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ANIM_INDEX ,DMALL_GROWMON_ORANGE_ANIM_INDEX ,DMALL_FLA_WIZARMON_ANIM_INDEX ,DMALL_KYUBIMON_ANIM_INDEX ,DMALL_LEOMON_ANIM_INDEX ,DMALL_MECHANORIMON_ANIM_INDEX
+                DMALL_BLACK_GROWMON_ANIM_INDEX ,DMALL_CENTALMON_ANIM_INDEX ,DMALL_CYCLOMON_ANIM_INDEX ,DMALL_DARK_TYRANOMON_ANIM_INDEX ,DMALL_DEATH_X_DORUGAMON_ANIM_INDEX ,DMALL_EBIDRAMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GESOMON_ANIM_INDEX ,DMALL_GINRYUMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ANIM_INDEX ,DMALL_GROWMON_ORANGE_ANIM_INDEX ,DMALL_FLA_WIZARMON_ANIM_INDEX ,DMALL_FLYMON_ANIM_INDEX ,DMALL_KYUBIMON_ANIM_INDEX
             },
         },
         // Name: Gumdramon
@@ -2875,7 +2938,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 129600 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_AERO_V_DRAMON_ANIM_INDEX ,DMALL_ANDROMON_ANIM_INDEX ,DMALL_ANGEWOMON_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_BAALMON_ANIM_INDEX ,DMALL_BIG_MAMEMON_ANIM_INDEX ,DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DURAMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_HANGYOMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_JYAGAMON_ANIM_INDEX ,DMALL_KYUKIMON_ANIM_INDEX ,DMALL_MAMMON_ANIM_INDEX ,DMALL_MEGADRAMON_ANIM_INDEX
+                DMALL_AERO_V_DRAMON_ANIM_INDEX ,DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_ANDROMON_ANIM_INDEX ,DMALL_ANGEWOMON_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_BAALMON_ANIM_INDEX ,DMALL_BIG_MAMEMON_ANIM_INDEX ,DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_DURAMON_ANIM_INDEX ,DMALL_GARUDAMON_ANIM_INDEX ,DMALL_HANGYOMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_JYAGAMON_ANIM_INDEX ,DMALL_KYUKIMON_ANIM_INDEX ,DMALL_MAMMON_ANIM_INDEX
             },
         },
         // Name: Hawkmon
@@ -3026,9 +3089,9 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                DMALL_JAZAMON_ANIM_INDEX ,DMALL_JUNKMON_ANIM_INDEX ,DMALL_V_MON_ANIM_INDEX
+                DMALL_GABUMON_ANIM_INDEX ,DMALL_JAZAMON_ANIM_INDEX ,DMALL_JUNKMON_ANIM_INDEX ,DMALL_V_MON_ANIM_INDEX
             },
         },
         // Name: Hououmon
@@ -3400,6 +3463,15 @@ namespace bongocat::assets {
                 
             },
         },
+        // Name: Keemon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_YARMON_ANIM_INDEX
+            },
+        },
         // Name: Keramon
         {
             // Stage: Child
@@ -3425,15 +3497,6 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 DMALL_HOPMON_ANIM_INDEX
-            },
-        },
-        // Name: Kiimon
-        {
-            // Stage: Baby I
-            .conditions = { .next_evolution_time_sec = 600 },
-            .num_animation_indices = 1,
-            .animation_indices = {
-                DMALL_YAAMON_ANIM_INDEX
             },
         },
         // Name: King Etemon
@@ -3464,15 +3527,6 @@ namespace bongocat::assets {
             },
         },
         // Name: Kodokugumon Baby
-        {
-            // Stage: Baby II
-            .conditions = { .next_evolution_time_sec = 43200 },
-            .num_animation_indices = 0,
-            .animation_indices = {
-                
-            },
-        },
-        // Name: Kodokugumon
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
@@ -3530,9 +3584,9 @@ namespace bongocat::assets {
         {
             // Stage: Baby II
             .conditions = { .next_evolution_time_sec = 43200 },
-            .num_animation_indices = 3,
+            .num_animation_indices = 4,
             .animation_indices = {
-                DMALL_AGUMON_ANIM_INDEX ,DMALL_AGUMON_BLACK_ANIM_INDEX ,DMALL_YUKI_AGUMON_ANIM_INDEX
+                DMALL_AGUMON_ANIM_INDEX ,DMALL_AGUMON_BLACK_ANIM_INDEX ,DMALL_BETAMON_ANIM_INDEX ,DMALL_YUKI_AGUMON_ANIM_INDEX
             },
         },
         // Name: Kougamon
@@ -3557,9 +3611,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 5,
+            .num_animation_indices = 1,
             .animation_indices = {
-                DMALL_OGREMON_ANIM_INDEX ,DMALL_BAKEMON_ANIM_INDEX ,DMALL_SHELLMON_ANIM_INDEX ,DMALL_DRIMOGEMON_ANIM_INDEX ,DMALL_SCUMON_ANIM_INDEX
+                DMALL_FLYMON_ANIM_INDEX
             },
         },
         // Name: Kuramon
@@ -3629,9 +3683,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 6,
+            .num_animation_indices = 7,
             .animation_indices = {
-                DMALL_CHIMAIRAMON_ANIM_INDEX ,DMALL_GIGADRAMON_ANIM_INDEX ,DMALL_KYUKIMON_ANIM_INDEX ,DMALL_MEPHISMON_ANIM_INDEX ,DMALL_VAMDEMON_ANIM_INDEX ,DMALL_WARU_MONZAEMON_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_CHIMAIRAMON_ANIM_INDEX ,DMALL_GIGADRAMON_ANIM_INDEX ,DMALL_KYUKIMON_ANIM_INDEX ,DMALL_MEPHISMON_ANIM_INDEX ,DMALL_VAMDEMON_ANIM_INDEX ,DMALL_WARU_MONZAEMON_ANIM_INDEX
             },
         },
         // Name: Kyukimon
@@ -3881,9 +3935,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 12,
+            .num_animation_indices = 13,
             .animation_indices = {
-                DMALL_ANGEMON_ANIM_INDEX ,DMALL_CHRYSALIMON_ANIM_INDEX ,DMALL_DEVIMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_HANUMON_ANIM_INDEX ,DMALL_ICE_DEVIMON_ANIM_INDEX ,DMALL_NUMEMON_ANIM_INDEX ,DMALL_PIDMON_ANIM_INDEX ,DMALL_SCUMON_ANIM_INDEX ,DMALL_TORTAMON_ANIM_INDEX ,DMALL_V_DRAMON_ANIM_INDEX ,DMALL_WIZARMON_ANIM_INDEX
+                DMALL_ANGEMON_ANIM_INDEX ,DMALL_CHRYSALIMON_ANIM_INDEX ,DMALL_DEVIMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_HANUMON_ANIM_INDEX ,DMALL_ICE_DEVIMON_ANIM_INDEX ,DMALL_NUMEMON_ANIM_INDEX ,DMALL_PIDMON_ANIM_INDEX ,DMALL_SCUMON_ANIM_INDEX ,DMALL_TORTAMON_ANIM_INDEX ,DMALL_UNIMON_ANIM_INDEX ,DMALL_V_DRAMON_ANIM_INDEX ,DMALL_WIZARMON_ANIM_INDEX
             },
         },
         // Name: Lucemon Satan Mode
@@ -4570,6 +4624,15 @@ namespace bongocat::assets {
                 DMALL_TENTOMON_ANIM_INDEX
             },
         },
+        // Name: Mojyamon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_PICCOLOMON_ANIM_INDEX
+            },
+        },
         // Name: Mokumon
         {
             // Stage: Baby I
@@ -4691,9 +4754,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 15,
+            .num_animation_indices = 1,
             .animation_indices = {
-                DMALL_AIRDRAMON_ANIM_INDEX ,DMALL_AKATORIMON_ANIM_INDEX ,DMALL_AQUILAMON_ANIM_INDEX ,DMALL_BIRDRAMON_ANIM_INDEX ,DMALL_DIATRYMON_ANIM_INDEX ,DMALL_FUGAMON_ANIM_INDEX ,DMALL_GOLEMON_ANIM_INDEX ,DMALL_GUARDROMON_ANIM_INDEX ,DMALL_HYOUGAMON_ANIM_INDEX ,DMALL_IKKAKUMON_ANIM_INDEX ,DMALL_SABERDRAMON_ANIM_INDEX ,DMALL_SEADRAMON_ANIM_INDEX ,DMALL_SWANMON_ANIM_INDEX ,DMALL_V_DRAMON_ANIM_INDEX ,DMALL_YOUKOMON_ANIM_INDEX
+                DMALL_COCKATRIMON_ANIM_INDEX
             },
         },
         // Name: Mugendramon
@@ -4712,6 +4775,15 @@ namespace bongocat::assets {
             .num_animation_indices = 2,
             .animation_indices = {
                 DMALL_RED_VEGIMON_ANIM_INDEX ,DMALL_WOODMON_ANIM_INDEX
+            },
+        },
+        // Name: Nanimon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_DIGITAMAMON_ANIM_INDEX
             },
         },
         // Name: Nanomon
@@ -4912,7 +4984,7 @@ namespace bongocat::assets {
                 DMALL_MARSMON_ANIM_INDEX ,DMALL_PLUTOMON_ANIM_INDEX
             },
         },
-        // Name: Omegamon Alter S
+        // Name: Omegamon Alter-S
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
@@ -5015,9 +5087,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 12,
+            .num_animation_indices = 13,
             .animation_indices = {
-                DMALL_GEKOMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_HOOKMON_ANIM_INDEX ,DMALL_OCTMON_ANIM_INDEX ,DMALL_SEADRAMON_ANIM_INDEX ,DMALL_SHELLMON_ANIM_INDEX ,DMALL_SNIMON_ANIM_INDEX ,DMALL_STARMON_ANIM_INDEX ,DMALL_TAILMON_ANIM_INDEX ,DMALL_TORTAMON_ANIM_INDEX ,DMALL_WHAMON_ANIM_INDEX ,DMALL_YANMAMON_ANIM_INDEX
+                DMALL_GEKOMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_HOOKMON_ANIM_INDEX ,DMALL_MOJYAMON_ANIM_INDEX ,DMALL_OCTMON_ANIM_INDEX ,DMALL_SEADRAMON_ANIM_INDEX ,DMALL_SHELLMON_ANIM_INDEX ,DMALL_SNIMON_ANIM_INDEX ,DMALL_STARMON_ANIM_INDEX ,DMALL_TAILMON_ANIM_INDEX ,DMALL_TORTAMON_ANIM_INDEX ,DMALL_WHAMON_ANIM_INDEX ,DMALL_YANMAMON_ANIM_INDEX
             },
         },
         // Name: Otamamon X
@@ -5162,6 +5234,15 @@ namespace bongocat::assets {
             .num_animation_indices = 5,
             .animation_indices = {
                 DMALL_CRES_GARURUMON_ANIM_INDEX ,DMALL_GRIFFOMON_ANIM_INDEX ,DMALL_HOUOUMON_ANIM_INDEX ,DMALL_METAL_GARURUMON_ANIM_INDEX ,DMALL_SERAPHIMON_ANIM_INDEX
+            },
+        },
+        // Name: Patamon
+        {
+            // Stage: Child
+            .conditions = { .next_evolution_time_sec = 86400 },
+            .num_animation_indices = 2,
+            .animation_indices = {
+                DMALL_ANGEMON_ANIM_INDEX ,DMALL_PEGASMON_ANIM_INDEX
             },
         },
         // Name: Pegasmon
@@ -5420,9 +5501,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 2,
+            .num_animation_indices = 3,
             .animation_indices = {
-                DMALL_PARASAURMON_ANIM_INDEX ,DMALL_VEGIMON_ANIM_INDEX
+                DMALL_COCKATRIMON_ANIM_INDEX ,DMALL_PARASAURMON_ANIM_INDEX ,DMALL_VEGIMON_ANIM_INDEX
             },
         },
         // Name: Ponchomon
@@ -5459,6 +5540,15 @@ namespace bongocat::assets {
             .num_animation_indices = 1,
             .animation_indices = {
                 DMALL_HAWKMON_ANIM_INDEX
+            },
+        },
+        // Name: Poyomon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_TOKOMON_ANIM_INDEX
             },
         },
         // Name: Prince Mamemon
@@ -5531,6 +5621,15 @@ namespace bongocat::assets {
             .num_animation_indices = 5,
             .animation_indices = {
                 DMALL_NOBLE_PUMPMON_ANIM_INDEX ,DMALL_NOBLE_PUMPMON_ANIM_INDEX ,DMALL_DINOTIGERMON_ANIM_INDEX ,DMALL_RAPIDMON_X_ANIM_INDEX ,DMALL_CHERUBIMON_VIRTUE_X_ANIM_INDEX
+            },
+        },
+        // Name: Punimon
+        {
+            // Stage: Baby I
+            .conditions = { .next_evolution_time_sec = 600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_TUNOMON_ANIM_INDEX
             },
         },
         // Name: Punkmon
@@ -6410,9 +6509,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 8,
+            .num_animation_indices = 9,
             .animation_indices = {
-                DMALL_ASURAMON_ANIM_INDEX ,DMALL_BLUE_MERAMON_ANIM_INDEX ,DMALL_DAGOMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_JYUREIMON_ANIM_INDEX ,DMALL_PANJYAMON_ANIM_INDEX ,DMALL_PICCOLOMON_ANIM_INDEX ,DMALL_SHAWUJINMON_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_ASURAMON_ANIM_INDEX ,DMALL_BLUE_MERAMON_ANIM_INDEX ,DMALL_DAGOMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_JYUREIMON_ANIM_INDEX ,DMALL_PANJYAMON_ANIM_INDEX ,DMALL_PICCOLOMON_ANIM_INDEX ,DMALL_SHAWUJINMON_ANIM_INDEX
             },
         },
         // Name: Soulmon
@@ -6680,9 +6779,9 @@ namespace bongocat::assets {
         {
             // Stage: Child
             .conditions = { .next_evolution_time_sec = 86400 },
-            .num_animation_indices = 4,
+            .num_animation_indices = 5,
             .animation_indices = {
-                DMALL_PARASAURMON_ANIM_INDEX ,DMALL_PETERMON_ANIM_INDEX ,DMALL_VEGIMON_ANIM_INDEX ,DMALL_ZASSOUMON_ANIM_INDEX
+                DMALL_COCKATRIMON_ANIM_INDEX ,DMALL_PARASAURMON_ANIM_INDEX ,DMALL_PETERMON_ANIM_INDEX ,DMALL_VEGIMON_ANIM_INDEX ,DMALL_ZASSOUMON_ANIM_INDEX
             },
         },
         // Name: Titamon
@@ -6730,6 +6829,15 @@ namespace bongocat::assets {
                 DMALL_CYBERDRAMON_X_ANIM_INDEX ,DMALL_DORUGUREMON_ANIM_INDEX ,DMALL_CANNONBEEMON_ANIM_INDEX ,DMALL_MAMEMON_X_ANIM_INDEX
             },
         },
+        // Name: Tokomon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_PATAMON_ANIM_INDEX
+            },
+        },
         // Name: Tokomon X
         {
             // Stage: Baby II
@@ -6772,7 +6880,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 86400 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_DEVIMON_ANIM_INDEX ,DMALL_FUGAMON_ANIM_INDEX ,DMALL_GARURUMON_BLACK_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GUARDROMON_ANIM_INDEX ,DMALL_MECHANORIMON_ANIM_INDEX ,DMALL_NUMEMON_ANIM_INDEX ,DMALL_RAPTORDRAMON_ANIM_INDEX ,DMALL_SCUMON_ANIM_INDEX ,DMALL_STARMON_ANIM_INDEX ,DMALL_TANKMON_ANIM_INDEX ,DMALL_THUNDERBALLMON_ANIM_INDEX
+                DMALL_DARK_TYRANOMON_ANIM_INDEX ,DMALL_DELTAMON_ANIM_INDEX ,DMALL_DEVIMON_ANIM_INDEX ,DMALL_FUGAMON_ANIM_INDEX ,DMALL_GARURUMON_BLACK_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GUARDROMON_ANIM_INDEX ,DMALL_MECHANORIMON_ANIM_INDEX ,DMALL_NANIMON_ANIM_INDEX ,DMALL_NUMEMON_ANIM_INDEX ,DMALL_RAPTORDRAMON_ANIM_INDEX ,DMALL_SCUMON_ANIM_INDEX
             },
         },
         // Name: Toy Agumon
@@ -6781,7 +6889,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 86400 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_AQUILAMON_ANIM_INDEX ,DMALL_CLOCKMON_ANIM_INDEX ,DMALL_DEVIMON_ANIM_INDEX ,DMALL_GALGOMON_ANIM_INDEX ,DMALL_GAOGAMON_ANIM_INDEX ,DMALL_GARURUMON_BLACK_ANIM_INDEX ,DMALL_GAWAPPAMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ORANGE_ANIM_INDEX ,DMALL_GUARDROMON_ANIM_INDEX ,DMALL_GUARDROMON_GOLD_ANIM_INDEX ,DMALL_LEOMON_ANIM_INDEX ,DMALL_MECHANORIMON_ANIM_INDEX
+                DMALL_AQUILAMON_ANIM_INDEX ,DMALL_CLOCKMON_ANIM_INDEX ,DMALL_DELTAMON_ANIM_INDEX ,DMALL_DEVIMON_ANIM_INDEX ,DMALL_GALGOMON_ANIM_INDEX ,DMALL_GAOGAMON_ANIM_INDEX ,DMALL_GARURUMON_BLACK_ANIM_INDEX ,DMALL_GAWAPPAMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ORANGE_ANIM_INDEX ,DMALL_GUARDROMON_ANIM_INDEX ,DMALL_GUARDROMON_GOLD_ANIM_INDEX ,DMALL_LEOMON_ANIM_INDEX
             },
         },
         // Name: Triceramon
@@ -6829,22 +6937,13 @@ namespace bongocat::assets {
                 DMALL_KERAMON_ANIM_INDEX ,DMALL_KERAMON_X_ANIM_INDEX
             },
         },
-        // Name: Tsunomon
-        {
-            // Stage: Baby II
-            .conditions = { .next_evolution_time_sec = 43200 },
-            .num_animation_indices = 2,
-            .animation_indices = {
-                DMALL_ELECMON_ANIM_INDEX ,DMALL_GABUMON_BLACK_ANIM_INDEX
-            },
-        },
         // Name: Tuchidarumon
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 7,
+            .num_animation_indices = 8,
             .animation_indices = {
-                DMALL_DELUMON_ANIM_INDEX ,DMALL_GERBEMON_ANIM_INDEX ,DMALL_INSEKIMON_ANIM_INDEX ,DMALL_JYAGAMON_ANIM_INDEX ,DMALL_PANDAMON_ANIM_INDEX ,DMALL_PUMPMON_ANIM_INDEX ,DMALL_TEKKAMON_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_DELUMON_ANIM_INDEX ,DMALL_GERBEMON_ANIM_INDEX ,DMALL_INSEKIMON_ANIM_INDEX ,DMALL_JYAGAMON_ANIM_INDEX ,DMALL_PANDAMON_ANIM_INDEX ,DMALL_PUMPMON_ANIM_INDEX ,DMALL_TEKKAMON_ANIM_INDEX
             },
         },
         // Name: Tukaimon
@@ -6856,13 +6955,22 @@ namespace bongocat::assets {
                 DMALL_DEVIMON_ANIM_INDEX
             },
         },
+        // Name: Tunomon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            .num_animation_indices = 3,
+            .animation_indices = {
+                DMALL_ELECMON_ANIM_INDEX ,DMALL_GABUMON_ANIM_INDEX ,DMALL_GABUMON_BLACK_ANIM_INDEX
+            },
+        },
         // Name: Turuiemon
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 7,
+            .num_animation_indices = 1,
             .animation_indices = {
-                DMALL_CYBERDRAMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_KNIGHTMON_ANIM_INDEX ,DMALL_MACH_GAOGAMON_ANIM_INDEX ,DMALL_MEGADRAMON_ANIM_INDEX ,DMALL_MONZAEMON_ANIM_INDEX ,DMALL_WERE_GARURUMON_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX
             },
         },
         // Name: Tuskmon
@@ -6955,6 +7063,15 @@ namespace bongocat::assets {
                 
             },
         },
+        // Name: Unimon
+        {
+            // Stage: Adult
+            .conditions = { .next_evolution_time_sec = 129600 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_ANDROMON_ANIM_INDEX
+            },
+        },
         // Name: Upamon
         {
             // Stage: Baby II
@@ -6986,9 +7103,9 @@ namespace bongocat::assets {
         {
             // Stage: Perfect
             .conditions = { .next_evolution_time_sec = 172800 },
-            .num_animation_indices = 2,
+            .num_animation_indices = 3,
             .animation_indices = {
-                DMALL_BELIAL_VAMDEMON_ANIM_INDEX ,DMALL_VENOM_VAMDEMON_ANIM_INDEX
+                DMALL_BELIAL_VAMDEMON_ANIM_INDEX ,DMALL_VENOM_VAMDEMON_ANIM_INDEX ,DMALL_VOLTOBAUTAMON_ANIM_INDEX
             },
         },
         // Name: Vamdemon X
@@ -7090,7 +7207,7 @@ namespace bongocat::assets {
                 
             },
         },
-        // Name: Volto Bautamon
+        // Name: Voltobautamon
         {
             // Stage: Ultimate
             .conditions = { .next_evolution_time_sec = -1 },
@@ -7238,9 +7355,9 @@ namespace bongocat::assets {
         {
             // Stage: Adult
             .conditions = { .next_evolution_time_sec = 129600 },
-            .num_animation_indices = 10,
+            .num_animation_indices = 11,
             .animation_indices = {
-                DMALL_ANGEWOMON_ANIM_INDEX ,DMALL_CHIMAIRAMON_ANIM_INDEX ,DMALL_EX_TYRANOMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_LADY_DEVIMON_ANIM_INDEX ,DMALL_LILIMON_ANIM_INDEX ,DMALL_MISTYMON_ANIM_INDEX ,DMALL_NEO_DEVIMON_ANIM_INDEX ,DMALL_PAILDRAMON_ANIM_INDEX ,DMALL_SILPHYMON_ANIM_INDEX
+                DMALL_ANDIRAMON_DEVA_ANIM_INDEX ,DMALL_ANGEWOMON_ANIM_INDEX ,DMALL_CHIMAIRAMON_ANIM_INDEX ,DMALL_EX_TYRANOMON_ANIM_INDEX ,DMALL_HOLY_ANGEMON_ANIM_INDEX ,DMALL_LADY_DEVIMON_ANIM_INDEX ,DMALL_LILIMON_ANIM_INDEX ,DMALL_MISTYMON_ANIM_INDEX ,DMALL_NEO_DEVIMON_ANIM_INDEX ,DMALL_PAILDRAMON_ANIM_INDEX ,DMALL_SILPHYMON_ANIM_INDEX
             },
         },
         // Name: Wizarmon
@@ -7324,15 +7441,6 @@ namespace bongocat::assets {
                 DMALL_PAILDRAMON_ANIM_INDEX
             },
         },
-        // Name: Yaamon
-        {
-            // Stage: Baby II
-            .conditions = { .next_evolution_time_sec = 43200 },
-            .num_animation_indices = 9,
-            .animation_indices = {
-                DMALL_IMPMON_ANIM_INDEX ,DMALL_GOMAMON_X_ANIM_INDEX ,DMALL_KOKUWAMON_X_ANIM_INDEX ,DMALL_AGUMON_BLACK_X_ANIM_INDEX ,DMALL_HERISSMON_ANIM_INDEX ,DMALL_DUSKMON_ANIM_INDEX ,DMALL_PLOTMON_X_ANIM_INDEX ,DMALL_OTAMAMON_X_ANIM_INDEX ,DMALL_IMPMON_X_ANIM_INDEX
-            },
-        },
         // Name: Yanmamon
         {
             // Stage: Adult
@@ -7340,6 +7448,15 @@ namespace bongocat::assets {
             .num_animation_indices = 8,
             .animation_indices = {
                 DMALL_ATLUR_KABUTERIMON_RED_ANIM_INDEX ,DMALL_HANGYOMON_ANIM_INDEX ,DMALL_JEWELBEEMON_ANIM_INDEX ,DMALL_LILIMON_ANIM_INDEX ,DMALL_MEGADRAMON_ANIM_INDEX ,DMALL_OKUWAMON_ANIM_INDEX ,DMALL_PICCOLOMON_ANIM_INDEX ,DMALL_PUMPMON_ANIM_INDEX
+            },
+        },
+        // Name: Yarmon
+        {
+            // Stage: Baby II
+            .conditions = { .next_evolution_time_sec = 43200 },
+            .num_animation_indices = 1,
+            .animation_indices = {
+                DMALL_IMPMON_ANIM_INDEX
             },
         },
         // Name: Yatagaramon (2006)
@@ -7393,7 +7510,7 @@ namespace bongocat::assets {
             .conditions = { .next_evolution_time_sec = 86400 },
             .num_animation_indices = 15,
             .animation_indices = {
-                DMALL_AIRDRAMON_ANIM_INDEX ,DMALL_DOBERMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ANIM_INDEX ,DMALL_GURURUMON_ANIM_INDEX ,DMALL_HOOKMON_ANIM_INDEX ,DMALL_HYOUGAMON_ANIM_INDEX ,DMALL_ICEMON_ANIM_INDEX ,DMALL_IKKAKUMON_ANIM_INDEX ,DMALL_LEKISMON_ANIM_INDEX ,DMALL_NUMEMON_ANIM_INDEX ,DMALL_SCUMON_ANIM_INDEX
+                DMALL_AIRDRAMON_ANIM_INDEX ,DMALL_DOBERMON_ANIM_INDEX ,DMALL_GEO_GREYMON_ANIM_INDEX ,DMALL_GEREMON_ANIM_INDEX ,DMALL_GREYMON_ANIM_INDEX ,DMALL_GREYMON_BLUE_ANIM_INDEX ,DMALL_GROWMON_ANIM_INDEX ,DMALL_GURURUMON_ANIM_INDEX ,DMALL_HOOKMON_ANIM_INDEX ,DMALL_HYOUGAMON_ANIM_INDEX ,DMALL_ICEMON_ANIM_INDEX ,DMALL_IKKAKUMON_ANIM_INDEX ,DMALL_LEKISMON_ANIM_INDEX ,DMALL_MOJYAMON_ANIM_INDEX ,DMALL_NUMEMON_ANIM_INDEX
             },
         },
         // Name: Yukidarumon

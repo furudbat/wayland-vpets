@@ -105,14 +105,14 @@ enable_antialiasing=0
 animation_name=Agumon
 ```
 
-**Black Digimon sprite in dark-mode:**
+**Black Digimon sprite for 'dark-mode':**
 ```ini
 enable_antialiasing=0
 animation_name=dm20:Agumon
 invert_color=1
 ```
 
-**Random pet every session (great for variety):**
+**Get random pet every session/restart (great for variety):**
 ```ini
 random=1
 random_on_reload=1

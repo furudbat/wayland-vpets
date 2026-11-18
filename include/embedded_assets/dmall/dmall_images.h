@@ -115,13 +115,13 @@ inline constexpr size_t dmall_ancient_mermaimon_png_size ASSETS_DMALL_IMAGE_SIZE
 extern const unsigned char dmall_ancient_sphinxmon_png[1274];
 inline constexpr size_t dmall_ancient_sphinxmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1274;
 
-// Name: Andiramon (Data)
-extern const unsigned char dmall_andiramon_data_png[1620];
-inline constexpr size_t dmall_andiramon_data_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1620;
+// Name: Andiramon (Deva)
+extern const unsigned char dmall_andiramon_deva_png[1620];
+inline constexpr size_t dmall_andiramon_deva_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1620;
 
-// Name: Andiramon (Virus)
-extern const unsigned char dmall_andiramon_virus_png[1424];
-inline constexpr size_t dmall_andiramon_virus_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1424;
+// Name: Andiramon
+extern const unsigned char dmall_andiramon_png[1424];
+inline constexpr size_t dmall_andiramon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1424;
 
 // Name: Andromon
 extern const unsigned char dmall_andromon_png[1521];
@@ -326,6 +326,10 @@ inline constexpr size_t dmall_belphemon_x_png_size ASSETS_DMALL_IMAGE_SIZES_SECT
 // Name: Beowolfmon
 extern const unsigned char dmall_beowolfmon_png[1484];
 inline constexpr size_t dmall_beowolfmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1484;
+
+// Name: Betamon
+extern const unsigned char dmall_betamon_png[1112];
+inline constexpr size_t dmall_betamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1112;
 
 // Name: Betamon X
 extern const unsigned char dmall_betamon_x_png[1418];
@@ -611,6 +615,10 @@ inline constexpr size_t dmall_climbmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION
 extern const unsigned char dmall_clockmon_png[1180];
 inline constexpr size_t dmall_clockmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1180;
 
+// Name: Cockatrimon
+extern const unsigned char dmall_cockatrimon_png[1216];
+inline constexpr size_t dmall_cockatrimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1216;
+
 // Name: Cocomon
 extern const unsigned char dmall_cocomon_png[839];
 inline constexpr size_t dmall_cocomon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 839;
@@ -703,6 +711,10 @@ inline constexpr size_t dmall_darkness_bagramon_png_size ASSETS_DMALL_IMAGE_SIZE
 extern const unsigned char dmall_dark_superstarmon_png[1606];
 inline constexpr size_t dmall_dark_superstarmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1606;
 
+// Name: Dark Tyranomon
+extern const unsigned char dmall_dark_tyranomon_png[1297];
+inline constexpr size_t dmall_dark_tyranomon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1297;
+
 // Name: Dark Tyranomon X
 extern const unsigned char dmall_dark_tyranomon_x_png[1193];
 inline constexpr size_t dmall_dark_tyranomon_x_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1193;
@@ -723,6 +735,10 @@ inline constexpr size_t dmall_deathmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION
 extern const unsigned char dmall_death_x_dorugamon_png[1503];
 inline constexpr size_t dmall_death_x_dorugamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1503;
 
+// Name: Deltamon
+extern const unsigned char dmall_deltamon_png[1320];
+inline constexpr size_t dmall_deltamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1320;
+
 // Name: Delumon
 extern const unsigned char dmall_delumon_png[1682];
 inline constexpr size_t dmall_delumon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1682;
@@ -738,6 +754,10 @@ inline constexpr size_t dmall_demon_super_ultimate_png_size ASSETS_DMALL_IMAGE_S
 // Name: Demon X
 extern const unsigned char dmall_demon_x_png[1351];
 inline constexpr size_t dmall_demon_x_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1351;
+
+// Name: Devidramon
+extern const unsigned char dmall_devidramon_png[994];
+inline constexpr size_t dmall_devidramon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 994;
 
 // Name: Devimon
 extern const unsigned char dmall_devimon_png[1386];
@@ -967,6 +987,10 @@ inline constexpr size_t dmall_floramon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION
 extern const unsigned char dmall_fluffymon_png[1400];
 inline constexpr size_t dmall_fluffymon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1400;
 
+// Name: Flymon
+extern const unsigned char dmall_flymon_png[1192];
+inline constexpr size_t dmall_flymon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1192;
+
 // Name: Fros Velgrmon
 extern const unsigned char dmall_fros_velgrmon_png[1503];
 inline constexpr size_t dmall_fros_velgrmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1503;
@@ -990,6 +1014,10 @@ inline constexpr size_t dmall_funbeemon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTIO
 // Name: Gabumon (Black)
 extern const unsigned char dmall_gabumon_black_png[1390];
 inline constexpr size_t dmall_gabumon_black_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1390;
+
+// Name: Gabumon
+extern const unsigned char dmall_gabumon_png[1233];
+inline constexpr size_t dmall_gabumon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1233;
 
 // Name: Gabumon X
 extern const unsigned char dmall_gabumon_x_png[1493];
@@ -1519,6 +1547,10 @@ inline constexpr size_t dmall_karatuki_numemon_png_size ASSETS_DMALL_IMAGE_SIZES
 extern const unsigned char dmall_kazuchimon_png[1240];
 inline constexpr size_t dmall_kazuchimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1240;
 
+// Name: Keemon
+extern const unsigned char dmall_keemon_png[629];
+inline constexpr size_t dmall_keemon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 629;
+
 // Name: Keramon
 extern const unsigned char dmall_keramon_png[1236];
 inline constexpr size_t dmall_keramon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1236;
@@ -1530,10 +1562,6 @@ inline constexpr size_t dmall_keramon_x_png_size ASSETS_DMALL_IMAGE_SIZES_SECTIO
 // Name: Ketomon
 extern const unsigned char dmall_ketomon_png[770];
 inline constexpr size_t dmall_ketomon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 770;
-
-// Name: Kiimon
-extern const unsigned char dmall_kiimon_png[629];
-inline constexpr size_t dmall_kiimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 629;
 
 // Name: King Etemon
 extern const unsigned char dmall_king_etemon_png[1079];
@@ -1550,10 +1578,6 @@ inline constexpr size_t dmall_knightmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTIO
 // Name: Kodokugumon Baby
 extern const unsigned char dmall_kodokugumon_baby_png[1689];
 inline constexpr size_t dmall_kodokugumon_baby_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1689;
-
-// Name: Kodokugumon
-extern const unsigned char dmall_kodokugumon_png[1689];
-inline constexpr size_t dmall_kodokugumon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1689;
 
 // Name: Koemon
 extern const unsigned char dmall_koemon_png[1445];
@@ -2039,6 +2063,10 @@ inline constexpr size_t dmall_mitamamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTIO
 extern const unsigned char dmall_mochimon_png[917];
 inline constexpr size_t dmall_mochimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 917;
 
+// Name: Mojyamon
+extern const unsigned char dmall_mojyamon_png[1387];
+inline constexpr size_t dmall_mojyamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1387;
+
 // Name: Mokumon
 extern const unsigned char dmall_mokumon_png[716];
 inline constexpr size_t dmall_mokumon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 716;
@@ -2102,6 +2130,10 @@ inline constexpr size_t dmall_mugendramon_png_size ASSETS_DMALL_IMAGE_SIZES_SECT
 // Name: Mushmon
 extern const unsigned char dmall_mushmon_png[1499];
 inline constexpr size_t dmall_mushmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1499;
+
+// Name: Nanimon
+extern const unsigned char dmall_nanimon_png[1287];
+inline constexpr size_t dmall_nanimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1287;
 
 // Name: Nanomon
 extern const unsigned char dmall_nanomon_png[798];
@@ -2191,7 +2223,7 @@ inline constexpr size_t dmall_okuwamon_x_png_size ASSETS_DMALL_IMAGE_SIZES_SECTI
 extern const unsigned char dmall_oleamon_png[1443];
 inline constexpr size_t dmall_oleamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1443;
 
-// Name: Omegamon Alter S
+// Name: Omegamon Alter-S
 extern const unsigned char dmall_omegamon_alter_s_png[1812];
 inline constexpr size_t dmall_omegamon_alter_s_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1812;
 
@@ -2302,6 +2334,10 @@ inline constexpr size_t dmall_parasaurmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECT
 // Name: Parrotmon
 extern const unsigned char dmall_parrotmon_png[1457];
 inline constexpr size_t dmall_parrotmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1457;
+
+// Name: Patamon
+extern const unsigned char dmall_patamon_png[1176];
+inline constexpr size_t dmall_patamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1176;
 
 // Name: Pegasmon
 extern const unsigned char dmall_pegasmon_png[1360];
@@ -2435,6 +2471,10 @@ inline constexpr size_t dmall_porcupamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTI
 extern const unsigned char dmall_poromon_png[926];
 inline constexpr size_t dmall_poromon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 926;
 
+// Name: Poyomon
+extern const unsigned char dmall_poyomon_png[518];
+inline constexpr size_t dmall_poyomon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 518;
+
 // Name: Prince Mamemon
 extern const unsigned char dmall_prince_mamemon_png[1199];
 inline constexpr size_t dmall_prince_mamemon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1199;
@@ -2466,6 +2506,10 @@ inline constexpr size_t dmall_pulsemon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION
 // Name: Pumpmon
 extern const unsigned char dmall_pumpmon_png[1395];
 inline constexpr size_t dmall_pumpmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1395;
+
+// Name: Punimon
+extern const unsigned char dmall_punimon_png[531];
+inline constexpr size_t dmall_punimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 531;
 
 // Name: Punkmon
 extern const unsigned char dmall_punkmon_png[2222];
@@ -2999,6 +3043,10 @@ inline constexpr size_t dmall_togemon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION 
 extern const unsigned char dmall_togemon_x_png[1440];
 inline constexpr size_t dmall_togemon_x_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1440;
 
+// Name: Tokomon
+extern const unsigned char dmall_tokomon_png[1034];
+inline constexpr size_t dmall_tokomon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1034;
+
 // Name: Tokomon X
 extern const unsigned char dmall_tokomon_x_png[1052];
 inline constexpr size_t dmall_tokomon_x_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1052;
@@ -3043,10 +3091,6 @@ inline constexpr size_t dmall_tsubumon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION
 extern const unsigned char dmall_tsumemon_png[864];
 inline constexpr size_t dmall_tsumemon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 864;
 
-// Name: Tsunomon
-extern const unsigned char dmall_tsunomon_png[948];
-inline constexpr size_t dmall_tsunomon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 948;
-
 // Name: Tuchidarumon
 extern const unsigned char dmall_tuchidarumon_png[905];
 inline constexpr size_t dmall_tuchidarumon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 905;
@@ -3054,6 +3098,10 @@ inline constexpr size_t dmall_tuchidarumon_png_size ASSETS_DMALL_IMAGE_SIZES_SEC
 // Name: Tukaimon
 extern const unsigned char dmall_tukaimon_png[1228];
 inline constexpr size_t dmall_tukaimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1228;
+
+// Name: Tunomon
+extern const unsigned char dmall_tunomon_png[948];
+inline constexpr size_t dmall_tunomon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 948;
 
 // Name: Turuiemon
 extern const unsigned char dmall_turuiemon_png[1326];
@@ -3098,6 +3146,10 @@ inline constexpr size_t dmall_ulforce_v_dramon_x_png_size ASSETS_DMALL_IMAGE_SIZ
 // Name: Ultimate Brachimon
 extern const unsigned char dmall_ultimate_brachimon_png[1383];
 inline constexpr size_t dmall_ultimate_brachimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1383;
+
+// Name: Unimon
+extern const unsigned char dmall_unimon_png[1423];
+inline constexpr size_t dmall_unimon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1423;
 
 // Name: Upamon
 extern const unsigned char dmall_upamon_png[907];
@@ -3159,9 +3211,9 @@ inline constexpr size_t dmall_v_mon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 
 extern const unsigned char dmall_volcanicdramon_png[1557];
 inline constexpr size_t dmall_volcanicdramon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1557;
 
-// Name: Volto Bautamon
-extern const unsigned char dmall_volto_bautamon_png[1280];
-inline constexpr size_t dmall_volto_bautamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1280;
+// Name: Voltobautamon
+extern const unsigned char dmall_voltobautamon_png[1280];
+inline constexpr size_t dmall_voltobautamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1280;
 
 // Name: Vorvomon
 extern const unsigned char dmall_vorvomon_png[1319];
@@ -3263,13 +3315,13 @@ inline constexpr size_t dmall_xv_mon_black_png_size ASSETS_DMALL_IMAGE_SIZES_SEC
 extern const unsigned char dmall_xv_mon_png[1523];
 inline constexpr size_t dmall_xv_mon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1523;
 
-// Name: Yaamon
-extern const unsigned char dmall_yaamon_png[905];
-inline constexpr size_t dmall_yaamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 905;
-
 // Name: Yanmamon
 extern const unsigned char dmall_yanmamon_png[1261];
 inline constexpr size_t dmall_yanmamon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 1261;
+
+// Name: Yarmon
+extern const unsigned char dmall_yarmon_png[905];
+inline constexpr size_t dmall_yarmon_png_size ASSETS_DMALL_IMAGE_SIZES_SECTION = 905;
 
 // Name: Yatagaramon (2006)
 extern const unsigned char dmall_yatagaramon_2006_png[1391];

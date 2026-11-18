@@ -36,13 +36,13 @@
 
 
 # dmall
-#bash ./scripts/convert_penc_to_dm_row.sh assets/input/_source/dmall-dmc assets/input/all-colored-4 assets/dmall
-#bash ./scripts/convert_penc_to_dm_row.sh assets/input/_source/dmall-dmc-cut assets/input/all-colored-4 assets/dmall --skip-cutout
-#bash ./scripts/convert_sprite_sheet.sh --dmc --set dmall --output assets --output-input assets/input/all-colored-4 -r assets/input/_source/dmall-dmc-2
-#bash ./scripts/convert_sprite_sheet.sh --penc --set dmall --output assets --output-input assets/input/all-colored-4 -r assets/input/_source/dmall-penc-3
-./scripts/generate_embedded_assets.sh assets/dmall assets/input/all-colored-4 include/embedded_assets/dmall/dmall_images.h src/embedded_assets/dmall/dmall_images.cpp include/embedded_assets/dmall/dmall.hpp include/embedded_assets/dmall/dmall_sprite.h src/embedded_assets/dmall/dmall_get_sprite_sheet.cpp src/image_loader/dmall/dmall_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmall --load-function "load_base_dm_anim"
+#bash ./scripts/convert_penc_to_dm_row.sh assets/input/_source/dmall-dmc assets/input/all-colored-5 assets/dmall
+#bash ./scripts/convert_penc_to_dm_row.sh assets/input/_source/dmall-dmc-cut assets/input/all-colored-5 assets/dmall --skip-cutout
+#bash ./scripts/convert_sprite_sheet.sh --dmc --set dmall --output assets --output-input assets/input/all-colored-5 -r assets/input/_source/dmall-dmc-2
+#bash ./scripts/convert_sprite_sheet.sh --penc --set dmall --output assets --output-input assets/input/all-colored-5 -r assets/input/_source/dmall-penc-3
+./scripts/generate_embedded_assets.sh assets/dmall assets/input/all-colored-5 include/embedded_assets/dmall/dmall_images.h src/embedded_assets/dmall/dmall_images.cpp include/embedded_assets/dmall/dmall.hpp include/embedded_assets/dmall/dmall_sprite.h src/embedded_assets/dmall/dmall_get_sprite_sheet.cpp src/image_loader/dmall/dmall_load_sprite_sheet.cpp --frame-size 128 --layout Dm --set dmall --load-function "load_base_dm_anim"
 ./scripts/generate_init_anim.sh assets/dmall src/embedded_assets/dmall ./include/embedded_assets/dmall/dmall_images.h dmall --layout Dm --alt dmc --set dmall
-./scripts/generate_embedded_assets_dmall_evol.sh assets/dmall assets/input/all-colored-4 src/embedded_assets/dmall/dmall_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmall
+./scripts/generate_embedded_assets_dmall_evol.sh assets/dmall assets/input/all-colored-5 src/embedded_assets/dmall/dmall_get_evolution_data.cpp --frame-size 128 --layout Dm --set dmall
 
 # pkmn
 ./scripts/generate_embedded_assets.sh assets/pkmn assets/input/pkmn include/embedded_assets/pkmn/pkmn_images.h src/embedded_assets/pkmn/pkmn_images.cpp include/embedded_assets/pkmn/pkmn.hpp include/embedded_assets/pkmn/pkmn_sprite.h src/embedded_assets/pkmn/pkmn_get_sprite_sheet.cpp src/image_loader/pkmn/pkmn_load_sprite_sheet.cpp --cols 2 --rows 1 --layout Pkmn

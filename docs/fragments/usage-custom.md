@@ -184,4 +184,4 @@ animation_speed=250
 #### extra sprite when sprite is flipping (moving)
 
 Please add some left and right empty padding in your frames.
-Doing to some rounding error, when flipping the frame, some pixels can be visible from the nearer frames.
+Doing to some rounding errors, when flipping the frame, some pixels can be visible from the nearer frames.
