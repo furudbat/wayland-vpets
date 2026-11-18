@@ -162,7 +162,7 @@ programs.wayland-bongocat = {
 Without flakes / modules: `nix build .#with-audio`.
 
 > [!NOTE]
-> Since 6.0.0 the module no longer writes every option with its own defaults (and no hard-coded `/dev/input/event4`).
+> Since 6.2.0 the module no longer writes every option with its own defaults (and no hard-coded `/dev/input/event4`).
 > Only the options you set end up in the config.
 
 ### Man pages
