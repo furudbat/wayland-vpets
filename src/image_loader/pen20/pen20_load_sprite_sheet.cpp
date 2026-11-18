@@ -251,7 +251,7 @@ namespace bongocat::animation {
         {assets::PEN20_ZUDOMON_SPRITE_SHEET_COLS, assets::PEN20_ZUDOMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* pen20_pngs_table[] = {
+    static const unsigned char* const pen20_pngs_table[] = {
         pen20_aero_v_dramon_png, 
         pen20_agumon_hakase_png, 
         pen20_agumon_png, 
@@ -486,7 +486,7 @@ namespace bongocat::animation {
         pen20_zudomon_png, 
         
     };
-    static const size_t pen20_png_sizes_table[] = {
+    static constexpr uint32_t pen20_png_sizes_table[] = {
         pen20_aero_v_dramon_png_size, 
         pen20_agumon_hakase_png_size, 
         pen20_agumon_png_size, 
@@ -721,7 +721,7 @@ namespace bongocat::animation {
         pen20_zudomon_png_size, 
         
     };
-    static const char* pen20_names_table[] = {
+    static const char* const pen20_names_table[] = {
         assets::PEN20_AERO_V_DRAMON_ID, 
         assets::PEN20_AGUMON_HAKASE_ID, 
         assets::PEN20_AGUMON_ID, 

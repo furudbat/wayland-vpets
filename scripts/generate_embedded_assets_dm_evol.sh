@@ -310,14 +310,35 @@ echo >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "/// @NOTE: Generated evolution data $ASSETS_PREFIX" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "namespace bongocat::assets {" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "    static constexpr animation::animation_evolution_data_t ${ASSETS_PREFIX_LOWER}_evol_data_table[] ASSETS_${ASSETS_PREFIX_UPPER}_EVOL_DATA_SECTION = {" >> "$CPP_SOURCE_GET_EVOL_OUT"
+cat >> "$CPP_SOURCE_GET_EVOL_OUT" <<'EOF'
+      struct compact_evolution_conditions_t {
+          int32_t next_evolution_time_sec{-1};
+          int8_t min_lvl{-1};
+      };
+      struct compact_evolution_data_t {
+          compact_evolution_conditions_t conditions;
+          uint8_t num_animation_indices{0};
+          int16_t animation_indices[animation::MAX_ANIMATION_EVOLUTION_INDICIES]{};
+      };
+      static animation::animation_evolution_data_t expand_evolution_data(const compact_evolution_data_t& data) {
+          animation::animation_evolution_data_t ret;
+          ret.conditions.next_evolution_time_sec = data.conditions.next_evolution_time_sec;
+          ret.conditions.min_lvl = data.conditions.min_lvl;
+          ret.num_animation_indices = data.num_animation_indices;
+          for (size_t i = 0; i < animation::MAX_ANIMATION_EVOLUTION_INDICIES; ++i) {
+              ret.animation_indices[i] = data.animation_indices[i];
+          }
+          return ret;
+      }
+EOF
+echo "    static constexpr compact_evolution_data_t ${ASSETS_PREFIX_LOWER}_evol_data_table[] ASSETS_${ASSETS_PREFIX_UPPER}_EVOL_DATA_SECTION = {" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo -e "${CPP_SOURCE_GET_EVOL_DATA_TABLE_OUT}" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "    };" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "    animation::animation_evolution_data_t ${GET_EVOL_DATA_FUNC_NAME}(size_t index) {" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        using namespace assets;" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_evol_data_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
-echo "        auto result = ${ASSETS_PREFIX_LOWER}_evol_data_table[index];" >> "$CPP_SOURCE_GET_EVOL_OUT"
+echo "        auto result = expand_evolution_data(${ASSETS_PREFIX_LOWER}_evol_data_table[index]);" >> "$CPP_SOURCE_GET_EVOL_OUT"
 #echo "        platform::details::asset_unload(${ASSETS_PREFIX_LOWER}_evol_data_table, sizeof(animation::animation_evolution_data_t)*${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo "        return result;" >> "$CPP_SOURCE_GET_EVOL_OUT"
 echo '    }' >> "$CPP_SOURCE_GET_EVOL_OUT"

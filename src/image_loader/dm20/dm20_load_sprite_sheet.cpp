@@ -153,7 +153,7 @@ namespace bongocat::animation {
         {assets::DM20_ZURUMON_SPRITE_SHEET_COLS, assets::DM20_ZURUMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* dm20_pngs_table[] = {
+    static const unsigned char* const dm20_pngs_table[] = {
         dm20_aegisdramon_png, 
         dm20_agumon_png, 
         dm20_airdramon_png, 
@@ -290,7 +290,7 @@ namespace bongocat::animation {
         dm20_zurumon_png, 
         
     };
-    static const size_t dm20_png_sizes_table[] = {
+    static constexpr uint32_t dm20_png_sizes_table[] = {
         dm20_aegisdramon_png_size, 
         dm20_agumon_png_size, 
         dm20_airdramon_png_size, 
@@ -427,7 +427,7 @@ namespace bongocat::animation {
         dm20_zurumon_png_size, 
         
     };
-    static const char* dm20_names_table[] = {
+    static const char* const dm20_names_table[] = {
         assets::DM20_AEGISDRAMON_ID, 
         assets::DM20_AGUMON_ID, 
         assets::DM20_AIRDRAMON_ID, 

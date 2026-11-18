@@ -6,7 +6,26 @@
 /// @NOTE: Generated evolution data dm
 
 namespace bongocat::assets {
-    static constexpr animation::animation_evolution_data_t dm_evol_data_table[] ASSETS_DM_EVOL_DATA_SECTION = {
+      struct compact_evolution_conditions_t {
+          int32_t next_evolution_time_sec{-1};
+          int8_t min_lvl{-1};
+      };
+      struct compact_evolution_data_t {
+          compact_evolution_conditions_t conditions;
+          uint8_t num_animation_indices{0};
+          int16_t animation_indices[animation::MAX_ANIMATION_EVOLUTION_INDICIES]{};
+      };
+      static animation::animation_evolution_data_t expand_evolution_data(const compact_evolution_data_t& data) {
+          animation::animation_evolution_data_t ret;
+          ret.conditions.next_evolution_time_sec = data.conditions.next_evolution_time_sec;
+          ret.conditions.min_lvl = data.conditions.min_lvl;
+          ret.num_animation_indices = data.num_animation_indices;
+          for (size_t i = 0; i < animation::MAX_ANIMATION_EVOLUTION_INDICIES; ++i) {
+              ret.animation_indices[i] = data.animation_indices[i];
+          }
+          return ret;
+      }
+    static constexpr compact_evolution_data_t dm_evol_data_table[] ASSETS_DM_EVOL_DATA_SECTION = {
         // Name: Agumon
         {
             // Stage: Child
@@ -733,7 +752,7 @@ namespace bongocat::assets {
         using namespace assets;
         assert(LEN_ARRAY(dm_evol_data_table) == DM_ANIM_COUNT);
         assert(index < DM_ANIM_COUNT);
-        auto result = dm_evol_data_table[index];
+        auto result = expand_evolution_data(dm_evol_data_table[index]);
         return result;
     }
 }

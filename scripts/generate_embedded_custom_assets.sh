@@ -289,6 +289,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     echo "};" >> "$CPP_SOURCE_IMAGES_OUT"
     #echo "const size_t $SIZE_SYMBOL ASSETS_IMAGE_SIZES_SECTION = sizeof($EMBED_SYMBOL);" >> "$CPP_SOURCE_IMAGES_OUT"
     echo "static_assert(sizeof($EMBED_SYMBOL) == ${IMAGE_SIZE}, \"re-run generate_embedded_custom_assets.sh\");" >> "$CPP_SOURCE_IMAGES_OUT"
+    echo "static_assert(sizeof($EMBED_SYMBOL) <= UINT32_MAX, \"image size <= 4GB for _png_sizes_table\");" >> "$CPP_SOURCE_IMAGES_OUT"
     echo >> "$CPP_SOURCE_IMAGES_OUT"
     echo >> "$CPP_SOURCE_IMAGES_OUT" # extra EOL
 
@@ -299,7 +300,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     CPP_SOURCE_GET_SPRITE_OUT_2_SETTINGS_TABLE="${CPP_SOURCE_GET_SPRITE_OUT_2_SETTINGS_TABLE}assets::${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS, \n        "
 
     #echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return ${LOAD_CUSTOM_ANIM_FUNC_NAME}(ctx, ${GET_SPRITE_SHEET_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX), ${GET_SPRITE_SHEET_SETTINGS_FUNC_NAME}(${MACRO_PREFIX}_ANIM_INDEX));" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-    CPP_SOURCE_GET_SPRITE_OUT_SETTINGS_TABLE="${CPP_SOURCE_GET_SPRITE_OUT_SETTINGS_TABLE}assets::${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS, \n        "
+    CPP_SOURCE_GET_SPRITE_OUT_SETTINGS_TABLE="${CPP_SOURCE_GET_SPRITE_OUT_SETTINGS_TABLE}compact_settings(assets::${MACRO_PREFIX}_SPRITE_SHEET_SETTINGS), \n        "
 
     CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}\n// Name: $NAME_NO_EXT\n"
     CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE="${CPP_SOURCE_LOAD_SPRITE_OUT_IMAGES_TABLE}const unsigned char $EMBED_SYMBOL[] ASSETS_${ASSETS_PREFIX_UPPER}_IMAGES_SECTION = {\n"
@@ -383,20 +384,74 @@ echo "#include \"embedded_assets/${ASSETS_PREFIX_LOWER}/${ASSETS_PREFIX_LOWER}_s
 echo "#include \"image_loader/${ASSETS_PREFIX_LOWER}/load_images_${ASSETS_PREFIX_LOWER}.h\"" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "#include <cstdint>" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "namespace bongocat::animation {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const assets::custom_animation_settings_t ${ASSETS_PREFIX_LOWER}_settings_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo -e "        ${CPP_SOURCE_GET_SPRITE_OUT_2_SETTINGS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+# compact settings storage: every value is a small frame count / row index (-1..~30), int8_t instead of int32_t (184 B -> 46 B per sprite)
+cat >> "$CPP_SOURCE_LOAD_SPRITE_OUT" <<'EOF'
+      // same fields (and order) as assets::custom_animation_settings_t
+#define BONGOCAT_CUSTOM_SETTINGS_FIELDS(X) \
+      X(idle_frames) X(boring_frames) \
+      X(start_writing_frames) X(writing_frames) X(end_writing_frames) X(happy_frames) \
+      X(asleep_frames) X(sleep_frames) X(wake_up_frames) \
+      X(start_working_frames) X(working_frames) X(end_working_frames) \
+      X(start_moving_frames) X(moving_frames) X(end_moving_frames) \
+      X(start_running_frames) X(running_frames) X(end_running_frames) \
+      X(start_evolving_frames) X(evolving_frames) X(after_evolving_frames) \
+      X(feature_toggle_writing_frames) X(feature_toggle_writing_frames_random) X(feature_mirror_x_moving) \
+      X(idle_row_index) X(boring_row_index) \
+      X(start_writing_row_index) X(writing_row_index) X(end_writing_row_index) X(happy_row_index) \
+      X(asleep_row_index) X(sleep_row_index) X(wake_up_row_index) \
+      X(start_working_row_index) X(working_row_index) X(end_working_row_index) \
+      X(start_moving_row_index) X(moving_row_index) X(end_moving_row_index) \
+      X(start_running_row_index) X(running_row_index) X(end_running_row_index) \
+      X(start_evolving_row_index) X(evolving_row_index) X(after_evolving_row_index) \
+      X(rows)
+
+      struct compact_custom_animation_settings_t {
+#define BONGOCAT_X(field) int8_t field;
+          BONGOCAT_CUSTOM_SETTINGS_FIELDS(BONGOCAT_X)
+#undef BONGOCAT_X
+      };
+#define BONGOCAT_X(field) +1
+      static_assert(sizeof(assets::custom_animation_settings_t) == sizeof(int32_t) * (0 BONGOCAT_CUSTOM_SETTINGS_FIELDS(BONGOCAT_X)),
+                    "custom_animation_settings_t changed, update BONGOCAT_CUSTOM_SETTINGS_FIELDS in generate_embedded_custom_assets.sh");
+#undef BONGOCAT_X
+
+      static constexpr int8_t compact_settings_value(int32_t value) {
+          assert(value >= INT8_MIN && value <= INT8_MAX);
+          return (value >= INT8_MIN && value <= INT8_MAX) ? static_cast<int8_t>(value)
+                                                          : int8_t{0};
+      }
+      static constexpr compact_custom_animation_settings_t compact_settings(const assets::custom_animation_settings_t& settings) {
+          compact_custom_animation_settings_t ret{};
+#define BONGOCAT_X(field) ret.field = compact_settings_value(settings.field);
+          BONGOCAT_CUSTOM_SETTINGS_FIELDS(BONGOCAT_X)
+#undef BONGOCAT_X
+          return ret;
+      }
+      static assets::custom_animation_settings_t expand_settings(const compact_custom_animation_settings_t& settings) {
+          assets::custom_animation_settings_t ret;
+#define BONGOCAT_X(field) ret.field = settings.field;
+          BONGOCAT_CUSTOM_SETTINGS_FIELDS(BONGOCAT_X)
+#undef BONGOCAT_X
+          return ret;
+      }
+#undef BONGOCAT_CUSTOM_SETTINGS_FIELDS
+EOF
+echo "    static constexpr compact_custom_animation_settings_t ${ASSETS_PREFIX_LOWER}_settings_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo -e "        ${CPP_SOURCE_GET_SPRITE_OUT_SETTINGS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "    static constexpr assets::embedded_sprite_sheet_dims_t ${ASSETS_PREFIX_LOWER}_dims_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_DIMS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const unsigned char* ${ASSETS_PREFIX_LOWER}_pngs_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const unsigned char* const ${ASSETS_PREFIX_LOWER}_pngs_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_PNGS_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const size_t ${ASSETS_PREFIX_LOWER}_png_sizes_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static constexpr uint32_t ${ASSETS_PREFIX_LOWER}_png_sizes_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_PNG_SIZES_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "    static const char* ${ASSETS_PREFIX_LOWER}_names_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "    static const char* const ${ASSETS_PREFIX_LOWER}_names_table[] = {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo -e "        ${CPP_SOURCE_LOAD_SPRITE_OUT_NAMES_TABLE}" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    };" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "    created_result_t<${LAYOUT_LOWER}_sprite_sheet_t> ${LOAD_SPRITE_SHEET_FUNC_NAME}(const animation_thread_context_t& ctx, size_t index) {" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
@@ -405,7 +460,7 @@ echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_settings_table) == ${ASSET
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_png_sizes_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_names_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "        auto result = ${LOAD_CUSTOM_ANIM_FUNC_NAME}(ctx, {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, ${ASSETS_PREFIX_LOWER}_settings_table[index]);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "        auto result = ${LOAD_CUSTOM_ANIM_FUNC_NAME}(ctx, {${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index], ${ASSETS_PREFIX_LOWER}_names_table[index]}, expand_settings(${ASSETS_PREFIX_LOWER}_settings_table[index]));" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "        platform::details::asset_unload(${ASSETS_PREFIX_LOWER}_pngs_table[index], ${ASSETS_PREFIX_LOWER}_png_sizes_table[index]);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo "        return result;" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '    }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
@@ -419,7 +474,7 @@ echo "        for (size_t i = 0;i < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT;++i) {" >>
 #echo "            assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "            assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_pngs_table) <= INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "            assert(index < INT32_MAX);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
-echo "            ${INIT_ANIM_FUNC_NAME}(ctx, i, {${ASSETS_PREFIX_LOWER}_pngs_table[i], ${ASSETS_PREFIX_LOWER}_png_sizes_table[i], ${ASSETS_PREFIX_LOWER}_names_table[i]}, ${ASSETS_PREFIX_LOWER}_settings_table[i]);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
+echo "            ${INIT_ANIM_FUNC_NAME}(ctx, i, {${ASSETS_PREFIX_LOWER}_pngs_table[i], ${ASSETS_PREFIX_LOWER}_png_sizes_table[i], ${ASSETS_PREFIX_LOWER}_names_table[i]}, expand_settings(${ASSETS_PREFIX_LOWER}_settings_table[i]));" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 echo '        }' >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "        platform::details::asset_unload_all(${ASSETS_PREFIX_LOWER}_pngs_table, ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"
 #echo "        platform::details::asset_unload_all(${ASSETS_PREFIX_LOWER}_png_sizes_table, ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$CPP_SOURCE_LOAD_SPRITE_OUT"

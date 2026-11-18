@@ -182,7 +182,7 @@ namespace bongocat::animation {
         {assets::DMX_ZERIMON_SPRITE_SHEET_COLS, assets::DMX_ZERIMON_SPRITE_SHEET_ROWS}, 
         
     };
-    static const unsigned char* dmx_pngs_table[] = {
+    static const unsigned char* const dmx_pngs_table[] = {
         dmx_agumon_black_x_png, 
         dmx_agumon_x_png, 
         dmx_allomon_x_png, 
@@ -348,7 +348,7 @@ namespace bongocat::animation {
         dmx_zerimon_png, 
         
     };
-    static const size_t dmx_png_sizes_table[] = {
+    static constexpr uint32_t dmx_png_sizes_table[] = {
         dmx_agumon_black_x_png_size, 
         dmx_agumon_x_png_size, 
         dmx_allomon_x_png_size, 
@@ -514,7 +514,7 @@ namespace bongocat::animation {
         dmx_zerimon_png_size, 
         
     };
-    static const char* dmx_names_table[] = {
+    static const char* const dmx_names_table[] = {
         assets::DMX_AGUMON_BLACK_X_ID, 
         assets::DMX_AGUMON_X_ID, 
         assets::DMX_ALLOMON_X_ID, 
