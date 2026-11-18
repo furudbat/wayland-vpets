@@ -823,13 +823,13 @@ if(PANDOC)
     )
 
     set(MD_FILE_5 ${PROJECT_SOURCE_DIR}/docs/${BIN}.conf.md)
-    set(MAN_OUTPUT_5 ${CMAKE_CURRENT_BINARY_DIR}/${BIN}.5)
+    set(MAN_OUTPUT_5 ${CMAKE_CURRENT_BINARY_DIR}/${BIN}.conf.5)
     # man conf
     add_custom_command(
       OUTPUT ${MAN_OUTPUT_5}
       WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}/docs
       COMMAND
-        ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man -o ${MAN_OUTPUT_5}
+        ${PANDOC} --lua-filter=${PROJECT_SOURCE_DIR}/docs/include.lua -s -t man --metadata=title:${BIN}.conf --metadata=section:5 -o ${MAN_OUTPUT_5}
         ${PROJECT_SOURCE_DIR}/docs/begin.base.bongocat.conf.md ${MD_FILE_5} ${PROJECT_SOURCE_DIR}/docs/end.base.bongocat.conf.md
       DEPENDS
         ${MD_FILE_5}

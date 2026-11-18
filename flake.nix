@@ -117,9 +117,9 @@
               name=$(basename "$bin")
               [ "$name" = "bongocat-find-devices" ] && continue
               ls "$man/man1/$name.1"* >/dev/null
-              ls "$man/man5/$name.5"* >/dev/null
+              ls "$man/man5/$name.conf.5"* >/dev/null
               mandoc -T utf8 "$man/man1/$name.1"* >/dev/null
-              mandoc -T utf8 "$man/man5/$name.5"* >/dev/null
+              mandoc -T utf8 "$man/man5/$name.conf.5"* >/dev/null
             done
             touch $out
           '';

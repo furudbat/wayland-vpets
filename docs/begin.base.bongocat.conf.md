@@ -8,7 +8,7 @@ bongocat.conf - configuration file for Bongo Cat overlay application
 
 # SYNOPSIS
 
-`bongocat.conf` [options]
+`bongocat.conf`
 
 # DESCRIPTION
 
@@ -26,13 +26,13 @@ Changes to some settings require restarting Bongo Cat to take effect.
 - **cat_x_offset**: Horizontal offset from center (pixels). Positive moves right, negative moves left. Behavior changes based on **cat_align** (`center`, `left`, `right`).
 - **cat_y_offset**: Vertical offset (pixels). Positive moves down, negative moves up.
 - **cat_align**: Horizontal alignment in the bar. Options: `center` (default), `left`, `right`.
-- **cat_height**: Height of the cat in pixels. Width auto-calculated.
+- **cat_height**: Height of the cat in pixels. Width is calculated automatically.
 
 ## SIZE SETTINGS
 
 - **overlay_height**: Height of overlay bar (pixels).
 - **overlay_position**: Screen position of overlay. Options: `top`, `bottom`.
-- **overlay_layer**: Layer of overlay. Options: `overlay`, `top` (default), `bottom` or `background`.
+- **overlay_layer**: Layer of overlay. Options: `overlay`, `top` (default), `bottom` or `background` (`layer` is a deprecated alias).
 - **screen_width**: Override the detected screen width in pixels (0 = auto-detect).
 - **disable_fullscreen_hide**: Keep the overlay visible when a fullscreen window is detected (0 = off, 1 = on).
 
@@ -41,7 +41,7 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 ## FRAME RATE
 
-- **fps**: Animation frames per second (when animation_speed = 0)
+- **fps**: Animation frames per second (used when animation_speed = 0).
 - **input_fps**: Input thread frame rate (optional, 0 = use fps).
 - **audio_fps**: Audio thread update rate (optional, 0 = use fps).
 
@@ -55,7 +55,7 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 ## INPUT DEVICES
 
-- **keyboard_device**: Input device path (can specify multiple).  
+- **keyboard_device**: Input device path (can specify multiple).
 - **keyboard_name**: Add every input device whose name contains this text (can specify multiple).
 - **hotplug_scan_interval**: Seconds between rescans for new input devices (0 = scan once at startup, default 30).
 
@@ -73,7 +73,7 @@ _**overlay_height** should work on config reload, it may take a second to reappe
 
 ## MULTI-MONITOR
 
-- **monitor**: Monitor to display Bongo Cat. Uses first available if unspecified.
+- **monitor**: Monitor to display Bongo Cat on. Uses the first available if unspecified (alias: `output_name`).
 
 ## AUDIO
 
@@ -82,6 +82,7 @@ _Requires a build with the audio module (PipeWire + FFTW); see `ENABLE_AUDIO_MOD
 - **audio**: React to audio playing on a PipeWire sink (0 = off, 1 = on).
 - **audio_sink**: Sink name to listen to, see `pactl list short sinks` (empty = default sink).
 - **audio_happy_peak**: Fraction of visualizer bars (0.0–1.0) that must peak at once to trigger the happy animation (0 = disabled, default 0.6).
+- **audio_fps**: Audio thread update rate, see FRAME RATE.
 
 
 ## MIRRORING
@@ -92,13 +93,14 @@ _Requires a build with the audio module (PipeWire + FFTW); see `ENABLE_AUDIO_MOD
 ## ANTI-ALIASING
 
 - **enable_antialiasing**: Smooth scaling using bilinear interpolation (0 = off, 1 = on).
-    - Recommended for pixel sprites to be off (Digimon, Pokemon)
-    - Recommended for MS Agent to be on 
+    - Recommended off for pixel sprites (Digimon, Pokémon)
+    - Recommended on for MS Agent
 
 ## SPRITE
 
 - **animation_name**: Animation set. Examples: `bongocat`, `Clippy`, `Bulbasaur`. _(see below for full list)_
 - **invert_color**: Invert colors for dark mode (0 = off, 1 = on).
+- **padding_x** / **padding_y**: Padding (pixels) around each frame when loading the sprite sheet (default 0).
 - **idle_frame**: Frame to use when idle (0–3 for Bongo Cat), otherwise 0 or 1 should be the idle frames in the other sets.
 - **idle_animation**: Enable idle animation (0 = off, 1 = on).
 - **animation_speed**: Milliseconds per frame (0 = use FPS speed).
@@ -126,19 +128,19 @@ _Requires a build with the audio module (PipeWire + FFTW); see `ENABLE_AUDIO_MOD
 - **movement_radius**: Moving area, the radius from center (in px; 0 = disabled).
 - **movement_speed**: Traveling distance per movement animation (in px).
 - **movement_wait_factor**: Pause after a movement: `movement_speed * movement_wait_factor` (default 5.1).
-- **enable_movement_debug**: Show Moving area, in _red_. (0 = off, 1 = on).
+- **enable_movement_debug**: Show moving area in _red_ (0 = off, 1 = on).
 
 ## CPU
 
-- **update_rate**: Update Rate for CPU watcher (ms) (0 = disabled)
-- **cpu_threshold**: Threshold of avg. CPU usage for triggering working animation (%) (0 = disabled)
+- **update_rate**: Update rate for the CPU watcher (ms) (0 = disabled).
+- **cpu_threshold**: Threshold of avg. CPU usage for triggering the working animation (%) (0 = disabled).
 
 ## RUNNING
 
-- **cpu_running_factor**: speed-up factor (for `animation_speed`) when CPU reaches 100% usage (0.0–50.0) (0 = disabled)
+- **cpu_running_factor**: Speed-up factor (for `animation_speed`) when CPU reaches 100% usage (0.0–50.0) (0 = disabled).
 
 ## CUSTOM SPRITE SHEET
 
 _**animation_name**: needs to be "custom"_
 
-- **custom_**: For the full list of custom options and examples, See the section "Custom Sprite Sheets" in `bongocat-all(1)`.
+- **custom_**: For the full list of custom options and examples, see the section "Custom Sprite Sheets" in `bongocat-all(1)`.

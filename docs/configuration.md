@@ -6,7 +6,7 @@ Without `--config`, the first readable file is used:
 2. `~/.config/bongocat/bongocat.conf`
 3. `./bongocat.conf` (current directory)
 
-If none is found, the defaults are used. 
+If none is found, the defaults are used.  
 With `--config -` you can read the configuration from standard input, like this: `echo "" | bongocat --config -`
 
 **Format:**
@@ -23,7 +23,7 @@ enable_debug=0
 
 | **Option**                   | **Values**                                                         | **Default**   | **Description**                                                                           |
 |------------------------------|--------------------------------------------------------------------|---------------|-----------------------------------------------------------------------------------------------|
-| `cat_height`                 | 8–1024                                                             | 40            | Height of bongo cat in pixels (width auto-calculated to maintain aspect ratio)            |
+| `cat_height`                 | 8–1024                                                             | 40            | Height of the pet in pixels (width auto-calculated to maintain aspect ratio)            |
 | `cat_x_offset`               | -16000 to 16000                                                    | 100           | Horizontal offset from center (behavior depends on `cat_align`)                           |
 | `cat_y_offset`               | -16000 to 16000                                                    | 10            | Vertical offset from center (positive=down, negative=up)                                  |
 | `cat_align`                  | "center", "left", "right"                                          | "center"      | Horizontal alignment of cat inside overlay bar                                            |
@@ -88,7 +88,7 @@ See man pages for more details and full list:
 
 SVG-based rendering (pixel-perfect at any size). No need for `enable_antialiasing`.
 
-##### Digimon 🦖 - Variety of V-Pets
+##### Digimon - Variety of V-Pets
 
 - [Original](fragments/set-dm.md)
 - [Pendulum Original](fragments/set-pen.md)
@@ -96,31 +96,35 @@ SVG-based rendering (pixel-perfect at any size). No need for `enable_antialiasin
 - [Pendulum Ver.20th](fragments/set-pen20.md)
 - [X](fragments/set-dmx.md)
 - [Colored](fragments/set-dmc.md)
+- [Custom Colored (fan sprites)](fragments/set-dmall.md)
 
 > When building with ALL assets, use full names to avoid conflicts: `dm:Greymon`, `dm20:Greymon`, `dmc:Greymon`
 
-##### Pokémon 🐭 - up to Gen 5 + Mystery Dungeon sprites
+##### Pokémon - up to Gen 5 + Mystery Dungeon sprites
 
-`wpets-all` and `wpets-pkmn` includes up to Gen. 5.
+`wpets-all` and `wpets-pkmn` include up to Gen. 5.
 [Pokémon Mystery Dungeon](fragments/set-pmd.md) sprites are bundled in `wpets-pkmn`, not in `wpets-all`: `pmd:Pikachu`
 
 _Best to disable antialiasing (`enable_antialiasing=0`) for pixel-perfect scaling_
 
-##### MS Agent 📎 - Your Classic Microsoft Companion
+##### MS Agent - Your Classic Microsoft Companion
 
-While only Clippy is bundled in `wpets-all`, the other MS Agent friends are bundled in `wpets-ms-agent` like `Links`
+Only Clippy is bundled in `wpets-all`; the other MS Agent friends (like `Links`) are bundled in `wpets-ms-agent`.
 
 
 #### Audio (`audio`)
 
-The pet reacts to audio playing on a PipeWire sink (requires a build with the audio module).
+The pet reacts to audio playing on a PipeWire sink (requires a build with `-DENABLE_AUDIO_MODULE=ON`, needs `libpipewire-0.3` and `fftw3`).
 The pet switches to the happy animation when enough visualizer bars peak at the same time (`audio_happy_peak`).
 
 ```ini
 audio=1
 audio_sink=            # empty = default sink, see `pactl list short sinks`
 audio_happy_peak=0.6
+audio_fps=30           # 0 = use fps
 ```
+
+See [examples/audio-digimon.bongocat.conf](../examples/audio-digimon.bongocat.conf) for a full config.
 
 
 #### Evolution (`evolution`)
@@ -137,7 +141,7 @@ See [evolution docs](fragments/evol-all.md).
 
 #### Custom Sprite Sheet (`custom_...`)
 
-Use custom sprite sheet at runtime make your own pets
+Use a custom sprite sheet at runtime to make your own pets.
 
 Set `animation_name=custom` and point `custom_sprite_sheet_filename` to your PNG sprite sheet. Full frame/row control per animation state:
 

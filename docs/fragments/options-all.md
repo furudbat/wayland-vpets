@@ -1,37 +1,37 @@
-      -h, --help                  
+      -h, --help
             Show this help message
 
-      -v, --version               
+      -v, --version
             Show version information
 
-      -c, --config                
+      -c, --config FILE
             Specify config file (default: $XDG_CONFIG_HOME/bongocat/bongocat.conf,
             ~/.config/bongocat/bongocat.conf or ./bongocat.conf)
-            Use "-" to read configuration from standard input.
+            Use "-" to read the configuration from standard input.
 
-      -w, --watch-config          
+      -w, --watch-config
             Watch config file for changes and reload automatically
 
-      -t, --toggle                
+      -t, --toggle
             Toggle bongocat on/off (start if not running, stop if running)
 
-      -o, --output-name NAME      
-            Specify output name (overwrite monitor from config)
+      -o, --output-name NAME
+            Specify output name (overrides monitor from config)
 
-      -m, --monitor NAME      
+      -m, --monitor NAME
             Bind to a specific monitor output (same as --output-name)
 
-          --random                
-            Enable random animation_index, at start (overwrite random from config)
+          --random
+            Enable random animation_index at start (overrides random from config)
 
           --strict
-            Enable strict mode, only start up with a valid config and valid parameter
+            Enable strict mode, only start with a valid config and valid parameters
 
-          --ignore-running        
+          --nr NR
+            Specify Nr. for PID file to avoid conflicting with running instances
+
+          --ignore-running
             Ignore current running instance
-
-          --nr NR                 
-            Specify Nr. for PID file to avoid conflicting running instances
 
           --debug
             Override enable_debug setting
@@ -39,20 +39,20 @@
           --check-config
             Strictly validate the configuration
 
+          --list-devices
+            List input devices and keyboard settings
+
           --list-monitors
             List Wayland outputs, sizes and scales
 
-          --list-devices       
-            List input devices and keyboard settings
-
-          --doctor             
+          --doctor
             Check configuration, devices and compositor support
 
           --list-devices-config
             List input devices and keyboard settings in config format
 
-          --default-devices       
-            Load every keyboard by default, when no keyboard were found in config
+          --default-devices
+            Load every keyboard by default, when no keyboard was found in config
 
 Included sets:
 
@@ -63,6 +63,8 @@ Included sets:
            pen - Digimon Pendulum
          pen20 - Digimon Pendulum Ver.20th
            dmc - Digital Monster Color
-          pkmn - Pokemon, up to Gen 5
+         dmall - Custom Digital Monster Colored (fan sprites)
+          pkmn - Pokémon, up to Gen 5
       ms_agent - MS Agent
+          misc - Miscellaneous pets (neko)
         custom - Custom Sprite Sheets (at runtime)

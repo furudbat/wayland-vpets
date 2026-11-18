@@ -138,7 +138,7 @@ Audio support is optional: `-DENABLE_AUDIO_MODULE=ON` needs `libpipewire-0.3` an
 A source install names the binaries `bongocat`, `bongocat-all`,
 `bongocat-pkmn`, ... and `bongocat-find-devices`; the `wpets-*` names come from the AUR package.
 
-> ⚠️ If you already have [bongocat](https://github.com/saatvik333/wayland-bongocat) installed, a system-wide install wih cmake may conflict.
+> ⚠️ If you already have [bongocat](https://github.com/saatvik333/wayland-bongocat) installed, a system-wide install with cmake may conflict.
 
 <details>
 <summary>Alternative permissions setup (experimental, setgid)</summary>

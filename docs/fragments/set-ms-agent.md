@@ -1,4 +1,4 @@
-#### ms-agent
+#### ms_agent
 MS Agents
 
 - Clippy

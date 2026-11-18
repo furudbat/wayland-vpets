@@ -15,7 +15,7 @@ custom-drawn bongo cat artwork by [@Shreyabardia](https://github.com/Shreyabardi
 
 Part of the oneko-2.0, created by Tatsuya Kato.
 Oneko-2.0 is based on xneko created by Masayuki Koba,
-and images of xneko is based on nekoDA created by Kenji Gotoh.
+and images of xneko are based on nekoDA created by Kenji Gotoh.
 
 ## 3rd Party
 
@@ -26,9 +26,9 @@ This project is **free**, **non-commercial** and is not associated with the enti
 Digimon and all related characters, and associated images are owned by Bandai Co., Ltd, Akiyoshi Hongo, and Toei Animation Co., Ltd.  
 The Humulos evolution guides are used as the primary reference for Digimon evolution requirements and progression data: https://humulos.com/digimon/
 
-### Pokemon
+### Pokémon
 
-Pokémon sprite- and images are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.  
+Pokémon sprites and images are owned by Nintendo, Creatures Inc. and GAME FREAK Inc.  
 [https://github.com/pokeapi/pokeapi](pokeapi) was used for getting the Pokémon evolution requirements.
 
 #### pmd (PMDCollab)
@@ -40,4 +40,4 @@ All custom graphics in this repository not originating from official PMD games a
 
 ### MS Agent (Clippy)
 
-Clippy and other MS Agents are owed by Microsoft.
+Clippy and other MS Agents are owned by Microsoft.

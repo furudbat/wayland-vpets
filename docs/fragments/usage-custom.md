@@ -1,6 +1,6 @@
 ## Custom Sprite Sheets
 
-Custom sprite sheets has a full animation per row.
+Custom sprite sheets have one full animation per row.
 To determine the number of rows, the number of frames needs to be provided per row.
 
 - `Idle` -- Idle Pose
@@ -12,7 +12,7 @@ To determine the number of rows, the number of frames needs to be provided per r
 - `ASleep` -- Start falling asleep
 - `Sleep` -- Sleep (looping)
 - `WakeUp` -- After sleep (back to Idle pose)
-- `StartWorking` -- Start seen spike in CPU usage
+- `StartWorking` -- CPU usage spike detected
 - `Working` -- CPU usage over threshold (looping)
 - `EndWorking` -- CPU usage under threshold (cooldown)
 - `StartMoving` -- Start moving
@@ -85,19 +85,21 @@ _**animation_name** needs to be "custom"_
 | Moving 1   | Moving 2   |          |          |
 
 **Sprite Sheet Settings**
-- Idle = 1 frames
+
+- Idle = 2 frames
 - Boring = 4 frames
 - Writing = 2 frames
 - Sleeping = 2 frames
 - Wake Up = 1 frame
-- Moving = 2 frame
+- Moving = 2 frames
 
-`Idle`, `Writing`, `Sleeping` and `Moving` animations are set.
-No `StartWriting` and `EndWriting` animation are provided when start typing, directly play the `Writing` animation.
-`Sleeping` and `Wake Up` animation are provided so "Sleeping Mode" feature can be used.
-If rows and animations are missing, some features can't be used, for example Working feature is disabled.
-`Boring` animation are played after inactivity and before going to sleep.
-`Moving` feature available and can can be enabled with moving options (see config `movement` options).
+`Idle`, `Boring`, `Writing`, `Sleeping`, `Wake Up` and `Moving` animations are set.
+
+- No `StartWriting` and `EndWriting` animations are provided, so the `Writing` animation plays directly when typing starts.
+- `Sleeping` and `Wake Up` animations are provided, so the "Sleeping Mode" feature can be used.
+- `Boring` animation is played after inactivity and before going to sleep.
+- `Moving` is available and can be enabled with the movement options (`movement_radius`, `movement_speed`).
+- If rows and animations are missing, some features can't be used, e.g. the Working feature is disabled.
 
 
 ### Neko

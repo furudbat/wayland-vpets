@@ -28,8 +28,6 @@ overlay_position=top             # Position on screen (top/bottom)
 idle_frame=0                     # Frame to show when idle (0-3, depends on sprite)
 fps=60                           # Frame rate (1-540)
 keypress_duration=100            # Animation duration (ms)
-test_animation_duration=200      # Test animation duration (ms)
-test_animation_interval=0        # Test animation every N seconds (0=off)
 
 # Input devices (add multiple lines for multiple keyboards)
 keyboard_device=/dev/input/event4
@@ -57,8 +55,8 @@ enable_debug=0                   # Show debug messages
 
 # SEE ALSO
 
-`bongocat(1)`, `bongocat-find-devices(1)`
+`bongocat(1)`, `bongocat-all(1)`, `bongocat-find-devices(1)`
 
 # AUTHOR
 
-Written by furudbat. Base config by Saatvik
+Written by furudbat. Base config by Saatvik.
