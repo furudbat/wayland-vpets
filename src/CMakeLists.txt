@@ -80,6 +80,13 @@ target_link_options(
     -s
     >
 )
+# Pack relative relocations into compact DT_RELR format (needs binutils >= 2.38 / lld >= 15, glibc >= 2.36).
+# The embedded asset tables are full of pointers, each one a 24-byte R_X86_64_RELATIVE entry otherwise.
+include(CheckLinkerFlag)
+check_linker_flag(CXX "-Wl,-z,pack-relative-relocs" BONGOCAT_LINKER_HAS_PACK_RELATIVE_RELOCS)
+if(BONGOCAT_LINKER_HAS_PACK_RELATIVE_RELOCS)
+  target_link_options(bongocat_options INTERFACE -Wl,-z,pack-relative-relocs)
+endif()
 
 add_library(bongocat_libs INTERFACE)
 # wayland-client dependency

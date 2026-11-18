@@ -84,7 +84,7 @@ INDEX=$START_INDEX
 OUTPUT_FILE_3_IMAGES_TABLE=""
 OUTPUT_FILE_5_ANIMATION_TABLE=""
 OUTPUT_FILE_5_ALT_ANIMATIONS=""
-OUTPUT_FILE_5_ALT_ANIMATION_TABLE=""
+OUTPUT_FILE_5_NORMAL_ENTRY=""
 OUTPUT_FILE_5_ANIMATION_NAMES_TABLE=""
 
 # === Process all PNGs ===
@@ -110,7 +110,7 @@ for FILE in "$INPUT_DIR"/*.png; do
     #echo "            case ${MACRO_PREFIX}_ANIM_INDEX: return {${EMBED_SYMBOL}, ${SIZE_SYMBOL}, \"${IDENTIFIER}\"};" >> "$OUTPUT_FILE_3"
     OUTPUT_FILE_3_IMAGES_TABLE="${OUTPUT_FILE_3_IMAGES_TABLE}{${EMBED_SYMBOL}, ${SIZE_SYMBOL}, ${MACRO_PREFIX}_ID}, \n        "
 
-    OUTPUT_FILE_5_ANIMATION_TABLE="${OUTPUT_FILE_5_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },\n        "
+    OUTPUT_FILE_5_NORMAL_ENTRY="{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} }"
 
     OUTPUT_FILE_5_ANIMATION_NAMES_TABLE="${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_NAME_LEN, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_ID_LEN, ${MACRO_PREFIX}_FQID, ${MACRO_PREFIX}_FQID_LEN, ${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_FQNAME_LEN },\n        "
 
@@ -122,17 +122,19 @@ for FILE in "$INPUT_DIR"/*.png; do
 
       ALT_MACRO_PREFIX=$(echo "${ALT_UPPER}_${IDENTIFIER}" | tr '[:lower:]' '[:upper:]')
 
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQID_ARR[] CONFIG_STRING_SECTION = \"${FQID}\";\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQID_ARR[] CONFIG_STRING_SECTION = \"${ALT_FQID}\";\n"
       OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr const char* ALT_${MACRO_PREFIX}_FQID = ALT_${MACRO_PREFIX}_FQID_ARR;\n"
       OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr size_t ALT_${MACRO_PREFIX}_FQID_LEN = sizeof(ALT_${MACRO_PREFIX}_FQID_ARR)-1;\n"
-      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQNAME_ARR[] CONFIG_STRING_SECTION = \"${FQNAME}\";\n"
+      OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr char ALT_${MACRO_PREFIX}_FQNAME_ARR[] CONFIG_STRING_SECTION = \"${ALT_FQNAME}\";\n"
       OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr const char* ALT_${MACRO_PREFIX}_FQNAME = ALT_${MACRO_PREFIX}_FQNAME_ARR;\n"
       OUTPUT_FILE_5_ALT_ANIMATIONS="${OUTPUT_FILE_5_ALT_ANIMATIONS}    inline static constexpr size_t ALT_${MACRO_PREFIX}_FQNAME_LEN = sizeof(ALT_${MACRO_PREFIX}_FQNAME_ARR)-1;\n"
 
-      #OUTPUT_FILE_5_ALT_ANIMATION_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ${ALT_MACRO_PREFIX}_FQID, ${ALT_MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}\n        "
-      OUTPUT_FILE_5_ALT_ANIMATION_TABLE="${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_ID, ALT_${MACRO_PREFIX}_FQID, ALT_${MACRO_PREFIX}_FQNAME, ${MACRO_PREFIX}_ANIM_INDEX, config::config_animation_dm_set_t::${SET}, config::config_animation_sprite_sheet_layout_t::${LAYOUT} },  // alt ids for ${NAME_NO_EXT}\n        "
+      # one row per animation: { .normal = full entry, .alt = { alt fqid, alt fqname } }
+      OUTPUT_FILE_5_ANIMATION_TABLE="${OUTPUT_FILE_5_ANIMATION_TABLE}{ ${OUTPUT_FILE_5_NORMAL_ENTRY}, { ALT_${MACRO_PREFIX}_FQID, ALT_${MACRO_PREFIX}_FQNAME } },  // ${NAME_NO_EXT}\n        "
 
       OUTPUT_FILE_5_ANIMATION_NAMES_TABLE="${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}{ ${MACRO_PREFIX}_NAME, ${MACRO_PREFIX}_NAME_LEN, ${MACRO_PREFIX}_ID, ${MACRO_PREFIX}_ID_LEN, ALT_${MACRO_PREFIX}_FQID, ALT_${MACRO_PREFIX}_FQID_LEN, ALT_${MACRO_PREFIX}_FQNAME, ALT_${MACRO_PREFIX}_FQNAME_LEN },\n        "
+    else
+      OUTPUT_FILE_5_ANIMATION_TABLE="${OUTPUT_FILE_5_ANIMATION_TABLE}${OUTPUT_FILE_5_NORMAL_ENTRY},\n        "
     fi
 
     echo "Add $IDENTIFIER"
@@ -150,16 +152,25 @@ echo "#include \"utils/memory.h\"" >> "$OUTPUT_FILE_5"
 echo "#include \"utils/system_memory.h\"" >> "$OUTPUT_FILE_5"
 echo >> "$OUTPUT_FILE_5"
 echo "namespace bongocat::assets {" >> "$OUTPUT_FILE_5"
-echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
+if [[ -n $ALT ]]; then
+  # alt entries only differ in fqid/fqname, so store just those next to the normal entry (one table, one loop)
+  OUTPUT_FILE_5_ENTRY_TYPE="${ASSETS_PREFIX_LOWER}_animation_table_entry_t"
+  OUTPUT_FILE_5_NORMAL_MEMBER=".normal"
+  echo -e "${OUTPUT_FILE_5_ALT_ANIMATIONS}" >> "$OUTPUT_FILE_5"
+  echo "    struct ${OUTPUT_FILE_5_ENTRY_TYPE} {" >> "$OUTPUT_FILE_5"
+  echo "        config_animation_entry_t normal;" >> "$OUTPUT_FILE_5"
+  echo "        struct {" >> "$OUTPUT_FILE_5"
+  echo "            const char *fqid{\"\"};" >> "$OUTPUT_FILE_5"
+  echo "            const char *fqname{\"\"};" >> "$OUTPUT_FILE_5"
+  echo "        } alt;" >> "$OUTPUT_FILE_5"
+  echo "    };" >> "$OUTPUT_FILE_5"
+else
+  OUTPUT_FILE_5_ENTRY_TYPE="config_animation_entry_t"
+  OUTPUT_FILE_5_NORMAL_MEMBER=""
+fi
+echo "    static const ${OUTPUT_FILE_5_ENTRY_TYPE} ${ASSETS_PREFIX_LOWER}_animation_table[] = {" >> "$OUTPUT_FILE_5"
 echo -e "        ${OUTPUT_FILE_5_ANIMATION_TABLE}" >> "$OUTPUT_FILE_5"
 echo '    };' >> "$OUTPUT_FILE_5"
-if [[ -n $ALT ]]; then
-  echo -e "${OUTPUT_FILE_5_ALT_ANIMATIONS}\n" >> "$OUTPUT_FILE_5"
-  echo "    static const config_animation_entry_t ${ASSETS_PREFIX_LOWER}_alt_animation_table[] = {" >> "$OUTPUT_FILE_5"
-  echo -e "        ${OUTPUT_FILE_5_ALT_ANIMATION_TABLE}" >> "$OUTPUT_FILE_5"
-  echo '    };' >> "$OUTPUT_FILE_5"
-  echo "    static const size_t ${ASSETS_PREFIX_LOWER}_alt_animation_table_size = LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table);" >> "$OUTPUT_FILE_5"
-fi
 echo "    static const config_animation_names_entry_t ${ASSETS_PREFIX_LOWER}_animation_names_table[] = {" >> "$OUTPUT_FILE_5"
 echo -e "        ${OUTPUT_FILE_5_ANIMATION_NAMES_TABLE}" >> "$OUTPUT_FILE_5"
 echo '    };' >> "$OUTPUT_FILE_5"
@@ -172,7 +183,7 @@ echo "    config_animation_entry_t ${GET_CONFIG_ANIMATION_NAME_FUNC_NAME}(size_t
 #echo "        }" >> "$OUTPUT_FILE_5"
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$OUTPUT_FILE_5"
 echo "        assert(index < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$OUTPUT_FILE_5"
-echo "        return ${ASSETS_PREFIX_LOWER}_animation_table[index];" >> "$OUTPUT_FILE_5"
+echo "        return ${ASSETS_PREFIX_LOWER}_animation_table[index]${OUTPUT_FILE_5_NORMAL_MEMBER};" >> "$OUTPUT_FILE_5"
 echo '    }' >> "$OUTPUT_FILE_5"
 echo >> "$OUTPUT_FILE_5"
 #echo "    static void ${UNLOAD_CONFIG_PARSE_NAMES_FUNC_NAME}() {" >> "$OUTPUT_FILE_5"
@@ -187,11 +198,20 @@ echo "    int ${CONFIG_PARSE_FUNC_NAME}(config::config_t& config, const char *va
 echo "        assert(LEN_ARRAY(${ASSETS_PREFIX_LOWER}_animation_table) == ${ASSETS_PREFIX_UPPER}_ANIM_COUNT);" >> "$OUTPUT_FILE_5"
 echo "        int ret = -1;" >> "$OUTPUT_FILE_5"
 echo "        for (size_t i = 0;ret < 0 && i < ${ASSETS_PREFIX_UPPER}_ANIM_COUNT;++i) {" >> "$OUTPUT_FILE_5"
-echo "            const auto& entry = ${ASSETS_PREFIX_LOWER}_animation_table[i];" >> "$OUTPUT_FILE_5"
+echo "            const auto& entry = ${ASSETS_PREFIX_LOWER}_animation_table[i]${OUTPUT_FILE_5_NORMAL_MEMBER};" >> "$OUTPUT_FILE_5"
+if [[ -n $ALT ]]; then
+  echo "            const auto& alt = ${ASSETS_PREFIX_LOWER}_animation_table[i].alt;" >> "$OUTPUT_FILE_5"
+fi
 echo "            if (strcmp(value, entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
 echo "                strcmp(value, entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
 echo "                strcmp(value, entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
-echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
+if [[ -n $ALT ]]; then
+  echo "                strcmp(value, entry.fqname) == 0 ||" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, alt.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
+  echo "                strcmp(value, alt.fqname) == 0) {" >> "$OUTPUT_FILE_5"
+else
+  echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
+fi
 echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
 echo "                config.animation_dm_set = entry.set;" >> "$OUTPUT_FILE_5"
 echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "$OUTPUT_FILE_5"
@@ -199,21 +219,6 @@ echo '                ret = entry.anim_index;' >> "$OUTPUT_FILE_5"
 echo '                break;' >> "$OUTPUT_FILE_5"
 echo '            }' >> "$OUTPUT_FILE_5"
 echo '        }' >> "$OUTPUT_FILE_5"
-if [[ -n $ALT ]]; then
-  echo "        for (size_t i = 0;ret < 0 && i < ${ASSETS_PREFIX_LOWER}_alt_animation_table_size;++i) {" >> "$OUTPUT_FILE_5"
-  echo "            const auto& entry = ${ASSETS_PREFIX_LOWER}_alt_animation_table[i];" >> "$OUTPUT_FILE_5"
-  echo "            if (strcmp(value, entry.name) == 0 ||" >> "$OUTPUT_FILE_5"
-  echo "                strcmp(value, entry.id) == 0 ||" >> "$OUTPUT_FILE_5"
-  echo "                strcmp(value, entry.fqid) == 0 ||" >> "$OUTPUT_FILE_5"
-  echo "                strcmp(value, entry.fqname) == 0) {" >> "$OUTPUT_FILE_5"
-  echo "                config.animation_index = entry.anim_index;" >> "$OUTPUT_FILE_5"
-  echo "                config.animation_dm_set = entry.set;" >> "$OUTPUT_FILE_5"
-  echo "                config.animation_sprite_sheet_layout = entry.layout;" >> "$OUTPUT_FILE_5"
-  echo '                ret = entry.anim_index;' >> "$OUTPUT_FILE_5"
-  echo '                break;' >> "$OUTPUT_FILE_5"
-  echo '            }' >> "$OUTPUT_FILE_5"
-  echo '        }' >> "$OUTPUT_FILE_5"
-fi
 #echo "        ${UNLOAD_CONFIG_PARSE_NAMES_FUNC_NAME}();" >> "$OUTPUT_FILE_5"
 echo '        return ret;' >> "$OUTPUT_FILE_5"
 echo '    }' >> "$OUTPUT_FILE_5"

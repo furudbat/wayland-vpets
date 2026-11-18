@@ -373,6 +373,7 @@ for group in release; do
             HEAPTRACK_PID=$!
         fi
 
+        sleep 10 # pre-load start up ?
         run_test_sequence "$PID" "$CONFIG"
 
         # --- verify running ---
